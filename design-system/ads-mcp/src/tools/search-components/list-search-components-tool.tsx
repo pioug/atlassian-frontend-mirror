@@ -12,7 +12,7 @@ export const listSearchComponentsTool: Tool = {
 WHEN TO USE:
 **Selecting which canonical ADS component to use**—package name, examples, and props—before implementation. Use when composing a new view or swapping a primitive. Prefer \`ads_plan\` when you also need token and icon discovery in one shot.
 
-If you are looking for a public \`@atlaskit/*\` scoped package that is not part of the ADS component catalog, use \`atlaskit_search_components\` for fallback research instead of this ADS-only search.`,
+If you are looking for a public \`@atlaskit/*\` or internal \`@atlassian/*\` Platform scoped package that is not part of the ADS component catalog, use \`atlaskit_search_components\` for fallback research instead of this ADS-only search.`,
 	annotations: {
 		title: 'Search ADS components',
 		readOnlyHint: true,

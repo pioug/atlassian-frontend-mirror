@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "134.2.2",
+	"version": "134.4.3",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -365,6 +365,7 @@
 		"./ExtensionComponent": "./src/extensibility/ExtensionComponent.tsx",
 		"./extensionNodeView": "./src/extensibility/extensionNodeView.tsx",
 		"./extensibility/preserve-remix-node-view": "./src/extensibility/preserveRemixNodeView.ts",
+		"./preserve-node-view": "./src/preserve-node-view.ts",
 		"./ExtensionNodeWrapper": "./src/extensibility/ExtensionNodeWrapper.tsx",
 		"./extensions/messages": "./src/extensions/messages.ts",
 		"./media-single/ExternalImageBadge": "./src/media-single/ExternalImageBadge.tsx",
@@ -451,6 +452,8 @@
 		"./extensions/manifest-helpers": "./src/extensions/manifest-helpers.ts",
 		"./extensions/native-embed-maui-extension-key": "./src/extensions/native-embed-maui-extension-key.ts",
 		"./mark/commands": "./src/mark/commands.ts",
+		"./mark/cell-selection-has-any-mark": "./src/mark/cell-selection-has-any-mark.ts",
+		"./mark/get-supported-mark-types": "./src/mark/get-supported-mark-types.ts",
 		"./mark/text-formatting": "./src/mark/text-formatting.ts",
 		"./messages/markdown-mode": "./src/messages/markdown-mode.ts",
 		"./paste/md": "./src/paste/md.ts",

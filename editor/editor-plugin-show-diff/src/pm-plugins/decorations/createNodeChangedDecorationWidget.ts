@@ -7,7 +7,6 @@ import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-e
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
-import type { RevealOptions } from '../../showDiffPluginType';
 import type { NodeViewSerializer } from '../NodeViewSerializer';
 import { resolveBaseNodeName } from '../utils/baseNodeName';
 import { countEmptyTextBlockOnlySlice } from '../utils/emptyTextBlocks';
@@ -246,7 +245,6 @@ export const createNodeChangedDecorationWidget = ({
 	// its replacement (gray + strikethrough).
 	placeBelow = false,
 	hideAddedDiffsUnderline = false,
-	reveal,
 	tagMountContext,
 	deletedColumns,
 }: {
@@ -263,7 +261,6 @@ export const createNodeChangedDecorationWidget = ({
 	newDoc: PMNode;
 	nodeViewSerializer: NodeViewSerializer;
 	placeBelow?: boolean;
-	reveal?: RevealOptions;
 	showContributorTags?: boolean;
 	showIndicators?: boolean;
 	tagMountContext?: ContributorTagMountContext;
@@ -307,7 +304,6 @@ export const createNodeChangedDecorationWidget = ({
 				diffId: showContributorTags ? `widget-${change.fromA}-${change.toA}` : undefined,
 				isActive,
 				pos: safeInsertPos,
-				reveal,
 				side: placeBelow ? 1 : -1,
 				tagMountContext,
 			}),
@@ -599,7 +595,7 @@ export const createNodeChangedDecorationWidget = ({
 					// view's styles.
 					dom.append(createAtomicInlineOutline(attrOnlyNodeName, nodeView, colorScheme));
 				} else {
-					const wrapper = createContentWrapper(colorScheme, isActive, isInserted, reveal);
+					const wrapper = createContentWrapper(colorScheme, isActive, isInserted);
 					wrapper.append(nodeView);
 					dom.append(wrapper);
 				}
@@ -631,11 +627,10 @@ export const createNodeChangedDecorationWidget = ({
 						colorScheme,
 						isActive,
 						isInserted,
-						reveal,
 					});
 					dom.append(injectedNode);
 				} else {
-					const wrapper = createContentWrapper(colorScheme, isActive, isInserted, reveal);
+					const wrapper = createContentWrapper(colorScheme, isActive, isInserted);
 					wrapper.append(fallbackNode);
 					dom.append(wrapper);
 				}

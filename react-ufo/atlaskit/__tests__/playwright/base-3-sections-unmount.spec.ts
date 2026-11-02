@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable testing-library/prefer-screen-queries */
-/* eslint-disable compat/compat */
 
 import { expect, test, viewports } from './fixtures';
 
@@ -37,7 +35,7 @@ test.describe('ReactUFO: UFOSegment unmount', () => {
 					(item) => typeof item.unmountCount === 'number' && item.unmountCount > 0,
 				);
 				// Check unmountCount for section-one-segment
-				expect(unmountTimings.length).toBe(1);
+				expect(unmountTimings).toHaveLength(1);
 			});
 		});
 	}

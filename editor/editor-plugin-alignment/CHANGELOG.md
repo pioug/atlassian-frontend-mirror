@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-alignment
 
+## 31.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 31.1.0
+
+### Minor Changes
+
+- [`34b177e64e741`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/34b177e64e741) -
+  Avoid building discarded alignment transactions and visiting every selected cell to locate the
+  final cell when checking alignment eligibility behind platform_editor_improve_inp_batch_2. Stop
+  scanning that cell after the first eligible block, and declare the experiment runtime dependency.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 31.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 31.0.4
 
 ### Patch Changes

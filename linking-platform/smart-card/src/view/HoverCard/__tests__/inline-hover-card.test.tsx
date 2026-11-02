@@ -18,7 +18,7 @@ import type CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { act, render, waitFor } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
@@ -293,11 +293,13 @@ describe('HoverCard', () => {
 				}
 			};
 
-			ffTest.on('platform_sl_3p_preauth_better_hovercard_killswitch', '', () => {
+			describe('platform_sl_3p_preauth_better_hovercard_killswitch is on', () => {
 				eeTest
 					.describe('platform_sl_3p_preauth_better_hovercard', 'unauthorised hover card')
 					.variant(true, () => {
 						it('renders Rovo unauthorised hover when killswitch and experiment are on and Rovo is enabled', async () => {
+							passGate('platform_sl_3p_preauth_better_hovercard_killswitch');
+
 							await assertUnauthorisedHoverPreviewWhenPreauthExperimentOn(
 								{ isRovoEnabled: true, isRovoLLMEnabled: true },
 								true,
@@ -305,6 +307,8 @@ describe('HoverCard', () => {
 						});
 
 						it('renders legacy unauthorised hover when killswitch and experiment are on but Rovo is disabled', async () => {
+							passGate('platform_sl_3p_preauth_better_hovercard_killswitch');
+
 							await assertUnauthorisedHoverPreviewWhenPreauthExperimentOn(
 								{ isRovoEnabled: false, isRovoLLMEnabled: true },
 								false,

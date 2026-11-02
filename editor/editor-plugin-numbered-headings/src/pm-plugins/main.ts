@@ -3,6 +3,7 @@ import {
 	HEADING_NUMBER_ATTRIBUTE,
 } from '@atlaskit/editor-common/numbered-headings';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { ReadonlyTransaction, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
@@ -13,6 +14,8 @@ import {
 	StepMap,
 } from '@atlaskit/editor-prosemirror/transform';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+
+import type { InternalNumberedHeadingsPlugin } from '../numberedHeadingsPluginType';
 
 type Step = Transaction['steps'][number];
 
@@ -157,9 +160,11 @@ enum NumberedHeadingsAction {
 const getAction = (
 	tr: ReadonlyTransaction,
 	state: NumberedHeadingsPluginState,
+	api: ExtractInjectionAPI<InternalNumberedHeadingsPlugin> | undefined,
 ): NumberedHeadingsAction => {
-	const requestedEnabled: unknown = tr.getMeta(numberedHeadingsPluginKey);
-	if (typeof requestedEnabled === 'boolean' && requestedEnabled !== state.enabled) {
+	const change = api?.externalState.actions.getStateChange(tr, 'numberedHeadings');
+	const requestedEnabled = change && Boolean(change.value?.enabled);
+	if (change && requestedEnabled !== state.enabled) {
 		return requestedEnabled ? NumberedHeadingsAction.Rebuild : NumberedHeadingsAction.Disable;
 	}
 	if (!state.enabled || !tr.docChanged) {
@@ -193,17 +198,25 @@ const reduceNumberedHeadingsState = (
 	}
 };
 
-/** Keeps the numbering setting and decorations local to one editor instance. */
-export const createNumberedHeadingsPlugin = (): SafePlugin =>
+/**
+ * Mirrors the `numberedHeadings.enabled` external state value and keeps the decorations for one editor
+ * instance.
+ */
+export const createNumberedHeadingsPlugin = (
+	api?: ExtractInjectionAPI<InternalNumberedHeadingsPlugin>,
+): SafePlugin =>
 	new SafePlugin<NumberedHeadingsPluginState>({
 		key: numberedHeadingsPluginKey,
 		state: {
-			init: () => ({
-				enabled: false,
-				decorations: DecorationSet.empty,
-			}),
+			init: (_config, editorState) => {
+				const enabled = Boolean(api?.externalState.actions.getState('numberedHeadings')?.enabled);
+				return {
+					enabled,
+					decorations: enabled ? createDecorations(editorState.doc) : DecorationSet.empty,
+				};
+			},
 			apply: (tr, pluginState) =>
-				reduceNumberedHeadingsState(pluginState, getAction(tr, pluginState), tr),
+				reduceNumberedHeadingsState(pluginState, getAction(tr, pluginState, api), tr),
 		},
 		props: {
 			decorations: (state) => numberedHeadingsPluginKey.getState(state)?.decorations,

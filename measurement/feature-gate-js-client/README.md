@@ -66,7 +66,7 @@ try {
 			// [Optional] Default is false
 			// Whether to include flags served by the Feature Flag Platform (FFP). When true, values are fetched from the
 			// feature-flag-service `/api/v1/evalFlags` endpoint instead of `/api/v2/frontend/experimentValues`.
-			// FFP values are not used yet, so only enable this for a targetApp with no flags in FFP.
+			// Each flag is then served by the platform the service assigns it to. When false, FFP is treated as disabled.
 			includeFfpFlags: false,
 			// [Optional] Must be one of the strings from the exported enum PerimeterType.
 			// If provided, will build base url for the `feature-flag-service` based on environment and perimeter type, and
@@ -129,7 +129,7 @@ try {
 			// [Optional] Default is false
 			// Whether to include flags served by the Feature Flag Platform (FFP). When true, values are fetched from the
 			// feature-flag-service `/api/v1/evalFlags` endpoint instead of `/api/v2/frontend/experimentValues`.
-			// FFP values are not used yet, so only enable this for a targetApp with no flags in FFP.
+			// Each flag is then served by the platform the service assigns it to. When false, FFP is treated as disabled.
 			includeFfpFlags: false,
 			// [Optional] Default is COMMERCIAL. Must be one of the values from the exported enum PerimeterType.
 			// If provided, will build base url for the `feature-flag-service` based on environment and perimeter type, and
@@ -348,6 +348,44 @@ try {
 }
 ```
 
+#### Feature Flag Platform (FFP) values
+
+During the migration from Statsig to the Feature Flag Platform, flags are served by one platform
+or the other. With `includeFfpFlags: true`, `initialize` and `updateUser` fetch the Feature Flag
+Service `/api/v1/evalFlags` endpoint, which partitions them and returns `{ statsig, ffp }`, so every
+flag key appears under exactly one platform. Without it, only Statsig values are fetched and FFP is
+treated as disabled. The client reads a key from FFP (via `@atlaskit/flag-client`) when the latest FFP
+values contain it, and from Statsig otherwise; the evaluation APIs do not change:
+
+- `checkGate` reads FFP boolean flags.
+- `getExperiment` / `getExperimentValue` read FFP JSON object flags as experiment parameters. Any
+  other FFP flag is a flattened Statsig dynamic config, so read it with the `value` parameter, for
+  example `getExperimentValue('example.flag', 'value', 'default')`.
+- Local overrides still take precedence, and layers are always served by Statsig.
+- FFP exposure telemetry is disabled in FedRAMP and when `disableAllLogging` is set.
+
+When you initialize or update from values, pass the `ffp` member of the service response as the
+optional last argument of `initializeFromValues` / `updateUserWithValues`, or as `ffp` in a
+`Provider`'s `getExperimentValues` result. When it is omitted, Statsig serves every flag. Pass
+it unchanged: its `requestContext` is required, and without it FFP serves nothing for the user.
+
+The response also has a `status` for each platform: `OK`, `DISABLED` (deliberately not used) or
+`UNAVAILABLE` (could not be evaluated). The client uses a platform's values only when it is `OK`,
+so flags served only by an unhealthy platform return their code defaults; when FFP is unavailable,
+the service serves flags that are still being migrated from Statsig. `initialize` and `updateUser`
+fetch once. While at least one platform is `OK`, or neither is used, they resolve; when a platform
+is unavailable (or neither is used), the client logs a warning outside production and sends a
+`degraded featureGatesClientValues` operational event with `statsigStatus`, `ffpStatus` and
+`trigger` attributes. When no platform is `OK` and one is `UNAVAILABLE` (for example Statsig is
+unavailable and FFP is disabled), there are no values to use, so they reject as for any failed
+fetch: `initialize` still starts Statsig without values, so evaluations return their defaults, and
+`updateUser` keeps the previous user's values. Providers can report the status of the values they
+return through the `status` field of their result. The polling provider calls the service again
+while a platform is `UNAVAILABLE` (after about 30 seconds, backing off up to its polling interval),
+but not for `DISABLED`, and keeps the last `OK` values of an unavailable platform until it
+recovers. It retries a response with no usable platform with its usual backoff, as for a 5xx. It
+does not retry a 4xx response other than 408 and 429 until the user changes.
+
 ### Evaluation
 
 In order to evaluate a gate:
@@ -392,6 +430,60 @@ const buttonColor: string = FeatureGates.getExperimentValue(
 	},
 );
 ```
+
+#### New FFP-only flags vs migrating flags
+
+Flags fall into two groups while products move from Statsig to the Feature Flag Platform (FFP):
+
+| Flag                                                             | Read it with                                       | Why                                                                                 |
+| ---------------------------------------------------------------- | -------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| A new flag, created only in FFP                                  | `FeatureGates.ffpClient`                           | It does not exist in Statsig.                                                       |
+| A pre-existing Statsig flag, including one being migrated to FFP | `checkGate`, `getExperiment`, `getExperimentValue` | They serve each key from whichever platform the Feature Flag Service assigns it to. |
+
+Read a new FFP-only flag with the typed methods of `FeatureGates.ffpClient`, which is the
+`FlagClient` of `@atlaskit/flag-client` that this package manages:
+
+```typescript
+import FeatureGates from '@atlaskit/feature-gate-js-client';
+import type { EvaluationDetails } from '@atlaskit/flag-client/types';
+
+const enabled = FeatureGates.ffpClient?.getBooleanValue('my-new-flag', false) ?? false;
+const limit = FeatureGates.ffpClient?.getNumberValue('my-new-limit', 10) ?? 10;
+const theme = FeatureGates.ffpClient?.getObjectValue('my-new-theme', { color: 'blue' }) ?? {
+	color: 'blue',
+};
+
+// To log the exposure later, for example when the user sees the feature:
+const details: EvaluationDetails<boolean> | undefined = FeatureGates.ffpClient?.getBooleanDetails(
+	'my-new-flag',
+	false,
+	{ disableExposureLogging: true },
+);
+if (details) {
+	FeatureGates.ffpClient?.logExposure(details);
+}
+```
+
+- `ffpClient` is `undefined` until an initialize method is called. After that it is the same
+  instance for the life of the page, including across `updateUser` calls.
+- Until FFP values arrive, and when the service does not use FFP for the user, reads return the
+  default you pass.
+- Local overrides (`overrideGate`, `overrideConfig`, `setOverrides`) do not apply to it.
+- FFP exposure telemetry is disabled in FedRAMP and when `disableAllLogging` is set.
+- `FfpEvaluationClient`, the type of `ffpClient`, is exported from
+  `@atlaskit/feature-gate-js-client/ffp/types`. The types its methods use (`EvaluationDetails`,
+  `EvaluationOptions` and the rest) come from `@atlaskit/flag-client/types`, so add
+  `@atlaskit/flag-client` as a dependency to import them.
+
+Keep reading a pre-existing Statsig flag with `checkGate` or `getExperimentValue` while it is being
+migrated. Do not switch it to `ffpClient`: `ffpClient` serves only FFP values, so it returns the
+default for any user Statsig still serves the flag to. Conversely, do not read an FFP-only flag
+with `checkGate` or `getExperimentValue`: they map FFP values onto Statsig shapes (see
+[Feature Flag Platform (FFP) values](#feature-flag-platform-ffp-values)) and are being retired with
+Statsig.
+
+The methods of `ffpClient` match those of `FlagClient`, so once the migration is complete, code that
+reads `ffpClient` can move to a `FlagClient` from `@atlaskit/flag-client` without changing its reads.
 
 #### Exposure Event Logging
 

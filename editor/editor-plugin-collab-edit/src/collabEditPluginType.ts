@@ -34,7 +34,8 @@ export type CollabEditPlugin = NextEditorPlugin<
 			addInlineCommentNodeMark: (props: { mark: Mark; pos: number }) => boolean;
 			getAvatarColor: (
 				str: string,
-				agentType?: string,
+				agentName?: string,
+				agentNamedId?: string,
 			) => {
 				backgroundColor: string;
 				index: number;

@@ -16,7 +16,7 @@ import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers/inte
 import { asMockFunction, type JestFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 import { auth } from '@atlaskit/outbound-auth-flow-client/auth';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { render, waitFor } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
@@ -141,8 +141,10 @@ describe('smart-card: unauthorized hover card (platform_sl_3p_preauth_better_hov
 		connectButtonTestId: 'smart-action',
 	} as const;
 
-	ffTest.off('platform_sl_3p_preauth_better_hovercard_killswitch', '', () => {
+	describe('platform_sl_3p_preauth_better_hovercard_killswitch is off', () => {
 		it('should fire connect analytics when killswitch is off (legacy unauthorised hover)', async () => {
+			failGate('platform_sl_3p_preauth_better_hovercard_killswitch');
+
 			await expectConnectAccountClickedAnalyticsForUnauthorisedHover(
 				legacyUnauthorisedHoverSelectors,
 			);
@@ -154,11 +156,13 @@ describe('smart-card: unauthorized hover card (platform_sl_3p_preauth_better_hov
 		connectButtonTestId: 'hover-card-rovo-unauthorised-view-connect-account',
 	} as const;
 
-	ffTest.on('platform_sl_3p_preauth_better_hovercard_killswitch', '', () => {
+	describe('platform_sl_3p_preauth_better_hovercard_killswitch is on', () => {
 		eeTest
 			.describe('platform_sl_3p_preauth_better_hovercard', 'Rovo unauthorised hover card analytics')
 			.variant(false, () => {
 				it('should fire connect analytics when experiment is off (legacy unauthorised hover)', async () => {
+					passGate('platform_sl_3p_preauth_better_hovercard_killswitch');
+
 					await expectConnectAccountClickedAnalyticsForUnauthorisedHover(
 						legacyUnauthorisedHoverSelectors,
 					);
@@ -166,11 +170,13 @@ describe('smart-card: unauthorized hover card (platform_sl_3p_preauth_better_hov
 			});
 	});
 
-	ffTest.on('platform_sl_3p_preauth_better_hovercard_killswitch', '', () => {
+	describe('platform_sl_3p_preauth_better_hovercard_killswitch is on', () => {
 		eeTest
 			.describe('platform_sl_3p_preauth_better_hovercard', 'Rovo unauthorised hover card analytics')
 			.variant(true, () => {
 				it('should fire connect analytics when experiment is on and Rovo is enabled (Rovo unauthorised hover)', async () => {
+					passGate('platform_sl_3p_preauth_better_hovercard_killswitch');
+
 					await expectConnectAccountClickedAnalyticsForUnauthorisedHover(
 						rovoUnauthorisedHoverSelectors,
 						{ isRovoEnabled: true, isRovoLLMEnabled: true },
@@ -179,6 +185,8 @@ describe('smart-card: unauthorized hover card (platform_sl_3p_preauth_better_hov
 				});
 
 				it('should fire connect analytics when experiment is on but Rovo is disabled (legacy unauthorised hover)', async () => {
+					passGate('platform_sl_3p_preauth_better_hovercard_killswitch');
+
 					await expectConnectAccountClickedAnalyticsForUnauthorisedHover(
 						legacyUnauthorisedHoverSelectors,
 						{ isRovoEnabled: false, isRovoLLMEnabled: true },
@@ -186,6 +194,8 @@ describe('smart-card: unauthorized hover card (platform_sl_3p_preauth_better_hov
 				});
 
 				it('should include viewVariant on hoverCard viewed and dismissed for Rovo pre-auth unauthorised hover', async () => {
+					passGate('platform_sl_3p_preauth_better_hovercard_killswitch');
+
 					const mockUrl = 'https://https://this.is.a.url';
 					mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
 

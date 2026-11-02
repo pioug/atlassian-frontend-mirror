@@ -15,8 +15,11 @@ import type { Command, CommandDispatch } from '@atlaskit/editor-common/types/com
 import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { withAnalytics } from '@atlaskit/editor-common/withAnalytics';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { AlignmentPlugin, InputMethod } from '../alignmentPluginType';
 import type { AlignmentState } from '../pm-plugins/types';
@@ -57,6 +60,44 @@ export const isAlignable =
 			nodes: { paragraph, heading },
 			marks: { alignment },
 		} = state.schema;
+		if (
+			!dispatch &&
+			state.selection instanceof CellSelection &&
+			isExperimentEnabled('platform_editor_improve_inp_batch_2')
+		) {
+			if (!align) {
+				return false;
+			}
+
+			// toggleBlockMark returns the result of the last cell, rather than
+			// combining results. Preserve that behavior without building a transaction.
+			// CellSelection moves the head range first, leaving the rest in document
+			// order. Compare both ends to find the final cell visited by forEachCell.
+			const { ranges } = state.selection;
+			const firstRange = ranges[0];
+			const lastRange = ranges[ranges.length - 1];
+			const lastCellRange = firstRange.$from.pos > lastRange.$from.pos ? firstRange : lastRange;
+			const lastCell = lastCellRange.$from.parent;
+			const hasAlignableBlock = (parent: PMNode): boolean => {
+				for (let index = 0; index < parent.childCount; index++) {
+					const node = parent.child(index);
+					if (!node.isBlock) {
+						continue;
+					}
+					if (
+						(node.type === paragraph || node.type === heading) &&
+						parent.type.allowsMarkType(alignment)
+					) {
+						return true;
+					}
+					if (hasAlignableBlock(node)) {
+						return true;
+					}
+				}
+				return false;
+			};
+			return hasAlignableBlock(lastCell);
+		}
 		return toggleBlockMark(
 			alignment,
 			() => (!align ? undefined : align === 'start' ? false : { align }),

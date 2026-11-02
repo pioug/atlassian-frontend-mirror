@@ -9,6 +9,10 @@ const spotlightZIndex = 701;
 const tooltipPortalSelector = `div.atlaskit-portal[style="z-index: ${tooltipZIndex};"]`;
 const modalPortalSelector = `div.atlaskit-portal[style="z-index: ${modalZIndex};"]`;
 const spotlightPortalSelector = `div.atlaskit-portal[style="z-index: ${spotlightZIndex};"]`;
+// Asserts the legacy portal DOM, which the top-layer path does not render.
+const legacyPortalParams = {
+	featureFlag: 'platform-dst-top-layer=false,platform-dst-top-layer-tooltip=false',
+};
 const openDialogButtonSelector = 'span:has-text("Open Dialog")';
 const showOnboardingButtonSelector = 'span:has-text("Show onboarding")';
 const clickMeTooltipSelector = 'div[role="tooltip"]:has-text("Click me")';
@@ -21,6 +25,7 @@ test('When we hover over "Open Dialog" button then "Click Me" tooltip should be 
 		'design-system',
 		'portal',
 		'complex-layering',
+		legacyPortalParams,
 	);
 	await page.locator(openDialogButtonSelector).first().hover();
 	const tooltip = page.locator(tooltipPortalSelector).locator(clickMeTooltipSelector).first();
@@ -35,6 +40,7 @@ test('When we click on "Open Dialog" button then a parent modal dialog should be
 		'design-system',
 		'portal',
 		'complex-layering',
+		legacyPortalParams,
 	);
 	await page.locator(openDialogButtonSelector).first().click();
 	const modal = page.locator(modalPortalSelector).locator(parentModalDialogSelector).first();
@@ -51,6 +57,7 @@ test('When we click on "Show onboarding" button then a spot light should be visi
 		'design-system',
 		'portal',
 		'complex-layering',
+		legacyPortalParams,
 	);
 	await page.locator(openDialogButtonSelector).first().click();
 	const parentModal = page.locator(modalPortalSelector).locator(parentModalDialogSelector).first();

@@ -78,7 +78,6 @@ const plainTextDocument = {
 const renderErrorMessage = /Something went wrong while rendering this document/u;
 const providerException = /useSmartCard\(\) must be wrapped in <SmartCardProvider>/u;
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Renderer DAC document viewer example', () => {
 	const originalFetch = global.fetch;
 	const originalConsoleError = global.console.error;

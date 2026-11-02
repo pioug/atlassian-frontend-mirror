@@ -149,9 +149,7 @@ export class JQLEditorPage {
 	 */
 	getAutocompleteOption = (optionText: string): Locator =>
 		this.autocomplete
-			// eslint-disable-next-line testing-library/prefer-screen-queries -- Playwright Locator, not @testing-library
 			.getByRole('option')
-			// eslint-disable-next-line testing-library/prefer-screen-queries -- Playwright Locator, not @testing-library
 			.filter({ has: this.page.getByText(optionText, { exact: true }) });
 
 	/**
@@ -190,7 +188,6 @@ export class JQLEditorPage {
 		const target = await this.waitForAutocompleteOption(optionText);
 		const targetId = await target.getAttribute('id');
 		const optionIds = await this.autocomplete
-			// eslint-disable-next-line testing-library/prefer-screen-queries -- Playwright Locator, not @testing-library
 			.getByRole('option')
 			.evaluateAll((options) => options.map((option) => option.id));
 		const selectedId = await this.input.getAttribute('aria-activedescendant');

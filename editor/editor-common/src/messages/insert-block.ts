@@ -156,6 +156,11 @@ export const toolbarInsertBlockMessages: {
 		description: string;
 		id: string;
 	};
+	loomTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	mediaFiles: {
 		defaultMessage: string;
 		description: string;
@@ -533,11 +538,18 @@ export const toolbarInsertBlockMessages: {
 		description:
 			'Displayed as a description text for the help option in the editor insert menu, explaining that it opens a dialog where users can view all available keyboard shortcuts and markdown formatting options.',
 	},
+	// Remove when cleaning up platform_editor_slash_command
 	recordVideo: {
 		id: 'fabric.editor.recordVideo',
 		defaultMessage: 'Record a Loom video',
 		description:
 			'Shown as a menu item label in the editor insert menu, used to trigger recording a Loom video to embed in the document.',
+	},
+	loomTitle: {
+		id: 'fabric.editor.loomTitle',
+		defaultMessage: 'Loom',
+		description:
+			'Shown as a menu item label in the Create section of the editor slash command menu, used to trigger recording a Loom video to embed in the document.',
 	},
 	addLoomVideo: {
 		id: 'fabric.editor.addLoomVideo',

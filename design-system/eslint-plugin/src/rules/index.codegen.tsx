@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::bfa086f08057659ef23fe7cb8282709d>>
+ * @codegen <<SignedSource::9b59d50b9da42c3c0189d89a2a021f0c>>
  * @codegenCommand afm workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { Rule } from 'eslint';
@@ -45,6 +45,7 @@ import noInvalidCssMap from './no-invalid-css-map';
 import noKeyframesTaggedTemplateExpression from './no-keyframes-tagged-template-expression';
 import noMargin from './no-margin';
 import noModalLabel from './no-modal-label';
+import noNativePopoverOrDialog from './no-native-popover-or-dialog';
 import noNestedStyles from './no-nested-styles';
 import noPhysicalProperties from './no-physical-properties';
 import noPlaceholder from './no-placeholder';
@@ -131,6 +132,7 @@ export const rules: Record<string, Rule.RuleModule> = {
 	'no-keyframes-tagged-template-expression': noKeyframesTaggedTemplateExpression,
 	'no-margin': noMargin,
 	'no-modal-label': noModalLabel,
+	'no-native-popover-or-dialog': noNativePopoverOrDialog,
 	'no-nested-styles': noNestedStyles,
 	'no-physical-properties': noPhysicalProperties,
 	'no-placeholder': noPlaceholder,

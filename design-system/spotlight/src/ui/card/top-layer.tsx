@@ -35,6 +35,8 @@ const styles = cssMap({
 	'end span-start': { paddingBlockStart: token('space.075') },
 	'block-end': { paddingBlockStart: token('space.075') },
 	'end span-end': { paddingBlockStart: token('space.075') },
+	'inline-start': { paddingInlineEnd: token('space.075') },
+	'inline-end': { paddingInlineStart: token('space.075') },
 	'span-start end': { paddingInlineStart: token('space.075') },
 	'span-end end': { paddingInlineStart: token('space.075') },
 	'span-start start': { paddingInlineEnd: token('space.075') },

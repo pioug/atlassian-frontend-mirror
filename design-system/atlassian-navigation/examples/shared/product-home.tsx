@@ -2,9 +2,7 @@ import React from 'react';
 
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { AppHome } from '@atlaskit/atlassian-navigation';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { CustomProductHome } from '@atlaskit/atlassian-navigation/custom-product-home';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { ProductHome } from '@atlaskit/atlassian-navigation/product-home';
 import { BitbucketIcon } from '@atlaskit/logo/bitbucket-icon';
 import { BitbucketLogoCS as BitbucketLogo } from '@atlaskit/logo/bitbucket/logo';

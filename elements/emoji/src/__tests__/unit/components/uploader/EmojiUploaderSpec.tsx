@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { axe, toHaveNoViolations } from 'jest-axe';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
@@ -9,10 +8,10 @@ import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { MockEmojiResource } from '@atlaskit/util-data-test/mock-emoji-resource';
 
 import {
+	cancelEmojiUploadPickerTestId,
 	uploadEmojiComponentTestId,
 	uploadEmojiNameInputTestId,
 } from '../../../../components/common/EmojiUploadPicker';
-import { uploadPreviewTestId } from '../../../../components/common/EmojiUploadPreview';
 import { messages } from '../../../../components/i18n';
 import EmojiUploader, { type Props } from '../../../../components/uploader/EmojiUploader';
 import { selectedFileEvent } from '../../../../util/analytics/selectedFileEvent';
@@ -60,11 +59,8 @@ export function setupUploader(props?: Props, onEvent?: () => void): void {
 
 describe('<EmojiUploader />', () => {
 	const uploadPreviewShown = () => {
-		const uploadPreview = screen.getByTestId('upload-preview');
-		expect(uploadPreview).toBeInTheDocument();
-		const uploadedEmojis = screen.getAllByAltText(`${sampleEmoji.shortName}`);
-		expect(uploadedEmojis.length).toBe(2);
-		const emoji = uploadedEmojis[0];
+		const emoji = helperTestingLibrary.getUploadPreview();
+		expect(emoji).toHaveAttribute('alt', 'sample');
 		expect(emoji.getAttribute('src')).toBe(pngDataURL);
 	};
 
@@ -75,11 +71,11 @@ describe('<EmojiUploader />', () => {
 	};
 
 	describe('display', () => {
-		it('should display disabled emoji file chooser initially', async () => {
+		it('should display emoji file chooser initially', async () => {
 			setupUploader();
 			const fileChooser = await screen.findByTestId('choose-file-button');
 			expect(fileChooser).toBeInTheDocument();
-			expect(fileChooser).toBeDisabled();
+			expect(fileChooser).toBeEnabled();
 		});
 
 		it('should show text input', async () => {
@@ -129,7 +125,9 @@ describe('<EmojiUploader />', () => {
 			await typeEmojiName();
 
 			await helperTestingLibrary.chooseFile(createPngFile());
-			const addEmojiButton = await screen.findByTestId('upload-emoji-button');
+			const addEmojiButton = await screen.findByRole('button', {
+				name: messages.addEmojiLabel.defaultMessage,
+			});
 			uploadPreviewShown();
 			addEmojiButton.click();
 
@@ -204,11 +202,13 @@ describe('<EmojiUploader />', () => {
 
 			await helperTestingLibrary.chooseFile(createPngFile());
 
-			expect(await screen.findByTestId('upload-emoji-button')).toBeInTheDocument();
+			expect(
+				await screen.findByRole('button', { name: messages.addEmojiLabel.defaultMessage }),
+			).toBeInTheDocument();
 
 			uploadPreviewShown();
 
-			const cancelLink = await screen.findByTestId('cancel-upload-button');
+			const cancelLink = await screen.findByTestId(cancelEmojiUploadPickerTestId);
 			cancelLink.click();
 			// Should be back to initial screen
 			expect(await screen.findByTestId('upload-emoji-component')).toBeInTheDocument();
@@ -241,26 +241,23 @@ describe('<EmojiUploader />', () => {
 			await typeEmojiName();
 
 			await helperTestingLibrary.chooseFile(createPngFile());
-			const addEmojiButton = await screen.findByTestId('upload-emoji-button');
+			const addEmojiButton = await screen.findByRole('button', {
+				name: messages.addEmojiLabel.defaultMessage,
+			});
 
 			// Try adding
 			addEmojiButton.click();
 
-			// Check for error message
-			const errorIcon = await screen.findByTestId('emoji-error-icon');
-			await userEvent.hover(errorIcon);
-			expect((await screen.findByTestId('emoji-error-message-tooltip')).textContent).toContain(
+			expect((await screen.findByTestId('emoji-error-message')).textContent).toContain(
 				messages.emojiUploadFailed.defaultMessage,
 			);
-
-			const retryButton = screen.getByRole('button', { name: messages.retryLabel.defaultMessage });
 			expect(spy).toHaveBeenCalledTimes(1);
 
 			// Reset mocking to make upload successful
 			spy.mockRestore();
 
 			// Successfully upload this time
-			retryButton.click();
+			addEmojiButton.click();
 			await waitFor(() => expect(provider.getUploads().length).toBeGreaterThan(0));
 
 			expect(onEvent).toHaveBeenCalledTimes(5);
@@ -346,9 +343,7 @@ describe('<EmojiUploader />', () => {
 			// choose file
 			await helperTestingLibrary.chooseFile(createPngFile());
 
-			const uploadEmojiPreviewComponent = await screen.findByTestId(uploadPreviewTestId);
-
-			expect(uploadEmojiPreviewComponent).toBeInTheDocument();
+			expect(helperTestingLibrary.getUploadPreview()).toBeInTheDocument();
 
 			const results = await axe(container);
 			expect(results).toHaveNoViolations();
@@ -374,83 +369,6 @@ describe('<EmojiUploader />', () => {
 
 			const results = await axe(container);
 			expect(results).toHaveNoViolations();
-		});
-	});
-
-	describe('Focus Lock', () => {
-		let emojiProvider: Promise<any>;
-
-		beforeEach(async () => {
-			jest.spyOn(ImageUtil, 'parseImage').mockImplementation(() => Promise.resolve(new Image()));
-			jest.spyOn(ImageUtil, 'hasFileExceededSize').mockImplementation(() => false);
-			jest.spyOn(ImageUtil, 'getNaturalImageSize').mockImplementation(() =>
-				Promise.resolve({
-					width: 30,
-					height: 30,
-				}),
-			);
-
-			emojiProvider = getEmojiResourcePromise({
-				uploadSupported: true,
-			});
-		});
-
-		it('should render with FocusLock by default', async () => {
-			const { container } = renderWithIntl(<EmojiUploader emojiProvider={emojiProvider} />);
-
-			const uploadEmojiComponent = await screen.findByTestId(uploadEmojiComponentTestId);
-			expect(uploadEmojiComponent).toBeInTheDocument();
-
-			// Check that FocusLock is present in the DOM by looking for its characteristic attributes
-			const focusLockElement = container.querySelector('[data-focus-lock-disabled]');
-			expect(focusLockElement).toBeInTheDocument();
-		});
-
-		it('should render with FocusLock when disableFocusLock is false', async () => {
-			const { container } = renderWithIntl(
-				<EmojiUploader emojiProvider={emojiProvider} disableFocusLock={false} />,
-			);
-
-			const uploadEmojiComponent = await screen.findByTestId(uploadEmojiComponentTestId);
-			expect(uploadEmojiComponent).toBeInTheDocument();
-
-			// Check that FocusLock is present in the DOM by looking for its characteristic attributes
-			const focusLockElement = container.querySelector('[data-focus-lock-disabled]');
-			expect(focusLockElement).toBeInTheDocument();
-		});
-
-		it('should render without FocusLock when disableFocusLock is true', async () => {
-			const { container } = renderWithIntl(
-				<EmojiUploader emojiProvider={emojiProvider} disableFocusLock={true} />,
-			);
-
-			const uploadEmojiComponent = await screen.findByTestId(uploadEmojiComponentTestId);
-			expect(uploadEmojiComponent).toBeInTheDocument();
-
-			// Check that FocusLock is not present in the DOM
-			const focusLockElement = container.querySelector('[data-focus-lock-disabled]');
-			expect(focusLockElement).not.toBeInTheDocument();
-		});
-
-		it('should maintain functionality when FocusLock is disabled', async () => {
-			setupUploader({ emojiProvider, disableFocusLock: true });
-
-			const emojiNameInput = await screen.findByTestId(uploadEmojiNameInputTestId);
-			expect(emojiNameInput).toBeInTheDocument();
-
-			// Type emoji name
-			helperTestingLibrary.typeEmojiName(':test_emoji:');
-
-			// Choose file
-			await helperTestingLibrary.chooseFile(createPngFile());
-
-			// Check that upload preview is shown
-			const uploadPreview = await screen.findByTestId('upload-preview');
-			expect(uploadPreview).toBeInTheDocument();
-
-			// Verify the upload button is present and functional
-			const uploadButton = await screen.findByTestId('upload-emoji-button');
-			expect(uploadButton).toBeInTheDocument();
 		});
 	});
 });

@@ -43,14 +43,8 @@ import {
 import EmojiActions from '../common/EmojiActions';
 import type { OnDeleteEmoji } from '../common/EmojiDeletePreview';
 import type { OnUploadEmoji } from '../common/EmojiUploadPicker';
-import { isRefreshEmojiPickerEnabled } from '../common/isRefreshEmojiPickerEnabled';
 import { messages } from '../i18n';
-import {
-	CategoryDescriptionMap,
-	CategoryDescriptionMapNew,
-	type CategoryGroupKey,
-	type CategoryId,
-} from './categories';
+import { CategoryDescriptionMapNew, type CategoryGroupKey, type CategoryId } from './categories';
 import { CategoryHeadingItem } from './CategoryHeadingItem';
 import CategoryTracker from './CategoryTracker';
 import type { Props as CategoryHeadingProps } from './EmojiPickerCategoryHeading';
@@ -220,14 +214,10 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 	const [activeAtlassianSubcategory, setActiveAtlassianSubcategory] = useState<string | null>(null);
 	const categoryTracker = useMemo(() => new CategoryTracker(), []);
 	const [categoriesChanged, setCategoriesChanged] = useState(false);
-	const isTeamojiExperimentEnabled = isRefreshEmojiPickerEnabled();
-	const visibleEmojis = useMemo(
-		() => (isTeamojiExperimentEnabled ? filterHiddenEmojis(emojis) : emojis),
-		[emojis, isTeamojiExperimentEnabled],
-	);
+	const visibleEmojis = useMemo(() => filterHiddenEmojis(emojis), [emojis]);
 	const productivityColorPreviewEmojis = useMemo(
-		() => (isTeamojiExperimentEnabled ? getProductivityColorPreviewEmojis(visibleEmojis) : {}),
-		[isTeamojiExperimentEnabled, visibleEmojis],
+		() => getProductivityColorPreviewEmojis(visibleEmojis),
+		[visibleEmojis],
 	);
 
 	const addToCategoryMap = useCallback(
@@ -237,9 +227,7 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 			category: CategoryGroupKey,
 		) => {
 			if (!categoryToGroupMap[category]) {
-				const categoryDefinition = isTeamojiExperimentEnabled
-					? CategoryDescriptionMapNew[category]
-					: CategoryDescriptionMap[category];
+				const categoryDefinition = CategoryDescriptionMapNew[category];
 				if (!categoryDefinition) {
 					return categoryToGroupMap;
 				}
@@ -253,17 +241,13 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 			categoryToGroupMap[category]?.emojis.push(emoji);
 			return categoryToGroupMap;
 		},
-		[isTeamojiExperimentEnabled],
+		[],
 	);
 
 	const groupByCategory = useCallback(
 		(currentUser?: User) =>
 			(categoryToGroupMap: CategoryKeyToGroup, emoji: EmojiDescription): CategoryKeyToGroup => {
-				if (
-					isTeamojiExperimentEnabled &&
-					emoji.type === 'ATLASSIAN' &&
-					emoji.category !== frequentCategory
-				) {
+				if (emoji.type === 'ATLASSIAN' && emoji.category !== frequentCategory) {
 					addToCategoryMap(categoryToGroupMap, emoji, atlassianCategory);
 					const group = categoryToGroupMap[atlassianCategory];
 					if (group) {
@@ -280,8 +264,6 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 						}
 						subcategory.emojis.push(emoji);
 					}
-				} else if (emoji.type === 'ATLASSIAN' && emoji.category !== frequentCategory) {
-					addToCategoryMap(categoryToGroupMap, emoji, atlassianCategory);
 				} else {
 					addToCategoryMap(categoryToGroupMap, emoji, emoji.category as CategoryId);
 				}
@@ -295,7 +277,7 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 				}
 				return categoryToGroupMap;
 			},
-		[addToCategoryMap, isTeamojiExperimentEnabled],
+		[addToCategoryMap],
 	);
 
 	const findAtlassianSubcategoryToActivate = useCallback(
@@ -342,11 +324,9 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 			if (!query) {
 				// Calculate category in view - only relevant if categories shown, i.e. no query
 				const currentCategory = findCategoryToActivate(rowItem);
-				if (isTeamojiExperimentEnabled) {
-					const currentAtlassianSubcategory = findAtlassianSubcategoryToActivate(startIndex);
-					if (activeAtlassianSubcategory !== currentAtlassianSubcategory) {
-						setActiveAtlassianSubcategory(currentAtlassianSubcategory);
-					}
+				const currentAtlassianSubcategory = findAtlassianSubcategoryToActivate(startIndex);
+				if (activeAtlassianSubcategory !== currentAtlassianSubcategory) {
+					setActiveAtlassianSubcategory(currentAtlassianSubcategory);
 				}
 				if (currentCategory !== null && activeCategoryId !== currentCategory) {
 					if (onCategoryActivated) {
@@ -361,7 +341,6 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 			activeAtlassianSubcategory,
 			activeCategoryId,
 			findAtlassianSubcategoryToActivate,
-			isTeamojiExperimentEnabled,
 			onCategoryActivated,
 		],
 	);
@@ -377,7 +356,7 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 				(Object.keys(categoryToGroupMap) as CategoryGroupKey[])
 					.map((key: CategoryGroupKey) => categoryToGroupMap[key])
 					.map((group) => {
-						if (isTeamojiExperimentEnabled && selectedProductivityColor) {
+						if (selectedProductivityColor) {
 							group.emojis = filterProductivityEmojisByColor(
 								group.emojis,
 								selectedProductivityColor,
@@ -400,7 +379,7 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 					.sort(byOrder),
 			);
 		},
-		[groupByCategory, isTeamojiExperimentEnabled, selectedProductivityColor],
+		[groupByCategory, selectedProductivityColor],
 	);
 
 	const buildEmojiRows = useCallback(
@@ -426,21 +405,19 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 						onDelete: onEmojiDelete,
 						onMouseMove: onEmojiActive,
 						onFocus: onEmojiActive,
-						onMouseLeave: isTeamojiExperimentEnabled ? onEmojiLeave : undefined,
+						onMouseLeave: onEmojiLeave,
 					}),
 				);
 			}
 		},
-		[isTeamojiExperimentEnabled, onEmojiActive, onEmojiDelete, onEmojiLeave, onEmojiSelected],
+		[onEmojiActive, onEmojiDelete, onEmojiLeave, onEmojiSelected],
 	);
 
 	const buildVirtualItemFromGroup = useCallback(
 		(group: EmojiGroup) => {
 			const items: VirtualItem<CategoryHeadingProps | EmojiRowProps>[] = [];
 			const hasAtlassianSubcategories =
-				isTeamojiExperimentEnabled &&
-				group.category === atlassianCategory &&
-				!!group.subcategories?.length;
+				group.category === atlassianCategory && !!group.subcategories?.length;
 
 			if (!hasAtlassianSubcategories) {
 				items.push(
@@ -491,7 +468,7 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 
 			return items;
 		},
-		[buildEmojiRows, isTeamojiExperimentEnabled],
+		[buildEmojiRows],
 	);
 
 	const buildVirtualItems = useCallback(() => {
@@ -505,10 +482,8 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 			items.push(new LoadingItem());
 		} else {
 			if (query) {
-				const search = isTeamojiExperimentEnabled
-					? CategoryDescriptionMapNew.SEARCH
-					: CategoryDescriptionMap.SEARCH;
-				if (visibleEmojis.length === 0 && isTeamojiExperimentEnabled) {
+				const search = CategoryDescriptionMapNew.SEARCH;
+				if (visibleEmojis.length === 0) {
 					// Show a "No results" category heading, then a no-results illustration below it
 					items.push(
 						new CategoryHeadingItem({
@@ -542,12 +517,7 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 				allEmojiGroups.forEach((group) => {
 					// Optimisation - avoid re-rendering unaffected groups for the current selectedShortcut
 					// by not passing it to irrelevant groups
-					categoryTracker.add(
-						isTeamojiExperimentEnabled || group.category === atlassianCategory
-							? (group.category as CategoryId)
-							: (group.emojis[0].category as CategoryId),
-						items.length,
-					);
+					categoryTracker.add(group.category as CategoryId, items.length);
 
 					items = [...items, ...buildVirtualItemFromGroup(group)];
 
@@ -570,7 +540,6 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 		allEmojiGroups,
 		buildVirtualItemFromGroup,
 		formatMessage,
-		isTeamojiExperimentEnabled,
 		loading,
 		onOpenUpload,
 		query,
@@ -708,16 +677,16 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 	}, [virtualItems, categoriesChanged]);
 
 	const virtualListHeight = useMemo(() => {
-		if (query && visibleEmojis.length === 0 && isTeamojiExperimentEnabled) {
+		if (query && visibleEmojis.length === 0) {
 			// No-results state: expand the list height to fit heading + illustration without scrolling
 			return sizes.categoryHeadingHeight + sizes.noResultsHeight + emojiPickerHeightOffset(size);
 		}
-		return isTeamojiExperimentEnabled
-			? sizes.listHeightNew +
-					emojiPickerHeightOffset(size) +
-					(useFooterSpaceForList ? emojiPickerPreviewHeight : 0)
-			: sizes.listHeight + emojiPickerHeightOffset(size);
-	}, [size, query, visibleEmojis.length, isTeamojiExperimentEnabled, useFooterSpaceForList]);
+		return (
+			sizes.listHeightNew +
+			emojiPickerHeightOffset(size) +
+			(useFooterSpaceForList ? emojiPickerPreviewHeight : 0)
+		);
+	}, [size, query, visibleEmojis.length, useFooterSpaceForList]);
 
 	return (
 		<EmojiPickerTabPanel showSearchResults={!!query}>
@@ -726,16 +695,10 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 				onToneSelected={onToneSelected}
 				onToneSelectorCancelled={onToneSelectorCancelled}
 				toneEmoji={toneEmoji}
-				activeCategoryId={isTeamojiExperimentEnabled ? activeCategoryId : undefined}
-				activeAtlassianSubcategory={
-					isTeamojiExperimentEnabled ? activeAtlassianSubcategory : undefined
-				}
-				productivityColorPreviewEmojis={
-					isTeamojiExperimentEnabled ? productivityColorPreviewEmojis : undefined
-				}
-				selectedProductivityColor={
-					isTeamojiExperimentEnabled ? selectedProductivityColor : undefined
-				}
+				activeCategoryId={activeCategoryId}
+				activeAtlassianSubcategory={activeAtlassianSubcategory}
+				productivityColorPreviewEmojis={productivityColorPreviewEmojis}
+				selectedProductivityColor={selectedProductivityColor}
 				uploading={uploading}
 				uploadEnabled={uploadEnabled}
 				emojiToDelete={emojiToDelete}
@@ -748,9 +711,7 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 				onDeleteEmoji={onDeleteEmoji}
 				onFileChooserClicked={onFileChooserClicked}
 				onOpenUpload={onOpenUpload}
-				onProductivityColorSelected={
-					isTeamojiExperimentEnabled ? onProductivityColorSelected : undefined
-				}
+				onProductivityColorSelected={onProductivityColorSelected}
 				query={query}
 				onChange={onSearch}
 				resultsCount={visibleEmojis.length}

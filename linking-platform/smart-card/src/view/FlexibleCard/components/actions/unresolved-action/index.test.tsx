@@ -9,7 +9,6 @@ import { InternalActionName } from '../../../../../constants';
 import type { FlexibleUiDataContext } from '../../../../../state/flexible-ui-context/types';
 import UnresolvedAction from './index';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('UnresolvedAction', () => {
 	const testId = `test-errored-view-message`;
 	const descriptor = {

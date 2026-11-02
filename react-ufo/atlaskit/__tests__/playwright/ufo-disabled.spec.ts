@@ -5,8 +5,6 @@
  * controlled by the ?ufo_disabled=true query parameter.
  */
 
-/* eslint-disable compat/compat */
-
 import {
 	test as base,
 	expect as baseExpect,

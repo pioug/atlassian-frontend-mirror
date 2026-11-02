@@ -2,7 +2,6 @@ import React from 'react';
 
 import { act, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { createIntl } from 'react-intl';
 
 import { type HeadType } from '@atlaskit/dynamic-table/types';

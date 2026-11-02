@@ -7,12 +7,16 @@ import {
 	type StatsigUser,
 } from '@statsig/js-client';
 
+import type { FfpEvaluationClient } from '../ffp/types';
 import { default as Subscriptions } from '../subscriptions/Subscriptions';
 import { DynamicConfig } from './compat/DynamicConfig';
 import { Layer } from './compat/Layer';
 import { EvaluationReason } from './compat/types';
 import { deepAssign } from './deepAssign';
+import { isEvalFlagsDegraded } from './fetcher/evalFlags/isEvalFlagsDegraded';
+import { toInitializeValues } from './fetcher/evalFlags/toInitializeValues';
 import { type FetcherOptions, default as Fetcher } from './fetcher/Fetcher';
+import { FfpClientAdapter } from './FfpClientAdapter';
 import { getOptionsWithDefaults } from './getOptionsWithDefaults';
 import { migrateInitializationOptions } from './migrateInitializationOptions';
 import { NoFetchDataAdapter } from './NoFetchDataAdapter';
@@ -29,6 +33,9 @@ import {
 	type ClientOptions,
 	type CustomAttributes,
 	FeatureGateEnvironment,
+	type EvalFlagsProvider,
+	type EvalFlagsStatus,
+	type FfpInitializeValues,
 	type FromValuesClientOptions,
 	type FrontendExperimentsResult,
 	type GetExperimentOptions,
@@ -36,7 +43,6 @@ import {
 	type GetLayerOptions,
 	type GetLayerValueOptions,
 	type Identifiers,
-	type InitializeValues,
 	type OptionsWithDefaults,
 	PerimeterType,
 	type Provider,
@@ -46,6 +52,23 @@ import { CLIENT_VERSION } from './version';
 const DEFAULT_CLIENT_KEY = 'client-default-key';
 // default event logging api is Atlassian proxy rather than Statsig's domain, to avoid ad blockers
 const DEFAULT_EVENT_LOGGING_API = 'https://xp.atlassian.com/v1/rgstr';
+
+/** The one source that answers for a gate or config. See {@link Client.route}. */
+type Route<T> =
+	| { source: 'statsig'; statsigClient: StatsigClient }
+	| { source: 'override'; value: T }
+	| { source: 'ffp' | 'default' };
+
+function logFetchError(error: unknown): void {
+	if (error instanceof Error) {
+		// eslint-disable-next-line no-console
+		console.error(
+			`Error occurred when trying to fetch the Feature Gates client values, error: ${error.message}`,
+		);
+	}
+	// eslint-disable-next-line no-console
+	console.warn(`Initialising Statsig client without values`);
+}
 
 export class Client {
 	private statsigClient?: StatsigClient;
@@ -73,7 +96,17 @@ export class Client {
 	private provider?: Provider;
 	private subscriptions = new Subscriptions();
 	private dataAdapter = new NoFetchDataAdapter();
+	/** Serves the flags the Feature Flag Service assigns to FFP; all other keys use Statsig. */
+	private ffp = new FfpClientAdapter();
 	private overrideAdapter: PersistentOverrideAdapter;
+	/** True once an initialize method has applied values, even if Statsig is not running. */
+	private valuesApplied = false;
+	/** The options Statsig was (or will be) started with, kept to start it again when re-enabled. */
+	private statsigInitOptions?: FromValuesClientOptions;
+	/** A start of Statsig after initialization that is still in progress. */
+	private statsigStart?: Promise<void>;
+	/** Incremented when Statsig stops, so a start that it overtook does nothing. */
+	private statsigGeneration = 0;
 
 	constructor({
 		localStorageKey = LOCAL_STORAGE_KEY,
@@ -201,11 +234,35 @@ export class Client {
 
 	private applyUpdateCallback(experimentsResult: FrontendExperimentsResult): void {
 		try {
-			if (this.initCompleted || this.initWithDefaults) {
-				this.assertInitialized(this.statsigClient);
-				this.dataAdapter.setBootstrapData(experimentsResult.experimentValues);
-				this.dataAdapter.setData(JSON.stringify(experimentsResult.experimentValues));
+			if ((this.initCompleted || this.initWithDefaults) && this.currentIdentifiers) {
+				this.assertReady();
+				const identifiers = this.currentIdentifiers;
+				const customAttributes =
+					experimentsResult.customAttributesFromFetch ?? this.currentAttributes;
+				const disabled = experimentsResult.disabledProviders ?? [];
+				this.ffp.apply(
+					this.initOptions!,
+					disabled.includes('ffp') ? undefined : experimentsResult.ffp,
+					identifiers,
+					customAttributes,
+				);
+				if (disabled.includes('statsig')) {
+					this.stopStatsig();
+				} else if (this.statsigClient) {
+					this.dataAdapter.setBootstrapData(experimentsResult.experimentValues);
+					this.dataAdapter.setData(JSON.stringify(experimentsResult.experimentValues));
+				} else if (!this.statsigStart) {
+					// Statsig is enabled again after being disabled. A start already in progress is left to
+					// finish; the next update brings it up to date.
+					this.restartStatsig(experimentsResult, identifiers, customAttributes)
+						.then(() => this.subscriptions.anyUpdated())
+						.catch((error: unknown) => {
+							// eslint-disable-next-line no-console
+							console.warn('Failed to start the Statsig client', error);
+						});
+				}
 				this.statsigValuesUpdated();
+				this.reportEvalFlagsStatus('providerUpdate', experimentsResult.status);
 			}
 		} catch (error) {
 			// eslint-disable-next-line no-console
@@ -220,27 +277,63 @@ export class Client {
 		success: boolean,
 		apiKey: string | undefined = undefined,
 	) {
-		this.initOptions!.analyticsWebClient?.then((analyticsWebClient) => {
-			const attributes = {
-				targetApp: this.initOptions!.targetApp,
-				clientVersion: CLIENT_VERSION,
-				success,
-				startTime,
-				totalTime,
-				...(apiKey && { apiKey }),
-			};
-			analyticsWebClient.sendOperationalEvent({
-				action,
-				actionSubject: 'featureGatesClient',
-				attributes,
-				tags: ['measurement'],
-				source: '@atlaskit/feature-gate-js-client',
-			});
-		}).catch((err) => {
+		this.sendOperationalEvent(action, 'featureGatesClient', {
+			success,
+			startTime,
+			totalTime,
+			...(apiKey && { apiKey }),
+		})?.catch((err) => {
 			if (this.initOptions!.environment !== FeatureGateEnvironment.Production) {
 				// eslint-disable-next-line no-console
 				console.error('Analytics web client promise did not resolve', err);
 			}
+		});
+	}
+
+	/** Sends an operational event about this client, once the analytics client is available. */
+	private sendOperationalEvent(
+		action: string,
+		actionSubject: string,
+		attributes: Record<string, unknown>,
+	): Promise<void> | undefined {
+		const initOptions = this.initOptions!;
+		return initOptions.analyticsWebClient?.then((analyticsWebClient) => {
+			analyticsWebClient.sendOperationalEvent({
+				action,
+				actionSubject,
+				attributes: {
+					targetApp: initOptions.targetApp,
+					clientVersion: CLIENT_VERSION,
+					...attributes,
+				},
+				tags: ['measurement'],
+				source: '@atlaskit/feature-gate-js-client',
+			});
+		});
+	}
+
+	/**
+	 * Reports values that are worse than the Feature Flag Service intends because a provider is
+	 * unavailable. The client still resolves with what it received; affected flags return the
+	 * code default (or, with the polling provider, the last values the provider served).
+	 */
+	private reportEvalFlagsStatus(trigger: string, status: EvalFlagsStatus | undefined): void {
+		if (!status || !isEvalFlagsDegraded(status) || !this.initOptions) {
+			return;
+		}
+		const initOptions = this.initOptions;
+		if (initOptions.environment !== FeatureGateEnvironment.Production) {
+			// eslint-disable-next-line no-console
+			console.warn(
+				`Feature flag values are degraded (Statsig: ${status.statsig}, FFP: ${status.ffp}). Affected flags will return their default values.`,
+			);
+		}
+		this.sendOperationalEvent('degraded', 'featureGatesClientValues', {
+			trigger,
+			statsigStatus: status.statsig,
+			ffpStatus: status.ffp,
+		})?.catch(() => {
+			// The initialization event already reports a missing analytics client.
 		});
 	}
 
@@ -249,6 +342,7 @@ export class Client {
 		identifiers: Identifiers,
 		customAttributes?: CustomAttributes,
 		initializeValues: Record<string, unknown> = {},
+		ffpValues?: FfpInitializeValues,
 	): Promise<void> {
 		const clientOptionsWithDefaults = getOptionsWithDefaults(clientOptions);
 		if (this.initPromise) {
@@ -274,6 +368,7 @@ export class Client {
 			identifiers,
 			customAttributes,
 			initializeValues,
+			ffpValues,
 		)
 			.then(() => {
 				this.initCompleted = true;
@@ -287,6 +382,11 @@ export class Client {
 		return this.initPromise;
 	}
 
+	/**
+	 * Throws if the Statsig client does not exist. The client's own methods use
+	 * {@link assertReady} instead, because Statsig is absent while the Feature Flag Service
+	 * disables it.
+	 */
 	protected assertInitialized(statsigClient: StatsigClient | undefined): asserts statsigClient {
 		if (!statsigClient) {
 			throw new Error('Client must be initialized before using this method');
@@ -304,14 +404,11 @@ export class Client {
 		identifiers: Identifiers,
 		customAttributes?: CustomAttributes,
 	): Promise<void> {
-		this.assertInitialized(this.statsigClient);
+		this.assertReady();
 		const fetchOptionsWithDefaults = getOptionsWithDefaults(fetchOptions);
 		const initializeValuesProducer = () =>
-			Fetcher.fetchExperimentValues(fetchOptionsWithDefaults, identifiers, customAttributes).then(
-				({ experimentValues, customAttributes }) => ({
-					experimentValues,
-					customAttributesFromFetch: customAttributes,
-				}),
+			Fetcher.fetchFlagValues(fetchOptionsWithDefaults, identifiers, customAttributes).then(
+				(response) => toInitializeValues(response, customAttributes),
 			);
 		await this.updateUserUsingInitializeValuesProducer(
 			initializeValuesProducer,
@@ -330,7 +427,7 @@ export class Client {
 		identifiers: Identifiers,
 		customAttributes?: CustomAttributes,
 	): Promise<void> {
-		this.assertInitialized(this.statsigClient);
+		this.assertReady();
 		if (!this.provider) {
 			throw new Error(
 				'Cannot update user using provider as the client was not initialised with a provider',
@@ -358,12 +455,14 @@ export class Client {
 		identifiers: Identifiers,
 		customAttributes?: CustomAttributes,
 		initializeValues: Record<string, unknown> = {},
+		ffpValues?: FfpInitializeValues,
 	): Promise<void> {
-		this.assertInitialized(this.statsigClient);
+		this.assertReady();
 		const initializeValuesProducer = () =>
 			Promise.resolve({
 				experimentValues: initializeValues,
 				customAttributesFromFetch: customAttributes,
+				ffp: ffpValues,
 			});
 		await this.updateUserUsingInitializeValuesProducer(
 			initializeValuesProducer,
@@ -393,7 +492,37 @@ export class Client {
 	}
 
 	/**
+	 * The Feature Flag Platform (FFP) client, for reading flags that only exist in FFP. New flags are
+	 * created only in FFP, so read them here.
+	 *
+	 * @example
+	 * ```ts
+	 * const enabled = client.ffpClient?.getBooleanValue('my-new-flag', false) ?? false;
+	 * ```
+	 *
+	 * - It is `undefined` until an initialize method is called, then it is the same instance for the
+	 *   lifetime of this client, including across user updates.
+	 * - Until FFP values arrive, and when the Feature Flag Service does not use FFP for the user, its
+	 *   reads return the default they are given.
+	 * - Local overrides (see {@link Client.overrideGate}) do not apply to it.
+	 * - It serves only FFP values, so a flag being migrated from Statsig to FFP gets the default
+	 *   whenever Statsig serves it. Read migrating flags with {@link Client.checkGate},
+	 *   {@link Client.getExperimentValue} and the other methods of this client, which serve each flag
+	 *   from whichever of FFP or Statsig the service assigns it to.
+	 *
+	 * Its methods match those of `FlagClient` from `@atlaskit/flag-client`, so code that reads it
+	 * keeps working once it uses a `FlagClient` directly.
+	 */
+	get ffpClient(): FfpEvaluationClient | undefined {
+		return this.initOptions ? this.ffp.getClient(this.initOptions) : undefined;
+	}
+
+	/**
 	 * Returns the value for a feature gate. Returns false if there are errors.
+	 *
+	 * Not for flags that only exist in the Feature Flag Platform (FFP): use {@link Client.ffpClient}
+	 * for those. Use this method for Statsig flags, including flags being migrated from Statsig to FFP.
+	 *
 	 * @param {string} gateName - The name of the feature gate.
 	 * @param {Object} options
 	 * @param {boolean} options.fireGateExposure
@@ -403,9 +532,21 @@ export class Client {
 	 */
 	checkGate(gateName: string, options: CheckGateOptions = {}): boolean {
 		try {
-			this.assertInitialized(this.statsigClient);
+			this.assertReady();
 			const { fireGateExposure = true } = options;
-			return this.statsigClient.checkGate(gateName, { disableExposureLog: !fireGateExposure });
+			const route = this.route(gateName, 'gates');
+			switch (route.source) {
+				case 'statsig':
+					return route.statsigClient.checkGate(gateName, {
+						disableExposureLog: !fireGateExposure,
+					});
+				case 'ffp':
+					return this.ffp.checkGate(gateName, fireGateExposure);
+				case 'override':
+					return route.value;
+				default:
+					return false;
+			}
 		} catch (error: unknown) {
 			// Log the first occurrence of the error
 			if (!this.hasCheckGateErrorOccurred) {
@@ -422,10 +563,20 @@ export class Client {
 		}
 	}
 
+	/**
+	 * Returns whether the given feature gate exists for the current user.
+	 *
+	 * Not for flags that only exist in the Feature Flag Platform (FFP): use {@link Client.ffpClient}
+	 * for those. Use this method for Statsig flags, including flags being migrated from Statsig to FFP.
+	 */
 	isGateExist(gateName: string): boolean {
 		try {
-			this.assertInitialized(this.statsigClient);
-			const gate = this.statsigClient.getFeatureGate(gateName, { disableExposureLog: true });
+			this.assertReady();
+			const route = this.route(gateName, 'gates');
+			if (route.source !== 'statsig') {
+				return route.source !== 'default';
+			}
+			const gate = route.statsigClient.getFeatureGate(gateName, { disableExposureLog: true });
 
 			return !gate.details.reason.includes('Unrecognized');
 		} catch (error: unknown) {
@@ -436,10 +587,22 @@ export class Client {
 		}
 	}
 
+	/**
+	 * Returns whether the given experiment exists for the current user.
+	 *
+	 * Not for flags that only exist in the Feature Flag Platform (FFP): use {@link Client.ffpClient}
+	 * for those. Use this method for Statsig flags, including flags being migrated from Statsig to FFP.
+	 */
 	isExperimentExist(experimentName: string): boolean {
 		try {
-			this.assertInitialized(this.statsigClient);
-			const config = this.statsigClient.getExperiment(experimentName, { disableExposureLog: true });
+			this.assertReady();
+			const route = this.route(experimentName, 'configs');
+			if (route.source !== 'statsig') {
+				return route.source !== 'default';
+			}
+			const config = route.statsigClient.getExperiment(experimentName, {
+				disableExposureLog: true,
+			});
 
 			return !config.details.reason.includes('Unrecognized');
 		} catch (error: unknown) {
@@ -454,17 +617,30 @@ export class Client {
 	 * Manually log a gate exposure (see [Statsig docs about manually logging exposures](https://docs.statsig.com/client/jsClientSDK#manual-exposures-)).
 	 * This is useful if you have evaluated a gate earlier via {@link Client.checkGate} where
 	 * <code>options.fireGateExposure</code> is false.
+	 *
+	 * Not for flags that only exist in the Feature Flag Platform (FFP): use {@link Client.ffpClient}
+	 * for those. Use this method for Statsig flags, including flags being migrated from Statsig to FFP.
+	 *
 	 * @param gateName
 	 */
 	manuallyLogGateExposure(gateName: string): void {
-		this.assertInitialized(this.statsigClient);
-		// This is the approach recommended in the docs
-		// https://docs.statsig.com/client/javascript-sdk/#manual-exposures-
-		this.statsigClient.checkGate(gateName);
+		this.assertReady();
+		const route = this.route(gateName, 'gates');
+		if (route.source === 'ffp') {
+			this.ffp.logGateExposure(gateName);
+		} else if (route.source === 'statsig') {
+			// This is the approach recommended in the docs
+			// https://docs.statsig.com/client/javascript-sdk/#manual-exposures-
+			route.statsigClient.checkGate(gateName);
+		}
+		// An overridden or default value has no exposure.
 	}
 
 	/**
 	 * Returns the entire config for a given experiment.
+	 *
+	 * Not for flags that only exist in the Feature Flag Platform (FFP): use {@link Client.ffpClient}
+	 * for those. Use this method for Statsig flags, including flags being migrated from Statsig to FFP.
 	 *
 	 * @param {string} experimentName - The name of the experiment
 	 * @param {Object} options
@@ -480,13 +656,34 @@ export class Client {
 	 */
 	getExperiment(experimentName: string, options: GetExperimentOptions = {}): DynamicConfig {
 		try {
-			this.assertInitialized(this.statsigClient);
+			this.assertReady();
 			const { fireExperimentExposure = true } = options;
-			return DynamicConfig.fromExperiment(
-				this.statsigClient.getExperiment(experimentName, {
-					disableExposureLog: !fireExperimentExposure,
-				}),
-			);
+			const route = this.route(experimentName, 'configs');
+			switch (route.source) {
+				case 'statsig':
+					return DynamicConfig.fromExperiment(
+						route.statsigClient.getExperiment(experimentName, {
+							disableExposureLog: !fireExperimentExposure,
+						}),
+					);
+				case 'ffp': {
+					const ffpConfig = this.ffp.getConfig(experimentName, fireExperimentExposure);
+					return new DynamicConfig(experimentName, ffpConfig.value, ffpConfig.ruleId, {
+						time: Date.now(),
+						reason: EvaluationReason.Bootstrap,
+					});
+				}
+				case 'override':
+					return new DynamicConfig(experimentName, route.value, '', {
+						time: Date.now(),
+						reason: EvaluationReason.LocalOverride,
+					});
+				default:
+					return new DynamicConfig(experimentName, {}, '', {
+						time: Date.now(),
+						reason: EvaluationReason.Unrecognized,
+					});
+			}
 		} catch (error: unknown) {
 			// Log the first occurrence of the error
 			if (!this.hasGetExperimentErrorOccurred) {
@@ -509,6 +706,9 @@ export class Client {
 
 	/**
 	 * Returns the value of a given parameter in an experiment config.
+	 *
+	 * Not for flags that only exist in the Feature Flag Platform (FFP): use {@link Client.ffpClient}
+	 * for those. Use this method for Statsig flags, including flags being migrated from Statsig to FFP.
 	 *
 	 * @template T
 	 * @param {string} experimentName - The name of the experiment
@@ -577,31 +777,45 @@ export class Client {
 	 * Manually log an experiment exposure (see [Statsig docs about manually logging exposures](https://docs.statsig.com/client/jsClientSDK#manual-exposures-)).
 	 * This is useful if you have evaluated an experiment earlier via {@link Client.getExperimentValue} or
 	 * {@link Client.getExperiment} where <code>options.fireExperimentExposure</code> is false.
+	 *
+	 * Not for flags that only exist in the Feature Flag Platform (FFP): use {@link Client.ffpClient}
+	 * for those. Use this method for Statsig flags, including flags being migrated from Statsig to FFP.
+	 *
 	 * @param experimentName
 	 */
 	manuallyLogExperimentExposure(experimentName: string): void {
-		this.assertInitialized(this.statsigClient);
-		// This is the approach recommended in the docs
-		// https://docs.statsig.com/client/javascript-sdk/#manual-exposures-
-		this.statsigClient.getExperiment(experimentName);
+		this.assertReady();
+		const route = this.route(experimentName, 'configs');
+		if (route.source === 'ffp') {
+			this.ffp.logConfigExposure(experimentName);
+		} else if (route.source === 'statsig') {
+			// This is the approach recommended in the docs
+			// https://docs.statsig.com/client/javascript-sdk/#manual-exposures-
+			route.statsigClient.getExperiment(experimentName);
+		}
+		// An overridden or default value has no exposure.
 	}
 
 	/**
 	 * Manually log a layer exposure (see [Statsig docs about manually logging exposures](https://docs.statsig.com/client/jsClientSDK#manual-exposures-)).
 	 * This is useful if you have evaluated a layer earlier via {@link Client.getLayerValue} where <code>options.fireExperimentExposure</code> is false.
+	 *
+	 * Layers exist only in Statsig. Flags that only exist in the Feature Flag Platform (FFP) are read
+	 * with {@link Client.ffpClient}.
+	 *
 	 * @param layerName
 	 * @param parameterName
 	 */
 	manuallyLogLayerExposure(layerName: string, parameterName: string): void {
-		this.assertInitialized(this.statsigClient);
+		this.assertReady();
 		// This is the approach recommended in the docs
 		// https://docs.statsig.com/client/javascript-sdk/#manual-exposures-
-		this.statsigClient.getLayer(layerName)?.get(parameterName);
+		this.statsigClient?.getLayer(layerName)?.get(parameterName);
 	}
 
 	shutdownStatsig(): void {
-		this.assertInitialized(this.statsigClient);
-		this.statsigClient.shutdown();
+		this.assertReady();
+		this.statsigClient?.shutdown();
 	}
 
 	/**
@@ -719,6 +933,10 @@ export class Client {
 
 	/**
 	 * Subscribe to updates where the given callback will be called with the current checkGate value
+	 *
+	 * Not for flags that only exist in the Feature Flag Platform (FFP): use {@link Client.ffpClient}
+	 * for those. Use this method for Statsig flags, including flags being migrated from Statsig to FFP.
+	 *
 	 * @param gateName
 	 * @param callback
 	 * @param options
@@ -752,6 +970,10 @@ export class Client {
 
 	/**
 	 * Subscribe to updates where the given callback will be called with the current experiment value
+	 *
+	 * Not for flags that only exist in the Feature Flag Platform (FFP): use {@link Client.ffpClient}
+	 * for those. Use this method for Statsig flags, including flags being migrated from Statsig to FFP.
+	 *
 	 * @param experimentName
 	 * @param parameterName
 	 * @param defaultValue
@@ -826,50 +1048,15 @@ export class Client {
 			return;
 		}
 
-		let experimentValues: Record<string, unknown> | undefined;
-		let customAttributesFromResult: CustomAttributes | undefined;
-
-		try {
-			// If client sdk key fetch fails, an error would be thrown and handled instead of waiting for
-			// the experiment values request to be settled, and it will fall back to use default values.
-			const clientSdkKeyPromise = Fetcher.fetchClientSdk(clientOptions).then(
-				(value) => (fromValuesClientOptions.sdkKey = value.clientSdkKey),
-			);
-
-			const experimentValuesPromise = Fetcher.fetchExperimentValues(
-				clientOptions,
-				identifiers,
-				customAttributes,
-			);
-
-			// Only wait for the experiment values request to finish and try to initialise the client
-			// with experiment values if both requests are successful. Else an error would be thrown and
-			// handled by the catch
-			const [, experimentValuesResult] = await Promise.all([
-				clientSdkKeyPromise,
-				experimentValuesPromise,
-			]);
-
-			experimentValues = experimentValuesResult.experimentValues;
-			customAttributesFromResult = experimentValuesResult.customAttributes;
-		} catch (error: unknown) {
-			if (error instanceof Error) {
-				// eslint-disable-next-line no-console
-				console.error(
-					`Error occurred when trying to fetch the Feature Gates client values, error: ${error?.message}`,
-				);
-			}
-			// eslint-disable-next-line no-console
-			console.warn(`Initialising Statsig client without values`);
-			await this.initFromValues(fromValuesClientOptions, identifiers, customAttributes);
-			throw error;
-		}
-
-		return this.initFromValues(
+		await this.initFromFetchedValues(
 			fromValuesClientOptions,
 			identifiers,
-			customAttributesFromResult,
-			experimentValues,
+			customAttributes,
+			Fetcher.fetchClientSdk(clientOptions).then((value) => value.clientSdkKey),
+			Fetcher.fetchFlagValues(clientOptions, identifiers, customAttributes).then((response) =>
+				toInitializeValues(response, customAttributes),
+			),
+			'initialize',
 		);
 	}
 
@@ -884,54 +1071,89 @@ export class Client {
 			disableCurrentPageLogging: true,
 		};
 
-		let experimentValues: Record<string, unknown> | undefined;
-		let customAttributesFromResult: CustomAttributes | undefined;
+		// A failure to set the profile, even a synchronous one, fails both fetches.
+		const profilePromise = Promise.resolve().then(() =>
+			provider.setProfile(baseClientOptions, identifiers, customAttributes),
+		);
+		await this.initFromFetchedValues(
+			fromValuesClientOptions,
+			identifiers,
+			customAttributes,
+			profilePromise.then(() => provider.getClientSdkKey()),
+			profilePromise.then(() => provider.getExperimentValues()),
+			'initializeWithProvider',
+		);
+	}
 
+	/**
+	 * Initializes from values that are still being fetched, alongside Statsig's SDK key.
+	 *
+	 * Only Statsig needs the key, so a failed key fetch leaves FFP initialized with its values and
+	 * Statsig without values, and the key is not waited for at all when the Feature Flag Service
+	 * disables Statsig. A failed values fetch initializes Statsig without values (but with the key,
+	 * if it arrives) and FFP not at all. Either failure rejects after initializing.
+	 */
+	private async initFromFetchedValues(
+		fromValuesClientOptions: FromValuesClientOptions,
+		identifiers: Identifiers,
+		customAttributes: CustomAttributes | undefined,
+		clientSdkKeyPromise: Promise<string>,
+		valuesPromise: Promise<FrontendExperimentsResult>,
+		trigger: string,
+	): Promise<void> {
+		// Record the key on the options whenever it arrives, so Statsig can still use it if it is
+		// enabled after being disabled. Never leave a failure unhandled, as it may never be awaited.
+		const clientSdkKeyResult = clientSdkKeyPromise.then(
+			(sdkKey): { error?: unknown } => {
+				fromValuesClientOptions.sdkKey = sdkKey;
+				return {};
+			},
+			(error: unknown) => ({ error }),
+		);
+
+		let values: FrontendExperimentsResult;
 		try {
-			await provider.setProfile(baseClientOptions, identifiers, customAttributes);
-
-			// If client sdk key fetch fails, an error would be thrown and handled instead of waiting for
-			// the experiment values request to be settled, and it will fall back to use default values.
-			const clientSdkKeyPromise = provider
-				.getClientSdkKey()
-				.then((value) => (fromValuesClientOptions.sdkKey = value));
-
-			const experimentValuesPromise = provider.getExperimentValues();
-
-			// Only wait for the experiment values request to finish and try to initialise the client
-			// with experiment values if both requests are successful. Else an error would be thrown and
-			// handled by the catch
-			const [, experimentValuesResult] = await Promise.all([
-				clientSdkKeyPromise,
-				experimentValuesPromise,
-			]);
-
-			experimentValues = experimentValuesResult.experimentValues;
-			customAttributesFromResult = experimentValuesResult.customAttributesFromFetch;
+			values = await valuesPromise;
 		} catch (error: unknown) {
-			if (error instanceof Error) {
-				// eslint-disable-next-line no-console
-				console.error(
-					`Error occurred when trying to fetch the Feature Gates client values, error: ${error?.message}`,
-				);
-			}
-			// eslint-disable-next-line no-console
-			console.warn(`Initialising Statsig client without values`);
+			logFetchError(error);
+			// Statsig starts without values, but still with its SDK key if that arrives.
+			await clientSdkKeyResult;
 			await this.initFromValues(fromValuesClientOptions, identifiers, customAttributes);
 			throw error;
 		}
 
-		return this.initFromValues(
+		const disabledProviders = values.disabledProviders ?? [];
+		const keyFailure = disabledProviders.includes('statsig') ? {} : await clientSdkKeyResult;
+		if ('error' in keyFailure) {
+			logFetchError(keyFailure.error);
+			await this.initFromValues(
+				fromValuesClientOptions,
+				identifiers,
+				customAttributes,
+				undefined,
+				values.ffp,
+				disabledProviders,
+			);
+			throw keyFailure.error;
+		}
+
+		await this.initFromValues(
 			fromValuesClientOptions,
 			identifiers,
-			customAttributesFromResult,
-			experimentValues,
+			values.customAttributesFromFetch,
+			values.experimentValues,
+			values.ffp,
+			disabledProviders,
 		);
+		this.reportEvalFlagsStatus(trigger, values.status);
 	}
 
 	/**
 	 * This method initializes the client using a set of boostrap values obtained from one of the
 	 * server-side SDKs.
+	 *
+	 * Each provider is initialized independently, and a provider in `disabledProviders` is not
+	 * initialized at all.
 	 *
 	 * @param clientOptions
 	 * @param identifiers
@@ -944,11 +1166,37 @@ export class Client {
 		identifiers: Identifiers,
 		customAttributes?: CustomAttributes | undefined,
 		initializeValues: Record<string, unknown> = {},
+		ffpValues?: FfpInitializeValues,
+		disabledProviders: ReadonlyArray<EvalFlagsProvider> = [],
 	): Promise<void> {
 		this.overrideAdapter.initFromStoredOverrides();
 		this.currentIdentifiers = identifiers;
 		this.currentAttributes = customAttributes;
+		this.statsigInitOptions = clientOptions;
+		// FFP is independent of Statsig, so apply it before the Statsig client can fail.
+		this.ffp.apply(
+			clientOptions,
+			disabledProviders.includes('ffp') ? undefined : ffpValues,
+			identifiers,
+			customAttributes,
+		);
+		this.valuesApplied = true;
 
+		if (!disabledProviders.includes('statsig')) {
+			await this.startStatsig(clientOptions, identifiers, customAttributes, initializeValues);
+		}
+	}
+
+	/**
+	 * Creates and initializes the Statsig client. If that fails, Statsig is initialized with the
+	 * default SDK key and without values, and the error is rethrown.
+	 */
+	private async startStatsig(
+		clientOptions: FromValuesClientOptions,
+		identifiers: Identifiers,
+		customAttributes: CustomAttributes | undefined,
+		initializeValues: Record<string, unknown>,
+	): Promise<void> {
 		const newClientOptions = migrateInitializationOptions(clientOptions);
 		if (!newClientOptions.sdkKey) {
 			newClientOptions.sdkKey = DEFAULT_CLIENT_KEY;
@@ -996,11 +1244,16 @@ export class Client {
 			statsigOptions.disableStableID = true;
 		}
 
+		const generation = this.statsigGeneration;
 		try {
 			this.statsigClient = new StatsigClient(sdkKey, this.user, statsigOptions);
 			this.dataAdapter.setBootstrapData(initializeValues);
 			await this.statsigClient.initializeAsync();
 		} catch (error: unknown) {
+			if (generation !== this.statsigGeneration) {
+				// Statsig was stopped while starting, so it must not be started again with defaults.
+				throw error;
+			}
 			if (error instanceof Error) {
 				// eslint-disable-next-line no-console
 				console.error(
@@ -1018,6 +1271,76 @@ export class Client {
 	}
 
 	/**
+	 * Starts Statsig after initialization, when the Feature Flag Service enables it again after
+	 * disabling it. Concurrent calls share one start, and a start overtaken by {@link stopStatsig}
+	 * does nothing.
+	 */
+	private restartStatsig(
+		values: FrontendExperimentsResult,
+		identifiers: Identifiers,
+		customAttributes: CustomAttributes | undefined,
+	): Promise<void> {
+		if (!this.statsigStart) {
+			const generation = this.statsigGeneration;
+			this.statsigStart = this.getStatsigRestartOptions(values)
+				.then((options) => {
+					if (generation !== this.statsigGeneration) {
+						return;
+					}
+					this.statsigInitOptions = options;
+					return this.startStatsig(options, identifiers, customAttributes, values.experimentValues);
+				})
+				.finally(() => {
+					this.statsigStart = undefined;
+				});
+		}
+		return this.statsigStart;
+	}
+
+	/**
+	 * The options to start Statsig with after initialization. Statsig's SDK key is normally already
+	 * known from initialization; otherwise it comes from the values or is fetched again.
+	 */
+	private async getStatsigRestartOptions(
+		values: FrontendExperimentsResult,
+	): Promise<FromValuesClientOptions> {
+		const options: FromValuesClientOptions = { ...(this.statsigInitOptions ?? this.initOptions!) };
+		if (!options.sdkKey) {
+			options.sdkKey = values.clientSdkKey ?? (await this.fetchStatsigSdkKey());
+		}
+		return options;
+	}
+
+	private async fetchStatsigSdkKey(): Promise<string | undefined> {
+		if (this.provider) {
+			return this.provider.getClientSdkKey();
+		}
+		const initOptions = this.initOptions;
+		if (initOptions && 'apiKey' in initOptions) {
+			return (await Fetcher.fetchClientSdk(initOptions)).clientSdkKey;
+		}
+		// Initialized from values: the caller supplied the key, if any.
+		return undefined;
+	}
+
+	/**
+	 * Stops Statsig while the Feature Flag Service disables it: the client is shut down and no longer
+	 * called, so its keys get the wrapper's defaults. It is started again when re-enabled.
+	 */
+	private stopStatsig(): void {
+		this.statsigGeneration += 1;
+		const statsigClient = this.statsigClient;
+		this.statsigClient = undefined;
+		this.user = undefined;
+		if (statsigClient) {
+			Promise.resolve(statsigClient.shutdown()).catch((error: unknown) => {
+				// eslint-disable-next-line no-console
+				console.warn('Failed to shut down the Statsig client', error);
+			});
+		}
+	}
+
+	/**
 	 * This method updates the user for this client with the bootstrap values returned from a given
 	 * Promise.
 	 * It uses the customAttributes from fetching experiment values to update the Statsig user but
@@ -1029,11 +1352,11 @@ export class Client {
 	 * @private
 	 */
 	private async updateUserUsingInitializeValuesProducer(
-		getInitializeValues: () => Promise<InitializeValues>,
+		getInitializeValues: () => Promise<FrontendExperimentsResult>,
 		identifiers: Identifiers,
 		customAttributes?: CustomAttributes,
 	): Promise<void> {
-		this.assertInitialized(this.statsigClient);
+		this.assertReady();
 		if (!this.initPromise) {
 			throw new Error('The client must be initialized before you can update the user.');
 		}
@@ -1053,7 +1376,7 @@ export class Client {
 		}
 
 		const initializeValuesPromise = getInitializeValues();
-		const updateUserPromise = this.updateStatsigClientUser(
+		const updateUserPromise = this.updateClientsUser(
 			initializeValuesPromise,
 			identifiers,
 			customAttributes,
@@ -1063,8 +1386,14 @@ export class Client {
 		// point. Any subsequent calls to await client.initialize() or client.updateUser()
 		// will now also await this user update.
 		this.initPromise = updateUserPromise.catch(async () => {
-			// If the update failed then it changed nothing, so revert back to the original promise.
+			// A failed update leaves the initialization result as it was.
 			this.initPromise = originalInitPromise;
+
+			// Once the values arrive the client switches to the new user, even if Statsig then fails to
+			// update, so the provider keeps the new profile. Only a failed fetch reverts it.
+			if (this.isCurrentUser(identifiers, customAttributes)) {
+				return;
+			}
 
 			// Set the user profile again to revert back to the current user
 			if (this.provider) {
@@ -1080,25 +1409,23 @@ export class Client {
 	}
 
 	/**
-	 * This method updates the user on the nested Statsig client
+	 * This method updates the user on each provider's client, independently: FFP serves the new
+	 * user's values even if Statsig fails to update, and a provider disabled by the Feature Flag
+	 * Service is stopped (or, if it is enabled again, started).
 	 *
 	 * @param identifiers
 	 * @param customAttributes
 	 * @param initializeValuesPromise
 	 * @private
 	 */
-	private async updateStatsigClientUser(
-		initializeValuesPromise: Promise<InitializeValues>,
+	private async updateClientsUser(
+		initializeValuesPromise: Promise<FrontendExperimentsResult>,
 		identifiers: Identifiers,
 		customAttributes?: CustomAttributes,
 	): Promise<void> {
-		this.assertInitialized(this.statsigClient);
-
-		let initializeValues, user;
+		let initializeValues: FrontendExperimentsResult;
 		try {
 			initializeValues = await initializeValuesPromise;
-			const frontendUser = toStatsigUser(identifiers, initializeValues.customAttributesFromFetch);
-			user = deepAssign({}, initializeValues.experimentValues.user, frontendUser);
 		} catch (err) {
 			// Make sure the updateUserCompletionCallback is called for any errors in our custom code.
 			// This is not necessary for the updateUserWithValues call, because the Statsig client will
@@ -1108,26 +1435,93 @@ export class Client {
 			throw err;
 		}
 
+		const disabledProviders = initializeValues.disabledProviders ?? [];
+		this.currentIdentifiers = identifiers;
+		this.currentAttributes = customAttributes;
+		this.ffp.apply(
+			this.initOptions!,
+			disabledProviders.includes('ffp') ? undefined : initializeValues.ffp,
+			identifiers,
+			initializeValues.customAttributesFromFetch,
+		);
+
 		let success = true;
 		let errorMessage: string | null = null;
 		try {
-			this.dataAdapter.setBootstrapData(initializeValues.experimentValues);
-			this.user = user;
-			if (this.user) {
-				await this.statsigClient.updateUserAsync(this.user);
-			}
+			await this.updateStatsigUser(
+				initializeValues,
+				identifiers,
+				disabledProviders.includes('statsig'),
+			);
 		} catch (err) {
 			success = false;
 			errorMessage = String(err);
 		}
 
 		this.initOptions?.updateUserCompletionCallback?.(success, errorMessage);
-		if (success) {
-			this.currentIdentifiers = identifiers;
-			this.currentAttributes = customAttributes;
-			this.subscriptions.anyUpdated();
-		} else {
+		this.subscriptions.anyUpdated();
+		this.reportEvalFlagsStatus('updateUser', initializeValues.status);
+		if (!success) {
 			throw new Error('Failed to update user. An unexpected error occured.');
+		}
+	}
+
+	/** Updates, starts or stops Statsig for a new user, as the Feature Flag Service directs. */
+	private async updateStatsigUser(
+		initializeValues: FrontendExperimentsResult,
+		identifiers: Identifiers,
+		disabled: boolean,
+	): Promise<void> {
+		if (disabled) {
+			this.stopStatsig();
+			return;
+		}
+		// Let a start that is already in progress finish, then update the client it created.
+		await this.statsigStart?.catch(() => undefined);
+		if (!this.statsigClient) {
+			await this.restartStatsig(
+				initializeValues,
+				identifiers,
+				initializeValues.customAttributesFromFetch,
+			);
+			return;
+		}
+		const frontendUser = toStatsigUser(identifiers, initializeValues.customAttributesFromFetch);
+		this.dataAdapter.setBootstrapData(initializeValues.experimentValues);
+		this.user = deepAssign({}, initializeValues.experimentValues.user, frontendUser);
+		await this.statsigClient.updateUserAsync(this.user);
+	}
+
+	/**
+	 * Picks the one source that answers for a gate or config, so a key never reaches a client that
+	 * does not own it:
+	 * - FFP, for a key in its latest payload. A local override for such a key is applied here
+	 *   instead, because Statsig must not be called for it.
+	 * - Statsig, for every other key while it is enabled. It applies local overrides itself.
+	 * - Otherwise a local override, or the wrapper's default.
+	 */
+	private route<K extends 'gates' | 'configs'>(
+		name: string,
+		kind: K,
+	): Route<LocalOverrides[K][string]> {
+		const servedByFfp = this.ffp.has(name);
+		if (!servedByFfp && this.statsigClient) {
+			return { source: 'statsig', statsigClient: this.statsigClient };
+		}
+		const override = this.overrideAdapter.getOverride(kind, name);
+		if (override !== undefined) {
+			return { source: 'override', value: override };
+		}
+		return { source: servedByFfp ? 'ffp' : 'default' };
+	}
+
+	/**
+	 * Throws until values have been applied by an initialize method. Statsig may legitimately be
+	 * absent afterwards, when the Feature Flag Service disables it.
+	 */
+	private assertReady(): void {
+		if (!this.valuesApplied) {
+			throw new Error('Client must be initialized before using this method');
 		}
 	}
 
@@ -1138,7 +1532,7 @@ export class Client {
 	protected statsigValuesUpdated = (): void => {
 		if (this.user) {
 			// Trigger a reset of the memoize cache
-			this.statsigClient!.updateUserSync(this.user, { disableBackgroundCacheRefresh: true });
+			this.statsigClient?.updateUserSync(this.user, { disableBackgroundCacheRefresh: true });
 		}
 		this.subscriptions.anyUpdated();
 	};
@@ -1165,6 +1559,9 @@ export class Client {
 	/**
 	 * Returns a specified layer otherwise returns an empty layer as a default value if the layer doesn't exist.
 	 *
+	 * Layers exist only in Statsig. Flags that only exist in the Feature Flag Platform (FFP) are read
+	 * with {@link Client.ffpClient}.
+	 *
 	 * @param {string} layerName - The name of the layer
 	 * @param {Object} options
 	 * @param {boolean} options.fireLayerExposure - Whether or not to fire the exposure event for the
@@ -1183,8 +1580,13 @@ export class Client {
 		options: GetLayerOptions = {},
 	): Layer {
 		try {
-			this.assertInitialized(this.statsigClient);
+			this.assertReady();
 			const { fireLayerExposure = true } = options;
+			if (!this.statsigClient) {
+				// Layers are Statsig-only, so without Statsig only an override can serve one.
+				const layer = _makeLayer(layerName, { reason: 'Unrecognized' }, null);
+				return Layer.fromLayer(this.overrideAdapter.getLayerOverride(layer, {}) ?? layer);
+			}
 			return Layer.fromLayer(
 				this.statsigClient.getLayer(layerName, { disableExposureLog: !fireLayerExposure }),
 			);
@@ -1207,6 +1609,9 @@ export class Client {
 
 	/**
 	 * Returns the value of a given parameter in a layer config.
+	 *
+	 * Layers exist only in Statsig. Flags that only exist in the Feature Flag Platform (FFP) are read
+	 * with {@link Client.ffpClient}.
 	 *
 	 * @template T
 	 * @param {string} layerName - The name of the layer

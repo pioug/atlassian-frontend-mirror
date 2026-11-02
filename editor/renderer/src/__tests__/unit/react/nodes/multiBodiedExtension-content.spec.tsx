@@ -1,4 +1,4 @@
-/* eslint-disable @atlaskit/editor/no-as-casting, react/jsx-props-no-spreading */
+/* eslint-disable react/jsx-props-no-spreading */
 
 import React from 'react';
 

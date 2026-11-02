@@ -23,6 +23,7 @@ let supplied: ExposureDelivery | Promise<ExposureDelivery> | undefined;
  * dynamically imported module. A client given a promise buffers its exposures until it resolves.
  */
 export function loadExposureDelivery(): ExposureDelivery | Promise<ExposureDelivery> {
+	// @ts-ignore TS2835: a relative import() must name its file under `nodenext`, which only the prebuilt tools' declaration build uses
 	return supplied ?? import('./delivery');
 }
 

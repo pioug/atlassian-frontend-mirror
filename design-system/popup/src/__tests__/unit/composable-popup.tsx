@@ -2,6 +2,7 @@ import React from 'react';
 
 import Button from '@atlaskit/button/default/button';
 import __noop from '@atlaskit/ds-lib/noop';
+import { failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { screen } from '@atlassian/testing-library/screen';
 import { render } from '@atlassian/testing-library/testing-library/react';
@@ -286,6 +287,9 @@ describe('Popup with composable API', () => {
 	});
 
 	it('should not render the popup inside the parent when shouldRenderToParent is false', () => {
+		// Legacy only: the top-layer popup always renders in place. That is covered in
+		// `composable-popup-top-layer.test.tsx`.
+		failGate('platform-dst-top-layer');
 		render(
 			<div data-testid="parent">
 				<Popup isOpen>

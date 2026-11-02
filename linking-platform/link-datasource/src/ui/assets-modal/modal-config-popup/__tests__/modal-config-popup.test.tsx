@@ -4,6 +4,8 @@ import { render, screen } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
 import { aboveModal } from '../../../../common/zindex';
 import { AssetsModalConfigPopup, type AssetsModalConfigPopupProps } from '../index';
 
@@ -57,11 +59,23 @@ describe('AssetsModalConfigPopup', () => {
 	});
 
 	it('renders the popup above modal dialogs', async () => {
+		// Legacy only: the z-index is on the portal. The top-layer case is below.
+		failGate('platform-dst-top-layer');
 		const user = userEvent.setup();
 		renderPopup();
 
 		const popup = await openPopup(user);
 		expect(popup.closest('.atlaskit-portal')).toHaveStyle(`z-index: ${aboveModal}`);
+	});
+
+	it('renders the popup in the top layer, above modal dialogs', async () => {
+		passGate('platform-dst-top-layer');
+		const user = userEvent.setup();
+		renderPopup();
+
+		const popup = await openPopup(user);
+		// An open popover is in the top layer, so it needs no z-index to be above a modal dialog.
+		expect(popup.matches(':popover-open')).toBe(true);
 	});
 
 	it('renders the pagination select with default values and the checkbox', async () => {

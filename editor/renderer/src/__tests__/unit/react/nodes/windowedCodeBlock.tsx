@@ -42,7 +42,7 @@ const render = async (overrides = {}) => {
 	const container = document.createElement('div');
 	document.body.appendChild(container);
 	if (process.env.IS_REACT_18 === 'true') {
-		// eslint-disable-next-line @repo/internal/import/no-unresolved, import/dynamic-import-chunkname -- react-dom/client only available in react 18
+		// eslint-disable-next-line import/dynamic-import-chunkname -- react-dom/client only available in react 18
 		const { createRoot } = await import('react-dom/client');
 		const root = createRoot(container!);
 		act(() => {

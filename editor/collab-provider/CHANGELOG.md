@@ -1,5 +1,52 @@
 # @atlaskit/collab-provider
 
+## 39.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 39.1.0
+
+### Minor Changes
+
+- [`88f6eda39f497`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88f6eda39f497) -
+  Resolve agent telepointer colours from supplied display names and stable named IDs instead of
+  machine types. Under `confluence_ncs_step_diffing_version_history`, collab-provider carries
+  `agentId`, `agentName` and `agentNamedId` from received steps into local agent presence, retaining
+  known metadata when later steps omit it. This path uses no profile lookups. Missing presentation
+  metadata uses the generic agent palette; human participants keep their existing colours.
+
+  Telepointers identify agent participants from these explicit identity fields rather than
+  `agentType` or a human participant's display name.
+
+  `getParticipantColor(id, agentName?, agentNamedId?)` and
+  `collabEdit.actions.getAvatarColor(id, agentName?, agentNamedId?)` now accept a resolved display
+  name in the second argument. Callers previously passing a machine type should supply the agent's
+  name instead, and pass stable named IDs in the third argument. With
+  `confluence_ncs_step_diffing_version_history` enabled, named brand metadata takes precedence over
+  the display name. With the gate off, brand lookup is disabled. Human callers should continue to
+  omit agent metadata.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 39.0.7
+
+### Patch Changes
+
+- [`0f850e01177aa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0f850e01177aa) -
+  Remove the abandoned collab_edit_via_websocket_only_for_gcp feature gate and its WebSocket-only
+  transport path.
+- Updated dependencies
+
+## 39.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 39.0.5
 
 ### Patch Changes

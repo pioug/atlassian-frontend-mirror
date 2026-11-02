@@ -4,15 +4,10 @@ import { IntlProvider } from 'react-intl';
 
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 import { getMockEmojis } from '@atlaskit/editor-test-helpers/mock-emojis';
-import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import { currentUser, getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 
 import { EmojiPicker } from '../../picker';
 import type { EmojiProvider } from '../../resource';
-
-setupEditorExperiments('test', {
-	platform_teamoji_26_refresh_emoji_picker: false,
-});
 
 const useProvider = (uploadSupported: boolean) => {
 	return useMemo<Promise<EmojiProvider>>(() => {

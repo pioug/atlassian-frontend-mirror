@@ -138,7 +138,9 @@ export const ROVO_SECTION_RANK: Readonly<Record<string, number>> = {
 export const DATA_AND_CHARTS_SECTION_RANK: Readonly<Record<string, number>> = {
 	[JIRA_WORK_ITEMS_MENU_ITEM.key]: 300,
 	[CONFLUENCE_LIST_MENU_ITEM.key]: 400,
-	[ASSETS_MENU_ITEM.key]: 500,
+	// Extension items in this section rank at EXTENSION_ITEM_RANK (1500) + priority, so Assets sits
+	// after the Spaces items (priority 900) and before Calendar (2500).
+	[ASSETS_MENU_ITEM.key]: 2450,
 } as const;
 
 export const OTHER_SECTION_RANK: Readonly<Record<string, number>> = {

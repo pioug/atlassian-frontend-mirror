@@ -1,5 +1,7 @@
 import type { StatsigOptions as NewStatsigOptions } from '@statsig/js-client';
 
+import type { BulkEvaluationPayloadV1 } from '@atlaskit/flag-client/types';
+
 import type { StatsigOptions } from './compat/types';
 
 /**
@@ -94,9 +96,9 @@ export interface ClientOptions extends BaseClientOptions {
 	 * Whether to include flags served by the Feature Flag Platform (FFP). Defaults to `false`.
 	 *
 	 * When `true`, values are fetched from the Feature Flag Service `/api/v1/evalFlags` endpoint,
-	 * which assigns each flag to either Statsig or FFP. FFP values are not used yet, so a flag the
-	 * service assigns to FFP returns its default. Only enable this for a `targetApp` with no flags in
-	 * FFP.
+	 * which assigns each flag to either Statsig or FFP, and each flag is served by the platform it is
+	 * assigned to. When `false`, only Statsig values are fetched, from
+	 * `/api/v2/frontend/experimentValues`, and FFP is treated as disabled.
 	 *
 	 * Pass the same value to `updateUser`, which takes its fetch options separately.
 	 */
@@ -185,14 +187,59 @@ export type GetLayerValueOptions<T> = GetLayerOptions & {
 	typeGuard?: (value: unknown) => value is T;
 };
 
+/**
+ * Feature Flag Platform bootstrap values: the `ffp` member of the Feature Flag Service
+ * `/api/v1/evalFlags` response. The service partitions flags, so a key is present here only when FFP
+ * (rather than Statsig) serves it. Members other than those of `BulkEvaluationPayloadV1` are
+ * ignored; `vs` is forwarded so the FFP client rejects a schema version it does not support.
+ * `requestContext` is required: without it the FFP client rejects the values and FFP serves nothing
+ * for the user.
+ */
+export interface FfpInitializeValues extends BulkEvaluationPayloadV1 {
+	readonly status?: string;
+	readonly targetApp?: string;
+}
+
 export interface InitializeValues {
 	experimentValues: Record<string, unknown>;
 	customAttributesFromFetch: CustomAttributes | undefined;
+	/** When absent, Statsig serves every flag for this user. */
+	ffp?: FfpInitializeValues;
+}
+
+/**
+ * Health of a provider as reported by the Feature Flag Service `/api/v1/evalFlags` endpoint.
+ * - `OK`: evaluated; its section has every flag the provider serves (possibly none).
+ * - `DISABLED`: deliberately not used; its section is empty and calling again will not change that.
+ * - `UNAVAILABLE`: should have been used but could not be evaluated; its section is empty and calling
+ *   again may give a better result.
+ */
+export type EvalFlagsProviderStatus = 'OK' | 'DISABLED' | 'UNAVAILABLE';
+
+export interface EvalFlagsStatus {
+	statsig: EvalFlagsProviderStatus;
+	ffp: EvalFlagsProviderStatus;
 }
 
 export interface FrontendExperimentsResult extends InitializeValues {
 	clientSdkKey?: string;
+	/**
+	 * Provider health reported by the fetch that produced these values, used for reporting only.
+	 * The values must already account for it (e.g. sections of unhealthy providers omitted or
+	 * replaced). Absent when the values were not freshly fetched, e.g. when read from a cache.
+	 */
+	status?: EvalFlagsStatus;
+	/**
+	 * Providers the Feature Flag Service reported as `DISABLED` for these values. The client neither
+	 * initializes nor calls a disabled provider, and keys it would have served get the wrapper's
+	 * defaults. Unlike `status`, this is kept when the values are read from a cache. Absent means no
+	 * provider is disabled.
+	 */
+	disabledProviders?: ReadonlyArray<EvalFlagsProvider>;
 }
+
+/** A flag provider behind the Feature Flag Service. */
+export type EvalFlagsProvider = keyof EvalFlagsStatus;
 
 export interface Provider {
 	setClientVersion: (clientVersion: string) => void;

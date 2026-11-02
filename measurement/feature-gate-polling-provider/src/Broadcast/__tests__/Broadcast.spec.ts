@@ -16,9 +16,12 @@ describe('Broadcast', () => {
 	const stateUpdateCallback = jest.fn();
 	const mockProfileHash = 'v0.profile-hash-1';
 	const mockFeatureGateState: FeatureGateState = {
-		experimentValuesResponse: {
-			experimentValues: {},
-			customAttributes: {},
+		evalFlagsResponse: {
+			statsig: {
+				experimentValues: {},
+				customAttributes: {},
+			},
+			status: { statsig: 'OK', ffp: 'DISABLED' },
 		},
 		profileHash: mockProfileHash,
 		timestamp: 0,

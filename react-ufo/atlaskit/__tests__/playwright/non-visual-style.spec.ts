@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable testing-library/prefer-screen-queries */
-/* eslint-disable compat/compat */
 
 import { VCObserver } from '../../src/vc/vc-observer';
 import { expect, getClientCalculatedVCRevisions, test, viewports } from './fixtures';

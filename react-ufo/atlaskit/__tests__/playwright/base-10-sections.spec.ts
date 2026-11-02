@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable testing-library/prefer-screen-queries */
-/* eslint-disable compat/compat */
 
 import { expect, test, viewports } from './fixtures';
 
@@ -129,7 +127,6 @@ test.describe('TTVC: basic page (10 congruent sections)', () => {
 								expect(rawHandlerRev!.rawData).toBeDefined();
 								expect(rawHandlerRev!.rawData!.obs!.length).toBeGreaterThan(0);
 								// Verify observations have valid rects (needed for ratio recalculation)
-								// eslint-disable-next-line playwright/no-conditional-in-test
 								for (const obs of rawHandlerRev!.rawData!.obs!) {
 									expect(obs.r).toHaveLength(4);
 									expect(obs.t).toBeGreaterThanOrEqual(0);

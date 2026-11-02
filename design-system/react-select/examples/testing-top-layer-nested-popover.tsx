@@ -22,7 +22,7 @@ export default function TopLayerNestedPopoverFixture(): React.ReactNode {
 				ref={popoverRef}
 				data-testid="outer-popover"
 				// @ts-expect-error -- popover attribute not yet in React types
-				// eslint-disable-next-line react/no-unknown-property
+				// eslint-disable-next-line react/no-unknown-property, @atlaskit/design-system/no-native-popover-or-dialog -- testing example for a native auto popover around a nested Select
 				popover="auto"
 				// Not used for interaction, but to track key presses for testing purposes
 				role="presentation"

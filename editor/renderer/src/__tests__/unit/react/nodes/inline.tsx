@@ -4,7 +4,6 @@ import { render } from '@atlassian/testing-library/render';
 
 import Inline, { hasRenderableChild } from '../../../../react/nodes/inline';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Renderer - React/Nodes/Inline', () => {
 	describe('hasRenderableChild', () => {
 		const cases: Array<[string, React.ReactNode]> = [

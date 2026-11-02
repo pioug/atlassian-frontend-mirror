@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-paste
 
+## 31.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 31.1.0
+
+### Minor Changes
+
+- [`7821cf2be124c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7821cf2be124c) -
+  Keep pasted text inside panels, expands and lists when the copied paragraph has an alignment or
+  indentation the destination does not allow (behind
+  platform_editor_paste_strip_invalid_block_marks)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 31.0.5
 
 ### Patch Changes

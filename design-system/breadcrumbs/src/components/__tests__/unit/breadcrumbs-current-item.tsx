@@ -218,7 +218,6 @@ ffTest.on('platform_dst_breadcrumbs-refresh', 'BreadcrumbsCurrentItem with refre
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.off(
 	'platform_dst_breadcrumbs-refresh',
 	'BreadcrumbsCurrentItem with refresh disabled',

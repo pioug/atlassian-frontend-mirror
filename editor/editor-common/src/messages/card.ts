@@ -1,190 +1,195 @@
 import { defineMessages } from 'react-intl';
 
 export const messages: {
-	url: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
 	block: {
-		id: string;
 		defaultMessage: string;
 		description: string;
-	};
-	inline: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	embed: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	link: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	card: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	blockCardUnavailable: {
-		id: string;
 		defaultMessage: string;
 		description: string;
-	};
-	displayOptionUnavailableInParentNode: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	urlTitle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	blockTitle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	inlineTitle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	openButtonTitle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	panelButtonTitle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	previewButtonTitle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	embedTitle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	urlDescription: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	blockDescription: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	inlineDescription: {
-		id: string;
+	blockTitle: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	embedDescription: {
-		id: string;
+	card: {
 		defaultMessage: string;
 		description: string;
-	};
-	embedToBlockCardWarning: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	editDropdownExpandIconLabel: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	editDropdownTriggerTitle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	editDropdownEditLinkTitle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	editDropdownEditDatasourceTitle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	datasourceTitle: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	datasourceAppearanceTitle: {
-		id: string;
 		defaultMessage: string;
 		description: string;
-	};
-	datasourceJiraIssue: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	datasourceJiraIssueDescription: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	datasourceAssetsObjectsGeneralAvailability: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	datasourceAssetsObjectsDescription: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	inlineOverlay: {
-		id: string;
+	datasourceAssetsObjectsGeneralAvailability: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	inlineConfigureLink: {
-		id: string;
+	datasourceConfluenceList: {
 		defaultMessage: string;
 		description: string;
-	};
-	inlineGoToLink: {
 		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	datasourceConfluenceSearch: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
 	datasourceConfluenceSearchDescription: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	datasourceJiraIssueIssueTermRefresh: {
-		id: string;
+	datasourceJiraIssue: {
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	datasourceJiraIssueDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	datasourceJiraIssueDescriptionIssueTermRefresh: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	datasourceJiraIssueIssueTermRefresh: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	datasourceTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	displayOptionUnavailableInParentNode: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	editDropdownEditDatasourceTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	editDropdownEditLinkTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	editDropdownExpandIconLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	editDropdownTriggerTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	embed: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	embedDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	embedTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	embedToBlockCardWarning: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	inline: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	inlineConfigureLink: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	inlineDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	inlineGoToLink: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	inlineOverlay: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	inlineTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	link: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	openButtonTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	panelButtonTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	previewButtonTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	url: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	urlDescription: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	urlTitle: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 } = defineMessages({
 	url: {
@@ -369,10 +374,17 @@ export const messages: {
 		description:
 			'An option in the configure link dropdown that informs the user they can click the option to open the link',
 	},
+	// Remove when cleaning up platform_editor_slash_command
 	datasourceConfluenceSearch: {
 		id: 'fabric.editor.datasource.confluenceSearch',
 		defaultMessage: 'Insert Confluence list',
 		description: 'Title shown for Confluence Search datasource on QuickInsert options',
+	},
+	datasourceConfluenceList: {
+		id: 'fabric.editor.datasource.confluenceList',
+		defaultMessage: 'Confluence list',
+		description:
+			'Title shown for Confluence Search datasource in the Data and charts section of the editor slash command menu',
 	},
 	datasourceConfluenceSearchDescription: {
 		id: 'fabric.editor.datasource.confluenceSearch.description',

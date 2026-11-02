@@ -17,7 +17,6 @@ import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 
 import type { EmojiDescription } from '../../types';
-import { isTeamoji26RefreshEmojiPickerEnabledNoExposure } from '../../util/teamoji26RefreshEmojiPicker';
 import Emoji from './Emoji';
 
 export const tonePreviewTestId = 'tone-preview';
@@ -25,8 +24,6 @@ export const tonePreviewTestId = 'tone-preview';
 const emojiButton = css({
 	backgroundColor: 'transparent',
 	border: '0',
-	// Remove this on cleanup of platform_teamoji_26_refresh_emoji_picker
-	borderRadius: token('radius.small', '3px'),
 	cursor: 'pointer',
 	padding: 0,
 	position: 'relative',
@@ -107,31 +104,10 @@ export const TonePreviewButton: ForwardRefExoticComponent<
 		isVisible = true,
 	} = props;
 
-	return isTeamoji26RefreshEmojiPickerEnabledNoExposure() ? (
+	return (
 		<button
 			ref={ref}
 			css={[emojiButton, !isVisible && hidden, emojiButtonOutline, emojiButtonBorderRadius]}
-			onClick={onSelected}
-			onKeyDown={onKeyDown}
-			aria-label={ariaLabelText}
-			aria-expanded={ariaExpanded}
-			aria-controls={ariaControls}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			style={{ overflow: 'hidden' }}
-			data-testid={tonePreviewTestId}
-			type="button"
-		>
-			<Emoji
-				emoji={emoji}
-				selectOnHover={selectOnHover}
-				shouldBeInteractive={false}
-				aria-hidden={true}
-			/>
-		</button>
-	) : (
-		<button
-			ref={ref}
-			css={[emojiButton, !isVisible && hidden]}
 			onClick={onSelected}
 			onKeyDown={onKeyDown}
 			aria-label={ariaLabelText}

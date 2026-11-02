@@ -3,21 +3,14 @@ import { fireEvent, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { emojiActionsTestId } from '../../../../components/common/EmojiActions';
-import {
-	emojiErrorIconTestId,
-	emojiErrorMessageTestId,
-	emojiErrorMessageTooltipTestId,
-} from '../../../../components/common/EmojiErrorMessage';
+import { emojiErrorMessageTestId } from '../../../../components/common/EmojiErrorMessage';
 import { emojiPlaceholderTestId } from '../../../../components/common/emojiPlaceholderTestId';
-import {
-	cancelUploadButtonTestId,
-	uploadPreviewTestId,
-} from '../../../../components/common/EmojiUploadPreview';
+import { cancelEmojiUploadPickerTestId } from '../../../../components/common/EmojiUploadPicker';
 import {
 	chooseFileButtonTestId,
+	dropzoneTestId,
 	fileUploadInputTestId,
 } from '../../../../components/common/FileChooser';
-import { retryUploadButtonTestId } from '../../../../components/common/RetryableButton';
 import { categorySelectorComponentTestId } from '../../../../components/picker/CategorySelector';
 import { categorySelectorCategoryTestId } from '../../../../components/picker/categorySelectorCategoryTestId';
 import { emojiPickerFooterTestId } from '../../../../components/picker/EmojiPickerFooter';
@@ -33,11 +26,11 @@ export function queryEmojiActonsSection(): HTMLElement | null {
 }
 
 export async function getAddCustomEmojiButton(): Promise<HTMLElement> {
-	return await screen.findByRole('button', { name: /Add (your own|custom) emoji/ });
+	return await screen.findByRole('button', { name: /Add( your own| custom)? emoji/ });
 }
 
 export function queryAddCustomEmojiButton(): HTMLElement | null {
-	return screen.queryByRole('button', { name: /Add (your own|custom) emoji/ });
+	return screen.queryByRole('button', { name: /Add( your own| custom)? emoji/ });
 }
 
 export function getUploadEmojiNameInput(): HTMLElement {
@@ -56,7 +49,11 @@ export async function chooseFile(file: any): Promise<void> {
 }
 
 export function getUploadPreview(): HTMLElement {
-	return screen.getByTestId(uploadPreviewTestId);
+	const preview = screen.getByTestId(dropzoneTestId).querySelector('img');
+	if (!preview) {
+		throw new Error('Unable to find the emoji upload preview image');
+	}
+	return preview;
 }
 
 export function getUploadEmojiButton(): HTMLElement {
@@ -68,13 +65,8 @@ export function uploadNewEmoji(): void {
 }
 
 export function cancelUpload(): void {
-	const cancelUploadButton = screen.getByTestId(cancelUploadButtonTestId);
+	const cancelUploadButton = screen.getByTestId(cancelEmojiUploadPickerTestId);
 	fireEvent.click(cancelUploadButton);
-}
-
-export function retryUpload(): void {
-	const retryUploadButton = screen.getByTestId(retryUploadButtonTestId);
-	fireEvent.click(retryUploadButton);
 }
 
 export function getVirtualList(): HTMLElement {
@@ -90,7 +82,7 @@ export function getEmojiPickerFooter(): HTMLElement {
 }
 
 export function queryUploadPreview(): HTMLElement | null {
-	return screen.queryByTestId(uploadPreviewTestId);
+	return screen.queryByTestId(dropzoneTestId)?.querySelector('img') ?? null;
 }
 
 export function getEmojiErrorMessage(): HTMLElement {
@@ -105,14 +97,6 @@ export async function searchEmoji(name: string): Promise<void> {
 	const searchInput = getEmojiSearchInput();
 
 	await userEvent.type(searchInput, name);
-}
-
-export function getEmojiErrorMessageTooltip(): HTMLElement {
-	return screen.getByTestId(emojiErrorMessageTooltipTestId);
-}
-
-export function getEmojiErrorIcon(): HTMLElement {
-	return screen.getByTestId(emojiErrorIconTestId);
 }
 
 export function getEmojiCategoryHeader(title: string): HTMLElement {

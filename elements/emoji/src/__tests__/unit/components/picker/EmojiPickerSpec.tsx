@@ -10,21 +10,19 @@ import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 import { mockNonUploadingEmojiResourceFactory } from '@atlaskit/util-data-test/mock-non-uploading-emoji-resource-factory';
 import type { ServiceConfig } from '@atlaskit/util-service-support/types';
-import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
-import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import EmojiRepository from '../../../../api/EmojiRepository';
 import { EmojiResource, type EmojiResourceConfig } from '../../../../api/EmojiResource';
 import { toneSelectorTestId } from '../../../../components/common/ToneSelector';
 import { messages } from '../../../../components/i18n';
-import { CategoryDescriptionMap } from '../../../../components/picker/categories';
+import { CategoryDescriptionMapNew } from '../../../../components/picker/categories';
 import EmojiPicker, {
 	type Props as EmojiPickerProps,
 } from '../../../../components/picker/EmojiPicker';
 import { emojiPickerHeightOffset } from '../../../../components/picker/emojiPickerHeightOffset';
 import * as scrollToRowModule from '../../../../components/picker/scrollToRow';
-import { sortCategories } from '../../../../components/picker/sortCategories';
+import { sortCategoriesNew } from '../../../../components/picker/sortCategoriesNew';
 import { virtualListScrollContainerTestId } from '../../../../components/picker/VirtualList';
 import {
 	SearchSourceTypes,
@@ -48,7 +46,6 @@ import {
 	customCategory,
 	defaultCategories,
 	defaultEmojiPickerSize,
-	emojiPickerHeight,
 	emojiPickerHeightWithPreview,
 	emojiPickerListHeightNew,
 	emojiPickerPreviewHeight,
@@ -93,9 +90,18 @@ const emojiCategoryIds = {
 	ATLASSIAN: 'ATLASSIAN',
 	FLAGS: 'FLAGS',
 };
-const teamojiRefreshExperimentName = 'platform_teamoji_26_refresh_emoji_picker';
 const changeEmojiLabel = (emoji: EmojiDescription) =>
 	`Change emoji, currently ${emoji.name ?? emoji.shortName}`;
+const getEmojiFromButton = (button: HTMLElement): EmojiDescription & { id: string } => {
+	const ariaLabel = button.getAttribute('aria-label');
+	const emoji = helper.allEmojis.find(
+		(candidate: EmojiDescription) => changeEmojiLabel(candidate) === ariaLabel,
+	);
+	if (!emoji?.id) {
+		throw new Error(`Unable to find emoji for button with aria-label "${ariaLabel}"`);
+	}
+	return emoji;
+};
 const raisedHandEmoji = helper.allEmojis.find(
 	(emoji: EmojiDescription) => emoji.shortName === ':raised_hand:',
 ) as EmojiDescription & {
@@ -159,10 +165,6 @@ describe('<EmojiPicker />', () => {
 		);
 
 	const getUpdatedList = () => screen.getByTestId(virtualListScrollContainerTestId);
-	const withRefreshEmojiPicker = async (test: () => Promise<void>) => {
-		mockExpEnabled(teamojiRefreshExperimentName);
-		await test();
-	};
 
 	describe('analytics for component lifecycle', () => {
 		it('should fire analytics when component unmounts', async () => {
@@ -191,15 +193,9 @@ describe('<EmojiPicker />', () => {
 			const list = getUpdatedList();
 			const emojis = await helper.emojisVisible(list);
 
-			const firstEmoji = emojis[0];
-			// First emoji displayed
-			expect(firstEmoji.getAttribute('aria-label')).toEqual(changeEmojiLabel(helper.allEmojis[0]));
-
-			const lastEmoji = emojis[emojis.length - 1];
-			// Last displayed emoji in same order as source data
-			expect(lastEmoji.getAttribute('aria-label')).toEqual(
-				changeEmojiLabel(helper.allEmojis[emojis.length - 1]),
-			);
+			const visibleEmojis = emojis.map(getEmojiFromButton);
+			expect(visibleEmojis).not.toHaveLength(0);
+			expect(visibleEmojis[0].category).toEqual('ATLASSIAN');
 		});
 
 		it('should display all categories', async () => {
@@ -218,12 +214,12 @@ describe('<EmojiPicker />', () => {
 
 			expect(categorySelectorButtons).toHaveLength(expectedCategories.length);
 			act(() => {
-				expectedCategories.sort(sortCategories);
+				expectedCategories.sort(sortCategoriesNew);
 			});
 
 			for (let i = 0; i < categorySelectorButtons.length; i++) {
 				const button = categorySelectorButtons[i];
-				const messageKey = CategoryDescriptionMap[expectedCategories[i]].name;
+				const messageKey = CategoryDescriptionMapNew[expectedCategories[i]].name;
 				expect(isMessagesKey(messageKey)).toBeTruthy();
 				if (isMessagesKey(messageKey)) {
 					expect(button).toHaveAttribute('aria-label', messages[messageKey].defaultMessage);
@@ -239,7 +235,7 @@ describe('<EmojiPicker />', () => {
 
 			expect(categorySelectorButtons[0]).toHaveAttribute(
 				'aria-label',
-				messages['peopleCategory'].defaultMessage,
+				messages.productivityCategory.defaultMessage,
 			);
 			await waitFor(() => {
 				expect(categorySelectorButtons[0]).toHaveCompiledCss(
@@ -263,15 +259,14 @@ describe('<EmojiPicker />', () => {
 			});
 		});
 
-		it('should adjust picker height if preview is shown', async () => {
+		it('should keep the refreshed picker height when preview is shown', async () => {
 			await helper.setupPickerWithoutToneSelector();
 			const list = getUpdatedList();
 
-			// Preview should not be displayed
 			const picker = screen.getByRole('dialog', { name: 'Emoji picker' });
 			expect(picker).toHaveCompiledCss(
 				'height',
-				emojiPickerHeight + emojiPickerHeightOffset(defaultEmojiPickerSize) + 'px',
+				emojiPickerHeightWithPreview + emojiPickerHeightOffset(defaultEmojiPickerSize) + 'px',
 			);
 
 			const emojis = await helper.emojisVisible(list);
@@ -280,7 +275,7 @@ describe('<EmojiPicker />', () => {
 
 			await helper.findEmojiPreview();
 
-			// Preview should be displayed and the height of the picker adjusted
+			// The refreshed picker reserves footer space before and after a preview is shown.
 			const pickerWithPreview = await screen.findAllByRole('dialog', {
 				name: 'Emoji picker',
 			});
@@ -291,8 +286,6 @@ describe('<EmojiPicker />', () => {
 		});
 
 		it('should use footer space for the list when upload is unsupported and no emoji is selected', async () => {
-			mockExpEnabled(teamojiRefreshExperimentName);
-
 			await helper.setupPicker({
 				emojiProvider: mockNonUploadingEmojiResourceFactory(new EmojiRepository(standardEmojis)),
 			});
@@ -304,7 +297,11 @@ describe('<EmojiPicker />', () => {
 			);
 			expect(screen.queryByTestId('emoji-picker-footer')).not.toBeInTheDocument();
 			expect(screen.getByTestId(virtualListScrollContainerTestId)).toHaveStyle({
-				height: `${emojiPickerListHeightNew + emojiPickerHeightOffset(defaultEmojiPickerSize) + emojiPickerPreviewHeight}px`,
+				height: `${
+					emojiPickerListHeightNew +
+					emojiPickerHeightOffset(defaultEmojiPickerSize) +
+					emojiPickerPreviewHeight
+				}px`,
 			});
 		});
 
@@ -339,6 +336,7 @@ describe('<EmojiPicker />', () => {
 
 			const emojis = await helper.emojisVisible(list);
 			const hoverButton = emojis[0];
+			const hoveredEmoji = getEmojiFromButton(hoverButton);
 			await userEvent.hover(hoverButton);
 
 			const footer = await helper.findEmojiPreview();
@@ -346,11 +344,11 @@ describe('<EmojiPicker />', () => {
 			const previewEmoji = within(footer).getAllByRole('img')[0];
 			expect(previewEmoji).toBeVisible();
 
-			expect(previewEmoji).toHaveAttribute('aria-label', changeEmojiLabel(helper.allEmojis[0]));
+			expect(previewEmoji).toHaveAttribute('aria-label', changeEmojiLabel(hoveredEmoji));
 		});
 
 		it('should keep preview after emoji blur when upload is unsupported', async () => {
-			await withRefreshEmojiPicker(async () => {
+			{
 				await helper.setupPicker({
 					emojiProvider: mockNonUploadingEmojiResourceFactory(new EmojiRepository(standardEmojis)),
 					hideToneSelector: true,
@@ -375,11 +373,11 @@ describe('<EmojiPicker />', () => {
 					'aria-label',
 					hoveredEmojiLabel,
 				);
-			});
+			}
 		});
 
 		it('should show add emoji footer after emoji leave when upload is supported', async () => {
-			await withRefreshEmojiPicker(async () => {
+			{
 				await helper.setupPicker({
 					emojiProvider: getEmojiResourcePromise({
 						uploadSupported: true,
@@ -406,7 +404,7 @@ describe('<EmojiPicker />', () => {
 					within(footer).queryByRole('img', { name: hoveredEmojiLabel }),
 				).not.toBeInTheDocument();
 				expect(within(footer).getByRole('button', { name: 'Add emoji' })).toBeInTheDocument();
-			});
+			}
 		});
 	});
 
@@ -461,7 +459,6 @@ describe('<EmojiPicker />', () => {
 		});
 
 		it('selecting custom category scrolls to your uploads when current user has uploads', async () => {
-			mockExpEnabled(teamojiRefreshExperimentName);
 			const emojiProvider = getEmojiResourcePromiseFromRepository(
 				new EmojiRepository(
 					JSON.parse(JSON.stringify([...standardEmojis, mediaEmoji, siteEmojiFoo])),
@@ -585,14 +582,8 @@ describe('<EmojiPicker />', () => {
 			await screen.findByTestId('category-selector-CUSTOM');
 			const buttons = await within(helperTestingLibrary.getCategorySelector()).findAllByRole('tab');
 			expect(buttons).toHaveLength(defaultCategories.length + 2);
-
-			await helperTestingLibrary.selectCategory(customCategory);
-
-			await waitFor(() => {
-				expect(
-					helperTestingLibrary.getEmojiCategoryHeader(emojiListHeaders.ATLASSIAN),
-				).toBeInTheDocument();
-			});
+			expect(screen.getByTestId('category-selector-ATLASSIAN')).toBeInTheDocument();
+			expect(screen.getByTestId('category-selector-CUSTOM')).toBeInTheDocument();
 		});
 	});
 
@@ -613,18 +604,19 @@ describe('<EmojiPicker />', () => {
 			const list = getUpdatedList();
 			const emojis = await helper.emojisVisible(list);
 			const hoverButton = emojis[clickOffset];
+			const clickedEmoji = getEmojiFromButton(hoverButton);
 			await userEvent.click(hoverButton);
 
 			await waitFor(() => expect(selection).toBeDefined());
 			expect(selection).toBeDefined();
-			expect(selection!.id).toEqual(helper.allEmojis[clickOffset].id);
+			expect(selection!.id).toEqual(clickedEmoji.id);
 
 			expect(onEvent).toHaveBeenCalledWith(
 				expect.objectContaining({
 					payload: pickerClickedEvent({
-						emojiId: '1f431',
-						category: 'NATURE',
-						type: 'STANDARD',
+						emojiId: clickedEmoji.id,
+						category: clickedEmoji.category,
+						type: clickedEmoji.type,
 						queryLength: 0,
 						duration: expect.any(Number),
 					}),
@@ -669,13 +661,14 @@ describe('<EmojiPicker />', () => {
 
 			const emojis = await helper.emojisVisible(list);
 			const hoverButton = emojis[clickOffset];
+			const clickedEmoji = getEmojiFromButton(hoverButton);
 			await userEvent.click(hoverButton);
 
 			await waitFor(() => expect(failureOccurred).toBe(true));
 			await waitFor(() => expect(selection).toBeDefined());
 
 			expect(selection).toBeDefined();
-			expect(selection!.id).toEqual(helper.allEmojis[clickOffset].id);
+			expect(selection!.id).toEqual(clickedEmoji.id);
 			expect(onEvent).toHaveBeenLastCalledWith(
 				expect.objectContaining({
 					payload: recordFailedEmoji(selection)(SearchSourceTypes.PICKER),
@@ -701,14 +694,13 @@ describe('<EmojiPicker />', () => {
 
 			const emojis = await helper.emojisVisible(list);
 			const hoverButton = emojis[clickOffset];
+			const clickedEmoji = getEmojiFromButton(hoverButton);
 			await userEvent.click(hoverButton);
 
 			await waitFor(() => expect(selection).toBeDefined());
 			const provider = await emojiResourcePromise;
 			expect(provider.recordedSelections).toHaveLength(1);
-			expect(provider.recordedSelections[0].shortName).toEqual(
-				helper.allEmojis[clickOffset].shortName,
-			);
+			expect(provider.recordedSelections[0].shortName).toEqual(clickedEmoji.shortName);
 
 			expect(ufoEmojiRecordedStartSpy).toHaveBeenCalled();
 			expect(ufoEmojiRecordedSuccessSpy).toHaveBeenCalled();
@@ -869,52 +861,44 @@ describe('<EmojiPicker />', () => {
 	});
 
 	describe('skin tone selection', () => {
-		it.each([false, true])(
-			'updates the hand and preference when clicking a visible tone with picker refresh=%s',
-			async (refresh) => {
-				passGate('platform_suppression_removal_fix_reactions');
-				passGate('platform_emoji_skin_tone_blur_fix');
-				if (refresh) {
-					mockExpEnabled(teamojiRefreshExperimentName);
-				} else {
-					mockExpDisabled(teamojiRefreshExperimentName);
-				}
-				const emojiProvider = getEmojiResourcePromiseFromRepository(
-					new EmojiRepository(JSON.parse(JSON.stringify(helper.allEmojis))),
-				);
-				const provider = await emojiProvider;
-				provider.setSelectedTone(0);
-				await helper.setupPicker({ emojiProvider }, undefined, onEvent);
-				const list = getUpdatedList();
-				const emojis = await helper.emojisVisible(list);
-				await userEvent.hover(emojis[0]);
-				await userEvent.click(
-					screen.getByRole('button', {
-						name: 'Choose your skin tone, default skin tone selected',
-					}),
-				);
+		it('updates the hand and preference when clicking a visible tone', async () => {
+			passGate('platform_suppression_removal_fix_reactions');
+			passGate('platform_emoji_skin_tone_blur_fix');
+			const emojiProvider = getEmojiResourcePromiseFromRepository(
+				new EmojiRepository(JSON.parse(JSON.stringify(helper.allEmojis))),
+			);
+			const provider = await emojiProvider;
+			provider.setSelectedTone(0);
+			await helper.setupPicker({ emojiProvider }, undefined, onEvent);
+			const list = getUpdatedList();
+			const emojis = await helper.emojisVisible(list);
+			await userEvent.hover(emojis[0]);
+			await userEvent.click(
+				screen.getByRole('button', {
+					name: 'Choose your skin tone, default skin tone selected',
+				}),
+			);
 
-				const toneGroup = screen.getByRole('radiogroup');
-				const selectedHand = raisedHandEmoji.skinVariations![0];
-				await userEvent.click(within(toneGroup).getByLabelText(changeEmojiLabel(selectedHand)));
+			const toneGroup = screen.getByRole('radiogroup');
+			const selectedHand = raisedHandEmoji.skinVariations![0];
+			await userEvent.click(within(toneGroup).getByLabelText(changeEmojiLabel(selectedHand)));
 
-				const trigger = screen.getByRole('button', {
-					name: 'Choose your skin tone, light skin tone selected',
-				});
-				expect(trigger).toHaveFocus();
-				expect(trigger).toHaveAttribute('aria-expanded', 'false');
-				expect(within(trigger).getByTestId(`sprite-emoji-${selectedHand.shortName}`)).toBeVisible();
-				expect(provider.getSelectedTone()).toBe(1);
-				expect(localStorage.setItem).toHaveBeenCalledWith(selectedToneStorageKey, '1');
-				expect(
-					await within(list).findByRole('button', { name: changeEmojiLabel(selectedHand) }),
-				).toBeVisible();
-				expect(onEvent).not.toHaveBeenCalledWith(
-					expect.objectContaining({ payload: toneSelectorClosedEvent() }),
-					'fabric-elements',
-				);
-			},
-		);
+			const trigger = screen.getByRole('button', {
+				name: 'Choose your skin tone, light skin tone selected',
+			});
+			expect(trigger).toHaveFocus();
+			expect(trigger).toHaveAttribute('aria-expanded', 'false');
+			expect(within(trigger).getByTestId(`sprite-emoji-${selectedHand.shortName}`)).toBeVisible();
+			expect(provider.getSelectedTone()).toBe(1);
+			expect(localStorage.setItem).toHaveBeenCalledWith(selectedToneStorageKey, '1');
+			expect(
+				await within(list).findByRole('button', { name: changeEmojiLabel(selectedHand) }),
+			).toBeVisible();
+			expect(onEvent).not.toHaveBeenCalledWith(
+				expect.objectContaining({ payload: toneSelectorClosedEvent() }),
+				'fabric-elements',
+			);
+		});
 
 		it('should display the tone emoji by default', async () => {
 			await helper.setupPicker();
@@ -1104,14 +1088,14 @@ describe('<EmojiPicker />', () => {
 	});
 
 	describe('Accessibility', () => {
-		it('focuses the selected People category instead of search', async () => {
+		it('focuses the selected Atlassian category instead of search', async () => {
 			await helper.setupPicker();
-			const peopleCategory = await screen.findByRole('tab', {
-				name: messages.peopleCategory.defaultMessage,
+			const atlassianCategory = await screen.findByRole('tab', {
+				name: messages.productivityCategory.defaultMessage,
 			});
 
 			await waitFor(() => {
-				expect(peopleCategory).toHaveFocus();
+				expect(atlassianCategory).toHaveFocus();
 				expect(helperTestingLibrary.getEmojiSearchInput()).not.toHaveFocus();
 			});
 		});
@@ -1137,7 +1121,7 @@ describe('<EmojiPicker />', () => {
 				childEscapeReceived = true;
 
 				// Allow escape key to propagate so parent components can handle it (behind feature gate)
-				if ((e.key === 'Escape' || e.key === 'Esc') && true) {
+				if (e.key === 'Escape' || e.key === 'Esc') {
 					// feature gate enabled
 					return; // This is our fix - don't call stopPropagation for escape
 				}
@@ -1188,7 +1172,7 @@ describe('<EmojiPicker />', () => {
 				childEscapeReceived = true;
 
 				// Allow escape key to propagate so parent components can handle it (behind feature gate)
-				if ((e.key === 'Escape' || e.key === 'Esc') && true) {
+				if (e.key === 'Escape' || e.key === 'Esc') {
 					// feature gate enabled
 					return; // This is our fix - don't call stopPropagation for escape
 				}
@@ -1283,7 +1267,7 @@ describe('<EmojiPicker />', () => {
 				childEnterReceived = true;
 
 				// Allow escape key to propagate so parent components can handle it (behind feature gate)
-				if ((e.key === 'Escape' || e.key === 'Esc') && true) {
+				if (e.key === 'Escape' || e.key === 'Esc') {
 					// feature gate enabled
 					return;
 				}

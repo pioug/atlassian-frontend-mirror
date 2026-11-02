@@ -21,6 +21,7 @@ import inputRulePlugin from './pm-plugins/input-rule';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-named-as-default
 import keymapPlugin from './pm-plugins/keymap';
+import ruleNodeViewPlugin from './pm-plugins/main';
 import type { RulePlugin } from './rulePluginType';
 import { getRuleQuickInsertComponents } from './ui/quick-insert/getRuleQuickInsertComponents';
 import { getToolbarConfig } from './ui/toolbar';
@@ -54,6 +55,14 @@ export const rulePlugin: RulePlugin = ({ api }) => {
 
 		pmPlugins() {
 			return [
+				...(isExperimentEnabled('platform_editor_lovability_dividers')
+					? [
+							{
+								name: 'ruleNodeView',
+								plugin: ruleNodeViewPlugin,
+							},
+						]
+					: []),
 				{
 					name: 'ruleInputRule',
 					plugin: ({ schema }) => inputRulePlugin(schema, api?.analytics?.actions),

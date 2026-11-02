@@ -4,7 +4,7 @@
  */
 import { type ReactNode, useState } from 'react';
 
-import { cssMap, jsx } from '@atlaskit/css';
+import { cssMap, cx, jsx } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Text } from '@atlaskit/primitives/compiled/text';
 import { SpotlightActions } from '@atlaskit/spotlight/actions';
@@ -29,6 +29,18 @@ const styles = cssMap({
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',
+	},
+	fallbackContent: {
+		position: 'absolute',
+		insetBlockStart: '50%',
+		transform: 'translateY(-50%)',
+		width: '200px',
+		display: 'flex',
+		justifyContent: 'space-between',
+	},
+	fallbackTarget: {
+		width: '44px',
+		height: '44px',
 	},
 	content: {
 		display: 'grid',
@@ -122,6 +134,20 @@ export default (): JSX.Element => {
 		</div>
 	);
 };
+
+// The short-viewport test leaves room only for centred side fallbacks.
+export const InlineFallbacks = (): JSX.Element => (
+	<div css={styles.root}>
+		<div css={styles.fallbackContent}>
+			<Spotlight placement="left-start">
+				<Box xcss={cx(styles.target, styles.fallbackTarget)} />
+			</Spotlight>
+			<Spotlight placement="right-start">
+				<Box xcss={cx(styles.target, styles.fallbackTarget)} />
+			</Spotlight>
+		</div>
+	</div>
+);
 
 const Spotlight = ({ placement, children }: { placement: Placement; children: ReactNode }) => {
 	const [isVisible, setIsVisible] = useState(true);

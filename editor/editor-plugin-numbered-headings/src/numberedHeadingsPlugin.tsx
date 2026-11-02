@@ -15,7 +15,7 @@ const internalNumberedHeadingsPlugin: InternalNumberedHeadingsPlugin = ({ api })
 			return [
 				{
 					name: 'numberedHeadings',
-					plugin: createNumberedHeadingsPlugin,
+					plugin: () => createNumberedHeadingsPlugin(api),
 				},
 			];
 		},

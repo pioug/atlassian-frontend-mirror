@@ -10,7 +10,6 @@ import { Checkbox } from '../../checkbox';
 
 declare var global: any;
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe.each([false, true])('@atlaskit/checkbox (cross-fade: %s)', (enabled) => {
 	it('preserves accessible selection semantics', async () => {
 		const { container } = render(<Checkbox label="Selection" />);

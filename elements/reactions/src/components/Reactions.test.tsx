@@ -9,12 +9,11 @@ import type { EmojiProvider } from '@atlaskit/emoji/types';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import { mockReactDomWarningGlobal, renderWithIntl } from '../__tests__/_testing-library';
 import type { FakeUFOInstance } from '../__tests__/_testing-library';
 import { getReactionSummary, ari, containerAri } from '../MockReactionsClient';
-import { DefaultReactions } from '../shared/constants';
+import { DefaultReactions, TeamojiDefaultReactions } from '../shared/constants';
 import { messages } from '../shared/i18n';
 import { type QuickReactionEmojiSummary, ReactionStatus, type ReactionSummary } from '../types';
 import { RENDER_REACTION_TESTID } from './Reaction';
@@ -789,8 +788,10 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 		});
 	});
 
-	ffTest.on('jfp_a11y_team_comment_actions_semantic', 'with gate ON', () => {
+	describe('jfp_a11y_team_comment_actions_semantic is on with gate ON', () => {
 		it('should render reactions with <ul> and <li>', async () => {
+			passGate('jfp_a11y_team_comment_actions_semantic');
+
 			renderReactions();
 
 			const list = await screen.findByRole('list');
@@ -801,8 +802,10 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 		});
 	});
 
-	ffTest.off('jfp_a11y_team_comment_actions_semantic', 'with gate OFF', () => {
+	describe('jfp_a11y_team_comment_actions_semantic is off with gate OFF', () => {
 		it('should not render reactions with <ul> and <li>', async () => {
+			failGate('jfp_a11y_team_comment_actions_semantic');
+
 			renderReactions();
 
 			const list = await screen.queryByRole('list');
@@ -934,7 +937,7 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 							eventType: 'ui',
 							attributes: expect.objectContaining({
 								duration: expect.any(Number),
-								emojiId: DefaultReactions[1].id,
+								emojiId: TeamojiDefaultReactions[1].id,
 								previousState: 'new',
 								source: 'quickSelector',
 								packageName: expect.any(String),
@@ -948,7 +951,17 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 
 			it('should trigger clicked for existing emoji', async () => {
 				const mockOnEvent = jest.fn();
-				renderReactions({}, mockOnEvent);
+				renderReactions(
+					{
+						reactions: [
+							{
+								...reactions[0],
+								emojiId: TeamojiDefaultReactions[0].id ?? '',
+							},
+						],
+					},
+					mockOnEvent,
+				);
 
 				// triggger the picker button to show
 				const picker = await screen.findByTestId(RENDER_REACTIONPICKER_TESTID);
@@ -982,7 +995,7 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 							eventType: 'ui',
 							attributes: expect.objectContaining({
 								duration: expect.any(Number),
-								emojiId: DefaultReactions[0].id,
+								emojiId: TeamojiDefaultReactions[0].id,
 								previousState: 'existingNotReacted',
 								source: 'quickSelector',
 								packageName: expect.any(String),

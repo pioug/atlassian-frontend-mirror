@@ -1,5 +1,18 @@
 # @atlaskit/ads-mcp
 
+## 1.12.0
+
+### Minor Changes
+
+- [`62561d53551db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/62561d53551db) -
+  Add internal-only panel-system documentation to the Platform offerings catalog and Atlaskit MCP
+  fallback tools, including examples and panel hooks. Include component descriptions in fallback
+  search results so callers receive the restriction against use outside Atlassian.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.11.10
 
 ### Patch Changes

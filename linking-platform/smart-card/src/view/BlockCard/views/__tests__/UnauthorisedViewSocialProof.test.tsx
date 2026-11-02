@@ -6,7 +6,7 @@ import React from 'react';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import type { CardState } from '@atlaskit/linking-common/store';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { waitFor } from '@atlassian/testing-library/testing-library/react';
 
@@ -78,8 +78,10 @@ describe('UnauthorisedView social proof experiment', () => {
 		jest.restoreAllMocks();
 	});
 
-	ffTest.off('social-proof-3p-unauth-block-fg', 'FG off', () => {
+	describe('social-proof-3p-unauth-block-fg is off FG off', () => {
 		it('renders default content without social proof', async () => {
+			failGate('social-proof-3p-unauth-block-fg');
+
 			renderComponent();
 
 			const description = await screen.findByTestId(descriptionTestId);
@@ -90,8 +92,10 @@ describe('UnauthorisedView social proof experiment', () => {
 		});
 	});
 
-	ffTest.on('social-proof-3p-unauth-block-fg', 'FG on', () => {
+	describe('social-proof-3p-unauth-block-fg is on FG on', () => {
 		it('renders social proof message for treatment with not-low tier', async () => {
+			passGate('social-proof-3p-unauth-block-fg');
+
 			mockUseSocialProofExperiment.mockReturnValue({
 				isTreatment: true,
 				tier: 'not-low',
@@ -111,6 +115,8 @@ describe('UnauthorisedView social proof experiment', () => {
 		});
 
 		it('renders default content when hook returns isTreatment=false (cold cache)', async () => {
+			passGate('social-proof-3p-unauth-block-fg');
+
 			mockUseSocialProofExperiment.mockReturnValue(defaultHookResult);
 
 			renderComponent();
@@ -121,6 +127,8 @@ describe('UnauthorisedView social proof experiment', () => {
 		});
 
 		it('renders default content when hook returns isTreatment=false (experiment off)', async () => {
+			passGate('social-proof-3p-unauth-block-fg');
+
 			mockUseSocialProofExperiment.mockReturnValue({
 				isTreatment: false,
 				tier: 'not-low',

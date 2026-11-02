@@ -38,7 +38,6 @@ beforeEach(() => {
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 const defaultProps: any = {
 	serializer: jest.fn(),
 	rendererContext: {},

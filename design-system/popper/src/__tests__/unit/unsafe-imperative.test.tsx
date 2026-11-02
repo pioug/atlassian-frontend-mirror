@@ -1,6 +1,6 @@
 import type { Instance } from '@popperjs/core';
 
-import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { act } from '@atlassian/testing-library/testing-library/react';
 
 import { createPopper } from '../../entry-points/unsafe-imperative';
@@ -54,6 +54,7 @@ describe('createPopper (unsafe-imperative entry point)', () => {
 	});
 
 	it('returns the Popper.js engine when the gate is off', () => {
+		failGate('platform-dst-top-layer');
 		const anchor = createAnchor();
 		const surface = createSurface();
 

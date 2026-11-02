@@ -193,28 +193,6 @@ export type DiffDescriptor = {
 	type: 'inline' | 'block' | 'widget';
 };
 
-/**
- * How the diff is revealed when it is painted.
- *
- * - `phased` — the two-phase choreography used when opening the diff from a clean "new state":
- *   the outgoing state cross-fades to the incoming one while the agent highlight wipes out to the
- *   right, then every highlight wipes back in from the left.
- *
- * Deliberately separate from {@link DiffType}: that describes how changes are computed and grouped,
- * this describes how the result is presented over time. Folding one into the other would make every
- * `DiffType` consumer — version history, track-changes, publish diff — care about presentation.
- */
-export type RevealMode = 'phased';
-
-export type RevealOptions = {
-	/**
-	 * Total length of the choreography. Defaults to `REVEAL_DEFAULT_DURATION_MS`. Exposed because
-	 * this is a design-tunable value; it should not be buried in a stylesheet.
-	 */
-	durationMs?: number;
-	mode: RevealMode;
-};
-
 export type DiffParams = {
 	/**
 	 * Color scheme to use for displaying diffs.
@@ -260,13 +238,6 @@ export type PMDiffParams = {
 	inlineDeletedDiffPlacement?: InlineDeletedDiffPlacement;
 	isInverted?: boolean;
 	originalDoc: Node;
-	/**
-	 * How this diff is revealed when painted. Omitted means paint immediately.
-	 *
-	 * Applies to THIS paint only — it is not inherited by later recalculations, so stepping
-	 * through changes or a repaint cannot replay the choreography.
-	 */
-	reveal?: RevealOptions;
 	/**
 	 * When true, the editor will scroll to bring the first diff decoration into view
 	 * after the diff is shown.

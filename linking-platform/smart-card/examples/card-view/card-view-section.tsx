@@ -34,7 +34,6 @@ const CardViewSection = ({
 		{description !== undefined && description !== '' ? <p>Context: {description}</p> : undefined}
 		<SmartCardProvider client={client}>
 			{(urls || [url]).map((currentUrl = defaultUrl) => (
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 				<p style={{ fontSize }}>
 					<CardComponent {...props} platform={platform} url={currentUrl} />
 				</p>

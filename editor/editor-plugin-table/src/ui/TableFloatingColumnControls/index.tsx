@@ -112,10 +112,7 @@ const TableFloatingColumnControls = ({
 	}
 
 	let anchorStyles = {};
-	if (
-		isNativeStickySupported() &&
-		expValEquals('platform_editor_table_sticky_header_improvements', 'cohort', 'test_with_overflow')
-	) {
+	if (isNativeStickySupported()) {
 		const rowAnchorName = tableRef.querySelector('tr')?.style.getPropertyValue('anchor-name');
 		// cast here is due to CSSProperties missing valid positionAnchor property
 		anchorStyles = {

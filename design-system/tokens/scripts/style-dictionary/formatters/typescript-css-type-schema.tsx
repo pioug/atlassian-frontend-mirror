@@ -42,6 +42,7 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
 	const motionDuration: TransformedToken[] = [];
 	const motionEasing: TransformedToken[] = [];
 	const motionKeyframes: TransformedToken[] = [];
+	const motionIconography: TransformedToken[] = [];
 
 	for (let i = 0; i < tokens.length; i++) {
 		const token = tokens[i];
@@ -133,6 +134,11 @@ const formatter: Format['formatter'] = ({ dictionary }) => {
 				motionEasing.push(token);
 			} else if (token.path.includes('keyframe')) {
 				motionKeyframes.push(token);
+			} else if (
+				token.path.includes('iconography') &&
+				(token.path.includes('enter') || token.path.includes('exit'))
+			) {
+				motionIconography.push(token);
 			} else {
 				motion.push(token);
 			}
@@ -172,6 +178,7 @@ export type MotionDuration = ${mapToCssVar(motionDuration)};
 export type MotionEasing = ${mapToCssVar(motionEasing)};
 export type MotionKeyframes = ${mapToCssVar(motionKeyframes)};
 export type Motion = ${mapToCssVar(motion)};
+export type MotionIconography = ${mapToCssVar(motionIconography)};
 
 export interface CSSPropertiesHovered {
 	backgroundColor: BackgroundColorHovered;

@@ -1,5 +1,13 @@
 # @atlaskit/inline-edit
 
+## 16.4.7
+
+### Patch Changes
+
+- [`45334f7b4f895`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/45334f7b4f895) -
+  Cleanup `feature_gate` `platform_design_system_inline_edit_dont_focus`. The inline edit form now
+  always applies the `dont-default-focus` class name.
+
 ## 16.4.6
 
 ### Patch Changes

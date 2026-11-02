@@ -1,5 +1,6 @@
 /* eslint-disable @repo/internal/deprecations/deprecation-ticket-required -- VOLTC-139 tracks removal of these deprecated re-export shims. */
 
+import type { FfpEvaluationClient } from '../ffp/types';
 import { Client } from './Client';
 import type { DynamicConfig } from './compat/DynamicConfig';
 import type { Layer } from './compat/Layer';
@@ -11,6 +12,7 @@ import {
 	type ClientOptions,
 	type CustomAttributes,
 	type FeatureFlagValue,
+	type FfpInitializeValues,
 	type FromValuesClientOptions,
 	type GetExperimentOptions,
 	type GetExperimentValueOptions,
@@ -114,9 +116,23 @@ class FeatureGates {
 		return this.client.checkGate(gateName, options);
 	};
 
+	/**
+	 * Returns whether the given feature gate exists for the current user.
+	 *
+	 * Not for flags that only exist in the Feature Flag Platform (FFP): use
+	 * {@link FeatureGates.ffpClient} for those. Use this method for Statsig flags, including flags
+	 * being migrated from Statsig to FFP.
+	 */
 	static isGateExists(gateName: string): boolean {
 		return this.client.isGateExist(gateName);
 	}
+	/**
+	 * Returns whether the given experiment exists for the current user.
+	 *
+	 * Not for flags that only exist in the Feature Flag Platform (FFP): use
+	 * {@link FeatureGates.ffpClient} for those. Use this method for Statsig flags, including flags
+	 * being migrated from Statsig to FFP.
+	 */
 	static isExperimentExists(experimentName: string): boolean {
 		return this.client.isExperimentExist(experimentName);
 	}
@@ -181,6 +197,7 @@ class FeatureGates {
 		identifiers: Identifiers,
 		customAttributes?: CustomAttributes,
 		initializeValues?: Record<string, unknown>,
+		ffpValues?: FfpInitializeValues,
 	) => Promise<void> = this.client.initializeFromValues.bind(this.client);
 	static manuallyLogGateExposure: (gateName: string) => void =
 		this.client.manuallyLogGateExposure.bind(this.client);
@@ -236,7 +253,23 @@ class FeatureGates {
 		identifiers: Identifiers,
 		customAttributes?: CustomAttributes,
 		initializeValues?: Record<string, unknown>,
+		ffpValues?: FfpInitializeValues,
 	) => Promise<void> = this.client.updateUserWithValues.bind(this.client);
+	/**
+	 * The Feature Flag Platform (FFP) client, for reading flags that only exist in FFP. See
+	 * {@link Client.ffpClient}.
+	 *
+	 * It is `undefined` until an initialize method is called, and also when an older version of this
+	 * package that predates it is the one bound to the page.
+	 *
+	 * @example
+	 * ```ts
+	 * const enabled = FeatureGates.ffpClient?.getBooleanValue('my-new-flag', false) ?? false;
+	 * ```
+	 */
+	static get ffpClient(): FfpEvaluationClient | undefined {
+		return this.client.ffpClient;
+	}
 	static getPackageVersion: () => string = this.client.getPackageVersion.bind(this.client);
 	static getTargetApp: () => string | undefined = this.client.getTargetApp.bind(this.client);
 	static getLayer: (layerName: string, options?: GetLayerOptions) => Layer =

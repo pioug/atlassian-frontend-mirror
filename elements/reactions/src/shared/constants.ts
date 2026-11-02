@@ -51,9 +51,6 @@ export const DefaultReactionsByShortName: Map<string, EmojiId> = new Map<string,
 	DefaultReactions.map((reaction) => [reaction.shortName, reaction]),
 );
 
-export const getDefaultReactions = (isTeamojiPickerRefreshEnabled = false): EmojiId[] =>
-	isTeamojiPickerRefreshEnabled ? TeamojiDefaultReactions : DefaultReactions;
-
 /**
  * ES6 Map object from default emoji reactions (with key => shortName, value => entire emoji item)
  * Only for use in extended reaction examples

@@ -19,7 +19,6 @@ import {
 	KeyboardNavigationDirection,
 	KeyboardKeys,
 } from '../../util/constants';
-import { isRefreshEmojiPickerEnabled } from '../common/isRefreshEmojiPickerEnabled';
 
 const virtualList = css({
 	overflowX: 'hidden',
@@ -117,9 +116,7 @@ export const VirtualList: React.ForwardRefExoticComponent<Props & React.RefAttri
 			const parentTop = parentRect.top;
 			const parentBottom = parentRect.bottom;
 
-			const isVisible = isRefreshEmojiPickerEnabled()
-				? elemTop >= parentTop && elemBottom <= parentBottom
-				: elemBottom > parentTop && elemTop < parentBottom;
+			const isVisible = elemTop >= parentTop && elemBottom <= parentBottom;
 			return isVisible;
 		};
 
@@ -137,7 +134,7 @@ export const VirtualList: React.ForwardRefExoticComponent<Props & React.RefAttri
 			if (firstVisibleIndex !== -1) {
 				return virtualList[firstVisibleIndex]?.index || 0;
 			}
-			return isRefreshEmojiPickerEnabled() ? virtualList[0]?.index || 0 : 0;
+			return virtualList[0]?.index || 0;
 		}, [rowVirtualizer]);
 
 		/**

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import type { DocNode } from '@atlaskit/adf-schema/doc';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import Renderer from '@atlaskit/renderer/renderer';
 import { document } from '@atlaskit/util-data-test/task-decision-story-data';
 

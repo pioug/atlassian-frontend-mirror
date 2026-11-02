@@ -5,7 +5,6 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@compiled/react';
 
 import type { Identifier } from '@atlaskit/media-client/identifier';

@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable testing-library/prefer-screen-queries */
-/* eslint-disable compat/compat */
 
 import { expect, test, viewports } from './fixtures';
 
@@ -88,7 +86,7 @@ test.describe('UFO Blindspot Watchdog', () => {
 					'app-root/slow-components/blindspot-segment',
 				);
 
-				expect(postInteractionLog.reactProfilerTimings.length).toBe(2);
+				expect(postInteractionLog.reactProfilerTimings).toHaveLength(2);
 				expect(postInteractionLog.reactProfilerTimings[1].endTime).toMatchTimestamp(
 					sectionTenVisibleAt,
 				);

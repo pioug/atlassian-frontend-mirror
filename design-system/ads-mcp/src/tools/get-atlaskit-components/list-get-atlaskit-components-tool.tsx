@@ -7,10 +7,12 @@ import { zodToJsonSchema } from '../../helpers';
 
 export const listGetAtlaskitComponentsTool: Tool = {
 	name: 'atlaskit_get_components',
-	description: `Returns a compact inventory of public \`@atlaskit/*\` component packages that are not covered by the Atlassian Design System (ADS) component catalog. Output is names and packages only.
+	description: `Returns a compact inventory of public \`@atlaskit/*\` and internal \`@atlassian/*\` Platform component packages that are not covered by the Atlassian Design System (ADS) component catalog. Output is names and packages only.
 
 WHEN TO USE:
-Use this for fallback discovery after ADS component search is not enough, or when you need to see which non-ADS \`@atlaskit/*\` components are available without the full metadata payload. For implementation examples and props, use \`atlaskit_search_components\`.
+Use this for fallback discovery after ADS component search is not enough, or when you need to see which non-ADS components are available without the full metadata payload. For implementation examples and props, use \`atlaskit_search_components\`.
+
+Internal Atlassian packages are not available for use outside Atlassian.
 
 No parameters.`,
 	annotations: {

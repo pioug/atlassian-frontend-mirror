@@ -117,7 +117,6 @@ const emailItem: ProcessedFileState = {
 	representations: {},
 };
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('CodeViewer', () => {
 	beforeEach(() => {
 		jest.spyOn(globalMediaEventEmitter, 'emit');

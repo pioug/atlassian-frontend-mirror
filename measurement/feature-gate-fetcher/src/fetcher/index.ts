@@ -6,8 +6,12 @@ export {
 	ResponseError,
 	EXPERIMENT_VALUES_API_VERSION,
 	EVAL_FLAGS_API_VERSION,
+	fromExperimentValuesResponse,
+	getEvalFlagsStatus,
+	toFrontendExperimentsResult,
 } from './Fetcher';
 export type {
+	EvalFlagsResponse,
 	FetcherOptions,
 	FrontendExperimentsResponse,
 	FrontendClientSdkKeyResponse,

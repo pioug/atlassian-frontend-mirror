@@ -274,15 +274,7 @@ export const DragControls = ({
 					pointerEvents: 'none',
 				}}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-				className={
-					expValEquals(
-						'platform_editor_table_sticky_header_improvements',
-						'cohort',
-						'test_with_overflow',
-					)
-						? ClassName.DRAG_ROW_FLOATING_DRAG_HANDLE
-						: undefined
-				}
+				className={ClassName.DRAG_ROW_FLOATING_DRAG_HANDLE}
 				data-testid={`table-floating-row-${isHover ? rowIndex : selectedRowIndexes[0]}-drag-handle`}
 				data-row-index={rowIndex}
 				data-selected-row-index={selectedRowIndexes[0]}

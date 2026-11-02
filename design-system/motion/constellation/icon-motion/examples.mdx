@@ -1,0 +1,190 @@
+---
+title: Icon motion
+description: Animate an icon as it changes, and move it in response to interactions.
+order: 1
+---
+
+import SectionMessage from '@atlaskit/section-message';
+
+import IconMotionSwap from '../../examples/constellation/icon-motion-swap';
+import IconMotionEnterExit from '../../examples/constellation/icon-motion-enter-exit';
+import IconMotionRotateChevron from '../../examples/constellation/icon-motion-rotate-chevron';
+import IconMotionRotateSettings from '../../examples/constellation/icon-motion-rotate-settings';
+import IconMotionCycleUp from '../../examples/constellation/icon-motion-cycle-up';
+import DoDontList from './do-dont-list';
+
+Use `IconMotion` to apply entry and exit animations to icons. Pass a pre-defined iconography motion
+token to `enteringAnimation` and `exitingAnimation`.
+
+It also supports motion that moves an icon in response to an interaction, such as someone clicking a
+button. `IconMotion` has two props for it.
+
+- `interactionMotion` chooses the motion. Currently, it can only be `rotate`.
+- `isInteractionActive` holds the motion when it is `true`, and eases the icon back when it is
+  `false`.
+
+You decide when the motion plays and pass the result to `isInteractionActive`.
+
+The following sections describe the usage guidance and scenarios for applying motion to icons.
+
+## Change an icon
+
+Show that something changed.
+
+### Fade out, fade in
+
+When an icon becomes a different icon after a press or a change in state, the first fades out and
+the second fades in. The most widely available effect: it works on any supported icon, because it
+moves nothing inside the icon.
+
+The icon fades to clear over 250ms, is replaced, and the new icon fades to solid over 250ms.
+
+| Usage guidance |
+| -------------- | -------------------------------------- |
+| Icons          | Any [Atlassian icon](/components/icon) |
+| Trigger        | Press or click, or a state change      |
+| Use for        | Transitioning one icon to another      |
+| Not for        | Hover                                  |
+
+<Example packageName="@atlaskit/motion" Component={IconMotionSwap} title="Change an icon" />
+
+## Bring an icon on or off
+
+Show that something now applies, or no longer does.
+
+### Fade in, fade out
+
+The same fades can bring an icon on screen or take it away. Do it only when its presence is the
+information: a status that has started or stopped applying. Nothing should vanish for a reason the
+person cannot see.
+
+The icon fades in over 250ms when the thing it stands for starts to apply, and out over 250ms when
+it stops.
+
+| Usage guidance |
+| -------------- | ------------------------------------------------------------------ |
+| Icons          | Any [Atlassian icon](/components/icon)                             |
+| Trigger        | A state change the person caused or will want to notice            |
+| Use for        | A status that is now true, such as flagged                         |
+| Not for        | Hover. An icon vanishing without a visible cause. Tidying a layout |
+
+<Example
+	packageName="@atlaskit/motion"
+	Component={IconMotionEnterExit}
+	title="Bring an icon on or off"
+/>
+
+## Send or move forward
+
+The icon slides out of its box as a copy slides in behind it, so the action reads as something
+leaving in a direction.
+
+**Direction carries meaning.**
+
+Cycle moves toward where the result or the next step will appear. In Rovo, the prompt box sits low
+on the page, and what Rovo generates, or how the conversation continues, appears above it. Send
+cycles upward, so the arrow guides the eye up from the input to the response.
+
+Cycle can travel in any direction, but upward in the Rovo Send Button is the only recommendation so
+far. A new direction needs a meaning of its own: where will the result appear?
+
+### Cycle
+
+The up-arrow slides out of the button’s box over 400ms while an identical copy slides in behind it.
+`IconMotion` clips both to the icon's box. Use `overshoot` to widen the clip to match the space
+around the icon, such as the padding of the button it sits in. Pass a space token, such as
+`overshoot={token('space.075')}`. The icon travels that far past its box, so it just clears the
+clip. `overshoot` only applies to the `cycle` motion tokens.
+
+Inside a `Button` or `IconButton`, return `IconMotion` from the icon render function and use the
+`motionOvershoot` that the button passes in `iconProps`. It already matches the button's `spacing`.
+
+| Usage guidance  |
+| --------------- | ----------------------------------------------------------------------------------------- |
+| Icons           | The up-arrow in the Rovo Send Button, and nowhere else                                    |
+| Trigger         | Press, on send                                                                            |
+| Direction       | Up: toward where the response appears. Other directions are open                          |
+| Exit then enter | Set `shouldExitThenEnter={false}`. We want the new icon to enter while the old is exiting |
+| Use for         | The one send action in Rovo chat                                                          |
+| Not for         | Any other up-arrow, or any other button                                                   |
+
+In this example the icon itself is not changing, so the animation **will not** automatically play.
+
+Use a `ref` and call `reanimate()` to play the enter and exit animations of the current icon again.
+
+The icon is swapped for a fresh copy of itself, so it follows `shouldExitThenEnter`. By default, the
+icon exits and then enters again. When `shouldExitThenEnter` is false, the new copy enters while the
+old copy exits, and the two overlay each other.
+
+<Example packageName="@atlaskit/motion" Component={IconMotionCycleUp} title="Cycle" />
+
+## Open or close something
+
+Show that something opened or closed.
+
+A rotation tells people something opened or closed. It is for chevrons, which already point at what
+they open, and the gear. It plays on press.
+
+### Rotate 90°, chevron
+
+| Usage guidance |
+| -------------- | --------------------------------------------------------------------------------- |
+| Icons          | Chevron icons                                                                     |
+| Trigger        | Press                                                                             |
+| Use for        | Twirling pages open and closed in the Confluence side nav, and disclosure like it |
+| Not for        | Any other icon. Most icons have no reason to turn                                 |
+
+<Example
+	packageName="@atlaskit/motion"
+	Component={IconMotionRotateChevron}
+	title="Rotate 90 chevron"
+/>
+
+### Rotate 90°, settings
+
+| Usage guidance |
+| -------------- | ----------------------------------- |
+| Icons          | Settings (gear) icon                |
+| Trigger        | Press                               |
+| Use for        | Opening settings                    |
+| Not for        | Hover, or any loading or busy state |
+
+<Example
+	packageName="@atlaskit/motion"
+	Component={IconMotionRotateSettings}
+	title="Rotate 90 settings"
+/>
+
+## Do and don’t
+
+<DoDontGrid>
+	<DoDont type="do">
+		<DoDontList
+			list={[
+				'Use fade out and fade in when one icon becomes another, or when an icon appears or disappears because its presence is the information.',
+				'Use rotate on a chevron or the gear, for 90°, to show something opening or closing.',
+				'Use cycle only in the Rovo Send Button, and let its direction point to where the result will appear.',
+			]}
+		/>
+	</DoDont>
+	<DoDont type="dont">
+		<DoDontList
+			list={[
+				'Don’t animate an icon on page load, or leave any effect running while idle.',
+				'Don’t let an icon vanish without a cause the person can see, or fade icons to tidy a layout.',
+				'Don’t use cycle on any other up-arrow, or any other button.',
+				'Don’t let an effect change what the icon is. A pencil must still be a pencil when it lands.',
+			]}
+		/>
+	</DoDont>
+</DoDontGrid>
+
+## Accessibility
+
+- Give every icon a `label`, or give the button a `label`, so that its purpose is announced.
+- An icon that is exiting is hidden from assistive technology, so a screen reader doesn’t announce
+  it alongside the icon that replaces it.
+- When someone prefers reduced motion, the swap finishes straight away without an animation. The
+  interaction motion still changes the icon’s position, but without a transition.
+
+Read more about [reduced motion](/components/motion/accessibility).

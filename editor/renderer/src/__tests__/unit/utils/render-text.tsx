@@ -24,7 +24,6 @@ const makeHighlighter = (): { highlighter: TextHighlighter; seenMarks: Array<Set
 	return { highlighter, seenMarks };
 };
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('renderText', () => {
 	describe.each([[true], [false]])('fastPath=%s', (fastPath) => {
 		it('returns the bare string when there is no highlighter', () => {

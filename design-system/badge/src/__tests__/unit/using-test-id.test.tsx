@@ -5,7 +5,6 @@ import { render } from '@atlassian/testing-library/testing-library/react';
 
 import Badge from '../../badge';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Badge should be found by data-testid', () => {
 	test('Using getByTestId()', async () => {
 		const testId = 'the-badge';

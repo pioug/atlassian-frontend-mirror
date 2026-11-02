@@ -143,8 +143,8 @@ export type NonNestableBlockContentDefinition = Array<
   | BlockquoteDefinition
   | OrderedListDefinition
   | BulletListDefinition
-  | RuleDefinition
   | RuleWithAttrsStage0Definition
+  | RuleDefinition
   | BodiedRuleStage0Definition
   | HeadingWithNoMarksDefinition
   | CodeBlockDefinition

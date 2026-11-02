@@ -1609,3 +1609,22 @@ export interface MotionKeyframeTokenSchema<BaseToken> {
 		};
 	};
 }
+
+export interface MotionIconographyTokenSchema<BaseToken> {
+	motion: {
+		iconography: {
+			enter: {
+				fade: MotionToken<BaseToken>;
+				cycle: {
+					up: MotionToken<BaseToken>;
+				};
+			};
+			exit: {
+				fade: MotionToken<BaseToken>;
+				cycle: {
+					up: MotionToken<BaseToken>;
+				};
+			};
+		};
+	};
+}

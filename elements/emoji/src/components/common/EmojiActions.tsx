@@ -39,10 +39,8 @@ import type { ProductivityColor } from '../../util/productivity-colors';
 import { messages } from '../i18n';
 import type { CategoryId } from '../picker/categories';
 import { EmojiPickerListSearch } from '../picker/EmojiPickerListSearch';
-import { AddOwnEmoji } from './AddOwnEmoji';
 import EmojiDeletePreview, { type OnDeleteEmoji } from './EmojiDeletePreview';
 import EmojiUploadPicker, { type OnUploadEmoji } from './EmojiUploadPicker';
-import { isRefreshEmojiPickerEnabled } from './isRefreshEmojiPickerEnabled';
 import ProductivityColorSelector, {
 	productivityColorSelectorId,
 } from './ProductivityColorSelector';
@@ -94,12 +92,6 @@ const productivityColorPopupPosition = css({
 	top: `calc(100% + ${token('space.050')})`,
 	right: '0%',
 	zIndex: productivityColorPopupZIndex,
-});
-
-const previewFooter = css({
-	flex: '0 0 auto',
-	borderBottom: `${token('border.width.selected')} solid ${token('color.border')}`,
-	boxShadow: `0px 1px 1px 0px ${token('color.border')}`,
 });
 
 const previewFooterNew = css({
@@ -315,8 +307,7 @@ const TonesWrapper = (props: TonesWrapperProps) => {
 		atlassianSubcategoriesWithProductivityColorSelector.includes(activeAtlassianSubcategory) &&
 		productivityColorPreviewEmojis &&
 		selectedProductivityColor &&
-		onProductivityColorSelected &&
-		isRefreshEmojiPickerEnabled()
+		onProductivityColorSelected
 	);
 
 	if (shouldShowProductivityColorSelector) {
@@ -391,7 +382,6 @@ const TonesWrapper = (props: TonesWrapperProps) => {
 
 type EmojiActionsProps = PropsWithWrappedComponentPropsType;
 
-// TODO: remove this on cleanup of platform_teamoji_26_refresh_emoji_picker
 export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 	const {
 		onToneSelected,
@@ -421,8 +411,7 @@ export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 		) &&
 		props.productivityColorPreviewEmojis &&
 		props.selectedProductivityColor &&
-		props.onProductivityColorSelected &&
-		isRefreshEmojiPickerEnabled()
+		props.onProductivityColorSelected
 	);
 
 	const onToneOpenHandler = useCallback(() => setShowToneSelector(true), []);
@@ -478,21 +467,8 @@ export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 	}, [shouldUseProductivityColorControl, showToneSelector]);
 
 	if (uploading) {
-		return isRefreshEmojiPickerEnabled() ? (
+		return (
 			<div css={previewFooterNew}>
-				<EmojiUploadPicker
-					onUploadCancelled={onUploadCancelled}
-					onUploadEmoji={onUploadEmoji}
-					onFileChooserClicked={onFileChooserClicked}
-					errorMessage={uploadErrorMessage}
-					initialUploadName={initialUploadName}
-					onUploadPreviewErrorChange={onUploadPreviewErrorChange}
-					contentId={props.contentId}
-					fireAnalytics={props.fireAnalytics}
-				/>
-			</div>
-		) : (
-			<div css={previewFooter}>
 				<EmojiUploadPicker
 					onUploadCancelled={onUploadCancelled}
 					onUploadEmoji={onUploadEmoji}
@@ -508,16 +484,8 @@ export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 	}
 
 	if (emojiToDelete) {
-		return isRefreshEmojiPickerEnabled() ? (
+		return (
 			<div css={previewFooterNew}>
-				<EmojiDeletePreview
-					emoji={emojiToDelete}
-					onDeleteEmoji={onDeleteEmoji}
-					onCloseDelete={onCloseDelete}
-				/>
-			</div>
-		) : (
-			<div css={previewFooter}>
 				<EmojiDeletePreview
 					emoji={emojiToDelete}
 					onDeleteEmoji={onDeleteEmoji}
@@ -527,7 +495,7 @@ export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 		);
 	}
 
-	return isRefreshEmojiPickerEnabled() ? (
+	return (
 		<div
 			data-testid={emojiActionsTestId}
 			css={previewFooterNew}
@@ -555,31 +523,6 @@ export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 					showToneSelector={showToneSelector}
 				/>
 			</div>
-		</div>
-	) : (
-		<div
-			data-testid={emojiActionsTestId}
-			css={previewFooter}
-			onMouseLeave={onMouseLeaveHandler}
-			onBlur={fg('platform_suppression_removal_fix_reactions') ? onBlurHandler : undefined}
-		>
-			<div css={emojiActionsWrapper}>
-				<EmojiPickerListSearch
-					onChange={onChange}
-					query={query}
-					resultsCount={resultsCount}
-					isVisible={!showToneSelector}
-				/>
-				<TonesWrapper
-					{...props}
-					onToneOpen={onToneOpenHandler}
-					onToneClose={onToneCloseHandler}
-					onToneSelected={onToneSelectedHandler}
-					onToneToggle={onToneToggleHandler}
-					showToneSelector={showToneSelector}
-				/>
-			</div>
-			<AddOwnEmoji {...props} />
 		</div>
 	);
 };

@@ -10,7 +10,7 @@ import { APIError, type APIErrorKind } from '@atlaskit/linking-common/api-error'
 import type { CardState } from '@atlaskit/linking-common/store';
 import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 import { auth } from '@atlaskit/outbound-auth-flow-client/auth';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { renderHook } from '@atlassian/testing-library/render-hook';
 
 import { mocks } from '../../../utils/mocks';
@@ -72,41 +72,33 @@ describe('Smart Card: Actions', () => {
 			});
 		});
 
-		ffTest.on(
-			'platform_smartlink_inline_resolve_optimization',
-			'when FG is on, register passes appearance to fetchData',
-			() => {
-				it('passes appearance parameter to fetchData when provided', async () => {
-					mockFetchData(Promise.resolve(mocks.success));
+		describe('platform_smartlink_inline_resolve_optimization is on when FG is on, register passes appearance to fetchData', () => {
+			it('passes appearance parameter to fetchData when provided', async () => {
+				passGate('platform_smartlink_inline_resolve_optimization');
 
-					const result = renderHook(() => {
-						return useSmartCardActions(id, url);
-					});
-					await result.current.register('inline');
+				mockFetchData(Promise.resolve(mocks.success));
 
-					expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
-						url,
-						false,
-						'inline',
-					);
+				const result = renderHook(() => {
+					return useSmartCardActions(id, url);
 				});
+				await result.current.register('inline');
 
-				it('requests appearance-specific block data without bypassing the ORS cache', async () => {
-					mockFetchData(Promise.resolve(mocks.success));
+				expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, 'inline');
+			});
 
-					const result = renderHook(() => {
-						return useSmartCardActions(id, url);
-					});
-					await result.current.register('block');
+			it('requests appearance-specific block data without bypassing the ORS cache', async () => {
+				passGate('platform_smartlink_inline_resolve_optimization');
 
-					expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
-						url,
-						false,
-						'block',
-					);
+				mockFetchData(Promise.resolve(mocks.success));
+
+				const result = renderHook(() => {
+					return useSmartCardActions(id, url);
 				});
-			},
-		);
+				await result.current.register('block');
+
+				expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, 'block');
+			});
+		});
 	});
 
 	describe('resolve()', () => {
@@ -357,132 +349,54 @@ describe('Smart Card: Actions', () => {
 			expect(mockContext.connections.client.fetchData).not.toHaveBeenCalled();
 		});
 
-		ffTest.on(
-			'platform_smartlink_inline_resolve_optimization',
-			'when FG is on, loadMetadata uses resolveNew with block appearance',
-			() => {
-				it('dispatches refreshed metadata state for a success response', async () => {
-					mockFetchData(Promise.resolve(mocks.success));
+		describe('platform_smartlink_inline_resolve_optimization is on when FG is on, loadMetadata uses resolveNew with block appearance', () => {
+			it('dispatches refreshed metadata state for a success response', async () => {
+				passGate('platform_smartlink_inline_resolve_optimization');
 
-					const result = renderHook(() => {
-						return useSmartCardActions(id, url);
-					});
+				mockFetchData(Promise.resolve(mocks.success));
 
-					const promise = result.current.loadMetadata();
-					await expect(promise).resolves.toBeUndefined();
-
-					// ORS caches block responses independently from optimized inline responses.
-					expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
-						url,
-						false,
-						'block',
-					);
-					expect(mockContext.store.dispatch).toHaveBeenCalledTimes(3);
-					expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(1, {
-						payload: undefined,
-						type: 'metadata',
-						url: url,
-						error: undefined,
-						metadataStatus: 'pending',
-					});
-					expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(2, {
-						payload: undefined,
-						type: 'metadata',
-						url: url,
-						error: undefined,
-						metadataStatus: 'resolved',
-					});
-					expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(3, {
-						payload: mocks.success,
-						type: 'reloading',
-						url: url,
-						error: undefined,
-						metadataStatus: undefined,
-						ignoreStatusCheck: undefined,
-					});
+				const result = renderHook(() => {
+					return useSmartCardActions(id, url);
 				});
 
-				const errorKinds: APIErrorKind[] = ['fatal', 'auth', 'error', 'fallback'];
-				it.each(errorKinds)(
-					'dispatches error metadata state if response is a %s error',
-					async (errorKind) => {
-						const mockError = new APIError(errorKind, url, 'error-message');
-						mockFetchData(Promise.reject(mockError));
+				const promise = result.current.loadMetadata();
+				await expect(promise).resolves.toBeUndefined();
 
-						const result = renderHook(() => {
-							return useSmartCardActions(id, url);
-						});
+				// ORS caches block responses independently from optimized inline responses.
+				expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, 'block');
+				expect(mockContext.store.dispatch).toHaveBeenCalledTimes(3);
+				expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(1, {
+					payload: undefined,
+					type: 'metadata',
+					url: url,
+					error: undefined,
+					metadataStatus: 'pending',
+				});
+				expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(2, {
+					payload: undefined,
+					type: 'metadata',
+					url: url,
+					error: undefined,
+					metadataStatus: 'resolved',
+				});
+				expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(3, {
+					payload: mocks.success,
+					type: 'reloading',
+					url: url,
+					error: undefined,
+					metadataStatus: undefined,
+					ignoreStatusCheck: undefined,
+				});
+			});
 
-						const promise = result.current.loadMetadata();
+			const errorKinds: APIErrorKind[] = ['fatal', 'auth', 'error', 'fallback'];
+			it.each(errorKinds)(
+				'dispatches error metadata state if response is a %s error',
+				async (errorKind) => {
+					passGate('platform_smartlink_inline_resolve_optimization');
 
-						await expect(promise).resolves.toBeUndefined();
-						// ORS caches block responses independently from optimized inline responses.
-						expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
-							url,
-							false,
-							'block',
-						);
-						expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
-						expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(1, {
-							payload: undefined,
-							type: 'metadata',
-							url: url,
-							error: undefined,
-							metadataStatus: 'pending',
-						});
-						expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(2, {
-							payload: undefined,
-							type: 'metadata',
-							url: url,
-							error: undefined,
-							metadataStatus: 'errored',
-						});
-					},
-				);
-
-				const responseKinds: Array<[string, JsonLd.Response]> = [
-					['forbidden', mocks.forbidden],
-					['unauthorized', mocks.unauthorized],
-					['notFound', mocks.notFound],
-				];
-				it.each(responseKinds)(
-					'dispatches error metadata state if response is a %s response',
-					async (name, responseKind) => {
-						mockFetchData(Promise.resolve(responseKind));
-
-						const result = renderHook(() => {
-							return useSmartCardActions(id, url);
-						});
-
-						const promise = result.current.loadMetadata();
-
-						await expect(promise).resolves.toBeUndefined();
-						// ORS caches block responses independently from optimized inline responses.
-						expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
-							url,
-							false,
-							'block',
-						);
-						expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
-						expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(1, {
-							payload: undefined,
-							type: 'metadata',
-							url: url,
-							error: undefined,
-							metadataStatus: 'pending',
-						});
-						expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(2, {
-							payload: undefined,
-							type: 'metadata',
-							url: url,
-							error: undefined,
-							metadataStatus: 'errored',
-						});
-					},
-				);
-
-				it('dispatches error metadata status if response is undefined', async () => {
-					mockFetchData(Promise.resolve(undefined));
+					const mockError = new APIError(errorKind, url, 'error-message');
+					mockFetchData(Promise.reject(mockError));
 
 					const result = renderHook(() => {
 						return useSmartCardActions(id, url);
@@ -512,54 +426,124 @@ describe('Smart Card: Actions', () => {
 						error: undefined,
 						metadataStatus: 'errored',
 					});
-				});
+				},
+			);
 
-				it('fetches with block appearance when metadataStatus is pending', async () => {
-					mockState({
-						status: 'resolved',
-						details: mocks.success,
-						metadataStatus: 'pending',
-					});
-					mockFetchData(Promise.resolve(mocks.success));
+			const responseKinds: Array<[string, JsonLd.Response]> = [
+				['forbidden', mocks.forbidden],
+				['unauthorized', mocks.unauthorized],
+				['notFound', mocks.notFound],
+			];
+			it.each(responseKinds)(
+				'dispatches error metadata state if response is a %s response',
+				async (name, responseKind) => {
+					passGate('platform_smartlink_inline_resolve_optimization');
+
+					mockFetchData(Promise.resolve(responseKind));
 
 					const result = renderHook(() => {
 						return useSmartCardActions(id, url);
 					});
 
 					const promise = result.current.loadMetadata();
-					await expect(promise).resolves.toBeUndefined();
 
+					await expect(promise).resolves.toBeUndefined();
+					// ORS caches block responses independently from optimized inline responses.
 					expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
 						url,
 						false,
 						'block',
 					);
-				});
-			}, // end ffTest.on callback
-		); // end ffTest.on
-
-		ffTest.off(
-			'platform_smartlink_inline_resolve_optimization',
-			'when FG is off, loadMetadata uses original resolve without appearance',
-			() => {
-				it('does not pass appearance when FG is off', async () => {
-					mockFetchData(Promise.resolve(mocks.success));
-
-					const result = renderHook(() => {
-						return useSmartCardActions(id, url);
+					expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
+					expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(1, {
+						payload: undefined,
+						type: 'metadata',
+						url: url,
+						error: undefined,
+						metadataStatus: 'pending',
 					});
+					expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(2, {
+						payload: undefined,
+						type: 'metadata',
+						url: url,
+						error: undefined,
+						metadataStatus: 'errored',
+					});
+				},
+			);
 
-					const promise = result.current.loadMetadata();
-					await expect(promise).resolves.toBeUndefined();
+			it('dispatches error metadata status if response is undefined', async () => {
+				passGate('platform_smartlink_inline_resolve_optimization');
 
-					expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
-						url,
-						false,
-						undefined,
-					);
+				mockFetchData(Promise.resolve(undefined));
+
+				const result = renderHook(() => {
+					return useSmartCardActions(id, url);
 				});
-			},
-		);
+
+				const promise = result.current.loadMetadata();
+
+				await expect(promise).resolves.toBeUndefined();
+				// ORS caches block responses independently from optimized inline responses.
+				expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, 'block');
+				expect(mockContext.store.dispatch).toHaveBeenCalledTimes(2);
+				expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(1, {
+					payload: undefined,
+					type: 'metadata',
+					url: url,
+					error: undefined,
+					metadataStatus: 'pending',
+				});
+				expect(mockContext.store.dispatch).toHaveBeenNthCalledWith(2, {
+					payload: undefined,
+					type: 'metadata',
+					url: url,
+					error: undefined,
+					metadataStatus: 'errored',
+				});
+			});
+
+			it('fetches with block appearance when metadataStatus is pending', async () => {
+				passGate('platform_smartlink_inline_resolve_optimization');
+
+				mockState({
+					status: 'resolved',
+					details: mocks.success,
+					metadataStatus: 'pending',
+				});
+				mockFetchData(Promise.resolve(mocks.success));
+
+				const result = renderHook(() => {
+					return useSmartCardActions(id, url);
+				});
+
+				const promise = result.current.loadMetadata();
+				await expect(promise).resolves.toBeUndefined();
+
+				expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, 'block');
+			});
+		});
+
+		describe('platform_smartlink_inline_resolve_optimization is off when FG is off, loadMetadata uses original resolve without appearance', () => {
+			it('does not pass appearance when FG is off', async () => {
+				failGate('platform_smartlink_inline_resolve_optimization');
+
+				mockFetchData(Promise.resolve(mocks.success));
+
+				const result = renderHook(() => {
+					return useSmartCardActions(id, url);
+				});
+
+				const promise = result.current.loadMetadata();
+				await expect(promise).resolves.toBeUndefined();
+
+				expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
+					url,
+					false,
+					undefined,
+				);
+			});
+		});
 	});
 
 	describe('authorize()', () => {
@@ -641,8 +625,10 @@ describe('Smart Card: Actions', () => {
 			return { expValEquals, mockPostMessage, mockShowConnectFlag };
 		};
 
-		ffTest.on('platform_sl_3p_post_auth_chat_open_fg', '', () => {
+		describe('platform_sl_3p_post_auth_chat_open_fg is on', () => {
 			it('posts chat-new message after successful GDrive auth when gate on + treatment', async () => {
+				passGate('platform_sl_3p_post_auth_chat_open_fg');
+
 				const { mockPostMessage, mockShowConnectFlag } = setupPostAuthTest();
 				url = 'https://docs.google.com/document/d/abc123/edit';
 				mockFetchData(Promise.resolve(mocks.success));
@@ -689,8 +675,10 @@ describe('Smart Card: Actions', () => {
 			expect(mockShowConnectFlag).toHaveBeenCalled();
 		});
 
-		ffTest.on('platform_sl_3p_post_auth_chat_open_fg', '', () => {
+		describe('platform_sl_3p_post_auth_chat_open_fg is on', () => {
 			it('does NOT post chat-new message when in experiment control group', async () => {
+				passGate('platform_sl_3p_post_auth_chat_open_fg');
+
 				const { expValEquals, mockPostMessage, mockShowConnectFlag } = setupPostAuthTest();
 				expValEquals.mockReturnValue(false);
 				url = 'https://docs.google.com/document/d/abc123/edit';
@@ -728,8 +716,10 @@ describe('Smart Card: Actions', () => {
 			expect(mockShowConnectFlag).toHaveBeenCalled();
 		});
 
-		ffTest.on('platform_sl_3p_post_auth_chat_open_fg', '', () => {
+		describe('platform_sl_3p_post_auth_chat_open_fg is on', () => {
 			it('does NOT post chat-new message on non-AI-enabled tenant', async () => {
+				passGate('platform_sl_3p_post_auth_chat_open_fg');
+
 				const { mockPostMessage, mockShowConnectFlag } = setupPostAuthTest();
 				url = 'https://docs.google.com/document/d/abc123/edit';
 				(mockContext.store.getState as jest.Mock).mockImplementation(() => ({

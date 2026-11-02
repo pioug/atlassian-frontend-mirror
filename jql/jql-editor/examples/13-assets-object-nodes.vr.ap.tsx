@@ -18,7 +18,6 @@ import { type HydratedValue, type HydratedValues } from '../src/ui/jql-editor/ty
 const exampleFeatureGateOverrides: Record<string, boolean> = {
 	'orion-8274-cmdb-object-jql-values-resolver': true,
 };
-// eslint-disable-next-line @atlaskit/platform/no-module-level-eval -- example-only override; registers a resolver, not a flag read
 setBooleanFeatureFlagResolver((flagKey: string) => exampleFeatureGateOverrides[flagKey] ?? false);
 
 // Unmatched routes will fall back to the network

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/platform-killswitch",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "Case-insensitive named killswitches backed by the Statsig killswitch dynamic config.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

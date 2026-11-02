@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-table
 
+## 42.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 42.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 42.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 42.2.2
+
+### Patch Changes
+
+- [`b0b0a2e076d8d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b0b0a2e076d8d) -
+  Clean up experiment `platform_editor_table_sticky_header_improvements`
+- Updated dependencies
+
 ## 42.2.1
 
 ### Patch Changes

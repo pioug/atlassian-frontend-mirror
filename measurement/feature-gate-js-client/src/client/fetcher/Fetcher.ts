@@ -10,6 +10,10 @@ import {
 } from '../types';
 import { CLIENT_VERSION } from '../version';
 import { ResponseError } from './errors';
+import { fromExperimentValuesResponse } from './evalFlags/fromExperimentValuesResponse';
+import { getEvalFlagsStatus } from './evalFlags/getEvalFlagsStatus';
+import { hasNoUsableProvider } from './evalFlags/hasNoUsableProvider';
+import { EvalFlagsUnavailableError } from './EvalFlagsUnavailableError';
 import {
 	type EvalFlagsResponse,
 	type FrontendClientSdkKeyResponse,
@@ -45,24 +49,6 @@ export type FetcherOptions = Pick<
 
 type Method = 'GET' | 'POST';
 
-/**
- * The Statsig section of an `/api/v1/evalFlags` response. Throws when the service does not report
- * Statsig as `OK`, as `/api/v2/frontend/experimentValues` returned a 5xx when it had no values.
- */
-const getStatsigSection = (response: EvalFlagsResponse | null): FrontendExperimentsResponse => {
-	const status = response?.status?.statsig;
-	const statsig = response?.statsig;
-	if (
-		status !== 'OK' ||
-		!statsig ||
-		typeof statsig.experimentValues !== 'object' ||
-		statsig.experimentValues === null
-	) {
-		throw new Error(`Statsig values are unavailable, status: ${JSON.stringify(status)}`);
-	}
-	return statsig;
-};
-
 export default class Fetcher {
 	static async fetchClientSdk(
 		fetcherOptions: FetcherOptions,
@@ -80,9 +66,8 @@ export default class Fetcher {
 	}
 
 	/**
-	 * Fetches the Statsig values for a user. With `includeFfpFlags`, they are the Statsig section of
-	 * the Feature Flag Service `/api/v1/evalFlags` response, and the rest of the response is ignored;
-	 * otherwise they come from `/api/v2/frontend/experimentValues`.
+	 * Fetches the Statsig values for a user from `/api/v2/frontend/experimentValues`. Use
+	 * {@link Fetcher.fetchFlagValues}, which calls this only without `includeFfpFlags`.
 	 */
 	static async fetchExperimentValues(
 		fetcherOptions: FetcherOptions,
@@ -96,15 +81,6 @@ export default class Fetcher {
 		};
 
 		try {
-			if (fetcherOptions.includeFfpFlags) {
-				const response: EvalFlagsResponse | null = await this.fetchRequest(
-					'/api/v1/evalFlags',
-					'POST',
-					fetcherOptions,
-					requestBody,
-				);
-				return getStatsigSection(response);
-			}
 			return await this.fetchRequest(
 				'/api/v2/frontend/experimentValues',
 				'POST',
@@ -117,6 +93,58 @@ export default class Fetcher {
 			}
 			throw Error('Failed to retrieve experiment values');
 		}
+	}
+
+	/**
+	 * Fetches the combined Statsig and Feature Flag Platform bootstrap values for a user.
+	 *
+	 * Rejects with {@link EvalFlagsUnavailableError} when no provider is `OK` and one is `UNAVAILABLE`,
+	 * so that a response with no values fails like any other failed fetch.
+	 */
+	static async fetchEvalFlags(
+		fetcherOptions: FetcherOptions,
+		identifiers: Identifiers,
+		customAttributes?: CustomAttributes,
+	): Promise<EvalFlagsResponse> {
+		const requestBody: FrontendExperimentsRequest = {
+			identifiers,
+			customAttributes,
+			targetApp: fetcherOptions.targetApp,
+		};
+
+		let response: EvalFlagsResponse;
+		try {
+			response = await this.fetchRequest('/api/v1/evalFlags', 'POST', fetcherOptions, requestBody);
+		} catch (error: unknown) {
+			if (error instanceof Error) {
+				throw error;
+			}
+			throw Error('Failed to retrieve flag values');
+		}
+
+		const status = getEvalFlagsStatus(response);
+		if (hasNoUsableProvider(status)) {
+			throw new EvalFlagsUnavailableError(status);
+		}
+		return response;
+	}
+
+	/**
+	 * Fetches the bootstrap values for a user. With `includeFfpFlags`, they come from
+	 * {@link Fetcher.fetchEvalFlags}; otherwise only Statsig values are fetched, with
+	 * {@link Fetcher.fetchExperimentValues}, and are returned as a response in which FFP is `DISABLED`.
+	 */
+	static async fetchFlagValues(
+		fetcherOptions: FetcherOptions,
+		identifiers: Identifiers,
+		customAttributes?: CustomAttributes,
+	): Promise<EvalFlagsResponse> {
+		if (fetcherOptions.includeFfpFlags) {
+			return this.fetchEvalFlags(fetcherOptions, identifiers, customAttributes);
+		}
+		return this.fetchExperimentValues(fetcherOptions, identifiers, customAttributes).then(
+			fromExperimentValuesResponse,
+		);
 	}
 
 	static async handleResponseError(response: Response): Promise<void> {

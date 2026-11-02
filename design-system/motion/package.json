@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/motion",
-	"version": "9.5.0",
+	"version": "9.6.0",
 	"description": "A set of utilities to apply motion in your application.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -19,6 +19,7 @@
 		".": "./src/index.tsx",
 		"./animate-in": "./src/entering/animate-in.tsx",
 		"./curves": "./src/utils/curves.tsx",
+		"./entering/icon-motion": "./src/entering/icon-motion.tsx",
 		"./entering/motion": "./src/entering/motion.tsx",
 		"./entering/types": "./src/entering/types.tsx",
 		"./entering/use-motion": "./src/entering/use-motion.tsx",
@@ -109,14 +110,23 @@
 					"sortKey": 6
 				},
 				{
+					"title": "Icon motion",
+					"id": "icon-motion",
+					"sortKey": 7,
+					"status": {
+						"type": "alpha",
+						"description": "Icon motion is currently in early access. We may make frequent breaking changes with limited notice. We don't recommend using this without support from our team."
+					}
+				},
+				{
 					"title": "Accessibility",
 					"id": "accessibility",
-					"sortKey": 7
+					"sortKey": 8
 				},
 				{
 					"title": "Entering motion",
 					"id": "entering-motion",
-					"sortKey": 8,
+					"sortKey": 9,
 					"status": {
 						"type": "intent-to-deprecate",
 						"description": "The `FadeIn`, `SlideIn`, `ZoomIn` and `ShrinkOut` entering motions will soon be deprecated. Please use the new [Motion](/components/motion/motion-primitive) component instead."
@@ -125,7 +135,7 @@
 				{
 					"title": "Variables",
 					"id": "variables",
-					"sortKey": 9,
+					"sortKey": 10,
 					"status": {
 						"type": "intent-to-deprecate",
 						"description": "The duration and curve variables will soon be deprecated. Please use the new [motion design tokens](/components/tokens/all-tokens#motion) instead."
@@ -154,6 +164,8 @@
 		"@atlaskit/dropdown-menu": "workspace:^",
 		"@atlaskit/form": "workspace:^",
 		"@atlaskit/heading": "workspace:^",
+		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/icon-lab": "workspace:^",
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/logo": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",

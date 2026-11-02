@@ -402,8 +402,6 @@ export interface BaseStepPM extends StepMetadata {
 	/** The agent's own id, as opposed to `agentId`, which carries its Atlassian account id. */
 	agentSourceId?: string;
 	agentType?: string;
-	/** True for a Forge / third-party / remote agent, so collaborators match its presentation. */
-	isThirdPartyAgent?: boolean;
 	clientId: number | string;
 	from?: number;
 	/**
@@ -416,6 +414,8 @@ export interface BaseStepPM extends StepMetadata {
 	 * that do not send it, and never validated for format by the frontend.
 	 */
 	invocationId?: string;
+	/** True for a Forge / third-party / remote agent, so collaborators match its presentation. */
+	isThirdPartyAgent?: boolean;
 	slice?: SliceJson;
 	stepType: string;
 	to?: number;
@@ -530,6 +530,12 @@ type ProviderParticipantPermitLevel = {
 
 export interface CollabParticipant {
 	actingUserId?: string;
+	/** Agent identity supplied by an agent-authored step, distinct from a human participant ID. */
+	agentId?: string;
+	/** Agent display name supplied by a step, distinct from the shared participant name. */
+	agentName?: string;
+	/** Stable external configuration reference supplied by an agent-authored step. */
+	agentNamedId?: string;
 	agentType?: string;
 	avatar: string;
 	cursorPos?: number;

@@ -109,10 +109,7 @@ function ZoomBox({ children, zoom }: { children: React.ReactNode; zoom: number }
 	if (zoom === 100) {
 		return <>{children}</>;
 	}
-	return (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-		<div style={{ zoom: zoom / 100 }}>{children}</div>
-	);
+	return <div style={{ zoom: zoom / 100 }}>{children}</div>;
 }
 
 function useLocalStorageState<T>(key: string, defaultValue: T): [T, (value: T) => void] {

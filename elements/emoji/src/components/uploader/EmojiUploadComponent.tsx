@@ -53,13 +53,12 @@ export interface Props {
 	/** Current Confluence page content id, enables AI emoji generation. */
 	contentId?: string;
 	createAnalyticsEvent?: CreateUIAnalyticsEvent;
-	disableFocusLock?: boolean;
 	emojiProvider: EmojiProvider;
 	onUploaderRef?: UploadRefHandler;
 }
 
 const EmojiUploadComponent = (props: Props): JSX.Element => {
-	const { emojiProvider, createAnalyticsEvent, onUploaderRef, disableFocusLock, contentId } = props;
+	const { emojiProvider, createAnalyticsEvent, onUploaderRef, contentId } = props;
 	const [uploadErrorMessage, setUploadErrorMessage] = useState<MessageDescriptor>();
 
 	useEffect(() => {
@@ -150,7 +149,6 @@ const EmojiUploadComponent = (props: Props): JSX.Element => {
 					onUploadCancelled={onUploadCancelled}
 					onUploadEmoji={onUploadEmoji}
 					errorMessage={uploadErrorMessage ? <FormattedMessage {...uploadErrorMessage} /> : null}
-					disableFocusLock={disableFocusLock}
 					contentId={contentId}
 					fireAnalytics={fireAnalytics}
 				/>

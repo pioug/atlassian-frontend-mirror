@@ -56,16 +56,7 @@ const props = {
 	onToneSelected: jest.fn(),
 };
 
-const teamojiRefreshExperimentName = 'platform_teamoji_26_refresh_emoji_picker';
 let checkGateSpy: jest.SpiedFunction<typeof FeatureGates.checkGate>;
-
-const setTeamojiExperimentEnabled = (isEnabled: boolean) => {
-	if (isEnabled) {
-		mockExpEnabled(teamojiRefreshExperimentName);
-	} else {
-		mockExpDisabled(teamojiRefreshExperimentName);
-	}
-};
 
 // This file exposes one or more accessibility violations. Testing is currently skipped but violations need to
 // be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
@@ -259,11 +250,7 @@ describe('<EmojiActions />', () => {
 			expect(screen.queryByTestId(toneSelectorTestId)).not.toBeVisible();
 		});
 
-		describe('when teamoji refresh experiment is on', () => {
-			beforeEach(() => {
-				setTeamojiExperimentEnabled(true);
-			});
-
+		describe('productivity colour selection', () => {
 			it('should update productivity colour before closing the selector for Productivity subcategory', async () => {
 				const handleProductivityColorSelected = jest.fn();
 				const zeroSquareRed = {
@@ -796,11 +783,10 @@ describe('<EmojiActions />', () => {
 		});
 	});
 
-	describe.each([false, true])('blur dismissal with picker refresh=%s', (refreshEnabled) => {
+	describe('blur dismissal with refreshed picker', () => {
 		beforeEach(() => {
 			passGate('platform_suppression_removal_fix_reactions');
 			passGate('platform_emoji_skin_tone_blur_fix');
-			setTeamojiExperimentEnabled(refreshEnabled);
 		});
 
 		it.each(['click', 'Enter'])(
@@ -879,30 +865,26 @@ describe('<EmojiActions />', () => {
 		});
 	});
 
-	it.each([false, true])(
-		'preserves existing blur dismissal when the fix is disabled, picker refresh=%s',
-		async (refreshEnabled) => {
-			passGate('platform_suppression_removal_fix_reactions');
-			failGate('platform_emoji_skin_tone_blur_fix');
-			setTeamojiExperimentEnabled(refreshEnabled);
-			const onToneSelectorCancelled = jest.fn();
-			renderWithIntl(
-				<EmojiActions
-					{...props}
-					toneEmoji={toneEmoji}
-					selectedTone={0}
-					onToneSelectorCancelled={onToneSelectorCancelled}
-				/>,
-			);
-			const trigger = screen.getByTestId(tonePreviewTestId);
-			await userEvent.click(trigger);
+	it('preserves existing blur dismissal when the fix is disabled', async () => {
+		passGate('platform_suppression_removal_fix_reactions');
+		failGate('platform_emoji_skin_tone_blur_fix');
+		const onToneSelectorCancelled = jest.fn();
+		renderWithIntl(
+			<EmojiActions
+				{...props}
+				toneEmoji={toneEmoji}
+				selectedTone={0}
+				onToneSelectorCancelled={onToneSelectorCancelled}
+			/>,
+		);
+		const trigger = screen.getByTestId(tonePreviewTestId);
+		await userEvent.click(trigger);
 
-			expect(screen.getByTestId(toneSelectorTestId)).not.toBeVisible();
-			expect(screen.getByRole('searchbox')).toBeVisible();
-			expect(trigger).toHaveAttribute('aria-expanded', 'false');
-			expect(onToneSelectorCancelled).toHaveBeenCalledTimes(1);
-		},
-	);
+		expect(screen.getByTestId(toneSelectorTestId)).not.toBeVisible();
+		expect(screen.getByRole('searchbox')).toBeVisible();
+		expect(trigger).toHaveAttribute('aria-expanded', 'false');
+		expect(onToneSelectorCancelled).toHaveBeenCalledTimes(1);
+	});
 
 	it('should close selector when tab is pressed', async () => {
 		renderWithIntl(<EmojiActions {...props} toneEmoji={toneEmoji} />);
@@ -922,42 +904,7 @@ describe('<EmojiActions />', () => {
 	});
 
 	describe('Add custom emoji', () => {
-		describe('Upload not supported', () => {
-			it('"Add custom emoji" button should not appear when uploadEnabled is false', async () => {
-				await renderWithIntl(<EmojiActions {...props} toneEmoji={toneEmoji} />);
-
-				expect(await screen.queryByText('Add your own emoji')).not.toBeInTheDocument();
-			});
-		});
-
 		describe('Upload supported', () => {
-			it('"Add custom emoji" button should appear as default', async () => {
-				await renderWithIntl(<EmojiActions {...props} toneEmoji={toneEmoji} uploadEnabled />);
-
-				expect(await screen.queryByText('Add your own emoji')).toBeInTheDocument();
-			});
-
-			it('should not bubble the add custom emoji click to parent containers', async () => {
-				const onOpenUpload = jest.fn();
-				const onParentClick = jest.fn();
-
-				await renderWithIntl(
-					<div onClick={onParentClick}>
-						<EmojiActions
-							{...props}
-							toneEmoji={toneEmoji}
-							uploadEnabled
-							onOpenUpload={onOpenUpload}
-						/>
-					</div>,
-				);
-
-				await userEvent.click(screen.getByRole('button', { name: 'Add your own emoji' }));
-
-				expect(onOpenUpload).toHaveBeenCalledTimes(1);
-				expect(onParentClick).not.toHaveBeenCalled();
-			});
-
 			it('should not bubble the upload cancel click to parent containers', async () => {
 				const onUploadCancelled = jest.fn();
 				const onParentClick = jest.fn();
@@ -1027,12 +974,6 @@ describe('<EmojiActions />', () => {
 
 	describe('Create emoji with Rovo (AI) gating', () => {
 		const uploadProps = { ...props, uploading: true };
-
-		beforeEach(() => {
-			// The AI section is only rendered inside the refresh upload picker, so
-			// the refresh emoji picker experiment must be enabled for these tests.
-			setTeamojiExperimentEnabled(true);
-		});
 
 		it('renders the Rovo section when the experiment is on and a contentId is provided', async () => {
 			mockExpEnabled('confluence_ai_generated_emojis');

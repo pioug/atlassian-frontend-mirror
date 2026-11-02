@@ -21,9 +21,10 @@ describe('utils', () => {
 	describe('getParticipantColor', () => {
 		it.each(['claude', ' Claude '])(
 			'uses fixed orange for %s regardless of participant ID',
-			(agentType) => {
+			(agentName) => {
+				passGate('confluence_ncs_step_diffing_version_history');
 				for (const id of ['first-agent', 'second-agent', '']) {
-					expect(getParticipantColor(id, agentType)).toEqual({
+					expect(getParticipantColor(id, agentName)).toEqual({
 						index: 7,
 						isFixed: true,
 						color: {
@@ -38,9 +39,10 @@ describe('utils', () => {
 
 		it.each(['chatgpt', ' ChatGPT '])(
 			'uses the ChatGPT brand colour for %s regardless of participant ID',
-			(agentType) => {
+			(agentName) => {
+				passGate('confluence_ncs_step_diffing_version_history');
 				for (const id of ['first-agent', 'second-agent', '']) {
-					expect(getParticipantColor(id, agentType)).toEqual({
+					expect(getParticipantColor(id, agentName)).toEqual({
 						index: 9,
 						isFixed: true,
 						color: {
@@ -57,9 +59,10 @@ describe('utils', () => {
 			['figma', 'agent-brand-figma'],
 			['lovable', 'agent-brand-lovable'],
 			['replit', 'agent-brand-replit'],
-		] as const)('uses ChatGPT telepointer colours for %s', (agentType, scheme) => {
+		] as const)('uses ChatGPT telepointer colours for %s', (agentName, scheme) => {
+			passGate('confluence_ncs_step_diffing_version_history');
 			for (const id of ['first-agent', 'second-agent', '']) {
-				expect(getParticipantColor(id, agentType)).toEqual({
+				expect(getParticipantColor(id, agentName)).toEqual({
 					index: 9,
 					isFixed: true,
 					color: {
@@ -79,19 +82,21 @@ describe('utils', () => {
 			'slack',
 			'antigravity',
 			'copilot',
-		] as const)('pins %s to the shared third-party slot with its brand colours', (agentType) => {
+		] as const)('pins %s to the shared third-party slot with its brand colours', (agentName) => {
+			passGate('confluence_ncs_step_diffing_version_history');
 			for (const id of ['first-agent', 'second-agent', '']) {
-				const { color, index, isFixed } = getParticipantColor(id, agentType);
+				const { color, index, isFixed } = getParticipantColor(id, agentName);
 				expect({ index, isFixed }).toEqual({ index: 9, isFixed: true });
-				expect(color.backgroundColor).toContain('var(--agent-brand-' + agentType + '-bold');
-				expect(color.textColor).toContain('var(--agent-brand-' + agentType + '-boldText');
+				expect(color.backgroundColor).toContain('var(--agent-brand-' + agentName + '-bold');
+				expect(color.textColor).toContain('var(--agent-brand-' + agentName + '-boldText');
 			}
 		});
 		it.each(['rovo', 'rovo_chat'])(
-			'uses fixed purple for Rovo agent type or brand %s regardless of participant ID',
-			(agentType) => {
+			'uses fixed purple for Rovo brand name %s regardless of participant ID',
+			(agentName) => {
+				passGate('confluence_ncs_step_diffing_version_history');
 				for (const id of ['first-agent', 'second-agent', '']) {
-					expect(getParticipantColor(id, agentType)).toMatchObject({
+					expect(getParticipantColor(id, agentName)).toMatchObject({
 						index: 4,
 						isFixed: true,
 					});
@@ -100,14 +105,15 @@ describe('utils', () => {
 		);
 
 		it.each(['first-agent', 'second-agent', ''])(
-			'treats the Rovo agent type and brand identically for participant %s',
+			'treats the Rovo name aliases identically for participant %s',
 			(id) => {
+				passGate('confluence_ncs_step_diffing_version_history');
 				expect(getParticipantColor(id, 'rovo')).toEqual(getParticipantColor(id, 'rovo_chat'));
 			},
 		);
 
-		it.each([undefined, ''])('preserves hashing when agent type is %s', (agentType) => {
-			expect(getParticipantColor('participant-id', agentType)).toEqual(
+		it.each([undefined, ''])('preserves hashing when agent name is %s', (agentName) => {
+			expect(getParticipantColor('participant-id', agentName)).toEqual(
 				getParticipantColor('participant-id'),
 			);
 		});
@@ -118,15 +124,29 @@ describe('utils', () => {
 			['00000002', 8],
 			['00000003', 1],
 		] as const)('maps agent identity %s to participant colour %d', (agentId, index) => {
-			expect(getParticipantColor(agentId, 'convo-ai')).toMatchObject({ index });
+			expect(getParticipantColor(agentId, 'Docs Reviewer')).toMatchObject({ index });
 		});
 
 		it('uses the named colour override for the content reviewer agent', () => {
 			for (const id of ['first-agent', 'second-agent']) {
-				expect(getParticipantColor(id, 'CUSTOMER', 'content_reviewer_agent')).toMatchObject({
+				expect(getParticipantColor(id, undefined, 'content_reviewer_agent')).toMatchObject({
 					index: 1,
 				});
 			}
+		});
+
+		it('resolves a named brand without a display name', () => {
+			passGate('confluence_ncs_step_diffing_version_history');
+			expect(getParticipantColor('agent-id', undefined, 'mcp_figma_agent')).toEqual(
+				getParticipantColor('agent-id', 'Figma'),
+			);
+		});
+
+		it('prefers the stable named brand over the display name', () => {
+			passGate('confluence_ncs_step_diffing_version_history');
+			expect(getParticipantColor('agent-id', 'Claude', 'mcp_figma_agent')).toEqual(
+				getParticipantColor('agent-id', 'Figma'),
+			);
 		});
 
 		it('should return a participant color based on the hash code of the input string', () => {
@@ -181,6 +201,28 @@ describe('utils', () => {
 		});
 
 		describe('with confluence_ncs_step_diffing_version_history', () => {
+			it.each([
+				[false, 'mcp_figma_agent', undefined, 3, undefined],
+				[true, 'mcp_figma_agent', undefined, 3, undefined],
+				[false, 'Claude', undefined, 3, undefined],
+				[true, 'Claude', undefined, 7, true],
+				[false, 'Claude', 'mcp_figma_agent', 1, undefined],
+				[true, 'Claude', 'mcp_figma_agent', 9, true],
+				[false, undefined, 'mcp_figma_agent', 1, undefined],
+				[true, undefined, 'mcp_figma_agent', 9, true],
+			] as const)(
+				'with gate %s resolves second argument %s and named ID %s to slot %s',
+				(enabled, agentName, agentNamedId, expectedIndex, expectedFixed) => {
+					if (enabled) {
+						passGate('confluence_ncs_step_diffing_version_history');
+					} else {
+						failGate('confluence_ncs_step_diffing_version_history');
+					}
+					const { index, isFixed } = getParticipantColor('00000000', agentName, agentNamedId);
+					expect({ index, isFixed }).toEqual({ index: expectedIndex, isFixed: expectedFixed });
+				},
+			);
+
 			// `participant-4` hashes onto slot 0 (red bolder), `participant-10` onto slot 11 (red subtle).
 			it.each([
 				['participant-4', 0],

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/feature-gate-js-client",
-	"version": "7.1.0",
+	"version": "8.0.0",
 	"description": "Atlassians wrapper for the Statsig js-lite client.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -24,7 +24,13 @@
 		"./client": "./src/client.ts",
 		"./compat/types": "./src/client/compat/types.ts",
 		"./dynamic-config": "./src/client/compat/DynamicConfig.ts",
+		"./eval-flags/eval-flags-unavailable-error": "./src/client/fetcher/EvalFlagsUnavailableError.ts",
+		"./eval-flags/from-experiment-values-response": "./src/client/fetcher/evalFlags/fromExperimentValuesResponse.ts",
+		"./eval-flags/get-eval-flags-status": "./src/client/fetcher/evalFlags/getEvalFlagsStatus.ts",
+		"./eval-flags/has-no-usable-provider": "./src/client/fetcher/evalFlags/hasNoUsableProvider.ts",
+		"./eval-flags/to-initialize-values": "./src/client/fetcher/evalFlags/toInitializeValues.ts",
 		"./feature-gates": "./src/client/FeatureGates.ts",
+		"./ffp/types": "./src/ffp/types.ts",
 		"./file-persistent-override-adapter": {
 			"publish": null,
 			"default": "./src/client/FilePeristentOverrideAdapter.ts"

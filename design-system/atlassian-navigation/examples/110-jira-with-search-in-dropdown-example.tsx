@@ -7,19 +7,12 @@ import React, { Fragment, type KeyboardEvent, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { AtlassianNavigation } from '@atlaskit/atlassian-navigation/atlassian-navigation';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { useOverflowStatus } from '@atlaskit/atlassian-navigation/overflow';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { PrimaryButton } from '@atlaskit/atlassian-navigation/primary-button';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { PrimaryDropdownButton } from '@atlaskit/atlassian-navigation/primary-dropdown-button';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { ProductHome } from '@atlaskit/atlassian-navigation/product-home';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { Search } from '@atlaskit/atlassian-navigation/search';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { Settings } from '@atlaskit/atlassian-navigation/settings';
 import Avatar from '@atlaskit/avatar/avatar';
 import { Drawer } from '@atlaskit/drawer/drawer';

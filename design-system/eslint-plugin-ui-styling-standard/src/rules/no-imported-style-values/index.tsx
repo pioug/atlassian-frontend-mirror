@@ -20,6 +20,7 @@ import {
 } from '@atlaskit/eslint-utils/is-supported-import';
 
 import { createLintRule } from '../utils/create-rule';
+import { isTypeWrapper } from '../utils/is-type-wrapper';
 
 const schema: JSONSchema4 = [
 	{
@@ -170,7 +171,7 @@ const rule: Rule.RuleModule = createLintRule({
 			}
 
 			/**
-			 * Check we have the exact form of `xcss={cx(...)}` otherwise it isn't valid.
+			 * Allow `xcss={cx(...)}` through type-only wrappers, but not runtime wrappers.
 			 */
 
 			const jsxExpression = jsxAttribute.value;
@@ -178,7 +179,11 @@ const rule: Rule.RuleModule = createLintRule({
 				return false;
 			}
 
-			const callExpression = jsxExpression.expression;
+			let callExpression: ESTree.Node = jsxExpression.expression;
+			while (isTypeWrapper(callExpression)) {
+				// ESTree does not model TypeScript wrappers; each has an expression child.
+				callExpression = (callExpression as ESTree.Node & { expression: ESTree.Node }).expression;
+			}
 			if (callExpression?.type !== 'CallExpression') {
 				return false;
 			}

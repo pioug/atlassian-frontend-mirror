@@ -13,8 +13,6 @@ import { containsFiles } from '@atlaskit/pragmatic-drag-and-drop/utils/contains-
 import { getFiles } from '@atlaskit/pragmatic-drag-and-drop/utils/get-files';
 import { token } from '@atlaskit/tokens';
 
-import { isRefreshEmojiPickerEnabled } from './isRefreshEmojiPickerEnabled';
-
 export interface Props {
 	accept?: string;
 	ariaDescribedBy?: string;
@@ -121,7 +119,7 @@ const FileChooser = (props: Props): React.JSX.Element => {
 
 	useEffect(() => {
 		const element = dropzoneRef.current;
-		if (!element || !isRefreshEmojiPickerEnabled()) {
+		if (!element) {
 			return;
 		}
 
@@ -226,50 +224,33 @@ const FileChooser = (props: Props): React.JSX.Element => {
 		/>
 	);
 
-	if (isRefreshEmojiPickerEnabled()) {
-		return (
-			<div
-				ref={dropzoneRef}
-				css={[dropzone, isDragging && dropzoneActive]}
-				data-testid={dropzoneTestId}
-				data-dragging={isDragging ? 'true' : undefined}
-				role="region"
-				aria-label={label}
-			>
-				{previewImage ? (
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-					<img src={previewImage} alt={previewAlt} css={previewImageStyles} />
-				) : (
-					<Button
-						onClick={handleOnChooseFile}
-						isDisabled={isDisabled}
-						appearance="subtle"
-						iconBefore={UploadIcon}
-						aria-describedby={ariaDescribedBy}
-						testId={chooseFileButtonTestId}
-						ref={fileButtonRef}
-					>
-						{label}
-					</Button>
-				)}
-				{hiddenInput}
-			</div>
-		);
-	}
-
 	return (
-		<span>
-			<Button
-				onClick={handleOnChooseFile}
-				isDisabled={isDisabled}
-				aria-describedby={ariaDescribedBy}
-				testId={chooseFileButtonTestId}
-				ref={fileButtonRef}
-			>
-				{label}
-			</Button>
+		<div
+			ref={dropzoneRef}
+			css={[dropzone, isDragging && dropzoneActive]}
+			data-testid={dropzoneTestId}
+			data-dragging={isDragging ? 'true' : undefined}
+			role="region"
+			aria-label={label}
+		>
+			{previewImage ? (
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+				<img src={previewImage} alt={previewAlt} css={previewImageStyles} />
+			) : (
+				<Button
+					onClick={handleOnChooseFile}
+					isDisabled={isDisabled}
+					appearance="subtle"
+					iconBefore={UploadIcon}
+					aria-describedby={ariaDescribedBy}
+					testId={chooseFileButtonTestId}
+					ref={fileButtonRef}
+				>
+					{label}
+				</Button>
+			)}
 			{hiddenInput}
-		</span>
+		</div>
 	);
 };
 

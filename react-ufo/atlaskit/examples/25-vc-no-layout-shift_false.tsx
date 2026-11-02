@@ -1,5 +1,4 @@
 /* eslint-disable @atlaskit/design-system/no-html-button */
-/* eslint-disable @atlaskit/ui-styling-standard/no-unsafe-values */
 /**
  * @jsxRuntime classic
  * @jsx jsx

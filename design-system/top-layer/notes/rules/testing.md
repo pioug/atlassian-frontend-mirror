@@ -345,6 +345,9 @@ Not every behavior needs a browser test. Use this framework to decide:
 - The jsdom polyfill reports `pointer-events: none` for inert content, so a `user-event` click
   behind a modal dialog throws. See
   [polyfill-inert-pointer-events.md](../decisions/polyfill-inert-pointer-events.md).
+- The jsdom polyfill reports `pointer-events: auto` for an open popover and its content when they
+  inherit `none` from outside the popover, as the ADS `Popover` host reset does in a browser. See
+  [polyfill-inert-pointer-events.md](../decisions/polyfill-inert-pointer-events.md).
 - In jsdom, focus goes to `<body>` after you pick a Select option. This is not the polyfill.
   `@atlaskit/react-select` sets `blurInputOnSelect` to `isTouchCapable()`, which is true in jsdom
   because jsdom implements `TouchEvent`. Chrome, Safari and Firefox keep focus in the input. Do not

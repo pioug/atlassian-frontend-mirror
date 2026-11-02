@@ -1,0 +1,275 @@
+{
+ "version": 1,
+ "type": "doc",
+ "content": [
+  {
+   "type": "table",
+   "attrs": {
+    "layout": "center",
+    "displayMode": "default"
+   },
+   "content": [
+    {
+     "type": "tableRow",
+     "content": [
+      {
+       "type": "tableHeader",
+       "attrs": {},
+       "content": [
+        {
+         "type": "heading",
+         "attrs": {
+          "level": 3
+         },
+         "content": [
+          {
+           "type": "text",
+           "text": "Heading 3"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "type": "tableHeader",
+       "attrs": {},
+       "content": [
+        {
+         "type": "heading",
+         "attrs": {
+          "level": 4
+         },
+         "content": [
+          {
+           "type": "text",
+           "text": "Heading 4"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "type": "tableHeader",
+       "attrs": {},
+       "content": [
+        {
+         "type": "heading",
+         "attrs": {
+          "level": 5
+         },
+         "content": [
+          {
+           "type": "text",
+           "text": "Heading 5"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "type": "tableHeader",
+       "attrs": {},
+       "content": [
+        {
+         "type": "paragraph",
+         "content": [
+          {
+           "type": "text",
+           "text": "Paragraph"
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "type": "tableRow",
+     "content": [
+      {
+       "type": "tableCell",
+       "attrs": {},
+       "content": [
+        {
+         "type": "heading",
+         "attrs": {
+          "level": 6
+         },
+         "content": [
+          {
+           "type": "text",
+           "text": "Heading 6"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "type": "tableCell",
+       "attrs": {},
+       "content": [
+        {
+         "type": "heading",
+         "attrs": {
+          "level": 4
+         },
+         "content": [
+          {
+           "type": "text",
+           "text": "Centred H4"
+          }
+         ],
+         "marks": [
+          {
+           "type": "alignment",
+           "attrs": {
+            "align": "center"
+           }
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "type": "tableCell",
+       "attrs": {},
+       "content": [
+        {
+         "type": "paragraph",
+         "content": [
+          {
+           "type": "text",
+           "text": "Paragraph"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "type": "tableCell",
+       "attrs": {},
+       "content": [
+        {
+         "type": "heading",
+         "attrs": {
+          "level": 2
+         },
+         "content": [
+          {
+           "type": "text",
+           "text": "Heading 2"
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "type": "tableRow",
+     "content": [
+      {
+       "type": "tableCell",
+       "attrs": {},
+       "content": [
+        {
+         "type": "paragraph",
+         "content": [
+          {
+           "type": "text",
+           "text": "Paragraph"
+          }
+         ]
+        },
+        {
+         "type": "heading",
+         "attrs": {
+          "level": 4
+         },
+         "content": [
+          {
+           "type": "text",
+           "text": "Second-block H4"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "type": "tableCell",
+       "attrs": {},
+       "content": [
+        {
+         "type": "heading",
+         "attrs": {
+          "level": 4
+         },
+         "content": [
+          {
+           "type": "text",
+           "text": "Two-line heading four wraps"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "type": "tableCell",
+       "attrs": {},
+       "content": [
+        {
+         "type": "heading",
+         "attrs": {
+          "level": 5
+         },
+         "content": [
+          {
+           "type": "text",
+           "text": "H5 then text"
+          }
+         ]
+        },
+        {
+         "type": "paragraph",
+         "content": [
+          {
+           "type": "text",
+           "text": "Paragraph"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "type": "tableCell",
+       "attrs": {},
+       "content": [
+        {
+         "type": "paragraph",
+         "content": [
+          {
+           "type": "text",
+           "text": "Paragraph"
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "type": "heading",
+   "attrs": {
+    "level": 4
+   },
+   "content": [
+    {
+     "type": "text",
+     "text": "Heading 4 outside a table"
+    }
+   ]
+  }
+ ]
+}

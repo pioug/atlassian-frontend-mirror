@@ -3,7 +3,6 @@ import pWaitFor from 'p-wait-for';
 
 import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
-import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 
 import EmojiRepository from '../../../api/EmojiRepository';
 import { getEmojiVariation } from '../../../api/getEmojiVariation';
@@ -150,8 +149,6 @@ const allNumberTest: EmojiDescription = {
 	},
 	searchable: true,
 };
-
-const teamojiRefreshExperimentName = 'platform_teamoji_26_refresh_emoji_picker';
 
 const frequentTest: EmojiDescription = {
 	id: '1f43c',
@@ -405,10 +402,6 @@ describe('EmojiRepository', () => {
 		initializeCompletedSpy.mockRestore();
 	});
 
-	const enableTeamojiRefreshExperiment = () => {
-		mockExpEnabled(teamojiRefreshExperimentName);
-	};
-
 	describe('Search with non standard characters', () => {
 		it('one match expected when searching emoji with chinese characters', () => {
 			const repository = new EmojiRepository([
@@ -624,19 +617,11 @@ describe('EmojiRepository', () => {
 			expect(emojis[0].name).toEqual('BOOM');
 		});
 
-		it('finds Atlassian emojis by keyword when teamoji experiment is enabled', () => {
-			enableTeamojiRefreshExperiment();
+		it('finds Atlassian emojis by keyword', () => {
 			const repository = new EmojiRepository([...searchableEmojis, atlassianTest]);
 			const emojis = repository.search('explosion').emojis;
 
 			expect(emojis).toContain(atlassianTest);
-		});
-
-		it('does not find Atlassian emojis by keyword when teamoji experiment is disabled', () => {
-			const repository = new EmojiRepository([...searchableEmojis, atlassianTest]);
-			const emojis = repository.search('explosion').emojis;
-
-			expect(emojis).not.toContain(atlassianTest);
 		});
 
 		it('should not find a non-searchable emoji', () => {
@@ -845,7 +830,7 @@ describe('EmojiRepository', () => {
 			expect(repository.getDynamicCategoryList()).toEqual(['ATLASSIAN', 'CUSTOM', 'FREQUENT']);
 		});
 
-		it('groups atlassian subcategory values under ATLASSIAN when teamoji experiment is disabled', () => {
+		it('groups atlassian subcategory values under ATLASSIAN', () => {
 			const atlassianProductivity: EmojiDescription = {
 				...atlassianTest,
 				id: 'atlassian-productivity',
@@ -861,8 +846,7 @@ describe('EmojiRepository', () => {
 			expect(repository.getDynamicCategoryList()).toEqual(['ATLASSIAN', 'FREQUENT']);
 		});
 
-		it('groups atlassian subcategory values under ATLASSIAN but preserves FREQUENT when teamoji experiment is enabled', () => {
-			enableTeamojiRefreshExperiment();
+		it('groups atlassian subcategory values under ATLASSIAN but preserves FREQUENT', () => {
 			const atlassianFaces: EmojiDescription = {
 				...atlassianTest,
 				id: 'atlassian-faces',
@@ -878,7 +862,7 @@ describe('EmojiRepository', () => {
 			expect(repository.getDynamicCategoryList()).toEqual(['ATLASSIAN', 'FREQUENT']);
 		});
 
-		it('finds new-format atlassian emojis by top-level ATLASSIAN category when teamoji experiment is disabled', () => {
+		it('finds new-format atlassian emojis by top-level ATLASSIAN category', () => {
 			const atlassianProductivity: EmojiDescription = {
 				...atlassianTest,
 				id: 'atlassian-productivity',
@@ -897,8 +881,7 @@ describe('EmojiRepository', () => {
 			]);
 		});
 
-		it('finds atlassian subcategory emojis by top-level ATLASSIAN category when teamoji experiment is enabled', () => {
-			enableTeamojiRefreshExperiment();
+		it('finds atlassian subcategory emojis by top-level ATLASSIAN category', () => {
 			const atlassianFaces: EmojiDescription = {
 				...atlassianTest,
 				id: 'atlassian-faces',

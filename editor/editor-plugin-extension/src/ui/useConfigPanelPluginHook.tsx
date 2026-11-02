@@ -260,9 +260,7 @@ export const getContextPanelBodyComponent = ({
 							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							onCancel={() => startClosingConfigPanel({ api, editorView })}
 							featureFlags={featureFlags}
-							// Remove below prop when cleaning platform_editor_ai_object_sidebar_injection FG
-							// Becuase it will always be true
-							usingObjectSidebarPanel={true}
+							usingObjectSidebarPanel
 						/>
 					);
 				}}

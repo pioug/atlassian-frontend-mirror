@@ -186,12 +186,7 @@ const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponen
 		targetCellRef.parentElement &&
 		tableWrapper?.classList.contains(ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW);
 
-	if (
-		parentStickyNative &&
-		targetCellRef.nodeName === 'TH' &&
-		isNativeStickySupported() &&
-		expValEquals('platform_editor_table_sticky_header_improvements', 'cohort', 'test_with_overflow')
-	) {
+	if (parentStickyNative && targetCellRef.nodeName === 'TH' && isNativeStickySupported()) {
 		/* We need to default to checking the anchor style because there may be a conflict with the block controls
 		 plugin not using the data attribute value and setting the `anchor-name` style property independently of the data attribute.
 		 */

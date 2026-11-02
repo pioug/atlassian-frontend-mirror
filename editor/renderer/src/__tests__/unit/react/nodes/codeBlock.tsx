@@ -30,7 +30,6 @@ const renderCodeBlock = (overrides = {}, fireAnalyticsEvent = jest.fn()) => {
 const lineNumbers = (container: HTMLElement) => container.querySelectorAll('.linenumber');
 const codeTag = (container: HTMLElement) => container.querySelector('code');
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Renderer - React/Nodes/CodeBlock', () => {
 	beforeEach(() => {
 		setupEditorExperiments('test');

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9b5ad3fffebdc995c9b510578ffa1f1c>>
+ * @codegen <<SignedSource::9369365b155008cc125ba161fe973a43>>
  * @codegenCommand yarn build tokens
  */
 export default `
@@ -208,6 +208,46 @@ export default `
     transform-origin: right;
   }
 }
+@keyframes SlideIn100PercentTop {
+  0% {
+    transform: translateY(calc(-100% - var(--ds-motion-slide-overshoot, 0px)));
+    transform-origin: top;
+  }
+  100% {
+    transform: translateY(0px);
+    transform-origin: top;
+  }
+}
+@keyframes SlideOut100PercentTop {
+  0% {
+    transform: translateY(0px);
+    transform-origin: top;
+  }
+  100% {
+    transform: translateY(calc(-100% - var(--ds-motion-slide-overshoot, 0px)));
+    transform-origin: top;
+  }
+}
+@keyframes SlideIn100PercentBottom {
+  0% {
+    transform: translateY(calc(100% + var(--ds-motion-slide-overshoot, 0px)));
+    transform-origin: bottom;
+  }
+  100% {
+    transform: translateY(0px);
+    transform-origin: bottom;
+  }
+}
+@keyframes SlideOut100PercentBottom {
+  0% {
+    transform: translateY(0px);
+    transform-origin: bottom;
+  }
+  100% {
+    transform: translateY(calc(100% + var(--ds-motion-slide-overshoot, 0px)));
+    transform-origin: bottom;
+  }
+}
 @keyframes ScaleXIn80to100 {
   0% {
     transform: scaleX(0.8);
@@ -266,6 +306,10 @@ html[data-theme~="motion:motion"], [data-subtree-theme][data-theme~="motion:moti
   --ds-flag-reposition: transform 250ms cubic-bezier(0.4, 0, 0, 1);
   --ds-form-message-enter: 150ms cubic-bezier(0.4, 1, 0.6, 1) SlideInBottom2px backwards, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100 backwards;
   --ds-form-message-exit: 100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutBottom2px forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards;
+  --ds-iconography-enter-cycle-up: 400ms cubic-bezier(0.65, 0, 0.35, 1) SlideIn100PercentBottom backwards;
+  --ds-iconography-enter-fade: 250ms cubic-bezier(0, 0.4, 0, 1) FadeIn0to100 backwards;
+  --ds-iconography-exit-cycle-up: 400ms cubic-bezier(0.65, 0, 0.35, 1) SlideOut100PercentTop forwards;
+  --ds-iconography-exit-fade: 250ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards;
   --ds-input: background-color 150ms cubic-bezier(0.4, 1, 0.6, 1), border-color 150ms cubic-bezier(0.4, 1, 0.6, 1), box-shadow 150ms cubic-bezier(0.4, 1, 0.6, 1);
   --ds-input-selection: background-color 150ms cubic-bezier(0.4, 1, 0.6, 1), border-color 150ms cubic-bezier(0.4, 1, 0.6, 1), color 150ms cubic-bezier(0.4, 1, 0.6, 1), fill 150ms cubic-bezier(0.4, 1, 0.6, 1), stroke 150ms cubic-bezier(0.4, 1, 0.6, 1), opacity 150ms cubic-bezier(0.4, 1, 0.6, 1);
   --ds-input-toggle: background-color 150ms cubic-bezier(0.4, 1, 0.6, 1), color 150ms cubic-bezier(0.4, 1, 0.6, 1), transform 150ms cubic-bezier(0.4, 1, 0.6, 1), opacity 150ms cubic-bezier(0.4, 1, 0.6, 1);

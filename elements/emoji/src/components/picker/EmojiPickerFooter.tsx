@@ -14,15 +14,9 @@ import { token } from '@atlaskit/tokens';
 import type { EmojiDescription } from '../../types';
 import { AddOwnEmoji } from '../common/AddEmoji';
 import { EmojiPreviewComponent } from '../common/EmojiPreviewComponent';
-import { isRefreshEmojiPickerEnabled } from '../common/isRefreshEmojiPickerEnabled';
 
 const emojiPickerFooter = css({
 	flex: '0 0 auto',
-});
-
-const emojiPickerFooterWithTopShadow = css({
-	borderTop: `${token('border.width.selected')} solid ${token('color.border')}`,
-	boxShadow: `0px -1px 1px 0px ${token('color.border')}`,
 });
 
 const emojiPickerFooterWithTopShadowNew = css({
@@ -48,7 +42,7 @@ export const emojiPickerFooterTestId = 'emoji-picker-footer';
 
 const EmojiPickerFooter = ({ selectedEmoji, onOpenUpload, uploadEnabled }: Props): JSX.Element => {
 	const intl = useIntl();
-	return isRefreshEmojiPickerEnabled() ? (
+	return (
 		<div
 			css={[emojiPickerFooter, emojiPickerFooterWithTopShadowNew]}
 			data-testid={emojiPickerFooterTestId}
@@ -60,13 +54,6 @@ const EmojiPickerFooter = ({ selectedEmoji, onOpenUpload, uploadEnabled }: Props
 			) : (
 				<AddOwnEmoji onOpenUpload={onOpenUpload} uploadEnabled={uploadEnabled} intl={intl} />
 			)}
-		</div>
-	) : (
-		<div
-			css={[emojiPickerFooter, emojiPickerFooterWithTopShadow]}
-			data-testid={emojiPickerFooterTestId}
-		>
-			{selectedEmoji && <EmojiPreviewComponent emoji={selectedEmoji} />}
 		</div>
 	);
 };

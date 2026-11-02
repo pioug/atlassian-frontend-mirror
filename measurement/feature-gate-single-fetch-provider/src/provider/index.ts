@@ -1,8 +1,11 @@
-import Fetcher from '@atlaskit/feature-gate-fetcher/Fetcher';
+import Fetcher, {
+	fromExperimentValuesResponse,
+	toFrontendExperimentsResult,
+} from '@atlaskit/feature-gate-fetcher/Fetcher';
 import type {
+	EvalFlagsResponse,
 	FetcherOptions,
 	FrontendClientSdkKeyResponse,
-	FrontendExperimentsResponse,
 } from '@atlaskit/feature-gate-fetcher/types';
 import type {
 	BaseClientOptions,
@@ -56,16 +59,24 @@ export default class SingleFetchProvider implements Provider {
 			...this.providerOptions,
 		};
 
-		return await Fetcher.fetchExperimentValues(
-			this.clientVersion,
-			fetcherOptions,
-			this.identifiers,
-			this.customAttributes,
-		).then((result: FrontendExperimentsResponse) => ({
-			experimentValues: result.experimentValues,
-			customAttributesFromFetch: result.customAttributes,
-			clientSdkKey: result.clientSdkKey,
-		}));
+		const customAttributes = this.customAttributes;
+		// Without FFP flags, only Statsig values are fetched and FFP is treated as disabled
+		const response: Promise<EvalFlagsResponse> = this.providerOptions.includeFfpFlags
+			? Fetcher.fetchEvalFlags(
+					this.clientVersion,
+					fetcherOptions,
+					this.identifiers,
+					customAttributes,
+				)
+			: Fetcher.fetchExperimentValues(
+					this.clientVersion,
+					fetcherOptions,
+					this.identifiers,
+					customAttributes,
+				).then(fromExperimentValuesResponse);
+		return await response.then((result: EvalFlagsResponse) =>
+			toFrontendExperimentsResult(result, customAttributes),
+		);
 	}
 
 	async getClientSdkKey(): Promise<string> {

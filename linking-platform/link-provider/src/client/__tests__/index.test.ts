@@ -9,7 +9,6 @@ import { InvalidUrlError } from '@atlaskit/linking-common/invalid-url-error';
 import { NetworkError } from '@atlaskit/linking-common/network-error';
 import { flushPromises } from '@atlaskit/media-test-helpers/flushPromises';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import SmartCardClient, { urlResponsePromiseCache } from '..';
 import { isSuccessfulResponse } from '../types/isSuccessfulResponse';
@@ -476,8 +475,10 @@ describe('Smart Card: Client', () => {
 			expect(response).toBe(mocks.success);
 		});
 
-		ffTest.on('platform_smartlink_inline_resolve_optimization', '', () => {
+		describe('platform_smartlink_inline_resolve_optimization is on', () => {
 			it('should pass appearance to request body when appearance is provided', async () => {
+				passGate('platform_smartlink_inline_resolve_optimization');
+
 				mockRequest.mockImplementationOnce(async () => [successfulResponse]);
 				const client = new SmartCardClient();
 				const resourceUrl = 'https://i.love.cheese';
@@ -499,6 +500,8 @@ describe('Smart Card: Client', () => {
 			});
 
 			it('should pass block appearance for hover card metadata', async () => {
+				passGate('platform_smartlink_inline_resolve_optimization');
+
 				mockRequest.mockImplementationOnce(async () => [successfulResponse]);
 				const client = new SmartCardClient();
 				const resourceUrl = 'https://i.love.cheese';
@@ -520,6 +523,8 @@ describe('Smart Card: Client', () => {
 			});
 
 			it('should use different cache keys for different appearances', async () => {
+				passGate('platform_smartlink_inline_resolve_optimization');
+
 				mockRequest.mockImplementation(async () => [successfulResponse]);
 				const client = new SmartCardClient();
 				const resourceUrl = 'https://i.love.cheese';
@@ -538,8 +543,10 @@ describe('Smart Card: Client', () => {
 			});
 		});
 
-		ffTest.off('platform_smartlink_inline_resolve_optimization', '', () => {
+		describe('platform_smartlink_inline_resolve_optimization is off', () => {
 			it('should preserve legacy caching and payloads when appearance is provided', async () => {
+				failGate('platform_smartlink_inline_resolve_optimization');
+
 				mockRequest.mockImplementationOnce(async () => [successfulResponse]);
 				const client = new SmartCardClient();
 				const resourceUrl = 'https://i.love.cheese/legacy-appearance';

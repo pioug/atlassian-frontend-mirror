@@ -11,7 +11,6 @@ import {
 	getAnnotationIndex,
 } from '../../component';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Annotations: draft/component', () => {
 	describe('#getAnnotationIndex', () => {
 		describe('when the annotationPosition is START', () => {
@@ -203,7 +202,6 @@ describe('Annotations: draft/component', () => {
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Annotations: draft/component with plainTextFastPath', () => {
 	const provider = (draftSelection: Position | null, child: React.ReactNode) => (
 		<AnnotationRangeStateContext.Provider

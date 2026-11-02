@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable testing-library/prefer-screen-queries */
 /* eslint-disable  playwright/no-conditional-in-test */
 /* eslint-disable  playwright/no-conditional-in-test */
-/* eslint-disable compat/compat */
 
 import { expect, test, viewports } from './fixtures';
 

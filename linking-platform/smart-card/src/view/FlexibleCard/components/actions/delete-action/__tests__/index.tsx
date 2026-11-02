@@ -17,7 +17,6 @@ jest.mock('../../../../../../state/flexible-ui-context/useFlexibleUiContext', ()
 	useFlexibleUiContext: jest.fn().mockReturnValue(mockContext),
 }));
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('DeleteAction', () => {
 	const testId = 'smart-action-delete-action';
 

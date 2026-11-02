@@ -365,11 +365,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 	`
 		: ''}
 
-	${expValEquals(
-		'platform_editor_table_sticky_header_improvements',
-		'cohort',
-		'test_with_overflow',
-	) && tableAnchorStyles};
+	${tableAnchorStyles};
 
 	.${ClassName.TABLE_NODE_WRAPPER} {
 		td.${ClassName.TABLE_CELL}, th.${ClassName.TABLE_HEADER_CELL} {
@@ -1499,15 +1495,15 @@ const baseTableStylesWithoutSharedStyle = (props: {
 
 	.${ClassName.TABLE_STICKY} .${ClassName.DRAG_COLUMN_CONTROLS_WRAPPER} {
 		position: fixed;
-		/* Keep column controls above the sticky header in both experiment cohorts. */
+		/* Keep column controls above the sticky header. */
 		z-index: ${getTableZIndexes().aboveHeader};
 	}
 
-	${expValEquals('platform_editor_table_sticky_header_improvements', 'cohort', 'test_with_overflow')
-		? `.${ClassName.TABLE_CONTAINER}.${ClassName.WITH_CONTROLS}:has(tr.sticky) .${ClassName.NUMBERED_COLUMN} .${ClassName.NUMBERED_COLUMN_BUTTON}:first-of-type {
-			box-shadow: 0 -5px 0 1px ${tableBorderColor};
-		}`
-		: ``}
+	.${ClassName.TABLE_CONTAINER}.${ClassName.WITH_CONTROLS}:has(tr.sticky)
+		.${ClassName.NUMBERED_COLUMN}
+		.${ClassName.NUMBERED_COLUMN_BUTTON}:first-of-type {
+		box-shadow: 0 -5px 0 1px ${tableBorderColor};
+	}
 
 	/* nested tables */
 	.${ClassName.TABLE_CONTAINER} {

@@ -1,0 +1,35 @@
+{
+	"name": "@atlaskit/editor-plugin-external-state",
+	"version": "0.1.0",
+	"description": "External state plugin for @atlaskit/editor-core",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "Editor: Core Experiences",
+		"singleton": true
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"main": "dist/cjs/externalStatePlugin.js",
+	"module": "dist/esm/externalStatePlugin.js",
+	"module:es2019": "dist/es2019/externalStatePlugin.js",
+	"types": "dist/types/externalStatePluginType.d.ts",
+	"sideEffects": false,
+	"exports": {
+		"./externalStatePlugin": "./src/entry-points/externalStatePlugin.ts",
+		"./externalStatePluginType": "./src/entry-points/externalStatePluginType.ts"
+	},
+	"dependencies": {
+		"@atlaskit/editor-prosemirror": "workspace:^",
+		"@babel/runtime": "root:*"
+	},
+	"peerDependencies": {
+		"@atlaskit/editor-common": "workspace:^",
+		"react": "^18.2.0 || ^19.2.0"
+	},
+	"devDependencies": {
+		"react": "^19.2.0"
+	}
+}

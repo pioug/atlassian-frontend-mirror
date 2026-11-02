@@ -1,5 +1,6 @@
+import { ResponseError } from '@atlaskit/feature-gate-fetcher/errors';
 import Fetcher from '@atlaskit/feature-gate-fetcher/Fetcher';
-import type { FrontendExperimentsResponse } from '@atlaskit/feature-gate-fetcher/types';
+import type { EvalFlagsResponse } from '@atlaskit/feature-gate-fetcher/types';
 import {
 	type BaseClientOptions,
 	type CustomAttributes,
@@ -20,6 +21,7 @@ import { createHash, getFrontendExperimentsResult } from '../utils';
 
 jest.mock('@atlaskit/feature-gate-fetcher/Fetcher', () => ({
 	...jest.requireActual('@atlaskit/feature-gate-fetcher/Fetcher'),
+	fetchEvalFlags: jest.fn(),
 	fetchExperimentValues: jest.fn(),
 	fetchClientSdkKey: jest.fn(),
 }));
@@ -58,10 +60,12 @@ const providerOptions: ProviderOptions = {
 	initialFetchTimeout: 15,
 	pollingInterval: 30000,
 	useGatewayURL: true,
+	includeFfpFlags: true,
 };
 const mockClientVersion = 'mockVersion';
 const mockCurrentDate = 1727256325239;
-const expectedProfileHash = 'v2.8e3c96eb13880fc945411b9300db02903a32b62d9af731c8c6b37207f2201289';
+const expectedProfileHash =
+	'evalFlags.v1.8e3c96eb13880fc945411b9300db02903a32b62d9af731c8c6b37207f2201289';
 const expectedRulesetProfile = {
 	customAttributes: mockCustomAttributes,
 	identifiers: mockIdentifiers,
@@ -69,14 +73,24 @@ const expectedRulesetProfile = {
 	perimeter: PerimeterType.COMMERCIAL,
 	targetApp: 'targetApp_web',
 };
-const mockExperimentValuesResponse: FrontendExperimentsResponse = {
-	experimentValues: mockExperimentValues,
-	customAttributes: mockCustomAttributesFromFetch,
+const mockFfpValues = {
+	requestContext: { identifiers: { stableID: 'stable-abc' }, attributes: {} },
+	flags: {},
+};
+const mockExperimentValuesResponse: EvalFlagsResponse = {
+	statsig: {
+		experimentValues: mockExperimentValues,
+		customAttributes: mockCustomAttributesFromFetch,
+	},
+	ffp: mockFfpValues,
+	status: { statsig: 'OK', ffp: 'OK' },
 };
 const expectedExperimentValuesResult: FrontendExperimentsResult = {
 	experimentValues: mockExperimentValues,
 	customAttributesFromFetch: mockCustomAttributesFromFetch,
 	clientSdkKey: undefined,
+	ffp: mockFfpValues,
+	status: { statsig: 'OK', ffp: 'OK' },
 };
 
 const getMockEVEntry = (timestamp: number): ExperimentValuesEntry => ({
@@ -88,9 +102,12 @@ const getMockEVEntry = (timestamp: number): ExperimentValuesEntry => ({
 		perimeter: mockClientOptions.perimeter,
 		targetApp: mockClientOptions.targetApp,
 	},
-	experimentValuesResponse: {
-		experimentValues: mockExperimentValues,
-		customAttributes: mockCustomAttributesFromFetch,
+	evalFlagsResponse: {
+		statsig: {
+			experimentValues: mockExperimentValues,
+			customAttributes: mockCustomAttributesFromFetch,
+		},
+		status: { statsig: 'OK', ffp: 'DISABLED' },
 	},
 	timestamp,
 });
@@ -114,7 +131,7 @@ describe('PollingProvider', () => {
 		// eslint-disable-next-line no-console
 		console.warn = jest.fn();
 		global.Date.now = jest.fn(() => mockCurrentDate);
-		mockedFetcher.fetchExperimentValues.mockResolvedValue(mockExperimentValuesResponse);
+		mockedFetcher.fetchEvalFlags.mockResolvedValue(mockExperimentValuesResponse);
 		mockedFetcher.fetchClientSdkKey.mockResolvedValue({ clientSdkKey: mockClientSdkKey });
 		provider = new PollingProvider(providerOptions);
 		provider.setApplyUpdateCallback(mockApplyUpdate);
@@ -196,7 +213,7 @@ describe('PollingProvider', () => {
 			await expect(provider.getExperimentValues()).resolves.toStrictEqual(
 				expectedExperimentValuesResult,
 			);
-			await expect(mockedFetcher.fetchExperimentValues).toHaveBeenCalledWith(
+			await expect(mockedFetcher.fetchEvalFlags).toHaveBeenCalledWith(
 				mockClientVersion,
 				{
 					apiKey: '123',
@@ -205,6 +222,7 @@ describe('PollingProvider', () => {
 					fetchTimeoutMs: 15,
 					targetApp: 'targetApp_web',
 					useGatewayURL: true,
+					includeFfpFlags: true,
 				},
 				mockIdentifiers,
 				mockCustomAttributes,
@@ -230,39 +248,49 @@ describe('PollingProvider', () => {
 			});
 		});
 
-		describe('with includeFfpFlags', () => {
-			const evalFlagsProviderOptions: ProviderOptions = {
+		describe('without includeFfpFlags', () => {
+			const statsigOnlyProviderOptions: ProviderOptions = {
 				...providerOptions,
-				includeFfpFlags: true,
+				includeFfpFlags: false,
 			};
 
 			test('keys the values by a profile hash with its own prefix', async () => {
-				const evalFlagsProvider = new PollingProvider(evalFlagsProviderOptions);
+				const statsigOnlyProvider = new PollingProvider(statsigOnlyProviderOptions);
 
-				await evalFlagsProvider.setProfile(
+				await statsigOnlyProvider.setProfile(
 					mockClientOptions,
 					mockIdentifiers,
 					mockCustomAttributes,
 				);
 
-				expect(evalFlagsProvider['currentProfileHash']).toBe(
-					'evalFlags.v1.statsig.8e3c96eb13880fc945411b9300db02903a32b62d9af731c8c6b37207f2201289',
+				expect(statsigOnlyProvider['currentProfileHash']).toBe(
+					'experimentValues.v2.8e3c96eb13880fc945411b9300db02903a32b62d9af731c8c6b37207f2201289',
 				);
 			});
 
-			test('passes includeFfpFlags to the fetcher', async () => {
-				const evalFlagsProvider = new PollingProvider(evalFlagsProviderOptions);
-				evalFlagsProvider.setApplyUpdateCallback(mockApplyUpdate);
-				evalFlagsProvider.setClientVersion(mockClientVersion);
-				await evalFlagsProvider.setProfile(
+			test('fetches Statsig values only and disables FFP', async () => {
+				mockedFetcher.fetchExperimentValues.mockResolvedValue({
+					experimentValues: mockExperimentValues,
+					customAttributes: mockCustomAttributesFromFetch,
+				});
+				const statsigOnlyProvider = new PollingProvider(statsigOnlyProviderOptions);
+				statsigOnlyProvider.setApplyUpdateCallback(mockApplyUpdate);
+				statsigOnlyProvider.setClientVersion(mockClientVersion);
+				await statsigOnlyProvider.setProfile(
 					mockClientOptions,
 					mockIdentifiers,
 					mockCustomAttributes,
 				);
 
-				await expect(evalFlagsProvider.getExperimentValues()).resolves.toStrictEqual(
-					expectedExperimentValuesResult,
-				);
+				await expect(statsigOnlyProvider.getExperimentValues()).resolves.toStrictEqual({
+					experimentValues: mockExperimentValues,
+					customAttributesFromFetch: mockCustomAttributesFromFetch,
+					clientSdkKey: undefined,
+					ffp: undefined,
+					status: { statsig: 'OK', ffp: 'DISABLED' },
+					disabledProviders: ['ffp'],
+				});
+				expect(mockedFetcher.fetchEvalFlags).not.toHaveBeenCalled();
 				expect(mockedFetcher.fetchExperimentValues).toHaveBeenCalledWith(
 					mockClientVersion,
 					{
@@ -272,7 +300,7 @@ describe('PollingProvider', () => {
 						fetchTimeoutMs: 15,
 						targetApp: 'targetApp_web',
 						useGatewayURL: true,
-						includeFfpFlags: true,
+						includeFfpFlags: false,
 					},
 					mockIdentifiers,
 					mockCustomAttributes,
@@ -289,7 +317,7 @@ describe('PollingProvider', () => {
 			await expect(provider.getExperimentValues()).resolves.toStrictEqual(
 				expectedExperimentValuesResult,
 			);
-			await expect(mockedFetcher.fetchExperimentValues).toHaveBeenCalledWith(
+			await expect(mockedFetcher.fetchEvalFlags).toHaveBeenCalledWith(
 				mockClientVersion,
 				{
 					apiKey: '123',
@@ -298,6 +326,7 @@ describe('PollingProvider', () => {
 					fetchTimeoutMs: 15,
 					targetApp: 'targetApp_web',
 					useGatewayURL: true,
+					includeFfpFlags: true,
 				},
 				mockIdentifiers,
 				mockCustomAttributes,
@@ -306,7 +335,7 @@ describe('PollingProvider', () => {
 			const expectedFGState: ExperimentValuesEntry = {
 				profileHash: expectedProfileHash,
 				rulesetProfile: expectedRulesetProfile,
-				experimentValuesResponse: mockExperimentValuesResponse,
+				evalFlagsResponse: mockExperimentValuesResponse,
 				timestamp: mockCurrentDate,
 			};
 
@@ -334,14 +363,14 @@ describe('PollingProvider', () => {
 			setProfile();
 
 			mockedFeatureGateDB.mock.instances[0].getExperimentValues = jest.fn().mockResolvedValue(null);
-			mockedFetcher.fetchExperimentValues.mockRejectedValue(
+			mockedFetcher.fetchEvalFlags.mockRejectedValue(
 				new Error('failed to fetch experiment values'),
 			);
 
 			await expect(provider.getExperimentValues()).rejects.toThrow(
 				'failed to fetch experiment values',
 			);
-			await expect(mockedFetcher.fetchExperimentValues).toHaveBeenCalledWith(
+			await expect(mockedFetcher.fetchEvalFlags).toHaveBeenCalledWith(
 				mockClientVersion,
 				{
 					apiKey: '123',
@@ -350,6 +379,7 @@ describe('PollingProvider', () => {
 					fetchTimeoutMs: 15,
 					targetApp: 'targetApp_web',
 					useGatewayURL: true,
+					includeFfpFlags: true,
 				},
 				mockIdentifiers,
 				mockCustomAttributes,
@@ -378,18 +408,25 @@ describe('PollingProvider', () => {
 				value: 'value-from-db',
 			};
 
-			mockDBEntry.experimentValuesResponse.experimentValues = experimentValuesFromDB;
+			mockDBEntry.evalFlagsResponse = {
+				statsig: {
+					experimentValues: experimentValuesFromDB,
+					customAttributes: mockCustomAttributesFromFetch,
+				},
+				ffp: mockFfpValues,
+				status: { statsig: 'OK', ffp: 'OK' },
+			};
 
 			mockedFeatureGateDB.mock.instances[0].getExperimentValues = jest
 				.fn()
 				.mockResolvedValue(mockDBEntry);
 			await expect(provider.getExperimentValues()).resolves.toStrictEqual(
-				getFrontendExperimentsResult(mockDBEntry.experimentValuesResponse),
+				getFrontendExperimentsResult(mockDBEntry.evalFlagsResponse, mockCustomAttributes),
 			);
 
 			await new Promise(process.nextTick);
 
-			await expect(mockedFetcher.fetchExperimentValues).toHaveBeenCalledTimes(0);
+			await expect(mockedFetcher.fetchEvalFlags).toHaveBeenCalledTimes(0);
 			await expect(mockedFeatureGateDB.mock.instances[0].setExperimentValues).toHaveBeenCalledTimes(
 				0,
 			);
@@ -424,16 +461,14 @@ describe('PollingProvider', () => {
 			// eslint-disable-next-line no-console
 			expect(console.warn).toHaveBeenCalledWith('Error when trying to start DB, {}');
 
-			await expect(newProvider.getExperimentValues()).resolves.toStrictEqual({
-				experimentValues: mockExperimentValues,
-				customAttributesFromFetch: mockCustomAttributesFromFetch,
-				clientSdkKey: undefined,
-			});
+			await expect(newProvider.getExperimentValues()).resolves.toStrictEqual(
+				expectedExperimentValuesResult,
+			);
 
 			const expectedFGState: ExperimentValuesEntry = {
 				profileHash: expectedProfileHash,
 				rulesetProfile: expectedRulesetProfile,
-				experimentValuesResponse: mockExperimentValuesResponse,
+				evalFlagsResponse: mockExperimentValuesResponse,
 				timestamp: mockCurrentDate,
 			};
 
@@ -631,7 +666,7 @@ describe('PollingProvider', () => {
 
 			const mockFGState: FeatureGateState = {
 				profileHash: 'different-profile-hash',
-				experimentValuesResponse: mockExperimentValuesResponse,
+				evalFlagsResponse: mockExperimentValuesResponse,
 				timestamp: mockCurrentDate,
 			};
 
@@ -646,7 +681,7 @@ describe('PollingProvider', () => {
 
 			const mockFGState: FeatureGateState = {
 				profileHash: expectedProfileHash,
-				experimentValuesResponse: mockExperimentValuesResponse,
+				evalFlagsResponse: mockExperimentValuesResponse,
 				timestamp: mockCurrentDate,
 			};
 
@@ -658,6 +693,219 @@ describe('PollingProvider', () => {
 			expect(console.warn).toHaveBeenCalledWith(
 				'No apply update callback has been set. Cannot update experiment values.',
 			);
+		});
+	});
+	describe('provider health', () => {
+		const polledStatsig = {
+			experimentValues: { value: 'polled' },
+			customAttributes: mockCustomAttributesFromFetch,
+		};
+
+		const pollEntry = (evalFlagsResponse: EvalFlagsResponse): ExperimentValuesEntry => ({
+			profileHash: expectedProfileHash,
+			rulesetProfile: expectedRulesetProfile,
+			evalFlagsResponse,
+			timestamp: mockCurrentDate,
+		});
+
+		beforeEach(() => {
+			setProfile();
+			provider['lastEvalFlags'] = {
+				profileHash: expectedProfileHash,
+				response: mockExperimentValuesResponse,
+			};
+		});
+
+		test('a poll that finds FFP unavailable keeps the last OK FFP section', () => {
+			provider['featureGateUpdateHttpHandler'](
+				pollEntry({
+					statsig: polledStatsig,
+					ffp: null,
+					status: { statsig: 'OK', ffp: 'UNAVAILABLE' },
+				}),
+			);
+
+			expect(mockApplyUpdate).toHaveBeenCalledWith({
+				experimentValues: polledStatsig.experimentValues,
+				customAttributesFromFetch: mockCustomAttributesFromFetch,
+				clientSdkKey: undefined,
+				ffp: mockFfpValues,
+				// The status reported is the one fetched, so the outage is still reported
+				status: { statsig: 'OK', ffp: 'UNAVAILABLE' },
+			});
+			// The merged values are cached and broadcast as OK
+			const merged = pollEntry({
+				statsig: polledStatsig,
+				ffp: mockFfpValues,
+				status: { statsig: 'OK', ffp: 'OK' },
+			});
+			expect(mockedFeatureGateDB.mock.instances[0].setExperimentValues).toHaveBeenCalledWith(
+				merged,
+			);
+			expect(mockedBroadcast.mock.instances[0].sendFeatureGateState).toHaveBeenCalledWith(merged);
+		});
+
+		test('a poll that finds Statsig unavailable keeps the last OK Statsig section', () => {
+			provider['featureGateUpdateHttpHandler'](
+				pollEntry({ ffp: mockFfpValues, status: { statsig: 'UNAVAILABLE', ffp: 'OK' } }),
+			);
+
+			expect(mockApplyUpdate).toHaveBeenCalledWith({
+				...expectedExperimentValuesResult,
+				status: { statsig: 'UNAVAILABLE', ffp: 'OK' },
+			});
+		});
+
+		test('a provider that is now disabled is applied as returned', () => {
+			provider['featureGateUpdateHttpHandler'](
+				pollEntry({ statsig: polledStatsig, status: { statsig: 'OK', ffp: 'DISABLED' } }),
+			);
+
+			expect(mockApplyUpdate).toHaveBeenCalledWith(
+				expect.objectContaining({ ffp: undefined, status: { statsig: 'OK', ffp: 'DISABLED' } }),
+			);
+		});
+
+		test('sections are not kept from another profile', () => {
+			provider['lastEvalFlags'] = {
+				profileHash: 'another-profile-hash',
+				response: mockExperimentValuesResponse,
+			};
+
+			provider['featureGateUpdateHttpHandler'](
+				pollEntry({ statsig: polledStatsig, status: { statsig: 'OK', ffp: 'UNAVAILABLE' } }),
+			);
+
+			expect(mockApplyUpdate).toHaveBeenCalledWith(expect.objectContaining({ ffp: undefined }));
+		});
+
+		test('values read from the cache keep the last OK section on the next poll', async () => {
+			provider['lastEvalFlags'] = undefined;
+			mockedFeatureGateDB.mock.instances[0].getExperimentValues = jest.fn().mockResolvedValue({
+				...getMockEVEntry(mockCurrentDate),
+				evalFlagsResponse: mockExperimentValuesResponse,
+			});
+
+			// Values from the cache are not reported again
+			await expect(provider.getExperimentValues()).resolves.toStrictEqual({
+				experimentValues: mockExperimentValues,
+				customAttributesFromFetch: mockCustomAttributesFromFetch,
+				clientSdkKey: undefined,
+				ffp: mockFfpValues,
+			});
+
+			provider['featureGateUpdateHttpHandler'](
+				pollEntry({ statsig: polledStatsig, status: { statsig: 'OK', ffp: 'UNAVAILABLE' } }),
+			);
+			expect(mockApplyUpdate).toHaveBeenCalledWith(expect.objectContaining({ ffp: mockFfpValues }));
+		});
+
+		test('values broadcast by another tab are applied without a status', () => {
+			provider['featureGateUpdateBroadcastHandler']({
+				profileHash: expectedProfileHash,
+				evalFlagsResponse: mockExperimentValuesResponse,
+				timestamp: mockCurrentDate,
+			});
+
+			const expected: FrontendExperimentsResult = { ...expectedExperimentValuesResult };
+			delete expected.status;
+			expect(mockApplyUpdate).toHaveBeenCalledWith(expected);
+			expect(mockApplyUpdate.mock.calls[0][0]).not.toHaveProperty('status');
+		});
+	});
+	describe('retries after the initial fetch', () => {
+		beforeEach(() => {
+			setProfile();
+			mockedRefresh.mock.instances[0].start = jest.fn();
+			mockedRefresh.mock.instances[0].stop = jest.fn();
+			mockedRefresh.mock.instances[0].setFetchedStatus = jest.fn();
+		});
+
+		test('reports the fetched status to the refresh loop', async () => {
+			mockedFetcher.fetchEvalFlags.mockResolvedValue({
+				...mockExperimentValuesResponse,
+				status: { statsig: 'OK', ffp: 'UNAVAILABLE' },
+			});
+
+			await provider.getExperimentValues();
+
+			expect(mockedRefresh.mock.instances[0].setFetchedStatus).toHaveBeenCalledWith({
+				statsig: 'OK',
+				ffp: 'UNAVAILABLE',
+			});
+			expect(mockedRefresh.mock.instances[0].start).toHaveBeenCalled();
+		});
+
+		test.each([403, 404])('stops polling after a %s', async (status) => {
+			mockedFetcher.fetchEvalFlags.mockRejectedValue(
+				new ResponseError('Non 2xx response status received', status, '{}'),
+			);
+
+			await expect(provider.getExperimentValues()).rejects.toThrow();
+
+			expect(mockedRefresh.mock.instances[0].start).not.toHaveBeenCalled();
+			expect(mockedRefresh.mock.instances[0].stop).toHaveBeenCalled();
+		});
+
+		test('rejects and keeps polling, without caching, when no provider is usable', async () => {
+			// Use the real fetcher, which rejects such a response, against a stubbed network
+			const actualFetcher: typeof Fetcher = jest.requireActual(
+				'@atlaskit/feature-gate-fetcher/Fetcher',
+			).default;
+			mockedFetcher.fetchEvalFlags.mockImplementation((...args) =>
+				actualFetcher.fetchEvalFlags(...args),
+			);
+			const originalFetch = global.fetch;
+			global.fetch = jest.fn().mockResolvedValue({
+				ok: true,
+				status: 200,
+				text: async () =>
+					JSON.stringify({
+						statsig: null,
+						ffp: null,
+						status: { statsig: 'UNAVAILABLE', ffp: 'DISABLED' },
+					}),
+			});
+			try {
+				await expect(provider.getExperimentValues()).rejects.toThrow(
+					'Feature flag values are unavailable (Statsig: UNAVAILABLE, FFP: DISABLED)',
+				);
+			} finally {
+				global.fetch = originalFetch;
+			}
+
+			expect(mockedRefresh.mock.instances[0].start).toHaveBeenCalled();
+			expect(mockedRefresh.mock.instances[0].stop).not.toHaveBeenCalled();
+			expect(mockedRefresh.mock.instances[0].setFetchedStatus).not.toHaveBeenCalled();
+			expect(mockedFeatureGateDB.mock.instances[0].setExperimentValues).not.toHaveBeenCalled();
+			expect(mockApplyUpdate).not.toHaveBeenCalled();
+		});
+
+		test.each([429, 503])('keeps polling after a %s', async (status) => {
+			mockedFetcher.fetchEvalFlags.mockRejectedValue(
+				new ResponseError('Non 2xx response status received', status, '{}'),
+			);
+
+			await expect(provider.getExperimentValues()).rejects.toThrow();
+
+			expect(mockedRefresh.mock.instances[0].start).toHaveBeenCalled();
+			expect(mockedRefresh.mock.instances[0].stop).not.toHaveBeenCalled();
+		});
+
+		test('reports the status of values broadcast by another tab', () => {
+			provider['featureGateUpdateBroadcastHandler']({
+				profileHash: expectedProfileHash,
+				evalFlagsResponse: {
+					...mockExperimentValuesResponse,
+					status: { statsig: 'OK', ffp: 'OK' },
+				},
+				timestamp: mockCurrentDate,
+			});
+
+			expect(mockedRefresh.mock.instances[0].setFetchedStatus).toHaveBeenCalledWith({
+				statsig: 'OK',
+				ffp: 'OK',
+			});
 		});
 	});
 });

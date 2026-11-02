@@ -214,13 +214,6 @@ export const editorExperimentsConfig: {
 		typeGuard: (value: unknown) => value is 'one' | 'two' | 'three';
 		values: ('one' | 'two' | 'three')[];
 	};
-	// Added 2025-07-08 - Jira work sync description comment summary
-	'jira-work-sync-desc-comment-summary': {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-01-19
 	platform_editor_ai_edit_response_in_preview: {
 		defaultValue: boolean;
@@ -325,16 +318,6 @@ export const editorExperimentsConfig: {
 		param: string;
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
-	};
-	// Added 2025-10-27
-	platform_editor_table_sticky_header_improvements: {
-		defaultValue: 'control' | 'test_with_overflow' | 'test_without_overflow';
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: (
-			value: unknown,
-		) => value is 'control' | 'test_with_overflow' | 'test_without_overflow';
-		values: ('control' | 'test_with_overflow' | 'test_without_overflow')[];
 	};
 	// Added 2026-03-12
 	platform_editor_toolbar_submenu_open_click: {
@@ -528,13 +511,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-06-17
 	platform_editor_emoji_hover_show_tooltip: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-06-11
-	platform_teamoji_26_refresh_emoji_picker: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -1053,14 +1029,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-07-08 - Jira work sync description comment summary
-	'jira-work-sync-desc-comment-summary': createBooleanExperiment({
-		productKeys: {
-			jira: 'jira-work-sync-desc-comment-summary',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-06-05
 	platform_editor_block_controls_perf_optimization: createBooleanExperiment({
 		productKeys: {
@@ -1136,15 +1104,6 @@ export const editorExperimentsConfig: {
 		},
 		param: 'isEnabled',
 		defaultValue: false,
-	}),
-	// Added 2025-10-27
-	platform_editor_table_sticky_header_improvements: createMultivariateExperiment({
-		productKeys: {
-			confluence: 'platform_editor_table_sticky_header_improvements',
-		},
-		param: 'cohort',
-		values: ['control', 'test_with_overflow', 'test_without_overflow'],
-		defaultValue: 'control',
 	}),
 	// Added 2025-10-29
 	platform_editor_lovability_inline_code: createBooleanExperiment({
@@ -1341,15 +1300,6 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_editor_emoji_hover_show_tooltip',
 			jira: 'platform_editor_emoji_hover_show_tooltip',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-06-11
-	platform_teamoji_26_refresh_emoji_picker: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_teamoji_26_refresh_emoji_picker',
-			jira: 'platform_teamoji_26_refresh_emoji_picker',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

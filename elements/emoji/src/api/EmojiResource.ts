@@ -34,7 +34,6 @@ import { isMediaEmoji } from '../util/is-media-emoji';
 import { isPromise } from '../util/is-promise';
 import debug from '../util/logger';
 import storageAvailable from '../util/storage-available';
-import { isTeamoji26RefreshEmojiPickerEnabled } from '../util/teamoji26RefreshEmojiPicker';
 import { promiseWithTimeout } from '../util/timed-promise';
 import { toEmojiId } from '../util/to-emoji-id';
 import EmojiLoader from './EmojiLoader';
@@ -177,7 +176,6 @@ export class EmojiResource
 				: url.replace('/gateway/api/emoji', '/gateway/api/elements/emoji');
 		const stargateEmojiPathEnabled =
 			fg('use-elements-stargate-emoji-path') || migrateRemainingEmojiProviders;
-		const teamoji26RefreshEmojiPickerEnabled = isTeamoji26RefreshEmojiPickerEnabled();
 		const singleEmojiApi = config.singleEmojiApi;
 		const optimisticImageApi = config.optimisticImageApi;
 		const providers = config.providers.map((provider) => {
@@ -186,9 +184,7 @@ export class EmojiResource
 				: provider.url;
 			return {
 				...provider,
-				url: teamoji26RefreshEmojiPickerEnabled
-					? addTeamoji26QueryParam(rewrittenUrl)
-					: rewrittenUrl,
+				url: addTeamoji26QueryParam(rewrittenUrl),
 			};
 		});
 

@@ -72,7 +72,6 @@ afterEach(() => {
 	// eslint-disable-next-line testing-library/no-node-access
 	const styles = document.head.querySelectorAll('style[data-theme], style[data-theme-overrides]');
 	Array.from(styles).forEach((style) => {
-		// eslint-disable-next-line testing-library/no-node-access
 		style.remove();
 	});
 });
@@ -122,7 +121,6 @@ const defaultTheme: Theme = {
 	typography: 'typography',
 };
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('ThemeProvider', () => {
 	describe('Root ThemeProvider (inside AppProvider)', () => {
 		let setGlobalThemeSpy: jest.SpyInstance;

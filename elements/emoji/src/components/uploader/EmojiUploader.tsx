@@ -12,7 +12,6 @@ import { EmojiUploaderInternal } from './EmojiUploaderInternal';
 
 export interface Props extends LoadingProps {
 	createAnalyticsEvent?: CreateUIAnalyticsEvent;
-	disableFocusLock?: boolean;
 }
 
 // oxlint-disable-next-line eslint/no-redeclare

@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable testing-library/prefer-screen-queries */
-/* eslint-disable compat/compat */
 
 import type { RootSegment } from '../../src/common/react-ufo-payload-schema';
 import type { SegmentItem } from '../../src/create-payload/common/utils';

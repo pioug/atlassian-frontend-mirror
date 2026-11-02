@@ -59,10 +59,11 @@ They are intentional, so don't treat them as drift from the specs:
   and `process.env._PACKAGE_VERSION_`, injected at build time from `package.json` like other AFM
   packages (`"@product/platform"` and `"0.0.0"` under Jest), so tests compare against the constants
   rather than checking the version against `package.json`.
-- Undelivered exposures persist under `@atlaskit/flag-client:exposures:`, the package name.
+- Undelivered exposures persist under `@atlaskit/flag-client:exposures:`, the package name, and the
+  time of the origin's last successful delivery under `@atlaskit/flag-client:last-delivery`.
 - `window.localStorage` is read directly with `no-direct-web-storage-usage` suppressed, because a
-  public `@atlaskit` package cannot depend on `@atlassian/browser-storage-controls`. The key prefix
-  must be registered for Browser Storage Controls before exposure persistence ships.
+  public `@atlaskit` package cannot depend on `@atlassian/browser-storage-controls`. Both keys must
+  be registered for Browser Storage Controls before exposure persistence ships.
 - Tests use Jest (`@jest-environment node`) instead of Vitest. `expectTypeOf` checks are replaced by
   the compile-time helpers in `src/__tests__/_utils/type-assertions.ts`, enforced by `afm ts check`.
   `vi.stubGlobal` is replaced by `src/__tests__/_utils/stub-globals.ts`.

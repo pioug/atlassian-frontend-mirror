@@ -8,7 +8,6 @@ import { within } from '@atlassian/testing-library/within';
 
 import Breadcrumbs, { BreadcrumbsItem } from '../../../index';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Breadcrumbs container', () => {
 	it('should be able to render a single child', () => {
 		render(
@@ -235,7 +234,6 @@ describe('Controlled breadcrumbs', () => {
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform_dst_breadcrumbs-refresh', 'Breadcrumbs container with refresh enabled', () => {
 	it('applies aria-current to the last plain BreadcrumbsItem', () => {
 		render(
@@ -252,7 +250,6 @@ ffTest.on('platform_dst_breadcrumbs-refresh', 'Breadcrumbs container with refres
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.off(
 	'platform_dst_breadcrumbs-refresh',
 	'Breadcrumbs container with refresh disabled',

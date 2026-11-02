@@ -677,10 +677,10 @@
                 "$ref": "#/definitions/panel_node"
               },
               {
-                "$ref": "#/definitions/rule_node"
+                "$ref": "#/definitions/rule_with_attrs_node"
               },
               {
-                "$ref": "#/definitions/rule_with_attrs_node"
+                "$ref": "#/definitions/rule_node"
               },
               {
                 "$ref": "#/definitions/bodiedRule_node"
@@ -1584,10 +1584,10 @@
                 "$ref": "#/definitions/bulletList_node"
               },
               {
-                "$ref": "#/definitions/rule_node"
+                "$ref": "#/definitions/rule_with_attrs_node"
               },
               {
-                "$ref": "#/definitions/rule_with_attrs_node"
+                "$ref": "#/definitions/rule_node"
               },
               {
                 "$ref": "#/definitions/bodiedRule_node"
@@ -2697,10 +2697,10 @@
             "$ref": "#/definitions/decisionList_node"
           },
           {
-            "$ref": "#/definitions/rule_node"
+            "$ref": "#/definitions/rule_with_attrs_node"
           },
           {
-            "$ref": "#/definitions/rule_with_attrs_node"
+            "$ref": "#/definitions/rule_node"
           },
           {
             "$ref": "#/definitions/bodiedRule_node"
@@ -2784,10 +2784,10 @@
           "$ref": "#/definitions/bulletList_node"
         },
         {
-          "$ref": "#/definitions/rule_node"
+          "$ref": "#/definitions/rule_with_attrs_node"
         },
         {
-          "$ref": "#/definitions/rule_with_attrs_node"
+          "$ref": "#/definitions/rule_node"
         },
         {
           "$ref": "#/definitions/bodiedRule_node"
@@ -2934,10 +2934,10 @@
                 "$ref": "#/definitions/taskList_node"
               },
               {
-                "$ref": "#/definitions/rule_node"
+                "$ref": "#/definitions/rule_with_attrs_node"
               },
               {
-                "$ref": "#/definitions/rule_with_attrs_node"
+                "$ref": "#/definitions/rule_node"
               },
               {
                 "$ref": "#/definitions/bodiedRule_node"
@@ -3045,10 +3045,10 @@
                 "$ref": "#/definitions/taskList_node"
               },
               {
-                "$ref": "#/definitions/rule_node"
+                "$ref": "#/definitions/rule_with_attrs_node"
               },
               {
-                "$ref": "#/definitions/rule_with_attrs_node"
+                "$ref": "#/definitions/rule_node"
               },
               {
                 "$ref": "#/definitions/bodiedRule_node"
@@ -3150,10 +3150,10 @@
                 "$ref": "#/definitions/taskList_node"
               },
               {
-                "$ref": "#/definitions/rule_node"
+                "$ref": "#/definitions/rule_with_attrs_node"
               },
               {
-                "$ref": "#/definitions/rule_with_attrs_node"
+                "$ref": "#/definitions/rule_node"
               },
               {
                 "$ref": "#/definitions/bodiedRule_node"
@@ -3227,10 +3227,10 @@
                     "$ref": "#/definitions/taskList_node"
                   },
                   {
-                    "$ref": "#/definitions/rule_node"
+                    "$ref": "#/definitions/rule_with_attrs_node"
                   },
                   {
-                    "$ref": "#/definitions/rule_with_attrs_node"
+                    "$ref": "#/definitions/rule_node"
                   },
                   {
                     "$ref": "#/definitions/bodiedRule_node"
@@ -3628,10 +3628,10 @@
             "$ref": "#/definitions/bulletList_node"
           },
           {
-            "$ref": "#/definitions/rule_node"
+            "$ref": "#/definitions/rule_with_attrs_node"
           },
           {
-            "$ref": "#/definitions/rule_with_attrs_node"
+            "$ref": "#/definitions/rule_node"
           },
           {
             "$ref": "#/definitions/bodiedRule_node"

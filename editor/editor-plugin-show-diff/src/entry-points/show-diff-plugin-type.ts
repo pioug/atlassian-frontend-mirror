@@ -10,8 +10,6 @@ export type {
 	DiffStepAttribution,
 	DiffType,
 	PMDiffParams,
-	RevealMode,
-	RevealOptions,
 	ShowDiffParams,
 	ShowDiffPlugin,
 	SmartDiffThresholds,

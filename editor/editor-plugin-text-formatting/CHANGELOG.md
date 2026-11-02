@@ -1,5 +1,39 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 30.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.2.0
+
+### Minor Changes
+
+- [`54f4bfbdf94ad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/54f4bfbdf94ad) -
+  [ux] Allow text styles on selections that contain inline code, behind
+  platform_editor_style_around_inline_code
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.1.0
+
+### Minor Changes
+
+- [`b2cba09ce9ad0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2cba09ce9ad0) -
+  Add a shared cell-local mark-presence helper and use it for clear-formatting and block-type
+  formatting-presence checks behind `platform_editor_improve_inp`. Reuse resolved cell-selection
+  ranges and stop scanning at the first matching mark.
+
+  Share schema mark-name resolution through `getSupportedMarkTypes`, caching results per schema and
+  mark-name array to avoid repeated allocation during selection changes.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 30.0.3
 
 ### Patch Changes

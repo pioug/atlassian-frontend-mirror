@@ -16,7 +16,7 @@ import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-e
 
 import type { cardPlugin } from '../index';
 import { blockCardNodeView } from '../nodeviews/blockCard';
-import { embedCardNodeView } from '../nodeviews/embedCard';
+import { createEmbedCardNodeView } from '../nodeviews/createEmbedCardNodeView';
 import { InlineCardNodeView } from '../nodeviews/inlineCard';
 import { lazyInlineCardView } from '../nodeviews/lazy-inline-card';
 import type { CardPluginOptions, CardPluginState } from '../types';
@@ -374,7 +374,7 @@ export const createPlugin =
 						intl,
 						smartCardContext,
 					}),
-					embedCard: embedCardNodeView({
+					embedCard: createEmbedCardNodeView({
 						allowResizing,
 						fullWidthMode,
 						pmPluginFactoryParams,

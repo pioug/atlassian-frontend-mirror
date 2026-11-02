@@ -1,6 +1,10 @@
 import { anyMarkActive } from '@atlaskit/editor-common/mark';
+import { cellSelectionHasAnyMark } from '@atlaskit/editor-common/mark/cell-selection-has-any-mark';
+import { getSupportedMarkTypes } from '@atlaskit/editor-common/mark/get-supported-mark-types';
 import type { Mark as PMMark } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { MenuIconItem } from '../ui/Toolbar/types';
 import { FORMATTING_MARK_TYPES, FORMATTING_NODE_TYPES } from './clear-formatting';
@@ -46,6 +50,17 @@ const blockStylingIsPresent = (state: EditorState): boolean => {
 };
 
 const marksArePresent = (state: EditorState) => {
+	if (
+		state.selection instanceof CellSelection &&
+		!state.selection.empty &&
+		isExperimentEnabled('platform_editor_improve_inp')
+	) {
+		return cellSelectionHasAnyMark(
+			state.selection,
+			getSupportedMarkTypes(state.schema, FORMATTING_MARK_TYPES),
+		);
+	}
+
 	const activeMarkTypes = FORMATTING_MARK_TYPES.filter((mark) => {
 		if (!!state.schema.marks[mark]) {
 			const { $from, empty } = state.selection;

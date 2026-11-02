@@ -4,7 +4,7 @@ import React from 'react';
 
 import { skipA11yAudit } from '@af/accessibility-testing/skip-a11y-audit';
 import { screen } from '@atlassian/testing-library/screen';
-import { fireEvent, render, waitFor } from '@atlassian/testing-library/testing-library/react';
+import { render, waitFor } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
 import { within } from '@atlassian/testing-library/within';
 
@@ -104,16 +104,14 @@ describe('Popup Select', () => {
 
 		const selectTrigger2 = screen.getByText('Target');
 
-		fireEvent.click(selectTrigger2);
+		// A real click focuses the trigger first, so focus has a place to return to.
+		await user.click(selectTrigger2);
 
-		const escapeKeyDownEvent: KeyboardEvent = new KeyboardEvent('keydown', {
-			key: 'Escape',
-		});
-
-		document.dispatchEvent(escapeKeyDownEvent);
+		await user.keyboard('{Escape}');
 
 		expect(onChangeMock).not.toHaveBeenCalled();
-		expect(selectTrigger2).toHaveFocus();
+		// The top-layer popup closes, and returns focus, a task after the keydown.
+		await waitFor(() => expect(selectTrigger2).toHaveFocus());
 	});
 
 	it('should stop propagation of Escape key event when shouldPreventEscapePropagation is true', async () => {

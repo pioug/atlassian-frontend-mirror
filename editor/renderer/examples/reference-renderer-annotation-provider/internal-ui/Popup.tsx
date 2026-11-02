@@ -12,13 +12,11 @@ import { token } from '@atlaskit/tokens';
 type Props = { children: React.ReactNode; left: number; top: number };
 export const Popup: React.ForwardRefExoticComponent<Props & React.RefAttributes<HTMLDivElement>> =
 	React.forwardRef<HTMLDivElement, Props>(function Popup({ children, top, left }: Props, ref) {
-		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 		return (
 			<div style={{ top }} css={popupPanelStyles}>
 				<div
 					css={buttonContainer}
 					ref={ref}
-					// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 					style={{ left: left }}
 					data-testid="highlightActionsPopup"
 				>

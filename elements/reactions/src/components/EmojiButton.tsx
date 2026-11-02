@@ -9,9 +9,7 @@ import { useIntl } from 'react-intl';
 import { defaultEmojiHeight } from '@atlaskit/emoji/constants';
 import ResourcedEmoji from '@atlaskit/emoji/resourced-emoji';
 import type { EmojiId, OnEmojiEvent, EmojiProvider } from '@atlaskit/emoji/types';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Pressable } from '@atlaskit/primitives/compiled/pressable';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { RESOURCED_EMOJI_COMPACT_HEIGHT } from '../shared/constants';
@@ -119,15 +117,6 @@ export const EmojiButton = ({
 	const emojiHeight = hoverableReactionPickerSelectorEmoji
 		? RESOURCED_EMOJI_COMPACT_HEIGHT
 		: defaultEmojiHeight;
-	const emoji = (
-		<ResourcedEmoji
-			emojiProvider={emojiProvider}
-			emojiId={emojiId}
-			fitToHeight={
-				hoverableReactionPickerSelectorEmoji ? RESOURCED_EMOJI_COMPACT_HEIGHT : undefined
-			}
-		/>
-	);
 	const reservedEmoji = hoverableReactionPickerSelectorEmoji ? (
 		<span
 			css={styles.hoverableReactionPickerSelectorEmojiSlot}
@@ -154,10 +143,7 @@ export const EmojiButton = ({
 					: styles.emojiButton
 			}
 		>
-			{expValEquals('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', true) ||
-			fg('platform_teamoji_26_refresh_emoji_picker_user_id')
-				? reservedEmoji
-				: emoji}
+			{reservedEmoji}
 		</Pressable>
 	);
 };

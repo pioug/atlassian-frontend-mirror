@@ -4,7 +4,6 @@ import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import type { RevealOptions } from '../../showDiffPluginType';
 import { CONTRIBUTOR_TAG_Z_INDEX } from '../../ui/ContributorTag/buildContributorTagDom';
 import { isEmptyParagraphSlice } from '../utils/isEmptyParagraphSlice';
 import {
@@ -33,7 +32,6 @@ import {
 	resolveInlineChangedStyleLegacy,
 } from './createInlineChangedDecoration.styles.legacy';
 import { buildDiffDecorationSpec, scrollMarginTopStyle } from './decorationKeys';
-import { REVEAL_ATTR, resolveRevealStyle } from './revealStyles';
 import type { InlineAttrChangeNodeName } from './utils/getAttrChangeRanges';
 
 const displayNoneStyle = convertToInlineCss({
@@ -207,7 +205,6 @@ export const createInlineChangedDecoration = ({
 	inlineNodeName,
 	hasDeletedWidget = false,
 	isDeletedWidgetBelow = false,
-	reveal,
 	tagMountContext,
 }: {
 	attributionKey?: string;
@@ -222,7 +219,6 @@ export const createInlineChangedDecoration = ({
 	isDeletedWidgetBelow?: boolean;
 	isInserted?: boolean;
 	leftAnchorId?: string;
-	reveal?: RevealOptions;
 	shouldHideDeleted?: boolean;
 	showContributorTags?: boolean;
 	showIndicators?: boolean;
@@ -263,25 +259,13 @@ export const createInlineChangedDecoration = ({
 
 	const colors = getColorScheme(colorScheme);
 
-	// The reveal withholds the static highlight so the wipe has something to reveal, so it supplies
-	// the whole style rather than adding to the usual one.
-	const revealed = resolveRevealStyle({
+	const style = resolveInlineChangedStyle({
+		colors,
 		colorScheme,
 		hideAddedDiffsUnderline,
 		isActive,
 		isInserted,
-		reveal,
 	});
-
-	const style =
-		revealed?.style ??
-		resolveInlineChangedStyle({
-			colors,
-			colorScheme,
-			hideAddedDiffsUnderline,
-			isActive,
-			isInserted,
-		});
 
 	const isAtomicInlineInsertion = isAtomicInlineNode && isInserted;
 	const atomicInlineAttrs = isAtomicInlineInsertion
@@ -338,7 +322,6 @@ export const createInlineChangedDecoration = ({
 				...(deletedInlineNodeAttrs && {
 					class: deletedInlineNodeAttrs.className,
 				}),
-				...(revealed && { [REVEAL_ATTR]: revealed.role }),
 				'data-testid': 'show-diff-changed-decoration',
 				// Lets navigation select this exact diff, and contributor tags find it on hover.
 				...((showContributorTags || fg('platform_editor_ai_show_diff_patch_2')) && {

@@ -336,16 +336,19 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 	test(`(ff ${ffValue}) When clicking the open calendar button, focus should stay on trigger`, async ({
 		page,
 	}) => {
+		// Legacy only: on top layer a click moves focus into the calendar, which
+		// ff-testing/platform-dst-top-layer/date-picker-extended.spec.tsx covers.
 		await page.visitExample<typeof import('../../../../examples/14-date-picker-tabcheck.tsx')>(
 			'design-system',
 			'datetime-picker',
 			'date-picker-tabcheck',
 			ffValue
 				? {
-						featureFlag: 'platform_dst_popup-disable-focuslock',
+						featureFlag: 'platform_dst_popup-disable-focuslock,platform-dst-top-layer=false',
 						'react-18-mode': 'modern',
 					}
 				: {
+						featureFlag: 'platform-dst-top-layer=false',
 						'react-18-mode': 'modern',
 					},
 		);

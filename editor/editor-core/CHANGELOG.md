@@ -1,5 +1,62 @@
 # @atlaskit/editor-core
 
+## 242.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 242.0.7
+
+### Patch Changes
+
+- [`4ea2dae5082a7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4ea2dae5082a7) -
+  Clean up experiment `fix_editor_blur_issue_exp`
+
+## 242.0.6
+
+### Patch Changes
+
+- [`8632ab245f251`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8632ab245f251) -
+  [ux] [EDITOR-8977] introduce rule node view to update the selected state for dividers behind
+  `platform_editor_lovability_dividers`
+- Updated dependencies
+
+## 242.0.5
+
+### Patch Changes
+
+- [`254eba3581b39`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/254eba3581b39) -
+  Behind platform_editor_table_heading_cell_alignment, line up H3-H6 headings that start a table
+  cell with paragraph text in the same row
+- Updated dependencies
+
+## 242.0.4
+
+### Patch Changes
+
+- [`ce5f97ab62e45`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ce5f97ab62e45) -
+  [EDITOR-9779] Apply Hello slash menu naming and ranking behind platform_editor_slash_command:
+  rename the Loom record item to "Loom" and Insert Confluence list to "Confluence list", rank Assets
+  after the Spaces items in Data and charts, and stop forcing Smart button into Structure
+- [`4fd933d5f3eec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4fd933d5f3eec) -
+  Enable Cmd/Ctrl-click, middle-click, and double-click on embed frame chrome and headers behind
+  platform_editor_embed_open_in_new_tab. Extend the title link to the frame edges for native context
+  menus and show a pointer cursor, while preserving embedded content and header controls.
+
+  Preserve the embed header pointer cursor when editor Live Pages styles reset nested link cursors.
+  Apply the legacy embed cursor reset only when the navigation experiment is disabled.
+
+- Updated dependencies
+
+## 242.0.3
+
+### Patch Changes
+
+- [`b0b0a2e076d8d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b0b0a2e076d8d) -
+  Clean up experiment `platform_editor_table_sticky_header_improvements`
+- Updated dependencies
+
 ## 242.0.2
 
 ### Patch Changes

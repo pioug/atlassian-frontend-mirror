@@ -305,6 +305,54 @@ const baseKeyframeTokens = {
 			group: 'motionKeyframe',
 		},
 	},
+	SlideIn100PercentTop: {
+		value: {
+			'0%': {
+				transform: 'translateY(calc(-100% - var(--ds-motion-slide-overshoot, 0px)))',
+				'transform-origin': 'top',
+			},
+			'100%': { transform: 'translateY(0px)', 'transform-origin': 'top' },
+		},
+		attributes: {
+			group: 'motionKeyframe',
+		},
+	},
+	SlideOut100PercentTop: {
+		value: {
+			'0%': { transform: 'translateY(0px)', 'transform-origin': 'top' },
+			'100%': {
+				transform: 'translateY(calc(-100% - var(--ds-motion-slide-overshoot, 0px)))',
+				'transform-origin': 'top',
+			},
+		},
+		attributes: {
+			group: 'motionKeyframe',
+		},
+	},
+	SlideIn100PercentBottom: {
+		value: {
+			'0%': {
+				transform: 'translateY(calc(100% + var(--ds-motion-slide-overshoot, 0px)))',
+				'transform-origin': 'bottom',
+			},
+			'100%': { transform: 'translateY(0px)', 'transform-origin': 'bottom' },
+		},
+		attributes: {
+			group: 'motionKeyframe',
+		},
+	},
+	SlideOut100PercentBottom: {
+		value: {
+			'0%': { transform: 'translateY(0px)', 'transform-origin': 'bottom' },
+			'100%': {
+				transform: 'translateY(calc(100% + var(--ds-motion-slide-overshoot, 0px)))',
+				'transform-origin': 'bottom',
+			},
+		},
+		attributes: {
+			group: 'motionKeyframe',
+		},
+	},
 	ScaleXIn80to100: {
 		value: {
 			'0%': { transform: 'scaleX(0.8)' },
@@ -430,6 +478,12 @@ const baseBezierCurveTokens = {
 	EaseSpring: {
 		value:
 			'linear(0, 0.021, 0.058, 0.107, 0.164, 0.227, 0.292, 0.359, 0.425, 0.49, 0.552, 0.61, 0.664, 0.714, 0.759, 0.8, 0.837, 0.869, 0.898, 0.922, 0.943, 0.961, 0.976, 0.988, 0.998, 1.006, 1.013, 1.017, 1.02, 1.023, 1.024, 1.024, 1.024, 1.024, 1.023, 1.022, 1.02, 1.019, 1.017, 1.015, 1.014, 1.012, 1.011, 1.009, 1.008, 1.007, 1.006, 1.005, 1.004, 1.003, 1.002, 1.002, 1.001, 1.001, 1.001, 1, 1, 1, 1, 1, 0.999, 0.999, 0.999, 0.999, 1)',
+		attributes: {
+			group: 'motionEasing',
+		},
+	},
+	EaseCubicInOut: {
+		value: 'cubic-bezier(0.65, 0, 0.35, 1)',
 		attributes: {
 			group: 'motionEasing',
 		},

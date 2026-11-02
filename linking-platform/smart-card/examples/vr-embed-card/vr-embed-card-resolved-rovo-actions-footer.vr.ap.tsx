@@ -75,7 +75,6 @@ const useRovoActionsFooterGateConfig = ({
 				}
 
 				// `fg()` delegates to this resolver, so read the local FeatureGates overrides directly.
-				// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
 				return FeatureGates.checkGate(flagKey);
 			});
 

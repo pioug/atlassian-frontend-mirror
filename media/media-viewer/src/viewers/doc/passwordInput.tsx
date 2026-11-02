@@ -13,7 +13,6 @@ import Form from '@atlaskit/form/form';
 import type { OnSubmitHandler } from '@atlaskit/form/types';
 import Heading from '@atlaskit/heading/heading';
 import LockIcon from '@atlaskit/icon/core/lock-locked';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import ErrorIcon from '@atlaskit/icon/core/status-error';
 import { messages } from '@atlaskit/media-ui/messages';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss

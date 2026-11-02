@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-numbered-headings
 
+## 4.0.0
+
+### Major Changes
+
+- [`1aca24475cb3c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1aca24475cb3c) -
+  Numbered headings now requires the external state plugin. It reads the setting from that plugin's
+  `numberedHeadings` value, follows its changes, and saves toolbar toggles through it, behind
+  platform_editor_numbered_headings.
+
+  Presets that add `numberedHeadingsPlugin` must also add `externalStatePlugin` from
+  `@atlaskit/editor-plugin-external-state`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.0.1
 
 ### Patch Changes

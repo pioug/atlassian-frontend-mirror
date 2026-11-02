@@ -1,5 +1,4 @@
 /* eslint-disable @repo/internal/dom-events/no-unsafe-event-listeners */
-/* eslint-disable compat/compat */
 /* eslint-disable no-unused-vars */
 
 import type {

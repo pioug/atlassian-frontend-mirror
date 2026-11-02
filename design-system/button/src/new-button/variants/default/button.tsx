@@ -90,13 +90,13 @@ const Button: React.MemoExoticComponent<
 			>
 				{iconBefore && (
 					<Content type="icon" position="before" isLoading={isLoading}>
-						<IconRenderer icon={iconBefore} />
+						<IconRenderer icon={iconBefore} spacing={spacing} />
 					</Content>
 				)}
 				{children && <Content isLoading={isLoading}>{children}</Content>}
 				{iconAfter && (
 					<Content type="icon" position="after" isLoading={isLoading}>
-						<IconRenderer icon={iconAfter} />
+						<IconRenderer icon={iconAfter} spacing={spacing} />
 					</Content>
 				)}
 			</ButtonBase>

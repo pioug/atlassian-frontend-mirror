@@ -46,7 +46,20 @@ class TableSortModel {
 		const rows = await this.page.getByRole('table').locator('tr').all();
 		for (const row of rows) {
 			const cells = await row.locator('td, th').all();
-			const content = await Promise.all(cells.map(async (cell) => await cell.textContent()));
+			// Leave out an open tooltip: on top layer it renders in place inside the header cell.
+			const content = await Promise.all(
+				cells.map(
+					async (cell) =>
+						await cell.evaluate((element) => {
+							const clone = element.cloneNode(true);
+							if (!(clone instanceof Element)) {
+								return element.textContent;
+							}
+							clone.querySelectorAll('[role="tooltip"]').forEach((tooltip) => tooltip.remove());
+							return clone.textContent;
+						}),
+				),
+			);
 			contents.push(content);
 		}
 		return contents;

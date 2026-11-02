@@ -6,7 +6,6 @@ import LayoutColumn from '../../../../react/nodes/layoutColumn';
 import { LayoutSectionCompiled } from '../../../../react/nodes/layoutColumn-compiled';
 import { LayoutSectionEmotion } from '../../../../react/nodes/layoutColumn-emotion';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 const getLayoutColumnElement = (container: HTMLElement) =>
 	container.querySelector('[data-layout-column]');
 
@@ -31,7 +30,6 @@ const layoutColumnImplementations = [
 	},
 ] as const;
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 layoutColumnImplementations.forEach(
 	({ Component: LayoutColumnImplementation, expectVerticalAlignStyles, name }) => {
 		describe(`Renderer - React/Nodes/LayoutColumn ${name}`, () => {
@@ -59,7 +57,6 @@ layoutColumnImplementations.forEach(
 	},
 );
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Renderer - React/Nodes/LayoutColumn', () => {
 	it('should wrap content with div-tag', () => {
 		const { container } = render(

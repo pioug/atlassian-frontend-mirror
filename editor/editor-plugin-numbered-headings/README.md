@@ -3,12 +3,14 @@
 Adds decimal heading numbers with node decorations and a Text styles toggle, behind
 `platform_editor_numbered_headings`.
 
-The plugin owns its on/off state for one editor instance and always starts off. The toolbar
-toggle changes that state without changing ADF or entering undo history. A new editor instance
-starts off again. No public command or configuration is exposed while the API contract is being confirmed. The plugin has no persistence or multiplayer
-setting synchronization. Document changes still recalculate or map the heading decorations.
+The on/off setting is the `numberedHeadings.enabled` value of `@atlaskit/editor-plugin-external-state`,
+a required dependency. Numbering starts from the stored value, follows changes to it (late loads,
+collaborators), and the toolbar toggle saves through that plugin's provider, which reverts a failed
+save. Without a provider, the setting lives in editor state for one editor instance and starts off.
+The toggle changes no ADF and does not enter undo history. Document changes still recalculate or map
+the heading decorations.
 
 The Confluence full-page preset includes this plugin in its legacy and next paths when
 `platform_editor_numbered_headings` is enabled and `enabledOptionalPlugins.numberedHeadings` is
-true. The preset controls where the toggle is available; the plugin does not restrict editor
-appearances. It requires no persistence provider.
+true. It adds the external state plugin when `enabledOptionalPlugins.externalState` is also true. The preset controls where the toggle is available; the plugin does not restrict editor
+appearances.

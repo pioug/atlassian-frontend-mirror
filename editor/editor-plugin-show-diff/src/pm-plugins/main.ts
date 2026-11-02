@@ -24,7 +24,6 @@ import type {
 	DiffStepAttribution,
 	DiffType,
 	InlineDeletedDiffPlacement,
-	RevealOptions,
 	ShowDiffPlugin,
 	SmartDiffThresholds,
 } from '../showDiffPluginType';
@@ -38,7 +37,6 @@ import { enforceCustomStepRegisters } from './enforceCustomStepRegisters';
 import { getDefaultDiffType } from './getDefaultDiffType';
 import { getScrollableDecorations } from './getScrollableDecorations';
 import { NodeViewSerializer } from './NodeViewSerializer';
-import { rebindReveal } from './revealAnimation';
 import { scrollToDecoration } from './scrollToDiff';
 
 export const showDiffPluginKey: PluginKey<ShowDiffPluginState> = new PluginKey<ShowDiffPluginState>(
@@ -80,11 +78,6 @@ export type ShowDiffPluginState = {
 	isDisplayingChanges: boolean;
 	isInverted?: boolean;
 	originalDoc: PMNode | undefined;
-	/**
-	 * Reveal choreography for the CURRENT paint only. Set from SHOW_DIFF meta and deliberately not
-	 * inherited: a scroll-to-next or an unrelated repaint must not replay the animation.
-	 */
-	reveal?: RevealOptions;
 	/**
 	 * When true, the view update handler should scroll to the first decoration
 	 * and then reset this flag.
@@ -187,24 +180,13 @@ export const createPlugin = (
 				let newPluginState = currentPluginState;
 
 				if (meta) {
-					if (meta?.action === 'SHOW_DIFF' || meta?.action === 'REVEAL_COMPLETE') {
-						// REVEAL_COMPLETE repaints with the reveal dropped, so the decorations render their
-						// ordinary resting style. Without it the reveal stays in state indefinitely and the
-						// next unrelated repaint re-emits the hidden, zero-width highlight with no animation
-						// left to bring it in — the highlight simply vanishes.
-						newPluginState =
-							meta.action === 'REVEAL_COMPLETE'
-								? { ...currentPluginState, reveal: undefined }
-								: {
-										...currentPluginState,
-										...meta,
-										isDisplayingChanges: true,
-										activeIndex: undefined,
-										// Explicit rather than left to the spread: an absent key in `meta` would let
-										// the previous paint's choreography leak into this one, so closing the diff
-										// would animate too.
-										reveal: meta.reveal,
-									};
+					if (meta?.action === 'SHOW_DIFF') {
+						newPluginState = {
+							...currentPluginState,
+							...meta,
+							isDisplayingChanges: true,
+							activeIndex: undefined,
+						};
 						// Calculate and store decorations in state
 						const { contributorTags, decorations, diffDescriptors } = calculateDiffDecorations({
 							state: newState,
@@ -223,9 +205,6 @@ export const createPlugin = (
 							smartThresholds: newPluginState?.smartThresholds,
 							deletedDiffPlacement: newPluginState?.deletedDiffPlacement,
 							inlineDeletedDiffPlacement: newPluginState?.inlineDeletedDiffPlacement,
-							// SHOW_DIFF only. The scroll-to-next recalculation further down deliberately
-							// omits this so stepping through changes cannot replay the choreography.
-							reveal: newPluginState?.reveal,
 						});
 						// Update the decorations and their ids
 						newPluginState.decorations = decorations;
@@ -239,7 +218,6 @@ export const createPlugin = (
 							isDisplayingChanges: false,
 							activeIndex: undefined,
 							contributorTags: [],
-							reveal: undefined,
 							// Per-call override — do not let it leak into the next, unrelated `showDiff` call.
 							colorScheme: undefined,
 							/**
@@ -366,10 +344,6 @@ export const createPlugin = (
 					}
 
 					const pluginState = showDiffPluginKey.getState(view.state);
-
-					// A repaint rebuilds inline decorations, destroying any animation bound to them, so
-					// an in-flight reveal has to be re-attached to the new nodes. No-op when idle.
-					rebindReveal(view, view.dom);
 
 					// Scroll to the first decoration when scrollIntoView was requested.
 					// Use the same filtered/position-sorted list as the active-index path

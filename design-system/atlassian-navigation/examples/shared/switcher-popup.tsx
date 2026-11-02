@@ -7,7 +7,6 @@ import React, { useEffect, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { AppSwitcher } from '@atlaskit/atlassian-navigation/app-switcher';
 import { Popup } from '@atlaskit/popup/popup';
 import Spinner from '@atlaskit/spinner/spinner';

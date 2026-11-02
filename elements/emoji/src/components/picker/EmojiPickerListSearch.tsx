@@ -16,30 +16,7 @@ import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import type { Styles } from '../../types';
 import { EMOJI_SEARCH_DEBOUNCE } from '../../util/constants';
-import { isRefreshEmojiPickerEnabled } from '../common/isRefreshEmojiPickerEnabled';
 import { messages } from '../i18n';
-
-const input = css({
-	boxSizing: 'border-box',
-	color: 'inherit',
-	cursor: 'inherit',
-	font: token('font.body'),
-	outline: 'none',
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-	paddingBlockStart: '1px',
-	paddingInlineEnd: token('space.0'),
-	paddingBlockEnd: token('space.025'),
-	paddingInlineStart: token('space.075'),
-	width: '100%',
-
-	'&:invalid': {
-		boxShadow: 'none',
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	'&::-ms-clear': {
-		display: 'none',
-	},
-});
 
 const inputNew = css({
 	boxSizing: 'border-box',
@@ -78,11 +55,6 @@ const pickerSearch = css({
 	paddingLeft: token('space.150'),
 	paddingRight: token('space.150'),
 	width: '100%',
-});
-
-const searchIcon = css({
-	opacity: 0.5,
-	marginLeft: token('space.negative.025'),
 });
 
 const searchIconNew = css({
@@ -140,39 +112,18 @@ export const EmojiPickerListSearch = (props: Props): JSX.Element => {
 							})
 					: null}
 			</VisuallyHidden>
-			{isRefreshEmojiPickerEnabled() ? (
-				<div css={textFieldWrapperNew}>
-					<TextField
-						role="searchbox"
-						aria-label={formatMessage(messages.searchLabel)}
-						css={inputNew}
-						autoComplete="off"
-						name="search"
-						placeholder={`${formatMessage(messages.searchPlaceholder)}...`}
-						defaultValue={query || ''}
-						onChange={handleOnChange}
-						elemBeforeInput={
-							<span css={searchIconNew}>
-								<SearchIcon color="currentColor" spacing="spacious" label="" />
-							</span>
-						}
-						testId={emojiPickerSearchTestId}
-						ref={textRef}
-						isCompact
-					/>
-				</div>
-			) : (
+			<div css={textFieldWrapperNew}>
 				<TextField
 					role="searchbox"
 					aria-label={formatMessage(messages.searchLabel)}
-					css={input}
+					css={inputNew}
 					autoComplete="off"
 					name="search"
 					placeholder={`${formatMessage(messages.searchPlaceholder)}...`}
 					defaultValue={query || ''}
 					onChange={handleOnChange}
 					elemBeforeInput={
-						<span css={searchIcon}>
+						<span css={searchIconNew}>
 							<SearchIcon color="currentColor" spacing="spacious" label="" />
 						</span>
 					}
@@ -180,7 +131,7 @@ export const EmojiPickerListSearch = (props: Props): JSX.Element => {
 					ref={textRef}
 					isCompact
 				/>
-			)}
+			</div>
 		</div>
 	);
 };

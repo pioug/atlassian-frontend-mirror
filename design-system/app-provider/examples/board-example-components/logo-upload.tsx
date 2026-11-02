@@ -210,32 +210,22 @@ export const LogoUpload = ({
 					{logoUrl ? (
 						<Fragment>
 							{/* Standard surface background */}
-							<Box
-								xcss={logoUploadStyles.previewSection}
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-								style={{ backgroundColor: surfaceBg }}
-							>
+							<Box xcss={logoUploadStyles.previewSection} style={{ backgroundColor: surfaceBg }}>
 								{/* eslint-disable-next-line @atlaskit/design-system/no-html-image */}
 								<img
 									src={logoUrl}
 									alt="Logo preview"
 									css={previewImageBaseStyles}
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 									style={{ filter: isHovered ? 'grayscale(100%)' : 'none' }}
 								/>
 							</Box>
 							{/* Subtle background */}
-							<Box
-								xcss={logoUploadStyles.previewSection}
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-								style={{ backgroundColor: subtleBg }}
-							>
+							<Box xcss={logoUploadStyles.previewSection} style={{ backgroundColor: subtleBg }}>
 								{/* eslint-disable-next-line @atlaskit/design-system/no-html-image */}
 								<img
 									src={logoUrl}
 									alt="Logo preview"
 									css={previewImageBaseStyles}
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 									style={{ filter: isHovered ? 'grayscale(100%)' : 'none' }}
 								/>
 							</Box>
@@ -246,16 +236,11 @@ export const LogoUpload = ({
 								style={{ backgroundColor: brandBg }}
 							>
 								{shouldShowMonochromeInBrandSection ? (
-									<span
-										css={monochromeWrapperStyles}
-										// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-										style={{ color: brandFg }}
-									>
+									<span css={monochromeWrapperStyles} style={{ color: brandFg }}>
 										{/* eslint-disable-next-line @atlaskit/design-system/no-html-image */}
 										<img alt="" src={logoUrl} css={monochromeImageStyles} />
 										<span
 											css={monochromeMaskStyles}
-											// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 											style={
 												{
 													maskImage: `url(${logoUrl})`,
@@ -270,16 +255,11 @@ export const LogoUpload = ({
 										src={logoUrl}
 										alt="Logo preview"
 										css={previewImageBaseStyles}
-										// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 										style={{ filter: isHovered ? 'grayscale(100%)' : 'none' }}
 									/>
 								)}
 							</Box>
-							<div
-								css={hoverOverlayBaseStyles}
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-								style={{ opacity: isHovered ? 1 : 0 }}
-							>
+							<div css={hoverOverlayBaseStyles} style={{ opacity: isHovered ? 1 : 0 }}>
 								<Box
 									xcss={logoUploadStyles.hoverOverlayBg}
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop

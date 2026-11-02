@@ -12,7 +12,6 @@ import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
-import type { RevealOptions } from '../../showDiffPluginType';
 import type { NodeViewSerializer } from '../NodeViewSerializer';
 import type { ColorScheme } from './colorSchemes/types';
 import { createLeftAnchorWidget } from './createAnchorDecorationWidgets';
@@ -388,7 +387,6 @@ export const createReplacedCellDecorations = ({
 	isDeletedWidgetBelow,
 	isInserted,
 	leftAnchorId,
-	reveal,
 	shouldHideDeleted,
 	showContributorTags,
 	showIndicators,
@@ -405,7 +403,6 @@ export const createReplacedCellDecorations = ({
 	isInserted: boolean;
 	leftAnchorId?: string;
 	replacedCells: ReplacedCell[];
-	reveal?: RevealOptions;
 	shouldHideDeleted?: boolean;
 	showContributorTags?: boolean;
 	showIndicators?: boolean;
@@ -450,7 +447,6 @@ export const createReplacedCellDecorations = ({
 				isDeletedWidgetBelow,
 				isInserted,
 				leftAnchorId,
-				reveal,
 				shouldHideDeleted: hidesLiveCell,
 				showContributorTags,
 				showIndicators,

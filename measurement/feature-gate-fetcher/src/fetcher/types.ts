@@ -1,6 +1,8 @@
 import type {
 	BaseClientOptions,
 	CustomAttributes,
+	EvalFlagsStatus,
+	FfpInitializeValues,
 	Identifiers,
 	OptionsWithDefaults,
 } from '@atlaskit/feature-gate-js-client/types';
@@ -18,14 +20,15 @@ export interface FrontendExperimentsResponse {
 }
 
 /**
- * The parts of a Feature Flag Service `/api/v1/evalFlags` response that are used. The Statsig
- * section is only meaningful when `status.statsig` is `OK`.
+ * Response of the Feature Flag Service `/api/v1/evalFlags` endpoint. When both Statsig and the
+ * Feature Flag Platform (FFP) are `OK`, the service partitions flags so each key is in exactly one
+ * section. A section is only meaningful when its provider's `status` is `OK`; otherwise it is empty
+ * (omitted, `null` or `{}`). `status` is always reported, as a 5xx is returned without a body.
  */
 export interface EvalFlagsResponse {
 	statsig?: FrontendExperimentsResponse | null;
-	status?: {
-		statsig?: string;
-	};
+	ffp?: FfpInitializeValues | null;
+	status: EvalFlagsStatus;
 }
 
 export interface FrontendClientSdkKeyResponse {
@@ -40,9 +43,9 @@ export type FetcherOptions = Pick<
 	fetchTimeoutMs?: number;
 	useGatewayURL?: boolean;
 	/**
-	 * Whether to include flags served by the Feature Flag Platform (FFP). When `true`, values are
-	 * fetched from `/api/v1/evalFlags`, of which only the Statsig section is used for now. Defaults
-	 * to `false`.
+	 * Whether to include flags served by the Feature Flag Platform (FFP). Defaults to `false`. When
+	 * `true`, {@link Fetcher.fetchExperimentValues} fetches from `/api/v1/evalFlags` and returns only
+	 * its Statsig section; {@link Fetcher.fetchEvalFlags} always includes FFP flags.
 	 */
 	includeFfpFlags?: boolean;
 };

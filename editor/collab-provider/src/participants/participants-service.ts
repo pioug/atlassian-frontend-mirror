@@ -1,4 +1,5 @@
 import type {
+	BaseStepPM,
 	CollabEventPresenceData,
 	CollabTelepointerPayload,
 	CollabPresenceActivityChangePayload,
@@ -191,20 +192,33 @@ export class ParticipantsService {
 	 *
 	 * Deliberately does NOT go through the `getUser` hydration path: agents have no human profile,
 	 * so `getUser('agent:<id>')` would 404/throw (and could drop the participant) or add latency;
-	 * the agent's display identity is resolved downstream in the facepile.
+	 * supplied step presentation can be used directly; avatars are resolved downstream.
 	 *
-	 * `presence` is emitted only on the FIRST add for an agent. Subsequent steps for the same agent
-	 * refresh `lastActive` and reset the sliding inactivity timer silently, to avoid churning every
-	 * presence consumer on each streamed step.
+	 * Unchanged active agents refresh `lastActive` and the inactivity timer silently. Emit presence
+	 * when an agent is added or its supplied identity changes, so consumers get the latest metadata.
 	 *
 	 * @param providerId `agent:<aaid|type>` id of the agent
 	 * @param agentType kind of the agent that authored the step
+	 * @param identity optional display metadata already supplied by the agent's steps
 	 */
-	upsertAIProviderParticipantLocally = (providerId: string, agentType?: string): void => {
+	upsertAIProviderParticipantLocally = (
+		providerId: string,
+		agentType?: string,
+		identity?: Pick<BaseStepPM, 'agentId' | 'agentName' | 'agentNamedId'>,
+	): void => {
 		const payload = this.buildAIProviderPresencePayload(providerId, agentType);
 		const { sessionId } = payload;
 		const existing = this.participantsState.getBySessionId(sessionId);
 		const hasAgentTypeChanged = existing?.agentType !== agentType;
+		const agentId = fg('confluence_ncs_step_diffing_version_history')
+			? identity?.agentId?.trim() || existing?.agentId
+			: undefined;
+		const name = fg('confluence_ncs_step_diffing_version_history')
+			? identity?.agentName?.trim() || existing?.name || ''
+			: '';
+		const agentNamedId = fg('confluence_ncs_step_diffing_version_history')
+			? identity?.agentNamedId?.trim() || existing?.agentNamedId
+			: undefined;
 		const wasInactive = existing
 			? Date.now() - existing.lastActive >= AGENT_PRESENCE_INACTIVE_MS
 			: false;
@@ -216,10 +230,11 @@ export class ParticipantsService {
 			// providerId, so pin it to satisfy ProviderParticipant.userId (string).
 			userId: providerId,
 			lastActive: payload.timestamp,
-			// name/avatar/email are intentionally empty: an agent has no human profile here. Its display
-			// identity (name + avatar) is resolved downstream in the facepile from the agent id, so the
-			// provider stays identity-free (no getUser/assistance lookup on this hot path).
-			name: '',
+			// Use presentation already supplied on the step; never fetch a human profile on this path.
+			name,
+			...(agentId ? { agentId } : {}),
+			...(name ? { agentName: name } : {}),
+			...(agentNamedId ? { agentNamedId } : {}),
 			avatar: '',
 			email: '',
 		};
@@ -227,7 +242,15 @@ export class ParticipantsService {
 
 		// Active refreshes stay silent. Re-emit when an inactive agent becomes active so consumers
 		// can update its presentation immediately.
-		if (!existing || hasAgentTypeChanged || (fg('platform_move_presence_agents') && wasInactive)) {
+		if (
+			!existing ||
+			hasAgentTypeChanged ||
+			existing.name !== name ||
+			existing.agentId !== agentId ||
+			existing.agentName !== (name || undefined) ||
+			existing.agentNamedId !== agentNamedId ||
+			(fg('platform_move_presence_agents') && wasInactive)
+		) {
 			this.emitPresence({ joined: [participant] }, 'adding agent participant from remote step');
 		}
 

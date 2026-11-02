@@ -1,4 +1,3 @@
-/* eslint-disable @atlaskit/ui-styling-standard/no-global-styles */
 /**
  * @jsxRuntime classic
  * @jsx jsx

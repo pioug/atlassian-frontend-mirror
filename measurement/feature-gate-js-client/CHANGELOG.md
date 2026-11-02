@@ -1,5 +1,31 @@
 # @atlaskit/feature-gate-js-client
 
+## 8.0.0
+
+### Major Changes
+
+- [`67eb7db820b2b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/67eb7db820b2b) -
+  With `includeFfpFlags: true`, `checkGate`, `getExperiment` and `getExperimentValue` serve flags
+  from the Feature Flag Platform (FFP) as well as Statsig, so flags migrated to FFP keep working
+  without code changes. Without the option, only Statsig is used, as before. If you initialize with
+  `initializeFromValues`, also pass the FFP values to serve FFP flags.
+- [`67eb7db820b2b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/67eb7db820b2b) -
+  Add `FeatureGates.ffpClient` to read flags that exist only in the Feature Flag Platform (FFP),
+  available once the client is initialized. Keep reading existing Statsig flags, including ones
+  being migrated to FFP, with `checkGate`, `getExperiment` and `getExperimentValue`. Its type,
+  `FfpEvaluationClient`, is exported from `@atlaskit/feature-gate-js-client/ffp/types`.
+
+### Minor Changes
+
+- [`67eb7db820b2b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/67eb7db820b2b) -
+  Add `./eval-flags/*` entry points that expose the `/api/v1/evalFlags` response helpers.
+  `@atlaskit/feature-gate-fetcher` now uses them instead of its own copy, so products that bundle
+  both packages ship one implementation.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.1.0
 
 ### Minor Changes

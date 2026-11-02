@@ -159,7 +159,6 @@ const triggerPlay = async () => {
 // the next line and associated import. For more information, see go/afm-a11y-tooling:jest
 skipAutoA11yFile();
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<MediaPlayer />', () => {
 	const setup = (
 		{

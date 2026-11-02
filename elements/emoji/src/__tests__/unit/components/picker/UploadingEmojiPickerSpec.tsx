@@ -7,14 +7,13 @@ import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 import { MockEmojiResource } from '@atlaskit/util-data-test/mock-emoji-resource';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
-import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
-import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 
 import EmojiRepository from '../../../../api/EmojiRepository';
 import { emojiDeletePreviewTestId } from '../../../../components/common/EmojiDeletePreview';
-import { uploadEmojiNameInputTestId } from '../../../../components/common/EmojiUploadPicker';
-import { cancelEmojiUploadPickerTestId } from '../../../../components/common/EmojiUploadPicker';
-import { cancelUploadButtonTestId } from '../../../../components/common/EmojiUploadPreview';
+import {
+	cancelEmojiUploadPickerTestId,
+	uploadEmojiNameInputTestId,
+} from '../../../../components/common/EmojiUploadPicker';
 import {
 	chooseFileButtonTestId,
 	fileUploadInputTestId,
@@ -58,17 +57,8 @@ const createSvgFile = (): File =>
 	new File(['<svg xmlns="http://www.w3.org/2000/svg"></svg>'], 'unsupported.svg', {
 		type: 'image/svg+xml',
 	});
-const teamojiRefreshExperimentName = 'platform_teamoji_26_refresh_emoji_picker';
 let initializeCompletedSpy: jest.SpiedFunction<typeof FeatureGates.initializeCompleted>;
 let checkGateSpy: jest.SpiedFunction<typeof FeatureGates.checkGate>;
-
-const setTeamojiExperimentEnabled = (isEnabled: boolean) => {
-	if (isEnabled) {
-		mockExpEnabled(teamojiRefreshExperimentName);
-	} else {
-		mockExpDisabled(teamojiRefreshExperimentName);
-	}
-};
 
 describe('<UploadingEmojiPicker />', () => {
 	let onEvent: jest.SpyInstance;
@@ -207,10 +197,7 @@ describe('<UploadingEmojiPicker />', () => {
 				expect(helperTestingLibrary.getUploadPreview()).toBeInTheDocument();
 			});
 
-			const emojiInPreview = within(helperTestingLibrary.getUploadPreview()).getAllByTestId(
-				'image-emoji-:cheese_burger:',
-			);
-			expect(emojiInPreview.length).toBe(2);
+			expect(helperTestingLibrary.getUploadPreview()).toHaveAttribute('alt', 'cheese_burger');
 
 			jest.useFakeTimers();
 			// trigger upload
@@ -236,7 +223,7 @@ describe('<UploadingEmojiPicker />', () => {
 			);
 			await waitFor(() => {
 				// upload preview should disappear
-				expect(screen.queryByTestId(cancelUploadButtonTestId)).not.toBeInTheDocument();
+				expect(screen.queryByTestId(cancelEmojiUploadPickerTestId)).not.toBeInTheDocument();
 			});
 			// list is scrolled to the new emoji, with preview emoji shown as well
 			expect(helperTestingLibrary.getVirtualList()).toBeInTheDocument();
@@ -253,9 +240,6 @@ describe('<UploadingEmojiPicker />', () => {
 					'image-emoji-:cheese_burger:',
 				),
 			).toBeInTheDocument();
-
-			// "add custom emoji" button should appear
-			expect(await helperTestingLibrary.getAddCustomEmojiButton()).toBeInTheDocument();
 
 			expect(onEvent).toHaveBeenCalled();
 
@@ -387,8 +371,6 @@ describe('<UploadingEmojiPicker />', () => {
 		});
 
 		it('shows unsupported file type error in refresh upload flow', async () => {
-			setTeamojiExperimentEnabled(true);
-
 			await helper.setupPicker({
 				emojiProvider,
 				hideToneSelector: true,
@@ -432,7 +414,6 @@ describe('<UploadingEmojiPicker />', () => {
 		});
 
 		it('does not bubble the refresh footer add emoji click to document handlers', async () => {
-			setTeamojiExperimentEnabled(true);
 			const handleDocumentClick = jest.fn();
 			document.addEventListener('click', handleDocumentClick);
 
@@ -461,8 +442,6 @@ describe('<UploadingEmojiPicker />', () => {
 		});
 
 		it('defaults empty emoji name to file name in refresh upload flow', async () => {
-			setTeamojiExperimentEnabled(true);
-
 			await helper.setupPicker({
 				emojiProvider,
 				hideToneSelector: true,
@@ -547,10 +526,7 @@ describe('<UploadingEmojiPicker />', () => {
 				expect(helperTestingLibrary.getUploadPreview()).toBeInTheDocument();
 			});
 
-			const emojiInPreview = within(helperTestingLibrary.getUploadPreview()).getAllByTestId(
-				'image-emoji-:cheese_burger:',
-			);
-			expect(emojiInPreview.length).toBe(2);
+			expect(helperTestingLibrary.getUploadPreview()).toHaveAttribute('alt', 'cheese_burger');
 
 			jest.useFakeTimers();
 			// trigger upload
@@ -573,10 +549,8 @@ describe('<UploadingEmojiPicker />', () => {
 			});
 
 			await waitFor(() => {
-				expect(screen.queryByTestId(cancelUploadButtonTestId)).not.toBeInTheDocument();
+				expect(screen.queryByTestId(cancelEmojiUploadPickerTestId)).not.toBeInTheDocument();
 			});
-
-			expect(await helperTestingLibrary.getAddCustomEmojiButton()).toBeInTheDocument();
 
 			// let scroll finish after timeout
 			jest.runAllTimers();
@@ -625,10 +599,7 @@ describe('<UploadingEmojiPicker />', () => {
 				expect(helperTestingLibrary.getUploadPreview()).toBeInTheDocument();
 			});
 
-			const emojiInPreview = within(helperTestingLibrary.getUploadPreview()).getAllByTestId(
-				'image-emoji-:cheese_burger:',
-			);
-			expect(emojiInPreview.length).toBe(2);
+			expect(helperTestingLibrary.getUploadPreview()).toHaveAttribute('alt', 'cheese_burger');
 
 			// cancel upload
 			helperTestingLibrary.cancelUpload();
@@ -745,24 +716,15 @@ describe('<UploadingEmojiPicker />', () => {
 
 			await waitFor(() => {
 				expect(helperTestingLibrary.getEmojiErrorMessage()).toBeInTheDocument();
-				expect(helperTestingLibrary.getEmojiErrorIcon()).toBeInTheDocument();
 			});
 
-			// toggle error message
-			fireEvent.mouseOver(helperTestingLibrary.getEmojiErrorIcon());
-
-			await waitFor(() => {
-				expect(helperTestingLibrary.getEmojiErrorMessageTooltip()).toBeInTheDocument();
-			});
-
-			// tooltip displays correct error message
 			expect(
-				within(helperTestingLibrary.getEmojiErrorMessageTooltip()).getByText(
+				within(helperTestingLibrary.getEmojiErrorMessage()).getByText(
 					messages.emojiUploadFailed.defaultMessage,
 				),
 			).toBeInTheDocument();
 
-			expect(screen.getByText('Retry')).toBeInTheDocument();
+			expect(helperTestingLibrary.getUploadEmojiButton()).toBeInTheDocument();
 
 			helperTestingLibrary.cancelUpload();
 			await waitFor(async () => {
@@ -858,29 +820,20 @@ describe('<UploadingEmojiPicker />', () => {
 
 			await waitFor(() => {
 				expect(helperTestingLibrary.getEmojiErrorMessage()).toBeInTheDocument();
-				expect(helperTestingLibrary.getEmojiErrorIcon()).toBeInTheDocument();
 			});
 
-			// toggle error message
-			fireEvent.mouseOver(helperTestingLibrary.getEmojiErrorIcon());
-
-			await waitFor(() => {
-				expect(helperTestingLibrary.getEmojiErrorMessageTooltip()).toBeInTheDocument();
-			});
-
-			// tooltip displays correct error message
 			expect(
-				within(helperTestingLibrary.getEmojiErrorMessageTooltip()).getByText(
+				within(helperTestingLibrary.getEmojiErrorMessage()).getByText(
 					messages.emojiUploadFailed.defaultMessage,
 				),
 			).toBeInTheDocument();
 
-			expect(screen.getByText('Retry')).toBeInTheDocument();
+			expect(helperTestingLibrary.getUploadEmojiButton()).toBeInTheDocument();
 
 			// remove mock to make upload successful
 			spy.mockRestore();
 
-			helperTestingLibrary.retryUpload();
+			helperTestingLibrary.uploadNewEmoji();
 
 			// wait for upload
 			await waitFor(() => {
@@ -964,12 +917,14 @@ describe('<UploadingEmojiPicker />', () => {
 
 		// Click 'Remove' in delete preview
 		const clickRemove = async () => {
-			const removeButton = within(getEmojiDeletePreview()).getAllByRole('button')[0];
+			const removeButton = within(getEmojiDeletePreview()).getByRole('button', { name: 'Remove' });
 			await userEvent.click(removeButton);
 		};
 
 		const clickCancelDelete = async () => {
-			const cancelDeleteButton = within(getEmojiDeletePreview()).getAllByRole('button')[1];
+			const cancelDeleteButton = within(getEmojiDeletePreview()).getByRole('button', {
+				name: 'Cancel',
+			});
 			await userEvent.click(cancelDeleteButton);
 		};
 

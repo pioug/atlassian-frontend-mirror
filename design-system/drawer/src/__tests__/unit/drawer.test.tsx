@@ -4,7 +4,7 @@
  */
 
 import { cssMap, jsx } from '@compiled/react';
-import { act, render, screen } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { skipA11yAudit } from '@af/accessibility-testing/skip-a11y-audit';
@@ -127,8 +127,10 @@ describe('Drawer Transitions', () => {
 		const onClose = jest.fn();
 		render(createDrawer({ isOpen: true, onClose: onClose }));
 		expect(onClose).not.toHaveBeenCalled();
-		await userEvent.click(screen.getByTestId(`${testId}--blanket`));
-		expect(onClose).toHaveBeenCalled();
+		// The top-layer drawer is a native <dialog> with no blanket. A press on the <dialog> itself
+		// is a press on its backdrop.
+		await userEvent.click(screen.queryByTestId(`${testId}--blanket`) ?? screen.getByTestId(testId));
+		await waitFor(() => expect(onClose).toHaveBeenCalled());
 	});
 
 	it('should call onClose when the close button is clicked', () => {
@@ -154,7 +156,7 @@ describe('Drawer Transitions', () => {
 		expect(onClose).toHaveBeenCalled();
 	});
 
-	it('should call onCloseComplete when open state is changed to false', () => {
+	it('should call onCloseComplete when open state is changed to false', async () => {
 		jest.useFakeTimers();
 		const onCloseComplete = jest.fn();
 		const { rerender } = render(createDrawer({ isOpen: true, onCloseComplete: onCloseComplete }));
@@ -162,18 +164,20 @@ describe('Drawer Transitions', () => {
 		act(() => {
 			jest.runAllTimers();
 		});
-		expect(onCloseComplete).toHaveBeenCalled();
+		// The top-layer drawer settles its exit in a promise after the timers run.
+		await waitFor(() => expect(onCloseComplete).toHaveBeenCalled());
 		jest.useRealTimers();
 	});
 
-	it('should call onOpenComplete when open state is changed to true', () => {
+	it('should call onOpenComplete when open state is changed to true', async () => {
 		jest.useFakeTimers();
 		const onOpenComplete = jest.fn();
 		render(createDrawer({ isOpen: true, onOpenComplete: onOpenComplete }));
 		act(() => {
 			jest.runAllTimers();
 		});
-		expect(onOpenComplete).toHaveBeenCalled();
+		// The top-layer drawer settles its entry in a promise after the timers run.
+		await waitFor(() => expect(onOpenComplete).toHaveBeenCalled());
 		jest.useRealTimers();
 	});
 
@@ -187,7 +191,7 @@ describe('Drawer Transitions', () => {
 		expect(onKeyDown).toHaveBeenCalledWith(event);
 	});
 
-	it('should have role="dialog" and aria-modal="true" when opened', () => {
+	it('should be a modal dialog when opened', () => {
 		render(
 			<Drawer isOpen width="wide" testId="drawer" label="Default drawer">
 				<DrawerContent>
@@ -196,8 +200,12 @@ describe('Drawer Transitions', () => {
 			</Drawer>,
 		);
 		const drawerContainer = screen.getByTestId('drawer');
-		expect(drawerContainer).toHaveAttribute('role', 'dialog');
-		expect(drawerContainer).toHaveAttribute('aria-modal', 'true');
+		expect(screen.getByRole('dialog', { name: 'Default drawer' })).toBe(drawerContainer);
+		// The legacy drawer sets `aria-modal="true"`. The top-layer drawer is a native <dialog>
+		// opened with `showModal()`, which is modal without that attribute.
+		expect(
+			drawerContainer.getAttribute('aria-modal') === 'true' || drawerContainer.matches(':modal'),
+		).toBe(true);
 	});
 
 	it('should autofocus the first focusable element when opened', () => {

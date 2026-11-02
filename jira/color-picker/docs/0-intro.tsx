@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {
 	md,
 	code,
@@ -69,5 +70,4 @@ ${(
 )}
 `;
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export default ExportedDefault;

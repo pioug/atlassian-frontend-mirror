@@ -18,12 +18,24 @@ exports.default = void 0;
  * These changes will then be picked up by our tooling which will attempt to
  * migrate as many of these renames as possible.
  *
- * @codegen <<SignedSource::a02b9bfe4cd29c77e4376a6f77ab8e26>>
+ * @codegen <<SignedSource::5a8e973f81e48005526b845142d65937>>
  * @codegenCommand yarn build tokens
  */
 
 var replacementMapper = [{
   "path": "motion.easing.spring",
+  "state": "experimental"
+}, {
+  "path": "motion.iconography.enter.cycle.up",
+  "state": "experimental"
+}, {
+  "path": "motion.iconography.enter.fade",
+  "state": "experimental"
+}, {
+  "path": "motion.iconography.exit.cycle.up",
+  "state": "experimental"
+}, {
+  "path": "motion.iconography.exit.fade",
   "state": "experimental"
 }, {
   "path": "space.gap.large",

@@ -3,8 +3,6 @@ import React from 'react';
 import type { EditorView } from 'prosemirror-view';
 
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import {
 	areAttributionColorGatesEnabled,
@@ -14,8 +12,7 @@ import { getDeletedWidgets } from './pm-plugins/getDeletedWidgets';
 import { getScrollableDecorations } from './pm-plugins/getScrollableDecorations';
 import { createPlugin, showDiffPluginKey } from './pm-plugins/main';
 import { resolveDiffContributors } from './pm-plugins/resolveDiffContributors';
-import { beginReveal, cancelReveal } from './pm-plugins/revealAnimation';
-import type { RevealOptions, ShowDiffParams, ShowDiffPlugin } from './showDiffPluginType';
+import type { ShowDiffParams, ShowDiffPlugin } from './showDiffPluginType';
 import { IndicatorBarContentComponent } from './ui/IndicatorBar/IndicatorBarContentComponent';
 
 const normalizeShowDiffParams = (params: ShowDiffParams | undefined) => {
@@ -38,35 +35,6 @@ const normalizeShowDiffParams = (params: ShowDiffParams | undefined) => {
 	};
 };
 
-const prefersReducedMotion = (): boolean =>
-	typeof window !== 'undefined' &&
-	typeof window.matchMedia === 'function' &&
-	window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-/**
- * Resolve reveal preconditions once here so decorations and animation share one answer. If
- * decorations think a reveal is happening but animation doesn't, highlight paints hidden forever.
- * All preconditions resolved here (not just gate) ensures "unable to animate" means "do not reveal".
- *
- * Umbrella experiment: within the AI streaming UX M1 population this behaviour is only enabled
- * for the treatment cohort. Non-AI callers (track-changes, etc.) are not enrolled and default
- * to `true`, preserving the pre-umbrella baseline.
- */
-const resolveReveal = (
-	reveal: RevealOptions | undefined,
-	editorView: EditorView | undefined,
-): RevealOptions | undefined =>
-	// Gate first, so it is the primary switch and is always observable once a reveal is requested.
-	reveal &&
-	fg('platform_editor_diff_reveal_animation') &&
-	UNSAFE_expValNoExposure('platform_editor_ai_streaming_ux_experience_m1', 'isEnabled', false) ===
-		true &&
-	editorView &&
-	typeof window !== 'undefined' &&
-	!prefersReducedMotion()
-		? reveal
-		: undefined;
-
 export const showDiffPlugin: ShowDiffPlugin = ({ api, config }) => {
 	// Captured from view lifecycle so read-only actions access state without exposing plugin key.
 	let editorView: EditorView | undefined;
@@ -84,36 +52,12 @@ export const showDiffPlugin: ShowDiffPlugin = ({ api, config }) => {
 				(params?: ShowDiffParams) =>
 				({ tr }) => {
 					api?.userIntent?.commands.setCurrentUserIntent('viewingDiff')({ tr });
-					const reveal = resolveReveal(params?.reveal, editorView);
-
-					// Capture snapshot BEFORE transaction dispatch (last moment outgoing DOM exists).
-					if (reveal && editorView) {
-						const view = editorView;
-						beginReveal({
-							editorView: view,
-							reveal,
-							onComplete: () => {
-								// Repaint without the reveal so the decorations settle into their resting
-								// style. Kept out of history: this is presentation, not an edit.
-								view.dispatch(
-									view.state.tr
-										.setMeta(showDiffPluginKey, { action: 'REVEAL_COMPLETE' })
-										.setMeta('addToHistory', false),
-								);
-							},
-						});
-					}
-
 					return tr.setMeta(showDiffPluginKey, {
 						...normalizeShowDiffParams(params),
-						reveal,
 						action: 'SHOW_DIFF',
 					});
 				},
 			hideDiff: ({ tr }) => {
-				if (editorView) {
-					cancelReveal(editorView);
-				}
 				api?.userIntent?.commands.setCurrentUserIntent('default')({ tr });
 				return tr.setMeta(showDiffPluginKey, {
 					steps: [],

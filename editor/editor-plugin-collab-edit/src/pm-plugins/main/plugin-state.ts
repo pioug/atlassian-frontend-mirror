@@ -53,6 +53,12 @@ export const getValidPos = (tr: ReadonlyTransaction, pos: number): number => {
 	return endOfDocPos;
 };
 
+const getAgentName = (participant: CollabParticipant | undefined): string | undefined =>
+	// Explicit agent identity selects the agent palette without classifying human display names.
+	participant?.agentName || participant?.agentNamedId || participant?.agentId
+		? participant.agentName?.trim() || participant.name.trim() || 'Agent'
+		: undefined;
+
 export class PluginState {
 	private decorationSet: DecorationSet;
 	private participants: Participants;
@@ -193,7 +199,8 @@ export class PluginState {
 						this.getPresenceId(sessionId),
 						this.getFullName(sessionId),
 						hasExistingNudge(sessionId, this.nudgeAnimations),
-						participants.get(sessionId)?.agentType,
+						getAgentName(participants.get(sessionId)),
+						participants.get(sessionId)?.agentNamedId,
 					),
 				);
 			}
@@ -236,7 +243,8 @@ export class PluginState {
 										presenceId,
 										this.getFullName(sessionId),
 										hasExistingNudge(sessionId, this.nudgeAnimations),
-										participants.get(sessionId)?.agentType,
+										getAgentName(participants.get(sessionId)),
+										participants.get(sessionId)?.agentNamedId,
 									),
 								);
 							}

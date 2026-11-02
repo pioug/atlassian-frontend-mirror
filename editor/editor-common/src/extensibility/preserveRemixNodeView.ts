@@ -5,8 +5,10 @@ import type {
 	EditorView,
 	NodeView,
 } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { NATIVE_EMBED_MAUI_EXTENSION_KEY } from '../extensions/native-embed-maui-extension-key';
+import { preserveNodeView } from '../preserve-node-view';
 import type { getPosHandler } from '../react-node-view';
 
 type ExtensionView = {
@@ -68,6 +70,21 @@ export function preserveRemixNodeView({
 }: PreservationOptions): NodeView {
 	if (!isRemixNodeForPreservation(node)) {
 		return createExtensionNode(node).init();
+	}
+	if (isExperimentEnabled('platform_editor_preserve_smart_card_embeds')) {
+		return preserveNodeView({
+			node,
+			view,
+			getPos,
+			renderProps,
+			rendererKind,
+			createNodeView: createExtensionNode,
+			isSameNode: sameChart,
+			canUpdateNode: (previous, next) =>
+				previous.type === next.type &&
+				previous.attrs.localId === next.attrs.localId &&
+				previous.attrs.extensionKey === next.attrs.extensionKey,
+		});
 	}
 	const ownerDocument = view.dom.ownerDocument;
 	const slot: MoveTarget = ownerDocument.createElement('div');

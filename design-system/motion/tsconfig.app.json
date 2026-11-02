@@ -64,6 +64,12 @@
 			"path": "../heading/tsconfig.app.json"
 		},
 		{
+			"path": "../icon/tsconfig.app.json"
+		},
+		{
+			"path": "../icon-lab/tsconfig.app.json"
+		},
+		{
 			"path": "../link/tsconfig.app.json"
 		},
 		{

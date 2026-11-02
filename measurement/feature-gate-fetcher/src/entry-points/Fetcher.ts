@@ -5,4 +5,7 @@ export {
 	GATEWAY_BASE_URL,
 	EXPERIMENT_VALUES_API_VERSION,
 	EVAL_FLAGS_API_VERSION,
+	fromExperimentValuesResponse,
+	getEvalFlagsStatus,
+	toFrontendExperimentsResult,
 } from '../fetcher/Fetcher';

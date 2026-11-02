@@ -9,7 +9,6 @@ import type { ComponentCaughtDomErrorAEP } from '../../../../analytics/events';
 import { PLATFORM } from '../../../../analytics/events';
 import { ErrorBoundary } from '../../ErrorBoundary';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('When error boundary for dom errors flag is enabled it should call fireAnalyticsEvent again with ComponentCaughtDomErrorAEP', () => {
 	const CustomError = new Error(
 		`Failed to execute 'removeChild' on 'Node': The node to be removed is not a child of this node`,

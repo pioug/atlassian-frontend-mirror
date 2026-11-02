@@ -1,8 +1,6 @@
 /* eslint-disable playwright/no-conditional-expect */
 /* eslint-disable playwright/no-conditional-in-test */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-/* eslint-disable testing-library/prefer-screen-queries */
-/* eslint-disable compat/compat */
 
 import { VCObserver } from '../../src/vc/vc-observer';
 import { expect, test } from './fixtures';
@@ -201,7 +199,7 @@ test.describe('React UFO: Payload integrity - v2.0.0, without TTVC v1 fields', (
 
 		// Verify that app-root has 10 section children
 		const sectionSegments = appRootSegment?.c;
-		expect(Object.keys(sectionSegments).length).toBe(10);
+		expect(Object.keys(sectionSegments)).toHaveLength(10);
 
 		// Check that all section names are present
 		const sectionNames = Object.values(sectionSegments).map((segment: any) => segment.n);

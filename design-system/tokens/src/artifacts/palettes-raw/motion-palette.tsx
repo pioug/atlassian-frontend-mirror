@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::161b7dccc4d5ca4e7c03e0d9d9f305c0>>
+ * @codegen <<SignedSource::9d31d018194500c2659cf961eb606c1c>>
  * @codegenCommand yarn build tokens
  */
 
@@ -72,6 +72,26 @@ const tokens: Token[] = [
       "motion",
       "curve",
       "EaseBoldOut"
+    ]
+  },
+  {
+    "value": "cubic-bezier(0.65, 0, 0.35, 1)",
+    "attributes": {
+      "group": "motionEasing"
+    },
+    "filePath": "schema/palettes/motion-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "cubic-bezier(0.65, 0, 0.35, 1)",
+      "attributes": {
+        "group": "motionEasing"
+      }
+    },
+    "name": "motion.curve.EaseCubicInOut",
+    "path": [
+      "motion",
+      "curve",
+      "EaseCubicInOut"
     ]
   },
   {
@@ -677,6 +697,44 @@ const tokens: Token[] = [
   {
     "value": {
       "0%": {
+        "transform": "translateY(calc(100% + var(--ds-motion-slide-overshoot, 0px)))",
+        "transform-origin": "bottom"
+      },
+      "100%": {
+        "transform": "translateY(0px)",
+        "transform-origin": "bottom"
+      }
+    },
+    "attributes": {
+      "group": "motionKeyframe"
+    },
+    "filePath": "schema/palettes/motion-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": {
+        "0%": {
+          "transform": "translateY(calc(100% + var(--ds-motion-slide-overshoot, 0px)))",
+          "transform-origin": "bottom"
+        },
+        "100%": {
+          "transform": "translateY(0px)",
+          "transform-origin": "bottom"
+        }
+      },
+      "attributes": {
+        "group": "motionKeyframe"
+      }
+    },
+    "name": "motion.keyframe.SlideIn100PercentBottom",
+    "path": [
+      "motion",
+      "keyframe",
+      "SlideIn100PercentBottom"
+    ]
+  },
+  {
+    "value": {
+      "0%": {
         "transform": "translateX(-100%)",
         "transform-origin": "left"
       },
@@ -748,6 +806,44 @@ const tokens: Token[] = [
       "motion",
       "keyframe",
       "SlideIn100PercentRight"
+    ]
+  },
+  {
+    "value": {
+      "0%": {
+        "transform": "translateY(calc(-100% - var(--ds-motion-slide-overshoot, 0px)))",
+        "transform-origin": "top"
+      },
+      "100%": {
+        "transform": "translateY(0px)",
+        "transform-origin": "top"
+      }
+    },
+    "attributes": {
+      "group": "motionKeyframe"
+    },
+    "filePath": "schema/palettes/motion-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": {
+        "0%": {
+          "transform": "translateY(calc(-100% - var(--ds-motion-slide-overshoot, 0px)))",
+          "transform-origin": "top"
+        },
+        "100%": {
+          "transform": "translateY(0px)",
+          "transform-origin": "top"
+        }
+      },
+      "attributes": {
+        "group": "motionKeyframe"
+      }
+    },
+    "name": "motion.keyframe.SlideIn100PercentTop",
+    "path": [
+      "motion",
+      "keyframe",
+      "SlideIn100PercentTop"
     ]
   },
   {
@@ -961,6 +1057,44 @@ const tokens: Token[] = [
   {
     "value": {
       "0%": {
+        "transform": "translateY(0px)",
+        "transform-origin": "bottom"
+      },
+      "100%": {
+        "transform": "translateY(calc(100% + var(--ds-motion-slide-overshoot, 0px)))",
+        "transform-origin": "bottom"
+      }
+    },
+    "attributes": {
+      "group": "motionKeyframe"
+    },
+    "filePath": "schema/palettes/motion-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": {
+        "0%": {
+          "transform": "translateY(0px)",
+          "transform-origin": "bottom"
+        },
+        "100%": {
+          "transform": "translateY(calc(100% + var(--ds-motion-slide-overshoot, 0px)))",
+          "transform-origin": "bottom"
+        }
+      },
+      "attributes": {
+        "group": "motionKeyframe"
+      }
+    },
+    "name": "motion.keyframe.SlideOut100PercentBottom",
+    "path": [
+      "motion",
+      "keyframe",
+      "SlideOut100PercentBottom"
+    ]
+  },
+  {
+    "value": {
+      "0%": {
         "transform": "translateX(0px)",
         "transform-origin": "left"
       },
@@ -1032,6 +1166,44 @@ const tokens: Token[] = [
       "motion",
       "keyframe",
       "SlideOut100PercentRight"
+    ]
+  },
+  {
+    "value": {
+      "0%": {
+        "transform": "translateY(0px)",
+        "transform-origin": "top"
+      },
+      "100%": {
+        "transform": "translateY(calc(-100% - var(--ds-motion-slide-overshoot, 0px)))",
+        "transform-origin": "top"
+      }
+    },
+    "attributes": {
+      "group": "motionKeyframe"
+    },
+    "filePath": "schema/palettes/motion-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": {
+        "0%": {
+          "transform": "translateY(0px)",
+          "transform-origin": "top"
+        },
+        "100%": {
+          "transform": "translateY(calc(-100% - var(--ds-motion-slide-overshoot, 0px)))",
+          "transform-origin": "top"
+        }
+      },
+      "attributes": {
+        "group": "motionKeyframe"
+      }
+    },
+    "name": "motion.keyframe.SlideOut100PercentTop",
+    "path": [
+      "motion",
+      "keyframe",
+      "SlideOut100PercentTop"
     ]
   },
   {

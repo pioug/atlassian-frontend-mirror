@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 31.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 31.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 31.0.5
+
+### Patch Changes
+
+- [`827a297d8c605`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/827a297d8c605) -
+  Delete unreachable source files
+- Updated dependencies
+
+## 31.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 31.0.3
 
 ### Patch Changes

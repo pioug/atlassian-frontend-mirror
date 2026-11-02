@@ -4,11 +4,11 @@ import { fireEvent, screen, waitFor } from '@testing-library/react';
 import { act } from 'react-test-renderer';
 
 import { messages } from '../../../../components/i18n';
-import { CategoryDescriptionMap } from '../../../../components/picker/categories';
+import { CategoryDescriptionMapNew } from '../../../../components/picker/categories';
 import type { Props } from '../../../../components/picker/CategorySelector';
 import CategorySelector from '../../../../components/picker/CategorySelector';
 import { RENDER_EMOJI_PICKER_LIST_TESTID } from '../../../../components/picker/EmojiPickerList';
-import { sortCategories } from '../../../../components/picker/sortCategories';
+import { sortCategoriesNew } from '../../../../components/picker/sortCategoriesNew';
 import type { CategoryId } from '../../../../types';
 import { defaultCategories } from '../../../../util/constants';
 import { isMessagesKey } from '../../../../util/is-messages-key';
@@ -49,11 +49,11 @@ describe('<CategorySelector />', () => {
 		await setupComponent({
 			dynamicCategories,
 		});
-		const orderedCategories = dynamicCategories.concat(defaultCategories).sort(sortCategories);
+		const orderedCategories = dynamicCategories.concat(defaultCategories).sort(sortCategoriesNew);
 		const categoryButtons = await screen.getAllByRole('tab');
 		orderedCategories.forEach((categoryId, i) => {
 			const button: HTMLElement = categoryButtons[i];
-			const categoryKey = CategoryDescriptionMap[categoryId].name;
+			const categoryKey = CategoryDescriptionMapNew[categoryId].name;
 			// eslint-disable-next-line
 			expect(isMessagesKey(categoryKey)).toBeTruthy();
 			if (isMessagesKey(categoryKey)) {
@@ -68,7 +68,7 @@ describe('<CategorySelector />', () => {
 		expect(categoryButtons.length).toEqual(defaultCategories.length);
 		defaultCategories.forEach((categoryId, i) => {
 			const button = categoryButtons[i];
-			const categoryKey = CategoryDescriptionMap[categoryId].name;
+			const categoryKey = CategoryDescriptionMapNew[categoryId].name;
 			expect(isMessagesKey(categoryKey)).toBeTruthy();
 			if (isMessagesKey(categoryKey)) {
 				expect(button).toHaveAttribute('aria-label', messages[categoryKey].defaultMessage);
@@ -102,7 +102,7 @@ describe('<CategorySelector />', () => {
 		expect(categoryButtons.length).toEqual(defaultCategories.length);
 		defaultCategories.forEach((categoryId, i) => {
 			const button = categoryButtons[i];
-			const categoryKey = CategoryDescriptionMap[categoryId].name;
+			const categoryKey = CategoryDescriptionMapNew[categoryId].name;
 			// eslint-disable-next-line
 			expect(isMessagesKey(categoryKey)).toBeTruthy();
 			if (isMessagesKey(categoryKey)) {

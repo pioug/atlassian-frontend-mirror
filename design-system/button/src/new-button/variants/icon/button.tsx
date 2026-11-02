@@ -94,7 +94,7 @@ const IconButton: React.MemoExoticComponent<
 					interactionName={interactionName}
 				>
 					<Content type="icon" isLoading={isLoading}>
-						<IconRenderer icon={icon} />
+						<IconRenderer icon={icon} spacing={spacing} />
 						<VisuallyHidden>{label}</VisuallyHidden>
 					</Content>
 				</ButtonBase>
@@ -179,7 +179,7 @@ const IconButton: React.MemoExoticComponent<
 						componentName="IconButton"
 					>
 						<Content type="icon" isLoading={isLoading}>
-							<IconRenderer icon={icon} />
+							<IconRenderer icon={icon} spacing={spacing} />
 							<VisuallyHidden>{label}</VisuallyHidden>
 						</Content>
 					</ButtonBase>

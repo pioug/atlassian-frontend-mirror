@@ -1,7 +1,7 @@
 # Polyfill reports `pointer-events: none` for inert content
 
-> Why `@atlaskit/top-layer/testing/polyfill` changes the computed `pointer-events` of inert content.
-> This is the one place where the polyfill does not match a browser on purpose.
+> Why `@atlaskit/top-layer/testing/polyfill` changes the computed `pointer-events` of inert content,
+> and of open popovers. These are the places where the polyfill does not match a browser on purpose.
 
 ## Decision
 
@@ -36,5 +36,24 @@ in jsdom, but `auto` in a browser.
 - If `user.click()` throws the `pointer-events: none` error when you do not expect it, look for a
   modal dialog that is still open. For example, a test appended a dialog to `document.body` itself
   and did not remove it.
+
+## Open popovers report `auto`
+
+**Proposal, awaiting review.** An open popover, and its content, report `pointer-events: auto` where
+they get `none` only by inheriting it from outside the popover. The polyfill does this now, but the
+user has not confirmed it yet.
+
+- The host renders in place, so it inherits from its DOM parent. ADS `Popover` and `Dialog` reset
+  `pointer-events: auto` on the host with a `:defined` rule (see
+  [host-specificity-boost.md](./host-specificity-boost.md)). In a browser, the surface stays
+  hittable in a `pointer-events: none` ancestor.
+- jsdom does not support `:defined`, so the reset never applies. jsdom resolves `none` for the host
+  and its content, and a `user-event` click in the surface throws.
+- An inline `pointer-events` in the popover is kept. A stylesheet `none` in the popover is not seen:
+  jsdom gives no way to tell it from an inherited one.
+- The difference you can see: a plain `[popover]`, with no reset, in a `pointer-events: none`
+  ancestor inherits `none` in a browser. The polyfill reports `auto`.
+- A modal dialog does not get this yet. Only the blocking dialog itself reports `auto`, and only
+  when jsdom resolves no value.
 
 The code comment is on the `getComputedStyle` patch in `src/testing/polyfill.tsx`.

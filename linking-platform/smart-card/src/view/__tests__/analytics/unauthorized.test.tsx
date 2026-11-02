@@ -18,7 +18,7 @@ import { auth } from '@atlaskit/outbound-auth-flow-client/auth';
 import { AuthError } from '@atlaskit/outbound-auth-flow-client/error';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { fireEvent, render, waitFor } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
@@ -211,17 +211,21 @@ describe('smart-card: unauthorized analytics', () => {
 			);
 		}
 
-		ffTest.off('platform_sl_3p_preauth_better_hovercard_killswitch', '', () => {
+		describe('platform_sl_3p_preauth_better_hovercard_killswitch is off', () => {
 			it('should fire learn more clicked on unauthorised hover when preauth-better killswitch is off', async () => {
+				failGate('platform_sl_3p_preauth_better_hovercard_killswitch');
+
 				await expectUnauthorisedHoverLearnMoreClickFiresAnalytics();
 			});
 		});
 
-		ffTest.on('platform_sl_3p_preauth_better_hovercard_killswitch', '', () => {
+		describe('platform_sl_3p_preauth_better_hovercard_killswitch is on', () => {
 			eeTest
 				.describe('platform_sl_3p_preauth_better_hovercard', 'unauthorised hover learn more')
 				.variant(false, () => {
 					it('should fire learn more clicked on unauthorised hover when killswitch is on and experiment is off', async () => {
+						passGate('platform_sl_3p_preauth_better_hovercard_killswitch');
+
 						await expectUnauthorisedHoverLearnMoreClickFiresAnalytics();
 					});
 				});
@@ -230,6 +234,8 @@ describe('smart-card: unauthorized analytics', () => {
 				.describe('platform_sl_3p_preauth_better_hovercard', 'unauthorised hover learn more')
 				.variant(true, () => {
 					it('should fire learn more clicked when experiment is on but Rovo is disabled', async () => {
+						passGate('platform_sl_3p_preauth_better_hovercard_killswitch');
+
 						await expectUnauthorisedHoverLearnMoreClickFiresAnalytics({
 							isRovoEnabled: false,
 							isRovoLLMEnabled: true,
@@ -237,6 +243,8 @@ describe('smart-card: unauthorized analytics', () => {
 					});
 
 					it('should not show learn more when Rovo unauthorised hover is shown', async () => {
+						passGate('platform_sl_3p_preauth_better_hovercard_killswitch');
+
 						const mockUrl = 'https://this.is.a.url';
 						mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
 						render(

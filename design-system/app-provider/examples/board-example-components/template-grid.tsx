@@ -127,7 +127,6 @@ export const TemplateGrid = <T,>({
 								variant === 'column' && templateStyles.templateButtonColumn,
 								active && templateStyles.templateButtonSelected,
 							)}
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 							style={{
 								boxShadow: active
 									? `inset 0 0 0 1px ${token('color.border.bold', '#091e42')}`
@@ -152,7 +151,6 @@ export const ColorSwatch = ({
 }): JSX.Element => (
 	<Box
 		xcss={variant === 'column' ? templateStyles.colorSwatchColumn : templateStyles.colorSwatch}
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 		style={{
 			backgroundColor: color,
 		}}
@@ -167,7 +165,6 @@ export const TemplateDivider = ({ color }: { color: string }): JSX.Element => {
 	return (
 		<Box
 			xcss={templateStyles.divider}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={{
 				backgroundColor: lighterColor,
 			}}

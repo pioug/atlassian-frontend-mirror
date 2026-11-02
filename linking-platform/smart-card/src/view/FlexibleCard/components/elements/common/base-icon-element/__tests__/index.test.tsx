@@ -9,7 +9,7 @@ import { IntlProvider } from 'react-intl';
 
 import type { GlyphProps } from '@atlaskit/icon/types';
 import { token } from '@atlaskit/tokens';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { render } from '@atlassian/testing-library/testing-library/react';
 
@@ -259,8 +259,10 @@ describe('Element: Icon', () => {
 	});
 
 	describe('isTiledIcon with platform_sl_3p_preauth_better_hovercard_killswitch', () => {
-		ffTest.on('platform_sl_3p_preauth_better_hovercard_killswitch', '', () => {
+		describe('platform_sl_3p_preauth_better_hovercard_killswitch is on', () => {
 			it('renders Tile wrapper when killswitch is enabled', () => {
+				passGate('platform_sl_3p_preauth_better_hovercard_killswitch');
+
 				render(<IconElement isTiledIcon icon={IconType.Document} />);
 
 				expect(screen.getByTestId('smart-element-icon-tile')).toBeInTheDocument();
@@ -268,8 +270,10 @@ describe('Element: Icon', () => {
 			});
 		});
 
-		ffTest.off('platform_sl_3p_preauth_better_hovercard_killswitch', '', () => {
+		describe('platform_sl_3p_preauth_better_hovercard_killswitch is off', () => {
 			it('renders Tile when killswitch is disabled', () => {
+				failGate('platform_sl_3p_preauth_better_hovercard_killswitch');
+
 				render(<IconElement isTiledIcon icon={IconType.Document} />);
 
 				expect(screen.getByTestId('smart-element-icon-tile')).toBeInTheDocument();
@@ -279,8 +283,10 @@ describe('Element: Icon', () => {
 	});
 
 	describe('tile size mapping with platform_sl_3p_preauth_better_hovercard_killswitch', () => {
-		ffTest.on('platform_sl_3p_preauth_better_hovercard_killswitch', '', () => {
+		describe('platform_sl_3p_preauth_better_hovercard_killswitch is on', () => {
 			it('uses SmartLink medium size directly for tiled icons when killswitch is enabled', () => {
+				passGate('platform_sl_3p_preauth_better_hovercard_killswitch');
+
 				render(<IconElement isTiledIcon icon={IconType.Document} size={SmartLinkSize.Medium} />);
 
 				expect(screen.getByTestId('smart-element-icon-tile')).toHaveCompiledCss('width', '2pc');
@@ -288,6 +294,8 @@ describe('Element: Icon', () => {
 			});
 
 			it('uses the small image width token for non-tiled medium url icons when killswitch is enabled', async () => {
+				passGate('platform_sl_3p_preauth_better_hovercard_killswitch');
+
 				render(
 					<IntlProvider locale={'en'}>
 						<IconElement url="src-loaded" size={SmartLinkSize.Medium} />
@@ -301,6 +309,8 @@ describe('Element: Icon', () => {
 			});
 
 			it('uses the medium image width token for tiled medium url icons when killswitch is enabled', async () => {
+				passGate('platform_sl_3p_preauth_better_hovercard_killswitch');
+
 				render(
 					<IntlProvider locale={'en'}>
 						<IconElement url="src-loaded" size={SmartLinkSize.Medium} isTiledIcon />
@@ -314,8 +324,10 @@ describe('Element: Icon', () => {
 			});
 		});
 
-		ffTest.off('platform_sl_3p_preauth_better_hovercard_killswitch', '', () => {
+		describe('platform_sl_3p_preauth_better_hovercard_killswitch is off', () => {
 			it('uses tile sizing when killswitch is disabled', () => {
+				failGate('platform_sl_3p_preauth_better_hovercard_killswitch');
+
 				render(<IconElement isTiledIcon icon={IconType.Document} size={SmartLinkSize.Large} />);
 
 				expect(screen.getByTestId('smart-element-icon-tile')).toBeInTheDocument();

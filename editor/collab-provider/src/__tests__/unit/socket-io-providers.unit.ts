@@ -84,19 +84,9 @@ describe('Socket io provider', () => {
 				expect(fg).not.toHaveBeenCalledWith('platform_editor_presence_ws_restore_after_upgrade');
 			});
 
-			it('use only websocket transport for collab editing on GCP and FG on', () => {
+			it('use polling and websocket transports for GCP editing when websocket first is off', () => {
 				jest.mocked(isGoogleCloudPlatform).mockReturnValue(true);
 				failGate('platform_editor_gcp_collab_ws_first');
-				passGate('collab_edit_via_websocket_only_for_gcp');
-				const socket = createSocketIOSocket(gcpUrl);
-
-				expect((socket as any).io.opts.transports).toEqual(['websocket']);
-			});
-
-			it('use polling and websocket transports for collab editing on GCP and FG off', () => {
-				jest.mocked(isGoogleCloudPlatform).mockReturnValue(true);
-				failGate('platform_editor_gcp_collab_ws_first');
-				failGate('collab_edit_via_websocket_only_for_gcp');
 				const socket = createSocketIOSocket(gcpUrl);
 
 				expect((socket as any).io.opts.transports).toEqual(['polling', 'websocket']);
@@ -126,17 +116,6 @@ describe('Socket io provider', () => {
 					expect(fg).not.toHaveBeenCalledWith('platform_editor_presence_ws_restore_after_upgrade');
 				},
 			);
-
-			it('prefer the GCP websocket first gate over the websocket only gate', () => {
-				jest.mocked(isGoogleCloudPlatform).mockReturnValue(true);
-				passGate('platform_editor_gcp_collab_ws_first');
-				jest.mocked(fg).mockClear();
-				const socket = createSocketIOSocket(url);
-
-				expect(socket.io.opts.transports).toEqual(['websocket', 'polling']);
-				expect(socket.io.opts.tryAllTransports).toBe(true);
-				expect(fg).not.toHaveBeenCalledWith('collab_edit_via_websocket_only_for_gcp');
-			});
 
 			it('use websocket first for GCP staging when cloud cookies are unavailable', () => {
 				jest.spyOn(document, 'cookie', 'get').mockReturnValue('');

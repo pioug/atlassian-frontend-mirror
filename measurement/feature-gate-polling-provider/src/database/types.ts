@@ -1,4 +1,4 @@
-import type { FrontendExperimentsResponse } from '@atlaskit/feature-gate-fetcher/types';
+import type { EvalFlagsResponse } from '@atlaskit/feature-gate-fetcher/types';
 import type {
 	BaseClientOptions,
 	CustomAttributes,
@@ -23,7 +23,7 @@ export type ObjectWithTimestamp = {
 export type ExperimentValuesEntry = {
 	profileHash: string;
 	rulesetProfile: RulesetProfile;
-	experimentValuesResponse: FrontendExperimentsResponse;
+	evalFlagsResponse: EvalFlagsResponse;
 } & ObjectWithTimestamp;
 
 export type ClientSdkKeyEntry = Pick<

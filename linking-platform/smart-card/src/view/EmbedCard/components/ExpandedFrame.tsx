@@ -3,11 +3,13 @@
  * @jsx jsx
  */
 
-import { type MouseEvent } from 'react';
+import { type MouseEvent, useRef } from 'react';
 
 // eslint-disable-next-line no-unused-vars
 import { cssMap, jsx } from '@compiled/react';
 
+import { cssMap as cssMapFromADS } from '@atlaskit/css';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
@@ -177,6 +179,22 @@ const styles = cssMap({
 	},
 });
 
+const navigationStyles = cssMapFromADS({
+	headerAnchor: {
+		cursor: 'pointer',
+		// The header's stacking context keeps the link below controls and embedded content.
+		'&::after': {
+			content: '',
+			position: 'absolute',
+			top: 0,
+			right: 0,
+			bottom: 0,
+			left: 0,
+			zIndex: -1,
+		},
+	},
+});
+
 export const ExpandedFrame = ({
 	isPlaceholder = false,
 	children,
@@ -198,8 +216,82 @@ export const ExpandedFrame = ({
 	onContentMouseEnter,
 	onContentMouseLeave,
 }: ExpandedFrameProps): React.JSX.Element => {
+	const headerRef = useRef<HTMLDivElement>(null);
+	const headerAnchorRef = useRef<HTMLAnchorElement>(null);
 	const isInteractive = () => !isPlaceholder && (Boolean(href) || Boolean(onClick));
-	const handleClick = (event: MouseEvent) => handleClickCommon(event, onClick);
+	const isEmbedOpenInNewTabEnabled = isExperimentEnabled('platform_editor_embed_open_in_new_tab');
+	const isModifierNavigationClick = (event: MouseEvent) =>
+		isEmbedOpenInNewTabEnabled &&
+		frameStyle !== 'hide' &&
+		!isPlaceholder &&
+		Boolean(href) &&
+		((event.button === 0 && (event.metaKey || event.ctrlKey)) || event.button === 1);
+	const isUnmodifiedPrimaryDoubleClick = (event: MouseEvent) =>
+		isEmbedOpenInNewTabEnabled &&
+		frameStyle !== 'hide' &&
+		!isPlaceholder &&
+		Boolean(href) &&
+		event.type === 'dblclick' &&
+		event.button === 0 &&
+		event.detail === 2 &&
+		!event.metaKey &&
+		!event.ctrlKey &&
+		!event.shiftKey &&
+		!event.altKey;
+	const handleClick = (event: MouseEvent) => {
+		if (isModifierNavigationClick(event)) {
+			// CardWithUrl must see the uncancelled event so it can respect consumer preventDefault.
+			event.stopPropagation();
+			onClick?.(event);
+			return;
+		}
+
+		handleClickCommon(event, onClick);
+	};
+	const isHeaderAnchorTarget = (target: EventTarget | null) =>
+		target instanceof Node && Boolean(headerAnchorRef.current?.contains(target));
+	const isChromeTarget = (event: MouseEvent<HTMLDivElement>): boolean => {
+		const { target } = event;
+		if (!(target instanceof Element)) {
+			return false;
+		}
+
+		const isInHeader = headerRef.current?.contains(target) ?? false;
+		const isFrameChrome = target === event.currentTarget;
+		if (!isInHeader && !isFrameChrome) {
+			return false;
+		}
+
+		const interactiveAncestor = target.closest(
+			'a, button, input, select, textarea, [role="button"], [role="link"], [contenteditable="true"], [tabindex]',
+		);
+		const isHeaderControl = interactiveAncestor && headerRef.current?.contains(interactiveAncestor);
+		return !isHeaderControl || interactiveAncestor === headerAnchorRef.current;
+	};
+	const handleChromeMouseDownCapture = (event: MouseEvent<HTMLDivElement>) => {
+		if (isModifierNavigationClick(event) && isChromeTarget(event)) {
+			if (event.button === 1 && !isHeaderAnchorTarget(event.target)) {
+				// Non-link middle presses otherwise trigger autoscroll or clipboard paste.
+				event.preventDefault();
+			}
+			event.stopPropagation();
+		}
+	};
+	const handleChromeNavigationEvent = (event: MouseEvent<HTMLDivElement>) => {
+		if (
+			isModifierNavigationClick(event) &&
+			!isHeaderAnchorTarget(event.target) &&
+			isChromeTarget(event)
+		) {
+			handleClick(event);
+		}
+	};
+	const handleChromeDoubleClick = (event: MouseEvent<HTMLDivElement>) => {
+		if (isUnmodifiedPrimaryDoubleClick(event) && isChromeTarget(event)) {
+			event.stopPropagation();
+			onClick?.(event);
+		}
+	};
 	const handleMouseDown = useMouseDownEvent();
 
 	const CompetitorPromptComponent =
@@ -209,7 +301,7 @@ export const ExpandedFrame = ({
 		return (
 			frameStyle !== 'hide' && (
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-				<div className="embed-header" css={styles.header}>
+				<div ref={headerRef} className="embed-header" css={styles.header}>
 					<div css={styles.leftSection}>
 						<div css={styles.headerIcon}>{icon}</div>
 						<div css={styles.tooltipWrapper}>
@@ -217,7 +309,11 @@ export const ExpandedFrame = ({
 								<Tooltip content={text} hideTooltipOnMouseDown>
 									{/* eslint-disable-next-line @atlaskit/design-system/no-html-anchor */}
 									<a
-										css={styles.headerAnchor}
+										ref={headerAnchorRef}
+										css={[
+											styles.headerAnchor,
+											isEmbedOpenInNewTabEnabled && Boolean(href) && navigationStyles.headerAnchor,
+										]}
 										href={href}
 										onClick={handleClick}
 										onAuxClick={onAuxClick}
@@ -266,7 +362,9 @@ export const ExpandedFrame = ({
 	};
 
 	return (
+		// Chrome gestures supplement the native header link without making the frame another control.
 		<div
+			role="none"
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={className}
 			style={{
@@ -282,6 +380,10 @@ export const ExpandedFrame = ({
 			]}
 			data-testid={testId}
 			data-trello-do-not-use-override={testId}
+			onMouseDownCapture={handleChromeMouseDownCapture}
+			onClick={handleChromeNavigationEvent}
+			onAuxClick={handleChromeNavigationEvent}
+			onDoubleClick={handleChromeDoubleClick}
 			// Due to limitations of testing library, we can't assert ::after
 			data-is-selected={isSelected}
 			{...((isPlaceholder || !href) && {

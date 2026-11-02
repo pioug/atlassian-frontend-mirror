@@ -56,7 +56,7 @@ export const NumberedHeadingsMenuItem = ({
 
 	const onClick = useCallback(() => {
 		const nextEnabled = !enabled;
-		api?.core?.actions.execute(toggleFromToolbar(api, nextEnabled));
+		toggleFromToolbar(api, nextEnabled);
 	}, [api, enabled]);
 
 	// ToolbarDropdownItem couples aria-checked to its selected styling. Keep the row neutral

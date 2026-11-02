@@ -9,7 +9,6 @@ import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enable
 import { wasExperimentExposed } from '@atlassian/experiment-test-utils/was-experiment-exposed';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
-// eslint-disable-next-line @atlaskit/platform/no-barrel-entry-imports
 import { fireEvent, render } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
 

@@ -1,5 +1,35 @@
 # @atlaskit/editor-statsig-tmp
 
+## 251.0.0
+
+### Major Changes
+
+- [`1bcd723a5de9c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1bcd723a5de9c) -
+  Clean up experiment `jira-work-sync-desc-comment-summary`
+
+## 250.0.2
+
+### Patch Changes
+
+- [`9b9d696992cfc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b9d696992cfc) -
+  Remove the rolled-out TeamEmoji 26 picker gates and experiments, keeping the refreshed picker
+  behavior.
+
+## 250.0.1
+
+### Patch Changes
+
+- [`827a297d8c605`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/827a297d8c605) -
+  Delete unreachable source files
+- Updated dependencies
+
+## 250.0.0
+
+### Major Changes
+
+- [`b0b0a2e076d8d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b0b0a2e076d8d) -
+  Clean up experiment `platform_editor_table_sticky_header_improvements`
+
 ## 249.0.0
 
 ### Major Changes

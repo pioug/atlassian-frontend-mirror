@@ -1,6 +1,5 @@
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { Create } from '@atlaskit/atlassian-navigation/create';
 import { token } from '@atlaskit/tokens';
 

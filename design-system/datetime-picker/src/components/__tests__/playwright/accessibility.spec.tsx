@@ -38,7 +38,10 @@ test('Time picker should pass base aXe audit', async ({ page }) => {
 	await expect(timePicker).toBeVisible();
 
 	await timePicker.click();
-	await expect(page.getByTestId('timepicker-1--popper--container')).toBeVisible();
+	// The listbox the time picker input controls (its legacy menu container reuses the id).
+	await expect(timePicker).toHaveAttribute('aria-controls', /.+/);
+	const listboxId = await timePicker.getAttribute('aria-controls');
+	await expect(page.getByRole('listbox').and(page.locator(`[id="${listboxId}"]`))).toBeVisible();
 });
 
 test('DateTime picker should pass base aXe audit', async ({ page }) => {

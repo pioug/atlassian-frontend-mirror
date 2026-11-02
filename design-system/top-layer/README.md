@@ -4,6 +4,11 @@ Low-level top-layer primitives using the native
 [Popover API](https://developer.mozilla.org/en-US/docs/Web/API/Popover_API) (`popover="auto"`) and
 [`<dialog>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog) element.
 
+Use a Design System component first, such as Popup, Modal dialog, Tooltip or Dropdown menu. Use
+these primitives only if no Design System component fits, behind the `platform-dst-top-layer`
+feature flag. Do not use a native `popover` or `<dialog>` element directly: the
+`@atlaskit/design-system/no-native-popover-or-dialog` ESLint rule blocks it.
+
 ## Popover
 
 The primary primitive: a `<div>` with the `popover` attribute, plus a small lifecycle (animations,

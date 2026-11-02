@@ -146,6 +146,7 @@ export class VanillaTooltip {
 			: document;
 		const tooltip = ownerDocument.createElement('span');
 		tooltip.role = 'tooltip';
+		// eslint-disable-next-line @atlaskit/design-system/no-native-popover-or-dialog -- a plain DOM tooltip for ProseMirror that hides on Escape with its own window listener, outside the shared Escape stack; TODO move to a top-layer primitive
 		tooltip.popover = 'hint';
 		tooltip.className = className;
 		tooltip.id = id ?? generateTooltipId();

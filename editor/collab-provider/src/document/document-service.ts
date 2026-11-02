@@ -4,6 +4,7 @@ import throttle from 'lodash/throttle';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type {
+	BaseStepPM,
 	ResolvedEditorState,
 	SyncUpErrorFunction,
 	CollabEvents,
@@ -495,7 +496,10 @@ export class DocumentService implements DocumentServiceInterface {
 			return;
 		}
 		try {
-			const agentTypeByProviderId = new Map<string, string>();
+			const agentsByProviderId = new Map<
+				string,
+				Pick<BaseStepPM, 'agentType' | 'agentId' | 'agentName' | 'agentNamedId'>
+			>();
 			const agentIds = new Set<string>();
 			const agentTypes = new Set<string>();
 			let agentStepCount = 0;
@@ -505,9 +509,15 @@ export class DocumentService implements DocumentServiceInterface {
 					continue;
 				}
 				agentStepCount++;
-				const { agentId, agentType } = step as { agentId?: string; agentType?: string };
+				const { agentId, agentType, agentName, agentNamedId } = step as BaseStepPM;
 				if (agentType) {
-					agentTypeByProviderId.set(providerId, agentType);
+					const previous = agentsByProviderId.get(providerId);
+					agentsByProviderId.set(providerId, {
+						agentType,
+						agentId: (agentId ? normalizeAgentId(agentId.trim()) : undefined) || previous?.agentId,
+						agentName: agentName?.trim() || previous?.agentName,
+						agentNamedId: agentNamedId?.trim() || previous?.agentNamedId,
+					});
 					agentTypes.add(agentType);
 				}
 				if (agentId) {
@@ -515,7 +525,7 @@ export class DocumentService implements DocumentServiceInterface {
 				}
 			}
 			// No agent-authored steps in this batch — nothing to register or report.
-			if (agentTypeByProviderId.size === 0) {
+			if (agentsByProviderId.size === 0) {
 				return;
 			}
 			// Anchor signal that the agent-presence logic kicked off for a received transaction. Fires
@@ -526,14 +536,20 @@ export class DocumentService implements DocumentServiceInterface {
 				EVENT_STATUS.SUCCESS,
 				{
 					agentIds: [...agentIds],
-					agentCount: agentTypeByProviderId.size,
+					agentCount: agentsByProviderId.size,
 					agentTypes: [...agentTypes],
 					agentStepCount,
 					totalStepCount: steps.length,
 				},
 			);
-			agentTypeByProviderId.forEach((agentType, providerId) =>
-				this.participantsService.upsertAIProviderParticipantLocally(providerId, agentType),
+			agentsByProviderId.forEach(({ agentType, agentId, agentName, agentNamedId }, providerId) =>
+				this.participantsService.upsertAIProviderParticipantLocally(
+					providerId,
+					agentType,
+					fg('confluence_ncs_step_diffing_version_history')
+						? { agentId, agentName, agentNamedId }
+						: undefined,
+				),
 			);
 		} catch (error) {
 			this.analyticsHelper?.sendErrorEvent(error, 'Error while adding agent presence from steps');

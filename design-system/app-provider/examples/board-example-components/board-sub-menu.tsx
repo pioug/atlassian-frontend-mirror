@@ -23,7 +23,6 @@ import { Box } from '@atlaskit/primitives/compiled/box';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { token } from '@atlaskit/tokens';
 
-// eslint-disable-next-line @repo/internal/import/no-unresolved
 import { AVATAR_DATA } from './constants';
 import { MockSearch } from './mock-search';
 

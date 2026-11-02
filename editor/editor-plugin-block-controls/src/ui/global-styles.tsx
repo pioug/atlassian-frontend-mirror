@@ -382,6 +382,14 @@ const withDividerInPanelStyleFix = css({
 	},
 });
 
+// during the platform_editor_lovability_dividers clean up, consolidate this into extendedHoverZoneNext
+const withRuleOverflowStyleFix = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-rule-node-view][data-drag-handler-anchor-name]': {
+		overflow: 'visible',
+	},
+});
+
 const withDeleteLinesStyleFix = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
 	[`p[data-drag-handler-anchor-name] ${dragHandleContainer}`]: {
@@ -702,6 +710,7 @@ export const GlobalStylesWrapper = ({
 				headingWithIndentationInLayoutStyleFix,
 				editorExperiment('advanced_layouts', true) ? blockCardWithoutLayout : undefined,
 				withDividerInPanelStyleFix,
+				isExperimentEnabled('platform_editor_lovability_dividers') && withRuleOverflowStyleFix,
 				withFormatInLayoutStyleFix,
 				(!sparseSurfacesEnabled || isDragging) &&
 					(expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) ||

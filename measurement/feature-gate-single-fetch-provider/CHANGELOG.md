@@ -1,5 +1,19 @@
 # @atlaskit/feature-gate-single-fetch-provider
 
+## 3.0.0
+
+### Major Changes
+
+- [`67eb7db820b2b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/67eb7db820b2b) -
+  With `includeFfpFlags: true`, the single-fetch and polling providers fetch Feature Flag Platform
+  values along with Statsig values and pass both to `@atlaskit/feature-gate-js-client`. The fetcher
+  adds `fetchEvalFlags` for providers that need both. The polling provider's cache format has
+  changed, so it fetches values again once after upgrading.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.1.0
 
 ### Minor Changes

@@ -1293,6 +1293,43 @@ const editorContentStyles = cssMapScoped({
 			userSelect: 'none',
 		},
 	},
+	selectedRuleStyles: {
+		'.ProseMirror [data-rule-node-view]': {
+			display: 'flow-root',
+			position: 'relative',
+			// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
+			margin: `${token('space.300')} 0`,
+		},
+		'.ProseMirror [data-rule-node-view] > hr': {
+			margin: 0,
+		},
+		'.ProseMirror [data-rule-node-view].ak-editor-selected-node': {
+			backgroundColor: token('color.background.selected'),
+			boxShadow: `0 0 0 ${token('space.025')} ${token('color.background.selected')}`,
+			borderRadius: token('radius.small'),
+		},
+		'.ProseMirror [data-rule-node-view].ak-editor-selected-node.danger': {
+			backgroundColor: token('color.background.danger'),
+			boxShadow: `0 0 0 ${token('space.025')} ${token('color.background.danger')}`,
+		},
+		// during the platform_editor_lovability_dividers clean up, consolidate this into firstBlockNodeStyles
+		'.ProseMirror > [data-rule-node-view]': {
+			marginTop: 0,
+		},
+		'.ProseMirror .ak-editor-panel__content > [data-rule-node-view]': {
+			marginTop: 0,
+		},
+		// restore the margin if the rule node is not the first block node
+		'.ProseMirror > :not(.ProseMirror-widget) ~ [data-rule-node-view]': {
+			marginTop: token('space.300'),
+		},
+		// restore the margin if the rule node is not the first node in the panel
+		// from: platform/packages/editor/editor-plugin-block-controls/src/ui/global-styles.tsx
+		'.ProseMirror .ak-editor-panel__content > :not(style, .ProseMirror-widget, .ProseMirror-gapcursor) ~ [data-rule-node-view]':
+			{
+				marginTop: token('space.300'),
+			},
+	},
 	ruleWithAttrsStyles: {
 		'.ProseMirror hr[data-color]': {
 			backgroundColor: 'var(--custom-palette-color)',
@@ -6254,7 +6291,6 @@ const editorContentStyles = cssMapScoped({
 	smartLinksInLivePagesStyles: {
 		// Shared class names are inlined here because CSS selectors must be static.
 		// SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER = 'blockCardView-content-wrap'
-		// SmartCardSharedCssClassName.EMBED_CARD_CONTAINER = 'embedCardView-content-wrap'
 		// SmartCardSharedCssClassName.LOADER_WRAPPER = 'loader-wrapper'
 		'.blockCardView-content-wrap': {
 			'.loader-wrapper > div': {
@@ -6265,7 +6301,9 @@ const editorContentStyles = cssMapScoped({
 				},
 			},
 		},
-
+	},
+	embedLinksInLivePagesCursorStyles: {
+		// SmartCardSharedCssClassName.EMBED_CARD_CONTAINER = 'embedCardView-content-wrap'
 		'.embedCardView-content-wrap': {
 			'.loader-wrapper > div': {
 				a: {
@@ -7257,6 +7295,38 @@ const editorContentStyles = cssMapScoped({
 				'&[data-valign="bottom"]': {
 					verticalAlign: 'bottom',
 				},
+			},
+		},
+	},
+	/**
+	 * H3-H6 line boxes are shorter than a body text line (1.714em), so in a top-aligned cell
+	 * their text sits higher than paragraph text in the same row. Padding a heading that starts
+	 * a cell (no rendered block before it, directly or inside an alignment mark) by half the
+	 * difference gives its first line a body-sized line box.
+	 */
+	tableSharedStyle_with_platform_editor_table_heading_cell_alignment: {
+		'.pm-table-container > table, .pm-table-wrapper > table, .pm-table-sticky-wrapper > table': {
+			'& > tbody > tr > th, & > tbody > tr > td': {
+				'> h3:not(:not(style, link, template, span, .ProseMirror-gapcursor, .ProseMirror-widget) ~ *), > .fabric-editor-block-mark:not(:not(style, link, template, span, .ProseMirror-gapcursor, .ProseMirror-widget) ~ *) > h3':
+					{
+						// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+						paddingBlock: '0.125em',
+					},
+				'> h4:not(:not(style, link, template, span, .ProseMirror-gapcursor, .ProseMirror-widget) ~ *), > .fabric-editor-block-mark:not(:not(style, link, template, span, .ProseMirror-gapcursor, .ProseMirror-widget) ~ *) > h4':
+					{
+						// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+						paddingBlock: '0.28571em',
+					},
+				'> h5:not(:not(style, link, template, span, .ProseMirror-gapcursor, .ProseMirror-widget) ~ *), > .fabric-editor-block-mark:not(:not(style, link, template, span, .ProseMirror-gapcursor, .ProseMirror-widget) ~ *) > h5':
+					{
+						// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+						paddingBlock: '0.33333em',
+					},
+				'> h6:not(:not(style, link, template, span, .ProseMirror-gapcursor, .ProseMirror-widget) ~ *), > .fabric-editor-block-mark:not(:not(style, link, template, span, .ProseMirror-gapcursor, .ProseMirror-widget) ~ *) > h6':
+					{
+						// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+						paddingBlock: '0.36364em',
+					},
 			},
 		},
 	},
@@ -8551,6 +8621,8 @@ const EditorContentContainer: React.ForwardRefExoticComponent<
 				contentMode === 'compact' && isDense && editorContentStyles.listsDenseStyles,
 				isFullPage && editorContentStyles.listsStylesMarginLayoutShiftFix,
 				editorContentStyles.ruleStyles,
+				isExperimentEnabled('platform_editor_lovability_dividers') &&
+					editorContentStyles.selectedRuleStyles,
 				isExperimentEnabled('platform_editor_lovability_dividers_attributes') &&
 					editorContentStyles.ruleWithAttrsStyles,
 				isExperimentEnabled('platform_editor_numbered_headings') &&
@@ -8675,6 +8747,8 @@ const EditorContentContainer: React.ForwardRefExoticComponent<
 				editorContentStyles.layoutBaseStylesNestedDndExcludingBodiedSync,
 				editorContentStyles.layoutColumnMartinTopFixes,
 				editorContentStyles.smartLinksInLivePagesStyles,
+				!isExperimentEnabled('platform_editor_embed_open_in_new_tab') &&
+					editorContentStyles.embedLinksInLivePagesCursorStyles,
 				editorContentStyles.linkingVisualRefreshV1Styles,
 				editorContentStyles.dateVanillaStyles,
 				contentMode === 'compact'
@@ -8771,6 +8845,8 @@ const EditorContentContainer: React.ForwardRefExoticComponent<
 					: editorContentStyles.tableSharedStyle_without_platform_editor_table_q4_loveability,
 				expValEquals('platform_editor_table_menu_updates', 'isEnabled', true) &&
 					editorContentStyles.tableSharedStyle_with_platform_editor_table_menu_updates,
+				fg('platform_editor_table_heading_cell_alignment') &&
+					editorContentStyles.tableSharedStyle_with_platform_editor_table_heading_cell_alignment,
 				fg('platform_editor_bordered_panel_nested_in_table') &&
 					editorContentStyles.tableSharedStyle_with_platform_editor_bordered_panel_nested_in_table,
 				editorContentStyles.tableEmptyRowStyles,

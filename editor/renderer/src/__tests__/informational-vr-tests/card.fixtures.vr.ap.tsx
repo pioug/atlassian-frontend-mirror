@@ -36,7 +36,6 @@ mockDatasourceFetchRequests({
 });
 
 const MockIFrame: typeof IFrame = ({ childRef, ...props }) => (
-	// eslint-disable-next-line @atlassian/a11y/iframe-has-title -- See https://go/a11y-iframe-has-title for more details
 	<iframe ref={childRef} {...props} srcDoc={embedContent} />
 );
 

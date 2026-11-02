@@ -218,7 +218,6 @@ const AvatarGroupExample: FC = () => {
 				/>
 				<span
 					style={{
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						borderLeft: `${token('border.width')} solid #ccc`,
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						paddingLeft: '1em',
@@ -309,7 +308,6 @@ const AvatarGroupExample: FC = () => {
 				<p>Expand and scroll up to reposition the avatar group menu</p>
 				<div
 					style={{
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						border: `${token('border.width')} solid black`,
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						height: '200px',

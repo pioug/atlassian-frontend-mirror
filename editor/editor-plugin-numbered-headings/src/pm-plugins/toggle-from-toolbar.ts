@@ -6,31 +6,27 @@ import {
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 // eslint-disable-next-line @atlaskit/platform/no-barrel-entry-imports
-import type { EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
 import type { InternalNumberedHeadingsPlugin } from '../numberedHeadingsPluginType';
-import { collectHeadings, numberedHeadingsPluginKey } from './main';
+import { collectHeadings } from './main';
 
-/** Internal toolbar toggle, excluded from undo history and reported as a user action. */
-export const toggleFromToolbar =
-	(
-		api: ExtractInjectionAPI<InternalNumberedHeadingsPlugin> | undefined,
-		enabled: boolean,
-	): EditorCommand =>
-	({ tr }) => {
-		const state = api?.numberedHeadings?.sharedState.currentState();
-		if (
-			!state ||
-			!isExperimentEnabled('platform_editor_numbered_headings') ||
-			state.enabled === enabled
-		) {
+export const toggleFromToolbar = (
+	api: ExtractInjectionAPI<InternalNumberedHeadingsPlugin> | undefined,
+	enabled: boolean,
+): boolean => {
+	const state = api?.numberedHeadings?.sharedState.currentState();
+	if (!api || !state || state.enabled === enabled) {
+		return false;
+	}
+
+	const changed = api.core.actions.execute(({ tr }) => {
+		const result = api.externalState.commands.setState('numberedHeadings', { enabled })({ tr });
+		if (!result) {
 			return null;
 		}
 
-		const result = tr.setMeta(numberedHeadingsPluginKey, enabled).setMeta('addToHistory', false);
-
-		api?.analytics?.actions.attachAnalyticsEvent({
+		api.analytics?.actions.attachAnalyticsEvent({
 			action: ACTION.TOGGLED,
 			actionSubject: ACTION_SUBJECT.NUMBERED_HEADINGS,
 			eventType: EVENT_TYPE.TRACK,
@@ -42,4 +38,12 @@ export const toggleFromToolbar =
 		})(result);
 
 		return result;
-	};
+	});
+
+	if (changed) {
+		// The value is already in editor state, so this only saves it.
+		void api.externalState.actions.saveState('numberedHeadings', { enabled });
+	}
+
+	return changed;
+};

@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-rule
 
+## 30.0.2
+
+### Patch Changes
+
+- [`8632ab245f251`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8632ab245f251) -
+  [ux] [EDITOR-8977] introduce rule node view to update the selected state for dividers behind
+  `platform_editor_lovability_dividers`
+- Updated dependencies
+
+## 30.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 30.0.0
 
 ### Patch Changes

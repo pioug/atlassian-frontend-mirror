@@ -1,6 +1,5 @@
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { Profile } from '@atlaskit/atlassian-navigation/profile';
 
 const avatarUrl =

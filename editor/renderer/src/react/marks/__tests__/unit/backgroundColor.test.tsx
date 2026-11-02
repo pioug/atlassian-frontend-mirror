@@ -12,7 +12,6 @@ import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
 import { RendererStyleContainer } from '../../../../ui/Renderer/RendererStyleContainer';
 import BackgroundColor from '../../backgroundColor';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Renderer - React/Marks/BackgroundColor', () => {
 	it('should render a background color mark', async () => {
 		render(

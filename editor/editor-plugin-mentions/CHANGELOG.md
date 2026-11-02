@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-mentions
 
+## 32.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 32.0.7
+
+### Patch Changes
+
+- [`58dbf509ebe1a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/58dbf509ebe1a) -
+  Enable mention avatars in both editor paths for the `canvas_agentic_experiences_master_exp`
+  treatment.
+- Updated dependencies
+
+## 32.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 32.0.5
 
 ### Patch Changes

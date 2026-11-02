@@ -39,11 +39,7 @@ export const ProjectIconWrapper = ({
 	color: string;
 	imageUrl: string;
 }): JSX.Element => (
-	<Box
-		xcss={iconWrapperStyles.root}
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-		style={{ backgroundColor: color } as React.CSSProperties}
-	>
+	<Box xcss={iconWrapperStyles.root} style={{ backgroundColor: color } as React.CSSProperties}>
 		<Image src={imageUrl} alt="" width={12} height={12} />
 	</Box>
 );

@@ -1,5 +1,17 @@
 # @atlaskit/button
 
+## 25.7.0
+
+### Minor Changes
+
+- [`8d4a9755471e3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d4a9755471e3) -
+  [ux] Pass a `motionOvershoot` to icon render functions, matching the button's `spacing` and
+  stopping at the inside of its border, for use as the `overshoot` of `IconMotion`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 25.6.1
 
 ### Patch Changes

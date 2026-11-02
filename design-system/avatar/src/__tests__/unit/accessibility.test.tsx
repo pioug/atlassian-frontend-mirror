@@ -8,7 +8,6 @@ import { Block } from '../../../examples-util/block';
 import Avatar from '../../avatar';
 import AvatarItem from '../../avatar-item';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Avatar accessibility', () => {
 	it('Basic Avatar examples (circle, square, disabled, with presence, with status) should not fail aXe audit', async () => {
 		const { container } = render(

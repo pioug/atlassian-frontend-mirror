@@ -251,12 +251,27 @@ never throws and does nothing when exposure logging is disabled.
 - An exposure with the same flag key, variation, rule, match reason, and identifiers as one queued
   in the last ten minutes is discarded. Manual and automatic exposures share these windows. A
   successful `replace` ends them all.
-- One request is in flight at a time, sent with `credentials: 'omit'`. `429`, `503`, and network
-  errors are retried with exponential backoff from 1 second to 30 seconds. An exposure is dropped
-  after 10 failed attempts. Any other non-`2xx` status drops the batch.
+- One request is in flight at a time, sent with `credentials: 'omit'`. Network errors, requests not
+  settled within 30 seconds, `429`, and `5xx` statuses are retried after 1 second and then 2
+  seconds. Any other non-`2xx` status drops the batch.
+- Each client has one circuit breaker. After 3 consecutive retryable failures it opens: exposures
+  stay queued, and one batch is sent about every 60 seconds to check whether the endpoint has
+  recovered. The first response that is not retryable closes it, and the queue is flushed. Retryable
+  failures never drop exposures, but from the first retryable failure until a delivery gets any
+  other outcome, the client keeps only the 1,000 most recent exposures in memory.
 - When the page is hidden, undelivered exposures are saved to `localStorage` under keys starting
   `@atlaskit/flag-client:exposures:`, and so is each exposure queued while it stays hidden. The
-  next client constructed on the same origin delivers them. Storage errors never throw.
+  next client constructed on the same origin delivers them to its own `endpoint`, whichever
+  endpoint the client that saved them was configured with. It sends them as soon as it takes them,
+  rather than after `flushIntervalMs`, unless its circuit breaker holds them back. Storage errors
+  never throw.
+- Every client on an origin shares a `localStorage` budget of 131,072 UTF-16 code units (256 KiB),
+  keys included, and saves only its most recent exposures that fit. The others stay in memory. There
+  is no separate limit on how many exposures are saved; the budget alone decides.
+- After a successful delivery, the client records the time under
+  `@atlaskit/flag-client:last-delivery`, at most once an hour. While deliveries are failing on an
+  origin with no recorded success in the last 7 days, such as one where a content blocker rejects
+  every request, the budget is 4,096 code units (8 KiB) instead.
 
 ### Same-origin and cross-origin delivery
 

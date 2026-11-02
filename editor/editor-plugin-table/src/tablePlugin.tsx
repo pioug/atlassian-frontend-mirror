@@ -217,13 +217,7 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 				isDragMenuOpen: dragAndDropState?.isDragMenuOpen,
 				isSizeSelectorOpen: sizeSelectorPluginState?.isSelectorOpen,
 				sizeSelectorTargetRef: sizeSelectorPluginState?.targetRef,
-				editorContentAreaHeight: expValEquals(
-					'platform_editor_table_sticky_header_improvements',
-					'cohort',
-					'test_with_overflow',
-				)
-					? editorContentAreaHeightPluginState?.height
-					: undefined,
+				editorContentAreaHeight: editorContentAreaHeightPluginState?.height,
 			};
 
 			return sharedStateInternal;
@@ -647,25 +641,11 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 				},
 				{
 					name: 'editorContentAreaHeightPlugin',
-					plugin: () =>
-						expValEquals(
-							'platform_editor_table_sticky_header_improvements',
-							'cohort',
-							'test_with_overflow',
-						)
-							? createContentAreaHeightPlugin()
-							: undefined,
+					plugin: () => createContentAreaHeightPlugin(),
 				},
 			];
 
-			if (
-				!expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) &&
-				expValEquals(
-					'platform_editor_table_sticky_header_improvements',
-					'cohort',
-					'test_with_overflow',
-				)
-			) {
+			if (!expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)) {
 				plugins.push({
 					name: 'tableAnchorNames',
 					plugin: () => createTableAnchorNamesPlugin(),

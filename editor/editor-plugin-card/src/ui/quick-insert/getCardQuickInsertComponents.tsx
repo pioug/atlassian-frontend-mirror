@@ -120,7 +120,7 @@ export const getCardQuickInsertComponents = ({ api, options }: Params): Register
 			match: createQuickInsertMatcher(({ formatMessage }) => ({
 				description: formatMessage(messages.datasourceConfluenceSearchDescription),
 				keywords: ['confluence'],
-				title: formatMessage(messages.datasourceConfluenceSearch),
+				title: formatMessage(messages.datasourceConfluenceList),
 			})),
 			component: () => (
 				<DatasourceQuickInsertMenuItem

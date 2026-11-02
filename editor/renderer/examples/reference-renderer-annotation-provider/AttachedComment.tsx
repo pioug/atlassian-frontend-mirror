@@ -43,7 +43,6 @@ export function AttachedComment({
 const sidebarContainer = css({
 	zIndex: 11,
 	border: `${token('border.width')} solid ${token('color.border')}`,
-	// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage
 	borderRadius: token('radius.small', '3px'),
 	boxShadow: `${token('elevation.shadow.overflow')}`,
 	backgroundColor: `${token('elevation.surface')}`,
@@ -52,7 +51,6 @@ const sidebarContainer = css({
 	display: 'flex',
 	flexDirection: 'column',
 	boxSizing: 'border-box',
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 	marginBottom: '100px',
 	width: '280px',
 });

@@ -9,11 +9,9 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
-import type { RevealOptions } from '../../../showDiffPluginType';
 import { resolveBaseNodeName } from '../../utils/baseNodeName';
 import type { ColorScheme } from '../colorSchemes/types';
 import { getAtomicInlineChangedAttrs } from '../createInlineChangedDecoration';
-import { applyRevealToElement } from '../revealStyles';
 import { isInlineAttrChangeNodeName } from './getAttrChangeRanges';
 import { applyTableCellEdgeAttrs } from './tableCellEdgeAttrs';
 import {
@@ -800,27 +798,18 @@ export const injectInnerWrapper = ({
 	colorScheme,
 	isActive,
 	isInserted,
-	reveal,
 }: {
 	colorScheme?: ColorScheme;
 	isActive?: boolean;
 	isInserted?: boolean;
 	node: HTMLElement;
-	reveal?: RevealOptions;
 }): HTMLElement => {
 	const wrapper = document.createElement('span');
-	const revealStyle = applyRevealToElement({
-		colorScheme,
-		element: wrapper,
-		isActive: isActive ?? false,
-		isInserted: isInserted ?? false,
-		reveal,
-	});
 	wrapper.setAttribute(
 		'style',
-		(isInserted
+		isInserted
 			? getInsertedContentStyle(colorScheme, isActive)
-			: getDeletedContentStyle(colorScheme, isActive, Boolean(revealStyle))) + revealStyle,
+			: getDeletedContentStyle(colorScheme, isActive),
 	);
 
 	[...node.childNodes].forEach((child) => {
@@ -839,30 +828,17 @@ export const createContentWrapper = (
 	colorScheme?: ColorScheme,
 	isActive: boolean = false,
 	isInserted: boolean = false,
-	reveal?: RevealOptions,
 ): HTMLElement => {
 	const wrapper = document.createElement('span');
 	const baseStyle = convertToInlineCss({
 		position: 'relative',
 		width: 'fit-content',
 	});
-	// Empty unless the reveal is running, in which case the static highlight below is withheld so
-	// the animation can wipe it in instead.
-	const revealStyle = applyRevealToElement({
-		colorScheme,
-		element: wrapper,
-		isActive,
-		isInserted,
-		reveal,
-	});
-	const deletedStyle = getDeletedContentStyle(colorScheme, isActive, Boolean(revealStyle));
+	const deletedStyle = getDeletedContentStyle(colorScheme, isActive);
 	if (isInserted) {
-		wrapper.setAttribute(
-			'style',
-			`${baseStyle}${getInsertedContentStyle(colorScheme, isActive)}${revealStyle}`,
-		);
+		wrapper.setAttribute('style', `${baseStyle}${getInsertedContentStyle(colorScheme, isActive)}`);
 	} else {
-		wrapper.setAttribute('style', `${baseStyle}${deletedStyle}${revealStyle}`);
+		wrapper.setAttribute('style', `${baseStyle}${deletedStyle}`);
 		const strikethrough = document.createElement('span');
 		strikethrough.setAttribute('style', getDeletedContentStyleUnbounded(colorScheme, isActive));
 		wrapper.append(strikethrough);

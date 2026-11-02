@@ -7,7 +7,6 @@ import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types/edit
 import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { isNativeStickySupported } from '../pm-plugins/utils/sticky-header';
 import type { PluginInjectionAPI } from '../types';
@@ -84,14 +83,7 @@ export const tableRowView = (options: TableCellViewOptions) => {
 		view: EditorView,
 		getPos: () => number | undefined,
 	): TableRowNativeStickyWithFallback | TableRow => {
-		if (
-			isNativeStickySupported() &&
-			expValEquals(
-				'platform_editor_table_sticky_header_improvements',
-				'cohort',
-				'test_with_overflow',
-			)
-		) {
+		if (isNativeStickySupported()) {
 			return new TableRowNativeStickyWithFallback(
 				node,
 				view,

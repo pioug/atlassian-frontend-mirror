@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::07d54cd583695d1ad408651fab1be5b8>>
+ * @codegen <<SignedSource::91a09c088d0630dd8212cdd92f73c166>>
  * @codegenCommand afm workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { ESLint } from 'eslint';
@@ -50,6 +50,7 @@ const rules: ESLint.ConfigData = {
 		'@atlaskit/design-system/no-keyframes-tagged-template-expression': 'error',
 		'@atlaskit/design-system/no-margin': 'warn',
 		'@atlaskit/design-system/no-modal-label': 'error',
+		'@atlaskit/design-system/no-native-popover-or-dialog': 'error',
 		'@atlaskit/design-system/no-nested-styles': 'error',
 		'@atlaskit/design-system/no-physical-properties': 'error',
 		'@atlaskit/design-system/no-placeholder': 'warn',

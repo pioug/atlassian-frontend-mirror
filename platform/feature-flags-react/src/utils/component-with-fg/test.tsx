@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { renderWithDi } from '@atlassian/testing-library/render-with-di';
 import { screen } from '@atlassian/testing-library/screen';
 
@@ -12,23 +12,23 @@ describe('componentWithFG', () => {
 	const TrueComponent = () => <>{trueText}</>;
 	const FalseComponent = () => <>{falseText}</>;
 
-	ffTest.off('my_gate', 'when gate fails', () => {
-		it('should return FalseComponent', () => {
-			const Component = componentWithFG('my_gate', TrueComponent, FalseComponent);
+	it('should return FalseComponent', () => {
+		failGate('my_gate');
 
-			renderWithDi(<Component />);
+		const Component = componentWithFG('my_gate', TrueComponent, FalseComponent);
 
-			expect(screen.getByText(falseText)).toBeVisible();
-		});
+		renderWithDi(<Component />);
+
+		expect(screen.getByText(falseText)).toBeVisible();
 	});
 
-	ffTest.on('my_gate', 'when gate passes', () => {
-		it('should return TrueComponent', () => {
-			const Component = componentWithFG('my_gate', TrueComponent, FalseComponent);
+	it('should return TrueComponent', () => {
+		passGate('my_gate');
 
-			renderWithDi(<Component />);
+		const Component = componentWithFG('my_gate', TrueComponent, FalseComponent);
 
-			expect(screen.getByText(trueText)).toBeVisible();
-		});
+		renderWithDi(<Component />);
+
+		expect(screen.getByText(trueText)).toBeVisible();
 	});
 });

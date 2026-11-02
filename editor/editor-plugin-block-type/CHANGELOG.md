@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-block-type
 
+## 34.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 34.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 34.0.4
+
+### Patch Changes
+
+- [`b2cba09ce9ad0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2cba09ce9ad0) -
+  Add a shared cell-local mark-presence helper and use it for clear-formatting and block-type
+  formatting-presence checks behind `platform_editor_improve_inp`. Reuse resolved cell-selection
+  ranges and stop scanning at the first matching mark.
+
+  Share schema mark-name resolution through `getSupportedMarkTypes`, caching results per schema and
+  mark-name array to avoid repeated allocation during selection changes.
+
+- Updated dependencies
+
 ## 34.0.3
 
 ### Patch Changes

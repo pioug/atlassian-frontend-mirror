@@ -50,8 +50,8 @@ first, edit, then `kg.py edit <path> --message "<reason>"`.
 - React Compiler is enabled for this package
 - Internal dependencies: `@atlaskit/icon-file-type`, `@atlaskit/media-client`,
   `@atlaskit/media-client-react`, `@atlaskit/media-common`, `@atlaskit/media-state`
-- 2 feature flags: `platform_media_resume_video_on_token_expiry`,
-  `should-render-to-parent-should-be-true-media-exif`
+- 2 feature flags: `platform_media_patch_text_preview`,
+  `platform_media_resume_video_on_token_expiry`, `should-render-to-parent-should-be-true-media-exif`
 - Inset viewer player: the host (media-viewer) wraps the player in `InsetViewerProvider`
   (`@atlaskit/media-ui/insetViewerProvider`). Function components read the flag with
   `useIsInsetViewer()`, `Video` through `contextType`, and the player classes

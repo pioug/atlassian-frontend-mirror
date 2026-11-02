@@ -282,9 +282,9 @@ test.describe('Popup top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 		await trigger.click();
 		await expect(content).toBeVisible();
 
-		// Dialog should have role="dialog" or role="alertdialog"
-		const role = await content.getAttribute('role');
-		expect(['dialog', 'alertdialog']).toContain(role);
+		// role="dialog" or "alertdialog", on `popup` (legacy) or on its top-layer container
+		const dialog = page.getByRole('dialog').or(page.getByRole('alertdialog'));
+		await expect(dialog.filter({ has: content }).or(dialog.and(content))).toBeVisible();
 	});
 
 	// Skipped: pre-existing failure on `origin/master`. The legacy popup

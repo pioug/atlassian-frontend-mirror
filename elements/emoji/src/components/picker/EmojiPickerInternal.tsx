@@ -15,32 +15,12 @@ import type { EmojiProvider } from '../../api/EmojiResource';
 import { EmojiCommonProvider } from '../../context/EmojiCommonProvider';
 import { ufoExperiences } from '../../util/analytics/ufoExperiences';
 import { defaultEmojiPickerSize } from '../../util/constants';
-import { isTeamoji26RefreshEmojiPickerEnabled } from '../../util/teamoji26RefreshEmojiPicker';
 import LoadingEmojiComponent, { type State as LoadingState } from '../common/LoadingEmojiComponent';
 import { UfoErrorBoundary } from '../common/UfoErrorBoundary';
 import type { Props } from './EmojiPicker';
 import type { Props as ComponentProps } from './EmojiPickerComponent';
 import { emojiPickerLoader } from './emojiPickerLoader';
 import { LoadingItem } from './LoadingItem';
-
-const isRefreshEmojiPickerEnabled = (): boolean => {
-	return isTeamoji26RefreshEmojiPickerEnabled();
-};
-
-const emojiPicker = css({
-	display: 'flex',
-	flexDirection: 'column',
-	justifyContent: 'space-between',
-	backgroundColor: token('elevation.surface.overlay'),
-	border: `${token('color.border')} ${token('border.width')} solid`,
-	borderRadius: token('radius.small', '3px'),
-	boxShadow: token('elevation.shadow.overlay'),
-	height: '375px',
-	width: '350px',
-	minWidth: '350px',
-	minHeight: '340px',
-	maxHeight: 'calc(80vh - 86px)', // ensure showing full picker in small device: mobile header is 40px (Jira) - 56px(Confluence and Atlas), reaction picker height is 24px with margin 6px,
-});
 
 const emojiPickerNew = css({
 	display: 'flex',
@@ -98,12 +78,8 @@ export class EmojiPickerInternal extends LoadingEmojiComponent<
 		};
 		ufoExperiences['emoji-picker-opened'].markFMP();
 
-		return isRefreshEmojiPickerEnabled() ? (
+		return (
 			<div css={emojiPickerNew} ref={handlePickerRef}>
-				{item.renderItem()}
-			</div>
-		) : (
-			<div css={emojiPicker} ref={handlePickerRef}>
 				{item.renderItem()}
 			</div>
 		);

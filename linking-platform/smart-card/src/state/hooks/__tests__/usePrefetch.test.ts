@@ -1,4 +1,4 @@
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { renderHook } from '@atlassian/testing-library/render-hook';
 
 import { mocks } from '../../../utils/mocks';
@@ -177,25 +177,23 @@ describe('usePrefetch', () => {
 		expect(mockConnections.client.prefetchData).toHaveBeenCalledWith(mockUrl, 'block');
 	});
 
-	ffTest.on(
-		'platform_smartlink_inline_resolve_optimization',
-		'when FG is on, inline prefetch dispatches metadataStatus pending',
-		() => {
-			it('dispatches metadataStatus pending for inline appearance when FG is on', async () => {
-				const result = renderHook(() => usePrefetch(mockUrl, 'inline'));
-				const prefetcher = result.current;
-				await prefetcher();
+	describe('platform_smartlink_inline_resolve_optimization is on when FG is on, inline prefetch dispatches metadataStatus pending', () => {
+		it('dispatches metadataStatus pending for inline appearance when FG is on', async () => {
+			passGate('platform_smartlink_inline_resolve_optimization');
 
-				expect(mockStore.dispatch).toHaveBeenCalledWith(
-					expect.objectContaining({
-						url: mockUrl,
-						type: 'metadata',
-						metadataStatus: 'pending',
-					}),
-				);
-			});
-		},
-	);
+			const result = renderHook(() => usePrefetch(mockUrl, 'inline'));
+			const prefetcher = result.current;
+			await prefetcher();
+
+			expect(mockStore.dispatch).toHaveBeenCalledWith(
+				expect.objectContaining({
+					url: mockUrl,
+					type: 'metadata',
+					metadataStatus: 'pending',
+				}),
+			);
+		});
+	});
 
 	it('dispatches metadataStatus resolved for block appearance regardless of FG', async () => {
 		const result = renderHook(() => usePrefetch(mockUrl, 'block'));
@@ -211,23 +209,21 @@ describe('usePrefetch', () => {
 		);
 	});
 
-	ffTest.off(
-		'platform_smartlink_inline_resolve_optimization',
-		'when FG is off, inline prefetch dispatches metadataStatus resolved',
-		() => {
-			it('dispatches metadataStatus resolved for inline appearance when FG is off', async () => {
-				const result = renderHook(() => usePrefetch(mockUrl, 'inline'));
-				const prefetcher = result.current;
-				await prefetcher();
+	describe('platform_smartlink_inline_resolve_optimization is off when FG is off, inline prefetch dispatches metadataStatus resolved', () => {
+		it('dispatches metadataStatus resolved for inline appearance when FG is off', async () => {
+			failGate('platform_smartlink_inline_resolve_optimization');
 
-				expect(mockStore.dispatch).toHaveBeenCalledWith(
-					expect.objectContaining({
-						url: mockUrl,
-						type: 'metadata',
-						metadataStatus: 'resolved',
-					}),
-				);
-			});
-		},
-	);
+			const result = renderHook(() => usePrefetch(mockUrl, 'inline'));
+			const prefetcher = result.current;
+			await prefetcher();
+
+			expect(mockStore.dispatch).toHaveBeenCalledWith(
+				expect.objectContaining({
+					url: mockUrl,
+					type: 'metadata',
+					metadataStatus: 'resolved',
+				}),
+			);
+		});
+	});
 });

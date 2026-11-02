@@ -1,10 +1,11 @@
 import React from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import user from '@testing-library/user-event';
 
 import { axe } from '@af/accessibility-testing/jest-axe';
 import Button from '@atlaskit/button/default/button';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import InlineMessage from '../../inline-message';
 
@@ -38,9 +39,7 @@ it('Expanded and collapsed states should be communicated programmatically', asyn
 	expect(element).toHaveAttribute('aria-expanded', 'false');
 });
 
-it('Content inside popup should be tab accessible when opened', async () => {
-	const userActions = user.setup();
-
+function renderWithFocusableContent() {
 	render(
 		<InlineMessage title="Test Message" testId="inline-message">
 			<Button testId="popup-button">Focusable Button</Button>
@@ -50,6 +49,12 @@ it('Content inside popup should be tab accessible when opened', async () => {
 			</a>
 		</InlineMessage>,
 	);
+}
+
+it('Content inside popup should be tab accessible when opened', async () => {
+	failGate('platform-dst-top-layer');
+	const userActions = user.setup();
+	renderWithFocusableContent();
 
 	// Initially popup should be closed and content not visible
 	expect(screen.queryByTestId('popup-button')).not.toBeInTheDocument();
@@ -75,7 +80,25 @@ it('Content inside popup should be tab accessible when opened', async () => {
 	expect(screen.getByTestId('popup-link')).toHaveFocus();
 });
 
+it('Content inside popup should be tab accessible when opened (top layer)', async () => {
+	passGate('platform-dst-top-layer');
+	const userActions = user.setup();
+	renderWithFocusableContent();
+
+	await userActions.click(screen.getByTestId('inline-message--button'));
+
+	// The popup has `role="dialog"`, so opening it focuses its first focusable element
+	expect(screen.getByTestId('popup-button')).toHaveFocus();
+
+	await userActions.tab();
+	expect(screen.getByTestId('popup-input')).toHaveFocus();
+
+	await userActions.tab();
+	expect(screen.getByTestId('popup-link')).toHaveFocus();
+});
+
 it('Focus should return to trigger when popup is closed via Escape key', async () => {
+	failGate('platform-dst-top-layer');
 	const userActions = user.setup();
 
 	render(
@@ -100,4 +123,26 @@ it('Focus should return to trigger when popup is closed via Escape key', async (
 
 	// Popup content should be hidden
 	expect(screen.queryByTestId('popup-button')).not.toBeInTheDocument();
+});
+
+it('Focus should return to trigger when popup is closed via Escape key (top layer)', async () => {
+	passGate('platform-dst-top-layer');
+	const userActions = user.setup();
+
+	render(
+		<InlineMessage title="Test Message" testId="inline-message">
+			<Button testId="popup-button">Focusable Button</Button>
+		</InlineMessage>,
+	);
+
+	const trigger = screen.getByTestId('inline-message--button');
+
+	// The popup has `role="dialog"`, so opening it focuses its first focusable element
+	await userActions.click(trigger);
+	expect(screen.getByTestId('popup-button')).toHaveFocus();
+
+	await userActions.keyboard('{Escape}');
+
+	await waitFor(() => expect(screen.queryByTestId('popup-button')).not.toBeInTheDocument());
+	expect(trigger).toHaveFocus();
 });

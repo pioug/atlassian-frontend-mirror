@@ -197,6 +197,9 @@ actually happened.
 - **[follow-ups/dialog-close-request-dismisses-inner-layer.md](./follow-ups/dialog-close-request-dismisses-inner-layer.md)**:
   TODO: Android back should close an open Select menu, Popper or Spotlight in a dialog first, as
   Escape does. The proposal, its limits and tests
+- **[follow-ups/ssr-helper-keeps-jsdom-window.md](./follow-ups/ssr-helper-keeps-jsdom-window.md)**:
+  the `@atlaskit/ssr` helper keeps the jsdom `window`, so ds-lib `useLayoutEffect` warns in SSR
+  tests that render an open top-layer layer. Tests opt out for now; the proposed helper fix is here
 - **[follow-ups/tree-grid-initial-focus.md](./follow-ups/tree-grid-initial-focus.md)** —
   `useInitialFocus` is unimplemented for `role="tree"` and `role="grid"`
 - **[follow-ups/popovertarget-exploration.md](./follow-ups/popovertarget-exploration.md)** —

@@ -1,5 +1,39 @@
 # @atlaskit/editor-card-provider
 
+## 8.2.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.2.8
+
+### Patch Changes
+
+- [`ff3c2b0a93ac9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ff3c2b0a93ac9) -
+  Remove the issue-link-suggestions-in-comments gate and retain local issue resolution callbacks.
+- [`ff3c2b0a93ac9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ff3c2b0a93ac9) -
+  Clean up issue-link-suggestions-in-comments, preserving enabled issue-link resolution behaviour.
+- [`ff3c2b0a93ac9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ff3c2b0a93ac9) -
+  Remove the issue-link-suggestions-in-comments feature gate and retain local issue link resolution
+  callbacks.
+- Updated dependencies
+
+## 8.2.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.2.6
+
+### Patch Changes
+
+- [`6a0d6b1c9f78d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6a0d6b1c9f78d) -
+  Remove the stale platform_native_embeds_enable_shortlink_resolution gate, keeping its disabled
+  behaviour
+- Updated dependencies
+
 ## 8.2.5
 
 ### Patch Changes

@@ -455,7 +455,6 @@ export const ThemeControlsPanel = ({
 													<Box xcss={panelStyles.palette}>
 														<Box
 															xcss={panelStyles.paletteLogo}
-															// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 															style={{
 																backgroundColor: navBgColor,
 																color: template.logoMonochrome ? logoFgColor : undefined,
@@ -493,7 +492,6 @@ export const ThemeControlsPanel = ({
 																	/>
 																	<span
 																		css={panelStyles.paletteMonochromeMask}
-																		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 																		style={
 																			{
 																				maskImage: `url(${template.logoUrl})`,
@@ -513,7 +511,6 @@ export const ThemeControlsPanel = ({
 														</Box>
 														<Box
 															xcss={panelStyles.paletteDividerHorizontal}
-															// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 															style={{
 																// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 																backgroundColor: lightenColorByHct(template.brandColor, 20, false),
@@ -522,12 +519,10 @@ export const ThemeControlsPanel = ({
 														<Box xcss={panelStyles.paletteBottom}>
 															<Box
 																xcss={panelStyles.paletteSwatch}
-																// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 																style={{ backgroundColor: template.brandColor }}
 															/>
 															<Box
 																xcss={panelStyles.paletteDivider}
-																// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 																style={{
 																	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 																	backgroundColor: lightenColorByHct(
@@ -748,7 +743,6 @@ export const ThemeControlsPanel = ({
 													<Box xcss={panelStyles.palette}>
 														<Box
 															xcss={panelStyles.paletteLogo}
-															// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 															style={{
 																backgroundColor: navBgColor,
 																color: template.logoMonochrome ? logoFgColor : undefined,
@@ -786,7 +780,6 @@ export const ThemeControlsPanel = ({
 																	/>
 																	<span
 																		css={panelStyles.paletteMonochromeMask}
-																		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 																		style={
 																			{
 																				maskImage: `url(${template.logoUrl})`,
@@ -806,7 +799,6 @@ export const ThemeControlsPanel = ({
 														</Box>
 														<Box
 															xcss={panelStyles.paletteDividerHorizontal}
-															// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 															style={{
 																// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 																backgroundColor: lightenColorByHct(template.brandColor, 20, false),
@@ -815,12 +807,10 @@ export const ThemeControlsPanel = ({
 														<Box xcss={panelStyles.paletteBottom}>
 															<Box
 																xcss={panelStyles.paletteSwatch}
-																// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 																style={{ backgroundColor: template.brandColor }}
 															/>
 															<Box
 																xcss={panelStyles.paletteDivider}
-																// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 																style={{
 																	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 																	backgroundColor: lightenColorByHct(

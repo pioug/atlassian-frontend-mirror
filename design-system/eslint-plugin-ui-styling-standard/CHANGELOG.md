@@ -1,5 +1,12 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 3.0.4
+
+### Patch Changes
+
+- [`1215148c363e4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1215148c363e4) -
+  Fix false positives for type-wrapped cx calls in xcss.
+
 ## 3.0.3
 
 ### Patch Changes

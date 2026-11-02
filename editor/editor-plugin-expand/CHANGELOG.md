@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-expand
 
+## 31.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 31.1.0
+
+### Minor Changes
+
+- [`8cf7f4ad181c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8cf7f4ad181c4) -
+  Backspace in an empty line after a collapsed expand deletes the line and moves the caret to the
+  end of the expand title, behind platform_editor_expand_delete_empty_line
+
+### Patch Changes
+
+- Updated dependencies
+
+## 31.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 31.0.5
 
 ### Patch Changes

@@ -16,7 +16,7 @@ import React from 'react';
 
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 import { screen } from '@atlassian/testing-library/screen';
-import { act, fireEvent } from '@atlassian/testing-library/testing-library/react';
+import { act, fireEvent, waitFor } from '@atlassian/testing-library/testing-library/react';
 
 import { closeOpenEmbedModal } from '../../../__tests__/__utils__/unit-helpers';
 import { ActionName, ElementName } from '../../../constants';
@@ -81,6 +81,8 @@ describe('hover card over flexible smart links', () => {
 		act(() => {
 			jest.runAllTimers();
 		});
+		// The top-layer hover card unmounts after its exit settles, after the timers above.
+		await waitFor(() => expect(screen.queryByTestId(hoverCardTestId)).not.toBeInTheDocument());
 
 		const element = await screen.findByTestId(testId);
 		expect(element).toBeInTheDocument();

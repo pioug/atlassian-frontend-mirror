@@ -1,5 +1,42 @@
 # @atlaskit/editor-plugins
 
+## 17.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.0
+
+### Major Changes
+
+- [`113b5bcc64f0c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/113b5bcc64f0c) -
+  Remove the platform_editor_diff_reveal_animation feature gate and the unused diff reveal
+  animation. Removes the `RevealMode` and `RevealOptions` types and the `PMDiffParams` `reveal`
+  option.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.2.91
 
 ### Patch Changes

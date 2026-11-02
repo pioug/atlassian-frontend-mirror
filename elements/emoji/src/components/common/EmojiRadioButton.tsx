@@ -11,7 +11,6 @@ import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import type { EmojiDescription } from '../../types';
 import { TONESELECTOR_KEYBOARD_KEYS_SUPPORTED } from '../../util/constants';
-import { isTeamoji26RefreshEmojiPickerEnabledNoExposure } from '../../util/teamoji26RefreshEmojiPicker';
 import Emoji from './Emoji';
 
 const emojiButton = css({
@@ -84,10 +83,7 @@ export interface Props {
 }
 
 const handleKeyDown = (props: Props, event: React.KeyboardEvent) => {
-	if (
-		(event.key === 'ArrowLeft' || event.key === 'ArrowRight') &&
-		isTeamoji26RefreshEmojiPickerEnabledNoExposure()
-	) {
+	if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
 		event.preventDefault();
 		event.stopPropagation();
 		props.onArrowKey?.(event.key === 'ArrowRight' ? 1 : -1);
@@ -123,9 +119,7 @@ export const EmojiRadioButton: React.ForwardRefExoticComponent<
 				defaultChecked={defaultChecked}
 				onClick={() => props.onSelected?.()}
 				onKeyDown={(event) => handleKeyDown(props, event)}
-				onChange={
-					isTeamoji26RefreshEmojiPickerEnabledNoExposure() ? (e) => e.preventDefault() : undefined
-				}
+				onChange={(e) => e.preventDefault()}
 			/>
 			<Emoji
 				emoji={emoji}

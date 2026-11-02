@@ -10,7 +10,6 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { MediaClientProvider } from '@atlaskit/media-client-react/media-client-provider';
 import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers/fakeMediaClient';
-// eslint-disable-next-line @atlaskit/platform/no-alias
 import * as ffPackage from '@atlaskit/platform-feature-flags/fg';
 
 import ReactSerializer from '../../../react/index';

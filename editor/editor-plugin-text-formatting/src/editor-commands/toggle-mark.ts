@@ -7,10 +7,28 @@ import {
 import { toggleMark } from '@atlaskit/editor-common/mark/commands';
 import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { MarkType } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { TextFormattingPlugin } from '../textFormattingPluginType';
 import type { ToggleMarkWithAnalyticsEditorCommand } from './types';
 import { nextToggleMark } from './utils/marks';
+
+/**
+ * Toggles a text style mark. Behind `platform_editor_style_around_inline_code` it uses the
+ * package's own toggle, which can remove a style from a selection that also contains text
+ * excluding it (such as inline code).
+ */
+const toggleStyleMark = (
+	markType: MarkType,
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	attrs?: { [key: string]: any },
+): EditorCommand => {
+	if (fg('platform_editor_style_around_inline_code')) {
+		return nextToggleMark(markType, undefined, attrs);
+	}
+	return toggleMark(markType, attrs);
+};
 
 export const toggleEm: EditorCommand = ({ tr }) => {
 	const { em } = tr.doc.type.schema.marks;
@@ -18,7 +36,7 @@ export const toggleEm: EditorCommand = ({ tr }) => {
 		// No transaction to apply
 		return null;
 	}
-	return toggleMark(em)({ tr });
+	return toggleStyleMark(em)({ tr });
 };
 
 export const toggleEmWithAnalytics: ToggleMarkWithAnalyticsEditorCommand =
@@ -50,7 +68,7 @@ export const toggleStrike: EditorCommand = ({ tr }) => {
 		// No transaction to apply
 		return null;
 	}
-	return toggleMark(strike)({ tr });
+	return toggleStyleMark(strike)({ tr });
 };
 
 export const toggleStrikeWithAnalytics: ToggleMarkWithAnalyticsEditorCommand =
@@ -82,7 +100,7 @@ export const toggleStrong: EditorCommand = ({ tr }) => {
 		// No transaction to apply
 		return null;
 	}
-	return toggleMark(strong)({ tr });
+	return toggleStyleMark(strong)({ tr });
 };
 
 export const toggleStrongWithAnalytics: ToggleMarkWithAnalyticsEditorCommand =
@@ -114,7 +132,7 @@ export const toggleUnderline: EditorCommand = ({ tr }) => {
 		// No transaction to apply
 		return null;
 	}
-	return toggleMark(underline)({ tr });
+	return toggleStyleMark(underline)({ tr });
 };
 
 export const toggleUnderlineWithAnalytics: ToggleMarkWithAnalyticsEditorCommand =
@@ -146,7 +164,7 @@ export const toggleSuperscript: EditorCommand = ({ tr }) => {
 		// No transaction to apply
 		return null;
 	}
-	return toggleMark(subsup, { type: 'sup' })({ tr });
+	return toggleStyleMark(subsup, { type: 'sup' })({ tr });
 };
 
 export const toggleSuperscriptWithAnalytics: ToggleMarkWithAnalyticsEditorCommand =
@@ -178,7 +196,7 @@ export const toggleSubscript: EditorCommand = ({ tr }) => {
 		// No transaction to apply
 		return null;
 	}
-	return toggleMark(subsup, { type: 'sub' })({ tr });
+	return toggleStyleMark(subsup, { type: 'sub' })({ tr });
 };
 
 export const toggleSubscriptWithAnalytics: ToggleMarkWithAnalyticsEditorCommand =

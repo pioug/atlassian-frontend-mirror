@@ -4,7 +4,6 @@ import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ContextPanelHandler } from '@atlaskit/editor-common/types/context-panel';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { ContextPanelPlugin } from './contextPanelPluginType';
 import { applyChange } from './pm-plugins/transforms';
@@ -71,19 +70,16 @@ export const contextPanelPlugin: ContextPanelPlugin = ({ config }) => ({
 
 	actions: {
 		applyChange: applyChange,
-		showPanel:
-			config?.objectSideBar.showPanel && fg('platform_editor_ai_object_sidebar_injection')
-				? (panel: ObjectSidebarPanel, behavior?: ObjectSidebarBehavior, panelWidth?: number) =>
-						config.objectSideBar.showPanel(panel, behavior, panelWidth)
-				: undefined,
-		closePanel:
-			config?.objectSideBar.closePanel && fg('platform_editor_ai_object_sidebar_injection')
-				? () => config.objectSideBar.closePanel()
-				: undefined,
-		closePanelById:
-			config?.objectSideBar.closePanelById && fg('platform_editor_ai_object_sidebar_injection')
-				? (id: ObjectSidebarPanel['id']) => config.objectSideBar.closePanelById(id)
-				: undefined,
+		showPanel: config?.objectSideBar.showPanel
+			? (panel: ObjectSidebarPanel, behavior?: ObjectSidebarBehavior, panelWidth?: number) =>
+					config.objectSideBar.showPanel(panel, behavior, panelWidth)
+			: undefined,
+		closePanel: config?.objectSideBar.closePanel
+			? () => config.objectSideBar.closePanel()
+			: undefined,
+		closePanelById: config?.objectSideBar.closePanelById
+			? (id: ObjectSidebarPanel['id']) => config.objectSideBar.closePanelById(id)
+			: undefined,
 	},
 
 	getSharedState(state) {

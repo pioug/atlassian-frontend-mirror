@@ -45,7 +45,6 @@ const generateData = ({
 	return data;
 };
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<AvatarGroup />', () => {
 	it('should override add clickable button beside the last overflowed avatar item', async () => {
 		const user = userEvent.setup();

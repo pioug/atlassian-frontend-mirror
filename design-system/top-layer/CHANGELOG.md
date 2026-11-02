@@ -1,5 +1,17 @@
 # @atlaskit/top-layer
 
+## 7.1.1
+
+### Patch Changes
+
+- [`68f5ce4eb8181`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/68f5ce4eb8181) -
+  Testing polyfill (`@atlaskit/top-layer/testing/polyfill`): an open popover, and its content, now
+  report `pointer-events: auto` from `getComputedStyle()` where they inherit `none` from outside the
+  popover. This matches the `Popover` host reset, which jsdom cannot apply, so `user-event` can
+  click in the surface. The polyfill also keeps the `MutationObserver` that exists when it loads, so
+  a test that stubs `MutationObserver` later no longer stops the dialog and popover removing steps.
+- Updated dependencies
+
 ## 7.1.0
 
 ### Minor Changes

@@ -6,7 +6,7 @@ import {
 	moveLeft as keymapMoveLeft,
 	moveRight as keymapMoveRight,
 } from '@atlaskit/editor-common/keymaps';
-import { anyMarkActive } from '@atlaskit/editor-common/mark';
+import { anyMarkActive, isMarkExcluded } from '@atlaskit/editor-common/mark';
 import { wholeSelectionHasMarks } from '@atlaskit/editor-common/mark/text-formatting';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { TextFormattingState } from '@atlaskit/editor-common/types/text-formatting';
@@ -17,6 +17,7 @@ import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { createInlineCodeFromTextInputWithAnalytics } from '../editor-commands/text-formatting';
@@ -43,6 +44,52 @@ const checkNodeSelection = (
 	}
 
 	return toggleMark(mark, { type: type })(editorState);
+};
+
+/**
+ * Whether a range selection holds any text that can take `markType`, i.e. text whose marks
+ * (such as inline code) do not exclude it. Cursor selections return false.
+ */
+const selectionHasTextAcceptingMark = (editorState: EditorState, markType: MarkType): boolean => {
+	const { selection, doc } = editorState;
+	if (selection.empty) {
+		return false;
+	}
+
+	let hasTextAcceptingMark = false;
+	for (const { $from, $to } of selection.ranges) {
+		doc.nodesBetween($from.pos, $to.pos, (node) => {
+			if (hasTextAcceptingMark) {
+				return false;
+			}
+			if (node.isText && !isMarkExcluded(markType, node.marks)) {
+				hasTextAcceptingMark = true;
+			}
+		});
+		if (hasTextAcceptingMark) {
+			break;
+		}
+	}
+	return hasTextAcceptingMark;
+};
+
+/**
+ * Whether inline code in the selection should disable `markType`. Behind
+ * `platform_editor_style_around_inline_code`, code only disables a mark when no other text in the
+ * selection could take it.
+ */
+const isDisabledByCode = (
+	codeInSelection: boolean | undefined,
+	markType: MarkType,
+	editorState: EditorState,
+): boolean => {
+	if (!codeInSelection) {
+		return false;
+	}
+	if (fg('platform_editor_style_around_inline_code')) {
+		return !selectionHasTextAcceptingMark(editorState, markType);
+	}
+	return true;
 };
 
 const getTextFormattingState = (
@@ -87,12 +134,13 @@ const getTextFormattingState = (
 				state[`${markName}Active`] = active;
 			}
 
+			const markType = mark instanceof MarkType ? mark : mark.type;
 			state[`${markName}Disabled`] =
 				// Disable when code is active, except for code itself which should not be disabled
 				// when code is in selection 😅
-				state.codeInSelection && markName !== 'code'
+				markName !== 'code' && isDisabledByCode(state.codeInSelection, markType, editorState)
 					? true
-					: !checkNodeSelection(mark instanceof MarkType ? mark : mark.type, editorState);
+					: !checkNodeSelection(markType, editorState);
 		}
 
 		return state;
@@ -104,15 +152,21 @@ const getTextFormattingState = (
 	}
 	if (em) {
 		state.emActive = anyMarkActive(editorState, em);
-		state.emDisabled = state.codeActive ? true : !checkNodeSelection(em, editorState);
+		state.emDisabled = isDisabledByCode(state.codeActive, em, editorState)
+			? true
+			: !checkNodeSelection(em, editorState);
 	}
 	if (strike) {
 		state.strikeActive = anyMarkActive(editorState, strike);
-		state.strikeDisabled = state.codeActive ? true : !checkNodeSelection(strike, editorState);
+		state.strikeDisabled = isDisabledByCode(state.codeActive, strike, editorState)
+			? true
+			: !checkNodeSelection(strike, editorState);
 	}
 	if (strong) {
 		state.strongActive = anyMarkActive(editorState, strong);
-		state.strongDisabled = state.codeActive ? true : !checkNodeSelection(strong, editorState);
+		state.strongDisabled = isDisabledByCode(state.codeActive, strong, editorState)
+			? true
+			: !checkNodeSelection(strong, editorState);
 	}
 	if (subsup) {
 		const subMark = subsup.create({ type: 'sub' });
@@ -120,16 +174,18 @@ const getTextFormattingState = (
 		state.subscriptActive = anyMarkActive(editorState, subMark);
 		state.superscriptActive = anyMarkActive(editorState, supMark);
 
-		state.subscriptDisabled = state.codeActive
+		state.subscriptDisabled = isDisabledByCode(state.codeActive, subsup, editorState)
 			? true
 			: !checkNodeSelection(subsup, editorState, 'sub');
-		state.superscriptDisabled = state.codeActive
+		state.superscriptDisabled = isDisabledByCode(state.codeActive, subsup, editorState)
 			? true
 			: !checkNodeSelection(subsup, editorState, 'sup');
 	}
 	if (underline) {
 		state.underlineActive = anyMarkActive(editorState, underline);
-		state.underlineDisabled = state.codeActive ? true : !checkNodeSelection(underline, editorState);
+		state.underlineDisabled = isDisabledByCode(state.codeActive, underline, editorState)
+			? true
+			: !checkNodeSelection(underline, editorState);
 	}
 	return state;
 };

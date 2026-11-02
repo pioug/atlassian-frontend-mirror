@@ -439,13 +439,13 @@ const LinkButtonBase = <RouterLinkConfig extends Record<string, any> = never>(
 		>
 			{iconBefore && (
 				<Content type="icon" position="before" isLoading={false}>
-					<IconRenderer icon={iconBefore} />
+					<IconRenderer icon={iconBefore} spacing={spacing} />
 				</Content>
 			)}
 			{children && <Content isLoading={false}>{children}</Content>}
 			{iconAfter && (
 				<Content type="icon" position="after" isLoading={false}>
-					<IconRenderer icon={iconAfter} />
+					<IconRenderer icon={iconAfter} spacing={spacing} />
 				</Content>
 			)}
 		</Anchor>

@@ -62,7 +62,6 @@ const validDoc = doc(
 	),
 );
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('@atlaskit/renderer/ui/Renderer', () => {
 	const initRenderer = (doc: any = initialDoc, props: Partial<RendererProps> = {}) =>
 		// eslint-disable-next-line react/jsx-props-no-spreading

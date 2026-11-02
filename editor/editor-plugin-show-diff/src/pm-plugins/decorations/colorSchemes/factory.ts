@@ -903,50 +903,6 @@ export function buildInsertedInlineStyle(
 }
 
 /**
- * The colours `buildInsertedInlineStyle()` above would paint, for the reveal to animate towards.
- *
- * MUST mirror that function: the reveal replaces the flat highlight with a sized gradient, so a
- * divergence here means the animation settles on a different colour than a static render produces.
- * `revealStyles.ts` in the test package asserts the two agree across the isActive /
- * hideAddedDiffsUnderline matrix.
- *
- * A transparent border is how "no underline" is expressed: the box still reserves the 2px so the
- * text does not shift when the underline arrives.
- */
-export function getInsertedInlineRevealColors(
-	colors: DiffColorScheme,
-	isActive: boolean,
-	hideAddedDiffsUnderline: boolean,
-): { background: string; border: string } {
-	return {
-		background: isActive
-			? bgSubtlerPressed(colors.insertActiveColor)
-			: bgSubtlest(colors.insertColor),
-		border: hideAddedDiffsUnderline ? 'transparent' : borderAccent(colors.insertColor),
-	};
-}
-
-/**
- * The colours `buildDeletedInlineContentStyleExtended()` paints, for the reveal to animate towards.
- * Deleted content's highlight does not vary with the active state — only its text does, which the
- * reveal keeps as-is.
- */
-export function getDeletedInlineRevealColors(colors: DiffColorScheme): {
-	background: string;
-	border: string;
-} {
-	// Nothing to wipe in where the resting state paints no highlight.
-	if (colors.deletedInlineHighlight === 'onEmphasis') {
-		return { background: 'transparent', border: 'transparent' };
-	}
-
-	return {
-		background: bgSubtlest(colors.deleteColor),
-		border: borderAccent(colors.deleteColor),
-	};
-}
-
-/**
  * Value for `DELETED_HIGHLIGHT_BG_VAR` while a change is hovered — the same tint an 'always' scheme
  * paints at rest, so hovering restores the appearance rather than introducing a third one.
  */

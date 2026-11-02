@@ -1,15 +1,13 @@
-import Fetcher, {
-	EVAL_FLAGS_API_VERSION,
-	EXPERIMENT_VALUES_API_VERSION,
-} from '@atlaskit/feature-gate-fetcher/Fetcher';
+import Fetcher, { getEvalFlagsStatus } from '@atlaskit/feature-gate-fetcher/Fetcher';
 import type {
+	EvalFlagsResponse,
 	FetcherOptions,
 	FrontendClientSdkKeyResponse,
-	FrontendExperimentsResponse,
 } from '@atlaskit/feature-gate-fetcher/types';
 import type {
 	BaseClientOptions,
 	CustomAttributes,
+	EvalFlagsStatus,
 	FrontendExperimentsResult,
 	Identifiers,
 	OptionsWithDefaults,
@@ -21,19 +19,19 @@ import FeatureGatesDB from '../database/FeatureGatesDB';
 import { type ExperimentValuesEntry, type RulesetProfile } from '../database/types';
 import Refresh from './Refresh';
 import { type FeatureGateState, type ProviderOptions } from './types';
-import { cloneObject, createHash, getFrontendExperimentsResult } from './utils';
+import {
+	cloneObject,
+	createHash,
+	fetchFlagValues,
+	getFrontendExperimentsResult,
+	getProfileHashPrefix,
+	isRetryableFetchError,
+	withLastOkSections,
+} from './utils';
 
 export type { ProviderOptions } from './types';
 
 export const DATABASE_PURGE_TIMEOUT = 10000;
-
-/**
- * Prefix of the profile hash, which keys the cached values and names the broadcast channel. Values
- * fetched with `includeFfpFlags` come from another endpoint, so they get their own prefix and are
- * never served without it, or the other way around.
- */
-const getProfileHashPrefix = (includeFfpFlags: boolean | undefined): string =>
-	includeFfpFlags ? `evalFlags.${EVAL_FLAGS_API_VERSION}.statsig` : EXPERIMENT_VALUES_API_VERSION;
 
 export default class PollingProvider implements Provider {
 	private readonly providerOptions: ProviderOptions;
@@ -50,6 +48,8 @@ export default class PollingProvider implements Provider {
 	private refresh: Refresh;
 	private broadcast: Broadcast;
 	private applyUpdate: ((experimentsResult: FrontendExperimentsResult) => void) | undefined;
+	/** The last values served for a profile, used to keep the last OK section of each provider. */
+	private lastEvalFlags: { profileHash: string; response: EvalFlagsResponse } | undefined;
 
 	constructor(providerOptions: ProviderOptions) {
 		this.providerOptions = providerOptions;
@@ -132,37 +132,59 @@ export default class PollingProvider implements Provider {
 
 		if (dbValues) {
 			this.refresh.setTimestamp(lastKnownUpdatedTimestamp);
+			this.refresh.setFetchedStatus(getEvalFlagsStatus(dbValues.evalFlagsResponse));
 			this.refresh.start();
-			return getFrontendExperimentsResult(dbValues.experimentValuesResponse);
+			this.lastEvalFlags = { profileHash, response: dbValues.evalFlagsResponse };
+			return getFrontendExperimentsResult(
+				dbValues.evalFlagsResponse,
+				dbValues.rulesetProfile.customAttributes,
+			);
 		}
 
 		let newLastUpdatedTimestamp = lastKnownUpdatedTimestamp;
+		let experimentResult: EvalFlagsResponse;
 
-		const experimentResult = await this.fetchExperimentValues(this.clientVersion, rulesetProfile)
-			.then((result) => {
-				newLastUpdatedTimestamp = Date.now();
-				return result;
-			})
-			.finally(() => {
-				if (profileHash === this.currentProfileHash) {
-					this.lastUpdatedTimestamp = newLastUpdatedTimestamp;
-					this.refresh.setTimestamp(newLastUpdatedTimestamp);
+		try {
+			experimentResult = await this.fetchFlagValues(this.clientVersion, rulesetProfile);
+			newLastUpdatedTimestamp = Date.now();
+		} catch (error: unknown) {
+			if (profileHash === this.currentProfileHash) {
+				// The fetch failed, so the timestamp stays at the one the cache was read with.
+				this.lastUpdatedTimestamp = newLastUpdatedTimestamp;
+				this.refresh.setTimestamp(newLastUpdatedTimestamp);
+				if (isRetryableFetchError(error)) {
 					this.refresh.start();
+				} else {
+					// The request is invalid, so do not poll until the profile changes
+					this.refresh.stop();
 				}
-			});
+			}
+			throw error;
+		}
+
+		if (profileHash === this.currentProfileHash) {
+			this.lastUpdatedTimestamp = newLastUpdatedTimestamp;
+			this.refresh.setTimestamp(newLastUpdatedTimestamp);
+			this.refresh.setFetchedStatus(getEvalFlagsStatus(experimentResult));
+			this.refresh.start();
+		}
 
 		const featureGateState = {
 			profileHash,
 			rulesetProfile,
-			experimentValuesResponse: experimentResult,
+			evalFlagsResponse: experimentResult,
 			timestamp: newLastUpdatedTimestamp,
 		};
 
 		// Should not process this update as getExperimentValues will only be called on initialize and update user,
 		// and in those cases processing is handled elsewhere
-		this.featureGateUpdateHttpHandler(featureGateState, false);
+		const mergedState = this.featureGateUpdateHttpHandler(featureGateState, false);
 
-		return getFrontendExperimentsResult(experimentResult);
+		return getFrontendExperimentsResult(
+			mergedState.evalFlagsResponse,
+			rulesetProfile.customAttributes,
+			getEvalFlagsStatus(experimentResult),
+		);
 	}
 
 	async getClientSdkKey(): Promise<string> {
@@ -228,9 +250,10 @@ export default class PollingProvider implements Provider {
 		);
 
 		const hashedProfile = await createHash(JSON.stringify(rulesetProfile));
+		const prefix = getProfileHashPrefix(this.providerOptions.includeFfpFlags);
 
 		return {
-			profileHash: getProfileHashPrefix(this.providerOptions.includeFfpFlags) + '.' + hashedProfile,
+			profileHash: `${prefix}.${hashedProfile}`,
 			rulesetProfile,
 		};
 	}
@@ -249,11 +272,11 @@ export default class PollingProvider implements Provider {
 		};
 	}
 
-	private async fetchExperimentValues(
+	private async fetchFlagValues(
 		clientVersion: string,
 		rulesetProfile: RulesetProfile,
-	): Promise<FrontendExperimentsResponse> {
-		const { identifiers, customAttributes, environment, targetApp, perimeter } = rulesetProfile;
+	): Promise<EvalFlagsResponse> {
+		const { environment, targetApp, perimeter } = rulesetProfile;
 		const { apiKey, initialFetchTimeout, useGatewayURL, includeFfpFlags } = this.providerOptions;
 
 		const fetcherOptions: FetcherOptions = {
@@ -266,20 +289,24 @@ export default class PollingProvider implements Provider {
 			includeFfpFlags,
 		};
 
-		return await Fetcher.fetchExperimentValues(
-			clientVersion,
-			fetcherOptions,
-			identifiers,
-			customAttributes,
-		);
+		return await fetchFlagValues(clientVersion, fetcherOptions, rulesetProfile);
 	}
 
+	/**
+	 * Handles values fetched by this tab: keeps the last OK section of any provider that is now
+	 * unavailable, then applies (if requested), caches and broadcasts the merged values.
+	 */
 	private featureGateUpdateHttpHandler(
-		experimentValuesEntry: ExperimentValuesEntry,
+		fetchedEntry: ExperimentValuesEntry,
 		shouldProcessUpdate: boolean = true,
-	): void {
+	): ExperimentValuesEntry {
+		const experimentValuesEntry = this.withLastOkSectionsFor(fetchedEntry);
+
 		if (shouldProcessUpdate) {
-			this.processFeatureGateUpdate(experimentValuesEntry);
+			this.processFeatureGateUpdate(
+				experimentValuesEntry,
+				getEvalFlagsStatus(fetchedEntry.evalFlagsResponse),
+			);
 		}
 
 		this.featureGatesDB?.setExperimentValues(experimentValuesEntry);
@@ -288,6 +315,28 @@ export default class PollingProvider implements Provider {
 		if (experimentValuesEntry.profileHash === this.currentProfileHash) {
 			this.broadcast.sendFeatureGateState(experimentValuesEntry);
 		}
+
+		return experimentValuesEntry;
+	}
+
+	/**
+	 * Keeps the last OK section of any provider that is now unavailable, and remembers the result as
+	 * the last values for its profile.
+	 */
+	private withLastOkSectionsFor(fetchedEntry: ExperimentValuesEntry): ExperimentValuesEntry {
+		const previous =
+			this.lastEvalFlags?.profileHash === fetchedEntry.profileHash
+				? this.lastEvalFlags.response
+				: undefined;
+		const experimentValuesEntry: ExperimentValuesEntry = {
+			...fetchedEntry,
+			evalFlagsResponse: withLastOkSections(fetchedEntry.evalFlagsResponse, previous),
+		};
+		this.lastEvalFlags = {
+			profileHash: experimentValuesEntry.profileHash,
+			response: experimentValuesEntry.evalFlagsResponse,
+		};
+		return experimentValuesEntry;
 	}
 
 	private featureGateUpdateBroadcastHandler(featureGateState: FeatureGateState): void {
@@ -297,18 +346,35 @@ export default class PollingProvider implements Provider {
 		}
 
 		this.processFeatureGateUpdate(featureGateState);
+		if (featureGateState.profileHash === this.currentProfileHash) {
+			// Another tab fetched these values, so retry only if they are still missing a provider
+			this.refresh.setFetchedStatus(getEvalFlagsStatus(featureGateState.evalFlagsResponse));
+		}
 	}
 
-	private processFeatureGateUpdate(featureGateState: FeatureGateState): void {
+	private processFeatureGateUpdate(
+		featureGateState: FeatureGateState,
+		fetchedStatus?: EvalFlagsStatus,
+	): void {
 		if (this.currentProfileHash === featureGateState.profileHash) {
 			this.lastUpdatedTimestamp = featureGateState.timestamp;
 			this.refresh.setTimestamp(featureGateState.timestamp);
+			this.lastEvalFlags = {
+				profileHash: featureGateState.profileHash,
+				response: featureGateState.evalFlagsResponse,
+			};
 
 			if (!this.applyUpdate) {
 				// eslint-disable-next-line no-console
 				console.warn('No apply update callback has been set. Cannot update experiment values.');
 			} else {
-				this.applyUpdate(getFrontendExperimentsResult(featureGateState.experimentValuesResponse));
+				this.applyUpdate(
+					getFrontendExperimentsResult(
+						featureGateState.evalFlagsResponse,
+						this.currentRulesetProfile?.customAttributes,
+						fetchedStatus,
+					),
+				);
 			}
 		}
 	}

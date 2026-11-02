@@ -67,7 +67,6 @@ export const generateImageComponent = (
 				<img alt="" src={imageUrl} css={logoImageStyles.monochromeImage} />
 				<span
 					css={logoImageStyles.monochromeMask}
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 					style={
 						{
 							maskImage: `url(${imageUrl})`,

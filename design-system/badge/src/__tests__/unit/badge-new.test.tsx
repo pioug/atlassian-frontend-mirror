@@ -12,7 +12,6 @@ const render = (component: React.ReactNode) => {
 	return rtlRender(<React.StrictMode>{component}</React.StrictMode>);
 };
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('BadgeNew component (UI uplift)', () => {
 	const testId = 'test-badge-new';
 

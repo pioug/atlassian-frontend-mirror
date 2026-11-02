@@ -86,7 +86,6 @@ const cases: Array<[string, Opts, string]> = [
 	],
 ];
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Renderer - ReactSerializer - text/paragraph fast path', () => {
 	const assertAllCases = () => {
 		it.each(cases)('renders the expected DOM for %s', (_case, opts, expected) => {

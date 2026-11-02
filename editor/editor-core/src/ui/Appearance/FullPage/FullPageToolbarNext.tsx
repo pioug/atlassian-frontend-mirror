@@ -122,11 +122,7 @@ const MainToolbarWrapper = ({
 				showKeyline && styles.mainToolbarWithKeyline,
 				styles.mainToolbarZIndex,
 				styles.mainToolbarNew,
-				expValEquals(
-					'platform_editor_table_sticky_header_improvements',
-					'cohort',
-					'test_with_overflow',
-				) && styles.backgroundColor,
+				styles.backgroundColor,
 			]}
 			data-testid={testId}
 		>

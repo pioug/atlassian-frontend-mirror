@@ -482,6 +482,38 @@ describe('getExtensionQuickInsertComponents', () => {
 		},
 	);
 
+	it('ranks Smart button in Other after Jira Data Center', () => {
+		mockExpEnabled('platform_editor_slash_command');
+		const items = [
+			['smart-button:quick-insert', 'Smart button', -3950],
+			['jira', 'Jira Data Center', -4000],
+		] as const;
+
+		const components = getExtensionQuickInsertComponents({
+			apiRef: { current: undefined },
+			editorActions,
+			items: items.map(([key, title, priority]) => ({
+				category: 'other',
+				categories: [],
+				description: `Insert ${title}`,
+				extensionKey: key,
+				extensionType: 'com.atlassian.confluence.macro.core',
+				featured: false,
+				icon: () => Promise.resolve({ default: () => <span /> }),
+				key,
+				keywords: [],
+				node: { type: 'extension', attrs: {} },
+				priority,
+				title,
+			})),
+		});
+
+		expect(components.map((component) => component.parents)).toEqual([
+			[expect.objectContaining({ key: OTHER_SECTION.key, rank: -2450 })],
+			[expect.objectContaining({ key: OTHER_SECTION.key, rank: -2500 })],
+		]);
+	});
+
 	it('assigns the registered rank for prioritized Bitbucket Snippet and GitHub Gist macros', () => {
 		mockExpEnabled('platform_editor_slash_command');
 		const items = [

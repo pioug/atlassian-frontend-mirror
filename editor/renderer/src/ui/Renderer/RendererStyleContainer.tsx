@@ -2521,6 +2521,55 @@ const tableRendererHeaderStylesForTableCellOnly = css({
 	},
 });
 
+/**
+ * Matches an element with no rendered block before it. Injected `<style>`, `<link>` and
+ * `<template>` siblings (SSR) are ignored, as is the heading anchor `span`.
+ */
+const NO_PRECEDING_BLOCK = ':not(:not(style, link, template, span) ~ *)';
+const HEADING_WRAPPER_SELECTOR = `:is(.fabric-editor-block-mark, .renderer-heading-wrapper, .${RendererCssClassName.SORTABLE_COLUMN})`;
+
+/** A heading that starts a cell, directly or inside up to two wrappers (alignment mark, heading wrapper, sortable header). */
+const headingStartingCellSelector = (heading: string) =>
+	[
+		`> ${heading}${NO_PRECEDING_BLOCK}`,
+		`> ${HEADING_WRAPPER_SELECTOR}${NO_PRECEDING_BLOCK} > ${heading}`,
+		`> ${HEADING_WRAPPER_SELECTOR}${NO_PRECEDING_BLOCK} > ${HEADING_WRAPPER_SELECTOR}${NO_PRECEDING_BLOCK} > ${heading}`,
+	].join(', ');
+
+/**
+ * H3-H6 line boxes are shorter than a body text line (1.714em), so in a top-aligned cell
+ * their text sits higher than paragraph text in the same row. Padding a heading that starts
+ * a cell by half the difference gives its first line a body-sized line box.
+ */
+const tableHeadingCellAlignmentStyles = css({
+	[`.${TableSharedCssClassName.TABLE_CONTAINER} > table,
+		.${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table,
+		.${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table`]: {
+		'> tbody > tr > th, > tbody > tr > td': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+			[headingStartingCellSelector('h3')]: {
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+				paddingBlock: '0.125em',
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+			[headingStartingCellSelector('h4')]: {
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+				paddingBlock: '0.28571em',
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+			[headingStartingCellSelector('h5')]: {
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+				paddingBlock: '0.33333em',
+			},
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+			[headingStartingCellSelector('h6')]: {
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+				paddingBlock: '0.36364em',
+			},
+		},
+	},
+});
+
 const tableRendererNestedPanelStyles = css({
 	[`.${TableSharedCssClassName.TABLE_CONTAINER} .ak-editor-panel`]: {
 		border: `${token('border.width')} solid ${token('color.border')}`,
@@ -3542,6 +3591,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 				tableContentModeExtensionContainmentStyles,
 				tableContentModeNestedTableStyles,
 				tableRendererHeaderStylesForTableCellOnly,
+				fg('platform_editor_table_heading_cell_alignment') && tableHeadingCellAlignmentStyles,
 				fg('platform_editor_bordered_panel_nested_in_table') && tableRendererNestedPanelStyles,
 				isBackgroundClipBrowserFixNeeded() && tableStylesBackGroundClipForGeckoForTableCellOnly,
 				firstNodeWithNotMarginTopWithNestedDnD,

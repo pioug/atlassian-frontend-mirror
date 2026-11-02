@@ -13,6 +13,7 @@ const buildComponentResult = (result: ComponentMcpPayload) => {
 	return {
 		name: result.name,
 		package: result.package,
+		description: result.description,
 		examples: result.examples,
 		props: result.props,
 		designSource: result.designSource,

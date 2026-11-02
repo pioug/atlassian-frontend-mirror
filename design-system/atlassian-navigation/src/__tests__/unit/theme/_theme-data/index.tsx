@@ -19,7 +19,6 @@ export const colorSchemes: GenerateThemeArgs[] = [
 ];
 
 type Themes = Array<{ mode: Mode }>;
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export const themes: Themes = [
 	{
 		mode: {

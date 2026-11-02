@@ -119,15 +119,6 @@ const tooltipContainerStyles = css({
 	zIndex: 'card',
 });
 
-const tooltipContainerStylesStickyHeader = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-	'[data-blocks-quick-insert-container]:has(~ [data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
-		{
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			top: tableControlsSpacing,
-		},
-});
-
 const tooltipContainerImprovedStylesStickyHeader = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'[data-blocks-quick-insert-container]:has(~ [data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
@@ -149,16 +140,6 @@ const tooltipContainerImprovedStylesStickyHeader = css({
 		},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'[data-blocks-quick-insert-container]:has(~ [data-prosemirror-mark-name="fragment"] >[data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
-		{
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			top: tableControlsSpacing,
-		},
-});
-
-// We need this to work around adjacent breakout marks wrapping the controls widget decorations
-const tooltipContainerStylesStickyHeaderWithMarksFix = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-	'[data-prosemirror-mark-name="breakout"]:has([data-blocks-quick-insert-container]):has(~ [data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
 		{
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
 			top: tableControlsSpacing,
@@ -499,20 +480,8 @@ export const TypeAheadControl = ({
 			<span
 				css={[
 					tooltipContainerStyles,
-					expValEquals(
-						'platform_editor_table_sticky_header_improvements',
-						'cohort',
-						'test_with_overflow',
-					)
-						? tooltipContainerImprovedStylesStickyHeader
-						: tooltipContainerStylesStickyHeader,
-					expValEquals(
-						'platform_editor_table_sticky_header_improvements',
-						'cohort',
-						'test_with_overflow',
-					)
-						? tooltipContainerStylesImprovedStickyHeaderWithMarksFix
-						: tooltipContainerStylesStickyHeaderWithMarksFix,
+					tooltipContainerImprovedStylesStickyHeader,
+					tooltipContainerStylesImprovedStickyHeaderWithMarksFix,
 				]}
 			>
 				{tooltipPressable()}

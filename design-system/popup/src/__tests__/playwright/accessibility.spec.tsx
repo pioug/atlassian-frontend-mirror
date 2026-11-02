@@ -11,5 +11,7 @@ test('Popup passes aXe audit', async ({ page }) => {
 	await trigger.press('Enter');
 	const popup = page.getByTestId('popup');
 	await expect(popup).toBeVisible();
-	await expect(popup).toHaveAttribute('role', 'dialog');
+	// The role is on `popup` (legacy) or on its top-layer container.
+	const dialog = page.getByRole('dialog');
+	await expect(dialog.filter({ has: popup }).or(dialog.and(popup))).toBeVisible();
 });

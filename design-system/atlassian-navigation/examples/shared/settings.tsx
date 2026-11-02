@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 import { Settings } from '@atlaskit/atlassian-navigation/settings';
 import ButtonItem from '@atlaskit/menu/button-item';
 import HeadingItem from '@atlaskit/menu/heading-item';

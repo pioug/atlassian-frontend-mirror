@@ -2,6 +2,7 @@ import React from 'react';
 
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
+import { externalStatePlugin } from '@atlaskit/editor-plugin-external-state/externalStatePlugin';
 import { numberedHeadingsPlugin } from '@atlaskit/editor-plugin-numbered-headings/numberedHeadingsPlugin';
 import { toolbarPlugin } from '@atlaskit/editor-plugin-toolbar/toolbar-plugin';
 import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
@@ -88,6 +89,7 @@ export default function Example(): React.JSX.Element {
 			.add(tablesPlugin)
 			.add(layoutPlugin)
 			.add([expandPlugin, { allowInsertion: true, appearance: 'full-page' }])
+			.add(externalStatePlugin)
 			.add(numberedHeadingsPlugin),
 	);
 

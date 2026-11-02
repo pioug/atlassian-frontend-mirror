@@ -14,7 +14,6 @@ import {
 import { defaultCategories, frequentCategory } from '../util/constants';
 import { getCategoryId } from '../util/get-category-id';
 import { isEmojiDescriptionWithVariations } from '../util/is-emoji-description-with-variations';
-import { isTeamoji26RefreshEmojiPickerEnabled } from '../util/teamoji26RefreshEmojiPicker';
 import { tokenizerRegex } from './EmojiRepositoryRegex';
 import { getEmojiVariation } from './getEmojiVariation';
 import { createSearchEmojiComparator } from './internal/createSearchEmojiComparator';
@@ -130,10 +129,6 @@ const findEmojiIndex = (emojis: EmojiDescription[], toFind: EmojiDescription): n
 		}
 	});
 	return match;
-};
-
-const isRefreshEmojiPickerEnabled = (): boolean => {
-	return isTeamoji26RefreshEmojiPickerEnabled();
 };
 
 export default class EmojiRepository {
@@ -393,9 +388,7 @@ export default class EmojiRepository {
 		this.fullSearch.searchIndex = new UnorderedSearchIndex();
 		this.fullSearch.addIndex('name');
 		this.fullSearch.addIndex('shortName');
-		if (isRefreshEmojiPickerEnabled()) {
-			this.fullSearch.addIndex('keywords');
-		}
+		this.fullSearch.addIndex('keywords');
 
 		this.fullSearch.addDocuments(this.getAllSearchableEmojis());
 		this.fullSearchReady = true;

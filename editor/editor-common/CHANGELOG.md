@@ -1,5 +1,88 @@
 # @atlaskit/editor-common
 
+## 134.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 134.4.2
+
+### Patch Changes
+
+- [`58dbf509ebe1a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/58dbf509ebe1a) -
+  Enable mention avatars in both editor paths for the `canvas_agentic_experiences_master_exp`
+  treatment.
+
+## 134.4.1
+
+### Patch Changes
+
+- [`a8901c126e77f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a8901c126e77f) -
+  Skip unchanged popup position state updates behind platform_editor_improve_inp_batch_2.
+- Updated dependencies
+
+## 134.4.0
+
+### Minor Changes
+
+- [`88f6eda39f497`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88f6eda39f497) -
+  Resolve agent telepointer colours from supplied display names and stable named IDs instead of
+  machine types. Under `confluence_ncs_step_diffing_version_history`, collab-provider carries
+  `agentId`, `agentName` and `agentNamedId` from received steps into local agent presence, retaining
+  known metadata when later steps omit it. This path uses no profile lookups. Missing presentation
+  metadata uses the generic agent palette; human participants keep their existing colours.
+
+  Telepointers identify agent participants from these explicit identity fields rather than
+  `agentType` or a human participant's display name.
+
+  `getParticipantColor(id, agentName?, agentNamedId?)` and
+  `collabEdit.actions.getAvatarColor(id, agentName?, agentNamedId?)` now accept a resolved display
+  name in the second argument. Callers previously passing a machine type should supply the agent's
+  name instead, and pass stable named IDs in the third argument. With
+  `confluence_ncs_step_diffing_version_history` enabled, named brand metadata takes precedence over
+  the display name. With the gate off, brand lookup is disabled. Human callers should continue to
+  omit agent metadata.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 134.3.1
+
+### Patch Changes
+
+- [`ce5f97ab62e45`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ce5f97ab62e45) -
+  [EDITOR-9779] Apply Hello slash menu naming and ranking behind platform_editor_slash_command:
+  rename the Loom record item to "Loom" and Insert Confluence list to "Confluence list", rank Assets
+  after the Spaces items in Data and charts, and stop forcing Smart button into Structure
+- [`8f9c12c0398d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f9c12c0398d2) -
+  Delete unreachable internal source files
+- Updated dependencies
+
+## 134.3.0
+
+### Minor Changes
+
+- [`b2cba09ce9ad0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2cba09ce9ad0) -
+  Add a shared cell-local mark-presence helper and use it for clear-formatting and block-type
+  formatting-presence checks behind `platform_editor_improve_inp`. Reuse resolved cell-selection
+  ranges and stop scanning at the first matching mark.
+
+  Share schema mark-name resolution through `getSupportedMarkTypes`, caching results per schema and
+  mark-name array to avoid repeated allocation during selection changes.
+
+- [`9ed4f69277c0c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9ed4f69277c0c) -
+  Preserve Smart Card iframe state across editor width changes using a shared node-view preservation
+  helper, behind platform_editor_preserve_smart_card_embeds. Keep the existing Remix preservation
+  path when the experiment is disabled.
+
+### Patch Changes
+
+- [`42f1409f3df4c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/42f1409f3df4c) -
+  Enable mention avatars when the `canvas-rovo-comment-sessions` gate is on.
+- Updated dependencies
+
 ## 134.2.2
 
 ### Patch Changes

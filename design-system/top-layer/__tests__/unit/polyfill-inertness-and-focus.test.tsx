@@ -249,6 +249,68 @@ describe('polyfill parity with browsers', () => {
 		});
 	});
 
+	/**
+	 * This models the ADS `Popover` host reset (`pointer-events: auto` under `:defined`), which jsdom
+	 * cannot match. In Chrome, the plain `[popover]` markup here inherits `none`.
+	 */
+	describe('an open popover in a pointer-events: none ancestor', () => {
+		const user = userEvent.setup({ advanceTimers: jest.runAllTimers });
+
+		it('reports auto for the open popover and its content, and none when it is closed', () => {
+			mount({
+				html: '<div style="pointer-events: none"><div popover="manual" data-testid="popover"><button data-testid="inside">Inside</button></div></div>',
+			});
+			const popover = getElement({ id: 'popover' });
+			const inside = getElement({ id: 'inside' });
+			expect(window.getComputedStyle(inside).pointerEvents).toBe('none');
+
+			popover.showPopover();
+			expect(window.getComputedStyle(popover).pointerEvents).toBe('auto');
+			expect(window.getComputedStyle(inside).pointerEvents).toBe('auto');
+			popover.hidePopover();
+
+			expect(window.getComputedStyle(inside).pointerEvents).toBe('none');
+		});
+
+		it('lets a user-event click reach content in the open popover', async () => {
+			mount({
+				html: '<div style="pointer-events: none"><div popover="auto" data-testid="popover"><button data-testid="inside">Inside</button></div></div>',
+			});
+			const onClick = jest.fn();
+			const unbind = bind(getElement({ id: 'inside' }), { type: 'click', listener: onClick });
+			getElement({ id: 'popover' }).showPopover();
+
+			await user.click(getElement({ id: 'inside' }));
+
+			expect(onClick).toHaveBeenCalledTimes(1);
+			unbind();
+		});
+
+		it('keeps an inline pointer-events: none in the open popover', async () => {
+			mount({
+				html: '<div style="pointer-events: none"><div popover="manual" data-testid="popover"><div style="pointer-events: none"><button data-testid="inside">Inside</button></div></div></div>',
+			});
+			getElement({ id: 'popover' }).showPopover();
+
+			expect(window.getComputedStyle(getElement({ id: 'popover' })).pointerEvents).toBe('auto');
+			expect(window.getComputedStyle(getElement({ id: 'inside' })).pointerEvents).toBe('none');
+			await expect(user.click(getElement({ id: 'inside' }))).rejects.toThrow(
+				/pointer-events: none/,
+			);
+		});
+
+		it('reports none for an open popover outside the open modal dialog', () => {
+			mount({
+				html: '<div style="pointer-events: none"><div popover="manual" data-testid="popover"><button data-testid="inside">Inside</button></div></div><dialog data-testid="dialog"></dialog>',
+			});
+			getElement({ id: 'popover' }).showPopover();
+
+			getDialog({ id: 'dialog' }).showModal();
+
+			expect(window.getComputedStyle(getElement({ id: 'inside' })).pointerEvents).toBe('none');
+		});
+	});
+
 	describe('content that a browser does not render', () => {
 		it('does not take focus in a hidden subtree', () => {
 			mount({ html: '<div hidden><button data-testid="in-hidden">In hidden</button></div>' });

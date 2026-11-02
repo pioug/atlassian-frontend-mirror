@@ -2,20 +2,19 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment } from 'react';
 
 import { keyframes } from '@compiled/react';
 
 import { css, jsx, cssMap } from '@atlaskit/css';
 import type { EmojiId, OnEmojiEvent, EmojiProvider } from '@atlaskit/emoji/types';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
-import { getDefaultReactions } from '../shared/constants';
+import { TeamojiDefaultReactions } from '../shared/constants';
 import { messages } from '../shared/i18n';
 import { EmojiButton } from './EmojiButton';
 import { ShowMore } from './ShowMore';
@@ -153,17 +152,7 @@ export const Selector = ({
 	pickerQuickReactionEmojiIds,
 	hoverableReactionPickerSelector = false,
 }: SelectorProps): JSX.Element => {
-	const [isTeamojiPickerRefreshEnabled, setIsTeamojiPickerRefreshEnabled] = useState(false);
-
-	useEffect(() => {
-		setIsTeamojiPickerRefreshEnabled(
-			expValEquals('platform_teamoji_26_refresh_emoji_picker', 'isEnabled', true) ||
-				fg('platform_teamoji_26_refresh_emoji_picker_user_id'),
-		);
-	}, []);
-
-	const quickReactionEmojiIds =
-		pickerQuickReactionEmojiIds ?? getDefaultReactions(isTeamojiPickerRefreshEnabled);
+	const quickReactionEmojiIds = pickerQuickReactionEmojiIds ?? TeamojiDefaultReactions;
 
 	/**
 	 * Render the default emoji icon

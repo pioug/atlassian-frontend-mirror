@@ -1,3 +1,5 @@
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
 import { getExtension } from '../../getExtension';
 import { getLanguageType } from '../../getLanguageType';
 import { isCodeViewerItem } from '../../isCodeViewerItem';
@@ -121,6 +123,50 @@ describe(getExtension, () => {
 		['2character.ex', 'ex'],
 	])('filename %s should give extension "%s"', (filename, extension) => {
 		expect(getExtension(filename)).toEqual(extension);
+	});
+});
+
+describe('git format-patch previews', () => {
+	// libmagic classifies `git format-patch` files (they start with `From <hash>`) as
+	// text/x-diff. Without the gate that MIME type is sent to document preview, which fails.
+	test.each([
+		['0001-fix.patch', 'text/x-diff'],
+		['0001-fix.patch', 'text/x-patch'],
+		['0001-fix.diff', 'application/x-patch'],
+		['changes', 'text/x-diff'],
+	])('does not preview %s (%s) when the gate is off', (filename, mimetype) => {
+		failGate('platform_media_patch_text_preview');
+
+		expect(getLanguageType(filename, mimetype)).toBeNull();
+		expect(isCodeViewerItem(filename, mimetype ?? 'unknown')).toBe(false);
+	});
+
+	test('previews a .patch file already labelled text/plain without reading the gate', () => {
+		expect(getLanguageType('0001-fix.patch', 'text/plain')).toBe('text');
+		expect(isCodeViewerItem('0001-fix.patch', 'text/plain')).toBe(true);
+	});
+
+	test.each([
+		['0001-fix.patch', 'message/rfc822'],
+		['0001-fix.patch', 'application/mbox'],
+		['0001-fix.patch', 'application/octet-stream'],
+		['0001-fix.patch', undefined],
+		['0001-fix.diff', undefined],
+	])('does not preview %s (%s) from the file name alone', (filename, mimetype) => {
+		expect(getLanguageType(filename, mimetype)).toBeNull();
+		expect(isCodeViewerItem(filename, mimetype ?? 'unknown')).toBe(false);
+	});
+
+	test.each([
+		['0001-fix.patch', 'text/x-diff'],
+		['0001-fix.patch', 'text/x-patch'],
+		['0001-fix.diff', 'application/x-patch'],
+		['changes', 'text/x-diff'],
+	])('previews %s (%s) as text when the gate is on', (filename, mimetype) => {
+		passGate('platform_media_patch_text_preview');
+
+		expect(getLanguageType(filename, mimetype)).toBe('text');
+		expect(isCodeViewerItem(filename, mimetype ?? 'unknown')).toBe(true);
 	});
 });
 

@@ -1,5 +1,14 @@
 # @atlaskit/media-ui
 
+## 31.6.1
+
+### Patch Changes
+
+- [`e16cf303998cd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e16cf303998cd) -
+  Preview `.patch` and `.diff` files, including `git format-patch` output sniffed as `text/x-diff`,
+  as text in the code viewer when `platform_media_patch_text_preview` is enabled. With the gate off,
+  those files still go through document preview.
+
 ## 31.6.0
 
 ### Minor Changes

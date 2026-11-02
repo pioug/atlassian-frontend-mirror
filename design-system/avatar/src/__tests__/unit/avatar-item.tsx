@@ -7,7 +7,6 @@ import { fireEvent, render } from '@atlassian/testing-library/testing-library/re
 import Avatar from '../../avatar';
 import AvatarItem from '../../avatar-item';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Avatar', () => {
 	it('should render a span when neither onClick or href us supplied', () => {
 		render(<AvatarItem avatar={<Avatar />} testId={'avatar'} />);

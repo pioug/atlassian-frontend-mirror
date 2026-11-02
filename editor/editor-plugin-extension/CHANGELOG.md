@@ -1,5 +1,34 @@
 # @atlaskit/editor-plugin-extension
 
+## 33.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 33.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 33.0.5
+
+### Patch Changes
+
+- [`c47fd455dba6b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c47fd455dba6b) -
+  Clean up feature gate `platform_editor_ai_object_sidebar_injection`; keep object-sidebar injection
+  enabled.
+- Updated dependencies
+
+## 33.0.4
+
+### Patch Changes
+
+- [`b0b0a2e076d8d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b0b0a2e076d8d) -
+  Clean up experiment `platform_editor_table_sticky_header_improvements`
+- Updated dependencies
+
 ## 33.0.3
 
 ### Patch Changes

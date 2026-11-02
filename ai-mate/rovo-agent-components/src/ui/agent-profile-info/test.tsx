@@ -5,7 +5,6 @@ import { IntlProvider } from 'react-intl';
 
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import { AgentProfileCreator, getAgentCreator } from './index';
 
@@ -181,8 +180,10 @@ describe('getAgentCreator', () => {
 		});
 	});
 
-	ffTest.on('rovo_agent_support_a2a_avatar', 'with rovo_agent_support_a2a_avatar on', () => {
+	describe('rovo_agent_support_a2a_avatar is on with rovo_agent_support_a2a_avatar on', () => {
 		it('should return FORGE creator for remote A2A with forge creator', () => {
+			passGate('rovo_agent_support_a2a_avatar');
+
 			const creator = getAgentCreator({
 				creatorType: 'REMOTE_A2A',
 				userCreator: undefined,
@@ -193,6 +194,8 @@ describe('getAgentCreator', () => {
 		});
 
 		it('should return FORGE creator for remote A2A without forge creator', () => {
+			passGate('rovo_agent_support_a2a_avatar');
+
 			const creator = getAgentCreator({
 				creatorType: 'REMOTE_A2A',
 				userCreator: undefined,
@@ -340,8 +343,10 @@ describe('AgentProfileCreator', () => {
 	});
 
 	eeTest.describe('platform_editor_agent_mentions', 'experiment on').variant(true, () => {
-		ffTest.on('platform_editor_agent_mentions_drop_one_fixes', 'fg on', () => {
+		describe('platform_editor_agent_mentions_drop_one_fixes is on fg on', () => {
 			test('hides the Rovo icon', () => {
+				passGate('platform_editor_agent_mentions_drop_one_fixes');
+
 				render(
 					<AgentProfileCreator
 						creator={getAgentCreator({

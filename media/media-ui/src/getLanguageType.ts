@@ -1,6 +1,12 @@
 import type { SupportedLanguages } from '@atlaskit/code/constants';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { getExtension } from './getExtension';
+
+// git format-patch output is plain text, but sniffing labels it text/x-diff (or a
+// patch alias) rather than text/plain. Only those types are safe to preview as
+// text. The file extension is not: a .patch or .diff name can carry any MIME type.
+const TEXTUAL_PATCH_MIME_TYPES = new Set(['text/x-diff', 'text/x-patch', 'application/x-patch']);
 
 const codeViewerMimeTypes: {
 	mimetype: string;
@@ -154,7 +160,12 @@ export function getLanguageType(name: string, mimetype?: string): SupportedLangu
 		case 'yml':
 			return 'yaml';
 		default:
-			if (mimetype === 'text/plain') {
+			if (
+				mimetype === 'text/plain' ||
+				(mimetype != null &&
+					TEXTUAL_PATCH_MIME_TYPES.has(mimetype) &&
+					fg('platform_media_patch_text_preview'))
+			) {
 				return 'text';
 			}
 			return null;

@@ -263,7 +263,6 @@ export const IconGrid = ({
 	children: React.ReactNode;
 	gridTemplateColumns: string;
 }): JSX.Element => (
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 	<div css={gridStyles} style={{ gridTemplateColumns }}>
 		{children}
 	</div>

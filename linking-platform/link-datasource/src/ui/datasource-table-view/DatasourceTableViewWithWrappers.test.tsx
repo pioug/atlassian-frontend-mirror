@@ -32,7 +32,6 @@ const Table = ({ onVisibleColumnKeysChange, ...props }: DatasourceTableViewProps
 	<button onClick={() => onVisibleColumnKeysChange?.(['status'])}>{JSON.stringify(props)}</button>
 );
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage -- The table UI is mocked; these tests cover hydration and prop forwarding.
 describe('DatasourceTableViewWithWrappers', () => {
 	beforeEach(() => {
 		mockTable.mockImplementation(Table);

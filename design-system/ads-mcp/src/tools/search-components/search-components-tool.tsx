@@ -69,7 +69,7 @@ export const searchComponentsTool = async ({
 			content: [
 				{
 					type: 'text',
-					text: `Error: No ADS components found for '${terms.join(', ')}'. If this is a public @atlaskit/* package outside the ADS catalog, call atlaskit_search_components with the same terms. Available ADS components: ${components.map((c) => c.name).join(', ')}`,
+					text: `Error: No ADS components found for '${terms.join(', ')}'. If this is a public @atlaskit/* package or internal @atlassian/* Platform offering outside the ADS catalog, call atlaskit_search_components with the same terms. Available ADS components: ${components.map((c) => c.name).join(', ')}`,
 				},
 			],
 		};

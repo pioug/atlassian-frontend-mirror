@@ -303,5 +303,25 @@ describe('polyfill popover stacks', () => {
 
 			expect(popover.matches(':popover-open')).toBe(false);
 		});
+
+		it('still hides a removed popover when a test stubs MutationObserver after the polyfill loads', () => {
+			const OriginalMutationObserver = globalThis.MutationObserver;
+			globalThis.MutationObserver = jest.fn(() => ({
+				observe: () => {},
+				disconnect: () => {},
+				takeRecords: () => [],
+			})) as unknown as typeof MutationObserver;
+			mount({ html: '<div popover="manual" data-testid="popover"></div>' });
+			const popover = getElement({ id: 'popover' });
+
+			try {
+				popover.showPopover();
+				popover.remove();
+
+				expect(popover.matches(':popover-open')).toBe(false);
+			} finally {
+				globalThis.MutationObserver = OriginalMutationObserver;
+			}
+		});
 	});
 });

@@ -1,5 +1,23 @@
 # @atlaskit/feature-gate-fetcher
 
+## 2.0.0
+
+### Major Changes
+
+- [`67eb7db820b2b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/67eb7db820b2b) -
+  With `includeFfpFlags: true`, the single-fetch and polling providers fetch Feature Flag Platform
+  values along with Statsig values and pass both to `@atlaskit/feature-gate-js-client`. The fetcher
+  adds `fetchEvalFlags` for providers that need both. The polling provider's cache format has
+  changed, so it fetches values again once after upgrading.
+
+### Patch Changes
+
+- [`67eb7db820b2b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/67eb7db820b2b) -
+  Add `./eval-flags/*` entry points that expose the `/api/v1/evalFlags` response helpers.
+  `@atlaskit/feature-gate-fetcher` now uses them instead of its own copy, so products that bundle
+  both packages ship one implementation.
+- Updated dependencies
+
 ## 1.1.0
 
 ### Minor Changes

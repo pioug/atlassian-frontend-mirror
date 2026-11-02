@@ -18,7 +18,6 @@ import { toneSelectedEvent } from '../../util/analytics/toneSelectedEvent';
 import { toneSelectorOpenedEvent } from '../../util/analytics/toneSelectorOpenedEvent';
 import { messages } from '../i18n';
 import EmojiRadioButton from './EmojiRadioButton';
-import { isRefreshEmojiPickerEnabled } from './isRefreshEmojiPickerEnabled';
 import { setSkinToneAriaLabelText } from './setSkinToneAriaLabelText';
 import { toneSelectorTestId } from './ToneSelector';
 import type { Props } from './ToneSelector';
@@ -128,7 +127,7 @@ export const ToneSelectorInternal = (props: PropsWithAnalyticsEventsPropsType): 
 			onMouseDown={onMouseDownHandler}
 		>
 			{emojiToneCollection.map((tone, renderIndex) => {
-				return isRefreshEmojiPickerEnabled() ? (
+				return (
 					<EmojiRadioButton
 						ref={(el) => {
 							radioRefs.current[renderIndex] = el;
@@ -142,16 +141,6 @@ export const ToneSelectorInternal = (props: PropsWithAnalyticsEventsPropsType): 
 						key={`${tone.id}`}
 						emoji={tone}
 						onArrowKey={(direction) => onArrowKey(renderIndex, direction)}
-						onSelected={onToneSelectedHandler(tone.toneIndex)}
-						selectOnHover
-					/>
-				) : (
-					<EmojiRadioButton
-						ref={tone.isSelected ? selectedToneRadioRef : null}
-						defaultChecked={tone.isSelected}
-						ariaLabelText={tone.label}
-						key={`${tone.id}`}
-						emoji={tone}
 						onSelected={onToneSelectedHandler(tone.toneIndex)}
 						selectOnHover
 					/>

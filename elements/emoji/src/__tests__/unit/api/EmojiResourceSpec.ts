@@ -8,8 +8,6 @@ import type {
 	SecurityOptions,
 	ServiceConfig,
 } from '@atlaskit/util-service-support/types';
-import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
-import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 
 import type EmojiRepository from '../../../api/EmojiRepository';
 import EmojiResource, { type EmojiResourceConfig } from '../../../api/EmojiResource';
@@ -66,7 +64,6 @@ jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
 const mockConstants = constants as {
 	SAMPLING_RATE_EMOJI_RESOURCE_FETCHED_EXP: number;
 };
-const teamojiRefreshExperimentName = 'platform_teamoji_26_refresh_emoji_picker';
 /**
  * Skipping 3 tests that are failing since the jest 23 upgrade
  * TODO: JEST-23
@@ -349,8 +346,7 @@ describe('EmojiResource', () => {
 			expect(resource.emojiProviderConfig.providers[0].url).toEqual('/gateway/api/emoji/standard');
 		});
 
-		it('adds teamoji 26 query parameter to atlassian provider urls when refresh experiment is enabled', () => {
-			mockExpEnabled(teamojiRefreshExperimentName);
+		it('adds teamoji 26 query parameter to atlassian provider urls', () => {
 			const config: EmojiResourceConfig = {
 				...defaultApiConfig,
 				providers: [
@@ -376,24 +372,6 @@ describe('EmojiResource', () => {
 			);
 			expect(resource.emojiProviderConfig.providers[2].url).toEqual(
 				'https://example.com/gateway/api/emoji/atlassian?foo=bar&useTeamoji26=true#section',
-			);
-		});
-
-		it('does not add teamoji 26 query parameter when refresh experiment is disabled', () => {
-			mockExpDisabled(teamojiRefreshExperimentName);
-			const config: EmojiResourceConfig = {
-				...defaultApiConfig,
-				providers: [
-					{
-						url: 'https://example.com/gateway/api/emoji/atlassian',
-					},
-				],
-			};
-
-			const resource = new EmojiResource(config);
-
-			expect(resource.emojiProviderConfig.providers[0].url).toEqual(
-				'https://example.com/gateway/api/emoji/atlassian',
 			);
 		});
 	});

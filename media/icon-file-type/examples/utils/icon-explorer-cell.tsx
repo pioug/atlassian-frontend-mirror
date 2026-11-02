@@ -10,13 +10,12 @@ import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
-// eslint-disable-next-line @atlaskit/design-system/no-html-anchor, @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
+// eslint-disable-next-line @atlaskit/design-system/no-html-anchor, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const IconExplorerLink = styled.a({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&, &:hover, &:active, &:focus': {
@@ -122,7 +121,7 @@ const IconExplorerCell: FC<IconExplorerCellProps> = ({
 	return (
 		<div>
 			<Tooltip content={componentName}>
-				{/* eslint-disable-next-line styled-components-a11y/click-events-have-key-events, styled-components-a11y/no-static-element-interactions, styled-components-a11y/anchor-is-valid */}
+				{/* eslint-disable-next-line styled-components-a11y/anchor-is-valid */}
 				<IconExplorerLink onClick={openModal}>
 					<Icon label={componentName} />
 				</IconExplorerLink>

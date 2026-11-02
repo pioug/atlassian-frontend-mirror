@@ -38,7 +38,6 @@ import {
 } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import Form from '@atlaskit/form/form';
 import { FormFooter } from '@atlaskit/form/form-footer';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { ExtensionPlugin, RejectSave } from '../../extensionPluginType';
 import { ALLOWED_LOGGED_MACRO_PARAMS } from './constants';
@@ -194,7 +193,6 @@ type Props = {
 	onChange: OnSaveCallback | OnSaveCallbackAsync;
 	parameters?: Parameters;
 	showHeader?: boolean;
-	// Remove below prop when cleaning platform_editor_ai_object_sidebar_injection FG
 	usingObjectSidebarPanel?: boolean;
 } & WithAnalyticsEventsProps;
 
@@ -411,14 +409,9 @@ class ConfigPanel extends React.Component<Props, State> {
 		this.setState({ currentParameters, hasParsedParameters: true });
 	};
 
-	/**
-	 * Remove renderHeader when when cleaning platform_editor_ai_object_sidebar_injection FG
-	 * Because header will br rendered separately outside of ConfigPanel.
-	 * ConfigPanel will be body component of ContextPanel.
-	 */
+	// The sidebar panel renders its own header; the legacy panel uses this header.
 	// memoized to prevent rerender on new parameters
 	renderHeader = memoizeOne((extensionManifest: ExtensionManifest) => {
-		// Remove below line when cleaning platform_editor_ai_object_sidebar_injection FG
 		if (this.props.usingObjectSidebarPanel) {
 			return null;
 		}
@@ -518,10 +511,9 @@ class ConfigPanel extends React.Component<Props, State> {
 										data-testid="extension-config-panel"
 									>
 										{this.renderHeader(extensionManifest)}
-										{this.props.usingObjectSidebarPanel &&
-											fg('platform_editor_ai_object_sidebar_injection') && (
-												<DescriptionSummary extensionManifest={extensionManifest} />
-											)}
+										{this.props.usingObjectSidebarPanel && (
+											<DescriptionSummary extensionManifest={extensionManifest} />
+										)}
 										<ConfigFormIntlWithBoundary
 											api={api}
 											canSave={false}
@@ -640,7 +632,6 @@ const result: React.ForwardRefExoticComponent<
 				onChange: OnSaveCallback | OnSaveCallbackAsync;
 				parameters?: Parameters;
 				showHeader?: boolean;
-				// Remove below prop when cleaning platform_editor_ai_object_sidebar_injection FG
 				usingObjectSidebarPanel?: boolean;
 			},
 			keyof WithAnalyticsEventsProps

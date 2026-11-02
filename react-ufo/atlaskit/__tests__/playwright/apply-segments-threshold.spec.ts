@@ -1,8 +1,5 @@
-/* eslint-disable playwright/no-conditional-expect */
-/* eslint-disable playwright/no-conditional-in-test */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable testing-library/prefer-screen-queries */
-/* eslint-disable compat/compat */
 
 import type { SegmentInfo } from '../../src/common';
 import type { RootSegment } from '../../src/common/react-ufo-payload-schema';

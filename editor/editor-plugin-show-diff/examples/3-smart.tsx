@@ -85,7 +85,6 @@ import type {
 	DeletedDiffPlacement,
 	DiffType,
 	InlineDeletedDiffPlacement,
-	RevealOptions,
 } from '../src/showDiffPluginType';
 
 // WARNING: `setBooleanFeatureFlagResolver` REPLACES the resolver — it does not layer on top of one.
@@ -95,22 +94,14 @@ import type {
 //
 // - `platform_editor_ai_smart_diff` ............ the `smart` diff type
 // - `platform_editor_ai_show_diff_patch_1` ..... diff correctness patch
-// - `platform_editor_diff_reveal_animation` .... the reveal, driven by the "Reveal" toggle
-// - `platform_editor_diff_hide_pure_deletions` . keeps delete-only changes out of the clean view,
-//                                                which `inline` otherwise leaks
 //
 // `confluence_ncs_step_diffing_version_history` is deliberately omitted: it is a Confluence version
 // history concern, not something this example exercises.
 setBooleanFeatureFlagResolver((flagKey) =>
-	[
-		'platform_editor_ai_smart_diff',
-		'platform_editor_ai_show_diff_patch_1',
-		'platform_editor_diff_reveal_animation',
-		'platform_editor_diff_hide_pure_deletions',
-	].includes(flagKey),
+	['platform_editor_ai_smart_diff', 'platform_editor_ai_show_diff_patch_1'].includes(flagKey),
 );
 
-// The reveal animation and hide-pure-deletions behaviours also require the Milestone 1 streaming
+// Parts of the show-diff pipeline also require the Milestone 1 streaming
 // UX umbrella experiment to be enrolled. Override its `isEnabled` value so this example shows the
 // intended production behaviour once the umbrella is fully rolled out.
 UNSAFE_overrideExperiment('platform_editor_ai_streaming_ux_experience_m1', { isEnabled: true });
@@ -241,7 +232,7 @@ const LONG =
  */
 const scenarios: Scenario[] = [
 	// ── DESIGN REFERENCE ────────────────────────────────────────────────────────
-	// The case the reveal animation is being designed against. Intended breakdown:
+	// The design reference case. Intended breakdown:
 	//
 	//   deleted (strikethrough + grey)   " based coffee"
 	//                                    ", We exist to make rare, competition-level coffees
@@ -1607,7 +1598,6 @@ function KitchenSinkEditor({
 	colorScheme,
 	hideDeletedDiffs,
 	hideAddedDiffsUnderline,
-	reveal,
 	showIndicators,
 	diffType,
 	deletedDiffPlacement,
@@ -1624,7 +1614,6 @@ function KitchenSinkEditor({
 	inlineDeletedDiffPlacement: InlineDeletedDiffPlacement;
 	/** 1-based index of this scenario's label in the full visible gallery. */
 	labelIndex: number;
-	reveal: RevealOptions | undefined;
 	scenario: Scenario;
 	showIndicators: boolean;
 }): React.JSX.Element | null {
@@ -1690,8 +1679,7 @@ function KitchenSinkEditor({
 	}, [editorApi, scenario]);
 
 	// Content setup, deliberately SEPARATE from the diff effect below. Replacing the document tears
-	// down every decoration, so if this ran on each toggle the reveal animation would have nothing
-	// to snapshot as its outgoing state and would cross-fade from a blank, undecorated document.
+	// down every decoration, so it should not rerun on each toggle.
 	useEffect(() => {
 		if (!editorApi || !built) {
 			return;
@@ -1718,7 +1706,6 @@ function KitchenSinkEditor({
 				smartThresholds,
 				deletedDiffPlacement,
 				inlineDeletedDiffPlacement,
-				reveal,
 			}),
 		);
 	}, [
@@ -1730,7 +1717,6 @@ function KitchenSinkEditor({
 		diffType,
 		deletedDiffPlacement,
 		inlineDeletedDiffPlacement,
-		reveal,
 	]);
 
 	return (
@@ -1763,14 +1749,6 @@ function DiffPanel({
 	const [deletedDiffPlacement, setDeletedDiffPlacement] = useState<DeletedDiffPlacement>('top');
 	const [inlineDeletedDiffPlacement, setInlineDeletedDiffPlacement] =
 		useState<InlineDeletedDiffPlacement>('before');
-	// The two-phase reveal. Flip this on, then use the "Deleted" toggle to replay the transition
-	// the AI review surface plays when the reviewer presses "Compare with original".
-	const [revealEnabled, setRevealEnabled] = useState(true);
-	// Memoised so it is referentially stable: it is a dependency of the effect that calls showDiff.
-	const reveal: RevealOptions | undefined = useMemo(
-		() => (revealEnabled ? { mode: 'phased' } : undefined),
-		[revealEnabled],
-	);
 
 	// Split the visible scenarios into the merged set and the optional separate kitchen-sink
 	// scenario, and derive the merged BEFORE/AFTER JSON. Recomputed whenever the visible set
@@ -1863,8 +1841,7 @@ function DiffPanel({
 	}, [editorApi, mergedScenarios]);
 
 	// Content setup, deliberately SEPARATE from the diff effect below. Replacing the document tears
-	// down every decoration, so if this ran on each toggle the reveal animation would have nothing
-	// to snapshot as its outgoing state and would cross-fade from a blank, undecorated document.
+	// down every decoration, so it should not rerun on each toggle.
 	useEffect(() => {
 		if (!editorApi) {
 			return;
@@ -1891,7 +1868,6 @@ function DiffPanel({
 				smartThresholds,
 				deletedDiffPlacement,
 				inlineDeletedDiffPlacement,
-				reveal,
 			}),
 		);
 	}, [
@@ -1903,7 +1879,6 @@ function DiffPanel({
 		diffType,
 		deletedDiffPlacement,
 		inlineDeletedDiffPlacement,
-		reveal,
 	]);
 
 	return (
@@ -1943,9 +1918,6 @@ function DiffPanel({
 				>
 					Inline deleted placement: {inlineDeletedDiffPlacement}
 				</Button>
-				<Button onClick={() => setRevealEnabled((prev) => !prev)}>
-					Reveal: {revealEnabled ? 'phased' : 'none'}
-				</Button>
 				<Text color="color.text.subtle">
 					{numberOfChanges > 0 ? `${numberOfChanges} change(s)` : 'No changes'}
 				</Text>
@@ -1967,7 +1939,6 @@ function DiffPanel({
 					diffType={diffType}
 					deletedDiffPlacement={deletedDiffPlacement}
 					inlineDeletedDiffPlacement={inlineDeletedDiffPlacement}
-					reveal={reveal}
 					scenario={kitchenSinkScenario}
 					labelIndex={mergedScenarios.length + 1}
 				/>

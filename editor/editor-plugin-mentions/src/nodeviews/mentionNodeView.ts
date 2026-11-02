@@ -266,6 +266,7 @@ export class MentionNodeView implements NodeView {
 			(cohort === 'person' ||
 				cohort === 'all' ||
 				isExperimentEnabled('platform_editor_mention_node_avatar') ||
+				isExperimentEnabled('canvas_agentic_experiences_master_exp') ||
 				isExperimentEnabled('platform_editor_mention_node_graphql_provider') ||
 				(isAgentMentionUserType(node.attrs.userType) &&
 					isExperimentEnabled('platform_editor_drop3_hexagon_agent_avatar')));

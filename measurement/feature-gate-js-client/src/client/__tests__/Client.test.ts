@@ -53,6 +53,19 @@ describe('applyUpdateCallback', () => {
 		feature: 'value',
 	};
 
+	/** A client in the state an initialize method leaves it in, with Statsig running. */
+	const createReadyClient = (): Client => {
+		const client = new Client();
+		client['statsigClient'] = mockStatsigClient as unknown as StatsigClient;
+		client['initOptions'] = {
+			environment: FeatureGateEnvironment.Development,
+			targetApp: 'test_target-app',
+		} as Client['initOptions'];
+		client['currentIdentifiers'] = { atlassianAccountId: 'foo' };
+		client['valuesApplied'] = true;
+		return client;
+	};
+
 	beforeEach(() => {
 		console.warn = jest.fn();
 	});
@@ -63,8 +76,7 @@ describe('applyUpdateCallback', () => {
 		${'initCompleted true'}    | ${true}       | ${false}
 		${'initWithDefaults true'} | ${false}      | ${true}
 	`('should apply update when - $variation', ({ initCompleted, initWithDefaults }) => {
-		const client = new Client();
-		client['statsigClient'] = mockStatsigClient as unknown as StatsigClient;
+		const client = createReadyClient();
 		client['initCompleted'] = initCompleted;
 		client['initWithDefaults'] = initWithDefaults;
 
@@ -78,8 +90,7 @@ describe('applyUpdateCallback', () => {
 	});
 
 	test('do not apply update if init was not completed and not with defaults', () => {
-		const client = new Client();
-		client['statsigClient'] = mockStatsigClient as unknown as StatsigClient;
+		const client = createReadyClient();
 		client['initCompleted'] = false;
 		client['initWithDefaults'] = false;
 
@@ -93,8 +104,7 @@ describe('applyUpdateCallback', () => {
 	});
 
 	test('console warn when apply update fails', () => {
-		const client = new Client();
-		client['statsigClient'] = mockStatsigClient as unknown as StatsigClient;
+		const client = createReadyClient();
 		client['initCompleted'] = true;
 		client['initWithDefaults'] = false;
 

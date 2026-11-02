@@ -67,6 +67,8 @@ test.describe('Keyboard navigation', () => {
 			'dropdown-menu',
 			'testing-keyboard-navigation',
 			{
+				// Legacy Shift+Tab exit; the top-layer behaviour is in ff-testing/platform-dst-top-layer.
+				featureFlag: 'platform-dst-top-layer=false',
 				'react-18-mode': 'modern',
 			},
 		);

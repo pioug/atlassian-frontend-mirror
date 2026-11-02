@@ -1,5 +1,37 @@
 # @atlaskit/editor-plugin-card
 
+## 36.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.0.7
+
+### Patch Changes
+
+- [`ce5f97ab62e45`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ce5f97ab62e45) -
+  [EDITOR-9779] Apply Hello slash menu naming and ranking behind platform_editor_slash_command:
+  rename the Loom record item to "Loom" and Insert Confluence list to "Confluence list", rank Assets
+  after the Spaces items in Data and charts, and stop forcing Smart button into Structure
+- Updated dependencies
+
+## 36.0.6
+
+### Patch Changes
+
+- [`9ed4f69277c0c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9ed4f69277c0c) -
+  Preserve Smart Card iframe state across editor width changes using a shared node-view preservation
+  helper, behind platform_editor_preserve_smart_card_embeds. Keep the existing Remix preservation
+  path when the experiment is disabled.
+- Updated dependencies
+
 ## 36.0.5
 
 ### Patch Changes

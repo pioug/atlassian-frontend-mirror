@@ -23,7 +23,7 @@ import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { findTable } from '@atlaskit/editor-tables/utils';
 
 import type { InsertMethod } from '../types';
-import { isNestedInExpand } from '../utils';
+import { getExpandWrapper, isNestedInExpand } from '../utils';
 import { createCommand } from './pm-plugins/plugin-factory';
 
 export const setExpandRef = (ref?: HTMLDivElement | null): Command =>
@@ -257,8 +257,7 @@ export const focusTitle =
 	(pos: number): Command =>
 	(state, dispatch, editorView) => {
 		if (editorView) {
-			const dom = editorView.domAtPos(pos);
-			const expandWrapper = dom.node.parentElement;
+			const expandWrapper = getExpandWrapper(editorView, pos);
 			if (expandWrapper) {
 				setSelectionInsideExpand(pos)(state, dispatch, editorView);
 				const input = expandWrapper.querySelector('input');

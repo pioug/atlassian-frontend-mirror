@@ -10,6 +10,7 @@ import {
 	type UpdateUserCompletionCallback,
 } from '../FeatureGates';
 import { NoFetchDataAdapter } from '../NoFetchDataAdapter';
+import type { FfpInitializeValues } from '../types';
 import { CLIENT_VERSION } from '../version';
 
 const mockStatsigClient = {
@@ -2178,7 +2179,13 @@ describe('FeatureGate client', () => {
 				FeatureGatesClass.updateUserWithProvider({ atlassianAccountId: 'abc-456' }, undefined),
 			).rejects.toThrow();
 
-			expect(mockProvider.setProfile).toHaveBeenCalledTimes(2);
+			// The values arrived, so the client serves the new user and the provider keeps its profile.
+			expect(mockProvider.setProfile).toHaveBeenCalledTimes(1);
+			expect(mockProvider.setProfile).toHaveBeenLastCalledWith(
+				expect.anything(),
+				{ atlassianAccountId: 'abc-456' },
+				undefined,
+			);
 			await expect(initializeWithProvider()).resolves.not.toThrow();
 		});
 
@@ -2191,7 +2198,13 @@ describe('FeatureGate client', () => {
 				FeatureGatesClass.updateUserWithProvider({ atlassianAccountId: 'abc-456' }, undefined),
 			).rejects.toThrow();
 
-			expect(mockProvider.setProfile).toHaveBeenCalledTimes(2);
+			// The values arrived, so the client serves the new user and the provider keeps its profile.
+			expect(mockProvider.setProfile).toHaveBeenCalledTimes(1);
+			expect(mockProvider.setProfile).toHaveBeenLastCalledWith(
+				expect.anything(),
+				{ atlassianAccountId: 'abc-456' },
+				undefined,
+			);
 			await expect(initializeWithProvider()).rejects.toMatch('Initialization error');
 		});
 
@@ -2363,6 +2376,42 @@ describe('FeatureGate client', () => {
 		test('should return the targetApp value after initialization', async () => {
 			await mockAndInit();
 			expect(FeatureGatesClass.getTargetApp()).toBe(TARGET_APP);
+		});
+	});
+
+	describe('ffpClient', () => {
+		const ffpValues: FfpInitializeValues = {
+			requestContext: { identifiers: { atlassianAccountId: 'abc-123' } },
+			flags: {
+				'ffp-gate': {
+					returnType: 'BOOLEAN',
+					value: true,
+					useCodeDefault: false,
+					metadata: { matchReason: 'rule_match', ruleId: 'rule-1' },
+				},
+			},
+		};
+
+		test('is undefined before initialization', () => {
+			expect(FeatureGatesClass.ffpClient).toBeUndefined();
+		});
+
+		test('serves FFP values after initialization', async () => {
+			await FeatureGatesClass.initializeFromValues(
+				{
+					sdkKey: 'client-my-sdk-key',
+					environment: FeatureGateEnvironment.Development,
+					targetApp: TARGET_APP,
+				},
+				{ atlassianAccountId: 'abc-123' },
+				{},
+				{},
+				ffpValues,
+			);
+
+			const options = { disableExposureLogging: true };
+			expect(FeatureGatesClass.ffpClient?.getBooleanValue('ffp-gate', false, options)).toBe(true);
+			expect(FeatureGatesClass.ffpClient?.getBooleanValue('other', false, options)).toBe(false);
 		});
 	});
 });

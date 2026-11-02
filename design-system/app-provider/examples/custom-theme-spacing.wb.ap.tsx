@@ -302,7 +302,6 @@ function SpacingResponseChart({
 				</Inline>
 			</Inline>
 			<div ref={containerRef} css={chartStyles.container}>
-				{/* eslint-disable-next-line @atlaskit/design-system/no-html-image -- Live chart requires SVG paths and dynamic coordinates. */}
 				<svg
 					width="100%"
 					height={height}

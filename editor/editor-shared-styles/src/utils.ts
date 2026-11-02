@@ -92,22 +92,21 @@ export function getHashCode(str: string): number {
 /**
  * Returns a fixed agent brand colour, an Agent Studio palette preference, or a hashed identity.
  *
- * Under `confluence_ncs_step_diffing_version_history` the red slots are skipped. Fixed brand
- * slots are exempt because none of them is red.
+ * Under `confluence_ncs_step_diffing_version_history`, brand colours are enabled with named IDs
+ * taking precedence over display names, and red slots are skipped.
  *
  * @param str - The input string used to determine the participant color.
- * @param agentType - Optional agent type supplied by agent-aware callers.
+ * @param agentName - Optional resolved display name supplied only for agents.
  * @param agentNamedId - Optional stable external configuration reference for named colour overrides.
  * @returns The palette colour and index; `isFixed` prevents callers from reallocating brand colours.
  */
 export function getParticipantColor(
 	str: string,
-	agentType?: string,
+	agentName?: string,
 	agentNamedId?: string,
 ): { color: ParticipantColor; index: number; isFixed?: true } {
-	// `agentType` may be a named id (e.g. `mcp_lovable_agent`) or a display name (e.g. `lovable`).
-	const brand = agentType
-		? getThirdPartyAgentColor({ agentNamedId: agentType, agentName: agentType })
+	const brand = fg('confluence_ncs_step_diffing_version_history')
+		? getThirdPartyAgentColor({ agentNamedId, agentName })
 		: undefined;
 
 	if (brand) {
@@ -121,7 +120,7 @@ export function getParticipantColor(
 	}
 
 	const agentColor =
-		agentType || agentNamedId ? getAgentColor({ agentId: str, agentNamedId }) : undefined;
+		agentName || agentNamedId ? getAgentColor({ agentId: str, agentNamedId }) : undefined;
 	const preferredIndex = agentColor
 		? AGENT_COLOR_TO_PARTICIPANT_COLOR_INDEX[agentColor]
 		: getHashCode(str) % participantColors.length;

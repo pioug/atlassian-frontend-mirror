@@ -1,5 +1,25 @@
 # @atlaskit/adf-schema
 
+## 57.7.30
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.7.29
+
+### Patch Changes
+
+- [`9de7fd5676824`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9de7fd5676824) -
+  [ux] [EDITOR-9955] preserve rule attributes (color, style and weight) inside nested containers
+  during renderer validation for `platform_editor_lovability_dividers_attributes`.
+
+## 57.7.28
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 57.7.27
 
 ### Patch Changes

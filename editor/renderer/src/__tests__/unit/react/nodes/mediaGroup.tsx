@@ -52,7 +52,6 @@ import MediaGroup from '../../../../react/nodes/mediaGroup';
 const filmstrips = (container: HTMLElement) =>
 	container.querySelectorAll('[data-testid="filmstrip-list-wrapper"]');
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('MediaGroup', () => {
 	const mediaProvider = storyMediaProviderFactory();
 

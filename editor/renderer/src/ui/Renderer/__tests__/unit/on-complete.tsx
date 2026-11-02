@@ -13,7 +13,6 @@ const doc = (text: string): DocNode => ({
 
 const isDocumentCommitted = () => document.querySelector('.ak-renderer-wrapper') !== null;
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Renderer onComplete', () => {
 	it('calls onComplete with the render stat only after the document is committed to the DOM', () => {
 		const committedAtCall: boolean[] = [];

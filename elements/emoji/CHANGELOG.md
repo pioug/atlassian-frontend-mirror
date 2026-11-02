@@ -1,5 +1,32 @@
 # @atlaskit/emoji
 
+## 73.3.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 73.3.4
+
+### Patch Changes
+
+- [`9b9d696992cfc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b9d696992cfc) -
+  Remove the rolled-out TeamEmoji 26 picker gates and experiments, keeping the refreshed picker
+  behavior.
+- Updated dependencies
+
+## 73.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 73.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 73.3.1
 
 ### Patch Changes

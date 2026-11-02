@@ -7,7 +7,6 @@ import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import Breadcrumbs, { BreadcrumbsItem } from '../../../index';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform_dst_breadcrumbs-refresh', 'Breadcrumbs SSR with refresh enabled', () => {
 	describe('Breadcrumbs SSR', () => {
 		it('does not hide the breadcrumb list before client-side measurement', () => {

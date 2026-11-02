@@ -21,7 +21,6 @@ afterEach(() => {
 	jest.resetAllMocks();
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage -- This behavior-only component renders no DOM.
 describe('ScrollbarHarmonisation', () => {
 	it('does not install the appearance when the gate is off', () => {
 		failGate('platform_dst_scrollbar_harmonisation');

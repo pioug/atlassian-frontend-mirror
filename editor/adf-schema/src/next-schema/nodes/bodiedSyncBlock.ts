@@ -70,8 +70,8 @@ export const bodiedSyncBlock: ADFNode<[string], ADFCommonNodeSpec> = adfNode(
 				// base `panel` wraps a nested table as `unsupportedBlock`. See full-schema.adf.ts.
 				panel.use('c1'),
 				panel,
-				rule,
 				rule.use('with_attrs'),
+				rule,
 				bodiedRule,
 				table,
 				// @ts-expect-error - types don't deal well with circular references for the variant

@@ -6,7 +6,6 @@ import { render } from '@atlassian/testing-library/testing-library/react';
 import Presence from '../../presence';
 import Status from '../../status';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Presence', () => {
 	const presenceValue = 'online';
 

@@ -1,7 +1,7 @@
 import type { AttributeSchema, MotionEasingTokenSchema } from '../../../src/types';
 import type { BaseEasingToken } from '../../palettes/motion-palette';
 
-const font: AttributeSchema<MotionEasingTokenSchema<BaseEasingToken>> = {
+const easing: AttributeSchema<MotionEasingTokenSchema<BaseEasingToken>> = {
 	motion: {
 		easing: {
 			out: {
@@ -59,4 +59,4 @@ const font: AttributeSchema<MotionEasingTokenSchema<BaseEasingToken>> = {
 	},
 };
 
-export default font;
+export default easing;

@@ -42,7 +42,6 @@ const structureExtensionItemKeyRanks: Readonly<Record<string, number>> = {
 	'spotlight:quick-insert': 2200,
 	'create-from-template:create-from-template': 2700,
 	'anchor:anchor': 2900,
-	'smart-button:quick-insert': 3000,
 };
 const UNRECOGNIZED_STRUCTURE_EXTENSION_ITEM_RANK = 3100;
 const APP_DATA_AND_CHARTS_ITEM_RANK = 2700;

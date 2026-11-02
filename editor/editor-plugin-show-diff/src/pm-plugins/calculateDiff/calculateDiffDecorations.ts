@@ -24,7 +24,6 @@ import type {
 	DiffDescriptor,
 	DiffType,
 	InlineDeletedDiffPlacement,
-	RevealOptions,
 	ShowDiffPlugin,
 	SmartDiffThresholds,
 } from '../../showDiffPluginType';
@@ -451,20 +450,9 @@ export const isDeletedContentPlacedBelow = ({
 };
 
 /**
- * Single place `platform_editor_diff_hide_pure_deletions` is read, shared by the widget-anchor
- * calculation and the decoration push below so the two cannot drift.
- *
- * The clean view ("new state") historically only suppressed a deleted side when the same change
- * also carried an insertion. A PURE deletion — text removed with nothing put in its place — fell
- * through and leaked struck-through text into a view that is supposed to show none. `smart` never
- * showed this because it pairs a rewrite into a single change that always carries an insertion;
- * `inline` emits delete-only changes, so it did.
- *
- * With the gate off this returns exactly what both callers computed before it existed.
- *
- * Umbrella experiment: within the AI streaming UX M1 population this behaviour is only enabled
- * for the treatment cohort. Non-AI callers (track-changes, etc.) are not enrolled and default
- * to `true`, preserving the pre-umbrella baseline.
+ * Shared by the widget-anchor calculation and the decoration push below so the two cannot drift.
+ * The clean view ("new state") only suppresses a deleted side when the same change also carries
+ * an insertion.
  */
 const shouldHideDeletedSide = ({
 	change,
@@ -474,16 +462,7 @@ const shouldHideDeletedSide = ({
 	change: { inserted: readonly unknown[] };
 	hideDeletedDiffs?: boolean;
 	isInverted?: boolean;
-}): boolean =>
-	!isInverted &&
-	!!hideDeletedDiffs &&
-	(change.inserted.length > 0 ||
-		(fg('platform_editor_diff_hide_pure_deletions') &&
-			UNSAFE_expValNoExposure(
-				'platform_editor_ai_streaming_ux_experience_m1',
-				'isEnabled',
-				false,
-			) === true));
+}): boolean => !isInverted && !!hideDeletedDiffs && change.inserted.length > 0;
 
 const calculateDiffDecorationsInner = ({
 	state,
@@ -501,7 +480,6 @@ const calculateDiffDecorationsInner = ({
 	smartThresholds,
 	deletedDiffPlacement = 'top',
 	inlineDeletedDiffPlacement = 'before',
-	reveal,
 	tagMountContext,
 }: {
 	/**
@@ -520,7 +498,6 @@ const calculateDiffDecorationsInner = ({
 	isInverted?: boolean;
 	nodeViewSerializer: NodeViewSerializer;
 	pluginState: Omit<ShowDiffPluginState, 'decorations'>;
-	reveal?: RevealOptions;
 	showIndicators?: boolean;
 	smartThresholds?: Partial<SmartDiffThresholds>;
 	state: EditorState;
@@ -826,7 +803,6 @@ const calculateDiffDecorationsInner = ({
 							diffId: showContributorTags ? `blank-line-${pos}` : undefined,
 							isActive,
 							pos,
-							reveal,
 							side: -1,
 							tagMountContext,
 						}),
@@ -894,7 +870,6 @@ const calculateDiffDecorationsInner = ({
 						isDeletedWidgetBelow,
 						isInserted,
 						leftAnchorId,
-						reveal,
 						shouldHideDeleted,
 						showContributorTags,
 						showIndicators,
@@ -927,7 +902,6 @@ const calculateDiffDecorationsInner = ({
 							hideAddedDiffsUnderline,
 							hasDeletedWidget: willRenderDeletedWidget,
 							isDeletedWidgetBelow,
-							reveal,
 							tagMountContext,
 						}),
 					);
@@ -948,7 +922,6 @@ const calculateDiffDecorationsInner = ({
 						hideAddedDiffsUnderline,
 						hasDeletedWidget: willRenderDeletedWidget,
 						isDeletedWidgetBelow,
-						reveal,
 						tagMountContext,
 					}),
 				);
@@ -992,7 +965,6 @@ const calculateDiffDecorationsInner = ({
 						deletedColumns,
 						// The deleted side has no inline decoration, so the widget carries the actor.
 						attributionKey,
-						reveal,
 						change,
 						doc: originalDoc,
 						nodeViewSerializer,
@@ -1070,7 +1042,6 @@ const calculateDiffDecorationsInner = ({
 					doc: tr.doc,
 					isActive,
 					isInserted: true,
-					reveal,
 					showContributorTags,
 					tagMountContext,
 				}),
@@ -1234,7 +1205,6 @@ export const calculateDiffDecorations: MemoizedFn<
 		isInverted?: boolean;
 		nodeViewSerializer: NodeViewSerializer;
 		pluginState: Omit<ShowDiffPluginState, 'decorations'>;
-		reveal?: RevealOptions;
 		showIndicators?: boolean;
 		smartThresholds?: Partial<SmartDiffThresholds>;
 		state: EditorState;
@@ -1260,7 +1230,6 @@ export const calculateDiffDecorations: MemoizedFn<
 				smartThresholds,
 				deletedDiffPlacement,
 				inlineDeletedDiffPlacement,
-				reveal,
 			},
 		],
 		[
@@ -1278,7 +1247,6 @@ export const calculateDiffDecorations: MemoizedFn<
 				smartThresholds: lastSmartThresholds,
 				deletedDiffPlacement: lastDeletedDiffPlacement,
 				inlineDeletedDiffPlacement: lastInlineDeletedDiffPlacement,
-				reveal: lastReveal,
 			},
 		],
 	) => {
@@ -1304,10 +1272,7 @@ export const calculateDiffDecorations: MemoizedFn<
 				showIndicators === lastShowIndicators &&
 				isEqual(smartThresholds, lastSmartThresholds) &&
 				deletedDiffPlacement === lastDeletedDiffPlacement &&
-				inlineDeletedDiffPlacement === lastInlineDeletedDiffPlacement &&
-				// Turning the reveal on or off changes the emitted styles, so a cached result from the
-				// other setting would leave the diff painted in the wrong resting state.
-				isEqual(reveal, lastReveal)) ??
+				inlineDeletedDiffPlacement === lastInlineDeletedDiffPlacement) ??
 			false
 		);
 	},

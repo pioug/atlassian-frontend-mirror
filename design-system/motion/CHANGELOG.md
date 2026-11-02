@@ -1,5 +1,22 @@
 # @atlaskit/motion
 
+## 9.6.0
+
+### Minor Changes
+
+- [`8d4a9755471e3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d4a9755471e3) -
+  [ux] Add an experimental `IconMotion` component (`@atlaskit/motion/entering/icon-motion`) that
+  plays the `motion.iconography` enter and exit tokens when the icon it renders changes. Its
+  `interactionMotion` (`rotate`) is held while `isInteractionActive` is `true` and eases back when
+  it is `false`, so you decide when from any state, such as a button being hovered. Call
+  `reanimate()` on the component's `ref` to play the enter and exit animations again. Its
+  `overshoot` space token sets how far the `cycle` motion tokens travel past the icon's box, and how
+  far the clip around the icon extends.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.5.0
 
 ### Minor Changes

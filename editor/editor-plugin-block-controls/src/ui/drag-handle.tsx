@@ -288,21 +288,6 @@ const tooltipContainerStyles = css({
 	zIndex: 100, // card = 100
 });
 
-const tooltipContainerStylesStickyHeaderWithMask = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-	top: `${STICKY_CONTROLS_TOP_MARGIN}px`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-	'[data-blocks-drag-handle-container]:has(+ [data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
-		{
-			top: '0',
-		},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-	'[data-prosemirror-mark-name="breakout"]:has([data-blocks-drag-handle-container]):has(+ [data-prosemirror-node-name="table"] .pm-table-with-controls tr.sticky) &':
-		{
-			top: '0',
-		},
-});
-
 const tooltipContainerStylesImprovedStickyHeaderWithMask = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
 	top: `${STICKY_CONTROLS_TOP_MARGIN}px`,
@@ -1350,13 +1335,7 @@ export const DragHandle = ({
 				css={[
 					tooltipContainerStyles,
 					shouldMaskNodeControls(nodeType, isTopLevelNodeValue) &&
-						(expValEquals(
-							'platform_editor_table_sticky_header_improvements',
-							'cohort',
-							'test_with_overflow',
-						)
-							? tooltipContainerStylesImprovedStickyHeaderWithMask
-							: tooltipContainerStylesStickyHeaderWithMask),
+						tooltipContainerStylesImprovedStickyHeaderWithMask,
 					!shouldMaskNodeControls(nodeType, isTopLevelNodeValue) &&
 						tooltipContainerStylesStickyHeaderWithoutMask,
 				]}

@@ -1,6 +1,5 @@
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 
-import type { RevealOptions } from '../../../showDiffPluginType';
 import type { ColorScheme } from '../colorSchemes/types';
 import {
 	type ContributorTagMountContext,
@@ -26,7 +25,7 @@ export const RETURN_GLYPH = '⤶';
  * in for the absent content keeps the deletion visible without inventing content that was not there.
  *
  * `createContentWrapper` supplies the highlight and the strikethrough line, so the glyph is styled
- * exactly like any other run of deleted inline content, including the active and reveal states.
+ * exactly like any other run of deleted inline content, including the active state.
  *
  * Hidden from assistive technology: the glyph is a picture of a key, and read out it is announced as
  * its Unicode name rather than as a removed line.
@@ -35,13 +34,11 @@ export const createDeletedLineBreakWidget = ({
 	colorScheme,
 	count = 1,
 	isActive = false,
-	reveal,
 }: {
 	colorScheme?: ColorScheme;
 	/** One glyph per removed blank line, for a run of adjacent ones. */
 	count?: number;
 	isActive?: boolean;
-	reveal?: RevealOptions;
 }): HTMLElement => {
 	const dom = document.createElement('span');
 	// The testid deleted content is matched by, so the glyph is found wherever deleted content is.
@@ -58,7 +55,7 @@ export const createDeletedLineBreakWidget = ({
 			// deleted-content wrapper is styled as an inline run.
 			dom.append(dom.ownerDocument.createElement('br'));
 		}
-		const wrapper = createContentWrapper(colorScheme, isActive, false, reveal);
+		const wrapper = createContentWrapper(colorScheme, isActive, false);
 		wrapper.append(dom.ownerDocument.createTextNode(RETURN_GLYPH));
 		dom.append(wrapper);
 	}
@@ -82,7 +79,6 @@ export const createDeletedLineBreakDecoration = ({
 	diffId = crypto.randomUUID(),
 	isActive = false,
 	pos,
-	reveal,
 	side,
 	tagMountContext,
 }: {
@@ -92,11 +88,10 @@ export const createDeletedLineBreakDecoration = ({
 	diffId?: string;
 	isActive?: boolean;
 	pos: number;
-	reveal?: RevealOptions;
 	side?: number;
 	tagMountContext?: ContributorTagMountContext;
 }): Decoration => {
-	const dom = createDeletedLineBreakWidget({ colorScheme, count, isActive, reveal });
+	const dom = createDeletedLineBreakWidget({ colorScheme, count, isActive });
 	const tagHost = attributionKey
 		? createContributorTagHost({ diffId, mountContext: tagMountContext })
 		: undefined;

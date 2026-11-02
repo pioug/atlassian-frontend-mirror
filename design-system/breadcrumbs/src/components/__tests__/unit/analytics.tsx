@@ -18,7 +18,6 @@ const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 const mockUseOverflowCollapse = jest.mocked(useOverflowCollapse);
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('analysis', () => {
 	describe('Breadcrumbs', () => {
 		it('should send event to atlaskit/analytics', () => {
@@ -101,7 +100,6 @@ describe('analysis', () => {
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 ffTest.on('platform_dst_breadcrumbs-refresh', 'analytics with refresh enabled', () => {
 	beforeEach(() => {
 		mockUseOverflowCollapse.mockReset();

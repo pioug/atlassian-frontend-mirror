@@ -170,15 +170,10 @@ export const FileUploadButton = ({
 									src={imageUrl}
 									alt="Preview"
 									css={previewImageBaseStyles}
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 									style={{ filter: isHovered ? 'grayscale(100%)' : 'none' }}
 								/>
 							</Box>
-							<div
-								css={hoverOverlayBaseStyles}
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-								style={{ opacity: isHovered ? 1 : 0 }}
-							>
+							<div css={hoverOverlayBaseStyles} style={{ opacity: isHovered ? 1 : 0 }}>
 								<Box
 									xcss={fileUploadStyles.hoverOverlayBg}
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop

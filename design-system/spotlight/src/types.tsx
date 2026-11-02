@@ -11,6 +11,8 @@ export type Placement =
 	| 'left-end';
 
 export type PositionArea =
+	| 'inline-start'
+	| 'inline-end'
 	| 'start span-start'
 	| 'block-start'
 	| 'start span-end'

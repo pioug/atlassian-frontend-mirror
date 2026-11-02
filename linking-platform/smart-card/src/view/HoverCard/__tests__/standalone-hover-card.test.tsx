@@ -8,6 +8,7 @@ import type { CardStore } from '@atlaskit/linking-common/store';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import '@atlaskit/link-test-helpers/jest';
 import { screen } from '@atlassian/testing-library/screen';
 import { act, fireEvent, render } from '@atlassian/testing-library/testing-library/react';
@@ -810,18 +811,32 @@ describe('standalone hover card', () => {
 
 		describe('z-index', () => {
 			it('renders with defaults z-index', async () => {
+				// Legacy only: the z-index is on the portal. The top-layer case is below.
+				failGate('platform-dst-top-layer');
 				await standaloneSetUp();
 				const hoverCard = await screen.findByTestId('hover-card');
 				const portal = hoverCard.closest('.atlaskit-portal');
 				expect(portal).toHaveStyle('z-index: 510');
 			});
 			it('renders with provided z-index', async () => {
+				// Legacy only: the z-index is on the portal. The top-layer case is below.
+				failGate('platform-dst-top-layer');
 				await standaloneSetUp(undefined, {
 					zIndex: 10,
 				});
 				const hoverCard = await screen.findByTestId('hover-card');
 				const portal = hoverCard.closest('.atlaskit-portal');
 				expect(portal).toHaveStyle('z-index: 10');
+			});
+
+			it('renders in the top layer, where z-index is not used (top layer)', async () => {
+				passGate('platform-dst-top-layer');
+				await standaloneSetUp(undefined, {
+					zIndex: 10,
+				});
+				await screen.findByTestId('hover-card');
+				// The popover host has the `--container` test id.
+				expect(screen.getByTestId('hover-card--container').matches(':popover-open')).toBe(true);
 			});
 		});
 
@@ -854,6 +869,8 @@ describe('standalone hover card', () => {
 			});
 
 			it('should render popup in portal when shouldRenderToParent is false', async () => {
+				// Legacy only: the top-layer popup never uses a portal. The top-layer case is below.
+				failGate('platform-dst-top-layer');
 				await standaloneSetUp(undefined, {
 					shouldRenderToParent: false,
 					noFadeDelay: true,
@@ -863,6 +880,19 @@ describe('standalone hover card', () => {
 				expect(hoverCard).toBeInTheDocument();
 				// When shouldRenderToParent is false, the popup should be rendered in a portal
 				expect(hoverCard.closest('.atlaskit-portal')).toBeInTheDocument();
+			});
+
+			it('should render popup in place, in the top layer, when shouldRenderToParent is false (top layer)', async () => {
+				passGate('platform-dst-top-layer');
+				await standaloneSetUp(undefined, {
+					shouldRenderToParent: false,
+					noFadeDelay: true,
+				});
+
+				const hoverCard = await screen.findByTestId('hover-card');
+				expect(hoverCard.closest('.atlaskit-portal')).not.toBeInTheDocument();
+				// The popover host has the `--container` test id.
+				expect(screen.getByTestId('hover-card--container').matches(':popover-open')).toBe(true);
 			});
 		});
 	});

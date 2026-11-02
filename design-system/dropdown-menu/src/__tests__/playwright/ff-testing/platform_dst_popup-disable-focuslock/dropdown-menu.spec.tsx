@@ -45,7 +45,8 @@ test.describe('Keyboard navigation', () => {
 		await page.visitExample<
 			typeof import('../../../../../examples/92-testing-keyboard-navigation.tsx')
 		>('design-system', 'dropdown-menu', 'testing-keyboard-navigation', {
-			featureFlag: 'platform_dst_popup-disable-focuslock',
+			// Legacy Tab exit; the top-layer behaviour is in ff-testing/platform-dst-top-layer.
+			featureFlag: 'platform_dst_popup-disable-focuslock,platform-dst-top-layer=false',
 		});
 
 		await page.getByTestId(triggerTestId).press('Enter');
@@ -62,7 +63,8 @@ test.describe('Keyboard navigation', () => {
 		await page.visitExample<
 			typeof import('../../../../../examples/92-testing-keyboard-navigation.tsx')
 		>('design-system', 'dropdown-menu', 'testing-keyboard-navigation', {
-			featureFlag: 'platform_dst_popup-disable-focuslock',
+			// Legacy Shift+Tab exit; the top-layer behaviour is in ff-testing/platform-dst-top-layer.
+			featureFlag: 'platform_dst_popup-disable-focuslock,platform-dst-top-layer=false',
 		});
 
 		await page.getByTestId(triggerTestId).press('Enter');
@@ -108,7 +110,8 @@ test.describe('Nested keyboard navigation', () => {
 		await page.visitExample<
 			typeof import('../../../../../examples/91-testing-nested-keyboard-navigation.tsx')
 		>('design-system', 'dropdown-menu', 'testing-nested-keyboard-navigation', {
-			featureFlag: 'platform_dst_popup-disable-focuslock',
+			// Legacy example; the top-layer twin is 93-testing-nested-keyboard-navigation-top-layer.
+			featureFlag: 'platform_dst_popup-disable-focuslock,platform-dst-top-layer=false',
 		});
 
 		// Should open a nested dropdown level 0

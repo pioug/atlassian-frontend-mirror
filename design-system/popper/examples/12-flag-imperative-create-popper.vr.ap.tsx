@@ -176,7 +176,7 @@ export function ImperativeCallerOwnedPopover(): React.JSX.Element {
 					role="tooltip"
 					data-testid="popper"
 					// @ts-expect-error -- popover attribute not yet in React types
-					// eslint-disable-next-line react/no-unknown-property -- popover attribute not yet in React types
+					// eslint-disable-next-line react/no-unknown-property, @atlaskit/design-system/no-native-popover-or-dialog -- popover attribute not yet in React types; testing example for a caller-owned hint popover, as in VanillaTooltip
 					popover="hint"
 					css={styles.surface}
 				>

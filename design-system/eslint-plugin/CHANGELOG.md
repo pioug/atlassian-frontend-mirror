@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 16.15.0
+
+### Minor Changes
+
+- [`ac305b6aa4123`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ac305b6aa4123) -
+  Add the `no-native-popover-or-dialog` rule. It disallows native `popover` and `<dialog>` elements.
+  Use a Design System component, or `@atlaskit/top-layer` if no Design System component fits. The
+  rule is not in the `recommended` preset.
+
 ## 16.14.4
 
 ### Patch Changes

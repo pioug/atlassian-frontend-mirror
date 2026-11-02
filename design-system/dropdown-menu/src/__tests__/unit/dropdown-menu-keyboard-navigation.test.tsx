@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { act, fireEvent, render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { replaceRaf, type Stub } from 'raf-stub';
 
 import {
@@ -11,6 +12,7 @@ import {
 	KEY_RIGHT,
 	KEY_UP,
 } from '@atlaskit/ds-lib/keycodes';
+import { flushPopoverExit } from '@atlaskit/top-layer/testing/flush-popover-exit';
 
 import DropdownMenu from '../../dropdown-menu';
 import DropdownItem from '../../dropdown-menu-item';
@@ -91,6 +93,15 @@ describe('dropdown menu keyboard navigation', () => {
 		});
 
 		stepFrame();
+	}
+
+	/**
+	 * Press a key on the focused element, as a keyboard does. The top-layer menu listens for keys on
+	 * the menu, not on the trigger.
+	 */
+	async function pressKey(key: string) {
+		const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+		await user.keyboard(`{${key}}`);
 	}
 
 	function openDropdownWithKeydown(element: HTMLElement) {
@@ -182,7 +193,7 @@ describe('dropdown menu keyboard navigation', () => {
 			expect(screen.getByTestId(`${testId}--content`)).toHaveFocus();
 		});
 
-		it('should focus the next element on pressing the DOWN arrow', () => {
+		it('should focus the next element on pressing the DOWN arrow', async () => {
 			render(
 				<DropdownMenu trigger={triggerText} testId={testId}>
 					<DropdownItemGroup>
@@ -193,16 +204,12 @@ describe('dropdown menu keyboard navigation', () => {
 				</DropdownMenu>,
 			);
 			openDropdownWithClick(screen.getByTestId(`${testId}--trigger`));
+			stepFrame();
 
-			fireEvent.keyDown(screen.getByTestId(`${testId}--trigger`), {
-				key: KEY_DOWN,
-				code: KEY_DOWN,
-			});
-
-			fireEvent.keyDown(screen.getByTestId(`${testId}--trigger`), {
-				key: KEY_DOWN,
-				code: KEY_DOWN,
-			});
+			// Start from an explicit position rather than relying on the initial focus of a mouse open.
+			const firstMenuItem = screen.getAllByRole('menuitem')[0];
+			act(() => firstMenuItem.focus());
+			await pressKey(KEY_DOWN);
 
 			stepFrame();
 
@@ -212,7 +219,7 @@ describe('dropdown menu keyboard navigation', () => {
 		});
 	});
 
-	it('should focus the previous element on pressing the UP arrow', () => {
+	it('should focus the previous element on pressing the UP arrow', async () => {
 		render(
 			<DropdownMenu trigger={triggerText} testId={testId}>
 				<DropdownItemGroup>
@@ -227,22 +234,13 @@ describe('dropdown menu keyboard navigation', () => {
 		openDropdownWithKeydown(screen.getByTestId(`${testId}--trigger`));
 
 		// Bring focus to the second element
-		fireEvent.keyDown(screen.getByTestId(`${testId}--trigger`), {
-			key: KEY_DOWN,
-			code: KEY_DOWN,
-		});
+		await pressKey(KEY_DOWN);
 
 		// Bring focus to the third element
-		fireEvent.keyDown(screen.getByTestId(`${testId}--trigger`), {
-			key: KEY_DOWN,
-			code: KEY_DOWN,
-		});
+		await pressKey(KEY_DOWN);
 
 		// Bring focus to the previous element
-		fireEvent.keyDown(screen.getByTestId(`${testId}--trigger`), {
-			key: KEY_UP,
-			code: KEY_UP,
-		});
+		await pressKey(KEY_UP);
 		stepFrame();
 
 		const lastMenuItem = screen.getAllByRole('menuitem')[1];
@@ -301,7 +299,7 @@ describe('dropdown menu keyboard navigation', () => {
 		expect(asyncMenuItems[0]).toHaveFocus();
 	});
 
-	it('should skip over disabled items while keyboard navigating', () => {
+	it('should skip over disabled items while keyboard navigating', async () => {
 		const second = 'Second';
 		const fourth = 'Fourth';
 		const secondLast = 'Second Last';
@@ -319,48 +317,34 @@ describe('dropdown menu keyboard navigation', () => {
 			</DropdownMenu>,
 		);
 		openDropdownWithClick(screen.getByTestId(`${testId}--trigger`));
-
-		fireEvent.keyDown(screen.getByTestId(`${testId}--trigger`), {
-			key: KEY_DOWN,
-			code: KEY_DOWN,
-		});
-
-		fireEvent.keyDown(screen.getByTestId(`${testId}--trigger`), {
-			key: KEY_DOWN,
-			code: KEY_DOWN,
-		});
-
 		stepFrame();
 
 		const allMenuItems = screen.getAllByRole('menuitem');
+		// Start from an explicit position rather than relying on the initial focus of a mouse open.
+		act(() => allMenuItems[1].focus());
+		await pressKey(KEY_DOWN);
+
+		stepFrame();
+
 		const fourthMenuItem = allMenuItems[3];
 		expect(fourthMenuItem).toHaveAccessibleName(fourth);
 		expect(fourthMenuItem).toHaveFocus();
 
-		fireEvent.keyDown(screen.getByTestId(`${testId}--trigger`), {
-			key: KEY_UP,
-			code: KEY_UP,
-		});
+		await pressKey(KEY_UP);
 		stepFrame();
 
 		const secondMenuItem = allMenuItems[1];
 		expect(secondMenuItem).toHaveAccessibleName(second);
 		expect(secondMenuItem).toHaveFocus();
 
-		fireEvent.keyDown(screen.getByTestId(`${testId}--trigger`), {
-			key: KEY_END,
-			code: KEY_END,
-		});
+		await pressKey(KEY_END);
 		stepFrame();
 
 		const secondLastMenuItem = allMenuItems.slice(-2)[0];
 		expect(secondLastMenuItem).toHaveAccessibleName(secondLast);
 		expect(secondLastMenuItem).toHaveFocus();
 
-		fireEvent.keyDown(screen.getByTestId(`${testId}--trigger`), {
-			key: KEY_HOME,
-			code: KEY_HOME,
-		});
+		await pressKey(KEY_HOME);
 		stepFrame();
 
 		expect(secondMenuItem).toHaveFocus();
@@ -400,7 +384,7 @@ describe('dropdown menu keyboard navigation', () => {
 		expect(secondMenuItem).toHaveFocus();
 	});
 
-	it('should focus the first element on pressing the HOME arrow', () => {
+	it('should focus the first element on pressing the HOME arrow', async () => {
 		render(
 			<DropdownMenu trigger={triggerText} testId={testId}>
 				<DropdownItemGroup>
@@ -412,15 +396,9 @@ describe('dropdown menu keyboard navigation', () => {
 		);
 		openDropdownWithClick(screen.getByTestId(`${testId}--trigger`));
 
-		fireEvent.keyDown(screen.getByTestId(`${testId}--trigger`), {
-			key: KEY_DOWN,
-			code: KEY_DOWN,
-		});
+		await pressKey(KEY_DOWN);
 
-		fireEvent.keyDown(screen.getByTestId(`${testId}--trigger`), {
-			key: KEY_HOME,
-			code: KEY_HOME,
-		});
+		await pressKey(KEY_HOME);
 		stepFrame();
 
 		const firstMenuItem = screen.getAllByRole('menuitem')[0];
@@ -428,7 +406,7 @@ describe('dropdown menu keyboard navigation', () => {
 		expect(firstMenuItem).toHaveFocus();
 	});
 
-	it('should focus the last element on pressing the END arrow', () => {
+	it('should focus the last element on pressing the END arrow', async () => {
 		render(
 			<DropdownMenu trigger={triggerText} testId={testId}>
 				<DropdownItemGroup>
@@ -440,15 +418,9 @@ describe('dropdown menu keyboard navigation', () => {
 		);
 		openDropdownWithClick(screen.getByTestId(`${testId}--trigger`));
 
-		fireEvent.keyDown(screen.getByTestId(`${testId}--trigger`), {
-			key: KEY_DOWN,
-			code: KEY_DOWN,
-		});
+		await pressKey(KEY_DOWN);
 
-		fireEvent.keyDown(screen.getByTestId(`${testId}--trigger`), {
-			key: KEY_END,
-			code: KEY_END,
-		});
+		await pressKey(KEY_END);
 
 		stepFrame();
 
@@ -457,7 +429,7 @@ describe('dropdown menu keyboard navigation', () => {
 		expect(lastMenuItem).toHaveFocus();
 	});
 
-	it('should loop and move focus to the last element while the first element is focused and KEY_UP pressed', () => {
+	it('should loop and move focus to the last element while the first element is focused and KEY_UP pressed', async () => {
 		render(
 			<DropdownMenu trigger={triggerText} testId={testId}>
 				<DropdownItemGroup>
@@ -475,10 +447,7 @@ describe('dropdown menu keyboard navigation', () => {
 		expect(firstMenuItem).toHaveAccessibleName(items[0]);
 		expect(firstMenuItem).toHaveFocus();
 
-		fireEvent.keyDown(screen.getByTestId(`${testId}--trigger`), {
-			key: KEY_UP,
-			code: KEY_UP,
-		});
+		await pressKey(KEY_UP);
 		stepFrame();
 
 		// Assert that the focus has looped over to the last element
@@ -622,7 +591,7 @@ describe('dropdown menu keyboard navigation', () => {
 			expect(screen.getByTestId('nested-1--content')).toBeInTheDocument();
 		});
 
-		it('should close nested menu and return focus to parent trigger when Left arrow is pressed', () => {
+		it('should close nested menu and return focus to parent trigger when Left arrow is pressed', async () => {
 			const NestedDropdown = ({ level = 0 }: { level?: number }) => (
 				<DropdownMenu
 					shouldRenderToParent
@@ -663,6 +632,8 @@ describe('dropdown menu keyboard navigation', () => {
 				code: KEY_LEFT,
 			});
 			stepFrame();
+			// The top-layer menu unmounts after its exit settles.
+			await flushPopoverExit();
 
 			expect(screen.queryByTestId('nested-1--content')).not.toBeInTheDocument();
 			expect(screen.getByTestId('nested-1--trigger')).toHaveFocus();
@@ -707,7 +678,7 @@ describe('dropdown menu keyboard navigation', () => {
 			spy.mockRestore();
 		});
 
-		it('should close the dropdown and NOT call stopPropagation when Escape is pressed and shouldPreventEscapePropagation is false (default)', () => {
+		it('should close the dropdown and NOT call stopPropagation when Escape is pressed and shouldPreventEscapePropagation is false (default)', async () => {
 			const mockOnOpenChange = jest.fn();
 
 			render(
@@ -734,6 +705,8 @@ describe('dropdown menu keyboard navigation', () => {
 
 			fireEvent(screen.getByTestId(`${testId}--content`), event);
 			stepFrame();
+			// The top-layer menu unmounts after its exit settles.
+			await flushPopoverExit();
 
 			expect(screen.queryByTestId(`${testId}--content`)).not.toBeInTheDocument();
 			expect(mockOnOpenChange).toHaveBeenCalledWith({

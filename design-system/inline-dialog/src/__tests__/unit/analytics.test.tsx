@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
@@ -10,7 +10,7 @@ import InlineDialog from '../../inline-dialog';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('InlineDialog', () => {
-	it('should fire an analytics event', () => {
+	it('should fire an analytics event', async () => {
 		const onEvent = jest.fn();
 		let isOpen = true;
 
@@ -47,7 +47,8 @@ describe('InlineDialog', () => {
 			],
 		});
 
-		expect(onEvent).toHaveBeenCalledTimes(1);
+		// The top-layer dialog calls `onClose` from the `toggle` event, a task later.
+		await waitFor(() => expect(onEvent).toHaveBeenCalledTimes(1));
 		expect(onEvent.mock.calls[0][0].payload).toEqual(expected.payload);
 		expect(onEvent.mock.calls[0][0].context).toEqual(expected.context);
 	});

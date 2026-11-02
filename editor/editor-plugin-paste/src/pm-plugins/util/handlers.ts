@@ -1523,6 +1523,17 @@ function getTopLevelMarkTypesInSlice(slice: Slice) {
 }
 
 /**
+ * Whether the slice's top-level block marks (e.g. alignment, indentation) include one that the
+ * node containing the destination textblock does not allow, such as alignment inside a panel.
+ */
+function sliceHasBlockMarksDisallowedAtDestination(slice: Slice, $from: ResolvedPos) {
+	const destinationContainer = $from.node(Math.max(0, $from.depth - 1));
+	return [...getTopLevelMarkTypesInSlice(slice)].some(
+		(markType) => !destinationContainer.type.allowsMarkType(markType),
+	);
+}
+
+/**
  * Peels container wrapper nodes (e.g. panel, expand) added by ProseMirror's addContext()
  * so that fontSize-marked paragraphs become top-level, preserving the mark on paste.
  */
@@ -1717,7 +1728,15 @@ export function handleParagraphBlockMarks(state: EditorState, slice: Slice): Sli
 		destinationHasContent &&
 		!shouldNormalizeFontSizeForTarget
 	) {
-		return slice;
+		// A paragraph keeping a block mark its destination container disallows cannot be placed
+		// inside that container, so it is inserted after it instead. Drop those marks below.
+		const mustDropDisallowedBlockMarks =
+			fg('platform_editor_paste_strip_invalid_block_marks') &&
+			slice.content.firstChild?.type === paragraph &&
+			sliceHasBlockMarksDisallowedAtDestination(slice, $from);
+		if (!mustDropDisallowedBlockMarks) {
+			return slice;
+		}
 	}
 
 	// Check the parent of (paragraph -> text) because block marks are assigned to a wrapper

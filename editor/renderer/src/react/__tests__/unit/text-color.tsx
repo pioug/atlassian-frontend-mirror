@@ -11,7 +11,6 @@ describe('custom text colors inversion in dark mode', () => {
 		await setGlobalTheme({ colorMode: 'dark' });
 		const { container } = render(
 			<TextColor
-				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 				color="#ff00cc"
 				dataAttributes={{
 					'data-renderer-mark': true,
@@ -28,7 +27,6 @@ describe('custom text colors inversion in dark mode', () => {
 		await setGlobalTheme({ colorMode: 'dark' });
 		const { container } = render(
 			<TextColor
-				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 				color="#ff00cc"
 				dataAttributes={{
 					'data-renderer-mark': true,
@@ -46,7 +44,6 @@ describe('custom text colors inversion in dark mode', () => {
 		await setGlobalTheme({ colorMode: 'light' });
 		const { container } = render(
 			<TextColor
-				// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 				color="#ff00cc"
 				dataAttributes={{
 					'data-renderer-mark': true,

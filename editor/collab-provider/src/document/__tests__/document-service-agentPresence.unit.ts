@@ -66,6 +66,39 @@ eeTest
 	.variant(true, () => {
 		const ctx = withService();
 
+		it.each(['712020:abc', 'ari:cloud:identity::user/712020:abc'])(
+			'preserves normalized identity for %s when later steps omit presentation metadata',
+			(agentId) => {
+				passGate('confluence_ncs_step_diffing_version_history');
+				ctx.processSteps([
+					buildStep({
+						agentType: 'mcp',
+						agentId,
+						agentName: 'Docs Reviewer',
+						agentNamedId: 'mcp_figma_agent',
+					}),
+					buildStep({ agentType: 'mcp', agentId }),
+				]);
+				expect(
+					ctx.getParticipantsServiceMock().upsertAIProviderParticipantLocally,
+				).toHaveBeenCalledWith('agent:712020:abc', 'mcp', {
+					agentId: '712020:abc',
+					agentName: 'Docs Reviewer',
+					agentNamedId: 'mcp_figma_agent',
+				});
+			},
+		);
+
+		it('does not forward display identity when the version-history gate is off', () => {
+			failGate('confluence_ncs_step_diffing_version_history');
+			ctx.processSteps([
+				buildStep({ agentType: 'mcp', agentId: '712020:abc', agentName: 'Claude' }),
+			]);
+			expect(
+				ctx.getParticipantsServiceMock().upsertAIProviderParticipantLocally,
+			).toHaveBeenCalledWith('agent:712020:abc', 'mcp', undefined);
+		});
+
 		it('registers a participant for an agent-authored step', () => {
 			ctx.processSteps([buildStep({ agentType: 'mcp', agentId: '712020:abc' })]);
 
@@ -74,7 +107,7 @@ eeTest
 			).toHaveBeenCalledTimes(1);
 			expect(
 				ctx.getParticipantsServiceMock().upsertAIProviderParticipantLocally,
-			).toHaveBeenCalledWith('agent:712020:abc', 'mcp');
+			).toHaveBeenCalledWith('agent:712020:abc', 'mcp', undefined);
 		});
 
 		it('preserves agent type when agentId is absent', () => {
@@ -82,7 +115,7 @@ eeTest
 
 			expect(
 				ctx.getParticipantsServiceMock().upsertAIProviderParticipantLocally,
-			).toHaveBeenCalledWith('agent:convo-ai', 'convo-ai');
+			).toHaveBeenCalledWith('agent:convo-ai', 'convo-ai', undefined);
 		});
 
 		it('falls back to the agent type as the id when agentId is absent', () => {
@@ -90,7 +123,7 @@ eeTest
 
 			expect(
 				ctx.getParticipantsServiceMock().upsertAIProviderParticipantLocally,
-			).toHaveBeenCalledWith('agent:twg', 'twg');
+			).toHaveBeenCalledWith('agent:twg', 'twg', undefined);
 		});
 
 		it('adds each distinct agent once for a mixed batch', () => {
@@ -106,10 +139,10 @@ eeTest
 			).toHaveBeenCalledTimes(2);
 			expect(
 				ctx.getParticipantsServiceMock().upsertAIProviderParticipantLocally,
-			).toHaveBeenCalledWith('agent:712020:abc', 'mcp');
+			).toHaveBeenCalledWith('agent:712020:abc', 'mcp', undefined);
 			expect(
 				ctx.getParticipantsServiceMock().upsertAIProviderParticipantLocally,
-			).toHaveBeenCalledWith('agent:twg', 'twg');
+			).toHaveBeenCalledWith('agent:twg', 'twg', undefined);
 		});
 
 		it('does nothing for steps without agent attribution', () => {
@@ -188,7 +221,7 @@ eeTest
 
 			expect(
 				ctx.getParticipantsServiceMock().upsertAIProviderParticipantLocally,
-			).toHaveBeenCalledWith('agent:convo-ai', 'convo-ai');
+			).toHaveBeenCalledWith('agent:convo-ai', 'convo-ai', undefined);
 			expect(ctx.getAnalyticsHelperMock().sendActionEvent).toHaveBeenCalledWith(
 				EVENT_ACTION.AGENT_EDIT_RECEIVED,
 				EVENT_STATUS.SUCCESS,

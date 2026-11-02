@@ -28,7 +28,6 @@ jest.mock('@atlaskit/tmp-editor-statsig/editor-experiment', () => ({
 	editorExperiment: jest.fn(() => false),
 }));
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Annotations: Mounter', () => {
 	const fakeApplyAnnotation: jest.Mock = jest.fn().mockReturnValue({});
 	const fakeOnCloseProp: jest.Mock = jest.fn();

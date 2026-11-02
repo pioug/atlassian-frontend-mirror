@@ -383,7 +383,7 @@ const LinkIconButtonBase = <RouterLinkConfig extends Record<string, any> = never
 						aria-disabled={isDisabled === true ? true : undefined}
 					>
 						<Content type="icon" isLoading={false}>
-							<IconRenderer icon={icon} />
+							<IconRenderer icon={icon} spacing={spacing} />
 							<VisuallyHidden>{label}</VisuallyHidden>
 						</Content>
 					</Anchor>
@@ -440,7 +440,7 @@ const LinkIconButtonBase = <RouterLinkConfig extends Record<string, any> = never
 			interactionName={interactionName}
 		>
 			<Content type="icon" isLoading={false}>
-				<IconRenderer icon={icon} />
+				<IconRenderer icon={icon} spacing={spacing} />
 				<VisuallyHidden>{label}</VisuallyHidden>
 			</Content>
 		</Anchor>

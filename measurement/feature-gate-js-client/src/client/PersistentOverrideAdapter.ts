@@ -241,6 +241,20 @@ export class PersistentOverrideAdapter implements OverrideAdapter {
 		};
 	}
 
+	/**
+	 * The override for a gate, config or layer, looked up the same way as the Statsig override
+	 * methods above. `undefined` when there is none. Used for keys the wrapper answers without the
+	 * Statsig client.
+	 */
+	getOverride<K extends keyof LocalOverrides>(
+		kind: K,
+		name: string,
+	): LocalOverrides[K][string] | undefined {
+		return (this._overrides[kind][name] ?? this._djb2Map.get(djb2MapKey(name, kind))) as
+			| LocalOverrides[K][string]
+			| undefined;
+	}
+
 	private _getConfigOverride<T extends Experiment | DynamicConfig>(
 		current: T,
 		lookup: Record<string, Record<string, unknown>>,

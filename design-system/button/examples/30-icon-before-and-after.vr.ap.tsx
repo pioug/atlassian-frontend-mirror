@@ -11,7 +11,6 @@ import ChartTrendUpIcon from '@atlaskit/icon/core/chart-trend-up';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import LightbulbIcon from '@atlaskit/icon/core/lightbulb';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { type IconSize } from '@atlaskit/icon/types';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { token } from '@atlaskit/tokens';

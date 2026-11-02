@@ -1,5 +1,13 @@
 # @atlaskit/spotlight
 
+## 4.2.13
+
+### Patch Changes
+
+- [`3a5e8151d0fa3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a5e8151d0fa3) -
+  Fix caret positioning for centred inline fallbacks in top-layer spotlights. Public placement
+  options and fallback ordering are unchanged.
+
 ## 4.2.12
 
 ### Patch Changes

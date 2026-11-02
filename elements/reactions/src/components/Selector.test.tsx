@@ -12,7 +12,7 @@ import {
 	renderWithIntl,
 	useFakeTimers,
 } from '../__tests__/_testing-library';
-import { DefaultReactions, TeamojiDefaultReactions } from '../shared/constants';
+import { TeamojiDefaultReactions } from '../shared/constants';
 import { messages } from '../shared/i18n';
 import { RENDER_SELECTOR_TESTID, Selector } from './Selector';
 import { RENDER_SHOWMORE_TESTID } from './ShowMore';
@@ -41,17 +41,14 @@ describe('@atlaskit/reactions/components/selector', () => {
 	useFakeTimers();
 
 	beforeEach(() => {
-		// Default the Teamoji picker refresh experiment to off so the legacy reactions are rendered,
-		// and default the Selector list-markup a11y experiment to off.
+		// Default the Selector list-markup a11y experiment to off.
 		setupEditorExperiments('test', {
-			platform_teamoji_26_refresh_emoji_picker: false,
 			platform_a11y_fixes_reactions_selector_list: false,
 		});
 	});
 
 	afterEach(() => {
 		setupEditorExperiments('test', {
-			platform_teamoji_26_refresh_emoji_picker: false,
 			platform_a11y_fixes_reactions_selector_list: false,
 		});
 		resetAllExperiments();
@@ -59,7 +56,6 @@ describe('@atlaskit/reactions/components/selector', () => {
 
 	it('should have no accessibility violations', async () => {
 		setupEditorExperiments('test', {
-			platform_teamoji_26_refresh_emoji_picker: false,
 			platform_a11y_fixes_reactions_selector_list: true,
 		});
 		const { container } = renderWithIntl(renderSelector(() => {}, true));
@@ -69,7 +65,6 @@ describe('@atlaskit/reactions/components/selector', () => {
 	describe('experiment: platform_a11y_fixes_reactions_selector_list', () => {
 		it('renders the picker as a labelled group without list markup when the experiment is enabled', async () => {
 			setupEditorExperiments('test', {
-				platform_teamoji_26_refresh_emoji_picker: false,
 				platform_a11y_fixes_reactions_selector_list: true,
 			});
 			const { container } = renderWithIntl(renderSelector(() => {}, true));
@@ -87,7 +82,6 @@ describe('@atlaskit/reactions/components/selector', () => {
 
 		it('renders legacy list markup when the experiment is disabled', async () => {
 			setupEditorExperiments('test', {
-				platform_teamoji_26_refresh_emoji_picker: false,
 				platform_a11y_fixes_reactions_selector_list: false,
 			});
 			const { container } = renderWithIntl(renderSelector(() => {}, true));
@@ -100,21 +94,7 @@ describe('@atlaskit/reactions/components/selector', () => {
 		});
 	});
 
-	it('should render default reactions', async () => {
-		renderWithIntl(renderSelector());
-
-		const emojiWrappers = screen.getAllByTestId(RENDER_SELECTOR_TESTID);
-		expect(emojiWrappers.length).toEqual(DefaultReactions.length);
-
-		DefaultReactions.forEach(({ shortName }) => {
-			const elem = screen.getByLabelText(shortName, { selector: 'button', exact: false });
-			expect(elem).toBeInTheDocument();
-		});
-	});
-
-	it('should render teamoji default reactions when the experiment is enabled', async () => {
-		setupEditorExperiments('test', { platform_teamoji_26_refresh_emoji_picker: true });
-
+	it('should render teamoji default reactions', async () => {
 		renderWithIntl(renderSelector());
 
 		const emojiWrappers = screen.getAllByTestId(RENDER_SELECTOR_TESTID);
@@ -131,7 +111,10 @@ describe('@atlaskit/reactions/components/selector', () => {
 		renderWithIntl(renderSelector(onSelection));
 
 		const firstButton = await screen.findByLabelText(
-			messages.reactWithEmoji.defaultMessage.replace('{emoji}', DefaultReactions[0].shortName),
+			messages.reactWithEmoji.defaultMessage.replace(
+				'{emoji}',
+				TeamojiDefaultReactions[0].shortName,
+			),
 		);
 
 		expect(firstButton).toBeInTheDocument();
@@ -165,7 +148,7 @@ describe('@atlaskit/reactions/components/selector', () => {
 		const list = screen.getByRole('list');
 
 		expect(list).toBeInTheDocument();
-		expect(list?.children).toHaveLength(DefaultReactions.length);
+		expect(list?.children).toHaveLength(TeamojiDefaultReactions.length);
 		expect(Array.from(list?.children ?? []).every((item) => item.tagName === 'LI')).toBe(true);
 	});
 });

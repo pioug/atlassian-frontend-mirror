@@ -1,5 +1,34 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 31.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 31.1.4
+
+### Patch Changes
+
+- [`8632ab245f251`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8632ab245f251) -
+  [ux] [EDITOR-8977] introduce rule node view to update the selected state for dividers behind
+  `platform_editor_lovability_dividers`
+- Updated dependencies
+
+## 31.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 31.1.2
+
+### Patch Changes
+
+- [`b0b0a2e076d8d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b0b0a2e076d8d) -
+  Clean up experiment `platform_editor_table_sticky_header_improvements`
+- Updated dependencies
+
 ## 31.1.1
 
 ### Patch Changes

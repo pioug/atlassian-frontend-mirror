@@ -19,7 +19,6 @@ import {
 } from 'react';
 
 import { css, jsx } from '@compiled/react';
-import FocusLock from 'react-focus-lock';
 import {
 	FormattedMessage,
 	injectIntl,
@@ -30,11 +29,8 @@ import {
 import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
 import { getDocument } from '@atlaskit/browser-apis';
 import Button from '@atlaskit/button/default/button';
-import AkButton from '@atlaskit/button/standard-button';
-import CrossIcon from '@atlaskit/icon/core/cross';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { Box } from '@atlaskit/primitives/compiled/box';
-import { Text } from '@atlaskit/primitives/compiled/text';
 import TextField from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 
@@ -44,14 +40,8 @@ import debug from '../../util/logger';
 import { messages } from '../i18n';
 import CreateEmojiWithRovo from './CreateEmojiWithRovo';
 import EmojiErrorMessage from './EmojiErrorMessage';
-import EmojiUploadPreview from './EmojiUploadPreview';
 import FileChooser from './FileChooser';
 import { UploadStatus } from './internal-types';
-import { isRefreshEmojiPickerEnabled } from './isRefreshEmojiPickerEnabled';
-
-const closeEmojiUploadButton = css({
-	display: 'flex',
-});
 
 const uploadAddRowNew = css({
 	display: 'flex',
@@ -62,16 +52,6 @@ const uploadAddRowNew = css({
 	paddingBottom: token('space.150'),
 });
 
-const emojiUpload = css({
-	paddingTop: token('space.100'),
-	paddingRight: token('space.100'),
-	paddingBottom: token('space.100'),
-	paddingLeft: token('space.100'),
-	display: 'flex',
-	flexDirection: 'column',
-	justifyContent: 'space-around',
-});
-
 const emojiUploadNew = css({
 	paddingTop: token('space.100'),
 	paddingRight: token('space.200'),
@@ -80,14 +60,6 @@ const emojiUploadNew = css({
 	display: 'flex',
 	flexDirection: 'column',
 	justifyContent: 'space-around',
-});
-
-const emojiUploadTop = css({
-	paddingBottom: token('space.100'),
-	display: 'flex',
-	justifyContent: 'space-between',
-	alignItems: 'flex-end',
-	font: token('font.body.small'),
 });
 
 const emojiUploadTopNew = css({
@@ -108,36 +80,11 @@ const labelStylesNew = css({
 	fontWeight: token('font.weight.semibold'),
 });
 
-const uploadChooseFileEmojiName = css({
-	flex: '1 1 auto',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	input: {
-		background: 'transparent',
-		border: 0,
-		outline: 'none',
-
-		'&:invalid': {
-			boxShadow: 'none',
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-		'&::-ms-clear': {
-			display: 'none',
-		},
-	},
-});
-
 const uploadChooseFileMessage = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&&': {
 		color: token('color.text.subtle'),
 	},
-});
-
-const uploadChooseFileRow = css({
-	display: 'flex',
-	justifyContent: 'space-between',
-	paddingBottom: token('space.100'),
-	columnGap: token('space.075'),
 });
 
 const uploadChooseFileRowNew = css({
@@ -165,7 +112,6 @@ export interface Props {
 	 * with Rovo" AI generation section is shown above the Emoji name field.
 	 */
 	contentId?: string;
-	disableFocusLock?: boolean;
 	errorMessage?: Message;
 	/** Fires an analytics event (used by AI emoji generation). */
 	fireAnalytics?: (event: AnalyticsEventPayload) => void;
@@ -211,10 +157,6 @@ const toDefaultUploadName = (fileName: string): string => {
 };
 
 const isSupportedEmojiUploadFileType = (file: File): boolean => {
-	if (!isRefreshEmojiPickerEnabled()) {
-		return true;
-	}
-
 	if (supportedEmojiUploadMimeTypes.has(file.type)) {
 		return true;
 	}
@@ -255,7 +197,6 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 		intl,
 	} = props;
 	const { formatMessage } = intl;
-	const disableChooser = !name;
 	const fileChooserButtonDescriptionId = 'choose.emoji.file.button.screen.reader.description.id';
 	const inputRef = useRef<HTMLElement>(null);
 
@@ -274,16 +215,14 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 		});
 	}, []);
 
-	const cancelLabel = formatMessage(messages.cancelLabel);
 	const emojiPlaceholder = formatMessage(messages.emojiPlaceholder);
 	const emojiNameAriaLabel = formatMessage(messages.emojiNameAriaLabel);
-	const emojiChooseFileTitle = formatMessage(messages.emojiChooseFileTitle);
 	const emojiChooseFileTitleNew = formatMessage(messages.emojiChooseFileDndTitle);
 
 	const isUploading = uploadStatus === UploadStatus.Uploading;
 	const addEmojiDisabled = !previewImage || !name || isUploading;
 
-	return isRefreshEmojiPickerEnabled() ? (
+	return (
 		<div css={emojiUploadNew} data-testid={uploadEmojiComponentTestId}>
 			<div css={emojiUploadTopNew}>
 				<label css={[uploadChooseFileMessage, labelStylesNew]} htmlFor="new-emoji-name-input">
@@ -299,9 +238,7 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 					<FormattedMessage {...messages.emojiChooseFileScreenReaderDescription}>
 						{() => (
 							<FileChooser
-								label={
-									isRefreshEmojiPickerEnabled() ? emojiChooseFileTitleNew : emojiChooseFileTitle
-								}
+								label={emojiChooseFileTitleNew}
 								onChange={onChooseFile}
 								onClick={onClick}
 								accept="image/png,image/jpeg,image/gif"
@@ -359,70 +296,6 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 				</Button>
 			</div>
 		</div>
-	) : (
-		<div css={emojiUpload} data-testid={uploadEmojiComponentTestId}>
-			<div css={emojiUploadTop}>
-				<label css={[uploadChooseFileMessage, labelStyles]} htmlFor="new-emoji-name-input">
-					<FormattedMessage {...messages.addCustomEmojiLabel} />
-				</label>
-				<div css={closeEmojiUploadButton}>
-					<AkButton
-						onClick={onUploadCancelled}
-						aria-label={cancelLabel}
-						appearance="subtle"
-						spacing="none"
-						shouldFitContainer={true}
-						testId={cancelEmojiUploadPickerTestId}
-						name={messages.addCustomEmojiLabel.defaultMessage}
-					>
-						<CrossIcon color="currentColor" label={cancelLabel} />
-					</AkButton>
-				</div>
-			</div>
-			<div css={uploadChooseFileRow}>
-				<span css={uploadChooseFileEmojiName}>
-					<TextField
-						placeholder={emojiPlaceholder}
-						aria-label={emojiNameAriaLabel}
-						maxLength={maxNameLength}
-						onChange={onNameChange}
-						onKeyDown={onKeyDownHandler}
-						value={name}
-						isCompact
-						autoFocus
-						testId={uploadEmojiNameInputTestId}
-						ref={inputRef}
-						id="new-emoji-name-input"
-						aria-required={true}
-					/>
-				</span>
-				<Text>
-					<FormattedMessage {...messages.emojiChooseFileScreenReaderDescription}>
-						{() => (
-							<FileChooser
-								label={
-									isRefreshEmojiPickerEnabled() ? emojiChooseFileTitleNew : emojiChooseFileTitle
-								}
-								onChange={onChooseFile}
-								onClick={onClick}
-								accept="image/png,image/jpeg,image/gif"
-								ariaDescribedBy={fileChooserButtonDescriptionId}
-								isDisabled={disableChooser}
-							/>
-						)}
-					</FormattedMessage>
-				</Text>
-			</div>
-			<div id={fileChooserButtonDescriptionId}>
-				{!errorMessage ? (
-					<Text as="p" size="small">
-						<FormattedMessage {...messages.emojiImageRequirements} />
-					</Text>
-				) : (
-					<EmojiErrorMessage errorStyle="chooseFile" message={errorMessage} />
-				)}
-			</div>
-		</div>
 	);
 });
 
@@ -433,7 +306,6 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 		onUploadEmoji,
 		onFileChooserClicked,
 		onUploadCancelled,
-		disableFocusLock = false,
 		contentId,
 		fireAnalytics,
 		onUploadPreviewErrorChange,
@@ -557,7 +429,7 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 			async (f: any): Promise<any> => {
 				try {
 					setFilename(file.name);
-					if (!name && isRefreshEmojiPickerEnabled()) {
+					if (!name) {
 						setName(toDefaultUploadName(file.name));
 					}
 					await ImageUtil.parseImage(f.target.result);
@@ -632,8 +504,7 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 		onFileChooserClicked && onFileChooserClicked();
 	};
 
-	const isDuplicateNameError =
-		errorMessage !== null && errorMessage !== undefined && isRefreshEmojiPickerEnabled();
+	const isDuplicateNameError = errorMessage !== null && errorMessage !== undefined;
 
 	// "Create an emoji with Rovo" AI generation section. Only rendered when the
 	// experiment is on AND a page content id is available (the image generation
@@ -649,38 +520,24 @@ const EmojiUploadPicker = (props: Props & WrappedComponentProps) => {
 			/>
 		) : null;
 
-	const content =
-		name && previewImage && !isRefreshEmojiPickerEnabled() ? (
-			<EmojiUploadPreview
-				errorMessage={errorMessage}
-				name={name}
-				onAddEmoji={onAddEmoji}
-				onUploadCancelled={cancelUpload}
-				previewImage={previewImage}
-				uploadStatus={uploadStatus}
-			/>
-		) : (
-			<ChooseEmojiFile
-				name={name}
-				onChooseFile={onChooseFile}
-				onClick={onChooseFileClicked}
-				onNameChange={onNameChange}
-				onUploadCancelled={cancelUpload}
-				onAddEmoji={onAddEmoji}
-				previewImage={previewImage}
-				uploadStatus={uploadStatus}
-				errorMessage={chooseEmojiErrorMessage}
-				nameErrorMessage={isDuplicateNameError ? errorMessage : undefined}
-				aiSection={aiSection}
-				intl={intl}
-			/>
-		);
-
-	return disableFocusLock || isRefreshEmojiPickerEnabled() ? (
-		content
-	) : (
-		<FocusLock noFocusGuards>{content}</FocusLock>
+	const content = (
+		<ChooseEmojiFile
+			name={name}
+			onChooseFile={onChooseFile}
+			onClick={onChooseFileClicked}
+			onNameChange={onNameChange}
+			onUploadCancelled={cancelUpload}
+			onAddEmoji={onAddEmoji}
+			previewImage={previewImage}
+			uploadStatus={uploadStatus}
+			errorMessage={chooseEmojiErrorMessage}
+			nameErrorMessage={isDuplicateNameError ? errorMessage : undefined}
+			aiSection={aiSection}
+			intl={intl}
+		/>
 	);
+
+	return content;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-restricted-types

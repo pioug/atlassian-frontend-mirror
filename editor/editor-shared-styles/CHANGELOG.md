@@ -1,5 +1,39 @@
 # @atlaskit/editor-shared-styles
 
+## 5.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.0.0
+
+### Major Changes
+
+- [`88f6eda39f497`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88f6eda39f497) -
+  Resolve agent telepointer colours from supplied display names and stable named IDs instead of
+  machine types. Under `confluence_ncs_step_diffing_version_history`, collab-provider carries
+  `agentId`, `agentName` and `agentNamedId` from received steps into local agent presence, retaining
+  known metadata when later steps omit it. This path uses no profile lookups. Missing presentation
+  metadata uses the generic agent palette; human participants keep their existing colours.
+
+  Telepointers identify agent participants from these explicit identity fields rather than
+  `agentType` or a human participant's display name.
+
+  `getParticipantColor(id, agentName?, agentNamedId?)` and
+  `collabEdit.actions.getAvatarColor(id, agentName?, agentNamedId?)` now accept a resolved display
+  name in the second argument. Callers previously passing a machine type should supply the agent's
+  name instead, and pass stable named IDs in the third argument. With
+  `confluence_ncs_step_diffing_version_history` enabled, named brand metadata takes precedence over
+  the display name. With the gate off, brand lookup is disabled. Human callers should continue to
+  omit agent metadata.
+
+## 4.6.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.6.5
 
 ### Patch Changes

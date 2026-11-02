@@ -6,7 +6,7 @@ import Loadable from 'react-loadable';
 
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 import { MockEmojiResource } from '@atlaskit/util-data-test/mock-emoji-resource';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import type { EmojiId } from '../../../..';
 import type { EmojiProvider } from '../../../../api/EmojiResource';
@@ -35,103 +35,105 @@ Loadable.preloadAll();
 
 describe('<ResourcedEmoji />', () => {
 	describe('preserves optimistic images for page-title emoji', () => {
-		ffTest(
-			'platform_emoji_prevent_img_src_changing',
-			async () => {
-				const optSrc = 'https://opt.example/emoji.png';
-				let resolveEmoji: (value: any) => void;
-				const provider: Partial<EmojiProvider> = {
-					fetchByEmojiId: () =>
-						new Promise((resolve) => {
-							resolveEmoji = resolve;
-						}),
-				};
-				renderWithIntl(
-					<ResourcedEmoji
-						pageTitleEmoji={true}
-						emojiProvider={Promise.resolve(provider as EmojiProvider)}
-						emojiId={{ id: grinEmoji.id, shortName: grinEmoji.shortName }}
-						optimisticImageURL={optSrc}
-						fitToHeight={40}
-					/>,
-				);
-				// Initially renders optimistic image
-				let img = await screen.findByAltText(grinEmoji.shortName);
+		it('with platform_emoji_prevent_img_src_changing on', async () => {
+			passGate('platform_emoji_prevent_img_src_changing');
+
+			const optSrc = 'https://opt.example/emoji.png';
+			let resolveEmoji: (value: any) => void;
+			const provider: Partial<EmojiProvider> = {
+				fetchByEmojiId: () =>
+					new Promise((resolve) => {
+						resolveEmoji = resolve;
+					}),
+			};
+			renderWithIntl(
+				<ResourcedEmoji
+					pageTitleEmoji={true}
+					emojiProvider={Promise.resolve(provider as EmojiProvider)}
+					emojiId={{ id: grinEmoji.id, shortName: grinEmoji.shortName }}
+					optimisticImageURL={optSrc}
+					fitToHeight={40}
+				/>,
+			);
+			// Initially renders optimistic image
+			let img = await screen.findByAltText(grinEmoji.shortName);
+			expect(img).toHaveAttribute('src', expect.stringContaining(optSrc));
+			// Wait until fetchByEmojiId has been invoked and we captured the resolver
+			await waitFor(() => expect(typeof resolveEmoji).toBe('function'));
+			// Now resolve the emoji and ensure we still render optimistic src
+			resolveEmoji!({
+				id: grinEmoji.id!,
+				shortName: grinEmoji.shortName,
+				fallback: grinEmoji.fallback,
+				type: grinEmoji.type,
+				category: grinEmoji.category,
+				searchable: true,
+				altRepresentation: {
+					mediaPath: 'real-sync.png',
+					width: 64,
+					height: 64,
+				},
+				representation: {
+					mediaPath: 'real-sync.png',
+					width: 32,
+					height: 32,
+				},
+			});
+			await waitFor(() => {
+				img = screen.getByAltText(grinEmoji.shortName);
 				expect(img).toHaveAttribute('src', expect.stringContaining(optSrc));
-				// Wait until fetchByEmojiId has been invoked and we captured the resolver
-				await waitFor(() => expect(typeof resolveEmoji).toBe('function'));
-				// Now resolve the emoji and ensure we still render optimistic src
-				resolveEmoji!({
-					id: grinEmoji.id!,
-					shortName: grinEmoji.shortName,
-					fallback: grinEmoji.fallback,
-					type: grinEmoji.type,
-					category: grinEmoji.category,
-					searchable: true,
-					altRepresentation: {
-						mediaPath: 'real-sync.png',
-						width: 64,
-						height: 64,
-					},
-					representation: {
-						mediaPath: 'real-sync.png',
-						width: 32,
-						height: 32,
-					},
-				});
-				await waitFor(() => {
-					img = screen.getByAltText(grinEmoji.shortName);
-					expect(img).toHaveAttribute('src', expect.stringContaining(optSrc));
-				});
-			},
-			async () => {
-				// The optimistic image is preserved even when the page-title gate is off.
-				const optSrc = 'https://opt.example/emoji.png';
-				let resolveEmojiOff: (value: any) => void;
-				const provider: Partial<EmojiProvider> = {
-					fetchByEmojiId: () =>
-						new Promise((resolve) => {
-							resolveEmojiOff = resolve;
-						}),
-				};
-				renderWithIntl(
-					<ResourcedEmoji
-						emojiProvider={Promise.resolve(provider as EmojiProvider)}
-						emojiId={{ id: grinEmoji.id, shortName: grinEmoji.shortName }}
-						optimisticImageURL={optSrc}
-						fitToHeight={40}
-						pageTitleEmoji={true}
-					/>,
-				);
-				// Initially optimistic src is rendered
-				let img = await screen.findByAltText(grinEmoji.shortName);
+			});
+		});
+
+		it('with platform_emoji_prevent_img_src_changing off', async () => {
+			failGate('platform_emoji_prevent_img_src_changing');
+
+			// The optimistic image is preserved even when the page-title gate is off.
+			const optSrc = 'https://opt.example/emoji.png';
+			let resolveEmojiOff: (value: any) => void;
+			const provider: Partial<EmojiProvider> = {
+				fetchByEmojiId: () =>
+					new Promise((resolve) => {
+						resolveEmojiOff = resolve;
+					}),
+			};
+			renderWithIntl(
+				<ResourcedEmoji
+					emojiProvider={Promise.resolve(provider as EmojiProvider)}
+					emojiId={{ id: grinEmoji.id, shortName: grinEmoji.shortName }}
+					optimisticImageURL={optSrc}
+					fitToHeight={40}
+					pageTitleEmoji={true}
+				/>,
+			);
+			// Initially optimistic src is rendered
+			let img = await screen.findByAltText(grinEmoji.shortName);
+			expect(img).toHaveAttribute('src', expect.stringContaining(optSrc));
+			// Wait until fetchByEmojiId has been invoked and we captured the resolver
+			await waitFor(() => expect(typeof resolveEmojiOff).toBe('function'));
+			resolveEmojiOff!({
+				id: grinEmoji.id!,
+				shortName: grinEmoji.shortName,
+				fallback: grinEmoji.fallback,
+				type: grinEmoji.type,
+				category: grinEmoji.category,
+				searchable: true,
+				altRepresentation: {
+					mediaPath: 'real-sync.png',
+					width: 64,
+					height: 64,
+				},
+				representation: {
+					mediaPath: 'real-sync.png',
+					width: 32,
+					height: 32,
+				},
+			});
+			await waitFor(() => {
+				img = screen.getByAltText(grinEmoji.shortName);
 				expect(img).toHaveAttribute('src', expect.stringContaining(optSrc));
-				// Wait until fetchByEmojiId has been invoked and we captured the resolver
-				await waitFor(() => expect(typeof resolveEmojiOff).toBe('function'));
-				resolveEmojiOff!({
-					id: grinEmoji.id!,
-					shortName: grinEmoji.shortName,
-					fallback: grinEmoji.fallback,
-					type: grinEmoji.type,
-					category: grinEmoji.category,
-					searchable: true,
-					altRepresentation: {
-						mediaPath: 'real-sync.png',
-						width: 64,
-						height: 64,
-					},
-					representation: {
-						mediaPath: 'real-sync.png',
-						width: 32,
-						height: 32,
-					},
-				});
-				await waitFor(() => {
-					img = screen.getByAltText(grinEmoji.shortName);
-					expect(img).toHaveAttribute('src', expect.stringContaining(optSrc));
-				});
-			},
-		);
+			});
+		});
 	});
 
 	describe('with an optimistic image URL', () => {

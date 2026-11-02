@@ -20,26 +20,13 @@ import {
 	defaultCategories,
 	KeyboardKeys,
 } from '../../util/constants';
-import { isRefreshEmojiPickerEnabled } from '../common/isRefreshEmojiPickerEnabled';
 import { messages } from '../i18n';
-import { CategoryDescriptionMap, CategoryDescriptionMapNew, type CategoryId } from './categories';
+import { CategoryDescriptionMapNew, type CategoryId } from './categories';
 import { categorySelectorCategoryTestId } from './categorySelectorCategoryTestId';
 import { RENDER_EMOJI_PICKER_LIST_TESTID } from './EmojiPickerList';
-import { sortCategories } from './sortCategories';
 import { sortCategoriesNew } from './sortCategoriesNew';
 
 const styles = cssMap({
-	commonCategory: {
-		backgroundColor: token('color.background.neutral.subtle'),
-		borderWidth: 0,
-		borderRadius: token('radius.small'),
-		paddingTop: token('space.0'),
-		paddingBottom: token('space.0'),
-		paddingLeft: token('space.0'),
-		paddingRight: token('space.0'),
-		transition: 'color 0.2s ease',
-	},
-
 	commonCategoryNew: {
 		backgroundColor: token('color.background.neutral.subtle'),
 		borderWidth: 0,
@@ -53,14 +40,6 @@ const styles = cssMap({
 		justifyContent: 'center',
 	},
 
-	defaultCategory: {
-		color: token('color.text.subtlest'),
-
-		'&:hover': {
-			color: token('color.text.selected'),
-		},
-	},
-
 	defaultCategoryNew: {
 		color: token('color.text.subtlest'),
 		borderBottomWidth: token('border.width.selected'),
@@ -70,14 +49,6 @@ const styles = cssMap({
 		'&:hover': {
 			color: token('color.text.subtlest'),
 			borderBottomColor: token('color.border.bold'),
-		},
-	},
-
-	activeCategory: {
-		color: token('color.text.selected'),
-
-		'&:hover': {
-			color: token('color.text.selected'),
 		},
 	},
 
@@ -98,16 +69,6 @@ const styles = cssMap({
 	},
 });
 
-const categorySelector = css({
-	flex: '0 0 auto',
-	backgroundColor: token('elevation.surface.sunken'),
-
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	button: {
-		display: 'flex',
-	},
-});
-
 const categorySelectorNew = css({
 	flex: '0 0 auto',
 	backgroundColor: token('elevation.surface'),
@@ -123,17 +84,6 @@ const categorySelectorNew = css({
 	button: {
 		display: 'flex',
 	},
-});
-
-const categorySelectorTablist = css({
-	paddingTop: token('space.075'),
-	paddingBottom: token('space.075'),
-	paddingLeft: token('space.100'),
-	paddingRight: token('space.100'),
-	display: 'flex',
-	flexDirection: 'row',
-	justifyContent: 'space-around',
-	alignItems: 'center',
 });
 
 const categorySelectorTablistNew = css({
@@ -166,15 +116,8 @@ const addNewCategories = (
 		return oldCategories;
 	}
 	return oldCategories
-		.concat(
-			newCategories.filter(
-				(category) =>
-					!!(isRefreshEmojiPickerEnabled() ? CategoryDescriptionMapNew : CategoryDescriptionMap)[
-						category
-					],
-			),
-		)
-		.sort(isRefreshEmojiPickerEnabled() ? sortCategoriesNew : sortCategories);
+		.concat(newCategories.filter((category) => !!CategoryDescriptionMapNew[category]))
+		.sort(sortCategoriesNew);
 };
 
 export const categorySelectorComponentTestId = 'category-selector-component';
@@ -273,7 +216,7 @@ const CategorySelector = (props: Props): JSX.Element => {
 
 	let categoriesSection;
 	if (categories) {
-		categoriesSection = isRefreshEmojiPickerEnabled() ? (
+		categoriesSection = (
 			<div
 				role="tablist"
 				aria-label={formatMessage(messages.categoriesSelectorLabel)}
@@ -282,9 +225,7 @@ const CategorySelector = (props: Props): JSX.Element => {
 				css={categorySelectorTablistNew}
 			>
 				{categories.map((categoryId: CategoryId, index: number) => {
-					const category = isRefreshEmojiPickerEnabled()
-						? CategoryDescriptionMapNew[categoryId]
-						: CategoryDescriptionMap[categoryId];
+					const category = CategoryDescriptionMapNew[categoryId];
 
 					const Icon = category.icon;
 					const categoryName = formatMessage(messages[category.name]);
@@ -315,55 +256,9 @@ const CategorySelector = (props: Props): JSX.Element => {
 					);
 				})}
 			</div>
-		) : (
-			<div
-				role="tablist"
-				aria-label={formatMessage(messages.categoriesSelectorLabel)}
-				data-testid={categorySelectorComponentTestId}
-				ref={categoryRef}
-				css={categorySelectorTablist}
-			>
-				{categories.map((categoryId: CategoryId, index: number) => {
-					const category = isRefreshEmojiPickerEnabled()
-						? CategoryDescriptionMapNew[categoryId]
-						: CategoryDescriptionMap[categoryId];
-
-					const Icon = category.icon;
-					const categoryName = formatMessage(messages[category.name]);
-					return (
-						<Tooltip content={categoryName} position="bottom" key={category.id}>
-							<Pressable
-								id={`category-selector-${category.id}`}
-								data-focus-index={index}
-								aria-label={categoryName}
-								aria-controls={currentFocus === index ? RENDER_EMOJI_PICKER_LIST_TESTID : undefined}
-								aria-selected={categoryId === activeCategoryId}
-								xcss={cx(
-									styles.commonCategory,
-									styles.defaultCategory,
-									categoryId === activeCategoryId && styles.activeCategory,
-									disableCategories && styles.disabledCategory,
-								)}
-								isDisabled={disableCategories}
-								onClick={handleClick(categoryId, index)}
-								testId={categorySelectorCategoryTestId(categoryId)}
-								tabIndex={currentFocus === index ? 0 : -1}
-								onKeyDown={handleKeyDown}
-								role="tab"
-							>
-								<Icon label={categoryName} />
-							</Pressable>
-						</Tooltip>
-					);
-				})}
-			</div>
 		);
 	}
-	return isRefreshEmojiPickerEnabled() ? (
-		<div css={categorySelectorNew}>{categoriesSection}</div>
-	) : (
-		<div css={categorySelector}>{categoriesSection}</div>
-	);
+	return <div css={categorySelectorNew}>{categoriesSection}</div>;
 };
 
 export default CategorySelector;

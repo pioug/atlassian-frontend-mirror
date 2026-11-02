@@ -1,5 +1,38 @@
 # @atlaskit/smart-card
 
+## 46.12.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.12.0
+
+### Minor Changes
+
+- [`c25a07d9c8207`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c25a07d9c8207) -
+  Update i18n NPM package versions for linking-platform,smart-experiences (Group 15)
+
+## 46.11.4
+
+### Patch Changes
+
+- [`4fd933d5f3eec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4fd933d5f3eec) -
+  Enable Cmd/Ctrl-click, middle-click, and double-click on embed frame chrome and headers behind
+  platform_editor_embed_open_in_new_tab. Extend the title link to the frame edges for native context
+  menus and show a pointer cursor, while preserving embedded content and header controls.
+
+  Preserve the embed header pointer cursor when editor Live Pages styles reset nested link cursors.
+  Apply the legacy embed cursor reset only when the navigation experiment is disabled.
+
+- Updated dependencies
+
+## 46.11.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 46.11.2
 
 ### Patch Changes

@@ -1,4 +1,5 @@
 export type {
+	EvalFlagsResponse,
 	FetcherOptions,
 	FrontendExperimentsResponse,
 	FrontendClientSdkKeyResponse,

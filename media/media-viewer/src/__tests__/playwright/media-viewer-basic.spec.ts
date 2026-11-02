@@ -46,7 +46,6 @@ test.describe('MediaViewer', () => {
 		await viewer.closeMediaViewer(false);
 	});
 
-	// eslint-disable-next-line playwright/expect-expect
 	test('media-viewer-basic.ts: Should close on Escape press', async ({ page }) => {
 		const viewer = new MediaViewerPageObject(page);
 		await page.visitExample<typeof import('../../../examples/5-vr-mocked-viewer.tsx')>(

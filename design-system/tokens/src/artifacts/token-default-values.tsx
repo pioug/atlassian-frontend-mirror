@@ -7,7 +7,7 @@
  * Token names mapped to their value in the default Atlassian themes ('light').
  * These default values are used by the Babel plugin to optionally provide automatic fallbacks.
  *
- * @codegen <<SignedSource::cd036b80cf2f3ad1ef9bf9cfaa4528f6>>
+ * @codegen <<SignedSource::686795118dd509431a015b1e3261893b>>
  * @codegenCommand yarn build tokens
  */
 const defaultTokenValues = {
@@ -46,6 +46,12 @@ const defaultTokenValues = {
 		'150ms cubic-bezier(0.4, 1, 0.6, 1) SlideInBottom2px backwards, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100 backwards',
 	'motion.form.message.exit':
 		'100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutBottom2px forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
+	'motion.iconography.enter.cycle.up':
+		'400ms cubic-bezier(0.65, 0, 0.35, 1) SlideIn100PercentBottom backwards',
+	'motion.iconography.enter.fade': '250ms cubic-bezier(0, 0.4, 0, 1) FadeIn0to100 backwards',
+	'motion.iconography.exit.cycle.up':
+		'400ms cubic-bezier(0.65, 0, 0.35, 1) SlideOut100PercentTop forwards',
+	'motion.iconography.exit.fade': '250ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
 	'motion.input':
 		'background-color 150ms cubic-bezier(0.4, 1, 0.6, 1), border-color 150ms cubic-bezier(0.4, 1, 0.6, 1), box-shadow 150ms cubic-bezier(0.4, 1, 0.6, 1)',
 	'motion.input.selection':

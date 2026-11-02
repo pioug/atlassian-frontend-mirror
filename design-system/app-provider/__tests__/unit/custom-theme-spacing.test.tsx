@@ -17,7 +17,6 @@ function spacingInputs() {
 	// eslint-disable-next-line testing-library/no-node-access
 	const wrapper = screen.getByTestId('gap-spacing-preview').closest('[data-theme-overrides-scope]');
 	const scope = wrapper?.getAttribute('data-theme-overrides-scope');
-	// eslint-disable-next-line testing-library/no-node-access
 	return Array.from(document.head.querySelectorAll('style[data-theme-overrides]')).find((style) =>
 		style.textContent?.includes(`[data-theme-overrides-scope="${scope}"]`),
 	)?.textContent;

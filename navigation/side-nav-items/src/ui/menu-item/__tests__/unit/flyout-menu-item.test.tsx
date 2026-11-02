@@ -130,7 +130,10 @@ describe('FlyoutMenuItem', () => {
 
 			await userEvent.click(screen.getByRole('button', { name: 'Trigger' }));
 
-			const container = screen.getByTestId('container-test');
+			// Query by role: on the top-layer path the role and `aria-labelledby` are on the popover
+			// host, which contains the element with the container test id.
+			const container = screen.getByRole('dialog');
+			expect(container).toContainElement(screen.getByTestId('container-test'));
 
 			const title = within(container).getByText('Title');
 			expect(title).toHaveAttribute('id');
@@ -154,9 +157,10 @@ describe('FlyoutMenuItem', () => {
 
 			await userEvent.click(screen.getByRole('button', { name: 'Trigger' }));
 
-			// Use testId to target the PopupContent dialog element directly,
-			// avoiding ambiguity when multiple elements with role="dialog" exist.
-			const dialog = await screen.findByTestId('dialog');
+			// Query by name to avoid ambiguity when multiple elements with role="dialog" exist. On the
+			// top-layer path the role is on the popover host, not on the element with the test id.
+			const dialog = await screen.findByRole('dialog', { name: 'Title' });
+			expect(dialog).toContainElement(screen.getByTestId('dialog'));
 			expect(dialog).toHaveAttribute('aria-labelledby');
 
 			const titleId = dialog.getAttribute('aria-labelledby') as string;

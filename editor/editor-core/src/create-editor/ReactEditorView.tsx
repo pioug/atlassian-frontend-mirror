@@ -424,11 +424,6 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 		// @ts-expect-error
 		const sel = (viewRef.current.root as DocumentOrShadowRoot).getSelection();
 		if (sel) {
-			if (!isExperimentEnabled('fix_editor_blur_issue_exp')) {
-				sel.removeAllRanges();
-				return;
-			}
-
 			if (
 				(!sel.anchorNode || viewRef.current.dom.contains(sel.anchorNode)) &&
 				(!sel.focusNode || viewRef.current.dom.contains(sel.focusNode))

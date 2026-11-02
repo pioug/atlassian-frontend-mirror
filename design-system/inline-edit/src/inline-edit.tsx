@@ -10,7 +10,6 @@ import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import Field from '@atlaskit/form/Field';
 import Form from '@atlaskit/form/Form';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
@@ -213,9 +212,7 @@ const InnerInlineEdit = <FieldValue extends unknown>(props: InlineEditProps<Fiel
 					// This is because due to some default focus being applied to the form element, the inline edit component
 					// was being focused automatically and causing scroll issues in issue view
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-					className={
-						fg('platform_design_system_inline_edit_dont_focus') ? 'dont-default-focus' : undefined
-					}
+					className="dont-default-focus"
 				>
 					{shouldBeEditing ? (
 						<Field

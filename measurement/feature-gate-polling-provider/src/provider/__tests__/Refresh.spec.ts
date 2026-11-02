@@ -1,6 +1,6 @@
 import { ResponseError } from '@atlaskit/feature-gate-fetcher/errors';
 import Fetcher from '@atlaskit/feature-gate-fetcher/Fetcher';
-import type { FrontendExperimentsResponse } from '@atlaskit/feature-gate-fetcher/types';
+import type { EvalFlagsResponse } from '@atlaskit/feature-gate-fetcher/types';
 import {
 	type CustomAttributes,
 	FeatureGateEnvironment,
@@ -8,11 +8,16 @@ import {
 	PerimeterType,
 } from '@atlaskit/feature-gate-js-client/types';
 
-import Refresh, { NO_CACHE_RETRY_OPTIONS_DEFAULT, SCHEDULER_OPTIONS_DEFAULT } from '../Refresh';
+import Refresh, {
+	NO_CACHE_RETRY_OPTIONS_DEFAULT,
+	SCHEDULER_OPTIONS_DEFAULT,
+	UNAVAILABLE_RETRY_MIN_WAIT_INTERVAL_MS,
+} from '../Refresh';
 import { type ProviderOptions } from '../types';
 
 jest.mock('@atlaskit/feature-gate-fetcher/Fetcher', () => ({
 	...jest.requireActual('@atlaskit/feature-gate-fetcher/Fetcher'),
+	fetchEvalFlags: jest.fn(),
 	fetchExperimentValues: jest.fn(),
 	fetchClientSdk: jest.fn(),
 }));
@@ -25,6 +30,7 @@ const mockProviderOptions: ProviderOptions = {
 	apiKey: 'api-key',
 	initialFetchTimeout: 15,
 	pollingInterval: 5000,
+	includeFfpFlags: true,
 };
 
 const mockIdentifiers: Identifiers = {
@@ -50,9 +56,16 @@ const mockRulesetProfile = {
 	targetApp: 'targetApp_web',
 };
 
-const mockExperimentValuesResponse: FrontendExperimentsResponse = {
-	experimentValues: mockExperimentValues,
-	customAttributes: mockCustomAttributesFromFetch,
+const mockExperimentValuesResponse: EvalFlagsResponse = {
+	statsig: {
+		experimentValues: mockExperimentValues,
+		customAttributes: mockCustomAttributesFromFetch,
+	},
+	ffp: {
+		requestContext: { identifiers: { stableID: 'stable-abc' }, attributes: {} },
+		flags: {},
+	},
+	status: { statsig: 'OK', ffp: 'OK' },
 };
 
 export const responseErrorWithStatusCode = (status: number): ResponseError =>
@@ -78,7 +91,10 @@ describe('Refresh', () => {
 		// eslint-disable-next-line no-console
 		console.info = jest.fn();
 		mockOnFeatureGateUpdate = jest.fn();
-		refresh = new Refresh({ apiKey: 'mock-api-key' }, mockOnFeatureGateUpdate);
+		refresh = new Refresh(
+			{ apiKey: 'mock-api-key', includeFfpFlags: true },
+			mockOnFeatureGateUpdate,
+		);
 		refresh.setClientVersion('mock-client-version');
 		refresh.updateProfile(mockProfileHash, mockRulesetProfile);
 		addEventListenerSpy = jest.spyOn(document, 'addEventListener').mockImplementation(() => {});
@@ -89,7 +105,7 @@ describe('Refresh', () => {
 			.spyOn(Refresh.prototype as any, 'fetchAndReschedule')
 			.mockImplementation(() => {});
 
-		mockedFetcher.fetchExperimentValues.mockResolvedValue(mockExperimentValuesResponse);
+		mockedFetcher.fetchEvalFlags.mockResolvedValue(mockExperimentValuesResponse);
 	});
 
 	afterEach(() => {
@@ -188,6 +204,7 @@ describe('Refresh', () => {
 			refresh = new Refresh(
 				{
 					apiKey: 'apiKey',
+					includeFfpFlags: true,
 				},
 				mockOnFeatureGateUpdate,
 			);
@@ -366,7 +383,7 @@ describe('Refresh', () => {
 
 		test('calls fetcher to fetchFeatureFlags', () => {
 			(refresh as any).fetchAndReschedule();
-			expect(mockedFetcher.fetchExperimentValues).toHaveBeenCalled();
+			expect(mockedFetcher.fetchEvalFlags).toHaveBeenCalled();
 		});
 
 		test('pass correct params to fetcher', () => {
@@ -378,30 +395,7 @@ describe('Refresh', () => {
 				mockRulesetProfile,
 				new Date().getTime() - SCHEDULER_OPTIONS_DEFAULT.interval,
 			);
-			expect(mockedFetcher.fetchExperimentValues).toHaveBeenCalledWith(
-				'mock-client-version',
-				{
-					apiKey: 'mock-api-key',
-					environment: mockRulesetProfile.environment,
-					perimeter: mockRulesetProfile.perimeter,
-					targetApp: mockRulesetProfile.targetApp,
-				},
-				mockIdentifiers,
-				mockCustomAttributes,
-			);
-		});
-
-		test('passes includeFfpFlags to fetcher', () => {
-			refresh = new Refresh(
-				{ apiKey: 'mock-api-key', includeFfpFlags: true },
-				mockOnFeatureGateUpdate,
-			);
-			refresh.setClientVersion('mock-client-version');
-			refresh.updateProfile(mockProfileHash, mockRulesetProfile);
-
-			(refresh as any).fetchAndReschedule();
-
-			expect(mockedFetcher.fetchExperimentValues).toHaveBeenCalledWith(
+			expect(mockedFetcher.fetchEvalFlags).toHaveBeenCalledWith(
 				'mock-client-version',
 				{
 					apiKey: 'mock-api-key',
@@ -413,6 +407,42 @@ describe('Refresh', () => {
 				mockIdentifiers,
 				mockCustomAttributes,
 			);
+		});
+
+		test('fetches Statsig values only and disables FFP without includeFfpFlags', async () => {
+			const statsigResponse = {
+				experimentValues: mockExperimentValues,
+				customAttributes: mockCustomAttributesFromFetch,
+			};
+			mockedFetcher.fetchExperimentValues = jest.fn().mockResolvedValue(statsigResponse);
+			refresh = new Refresh({ apiKey: 'mock-api-key' }, mockOnFeatureGateUpdate);
+			refresh.setClientVersion('mock-client-version');
+			refresh.updateProfile(mockProfileHash, mockRulesetProfile);
+
+			(refresh as any).fetchAndReschedule();
+			await new Promise(process.nextTick);
+
+			expect(mockedFetcher.fetchEvalFlags).not.toHaveBeenCalled();
+			expect(mockedFetcher.fetchExperimentValues).toHaveBeenCalledWith(
+				'mock-client-version',
+				{
+					apiKey: 'mock-api-key',
+					environment: mockRulesetProfile.environment,
+					perimeter: mockRulesetProfile.perimeter,
+					targetApp: mockRulesetProfile.targetApp,
+				},
+				mockIdentifiers,
+				mockCustomAttributes,
+			);
+			expect(mockOnFeatureGateUpdate).toHaveBeenCalledWith({
+				evalFlagsResponse: {
+					statsig: statsigResponse,
+					status: { statsig: 'OK', ffp: 'DISABLED' },
+				},
+				profileHash: mockProfileHash,
+				rulesetProfile: mockRulesetProfile,
+				timestamp: Date.now(),
+			});
 		});
 
 		test('handles success resp from fetcher', async () => {
@@ -427,7 +457,7 @@ describe('Refresh', () => {
 			expect(scheduleSpy).toHaveBeenCalled();
 			expect(mockOnFeatureGateUpdate).toHaveBeenCalled();
 			expect(mockOnFeatureGateUpdate).toHaveBeenCalledWith({
-				experimentValuesResponse: mockExperimentValuesResponse,
+				evalFlagsResponse: mockExperimentValuesResponse,
 				profileHash: mockProfileHash,
 				rulesetProfile: mockRulesetProfile,
 				timestamp: Date.now(),
@@ -440,7 +470,7 @@ describe('Refresh', () => {
 		});
 
 		test('handles error resp from fetcher', async () => {
-			mockedFetcher.fetchExperimentValues = jest
+			mockedFetcher.fetchEvalFlags = jest
 				.fn()
 				.mockRejectedValueOnce(responseErrorWithStatusCode(429));
 			(refresh as any).failureCount = 1;
@@ -465,10 +495,10 @@ describe('Refresh', () => {
 			);
 		});
 		test.skip('handles multiple error resp from fetcher, finally success after retries', async () => {
-			mockedFetcher.fetchExperimentValues = jest
+			mockedFetcher.fetchEvalFlags = jest
 				.fn()
 				.mockRejectedValueOnce(responseErrorWithStatusCode(429));
-			mockedFetcher.fetchExperimentValues = jest
+			mockedFetcher.fetchEvalFlags = jest
 				.fn()
 				.mockRejectedValueOnce(responseErrorWithStatusCode(428));
 
@@ -514,9 +544,7 @@ describe('Refresh', () => {
 		});
 
 		test('handles 500 error resp from fetcher, reschedule for a retry', async () => {
-			mockedFetcher.fetchExperimentValues = jest
-				.fn()
-				.mockRejectedValue(responseErrorWithStatusCode(500));
+			mockedFetcher.fetchEvalFlags = jest.fn().mockRejectedValue(responseErrorWithStatusCode(500));
 			(refresh as any).failureCount = 0;
 			setupRefreshForFetch();
 
@@ -533,9 +561,7 @@ describe('Refresh', () => {
 		});
 
 		test('handles 401 error resp from fetcher', async () => {
-			mockedFetcher.fetchExperimentValues = jest
-				.fn()
-				.mockRejectedValue(responseErrorWithStatusCode(401));
+			mockedFetcher.fetchEvalFlags = jest.fn().mockRejectedValue(responseErrorWithStatusCode(401));
 			(refresh as any).failureCount = 1;
 			setupRefreshForFetch();
 			refresh.start();
@@ -546,9 +572,7 @@ describe('Refresh', () => {
 		});
 
 		test('handles 400 error resp from fetcher', async () => {
-			mockedFetcher.fetchExperimentValues = jest
-				.fn()
-				.mockRejectedValue(responseErrorWithStatusCode(400));
+			mockedFetcher.fetchEvalFlags = jest.fn().mockRejectedValue(responseErrorWithStatusCode(400));
 			(refresh as any).failureCount = 1;
 			setupRefreshForFetch();
 			refresh.start();
@@ -571,6 +595,183 @@ describe('Refresh', () => {
 
 			// Fetch was for the previous use so should not trigger updated
 			expect(mockOnFeatureGateUpdate).not.toHaveBeenCalled();
+		});
+
+		describe('provider health', () => {
+			const NOW = 1_700_000_000_000;
+			const respondWith = (status: EvalFlagsResponse['status']) =>
+				mockedFetcher.fetchEvalFlags.mockResolvedValue({ ...mockExperimentValuesResponse, status });
+
+			beforeEach(() => {
+				jest.spyOn(Date, 'now').mockReturnValue(NOW);
+				// No jitter
+				jest.spyOn(Math, 'random').mockReturnValue(0);
+				setupRefreshForFetch();
+			});
+
+			// With no provider OK, the fetcher rejects instead (see "client errors")
+			test.each([
+				[{ statsig: 'OK', ffp: 'UNAVAILABLE' }],
+				[{ statsig: 'UNAVAILABLE', ffp: 'OK' }],
+			] as const)(
+				'retries sooner than the polling interval when the status is %j',
+				async (status) => {
+					respondWith(status);
+					refresh.start();
+					await new Promise(process.nextTick);
+
+					expect(mockOnFeatureGateUpdate).toHaveBeenCalledTimes(1);
+					expect(setTimeout).toHaveBeenLastCalledWith(
+						expect.anything(),
+						UNAVAILABLE_RETRY_MIN_WAIT_INTERVAL_MS,
+					);
+				},
+			);
+
+			test('backs off while a provider stays unavailable, capped at the polling interval', async () => {
+				respondWith({ statsig: 'OK', ffp: 'UNAVAILABLE' });
+				const delays: number[] = [];
+				for (let i = 0; i < 6; i++) {
+					(refresh as any).fetchAndReschedule();
+					await new Promise(process.nextTick);
+					delays.push(jest.mocked(setTimeout).mock.calls.at(-1)?.[1] as number);
+					jest.mocked(Date.now).mockReturnValue(NOW + (i + 1) * SCHEDULER_OPTIONS_DEFAULT.interval);
+				}
+
+				expect(delays).toEqual([30_000, 60_000, 120_000, 240_000, 300_000, 300_000]);
+			});
+
+			test.each([
+				[{ statsig: 'OK', ffp: 'OK' }],
+				[{ statsig: 'OK', ffp: 'DISABLED' }],
+				[{ statsig: 'DISABLED', ffp: 'DISABLED' }],
+			] as const)('polls at the normal interval when the status is %j', async (status) => {
+				respondWith(status);
+				refresh.start();
+				await new Promise(process.nextTick);
+
+				expect((refresh as any).unavailableCount).toEqual(0);
+				expect(setTimeout).toHaveBeenLastCalledWith(
+					expect.anything(),
+					SCHEDULER_OPTIONS_DEFAULT.interval,
+				);
+			});
+
+			test('resets the retry schedule once the provider recovers', async () => {
+				refresh.setFetchedStatus({ statsig: 'OK', ffp: 'UNAVAILABLE' });
+				refresh.setFetchedStatus({ statsig: 'OK', ffp: 'UNAVAILABLE' });
+				respondWith({ statsig: 'OK', ffp: 'OK' });
+				refresh.start();
+				await new Promise(process.nextTick);
+
+				expect((refresh as any).unavailableCount).toEqual(0);
+				expect(setTimeout).toHaveBeenLastCalledWith(
+					expect.anything(),
+					SCHEDULER_OPTIONS_DEFAULT.interval,
+				);
+			});
+
+			test('fetches when a retry is due even if the values are fresh', () => {
+				refresh.setTimestamp(NOW);
+				refresh.setFetchedStatus({ statsig: 'OK', ffp: 'UNAVAILABLE' });
+				jest.mocked(Date.now).mockReturnValue(NOW + UNAVAILABLE_RETRY_MIN_WAIT_INTERVAL_MS);
+
+				(refresh as any).fetchAndReschedule();
+
+				expect(mockedFetcher.fetchEvalFlags).toHaveBeenCalledTimes(1);
+			});
+
+			test('waits for the retry when the values are fresh and the retry is not due', () => {
+				refresh.setTimestamp(NOW);
+				refresh.setFetchedStatus({ statsig: 'OK', ffp: 'UNAVAILABLE' });
+				jest.mocked(Date.now).mockReturnValue(NOW + 10_000);
+
+				(refresh as any).fetchAndReschedule();
+
+				expect(mockedFetcher.fetchEvalFlags).not.toHaveBeenCalled();
+				expect(setTimeout).toHaveBeenLastCalledWith(expect.anything(), 20_000);
+			});
+
+			test('updateProfile resets the retry schedule', () => {
+				refresh.setFetchedStatus({ statsig: 'OK', ffp: 'UNAVAILABLE' });
+				refresh.updateProfile(mockProfileHash, mockRulesetProfile);
+				expect((refresh as any).unavailableCount).toEqual(0);
+			});
+		});
+
+		describe('client errors', () => {
+			test.each([400, 401, 403, 404, 422])('does not retry a %s', async (status) => {
+				// eslint-disable-next-line no-console
+				console.error = jest.fn();
+				mockedFetcher.fetchEvalFlags = jest
+					.fn()
+					.mockRejectedValue(responseErrorWithStatusCode(status));
+				setupRefreshForFetch();
+				refresh.start();
+				await new Promise(process.nextTick);
+
+				expect((refresh as any).failureCount).toEqual(0);
+				expect(setTimeout).not.toHaveBeenCalled();
+				// eslint-disable-next-line no-console
+				expect(console.error).toHaveBeenCalledWith(expect.stringContaining(`returned ${status}`));
+			});
+
+			test.each([408, 429, 503])('retries a %s with backoff', async (status) => {
+				jest.spyOn(Math, 'random').mockReturnValue(0);
+				mockedFetcher.fetchEvalFlags = jest
+					.fn()
+					.mockRejectedValue(responseErrorWithStatusCode(status));
+				setupRefreshForFetch();
+				refresh.start();
+				await new Promise(process.nextTick);
+
+				expect((refresh as any).failureCount).toEqual(1);
+				expect(setTimeout).toHaveBeenLastCalledWith(
+					expect.anything(),
+					SCHEDULER_OPTIONS_DEFAULT.minWaitInterval,
+				);
+			});
+
+			test('retries with backoff, keeping the previous values, when no provider is usable', async () => {
+				jest.spyOn(Math, 'random').mockReturnValue(0);
+				// Use the real fetcher, which rejects such a response, against a stubbed network
+				const actualFetcher: typeof Fetcher = jest.requireActual(
+					'@atlaskit/feature-gate-fetcher/Fetcher',
+				).default;
+				mockedFetcher.fetchEvalFlags = jest
+					.fn()
+					.mockImplementation((...args: Parameters<typeof Fetcher.fetchEvalFlags>) =>
+						actualFetcher.fetchEvalFlags(...args),
+					);
+				const originalFetch = global.fetch;
+				global.fetch = jest.fn().mockResolvedValue({
+					ok: true,
+					status: 200,
+					text: async () =>
+						JSON.stringify({
+							statsig: null,
+							ffp: null,
+							status: { statsig: 'UNAVAILABLE', ffp: 'DISABLED' },
+						}),
+				});
+				try {
+					setupRefreshForFetch();
+					refresh.start();
+					for (let i = 0; i < 10; i++) {
+						await new Promise(process.nextTick);
+					}
+				} finally {
+					global.fetch = originalFetch;
+				}
+
+				expect((refresh as any).failureCount).toEqual(1);
+				expect((refresh as any).unavailableCount).toEqual(0);
+				expect(mockOnFeatureGateUpdate).not.toHaveBeenCalled();
+				expect(setTimeout).toHaveBeenLastCalledWith(
+					expect.anything(),
+					SCHEDULER_OPTIONS_DEFAULT.minWaitInterval,
+				);
+			});
 		});
 	});
 

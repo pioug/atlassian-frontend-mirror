@@ -180,6 +180,19 @@ export default class Popup extends React.Component<Props, State> {
 		const { position, validPosition } = this.calculatePosition(props, popup);
 
 		if (position && validPosition) {
+			const previousPosition = this.state.position;
+			if (
+				previousPosition &&
+				previousPosition.top === position.top &&
+				previousPosition.right === position.right &&
+				previousPosition.bottom === position.bottom &&
+				previousPosition.left === position.left &&
+				this.state.validPosition === validPosition &&
+				isExperimentEnabled('platform_editor_improve_inp_batch_2')
+			) {
+				return;
+			}
+
 			flushSync(() => {
 				this.setState({
 					position,

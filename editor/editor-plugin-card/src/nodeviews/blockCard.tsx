@@ -111,6 +111,16 @@ export class BlockCardComponent extends React.PureComponent<
 			return;
 		}
 		this.removeCardDispatched = true;
+		this.removeCardRegistration();
+	}
+
+	private removeCardRegistration(): void {
+		if (
+			isExperimentEnabled('platform_editor_preserve_smart_card_embeds') &&
+			this.props.view.isDestroyed
+		) {
+			return;
+		}
 		if (isExperimentEnabled('platform_editor_reduce_forced_layout_2')) {
 			const { pluginInjectionApi, id } = this.props;
 			pluginInjectionApi?.card.actions?.removeRegisteredCard(id);

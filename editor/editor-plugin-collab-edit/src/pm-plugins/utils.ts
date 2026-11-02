@@ -40,7 +40,8 @@ function style(options: { color: string }) {
 
 export function getAvatarColor(
 	str: string,
-	agentType?: string,
+	agentName?: string,
+	agentNamedId?: string,
 ): {
 	backgroundColor: string;
 	index: number;
@@ -48,7 +49,8 @@ export function getAvatarColor(
 } {
 	const participantColor = getParticipantColor(
 		str,
-		fg('confluence_ncs_step_diffing_version_history') ? agentType : undefined,
+		fg('confluence_ncs_step_diffing_version_history') ? agentName : undefined,
+		fg('confluence_ncs_step_diffing_version_history') ? agentNamedId : undefined,
 	);
 
 	return {
@@ -67,10 +69,11 @@ export const createTelepointers = (
 	presenceId: string,
 	fullName: string,
 	isNudged: boolean,
-	agentType?: string,
+	agentName?: string,
+	agentNamedId?: string,
 ): Decoration[] => {
 	const decorations: Decoration[] = [];
-	const avatarColor = getAvatarColor(presenceId, agentType);
+	const avatarColor = getAvatarColor(presenceId, agentName, agentNamedId);
 	const color = avatarColor.index.toString();
 	if (isSelection) {
 		const className = `telepointer color-${color} telepointer-selection`;

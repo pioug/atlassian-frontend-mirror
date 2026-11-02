@@ -71,7 +71,7 @@ export const LoomQuickInsertMenuItem = ({
 			isDisabled={isOffline}
 			onSelect={onSelect}
 			preview={preview}
-			title={formatMessage(messages.recordVideo)}
+			title={formatMessage(messages.loomTitle)}
 		/>
 	);
 };

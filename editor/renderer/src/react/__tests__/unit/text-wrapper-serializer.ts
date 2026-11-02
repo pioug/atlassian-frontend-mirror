@@ -18,7 +18,6 @@ import { complexDocument as doc } from './__fixtures__/documents';
 
 const textWrapper = TextWrapperComponent as unknown as jest.Mock;
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Renderer - ReactSerializer - TextWrapperComponent', () => {
 	let docFromSchema: PMNode;
 

@@ -1,7 +1,7 @@
 import type { AttributeSchema, MotionKeyframeTokenSchema } from '../../../src/types';
 import type { BaseKeyframeToken } from '../../palettes/motion-palette';
 
-const font: AttributeSchema<MotionKeyframeTokenSchema<BaseKeyframeToken>> = {
+const keyframe: AttributeSchema<MotionKeyframeTokenSchema<BaseKeyframeToken>> = {
 	motion: {
 		keyframe: {
 			grid: {
@@ -202,4 +202,4 @@ const font: AttributeSchema<MotionKeyframeTokenSchema<BaseKeyframeToken>> = {
 	},
 };
 
-export default font;
+export default keyframe;

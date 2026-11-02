@@ -7,7 +7,7 @@ import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers/intersection-observer';
 import { APIError } from '@atlaskit/linking-common/api-error';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { render, waitFor } from '@atlassian/testing-library/testing-library/react';
 
@@ -175,7 +175,11 @@ describe('smart-card: error analytics', () => {
 		);
 	});
 
-	ffTest.on('platform_bandicoots-smartlink-unresolved-error-key', 'FF on', () => {
+	describe('platform_bandicoots-smartlink-unresolved-error-key is on FF on', () => {
+		beforeEach(() => {
+			passGate('platform_bandicoots-smartlink-unresolved-error-key');
+		});
+
 		beforeEach(() => {
 			mockWindowOpen = jest.fn();
 			mockUrl = 'https://my.url';
@@ -451,7 +455,11 @@ describe('smart-card: error analytics', () => {
 	});
 
 	// Note: Delete the entire block on FF platform_bandicoots-smartlink-unresolved-error-key clean up
-	ffTest.off('platform_bandicoots-smartlink-unresolved-error-key', 'FF off', () => {
+	describe('platform_bandicoots-smartlink-unresolved-error-key is off FF off', () => {
+		beforeEach(() => {
+			failGate('platform_bandicoots-smartlink-unresolved-error-key');
+		});
+
 		beforeEach(() => {
 			mockWindowOpen = jest.fn();
 			mockUrl = 'https://my.url';

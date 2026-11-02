@@ -263,11 +263,6 @@ export const createExtensionAPI: CreateExtensionAPI = (options: CreateExtensionA
 
 			if (
 				nodePos.node.type.name === 'table' &&
-				expValEquals(
-					'platform_editor_table_sticky_header_improvements',
-					'cohort',
-					'test_with_overflow',
-				) &&
 				expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
 			) {
 				const tableDOM = options.editorView.nodeDOM(nodePos.pos);

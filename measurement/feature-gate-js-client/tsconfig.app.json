@@ -42,6 +42,9 @@
 	"references": [
 		{
 			"path": "../../uip/atlassian-context/tsconfig.app.json"
+		},
+		{
+			"path": "../flag-client/tsconfig.app.json"
 		}
 	]
 }

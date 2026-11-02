@@ -26,7 +26,6 @@ import { pluginKey } from './pm-plugins/plugin-key';
 import { bodiedExtensionSpecWithFixedToDOM } from './pm-plugins/toDOM-fixes/bodiedExtension';
 import { getToolbarConfig } from './pm-plugins/toolbar';
 import { createPlugin as createUniqueIdPlugin } from './pm-plugins/unique-id';
-// Remove below line when cleaning up platform_editor_ai_object_sidebar_injection feature flag
 import { CONFIG_PANEL_ID } from './ui/ConfigPanel/constants';
 import { getContextPanel } from './ui/context-panel';
 import { useConfigPanelPluginHook } from './ui/useConfigPanelPluginHook';
@@ -218,19 +217,15 @@ export const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) 
 				extensionApi: api,
 				getUnsupportedContent: options.getUnsupportedContent,
 			}),
-			contextPanel:
-				// if showContextPanel action is not available, or platform_editor_ai_object_sidebar_injection feature flag is off
-				// 	then keep using old context panel.
-				!showContextPanel || !fg('platform_editor_ai_object_sidebar_injection')
-					? getContextPanel(() => editorViewRef.current ?? undefined)(api, featureFlags)
-					: undefined,
+			contextPanel: !showContextPanel
+				? getContextPanel(() => editorViewRef.current ?? undefined)(api, featureFlags)
+				: undefined,
 		},
 
-		usePluginHook:
-			showContextPanel && fg('platform_editor_ai_object_sidebar_injection')
-				? ({ editorView }) => {
-						useConfigPanelPluginHook({ api, configPanelId, editorView });
-					}
-				: undefined,
+		usePluginHook: showContextPanel
+			? ({ editorView }) => {
+					useConfigPanelPluginHook({ api, configPanelId, editorView });
+				}
+			: undefined,
 	};
 };

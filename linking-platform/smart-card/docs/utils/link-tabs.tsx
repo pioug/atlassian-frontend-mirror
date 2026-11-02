@@ -7,10 +7,10 @@ import { css, jsx } from '@compiled/react';
 
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
-import Tabs from '@atlaskit/tabs/tabs';
 import Tab from '@atlaskit/tabs/tab';
 import TabList from '@atlaskit/tabs/tab-list';
 import TabPanel from '@atlaskit/tabs/tab-panel';
+import Tabs from '@atlaskit/tabs/tabs';
 import { token } from '@atlaskit/tokens';
 
 import DocQuickLinks from './doc-quick-links';
@@ -26,7 +26,7 @@ const styles = css({
 			backgroundColor: 'unset',
 		},
 	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	"> div > [role='tablist'] > [role='tab']": {
 		color: token('color.link'),
 	},

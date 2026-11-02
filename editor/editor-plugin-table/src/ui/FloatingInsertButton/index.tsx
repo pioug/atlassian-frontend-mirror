@@ -222,22 +222,9 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 				);
 			}
 		}
-		// Preserve the original popup placement: overflow row inserts and column inserts
-		// sit above the header; other row inserts sit below it.
+		// Insert buttons sit above the sticky header.
 		// Set the layer on the Popup because its children share its stacking context.
-		let zIndex: number | undefined;
-		if (
-			expValEquals(
-				'platform_editor_table_sticky_header_improvements',
-				'cohort',
-				'test_with_overflow',
-			) ||
-			type === 'column'
-		) {
-			zIndex = getTableZIndexes().headerButton;
-		} else if (type === 'row' && isExperimentEnabled('platform_editor_sticky_headers_zindex')) {
-			zIndex = getTableZIndexes().belowHeader;
-		}
+		const zIndex = getTableZIndexes().headerButton;
 
 		return (
 			<Popup

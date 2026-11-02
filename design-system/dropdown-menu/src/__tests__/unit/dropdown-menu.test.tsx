@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 
 import Button from '@atlaskit/button/standard-button';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
@@ -95,7 +95,7 @@ describe('dropdown menu', () => {
 			expect(screen.queryAllByRole('menuitem')).toHaveLength(items.length);
 		});
 
-		it('should return focus to the trigger after closing the menu if it is called via MouseEvent click', () => {
+		it('should return focus to the trigger after closing the menu if it is called via MouseEvent click', async () => {
 			render(
 				createDropdown({
 					children: (
@@ -110,6 +110,8 @@ describe('dropdown menu', () => {
 
 			const trigger = screen.getByRole('button');
 
+			// A mouse press focuses the trigger before the click. `fireEvent.click` does not.
+			act(() => trigger.focus());
 			// Simulating MouseEvent click
 			fireEvent.click(trigger, {
 				clientX: 1,
@@ -118,7 +120,7 @@ describe('dropdown menu', () => {
 			});
 			fireEvent.click(screen.getAllByRole('menuitem', { name: 'Clone' })[0]);
 
-			expect(trigger).toHaveFocus();
+			await waitFor(() => expect(trigger).toHaveFocus());
 		});
 
 		it('should render aria-label via label prop', () => {

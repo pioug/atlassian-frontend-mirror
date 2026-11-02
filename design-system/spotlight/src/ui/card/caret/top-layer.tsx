@@ -36,6 +36,18 @@ const styles = cssMap({
 		insetInlineStart: '21px',
 		transform: 'rotate(315deg)',
 	},
+	'inline-start': {
+		insetInlineEnd: token('space.0'),
+		// @ts-expect-error
+		insetBlockStart: 'calc(50% - 7px)',
+		transform: 'rotate(225deg)',
+	},
+	'inline-end': {
+		insetInlineStart: token('space.0'),
+		// @ts-expect-error
+		insetBlockStart: 'calc(50% - 7px)',
+		transform: 'rotate(45deg)',
+	},
 	'span-start end': {
 		insetInlineStart: token('space.0'),
 		// @ts-expect-error

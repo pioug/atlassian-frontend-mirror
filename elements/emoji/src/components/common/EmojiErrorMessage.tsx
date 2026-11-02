@@ -12,7 +12,6 @@ import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import type { Message } from '../../types';
 import { messages } from '../i18n';
-import { isRefreshEmojiPickerEnabled } from './isRefreshEmojiPickerEnabled';
 
 export type ErrorStyle = 'chooseFile' | 'delete' | 'preview';
 
@@ -68,14 +67,9 @@ const EmojiErrorMessage = (props: Props): JSX.Element => {
 				/>
 			</Tooltip>
 		</div>
-	) : isRefreshEmojiPickerEnabled() ? (
+	) : (
 		<div data-testid={emojiErrorMessageTestId}>
 			<ErrorMessage>{message}</ErrorMessage>
-		</div>
-	) : (
-		<div css={errorMessageStyles[errorStyle]} data-testid={emojiErrorMessageTestId}>
-			<ErrorIcon color="currentColor" label={formatMessage(messages.error)} />
-			{message}
 		</div>
 	);
 

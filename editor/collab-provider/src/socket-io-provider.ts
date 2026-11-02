@@ -59,8 +59,6 @@ export function createSocketIOSocket(
 			if (fg('platform_editor_gcp_collab_ws_first')) {
 				transports = ['websocket', 'polling'];
 				webSocketFirst = true;
-			} else if (fg('collab_edit_via_websocket_only_for_gcp')) {
-				transports = ['websocket'];
 			}
 			break;
 

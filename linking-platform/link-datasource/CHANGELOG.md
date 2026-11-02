@@ -1,5 +1,22 @@
 # @atlaskit/link-datasource
 
+## 7.11.0
+
+### Minor Changes
+
+- [`c25a07d9c8207`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c25a07d9c8207) -
+  Update i18n NPM package versions for linking-platform,smart-experiences (Group 15)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.10.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.10.0
 
 ### Minor Changes

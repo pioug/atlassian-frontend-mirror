@@ -13,7 +13,6 @@ import type { ComponentCrashErrorAEP } from '../../../../analytics/events';
 import { PLATFORM } from '../../../../analytics/events';
 import { ErrorBoundary } from '../../ErrorBoundary';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('ErrorBoundary', () => {
 	let mockCreateAnalyticsEvent: jest.Mock;
 

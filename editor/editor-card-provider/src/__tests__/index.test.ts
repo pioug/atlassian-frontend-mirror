@@ -1,6 +1,5 @@
 import type { Datasource } from '@atlaskit/linking-common/types';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags/setBooleanFeatureFlagResolver';
-import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { EditorCardProvider, isJiraWorkItem } from '../provider';
 import type { LinkAppearance, UserPreferences } from '../types';
@@ -1363,12 +1362,8 @@ describe('providers > editor', () => {
 		});
 	});
 
-	describe('prompt linked issues experiment', () => {
-		describe('fg on', () => {
-			beforeEach(() => {
-				passGate('issue-link-suggestions-in-comments');
-			});
-
+	describe('linked issue resolution', () => {
+		describe('onResolve callback', () => {
 			it('should call onResolve for issue links', async () => {
 				const baseUrl = 'https://jdog.jira-dev.com';
 				const onResolveMock = jest.fn();
@@ -1444,35 +1439,6 @@ describe('providers > editor', () => {
 				await provider.resolve(issueUrl, 'inline', false);
 
 				expect(onResolveMock).toHaveBeenCalledTimes(0);
-			});
-		});
-
-		describe('fg off', () => {
-			beforeEach(() => {
-				failGate('issue-link-suggestions-in-comments');
-			});
-
-			it('should not call onResolve for an issue link', async () => {
-				const baseUrl = 'https://jdog.jira-dev.com';
-				const onResolveMock = jest.fn();
-
-				const provider = new EditorCardProvider(undefined, baseUrl, undefined, onResolveMock);
-
-				mockFetch.mockResolvedValueOnce({
-					json: async () =>
-						getMockProvidersResponse({
-							userPreferences: {
-								defaultAppearance: 'inline',
-								appearances: [],
-							},
-						}),
-					ok: true,
-				});
-
-				const issueUrl = 'https://jdog.jira-dev.com/browse/BNP-1';
-				await provider.resolve(issueUrl, 'inline', false);
-
-				expect(onResolveMock).not.toHaveBeenCalled();
 			});
 		});
 	});

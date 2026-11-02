@@ -334,6 +334,7 @@ function FullPageDiffEditor(): React.JSX.Element {
 				},
 				enabledOptionalPlugins: {
 					numberedHeadings: false,
+					externalState: false,
 					agentManagedExtension: false,
 					blockCollapse: false,
 					limitedMode: false,

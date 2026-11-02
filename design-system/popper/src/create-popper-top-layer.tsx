@@ -172,6 +172,7 @@ function promoteToTopLayer(element: HTMLElement): (() => void) | undefined {
 
 	ensurePromotedStyles(element);
 	element.setAttribute(PROMOTED_ATTRIBUTE, 'true');
+	// eslint-disable-next-line @atlaskit/design-system/no-native-popover-or-dialog -- the popper adapter promotes the caller's element for code without React
 	element.setAttribute('popover', 'manual');
 	try {
 		element.showPopover();

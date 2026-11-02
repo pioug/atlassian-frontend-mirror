@@ -1,4 +1,4 @@
-import { entireSelectionContainsMark } from '@atlaskit/editor-common/mark';
+import { entireSelectionContainsMark, isMarkExcluded } from '@atlaskit/editor-common/mark';
 import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { Mark, MarkType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -39,6 +39,46 @@ export const nextToggleMark =
 		return nextToggleMarkInRange(mark, api)({ tr });
 	};
 
+/**
+ * Like `entireSelectionContainsMark`, but ignores text that can never carry the mark because
+ * one of its marks excludes it (for example inline code excludes bold). Without this, a mixed
+ * selection containing inline code could be styled but never un-styled.
+ *
+ * Returns true when no text in the range can take the mark (for example a selection of only
+ * inline code). The caller then removes a mark that is not there, which changes nothing.
+ */
+const entireStyleableSelectionContainsMark = (
+	mark: Mark,
+	doc: PMNode,
+	fromPos: number,
+	toPos: number,
+): boolean => {
+	let onlyContainsMark = true;
+
+	doc.nodesBetween(fromPos, toPos, (node) => {
+		if (!onlyContainsMark) {
+			return false;
+		}
+		if (node.isText && !isMarkExcluded(mark.type, node.marks)) {
+			onlyContainsMark = mark.isInSet(node.marks);
+		}
+	});
+
+	return onlyContainsMark;
+};
+
+const selectionContainsMark = (
+	mark: Mark,
+	doc: PMNode,
+	fromPos: number,
+	toPos: number,
+): boolean => {
+	if (fg('platform_editor_style_around_inline_code')) {
+		return entireStyleableSelectionContainsMark(mark, doc, fromPos, toPos);
+	}
+	return entireSelectionContainsMark(mark, doc, fromPos, toPos);
+};
+
 const nextToggleMarkInRange =
 	(mark: Mark, api: ExtractInjectionAPI<TextFormattingPlugin> | undefined): EditorCommand =>
 	({ tr }) => {
@@ -50,7 +90,7 @@ const nextToggleMarkInRange =
 				const from = cellPos;
 				const to = cellPos + cell.nodeSize;
 
-				removeMark && (removeMark = entireSelectionContainsMark(mark, tr.doc, from, to));
+				removeMark && (removeMark = selectionContainsMark(mark, tr.doc, from, to));
 			});
 
 			for (let i = cells.length - 1; i >= 0; i--) {
@@ -67,7 +107,7 @@ const nextToggleMarkInRange =
 			// Scenario 1: Selection contains both bold and non-bold text -> bold entire selection
 			// Scenario 2: Selection contains only bold text -> un-bold entire selection
 			// Scenario 3: Selection contains no bold text -> bold entire selection
-			const removeMark = entireSelectionContainsMark(mark, tr.doc, $from.pos, $to.pos);
+			const removeMark = selectionContainsMark(mark, tr.doc, $from.pos, $to.pos);
 
 			nextApplyMarkOnRange($from.pos, $to.pos, removeMark, mark, tr, api);
 		}

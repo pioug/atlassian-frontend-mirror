@@ -3,7 +3,7 @@
  *
  * Structured content components from *.docs.tsx files outside of design-system
  *
- * @codegen <<SignedSource::e6d3d998357cbdef90e24de401068ada>>
+ * @codegen <<SignedSource::895a03f3de86eda99e847d6c5fd1c498>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -53798,5 +53798,829 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			'import ThirdPartyConnectorConfiguration from \'../src/ui/third-party-connector-configuration\';\nexport default function Basic(): React.JSX.Element {\n\treturn <ThirdPartyConnectorConfiguration testId="third-party-connector-configuration" />;\n}',
 		],
 		props: [],
+	},
+	{
+		name: 'LayoutWithPanel',
+		package: '@atlassian/panel-system',
+		description:
+			'For internal Atlassian use only: Hosts the active panel beside page content inside navigation system Main, with resizing and responsive placement. Internal Atlassian package; not available for use outside Atlassian.',
+		status: 'open-beta',
+		usageGuidelines: [
+			'Use a single panel host within a navigation Root and reuse it for different contextual views.',
+			'Keep the main task visible while showing supplementary content alongside it.',
+		],
+		accessibilityGuidelines: [
+			'Give the panel region and resize control meaningful localized accessible names.',
+		],
+		keywords: ['panel', 'layout', 'resize', 'sidebar', 'navigation'],
+		category: 'layout',
+		examples: [
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Main } from '@atlaskit/navigation-system/layout/main';\nimport { Root } from '@atlaskit/navigation-system/layout/root';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { LayoutWithPanel } from '@atlassian/panel-system/layout-with-panel';\nimport { PanelActionCloseSmart } from '@atlassian/panel-system/panel-action/close-smart';\nimport { PanelActionGroup } from '@atlassian/panel-system/panel-action/group';\nimport { PanelActionNewTab } from '@atlassian/panel-system/panel-action/new-tab';\nimport { PanelBody } from '@atlassian/panel-system/panel-body';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { usePanel } from '@atlassian/panel-system/panel-context';\nimport { PanelFooter } from '@atlassian/panel-system/panel-footer';\nimport { PanelHeader } from '@atlassian/panel-system/panel-header';\nimport { usePanelActions, usePanelState } from '@atlassian/panel-system/panel-manager';\nimport { PanelProvider } from '@atlassian/panel-system/panel-provider';\nimport { PanelSubheader } from '@atlassian/panel-system/panel-subheader';\nimport { PanelTitle } from '@atlassian/panel-system/panel-title';\nimport { SubheaderInlineEdit } from '@atlassian/panel-system/subheader-inline-edit';\nfunction WorkItemDetails() {\n\tconst { panel, closePanel } = usePanel<{ title: string }>();\n\tconst [title, setTitle] = useState(panel.params.title);\n\treturn (\n\t\t<PanelContainer>\n\t\t\t<PanelHeader>\n\t\t\t\t<PanelTitle>Work item</PanelTitle>\n\t\t\t\t<PanelActionGroup>\n\t\t\t\t\t<PanelActionNewTab href=\"/browse/PROJ-42\" label=\"Open work item in a new tab\" />\n\t\t\t\t\t<PanelActionCloseSmart label=\"Close work item\" />\n\t\t\t\t</PanelActionGroup>\n\t\t\t</PanelHeader>\n\t\t\t<PanelContent>\n\t\t\t\t<PanelSubheader\n\t\t\t\t\ttitle={title}\n\t\t\t\t\tinlineEdit={\n\t\t\t\t\t\t<SubheaderInlineEdit\n\t\t\t\t\t\t\tdefaultValue={title}\n\t\t\t\t\t\t\tplaceholder=\"Add a work item title\"\n\t\t\t\t\t\t\teditButtonLabel=\"Edit work item title\"\n\t\t\t\t\t\t\tconfirmButtonLabel=\"Confirm title\"\n\t\t\t\t\t\t\tcancelButtonLabel=\"Cancel editing\"\n\t\t\t\t\t\t\tonConfirm={setTitle}\n\t\t\t\t\t\t/>\n\t\t\t\t\t}\n\t\t\t\t/>\n\t\t\t\t<PanelBody>\n\t\t\t\t\t<Stack space=\"space.200\">\n\t\t\t\t\t\t<Text as=\"p\">PROJ-42 · In progress</Text>\n\t\t\t\t\t\t<Text as=\"p\">Review the release checklist with the project team.</Text>\n\t\t\t\t\t\t<Text as=\"p\">\n\t\t\t\t\t\t\tThis example keeps title edits locally. Connect confirmation to your app's save\n\t\t\t\t\t\t\toperation.\n\t\t\t\t\t\t</Text>\n\t\t\t\t\t</Stack>\n\t\t\t\t</PanelBody>\n\t\t\t</PanelContent>\n\t\t\t<PanelFooter>\n\t\t\t\t<Button onClick={closePanel}>Done</Button>\n\t\t\t</PanelFooter>\n\t\t</PanelContainer>\n\t);\n}\nfunction ProjectContent() {\n\tconst manager = usePanelActions();\n\tconst { activePanel } = usePanelState();\n\treturn (\n\t\t<LayoutWithPanel panelLabel=\"Work item details\" resizeLabel=\"Resize work item details\">\n\t\t\t<Button\n\t\t\t\tisSelected={activePanel?.instanceId === 'PROJ-42'}\n\t\t\t\tonClick={() =>\n\t\t\t\t\tmanager.openPanel({\n\t\t\t\t\t\tinstanceId: 'PROJ-42',\n\t\t\t\t\t\tparams: { title: 'Prepare the release checklist' },\n\t\t\t\t\t\tpanelContent: <WorkItemDetails />,\n\t\t\t\t\t})\n\t\t\t\t}\n\t\t\t>\n\t\t\t\tView PROJ-42\n\t\t\t</Button>\n\t\t</LayoutWithPanel>\n\t);\n}\n// Internal Atlassian package. This example uses already-loaded React content.\n// For lazy EntryPoints, prefer Trigger inside the app's Relay environment provider.\nexport default function ContextualDetailsExample(): React.JSX.Element {\n\treturn (\n\t\t<PanelProvider>\n\t\t\t<Root>\n\t\t\t\t<Main>\n\t\t\t\t\t<ProjectContent />\n\t\t\t\t</Main>\n\t\t\t</Root>\n\t\t</PanelProvider>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
+				isRequired: true,
+			},
+			{
+				name: 'defaultPanelWidth',
+				type: 'number | undefined',
+				description:
+					'Initial uncontrolled width, in pixels. Subsequent prop changes are ignored.\nA previously saved provider preference takes precedence over this default on remount.\nWithout a preference, navigation supplies 365px, or 400px with chat layout enabled.\nCompact layouts start at 320px unless a product-supplied or previously saved width exists.',
+			},
+			{
+				name: 'onPanelWidthChange',
+				type: '((panelWidth: number) => void) | undefined',
+				description:
+					'Called with the requested width after a pointer resize or each keyboard resize step.\nProgrammatic width changes do not invoke this callback.\n\nProvide this with `panelWidth` to control the rendered width, including programmatic width\nchanges. For persistence that only needs the completed width, prefer `onResizeEnd`.',
+			},
+			{
+				name: 'onResizeEnd',
+				type: '((event: PanelResizeEnd) => void) | undefined',
+				description:
+					"Called when a pointer or keyboard resize interaction is complete.\nIntended for product-owned analytics and persistence that should only run once per interaction.\n\nReceives navigation's initialWidth, finalWidth (pixels), and the mode of the resize.",
+			},
+			{
+				name: 'panelLabel',
+				type: 'string | undefined',
+				description: 'Localized accessible name for the panel region. Defaults to "Panel".',
+			},
+			{
+				name: 'panelMaxWidth',
+				type: 'number | undefined',
+				description: 'Optional maximum panel width.',
+			},
+			{
+				name: 'panelMinWidth',
+				type: 'number | undefined',
+				description: 'Minimum panel width. Defaults to 320px.',
+			},
+			{
+				name: 'panelWidth',
+				type: 'number | undefined',
+				description:
+					'Controlled preferred width, in pixels. Subsequent prop changes update the layout.\nAccept resize requests through `onPanelWidthChange` to allow user resizing;\nwithout a callback, the requested width stays controlled by this prop.\nAvailable space and bounds may constrain the rendered width without changing this request.\nTakes precedence over `defaultPanelWidth`. Do not switch between controlled and uncontrolled.',
+			},
+			{
+				name: 'resizeLabel',
+				type: 'string | undefined',
+				description:
+					'Localized accessible name for the resize control. Defaults to "Resize panel".',
+			},
+		],
+	},
+	{
+		name: 'PanelActionClose',
+		package: '@atlassian/panel-system',
+		description:
+			'For internal Atlassian use only: Provides a close action for panels whose dismissal is handled by the consumer. Internal Atlassian package; not available for use outside Atlassian.',
+		status: 'open-beta',
+		usageGuidelines: ['Keep a close action visible in every panel header.'],
+		accessibilityGuidelines: [
+			'Give the action a meaningful localized label and restore focus to the triggering control after dismissal.',
+		],
+		keywords: ['panel', 'close', 'dismiss', 'header', 'button'],
+		category: 'layout',
+		examples: [
+			"import Button from '@atlaskit/button/default/button';\nimport { Main } from '@atlaskit/navigation-system/layout/main';\nimport { PanelLayout } from '@atlaskit/navigation-system/layout/panel-layout';\nimport { Root } from '@atlaskit/navigation-system/layout/root';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { PanelActionClose } from '@atlassian/panel-system/panel-action/close';\nimport { PanelActionGroup } from '@atlassian/panel-system/panel-action/group';\nimport { PanelBody } from '@atlassian/panel-system/panel-body';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { useCloseCurrentPanel, useCurrentPanel } from '@atlassian/panel-system/panel-context';\nimport { PanelDisclaimer } from '@atlassian/panel-system/panel-disclaimer';\nimport { PanelFooter } from '@atlassian/panel-system/panel-footer';\nimport { PanelHeader } from '@atlassian/panel-system/panel-header';\nimport { usePanelManager } from '@atlassian/panel-system/panel-manager';\nimport { PanelProvider } from '@atlassian/panel-system/panel-provider';\nimport { PanelRouter } from '@atlassian/panel-system/panel-router';\nimport { PanelTitle } from '@atlassian/panel-system/panel-title';\nimport { PanelsRenderer } from '@atlassian/panel-system/panels-renderer';\nfunction ProjectSummary() {\n\tconst panel = useCurrentPanel<{ summary: string }>();\n\tconst closePanel = useCloseCurrentPanel();\n\treturn (\n\t\t<PanelContainer>\n\t\t\t<PanelHeader>\n\t\t\t\t<PanelTitle>Project summary</PanelTitle>\n\t\t\t\t<PanelActionGroup>\n\t\t\t\t\t<PanelActionClose label=\"Close project summary\" onClick={closePanel} />\n\t\t\t\t</PanelActionGroup>\n\t\t\t</PanelHeader>\n\t\t\t<PanelContent>\n\t\t\t\t<PanelBody>\n\t\t\t\t\t<Text as=\"p\">{panel.params.summary}</Text>\n\t\t\t\t</PanelBody>\n\t\t\t</PanelContent>\n\t\t\t<PanelFooter\n\t\t\t\tdisclaimer={\n\t\t\t\t\t<PanelDisclaimer>AI-generated content. Verify important details.</PanelDisclaimer>\n\t\t\t\t}\n\t\t\t>\n\t\t\t\t<Button onClick={closePanel}>Done</Button>\n\t\t\t</PanelFooter>\n\t\t</PanelContainer>\n\t);\n}\nfunction ProjectContent() {\n\tconst { state, manager } = usePanelManager();\n\treturn (\n\t\t<PanelLayout\n\t\t\tisPanelOpen={state.activePanel !== null}\n\t\t\tpanelKey={state.activePanel?.instanceId}\n\t\t\tpanelLabel=\"Project summary\"\n\t\t\tresizeLabel=\"Resize project summary\"\n\t\t\tpanel={\n\t\t\t\t<PanelsRenderer>\n\t\t\t\t\t<PanelRouter />\n\t\t\t\t</PanelsRenderer>\n\t\t\t}\n\t\t>\n\t\t\t<Button\n\t\t\t\tonClick={() =>\n\t\t\t\t\tmanager.openPanel({\n\t\t\t\t\t\tinstanceId: 'project-summary',\n\t\t\t\t\t\tparams: {\n\t\t\t\t\t\t\tsummary:\n\t\t\t\t\t\t\t\t'The release checklist is ready for review. Two work items remain in progress.',\n\t\t\t\t\t\t},\n\t\t\t\t\t\tpanelContent: <ProjectSummary />,\n\t\t\t\t\t})\n\t\t\t\t}\n\t\t\t>\n\t\t\t\tView project summary\n\t\t\t</Button>\n\t\t</PanelLayout>\n\t);\n}\n// Internal Atlassian package. Prefer LayoutWithPanel for the standard integration.\n// Use this composition when the app needs to own its PanelLayout and PanelRouter.\nexport default function CustomRenderingExample(): React.JSX.Element {\n\treturn (\n\t\t<PanelProvider>\n\t\t\t<Root>\n\t\t\t\t<Main>\n\t\t\t\t\t<ProjectContent />\n\t\t\t\t</Main>\n\t\t\t</Root>\n\t\t</PanelProvider>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'label',
+				type: 'string | undefined',
+				description: 'Label for icon buttons (used for accessibility).',
+			},
+			{
+				name: 'onBeforeClose',
+				type: '(() => boolean | Promise<boolean>) | undefined',
+				description:
+					'Optional callback that runs before closing the panel.\nReturn false or Promise<false> to prevent the panel from closing.\nUseful for showing discard confirmation modals when there are unsaved changes.\n\n@example\n```tsx\n<PanelActionClose\n  onBeforeClose={async () => {\n    if (hasUnsavedChanges) {\n      const confirmed = await showDiscardModal();\n      return confirmed;\n    }\n    return true;\n  }}\n/>\n```',
+			},
+			{
+				name: 'onClick',
+				type: '((event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>, analyticsEvent?: UIAnalyticsEvent | undefined) => void) | undefined',
+				description:
+					'Click handler for closing the panel.\n\nTypically, this should trigger the panel close logic. For automatic\npanel closing via context, use PanelActionCloseSmart instead.\n\nCan be omitted when close behavior is handled externally (e.g., via\nref-based modal triggers or other interceptors).\n\nThe event parameter provides access to the click event, and the optional\nanalyticsEvent parameter enables analytics tracking.',
+				defaultValue: 'undefined',
+			},
+		],
+	},
+	{
+		name: 'PanelActionCloseSmart',
+		package: '@atlassian/panel-system',
+		description:
+			'For internal Atlassian use only: Closes the current panel through the context supplied by LayoutWithPanel or PanelsRenderer. Internal Atlassian package; not available for use outside Atlassian.',
+		status: 'open-beta',
+		usageGuidelines: ['Use the context-aware close action for panels managed by PanelProvider.'],
+		accessibilityGuidelines: [
+			'Provide a localized close label that identifies the panel when needed.',
+		],
+		keywords: ['panel', 'close', 'dismiss', 'context', 'managed panel'],
+		category: 'layout',
+		examples: [
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Main } from '@atlaskit/navigation-system/layout/main';\nimport { Root } from '@atlaskit/navigation-system/layout/root';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { LayoutWithPanel } from '@atlassian/panel-system/layout-with-panel';\nimport { PanelActionCloseSmart } from '@atlassian/panel-system/panel-action/close-smart';\nimport { PanelActionGroup } from '@atlassian/panel-system/panel-action/group';\nimport { PanelActionNewTab } from '@atlassian/panel-system/panel-action/new-tab';\nimport { PanelBody } from '@atlassian/panel-system/panel-body';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { usePanel } from '@atlassian/panel-system/panel-context';\nimport { PanelFooter } from '@atlassian/panel-system/panel-footer';\nimport { PanelHeader } from '@atlassian/panel-system/panel-header';\nimport { usePanelActions, usePanelState } from '@atlassian/panel-system/panel-manager';\nimport { PanelProvider } from '@atlassian/panel-system/panel-provider';\nimport { PanelSubheader } from '@atlassian/panel-system/panel-subheader';\nimport { PanelTitle } from '@atlassian/panel-system/panel-title';\nimport { SubheaderInlineEdit } from '@atlassian/panel-system/subheader-inline-edit';\nfunction WorkItemDetails() {\n\tconst { panel, closePanel } = usePanel<{ title: string }>();\n\tconst [title, setTitle] = useState(panel.params.title);\n\treturn (\n\t\t<PanelContainer>\n\t\t\t<PanelHeader>\n\t\t\t\t<PanelTitle>Work item</PanelTitle>\n\t\t\t\t<PanelActionGroup>\n\t\t\t\t\t<PanelActionNewTab href=\"/browse/PROJ-42\" label=\"Open work item in a new tab\" />\n\t\t\t\t\t<PanelActionCloseSmart label=\"Close work item\" />\n\t\t\t\t</PanelActionGroup>\n\t\t\t</PanelHeader>\n\t\t\t<PanelContent>\n\t\t\t\t<PanelSubheader\n\t\t\t\t\ttitle={title}\n\t\t\t\t\tinlineEdit={\n\t\t\t\t\t\t<SubheaderInlineEdit\n\t\t\t\t\t\t\tdefaultValue={title}\n\t\t\t\t\t\t\tplaceholder=\"Add a work item title\"\n\t\t\t\t\t\t\teditButtonLabel=\"Edit work item title\"\n\t\t\t\t\t\t\tconfirmButtonLabel=\"Confirm title\"\n\t\t\t\t\t\t\tcancelButtonLabel=\"Cancel editing\"\n\t\t\t\t\t\t\tonConfirm={setTitle}\n\t\t\t\t\t\t/>\n\t\t\t\t\t}\n\t\t\t\t/>\n\t\t\t\t<PanelBody>\n\t\t\t\t\t<Stack space=\"space.200\">\n\t\t\t\t\t\t<Text as=\"p\">PROJ-42 · In progress</Text>\n\t\t\t\t\t\t<Text as=\"p\">Review the release checklist with the project team.</Text>\n\t\t\t\t\t\t<Text as=\"p\">\n\t\t\t\t\t\t\tThis example keeps title edits locally. Connect confirmation to your app's save\n\t\t\t\t\t\t\toperation.\n\t\t\t\t\t\t</Text>\n\t\t\t\t\t</Stack>\n\t\t\t\t</PanelBody>\n\t\t\t</PanelContent>\n\t\t\t<PanelFooter>\n\t\t\t\t<Button onClick={closePanel}>Done</Button>\n\t\t\t</PanelFooter>\n\t\t</PanelContainer>\n\t);\n}\nfunction ProjectContent() {\n\tconst manager = usePanelActions();\n\tconst { activePanel } = usePanelState();\n\treturn (\n\t\t<LayoutWithPanel panelLabel=\"Work item details\" resizeLabel=\"Resize work item details\">\n\t\t\t<Button\n\t\t\t\tisSelected={activePanel?.instanceId === 'PROJ-42'}\n\t\t\t\tonClick={() =>\n\t\t\t\t\tmanager.openPanel({\n\t\t\t\t\t\tinstanceId: 'PROJ-42',\n\t\t\t\t\t\tparams: { title: 'Prepare the release checklist' },\n\t\t\t\t\t\tpanelContent: <WorkItemDetails />,\n\t\t\t\t\t})\n\t\t\t\t}\n\t\t\t>\n\t\t\t\tView PROJ-42\n\t\t\t</Button>\n\t\t</LayoutWithPanel>\n\t);\n}\n// Internal Atlassian package. This example uses already-loaded React content.\n// For lazy EntryPoints, prefer Trigger inside the app's Relay environment provider.\nexport default function ContextualDetailsExample(): React.JSX.Element {\n\treturn (\n\t\t<PanelProvider>\n\t\t\t<Root>\n\t\t\t\t<Main>\n\t\t\t\t\t<ProjectContent />\n\t\t\t\t</Main>\n\t\t\t</Root>\n\t\t</PanelProvider>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'label',
+				type: 'string | undefined',
+				description: 'Label for icon buttons (used for accessibility).',
+			},
+			{
+				name: 'onClick',
+				type: '(() => void) | undefined',
+				description:
+					'Optional click handler for additional side effects (e.g., analytics).\nIf provided, it will be called before closing the panel via context.',
+			},
+		],
+	},
+	{
+		name: 'PanelActionGroup',
+		package: '@atlassian/panel-system',
+		description:
+			'For internal Atlassian use only: Groups compact panel header actions after the title. Internal Atlassian package; not available for use outside Atlassian.',
+		status: 'open-beta',
+		usageGuidelines: [
+			'Place list-navigation actions before other header actions.',
+			'Keep the close action visible and use an overflow menu when more app-specific actions are needed.',
+		],
+		keywords: ['panel', 'header actions', 'toolbar', 'close', 'navigation'],
+		category: 'layout',
+		examples: [
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Main } from '@atlaskit/navigation-system/layout/main';\nimport { Root } from '@atlaskit/navigation-system/layout/root';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { LayoutWithPanel } from '@atlassian/panel-system/layout-with-panel';\nimport { PanelActionCloseSmart } from '@atlassian/panel-system/panel-action/close-smart';\nimport { PanelActionGroup } from '@atlassian/panel-system/panel-action/group';\nimport { PanelActionNewTab } from '@atlassian/panel-system/panel-action/new-tab';\nimport { PanelBody } from '@atlassian/panel-system/panel-body';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { usePanel } from '@atlassian/panel-system/panel-context';\nimport { PanelFooter } from '@atlassian/panel-system/panel-footer';\nimport { PanelHeader } from '@atlassian/panel-system/panel-header';\nimport { usePanelActions, usePanelState } from '@atlassian/panel-system/panel-manager';\nimport { PanelProvider } from '@atlassian/panel-system/panel-provider';\nimport { PanelSubheader } from '@atlassian/panel-system/panel-subheader';\nimport { PanelTitle } from '@atlassian/panel-system/panel-title';\nimport { SubheaderInlineEdit } from '@atlassian/panel-system/subheader-inline-edit';\nfunction WorkItemDetails() {\n\tconst { panel, closePanel } = usePanel<{ title: string }>();\n\tconst [title, setTitle] = useState(panel.params.title);\n\treturn (\n\t\t<PanelContainer>\n\t\t\t<PanelHeader>\n\t\t\t\t<PanelTitle>Work item</PanelTitle>\n\t\t\t\t<PanelActionGroup>\n\t\t\t\t\t<PanelActionNewTab href=\"/browse/PROJ-42\" label=\"Open work item in a new tab\" />\n\t\t\t\t\t<PanelActionCloseSmart label=\"Close work item\" />\n\t\t\t\t</PanelActionGroup>\n\t\t\t</PanelHeader>\n\t\t\t<PanelContent>\n\t\t\t\t<PanelSubheader\n\t\t\t\t\ttitle={title}\n\t\t\t\t\tinlineEdit={\n\t\t\t\t\t\t<SubheaderInlineEdit\n\t\t\t\t\t\t\tdefaultValue={title}\n\t\t\t\t\t\t\tplaceholder=\"Add a work item title\"\n\t\t\t\t\t\t\teditButtonLabel=\"Edit work item title\"\n\t\t\t\t\t\t\tconfirmButtonLabel=\"Confirm title\"\n\t\t\t\t\t\t\tcancelButtonLabel=\"Cancel editing\"\n\t\t\t\t\t\t\tonConfirm={setTitle}\n\t\t\t\t\t\t/>\n\t\t\t\t\t}\n\t\t\t\t/>\n\t\t\t\t<PanelBody>\n\t\t\t\t\t<Stack space=\"space.200\">\n\t\t\t\t\t\t<Text as=\"p\">PROJ-42 · In progress</Text>\n\t\t\t\t\t\t<Text as=\"p\">Review the release checklist with the project team.</Text>\n\t\t\t\t\t\t<Text as=\"p\">\n\t\t\t\t\t\t\tThis example keeps title edits locally. Connect confirmation to your app's save\n\t\t\t\t\t\t\toperation.\n\t\t\t\t\t\t</Text>\n\t\t\t\t\t</Stack>\n\t\t\t\t</PanelBody>\n\t\t\t</PanelContent>\n\t\t\t<PanelFooter>\n\t\t\t\t<Button onClick={closePanel}>Done</Button>\n\t\t\t</PanelFooter>\n\t\t</PanelContainer>\n\t);\n}\nfunction ProjectContent() {\n\tconst manager = usePanelActions();\n\tconst { activePanel } = usePanelState();\n\treturn (\n\t\t<LayoutWithPanel panelLabel=\"Work item details\" resizeLabel=\"Resize work item details\">\n\t\t\t<Button\n\t\t\t\tisSelected={activePanel?.instanceId === 'PROJ-42'}\n\t\t\t\tonClick={() =>\n\t\t\t\t\tmanager.openPanel({\n\t\t\t\t\t\tinstanceId: 'PROJ-42',\n\t\t\t\t\t\tparams: { title: 'Prepare the release checklist' },\n\t\t\t\t\t\tpanelContent: <WorkItemDetails />,\n\t\t\t\t\t})\n\t\t\t\t}\n\t\t\t>\n\t\t\t\tView PROJ-42\n\t\t\t</Button>\n\t\t</LayoutWithPanel>\n\t);\n}\n// Internal Atlassian package. This example uses already-loaded React content.\n// For lazy EntryPoints, prefer Trigger inside the app's Relay environment provider.\nexport default function ContextualDetailsExample(): React.JSX.Element {\n\treturn (\n\t\t<PanelProvider>\n\t\t\t<Root>\n\t\t\t\t<Main>\n\t\t\t\t\t<ProjectContent />\n\t\t\t\t</Main>\n\t\t\t</Root>\n\t\t</PanelProvider>\n\t);\n}",
+			"import Button from '@atlaskit/button/default/button';\nimport { Main } from '@atlaskit/navigation-system/layout/main';\nimport { PanelLayout } from '@atlaskit/navigation-system/layout/panel-layout';\nimport { Root } from '@atlaskit/navigation-system/layout/root';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { PanelActionClose } from '@atlassian/panel-system/panel-action/close';\nimport { PanelActionGroup } from '@atlassian/panel-system/panel-action/group';\nimport { PanelBody } from '@atlassian/panel-system/panel-body';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { useCloseCurrentPanel, useCurrentPanel } from '@atlassian/panel-system/panel-context';\nimport { PanelDisclaimer } from '@atlassian/panel-system/panel-disclaimer';\nimport { PanelFooter } from '@atlassian/panel-system/panel-footer';\nimport { PanelHeader } from '@atlassian/panel-system/panel-header';\nimport { usePanelManager } from '@atlassian/panel-system/panel-manager';\nimport { PanelProvider } from '@atlassian/panel-system/panel-provider';\nimport { PanelRouter } from '@atlassian/panel-system/panel-router';\nimport { PanelTitle } from '@atlassian/panel-system/panel-title';\nimport { PanelsRenderer } from '@atlassian/panel-system/panels-renderer';\nfunction ProjectSummary() {\n\tconst panel = useCurrentPanel<{ summary: string }>();\n\tconst closePanel = useCloseCurrentPanel();\n\treturn (\n\t\t<PanelContainer>\n\t\t\t<PanelHeader>\n\t\t\t\t<PanelTitle>Project summary</PanelTitle>\n\t\t\t\t<PanelActionGroup>\n\t\t\t\t\t<PanelActionClose label=\"Close project summary\" onClick={closePanel} />\n\t\t\t\t</PanelActionGroup>\n\t\t\t</PanelHeader>\n\t\t\t<PanelContent>\n\t\t\t\t<PanelBody>\n\t\t\t\t\t<Text as=\"p\">{panel.params.summary}</Text>\n\t\t\t\t</PanelBody>\n\t\t\t</PanelContent>\n\t\t\t<PanelFooter\n\t\t\t\tdisclaimer={\n\t\t\t\t\t<PanelDisclaimer>AI-generated content. Verify important details.</PanelDisclaimer>\n\t\t\t\t}\n\t\t\t>\n\t\t\t\t<Button onClick={closePanel}>Done</Button>\n\t\t\t</PanelFooter>\n\t\t</PanelContainer>\n\t);\n}\nfunction ProjectContent() {\n\tconst { state, manager } = usePanelManager();\n\treturn (\n\t\t<PanelLayout\n\t\t\tisPanelOpen={state.activePanel !== null}\n\t\t\tpanelKey={state.activePanel?.instanceId}\n\t\t\tpanelLabel=\"Project summary\"\n\t\t\tresizeLabel=\"Resize project summary\"\n\t\t\tpanel={\n\t\t\t\t<PanelsRenderer>\n\t\t\t\t\t<PanelRouter />\n\t\t\t\t</PanelsRenderer>\n\t\t\t}\n\t\t>\n\t\t\t<Button\n\t\t\t\tonClick={() =>\n\t\t\t\t\tmanager.openPanel({\n\t\t\t\t\t\tinstanceId: 'project-summary',\n\t\t\t\t\t\tparams: {\n\t\t\t\t\t\t\tsummary:\n\t\t\t\t\t\t\t\t'The release checklist is ready for review. Two work items remain in progress.',\n\t\t\t\t\t\t},\n\t\t\t\t\t\tpanelContent: <ProjectSummary />,\n\t\t\t\t\t})\n\t\t\t\t}\n\t\t\t>\n\t\t\t\tView project summary\n\t\t\t</Button>\n\t\t</PanelLayout>\n\t);\n}\n// Internal Atlassian package. Prefer LayoutWithPanel for the standard integration.\n// Use this composition when the app needs to own its PanelLayout and PanelRouter.\nexport default function CustomRenderingExample(): React.JSX.Element {\n\treturn (\n\t\t<PanelProvider>\n\t\t\t<Root>\n\t\t\t\t<Main>\n\t\t\t\t\t<ProjectContent />\n\t\t\t\t</Main>\n\t\t\t</Root>\n\t\t</PanelProvider>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
+				description: 'The action components to group together.',
+				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'PanelActionNewTab',
+		package: '@atlassian/panel-system',
+		description:
+			'For internal Atlassian use only: Opens panel content at its full-page URL in a new browser tab. Internal Atlassian package; not available for use outside Atlassian.',
+		status: 'open-beta',
+		usageGuidelines: [
+			'Offer a full-page destination when someone needs more space to work with previewed content.',
+		],
+		accessibilityGuidelines: ['Make the new-tab destination clear in the accessible label.'],
+		keywords: ['panel', 'new tab', 'full page', 'link', 'preview'],
+		category: 'layout',
+		examples: [
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Main } from '@atlaskit/navigation-system/layout/main';\nimport { Root } from '@atlaskit/navigation-system/layout/root';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { LayoutWithPanel } from '@atlassian/panel-system/layout-with-panel';\nimport { PanelActionCloseSmart } from '@atlassian/panel-system/panel-action/close-smart';\nimport { PanelActionGroup } from '@atlassian/panel-system/panel-action/group';\nimport { PanelActionNewTab } from '@atlassian/panel-system/panel-action/new-tab';\nimport { PanelBody } from '@atlassian/panel-system/panel-body';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { usePanel } from '@atlassian/panel-system/panel-context';\nimport { PanelFooter } from '@atlassian/panel-system/panel-footer';\nimport { PanelHeader } from '@atlassian/panel-system/panel-header';\nimport { usePanelActions, usePanelState } from '@atlassian/panel-system/panel-manager';\nimport { PanelProvider } from '@atlassian/panel-system/panel-provider';\nimport { PanelSubheader } from '@atlassian/panel-system/panel-subheader';\nimport { PanelTitle } from '@atlassian/panel-system/panel-title';\nimport { SubheaderInlineEdit } from '@atlassian/panel-system/subheader-inline-edit';\nfunction WorkItemDetails() {\n\tconst { panel, closePanel } = usePanel<{ title: string }>();\n\tconst [title, setTitle] = useState(panel.params.title);\n\treturn (\n\t\t<PanelContainer>\n\t\t\t<PanelHeader>\n\t\t\t\t<PanelTitle>Work item</PanelTitle>\n\t\t\t\t<PanelActionGroup>\n\t\t\t\t\t<PanelActionNewTab href=\"/browse/PROJ-42\" label=\"Open work item in a new tab\" />\n\t\t\t\t\t<PanelActionCloseSmart label=\"Close work item\" />\n\t\t\t\t</PanelActionGroup>\n\t\t\t</PanelHeader>\n\t\t\t<PanelContent>\n\t\t\t\t<PanelSubheader\n\t\t\t\t\ttitle={title}\n\t\t\t\t\tinlineEdit={\n\t\t\t\t\t\t<SubheaderInlineEdit\n\t\t\t\t\t\t\tdefaultValue={title}\n\t\t\t\t\t\t\tplaceholder=\"Add a work item title\"\n\t\t\t\t\t\t\teditButtonLabel=\"Edit work item title\"\n\t\t\t\t\t\t\tconfirmButtonLabel=\"Confirm title\"\n\t\t\t\t\t\t\tcancelButtonLabel=\"Cancel editing\"\n\t\t\t\t\t\t\tonConfirm={setTitle}\n\t\t\t\t\t\t/>\n\t\t\t\t\t}\n\t\t\t\t/>\n\t\t\t\t<PanelBody>\n\t\t\t\t\t<Stack space=\"space.200\">\n\t\t\t\t\t\t<Text as=\"p\">PROJ-42 · In progress</Text>\n\t\t\t\t\t\t<Text as=\"p\">Review the release checklist with the project team.</Text>\n\t\t\t\t\t\t<Text as=\"p\">\n\t\t\t\t\t\t\tThis example keeps title edits locally. Connect confirmation to your app's save\n\t\t\t\t\t\t\toperation.\n\t\t\t\t\t\t</Text>\n\t\t\t\t\t</Stack>\n\t\t\t\t</PanelBody>\n\t\t\t</PanelContent>\n\t\t\t<PanelFooter>\n\t\t\t\t<Button onClick={closePanel}>Done</Button>\n\t\t\t</PanelFooter>\n\t\t</PanelContainer>\n\t);\n}\nfunction ProjectContent() {\n\tconst manager = usePanelActions();\n\tconst { activePanel } = usePanelState();\n\treturn (\n\t\t<LayoutWithPanel panelLabel=\"Work item details\" resizeLabel=\"Resize work item details\">\n\t\t\t<Button\n\t\t\t\tisSelected={activePanel?.instanceId === 'PROJ-42'}\n\t\t\t\tonClick={() =>\n\t\t\t\t\tmanager.openPanel({\n\t\t\t\t\t\tinstanceId: 'PROJ-42',\n\t\t\t\t\t\tparams: { title: 'Prepare the release checklist' },\n\t\t\t\t\t\tpanelContent: <WorkItemDetails />,\n\t\t\t\t\t})\n\t\t\t\t}\n\t\t\t>\n\t\t\t\tView PROJ-42\n\t\t\t</Button>\n\t\t</LayoutWithPanel>\n\t);\n}\n// Internal Atlassian package. This example uses already-loaded React content.\n// For lazy EntryPoints, prefer Trigger inside the app's Relay environment provider.\nexport default function ContextualDetailsExample(): React.JSX.Element {\n\treturn (\n\t\t<PanelProvider>\n\t\t\t<Root>\n\t\t\t\t<Main>\n\t\t\t\t\t<ProjectContent />\n\t\t\t\t</Main>\n\t\t\t</Root>\n\t\t</PanelProvider>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'href',
+				type: 'string',
+				description: 'URL to open in the new tab.',
+				isRequired: true,
+			},
+			{
+				name: 'label',
+				type: 'string | undefined',
+				description: 'Label for icon buttons (used for accessibility).',
+			},
+			{
+				name: 'onClick',
+				type: '((event: React.MouseEvent<HTMLButtonElement, MouseEvent>, analyticsEvent?: UIAnalyticsEvent | undefined) => void) | ((event: React.MouseEvent<...>, analyticsEvent?: UIAnalyticsEvent | undefined) => void) | undefined',
+				description:
+					'Click handler for button and link actions.\n\nThe handler receives both the event and an optional analytics event for tracking user interactions.',
+			},
+		],
+	},
+	{
+		name: 'PanelActionViewSwitcher',
+		package: '@atlassian/panel-system',
+		description:
+			'For internal Atlassian use only: Lets people select a view such as side panel or center modal; the host owns the actual layout transition. Internal Atlassian package; not available for use outside Atlassian.',
+		status: 'open-beta',
+		usageGuidelines: [
+			'Keep the selected content and unfinished work when switching between views.',
+			'Use distinct labels and icons for destinations that display content in different places.',
+		],
+		accessibilityGuidelines: [
+			'When changing layouts unmounts the menu trigger, move focus into the destination and restore a sensible target when returning.',
+		],
+		keywords: ['panel', 'view switcher', 'side view', 'modal', 'layout'],
+		category: 'layout',
+		examples: [
+			"import React, { useRef, useState } from 'react';\nimport { cssMap } from '@atlaskit/css';\nimport type MediaBelowSm from '@atlaskit/css/at-rules/media-below-sm';\nimport { useId } from '@atlaskit/ds-lib/use-id';\nimport Heading from '@atlaskit/heading/heading';\nimport ModalIcon from '@atlaskit/icon-lab/core/modal';\nimport PanelRightIcon from '@atlaskit/icon/core/panel-right';\nimport Modal from '@atlaskit/modal-dialog/modal-dialog';\nimport ModalHeader from '@atlaskit/modal-dialog/modal-header';\nimport ModalTitle from '@atlaskit/modal-dialog/modal-title';\nimport ModalTransition from '@atlaskit/modal-dialog/modal-transition';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Flex } from '@atlaskit/primitives/compiled/flex';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport TextArea from '@atlaskit/textarea/text-area';\nimport { token } from '@atlaskit/tokens';\nimport { PanelActionGroup } from '@atlassian/panel-system/panel-action/group';\nimport {\n\tPanelActionViewSwitcher,\n\ttype PanelViewOption,\n} from '@atlassian/panel-system/panel-action/view-switcher';\nimport { PanelBody } from '@atlassian/panel-system/panel-body';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { PanelFooter } from '@atlassian/panel-system/panel-footer';\nimport { PanelHeader } from '@atlassian/panel-system/panel-header';\nimport { PanelTitle } from '@atlassian/panel-system/panel-title';\nconst views: readonly PanelViewOption[] = [\n\t{ value: 'sidebar', label: 'Side', icon: PanelRightIcon },\n\t{ value: 'center', label: 'Center', icon: ModalIcon },\n];\nconst styles = cssMap({\n\tlayout: {\n\t\theight: '100vh',\n\t\twidth: '100%',\n\t},\n\tmainContent: {\n\t\tflexGrow: 1,\n\t\tminWidth: 0,\n\t\tpaddingBlockStart: token('space.400'),\n\t\tpaddingBlockEnd: token('space.400'),\n\t\tpaddingInlineStart: token('space.400'),\n\t\tpaddingInlineEnd: token('space.400'),\n\t\tbackgroundColor: token('elevation.surface.sunken'),\n\t\t['@media not all and (min-width: 48rem)' satisfies MediaBelowSm]: {\n\t\t\tdisplay: 'none',\n\t\t},\n\t},\n\tsidePanel: {\n\t\twidth: '400px',\n\t\tmaxWidth: '100%',\n\t\tflexShrink: 0,\n\t\tmarginInlineStart: 'auto',\n\t\tborderInlineStartStyle: 'solid',\n\t\tborderInlineStartWidth: token('border.width'),\n\t\tborderInlineStartColor: token('color.border'),\n\t},\n\tmodalPanel: {\n\t\theight: '100%',\n\t\tminHeight: 0,\n\t},\n\tcomposer: {\n\t\twidth: '100%',\n\t},\n});\ninterface ChatPanelProps {\n\tselectedView: string;\n\tonViewChange: (view: string) => void;\n\tdraft: string;\n\tonDraftChange: (draft: string) => void;\n}\nfunction ChatPanel({ selectedView, onViewChange, draft, onDraftChange }: ChatPanelProps) {\n\tconst draftId = useId();\n\tconst switcher = (\n\t\t<PanelActionViewSwitcher\n\t\t\tviews={views}\n\t\t\tselectedView={selectedView}\n\t\t\tonViewChange={onViewChange}\n\t\t\tnewTabHref=\"https://example.com/chat\"\n\t\t/>\n\t);\n\treturn (\n\t\t<PanelContainer>\n\t\t\t{selectedView === 'center' ? (\n\t\t\t\t<ModalHeader hasCloseButton closeButtonLabel=\"Return to side panel\">\n\t\t\t\t\t<Flex gap=\"space.200\" alignItems=\"center\">\n\t\t\t\t\t\t<ModalTitle>Rovo Chat</ModalTitle>\n\t\t\t\t\t\t{switcher}\n\t\t\t\t\t</Flex>\n\t\t\t\t</ModalHeader>\n\t\t\t) : (\n\t\t\t\t<PanelHeader>\n\t\t\t\t\t<PanelTitle>Rovo Chat</PanelTitle>\n\t\t\t\t\t<PanelActionGroup>{switcher}</PanelActionGroup>\n\t\t\t\t</PanelHeader>\n\t\t\t)}\n\t\t\t<PanelContent>\n\t\t\t\t<PanelBody>\n\t\t\t\t\t<Stack space=\"space.200\">\n\t\t\t\t\t\t<Heading size=\"small\" as={selectedView === 'center' ? 'h2' : 'h3'}>\n\t\t\t\t\t\t\tHow can I help?\n\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t<Text>Ask a question about Project Atlas, or get help planning your next step.</Text>\n\t\t\t\t\t</Stack>\n\t\t\t\t</PanelBody>\n\t\t\t</PanelContent>\n\t\t\t<PanelFooter>\n\t\t\t\t<Box xcss={styles.composer}>\n\t\t\t\t\t<Stack space=\"space.100\">\n\t\t\t\t\t\t<label htmlFor={draftId}>Message Rovo</label>\n\t\t\t\t\t\t<TextArea\n\t\t\t\t\t\t\tid={draftId}\n\t\t\t\t\t\t\tvalue={draft}\n\t\t\t\t\t\t\tonChange={(event) => onDraftChange(event.currentTarget.value)}\n\t\t\t\t\t\t\tminimumRows={3}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Stack>\n\t\t\t\t</Box>\n\t\t\t</PanelFooter>\n\t\t</PanelContainer>\n\t);\n}\nexport default function ViewSwitcherExample(): React.JSX.Element {\n\tconst [selectedView, setSelectedView] = useState('sidebar');\n\t// Product-owned state lives above the layouts so changing views preserves the conversation.\n\tconst [draft, setDraft] = useState('');\n\tconst sidePanelRef = useRef<HTMLDivElement>(null);\n\t// This is the product integration point: choose the container in response to the menu action.\n\tconst handleViewChange = (view: string) => setSelectedView(view);\n\tconst returnToSide = () => handleViewChange('sidebar');\n\tconst chat = (\n\t\t<ChatPanel\n\t\t\tselectedView={selectedView}\n\t\t\tonViewChange={handleViewChange}\n\t\t\tdraft={draft}\n\t\t\tonDraftChange={setDraft}\n\t\t/>\n\t);\n\treturn (\n\t\t<>\n\t\t\t<Flex xcss={styles.layout}>\n\t\t\t\t<Box as=\"main\" xcss={styles.mainContent}>\n\t\t\t\t\t<Stack space=\"space.300\">\n\t\t\t\t\t\t<Heading size=\"xlarge\" as=\"h1\">\n\t\t\t\t\t\t\tProject Atlas\n\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t<Text>Bring your team's work together in one place.</Text>\n\t\t\t\t\t\t<Heading size=\"medium\" as=\"h2\">\n\t\t\t\t\t\t\tProject overview\n\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t<Text>Review the plan, prepare the next milestone, and keep everyone up to date.</Text>\n\t\t\t\t\t</Stack>\n\t\t\t\t</Box>\n\t\t\t\t{selectedView === 'sidebar' && (\n\t\t\t\t\t<Box\n\t\t\t\t\t\tref={sidePanelRef}\n\t\t\t\t\t\trole=\"region\"\n\t\t\t\t\t\taria-label=\"Rovo Chat side panel\"\n\t\t\t\t\t\ttabIndex={-1}\n\t\t\t\t\t\txcss={styles.sidePanel}\n\t\t\t\t\t>\n\t\t\t\t\t\t{chat}\n\t\t\t\t\t</Box>\n\t\t\t\t)}\n\t\t\t</Flex>\n\t\t\t<ModalTransition>\n\t\t\t\t{selectedView === 'center' && (\n\t\t\t\t\t// ChatPanel renders ModalHeader with hasCloseButton inside the dialog.\n\t\t\t\t\t<Modal\n\t\t\t\t\t\twidth=\"medium\"\n\t\t\t\t\t\theight={600}\n\t\t\t\t\t\tonClose={returnToSide}\n\t\t\t\t\t\tshouldReturnFocus={sidePanelRef}\n\t\t\t\t\t>\n\t\t\t\t\t\t<Box xcss={styles.modalPanel}>{chat}</Box>\n\t\t\t\t\t</Modal>\n\t\t\t\t)}\n\t\t\t</ModalTransition>\n\t\t</>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'label',
+				type: 'string | undefined',
+				description: 'Localized accessible label and tooltip for the trigger.',
+				defaultValue: '"Switch view"',
+			},
+			{
+				name: 'newTabHref',
+				type: 'string | undefined',
+				description: 'URL to open in a new tab. Omit to hide the New tab action.',
+			},
+			{
+				name: 'newTabLabel',
+				type: 'string | undefined',
+				description: 'Localized label for the New tab action.',
+				defaultValue: '"New tab"',
+			},
+			{
+				name: 'onViewChange',
+				type: '(value: string) => void',
+				description:
+					'Called when a different view is selected. The consumer owns the layout change.',
+				isRequired: true,
+			},
+			{
+				name: 'selectedView',
+				type: 'string',
+				description: 'The current view, controlled by the consuming experience.',
+				isRequired: true,
+			},
+			{
+				name: 'title',
+				type: 'string | undefined',
+				description: 'Localized heading and accessible name for the menu.',
+				defaultValue: '"Switch view"',
+			},
+			{
+				name: 'views',
+				type: 'readonly PanelViewOption[]',
+				description: 'Available views, in display order. Values must be unique.',
+				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'PanelBody',
+		package: '@atlassian/panel-system',
+		description:
+			'For internal Atlassian use only: Provides standard padding for the main content within PanelContent. Internal Atlassian package; not available for use outside Atlassian.',
+		status: 'open-beta',
+		usageGuidelines: [
+			'Use the body for the contextual information or supplementary task; keep long, dense workflows on a dedicated page.',
+		],
+		accessibilityGuidelines: [
+			'Provide labels for form controls and an appropriate heading hierarchy within the panel body.',
+		],
+		keywords: ['panel', 'body', 'content', 'padding', 'details'],
+		category: 'layout',
+		examples: [
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Main } from '@atlaskit/navigation-system/layout/main';\nimport { Root } from '@atlaskit/navigation-system/layout/root';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { LayoutWithPanel } from '@atlassian/panel-system/layout-with-panel';\nimport { PanelActionCloseSmart } from '@atlassian/panel-system/panel-action/close-smart';\nimport { PanelActionGroup } from '@atlassian/panel-system/panel-action/group';\nimport { PanelActionNewTab } from '@atlassian/panel-system/panel-action/new-tab';\nimport { PanelBody } from '@atlassian/panel-system/panel-body';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { usePanel } from '@atlassian/panel-system/panel-context';\nimport { PanelFooter } from '@atlassian/panel-system/panel-footer';\nimport { PanelHeader } from '@atlassian/panel-system/panel-header';\nimport { usePanelActions, usePanelState } from '@atlassian/panel-system/panel-manager';\nimport { PanelProvider } from '@atlassian/panel-system/panel-provider';\nimport { PanelSubheader } from '@atlassian/panel-system/panel-subheader';\nimport { PanelTitle } from '@atlassian/panel-system/panel-title';\nimport { SubheaderInlineEdit } from '@atlassian/panel-system/subheader-inline-edit';\nfunction WorkItemDetails() {\n\tconst { panel, closePanel } = usePanel<{ title: string }>();\n\tconst [title, setTitle] = useState(panel.params.title);\n\treturn (\n\t\t<PanelContainer>\n\t\t\t<PanelHeader>\n\t\t\t\t<PanelTitle>Work item</PanelTitle>\n\t\t\t\t<PanelActionGroup>\n\t\t\t\t\t<PanelActionNewTab href=\"/browse/PROJ-42\" label=\"Open work item in a new tab\" />\n\t\t\t\t\t<PanelActionCloseSmart label=\"Close work item\" />\n\t\t\t\t</PanelActionGroup>\n\t\t\t</PanelHeader>\n\t\t\t<PanelContent>\n\t\t\t\t<PanelSubheader\n\t\t\t\t\ttitle={title}\n\t\t\t\t\tinlineEdit={\n\t\t\t\t\t\t<SubheaderInlineEdit\n\t\t\t\t\t\t\tdefaultValue={title}\n\t\t\t\t\t\t\tplaceholder=\"Add a work item title\"\n\t\t\t\t\t\t\teditButtonLabel=\"Edit work item title\"\n\t\t\t\t\t\t\tconfirmButtonLabel=\"Confirm title\"\n\t\t\t\t\t\t\tcancelButtonLabel=\"Cancel editing\"\n\t\t\t\t\t\t\tonConfirm={setTitle}\n\t\t\t\t\t\t/>\n\t\t\t\t\t}\n\t\t\t\t/>\n\t\t\t\t<PanelBody>\n\t\t\t\t\t<Stack space=\"space.200\">\n\t\t\t\t\t\t<Text as=\"p\">PROJ-42 · In progress</Text>\n\t\t\t\t\t\t<Text as=\"p\">Review the release checklist with the project team.</Text>\n\t\t\t\t\t\t<Text as=\"p\">\n\t\t\t\t\t\t\tThis example keeps title edits locally. Connect confirmation to your app's save\n\t\t\t\t\t\t\toperation.\n\t\t\t\t\t\t</Text>\n\t\t\t\t\t</Stack>\n\t\t\t\t</PanelBody>\n\t\t\t</PanelContent>\n\t\t\t<PanelFooter>\n\t\t\t\t<Button onClick={closePanel}>Done</Button>\n\t\t\t</PanelFooter>\n\t\t</PanelContainer>\n\t);\n}\nfunction ProjectContent() {\n\tconst manager = usePanelActions();\n\tconst { activePanel } = usePanelState();\n\treturn (\n\t\t<LayoutWithPanel panelLabel=\"Work item details\" resizeLabel=\"Resize work item details\">\n\t\t\t<Button\n\t\t\t\tisSelected={activePanel?.instanceId === 'PROJ-42'}\n\t\t\t\tonClick={() =>\n\t\t\t\t\tmanager.openPanel({\n\t\t\t\t\t\tinstanceId: 'PROJ-42',\n\t\t\t\t\t\tparams: { title: 'Prepare the release checklist' },\n\t\t\t\t\t\tpanelContent: <WorkItemDetails />,\n\t\t\t\t\t})\n\t\t\t\t}\n\t\t\t>\n\t\t\t\tView PROJ-42\n\t\t\t</Button>\n\t\t</LayoutWithPanel>\n\t);\n}\n// Internal Atlassian package. This example uses already-loaded React content.\n// For lazy EntryPoints, prefer Trigger inside the app's Relay environment provider.\nexport default function ContextualDetailsExample(): React.JSX.Element {\n\treturn (\n\t\t<PanelProvider>\n\t\t\t<Root>\n\t\t\t\t<Main>\n\t\t\t\t\t<ProjectContent />\n\t\t\t\t</Main>\n\t\t\t</Root>\n\t\t</PanelProvider>\n\t);\n}",
+			"import Button from '@atlaskit/button/default/button';\nimport { Main } from '@atlaskit/navigation-system/layout/main';\nimport { PanelLayout } from '@atlaskit/navigation-system/layout/panel-layout';\nimport { Root } from '@atlaskit/navigation-system/layout/root';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { PanelActionClose } from '@atlassian/panel-system/panel-action/close';\nimport { PanelActionGroup } from '@atlassian/panel-system/panel-action/group';\nimport { PanelBody } from '@atlassian/panel-system/panel-body';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { useCloseCurrentPanel, useCurrentPanel } from '@atlassian/panel-system/panel-context';\nimport { PanelDisclaimer } from '@atlassian/panel-system/panel-disclaimer';\nimport { PanelFooter } from '@atlassian/panel-system/panel-footer';\nimport { PanelHeader } from '@atlassian/panel-system/panel-header';\nimport { usePanelManager } from '@atlassian/panel-system/panel-manager';\nimport { PanelProvider } from '@atlassian/panel-system/panel-provider';\nimport { PanelRouter } from '@atlassian/panel-system/panel-router';\nimport { PanelTitle } from '@atlassian/panel-system/panel-title';\nimport { PanelsRenderer } from '@atlassian/panel-system/panels-renderer';\nfunction ProjectSummary() {\n\tconst panel = useCurrentPanel<{ summary: string }>();\n\tconst closePanel = useCloseCurrentPanel();\n\treturn (\n\t\t<PanelContainer>\n\t\t\t<PanelHeader>\n\t\t\t\t<PanelTitle>Project summary</PanelTitle>\n\t\t\t\t<PanelActionGroup>\n\t\t\t\t\t<PanelActionClose label=\"Close project summary\" onClick={closePanel} />\n\t\t\t\t</PanelActionGroup>\n\t\t\t</PanelHeader>\n\t\t\t<PanelContent>\n\t\t\t\t<PanelBody>\n\t\t\t\t\t<Text as=\"p\">{panel.params.summary}</Text>\n\t\t\t\t</PanelBody>\n\t\t\t</PanelContent>\n\t\t\t<PanelFooter\n\t\t\t\tdisclaimer={\n\t\t\t\t\t<PanelDisclaimer>AI-generated content. Verify important details.</PanelDisclaimer>\n\t\t\t\t}\n\t\t\t>\n\t\t\t\t<Button onClick={closePanel}>Done</Button>\n\t\t\t</PanelFooter>\n\t\t</PanelContainer>\n\t);\n}\nfunction ProjectContent() {\n\tconst { state, manager } = usePanelManager();\n\treturn (\n\t\t<PanelLayout\n\t\t\tisPanelOpen={state.activePanel !== null}\n\t\t\tpanelKey={state.activePanel?.instanceId}\n\t\t\tpanelLabel=\"Project summary\"\n\t\t\tresizeLabel=\"Resize project summary\"\n\t\t\tpanel={\n\t\t\t\t<PanelsRenderer>\n\t\t\t\t\t<PanelRouter />\n\t\t\t\t</PanelsRenderer>\n\t\t\t}\n\t\t>\n\t\t\t<Button\n\t\t\t\tonClick={() =>\n\t\t\t\t\tmanager.openPanel({\n\t\t\t\t\t\tinstanceId: 'project-summary',\n\t\t\t\t\t\tparams: {\n\t\t\t\t\t\t\tsummary:\n\t\t\t\t\t\t\t\t'The release checklist is ready for review. Two work items remain in progress.',\n\t\t\t\t\t\t},\n\t\t\t\t\t\tpanelContent: <ProjectSummary />,\n\t\t\t\t\t})\n\t\t\t\t}\n\t\t\t>\n\t\t\t\tView project summary\n\t\t\t</Button>\n\t\t</PanelLayout>\n\t);\n}\n// Internal Atlassian package. Prefer LayoutWithPanel for the standard integration.\n// Use this composition when the app needs to own its PanelLayout and PanelRouter.\nexport default function CustomRenderingExample(): React.JSX.Element {\n\treturn (\n\t\t<PanelProvider>\n\t\t\t<Root>\n\t\t\t\t<Main>\n\t\t\t\t\t<ProjectContent />\n\t\t\t\t</Main>\n\t\t\t</Root>\n\t\t</PanelProvider>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
+				description: 'The content of the panel body.',
+				isRequired: true,
+			},
+			{
+				name: 'spacing',
+				type: '"default" | "none" | undefined',
+				description: 'Controls the padding of the panel body.',
+				defaultValue: '"default"',
+			},
+		],
+	},
+	{
+		name: 'PanelBodySkeleton',
+		package: '@atlassian/panel-system',
+		description:
+			'For internal Atlassian use only: Provides placeholder content with the standard panel body spacing. Internal Atlassian package; not available for use outside Atlassian.',
+		status: 'open-beta',
+		keywords: ['panel', 'body', 'skeleton', 'loading', 'placeholder'],
+		category: 'layout',
+		examples: [
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { PanelBodySkeleton } from '@atlassian/panel-system/panel-body-skeleton';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { PanelFooterSkeleton } from '@atlassian/panel-system/panel-footer-skeleton';\nimport { PanelHeaderSkeleton } from '@atlassian/panel-system/panel-header-skeleton';\nimport { PanelSubheaderSkeleton } from '@atlassian/panel-system/panel-subheader-skeleton';\n// This width is only set so the panel renders at a sensible size in the docs.\n// Please use the navigation-system panel slot to size panels — do not hardcode this.\n// In a real panel, pass your custom skeleton to `PanelRouter`'s `fallback` prop.\nconst styles = cssMap({\n\texampleWrapper: {\n\t\twidth: '400px',\n\t\theight: '480px',\n\t},\n});\nexport function LoadingComposable(): JSX.Element {\n\treturn (\n\t\t<Box xcss={styles.exampleWrapper}>\n\t\t\t<PanelContainer testId=\"panel-container-skeleton\">\n\t\t\t\t<PanelHeaderSkeleton shouldShowIcon actionsCount={3} />\n\t\t\t\t<PanelContent>\n\t\t\t\t\t<PanelSubheaderSkeleton shouldShowIcon />\n\t\t\t\t\t<PanelBodySkeleton />\n\t\t\t\t</PanelContent>\n\t\t\t\t<PanelFooterSkeleton actionsCount={2} />\n\t\t\t</PanelContainer>\n\t\t</Box>\n\t);\n}\nexport default LoadingComposable;",
+		],
+		props: [],
+	},
+	{
+		name: 'PanelContainer',
+		package: '@atlassian/panel-system',
+		description:
+			'For internal Atlassian use only: Composes a contextual side panel from a fixed header, scrollable content, and optional footer. Internal Atlassian package; not available for use outside Atlassian.',
+		status: 'open-beta',
+		usageGuidelines: [
+			'Use panels for contextual details, supplementary tasks, or linked-content previews alongside the main page.',
+			'Use a modal for a task that requires full attention, and a full page for a complex flow or dense data.',
+			'Open panels in response to a deliberate user action and keep a visible close action in the header.',
+			'Present confirmation dialogs at page level when leaving a panel could discard unsaved work.',
+		],
+		accessibilityGuidelines: [
+			'Keep focus free to move to the main page for a non-modal panel; trap focus only when the panel blocks interaction with the page.',
+			'Verify that opening moves focus into the panel and closing returns focus to its trigger.',
+		],
+		keywords: ['panel', 'side panel', 'sidebar', 'contextual details', 'drawer'],
+		category: 'layout',
+		examples: [
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Main } from '@atlaskit/navigation-system/layout/main';\nimport { Root } from '@atlaskit/navigation-system/layout/root';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { LayoutWithPanel } from '@atlassian/panel-system/layout-with-panel';\nimport { PanelActionCloseSmart } from '@atlassian/panel-system/panel-action/close-smart';\nimport { PanelActionGroup } from '@atlassian/panel-system/panel-action/group';\nimport { PanelActionNewTab } from '@atlassian/panel-system/panel-action/new-tab';\nimport { PanelBody } from '@atlassian/panel-system/panel-body';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { usePanel } from '@atlassian/panel-system/panel-context';\nimport { PanelFooter } from '@atlassian/panel-system/panel-footer';\nimport { PanelHeader } from '@atlassian/panel-system/panel-header';\nimport { usePanelActions, usePanelState } from '@atlassian/panel-system/panel-manager';\nimport { PanelProvider } from '@atlassian/panel-system/panel-provider';\nimport { PanelSubheader } from '@atlassian/panel-system/panel-subheader';\nimport { PanelTitle } from '@atlassian/panel-system/panel-title';\nimport { SubheaderInlineEdit } from '@atlassian/panel-system/subheader-inline-edit';\nfunction WorkItemDetails() {\n\tconst { panel, closePanel } = usePanel<{ title: string }>();\n\tconst [title, setTitle] = useState(panel.params.title);\n\treturn (\n\t\t<PanelContainer>\n\t\t\t<PanelHeader>\n\t\t\t\t<PanelTitle>Work item</PanelTitle>\n\t\t\t\t<PanelActionGroup>\n\t\t\t\t\t<PanelActionNewTab href=\"/browse/PROJ-42\" label=\"Open work item in a new tab\" />\n\t\t\t\t\t<PanelActionCloseSmart label=\"Close work item\" />\n\t\t\t\t</PanelActionGroup>\n\t\t\t</PanelHeader>\n\t\t\t<PanelContent>\n\t\t\t\t<PanelSubheader\n\t\t\t\t\ttitle={title}\n\t\t\t\t\tinlineEdit={\n\t\t\t\t\t\t<SubheaderInlineEdit\n\t\t\t\t\t\t\tdefaultValue={title}\n\t\t\t\t\t\t\tplaceholder=\"Add a work item title\"\n\t\t\t\t\t\t\teditButtonLabel=\"Edit work item title\"\n\t\t\t\t\t\t\tconfirmButtonLabel=\"Confirm title\"\n\t\t\t\t\t\t\tcancelButtonLabel=\"Cancel editing\"\n\t\t\t\t\t\t\tonConfirm={setTitle}\n\t\t\t\t\t\t/>\n\t\t\t\t\t}\n\t\t\t\t/>\n\t\t\t\t<PanelBody>\n\t\t\t\t\t<Stack space=\"space.200\">\n\t\t\t\t\t\t<Text as=\"p\">PROJ-42 · In progress</Text>\n\t\t\t\t\t\t<Text as=\"p\">Review the release checklist with the project team.</Text>\n\t\t\t\t\t\t<Text as=\"p\">\n\t\t\t\t\t\t\tThis example keeps title edits locally. Connect confirmation to your app's save\n\t\t\t\t\t\t\toperation.\n\t\t\t\t\t\t</Text>\n\t\t\t\t\t</Stack>\n\t\t\t\t</PanelBody>\n\t\t\t</PanelContent>\n\t\t\t<PanelFooter>\n\t\t\t\t<Button onClick={closePanel}>Done</Button>\n\t\t\t</PanelFooter>\n\t\t</PanelContainer>\n\t);\n}\nfunction ProjectContent() {\n\tconst manager = usePanelActions();\n\tconst { activePanel } = usePanelState();\n\treturn (\n\t\t<LayoutWithPanel panelLabel=\"Work item details\" resizeLabel=\"Resize work item details\">\n\t\t\t<Button\n\t\t\t\tisSelected={activePanel?.instanceId === 'PROJ-42'}\n\t\t\t\tonClick={() =>\n\t\t\t\t\tmanager.openPanel({\n\t\t\t\t\t\tinstanceId: 'PROJ-42',\n\t\t\t\t\t\tparams: { title: 'Prepare the release checklist' },\n\t\t\t\t\t\tpanelContent: <WorkItemDetails />,\n\t\t\t\t\t})\n\t\t\t\t}\n\t\t\t>\n\t\t\t\tView PROJ-42\n\t\t\t</Button>\n\t\t</LayoutWithPanel>\n\t);\n}\n// Internal Atlassian package. This example uses already-loaded React content.\n// For lazy EntryPoints, prefer Trigger inside the app's Relay environment provider.\nexport default function ContextualDetailsExample(): React.JSX.Element {\n\treturn (\n\t\t<PanelProvider>\n\t\t\t<Root>\n\t\t\t\t<Main>\n\t\t\t\t\t<ProjectContent />\n\t\t\t\t</Main>\n\t\t\t</Root>\n\t\t</PanelProvider>\n\t);\n}",
+			"import Button from '@atlaskit/button/default/button';\nimport { Main } from '@atlaskit/navigation-system/layout/main';\nimport { PanelLayout } from '@atlaskit/navigation-system/layout/panel-layout';\nimport { Root } from '@atlaskit/navigation-system/layout/root';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { PanelActionClose } from '@atlassian/panel-system/panel-action/close';\nimport { PanelActionGroup } from '@atlassian/panel-system/panel-action/group';\nimport { PanelBody } from '@atlassian/panel-system/panel-body';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { useCloseCurrentPanel, useCurrentPanel } from '@atlassian/panel-system/panel-context';\nimport { PanelDisclaimer } from '@atlassian/panel-system/panel-disclaimer';\nimport { PanelFooter } from '@atlassian/panel-system/panel-footer';\nimport { PanelHeader } from '@atlassian/panel-system/panel-header';\nimport { usePanelManager } from '@atlassian/panel-system/panel-manager';\nimport { PanelProvider } from '@atlassian/panel-system/panel-provider';\nimport { PanelRouter } from '@atlassian/panel-system/panel-router';\nimport { PanelTitle } from '@atlassian/panel-system/panel-title';\nimport { PanelsRenderer } from '@atlassian/panel-system/panels-renderer';\nfunction ProjectSummary() {\n\tconst panel = useCurrentPanel<{ summary: string }>();\n\tconst closePanel = useCloseCurrentPanel();\n\treturn (\n\t\t<PanelContainer>\n\t\t\t<PanelHeader>\n\t\t\t\t<PanelTitle>Project summary</PanelTitle>\n\t\t\t\t<PanelActionGroup>\n\t\t\t\t\t<PanelActionClose label=\"Close project summary\" onClick={closePanel} />\n\t\t\t\t</PanelActionGroup>\n\t\t\t</PanelHeader>\n\t\t\t<PanelContent>\n\t\t\t\t<PanelBody>\n\t\t\t\t\t<Text as=\"p\">{panel.params.summary}</Text>\n\t\t\t\t</PanelBody>\n\t\t\t</PanelContent>\n\t\t\t<PanelFooter\n\t\t\t\tdisclaimer={\n\t\t\t\t\t<PanelDisclaimer>AI-generated content. Verify important details.</PanelDisclaimer>\n\t\t\t\t}\n\t\t\t>\n\t\t\t\t<Button onClick={closePanel}>Done</Button>\n\t\t\t</PanelFooter>\n\t\t</PanelContainer>\n\t);\n}\nfunction ProjectContent() {\n\tconst { state, manager } = usePanelManager();\n\treturn (\n\t\t<PanelLayout\n\t\t\tisPanelOpen={state.activePanel !== null}\n\t\t\tpanelKey={state.activePanel?.instanceId}\n\t\t\tpanelLabel=\"Project summary\"\n\t\t\tresizeLabel=\"Resize project summary\"\n\t\t\tpanel={\n\t\t\t\t<PanelsRenderer>\n\t\t\t\t\t<PanelRouter />\n\t\t\t\t</PanelsRenderer>\n\t\t\t}\n\t\t>\n\t\t\t<Button\n\t\t\t\tonClick={() =>\n\t\t\t\t\tmanager.openPanel({\n\t\t\t\t\t\tinstanceId: 'project-summary',\n\t\t\t\t\t\tparams: {\n\t\t\t\t\t\t\tsummary:\n\t\t\t\t\t\t\t\t'The release checklist is ready for review. Two work items remain in progress.',\n\t\t\t\t\t\t},\n\t\t\t\t\t\tpanelContent: <ProjectSummary />,\n\t\t\t\t\t})\n\t\t\t\t}\n\t\t\t>\n\t\t\t\tView project summary\n\t\t\t</Button>\n\t\t</PanelLayout>\n\t);\n}\n// Internal Atlassian package. Prefer LayoutWithPanel for the standard integration.\n// Use this composition when the app needs to own its PanelLayout and PanelRouter.\nexport default function CustomRenderingExample(): React.JSX.Element {\n\treturn (\n\t\t<PanelProvider>\n\t\t\t<Root>\n\t\t\t\t<Main>\n\t\t\t\t\t<ProjectContent />\n\t\t\t\t</Main>\n\t\t\t</Root>\n\t\t</PanelProvider>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
+				description: 'The content of the panel container.',
+				isRequired: true,
+			},
+			{
+				name: 'isFocusLockEnabled',
+				type: 'boolean | undefined',
+				description:
+					'When `true`, a focus trap is activated so that Tab / Shift+Tab cycles only\nthrough interactive elements inside the panel.\n\nUseful for panels that require the user to complete an action before continuing.',
+				defaultValue: 'false',
+			},
+		],
+	},
+	{
+		name: 'PanelContent',
+		package: '@atlassian/panel-system',
+		description:
+			'For internal Atlassian use only: Provides the scrollable region between the fixed panel header and footer. Internal Atlassian package; not available for use outside Atlassian.',
+		status: 'open-beta',
+		usageGuidelines: [
+			'Group the subheader and body in the scrollable content so the close action and footer remain available.',
+		],
+		keywords: ['panel', 'scroll', 'content', 'body', 'subheader'],
+		category: 'layout',
+		examples: [
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Main } from '@atlaskit/navigation-system/layout/main';\nimport { Root } from '@atlaskit/navigation-system/layout/root';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { LayoutWithPanel } from '@atlassian/panel-system/layout-with-panel';\nimport { PanelActionCloseSmart } from '@atlassian/panel-system/panel-action/close-smart';\nimport { PanelActionGroup } from '@atlassian/panel-system/panel-action/group';\nimport { PanelActionNewTab } from '@atlassian/panel-system/panel-action/new-tab';\nimport { PanelBody } from '@atlassian/panel-system/panel-body';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { usePanel } from '@atlassian/panel-system/panel-context';\nimport { PanelFooter } from '@atlassian/panel-system/panel-footer';\nimport { PanelHeader } from '@atlassian/panel-system/panel-header';\nimport { usePanelActions, usePanelState } from '@atlassian/panel-system/panel-manager';\nimport { PanelProvider } from '@atlassian/panel-system/panel-provider';\nimport { PanelSubheader } from '@atlassian/panel-system/panel-subheader';\nimport { PanelTitle } from '@atlassian/panel-system/panel-title';\nimport { SubheaderInlineEdit } from '@atlassian/panel-system/subheader-inline-edit';\nfunction WorkItemDetails() {\n\tconst { panel, closePanel } = usePanel<{ title: string }>();\n\tconst [title, setTitle] = useState(panel.params.title);\n\treturn (\n\t\t<PanelContainer>\n\t\t\t<PanelHeader>\n\t\t\t\t<PanelTitle>Work item</PanelTitle>\n\t\t\t\t<PanelActionGroup>\n\t\t\t\t\t<PanelActionNewTab href=\"/browse/PROJ-42\" label=\"Open work item in a new tab\" />\n\t\t\t\t\t<PanelActionCloseSmart label=\"Close work item\" />\n\t\t\t\t</PanelActionGroup>\n\t\t\t</PanelHeader>\n\t\t\t<PanelContent>\n\t\t\t\t<PanelSubheader\n\t\t\t\t\ttitle={title}\n\t\t\t\t\tinlineEdit={\n\t\t\t\t\t\t<SubheaderInlineEdit\n\t\t\t\t\t\t\tdefaultValue={title}\n\t\t\t\t\t\t\tplaceholder=\"Add a work item title\"\n\t\t\t\t\t\t\teditButtonLabel=\"Edit work item title\"\n\t\t\t\t\t\t\tconfirmButtonLabel=\"Confirm title\"\n\t\t\t\t\t\t\tcancelButtonLabel=\"Cancel editing\"\n\t\t\t\t\t\t\tonConfirm={setTitle}\n\t\t\t\t\t\t/>\n\t\t\t\t\t}\n\t\t\t\t/>\n\t\t\t\t<PanelBody>\n\t\t\t\t\t<Stack space=\"space.200\">\n\t\t\t\t\t\t<Text as=\"p\">PROJ-42 · In progress</Text>\n\t\t\t\t\t\t<Text as=\"p\">Review the release checklist with the project team.</Text>\n\t\t\t\t\t\t<Text as=\"p\">\n\t\t\t\t\t\t\tThis example keeps title edits locally. Connect confirmation to your app's save\n\t\t\t\t\t\t\toperation.\n\t\t\t\t\t\t</Text>\n\t\t\t\t\t</Stack>\n\t\t\t\t</PanelBody>\n\t\t\t</PanelContent>\n\t\t\t<PanelFooter>\n\t\t\t\t<Button onClick={closePanel}>Done</Button>\n\t\t\t</PanelFooter>\n\t\t</PanelContainer>\n\t);\n}\nfunction ProjectContent() {\n\tconst manager = usePanelActions();\n\tconst { activePanel } = usePanelState();\n\treturn (\n\t\t<LayoutWithPanel panelLabel=\"Work item details\" resizeLabel=\"Resize work item details\">\n\t\t\t<Button\n\t\t\t\tisSelected={activePanel?.instanceId === 'PROJ-42'}\n\t\t\t\tonClick={() =>\n\t\t\t\t\tmanager.openPanel({\n\t\t\t\t\t\tinstanceId: 'PROJ-42',\n\t\t\t\t\t\tparams: { title: 'Prepare the release checklist' },\n\t\t\t\t\t\tpanelContent: <WorkItemDetails />,\n\t\t\t\t\t})\n\t\t\t\t}\n\t\t\t>\n\t\t\t\tView PROJ-42\n\t\t\t</Button>\n\t\t</LayoutWithPanel>\n\t);\n}\n// Internal Atlassian package. This example uses already-loaded React content.\n// For lazy EntryPoints, prefer Trigger inside the app's Relay environment provider.\nexport default function ContextualDetailsExample(): React.JSX.Element {\n\treturn (\n\t\t<PanelProvider>\n\t\t\t<Root>\n\t\t\t\t<Main>\n\t\t\t\t\t<ProjectContent />\n\t\t\t\t</Main>\n\t\t\t</Root>\n\t\t</PanelProvider>\n\t);\n}",
+			"import Button from '@atlaskit/button/default/button';\nimport { Main } from '@atlaskit/navigation-system/layout/main';\nimport { PanelLayout } from '@atlaskit/navigation-system/layout/panel-layout';\nimport { Root } from '@atlaskit/navigation-system/layout/root';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { PanelActionClose } from '@atlassian/panel-system/panel-action/close';\nimport { PanelActionGroup } from '@atlassian/panel-system/panel-action/group';\nimport { PanelBody } from '@atlassian/panel-system/panel-body';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { useCloseCurrentPanel, useCurrentPanel } from '@atlassian/panel-system/panel-context';\nimport { PanelDisclaimer } from '@atlassian/panel-system/panel-disclaimer';\nimport { PanelFooter } from '@atlassian/panel-system/panel-footer';\nimport { PanelHeader } from '@atlassian/panel-system/panel-header';\nimport { usePanelManager } from '@atlassian/panel-system/panel-manager';\nimport { PanelProvider } from '@atlassian/panel-system/panel-provider';\nimport { PanelRouter } from '@atlassian/panel-system/panel-router';\nimport { PanelTitle } from '@atlassian/panel-system/panel-title';\nimport { PanelsRenderer } from '@atlassian/panel-system/panels-renderer';\nfunction ProjectSummary() {\n\tconst panel = useCurrentPanel<{ summary: string }>();\n\tconst closePanel = useCloseCurrentPanel();\n\treturn (\n\t\t<PanelContainer>\n\t\t\t<PanelHeader>\n\t\t\t\t<PanelTitle>Project summary</PanelTitle>\n\t\t\t\t<PanelActionGroup>\n\t\t\t\t\t<PanelActionClose label=\"Close project summary\" onClick={closePanel} />\n\t\t\t\t</PanelActionGroup>\n\t\t\t</PanelHeader>\n\t\t\t<PanelContent>\n\t\t\t\t<PanelBody>\n\t\t\t\t\t<Text as=\"p\">{panel.params.summary}</Text>\n\t\t\t\t</PanelBody>\n\t\t\t</PanelContent>\n\t\t\t<PanelFooter\n\t\t\t\tdisclaimer={\n\t\t\t\t\t<PanelDisclaimer>AI-generated content. Verify important details.</PanelDisclaimer>\n\t\t\t\t}\n\t\t\t>\n\t\t\t\t<Button onClick={closePanel}>Done</Button>\n\t\t\t</PanelFooter>\n\t\t</PanelContainer>\n\t);\n}\nfunction ProjectContent() {\n\tconst { state, manager } = usePanelManager();\n\treturn (\n\t\t<PanelLayout\n\t\t\tisPanelOpen={state.activePanel !== null}\n\t\t\tpanelKey={state.activePanel?.instanceId}\n\t\t\tpanelLabel=\"Project summary\"\n\t\t\tresizeLabel=\"Resize project summary\"\n\t\t\tpanel={\n\t\t\t\t<PanelsRenderer>\n\t\t\t\t\t<PanelRouter />\n\t\t\t\t</PanelsRenderer>\n\t\t\t}\n\t\t>\n\t\t\t<Button\n\t\t\t\tonClick={() =>\n\t\t\t\t\tmanager.openPanel({\n\t\t\t\t\t\tinstanceId: 'project-summary',\n\t\t\t\t\t\tparams: {\n\t\t\t\t\t\t\tsummary:\n\t\t\t\t\t\t\t\t'The release checklist is ready for review. Two work items remain in progress.',\n\t\t\t\t\t\t},\n\t\t\t\t\t\tpanelContent: <ProjectSummary />,\n\t\t\t\t\t})\n\t\t\t\t}\n\t\t\t>\n\t\t\t\tView project summary\n\t\t\t</Button>\n\t\t</PanelLayout>\n\t);\n}\n// Internal Atlassian package. Prefer LayoutWithPanel for the standard integration.\n// Use this composition when the app needs to own its PanelLayout and PanelRouter.\nexport default function CustomRenderingExample(): React.JSX.Element {\n\treturn (\n\t\t<PanelProvider>\n\t\t\t<Root>\n\t\t\t\t<Main>\n\t\t\t\t\t<ProjectContent />\n\t\t\t\t</Main>\n\t\t\t</Root>\n\t\t</PanelProvider>\n\t);\n}",
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { PanelBodySkeleton } from '@atlassian/panel-system/panel-body-skeleton';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { PanelFooterSkeleton } from '@atlassian/panel-system/panel-footer-skeleton';\nimport { PanelHeaderSkeleton } from '@atlassian/panel-system/panel-header-skeleton';\nimport { PanelSubheaderSkeleton } from '@atlassian/panel-system/panel-subheader-skeleton';\n// This width is only set so the panel renders at a sensible size in the docs.\n// Please use the navigation-system panel slot to size panels — do not hardcode this.\n// In a real panel, pass your custom skeleton to `PanelRouter`'s `fallback` prop.\nconst styles = cssMap({\n\texampleWrapper: {\n\t\twidth: '400px',\n\t\theight: '480px',\n\t},\n});\nexport function LoadingComposable(): JSX.Element {\n\treturn (\n\t\t<Box xcss={styles.exampleWrapper}>\n\t\t\t<PanelContainer testId=\"panel-container-skeleton\">\n\t\t\t\t<PanelHeaderSkeleton shouldShowIcon actionsCount={3} />\n\t\t\t\t<PanelContent>\n\t\t\t\t\t<PanelSubheaderSkeleton shouldShowIcon />\n\t\t\t\t\t<PanelBodySkeleton />\n\t\t\t\t</PanelContent>\n\t\t\t\t<PanelFooterSkeleton actionsCount={2} />\n\t\t\t</PanelContainer>\n\t\t</Box>\n\t);\n}\nexport default LoadingComposable;",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
+				description:
+					'The scrollable content of the panel — typically a `PanelSubheader` followed by a `PanelBody`.',
+				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'PanelDisclaimer',
+		package: '@atlassian/panel-system',
+		description:
+			'For internal Atlassian use only: Displays a short contextual notice beneath panel footer actions. Internal Atlassian package; not available for use outside Atlassian.',
+		status: 'open-beta',
+		usageGuidelines: [
+			'Use a disclaimer only when people need important context, such as the limitations of an AI-generated summary.',
+		],
+		contentGuidelines: ['Keep disclaimer text short enough for one line.'],
+		keywords: ['panel', 'disclaimer', 'notice', 'ai', 'footer'],
+		category: 'layout',
+		examples: [
+			"import Button from '@atlaskit/button/default/button';\nimport { Main } from '@atlaskit/navigation-system/layout/main';\nimport { PanelLayout } from '@atlaskit/navigation-system/layout/panel-layout';\nimport { Root } from '@atlaskit/navigation-system/layout/root';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { PanelActionClose } from '@atlassian/panel-system/panel-action/close';\nimport { PanelActionGroup } from '@atlassian/panel-system/panel-action/group';\nimport { PanelBody } from '@atlassian/panel-system/panel-body';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { useCloseCurrentPanel, useCurrentPanel } from '@atlassian/panel-system/panel-context';\nimport { PanelDisclaimer } from '@atlassian/panel-system/panel-disclaimer';\nimport { PanelFooter } from '@atlassian/panel-system/panel-footer';\nimport { PanelHeader } from '@atlassian/panel-system/panel-header';\nimport { usePanelManager } from '@atlassian/panel-system/panel-manager';\nimport { PanelProvider } from '@atlassian/panel-system/panel-provider';\nimport { PanelRouter } from '@atlassian/panel-system/panel-router';\nimport { PanelTitle } from '@atlassian/panel-system/panel-title';\nimport { PanelsRenderer } from '@atlassian/panel-system/panels-renderer';\nfunction ProjectSummary() {\n\tconst panel = useCurrentPanel<{ summary: string }>();\n\tconst closePanel = useCloseCurrentPanel();\n\treturn (\n\t\t<PanelContainer>\n\t\t\t<PanelHeader>\n\t\t\t\t<PanelTitle>Project summary</PanelTitle>\n\t\t\t\t<PanelActionGroup>\n\t\t\t\t\t<PanelActionClose label=\"Close project summary\" onClick={closePanel} />\n\t\t\t\t</PanelActionGroup>\n\t\t\t</PanelHeader>\n\t\t\t<PanelContent>\n\t\t\t\t<PanelBody>\n\t\t\t\t\t<Text as=\"p\">{panel.params.summary}</Text>\n\t\t\t\t</PanelBody>\n\t\t\t</PanelContent>\n\t\t\t<PanelFooter\n\t\t\t\tdisclaimer={\n\t\t\t\t\t<PanelDisclaimer>AI-generated content. Verify important details.</PanelDisclaimer>\n\t\t\t\t}\n\t\t\t>\n\t\t\t\t<Button onClick={closePanel}>Done</Button>\n\t\t\t</PanelFooter>\n\t\t</PanelContainer>\n\t);\n}\nfunction ProjectContent() {\n\tconst { state, manager } = usePanelManager();\n\treturn (\n\t\t<PanelLayout\n\t\t\tisPanelOpen={state.activePanel !== null}\n\t\t\tpanelKey={state.activePanel?.instanceId}\n\t\t\tpanelLabel=\"Project summary\"\n\t\t\tresizeLabel=\"Resize project summary\"\n\t\t\tpanel={\n\t\t\t\t<PanelsRenderer>\n\t\t\t\t\t<PanelRouter />\n\t\t\t\t</PanelsRenderer>\n\t\t\t}\n\t\t>\n\t\t\t<Button\n\t\t\t\tonClick={() =>\n\t\t\t\t\tmanager.openPanel({\n\t\t\t\t\t\tinstanceId: 'project-summary',\n\t\t\t\t\t\tparams: {\n\t\t\t\t\t\t\tsummary:\n\t\t\t\t\t\t\t\t'The release checklist is ready for review. Two work items remain in progress.',\n\t\t\t\t\t\t},\n\t\t\t\t\t\tpanelContent: <ProjectSummary />,\n\t\t\t\t\t})\n\t\t\t\t}\n\t\t\t>\n\t\t\t\tView project summary\n\t\t\t</Button>\n\t\t</PanelLayout>\n\t);\n}\n// Internal Atlassian package. Prefer LayoutWithPanel for the standard integration.\n// Use this composition when the app needs to own its PanelLayout and PanelRouter.\nexport default function CustomRenderingExample(): React.JSX.Element {\n\treturn (\n\t\t<PanelProvider>\n\t\t\t<Root>\n\t\t\t\t<Main>\n\t\t\t\t\t<ProjectContent />\n\t\t\t\t</Main>\n\t\t\t</Root>\n\t\t</PanelProvider>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
+				description:
+					'The content of the disclaimer bar. Consumers are responsible for\nthe internal layout and alignment of children.',
+				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'PanelFooter',
+		package: '@atlassian/panel-system',
+		description:
+			'For internal Atlassian use only: Keeps task actions visible below the scrollable panel content, with an optional disclaimer. Internal Atlassian package; not available for use outside Atlassian.',
+		status: 'open-beta',
+		usageGuidelines: [
+			'Use a footer when the panel needs a clear commit or cancel action.',
+			'Place one primary action on the right and a secondary action to its left where possible.',
+		],
+		accessibilityGuidelines: [
+			'Include a footer dismissal action where possible so keyboard users need not return to the header to close the panel.',
+		],
+		keywords: ['panel', 'footer', 'save', 'cancel', 'actions'],
+		category: 'layout',
+		examples: [
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Main } from '@atlaskit/navigation-system/layout/main';\nimport { Root } from '@atlaskit/navigation-system/layout/root';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { LayoutWithPanel } from '@atlassian/panel-system/layout-with-panel';\nimport { PanelActionCloseSmart } from '@atlassian/panel-system/panel-action/close-smart';\nimport { PanelActionGroup } from '@atlassian/panel-system/panel-action/group';\nimport { PanelActionNewTab } from '@atlassian/panel-system/panel-action/new-tab';\nimport { PanelBody } from '@atlassian/panel-system/panel-body';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { usePanel } from '@atlassian/panel-system/panel-context';\nimport { PanelFooter } from '@atlassian/panel-system/panel-footer';\nimport { PanelHeader } from '@atlassian/panel-system/panel-header';\nimport { usePanelActions, usePanelState } from '@atlassian/panel-system/panel-manager';\nimport { PanelProvider } from '@atlassian/panel-system/panel-provider';\nimport { PanelSubheader } from '@atlassian/panel-system/panel-subheader';\nimport { PanelTitle } from '@atlassian/panel-system/panel-title';\nimport { SubheaderInlineEdit } from '@atlassian/panel-system/subheader-inline-edit';\nfunction WorkItemDetails() {\n\tconst { panel, closePanel } = usePanel<{ title: string }>();\n\tconst [title, setTitle] = useState(panel.params.title);\n\treturn (\n\t\t<PanelContainer>\n\t\t\t<PanelHeader>\n\t\t\t\t<PanelTitle>Work item</PanelTitle>\n\t\t\t\t<PanelActionGroup>\n\t\t\t\t\t<PanelActionNewTab href=\"/browse/PROJ-42\" label=\"Open work item in a new tab\" />\n\t\t\t\t\t<PanelActionCloseSmart label=\"Close work item\" />\n\t\t\t\t</PanelActionGroup>\n\t\t\t</PanelHeader>\n\t\t\t<PanelContent>\n\t\t\t\t<PanelSubheader\n\t\t\t\t\ttitle={title}\n\t\t\t\t\tinlineEdit={\n\t\t\t\t\t\t<SubheaderInlineEdit\n\t\t\t\t\t\t\tdefaultValue={title}\n\t\t\t\t\t\t\tplaceholder=\"Add a work item title\"\n\t\t\t\t\t\t\teditButtonLabel=\"Edit work item title\"\n\t\t\t\t\t\t\tconfirmButtonLabel=\"Confirm title\"\n\t\t\t\t\t\t\tcancelButtonLabel=\"Cancel editing\"\n\t\t\t\t\t\t\tonConfirm={setTitle}\n\t\t\t\t\t\t/>\n\t\t\t\t\t}\n\t\t\t\t/>\n\t\t\t\t<PanelBody>\n\t\t\t\t\t<Stack space=\"space.200\">\n\t\t\t\t\t\t<Text as=\"p\">PROJ-42 · In progress</Text>\n\t\t\t\t\t\t<Text as=\"p\">Review the release checklist with the project team.</Text>\n\t\t\t\t\t\t<Text as=\"p\">\n\t\t\t\t\t\t\tThis example keeps title edits locally. Connect confirmation to your app's save\n\t\t\t\t\t\t\toperation.\n\t\t\t\t\t\t</Text>\n\t\t\t\t\t</Stack>\n\t\t\t\t</PanelBody>\n\t\t\t</PanelContent>\n\t\t\t<PanelFooter>\n\t\t\t\t<Button onClick={closePanel}>Done</Button>\n\t\t\t</PanelFooter>\n\t\t</PanelContainer>\n\t);\n}\nfunction ProjectContent() {\n\tconst manager = usePanelActions();\n\tconst { activePanel } = usePanelState();\n\treturn (\n\t\t<LayoutWithPanel panelLabel=\"Work item details\" resizeLabel=\"Resize work item details\">\n\t\t\t<Button\n\t\t\t\tisSelected={activePanel?.instanceId === 'PROJ-42'}\n\t\t\t\tonClick={() =>\n\t\t\t\t\tmanager.openPanel({\n\t\t\t\t\t\tinstanceId: 'PROJ-42',\n\t\t\t\t\t\tparams: { title: 'Prepare the release checklist' },\n\t\t\t\t\t\tpanelContent: <WorkItemDetails />,\n\t\t\t\t\t})\n\t\t\t\t}\n\t\t\t>\n\t\t\t\tView PROJ-42\n\t\t\t</Button>\n\t\t</LayoutWithPanel>\n\t);\n}\n// Internal Atlassian package. This example uses already-loaded React content.\n// For lazy EntryPoints, prefer Trigger inside the app's Relay environment provider.\nexport default function ContextualDetailsExample(): React.JSX.Element {\n\treturn (\n\t\t<PanelProvider>\n\t\t\t<Root>\n\t\t\t\t<Main>\n\t\t\t\t\t<ProjectContent />\n\t\t\t\t</Main>\n\t\t\t</Root>\n\t\t</PanelProvider>\n\t);\n}",
+			"import Button from '@atlaskit/button/default/button';\nimport { Main } from '@atlaskit/navigation-system/layout/main';\nimport { PanelLayout } from '@atlaskit/navigation-system/layout/panel-layout';\nimport { Root } from '@atlaskit/navigation-system/layout/root';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { PanelActionClose } from '@atlassian/panel-system/panel-action/close';\nimport { PanelActionGroup } from '@atlassian/panel-system/panel-action/group';\nimport { PanelBody } from '@atlassian/panel-system/panel-body';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { useCloseCurrentPanel, useCurrentPanel } from '@atlassian/panel-system/panel-context';\nimport { PanelDisclaimer } from '@atlassian/panel-system/panel-disclaimer';\nimport { PanelFooter } from '@atlassian/panel-system/panel-footer';\nimport { PanelHeader } from '@atlassian/panel-system/panel-header';\nimport { usePanelManager } from '@atlassian/panel-system/panel-manager';\nimport { PanelProvider } from '@atlassian/panel-system/panel-provider';\nimport { PanelRouter } from '@atlassian/panel-system/panel-router';\nimport { PanelTitle } from '@atlassian/panel-system/panel-title';\nimport { PanelsRenderer } from '@atlassian/panel-system/panels-renderer';\nfunction ProjectSummary() {\n\tconst panel = useCurrentPanel<{ summary: string }>();\n\tconst closePanel = useCloseCurrentPanel();\n\treturn (\n\t\t<PanelContainer>\n\t\t\t<PanelHeader>\n\t\t\t\t<PanelTitle>Project summary</PanelTitle>\n\t\t\t\t<PanelActionGroup>\n\t\t\t\t\t<PanelActionClose label=\"Close project summary\" onClick={closePanel} />\n\t\t\t\t</PanelActionGroup>\n\t\t\t</PanelHeader>\n\t\t\t<PanelContent>\n\t\t\t\t<PanelBody>\n\t\t\t\t\t<Text as=\"p\">{panel.params.summary}</Text>\n\t\t\t\t</PanelBody>\n\t\t\t</PanelContent>\n\t\t\t<PanelFooter\n\t\t\t\tdisclaimer={\n\t\t\t\t\t<PanelDisclaimer>AI-generated content. Verify important details.</PanelDisclaimer>\n\t\t\t\t}\n\t\t\t>\n\t\t\t\t<Button onClick={closePanel}>Done</Button>\n\t\t\t</PanelFooter>\n\t\t</PanelContainer>\n\t);\n}\nfunction ProjectContent() {\n\tconst { state, manager } = usePanelManager();\n\treturn (\n\t\t<PanelLayout\n\t\t\tisPanelOpen={state.activePanel !== null}\n\t\t\tpanelKey={state.activePanel?.instanceId}\n\t\t\tpanelLabel=\"Project summary\"\n\t\t\tresizeLabel=\"Resize project summary\"\n\t\t\tpanel={\n\t\t\t\t<PanelsRenderer>\n\t\t\t\t\t<PanelRouter />\n\t\t\t\t</PanelsRenderer>\n\t\t\t}\n\t\t>\n\t\t\t<Button\n\t\t\t\tonClick={() =>\n\t\t\t\t\tmanager.openPanel({\n\t\t\t\t\t\tinstanceId: 'project-summary',\n\t\t\t\t\t\tparams: {\n\t\t\t\t\t\t\tsummary:\n\t\t\t\t\t\t\t\t'The release checklist is ready for review. Two work items remain in progress.',\n\t\t\t\t\t\t},\n\t\t\t\t\t\tpanelContent: <ProjectSummary />,\n\t\t\t\t\t})\n\t\t\t\t}\n\t\t\t>\n\t\t\t\tView project summary\n\t\t\t</Button>\n\t\t</PanelLayout>\n\t);\n}\n// Internal Atlassian package. Prefer LayoutWithPanel for the standard integration.\n// Use this composition when the app needs to own its PanelLayout and PanelRouter.\nexport default function CustomRenderingExample(): React.JSX.Element {\n\treturn (\n\t\t<PanelProvider>\n\t\t\t<Root>\n\t\t\t\t<Main>\n\t\t\t\t\t<ProjectContent />\n\t\t\t\t</Main>\n\t\t\t</Root>\n\t\t</PanelProvider>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
+				description:
+					'The action buttons to display in the footer (e.g. Cancel / Save buttons).\nContent is laid out in a row with actions aligned to the right, justified space-between.',
+			},
+			{
+				name: 'disclaimer',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
+				description:
+					'Optional footer disclaimer content to display below the footer actions.\n\nUse `PanelDisclaimer` to apply the standard disclaimer styling.',
+			},
+		],
+	},
+	{
+		name: 'PanelFooterSkeleton',
+		package: '@atlassian/panel-system',
+		description:
+			'For internal Atlassian use only: Reserves space for footer actions while panel content loads. Internal Atlassian package; not available for use outside Atlassian.',
+		status: 'open-beta',
+		usageGuidelines: ['Include footer placeholders only when the loaded panel has footer actions.'],
+		keywords: ['panel', 'footer', 'skeleton', 'loading', 'actions'],
+		category: 'layout',
+		examples: [
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { PanelBodySkeleton } from '@atlassian/panel-system/panel-body-skeleton';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { PanelFooterSkeleton } from '@atlassian/panel-system/panel-footer-skeleton';\nimport { PanelHeaderSkeleton } from '@atlassian/panel-system/panel-header-skeleton';\nimport { PanelSubheaderSkeleton } from '@atlassian/panel-system/panel-subheader-skeleton';\n// This width is only set so the panel renders at a sensible size in the docs.\n// Please use the navigation-system panel slot to size panels — do not hardcode this.\n// In a real panel, pass your custom skeleton to `PanelRouter`'s `fallback` prop.\nconst styles = cssMap({\n\texampleWrapper: {\n\t\twidth: '400px',\n\t\theight: '480px',\n\t},\n});\nexport function LoadingComposable(): JSX.Element {\n\treturn (\n\t\t<Box xcss={styles.exampleWrapper}>\n\t\t\t<PanelContainer testId=\"panel-container-skeleton\">\n\t\t\t\t<PanelHeaderSkeleton shouldShowIcon actionsCount={3} />\n\t\t\t\t<PanelContent>\n\t\t\t\t\t<PanelSubheaderSkeleton shouldShowIcon />\n\t\t\t\t\t<PanelBodySkeleton />\n\t\t\t\t</PanelContent>\n\t\t\t\t<PanelFooterSkeleton actionsCount={2} />\n\t\t\t</PanelContainer>\n\t\t</Box>\n\t);\n}\nexport default LoadingComposable;",
+		],
+		props: [
+			{
+				name: 'actionsCount',
+				type: '1 | 2',
+				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'PanelHeader',
+		package: '@atlassian/panel-system',
+		description:
+			'For internal Atlassian use only: Provides the fixed top area for a panel title, optional back action, and action group. Internal Atlassian package; not available for use outside Atlassian.',
+		status: 'open-beta',
+		usageGuidelines: [
+			'Use branded headers for content from another app, or an app-owned preview; use non-branded headers for focused tasks within the current app.',
+			'Keep the close action visible; place additional app-specific actions in an overflow menu.',
+		],
+		keywords: ['panel', 'header', 'actions', 'title', 'close'],
+		category: 'layout',
+		examples: [
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Main } from '@atlaskit/navigation-system/layout/main';\nimport { Root } from '@atlaskit/navigation-system/layout/root';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { LayoutWithPanel } from '@atlassian/panel-system/layout-with-panel';\nimport { PanelActionCloseSmart } from '@atlassian/panel-system/panel-action/close-smart';\nimport { PanelActionGroup } from '@atlassian/panel-system/panel-action/group';\nimport { PanelActionNewTab } from '@atlassian/panel-system/panel-action/new-tab';\nimport { PanelBody } from '@atlassian/panel-system/panel-body';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { usePanel } from '@atlassian/panel-system/panel-context';\nimport { PanelFooter } from '@atlassian/panel-system/panel-footer';\nimport { PanelHeader } from '@atlassian/panel-system/panel-header';\nimport { usePanelActions, usePanelState } from '@atlassian/panel-system/panel-manager';\nimport { PanelProvider } from '@atlassian/panel-system/panel-provider';\nimport { PanelSubheader } from '@atlassian/panel-system/panel-subheader';\nimport { PanelTitle } from '@atlassian/panel-system/panel-title';\nimport { SubheaderInlineEdit } from '@atlassian/panel-system/subheader-inline-edit';\nfunction WorkItemDetails() {\n\tconst { panel, closePanel } = usePanel<{ title: string }>();\n\tconst [title, setTitle] = useState(panel.params.title);\n\treturn (\n\t\t<PanelContainer>\n\t\t\t<PanelHeader>\n\t\t\t\t<PanelTitle>Work item</PanelTitle>\n\t\t\t\t<PanelActionGroup>\n\t\t\t\t\t<PanelActionNewTab href=\"/browse/PROJ-42\" label=\"Open work item in a new tab\" />\n\t\t\t\t\t<PanelActionCloseSmart label=\"Close work item\" />\n\t\t\t\t</PanelActionGroup>\n\t\t\t</PanelHeader>\n\t\t\t<PanelContent>\n\t\t\t\t<PanelSubheader\n\t\t\t\t\ttitle={title}\n\t\t\t\t\tinlineEdit={\n\t\t\t\t\t\t<SubheaderInlineEdit\n\t\t\t\t\t\t\tdefaultValue={title}\n\t\t\t\t\t\t\tplaceholder=\"Add a work item title\"\n\t\t\t\t\t\t\teditButtonLabel=\"Edit work item title\"\n\t\t\t\t\t\t\tconfirmButtonLabel=\"Confirm title\"\n\t\t\t\t\t\t\tcancelButtonLabel=\"Cancel editing\"\n\t\t\t\t\t\t\tonConfirm={setTitle}\n\t\t\t\t\t\t/>\n\t\t\t\t\t}\n\t\t\t\t/>\n\t\t\t\t<PanelBody>\n\t\t\t\t\t<Stack space=\"space.200\">\n\t\t\t\t\t\t<Text as=\"p\">PROJ-42 · In progress</Text>\n\t\t\t\t\t\t<Text as=\"p\">Review the release checklist with the project team.</Text>\n\t\t\t\t\t\t<Text as=\"p\">\n\t\t\t\t\t\t\tThis example keeps title edits locally. Connect confirmation to your app's save\n\t\t\t\t\t\t\toperation.\n\t\t\t\t\t\t</Text>\n\t\t\t\t\t</Stack>\n\t\t\t\t</PanelBody>\n\t\t\t</PanelContent>\n\t\t\t<PanelFooter>\n\t\t\t\t<Button onClick={closePanel}>Done</Button>\n\t\t\t</PanelFooter>\n\t\t</PanelContainer>\n\t);\n}\nfunction ProjectContent() {\n\tconst manager = usePanelActions();\n\tconst { activePanel } = usePanelState();\n\treturn (\n\t\t<LayoutWithPanel panelLabel=\"Work item details\" resizeLabel=\"Resize work item details\">\n\t\t\t<Button\n\t\t\t\tisSelected={activePanel?.instanceId === 'PROJ-42'}\n\t\t\t\tonClick={() =>\n\t\t\t\t\tmanager.openPanel({\n\t\t\t\t\t\tinstanceId: 'PROJ-42',\n\t\t\t\t\t\tparams: { title: 'Prepare the release checklist' },\n\t\t\t\t\t\tpanelContent: <WorkItemDetails />,\n\t\t\t\t\t})\n\t\t\t\t}\n\t\t\t>\n\t\t\t\tView PROJ-42\n\t\t\t</Button>\n\t\t</LayoutWithPanel>\n\t);\n}\n// Internal Atlassian package. This example uses already-loaded React content.\n// For lazy EntryPoints, prefer Trigger inside the app's Relay environment provider.\nexport default function ContextualDetailsExample(): React.JSX.Element {\n\treturn (\n\t\t<PanelProvider>\n\t\t\t<Root>\n\t\t\t\t<Main>\n\t\t\t\t\t<ProjectContent />\n\t\t\t\t</Main>\n\t\t\t</Root>\n\t\t</PanelProvider>\n\t);\n}",
+			"import Button from '@atlaskit/button/default/button';\nimport { Main } from '@atlaskit/navigation-system/layout/main';\nimport { PanelLayout } from '@atlaskit/navigation-system/layout/panel-layout';\nimport { Root } from '@atlaskit/navigation-system/layout/root';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { PanelActionClose } from '@atlassian/panel-system/panel-action/close';\nimport { PanelActionGroup } from '@atlassian/panel-system/panel-action/group';\nimport { PanelBody } from '@atlassian/panel-system/panel-body';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { useCloseCurrentPanel, useCurrentPanel } from '@atlassian/panel-system/panel-context';\nimport { PanelDisclaimer } from '@atlassian/panel-system/panel-disclaimer';\nimport { PanelFooter } from '@atlassian/panel-system/panel-footer';\nimport { PanelHeader } from '@atlassian/panel-system/panel-header';\nimport { usePanelManager } from '@atlassian/panel-system/panel-manager';\nimport { PanelProvider } from '@atlassian/panel-system/panel-provider';\nimport { PanelRouter } from '@atlassian/panel-system/panel-router';\nimport { PanelTitle } from '@atlassian/panel-system/panel-title';\nimport { PanelsRenderer } from '@atlassian/panel-system/panels-renderer';\nfunction ProjectSummary() {\n\tconst panel = useCurrentPanel<{ summary: string }>();\n\tconst closePanel = useCloseCurrentPanel();\n\treturn (\n\t\t<PanelContainer>\n\t\t\t<PanelHeader>\n\t\t\t\t<PanelTitle>Project summary</PanelTitle>\n\t\t\t\t<PanelActionGroup>\n\t\t\t\t\t<PanelActionClose label=\"Close project summary\" onClick={closePanel} />\n\t\t\t\t</PanelActionGroup>\n\t\t\t</PanelHeader>\n\t\t\t<PanelContent>\n\t\t\t\t<PanelBody>\n\t\t\t\t\t<Text as=\"p\">{panel.params.summary}</Text>\n\t\t\t\t</PanelBody>\n\t\t\t</PanelContent>\n\t\t\t<PanelFooter\n\t\t\t\tdisclaimer={\n\t\t\t\t\t<PanelDisclaimer>AI-generated content. Verify important details.</PanelDisclaimer>\n\t\t\t\t}\n\t\t\t>\n\t\t\t\t<Button onClick={closePanel}>Done</Button>\n\t\t\t</PanelFooter>\n\t\t</PanelContainer>\n\t);\n}\nfunction ProjectContent() {\n\tconst { state, manager } = usePanelManager();\n\treturn (\n\t\t<PanelLayout\n\t\t\tisPanelOpen={state.activePanel !== null}\n\t\t\tpanelKey={state.activePanel?.instanceId}\n\t\t\tpanelLabel=\"Project summary\"\n\t\t\tresizeLabel=\"Resize project summary\"\n\t\t\tpanel={\n\t\t\t\t<PanelsRenderer>\n\t\t\t\t\t<PanelRouter />\n\t\t\t\t</PanelsRenderer>\n\t\t\t}\n\t\t>\n\t\t\t<Button\n\t\t\t\tonClick={() =>\n\t\t\t\t\tmanager.openPanel({\n\t\t\t\t\t\tinstanceId: 'project-summary',\n\t\t\t\t\t\tparams: {\n\t\t\t\t\t\t\tsummary:\n\t\t\t\t\t\t\t\t'The release checklist is ready for review. Two work items remain in progress.',\n\t\t\t\t\t\t},\n\t\t\t\t\t\tpanelContent: <ProjectSummary />,\n\t\t\t\t\t})\n\t\t\t\t}\n\t\t\t>\n\t\t\t\tView project summary\n\t\t\t</Button>\n\t\t</PanelLayout>\n\t);\n}\n// Internal Atlassian package. Prefer LayoutWithPanel for the standard integration.\n// Use this composition when the app needs to own its PanelLayout and PanelRouter.\nexport default function CustomRenderingExample(): React.JSX.Element {\n\treturn (\n\t\t<PanelProvider>\n\t\t\t<Root>\n\t\t\t\t<Main>\n\t\t\t\t\t<ProjectContent />\n\t\t\t\t</Main>\n\t\t\t</Root>\n\t\t</PanelProvider>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
+				description: 'The content of the panel header.',
+				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'PanelHeaderSkeleton',
+		package: '@atlassian/panel-system',
+		description:
+			'For internal Atlassian use only: Reserves space for a loading panel header, including its title and actions. Internal Atlassian package; not available for use outside Atlassian.',
+		status: 'open-beta',
+		usageGuidelines: [
+			'Match the placeholder to the header people will see when loading completes.',
+		],
+		keywords: ['panel', 'header', 'skeleton', 'loading', 'placeholder'],
+		category: 'layout',
+		examples: [
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { PanelBodySkeleton } from '@atlassian/panel-system/panel-body-skeleton';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { PanelFooterSkeleton } from '@atlassian/panel-system/panel-footer-skeleton';\nimport { PanelHeaderSkeleton } from '@atlassian/panel-system/panel-header-skeleton';\nimport { PanelSubheaderSkeleton } from '@atlassian/panel-system/panel-subheader-skeleton';\n// This width is only set so the panel renders at a sensible size in the docs.\n// Please use the navigation-system panel slot to size panels — do not hardcode this.\n// In a real panel, pass your custom skeleton to `PanelRouter`'s `fallback` prop.\nconst styles = cssMap({\n\texampleWrapper: {\n\t\twidth: '400px',\n\t\theight: '480px',\n\t},\n});\nexport function LoadingComposable(): JSX.Element {\n\treturn (\n\t\t<Box xcss={styles.exampleWrapper}>\n\t\t\t<PanelContainer testId=\"panel-container-skeleton\">\n\t\t\t\t<PanelHeaderSkeleton shouldShowIcon actionsCount={3} />\n\t\t\t\t<PanelContent>\n\t\t\t\t\t<PanelSubheaderSkeleton shouldShowIcon />\n\t\t\t\t\t<PanelBodySkeleton />\n\t\t\t\t</PanelContent>\n\t\t\t\t<PanelFooterSkeleton actionsCount={2} />\n\t\t\t</PanelContainer>\n\t\t</Box>\n\t);\n}\nexport default LoadingComposable;",
+		],
+		props: [
+			{
+				name: 'actionsCount',
+				type: 'number | undefined',
+			},
+			{
+				name: 'shouldShowIcon',
+				type: 'boolean | undefined',
+			},
+		],
+	},
+	{
+		name: 'PanelProvider',
+		package: '@atlassian/panel-system',
+		description:
+			'For internal Atlassian use only: Provides panel state and actions to the page, triggers, and panel host. Internal Atlassian package; not available for use outside Atlassian.',
+		status: 'open-beta',
+		usageGuidelines: [
+			'Share one provider between the controls that open panels and the host that displays them.',
+		],
+		keywords: ['panel', 'provider', 'state', 'context', 'open'],
+		category: 'layout',
+		examples: [
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Main } from '@atlaskit/navigation-system/layout/main';\nimport { Root } from '@atlaskit/navigation-system/layout/root';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { LayoutWithPanel } from '@atlassian/panel-system/layout-with-panel';\nimport { PanelActionCloseSmart } from '@atlassian/panel-system/panel-action/close-smart';\nimport { PanelActionGroup } from '@atlassian/panel-system/panel-action/group';\nimport { PanelActionNewTab } from '@atlassian/panel-system/panel-action/new-tab';\nimport { PanelBody } from '@atlassian/panel-system/panel-body';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { usePanel } from '@atlassian/panel-system/panel-context';\nimport { PanelFooter } from '@atlassian/panel-system/panel-footer';\nimport { PanelHeader } from '@atlassian/panel-system/panel-header';\nimport { usePanelActions, usePanelState } from '@atlassian/panel-system/panel-manager';\nimport { PanelProvider } from '@atlassian/panel-system/panel-provider';\nimport { PanelSubheader } from '@atlassian/panel-system/panel-subheader';\nimport { PanelTitle } from '@atlassian/panel-system/panel-title';\nimport { SubheaderInlineEdit } from '@atlassian/panel-system/subheader-inline-edit';\nfunction WorkItemDetails() {\n\tconst { panel, closePanel } = usePanel<{ title: string }>();\n\tconst [title, setTitle] = useState(panel.params.title);\n\treturn (\n\t\t<PanelContainer>\n\t\t\t<PanelHeader>\n\t\t\t\t<PanelTitle>Work item</PanelTitle>\n\t\t\t\t<PanelActionGroup>\n\t\t\t\t\t<PanelActionNewTab href=\"/browse/PROJ-42\" label=\"Open work item in a new tab\" />\n\t\t\t\t\t<PanelActionCloseSmart label=\"Close work item\" />\n\t\t\t\t</PanelActionGroup>\n\t\t\t</PanelHeader>\n\t\t\t<PanelContent>\n\t\t\t\t<PanelSubheader\n\t\t\t\t\ttitle={title}\n\t\t\t\t\tinlineEdit={\n\t\t\t\t\t\t<SubheaderInlineEdit\n\t\t\t\t\t\t\tdefaultValue={title}\n\t\t\t\t\t\t\tplaceholder=\"Add a work item title\"\n\t\t\t\t\t\t\teditButtonLabel=\"Edit work item title\"\n\t\t\t\t\t\t\tconfirmButtonLabel=\"Confirm title\"\n\t\t\t\t\t\t\tcancelButtonLabel=\"Cancel editing\"\n\t\t\t\t\t\t\tonConfirm={setTitle}\n\t\t\t\t\t\t/>\n\t\t\t\t\t}\n\t\t\t\t/>\n\t\t\t\t<PanelBody>\n\t\t\t\t\t<Stack space=\"space.200\">\n\t\t\t\t\t\t<Text as=\"p\">PROJ-42 · In progress</Text>\n\t\t\t\t\t\t<Text as=\"p\">Review the release checklist with the project team.</Text>\n\t\t\t\t\t\t<Text as=\"p\">\n\t\t\t\t\t\t\tThis example keeps title edits locally. Connect confirmation to your app's save\n\t\t\t\t\t\t\toperation.\n\t\t\t\t\t\t</Text>\n\t\t\t\t\t</Stack>\n\t\t\t\t</PanelBody>\n\t\t\t</PanelContent>\n\t\t\t<PanelFooter>\n\t\t\t\t<Button onClick={closePanel}>Done</Button>\n\t\t\t</PanelFooter>\n\t\t</PanelContainer>\n\t);\n}\nfunction ProjectContent() {\n\tconst manager = usePanelActions();\n\tconst { activePanel } = usePanelState();\n\treturn (\n\t\t<LayoutWithPanel panelLabel=\"Work item details\" resizeLabel=\"Resize work item details\">\n\t\t\t<Button\n\t\t\t\tisSelected={activePanel?.instanceId === 'PROJ-42'}\n\t\t\t\tonClick={() =>\n\t\t\t\t\tmanager.openPanel({\n\t\t\t\t\t\tinstanceId: 'PROJ-42',\n\t\t\t\t\t\tparams: { title: 'Prepare the release checklist' },\n\t\t\t\t\t\tpanelContent: <WorkItemDetails />,\n\t\t\t\t\t})\n\t\t\t\t}\n\t\t\t>\n\t\t\t\tView PROJ-42\n\t\t\t</Button>\n\t\t</LayoutWithPanel>\n\t);\n}\n// Internal Atlassian package. This example uses already-loaded React content.\n// For lazy EntryPoints, prefer Trigger inside the app's Relay environment provider.\nexport default function ContextualDetailsExample(): React.JSX.Element {\n\treturn (\n\t\t<PanelProvider>\n\t\t\t<Root>\n\t\t\t\t<Main>\n\t\t\t\t\t<ProjectContent />\n\t\t\t\t</Main>\n\t\t\t</Root>\n\t\t</PanelProvider>\n\t);\n}",
+			"import Button from '@atlaskit/button/default/button';\nimport { Main } from '@atlaskit/navigation-system/layout/main';\nimport { PanelLayout } from '@atlaskit/navigation-system/layout/panel-layout';\nimport { Root } from '@atlaskit/navigation-system/layout/root';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { PanelActionClose } from '@atlassian/panel-system/panel-action/close';\nimport { PanelActionGroup } from '@atlassian/panel-system/panel-action/group';\nimport { PanelBody } from '@atlassian/panel-system/panel-body';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { useCloseCurrentPanel, useCurrentPanel } from '@atlassian/panel-system/panel-context';\nimport { PanelDisclaimer } from '@atlassian/panel-system/panel-disclaimer';\nimport { PanelFooter } from '@atlassian/panel-system/panel-footer';\nimport { PanelHeader } from '@atlassian/panel-system/panel-header';\nimport { usePanelManager } from '@atlassian/panel-system/panel-manager';\nimport { PanelProvider } from '@atlassian/panel-system/panel-provider';\nimport { PanelRouter } from '@atlassian/panel-system/panel-router';\nimport { PanelTitle } from '@atlassian/panel-system/panel-title';\nimport { PanelsRenderer } from '@atlassian/panel-system/panels-renderer';\nfunction ProjectSummary() {\n\tconst panel = useCurrentPanel<{ summary: string }>();\n\tconst closePanel = useCloseCurrentPanel();\n\treturn (\n\t\t<PanelContainer>\n\t\t\t<PanelHeader>\n\t\t\t\t<PanelTitle>Project summary</PanelTitle>\n\t\t\t\t<PanelActionGroup>\n\t\t\t\t\t<PanelActionClose label=\"Close project summary\" onClick={closePanel} />\n\t\t\t\t</PanelActionGroup>\n\t\t\t</PanelHeader>\n\t\t\t<PanelContent>\n\t\t\t\t<PanelBody>\n\t\t\t\t\t<Text as=\"p\">{panel.params.summary}</Text>\n\t\t\t\t</PanelBody>\n\t\t\t</PanelContent>\n\t\t\t<PanelFooter\n\t\t\t\tdisclaimer={\n\t\t\t\t\t<PanelDisclaimer>AI-generated content. Verify important details.</PanelDisclaimer>\n\t\t\t\t}\n\t\t\t>\n\t\t\t\t<Button onClick={closePanel}>Done</Button>\n\t\t\t</PanelFooter>\n\t\t</PanelContainer>\n\t);\n}\nfunction ProjectContent() {\n\tconst { state, manager } = usePanelManager();\n\treturn (\n\t\t<PanelLayout\n\t\t\tisPanelOpen={state.activePanel !== null}\n\t\t\tpanelKey={state.activePanel?.instanceId}\n\t\t\tpanelLabel=\"Project summary\"\n\t\t\tresizeLabel=\"Resize project summary\"\n\t\t\tpanel={\n\t\t\t\t<PanelsRenderer>\n\t\t\t\t\t<PanelRouter />\n\t\t\t\t</PanelsRenderer>\n\t\t\t}\n\t\t>\n\t\t\t<Button\n\t\t\t\tonClick={() =>\n\t\t\t\t\tmanager.openPanel({\n\t\t\t\t\t\tinstanceId: 'project-summary',\n\t\t\t\t\t\tparams: {\n\t\t\t\t\t\t\tsummary:\n\t\t\t\t\t\t\t\t'The release checklist is ready for review. Two work items remain in progress.',\n\t\t\t\t\t\t},\n\t\t\t\t\t\tpanelContent: <ProjectSummary />,\n\t\t\t\t\t})\n\t\t\t\t}\n\t\t\t>\n\t\t\t\tView project summary\n\t\t\t</Button>\n\t\t</PanelLayout>\n\t);\n}\n// Internal Atlassian package. Prefer LayoutWithPanel for the standard integration.\n// Use this composition when the app needs to own its PanelLayout and PanelRouter.\nexport default function CustomRenderingExample(): React.JSX.Element {\n\treturn (\n\t\t<PanelProvider>\n\t\t\t<Root>\n\t\t\t\t<Main>\n\t\t\t\t\t<ProjectContent />\n\t\t\t\t</Main>\n\t\t\t</Root>\n\t\t</PanelProvider>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
+				description: 'Child components that will have access to the panel manager',
+				isRequired: true,
+			},
+			{
+				name: 'initialState',
+				type: 'Partial<PanelSystemState> | undefined',
+				description:
+					'Optional initial state for the panel system.\n\n`initialState.panelWidth` can seed the provider width during SSR. `LayoutWithPanel` mirrors\nits requested width into provider state after mounting. CSS may constrain the visible width\nwithout changing the requested value.',
+			},
+		],
+	},
+	{
+		name: 'PanelRouter',
+		package: '@atlassian/panel-system',
+		description:
+			'For internal Atlassian use only: Renders the active panel React content or loaded EntryPoint, with loading and error fallbacks for EntryPoints. Internal Atlassian package; not available for use outside Atlassian.',
+		status: 'open-beta',
+		usageGuidelines: [
+			'Choose loading and error content that fits the panel task and gives people a recovery path.',
+		],
+		keywords: ['panel', 'router', 'entrypoint', 'loading', 'fallback'],
+		category: 'layout',
+		examples: [
+			"import Button from '@atlaskit/button/default/button';\nimport { Main } from '@atlaskit/navigation-system/layout/main';\nimport { PanelLayout } from '@atlaskit/navigation-system/layout/panel-layout';\nimport { Root } from '@atlaskit/navigation-system/layout/root';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { PanelActionClose } from '@atlassian/panel-system/panel-action/close';\nimport { PanelActionGroup } from '@atlassian/panel-system/panel-action/group';\nimport { PanelBody } from '@atlassian/panel-system/panel-body';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { useCloseCurrentPanel, useCurrentPanel } from '@atlassian/panel-system/panel-context';\nimport { PanelDisclaimer } from '@atlassian/panel-system/panel-disclaimer';\nimport { PanelFooter } from '@atlassian/panel-system/panel-footer';\nimport { PanelHeader } from '@atlassian/panel-system/panel-header';\nimport { usePanelManager } from '@atlassian/panel-system/panel-manager';\nimport { PanelProvider } from '@atlassian/panel-system/panel-provider';\nimport { PanelRouter } from '@atlassian/panel-system/panel-router';\nimport { PanelTitle } from '@atlassian/panel-system/panel-title';\nimport { PanelsRenderer } from '@atlassian/panel-system/panels-renderer';\nfunction ProjectSummary() {\n\tconst panel = useCurrentPanel<{ summary: string }>();\n\tconst closePanel = useCloseCurrentPanel();\n\treturn (\n\t\t<PanelContainer>\n\t\t\t<PanelHeader>\n\t\t\t\t<PanelTitle>Project summary</PanelTitle>\n\t\t\t\t<PanelActionGroup>\n\t\t\t\t\t<PanelActionClose label=\"Close project summary\" onClick={closePanel} />\n\t\t\t\t</PanelActionGroup>\n\t\t\t</PanelHeader>\n\t\t\t<PanelContent>\n\t\t\t\t<PanelBody>\n\t\t\t\t\t<Text as=\"p\">{panel.params.summary}</Text>\n\t\t\t\t</PanelBody>\n\t\t\t</PanelContent>\n\t\t\t<PanelFooter\n\t\t\t\tdisclaimer={\n\t\t\t\t\t<PanelDisclaimer>AI-generated content. Verify important details.</PanelDisclaimer>\n\t\t\t\t}\n\t\t\t>\n\t\t\t\t<Button onClick={closePanel}>Done</Button>\n\t\t\t</PanelFooter>\n\t\t</PanelContainer>\n\t);\n}\nfunction ProjectContent() {\n\tconst { state, manager } = usePanelManager();\n\treturn (\n\t\t<PanelLayout\n\t\t\tisPanelOpen={state.activePanel !== null}\n\t\t\tpanelKey={state.activePanel?.instanceId}\n\t\t\tpanelLabel=\"Project summary\"\n\t\t\tresizeLabel=\"Resize project summary\"\n\t\t\tpanel={\n\t\t\t\t<PanelsRenderer>\n\t\t\t\t\t<PanelRouter />\n\t\t\t\t</PanelsRenderer>\n\t\t\t}\n\t\t>\n\t\t\t<Button\n\t\t\t\tonClick={() =>\n\t\t\t\t\tmanager.openPanel({\n\t\t\t\t\t\tinstanceId: 'project-summary',\n\t\t\t\t\t\tparams: {\n\t\t\t\t\t\t\tsummary:\n\t\t\t\t\t\t\t\t'The release checklist is ready for review. Two work items remain in progress.',\n\t\t\t\t\t\t},\n\t\t\t\t\t\tpanelContent: <ProjectSummary />,\n\t\t\t\t\t})\n\t\t\t\t}\n\t\t\t>\n\t\t\t\tView project summary\n\t\t\t</Button>\n\t\t</PanelLayout>\n\t);\n}\n// Internal Atlassian package. Prefer LayoutWithPanel for the standard integration.\n// Use this composition when the app needs to own its PanelLayout and PanelRouter.\nexport default function CustomRenderingExample(): React.JSX.Element {\n\treturn (\n\t\t<PanelProvider>\n\t\t\t<Root>\n\t\t\t\t<Main>\n\t\t\t\t\t<ProjectContent />\n\t\t\t\t</Main>\n\t\t\t</Root>\n\t\t</PanelProvider>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'errorFallback',
+				type: 'ErrorFallback | undefined',
+				description:
+					'Error fallback function to render when entry point loading fails.\nDefaults to a simple "Error loading panel" text.',
+				defaultValue: '() => <Text as="p">Error loading panel</Text>',
+			},
+			{
+				name: 'fallback',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
+				description:
+					'Fallback UI to show while the entry point is loading.\nDefaults to a skeleton state that indicates header and body content. Can be customised and composed with different skeleton components.',
+				defaultValue: '<PanelSkeleton />',
+			},
+			{
+				name: 'wrapper',
+				type: '((props: { children: React.ReactNode; }) => React.ReactNode) | undefined',
+				description:
+					'Optional wrapper component to wrap the rendered entry point.\nUseful for adding styling, resizing functionality, or other wrapper behavior.\n\n@example\n```tsx\n<PanelRouter\n  wrapper={({ children }) => (\n    <Box xcss={styles.panelWrapper}>{children}</Box>\n  )}\n/>\n```',
+			},
+		],
+	},
+	{
+		name: 'PanelSkeleton',
+		package: '@atlassian/panel-system',
+		description:
+			'For internal Atlassian use only: Provides the default placeholder layout while panel content is loading. Internal Atlassian package; not available for use outside Atlassian.',
+		status: 'open-beta',
+		usageGuidelines: [
+			'Use the default skeleton when it reflects the expected panel structure; compose skeleton parts for a different layout.',
+		],
+		keywords: ['panel', 'skeleton', 'loading', 'placeholder', 'fallback'],
+		category: 'layout',
+		examples: [
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { PanelSkeleton } from '@atlassian/panel-system/panel-skeleton';\n// This width is only set so the panel renders at a sensible size in the docs.\n// Please use the navigation-system panel slot to size panels — do not hardcode this.\n// In a real panel, the default skeleton is provided automatically by `PanelRouter`.\nconst styles = cssMap({\n\texampleWrapper: {\n\t\twidth: '400px',\n\t\theight: '480px',\n\t},\n});\nexport function LoadingDefault(): JSX.Element {\n\treturn (\n\t\t<Box xcss={styles.exampleWrapper}>\n\t\t\t<PanelSkeleton />\n\t\t</Box>\n\t);\n}\nexport default LoadingDefault;",
+		],
+		props: [],
+	},
+	{
+		name: 'PanelSubheader',
+		package: '@atlassian/panel-system',
+		description:
+			'For internal Atlassian use only: Displays a secondary title, optional breadcrumbs or cover image, and optional compact sticky content. Internal Atlassian package; not available for use outside Atlassian.',
+		status: 'open-beta',
+		usageGuidelines: ['Use the subheader to identify the object when the header names the task.'],
+		contentGuidelines: ['Keep the subheader title short and specific to avoid truncation.'],
+		accessibilityGuidelines: [
+			'Provide meaningful alternative text for informative cover images and empty alternative text for decorative images.',
+		],
+		keywords: ['panel', 'subheader', 'sticky heading', 'breadcrumbs', 'cover image'],
+		category: 'layout',
+		examples: [
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Main } from '@atlaskit/navigation-system/layout/main';\nimport { Root } from '@atlaskit/navigation-system/layout/root';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { LayoutWithPanel } from '@atlassian/panel-system/layout-with-panel';\nimport { PanelActionCloseSmart } from '@atlassian/panel-system/panel-action/close-smart';\nimport { PanelActionGroup } from '@atlassian/panel-system/panel-action/group';\nimport { PanelActionNewTab } from '@atlassian/panel-system/panel-action/new-tab';\nimport { PanelBody } from '@atlassian/panel-system/panel-body';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { usePanel } from '@atlassian/panel-system/panel-context';\nimport { PanelFooter } from '@atlassian/panel-system/panel-footer';\nimport { PanelHeader } from '@atlassian/panel-system/panel-header';\nimport { usePanelActions, usePanelState } from '@atlassian/panel-system/panel-manager';\nimport { PanelProvider } from '@atlassian/panel-system/panel-provider';\nimport { PanelSubheader } from '@atlassian/panel-system/panel-subheader';\nimport { PanelTitle } from '@atlassian/panel-system/panel-title';\nimport { SubheaderInlineEdit } from '@atlassian/panel-system/subheader-inline-edit';\nfunction WorkItemDetails() {\n\tconst { panel, closePanel } = usePanel<{ title: string }>();\n\tconst [title, setTitle] = useState(panel.params.title);\n\treturn (\n\t\t<PanelContainer>\n\t\t\t<PanelHeader>\n\t\t\t\t<PanelTitle>Work item</PanelTitle>\n\t\t\t\t<PanelActionGroup>\n\t\t\t\t\t<PanelActionNewTab href=\"/browse/PROJ-42\" label=\"Open work item in a new tab\" />\n\t\t\t\t\t<PanelActionCloseSmart label=\"Close work item\" />\n\t\t\t\t</PanelActionGroup>\n\t\t\t</PanelHeader>\n\t\t\t<PanelContent>\n\t\t\t\t<PanelSubheader\n\t\t\t\t\ttitle={title}\n\t\t\t\t\tinlineEdit={\n\t\t\t\t\t\t<SubheaderInlineEdit\n\t\t\t\t\t\t\tdefaultValue={title}\n\t\t\t\t\t\t\tplaceholder=\"Add a work item title\"\n\t\t\t\t\t\t\teditButtonLabel=\"Edit work item title\"\n\t\t\t\t\t\t\tconfirmButtonLabel=\"Confirm title\"\n\t\t\t\t\t\t\tcancelButtonLabel=\"Cancel editing\"\n\t\t\t\t\t\t\tonConfirm={setTitle}\n\t\t\t\t\t\t/>\n\t\t\t\t\t}\n\t\t\t\t/>\n\t\t\t\t<PanelBody>\n\t\t\t\t\t<Stack space=\"space.200\">\n\t\t\t\t\t\t<Text as=\"p\">PROJ-42 · In progress</Text>\n\t\t\t\t\t\t<Text as=\"p\">Review the release checklist with the project team.</Text>\n\t\t\t\t\t\t<Text as=\"p\">\n\t\t\t\t\t\t\tThis example keeps title edits locally. Connect confirmation to your app's save\n\t\t\t\t\t\t\toperation.\n\t\t\t\t\t\t</Text>\n\t\t\t\t\t</Stack>\n\t\t\t\t</PanelBody>\n\t\t\t</PanelContent>\n\t\t\t<PanelFooter>\n\t\t\t\t<Button onClick={closePanel}>Done</Button>\n\t\t\t</PanelFooter>\n\t\t</PanelContainer>\n\t);\n}\nfunction ProjectContent() {\n\tconst manager = usePanelActions();\n\tconst { activePanel } = usePanelState();\n\treturn (\n\t\t<LayoutWithPanel panelLabel=\"Work item details\" resizeLabel=\"Resize work item details\">\n\t\t\t<Button\n\t\t\t\tisSelected={activePanel?.instanceId === 'PROJ-42'}\n\t\t\t\tonClick={() =>\n\t\t\t\t\tmanager.openPanel({\n\t\t\t\t\t\tinstanceId: 'PROJ-42',\n\t\t\t\t\t\tparams: { title: 'Prepare the release checklist' },\n\t\t\t\t\t\tpanelContent: <WorkItemDetails />,\n\t\t\t\t\t})\n\t\t\t\t}\n\t\t\t>\n\t\t\t\tView PROJ-42\n\t\t\t</Button>\n\t\t</LayoutWithPanel>\n\t);\n}\n// Internal Atlassian package. This example uses already-loaded React content.\n// For lazy EntryPoints, prefer Trigger inside the app's Relay environment provider.\nexport default function ContextualDetailsExample(): React.JSX.Element {\n\treturn (\n\t\t<PanelProvider>\n\t\t\t<Root>\n\t\t\t\t<Main>\n\t\t\t\t\t<ProjectContent />\n\t\t\t\t</Main>\n\t\t\t</Root>\n\t\t</PanelProvider>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'breadcrumbs',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
+				description:
+					'An optional breadcrumbs element to display directly above the title.\nDesigned for the `@atlaskit/breadcrumbs` component (small variant), which is 24px tall.\nThe slot reserves a 24px-tall row and applies the correct gap between the breadcrumbs and title.',
+			},
+			{
+				name: 'coverImage',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
+				description:
+					'An optional cover image to display above the subheader title.\nAccepts any React node — typically an `<img>` element, a media component,\nor a custom image wrapper.\n\nThe image fills the full width of the panel and is cropped to a fixed height of 160px.\n\nAccessibility: any `<img>` passed here must include a meaningful `alt` attribute describing the\nimage, or `alt=""` if it is purely decorative, to satisfy WCAG 1.1.1 (Non-text Content). This\nis not enforced at the type level, so consumers are responsible for providing it.',
+			},
+			{
+				name: 'inlineEdit',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
+				description:
+					'An optional inline edit control to render in place of the static title, allowing the title to\nbe edited in place. Typically a `SubheaderInlineEdit`, which is pre-styled to match the title.\n\nWhen provided, this is rendered instead of the `title` text. The `title` prop should still be\nsupplied as the current value passed to the inline edit control.',
+			},
+			{
+				name: 'stickyContent',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
+				description:
+					'Optional content shown after the regular subheader scrolls out of view.\nAccepts any React node. Content is vertically centered in a 2rem-high slot, with\n8px bottom padding, no top padding, and 24px inline padding around the slot.\nConsumers are responsible for content sizing and text truncation.\nSticky state, refs, and observation are only mounted when this content is provided.\n\n`PanelSubheader` must be a direct child of `PanelContent` for the sticky positioning to work.',
+			},
+			{
+				name: 'title',
+				type: 'string',
+				description: 'The title text to display in the subheader.',
+				isRequired: true,
+			},
+			{
+				name: 'titleIcon',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
+				description:
+					'An optional icon to display at the start of the title.\nAccepts any React node — typically an `@atlaskit/icon` component.',
+			},
+		],
+	},
+	{
+		name: 'PanelSubheaderSkeleton',
+		package: '@atlassian/panel-system',
+		description:
+			'For internal Atlassian use only: Reserves space for a loading panel subheader. Internal Atlassian package; not available for use outside Atlassian.',
+		status: 'open-beta',
+		usageGuidelines: [
+			'Include a subheader placeholder only when the loaded panel will have a subheader.',
+		],
+		keywords: ['panel', 'subheader', 'skeleton', 'loading', 'placeholder'],
+		category: 'layout',
+		examples: [
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { PanelBodySkeleton } from '@atlassian/panel-system/panel-body-skeleton';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { PanelFooterSkeleton } from '@atlassian/panel-system/panel-footer-skeleton';\nimport { PanelHeaderSkeleton } from '@atlassian/panel-system/panel-header-skeleton';\nimport { PanelSubheaderSkeleton } from '@atlassian/panel-system/panel-subheader-skeleton';\n// This width is only set so the panel renders at a sensible size in the docs.\n// Please use the navigation-system panel slot to size panels — do not hardcode this.\n// In a real panel, pass your custom skeleton to `PanelRouter`'s `fallback` prop.\nconst styles = cssMap({\n\texampleWrapper: {\n\t\twidth: '400px',\n\t\theight: '480px',\n\t},\n});\nexport function LoadingComposable(): JSX.Element {\n\treturn (\n\t\t<Box xcss={styles.exampleWrapper}>\n\t\t\t<PanelContainer testId=\"panel-container-skeleton\">\n\t\t\t\t<PanelHeaderSkeleton shouldShowIcon actionsCount={3} />\n\t\t\t\t<PanelContent>\n\t\t\t\t\t<PanelSubheaderSkeleton shouldShowIcon />\n\t\t\t\t\t<PanelBodySkeleton />\n\t\t\t\t</PanelContent>\n\t\t\t\t<PanelFooterSkeleton actionsCount={2} />\n\t\t\t</PanelContainer>\n\t\t</Box>\n\t);\n}\nexport default LoadingComposable;",
+		],
+		props: [
+			{
+				name: 'shouldShowIcon',
+				type: 'boolean | undefined',
+			},
+		],
+	},
+	{
+		name: 'PanelTitle',
+		package: '@atlassian/panel-system',
+		description:
+			'For internal Atlassian use only: Displays the panel header title with an optional app logo or icon. Internal Atlassian package; not available for use outside Atlassian.',
+		status: 'open-beta',
+		contentGuidelines: [
+			'Use the app name for branded headers; otherwise name the object being browsed or the task being completed.',
+			'Keep titles short, specific, and in sentence case; avoid generic titles such as Details or Info without context.',
+			'Match task-based titles to the trigger label where possible.',
+		],
+		accessibilityGuidelines: [
+			'Keep the surrounding content heading hierarchy consistent with the title, which renders as an h2.',
+		],
+		keywords: ['panel', 'title', 'heading', 'app name', 'header'],
+		category: 'layout',
+		examples: [
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Main } from '@atlaskit/navigation-system/layout/main';\nimport { Root } from '@atlaskit/navigation-system/layout/root';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { LayoutWithPanel } from '@atlassian/panel-system/layout-with-panel';\nimport { PanelActionCloseSmart } from '@atlassian/panel-system/panel-action/close-smart';\nimport { PanelActionGroup } from '@atlassian/panel-system/panel-action/group';\nimport { PanelActionNewTab } from '@atlassian/panel-system/panel-action/new-tab';\nimport { PanelBody } from '@atlassian/panel-system/panel-body';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { usePanel } from '@atlassian/panel-system/panel-context';\nimport { PanelFooter } from '@atlassian/panel-system/panel-footer';\nimport { PanelHeader } from '@atlassian/panel-system/panel-header';\nimport { usePanelActions, usePanelState } from '@atlassian/panel-system/panel-manager';\nimport { PanelProvider } from '@atlassian/panel-system/panel-provider';\nimport { PanelSubheader } from '@atlassian/panel-system/panel-subheader';\nimport { PanelTitle } from '@atlassian/panel-system/panel-title';\nimport { SubheaderInlineEdit } from '@atlassian/panel-system/subheader-inline-edit';\nfunction WorkItemDetails() {\n\tconst { panel, closePanel } = usePanel<{ title: string }>();\n\tconst [title, setTitle] = useState(panel.params.title);\n\treturn (\n\t\t<PanelContainer>\n\t\t\t<PanelHeader>\n\t\t\t\t<PanelTitle>Work item</PanelTitle>\n\t\t\t\t<PanelActionGroup>\n\t\t\t\t\t<PanelActionNewTab href=\"/browse/PROJ-42\" label=\"Open work item in a new tab\" />\n\t\t\t\t\t<PanelActionCloseSmart label=\"Close work item\" />\n\t\t\t\t</PanelActionGroup>\n\t\t\t</PanelHeader>\n\t\t\t<PanelContent>\n\t\t\t\t<PanelSubheader\n\t\t\t\t\ttitle={title}\n\t\t\t\t\tinlineEdit={\n\t\t\t\t\t\t<SubheaderInlineEdit\n\t\t\t\t\t\t\tdefaultValue={title}\n\t\t\t\t\t\t\tplaceholder=\"Add a work item title\"\n\t\t\t\t\t\t\teditButtonLabel=\"Edit work item title\"\n\t\t\t\t\t\t\tconfirmButtonLabel=\"Confirm title\"\n\t\t\t\t\t\t\tcancelButtonLabel=\"Cancel editing\"\n\t\t\t\t\t\t\tonConfirm={setTitle}\n\t\t\t\t\t\t/>\n\t\t\t\t\t}\n\t\t\t\t/>\n\t\t\t\t<PanelBody>\n\t\t\t\t\t<Stack space=\"space.200\">\n\t\t\t\t\t\t<Text as=\"p\">PROJ-42 · In progress</Text>\n\t\t\t\t\t\t<Text as=\"p\">Review the release checklist with the project team.</Text>\n\t\t\t\t\t\t<Text as=\"p\">\n\t\t\t\t\t\t\tThis example keeps title edits locally. Connect confirmation to your app's save\n\t\t\t\t\t\t\toperation.\n\t\t\t\t\t\t</Text>\n\t\t\t\t\t</Stack>\n\t\t\t\t</PanelBody>\n\t\t\t</PanelContent>\n\t\t\t<PanelFooter>\n\t\t\t\t<Button onClick={closePanel}>Done</Button>\n\t\t\t</PanelFooter>\n\t\t</PanelContainer>\n\t);\n}\nfunction ProjectContent() {\n\tconst manager = usePanelActions();\n\tconst { activePanel } = usePanelState();\n\treturn (\n\t\t<LayoutWithPanel panelLabel=\"Work item details\" resizeLabel=\"Resize work item details\">\n\t\t\t<Button\n\t\t\t\tisSelected={activePanel?.instanceId === 'PROJ-42'}\n\t\t\t\tonClick={() =>\n\t\t\t\t\tmanager.openPanel({\n\t\t\t\t\t\tinstanceId: 'PROJ-42',\n\t\t\t\t\t\tparams: { title: 'Prepare the release checklist' },\n\t\t\t\t\t\tpanelContent: <WorkItemDetails />,\n\t\t\t\t\t})\n\t\t\t\t}\n\t\t\t>\n\t\t\t\tView PROJ-42\n\t\t\t</Button>\n\t\t</LayoutWithPanel>\n\t);\n}\n// Internal Atlassian package. This example uses already-loaded React content.\n// For lazy EntryPoints, prefer Trigger inside the app's Relay environment provider.\nexport default function ContextualDetailsExample(): React.JSX.Element {\n\treturn (\n\t\t<PanelProvider>\n\t\t\t<Root>\n\t\t\t\t<Main>\n\t\t\t\t\t<ProjectContent />\n\t\t\t\t</Main>\n\t\t\t</Root>\n\t\t</PanelProvider>\n\t);\n}",
+			"import Button from '@atlaskit/button/default/button';\nimport { Main } from '@atlaskit/navigation-system/layout/main';\nimport { PanelLayout } from '@atlaskit/navigation-system/layout/panel-layout';\nimport { Root } from '@atlaskit/navigation-system/layout/root';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { PanelActionClose } from '@atlassian/panel-system/panel-action/close';\nimport { PanelActionGroup } from '@atlassian/panel-system/panel-action/group';\nimport { PanelBody } from '@atlassian/panel-system/panel-body';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { useCloseCurrentPanel, useCurrentPanel } from '@atlassian/panel-system/panel-context';\nimport { PanelDisclaimer } from '@atlassian/panel-system/panel-disclaimer';\nimport { PanelFooter } from '@atlassian/panel-system/panel-footer';\nimport { PanelHeader } from '@atlassian/panel-system/panel-header';\nimport { usePanelManager } from '@atlassian/panel-system/panel-manager';\nimport { PanelProvider } from '@atlassian/panel-system/panel-provider';\nimport { PanelRouter } from '@atlassian/panel-system/panel-router';\nimport { PanelTitle } from '@atlassian/panel-system/panel-title';\nimport { PanelsRenderer } from '@atlassian/panel-system/panels-renderer';\nfunction ProjectSummary() {\n\tconst panel = useCurrentPanel<{ summary: string }>();\n\tconst closePanel = useCloseCurrentPanel();\n\treturn (\n\t\t<PanelContainer>\n\t\t\t<PanelHeader>\n\t\t\t\t<PanelTitle>Project summary</PanelTitle>\n\t\t\t\t<PanelActionGroup>\n\t\t\t\t\t<PanelActionClose label=\"Close project summary\" onClick={closePanel} />\n\t\t\t\t</PanelActionGroup>\n\t\t\t</PanelHeader>\n\t\t\t<PanelContent>\n\t\t\t\t<PanelBody>\n\t\t\t\t\t<Text as=\"p\">{panel.params.summary}</Text>\n\t\t\t\t</PanelBody>\n\t\t\t</PanelContent>\n\t\t\t<PanelFooter\n\t\t\t\tdisclaimer={\n\t\t\t\t\t<PanelDisclaimer>AI-generated content. Verify important details.</PanelDisclaimer>\n\t\t\t\t}\n\t\t\t>\n\t\t\t\t<Button onClick={closePanel}>Done</Button>\n\t\t\t</PanelFooter>\n\t\t</PanelContainer>\n\t);\n}\nfunction ProjectContent() {\n\tconst { state, manager } = usePanelManager();\n\treturn (\n\t\t<PanelLayout\n\t\t\tisPanelOpen={state.activePanel !== null}\n\t\t\tpanelKey={state.activePanel?.instanceId}\n\t\t\tpanelLabel=\"Project summary\"\n\t\t\tresizeLabel=\"Resize project summary\"\n\t\t\tpanel={\n\t\t\t\t<PanelsRenderer>\n\t\t\t\t\t<PanelRouter />\n\t\t\t\t</PanelsRenderer>\n\t\t\t}\n\t\t>\n\t\t\t<Button\n\t\t\t\tonClick={() =>\n\t\t\t\t\tmanager.openPanel({\n\t\t\t\t\t\tinstanceId: 'project-summary',\n\t\t\t\t\t\tparams: {\n\t\t\t\t\t\t\tsummary:\n\t\t\t\t\t\t\t\t'The release checklist is ready for review. Two work items remain in progress.',\n\t\t\t\t\t\t},\n\t\t\t\t\t\tpanelContent: <ProjectSummary />,\n\t\t\t\t\t})\n\t\t\t\t}\n\t\t\t>\n\t\t\t\tView project summary\n\t\t\t</Button>\n\t\t</PanelLayout>\n\t);\n}\n// Internal Atlassian package. Prefer LayoutWithPanel for the standard integration.\n// Use this composition when the app needs to own its PanelLayout and PanelRouter.\nexport default function CustomRenderingExample(): React.JSX.Element {\n\treturn (\n\t\t<PanelProvider>\n\t\t\t<Root>\n\t\t\t\t<Main>\n\t\t\t\t\t<ProjectContent />\n\t\t\t\t</Main>\n\t\t\t</Root>\n\t\t</PanelProvider>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
+				description: 'The title text content.',
+				isRequired: true,
+			},
+			{
+				name: 'icon',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
+				description: 'Optional icon to display alongside the title.',
+			},
+		],
+	},
+	{
+		name: 'PanelsRenderer',
+		package: '@atlassian/panel-system',
+		description:
+			'For internal Atlassian use only: Renders children for the active panel and supplies its context to custom content or PanelRouter. Internal Atlassian package; not available for use outside Atlassian.',
+		status: 'open-beta',
+		usageGuidelines: [
+			'Use a custom renderer when the host needs rendering control beyond the standard LayoutWithPanel integration.',
+		],
+		keywords: ['panel', 'renderer', 'context', 'active panel', 'custom layout'],
+		category: 'layout',
+		examples: [
+			"import Button from '@atlaskit/button/default/button';\nimport { Main } from '@atlaskit/navigation-system/layout/main';\nimport { PanelLayout } from '@atlaskit/navigation-system/layout/panel-layout';\nimport { Root } from '@atlaskit/navigation-system/layout/root';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { PanelActionClose } from '@atlassian/panel-system/panel-action/close';\nimport { PanelActionGroup } from '@atlassian/panel-system/panel-action/group';\nimport { PanelBody } from '@atlassian/panel-system/panel-body';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { useCloseCurrentPanel, useCurrentPanel } from '@atlassian/panel-system/panel-context';\nimport { PanelDisclaimer } from '@atlassian/panel-system/panel-disclaimer';\nimport { PanelFooter } from '@atlassian/panel-system/panel-footer';\nimport { PanelHeader } from '@atlassian/panel-system/panel-header';\nimport { usePanelManager } from '@atlassian/panel-system/panel-manager';\nimport { PanelProvider } from '@atlassian/panel-system/panel-provider';\nimport { PanelRouter } from '@atlassian/panel-system/panel-router';\nimport { PanelTitle } from '@atlassian/panel-system/panel-title';\nimport { PanelsRenderer } from '@atlassian/panel-system/panels-renderer';\nfunction ProjectSummary() {\n\tconst panel = useCurrentPanel<{ summary: string }>();\n\tconst closePanel = useCloseCurrentPanel();\n\treturn (\n\t\t<PanelContainer>\n\t\t\t<PanelHeader>\n\t\t\t\t<PanelTitle>Project summary</PanelTitle>\n\t\t\t\t<PanelActionGroup>\n\t\t\t\t\t<PanelActionClose label=\"Close project summary\" onClick={closePanel} />\n\t\t\t\t</PanelActionGroup>\n\t\t\t</PanelHeader>\n\t\t\t<PanelContent>\n\t\t\t\t<PanelBody>\n\t\t\t\t\t<Text as=\"p\">{panel.params.summary}</Text>\n\t\t\t\t</PanelBody>\n\t\t\t</PanelContent>\n\t\t\t<PanelFooter\n\t\t\t\tdisclaimer={\n\t\t\t\t\t<PanelDisclaimer>AI-generated content. Verify important details.</PanelDisclaimer>\n\t\t\t\t}\n\t\t\t>\n\t\t\t\t<Button onClick={closePanel}>Done</Button>\n\t\t\t</PanelFooter>\n\t\t</PanelContainer>\n\t);\n}\nfunction ProjectContent() {\n\tconst { state, manager } = usePanelManager();\n\treturn (\n\t\t<PanelLayout\n\t\t\tisPanelOpen={state.activePanel !== null}\n\t\t\tpanelKey={state.activePanel?.instanceId}\n\t\t\tpanelLabel=\"Project summary\"\n\t\t\tresizeLabel=\"Resize project summary\"\n\t\t\tpanel={\n\t\t\t\t<PanelsRenderer>\n\t\t\t\t\t<PanelRouter />\n\t\t\t\t</PanelsRenderer>\n\t\t\t}\n\t\t>\n\t\t\t<Button\n\t\t\t\tonClick={() =>\n\t\t\t\t\tmanager.openPanel({\n\t\t\t\t\t\tinstanceId: 'project-summary',\n\t\t\t\t\t\tparams: {\n\t\t\t\t\t\t\tsummary:\n\t\t\t\t\t\t\t\t'The release checklist is ready for review. Two work items remain in progress.',\n\t\t\t\t\t\t},\n\t\t\t\t\t\tpanelContent: <ProjectSummary />,\n\t\t\t\t\t})\n\t\t\t\t}\n\t\t\t>\n\t\t\t\tView project summary\n\t\t\t</Button>\n\t\t</PanelLayout>\n\t);\n}\n// Internal Atlassian package. Prefer LayoutWithPanel for the standard integration.\n// Use this composition when the app needs to own its PanelLayout and PanelRouter.\nexport default function CustomRenderingExample(): React.JSX.Element {\n\treturn (\n\t\t<PanelProvider>\n\t\t\t<Root>\n\t\t\t\t<Main>\n\t\t\t\t\t<ProjectContent />\n\t\t\t\t</Main>\n\t\t\t</Root>\n\t\t</PanelProvider>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
+				description:
+					'Component to render for the active panel.\nThe panel instance is automatically wrapped in PanelContext.Provider,\nso you can use useCurrentPanel() within your component to access panel data.\n\n@example\n```tsx\n<PanelsRenderer>\n  <CustomPanel />\n</PanelsRenderer>\n\nfunction CustomPanel() {\n  const panel = useCurrentPanel();\n\n  return (\n    <PanelContainer>\n      <PanelHeader>\n        <PanelTitle>{panel.params?.title}</PanelTitle>\n        <PanelActionClose />\n      </PanelHeader>\n      <PanelBody>{panel.params?.content}</PanelBody>\n    </PanelContainer>\n  );\n}\n```',
+			},
+		],
+	},
+	{
+		name: 'SubheaderInlineEdit',
+		package: '@atlassian/panel-system',
+		description:
+			'For internal Atlassian use only: Lets people edit a panel subheader title in place, using the same typography as its read view. Internal Atlassian package; not available for use outside Atlassian.',
+		status: 'open-beta',
+		usageGuidelines: [
+			'Use inline editing for a small change that can be completed without leaving the current contextual view.',
+		],
+		accessibilityGuidelines: [
+			'Provide descriptive localized labels for entering, confirming, and cancelling edit mode.',
+		],
+		keywords: ['panel', 'inline edit', 'rename', 'editable title', 'subheader'],
+		category: 'layout',
+		examples: [
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Main } from '@atlaskit/navigation-system/layout/main';\nimport { Root } from '@atlaskit/navigation-system/layout/root';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { LayoutWithPanel } from '@atlassian/panel-system/layout-with-panel';\nimport { PanelActionCloseSmart } from '@atlassian/panel-system/panel-action/close-smart';\nimport { PanelActionGroup } from '@atlassian/panel-system/panel-action/group';\nimport { PanelActionNewTab } from '@atlassian/panel-system/panel-action/new-tab';\nimport { PanelBody } from '@atlassian/panel-system/panel-body';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { usePanel } from '@atlassian/panel-system/panel-context';\nimport { PanelFooter } from '@atlassian/panel-system/panel-footer';\nimport { PanelHeader } from '@atlassian/panel-system/panel-header';\nimport { usePanelActions, usePanelState } from '@atlassian/panel-system/panel-manager';\nimport { PanelProvider } from '@atlassian/panel-system/panel-provider';\nimport { PanelSubheader } from '@atlassian/panel-system/panel-subheader';\nimport { PanelTitle } from '@atlassian/panel-system/panel-title';\nimport { SubheaderInlineEdit } from '@atlassian/panel-system/subheader-inline-edit';\nfunction WorkItemDetails() {\n\tconst { panel, closePanel } = usePanel<{ title: string }>();\n\tconst [title, setTitle] = useState(panel.params.title);\n\treturn (\n\t\t<PanelContainer>\n\t\t\t<PanelHeader>\n\t\t\t\t<PanelTitle>Work item</PanelTitle>\n\t\t\t\t<PanelActionGroup>\n\t\t\t\t\t<PanelActionNewTab href=\"/browse/PROJ-42\" label=\"Open work item in a new tab\" />\n\t\t\t\t\t<PanelActionCloseSmart label=\"Close work item\" />\n\t\t\t\t</PanelActionGroup>\n\t\t\t</PanelHeader>\n\t\t\t<PanelContent>\n\t\t\t\t<PanelSubheader\n\t\t\t\t\ttitle={title}\n\t\t\t\t\tinlineEdit={\n\t\t\t\t\t\t<SubheaderInlineEdit\n\t\t\t\t\t\t\tdefaultValue={title}\n\t\t\t\t\t\t\tplaceholder=\"Add a work item title\"\n\t\t\t\t\t\t\teditButtonLabel=\"Edit work item title\"\n\t\t\t\t\t\t\tconfirmButtonLabel=\"Confirm title\"\n\t\t\t\t\t\t\tcancelButtonLabel=\"Cancel editing\"\n\t\t\t\t\t\t\tonConfirm={setTitle}\n\t\t\t\t\t\t/>\n\t\t\t\t\t}\n\t\t\t\t/>\n\t\t\t\t<PanelBody>\n\t\t\t\t\t<Stack space=\"space.200\">\n\t\t\t\t\t\t<Text as=\"p\">PROJ-42 · In progress</Text>\n\t\t\t\t\t\t<Text as=\"p\">Review the release checklist with the project team.</Text>\n\t\t\t\t\t\t<Text as=\"p\">\n\t\t\t\t\t\t\tThis example keeps title edits locally. Connect confirmation to your app's save\n\t\t\t\t\t\t\toperation.\n\t\t\t\t\t\t</Text>\n\t\t\t\t\t</Stack>\n\t\t\t\t</PanelBody>\n\t\t\t</PanelContent>\n\t\t\t<PanelFooter>\n\t\t\t\t<Button onClick={closePanel}>Done</Button>\n\t\t\t</PanelFooter>\n\t\t</PanelContainer>\n\t);\n}\nfunction ProjectContent() {\n\tconst manager = usePanelActions();\n\tconst { activePanel } = usePanelState();\n\treturn (\n\t\t<LayoutWithPanel panelLabel=\"Work item details\" resizeLabel=\"Resize work item details\">\n\t\t\t<Button\n\t\t\t\tisSelected={activePanel?.instanceId === 'PROJ-42'}\n\t\t\t\tonClick={() =>\n\t\t\t\t\tmanager.openPanel({\n\t\t\t\t\t\tinstanceId: 'PROJ-42',\n\t\t\t\t\t\tparams: { title: 'Prepare the release checklist' },\n\t\t\t\t\t\tpanelContent: <WorkItemDetails />,\n\t\t\t\t\t})\n\t\t\t\t}\n\t\t\t>\n\t\t\t\tView PROJ-42\n\t\t\t</Button>\n\t\t</LayoutWithPanel>\n\t);\n}\n// Internal Atlassian package. This example uses already-loaded React content.\n// For lazy EntryPoints, prefer Trigger inside the app's Relay environment provider.\nexport default function ContextualDetailsExample(): React.JSX.Element {\n\treturn (\n\t\t<PanelProvider>\n\t\t\t<Root>\n\t\t\t\t<Main>\n\t\t\t\t\t<ProjectContent />\n\t\t\t\t</Main>\n\t\t\t</Root>\n\t\t</PanelProvider>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'cancelButtonLabel',
+				type: 'string | undefined',
+				description: 'Accessibility label for the cancel action button.',
+			},
+			{
+				name: 'confirmButtonLabel',
+				type: 'string | undefined',
+				description:
+					'Accessibility label for the confirm action button, which saves the field value into `editValue`.',
+			},
+			{
+				name: 'defaultValue',
+				type: 'any',
+				description:
+					'The user input entered into the field during `editView`. This value is updated and saved by `onConfirm`.',
+				isRequired: true,
+			},
+			{
+				name: 'editButtonLabel',
+				type: 'string | undefined',
+				description:
+					'Accessibility label for button, which is used to enter `editView` from keyboard.',
+			},
+			{
+				name: 'editLabel',
+				type: 'string | undefined',
+				description:
+					"Append 'edit' to the end of the button label (`editButtonLabel`)which allows\nusers of assistive technologies to understand the purpose of the button",
+			},
+			{
+				name: 'hideActionButtons',
+				type: 'boolean | undefined',
+				description:
+					'Sets whether the confirm and cancel action buttons are displayed in the bottom right of the field.',
+			},
+			{
+				name: 'isRequired',
+				type: 'boolean | undefined',
+				description: 'Determines whether the input value can be confirmed as empty.',
+			},
+			{
+				name: 'keepEditViewOpenOnBlur',
+				type: 'boolean | undefined',
+				description:
+					'Sets the view when the element blurs and loses focus (this can happen when a user clicks away).\nWhen set to true, inline edit stays in `editView` when blurred.',
+			},
+			{
+				name: 'label',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
+				description: 'Label above the input field that communicates what value should be entered.',
+			},
+			{
+				name: 'onCancel',
+				type: '(() => void) | undefined',
+				description:
+					'Exits `editView` and switches back to `readView`. This is called when the cancel action button (x) is clicked.',
+			},
+			{
+				name: 'onConfirm',
+				type: '(value: string, analyticsEvent: UIAnalyticsEvent) => void',
+				description:
+					'Calls the `editView` handler. It confirms the changes.\nThe field value is passed as an argument to this function.',
+				isRequired: true,
+			},
+			{
+				name: 'placeholder',
+				type: 'string',
+				description: 'Text shown in `readView` when the field value is an empty string.',
+				isRequired: true,
+			},
+			{
+				name: 'readViewFitContainerWidth',
+				type: 'boolean | undefined',
+				description:
+					'Determines whether the `readView` has 100% width within its container, or whether it fits the content.',
+				defaultValue: 'true',
+			},
+			{
+				name: 'startWithEditViewOpen',
+				type: 'boolean | undefined',
+				description:
+					'Determines whether it begins in `editView` or `readView`. When set to true, `isEditing` begins as true and the inline edit\nstarts in `editView`.',
+			},
+			{
+				name: 'validate',
+				type: '((value: any, formState: {}, fieldState: {}) => string | void | Promise<string | void>) | undefined',
+				description:
+					'Displays an inline dialog with a message when the field input is invalid. This is handled by `react-final-form`.',
+			},
+		],
 	},
 ];

@@ -60,7 +60,6 @@ jest.mock('@atlaskit/width-detector/width-observer', () => ({
 	}) as mockWidthObserver,
 }));
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('<CustomMediaPlayer />', () => {
 	const setup = (props?: Partial<CustomMediaPlayerProps>) => {
 		const createAnalyticsEventHandler = jest.fn().mockReturnValue({ fire: jest.fn() });

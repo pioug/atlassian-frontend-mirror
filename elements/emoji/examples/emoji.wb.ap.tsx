@@ -30,7 +30,6 @@ import FlickingIssueDemoExample from './24-flicking-issue-demo';
 import EmojiPickerSizesExample from './25-emoji-picker-sizes';
 import EmojiCommonProviderWithRealBackendExample from './26-emoji-common-provider-with-real-backend';
 import EmojiPickerInFormExample from './27-emoji-picker-in-form';
-import EmojiUploaderDisableFocusLockExample from './28-emoji-uploader-disable-focus-lock';
 
 export const SimpleEmoji: WorkbenchExample = wb(SimpleEmojiExample);
 export const SkinToneEmojiByShortcut: WorkbenchExample = wb(SkinToneEmojiByShortcutExample);
@@ -78,6 +77,3 @@ export const EmojiCommonProviderWithRealBackend: WorkbenchExample = wb(
 	EmojiCommonProviderWithRealBackendExample,
 );
 export const EmojiPickerInForm: WorkbenchExample = wb(EmojiPickerInFormExample);
-export const EmojiUploaderDisableFocusLock: WorkbenchExample = wb(
-	EmojiUploaderDisableFocusLockExample,
-);

@@ -47,10 +47,11 @@ test.describe('Flag top-layer — WCAG 2.1.2 Dismiss', () => {
 		await page.getByTestId('AddFlag').click();
 		await expect(page.getByTestId('MyFlagTestId--2')).toBeVisible();
 
-		// Act: Focus and activate dismiss button via keyboard
-		await page.keyboard.press('Tab');
-		await page.keyboard.press('Tab');
-		await page.keyboard.press('Tab');
+		// Act: Focus and activate dismiss button via keyboard. Use focus() directly; the Tab
+		// count from the AddFlag button depends on where the flag group renders in the DOM.
+		const dismissButton = page.getByTestId('MyFlagTestId--2-dismiss');
+		await dismissButton.focus();
+		await expect(dismissButton).toBeFocused();
 		await page.keyboard.press('Enter');
 
 		// Assert: Flag should be dismissed

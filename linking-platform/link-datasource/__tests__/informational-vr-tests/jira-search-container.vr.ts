@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import type { Locator, Page } from '@playwright/test';
 
 // eslint-disable-next-line no-restricted-imports -- informational VR requires snapshotInformational API.

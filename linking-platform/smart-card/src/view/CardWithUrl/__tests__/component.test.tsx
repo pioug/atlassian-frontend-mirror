@@ -11,8 +11,9 @@ import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { UnAuthClient } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 import type { ProductType } from '@atlaskit/linking-common/types';
 import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { fireEvent, render } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
 
@@ -102,16 +103,25 @@ jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure', () => ({
 	expValEqualsNoExposure: jest.fn(() => false),
 }));
 
-const createUseSmartLinkResult = (details: SmartLinkResponse = createSmartLinkDetails()) => ({
+const createUseSmartLinkResult = (
+	details: SmartLinkResponse = createSmartLinkDetails(),
+): ReturnType<typeof useSmartLink> => ({
 	state: {
 		status: 'resolved',
 		details,
 	},
-	actions: { authorize: jest.fn(), reload: jest.fn(), invoke: jest.fn() },
+	actions: {
+		authorize: jest.fn(),
+		reload: jest.fn(),
+		invoke: jest.fn(),
+		loadMetadata: jest.fn(),
+		register: jest.fn(),
+	},
 	config: {},
 	renderers: undefined,
-	error: undefined,
+	error: null,
 	isPreviewPanelAvailable: undefined,
+	isPreviewRestricted: undefined,
 	openPreviewPanel: undefined,
 });
 
@@ -212,18 +222,24 @@ describe('CardWithUrl', () => {
 	describe('link click behaviour', () => {
 		let openSpy: jest.SpyInstance;
 		let wrapUrl: jest.Mock;
+		const embedOpenInNewTabExperiment = 'platform_editor_embed_open_in_new_tab';
 
 		const renderInlineCard = ({
 			onClick,
 			isFirstParty = false,
 			shouldMockUseCrossProductUrlWrapper = true,
+			appearance = 'inline',
+			smartLinkResult,
 		}: {
+			appearance?: 'inline' | 'block' | 'embed';
 			isFirstParty?: boolean;
 			onClick?: (e: React.MouseEvent | React.KeyboardEvent) => void;
 			shouldMockUseCrossProductUrlWrapper?: boolean;
+			smartLinkResult?: ReturnType<typeof createUseSmartLinkResult>;
 		} = {}) => {
 			(useSmartLink as jest.Mock).mockReturnValue(
-				createUseSmartLinkResult(createSmartLinkDetails(isFirstParty || undefined)),
+				smartLinkResult ??
+					createUseSmartLinkResult(createSmartLinkDetails(isFirstParty || undefined)),
 			);
 			if (shouldMockUseCrossProductUrlWrapper) {
 				// Reset wrapUrl to identity so URL decoration does not affect navigation assertions
@@ -233,7 +249,12 @@ describe('CardWithUrl', () => {
 			return render(
 				<IntlProvider locale="en">
 					<SmartCardProvider client={new CardClient()} product="CONFLUENCE">
-						<CardWithUrl appearance="inline" id="uid" url="https://example.com" onClick={onClick} />
+						<CardWithUrl
+							appearance={appearance}
+							id="uid"
+							url="https://example.com"
+							onClick={onClick}
+						/>
 					</SmartCardProvider>
 				</IntlProvider>,
 			);
@@ -249,6 +270,251 @@ describe('CardWithUrl', () => {
 		});
 
 		describe('when gate is on', () => {
+			it.each(['inline', 'block'] as const)(
+				'does not open %s cards in a new tab for consumer-handled modified clicks',
+				(appearance) => {
+					mockExpEnabled(embedOpenInNewTabExperiment);
+					const onClick = jest.fn();
+					const { container } = renderInlineCard({ appearance, onClick });
+
+					fireEvent.click(container.querySelector('a')!, { metaKey: true });
+
+					expect(onClick).toHaveBeenCalled();
+					expect(openSpy).not.toHaveBeenCalled();
+				},
+			);
+
+			it('opens a modified embed title click through the canonical navigation handler', () => {
+				mockExpEnabled(embedOpenInNewTabExperiment);
+				const onClick = jest.fn();
+				const { container } = renderInlineCard({ appearance: 'embed', onClick });
+
+				fireEvent.click(container.querySelector('a')!, { metaKey: true });
+
+				expect(onClick).toHaveBeenCalled();
+				expect(openSpy).toHaveBeenCalledWith('https://example.com', '_blank');
+				expect(openSpy).toHaveBeenCalledTimes(1);
+			});
+
+			it('routes a middle-click on frame chrome through the canonical navigation handler', () => {
+				mockExpEnabled(embedOpenInNewTabExperiment);
+				const onClick = jest.fn();
+				const { container } = renderInlineCard({ appearance: 'embed', onClick });
+
+				fireEvent(
+					container.querySelector('[data-testid="embed-card-resolved-view"]')!,
+					new MouseEvent('auxclick', { button: 1, bubbles: true, cancelable: true }),
+				);
+
+				expect(onClick).toHaveBeenCalled();
+				expect(openSpy).toHaveBeenCalledWith('https://example.com', '_blank');
+				expect(openSpy).toHaveBeenCalledTimes(1);
+			});
+
+			it('opens an embed title double-click in one new tab through the canonical handler', async () => {
+				mockExpEnabled(embedOpenInNewTabExperiment);
+				const onClick = jest.fn();
+				const { container } = renderInlineCard({ appearance: 'embed', onClick });
+
+				await userEvent.dblClick(container.querySelector('a')!);
+
+				expect(onClick).toHaveBeenCalled();
+				expect(openSpy).toHaveBeenCalledWith('https://example.com', '_blank');
+				expect(openSpy).toHaveBeenCalledTimes(1);
+			});
+
+			it('respects consumer preventDefault for an embed title double-click', async () => {
+				mockExpEnabled(embedOpenInNewTabExperiment);
+				const onClick = jest.fn((event: React.MouseEvent | React.KeyboardEvent) =>
+					event.preventDefault(),
+				);
+				const { container } = renderInlineCard({ appearance: 'embed', onClick });
+
+				await userEvent.dblClick(container.querySelector('a')!);
+
+				expect(onClick).toHaveBeenCalled();
+				expect(openSpy).not.toHaveBeenCalled();
+			});
+
+			it('does not add a third new-tab opening for a modified double-click', () => {
+				mockExpEnabled(embedOpenInNewTabExperiment);
+				const onClick = jest.fn();
+				const { container } = renderInlineCard({ appearance: 'embed', onClick });
+				const title = container.querySelector('a')!;
+
+				fireEvent.click(title, { metaKey: true, detail: 1 });
+				fireEvent.click(title, { metaKey: true, detail: 2 });
+				fireEvent.doubleClick(title, { metaKey: true, detail: 2 });
+
+				expect(openSpy).toHaveBeenCalledWith('https://example.com', '_blank');
+				expect(openSpy).toHaveBeenCalledTimes(2);
+			});
+
+			it('does not add an extra navigation for a double-click without a consumer callback', async () => {
+				mockExpEnabled(embedOpenInNewTabExperiment);
+				const { container } = renderInlineCard({ appearance: 'embed' });
+
+				await userEvent.dblClick(container.querySelector('a')!);
+
+				expect(openSpy).not.toHaveBeenCalledWith('https://example.com', '_blank');
+			});
+
+			it('opens an embed header icon double-click in one new tab without a consumer callback', async () => {
+				mockExpEnabled(embedOpenInNewTabExperiment);
+				const { container } = renderInlineCard({ appearance: 'embed' });
+				const headerIcon = container.querySelector('.embed-header > div > div');
+
+				expect(headerIcon).not.toBeNull();
+				await userEvent.dblClick(headerIcon!);
+
+				expect(openSpy).toHaveBeenCalledWith('https://example.com', '_blank');
+				expect(openSpy).toHaveBeenCalledTimes(1);
+			});
+
+			it('does not add a new tab for nested title content without a consumer callback', async () => {
+				mockExpEnabled(embedOpenInNewTabExperiment);
+				const { container } = renderInlineCard({ appearance: 'embed' });
+				const title = container.querySelector('a')!;
+				const titleChild = document.createElement('span');
+				titleChild.textContent = title.textContent;
+				title.replaceChildren(titleChild);
+
+				await userEvent.dblClick(titleChild);
+
+				expect(openSpy).not.toHaveBeenCalledWith('https://example.com', '_blank');
+			});
+
+			it('keeps modified clicks on preview-capable embeds on the new-tab path', () => {
+				mockExpEnabled(embedOpenInNewTabExperiment);
+				const details = {
+					...createSmartLinkDetails(),
+					data: {
+						...createSmartLinkDetails().data,
+						'atlassian:ari': 'ari:cloud:confluence::page/123',
+					},
+				} as SmartLinkResponse;
+				const openPreviewPanel = jest.fn();
+				const smartLinkResult = {
+					...createUseSmartLinkResult(details),
+					isPreviewPanelAvailable: jest.fn().mockReturnValue(true),
+					openPreviewPanel,
+				};
+				const onClick = jest.fn();
+				const { container } = renderInlineCard({
+					appearance: 'embed',
+					onClick,
+					smartLinkResult,
+				});
+
+				fireEvent.click(container.querySelector('a')!, { metaKey: true });
+
+				expect(onClick).toHaveBeenCalled();
+				expect(openPreviewPanel).not.toHaveBeenCalled();
+				expect(openSpy).toHaveBeenCalledWith('https://example.com', '_blank');
+				expect(openSpy).toHaveBeenCalledTimes(1);
+			});
+
+			it('gives the preview panel priority for an embed header icon double-click', () => {
+				mockExpEnabled(embedOpenInNewTabExperiment);
+				const details = {
+					...createSmartLinkDetails(),
+					data: {
+						...createSmartLinkDetails().data,
+						'atlassian:ari': 'ari:cloud:confluence::page/123',
+					},
+				} as SmartLinkResponse;
+				const openPreviewPanel = jest.fn();
+				const smartLinkResult = {
+					...createUseSmartLinkResult(details),
+					isPreviewPanelAvailable: jest.fn().mockReturnValue(true),
+					openPreviewPanel,
+				};
+				const { container } = renderInlineCard({ appearance: 'embed', smartLinkResult });
+				const headerIcon = container.querySelector('.embed-header > div > div')!;
+
+				fireEvent.doubleClick(headerIcon, { detail: 2 });
+
+				expect(openPreviewPanel).toHaveBeenCalledTimes(1);
+				expect(openSpy).not.toHaveBeenCalled();
+			});
+
+			it('keeps native context-menu behavior and updates the embed title to its resolved URL', () => {
+				mockExpEnabled(embedOpenInNewTabExperiment);
+				const { container } = renderInlineCard({
+					appearance: 'embed',
+					isFirstParty: true,
+					shouldMockUseCrossProductUrlWrapper: false,
+				});
+				const title = container.querySelector('a')!;
+				expect(title.href).toBe('https://example.com/');
+				const contextMenu = new MouseEvent('contextmenu', {
+					bubbles: true,
+					cancelable: true,
+				});
+
+				fireEvent(title, contextMenu);
+
+				expect(contextMenu.defaultPrevented).toBe(false);
+				expect(title.href).toBe('https://example.com/?xpis=wrapped');
+			});
+
+			it('preserves keyboard navigation through the embed title link', async () => {
+				mockExpEnabled(embedOpenInNewTabExperiment);
+				const { getByRole } = renderInlineCard({ appearance: 'embed' });
+				getByRole('link', { name: 'Link title' }).focus();
+
+				await userEvent.keyboard('{Enter}');
+
+				expect(openSpy).toHaveBeenCalledWith('https://example.com', '_self');
+				expect(openSpy).toHaveBeenCalledTimes(1);
+			});
+
+			it('respects consumer preventDefault for a modified embed title click', () => {
+				mockExpEnabled(embedOpenInNewTabExperiment);
+				const onClick = jest.fn((event: React.MouseEvent | React.KeyboardEvent) =>
+					event.preventDefault(),
+				);
+				const { container } = renderInlineCard({ appearance: 'embed', onClick });
+
+				fireEvent.click(container.querySelector('a')!, { ctrlKey: true });
+
+				expect(onClick).toHaveBeenCalled();
+				expect(openSpy).not.toHaveBeenCalled();
+			});
+
+			it('keeps embed modifier navigation disabled outside the experiment', () => {
+				mockExpDisabled(embedOpenInNewTabExperiment);
+				const onClick = jest.fn();
+				const { container } = renderInlineCard({ appearance: 'embed', onClick });
+
+				fireEvent.click(container.querySelector('a')!, { metaKey: true });
+
+				expect(onClick).toHaveBeenCalled();
+				expect(openSpy).not.toHaveBeenCalled();
+			});
+
+			it('keeps embed double-click navigation disabled outside the experiment', async () => {
+				mockExpDisabled(embedOpenInNewTabExperiment);
+				const onClick = jest.fn();
+				const { container } = renderInlineCard({ appearance: 'embed', onClick });
+
+				await userEvent.dblClick(container.querySelector('a')!);
+
+				expect(onClick).toHaveBeenCalled();
+				expect(openSpy).not.toHaveBeenCalled();
+			});
+
+			it('does not open a header icon double-click when the experiment is disabled', async () => {
+				mockExpDisabled(embedOpenInNewTabExperiment);
+				const { container } = renderInlineCard({ appearance: 'embed' });
+				const headerIcon = container.querySelector('.embed-header > div > div');
+
+				expect(headerIcon).not.toBeNull();
+				await userEvent.dblClick(headerIcon!);
+
+				expect(openSpy).not.toHaveBeenCalled();
+			});
+
 			it('opens the link in the same tab on a regular left click', () => {
 				renderInlineCard();
 
@@ -518,8 +784,10 @@ describe('embedded Flexible Card destinations', () => {
 			Object.defineProperty(window, 'top', { value: originalTop, configurable: true });
 		});
 
-		ffTest.off('platform_sl_click_inside_iframe', 'uses the existing target', () => {
+		describe('platform_sl_click_inside_iframe is off uses the existing target', () => {
 			it('uses the target provided by the navigation policy', () => {
+				failGate('platform_sl_click_inside_iframe');
+
 				const { links } = setup();
 				fireEvent.click(links[0]);
 
@@ -527,8 +795,10 @@ describe('embedded Flexible Card destinations', () => {
 			});
 		});
 
-		ffTest.on('platform_sl_click_inside_iframe', 'opens the link in a new tab', () => {
+		describe('platform_sl_click_inside_iframe is on opens the link in a new tab', () => {
 			it('overrides the navigation policy target', () => {
+				passGate('platform_sl_click_inside_iframe');
+
 				const { links } = setup();
 				fireEvent.click(links[0]);
 

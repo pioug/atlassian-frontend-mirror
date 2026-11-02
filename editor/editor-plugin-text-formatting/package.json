@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-text-formatting",
-	"version": "30.0.3",
+	"version": "30.2.1",
 	"description": "Text-formatting plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -42,6 +42,7 @@
 		"@atlaskit/editor-toolbar": "workspace:^",
 		"@atlaskit/editor-toolbar-model": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/prosemirror-input-rules": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
@@ -60,6 +61,9 @@
 	},
 	"platform-feature-flags": {
 		"editor_inline_comments_on_inline_nodes": {
+			"type": "boolean"
+		},
+		"platform_editor_style_around_inline_code": {
 			"type": "boolean"
 		}
 	}

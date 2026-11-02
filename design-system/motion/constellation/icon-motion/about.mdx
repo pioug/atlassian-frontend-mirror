@@ -1,0 +1,65 @@
+---
+title: Icon motion
+description: Animate an icon as it changes, and move it in response to interactions around it.
+order: 0
+---
+
+## Overview
+
+Icon animations are a small collection of purposeful, configurable movements that enhance an
+interface and add vitality to the product. They help communicate what an action does, give feedback
+in response to what people do, and signal a change in status. Each one is tied to a specific trigger
+and a specific set of icons, so the same effect always means the same thing wherever it appears.
+
+## General rules
+
+#### Apply icon animations sparingly.
+
+There is no limit to how many icons on a screen could move, but every one that does takes attention.
+Animate the icons whose motion tells people something, and leave the rest still.
+
+#### Make sure an animation serves the icon’s meaning.
+
+Each effect communicates one thing: a chevron turning means something opened, a slash drawing across
+means something was disabled. Use an effect only where that is the message.
+
+#### Make animation responsive and intentional.
+
+An icon moves because something happened: a person acted, or a state changed that they will want to
+notice. It responds at once, plays through once, and stops. It never plays on page load, never loops
+while idle, and never moves just to catch the eye.
+
+#### Match the trigger to the effect.
+
+Each effect has its own trigger and keeps it. The effects here play on a press or a state change.
+None of them plays on hover.
+
+#### Let an icon appear or disappear only when its presence is the information.
+
+Fade in and Fade out may bring an icon on screen or take it away. Do it when the thing the icon
+stands for has genuinely started or stopped applying: a status that is now true, a tool that is now
+available. Never let an icon vanish without a cause the person can see, and never use it to tidy a
+layout.
+
+#### Keep the icon the same icon.
+
+An effect may move, turn, fade or redraw an icon’s parts, but it must land as the same glyph it
+started as. If the icon needs to become a different one, that is a Fade out and a Fade in, not an
+effect.
+
+#### Respect reduced motion settings.
+
+When people turn motion down or off in their system settings, no icon animates. The state change
+still happens and the icon simply changes. Components respect the setting themselves, so teams do
+not have to remove motion by hand.
+
+#### First frame rendered.
+
+An icon’s first frame is always the complete icon, never blank or half-drawn. It shows as soon as
+the icon renders, an interrupted motion settles on a recognizable icon, and under reduced motion it
+is the whole experience.
+
+#### Use only the effects listed for an icon.
+
+An icon gets the effects listed for it and no others. Look yours up in the usage guidance for each
+effect on this page.

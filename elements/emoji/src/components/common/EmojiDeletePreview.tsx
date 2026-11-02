@@ -24,48 +24,7 @@ import type { EmojiDescription } from '../../types';
 import { messages } from '../i18n';
 import CachingEmoji from './CachingEmoji';
 import EmojiErrorMessage, { emojiErrorScreenreaderTestId } from './EmojiErrorMessage';
-import { isRefreshEmojiPickerEnabled } from './isRefreshEmojiPickerEnabled';
 import RetryableButton from './RetryableButton';
-
-const deleteFooter = css({
-	display: 'flex',
-	height: '40px',
-	alignItems: 'center',
-	justifyContent: 'space-between',
-	font: token('font.body'),
-
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	img: {
-		maxHeight: '32px',
-		maxWidth: '72px',
-	},
-
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'.emoji-submit-delete': {
-		width: '84px',
-		fontWeight: token('font.weight.bold'),
-		marginRight: token('space.050'),
-	},
-});
-
-const deletePreview = css({
-	height: '100px',
-	paddingTop: token('space.100'),
-	paddingRight: token('space.100'),
-	paddingBottom: token('space.100'),
-	paddingLeft: token('space.100'),
-	display: 'flex',
-	flexDirection: 'column',
-	justifyContent: 'flex-end',
-});
-
-const deleteText = css({
-	height: '64px',
-});
-
-const previewButtonGroup = css({
-	display: 'flex',
-});
 
 const deletePreviewNew = css({
 	display: 'flex',
@@ -149,9 +108,7 @@ class EmojiDeletePreview extends Component<Props & WrappedComponentProps, State>
 	}
 
 	private stopClickPropagationForRefreshEmojiPicker = (event?: MouseEvent<HTMLElement>) => {
-		if (isRefreshEmojiPickerEnabled()) {
-			event?.stopPropagation();
-		}
+		event?.stopPropagation();
 	};
 
 	private onSubmit = (event?: MouseEvent<HTMLElement>) => {
@@ -182,61 +139,15 @@ class EmojiDeletePreview extends Component<Props & WrappedComponentProps, State>
 		const { loading, error } = this.state;
 		const { formatMessage } = intl;
 
-		if (isRefreshEmojiPickerEnabled()) {
-			return (
-				<FocusLock noFocusGuards>
-					<div css={deletePreviewNew} data-testid={emojiDeletePreviewTestId}>
-						<div css={deleteTextSection}>
-							<Box paddingBlockEnd="space.100">
-								<Heading size="small">
-									<FormattedMessage {...messages.deleteEmojiTitle} />
-								</Heading>
-							</Box>
-							<Text color="color.text.subtle" size="small">
-								<FormattedMessage
-									{...messages.deleteEmojiDescription}
-									values={{ emojiShortName: emoji.shortName }}
-								/>
-							</Text>
-						</div>
-						<div css={emojiPreviewLargeBox}>
-							<CachingEmoji emoji={emoji} />
-						</div>
-						<div css={deleteButtonGroup}>
-							{error && !loading ? (
-								<EmojiErrorMessage
-									message={formatMessage(messages.deleteEmojiFailed)}
-									errorStyle="delete"
-									tooltip
-								/>
-							) : null}
-							<VisuallyHidden id={deleteEmojiLabelId}>
-								{formatMessage(messages.deleteEmojiLabel)}
-							</VisuallyHidden>
-							<AkButton appearance="subtle" onClick={this.onCancel}>
-								<FormattedMessage {...messages.cancelLabel} />
-							</AkButton>
-							<RetryableButton
-								label={formatMessage(messages.deleteEmojiLabel)}
-								onSubmit={this.onSubmit}
-								appearance="danger"
-								loading={loading}
-								error={error}
-								ariaLabelledBy={`${emojiErrorScreenreaderTestId} ${deleteEmojiLabelId}`}
-							/>
-						</div>
-					</div>
-				</FocusLock>
-			);
-		}
-
 		return (
 			<FocusLock noFocusGuards>
-				<div css={deletePreview} data-testid={emojiDeletePreviewTestId}>
-					<div css={deleteText}>
-						<Heading size="xxsmall">
-							<FormattedMessage {...messages.deleteEmojiTitle} />
-						</Heading>
+				<div css={deletePreviewNew} data-testid={emojiDeletePreviewTestId}>
+					<div css={deleteTextSection}>
+						<Box paddingBlockEnd="space.100">
+							<Heading size="small">
+								<FormattedMessage {...messages.deleteEmojiTitle} />
+							</Heading>
+						</Box>
 						<Text color="color.text.subtle" size="small">
 							<FormattedMessage
 								{...messages.deleteEmojiDescription}
@@ -244,33 +155,31 @@ class EmojiDeletePreview extends Component<Props & WrappedComponentProps, State>
 							/>
 						</Text>
 					</div>
-					<div css={deleteFooter}>
+					<div css={emojiPreviewLargeBox}>
 						<CachingEmoji emoji={emoji} />
-						<div css={previewButtonGroup}>
-							{error ? (
-								!loading ? (
-									<EmojiErrorMessage
-										message={formatMessage(messages.deleteEmojiFailed)}
-										errorStyle="delete"
-										tooltip
-									/>
-								) : null
-							) : null}
-							<VisuallyHidden id={deleteEmojiLabelId}>
-								{formatMessage(messages.deleteEmojiLabel)}
-							</VisuallyHidden>
-							<RetryableButton
-								label={formatMessage(messages.deleteEmojiLabel)}
-								onSubmit={this.onSubmit}
-								appearance="danger"
-								loading={loading}
-								error={error}
-								ariaLabelledBy={`${emojiErrorScreenreaderTestId} ${deleteEmojiLabelId}`}
+					</div>
+					<div css={deleteButtonGroup}>
+						{error && !loading ? (
+							<EmojiErrorMessage
+								message={formatMessage(messages.deleteEmojiFailed)}
+								errorStyle="delete"
+								tooltip
 							/>
-							<AkButton appearance="subtle" onClick={this.onCancel}>
-								<FormattedMessage {...messages.cancelLabel} />
-							</AkButton>
-						</div>
+						) : null}
+						<VisuallyHidden id={deleteEmojiLabelId}>
+							{formatMessage(messages.deleteEmojiLabel)}
+						</VisuallyHidden>
+						<AkButton appearance="subtle" onClick={this.onCancel}>
+							<FormattedMessage {...messages.cancelLabel} />
+						</AkButton>
+						<RetryableButton
+							label={formatMessage(messages.deleteEmojiLabel)}
+							onSubmit={this.onSubmit}
+							appearance="danger"
+							loading={loading}
+							error={error}
+							ariaLabelledBy={`${emojiErrorScreenreaderTestId} ${deleteEmojiLabelId}`}
+						/>
 					</div>
 				</div>
 			</FocusLock>

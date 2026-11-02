@@ -4,7 +4,6 @@ import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import type { CardProviderStoreOpts } from '@atlaskit/link-provider/types';
 import { renderWithIntl } from '@atlaskit/link-test-helpers/react-testing-library';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { screen } from '@atlassian/testing-library/screen';
 
 import extractRovoChatAction from '../../../extractors/flexible/actions/extract-rovo-chat-action';
@@ -88,13 +87,15 @@ describe('EmbedCardResolvedView', () => {
 		expect(screen.getByTestId(mockAppearanceTestId)).toHaveTextContent('round');
 	});
 
-	ffTest.on('platform_sl_3p_auth_rovo_embed_footer_kill_switch', '', () => {
+	describe('platform_sl_3p_auth_rovo_embed_footer_kill_switch is on', () => {
 		it.each([
 			['on', passGate],
 			['off', failGate],
 		])(
 			'renders Rovo actions footer when the embed footer resolves action data and platform_sl_replace_react_loadable is %s',
 			async (_, setGate) => {
+				passGate('platform_sl_3p_auth_rovo_embed_footer_kill_switch');
+
 				setGate('platform_sl_replace_react_loadable');
 				const actionOptions = { hide: false, rovoChatAction: { optIn: true } };
 				const actionData = {
@@ -130,8 +131,10 @@ describe('EmbedCardResolvedView', () => {
 		);
 	});
 
-	ffTest.off('platform_sl_3p_auth_rovo_embed_footer_kill_switch', '', () => {
+	describe('platform_sl_3p_auth_rovo_embed_footer_kill_switch is off', () => {
 		it('does not render Rovo actions footer when the kill switch is disabled', () => {
+			failGate('platform_sl_3p_auth_rovo_embed_footer_kill_switch');
+
 			setup({ details: { meta: { key: 'google-object-provider' } } as never });
 
 			expect(screen.queryByTestId('mock-footer')).not.toBeInTheDocument();

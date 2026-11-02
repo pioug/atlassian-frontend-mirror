@@ -1,6 +1,6 @@
 import type { CardStore } from '@atlaskit/linking-common/store';
 import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { act } from '@atlassian/testing-library/testing-library/react';
 import { within } from '@atlassian/testing-library/within';
@@ -384,76 +384,74 @@ export const analyticsTests = (
 			}
 		});
 
-		ffTest.on(
-			'platform_sl_3p_preauth_better_hovercard_killswitch',
-			'unauthorised hover viewVariant (HoverCardContentWithViewVariant)',
-			() => {
-				eeTest
-					.describe(
-						'platform_sl_3p_preauth_better_hovercard',
-						'with platform_sl_3p_preauth_better_hovercard enabled',
-					)
-					.variant(true, () => {
-						describe.each<[string, string, SetUpParams, string | undefined]>([
-							[
-								'when Rovo is disabled',
-								'default',
-								{
-									rovoOptions: { isRovoEnabled: false, isRovoLLMEnabled: true },
-								},
-								'unauthorized',
-							],
-							[
-								'when unauthorised with Rovo, services, and preauth experiment on',
-								'rovo-unauthorised-view',
-								{},
-								'unauthorized',
-							],
-						])(
-							'unauthorised hover viewVariant %s',
-							(_label, viewVariant, partial, expectedStatus) => {
-								it('should fire hover card viewed with expected viewVariant', async () => {
-									const { mockAnalyticsClient } = await setup({
-										mock: partial.mock ?? mockUnauthorisedResponse,
-										testId:
-											/^smart-block-title-errored-view$|^inline-card-unauthorized-view$|^hover-test-div$/,
-										extraCardProps: {
-											showHoverPreview: true,
-											...partial.extraCardProps,
-										},
-										rovoOptions: partial.rovoOptions ?? {
-											isRovoEnabled: true,
-											isRovoLLMEnabled: true,
-										},
-										storeOptions: storeOptionsWithUnauthorisedSeedForStandalone(
-											_config.isAnalyticsContextResolvedOnHover,
-											partial.storeOptions,
-										),
-										mockFetch: partial.mockFetch,
-									});
-
-									act(() => {
-										jest.runAllTimers();
-									});
-
-									await screen.findByTestId('hover-card');
-									expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
-										expect.objectContaining({
-											action: 'viewed',
-											actionSubject: 'hoverCard',
-											attributes: expect.objectContaining({
-												previewDisplay: 'card',
-												previewInvokeMethod: 'mouse_hover',
-												...(expectedStatus !== undefined ? { status: expectedStatus } : {}),
-												viewVariant,
-											}),
-										}),
-									);
-								});
+		describe('platform_sl_3p_preauth_better_hovercard_killswitch is on unauthorised hover viewVariant (HoverCardContentWithViewVariant)', () => {
+			eeTest
+				.describe(
+					'platform_sl_3p_preauth_better_hovercard',
+					'with platform_sl_3p_preauth_better_hovercard enabled',
+				)
+				.variant(true, () => {
+					describe.each<[string, string, SetUpParams, string | undefined]>([
+						[
+							'when Rovo is disabled',
+							'default',
+							{
+								rovoOptions: { isRovoEnabled: false, isRovoLLMEnabled: true },
 							},
-						);
-					});
-			},
-		);
+							'unauthorized',
+						],
+						[
+							'when unauthorised with Rovo, services, and preauth experiment on',
+							'rovo-unauthorised-view',
+							{},
+							'unauthorized',
+						],
+					])(
+						'unauthorised hover viewVariant %s',
+						(_label, viewVariant, partial, expectedStatus) => {
+							it('should fire hover card viewed with expected viewVariant', async () => {
+								passGate('platform_sl_3p_preauth_better_hovercard_killswitch');
+
+								const { mockAnalyticsClient } = await setup({
+									mock: partial.mock ?? mockUnauthorisedResponse,
+									testId:
+										/^smart-block-title-errored-view$|^inline-card-unauthorized-view$|^hover-test-div$/,
+									extraCardProps: {
+										showHoverPreview: true,
+										...partial.extraCardProps,
+									},
+									rovoOptions: partial.rovoOptions ?? {
+										isRovoEnabled: true,
+										isRovoLLMEnabled: true,
+									},
+									storeOptions: storeOptionsWithUnauthorisedSeedForStandalone(
+										_config.isAnalyticsContextResolvedOnHover,
+										partial.storeOptions,
+									),
+									mockFetch: partial.mockFetch,
+								});
+
+								act(() => {
+									jest.runAllTimers();
+								});
+
+								await screen.findByTestId('hover-card');
+								expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+									expect.objectContaining({
+										action: 'viewed',
+										actionSubject: 'hoverCard',
+										attributes: expect.objectContaining({
+											previewDisplay: 'card',
+											previewInvokeMethod: 'mouse_hover',
+											...(expectedStatus !== undefined ? { status: expectedStatus } : {}),
+											viewVariant,
+										}),
+									}),
+								);
+							});
+						},
+					);
+				});
+		});
 	});
 };

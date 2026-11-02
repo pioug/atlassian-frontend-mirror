@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
-import { act, fireEvent, render, screen } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import Button from '@atlaskit/button/default/button';
 import Link from '@atlaskit/link/link';
@@ -179,7 +180,7 @@ describe('inline-dialog', () => {
 			});
 		});
 
-		it('should invoke onClose callback on page click by default', () => {
+		it('should invoke onClose callback on page click by default', async () => {
 			const callback = jest.fn();
 			jest.useFakeTimers(); // mock timers
 
@@ -193,8 +194,14 @@ describe('inline-dialog', () => {
 				jest.runAllTimers(); // trigger setTimeout
 			});
 
-			// click anywhere outside of inline dialog
-			fireEvent.click(document.body);
+			// click anywhere outside of inline dialog. A full press: the top-layer dialog closes on
+			// the pointer events (light dismiss), the legacy dialog on the `click`.
+			const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+			await user.click(document.body);
+			// The top-layer dialog calls `onClose` from the `toggle` event, a task later.
+			act(() => {
+				jest.runAllTimers();
+			});
 			expect(callback).toHaveBeenCalledTimes(1);
 		});
 
@@ -214,6 +221,10 @@ describe('inline-dialog', () => {
 
 			// press escape anywhere outside of inline dialog
 			fireEvent.keyDown(document.body, { key: 'Escape' });
+			// The top-layer dialog calls `onClose` from the `toggle` event, a task later.
+			act(() => {
+				jest.runAllTimers();
+			});
 			expect(callback).toHaveBeenCalledTimes(1);
 		});
 
@@ -242,6 +253,10 @@ describe('inline-dialog', () => {
 
 			// press escape on triggering element
 			fireEvent.keyDown(el, { key: 'Escape' });
+			// The top-layer dialog calls `onClose` from the `toggle` event, a task later.
+			act(() => {
+				jest.runAllTimers();
+			});
 			expect(callback).toHaveBeenCalledTimes(1);
 		});
 
@@ -258,7 +273,7 @@ describe('inline-dialog', () => {
 			expect(callback).not.toHaveBeenCalledTimes(1);
 		});
 
-		it('should open and close correctly when one dialog is opened after the other', () => {
+		it('should open and close correctly when one dialog is opened after the other', async () => {
 			const content = <div>Hello!</div>;
 
 			const InlineDialogWrapper = (props: InlineDialogWrapperProps) => {
@@ -306,7 +321,8 @@ describe('inline-dialog', () => {
 			// Open second dialog, first dialog should close.
 			fireEvent.click(screen.getByTestId('open-inline-dialog-1'));
 			expect(screen.getByTestId('inline-dialog-1')).toBeInTheDocument();
-			expect(screen.queryByTestId('inline-dialog-0')).not.toBeInTheDocument();
+			// The top-layer dialog closes a task later.
+			await waitFor(() => expect(screen.queryByTestId('inline-dialog-0')).not.toBeInTheDocument());
 		});
 	});
 });

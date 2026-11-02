@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-text-color
 
+## 30.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.0.6
+
+### Patch Changes
+
+- [`8f9c12c0398d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f9c12c0398d2) -
+  Delete unreachable internal source files
+- Updated dependencies
+
+## 30.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 30.0.4
 
 ### Patch Changes

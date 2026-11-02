@@ -23,6 +23,8 @@
  *    reports `pointer-events: none`, so a `user-event` pointer action on it throws, as a user
  *    cannot hit it. `element.click()` and `dispatchEvent()` still work, as in a browser. The
  *    `inert` attribute works the same way.
+ *  - An open popover, and its content, report `pointer-events: auto` where they inherit `none` from
+ *    outside the popover, as an ADS `Popover` host resets it. jsdom cannot match that reset.
  *  - Nothing that a browser does not render can take focus: content in a closed dialog, a closed
  *    popover, or a `hidden` subtree.
  *  - Popover focus: showPopover runs the popover focusing steps (`autofocus`), and records the
@@ -590,7 +592,12 @@ function pruneClosedEscapeLayers() {
  * into a shadow root that held the dialog when it opened.
  *
  * Open popovers are watched the same way, for the popover removing steps.
+ *
+ * The polyfill keeps the `MutationObserver` that exists when it loads. A browser runs these steps
+ * itself, so a test that stubs `MutationObserver` later must not turn them off.
  */
+const NativeMutationObserver: typeof MutationObserver | null =
+	typeof MutationObserver === 'undefined' ? null : MutationObserver;
 const watchedDialogs = new Set<TPolyfillDialog>();
 const watchedPopovers = new Set<HTMLElement>();
 const removalObserver: { current: MutationObserver | null } = { current: null };
@@ -698,29 +705,34 @@ function observeRootsOf({ observer, node }: { observer: MutationObserver; node: 
 	}
 }
 
-function getRemovalObserver(): MutationObserver {
+function getRemovalObserver({ Observer }: { Observer: typeof MutationObserver }): MutationObserver {
 	const observer =
-		removalObserver.current ??
-		new MutationObserver((records) => processRemovalRecords({ records }));
+		removalObserver.current ?? new Observer((records) => processRemovalRecords({ records }));
 	removalObserver.current = observer;
 	return observer;
 }
 
 function watchDialogForRemoval({ dialog }: { dialog: TPolyfillDialog }) {
 	// A disconnected dialog has nothing to be removed from.
-	if (typeof MutationObserver === 'undefined' || !dialog.isConnected) {
+	if (NativeMutationObserver === null || !dialog.isConnected) {
 		return;
 	}
 	watchedDialogs.add(dialog);
-	observeRootsOf({ observer: getRemovalObserver(), node: dialog });
+	observeRootsOf({
+		observer: getRemovalObserver({ Observer: NativeMutationObserver }),
+		node: dialog,
+	});
 }
 
 function watchPopoverForRemoval({ popover }: { popover: HTMLElement }) {
-	if (typeof MutationObserver === 'undefined' || !popover.isConnected) {
+	if (NativeMutationObserver === null || !popover.isConnected) {
 		return;
 	}
 	watchedPopovers.add(popover);
-	observeRootsOf({ observer: getRemovalObserver(), node: popover });
+	observeRootsOf({
+		observer: getRemovalObserver({ Observer: NativeMutationObserver }),
+		node: popover,
+	});
 }
 
 /**
@@ -953,19 +965,90 @@ if (typeof MathMLElement !== 'undefined') {
 	blockFocusWhereBrowsersDo({ prototype: MathMLElement.prototype });
 }
 
+type TReadPointerEvents = (args: { element: Element }) => string;
+
+function getInlinePointerEvents({ element }: { element: Element }): string {
+	if (element instanceof HTMLElement || element instanceof SVGElement) {
+		return element.style.getPropertyValue('pointer-events');
+	}
+	return '';
+}
+
 /**
- * The `pointer-events` value that models hit testing for `element`: `none` when it is inert, and
- * `auto` for the blocking modal dialog, so its content is not seen to inherit `none` from the
- * blocked `<body>`. Null when the computed style is left alone.
+ * Whether `element`, or an ancestor of it up to and including `host`, has an inline
+ * `pointer-events`.
  */
-function getHitTestPointerEvents({ element }: { element: Element }): 'none' | 'auto' | null {
+function hasInlinePointerEventsUpTo({
+	element,
+	host,
+}: {
+	element: Element;
+	host: Element;
+}): boolean {
+	if (getInlinePointerEvents({ element }) !== '') {
+		return true;
+	}
+	if (element === host || element.parentElement === null) {
+		return false;
+	}
+	return hasInlinePointerEventsUpTo({ element: element.parentElement, host });
+}
+
+/**
+ * Whether `element` gets `pointer-events: none` only by inheriting it, through its nearest open
+ * popover, from outside that popover. ADS `Popover` resets its host to `auto` with a `:defined`
+ * rule, so in a browser the surface stays hittable in a `pointer-events: none` ancestor. jsdom does
+ * not support `:defined`, so it lets the outside `none` through. jsdom inherits along
+ * `parentElement`, so this does too. An inline `pointer-events` in the popover is kept.
+ * See `notes/decisions/polyfill-inert-pointer-events.md`.
+ */
+function inheritsNoneIntoOpenPopover({
+	element,
+	readPointerEvents,
+}: {
+	element: Element;
+	readPointerEvents: TReadPointerEvents;
+}): boolean {
+	const host = element.closest('[popover][data-popover-open]');
+	const hostParent = host?.parentElement ?? null;
+	if (!host || !hostParent || readPointerEvents({ element: hostParent }) !== 'none') {
+		return false;
+	}
+	return !hasInlinePointerEventsUpTo({ element, host });
+}
+
+/**
+ * The `pointer-events` value that models hit testing for `element`, given the value jsdom
+ * resolved for it:
+ * - `none` when it is inert;
+ * - `auto` for the blocking modal dialog, so its content is not seen to inherit `none` from the
+ *   blocked `<body>`;
+ * - `auto` for an open popover, and its content, that gets `none` only from outside the popover.
+ *
+ * Null when the computed style is left alone.
+ */
+function getHitTestPointerEvents({
+	element,
+	resolvedValue,
+	readPointerEvents,
+}: {
+	element: Element;
+	resolvedValue: string;
+	readPointerEvents: TReadPointerEvents;
+}): 'none' | 'auto' | null {
 	if (!element.isConnected) {
 		return null;
 	}
 	if (isInert({ node: element })) {
 		return 'none';
 	}
-	if (element === getBlockingModalDialog({ document: element.ownerDocument })) {
+	if (
+		resolvedValue === '' &&
+		element === getBlockingModalDialog({ document: element.ownerDocument })
+	) {
+		return 'auto';
+	}
+	if (resolvedValue === 'none' && inheritsNoneIntoOpenPopover({ element, readPointerEvents })) {
 		return 'auto';
 	}
 	return null;
@@ -977,10 +1060,14 @@ function getHitTestPointerEvents({ element }: { element: Element }): 'none' | 'a
  * style reports `none` for an inert element, and a `user-event` click on it throws, as a user cannot
  * click it. `element.click()` and `dispatchEvent()` are not affected, as in a browser.
  *
- * This is the one deliberate divergence from browsers: Chrome keeps the computed `pointer-events`
- * of inert content (usually `auto`) and only its hit testing skips it. The polyfill changes the
+ * This is a deliberate divergence from browsers: Chrome keeps the computed `pointer-events` of
+ * inert content (usually `auto`) and only its hit testing skips it. The polyfill changes the
  * computed value because that is the only hit-testing input `user-event` reads.
  * Spec: https://html.spec.whatwg.org/multipage/interaction.html#inert-subtrees
+ *
+ * An open popover, and its content, report `auto` where they get `none` only from outside the
+ * popover (see `inheritsNoneIntoOpenPopover`). That matches a browser for an ADS `Popover`. A plain
+ * `[popover]` in a browser would inherit `none`.
  */
 if (typeof window !== 'undefined' && typeof window.getComputedStyle === 'function') {
 	const originalGetComputedStyle = window.getComputedStyle;
@@ -998,12 +1085,14 @@ if (typeof window !== 'undefined' && typeof window.getComputedStyle === 'functio
 			if (pseudoElement || !(element instanceof Element)) {
 				return declaration;
 			}
-			const pointerEvents = getHitTestPointerEvents({ element });
-			if (pointerEvents === 'none') {
-				declaration.setProperty('pointer-events', 'none');
-			}
-			if (pointerEvents === 'auto' && declaration.getPropertyValue('pointer-events') === '') {
-				declaration.setProperty('pointer-events', 'auto');
+			const pointerEvents = getHitTestPointerEvents({
+				element,
+				resolvedValue: declaration.getPropertyValue('pointer-events'),
+				readPointerEvents: ({ element: ancestor }) =>
+					originalGetComputedStyle.call(window, ancestor).getPropertyValue('pointer-events'),
+			});
+			if (pointerEvents !== null) {
+				declaration.setProperty('pointer-events', pointerEvents);
 			}
 			return declaration;
 		};

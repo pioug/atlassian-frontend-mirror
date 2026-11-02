@@ -3,10 +3,45 @@
  * of the public API.
  */
 import { isEnvironmentType, isNonBlankString, type ResourceIdentity } from './attribution';
+import type { ExposureStorage } from './environment';
 import type { QueuedRecord, StoredLogRecord } from './otlp';
 
 /** Every client instance persists under this prefix followed by its instance identifier. */
 export const STORAGE_KEY_PREFIX = '@atlaskit/flag-client:exposures:';
+
+/**
+ * The most UTF-16 code units that the exposure keys and values of every instance on an origin may
+ * occupy together: 256 KiB at two bytes per code unit, a twentieth of the 5 MiB `localStorage` quota
+ * the host shares, so deliveries that always fail cannot fill it from any number of tabs.
+ */
+export const MAX_PERSISTED_CODE_UNITS: number = 128 * 1024;
+
+/**
+ * The budget, in the same units, while deliveries are failing on an origin with no recent successful
+ * delivery, such as one whose requests a content blocker rejects. Such an origin may never deliver
+ * what it persists, so its storage converges to this rather than the full budget.
+ */
+export const UNDELIVERED_ORIGIN_CODE_UNITS: number = 4 * 1024;
+
+/** Holds the time, in epoch milliseconds, of the origin's last successful exposure delivery. */
+export const DELIVERY_MARKER_KEY = '@atlaskit/flag-client:last-delivery';
+
+/** A successful delivery this recent shows the origin can deliver, so it keeps the full budget. */
+export const DELIVERY_MARKER_FRESH_MS: number = 7 * 24 * 60 * 60 * 1000;
+
+/** A successful delivery rewrites a marker only when it is at least this old, to limit writes. */
+export const DELIVERY_MARKER_REFRESH_MS: number = 60 * 60 * 1000;
+
+/**
+ * How long ago the marker records a successful delivery, or `null` when it is absent, unreadable, or
+ * records a later time than `now`. Throws when storage cannot be read.
+ */
+export function deliveryMarkerAge(storage: ExposureStorage, now: number): number | null {
+	const text = storage.getItem(DELIVERY_MARKER_KEY);
+	if (text === null || !/^\d{1,16}$/.test(text)) return null;
+	const age = now - Number(text);
+	return age >= 0 ? age : null;
+}
 
 const FORMAT_VERSION = 1;
 
@@ -19,31 +54,90 @@ const INT64_END = BigInt(1) << BigInt(63);
 const UINT32_END = BigInt(1) << BigInt(32);
 const INT32_END = BigInt(1) << BigInt(31);
 
-/** An undelivered exposure with its destination and failed delivery attempts so far. */
+/** An undelivered exposure with its failed delivery attempts so far. */
 export interface QueuedExposure {
 	readonly record: QueuedRecord;
-	readonly endpoint: string;
 	attempts: number;
 }
 
-export function serializeExposures(entries: readonly QueuedExposure[]): string {
+/**
+ * Serialize entries for storage, each recording `endpoint`, the writing client's. This client
+ * delivers what it takes to its own endpoint and ignores the member, but earlier versions discard an
+ * entry without a deliverable one.
+ */
+export function serializeExposures(entries: readonly QueuedExposure[], endpoint: string): string {
+	return serializeEntries(entries.map((entry) => serializeEntry(entry, endpoint)));
+}
+
+function serializeEntry({ record, attempts }: QueuedExposure, endpoint: string): string {
 	return JSON.stringify({
-		version: FORMAT_VERSION,
-		entries: entries.map(({ record, endpoint, attempts }) => ({
-			endpoint,
-			attempts,
-			resource: record.resource,
-			scopeVersion: record.scopeVersion,
-			logRecord: record.logRecord,
-		})),
+		endpoint,
+		attempts,
+		resource: record.resource,
+		scopeVersion: record.scopeVersion,
+		logRecord: record.logRecord,
 	});
+}
+
+/** The stored value for serialized entries, as `JSON.stringify` writes the whole format. */
+function serializeEntries(entries: readonly string[]): string {
+	return `{"version":${FORMAT_VERSION},"entries":[${entries.join(',')}]}`;
+}
+
+/** The value written for a key and the entries it holds. */
+export interface BudgetedExposures {
+	readonly text: string;
+	readonly entries: readonly QueuedExposure[];
+}
+
+/**
+ * Serialize the entries to write under `ownKey` so that the key and value, counted in UTF-16 code
+ * units, fit within `budget` less the other instances' exposure keys and values measured now. Entries are left out in the order `queuedOrder` gives, earliest first, until
+ * the rest fit, so the result is the longest run of the newest entries that fits, never an older
+ * entry in place of a newer one; the others keep their order. Throws when another instance's value
+ * cannot be read, since the budget then cannot be checked, and the caller removes its own key.
+ */
+export function serializeExposuresWithinBudget(
+	storage: ExposureStorage,
+	ownKey: string,
+	entries: readonly QueuedExposure[],
+	queuedOrder: (entry: QueuedExposure) => number,
+	endpoint: string,
+	budget: number = MAX_PERSISTED_CODE_UNITS,
+): BudgetedExposures {
+	let room = budget - ownKey.length;
+	const keys: string[] = [];
+	for (let index = 0; index < storage.length; index += 1) {
+		const key = storage.key(index);
+		if (key !== null && key.startsWith(STORAGE_KEY_PREFIX) && key !== ownKey) keys.push(key);
+	}
+	for (const key of keys) room -= key.length + (storage.getItem(key)?.length ?? 0);
+
+	const texts = entries.map((entry) => serializeEntry(entry, endpoint));
+	const kept = new Set(entries.keys());
+	// The empty format, plus each entry and the comma before every entry but the first.
+	let length = serializeEntries([]).length + Math.max(texts.length - 1, 0);
+	for (const text of texts) length += text.length;
+	const orders = entries.map(queuedOrder);
+	const byAge = [...kept].sort((a, b) => (orders[a] ?? 0) - (orders[b] ?? 0));
+	for (const index of byAge) {
+		if (length <= room) break;
+		kept.delete(index);
+		length -= (texts[index]?.length ?? 0) + (kept.size > 0 ? 1 : 0);
+	}
+	if (length > room) return { text: '', entries: [] };
+	return {
+		text: serializeEntries(texts.filter((_, index) => kept.has(index))),
+		entries: entries.filter((_, index) => kept.has(index)),
+	};
 }
 
 /**
  * Read persisted exposures. A value that is not the expected format yields no entries, and an entry
- * that cannot be read is ignored while its readable siblings are kept.
+ * that cannot be read is ignored while its readable siblings are kept. The endpoint an entry records
+ * is not read, so entries from any client on the origin are accepted whatever endpoint they name.
  */
-export function parseExposures(text: string, maxAttempts: number): QueuedExposure[] {
+export function parseExposures(text: string): QueuedExposure[] {
 	let parsed: unknown;
 	try {
 		parsed = JSON.parse(text);
@@ -56,44 +150,23 @@ export function parseExposures(text: string, maxAttempts: number): QueuedExposur
 
 	const exposures: QueuedExposure[] = [];
 	for (const entry of entries) {
-		const exposure = parseEntry(entry, maxAttempts);
+		const exposure = parseEntry(entry);
 		if (exposure !== null) exposures.push(exposure);
 	}
 	return exposures;
 }
 
-function parseEntry(entry: unknown, maxAttempts: number): QueuedExposure | null {
+function parseEntry(entry: unknown): QueuedExposure | null {
 	if (!isObject(entry)) return null;
-	const { endpoint, attempts, resource, scopeVersion, logRecord } = entry;
-	if (!isDeliverableEndpoint(endpoint) || !isNonBlankString(scopeVersion)) return null;
-	// An entry that already exhausted its attempts should have been discarded, so it is not readable.
+	const { attempts, resource, scopeVersion, logRecord } = entry;
+	if (!isNonBlankString(scopeVersion)) return null;
 	if (!Number.isSafeInteger(attempts) || (attempts as number) < 0) return null;
-	if ((attempts as number) >= maxAttempts) return null;
 	const identity = parseResource(resource);
 	if (identity === null || !isLogRecord(logRecord)) return null;
 	return {
 		record: { resource: identity, scopeVersion, logRecord },
-		endpoint,
 		attempts: attempts as number,
 	};
-}
-
-/**
- * Whether a value is an endpoint this client writes: an absolute `http:` or `https:` URL without
- * credentials. Any other value would make `fetch` fail, which is retried and holds up delivery.
- */
-function isDeliverableEndpoint(value: unknown): value is string {
-	if (typeof value !== 'string') return false;
-	try {
-		const url = new URL(value);
-		return (
-			(url.protocol === 'http:' || url.protocol === 'https:') &&
-			url.username === '' &&
-			url.password === ''
-		);
-	} catch {
-		return false;
-	}
 }
 
 function parseResource(value: unknown): ResourceIdentity | null {

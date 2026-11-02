@@ -22,5 +22,5 @@ export type ProviderOptions = Pick<
 
 export type FeatureGateState = Pick<
 	ExperimentValuesEntry,
-	'experimentValuesResponse' | 'profileHash' | 'timestamp'
+	'evalFlagsResponse' | 'profileHash' | 'timestamp'
 >;

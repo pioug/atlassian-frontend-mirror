@@ -1,4 +1,3 @@
-/* eslint-disable @compiled/no-exported-css */
 /**
  * @jsxRuntime classic
  * @jsx jsx

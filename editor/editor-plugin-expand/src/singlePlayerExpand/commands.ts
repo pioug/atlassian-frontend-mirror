@@ -30,7 +30,7 @@ import { findTable } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { ExpandPlugin, InsertMethod } from '../types';
-import { isNestedInExpand } from '../utils';
+import { getExpandWrapper, isNestedInExpand } from '../utils';
 
 // Creates either an expand or a nestedExpand node based on the current selection
 export const createExpandNode = (
@@ -272,8 +272,7 @@ export const focusTitle =
 	(pos: number): Command =>
 	(state, dispatch, editorView) => {
 		if (editorView) {
-			const dom = editorView.domAtPos(pos);
-			const expandWrapper = dom.node.parentElement;
+			const expandWrapper = getExpandWrapper(editorView, pos);
 			if (expandWrapper) {
 				setSelectionInsideExpand(pos)(state, dispatch, editorView);
 				const input = expandWrapper.querySelector('input');

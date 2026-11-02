@@ -1,5 +1,32 @@
 # @atlaskit/renderer
 
+## 153.2.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 153.2.6
+
+### Patch Changes
+
+- [`254eba3581b39`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/254eba3581b39) -
+  Behind platform_editor_table_heading_cell_alignment, line up H3-H6 headings that start a table
+  cell with paragraph text in the same row
+- Updated dependencies
+
+## 153.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 153.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 153.2.3
 
 ### Patch Changes

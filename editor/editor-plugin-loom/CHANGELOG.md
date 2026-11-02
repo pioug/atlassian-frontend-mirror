@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-loom
 
+## 32.0.2
+
+### Patch Changes
+
+- [`ce5f97ab62e45`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ce5f97ab62e45) -
+  [EDITOR-9779] Apply Hello slash menu naming and ranking behind platform_editor_slash_command:
+  rename the Loom record item to "Loom" and Insert Confluence list to "Confluence list", rank Assets
+  after the Spaces items in Data and charts, and stop forcing Smart button into Structure
+- Updated dependencies
+
 ## 32.0.1
 
 ### Patch Changes

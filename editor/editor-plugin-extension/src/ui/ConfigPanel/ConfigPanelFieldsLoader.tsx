@@ -34,7 +34,6 @@ export type PublicProps = {
 	onChange: (data: Parameters) => void | Promise<void>;
 	parameters?: Parameters;
 	showHeader?: boolean;
-	// Remove below prop when cleaning platform_editor_ai_object_sidebar_injection FG
 	usingObjectSidebarPanel?: boolean;
 };
 
@@ -153,7 +152,6 @@ export default function FieldsLoader({
 	onChange,
 	onCancel,
 	api,
-	// Remove below prop when cleaning platform_editor_ai_object_sidebar_injection FG
 	usingObjectSidebarPanel,
 }: PublicProps): React.JSX.Element {
 	const [extensionManifest] = useStateFromPromise<ExtensionManifest | undefined>(
@@ -187,7 +185,6 @@ export default function FieldsLoader({
 					onCancel={onCancel}
 					errorMessage={errorMessage}
 					featureFlags={featureFlags}
-					// Remove below prop when cleaning platform_editor_ai_object_sidebar_injection FG
 					usingObjectSidebarPanel={usingObjectSidebarPanel}
 					disableFields={isOfflineMode(connectivityState)}
 				/>

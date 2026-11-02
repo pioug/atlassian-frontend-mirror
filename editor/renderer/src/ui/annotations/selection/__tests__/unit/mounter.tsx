@@ -37,7 +37,6 @@ jest.mock('@atlaskit/tmp-editor-statsig/editor-experiment', () => ({
 
 const inlineNodeTypesTestId = 'inline-nodes-type';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Annotations: SelectionInlineCommentMounter', () => {
 	const fakeApplyAnnotation: jest.Mock = jest.fn().mockReturnValue({});
 	const fakeOnCloseProp: jest.Mock = jest.fn();

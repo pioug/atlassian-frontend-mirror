@@ -1,5 +1,14 @@
 # @atlaskit/tokens
 
+## 20.9.0
+
+### Minor Changes
+
+- [`8d4a9755471e3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d4a9755471e3) -
+  [ux] Add the experimental `motion.iconography` tokens for animating icons as they appear and
+  disappear: `motion.iconography.enter.fade`, `motion.iconography.exit.fade`,
+  `motion.iconography.enter.cycle.up` and `motion.iconography.exit.cycle.up`.
+
 ## 20.8.2
 
 ### Patch Changes

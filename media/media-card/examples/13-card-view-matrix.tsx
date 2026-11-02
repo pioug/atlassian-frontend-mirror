@@ -36,7 +36,6 @@ const checkboxesContainerStyles = css({
 	alignItems: 'center',
 });
 
-// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 const styledTableStyles = css({
 	margin: `${token('space.400')} auto ${token('space.0')} auto`,
 	maxWidth: '1100px',

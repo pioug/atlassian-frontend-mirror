@@ -1,5 +1,3 @@
-/* eslint-disable @repo/internal/fs/filename-pattern-match */
-
 import { getDefaultImportSpecifierName } from '@hypermod/utils';
 import {
 	type API,

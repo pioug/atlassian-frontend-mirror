@@ -101,6 +101,49 @@ describe('upsertAIProviderParticipantLocally', () => {
 		jest.useRealTimers();
 	});
 
+	it('retains supplied identity on later steps and emits changes without fetching a profile', () => {
+		passGate('confluence_ncs_step_diffing_version_history');
+		const emit = jest.fn();
+		const getUser = jest.fn();
+		const service = participantsServiceConstructor({ emit, getUser });
+		service.upsertAIProviderParticipantLocally(providerId, 'mcp', {
+			agentId: ' abc ',
+			agentName: ' Docs Reviewer ',
+			agentNamedId: 'mcp_figma_agent',
+		});
+		service.upsertAIProviderParticipantLocally(providerId, 'mcp');
+		expect(service.getAIProviderParticipants()[0]).toMatchObject({
+			name: 'Docs Reviewer',
+			agentId: 'abc',
+			agentName: 'Docs Reviewer',
+			agentNamedId: 'mcp_figma_agent',
+		});
+		expect(emit).toHaveBeenCalledTimes(1);
+		service.upsertAIProviderParticipantLocally(providerId, 'mcp', { agentName: 'Figma' });
+		expect(emit).toHaveBeenCalledTimes(2);
+		expect(service.getAIProviderParticipants()[0]).toMatchObject({
+			name: 'Figma',
+			agentId: 'abc',
+			agentName: 'Figma',
+			agentNamedId: 'mcp_figma_agent',
+		});
+		expect(getUser).not.toHaveBeenCalled();
+	});
+
+	it('keeps legacy empty identity when the version-history gate is off', () => {
+		failGate('confluence_ncs_step_diffing_version_history');
+		const service = participantsServiceConstructor({});
+		service.upsertAIProviderParticipantLocally(providerId, 'mcp', {
+			agentId: 'abc',
+			agentName: 'Claude',
+			agentNamedId: 'mcp_figma_agent',
+		});
+		expect(service.getAIProviderParticipants()[0]).toMatchObject({ name: '' });
+		expect(service.getAIProviderParticipants()[0].agentId).toBeUndefined();
+		expect(service.getAIProviderParticipants()[0].agentName).toBeUndefined();
+		expect(service.getAIProviderParticipants()[0].agentNamedId).toBeUndefined();
+	});
+
 	it('adds the agent with editing activity when agent presence is moved', () => {
 		passGate('platform_move_presence_agents');
 		passGate('confluence_ncs_step_diffing_version_history');

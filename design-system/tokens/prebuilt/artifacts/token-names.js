@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::10bde040438caa4a9c01e47293268550>>
+ * @codegen <<SignedSource::c3554c5febd836a4b5be9a51b32c1bf4>>
  * @codegenCommand yarn build tokens
  */
 var tokens = {
@@ -35,6 +35,10 @@ var tokens = {
   'motion.flag.reposition': '--ds-flag-reposition',
   'motion.form.message.enter': '--ds-form-message-enter',
   'motion.form.message.exit': '--ds-form-message-exit',
+  'motion.iconography.enter.cycle.up': '--ds-iconography-enter-cycle-up',
+  'motion.iconography.enter.fade': '--ds-iconography-enter-fade',
+  'motion.iconography.exit.cycle.up': '--ds-iconography-exit-cycle-up',
+  'motion.iconography.exit.fade': '--ds-iconography-exit-fade',
   'motion.input': '--ds-input',
   'motion.input.selection': '--ds-input-selection',
   'motion.input.toggle': '--ds-input-toggle',

@@ -1,4 +1,6 @@
 import { anyMarkActive } from '@atlaskit/editor-common/mark';
+import { cellSelectionHasAnyMark } from '@atlaskit/editor-common/mark/cell-selection-has-any-mark';
+import { getSupportedMarkTypes } from '@atlaskit/editor-common/mark/get-supported-mark-types';
 import { createBlockTaskItem } from '@atlaskit/editor-common/transforms';
 import type { InputRuleHandler, InputRuleWrapper } from '@atlaskit/editor-common/types/input-rules';
 import { createRule } from '@atlaskit/editor-common/utils';
@@ -6,6 +8,8 @@ import { createWrappingJoinRule } from '@atlaskit/editor-common/utils/input-rule
 import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { WRAPPER_BLOCK_TYPES, FORMATTING_NODE_TYPES, FORMATTING_MARK_TYPES } from './block-types';
 import type { BlockType } from './types';
@@ -235,6 +239,17 @@ const blockStylingIsPresent = (state: EditorState): boolean => {
 };
 
 const marksArePresent = (state: EditorState) => {
+	if (
+		state.selection instanceof CellSelection &&
+		!state.selection.empty &&
+		isExperimentEnabled('platform_editor_improve_inp')
+	) {
+		return cellSelectionHasAnyMark(
+			state.selection,
+			getSupportedMarkTypes(state.schema, FORMATTING_MARK_TYPES),
+		);
+	}
+
 	const activeMarkTypes = FORMATTING_MARK_TYPES.filter((mark) => {
 		if (!!state.schema.marks[mark]) {
 			const { $from, empty } = state.selection;

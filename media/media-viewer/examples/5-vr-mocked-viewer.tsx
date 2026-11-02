@@ -139,7 +139,6 @@ export default class Example extends React.Component<{}, State> {
 									{
 										mediaItemType: 'external-image',
 										dataURI:
-											/* eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage */
 											'https://wac-cdn.atlassian.com/dam/jcr:616e6748-ad8c-48d9-ae93-e49019ed5259/Atlassian-horizontal-blue-rgb.svg',
 									},
 								])}

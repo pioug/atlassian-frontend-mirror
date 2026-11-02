@@ -55,7 +55,6 @@ import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 
 const lastMediaProps = () => mockMedia.mock.lastCall?.[0];
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('MediaSingle', () => {
 	const editorWidth = 123;
 

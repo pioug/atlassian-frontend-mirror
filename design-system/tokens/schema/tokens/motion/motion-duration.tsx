@@ -1,7 +1,7 @@
 import type { AttributeSchema, MotionDurationTokenSchema } from '../../../src/types';
 import type { BaseDurationToken } from '../../palettes/motion-palette';
 
-const font: AttributeSchema<MotionDurationTokenSchema<BaseDurationToken>> = {
+const duration: AttributeSchema<MotionDurationTokenSchema<BaseDurationToken>> = {
 	motion: {
 		duration: {
 			instant: {
@@ -78,4 +78,4 @@ const font: AttributeSchema<MotionDurationTokenSchema<BaseDurationToken>> = {
 	},
 };
 
-export default font;
+export default duration;

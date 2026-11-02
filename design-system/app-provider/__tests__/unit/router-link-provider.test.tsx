@@ -67,7 +67,6 @@ const ComponentWithRouterLink = ({
 	);
 };
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('RouterLinkProvider', () => {
 	it('does not return a router link component when the AppProvider `routerLinkComponent` is undefined', () => {
 		render(

@@ -95,7 +95,7 @@ export const DatasourceQuickInsertMenuItem = ({
 						? messages.datasourceJiraIssueIssueTermRefresh
 						: messages.datasourceJiraIssue
 					: isConfluenceSearch
-						? messages.datasourceConfluenceSearch
+						? messages.datasourceConfluenceList
 						: messages.datasourceAssetsObjectsGeneralAvailability,
 			)}
 		/>

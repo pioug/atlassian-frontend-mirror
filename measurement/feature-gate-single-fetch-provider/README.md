@@ -31,7 +31,7 @@ try {
 		// [Optional] Default is false
 		// Whether to include flags served by the Feature Flag Platform (FFP). When true, values are fetched from the
 		// feature-flag-service `/api/v1/evalFlags` endpoint instead of `/api/v2/frontend/experimentValues`.
-		// FFP values are not used yet, so only enable this for a targetApp with no flags in FFP.
+		// Each flag is then served by the platform the service assigns it to. When false, FFP is treated as disabled.
 		includeFfpFlags: false,
 	})
     identifiers,

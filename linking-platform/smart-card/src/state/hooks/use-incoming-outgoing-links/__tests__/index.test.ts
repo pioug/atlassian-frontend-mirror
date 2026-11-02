@@ -1,5 +1,5 @@
 import 'jest-extended';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { renderHook } from '@atlassian/testing-library/render-hook';
 
 import { currentSiteCloudIdService } from '../../../services/current-site-cloud-id';
@@ -233,11 +233,15 @@ describe('useIncomingOutgoingLinks', () => {
 			['third-party ARI', THIRD_PARTY_ARI],
 			['cloud ARI without siteId', CLOUD_ARI_WITHOUT_SITE_ID],
 		])('with %s', (_, ari) => {
-			ffTest.both(
-				'platform_sl_incoming_outgoing_tenant_info_killswitch',
-				'tenant_info killswitch',
-				() => {
+			describe.each([
+				{ gateState: 'on', mockGate0: passGate },
+				{ gateState: 'off', mockGate0: failGate },
+			])(
+				'platform_sl_incoming_outgoing_tenant_info_killswitch is $gateState tenant_info killswitch',
+				({ mockGate0 }) => {
 					it(`should call /_edge/tenant_info`, async () => {
+						mockGate0('platform_sl_incoming_outgoing_tenant_info_killswitch');
+
 						const { getIncomingOutgoingAris } = setup();
 						mockTenantInfo();
 						fetchMock.mockOnce('{}');
@@ -258,6 +262,8 @@ describe('useIncomingOutgoingLinks', () => {
 					});
 
 					it(`should return empty arrays when tenant_info fails`, async () => {
+						mockGate0('platform_sl_incoming_outgoing_tenant_info_killswitch');
+
 						const { getIncomingOutgoingAris } = setup();
 
 						// Call to /_edge/tenant_info fails

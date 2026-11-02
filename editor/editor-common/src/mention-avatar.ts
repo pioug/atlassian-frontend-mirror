@@ -30,6 +30,7 @@ export function isMentionAvatarEnabled({
 		(cohort === 'person' ||
 			cohort === 'all' ||
 			isExperimentEnabled('platform_editor_mention_node_avatar') ||
+			isExperimentEnabled('canvas_agentic_experiences_master_exp') ||
 			isExperimentEnabled('platform_editor_mention_node_graphql_provider') ||
 			((userType === 'APP' || userType === 'AGENT') &&
 				isExperimentEnabled('platform_editor_drop3_hexagon_agent_avatar')))

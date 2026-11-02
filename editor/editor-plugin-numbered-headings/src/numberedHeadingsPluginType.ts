@@ -2,6 +2,7 @@
 import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics/analyticsPluginType';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled/editorDisabledPluginType';
+import type { ExternalStatePlugin } from '@atlaskit/editor-plugin-external-state/externalStatePluginType';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar/toolbar-plugin-type';
 
 type NumberedHeadingsSharedState = {
@@ -11,6 +12,7 @@ type NumberedHeadingsSharedState = {
 export type NumberedHeadingsPluginDependencies = [
 	OptionalPlugin<AnalyticsPlugin>,
 	OptionalPlugin<EditorDisabledPlugin>,
+	ExternalStatePlugin,
 	OptionalPlugin<ToolbarPlugin>,
 ];
 

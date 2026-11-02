@@ -81,6 +81,79 @@ describe('Editor Content styles', () => {
 		);
 	});
 
+	describe('platform_editor_embed_open_in_new_tab', () => {
+		const renderEmbedAndBlockLinks = (
+			appearance: 'full-page' | 'comment' | 'chromeless',
+			viewMode: 'edit' | 'view',
+		) =>
+			render(
+				<EditorContentContainer appearance={appearance} viewMode={viewMode}>
+					<div className="ProseMirror">
+						<div className="embedCardView-content-wrap">
+							<div className="loader-wrapper">
+								<div>
+									<div className="embed-header">
+										<a href="https://example.com" data-testid="embed-header-link">
+											Embed header
+										</a>
+									</div>
+									<a href="https://example.com/content" data-testid="embed-content-link">
+										Embed content
+									</a>
+								</div>
+							</div>
+						</div>
+						<div className="blockCardView-content-wrap">
+							<div className="loader-wrapper">
+								<div>
+									<a href="https://example.com/block" data-testid="block-card-link">
+										Block card link
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</EditorContentContainer>,
+			);
+
+		const editorModes = [
+			['full-page', 'edit'],
+			['full-page', 'view'],
+			['comment', 'edit'],
+			['comment', 'view'],
+			['chromeless', 'edit'],
+			['chromeless', 'view'],
+		] as const;
+
+		it.each(editorModes)(
+			'does not reset embed cursors in %s %s mode when enabled',
+			(appearance, viewMode) => {
+				mockExpEnabled('platform_editor_embed_open_in_new_tab');
+				renderEmbedAndBlockLinks(appearance, viewMode);
+
+				expect(window.getComputedStyle(screen.getByTestId('embed-header-link')).cursor).toBe('');
+				expect(window.getComputedStyle(screen.getByTestId('embed-content-link')).cursor).toBe('');
+				expect(window.getComputedStyle(screen.getByTestId('block-card-link')).cursor).toBe('auto');
+			},
+		);
+
+		it.each(editorModes)(
+			'resets card cursors in %s %s mode when disabled',
+			(appearance, viewMode) => {
+				mockExpDisabled('platform_editor_embed_open_in_new_tab');
+				renderEmbedAndBlockLinks(appearance, viewMode);
+
+				expect(window.getComputedStyle(screen.getByTestId('embed-header-link')).cursor).toBe(
+					'auto',
+				);
+				expect(window.getComputedStyle(screen.getByTestId('embed-content-link')).cursor).toBe(
+					'auto',
+				);
+				expect(window.getComputedStyle(screen.getByTestId('block-card-link')).cursor).toBe('auto');
+			},
+		);
+	});
+
 	describe('platform_editor_table_css_overflow_shadow: enabled', () => {
 		it('renders the table overflow shadow styles from the editor content container', () => {
 			mockExpEnabled('platform_editor_table_css_overflow_shadow');

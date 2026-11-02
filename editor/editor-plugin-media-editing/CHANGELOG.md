@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-media-editing
 
+## 24.0.1
+
+### Patch Changes
+
+- [`8f9c12c0398d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f9c12c0398d2) -
+  Delete unreachable internal source files
+- Updated dependencies
+
 ## 24.0.0
 
 ### Patch Changes

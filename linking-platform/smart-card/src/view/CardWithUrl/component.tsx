@@ -3,6 +3,7 @@ import React, { type MouseEvent, useCallback, useEffect, useMemo, useRef } from 
 import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import { extractSmartLinkEmbed } from '@atlaskit/link-extractors/extract-smart-link-embed';
 import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
@@ -82,6 +83,9 @@ function Component({
 	const { fireEvent } = useAnalyticsEvents();
 
 	let isFlexibleUi = useMemo(() => isFlexibleUiCard(children, ui), [children, ui]);
+	const isEmbedOpenInNewTabEnabled =
+		appearance === CardDisplay.Embed &&
+		isExperimentEnabled('platform_editor_embed_open_in_new_tab');
 
 	// Get state, actions for this card.
 	// appearance is pre-resolved by the caller (loader.tsx for Card, ssr.tsx for CardSSR):
@@ -135,6 +139,24 @@ function Component({
 	// Setup UI handlers.
 	const handleClickWrapper = useCallback(
 		(event: MouseEvent) => {
+			const isEmbedDoubleClick =
+				isEmbedOpenInNewTabEnabled &&
+				event.type === 'dblclick' &&
+				event.button === 0 &&
+				event.detail === 2 &&
+				!event.metaKey &&
+				!event.ctrlKey &&
+				!event.shiftKey &&
+				!event.altKey;
+
+			// The title link's preceding clicks already navigate without a consumer callback.
+			if (isEmbedDoubleClick && !onClick) {
+				const clickedAnchor = event.target instanceof Element ? event.target.closest('a') : null;
+				if (clickedAnchor && event.currentTarget.contains(clickedAnchor)) {
+					return;
+				}
+			}
+
 			const isModifierKeyPressed = isSpecialKey(event) || isSpecialClick(event);
 
 			fireEvent('ui.smartLink.clicked', {
@@ -197,9 +219,26 @@ function Component({
 			// For FlexibleCard, read target from the clicked anchor element (e.g. _blank for links
 			// rendered with explicit target). For classic cards, default to _self
 			const { target: anchorTarget } = getAnchorAttributesFromEvent(event);
-			const openInNewTab = resolveNavigation
-				? event.metaKey || event.ctrlKey || event.shiftKey || event.button === 1
-				: isSpecialEvent(event);
+			let openInNewTab: boolean;
+			let shouldOpenLink: boolean;
+			if (isEmbedOpenInNewTabEnabled) {
+				const isNewTabGesture =
+					isEmbedDoubleClick ||
+					(event.button === 0 && (event.metaKey || event.ctrlKey)) ||
+					event.button === 1;
+				openInNewTab =
+					isNewTabGesture ||
+					(resolveNavigation
+						? event.metaKey || event.ctrlKey || event.shiftKey || event.button === 1
+						: isSpecialEvent(event));
+				// Embed gestures navigate here even when the consumer handles ordinary clicks.
+				shouldOpenLink = isFlexibleUi || !onClick || isNewTabGesture;
+			} else {
+				openInNewTab = resolveNavigation
+					? event.metaKey || event.ctrlKey || event.shiftKey || event.button === 1
+					: isSpecialEvent(event);
+				shouldOpenLink = isFlexibleUi || !onClick;
+			}
 			const isInIframe = fg('platform_sl_click_inside_iframe') && window.top !== window;
 			const target = openInNewTab || isInIframe ? '_blank' : isFlexibleUi ? anchorTarget : '_self';
 
@@ -208,11 +247,8 @@ function Component({
 			// Check if the event is prevented via onClick callback
 			const consumerPreventedNavigation = event.defaultPrevented && !isEventDefaultPrevented;
 
-			// Classic cards (InlineCard, BlockCard, EmbedCard) rely on their own anchor navigation
-			// when onClick is provided, so this handler should not open the link for them.
 			// FlexibleCard's anchor is prevented from native navigation, so this handler always
 			// opens the link for FlexibleCard unless the consumer's onClick called preventDefault.
-			const shouldOpenLink = isFlexibleUi || !onClick;
 			const doOpenLink = shouldOpenLink && !consumerPreventedNavigation;
 			if (doOpenLink) {
 				event.preventDefault();
@@ -236,6 +272,7 @@ function Component({
 			fireEvent,
 			id,
 			isFlexibleUi,
+			isEmbedOpenInNewTabEnabled,
 			appearance,
 			definitionId,
 			getDestinationUrl,

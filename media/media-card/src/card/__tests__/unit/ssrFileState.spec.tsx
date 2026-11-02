@@ -116,7 +116,6 @@ beforeEach(() => {
 // ─────────────────────────────────────────────────────────────────────────────
 
 describe('FileCard — ssrFileState', () => {
-	// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 	it('renders without a11y violations', async () => {
 		const { container } = render(
 			<FileCard identifier={IDENTIFIER} dimensions={{ width: 300, height: 200 }} />,

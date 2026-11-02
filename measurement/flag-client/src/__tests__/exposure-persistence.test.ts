@@ -2,7 +2,11 @@
  * @jest-environment node
  */
 
-import { createExposureLogger, MAX_PERSISTED_EXPOSURES } from '../exposure/logger';
+import {
+	BREAKER_PROBE_INTERVAL_MS,
+	createExposureLogger,
+	MAX_QUEUED_WHILE_FAILING,
+} from '../exposure/logger';
 import type { OtlpKeyValue } from '../exposure/otlp';
 import { parseExposures, serializeExposures, STORAGE_KEY_PREFIX } from '../exposure/persistence';
 import {
@@ -14,6 +18,8 @@ import {
 } from './_utils/exposure-fakes';
 
 const ENDPOINT = 'https://xp.atlassian.com/ft/v1/logs';
+/** The endpoint of a client configured differently on the same origin. */
+const OTHER_ENDPOINT = 'https://example.test/logs';
 const OWN_KEY = `${STORAGE_KEY_PREFIX}instance-1`;
 
 function setup(storage: FakeStorage | null = new FakeStorage(), batchSize = 100) {
@@ -29,7 +35,7 @@ function setup(storage: FakeStorage | null = new FakeStorage(), batchSize = 100)
 function persistedFlagKeys(storage: FakeStorage, key = OWN_KEY): string[] | null {
 	const text = storage.items.get(key);
 	if (text === undefined) return null;
-	return parseExposures(text, 10).map((entry) => {
+	return parseExposures(text).map((entry) => {
 		const attributes = entry.record.logRecord.attributes as readonly OtlpKeyValue[];
 		const value = attributes.find((attribute) => attribute.key === 'feature_flag.key')?.value;
 		return value !== undefined && 'stringValue' in value ? value.stringValue : '';
@@ -37,17 +43,16 @@ function persistedFlagKeys(storage: FakeStorage, key = OWN_KEY): string[] | null
 }
 
 describe('persisted exposure format', () => {
-	it('round-trips endpoint, attempts, resource identity, scope version, and record', () => {
-		const entries = [
-			{ record: exposure('flag-a', '1.2.3'), endpoint: 'https://example.test/logs', attempts: 3 },
-		];
+	it('round-trips attempts, resource identity, scope version, and record, and writes the endpoint', () => {
+		const entries = [{ record: exposure('flag-a', '1.2.3'), attempts: 3 }];
 
-		expect(parseExposures(serializeExposures(entries), 10)).toEqual(entries);
-		expect(JSON.parse(serializeExposures(entries))).toEqual({
+		expect(parseExposures(serializeExposures(entries, OTHER_ENDPOINT))).toEqual(entries);
+		// Earlier versions discard an entry without a deliverable endpoint, so it is still written.
+		expect(JSON.parse(serializeExposures(entries, OTHER_ENDPOINT))).toEqual({
 			version: 1,
 			entries: [
 				{
-					endpoint: 'https://example.test/logs',
+					endpoint: OTHER_ENDPOINT,
 					attempts: 3,
 					resource: { serviceName: 'jira-frontend', serviceVersion: '1.2.3' },
 					scopeVersion: '0.1.0',
@@ -60,30 +65,30 @@ describe('persisted exposure format', () => {
 	it.each([['not json'], ['null'], ['{"version":2,"entries":[]}'], ['{"version":1}']])(
 		'reads no entries from %s',
 		(text) => {
-			expect(parseExposures(text, 10)).toEqual([]);
+			expect(parseExposures(text)).toEqual([]);
 		},
 	);
 
 	it('ignores unreadable entries and keeps readable siblings', () => {
 		const valid = JSON.parse(
-			serializeExposures([{ record: exposure('flag-a'), endpoint: ENDPOINT, attempts: 0 }]),
+			serializeExposures([{ record: exposure('flag-a'), attempts: 0 }], ENDPOINT),
 		) as { entries: unknown[] };
 		const text = JSON.stringify({
 			version: 1,
 			entries: [
 				{ ...(valid.entries[0] as object), attempts: -1 },
-				{ ...(valid.entries[0] as object), attempts: 10 },
-				{ ...(valid.entries[0] as object), endpoint: 42 },
+				{ ...(valid.entries[0] as object), attempts: 1.5 },
 				{ ...(valid.entries[0] as object), resource: { serviceName: 'x', environmentType: 'qa' } },
 				{ ...(valid.entries[0] as object), logRecord: [] },
 				valid.entries[0],
 			],
 		});
 
-		expect(parseExposures(text, 10)).toHaveLength(1);
+		expect(parseExposures(text)).toHaveLength(1);
 	});
 
 	it.each([
+		['missing', undefined],
 		['empty', ''],
 		['a path', '/logs'],
 		['not a URL', 'not a url'],
@@ -91,14 +96,14 @@ describe('persisted exposure format', () => {
 		['a URL with a username', 'https://user@example.test/logs'],
 		['a URL with a password', 'https://:pass@example.test/logs'],
 		['an array holding a URL', ['https://example.test/logs']],
-	])('ignores an entry whose endpoint is %s', (_name, endpoint) => {
+	])('reads an entry whose recorded endpoint is %s, since it is not used', (_name, endpoint) => {
 		const valid = JSON.parse(
-			serializeExposures([{ record: exposure('flag-a'), endpoint: ENDPOINT, attempts: 0 }]),
+			serializeExposures([{ record: exposure('flag-a'), attempts: 0 }], ENDPOINT),
 		) as { entries: object[] };
 		const entry = valid.entries[0]!;
 		const text = JSON.stringify({ version: 1, entries: [{ ...entry, endpoint }, entry] });
 
-		expect(parseExposures(text, 10)).toHaveLength(1);
+		expect(parseExposures(text)).toHaveLength(2);
 	});
 
 	it.each([
@@ -110,12 +115,12 @@ describe('persisted exposure format', () => {
 		['a blank scope version', { scopeVersion: ' ' }],
 	])('ignores an entry with %s, which this client never writes', (_name, change) => {
 		const valid = JSON.parse(
-			serializeExposures([{ record: exposure('flag-a'), endpoint: ENDPOINT, attempts: 0 }]),
+			serializeExposures([{ record: exposure('flag-a'), attempts: 0 }], ENDPOINT),
 		) as { entries: object[] };
 		const entry = valid.entries[0]!;
 		const text = JSON.stringify({ version: 1, entries: [{ ...entry, ...change }, entry] });
 
-		expect(parseExposures(text, 10)).toHaveLength(1);
+		expect(parseExposures(text)).toHaveLength(1);
 	});
 
 	it.each([
@@ -168,13 +173,13 @@ describe('persisted exposure format', () => {
 		],
 	])('ignores an entry whose log record has %s', (_name, change) => {
 		const valid = JSON.parse(
-			serializeExposures([{ record: exposure('flag-a'), endpoint: ENDPOINT, attempts: 0 }]),
+			serializeExposures([{ record: exposure('flag-a'), attempts: 0 }], ENDPOINT),
 		) as { entries: { logRecord: object }[] };
 		const entry = valid.entries[0]!;
 		const logRecord = { ...entry.logRecord, ...change };
 		const text = JSON.stringify({ version: 1, entries: [{ ...entry, logRecord }, entry] });
 
-		expect(parseExposures(text, 10)).toHaveLength(1);
+		expect(parseExposures(text)).toHaveLength(1);
 	});
 
 	it.each([
@@ -245,20 +250,20 @@ describe('persisted exposure format', () => {
 		],
 	])('reads, unchanged, an entry whose log record has %s', (_name, change) => {
 		const valid = JSON.parse(
-			serializeExposures([{ record: exposure('flag-a'), endpoint: ENDPOINT, attempts: 0 }]),
+			serializeExposures([{ record: exposure('flag-a'), attempts: 0 }], ENDPOINT),
 		) as { entries: { logRecord: object }[] };
 		const entry = valid.entries[0]!;
 		const logRecord = change === null ? {} : { ...entry.logRecord, ...change };
 		const text = JSON.stringify({ version: 1, entries: [{ ...entry, logRecord }, entry] });
 
-		const parsed = parseExposures(text, 10);
+		const parsed = parseExposures(text);
 		expect(parsed).toHaveLength(2);
 		expect(parsed[0]?.record.logRecord).toEqual(logRecord);
 	});
 
 	it('reads a stored value and entry with members it does not use', () => {
 		const valid = JSON.parse(
-			serializeExposures([{ record: exposure('flag-a'), endpoint: ENDPOINT, attempts: 0 }]),
+			serializeExposures([{ record: exposure('flag-a'), attempts: 0 }], ENDPOINT),
 		) as { entries: object[] };
 		const text = JSON.stringify({
 			version: 1,
@@ -266,12 +271,12 @@ describe('persisted exposure format', () => {
 			entries: [{ ...valid.entries[0]!, future: { sampled: true } }],
 		});
 
-		expect(parseExposures(text, 10)).toHaveLength(1);
+		expect(parseExposures(text)).toHaveLength(1);
 	});
 
 	it('reads an entry whose attributes use every value kind this client writes', () => {
 		const valid = JSON.parse(
-			serializeExposures([{ record: exposure('flag-a'), endpoint: ENDPOINT, attempts: 0 }]),
+			serializeExposures([{ record: exposure('flag-a'), attempts: 0 }], ENDPOINT),
 		) as { entries: { logRecord: object }[] };
 		const entry = valid.entries[0]!;
 		const attributes = [
@@ -286,12 +291,12 @@ describe('persisted exposure format', () => {
 			entries: [{ ...entry, logRecord: { ...entry.logRecord, attributes } }],
 		});
 
-		expect(parseExposures(text, 10)[0]?.record.logRecord.attributes).toEqual(attributes);
+		expect(parseExposures(text)[0]?.record.logRecord.attributes).toEqual(attributes);
 	});
 
 	it('ignores an entry whose array values are nested beyond the stack without throwing', () => {
 		const valid = JSON.parse(
-			serializeExposures([{ record: exposure('flag-a'), endpoint: ENDPOINT, attempts: 0 }]),
+			serializeExposures([{ record: exposure('flag-a'), attempts: 0 }], ENDPOINT),
 		) as { entries: { logRecord: object }[] };
 		const entry = valid.entries[0]!;
 		const depth = 100_000;
@@ -302,12 +307,12 @@ describe('persisted exposure format', () => {
 			`"value":${nested}`,
 		);
 
-		expect(parseExposures(text, 10)).toHaveLength(1);
+		expect(parseExposures(text)).toHaveLength(1);
 	});
 
 	it('ignores an entry whose double value is out of range', () => {
 		const valid = JSON.parse(
-			serializeExposures([{ record: exposure('flag-a'), endpoint: ENDPOINT, attempts: 0 }]),
+			serializeExposures([{ record: exposure('flag-a'), attempts: 0 }], ENDPOINT),
 		) as { entries: { logRecord: object }[] };
 		const entry = valid.entries[0]!;
 		const attributes = [{ key: 'd', value: { doubleValue: 0.5 } }];
@@ -319,12 +324,12 @@ describe('persisted exposure format', () => {
 		);
 
 		expect(text).toContain('1e400');
-		expect(parseExposures(text, 10)).toHaveLength(1);
+		expect(parseExposures(text)).toHaveLength(1);
 	});
 
 	it('reads an entry whose timestamp and int values are at the 64-bit bounds', () => {
 		const valid = JSON.parse(
-			serializeExposures([{ record: exposure('flag-a'), endpoint: ENDPOINT, attempts: 0 }]),
+			serializeExposures([{ record: exposure('flag-a'), attempts: 0 }], ENDPOINT),
 		) as { entries: { logRecord: object }[] };
 		const entry = valid.entries[0]!;
 		const attributes = [
@@ -334,7 +339,7 @@ describe('persisted exposure format', () => {
 		const logRecord = { ...entry.logRecord, timeUnixNano: '18446744073709551615', attributes };
 		const text = JSON.stringify({ version: 1, entries: [{ ...entry, logRecord }] });
 
-		expect(parseExposures(text, 10)[0]?.record.logRecord).toMatchObject({
+		expect(parseExposures(text)[0]?.record.logRecord).toMatchObject({
 			timeUnixNano: '18446744073709551615',
 			attributes,
 		});
@@ -354,7 +359,7 @@ describe('page-lifecycle persistence', () => {
 		expect(persistedFlagKeys(storage!)).toEqual(['flag-a', 'flag-b']);
 	});
 
-	it('records each entry with its endpoint and failed attempts', async () => {
+	it('records each entry with the client’s endpoint and its failed attempts', async () => {
 		const { environment, log, storage } = setup();
 
 		log('flag-a');
@@ -363,9 +368,24 @@ describe('page-lifecycle persistence', () => {
 		await settle();
 		environment.hide();
 
-		expect(parseExposures(storage!.items.get(OWN_KEY)!, 10)).toEqual([
-			{ record: exposure('flag-a'), endpoint: ENDPOINT, attempts: 1 },
-		]);
+		const text = storage!.items.get(OWN_KEY)!;
+		expect(parseExposures(text)).toEqual([{ record: exposure('flag-a'), attempts: 1 }]);
+		expect(JSON.parse(text)).toMatchObject({ entries: [{ endpoint: ENDPOINT, attempts: 1 }] });
+	});
+
+	it('records a taken exposure with the client’s own endpoint, not the one it was saved with', () => {
+		const storage = new FakeStorage();
+		storage.items.set(
+			`${STORAGE_KEY_PREFIX}earlier-page`,
+			serializeExposures([{ record: exposure('flag-old'), attempts: 2 }], OTHER_ENDPOINT),
+		);
+		const { environment } = setup(storage);
+
+		environment.hide();
+
+		expect(JSON.parse(storage.items.get(OWN_KEY)!)).toMatchObject({
+			entries: [{ endpoint: ENDPOINT, attempts: 2 }],
+		});
 	});
 
 	it('removes the entry when it is delivered while the page stays hidden', async () => {
@@ -389,7 +409,7 @@ describe('page-lifecycle persistence', () => {
 		environment.requests[0]!.respond(503);
 		await settle();
 
-		expect(parseExposures(storage!.items.get(OWN_KEY)!, 10)[0]?.attempts).toBe(1);
+		expect(parseExposures(storage!.items.get(OWN_KEY)!)[0]?.attempts).toBe(1);
 	});
 
 	it('rewrites its key with every undelivered entry after a delivery outcome', async () => {
@@ -462,7 +482,7 @@ describe('page-lifecycle persistence', () => {
 		const otherKey = `${STORAGE_KEY_PREFIX}earlier-page`;
 		storage.items.set(
 			otherKey,
-			serializeExposures([{ record: exposure('flag-old'), endpoint: ENDPOINT, attempts: 0 }]),
+			serializeExposures([{ record: exposure('flag-old'), attempts: 0 }], ENDPOINT),
 		);
 		const environment = new FakeExposureEnvironment(storage);
 		environment.hide();
@@ -522,18 +542,12 @@ describe('page-lifecycle persistence', () => {
 });
 
 describe('reclaiming persisted exposures', () => {
-	it('takes, removes, and delivers other instances’ entries to their recorded endpoints', () => {
+	it('takes, removes, and delivers other instances’ entries to its own endpoint', () => {
 		const storage = new FakeStorage();
 		const otherKey = `${STORAGE_KEY_PREFIX}earlier-page`;
 		storage.items.set(
 			otherKey,
-			serializeExposures([
-				{
-					record: exposure('flag-old', '1.2.2'),
-					endpoint: 'https://example.test/logs',
-					attempts: 4,
-				},
-			]),
+			serializeExposures([{ record: exposure('flag-old', '1.2.2'), attempts: 4 }], OTHER_ENDPOINT),
 		);
 		storage.items.set(`${STORAGE_KEY_PREFIX}corrupt`, 'not json');
 		storage.items.set('unrelated', 'kept');
@@ -543,7 +557,7 @@ describe('reclaiming persisted exposures', () => {
 
 		expect([...storage.items.keys()]).toEqual(['unrelated']);
 		expect(environment.requests).toHaveLength(1);
-		expect(environment.requests[0]!.url).toBe('https://example.test/logs');
+		expect(environment.requests[0]!.url).toBe(ENDPOINT);
 		const body = JSON.parse(environment.requests[0]!.init.body) as {
 			resourceLogs: { resource: { attributes: unknown[] } }[];
 		};
@@ -569,7 +583,7 @@ describe('reclaiming persisted exposures', () => {
 			],
 		};
 		const valid = JSON.parse(
-			serializeExposures([{ record: exposure('flag-new'), endpoint: ENDPOINT, attempts: 0 }]),
+			serializeExposures([{ record: exposure('flag-new'), attempts: 0 }], ENDPOINT),
 		) as { entries: object[] };
 		storage.items.set(
 			`${STORAGE_KEY_PREFIX}newer-client`,
@@ -589,10 +603,13 @@ describe('reclaiming persisted exposures', () => {
 	it('delivers only the readable one of two records when one has a malformed trace ID', () => {
 		const storage = new FakeStorage();
 		const valid = JSON.parse(
-			serializeExposures([
-				{ record: exposure('flag-a'), endpoint: ENDPOINT, attempts: 0 },
-				{ record: exposure('flag-b'), endpoint: ENDPOINT, attempts: 0 },
-			]),
+			serializeExposures(
+				[
+					{ record: exposure('flag-a'), attempts: 0 },
+					{ record: exposure('flag-b'), attempts: 0 },
+				],
+				ENDPOINT,
+			),
 		) as { entries: { logRecord: object }[] };
 		const [first, second] = valid.entries;
 		storage.items.set(
@@ -614,7 +631,7 @@ describe('reclaiming persisted exposures', () => {
 		const otherKey = `${STORAGE_KEY_PREFIX}earlier-page`;
 		storage.items.set(
 			otherKey,
-			serializeExposures([{ record: exposure('flag-old'), endpoint: ENDPOINT, attempts: 0 }]),
+			serializeExposures([{ record: exposure('flag-old'), attempts: 0 }], ENDPOINT),
 		);
 		storage.failRemoves = true;
 
@@ -628,9 +645,7 @@ describe('reclaiming persisted exposures', () => {
 	it('leaves another instance’s entry in storage when page-lifecycle registration throws', () => {
 		const storage = new FakeStorage();
 		const otherKey = `${STORAGE_KEY_PREFIX}earlier-page`;
-		const text = serializeExposures([
-			{ record: exposure('flag-old'), endpoint: ENDPOINT, attempts: 0 },
-		]);
+		const text = serializeExposures([{ record: exposure('flag-old'), attempts: 0 }], ENDPOINT);
 		storage.items.set(otherKey, text);
 		const environment = new FakeExposureEnvironment(storage);
 		environment.onPageLifecycle = () => {
@@ -646,26 +661,20 @@ describe('reclaiming persisted exposures', () => {
 		expect(storage.items.get(otherKey)).toBe(text);
 	});
 
-	it('delivers reclaimed and new exposures to their own endpoints', async () => {
+	it('sends exposures taken for another endpoint to its own endpoint at once, and new ones after', async () => {
 		const storage = new FakeStorage();
 		storage.items.set(
 			`${STORAGE_KEY_PREFIX}earlier-page`,
-			serializeExposures([
-				{ record: exposure('flag-old'), endpoint: 'https://example.test/logs', attempts: 0 },
-			]),
+			serializeExposures([{ record: exposure('flag-old'), attempts: 0 }], OTHER_ENDPOINT),
 		);
 		const { environment, log } = setup(storage);
 
 		log('flag-new');
-		environment.advance(10_000);
 		environment.requests[0]!.respond(200);
 		await settle();
 		environment.advance(10_000);
 
-		expect(environment.requests.map((request) => request.url)).toEqual([
-			'https://example.test/logs',
-			ENDPOINT,
-		]);
+		expect(environment.requests.map((request) => request.url)).toEqual([ENDPOINT, ENDPOINT]);
 		expect(deliveredFlagKeys(environment.requests[0]!)).toEqual(['flag-old']);
 		expect(deliveredFlagKeys(environment.requests[1]!)).toEqual(['flag-new']);
 	});
@@ -891,59 +900,69 @@ describe('storage failures', () => {
 		expect(storage.items.has(OWN_KEY)).toBe(false);
 	});
 
-	it('writes only the 1,000 exposures queued most recently and still delivers the others', () => {
+	it('writes only the exposures queued most recently that fit and still delivers the others', () => {
 		const storage = new FakeStorage();
 		const { environment, log } = setup(storage, 2_000);
-		const flagKeys = Array.from(
-			{ length: MAX_PERSISTED_EXPOSURES + 1 },
-			(_, index) => `flag-${index}`,
-		);
+		// More than fit within the storage budget.
+		const flagKeys = Array.from({ length: 600 }, (_, index) => `flag-${index}`);
 		for (const flagKey of flagKeys) log(flagKey);
 
 		environment.hide();
-		expect(MAX_PERSISTED_EXPOSURES).toBe(1_000);
-		expect(persistedFlagKeys(storage)).toEqual(flagKeys.slice(1));
+		const persisted = persistedFlagKeys(storage) ?? [];
+		expect(persisted.length).toBeGreaterThan(0);
+		expect(persisted).toEqual(flagKeys.slice(-persisted.length));
+		expect(persisted.length).toBeLessThan(flagKeys.length);
 		environment.advance(10_000);
 
 		expect(deliveredFlagKeys(environment.requests[0]!)).toEqual(flagKeys);
 	});
 
-	it('omits the exposures queued earliest even when a retry put them back out of order', async () => {
+	it('drops the exposures taken earliest once a retry bounds the queue, whatever endpoint they recorded', async () => {
 		const storage = new FakeStorage();
-		const other = 'https://example.test/logs';
 		storage.items.set(
 			`${STORAGE_KEY_PREFIX}earlier-page`,
-			serializeExposures([
-				{ record: exposure('flag-taken-first'), endpoint: ENDPOINT, attempts: 0 },
-				{ record: exposure('flag-taken-second'), endpoint: other, attempts: 0 },
-			]),
+			serializeExposures([{ record: exposure('flag-taken-first'), attempts: 0 }], ENDPOINT),
+		);
+		storage.items.set(
+			`${STORAGE_KEY_PREFIX}other-endpoint-page`,
+			serializeExposures([{ record: exposure('flag-taken-second'), attempts: 0 }], OTHER_ENDPOINT),
 		);
 		const { environment, log } = setup(storage, 2_000);
-		const logged = Array.from({ length: MAX_PERSISTED_EXPOSURES }, (_, index) => `flag-${index}`);
+		// Taken exposures are sent as the client is constructed, before the flush interval.
+		expect(environment.requests.map((request) => request.url)).toEqual([ENDPOINT]);
+		expect(deliveredFlagKeys(environment.requests[0]!)).toEqual([
+			'flag-taken-first',
+			'flag-taken-second',
+		]);
+		const logged = Array.from({ length: MAX_QUEUED_WHILE_FAILING }, (_, index) => `flag-${index}`);
 		for (const flagKey of logged) log(flagKey);
-		// The delivery takes every entry for ENDPOINT, so the retry puts them back ahead of the one for
-		// the other endpoint, which was taken earlier than all but one of them.
-		environment.advance(10_000);
 		environment.requests[0]!.respond(503);
 		await settle();
-
 		environment.hide();
+		const persisted = persistedFlagKeys(storage) ?? [];
+		expect(persisted).toEqual(logged.slice(-persisted.length));
+		environment.show();
+		environment.advance(1_000);
 
-		expect(persistedFlagKeys(storage)).toEqual(logged);
+		expect(MAX_QUEUED_WHILE_FAILING).toBe(1_000);
+		expect(deliveredFlagKeys(environment.requests[1]!)).toEqual(logged);
 	});
 
 	it('keeps delivering an exposure it did not write after another instance takes its key', () => {
 		const storage = new FakeStorage();
 		const { environment, log } = setup(storage, 2_000);
-		for (let index = 0; index <= MAX_PERSISTED_EXPOSURES; index += 1) log(`flag-${index}`);
+		const flagKeys = Array.from({ length: 600 }, (_, index) => `flag-${index}`);
+		for (const flagKey of flagKeys) log(flagKey);
 		environment.hide();
+		const written = persistedFlagKeys(storage)?.length ?? 0;
+		expect(written).toBeGreaterThan(0);
 
 		storage.items.delete(OWN_KEY);
 		environment.show();
 		environment.advance(10_000);
 
 		expect(environment.requests).toHaveLength(1);
-		expect(deliveredFlagKeys(environment.requests[0]!)).toEqual(['flag-0']);
+		expect(deliveredFlagKeys(environment.requests[0]!)).toEqual(flagKeys.slice(0, -written));
 	});
 
 	it('works without storage', () => {
@@ -997,5 +1016,132 @@ describe('storage failures', () => {
 		environment.advance(10_000);
 
 		expect(environment.requests).toHaveLength(1);
+	});
+});
+
+describe('circuit breaker', () => {
+	/** Fail the latest delivery with a network error 3 times, so the breaker opens. */
+	async function openBreaker(environment: FakeExposureEnvironment): Promise<void> {
+		for (let failure = 1; failure <= 3; failure += 1) {
+			environment.requests.at(-1)!.fail();
+			await settle();
+			if (failure < 3) environment.advance(30_000);
+		}
+	}
+
+	it('persists exposures queued while the breaker is open', async () => {
+		const storage = new FakeStorage();
+		const { environment, log } = setup(storage, 1);
+
+		log('flag-a');
+		environment.advance(0);
+		log('flag-b');
+		environment.hide();
+		await openBreaker(environment);
+		expect(persistedFlagKeys(storage)).toEqual(['flag-a', 'flag-b']);
+		log('flag-c');
+		await settle();
+		expect(persistedFlagKeys(storage)).toEqual(['flag-a', 'flag-b', 'flag-c']);
+		environment.show();
+		expect(persistedFlagKeys(storage)).toBeNull();
+		environment.hide();
+
+		expect(persistedFlagKeys(storage)).toEqual(['flag-a', 'flag-b', 'flag-c']);
+		expect(environment.requests).toHaveLength(3);
+	});
+
+	it('lets a later client deliver exposures held by an open breaker, with their attempts', async () => {
+		const storage = new FakeStorage();
+		const first = setup(storage, 1);
+		first.log('flag-a');
+		first.environment.advance(0);
+		await openBreaker(first.environment);
+		first.log('flag-b');
+		first.environment.hide();
+
+		const later = new FakeExposureEnvironment(storage, 'later-page');
+		createExposureLogger({ endpoint: ENDPOINT, batchSize: 2, flushIntervalMs: 10_000 }, later);
+
+		expect(storage.items.size).toBe(0);
+		expect(later.requests).toHaveLength(1);
+		expect(later.requests[0]!.url).toBe(ENDPOINT);
+		expect(deliveredFlagKeys(later.requests[0]!)).toEqual(['flag-a', 'flag-b']);
+		later.requests[0]!.fail();
+		await settle();
+		later.hide();
+		expect(
+			parseExposures(storage.items.get(`${STORAGE_KEY_PREFIX}later-page-1`)!).map(
+				(entry) => entry.attempts,
+			),
+		).toEqual([4, 1]);
+	});
+
+	it('does not persist exposures held by an open breaker again once another tab takes them', async () => {
+		const storage = new FakeStorage();
+		const { environment, log } = setup(storage, 1);
+		log('flag-a');
+		environment.advance(0);
+		await openBreaker(environment);
+		environment.hide();
+
+		const otherTab = new FakeExposureEnvironment(storage, 'other-tab');
+		createExposureLogger({ endpoint: ENDPOINT, batchSize: 1, flushIntervalMs: 10_000 }, otherTab);
+		environment.show();
+		environment.hide();
+
+		expect(persistedFlagKeys(storage)).toBeNull();
+		expect(otherTab.requests).toHaveLength(1);
+	});
+
+	it('persists the newest of the exposures it holds while the breaker is open', async () => {
+		const storage = new FakeStorage();
+		const { environment, log } = setup(storage, 1);
+
+		log('flag-a');
+		environment.advance(0);
+		await openBreaker(environment);
+		const logged = Array.from(
+			{ length: MAX_QUEUED_WHILE_FAILING + 1 },
+			(_, index) => `flag-${index}`,
+		);
+		for (const flagKey of logged) log(flagKey);
+		environment.hide();
+
+		const persisted = persistedFlagKeys(storage) ?? [];
+		expect(persisted.length).toBeGreaterThan(0);
+		expect(persisted).toEqual(logged.slice(-persisted.length));
+	});
+
+	it('holds exposures taken for another endpoint behind the open breaker, then sends them to its own', async () => {
+		const storage = new FakeStorage();
+		storage.items.set(
+			`${STORAGE_KEY_PREFIX}earlier-page`,
+			serializeExposures([{ record: exposure('flag-a'), attempts: 0 }], ENDPOINT),
+		);
+		storage.items.set(
+			`${STORAGE_KEY_PREFIX}other-endpoint-page`,
+			serializeExposures([{ record: exposure('flag-b'), attempts: 0 }], OTHER_ENDPOINT),
+		);
+		const { environment } = setup(storage, 1);
+
+		for (let error = 1; error <= 3; error += 1) {
+			if (error > 1) environment.advance(30_000);
+			expect(deliveredFlagKeys(environment.requests.at(-1)!)).toEqual(['flag-a']);
+			environment.requests.at(-1)!.fail();
+			await settle();
+		}
+		environment.advance(BREAKER_PROBE_INTERVAL_MS - 1);
+		expect(environment.requests).toHaveLength(3);
+		environment.advance(1);
+		expect(environment.requests).toHaveLength(4);
+		expect(deliveredFlagKeys(environment.requests[3]!)).toEqual(['flag-a']);
+		environment.requests[3]!.respond(200);
+		await settle();
+
+		expect(environment.requests).toHaveLength(5);
+		expect(deliveredFlagKeys(environment.requests[4]!)).toEqual(['flag-b']);
+		expect(new Set(environment.requests.map((request) => request.url))).toEqual(
+			new Set([ENDPOINT]),
+		);
 	});
 });

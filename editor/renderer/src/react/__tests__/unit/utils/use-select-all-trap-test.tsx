@@ -20,7 +20,6 @@ const TestComponent = () => (
 	</div>
 );
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('useSelectAllTrap', () => {
 	it('selects input content when pressing Ctrl+A inside an input', async () => {
 		const user = userEvent.setup();

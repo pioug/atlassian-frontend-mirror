@@ -1,6 +1,12 @@
+import { EvalFlagsUnavailableError } from '@atlaskit/feature-gate-js-client/eval-flags/eval-flags-unavailable-error';
+import { fromExperimentValuesResponse } from '@atlaskit/feature-gate-js-client/eval-flags/from-experiment-values-response';
+import { getEvalFlagsStatus } from '@atlaskit/feature-gate-js-client/eval-flags/get-eval-flags-status';
+import { hasNoUsableProvider } from '@atlaskit/feature-gate-js-client/eval-flags/has-no-usable-provider';
+import { toInitializeValues } from '@atlaskit/feature-gate-js-client/eval-flags/to-initialize-values';
 import {
 	type CustomAttributes,
 	FeatureGateEnvironment,
+	type FrontendExperimentsResult,
 	type Identifiers,
 	PerimeterType,
 } from '@atlaskit/feature-gate-js-client/types';
@@ -15,12 +21,29 @@ import {
 } from './types';
 
 export type {
+	EvalFlagsResponse,
 	FetcherOptions,
 	FrontendExperimentsResponse,
 	FrontendClientSdkKeyResponse,
 } from './types';
 
 export { ResponseError } from './errors';
+
+// The evalFlags helpers are owned by @atlaskit/feature-gate-js-client, which this package depends
+// on, so the client and the providers share one implementation.
+export { fromExperimentValuesResponse, getEvalFlagsStatus };
+
+/**
+ * Converts an `/api/v1/evalFlags` response into the result shape that providers return to
+ * `@atlaskit/feature-gate-js-client`. A section is used only when its provider is `OK`. Without a
+ * Statsig section, Statsig is bootstrapped with no values and the custom attributes sent with the
+ * request are used for the user. A `DISABLED` provider is listed in `disabledProviders`, so the client
+ * neither initializes nor calls it.
+ */
+export const toFrontendExperimentsResult: (
+	response: EvalFlagsResponse,
+	requestCustomAttributes?: CustomAttributes,
+) => FrontendExperimentsResult = toInitializeValues;
 
 const DEFAULT_REQUEST_TIMEOUT_MS = 5000;
 
@@ -72,9 +95,53 @@ export default class Fetcher {
 	}
 
 	/**
-	 * Fetches the Statsig values for a user. With `includeFfpFlags`, they are the Statsig section of
-	 * the Feature Flag Service `/api/v1/evalFlags` response, and the rest of the response is ignored;
-	 * otherwise they come from `/api/v2/frontend/experimentValues`.
+	 * Fetches the values of every flag for the user from both Statsig and the Feature Flag Platform
+	 * (FFP). The service decides which platform serves each flag. Use
+	 * {@link toFrontendExperimentsResult} to convert the response into a provider result.
+	 *
+	 * Rejects with an `EvalFlagsUnavailableError` (not a {@link ResponseError}) when no provider is
+	 * `OK` and one is `UNAVAILABLE`, so that a response with no values fails like a 5xx.
+	 */
+	static async fetchEvalFlags(
+		clientVersion: string,
+		fetcherOptions: FetcherOptions,
+		identifiers: Identifiers,
+		customAttributes?: CustomAttributes,
+	): Promise<EvalFlagsResponse> {
+		const requestBody: FrontendExperimentsRequest = {
+			identifiers,
+			customAttributes,
+			targetApp: fetcherOptions.targetApp,
+		};
+
+		let response: EvalFlagsResponse;
+		try {
+			response = await this.fetchRequest(
+				clientVersion,
+				`/api/${EVAL_FLAGS_API_VERSION}/evalFlags`,
+				'POST',
+				fetcherOptions,
+				requestBody,
+			);
+		} catch (error: unknown) {
+			if (error instanceof Error) {
+				throw error;
+			}
+			throw Error('Failed to retrieve flag values');
+		}
+
+		const status = getEvalFlagsStatus(response);
+		if (hasNoUsableProvider(status)) {
+			throw new EvalFlagsUnavailableError(status);
+		}
+		return response;
+	}
+
+	/**
+	 * Fetches Statsig values only, so flags served by the Feature Flag Platform are not included;
+	 * prefer {@link Fetcher.fetchEvalFlags}. With `includeFfpFlags`, they are the Statsig section of
+	 * the `/api/v1/evalFlags` response, and the rest of the response is ignored; otherwise they come
+	 * from `/api/v2/frontend/experimentValues`.
 	 */
 	static async fetchExperimentValues(
 		clientVersion: string,

@@ -235,19 +235,22 @@ describe('batching and delivery', () => {
 });
 
 describe('delivery retry', () => {
-	it.each([[429], [503]])('retries HTTP %i after the retry delay', async (status) => {
-		const { environment, log } = setup({ batchSize: 1 });
+	it.each([[429], [500], [502], [503], [504]])(
+		'retries HTTP %i after the retry delay',
+		async (status) => {
+			const { environment, log } = setup({ batchSize: 1 });
 
-		log('flag-a');
-		environment.requests[0]!.respond(status);
-		await settle();
-		environment.advance(999);
-		expect(environment.requests).toHaveLength(1);
-		environment.advance(1);
+			log('flag-a');
+			environment.requests[0]!.respond(status);
+			await settle();
+			environment.advance(999);
+			expect(environment.requests).toHaveLength(1);
+			environment.advance(1);
 
-		expect(environment.requests).toHaveLength(2);
-		expect(environment.requests[1]!.init.body).toBe(environment.requests[0]!.init.body);
-	});
+			expect(environment.requests).toHaveLength(2);
+			expect(environment.requests[1]!.init.body).toBe(environment.requests[0]!.init.body);
+		},
+	);
 
 	it('retries a network error', async () => {
 		const { environment, log } = setup({ batchSize: 1 });
@@ -328,25 +331,25 @@ describe('delivery retry', () => {
 		expect(environment.pendingTimers).toBe(0);
 	});
 
-	it('doubles the delay up to 30,000 ms, varied by up to 20 percent', async () => {
+	it('retries after 1,000 ms and 2,000 ms, then probes every 60,000 ms, varied by up to 20 percent', async () => {
 		const { environment, log } = setup({ batchSize: 1 });
 		environment.randomValue = 0;
 		const delays: number[] = [];
 
 		log('flag-a');
-		for (let failure = 1; failure <= 7; failure += 1) {
+		for (let failure = 1; failure <= 5; failure += 1) {
 			environment.requests.at(-1)!.respond(503);
 			await settle();
 			const before = environment.requests.length;
 			let waited = 0;
-			while (environment.requests.length === before) {
+			while (environment.requests.length === before && waited < 120_000) {
 				environment.advance(100);
 				waited += 100;
 			}
 			delays.push(waited);
 		}
 
-		expect(delays).toEqual([800, 1_600, 3_200, 6_400, 12_800, 24_000, 24_000]);
+		expect(delays).toEqual([800, 1_600, 48_000, 48_000, 48_000]);
 	});
 
 	it('applies the upper jitter bound', async () => {
@@ -380,40 +383,6 @@ describe('delivery retry', () => {
 		expect(environment.requests).toHaveLength(4);
 	});
 
-	it('discards an exposure after 10 failed attempts and still delivers later ones', async () => {
-		const { environment, log } = setup({ batchSize: 1 });
-
-		log('flag-a');
-		for (let attempt = 1; attempt <= 10; attempt += 1) {
-			environment.requests.at(-1)!.fail();
-			await settle();
-			environment.advance(30_000);
-		}
-		expect(environment.requests).toHaveLength(10);
-
-		log('flag-b');
-		environment.advance(30_000);
-
-		expect(environment.requests).toHaveLength(11);
-		expect(deliveredFlagKeys(environment.requests[10]!)).toEqual(['flag-b']);
-	});
-
-	it('arms no retry once a retryable failure discards every exposure', async () => {
-		const { environment, log } = setup({ batchSize: 1 });
-
-		log('flag-a');
-		for (let attempt = 1; attempt <= 10; attempt += 1) {
-			environment.requests.at(-1)!.fail();
-			await settle();
-			if (attempt < 10) environment.advance(30_000);
-		}
-		expect(environment.pendingTimers).toBe(0);
-		log('flag-b');
-
-		expect(environment.requests).toHaveLength(11);
-		expect(deliveredFlagKeys(environment.requests[10]!)).toEqual(['flag-b']);
-	});
-
 	it('discards a batch it cannot encode and still delivers later ones', async () => {
 		const { environment, logger, log } = setup({ batchSize: 1 });
 		const record = exposure('flag-a');
@@ -434,21 +403,18 @@ describe('delivery retry', () => {
 		expect(deliveredFlagKeys(environment.requests[0]!)).toEqual(['flag-b']);
 	});
 
-	it.each([[400], [404], [413], [500], [502], [504]])(
-		'discards exposures on HTTP %i without retry',
-		async (status) => {
-			const { environment, log } = setup({ batchSize: 1 });
+	it.each([[400], [404], [413]])('discards exposures on HTTP %i without retry', async (status) => {
+		const { environment, log } = setup({ batchSize: 1 });
 
-			log('flag-a');
-			environment.requests[0]!.respond(status);
-			await settle();
-			environment.advance(60_000);
-			expect(environment.requests).toHaveLength(1);
+		log('flag-a');
+		environment.requests[0]!.respond(status);
+		await settle();
+		environment.advance(60_000);
+		expect(environment.requests).toHaveLength(1);
 
-			log('flag-b');
-			expect(deliveredFlagKeys(environment.requests[1]!)).toEqual(['flag-b']);
-		},
-	);
+		log('flag-b');
+		expect(deliveredFlagKeys(environment.requests[1]!)).toEqual(['flag-b']);
+	});
 
 	it('treats a missing fetch as terminal', async () => {
 		const { environment, log } = setup({ batchSize: 1 });
@@ -459,5 +425,161 @@ describe('delivery retry', () => {
 		environment.advance(60_000);
 
 		expect(environment.pendingTimers).toBe(0);
+	});
+});
+
+describe('circuit breaker', () => {
+	/** Fail the latest delivery with a network error 3 times, so the breaker opens. */
+	async function openBreaker(environment: FakeExposureEnvironment): Promise<void> {
+		for (let failure = 1; failure <= 3; failure += 1) {
+			environment.requests.at(-1)!.fail();
+			await settle();
+			if (failure < 3) environment.advance(30_000);
+		}
+	}
+
+	it('opens after 3 retryable failures of any kind and holds delivery until a probe is due', async () => {
+		const { environment, log } = setup({ batchSize: 1 });
+
+		log('flag-a');
+		log('flag-b');
+		environment.requests[0]!.fail();
+		await settle();
+		environment.advance(1_000);
+		environment.requests[1]!.respond(503);
+		await settle();
+		environment.advance(2_000);
+		environment.advance(30_000);
+		await settle();
+		environment.advance(59_999);
+		expect(environment.requests).toHaveLength(3);
+		environment.advance(1);
+
+		expect(environment.requests).toHaveLength(4);
+		expect(deliveredFlagKeys(environment.requests[3]!)).toEqual(['flag-a']);
+	});
+
+	it('sends a due probe without waiting for a full batch or the flush interval', async () => {
+		const { environment, log } = setup();
+
+		log('flag-a');
+		environment.advance(10_000);
+		await openBreaker(environment);
+		environment.advance(59_999);
+		expect(environment.requests).toHaveLength(3);
+		environment.advance(1);
+
+		expect(environment.requests).toHaveLength(4);
+		expect(deliveredFlagKeys(environment.requests[3]!)).toEqual(['flag-a']);
+	});
+
+	it.each([[429], [500], [503]])('counts HTTP %i toward opening', async (status) => {
+		const { environment, log } = setup({ batchSize: 1 });
+
+		log('flag-a');
+		for (let failure = 1; failure <= 3; failure += 1) {
+			environment.requests.at(-1)!.respond(status);
+			await settle();
+			environment.advance(failure < 3 ? 30_000 : 59_000);
+		}
+
+		expect(environment.requests).toHaveLength(3);
+	});
+
+	it('queues exposures while open and flushes them once a probe succeeds', async () => {
+		const { environment, log } = setup({ batchSize: 1 });
+
+		log('flag-a');
+		await openBreaker(environment);
+		log('flag-b');
+		log('flag-c');
+		expect(environment.requests).toHaveLength(3);
+		environment.advance(60_000);
+		environment.requests[3]!.respond(200);
+		await settle();
+		environment.requests[4]!.respond(200);
+		await settle();
+
+		expect(environment.requests.map(deliveredFlagKeys).slice(3)).toEqual([
+			['flag-a'],
+			['flag-b'],
+			['flag-c'],
+		]);
+	});
+
+	it('keeps probing every 60,000 ms while probes fail, without discarding exposures', async () => {
+		const { environment, log } = setup({ batchSize: 1 });
+
+		log('flag-a');
+		await openBreaker(environment);
+		for (let probe = 1; probe <= 20; probe += 1) {
+			environment.advance(60_000);
+			environment.requests.at(-1)!.fail();
+			await settle();
+		}
+
+		expect(environment.requests).toHaveLength(23);
+		expect(deliveredFlagKeys(environment.requests[22]!)).toEqual(['flag-a']);
+	});
+
+	it('closes when a probe receives a non-retryable status', async () => {
+		const { environment, log } = setup({ batchSize: 1 });
+
+		log('flag-a');
+		await openBreaker(environment);
+		environment.advance(60_000);
+		environment.requests[3]!.respond(400);
+		await settle();
+		log('flag-b');
+		expect(deliveredFlagKeys(environment.requests[4]!)).toEqual(['flag-b']);
+		environment.requests[4]!.fail();
+		await settle();
+		environment.advance(1_000);
+
+		expect(environment.requests).toHaveLength(6);
+	});
+
+	it('keeps only the 1,000 most recent exposures while open', async () => {
+		const { environment, log } = setup({ batchSize: 500 });
+
+		log('flag-a');
+		environment.advance(10_000);
+		await openBreaker(environment);
+		for (let index = 0; index <= 1_000; index += 1) log(`flag-${index}`);
+		environment.advance(60_000);
+		environment.requests[3]!.respond(200);
+		await settle();
+		environment.requests[4]!.respond(200);
+		await settle();
+		environment.advance(60_000);
+
+		const delivered = environment.requests.slice(3).flatMap(deliveredFlagKeys);
+		expect(delivered).toHaveLength(1_000);
+		expect(delivered[0]).toBe('flag-1');
+		expect(delivered.at(-1)).toBe('flag-1000');
+	});
+
+	it('restarts the failure count after a successful delivery', async () => {
+		const { environment, log } = setup({ batchSize: 1 });
+
+		log('flag-a');
+		environment.requests[0]!.fail();
+		await settle();
+		environment.advance(1_000);
+		environment.requests[1]!.fail();
+		await settle();
+		environment.advance(2_000);
+		environment.requests[2]!.respond(200);
+		await settle();
+		log('flag-b');
+		environment.requests[3]!.fail();
+		await settle();
+		environment.advance(1_000);
+		environment.requests[4]!.fail();
+		await settle();
+		environment.advance(2_000);
+
+		expect(environment.requests).toHaveLength(6);
+		expect(deliveredFlagKeys(environment.requests[5]!)).toEqual(['flag-b']);
 	});
 });

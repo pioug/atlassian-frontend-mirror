@@ -1,5 +1,3 @@
-// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Preserves the existing UUID mock used by these tests.
 import { v4 as createUUID } from 'uuid';
 

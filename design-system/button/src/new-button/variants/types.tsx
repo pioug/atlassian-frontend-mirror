@@ -32,7 +32,13 @@ export type IconButtonSpacing = 'compact' | 'default';
 export type Spacing = ButtonSpacing | IconButtonSpacing;
 
 export type IconProp = React.ComponentType<
-	Omit<IconProps, 'size'> | Omit<NewIconProps, 'spacing' | 'size'>
+	(Omit<IconProps, 'size'> | Omit<NewIconProps, 'spacing' | 'size'>) & {
+		/**
+		 * How far an icon can move past its box before it leaves the button, based on the button's `spacing`.
+		 * Only passed when the icon is a render prop, to be used as the `overshoot` of `IconMotion`.
+		 */
+		motionOvershoot?: string;
+	}
 >;
 
 export type IconSize = 'small' | 'large' | 'xlarge';

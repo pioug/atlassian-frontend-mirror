@@ -28,7 +28,7 @@ export const getLoomQuickInsertComponents = ({
 		match: createQuickInsertMatcher(({ formatMessage }) => ({
 			description: formatMessage(messages.recordVideoDescription),
 			keywords: ['loom', 'record', 'video'],
-			title: formatMessage(messages.recordVideo),
+			title: formatMessage(messages.loomTitle),
 		})),
 		component: () => <LoomQuickInsertMenuItem api={api} />,
 	},

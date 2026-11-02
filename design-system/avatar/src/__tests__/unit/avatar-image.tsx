@@ -8,7 +8,6 @@ import { fireEvent, render } from '@atlassian/testing-library/testing-library/re
 import AvatarImage from '../../internal/avatar-image';
 import { type SizeType } from '../../types';
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('AvatarImage', () => {
 	it('should display the default avatar if no image is provided', () => {
 		render(<AvatarImage appearance="circle" size="large" alt="Carole Baskin" testId="avatar" />);

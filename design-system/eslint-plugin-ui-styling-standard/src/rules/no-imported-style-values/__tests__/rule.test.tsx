@@ -7,6 +7,22 @@ typescriptEslintTester.run(
 	rule,
 	{
 		valid: [
+			...['@compiled/react', '@atlaskit/css'].flatMap((source) =>
+				[
+					"cx(styles.root) as PressableProps['xcss']",
+					"cx(styles.root) satisfies PressableProps['xcss']",
+					'cx(styles.root)!',
+					"((cx(styles.root) as PressableProps['xcss']) satisfies PressableProps['xcss'])!",
+				].map((expression) => ({
+					name: `Type-wrapped cx from ${source}: ${expression}`,
+					code: `
+						import { cssMap, cx } from '${source}';
+						import type { PressableProps } from '@atlaskit/primitives/compiled/pressable';
+						const styles = cssMap({ root: { padding: 0 } });
+						const Component = () => <Pressable xcss={${expression}} />;
+					`,
+				})),
+			),
 			{
 				name: 'Type-only satisfies reference is not a style value',
 				code: `
@@ -322,6 +338,47 @@ typescriptEslintTester.run(
 			},
 		],
 		invalid: [
+			...[
+				"cx(styles) as PressableProps['xcss']",
+				"cx(styles) satisfies PressableProps['xcss']",
+				'cx(styles)!',
+				"((cx(styles) as PressableProps['xcss']) satisfies PressableProps['xcss'])!",
+			].map((expression) => ({
+				name: `Type-wrapped cx still reports imported arguments: ${expression}`,
+				code: `
+					import { cx } from '@compiled/react';
+					import type { PressableProps } from '@atlaskit/primitives/compiled/pressable';
+					import styles from './styles';
+					const Component = () => <Pressable xcss={${expression}} />;
+				`,
+				errors: [{ messageId: 'no-imported-style-values' }],
+			})),
+			...['css', 'style'].map((prop) => ({
+				name: `Type-wrapped cx is still invalid for ${prop}`,
+				code: `
+					import { cssMap, cx } from '@compiled/react';
+					const styles = cssMap({ root: { padding: 0 } });
+					const Component = () => <div ${prop}={cx(styles.root) as any} />;
+				`,
+				errors: [{ messageId: 'no-imported-style-values' }],
+			})),
+			{
+				name: 'Type-wrapped cx from an unsupported import is still reported',
+				code: `
+					import { cx } from './other';
+					const Component = () => <Box xcss={cx({}) as any} />;
+				`,
+				errors: [{ messageId: 'no-imported-style-values' }],
+			},
+			...['[cx(styles.root)] as any', 'wrap(cx(styles.root)) as any'].map((expression) => ({
+				name: `A runtime wrapper around cx is still reported: ${expression}`,
+				code: `
+					import { cssMap, cx } from '@compiled/react';
+					const styles = cssMap({ root: { padding: 0 } });
+					const Component = () => <Box xcss={${expression}} />;
+				`,
+				errors: [{ messageId: 'no-imported-style-values' }],
+			})),
 			{
 				name: 'Runtime imported value constrained by a qualified typeof query is still reported',
 				code: `

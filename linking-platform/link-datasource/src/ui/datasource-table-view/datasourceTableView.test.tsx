@@ -15,7 +15,6 @@ import type {
 } from '@atlaskit/linking-types/datasource';
 import type { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import { EVENT_CHANNEL } from '../../analytics/constants';
 import { type DatasourceRenderSuccessAttributesType } from '../../analytics/generated/analytics.types';
@@ -387,8 +386,10 @@ describe('DatasourceTableView', () => {
 		expect(queryByTestId('datasource-table-view-skeleton')).toBeInTheDocument();
 	});
 
-	ffTest.on('lp_enable_datasource-table-view_height_override', '', () => {
+	describe('lp_enable_datasource-table-view_height_override is on', () => {
 		it('should render IssueLikeDataTableView with the overriden height', () => {
+			passGate('lp_enable_datasource-table-view_height_override');
+
 			store.actions.onAddItems(defaultMockResponseItems, 'jira', 'work-item');
 			const IssueLikeDataTableViewConstructorSpy = jest.spyOn(
 				issueLikeModule,
@@ -420,6 +421,8 @@ describe('DatasourceTableView', () => {
 		});
 
 		it('should render IssueLikeDataTableView with the default height when scrollableContainerHeight is not specified', () => {
+			passGate('lp_enable_datasource-table-view_height_override');
+
 			store.actions.onAddItems(defaultMockResponseItems, 'jira', 'work-item');
 			const IssueLikeDataTableViewConstructorSpy = jest.spyOn(
 				issueLikeModule,
@@ -446,8 +449,10 @@ describe('DatasourceTableView', () => {
 		});
 	});
 
-	ffTest.off('lp_enable_datasource-table-view_height_override', '', () => {
+	describe('lp_enable_datasource-table-view_height_override is off', () => {
 		it('should render IssueLikeDataTableView with the default height', () => {
+			failGate('lp_enable_datasource-table-view_height_override');
+
 			store.actions.onAddItems(defaultMockResponseItems, 'jira', 'work-item');
 			const IssueLikeDataTableViewConstructorSpy = jest.spyOn(
 				issueLikeModule,

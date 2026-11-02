@@ -76,7 +76,8 @@ test('InlineDialog should stay open when user clicks modal blanket', async ({ pa
 	await expect(page.locator(inlineDialogTestId).first()).toBeVisible();
 	await page.locator(openModalBtn).first().click();
 	await expect(page.locator(modalTestId).first()).toBeVisible();
-	await page.locator("[data-testid='modal--blanket']").first().click();
+	// Click outside the modal: this hits the blanket, or the top-layer dialog's backdrop.
+	await page.mouse.click(10, 10);
 	await expect(page.locator(inlineDialogBtn).first()).toBeVisible();
 	await expect(page.locator(inlineDialogTestId).first()).toBeVisible();
 
@@ -94,7 +95,8 @@ test('InlineDialog should close correctly after modal is closed', async ({ page 
 	await expect(page.locator(inlineDialogTestId).first()).toBeVisible();
 	await page.locator(openModalBtn).first().click();
 	await expect(page.locator(modalTestId).first()).toBeVisible();
-	await page.locator("[data-testid='modal--blanket']").first().click();
+	// Click outside the modal: this hits the blanket, or the top-layer dialog's backdrop.
+	await page.mouse.click(10, 10);
 	await page
 		.locator(process.env.INTEGRATION_BUNDLER === 'ap' ? '#root' : '#examples')
 		.first()

@@ -8,7 +8,6 @@ import { APIError } from '@atlaskit/linking-common/api-error';
 import type { CardState } from '@atlaskit/linking-common/store';
 import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { renderHook } from '@atlassian/testing-library/render-hook';
 
 import { mocks } from '../../../../utils/mocks';
@@ -256,37 +255,35 @@ describe('useResolve', () => {
 		);
 	});
 
-	ffTest.on(
-		'platform_smartlink_inline_resolve_optimization',
-		'sets metadata pending for optimized inline responses',
-		() => {
-			it('should leave metadata pending when inline optimized data resolves', async () => {
-				mockFetchData(Promise.resolve(mocks.success));
-				mockState({
-					status: 'pending',
-					details: undefined,
-				});
+	describe('platform_smartlink_inline_resolve_optimization is on sets metadata pending for optimized inline responses', () => {
+		it('should leave metadata pending when inline optimized data resolves', async () => {
+			passGate('platform_smartlink_inline_resolve_optimization');
 
-				const resolve = renderHook(() => useResolve()).current;
-				await resolve({
-					url,
-					isReloading: false,
-					isMetadataRequest: false,
-					id,
-					appearance: 'inline',
-				});
-
-				expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, 'inline');
-				expect(mockContext.store.dispatch).toHaveBeenCalledWith(
-					expect.objectContaining({
-						type: 'metadata',
-						url: 'https://some/url',
-						metadataStatus: 'pending',
-					}),
-				);
+			mockFetchData(Promise.resolve(mocks.success));
+			mockState({
+				status: 'pending',
+				details: undefined,
 			});
-		},
-	);
+
+			const resolve = renderHook(() => useResolve()).current;
+			await resolve({
+				url,
+				isReloading: false,
+				isMetadataRequest: false,
+				id,
+				appearance: 'inline',
+			});
+
+			expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, 'inline');
+			expect(mockContext.store.dispatch).toHaveBeenCalledWith(
+				expect.objectContaining({
+					type: 'metadata',
+					url: 'https://some/url',
+					metadataStatus: 'pending',
+				}),
+			);
+		});
+	});
 
 	it('throws (allowing editor to handle) if resolving fails and there is no previous data', async () => {
 		const mockError = new APIError('fatal', 'https://my.url', '0xBAADF00D');

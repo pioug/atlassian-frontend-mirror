@@ -22,7 +22,6 @@ const TestRenderElementItemBlock = ({
 	return <Block>{renderElementItems(metadata, display)}</Block>;
 };
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('renderElementItems', () => {
 	const getElementTestId = (name: ElementName, testId: string) => {
 		switch (name) {

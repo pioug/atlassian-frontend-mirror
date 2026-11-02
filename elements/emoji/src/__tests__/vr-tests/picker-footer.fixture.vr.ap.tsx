@@ -14,9 +14,6 @@ const emojiImage = `data:image/svg+xml,${encodeURIComponent(
 const FooterPreviews = ({ emailSearch }: { emailSearch: boolean }): React.JSX.Element => {
 	UNSAFE_overrideExperiment('platform_editor_mentions_email_search', { isEnabled: emailSearch });
 	UNSAFE_overrideExperiment('platform_teamoji_26_refresh_emoji_picker', { isEnabled: false });
-	UNSAFE_overrideExperiment('platform_teamoji_26_refresh_emoji_picker_canvas', {
-		isEnabled: false,
-	});
 
 	return (
 		<IntlProvider locale="en">

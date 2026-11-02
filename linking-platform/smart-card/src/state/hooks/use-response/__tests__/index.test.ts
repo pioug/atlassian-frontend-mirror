@@ -6,7 +6,7 @@ import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-cont
 import { APIError } from '@atlaskit/linking-common/api-error';
 import type { CardState } from '@atlaskit/linking-common/store';
 import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { renderHook } from '@atlassian/testing-library/render-hook';
 
 import { mocks } from '../../../../utils/mocks';
@@ -83,81 +83,81 @@ describe('useResponse', () => {
 			);
 		});
 
-		ffTest.on(
-			'platform_smartlink_inline_resolve_optimization',
-			'should use provided metadata status on link success',
-			() => {
-				it('should use provided metadata status on link success', () => {
-					const { handleResolvedLinkResponse } = renderHook(() => useResponse()).current;
-					handleResolvedLinkResponse(url, mocks.success, false, false, 'pending');
+		describe('platform_smartlink_inline_resolve_optimization is on should use provided metadata status on link success', () => {
+			it('should use provided metadata status on link success', () => {
+				passGate('platform_smartlink_inline_resolve_optimization');
 
-					expect(mockContext.store.dispatch).toHaveBeenCalledWith(
-						expect.objectContaining({
-							type: 'metadata',
-							url: 'https://some/url',
-							metadataStatus: 'pending',
-						}),
-					);
+				const { handleResolvedLinkResponse } = renderHook(() => useResponse()).current;
+				handleResolvedLinkResponse(url, mocks.success, false, false, 'pending');
+
+				expect(mockContext.store.dispatch).toHaveBeenCalledWith(
+					expect.objectContaining({
+						type: 'metadata',
+						url: 'https://some/url',
+						metadataStatus: 'pending',
+					}),
+				);
+			});
+
+			it('should preserve resolved metadata when an inline response settles after block metadata', () => {
+				passGate('platform_smartlink_inline_resolve_optimization');
+
+				mockState({
+					status: 'resolved',
+					details: mocks.success,
+					metadataStatus: 'resolved',
 				});
+				const { handleResolvedLinkResponse } = renderHook(() => useResponse()).current;
 
-				it('should preserve resolved metadata when an inline response settles after block metadata', () => {
-					mockState({
-						status: 'resolved',
-						details: mocks.success,
+				handleResolvedLinkResponse(url, mocks.success, false, false, 'pending');
+
+				expect(mockContext.store.dispatch).toHaveBeenCalledWith(
+					expect.objectContaining({
+						type: 'metadata',
+						url: 'https://some/url',
 						metadataStatus: 'resolved',
-					});
-					const { handleResolvedLinkResponse } = renderHook(() => useResponse()).current;
+					}),
+				);
+			});
 
-					handleResolvedLinkResponse(url, mocks.success, false, false, 'pending');
+			it('should allow an explicit reload to mark resolved metadata as pending', () => {
+				passGate('platform_smartlink_inline_resolve_optimization');
 
-					expect(mockContext.store.dispatch).toHaveBeenCalledWith(
-						expect.objectContaining({
-							type: 'metadata',
-							url: 'https://some/url',
-							metadataStatus: 'resolved',
-						}),
-					);
+				mockState({
+					status: 'resolved',
+					details: mocks.success,
+					metadataStatus: 'resolved',
 				});
+				const { handleResolvedLinkResponse } = renderHook(() => useResponse()).current;
 
-				it('should allow an explicit reload to mark resolved metadata as pending', () => {
-					mockState({
-						status: 'resolved',
-						details: mocks.success,
+				handleResolvedLinkResponse(url, mocks.success, true, false, 'pending');
+
+				expect(mockContext.store.dispatch).toHaveBeenCalledWith(
+					expect.objectContaining({
+						type: 'metadata',
+						url: 'https://some/url',
+						metadataStatus: 'pending',
+					}),
+				);
+			});
+		});
+
+		describe('platform_smartlink_inline_resolve_optimization is off should ignore provided metadata status on link success', () => {
+			it('should ignore provided metadata status on link success', () => {
+				failGate('platform_smartlink_inline_resolve_optimization');
+
+				const { handleResolvedLinkResponse } = renderHook(() => useResponse()).current;
+				handleResolvedLinkResponse(url, mocks.success, false, false, 'pending');
+
+				expect(mockContext.store.dispatch).toHaveBeenCalledWith(
+					expect.objectContaining({
+						type: 'metadata',
+						url: 'https://some/url',
 						metadataStatus: 'resolved',
-					});
-					const { handleResolvedLinkResponse } = renderHook(() => useResponse()).current;
-
-					handleResolvedLinkResponse(url, mocks.success, true, false, 'pending');
-
-					expect(mockContext.store.dispatch).toHaveBeenCalledWith(
-						expect.objectContaining({
-							type: 'metadata',
-							url: 'https://some/url',
-							metadataStatus: 'pending',
-						}),
-					);
-				});
-			},
-		);
-
-		ffTest.off(
-			'platform_smartlink_inline_resolve_optimization',
-			'should ignore provided metadata status on link success',
-			() => {
-				it('should ignore provided metadata status on link success', () => {
-					const { handleResolvedLinkResponse } = renderHook(() => useResponse()).current;
-					handleResolvedLinkResponse(url, mocks.success, false, false, 'pending');
-
-					expect(mockContext.store.dispatch).toHaveBeenCalledWith(
-						expect.objectContaining({
-							type: 'metadata',
-							url: 'https://some/url',
-							metadataStatus: 'resolved',
-						}),
-					);
-				});
-			},
-		);
+					}),
+				);
+			});
+		});
 
 		it('should resolve metadata status for unauthorized link responses', () => {
 			const { handleResolvedLinkResponse } = renderHook(() => useResponse()).current;

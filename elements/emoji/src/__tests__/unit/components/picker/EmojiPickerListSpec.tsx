@@ -4,8 +4,6 @@ import { matchers } from '@emotion/jest';
 import { act, fireEvent, screen, waitFor, within } from '@testing-library/react';
 
 import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
-import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
-import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 
 import { RENDER_EMOJI_DELETE_BUTTON_TESTID } from '../../../../components/common/DeleteButton';
 import { tonePreviewTestId } from '../../../../components/common/TonePreviewButton';
@@ -41,7 +39,6 @@ expect.extend(matchers);
 
 describe('<EmojiPickerList />', () => {
 	mockReactDomWarningGlobal();
-	const teamojiRefreshExperimentName = 'platform_teamoji_26_refresh_emoji_picker';
 	let getExperimentValueSpy: jest.SpiedFunction<(typeof FeatureGates)['getExperimentValue']>;
 	let checkGateSpy: jest.SpiedFunction<typeof FeatureGates.checkGate>;
 
@@ -96,13 +93,6 @@ describe('<EmojiPickerList />', () => {
 			color,
 			order: color === 'red' ? 3 : 4,
 		};
-	};
-	const setTeamojiExperimentEnabled = (isEnabled: boolean) => {
-		if (isEnabled) {
-			mockExpEnabled(teamojiRefreshExperimentName);
-		} else {
-			mockExpDisabled(teamojiRefreshExperimentName);
-		}
 	};
 	const emojiPickerListExperimentName = 'platform_a11y_fixes_emoji_picker_list';
 	const setEmojiPickerListExperimentEnabled = (isEnabled: boolean) => {
@@ -246,21 +236,18 @@ describe('<EmojiPickerList />', () => {
 			expect(images[1]).toHaveAttribute('data-emoji-id', atlassianEmojis[0].id);
 		});
 
-		it('should show new-format atlassian emojis under the atlassian category when teamoji experiment is disabled', async () => {
+		it('should show new-format atlassian emojis under the productivity subcategory', async () => {
 			const productivityEmoji = createProductivityEmoji('blue');
 
 			renderEmojiPickerList({
 				emojis: [productivityEmoji],
 			});
 
-			expect(
-				await screen.findByText(messages.productivityCategory.defaultMessage),
-			).toBeInTheDocument();
+			expect(await screen.findByText('Productivity')).toBeInTheDocument();
 			expect(screen.getByTestId('image-emoji-:0_zero_square_blue:')).toBeInTheDocument();
 		});
 
 		it('should not render emojis with a hidden metadata tag', async () => {
-			setTeamojiExperimentEnabled(true);
 			const visibleEmoji: EmojiDescription = {
 				...imageEmoji,
 				id: 'visible-emoji',
@@ -312,8 +299,7 @@ describe('<EmojiPickerList />', () => {
 			expect(images[1]).toHaveAttribute('data-emoji-id', atlassianEmojis[1].id);
 		});
 
-		it('should keep frequent category before atlassian subcategories when teamoji experiment is enabled', async () => {
-			setTeamojiExperimentEnabled(true);
+		it('should keep frequent category before atlassian subcategories', async () => {
 			const frequentAtlassianEmoji: EmojiDescription = {
 				...atlassianEmojis[0],
 				id: 'frequent-atlassian',
@@ -356,8 +342,7 @@ describe('<EmojiPickerList />', () => {
 			]);
 		});
 
-		it('should filter productivity number and star variants by selected colour when teamoji experiment is enabled', async () => {
-			setTeamojiExperimentEnabled(true);
+		it('should filter productivity number and star variants by selected colour', async () => {
 			const redZeroEmoji = createProductivityEmoji('red');
 			const blueZeroEmoji = createProductivityEmoji('blue');
 			const redZeroCircleEmoji = createProductivityEmoji('red', '0', 'zero', 'circle');
@@ -403,7 +388,6 @@ describe('<EmojiPickerList />', () => {
 		});
 
 		it('should filter coloured productivity emojis from endpoint metadata when the selected colour variant is unavailable', async () => {
-			setTeamojiExperimentEnabled(true);
 			const limeSquareEmoji: EmojiDescription = {
 				...imageEmoji,
 				id: 'atlassian-14_fourteen_square_lime',
@@ -482,7 +466,6 @@ describe('<EmojiPickerList />', () => {
 		});
 
 		it('should not infer productivity colour from emoji identifiers', async () => {
-			setTeamojiExperimentEnabled(true);
 			const emojiWithoutColorMetadata: EmojiDescription = {
 				...imageEmoji,
 				id: 'atlassian-red_star',
@@ -502,7 +485,6 @@ describe('<EmojiPickerList />', () => {
 		});
 
 		it('should filter coloured Atlassian emojis from frequent category by selected colour metadata', async () => {
-			setTeamojiExperimentEnabled(true);
 			const frequentRedStarEmoji = {
 				...createProductivityStarEmoji('red', 'color-first'),
 				category: frequentCategory,
@@ -522,7 +504,6 @@ describe('<EmojiPickerList />', () => {
 		});
 
 		it('should use the selected colour zero square emoji for the productivity colour button preview', async () => {
-			setTeamojiExperimentEnabled(true);
 			const blueStarEmoji = createProductivityStarEmoji('blue', 'color-first');
 			const blueZeroSquareEmoji: EmojiDescription = {
 				...imageEmoji,
@@ -654,14 +635,7 @@ describe('<EmojiPickerList />', () => {
 			expect(mockOnCategoryActivated).not.toHaveBeenCalled();
 		});
 
-		describe.each([
-			{ caseName: 'when teamoji experiment is off', isEnabled: false },
-			{ caseName: 'when teamoji experiment is on', isEnabled: true },
-		])('$caseName', ({ isEnabled }) => {
-			beforeEach(() => {
-				setTeamojiExperimentEnabled(isEnabled);
-			});
-
+		describe('with the refreshed emoji picker', () => {
 			it('should keep category activation callback working when revealing nature', async () => {
 				const mockOnCategoryActivated = jest.fn();
 				const pickerListRef = React.createRef<PickerListRef>();
@@ -809,7 +783,7 @@ describe('<EmojiPickerList />', () => {
 			helperTestingLibrary.scrollToIndex(0);
 
 			expect(onCategoryActivated.mock.calls).toHaveLength(1);
-			expect(onCategoryActivated).toHaveBeenLastCalledWith('PEOPLE');
+			expect(onCategoryActivated).toHaveBeenLastCalledWith('ATLASSIAN');
 		});
 	});
 

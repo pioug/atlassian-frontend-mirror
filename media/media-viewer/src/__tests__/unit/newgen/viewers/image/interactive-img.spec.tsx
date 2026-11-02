@@ -416,7 +416,6 @@ describe('analytics', () => {
 	});
 });
 
-// eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('click-to-close in inset mode', () => {
 	it.each([
 		{ presentation: 'overlay', isInsetViewer: undefined, closes: true },

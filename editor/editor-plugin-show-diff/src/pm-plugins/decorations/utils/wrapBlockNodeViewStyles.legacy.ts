@@ -241,20 +241,14 @@ export const getInsertedContentStyleLegacy = (
 export const getDeletedContentStyleLegacy = (
 	colorScheme?: ColorScheme,
 	isActive: boolean = false,
-	// The reveal animation paints the highlight itself so it can wipe it in; a static one here would
-	// cover the whole span and leave nothing to reveal. Mirrors the same option on the Next variant.
-	omitHighlight: boolean = false,
 ): string => {
 	if (colorScheme === 'traditional') {
 		return getDeletedTraditionalInlineStyle(isActive);
 	}
-	if (!omitHighlight) {
-		return (
-			(isActive ? getStandardDeletedContentStyleActive() : getStandardDeletedContentStyleNew()) +
-			deletedInlineContentStyleExtended
-		);
-	}
-	return isActive ? getStandardDeletedContentStyleActive() : getStandardDeletedContentStyleNew();
+	return (
+		(isActive ? getStandardDeletedContentStyleActive() : getStandardDeletedContentStyleNew()) +
+		deletedInlineContentStyleExtended
+	);
 };
 
 /**

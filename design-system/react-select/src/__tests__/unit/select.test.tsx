@@ -3276,6 +3276,7 @@ test('hitting ArrowUp key on closed select should focus last element', async () 
 });
 
 test('close menu on hitting escape and clear input value if menu is open even if escapeClearsValue and isClearable are true', async () => {
+	failGate('platform-dst-top-layer');
 	let onMenuCloseSpy = jest.fn();
 	let onInputChangeSpy = jest.fn();
 	let props = {
@@ -3298,6 +3299,32 @@ test('close menu on hitting escape and clear input value if menu is open even if
 		action: 'menu-close',
 		prevInputValue: '',
 	});
+	expect(onInputChangeSpy).toHaveBeenLastCalledWith('', {
+		action: 'menu-close',
+		prevInputValue: '',
+	});
+});
+
+test('close menu on hitting escape and clear input value if menu is open even if escapeClearsValue and isClearable are true (top layer)', async () => {
+	passGate('platform-dst-top-layer');
+	const onMenuCloseSpy = jest.fn();
+	const onInputChangeSpy = jest.fn();
+	const props = {
+		...BASIC_PROPS,
+		onInputChange: onInputChangeSpy,
+		onMenuClose: onMenuCloseSpy,
+		value: OPTIONS[0],
+	};
+	render(<Select {...props} menuIsOpen escapeClearsValue isClearable />);
+	const user = userEvent.setup();
+
+	await user.click(screen.getByTestId(`${testId}-select--input`));
+	await user.keyboard('[Escape]');
+	expect(screen.getByTestId(`${testId}-select--value-container`)!).toHaveTextContent('0');
+
+	await waitFor(() => expect(onMenuCloseSpy).toHaveBeenCalled());
+	// The Escape keydown leaves the close to the menu popover, so only onMenuClose clears the input
+	expect(onInputChangeSpy).toHaveBeenCalledTimes(1);
 	expect(onInputChangeSpy).toHaveBeenLastCalledWith('', {
 		action: 'menu-close',
 		prevInputValue: '',

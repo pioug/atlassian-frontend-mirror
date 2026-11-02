@@ -6,7 +6,6 @@
 import { jsx } from '@compiled/react';
 import { render, screen } from '@testing-library/react';
 
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { css, cssMap } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 

@@ -150,13 +150,12 @@ const getInsertedContentStyleNext = (
 const getDeletedContentStyleNext = (
 	colorScheme?: ColorScheme,
 	isActive: boolean = false,
-	omitHighlight: boolean = false,
 ): string => {
 	const colors = getColorScheme(colorScheme);
 	const base = buildDeletedInlineContentStyle(colors, isActive ? 'active' : 'new');
 
 	// glyphTint adds a background highlight and border-bottom over the tint; strikethrough does not.
-	const needsExtendedHighlight = colors.deletedInlineTreatment === 'glyphTint' && !omitHighlight;
+	const needsExtendedHighlight = colors.deletedInlineTreatment === 'glyphTint';
 
 	return needsExtendedHighlight
 		? base + buildDeletedInlineContentStyleExtended(colors, isActive)
@@ -266,13 +265,10 @@ export const getInsertedContentStyle = (
 export const getDeletedContentStyle = (
 	colorScheme?: ColorScheme,
 	isActive: boolean = false,
-	// Set while the reveal animation is running: it paints the highlight itself so it can wipe it in
-	// left-to-right, and a static background here would leave nothing to reveal.
-	omitHighlight: boolean = false,
 ): string =>
 	isExperimentEnabled('platform_editor_show_diff_color_scheme_refactor')
-		? getDeletedContentStyleNext(colorScheme, isActive, omitHighlight)
-		: getDeletedContentStyleLegacy(getLegacyColorScheme(colorScheme), isActive, omitHighlight);
+		? getDeletedContentStyleNext(colorScheme, isActive)
+		: getDeletedContentStyleLegacy(getLegacyColorScheme(colorScheme), isActive);
 
 /**
  * Overlay style for one added or deleted table cell. Invariant across the cells of a table, so the

@@ -3,7 +3,7 @@ import React from 'react';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import type { CardProviderStoreOpts } from '@atlaskit/link-provider/types';
 import type { ProductType } from '@atlaskit/linking-common/types';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { renderHook } from '@atlassian/testing-library/render-hook';
 
 import useEmbedRovoActionsFooterExperiment from '../index';
@@ -78,13 +78,15 @@ describe('useEmbedRovoActionsFooterExperiment', () => {
 		expect(result.current.isEnabled).toBe(false);
 	});
 
-	ffTest.on('platform_sl_3p_auth_rovo_embed_footer_kill_switch', '', () => {
+	describe('platform_sl_3p_auth_rovo_embed_footer_kill_switch is on', () => {
 		it.each([
 			'google-object-provider',
 			'onedrive-object-provider',
 			'github-object-provider',
 			'gitlab-object-provider',
 		])('returns isEnabled=true when rovo is enabled for %s', (extensionKey) => {
+			passGate('platform_sl_3p_auth_rovo_embed_footer_kill_switch');
+
 			const result = renderHook(
 				() =>
 					useEmbedRovoActionsFooterExperiment(
@@ -157,8 +159,10 @@ describe('useEmbedRovoActionsFooterExperiment', () => {
 		});
 	});
 
-	ffTest.off('platform_sl_3p_auth_rovo_embed_footer_kill_switch', '', () => {
+	describe('platform_sl_3p_auth_rovo_embed_footer_kill_switch is off', () => {
 		it('returns isEnabled=false when kill switch is off', () => {
+			failGate('platform_sl_3p_auth_rovo_embed_footer_kill_switch');
+
 			const result = renderHook(
 				() =>
 					useEmbedRovoActionsFooterExperiment(

@@ -139,9 +139,12 @@ test.describe('first block node styles', () => {
 		});
 
 		test('should have correct margin tops', async ({ editor }) => {
-			const nodes = EditorNodeContainerModel.from(editor);
-			const firstNode = nodes.divider.first();
-			const secondNode = nodes.divider.nth(1);
+			// the margin is applied to the divider container when platform_editor_lovability_dividers is enabled (defaults to true)
+			const dividers = editor.page.locator(
+				'.ProseMirror > [data-rule-node-view], .ProseMirror > hr',
+			);
+			const firstNode = dividers.first();
+			const secondNode = dividers.nth(1);
 			await expect(firstNode).toHaveCSS('margin-top', '0px');
 			await expect(secondNode).toHaveCSS('margin-top', '24px');
 		});

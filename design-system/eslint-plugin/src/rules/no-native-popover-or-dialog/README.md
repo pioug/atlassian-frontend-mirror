@@ -1,0 +1,92 @@
+Do not use a native `popover` or `<dialog>` element. Use a Design System component. If no Design
+System component fits, use `@atlaskit/top-layer`.
+
+Design System layers share one layer stack. A press of Escape closes the topmost layer, and only
+that layer. A native `popover` or `<dialog>` that you build yourself is not in that stack. For
+example, a `popover="manual"` element that closes itself on Escape, inside a Modal dialog, closes
+together with the dialog. Design System components also give you focus management, placement, a
+fallback for browsers without the top layer, and testing utilities.
+
+Use, in this order:
+
+1. A Design System component:
+   - Overlays: [popup](https://atlassian.design/components/popup),
+     [tooltip](https://atlassian.design/components/tooltip),
+     [inline-dialog](https://atlassian.design/components/inline-dialog)
+   - Messaging: [modal-dialog](https://atlassian.design/components/modal-dialog),
+     [drawer](https://atlassian.design/components/drawer),
+     [flag](https://atlassian.design/components/flag),
+     [spotlight](https://atlassian.design/components/spotlight)
+   - Forms and inputs: [dropdown-menu](https://atlassian.design/components/dropdown-menu),
+     [select](https://atlassian.design/components/select),
+     [datetime-picker](https://atlassian.design/components/datetime-picker)
+2. `@atlaskit/top-layer`, only if no Design System component fits:
+   - Render it behind the `platform-dst-top-layer` feature flag. The primitives do not check the
+     flag. While the flag is off, they paint above every layer that is not in the top layer.
+   - For a `popover="manual"` element that closes on Escape or an outside press, use
+     `useManualLightDismiss`. Do not add your own listeners.
+
+## Examples
+
+This rule marks:
+
+- `<dialog>` elements, wrappers such as `<motion.dialog>`, and `styled.dialog`
+- `popover` attributes on HTML elements, such as `<div popover="auto">`, and on wrappers such as
+  `<motion.div popover="auto">`
+- `popover` in spread props or `createElement` props, such as `<div {...{ popover: 'auto' }}>` and
+  `createElement('div', { popover })`
+- `createElement('dialog')`
+- `setAttribute('popover', …)` and `toggleAttribute('popover')`
+- `element.popover = '…'`
+
+It does not mark a `popover` prop on a component, because a component can define its own. It does
+not check props that are only known at runtime, such as `<div {...props}>`.
+
+### Incorrect
+
+```tsx
+<dialog ref={ref}>{children}</dialog>
+ ^^^^^^
+
+<div popover="auto">{children}</div>
+     ^^^^^^^^^^^^^^
+
+document.createElement('dialog');
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+element.setAttribute('popover', 'manual');
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tooltip.popover = 'hint';
+^^^^^^^^^^^^^^^^^^^^^^^^
+```
+
+### Correct
+
+```tsx
+import ModalDialog from '@atlaskit/modal-dialog';
+import Popup from '@atlaskit/popup';
+
+<ModalDialog onClose={onClose}>{children}</ModalDialog>;
+
+<Popup
+	isOpen={isOpen}
+	onClose={onClose}
+	content={() => <Menu />}
+	trigger={(props) => <Button {...props}>Open</Button>}
+/>;
+```
+
+## When not to use it
+
+- **An element that is in the top layer but is not a layer for the user.** For example, a drag
+  preview that must paint above the page for one frame. It does not take Escape or close on an
+  outside press.
+- **Code without React.** The `@atlaskit/top-layer` primitives are React components and hooks.
+
+An `eslint-disable` comment silences this rule. In the Atlassian Frontend Monorepo, the ratchet "Do
+not disable @atlaskit/design-system/no-native-popover-or-dialog (AFM-wide)" counts these comments,
+and `'off'` for this rule in an ESLint config, so a new one fails ratcheting. For a real exception,
+give a reason after `--` in the disable comment, and add the file to the ratchet's `excluded` list
+in `platform/monorepo.config/tasks/global-ratcheting/rules/no-native-popover-or-dialog.ts` with an
+owner and a reason.

@@ -105,7 +105,6 @@ const useFeatureGateOverrideConfig = (withExperiments: boolean = true): number =
 					return true;
 				}
 				// `fg()` delegates to this resolver, so the bootstrap path must read gates directly.
-				// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
 				return FeatureGates.checkGate(flagKey);
 			});
 

@@ -721,59 +721,19 @@ describe('EditorCardProvider', () => {
 			return fetchData;
 		};
 
-		it('overrides the requested inline appearance when the shortlink resolves to a hardcoded embed URL', async () => {
-			passGate('platform_native_embeds_enable_shortlink_resolution');
-			const resolvedUrl = 'https://example.atlassian.net/wiki/spaces/TEST/whiteboard/123456789';
-			const fetchData = setupResolveMocks(provider, resolvedUrl);
-
-			const adf = await provider.resolve(shortLinkUrl, 'inline', false, true);
-
-			expect(adf.type).toBe('embedCard');
-			expect(fetchData).toHaveBeenCalledWith(shortLinkUrl);
-			expect(fetchData).toHaveBeenCalledTimes(1);
-		});
-
-		it('keeps the requested appearance when the resolved URL has no hardcoded embed appearance', async () => {
-			passGate('platform_native_embeds_enable_shortlink_resolution');
-			setupResolveMocks(provider, 'https://example.atlassian.net/wiki/spaces/TEST/pages/123456789');
-
-			const adf = await provider.resolve(shortLinkUrl, 'inline', false, true);
-
-			expect(adf.type).toBe('inlineCard');
-		});
-
-		it('does not resolve the shortlink when the shortlink resolution gate is off', async () => {
-			failGate('platform_native_embeds_enable_shortlink_resolution');
+		it('keeps the requested appearance without resolving the shortlink', async () => {
 			const fetchData = setupResolveMocks(
 				provider,
 				'https://example.atlassian.net/wiki/spaces/TEST/whiteboard/123456789',
 			);
 
 			const adf = await provider.resolve(shortLinkUrl, 'inline', false, true);
-
-			expect(adf.type).toBe('inlineCard');
-			expect(fetchData).not.toHaveBeenCalled();
-		});
-
-		it.each([
-			'http://example.atlassian.net/wiki/x/AbCdEfG',
-			'https://example.atlassian.net/another/path/wiki/x/AbCdEfG',
-			'https:///wiki/x/AbCdEfG',
-		])('does not resolve a malformed Confluence shortlink: %s', async (url) => {
-			passGate('platform_native_embeds_enable_shortlink_resolution');
-			const fetchData = setupResolveMocks(
-				provider,
-				'https://example.atlassian.net/wiki/spaces/TEST/whiteboard/123456789',
-			);
-
-			const adf = await provider.resolve(url, 'inline', false, true);
 
 			expect(adf.type).toBe('inlineCard');
 			expect(fetchData).not.toHaveBeenCalled();
 		});
 
 		it('preserves an explicit inline user appearance preference', async () => {
-			passGate('platform_native_embeds_enable_shortlink_resolution');
 			const fetchData = setupResolveMocks(
 				provider,
 				'https://example.atlassian.net/wiki/spaces/TEST/whiteboard/123456789',
@@ -792,9 +752,6 @@ describe('EditorCardProvider', () => {
 		])(
 			'preserves an explicit $userPreference user appearance preference',
 			async ({ userPreference, expectedType }) => {
-				if (userPreference === 'block') {
-					passGate('platform_native_embeds_enable_shortlink_resolution');
-				}
 				const fetchData = setupResolveMocks(
 					provider,
 					'https://example.atlassian.net/wiki/spaces/TEST/whiteboard/123456789',
@@ -812,30 +769,19 @@ describe('EditorCardProvider', () => {
 			},
 		);
 
-		it.each([
-			{ gateState: 'enabled', isGateEnabled: true },
-			{ gateState: 'disabled', isGateEnabled: false },
-		])(
-			'preserves an explicit embed user appearance preference when the gate is $gateState',
-			async ({ isGateEnabled }) => {
-				if (isGateEnabled) {
-					passGate('platform_native_embeds_enable_shortlink_resolution');
-				} else {
-					failGate('platform_native_embeds_enable_shortlink_resolution');
-				}
-				const fetchData = setupResolveMocks(
-					provider,
-					'https://example.atlassian.net/wiki/spaces/TEST/whiteboard/123456789',
-					'embed',
-				);
-				jest.spyOn(provider as any, 'canBeResolvedAsEmbed').mockResolvedValue(true);
+		it('preserves an explicit embed user appearance preference', async () => {
+			const fetchData = setupResolveMocks(
+				provider,
+				'https://example.atlassian.net/wiki/spaces/TEST/whiteboard/123456789',
+				'embed',
+			);
+			jest.spyOn(provider as any, 'canBeResolvedAsEmbed').mockResolvedValue(true);
 
-				const adf = await provider.resolve(shortLinkUrl, 'inline', false, true);
+			const adf = await provider.resolve(shortLinkUrl, 'inline', false, true);
 
-				expect(adf.type).toBe('embedCard');
-				expect(fetchData).not.toHaveBeenCalled();
-			},
-		);
+			expect(adf.type).toBe('embedCard');
+			expect(fetchData).not.toHaveBeenCalled();
+		});
 	});
 
 	describe('resolve - requested embed as default (shouldHonorRequestedEmbedAsDefault)', () => {

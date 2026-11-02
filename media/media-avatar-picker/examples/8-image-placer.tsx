@@ -215,7 +215,7 @@ class Example extends React.Component<object, ExampleState> {
 				</Grid>
 				<Grid>
 					<GridColumn>
-						{/* eslint-disable-next-line @atlaskit/design-system/no-html-range, @atlaskit/design-system/no-html-checkbox */}
+						{/* eslint-disable-next-line @atlaskit/design-system/no-html-range */}
 						<input
 							type="range"
 							min="0"
@@ -230,7 +230,6 @@ class Example extends React.Component<object, ExampleState> {
 				</Grid>
 				<Grid>
 					<GridColumn>
-						{/* eslint-disable-next-line @atlaskit/design-system/no-html-checkbox */}
 						<input type="file" onChange={this.onFileInputChange} />
 						{src !== undefined ? (
 							<p>

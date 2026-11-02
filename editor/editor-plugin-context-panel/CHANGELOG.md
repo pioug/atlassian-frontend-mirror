@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-context-panel
 
+## 32.0.1
+
+### Patch Changes
+
+- [`c47fd455dba6b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c47fd455dba6b) -
+  Clean up feature gate `platform_editor_ai_object_sidebar_injection`; keep object-sidebar injection
+  enabled.
+- Updated dependencies
+
 ## 32.0.0
 
 ### Patch Changes

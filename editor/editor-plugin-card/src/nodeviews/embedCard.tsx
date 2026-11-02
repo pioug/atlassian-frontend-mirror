@@ -217,6 +217,23 @@ export class EmbedCardComponent extends React.PureComponent<
 > {
 	private scrollContainer?: HTMLElement;
 	private embedIframeRef = React.createRef<HTMLIFrameElement>();
+	private resolvedCardData?: { nodeUrl?: string; title?: string; url?: string };
+
+	componentDidUpdate(prevProps: Readonly<SmartCardProps & { id: string }>): void {
+		if (isExperimentEnabled('platform_editor_preserve_smart_card_embeds')) {
+			if (this.resolvedCardData?.nodeUrl !== this.props.node.attrs.url) {
+				this.resolvedCardData = undefined;
+			}
+			if (
+				isExperimentEnabled('platform_editor_reduce_forced_layout_2') &&
+				this.props.getPos !== prevProps.getPos &&
+				this.resolvedCardData
+			) {
+				const resolvedCardData = this.resolvedCardData;
+				rafSchedule(() => this.registerResolvedCard(resolvedCardData))();
+			}
+		}
+	}
 
 	constructor(props: SmartCardProps & { id: string }) {
 		super(props);
@@ -246,6 +263,17 @@ export class EmbedCardComponent extends React.PureComponent<
 	};
 
 	onResolve = (data: { aspectRatio?: number; title?: string; url?: string }): void => {
+		if (isExperimentEnabled('platform_editor_preserve_smart_card_embeds')) {
+			this.resolvedCardData = {
+				title: data.title,
+				url: data.url,
+				nodeUrl: this.props.node.attrs.url,
+			};
+		}
+		this.resolveCard(data);
+	};
+
+	private resolveCard = (data: { aspectRatio?: number; title?: string; url?: string }): void => {
 		const { view } = this.props;
 
 		const { title, url, aspectRatio: resolvedAspectRatio } = data;
@@ -308,6 +336,18 @@ export class EmbedCardComponent extends React.PureComponent<
 				});
 			}
 		} catch {}
+	};
+
+	private registerResolvedCard = ({ title, url }: { title?: string; url?: string }): void => {
+		if (
+			this.removeCardDispatched ||
+			this.props.view.isDestroyed ||
+			this.getPosSafely() === undefined
+		) {
+			return;
+		}
+		const { pluginInjectionApi, id } = this.props;
+		pluginInjectionApi?.card.actions?.registerCard({ id, title, url, getPos: this.getPosSafely });
 	};
 
 	updateSize = (pctWidth: number | null, layout: RichMediaLayout): true | undefined => {
@@ -445,6 +485,16 @@ export class EmbedCardComponent extends React.PureComponent<
 			return;
 		}
 		this.removeCardDispatched = true;
+		this.removeCardRegistration();
+	}
+
+	private removeCardRegistration(): void {
+		if (
+			isExperimentEnabled('platform_editor_preserve_smart_card_embeds') &&
+			this.props.view.isDestroyed
+		) {
+			return;
+		}
 		if (isExperimentEnabled('platform_editor_reduce_forced_layout_2')) {
 			const { pluginInjectionApi, id } = this.props;
 			pluginInjectionApi?.card.actions?.removeRegisteredCard(id);
@@ -610,6 +660,11 @@ export const EmbedOrBlockCardComponent = (
 	);
 };
 
+export const isPreviewPanelResponsivenessEnabled = (): boolean =>
+	editorExperiment('platform_editor_preview_panel_responsiveness', true, {
+		exposure: true,
+	});
+
 const WrappedEmbedCardWithCondition = componentWithCondition(
 	() =>
 		editorExperiment('platform_editor_preview_panel_responsiveness', true, {
@@ -640,6 +695,7 @@ export type EmbedCardNodeViewProps = Pick<
 export class EmbedCard extends ReactNodeView<EmbedCardNodeViewProps> {
 	// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 	private id = uuid();
+	private preservationSlot?: HTMLElement;
 
 	unsubscribe: (() => void) | undefined;
 
@@ -666,11 +722,53 @@ export class EmbedCard extends ReactNodeView<EmbedCardNodeViewProps> {
 		return domRef;
 	}
 
+	setDomAttrs(node: PMNode, element: HTMLElement): void {
+		super.setDomAttrs(node, element);
+		if (
+			isExperimentEnabled('platform_editor_preserve_smart_card_embeds') &&
+			this.preservationSlot
+		) {
+			super.setDomAttrs(node, this.preservationSlot);
+			if (element !== this.preservationSlot) {
+				Object.keys(node.attrs || {}).forEach((attr) => element.removeAttribute(attr));
+			}
+		}
+	}
+
+	attachPreservationSlot(slot: HTMLElement, getPos: getPosHandler): void {
+		this.getPos = getPos;
+		this.preservationSlot = slot;
+		slot.classList.add(`${this.node.type.name}View-content-wrap`);
+		this.dom.classList.remove(`${this.node.type.name}View-content-wrap`);
+		this.setDomAttrs(this.node, this.dom);
+		this.unsubscribe?.();
+		const editorViewMode = this.reactComponentProps.pluginInjectionApi?.editorViewMode?.sharedState;
+		this.unsubscribe = editorViewMode?.onChange(({ nextSharedState }) =>
+			this.updateContentEditable(nextSharedState, this.dom as HTMLDivElement),
+		);
+		this.updateContentEditable(editorViewMode?.currentState(), this.dom as HTMLDivElement);
+	}
+
+	canReuseWith(
+		provider: EmbedCardNodeViewProps['provider'],
+		eventDispatcher: EventDispatcher,
+	): boolean {
+		return (
+			this.reactComponentProps.provider === provider && this.eventDispatcher === eventDispatcher
+		);
+	}
+
 	private updateContentEditable = (
 		editorViewModeState: EditorViewModePluginState | null | undefined,
 		divElement: HTMLDivElement,
 	) => {
 		divElement.contentEditable = editorViewModeState?.mode === 'view' ? 'false' : 'true';
+		if (
+			isExperimentEnabled('platform_editor_preserve_smart_card_embeds') &&
+			this.preservationSlot
+		) {
+			this.preservationSlot.contentEditable = divElement.contentEditable;
+		}
 	};
 
 	render(): React.JSX.Element {
@@ -726,6 +824,9 @@ export class EmbedCard extends ReactNodeView<EmbedCardNodeViewProps> {
 
 	destroy(): void {
 		this.unsubscribe?.();
+		if (isExperimentEnabled('platform_editor_preserve_smart_card_embeds')) {
+			this.preservationSlot = undefined;
+		}
 		super.destroy();
 	}
 }

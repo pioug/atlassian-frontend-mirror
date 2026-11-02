@@ -5,7 +5,43 @@ To be used in Provider implementations used with @atlaskit/feature-gate-js-clien
 
 ## Usage
 
-To fetch experiment values
+To fetch flag values from both Statsig and the Feature Flag Platform (FFP)
+
+```typescript
+import Fetcher, {
+	getEvalFlagsStatus,
+	toFrontendExperimentsResult,
+} from '@atlaskit/feature-gate-fetcher/Fetcher';
+
+const evalFlagsResponse = await Fetcher.fetchEvalFlags(
+	// Version of the feature gate js client
+	'clientVersion',
+	// Fetch options
+	{
+		environment: FeatureGateEnvironment.Development,
+		targetApp: 'targetApp',
+		perimeter: PerimeterType.COMMERCIAL,
+		apiKey: 'apiKey',
+	},
+	// Identifiers
+	{ atlassianAccountId: 'abc' },
+	// Optional: custom attributes
+	{},
+);
+
+// `{ statsig?, ffp?, status }`: the service decides which platform serves each flag, and reports
+// each platform's health as OK, DISABLED or UNAVAILABLE. When no platform is OK and one is
+// UNAVAILABLE, there are no values, so fetchEvalFlags rejects as for a 5xx (not a ResponseError).
+// Convert it into the result a Provider returns to @atlaskit/feature-gate-js-client. Only the
+// sections of OK platforms are used, and the result's `status` reports the health:
+const result = toFrontendExperimentsResult(evalFlagsResponse, customAttributes);
+
+// Or read the health directly:
+const { statsig, ffp } = getEvalFlagsStatus(evalFlagsResponse);
+```
+
+To fetch Statsig experiment values only. These do not include flags served by FFP, so prefer
+`fetchEvalFlags`.
 
 ```typescript
 import Fetcher from '@atlaskit/feature-gate-fetcher';

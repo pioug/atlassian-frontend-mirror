@@ -33,7 +33,7 @@ function NativeOuterPopover({
 				ref={popoverRef}
 				data-testid={testId}
 				// @ts-expect-error -- popover attribute not yet in React types
-				// eslint-disable-next-line react/no-unknown-property
+				// eslint-disable-next-line react/no-unknown-property, @atlaskit/design-system/no-native-popover-or-dialog -- testing example for a native auto popover around PopupSelect and Select
 				popover="auto"
 			>
 				{children}

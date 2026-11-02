@@ -6,7 +6,7 @@ import { IntlProvider } from 'react-intl';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-atlaskit-theme
 import { layers } from '@atlaskit/theme/constants';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { TableSettingsMenu } from '../TableSettingsMenu';
 
@@ -53,8 +53,10 @@ describe('TableSettingsMenu', () => {
 	});
 
 	// The top-layer popup renders no portal and needs no z-index to render above a modal.
-	ffTest.off('platform-dst-top-layer', 'legacy portal z-index', () => {
+	describe('platform-dst-top-layer is off legacy portal z-index', () => {
 		it('renders the popup above modal dialogs', async () => {
+			failGate('platform-dst-top-layer');
+
 			const user = userEvent.setup();
 			renderMenu();
 

@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 
 import Button from '@atlaskit/button/default/button';
 import Link from '@atlaskit/link/link';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import InlineDialog from '../../inline-dialog';
 
@@ -123,7 +123,11 @@ describe('inline-dialog', () => {
 		});
 
 		// The legacy dialog adds window listeners. The top-layer dialog uses native light dismiss.
-		ffTest.off('platform-dst-top-layer', 'EventListeners', () => {
+		describe('EventListeners', () => {
+			beforeEach(() => {
+				failGate('platform-dst-top-layer');
+			});
+
 			let addSpy: jest.SpyInstance;
 			let removeSpy: jest.SpyInstance;
 			beforeEach(() => {

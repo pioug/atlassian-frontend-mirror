@@ -127,12 +127,20 @@ describe(getExtension, () => {
 });
 
 describe('git format-patch previews', () => {
-	// libmagic classifies `git format-patch` files (they start with `From <hash>`) as
-	// text/x-diff. Without the gate that MIME type is sent to document preview, which fails.
+	// Sniffing labels the same patch bytes as several textual types, sometimes with a
+	// charset parameter. Without the gate those types go to document preview, which fails.
 	test.each([
 		['0001-fix.patch', 'text/x-diff'],
 		['0001-fix.patch', 'text/x-patch'],
 		['0001-fix.diff', 'application/x-patch'],
+		['0001-fix.patch', 'application/mbox'],
+		['0001-fix.patch', 'message/rfc822'],
+		['0001-fix.diff', 'message/rfc822'],
+		['0001-FIX.PATCH', 'application/mbox'],
+		['0001-fix.patch', 'text/x-diff; charset=utf-8'],
+		['0001-fix.patch', 'text/x-diff ; charset=utf-8'],
+		['0001-fix.patch', 'Text/Plain; charset=utf-8'],
+		['notes', 'text/plain; charset=utf-8'],
 		['changes', 'text/x-diff'],
 	])('does not preview %s (%s) when the gate is off', (filename, mimetype) => {
 		failGate('platform_media_patch_text_preview');
@@ -147,8 +155,6 @@ describe('git format-patch previews', () => {
 	});
 
 	test.each([
-		['0001-fix.patch', 'message/rfc822'],
-		['0001-fix.patch', 'application/mbox'],
 		['0001-fix.patch', 'application/octet-stream'],
 		['0001-fix.patch', undefined],
 		['0001-fix.diff', undefined],
@@ -161,12 +167,32 @@ describe('git format-patch previews', () => {
 		['0001-fix.patch', 'text/x-diff'],
 		['0001-fix.patch', 'text/x-patch'],
 		['0001-fix.diff', 'application/x-patch'],
+		['0001-fix.patch', 'application/mbox'],
+		['0001-fix.patch', 'message/rfc822'],
+		['0001-fix.diff', 'message/rfc822'],
+		['0001-FIX.PATCH', 'application/mbox'],
+		['0001-fix.patch', 'Application/Mbox; charset=utf-8'],
+		['0001-fix.patch', 'text/x-diff ; charset=utf-8'],
+		['0001-fix.patch', 'Text/Plain; charset=utf-8'],
+		['notes', 'text/plain; charset=utf-8'],
 		['changes', 'text/x-diff'],
 	])('previews %s (%s) as text when the gate is on', (filename, mimetype) => {
 		passGate('platform_media_patch_text_preview');
 
 		expect(getLanguageType(filename, mimetype)).toBe('text');
 		expect(isCodeViewerItem(filename, mimetype ?? 'unknown')).toBe(true);
+	});
+
+	test('does not preview email or mailbox files when the gate is on', () => {
+		passGate('platform_media_patch_text_preview');
+
+		expect(getLanguageType('mail.eml', 'message/rfc822')).toBeNull();
+		expect(isCodeViewerItem('mail.eml', 'message/rfc822')).toBe(false);
+		expect(getLanguageType('inbox.mbox', 'application/mbox')).toBeNull();
+		expect(isCodeViewerItem('inbox.mbox', 'application/mbox')).toBe(false);
+		expect(getLanguageType('changes', 'message/rfc822')).toBeNull();
+		// A patch name is what reads the gate. Mail types on other names must not.
+		expect(getLanguageType('0001-fix.patch', 'text/x-diff')).toBe('text');
 	});
 });
 

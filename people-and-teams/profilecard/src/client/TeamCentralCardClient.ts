@@ -36,7 +36,7 @@ class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData>
 	 * catch a pretty specific edge case.
 	 */
 	bypassOnFailure: boolean;
-	orgContainsAnyWorkspacePromise: Promise<boolean>;
+	orgContainsAnyWorkspacePromise!: Promise<boolean>;
 
 	private orgIdPromise: Promise<string | null>;
 	private workspaceExistsWithTypePromise: Promise<string | undefined>;
@@ -45,13 +45,32 @@ class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData>
 		super(options);
 		this.options = options;
 		this.bypassOnFailure = false;
-		this.orgContainsAnyWorkspacePromise = this.createOrgContainsAnyWorkspacePromise(options);
+
+		if (!fg('ptc_profilecard_lazy_team_central_preload')) {
+			this.orgContainsAnyWorkspacePromise = this.createOrgContainsAnyWorkspacePromise(options);
+		}
+
 		this.workspaceExistsWithTypePromise = this.preloadWorkspaceExistsWithType(options.cloudId);
 		this.orgIdPromise = this.preloadOrgId(
 			options.gatewayGraphqlUrl,
 			options.cloudId,
 			options.orgId,
 		);
+	}
+
+	/**
+	 * Workspace probe shared by reporting lines and kudos visibility, and the only Team Central
+	 * request still made against the sharded Townsquare API.
+	 *
+	 * Under `ptc_profilecard_lazy_team_central_preload` the constructor leaves the promise unset
+	 * and it is created here instead, on the first call that actually needs it. Callers that only
+	 * construct a client never reach this method, and so never call Townsquare.
+	 */
+	private resolveOrgContainsAnyWorkspace(): Promise<boolean> {
+		if (!this.orgContainsAnyWorkspacePromise) {
+			this.orgContainsAnyWorkspacePromise = this.createOrgContainsAnyWorkspacePromise(this.options);
+		}
+		return this.orgContainsAnyWorkspacePromise;
 	}
 
 	createOrgContainsAnyWorkspacePromise(config: TeamCentralCardClientOptions): Promise<boolean> {
@@ -67,7 +86,7 @@ class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData>
 	}
 
 	getReportingLines(userId: string): Promise<TeamCentralReportingLinesData> {
-		return this.orgContainsAnyWorkspacePromise.then(
+		return this.resolveOrgContainsAnyWorkspace().then(
 			(orgContainsAnyWorkspace) => {
 				if (orgContainsAnyWorkspace) {
 					if (!userId) {
@@ -138,7 +157,7 @@ class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData>
 			? this.workspaceExistsWithTypePromise.then(
 					(workspaceExistsWithType) => workspaceExistsWithType !== undefined,
 				)
-			: this.orgContainsAnyWorkspacePromise;
+			: this.resolveOrgContainsAnyWorkspace();
 		return workspaceExistsPromise.then(
 			(workspaceExistsWithType) => {
 				if (workspaceExistsWithType) {

@@ -92,12 +92,6 @@
 			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/icon-lab/tsconfig.app.json"
-		},
-		{
-			"path": "../../design-system/menu/tsconfig.app.json"
-		},
-		{
 			"path": "../../platform/feature-experiments/tsconfig.app.json"
 		},
 		{

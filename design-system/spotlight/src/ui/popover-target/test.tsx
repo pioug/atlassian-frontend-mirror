@@ -2,7 +2,7 @@
 
 import React, { useContext, useLayoutEffect } from 'react';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { render, waitFor } from '@atlassian/testing-library/testing-library/react';
 
 import { SpotlightContext } from '../../controllers/context';
@@ -20,20 +20,20 @@ const TargetRefProbe = ({ onRef }: { onRef: (element: HTMLElement | null) => voi
 };
 
 describe('PopoverTarget', () => {
-	ffTest.on('platform-dst-top-layer-spotlight', 'with top-layer positioning enabled', () => {
-		it('stores the target wrapper ref in spotlight context', async () => {
-			const onRef = jest.fn();
+	it('stores the target wrapper ref in spotlight context', async () => {
+		passGate('platform-dst-top-layer-spotlight');
 
-			render(
-				<PopoverProvider>
-					<PopoverTarget>Target</PopoverTarget>
-					<TargetRefProbe onRef={onRef} />
-				</PopoverProvider>,
-			);
+		const onRef = jest.fn();
 
-			await waitFor(() => {
-				expect(onRef).toHaveBeenLastCalledWith(expect.any(HTMLDivElement));
-			});
+		render(
+			<PopoverProvider>
+				<PopoverTarget>Target</PopoverTarget>
+				<TargetRefProbe onRef={onRef} />
+			</PopoverProvider>,
+		);
+
+		await waitFor(() => {
+			expect(onRef).toHaveBeenLastCalledWith(expect.any(HTMLDivElement));
 		});
 	});
 });

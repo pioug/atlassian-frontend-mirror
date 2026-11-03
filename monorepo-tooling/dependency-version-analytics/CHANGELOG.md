@@ -1,5 +1,12 @@
 # @atlaskit/dependency-version-analytics
 
+## 2.1.1
+
+### Patch Changes
+
+- [`9a187a088e45c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9a187a088e45c) -
+  Migrate Git tooling to the secure simple-git v4 named factory export.
+
 ## 2.1.0
 
 ### Minor Changes

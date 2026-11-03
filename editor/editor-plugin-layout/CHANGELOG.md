@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-layout
 
+## 31.0.7
+
+### Patch Changes
+
+- [`fcfc49f88a0ef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fcfc49f88a0ef) -
+  Behind `platform_editor_improve_inp_batch_2`, replace the complex layout placeholder relational
+  selector with targeted paragraph decorations while preserving focus-only placeholder visibility.
+- Updated dependencies
+
 ## 31.0.6
 
 ### Patch Changes

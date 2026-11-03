@@ -29,5 +29,8 @@
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^"
+	},
+	"devDependencies": {
+		"@atlaskit/editor-common": "workspace:^"
 	}
 }

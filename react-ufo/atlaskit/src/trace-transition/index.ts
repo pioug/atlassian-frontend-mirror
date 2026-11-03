@@ -3,6 +3,10 @@ import { v4 as createUUID } from 'uuid';
 
 import coinflip from '../coinflip';
 import {
+	type EventOrTimestamp,
+	resolveInteractionTimestamp,
+} from '../common/interaction-timestamp';
+import {
 	getDoNotAbortActivePressInteractionOnTransition,
 	getInteractionRate,
 	isUFOEnabled,
@@ -17,6 +21,7 @@ function traceUFOTransition(
 	ufoName: string | null | undefined,
 	routeName: string | null | undefined = ufoName,
 	preloadKey?: string,
+	eventOrTimestamp?: EventOrTimestamp,
 ): void {
 	if (!isUFOEnabled()) {
 		return;
@@ -44,7 +49,7 @@ function traceUFOTransition(
 				newId,
 				ufoName,
 				'transition',
-				performance.now(),
+				resolveInteractionTimestamp(eventOrTimestamp) ?? performance.now(),
 				rate,
 				null,
 				routeName,

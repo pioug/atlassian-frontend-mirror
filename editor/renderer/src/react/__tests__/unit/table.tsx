@@ -383,15 +383,15 @@ describe('Table isPresentational prop', () => {
 		</TableContainer>
 	);
 
-	it('when feature gate platform_renderer_isPresentational is ON, table with isPresentational has role presentation', () => {
-		passGate('platform_renderer_isPresentational');
+	it('when feature gate platform_renderer_ispresentational is ON, table with isPresentational has role presentation', () => {
+		passGate('platform_renderer_ispresentational');
 		render(<Component isPresentational />);
 		const table = screen.getByTestId('renderer-table');
 		expect(table).toHaveAttribute('role', 'presentation');
 	});
 
-	it('when feature gate platform_renderer_isPresentational is OFF, table does not have role presentation', () => {
-		failGate('platform_renderer_isPresentational');
+	it('when feature gate platform_renderer_ispresentational is OFF, table does not have role presentation', () => {
+		failGate('platform_renderer_ispresentational');
 		render(<Component />);
 		const table = screen.getByTestId('renderer-table');
 		expect(table).not.toHaveAttribute('role', 'presentation');

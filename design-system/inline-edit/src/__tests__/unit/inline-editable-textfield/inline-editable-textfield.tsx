@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+
+import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import InlineEditableTextfield from '../../../inline-editable-textfield';
 
@@ -139,3 +142,42 @@ describe('Simple render', () => {
 		expect(textField.value).toEqual('New content');
 	});
 });
+
+it.each([true, false])(
+	'keeps validation visible while invalid input is corrected (top layer %s)',
+	async (isTopLayerEnabled) => {
+		if (isTopLayerEnabled) {
+			passGate('platform-dst-top-layer');
+		} else {
+			failGate('platform-dst-top-layer');
+		}
+		const user = userEvent.setup();
+		const onConfirm = jest.fn();
+		render(
+			<InlineEditableTextfield
+				defaultValue="Existing"
+				placeholder="Enter name"
+				label="Name"
+				startWithEditViewOpen
+				validate={(value) => (value.trim() ? undefined : 'Enter a name')}
+				onConfirm={onConfirm}
+			/>,
+		);
+		const input = screen.getByRole('textbox', { name: 'Name' });
+		await user.clear(input);
+		await user.click(screen.getByRole('button', { name: 'Confirm' }));
+		expect(await screen.findByText('Enter a name')).toBeVisible();
+		if (isTopLayerEnabled) {
+			expect(input).toHaveAccessibleDescription('Enter a name');
+		}
+		await user.click(input);
+		expect(screen.getByText('Enter a name')).toBeVisible();
+		expect(input).toHaveFocus();
+		expect(onConfirm).not.toHaveBeenCalled();
+
+		await user.type(input, 'Corrected');
+		await user.keyboard('{Enter}');
+		await waitFor(() => expect(onConfirm).toHaveBeenCalledWith('Corrected', expect.anything()));
+		expect(screen.queryByText('Enter a name')).not.toBeInTheDocument();
+	},
+);

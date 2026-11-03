@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-card
 
+## 36.0.11
+
+### Patch Changes
+
+- [`8dfd15a14b5d7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8dfd15a14b5d7) -
+  Raise the opt-in `trackPastedInlineLinks` cap from 10 to 100 tracked links, so an eligible link
+  later in a large paste is still tracked, and count the links dropped once the cap is full in the
+  `pastedInlineLinksDropped` plugin state so consumers can see how often it is reached.
+
+## 36.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 36.0.9
 
 ### Patch Changes

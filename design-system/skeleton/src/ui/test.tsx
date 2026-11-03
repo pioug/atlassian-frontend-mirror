@@ -3,7 +3,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 
 import InteractionContext from '@atlaskit/interaction-context';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import Skeleton from './index';
 
@@ -26,52 +26,48 @@ describe('Skeleton', () => {
 		});
 	});
 
-	ffTest.on('platform-dst-skeleton-ufo-hold', 'when the Skeleton UFO hold gate is enabled', () => {
-		it('should call hold from context', () => {
-			const interactionName = 'load.event';
-			const mockHold = jest.fn();
+	it('should call hold from context', () => {
+		passGate('platform-dst-skeleton-ufo-hold');
 
-			const context = {
-				labelStack: null,
-				segmentStack: null,
-				hold: mockHold,
-				tracePress: jest.fn(),
-			};
+		const interactionName = 'load.event';
+		const mockHold = jest.fn();
 
-			render(
-				<InteractionContext.Provider value={context}>
-					<Skeleton width={200} height={8} testId={testId} interactionName={interactionName} />
-				</InteractionContext.Provider>,
-			);
+		const context = {
+			labelStack: null,
+			segmentStack: null,
+			hold: mockHold,
+			tracePress: jest.fn(),
+		};
 
-			expect(mockHold).toHaveBeenCalledWith(interactionName);
-		});
+		render(
+			<InteractionContext.Provider value={context}>
+				<Skeleton width={200} height={8} testId={testId} interactionName={interactionName} />
+			</InteractionContext.Provider>,
+		);
+
+		expect(mockHold).toHaveBeenCalledWith(interactionName);
 	});
 
-	ffTest.off(
-		'platform-dst-skeleton-ufo-hold',
-		'when the Skeleton UFO hold gate is disabled',
-		() => {
-			it('should not call hold from context', () => {
-				const mockHold = jest.fn();
+	it('should not call hold from context', () => {
+		failGate('platform-dst-skeleton-ufo-hold');
 
-				const context = {
-					labelStack: null,
-					segmentStack: null,
-					hold: mockHold,
-					tracePress: jest.fn(),
-				};
+		const mockHold = jest.fn();
 
-				render(
-					<InteractionContext.Provider value={context}>
-						<Skeleton width={200} height={8} testId={testId} />
-					</InteractionContext.Provider>,
-				);
+		const context = {
+			labelStack: null,
+			segmentStack: null,
+			hold: mockHold,
+			tracePress: jest.fn(),
+		};
 
-				expect(mockHold).not.toHaveBeenCalled();
-			});
-		},
-	);
+		render(
+			<InteractionContext.Provider value={context}>
+				<Skeleton width={200} height={8} testId={testId} />
+			</InteractionContext.Provider>,
+		);
+
+		expect(mockHold).not.toHaveBeenCalled();
+	});
 
 	it('should not throw errors when no context is provided', () => {
 		expect(() => render(<Skeleton width={200} height={8} testId={testId} />)).not.toThrow();

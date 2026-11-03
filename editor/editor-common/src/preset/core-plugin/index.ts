@@ -3,6 +3,10 @@ import type { Fragment, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Node } from '@atlaskit/editor-prosemirror/model';
 
 import { getNodeIdProvider } from '../../node-anchor/node-anchor-provider';
+import {
+	AGENT_ATTRIBUTION_META,
+	type AgentAttributionTransactionMeta,
+} from '../../transaction-agent-attribution';
 import type {
 	CorePlugin,
 	DefaultTransformerResultCallback,
@@ -129,6 +133,7 @@ export const corePlugin: CorePlugin = ({ config }) => {
 				replaceValue: Node | Fragment | Array<Node> | object | string,
 				options?: {
 					addToHistory?: boolean;
+					agentAttribution?: Partial<AgentAttributionTransactionMeta>;
 					scrollIntoView?: boolean;
 					skipValidation?: boolean;
 					transformer?: Transformer<string>;
@@ -164,6 +169,9 @@ export const corePlugin: CorePlugin = ({ config }) => {
 				if (content) {
 					const tr = state.tr.replaceWith(0, state.doc.nodeSize - 2, content);
 					tr.setMeta('replaceDocument', true);
+					if (options?.agentAttribution) {
+						tr.setMeta(AGENT_ATTRIBUTION_META, options.agentAttribution);
+					}
 
 					if (options?.addToHistory === false) {
 						tr.setMeta('addToHistory', false);

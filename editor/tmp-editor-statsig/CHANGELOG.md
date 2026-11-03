@@ -1,5 +1,12 @@
 # @atlaskit/editor-statsig-tmp
 
+## 252.0.0
+
+### Major Changes
+
+- [`f3b3dcb7c4d0d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f3b3dcb7c4d0d) -
+  Clean up experiment `cc_fix_editor_context_on_cwr_followups`
+
 ## 251.0.0
 
 ### Major Changes

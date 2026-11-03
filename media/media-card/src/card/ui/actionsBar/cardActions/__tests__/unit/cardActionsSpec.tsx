@@ -8,7 +8,6 @@ import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import type { UIAnalyticsEventHandler } from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import CrossIcon from '@atlaskit/icon/core/cross';
 import AnnotateIcon from '@atlaskit/icon/core/edit';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import { type CardAction } from '../../../../../actions';
 import { CardActionButton } from '../../cardActionButton-compiled';
@@ -325,26 +324,13 @@ describe('CardActions', () => {
 			return { onCardActionClick, onFormSubmit };
 		};
 
-		ffTest.on('platform_media_card_action_button_type_fix', 'when feature flag is on', () => {
-			it('should not trigger form submission when card action button is clicked', () => {
-				const { onCardActionClick, onFormSubmit } = setupWithForm();
+		it('should not trigger form submission when card action button is clicked', () => {
+			const { onCardActionClick, onFormSubmit } = setupWithForm();
 
-				fireEvent.click(screen.getByTestId('media-card-primary-action'));
+			fireEvent.click(screen.getByTestId('media-card-primary-action'));
 
-				expect(onCardActionClick).toHaveBeenCalledTimes(1);
-				expect(onFormSubmit).not.toHaveBeenCalled();
-			});
-		});
-
-		ffTest.off('platform_media_card_action_button_type_fix', 'when feature flag is off', () => {
-			it('should trigger form submission when card action button is clicked', () => {
-				const { onCardActionClick, onFormSubmit } = setupWithForm();
-
-				fireEvent.click(screen.getByTestId('media-card-primary-action'));
-
-				expect(onCardActionClick).toHaveBeenCalledTimes(1);
-				expect(onFormSubmit).toHaveBeenCalledTimes(1);
-			});
+			expect(onCardActionClick).toHaveBeenCalledTimes(1);
+			expect(onFormSubmit).not.toHaveBeenCalled();
 		});
 	});
 });

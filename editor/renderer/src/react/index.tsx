@@ -663,7 +663,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 			allowTableAlignment: this.allowTableAlignment,
 			allowTableResizing: this.allowTableResizing,
 			// eslint-disable-next-line @atlaskit/platform/valid-gate-name
-			isPresentational: fg('platform_renderer_isPresentational') ? this.isPresentational : false,
+			isPresentational: fg('platform_renderer_ispresentational') ? this.isPresentational : false,
 			disableTableOverflowShadow: this.disableTableOverflowShadow,
 			allowFixedColumnWidthOption: this.allowFixedColumnWidthOption,
 		};

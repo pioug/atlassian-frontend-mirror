@@ -28,6 +28,7 @@ import { List } from '../../../list';
 import { nextNavButtonId, prevNavButtonId } from '../../../navigation';
 import {
 	BlanketCloseButton,
+	ContentWrapper,
 	InsetViewerLayout,
 	InsetViewerShell,
 	MediaColumn,
@@ -58,6 +59,7 @@ jest.mock('../../../styleWrappers', () => {
 	return {
 		...original,
 		BlanketCloseButton: jest.fn(original.BlanketCloseButton),
+		ContentWrapper: jest.fn(original.ContentWrapper),
 		InsetViewerLayout: jest.fn(original.InsetViewerLayout),
 		InsetViewerShell: jest.fn(original.InsetViewerShell),
 		MediaColumn: jest.fn(original.MediaColumn),
@@ -745,6 +747,140 @@ describe('<MediaViewer />', () => {
 				expect(screen.getByRole('button', { name: /Show sidebar/ })).toHaveFocus(),
 			);
 		});
+	});
+
+	describe('sidebar behaviour when extensions.sidebar is undefined', () => {
+		beforeEach(() => {
+			[ContentWrapper, List, SidebarColumn].forEach((component) =>
+				jest.mocked(component).mockClear(),
+			);
+		});
+
+		it.each([
+			{ presentation: 'inset', isInset: true },
+			{ presentation: 'overlay', isInset: false },
+		])(
+			'should hide the open sidebar while extensions.sidebar is undefined and show it again once it is defined, in the $presentation presentation',
+			async ({ isInset }) => {
+				passGate('cc_comments_inset_media_viewer');
+				// onSelectedItemChange is only honoured with the experiment on
+				mockExpEnabled('cc_comments_media_viewer_sidebar');
+				const [fileItem1, identifier1] = generateSampleFileItem.workingVideo();
+				const [fileItem2, identifier2] = generateSampleFileItem.workingGif();
+				const { mediaApi } = createMockedMediaApi([fileItem1, fileItem2]);
+				// Only the first item has a sidebar, as a consumer's getter would return.
+				let currentId = identifier1.id;
+				const renderer = jest.fn(() => <div>Sidebar Content</div>);
+				const extensions: MediaViewerExtensions = {
+					useInsetViewer: isInset,
+					onSelectedItemChange: (identifier) => {
+						currentId = identifier && 'id' in identifier ? identifier.id : '';
+					},
+					get sidebar() {
+						return currentId === identifier1.id
+							? {
+									icon: <EditorPanelIcon label="sidebar" />,
+									renderer,
+								}
+							: undefined;
+					},
+				};
+				const expectSidebarShown = (isShown: boolean) => {
+					[ContentWrapper, List].forEach((component) =>
+						expect(component).toHaveBeenLastCalledWith(
+							expect.objectContaining({ isSidebarVisible: isShown }),
+							expect.anything(),
+						),
+					);
+					if (isInset) {
+						expect(SidebarColumn).toHaveBeenLastCalledWith(
+							expect.objectContaining({ isOpen: isShown }),
+							expect.anything(),
+						);
+					} else {
+						expect(SidebarColumn).not.toHaveBeenCalled();
+					}
+					// The inset column keeps the old content mounted while it exits, so check the renderer
+					expect(renderer.mock.calls.length > 0).toBe(isShown);
+					renderer.mockClear();
+				};
+
+				render(
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<MediaViewer
+							selectedItem={identifier1}
+							items={[identifier1, identifier2]}
+							extensions={extensions}
+							collectionName={identifier1.collectionName || ''}
+							mediaClientConfig={fakeMediaClientConfig}
+						/>
+					</MockedMediaClientProvider>,
+				);
+
+				// The sidebar starts closed on the first item
+				expectSidebarShown(false);
+
+				// Open the sidebar on the first item, which has one
+				act(() => jest.mocked(List).mock.lastCall?.[0].onSidebarButtonClick?.());
+				expectSidebarShown(true);
+
+				// Navigate to the second item, which has no sidebar: it is hidden
+				fireEvent.click(await screen.findByTestId(nextNavButtonId));
+				expectSidebarShown(false);
+
+				// Navigate back to the first item: the kept open state shows the sidebar again
+				fireEvent.click(await screen.findByTestId(prevNavButtonId));
+				expectSidebarShown(true);
+			},
+		);
+
+		it.each([
+			{ presentation: 'inset', isInset: true },
+			{ presentation: 'overlay', isInset: false },
+		])(
+			'should ignore that extensions.sidebar is undefined when the experiment is disabled, in the $presentation presentation',
+			({ isInset }) => {
+				passGate('cc_comments_inset_media_viewer');
+				mockExpDisabled('cc_comments_media_viewer_sidebar');
+				const [fileItem, identifier] = generateSampleFileItem.workingVideo();
+				const { mediaApi } = createMockedMediaApi(fileItem);
+				const expectSidebarVisible = (isVisible: boolean) => {
+					[ContentWrapper, List].forEach((component) =>
+						expect(component).toHaveBeenLastCalledWith(
+							expect.objectContaining({ isSidebarVisible: isVisible }),
+							expect.anything(),
+						),
+					);
+					if (isInset) {
+						expect(SidebarColumn).toHaveBeenLastCalledWith(
+							expect.objectContaining({ isOpen: isVisible }),
+							expect.anything(),
+						);
+					} else {
+						expect(SidebarColumn).not.toHaveBeenCalled();
+					}
+				};
+
+				render(
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<MediaViewer
+							selectedItem={identifier}
+							items={[identifier]}
+							extensions={{ useInsetViewer: isInset }}
+							collectionName={identifier.collectionName || ''}
+							mediaClientConfig={fakeMediaClientConfig}
+						/>
+					</MockedMediaClientProvider>,
+				);
+
+				// The sidebar starts closed
+				expectSidebarVisible(false);
+
+				// Open the sidebar: it is visible even though extensions.sidebar is undefined
+				act(() => jest.mocked(List).mock.lastCall?.[0].onSidebarButtonClick?.());
+				expectSidebarVisible(true);
+			},
+		);
 	});
 
 	describe('SVG Native Rendering', () => {

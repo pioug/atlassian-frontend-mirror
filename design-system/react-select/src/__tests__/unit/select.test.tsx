@@ -29,7 +29,6 @@ import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { act } from '@atlassian/testing-library/testing-library/react';
 
 import type { FilterOptionOption } from '../../filters';
@@ -3533,8 +3532,10 @@ test('UNSAFE_is_experimental_generic', () => {
 });
 
 describe('accessibility > aria-autocomplete with platform_fix_autocomplete_aria_for_select feature flag', () => {
-	ffTest.on('platform_fix_autocomplete_aria_for_select', 'with flag enabled', () => {
+	describe('with flag enabled', () => {
 		it('does not render aria-autocomplete when isSearchable is false (single select)', () => {
+			passGate('platform_fix_autocomplete_aria_for_select');
+
 			render(<Select {...BASIC_PROPS} isSearchable={false} />);
 
 			const input = screen.getByTestId(`${testId}-select--input`);
@@ -3542,15 +3543,24 @@ describe('accessibility > aria-autocomplete with platform_fix_autocomplete_aria_
 		});
 
 		it('sets aria-autocomplete to "both" when isSearchable is true (single select)', () => {
-			render(<Select {...BASIC_PROPS} isSearchable={true} />);
+			passGate('platform_fix_autocomplete_aria_for_select');
+
+			const { rerender } = render(<Select {...BASIC_PROPS} isSearchable={true} />);
 
 			const input = screen.getByTestId(`${testId}-select--input`);
 			expect(input).toHaveAttribute('aria-autocomplete', 'both');
+
+			rerender(<Select {...BASIC_PROPS} isSearchable={false} />);
+			expect(screen.getByTestId(`${testId}-select--input`)).not.toHaveAttribute(
+				'aria-autocomplete',
+			);
 		});
 	});
 
-	ffTest.off('platform_fix_autocomplete_aria_for_select', 'with flag disabled', () => {
+	describe('with flag disabled', () => {
 		it('always sets aria-autocomplete to "both" when isSearchable is false (single select)', () => {
+			failGate('platform_fix_autocomplete_aria_for_select');
+
 			render(<Select {...BASIC_PROPS} isSearchable={false} />);
 
 			const input = screen.getByTestId(`${testId}-select--input`);
@@ -3558,17 +3568,27 @@ describe('accessibility > aria-autocomplete with platform_fix_autocomplete_aria_
 		});
 
 		it('sets aria-autocomplete to "both" when isSearchable is true (single select)', () => {
-			render(<Select {...BASIC_PROPS} isSearchable={true} />);
+			failGate('platform_fix_autocomplete_aria_for_select');
+
+			const { rerender } = render(<Select {...BASIC_PROPS} isSearchable={true} />);
 
 			const input = screen.getByTestId(`${testId}-select--input`);
 			expect(input).toHaveAttribute('aria-autocomplete', 'both');
+
+			rerender(<Select {...BASIC_PROPS} isSearchable={false} />);
+			expect(screen.getByTestId(`${testId}-select--input`)).toHaveAttribute(
+				'aria-autocomplete',
+				'both',
+			);
 		});
 	});
 });
 
 describe('accessibility > aria-readonly with select_issearchable_aria-readonly_fix feature flag', () => {
-	ffTest.on('select_issearchable_aria-readonly_fix', 'with flag enabled', () => {
+	describe('with flag enabled', () => {
 		it('does not set aria-readonly when isSearchable is false (single select)', () => {
+			passGate('select_issearchable_aria-readonly_fix');
+
 			render(<Select {...BASIC_PROPS} isSearchable={false} />);
 
 			const input = screen.getByTestId(`${testId}-select--input`);
@@ -3576,15 +3596,22 @@ describe('accessibility > aria-readonly with select_issearchable_aria-readonly_f
 		});
 
 		it('does not set aria-readonly when isSearchable is true (single select)', () => {
-			render(<Select {...BASIC_PROPS} isSearchable={true} />);
+			passGate('select_issearchable_aria-readonly_fix');
+
+			const { rerender } = render(<Select {...BASIC_PROPS} isSearchable={true} />);
 
 			const input = screen.getByTestId(`${testId}-select--input`);
 			expect(input).not.toHaveAttribute('aria-readonly');
+
+			rerender(<Select {...BASIC_PROPS} isSearchable={false} />);
+			expect(screen.getByTestId(`${testId}-select--input`)).not.toHaveAttribute('aria-readonly');
 		});
 	});
 
-	ffTest.off('select_issearchable_aria-readonly_fix', 'with flag disabled', () => {
+	describe('with flag disabled', () => {
 		it('sets aria-readonly to true when isSearchable is false (single select)', () => {
+			failGate('select_issearchable_aria-readonly_fix');
+
 			render(<Select {...BASIC_PROPS} isSearchable={false} />);
 
 			const input = screen.getByTestId(`${testId}-select--input`);
@@ -3592,17 +3619,27 @@ describe('accessibility > aria-readonly with select_issearchable_aria-readonly_f
 		});
 
 		it('does not set aria-readonly when isSearchable is true (single select)', () => {
-			render(<Select {...BASIC_PROPS} isSearchable={true} />);
+			failGate('select_issearchable_aria-readonly_fix');
+
+			const { rerender } = render(<Select {...BASIC_PROPS} isSearchable={true} />);
 
 			const input = screen.getByTestId(`${testId}-select--input`);
 			expect(input).not.toHaveAttribute('aria-readonly');
+
+			rerender(<Select {...BASIC_PROPS} isSearchable={false} />);
+			expect(screen.getByTestId(`${testId}-select--input`)).toHaveAttribute(
+				'aria-readonly',
+				'true',
+			);
 		});
 	});
 });
 
 describe('accessibility > disabled combobox', () => {
-	ffTest.on('platform_dst_select_disabled_a11y_fix', 'with flag enabled', () => {
+	describe('with flag enabled', () => {
 		it('disabled select announces disabled state to screen readers', () => {
+			passGate('platform_dst_select_disabled_a11y_fix');
+
 			render(<Select {...BASIC_PROPS} isDisabled />);
 
 			const input = screen.getByTestId(`${testId}-select--input`);
@@ -3617,6 +3654,8 @@ describe('accessibility > disabled combobox', () => {
 		});
 
 		it('disabled select with a value announces the value as part of the combobox', () => {
+			passGate('platform_dst_select_disabled_a11y_fix');
+
 			render(<Select {...BASIC_PROPS} isDisabled value={OPTIONS[0]} />);
 
 			const input = screen.getByTestId(`${testId}-select--input`);
@@ -3632,6 +3671,8 @@ describe('accessibility > disabled combobox', () => {
 		});
 
 		it('non-searchable disabled select announces disabled state to screen readers', () => {
+			passGate('platform_dst_select_disabled_a11y_fix');
+
 			render(<Select {...BASIC_PROPS} isDisabled isSearchable={false} />);
 
 			const input = screen.getByTestId(`${testId}-select--input`);
@@ -3642,8 +3683,10 @@ describe('accessibility > disabled combobox', () => {
 		});
 	});
 
-	ffTest.off('platform_dst_select_disabled_a11y_fix', 'with flag disabled', () => {
+	describe('with flag disabled', () => {
 		it('disabled select does not announce disabled state on the combobox', () => {
+			failGate('platform_dst_select_disabled_a11y_fix');
+
 			render(<Select {...BASIC_PROPS} isDisabled value={OPTIONS[0]} />);
 
 			const input = screen.getByTestId(`${testId}-select--input`);

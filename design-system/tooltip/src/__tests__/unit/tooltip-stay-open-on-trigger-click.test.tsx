@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 
 import { flushPopoverExit } from '@atlaskit/top-layer/testing/flush-popover-exit';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { act } from '@atlassian/testing-library/act';
 import { fireEvent } from '@atlassian/testing-library/fire-event';
 import { render } from '@atlassian/testing-library/render';
@@ -64,7 +64,11 @@ function leaveTrigger() {
 	});
 }
 
-ffTest.on('platform-dst-top-layer-tooltip', 'hasNewContentOnTriggerClick (top-layer)', () => {
+describe('hasNewContentOnTriggerClick (top-layer)', () => {
+	beforeEach(() => {
+		passGate('platform-dst-top-layer-tooltip');
+	});
+
 	beforeEach(() => {
 		jest.useFakeTimers();
 	});
@@ -202,7 +206,11 @@ ffTest.on('platform-dst-top-layer-tooltip', 'hasNewContentOnTriggerClick (top-la
 	});
 });
 
-ffTest.off('platform-dst-top-layer-tooltip', 'hasNewContentOnTriggerClick (legacy)', () => {
+describe('hasNewContentOnTriggerClick (legacy)', () => {
+	beforeEach(() => {
+		failGate('platform-dst-top-layer-tooltip');
+	});
+
 	beforeEach(() => {
 		jest.useFakeTimers();
 	});

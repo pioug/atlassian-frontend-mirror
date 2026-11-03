@@ -3,7 +3,7 @@
  *
  * Structured content utilities from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::a15adab022737be881e06c0695fe6bf7>>
+ * @codegen <<SignedSource::b82b05dbeceb3f06ce21e5a6ed9788ac>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -9880,6 +9880,21 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		usageGuidelines: [
 			'Mount one CreditsProvider above every useCreditsState consumer and CreditsBanner.',
 			'Without a CreditsProvider the hook does not throw. It returns the empty state and logs a console error.',
+		],
+		keywords: ['rovo', 'chat', 'ai', 'platform'],
+		category: 'rovo',
+		package: '@atlassian/rovo-credits',
+		examples: [],
+		kind: 'function',
+	},
+	{
+		name: 'useReportCreditDenial',
+		description:
+			'Hook that returns a stable function for passing the CreditDenial from a block signal to the provider, so the banner shows it immediately without calling the credits backend. The next scheduled fetch still updates the state.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Call the returned function with the CreditDenial from the block signal when AI usage is blocked at time of use.',
+			'The report only changes the reporting tab and is replaced by the next fetched snapshot.',
 		],
 		keywords: ['rovo', 'chat', 'ai', 'platform'],
 		category: 'rovo',

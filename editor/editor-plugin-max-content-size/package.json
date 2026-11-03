@@ -34,6 +34,7 @@
 		"react-dom": "^18.2.0 || ^19.2.0"
 	},
 	"devDependencies": {
+		"@atlaskit/editor-common": "workspace:^",
 		"@atlassian/experiment-test-utils": "workspace:^",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0"

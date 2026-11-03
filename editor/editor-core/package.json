@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "242.0.8",
+	"version": "242.0.9",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -111,6 +111,7 @@
 		"@atlaskit/collab-provider": "workspace:^",
 		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/drawer": "workspace:^",
+		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/editor-plugin-alignment": "workspace:^",
 		"@atlaskit/editor-plugin-annotation": "workspace:^",
 		"@atlaskit/editor-plugin-base": "workspace:^",

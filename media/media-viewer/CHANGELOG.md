@@ -1,5 +1,20 @@
 # @atlaskit/media-viewer
 
+## 54.12.7
+
+### Patch Changes
+
+- [`d9e0721578d45`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d9e0721578d45) -
+  An item the consumer passes no `extensions.sidebar` for now shows no sidebar, column or sidebar
+  gap while the sidebar is open for other items. The open state is kept, so the next item with a
+  sidebar shows it again. Applies when `cc_comments_media_viewer_sidebar` is on.
+
+## 54.12.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 54.12.5
 
 ### Patch Changes

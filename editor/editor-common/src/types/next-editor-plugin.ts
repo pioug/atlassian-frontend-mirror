@@ -10,6 +10,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { FireAnalyticsCallback } from '../analytics';
+import type { AgentAttributionTransactionMeta } from '../transaction-agent-attribution';
 import type { EditorAppearance } from './editor-appearance';
 import type { EditorCommand, EditorCommandWithMetadata } from './editor-command';
 import type { EditorPlugin } from './editor-plugin';
@@ -75,15 +76,17 @@ export type CorePlugin = NextEditorPlugin<
 			 * @param replaceValue - The new content to replace the current content. It can be of any type.
 			 * @param options - Options
 			 * @param options.addToHistory (boolean) if the replacement should be added to history. True by default
+			 * @param options.agentAttribution - Optional agent attribution for this replacement transaction.
 			 * @param options.scrollIntoView (boolean) if the view should also scroll on replace. True by default
 			 * @param options.skipValidation (boolean) if the validation should be skipped. False by default
 			 * @param options.transformer (Transformer<string>) transformer to convert the replaceValue into (example is from markdown)
 			 * @returns A boolean indicating whether the replacement was successful.
 			 */
 			replaceDocument: (
-				replaceValue: Node | Fragment | Array<Node> | Object | string,
+				replaceValue: Node | Fragment | Array<Node> | object | string,
 				options?: {
 					addToHistory?: boolean;
+					agentAttribution?: Partial<AgentAttributionTransactionMeta>;
 					scrollIntoView?: boolean;
 					skipValidation?: boolean;
 					transformer?: Transformer<string>;

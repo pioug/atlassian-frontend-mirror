@@ -4,7 +4,7 @@
 import React from 'react';
 
 import { Text } from '@atlaskit/primitives/compiled/text';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { fireEvent, render } from '@atlassian/testing-library/testing-library/react';
 
@@ -110,8 +110,10 @@ describe('PopoverContent', () => {
 		expect(screen.getByTestId('spotlight-popover-content')).toHaveAccessibleName('Headline');
 	});
 
-	ffTest.on('platform-dst-top-layer-spotlight', 'with top-layer positioning enabled', () => {
+	describe('with top-layer positioning enabled', () => {
 		it('renders a manual top-layer popover with dialog role', () => {
+			passGate('platform-dst-top-layer-spotlight');
+
 			// Visual placement wiring (target ↔ popover positioning) is
 			// covered by the `AllPlacements` and `Offset` visual-regression
 			// snapshots in `__tests__/vr-tests/index.vr.tsx` (with
@@ -159,6 +161,8 @@ describe('PopoverContent', () => {
 		});
 
 		it('dismisses on Escape with a synthetic keyboard event', () => {
+			passGate('platform-dst-top-layer-spotlight');
+
 			const mockDismiss = jest.fn();
 
 			render(
@@ -189,6 +193,8 @@ describe('PopoverContent', () => {
 		});
 
 		it('dismisses on outside click and respects shouldDismissOnClickOutside', () => {
+			passGate('platform-dst-top-layer-spotlight');
+
 			const mockDismiss = jest.fn();
 			const { rerender } = render(
 				<PopoverProvider>
@@ -241,6 +247,8 @@ describe('PopoverContent', () => {
 		});
 
 		it('does not dismiss when clicking inside the top-layer popover', () => {
+			passGate('platform-dst-top-layer-spotlight');
+
 			const mockDismiss = jest.fn();
 
 			render(

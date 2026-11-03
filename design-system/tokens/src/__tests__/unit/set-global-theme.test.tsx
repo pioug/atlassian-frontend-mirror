@@ -5,7 +5,7 @@ import { mainThemes, verifyBrandRefreshColors } from './brand-refresh-assertion-
 import { waitFor } from '@testing-library/react';
 
 import __noop from '@atlaskit/ds-lib/noop';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import {
 	COLOR_MODE_ATTRIBUTE,
@@ -72,9 +72,46 @@ describe('setGlobalTheme style loading', () => {
 	beforeEach(cleanDOM);
 
 	describe('should load theme CSS on the page when specified', () => {
-		ffTest(
-			'platform_increased-contrast-themes',
-			async () => {
+		it('with platform_increased-contrast-themes on', async () => {
+			passGate('platform_increased-contrast-themes');
+
+			await setGlobalTheme({
+				dark: 'dark',
+				light: 'light',
+				shape: 'shape',
+				spacing: 'spacing',
+				typography: 'typography',
+			});
+
+			// Wait for styles to be added to the page
+			await waitFor(() => {
+				const styleElements = document.querySelectorAll(`style[${THEME_DATA_ATTRIBUTE}]`);
+				expect(styleElements).toHaveLength(8);
+			});
+
+			// Validate that the data-theme attributes match the expected values
+
+			const styleElements = document.querySelectorAll('style');
+			const dataThemes = Array.from(styleElements).map((el) => el.getAttribute('data-theme'));
+
+			expect(dataThemes.sort()).toEqual([
+				'dark',
+				'dark-increased-contrast',
+				'light',
+				'light-increased-contrast',
+				'motion',
+				'shape',
+				'spacing',
+				'typography',
+			]);
+		});
+
+		it('with platform_increased-contrast-themes off', async () => {
+			failGate('platform_increased-contrast-themes');
+
+			const testWithVisualRefreshVariation = async (
+				verify: (css: string, id: ThemeIdsWithOverrides) => void,
+			) => {
 				await setGlobalTheme({
 					dark: 'dark',
 					light: 'light',
@@ -86,155 +123,120 @@ describe('setGlobalTheme style loading', () => {
 				// Wait for styles to be added to the page
 				await waitFor(() => {
 					const styleElements = document.querySelectorAll(`style[${THEME_DATA_ATTRIBUTE}]`);
-					expect(styleElements).toHaveLength(8);
+					expect(styleElements).toHaveLength(6);
 				});
 
 				// Validate that the data-theme attributes match the expected values
-
 				const styleElements = document.querySelectorAll('style');
-				const dataThemes = Array.from(styleElements).map((el) => el.getAttribute('data-theme'));
 
-				expect(dataThemes.sort()).toEqual([
-					'dark',
-					'dark-increased-contrast',
-					'light',
-					'light-increased-contrast',
-					'motion',
-					'shape',
-					'spacing',
-					'typography',
-				]);
-			},
-			() => {
-				const testWithVisualRefreshVariation = async (
-					verify: (css: string, id: ThemeIdsWithOverrides) => void,
-				) => {
-					await setGlobalTheme({
-						dark: 'dark',
-						light: 'light',
-						shape: 'shape',
-						spacing: 'spacing',
-						typography: 'typography',
-					});
+				// Create a Map to store data-themes by key
+				const themeMap = new Map();
+				// Add data-themes to the Map
+				styleElements.forEach((element) => {
+					const dataTheme = element.getAttribute('data-theme');
+					if (dataTheme) {
+						themeMap.set(dataTheme, element);
+					}
+				});
 
-					// Wait for styles to be added to the page
-					await waitFor(() => {
-						const styleElements = document.querySelectorAll(`style[${THEME_DATA_ATTRIBUTE}]`);
-						expect(styleElements).toHaveLength(5);
-					});
+				// Validate that the data-theme attributes match the expected values
+				const dataThemes = Array.from(themeMap.keys()).sort();
+				expect(dataThemes).toEqual(['dark', 'light', 'motion', 'shape', 'spacing', 'typography']);
 
-					// Validate that the data-theme attributes match the expected values
-					const styleElements = document.querySelectorAll('style');
+				mainThemes.forEach((theme) => {
+					const styleElement = themeMap.get(theme);
+					if (styleElement) {
+						verify(styleElement.textContent, theme);
+					} else {
+						throw new Error(`Style element for ${theme} theme not found`);
+					}
+				});
+			};
 
-					// Create a Map to store data-themes by key
-					const themeMap = new Map();
-					// Add data-themes to the Map
-					styleElements.forEach((element) => {
-						const dataTheme = element.getAttribute('data-theme');
-						if (dataTheme) {
-							themeMap.set(dataTheme, element);
-						}
-					});
-
-					// Validate that the data-theme attributes match the expected values
-					const dataThemes = Array.from(themeMap.keys()).sort();
-					expect(dataThemes).toEqual(['dark', 'light', 'shape', 'spacing', 'typography']);
-
-					mainThemes.forEach((theme) => {
-						const styleElement = themeMap.get(theme);
-						if (styleElement) {
-							verify(styleElement.textContent, theme);
-						} else {
-							throw new Error(`Style element for ${theme} theme not found`);
-						}
-					});
-				};
-
-				return async () => {
-					await testWithVisualRefreshVariation(verifyBrandRefreshColors);
-				};
-			},
-		);
+			await testWithVisualRefreshVariation(verifyBrandRefreshColors);
+		});
 	});
 
 	describe('should load custom theme CSS on the page when specified', () => {
-		ffTest(
-			'platform_increased-contrast-themes',
-			async () => {
-				// prompt a duplication of styles
-				await setGlobalTheme({
-					dark: 'dark',
-					light: 'light',
-					UNSAFE_themeOptions,
-				});
+		it('with platform_increased-contrast-themes on', async () => {
+			passGate('platform_increased-contrast-themes');
 
-				// Wait for styles to be added to the page
-				await waitFor(() => {
-					const styleElements = document.querySelectorAll(`style[${THEME_DATA_ATTRIBUTE}]`);
-					expect(styleElements).toHaveLength(10);
-				});
-				const customStyleElements = document.querySelectorAll(`style[${CUSTOM_THEME_ATTRIBUTE}]`);
-				expect(customStyleElements).toHaveLength(2);
+			// prompt a duplication of styles
+			await setGlobalTheme({
+				dark: 'dark',
+				light: 'light',
+				UNSAFE_themeOptions,
+			});
 
-				const styleElements = document.querySelectorAll('style');
+			// Wait for styles to be added to the page
+			await waitFor(() => {
+				const styleElements = document.querySelectorAll(`style[${THEME_DATA_ATTRIBUTE}]`);
+				expect(styleElements).toHaveLength(10);
+			});
+			const customStyleElements = document.querySelectorAll(`style[${CUSTOM_THEME_ATTRIBUTE}]`);
+			expect(customStyleElements).toHaveLength(2);
 
-				const dataThemes = Array.from(styleElements).map(
-					(el) =>
-						(el.hasAttribute(CUSTOM_THEME_ATTRIBUTE) ? 'custom-' : '') +
-						el.getAttribute(THEME_DATA_ATTRIBUTE),
-				);
+			const styleElements = document.querySelectorAll('style');
 
-				// Validate that the custom style elements come after other style element
-				expect(dataThemes).toEqual([
-					'custom-light',
-					'custom-dark',
-					'light',
-					'dark',
-					'light-increased-contrast',
-					'dark-increased-contrast',
-					'shape',
-					'spacing',
-					'typography',
-					'motion',
-				]);
-			},
-			async () => {
-				// prompt a duplication of styles
-				await setGlobalTheme({
-					dark: 'dark',
-					light: 'light',
-					UNSAFE_themeOptions,
-				});
+			const dataThemes = Array.from(styleElements).map(
+				(el) =>
+					(el.hasAttribute(CUSTOM_THEME_ATTRIBUTE) ? 'custom-' : '') +
+					el.getAttribute(THEME_DATA_ATTRIBUTE),
+			);
 
-				// Wait for styles to be added to the page
-				await waitFor(() => {
-					const styleElements = document.querySelectorAll(`style[${THEME_DATA_ATTRIBUTE}]`);
-					expect(styleElements).toHaveLength(8);
-				});
-				const customStyleElements = document.querySelectorAll(`style[${CUSTOM_THEME_ATTRIBUTE}]`);
-				expect(customStyleElements).toHaveLength(2);
+			// Validate that the custom style elements come after other style element
+			expect(dataThemes).toEqual([
+				'custom-light',
+				'custom-dark',
+				'light',
+				'dark',
+				'light-increased-contrast',
+				'dark-increased-contrast',
+				'shape',
+				'spacing',
+				'typography',
+				'motion',
+			]);
+		});
 
-				const styleElements = document.querySelectorAll('style');
+		it('with platform_increased-contrast-themes off', async () => {
+			failGate('platform_increased-contrast-themes');
 
-				const dataThemes = Array.from(styleElements).map(
-					(el) =>
-						(el.hasAttribute(CUSTOM_THEME_ATTRIBUTE) ? 'custom-' : '') +
-						el.getAttribute(THEME_DATA_ATTRIBUTE),
-				);
+			// prompt a duplication of styles
+			await setGlobalTheme({
+				dark: 'dark',
+				light: 'light',
+				UNSAFE_themeOptions,
+			});
 
-				// Validate that the custom style elements come after other style element
-				expect(dataThemes).toEqual([
-					'custom-light',
-					'custom-dark',
-					'light',
-					'dark',
-					'shape',
-					'spacing',
-					'typography',
-					'motion',
-				]);
-			},
-		);
+			// Wait for styles to be added to the page
+			await waitFor(() => {
+				const styleElements = document.querySelectorAll(`style[${THEME_DATA_ATTRIBUTE}]`);
+				expect(styleElements).toHaveLength(8);
+			});
+			const customStyleElements = document.querySelectorAll(`style[${CUSTOM_THEME_ATTRIBUTE}]`);
+			expect(customStyleElements).toHaveLength(2);
+
+			const styleElements = document.querySelectorAll('style');
+
+			const dataThemes = Array.from(styleElements).map(
+				(el) =>
+					(el.hasAttribute(CUSTOM_THEME_ATTRIBUTE) ? 'custom-' : '') +
+					el.getAttribute(THEME_DATA_ATTRIBUTE),
+			);
+
+			// Validate that the custom style elements come after other style element
+			expect(dataThemes).toEqual([
+				'custom-light',
+				'custom-dark',
+				'light',
+				'dark',
+				'shape',
+				'spacing',
+				'typography',
+				'motion',
+			]);
+		});
 	});
 
 	it('should gracefully omit themes when falsy values are passed in', async () => {
@@ -333,60 +335,62 @@ describe('setGlobalTheme style loading', () => {
 	});
 
 	describe('should load theme CSS on the page without duplicates', () => {
-		ffTest(
-			'platform_increased-contrast-themes',
-			async () => {
-				// prompt a duplication of styles
-				await setGlobalTheme({
-					light: 'dark',
-					dark: 'dark',
-					spacing: 'spacing',
-					shape: 'shape',
-					typography: 'typography',
-				});
+		it('with platform_increased-contrast-themes on', async () => {
+			passGate('platform_increased-contrast-themes');
 
-				// Wait for styles to be added to the page
-				await waitFor(() => {
-					const styleElements = document.querySelectorAll(`style[${THEME_DATA_ATTRIBUTE}]`);
-					expect(styleElements).toHaveLength(6);
-				});
+			// prompt a duplication of styles
+			await setGlobalTheme({
+				light: 'dark',
+				dark: 'dark',
+				spacing: 'spacing',
+				shape: 'shape',
+				typography: 'typography',
+			});
 
-				// Validate that the data-theme attributes match the expected values
-				const styleElements = document.querySelectorAll('style');
-				const dataThemes = Array.from(styleElements).map((el) => el.getAttribute('data-theme'));
+			// Wait for styles to be added to the page
+			await waitFor(() => {
+				const styleElements = document.querySelectorAll(`style[${THEME_DATA_ATTRIBUTE}]`);
+				expect(styleElements).toHaveLength(6);
+			});
 
-				expect(dataThemes.sort()).toEqual([
-					'dark',
-					'dark-increased-contrast',
-					'motion',
-					'shape',
-					'spacing',
-					'typography',
-				]);
-			},
-			async () => {
-				// prompt a duplication of styles
-				await setGlobalTheme({
-					light: 'dark',
-					dark: 'dark',
-					spacing: 'spacing',
-					typography: 'typography',
-					shape: 'shape',
-				});
+			// Validate that the data-theme attributes match the expected values
+			const styleElements = document.querySelectorAll('style');
+			const dataThemes = Array.from(styleElements).map((el) => el.getAttribute('data-theme'));
 
-				// Wait for styles to be added to the page
-				await waitFor(() => {
-					const styleElements = document.querySelectorAll(`style[${THEME_DATA_ATTRIBUTE}]`);
-					expect(styleElements).toHaveLength(5);
-				});
+			expect(dataThemes.sort()).toEqual([
+				'dark',
+				'dark-increased-contrast',
+				'motion',
+				'shape',
+				'spacing',
+				'typography',
+			]);
+		});
 
-				// Validate that the data-theme attributes match the expected values
-				const styleElements = document.querySelectorAll('style');
-				const dataThemes = Array.from(styleElements).map((el) => el.getAttribute('data-theme'));
+		it('with platform_increased-contrast-themes off', async () => {
+			failGate('platform_increased-contrast-themes');
 
-				expect(dataThemes.sort()).toEqual(['dark', 'motion', 'shape', 'spacing', 'typography']);
-			},
-		);
+			// prompt a duplication of styles
+			await setGlobalTheme({
+				light: 'dark',
+				dark: 'dark',
+				spacing: 'spacing',
+				typography: 'typography',
+				shape: 'shape',
+			});
+
+			// Wait for styles to be added to the page
+			await waitFor(() => {
+				const styleElements = document.querySelectorAll(`style[${THEME_DATA_ATTRIBUTE}]`);
+				expect(styleElements).toHaveLength(5);
+			});
+
+			// Validate that the data-theme attributes match the expected values
+			const styleElements = document.querySelectorAll('style');
+			const dataThemes = Array.from(styleElements).map((el) => el.getAttribute('data-theme'));
+
+			expect(dataThemes.sort()).toEqual(['dark', 'motion', 'shape', 'spacing', 'typography']);
+		});
 	});
 
 	it('should load all feature flagged themes in the expected order', async () => {
@@ -451,57 +455,59 @@ describe('setGlobalTheme style loading', () => {
 	});
 
 	describe('should set the correct themes, contrast mode, and color mode when a theme loader is provided', () => {
-		ffTest(
-			'platform_increased-contrast-themes',
-			async () => {
-				await setGlobalTheme(
-					{
-						light: 'light',
-						dark: 'dark',
-						spacing: 'spacing',
-						typography: 'typography',
-						shape: 'shape',
-						colorMode: 'light',
-						contrastMode: 'more',
-					},
-					__noop,
-				);
+		it('with platform_increased-contrast-themes on', async () => {
+			passGate('platform_increased-contrast-themes');
 
-				const htmlElement = document.getElementsByTagName('html')[0];
+			await setGlobalTheme(
+				{
+					light: 'light',
+					dark: 'dark',
+					spacing: 'spacing',
+					typography: 'typography',
+					shape: 'shape',
+					colorMode: 'light',
+					contrastMode: 'more',
+				},
+				__noop,
+			);
 
-				expect(htmlElement).toHaveAttribute(
-					THEME_DATA_ATTRIBUTE,
-					'dark:dark light:light motion:motion shape:shape spacing:spacing typography:typography',
-				);
+			const htmlElement = document.getElementsByTagName('html')[0];
 
-				expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
-				expect(htmlElement).toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'more');
-			},
-			async () => {
-				await setGlobalTheme(
-					{
-						light: 'light',
-						dark: 'dark',
-						spacing: 'spacing',
-						typography: 'typography',
-						shape: 'shape',
-						colorMode: 'light',
-						contrastMode: 'more',
-					},
-					__noop,
-				);
+			expect(htmlElement).toHaveAttribute(
+				THEME_DATA_ATTRIBUTE,
+				'dark:dark light:light motion:motion shape:shape spacing:spacing typography:typography',
+			);
 
-				const htmlElement = document.getElementsByTagName('html')[0];
+			expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
+			expect(htmlElement).toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'more');
+		});
 
-				expect(htmlElement).toHaveAttribute(
-					THEME_DATA_ATTRIBUTE,
-					'dark:dark light:light motion:motion shape:shape spacing:spacing typography:typography',
-				);
+		it('with platform_increased-contrast-themes off', async () => {
+			failGate('platform_increased-contrast-themes');
 
-				expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
-				expect(htmlElement).not.toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'more');
-			},
-		);
+			await setGlobalTheme(
+				{
+					light: 'light',
+					dark: 'dark',
+					spacing: 'spacing',
+					typography: 'typography',
+					shape: 'shape',
+					colorMode: 'light',
+					contrastMode: 'more',
+				},
+				__noop,
+			);
+
+			const htmlElement = document.getElementsByTagName('html')[0];
+
+			expect(htmlElement).toHaveAttribute(
+				THEME_DATA_ATTRIBUTE,
+				'dark:dark light:light motion:motion shape:shape spacing:spacing typography:typography',
+			);
+
+			expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
+			expect(htmlElement).not.toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'more');
+		});
 	});
 
 	it('should NOT add style elements by default when a theme loader is provided', async () => {
@@ -524,57 +530,59 @@ describe('setGlobalTheme style loading', () => {
 	});
 
 	describe('should use the provided theme loader to load styles', () => {
-		ffTest(
-			'platform_increased-contrast-themes',
-			async () => {
-				const themeLoaderMock = jest.fn();
+		it('with platform_increased-contrast-themes on', async () => {
+			passGate('platform_increased-contrast-themes');
 
-				await setGlobalTheme(
-					{
-						light: 'light',
-						dark: 'dark',
-						spacing: 'spacing',
-						typography: 'typography',
-						shape: 'shape',
-						colorMode: 'light',
-					},
-					themeLoaderMock,
-				);
+			const themeLoaderMock = jest.fn();
 
-				// Should be called for each theme it injects (light, increased contrast, motion, spacing, shape, typography)
-				expect(themeLoaderMock).toHaveBeenCalledTimes(6);
+			await setGlobalTheme(
+				{
+					light: 'light',
+					dark: 'dark',
+					spacing: 'spacing',
+					typography: 'typography',
+					shape: 'shape',
+					colorMode: 'light',
+				},
+				themeLoaderMock,
+			);
 
-				await waitFor(() => {
-					// There should be no style elements since the default theme loader should not be called
-					const styleElements = document.getElementsByTagName('style');
-					expect(styleElements).toHaveLength(0);
-				});
-			},
-			async () => {
-				const themeLoaderMock = jest.fn();
+			// Should be called for each theme it injects (light, increased contrast, motion, spacing, shape, typography)
+			expect(themeLoaderMock).toHaveBeenCalledTimes(6);
 
-				await setGlobalTheme(
-					{
-						light: 'light',
-						dark: 'dark',
-						spacing: 'spacing',
-						typography: 'typography',
-						shape: 'shape',
-						colorMode: 'light',
-					},
-					themeLoaderMock,
-				);
+			await waitFor(() => {
+				// There should be no style elements since the default theme loader should not be called
+				const styleElements = document.getElementsByTagName('style');
+				expect(styleElements).toHaveLength(0);
+			});
+		});
 
-				// Should be called for each theme it injects (light, motion, spacing, shape, typography)
-				expect(themeLoaderMock).toHaveBeenCalledTimes(5);
+		it('with platform_increased-contrast-themes off', async () => {
+			failGate('platform_increased-contrast-themes');
 
-				await waitFor(() => {
-					// There should be no style elements since the default theme loader should not be called
-					const styleElements = document.getElementsByTagName('style');
-					expect(styleElements).toHaveLength(0);
-				});
-			},
-		);
+			const themeLoaderMock = jest.fn();
+
+			await setGlobalTheme(
+				{
+					light: 'light',
+					dark: 'dark',
+					spacing: 'spacing',
+					typography: 'typography',
+					shape: 'shape',
+					colorMode: 'light',
+				},
+				themeLoaderMock,
+			);
+
+			// Should be called for each theme it injects (light, motion, spacing, shape, typography)
+			expect(themeLoaderMock).toHaveBeenCalledTimes(5);
+
+			await waitFor(() => {
+				// There should be no style elements since the default theme loader should not be called
+				const styleElements = document.getElementsByTagName('style');
+				expect(styleElements).toHaveLength(0);
+			});
+		});
 	});
 
 	it('should not load custom theme if provided brand color is invalid', async () => {
@@ -668,117 +676,123 @@ it('should load only necessary color modes on repeat calls', async () => {
 	describe(name, () => {
 		beforeEach(cleanDOM);
 		describe('should set the correct themes, color mode, and contrast mode', () => {
-			ffTest(
-				'platform_increased-contrast-themes',
-				async () => {
-					await themeSetter({
-						light: 'light',
-						dark: 'dark',
-						shape: 'shape',
-						spacing: 'spacing',
-						typography: 'typography',
-						colorMode: 'light',
-						contrastMode: 'more',
-					});
-					const htmlElement = document.getElementsByTagName('html')[0];
-					expect(htmlElement).toHaveAttribute(
-						THEME_DATA_ATTRIBUTE,
-						'dark:dark light:light motion:motion shape:shape spacing:spacing typography:typography',
-					);
-					expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
-					expect(htmlElement).toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'more');
-				},
-				async () => {
-					await themeSetter({
-						light: 'light',
-						dark: 'dark',
-						shape: 'shape',
-						spacing: 'spacing',
-						typography: 'typography',
-						colorMode: 'light',
-						contrastMode: 'more',
-					});
-					const htmlElement = document.getElementsByTagName('html')[0];
-					expect(htmlElement).toHaveAttribute(
-						THEME_DATA_ATTRIBUTE,
-						'dark:dark light:light motion:motion shape:shape spacing:spacing typography:typography',
-					);
-					expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
-					expect(htmlElement).not.toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'more');
-				},
-			);
+			it('with platform_increased-contrast-themes on', async () => {
+				passGate('platform_increased-contrast-themes');
+
+				await themeSetter({
+					light: 'light',
+					dark: 'dark',
+					shape: 'shape',
+					spacing: 'spacing',
+					typography: 'typography',
+					colorMode: 'light',
+					contrastMode: 'more',
+				});
+				const htmlElement = document.getElementsByTagName('html')[0];
+				expect(htmlElement).toHaveAttribute(
+					THEME_DATA_ATTRIBUTE,
+					'dark:dark light:light motion:motion shape:shape spacing:spacing typography:typography',
+				);
+				expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
+				expect(htmlElement).toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'more');
+			});
+
+			it('with platform_increased-contrast-themes off', async () => {
+				failGate('platform_increased-contrast-themes');
+
+				await themeSetter({
+					light: 'light',
+					dark: 'dark',
+					shape: 'shape',
+					spacing: 'spacing',
+					typography: 'typography',
+					colorMode: 'light',
+					contrastMode: 'more',
+				});
+				const htmlElement = document.getElementsByTagName('html')[0];
+				expect(htmlElement).toHaveAttribute(
+					THEME_DATA_ATTRIBUTE,
+					'dark:dark light:light motion:motion shape:shape spacing:spacing typography:typography',
+				);
+				expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
+				expect(htmlElement).not.toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'more');
+			});
 		});
 
 		describe('should set the correct custom theme attribute, contrast mode, and color mode when customTheme specified', () => {
-			ffTest(
-				'platform_increased-contrast-themes',
-				async () => {
-					await themeSetter({
-						light: 'light',
-						dark: 'dark',
-						shape: 'shape',
-						spacing: 'spacing',
-						typography: 'typography',
-						colorMode: 'light',
-						contrastMode: 'more',
-						UNSAFE_themeOptions,
-					});
-					const htmlElement = document.getElementsByTagName('html')[0];
-					expect(htmlElement).toHaveAttribute(
-						THEME_DATA_ATTRIBUTE,
-						'dark:dark light:light motion:motion shape:shape spacing:spacing typography:typography',
-					);
-					expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
-					expect(htmlElement).toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'more');
-					expect(htmlElement).toHaveAttribute(CUSTOM_THEME_ATTRIBUTE, customStyleHashId);
-				},
-				async () => {
-					await themeSetter({
-						light: 'light',
-						dark: 'dark',
-						shape: 'shape',
-						spacing: 'spacing',
-						typography: 'typography',
-						colorMode: 'light',
-						contrastMode: 'more',
-						UNSAFE_themeOptions,
-					});
-					const htmlElement = document.getElementsByTagName('html')[0];
-					expect(htmlElement).toHaveAttribute(
-						THEME_DATA_ATTRIBUTE,
-						'dark:dark light:light motion:motion shape:shape spacing:spacing typography:typography',
-					);
-					expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
-					expect(htmlElement).not.toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'more');
-					expect(htmlElement).toHaveAttribute(CUSTOM_THEME_ATTRIBUTE, customStyleHashId);
-				},
-			);
+			it('with platform_increased-contrast-themes on', async () => {
+				passGate('platform_increased-contrast-themes');
+
+				await themeSetter({
+					light: 'light',
+					dark: 'dark',
+					shape: 'shape',
+					spacing: 'spacing',
+					typography: 'typography',
+					colorMode: 'light',
+					contrastMode: 'more',
+					UNSAFE_themeOptions,
+				});
+				const htmlElement = document.getElementsByTagName('html')[0];
+				expect(htmlElement).toHaveAttribute(
+					THEME_DATA_ATTRIBUTE,
+					'dark:dark light:light motion:motion shape:shape spacing:spacing typography:typography',
+				);
+				expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
+				expect(htmlElement).toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'more');
+				expect(htmlElement).toHaveAttribute(CUSTOM_THEME_ATTRIBUTE, customStyleHashId);
+			});
+
+			it('with platform_increased-contrast-themes off', async () => {
+				failGate('platform_increased-contrast-themes');
+
+				await themeSetter({
+					light: 'light',
+					dark: 'dark',
+					shape: 'shape',
+					spacing: 'spacing',
+					typography: 'typography',
+					colorMode: 'light',
+					contrastMode: 'more',
+					UNSAFE_themeOptions,
+				});
+				const htmlElement = document.getElementsByTagName('html')[0];
+				expect(htmlElement).toHaveAttribute(
+					THEME_DATA_ATTRIBUTE,
+					'dark:dark light:light motion:motion shape:shape spacing:spacing typography:typography',
+				);
+				expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
+				expect(htmlElement).not.toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'more');
+				expect(htmlElement).toHaveAttribute(CUSTOM_THEME_ATTRIBUTE, customStyleHashId);
+			});
 		});
 
 		describe('should set the default themes, color mode, and contrast mode when they are not specified', () => {
-			ffTest(
-				'platform_increased-contrast-themes',
-				async () => {
-					await themeSetter();
-					const htmlElement = document.getElementsByTagName('html')[0];
-					expect(htmlElement).toHaveAttribute(
-						THEME_DATA_ATTRIBUTE,
-						'dark:dark light:light motion:motion shape:shape spacing:spacing typography:typography',
-					);
-					expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
-					expect(htmlElement).toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'no-preference');
-				},
-				async () => {
-					await themeSetter();
-					const htmlElement = document.getElementsByTagName('html')[0];
-					expect(htmlElement).toHaveAttribute(
-						THEME_DATA_ATTRIBUTE,
-						'dark:dark light:light motion:motion shape:shape spacing:spacing typography:typography',
-					);
-					expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
-					expect(htmlElement).not.toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'no-preference');
-				},
-			);
+			it('with platform_increased-contrast-themes on', async () => {
+				passGate('platform_increased-contrast-themes');
+
+				await themeSetter();
+				const htmlElement = document.getElementsByTagName('html')[0];
+				expect(htmlElement).toHaveAttribute(
+					THEME_DATA_ATTRIBUTE,
+					'dark:dark light:light motion:motion shape:shape spacing:spacing typography:typography',
+				);
+				expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
+				expect(htmlElement).toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'no-preference');
+			});
+
+			it('with platform_increased-contrast-themes off', async () => {
+				failGate('platform_increased-contrast-themes');
+
+				await themeSetter();
+				const htmlElement = document.getElementsByTagName('html')[0];
+				expect(htmlElement).toHaveAttribute(
+					THEME_DATA_ATTRIBUTE,
+					'dark:dark light:light motion:motion shape:shape spacing:spacing typography:typography',
+				);
+				expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
+				expect(htmlElement).not.toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'no-preference');
+			});
 		});
 
 		describe('color mode', () => {
@@ -807,180 +821,186 @@ it('should load only necessary color modes on repeat calls', async () => {
 
 		describe('contrast mode', () => {
 			describe('should automatically switch theme by default', () => {
-				ffTest(
-					'platform_increased-contrast-themes',
-					async () => {
-						setMatchMedia(true);
+				it('with platform_increased-contrast-themes on', async () => {
+					passGate('platform_increased-contrast-themes');
 
-						await themeSetter({ light: 'light' });
-						const htmlElement = document.getElementsByTagName('html')[0];
-						await waitFor(() =>
-							expect(htmlElement).toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'more'),
-						);
-					},
-					async () => {
-						setMatchMedia(true);
+					setMatchMedia(true);
 
-						await themeSetter({ light: 'light' });
-						const htmlElement = document.getElementsByTagName('html')[0];
-						await waitFor(() =>
-							expect(htmlElement).not.toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'more'),
-						);
-					},
-				);
+					await themeSetter({ light: 'light' });
+					const htmlElement = document.getElementsByTagName('html')[0];
+					await waitFor(() => expect(htmlElement).toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'more'));
+				});
+
+				it('with platform_increased-contrast-themes off', async () => {
+					failGate('platform_increased-contrast-themes');
+
+					setMatchMedia(true);
+
+					await themeSetter({ light: 'light' });
+					const htmlElement = document.getElementsByTagName('html')[0];
+					await waitFor(() =>
+						expect(htmlElement).not.toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'more'),
+					);
+				});
 			});
 
 			describe('should switch theme correctly when contrastMode set to "auto" (no preference)', () => {
-				ffTest(
-					'platform_increased-contrast-themes',
-					async () => {
-						await themeSetter({ contrastMode: 'auto' });
-						const htmlElement = document.getElementsByTagName('html')[0];
-						await waitFor(() =>
-							expect(htmlElement).toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'no-preference'),
-						);
-					},
-					async () => {
-						await themeSetter({ contrastMode: 'auto' });
-						const htmlElement = document.getElementsByTagName('html')[0];
-						await waitFor(() =>
-							expect(htmlElement).not.toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'no-preference'),
-						);
-					},
-				);
+				it('with platform_increased-contrast-themes on', async () => {
+					passGate('platform_increased-contrast-themes');
+
+					await themeSetter({ contrastMode: 'auto' });
+					const htmlElement = document.getElementsByTagName('html')[0];
+					await waitFor(() =>
+						expect(htmlElement).toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'no-preference'),
+					);
+				});
+
+				it('with platform_increased-contrast-themes off', async () => {
+					failGate('platform_increased-contrast-themes');
+
+					await themeSetter({ contrastMode: 'auto' });
+					const htmlElement = document.getElementsByTagName('html')[0];
+					await waitFor(() =>
+						expect(htmlElement).not.toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'no-preference'),
+					);
+				});
 			});
 
 			describe('should switch theme correctly when contrastMode set to "auto" (prefers more contrast)', () => {
-				ffTest(
-					'platform_increased-contrast-themes',
-					async () => {
-						setMatchMedia(true);
+				it('with platform_increased-contrast-themes on', async () => {
+					passGate('platform_increased-contrast-themes');
 
-						await themeSetter({ contrastMode: 'auto' });
-						const htmlElement = document.getElementsByTagName('html')[0];
-						await waitFor(() =>
-							expect(htmlElement).toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'more'),
-						);
-					},
-					async () => {
-						setMatchMedia(true);
+					setMatchMedia(true);
 
-						await themeSetter({ contrastMode: 'auto' });
-						const htmlElement = document.getElementsByTagName('html')[0];
-						await waitFor(() =>
-							expect(htmlElement).not.toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'more'),
-						);
-					},
-				);
+					await themeSetter({ contrastMode: 'auto' });
+					const htmlElement = document.getElementsByTagName('html')[0];
+					await waitFor(() => expect(htmlElement).toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'more'));
+				});
+
+				it('with platform_increased-contrast-themes off', async () => {
+					failGate('platform_increased-contrast-themes');
+
+					setMatchMedia(true);
+
+					await themeSetter({ contrastMode: 'auto' });
+					const htmlElement = document.getElementsByTagName('html')[0];
+					await waitFor(() =>
+						expect(htmlElement).not.toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'more'),
+					);
+				});
 			});
 		});
 
 		describe('should set the correct themes, contrast mode, and color mode when a theme loader is provided', () => {
-			ffTest(
-				'platform_increased-contrast-themes',
-				async () => {
-					await themeSetter(
-						{
-							light: 'light',
-							dark: 'dark',
-							spacing: 'spacing',
-							typography: 'typography',
-							shape: 'shape',
-							colorMode: 'light',
-							contrastMode: 'more',
-						},
-						__noop,
-					);
+			it('with platform_increased-contrast-themes on', async () => {
+				passGate('platform_increased-contrast-themes');
 
-					const htmlElement = document.getElementsByTagName('html')[0];
+				await themeSetter(
+					{
+						light: 'light',
+						dark: 'dark',
+						spacing: 'spacing',
+						typography: 'typography',
+						shape: 'shape',
+						colorMode: 'light',
+						contrastMode: 'more',
+					},
+					__noop,
+				);
 
-					expect(htmlElement).toHaveAttribute(
-						THEME_DATA_ATTRIBUTE,
-						'dark:dark light:light motion:motion shape:shape spacing:spacing typography:typography',
-					);
+				const htmlElement = document.getElementsByTagName('html')[0];
 
-					expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
-					expect(htmlElement).toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'more');
-				},
-				async () => {
-					await themeSetter(
-						{
-							light: 'light',
-							dark: 'dark',
-							spacing: 'spacing',
-							typography: 'typography',
-							shape: 'shape',
-							colorMode: 'light',
-							contrastMode: 'more',
-						},
-						__noop,
-					);
+				expect(htmlElement).toHaveAttribute(
+					THEME_DATA_ATTRIBUTE,
+					'dark:dark light:light motion:motion shape:shape spacing:spacing typography:typography',
+				);
 
-					const htmlElement = document.getElementsByTagName('html')[0];
+				expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
+				expect(htmlElement).toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'more');
+			});
 
-					expect(htmlElement).toHaveAttribute(
-						THEME_DATA_ATTRIBUTE,
-						'dark:dark light:light motion:motion shape:shape spacing:spacing typography:typography',
-					);
+			it('with platform_increased-contrast-themes off', async () => {
+				failGate('platform_increased-contrast-themes');
 
-					expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
-					expect(htmlElement).not.toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'more');
-				},
-			);
+				await themeSetter(
+					{
+						light: 'light',
+						dark: 'dark',
+						spacing: 'spacing',
+						typography: 'typography',
+						shape: 'shape',
+						colorMode: 'light',
+						contrastMode: 'more',
+					},
+					__noop,
+				);
+
+				const htmlElement = document.getElementsByTagName('html')[0];
+
+				expect(htmlElement).toHaveAttribute(
+					THEME_DATA_ATTRIBUTE,
+					'dark:dark light:light motion:motion shape:shape spacing:spacing typography:typography',
+				);
+
+				expect(htmlElement).toHaveAttribute(COLOR_MODE_ATTRIBUTE, 'light');
+				expect(htmlElement).not.toHaveAttribute(CONTRAST_MODE_ATTRIBUTE, 'more');
+			});
 		});
 
 		describe('should use the provided theme loader to load styles', () => {
-			ffTest(
-				'platform_increased-contrast-themes',
-				async () => {
-					const themeLoaderMock = jest.fn();
+			it('with platform_increased-contrast-themes on', async () => {
+				passGate('platform_increased-contrast-themes');
 
-					await themeSetter(
-						{
-							light: 'light',
-							dark: 'dark',
-							spacing: 'spacing',
-							typography: 'typography',
-							colorMode: 'light',
-							shape: 'shape',
-						},
-						themeLoaderMock,
-					);
+				const themeLoaderMock = jest.fn();
 
-					// Should be called for each theme it injects (light, increased contrast, motion, spacing, typography, shape)
-					expect(themeLoaderMock).toHaveBeenCalledTimes(6);
+				await themeSetter(
+					{
+						light: 'light',
+						dark: 'dark',
+						spacing: 'spacing',
+						typography: 'typography',
+						colorMode: 'light',
+						shape: 'shape',
+					},
+					themeLoaderMock,
+				);
 
-					await waitFor(() => {
-						// There should be no style elements since the default theme loader should not be called
-						const styleElements = document.getElementsByTagName('style');
-						expect(styleElements).toHaveLength(0);
-					});
-				},
-				async () => {
-					const themeLoaderMock = jest.fn();
+				// Should be called for each theme it injects (light, increased contrast, motion, spacing, typography, shape)
+				expect(themeLoaderMock).toHaveBeenCalledTimes(6);
 
-					await themeSetter(
-						{
-							light: 'light',
-							dark: 'dark',
-							spacing: 'spacing',
-							typography: 'typography',
-							colorMode: 'light',
-							shape: 'shape',
-						},
-						themeLoaderMock,
-					);
+				await waitFor(() => {
+					// There should be no style elements since the default theme loader should not be called
+					const styleElements = document.getElementsByTagName('style');
+					expect(styleElements).toHaveLength(0);
+				});
+			});
 
-					// Should be called for each theme it injects (light, motion, spacing, typography, shape)
-					expect(themeLoaderMock).toHaveBeenCalledTimes(5);
+			it('with platform_increased-contrast-themes off', async () => {
+				failGate('platform_increased-contrast-themes');
 
-					await waitFor(() => {
-						// There should be no style elements since the default theme loader should not be called
-						const styleElements = document.getElementsByTagName('style');
-						expect(styleElements).toHaveLength(0);
-					});
-				},
-			);
+				const themeLoaderMock = jest.fn();
+
+				await themeSetter(
+					{
+						light: 'light',
+						dark: 'dark',
+						spacing: 'spacing',
+						typography: 'typography',
+						colorMode: 'light',
+						shape: 'shape',
+					},
+					themeLoaderMock,
+				);
+
+				// Should be called for each theme it injects (light, motion, spacing, typography, shape)
+				expect(themeLoaderMock).toHaveBeenCalledTimes(5);
+
+				await waitFor(() => {
+					// There should be no style elements since the default theme loader should not be called
+					const styleElements = document.getElementsByTagName('style');
+					expect(styleElements).toHaveLength(0);
+				});
+			});
 		});
 	});
 });

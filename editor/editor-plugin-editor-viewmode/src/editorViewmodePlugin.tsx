@@ -1,6 +1,5 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type {
 	EditorViewModePlugin,
@@ -27,10 +26,7 @@ const createPlugin = ({ initialMode }: { initialMode: ViewMode | undefined }) =>
 		props: {
 			attributes: (state): Record<string, string> => {
 				const mode = viewModePluginKey.getState(state)?.mode ?? initialMode ?? 'edit';
-				const ariaReadonly =
-					mode === 'view' && isExperimentEnabled('platform_editor_viewmode_aria_readonly_a11y');
-
-				return ariaReadonly ? { 'aria-readonly': 'true' } : {};
+				return mode === 'view' ? { 'aria-readonly': 'true' } : {};
 			},
 			// If we set to undefined it respects the previous value.
 			// Prosemirror doesn't have this typed correctly for this type of behaviour

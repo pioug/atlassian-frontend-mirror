@@ -1,5 +1,14 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 8.4.0
+
+### Minor Changes
+
+- [`43b21fcba1283`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/43b21fcba1283) -
+  Allow React and native DOM events as timing inputs to `usePressTracing`, `traceUFOPress`,
+  `traceUFOHover`, `traceUFOTransition`, and `traceUFORedirect`. Existing numeric timestamps and
+  optional timing defaults remain supported.
+
 ## 8.3.2
 
 ### Patch Changes

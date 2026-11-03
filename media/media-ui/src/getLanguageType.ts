@@ -3,10 +3,11 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { getExtension } from './getExtension';
 
-// git format-patch output is plain text, but sniffing labels it text/x-diff (or a
-// patch alias) rather than text/plain. Only those types are safe to preview as
-// text. The file extension is not: a .patch or .diff name can carry any MIME type.
 const TEXTUAL_PATCH_MIME_TYPES = new Set(['text/x-diff', 'text/x-patch', 'application/x-patch']);
+
+const PATCH_ONLY_MIME_TYPES = new Set(['application/mbox', 'message/rfc822']);
+
+const mimeTypeBase = (mimetype: string): string => mimetype.split(';')[0].trim().toLowerCase();
 
 const codeViewerMimeTypes: {
 	mimetype: string;
@@ -160,13 +161,20 @@ export function getLanguageType(name: string, mimetype?: string): SupportedLangu
 		case 'yml':
 			return 'yaml';
 		default:
-			if (
-				mimetype === 'text/plain' ||
-				(mimetype != null &&
-					TEXTUAL_PATCH_MIME_TYPES.has(mimetype) &&
-					fg('platform_media_patch_text_preview'))
-			) {
+			if (mimetype === 'text/plain') {
 				return 'text';
+			}
+			if (mimetype != null) {
+				const base = mimeTypeBase(mimetype);
+				const isPatchExt = ['patch', 'diff'].includes(ext.toLowerCase());
+				if (
+					(base === 'text/plain' ||
+						TEXTUAL_PATCH_MIME_TYPES.has(base) ||
+						(isPatchExt && PATCH_ONLY_MIME_TYPES.has(base))) &&
+					fg('platform_media_patch_text_preview')
+				) {
+					return 'text';
+				}
 			}
 			return null;
 	}

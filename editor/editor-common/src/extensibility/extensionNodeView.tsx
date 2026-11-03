@@ -215,10 +215,7 @@ export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 				// invisible until the next `update()`, which for an untouched node only happens on user
 				// interaction (HOT-306707). Treat an empty element as "no SSR DOM" so the node view takes
 				// the normal React render path instead.
-				if (
-					fg('platform_editor_ssr_reuse_requires_content') &&
-					!element.querySelector('[data-testid="extension-node-wrapper"]')
-				) {
+				if (!element.querySelector('[data-testid="extension-node-wrapper"]')) {
 					this.cachedSsrElement = null;
 					return null;
 				}

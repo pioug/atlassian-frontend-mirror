@@ -1,5 +1,13 @@
 # @atlaskit/inline-edit
 
+## 16.5.0
+
+### Minor Changes
+
+- [`a0f0ad125ae7e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a0f0ad125ae7e) -
+  Use Popup for inline textfield validation with platform-dst-top-layer enabled, keeping errors
+  visible without taking focus.
+
 ## 16.4.7
 
 ### Patch Changes

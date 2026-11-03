@@ -1,4 +1,4 @@
-import git from 'simple-git';
+import { simpleGit as git } from 'simple-git';
 import type {
 	DiffResult,
 	LogResult,

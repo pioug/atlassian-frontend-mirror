@@ -35,7 +35,6 @@ import type {
 } from '../../types';
 import { dragTableInsertColumnButtonSize } from '../consts';
 import { DragPreview } from '../DragPreview';
-import { useIsTableInLimitedMode } from '../hooks/useIsTableInLimitedMode';
 import { HandleIconComponent } from './HandleIconComponent';
 
 export type DragHandleAppearance = 'default' | 'selected' | 'disabled' | 'danger' | 'placeholder';
@@ -94,13 +93,6 @@ const DragHandleComponent = ({
 
 	const { isDragMenuOpen = false } = getDnDPluginState(state);
 	const [isHovered, setIsHovered] = useState(false);
-
-	// Limited mode disables dragging rows and columns, but the handle itself keeps working as the
-	// selection and menu affordance. The hook subscribes to limited mode (rather than reading the
-	// plugin state once) so the effect below re-runs and un-registers the draggable if limited mode
-	// flips mid-session.
-	const isInLimitedMode = useIsTableInLimitedMode(api, editorView);
-	const isDraggingEnabled = !isInLimitedMode;
 
 	const isRow = direction === 'row';
 	const isColumn = direction === 'column';
@@ -171,12 +163,6 @@ const DragHandleComponent = ({
 		const dragHandleDivRefCurrent = dragHandleDivRef.current;
 		const browser = getBrowserInfo();
 
-		// Skipping the registration entirely (rather than returning false from `canDrag`) means the
-		// `draggable="true"` attribute is never added, so no drag can start from the handle at all.
-		if (!isDraggingEnabled) {
-			return;
-		}
-
 		if (dragHandleDivRefCurrent) {
 			return draggable({
 				element: dragHandleDivRefCurrent,
@@ -218,15 +204,7 @@ const DragHandleComponent = ({
 				},
 			});
 		}
-	}, [
-		tableLocalId,
-		direction,
-		indexes,
-		isRow,
-		editorView.state.selection,
-		hasMergedCells,
-		isDraggingEnabled,
-	]);
+	}, [tableLocalId, direction, indexes, isRow, editorView.state.selection, hasMergedCells]);
 
 	const showDragMenuAnchorId = isRow ? 'drag-handle-button-row' : 'drag-handle-button-column';
 	const browser = getBrowserInfo();

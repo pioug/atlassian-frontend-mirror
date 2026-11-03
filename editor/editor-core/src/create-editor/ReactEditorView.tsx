@@ -1174,10 +1174,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 		const doc = profileSSROperation(`${SSR_TRACE_SEGMENT_NAME}/buildDoc`, doBuildDoc, onSSRMeasure);
 		const isViewMode =
 			pluginInjectionAPI.current.api()?.editorViewMode?.sharedState.currentState()?.mode === 'view';
-		const ariaReadonly =
-			isViewMode && isExperimentEnabled('platform_editor_viewmode_aria_readonly_a11y')
-				? ('true' as const)
-				: undefined;
+		const ariaReadonly = isViewMode ? ('true' as const) : undefined;
 
 		// When the optimistic toolbar needs initial state, create SSR-safe PM plugins and EditorState
 		// HERE in ssrDeps — before any children render — so that FullPageToolbarNext can read correct

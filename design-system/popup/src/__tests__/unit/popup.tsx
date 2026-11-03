@@ -13,7 +13,7 @@ import { replaceRaf } from 'raf-stub';
 
 import Button from '@atlaskit/button/default/button';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { fireEvent, render, waitFor } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
@@ -158,49 +158,51 @@ describe('Popup', () => {
 	});
 
 	describe('aria-haspopup set to "dialog" when role is "dialog"', () => {
-		ffTest(
-			'platform_dst_popup-disable-focuslock',
-			() => {
-				const trigger = (props: TriggerProps) => (
-					<button
-						// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-						{...props}
-						type="button"
-						ref={props.ref}
-					>
-						trigger
-					</button>
-				);
-				render(<Popup {...defaultProps} role="dialog" isOpen={false} trigger={trigger} />);
-				const triggerEl = screen.getByText('trigger');
+		it('with platform_dst_popup-disable-focuslock on', () => {
+			passGate('platform_dst_popup-disable-focuslock');
 
-				expect({
-					'aria-haspopup': triggerEl.getAttribute('aria-haspopup'),
-				}).toEqual({
-					'aria-haspopup': 'dialog',
-				});
-			},
-			() => {
-				const trigger = (props: TriggerProps) => (
-					<button
-						// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-						{...props}
-						type="button"
-						ref={props.ref}
-					>
-						trigger
-					</button>
-				);
-				render(<Popup {...defaultProps} role="dialog" isOpen={false} trigger={trigger} />);
-				const triggerEl = screen.getByText('trigger');
+			const trigger = (props: TriggerProps) => (
+				<button
+					// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+					{...props}
+					type="button"
+					ref={props.ref}
+				>
+					trigger
+				</button>
+			);
+			render(<Popup {...defaultProps} role="dialog" isOpen={false} trigger={trigger} />);
+			const triggerEl = screen.getByText('trigger');
 
-				expect({
-					'aria-haspopup': triggerEl.getAttribute('aria-haspopup'),
-				}).toEqual({
-					'aria-haspopup': 'true',
-				});
-			},
-		);
+			expect({
+				'aria-haspopup': triggerEl.getAttribute('aria-haspopup'),
+			}).toEqual({
+				'aria-haspopup': 'dialog',
+			});
+		});
+
+		it('with platform_dst_popup-disable-focuslock off', () => {
+			failGate('platform_dst_popup-disable-focuslock');
+
+			const trigger = (props: TriggerProps) => (
+				<button
+					// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+					{...props}
+					type="button"
+					ref={props.ref}
+				>
+					trigger
+				</button>
+			);
+			render(<Popup {...defaultProps} role="dialog" isOpen={false} trigger={trigger} />);
+			const triggerEl = screen.getByText('trigger');
+
+			expect({
+				'aria-haspopup': triggerEl.getAttribute('aria-haspopup'),
+			}).toEqual({
+				'aria-haspopup': 'true',
+			});
+		});
 	});
 
 	describe('`aria-controls`', () => {
@@ -421,71 +423,73 @@ describe('Popup', () => {
 		expect(onClose).toHaveBeenCalledTimes(1);
 	});
 
-	ffTest(
-		'platform_dst_nested_escape',
-		async () => {
-			const onClose = jest.fn();
-			render(
-				<Popup
-					{...defaultProps}
-					isOpen
-					onClose={onClose}
-					shouldRenderToParent
-					role="dialog"
-					label="Popup with nested overlay"
-					content={() => (
-						<div data-ds--level="2">
-							<button type="button" data-testid="nested-overlay-trigger">
-								nested overlay
-							</button>
-						</div>
-					)}
-					trigger={(props: TriggerProps) => (
-						<button {...props} type="button" data-testid="popup-trigger-escape-test">
-							Open popup
+	it('with platform_dst_nested_escape on', async () => {
+		passGate('platform_dst_nested_escape');
+
+		const onClose = jest.fn();
+		render(
+			<Popup
+				{...defaultProps}
+				isOpen
+				onClose={onClose}
+				shouldRenderToParent
+				role="dialog"
+				label="Popup with nested overlay"
+				content={() => (
+					<div data-ds--level="2">
+						<button type="button" data-testid="nested-overlay-trigger">
+							nested overlay
 						</button>
-					)}
-				/>,
-			);
+					</div>
+				)}
+				trigger={(props: TriggerProps) => (
+					<button {...props} type="button" data-testid="popup-trigger-escape-test">
+						Open popup
+					</button>
+				)}
+			/>,
+		);
 
-			const nestedTrigger = screen.getByTestId('nested-overlay-trigger');
-			nestedTrigger.focus();
-			await userEvent.keyboard('{Escape}');
+		const nestedTrigger = screen.getByTestId('nested-overlay-trigger');
+		nestedTrigger.focus();
+		await userEvent.keyboard('{Escape}');
 
-			expect(onClose).not.toHaveBeenCalled();
-		},
-		async () => {
-			const onClose = jest.fn();
-			render(
-				<Popup
-					{...defaultProps}
-					isOpen
-					onClose={onClose}
-					shouldRenderToParent
-					role="dialog"
-					label="Popup with nested overlay"
-					content={() => (
-						<div data-ds--level="2">
-							<button type="button" data-testid="nested-overlay-trigger">
-								nested overlay
-							</button>
-						</div>
-					)}
-					trigger={(props: TriggerProps) => (
-						<button {...props} type="button" data-testid="popup-trigger-escape-test">
-							Open popup
+		expect(onClose).not.toHaveBeenCalled();
+	});
+
+	it('with platform_dst_nested_escape off', async () => {
+		failGate('platform_dst_nested_escape');
+
+		const onClose = jest.fn();
+		render(
+			<Popup
+				{...defaultProps}
+				isOpen
+				onClose={onClose}
+				shouldRenderToParent
+				role="dialog"
+				label="Popup with nested overlay"
+				content={() => (
+					<div data-ds--level="2">
+						<button type="button" data-testid="nested-overlay-trigger">
+							nested overlay
 						</button>
-					)}
-				/>,
-			);
+					</div>
+				)}
+				trigger={(props: TriggerProps) => (
+					<button {...props} type="button" data-testid="popup-trigger-escape-test">
+						Open popup
+					</button>
+				)}
+			/>,
+		);
 
-			const nestedTrigger = screen.getByTestId('nested-overlay-trigger');
-			nestedTrigger.focus();
-			await userEvent.keyboard('{Escape}');
+		const nestedTrigger = screen.getByTestId('nested-overlay-trigger');
+		nestedTrigger.focus();
+		await userEvent.keyboard('{Escape}');
 
-			expect(onClose).toHaveBeenCalledTimes(1);
-		},
-	);
+		expect(onClose).toHaveBeenCalledTimes(1);
+	});
 
 	it('calls onClose after clicking on the trigger when the popup is open', async () => {
 		const onClose = jest.fn();

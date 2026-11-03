@@ -1,5 +1,13 @@
 # @atlaskit/motion
 
+## 9.6.1
+
+### Patch Changes
+
+- [`0d43c8515fdb0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d43c8515fdb0) -
+  Promote the Motion primitive, useMotion hook, and MotionPresenceBoundary to beta in the package
+  metadata and ADS documentation.
+
 ## 9.6.0
 
 ### Minor Changes

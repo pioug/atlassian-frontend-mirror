@@ -51,8 +51,8 @@ import {
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import { isFileIdentifier } from '@atlaskit/media-client';
 import type { Identifier } from '@atlaskit/media-client/identifier';
+import { isFileIdentifier } from '@atlaskit/media-client/is-file-identifier';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import type { UploadParams } from '@atlaskit/media-picker/types';
@@ -74,6 +74,7 @@ import {
 import { insertMediaGroupNode, insertMediaInlineNode } from '../pm-plugins/utils/media-files';
 import { getMediaNodeInsertionType } from '../pm-plugins/utils/media-inline';
 import { insertMediaSingleNode } from '../pm-plugins/utils/media-single';
+import { isRemixGeneratedMedia } from '../pm-plugins/utils/remix-media';
 import type {
 	getPosHandlerNode as ProsemirrorGetPosHandler,
 	MediaOptions,
@@ -99,6 +100,7 @@ import type { PickerFacadeConfig } from './picker-facade';
 import PickerFacade from './picker-facade';
 import { stateKey } from './plugin-key';
 import type { MediaNodeWithPosHandler, MediaPluginState } from './types';
+import { reportMediaViewerItem } from './utils/report-media-viewer-item';
 
 export const MEDIA_CONTENT_WRAP_CLASS_NAME = 'media-content-wrap';
 export const MEDIA_PLUGIN_IS_RESIZING_KEY = 'mediaSinglePlugin.isResizing';
@@ -596,6 +598,14 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 				return;
 			}
 
+			// Alt text that Rovo Remix generated describes the image being replaced, so clear it.
+			// Alt text on other images is kept. The experiment is only checked when there is
+			// Remix alt text to clear.
+			const shouldClearRemixAlt =
+				Boolean(mediaNode.attrs.alt) &&
+				isRemixGeneratedMedia(mediaNode) &&
+				isExperimentEnabled('ccaig_clear-remix-alt-on-replace');
+
 			// Build a single transaction that:
 			// 1. Updates the media child node attrs (new file identity + cleared dimensions)
 			// 2. Re-creates the NodeSelection so the toolbar picks up the fresh node
@@ -614,6 +624,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 					// with the height-preserving mediaSingle width adjustment.
 					width: null,
 					height: null,
+					...(shouldClearRemixAlt ? { alt: '' } : {}),
 				}),
 			);
 			// Re-create the selection so the floating toolbar picks up
@@ -1413,10 +1424,23 @@ export const createPlugin = (
 			const pluginState = getMediaPluginState(view.state);
 			pluginState.setView(view);
 			pluginState.updateElement();
+			// Can't compare against `prevState`: this plugin's state is one shared object, so the previous
+			// state already reads the new visibility. Remember it here instead.
+			let wasMediaViewerVisible = !!pluginState.isMediaViewerVisible;
 
 			return {
 				update: () => {
 					pluginState.updateElement();
+					const isMediaViewerVisible = !!pluginState.isMediaViewerVisible;
+					// Report when the viewer's visibility changes: the item it opens on, or null when it
+					// closes. This runs before the viewer renders, so the consumer already knows the item.
+					if (isMediaViewerVisible !== wasMediaViewerVisible) {
+						wasMediaViewerVisible = isMediaViewerVisible;
+						reportMediaViewerItem(
+							pluginState.mediaOptions?.mediaViewerExtensions,
+							isMediaViewerVisible ? (pluginState.mediaViewerSelectedMedia ?? null) : null,
+						);
+					}
 				},
 			};
 		},

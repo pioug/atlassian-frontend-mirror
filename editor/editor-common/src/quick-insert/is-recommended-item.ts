@@ -1,10 +1,4 @@
-import {
-	ASK_ROVO_MENU_ITEM,
-	EMOJI_MENU_ITEM,
-	HYPERLINK_MENU_ITEM,
-	MEDIA_INSERT_MENU_ITEM,
-	MENTION_MENU_ITEM,
-} from './keys';
+import { ASK_ROVO_MENU_ITEM } from './keys';
 
 export type IsRecommendedItemOptions = {
 	/** Registered key for native items; `manifestKey:moduleKey` for provider and extension items. */
@@ -28,8 +22,4 @@ export const createIsRecommendedItem = (orderedKeys: readonly string[]): IsRecom
 /** Default Quick Insert recommendations in their intended display order. */
 export const defaultIsRecommendedItem: IsRecommendedItem = createIsRecommendedItem([
 	ASK_ROVO_MENU_ITEM.key,
-	HYPERLINK_MENU_ITEM.key,
-	MEDIA_INSERT_MENU_ITEM.key,
-	EMOJI_MENU_ITEM.key,
-	MENTION_MENU_ITEM.key,
 ]);

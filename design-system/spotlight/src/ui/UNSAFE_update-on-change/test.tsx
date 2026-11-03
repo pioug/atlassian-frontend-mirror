@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { render } from '@atlassian/testing-library/testing-library/react';
 
 import { SpotlightContext, type SpotlightContextType } from '../../controllers/context';
@@ -208,12 +208,12 @@ describe('UNSAFE_UpdateOnChange', () => {
 		expect(mockObserver.disconnect).toHaveBeenCalled();
 	});
 
-	ffTest.on('platform-dst-top-layer-spotlight', 'with top-layer positioning enabled', () => {
-		it('does not observe mutations or call update', () => {
-			renderWithContext({ selectors: ['body'] });
+	it('does not observe mutations or call update', () => {
+		passGate('platform-dst-top-layer-spotlight');
 
-			expect(mockMutationObserver).not.toHaveBeenCalled();
-			expect(mockUpdate).not.toHaveBeenCalled();
-		});
+		renderWithContext({ selectors: ['body'] });
+
+		expect(mockMutationObserver).not.toHaveBeenCalled();
+		expect(mockUpdate).not.toHaveBeenCalled();
 	});
 });

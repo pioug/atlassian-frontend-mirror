@@ -2,14 +2,21 @@ import { useCallback, useContext } from 'react';
 
 import InteractionContext from '@atlaskit/interaction-context';
 
-export default function usePressTracing(name: string): (timeStamp?: number) => void {
+import {
+	type EventOrTimestamp,
+	resolveInteractionTimestamp,
+} from '../common/interaction-timestamp';
+
+export default function usePressTracing(
+	name: string,
+): (eventOrTimestamp?: EventOrTimestamp) => void {
 	const context = useContext(InteractionContext);
 
 	const handleClick = useCallback(
-		(timeStamp?: number) => {
+		(eventOrTimestamp?: EventOrTimestamp) => {
 			if (context) {
-				const time = timeStamp || performance.now();
-				context.tracePress(name, time);
+				const timestamp = resolveInteractionTimestamp(eventOrTimestamp) ?? performance.now();
+				context.tracePress(name, timestamp);
 			}
 		},
 		[context, name],

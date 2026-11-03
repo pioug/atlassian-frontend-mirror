@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-media
 
+## 32.2.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 32.2.6
+
+### Patch Changes
+
+- [`e5bf10bc48245`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e5bf10bc48245) -
+  When the Media Viewer opens or closes, the media plugin now calls the viewer extensions'
+  `onSelectedItemChange` with the item it opened on, or `null` when it closes, as `media-card` does
+  for the viewers it opens. Applies when `cc_comments_media_viewer_sidebar` is on.
+
+## 32.2.5
+
+### Patch Changes
+
+- [`62178229dae88`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/62178229dae88) -
+  Clear Rovo Remix alt text when the image is replaced from the media toolbar, behind the
+  ccaig_clear-remix-alt-on-replace experiment.
+
 ## 32.2.4
 
 ### Patch Changes

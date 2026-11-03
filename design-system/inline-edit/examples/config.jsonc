@@ -14,6 +14,7 @@
 		"08-start-with-edit.tsx",
 		"09-mandatory-field.tsx",
 		"10-compact.tsx",
+		"inline-editable-validation.vr.ap.tsx",
 	],
 	"exampleDependencies": ["@atlaskit/datetime-picker"],
 }

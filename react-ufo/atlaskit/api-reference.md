@@ -169,13 +169,18 @@ import traceUFOPress from '@atlaskit/react-ufo/trace-press';
 **Signature:**
 
 ```typescript
-function traceUFOPress(name: string, timestamp?: number): void;
+function traceUFOPress(
+	name: string,
+	eventOrTimestamp?: number | { readonly timeStamp: number },
+): void;
 ```
 
 **Parameters:**
 
 - `name` (string): Unique identifier for the interaction
-- `timestamp` (number, optional): Custom timestamp. Defaults to `performance.now()`
+- `eventOrTimestamp` (number or event, optional): A high-resolution timestamp, React event, or
+  native DOM event. Events use their original `timeStamp`; omitted input defaults to
+  `performance.now()`.
 
 **Example:**
 
@@ -183,8 +188,8 @@ function traceUFOPress(name: string, timestamp?: number): void;
 import traceUFOPress from '@atlaskit/react-ufo/trace-press';
 
 function CustomButton() {
-  const handleClick = () => {
-    traceUFOPress('custom-action');
+  const handleClick = (event) => {
+    traceUFOPress('custom-action', event);
     performAsyncAction();
   };
 
@@ -218,6 +223,8 @@ import traceUFOTransition from '@atlaskit/react-ufo/trace-transition';
 function traceUFOTransition(
 	ufoName: string | null | undefined,
 	routeName?: string | null | undefined, // defaults to ufoName
+	preloadKey?: string,
+	eventOrTimestamp?: number | { readonly timeStamp: number },
 ): void;
 ```
 
@@ -225,6 +232,9 @@ function traceUFOTransition(
 
 - `ufoName` (string): The UFO name for the transition
 - `routeName` (string, optional): The route name for context. Defaults to `ufoName`
+- `preloadKey` (string, optional): Identifies preloaded resources for the transition
+- `eventOrTimestamp` (number or event, optional): Original event or high-resolution start timestamp.
+  Defaults to `performance.now()`. Existing route and preload arguments retain their positions.
 
 **Example:**
 
@@ -245,6 +255,12 @@ function NavigationHandler() {
 
   return <div>Page content...</div>;
 }
+```
+
+For navigation initiated by an event, pass the event in the fourth argument:
+
+```typescript
+traceUFOTransition('issue-view', 'jira-issue-route', undefined, event);
 ```
 
 ### traceUFOInteraction
@@ -314,13 +330,18 @@ import traceUFOHover from '@atlaskit/react-ufo/trace-hover';
 **Signature:**
 
 ```typescript
-function traceUFOHover(name: string, timestamp?: number): void;
+function traceUFOHover(
+	name: string,
+	eventOrTimestamp?: number | { readonly timeStamp: number },
+): void;
 ```
 
 **Parameters:**
 
 - `name` (string): Unique identifier for the hover interaction
-- `timestamp` (number, optional): Custom timestamp. Defaults to `performance.now()`
+- `eventOrTimestamp` (number or event, optional): A high-resolution timestamp, React event, or
+  native DOM event. Events use their original `timeStamp`; omitted input defaults to
+  `performance.now()`.
 
 **Example:**
 
@@ -328,8 +349,8 @@ function traceUFOHover(name: string, timestamp?: number): void;
 import traceUFOHover from '@atlaskit/react-ufo/trace-hover';
 
 function HoverCard() {
-  const handleMouseEnter = () => {
-    traceUFOHover('user-profile-hover');
+  const handleMouseEnter = (event) => {
+    traceUFOHover('user-profile-hover', event);
     loadUserProfile();
   };
 
@@ -355,7 +376,7 @@ function traceUFORedirect(
 	fromUfoName: string,
 	nextUfoName: string,
 	nextRouteName: string,
-	time: number,
+	eventOrTimestamp: number | { readonly timeStamp: number },
 ): void;
 ```
 
@@ -364,7 +385,8 @@ function traceUFORedirect(
 - `fromUfoName` (string): Current route UFO name
 - `nextUfoName` (string): Target route UFO name from route config
 - `nextRouteName` (string): Target route name from route definition
-- `time` (number): High-precision timestamp from `performance.now()`
+- `eventOrTimestamp` (number or event): High-resolution timestamp, React event, or native DOM event.
+  Events use their original `timeStamp`. This argument remains required.
 
 **Example:**
 
@@ -855,7 +877,9 @@ import usePressTracing from '@atlaskit/react-ufo/use-press-tracing';
 **Signature:**
 
 ```typescript
-function usePressTracing(name: string): (timeStamp?: number) => void;
+function usePressTracing(
+	name: string,
+): (eventOrTimestamp?: number | { readonly timeStamp: number }) => void;
 ```
 
 **Parameters:**
@@ -864,7 +888,9 @@ function usePressTracing(name: string): (timeStamp?: number) => void;
 
 **Returns:**
 
-- A function to call when the interaction starts. Accepts an optional `timeStamp` parameter.
+- A function to call when the interaction starts. Accepts an optional React event, native DOM event,
+  or numeric timestamp. Events use their original `timeStamp`; omitted input defaults to
+  `performance.now()`. Numeric and event timestamps of `0` are preserved.
 
 **Example:**
 
@@ -877,7 +903,7 @@ function CustomButton({ onAction }) {
 
   const handleClick = useCallback(
     (event) => {
-      traceInteraction(event.timeStamp);
+      traceInteraction(event);
       onAction();
     },
     [traceInteraction, onAction],
@@ -886,6 +912,15 @@ function CustomButton({ onAction }) {
   return <button onClick={handleClick}>Custom Action</button>;
 }
 ```
+
+Call the returned function at the start of your handler, before work or `await`s. It can also be
+used directly as a handler (`<button onClick={traceInteraction}>Run</button>`). The hook requires an
+`InteractionContext` provider; it does nothing when no provider is present. Only the timestamp is
+read; event type and `isTrusted` do not change press tracing behavior.
+
+`traceUFOInteraction` already accepts React and native events and continues to infer the interaction
+type and ignore untrusted or unsupported events. Page-load tracing continues to start at navigation
+time (`0`), and typing tracing continues to subscribe to native keyboard events automatically.
 
 **Note:** Results are sent as `inline-result` type events.
 

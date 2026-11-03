@@ -1,5 +1,23 @@
 # @atlaskit/media-card
 
+## 82.2.6
+
+### Patch Changes
+
+- [`c3ab15bb8f96a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c3ab15bb8f96a) -
+  Cleanup `feature_gate` `create_modernization_ga_fixes_drop_3`. Remove the unused
+  `platform-feature-flags` registration; the gate has no runtime usage in these packages.
+- [`86fbccd7b4e63`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/86fbccd7b4e63) -
+  Cleanup `feature_gate` `platform_media_card_action_button_type_fix`. The card action button now
+  always renders with `type="button"`, so clicking it no longer submits an enclosing form.
+- Updated dependencies
+
+## 82.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 82.2.4
 
 ### Patch Changes

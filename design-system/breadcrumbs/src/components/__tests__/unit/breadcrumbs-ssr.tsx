@@ -3,13 +3,15 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 
 import noop from '@atlaskit/ds-lib/noop';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import Breadcrumbs, { BreadcrumbsItem } from '../../../index';
 
-ffTest.on('platform_dst_breadcrumbs-refresh', 'Breadcrumbs SSR with refresh enabled', () => {
+describe('Breadcrumbs SSR with refresh enabled', () => {
 	describe('Breadcrumbs SSR', () => {
 		it('does not hide the breadcrumb list before client-side measurement', () => {
+			passGate('platform_dst_breadcrumbs-refresh');
+
 			const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(noop);
 
 			try {

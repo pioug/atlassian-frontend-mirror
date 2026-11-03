@@ -1,5 +1,39 @@
 # @atlaskit/editor-plugins
 
+## 17.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.8
+
+### Patch Changes
+
+- [`a2598c6c34043`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a2598c6c34043) -
+  Delete unreachable source files: stale generated re-export files in editor-plugins that were
+  superseded by `entry-points/`, and the unused `Ellipses` and `RetryIcon` components in
+  generative-ai-modal.
+- Updated dependencies
+
+## 17.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.0.4
 
 ### Patch Changes

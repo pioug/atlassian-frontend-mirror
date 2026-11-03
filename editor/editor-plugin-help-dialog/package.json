@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-help-dialog",
-	"version": "30.0.8",
+	"version": "30.0.9",
 	"description": "Help Dialog plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -46,6 +46,7 @@
 		"react-loosely-lazy": "root:*"
 	},
 	"devDependencies": {
+		"@atlaskit/editor-common": "workspace:^",
 		"react": "^19.2.0",
 		"react-intl": "root:*"
 	},

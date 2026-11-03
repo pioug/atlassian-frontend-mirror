@@ -239,7 +239,7 @@ function Component({
 					: isSpecialEvent(event);
 				shouldOpenLink = isFlexibleUi || !onClick;
 			}
-			const isInIframe = fg('platform_sl_click_inside_iframe') && window.top !== window;
+			const isInIframe = window.top !== window;
 			const target = openInNewTab || isInIframe ? '_blank' : isFlexibleUi ? anchorTarget : '_self';
 
 			onClick?.(event, { url, destinationUrl });

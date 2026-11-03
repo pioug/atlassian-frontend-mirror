@@ -3,8 +3,11 @@ import type { ReadonlyTransaction, Transaction } from '@atlaskit/editor-prosemir
 
 import type { PastedInlineLink } from '../../types';
 
-/** Bounds the per-editor work; the first pasted links win. */
-export const MAX_PASTED_INLINE_LINKS = 10;
+/**
+ * Bounds the per-editor work, since every tracked link is mapped through every transaction. The
+ * first pasted links win. Sized well above a typical paste; overflow is counted, not silent.
+ */
+export const MAX_PASTED_INLINE_LINKS = 100;
 
 const isSameLink = (a: PastedInlineLink, b: PastedInlineLink): boolean =>
 	a.pos === b.pos && a.url === b.url;
@@ -42,22 +45,31 @@ export const mapPastedInlineLinks = (
 	return changed ? mapped : links;
 };
 
+/** Append new candidates, skipping duplicates and counting any dropped by the cap. */
+export const addPastedInlineLinksWithOverflow = (
+	links: PastedInlineLink[],
+	additions: PastedInlineLink[],
+): { dropped: number; links: PastedInlineLink[] } => {
+	let next = links;
+	let dropped = 0;
+	for (const addition of additions) {
+		if (next.some((link) => isSameLink(link, addition))) {
+			continue;
+		}
+		if (next.length >= MAX_PASTED_INLINE_LINKS) {
+			dropped += 1;
+		} else {
+			next = [...next, addition];
+		}
+	}
+	return { dropped, links: next };
+};
+
 /** Append new candidates, skipping duplicates and anything beyond the cap. */
 export const addPastedInlineLinks = (
 	links: PastedInlineLink[],
 	additions: PastedInlineLink[],
-): PastedInlineLink[] => {
-	let next = links;
-	for (const addition of additions) {
-		if (next.length >= MAX_PASTED_INLINE_LINKS) {
-			break;
-		}
-		if (!next.some((link) => isSameLink(link, addition))) {
-			next = [...next, addition];
-		}
-	}
-	return next;
-};
+): PastedInlineLink[] => addPastedInlineLinksWithOverflow(links, additions).links;
 
 export const removePastedInlineLink = (
 	links: PastedInlineLink[],
@@ -119,6 +131,7 @@ export const getResolvedPastedInlineCards = (
 
 type PastedInlineLinkState = {
 	pastedInlineLinks?: PastedInlineLink[];
+	pastedInlineLinksDropped?: number;
 	pastedInlineLinkShown?: boolean;
 };
 
@@ -130,6 +143,18 @@ export const withPastedInlineLinks = <State extends PastedInlineLinkState>(
 	if (!state.pastedInlineLinks || state.pastedInlineLinkShown || !additions.length) {
 		return state;
 	}
-	const next = addPastedInlineLinks(state.pastedInlineLinks, additions);
-	return next === state.pastedInlineLinks ? state : { ...state, pastedInlineLinks: next };
+	const { dropped, links: next } = addPastedInlineLinksWithOverflow(
+		state.pastedInlineLinks,
+		additions,
+	);
+	if (next === state.pastedInlineLinks && !dropped) {
+		return state;
+	}
+	return {
+		...state,
+		pastedInlineLinks: next,
+		...(dropped
+			? { pastedInlineLinksDropped: (state.pastedInlineLinksDropped ?? 0) + dropped }
+			: {}),
+	};
 };

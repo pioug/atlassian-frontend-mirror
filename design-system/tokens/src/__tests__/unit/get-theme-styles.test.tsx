@@ -1,6 +1,6 @@
 import { mainThemes, verifyBrandRefreshColors } from './brand-refresh-assertion-helper.mock';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import getThemeStyles, { type ThemeStyles } from '../../get-theme-styles';
 import { type ThemeIdsWithOverrides } from '../../theme-config';
@@ -22,392 +22,432 @@ function getThemeData(themes: ThemeStyles[]) {
 
 describe('getThemeStyles', () => {
 	describe('returns an array of ThemeStyles when given non-default theme state', () => {
-		ffTest(
-			'platform_increased-contrast-themes',
-			async () => {
-				const results = await getThemeStyles({
-					light: 'light',
-					shape: 'shape',
-					spacing: 'spacing',
-					typography: 'typography',
-				});
+		it('with platform_increased-contrast-themes on', async () => {
+			passGate('platform_increased-contrast-themes');
 
-				// Check that CSS is defined for each result
-				results.forEach((result) => {
-					expect(result.css).toBeDefined();
-				});
+			const results = await getThemeStyles({
+				light: 'light',
+				shape: 'shape',
+				spacing: 'spacing',
+				typography: 'typography',
+			});
 
-				expect(getThemeData(results)).toEqual([
-					{ id: 'light', attrs: { 'data-theme': 'light' } },
-					{ id: 'dark', attrs: { 'data-theme': 'dark' } },
-					{ id: 'light-increased-contrast', attrs: { 'data-theme': 'light-increased-contrast' } },
-					{
-						id: 'dark-increased-contrast',
-						attrs: { 'data-theme': 'dark-increased-contrast' },
-					},
-					{ id: 'shape', attrs: { 'data-theme': 'shape' } },
-					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
-					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
-					{ id: 'motion', attrs: { 'data-theme': 'motion' } },
-				]);
-			},
-			async () => {
-				const results = await getThemeStyles({
-					light: 'light',
-					shape: 'shape',
-					spacing: 'spacing',
-					typography: 'typography',
-				});
+			// Check that CSS is defined for each result
+			results.forEach((result) => {
+				expect(result.css).toBeDefined();
+			});
 
-				// Check that CSS is defined for each result
-				results.forEach((result) => {
-					expect(result.css).toBeDefined();
-				});
+			expect(getThemeData(results)).toEqual([
+				{ id: 'light', attrs: { 'data-theme': 'light' } },
+				{ id: 'dark', attrs: { 'data-theme': 'dark' } },
+				{ id: 'light-increased-contrast', attrs: { 'data-theme': 'light-increased-contrast' } },
+				{
+					id: 'dark-increased-contrast',
+					attrs: { 'data-theme': 'dark-increased-contrast' },
+				},
+				{ id: 'shape', attrs: { 'data-theme': 'shape' } },
+				{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
+				{ id: 'typography', attrs: { 'data-theme': 'typography' } },
+				{ id: 'motion', attrs: { 'data-theme': 'motion' } },
+			]);
+		});
 
-				expect(getThemeData(results)).toEqual([
-					{ id: 'light', attrs: { 'data-theme': 'light' } },
-					{ id: 'dark', attrs: { 'data-theme': 'dark' } },
-					{ id: 'shape', attrs: { 'data-theme': 'shape' } },
-					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
-					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
-					{ id: 'motion', attrs: { 'data-theme': 'motion' } },
-				]);
-			},
-		);
+		it('with platform_increased-contrast-themes off', async () => {
+			failGate('platform_increased-contrast-themes');
+
+			const results = await getThemeStyles({
+				light: 'light',
+				shape: 'shape',
+				spacing: 'spacing',
+				typography: 'typography',
+			});
+
+			// Check that CSS is defined for each result
+			results.forEach((result) => {
+				expect(result.css).toBeDefined();
+			});
+
+			expect(getThemeData(results)).toEqual([
+				{ id: 'light', attrs: { 'data-theme': 'light' } },
+				{ id: 'dark', attrs: { 'data-theme': 'dark' } },
+				{ id: 'shape', attrs: { 'data-theme': 'shape' } },
+				{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
+				{ id: 'typography', attrs: { 'data-theme': 'typography' } },
+				{ id: 'motion', attrs: { 'data-theme': 'motion' } },
+			]);
+		});
 	});
 
 	describe('returns an array of the default ThemeStyles when a theme state argument is not provided', () => {
-		ffTest(
-			'platform_increased-contrast-themes',
-			async () => {
-				const results = await getThemeStyles();
+		it('with platform_increased-contrast-themes on', async () => {
+			passGate('platform_increased-contrast-themes');
 
-				// Check that CSS is defined for each result
-				results.forEach((result) => {
-					expect(result.css).toBeDefined();
-				});
+			const results = await getThemeStyles();
 
-				expect(getThemeData(results)).toEqual([
-					{ id: 'light', attrs: { 'data-theme': 'light' } },
-					{ id: 'dark', attrs: { 'data-theme': 'dark' } },
-					{
-						id: 'light-increased-contrast',
-						attrs: { 'data-theme': 'light-increased-contrast' },
-					},
-					{
-						id: 'dark-increased-contrast',
-						attrs: { 'data-theme': 'dark-increased-contrast' },
-					},
-					{ id: 'shape', attrs: { 'data-theme': 'shape' } },
-					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
-					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
-					{ id: 'motion', attrs: { 'data-theme': 'motion' } },
-				]);
-			},
-			async () => {
-				const results = await getThemeStyles();
+			// Check that CSS is defined for each result
+			results.forEach((result) => {
+				expect(result.css).toBeDefined();
+			});
 
-				// Check that CSS is defined for each result
-				results.forEach((result) => {
-					expect(result.css).toBeDefined();
-				});
+			expect(getThemeData(results)).toEqual([
+				{ id: 'light', attrs: { 'data-theme': 'light' } },
+				{ id: 'dark', attrs: { 'data-theme': 'dark' } },
+				{
+					id: 'light-increased-contrast',
+					attrs: { 'data-theme': 'light-increased-contrast' },
+				},
+				{
+					id: 'dark-increased-contrast',
+					attrs: { 'data-theme': 'dark-increased-contrast' },
+				},
+				{ id: 'shape', attrs: { 'data-theme': 'shape' } },
+				{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
+				{ id: 'typography', attrs: { 'data-theme': 'typography' } },
+				{ id: 'motion', attrs: { 'data-theme': 'motion' } },
+			]);
+		});
 
-				expect(getThemeData(results)).toEqual([
-					{ id: 'light', attrs: { 'data-theme': 'light' } },
-					{ id: 'dark', attrs: { 'data-theme': 'dark' } },
-					{ id: 'shape', attrs: { 'data-theme': 'shape' } },
-					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
-					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
-					{ id: 'motion', attrs: { 'data-theme': 'motion' } },
-				]);
-			},
-		);
+		it('with platform_increased-contrast-themes off', async () => {
+			failGate('platform_increased-contrast-themes');
+
+			const results = await getThemeStyles();
+
+			// Check that CSS is defined for each result
+			results.forEach((result) => {
+				expect(result.css).toBeDefined();
+			});
+
+			expect(getThemeData(results)).toEqual([
+				{ id: 'light', attrs: { 'data-theme': 'light' } },
+				{ id: 'dark', attrs: { 'data-theme': 'dark' } },
+				{ id: 'shape', attrs: { 'data-theme': 'shape' } },
+				{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
+				{ id: 'typography', attrs: { 'data-theme': 'typography' } },
+				{ id: 'motion', attrs: { 'data-theme': 'motion' } },
+			]);
+		});
 	});
 
 	describe('returns an array of ThemeStyles that includes custom themes when theme options provided', () => {
-		ffTest(
-			'platform_increased-contrast-themes',
-			async () => {
-				const results = await getThemeStyles({
-					colorMode: 'auto',
-					dark: 'dark',
-					light: 'light',
-					UNSAFE_themeOptions,
-					shape: 'shape',
-					spacing: 'spacing',
-					typography: 'typography',
-				});
-				// Check that CSS is defined for each result
-				results.forEach((result) => {
-					expect(result.css).toBeDefined();
-				});
+		it('with platform_increased-contrast-themes on', async () => {
+			passGate('platform_increased-contrast-themes');
 
-				expect(getThemeData(results)).toEqual([
-					{ id: 'light', attrs: { 'data-theme': 'light' } },
-					{ id: 'dark', attrs: { 'data-theme': 'dark' } },
-					{
-						id: 'light-increased-contrast',
-						attrs: { 'data-theme': 'light-increased-contrast' },
-					},
-					{
-						id: 'dark-increased-contrast',
-						attrs: { 'data-theme': 'dark-increased-contrast' },
-					},
-					{ id: 'shape', attrs: { 'data-theme': 'shape' } },
-					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
-					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
-					{ id: 'motion', attrs: { 'data-theme': 'motion' } },
-					{
-						id: 'light',
-						attrs: {
-							'data-theme': 'light',
-							'data-custom-theme': customStyleHashId,
-						},
-					},
-					{
-						id: 'dark',
-						attrs: {
-							'data-theme': 'dark',
-							'data-custom-theme': customStyleHashId,
-						},
-					},
-				]);
-			},
-			async () => {
-				const results = await getThemeStyles({
-					colorMode: 'auto',
-					dark: 'dark',
-					light: 'light',
-					UNSAFE_themeOptions,
-					shape: 'shape',
-					spacing: 'spacing',
-					typography: 'typography',
-				});
-				// Check that CSS is defined for each result
-				results.forEach((result) => {
-					expect(result.css).toBeDefined();
-				});
+			const results = await getThemeStyles({
+				colorMode: 'auto',
+				dark: 'dark',
+				light: 'light',
+				UNSAFE_themeOptions,
+				shape: 'shape',
+				spacing: 'spacing',
+				typography: 'typography',
+			});
+			// Check that CSS is defined for each result
+			results.forEach((result) => {
+				expect(result.css).toBeDefined();
+			});
 
-				expect(getThemeData(results)).toEqual([
-					{ id: 'light', attrs: { 'data-theme': 'light' } },
-					{ id: 'dark', attrs: { 'data-theme': 'dark' } },
-					{ id: 'shape', attrs: { 'data-theme': 'shape' } },
-					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
-					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
-					{ id: 'motion', attrs: { 'data-theme': 'motion' } },
-					{
-						id: 'light',
-						attrs: {
-							'data-theme': 'light',
-							'data-custom-theme': customStyleHashId,
-						},
+			expect(getThemeData(results)).toEqual([
+				{ id: 'light', attrs: { 'data-theme': 'light' } },
+				{ id: 'dark', attrs: { 'data-theme': 'dark' } },
+				{
+					id: 'light-increased-contrast',
+					attrs: { 'data-theme': 'light-increased-contrast' },
+				},
+				{
+					id: 'dark-increased-contrast',
+					attrs: { 'data-theme': 'dark-increased-contrast' },
+				},
+				{ id: 'shape', attrs: { 'data-theme': 'shape' } },
+				{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
+				{ id: 'typography', attrs: { 'data-theme': 'typography' } },
+				{ id: 'motion', attrs: { 'data-theme': 'motion' } },
+				{
+					id: 'light',
+					attrs: {
+						'data-theme': 'light',
+						'data-custom-theme': customStyleHashId,
 					},
-					{
-						id: 'dark',
-						attrs: {
-							'data-theme': 'dark',
-							'data-custom-theme': customStyleHashId,
-						},
+				},
+				{
+					id: 'dark',
+					attrs: {
+						'data-theme': 'dark',
+						'data-custom-theme': customStyleHashId,
 					},
-				]);
-			},
-		);
+				},
+			]);
+		});
+
+		it('with platform_increased-contrast-themes off', async () => {
+			failGate('platform_increased-contrast-themes');
+
+			const results = await getThemeStyles({
+				colorMode: 'auto',
+				dark: 'dark',
+				light: 'light',
+				UNSAFE_themeOptions,
+				shape: 'shape',
+				spacing: 'spacing',
+				typography: 'typography',
+			});
+			// Check that CSS is defined for each result
+			results.forEach((result) => {
+				expect(result.css).toBeDefined();
+			});
+
+			expect(getThemeData(results)).toEqual([
+				{ id: 'light', attrs: { 'data-theme': 'light' } },
+				{ id: 'dark', attrs: { 'data-theme': 'dark' } },
+				{ id: 'shape', attrs: { 'data-theme': 'shape' } },
+				{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
+				{ id: 'typography', attrs: { 'data-theme': 'typography' } },
+				{ id: 'motion', attrs: { 'data-theme': 'motion' } },
+				{
+					id: 'light',
+					attrs: {
+						'data-theme': 'light',
+						'data-custom-theme': customStyleHashId,
+					},
+				},
+				{
+					id: 'dark',
+					attrs: {
+						'data-theme': 'dark',
+						'data-custom-theme': customStyleHashId,
+					},
+				},
+			]);
+		});
 	});
 
 	describe('returns an array of ThemeStyles that does not include custom themes when brand color is invalid', () => {
-		ffTest(
-			'platform_increased-contrast-themes',
-			async () => {
-				const results = await getThemeStyles({
-					colorMode: 'auto',
-					UNSAFE_themeOptions: {
-						brandColor: '#ff00',
-					},
-				});
+		it('with platform_increased-contrast-themes on', async () => {
+			passGate('platform_increased-contrast-themes');
 
-				expect(getThemeData(results)).toEqual([
-					{ id: 'light', attrs: { 'data-theme': 'light' } },
-					{ id: 'dark', attrs: { 'data-theme': 'dark' } },
-					{
-						id: 'light-increased-contrast',
-						attrs: { 'data-theme': 'light-increased-contrast' },
-					},
-					{
-						id: 'dark-increased-contrast',
-						attrs: { 'data-theme': 'dark-increased-contrast' },
-					},
-					{ id: 'shape', attrs: { 'data-theme': 'shape' } },
-					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
-					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
-					{ id: 'motion', attrs: { 'data-theme': 'motion' } },
-				]);
-			},
-			async () => {
-				const results = await getThemeStyles({
-					colorMode: 'auto',
-					UNSAFE_themeOptions: {
-						brandColor: '#ff00',
-					},
-				});
+			const results = await getThemeStyles({
+				colorMode: 'auto',
+				UNSAFE_themeOptions: {
+					brandColor: '#ff00',
+				},
+			});
 
-				expect(getThemeData(results)).toEqual([
-					{ id: 'light', attrs: { 'data-theme': 'light' } },
-					{ id: 'dark', attrs: { 'data-theme': 'dark' } },
-					{ id: 'shape', attrs: { 'data-theme': 'shape' } },
-					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
-					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
-					{ id: 'motion', attrs: { 'data-theme': 'motion' } },
-				]);
-			},
-		);
+			expect(getThemeData(results)).toEqual([
+				{ id: 'light', attrs: { 'data-theme': 'light' } },
+				{ id: 'dark', attrs: { 'data-theme': 'dark' } },
+				{
+					id: 'light-increased-contrast',
+					attrs: { 'data-theme': 'light-increased-contrast' },
+				},
+				{
+					id: 'dark-increased-contrast',
+					attrs: { 'data-theme': 'dark-increased-contrast' },
+				},
+				{ id: 'shape', attrs: { 'data-theme': 'shape' } },
+				{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
+				{ id: 'typography', attrs: { 'data-theme': 'typography' } },
+				{ id: 'motion', attrs: { 'data-theme': 'motion' } },
+			]);
+		});
+
+		it('with platform_increased-contrast-themes off', async () => {
+			failGate('platform_increased-contrast-themes');
+
+			const results = await getThemeStyles({
+				colorMode: 'auto',
+				UNSAFE_themeOptions: {
+					brandColor: '#ff00',
+				},
+			});
+
+			expect(getThemeData(results)).toEqual([
+				{ id: 'light', attrs: { 'data-theme': 'light' } },
+				{ id: 'dark', attrs: { 'data-theme': 'dark' } },
+				{ id: 'shape', attrs: { 'data-theme': 'shape' } },
+				{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
+				{ id: 'typography', attrs: { 'data-theme': 'typography' } },
+				{ id: 'motion', attrs: { 'data-theme': 'motion' } },
+			]);
+		});
 	});
 
 	describe('returns a minimal set of ThemeStyles when auto switching is disabled', () => {
-		ffTest(
-			'platform_increased-contrast-themes',
-			async () => {
-				const results = await getThemeStyles({
-					colorMode: 'light',
-					dark: 'dark',
-					light: 'light',
-					shape: 'shape',
-					spacing: 'spacing',
-					typography: 'typography',
-				});
+		it('with platform_increased-contrast-themes on', async () => {
+			passGate('platform_increased-contrast-themes');
 
-				expect(getThemeData(results)).toEqual([
-					{ id: 'light', attrs: { 'data-theme': 'light' } },
-					{
-						id: 'light-increased-contrast',
-						attrs: { 'data-theme': 'light-increased-contrast' },
-					},
-					{ id: 'shape', attrs: { 'data-theme': 'shape' } },
-					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
-					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
-					{ id: 'motion', attrs: { 'data-theme': 'motion' } },
-				]);
-			},
-			async () => {
-				const results = await getThemeStyles({
-					colorMode: 'light',
-					dark: 'dark',
-					light: 'light',
-					shape: 'shape',
-					spacing: 'spacing',
-					typography: 'typography',
-				});
+			const results = await getThemeStyles({
+				colorMode: 'light',
+				dark: 'dark',
+				light: 'light',
+				shape: 'shape',
+				spacing: 'spacing',
+				typography: 'typography',
+			});
 
-				expect(getThemeData(results)).toEqual([
-					{ id: 'light', attrs: { 'data-theme': 'light' } },
-					{ id: 'shape', attrs: { 'data-theme': 'shape' } },
-					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
-					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
-					{ id: 'motion', attrs: { 'data-theme': 'motion' } },
-				]);
-			},
-		);
+			expect(getThemeData(results)).toEqual([
+				{ id: 'light', attrs: { 'data-theme': 'light' } },
+				{
+					id: 'light-increased-contrast',
+					attrs: { 'data-theme': 'light-increased-contrast' },
+				},
+				{ id: 'shape', attrs: { 'data-theme': 'shape' } },
+				{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
+				{ id: 'typography', attrs: { 'data-theme': 'typography' } },
+				{ id: 'motion', attrs: { 'data-theme': 'motion' } },
+			]);
+		});
+
+		it('with platform_increased-contrast-themes off', async () => {
+			failGate('platform_increased-contrast-themes');
+
+			const results = await getThemeStyles({
+				colorMode: 'light',
+				dark: 'dark',
+				light: 'light',
+				shape: 'shape',
+				spacing: 'spacing',
+				typography: 'typography',
+			});
+
+			expect(getThemeData(results)).toEqual([
+				{ id: 'light', attrs: { 'data-theme': 'light' } },
+				{ id: 'shape', attrs: { 'data-theme': 'shape' } },
+				{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
+				{ id: 'typography', attrs: { 'data-theme': 'typography' } },
+				{ id: 'motion', attrs: { 'data-theme': 'motion' } },
+			]);
+		});
 	});
 
 	describe('returns an array of ThemeStyles without duplicates', () => {
-		ffTest(
-			'platform_increased-contrast-themes',
-			async () => {
-				// prompt a duplication
-				const results = await getThemeStyles({
-					light: 'dark',
-					dark: 'dark',
-					shape: 'shape',
-					spacing: 'spacing',
-					typography: 'typography',
-				});
+		it('with platform_increased-contrast-themes on', async () => {
+			passGate('platform_increased-contrast-themes');
 
-				expect(getThemeData(results)).toEqual([
-					{ id: 'dark', attrs: { 'data-theme': 'dark' } },
-					{
-						id: 'dark-increased-contrast',
-						attrs: { 'data-theme': 'dark-increased-contrast' },
-					},
-					{ id: 'shape', attrs: { 'data-theme': 'shape' } },
-					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
-					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
-					{ id: 'motion', attrs: { 'data-theme': 'motion' } },
-				]);
-			},
-			async () => {
-				// prompt a duplication
-				const results = await getThemeStyles({
-					light: 'dark',
-					dark: 'dark',
-					shape: 'shape',
-					spacing: 'spacing',
-					typography: 'typography',
-				});
+			// prompt a duplication
+			const results = await getThemeStyles({
+				light: 'dark',
+				dark: 'dark',
+				shape: 'shape',
+				spacing: 'spacing',
+				typography: 'typography',
+			});
 
-				expect(getThemeData(results)).toEqual([
-					{ id: 'dark', attrs: { 'data-theme': 'dark' } },
-					{ id: 'shape', attrs: { 'data-theme': 'shape' } },
-					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
-					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
-					{ id: 'motion', attrs: { 'data-theme': 'motion' } },
-				]);
-			},
-		);
+			expect(getThemeData(results)).toEqual([
+				{ id: 'dark', attrs: { 'data-theme': 'dark' } },
+				{
+					id: 'dark-increased-contrast',
+					attrs: { 'data-theme': 'dark-increased-contrast' },
+				},
+				{ id: 'shape', attrs: { 'data-theme': 'shape' } },
+				{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
+				{ id: 'typography', attrs: { 'data-theme': 'typography' } },
+				{ id: 'motion', attrs: { 'data-theme': 'motion' } },
+			]);
+		});
+
+		it('with platform_increased-contrast-themes off', async () => {
+			failGate('platform_increased-contrast-themes');
+
+			// prompt a duplication
+			const results = await getThemeStyles({
+				light: 'dark',
+				dark: 'dark',
+				shape: 'shape',
+				spacing: 'spacing',
+				typography: 'typography',
+			});
+
+			expect(getThemeData(results)).toEqual([
+				{ id: 'dark', attrs: { 'data-theme': 'dark' } },
+				{ id: 'shape', attrs: { 'data-theme': 'shape' } },
+				{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
+				{ id: 'typography', attrs: { 'data-theme': 'typography' } },
+				{ id: 'motion', attrs: { 'data-theme': 'motion' } },
+			]);
+		});
 	});
 
 	describe('skips invalid themes when given invalid theme state', () => {
-		ffTest(
-			'platform_increased-contrast-themes',
-			async () => {
-				const results = await getThemeStyles({
-					//@ts-ignore
-					dark: 'invalid',
-				});
+		it('with platform_increased-contrast-themes on', async () => {
+			passGate('platform_increased-contrast-themes');
 
-				expect(getThemeData(results)).toEqual([
-					{ id: 'light', attrs: { 'data-theme': 'light' } },
-					{
-						id: 'light-increased-contrast',
-						attrs: { 'data-theme': 'light-increased-contrast' },
-					},
-					{ id: 'shape', attrs: { 'data-theme': 'shape' } },
-					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
-					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
-					{ id: 'motion', attrs: { 'data-theme': 'motion' } },
-				]);
-			},
-			async () => {
-				const results = await getThemeStyles({
-					//@ts-ignore
-					dark: 'invalid',
-				});
+			const results = await getThemeStyles({
+				//@ts-ignore
+				dark: 'invalid',
+			});
 
-				expect(getThemeData(results)).toEqual([
-					{ id: 'light', attrs: { 'data-theme': 'light' } },
-					{ id: 'shape', attrs: { 'data-theme': 'shape' } },
-					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
-					{ id: 'typography', attrs: { 'data-theme': 'typography' } },
-					{ id: 'motion', attrs: { 'data-theme': 'motion' } },
-				]);
-			},
-		);
+			expect(getThemeData(results)).toEqual([
+				{ id: 'light', attrs: { 'data-theme': 'light' } },
+				{
+					id: 'light-increased-contrast',
+					attrs: { 'data-theme': 'light-increased-contrast' },
+				},
+				{ id: 'shape', attrs: { 'data-theme': 'shape' } },
+				{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
+				{ id: 'typography', attrs: { 'data-theme': 'typography' } },
+				{ id: 'motion', attrs: { 'data-theme': 'motion' } },
+			]);
+		});
+
+		it('with platform_increased-contrast-themes off', async () => {
+			failGate('platform_increased-contrast-themes');
+
+			const results = await getThemeStyles({
+				//@ts-ignore
+				dark: 'invalid',
+			});
+
+			expect(getThemeData(results)).toEqual([
+				{ id: 'light', attrs: { 'data-theme': 'light' } },
+				{ id: 'shape', attrs: { 'data-theme': 'shape' } },
+				{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
+				{ id: 'typography', attrs: { 'data-theme': 'typography' } },
+				{ id: 'motion', attrs: { 'data-theme': 'motion' } },
+			]);
+		});
 	});
 
 	describe('returns all theme styles when provided "all" as an argument', () => {
-		ffTest(
-			'platform_increased-contrast-themes',
-			async () => {
-				const results = await getThemeStyles('all');
+		it('with platform_increased-contrast-themes on', async () => {
+			passGate('platform_increased-contrast-themes');
 
-				// Check that CSS is defined for each result
-				results.forEach((result) => {
-					expect(result.css).toBeDefined();
-				});
+			const results = await getThemeStyles('all');
 
+			// Check that CSS is defined for each result
+			results.forEach((result) => {
+				expect(result.css).toBeDefined();
+			});
+
+			expect(getThemeData(results)).toEqual([
+				{
+					id: 'light-increased-contrast',
+					attrs: { 'data-theme': 'light-increased-contrast' },
+				},
+				{ id: 'light', attrs: { 'data-theme': 'light' } },
+				{ id: 'light-future', attrs: { 'data-theme': 'light-future' } },
+				{ id: 'UNSAFE-dynamic', attrs: { 'data-theme': 'UNSAFE-dynamic' } },
+				{ id: 'UNSAFE-dynamic-dark', attrs: { 'data-theme': 'UNSAFE-dynamic-dark' } },
+				{ id: 'UNSAFE-test-light', attrs: { 'data-theme': 'UNSAFE-test-light' } },
+				{ id: 'dark', attrs: { 'data-theme': 'dark' } },
+				{ id: 'UNSAFE-test-dark', attrs: { 'data-theme': 'UNSAFE-test-dark' } },
+				{ id: 'dark-future', attrs: { 'data-theme': 'dark-future' } },
+				{
+					id: 'dark-increased-contrast',
+					attrs: { 'data-theme': 'dark-increased-contrast' },
+				},
+				{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
+				{ id: 'UNSAFE-spacing', attrs: { 'data-theme': 'UNSAFE-spacing' } },
+				{ id: 'shape', attrs: { 'data-theme': 'shape' } },
+				{ id: 'typography', attrs: { 'data-theme': 'typography' } },
+				{ id: 'UNSAFE-typography', attrs: { 'data-theme': 'UNSAFE-typography' } },
+				{ id: 'motion', attrs: { 'data-theme': 'motion' } },
+			]);
+		});
+
+		it('with platform_increased-contrast-themes off', async () => {
+			failGate('platform_increased-contrast-themes');
+
+			const assertThemeDataIsCorrect = (results: ThemeStyles[]) => {
 				expect(getThemeData(results)).toEqual([
-					{
-						id: 'light-increased-contrast',
-						attrs: { 'data-theme': 'light-increased-contrast' },
-					},
 					{ id: 'light', attrs: { 'data-theme': 'light' } },
 					{ id: 'light-future', attrs: { 'data-theme': 'light-future' } },
 					{ id: 'UNSAFE-dynamic', attrs: { 'data-theme': 'UNSAFE-dynamic' } },
@@ -416,10 +456,6 @@ describe('getThemeStyles', () => {
 					{ id: 'dark', attrs: { 'data-theme': 'dark' } },
 					{ id: 'UNSAFE-test-dark', attrs: { 'data-theme': 'UNSAFE-test-dark' } },
 					{ id: 'dark-future', attrs: { 'data-theme': 'dark-future' } },
-					{
-						id: 'dark-increased-contrast',
-						attrs: { 'data-theme': 'dark-increased-contrast' },
-					},
 					{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
 					{ id: 'UNSAFE-spacing', attrs: { 'data-theme': 'UNSAFE-spacing' } },
 					{ id: 'shape', attrs: { 'data-theme': 'shape' } },
@@ -427,48 +463,27 @@ describe('getThemeStyles', () => {
 					{ id: 'UNSAFE-typography', attrs: { 'data-theme': 'UNSAFE-typography' } },
 					{ id: 'motion', attrs: { 'data-theme': 'motion' } },
 				]);
-			},
-			() => {
-				const assertThemeDataIsCorrect = (results: ThemeStyles[]) => {
-					expect(getThemeData(results)).toEqual([
-						{ id: 'light', attrs: { 'data-theme': 'light' } },
-						{ id: 'light-future', attrs: { 'data-theme': 'light-future' } },
-						{ id: 'UNSAFE-dynamic', attrs: { 'data-theme': 'UNSAFE-dynamic' } },
-						{ id: 'UNSAFE-dynamic-dark', attrs: { 'data-theme': 'UNSAFE-dynamic-dark' } },
-						{ id: 'UNSAFE-test-light', attrs: { 'data-theme': 'UNSAFE-test-light' } },
-						{ id: 'dark', attrs: { 'data-theme': 'dark' } },
-						{ id: 'UNSAFE-test-dark', attrs: { 'data-theme': 'UNSAFE-test-dark' } },
-						{ id: 'dark-future', attrs: { 'data-theme': 'dark-future' } },
-						{ id: 'spacing', attrs: { 'data-theme': 'spacing' } },
-						{ id: 'UNSAFE-spacing', attrs: { 'data-theme': 'UNSAFE-spacing' } },
-						{ id: 'shape', attrs: { 'data-theme': 'shape' } },
-						{ id: 'typography', attrs: { 'data-theme': 'typography' } },
-						{ id: 'UNSAFE-typography', attrs: { 'data-theme': 'UNSAFE-typography' } },
-					]);
-				};
-				const testWithVisualRefreshVariation = async (
-					verify: (css: string, id: ThemeIdsWithOverrides) => void,
-				) => {
-					const results = await getThemeStyles('all');
+			};
+			const testWithVisualRefreshVariation = async (
+				verify: (css: string, id: ThemeIdsWithOverrides) => void,
+			) => {
+				const results = await getThemeStyles('all');
 
-					// Check that CSS is defined for each result
-					// Regular expression to find the --ds-text variable and its value
-					results.forEach((result) => {
-						const { id } = result;
-						const { css } = result;
-						expect(css).toBeDefined();
-						if (mainThemes.includes(id)) {
-							verify(css, id);
-						}
-					});
+				// Check that CSS is defined for each result
+				// Regular expression to find the --ds-text variable and its value
+				results.forEach((result) => {
+					const { id } = result;
+					const { css } = result;
+					expect(css).toBeDefined();
+					if (mainThemes.includes(id)) {
+						verify(css, id);
+					}
+				});
 
-					assertThemeDataIsCorrect(results);
-				};
+				assertThemeDataIsCorrect(results);
+			};
 
-				return async () => {
-					await testWithVisualRefreshVariation(verifyBrandRefreshColors);
-				};
-			},
-		);
+			await testWithVisualRefreshVariation(verifyBrandRefreshColors);
+		});
 	});
 });

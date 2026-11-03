@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-rule
 
+## 30.0.3
+
+### Patch Changes
+
+- [`16d59dad238c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/16d59dad238c4) -
+  [EDITOR-8351] fix focus ring and arrow-key behaviour for the divider options dropdown menu behind
+  `platform_editor_lovability_dividers` and `platform_editor_lovability_dividers_patch_1`.
+- Updated dependencies
+
 ## 30.0.2
 
 ### Patch Changes

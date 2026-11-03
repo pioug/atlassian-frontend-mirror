@@ -3,7 +3,7 @@ import React from 'react';
 import { act, fireEvent, render, screen } from '@testing-library/react';
 
 import { Box } from '@atlaskit/primitives/compiled/box';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import Flag from '../../flag';
 import FlagGroup from '../../flag-group';
@@ -40,8 +40,10 @@ describe('FlagGroup host', () => {
 		jest.useRealTimers();
 	});
 
-	ffTest.on('platform-dst-top-layer', 'when top layer is on', () => {
+	describe('when top layer is on', () => {
 		it('renders nothing while no flag shows', () => {
+			passGate('platform-dst-top-layer');
+
 			const { container } = render(<FlagsProvider>{null}</FlagsProvider>);
 
 			expect(container).toBeEmptyDOMElement();
@@ -49,12 +51,16 @@ describe('FlagGroup host', () => {
 		});
 
 		it('renders nothing for a flag group with no flags', () => {
+			passGate('platform-dst-top-layer');
+
 			const { container } = render(<FlagGroup>{[]}</FlagGroup>);
 
 			expect(container).toBeEmptyDOMElement();
 		});
 
-		it('opens a manual popover host in place when a flag shows', () => {
+		it('opens a manual popover host in place when a flag shows', async () => {
+			passGate('platform-dst-top-layer');
+
 			const { container } = render(
 				<FlagsProvider>
 					<Consumer />
@@ -69,9 +75,14 @@ describe('FlagGroup host', () => {
 			expect(host?.matches(':popover-open')).toBe(true);
 			expect(container).toContainElement(host);
 			expect(host).toContainElement(screen.getByRole('alert'));
+
+			jest.useRealTimers();
+			await expect(container).toBeAccessible();
 		});
 
 		it('does not move focus when a flag shows', () => {
+			passGate('platform-dst-top-layer');
+
 			render(
 				<FlagsProvider>
 					<Consumer />
@@ -87,6 +98,8 @@ describe('FlagGroup host', () => {
 		});
 
 		it('keeps the host open while the last flag exits, then removes it', () => {
+			passGate('platform-dst-top-layer');
+
 			const { container } = render(
 				<FlagsProvider>
 					<Consumer />
@@ -117,6 +130,8 @@ describe('FlagGroup host', () => {
 		});
 
 		it('opens the host again for a flag that shows after the host was removed', () => {
+			passGate('platform-dst-top-layer');
+
 			render(
 				<FlagsProvider>
 					<Consumer />
@@ -140,6 +155,8 @@ describe('FlagGroup host', () => {
 		});
 
 		it('keeps the host open while one of several flags exits', () => {
+			passGate('platform-dst-top-layer');
+
 			render(
 				<FlagsProvider>
 					<Consumer />
@@ -161,6 +178,8 @@ describe('FlagGroup host', () => {
 		});
 
 		it('opens the host for flags that are present when the group mounts', () => {
+			passGate('platform-dst-top-layer');
+
 			render(
 				<FlagGroup>
 					<Flag id="a" icon={<Box />} title="Flag" testId="a" />
@@ -172,8 +191,10 @@ describe('FlagGroup host', () => {
 		});
 	});
 
-	ffTest.off('platform-dst-top-layer', 'when top layer is off', () => {
+	describe('when top layer is off', () => {
 		it('renders no popover host', () => {
+			failGate('platform-dst-top-layer');
+
 			render(
 				<FlagsProvider>
 					<Consumer />
@@ -187,6 +208,8 @@ describe('FlagGroup host', () => {
 		});
 
 		it('keeps rendering the group container to a portal while no flag shows', () => {
+			failGate('platform-dst-top-layer');
+
 			const { container } = render(<FlagGroup id="flag-group">{[]}</FlagGroup>);
 
 			expect(container).toBeEmptyDOMElement();

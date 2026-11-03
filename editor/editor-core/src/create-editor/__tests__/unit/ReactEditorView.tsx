@@ -124,7 +124,6 @@ import { abortAll, getActiveInteraction } from '@atlaskit/react-ufo/interaction-
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
-import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 
 import type { EditorConfig } from '../../../types/editor-config';
@@ -1339,8 +1338,6 @@ describe('@atlaskit/editor-core', () => {
 			});
 
 			it('renders aria-readonly from the initial view mode config', () => {
-				mockExpEnabled('platform_editor_viewmode_aria_readonly_a11y');
-
 				renderWithIntl(
 					<ReactEditorView
 						{...props}
@@ -1355,30 +1352,12 @@ describe('@atlaskit/editor-core', () => {
 			});
 
 			it('omits aria-readonly from the initial edit mode config', () => {
-				mockExpEnabled('platform_editor_viewmode_aria_readonly_a11y');
-
 				renderWithIntl(
 					<ReactEditorView
 						{...props}
 						preset={createUniversalPreset({ props: props.editorProps }).add([
 							editorViewModePlugin,
 							{ mode: 'edit' },
-						])}
-					/>,
-				);
-
-				expect(screen.getByRole('textbox')).not.toHaveAttribute('aria-readonly');
-			});
-
-			it('does not render aria-readonly in view mode when the experiment is disabled', () => {
-				mockExpDisabled('platform_editor_viewmode_aria_readonly_a11y');
-
-				renderWithIntl(
-					<ReactEditorView
-						{...props}
-						preset={createUniversalPreset({ props: props.editorProps }).add([
-							editorViewModePlugin,
-							{ mode: 'view' },
 						])}
 					/>,
 				);

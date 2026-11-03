@@ -1,5 +1,12 @@
 # @atlaskit/ads-mcp
 
+## 1.12.1
+
+### Patch Changes
+
+- [`486e061d81929`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/486e061d81929) -
+  Refresh generated structured-content documentation and catalogs.
+
 ## 1.12.0
 
 ### Minor Changes

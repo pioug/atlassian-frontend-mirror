@@ -7,7 +7,7 @@ let mockGit: any;
 
 jest.mock('simple-git', () => ({
 	__esModule: true,
-	default: jest.fn(() => mockGit),
+	simpleGit: jest.fn(() => mockGit),
 }));
 
 describe('git', () => {

@@ -5,7 +5,6 @@ import { act, fireEvent, render, screen, waitFor, within } from '@testing-librar
 import Button from '@atlaskit/button/standard-button';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 
 import DropdownMenu from '../../dropdown-menu';
 import DropdownItem from '../../dropdown-menu-item';
@@ -61,17 +60,17 @@ describe('dropdown menu', () => {
 
 		// The legacy popup closes on a document `click` and passes that event. The top-layer path uses
 		// native light dismiss: see `dropdown-menu-top-layer.test.tsx`.
-		ffTest.off('platform-dst-top-layer', 'legacy outside click', () => {
-			it('should callback with false when opened', () => {
-				const callback = jest.fn();
-				render(createDropdown({ onOpenChange: callback, isOpen: true }));
+		it('should callback with false when opened', () => {
+			failGate('platform-dst-top-layer');
 
-				fireEvent.click(document.body);
+			const callback = jest.fn();
+			render(createDropdown({ onOpenChange: callback, isOpen: true }));
 
-				expect(callback).toHaveBeenCalledWith({
-					isOpen: false,
-					event: new MouseEvent('click'),
-				});
+			fireEvent.click(document.body);
+
+			expect(callback).toHaveBeenCalledWith({
+				isOpen: false,
+				event: new MouseEvent('click'),
 			});
 		});
 
@@ -372,47 +371,47 @@ describe('dropdown menu', () => {
 
 		// The legacy popup closes on a document `click`. The top-layer path uses native light dismiss:
 		// see `dropdown-menu-top-layer.test.tsx`.
-		ffTest.off('platform-dst-top-layer', 'legacy outside click', () => {
-			it('should close the dropdown menu on outside click', () => {
-				render(
-					<>
-						<button aria-label="outside" data-testid="outside" type="button" />
-						{createDropdown()}
-					</>,
-				);
+		it('should close the dropdown menu on outside click', () => {
+			failGate('platform-dst-top-layer');
 
-				fireEvent.click(screen.getByTestId(`${testId}--trigger`));
+			render(
+				<>
+					<button aria-label="outside" data-testid="outside" type="button" />
+					{createDropdown()}
+				</>,
+			);
 
-				expect(screen.getByTestId(`${testId}--content`)).toBeInTheDocument();
+			fireEvent.click(screen.getByTestId(`${testId}--trigger`));
 
-				fireEvent.click(screen.getByTestId('outside'));
+			expect(screen.getByTestId(`${testId}--content`)).toBeInTheDocument();
 
-				expect(screen.queryByTestId(`${testId}--content`)).not.toBeInTheDocument();
-			});
+			fireEvent.click(screen.getByTestId('outside'));
+
+			expect(screen.queryByTestId(`${testId}--content`)).not.toBeInTheDocument();
 		});
 
-		ffTest.off('platform-dst-top-layer', 'legacy outside click with stopPropagation', () => {
-			it('should close the dropdown menu on outside click which has stopPropagation', () => {
-				render(
-					<>
-						<button
-							aria-label="outside"
-							data-testid="outside"
-							type="button"
-							onClick={(e) => e.stopPropagation()}
-						/>
-						{createDropdown()}
-					</>,
-				);
+		it('should close the dropdown menu on outside click which has stopPropagation', () => {
+			failGate('platform-dst-top-layer');
 
-				fireEvent.click(screen.getByTestId(`${testId}--trigger`));
+			render(
+				<>
+					<button
+						aria-label="outside"
+						data-testid="outside"
+						type="button"
+						onClick={(e) => e.stopPropagation()}
+					/>
+					{createDropdown()}
+				</>,
+			);
 
-				expect(screen.getByTestId(`${testId}--content`)).toBeInTheDocument();
+			fireEvent.click(screen.getByTestId(`${testId}--trigger`));
 
-				fireEvent.click(screen.getByTestId('outside'));
+			expect(screen.getByTestId(`${testId}--content`)).toBeInTheDocument();
 
-				expect(screen.queryByTestId(`${testId}--content`)).not.toBeInTheDocument();
-			});
+			fireEvent.click(screen.getByTestId('outside'));
+
+			expect(screen.queryByTestId(`${testId}--content`)).not.toBeInTheDocument();
 		});
 
 		it('should generate a psuedorandom id to link the trigger and the popup if none was passed to it', () => {

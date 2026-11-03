@@ -410,13 +410,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-06-30
-	cc_fix_editor_context_on_cwr_followups: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-04-01
 	cc_page_experiences_editor_image_generation: {
 		defaultValue: boolean;
@@ -1405,14 +1398,6 @@ export const editorExperimentsConfig: {
 	platform_editor_ai_no_stream_skip_pacer: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_ai_no_stream_skip_pacer',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-06-30
-	cc_fix_editor_context_on_cwr_followups: createBooleanExperiment({
-		productKeys: {
-			confluence: 'cc_fix_editor_context_on_cwr_followups',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

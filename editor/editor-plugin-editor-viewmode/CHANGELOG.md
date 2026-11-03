@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-editor-viewmode
 
+## 32.0.1
+
+### Patch Changes
+
+- [`51b55d41ca6c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/51b55d41ca6c1) -
+  Clean up experiment `platform_editor_viewmode_aria_readonly_a11y`; the editor now always sets
+  `aria-readonly="true"` in view mode.
+- Updated dependencies
+
 ## 32.0.0
 
 ### Patch Changes

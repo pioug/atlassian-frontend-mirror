@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 31.0.8
+
+### Patch Changes
+
+- [`6e0fa99ec8f01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e0fa99ec8f01) -
+  Delete unreachable source files
+- Updated dependencies
+
 ## 31.0.7
 
 ### Patch Changes

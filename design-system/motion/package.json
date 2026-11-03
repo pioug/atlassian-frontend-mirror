@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/motion",
-	"version": "9.6.0",
+	"version": "9.6.1",
 	"description": "A set of utilities to apply motion in your application.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -72,8 +72,8 @@
 					"id": "motion-primitive",
 					"sortKey": 1,
 					"status": {
-						"type": "alpha",
-						"description": "The new Motion primitive and tokens are currently in early access. We may make frequent breaking changes with limited notice. We don't recommend using this without support from our team."
+						"type": "beta",
+						"description": "New and ready to use. We'll provide comms and support for any major changes."
 					}
 				},
 				{
@@ -81,8 +81,8 @@
 					"id": "use-motion",
 					"sortKey": 2,
 					"status": {
-						"type": "alpha",
-						"description": "The useMotion hook is currently in early access. We may make frequent breaking changes with limited notice. We don't recommend using this without support from our team."
+						"type": "beta",
+						"description": "New and ready to use. We'll provide comms and support for any major changes."
 					}
 				},
 				{
@@ -100,8 +100,8 @@
 					"id": "motion-presence-boundary",
 					"sortKey": 5,
 					"status": {
-						"type": "alpha",
-						"description": "MotionPresenceBoundary is currently in early access. We may make frequent breaking changes with limited notice. We don't recommend using this without support from our team."
+						"type": "beta",
+						"description": "New and ready to use. We'll provide comms and support for any major changes."
 					}
 				},
 				{

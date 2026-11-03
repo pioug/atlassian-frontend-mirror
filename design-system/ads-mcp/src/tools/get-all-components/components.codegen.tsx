@@ -3,7 +3,7 @@
  *
  * Structured content components from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::2f43da3dc48f093c5f14e25a6cb60b31>>
+ * @codegen <<SignedSource::6e25cf646795878ee80b1ce5105fe2f6>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -1087,7 +1087,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'icon',
-				type: 'ComponentClass<Omit<IconProps, "size"> | Omit<NewIconProps, "size" | "spacing">, any> | FunctionComponent<Omit<IconProps, "size"> | Omit<...>>',
+				type: 'ComponentClass<(Omit<IconProps, "size"> | Omit<NewIconProps, "size" | "spacing">) & { motionOvershoot?: string | undefined; }, any> | FunctionComponent<...>',
 				description: 'Places an icon within the button.',
 				isRequired: true,
 			},
@@ -1196,7 +1196,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'icon',
-				type: 'React.ComponentClass<Omit<IconProps, "size"> | Omit<NewIconProps, "size" | "spacing">, any> | React.FunctionComponent<Omit<IconProps, "size"> | Omit<...>>',
+				type: 'React.ComponentClass<(Omit<IconProps, "size"> | Omit<NewIconProps, "size" | "spacing">) & { motionOvershoot?: string | undefined; }, any> | React.FunctionComponent<...>',
 				description: 'Places an icon within the button.',
 				isRequired: true,
 			},

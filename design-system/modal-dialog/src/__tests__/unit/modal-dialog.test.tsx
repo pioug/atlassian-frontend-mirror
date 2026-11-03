@@ -6,7 +6,7 @@ import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
 import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
 import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import noop from '@atlaskit/ds-lib/noop';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { act, fireEvent, render, waitFor } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
@@ -80,7 +80,11 @@ const createModal = (props?: ModalDialogProps) => (
 
 // These suites cover the legacy (Portal and Blanket) markup. `modal-dialog-top-layer.test.tsx`
 // covers the top-layer path.
-ffTest.off('platform-dst-top-layer', '<ModalDialog />', () => {
+describe('<ModalDialog />', () => {
+	beforeEach(() => {
+		failGate('platform-dst-top-layer');
+	});
+
 	beforeEach(() => {
 		skipA11yAudit();
 	});
@@ -604,22 +608,26 @@ describe('autoFocus', () => {
 	});
 });
 
-ffTest.off('platform-dst-top-layer', 'forwarded ref', () => {
-	it('should forward a ref through', () => {
-		const ref = React.createRef<HTMLElement>();
+it('should forward a ref through', () => {
+	failGate('platform-dst-top-layer');
 
-		render(
-			<ModalDialog onClose={close} ref={ref} testId={testId}>
-				<div>Test</div>
-			</ModalDialog>,
-		);
+	const ref = React.createRef<HTMLElement>();
 
-		const container = screen.getByTestId(testId);
-		expect(ref.current).toBe(container);
-	});
+	render(
+		<ModalDialog onClose={close} ref={ref} testId={testId}>
+			<div>Test</div>
+		</ModalDialog>,
+	);
+
+	const container = screen.getByTestId(testId);
+	expect(ref.current).toBe(container);
 });
 
-ffTest.off('platform-dst-top-layer', 'multiple modals', () => {
+describe('multiple modals', () => {
+	beforeEach(() => {
+		failGate('platform-dst-top-layer');
+	});
+
 	beforeEach(() => {
 		skipA11yAudit();
 	});

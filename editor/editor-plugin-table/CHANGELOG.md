@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-table
 
+## 42.2.7
+
+### Patch Changes
+
+- [`6e0fa99ec8f01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e0fa99ec8f01) -
+  Delete unreachable source files
+- Updated dependencies
+
+## 42.2.6
+
+### Patch Changes
+
+- [`f9a44232e1263`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f9a44232e1263) -
+  Clean up experiment `platform_editor_table_limited_mode`
+- Updated dependencies
+
 ## 42.2.5
 
 ### Patch Changes

@@ -1,5 +1,18 @@
 # @atlaskit/media-ui
 
+## 31.6.2
+
+### Patch Changes
+
+- [`a77e62be61390`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a77e62be61390) -
+  Preview git format-patch files as text when `platform_media_patch_text_preview` is enabled. That
+  covers `text/x-diff`, `text/x-patch`, and `application/x-patch`, including a charset parameter.
+  `application/mbox` and `message/rfc822` preview only when the file name ends in `.patch` or
+  `.diff`, so an `.eml` email or `.mbox` mailbox stays on document preview. The same flag gates
+  `text/plain` values that are not an exact match, such as `Text/Plain; charset=utf-8`. An exact
+  `text/plain` match still previews with the flag off. `application/octet-stream` and a missing MIME
+  type still use document preview.
+
 ## 31.6.1
 
 ### Patch Changes

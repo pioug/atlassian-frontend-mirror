@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "27.4.4",
+	"version": "27.4.5",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -199,6 +199,9 @@
 			"type": "boolean"
 		},
 		"ptc_a11y_profile_card_text_spacing": {
+			"type": "boolean"
+		},
+		"ptc_profilecard_lazy_team_central_preload": {
 			"type": "boolean"
 		}
 	},

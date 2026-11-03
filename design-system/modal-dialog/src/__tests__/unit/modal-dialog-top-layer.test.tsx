@@ -4,7 +4,7 @@ import { axe } from '@af/accessibility-testing/jest-axe';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import noop from '@atlaskit/ds-lib/noop';
 import { hasOpenDialogOrPopover } from '@atlaskit/top-layer/page-surface/has-open-dialog-or-popover';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { act, fireEvent, render, waitFor } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
@@ -117,7 +117,7 @@ function ControlledModal({
 	);
 }
 
-ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
+describe('ModalDialog top-layer rendering', () => {
 	beforeAll(() => {
 		// Emulate reduced motion to avoid animation timing issues
 		window.matchMedia = (query: string) =>
@@ -129,6 +129,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	});
 
 	it('should render using a native <dialog> element', () => {
+		passGate('platform-dst-top-layer');
+
 		render(<ControlledModal />);
 
 		const dialog = screen.getByTestId('modal');
@@ -137,6 +139,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	});
 
 	it('should open the dialog element when mounted', () => {
+		passGate('platform-dst-top-layer');
+
 		render(<ControlledModal />);
 
 		const dialog = screen.getByTestId('modal');
@@ -144,6 +148,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	});
 
 	it('should close dialog when unmounted', () => {
+		passGate('platform-dst-top-layer');
+
 		const { unmount } = render(<ControlledModal />);
 
 		const dialog = screen.getByTestId('modal');
@@ -155,6 +161,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	});
 
 	it('should render modal content (header, body, footer)', () => {
+		passGate('platform-dst-top-layer');
+
 		render(<ControlledModal />);
 
 		expect(screen.getByTestId('modal--header')).toBeInTheDocument();
@@ -163,6 +171,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	});
 
 	it('should render modal title', () => {
+		passGate('platform-dst-top-layer');
+
 		render(<ControlledModal />);
 
 		expect(screen.getByTestId('modal--title')).toBeInTheDocument();
@@ -170,6 +180,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	});
 
 	it('should call onClose when escape is pressed', async () => {
+		passGate('platform-dst-top-layer');
+
 		const onClose = jest.fn();
 		render(<ControlledModal onClose={onClose} />);
 
@@ -183,6 +195,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 
 	// As product tests do it: click a trigger, then press Escape with no explicit `focus()`.
 	it('should call onClose for a userEvent Escape after opening from a trigger, and return focus to it', async () => {
+		passGate('platform-dst-top-layer');
+
 		const user = userEvent.setup();
 		const onClose = jest.fn();
 		render(<ControlledModal onClose={onClose} defaultOpen={false} />);
@@ -200,6 +214,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	});
 
 	it('should call onClose when backdrop is clicked', async () => {
+		passGate('platform-dst-top-layer');
+
 		const onClose = jest.fn();
 		render(<ControlledModal onClose={onClose} />);
 
@@ -214,6 +230,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	});
 
 	it('should unmount modal when onClose sets isOpen to false', async () => {
+		passGate('platform-dst-top-layer');
+
 		render(<ControlledModal />);
 
 		expect(screen.getByTestId('modal')).toBeInTheDocument();
@@ -226,6 +244,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	});
 
 	it('should set aria-labelledby referencing the title when no label prop is provided', () => {
+		passGate('platform-dst-top-layer');
+
 		render(<ControlledModal hasLabel={false} />);
 
 		const dialog = screen.getByTestId('modal');
@@ -238,6 +258,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	});
 
 	it('should set aria-label when label prop is provided', () => {
+		passGate('platform-dst-top-layer');
+
 		render(<ControlledModal label="Accessible label" />);
 
 		const dialog = screen.getByTestId('modal');
@@ -246,6 +268,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	});
 
 	it('should render a visual content container inside the <dialog>', () => {
+		passGate('platform-dst-top-layer');
+
 		render(<ControlledModal />);
 
 		// The visual container is a focusable div inside the dialog
@@ -254,16 +278,22 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	});
 
 	it('should render with default width (medium)', () => {
+		passGate('platform-dst-top-layer');
+
 		render(<ControlledModal />);
 		expect(screen.getByTestId('modal')).toBeInTheDocument();
 	});
 
 	it('should support named width presets', () => {
+		passGate('platform-dst-top-layer');
+
 		render(<ControlledModal width="large" />);
 		expect(screen.getByTestId('modal')).toBeInTheDocument();
 	});
 
 	it('should support custom numeric width', () => {
+		passGate('platform-dst-top-layer');
+
 		render(<ControlledModal width={800} />);
 
 		const dialog = screen.getByTestId('modal');
@@ -272,6 +302,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	});
 
 	it('should support custom string width', () => {
+		passGate('platform-dst-top-layer');
+
 		render(<ControlledModal width="80%" />);
 
 		const dialog = screen.getByTestId('modal');
@@ -282,6 +314,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	});
 
 	it('should pass custom height as a CSS variable', () => {
+		passGate('platform-dst-top-layer');
+
 		render(<ControlledModal height={500} />);
 
 		const dialog = screen.getByTestId('modal');
@@ -290,6 +324,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	});
 
 	it('should call onOpenComplete after mount', () => {
+		passGate('platform-dst-top-layer');
+
 		const onOpenComplete = jest.fn();
 		render(<ControlledModal onOpenComplete={onOpenComplete} />);
 
@@ -298,11 +334,15 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	});
 
 	it('should render close button when hasCloseButton is true', () => {
+		passGate('platform-dst-top-layer');
+
 		render(<ControlledModal />);
 		expect(screen.getByTestId('modal--close-button')).toBeInTheDocument();
 	});
 
 	it('should render children correctly', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<ControlledModal>
 				<ModalBody>
@@ -315,6 +355,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	});
 
 	it('should support testId on sub-components', () => {
+		passGate('platform-dst-top-layer');
+
 		render(<ControlledModal />);
 
 		expect(screen.getByTestId('modal')).toBeInTheDocument();
@@ -325,6 +367,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	});
 
 	it('should not use Portal for rendering', () => {
+		passGate('platform-dst-top-layer');
+
 		render(<ControlledModal />);
 
 		// In top-layer mode, the dialog should be in the natural DOM position,
@@ -338,6 +382,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	// ── Animation tests ──
 
 	it('should close dialog when exiting to trigger CSS exit animation', () => {
+		passGate('platform-dst-top-layer');
+
 		render(<ControlledModal />);
 
 		const dialog = screen.getByTestId('modal');
@@ -351,6 +397,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	});
 
 	it('should call onCloseComplete during exit teardown', async () => {
+		passGate('platform-dst-top-layer');
+
 		const onCloseComplete = jest.fn();
 		render(<ControlledModal onCloseComplete={onCloseComplete} />);
 
@@ -363,6 +411,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	});
 
 	it('should unmount modal on backdrop click after exit animation', async () => {
+		passGate('platform-dst-top-layer');
+
 		render(<ControlledModal />);
 
 		const dialog = screen.getByTestId('modal');
@@ -378,6 +428,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	// ── shouldCloseOnEscapePress / shouldCloseOnOverlayClick respected via top-layer context ──
 
 	it('should NOT call onClose on Escape when shouldCloseOnEscapePress is false', async () => {
+		passGate('platform-dst-top-layer');
+
 		const onClose = jest.fn();
 		render(<ControlledModal onClose={onClose} shouldCloseOnEscapePress={false} />);
 
@@ -395,6 +447,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	});
 
 	it('should NOT call onClose on backdrop click when shouldCloseOnOverlayClick is false', () => {
+		passGate('platform-dst-top-layer');
+
 		const onClose = jest.fn();
 		render(<ControlledModal onClose={onClose} shouldCloseOnOverlayClick={false} />);
 
@@ -408,6 +462,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	});
 
 	it('should close on Escape when only overlay close is disabled', async () => {
+		passGate('platform-dst-top-layer');
+
 		const onClose = jest.fn();
 		render(<ControlledModal onClose={onClose} shouldCloseOnOverlayClick={false} />);
 
@@ -417,6 +473,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	});
 
 	it('should not close from Escape or backdrop when both close behaviours are false', () => {
+		passGate('platform-dst-top-layer');
+
 		const onClose = jest.fn();
 		render(
 			<ControlledModal
@@ -452,6 +510,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	}
 
 	it('should stay open without calling onClose when the dialog closes without Dialog asking', async () => {
+		passGate('platform-dst-top-layer');
+
 		const onClose = jest.fn();
 		const onCloseComplete = jest.fn();
 		render(<ControlledModal onClose={onClose} onCloseComplete={onCloseComplete} />);
@@ -467,6 +527,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 
 	describe('open modal layer', () => {
 		it('should keep counting as an open modal when the dialog closes without Dialog asking', async () => {
+			passGate('platform-dst-top-layer');
+
 			render(
 				<ModalTransition>
 					<ModalDialog testId="modal" label="Modal" onClose={noop}>
@@ -487,6 +549,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	// ── Click inside content does NOT close ──
 
 	it('should not close when clicking inside modal content', () => {
+		passGate('platform-dst-top-layer');
+
 		const onClose = jest.fn();
 		render(<ControlledModal onClose={onClose} />);
 
@@ -497,6 +561,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	});
 
 	it('should not close when clicking interactive elements inside modal', () => {
+		passGate('platform-dst-top-layer');
+
 		const onClose = jest.fn();
 		render(<ControlledModal onClose={onClose} />);
 
@@ -508,6 +574,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	// ── Re-open after close ──
 
 	it('should support re-opening after close', async () => {
+		passGate('platform-dst-top-layer');
+
 		render(<ControlledModal />);
 
 		expect(screen.getByTestId('modal')).toBeInTheDocument();
@@ -527,6 +595,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	});
 
 	it('should call onOpenComplete again when re-opened', async () => {
+		passGate('platform-dst-top-layer');
+
 		const onOpenComplete = jest.fn();
 		render(<ControlledModal onOpenComplete={onOpenComplete} />);
 
@@ -546,6 +616,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	// ── Escape triggers close flow correctly ──
 
 	it('should close dialog after Escape triggers the exit flow', () => {
+		passGate('platform-dst-top-layer');
+
 		render(<ControlledModal />);
 
 		const dialog = screen.getByTestId('modal');
@@ -561,6 +633,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	// ── dialog.close() is called before unmount (not just on Escape) ──
 
 	it('should close dialog when backdrop triggers exit', () => {
+		passGate('platform-dst-top-layer');
+
 		render(<ControlledModal />);
 
 		const dialog = screen.getByTestId('modal');
@@ -577,6 +651,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	// ── onCloseComplete with backdrop close ──
 
 	it('should call onCloseComplete when closed via backdrop click', async () => {
+		passGate('platform-dst-top-layer');
+
 		const onCloseComplete = jest.fn();
 		render(<ControlledModal onCloseComplete={onCloseComplete} />);
 
@@ -593,6 +669,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	// ── Role and semantics ──
 
 	it('should have role="dialog" on the visual content container', () => {
+		passGate('platform-dst-top-layer');
+
 		render(<ControlledModal />);
 
 		const dialogRole = screen.getByRole('dialog', { hidden: true });
@@ -600,6 +678,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	});
 
 	it('should set aria-label on dialog when label prop is a custom value', () => {
+		passGate('platform-dst-top-layer');
+
 		render(<ControlledModal label="Custom accessible name" />);
 
 		const dialog = screen.getByTestId('modal');
@@ -615,6 +695,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	});
 
 	it('should render modal when opened from defaultOpen false via trigger', () => {
+		passGate('platform-dst-top-layer');
+
 		render(<ControlledModal defaultOpen={false} />);
 
 		expect(screen.queryByTestId('modal')).not.toBeInTheDocument();
@@ -625,6 +707,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	});
 
 	it('should not fail aXe audit', async () => {
+		passGate('platform-dst-top-layer');
+
 		const { container } = render(<ControlledModal />);
 
 		await axe(container);
@@ -633,6 +717,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	// ── Analytics event integration ──
 
 	it('should fire analytics event on the atlaskit channel when closed via Escape', async () => {
+		passGate('platform-dst-top-layer');
+
 		const analyticsCallback = jest.fn();
 
 		render(
@@ -657,6 +743,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	});
 
 	it('should pass analytics event as second argument to onClose callback', async () => {
+		passGate('platform-dst-top-layer');
+
 		const onClose = jest.fn();
 
 		render(
@@ -683,6 +771,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	});
 
 	it('should fire analytics event when closed via backdrop click', async () => {
+		passGate('platform-dst-top-layer');
+
 		const analyticsCallback = jest.fn();
 
 		render(
@@ -711,6 +801,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	// ── Stacked modals ──
 
 	it('should hide backdrop for stacked background modals', () => {
+		passGate('platform-dst-top-layer');
+
 		// Render two modals to create a stacking scenario.
 		// The first modal should have a hidden backdrop since it's behind.
 		render(
@@ -736,6 +828,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	// ── Width preset resolution ──
 
 	it('should apply small width preset inline style', () => {
+		passGate('platform-dst-top-layer');
+
 		render(<ControlledModal width="small" />);
 
 		const dialog = screen.getByTestId('modal');
@@ -745,6 +839,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	});
 
 	it('should apply x-large width preset inline style', () => {
+		passGate('platform-dst-top-layer');
+
 		render(<ControlledModal width="x-large" />);
 
 		const dialog = screen.getByTestId('modal');
@@ -756,6 +852,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	// ── onClose synthetic event shape ──
 
 	it('should provide a KeyboardEvent with key=Escape when closed via Escape', async () => {
+		passGate('platform-dst-top-layer');
+
 		const onClose = jest.fn();
 		render(<ControlledModal onClose={onClose} />);
 
@@ -769,6 +867,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	});
 
 	it('should provide a MouseEvent when closed via backdrop click', async () => {
+		passGate('platform-dst-top-layer');
+
 		const onClose = jest.fn();
 		render(<ControlledModal onClose={onClose} />);
 
@@ -785,6 +885,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	// ── DialogScrollLock rendered ──
 
 	it('should render DialogScrollLock for background scroll prevention', () => {
+		passGate('platform-dst-top-layer');
+
 		render(<ControlledModal />);
 
 		// DialogScrollLock sets overflow:hidden on the <html> element.
@@ -797,6 +899,8 @@ ffTest.on('platform-dst-top-layer', 'ModalDialog top-layer rendering', () => {
 	// ── Children mounted only once ──
 
 	it('should mount children only once', () => {
+		passGate('platform-dst-top-layer');
+
 		const mountFn = jest.fn();
 
 		function TrackMount() {

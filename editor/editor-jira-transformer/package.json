@@ -43,6 +43,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/activity": "root:*",
+		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/editor-core": "workspace:^",
 		"@atlaskit/editor-json-transformer": "workspace:^",
 		"@atlaskit/editor-test-helpers": "workspace:^",

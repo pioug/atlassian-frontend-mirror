@@ -13,6 +13,7 @@ import type { Identifier } from '@atlaskit/media-client/identifier';
 import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
 import { Shortcut } from '@atlaskit/media-ui/shortcut';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { createModalEvent } from './analytics/events/screen/modal';
@@ -143,6 +144,12 @@ const MediaViewerComponent = ({
 
 	const defaultSelectedItem: Identifier | undefined = selectedItem || items[0];
 	const currentIdentifier = selectedIdentifier || defaultSelectedItem;
+	// The open state is kept across items, but an item without a sidebar shows none.
+	const isSidebarShown =
+		isSidebarVisible &&
+		(!!extensions?.sidebar ||
+			// cc_comments_media_viewer_sidebar is exposed above correctly - avoid duplicates
+			!UNSAFE_expValNoExposure('cc_comments_media_viewer_sidebar', 'isEnabled', false));
 
 	// Toggling the sidebar: opening is unconditional; closing goes through the
 	// optional onSidebarClose interceptor.
@@ -247,7 +254,7 @@ const MediaViewerComponent = ({
 							<ConditionalInsetMediaColumn>
 								<ConditionalInsetMediaStage>
 									<Content
-										isSidebarVisible={isSidebarVisible}
+										isSidebarVisible={isSidebarShown}
 										onClose={(_e?: SyntheticEvent, analyticsEvent?: UIAnalyticsEvent) => {
 											const reason: 'button' | 'other' =
 												analyticsEvent?.payload?.actionSubject === 'button' ? 'button' : 'other';
@@ -278,7 +285,7 @@ const MediaViewerComponent = ({
 											onSidebarButtonClick={
 												isInsetViewer ? onInsetSidebarButtonClick : toggleSidebar
 											}
-											isSidebarVisible={isSidebarVisible}
+											isSidebarVisible={isSidebarShown}
 											onHeaderClose={isInsetViewer ? () => handlePreviewClose('button') : undefined}
 											sidebarToggleRef={isInsetViewer ? showSidebarButtonRef : undefined}
 											contextId={contextId}
@@ -291,7 +298,7 @@ const MediaViewerComponent = ({
 								{isInsetViewer ? <MediaFooterBar /> : null}
 							</ConditionalInsetMediaColumn>
 							{isInsetViewer ? (
-								<SidebarColumn isOpen={isSidebarVisible}>
+								<SidebarColumn isOpen={isSidebarShown}>
 									{currentIdentifier && extensions?.sidebar ? (
 										<InsetSidebarHeader
 											identifier={currentIdentifier}

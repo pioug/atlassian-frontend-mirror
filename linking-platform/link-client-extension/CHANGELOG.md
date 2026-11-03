@@ -1,5 +1,13 @@
 # @atlaskit/link-client-extension
 
+## 8.0.1
+
+### Patch Changes
+
+- [`95e7e755dad59`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/95e7e755dad59) -
+  Add internal Integrations Service actions client (AGG actions.execute) for upcoming 3P Smart Link
+  actions. Requests send the AGG `atl-attribution` header. Not exported yet.
+
 ## 8.0.0
 
 ### Major Changes

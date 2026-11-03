@@ -7,7 +7,7 @@ import selectEvent from 'react-select-event';
 
 import { skipA11yAudit } from '@af/accessibility-testing/skip-a11y-audit';
 import { components } from '@atlaskit/react-select/components';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { act, render, waitFor } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
@@ -720,136 +720,134 @@ it('UNSAFE_is_experimental_generic should pass down and replace semantics', asyn
 });
 
 describe('Select dropdown indicator voice-control accessibility', () => {
-	ffTest.on(
-		'platform_dst_select_dropdown_voice_control',
-		'when the voice-control accessible dropdown gate is enabled',
-		() => {
-			it('renders a button with tabIndex=-1 and an aria-label so voice control can target it', () => {
-				const testId = 'select';
-				render(<AtlaskitSelect options={OPTIONS} testId={testId} />);
+	describe('when the voice-control accessible dropdown gate is enabled', () => {
+		it('renders a button with tabIndex=-1 and an aria-label so voice control can target it', () => {
+			passGate('platform_dst_select_dropdown_voice_control');
 
-				const indicator = screen.getByTestId(`${testId}-select--dropdown-indicator`);
-				const button = within(indicator).getByRole('button', {
-					name: /toggle select menu/i,
-				});
+			const testId = 'select';
+			render(<AtlaskitSelect options={OPTIONS} testId={testId} />);
 
-				expect(button).toBeInTheDocument();
-				expect(button).toHaveAttribute('type', 'button');
-				expect(button).toHaveAttribute('tabindex', '-1');
-				// The wrapper must NOT be aria-hidden when the gate is on,
-				// otherwise the inner button is hidden from the AT tree.
-				expect(indicator).not.toHaveAttribute('aria-hidden');
+			const indicator = screen.getByTestId(`${testId}-select--dropdown-indicator`);
+			const button = within(indicator).getByRole('button', {
+				name: /toggle select menu/i,
 			});
 
-			it('disables the voice-control button when the select is disabled', () => {
-				const testId = 'select';
-				render(<AtlaskitSelect options={OPTIONS} testId={testId} isDisabled />);
+			expect(button).toBeInTheDocument();
+			expect(button).toHaveAttribute('type', 'button');
+			expect(button).toHaveAttribute('tabindex', '-1');
+			// The wrapper must NOT be aria-hidden when the gate is on,
+			// otherwise the inner button is hidden from the AT tree.
+			expect(indicator).not.toHaveAttribute('aria-hidden');
+		});
 
-				const indicator = screen.getByTestId(`${testId}-select--dropdown-indicator`);
-				const button = within(indicator).getByRole('button', {
-					name: /toggle select menu/i,
-				});
+		it('disables the voice-control button when the select is disabled', () => {
+			passGate('platform_dst_select_dropdown_voice_control');
 
-				expect(button).toBeDisabled();
+			const testId = 'select';
+			render(<AtlaskitSelect options={OPTIONS} testId={testId} isDisabled />);
+
+			const indicator = screen.getByTestId(`${testId}-select--dropdown-indicator`);
+			const button = within(indicator).getByRole('button', {
+				name: /toggle select menu/i,
 			});
 
-			it('opens the menu when the voice-control button is clicked (mousedown bubbles to wrapper handler)', async () => {
-				const testId = 'select';
-				render(<AtlaskitSelect options={OPTIONS} testId={testId} />);
+			expect(button).toBeDisabled();
+		});
 
-				expect(screen.queryByTestId(`${testId}-select--listbox`)).not.toBeInTheDocument();
+		it('opens the menu when the voice-control button is clicked (mousedown bubbles to wrapper handler)', async () => {
+			passGate('platform_dst_select_dropdown_voice_control');
 
-				const button = screen.getByRole('button', { name: /toggle select menu/i });
-				await user.click(button);
+			const testId = 'select';
+			render(<AtlaskitSelect options={OPTIONS} testId={testId} />);
 
-				expect(await screen.findByTestId(`${testId}-select--listbox`)).toBeInTheDocument();
+			expect(screen.queryByTestId(`${testId}-select--listbox`)).not.toBeInTheDocument();
+
+			const button = screen.getByRole('button', { name: /toggle select menu/i });
+			await user.click(button);
+
+			expect(await screen.findByTestId(`${testId}-select--listbox`)).toBeInTheDocument();
+		});
+
+		it('keeps the button out of the keyboard tab order', () => {
+			passGate('platform_dst_select_dropdown_voice_control');
+
+			const testId = 'select';
+			render(<AtlaskitSelect options={OPTIONS} testId={testId} />);
+
+			const button = screen.getByRole('button', {
+				name: /toggle select menu/i,
 			});
 
-			it('keeps the button out of the keyboard tab order', () => {
-				const testId = 'select';
-				render(<AtlaskitSelect options={OPTIONS} testId={testId} />);
+			// Static assertion (per code-review feedback): the contract is
+			// "this button must NEVER be reachable via Tab", which is
+			// fully expressed by the tabindex value. We don't simulate a
+			// Tab keypress here because the document focus state in jsdom
+			// after click-based interactions earlier in the suite is not
+			// fully deterministic; the equivalent end-to-end behaviour is
+			// covered by the Playwright integration test.
+			expect(button).toHaveAttribute('tabindex', '-1');
+		});
 
-				const button = screen.getByRole('button', {
-					name: /toggle select menu/i,
-				});
+		it('applies an inline size reset so consumer global button styles cannot stretch the chevron (JPO-42328)', () => {
+			passGate('platform_dst_select_dropdown_voice_control');
 
-				// Static assertion (per code-review feedback): the contract is
-				// "this button must NEVER be reachable via Tab", which is
-				// fully expressed by the tabindex value. We don't simulate a
-				// Tab keypress here because the document focus state in jsdom
-				// after click-based interactions earlier in the suite is not
-				// fully deterministic; the equivalent end-to-end behaviour is
-				// covered by the Playwright integration test.
-				expect(button).toHaveAttribute('tabindex', '-1');
-			});
+			// Guards the inline size reset in @atlaskit/react-select's DropdownIndicator
+			// (see that component + JPO-42328). Fails if the reset is removed.
+			const testId = 'select';
+			render(<AtlaskitSelect options={OPTIONS} testId={testId} />);
 
-			it('applies an inline size reset so consumer global button styles cannot stretch the chevron (JPO-42328)', () => {
-				// Guards the inline size reset in @atlaskit/react-select's DropdownIndicator
-				// (see that component + JPO-42328). Fails if the reset is removed.
-				const testId = 'select';
-				render(<AtlaskitSelect options={OPTIONS} testId={testId} />);
+			const button = screen.getByRole('button', { name: /toggle select menu/i });
 
-				const button = screen.getByRole('button', { name: /toggle select menu/i });
+			// Assert on the raw inline style attribute rather than toHaveStyle: the
+			// reset uses `min-width: 0`, which React serialises without a unit and
+			// jsdom's getComputedStyle does not normalise to `0px`. The attribute
+			// string is deterministic and stays green whether the reset is written
+			// as `0` or `0px`.
+			const inlineStyle = button.getAttribute('style') ?? '';
+			expect(inlineStyle).toMatch(/min-width:\s*0(px)?\b/);
+			expect(inlineStyle).toMatch(/width:\s*auto\b/);
+		});
+	});
 
-				// Assert on the raw inline style attribute rather than toHaveStyle: the
-				// reset uses `min-width: 0`, which React serialises without a unit and
-				// jsdom's getComputedStyle does not normalise to `0px`. The attribute
-				// string is deterministic and stays green whether the reset is written
-				// as `0` or `0px`.
-				const inlineStyle = button.getAttribute('style') ?? '';
-				expect(inlineStyle).toMatch(/min-width:\s*0(px)?\b/);
-				expect(inlineStyle).toMatch(/width:\s*auto\b/);
-			});
-		},
-	);
+	it('does not render a voice-control button and retains legacy aria-hidden behaviour', () => {
+		failGate('platform_dst_select_dropdown_voice_control');
 
-	ffTest.off(
-		'platform_dst_select_dropdown_voice_control',
-		'when the voice-control accessible dropdown gate is disabled',
-		() => {
-			it('does not render a voice-control button and retains legacy aria-hidden behaviour', () => {
-				const testId = 'select';
-				render(<AtlaskitSelect options={OPTIONS} testId={testId} />);
+		const testId = 'select';
+		render(<AtlaskitSelect options={OPTIONS} testId={testId} />);
 
-				const indicator = screen.getByTestId(`${testId}-select--dropdown-indicator`);
+		const indicator = screen.getByTestId(`${testId}-select--dropdown-indicator`);
 
-				expect(
-					within(indicator).queryByRole('button', { name: /toggle select menu/i }),
-				).not.toBeInTheDocument();
-				expect(indicator).toHaveAttribute('aria-hidden', 'true');
-				expect(within(indicator).getByLabelText('open')).toBeInTheDocument();
-			});
-		},
-	);
+		expect(
+			within(indicator).queryByRole('button', { name: /toggle select menu/i }),
+		).not.toBeInTheDocument();
+		expect(indicator).toHaveAttribute('aria-hidden', 'true');
+		expect(within(indicator).getByLabelText('open')).toBeInTheDocument();
+	});
 
-	ffTest.on(
-		'platform_dst_select_dropdown_voice_control',
-		'when the voice-control gate is enabled',
-		() => {
-			it('wraps consumer-supplied children in aria-hidden to preserve legacy AT behaviour', () => {
-				const testId = 'select';
-				render(
-					<AtlaskitSelect
-						options={OPTIONS}
-						testId={testId}
-						components={{
-							DropdownIndicator: (innerProps) => (
-								<components.DropdownIndicator {...innerProps}>
-									<button type="button" data-testid="legacy-unnamed-button" />
-								</components.DropdownIndicator>
-							),
-						}}
-					/>,
-				);
+	it('wraps consumer-supplied children in aria-hidden to preserve legacy AT behaviour', () => {
+		passGate('platform_dst_select_dropdown_voice_control');
 
-				const indicator = screen.getByTestId(`${testId}-select--dropdown-indicator`);
-				expect(indicator).not.toHaveAttribute('aria-hidden');
-				const childrenWrapper = within(indicator).getByTestId(
-					`${testId}-select--dropdown-indicator-children`,
-				);
-				expect(childrenWrapper).toHaveAttribute('aria-hidden', 'true');
-				expect(within(childrenWrapper).getByTestId('legacy-unnamed-button')).toBeInTheDocument();
-			});
-		},
-	);
+		const testId = 'select';
+		render(
+			<AtlaskitSelect
+				options={OPTIONS}
+				testId={testId}
+				components={{
+					DropdownIndicator: (innerProps) => (
+						<components.DropdownIndicator {...innerProps}>
+							<button type="button" data-testid="legacy-unnamed-button" />
+						</components.DropdownIndicator>
+					),
+				}}
+			/>,
+		);
+
+		const indicator = screen.getByTestId(`${testId}-select--dropdown-indicator`);
+		expect(indicator).not.toHaveAttribute('aria-hidden');
+		const childrenWrapper = within(indicator).getByTestId(
+			`${testId}-select--dropdown-indicator-children`,
+		);
+		expect(childrenWrapper).toHaveAttribute('aria-hidden', 'true');
+		expect(within(childrenWrapper).getByTestId('legacy-unnamed-button')).toBeInTheDocument();
+	});
 });

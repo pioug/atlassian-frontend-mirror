@@ -1,5 +1,5 @@
 import createAndFireEvent from '@atlaskit/analytics-next/createAndFireEvents';
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types'; // eslint-disable-line @typescript-eslint/consistent-type-imports
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 
 import { type OptionalEmojiDescription, SearchSourceTypes } from '../../types';
 import { recordSucceededEmoji } from './recordSucceededEmoji';

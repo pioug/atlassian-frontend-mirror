@@ -1,5 +1,5 @@
 // eslint-disable-next-line @repo/internal/fs/filename-pattern-match
-import simpleGit from 'simple-git';
+import { simpleGit } from 'simple-git';
 
 import type { ParsedPkg } from './types';
 import { ValidationError } from './validation-error';

@@ -85,7 +85,7 @@ export const Table: React.MemoExoticComponent<
 		return (
 			<table
 				// eslint-disable-next-line react/jsx-props-no-spreading, @atlaskit/platform/valid-gate-name
-				{...(fg('platform_renderer_isPresentational') && {
+				{...(fg('platform_renderer_ispresentational') && {
 					role: isPresentational ? 'presentation' : undefined,
 				})}
 				data-testid="renderer-table"

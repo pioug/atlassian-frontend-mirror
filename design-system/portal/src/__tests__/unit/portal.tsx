@@ -7,7 +7,7 @@ import { bindAll, type UnbindFn } from 'bind-event-listener';
 import { replaceRaf } from 'raf-stub';
 
 import { ThemeProvider } from '@atlaskit/app-provider/theme-provider';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { PORTAL_MOUNT_EVENT, PORTAL_UNMOUNT_EVENT } from '../../constants';
 import { portalParentSelector } from '../../internal/constants';
@@ -459,56 +459,58 @@ describe('Portal container', () => {
 });
 
 describe('new portal logic enable test', () => {
-	ffTest.on(
-		'platform_design_system_team_portal_logic_r18_fix',
-		'new portal logic enable test',
-		() => {
-			test('should be able to render a portal', () => {
-				const { container } = render(
+	describe('new portal logic enable test', () => {
+		test('should be able to render a portal', () => {
+			passGate('platform_design_system_team_portal_logic_r18_fix');
+
+			const { container } = render(
+				<StrictMode>
+					<App>
+						<Portal>
+							<div>Hi</div>
+						</Portal>
+					</App>
+				</StrictMode>,
+			);
+
+			const elements = document.getElementsByClassName('atlaskit-portal');
+			expect(container.innerHTML).toBe('<div></div>');
+			expect(elements).toHaveLength(1);
+			expect(elements[0]).toHaveTextContent('Hi');
+		});
+
+		describe('ThemeProvider wrapping', () => {
+			test('should wrap portal children with ThemeProvider when inside a ThemeProvider', () => {
+				passGate('platform_design_system_team_portal_logic_r18_fix');
+
+				render(
 					<StrictMode>
-						<App>
+						<ThemeProvider>
 							<Portal>
-								<div>Hi</div>
+								<div>Inside ThemeProvider</div>
 							</Portal>
-						</App>
+						</ThemeProvider>
 					</StrictMode>,
 				);
 
-				const elements = document.getElementsByClassName('atlaskit-portal');
-				expect(container.innerHTML).toBe('<div></div>');
-				expect(elements).toHaveLength(1);
-				expect(elements[0]).toHaveTextContent('Hi');
+				const portalContent = document.querySelector('.atlaskit-portal');
+				expect(portalContent?.querySelector('[data-color-mode]')).toBeInTheDocument();
 			});
 
-			describe('ThemeProvider wrapping', () => {
-				test('should wrap portal children with ThemeProvider when inside a ThemeProvider', () => {
-					render(
-						<StrictMode>
-							<ThemeProvider>
-								<Portal>
-									<div>Inside ThemeProvider</div>
-								</Portal>
-							</ThemeProvider>
-						</StrictMode>,
-					);
+			test('should not wrap portal children with ThemeProvider when outside a ThemeProvider', () => {
+				passGate('platform_design_system_team_portal_logic_r18_fix');
 
-					const portalContent = document.querySelector('.atlaskit-portal');
-					expect(portalContent?.querySelector('[data-color-mode]')).toBeInTheDocument();
-				});
+				render(
+					<StrictMode>
+						<Portal>
+							<div>Not inside ThemeProvider</div>
+						</Portal>
+					</StrictMode>,
+				);
 
-				test('should not wrap portal children with ThemeProvider when outside a ThemeProvider', () => {
-					render(
-						<StrictMode>
-							<Portal>
-								<div>Not inside ThemeProvider</div>
-							</Portal>
-						</StrictMode>,
-					);
-
-					const portalContent = document.querySelector('.atlaskit-portal');
-					expect(portalContent?.querySelector('[data-color-mode]')).not.toBeInTheDocument();
-				});
+				const portalContent = document.querySelector('.atlaskit-portal');
+				expect(portalContent?.querySelector('[data-color-mode]')).not.toBeInTheDocument();
 			});
-		},
-	);
+		});
+	});
 });

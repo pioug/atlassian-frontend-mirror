@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-selection",
-	"version": "30.0.6",
+	"version": "30.0.7",
 	"description": "Selection plugin for @atlaskit/editor-core",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -41,6 +41,7 @@
 		"./types": "./src/entry-points/types.ts"
 	},
 	"devDependencies": {
+		"@atlaskit/editor-common": "workspace:^",
 		"react": "^19.2.0"
 	}
 }

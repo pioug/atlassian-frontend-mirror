@@ -7,7 +7,6 @@ import { forwardRef, type ForwardRefExoticComponent, type RefAttributes } from '
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx, css, cssMap } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { type CardActionButtonOwnProps } from './styles';
@@ -48,7 +47,7 @@ export const CardActionButton: ForwardRefExoticComponent<
 		// eslint-disable-next-line @atlaskit/design-system/no-html-button
 		<button
 			{...props}
-			{...(fg('platform_media_card_action_button_type_fix') ? { type: 'button' } : {})}
+			type="button"
 			id="cardActionButton"
 			data-testid="media-card-primary-action"
 			aria-label={props.label}

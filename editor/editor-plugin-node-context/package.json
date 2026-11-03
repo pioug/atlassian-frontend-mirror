@@ -32,6 +32,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/button": "workspace:^",
+		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/editor-core": "workspace:^",
 		"@atlaskit/editor-plugins": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",

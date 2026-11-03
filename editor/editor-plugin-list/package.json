@@ -52,6 +52,7 @@
 		}
 	},
 	"devDependencies": {
+		"@atlaskit/editor-common": "workspace:^",
 		"react": "^19.2.0",
 		"react-intl": "root:*"
 	}

@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 
 import { Text } from '@atlaskit/primitives/compiled/text';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { render } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
@@ -122,8 +122,10 @@ describe('SpotlightContextProvider — targetRef', () => {
 		mockUseAnchoredPopoverArgs?.mockClear();
 	});
 
-	ffTest.on('platform-dst-top-layer-spotlight', 'with top-layer positioning enabled', () => {
+	describe('with top-layer positioning enabled', () => {
 		it('renders without a surrounding <PopoverProvider>/<PopoverTarget>', () => {
+			passGate('platform-dst-top-layer-spotlight');
+
 			render(<TargetRefSeededProvider dismiss={() => undefined} />);
 
 			expect(screen.getByTestId('spotlight-popover-content')).toBeInTheDocument();
@@ -134,6 +136,8 @@ describe('SpotlightContextProvider — targetRef', () => {
 		});
 
 		it('forwards the supplied targetRef into useAnchoredPopover via the context', () => {
+			passGate('platform-dst-top-layer-spotlight');
+
 			render(<TargetRefSeededProvider dismiss={() => undefined} />);
 
 			const externalTarget = screen.getByTestId('external-target');
@@ -147,6 +151,8 @@ describe('SpotlightContextProvider — targetRef', () => {
 		});
 
 		it('passes the merged top-layer placement into useAnchoredPopover', () => {
+			passGate('platform-dst-top-layer-spotlight');
+
 			render(<TargetRefSeededProvider dismiss={() => undefined} offset={[6, 8]} />);
 
 			const lastCall = mockUseAnchoredPopoverArgs.mock.calls.at(-1)?.[0];
@@ -168,6 +174,8 @@ describe('SpotlightContextProvider — targetRef', () => {
 		});
 
 		it('SpotlightDismissControl still dismisses (provider wires popoverContent.setDismiss)', async () => {
+			passGate('platform-dst-top-layer-spotlight');
+
 			const mockDismiss = jest.fn();
 			const user = userEvent.setup();
 
@@ -179,6 +187,8 @@ describe('SpotlightContextProvider — targetRef', () => {
 		});
 
 		it('Escape still dismisses with the externally-supplied SpotlightContext', async () => {
+			passGate('platform-dst-top-layer-spotlight');
+
 			const mockDismiss = jest.fn();
 			const user = userEvent.setup();
 

@@ -9,11 +9,13 @@ import { Global, css, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl';
 
 import { toolbarMessages as messages } from '@atlaskit/editor-common/messages/layout';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
 
 const PLACEHOLDER_SELECTOR =
 	'.ProseMirror-focused .layoutSectionView-content-wrap.selected [data-layout-column] > [data-layout-content] > p:only-child:has(.ProseMirror-trailingBreak:only-child)';
+const PLACEHOLDER_SELECTOR_NEXT = '.ProseMirror-focused .pm-layout-column-empty';
 
 const layoutColumnDangerPreviewStyle = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
@@ -29,10 +31,14 @@ const layoutColumnDangerPreviewStyle = css({
 
 const getPlaceholderStyle = (message: string) => {
 	if (editorExperiment('platform_editor_controls', 'variant1')) {
+		const placeholderSelector = isExperimentEnabled('platform_editor_improve_inp_batch_2')
+			? PLACEHOLDER_SELECTOR_NEXT
+			: PLACEHOLDER_SELECTOR;
+
 		return css({
 			// when paragraph is the only child, and it only has a trailingBreak.
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			[`${PLACEHOLDER_SELECTOR}`]: {
+			[placeholderSelector]: {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 				'&::before': {
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 28.0.11
+
+### Patch Changes
+
+- [`6e0fa99ec8f01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6e0fa99ec8f01) -
+  Delete unreachable source files
+- Updated dependencies
+
 ## 28.0.10
 
 ### Patch Changes

@@ -35,7 +35,6 @@ src/
 │                                 removeSyncedBlock, removeSyncedBlockAtPos, unsync
 ├── nodeviews/
 │   ├── syncedBlock.tsx         # NodeView for reference (syncBlock) — read-only, fetches from BE
-│   ├── lazySyncedBlock.tsx     # Lazy-loaded wrapper for syncedBlock (EDITOR-6928)
 │   └── bodiedSyncedBlock.tsx   # NodeView for source (bodiedSyncBlock) — nested editor with content
 ├── pm-plugins/
 │   ├── main.ts                 # Core state machine: lifecycle, creation, deletion, cache,
@@ -104,7 +103,7 @@ from outside the plugin lifecycle:
 
 **Reference rendering** (flow through the code):
 
-1. `nodeviews/syncedBlock.tsx` (or `lazySyncedBlock.tsx`) mounts for each `syncBlock` node
+1. `nodeviews/syncedBlock.tsx` mounts for each `syncBlock` node
 2. Calls `referenceManager.fetchSyncBlocksData(nodes)` → batched/deduped Block Service fetch
 3. Renders content via nested renderer from `editor-synced-block-renderer`
 4. Subscribes via `referenceManager.subscribeToSyncBlock(...)` — AGG WebSocket (Confluence) or Relay

@@ -35,6 +35,7 @@
 	},
 	"platform-feature-flags": {},
 	"devDependencies": {
+		"@atlaskit/editor-common": "workspace:^",
 		"react": "^19.2.0"
 	}
 }

@@ -122,6 +122,8 @@ export type CardPluginState = {
 	 * is on. Once the consumer confirms display this holds only the displayed link.
 	 */
 	pastedInlineLinks?: PastedInlineLink[];
+	/** Candidates dropped because the tracking cap was full. Defined only once that has happened. */
+	pastedInlineLinksDropped?: number;
 	/** Permanently stop adding candidates after the consumer confirms actual display. */
 	pastedInlineLinkShown?: boolean;
 	provider: CardProvider | null;

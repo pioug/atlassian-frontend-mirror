@@ -1,5 +1,12 @@
 # @atlaskit/table-tree
 
+## 13.3.5
+
+### Patch Changes
+
+- [`8629232b6271a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8629232b6271a) -
+  Keep focus rings visible in single-line cells
+
 ## 13.3.4
 
 ### Patch Changes

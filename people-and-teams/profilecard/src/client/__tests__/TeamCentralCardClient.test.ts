@@ -33,9 +33,11 @@ const mockGetOrgIdForCloudIdFromAGG = getOrgIdForCloudIdFromAGG as jest.Mock;
 const mockGates = ({
 	unsharded,
 	skipWorkspaceTypeFetch = false,
+	lazyPreload = false,
 }: {
 	unsharded: boolean;
 	skipWorkspaceTypeFetch?: boolean;
+	lazyPreload?: boolean;
 }) => {
 	mockFg.mockImplementation((gateName) => {
 		switch (gateName) {
@@ -43,6 +45,8 @@ const mockGates = ({
 				return unsharded;
 			case 'atlas_profilecard_skip_workspace_type_fetch':
 				return skipWorkspaceTypeFetch;
+			case 'ptc_profilecard_lazy_team_central_preload':
+				return lazyPreload;
 			default:
 				return false;
 		}
@@ -310,6 +314,79 @@ describe('TeamCentralCardClient', () => {
 			expect(fetchMock.calls().length).toBe(2);
 			expect(fetchMock.calls()[1][0]).toBe(expectedExistsWithWorkspaceTypeUrl);
 			expect(await client.getIsGlobalExperienceWorkspace()).toBe(false);
+		});
+	});
+
+	describe('ptc_profilecard_lazy_team_central_preload', () => {
+		const buildClient = (mockCloudId: string) => {
+			const containsAnyWorkspaceUrl =
+				`/gateway/api/townsquare/s/${mockCloudId}` +
+				`/organization/containsAnyWorkspace?cloudId=${mockCloudId}`;
+
+			fetchMock.get(containsAnyWorkspaceUrl, { status: 200, body: '' });
+
+			const builtClient = new TeamCentralCardClient({
+				cloudId: mockCloudId,
+				gatewayGraphqlUrl: mockGatewayGraphqlUrl,
+				orgId: mockOrgId,
+			});
+
+			return { builtClient, containsAnyWorkspaceUrl };
+		};
+
+		it('makes no Townsquare calls when only constructing the client', () => {
+			mockGates({ unsharded: false, skipWorkspaceTypeFetch: true, lazyPreload: true });
+
+			buildClient('mock-cloud-id-lazy-construct-only');
+
+			expect(fetchMock.calls().length).toBe(0);
+		});
+
+		it('resolves the workspace probe on first use rather than on construction', async () => {
+			mockGates({ unsharded: false, skipWorkspaceTypeFetch: true, lazyPreload: true });
+
+			const { builtClient, containsAnyWorkspaceUrl } = buildClient('mock-cloud-id-lazy-first-read');
+			client = builtClient;
+
+			expect(fetchMock.calls().length).toBe(0);
+
+			expect(await client.checkWorkspaceExists()).toBe(true);
+
+			expect(fetchMock.calls().length).toBe(1);
+			expect(fetchMock.calls()[0][0]).toBe(containsAnyWorkspaceUrl);
+		});
+
+		it('reuses the resolved probe across both consumers', async () => {
+			mockGates({ unsharded: false, skipWorkspaceTypeFetch: true, lazyPreload: true });
+
+			const { builtClient } = buildClient('mock-cloud-id-lazy-single-probe');
+			client = builtClient;
+
+			mockDirectoryGraphqlQuery.mockResolvedValue({ reportingLines: {} });
+
+			await client.checkWorkspaceExists();
+			await client.getReportingLines('mock-user-id-lazy-single-probe');
+
+			expect(fetchMock.calls().length).toBe(1);
+		});
+
+		it('still serves reporting lines and kudos visibility once read', async () => {
+			mockGates({ unsharded: false, skipWorkspaceTypeFetch: true, lazyPreload: true });
+
+			const mockUserId = 'mock-user-id-lazy-consumers';
+			mockDirectoryGraphqlQuery.mockResolvedValue({
+				reportingLines: { managers: [{ identifierType: 'ATLASSIAN_ID' }], reports: [] },
+			});
+
+			const { builtClient } = buildClient('mock-cloud-id-lazy-consumers');
+			client = builtClient;
+
+			expect(await client.getReportingLines(mockUserId)).toEqual({
+				managers: [{ identifierType: 'ATLASSIAN_ID' }],
+				reports: [],
+			});
+			expect(await client.checkWorkspaceExists()).toBe(true);
+			expect(await client.getOrgId()).toBe(mockOrgId);
 		});
 	});
 

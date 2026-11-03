@@ -2,8 +2,7 @@ import React from 'react';
 
 import Button from '@atlaskit/button/default/button';
 import __noop from '@atlaskit/ds-lib/noop';
-import { failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { render } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
@@ -193,8 +192,10 @@ describe('Popup with composable API', () => {
 		});
 	});
 
-	ffTest.on('platform-dst-top-layer', 'trigger aria-haspopup on the top layer', () => {
+	describe('trigger aria-haspopup on the top layer', () => {
 		it('should not set aria-haspopup when the popup has no role', () => {
+			passGate('platform-dst-top-layer');
+
 			render(
 				<Popup>
 					<PopupTrigger>
@@ -208,6 +209,8 @@ describe('Popup with composable API', () => {
 		});
 
 		it('should set aria-haspopup to dialog if role is dialog', () => {
+			passGate('platform-dst-top-layer');
+
 			render(
 				<Popup role="dialog">
 					<PopupTrigger>
@@ -226,22 +229,20 @@ describe('Popup with composable API', () => {
 		});
 	});
 
-	ffTest.off('platform-dst-top-layer', 'trigger aria-haspopup on the legacy path', () => {
-		it('should set aria-haspopup to true when the popup has no role', () => {
-			render(
-				<Popup>
-					<PopupTrigger>
-						{(triggerProps) => <Button {...triggerProps}>Trigger</Button>}
-					</PopupTrigger>
-					<PopupContent>{() => <div>content</div>}</PopupContent>
-				</Popup>,
-			);
+	it('should set aria-haspopup to true when the popup has no role', () => {
+		failGate('platform-dst-top-layer');
 
-			expect(screen.getByRole('button', { name: 'Trigger' })).toHaveAttribute(
-				'aria-haspopup',
-				'true',
-			);
-		});
+		render(
+			<Popup>
+				<PopupTrigger>{(triggerProps) => <Button {...triggerProps}>Trigger</Button>}</PopupTrigger>
+				<PopupContent>{() => <div>content</div>}</PopupContent>
+			</Popup>,
+		);
+
+		expect(screen.getByRole('button', { name: 'Trigger' })).toHaveAttribute(
+			'aria-haspopup',
+			'true',
+		);
 	});
 
 	it('should throw an error when PopupContent is not a child of Popup', () => {

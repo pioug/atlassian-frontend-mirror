@@ -57,6 +57,7 @@ export const getPluginStateWithUpdatedPos = (
 	layout?: DatasourceTableLayout;
 	overlayCandidatePosition?: number;
 	pastedInlineLinks?: PastedInlineLink[];
+	pastedInlineLinksDropped?: number;
 	pastedInlineLinkShown?: boolean;
 	provider: CardProvider | null;
 	removeOverlay?: () => void;

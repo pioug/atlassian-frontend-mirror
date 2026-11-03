@@ -2,8 +2,7 @@ import React from 'react';
 
 import __noop from '@atlaskit/ds-lib/noop';
 import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
-import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { act, render } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
@@ -15,7 +14,11 @@ import { BreadcrumbsSizeProvider } from '../../internal/breadcrumbs-size-provide
 const TestIcon = <AtlassianIcon label="Test icon" size="small" />;
 const createUser = () => userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
-ffTest.on('platform_dst_breadcrumbs-refresh', 'BreadcrumbsItem with refresh enabled', () => {
+describe('BreadcrumbsItem with refresh enabled', () => {
+	beforeEach(() => {
+		passGate('platform_dst_breadcrumbs-refresh');
+	});
+
 	describe('BreadcrumbsItem', () => {
 		beforeEach(() => {
 			jest.useFakeTimers();
@@ -81,7 +84,6 @@ ffTest.on('platform_dst_breadcrumbs-refresh', 'BreadcrumbsItem with refresh enab
 			{ href: '/item', size: 'small' as const },
 			{ href: undefined, size: 'small' as const },
 		])('includes the leading icon in the $size control with href=$href', async ({ href, size }) => {
-			passGate('platform_dst_breadcrumbs-refresh');
 			const user = createUser();
 			const onClick = jest.fn((event) => event.preventDefault());
 			render(
@@ -234,13 +236,17 @@ ffTest.on('platform_dst_breadcrumbs-refresh', 'BreadcrumbsItem with refresh enab
 	});
 });
 
-ffTest.off('platform_dst_breadcrumbs-refresh', 'BreadcrumbsItem with refresh disabled', () => {
+describe('BreadcrumbsItem with refresh disabled', () => {
 	it('forwards aria-label to an unnamed button breadcrumb', () => {
+		failGate('platform_dst_breadcrumbs-refresh');
+
 		render(<BreadcrumbsItem onClick={__noop} text="" aria-label="Empty Breadcrumbs item" />);
 		expect(screen.getByRole('button', { name: 'Empty Breadcrumbs item' })).toBeInTheDocument();
 	});
 
 	it('forwards custom HTML attributes to the interactive breadcrumb control', () => {
+		failGate('platform_dst_breadcrumbs-refresh');
+
 		render(
 			<BreadcrumbsItem
 				href="/item"
@@ -263,6 +269,8 @@ ffTest.off('platform_dst_breadcrumbs-refresh', 'BreadcrumbsItem with refresh dis
 	});
 
 	it('renders elemBefore without the refresh wrapper', () => {
+		failGate('platform_dst_breadcrumbs-refresh');
+
 		render(
 			<BreadcrumbsItem
 				href="/item"

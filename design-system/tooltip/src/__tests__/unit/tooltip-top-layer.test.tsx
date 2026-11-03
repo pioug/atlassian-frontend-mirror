@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { act } from '@atlassian/testing-library/act';
 import { fireEvent } from '@atlassian/testing-library/fire-event';
 import { render } from '@atlassian/testing-library/render';
@@ -33,7 +33,11 @@ function simulatePopoverClose(popoverEl: HTMLElement) {
 	});
 }
 
-ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer rendering', () => {
+describe('Tooltip top-layer rendering', () => {
+	beforeEach(() => {
+		passGate('platform-dst-top-layer-tooltip');
+	});
+
 	let originalMatches: typeof HTMLElement.prototype.matches;
 
 	beforeEach(() => {
@@ -827,7 +831,11 @@ ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer rendering', () =>
 	});
 });
 
-ffTest.off('platform-dst-top-layer-tooltip', 'Tooltip legacy role', () => {
+describe('Tooltip legacy role', () => {
+	beforeEach(() => {
+		failGate('platform-dst-top-layer-tooltip');
+	});
+
 	beforeEach(() => {
 		jest.useFakeTimers();
 	});

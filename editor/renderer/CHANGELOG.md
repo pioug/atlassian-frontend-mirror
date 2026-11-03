@@ -1,5 +1,20 @@
 # @atlaskit/renderer
 
+## 153.2.9
+
+### Patch Changes
+
+- [`666e3e7baa6f6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/666e3e7baa6f6) -
+  Rename the `platform_renderer_isPresentational` feature gate to
+  `platform_renderer_ispresentational`.
+- Updated dependencies
+
+## 153.2.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 153.2.7
 
 ### Patch Changes

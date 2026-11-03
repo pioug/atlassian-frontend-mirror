@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { act, render } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
@@ -12,9 +12,11 @@ import { BreadcrumbsSizeProvider } from '../../internal/breadcrumbs-size-provide
 
 const createUser = () => userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
 
-ffTest.on('platform_dst_breadcrumbs-refresh', 'BreadcrumbsCurrentItem with refresh enabled', () => {
+describe('BreadcrumbsCurrentItem with refresh enabled', () => {
 	describe('BreadcrumbsCurrentItem', () => {
 		it('is accessible', async () => {
+			passGate('platform_dst_breadcrumbs-refresh');
+
 			const { container } = render(
 				<nav aria-label="Breadcrumbs">
 					<ol>
@@ -31,6 +33,8 @@ ffTest.on('platform_dst_breadcrumbs-refresh', 'BreadcrumbsCurrentItem with refre
 		});
 
 		it('renders with text', () => {
+			passGate('platform_dst_breadcrumbs-refresh');
+
 			render(
 				<BreadcrumbsCurrentItem href="/current-page" text="Current page" testId="current-item" />,
 			);
@@ -39,6 +43,8 @@ ffTest.on('platform_dst_breadcrumbs-refresh', 'BreadcrumbsCurrentItem with refre
 		});
 
 		it('renders with elemBefore', () => {
+			passGate('platform_dst_breadcrumbs-refresh');
+
 			render(
 				<BreadcrumbsCurrentItem
 					href="/current-page"
@@ -51,6 +57,8 @@ ffTest.on('platform_dst_breadcrumbs-refresh', 'BreadcrumbsCurrentItem with refre
 		});
 
 		it('renders elemBefore outside the current item link when the refresh flag is enabled', () => {
+			passGate('platform_dst_breadcrumbs-refresh');
+
 			render(
 				<BreadcrumbsCurrentItem
 					href="/current-page"
@@ -66,6 +74,8 @@ ffTest.on('platform_dst_breadcrumbs-refresh', 'BreadcrumbsCurrentItem with refre
 		});
 
 		it('still renders deprecated iconBefore', () => {
+			passGate('platform_dst_breadcrumbs-refresh');
+
 			render(
 				<BreadcrumbsCurrentItem
 					href="/current-page"
@@ -79,6 +89,8 @@ ffTest.on('platform_dst_breadcrumbs-refresh', 'BreadcrumbsCurrentItem with refre
 		});
 
 		it('renders with aria-current="page"', () => {
+			passGate('platform_dst_breadcrumbs-refresh');
+
 			render(
 				<BreadcrumbsCurrentItem href="/current-page" text="Current page" testId="current-item" />,
 			);
@@ -86,6 +98,8 @@ ffTest.on('platform_dst_breadcrumbs-refresh', 'BreadcrumbsCurrentItem with refre
 		});
 
 		it('renders the copy link button as a sibling of the anchor', () => {
+			passGate('platform_dst_breadcrumbs-refresh');
+
 			render(
 				<BreadcrumbsCurrentItem href="/current-page" text="Current page" testId="current-item" />,
 			);
@@ -96,6 +110,8 @@ ffTest.on('platform_dst_breadcrumbs-refresh', 'BreadcrumbsCurrentItem with refre
 		});
 
 		it('does not throw when clipboard API is unavailable', async () => {
+			passGate('platform_dst_breadcrumbs-refresh');
+
 			const user = userEvent.setup();
 			const clipboard = navigator.clipboard;
 			const onCopyLink = jest.fn();
@@ -127,6 +143,8 @@ ffTest.on('platform_dst_breadcrumbs-refresh', 'BreadcrumbsCurrentItem with refre
 		});
 
 		it('shows a tooltip when the current item is truncated', async () => {
+			passGate('platform_dst_breadcrumbs-refresh');
+
 			jest.useFakeTimers();
 			const user = createUser();
 			const onTooltipShown = jest.fn();
@@ -161,6 +179,8 @@ ffTest.on('platform_dst_breadcrumbs-refresh', 'BreadcrumbsCurrentItem with refre
 
 	describe('BreadcrumbsCurrentItem small size icon', () => {
 		it('renders elemBefore when breadcrumbs size context is small', () => {
+			passGate('platform_dst_breadcrumbs-refresh');
+
 			render(
 				<BreadcrumbsSizeProvider value="small">
 					<BreadcrumbsCurrentItem
@@ -177,6 +197,8 @@ ffTest.on('platform_dst_breadcrumbs-refresh', 'BreadcrumbsCurrentItem with refre
 		});
 
 		it('renders elemBefore when breadcrumbs size context is medium', () => {
+			passGate('platform_dst_breadcrumbs-refresh');
+
 			render(
 				<BreadcrumbsSizeProvider value="medium">
 					<BreadcrumbsCurrentItem
@@ -193,6 +215,8 @@ ffTest.on('platform_dst_breadcrumbs-refresh', 'BreadcrumbsCurrentItem with refre
 		});
 
 		it('renders without error when no elemBefore is provided in small mode', () => {
+			passGate('platform_dst_breadcrumbs-refresh');
+
 			render(
 				<BreadcrumbsSizeProvider value="small">
 					<BreadcrumbsCurrentItem href="/current-page" text="Current page" testId="current-item" />
@@ -204,6 +228,8 @@ ffTest.on('platform_dst_breadcrumbs-refresh', 'BreadcrumbsCurrentItem with refre
 		});
 
 		it('does not render an icon wrapper when no elemBefore is provided', () => {
+			passGate('platform_dst_breadcrumbs-refresh');
+
 			render(
 				<BreadcrumbsSizeProvider value="medium">
 					<BreadcrumbsCurrentItem href="/current-page" text="Current page" testId="current-item" />
@@ -218,18 +244,12 @@ ffTest.on('platform_dst_breadcrumbs-refresh', 'BreadcrumbsCurrentItem with refre
 	});
 });
 
-ffTest.off(
-	'platform_dst_breadcrumbs-refresh',
-	'BreadcrumbsCurrentItem with refresh disabled',
-	() => {
-		it('renders the copy link button as a sibling of the anchor', () => {
-			render(
-				<BreadcrumbsCurrentItem href="/current-page" text="Current page" testId="current-item" />,
-			);
+it('renders the copy link button as a sibling of the anchor', () => {
+	failGate('platform_dst_breadcrumbs-refresh');
 
-			const link = screen.getByTestId('current-item');
-			expect(screen.getByTestId('current-item--copy-link')).toBeInTheDocument();
-			expect(within(link).queryByTestId('current-item--copy-link')).not.toBeInTheDocument();
-		});
-	},
-);
+	render(<BreadcrumbsCurrentItem href="/current-page" text="Current page" testId="current-item" />);
+
+	const link = screen.getByTestId('current-item');
+	expect(screen.getByTestId('current-item--copy-link')).toBeInTheDocument();
+	expect(within(link).queryByTestId('current-item--copy-link')).not.toBeInTheDocument();
+});

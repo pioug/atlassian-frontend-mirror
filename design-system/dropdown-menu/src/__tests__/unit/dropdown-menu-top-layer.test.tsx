@@ -2,7 +2,7 @@ import React from 'react';
 
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import DropdownItemCheckbox from '../../checkbox/dropdown-item-checkbox';
 import DropdownItemCheckboxGroup from '../../checkbox/dropdown-item-checkbox-group';
@@ -19,9 +19,11 @@ afterEach(() => {
 const testId = 'dropdown';
 const triggerText = 'Options';
 
-ffTest.on('platform-dst-top-layer', 'DropdownMenu top-layer rendering', () => {
-	it('renders a trigger button by default', () => {
-		render(
+describe('DropdownMenu top-layer rendering', () => {
+	it('renders a trigger button by default', async () => {
+		passGate('platform-dst-top-layer');
+
+		const { container } = render(
 			<DropdownMenu trigger={triggerText} testId={testId}>
 				<DropdownItemGroup>
 					<DropdownItem>Move</DropdownItem>
@@ -31,9 +33,13 @@ ffTest.on('platform-dst-top-layer', 'DropdownMenu top-layer rendering', () => {
 
 		expect(screen.getByTestId(`${testId}--trigger`)).toBeInTheDocument();
 		expect(screen.getByRole('button', { name: triggerText })).toBeInTheDocument();
+
+		await expect(container).toBeAccessible();
 	});
 
 	it('sets aria-expanded on the trigger', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<DropdownMenu trigger={triggerText} testId={testId}>
 				<DropdownItemGroup>
@@ -47,6 +53,8 @@ ffTest.on('platform-dst-top-layer', 'DropdownMenu top-layer rendering', () => {
 	});
 
 	it('sets aria-haspopup="menu" on the trigger', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<DropdownMenu trigger={triggerText} testId={testId}>
 				<DropdownItemGroup>
@@ -60,6 +68,8 @@ ffTest.on('platform-dst-top-layer', 'DropdownMenu top-layer rendering', () => {
 	});
 
 	it('calls onOpenChange when trigger is clicked', () => {
+		passGate('platform-dst-top-layer');
+
 		const onOpenChange = jest.fn();
 
 		render(
@@ -75,6 +85,8 @@ ffTest.on('platform-dst-top-layer', 'DropdownMenu top-layer rendering', () => {
 	});
 
 	it('calls onOpenChange with isOpen=false when toggled closed', () => {
+		passGate('platform-dst-top-layer');
+
 		const onOpenChange = jest.fn();
 
 		render(
@@ -90,6 +102,8 @@ ffTest.on('platform-dst-top-layer', 'DropdownMenu top-layer rendering', () => {
 	});
 
 	it('renders a custom trigger via render prop', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<DropdownMenu
 				testId={testId}
@@ -109,6 +123,8 @@ ffTest.on('platform-dst-top-layer', 'DropdownMenu top-layer rendering', () => {
 	});
 
 	it('renders Popup.Content with role="menu" and label', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<DropdownMenu trigger={triggerText} testId={testId} isOpen={true} label="Actions menu">
 				<DropdownItemGroup>
@@ -124,6 +140,8 @@ ffTest.on('platform-dst-top-layer', 'DropdownMenu top-layer rendering', () => {
 	});
 
 	it('renders the test ID on the content', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<DropdownMenu trigger={triggerText} testId={testId} isOpen={true}>
 				<DropdownItemGroup>
@@ -136,6 +154,8 @@ ffTest.on('platform-dst-top-layer', 'DropdownMenu top-layer rendering', () => {
 	});
 
 	it('passes menuLabel for aria labelling', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<DropdownMenu trigger={triggerText} testId={testId} isOpen={true} menuLabel="Actions">
 				<DropdownItemGroup>
@@ -152,6 +172,8 @@ ffTest.on('platform-dst-top-layer', 'DropdownMenu top-layer rendering', () => {
 	});
 
 	it('renders children within a MenuGroup', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<DropdownMenu trigger={triggerText} testId={testId} isOpen={true}>
 				<DropdownItemGroup>
@@ -166,6 +188,8 @@ ffTest.on('platform-dst-top-layer', 'DropdownMenu top-layer rendering', () => {
 	});
 
 	it('shows a loading spinner when isLoading=true', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<DropdownMenu
 				trigger={triggerText}
@@ -184,6 +208,8 @@ ffTest.on('platform-dst-top-layer', 'DropdownMenu top-layer rendering', () => {
 	});
 
 	it('renders with defaultOpen=true', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<DropdownMenu trigger={triggerText} testId={testId} defaultOpen={true}>
 				<DropdownItemGroup>
@@ -200,8 +226,10 @@ ffTest.on('platform-dst-top-layer', 'DropdownMenu top-layer rendering', () => {
 // Accessibility-focused tests
 // ────────────────────────────────────────────────────
 
-ffTest.on('platform-dst-top-layer', 'WCAG 4.1.2 Name, Role, Value — ARIA attributes', () => {
+describe('WCAG 4.1.2 Name, Role, Value — ARIA attributes', () => {
 	it('trigger has aria-controls referencing the content element', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<DropdownMenu trigger={triggerText} testId={testId} isOpen={true}>
 				<DropdownItemGroup>
@@ -221,6 +249,8 @@ ffTest.on('platform-dst-top-layer', 'WCAG 4.1.2 Name, Role, Value — ARIA attri
 	});
 
 	it('content element has role="menu"', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<DropdownMenu trigger={triggerText} testId={testId} isOpen={true}>
 				<DropdownItemGroup>
@@ -234,6 +264,8 @@ ffTest.on('platform-dst-top-layer', 'WCAG 4.1.2 Name, Role, Value — ARIA attri
 	});
 
 	it('menu items have role="menuitem"', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<DropdownMenu trigger={triggerText} testId={testId} isOpen={true}>
 				<DropdownItemGroup>
@@ -250,6 +282,8 @@ ffTest.on('platform-dst-top-layer', 'WCAG 4.1.2 Name, Role, Value — ARIA attri
 	});
 
 	it('checkbox items have role="menuitemcheckbox"', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<DropdownMenu trigger={triggerText} testId={testId} isOpen={true}>
 				<DropdownItemCheckboxGroup id="actions">
@@ -264,6 +298,8 @@ ffTest.on('platform-dst-top-layer', 'WCAG 4.1.2 Name, Role, Value — ARIA attri
 	});
 
 	it('radio items have role="menuitemradio"', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<DropdownMenu trigger={triggerText} testId={testId} isOpen={true}>
 				<DropdownItemRadioGroup id="sort">
@@ -278,6 +314,8 @@ ffTest.on('platform-dst-top-layer', 'WCAG 4.1.2 Name, Role, Value — ARIA attri
 	});
 
 	it('uses trigger text as fallback aria-label when no menuLabel or label provided', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<DropdownMenu trigger={triggerText} testId={testId} isOpen={true}>
 				<DropdownItemGroup>
@@ -292,6 +330,8 @@ ffTest.on('platform-dst-top-layer', 'WCAG 4.1.2 Name, Role, Value — ARIA attri
 	});
 
 	it('prefers menuLabel over label and trigger text for aria-label', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<DropdownMenu
 				trigger={triggerText}
@@ -311,8 +351,10 @@ ffTest.on('platform-dst-top-layer', 'WCAG 4.1.2 Name, Role, Value — ARIA attri
 	});
 });
 
-ffTest.on('platform-dst-top-layer', 'WCAG 2.1.1 Keyboard — menu item click behavior', () => {
+describe('WCAG 2.1.1 Keyboard — menu item click behavior', () => {
 	it('moves focus through menu items with ArrowDown', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<DropdownMenu trigger={triggerText} testId={testId} isOpen={true}>
 				<DropdownItemGroup>
@@ -333,6 +375,8 @@ ffTest.on('platform-dst-top-layer', 'WCAG 2.1.1 Keyboard — menu item click beh
 	});
 
 	it('closes menu when a menuitem is clicked', () => {
+		passGate('platform-dst-top-layer');
+
 		const onOpenChange = jest.fn();
 
 		render(
@@ -351,6 +395,8 @@ ffTest.on('platform-dst-top-layer', 'WCAG 2.1.1 Keyboard — menu item click beh
 	});
 
 	it('does NOT close menu when menuitemcheckbox is clicked', () => {
+		passGate('platform-dst-top-layer');
+
 		const onOpenChange = jest.fn();
 
 		render(
@@ -373,6 +419,8 @@ ffTest.on('platform-dst-top-layer', 'WCAG 2.1.1 Keyboard — menu item click beh
 	});
 
 	it('does NOT close menu when menuitemradio is clicked', () => {
+		passGate('platform-dst-top-layer');
+
 		const onOpenChange = jest.fn();
 
 		render(
@@ -395,8 +443,10 @@ ffTest.on('platform-dst-top-layer', 'WCAG 2.1.1 Keyboard — menu item click beh
 	});
 });
 
-ffTest.on('platform-dst-top-layer', 'Selection state — checkbox and radio persistence', () => {
+describe('Selection state — checkbox and radio persistence', () => {
 	it('checkbox items toggle checked state on click', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<DropdownMenu trigger={triggerText} testId={testId} isOpen={true}>
 				<DropdownItemCheckboxGroup id="actions">
@@ -418,6 +468,8 @@ ffTest.on('platform-dst-top-layer', 'Selection state — checkbox and radio pers
 	});
 
 	it('radio items switch selection within group', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<DropdownMenu trigger={triggerText} testId={testId} isOpen={true}>
 				<DropdownItemRadioGroup id="sort">
@@ -443,6 +495,8 @@ ffTest.on('platform-dst-top-layer', 'Selection state — checkbox and radio pers
 	});
 
 	it('checkbox defaultSelected items start checked', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<DropdownMenu trigger={triggerText} testId={testId} isOpen={true}>
 				<DropdownItemCheckboxGroup id="options">
@@ -459,6 +513,8 @@ ffTest.on('platform-dst-top-layer', 'Selection state — checkbox and radio pers
 	});
 
 	it('radio defaultSelected items start checked', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<DropdownMenu trigger={triggerText} testId={testId} isOpen={true}>
 				<DropdownItemRadioGroup id="sort">
@@ -475,8 +531,10 @@ ffTest.on('platform-dst-top-layer', 'Selection state — checkbox and radio pers
 	});
 });
 
-ffTest.on('platform-dst-top-layer', 'Loading state behavior', () => {
+describe('Loading state behavior', () => {
 	it('omits aria-busy when loading is initially undefined', () => {
+		passGate('platform-dst-top-layer');
+
 		const { rerender } = render(<DropdownMenu trigger={triggerText} isOpen />);
 		expect(screen.getByRole('menu')).not.toHaveAttribute('aria-busy');
 
@@ -488,6 +546,8 @@ ffTest.on('platform-dst-top-layer', 'Loading state behavior', () => {
 	});
 
 	it('updates the menu busy state when loading changes', () => {
+		passGate('platform-dst-top-layer');
+
 		const { rerender } = render(
 			<DropdownMenu trigger={triggerText} isOpen isLoading>
 				<DropdownItem>Loaded action</DropdownItem>
@@ -508,6 +568,8 @@ ffTest.on('platform-dst-top-layer', 'Loading state behavior', () => {
 	});
 
 	it('renders loading indicator as a menuitem', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<DropdownMenu trigger={triggerText} testId={testId} isOpen={true} isLoading={true}>
 				<DropdownItemGroup>
@@ -521,6 +583,8 @@ ffTest.on('platform-dst-top-layer', 'Loading state behavior', () => {
 	});
 
 	it('displays default loading label', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<DropdownMenu trigger={triggerText} testId={testId} isOpen={true} isLoading={true}>
 				<DropdownItemGroup>
@@ -534,6 +598,8 @@ ffTest.on('platform-dst-top-layer', 'Loading state behavior', () => {
 	});
 
 	it('displays custom loading label via statusLabel', () => {
+		passGate('platform-dst-top-layer');
+
 		const statusLabel = 'Fetching items';
 
 		render(
@@ -555,8 +621,10 @@ ffTest.on('platform-dst-top-layer', 'Loading state behavior', () => {
 	});
 });
 
-ffTest.on('platform-dst-top-layer', 'onOpenChange callback — event parameter', () => {
+describe('onOpenChange callback — event parameter', () => {
 	it('passes native event when trigger is clicked to open', () => {
+		passGate('platform-dst-top-layer');
+
 		const onOpenChange = jest.fn();
 
 		render(
@@ -575,6 +643,8 @@ ffTest.on('platform-dst-top-layer', 'onOpenChange callback — event parameter',
 	});
 
 	it('passes null event when closed via onClose (Popover dismiss)', async () => {
+		passGate('platform-dst-top-layer');
+
 		const onOpenChange = jest.fn();
 
 		render(
@@ -604,8 +674,10 @@ ffTest.on('platform-dst-top-layer', 'onOpenChange callback — event parameter',
 	});
 });
 
-ffTest.on('platform-dst-top-layer', 'Trigger aria-label via label prop', () => {
+describe('Trigger aria-label via label prop', () => {
 	it('renders aria-label on default trigger via label prop', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<DropdownMenu trigger={triggerText} testId={testId} label="more actions">
 				<DropdownItemGroup>
@@ -619,6 +691,8 @@ ffTest.on('platform-dst-top-layer', 'Trigger aria-label via label prop', () => {
 	});
 
 	it('does not render aria-label if label prop is absent', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<DropdownMenu trigger={triggerText} testId={testId}>
 				<DropdownItemGroup>
@@ -634,8 +708,10 @@ ffTest.on('platform-dst-top-layer', 'Trigger aria-label via label prop', () => {
 	});
 });
 
-ffTest.on('platform-dst-top-layer', 'WCAG 1.3.2 — DOM order (no portals)', () => {
+describe('WCAG 1.3.2 — DOM order (no portals)', () => {
 	it('menu content is rendered in the component tree, not portalled to body', () => {
+		passGate('platform-dst-top-layer');
+
 		const { container } = render(
 			<DropdownMenu trigger={triggerText} testId={testId} isOpen={true}>
 				<DropdownItemGroup>
@@ -650,6 +726,8 @@ ffTest.on('platform-dst-top-layer', 'WCAG 1.3.2 — DOM order (no portals)', () 
 	});
 
 	it('trigger and content are siblings in DOM (logical reading order)', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<DropdownMenu trigger={triggerText} testId={testId} isOpen={true}>
 				<DropdownItemGroup>

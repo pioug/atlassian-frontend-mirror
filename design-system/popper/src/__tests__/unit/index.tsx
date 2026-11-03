@@ -3,7 +3,7 @@ import React from 'react';
 import { type VirtualElement } from '@popperjs/core';
 
 import __noop from '@atlaskit/ds-lib/noop';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { render } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
@@ -47,8 +47,10 @@ const virtualReferenceElement = new VirtualReference();
 const referenceElement = document.createElement('button');
 
 // These tests cover the legacy Popper.js path. `popper-top-layer.test.tsx` covers the top-layer path.
-ffTest.off('platform-dst-top-layer', 'Popper', () => {
+describe('Popper', () => {
 	it('should render Popper', async () => {
+		failGate('platform-dst-top-layer');
+
 		render(
 			<Popper>
 				{({ ref, style, placement, arrowProps }) => (
@@ -63,6 +65,8 @@ ffTest.off('platform-dst-top-layer', 'Popper', () => {
 	});
 
 	it('should position popper relatively to refrence element', async () => {
+		failGate('platform-dst-top-layer');
+
 		render(
 			<>
 				<Popper referenceElement={virtualReferenceElement} placement="bottom-end">
@@ -87,6 +91,8 @@ ffTest.off('platform-dst-top-layer', 'Popper', () => {
 	});
 
 	it('should render children with provided content', () => {
+		failGate('platform-dst-top-layer');
+
 		const Content = () => <div>Content</div>;
 
 		render(
@@ -104,6 +110,8 @@ ffTest.off('platform-dst-top-layer', 'Popper', () => {
 
 	describe('should apply correct modifiers', () => {
 		it('with default props', () => {
+			failGate('platform-dst-top-layer');
+
 			render(
 				<Popper referenceElement={referenceElement}>
 					{({ ref, style, placement, arrowProps }) => (
@@ -118,6 +126,8 @@ ffTest.off('platform-dst-top-layer', 'Popper', () => {
 		});
 
 		it('with offset props', async () => {
+			failGate('platform-dst-top-layer');
+
 			render(
 				<Popper referenceElement={virtualReferenceElement} offset={[16, 16]} placement="bottom-end">
 					{({ ref, style, placement, arrowProps }) => (
@@ -138,6 +148,8 @@ ffTest.off('platform-dst-top-layer', 'Popper', () => {
 		});
 
 		it('with custom modifiers props', async () => {
+			failGate('platform-dst-top-layer');
+
 			const modifiers = [
 				{
 					name: 'offset',
@@ -165,6 +177,8 @@ ffTest.off('platform-dst-top-layer', 'Popper', () => {
 		});
 
 		it('with offset and modifiers props, modifiers should have higher priority', async () => {
+			failGate('platform-dst-top-layer');
+
 			const modifiers = [
 				{
 					name: 'offset',
@@ -189,6 +203,8 @@ ffTest.off('platform-dst-top-layer', 'Popper', () => {
 		});
 
 		it('should be positioned absolutely if strategy is set to absolute', async () => {
+			failGate('platform-dst-top-layer');
+
 			render(
 				<Popper referenceElement={referenceElement} strategy="absolute">
 					{({ ref, style, placement, arrowProps }) => (

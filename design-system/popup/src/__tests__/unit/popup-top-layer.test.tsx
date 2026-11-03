@@ -3,7 +3,7 @@
 import React, { forwardRef } from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { render } from '@atlassian/testing-library/testing-library/react';
 
@@ -52,14 +52,18 @@ const styles = cssMap({
 
 // ── Tests ──
 
-ffTest.on('platform-dst-top-layer', 'Popup top-layer: trigger rendering', () => {
+describe('Popup top-layer: trigger rendering', () => {
 	it('renders the trigger element', () => {
+		passGate('platform-dst-top-layer');
+
 		render(<Popup isOpen={false} content={defaultContent} trigger={defaultTrigger} />);
 
 		expect(screen.getByRole('button', { name: 'Trigger' })).toBeInTheDocument();
 	});
 
 	it('sets aria-expanded=false when closed', () => {
+		passGate('platform-dst-top-layer');
+
 		render(<Popup isOpen={false} content={defaultContent} trigger={defaultTrigger} />);
 
 		const trigger = screen.getByRole('button', { name: 'Trigger' });
@@ -67,6 +71,8 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: trigger rendering', () => 
 	});
 
 	it('sets aria-expanded=true when open', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<Popup isOpen={true} content={defaultContent} trigger={defaultTrigger} testId={testId} />,
 		);
@@ -76,6 +82,8 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: trigger rendering', () => 
 	});
 
 	it('does not set aria-haspopup when the popup has no role', () => {
+		passGate('platform-dst-top-layer');
+
 		render(<Popup isOpen={false} content={defaultContent} trigger={defaultTrigger} />);
 
 		const trigger = screen.getByRole('button', { name: 'Trigger' });
@@ -83,6 +91,8 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: trigger rendering', () => 
 	});
 
 	it('sets aria-haspopup="dialog" when role="dialog"', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<Popup
 				isOpen={false}
@@ -98,6 +108,8 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: trigger rendering', () => 
 	});
 
 	it('sets aria-haspopup to match the content role', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<Popup
 				isOpen={false}
@@ -113,17 +125,19 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: trigger rendering', () => 
 	});
 });
 
-ffTest.off('platform-dst-top-layer', 'Popup legacy: trigger aria-haspopup', () => {
-	it('sets aria-haspopup="true" when the popup has no role', () => {
-		render(<Popup isOpen={false} content={defaultContent} trigger={defaultTrigger} />);
+it('sets aria-haspopup="true" when the popup has no role', () => {
+	failGate('platform-dst-top-layer');
 
-		const trigger = screen.getByRole('button', { name: 'Trigger' });
-		expect(trigger).toHaveAttribute('aria-haspopup', 'true');
-	});
+	render(<Popup isOpen={false} content={defaultContent} trigger={defaultTrigger} />);
+
+	const trigger = screen.getByRole('button', { name: 'Trigger' });
+	expect(trigger).toHaveAttribute('aria-haspopup', 'true');
 });
 
-ffTest.on('platform-dst-top-layer', 'Popup top-layer: content rendering', () => {
+describe('Popup top-layer: content rendering', () => {
 	it('renders content when isOpen is true', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<Popup isOpen={true} content={defaultContent} trigger={defaultTrigger} testId={testId} />,
 		);
@@ -132,6 +146,8 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: content rendering', () => 
 	});
 
 	it('does not render content when isOpen is false', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<Popup isOpen={false} content={defaultContent} trigger={defaultTrigger} testId={testId} />,
 		);
@@ -140,6 +156,8 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: content rendering', () => 
 	});
 
 	it('passes isOpen=true to the content render prop', () => {
+		passGate('platform-dst-top-layer');
+
 		const contentFn = jest.fn((props: ContentProps) => (
 			<div data-testid="popup-content">{String(props.isOpen)}</div>
 		));
@@ -150,6 +168,8 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: content rendering', () => 
 	});
 
 	it('passes setInitialFocusRef to the content render prop of a dialog', () => {
+		passGate('platform-dst-top-layer');
+
 		const contentFn = jest.fn((props: DialogContentProps) => {
 			expect(typeof props.setInitialFocusRef).toBe('function');
 			return <div>content</div>;
@@ -169,6 +189,8 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: content rendering', () => 
 	});
 
 	it('passes update (no-op) to the content render prop', () => {
+		passGate('platform-dst-top-layer');
+
 		const contentFn = jest.fn((props: ContentProps) => {
 			expect(typeof props.update).toBe('function');
 			return <div>content</div>;
@@ -180,52 +202,52 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: content rendering', () => 
 	});
 });
 
-ffTest.on('platform-dst-top-layer', 'Popup top-layer: onClose callback', () => {
-	it('passes onClose to the content render prop', () => {
-		const onClose = jest.fn();
-		const contentFn = jest.fn((props: ContentProps) => {
-			expect(props.onClose).toBe(onClose);
-			return <div>content</div>;
-		});
+it('passes onClose to the content render prop', () => {
+	passGate('platform-dst-top-layer');
 
-		render(<Popup isOpen={true} content={contentFn} trigger={defaultTrigger} onClose={onClose} />);
-
-		expect(contentFn).toHaveBeenCalled();
+	const onClose = jest.fn();
+	const contentFn = jest.fn((props: ContentProps) => {
+		expect(props.onClose).toBe(onClose);
+		return <div>content</div>;
 	});
+
+	render(<Popup isOpen={true} content={contentFn} trigger={defaultTrigger} onClose={onClose} />);
+
+	expect(contentFn).toHaveBeenCalled();
 });
 
-ffTest.on('platform-dst-top-layer', 'Popup top-layer: testId forwarding', () => {
-	it('applies testId to the content wrapper', () => {
-		render(
-			<Popup isOpen={true} content={defaultContent} trigger={defaultTrigger} testId={testId} />,
-		);
+it('applies testId to the content wrapper', () => {
+	passGate('platform-dst-top-layer');
 
-		expect(screen.getByTestId(`${testId}--container`)).toBeInTheDocument();
-	});
+	render(<Popup isOpen={true} content={defaultContent} trigger={defaultTrigger} testId={testId} />);
+
+	expect(screen.getByTestId(`${testId}--container`)).toBeInTheDocument();
 });
 
-ffTest.on('platform-dst-top-layer', 'Popup top-layer: xcss', () => {
-	it('applies xcss to the element wrapping the content', () => {
-		render(
-			<Popup
-				isOpen={true}
-				content={defaultContent}
-				trigger={defaultTrigger}
-				testId={testId}
-				xcss={styles.fixedWidth}
-			/>,
-		);
+it('applies xcss to the element wrapping the content', () => {
+	passGate('platform-dst-top-layer');
 
-		// `xcss` lands on a wrapper inside `PopoverSurface`, so it is the content's
-		// parent and not the `--container` popover host.
-		const wrapper = screen.getByTestId('popup-content').parentElement;
-		expect(wrapper).not.toBe(screen.getByTestId(`${testId}--container`));
-		expect(wrapper).toHaveCompiledCss('width', '280px');
-	});
+	render(
+		<Popup
+			isOpen={true}
+			content={defaultContent}
+			trigger={defaultTrigger}
+			testId={testId}
+			xcss={styles.fixedWidth}
+		/>,
+	);
+
+	// `xcss` lands on a wrapper inside `PopoverSurface`, so it is the content's
+	// parent and not the `--container` popover host.
+	const wrapper = screen.getByTestId('popup-content').parentElement;
+	expect(wrapper).not.toBe(screen.getByTestId(`${testId}--container`));
+	expect(wrapper).toHaveCompiledCss('width', '280px');
 });
 
-ffTest.on('platform-dst-top-layer', 'Popup top-layer: popupComponent', () => {
+describe('Popup top-layer: popupComponent', () => {
 	it('renders content inside a custom popupComponent', () => {
+		passGate('platform-dst-top-layer');
+
 		const CustomContainer = forwardRef<HTMLDivElement, PopupComponentProps>(
 			({ children, ...rest }, ref) => (
 				<div ref={ref} {...rest} data-testid="custom-container">
@@ -250,6 +272,8 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: popupComponent', () => {
 	});
 
 	it('passes empty style to popupComponent', () => {
+		passGate('platform-dst-top-layer');
+
 		const CustomContainer = forwardRef<HTMLDivElement, PopupComponentProps>(
 			({ children, style, ...rest }, ref) => (
 				<div ref={ref} {...rest} data-testid="custom-container" style={style}>
@@ -274,8 +298,10 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: popupComponent', () => {
 	});
 });
 
-ffTest.on('platform-dst-top-layer', 'Popup top-layer: WCAG 4.1.2 — role attribute', () => {
+describe('Popup top-layer: WCAG 4.1.2 — role attribute', () => {
 	it('does not apply a role when none is supplied (legacy `Popup` contract)', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<Popup isOpen={true} content={defaultContent} trigger={defaultTrigger} testId={testId} />,
 		);
@@ -288,6 +314,8 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: WCAG 4.1.2 — role attrib
 	});
 
 	it('applies role="menu" when specified', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<Popup
 				isOpen={true}
@@ -303,6 +331,8 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: WCAG 4.1.2 — role attrib
 	});
 
 	it('applies role="alertdialog" when specified', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<Popup
 				isOpen={true}
@@ -318,6 +348,8 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: WCAG 4.1.2 — role attrib
 	});
 
 	it('applies aria-label to dialog role', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<Popup
 				isOpen={true}
@@ -333,6 +365,8 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: WCAG 4.1.2 — role attrib
 	});
 
 	it('applies aria-labelledby when titleId is provided alongside a dialog role', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<Popup
 				isOpen={true}
@@ -359,29 +393,31 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: WCAG 4.1.2 — role attrib
 	});
 });
 
-ffTest.on('platform-dst-top-layer', 'Popup top-layer: WCAG 1.3.2 — DOM order (no portals)', () => {
-	it('renders content in DOM order (not portalled)', () => {
-		const { container } = render(
-			<Popup isOpen={true} content={defaultContent} trigger={defaultTrigger} testId={testId} />,
-		);
+it('renders content in DOM order (not portalled)', () => {
+	passGate('platform-dst-top-layer');
 
-		const trigger = screen.getByRole('button', { name: 'Trigger' });
-		const content = screen.getByTestId('popup-content');
+	const { container } = render(
+		<Popup isOpen={true} content={defaultContent} trigger={defaultTrigger} testId={testId} />,
+	);
 
-		// Content should be in the same DOM tree as trigger (no Portal)
-		// eslint-disable-next-line testing-library/no-container -- intentionally checking DOM containment for portal behavior
-		expect(container.contains(trigger)).toBe(true);
-		// eslint-disable-next-line testing-library/no-container -- intentionally checking DOM containment for portal behavior
-		expect(container.contains(content)).toBe(true);
+	const trigger = screen.getByRole('button', { name: 'Trigger' });
+	const content = screen.getByTestId('popup-content');
 
-		// Content follows trigger in DOM order
-		const position = trigger.compareDocumentPosition(content);
-		expect(position & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
-	});
+	// Content should be in the same DOM tree as trigger (no Portal)
+	// eslint-disable-next-line testing-library/no-container -- intentionally checking DOM containment for portal behavior
+	expect(container.contains(trigger)).toBe(true);
+	// eslint-disable-next-line testing-library/no-container -- intentionally checking DOM containment for portal behavior
+	expect(container.contains(content)).toBe(true);
+
+	// Content follows trigger in DOM order
+	const position = trigger.compareDocumentPosition(content);
+	expect(position & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
 });
 
-ffTest.on('platform-dst-top-layer', 'Popup top-layer: shouldFitContainer', () => {
+describe('Popup top-layer: shouldFitContainer', () => {
 	it('passes width="trigger" to Popup.Content when shouldFitContainer is true', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<Popup
 				isOpen={true}
@@ -397,6 +433,8 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: shouldFitContainer', () =>
 	});
 
 	it('passes width="content" by default', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<Popup isOpen={true} content={defaultContent} trigger={defaultTrigger} testId={testId} />,
 		);
@@ -405,8 +443,10 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: shouldFitContainer', () =>
 	});
 });
 
-ffTest.on('platform-dst-top-layer', 'Popup top-layer: offset conversion', () => {
+describe('Popup top-layer: offset conversion', () => {
 	it('accepts offset prop without error', () => {
+		passGate('platform-dst-top-layer');
+
 		expect(() =>
 			render(
 				<Popup
@@ -423,6 +463,8 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: offset conversion', () => 
 	});
 
 	it('renders content when offset is provided', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<Popup
 				isOpen={true}
@@ -437,8 +479,10 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: offset conversion', () => 
 	});
 });
 
-ffTest.on('platform-dst-top-layer', 'Popup top-layer: shouldFitViewport', () => {
+describe('Popup top-layer: shouldFitViewport', () => {
 	it('renders content with shouldFitViewport=true', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<Popup
 				isOpen={true}
@@ -453,6 +497,8 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: shouldFitViewport', () => 
 	});
 
 	it('renders content without shouldFitViewport', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<Popup isOpen={true} content={defaultContent} trigger={defaultTrigger} testId={testId} />,
 		);
@@ -461,8 +507,10 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: shouldFitViewport', () => 
 	});
 });
 
-ffTest.on('platform-dst-top-layer', 'Popup top-layer: shouldReturnFocus', () => {
+describe('Popup top-layer: shouldReturnFocus', () => {
 	it('accepts shouldReturnFocus=false without error', () => {
+		passGate('platform-dst-top-layer');
+
 		expect(() =>
 			render(
 				<Popup
@@ -476,6 +524,8 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: shouldReturnFocus', () => 
 	});
 
 	it('accepts shouldReturnFocus=true without error', () => {
+		passGate('platform-dst-top-layer');
+
 		expect(() =>
 			render(
 				<Popup
@@ -489,8 +539,10 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: shouldReturnFocus', () => 
 	});
 });
 
-ffTest.on('platform-dst-top-layer', 'Popup top-layer: label with non-dialog roles', () => {
+describe('Popup top-layer: label with non-dialog roles', () => {
 	it('applies label to listbox role', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<Popup
 				isOpen={true}
@@ -508,6 +560,8 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: label with non-dialog role
 	});
 
 	it('applies label to tooltip role', () => {
+		passGate('platform-dst-top-layer');
+
 		// Use a non-literal role so @atlassian/a11y/aria-tooltip-name (static) does not
 		// treat <Popup> as a native tooltip host; the runtime role/label still apply via Popup.
 		const tooltipRole = 'tooltip';
@@ -528,8 +582,10 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: label with non-dialog role
 	});
 });
 
-ffTest.on('platform-dst-top-layer', 'Popup top-layer: no-op props are accepted', () => {
+describe('Popup top-layer: no-op props are accepted', () => {
 	it('accepts zIndex without error', () => {
+		passGate('platform-dst-top-layer');
+
 		expect(() =>
 			render(
 				<Popup isOpen={false} content={defaultContent} trigger={defaultTrigger} zIndex={9999} />,
@@ -538,6 +594,8 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: no-op props are accepted',
 	});
 
 	it('accepts shouldRenderToParent without error', () => {
+		passGate('platform-dst-top-layer');
+
 		expect(() =>
 			render(
 				<Popup
@@ -551,6 +609,8 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: no-op props are accepted',
 	});
 
 	it('accepts boundary without error', () => {
+		passGate('platform-dst-top-layer');
+
 		expect(() =>
 			render(
 				<Popup
@@ -564,6 +624,8 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: no-op props are accepted',
 	});
 
 	it('accepts strategy without error', () => {
+		passGate('platform-dst-top-layer');
+
 		expect(() =>
 			render(
 				<Popup isOpen={false} content={defaultContent} trigger={defaultTrigger} strategy="fixed" />,
@@ -572,6 +634,8 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: no-op props are accepted',
 	});
 
 	it('accepts shouldDisableFocusLock without error', () => {
+		passGate('platform-dst-top-layer');
+
 		expect(() =>
 			render(
 				<Popup
@@ -585,6 +649,8 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: no-op props are accepted',
 	});
 
 	it('accepts shouldUseCaptureOnOutsideClick without error', () => {
+		passGate('platform-dst-top-layer');
+
 		expect(() =>
 			render(
 				<Popup

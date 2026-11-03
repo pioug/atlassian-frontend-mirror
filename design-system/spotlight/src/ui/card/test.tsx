@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { render } from '@atlassian/testing-library/testing-library/react';
 
@@ -74,22 +74,22 @@ describe('SpotlightCard', () => {
 		expect(ref.current?.textContent).toEqual('Hello, world!');
 	});
 
-	ffTest.on('platform-dst-top-layer-spotlight', 'with top-layer card layout enabled', () => {
-		it.each<Placement>([
-			'top-start',
-			'top-center',
-			'top-end',
-			'bottom-start',
-			'bottom-center',
-			'bottom-end',
-			'right-start',
-			'right-end',
-			'left-start',
-			'left-end',
-		])('renders the existing caret visual for %s', (placement) => {
-			renderWithPlacement(placement);
+	it.each<Placement>([
+		'top-start',
+		'top-center',
+		'top-end',
+		'bottom-start',
+		'bottom-center',
+		'bottom-end',
+		'right-start',
+		'right-end',
+		'left-start',
+		'left-end',
+	])('renders the existing caret visual for %s', (placement) => {
+		passGate('platform-dst-top-layer-spotlight');
 
-			expect(screen.getByTestId(testId)).toHaveTextContent('Hello, world!');
-		});
+		renderWithPlacement(placement);
+
+		expect(screen.getByTestId(testId)).toHaveTextContent('Hello, world!');
 	});
 });

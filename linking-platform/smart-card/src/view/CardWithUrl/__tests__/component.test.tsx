@@ -773,37 +773,21 @@ describe('embedded Flexible Card destinations', () => {
 	);
 
 	describe('when running inside an iframe', () => {
-		let originalTop: Window | null;
+		let topSpy: jest.SpyInstance;
 
 		beforeEach(() => {
-			originalTop = window.top;
-			Object.defineProperty(window, 'top', { value: null, configurable: true });
+			topSpy = jest.spyOn(window, 'top', 'get').mockReturnValue(null);
 		});
 
 		afterEach(() => {
-			Object.defineProperty(window, 'top', { value: originalTop, configurable: true });
+			topSpy.mockRestore();
 		});
 
-		describe('platform_sl_click_inside_iframe is off uses the existing target', () => {
-			it('uses the target provided by the navigation policy', () => {
-				failGate('platform_sl_click_inside_iframe');
+		it('overrides the navigation policy target', () => {
+			const { links } = setup();
+			fireEvent.click(links[0]);
 
-				const { links } = setup();
-				fireEvent.click(links[0]);
-
-				expect(open).toHaveBeenCalledWith(destination, '_top');
-			});
-		});
-
-		describe('platform_sl_click_inside_iframe is on opens the link in a new tab', () => {
-			it('overrides the navigation policy target', () => {
-				passGate('platform_sl_click_inside_iframe');
-
-				const { links } = setup();
-				fireEvent.click(links[0]);
-
-				expect(open).toHaveBeenCalledWith(destination, '_blank');
-			});
+			expect(open).toHaveBeenCalledWith(destination, '_blank');
 		});
 	});
 

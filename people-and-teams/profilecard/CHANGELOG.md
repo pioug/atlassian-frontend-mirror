@@ -1,5 +1,16 @@
 # @atlaskit/profilecard
 
+## 27.4.5
+
+### Patch Changes
+
+- [`92641f712dc34`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/92641f712dc34) -
+  Defer the `TeamCentralCardClient` `containsAnyWorkspace` probe from construction to first use,
+  behind the `ptc_profilecard_lazy_team_central_preload` gate. Consumers that construct a
+  `ProfileCardClient` but render the Relay-backed profile card no longer issue a Townsquare request
+  on page load. The workspace-type and org ID preloads are unchanged.
+- Updated dependencies
+
 ## 27.4.4
 
 ### Patch Changes

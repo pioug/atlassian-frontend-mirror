@@ -1,5 +1,32 @@
 # @atlaskit/editor-common
 
+## 134.5.0
+
+### Minor Changes
+
+- [`16f6c4b93584b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/16f6c4b93584b) -
+  Preserve agent identity through Create with Rovo streaming and final replacement so generated
+  steps carry agentId. Add an optional agentIdentityAccountId to create commands and an optional
+  agentAttribution option to core.actions.replaceDocument. Enable Create with Rovo attribution
+  through the platform_editor_cwr_agent_attribution SPRT experiment.
+
+  Resolve missing agent identity alongside the chat request to avoid a sequential network wait.
+
+### Patch Changes
+
+- [`f788907701e5b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f788907701e5b) -
+  Clean up experiment `platform_editor_ssr_reuse_requires_content`
+- Updated dependencies
+
+## 134.4.4
+
+### Patch Changes
+
+- [`b6b4846208707`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b6b4846208707) -
+  Update Quick Insert recommendations for the Recommended V2 Hello proposal behind
+  `platform_editor_slash_command`, including product-specific Rovo Chat and inline Ask Rovo lists
+  and an Ask Rovo-only platform fallback.
+
 ## 134.4.3
 
 ### Patch Changes

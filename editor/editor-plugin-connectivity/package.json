@@ -41,6 +41,7 @@
 	"devDependencies": {
 		"@af/editor-examples-helpers": "workspace:^",
 		"@atlaskit/button": "workspace:^",
+		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/editor-core": "workspace:^",
 		"@atlaskit/editor-plugin-hyperlink": "workspace:^",
 		"@atlaskit/editor-plugin-primary-toolbar": "workspace:^",

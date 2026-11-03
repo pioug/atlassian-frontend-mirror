@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/dependency-version-analytics",
-	"version": "2.1.0",
+	"version": "2.1.1",
 	"description": "Tool to pull atlaskit version history from a repo",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

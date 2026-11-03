@@ -1,7 +1,7 @@
 import React, { createRef } from 'react';
 
 import __noop from '@atlaskit/ds-lib/noop';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { fireEvent, render } from '@atlassian/testing-library/testing-library/react';
 import { within } from '@atlassian/testing-library/within';
@@ -234,42 +234,38 @@ describe('Controlled breadcrumbs', () => {
 	});
 });
 
-ffTest.on('platform_dst_breadcrumbs-refresh', 'Breadcrumbs container with refresh enabled', () => {
-	it('applies aria-current to the last plain BreadcrumbsItem', () => {
-		render(
-			<Breadcrumbs testId="breadcrumbs-container">
-				<BreadcrumbsItem href="/item" text="Item" />
-				<BreadcrumbsItem href="#" text="Current page" />
-			</Breadcrumbs>,
-		);
+it('applies aria-current to the last plain BreadcrumbsItem', () => {
+	passGate('platform_dst_breadcrumbs-refresh');
 
-		expect(screen.getByRole('link', { name: 'Current page' })).toHaveAttribute(
-			'aria-current',
-			'page',
-		);
-	});
+	render(
+		<Breadcrumbs testId="breadcrumbs-container">
+			<BreadcrumbsItem href="/item" text="Item" />
+			<BreadcrumbsItem href="#" text="Current page" />
+		</Breadcrumbs>,
+	);
+
+	expect(screen.getByRole('link', { name: 'Current page' })).toHaveAttribute(
+		'aria-current',
+		'page',
+	);
 });
 
-ffTest.off(
-	'platform_dst_breadcrumbs-refresh',
-	'Breadcrumbs container with refresh disabled',
-	() => {
-		it('applies the small size variant in the legacy composed path', () => {
-			render(
-				<Breadcrumbs size="small">
-					<BreadcrumbsItem
-						href="/item"
-						text="Item"
-						testId="item"
-						elemBefore={<span aria-hidden="true">I</span>}
-					/>
-				</Breadcrumbs>,
-			);
+it('applies the small size variant in the legacy composed path', () => {
+	failGate('platform_dst_breadcrumbs-refresh');
 
-			expect(screen.getByTestId('item--icon-before')).toBeInTheDocument();
-		});
-	},
-);
+	render(
+		<Breadcrumbs size="small">
+			<BreadcrumbsItem
+				href="/item"
+				text="Item"
+				testId="item"
+				elemBefore={<span aria-hidden="true">I</span>}
+			/>
+		</Breadcrumbs>,
+	);
+
+	expect(screen.getByTestId('item--icon-before')).toBeInTheDocument();
+});
 
 describe('Focus managment', () => {
 	const breadcrumbsFixture = (props: any = {}) => {

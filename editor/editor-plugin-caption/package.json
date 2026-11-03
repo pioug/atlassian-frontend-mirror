@@ -38,6 +38,8 @@
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
+		"@atlaskit/editor-common": "workspace:^",
+		"@atlaskit/editor-test-helpers": "workspace:^",
 		"@atlassian/experiment-test-utils": "workspace:^",
 		"react": "^19.2.0"
 	}

@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { act, fireEvent, render } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
@@ -35,7 +35,11 @@ function simulatePopoverClose(popoverEl: HTMLElement) {
 	});
 }
 
-ffTest.on('platform-dst-top-layer-tooltip', 'Tooltip top-layer coverage gaps', () => {
+describe('Tooltip top-layer coverage gaps', () => {
+	beforeEach(() => {
+		passGate('platform-dst-top-layer-tooltip');
+	});
+
 	beforeEach(() => {
 		jest.useFakeTimers();
 	});

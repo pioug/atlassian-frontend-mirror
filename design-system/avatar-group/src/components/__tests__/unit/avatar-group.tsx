@@ -3,7 +3,6 @@ import React, { Fragment } from 'react';
 import type { AppearanceType, SizeType } from '@atlaskit/avatar/types';
 import __noop from '@atlaskit/ds-lib/noop';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
 import { act } from '@atlassian/testing-library/act';
 import { screen } from '@atlassian/testing-library/screen';
 import { render } from '@atlassian/testing-library/testing-library/react';
@@ -820,39 +819,47 @@ describe('UNSAFE_isUpdatedGeometry', () => {
 		expect(avatar).toHaveAttribute('data-agent-avatar-v2', 'true');
 	});
 
-	ffTest.both('platform-dst-top-layer', 'avatar group overflow implementations', () => {
-		it('should forward UNSAFE_isUpdatedGeometry to overflow avatars', async () => {
-			const user = userEvent.setup();
-			render(
-				<AvatarGroup
-					testId="test"
-					size="medium"
-					data={data}
-					maxCount={1}
-					UNSAFE_isUpdatedGeometry
-					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-					overrides={{
-						AvatarGroupItem: {
-							render: (_Component, props, index) => (
-								<div
-									key={index}
-									data-testid={`overflow-avatar-${index}`}
-									data-agent-avatar-v2={props.avatar.UNSAFE_isUpdatedGeometry}
-								/>
-							),
-						},
-					}}
-				/>,
-			);
+	describe.each([
+		{ gateState: 'on', mockGate: passGate },
+		{ gateState: 'off', mockGate: failGate },
+	])(
+		'platform-dst-top-layer is $gateState: avatar group overflow implementations',
+		({ mockGate }) => {
+			it('should forward UNSAFE_isUpdatedGeometry to overflow avatars', async () => {
+				mockGate('platform-dst-top-layer');
 
-			await user.click(screen.getByTestId('test--overflow-menu--trigger'));
+				const user = userEvent.setup();
+				render(
+					<AvatarGroup
+						testId="test"
+						size="medium"
+						data={data}
+						maxCount={1}
+						UNSAFE_isUpdatedGeometry
+						// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+						overrides={{
+							AvatarGroupItem: {
+								render: (_Component, props, index) => (
+									<div
+										key={index}
+										data-testid={`overflow-avatar-${index}`}
+										data-agent-avatar-v2={props.avatar.UNSAFE_isUpdatedGeometry}
+									/>
+								),
+							},
+						}}
+					/>,
+				);
 
-			expect(screen.getByTestId('overflow-avatar-1')).toHaveAttribute(
-				'data-agent-avatar-v2',
-				'true',
-			);
-		});
-	});
+				await user.click(screen.getByTestId('test--overflow-menu--trigger'));
+
+				expect(screen.getByTestId('overflow-avatar-1')).toHaveAttribute(
+					'data-agent-avatar-v2',
+					'true',
+				);
+			});
+		},
+	);
 });
 
 describe('Accessibility', () => {

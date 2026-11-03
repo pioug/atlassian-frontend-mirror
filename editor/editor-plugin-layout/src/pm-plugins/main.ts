@@ -9,7 +9,7 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { createSelectionClickHandler, Side } from '@atlaskit/editor-common/selection';
 import { GapCursorSelection } from '@atlaskit/editor-common/selection/gap-cursor/selection';
 import type { Command } from '@atlaskit/editor-common/types/command';
-import { filterCommand as filter } from '@atlaskit/editor-common/utils';
+import { filterCommand as filter, isEmptyParagraph } from '@atlaskit/editor-common/utils';
 import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
@@ -111,9 +111,41 @@ const moveCursorToNextColumn: Command = (state, dispatch) => {
 	return true;
 };
 
-const getNodeDecoration = (pos: number, node: Node) => [
-	Decoration.node(pos, pos + node.nodeSize, { class: 'selected' }),
-];
+const EMPTY_LAYOUT_COLUMN_CLASS = 'pm-layout-column-empty';
+const EMPTY_LAYOUT_COLUMN_NODE_SIZE = 4;
+
+const getNodeDecorations = (pos: number, node: Node) => {
+	const decorations = [Decoration.node(pos, pos + node.nodeSize, { class: 'selected' })];
+
+	if (
+		editorExperiment('platform_editor_controls', 'variant1') &&
+		isExperimentEnabled('platform_editor_improve_inp_batch_2')
+	) {
+		node.forEach((column, columnOffset) => {
+			if (
+				column.type.name !== 'layoutColumn' ||
+				column.childCount !== 1 ||
+				column.nodeSize > EMPTY_LAYOUT_COLUMN_NODE_SIZE
+			) {
+				return;
+			}
+
+			const paragraph = column.firstChild;
+			if (!paragraph || paragraph.marks.length > 0 || !isEmptyParagraph(paragraph)) {
+				return;
+			}
+
+			const paragraphPos = pos + columnOffset + 2;
+			decorations.push(
+				Decoration.node(paragraphPos, paragraphPos + paragraph.nodeSize, {
+					class: EMPTY_LAYOUT_COLUMN_CLASS,
+				}),
+			);
+		});
+	}
+
+	return decorations;
+};
 
 const getDangerPreviewDecorations = (state: EditorState, positions: number[] | undefined) =>
 	positions?.flatMap((pos) => {
@@ -365,7 +397,6 @@ export default (
 		props: {
 			decorations(state) {
 				const layoutState = pluginKey.getState(state) as LayoutState;
-
 				const isLayoutResizingPluginAvailable = layoutResizingPluginKey.get(state) !== undefined;
 
 				if (
@@ -380,7 +411,7 @@ export default (
 					);
 					const selectedDecorations =
 						layoutState.pos !== null
-							? getNodeDecoration(layoutState.pos, state.doc.nodeAt(layoutState.pos) as Node)
+							? getNodeDecorations(layoutState.pos, state.doc.nodeAt(layoutState.pos) as Node)
 							: [];
 					const dangerPreviewDecorations = getDangerPreviewDecorations(
 						state,
@@ -404,7 +435,7 @@ export default (
 				if (layoutState.pos !== null || dangerPreviewDecorations.length > 0) {
 					const selectedDecorations =
 						layoutState.pos !== null
-							? getNodeDecoration(layoutState.pos, state.doc.nodeAt(layoutState.pos) as Node)
+							? getNodeDecorations(layoutState.pos, state.doc.nodeAt(layoutState.pos) as Node)
 							: [];
 					return DecorationSet.create(state.doc, [
 						...selectedDecorations,

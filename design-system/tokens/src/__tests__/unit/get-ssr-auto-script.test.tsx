@@ -1,5 +1,5 @@
 import __noop from '@atlaskit/ds-lib/noop';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 // This import is just to get types
 import { COLOR_MODE_ATTRIBUTE, CONTRAST_MODE_ATTRIBUTE } from '../../constants';
@@ -75,39 +75,41 @@ describe('getSSRAutoScript', () => {
 	});
 
 	describe('returns a script that correctly sets the data-contrast-mode attribute based on the system color preference', () => {
-		ffTest(
-			'platform_increased-contrast-themes',
-			async () => {
-				// Get the SSR auto script
-				const result = getSSRAutoScript('light', 'auto');
-				expect(result).toBeDefined();
+		it('with platform_increased-contrast-themes on', async () => {
+			passGate('platform_increased-contrast-themes');
 
-				// Execute the returned script
-				const script = document.createElement('script');
-				script.innerHTML = result || '';
-				document.head.appendChild(script);
+			// Get the SSR auto script
+			const result = getSSRAutoScript('light', 'auto');
+			expect(result).toBeDefined();
 
-				const el = document.querySelector(`[${CONTRAST_MODE_ATTRIBUTE}]`);
+			// Execute the returned script
+			const script = document.createElement('script');
+			script.innerHTML = result || '';
+			document.head.appendChild(script);
 
-				// Check that the data-contrast-mode attribute has been set as expected to "no-preference"
-				expect(el?.getAttribute(CONTRAST_MODE_ATTRIBUTE)).toBe('no-preference');
+			const el = document.querySelector(`[${CONTRAST_MODE_ATTRIBUTE}]`);
 
-				// Check that the data-color-mode attribute has not been set
-				expect(el?.hasAttribute(COLOR_MODE_ATTRIBUTE)).toBe(false);
-			},
-			async () => {
-				// Get the SSR auto script
-				const result = getSSRAutoScript('light', 'auto');
-				expect(result).toBeDefined();
+			// Check that the data-contrast-mode attribute has been set as expected to "no-preference"
+			expect(el?.getAttribute(CONTRAST_MODE_ATTRIBUTE)).toBe('no-preference');
 
-				// Execute the returned script
-				const script = document.createElement('script');
-				script.innerHTML = result || '';
-				document.head.appendChild(script);
+			// Check that the data-color-mode attribute has not been set
+			expect(el?.hasAttribute(COLOR_MODE_ATTRIBUTE)).toBe(false);
+		});
 
-				// Check that the data-contrast-mode attribute has not been set".
-				expect(document.documentElement?.hasAttribute(CONTRAST_MODE_ATTRIBUTE)).toBe(false);
-			},
-		);
+		it('with platform_increased-contrast-themes off', async () => {
+			failGate('platform_increased-contrast-themes');
+
+			// Get the SSR auto script
+			const result = getSSRAutoScript('light', 'auto');
+			expect(result).toBeDefined();
+
+			// Execute the returned script
+			const script = document.createElement('script');
+			script.innerHTML = result || '';
+			document.head.appendChild(script);
+
+			// Check that the data-contrast-mode attribute has not been set".
+			expect(document.documentElement?.hasAttribute(CONTRAST_MODE_ATTRIBUTE)).toBe(false);
+		});
 	});
 });

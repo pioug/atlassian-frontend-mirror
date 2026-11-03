@@ -1,5 +1,19 @@
 # @atlaskit/smart-card
 
+## 46.13.0
+
+### Minor Changes
+
+- [`90cd00b7b6bc2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/90cd00b7b6bc2) -
+  Update i18n NPM package versions for linking-platform,smart-experiences (Group 15)
+
+### Patch Changes
+
+- [`d145f0018ddad`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d145f0018ddad) -
+  Cleanup `feature_gate` `platform_sl_click_inside_iframe`. Smart Links clicked inside an iframe now
+  always open in a new tab.
+- Updated dependencies
+
 ## 46.12.1
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/emoji
 
+## 73.3.6
+
+### Patch Changes
+
+- [`f4da5385edc9c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f4da5385edc9c) -
+  Remove stale type-import lint suppressions
+- Updated dependencies
+
 ## 73.3.5
 
 ### Patch Changes

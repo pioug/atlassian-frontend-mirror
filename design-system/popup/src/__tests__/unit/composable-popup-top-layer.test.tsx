@@ -3,7 +3,7 @@
 import React from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { render } from '@atlassian/testing-library/testing-library/react';
 
@@ -23,8 +23,10 @@ const styles = cssMap({
 	},
 });
 
-ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: trigger rendering', () => {
+describe('Composable Popup top-layer: trigger rendering', () => {
 	it('renders the trigger element', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<Popup>
 				<PopupTrigger>
@@ -42,6 +44,8 @@ ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: trigger renderi
 	});
 
 	it('sets aria-expanded=false when closed', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<Popup>
 				<PopupTrigger>
@@ -62,6 +66,8 @@ ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: trigger renderi
 	});
 
 	it('sets aria-expanded=true when open', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<Popup isOpen>
 				<PopupTrigger>
@@ -82,8 +88,10 @@ ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: trigger renderi
 	});
 });
 
-ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: content rendering', () => {
+describe('Composable Popup top-layer: content rendering', () => {
 	it('renders content when open', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<Popup isOpen>
 				<PopupTrigger>
@@ -101,6 +109,8 @@ ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: content renderi
 	});
 
 	it('does not render content when closed', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<Popup>
 				<PopupTrigger>
@@ -118,8 +128,10 @@ ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: content renderi
 	});
 });
 
-ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: WCAG 4.1.2 — role', () => {
+describe('Composable Popup top-layer: WCAG 4.1.2 — role', () => {
 	it('does not apply a role when none is supplied (legacy `Popup` contract)', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<Popup isOpen>
 				<PopupTrigger>
@@ -141,6 +153,8 @@ ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: WCAG 4.1.2 — 
 	});
 
 	it('applies role="menu" when specified', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<Popup isOpen>
 				<PopupTrigger>
@@ -161,6 +175,8 @@ ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: WCAG 4.1.2 — 
 	});
 
 	it('applies aria-labelledby when titleId is provided alongside a dialog role', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<Popup isOpen>
 				<PopupTrigger>
@@ -186,128 +202,130 @@ ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: WCAG 4.1.2 — 
 	});
 });
 
-ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: WCAG 1.3.2 — DOM order', () => {
-	it('renders content in DOM order (not portalled)', () => {
-		const { container } = render(
-			<Popup isOpen>
-				<PopupTrigger>
-					{(triggerProps) => (
-						<button type="button" {...triggerProps}>
-							Trigger
-						</button>
-					)}
-				</PopupTrigger>
-				<PopupContent testId={testId}>{() => <div data-testid="inner">content</div>}</PopupContent>
-			</Popup>,
-		);
+it('renders content in DOM order (not portalled)', () => {
+	passGate('platform-dst-top-layer');
 
-		const trigger = screen.getByRole('button', { name: 'Trigger' });
-		const content = screen.getByTestId('inner');
+	const { container } = render(
+		<Popup isOpen>
+			<PopupTrigger>
+				{(triggerProps) => (
+					<button type="button" {...triggerProps}>
+						Trigger
+					</button>
+				)}
+			</PopupTrigger>
+			<PopupContent testId={testId}>{() => <div data-testid="inner">content</div>}</PopupContent>
+		</Popup>,
+	);
 
-		expect(container).toContainElement(trigger);
-		expect(container).toContainElement(content);
+	const trigger = screen.getByRole('button', { name: 'Trigger' });
+	const content = screen.getByTestId('inner');
 
-		const position = trigger.compareDocumentPosition(content);
-		expect(position & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
-	});
+	expect(container).toContainElement(trigger);
+	expect(container).toContainElement(content);
+
+	const position = trigger.compareDocumentPosition(content);
+	expect(position & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
 });
 
-ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: onClose callback', () => {
-	it('passes onClose to the content render prop', () => {
-		const onClose = jest.fn();
-		const contentFn = jest.fn((props) => {
-			expect(props.onClose).toBe(onClose);
-			return <div>content</div>;
-		});
+it('passes onClose to the content render prop', () => {
+	passGate('platform-dst-top-layer');
 
-		render(
-			<Popup isOpen>
-				<PopupTrigger>
-					{(triggerProps) => (
-						<button type="button" {...triggerProps}>
-							Trigger
-						</button>
-					)}
-				</PopupTrigger>
-				<PopupContent testId={testId} onClose={onClose}>
-					{contentFn}
-				</PopupContent>
-			</Popup>,
-		);
-
-		expect(contentFn).toHaveBeenCalled();
+	const onClose = jest.fn();
+	const contentFn = jest.fn((props) => {
+		expect(props.onClose).toBe(onClose);
+		return <div>content</div>;
 	});
+
+	render(
+		<Popup isOpen>
+			<PopupTrigger>
+				{(triggerProps) => (
+					<button type="button" {...triggerProps}>
+						Trigger
+					</button>
+				)}
+			</PopupTrigger>
+			<PopupContent testId={testId} onClose={onClose}>
+				{contentFn}
+			</PopupContent>
+		</Popup>,
+	);
+
+	expect(contentFn).toHaveBeenCalled();
 });
 
-ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: xcss', () => {
-	it('applies xcss to the element wrapping the content', () => {
-		render(
-			<Popup isOpen>
-				<PopupTrigger>
-					{(triggerProps) => (
-						<button type="button" {...triggerProps}>
-							Trigger
-						</button>
-					)}
-				</PopupTrigger>
-				<PopupContent testId={testId} xcss={styles.fixedWidth}>
-					{() => <div data-testid="inner">content</div>}
-				</PopupContent>
-			</Popup>,
-		);
+it('applies xcss to the element wrapping the content', () => {
+	passGate('platform-dst-top-layer');
 
-		// `xcss` lands on a wrapper inside `PopoverSurface`, so it is the content's
-		// parent and not the `--container` popover host.
-		const wrapper = screen.getByTestId('inner').parentElement;
-		expect(wrapper).not.toBe(screen.getByTestId(`${testId}--container`));
-		expect(wrapper).toHaveCompiledCss('width', '280px');
-	});
+	render(
+		<Popup isOpen>
+			<PopupTrigger>
+				{(triggerProps) => (
+					<button type="button" {...triggerProps}>
+						Trigger
+					</button>
+				)}
+			</PopupTrigger>
+			<PopupContent testId={testId} xcss={styles.fixedWidth}>
+				{() => <div data-testid="inner">content</div>}
+			</PopupContent>
+		</Popup>,
+	);
+
+	// `xcss` lands on a wrapper inside `PopoverSurface`, so it is the content's
+	// parent and not the `--container` popover host.
+	const wrapper = screen.getByTestId('inner').parentElement;
+	expect(wrapper).not.toBe(screen.getByTestId(`${testId}--container`));
+	expect(wrapper).toHaveCompiledCss('width', '280px');
 });
 
-ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: shouldFitContainer', () => {
-	it('renders content when shouldFitContainer is true', () => {
-		render(
-			<Popup isOpen>
-				<PopupTrigger>
-					{(triggerProps) => (
-						<button type="button" {...triggerProps}>
-							Trigger
-						</button>
-					)}
-				</PopupTrigger>
-				<PopupContent testId={testId} shouldFitContainer>
-					{() => <div data-testid="inner">content</div>}
-				</PopupContent>
-			</Popup>,
-		);
+it('renders content when shouldFitContainer is true', () => {
+	passGate('platform-dst-top-layer');
 
-		expect(screen.getByTestId('inner')).toBeInTheDocument();
-	});
+	render(
+		<Popup isOpen>
+			<PopupTrigger>
+				{(triggerProps) => (
+					<button type="button" {...triggerProps}>
+						Trigger
+					</button>
+				)}
+			</PopupTrigger>
+			<PopupContent testId={testId} shouldFitContainer>
+				{() => <div data-testid="inner">content</div>}
+			</PopupContent>
+		</Popup>,
+	);
+
+	expect(screen.getByTestId('inner')).toBeInTheDocument();
 });
 
-ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: shouldFitViewport', () => {
-	it('renders content when shouldFitViewport is true', () => {
-		render(
-			<Popup isOpen>
-				<PopupTrigger>
-					{(triggerProps) => (
-						<button type="button" {...triggerProps}>
-							Trigger
-						</button>
-					)}
-				</PopupTrigger>
-				<PopupContent testId={testId} shouldFitViewport>
-					{() => <div data-testid="inner">content</div>}
-				</PopupContent>
-			</Popup>,
-		);
+it('renders content when shouldFitViewport is true', () => {
+	passGate('platform-dst-top-layer');
 
-		expect(screen.getByTestId('inner')).toBeInTheDocument();
-	});
+	render(
+		<Popup isOpen>
+			<PopupTrigger>
+				{(triggerProps) => (
+					<button type="button" {...triggerProps}>
+						Trigger
+					</button>
+				)}
+			</PopupTrigger>
+			<PopupContent testId={testId} shouldFitViewport>
+				{() => <div data-testid="inner">content</div>}
+			</PopupContent>
+		</Popup>,
+	);
+
+	expect(screen.getByTestId('inner')).toBeInTheDocument();
 });
 
-ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: label prop', () => {
+describe('Composable Popup top-layer: label prop', () => {
 	it('applies custom label to dialog role', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<Popup isOpen>
 				<PopupTrigger>
@@ -328,6 +346,8 @@ ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: label prop', ()
 	});
 
 	it('applies custom label to menu role', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<Popup isOpen>
 				<PopupTrigger>
@@ -349,6 +369,8 @@ ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: label prop', ()
 	});
 
 	it('defaults to "Popup" label when role="dialog" is supplied without a custom label', () => {
+		passGate('platform-dst-top-layer');
+
 		render(
 			<Popup isOpen>
 				<PopupTrigger>
@@ -371,8 +393,10 @@ ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: label prop', ()
 	});
 });
 
-ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: no-op props accepted', () => {
+describe('Composable Popup top-layer: no-op props accepted', () => {
 	it('accepts zIndex without error', () => {
+		passGate('platform-dst-top-layer');
+
 		expect(() =>
 			render(
 				<Popup>
@@ -390,6 +414,8 @@ ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: no-op props acc
 	});
 
 	it('accepts shouldRenderToParent without error', () => {
+		passGate('platform-dst-top-layer');
+
 		expect(() =>
 			render(
 				<Popup>
@@ -407,6 +433,8 @@ ffTest.on('platform-dst-top-layer', 'Composable Popup top-layer: no-op props acc
 	});
 
 	it('accepts strategy without error', () => {
+		passGate('platform-dst-top-layer');
+
 		expect(() =>
 			render(
 				<Popup>

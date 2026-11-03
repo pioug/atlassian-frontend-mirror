@@ -3,7 +3,7 @@ import React, { type Dispatch, type SetStateAction } from 'react';
 import { bind } from 'bind-event-listener';
 import { replaceRaf } from 'raf-stub';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { act, render } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
@@ -125,95 +125,119 @@ function CompositionalPopup({
 
 // With no role, the legacy path (flag off) and the top-layer path agree:
 // `autoFocus={false}` keeps focus where it was.
-ffTest.both('platform-dst-top-layer', 'Popup: autoFocus={false} without a role', () => {
-	it('keeps focus on the trigger when the popup opens', async () => {
-		const { rerender } = render(<ClassicPopup isOpen={false} autoFocus={false} />);
-		screen.getByRole('button', { name: 'Trigger' }).focus();
+describe.each([
+	{ gateState: 'on', mockGate: passGate },
+	{ gateState: 'off', mockGate: failGate },
+])(
+	'platform-dst-top-layer is $gateState: Popup: autoFocus={false} without a role',
+	({ mockGate }) => {
+		it('keeps focus on the trigger when the popup opens', async () => {
+			mockGate('platform-dst-top-layer');
 
-		rerender(<ClassicPopup isOpen autoFocus={false} />);
-		await settle();
+			const { rerender } = render(<ClassicPopup isOpen={false} autoFocus={false} />);
+			screen.getByRole('button', { name: 'Trigger' }).focus();
 
-		expect(screen.getByRole('button', { name: 'Trigger' })).toHaveFocus();
-		expect(screen.getByRole('button', { name: 'Inside' })).not.toHaveFocus();
-	});
+			rerender(<ClassicPopup isOpen autoFocus={false} />);
+			await settle();
 
-	it('keeps focus on an element outside the popup when the popup opens', async () => {
-		const { rerender } = render(<ClassicPopup isOpen={false} autoFocus={false} />);
-		screen.getByRole('textbox', { name: 'Outside' }).focus();
+			expect(screen.getByRole('button', { name: 'Trigger' })).toHaveFocus();
+			expect(screen.getByRole('button', { name: 'Inside' })).not.toHaveFocus();
+		});
 
-		rerender(<ClassicPopup isOpen autoFocus={false} />);
-		await settle();
+		it('keeps focus on an element outside the popup when the popup opens', async () => {
+			mockGate('platform-dst-top-layer');
 
-		expect(screen.getByRole('textbox', { name: 'Outside' })).toHaveFocus();
-	});
+			const { rerender } = render(<ClassicPopup isOpen={false} autoFocus={false} />);
+			screen.getByRole('textbox', { name: 'Outside' }).focus();
 
-	it('does not focus the trigger when nothing had focus', async () => {
-		const { rerender } = render(<ClassicPopup isOpen={false} autoFocus={false} />);
+			rerender(<ClassicPopup isOpen autoFocus={false} />);
+			await settle();
 
-		rerender(<ClassicPopup isOpen autoFocus={false} />);
-		await settle();
+			expect(screen.getByRole('textbox', { name: 'Outside' })).toHaveFocus();
+		});
 
-		expect(screen.getByRole('button', { name: 'Trigger' })).not.toHaveFocus();
-		expect(screen.getByRole('button', { name: 'Inside' })).not.toHaveFocus();
-	});
+		it('does not focus the trigger when nothing had focus', async () => {
+			mockGate('platform-dst-top-layer');
 
-	it('still focuses the setInitialFocusRef target', async () => {
-		const content = ({ setInitialFocusRef }: DialogContentProps) => (
-			<div>
-				<button type="button">Inside</button>
-				<button
-					type="button"
-					ref={setInitialFocusRef as Dispatch<SetStateAction<HTMLElement | null>>}
-				>
-					Target
-				</button>
-			</div>
-		);
-		const { rerender } = render(
-			<ClassicPopup isOpen={false} autoFocus={false} content={content} popupRole="dialog" />,
-		);
-		screen.getByRole('button', { name: 'Trigger' }).focus();
+			const { rerender } = render(<ClassicPopup isOpen={false} autoFocus={false} />);
 
-		rerender(<ClassicPopup isOpen autoFocus={false} content={content} popupRole="dialog" />);
-		await settle();
+			rerender(<ClassicPopup isOpen autoFocus={false} />);
+			await settle();
 
-		expect(screen.getByRole('button', { name: 'Target' })).toHaveFocus();
-	});
+			expect(screen.getByRole('button', { name: 'Trigger' })).not.toHaveFocus();
+			expect(screen.getByRole('button', { name: 'Inside' })).not.toHaveFocus();
+		});
 
-	it('keeps focus with a role that does not move focus', async () => {
-		const { rerender } = render(<ClassicPopup isOpen={false} autoFocus={false} popupRole="note" />);
-		screen.getByRole('button', { name: 'Trigger' }).focus();
+		it('still focuses the setInitialFocusRef target', async () => {
+			mockGate('platform-dst-top-layer');
 
-		rerender(<ClassicPopup isOpen autoFocus={false} popupRole="note" />);
-		await settle();
+			const content = ({ setInitialFocusRef }: DialogContentProps) => (
+				<div>
+					<button type="button">Inside</button>
+					<button
+						type="button"
+						ref={setInitialFocusRef as Dispatch<SetStateAction<HTMLElement | null>>}
+					>
+						Target
+					</button>
+				</div>
+			);
+			const { rerender } = render(
+				<ClassicPopup isOpen={false} autoFocus={false} content={content} popupRole="dialog" />,
+			);
+			screen.getByRole('button', { name: 'Trigger' }).focus();
 
-		expect(screen.getByRole('button', { name: 'Trigger' })).toHaveFocus();
-	});
+			rerender(<ClassicPopup isOpen autoFocus={false} content={content} popupRole="dialog" />);
+			await settle();
 
-	it('keeps focus on the trigger for the compositional API', async () => {
-		const { rerender } = render(<CompositionalPopup isOpen={false} autoFocus={false} />);
-		screen.getByRole('button', { name: 'Trigger' }).focus();
+			expect(screen.getByRole('button', { name: 'Target' })).toHaveFocus();
+		});
 
-		rerender(<CompositionalPopup isOpen autoFocus={false} />);
-		await settle();
+		it('keeps focus with a role that does not move focus', async () => {
+			mockGate('platform-dst-top-layer');
 
-		expect(screen.getByRole('button', { name: 'Trigger' })).toHaveFocus();
-		expect(screen.getByRole('button', { name: 'Inside' })).not.toHaveFocus();
-	});
+			const { rerender } = render(
+				<ClassicPopup isOpen={false} autoFocus={false} popupRole="note" />,
+			);
+			screen.getByRole('button', { name: 'Trigger' }).focus();
 
-	it('keeps focus outside the popup for the compositional API', async () => {
-		const { rerender } = render(<CompositionalPopup isOpen={false} autoFocus={false} />);
-		screen.getByRole('textbox', { name: 'Outside' }).focus();
+			rerender(<ClassicPopup isOpen autoFocus={false} popupRole="note" />);
+			await settle();
 
-		rerender(<CompositionalPopup isOpen autoFocus={false} />);
-		await settle();
+			expect(screen.getByRole('button', { name: 'Trigger' })).toHaveFocus();
+		});
 
-		expect(screen.getByRole('textbox', { name: 'Outside' })).toHaveFocus();
-	});
-});
+		it('keeps focus on the trigger for the compositional API', async () => {
+			mockGate('platform-dst-top-layer');
 
-ffTest.on('platform-dst-top-layer', 'Popup top-layer: no role never moves focus', () => {
+			const { rerender } = render(<CompositionalPopup isOpen={false} autoFocus={false} />);
+			screen.getByRole('button', { name: 'Trigger' }).focus();
+
+			rerender(<CompositionalPopup isOpen autoFocus={false} />);
+			await settle();
+
+			expect(screen.getByRole('button', { name: 'Trigger' })).toHaveFocus();
+			expect(screen.getByRole('button', { name: 'Inside' })).not.toHaveFocus();
+		});
+
+		it('keeps focus outside the popup for the compositional API', async () => {
+			mockGate('platform-dst-top-layer');
+
+			const { rerender } = render(<CompositionalPopup isOpen={false} autoFocus={false} />);
+			screen.getByRole('textbox', { name: 'Outside' }).focus();
+
+			rerender(<CompositionalPopup isOpen autoFocus={false} />);
+			await settle();
+
+			expect(screen.getByRole('textbox', { name: 'Outside' })).toHaveFocus();
+		});
+	},
+);
+
+describe('Popup top-layer: no role never moves focus', () => {
 	it('does not blur the trigger when the popup opens', async () => {
+		passGate('platform-dst-top-layer');
+
 		const { rerender } = render(<ClassicPopup isOpen={false} autoFocus={false} />);
 		const triggerButton = screen.getByRole('button', { name: 'Trigger' });
 		triggerButton.focus();
@@ -229,6 +253,8 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: no role never moves focus'
 	});
 
 	it('does not blur the trigger when the popup opens (compositional API)', async () => {
+		passGate('platform-dst-top-layer');
+
 		const { rerender } = render(<CompositionalPopup isOpen={false} autoFocus={false} />);
 		const triggerButton = screen.getByRole('button', { name: 'Trigger' });
 		triggerButton.focus();
@@ -244,6 +270,8 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: no role never moves focus'
 	});
 
 	it('gives a custom popupComponent tabindex="-1" for any autoFocus, which adds no tab stop', async () => {
+		passGate('platform-dst-top-layer');
+
 		const CustomContainer = React.forwardRef<HTMLDivElement, PopupComponentProps>(
 			function CustomContainer(
 				{ children, shouldFitViewport: _shouldFitViewport, xcss: _xcss, ...props },
@@ -282,6 +310,8 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: no role never moves focus'
 	});
 
 	it('does not move focus with the default autoFocus', async () => {
+		passGate('platform-dst-top-layer');
+
 		const { rerender } = render(<ClassicPopup isOpen={false} />);
 		screen.getByRole('button', { name: 'Trigger' }).focus();
 
@@ -293,8 +323,10 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: no role never moves focus'
 });
 
 // Role and focus go together: `autoFocus` has no effect on the top-layer path.
-ffTest.on('platform-dst-top-layer', 'Popup top-layer: focus follows role', () => {
+describe('Popup top-layer: focus follows role', () => {
 	it('moves focus into a dialog popup', async () => {
+		passGate('platform-dst-top-layer');
+
 		const { rerender } = render(<ClassicPopup isOpen={false} popupRole="dialog" />);
 		screen.getByRole('button', { name: 'Trigger' }).focus();
 
@@ -305,6 +337,8 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: focus follows role', () =>
 	});
 
 	it('moves focus into a dialog popup with autoFocus={false}', async () => {
+		passGate('platform-dst-top-layer');
+
 		const { rerender } = render(
 			<ClassicPopup isOpen={false} autoFocus={false} popupRole="dialog" />,
 		);
@@ -317,6 +351,8 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: focus follows role', () =>
 	});
 
 	it('moves focus into a dialog popup for the compositional API', async () => {
+		passGate('platform-dst-top-layer');
+
 		const { rerender } = render(<CompositionalPopup isOpen={false} popupRole="dialog" />);
 		screen.getByRole('button', { name: 'Trigger' }).focus();
 
@@ -327,6 +363,8 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: focus follows role', () =>
 	});
 
 	it('moves focus into a dialog popup with autoFocus={false} for the compositional API', async () => {
+		passGate('platform-dst-top-layer');
+
 		const { rerender } = render(
 			<CompositionalPopup isOpen={false} autoFocus={false} popupRole="dialog" />,
 		);
@@ -339,6 +377,8 @@ ffTest.on('platform-dst-top-layer', 'Popup top-layer: focus follows role', () =>
 	});
 
 	it('keeps focus on a combobox trigger that controls a dialog popup', async () => {
+		passGate('platform-dst-top-layer');
+
 		const comboboxTrigger = ({
 			ref,
 			'aria-controls': ariaControls,

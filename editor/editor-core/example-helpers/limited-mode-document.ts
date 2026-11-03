@@ -77,9 +77,8 @@ const estimateNodeSize = (node: AdfNode): number => {
  * Builds a document large enough to put the editor into limited mode on load — it keeps adding
  * sections until it is comfortably past `LIMITED_MODE_DEFAULT_DOC_SIZE_THRESHOLD`.
  *
- * Each section contains a table so that table behaviour in limited mode (no table width handle when
- * `platform_editor_table_limited_mode` is on) can be inspected without having to build a large page
- * by hand.
+ * Each section contains a table so that table behaviour in limited mode can be inspected without
+ * having to build a large page by hand.
  */
 export const createLimitedModeDocument = (): AdfNode => {
 	const content: AdfNode[] = [];

@@ -64,6 +64,7 @@ export const rule: TSESLint.RuleModule<string> = {
 				const currentScope = context.getScope();
 				if (node.id.type === 'Identifier') {
 					declaredScopes.set(node.id.name, currentScope);
+					// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 					functionStack[functionStack.length - 1].add(node.id.name);
 				}
 			},
@@ -81,6 +82,7 @@ export const rule: TSESLint.RuleModule<string> = {
 
 				if (left.type === 'Identifier') {
 					const variableName = left.name;
+					// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 					const isInSameFunctionScope = functionStack[functionStack.length - 1].has(variableName);
 
 					if (!isInSameFunctionScope) {

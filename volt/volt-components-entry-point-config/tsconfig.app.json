@@ -37,7 +37,8 @@
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__volt-components-entry-point-config/app",
-		"isolatedDeclarations": true
+		"isolatedDeclarations": true,
+		"noUncheckedIndexedAccess": true
 	},
 	"references": [
 		{

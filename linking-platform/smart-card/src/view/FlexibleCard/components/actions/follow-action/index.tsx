@@ -99,7 +99,7 @@ const FollowAction = (props: FollowActionProps): React.JSX.Element | null => {
 	const stackIconType = isProject ? 'projects' : 'goal';
 	const ImportedIcon = getIcon(stackIconType);
 	const followIcon = (
-		<ImportedIcon label="Follow" testId={`smart-action-follow-action-${stackIconType}-icon`} />
+		<ImportedIcon label="" testId={`smart-action-follow-action-${stackIconType}-icon`} />
 	);
 
 	const handleError = () => {

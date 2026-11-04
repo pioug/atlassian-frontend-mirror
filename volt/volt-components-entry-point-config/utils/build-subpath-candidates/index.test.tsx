@@ -27,7 +27,9 @@ describe('buildSubpathCandidates', () => {
 
 		const candidates = buildSubpathCandidates(pkg, ['']);
 		expect(candidates).toHaveLength(1);
+		// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 		expect(candidates[0].entryPoint).toBe('/box');
+		// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 		expect(candidates[0].symbols.has('Box')).toBe(true);
 	});
 });

@@ -1,5 +1,19 @@
 # @atlaskit/renderer
 
+## 153.2.11
+
+### Patch Changes
+
+- [`74eac4bfec485`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/74eac4bfec485) -
+  Clean up experiment `cc_light_mode_table_virtualization`
+- Updated dependencies
+
+## 153.2.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 153.2.9
 
 ### Patch Changes
@@ -15542,11 +15556,11 @@ Remove applicationCard node and action mark
     - https://product-fabric.atlassian.net/browse/ED-7288
   - Cache resizeState in pluginState to avoid expensive DOM operations. – [table][affects: resizing]
     - https://product-fabric.atlassian.net/browse/ED-7343
-  - Delay MutationObserver initialization in table. –
-    [table][affects: initial table rendering, size adjustment on initial render]
+  - Delay MutationObserver initialization in table. – [table][affects: initial table rendering, size
+    adjustment on initial render]
     - https://product-fabric.atlassian.net/browse/ED-7436
-  - Improve the way we handle mouse events in table –
-    [table][affects: column drag handlers, table controls, resizing]
+  - Improve the way we handle mouse events in table – [table][affects: column drag handlers, table
+    controls, resizing]
     - https://product-fabric.atlassian.net/browse/ED-7342
 
   ### SmartCards

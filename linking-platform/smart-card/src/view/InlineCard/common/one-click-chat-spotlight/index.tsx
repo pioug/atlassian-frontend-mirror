@@ -18,6 +18,7 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents'
 import { getDocument } from '@atlaskit/browser-apis';
 import { cssMap, jsx } from '@atlaskit/css';
 import CrossIcon from '@atlaskit/icon/core/cross';
+import { ChoreographedContent } from '@atlaskit/link-provider/choreographed-content';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Popup } from '@atlaskit/popup/popup';
 import type { PopupComponentProps } from '@atlaskit/popup/types';
@@ -365,7 +366,7 @@ export function OneClickChatSpotlight({
 	const trigger = (
 		<span
 			onClickCapture={() => {
-				if (spotlight.isEligible) spotlight.onClick('inlineAction');
+				if (spotlight.isEligible && !spotlight.onClick('inlineAction')) spotlight.onUnavailable();
 			}}
 		>
 			{children}
@@ -385,46 +386,54 @@ export function OneClickChatSpotlight({
 	);
 
 	return (
-		<span
-			ref={target}
-			role="none"
-			onClick={(event) => {
-				// Top-layer popups remain inside the Smart Link's anchor in the DOM.
-				event.preventDefault();
-				event.stopPropagation();
-			}}
-			onKeyDown={(event) => {
-				if (event.key === 'Escape' && spotlight.isEligible) {
-					event.preventDefault();
-					event.stopPropagation();
-					spotlight.onDismiss();
-				}
-			}}
-			// Match the enclosing Smart Link's keypress handler.
-			onKeyPress={(event) => event.stopPropagation()}
+		<ChoreographedContent
+			messageId="smart-link-one-click-chat-spotlight-v2"
+			isActive={spotlight.isEligible}
+			onUnavailable={spotlight.onUnavailable}
 		>
-			<TargetContext.Provider value={target}>
-				{fg('platform-dst-top-layer') ? (
-					<TopLayerSpotlight
-						isOpen={spotlight.isEligible}
-						label={intl.formatMessage(messages.heading)}
-						trigger={trigger}
-					>
-						{content}
-					</TopLayerSpotlight>
-				) : (
-					<Popup
-						popupComponent={SpotlightSurface}
-						shouldFitViewport
-						isOpen={spotlight.isEligible}
-						placement="bottom-start"
-						role="dialog"
-						label={intl.formatMessage(messages.heading)}
-						trigger={({ ref }) => <span ref={ref}>{trigger}</span>}
-						content={() => content}
-					/>
-				)}
-			</TargetContext.Provider>
-		</span>
+			{({ hasPermission }) => (
+				<span
+					ref={target}
+					role="none"
+					onClick={(event) => {
+						// Top-layer popups remain inside the Smart Link's anchor in the DOM.
+						event.preventDefault();
+						event.stopPropagation();
+					}}
+					onKeyDown={(event) => {
+						if (event.key === 'Escape' && hasPermission) {
+							event.preventDefault();
+							event.stopPropagation();
+							spotlight.onDismiss();
+						}
+					}}
+					// Match the enclosing Smart Link's keypress handler.
+					onKeyPress={(event) => event.stopPropagation()}
+				>
+					<TargetContext.Provider value={target}>
+						{fg('platform-dst-top-layer') ? (
+							<TopLayerSpotlight
+								isOpen={hasPermission}
+								label={intl.formatMessage(messages.heading)}
+								trigger={trigger}
+							>
+								{content}
+							</TopLayerSpotlight>
+						) : (
+							<Popup
+								popupComponent={SpotlightSurface}
+								shouldFitViewport
+								isOpen={hasPermission}
+								placement="bottom-start"
+								role="dialog"
+								label={intl.formatMessage(messages.heading)}
+								trigger={({ ref }) => <span ref={ref}>{trigger}</span>}
+								content={() => content}
+							/>
+						)}
+					</TargetContext.Provider>
+				</span>
+			)}
+		</ChoreographedContent>
 	);
 }

@@ -16,6 +16,7 @@ import {
 import { createPortal } from 'react-dom';
 
 import { cssMap, cx, jsx } from '@compiled/react';
+// eslint-disable-next-line @atlaskit/design-system/no-third-party-layering -- existing usage from before this rule was added
 import { autoUpdate } from '@floating-ui/dom';
 
 import { fg } from '@atlaskit/platform-feature-flags/fg';

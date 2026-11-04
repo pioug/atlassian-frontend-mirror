@@ -7,8 +7,6 @@ import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
-import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
-import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 
 import ExpandWithInt from '../../../ui/Expand';
 import { ExpandBodyBlock, ExpandBodyProvider } from '../../../ui/utils/expand-body';
@@ -78,7 +76,6 @@ const remount = (getByText: (text: string) => HTMLElement) =>
 
 describe('ExpandBodyProvider', () => {
 	it('mounts an expand the reader opened open again after a remount', () => {
-		mockExpEnabled('cc_light_mode_table_virtualization');
 		const { container, getByText } = renderWithIntl(<Remounted>{expand}</Remounted>);
 
 		fireEvent.click(expandButtons(container)[0]);
@@ -88,7 +85,6 @@ describe('ExpandBodyProvider', () => {
 	});
 
 	it('mounts it closed again after the reader closed it', () => {
-		mockExpEnabled('cc_light_mode_table_virtualization');
 		const { container, getByText } = renderWithIntl(<Remounted>{expand}</Remounted>);
 
 		fireEvent.click(expandButtons(container)[0]);
@@ -99,7 +95,6 @@ describe('ExpandBodyProvider', () => {
 	});
 
 	it('mounts a nested expand the reader opened open again after a remount', () => {
-		mockExpEnabled('cc_light_mode_table_virtualization');
 		const { container, getByText } = renderWithIntl(<Remounted>{nestedExpands}</Remounted>);
 
 		fireEvent.click(expandButtons(container)[0]);
@@ -123,15 +118,5 @@ describe('ExpandBodyProvider', () => {
 		remount(getByText);
 
 		expect(expandButtons(container)[0]).toHaveAttribute('aria-expanded', 'true');
-	});
-
-	it('does not record reader toggles without table virtualization', () => {
-		mockExpDisabled('cc_light_mode_table_virtualization');
-		const { container, getByText } = renderWithIntl(<Remounted>{expand}</Remounted>);
-
-		fireEvent.click(expandButtons(container)[0]);
-		remount(getByText);
-
-		expect(expandButtons(container)[0]).toHaveAttribute('aria-expanded', 'false');
 	});
 });

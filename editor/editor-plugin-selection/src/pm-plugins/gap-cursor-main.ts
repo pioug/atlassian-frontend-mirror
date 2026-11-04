@@ -12,6 +12,7 @@ import { findPositionOfNodeBefore } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { selectionPluginKey } from '../types';
 import { gapCursorPluginKey } from './gap-cursor-plugin-key';
@@ -115,14 +116,21 @@ const plugin: SafePlugin<GapCursorPluginState> = new SafePlugin({
 			return null;
 		},
 		handleClick(view: EditorView, nodePos: number, event: MouseEvent) {
+			const target = event.target instanceof HTMLElement ? event.target : null;
+			// Check the experiment first so the control group runs isIgnoredClick once, after
+			// posAtCoords, exactly as before.
+			const checkIgnoredClickFirst = isExperimentEnabled('platform_editor_improve_inp_batch_2');
+			if (checkIgnoredClickFirst && target && isIgnoredClick(target)) {
+				return false;
+			}
+
+			// posAtCoords reads layout (elementFromPoint, caret position and client rects), so only
+			// call it once nothing cheaper can rule the click out.
 			const posAtCoords = view.posAtCoords({
 				left: event.clientX,
 				top: event.clientY,
 			});
-			if (
-				!posAtCoords ||
-				isIgnoredClick(event.target instanceof HTMLElement ? event.target : null)
-			) {
+			if (!posAtCoords || (!checkIgnoredClickFirst && isIgnoredClick(target))) {
 				return false;
 			}
 

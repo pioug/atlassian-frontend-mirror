@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::91a09c088d0630dd8212cdd92f73c166>>
+ * @codegen <<SignedSource::5004ebfa12eda132acf445414708b0a7>>
  * @codegenCommand afm workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { ESLint } from 'eslint';
@@ -57,6 +57,8 @@ const rules: ESLint.ConfigData = {
 		'@atlaskit/design-system/no-readonly-or-disabled-inputs': 'warn',
 		'@atlaskit/design-system/no-separator-with-list-elements': 'warn',
 		'@atlaskit/design-system/no-styled-tagged-template-expression': 'error',
+		'@atlaskit/design-system/no-third-party-focus-traps': 'error',
+		'@atlaskit/design-system/no-third-party-layering': 'error',
 		'@atlaskit/design-system/no-to-match-snapshot': 'error',
 		'@atlaskit/design-system/no-unsafe-design-token-usage': 'error',
 		'@atlaskit/design-system/no-unsafe-inline-snapshot': 'error',

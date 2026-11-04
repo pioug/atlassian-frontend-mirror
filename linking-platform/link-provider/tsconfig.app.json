@@ -71,10 +71,16 @@
 			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
 		},
 		{
+			"path": "../../post-office/ipm-choreographer/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/structured-docs-types/tsconfig.app.json"
 		},
 		{
 			"path": "../../ap/workbench/tsconfig.app.json"
+		},
+		{
+			"path": "../../atlassian-analytics-pipeline/analytics-web-client/tsconfig.app.json"
 		}
 	]
 }

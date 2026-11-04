@@ -40,6 +40,7 @@ export type CardContext = {
 	| 'linkNavigation'
 	| 'bridgeProduct'
 	| 'rovoOptions'
+	| 'choreographer'
 	| 'isAdminHubAIEnabled'
 	| 'isPreviewPanelAvailable'
 	| 'isPreviewRestricted'
@@ -65,6 +66,16 @@ export interface CardProviderRenderers {
 	snippet?: (props: SnippetRendererProps) => React.ReactNode;
 }
 
+/** Product-owned component that connects Smart Card experiments to its existing choreographer. */
+export type SmartLinkChoreographer = React.ComponentType<SmartLinkChoreographerProps>;
+
+export type SmartLinkChoreographerProps = {
+	children: (props: { hasPermission: boolean }) => React.ReactNode;
+	isActive: boolean;
+	messageId: string;
+	onUnavailable: () => void;
+};
+
 export type CardProviderProps = {
 	/**
 	 * Optional override for the bridge value used when wrapping smart link URLs for
@@ -75,6 +86,8 @@ export type CardProviderProps = {
 	 * Any React components contains linking components.
 	 */
 	children: React.ReactNode;
+	/** Stable product-owned component shared by Smart Card experiments. */
+	choreographer?: SmartLinkChoreographer;
 	/**
 	 * A client that make request to Object Resolver Service to resolve url for linking components.
 	 * See `CardClient` for more details.

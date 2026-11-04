@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-table
 
+## 42.3.0
+
+### Minor Changes
+
+- [`e495ce10dcb71`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e495ce10dcb71) -
+  [EDITOR-9904] Keep the table cell options button on its header cell when the editor width or the
+  table's column widths change, with the header stuck or not, behind
+  platform_editor_sticky_cell_options_position
+
+### Patch Changes
+
+- Updated dependencies
+
+## 42.2.9
+
+### Patch Changes
+
+- [`38e1e35d8bf89`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/38e1e35d8bf89) -
+  Clean up experiment `platform_editor_table_q4_patch_8`
+- Updated dependencies
+
+## 42.2.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 42.2.7
 
 ### Patch Changes

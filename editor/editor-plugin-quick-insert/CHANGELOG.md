@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 30.0.5
+
+### Patch Changes
+
+- [`92255b30e6242`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/92255b30e6242) -
+  Keep Quick Insert match scores consistent across menus. Recommend Jira work items followed by Jira
+  work item creation for `ji`, `jir`, and `jira`. Add `task` as a search keyword for Jira work item
+  creation under `platform_editor_slash_command`.
+- Updated dependencies
+
 ## 30.0.4
 
 ### Patch Changes

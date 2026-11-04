@@ -25,6 +25,7 @@ export interface SpotlightEligibility extends EligibilityResult {
 	onClick: (source?: RovoInteractionSource) => boolean;
 	onDismiss: () => void;
 	onShown: () => void;
+	onUnavailable: () => void;
 	product?: string;
 	provider?: string;
 }
@@ -197,7 +198,13 @@ export default function useOneClickChatSpotlightEligibility({
 		finish('dismissed');
 	}, [finish]);
 
+	const onUnavailable = useCallback(() => {
+		releaseSpotlight(owner.current);
+		setEligibility({ isEligible: false, reason: 'choreography_unavailable' });
+	}, []);
+
 	return {
+		onUnavailable,
 		...eligibility,
 		isEligible: eligibility.isEligible && gateEnabled && isOpportunity && !!suppression,
 		provider,

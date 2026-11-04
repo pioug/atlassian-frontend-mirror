@@ -7,6 +7,8 @@ import type {
 	SurfaceContext,
 } from '@atlaskit/editor-ui-control-model/types';
 
+import { normalizeQuickInsertMatchResult } from '../normalizeQuickInsertMatchResult';
+
 export type RegistryElementBrowserSection = {
 	key: string;
 	rank: number;
@@ -169,18 +171,7 @@ export const getRegistryElementBrowserItems = ({
 			itemKey: item.registration.key,
 			query: normalizedQuery,
 		});
-		return result
-			? [
-					{
-						...item,
-						priorityGroup:
-							result.priorityGroup !== undefined && Number.isFinite(result.priorityGroup)
-								? result.priorityGroup
-								: undefined,
-						score: Math.min(1, Math.max(0, result.score)),
-					},
-				]
-			: [];
+		return result ? [{ ...item, ...normalizeQuickInsertMatchResult(result) }] : [];
 	});
 	const prioritized = matches.filter(({ priorityGroup }) => priorityGroup !== undefined);
 	const unprioritized = matches.filter(({ priorityGroup }) => priorityGroup === undefined);

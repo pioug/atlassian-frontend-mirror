@@ -133,12 +133,10 @@ describe('platform feature flags', () => {
 			// Falls back to FeatureGates.checkGate
 			expect(fg('gate-is-valid')).toBeTruthy();
 
-			// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
 			expect(mockCheckGate).toHaveBeenCalledWith('gate-is-valid');
 
 			setBooleanFeatureFlagResolver(null as any);
 			expect(fg('gate-is-invalid')).toBeFalsy();
-			// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
 			expect(mockCheckGate).toHaveBeenCalledWith('gate-is-invalid');
 		});
 	});

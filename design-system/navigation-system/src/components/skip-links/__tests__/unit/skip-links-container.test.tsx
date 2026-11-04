@@ -1,7 +1,7 @@
 import React from 'react';
 
 import noop from '@atlaskit/ds-lib/noop';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { resetMatchMedia } from '@atlassian/test-utils/match-media';
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
@@ -402,7 +402,7 @@ function CustomSkipLinkWithHandlers({
 	);
 }
 
-ffTest.on('platform_dst_nav4_skip_link_a11y_1', 'with skip link a11y improvements', () => {
+describe('platform_dst_nav4_skip_link_a11y_1 is on with skip link a11y improvements', () => {
 	let resetConsoleErrorSpyFn: ResetConsoleErrorFn;
 	beforeAll(() => {
 		// Rendering the `SideNav` causes `parseCss` errors in JSDOM
@@ -415,6 +415,8 @@ ffTest.on('platform_dst_nav4_skip_link_a11y_1', 'with skip link a11y improvement
 	});
 
 	it('should only render skip links for the SideNav and Main slots', async () => {
+		passGate('platform_dst_nav4_skip_link_a11y_1');
+
 		const user = userEvent.setup();
 		render(
 			<Root testId="root">
@@ -438,6 +440,8 @@ ffTest.on('platform_dst_nav4_skip_link_a11y_1', 'with skip link a11y improvement
 	});
 
 	it('renders a skip-to button and does not expose skip links until the dialog is open', () => {
+		passGate('platform_dst_nav4_skip_link_a11y_1');
+
 		render(
 			<Root testId="root">
 				<Main>Hello world</Main>
@@ -449,6 +453,8 @@ ffTest.on('platform_dst_nav4_skip_link_a11y_1', 'with skip link a11y improvement
 	});
 
 	it('focuses the skip-to trigger when it is the first tab stop', async () => {
+		passGate('platform_dst_nav4_skip_link_a11y_1');
+
 		const user = userEvent.setup();
 		render(
 			<Root testId="root">
@@ -465,6 +471,8 @@ ffTest.on('platform_dst_nav4_skip_link_a11y_1', 'with skip link a11y improvement
 	});
 
 	it('uses the provided `skipLinksTriggerLabel` for the trigger button', () => {
+		passGate('platform_dst_nav4_skip_link_a11y_1');
+
 		render(
 			<Root testId="root" skipLinksTriggerLabel="Jump to a section">
 				<Main>Hello world</Main>
@@ -475,6 +483,8 @@ ffTest.on('platform_dst_nav4_skip_link_a11y_1', 'with skip link a11y improvement
 	});
 
 	it('opens a dialog with skip links when the trigger is activated', async () => {
+		passGate('platform_dst_nav4_skip_link_a11y_1');
+
 		const user = userEvent.setup();
 		render(
 			<Root testId="root">
@@ -490,6 +500,8 @@ ffTest.on('platform_dst_nav4_skip_link_a11y_1', 'with skip link a11y improvement
 	});
 
 	it('uses the provided `skipLinksLabel` as the dialog accessible name and visible heading', async () => {
+		passGate('platform_dst_nav4_skip_link_a11y_1');
+
 		const user = userEvent.setup();
 		render(
 			<Root testId="root" skipLinksLabel="Jump to a section">
@@ -506,6 +518,8 @@ ffTest.on('platform_dst_nav4_skip_link_a11y_1', 'with skip link a11y improvement
 	});
 
 	it('renders all registered skip links inside the dialog', async () => {
+		passGate('platform_dst_nav4_skip_link_a11y_1');
+
 		const user = userEvent.setup();
 		render(
 			<Root testId="root">
@@ -524,6 +538,8 @@ ffTest.on('platform_dst_nav4_skip_link_a11y_1', 'with skip link a11y improvement
 	});
 
 	it('moves focus to the target when a skip link in the dialog is activated', async () => {
+		passGate('platform_dst_nav4_skip_link_a11y_1');
+
 		const user = userEvent.setup();
 		render(
 			<Root testId="root">
@@ -544,6 +560,8 @@ ffTest.on('platform_dst_nav4_skip_link_a11y_1', 'with skip link a11y improvement
 	});
 
 	it('closes the dialog and restores focus to the trigger when Escape is pressed', async () => {
+		passGate('platform_dst_nav4_skip_link_a11y_1');
+
 		const user = userEvent.setup();
 		render(
 			<Root testId="root">
@@ -564,6 +582,8 @@ ffTest.on('platform_dst_nav4_skip_link_a11y_1', 'with skip link a11y improvement
 	});
 
 	it('does not render skip links UI when there are no registered skip links', () => {
+		passGate('platform_dst_nav4_skip_link_a11y_1');
+
 		render(
 			<Root testId="root">
 				<Banner height={0}>{null}</Banner>
@@ -575,6 +595,8 @@ ffTest.on('platform_dst_nav4_skip_link_a11y_1', 'with skip link a11y improvement
 	});
 
 	it('should pass an aXe accessibility audit when the popup is open', async () => {
+		passGate('platform_dst_nav4_skip_link_a11y_1');
+
 		const user = userEvent.setup();
 		render(
 			<Root testId="root">
@@ -593,6 +615,8 @@ ffTest.on('platform_dst_nav4_skip_link_a11y_1', 'with skip link a11y improvement
 
 	describe('useSkipLinkInternal navigate replaces default focus', () => {
 		it('calls navigate instead of focusing the slot element', async () => {
+			passGate('platform_dst_nav4_skip_link_a11y_1');
+
 			const user = userEvent.setup();
 			const navigate = jest.fn();
 			render(
@@ -612,6 +636,8 @@ ffTest.on('platform_dst_nav4_skip_link_a11y_1', 'with skip link a11y improvement
 		});
 
 		it('should manage focus for the targeted element when navigate is not provided', async () => {
+			passGate('platform_dst_nav4_skip_link_a11y_1');
+
 			const user = userEvent.setup();
 			render(
 				<Root testId="root">
@@ -636,6 +662,8 @@ ffTest.on('platform_dst_nav4_skip_link_a11y_1', 'with skip link a11y improvement
 		});
 
 		it('does NOT call onBeforeNavigate when the gate is on (legacy callback is disabled)', async () => {
+			passGate('platform_dst_nav4_skip_link_a11y_1');
+
 			const user = userEvent.setup();
 			const onBeforeNavigate = jest.fn();
 			render(
@@ -652,6 +680,8 @@ ffTest.on('platform_dst_nav4_skip_link_a11y_1', 'with skip link a11y improvement
 		});
 
 		it('invokes navigate even when there is no DOM element matching the skip-link id', async () => {
+			passGate('platform_dst_nav4_skip_link_a11y_1');
+
 			const user = userEvent.setup();
 			const navigate = jest.fn();
 			// Render a custom skip link whose registered id has no matching DOM element.
@@ -680,6 +710,8 @@ ffTest.on('platform_dst_nav4_skip_link_a11y_1', 'with skip link a11y improvement
 
 	describe('SkipLinksPopup close + navigate ordering', () => {
 		it('closes the popup BEFORE invoking the consumer navigate', async () => {
+			passGate('platform_dst_nav4_skip_link_a11y_1');
+
 			const user = userEvent.setup();
 			let dialogPresentWhenNavigateRan: boolean | undefined;
 			const navigate = jest.fn(() => {
@@ -705,6 +737,8 @@ ffTest.on('platform_dst_nav4_skip_link_a11y_1', 'with skip link a11y improvement
 		});
 
 		it('closes the popup BEFORE the fallback focusElement runs (no consumer navigate)', async () => {
+			passGate('platform_dst_nav4_skip_link_a11y_1');
+
 			const user = userEvent.setup();
 			render(
 				<Root testId="root">
@@ -723,6 +757,8 @@ ffTest.on('platform_dst_nav4_skip_link_a11y_1', 'with skip link a11y improvement
 		});
 
 		it('does NOT restore focus to the trigger after a skip link is activated', async () => {
+			passGate('platform_dst_nav4_skip_link_a11y_1');
+
 			const user = userEvent.setup();
 			render(
 				<Root testId="root">
@@ -742,6 +778,8 @@ ffTest.on('platform_dst_nav4_skip_link_a11y_1', 'with skip link a11y improvement
 		});
 
 		it('can be reopened after a skip link has been activated', async () => {
+			passGate('platform_dst_nav4_skip_link_a11y_1');
+
 			const user = userEvent.setup();
 			render(
 				<Root testId="root">
@@ -762,25 +800,23 @@ ffTest.on('platform_dst_nav4_skip_link_a11y_1', 'with skip link a11y improvement
 	});
 });
 
-ffTest.off(
-	'platform_dst_nav4_skip_link_a11y_1',
-	'useSkipLinkInternal onBeforeNavigate + focusElement',
-	() => {
-		it('calls onBeforeNavigate and focuses the slot element', () => {
-			const onBeforeNavigate = jest.fn();
-			render(
-				<Root testId="root">
-					<CustomSkipLinkWithHandlers onBeforeNavigate={onBeforeNavigate} />
-				</Root>,
-			);
+describe('platform_dst_nav4_skip_link_a11y_1 is off useSkipLinkInternal onBeforeNavigate + focusElement', () => {
+	it('calls onBeforeNavigate and focuses the slot element', () => {
+		failGate('platform_dst_nav4_skip_link_a11y_1');
 
-			const target = screen.getByText('custom target');
+		const onBeforeNavigate = jest.fn();
+		render(
+			<Root testId="root">
+				<CustomSkipLinkWithHandlers onBeforeNavigate={onBeforeNavigate} />
+			</Root>,
+		);
 
-			screen.getByRole('link', { name: 'Custom skip' }).click();
+		const target = screen.getByText('custom target');
 
-			expect(onBeforeNavigate).toHaveBeenCalledTimes(1);
-			expect(target).toHaveAttribute('tabindex', '-1');
-			expect(target).toHaveFocus();
-		});
-	},
-);
+		screen.getByRole('link', { name: 'Custom skip' }).click();
+
+		expect(onBeforeNavigate).toHaveBeenCalledTimes(1);
+		expect(target).toHaveAttribute('tabindex', '-1');
+		expect(target).toHaveFocus();
+	});
+});

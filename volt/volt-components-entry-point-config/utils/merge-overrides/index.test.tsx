@@ -27,6 +27,7 @@ describe('mergeOverrides', () => {
 			},
 		};
 
+		// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 		expect(mergeOverrides(generated, overrides)['@atlaskit/avatar'][''].Presence).toEqual({
 			'entry-point': '/presence',
 			name: 'Presence',
@@ -81,16 +82,19 @@ describe('applyPackageReadinessGate', () => {
 			'@atlaskit/spinner': { voltCompliant: true, consumersMigrated: true },
 		});
 
+		// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 		expect(gated['@atlaskit/button'][''].default).toMatchObject({
 			'entry-point': '/button',
 			voltCompliant: false,
 			consumersMigrated: false,
 		});
+		// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 		expect(gated['@atlaskit/flag'][''].default).toMatchObject({
 			'entry-point': '/flag',
 			voltCompliant: true,
 			consumersMigrated: false,
 		});
+		// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 		expect(gated['@atlaskit/spinner'][''].default).toMatchObject({
 			'entry-point': '/spinner',
 			voltCompliant: true,
@@ -116,6 +120,7 @@ describe('applyPackageReadinessGate', () => {
 			'@atlaskit/tokens': { voltCompliant: true, consumersMigrated: false },
 		});
 
+		// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 		expect(gated['@atlaskit/tokens'][''].token.voltCompliant).toBe(false);
 	});
 });

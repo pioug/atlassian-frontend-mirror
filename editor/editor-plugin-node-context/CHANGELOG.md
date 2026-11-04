@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-node-context
 
+## 15.0.1
+
+### Patch Changes
+
+- [`6fc24cf8d895a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6fc24cf8d895a) -
+  Update package ownership to Confluence AI Search team.
+- Updated dependencies
+
 ## 15.0.0
 
 ### Patch Changes

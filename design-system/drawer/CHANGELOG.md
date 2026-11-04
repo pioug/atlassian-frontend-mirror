@@ -1,5 +1,12 @@
 # @atlaskit/drawer
 
+## 14.3.10
+
+### Patch Changes
+
+- [`d930618f93460`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d930618f93460) -
+  Behind `platform-dst-top-layer`, `titleId` names the drawer before `label`.
+
 ## 14.3.9
 
 ### Patch Changes

@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
+// eslint-disable-next-line @atlaskit/design-system/no-third-party-focus-traps -- existing usage from before this rule was added
 import FocusLock from 'react-focus-lock';
 
 import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';

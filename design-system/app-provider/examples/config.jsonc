@@ -4,6 +4,6 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-	"testExamples": ["basic-dark.vr.ap.tsx", "basic-light.vr.ap.tsx"],
+	"testExamples": ["basic-dark.vr.ap.tsx", "basic-light.vr.ap.tsx", "nested-finesse.vr.ap.tsx"],
 	"exampleDependencies": ["react-router-dom"],
 }

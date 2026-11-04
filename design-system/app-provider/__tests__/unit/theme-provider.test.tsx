@@ -128,7 +128,6 @@ describe('ThemeProvider', () => {
 		beforeEach(() => {
 			failGate('platform-static-theme-loading');
 			failGate('platform_dst_scrollbar_harmonisation');
-			failGate('platform_dst_scrollbar_harmonisation_transparent');
 			failGate('platform_increased-contrast-themes');
 			setGlobalThemeSpy = jest.spyOn(tokensSetGlobalTheme, 'setGlobalTheme');
 		});

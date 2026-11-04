@@ -754,16 +754,6 @@ const outOfTheBoxAgentAvatar: Record<
 		),
 		getColor: () => blueColor.v1,
 	},
-	daily_brief_agent: {
-		getRender: (size: SizeType) => (
-			<TrialGuideAvatar
-				size={AVATAR_SIZES[size]}
-				primaryColor={yellowColor.v1.primary}
-				secondaryColor={yellowColor.v1.secondary}
-			/>
-		),
-		getColor: () => yellowColor.v1,
-	},
 	jira_admin_agent: {
 		getRender: (size: SizeType) =>
 			fg('rovo_agent_avatar_refresh_teu26') ? (

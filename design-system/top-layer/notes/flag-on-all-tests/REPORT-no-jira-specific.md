@@ -1,0 +1,197 @@
+# `platform-dst-top-layer` forced on in all AFM tests: failure report without jira-specific issues
+
+> Note: the branch that forced `platform-dst-top-layer` on in all tests was for evaluation only. It did not merge. This file records what it found.
+
+2026-10-29. Same CI runs as `REPORT.md`: branch `areardon/top-layer-flag-on-all-tests` (16 commits on
+`origin/master` `c5b599e3bc90a`, which includes #519022) and control branch
+`areardon/top-layer-flag-on-all-tests-control` (do not merge).
+
+## Scope of this report
+
+- **Excluded: jira-specific issues** (70 tests in 44 file groups). These are jira's own test harness (story
+  gate mocks, the gate-mock cascade in the global `afterEach`, the `assertIsAccessible` scope, timer
+  restore), jira product bugs with no match in other products, and jira rows that are unresolved, need a
+  browser check or are not caused by the flag. They are in `jira-specific-excluded.tsv`.
+- **Kept: jira callsites of shared categories** (349 tests in 138 files). Where an issue also hits other
+  products (for example legacy selectors, spotlight with no anchor, focus before show), the jira files stay
+  listed as callsites, so one fix or one pattern can cover them.
+- Data: `all-failures-no-jira-specific.tsv`. Column 1 is the chunk id; column 2 is `non-jira` or
+  `jira-callsite`.
+
+## Summary
+
+- The branch forces `platform-dst-top-layer` and `platform-dst-top-layer-tooltip` on in every Jest and
+  Playwright runner of the 17 products that consume platform locally. VR and the spotlight gate are not
+  touched.
+- Outside jira, **676 tests failed. 87 are not caused by the flag. 589 tests in 252 files fail because of
+  the flag.** Jira adds 349 callsites of the same shared causes.
+- Lint, oxlint, stylelint, typecheck, formatting and ratcheting pass in every product. The only red non-test
+  step is the rovo-extension "Changeset chrome check" (it wants a changeset; control fails it too).
+- Most failures need test-only fixes. The run also found about 20 design-system bugs, about 15 product bugs
+  outside jira, and 13 decisions, all made on 2026-10-29.
+
+| Product | Failed tests | Caused by the flag | Files | Control |
+| --- | ---: | ---: | ---: | --- |
+| platform Jest | 255 | 188 | 74 | 3 of 17 steps red (other tests) |
+| platform Playwright | 78 | 73 | 35 | 1 step red (other tests) |
+| confluence Jest | 73 | 73 | 32 | green |
+| adminhub Jest | 74 | 69 | 35 | green |
+| adminhub Playwright | 65 | 62 | 18 | green |
+| post-office Jest | 38 | 36 | 20 | green |
+| townsquare Jest + CT | 28 | 28 | 11 | green |
+| help-center Jest + Playwright | 22 | 20 | 8 | green |
+| studio Jest | 13 | 13 | 6 | green |
+| insights Jest | 12 | 12 | 9 | green |
+| rovo-extension Jest | 9 | 7 | 2 | green (tests) |
+| store e2e | 5 | 5 | 1 | green |
+| kitsune Playwright | 3 | 3 | 1 | 4 other tests red |
+| confluence e2e | 1 | 0 | 0 | same failure (inherited) |
+| avp, volt, dev-agents | 0 | 0 | 0 | green |
+| *jira (callsites only)* | | *349* | *138* | green |
+
+## Method
+
+Same as `REPORT.md`: a forcing harness per product (`harness.md`), an A/B control run on CI with identical
+test selection, static triage of every failing test by 11 agents, and a rule-based mapping of each row to a
+work chunk (`aggregate.py`). Per-chunk evidence: `triage/out/<triage-chunk>.notes.md`.
+
+Caveats: no test was run locally (rows marked `low` need a run first); known-flaky tests can hide from the
+control run (`triage/known-flaky.tsv`); the platform Playwright control ran fewer shards; the chunk mapping
+is rule-based, so a chunk agent must read its rows and move any that do not fit.
+
+## Work chunks
+
+Order: the decisions are made (2026-10-29), so nothing is blocked. Start with the design-system and
+harness chunks, because they make many test failures go away. Then the test-only chunks, per product.
+
+**Rule for every chunk:** put all source changes (design system and product) behind
+`platform-dst-top-layer`. With the gate off, behaviour stays as on master.
+
+Find a chunk's rows: `awk -F'\t' '$1=="<chunk id>"' all-failures-no-jira-specific.tsv`. Add
+`&& $2=="non-jira"` to leave out the jira callsites.
+
+Counts below are tests caused by the flag: **non-jira** + jira callsites.
+
+### Decisions (owner: design system; all 13 decided 2026-10-29)
+
+| # | Decision | Evidence | Blocks |
+| --- | --- | --- | --- |
+| 1 | **Spotlight with mixed gates.** With the base gate on and the spotlight gate off, legacy Spotlight renders through `PopperTopLayer`, which stays closed with no reference (`popper/src/popper-top-layer.tsx:135`). Templates that anchor only with `SpotlightContextProvider targetRef` (post-office fabric-editor typeahead, adminhub spotlight tour, adminhub units onboarding) and ai-mate `PopoverContent` with no target render nothing. A card that mounts while the popover is closed also loses React `autoFocus`, so Escape does nothing. **Decided:** keep the mixed path. With the base gate on, legacy Spotlight renders through `PopperTopLayer` (do not pin it to the legacy popper). Legacy `PopoverContent` passes the context `target.ref` to `Popper` as `referenceElement`, so `targetRef` templates open. A bare `PopoverContent` with no anchor is a consumer bug: wrap it in `PopoverProvider` + `PopoverTarget`. `PopperTopLayer` does not change. The lost `autoFocus` goes to D2. | post-office, adminhub, platform notes | D1 (unblocked) |
+| 2 | **Flags over an open modal or drawer are inert.** The FlagGroup popover is outside the `<dialog>` (`flag/src/flag-group.tsx:419`), so users cannot click Retry or Dismiss (adminhub auth-policies, unclaim-accounts, confluence share-dialog "Remind me later"), and screen readers do not announce the flags. **Decided:** FlagGroup joins the topmost modal. While a modal `Dialog` is open, FlagGroup renders its host inside the topmost `<dialog>` (through an outlet context from top-layer `Dialog`). It moves back when the modal closes. This is a fix in the FlagGroup wrapper, so every FlagsProvider gets it. Accepted cost: the move re-shows the popover (enter animation; AutoDismissFlag timers restart). Also fix `notes/migrations/legacy-layering-interlacing-hazards.md:458`, which says a sibling `<dialog>` does not make a popover inert. | adminhub, confluence | D5 (unblocked) |
+| 3 | **Role-less Popup.** The trigger gets no `aria-haspopup` (`get-aria-for-trigger.tsx:140`) and the popup takes no focus. Avatar then renders a `<span>` with `aria-expanded`, not a button (`avatar/src/internal/get-custom-element.tsx:20`; agent-session-card): a keyboard regression. Forge UIKit Popup apps that pass no role lose initial focus. **Decided:** everything comes from the role. The role sets `aria-haspopup`, initial focus and (through `aria-haspopup`) Avatar's `<button>`. No wrapper heuristics: Avatar does not read `aria-expanded`, and no wrapper sets a default role. A click-opened popup whose content must take focus is a dialog: the callsite sets `role="dialog"` and a label. Forge UIKit passes the app's `role` through, so a role-less Forge popup takes no focus. | platform, adminhub, townsquare | D3 (unblocked) |
+| 4 | **A manual layer claims an Escape it cannot act on.** `useManualLightDismiss` claims Escape even when `onClose` keeps the layer open (`top-layer/.../use-manual-light-dismiss/index.tsx:170`, `react-select/.../menu-portal-top-layer.tsx:141`). A Select with `menuIsOpen` forced on inside a Popup can then never close with Escape: `@atlassian/paginated-picker` (every adminhub FilterController filter), townsquare `TeamOrUserPicker`. **Decided:** keep the rule. An open layer claims Escape even when it chooses not to close: native close watchers do the same, a "refuse to close" guard must not close the layer below, and the hook cannot know the consumer's choice in time. The fault is that a menu forced always-open registers as a layer. It is content, so it renders inline: `menuRenderMode="inline"`, as PopupSelect does. | adminhub, townsquare, platform | D4 (unblocked with 10) |
+| 5 | **Should top-layer `Dialog` set `role="dialog"` and `aria-modal="true"` attributes?** Leaving them out breaks `[role="dialog"]` and `closest('[role="dialog"]')` in tests and product code: studio `EvaluationHistoryTable`, post-office `ScreenPreview` (lines 491-492), adminhub ip-allowlist (10 tests), insights. Jira has about 40 more specs and about 37 product lines. **Decided:** no. `Dialog` keeps native semantics and sets neither attribute (as the accessibility audit and `decisions/popup-in-modal-tab-close.md` already say). Tests use `getByRole('dialog')`. DOM queries use `closest('dialog, [role="dialog"]')`. "Am I in a modal" checks (Popup `use-close-manager.tsx:174` `closest('[aria-modal]')`) read a first-class signal: the decision 2 outlet context from top-layer `Dialog`. | studio, post-office, adminhub | T1 (unblocked) |
+| 6 | **Popup `shouldReturnFocus={false}` does nothing on top-layer** (`popup/src/popup-top-layer.tsx:103-105`). `notes/migrations/popup-migration.md:104,162` says it is honoured (popup.spec :751, :868; ai-mate `InsightSources`). **Decided:** keep the no-op. Native focus return wins, as for ModalDialog (`modal-dialog-migration.md:771-776`). Fix `popup-migration.md:104,162`. A consumer that wants another target focuses it synchronously in `onClose` (`architecture/focus.md`). Tests: popup.spec opts out to legacy or asserts native return; `InsightSources` stops focusing the trigger itself. | platform | D7 (unblocked) |
+| 7 | **`popover="auto"` exclusivity.** Opening an unrelated auto layer closes the open one (navigation-system resize test, jsm calendar, agent-session-card, confluence `AgentPresenceAvatarGroup`). A press on a Popup or InlineDialog trigger now light-dismisses it (adminhub InfoHover). Hover-opened flyouts: `hint` or `manual`? **Decided:** accept native `auto` behaviour: exclusivity, and a press on the trigger light-dismisses. A callsite that really cannot work with it switches to Popup `mode="manual"` (as Popup's `mode` docs say). Hover-opened Popups are state-driven, so they use `mode="manual"`, not a new `hint` mode. InlineDialog gets no `mode` prop (intent-to-deprecate): a hover InlineDialog that must survive a press (adminhub `InfoHover`) moves to Popup `mode="manual"`. Tests that open two unrelated layers open one, and hover tests hover, not click. | platform, adminhub, confluence | D9 (unblocked) |
+| 8 | **Layers rendered in place inside `role="list"`.** Popup and flag hosts become direct children of a list (AtlassianNavigation `Profile`, account-menu, iap, `NavErrorBoundary` FlagsProvider). Fix in atlassian-navigation, or allow it. **Decided:** fix the markup at the producer, with no DS change and no exemption. An in-place layer must sit inside a listitem: whoever owns the list item wraps the whole Popup (trigger and host). identity Account / AccountMenuPopup own the `role="listitem"`, AtlassianNavigation slots follow `Profile`, and NavErrorBoundary hoists FlagsProvider out of the list. Fixtures copy the real markup. Gate each source change behind `platform-dst-top-layer`. One exception (2026-11-02): people-menu `PeopleMenu.test.tsx` has a per-file `aria-required-children` exemption, because `@atlaskit/atlassian-navigation` is deprecated and its `PrimaryButton` always renders its own listitem. | platform | D8 (unblocked with 9) |
+| 9 | **Tooltip inside `role="menu"`** is accepted (`decisions/tooltip-inside-composite-roles.md`), but Confluence has no exemption entries yet (`confluence/a11y-exemptions-accounting.json`; HubActionsDropdown, ToolbarAboveTitle). **Decided:** follow the recorded recipe now. Add per-file `aria-required-children` `a11y-violation` entries for `HubActionsDropdown-test` and `ToolbarAboveTitle-test`. These are the first such entries in Confluence, so tag the Confluence a11y owners on the PR. The shared `@atlassian/a11y-jest-testing` filter stays a separate proposal. | confluence | D8 (unblocked) |
+| 10 | **`shouldPreventEscapePropagation` does nothing on top-layer Select and PopupSelect** (`react-select/src/select.tsx:2158-2171`). Document it, or remove the tests. **Decided:** keep the no-op and document why. Top-layer Escape ownership already gives one press to one layer, so the open menu closes and the parent stays open. Emulating the prop needs a `stopPropagation()` that hides Escape from the document listeners. Say this in the prop JSDoc and in the select and react-select migration notes. Tests assert the outcome (the menu closes, the parent stays open) or run the legacy spy test with `failGate('platform-dst-top-layer')` from `@atlassian/feature-flags-test-utils/mock-gates`. Mark the prop `@deprecated` now on Select and PopupSelect (the repo lint needs a deprecation ticket), so no new callsites add it. Consumers drop it at flag cleanup. | platform | D4 (unblocked) |
+| 11 | **Which option gets focus when a Select menu opens, and does pointer-open of `role="menu"` focus the first item?** Both now differ from legacy (charlie-filter, search-page site-select, confluence TemplateBreadcrumbs, dropdown-menu spec :395). **Decided:** (a) Select and PopupSelect: every open (pointer or keyboard, controlled or not) gives the virtual focus to the selected option, else the first, as the listbox rule and react-select `openMenu('first')` do. Fix the controlled Select click path (`select.tsx:1306` skips `openMenu` when `menuIsOpen` is set), so charlie-filter passes again. PopupSelect keeps its behaviour, and the site-select test changes. (b) Focus follows the role, always: a `role="menu"` focuses its first item on every open, pointer or keyboard (`decisions/role-and-focus.md`). Menu rows are test-only. | platform, confluence | T6 (unblocked) |
+| 12 | **The top-layer FlagGroup renders open flags on the server**; legacy rendered nothing there. **Decided:** accept, as for `Dialog`. The flags are inside a closed `[popover]` host (`display: none`, not in the accessibility tree) until hydration calls `showPopover()`, so the user sees the same result as legacy. No FlagGroup change. Fix the SSR `useLayoutEffect` warnings in H1 (the emotion `ssr()` helper sets `window = {}`), and add FlagGroup to `architecture/ssr.md` and `migrations/flag-migration.md`. | platform | D7 (unblocked) |
+| 13 | **Legacy Popup closed when focus moved into an outside iframe**; top-layer does not. **Decided:** accept native behaviour. Focus may leave a layer while the layer stays open. Drop the legacy window-`blur` rule (`popup/src/use-close-manager.tsx:255-264`) on the top-layer path. The layer closes on the next press in the page or on Escape. confluence forge-ui `AttachmentActionMetadata` asserts the legacy rule only on the legacy path. | confluence | D7 (unblocked) |
+
+### Design-system chunks
+
+| Chunk | Tests | What to do |
+| --- | ---: | --- |
+| `D1-spotlight-popper-no-anchor` | **64** + 59 | Decision 1 is made. (1) Spotlight: legacy `PopoverContent` passes context `target.ref` to `Popper` as `referenceElement` (post-office fabric-editor typeahead, adminhub spotlight tour, adminhub units onboarding). (2) Bare `PopoverContent` with no anchor (ai-mate AtlasHomeFomo and RovoFullPage, adminhub spotlight content tests): wrap the fixture in `PopoverProvider` + `PopoverTarget`, and the product too if it has no anchor. (3) Bare `Popper` (`ErrorMessagePopper`): the test adds `Manager` + `Reference`, as production does. Non-jira: adminhub 24, platform (ai-mate) 26, post-office 10, townsquare 3, confluence 1. |
+| `D2-work-before-show` | **25** + 26 | `showModal()`/`showPopover()` run in a layout effect after children commit, so React `autoFocus`, `focus()` in a ref callback and `getBoundingClientRect()` act on an element that is not shown. Fix in `Popover`/`Dialog` (re-apply `autofocus` after show) or in each consumer. Non-jira sites: `SpotlightDismissControl` (`dismiss-control/index.tsx:70`), paginated-picker, link-picker (`text-input/index.tsx:132`), drawer and agent-menu tests, studio, insights `WorkspaceCreationAudienceCard` (use `Modal autoFocus={ref}`). Jira callsites include the `@atlaskit/popper` top-layer adapter path (FieldInlineEditLite `editViewPopup`). Extends `follow-ups/dialog-react-autofocus.md` and `late-mounting-initial-focus-targets.md`. |
+| `D3-roleless-popup` | **19** + 29 | Decision 3 is made: the role decides everything, and there is no DS change. Callsites whose click-opened content must take focus set `role="dialog"` and a label: agent-session-card `AgentAvatar` (`headless/AgentAvatar.tsx:164-175`; Avatar then renders a `<button>`), adminhub `ProductCardOffline`, eoc `TimeOffTile` (role on the Popup, not the inner div), townsquare `ColumnSelector`. Role-less rows (forge UIKit popup, hover cards) are test-only: assert no `aria-haspopup` and no focus move. |
+| `D4-escape-manual-select` | **22** + 15 | Decisions 4 and 10 are made. First fix the D7 inline-mode `components.Menu` override (`select/src/create-select.tsx:59-65`). Then always-open Selects pass `menuRenderMode="inline"`: paginated-picker, townsquare custom-field `TeamOrUserPicker` (user-picker may need to pass it through), jira `BaseSelect` callsites. Remove adminhub `stopEscapeWhileMenuIsOpen` on the top-layer path (its `stopPropagation()` hides Escape from the document listener). Platform rovo finalize, react-select, PopupSelect and link-datasource `shouldPreventEscapePropagation` tests assert the outcome, not the spy (decision 10). |
+| `D5-layers-across-modal` | **19** + 15 | Decision 2 is made: FlagGroup renders its host inside the topmost modal `<dialog>`. Flag rows need no test change after that fix. Also: nested modals or drawers opened in the same commit put the outer dialog on top (`top-layer/src/dialog/dialog-content.tsx:293-302`; adminhub data-residency-apps-details, experiment-controls FeedbackCollector); body `Portal`s inside a modal are inert (post-office plan designer `ScreenReasons`/`ShowcaseControls`, confluence `TitleAndButtons.tsx:192` spotlight). |
+| `D6-modal-height` | **16** + 7 | ModalDialog has no viewport cap in body-scroll mode (`modal-dialog/src/internal/components/modal-wrapper.tsx:154-161`), and `& > form:only-child { max-height: inherit }` copies `max-content` (`:117-122`, `:166`). Footers end up off-screen (platform image editor 13, eoc incoming-actions, adminhub). Legacy capped it in `positioner.tsx:71`. |
+| `D7-ds-wrapper-bugs` | **60** + 30 | One agent per component. **Drawer:** `getAccessibleName` prefers `label` over `titleId` (`drawer-top-layer.tsx:109-123`; 24 adminhub FocusedTask tests). **DropdownMenu:** `onOpenChange({ event: null })` on Escape or outside press (`dropdown-menu-top-layer.tsx:154-163`; pass `createPopoverCloseEvent({ reason })`; editor-common ConfigureLinkOverlay), `returnFocusRef` ignored on item select (`:244-270`), a nested leaf click closes the root (`:234`), an item that opens a `role="dialog"` Popup closes the menu (`:250`; confluence ContentTools "View ownership"), `blockSize: 'content'` hides the last item (adminhub remove-domain). **Popup:** `content()` called while closed (`popup-top-layer.tsx:314,329`), duplicate `id` with `popupComponent` (`:294,:305`). **PopupSelect:** inline mode replaces a consumer `components.Menu` (`select/src/create-select.tsx:59-65`; rovodev repo-selector), `aria-controls` set while closed (`popup-select-top-layer.tsx:374-378`), `modifiers.find` throws on a popper-v1 object (`:131`). **DatePicker:** no focus restore after a mouse pick (`date-picker.tsx:232`, `:444`). **InlineDialog:** overwrites a nested trigger's `aria-haspopup` (`inline-dialog-top-layer.tsx:92`). **Popper adapter:** a reference that arrives after the first render keeps it closed. **Popover/Dialog:** hide in a layout-effect cleanup, so React focus events from native focus return may be lost (`popover.tsx:471`, candidate; townsquare SelectField cancel analytics). |
+| `D8-axe-in-place` | **37** + 3 | Axe now scans layers that used to be in body portals. Decisions 8 and 9 are made: list layers get a listitem wrapper at the producer (gated), and tooltip-in-menu rows get per-file exemptions. Real markup fixes: approvals overflow rows lack `role="menuitem"` (`BannerComponent.tsx:263`, `AvatarRow.tsx:106`), TeamCreateModal `role="button"` wrapper (`TeamCreateModal.tsx:64-70`), old missing labels now visible (eoc maintenance and policies, star-team `LoadingDropdownItem`). |
+| `D9-auto-exclusive-light-dismiss` | **15** + 1 | Decision 7 is made: native first, `mode="manual"` only where a callsite really cannot use it. universal-create `EntryPointPopup` `preventClose` (`EntryPointPopup.tsx:91`): `mode="manual"` (auto light dismiss cannot be vetoed). jsm calendar `usePopupController` (`index.tsx:163`) renders its stack as unnested siblings: nest child popups if that works, else `mode="manual"`. agent-session-card hover details Popup: `mode="manual"`. adminhub `InfoHover`: Popup `mode="manual"`. navigation-system resize tests: one layer per test. |
+
+### Harness chunk
+
+`H1-harness` (**17** tests). One agent. Each item is small:
+
+- rovo-extension frontend: `src/test/jest.env-setup.js` loads platform `setup-html-dialog.js` (a `showModal` stub with no events) before the polyfill, and the polyfill keeps it (`polyfill.tsx:1894`, `:1993`). Closed dialogs never unmount.
+- confluence Jest: add a `scrollIntoView` stub (ModalDialog now calls `onOpenComplete` right after mount); the shared auto-a11y hooks snapshot mid-commit and clear `document.body` while React is mounted (TabBar, ContentTypesHeader).
+- platform: SSR helper `ssr/src/emotion.tsx` sets `window = {}`, so the top-layer Popover logs SSR `useLayoutEffect` warnings (invite packages; FlagGroup server-rendering is accepted by decision 12, so fix only the helper); `unsafe-imperative.test.tsx` gate-off case needs `failGate`; the auto-a11y DOM capture can snapshot mid-commit (Notifications).
+- polyfill: jsdom ignores `:defined`, so the Popover `pointer-events: auto` reset never applies; report it for open popover hosts, as the polyfill does for the modal dialog.
+- insights (latent): `jest.setup.ts` stubs `MutationObserver`, so the polyfill's removal tracking gets the stub.
+- Branch hygiene before a PR: add the rovo-extension changeset; run `afm ts generate` in townsquare, adminhub, help-center and rovo-extension (references were added by hand); regenerate `pnpm-lock.yaml` (only `yarn.lock` and `yarn.ap.lock` were updated; `ap` is not installed, so `yarn.ap.lock` was edited by hand).
+
+### Test-only chunks
+
+These need no decision. Split large chunks by product or by shared page object.
+
+| Chunk | Tests | Notes |
+| --- | ---: | --- |
+| `T1-legacy-markup-and-scope` | **81** + 145 | Tests read legacy-only DOM: `--blanket`, `--positioner`, `--popper--container`, portal containers, Popper inline styles, `data-placement`, `[role="dialog"]` on a native `<dialog>`. Non-jira: platform 40 (libra `editor-modal-element-browser-model.ts:17` fixes many editor specs), adminhub 16, post-office 9, insights 6, confluence 5, studio 3, help-center 2. Jira callsites: fix the shared page objects first (`jira/platform/integration-tests/src/playwright-page-objects/atlaskit-dropdown-menu.tsx:37`, `software/board/integration-tests/selectors.tsx:216`, `portfolio-3/plan-increment/integration-tests/selectors.tsx:81`), then ModalDialog `--positioner` and datetime-picker `--popper--container`. Fix `not.toBeAttached()` assertions on the same selectors too (they now pass for the wrong reason). Decision 5 is made: `Dialog` will not add `role="dialog"`, so change `[role="dialog"]` to `getByRole('dialog')` (or `dialog, [role="dialog"]` in DOM queries). |
+| `T2-close-async` | **36** + 2 | `waitFor`/`findBy*`/`flushPopoverExit`/`waitForTooltipToHide`. Includes `waitForElementToBeRemoved` on a node that is already removed (studio, post-office `SimulationConnectionHeader`). |
+| `T3-select-open-on-click` | **27** + 2 | Test helpers send only `mouseDown`. townsquare 18 (fix the shared helpers), post-office 6 (`ContentGenerationForm`, `AudienceDetails`), confluence `ViewPageLabels`. |
+| `T4-inert-background` | **3** + 13 | Tests click outside an open modal (platform, confluence `TemplateVariableDialog`). |
+| `T5-light-dismiss-interaction` | **18** + 2 | Use a full pointer sequence (`userEvent`), not `fireEvent.click(document.body)` or `keyDown(window)`. |
+| `T6-focus-aria-contract` | **36** | Assert the recorded contracts (`decisions/role-and-focus.md`). Decision 11 is made: focus follows the role on every open, so menu tests assert first-item focus after a pointer open and send keys to the focused item (confluence TemplateBreadcrumbs, dropdown-menu specs and keyboard unit tests). Select tests expect the selected option, else the first, as the virtual focus at open. Includes platform Playwright legacy-only focus assertions. |
+| `T7-snapshots` | **20** | Re-record after review: help-center Sort-by (Compiled inline `<style>` count) and date-picker `useId` shifts; adminhub Compiled style text. |
+| `T9-eager-mount-timing` | **6** | adminhub drawers: the top-layer Drawer mounts content in the first commit (legacy `Portal` rendered `null` first), so step and analytics order change. |
+| Legacy opt-outs | in T1 and T6 | platform Playwright specs that test the legacy path on purpose need `featureFlag: '<gate>=false'`: popup.spec :148, complex-portal (both gates), top-nav-end-keyboard, dropdown-menu :62, the focuslock dropdown spec, date-picker :336, user-profile-card trigger-role :40. The earlier branch `origin/areardon/top-layer-flag-on-for-tests` has fixes for 16 of these spec files. |
+
+### One-off changes
+
+Product bugs and single-file causes that fit no chunk. Each is one small PR or one agent session.
+
+| Product | File | Change |
+| --- | --- | --- |
+| confluence | `InlineRename.tsx:106` | `MenuButton` needs `type="button"`: the emoji Popup renders inside InlineEdit's `<form>`, so its buttons submit it (real browsers too) |
+| kitsune | `FeedbackCreateModalForm.tsx:159` | `container-type: inline-size` on the `<dialog>` host collapses the editor to 0 width |
+| post-office | plan designer `ScreenReasons`, `ShowcaseControls` | Body portals at z-index 2147483647 are inert under the modal `<dialog>` (`raiseControlModal` edits `.atlaskit-portal`) |
+| platform | ptc-embeddable-directory `CustomSelectControl` | Does not forward `innerRef`, so the menu never anchors (`menu-portal-top-layer.tsx:76`) |
+| platform | navigation-system `panel-splitter.tsx:161-191` | Tooltip Y clamp rewrites Popper's inline transform; no effect on top-layer (tooltip gate) |
+| platform | identity Account / AccountMenuPopup | No `role="listitem"` wrapper in the nav list |
+| platform | `TeamCreateModal.tsx:64-70` | `role="button"` wrapper only to stop propagation; now wraps the `<dialog>` |
+| platform | edition-awareness hook | Calls `dialog.focus()` on a `<dialog>` with no `tabIndex` |
+| studio | `AgentValueDonutMark` | Hover card uses `role="dialog"` (takes focus on hover) |
+| townsquare | `ColumnSelector` | Search field gets no initial focus (role-less Popup) |
+| adminhub | `add-single-product-drawer`, `add-app-drawer` | Eager mount: screen event with `product: null`; parent effect clears the first report |
+| adminhub | `ProductCardOffline` | Needs `role="dialog"` and a label |
+| adminhub | `TimeRangeSelector` | Decide on a same-option guard |
+| confluence | `AttachmentActionMetadata` | Hover card uses `role="dialog"`, which moves focus |
+| test-only | mercury share-dialog header test, drawer keydown test, CompanyAnnouncements, BlueprintsCreateMenu, SecodaAiChat, ContentTypesHeader | Single-file test assumptions (`useId` format, first `keydown` listener, Compiled inline `<style>` text, false-positive guard, no wait for a lazy dialog). Rows in `O1-one-off` |
+
+### Needs a run before anyone edits
+
+- `U1-unresolved` (**42** tests): confluence `NotificationsButton` (21 tests; every test after `:850` renders an empty `<div>`, a state leak under fake timers), presentation-mode, `UnarchivePagesDialog`, `AccessLinkShareDialog`, `QuickTemplateRow`, `ShareAndRestrictButton`, `PoweredByTemplates`; platform ShareSkillsModal, twc-xflow-modal, agentic-automation-onboarding, `TwcIntroModalLifecycle`; studio `unit-scoped`, `rovo-agents`; adminhub detection-library-page. Run each locally with the flag on and off.
+- `R1-real-browser-check` (**12** tests): store e2e full-screen modal (Firefox), platform sidebar flyout drag (3), editor-plugin-ai keyboard handlers in a modal, and other Playwright geometry rows with low confidence.
+
+### Not caused by the flag (`X-unrelated`, 87 tests; do not action)
+
+React 18 vs 19 arity drift (`toHaveBeenCalledWith(props, undefined)`; jsm-help-extension 24, bulk-operations, project-pages), Node-only build tools (changesets, metrics entrypoints, create-editor-plugin), a Jest worker crash, network and `networkidle` waits, and tests that passed on retry with the flag on.
+
+## Not covered by this run
+
+- VR (user decision), the spotlight gate (user decision).
+- The manual platform "cross-browser" pipeline (Firefox + WebKit) was not started.
+- Pollinators, feature tests and smoke tests against deployed sites (live Statsig), rovo-extension
+  Playwright, avp Sandpit, post-office and volt Playwright (not in CI), platform Playwright CT (not in CI),
+  insights Pollinator (needs a manual `default-insights` run).
+- assets-app, litmus and fixtures have no CI runner that reads the gates.
+
+### Known gap (follow-up)
+
+Recorded 2026-11-02 (user decision). Outside editor folders, `passGate` and `failGate`
+(`@atlassian/feature-flags-test-utils/mock-gates`) set no default, so every gate that the test does
+not name returns `undefined`. A test that calls them for another gate runs with both top-layer gates
+off and passes on the legacy path. About 1,810 platform test files outside editor folders import
+mock-gates.
+
+- Fix: resolve unnamed gates through `fg` and the resolver in every folder. It goes on the follow-up
+  branch `areardon/mock-gates-resolve-unnamed-gates`, not on this branch.
+- With the fix, a 40-file platform sample (2026-11-01) has 12 new failures in 3 files. 10 of them come from the
+  top-layer ModalDialog not forwarding `ref` (entry-points `modal-trigger`, smart-card `EmbedModal`).
+- Related: mock-gates never removes its spy, so after `jest.resetAllMocks()` that spy returns
+  `undefined` for every gate, also in tests that do not call `passGate` or `failGate`.
+
+## Files
+
+All in `/Users/areardon/atlassian/afm/top-layer-flag-on-all-tests-notes/`:
+
+- `REPORT-no-jira-specific.md` (this file), `REPORT.md` (full report, with jira), `harness.md`
+- `all-failures-no-jira-specific.tsv` (rows for this report, with the `scope` column),
+  `jira-specific-excluded.tsv` (the excluded jira rows), `all-failures.tsv` (every row)
+- `triage/out/*.tsv` and `triage/out/*.notes.md` (per triage chunk, with more evidence)
+- `triage/taxonomy.md`, `triage/known-flaky.tsv`, `r1/`, `c1/` (raw CI logs), `aggregate.py`

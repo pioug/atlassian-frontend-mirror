@@ -7,7 +7,7 @@ import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import { Popup } from '@atlaskit/popup/popup';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils/match-media';
 import { screen } from '@atlassian/testing-library/screen';
 import { act, fireEvent, render } from '@atlassian/testing-library/testing-library/react';
@@ -359,8 +359,13 @@ describe('Side nav keyboard shortcut', () => {
 			jest.useRealTimers();
 		});
 
-		ffTest.both('platform-dst-top-layer', 'top layer feature flag', () => {
+		describe.each([
+			{ gateState: 'on', mockGate0: passGate },
+			{ gateState: 'off', mockGate0: failGate },
+		])('platform-dst-top-layer is $gateState top layer feature flag', ({ mockGate0 }) => {
 			it('should close any open popups when the keyboard shortcut is pressed', async () => {
+				mockGate0('platform-dst-top-layer');
+
 				const user = userEvent.setup();
 				setMediaQuery('(min-width: 64rem)', { initial: true });
 
@@ -414,6 +419,8 @@ describe('Side nav keyboard shortcut', () => {
 			});
 
 			it('should not toggle when a modal is open', async () => {
+				mockGate0('platform-dst-top-layer');
+
 				const user = userEvent.setup();
 				setMediaQuery('(min-width: 64rem)', { initial: true });
 

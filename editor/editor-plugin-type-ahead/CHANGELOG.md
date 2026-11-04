@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 31.0.12
+
+### Patch Changes
+
+- [`3382e70050534`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3382e70050534) -
+  Clean up feature gate `platform_editor_mention_typeahead_profilecard`
+- Updated dependencies
+
+## 31.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 31.0.10
 
 ### Patch Changes

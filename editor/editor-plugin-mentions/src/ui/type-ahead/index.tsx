@@ -225,8 +225,7 @@ const makeMentionToTypeaheadItem =
 		return {
 			title: mention.id,
 			render: ({ isSelected, onClick, onHover }) =>
-				(expVal('platform_editor_agent_mentions', 'isEnabled', false) &&
-					fg('platform_editor_mention_typeahead_profilecard')) ||
+				expVal('platform_editor_agent_mentions', 'isEnabled', false) ||
 				fg('platform_editor_agent_card_fixes') ? (
 					<MentionItemWithProfileCard
 						mention={mention}

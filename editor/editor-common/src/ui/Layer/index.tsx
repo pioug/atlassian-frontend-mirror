@@ -1,7 +1,9 @@
 import React, { Component, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 
+// eslint-disable-next-line @atlaskit/design-system/no-third-party-layering -- existing usage from before this rule was added
 import Popper from 'popper.js';
+// eslint-disable-next-line @atlaskit/design-system/no-third-party-layering -- existing usage from before this rule was added
 import type { Boundary, Data } from 'popper.js'; // eslint-disable-line import/extensions
 import rafSchedule from 'raf-schd';
 

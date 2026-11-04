@@ -70,16 +70,14 @@ export type ExternalStatePlugin = NextEditorPlugin<
 				key: K,
 			) => ExternalStateChange<K> | undefined;
 			/**
-			 * Sets `key` in editor state, then saves it through the provider, one save at a time per
-			 * key. Requests made while a save runs collapse into the latest one. When the save fails,
-			 * reverts to the last confirmed value, unless a newer request is waiting. Resolves with the
-			 * result of the last value sent: `true` when saved (or when there is no provider) and
-			 * `false` when the save failed.
+			 * Runs `setState`, then resolves with the result of the last value sent for `key`: `true`
+			 * when saved (or when there is no provider) and `false` when the save failed. A value
+			 * already in editor state is saved without a new undo entry.
 			 */
 			saveState: <K extends ExternalStateKey>(key: K, value: ExternalState[K]) => Promise<boolean>;
 		};
 		commands: {
-			/** Sets `key` in editor state only. Not saved, not added to undo history. */
+			/** Sets `key` as an undoable local change. It, its undo and its redo are saved. */
 			setState: <K extends ExternalStateKey>(key: K, value: ExternalState[K]) => EditorCommand;
 		};
 		pluginConfiguration: ExternalStatePluginOptions | undefined;

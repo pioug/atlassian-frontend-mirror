@@ -3,7 +3,7 @@ import { type StoreActionApi } from 'react-sweet-state';
 import { JastBuilder } from '@atlaskit/jql-ast/jast-builder';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { JQLEditorSchema } from '../../schema';
 import { actions, initialState } from '../index';
@@ -225,39 +225,35 @@ describe('ValidQueryVisitor', () => {
 	});
 
 	describe('membersOf queries with flag ON', () => {
-		ffTest.on(
-			'jira-membersof-team-support',
-			'membersOf function arguments included in hydration query',
-			() => {
-				membersOfQueriesFlagOn.forEach(({ original, valid }) => {
-					it(`generates valid query for ${original}`, () => {
-						const ast = new JastBuilder().build(original);
-						expect(ast.query).toBeDefined();
-						if (ast.query) {
-							expect(ast.query.accept(visitor)).toEqual(valid);
-						}
-					});
+		describe('jira-membersof-team-support is on membersOf function arguments included in hydration query', () => {
+			membersOfQueriesFlagOn.forEach(({ original, valid }) => {
+				it(`generates valid query for ${original}`, () => {
+					passGate('jira-membersof-team-support');
+
+					const ast = new JastBuilder().build(original);
+					expect(ast.query).toBeDefined();
+					if (ast.query) {
+						expect(ast.query.accept(visitor)).toEqual(valid);
+					}
 				});
-			},
-		);
+			});
+		});
 	});
 
 	describe('membersOf queries with flag OFF', () => {
-		ffTest.off(
-			'jira-membersof-team-support',
-			'membersOf function arguments excluded from hydration query',
-			() => {
-				membersOfQueriesFlagOff.forEach(({ original, valid }) => {
-					it(`generates valid query for ${original}`, () => {
-						const ast = new JastBuilder().build(original);
-						expect(ast.query).toBeDefined();
-						if (ast.query) {
-							expect(ast.query.accept(visitor)).toEqual(valid);
-						}
-					});
+		describe('jira-membersof-team-support is off membersOf function arguments excluded from hydration query', () => {
+			membersOfQueriesFlagOff.forEach(({ original, valid }) => {
+				it(`generates valid query for ${original}`, () => {
+					failGate('jira-membersof-team-support');
+
+					const ast = new JastBuilder().build(original);
+					expect(ast.query).toBeDefined();
+					if (ast.query) {
+						expect(ast.query.accept(visitor)).toEqual(valid);
+					}
 				});
-			},
-		);
+			});
+		});
 	});
 
 	it('reconstructs agentSessions[agent] for hydration when the experiment is enabled', () => {
@@ -317,50 +313,55 @@ const descendantsOfTeamQueriesGateOff = [
 
 describe('ValidQueryVisitor - descendantsOfTeam', () => {
 	describe('with gate ON', () => {
-		ffTest.on(
-			'jira-descendants-of-team-jql-function',
-			'descendantsOfTeam arguments are included in the hydration query',
-			() => {
-				descendantsOfTeamQueriesGateOn.forEach(({ original, valid }) => {
-					it(`generates valid query for ${original}`, () => {
-						const ast = new JastBuilder().build(original);
-						expect(ast.query).toBeDefined();
-						if (ast.query) {
-							expect(ast.query.accept(visitor)).toEqual(valid);
-						}
-					});
+		describe('jira-descendants-of-team-jql-function is on descendantsOfTeam arguments are included in the hydration query', () => {
+			descendantsOfTeamQueriesGateOn.forEach(({ original, valid }) => {
+				it(`generates valid query for ${original}`, () => {
+					passGate('jira-descendants-of-team-jql-function');
+
+					const ast = new JastBuilder().build(original);
+					expect(ast.query).toBeDefined();
+					if (ast.query) {
+						expect(ast.query.accept(visitor)).toEqual(valid);
+					}
 				});
-			},
-		);
+			});
+		});
 	});
 
 	describe('with gate OFF', () => {
-		ffTest.off(
-			'jira-descendants-of-team-jql-function',
-			'descendantsOfTeam arguments are excluded from the hydration query',
-			() => {
-				descendantsOfTeamQueriesGateOff.forEach(({ original, valid }) => {
-					it(`excludes descendantsOfTeam for ${original}`, () => {
-						const ast = new JastBuilder().build(original);
-						expect(ast.query).toBeDefined();
-						if (ast.query) {
-							expect(ast.query.accept(visitor)).toEqual(valid);
-						}
-					});
+		describe('jira-descendants-of-team-jql-function is off descendantsOfTeam arguments are excluded from the hydration query', () => {
+			descendantsOfTeamQueriesGateOff.forEach(({ original, valid }) => {
+				it(`excludes descendantsOfTeam for ${original}`, () => {
+					failGate('jira-descendants-of-team-jql-function');
+
+					const ast = new JastBuilder().build(original);
+					expect(ast.query).toBeDefined();
+					if (ast.query) {
+						expect(ast.query.accept(visitor)).toEqual(valid);
+					}
 				});
-			},
-		);
+			});
+		});
 	});
 
 	describe('gates are independent', () => {
-		ffTest.on('jira-descendants-of-team-jql-function', 'descendantsOfTeam gate is enabled', () => {
-			ffTest.off('jira-membersof-team-support', 'membersOf gate is disabled', () => {
+		describe('jira-descendants-of-team-jql-function is on descendantsOfTeam gate is enabled', () => {
+			describe('jira-membersof-team-support is off membersOf gate is disabled', () => {
 				it('does not include membersOf', () => {
+					passGate('jira-descendants-of-team-jql-function');
+
+					failGate('jira-membersof-team-support');
+
 					const ast = new JastBuilder().build('assignee in membersOf("team-1")');
 					expect(ast.query).toBeDefined();
 					if (ast.query) {
 						expect(ast.query.accept(visitor)).toEqual('');
 					}
+
+					const enabledQuery = descendantsOfTeamQueriesGateOn[0];
+					expect(new JastBuilder().build(enabledQuery.original).query?.accept(visitor)).toEqual(
+						enabledQuery.valid,
+					);
 				});
 			});
 		});
@@ -438,9 +439,11 @@ const noArgFunctionQueries = [
 
 describe('ValidQueryVisitor - function-argument hydration', () => {
 	describe('generic gate supersedes membersOf gate', () => {
-		ffTest.on('jql-function-arg-hydration', 'generic function-arg gate is enabled', () => {
-			ffTest.off('jira-membersof-team-support', 'membersOf legacy gate is disabled', () => {
+		describe('jql-function-arg-hydration is on generic function-arg gate is enabled', () => {
+			describe('jira-membersof-team-support is off membersOf legacy gate is disabled', () => {
 				it('includes membersOf via the generic gate even when the legacy gate is off', () => {
+					passGate('jql-function-arg-hydration');
+
 					const ast = new JastBuilder().build(
 						'assignee in membersOf("team-1") and focusArea = UNDER("ari:cloud:mercury:DUMMY-TENANT-ID:focus-area/abc-123")',
 					);
@@ -456,39 +459,35 @@ describe('ValidQueryVisitor - function-argument hydration', () => {
 	});
 
 	describe('with gate ON', () => {
-		ffTest.on(
-			'jql-function-arg-hydration',
-			'function operands with arguments are included in hydration query',
-			() => {
-				functionArgQueriesFlagOn.forEach(({ original, valid }) => {
-					it(`generates valid query for ${original}`, () => {
-						const ast = new JastBuilder().build(original);
-						expect(ast.query).toBeDefined();
-						if (ast.query) {
-							expect(ast.query.accept(visitor)).toEqual(valid);
-						}
-					});
+		describe('jql-function-arg-hydration is on function operands with arguments are included in hydration query', () => {
+			functionArgQueriesFlagOn.forEach(({ original, valid }) => {
+				it(`generates valid query for ${original}`, () => {
+					passGate('jql-function-arg-hydration');
+
+					const ast = new JastBuilder().build(original);
+					expect(ast.query).toBeDefined();
+					if (ast.query) {
+						expect(ast.query.accept(visitor)).toEqual(valid);
+					}
 				});
-			},
-		);
+			});
+		});
 	});
 
 	describe('with gate OFF', () => {
-		ffTest.off(
-			'jql-function-arg-hydration',
-			'function operands with arguments are excluded from hydration query',
-			() => {
-				functionArgQueriesFlagOff.forEach(({ original, valid }) => {
-					it(`excludes function operands for ${original}`, () => {
-						const ast = new JastBuilder().build(original);
-						expect(ast.query).toBeDefined();
-						if (ast.query) {
-							expect(ast.query.accept(visitor)).toEqual(valid);
-						}
-					});
+		describe('jql-function-arg-hydration is off function operands with arguments are excluded from hydration query', () => {
+			functionArgQueriesFlagOff.forEach(({ original, valid }) => {
+				it(`excludes function operands for ${original}`, () => {
+					failGate('jql-function-arg-hydration');
+
+					const ast = new JastBuilder().build(original);
+					expect(ast.query).toBeDefined();
+					if (ast.query) {
+						expect(ast.query.accept(visitor)).toEqual(valid);
+					}
 				});
-			},
-		);
+			});
+		});
 	});
 
 	describe('no-argument functions are excluded', () => {

@@ -28,7 +28,6 @@ const NAMED_AGENT_COLORS: Readonly<Record<string, AgentColor>> = {
 	jira_workflow_builder_agent: 'blue',
 	itops_rca_agent: 'yellow',
 	jira_trial_guide_agent: 'blue',
-	daily_brief_agent: 'yellow',
 	jira_admin_agent: 'blue',
 	jsm_rovo_service_agent: 'yellow',
 	mcp_amplitude_agent: 'blue',

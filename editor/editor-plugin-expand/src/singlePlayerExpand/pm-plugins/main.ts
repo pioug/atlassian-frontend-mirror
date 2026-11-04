@@ -16,6 +16,7 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { TOGGLE_EXPAND_RANGE_META_KEY } from '../../editor-commands/toggleExpandRange';
 import type { ExpandPlugin } from '../../types';
@@ -120,10 +121,15 @@ export const createPlugin = (
 		},
 		// @see ED-8027 to follow up on this work-around
 		filterTransaction(tr) {
+			// Preserve title editing against selection changes unless explicitly allowed.
 			if (
 				containsClass(document.activeElement, expandClassNames.titleInput) &&
 				tr.selectionSet &&
-				(!tr.steps.length || tr.isGeneric)
+				(!tr.steps.length || tr.isGeneric) &&
+				!(
+					isExperimentEnabled('platform_editor_remix_reliability_improvements') &&
+					tr.getMeta('allowSelectionChangeWhileExpandTitleFocused') === true
+				)
 			) {
 				return false;
 			}

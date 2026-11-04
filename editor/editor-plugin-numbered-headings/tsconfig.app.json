@@ -43,6 +43,9 @@
 	},
 	"references": [
 		{
+			"path": "../../helpers/browser-apis/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/css/tsconfig.app.json"
 		},
 		{
@@ -80,6 +83,9 @@
 		},
 		{
 			"path": "../../design-system/primitives/tsconfig.app.json"
+		},
+		{
+			"path": "../prosemirror-history/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/toggle/tsconfig.app.json"

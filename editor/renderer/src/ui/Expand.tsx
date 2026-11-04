@@ -507,16 +507,14 @@ function Expand({
 					fireExpandToggleAnalytics(nodeType, expanded, fireAnalyticsEvent);
 					// Recorded so a product remounting this expand under its own body gets it back as the
 					// reader left it.
-					const recordsToggle =
-						node !== undefined && isExperimentEnabled('cc_light_mode_table_virtualization');
 					if (expanded) {
 						setExpanded(false);
-						if (recordsToggle) {
+						if (node) {
 							revealedByFind.delete(node);
 						}
 					} else {
 						openBody();
-						if (recordsToggle) {
+						if (node) {
 							revealedByFind.add(node);
 						}
 					}

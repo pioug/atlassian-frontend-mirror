@@ -19,6 +19,9 @@
 	},
 	"references": [
 		{
+			"path": "../../../helpers/browser-apis/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/css/afm-products/tsconfig.json"
 		},
 		{
@@ -47,6 +50,9 @@
 		},
 		{
 			"path": "../../../design-system/primitives/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../prosemirror-history/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/toggle/afm-products/tsconfig.json"

@@ -10,7 +10,7 @@ import { extractUrlFromLinkJsonLd } from './extract-url-from-link-json-ld';
  * Extractors for preview, embed, image, and platform support metadata.
  */
 export const extractImage = (jsonLd: JsonLd.Data.BaseData): string | undefined => {
-	const image = jsonLd.image;
+	const image = jsonLd?.image;
 	if (image) {
 		if (typeof image === 'string') {
 			return image;

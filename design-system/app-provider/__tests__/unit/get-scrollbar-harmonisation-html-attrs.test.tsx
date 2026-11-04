@@ -1,10 +1,7 @@
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
-import {
-	SCROLLBAR_HARMONISATION_ATTRIBUTE,
-	SCROLLBAR_HARMONISATION_TRANSPARENT_ATTRIBUTE,
-} from '../../src/scrollbar-harmonisation/constants';
+import { SCROLLBAR_HARMONISATION_ATTRIBUTE } from '../../src/scrollbar-harmonisation/constants';
 import getDefaultHtmlAttrs, {
 	getScrollbarHarmonisationHtmlAttrs,
 } from '../../src/scrollbar-harmonisation/get-scrollbar-harmonisation-html-attrs';
@@ -22,28 +19,25 @@ describe('getScrollbarHarmonisationHtmlAttrs', () => {
 		expect(fg).toHaveBeenCalledWith('platform_dst_scrollbar_harmonisation');
 	});
 
-	it('returns just the base attribute when only the base gate is on', () => {
+	it('returns only the main attribute when the base gate is on', () => {
 		passGate('platform_dst_scrollbar_harmonisation');
-		failGate('platform_dst_scrollbar_harmonisation_transparent');
 
 		expect(getScrollbarHarmonisationHtmlAttrs()).toEqual({
 			[SCROLLBAR_HARMONISATION_ATTRIBUTE]: '',
 		});
 	});
 
-	it('returns the base and transparent attributes when base and transparent gates are on', () => {
+	it('returns only the base attribute without evaluating the obsolete transparent gate', () => {
 		passGate('platform_dst_scrollbar_harmonisation');
-		passGate('platform_dst_scrollbar_harmonisation_transparent');
 
 		expect(getScrollbarHarmonisationHtmlAttrs()).toEqual({
 			[SCROLLBAR_HARMONISATION_ATTRIBUTE]: '',
-			[SCROLLBAR_HARMONISATION_TRANSPARENT_ATTRIBUTE]: '',
 		});
+		expect(fg).not.toHaveBeenCalledWith('platform_dst_scrollbar_harmonisation_transparent');
 	});
 
 	it('the isEnabled override forces the appearance on regardless of the base gate', () => {
 		failGate('platform_dst_scrollbar_harmonisation');
-		failGate('platform_dst_scrollbar_harmonisation_transparent');
 
 		expect(getScrollbarHarmonisationHtmlAttrs(true)).toEqual({
 			[SCROLLBAR_HARMONISATION_ATTRIBUTE]: '',
@@ -58,23 +52,21 @@ describe('getScrollbarHarmonisationHtmlAttrs', () => {
 		expect(fg).toHaveBeenCalledWith('platform_dst_scrollbar_harmonisation');
 	});
 
-	it('treats the base gate as a hard prerequisite, short-circuiting before checking the transparent gate', () => {
+	it('evaluates only the base gate when resolving default appearance', () => {
 		failGate('platform_dst_scrollbar_harmonisation');
 
 		expect(getScrollbarHarmonisationHtmlAttrs()).toEqual({});
 		expect(fg).toHaveBeenCalledTimes(1);
 	});
 
-	it('keeps the shared base prerequisite when true overrides the appearance', () => {
+	it('does not evaluate the obsolete transparent gate for an enabled override', () => {
 		failGate('platform_dst_scrollbar_harmonisation');
-		passGate('platform_dst_scrollbar_harmonisation_transparent');
 
 		expect(getScrollbarHarmonisationHtmlAttrs(true)).toEqual({
 			[SCROLLBAR_HARMONISATION_ATTRIBUTE]: '',
 		});
-		expect(fg).toHaveBeenCalledTimes(2);
-		expect(fg).toHaveBeenNthCalledWith(1, 'platform_dst_scrollbar_harmonisation');
-		expect(fg).toHaveBeenNthCalledWith(2, 'platform_dst_scrollbar_harmonisation_transparent');
+		expect(fg).toHaveBeenCalledTimes(1);
+		expect(fg).not.toHaveBeenCalledWith('platform_dst_scrollbar_harmonisation_transparent');
 	});
 
 	it('preserves the legacy null fallback for JavaScript callers', () => {
@@ -83,6 +75,13 @@ describe('getScrollbarHarmonisationHtmlAttrs', () => {
 		// @ts-expect-error Null is outside the public type but retains its legacy runtime fallback.
 		expect(getScrollbarHarmonisationHtmlAttrs(null)).toEqual({});
 		expect(fg).toHaveBeenCalledTimes(1);
+	});
+
+	it('accepts a product-resolved base value without a transparent option', () => {
+		expect(getScrollbarHarmonisationHtmlAttrs({ isEnabled: true })).toEqual({
+			[SCROLLBAR_HARMONISATION_ATTRIBUTE]: '',
+		});
+		expect(fg).not.toHaveBeenCalled();
 	});
 
 	it('keeps the default and named exports identical', () => {
@@ -102,29 +101,15 @@ describe('getScrollbarHarmonisationHtmlAttrs', () => {
 			isTransparentEnabled: true,
 			attributes: {
 				[SCROLLBAR_HARMONISATION_ATTRIBUTE]: '',
-				[SCROLLBAR_HARMONISATION_TRANSPARENT_ATTRIBUTE]: '',
 			},
 		},
 	])(
 		'uses explicit base=$isEnabled and transparent=$isTransparentEnabled without shared evaluation',
 		({ isEnabled, isTransparentEnabled, attributes }) => {
-			if (isEnabled) {
-				failGate('platform_dst_scrollbar_harmonisation');
-			} else {
-				passGate('platform_dst_scrollbar_harmonisation');
-			}
-			if (isTransparentEnabled) {
-				failGate('platform_dst_scrollbar_harmonisation_transparent');
-			} else {
-				passGate('platform_dst_scrollbar_harmonisation_transparent');
-			}
-
-			expect(fg('platform_dst_scrollbar_harmonisation')).toBe(!isEnabled);
-			expect(fg('platform_dst_scrollbar_harmonisation_transparent')).toBe(!isTransparentEnabled);
 			expect(getScrollbarHarmonisationHtmlAttrs({ isEnabled, isTransparentEnabled })).toEqual(
 				attributes,
 			);
-			expect(fg).toHaveBeenCalledTimes(2);
+			expect(fg).not.toHaveBeenCalled();
 		},
 	);
 });

@@ -4,6 +4,7 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { ExternalState, ExternalStateKey } from '../externalStatePluginType';
+import { ExternalStateStep } from './external-state-step';
 
 export type ExternalStatePluginState = {
 	state: ExternalState;
@@ -52,22 +53,44 @@ export const getChangedValues = (
 	return hasChanges ? changed : undefined;
 };
 
-/** Not undoable. Callers can add steps to the same transaction, such as an analytics step. */
+/** For loaded, collaborator and reverted values: not undoable and not saved. */
 export const setValuesMeta = (tr: Transaction, values: Partial<ExternalState>): Transaction =>
 	tr
 		.setMeta(externalStatePluginKey, { values } satisfies ExternalStateMeta)
 		.setMeta('addToHistory', false);
 
-export const getValuesMeta = (
-	tr: Transaction | ReadonlyTransaction,
-): Partial<ExternalState> | undefined =>
+const getMetaValues = (tr: Transaction | ReadonlyTransaction): Partial<ExternalState> | undefined =>
 	(tr.getMeta(externalStatePluginKey) as ExternalStateMeta | undefined)?.values;
 
-const applyValues = (
+export const getStepValues = (
+	tr: Transaction | ReadonlyTransaction,
+): Partial<ExternalState> | undefined => {
+	if (!tr.docChanged) {
+		return undefined;
+	}
+	let values: Partial<ExternalState> | undefined;
+	for (const step of tr.steps) {
+		if (step instanceof ExternalStateStep) {
+			values = { ...values, ...step.values };
+		}
+	}
+	return values;
+};
+
+export const getTransactionValues = (
+	tr: Transaction | ReadonlyTransaction,
+): Partial<ExternalState> | undefined => {
+	const stepValues = getStepValues(tr);
+	const metaValues = getMetaValues(tr);
+	return stepValues || metaValues ? { ...stepValues, ...metaValues } : undefined;
+};
+
+const applyTransaction = (
 	pluginState: ExternalStatePluginState,
-	values: Partial<ExternalState>,
+	tr: ReadonlyTransaction,
 ): ExternalStatePluginState => {
-	const changed = getChangedValues(pluginState.state, values);
+	const values = getTransactionValues(tr);
+	const changed = values && getChangedValues(pluginState.state, values);
 	return changed ? { state: { ...pluginState.state, ...changed } } : pluginState;
 };
 
@@ -85,10 +108,7 @@ export const createPlugin = ({
 		key: externalStatePluginKey,
 		state: {
 			init: () => ({ state: initialState }),
-			apply: (tr, pluginState) => {
-				const values = getValuesMeta(tr);
-				return values ? applyValues(pluginState, values) : pluginState;
-			},
+			apply: (tr, pluginState) => applyTransaction(pluginState, tr),
 		},
 		view: (editorView) => {
 			const cleanup = onViewCreated(editorView);

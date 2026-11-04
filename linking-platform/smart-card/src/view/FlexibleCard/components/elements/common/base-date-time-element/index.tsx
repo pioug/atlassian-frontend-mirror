@@ -12,6 +12,7 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../../../../messages';
+import useHydrationSafeContent from '../../../../../../state/hooks/use-hydration-safe-content';
 import type { ElementProps } from '../../../elements';
 
 export type DateTimeType = 'created' | 'modified' | 'sent';
@@ -148,13 +149,25 @@ const BaseDateTimeElement = ({
 	timeZone,
 }: BaseDateTimeElementProps): JSX.Element | null => {
 	const { formatRelativeTime, formatDate } = useIntl();
+	const shouldUseHydrationSafeContent = useHydrationSafeContent(Boolean(type && date));
 	if (!type || !date) {
 		return null;
 	}
 	const isLongerThenWeek = Math.abs(date.getTime() - Date.now()) > 1000 * 60 * 60 * 24 * 7;
 	let context: string;
 	let typeVariant: DateTypeVariation;
-	if (isLongerThenWeek) {
+	if (shouldUseHydrationSafeContent) {
+		// Use the same absolute date on SSR and the first client render. The browser's
+		// timezone and clock are only used after hydration (or on client-only mounts).
+		typeVariant = 'absolute';
+		context = formatDate(date, {
+			...ABSOLUTE_DATE_FORMAT,
+			timeZone:
+				fg('dfo_issue_view_remote_data_srr_group') && timeZone && isValidTimeZone(timeZone)
+					? timeZone
+					: 'UTC',
+		});
+	} else if (isLongerThenWeek) {
 		typeVariant = 'absolute';
 		context = fg('dfo_issue_view_remote_data_srr_group')
 			? formatAbsoluteDateWithOptionalTimeZone({

@@ -114,4 +114,5 @@ Promise.all([buildBundleCss(), buildScrollbarCss(), buildGeminiResetStyles()])
 	})
 	.catch((err) => {
 		console.error(`Failed to build css-reset due to ${err}`);
+		process.exitCode = 1;
 	});

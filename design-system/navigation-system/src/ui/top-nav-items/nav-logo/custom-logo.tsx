@@ -7,6 +7,7 @@ import React, { useEffect, useRef } from 'react';
 import { cssMap, cx, jsx } from '@compiled/react';
 
 import type { LogoProps } from '@atlaskit/logo/types';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Anchor } from '@atlaskit/primitives/compiled/anchor';
 import { token } from '@atlaskit/tokens';
 
@@ -85,6 +86,14 @@ const iconContainerStyles = cssMap({
 		maxWidth: 24,
 		// Using `content-box` sizing because the padding is irrelevant for the maxWidth
 		boxSizing: 'content-box',
+	},
+	container: {
+		display: 'var(--n_tnIconDisplay, flex)',
+		'@media (min-width: 64rem)': {
+			display: 'var(--n_tnIconDisplay, none)',
+		},
+	},
+	viewport: {
 		'@media (min-width: 64rem)': {
 			// '&&' is required to add more CSS specificity to resolve non-deterministic ordering, which can result in
 			// both the `icon` and `logo` elements to be displayed at the same time
@@ -104,6 +113,14 @@ const logoContainerStyles = cssMap({
 		maxWidth: 320,
 		// Using `content-box` sizing because the padding is irrelevant for the maxWidth
 		boxSizing: 'content-box',
+	},
+	container: {
+		display: 'var(--n_tnLogoDisplay, none)',
+		'@media (min-width: 64rem)': {
+			display: 'var(--n_tnLogoDisplay, flex)',
+		},
+	},
+	viewport: {
 		'@media (min-width: 64rem)': {
 			// '&&' is required to add more CSS specificity to resolve non-deterministic ordering, which can result in
 			// both the `icon` and `logo` elements to be displayed at the same time
@@ -241,10 +258,26 @@ export const CustomLogo: ({
 			)}
 			onClick={onClick}
 		>
-			<div css={[sharedIconOrLogoContainerStyles.root, iconContainerStyles.root]}>
+			<div
+				css={[
+					sharedIconOrLogoContainerStyles.root,
+					iconContainerStyles.root,
+					fg('platform-dst-chat-panel-layout')
+						? iconContainerStyles.container
+						: iconContainerStyles.viewport,
+				]}
+			>
 				<LogoRenderer logoOrIcon={icon} />
 			</div>
-			<div css={[sharedIconOrLogoContainerStyles.root, logoContainerStyles.root]}>
+			<div
+				css={[
+					sharedIconOrLogoContainerStyles.root,
+					logoContainerStyles.root,
+					fg('platform-dst-chat-panel-layout')
+						? logoContainerStyles.container
+						: logoContainerStyles.viewport,
+				]}
+			>
 				<LogoRenderer logoOrIcon={logo} />
 			</div>
 		</Anchor>

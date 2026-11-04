@@ -6,7 +6,7 @@ import type { LinkPerson } from './types';
 type LinkTypeAssignedTo = JsonLd.Data.Task | JsonLd.Data.TaskType;
 
 export const extractPersonAssignedTo = (jsonLd: LinkTypeAssignedTo): LinkPerson | undefined => {
-	const assignedTo = jsonLd['atlassian:assignedTo'];
+	const assignedTo = jsonLd?.['atlassian:assignedTo'];
 	if (assignedTo) {
 		return extractPersonFromJsonLd(assignedTo);
 	}

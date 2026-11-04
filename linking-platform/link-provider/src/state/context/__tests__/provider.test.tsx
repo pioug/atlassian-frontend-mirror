@@ -350,3 +350,17 @@ describe('Provider', () => {
 		});
 	});
 });
+
+it('inherits the host choreographer through nested providers', () => {
+	const inspect = jest.fn(() => null);
+	const Choreographer = jest.fn();
+	render(
+		<SmartCardProvider choreographer={Choreographer}>
+			<SmartCardProvider>
+				<Context.Consumer>{inspect}</Context.Consumer>
+			</SmartCardProvider>
+		</SmartCardProvider>,
+	);
+	expect(inspect).toHaveBeenCalledWith(expect.objectContaining({ choreographer: Choreographer }));
+	expect(Choreographer).not.toHaveBeenCalled();
+});

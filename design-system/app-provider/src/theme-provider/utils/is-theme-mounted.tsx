@@ -1,6 +1,6 @@
 import { getDocument } from '@atlaskit/browser-apis';
 import { THEME_DATA_ATTRIBUTE } from '@atlaskit/tokens/constants';
-import type { ThemeIds } from '@atlaskit/tokens/theme-ids';
+import type { ThemeIdsWithOverrides } from '@atlaskit/tokens/theme-config';
 
 /**
  * Checks if a theme is mounted in the document head.
@@ -8,7 +8,7 @@ import type { ThemeIds } from '@atlaskit/tokens/theme-ids';
  * Eventually this won't be necessary as we'll utilise AppProvider context
  * to track theme loading.
  */
-export function isThemeMounted(themeId: ThemeIds): false | Element | null {
+export function isThemeMounted(themeId: ThemeIdsWithOverrides): false | Element | null {
 	const doc = getDocument();
 	if (!doc) {
 		return false;

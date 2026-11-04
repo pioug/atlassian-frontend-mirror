@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-selection
 
+## 30.0.9
+
+### Patch Changes
+
+- [`cbe7f7f57f1c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cbe7f7f57f1c6) -
+  EDITOR-10030: Behind the `platform_editor_improve_inp_batch_2` experiment, the gap cursor click
+  handler checks for ignored clicks before calling `posAtCoords`, so ignored clicks no longer force
+  a synchronous layout.
+
+## 30.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 30.0.7
 
 ### Patch Changes

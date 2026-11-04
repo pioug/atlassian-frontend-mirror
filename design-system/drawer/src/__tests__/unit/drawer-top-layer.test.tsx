@@ -137,16 +137,53 @@ describe('Drawer top-layer rendering', () => {
 	it('should set aria-label when label is provided', () => {
 		render(<ControlledDrawer label="Settings drawer" />);
 
-		const dialog = screen.getByTestId('drawer');
+		const dialog = screen.getByRole('dialog', { name: 'Settings drawer' });
+		expect(dialog).toBe(screen.getByTestId('drawer'));
 		expect(dialog).toHaveAttribute('aria-label', 'Settings drawer');
 		expect(dialog).not.toHaveAttribute('aria-labelledby');
 	});
 
 	it('should set aria-labelledby when only titleId is provided', () => {
-		render(<ControlledDrawer hasLabel={false} titleId="drawer-title" />);
+		render(
+			<ControlledDrawer hasLabel={false} titleId="drawer-title">
+				<h2 id="drawer-title">Drawer heading</h2>
+			</ControlledDrawer>,
+		);
 
-		const dialog = screen.getByTestId('drawer');
+		const dialog = screen.getByRole('dialog', { name: 'Drawer heading' });
+		expect(dialog).toBe(screen.getByTestId('drawer'));
 		expect(dialog).toHaveAttribute('aria-labelledby', 'drawer-title');
+	});
+
+	// Legacy set both `aria-label` and `aria-labelledby`, and `aria-labelledby` wins. `FocusedTask`
+	// relies on this: it passes a step `label` and the consumer's `titleId`.
+	it('should be named by titleId when both label and titleId are provided', () => {
+		render(
+			<ControlledDrawer label="Step label" titleId="drawer-title">
+				<h2 id="drawer-title">Drawer heading</h2>
+			</ControlledDrawer>,
+		);
+
+		const dialog = screen.getByRole('dialog', { name: 'Drawer heading' });
+		expect(dialog).toBe(screen.getByTestId('drawer'));
+		expect(dialog).toHaveAttribute('aria-labelledby', 'drawer-title');
+		expect(dialog).not.toHaveAttribute('aria-label');
+	});
+
+	it('should fall back to a generic name when neither label nor titleId is provided', () => {
+		render(<ControlledDrawer hasLabel={false} />);
+
+		expect(screen.getByRole('dialog', { name: 'Drawer' })).toBe(screen.getByTestId('drawer'));
+	});
+
+	// A native modal `<dialog>` has an implicit `dialog` role and is modal, so the drawer sets
+	// neither attribute.
+	it('should not set role or aria-modal on the native dialog', () => {
+		render(<ControlledDrawer />);
+
+		const dialog = screen.getByRole('dialog', { name: 'Test drawer' });
+		expect(dialog).not.toHaveAttribute('role');
+		expect(dialog).not.toHaveAttribute('aria-modal');
 	});
 
 	// ── Width ──
@@ -389,5 +426,17 @@ describe('Drawer legacy rendering (flag off)', () => {
 		const panel = screen.getByTestId('drawer');
 		expect(panel.tagName).toBe('DIV');
 		expect(panel).toHaveAttribute('role', 'dialog');
+	});
+
+	it('should be named by titleId when both label and titleId are provided', () => {
+		render(
+			<ControlledDrawer label="Step label" titleId="drawer-title">
+				<h2 id="drawer-title">Drawer heading</h2>
+			</ControlledDrawer>,
+		);
+
+		expect(screen.getByRole('dialog', { name: 'Drawer heading' })).toBe(
+			screen.getByTestId('drawer'),
+		);
 	});
 });

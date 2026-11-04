@@ -10,10 +10,11 @@ Holds editor settings that are stored outside ADF, such as numbered headings. A 
 - `saveState(key, value)` updates editor state first, then calls `updateState`. When the save
   rejects, the value reverts to the last confirmed value, unless it changed again in the meantime.
   It resolves `true` when saved and `false` when the save failed.
-- `setState(key, value)` changes editor state only.
+- `setState(key, value)` records the user's change as a local-only step: it enters undo history
+  and is never sent to collaborators. Every change it, its undo or its redo makes is saved.
 
-Changes are transaction metadata only: they are not added to undo history and create no collab
-steps. Without a provider, values live in editor state only.
+Loaded, collaborator and reverted values are transaction metadata: they stay out of undo history
+and are not saved. Without a provider, values live in editor state only.
 
 Saves for a key run one at a time, in order. Requests made while a save runs collapse into the
 latest one, so quick toggles send only what's needed and an older value can't land after a newer

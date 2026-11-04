@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-mentions
 
+## 32.0.12
+
+### Patch Changes
+
+- [`3382e70050534`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3382e70050534) -
+  Clean up feature gate `platform_editor_mention_typeahead_profilecard`
+- Updated dependencies
+
+## 32.0.11
+
+### Patch Changes
+
+- [`94ff9b457e6c9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/94ff9b457e6c9) -
+  Remove the typeahead profile card scrollbar gate and retain scrollbar-aware positioning.
+- Updated dependencies
+
+## 32.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 32.0.9
 
 ### Patch Changes

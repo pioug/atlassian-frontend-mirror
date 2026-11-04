@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-table",
-	"version": "42.2.7",
+	"version": "42.3.0",
 	"description": "Table plugin for the @atlaskit/editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -81,6 +81,9 @@
 		"./ui/common-styles": "./src/entry-points/ui-common-styles.ts"
 	},
 	"platform-feature-flags": {
+		"platform_editor_sticky_cell_options_position": {
+			"type": "boolean"
+		},
 		"platform_editor_ai_suggestion_table_scroll_fix": {
 			"type": "boolean"
 		},

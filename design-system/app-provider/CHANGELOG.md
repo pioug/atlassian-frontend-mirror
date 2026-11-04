@@ -1,5 +1,23 @@
 # @atlaskit/app-provider
 
+## 8.3.0
+
+### Minor Changes
+
+- [`1ada59f0fc583`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1ada59f0fc583) -
+  Stop emitting the obsolete transparent scrollbar attribute and evaluating
+  `platform_dst_scrollbar_harmonisation_transparent` in client and SSR activation. The main
+  `platform_dst_scrollbar_harmonisation` gate controls the shared treatment, which always has
+  transparent tracks. Product-resolved SSR input now requires only `isEnabled`; the older
+  transparency option is ignored.
+
+### Patch Changes
+
+- [`7d31d20a670cd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7d31d20a670cd) -
+  Load Finesse color and typography overrides for nested ThemeProviders when
+  platform-dst-tokens-finesse is enabled, mounting base styles before overrides without changing the
+  global theme. Continue mounting successfully loaded themes if another theme import fails.
+
 ## 8.2.0
 
 ### Minor Changes

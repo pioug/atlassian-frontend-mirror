@@ -20,7 +20,8 @@ export const toggleFromToolbar = (
 		return false;
 	}
 
-	const changed = api.core.actions.execute(({ tr }) => {
+	// The external state plugin saves the change, and its undo and redo.
+	return api.core.actions.execute(({ tr }) => {
 		const result = api.externalState.commands.setState('numberedHeadings', { enabled })({ tr });
 		if (!result) {
 			return null;
@@ -39,11 +40,4 @@ export const toggleFromToolbar = (
 
 		return result;
 	});
-
-	if (changed) {
-		// The value is already in editor state, so this only saves it.
-		void api.externalState.actions.saveState('numberedHeadings', { enabled });
-	}
-
-	return changed;
 };

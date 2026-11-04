@@ -5,6 +5,7 @@
  */
 import { useEffect } from 'react';
 
+// eslint-disable-next-line @atlaskit/design-system/no-third-party-focus-traps -- existing usage from before this rule was added
 import createFocusTrap from 'focus-trap';
 
 export type FocusManagerHook = {

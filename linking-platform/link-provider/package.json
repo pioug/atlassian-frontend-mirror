@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-provider",
-	"version": "6.0.1",
+	"version": "6.1.0",
 	"description": "Contains provider with react context for anything link related and the link http client",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -34,6 +34,8 @@
 	"exports": {
 		".": "./src/index.ts",
 		"./client": "./src/client/index.ts",
+		"./choreographed-content": "./src/choreographed-content.tsx",
+		"./create-choreographed-content": "./src/create-choreographed-content.tsx",
 		"./context": "./src/state/context/index.tsx",
 		"./editor": "./src/editor/index.ts",
 		"./responses": "./src/client/types/responses.ts",
@@ -73,8 +75,10 @@
 		"@atlaskit/media-test-helpers": "workspace:^",
 		"@atlaskit/textfield": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
+		"@atlassian/ipm-choreographer": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@atlassian/workbench": "workspace:*",
+		"@atlassiansox/analytics-web-client": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@types/async-retry": "root:*",
 		"@types/redux": "root:*",

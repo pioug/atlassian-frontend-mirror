@@ -1,3 +1,8 @@
+/**
+ * Update an item's keywords first to help users find it.
+ * Add a recommendation here only to choose the first results and their order
+ * for a search term. Recommendations appear above all other matches.
+ */
 import { getQuickInsertProviderMenuItemKey } from './getQuickInsertProviderMenuItemKey';
 import {
 	ACTION_MENU_ITEM,
@@ -281,7 +286,14 @@ const RECOMMENDED_ITEM_KEYS_BY_QUERY: [string, readonly string[]][] = [
 		'ji',
 		[JIRA_WORK_ITEMS_MENU_ITEM.key, getQuickInsertProviderMenuItemKey(JIRA_ISSUE_MENU_ITEM.key)],
 	],
-	['jira', [JIRA_WORK_ITEMS_MENU_ITEM.key]],
+	[
+		'jir',
+		[JIRA_WORK_ITEMS_MENU_ITEM.key, getQuickInsertProviderMenuItemKey(JIRA_ISSUE_MENU_ITEM.key)],
+	],
+	[
+		'jira',
+		[JIRA_WORK_ITEMS_MENU_ITEM.key, getQuickInsertProviderMenuItemKey(JIRA_ISSUE_MENU_ITEM.key)],
+	],
 	[
 		'db',
 		[

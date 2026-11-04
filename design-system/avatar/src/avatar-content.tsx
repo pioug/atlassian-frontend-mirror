@@ -36,8 +36,6 @@ const styles = cssMap({
 		paddingBlockStart: token('space.0'),
 		paddingInlineEnd: token('space.0'),
 		paddingInlineStart: token('space.0'),
-		transform: 'translateZ(0)',
-		transition: 'transform 200ms, opacity 200ms',
 		'&::after': {
 			width: '100%',
 			position: 'absolute',
@@ -72,6 +70,14 @@ const styles = cssMap({
 	},
 	positionRelative: {
 		position: 'relative',
+	},
+	isolation: {
+		position: 'relative',
+		isolation: 'isolate',
+	},
+	legacyLayerPromotion: {
+		transform: 'translateZ(0)',
+		transition: 'transform 200ms, opacity 200ms',
 	},
 	disabled: {
 		cursor: 'not-allowed',
@@ -305,6 +311,10 @@ export const AvatarContent: React.ForwardRefExoticComponent<
 			css={[
 				unboundStyles.root,
 				styles.root,
+				// Preserve the stacking context and overlay containing block without forcing layer promotion.
+				fg('platform_avatar_disable_layer_promotion')
+					? styles.isolation
+					: styles.legacyLayerPromotion,
 				appearance === 'square' && styles.square,
 				appearance === 'circle' && styles.circle,
 				appearance === 'hexagon' && unboundStyles.hexagon,

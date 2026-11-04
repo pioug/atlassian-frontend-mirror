@@ -57,6 +57,7 @@ export interface DrawerLabel {
 	/**
 	 * This is an ID referenced by the drawer wrapper's `aria-labelledby` attribute. This ID should be assigned to the drawer `title` element.
 	 * Usage of either this, or the `label` attribute is strongly recommended.
+	 * If you set both, this one names the drawer.
 	 */
 	titleId?: string;
 }

@@ -1,5 +1,13 @@
 # @atlaskit/link-extractors
 
+## 5.0.2
+
+### Patch Changes
+
+- [`66940b42b1b8e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/66940b42b1b8e) -
+  Make JSON-LD extractors null-safe so they no longer throw when the resolved response has no data
+  (e.g. ORS returns meta only). Output is unchanged for valid input.
+
 ## 5.0.1
 
 ### Patch Changes

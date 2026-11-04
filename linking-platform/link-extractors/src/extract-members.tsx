@@ -4,7 +4,7 @@ import { extractPersonFromJsonLd } from './extract-person-from-json-ld';
 import type { LinkPerson } from './types';
 
 export const extractMembers = (jsonLd: JsonLd.Data.Project): LinkPerson[] | undefined => {
-	const members = jsonLd['atlassian:member'];
+	const members = jsonLd?.['atlassian:member'];
 	if (members) {
 		if (typeof members === 'string') {
 			throw Error('Link[atlassian:members] must be an array or object.');

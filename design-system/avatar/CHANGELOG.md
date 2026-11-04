@@ -1,5 +1,14 @@
 # @atlaskit/avatar
 
+## 30.0.6
+
+### Patch Changes
+
+- [`e004268921646`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e004268921646) -
+  Remove unconditional avatar layer promotion and root transitions behind
+  platform_avatar_disable_layer_promotion, while preserving the containing block for hover, pressed,
+  and disabled overlays.
+
 ## 30.0.5
 
 ### Patch Changes

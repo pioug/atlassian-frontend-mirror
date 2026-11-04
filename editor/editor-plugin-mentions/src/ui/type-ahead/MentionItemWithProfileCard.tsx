@@ -6,7 +6,6 @@ import type { ProfilecardProvider } from '@atlaskit/editor-common/provider-facto
 import MentionItem from '@atlaskit/mention/mention-item';
 import type { MentionDescription } from '@atlaskit/mention/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled/box';
 
 import { ProfileCardComponent } from '../ProfileCardComponent';
@@ -181,7 +180,7 @@ export function MentionItemWithProfileCard({
 
 	// If there's a scrollbar, position the card with a gap to it
 	const offset = useMemo<[number, number] | undefined>(() => {
-		if (!referenceElement || !fg('platform_editor_typeahead_profilecard_scrollbar')) {
+		if (!referenceElement) {
 			return undefined;
 		}
 		return [0, CARD_GAP_PX + getScrollbarWidth(referenceElement)];

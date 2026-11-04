@@ -1,5 +1,3 @@
-import { dynamicConfigBooleanValue } from '@atlaskit/tmp-editor-statsig/dynamic-config-boolean-value';
-
 import type { DispatchAnalyticsEvent } from '../analytics';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../analytics';
 import type {
@@ -241,9 +239,7 @@ export class Experience {
 				actionSubject: ACTION_SUBJECT.EDITOR,
 				actionSubjectId: this.actionSubjectId,
 				eventType: EVENT_TYPE.OPERATIONAL,
-				attributes: dynamicConfigBooleanValue('duplicate_actionsubjectid_to_attributes')
-					? { ...attributes, actionSubjectId: this.actionSubjectId }
-					: attributes,
+				attributes: { ...attributes, actionSubjectId: this.actionSubjectId },
 			};
 
 			this.dispatchAnalyticsEvent(experienceSampledEvent);

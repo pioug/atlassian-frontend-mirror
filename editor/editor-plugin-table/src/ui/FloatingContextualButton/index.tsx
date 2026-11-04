@@ -40,6 +40,7 @@ import { getTableZIndexes } from '../sticky-header-z-index';
 // eslint-disable-next-line import/no-named-as-default
 import FixedButton from './FixedButton';
 import { tableFloatingCellButtonSelectedStyles, tableFloatingCellButtonStyles } from './styles';
+import { useCellLayoutVersion } from './useCellLayoutVersion';
 export interface Props {
 	api?: PluginInjectionAPI | null;
 	boundariesElement?: HTMLElement;
@@ -118,6 +119,9 @@ const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponen
 
 	const domAtPos = editorView.domAtPos.bind(editorView);
 	const targetCellRef: Node | undefined = findDomRefAtPos(targetCellPosition, domAtPos);
+	// Re-renders this component when the cell may have moved, so both FixedButton and Popup
+	// reposition: Popup recalculates its position whenever it receives new props.
+	const cellLayoutVersion = useCellLayoutVersion(targetCellRef);
 
 	useEffect(() => {
 		if (isCellMenuOpenByKeyboard && !isCellMenuOpen) {
@@ -231,6 +235,7 @@ const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponen
 	if (stickyHeader && parentSticky && tableWrapper) {
 		return (
 			<FixedButton
+				cellLayoutVersion={cellLayoutVersion}
 				offset={BUTTON_OFFSET}
 				stickyHeader={stickyHeader}
 				tableWrapper={tableWrapper}

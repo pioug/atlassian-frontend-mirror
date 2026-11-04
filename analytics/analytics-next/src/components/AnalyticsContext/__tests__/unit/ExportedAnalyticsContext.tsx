@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import AnalyticsContext from '../../index';
 
@@ -26,27 +26,29 @@ describe('ExportedAnalyticsListener', () => {
 		await expect(container).toBeAccessible();
 	});
 
-	ffTest(
-		'analytics-next-use-legacy-context',
-		() => {
-			render(
-				<AnalyticsContext data={{ ticket: 'MAGMA-123' }}>
-					<div>SomeComponent</div>
-				</AnalyticsContext>,
-			);
+	it('with analytics-next-use-legacy-context on', () => {
+		passGate('analytics-next-use-legacy-context');
 
-			// when the ff is off - we expect the legacy context to be used
-			expect(screen.getByText('LegacyAnalytics')).toBeInTheDocument();
-		},
-		() => {
-			render(
-				<AnalyticsContext data={{ ticket: 'MAGMA-123' }}>
-					<div>SomeComponent</div>
-				</AnalyticsContext>,
-			);
+		render(
+			<AnalyticsContext data={{ ticket: 'MAGMA-123' }}>
+				<div>SomeComponent</div>
+			</AnalyticsContext>,
+		);
 
-			// when the ff is on- we expect the modern context to be used
-			expect(screen.getByText('ModernAnalytics')).toBeInTheDocument();
-		},
-	);
+		// when the ff is off - we expect the legacy context to be used
+		expect(screen.getByText('LegacyAnalytics')).toBeInTheDocument();
+	});
+
+	it('with analytics-next-use-legacy-context off', () => {
+		failGate('analytics-next-use-legacy-context');
+
+		render(
+			<AnalyticsContext data={{ ticket: 'MAGMA-123' }}>
+				<div>SomeComponent</div>
+			</AnalyticsContext>,
+		);
+
+		// when the ff is on- we expect the modern context to be used
+		expect(screen.getByText('ModernAnalytics')).toBeInTheDocument();
+	});
 });

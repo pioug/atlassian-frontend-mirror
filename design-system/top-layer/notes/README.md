@@ -200,6 +200,21 @@ actually happened.
 - **[follow-ups/ssr-helper-keeps-jsdom-window.md](./follow-ups/ssr-helper-keeps-jsdom-window.md)**:
   the `@atlaskit/ssr` helper keeps the jsdom `window`, so ds-lib `useLayoutEffect` warns in SSR
   tests that render an open top-layer layer. Tests opt out for now; the proposed helper fix is here
+- **[follow-ups/entry-point-modal-close-request.md](./follow-ups/entry-point-modal-close-request.md)**
+  — TODO: content of a `ModalTrigger` modal cannot answer a close request (for example with a
+  discard confirm), so a few consumers keep their own Escape listeners. Options and the consumers
+  that wait on it
+- **[follow-ups/popper-callers-migration.md](./follow-ups/popper-callers-migration.md)** — TODO:
+  migrate Popper callers on the top-layer path (Popup, or Popover + useAnchoredPopover +
+  useManualLightDismiss); inventory and decisions
+- **[follow-ups/aui-escape-prevent-default.md](./follow-ups/aui-escape-prevent-default.md)** — TODO:
+  legacy AUI prevents every Escape on some jira pages; investigate listener order
+- **[follow-ups/consumer-cleanup-after-gap-fixes.md](./follow-ups/consumer-cleanup-after-gap-fixes.md)**
+  — TODO: second sweep pass for consumer code the gap fixes made redundant, and small related items
+- **[follow-ups/modal-dialog-ref-forwarding.md](./follow-ups/modal-dialog-ref-forwarding.md)** —
+  TODO: ModalDialog does not forward ref on the top-layer path
+- **[follow-ups/popup-mode-prop.md](./follow-ups/popup-mode-prop.md)** — TODO: decide whether to
+  deprecate Popup mode now that wrappers ask first
 - **[follow-ups/tree-grid-initial-focus.md](./follow-ups/tree-grid-initial-focus.md)** —
   `useInitialFocus` is unimplemented for `role="tree"` and `role="grid"`
 - **[follow-ups/popovertarget-exploration.md](./follow-ups/popovertarget-exploration.md)** —

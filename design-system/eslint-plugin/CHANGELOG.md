@@ -1,5 +1,15 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 16.16.0
+
+### Minor Changes
+
+- [`ba674031bb614`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ba674031bb614) -
+  Add the `no-third-party-layering` and `no-third-party-focus-traps` rules. They disallow imports of
+  third-party layering libraries, such as Popper.js and Floating UI, and of focus trap libraries,
+  such as `react-focus-lock` and `focus-trap`. Use a Design System layering component, or
+  `@atlaskit/top-layer` if no component fits. The rules are not in the `recommended` preset.
+
 ## 16.15.0
 
 ### Minor Changes

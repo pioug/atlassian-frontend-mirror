@@ -1,5 +1,30 @@
 # @atlaskit/rovo-agent-components
 
+## 10.4.1
+
+### Patch Changes
+
+- [`f61b45e92d642`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f61b45e92d642) -
+  Remove retired Daily Brief agent avatar and palette overrides.
+
+## 10.4.0
+
+### Minor Changes
+
+- [`734e1a05d7df0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/734e1a05d7df0) -
+  Adopt the major `@atlaskit/tmp-editor-statsig` release that removes
+  `confluence_3p_in_cwr_ghost_icons`, preserving each consumer's public API.
+
+  In `@atlassian/conversation-assistant-chat-prompt-input`, make the shipped ghost icon eligibility
+  and `confluence_3p_in_cwr_ghost_icons_v2` behavior permanent. Preserve target-app scope, consent,
+  dismissal, profile readiness, and the separate Sources styling gate. Skip ghost icon absence
+  analytics on unsupported target apps. Remove obsolete rollout setup from the retained behavior
+  tests.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.3.6
 
 ### Patch Changes

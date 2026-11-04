@@ -3,7 +3,7 @@
  *
  * Structured content utilities from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::b82b05dbeceb3f06ce21e5a6ed9788ac>>
+ * @codegen <<SignedSource::e6e44c29d9e64ca1550302488f7a3010>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -2850,17 +2850,6 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		kind: 'function',
 	},
 	{
-		name: 'generateFilePreview',
-		description: 'Generates a preview data URL for an attached file.',
-		status: 'general-availability',
-		usageGuidelines: ['Use when an attachment needs a client-side preview before submission.'],
-		keywords: ['rovo', 'chat', 'file', 'preview'],
-		category: 'rovo',
-		package: '@atlassian/conversation-assistant-chat-prompt-input',
-		examples: [],
-		kind: 'function',
-	},
-	{
 		name: 'getDerivedDefaultChatMode',
 		description:
 			'Builds the initial chat-mode state from feature gates and the persisted web-search preference.',
@@ -2869,17 +2858,6 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 			'Use at initialization boundaries so feature-gated and locally persisted defaults stay aligned.',
 		],
 		keywords: ['rovo', 'chat', 'chat mode', 'defaults'],
-		category: 'rovo',
-		package: '@atlassian/conversation-assistant-chat-prompt-input',
-		examples: [],
-		kind: 'function',
-	},
-	{
-		name: 'getDerivedDefaultChatMode',
-		description: 'Derives the default internal chat mode from the active configuration.',
-		status: 'general-availability',
-		usageGuidelines: ['Use when initializing chat-mode state with package-owned defaults.'],
-		keywords: ['rovo', 'chat', 'mode', 'default'],
 		category: 'rovo',
 		package: '@atlassian/conversation-assistant-chat-prompt-input',
 		examples: [],
@@ -2930,17 +2908,6 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 			'Use for clipboard and screenshot files whose browser-provided MIME type may be empty.',
 		],
 		keywords: ['rovo', 'chat', 'image', 'detection'],
-		category: 'rovo',
-		package: '@atlassian/conversation-assistant-chat-prompt-input',
-		examples: [],
-		kind: 'function',
-	},
-	{
-		name: 'looksLikeImage',
-		description: 'Checks whether a browser File appears to be a supported image.',
-		status: 'general-availability',
-		usageGuidelines: ['Use before selecting the image-specific attachment preview path.'],
-		keywords: ['rovo', 'chat', 'file', 'image'],
 		category: 'rovo',
 		package: '@atlassian/conversation-assistant-chat-prompt-input',
 		examples: [],
@@ -6160,19 +6127,6 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		name: 'ActionCallbackFn',
 		description: 'Invokes a message action and optionally processes its resulting message content.',
 		status: 'general-availability',
-		usageGuidelines: ['Use as the action invocation callback supplied to custom renderers.'],
-		keywords: ['chat', 'message actions', 'callback'],
-		category: 'chat',
-		package: '@atlassian/conversation-assistant-widget',
-		examples: [],
-		kind: 'type',
-		definition:
-			'<TActionCallbackReturnType = unknown>(payload: MessageActionPayload, actionContentProcessor?: ActionContentProcessorFn<TActionCallbackReturnType>) => Promise<TActionCallbackReturnType | undefined>',
-	},
-	{
-		name: 'ActionCallbackFn',
-		description: 'Invokes a message action and optionally processes its resulting message content.',
-		status: 'general-availability',
 		usageGuidelines: [],
 		keywords: ['rovo', 'chat', 'message actions', 'callback'],
 		category: 'rovo',
@@ -6186,18 +6140,6 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		name: 'ActionContentProcessorFn',
 		description: 'Transforms an assistant message into an optional action-specific result.',
 		status: 'general-availability',
-		usageGuidelines: ['Use when an action callback needs a typed value from message content.'],
-		keywords: ['chat', 'message actions', 'processor'],
-		category: 'chat',
-		package: '@atlassian/conversation-assistant-widget',
-		examples: [],
-		kind: 'type',
-		definition: '<TActionResult>(message: AssistantMessage) => TActionResult | null',
-	},
-	{
-		name: 'ActionContentProcessorFn',
-		description: 'Transforms an assistant message into an optional action-specific result.',
-		status: 'general-availability',
 		usageGuidelines: [],
 		keywords: ['rovo', 'chat', 'message actions', 'processor'],
 		category: 'rovo',
@@ -6205,22 +6147,6 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		examples: [],
 		kind: 'type',
 		definition: '<TActionResult>(message: AssistantMessage) => TActionResult | null',
-	},
-	{
-		name: 'AuthProvider',
-		description: 'Authentication adapter used to provide and invalidate widget request headers.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Implement for OAuth, anonymous, or session-backed hosts that control request credentials.',
-			'Clear stale credentials from invalidate so the next getAuthHeaders call can refresh them.',
-		],
-		keywords: ['chat', 'authentication', 'headers'],
-		category: 'chat',
-		package: '@atlassian/conversation-assistant-widget',
-		examples: [],
-		kind: 'type',
-		definition:
-			"{ readonly type: 'oauth' | 'anonymous' | 'session'; getAuthHeaders: () => Promise<Headers | null>; invalidate: () => void }",
 	},
 	{
 		name: 'AuthProvider',
@@ -6244,19 +6170,6 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		name: 'CONVERSATION_ASSISTANT_BRAND_NAME',
 		description: 'Public product name used for Conversation Assistant end-user messaging.',
 		status: 'general-availability',
-		usageGuidelines: ['Use when package consumers need the widget-owned end-user brand name.'],
-		keywords: ['chat', 'brand', 'name'],
-		category: 'chat',
-		package: '@atlassian/conversation-assistant-widget',
-		examples: [],
-		kind: 'constant',
-		type: 'string',
-		value: 'Chat',
-	},
-	{
-		name: 'CONVERSATION_ASSISTANT_BRAND_NAME',
-		description: 'Public product name used for Conversation Assistant end-user messaging.',
-		status: 'general-availability',
 		usageGuidelines: [],
 		keywords: ['rovo', 'chat', 'brand', 'name'],
 		category: 'rovo',
@@ -6265,22 +6178,6 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		kind: 'constant',
 		type: 'string',
 		value: 'Chat',
-	},
-	{
-		name: 'ConversationAssistantActions',
-		description: 'Imperative actions exposed to a widget host through actionsRef.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use through the actionsRef prop for host-driven conversation creation, sending, and inspection.',
-			'Prefer getCurrentConversation over the deprecated getHumanMessagesFromCurrentConversation action.',
-		],
-		keywords: ['chat', 'widget', 'actions'],
-		category: 'chat',
-		package: '@atlassian/conversation-assistant-widget',
-		examples: [],
-		kind: 'type',
-		definition:
-			'{ createNewConversation: (options?: { message?: string }) => void; sendMessage: (message: string) => void; getHumanMessagesFromCurrentConversation: () => ConversationHumanMessage | undefined; getConversation: (options: { conversationId: string }) => Conversation | undefined; getCurrentConversation: () => Conversation | undefined }',
 	},
 	{
 		name: 'ConversationAssistantActions',
@@ -6306,22 +6203,6 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 			'Identifies the site, product, widget, service endpoint, and conversation context.',
 		status: 'general-availability',
 		usageGuidelines: [
-			'Use to connect a widget instance to its Rovo Assistance Service product and site context.',
-		],
-		keywords: ['chat', 'widget', 'configuration'],
-		category: 'chat',
-		package: '@atlassian/conversation-assistant-widget',
-		examples: [],
-		kind: 'type',
-		definition:
-			'{ widgetId: string; gatewayOrigin?: string; assistanceServiceConfig?: { baseUrl?: string; credentials?: RequestCredentials; headers?: Record<string, string> }; siteId: string; product: AssistanceServiceProduct; experienceId?: string; conversationContext?: Record<string, unknown> }',
-	},
-	{
-		name: 'ConversationAssistantConfig',
-		description:
-			'Identifies the site, product, widget, service endpoint, and conversation context.',
-		status: 'general-availability',
-		usageGuidelines: [
 			'Use to connect a widget instance to its Assistance Service product and site context.',
 			'Avoid deprecated displaySubmitFlag, orgId, and workspaceId fields in new integrations.',
 		],
@@ -6334,21 +6215,6 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		kind: 'type',
 		definition:
 			'{ widgetId?: string | null; gatewayOrigin?: string; assistanceServiceConfig?: { baseUrl?: string; credentials?: RequestCredentials; headers?: Record<string, string> }; siteId: string; product: AssistanceServiceProduct; experienceId?: string; conversationContext?: Record<string, unknown>; userId?: string; displaySubmitFlag?: boolean; orgId?: string; workspaceId?: string }',
-	},
-	{
-		name: 'ConversationAssistantProps',
-		description: 'Public props for configuring, observing, and extending the chat widget.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use as the integration contract for mounting the widget and subscribing to host-facing events.',
-		],
-		keywords: ['chat', 'widget', 'props'],
-		category: 'chat',
-		package: '@atlassian/conversation-assistant-widget',
-		examples: [],
-		kind: 'type',
-		definition:
-			'{ config: ConversationAssistantConfig; testId?: string; onCloseChat?: () => void; uiConfig?: Partial<UIConfig>; isVisible?: boolean; actionsRef?: React.RefObject<ConversationAssistantActions>; onChatStatus?: (status: ChatStatus) => void; onChatMessage?: ChatMessageEventHandlers; onError?: (error: Error) => void; onHandoff?: (payload: { conversationId: string }) => void; onHasUnreadMessagesChanged?: (hasUnreadMessages: boolean) => void; sessionId?: string; restoreConversationId?: string; extensionComponents?: ExtensionComponents; oAuthProvider?: AuthProvider; anonymousAuthProvider?: AuthProvider }',
 	},
 	{
 		name: 'ConversationAssistantProps',
@@ -6372,21 +6238,6 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		description: 'Optional component overrides and providers for extending widget behavior.',
 		status: 'general-availability',
 		usageGuidelines: [
-			'Use only for supported widget extension points that must be supplied by the host product.',
-		],
-		keywords: ['chat', 'widget', 'extensions'],
-		category: 'chat',
-		package: '@atlassian/conversation-assistant-widget',
-		examples: [],
-		kind: 'type',
-		definition:
-			'{ messageActionRenderer?: React.ComponentType<MessageActionRendererProps> | null; liveChatManager?: React.ComponentType | null; chatTextAreaInput?: React.ComponentType<ChatTextAreaInputProps> | null; liveChatSendMessageProvider?: LiveChatSendMessageProviderComponent | null; liveChatCloseProvider?: LiveChatCloseProviderComponent | null; citationRenderer?: React.ComponentType<CitationProps> | null; liveChatMediaProvider?: LiveChatMediaProviderComponent | null }',
-	},
-	{
-		name: 'ExtensionComponents',
-		description: 'Optional component overrides and providers for extending widget behavior.',
-		status: 'general-availability',
-		usageGuidelines: [
 			'Customize through the supported component slots. Keep replacement content concise and render untrusted message strings as text rather than HTML.',
 		],
 		keywords: ['rovo', 'chat', 'widget', 'extensions'],
@@ -6398,19 +6249,6 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		kind: 'type',
 		definition:
 			'{ messageActionRenderer?: React.ComponentType<MessageActionRendererProps> | null; liveChatManager?: React.ComponentType | null; chatTextAreaInput?: React.ComponentType<ChatTextAreaInputProps> | null; liveChatSendMessageProvider?: LiveChatSendMessageProviderComponent | null; liveChatCloseProvider?: LiveChatCloseProviderComponent | null; citationRenderer?: React.ComponentType<CitationProps> | null; liveChatMediaProvider?: LiveChatMediaProviderComponent | null; chatFooterContent?: React.ComponentType | null }',
-	},
-	{
-		name: 'MessageActionRendererProps',
-		description: 'Props passed to a custom widget message-action renderer.',
-		status: 'general-availability',
-		usageGuidelines: ['Use as the contract for an ExtensionComponents messageActionRenderer.'],
-		keywords: ['chat', 'message actions', 'renderer'],
-		category: 'chat',
-		package: '@atlassian/conversation-assistant-widget',
-		examples: [],
-		kind: 'type',
-		definition:
-			'{ actions: MessageAction[]; recipientAgentId?: string; messageId: string; siteId: string; onActioned: ActionCallbackFn; ContentRenderer: React.ComponentType<ContentRendererProps>; invokedActions?: StoreAssistantInvokedActions; recipientAgentNamedId?: string; aaid?: string }',
 	},
 	{
 		name: 'MessageActionRendererProps',
@@ -6431,19 +6269,6 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		name: 'ProfileData',
 		description: 'User profile metadata supplied to a widget integration.',
 		status: 'general-availability',
-		usageGuidelines: ['Use for the profile attributes needed by a widget host integration.'],
-		keywords: ['chat', 'profile', 'user'],
-		category: 'chat',
-		package: '@atlassian/conversation-assistant-widget',
-		examples: [],
-		kind: 'type',
-		definition:
-			'{ aaid?: string; name: string; displayName?: string; avatarUrl?: string; email?: string }',
-	},
-	{
-		name: 'ProfileData',
-		description: 'User profile metadata supplied to a widget integration.',
-		status: 'general-availability',
 		usageGuidelines: [],
 		keywords: ['rovo', 'chat', 'profile', 'user'],
 		category: 'rovo',
@@ -6452,21 +6277,6 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		kind: 'type',
 		definition:
 			'{ aaid?: string; name: string; displayName?: string; avatarUrl?: string; email?: string }',
-	},
-	{
-		name: 'WidgetConfig',
-		description: 'Resolved backend configuration for a customer-service Rovo widget.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use the value returned by the widget service to configure access, branding, messaging, and consent.',
-		],
-		keywords: ['chat', 'widget', 'service configuration'],
-		category: 'chat',
-		package: '@atlassian/conversation-assistant-widget',
-		examples: [],
-		kind: 'type',
-		definition:
-			'{ id: string; csmAiHubId: string | null; allowedDomains: string[]; isAnonymousAccessEnabled: boolean; isWidgetEnabled: boolean; agentId: string; widgetTheme: WidgetTheme; customerHubId: string | null; consentForm?: ConsentForm | null; isLiveConversationReviewEnabled?: boolean }',
 	},
 	{
 		name: 'WidgetConfig',
@@ -6482,18 +6292,6 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		kind: 'type',
 		definition:
 			'{ id: string; csmAiHubId: string | null; allowedDomains: string[]; isAnonymousAccessEnabled: boolean; isWidgetEnabled: boolean; agentId: string; widgetTheme: WidgetTheme; customerHubId: string | null; consentForm?: ConsentForm | null; isLiveConversationReviewEnabled?: boolean }',
-	},
-	{
-		name: 'WidgetSurface',
-		description: 'Supported customer-service surfaces for the Rovo Service Agent widget.',
-		status: 'general-availability',
-		usageGuidelines: ['Use to identify whether the widget runs in a portal or help center.'],
-		keywords: ['chat', 'widget', 'surface'],
-		category: 'chat',
-		package: '@atlassian/conversation-assistant-widget',
-		examples: [],
-		kind: 'type',
-		definition: "'PORTAL' | 'HELP_CENTER'",
 	},
 	{
 		name: 'WidgetSurface',
@@ -6662,6 +6460,162 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		package: '@atlassian/csm-colour-theme-generator',
 		examples: [],
 		kind: 'function',
+	},
+	{
+		name: 'ActionCallbackFn',
+		description: 'Invokes a message action and optionally processes its resulting message content.',
+		status: 'general-availability',
+		usageGuidelines: ['Use as the action invocation callback supplied to custom renderers.'],
+		keywords: ['chat', 'message actions', 'callback'],
+		category: 'chat',
+		package: '@atlassian/csm-widget',
+		examples: [],
+		kind: 'type',
+		definition:
+			'<TActionCallbackReturnType = unknown>(payload: MessageActionPayload, actionContentProcessor?: ActionContentProcessorFn<TActionCallbackReturnType>) => Promise<TActionCallbackReturnType | undefined>',
+	},
+	{
+		name: 'ActionContentProcessorFn',
+		description: 'Transforms an assistant message into an optional action-specific result.',
+		status: 'general-availability',
+		usageGuidelines: ['Use when an action callback needs a typed value from message content.'],
+		keywords: ['chat', 'message actions', 'processor'],
+		category: 'chat',
+		package: '@atlassian/csm-widget',
+		examples: [],
+		kind: 'type',
+		definition: '<TActionResult>(message: AssistantMessage) => TActionResult | null',
+	},
+	{
+		name: 'AuthProvider',
+		description: 'Authentication adapter used to provide and invalidate widget request headers.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Implement for OAuth, anonymous, or session-backed hosts that control request credentials.',
+			'Clear stale credentials from invalidate so the next getAuthHeaders call can refresh them.',
+		],
+		keywords: ['chat', 'authentication', 'headers'],
+		category: 'chat',
+		package: '@atlassian/csm-widget',
+		examples: [],
+		kind: 'type',
+		definition:
+			"{ readonly type: 'oauth' | 'anonymous' | 'session'; getAuthHeaders: () => Promise<Headers | null>; invalidate: () => void }",
+	},
+	{
+		name: 'ConversationAssistantActions',
+		description: 'Imperative actions exposed to a widget host through actionsRef.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use through the actionsRef prop for host-driven conversation creation, sending, and inspection.',
+			'Prefer getCurrentConversation over the deprecated getHumanMessagesFromCurrentConversation action.',
+		],
+		keywords: ['chat', 'widget', 'actions'],
+		category: 'chat',
+		package: '@atlassian/csm-widget',
+		examples: [],
+		kind: 'type',
+		definition:
+			'{ createNewConversation: (options?: { message?: string }) => void; sendMessage: (message: string) => void; getHumanMessagesFromCurrentConversation: () => ConversationHumanMessage | undefined; getConversation: (options: { conversationId: string }) => Conversation | undefined; getCurrentConversation: () => Conversation | undefined }',
+	},
+	{
+		name: 'ConversationAssistantConfig',
+		description:
+			'Identifies the site, product, widget, service endpoint, and conversation context.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use to connect a widget instance to its Rovo Assistance Service product and site context.',
+		],
+		keywords: ['chat', 'widget', 'configuration'],
+		category: 'chat',
+		package: '@atlassian/csm-widget',
+		examples: [],
+		kind: 'type',
+		definition:
+			'{ widgetId: string; gatewayOrigin?: string; assistanceServiceConfig?: { baseUrl?: string; credentials?: RequestCredentials; headers?: Record<string, string> }; siteId: string; product: AssistanceServiceProduct; experienceId?: string; conversationContext?: Record<string, unknown> }',
+	},
+	{
+		name: 'ConversationAssistantProps',
+		description: 'Public props for configuring, observing, and extending the chat widget.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use as the integration contract for mounting the widget and subscribing to host-facing events.',
+		],
+		keywords: ['chat', 'widget', 'props'],
+		category: 'chat',
+		package: '@atlassian/csm-widget',
+		examples: [],
+		kind: 'type',
+		definition:
+			'{ config: ConversationAssistantConfig; testId?: string; onCloseChat?: () => void; uiConfig?: Partial<UIConfig>; isVisible?: boolean; actionsRef?: React.RefObject<ConversationAssistantActions>; onChatStatus?: (status: ChatStatus) => void; onChatMessage?: ChatMessageEventHandlers; onError?: (error: Error) => void; onHandoff?: (payload: { conversationId: string }) => void; onHasUnreadMessagesChanged?: (hasUnreadMessages: boolean) => void; sessionId?: string; restoreConversationId?: string; extensionComponents?: ExtensionComponents; oAuthProvider?: AuthProvider; anonymousAuthProvider?: AuthProvider }',
+	},
+	{
+		name: 'ExtensionComponents',
+		description: 'Optional component overrides and providers for extending widget behavior.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use only for supported widget extension points that must be supplied by the host product.',
+		],
+		keywords: ['chat', 'widget', 'extensions'],
+		category: 'chat',
+		package: '@atlassian/csm-widget',
+		examples: [],
+		kind: 'type',
+		definition:
+			'{ messageActionRenderer?: React.ComponentType<MessageActionRendererProps> | null; liveChatManager?: React.ComponentType | null; chatTextAreaInput?: React.ComponentType<ChatTextAreaInputProps> | null; liveChatSendMessageProvider?: LiveChatSendMessageProviderComponent | null; liveChatCloseProvider?: LiveChatCloseProviderComponent | null; citationRenderer?: React.ComponentType<CitationProps> | null; liveChatMediaProvider?: LiveChatMediaProviderComponent | null }',
+	},
+	{
+		name: 'MessageActionRendererProps',
+		description: 'Props passed to a custom widget message-action renderer.',
+		status: 'general-availability',
+		usageGuidelines: ['Use as the contract for an ExtensionComponents messageActionRenderer.'],
+		keywords: ['chat', 'message actions', 'renderer'],
+		category: 'chat',
+		package: '@atlassian/csm-widget',
+		examples: [],
+		kind: 'type',
+		definition:
+			'{ actions: MessageAction[]; recipientAgentId?: string; messageId: string; siteId: string; onActioned: ActionCallbackFn; ContentRenderer: React.ComponentType<ContentRendererProps>; invokedActions?: StoreAssistantInvokedActions; recipientAgentNamedId?: string; aaid?: string }',
+	},
+	{
+		name: 'ProfileData',
+		description: 'User profile metadata supplied to a widget integration.',
+		status: 'general-availability',
+		usageGuidelines: ['Use for the profile attributes needed by a widget host integration.'],
+		keywords: ['chat', 'profile', 'user'],
+		category: 'chat',
+		package: '@atlassian/csm-widget',
+		examples: [],
+		kind: 'type',
+		definition:
+			'{ aaid?: string; name: string; displayName?: string; avatarUrl?: string; email?: string }',
+	},
+	{
+		name: 'WidgetConfig',
+		description: 'Resolved backend configuration for a customer-service Rovo widget.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the value returned by the widget service to configure access, branding, messaging, and consent.',
+		],
+		keywords: ['chat', 'widget', 'service configuration'],
+		category: 'chat',
+		package: '@atlassian/csm-widget',
+		examples: [],
+		kind: 'type',
+		definition:
+			'{ id: string; csmAiHubId: string | null; allowedDomains: string[]; isAnonymousAccessEnabled: boolean; isWidgetEnabled: boolean; agentId: string; widgetTheme: WidgetTheme; customerHubId: string | null; consentForm?: ConsentForm | null; isLiveConversationReviewEnabled?: boolean }',
+	},
+	{
+		name: 'WidgetSurface',
+		description: 'Supported customer-service surfaces for the Rovo Service Agent widget.',
+		status: 'general-availability',
+		usageGuidelines: ['Use to identify whether the widget runs in a portal or help center.'],
+		keywords: ['chat', 'widget', 'surface'],
+		category: 'chat',
+		package: '@atlassian/csm-widget',
+		examples: [],
+		kind: 'type',
+		definition: "'PORTAL' | 'HELP_CENTER'",
 	},
 	{
 		name: 'GenerateThemeBranding',

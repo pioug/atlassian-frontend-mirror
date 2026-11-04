@@ -49,6 +49,7 @@ export function loadVoltPresetPackageMap(afmRoot: string): Record<string, Packag
 
 	const sorted: Record<string, PackageVoltReadiness> = {};
 	for (const packageName of Object.keys(result).sort((left, right) => left.localeCompare(right))) {
+		// @ts-expect-error - TS2322 - Type 'PackageVoltReadiness | undefined' is not assignable to type 'PackageVoltReadiness'.
 		sorted[packageName] = result[packageName];
 	}
 	return sorted;

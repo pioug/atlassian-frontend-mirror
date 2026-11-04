@@ -1,5 +1,20 @@
 # @atlaskit/link-provider
 
+## 6.1.0
+
+### Minor Changes
+
+- [`4fc5a097ea8ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4fc5a097ea8ce) -
+  Add reusable host choreography and an adapter factory for Smart Card experiments. The one-click
+  chat spotlight uses it behind platform_sl_one_click_chat_spotlight_v2_fg, preserving local
+  eligibility and dismissal policy. Missing-host notifications do not repeat when only the
+  unavailable callback changes. The adapter keeps its choreography callbacks and return value stable
+  between unchanged renders, and render functions receive a named `{ hasPermission }` value.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.0.1
 
 ### Patch Changes

@@ -1,3 +1,4 @@
+// eslint-disable-next-line @atlaskit/design-system/no-third-party-layering -- existing usage from before this rule was added
 import { createPopper as createLegacyPopper, type Instance, type Placement } from '@popperjs/core';
 import { bind } from 'bind-event-listener';
 
@@ -205,10 +206,7 @@ export class VanillaTooltip {
 
 		// Resets `isDisplayed` when the browser closes the popover without going through `hide()`
 		// (e.g. light-dismissal). Prevents the guard in `show()` from becoming stale.
-		if (
-			isExperimentEnabled('platform_editor_use_vanilla_components') &&
-			fg('platform_editor_use_vanilla_components_patch_2')
-		) {
+		if (isExperimentEnabled('platform_editor_use_vanilla_components')) {
 			this.listeners.push(
 				bind(tooltip, {
 					type: 'toggle',

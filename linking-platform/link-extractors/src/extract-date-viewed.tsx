@@ -1,7 +1,7 @@
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 
 export const extractDateViewed = (jsonLd: JsonLd.Data.Document): string | undefined => {
-	if (jsonLd['atlassian:dateViewed']) {
+	if (jsonLd?.['atlassian:dateViewed']) {
 		return jsonLd['atlassian:dateViewed'];
 	}
 	return undefined;

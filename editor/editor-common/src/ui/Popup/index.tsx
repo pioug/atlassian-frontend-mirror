@@ -2,7 +2,9 @@ import React from 'react';
 import { createPortal, flushSync } from 'react-dom';
 
 import { bind } from 'bind-event-listener';
+// eslint-disable-next-line @atlaskit/design-system/no-third-party-focus-traps -- existing usage from before this rule was added
 import type { FocusTrap, Options as FocusTrapOptions } from 'focus-trap';
+// eslint-disable-next-line @atlaskit/design-system/no-third-party-focus-traps -- existing usage from before this rule was added
 import createFocusTrap from 'focus-trap';
 import rafSchedule from 'raf-schd';
 

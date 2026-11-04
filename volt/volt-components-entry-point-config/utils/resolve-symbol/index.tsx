@@ -28,6 +28,7 @@ export function resolveSymbol(
 	const top = ranked.filter((item) => item.score === bestScore);
 
 	if (top.length === 1) {
+		// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 		const winner = top[0].candidate;
 		return {
 			entryPoint: winner.entryPoint,

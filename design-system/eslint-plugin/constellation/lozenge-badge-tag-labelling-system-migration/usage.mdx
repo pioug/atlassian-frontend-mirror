@@ -33,15 +33,13 @@ import Tag from '@atlaskit/tag/tag-new';
 <Tag text="Design" color="blue" isRemovable={false} />;
 ```
 
-The autofix handles an isolated import with one JSX use, a static `text` prop or one plain text
-child, and supported props. It maps legacy Light colors and grey/greyLight, preserves a static
-non-Avatar `elemBefore`, and sets `isRemovable={false}` for SimpleTag. If `Tag` is already bound, it
-chooses an unused `MigratedTag` name.
+The autofix handles an isolated import with one JSX use, static string text, supported static props,
+and no meaningful children. It maps legacy Light colors and grey/greyLight to the new colors. If
+`Tag` is already bound, it chooses an unused `MigratedTag` name.
 
 For mixed imports, multiple references, existing new Tag imports, spreads, callbacks, dynamic or
-unsupported props, or children that are not one plain text node, follow the diagnostic and migrate
-manually. Preserve every remaining import and migrate all uses of a binding together. Review the
-current
+unsupported props, or missing text, follow the diagnostic and migrate manually. Preserve every
+remaining import and migrate all uses of a binding together. Review the current
 [TagNewProps](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/design-system/tag/src/tag-new/types.tsx)
 before transferring props. Existing root default imports named Tag/AvatarTag retain the rule's
 previous detection scope; a missing diagnostic is not evidence that they already use the new API.

@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-layout
 
+## 31.0.9
+
+### Patch Changes
+
+- [`28de57991fc5b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28de57991fc5b) -
+  Clean up experiment `platform_editor_disable_view_layout_resize`
+- Updated dependencies
+
+## 31.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 31.0.7
 
 ### Patch Changes

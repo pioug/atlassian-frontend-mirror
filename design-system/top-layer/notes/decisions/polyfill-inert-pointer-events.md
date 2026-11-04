@@ -49,11 +49,11 @@ user has not confirmed it yet.
   hittable in a `pointer-events: none` ancestor.
 - jsdom does not support `:defined`, so the reset never applies. jsdom resolves `none` for the host
   and its content, and a `user-event` click in the surface throws.
-- An inline `pointer-events` in the popover is kept. A stylesheet `none` in the popover is not seen:
-  jsdom gives no way to tell it from an inherited one.
+- A `pointer-events` set in the popover is kept: inline, or by a style sheet rule that matches an
+  element between the content and the host.
 - The difference you can see: a plain `[popover]`, with no reset, in a `pointer-events: none`
   ancestor inherits `none` in a browser. The polyfill reports `auto`.
-- A modal dialog does not get this yet. Only the blocking dialog itself reports `auto`, and only
-  when jsdom resolves no value.
+- An open dialog, and its content, get the same reset (the layer surface reset in the polyfill). The
+  blocking modal dialog also reports `auto` when jsdom resolves no value.
 
 The code comment is on the `getComputedStyle` patch in `src/testing/polyfill.tsx`.

@@ -12,6 +12,7 @@ import { flushSync } from 'react-dom';
 import { css, jsx } from '@emotion/react';
 import type { SerializedStyles } from '@emotion/react';
 import debounce from 'lodash/debounce';
+// eslint-disable-next-line @atlaskit/design-system/no-third-party-focus-traps -- existing usage from before this rule was added
 import FocusLock from 'react-focus-lock';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';

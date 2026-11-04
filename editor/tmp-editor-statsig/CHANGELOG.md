@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 253.0.0
+
+### Major Changes
+
+- [`734e1a05d7df0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/734e1a05d7df0) -
+  Remove the shipped `confluence_3p_in_cwr_ghost_icons` experiment key. Remove this key from
+  `setupEditorExperiments` overrides; ghost icons no longer read it.
+
 ## 252.0.0
 
 ### Major Changes

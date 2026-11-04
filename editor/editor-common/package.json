@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "134.5.0",
+	"version": "134.6.2",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -53,6 +53,7 @@
 		"./collab-agent-remote-edit-review": "./src/collab/agent-remote-edit-review.ts",
 		"./collab-agent-review-slice-compare": "./src/collab/agent-review-slice-compare.ts",
 		"./collab-defer-collab-send": "./src/collab/defer-collab-send.ts",
+		"./collab-local-only-step": "./src/collab/local-only-step.ts",
 		"./collab-streaming-step-collapse": "./src/collab/streaming-step-collapse.ts",
 		"./commands": "./src/commands/index.ts",
 		"./connectivity/isOfflineMode": "./src/connectivity/isOfflineMode.ts",
@@ -876,10 +877,6 @@
 		"platform_editor_hide_configure_lozenge_non_configurable": {
 			"type": "boolean"
 		},
-		"rovo_skill_tag_label_wrapping": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform-dst-popper-consolidation": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -926,9 +923,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_ai_selection_local_ids": {
-			"type": "boolean"
-		},
-		"platform_editor_use_vanilla_components_patch_2": {
 			"type": "boolean"
 		}
 	},

@@ -1,0 +1,118 @@
+Do not use a third-party layering library, such as Popper.js, Floating UI, Tippy or Radix dialogs
+and popovers. Use a Design System component. If no Design System component fits, use
+`@atlaskit/top-layer`.
+
+Layers are moving to the browser
+[top layer](https://developer.mozilla.org/en-US/docs/Glossary/Top_layer). Design System layers share
+one layer stack. A layer that another library builds is not in that stack:
+
+- It usually renders in a portal with a `z-index`. Every top layer surface paints above it, at any
+  `z-index`. Inside a modal dialog, it is also inert and hidden behind the backdrop.
+- It handles Escape and outside presses with its own listeners. One press of Escape can close it and
+  the Design System layer under it.
+
+Design System components also give you focus management, placement, a fallback for browsers without
+CSS anchor positioning, and testing utilities.
+
+Use, in this order:
+
+1. A Design System component:
+   - Overlays: [popup](https://atlassian.design/components/popup),
+     [tooltip](https://atlassian.design/components/tooltip),
+     [inline-dialog](https://atlassian.design/components/inline-dialog)
+   - Messaging: [modal-dialog](https://atlassian.design/components/modal-dialog),
+     [drawer](https://atlassian.design/components/drawer),
+     [flag](https://atlassian.design/components/flag),
+     [spotlight](https://atlassian.design/components/spotlight)
+   - Forms and inputs: [dropdown-menu](https://atlassian.design/components/dropdown-menu),
+     [select](https://atlassian.design/components/select),
+     [datetime-picker](https://atlassian.design/components/datetime-picker)
+2. `@atlaskit/top-layer`, only if no Design System component fits. `Popover` with
+   `useAnchoredPopover` replaces a positioning library.
+
+## Examples
+
+This rule marks each module that a file loads from a layering library, as a whole package or a
+subpath:
+
+- `import` and `import type` declarations, and `import 'module'`
+- `export … from 'module'`
+- `import('module')`
+- `require('module')`
+
+These libraries are marked:
+
+- Positioning: `@floating-ui/*`, `@popperjs/core`, `popper.js`, `react-laag`, `react-popper`,
+  `react-tether`, `tether`
+- Popovers and tooltips: `@rc-component/tooltip`, `@rc-component/trigger`, `@react-aria/overlays`,
+  `@tippyjs/react`, `rc-tooltip`, `rc-trigger`, `react-overlays`, `react-popover`,
+  `react-popper-tooltip`, `react-tiny-popover`, `react-tooltip`, `tippy.js`
+- Dialogs and portals: `react-modal`, `react-portal`
+- Layering packages from headless component libraries: `@radix-ui/react-alert-dialog`,
+  `@radix-ui/react-context-menu`, `@radix-ui/react-dialog`, `@radix-ui/react-dropdown-menu`,
+  `@radix-ui/react-hover-card`, `@radix-ui/react-menubar`, `@radix-ui/react-popover`,
+  `@radix-ui/react-popper`, `@radix-ui/react-portal`, `@radix-ui/react-select`,
+  `@radix-ui/react-tooltip`, `@reach/combobox`, `@reach/dialog`, `@reach/listbox`,
+  `@reach/menu-button`, `@reach/popover`, `@reach/tooltip`
+
+### Not covered
+
+- `@atlaskit/popper`, `@atlaskit/portal` and `@atlaskit/layering`. These are Design System packages.
+- General component libraries that also have layers, such as Material UI or Headless UI.
+- `jest.mock('module')` and `vi.mock('module')`. A mock does not render a layer.
+- Specifiers that are only known at runtime, such as `import(name)`.
+- TypeScript `import name = require('module')`.
+
+### Incorrect
+
+```tsx
+import { usePopper } from 'react-popper';
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+import { computePosition } from '@floating-ui/dom';
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+import type { Instance } from '@popperjs/core';
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+import * as Popover from '@radix-ui/react-popover';
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+const tippy = await import('tippy.js');
+                    ^^^^^^^^^^^^^^^^^^
+
+const Modal = require('react-modal');
+              ^^^^^^^^^^^^^^^^^^^^^^
+```
+
+### Correct
+
+```tsx
+import Popup from '@atlaskit/popup';
+import Tooltip from '@atlaskit/tooltip';
+
+<Popup
+	isOpen={isOpen}
+	onClose={onClose}
+	content={() => <Menu />}
+	trigger={(props) => <Button {...props}>Open</Button>}
+/>;
+
+<Tooltip content="Save">
+	{(props) => <IconButton {...props} label="Save" icon={SaveIcon} />}
+</Tooltip>;
+```
+
+## When not to use it
+
+- **A Design System package that wraps a library.** For example, `@atlaskit/popper` wraps Popper.js
+  for its legacy path.
+- **Positioning for something that is not a layer.** For example, a drag preview or a measuring
+  helper that never takes focus, Escape or an outside press.
+
+An `eslint-disable` comment silences this rule. In the Atlassian Frontend Monorepo, the ratchet "Do
+not disable @atlaskit/design-system/no-third-party-layering (AFM-wide)" counts these comments, and
+`'off'` for this rule in an ESLint config, so a new one fails ratcheting. For a real exception, give
+a reason after `--` in the disable comment, and add the file to the ratchet's `excluded` list in
+`platform/monorepo.config/tasks/global-ratcheting/rules/no-third-party-layering.ts` with an owner
+and a reason.

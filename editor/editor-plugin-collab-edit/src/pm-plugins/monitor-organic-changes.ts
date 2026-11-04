@@ -1,7 +1,9 @@
 import { AnalyticsStep } from '@atlaskit/adf-schema/steps/analytics';
+import { LocalOnlyStep } from '@atlaskit/editor-common/collab-local-only-step';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { CollabEditPlugin } from '../collabEditPluginType';
 import { trackLastOrganicChangePluginKey } from './track-last-organic-change';
@@ -117,7 +119,13 @@ export const monitorOrganic = ({
 	// We can exclude analytic steps since they should never trigger an organic change.
 	const newSteps = transactions
 		.flatMap((t) => t.steps)
-		.filter((step) => !(step instanceof AnalyticsStep));
+		.filter(
+			(step) =>
+				!(step instanceof AnalyticsStep) &&
+				!(
+					isExperimentEnabled('platform_editor_numbered_headings') && step instanceof LocalOnlyStep
+				),
+		);
 	const scheduler = getScheduler(window);
 
 	if (!newSteps.length || !scheduler) {

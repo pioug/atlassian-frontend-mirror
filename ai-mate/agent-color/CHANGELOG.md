@@ -1,5 +1,12 @@
 # @atlaskit/agent-color
 
+## 1.0.6
+
+### Patch Changes
+
+- [`f61b45e92d642`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f61b45e92d642) -
+  Remove retired Daily Brief agent avatar and palette overrides.
+
 ## 1.0.5
 
 ### Patch Changes

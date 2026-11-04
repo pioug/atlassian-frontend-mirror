@@ -2,6 +2,7 @@ import { AnalyticsStep } from '@atlaskit/adf-schema/steps/analytics';
 import { LinkMetaStep } from '@atlaskit/adf-schema/steps/link-meta-step';
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps/set-attrs';
 import { InsertTypeAheadStep } from '@atlaskit/adf-schema/steps/type-ahead';
+import { LocalOnlyStep } from '@atlaskit/editor-common/collab-local-only-step';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
@@ -16,6 +17,7 @@ import {
 	ReplaceStep,
 } from '@atlaskit/editor-prosemirror/transform';
 import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { TrackSpammingStepsMetadata } from '../types';
 
@@ -112,6 +114,8 @@ export const createFilterTransaction = (
 		const containsExcludedSteps = tr.steps.some((step) => {
 			return (
 				step instanceof AnalyticsStep ||
+				(isExperimentEnabled('platform_editor_numbered_headings') &&
+					step instanceof LocalOnlyStep) ||
 				step instanceof ReplaceStep ||
 				step instanceof ReplaceAroundStep ||
 				step instanceof LinkMetaStep

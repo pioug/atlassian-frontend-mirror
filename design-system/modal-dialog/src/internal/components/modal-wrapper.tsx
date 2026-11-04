@@ -6,6 +6,7 @@
 import { forwardRef, useCallback, useEffect, useMemo, useRef } from 'react';
 
 import { cssMap as compiledCssMap, css, jsx } from '@compiled/react';
+// eslint-disable-next-line @atlaskit/design-system/no-third-party-focus-traps -- existing usage from before this rule was added
 import FocusLock from 'react-focus-lock';
 import ScrollLock, { TouchScrollable } from 'react-scrolllock';
 

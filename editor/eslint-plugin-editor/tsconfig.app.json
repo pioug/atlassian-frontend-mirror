@@ -39,7 +39,8 @@
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__eslint-plugin-editor/app",
-		"isolatedDeclarations": true
+		"isolatedDeclarations": true,
+		"noUncheckedIndexedAccess": true
 	},
 	"references": []
 }

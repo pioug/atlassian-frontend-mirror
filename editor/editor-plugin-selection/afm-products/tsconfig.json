@@ -41,6 +41,9 @@
 			"path": "../../editor-tables/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-experiments/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/primitives/afm-products/tsconfig.json"
 		},
 		{

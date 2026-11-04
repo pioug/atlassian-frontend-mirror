@@ -17,6 +17,7 @@ props:
     - SideNavFooter
     - Main
     - MainStickyHeader
+    - PanelLayout
     - Panel
     - PanelSplitter
     - SideNavToggleButton
@@ -101,6 +102,33 @@ Use the Main area for the main page content.
 The sticky header of the main layout area.
 
 <TSMorphProps exportName="MainStickyHeader" packageName="@atlaskit/navigation-system" />
+
+### PanelLayout
+
+Use `PanelLayout` to render a local panel beside page content inside `Main`. It manages responsive
+inline and overlay positioning, sizing, and pointer and keyboard resizing. The caller supplies the
+panel content and controls whether it is open; no panel-system provider is required.
+
+```tsx
+import { PanelLayout } from '@atlaskit/navigation-system/layout/panel-layout';
+```
+
+Mount one local-panel host per navigation `Root`, including closed `PanelLayout` and
+`LayoutWithPanel` instances. Keep the host mounted and use `isPanelOpen` to open or close it so that
+resized widths are retained. Switch content through the same host using `panel` and `panelKey`.
+
+Use `defaultPanelWidth` for an initial width, or pair `panelWidth` with `onPanelWidthChange` to
+control it. Available space can constrain the rendered width. Use `onResizeEnd` for persistence or
+analytics after a completed resize, and provide localized `panelLabel` and `resizeLabel` values.
+
+`PanelLayout` contains the layout and resizing responsibilities extracted from
+`@atlassian/panel-system`. That package's `LayoutWithPanel` remains an adapter that connects panel
+state and routed content to `PanelLayout`.
+
+The separate [`Panel`](#panel) component is a layout area rendered alongside `Main` under `Root`.
+`PanelLayout` wraps content inside `Main` and includes its own resize control.
+
+<TSMorphProps exportName="PanelLayout" packageName="@atlaskit/navigation-system" />
 
 ### Panel
 

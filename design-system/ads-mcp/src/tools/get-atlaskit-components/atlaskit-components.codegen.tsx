@@ -3,7 +3,7 @@
  *
  * Structured content components from *.docs.tsx files outside of design-system
  *
- * @codegen <<SignedSource::929af0d25c7f35cc05aea5d76bd623db>>
+ * @codegen <<SignedSource::e40e39d2edd9428006a2c96514052034>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -15127,6 +15127,99 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		props: [],
 	},
 	{
+		name: 'AgentScope',
+		package: '@atlassian/agent-scope',
+		description:
+			'Shows the spaces and connected resources a Rovo agent can access when it runs in a Jira space.',
+		status: 'early-access',
+		usageGuidelines: [
+			'Use where an admin configures an agent for a single Jira space, such as agent settings, workflow agent modals and automation rules.',
+			'Render inside a Relay environment for the Atlassian GraphQL gateway and an `IntlProvider`.',
+			'The Relay environment must send the site ARI (`ari:cloud:platform::site/<cloudId>`) in the `X-Query-Context` request header, which GraphStore needs for connected resources. Jira’s environment does; outside Jira, check yours does, or the scope fails to load and reports an error.',
+			'Only render it when exactly one Jira space applies; it needs that space’s project ARI.',
+			'Use the read-only variant where the scope is shown for context. `isEditable` is experimental: its add and remove buttons don’t work yet, so don’t ship it.',
+		],
+		contentGuidelines: [
+			'The read-only variant links to the space’s agent settings, so don’t add another link to manage the scope next to it.',
+		],
+		accessibilityGuidelines: [
+			'The sources are a labelled tag group; links to connected resources open in a new window and say so.',
+			'Private spaces and resources are shown with a generic name instead of being hidden, so the scope stays accurate.',
+		],
+		keywords: [
+			'@atlassian/agent-scope',
+			'AgentScope',
+			'agent',
+			'rovo',
+			'scope',
+			'access',
+			'connected resources',
+			'spaces',
+		],
+		category: 'components',
+		examples: [
+			"import React, { useMemo } from 'react';\nimport { createMockEnvironment } from 'relay-test-utils';\nimport {\n\tBITBUCKET_PROVIDER_ID,\n\tconnectedResourcesQueryVariables,\n\tmockContentEdge,\n\tmockRepository,\n\tmockSpaceEdge,\n\tresolveConnectedResourcesOperation,\n\ttype MockConnectedResourcesOptions,\n} from '../mocks/connectedResources';\nimport { MockAgentScopeProviders } from '../mocks/MockAgentScopeProviders';\nimport { AgentScope } from '../src/AgentScope';\nimport type { AgentScopeSpace } from '../src/SourcesListSpaces';\nimport { SourcesListSpacesContext } from '../src/SourcesListSpacesContext';\nconst iconUrl = (letter: string): string =>\n\t`data:image/svg+xml;utf8,${encodeURIComponent(\n\t\t`<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\"><rect width=\"24\" height=\"24\" fill=\"#1868DB\"/><text x=\"12\" y=\"17\" font-size=\"14\" text-anchor=\"middle\" fill=\"white\" font-family=\"sans-serif\">${letter}</text></svg>`,\n\t)}`;\nconst agentScopeProps = {\n\tprojectAri: connectedResourcesQueryVariables.projectAri,\n\tagentAri: 'ari:cloud:rovo::agent/agent-1',\n} as const;\nconst mixedSpaces: AgentScopeSpace[] = [\n\t{ id: '1', type: 'jira-space', name: 'Platform', iconUrl: iconUrl('P') },\n\t{ id: '2', type: 'confluence-space', name: 'Design', iconUrl: iconUrl('D') },\n\t{ id: '3', type: 'jira-space', isPrivate: true },\n];\nconst privateSpaces: AgentScopeSpace[] = [\n\t{ id: '1', type: 'jira-space', isPrivate: true },\n\t{ id: '2', type: 'confluence-space', isPrivate: true },\n];\nconst manySpaces: AgentScopeSpace[] = Array.from({ length: 20 }, (_, index) => ({\n\tid: String(index),\n\ttype: index % 2 === 0 ? 'jira-space' : 'confluence-space',\n\tname: `Space ${index + 1}`,\n\ticonUrl: iconUrl(String.fromCharCode(65 + index)),\n}));\nconst noSpaces: AgentScopeSpace[] = [];\nconst mixedConnectedResources: MockConnectedResourcesOptions = {\n\tdocumentationEdges: [mockSpaceEdge()],\n\trepositories: [\n\t\tmockRepository({ avatarUrl: iconUrl('R') }),\n\t\tmockRepository({\n\t\t\tid: 'ari:cloud:jira::repository/2',\n\t\t\tproviderId: BITBUCKET_PROVIDER_ID,\n\t\t\tname: 'web-app',\n\t\t\tavatarUrl: iconUrl('W'),\n\t\t\turl: 'https://bitbucket.org/example/web-app',\n\t\t}),\n\t],\n};\nconst ResolvedAgentScope = ({\n\tconnectedResources,\n\tspaces,\n\tisEditable,\n}: {\n\tconnectedResources: MockConnectedResourcesOptions;\n\tisEditable?: boolean;\n\tspaces: AgentScopeSpace[];\n}) => {\n\tconst environment = useMemo(() => {\n\t\tconst mockEnvironment = createMockEnvironment();\n\t\tmockEnvironment.mock.queueOperationResolver((operation) =>\n\t\t\tresolveConnectedResourcesOperation(operation, {\n\t\t\t\t...connectedResources,\n\t\t\t\tproject: { avatarUrl: iconUrl('M'), ...connectedResources.project },\n\t\t\t}),\n\t\t);\n\t\treturn mockEnvironment;\n\t}, [connectedResources]);\n\treturn (\n\t\t<MockAgentScopeProviders environment={environment}>\n\t\t\t<SourcesListSpacesContext.Provider value={spaces}>\n\t\t\t\t<AgentScope {...agentScopeProps} isEditable={isEditable} />\n\t\t\t</SourcesListSpacesContext.Provider>\n\t\t</MockAgentScopeProviders>\n\t);\n};\nexport const ReadOnly = (): React.JSX.Element => (\n\t<ResolvedAgentScope spaces={mixedSpaces} connectedResources={mixedConnectedResources} />\n);\nexport const Editable = (): React.JSX.Element => (\n\t<ResolvedAgentScope\n\t\tspaces={mixedSpaces}\n\t\tconnectedResources={mixedConnectedResources}\n\t\tisEditable\n\t/>\n);\nconst confluencePageResources: MockConnectedResourcesOptions = {\n\tdocumentationEdges: [mockContentEdge('ConfluencePage', 'Release notes')],\n};\nexport const ConnectedConfluencePage = (): React.JSX.Element => (\n\t<ResolvedAgentScope spaces={mixedSpaces} connectedResources={confluencePageResources} />\n);\nconst confluenceContentResources: MockConnectedResourcesOptions = {\n\tdocumentationEdges: [\n\t\tmockContentEdge('ConfluencePage', 'Team live doc', 'LIVE'),\n\t\tmockContentEdge('ConfluenceFolder', 'Design specs'),\n\t\tmockContentEdge('ConfluenceWhiteboard', 'Planning board'),\n\t],\n};\nexport const ConnectedConfluenceContent = (): React.JSX.Element => (\n\t<ResolvedAgentScope spaces={mixedSpaces} connectedResources={confluenceContentResources} />\n);\nexport const DefaultSpacesWithConnectedResources = (): React.JSX.Element => (\n\t<ResolvedAgentScope spaces={noSpaces} connectedResources={mixedConnectedResources} />\n);\nconst manyConnectedResources: MockConnectedResourcesOptions = {\n\tdocumentationEdges: [mockSpaceEdge()],\n\trepositories: Array.from({ length: 20 }, (_, index) =>\n\t\tmockRepository({\n\t\t\tid: `ari:cloud:jira::repository/${index}`,\n\t\t\tname: `repository-${index + 1}`,\n\t\t\tavatarUrl: iconUrl(String.fromCharCode(65 + index)),\n\t\t\turl: `https://github.com/example/repository-${index + 1}`,\n\t\t}),\n\t),\n};\nexport const ManySources = (): React.JSX.Element => (\n\t<ResolvedAgentScope spaces={manySpaces} connectedResources={manyConnectedResources} />\n);\nconst businessProjectResources: MockConnectedResourcesOptions = {\n\t...mixedConnectedResources,\n\tproject: { projectType: 'BUSINESS', projectStyle: 'COMPANY_MANAGED_PROJECT' },\n};\nexport const BusinessProject = (): React.JSX.Element => (\n\t<ResolvedAgentScope spaces={mixedSpaces} connectedResources={businessProjectResources} />\n);\nconst privateConnectedResources: MockConnectedResourcesOptions = {\n\tdocumentationEdges: [mockSpaceEdge({ node: null })],\n};\nexport const PrivateResource = (): React.JSX.Element => (\n\t<ResolvedAgentScope spaces={privateSpaces} connectedResources={privateConnectedResources} />\n);\nconst noConnectedResources: MockConnectedResourcesOptions = {};\n/** The current space and all open spaces are always present, so this is the minimum scope. */\nexport const NothingConnected = (): React.JSX.Element => (\n\t<ResolvedAgentScope spaces={noSpaces} connectedResources={noConnectedResources} />\n);\nexport const Loading = (): React.JSX.Element => {\n\t// No resolver is queued, so the query never resolves.\n\tconst environment = useMemo(() => createMockEnvironment(), []);\n\treturn (\n\t\t<MockAgentScopeProviders environment={environment}>\n\t\t\t<AgentScope {...agentScopeProps} />\n\t\t</MockAgentScopeProviders>\n\t);\n};\nexport const LoadError = (): React.JSX.Element => {\n\tconst environment = useMemo(() => {\n\t\tconst mockEnvironment = createMockEnvironment();\n\t\tmockEnvironment.mock.queueOperationResolver(() => new Error('Agent scope failed'));\n\t\treturn mockEnvironment;\n\t}, []);\n\treturn (\n\t\t<MockAgentScopeProviders environment={environment}>\n\t\t\t<AgentScope {...agentScopeProps} />\n\t\t</MockAgentScopeProviders>\n\t);\n};",
+		],
+		props: [
+			{
+				name: 'agentAri',
+				type: 'string | undefined',
+				description:
+					"The agent, used to fetch the spaces added to its scope.\n\n@experimental Not used yet: the agent's spaces can't be queried until that API exists.",
+			},
+			{
+				name: 'isEditable',
+				type: 'boolean | undefined',
+				description:
+					"Shows the tagline, the add button and the remove buttons on added spaces, in place of the\nsettings link. Defaults to `false`.\n\n@experimental The add and remove buttons don't do anything yet. Don't ship the editable variant\nuntil adding and removing spaces is supported.",
+			},
+			{
+				name: 'projectAri',
+				type: 'string',
+				description:
+					'The current Jira space. Its details and connected resources are fetched by the panel.',
+				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'AgentSessionCard',
+		package: '@atlassian/agent-session-card-next',
+		description:
+			'Bordered session card without linked-entity metadata, for surfaces that already provide entity context.',
+		status: 'early-access',
+		usageGuidelines: [
+			'Spread AgentSessionCard_Next_session for the bordered card without linked-entity metadata. For lists that need entity context, import AgentSessionCardWithKey from @atlassian/agent-session-card-next/with-key and spread AgentSessionCardWithKey_Next_session. Both take required cloudId and optional viewerAccountId; classification and action eligibility stay inside the card.',
+			'Spread the fragments belonging to the components and features you render. Keep query and product services in the host. Relay reads belong directly to components and providers, not custom hooks.',
+			'This package is the successor to @atlassian/agent-session-card. New session-card work lands here.',
+		],
+		keywords: ['agent', 'session', 'composition', 'headless', 'relay', 'poc'],
+		category: 'data-display',
+		examples: [
+			"import { graphql, useFragment, useLazyLoadQuery } from 'react-relay';\nimport { cssMap, cx } from '@atlaskit/css';\nimport Heading from '@atlaskit/heading/heading';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { token } from '@atlaskit/tokens';\nimport { AgentSessionCard, type AgentSessionCardProps } from '@atlassian/agent-session-card-next';\nimport { AgentSessionCardCompact } from '@atlassian/agent-session-card-next/compact';\nimport { AgentSessionCardWithKey } from '@atlassian/agent-session-card-next/with-key';\nimport type { layouts_AtlassianAgentSessionCardNext_LayoutsComparison_sessionsRef$key } from './__generated__/layouts_AtlassianAgentSessionCardNext_LayoutsComparison_sessionsRef.graphql';\nimport type { layouts_AtlassianAgentSessionCardNext_LayoutsRow_sessionRef$key } from './__generated__/layouts_AtlassianAgentSessionCardNext_LayoutsRow_sessionRef.graphql';\nimport type { layoutsNextQuery } from './__generated__/layoutsNextQuery.graphql';\nimport { DemoSessions, DEMO_CLOUD, DEMO_VIEWER } from './utils/DemoSessions';\nconst comparisonColumns = '180px 420px 420px 320px';\nconst styles = cssMap({\n\tpage: {\n\t\tpaddingTop: token('space.300'),\n\t\tpaddingRight: token('space.300'),\n\t\tpaddingBottom: token('space.300'),\n\t\tpaddingLeft: token('space.300'),\n\t},\n\tscroll: {\n\t\toverflowX: 'auto',\n\t},\n\tcomparison: {\n\t\tdisplay: 'grid',\n\t\tgridTemplateColumns: comparisonColumns,\n\t\tcolumnGap: token('space.200'),\n\t\talignItems: 'stretch',\n\t\twidth: 'max-content',\n\t},\n\theader: {\n\t\tgridColumn: '1 / -1',\n\t\tdisplay: 'grid',\n\t\tgridTemplateColumns: comparisonColumns,\n\t\tcolumnGap: token('space.200'),\n\t\talignItems: 'start',\n\t\tposition: 'sticky',\n\t\tinsetBlockStart: token('space.0'),\n\t\tzIndex: 1,\n\t\tbackgroundColor: token('elevation.surface'),\n\t\tpaddingBottom: token('space.200'),\n\t},\n\tlabelCell: {\n\t\tdisplay: 'flex',\n\t\talignItems: 'center',\n\t\tminWidth: 0,\n\t},\n\tcardCell: {\n\t\tdisplay: 'flex',\n\t\talignItems: 'center',\n\t\tminWidth: 0,\n\t},\n\tcardFill: {\n\t\tflexGrow: 1,\n\t\tminWidth: 0,\n\t},\n\tcompactSlot: {\n\t\tdisplay: 'flex',\n\t\talignItems: 'center',\n\t\tminWidth: 0,\n\t},\n\tcompactFrame: {\n\t\tflexGrow: 1,\n\t\tminWidth: 0,\n\t\tbackgroundColor: token('elevation.surface'),\n\t\tborderRadius: token('radius.large'),\n\t\tborderStyle: 'dashed',\n\t\tborderWidth: token('border.width'),\n\t\tborderColor: token('color.border'),\n\t\tpaddingTop: token('space.050'),\n\t\tpaddingRight: token('space.050'),\n\t\tpaddingBottom: token('space.050'),\n\t\tpaddingLeft: token('space.050'),\n\t},\n});\nconst rowSpacing = cssMap({\n\tfollow: {\n\t\tpaddingBottom: token('space.200'),\n\t},\n\tend: {\n\t\tpaddingBottom: token('space.0'),\n\t},\n});\n/** Sessions whose chrome differs across the three layouts. */\nconst layoutRows = [\n\t{ id: 'normal', label: 'Working' },\n\t{ id: 'input', label: 'Needs input' },\n\t{ id: 'coding-pr', label: 'Completed with a pull request' },\n\t{ id: 'coding', label: 'Coding' },\n\t{ id: 'local', label: 'Local' },\n\t{ id: 'team', label: 'Team' },\n\t{ id: 'expired', label: 'Expired' },\n] as const;\ntype HostCommands = Pick<AgentSessionCardProps, 'viewerAccountId' | 'cloudId'>;\ntype RowSpacing = keyof typeof rowSpacing;\nconst LayoutsRow = ({\n\thost,\n\tlabel,\n\tsessionRef,\n\tspacing,\n}: {\n\thost: HostCommands;\n\tlabel: string;\n\tsessionRef: layouts_AtlassianAgentSessionCardNext_LayoutsRow_sessionRef$key;\n\tspacing: RowSpacing;\n}) => {\n\tconst session = useFragment(\n\t\tgraphql`\n\t\t\tfragment layouts_AtlassianAgentSessionCardNext_LayoutsRow_sessionRef on AgentSession {\n\t\t\t\t...AgentSessionCard_Next_session\n\t\t\t\t...AgentSessionCardWithKey_Next_session\n\t\t\t\t...AgentSessionCardCompact_Next_session\n\t\t\t}\n\t\t`,\n\t\tsessionRef,\n\t);\n\treturn (\n\t\t<>\n\t\t\t<Box xcss={cx(styles.labelCell, rowSpacing[spacing])}>\n\t\t\t\t<Text weight=\"semibold\">{label}</Text>\n\t\t\t</Box>\n\t\t\t<Box xcss={cx(styles.cardCell, rowSpacing[spacing])}>\n\t\t\t\t<Box xcss={styles.cardFill}>\n\t\t\t\t\t<AgentSessionCard sessionRef={session} {...host} />\n\t\t\t\t</Box>\n\t\t\t</Box>\n\t\t\t<Box xcss={cx(styles.cardCell, rowSpacing[spacing])}>\n\t\t\t\t<Box xcss={styles.cardFill}>\n\t\t\t\t\t<AgentSessionCardWithKey sessionRef={session} {...host} />\n\t\t\t\t</Box>\n\t\t\t</Box>\n\t\t\t<Box xcss={cx(styles.compactSlot, rowSpacing[spacing])}>\n\t\t\t\t<Box xcss={styles.compactFrame}>\n\t\t\t\t\t<AgentSessionCardCompact sessionRef={session} {...host} />\n\t\t\t\t</Box>\n\t\t\t</Box>\n\t\t</>\n\t);\n};\nconst LayoutsComparison = ({\n\tsessionsRef,\n\thost,\n}: {\n\thost: HostCommands;\n\tsessionsRef: layouts_AtlassianAgentSessionCardNext_LayoutsComparison_sessionsRef$key;\n}) => {\n\tconst sessions = useFragment(\n\t\tgraphql`\n\t\t\tfragment layouts_AtlassianAgentSessionCardNext_LayoutsComparison_sessionsRef on AgentSessionConnection {\n\t\t\t\tedges {\n\t\t\t\t\tnode {\n\t\t\t\t\t\t__id\n\t\t\t\t\t\tid\n\t\t\t\t\t\t...layouts_AtlassianAgentSessionCardNext_LayoutsRow_sessionRef\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t`,\n\t\tsessionsRef,\n\t);\n\tconst nodesById = new Map(\n\t\t(sessions.edges ?? []).flatMap((edge) => {\n\t\t\tconst session = edge?.node;\n\t\t\treturn session?.id ? [[session.id, session] as const] : [];\n\t\t}),\n\t);\n\tconst rows = layoutRows.flatMap((row) => {\n\t\tconst session = nodesById.get(`conversation-${row.id}`);\n\t\treturn session ? [{ ...row, session }] : [];\n\t});\n\treturn (\n\t\t<Box xcss={styles.scroll}>\n\t\t\t<Box xcss={styles.comparison}>\n\t\t\t\t<Box xcss={styles.header}>\n\t\t\t\t\t<Box />\n\t\t\t\t\t<Heading as=\"h3\" size=\"xsmall\">\n\t\t\t\t\t\tCard\n\t\t\t\t\t</Heading>\n\t\t\t\t\t<Heading as=\"h3\" size=\"xsmall\">\n\t\t\t\t\t\tCard with key\n\t\t\t\t\t</Heading>\n\t\t\t\t\t<Stack space=\"space.050\">\n\t\t\t\t\t\t<Heading as=\"h3\" size=\"xsmall\">\n\t\t\t\t\t\t\tCompact\n\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t<Text size=\"small\" color=\"color.text.subtle\">\n\t\t\t\t\t\t\tDashed box is example chrome. The row has no border, no linked entity, and a brief\n\t\t\t\t\t\t\tstatus.\n\t\t\t\t\t\t</Text>\n\t\t\t\t\t</Stack>\n\t\t\t\t</Box>\n\t\t\t\t{rows.map((row, index) => (\n\t\t\t\t\t<LayoutsRow\n\t\t\t\t\t\tkey={row.session.__id}\n\t\t\t\t\t\thost={host}\n\t\t\t\t\t\tlabel={row.label}\n\t\t\t\t\t\tsessionRef={row.session}\n\t\t\t\t\t\tspacing={index === rows.length - 1 ? 'end' : 'follow'}\n\t\t\t\t\t/>\n\t\t\t\t))}\n\t\t\t</Box>\n\t\t</Box>\n\t);\n};\n/** The three layouts side by side. Each compact row sits in its own sample panel. */\nconst LayoutsSessions = () => {\n\tconst data = useLazyLoadQuery<layoutsNextQuery>(\n\t\tgraphql`\n\t\t\tquery layoutsNextQuery {\n\t\t\t\tagent_sessionQuery {\n\t\t\t\t\t...layouts_AtlassianAgentSessionCardNext_LayoutsComparison_sessionsRef\n\t\t\t\t}\n\t\t\t}\n\t\t`,\n\t\t{},\n\t);\n\tconst host: HostCommands = {\n\t\tviewerAccountId: DEMO_VIEWER,\n\t\tcloudId: DEMO_CLOUD,\n\t};\n\treturn (\n\t\t<Box xcss={styles.page}>\n\t\t\t<Stack space=\"space.300\">\n\t\t\t\t<Stack space=\"space.100\">\n\t\t\t\t\t<Heading as=\"h2\" size=\"medium\">\n\t\t\t\t\t\tLayouts\n\t\t\t\t\t</Heading>\n\t\t\t\t\t<Text>\n\t\t\t\t\t\tCard, Card with key, and Compact on the same sessions. Each compact row sits in its own\n\t\t\t\t\t\tsample panel. That panel is not part of the card.\n\t\t\t\t\t</Text>\n\t\t\t\t</Stack>\n\t\t\t\t{data.agent_sessionQuery && (\n\t\t\t\t\t<LayoutsComparison sessionsRef={data.agent_sessionQuery} host={host} />\n\t\t\t\t)}\n\t\t\t</Stack>\n\t\t</Box>\n\t);\n};\nexport default function Layouts(): React.ReactElement {\n\treturn (\n\t\t<DemoSessions>\n\t\t\t<LayoutsSessions />\n\t\t</DemoSessions>\n\t);\n}",
+			"import React, { useCallback, useState } from 'react';\nimport { graphql, useFragment, useLazyLoadQuery } from 'react-relay';\nimport Button from '@atlaskit/button/default/button';\nimport { cssMap } from '@atlaskit/css';\nimport Heading from '@atlaskit/heading/heading';\nimport { fg } from '@atlaskit/platform-feature-flags/fg';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { token } from '@atlaskit/tokens';\nimport { AgentSessionCard, type AgentSessionCardProps } from '@atlassian/agent-session-card-next';\nimport { useSessionClassification } from '@atlassian/agent-session-card-next/features/session-classification/classification';\nimport { SessionClassificationProvider } from '@atlassian/agent-session-card-next/features/session-classification/provider';\nimport { ViewerAccountProvider } from '@atlassian/agent-session-card-next/features/viewer/provider';\nimport { AgentSessionCardEventTypes } from '@atlassian/agent-session-card-next/pubsub/agentSessionCardPubSub';\nimport { useSubscribeToAgentSessionEvents } from '@atlassian/agent-session-card-next/pubsub/useSubscribeToAgentSessionEvents';\nimport type {\n\tsessionStates_AtlassianAgentSessionCardNext_SessionStateCard_sessionRef$key,\n\tsessionStates_AtlassianAgentSessionCardNext_SessionStateCard_sessionRef$data,\n} from './__generated__/sessionStates_AtlassianAgentSessionCardNext_SessionStateCard_sessionRef.graphql';\nimport type { sessionStates_AtlassianAgentSessionCardNext_SessionStateList_sessionsRef$key } from './__generated__/sessionStates_AtlassianAgentSessionCardNext_SessionStateList_sessionsRef.graphql';\nimport type { sessionStatesNextQuery } from './__generated__/sessionStatesNextQuery.graphql';\nimport { DemoSessions, DEMO_CLOUD, DEMO_VIEWER } from './utils/DemoSessions';\nconst styles = cssMap({\n\tpage: {\n\t\tpaddingTop: token('space.300'),\n\t\tpaddingRight: token('space.300'),\n\t\tpaddingBottom: token('space.300'),\n\t\tpaddingLeft: token('space.300'),\n\t},\n\tscroll: {\n\t\toverflowX: 'auto',\n\t},\n\tcolumns: {\n\t\tdisplay: 'grid',\n\t\tgridTemplateColumns: 'repeat(6, 420px)',\n\t\tcolumnGap: token('space.300'),\n\t\talignItems: 'start',\n\t\twidth: 'max-content',\n\t},\n\tcolumnHeader: {\n\t\tposition: 'sticky',\n\t\tinsetBlockStart: token('space.0'),\n\t\tzIndex: 1,\n\t\tbackgroundColor: token('elevation.surface'),\n\t\tpaddingBottom: token('space.100'),\n\t},\n});\n/** Same order as the mode switch in the card. */\nconst groups = [\n\t{\n\t\tmode: 'code-review',\n\t\ttitle: 'Code review',\n\t\tsummary:\n\t\t\t'Code Reviewer sessions, behind pndr-code-reviewer-session-popup. Opens the code review. Any viewer, never expires.',\n\t},\n\t{\n\t\tmode: 'team',\n\t\ttitle: 'Team',\n\t\tsummary: 'Readable metadata only. No open, stop, or remove.',\n\t},\n\t{\n\t\tmode: 'expired',\n\t\ttitle: 'Expired',\n\t\tsummary:\n\t\t\t'Does not open the session. Optional remove. Personal session whose expiresAt has passed, or not found.',\n\t},\n\t{\n\t\tmode: 'local',\n\t\ttitle: 'Local',\n\t\tsummary: 'Continue locally and remove. No cloud stop.',\n\t},\n\t{\n\t\tmode: 'coding',\n\t\ttitle: 'Coding',\n\t\tsummary: 'Open, stop, remove, and repository settings.',\n\t},\n\t{\n\t\tmode: 'normal',\n\t\ttitle: 'Normal',\n\t\tsummary: 'Open, stop, and remove. Includes title-loading and fallback fixtures.',\n\t},\n] as const;\nconst caseLabels: Record<string, string> = {\n\tnormal: 'Saved session title · Working',\n\t'title-loading': 'Title pending · Loading skeleton',\n\t'title-agent-fallback': 'Untitled · Agent name fallback',\n\t'title-status-fallback': 'Untitled, unnamed agent · Status fallback',\n\t'title-local-fallback': 'Untitled local session · Local agent name',\n\tstreaming: 'Working with streamed status',\n\t'streaming-long': 'Working with a long streamed status',\n\tinput: 'Needs input',\n\tcompleted: 'Completed',\n\tundated: 'No expiresAt',\n\tlocal: 'Working local agent',\n\t'local-completed': 'Completed local session · Pull request',\n\tcoding: 'Needs input, repository set',\n\t'coding-missing-repo': 'Repository not chosen',\n\t'coding-pr': 'Completed · Pull request',\n\t'coding-unavailable': 'Session unavailable',\n\t'coding-unhydrated': 'Coding name only, metadata not loaded',\n\tteam: 'Started by someone else',\n\t'coding-team': \"Someone else's coding session\",\n\t'local-team': \"Someone else's local session\",\n\t'team-old': 'Older coding session started by someone else',\n\texpired: 'expiresAt in the past',\n\t'coding-expired': 'Expired coding session',\n\t'local-expired': 'Expired local session',\n\t'not-found': 'Session not found',\n\t'code-review-working': 'Your pull request · Review running',\n\t'code-review-working-team': \"Someone else's pull request · Review running\",\n\t'code-review-needs-review': 'Your pull request · Review finished, needs review',\n\t'code-review-needs-review-team': \"Someone else's pull request · Review finished, needs review\",\n\t'code-review-pr-closed': 'Your pull request · Merged or declined',\n\t'code-review-pr-closed-team': \"Someone else's pull request · Merged or declined\",\n};\nconst gateOffCaseLabels: Record<string, string> = {\n\tnormal: 'Working · Agent name shown',\n\t'title-loading': 'Title pending · Agent name shown',\n\t'title-agent-fallback': 'Untitled · Agent name shown',\n\t'title-status-fallback': 'Untitled, unnamed agent · Status shown',\n};\ntype SessionModeName = (typeof groups)[number]['mode'];\ntype HostCommands = Pick<AgentSessionCardProps, 'viewerAccountId' | 'cloudId'>;\nconst SessionStateCard = ({\n\thost,\n\tmode,\n\tsessionRef,\n}: {\n\thost: HostCommands;\n\tmode: SessionModeName;\n\tsessionRef: sessionStates_AtlassianAgentSessionCardNext_SessionStateCard_sessionRef$key;\n}) => {\n\tconst session = useFragment(\n\t\tgraphql`\n\t\t\tfragment sessionStates_AtlassianAgentSessionCardNext_SessionStateCard_sessionRef on AgentSession {\n\t\t\t\t__id\n\t\t\t\tid\n\t\t\t\t...SessionClassificationProvider_Next_session\n\t\t\t\t...AgentSessionCard_Next_session\n\t\t\t}\n\t\t`,\n\t\tsessionRef,\n\t);\n\treturn (\n\t\t<ViewerAccountProvider viewerAccountId={host.viewerAccountId}>\n\t\t\t<SessionClassificationProvider sessionRef={session}>\n\t\t\t\t<SessionStateCardContent session={session} host={host} mode={mode} />\n\t\t\t</SessionClassificationProvider>\n\t\t</ViewerAccountProvider>\n\t);\n};\nconst SessionStateCardContent = ({\n\tsession,\n\thost,\n\tmode,\n}: {\n\thost: HostCommands;\n\tmode: SessionModeName;\n\tsession: sessionStates_AtlassianAgentSessionCardNext_SessionStateCard_sessionRef$data;\n}) => {\n\tconst classification = useSessionClassification();\n\tif (classification.mode !== mode) {\n\t\treturn null;\n\t}\n\tconst fixtureId = session.id?.replace(/^conversation-/, '') ?? 'session';\n\tconst showSessionTitle =\n\t\tclassification.mode === 'local' ||\n\t\tclassification.mode === 'expired' ||\n\t\tfg('display_session_titles_on_asc');\n\tconst gateOffLabel = gateOffCaseLabels[fixtureId];\n\tconst caseName = (!showSessionTitle && gateOffLabel) || caseLabels[fixtureId] || fixtureId;\n\treturn (\n\t\t<Stack space=\"space.050\">\n\t\t\t<Text size=\"small\" weight=\"semibold\">\n\t\t\t\t{caseName}\n\t\t\t</Text>\n\t\t\t<AgentSessionCard sessionRef={session} {...host} />\n\t\t</Stack>\n\t);\n};\nconst SessionStateList = ({\n\tsessionsRef,\n\thost,\n}: {\n\thost: HostCommands;\n\tsessionsRef: sessionStates_AtlassianAgentSessionCardNext_SessionStateList_sessionsRef$key;\n}) => {\n\tconst sessions = useFragment(\n\t\tgraphql`\n\t\t\tfragment sessionStates_AtlassianAgentSessionCardNext_SessionStateList_sessionsRef on AgentSessionConnection {\n\t\t\t\tedges {\n\t\t\t\t\tnode {\n\t\t\t\t\t\t__id\n\t\t\t\t\t\tid\n\t\t\t\t\t\t...sessionStates_AtlassianAgentSessionCardNext_SessionStateCard_sessionRef\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t`,\n\t\tsessionsRef,\n\t);\n\tconst [removedIds, setRemovedIds] = useState<readonly string[]>([]);\n\tuseSubscribeToAgentSessionEvents(\n\t\tAgentSessionCardEventTypes.SESSION_REMOVED,\n\t\tuseCallback((event) => {\n\t\t\tif (event.type !== AgentSessionCardEventTypes.SESSION_REMOVED) {\n\t\t\t\treturn;\n\t\t\t}\n\t\t\tsetRemovedIds((ids) =>\n\t\t\t\tids.includes(event.payload.conversationId) ? ids : [...ids, event.payload.conversationId],\n\t\t\t);\n\t\t}, []),\n\t);\n\tconst nodes = (sessions.edges ?? []).flatMap((edge) => {\n\t\tconst session = edge?.node;\n\t\treturn session && !removedIds.includes(session.id ?? '') ? [session] : [];\n\t});\n\treturn (\n\t\t<Box xcss={styles.scroll}>\n\t\t\t<Box xcss={styles.columns}>\n\t\t\t\t{groups.map((group) => (\n\t\t\t\t\t<Stack key={group.mode} space=\"space.200\">\n\t\t\t\t\t\t<Box xcss={styles.columnHeader}>\n\t\t\t\t\t\t\t<Stack space=\"space.050\">\n\t\t\t\t\t\t\t\t<Heading as=\"h3\" size=\"xsmall\">\n\t\t\t\t\t\t\t\t\t{group.title}\n\t\t\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t\t\t<Text size=\"small\" color=\"color.text.subtle\">\n\t\t\t\t\t\t\t\t\t{group.summary}\n\t\t\t\t\t\t\t\t</Text>\n\t\t\t\t\t\t\t</Stack>\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t{nodes.map((session) => (\n\t\t\t\t\t\t\t<SessionStateCard\n\t\t\t\t\t\t\t\tkey={session.__id}\n\t\t\t\t\t\t\t\thost={host}\n\t\t\t\t\t\t\t\tmode={group.mode}\n\t\t\t\t\t\t\t\tsessionRef={session}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t))}\n\t\t\t\t\t</Stack>\n\t\t\t\t))}\n\t\t\t</Box>\n\t\t</Box>\n\t);\n};\n/** Every demo fixture on the default card, stacked under the mode the card selects. */\nconst SessionStateSessions = () => {\n\tconst data = useLazyLoadQuery<sessionStatesNextQuery>(\n\t\tgraphql`\n\t\t\tquery sessionStatesNextQuery {\n\t\t\t\tagent_sessionQuery {\n\t\t\t\t\t...sessionStates_AtlassianAgentSessionCardNext_SessionStateList_sessionsRef\n\t\t\t\t}\n\t\t\t}\n\t\t`,\n\t\t{},\n\t);\n\tconst [viewerAccountId, setViewerAccountId] = useState(DEMO_VIEWER);\n\tconst host: HostCommands = {\n\t\tviewerAccountId,\n\t\tcloudId: DEMO_CLOUD,\n\t};\n\treturn (\n\t\t<Box xcss={styles.page}>\n\t\t\t<Stack space=\"space.300\">\n\t\t\t\t<Stack space=\"space.100\">\n\t\t\t\t\t<Heading as=\"h2\" size=\"medium\">\n\t\t\t\t\t\tSession states\n\t\t\t\t\t</Heading>\n\t\t\t\t\t<Text>\n\t\t\t\t\t\tColumns are the mode the card selects. Each card is named and stacked in that column.\n\t\t\t\t\t\tChange the viewer and cards move into Team. Sessions expire when expiresAt is in the\n\t\t\t\t\t\tpast.\n\t\t\t\t\t</Text>\n\t\t\t\t</Stack>\n\t\t\t\t<Inline space=\"space.100\" shouldWrap>\n\t\t\t\t\t<Button\n\t\t\t\t\t\tisSelected={viewerAccountId === DEMO_VIEWER}\n\t\t\t\t\t\tonClick={() => setViewerAccountId(DEMO_VIEWER)}\n\t\t\t\t\t>\n\t\t\t\t\t\tView as you\n\t\t\t\t\t</Button>\n\t\t\t\t\t<Button\n\t\t\t\t\t\tisSelected={viewerAccountId === 'teammate'}\n\t\t\t\t\t\tonClick={() => setViewerAccountId('teammate')}\n\t\t\t\t\t>\n\t\t\t\t\t\tView as Jane\n\t\t\t\t\t</Button>\n\t\t\t\t</Inline>\n\t\t\t\t<Text>\n\t\t\t\t\tPrecedence: Code review → Team → Expired / Not found → Local → Coding → Normal. Team and\n\t\t\t\t\texpiry apply across agent kinds. A recent status update does not renew an expired session.\n\t\t\t\t</Text>\n\t\t\t\t{data.agent_sessionQuery && (\n\t\t\t\t\t<SessionStateList sessionsRef={data.agent_sessionQuery} host={host} />\n\t\t\t\t)}\n\t\t\t</Stack>\n\t\t</Box>\n\t);\n};\nexport default function SessionStates(): React.ReactElement {\n\treturn (\n\t\t<DemoSessions includeTitleModes>\n\t\t\t<SessionStateSessions />\n\t\t</DemoSessions>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { graphql, useLazyLoadQuery, useRelayEnvironment } from 'react-relay';\nimport Button from '@atlaskit/button/default/button';\nimport { cssMap } from '@atlaskit/css';\nimport Heading from '@atlaskit/heading/heading';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { token } from '@atlaskit/tokens';\nimport { AgentSessionCard } from '@atlassian/agent-session-card-next';\nimport type { customLayoutNextQuery } from './__generated__/customLayoutNextQuery.graphql';\nimport { ProductSessionCard } from './product-layout/ProductSessionCard';\nimport { DemoSessions, DEMO_CLOUD } from './utils/DemoSessions';\nconst styles = cssMap({\n\tpage: {\n\t\tmaxWidth: '760px',\n\t\tpaddingTop: token('space.300'),\n\t\tpaddingRight: token('space.300'),\n\t\tpaddingBottom: token('space.300'),\n\t\tpaddingLeft: token('space.300'),\n\t},\n});\n/** Default card beside a product-owned layout on the same Relay record. */\nconst CustomLayoutSessions = () => {\n\tconst data = useLazyLoadQuery<customLayoutNextQuery>(\n\t\tgraphql`\n\t\t\tquery customLayoutNextQuery {\n\t\t\t\tagent_sessionQuery {\n\t\t\t\t\tedges {\n\t\t\t\t\t\tnode {\n\t\t\t\t\t\t\tid\n\t\t\t\t\t\t\t...AgentSessionCard_Next_session\n\t\t\t\t\t\t\t...ProductSessionCard_session\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t`,\n\t\t{},\n\t);\n\tconst [event, setEvent] = useState(\n\t\t'Click either card, its timestamp or cloud icon. The avatar opens the profile.',\n\t);\n\tconst environment = useRelayEnvironment();\n\tconst session = data.agent_sessionQuery?.edges?.find(\n\t\t(edge) => edge?.node?.id === 'conversation-normal',\n\t)?.node;\n\tif (!session) {\n\t\treturn null;\n\t}\n\treturn (\n\t\t<Box xcss={styles.page}>\n\t\t\t<Stack space=\"space.250\">\n\t\t\t\t<Heading as=\"h2\" size=\"medium\">\n\t\t\t\t\tCustom layout\n\t\t\t\t</Heading>\n\t\t\t\t<Text>\n\t\t\t\t\tAgentSessionCard owns the default layout. The second layout lives outside src and composes\n\t\t\t\t\tpublic feature providers and UI building blocks separately. Stop changes the Relay record;\n\t\t\t\t\tboth cards update.\n\t\t\t\t</Text>\n\t\t\t\t<Stack space=\"space.100\">\n\t\t\t\t\t<Text weight=\"semibold\">Default platform layout</Text>\n\t\t\t\t\t<AgentSessionCard cloudId={DEMO_CLOUD} sessionRef={session} />\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space=\"space.100\">\n\t\t\t\t\t<Text weight=\"semibold\">Product-owned layout and custom Stop button</Text>\n\t\t\t\t\t<ProductSessionCard cloudId={DEMO_CLOUD} sessionRef={session} />\n\t\t\t\t</Stack>\n\t\t\t\t<Button\n\t\t\t\t\tonClick={() =>\n\t\t\t\t\t\tenvironment.commitUpdate((store) => {\n\t\t\t\t\t\t\tconst record = store.get('session-normal');\n\t\t\t\t\t\t\trecord?.setValue('WORKING', 'state');\n\t\t\t\t\t\t\trecord?.setValue(Date.now(), 'lastStateChangeAt');\n\t\t\t\t\t\t\tsetEvent(\n\t\t\t\t\t\t\t\t'The demo wrote a new state into Relay. No adapter or second store was updated.',\n\t\t\t\t\t\t\t);\n\t\t\t\t\t\t})\n\t\t\t\t\t}\n\t\t\t\t>\n\t\t\t\t\tSimulate a new working state\n\t\t\t\t</Button>\n\t\t\t\t<Box role=\"status\">\n\t\t\t\t\t<Text>{event}</Text>\n\t\t\t\t</Box>\n\t\t\t</Stack>\n\t\t</Box>\n\t);\n};\nexport default function CustomLayout(): React.ReactElement {\n\treturn (\n\t\t<DemoSessions>\n\t\t\t<CustomLayoutSessions />\n\t\t</DemoSessions>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'cloudId',
+				type: 'string',
+				isRequired: true,
+			},
+			{
+				name: 'sessionRef',
+				type: '{ readonly " $data"?: AgentSessionCard_Next_session$data | undefined; readonly " $fragmentSpreads": FragmentRefs<"AgentSessionCard_Next_session">; }',
+				isRequired: true,
+			},
+			{
+				name: 'viewerAccountId',
+				type: 'string | undefined',
+				description:
+					'Signed-in viewer. The session stores who started it (`triggeredBy`), not who is looking.\nTeam mode is that comparison. This package has no Platform account-id source.',
+			},
+		],
+	},
+	{
 		name: 'LocalAgentAvatar',
 		package: '@atlassian/agent-session-local-agents',
 		description:
@@ -15703,6 +15796,64 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		category: 'studio',
 		examples: [],
 		props: [],
+	},
+	{
+		name: 'AgenticAutomationOnboardingModal',
+		package: '@atlassian/agentic-automation-onboarding',
+		description: 'Component package for the Agentic Automations Onboarding modal.',
+		status: 'early-access',
+		usageGuidelines: [
+			'TODO(team): Add design usage guidance covering when to use this component, alternatives, placement, and composition.',
+		],
+		contentGuidelines: [
+			'TODO(team): Add concise content guidance for labels, empty states, errors, and phrasing.',
+		],
+		accessibilityGuidelines: [
+			'TODO(team): Add checkable accessibility guidance for semantics, naming, keyboard, focus, and state changes.',
+		],
+		keywords: [
+			'@atlassian/agentic-automation-onboarding',
+			'AgenticAutomationOnboardingModal',
+			'TODO_ADD_DOMAIN',
+			'TODO_ADD_SYNONYMS',
+			'TODO_ADD_CONSUMER_TASKS',
+		],
+		category: 'components',
+		examples: [
+			'import { IntlProvider } from \'react-intl\';\nimport AgenticAutomationOnboardingModal from \'../src/ui/agentic-automation-onboarding-modal/index\';\nexport default function Basic(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale="en">\n\t\t\t<AgenticAutomationOnboardingModal\n\t\t\t\tcloudId="cloud-id"\n\t\t\t\ttestId="agentic-automation-onboarding-modal"\n\t\t\t\tuserName="John Doe"\n\t\t\t/>\n\t\t</IntlProvider>\n\t);\n}',
+		],
+		props: [
+			{
+				name: 'cloudId',
+				type: 'string',
+				isRequired: true,
+			},
+			{
+				name: 'isOneClickActivationEnabled',
+				type: 'boolean | undefined',
+				defaultValue: 'false',
+			},
+			{
+				name: 'isOpen',
+				type: 'boolean | undefined',
+				description:
+					'Controls the open state from outside. When provided the built-in trigger\nbutton is not rendered and `onClose` should be used to reset the state.',
+			},
+			{
+				name: 'onClose',
+				type: '(() => void) | undefined',
+			},
+			{
+				name: 'onRemindMeLater',
+				type: '((templateId: string | undefined, days: ReminderDays) => void) | undefined',
+				description:
+					"Called with the template's id and how many days from now to remind the user, when they ask to\nbe reminded to finish setting up a template they left unfinished, and again whenever they\nchange when. The id is `undefined` when they asked from the home view, before choosing one. Keep this component mounted after `onClose`, so that changing the reminder from\nits flag can open the dialog to choose when.",
+			},
+			{
+				name: 'userName',
+				type: 'string | undefined',
+			},
+		],
 	},
 	{
 		name: 'AiInbox',
@@ -17251,6 +17402,66 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		],
 	},
 	{
+		name: 'AssetsFilter',
+		package: '@atlassian/assets-filter',
+		description: 'Builds Assets filter queries from interactive filter controls.',
+		status: 'early-access',
+		usageGuidelines: [
+			'TODO(team): Add design usage guidance covering when to use this component, alternatives, placement, and composition.',
+		],
+		contentGuidelines: [
+			'TODO(team): Add concise content guidance for labels, empty states, errors, and phrasing.',
+		],
+		accessibilityGuidelines: [
+			'TODO(team): Add checkable accessibility guidance for semantics, naming, keyboard, focus, and state changes.',
+		],
+		keywords: [
+			'@atlassian/assets-filter',
+			'AssetsFilter',
+			'TODO_ADD_DOMAIN',
+			'TODO_ADD_SYNONYMS',
+			'TODO_ADD_CONSUMER_TASKS',
+		],
+		category: 'components',
+		examples: [
+			"import React, { useMemo, useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { RelayEnvironmentProvider } from 'react-relay';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { SERVICE_SCOPE_AQL } from '../src/common/basic-filter-to-aql/basic-filter-to-aql';\nimport { createExampleSavedFilterRepository } from '../src/mocks/index';\nimport AssetsFilter, {\n\tcreateEmptyServiceFilterModel,\n\ttype ServiceFilterModel,\n} from '../src/ui/assets-filter/assets-filter';\nimport { createFilterEnvironment } from './assets-filter.vr.ap';\nexport default function BasicAssetsFilterExample(): React.JSX.Element {\n\tconst environment = useMemo(createFilterEnvironment, []);\n\tconst repository = useMemo(createExampleSavedFilterRepository, []);\n\tconst [model, setModel] = useState<ServiceFilterModel>(createEmptyServiceFilterModel());\n\tconst [query, setQuery] = useState(SERVICE_SCOPE_AQL);\n\treturn (\n\t\t<IntlProvider locale=\"en\" messages={{}}>\n\t\t\t<RelayEnvironmentProvider environment={environment}>\n\t\t\t\t<Box padding=\"space.400\">\n\t\t\t\t\t<Stack space=\"space.200\" alignInline=\"start\">\n\t\t\t\t\t\t<AssetsFilter\n\t\t\t\t\t\t\tcapabilities={{ metadata: true, operational: true, values: true }}\n\t\t\t\t\t\t\tcloudId=\"mock-cloud-id\"\n\t\t\t\t\t\t\tmodel={model}\n\t\t\t\t\t\t\tonFilterChange={(change) => {\n\t\t\t\t\t\t\t\tsetModel(change.model);\n\t\t\t\t\t\t\t\tif (change.valid) {\n\t\t\t\t\t\t\t\t\tsetQuery(change.query);\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t\trepository={repository}\n\t\t\t\t\t\t\tschemaIds={['mock-schema-software-registry', 'mock-schema-business-portfolio']}\n\t\t\t\t\t\t/>\n\t\t\t\t\t\t<Text as=\"p\">AQL query: {query}</Text>\n\t\t\t\t\t</Stack>\n\t\t\t\t</Box>\n\t\t\t</RelayEnvironmentProvider>\n\t\t</IntlProvider>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'capabilities',
+				type: 'FilterCapabilities | undefined',
+			},
+			{
+				name: 'cloudId',
+				type: 'string',
+				isRequired: true,
+			},
+			{
+				name: 'model',
+				type: '{ attributePredicates: readonly AttributePredicate[]; keyword: string; objectTypeValues: readonly FilterValue[]; operationalPredicates: OperationalPredicate; }',
+				isRequired: true,
+			},
+			{
+				name: 'onFilterChange',
+				type: '(change: AssetsFilterChange) => void',
+				isRequired: true,
+			},
+			{
+				name: 'repository',
+				type: 'SavedFilterRepository | undefined',
+			},
+			{
+				name: 'resultCount',
+				type: '{ total: number; visible: number; } | undefined',
+			},
+			{
+				name: 'schemaIds',
+				type: 'readonly string[]',
+				isRequired: true,
+			},
+		],
+	},
+	{
 		name: 'AsyncAutomationCreateModal',
 		package: '@atlassian/automation-create-modal',
 		description: 'Lazy-loads the automation creation modal and its template provider.',
@@ -17839,6 +18050,226 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				name: 'target',
 				type: 'HTMLAttributeAnchorTarget | undefined',
 				description: '',
+			},
+		],
+	},
+	{
+		name: 'CharlieFilter',
+		package: '@atlassian/charlie-filter',
+		description:
+			'A filter trigger and panel with Basic and Advanced modes, plus an optional product-supplied Query mode.',
+		status: 'early-access',
+		usageGuidelines: [
+			'Store the `value` expression as-is; it holds stable IDs only, never labels or search state.',
+			'Put the operator Basic mode uses first in each field’s `operators`.',
+			'Use `renderEditor` for product data. Render `CharlieFilterChoiceEditor` inside it and pass `selectedOptions` so selections outside the current results page keep their labels.',
+			'To load an editor from interaction, such as a Relay entrypoint, give the field an `editorLoader` and render its `editorReference` from `renderEditor` in your own entrypoint container; the panel preloads on hover or focus and loads on click. Do not fetch in effects inside `renderEditor`.',
+			'Provide a `queryAdapter` only when the product owns a query language; return `null` from `toQuery` for filters it cannot express.',
+			'For a filter that doesn’t open in a popover, create it with `useCharlieFilter` and pass it to `CharlieFilterPanelContent` in `CharlieFilterPanel`.',
+		],
+		contentGuidelines: [
+			'Use field labels that name the attribute, such as "Owner" or "Status".',
+			'Pass translated copy through `labels` when the English defaults do not fit the product.',
+		],
+		accessibilityGuidelines: [
+			'Give each instance a distinct `labels.panel` when more than one filter is on a page.',
+			'Keep the default trigger so the applied count is announced to screen readers.',
+		],
+		keywords: ['charlie-filter', 'filter', 'query', 'advanced filter', 'jql', 'entrypoint'],
+		category: 'forms and input',
+		examples: [
+			"import React, { useState } from 'react';\nimport Avatar from '@atlaskit/avatar/avatar';\nimport CodeBlock from '@atlaskit/code/code-block';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { CharlieFilter, type CharlieFilterProps } from '@atlassian/charlie-filter/charlie-filter';\nimport { createEmptyFilter, getClauses } from '@atlassian/charlie-filter/expression';\nimport {\n\ttype CharlieFilterChoiceField,\n\tCharlieFilterUpdatePolicy,\n} from '@atlassian/charlie-filter/types';\nimport { printFilterProps } from './utils/print-filter-props';\nexport default function Basic(): React.JSX.Element {\n\tconst [value, setValue] = useState(createEmptyFilter);\n\treturn (\n\t\t<Stack space=\"space.200\">\n\t\t\t<Text as=\"p\">\n\t\t\t\tPress Filter to open the panel. Basic mode lists fields on the left and their values on the\n\t\t\t\tright. Advanced mode shows the same filter as a list of clauses. Both edit one filter, shown\n\t\t\t\tas JSON below.\n\t\t\t</Text>\n\t\t\t<CharlieFilter\n\t\t\t\t{...props}\n\t\t\t\tvalue={value}\n\t\t\t\tonChange={setValue}\n\t\t\t\ttestId=\"charlie-filter\"\n\t\t\t/>\n\t\t\t<Text weight=\"bold\">What the filter gives back: the applied clauses</Text>\n\t\t\t<CodeBlock\n\t\t\t\tlanguage=\"json\"\n\t\t\t\tshouldShowLineNumbers={false}\n\t\t\t\ttext={JSON.stringify(getClauses(value), null, 2)}\n\t\t\t/>\n\t\t\t<Text weight=\"bold\">What we give the filter, besides value and onChange</Text>\n\t\t\t<CodeBlock language=\"javascript\" shouldShowLineNumbers={false} text={printedProps} />\n\t\t</Stack>\n\t);\n}\nconst fields: CharlieFilterChoiceField[] = [\n\t{\n\t\tid: 'owner',\n\t\tlabel: 'Owner',\n\t\ttype: 'choice',\n\t\toperators: ['in', 'notIn', 'isEmpty', 'isNotEmpty'],\n\t\tselectionMode: 'multiple',\n\t\toptions: [\n\t\t\t{ value: 'olivia', label: 'Olivia Yang' },\n\t\t\t{ value: 'michael', label: 'Michael Henderson' },\n\t\t\t{ value: 'annie', label: 'Annie Clare' },\n\t\t\t{ value: 'andrew', label: 'Andrew Park' },\n\t\t\t{ value: 'chloe', label: 'Chloe Lee' },\n\t\t].map((person) => ({\n\t\t\t...person,\n\t\t\telemBefore: <Avatar size=\"xxsmall\" name={person.label} />,\n\t\t})),\n\t},\n\t{\n\t\tid: 'status',\n\t\tlabel: 'Status',\n\t\ttype: 'choice',\n\t\toperators: ['in', 'notIn'],\n\t\tselectionMode: 'multiple',\n\t\toptions: [\n\t\t\t{ value: 'pending', label: 'Pending' },\n\t\t\t{ value: 'on-track', label: 'On track' },\n\t\t\t{ value: 'at-risk', label: 'At risk' },\n\t\t\t{ value: 'off-track', label: 'Off track' },\n\t\t\t{ value: 'done', label: 'Done' },\n\t\t],\n\t},\n\t{\n\t\tid: 'team',\n\t\tlabel: 'Team',\n\t\ttype: 'choice',\n\t\toperators: ['in', 'notIn'],\n\t\tselectionMode: 'multiple',\n\t\toptions: [\n\t\t\t{ value: 'bananas', label: 'Bananas in pyjamas' },\n\t\t\t{ value: 'rockets', label: 'Team Rockets' },\n\t\t\t{ value: 'sharks', label: 'Team Sharks' },\n\t\t],\n\t},\n\t{\n\t\tid: 'priority',\n\t\tlabel: 'Priority',\n\t\ttype: 'choice',\n\t\toperators: ['is', 'isNot'],\n\t\tselectionMode: 'single',\n\t\toptions: [\n\t\t\t{ value: 'highest', label: 'Highest' },\n\t\t\t{ value: 'high', label: 'High' },\n\t\t\t{ value: 'medium', label: 'Medium' },\n\t\t\t{ value: 'low', label: 'Low' },\n\t\t],\n\t},\n\t{\n\t\tid: 'tag',\n\t\tlabel: 'Tag',\n\t\ttype: 'choice',\n\t\toperators: ['in', 'notIn'],\n\t\tselectionMode: 'multiple',\n\t\t// Hidden until users add it from \"Add field\".\n\t\tisDefaultVisible: false,\n\t\toptions: [\n\t\t\t{ value: 'launch', label: 'launch' },\n\t\t\t{ value: 'okr', label: 'okr' },\n\t\t\t{ value: 'platform', label: 'platform' },\n\t\t],\n\t},\n];\nconst props = {\n\tfields,\n\tmodes: ['basic', 'advanced'],\n\tupdatePolicy: CharlieFilterUpdatePolicy.immediate,\n\t// The order and pins can also be controlled with state.\n\tenableFieldManagement: true,\n\tenableFieldPinning: true,\n} satisfies Partial<CharlieFilterProps>;\nconst printedProps = printFilterProps(props);",
+			"import React, { useEffect, useMemo, useState, useTransition } from 'react';\nimport debounce from 'lodash/debounce';\nimport {\n\ttype EntryPoint,\n\ttype EntryPointComponent,\n\tloadEntryPoint,\n\tRelayEnvironmentProvider,\n} from 'react-relay';\nimport { createMockEnvironment } from 'relay-test-utils';\nimport Avatar from '@atlaskit/avatar/avatar';\nimport CodeBlock from '@atlaskit/code/code-block';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { CharlieFilterChoiceEditor } from '@atlassian/charlie-filter/choice-editor';\nimport { CharlieFilterChoiceEditorSkeleton } from '@atlassian/charlie-filter/choice-editor-skeleton';\nimport { setBasicFieldSelection } from '@atlassian/charlie-filter/clauses';\nimport { createEmptyFilter, getClauses } from '@atlassian/charlie-filter/expression';\nimport { CharlieFilterPanel } from '@atlassian/charlie-filter/panel';\nimport { CharlieFilterPanelContent } from '@atlassian/charlie-filter/panel-content';\nimport type {\n\tCharlieFilterChoiceOption,\n\tCharlieFilterField,\n\tCharlieFilterValueEditorProps,\n} from '@atlassian/charlie-filter/types';\nimport { useCharlieFilter } from '@atlassian/charlie-filter/use-charlie-filter';\nimport { ExampleEntryPointContainer } from './utils/example-entry-point-container';\nconst PAGE_SIZE = 10;\n/** What `renderEditor` passes on to the entrypoint root. */\ntype OwnerEditorProps = Omit<CharlieFilterValueEditorProps, 'editorReference' | 'reloadEditor'>;\nconst SEARCH_DELAY_IN_MS = 300;\n/** The same preload params RadarX field editors use. */\ntype OwnerEditorParams = {\n\tcloudId: string;\n\tfieldId: string;\n\tisSingleSelect: boolean;\n\tmaxValues?: number;\n\tselectedIds: readonly string[];\n};\n/**\n * The entrypoint root, mirroring RadarX's search and selected queries. A product version reads\n * them with `usePreloadedQuery`, searches with `refetch` and pages with `loadNext` from\n * `usePaginationFragment`.\n *\n * The search results go to `options` and the selected values to `selectedOptions`. With an empty\n * search the editor lists the selected values first and drops their duplicates from the results,\n * so the two lists don't need merging here. Searches wait for typing to pause, then refetch\n * inside a transition so the current results stay on screen while the next ones load.\n */\nconst OwnerEditorRoot = ({\n\tprops,\n\textraProps,\n}: {\n\tprops: OwnerEditorProps;\n\textraProps: {\n\t\tsearchPage: Request<OwnerPage>;\n\t\tselectedOwners: Request<CharlieFilterChoiceOption[]>;\n\t};\n}) => {\n\tconst [searchValue, setSearchValue] = useState('');\n\tconst [search, setSearch] = useState('');\n\tconst [pageRequest, setPageRequest] = useState(extraProps.searchPage);\n\tconst [isSearching, startSearch] = useTransition();\n\tconst [isPaging, startPaging] = useTransition();\n\tconst page = pageRequest.read();\n\tconst selectedOwners = extraProps.selectedOwners.read();\n\tconst refetch = useMemo(\n\t\t() =>\n\t\t\tdebounce((value: string) => {\n\t\t\t\tsetSearch(value);\n\t\t\t\tstartSearch(() => setPageRequest(searchOwners(value, PAGE_SIZE)));\n\t\t\t}, SEARCH_DELAY_IN_MS),\n\t\t[],\n\t);\n\tuseEffect(() => () => refetch.cancel(), [refetch]);\n\treturn (\n\t\t<CharlieFilterChoiceEditor\n\t\t\t{...props}\n\t\t\tlabel={props.field.label}\n\t\t\toptions={page.options}\n\t\t\tselectedOptions={selectedOwners}\n\t\t\tsearchValue={searchValue}\n\t\t\tonSearchChange={(value) => {\n\t\t\t\tsetSearchValue(value);\n\t\t\t\trefetch(value);\n\t\t\t\tif (value === '') {\n\t\t\t\t\trefetch.flush();\n\t\t\t\t}\n\t\t\t}}\n\t\t\tisLoading={isSearching}\n\t\t\ttotalCount={page.totalCount}\n\t\t\thasNextPage={page.hasNextPage}\n\t\t\tisPaginationLoading={isPaging}\n\t\t\tonShowMore={() =>\n\t\t\t\tstartPaging(() => setPageRequest(searchOwners(search, page.options.length + PAGE_SIZE)))\n\t\t\t}\n\t\t/>\n\t);\n};\n/**\n * A product entrypoint uses `JSResource` for `root` and returns `queries` from `getPreloadProps`.\n * This one passes the preloaded data through `extraProps` so the example runs without Relay\n * compiler artifacts. Both queries start together when the editor loads.\n */\nconst ownerEditorEntryPoint = {\n\troot: {\n\t\tgetModuleIfRequired: () => OwnerEditorRoot,\n\t\tload: () => Promise.resolve(OwnerEditorRoot),\n\t\tgetModuleId: () => 'OwnerEditorRoot',\n\t},\n\tgetPreloadProps: ({ selectedIds }: OwnerEditorParams) => ({\n\t\tqueries: {},\n\t\tentryPoints: {},\n\t\textraProps: {\n\t\t\tsearchPage: searchOwners('', PAGE_SIZE),\n\t\t\tselectedOwners: fetchSelectedOwners(selectedIds),\n\t\t},\n\t}),\n} as unknown as EntryPoint<EntryPointComponent<{}, {}, OwnerEditorProps, {}>, OwnerEditorParams>;\nconst environment = createMockEnvironment();\nconst environmentProvider = { getEnvironment: () => environment };\n/** Stands in for the owners returned by the query that loads the saved filter. */\nconst savedFilterOwners: CharlieFilterChoiceOption[] = [\n\t{\n\t\tvalue: 'priya-patel',\n\t\tlabel: 'Priya Patel',\n\t\telemBefore: <Avatar size=\"xxsmall\" name=\"Priya Patel\" />,\n\t},\n];\nconst fields: CharlieFilterField[] = [\n\t{\n\t\tid: 'owner',\n\t\tlabel: 'Owner',\n\t\ttype: 'choice',\n\t\toperators: ['in', 'notIn'],\n\t\tselectionMode: 'multiple',\n\t\tselectedOptions: savedFilterOwners,\n\t\t// The panel calls `load` on hover, focus or click, keeps the reference by key, and passes\n\t\t// it to `renderEditor` as `editorReference`.\n\t\teditorLoader: {\n\t\t\t// Leaves out the selection, so selecting values doesn't reload the entrypoint.\n\t\t\tgetKey: ({ field }) => field.id,\n\t\t\tload: ({ field, selectionMode, maxValues, selectedIds }) =>\n\t\t\t\tloadEntryPoint(environmentProvider, ownerEditorEntryPoint, {\n\t\t\t\t\tcloudId: 'example-cloud-id',\n\t\t\t\t\tfieldId: field.id,\n\t\t\t\t\tisSingleSelect: selectionMode === 'single',\n\t\t\t\t\tmaxValues,\n\t\t\t\t\tselectedIds,\n\t\t\t\t}),\n\t\t},\n\t\trenderEditor: ({ editorReference, reloadEditor, ...runtimeProps }) =>\n\t\t\teditorReference ? (\n\t\t\t\t<ExampleEntryPointContainer\n\t\t\t\t\tentryPointReference={editorReference}\n\t\t\t\t\truntimeProps={runtimeProps}\n\t\t\t\t\tfallback={<CharlieFilterChoiceEditorSkeleton layout={runtimeProps.layout} />}\n\t\t\t\t/>\n\t\t\t) : (\n\t\t\t\t<CharlieFilterChoiceEditorSkeleton layout={runtimeProps.layout} />\n\t\t\t),\n\t},\n\t{\n\t\tid: 'status',\n\t\tlabel: 'Status',\n\t\ttype: 'choice',\n\t\toperators: ['in', 'notIn'],\n\t\tselectionMode: 'multiple',\n\t\toptions: [\n\t\t\t{ value: 'on-track', label: 'On track' },\n\t\t\t{ value: 'at-risk', label: 'At risk' },\n\t\t\t{ value: 'off-track', label: 'Off track' },\n\t\t],\n\t},\n];\nexport default function EntryPointEditor(): React.JSX.Element {\n\tconst [value, setValue] = useState(() =>\n\t\tsetBasicFieldSelection(\n\t\t\tcreateEmptyFilter(),\n\t\t\tfields[0],\n\t\t\tsavedFilterOwners.map((owner) => owner.value),\n\t\t),\n\t);\n\tconst filter = useCharlieFilter({ fields, value, onChange: setValue });\n\treturn (\n\t\t<RelayEnvironmentProvider environment={environment}>\n\t\t\t<Stack space=\"space.200\">\n\t\t\t\t<Text as=\"p\">\n\t\t\t\t\tOwner’s values load from the server only when the field is opened, one page at a time. The\n\t\t\t\t\tserver here is slowed to 1.5 seconds so you can watch each load. Opening the field runs\n\t\t\t\t\ttwo queries together: the search results, and the selected values. Priya is already\n\t\t\t\t\tselected and isn’t on the first page of results, so the selected query lists her at the\n\t\t\t\t\ttop. Her name also comes with the saved filter through the field’s selectedOptions, so it\n\t\t\t\t\tshows in Advanced before the field is opened. Searches run once typing pauses.\n\t\t\t\t</Text>\n\t\t\t\t<CharlieFilterPanel labels={filter.labels}>\n\t\t\t\t\t<CharlieFilterPanelContent filter={filter} />\n\t\t\t\t</CharlieFilterPanel>\n\t\t\t\t<CodeBlock\n\t\t\t\t\tlanguage=\"json\"\n\t\t\t\t\tshouldShowLineNumbers={false}\n\t\t\t\t\ttext={JSON.stringify(getClauses(value), null, 2)}\n\t\t\t\t/>\n\t\t\t</Stack>\n\t\t</RelayEnvironmentProvider>\n\t);\n}\n// The mock server. Everything below stands in for the product's GraphQL queries.\nconst NETWORK_DELAY_IN_MS = 1500;\nconst SELECTED_PAGE_SIZE = 25;\nconst people: CharlieFilterChoiceOption[] = [\n\t'Olivia Yang',\n\t'Michael Henderson',\n\t'Annie Clare',\n\t'Andrew Park',\n\t'Chloe Lee',\n\t'Eva Lien',\n\t'Jie Yan Song',\n\t'Maria Garcia',\n\t'Samuel Okafor',\n\t'Lena Fischer',\n\t'Dmitri Volkov',\n\t'Hannah Brooks',\n\t'Mateo Rossi',\n\t'Aisha Rahman',\n\t'Tom Nguyen',\n\t'Grace Kim',\n\t'Lucas Silva',\n\t'Fatima Al-Sayed',\n\t'Noah Williams',\n\t'Yuki Tanaka',\n\t'Isabella Moreno',\n\t'Ethan Clarke',\n\t'Zara Ahmed',\n\t'Oliver Schmidt',\n\t'Mei Lin',\n\t'Daniel Cohen',\n\t'Amara Obi',\n\t'Liam Murphy',\n\t'Sofia Petrova',\n\t'Priya Patel',\n\t'Benjamin Hall',\n\t'Nadia Haddad',\n\t'Ryan Foster',\n\t'Elena Popescu',\n\t'Kenji Watanabe',\n\t'Chiara Bianchi',\n\t'Marcus Johnson',\n\t'Leila Karimi',\n\t'Jack Thompson',\n\t'Ana Costa',\n\t'Arjun Mehta',\n\t'Freya Larsen',\n\t'Diego Hernández',\n\t'Ivy Chen',\n\t'Kwame Mensah',\n\t'Ruby Walsh',\n\t'Hugo Martin',\n\t'Sana Qureshi',\n\t'Felix Wagner',\n\t'Nora Lindqvist',\n].map((label) => ({\n\tvalue: label.toLowerCase().replace(/ /g, '-'),\n\tlabel,\n\telemBefore: <Avatar size=\"xxsmall\" name={label} />,\n}));\ntype OwnerPage = { options: CharlieFilterChoiceOption[]; hasNextPage: boolean; totalCount: number };\n/** Stands in for a preloaded query: reading it suspends until the slow server responds. */\ntype Request<T> = { read: () => T };\nconst fetchFromServer = <T,>(getResult: () => T): Request<T> => {\n\tlet response: { result: T } | undefined;\n\tconst promise = new Promise<void>((resolve) =>\n\t\tsetTimeout(() => {\n\t\t\tresponse = { result: getResult() };\n\t\t\tresolve();\n\t\t}, NETWORK_DELAY_IN_MS),\n\t);\n\treturn {\n\t\tread: () => {\n\t\t\tif (response === undefined) {\n\t\t\t\tthrow promise;\n\t\t\t}\n\t\t\treturn response.result;\n\t\t},\n\t};\n};\n/** Stands in for the search query and its `usePaginationFragment` connection. */\nconst searchOwners = (search: string, count: number): Request<OwnerPage> =>\n\tfetchFromServer(() => {\n\t\tconst matches = people.filter(({ label }) =>\n\t\t\tlabel.toLowerCase().includes(search.trim().toLowerCase()),\n\t\t);\n\t\treturn {\n\t\t\toptions: matches.slice(0, count),\n\t\t\thasNextPage: matches.length > count,\n\t\t\ttotalCount: matches.length,\n\t\t};\n\t});\n/**\n * Stands in for the selected-values query. Like RadarX's, it is skipped when nothing is selected\n * (`@include(if: $hasSelectedValues)`) and returns at most one page.\n */\nconst fetchSelectedOwners = (\n\tselectedIds: readonly string[],\n): Request<CharlieFilterChoiceOption[]> =>\n\tselectedIds.length === 0\n\t\t? { read: () => [] }\n\t\t: fetchFromServer(() =>\n\t\t\t\tpeople.filter(({ value }) => selectedIds.includes(value)).slice(0, SELECTED_PAGE_SIZE),\n\t\t\t);",
+			"import React, { useMemo, useState } from 'react';\nimport {\n\ttype EntryPoint,\n\ttype EntryPointComponent,\n\tloadEntryPoint,\n\tRelayEnvironmentProvider,\n} from 'react-relay';\nimport { createMockEnvironment } from 'relay-test-utils';\nimport Button from '@atlaskit/button/default/button';\nimport CodeBlock from '@atlaskit/code/code-block';\nimport { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport Spinner from '@atlaskit/spinner/spinner';\nimport { CharlieFilterChoiceEditor } from '@atlassian/charlie-filter/choice-editor';\nimport { CharlieFilterChoiceEditorSkeleton } from '@atlassian/charlie-filter/choice-editor-skeleton';\nimport { createEmptyFilter, getClauses } from '@atlassian/charlie-filter/expression';\nimport { createInitialFieldState, functionalUpdate } from '@atlassian/charlie-filter/field-layout';\nimport { CharlieFilterFieldPickerMenu } from '@atlassian/charlie-filter/field-picker-menu';\nimport { CharlieFilterPanel } from '@atlassian/charlie-filter/panel';\nimport { CharlieFilterPanelContent } from '@atlassian/charlie-filter/panel-content';\nimport type {\n\tCharlieFilterChoiceOption,\n\tCharlieFilterExpression,\n\tCharlieFilterField,\n\tCharlieFilterFieldPickerRenderProps,\n\tCharlieFilterState,\n\tCharlieFilterUpdater,\n\tCharlieFilterValueEditorProps,\n} from '@atlassian/charlie-filter/types';\nimport { useCharlieFilter } from '@atlassian/charlie-filter/use-charlie-filter';\nimport { PopupTrigger } from '@atlassian/entry-points/popup-trigger';\nimport { useRelayEnvironmentProvider } from '@atlassian/relay-environment-provider';\nimport { ExampleEntryPointContainer } from './utils/example-entry-point-container';\n/** What `renderEditor` passes on to an editor entrypoint root. */\ntype EditorRootProps = Omit<CharlieFilterValueEditorProps, 'editorReference' | 'reloadEditor'>;\n/** What `renderFieldPicker` passes on to a field picker entrypoint root. */\ntype FieldPickerRootProps = Omit<\n\tCharlieFilterFieldPickerRenderProps,\n\t'pickerReference' | 'reloadPicker'\n>;\ntype PanelRuntimeProps = {\n\tvalue: CharlieFilterExpression;\n\tonChange: (value: CharlieFilterExpression) => void;\n\taddedFields: readonly CharlieFilterField[];\n\tonAddedFieldsChange: (addedFields: readonly CharlieFilterField[]) => void;\n\tfieldState: CharlieFilterState;\n\tonFieldStateChange: (updater: CharlieFilterUpdater<CharlieFilterState>) => void;\n};\n/**\n * The panel entrypoint's root. It owns the nested entrypoints: Owner's values and the field\n * catalog load only when users reach for them, inside the panel's Relay environment.\n */\nconst FilterPanelRoot = ({\n\tprops,\n\textraProps,\n}: {\n\tprops: PanelRuntimeProps;\n\textraProps: { fields: CharlieFilterField[] };\n}) => {\n\tconst environmentProvider = useRelayEnvironmentProvider();\n\tconst fields = useMemo(\n\t\t() =>\n\t\t\textraProps.fields.map(\n\t\t\t\t(field): CharlieFilterField =>\n\t\t\t\t\tfield.id === 'owner' && field.type === 'choice'\n\t\t\t\t\t\t? {\n\t\t\t\t\t\t\t\t...field,\n\t\t\t\t\t\t\t\teditorLoader: {\n\t\t\t\t\t\t\t\t\tgetKey: () => field.id,\n\t\t\t\t\t\t\t\t\tload: () =>\n\t\t\t\t\t\t\t\t\t\tloadEntryPoint(environmentProvider, ownerEditorEntryPoint, {\n\t\t\t\t\t\t\t\t\t\t\tfieldId: field.id,\n\t\t\t\t\t\t\t\t\t\t}),\n\t\t\t\t\t\t\t\t},\n\t\t\t\t\t\t\t\trenderEditor: ({\n\t\t\t\t\t\t\t\t\teditorReference,\n\t\t\t\t\t\t\t\t\treloadEditor,\n\t\t\t\t\t\t\t\t\t...runtimeProps\n\t\t\t\t\t\t\t\t}: CharlieFilterValueEditorProps) =>\n\t\t\t\t\t\t\t\t\teditorReference ? (\n\t\t\t\t\t\t\t\t\t\t<ExampleEntryPointContainer\n\t\t\t\t\t\t\t\t\t\t\tentryPointReference={editorReference}\n\t\t\t\t\t\t\t\t\t\t\truntimeProps={runtimeProps}\n\t\t\t\t\t\t\t\t\t\t\tfallback={<CharlieFilterChoiceEditorSkeleton layout={runtimeProps.layout} />}\n\t\t\t\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t\t\t\t) : (\n\t\t\t\t\t\t\t\t\t\t<CharlieFilterChoiceEditorSkeleton layout={runtimeProps.layout} />\n\t\t\t\t\t\t\t\t\t),\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t: field,\n\t\t\t),\n\t\t[environmentProvider, extraProps.fields],\n\t);\n\tconst fieldPickerLoader = useMemo(\n\t\t() => ({\n\t\t\tgetKey: () => 'catalog',\n\t\t\tload: () =>\n\t\t\t\tloadEntryPoint(environmentProvider, fieldCatalogEntryPoint, { context: 'catalog' }),\n\t\t}),\n\t\t[environmentProvider],\n\t);\n\tconst filter = useCharlieFilter({\n\t\tfieldPickerLoader,\n\t\trenderFieldPicker: ({ pickerReference, reloadPicker, ...runtimeProps }) =>\n\t\t\tpickerReference ? (\n\t\t\t\t<ExampleEntryPointContainer\n\t\t\t\t\tentryPointReference={pickerReference}\n\t\t\t\t\truntimeProps={runtimeProps}\n\t\t\t\t\tfallback={<CharlieFilterChoiceEditorSkeleton />}\n\t\t\t\t/>\n\t\t\t) : (\n\t\t\t\t<CharlieFilterChoiceEditorSkeleton />\n\t\t\t),\n\t\tfields,\n\t\tvalue: props.value,\n\t\tonChange: props.onChange,\n\t\t// The popup passes these props once, when it opens.\n\t\tdefaultAddedFields: props.addedFields,\n\t\tonAddedFieldsChange: props.onAddedFieldsChange,\n\t\tinitialState: props.fieldState,\n\t\tonFieldOrderChange: (updater) =>\n\t\t\tprops.onFieldStateChange((old) => ({\n\t\t\t\t...old,\n\t\t\t\tfieldOrder: functionalUpdate(updater, old.fieldOrder),\n\t\t\t})),\n\t\tonFieldVisibilityChange: (updater) =>\n\t\t\tprops.onFieldStateChange((old) => ({\n\t\t\t\t...old,\n\t\t\t\tfieldVisibility: functionalUpdate(updater, old.fieldVisibility),\n\t\t\t})),\n\t});\n\treturn (\n\t\t<CharlieFilterPanel labels={filter.labels}>\n\t\t\t<CharlieFilterPanelContent filter={filter} enableFieldManagement />\n\t\t</CharlieFilterPanel>\n\t);\n};\nconst panelFields: CharlieFilterField[] = [\n\t{\n\t\tid: 'owner',\n\t\tlabel: 'Owner',\n\t\ttype: 'choice',\n\t\toperators: ['in', 'notIn'],\n\t\tselectionMode: 'multiple',\n\t},\n\t{\n\t\tid: 'status',\n\t\tlabel: 'Status',\n\t\ttype: 'choice',\n\t\toperators: ['in', 'notIn'],\n\t\tselectionMode: 'multiple',\n\t\toptions: [\n\t\t\t{ value: 'on-track', label: 'On track' },\n\t\t\t{ value: 'at-risk', label: 'At risk' },\n\t\t\t{ value: 'off-track', label: 'Off track' },\n\t\t],\n\t},\n];\nconst panelEntryPoint = createFakeEntryPoint<\n\t{},\n\tPanelRuntimeProps,\n\t{ fields: CharlieFilterField[] }\n>('FilterPanelRoot', FilterPanelRoot, () => ({ fields: panelFields }));\n/** Owner's values entrypoint: loads when Owner is hovered, focused or opened. */\nconst OwnerEditorRoot = ({\n\tprops,\n\textraProps,\n}: {\n\tprops: EditorRootProps;\n\textraProps: { options: CharlieFilterChoiceOption[] };\n}) => (\n\t<CharlieFilterChoiceEditor {...props} options={extraProps.options} />\n);\nconst ownerEditorEntryPoint = createFakeEntryPoint<\n\t{ fieldId: string },\n\tEditorRootProps,\n\t{ options: CharlieFilterChoiceOption[] }\n>('OwnerEditorRoot', OwnerEditorRoot, () => ({ options: people }));\n/** The field catalog entrypoint: loads when Add field or Add filter is hovered or opened. */\nconst FieldCatalogRoot = ({\n\tprops,\n\textraProps,\n}: {\n\tprops: FieldPickerRootProps;\n\textraProps: { fields: CharlieFilterField[] };\n}) => (\n\t<CharlieFilterFieldPickerMenu {...props} fields={extraProps.fields} />\n);\nconst fieldCatalogEntryPoint = createFakeEntryPoint<\n\t{ context: string },\n\tFieldPickerRootProps,\n\t{ fields: CharlieFilterField[] }\n>('FieldCatalogRoot', FieldCatalogRoot, () => ({ fields: catalog }));\nconst environment = createMockEnvironment();\nconst styles = cssMap({\n\t// The panel's default size, so the popup does not resize when the panel arrives.\n\tpanelLoading: {\n\t\tdisplay: 'flex',\n\t\talignItems: 'center',\n\t\tjustifyContent: 'center',\n\t\twidth: '720px',\n\t\tmaxWidth: '100%',\n\t\theight: '423px',\n\t},\n});\nexport default function WholePanelEntryPoint(): React.JSX.Element {\n\tconst [value, setValue] = useState(createEmptyFilter);\n\t// The panel unmounts when it closes, so fields added from the catalog are kept here with the\n\t// value. Otherwise their clauses couldn't be edited when the panel opens again.\n\tconst [addedFields, setAddedFields] = useState<readonly CharlieFilterField[]>([]);\n\t// Which fields Basic lists, and in what order, is kept here too. Otherwise a field added\n\t// without a value would be gone when the panel opens again.\n\tconst [fieldState, setFieldState] = useState(createInitialFieldState);\n\treturn (\n\t\t<RelayEnvironmentProvider environment={environment}>\n\t\t\t<Stack space=\"space.200\">\n\t\t\t\t<Text as=\"p\">\n\t\t\t\t\tEach part loads from the server only when users reach for it. Hovering or pressing Filters\n\t\t\t\t\tloads the panel. Inside it, Owner’s values load when Owner is hovered or opened, and the\n\t\t\t\t\tfield catalog when Add field is. The server here is slowed to 1.5 seconds so you can watch\n\t\t\t\t\teach load.\n\t\t\t\t</Text>\n\t\t\t\t<Inline>\n\t\t\t\t\t<PopupTrigger\n\t\t\t\t\t\tentryPoint={panelEntryPoint}\n\t\t\t\t\t\tentryPointProps={{\n\t\t\t\t\t\t\tvalue,\n\t\t\t\t\t\t\tonChange: setValue,\n\t\t\t\t\t\t\taddedFields,\n\t\t\t\t\t\t\tonAddedFieldsChange: setAddedFields,\n\t\t\t\t\t\t\tfieldState,\n\t\t\t\t\t\t\tonFieldStateChange: setFieldState,\n\t\t\t\t\t\t}}\n\t\t\t\t\t\tplacement=\"bottom-start\"\n\t\t\t\t\t\tfallback={\n\t\t\t\t\t\t\t<Box xcss={styles.panelLoading}>\n\t\t\t\t\t\t\t\t<Spinner size=\"large\" label=\"Loading filters\" />\n\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t}\n\t\t\t\t\t\ttrigger={(triggerProps) => <Button {...triggerProps}>Filters</Button>}\n\t\t\t\t\t/>\n\t\t\t\t</Inline>\n\t\t\t\t<CodeBlock\n\t\t\t\t\tlanguage=\"json\"\n\t\t\t\t\tshouldShowLineNumbers={false}\n\t\t\t\t\ttext={JSON.stringify(getClauses(value), null, 2)}\n\t\t\t\t/>\n\t\t\t</Stack>\n\t\t</RelayEnvironmentProvider>\n\t);\n}\n// The mock server. Everything below stands in for the product's entrypoints and GraphQL queries.\nconst NETWORK_DELAY_IN_MS = 1500;\n/** Stands in for a preloaded query: reading it suspends until the slow server responds. */\ntype Request<T> = { read: () => T };\nconst fetchFromServer = <T,>(getResult: () => T): Request<T> => {\n\tlet response: { result: T } | undefined;\n\tconst promise = new Promise<void>((resolve) =>\n\t\tsetTimeout(() => {\n\t\t\tresponse = { result: getResult() };\n\t\t\tresolve();\n\t\t}, NETWORK_DELAY_IN_MS),\n\t);\n\treturn {\n\t\tread: () => {\n\t\t\tif (response === undefined) {\n\t\t\t\tthrow promise;\n\t\t\t}\n\t\t\treturn response.result;\n\t\t},\n\t};\n};\n/**\n * Product entrypoints use `JSResource` for `root` and return `queries` from `getPreloadProps`.\n * These pass a slow request through `extraProps`, so the example runs without Relay compiler\n * artifacts. A function declaration, so the entrypoints above can be created with it.\n */\nfunction createFakeEntryPoint<TParams extends {}, TRuntimeProps extends {}, TExtraProps extends {}>(\n\tname: string,\n\tRoot: (props: { props: TRuntimeProps; extraProps: TExtraProps }) => React.JSX.Element,\n\tgetExtraProps: (params: TParams) => TExtraProps,\n) {\n\t// Like `usePreloadedQuery`, the root suspends until its data arrives.\n\tconst PreloadedRoot = ({\n\t\tprops,\n\t\textraProps,\n\t}: {\n\t\tprops: TRuntimeProps;\n\t\textraProps: { request: Request<TExtraProps> };\n\t}) => <Root props={props} extraProps={extraProps.request.read()} />;\n\treturn {\n\t\troot: {\n\t\t\tgetModuleName: () => name,\n\t\t\tgetModuleId: () => name,\n\t\t\tgetModuleIfRequired: () => PreloadedRoot,\n\t\t\tload: () => Promise.resolve(PreloadedRoot),\n\t\t},\n\t\tgetPreloadProps: (params: TParams) => ({\n\t\t\tqueries: {},\n\t\t\tentryPoints: {},\n\t\t\textraProps: { request: fetchFromServer(() => getExtraProps(params)) },\n\t\t}),\n\t} as unknown as EntryPoint<\n\t\tEntryPointComponent<\n\t\t\tRecord<string, never>,\n\t\t\tRecord<string, never>,\n\t\t\tTRuntimeProps,\n\t\t\t{ request: Request<TExtraProps> }\n\t\t>,\n\t\tTParams\n\t>;\n}\nconst people: CharlieFilterChoiceOption[] = [\n\t{ value: 'olivia', label: 'Olivia Yang' },\n\t{ value: 'michael', label: 'Michael Henderson' },\n\t{ value: 'annie', label: 'Annie Clare' },\n];\n/** Fields users can add, from a catalog too large to send with the panel. */\nconst catalog: CharlieFilterField[] = ['Goal', 'Team', 'Priority', 'Due date', 'Tags'].map(\n\t(label) => ({\n\t\tid: label.toLowerCase().replace(' ', '-'),\n\t\tlabel,\n\t\ttype: 'choice',\n\t\toperators: ['in', 'notIn'],\n\t\tselectionMode: 'multiple',\n\t\toptions: [\n\t\t\t{ value: `${label.toLowerCase()}-1`, label: `${label} 1` },\n\t\t\t{ value: `${label.toLowerCase()}-2`, label: `${label} 2` },\n\t\t],\n\t}),\n);",
+		],
+		props: [
+			{
+				name: 'addedFields',
+				type: 'readonly CharlieFilterField[] | undefined',
+				description:
+					'Fields users added from a remote catalog. Definitions in `fields` take precedence. Omit to\nlet the filter keep them, starting from `defaultAddedFields`.\n\nWhen the filter can unmount while the value lives on, such as a panel in a popup, keep them\nwith the value through `onAddedFieldsChange` and pass them back on mount, so clauses for\nadded fields stay editable when it opens again.',
+			},
+			{
+				name: 'advancedEditor',
+				type: '"flat" | undefined',
+			},
+			{
+				name: 'combinators',
+				type: 'readonly CharlieFilterCombinator[] | undefined',
+				description:
+					"How users can combine Advanced clauses. Defaults to AND only; pass `['and', 'or']` when the\nbackend can run OR queries.",
+			},
+			{
+				name: 'components',
+				type: 'CharlieFilterComponents | undefined',
+				description:
+					'Replacement components, like `components` in `@atlaskit/select`. `ClauseValue` replaces the\nvalue control of each Advanced clause; `Clause` replaces the whole row. `BasicLayout` and\n`ClauseList` replace Basic and Advanced mode, for example to change their height.',
+			},
+			{
+				name: 'defaultActiveFieldId',
+				type: 'string | null | undefined',
+				description:
+					'Basic field selected on open. Defaults to the first field; `null` selects none.',
+			},
+			{
+				name: 'defaultAddedFields',
+				type: 'readonly CharlieFilterField[] | undefined',
+				description:
+					'Added fields on mount, for example ones kept from when the panel was last open.',
+			},
+			{
+				name: 'defaultIsOpen',
+				type: 'boolean | undefined',
+			},
+			{
+				name: 'defaultMode',
+				type: 'CharlieFilterMode | undefined',
+			},
+			{
+				name: 'defaultValue',
+				type: 'CharlieFilterGroup | undefined',
+			},
+			{
+				name: 'enableFieldManagement',
+				type: 'boolean | undefined',
+				description: 'Lets users add, remove and reorder Basic fields.',
+			},
+			{
+				name: 'enableFieldPinning',
+				type: 'boolean | undefined',
+				description: 'Lets users pin Basic fields to the top of the list.',
+			},
+			{
+				name: 'externalFieldIds',
+				type: 'readonly string[] | undefined',
+				description:
+					"Fields filtered by something else on the page, such as a search box or a scope set by the\npage. Their clauses stay in the value and the query, AND-ed with the panel clauses, but Basic and\nAdvanced don't show them, Clear all keeps them and the trigger doesn't count them. Clauses\nfor other fields that aren't in `fields` are kept too, but disable Basic and Advanced so a\nfilter is never hidden by mistake.",
+			},
+			{
+				name: 'fieldPickerLoader',
+				type: 'CharlieFilterFieldPickerLoader | undefined',
+				description:
+					'Loads a resource for the field pickers, such as a Relay entrypoint, from hover or focus on\nthe button that opens them. Passed to `renderFieldPicker` as `pickerReference`.',
+			},
+			{
+				name: 'fields',
+				type: 'readonly CharlieFilterField[]',
+				description:
+					'Definitions for the fields the panel shows: fields listed in Basic, used in the filter, or\noffered by the built-in field menus. Fields users add from a remote catalog\n(`renderFieldPicker`) are kept in `addedFields`.',
+				isRequired: true,
+			},
+			{
+				name: 'footer',
+				type: 'React.ReactNode | ((filter: CharlieFilterInstance) => React.ReactNode)',
+				description:
+					'Replaces the footer content. Defaults to an Apply button with `CharlieFilterUpdatePolicy.onApply` and\nnothing otherwise. Include `CharlieFilterApplyButton` to keep Apply in the footer, or pass\n`null` to remove the footer and apply from somewhere else.',
+			},
+			{
+				name: 'headerActions',
+				type: 'React.ReactNode | ((filter: CharlieFilterInstance) => React.ReactNode)',
+				description: 'Product-owned header content, such as saved filters, Save or Apply.',
+			},
+			{
+				name: 'initialState',
+				type: 'Partial<CharlieFilterState> | undefined',
+				description:
+					'Starting values for the parts of `state` the filter keeps. When the filter can unmount, such\nas a panel in a popup, keep them through the `on…Change` callbacks and pass them back here on\nmount, so fields users added without a value are still listed when it opens again.',
+			},
+			{
+				name: 'isOpen',
+				type: 'boolean | undefined',
+			},
+			{
+				name: 'labels',
+				type: 'CharlieFilterLabelsOverride | undefined',
+			},
+			{
+				name: 'mode',
+				type: 'CharlieFilterMode | undefined',
+			},
+			{
+				name: 'modes',
+				type: 'readonly CharlieFilterMode[] | undefined',
+				description: 'Modes offered to the user, in order. Defaults to Basic and Advanced.',
+			},
+			{
+				name: 'onAddedFieldsChange',
+				type: '((addedFields: readonly CharlieFilterField[]) => void) | undefined',
+			},
+			{
+				name: 'onChange',
+				type: '((value: CharlieFilterGroup) => void) | undefined',
+				description:
+					'Called with complete, valid filters only. Incomplete input stays in the draft.',
+			},
+			{
+				name: 'onFieldOrderChange',
+				type: '((updater: CharlieFilterUpdater<CharlieFilterFieldOrderState>) => void) | undefined',
+				description:
+					'Called with an updater when users move a field, like TanStack Table. Pass your state setter,\nor resolve the updater with `functionalUpdate`. The order lists every field ID.',
+			},
+			{
+				name: 'onFieldPinningChange',
+				type: '((updater: CharlieFilterUpdater<CharlieFilterFieldPinningState>) => void) | undefined',
+				description:
+					'Called with an updater when users pin or unpin a field, or remove a pinned one.',
+			},
+			{
+				name: 'onFieldVisibilityChange',
+				type: '((updater: CharlieFilterUpdater<Readonly<Record<string, boolean>>>) => void) | undefined',
+				description: 'Called with an updater when users add or remove a Basic field.',
+			},
+			{
+				name: 'onModeChange',
+				type: '((mode: CharlieFilterMode) => void) | undefined',
+			},
+			{
+				name: 'onOpenChange',
+				type: '((isOpen: boolean) => void) | undefined',
+			},
+			{
+				name: 'placement',
+				type: 'CharlieFilterPopoverPlacement | undefined',
+				description: 'Where the popover opens relative to the trigger. Defaults to `bottom-start`.',
+			},
+			{
+				name: 'queryAdapter',
+				type: 'CharlieFilterQueryAdapter | undefined',
+				description: 'Required for Query mode. Query mode is omitted without it.',
+			},
+			{
+				name: 'renderFieldPicker',
+				type: '((props: CharlieFilterFieldPickerRenderProps) => React.ReactNode) | undefined',
+				description:
+					'Replaces the content of the field pickers (Basic "Add field", Advanced "Add filter" and each\nclause\'s field menu), for example with `CharlieFilterFieldPickerMenu` showing a remote\ncatalog. The panel still renders the button and popup.',
+			},
+			{
+				name: 'state',
+				type: 'Partial<CharlieFilterState> | undefined',
+				description:
+					"Controlled Basic field list state, like TanStack Table's `state`. Each part passed here is\ncontrolled: keep it up to date from its `on…Change`. Parts left out are kept by the filter.",
+			},
+			{
+				name: 'trigger',
+				type: '((props: CharlieFilterPopoverTriggerProps) => React.ReactNode) | undefined',
+				description:
+					'Renders the button that opens the panel, like `trigger` on `@atlaskit/popup`. Defaults to\n`CharlieFilterTrigger`.',
+			},
+			{
+				name: 'updatePolicy',
+				type: 'CharlieFilterUpdatePolicy | undefined',
+			},
+			{
+				name: 'value',
+				type: 'CharlieFilterGroup | undefined',
+				description:
+					'Applied filter. Omit to let the filter keep it, starting from `defaultValue`.',
+			},
+			{
+				name: 'width',
+				type: 'number | undefined',
+				description:
+					'Panel width in pixels. Defaults to 720, and shrinks to fit narrower containers.',
 			},
 		],
 	},
@@ -27855,23 +28286,6 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		],
 	},
 	{
-		name: 'ConversationAssistantWidget',
-		package: '@atlassian/conversation-assistant-widget',
-		description: 'Renders the CSM chat widget.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use as the primary package entry point when embedding the complete Rovo Chat widget.',
-			'Provide site, product, authentication, and host callbacks through ConversationAssistantProps.',
-		],
-		accessibilityGuidelines: [
-			'Give the host integration enough space for the widget and preserve focus when opening or closing it.',
-		],
-		keywords: ['chat', 'widget', 'embed'],
-		category: 'chat',
-		examples: [],
-		props: [],
-	},
-	{
 		name: 'AsyncConversationAssistantWidget',
 		package: '@atlassian/conversation-assistant-widget',
 		description:
@@ -29402,6 +29816,64 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		],
 	},
 	{
+		name: 'CreateNewObject',
+		package: '@atlassian/create-new-object',
+		description: 'Marketplace Partner-facing UI for creating a new object listing',
+		status: 'early-access',
+		usageGuidelines: [
+			'Host this component from Marketplace Partner (MPAC). Wrap it in RelayEnvironmentProvider. Pass baseUrl, onCreated, and onCancel. This package fetches partners, selects the first vendor, and owns REST paths and Relay documents. Do not import MPAC into this package.',
+			'Wrap the tree in the host IntlProvider when you need locales other than the nested English default.',
+			'Save as private and Next: Make public both create a private listing, then call onCreated. Branch on result.action (`savePrivate` | `makePublic`).',
+		],
+		contentGuidelines: [
+			'Get started is the first screen. App and Agent are both selectable; Agent shows a New lozenge.',
+			'Add your app includes Built for (Commercial Cloud only), Forge select, Compatibility chips (unselected until the partner picks at least one), app key (slash and spaces rejected; dotted notation is helper copy; uniqueness is enforced at create), and app name (pattern + MPAC validate/name).',
+			'Footer actions are Save as private and Next: Make public. They stay enabled. Save or Next shows a field error when a required value is missing or invalid, and creates the listing only after those checks pass.',
+		],
+		accessibilityGuidelines: [
+			'Object types are radios in a named group. The header Close button cancels the flow.',
+			'Footer actions are labeled buttons with stable test ids for automated tests.',
+		],
+		keywords: [
+			'@atlassian/create-new-object',
+			'CreateNewObject',
+			'marketplace',
+			'create listing',
+			'forge app',
+		],
+		category: 'components',
+		examples: [
+			"import React, { useState } from 'react';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport CreateNewObject from '../src/ui/create-new-object';\nimport { CreateNewObjectRelayMockProvider } from '../src/ui/create-new-object/relay-mock';\nimport type { CreateNewObjectResult } from '../src/ui/create-new-object/types';\nimport { EXAMPLE_BASE_URL, installCreateNewObjectExampleFetch } from './mockCreateNewObjectApis';\ninstallCreateNewObjectExampleFetch();\n/**\n * Public host contract: baseUrl, onCreated, onCancel.\n * Partners are fetched and the first vendor is selected automatically.\n * REST + Relay calls are mocked with the same catalog the other examples use.\n */\nexport default function HostApi(): React.JSX.Element {\n\tconst [result, setResult] = useState<CreateNewObjectResult | null>(null);\n\treturn (\n\t\t<CreateNewObjectRelayMockProvider catalog>\n\t\t\t<CreateNewObject\n\t\t\t\tbaseUrl={EXAMPLE_BASE_URL}\n\t\t\t\tonCreated={setResult}\n\t\t\t\tonCancel={() => undefined}\n\t\t\t/>\n\t\t\t{result ? (\n\t\t\t\t<Text as=\"p\">\n\t\t\t\t\t{result.action}\n\t\t\t\t\t{result.appId ? ` ${result.appId}` : ''}\n\t\t\t\t</Text>\n\t\t\t) : null}\n\t\t</CreateNewObjectRelayMockProvider>\n\t);\n}",
+			"import { MOCK_FORGE_APPS } from '../src/ui/create-new-object/data/mockForgeApps';\nimport { MOCK_VENDORS } from '../src/ui/create-new-object/data/mockVendors';\nimport { CreateNewObjectExample } from './createNewObjectExample';\nexport default function Basic(): React.JSX.Element {\n\treturn <CreateNewObjectExample vendors={MOCK_VENDORS} forgeApps={MOCK_FORGE_APPS} />;\n}",
+			"import { MOCK_FORGE_APPS } from '../src/ui/create-new-object/data/mockForgeApps';\nimport { MOCK_VENDORS } from '../src/ui/create-new-object/data/mockVendors';\nimport { CreateNewObjectExample } from './createNewObjectExample';\nexport default function AgentSelected(): React.JSX.Element {\n\treturn (\n\t\t<CreateNewObjectExample\n\t\t\tvendors={MOCK_VENDORS}\n\t\t\tforgeApps={MOCK_FORGE_APPS}\n\t\t\tinitialValues={{ objectType: 'agent' }}\n\t\t/>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'baseUrl',
+				type: 'string',
+				isRequired: true,
+			},
+			{
+				name: 'defaultVendorId',
+				type: 'string | undefined',
+				description:
+					'Partner to select when the screen opens. When omitted, or when the id is\nnot in the loaded partner list, the first partner is selected.',
+			},
+			{
+				name: 'onCancel',
+				type: '() => void',
+				isRequired: true,
+			},
+			{
+				name: 'onCreated',
+				type: '(result: CreateNewObjectResult) => void',
+				description:
+					'Called after the listing is created. Branch on `result.action` to handle\nSave as private vs Next: Make public separately.',
+				isRequired: true,
+			},
+		],
+	},
+	{
 		name: 'AutoApplyToggleMenuItem',
 		package: '@atlassian/creation-settings',
 		description:
@@ -29547,6 +30019,106 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				name: 'versionId',
 				type: 'string | null',
 				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'CsmWidget',
+		package: '@atlassian/csm-widget',
+		description: 'Renders the CSM chat widget.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use as the primary package entry point when embedding the complete Rovo Chat widget.',
+			'Provide site, product, authentication, and host callbacks through ConversationAssistantProps.',
+		],
+		accessibilityGuidelines: [
+			'Give the host integration enough space for the widget and preserve focus when opening or closing it.',
+		],
+		keywords: ['chat', 'widget', 'embed'],
+		category: 'chat',
+		examples: [],
+		props: [
+			{
+				name: 'actionsRef',
+				type: 'React.RefObject<ConversationAssistantActions> | undefined',
+				description: 'Provides a ref to access imperatives actions of the widget.',
+			},
+			{
+				name: 'anonymousAuthProvider',
+				type: 'AuthProvider | undefined',
+				description:
+					'CSM Anonymous Auth provider to be used to provide anonymous access to the widget.\n\nNote: when constructed via the widget installer, this provider is only\nsupplied for end users the convo-ai backend has confirmed to be\ngenuinely anonymous (see `WidgetAccessResponse.isUserAnonymous`).\nVerified-logged-in end users receive a `SessionAuthProvider`\nupstream so this field is left undefined for them.',
+			},
+			{
+				name: 'config',
+				type: '{ widgetId: string; gatewayOrigin?: string | undefined; assistanceServiceConfig?: { baseUrl?: string | undefined; credentials?: RequestCredentials | undefined; headers?: Record<...> | undefined; } | undefined; siteId: string; product: string; experienceId?: string | undefined; conversationContext?: Record<...> | und...',
+				description: 'Provides credentials and other settings',
+				isRequired: true,
+			},
+			{
+				name: 'extensionComponents',
+				type: 'ExtensionComponents | undefined',
+				description: 'Extension components that can be used to customize widget behavior',
+			},
+			{
+				name: 'isVisible',
+				type: 'boolean | undefined',
+				description: 'Provides the state of the widget visibility.',
+			},
+			{
+				name: 'oAuthProvider',
+				type: 'AuthProvider | undefined',
+				description:
+					'Authentication provider used to determine the required authentication headers to be sent on the requests',
+			},
+			{
+				name: 'onChatMessage',
+				type: 'ChatMessageEventHandlers | undefined',
+				description: 'Callback to run after the component has attempt to send a message.',
+			},
+			{
+				name: 'onChatStatus',
+				type: '((status: ChatStatus) => void) | undefined',
+				description: 'Callback to run after the component has successfully mounted.',
+			},
+			{
+				name: 'onCloseChat',
+				type: '(() => void) | undefined',
+				description:
+					'Callback used to display a "close" button and trigger the action provided by the consumer.',
+			},
+			{
+				name: 'onError',
+				type: '((error: Error) => void) | undefined',
+				description: "Callback to run when there's an error occur in the widget.",
+			},
+			{
+				name: 'onHandoff',
+				type: '((payload: OnHandOffPayload) => void) | undefined',
+				description:
+					'Callback to run when user click on raise request button on the handoff message.\nThis callback will only be triggered when the embedded view is enabled.',
+			},
+			{
+				name: 'onHasUnreadMessagesChanged',
+				type: '((hasUnreadMessages: boolean) => void) | undefined',
+				description:
+					'Callback invoked when the unread messages state changes in a live chat conversation.\n`true` indicates there are unread messages; `false` indicates all messages have been read.',
+			},
+			{
+				name: 'restoreConversationId',
+				type: 'string | undefined',
+				description: 'UUID of the conversation to attempt to restore.',
+			},
+			{
+				name: 'sessionId',
+				type: 'string | undefined',
+				description: 'UUID of the session to restore.',
+			},
+			{
+				name: 'uiConfig',
+				type: 'Partial<UIConfig> | undefined',
+				description:
+					'Provides configurable UI settings so integrators can customize the appearance and behavior suitable for their context.',
 			},
 		],
 	},
@@ -30222,6 +30794,314 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		],
 	},
 	{
+		name: 'DiscoveryDashboard',
+		package: '@atlassian/discovery',
+		description:
+			'The Assets Discovery charts dashboard. The package currently builds its dashboard configuration internally and defaults chart services to mock services, so hosts must supply real tenant context and authorized services before production use.',
+		status: 'early-access',
+		usageGuidelines: [
+			'Configure the workspace, site, environment, and locale for the signed-in app.',
+			'Render DiscoveryDashboardActionsSlot beside the page title to show dashboard filter actions in that row.',
+		],
+		contentGuidelines: [],
+		accessibilityGuidelines: [
+			'Give the surrounding page a meaningful heading and ensure chart labels and summaries communicate the data without relying on color alone.',
+		],
+		keywords: ['@atlassian/discovery', 'Assets Discovery', 'dashboard', 'charts'],
+		category: 'components',
+		examples: [
+			"import React, { type ComponentProps } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Heading from '@atlaskit/heading/heading';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport DiscoveryDashboard from '@atlassian/discovery/ui/dashboard';\nimport DiscoveryDashboardActionsSlot from '@atlassian/discovery/ui/dashboard/actions-slot';\ntype DiscoveryDashboardProps = ComponentProps<typeof DiscoveryDashboard>;\n/**\n * Bind this adapter to the active JSM Assets tenant context in the host application.\n * Supply real workspace, user, environment, and chart services rather than preview fixtures.\n * The package currently creates its dashboard configuration internally; this adapter does not\n * provide a configuration override.\n */\nexport function AssetsDiscoveryDashboard(props: DiscoveryDashboardProps): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale={props.locale}>\n\t\t\t<Box padding=\"space.300\">\n\t\t\t\t<Inline alignBlock=\"center\" space=\"space.200\">\n\t\t\t\t\t<Heading as=\"h1\" size=\"large\">\n\t\t\t\t\t\tAssets Discovery\n\t\t\t\t\t</Heading>\n\t\t\t\t\t<DiscoveryDashboardActionsSlot />\n\t\t\t\t</Inline>\n\t\t\t\t<DiscoveryDashboard {...props} />\n\t\t\t</Box>\n\t\t</IntlProvider>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'activationId',
+				type: 'string',
+				isRequired: true,
+			},
+			{
+				name: 'atlassianUser',
+				type: '{ account_id: string; account_status?: string | undefined; account_type?: string | undefined; email?: string | undefined; email_verified?: boolean | undefined; locale?: string | undefined; name: string; nickname?: string | undefined; picture: string; principal_type?: string | undefined; }',
+				isRequired: true,
+			},
+			{
+				name: 'cloudId',
+				type: 'string',
+				isRequired: true,
+			},
+			{
+				name: 'environment',
+				type: '"local" | "prod" | "staging" | "dev"',
+				isRequired: true,
+			},
+			{
+				name: 'isUserOrgAdmin',
+				type: 'boolean',
+				isRequired: true,
+			},
+			{
+				name: 'locale',
+				type: 'string',
+				isRequired: true,
+			},
+			{
+				name: 'perimeter',
+				type: 'PERIMETERS | undefined',
+				defaultValue: '"commercial"',
+			},
+			{
+				name: 'services',
+				type: 'OptionalAndNullable<Services> | undefined',
+			},
+			{
+				name: 'workspace',
+				type: '{ id: WorkspaceId; cloud_id: string; access: 0 | 1 | 2 | 3; atlassian_org_id: string; is_data_compliant: boolean | undefined; slug: "analytics"; url: string; default_theme_slug: "atlassian-ads"; admin_manage_users_url?: string | undefined; }',
+				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'DiscoveryDashboardActionsSlot',
+		package: '@atlassian/discovery',
+		description:
+			'A portal target for dashboard filter actions. This is a host page layout slot to mount beside its title, not a standalone control.',
+		status: 'early-access',
+		usageGuidelines: [
+			'Place this slot beside the page title. DiscoveryDashboard renders its filter actions there when the slot is present.',
+			'Keep the slot and dashboard in the same document, and remove both when leaving the dashboard.',
+		],
+		contentGuidelines: [],
+		accessibilityGuidelines: [],
+		keywords: ['@atlassian/discovery', 'dashboard', 'actions slot', 'portal target'],
+		category: 'components',
+		examples: [
+			"import React, { type ComponentProps } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Heading from '@atlaskit/heading/heading';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport DiscoveryDashboard from '@atlassian/discovery/ui/dashboard';\nimport DiscoveryDashboardActionsSlot from '@atlassian/discovery/ui/dashboard/actions-slot';\ntype DiscoveryDashboardProps = ComponentProps<typeof DiscoveryDashboard>;\n/**\n * Bind this adapter to the active JSM Assets tenant context in the host application.\n * Supply real workspace, user, environment, and chart services rather than preview fixtures.\n * The package currently creates its dashboard configuration internally; this adapter does not\n * provide a configuration override.\n */\nexport function AssetsDiscoveryDashboard(props: DiscoveryDashboardProps): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale={props.locale}>\n\t\t\t<Box padding=\"space.300\">\n\t\t\t\t<Inline alignBlock=\"center\" space=\"space.200\">\n\t\t\t\t\t<Heading as=\"h1\" size=\"large\">\n\t\t\t\t\t\tAssets Discovery\n\t\t\t\t\t</Heading>\n\t\t\t\t\t<DiscoveryDashboardActionsSlot />\n\t\t\t\t</Inline>\n\t\t\t\t<DiscoveryDashboard {...props} />\n\t\t\t</Box>\n\t\t</IntlProvider>\n\t);\n}",
+		],
+		props: [],
+	},
+	{
+		name: 'DiscoveryPage',
+		package: '@atlassian/discovery',
+		description:
+			'The Discovery section shell. It shows onboarding until the tenant is provisioned, then provides the padded content area for one section page.',
+		status: 'early-access',
+		usageGuidelines: [
+			'Use this shell around one Discovery section at a time; the host application remains responsible for the page title and section navigation.',
+			'Provisioning state controls whether users see onboarding or the requested section, so keep it aligned with the host tenant state.',
+		],
+		contentGuidelines: [],
+		accessibilityGuidelines: [],
+		keywords: ['@atlassian/discovery', 'Assets Discovery', 'DiscoveryPage'],
+		category: 'components',
+		examples: [
+			"import React, { useEffect, useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Heading from '@atlaskit/heading/heading';\nimport { Anchor } from '@atlaskit/primitives/compiled/anchor';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { AtlBrowserStorageLocal } from '@atlassian/browser-storage-controls/web-storage-service';\nimport DiscoveryPage from '@atlassian/discovery/ui/discovery';\nimport { CredentialsPage } from '@atlassian/discovery/ui/discovery/credentials';\nimport { LogsPage } from '@atlassian/discovery/ui/discovery/logs';\nimport { OverviewPage } from '@atlassian/discovery/ui/discovery/overview';\nimport { RecordsPage } from '@atlassian/discovery/ui/discovery/records';\nimport { ScanJobsPage } from '@atlassian/discovery/ui/discovery/scan-jobs';\nimport { SystemsPage } from '@atlassian/discovery/ui/discovery/systems';\nconst links = {\n\toverview: { href: '#discovery/overview', label: 'Overview' },\n\trecords: { href: '#discovery/records', label: 'Records' },\n\t'scan-jobs': { href: '#discovery/scan-jobs', label: 'Scan jobs' },\n\tsystems: { href: '#discovery/systems', label: 'Systems' },\n\tcredentials: { href: '#discovery/credentials', label: 'Credentials' },\n\tlogs: { href: '#discovery/logs', label: 'Logs' },\n};\ntype DiscoverySection = keyof typeof links;\nconst sections: Record<DiscoverySection, React.ComponentType> = {\n\toverview: OverviewPage,\n\trecords: RecordsPage,\n\t'scan-jobs': ScanJobsPage,\n\tsystems: SystemsPage,\n\tcredentials: CredentialsPage,\n\tlogs: LogsPage,\n};\nfunction sectionFromHash(): DiscoverySection {\n\treturn (\n\t\t(Object.keys(links) as DiscoverySection[]).find(\n\t\t\t(section) => links[section].href === window.location.hash,\n\t\t) ?? 'overview'\n\t);\n}\nexport default function WholeDiscovery(): React.JSX.Element {\n\tconst [activeSection, setActiveSection] = useState<DiscoverySection>('overview');\n\tconst [isProvisioned, setIsProvisioned] = useState(false);\n\tuseEffect(() => {\n\t\t// The shell shows GettingStartedScreen for an unprovisioned tenant. Seed only the\n\t\t// preview's host state before mounting it, then restore the viewer's previous value.\n\t\tconst storageKey = 'discovery-platform-state';\n\t\tconst previousState = AtlBrowserStorageLocal.getItem(storageKey);\n\t\tlet cancelled = false;\n\t\tvoid (async () => {\n\t\t\tlet parsedState: Record<string, unknown> = {};\n\t\t\ttry {\n\t\t\t\tparsedState = previousState ? JSON.parse(previousState) : {};\n\t\t\t} catch {\n\t\t\t\t// An invalid previous value is replaced for this preview and removed on cleanup.\n\t\t\t}\n\t\t\tawait AtlBrowserStorageLocal.setItem(\n\t\t\t\tstorageKey,\n\t\t\t\tJSON.stringify({ ...parsedState, provisionStatus: 'PROVISIONED' }),\n\t\t\t);\n\t\t\tif (!cancelled) {\n\t\t\t\tsetIsProvisioned(true);\n\t\t\t}\n\t\t})();\n\t\treturn () => {\n\t\t\tcancelled = true;\n\t\t\tif (previousState === null) {\n\t\t\t\tAtlBrowserStorageLocal.removeItem(storageKey);\n\t\t\t} else {\n\t\t\t\tvoid AtlBrowserStorageLocal.setItem(storageKey, previousState);\n\t\t\t}\n\t\t};\n\t}, []);\n\tuseEffect(() => {\n\t\tconst syncSection = () => setActiveSection(sectionFromHash());\n\t\tsyncSection();\n\t\twindow.addEventListener('hashchange', syncSection);\n\t\treturn () => window.removeEventListener('hashchange', syncSection);\n\t}, []);\n\tconst SectionPage = sections[activeSection];\n\tif (!isProvisioned) {\n\t\treturn <div aria-live=\"polite\">Preparing Discovery preview…</div>;\n\t}\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<DiscoveryPage>\n\t\t\t\t<>\n\t\t\t\t\t<Box padding=\"space.300\">\n\t\t\t\t\t\t<Heading as=\"h1\" size=\"large\">\n\t\t\t\t\t\t\tDiscovery\n\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t{/* Preview links only. Jira supplies the production horizontal navigation. */}\n\t\t\t\t\t\t<Box as=\"nav\" aria-label=\"Discovery sections\">\n\t\t\t\t\t\t\t<Inline space=\"space.200\" shouldWrap>\n\t\t\t\t\t\t\t\t{(Object.keys(links) as DiscoverySection[]).map((section) => (\n\t\t\t\t\t\t\t\t\t<Anchor\n\t\t\t\t\t\t\t\t\t\tkey={section}\n\t\t\t\t\t\t\t\t\t\thref={links[section].href}\n\t\t\t\t\t\t\t\t\t\taria-current={section === activeSection ? 'page' : undefined}\n\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t{links[section].label}\n\t\t\t\t\t\t\t\t\t</Anchor>\n\t\t\t\t\t\t\t\t))}\n\t\t\t\t\t\t\t</Inline>\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t</Box>\n\t\t\t\t\t<SectionPage />\n\t\t\t\t</>\n\t\t\t</DiscoveryPage>\n\t\t</IntlProvider>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
+				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'CredentialsPage',
+		package: '@atlassian/discovery',
+		description:
+			'A credential inventory with create, edit, and delete flows. The package preview uses generated demo credentials and never represents a real tenant’s secrets.',
+		status: 'early-access',
+		usageGuidelines: [
+			'Keep credential values in the host’s secure service and never include them in example data, URLs, labels, or error copy.',
+		],
+		contentGuidelines: [],
+		accessibilityGuidelines: [],
+		keywords: ['@atlassian/discovery', 'Assets Discovery', 'CredentialsPage'],
+		category: 'components',
+		examples: [
+			"import React, { useEffect, useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Heading from '@atlaskit/heading/heading';\nimport { Anchor } from '@atlaskit/primitives/compiled/anchor';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { AtlBrowserStorageLocal } from '@atlassian/browser-storage-controls/web-storage-service';\nimport DiscoveryPage from '@atlassian/discovery/ui/discovery';\nimport { CredentialsPage } from '@atlassian/discovery/ui/discovery/credentials';\nimport { LogsPage } from '@atlassian/discovery/ui/discovery/logs';\nimport { OverviewPage } from '@atlassian/discovery/ui/discovery/overview';\nimport { RecordsPage } from '@atlassian/discovery/ui/discovery/records';\nimport { ScanJobsPage } from '@atlassian/discovery/ui/discovery/scan-jobs';\nimport { SystemsPage } from '@atlassian/discovery/ui/discovery/systems';\nconst links = {\n\toverview: { href: '#discovery/overview', label: 'Overview' },\n\trecords: { href: '#discovery/records', label: 'Records' },\n\t'scan-jobs': { href: '#discovery/scan-jobs', label: 'Scan jobs' },\n\tsystems: { href: '#discovery/systems', label: 'Systems' },\n\tcredentials: { href: '#discovery/credentials', label: 'Credentials' },\n\tlogs: { href: '#discovery/logs', label: 'Logs' },\n};\ntype DiscoverySection = keyof typeof links;\nconst sections: Record<DiscoverySection, React.ComponentType> = {\n\toverview: OverviewPage,\n\trecords: RecordsPage,\n\t'scan-jobs': ScanJobsPage,\n\tsystems: SystemsPage,\n\tcredentials: CredentialsPage,\n\tlogs: LogsPage,\n};\nfunction sectionFromHash(): DiscoverySection {\n\treturn (\n\t\t(Object.keys(links) as DiscoverySection[]).find(\n\t\t\t(section) => links[section].href === window.location.hash,\n\t\t) ?? 'overview'\n\t);\n}\nexport default function WholeDiscovery(): React.JSX.Element {\n\tconst [activeSection, setActiveSection] = useState<DiscoverySection>('overview');\n\tconst [isProvisioned, setIsProvisioned] = useState(false);\n\tuseEffect(() => {\n\t\t// The shell shows GettingStartedScreen for an unprovisioned tenant. Seed only the\n\t\t// preview's host state before mounting it, then restore the viewer's previous value.\n\t\tconst storageKey = 'discovery-platform-state';\n\t\tconst previousState = AtlBrowserStorageLocal.getItem(storageKey);\n\t\tlet cancelled = false;\n\t\tvoid (async () => {\n\t\t\tlet parsedState: Record<string, unknown> = {};\n\t\t\ttry {\n\t\t\t\tparsedState = previousState ? JSON.parse(previousState) : {};\n\t\t\t} catch {\n\t\t\t\t// An invalid previous value is replaced for this preview and removed on cleanup.\n\t\t\t}\n\t\t\tawait AtlBrowserStorageLocal.setItem(\n\t\t\t\tstorageKey,\n\t\t\t\tJSON.stringify({ ...parsedState, provisionStatus: 'PROVISIONED' }),\n\t\t\t);\n\t\t\tif (!cancelled) {\n\t\t\t\tsetIsProvisioned(true);\n\t\t\t}\n\t\t})();\n\t\treturn () => {\n\t\t\tcancelled = true;\n\t\t\tif (previousState === null) {\n\t\t\t\tAtlBrowserStorageLocal.removeItem(storageKey);\n\t\t\t} else {\n\t\t\t\tvoid AtlBrowserStorageLocal.setItem(storageKey, previousState);\n\t\t\t}\n\t\t};\n\t}, []);\n\tuseEffect(() => {\n\t\tconst syncSection = () => setActiveSection(sectionFromHash());\n\t\tsyncSection();\n\t\twindow.addEventListener('hashchange', syncSection);\n\t\treturn () => window.removeEventListener('hashchange', syncSection);\n\t}, []);\n\tconst SectionPage = sections[activeSection];\n\tif (!isProvisioned) {\n\t\treturn <div aria-live=\"polite\">Preparing Discovery preview…</div>;\n\t}\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<DiscoveryPage>\n\t\t\t\t<>\n\t\t\t\t\t<Box padding=\"space.300\">\n\t\t\t\t\t\t<Heading as=\"h1\" size=\"large\">\n\t\t\t\t\t\t\tDiscovery\n\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t{/* Preview links only. Jira supplies the production horizontal navigation. */}\n\t\t\t\t\t\t<Box as=\"nav\" aria-label=\"Discovery sections\">\n\t\t\t\t\t\t\t<Inline space=\"space.200\" shouldWrap>\n\t\t\t\t\t\t\t\t{(Object.keys(links) as DiscoverySection[]).map((section) => (\n\t\t\t\t\t\t\t\t\t<Anchor\n\t\t\t\t\t\t\t\t\t\tkey={section}\n\t\t\t\t\t\t\t\t\t\thref={links[section].href}\n\t\t\t\t\t\t\t\t\t\taria-current={section === activeSection ? 'page' : undefined}\n\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t{links[section].label}\n\t\t\t\t\t\t\t\t\t</Anchor>\n\t\t\t\t\t\t\t\t))}\n\t\t\t\t\t\t\t</Inline>\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t</Box>\n\t\t\t\t\t<SectionPage />\n\t\t\t\t</>\n\t\t\t</DiscoveryPage>\n\t\t</IntlProvider>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'ids',
+				type: 'string[] | undefined',
+			},
+			{
+				name: 'isSelecting',
+				type: 'boolean | undefined',
+				defaultValue: 'false',
+			},
+			{
+				name: 'onSelect',
+				type: '((credential: Credential) => void) | undefined',
+			},
+			{
+				name: 'selectedIds',
+				type: 'string[] | undefined',
+				defaultValue: '[]',
+			},
+		],
+	},
+	{
+		name: 'LogsPage',
+		package: '@atlassian/discovery',
+		description:
+			'An informational empty-state section; it currently displays a message that logs are not available.',
+		status: 'early-access',
+		usageGuidelines: [],
+		contentGuidelines: [],
+		accessibilityGuidelines: [],
+		keywords: ['@atlassian/discovery', 'Assets Discovery', 'LogsPage'],
+		category: 'components',
+		examples: [
+			"import React, { useEffect, useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Heading from '@atlaskit/heading/heading';\nimport { Anchor } from '@atlaskit/primitives/compiled/anchor';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { AtlBrowserStorageLocal } from '@atlassian/browser-storage-controls/web-storage-service';\nimport DiscoveryPage from '@atlassian/discovery/ui/discovery';\nimport { CredentialsPage } from '@atlassian/discovery/ui/discovery/credentials';\nimport { LogsPage } from '@atlassian/discovery/ui/discovery/logs';\nimport { OverviewPage } from '@atlassian/discovery/ui/discovery/overview';\nimport { RecordsPage } from '@atlassian/discovery/ui/discovery/records';\nimport { ScanJobsPage } from '@atlassian/discovery/ui/discovery/scan-jobs';\nimport { SystemsPage } from '@atlassian/discovery/ui/discovery/systems';\nconst links = {\n\toverview: { href: '#discovery/overview', label: 'Overview' },\n\trecords: { href: '#discovery/records', label: 'Records' },\n\t'scan-jobs': { href: '#discovery/scan-jobs', label: 'Scan jobs' },\n\tsystems: { href: '#discovery/systems', label: 'Systems' },\n\tcredentials: { href: '#discovery/credentials', label: 'Credentials' },\n\tlogs: { href: '#discovery/logs', label: 'Logs' },\n};\ntype DiscoverySection = keyof typeof links;\nconst sections: Record<DiscoverySection, React.ComponentType> = {\n\toverview: OverviewPage,\n\trecords: RecordsPage,\n\t'scan-jobs': ScanJobsPage,\n\tsystems: SystemsPage,\n\tcredentials: CredentialsPage,\n\tlogs: LogsPage,\n};\nfunction sectionFromHash(): DiscoverySection {\n\treturn (\n\t\t(Object.keys(links) as DiscoverySection[]).find(\n\t\t\t(section) => links[section].href === window.location.hash,\n\t\t) ?? 'overview'\n\t);\n}\nexport default function WholeDiscovery(): React.JSX.Element {\n\tconst [activeSection, setActiveSection] = useState<DiscoverySection>('overview');\n\tconst [isProvisioned, setIsProvisioned] = useState(false);\n\tuseEffect(() => {\n\t\t// The shell shows GettingStartedScreen for an unprovisioned tenant. Seed only the\n\t\t// preview's host state before mounting it, then restore the viewer's previous value.\n\t\tconst storageKey = 'discovery-platform-state';\n\t\tconst previousState = AtlBrowserStorageLocal.getItem(storageKey);\n\t\tlet cancelled = false;\n\t\tvoid (async () => {\n\t\t\tlet parsedState: Record<string, unknown> = {};\n\t\t\ttry {\n\t\t\t\tparsedState = previousState ? JSON.parse(previousState) : {};\n\t\t\t} catch {\n\t\t\t\t// An invalid previous value is replaced for this preview and removed on cleanup.\n\t\t\t}\n\t\t\tawait AtlBrowserStorageLocal.setItem(\n\t\t\t\tstorageKey,\n\t\t\t\tJSON.stringify({ ...parsedState, provisionStatus: 'PROVISIONED' }),\n\t\t\t);\n\t\t\tif (!cancelled) {\n\t\t\t\tsetIsProvisioned(true);\n\t\t\t}\n\t\t})();\n\t\treturn () => {\n\t\t\tcancelled = true;\n\t\t\tif (previousState === null) {\n\t\t\t\tAtlBrowserStorageLocal.removeItem(storageKey);\n\t\t\t} else {\n\t\t\t\tvoid AtlBrowserStorageLocal.setItem(storageKey, previousState);\n\t\t\t}\n\t\t};\n\t}, []);\n\tuseEffect(() => {\n\t\tconst syncSection = () => setActiveSection(sectionFromHash());\n\t\tsyncSection();\n\t\twindow.addEventListener('hashchange', syncSection);\n\t\treturn () => window.removeEventListener('hashchange', syncSection);\n\t}, []);\n\tconst SectionPage = sections[activeSection];\n\tif (!isProvisioned) {\n\t\treturn <div aria-live=\"polite\">Preparing Discovery preview…</div>;\n\t}\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<DiscoveryPage>\n\t\t\t\t<>\n\t\t\t\t\t<Box padding=\"space.300\">\n\t\t\t\t\t\t<Heading as=\"h1\" size=\"large\">\n\t\t\t\t\t\t\tDiscovery\n\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t{/* Preview links only. Jira supplies the production horizontal navigation. */}\n\t\t\t\t\t\t<Box as=\"nav\" aria-label=\"Discovery sections\">\n\t\t\t\t\t\t\t<Inline space=\"space.200\" shouldWrap>\n\t\t\t\t\t\t\t\t{(Object.keys(links) as DiscoverySection[]).map((section) => (\n\t\t\t\t\t\t\t\t\t<Anchor\n\t\t\t\t\t\t\t\t\t\tkey={section}\n\t\t\t\t\t\t\t\t\t\thref={links[section].href}\n\t\t\t\t\t\t\t\t\t\taria-current={section === activeSection ? 'page' : undefined}\n\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t{links[section].label}\n\t\t\t\t\t\t\t\t\t</Anchor>\n\t\t\t\t\t\t\t\t))}\n\t\t\t\t\t\t\t</Inline>\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t</Box>\n\t\t\t\t\t<SectionPage />\n\t\t\t\t</>\n\t\t\t</DiscoveryPage>\n\t\t</IntlProvider>\n\t);\n}",
+		],
+		props: [],
+	},
+	{
+		name: 'OverviewPage',
+		package: '@atlassian/discovery',
+		description:
+			'The Discovery overview section with dashboard charts. Its current preview uses the package’s mock dashboard configuration, mock services, and fabricated mock tenant values.',
+		status: 'early-access',
+		usageGuidelines: [
+			'Treat the bundled overview data as a visual preview only; replace fabricated tenant context and mock services with the host’s authorized tenant values and data integration before production use.',
+		],
+		contentGuidelines: [],
+		accessibilityGuidelines: [],
+		keywords: ['@atlassian/discovery', 'Assets Discovery', 'OverviewPage'],
+		category: 'components',
+		examples: [
+			"import React, { useEffect, useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Heading from '@atlaskit/heading/heading';\nimport { Anchor } from '@atlaskit/primitives/compiled/anchor';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { AtlBrowserStorageLocal } from '@atlassian/browser-storage-controls/web-storage-service';\nimport DiscoveryPage from '@atlassian/discovery/ui/discovery';\nimport { CredentialsPage } from '@atlassian/discovery/ui/discovery/credentials';\nimport { LogsPage } from '@atlassian/discovery/ui/discovery/logs';\nimport { OverviewPage } from '@atlassian/discovery/ui/discovery/overview';\nimport { RecordsPage } from '@atlassian/discovery/ui/discovery/records';\nimport { ScanJobsPage } from '@atlassian/discovery/ui/discovery/scan-jobs';\nimport { SystemsPage } from '@atlassian/discovery/ui/discovery/systems';\nconst links = {\n\toverview: { href: '#discovery/overview', label: 'Overview' },\n\trecords: { href: '#discovery/records', label: 'Records' },\n\t'scan-jobs': { href: '#discovery/scan-jobs', label: 'Scan jobs' },\n\tsystems: { href: '#discovery/systems', label: 'Systems' },\n\tcredentials: { href: '#discovery/credentials', label: 'Credentials' },\n\tlogs: { href: '#discovery/logs', label: 'Logs' },\n};\ntype DiscoverySection = keyof typeof links;\nconst sections: Record<DiscoverySection, React.ComponentType> = {\n\toverview: OverviewPage,\n\trecords: RecordsPage,\n\t'scan-jobs': ScanJobsPage,\n\tsystems: SystemsPage,\n\tcredentials: CredentialsPage,\n\tlogs: LogsPage,\n};\nfunction sectionFromHash(): DiscoverySection {\n\treturn (\n\t\t(Object.keys(links) as DiscoverySection[]).find(\n\t\t\t(section) => links[section].href === window.location.hash,\n\t\t) ?? 'overview'\n\t);\n}\nexport default function WholeDiscovery(): React.JSX.Element {\n\tconst [activeSection, setActiveSection] = useState<DiscoverySection>('overview');\n\tconst [isProvisioned, setIsProvisioned] = useState(false);\n\tuseEffect(() => {\n\t\t// The shell shows GettingStartedScreen for an unprovisioned tenant. Seed only the\n\t\t// preview's host state before mounting it, then restore the viewer's previous value.\n\t\tconst storageKey = 'discovery-platform-state';\n\t\tconst previousState = AtlBrowserStorageLocal.getItem(storageKey);\n\t\tlet cancelled = false;\n\t\tvoid (async () => {\n\t\t\tlet parsedState: Record<string, unknown> = {};\n\t\t\ttry {\n\t\t\t\tparsedState = previousState ? JSON.parse(previousState) : {};\n\t\t\t} catch {\n\t\t\t\t// An invalid previous value is replaced for this preview and removed on cleanup.\n\t\t\t}\n\t\t\tawait AtlBrowserStorageLocal.setItem(\n\t\t\t\tstorageKey,\n\t\t\t\tJSON.stringify({ ...parsedState, provisionStatus: 'PROVISIONED' }),\n\t\t\t);\n\t\t\tif (!cancelled) {\n\t\t\t\tsetIsProvisioned(true);\n\t\t\t}\n\t\t})();\n\t\treturn () => {\n\t\t\tcancelled = true;\n\t\t\tif (previousState === null) {\n\t\t\t\tAtlBrowserStorageLocal.removeItem(storageKey);\n\t\t\t} else {\n\t\t\t\tvoid AtlBrowserStorageLocal.setItem(storageKey, previousState);\n\t\t\t}\n\t\t};\n\t}, []);\n\tuseEffect(() => {\n\t\tconst syncSection = () => setActiveSection(sectionFromHash());\n\t\tsyncSection();\n\t\twindow.addEventListener('hashchange', syncSection);\n\t\treturn () => window.removeEventListener('hashchange', syncSection);\n\t}, []);\n\tconst SectionPage = sections[activeSection];\n\tif (!isProvisioned) {\n\t\treturn <div aria-live=\"polite\">Preparing Discovery preview…</div>;\n\t}\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<DiscoveryPage>\n\t\t\t\t<>\n\t\t\t\t\t<Box padding=\"space.300\">\n\t\t\t\t\t\t<Heading as=\"h1\" size=\"large\">\n\t\t\t\t\t\t\tDiscovery\n\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t{/* Preview links only. Jira supplies the production horizontal navigation. */}\n\t\t\t\t\t\t<Box as=\"nav\" aria-label=\"Discovery sections\">\n\t\t\t\t\t\t\t<Inline space=\"space.200\" shouldWrap>\n\t\t\t\t\t\t\t\t{(Object.keys(links) as DiscoverySection[]).map((section) => (\n\t\t\t\t\t\t\t\t\t<Anchor\n\t\t\t\t\t\t\t\t\t\tkey={section}\n\t\t\t\t\t\t\t\t\t\thref={links[section].href}\n\t\t\t\t\t\t\t\t\t\taria-current={section === activeSection ? 'page' : undefined}\n\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t{links[section].label}\n\t\t\t\t\t\t\t\t\t</Anchor>\n\t\t\t\t\t\t\t\t))}\n\t\t\t\t\t\t\t</Inline>\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t</Box>\n\t\t\t\t\t<SectionPage />\n\t\t\t\t</>\n\t\t\t</DiscoveryPage>\n\t\t</IntlProvider>\n\t);\n}",
+		],
+		props: [],
+	},
+	{
+		name: 'RecordsPage',
+		package: '@atlassian/discovery',
+		description:
+			'A records table and summary for discovered assets. The package preview reads generated demo records rather than live tenant inventory.',
+		status: 'early-access',
+		usageGuidelines: [
+			'Use the unscoped records view for the inventory; pass a scan-job context when users need to inspect only records produced by one scan.',
+			'Keep sensitive asset details within the host’s authorization boundary when replacing the preview data source.',
+		],
+		contentGuidelines: [],
+		accessibilityGuidelines: [],
+		keywords: ['@atlassian/discovery', 'Assets Discovery', 'RecordsPage'],
+		category: 'components',
+		examples: [
+			"import React, { useEffect, useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Heading from '@atlaskit/heading/heading';\nimport { Anchor } from '@atlaskit/primitives/compiled/anchor';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { AtlBrowserStorageLocal } from '@atlassian/browser-storage-controls/web-storage-service';\nimport DiscoveryPage from '@atlassian/discovery/ui/discovery';\nimport { CredentialsPage } from '@atlassian/discovery/ui/discovery/credentials';\nimport { LogsPage } from '@atlassian/discovery/ui/discovery/logs';\nimport { OverviewPage } from '@atlassian/discovery/ui/discovery/overview';\nimport { RecordsPage } from '@atlassian/discovery/ui/discovery/records';\nimport { ScanJobsPage } from '@atlassian/discovery/ui/discovery/scan-jobs';\nimport { SystemsPage } from '@atlassian/discovery/ui/discovery/systems';\nconst links = {\n\toverview: { href: '#discovery/overview', label: 'Overview' },\n\trecords: { href: '#discovery/records', label: 'Records' },\n\t'scan-jobs': { href: '#discovery/scan-jobs', label: 'Scan jobs' },\n\tsystems: { href: '#discovery/systems', label: 'Systems' },\n\tcredentials: { href: '#discovery/credentials', label: 'Credentials' },\n\tlogs: { href: '#discovery/logs', label: 'Logs' },\n};\ntype DiscoverySection = keyof typeof links;\nconst sections: Record<DiscoverySection, React.ComponentType> = {\n\toverview: OverviewPage,\n\trecords: RecordsPage,\n\t'scan-jobs': ScanJobsPage,\n\tsystems: SystemsPage,\n\tcredentials: CredentialsPage,\n\tlogs: LogsPage,\n};\nfunction sectionFromHash(): DiscoverySection {\n\treturn (\n\t\t(Object.keys(links) as DiscoverySection[]).find(\n\t\t\t(section) => links[section].href === window.location.hash,\n\t\t) ?? 'overview'\n\t);\n}\nexport default function WholeDiscovery(): React.JSX.Element {\n\tconst [activeSection, setActiveSection] = useState<DiscoverySection>('overview');\n\tconst [isProvisioned, setIsProvisioned] = useState(false);\n\tuseEffect(() => {\n\t\t// The shell shows GettingStartedScreen for an unprovisioned tenant. Seed only the\n\t\t// preview's host state before mounting it, then restore the viewer's previous value.\n\t\tconst storageKey = 'discovery-platform-state';\n\t\tconst previousState = AtlBrowserStorageLocal.getItem(storageKey);\n\t\tlet cancelled = false;\n\t\tvoid (async () => {\n\t\t\tlet parsedState: Record<string, unknown> = {};\n\t\t\ttry {\n\t\t\t\tparsedState = previousState ? JSON.parse(previousState) : {};\n\t\t\t} catch {\n\t\t\t\t// An invalid previous value is replaced for this preview and removed on cleanup.\n\t\t\t}\n\t\t\tawait AtlBrowserStorageLocal.setItem(\n\t\t\t\tstorageKey,\n\t\t\t\tJSON.stringify({ ...parsedState, provisionStatus: 'PROVISIONED' }),\n\t\t\t);\n\t\t\tif (!cancelled) {\n\t\t\t\tsetIsProvisioned(true);\n\t\t\t}\n\t\t})();\n\t\treturn () => {\n\t\t\tcancelled = true;\n\t\t\tif (previousState === null) {\n\t\t\t\tAtlBrowserStorageLocal.removeItem(storageKey);\n\t\t\t} else {\n\t\t\t\tvoid AtlBrowserStorageLocal.setItem(storageKey, previousState);\n\t\t\t}\n\t\t};\n\t}, []);\n\tuseEffect(() => {\n\t\tconst syncSection = () => setActiveSection(sectionFromHash());\n\t\tsyncSection();\n\t\twindow.addEventListener('hashchange', syncSection);\n\t\treturn () => window.removeEventListener('hashchange', syncSection);\n\t}, []);\n\tconst SectionPage = sections[activeSection];\n\tif (!isProvisioned) {\n\t\treturn <div aria-live=\"polite\">Preparing Discovery preview…</div>;\n\t}\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<DiscoveryPage>\n\t\t\t\t<>\n\t\t\t\t\t<Box padding=\"space.300\">\n\t\t\t\t\t\t<Heading as=\"h1\" size=\"large\">\n\t\t\t\t\t\t\tDiscovery\n\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t{/* Preview links only. Jira supplies the production horizontal navigation. */}\n\t\t\t\t\t\t<Box as=\"nav\" aria-label=\"Discovery sections\">\n\t\t\t\t\t\t\t<Inline space=\"space.200\" shouldWrap>\n\t\t\t\t\t\t\t\t{(Object.keys(links) as DiscoverySection[]).map((section) => (\n\t\t\t\t\t\t\t\t\t<Anchor\n\t\t\t\t\t\t\t\t\t\tkey={section}\n\t\t\t\t\t\t\t\t\t\thref={links[section].href}\n\t\t\t\t\t\t\t\t\t\taria-current={section === activeSection ? 'page' : undefined}\n\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t{links[section].label}\n\t\t\t\t\t\t\t\t\t</Anchor>\n\t\t\t\t\t\t\t\t))}\n\t\t\t\t\t\t\t</Inline>\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t</Box>\n\t\t\t\t\t<SectionPage />\n\t\t\t\t</>\n\t\t\t</DiscoveryPage>\n\t\t</IntlProvider>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'scanJobId',
+				type: 'string | undefined',
+			},
+		],
+	},
+	{
+		name: 'Discovery',
+		package: '@atlassian/discovery',
+		description:
+			'A focused setup flow for creating an Assets Discovery scan job. Use it when a user is ready to configure a scan; use the package section pages when integrating the wider Discovery experience.',
+		status: 'early-access',
+		usageGuidelines: [
+			'Open setup from an action to create a scan. Return to the scan-job list when setup closes or completes.',
+			'Use the package section pages for the full Discovery experience; this component handles scan-job setup.',
+			'Check site access and permission to scan the target in the app services.',
+		],
+		contentGuidelines: [
+			'Name scan targets and credentials using the terms administrators already see in their inventory, and explain why each requested detail is needed.',
+			'When a scan cannot be configured or saved, describe the next action the administrator can take without exposing credential values or internal error details.',
+		],
+		accessibilityGuidelines: [
+			'Keep the launch action keyboard reachable and preserve focus when the modal closes or returns to the setup flow.',
+			'Ensure validation errors are associated with their fields and announced, and do not communicate scan status by color alone.',
+		],
+		keywords: ['@atlassian/discovery', 'Discovery', 'Assets Discovery', 'scan job', 'dashboard'],
+		category: 'components',
+		examples: [
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport Discovery from '@atlassian/discovery/ui/discovery/scan-job-setup';\nexport default function Basic(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Button appearance=\"primary\" onClick={() => setIsOpen(true)}>\n\t\t\t\tOpen scan job setup\n\t\t\t</Button>\n\t\t\t<Discovery isOpen={isOpen} onClose={() => setIsOpen(false)} />\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useEffect, useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Heading from '@atlaskit/heading/heading';\nimport { Anchor } from '@atlaskit/primitives/compiled/anchor';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { AtlBrowserStorageLocal } from '@atlassian/browser-storage-controls/web-storage-service';\nimport DiscoveryPage from '@atlassian/discovery/ui/discovery';\nimport { CredentialsPage } from '@atlassian/discovery/ui/discovery/credentials';\nimport { LogsPage } from '@atlassian/discovery/ui/discovery/logs';\nimport { OverviewPage } from '@atlassian/discovery/ui/discovery/overview';\nimport { RecordsPage } from '@atlassian/discovery/ui/discovery/records';\nimport { ScanJobsPage } from '@atlassian/discovery/ui/discovery/scan-jobs';\nimport { SystemsPage } from '@atlassian/discovery/ui/discovery/systems';\nconst links = {\n\toverview: { href: '#discovery/overview', label: 'Overview' },\n\trecords: { href: '#discovery/records', label: 'Records' },\n\t'scan-jobs': { href: '#discovery/scan-jobs', label: 'Scan jobs' },\n\tsystems: { href: '#discovery/systems', label: 'Systems' },\n\tcredentials: { href: '#discovery/credentials', label: 'Credentials' },\n\tlogs: { href: '#discovery/logs', label: 'Logs' },\n};\ntype DiscoverySection = keyof typeof links;\nconst sections: Record<DiscoverySection, React.ComponentType> = {\n\toverview: OverviewPage,\n\trecords: RecordsPage,\n\t'scan-jobs': ScanJobsPage,\n\tsystems: SystemsPage,\n\tcredentials: CredentialsPage,\n\tlogs: LogsPage,\n};\nfunction sectionFromHash(): DiscoverySection {\n\treturn (\n\t\t(Object.keys(links) as DiscoverySection[]).find(\n\t\t\t(section) => links[section].href === window.location.hash,\n\t\t) ?? 'overview'\n\t);\n}\nexport default function WholeDiscovery(): React.JSX.Element {\n\tconst [activeSection, setActiveSection] = useState<DiscoverySection>('overview');\n\tconst [isProvisioned, setIsProvisioned] = useState(false);\n\tuseEffect(() => {\n\t\t// The shell shows GettingStartedScreen for an unprovisioned tenant. Seed only the\n\t\t// preview's host state before mounting it, then restore the viewer's previous value.\n\t\tconst storageKey = 'discovery-platform-state';\n\t\tconst previousState = AtlBrowserStorageLocal.getItem(storageKey);\n\t\tlet cancelled = false;\n\t\tvoid (async () => {\n\t\t\tlet parsedState: Record<string, unknown> = {};\n\t\t\ttry {\n\t\t\t\tparsedState = previousState ? JSON.parse(previousState) : {};\n\t\t\t} catch {\n\t\t\t\t// An invalid previous value is replaced for this preview and removed on cleanup.\n\t\t\t}\n\t\t\tawait AtlBrowserStorageLocal.setItem(\n\t\t\t\tstorageKey,\n\t\t\t\tJSON.stringify({ ...parsedState, provisionStatus: 'PROVISIONED' }),\n\t\t\t);\n\t\t\tif (!cancelled) {\n\t\t\t\tsetIsProvisioned(true);\n\t\t\t}\n\t\t})();\n\t\treturn () => {\n\t\t\tcancelled = true;\n\t\t\tif (previousState === null) {\n\t\t\t\tAtlBrowserStorageLocal.removeItem(storageKey);\n\t\t\t} else {\n\t\t\t\tvoid AtlBrowserStorageLocal.setItem(storageKey, previousState);\n\t\t\t}\n\t\t};\n\t}, []);\n\tuseEffect(() => {\n\t\tconst syncSection = () => setActiveSection(sectionFromHash());\n\t\tsyncSection();\n\t\twindow.addEventListener('hashchange', syncSection);\n\t\treturn () => window.removeEventListener('hashchange', syncSection);\n\t}, []);\n\tconst SectionPage = sections[activeSection];\n\tif (!isProvisioned) {\n\t\treturn <div aria-live=\"polite\">Preparing Discovery preview…</div>;\n\t}\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<DiscoveryPage>\n\t\t\t\t<>\n\t\t\t\t\t<Box padding=\"space.300\">\n\t\t\t\t\t\t<Heading as=\"h1\" size=\"large\">\n\t\t\t\t\t\t\tDiscovery\n\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t{/* Preview links only. Jira supplies the production horizontal navigation. */}\n\t\t\t\t\t\t<Box as=\"nav\" aria-label=\"Discovery sections\">\n\t\t\t\t\t\t\t<Inline space=\"space.200\" shouldWrap>\n\t\t\t\t\t\t\t\t{(Object.keys(links) as DiscoverySection[]).map((section) => (\n\t\t\t\t\t\t\t\t\t<Anchor\n\t\t\t\t\t\t\t\t\t\tkey={section}\n\t\t\t\t\t\t\t\t\t\thref={links[section].href}\n\t\t\t\t\t\t\t\t\t\taria-current={section === activeSection ? 'page' : undefined}\n\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t{links[section].label}\n\t\t\t\t\t\t\t\t\t</Anchor>\n\t\t\t\t\t\t\t\t))}\n\t\t\t\t\t\t\t</Inline>\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t</Box>\n\t\t\t\t\t<SectionPage />\n\t\t\t\t</>\n\t\t\t</DiscoveryPage>\n\t\t</IntlProvider>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'isOpen',
+				type: 'boolean | undefined',
+				description:
+					'Controls whether the focused flow is open. Omit to let Discovery manage its own open state.',
+			},
+			{
+				name: 'onClose',
+				type: '(() => void) | undefined',
+				description: 'Called when the user closes, cancels, or completes the focused flow.',
+			},
+		],
+	},
+	{
+		name: 'ScanJobsPage',
+		package: '@atlassian/discovery',
+		description:
+			'A list and management view for Discovery scan jobs, including job details and the scan setup flow. The package preview uses generated demo jobs.',
+		status: 'early-access',
+		usageGuidelines: [
+			'Use the list for ongoing job management; use the focused scan setup entry point when the user’s immediate task is creating a job from another part of the host product.',
+			'Keep scan target authorization and job permissions in the host service rather than trusting client-side visibility.',
+		],
+		contentGuidelines: [],
+		accessibilityGuidelines: [],
+		keywords: ['@atlassian/discovery', 'Assets Discovery', 'ScanJobsPage'],
+		category: 'components',
+		examples: [
+			"import React, { useEffect, useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Heading from '@atlaskit/heading/heading';\nimport { Anchor } from '@atlaskit/primitives/compiled/anchor';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { AtlBrowserStorageLocal } from '@atlassian/browser-storage-controls/web-storage-service';\nimport DiscoveryPage from '@atlassian/discovery/ui/discovery';\nimport { CredentialsPage } from '@atlassian/discovery/ui/discovery/credentials';\nimport { LogsPage } from '@atlassian/discovery/ui/discovery/logs';\nimport { OverviewPage } from '@atlassian/discovery/ui/discovery/overview';\nimport { RecordsPage } from '@atlassian/discovery/ui/discovery/records';\nimport { ScanJobsPage } from '@atlassian/discovery/ui/discovery/scan-jobs';\nimport { SystemsPage } from '@atlassian/discovery/ui/discovery/systems';\nconst links = {\n\toverview: { href: '#discovery/overview', label: 'Overview' },\n\trecords: { href: '#discovery/records', label: 'Records' },\n\t'scan-jobs': { href: '#discovery/scan-jobs', label: 'Scan jobs' },\n\tsystems: { href: '#discovery/systems', label: 'Systems' },\n\tcredentials: { href: '#discovery/credentials', label: 'Credentials' },\n\tlogs: { href: '#discovery/logs', label: 'Logs' },\n};\ntype DiscoverySection = keyof typeof links;\nconst sections: Record<DiscoverySection, React.ComponentType> = {\n\toverview: OverviewPage,\n\trecords: RecordsPage,\n\t'scan-jobs': ScanJobsPage,\n\tsystems: SystemsPage,\n\tcredentials: CredentialsPage,\n\tlogs: LogsPage,\n};\nfunction sectionFromHash(): DiscoverySection {\n\treturn (\n\t\t(Object.keys(links) as DiscoverySection[]).find(\n\t\t\t(section) => links[section].href === window.location.hash,\n\t\t) ?? 'overview'\n\t);\n}\nexport default function WholeDiscovery(): React.JSX.Element {\n\tconst [activeSection, setActiveSection] = useState<DiscoverySection>('overview');\n\tconst [isProvisioned, setIsProvisioned] = useState(false);\n\tuseEffect(() => {\n\t\t// The shell shows GettingStartedScreen for an unprovisioned tenant. Seed only the\n\t\t// preview's host state before mounting it, then restore the viewer's previous value.\n\t\tconst storageKey = 'discovery-platform-state';\n\t\tconst previousState = AtlBrowserStorageLocal.getItem(storageKey);\n\t\tlet cancelled = false;\n\t\tvoid (async () => {\n\t\t\tlet parsedState: Record<string, unknown> = {};\n\t\t\ttry {\n\t\t\t\tparsedState = previousState ? JSON.parse(previousState) : {};\n\t\t\t} catch {\n\t\t\t\t// An invalid previous value is replaced for this preview and removed on cleanup.\n\t\t\t}\n\t\t\tawait AtlBrowserStorageLocal.setItem(\n\t\t\t\tstorageKey,\n\t\t\t\tJSON.stringify({ ...parsedState, provisionStatus: 'PROVISIONED' }),\n\t\t\t);\n\t\t\tif (!cancelled) {\n\t\t\t\tsetIsProvisioned(true);\n\t\t\t}\n\t\t})();\n\t\treturn () => {\n\t\t\tcancelled = true;\n\t\t\tif (previousState === null) {\n\t\t\t\tAtlBrowserStorageLocal.removeItem(storageKey);\n\t\t\t} else {\n\t\t\t\tvoid AtlBrowserStorageLocal.setItem(storageKey, previousState);\n\t\t\t}\n\t\t};\n\t}, []);\n\tuseEffect(() => {\n\t\tconst syncSection = () => setActiveSection(sectionFromHash());\n\t\tsyncSection();\n\t\twindow.addEventListener('hashchange', syncSection);\n\t\treturn () => window.removeEventListener('hashchange', syncSection);\n\t}, []);\n\tconst SectionPage = sections[activeSection];\n\tif (!isProvisioned) {\n\t\treturn <div aria-live=\"polite\">Preparing Discovery preview…</div>;\n\t}\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<DiscoveryPage>\n\t\t\t\t<>\n\t\t\t\t\t<Box padding=\"space.300\">\n\t\t\t\t\t\t<Heading as=\"h1\" size=\"large\">\n\t\t\t\t\t\t\tDiscovery\n\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t{/* Preview links only. Jira supplies the production horizontal navigation. */}\n\t\t\t\t\t\t<Box as=\"nav\" aria-label=\"Discovery sections\">\n\t\t\t\t\t\t\t<Inline space=\"space.200\" shouldWrap>\n\t\t\t\t\t\t\t\t{(Object.keys(links) as DiscoverySection[]).map((section) => (\n\t\t\t\t\t\t\t\t\t<Anchor\n\t\t\t\t\t\t\t\t\t\tkey={section}\n\t\t\t\t\t\t\t\t\t\thref={links[section].href}\n\t\t\t\t\t\t\t\t\t\taria-current={section === activeSection ? 'page' : undefined}\n\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t{links[section].label}\n\t\t\t\t\t\t\t\t\t</Anchor>\n\t\t\t\t\t\t\t\t))}\n\t\t\t\t\t\t\t</Inline>\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t</Box>\n\t\t\t\t\t<SectionPage />\n\t\t\t\t</>\n\t\t\t</DiscoveryPage>\n\t\t</IntlProvider>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'detailSection',
+				type: 'string | undefined',
+			},
+			{
+				name: 'onNavigate',
+				type: '((id?: string | undefined, section?: string | undefined) => void) | undefined',
+			},
+			{
+				name: 'scanJobId',
+				type: 'string | undefined',
+			},
+		],
+	},
+	{
+		name: 'SystemsPage',
+		package: '@atlassian/discovery',
+		description:
+			'A systems inventory with summary information and agent download actions. The package preview uses generated demo systems.',
+		status: 'early-access',
+		usageGuidelines: [
+			'Use the systems view for discovered infrastructure; preserve the host’s authorization checks for updates and agent downloads.',
+		],
+		contentGuidelines: [],
+		accessibilityGuidelines: [],
+		keywords: ['@atlassian/discovery', 'Assets Discovery', 'SystemsPage'],
+		category: 'components',
+		examples: [
+			"import React, { useEffect, useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Heading from '@atlaskit/heading/heading';\nimport { Anchor } from '@atlaskit/primitives/compiled/anchor';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { AtlBrowserStorageLocal } from '@atlassian/browser-storage-controls/web-storage-service';\nimport DiscoveryPage from '@atlassian/discovery/ui/discovery';\nimport { CredentialsPage } from '@atlassian/discovery/ui/discovery/credentials';\nimport { LogsPage } from '@atlassian/discovery/ui/discovery/logs';\nimport { OverviewPage } from '@atlassian/discovery/ui/discovery/overview';\nimport { RecordsPage } from '@atlassian/discovery/ui/discovery/records';\nimport { ScanJobsPage } from '@atlassian/discovery/ui/discovery/scan-jobs';\nimport { SystemsPage } from '@atlassian/discovery/ui/discovery/systems';\nconst links = {\n\toverview: { href: '#discovery/overview', label: 'Overview' },\n\trecords: { href: '#discovery/records', label: 'Records' },\n\t'scan-jobs': { href: '#discovery/scan-jobs', label: 'Scan jobs' },\n\tsystems: { href: '#discovery/systems', label: 'Systems' },\n\tcredentials: { href: '#discovery/credentials', label: 'Credentials' },\n\tlogs: { href: '#discovery/logs', label: 'Logs' },\n};\ntype DiscoverySection = keyof typeof links;\nconst sections: Record<DiscoverySection, React.ComponentType> = {\n\toverview: OverviewPage,\n\trecords: RecordsPage,\n\t'scan-jobs': ScanJobsPage,\n\tsystems: SystemsPage,\n\tcredentials: CredentialsPage,\n\tlogs: LogsPage,\n};\nfunction sectionFromHash(): DiscoverySection {\n\treturn (\n\t\t(Object.keys(links) as DiscoverySection[]).find(\n\t\t\t(section) => links[section].href === window.location.hash,\n\t\t) ?? 'overview'\n\t);\n}\nexport default function WholeDiscovery(): React.JSX.Element {\n\tconst [activeSection, setActiveSection] = useState<DiscoverySection>('overview');\n\tconst [isProvisioned, setIsProvisioned] = useState(false);\n\tuseEffect(() => {\n\t\t// The shell shows GettingStartedScreen for an unprovisioned tenant. Seed only the\n\t\t// preview's host state before mounting it, then restore the viewer's previous value.\n\t\tconst storageKey = 'discovery-platform-state';\n\t\tconst previousState = AtlBrowserStorageLocal.getItem(storageKey);\n\t\tlet cancelled = false;\n\t\tvoid (async () => {\n\t\t\tlet parsedState: Record<string, unknown> = {};\n\t\t\ttry {\n\t\t\t\tparsedState = previousState ? JSON.parse(previousState) : {};\n\t\t\t} catch {\n\t\t\t\t// An invalid previous value is replaced for this preview and removed on cleanup.\n\t\t\t}\n\t\t\tawait AtlBrowserStorageLocal.setItem(\n\t\t\t\tstorageKey,\n\t\t\t\tJSON.stringify({ ...parsedState, provisionStatus: 'PROVISIONED' }),\n\t\t\t);\n\t\t\tif (!cancelled) {\n\t\t\t\tsetIsProvisioned(true);\n\t\t\t}\n\t\t})();\n\t\treturn () => {\n\t\t\tcancelled = true;\n\t\t\tif (previousState === null) {\n\t\t\t\tAtlBrowserStorageLocal.removeItem(storageKey);\n\t\t\t} else {\n\t\t\t\tvoid AtlBrowserStorageLocal.setItem(storageKey, previousState);\n\t\t\t}\n\t\t};\n\t}, []);\n\tuseEffect(() => {\n\t\tconst syncSection = () => setActiveSection(sectionFromHash());\n\t\tsyncSection();\n\t\twindow.addEventListener('hashchange', syncSection);\n\t\treturn () => window.removeEventListener('hashchange', syncSection);\n\t}, []);\n\tconst SectionPage = sections[activeSection];\n\tif (!isProvisioned) {\n\t\treturn <div aria-live=\"polite\">Preparing Discovery preview…</div>;\n\t}\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<DiscoveryPage>\n\t\t\t\t<>\n\t\t\t\t\t<Box padding=\"space.300\">\n\t\t\t\t\t\t<Heading as=\"h1\" size=\"large\">\n\t\t\t\t\t\t\tDiscovery\n\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t{/* Preview links only. Jira supplies the production horizontal navigation. */}\n\t\t\t\t\t\t<Box as=\"nav\" aria-label=\"Discovery sections\">\n\t\t\t\t\t\t\t<Inline space=\"space.200\" shouldWrap>\n\t\t\t\t\t\t\t\t{(Object.keys(links) as DiscoverySection[]).map((section) => (\n\t\t\t\t\t\t\t\t\t<Anchor\n\t\t\t\t\t\t\t\t\t\tkey={section}\n\t\t\t\t\t\t\t\t\t\thref={links[section].href}\n\t\t\t\t\t\t\t\t\t\taria-current={section === activeSection ? 'page' : undefined}\n\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t{links[section].label}\n\t\t\t\t\t\t\t\t\t</Anchor>\n\t\t\t\t\t\t\t\t))}\n\t\t\t\t\t\t\t</Inline>\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t</Box>\n\t\t\t\t\t<SectionPage />\n\t\t\t\t</>\n\t\t\t</DiscoveryPage>\n\t\t</IntlProvider>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'ids',
+				type: 'string[] | undefined',
+			},
+			{
+				name: 'isSelecting',
+				type: 'boolean | undefined',
+				defaultValue: 'false',
+			},
+			{
+				name: 'onSelect',
+				type: '((system: DiscoveredSystem) => void) | undefined',
+			},
+		],
+	},
+	{
 		name: 'Editor Plugin AI',
 		package: '@atlassian/editor-plugin-ai',
 		description: 'The AI plugin for @atlaskit/editor-core.',
@@ -30329,13 +31209,170 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'shell',
-				type: '{ activationId?: string | undefined; aggAbsoluteUrl?: string | undefined; analyticsAttributes?: Record<string, any> | undefined; cloudId?: string | undefined; experimentLayers?: string[] | undefined; ... 8 more ...; user?: UserDetails | undefined; } & Pick<...> & { ...; }',
+				type: '{ activationId?: string | undefined; aggAbsoluteUrl?: string | undefined; analyticsAttributes?: Record<string, any> | undefined; cloudId?: string | undefined; experimentLayers?: string[] | undefined; ... 8 more ...; user?: UserDetails | undefined; } & Pick<...> & { ...; } & Pick<...>',
 				isRequired: true,
 			},
 			{
 				name: 'width',
 				type: 'number | undefined',
 				description: 'Width of EnterpriseFeedbackComparison.',
+			},
+		],
+	},
+	{
+		name: 'FocusAreaHealthLozenge',
+		package: '@atlassian/focus-area-primitives',
+		description:
+			'Renders a focus area health or a health value recorded on an update as a lozenge.',
+		status: 'early-access',
+		usageGuidelines: [
+			'Pass either a current focusArea fragment ref or a focusAreaUpdate ref. Use the update form when the health indicator must reflect the value captured in a specific update.',
+			'The component returns null when the selected ref has no health value, so pair it with a status indicator only when the data model supports both.',
+		],
+		contentGuidelines: [
+			'Known health values use localized labels; unknown values fall back to the API display name or key. Keep any surrounding explanation consistent with the value shown.',
+		],
+		accessibilityGuidelines: [
+			'The lozenge includes a text label. Do not use its color as the only signal of health.',
+		],
+		keywords: [
+			'@atlassian/focus-area-primitives',
+			'FocusAreaHealthLozenge',
+			'focus area',
+			'health',
+			'lozenge',
+		],
+		category: 'components',
+		examples: [
+			"import React, { type ComponentProps } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { FocusAreaHealthLozenge } from '@atlassian/focus-area-primitives/focus-area-health';\nimport { FocusAreaStatusLozenge } from '@atlassian/focus-area-primitives/focus-area-status';\ntype StatusProps = ComponentProps<typeof FocusAreaStatusLozenge>;\ntype HealthProps = ComponentProps<typeof FocusAreaHealthLozenge>;\n/** Pass the fragment ref from the host query that selects the current focus area. */\nexport function CurrentFocusAreaIndicators({\n\tfocusArea,\n}: {\n\tfocusArea: StatusProps['focusArea'] & HealthProps['focusArea'];\n}): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<div role=\"group\" aria-label=\"Current focus area indicators\">\n\t\t\t\t<FocusAreaStatusLozenge focusArea={focusArea} />\n\t\t\t\t<FocusAreaHealthLozenge focusArea={focusArea} />\n\t\t\t</div>\n\t\t</IntlProvider>\n\t);\n}\n/** Use update fragment refs when the card should preserve the values recorded at update time. */\nexport function UpdateIndicators({\n\tupdate,\n}: {\n\tupdate: NonNullable<StatusProps['focusAreaUpdate']> & NonNullable<HealthProps['focusAreaUpdate']>;\n}): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<div role=\"group\" aria-label=\"Status and health recorded in this update\">\n\t\t\t\t<FocusAreaStatusLozenge focusAreaUpdate={update} />\n\t\t\t\t<FocusAreaHealthLozenge focusAreaUpdate={update} />\n\t\t\t</div>\n\t\t</IntlProvider>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'focusArea',
+				type: 'FocusAreaHealthLozenge_focusArea$key | null | undefined',
+				description: '',
+			},
+			{
+				name: 'focusAreaUpdate',
+				type: 'FocusAreaHealthLozenge_focusAreaUpdate$key | null | undefined',
+				description: '',
+			},
+		],
+	},
+	{
+		name: 'FocusAreaStatusLozenge',
+		package: '@atlassian/focus-area-primitives',
+		description:
+			'Renders a focus area status or a status value recorded on an update as a lozenge.',
+		status: 'early-access',
+		usageGuidelines: [
+			'Pass either a current focusArea fragment ref or a focusAreaUpdate ref. Use the update form when the lozenge must show the status recorded at that point in time rather than the focus area’s current status.',
+			'The component returns null when the selected ref has no status; keep the surrounding layout tolerant of a missing lozenge.',
+		],
+		contentGuidelines: [
+			'The component localizes known status keys and falls back to the API display name or key for unknown values; avoid adding a second visible status label beside it.',
+		],
+		accessibilityGuidelines: [
+			'The lozenge includes its status as text. Preserve that visible label and do not communicate status through its color alone.',
+		],
+		keywords: [
+			'@atlassian/focus-area-primitives',
+			'FocusAreaStatusLozenge',
+			'focus area',
+			'status',
+			'lozenge',
+		],
+		category: 'components',
+		examples: [
+			"import React, { type ComponentProps } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { FocusAreaHealthLozenge } from '@atlassian/focus-area-primitives/focus-area-health';\nimport { FocusAreaStatusLozenge } from '@atlassian/focus-area-primitives/focus-area-status';\ntype StatusProps = ComponentProps<typeof FocusAreaStatusLozenge>;\ntype HealthProps = ComponentProps<typeof FocusAreaHealthLozenge>;\n/** Pass the fragment ref from the host query that selects the current focus area. */\nexport function CurrentFocusAreaIndicators({\n\tfocusArea,\n}: {\n\tfocusArea: StatusProps['focusArea'] & HealthProps['focusArea'];\n}): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<div role=\"group\" aria-label=\"Current focus area indicators\">\n\t\t\t\t<FocusAreaStatusLozenge focusArea={focusArea} />\n\t\t\t\t<FocusAreaHealthLozenge focusArea={focusArea} />\n\t\t\t</div>\n\t\t</IntlProvider>\n\t);\n}\n/** Use update fragment refs when the card should preserve the values recorded at update time. */\nexport function UpdateIndicators({\n\tupdate,\n}: {\n\tupdate: NonNullable<StatusProps['focusAreaUpdate']> & NonNullable<HealthProps['focusAreaUpdate']>;\n}): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<div role=\"group\" aria-label=\"Status and health recorded in this update\">\n\t\t\t\t<FocusAreaStatusLozenge focusAreaUpdate={update} />\n\t\t\t\t<FocusAreaHealthLozenge focusAreaUpdate={update} />\n\t\t\t</div>\n\t\t</IntlProvider>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'focusArea',
+				type: 'FocusAreaStatusLozenge_focusArea$key | null | undefined',
+				description: '',
+			},
+			{
+				name: 'focusAreaUpdate',
+				type: 'FocusAreaStatusLozenge_focusAreaUpdate$key | null | undefined',
+				description: '',
+			},
+		],
+	},
+	{
+		name: 'FocusAreaStatusPicker',
+		package: '@atlassian/focus-area-primitives',
+		description:
+			'Picks the status transition for a focus area status update, from the focus area’s available transitions.',
+		status: 'early-access',
+		usageGuidelines: [
+			'Pass a focusArea fragment ref and a controlled transition id; send the id as `statusTransitionId`.',
+			'With `mercury_web_status_health_ui_separation` off each option is a status and health pair; with it on the picker offers statuses only, so pair it with a health picker.',
+			'Pass the previous update’s transition as `disabledTransitionId` when editing an update.',
+		],
+		contentGuidelines: [
+			'Options use the same localized or workspace-configured labels as the status and health lozenges.',
+		],
+		accessibilityGuidelines: [
+			'The trigger’s accessible name combines `label` with the selected value. Keep `shouldRenderToParent` on inside a modal so focus stays in the dialog.',
+		],
+		keywords: [
+			'@atlassian/focus-area-primitives',
+			'FocusAreaStatusPicker',
+			'focus area',
+			'status',
+			'picker',
+		],
+		category: 'components',
+		examples: [
+			'import { Box } from \'@atlaskit/primitives/compiled/box\';\nimport { MockFocusAreaStatusPicker } from \'./utils/status-picker-mocks\';\n/**\n * `FocusAreaStatusPicker`, open, with the previous update\'s transition disabled. Snapshot with\n * `mercury_web_status_health_ui_separation` on and off: with it off, each option is a status and\n * health pair (in progress reads as its health); with it on, each option is a status.\n */\nexport default function FocusAreaStatusPickerExample(): React.JSX.Element {\n\treturn (\n\t\t<Box padding="space.200">\n\t\t\t<MockFocusAreaStatusPicker value="t-at-risk" disabledTransitionId="t-pending" defaultOpen />\n\t\t</Box>\n\t);\n}',
+		],
+		props: [
+			{
+				name: 'defaultOpen',
+				type: 'boolean | undefined',
+				description: 'Opens the menu on mount.',
+			},
+			{
+				name: 'disabledTransitionId',
+				type: 'string | null | undefined',
+				description:
+					"A transition that can't be picked, e.g. the previous update's, so an edit can't revert to it.\nCombined mode only: like Mercury, whose separated status picker disables nothing.",
+			},
+			{
+				name: 'focusArea',
+				type: 'FocusAreaStatusPicker_focusArea$key | null | undefined',
+				isRequired: true,
+			},
+			{
+				name: 'isDisabled',
+				type: 'boolean | undefined',
+				description: 'Shows the selected value as a read-only lozenge.',
+				defaultValue: 'false',
+			},
+			{
+				name: 'label',
+				type: 'string | undefined',
+				description:
+					"The field's name, read with the selected value as the trigger's accessible name.",
+			},
+			{
+				name: 'onChange',
+				type: '(transitionId: string, transition: { readonly health: { readonly displayName: string; readonly id: string; readonly key: string; } | null; readonly id: string; readonly status: { readonly color?: MercuryColor | undefined; readonly displayName: string; readonly id: string; readonly key: string; readonly order: number...',
+				isRequired: true,
+			},
+			{
+				name: 'shouldRenderToParent',
+				type: 'boolean | undefined',
+				description:
+					'Renders the menu inline rather than in a portal, which a modal needs for focus handling.',
+				defaultValue: 'true',
+			},
+			{
+				name: 'value',
+				type: 'string | null | undefined',
+				description: 'The selected transition id.',
+				isRequired: true,
 			},
 		],
 	},
@@ -30683,6 +31720,314 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				name: 'shortcut',
 				type: 'GlobalShortcutsItem & { key: string; }',
 				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'GlobalSideNavigation',
+		package: '@atlassian/global-side-navigation',
+		description:
+			'An app-level side navigation that combines product routes with optional For You lists, shortcuts, and user customization.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use as the main app navigation for a hierarchy of pages, with optional links to other products.',
+			'Keep frequent destinations in the main list and group secondary destinations clearly.',
+			'Use local customization to save preferences on the current device. Use network customization when the app supplies the required storage integration.',
+		],
+		contentGuidelines: [
+			'Use concise destination labels that identify the page or task without relying on an adjacent icon.',
+			'Use consistent nouns or verb phrases across peer navigation items, and avoid labels that are ambiguous outside the current page.',
+		],
+		accessibilityGuidelines: [
+			'Give every navigation destination a visible, meaningful text label; treat decorative icons as supplementary.',
+			'Ensure the host route updates the current item state and that keyboard users can reach and activate every destination.',
+		],
+		keywords: ['global navigation', 'side navigation', 'sidebar', 'routes', 'shortcuts'],
+		category: 'navigation',
+		examples: [
+			"import type { ItemsConfig } from '@atlassian/global-side-navigation/common/types';\nimport { GlobalSideNavigation } from '@atlassian/global-side-navigation/GlobalSideNavigation';\n/**\n * Render this within the host app's navigation-system Root, RelayEnvironmentProvider,\n * and ModalContextProvider. The host supplies its real Relay environment and routes.\n */\nexport function ProjectSideNavigation(): React.JSX.Element {\n\tconst items: ItemsConfig = {\n\t\t'projects.overview': {\n\t\t\ttype: 'link',\n\t\t\telemBefore: null,\n\t\t\tlabel: 'Overview',\n\t\t\thref: '/projects',\n\t\t},\n\t\t'projects.recent': {\n\t\t\ttype: 'link',\n\t\t\telemBefore: null,\n\t\t\tlabel: 'Recent projects',\n\t\t\thref: '/projects/recent',\n\t\t},\n\t};\n\treturn (\n\t\t<GlobalSideNavigation\n\t\t\tapp=\"projects\"\n\t\t\tappLabel=\"Projects\"\n\t\t\tforYou={{}}\n\t\t\titems={items}\n\t\t\tcustomizationStore=\"local\"\n\t\t/>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'app',
+				type: 'string',
+				description: 'An identifier of the app in which the navigation is loading.',
+				isRequired: true,
+			},
+			{
+				name: 'appLabel',
+				type: 'string',
+				description:
+					'Label for the app, translated if applicable, to be used in the customization modal\nand other places where the app name is displayed.',
+				isRequired: true,
+			},
+			{
+				name: 'bottomElem',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
+				description:
+					'An optional component that would appear at the very bottom of the nav.\nIn Jira, Confluence, and Home, this will likely be used for the Invite\nPeople button.',
+			},
+			{
+				name: 'cloudId',
+				type: 'string | undefined',
+				description:
+					'Optional cloud (site) identifier.\nUsed for shortcuts to preselect the instance in relation to the current site identifier.',
+			},
+			{
+				name: 'customizationStore',
+				type: 'CustomizationStore | undefined',
+				description:
+					"How menu and sidebar customization data is stored.\n'network' mode persists the customization data so that they are available on every device the user uses\n'local' mode persists the customization data on their current device\n'network-migration' is to support migrating data from the old network location to the new network location. This increases the number of reads and writes that are made, during the migration process\n\n'network-migration' reads the old record through the `useNetworkSideNavUserData`\nfragment, which both queries that can produce a `queryRef` gate on their\n`fetchOldEntityRecord` variable. When a consumer resolves that variable to `false`\nthere is no old record in the payload, and migration degrades to reading the new\nrecords only — it does not fail.",
+				defaultValue: "'local'",
+			},
+			{
+				name: 'defaultMenuVisibility',
+				type: 'UserMenuData | undefined',
+				description:
+					'Optional default visibility settings for menu items and shortcuts.\nThis setting determines the initial visibility state of menu items and shortcuts before the user makes any customizations.\nIt can be used to set recommended defaults for users, which they can then modify according to their preferences.\nValues are ignored when there is any existing user customization data, to avoid overwriting user preferences.',
+			},
+			{
+				name: 'disableMenuCustomization',
+				type: 'boolean | undefined',
+				description:
+					'Disable menu customization button (& More Menu).\nSetting this to true will hide the customization button, and ignore any existing user menu customizations',
+				defaultValue: 'false',
+			},
+			{
+				name: 'forYou',
+				type: '{ additionalLists?: AdditionalList<TOLFItem>[] | undefined; forYouItem?: (ForYouNavItemCommon & ForYouCommon & (ForYouLink | ForYouButton)) | undefined; recent?: (ForYouNavItemCommon & FlyoutProps<...>) | undefined; starred?: (ForYouNavItemCommon & FlyoutProps<...>) | undefined; }',
+				description: 'Content that should be included in the various object list flyouts.',
+				isRequired: true,
+			},
+			{
+				name: 'growthItemShortcuts',
+				type: 'ShortcutsConfig | undefined',
+				description:
+					'Optional configuration for app shortcuts component. If not provided, no growth items\nwill be included in the shortcuts.',
+			},
+			{
+				name: 'id',
+				type: 'string | undefined',
+				description:
+					"The `id` attribute of the slot. Used to connect the layout slot's skip link to the layout element.\nIf not provided, a unique ID will be generated.",
+			},
+			{
+				name: 'intlMode',
+				type: '"inherit" | "async" | undefined',
+				description:
+					"When 'inherit', GSN skips its own AsyncIntlProvider and uses the host app's\nIntlProvider instead. Use this when the host already has GSN's i18n keys loaded\n(e.g. Jira's language-pack CDN JSON).",
+				defaultValue: 'async',
+			},
+			{
+				name: 'isAnonymous',
+				type: 'boolean | undefined',
+				description:
+					'Optional flag indicating whether the current user is anonymous.\nWhen true, menu customization is disabled and local storage is used for customization data.\nConsumers should explicitly pass this prop based on their own authentication logic.',
+				defaultValue: 'false (assumes authenticated user)',
+			},
+			{
+				name: 'isShortcutsStatic',
+				type: 'boolean | undefined',
+				description:
+					'Optional boolean to force the app shortcuts component to be in static mode - avoids calling the backend.',
+				defaultValue: 'false',
+			},
+			{
+				name: 'items',
+				type: '{ [x: string]: NavItemConfig; }',
+				description:
+					'App-specific main nav items.\nkey is used to connect with Customizations system\nvalue is either a React node or an object containing the node and\nsome settings. The node will typically be a Nav4 item node, but we\nwill not enforce this. The order that items are listed here represents\nthe default order before any user customizations.',
+				isRequired: true,
+			},
+			{
+				name: 'networkStorageParams',
+				type: 'NetworkStorageParams | undefined',
+				description:
+					"This param is required when customizationStore='network'\nThe network storage API requires specific parameters in order to function correctly.",
+			},
+			{
+				name: 'onLeftNavCollapse',
+				type: 'VisibilityCallback | undefined',
+				description: 'Called when the left side nav is collapsed.',
+			},
+			{
+				name: 'onLeftNavExpand',
+				type: 'VisibilityCallback | undefined',
+				description: 'Called when the left side nav is expanded.',
+			},
+			{
+				name: 'onPeekEnd',
+				type: '((args: { trigger: "mouse-leave" | "side-nav-expand"; }) => void) | undefined',
+				description: 'Called when the side nav stops peeking / flyout.',
+			},
+			{
+				name: 'onPeekStart',
+				type: '(() => void) | undefined',
+				description: 'Called when the side nav begins peeking / flyout.',
+			},
+			{
+				name: 'onResizeEnd',
+				type: 'any',
+				description:
+					'Called when the side nav resize ends, with the committed `finalWidth`.\nUseful for mirroring the (network-persisted) width to another store.',
+			},
+			{
+				name: 'onResizeStart',
+				type: 'any',
+				description: 'Called when the side nav resize begins.',
+			},
+			{
+				name: 'openShortcutsInSameTab',
+				type: 'boolean | undefined',
+				description: 'Optional flag to open global shortcuts in the same tab',
+			},
+			{
+				name: 'peekMenuId',
+				type: 'string | undefined',
+				description:
+					'Optionally pass in the ID of an item from the More menu that should be "peeked".\nAllows apps more control over peeking behavior, such as peeking an item on route change.',
+			},
+			{
+				name: 'postItemsElem',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
+				description:
+					'An optional component that would appear under the main nav items but before the app shortcuts and More/Customize\nmenu.',
+			},
+			{
+				name: 'postMainElem',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
+				description:
+					'An optional component that would appear under the main nav & global components\nlike app shortcuts.\nIn Confluence, this would be where the page tree goes.',
+			},
+			{
+				name: 'preMainElem',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
+				description:
+					'Element shown above the Main GSN element. But under the topElement. It is not sticky and can be scrolled with the page.\nIt is not a part of the customization flow. Used by Confluence custom homepage',
+			},
+			{
+				name: 'queryRef',
+				type: 'GlobalSideNavigation$key | undefined',
+				description:
+					"A Relay fragment reference for the `GlobalSideNavigation` fragment, supplied by\nGlobalRoot (GRT).\n\nSupplying this is what opts the side nav into being driven by GRT: GSN then reads\nits network customization data from this fragment instead of from\n`networkStorageParams.queryRef`, mirroring how GRT supplies data to\nGlobalTopNavigation so that a single GRT-owned query serves both components.\n\nOmit it to keep the existing behaviour, where GSN expects the caller to wrap it\nin `GlobalSideNavigationAGGRelayConnection`.\n\nThe caller's query must spread `...GlobalSideNavigation` and declare the\nvariables that fragment references.",
+			},
+			{
+				name: 'shortcuts',
+				type: 'ShortcutsConfig | undefined',
+				description:
+					'Optional configuration for app shortcuts component. If not provided, no shortcuts\nwill be shown.',
+			},
+			{
+				name: 'ShortcutsSlot',
+				type: 'ComponentType<ShortcutsSlotProps> | undefined',
+				description:
+					'Optional render-prop component that wraps the Global App Shortcuts menu, allowing\nthe host app to control where and how the shortcuts are rendered (for example,\nrelocating them elsewhere in the nav). When omitted, the shortcuts menu is\nrendered in its default location.\n\nThe provided component receives a pre-bound `Component` (the shortcuts menu\nwith all GSN-internal props already wired) and the resolved `shortcutItems`.',
+			},
+			{
+				name: 'sideNavContentRef',
+				type: 'Ref<HTMLDivElement | null> | undefined',
+				description:
+					'Optional ref to be passed to SideNavigation Platform component to handle scrolling',
+			},
+			{
+				name: 'topElem',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
+				description: 'An optional component that would appear on the very top of the nav.',
+			},
+			{
+				name: 'userId',
+				type: 'string | undefined',
+				description:
+					'Optional user identifier.\nUsed by [global shortcuts](/packages/navigation/global-shortcuts) to optimise caching.',
+			},
+			{
+				name: 'viewAllAppsConfig',
+				type: 'ViewAllAppsConfig | undefined',
+				description:
+					'Optional configuration for a "View all apps" link to appear at the bottom of the app shortcuts component.',
+			},
+		],
+	},
+	{
+		name: 'SideNavigationLayout',
+		package: '@atlassian/global-side-navigation',
+		description:
+			'A controlled layout primitive for composing a side navigation shell with app-owned navigation content.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use when your app controls navigation state and actions. Use GlobalSideNavigation for its data loading and customization features.',
+			'Keep related destinations in the sidebar and page-specific controls in the main content.',
+		],
+		contentGuidelines: [
+			'Use destination names that make sense when read out of context by assistive technology.',
+		],
+		accessibilityGuidelines: [
+			'Use links for destinations that change location, and give each link a descriptive accessible name.',
+			'Keep the host-provided navigation items in a logical keyboard sequence that continues into the main page content.',
+		],
+		keywords: ['side navigation', 'layout', 'navigation shell'],
+		category: 'navigation',
+		examples: [
+			'import { Anchor } from \'@atlaskit/primitives/compiled/anchor\';\nimport { SideNavigationLayout } from \'@atlassian/global-side-navigation/layout\';\n/** Render inside the host app\'s navigation-system Root and IntlProvider. */\nexport function SettingsNavigationLayout(): React.JSX.Element {\n\treturn (\n\t\t<SideNavigationLayout id="settings-navigation" defaultWidth={240}>\n\t\t\t<ul>\n\t\t\t\t<li>\n\t\t\t\t\t<Anchor href="/settings/profile">Profile</Anchor>\n\t\t\t\t</li>\n\t\t\t\t<li>\n\t\t\t\t\t<Anchor href="/settings/notifications">Notifications</Anchor>\n\t\t\t\t</li>\n\t\t\t</ul>\n\t\t</SideNavigationLayout>\n\t);\n}',
+		],
+		props: [
+			{
+				name: 'bottomElem',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
+			},
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
+			},
+			{
+				name: 'defaultWidth',
+				type: 'number | undefined',
+				description:
+					'The default width of the side nav layout area.\n\nIt should be an integer greater than or equal to the minimum width.\n\nIt is only used when the side nav is first mounted, but you should continuously update your\npersisted state using the `onResizeEnd` callback of `PanelSplitter`, to ensure it is up to date\nwhen the app is reloaded.',
+			},
+			{
+				name: 'id',
+				type: 'string | undefined',
+				description:
+					"The `id` attribute of the slot. Used to connect the layout slot's skip link to the layout element.\nIf not provided, a unique ID will be generated.",
+			},
+			{
+				name: 'onCollapse',
+				type: 'VisibilityCallback | undefined',
+				description: 'Called when the side nav is collapsed.',
+			},
+			{
+				name: 'onExpand',
+				type: 'VisibilityCallback | undefined',
+				description: 'Called when the side nav is expanded.',
+			},
+			{
+				name: 'onPeekEnd',
+				type: '((args: { trigger: "mouse-leave" | "side-nav-expand"; }) => void) | undefined',
+				description: 'Called when the side nav stops peeking / flyout.',
+			},
+			{
+				name: 'onPeekStart',
+				type: '(() => void) | undefined',
+				description: 'Called when the side nav begins peeking / flyout.',
+			},
+			{
+				name: 'openShortcutsInSameTab',
+				type: 'boolean | undefined',
+			},
+			{
+				name: 'postMainElem',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
+			},
+			{
+				name: 'preMainElem',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
+			},
+			{
+				name: 'sideNavContentRef',
+				type: 'React.Ref<HTMLDivElement> | undefined',
+				description:
+					'An optional HTMLDivElement Ref for the SideNavContent component (used for scroll tracking)',
 			},
 		],
 	},
@@ -37202,6 +38547,477 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		],
 	},
 	{
+		name: 'FocusAreaConnectedSource',
+		package: '@atlassian/mercury-connected-updates-section',
+		description:
+			"A card component that renders a Mercury focus area status update. Displays the focus area name and type, the update creation date, and the update's new health when present (otherwise its new status), plus a dropdown trigger.",
+		status: 'early-access',
+		usageGuidelines: [
+			'Use FocusAreaConnectedSource to render a single focus area status update inside a connected updates list.',
+			'Pass a Relay fragment ref for the status update; the item traverses its nested focusArea relationship to populate all fields and renders health when present, otherwise status.',
+			'Pass optional children to render consumer-provided detail when the card is expanded.',
+			'Typically composed inside FocusAreaConnectedUpdatesSection, which is in turn used by FocusAreaConnectedUpdates from @atlassian/mercury-connected-updates.',
+		],
+		contentGuidelines: [
+			'The title reflects the focus area name — keep it concise.',
+			'Metadata shows the focus area type and last updated date.',
+		],
+		accessibilityGuidelines: [
+			'The full source-card header is an accessible expandable control. It exposes its state with aria-expanded and can be toggled with mouse, Enter, or Space; the chevron is decorative.',
+			'Ensure status and health lozenges have sufficient colour contrast.',
+		],
+		keywords: [
+			'@atlassian/mercury-connected-updates-section',
+			'FocusAreaConnectedSource',
+			'focus area',
+			'status update',
+			'mercury',
+		],
+		category: 'components',
+		examples: [
+			"import React, { Suspense } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { graphql, RelayEnvironmentProvider, useLazyLoadQuery } from 'react-relay';\nimport { createMockEnvironment, MockPayloadGenerator } from 'relay-test-utils';\nimport { cssMap } from '@atlaskit/css';\nimport { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { token } from '@atlaskit/tokens';\nimport FocusAreaConnectedSource from '../src/FocusAreaConnectedSource';\nimport { FocusAreaConnectedUpdatesSection } from '../src/FocusAreaConnectedUpdatesSection';\nimport type { FocusAreaConnectedUpdatesSectionExampleQuery } from './__generated__/FocusAreaConnectedUpdatesSectionExampleQuery.graphql';\nconst MOCK_MOCKS = [\n\t{\n\t\tupdate: {\n\t\t\tid: 'ari:cloud:mercury:08e30d0c-ff24-42ac-9666-82de0c0417b1:focus-area-status-update/workspace/b1848993-6eea-40b9-a202-220ed1dfc552/ee4460fe-4b69-4e5a-b027-31f727e144c3',\n\t\t\tcreatedDate: '2026-08-15T10:00:00.000Z',\n\t\t\tnewHealth: { key: 'on_track', displayName: 'On track' },\n\t\t\tnewStatus: { key: 'in_progress', displayName: 'In progress' },\n\t\t},\n\t\tfocusArea: {\n\t\t\tid: 'ari:cloud:mercury:08e30d0c-ff24-42ac-9666-82de0c0417b1:focus-area/workspace/b1848993-6eea-40b9-a202-220ed1dfc552/61fb87b0-2ccf-4881-bffb-f2b1fa040e69',\n\t\t\tname: 'Enterprise Agility',\n\t\t\turl: 'https://helium.jira-dev.com/focus/focus-area/61fb87b0-2ccf-4881-bffb-f2b1fa040e69',\n\t\t\tfocusAreaType: { name: 'Sub-initiative' },\n\t\t\thealth: { key: 'on_track', displayName: 'On track' },\n\t\t\tstatus: { key: 'in_progress', displayName: 'In progress' },\n\t\t\ticon: { url: null },\n\t\t},\n\t},\n\t{\n\t\tupdate: {\n\t\t\tid: 'ari:cloud:mercury:08e30d0c-ff24-42ac-9666-82de0c0417b1:focus-area-status-update/workspace/b1848993-6eea-40b9-a202-220ed1dfc552/5bf6f5e3-91e7-4c79-9e2e-3324783917e2',\n\t\t\tcreatedDate: '2026-08-14T10:00:00.000Z',\n\t\t\tnewHealth: null,\n\t\t\tnewStatus: { key: 'in_progress', displayName: 'In progress' },\n\t\t},\n\t\tfocusArea: {\n\t\t\tid: 'ari:cloud:mercury:08e30d0c-ff24-42ac-9666-82de0c0417b1:focus-area/workspace/b1848993-6eea-40b9-a202-220ed1dfc552/2ffa05ab-5500-4efd-85cf-b0f5a7a2aba1',\n\t\t\tname: 'Growth through new AI mobile app - Super duper long focus area name',\n\t\t\turl: 'https://helium.jira-dev.com/focus/focus-area/2ffa05ab-5500-4efd-85cf-b0f5a7a2aba1',\n\t\t\tfocusAreaType: { name: 'Super-duper long focus area type for testing' },\n\t\t\thealth: null,\n\t\t\tstatus: { key: 'in_progress', displayName: 'In progress' },\n\t\t\ticon: { url: null },\n\t\t},\n\t},\n] as const;\nfunction makeEnvironment(mockIndex: number) {\n\tconst mock = MOCK_MOCKS[mockIndex];\n\tconst env = createMockEnvironment();\n\tenv.mock.queueOperationResolver((operation) =>\n\t\tMockPayloadGenerator.generate(operation, {\n\t\t\tMercuryFocusAreaStatusUpdate: () => mock.update,\n\t\t\tMercuryFocusArea: () => mock.focusArea,\n\t\t}),\n\t);\n\treturn env;\n}\nfunction FocusAreaConnectedUpdatesSectionInner({\n\tupdateId,\n}: {\n\tupdateId: string;\n}): React.JSX.Element {\n\tconst data = useLazyLoadQuery<FocusAreaConnectedUpdatesSectionExampleQuery>(\n\t\tgraphql`\n\t\t\tquery FocusAreaConnectedUpdatesSectionExampleQuery($updateId: ID!) {\n\t\t\t\tupdate: node(id: $updateId) {\n\t\t\t\t\t... on MercuryFocusAreaStatusUpdate @alias {\n\t\t\t\t\t\t...FocusAreaConnectedSource_MercuryFocusAreaStatusUpdate\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t`,\n\t\t{ updateId },\n\t);\n\treturn (\n\t\t<FocusAreaConnectedSource\n\t\t\tupdate={data.update?.MercuryFocusAreaStatusUpdate ?? null}\n\t\t\tchildren={\n\t\t\t\t<Box xcss={styles.content}>\n\t\t\t\t\t<Inline alignBlock=\"center\" alignInline=\"center\">\n\t\t\t\t\t\tUpdate content\n\t\t\t\t\t</Inline>\n\t\t\t\t</Box>\n\t\t\t}\n\t\t\ttestId=\"connected-focus-area-item\"\n\t\t/>\n\t);\n}\nconst styles = cssMap({\n\twrapper: {\n\t\tpaddingTop: token('space.200'),\n\t\tpaddingRight: token('space.200'),\n\t\tpaddingBottom: token('space.200'),\n\t\tpaddingLeft: token('space.200'),\n\t},\n\tcontainer714: {\n\t\twidth: '714px',\n\t\tborderColor: token('color.border'),\n\t\tborderStyle: 'solid',\n\t\tborderWidth: token('border.width'),\n\t\tborderRadius: token('radius.large'),\n\t},\n\tcontainer401: {\n\t\twidth: '401px',\n\t\tborderColor: token('color.border'),\n\t\tborderStyle: 'solid',\n\t\tborderWidth: token('border.width'),\n\t\tborderRadius: token('radius.large'),\n\t},\n\tcontainer399: {\n\t\twidth: '399px',\n\t\tborderColor: token('color.border'),\n\t\tborderStyle: 'solid',\n\t\tborderWidth: token('border.width'),\n\t\tborderRadius: token('radius.large'),\n\t},\n\tcontainer280: {\n\t\twidth: '280px',\n\t\tborderColor: token('color.border'),\n\t\tborderStyle: 'solid',\n\t\tborderWidth: token('border.width'),\n\t\tborderRadius: token('radius.large'),\n\t},\n\tinnerPadding: {\n\t\tpaddingBlockStart: token('space.200'),\n\t\tpaddingBlockEnd: token('space.250'),\n\t\tpaddingInline: token('space.250'),\n\t},\n\tsectionBorder: {\n\t\tborderColor: token('color.border'),\n\t\tborderStyle: 'dashed',\n\t\tborderWidth: token('border.width'),\n\t\tborderRadius: token('radius.medium'),\n\t},\n\tcontent: {\n\t\tborderColor: token('color.border'),\n\t\tborderStyle: 'dotted',\n\t\tborderWidth: token('border.width'),\n\t\tborderRadius: token('radius.medium'),\n\t\tpaddingTop: token('space.200'),\n\t\tpaddingBottom: token('space.200'),\n\t},\n});\nfunction SectionWithItems({ envs }: { envs: ReturnType<typeof makeEnvironment>[] }) {\n\treturn (\n\t\t<FocusAreaConnectedUpdatesSection>\n\t\t\t{MOCK_MOCKS.map((mock, mockIdx) => (\n\t\t\t\t<RelayEnvironmentProvider key={mock.update.id} environment={envs[mockIdx]}>\n\t\t\t\t\t<Suspense fallback=\"Loading...\">\n\t\t\t\t\t\t<FocusAreaConnectedUpdatesSectionInner updateId={mock.update.id} />\n\t\t\t\t\t</Suspense>\n\t\t\t\t</RelayEnvironmentProvider>\n\t\t\t))}\n\t\t</FocusAreaConnectedUpdatesSection>\n\t);\n}\nexport function FocusAreaConnectedUpdatesSectionExample(): React.JSX.Element {\n\t// 4 widths × 2 mocks = 8 environments — one per item per width to avoid store sharing\n\tconst envs714 = React.useMemo(() => MOCK_MOCKS.map((_, i) => makeEnvironment(i)), []);\n\tconst envs401 = React.useMemo(() => MOCK_MOCKS.map((_, i) => makeEnvironment(i)), []);\n\tconst envs399 = React.useMemo(() => MOCK_MOCKS.map((_, i) => makeEnvironment(i)), []);\n\tconst envs280 = React.useMemo(() => MOCK_MOCKS.map((_, i) => makeEnvironment(i)), []);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<SmartCardProvider>\n\t\t\t\t<Box xcss={styles.wrapper}>\n\t\t\t\t\t<Stack space=\"space.200\">\n\t\t\t\t\t\t{/* Row 1: 714px */}\n\t\t\t\t\t\t<Box xcss={styles.container714}>\n\t\t\t\t\t\t\t<Box xcss={styles.innerPadding}>\n\t\t\t\t\t\t\t\t<Box xcss={styles.sectionBorder}>\n\t\t\t\t\t\t\t\t\t<SectionWithItems envs={envs714} />\n\t\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t{/* Row 2: 401px + 399px + 280px */}\n\t\t\t\t\t\t<Inline space=\"space.200\" alignBlock=\"start\">\n\t\t\t\t\t\t\t<Box xcss={styles.container401}>\n\t\t\t\t\t\t\t\t<Box xcss={styles.innerPadding}>\n\t\t\t\t\t\t\t\t\t<Box xcss={styles.sectionBorder}>\n\t\t\t\t\t\t\t\t\t\t<SectionWithItems envs={envs401} />\n\t\t\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t\t<Box xcss={styles.container399}>\n\t\t\t\t\t\t\t\t<Box xcss={styles.innerPadding}>\n\t\t\t\t\t\t\t\t\t<Box xcss={styles.sectionBorder}>\n\t\t\t\t\t\t\t\t\t\t<SectionWithItems envs={envs399} />\n\t\t\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t\t<Box xcss={styles.container280}>\n\t\t\t\t\t\t\t\t<Box xcss={styles.innerPadding}>\n\t\t\t\t\t\t\t\t\t<Box xcss={styles.sectionBorder}>\n\t\t\t\t\t\t\t\t\t\t<SectionWithItems envs={envs280} />\n\t\t\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t</Inline>\n\t\t\t\t\t</Stack>\n\t\t\t\t</Box>\n\t\t\t</SmartCardProvider>\n\t\t</IntlProvider>\n\t);\n}\nexport default FocusAreaConnectedUpdatesSectionExample;",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
+			},
+			{
+				name: 'shouldExpand',
+				type: 'boolean | undefined',
+				description:
+					'Expands the update detail when this value becomes true, and again on every\nsubsequent `false` to `true` transition. The expansion is applied once per\ntransition, so the card can still be collapsed by the user while this stays true.',
+			},
+			{
+				name: 'update',
+				type: 'FocusAreaConnectedSource_MercuryFocusAreaStatusUpdate$key | null',
+				description:
+					'Relay fragment reference for a `MercuryFocusAreaStatusUpdate` node.\nPass `null` in examples/tests where no Relay environment is available.',
+				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'FocusAreaConnectedUpdatesSection',
+		package: '@atlassian/mercury-connected-updates-section',
+		description:
+			'A titled section wrapper that groups FocusAreaConnectedSource cards inside a MercuryConnectedUpdates shell. Accepts a title prop (ReactNode, typically a FormattedMessage) and renders children in a Stack.',
+		status: 'early-access',
+		usageGuidelines: [
+			'Use FocusAreaConnectedUpdatesSection to group related FocusAreaConnectedSource cards.',
+			'Typically consumed via FocusAreaConnectedUpdates from @atlassian/mercury-connected-updates, which supplies the tab context.',
+			'Use directly only when you need a custom title for a group of focus area connected sources.',
+		],
+		contentGuidelines: [
+			'The section title should be short and descriptive (e.g. "Focus areas", "Goals", "Projects"). Consumers that show multiple entity tabs should set showTitle to false because the tab label supplies the category context.',
+		],
+		accessibilityGuidelines: [
+			'The section title is rendered as a heading — ensure it is at the correct level in the document hierarchy.',
+		],
+		keywords: [
+			'@atlassian/mercury-connected-updates-section',
+			'FocusAreaConnectedUpdatesSection',
+			'focus area',
+			'status update',
+			'mercury',
+		],
+		category: 'components',
+		examples: [
+			"import React, { Suspense } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { graphql, RelayEnvironmentProvider, useLazyLoadQuery } from 'react-relay';\nimport { createMockEnvironment, MockPayloadGenerator } from 'relay-test-utils';\nimport { cssMap } from '@atlaskit/css';\nimport { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { token } from '@atlaskit/tokens';\nimport FocusAreaConnectedSource from '../src/FocusAreaConnectedSource';\nimport { FocusAreaConnectedUpdatesSection } from '../src/FocusAreaConnectedUpdatesSection';\nimport type { FocusAreaConnectedUpdatesSectionExampleQuery } from './__generated__/FocusAreaConnectedUpdatesSectionExampleQuery.graphql';\nconst MOCK_MOCKS = [\n\t{\n\t\tupdate: {\n\t\t\tid: 'ari:cloud:mercury:08e30d0c-ff24-42ac-9666-82de0c0417b1:focus-area-status-update/workspace/b1848993-6eea-40b9-a202-220ed1dfc552/ee4460fe-4b69-4e5a-b027-31f727e144c3',\n\t\t\tcreatedDate: '2026-08-15T10:00:00.000Z',\n\t\t\tnewHealth: { key: 'on_track', displayName: 'On track' },\n\t\t\tnewStatus: { key: 'in_progress', displayName: 'In progress' },\n\t\t},\n\t\tfocusArea: {\n\t\t\tid: 'ari:cloud:mercury:08e30d0c-ff24-42ac-9666-82de0c0417b1:focus-area/workspace/b1848993-6eea-40b9-a202-220ed1dfc552/61fb87b0-2ccf-4881-bffb-f2b1fa040e69',\n\t\t\tname: 'Enterprise Agility',\n\t\t\turl: 'https://helium.jira-dev.com/focus/focus-area/61fb87b0-2ccf-4881-bffb-f2b1fa040e69',\n\t\t\tfocusAreaType: { name: 'Sub-initiative' },\n\t\t\thealth: { key: 'on_track', displayName: 'On track' },\n\t\t\tstatus: { key: 'in_progress', displayName: 'In progress' },\n\t\t\ticon: { url: null },\n\t\t},\n\t},\n\t{\n\t\tupdate: {\n\t\t\tid: 'ari:cloud:mercury:08e30d0c-ff24-42ac-9666-82de0c0417b1:focus-area-status-update/workspace/b1848993-6eea-40b9-a202-220ed1dfc552/5bf6f5e3-91e7-4c79-9e2e-3324783917e2',\n\t\t\tcreatedDate: '2026-08-14T10:00:00.000Z',\n\t\t\tnewHealth: null,\n\t\t\tnewStatus: { key: 'in_progress', displayName: 'In progress' },\n\t\t},\n\t\tfocusArea: {\n\t\t\tid: 'ari:cloud:mercury:08e30d0c-ff24-42ac-9666-82de0c0417b1:focus-area/workspace/b1848993-6eea-40b9-a202-220ed1dfc552/2ffa05ab-5500-4efd-85cf-b0f5a7a2aba1',\n\t\t\tname: 'Growth through new AI mobile app - Super duper long focus area name',\n\t\t\turl: 'https://helium.jira-dev.com/focus/focus-area/2ffa05ab-5500-4efd-85cf-b0f5a7a2aba1',\n\t\t\tfocusAreaType: { name: 'Super-duper long focus area type for testing' },\n\t\t\thealth: null,\n\t\t\tstatus: { key: 'in_progress', displayName: 'In progress' },\n\t\t\ticon: { url: null },\n\t\t},\n\t},\n] as const;\nfunction makeEnvironment(mockIndex: number) {\n\tconst mock = MOCK_MOCKS[mockIndex];\n\tconst env = createMockEnvironment();\n\tenv.mock.queueOperationResolver((operation) =>\n\t\tMockPayloadGenerator.generate(operation, {\n\t\t\tMercuryFocusAreaStatusUpdate: () => mock.update,\n\t\t\tMercuryFocusArea: () => mock.focusArea,\n\t\t}),\n\t);\n\treturn env;\n}\nfunction FocusAreaConnectedUpdatesSectionInner({\n\tupdateId,\n}: {\n\tupdateId: string;\n}): React.JSX.Element {\n\tconst data = useLazyLoadQuery<FocusAreaConnectedUpdatesSectionExampleQuery>(\n\t\tgraphql`\n\t\t\tquery FocusAreaConnectedUpdatesSectionExampleQuery($updateId: ID!) {\n\t\t\t\tupdate: node(id: $updateId) {\n\t\t\t\t\t... on MercuryFocusAreaStatusUpdate @alias {\n\t\t\t\t\t\t...FocusAreaConnectedSource_MercuryFocusAreaStatusUpdate\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t`,\n\t\t{ updateId },\n\t);\n\treturn (\n\t\t<FocusAreaConnectedSource\n\t\t\tupdate={data.update?.MercuryFocusAreaStatusUpdate ?? null}\n\t\t\tchildren={\n\t\t\t\t<Box xcss={styles.content}>\n\t\t\t\t\t<Inline alignBlock=\"center\" alignInline=\"center\">\n\t\t\t\t\t\tUpdate content\n\t\t\t\t\t</Inline>\n\t\t\t\t</Box>\n\t\t\t}\n\t\t\ttestId=\"connected-focus-area-item\"\n\t\t/>\n\t);\n}\nconst styles = cssMap({\n\twrapper: {\n\t\tpaddingTop: token('space.200'),\n\t\tpaddingRight: token('space.200'),\n\t\tpaddingBottom: token('space.200'),\n\t\tpaddingLeft: token('space.200'),\n\t},\n\tcontainer714: {\n\t\twidth: '714px',\n\t\tborderColor: token('color.border'),\n\t\tborderStyle: 'solid',\n\t\tborderWidth: token('border.width'),\n\t\tborderRadius: token('radius.large'),\n\t},\n\tcontainer401: {\n\t\twidth: '401px',\n\t\tborderColor: token('color.border'),\n\t\tborderStyle: 'solid',\n\t\tborderWidth: token('border.width'),\n\t\tborderRadius: token('radius.large'),\n\t},\n\tcontainer399: {\n\t\twidth: '399px',\n\t\tborderColor: token('color.border'),\n\t\tborderStyle: 'solid',\n\t\tborderWidth: token('border.width'),\n\t\tborderRadius: token('radius.large'),\n\t},\n\tcontainer280: {\n\t\twidth: '280px',\n\t\tborderColor: token('color.border'),\n\t\tborderStyle: 'solid',\n\t\tborderWidth: token('border.width'),\n\t\tborderRadius: token('radius.large'),\n\t},\n\tinnerPadding: {\n\t\tpaddingBlockStart: token('space.200'),\n\t\tpaddingBlockEnd: token('space.250'),\n\t\tpaddingInline: token('space.250'),\n\t},\n\tsectionBorder: {\n\t\tborderColor: token('color.border'),\n\t\tborderStyle: 'dashed',\n\t\tborderWidth: token('border.width'),\n\t\tborderRadius: token('radius.medium'),\n\t},\n\tcontent: {\n\t\tborderColor: token('color.border'),\n\t\tborderStyle: 'dotted',\n\t\tborderWidth: token('border.width'),\n\t\tborderRadius: token('radius.medium'),\n\t\tpaddingTop: token('space.200'),\n\t\tpaddingBottom: token('space.200'),\n\t},\n});\nfunction SectionWithItems({ envs }: { envs: ReturnType<typeof makeEnvironment>[] }) {\n\treturn (\n\t\t<FocusAreaConnectedUpdatesSection>\n\t\t\t{MOCK_MOCKS.map((mock, mockIdx) => (\n\t\t\t\t<RelayEnvironmentProvider key={mock.update.id} environment={envs[mockIdx]}>\n\t\t\t\t\t<Suspense fallback=\"Loading...\">\n\t\t\t\t\t\t<FocusAreaConnectedUpdatesSectionInner updateId={mock.update.id} />\n\t\t\t\t\t</Suspense>\n\t\t\t\t</RelayEnvironmentProvider>\n\t\t\t))}\n\t\t</FocusAreaConnectedUpdatesSection>\n\t);\n}\nexport function FocusAreaConnectedUpdatesSectionExample(): React.JSX.Element {\n\t// 4 widths × 2 mocks = 8 environments — one per item per width to avoid store sharing\n\tconst envs714 = React.useMemo(() => MOCK_MOCKS.map((_, i) => makeEnvironment(i)), []);\n\tconst envs401 = React.useMemo(() => MOCK_MOCKS.map((_, i) => makeEnvironment(i)), []);\n\tconst envs399 = React.useMemo(() => MOCK_MOCKS.map((_, i) => makeEnvironment(i)), []);\n\tconst envs280 = React.useMemo(() => MOCK_MOCKS.map((_, i) => makeEnvironment(i)), []);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<SmartCardProvider>\n\t\t\t\t<Box xcss={styles.wrapper}>\n\t\t\t\t\t<Stack space=\"space.200\">\n\t\t\t\t\t\t{/* Row 1: 714px */}\n\t\t\t\t\t\t<Box xcss={styles.container714}>\n\t\t\t\t\t\t\t<Box xcss={styles.innerPadding}>\n\t\t\t\t\t\t\t\t<Box xcss={styles.sectionBorder}>\n\t\t\t\t\t\t\t\t\t<SectionWithItems envs={envs714} />\n\t\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t{/* Row 2: 401px + 399px + 280px */}\n\t\t\t\t\t\t<Inline space=\"space.200\" alignBlock=\"start\">\n\t\t\t\t\t\t\t<Box xcss={styles.container401}>\n\t\t\t\t\t\t\t\t<Box xcss={styles.innerPadding}>\n\t\t\t\t\t\t\t\t\t<Box xcss={styles.sectionBorder}>\n\t\t\t\t\t\t\t\t\t\t<SectionWithItems envs={envs401} />\n\t\t\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t\t<Box xcss={styles.container399}>\n\t\t\t\t\t\t\t\t<Box xcss={styles.innerPadding}>\n\t\t\t\t\t\t\t\t\t<Box xcss={styles.sectionBorder}>\n\t\t\t\t\t\t\t\t\t\t<SectionWithItems envs={envs399} />\n\t\t\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t\t<Box xcss={styles.container280}>\n\t\t\t\t\t\t\t\t<Box xcss={styles.innerPadding}>\n\t\t\t\t\t\t\t\t\t<Box xcss={styles.sectionBorder}>\n\t\t\t\t\t\t\t\t\t\t<SectionWithItems envs={envs280} />\n\t\t\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t</Inline>\n\t\t\t\t\t</Stack>\n\t\t\t\t</Box>\n\t\t\t</SmartCardProvider>\n\t\t</IntlProvider>\n\t);\n}\nexport default FocusAreaConnectedUpdatesSectionExample;",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
+				isRequired: true,
+			},
+			{
+				name: 'isLoading',
+				type: 'boolean | undefined',
+			},
+			{
+				name: 'showTitle',
+				type: 'boolean | undefined',
+				defaultValue: 'true',
+			},
+			{
+				name: 'title',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
+			},
+		],
+	},
+	{
+		name: 'GoalConnectedUpdatesSection',
+		package: '@atlassian/mercury-connected-updates-section',
+		description:
+			'A fixed-title section wrapper that groups Goal connected-update cards inside a MercuryConnectedUpdates shell.',
+		status: 'early-access',
+		usageGuidelines: [
+			'Use GoalConnectedUpdatesSection to group Townsquare ConnectedGoalUpdate cards.',
+			'Provide Goal update cards as children; this component does not fetch or render Goal updates itself.',
+		],
+		contentGuidelines: ['The surrounding UI provides the group context.'],
+		accessibilityGuidelines: [
+			'The section title is rendered as a heading — ensure it is at the correct level in the document hierarchy.',
+		],
+		keywords: [
+			'@atlassian/mercury-connected-updates-section',
+			'GoalConnectedUpdatesSection',
+			'goal',
+			'connected updates',
+			'mercury',
+		],
+		category: 'components',
+		examples: [
+			"import React, { type ComponentProps } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport FocusAreaConnectedSource from '@atlassian/mercury-connected-updates-section/FocusAreaConnectedSource';\nimport { FocusAreaConnectedUpdatesSection } from '@atlassian/mercury-connected-updates-section/FocusAreaConnectedUpdatesSection';\nimport { GoalConnectedUpdatesSection } from '@atlassian/mercury-connected-updates-section/GoalConnectedUpdatesSection';\nimport MercuryConnectedSource from '@atlassian/mercury-connected-updates-section/MercuryConnectedSource';\nimport { ProjectConnectedUpdatesSection } from '@atlassian/mercury-connected-updates-section/ProjectConnectedUpdatesSection';\nimport ReportConnectedSource from '@atlassian/mercury-connected-updates-section/ReportConnectedSource';\nimport { ReportsConnectedUpdatesSection } from '@atlassian/mercury-connected-updates-section/ReportsConnectedUpdatesSection';\ntype FocusAreaUpdate = ComponentProps<typeof FocusAreaConnectedSource>['update'];\ntype Report = ComponentProps<typeof ReportConnectedSource>['report'];\n/** The host Relay provider must contain fragments for each supplied ref. */\nexport function FocusAreaUpdates({\n\tupdates,\n}: {\n\tupdates: Array<{ id: string; update: FocusAreaUpdate }>;\n}): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<FocusAreaConnectedUpdatesSection title=\"Focus areas\">\n\t\t\t\t{updates.map(({ id, update }) => (\n\t\t\t\t\t<FocusAreaConnectedSource key={id} update={update} />\n\t\t\t\t))}\n\t\t\t</FocusAreaConnectedUpdatesSection>\n\t\t</IntlProvider>\n\t);\n}\n/** Provide report refs selected by the host query; SmartCardProvider may also be needed by the host. */\nexport function ReportUpdates({\n\treports,\n}: {\n\treports: Array<{ id: string; report: Report }>;\n}): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<ReportsConnectedUpdatesSection>\n\t\t\t\t{reports.map(({ id, report }) => (\n\t\t\t\t\t<ReportConnectedSource key={id} report={report} />\n\t\t\t\t))}\n\t\t\t</ReportsConnectedUpdatesSection>\n\t\t</IntlProvider>\n\t);\n}\n/** Use the generic shell for an entity card with host-provided title, metadata, and details. */\nexport function CustomConnectedSource(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<MercuryConnectedSource\n\t\t\t\ttitle=\"Q3 onboarding focus area\"\n\t\t\t\tmetadataParts={['Focus area', 'Updated today']}\n\t\t\t\tstatusContent={<span>On track</span>}\n\t\t\t>\n\t\t\t\t<p>Reduce setup time for new teams by improving the first-run checklist.</p>\n\t\t\t</MercuryConnectedSource>\n\t\t</IntlProvider>\n\t);\n}\n/** Fixed-title sections group update cards supplied by the owning product. */\nexport function ProductUpdateSections(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<div>\n\t\t\t\t<GoalConnectedUpdatesSection>\n\t\t\t\t\t<MercuryConnectedSource\n\t\t\t\t\t\ttitle=\"Improve trial activation\"\n\t\t\t\t\t\tmetadataParts={['Goal', 'Updated 12 June']}\n\t\t\t\t\t\tstatusContent={<span>At risk</span>}\n\t\t\t\t\t>\n\t\t\t\t\t\t<p>Activation is below target while the onboarding experiment is running.</p>\n\t\t\t\t\t</MercuryConnectedSource>\n\t\t\t\t</GoalConnectedUpdatesSection>\n\t\t\t\t<ProjectConnectedUpdatesSection>\n\t\t\t\t\t<MercuryConnectedSource\n\t\t\t\t\t\ttitle=\"Consolidate project permissions\"\n\t\t\t\t\t\tmetadataParts={['Project', 'Updated 10 June']}\n\t\t\t\t\t\tstatusContent={<span>On track</span>}\n\t\t\t\t\t>\n\t\t\t\t\t\t<p>The permission migration is in rollout and remains within the planned window.</p>\n\t\t\t\t\t</MercuryConnectedSource>\n\t\t\t\t</ProjectConnectedUpdatesSection>\n\t\t\t</div>\n\t\t</IntlProvider>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
+				isRequired: true,
+			},
+			{
+				name: 'showTitle',
+				type: 'boolean | undefined',
+				defaultValue: 'true',
+			},
+		],
+	},
+	{
+		name: 'ProjectConnectedUpdatesSection',
+		package: '@atlassian/mercury-connected-updates-section',
+		description:
+			'A fixed-title section wrapper that groups Project connected-update cards inside a MercuryConnectedUpdates shell.',
+		status: 'early-access',
+		usageGuidelines: [
+			'Use ProjectConnectedUpdatesSection to group Townsquare ConnectedProjectUpdate cards.',
+			'Provide Project update cards as children; this component does not fetch or render Project updates itself.',
+		],
+		contentGuidelines: ['The surrounding UI provides the group context.'],
+		accessibilityGuidelines: [
+			'The section title is rendered as a heading — ensure it is at the correct level in the document hierarchy.',
+		],
+		keywords: [
+			'@atlassian/mercury-connected-updates-section',
+			'ProjectConnectedUpdatesSection',
+			'project',
+			'connected updates',
+			'mercury',
+		],
+		category: 'components',
+		examples: [
+			"import React, { type ComponentProps } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport FocusAreaConnectedSource from '@atlassian/mercury-connected-updates-section/FocusAreaConnectedSource';\nimport { FocusAreaConnectedUpdatesSection } from '@atlassian/mercury-connected-updates-section/FocusAreaConnectedUpdatesSection';\nimport { GoalConnectedUpdatesSection } from '@atlassian/mercury-connected-updates-section/GoalConnectedUpdatesSection';\nimport MercuryConnectedSource from '@atlassian/mercury-connected-updates-section/MercuryConnectedSource';\nimport { ProjectConnectedUpdatesSection } from '@atlassian/mercury-connected-updates-section/ProjectConnectedUpdatesSection';\nimport ReportConnectedSource from '@atlassian/mercury-connected-updates-section/ReportConnectedSource';\nimport { ReportsConnectedUpdatesSection } from '@atlassian/mercury-connected-updates-section/ReportsConnectedUpdatesSection';\ntype FocusAreaUpdate = ComponentProps<typeof FocusAreaConnectedSource>['update'];\ntype Report = ComponentProps<typeof ReportConnectedSource>['report'];\n/** The host Relay provider must contain fragments for each supplied ref. */\nexport function FocusAreaUpdates({\n\tupdates,\n}: {\n\tupdates: Array<{ id: string; update: FocusAreaUpdate }>;\n}): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<FocusAreaConnectedUpdatesSection title=\"Focus areas\">\n\t\t\t\t{updates.map(({ id, update }) => (\n\t\t\t\t\t<FocusAreaConnectedSource key={id} update={update} />\n\t\t\t\t))}\n\t\t\t</FocusAreaConnectedUpdatesSection>\n\t\t</IntlProvider>\n\t);\n}\n/** Provide report refs selected by the host query; SmartCardProvider may also be needed by the host. */\nexport function ReportUpdates({\n\treports,\n}: {\n\treports: Array<{ id: string; report: Report }>;\n}): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<ReportsConnectedUpdatesSection>\n\t\t\t\t{reports.map(({ id, report }) => (\n\t\t\t\t\t<ReportConnectedSource key={id} report={report} />\n\t\t\t\t))}\n\t\t\t</ReportsConnectedUpdatesSection>\n\t\t</IntlProvider>\n\t);\n}\n/** Use the generic shell for an entity card with host-provided title, metadata, and details. */\nexport function CustomConnectedSource(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<MercuryConnectedSource\n\t\t\t\ttitle=\"Q3 onboarding focus area\"\n\t\t\t\tmetadataParts={['Focus area', 'Updated today']}\n\t\t\t\tstatusContent={<span>On track</span>}\n\t\t\t>\n\t\t\t\t<p>Reduce setup time for new teams by improving the first-run checklist.</p>\n\t\t\t</MercuryConnectedSource>\n\t\t</IntlProvider>\n\t);\n}\n/** Fixed-title sections group update cards supplied by the owning product. */\nexport function ProductUpdateSections(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<div>\n\t\t\t\t<GoalConnectedUpdatesSection>\n\t\t\t\t\t<MercuryConnectedSource\n\t\t\t\t\t\ttitle=\"Improve trial activation\"\n\t\t\t\t\t\tmetadataParts={['Goal', 'Updated 12 June']}\n\t\t\t\t\t\tstatusContent={<span>At risk</span>}\n\t\t\t\t\t>\n\t\t\t\t\t\t<p>Activation is below target while the onboarding experiment is running.</p>\n\t\t\t\t\t</MercuryConnectedSource>\n\t\t\t\t</GoalConnectedUpdatesSection>\n\t\t\t\t<ProjectConnectedUpdatesSection>\n\t\t\t\t\t<MercuryConnectedSource\n\t\t\t\t\t\ttitle=\"Consolidate project permissions\"\n\t\t\t\t\t\tmetadataParts={['Project', 'Updated 10 June']}\n\t\t\t\t\t\tstatusContent={<span>On track</span>}\n\t\t\t\t\t>\n\t\t\t\t\t\t<p>The permission migration is in rollout and remains within the planned window.</p>\n\t\t\t\t\t</MercuryConnectedSource>\n\t\t\t\t</ProjectConnectedUpdatesSection>\n\t\t\t</div>\n\t\t</IntlProvider>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
+				isRequired: true,
+			},
+			{
+				name: 'showTitle',
+				type: 'boolean | undefined',
+				defaultValue: 'true',
+			},
+		],
+	},
+	{
+		name: 'FocusAreaConnectedUpdates',
+		package: '@atlassian/mercury-connected-updates',
+		description:
+			'A collapsible container that displays connected status updates for a focus area in dynamic tabs for sub-focus areas, goals, and projects.',
+		status: 'early-access',
+		usageGuidelines: [
+			'Use FocusAreaConnectedUpdates to surface the latest status updates related to a focus area. Tabs are displayed only for entity types with updates, ordered as sub-focus areas, goals, then projects.',
+			'Optionally pass subFocusAreaItems, each containing a MercuryFocusAreaStatusUpdate fragment ref and connectedUpdateAri. The item traverses its focusArea relationship for identity metadata; connectedUpdateAri is supplied to renderUpdateContent for expanded content.',
+			'This component is query-agnostic: consumers own the query and pass the resulting fragment refs in.',
+			'Connected updates are collapsed by default. Use defaultExpanded for the initial state, or isExpanded with onExpandedChange for controlled expansion.',
+			'Use isLoading while connected updates are fetched. Use surface to control the elevation of sub-focus-area update cards.',
+		],
+		contentGuidelines: [
+			'The "Connected updates" accordion heading and tab labels are i18n strings defined inside the component — do not override them via props. The tab selector intentionally omits its optional secondary heading because the accordion already supplies this context.',
+		],
+		accessibilityGuidelines: [
+			'The full Connected updates header row is an accessible expandable control. It exposes its state with aria-expanded and can be toggled with mouse, Enter, or Space; the chevron is decorative.',
+		],
+		keywords: [
+			'@atlassian/mercury-connected-updates',
+			'FocusAreaConnectedUpdates',
+			'connected updates',
+			'status update',
+			'focus area',
+			'mercury',
+		],
+		category: 'components',
+		examples: [
+			"import React, { Suspense, useMemo } from 'react';\nimport { RelayEnvironmentProvider } from 'react-relay';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { ExampleFrame, FixedWidthContainer } from '../examples-helpers/ExampleLayout';\nimport { ExampleProviders } from '../examples-helpers/ExampleProviders';\nimport { FocusAreaConnectedUpdatesExampleDataProvider } from '../examples-helpers/FocusAreaConnectedUpdatesExampleDataProvider';\nimport { focusAreaItems, makeEditorViewEnvironment } from '../examples-helpers/mock-data';\nimport FocusAreaConnectedUpdates from '../src/FocusAreaConnectedUpdates';\nfunction Instance({\n\tenvironment,\n\twidth,\n}: {\n\tenvironment: ReturnType<typeof makeEditorViewEnvironment>;\n\twidth: React.ComponentProps<typeof FixedWidthContainer>['width'];\n}) {\n\treturn (\n\t\t<FixedWidthContainer width={width}>\n\t\t\t<RelayEnvironmentProvider environment={environment}>\n\t\t\t\t<Suspense fallback=\"Loading...\">\n\t\t\t\t\t<FocusAreaConnectedUpdatesExampleDataProvider\n\t\t\t\t\t\tfocusAreaAri={focusAreaItems[0].focusArea.id}\n\t\t\t\t\t>\n\t\t\t\t\t\t{({ subFocusAreaItems, goalItems, projectItems, reportItems }) => (\n\t\t\t\t\t\t\t<FocusAreaConnectedUpdates\n\t\t\t\t\t\t\t\tdefaultExpanded\n\t\t\t\t\t\t\t\tsubFocusAreaItems={subFocusAreaItems}\n\t\t\t\t\t\t\t\tgoalItems={goalItems}\n\t\t\t\t\t\t\t\tprojectItems={projectItems}\n\t\t\t\t\t\t\t\treportItems={reportItems}\n\t\t\t\t\t\t\t\trenderUpdateContent={() => (\n\t\t\t\t\t\t\t\t\t<Box>\n\t\t\t\t\t\t\t\t\t\t<Inline>Update content</Inline>\n\t\t\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t)}\n\t\t\t\t\t</FocusAreaConnectedUpdatesExampleDataProvider>\n\t\t\t\t</Suspense>\n\t\t\t</RelayEnvironmentProvider>\n\t\t</FixedWidthContainer>\n\t);\n}\nexport default function FocusAreaConnectedUpdatesExample(): React.JSX.Element {\n\tconst [env714, env400, env280] = useMemo(\n\t\t() => [makeEditorViewEnvironment(), makeEditorViewEnvironment(), makeEditorViewEnvironment()],\n\t\t[],\n\t);\n\treturn (\n\t\t<ExampleProviders>\n\t\t\t<ExampleFrame>\n\t\t\t\t<Stack space=\"space.200\">\n\t\t\t\t\t<Instance environment={env714} width=\"1100\" />\n\t\t\t\t\t<Inline space=\"space.200\" alignBlock=\"start\">\n\t\t\t\t\t\t<Instance environment={env400} width=\"400\" />\n\t\t\t\t\t\t<Instance environment={env280} width=\"280\" />\n\t\t\t\t\t</Inline>\n\t\t\t\t</Stack>\n\t\t\t</ExampleFrame>\n\t\t</ExampleProviders>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'defaultExpanded',
+				type: 'boolean | undefined',
+			},
+			{
+				name: 'errorContent',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
+				description:
+					'Content to show inside the connected-updates shell when loading updates fails.',
+			},
+			{
+				name: 'goalItems',
+				type: 'readonly GoalConnectedUpdateData[] | undefined',
+				description: 'Goal updates to render in the Goals tab.',
+				defaultValue: '[]',
+			},
+			{
+				name: 'isExpanded',
+				type: 'boolean | undefined',
+			},
+			{
+				name: 'isLoading',
+				type: 'boolean | undefined',
+				description: 'Whether the connected updates are loading.',
+				defaultValue: 'false',
+			},
+			{
+				name: 'onExpandedChange',
+				type: '((isExpanded: boolean) => void) | undefined',
+			},
+			{
+				name: 'projectItems',
+				type: 'readonly ProjectConnectedUpdateData[] | undefined',
+				description: 'Project updates to render in the Projects tab.',
+				defaultValue: '[]',
+			},
+			{
+				name: 'renderUpdateContent',
+				type: '((item: FocusAreaConnectedSourceData) => React.ReactNode) | undefined',
+				description: 'Renders the expanded content for each Focus Area connected source.',
+			},
+			{
+				name: 'reportItems',
+				type: 'readonly ReportConnectedUpdateData[] | undefined',
+				description: 'Reports to render in the Reports tab.',
+				defaultValue: '[]',
+			},
+			{
+				name: 'shouldExpandFirstItem',
+				type: 'boolean | undefined',
+				description: 'Expands the first expandable item in the first populated tab.',
+				defaultValue: 'false',
+			},
+			{
+				name: 'subFocusAreaItems',
+				type: 'readonly FocusAreaConnectedSourceData[] | undefined',
+				description: 'Sub-focus-area updates to render in the Sub-focus areas tab.',
+				defaultValue: '[]',
+			},
+		],
+	},
+	{
+		name: 'FocusAreaConnectedUpdatesFeedView',
+		package: '@atlassian/mercury-connected-updates',
+		description:
+			'A query-owning focus-area feed view that lazily fetches connected sub-focus-area, goal, and project updates when the Connected updates section is expanded.',
+		status: 'early-access',
+		usageGuidelines: [
+			'Pass the ARI of the focus-area status update as updateAri. The view fetches its connected updates only after the user expands the Connected updates section.',
+			'Use renderUpdateContent to render additional content for each connected sub-focus-area update. The callback receives connectedUpdateAri, which identifies that update for consumers that need to load its expanded content.',
+			'Use testId only to identify the rendered view in automated tests.',
+		],
+		contentGuidelines: [
+			'The Connected updates heading and section titles are defined by the component and must not be overridden by consumers.',
+		],
+		accessibilityGuidelines: [
+			'The Connected updates header is an accessible expandable control. It exposes its expanded state and supports mouse, Enter, and Space interaction.',
+		],
+		keywords: [
+			'@atlassian/mercury-connected-updates',
+			'FocusAreaConnectedUpdatesFeedView',
+			'connected updates',
+			'status update',
+			'focus area',
+			'mercury',
+		],
+		category: 'components',
+		examples: [
+			"import React, { useMemo } from 'react';\nimport { RelayEnvironmentProvider } from 'react-relay';\nimport { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { token } from '@atlaskit/tokens';\nimport { ExampleFrame, FixedWidthContainer } from '../examples-helpers/ExampleLayout';\nimport { ExampleProviders } from '../examples-helpers/ExampleProviders';\nimport { focusAreaItems, makeEnvironment } from '../examples-helpers/mock-data';\nimport FocusAreaConnectedUpdatesFeedView from '../src/FocusAreaConnectedUpdatesFeedView';\nconst styles = cssMap({\n\tcontent: {\n\t\tborderColor: token('color.border'),\n\t\tborderStyle: 'dotted',\n\t\tborderWidth: token('border.width'),\n\t\tborderRadius: token('radius.medium'),\n\t\tpaddingTop: token('space.200'),\n\t\tpaddingBottom: token('space.200'),\n\t},\n});\nexport default function FocusAreaConnectedUpdatesFeedViewExample(): React.JSX.Element {\n\tconst environment = useMemo(makeEnvironment, []);\n\treturn (\n\t\t<ExampleProviders>\n\t\t\t<ExampleFrame>\n\t\t\t\t<FixedWidthContainer width=\"1100\">\n\t\t\t\t\t<RelayEnvironmentProvider environment={environment}>\n\t\t\t\t\t\t<FocusAreaConnectedUpdatesFeedView\n\t\t\t\t\t\t\tupdateAri={focusAreaItems[0].update.id}\n\t\t\t\t\t\t\trenderUpdateContent={() => (\n\t\t\t\t\t\t\t\t<Box xcss={styles.content}>\n\t\t\t\t\t\t\t\t\t<Inline alignBlock=\"center\" alignInline=\"center\">\n\t\t\t\t\t\t\t\t\t\tUpdate content\n\t\t\t\t\t\t\t\t\t</Inline>\n\t\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t\ttestId=\"focus-area-connected-updates-feed-view\"\n\t\t\t\t\t\t/>\n\t\t\t\t\t</RelayEnvironmentProvider>\n\t\t\t\t</FixedWidthContainer>\n\t\t\t</ExampleFrame>\n\t\t</ExampleProviders>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'focusAreaAri',
+				type: 'string | undefined',
+				description:
+					'ARI of the focus area the update belongs to, sent as the `objectId` analytics attribute.',
+			},
+			{
+				name: 'renderUpdateContent',
+				type: '((item: FocusAreaConnectedSourceData) => React.ReactNode) | undefined',
+			},
+			{
+				name: 'screen',
+				type: 'string | undefined',
+				description:
+					'Route name (`route.name`) of the current experience, sent as the `screen` analytics attribute.',
+			},
+			{
+				name: 'shouldExpand',
+				type: 'boolean | undefined',
+				description: 'Expands the section and its first eligible update.',
+			},
+			{
+				name: 'updateAri',
+				type: 'string',
+				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'MercuryRenderer',
+		package: '@atlassian/mercury-renderer',
+		description:
+			'Renders an ADF document with Mercury provider wiring for media, mentions, emoji, smart links, and profile cards.',
+		status: 'early-access',
+		usageGuidelines: ['Use MercuryRenderer to render ADF content within Mercury.'],
+		contentGuidelines: [],
+		accessibilityGuidelines: [],
+		keywords: ['@atlassian/mercury-renderer', 'MercuryRenderer', 'ADF', 'renderer', 'mercury'],
+		category: 'components',
+		examples: [],
+		props: [
+			{
+				name: 'cloudId',
+				type: 'string',
+				description: 'The cloud ID (Atlassian site ID) for provider wiring.',
+				isRequired: true,
+			},
+			{
+				name: 'context',
+				type: 'MercuryRendererContext | undefined',
+				description: 'Mercury context passed to media and profile card providers.',
+			},
+			{
+				name: 'document',
+				type: 'string',
+				description: 'ADF document as a JSON string.',
+				isRequired: true,
+			},
+			{
+				name: 'mediaProvider',
+				type: 'Promise<MediaProvider> | undefined',
+				description: 'Optional media provider override.',
+			},
+			{
+				name: 'orgId',
+				type: 'string',
+				description: 'The Mercury org ID.',
+				isRequired: true,
+			},
+			{
+				name: 'userId',
+				type: 'string',
+				description: "The current user's Atlassian account ID.",
+				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'ObjectVersionPublish',
+		package: '@atlassian/object-version-publish',
+		description:
+			'Marketplace Partner-facing UI for creating and submitting Marketplace listings across all object types',
+		status: 'early-access',
+		usageGuidelines: [
+			'TODO(team): Add design usage guidance covering when to use this component, alternatives, placement, and composition.',
+		],
+		contentGuidelines: [
+			'TODO(team): Add concise content guidance for labels, empty states, errors, and phrasing.',
+		],
+		accessibilityGuidelines: [
+			'TODO(team): Add checkable accessibility guidance for semantics, naming, keyboard, focus, and state changes.',
+		],
+		keywords: [
+			'@atlassian/object-version-publish',
+			'ObjectVersionPublish',
+			'TODO_ADD_DOMAIN',
+			'TODO_ADD_SYNONYMS',
+			'TODO_ADD_CONSUMER_TASKS',
+		],
+		category: 'components',
+		examples: [
+			'import { IntlProvider } from \'react-intl\';\nimport ObjectVersionPublish from \'../src/ui/object-version-publish\';\nimport {\n\tDEFAULT_BOOTSTRAP_VARIABLES,\n\tDEFAULT_PUBLISH_ENTRY_VARIABLES,\n\tObjectVersionPublishRelayMockProvider,\n} from \'../src/ui/object-version-publish/relay-mock\';\nexport default function Basic(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale="en">\n\t\t\t<ObjectVersionPublishRelayMockProvider destination="WIZARD">\n\t\t\t\t<ObjectVersionPublish\n\t\t\t\t\ttestId="object-version-publish"\n\t\t\t\t\tpublishEntryVariables={DEFAULT_PUBLISH_ENTRY_VARIABLES}\n\t\t\t\t\tbootstrapVariables={DEFAULT_BOOTSTRAP_VARIABLES}\n\t\t\t\t/>\n\t\t\t</ObjectVersionPublishRelayMockProvider>\n\t\t</IntlProvider>\n\t);\n}',
+			'import { IntlProvider } from \'react-intl\';\nimport ObjectVersionPublish from \'../src/ui/object-version-publish\';\nimport {\n\tDEFAULT_PUBLISH_ENTRY_VARIABLES,\n\tObjectVersionPublishRelayMockProvider,\n} from \'../src/ui/object-version-publish/relay-mock\';\nexport default function Prefill(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale="en">\n\t\t\t<ObjectVersionPublishRelayMockProvider destination="PREFILL">\n\t\t\t\t<ObjectVersionPublish\n\t\t\t\t\ttestId="object-version-publish"\n\t\t\t\t\tpublishEntryVariables={DEFAULT_PUBLISH_ENTRY_VARIABLES}\n\t\t\t\t/>\n\t\t\t</ObjectVersionPublishRelayMockProvider>\n\t\t</IntlProvider>\n\t);\n}',
+			'import { IntlProvider } from \'react-intl\';\nimport ObjectVersionPublish from \'../src/ui/object-version-publish\';\nimport {\n\tDEFAULT_PUBLISH_ENTRY_VARIABLES,\n\tObjectVersionPublishRelayMockProvider,\n} from \'../src/ui/object-version-publish/relay-mock\';\nexport default function Unavailable(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale="en">\n\t\t\t<ObjectVersionPublishRelayMockProvider destination="UNAVAILABLE">\n\t\t\t\t<ObjectVersionPublish\n\t\t\t\t\ttestId="object-version-publish"\n\t\t\t\t\tpublishEntryVariables={DEFAULT_PUBLISH_ENTRY_VARIABLES}\n\t\t\t\t/>\n\t\t\t</ObjectVersionPublishRelayMockProvider>\n\t\t</IntlProvider>\n\t);\n}',
+		],
+		props: [
+			{
+				name: 'appName',
+				type: 'string | undefined',
+				description: 'Display name used on the prefill landing and preview header.',
+			},
+			{
+				name: 'bootstrapVariables',
+				type: 'useGetHermesWizardBootstrapQuery$variables | undefined',
+				description:
+					'Optional variables for the Hermes bootstrap query used to resolve\napp/partner identifiers before starting a new session.',
+			},
+			{
+				name: 'enableListingPreview',
+				type: 'boolean | undefined',
+				description: 'When true, render the draft listing preview. Defaults on.',
+			},
+			{
+				name: 'enableSidebarScreenNavigation',
+				type: 'boolean | undefined',
+				description:
+					'When true, left-navigation screen labels navigate to that screen.\nDefaults off, so partners move only with Back and Continue.',
+			},
+			{
+				name: 'objectType',
+				type: 'HermesObjectType | undefined',
+				description:
+					'Sent as `objectType` on `startAppPublishWizardSession`.\nPass `AGENT` or `MCP` when the host is publishing that object.\nDefaults to `APP`.',
+			},
+			{
+				name: 'publishEntryVariables',
+				type: '{ appKey: string; appSoftwareId: string; buildNumber: string; partnerId: string; }',
+				description:
+					'Variables for the Hermes publish-entry GraphQL query.\nThe host must wrap this component in `RelayEnvironmentProvider`.',
+				isRequired: true,
+			},
+			{
+				name: 'renderPricingScreen',
+				type: '((context: HermesPricingScreenRenderContext) => React.ReactNode) | undefined',
+				description:
+					'Host-owned Pricing screen body. When provided, this render result is\nshown inside the Pricing screen. Do not import MPAC into this package —\npass the existing MPAC pricing UI from the host wrapper.',
+			},
+			{
+				name: 'resolveImageUrl',
+				type: 'HermesResolveImageUrl | undefined',
+				description:
+					'Host preview adapter for stored file refs. When omitted, only `http(s)`,\n`blob:`, and root-relative paths are treated as displayable images.',
+			},
+			{
+				name: 'stargateBaseUrl',
+				type: 'string | undefined',
+				description:
+					"Environment-aware Stargate origin used by Marketplace Search, for example\n`https://api.stg.atlassian.com` in local/staging and `https://api.atlassian.com` in production.\nDefaults to the Marketplace host's injected runtime application config.",
+			},
+			{
+				name: 'uploadImage',
+				type: 'HermesUploadImage | undefined',
+				description:
+					'Host upload adapter. When omitted, examples use a local `blob:` URL.\nMPAC should pass `uploadAppLogo` here so Hermes persists a real asset ref.',
+			},
+			{
+				name: 'width',
+				type: 'string | number | undefined',
+				description: 'Width of ObjectVersionPublish.',
+			},
+		],
+	},
+	{
 		name: 'LayoutWithPanel',
 		package: '@atlassian/panel-system',
 		description:
@@ -38238,6 +40054,76 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			{
 				name: 'userId',
 				type: 'string',
+				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'FeedbackAppFormRenderer',
+		package: '@atlassian/product-collection__feedback-app-form-renderer',
+		description:
+			'Renders a Kitsune / feedback app form from the shape returned by kitsune_formForSubmission, so the same form looks and behaves identically on every surface that collects feedback.',
+		status: 'early-access',
+		usageGuidelines: [
+			'Use this component wherever a Kitsune / Feedback app form is collected — the JPD published, internal and portal views, and the feedback app itself.',
+			'Pass the form exactly as `kitsune_formForSubmission` returns it. Field order comes from each field’s `order`, which this component sorts by, so there is no need to re-sort the array before passing it in.',
+			'Wrap consumers in a `react-intl` `IntlProvider`, and pass `locale` for the input controls.',
+			'Every `TEXT` answer renders as a single-line input. Kitsune models no presentation — there is no multiline, length or renderer hint on a field for now — so a prose question cannot be told apart from a short one.',
+			'The form does not server-render: ProForma’s renderer reads `window` at module scope, so the body loads client-side only. Do not rely on it being present in server-rendered markup.',
+			'Pass `actions` to make the form submittable. Each action carries its own `label` and `action` together, so the button copy and what it does cannot drift apart. `actions.submit.action` is only ever called for a form that passes validation',
+			'Cancel discards the user’s edits, then calls `actions.cancel.action`.',
+			'Nothing renders while `jpd_feedback-forms` is off — neither the pre-assembled component nor the composable parts.',
+			'For a surface with its own regions — an ADS `Modal`, a side panel with a fixed header and footer — compose the parts instead of the pre-assembled component: `FeedbackAppForm` (from `/feedback-app-form`) owns the answers and validation state; place `FeedbackAppFormFields` and `FeedbackAppFormActions` anywhere inside it, and render the title with the surface’s own heading, for example `ModalTitle`. Anything that must show before the form chunk loads belongs outside `FeedbackAppForm`.',
+		],
+		contentGuidelines: [
+			'Field labels and descriptions are author-entered, user-generated content and are never translated.',
+		],
+		accessibilityGuidelines: [
+			'ProForma associates each label, input and error message for you. If you ever override a field renderer, forward `fieldInputId`, `fieldLabelId` and `fieldErrorId` or those associations are silently dropped.',
+			'`headingLevel` is required. The same form renders in a JPD side panel, a portal page and the feedback app, each at a different depth, so no default is correct everywhere — pick the level that continues your own document outline without skipping one. Use `h1` only where the form is the main content of its own page. When composing the parts, the surface renders the heading itself, so the same care applies to whatever it chooses.',
+			'Screen reader users navigate by heading, so a wrong level is not cosmetic. Note that an automated check scoped to this component cannot catch it: heading order is only wrong relative to the headings around it, which live in your page.',
+		],
+		keywords: [
+			'@atlassian/product-collection__feedback-app-form-renderer',
+			'FeedbackAppFormRenderer',
+			'feedback',
+			'form',
+			'kitsune',
+			'intake',
+			'proforma',
+			'express interest',
+			'jpd',
+		],
+		category: 'components',
+		examples: [
+			"import { IntlProvider } from 'react-intl';\nimport type { FeedbackAppFormValues } from '../src/common/types';\nimport FeedbackAppFormRenderer from '../src/ui/feedback-app-form-renderer/index';\nimport { mockForm } from './mock-form';\n/** Stands in for a real submission until there is a mutation to call. */\nconst logAnswers = (values: FeedbackAppFormValues) => {\n\tconsole.log('feedback answers', values);\n\treturn Promise.resolve();\n};\nconst Basic = (): React.JSX.Element => (\n\t<IntlProvider locale=\"en\">\n\t\t<FeedbackAppFormRenderer\n\t\t\tform={mockForm}\n\t\t\tlocale=\"en\"\n\t\t\theadingLevel=\"h2\"\n\t\t\tactions={{\n\t\t\t\tsubmit: { label: 'Submit', action: logAnswers },\n\t\t\t\tcancel: {\n\t\t\t\t\tlabel: 'Back',\n\t\t\t\t\taction: () => console.log('feedback cancelled'),\n\t\t\t\t},\n\t\t\t}}\n\t\t\ttestId=\"feedback-app-form-renderer\"\n\t\t/>\n\t</IntlProvider>\n);\nexport default Basic;",
+			"import { IntlProvider } from 'react-intl';\nimport type { FeedbackAppFormValues } from '../src/common/types';\nimport FeedbackAppFormRenderer from '../src/ui/feedback-app-form-renderer/index';\nimport { mockForm } from './mock-form';\n/** Stands in for a real submission until there is a mutation to call. */\nconst logAnswers = (values: FeedbackAppFormValues) => {\n\tconsole.log('feedback answers', values);\n\treturn Promise.resolve();\n};\n/** The same form and the same renderer as basic example, but with different button labels. */\nconst CustomButtons = (): React.JSX.Element => (\n\t<IntlProvider locale=\"en\">\n\t\t<FeedbackAppFormRenderer\n\t\t\tform={mockForm}\n\t\t\tlocale=\"en\"\n\t\t\theadingLevel=\"h2\"\n\t\t\tactions={{\n\t\t\t\tsubmit: { label: 'Give feedback', action: logAnswers },\n\t\t\t\tcancel: {\n\t\t\t\t\tlabel: 'Cancel',\n\t\t\t\t\taction: () => console.log('feedback cancelled'),\n\t\t\t\t},\n\t\t\t}}\n\t\t\ttestId=\"feedback-app-form-renderer\"\n\t\t/>\n\t</IntlProvider>\n);\nexport default CustomButtons;",
+			"import { IntlProvider } from 'react-intl';\nimport type { FeedbackAppFormValues, FormSubmissionView } from '../src/common/types';\nimport FeedbackAppFormRenderer from '../src/ui/feedback-app-form-renderer/index';\nimport { createMockAri } from './mock-form';\nconst summaryFieldId = createMockAri('field', 'summary');\nconst emailFieldId = createMockAri('field', 'contact-email');\n/**\n * Nothing is `required`, so the client-side gate always passes and every submit reaches the\n * action — otherwise \"is required\" would show first and the server's answer never would.\n */\nconst form: FormSubmissionView = {\n\tid: createMockAri('form', 'server-errors'),\n\ttitle: 'Report a problem',\n\tdescription: 'Submitting always comes back rejected here, to show where server errors land.',\n\tfields: [\n\t\t{\n\t\t\tid: createMockAri('formField', 'summary'),\n\t\t\tfieldId: summaryFieldId,\n\t\t\tname: 'Summary',\n\t\t\tfieldType: 'CUSTOM',\n\t\t\tvalueType: 'TEXT',\n\t\t\trequired: false,\n\t\t\torder: 0,\n\t\t\toptions: [],\n\t\t},\n\t\t{\n\t\t\tid: createMockAri('formField', 'contact-email'),\n\t\t\tfieldId: emailFieldId,\n\t\t\tname: 'Contact email',\n\t\t\tfieldType: 'CUSTOM',\n\t\t\tvalueType: 'EMAIL',\n\t\t\trequired: false,\n\t\t\torder: 10,\n\t\t\toptions: [],\n\t\t},\n\t],\n};\nconst respondWithFieldErrors = (values: FeedbackAppFormValues) => {\n\tconsole.log('feedback answers', values);\n\treturn Promise.resolve({\n\t\t[summaryFieldId]: 'Pick something more specific than this.',\n\t\t[emailFieldId]: 'We do not recognise this address.',\n\t});\n};\nconst ServerErrors = (): React.JSX.Element => (\n\t<IntlProvider locale=\"en\">\n\t\t<FeedbackAppFormRenderer\n\t\t\tform={form}\n\t\t\tlocale=\"en\"\n\t\t\theadingLevel=\"h2\"\n\t\t\tactions={{\n\t\t\t\tsubmit: { label: 'Submit', action: respondWithFieldErrors },\n\t\t\t\tcancel: { label: 'Cancel' },\n\t\t\t}}\n\t\t\ttestId=\"feedback-app-form-renderer\"\n\t\t/>\n\t</IntlProvider>\n);\nexport default ServerErrors;",
+		],
+		props: [
+			{
+				name: 'actions',
+				type: 'FeedbackAppFormActions | undefined',
+				description:
+					'What the form can do with its answers. Without it the fields render but cannot be sent.',
+			},
+			{
+				name: 'form',
+				type: 'FormSubmissionView',
+				isRequired: true,
+			},
+			{
+				name: 'headingLevel',
+				type: '"div" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "span"',
+				description:
+					'Heading level for the form title. Required, and deliberately so: the same form renders in a\nJPD side panel, a portal page and the feedback app, each at a different depth, so there is no\ndefault that is correct everywhere. Pick the level that fits the surrounding document outline.',
+				isRequired: true,
+			},
+			{
+				name: 'locale',
+				type: 'string',
+				description:
+					'BCP 47 locale for the rendered inputs. Author-entered labels are UGC and are not translated.',
 				isRequired: true,
 			},
 		],
@@ -39724,6 +41610,10 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				type: 'boolean | undefined',
 				description: 'Whether to show the usage link. Defaults to false.',
 			},
+			{
+				name: 'xcss',
+				type: 'false | (XCSSValue<"top" | "bottom" | "right" | "left" | "position" | "width" | "marginBlockEnd" | "marginBlockStart" | "marginInlineEnd" | "marginInlineStart" | "maxWidth" | "minWidth" | "margin" | "marginBlock" | "marginInline", DesignTokenStyles, ""> & ... 4 more ... & { ...; }) | null | undefined',
+			},
 		],
 	},
 	{
@@ -40372,7 +42262,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				name: 'onEditResponseWritingStyle',
 				type: '(() => void) | undefined',
 				description:
-					'Called when the user clicks "Edit response and writing style" on the\nresponse and writing style card. When omitted the card renders but its\nbutton is a no-op. Gated by `rovo_response_and_writing_style_settings`.',
+					'Called when the user clicks "Edit response and writing style" on the\nlegacy card. The host owns cohort and availability checks and supplies\nthis callback only for eligible users. A non-nullish\n`personalizationSettings` slot takes precedence and hides the card.',
 			},
 			{
 				name: 'onManageMemories',
@@ -40395,7 +42285,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				name: 'personalizationSettings',
 				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
 				description:
-					'Response, writing style, and custom instruction settings rendered inline\nafter the memory and web search settings. When provided, replaces the\nresponse and writing style card.',
+					'Response, writing style, and custom instruction settings rendered inline\nafter the memory and web search settings. When non-nullish, takes\nprecedence over the legacy card, including when\n`onEditResponseWritingStyle` is supplied.',
 			},
 			{
 				name: 'webSearchDefaultEnabled',
@@ -50984,6 +52874,104 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				name: 'children',
 				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'StoreStepperModal',
+		package: '@atlassian/store-stepper-modal',
+		description:
+			'A near full-screen modal dialog with a vertical step list, a scrolling content area and a sticky footer. Interim Store stand-in for @atlassian/stepper-modal.',
+		status: 'early-access',
+		usageGuidelines: [
+			'Use for linear flows of 2 to 6 steps where people benefit from seeing progress, such as install and setup.',
+			'Do not use for single-step actions or confirmations. Use Modal dialog instead.',
+			'Keep step state in the consumer. Validate a step before changing currentStepId.',
+			'Keep inputs when people move back and forth between steps.',
+			'Do not open another modal, panel or side nav from a step. The close confirmation shown from onClose is the only exception.',
+			'Prefer @atlassian/stepper-modal once it is ready for consumption.',
+		],
+		contentGuidelines: [
+			'Use a title that describes the whole task, such as "Install agent".',
+			'Keep step titles to 2 to 4 words in sentence case.',
+			'Label the primary action with what it does, such as "Install" or "Enable agent".',
+		],
+		accessibilityGuidelines: [
+			'The dialog is named by title. The step list is a "Progress" nav with aria-current on the current step.',
+			'Focus moves to the close button on open and to the step content on step change.',
+			'On a failed validation, move focus to the first invalid field.',
+		],
+		keywords: [
+			'@atlassian/store-stepper-modal',
+			'StoreStepperModal',
+			'stepper',
+			'wizard',
+			'multi-step',
+			'install dialog',
+			'store',
+		],
+		category: 'components',
+		examples: [
+			'import StoreStepperModal from \'../src/ui/store-stepper-modal\';\nimport { ExampleLauncher } from \'./utils/example-launcher\';\nimport { exampleSteps } from \'./utils/example-steps\';\nexport default function Basic({ defaultIsOpen }: { defaultIsOpen?: boolean }): React.JSX.Element {\n\treturn (\n\t\t<ExampleLauncher defaultIsOpen={defaultIsOpen}>\n\t\t\t{(close) => (\n\t\t\t\t<StoreStepperModal\n\t\t\t\t\ttitle="Install agent"\n\t\t\t\t\tsteps={exampleSteps}\n\t\t\t\t\tcurrentStepId="review"\n\t\t\t\t\tonClose={close}\n\t\t\t\t\ttestId="store-stepper-modal"\n\t\t\t\t/>\n\t\t\t)}\n\t\t</ExampleLauncher>\n\t);\n}',
+			'import StoreStepperModal from \'../src/ui/store-stepper-modal\';\nimport { ExampleLauncher } from \'./utils/example-launcher\';\nimport { exampleSteps } from \'./utils/example-steps\';\nexport default function SecondStep({\n\tdefaultIsOpen,\n}: {\n\tdefaultIsOpen?: boolean;\n}): React.JSX.Element {\n\treturn (\n\t\t<ExampleLauncher defaultIsOpen={defaultIsOpen}>\n\t\t\t{(close) => (\n\t\t\t\t<StoreStepperModal\n\t\t\t\t\ttitle="Install agent"\n\t\t\t\t\tsteps={exampleSteps}\n\t\t\t\t\tcurrentStepId="configure"\n\t\t\t\t\tonClose={close}\n\t\t\t\t\tshowCount\n\t\t\t\t\ttestId="store-stepper-modal"\n\t\t\t\t/>\n\t\t\t)}\n\t\t</ExampleLauncher>\n\t);\n}',
+			'import StoreStepperModal from \'../src/ui/store-stepper-modal\';\nimport { ExampleLauncher } from \'./utils/example-launcher\';\nimport { configureStep, ExampleAside, reviewStep } from \'./utils/example-steps\';\nexport default function WithAside({\n\tdefaultIsOpen,\n}: {\n\tdefaultIsOpen?: boolean;\n}): React.JSX.Element {\n\treturn (\n\t\t<ExampleLauncher defaultIsOpen={defaultIsOpen}>\n\t\t\t{(close) => (\n\t\t\t\t<StoreStepperModal\n\t\t\t\t\ttitle="Install agent"\n\t\t\t\t\tsteps={[{ ...reviewStep, aside: <ExampleAside /> }, configureStep]}\n\t\t\t\t\tcurrentStepId="review"\n\t\t\t\t\tonClose={close}\n\t\t\t\t\ttestId="store-stepper-modal"\n\t\t\t\t/>\n\t\t\t)}\n\t\t</ExampleLauncher>\n\t);\n}',
+		],
+		props: [
+			{
+				name: 'currentStepId',
+				type: 'string',
+				description: 'Id of the step to show. Controlled: the component never advances on its own.',
+				isRequired: true,
+			},
+			{
+				name: 'entity',
+				type: '{ name?: string | undefined; icon?: React.ReactNode; } | undefined',
+				description:
+					'The thing the flow is about, shown before the title in the header. Below the `sm`\nbreakpoint only the icon shows.',
+			},
+			{
+				name: 'onClose',
+				type: '() => void',
+				description:
+					'Called for the close button and Escape. Wire `tertiaryAction` to it for Cancel.\nShow any close confirmation from here.',
+				isRequired: true,
+			},
+			{
+				name: 'onStepSelect',
+				type: '((stepId: string) => void) | undefined',
+				description:
+					'Called when a completed step is selected in the stepper. When omitted, steps are not\nselectable.',
+			},
+			{
+				name: 'shouldReturnFocus',
+				type: 'boolean | React.RefObject<HTMLElement> | undefined',
+				description:
+					'Where focus returns on close. Defaults to the element that opened the dialog.',
+			},
+			{
+				name: 'showCount',
+				type: 'boolean | undefined',
+				description: 'Shows a "Step N of M" counter in the footer.',
+			},
+			{
+				name: 'steps',
+				type: 'StoreStepperModalStep[]',
+				description:
+					'Ordered list of steps. Steps before `currentStepId` are complete, later ones are upcoming.',
+				isRequired: true,
+			},
+			{
+				name: 'title',
+				type: 'string',
+				description:
+					"Concise, persistent title describing the whole task. Also the dialog's accessible name.",
+				isRequired: true,
+			},
+			{
+				name: 'width',
+				type: 'string | number | undefined',
+				description: 'Escape hatch for the dialog width. Defaults to filling the viewport.',
+				defaultValue: '"100%"',
 			},
 		],
 	},

@@ -3,7 +3,10 @@ import { useLayoutEffect, useState } from 'react';
 import { bind } from 'bind-event-listener';
 import rafSchedule from 'raf-schd';
 
-import { findOverflowScrollParent } from '../ui/Popup/utils';
+import { findOverflowScrollParent, getVerticalPlacement } from '../ui/Popup/utils';
+
+// Keeps the menu's far edge clear of the boundary edge (space.100).
+const EDGE_GAP = 8;
 
 type Options = {
 	boundariesElement?: HTMLElement;
@@ -39,12 +42,20 @@ export function useMenuPopupSizing({
 		const update = () => {
 			const rect = target.getBoundingClientRect();
 			const bounds = boundary.getBoundingClientRect();
-			const above = Math.max(0, rect.top - (bounds.top - boundary.scrollTop) - offset);
-			const below = Math.max(0, bounds.bottom - rect.bottom - offset);
+			const above = Math.max(0, rect.top - (bounds.top - boundary.scrollTop) - offset - EDGE_GAP);
+			const below = Math.max(0, bounds.bottom - rect.bottom - offset - EDGE_GAP);
 			const space = below >= maxHeight ? below : Math.max(above, below);
 			// Popup rounds its position up to a CSS pixel. Reserve that pixel at the edge.
-			const available = Math.max(0, Math.floor(space) - 1);
-			setHeight(Math.min(maxHeight, available));
+			const fitHeight = Math.min(maxHeight, Math.max(0, Math.floor(space) - 1));
+			// Popup's placement ignores the offset, so it can still open below when this hook
+			// sized for above. Size for the side Popup will use. `true` mirrors the preventOverflow
+			// every caller passes to Popup, so this prediction matches Popup's own placement.
+			const placement = getVerticalPlacement(target, boundary, fitHeight, undefined, false, true);
+			setHeight(
+				placement === 'bottom'
+					? Math.min(fitHeight, Math.max(0, Math.floor(below) - 1))
+					: fitHeight,
+			);
 		};
 		const schedule = rafSchedule(update);
 		update();

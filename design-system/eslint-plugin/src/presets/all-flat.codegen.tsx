@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4d4401d6a112c55f4b6740d93912b181>>
+ * @codegen <<SignedSource::3158827edab904d44f8f4928545f313a>>
  * @codegenCommand afm workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { Linter } from 'eslint';
@@ -58,6 +58,8 @@ const rules: Linter.FlatConfig = {
 		'@atlaskit/design-system/no-readonly-or-disabled-inputs': 'warn',
 		'@atlaskit/design-system/no-separator-with-list-elements': 'warn',
 		'@atlaskit/design-system/no-styled-tagged-template-expression': 'error',
+		'@atlaskit/design-system/no-third-party-focus-traps': 'error',
+		'@atlaskit/design-system/no-third-party-layering': 'error',
 		'@atlaskit/design-system/no-to-match-snapshot': 'error',
 		'@atlaskit/design-system/no-unsafe-design-token-usage': 'error',
 		'@atlaskit/design-system/no-unsafe-inline-snapshot': 'error',

@@ -1,5 +1,35 @@
 # @atlaskit/smart-card
 
+## 46.13.2
+
+### Patch Changes
+
+- [`8dbc6d82d98b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8dbc6d82d98b0) -
+  Prevent cached social proof and date formatting hydration mismatches behind the
+  platform_sl_hydration_safe_content experiment (isEnabled parameter). Preserve cache-first
+  personalization and local date formatting after hydration.
+
+  Evaluate the experiment only for eligible server-rendered content, avoiding exposures on
+  client-only mounts and additional hydration updates in control.
+
+- [`4fc5a097ea8ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4fc5a097ea8ce) -
+  Add reusable host choreography and an adapter factory for Smart Card experiments. The one-click
+  chat spotlight uses it behind platform_sl_one_click_chat_spotlight_v2_fg, preserving local
+  eligibility and dismissal policy. Missing-host notifications do not repeat when only the
+  unavailable callback changes. The adapter keeps its choreography callbacks and return value stable
+  between unchanged renders, and render functions receive a named `{ hasPermission }` value.
+- [`7823af8452d72`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7823af8452d72) -
+  Remove the redundant 'Follow' text alternative from the decorative follow-action icon in the hover
+  card and preview dialog action group, so assistive technology only announces the button's own
+  accessible name.
+- Updated dependencies
+
+## 46.13.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 46.13.0
 
 ### Minor Changes

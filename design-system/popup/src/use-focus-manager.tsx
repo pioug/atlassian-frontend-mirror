@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 
+// eslint-disable-next-line @atlaskit/design-system/no-third-party-focus-traps -- existing usage from before this rule was added
 import createFocusTrap, { type FocusTrap } from 'focus-trap';
 
 import noop from '@atlaskit/ds-lib/noop';

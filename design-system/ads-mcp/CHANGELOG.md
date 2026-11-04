@@ -1,5 +1,19 @@
 # @atlaskit/ads-mcp
 
+## 1.12.3
+
+### Patch Changes
+
+- [`87e3e3ef6ded2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/87e3e3ef6ded2) -
+  Refresh generated structured-content catalogs from the complete source registry.
+
+## 1.12.2
+
+### Patch Changes
+
+- [`734e1a05d7df0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/734e1a05d7df0) -
+  Refresh GhostIconWave examples to remove the retired ghost icons experiment override.
+
 ## 1.12.1
 
 ### Patch Changes

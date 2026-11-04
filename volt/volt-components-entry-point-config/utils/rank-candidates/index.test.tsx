@@ -23,6 +23,7 @@ describe('rankCandidates', () => {
 		};
 
 		const ranked = rankCandidates(symbol, [low, high]);
+		// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 		expect(ranked[0].candidate.entryPoint).toBe('/box');
 	});
 });

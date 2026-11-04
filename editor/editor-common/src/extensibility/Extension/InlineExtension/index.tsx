@@ -14,7 +14,6 @@ import {
 	akEditorGutterPaddingReduced,
 	akEditorFullPageNarrowBreakout,
 } from '@atlaskit/editor-shared-styles/constants';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
@@ -117,7 +116,6 @@ const InlineExtension = (props: Props): jsx.JSX.Element => {
 		hideConfigureLabel,
 	} = props;
 	const { showMacroInteractionDesignUpdates } = macroInteractionDesignFeatureFlags || {};
-	const shouldUseFlowingInlineWrapper = fg('rovo_skill_tag_label_wrapping');
 
 	const { width } = useSharedPluginStateWithSelector(pluginInjectionApi, ['width'], (states) => {
 		return {
@@ -176,7 +174,7 @@ const InlineExtension = (props: Props): jsx.JSX.Element => {
 					wrapperStyle,
 					inlineWrapperStyles,
 					showMacroInteractionDesignUpdates && !isLivePageViewMode && hoverStyles,
-					shouldUseFlowingInlineWrapper && flowingInlineWrapperStyles,
+					flowingInlineWrapperStyles,
 				]}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={classNames}

@@ -1,11 +1,13 @@
 import { AnalyticsStep } from '@atlaskit/adf-schema/steps/analytics';
 import type { CollabEditProvider, CollabTelepointerPayload } from '@atlaskit/editor-common/collab';
+import { LocalOnlyStep } from '@atlaskit/editor-common/collab-local-only-step';
 import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode/editorViewmodePluginType';
 import type {
 	EditorState,
 	Transaction,
 	SelectionBookmark,
 } from '@atlaskit/editor-prosemirror/state';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { getSendableSelection } from '../actions';
 import { pluginKey } from '../main/plugin-key';
@@ -43,7 +45,11 @@ export const sendTransaction =
 		const trNoAnalytics = oldEditorState.tr;
 
 		docChangedTransaction?.steps.forEach((step) => {
-			if (!(step instanceof AnalyticsStep)) {
+			// Local-only steps (for example external page settings) are never sent.
+			if (
+				!(step instanceof AnalyticsStep) &&
+				!(isExperimentEnabled('platform_editor_numbered_headings') && step instanceof LocalOnlyStep)
+			) {
 				trNoAnalytics.step(step);
 			}
 		});

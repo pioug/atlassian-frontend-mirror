@@ -85,7 +85,14 @@ const logoTextStyles = cssMap({
 		display: 'none',
 		flexDirection: 'column',
 		justifyContent: 'center',
-
+	},
+	container: {
+		display: 'var(--n_tnLogoDisplay, none)',
+		'@media (min-width: 64rem)': {
+			display: 'var(--n_tnLogoDisplay, flex)',
+		},
+	},
+	viewport: {
 		'@media (min-width: 64rem)': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 			'&&': {
@@ -185,7 +192,14 @@ export const AppLogo = ({
 				<div css={iconContainerStyles.root}>
 					<LogoRenderer logoOrIcon={icon} />
 				</div>
-				<span css={logoTextStyles.root}>
+				<span
+					css={[
+						logoTextStyles.root,
+						fg('platform-dst-chat-panel-layout')
+							? logoTextStyles.container
+							: logoTextStyles.viewport,
+					]}
+				>
 					<Tooltip
 						content={name}
 						position="bottom"

@@ -13,6 +13,7 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { EmojiProvider } from '../../api/EmojiResource';
 import type { EmojiLoadSuccessCallback, EmojiLoadFailCallback } from '../../api/EmojiUtils';
+import { getPixelRatio } from '../../api/getPixelRatio';
 import { EmojiCommonProvider } from '../../context/EmojiCommonProvider';
 import {
 	type EmojiId,
@@ -114,6 +115,14 @@ const ignoreWrapperStyles = css({
 	display: 'contents',
 });
 
+const isMdpiImageURL = (imageURL: string): boolean => {
+	try {
+		return new URL(imageURL, 'https://emoji.invalid').searchParams.get('scale') === 'MDPI';
+	} catch {
+		return false;
+	}
+};
+
 enum ResourcedEmojiComponentRenderStatesEnum {
 	INITIAL = 'INITIAL',
 	FALLBACK = 'FALLBACK',
@@ -140,6 +149,7 @@ export const ResourcedEmojiComponent = ({
 	const [emoji, setEmoji] = useState<OptionalEmojiDescription>();
 	const [loaded, setLoaded] = useState(false);
 	const [imageLoadError, setImageLoadError] = useState(false);
+	const [failedAdaptiveImageURL, setFailedAdaptiveImageURL] = useState<string>();
 	const [resolvedEmojiProvider, setResolvedEmojiProvider] = useState<EmojiProvider>();
 
 	const fetchOrGetEmoji = useCallback(
@@ -250,6 +260,17 @@ export const ResourcedEmojiComponent = ({
 	}, [emoji, loaded, optimisticImageURL, imageLoadError]);
 
 	const optimisticEmojiDescription = useMemo(() => {
+		if (
+			optimisticImageURL &&
+			emoji &&
+			(emoji.type === 'STANDARD' || emoji.type === 'ATLASSIAN') &&
+			fitToHeight * Math.max(1, getPixelRatio()) > 32 &&
+			isMdpiImageURL(optimisticImageURL) &&
+			fg('platform_emoji_adaptive_image_size')
+		) {
+			return emoji;
+		}
+
 		// reduce blast radius by targeting page title
 		if (pageTitleEmoji && optimisticImageURL && fg('platform_emoji_prevent_img_src_changing')) {
 			return {
@@ -283,11 +304,53 @@ export const ResourcedEmojiComponent = ({
 			};
 		}
 
+		if (
+			fg('platform_emoji_adaptive_image_size') &&
+			emoji &&
+			(emoji.type === 'STANDARD' || emoji.type === 'ATLASSIAN') &&
+			emoji.representation &&
+			'imagePath' in emoji.representation &&
+			emoji.representation.height > 32 &&
+			fitToHeight > 0 &&
+			fitToHeight * Math.max(1, getPixelRatio()) <= 32
+		) {
+			const imageURL = resolvedEmojiProvider?.getOptimisticImageURL?.({ id, shortName, fallback });
+			// MDPI standard/Atlassian images are 32px. Reuse the provider's URL instead of
+			// downloading a larger catalogue image when those pixels already cover the display.
+			if (imageURL && imageURL !== failedAdaptiveImageURL && isMdpiImageURL(imageURL)) {
+				return {
+					...emoji,
+					representation: { imagePath: imageURL, width: 32, height: 32 },
+					altRepresentation: undefined,
+				};
+			}
+		}
+
 		return emoji;
-	}, [emoji, optimisticImageURL, fallback, fitToHeight, id, shortName, pageTitleEmoji]);
+	}, [
+		emoji,
+		optimisticImageURL,
+		fallback,
+		fitToHeight,
+		id,
+		shortName,
+		pageTitleEmoji,
+		resolvedEmojiProvider,
+		failedAdaptiveImageURL,
+	]);
 
 	const handleOnLoadError = useCallback(
 		(emojiId: EmojiId) => {
+			if (
+				fg('platform_emoji_adaptive_image_size') &&
+				!optimisticImageURL &&
+				optimisticEmojiDescription !== emoji &&
+				optimisticEmojiDescription?.representation &&
+				'imagePath' in optimisticEmojiDescription.representation
+			) {
+				setFailedAdaptiveImageURL(optimisticEmojiDescription.representation.imagePath);
+				return;
+			}
 			setImageLoadError(true);
 			const reason = 'load error';
 			onEmojiLoadFail && onEmojiLoadFail(emojiId.id, reason);
@@ -299,7 +362,7 @@ export const ResourcedEmojiComponent = ({
 				},
 			});
 		},
-		[onEmojiLoadFail],
+		[onEmojiLoadFail, optimisticImageURL, optimisticEmojiDescription, emoji],
 	);
 
 	const handleOnLoadSuccess = useCallback(

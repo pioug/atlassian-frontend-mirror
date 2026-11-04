@@ -5621,24 +5621,26 @@ const editorContentStyles = cssMapScoped({
 			width: `${defaultDenseEmojiHeight}px`,
 		},
 	},
+	// The root attribute is owned by css-reset callers and follows the harmonisation gate.
+	// Keep the legacy container-hover treatment only when that shared treatment is inactive.
 	scrollbarStyles: {
 		msOverflowStyle: '-ms-autohiding-scrollbar',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'&::-webkit-scrollbar-corner': {
+		'&:where(:root:not([data-scrollbar-harmonisation]) *)::-webkit-scrollbar-corner': {
 			display: 'none',
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'&::-webkit-scrollbar-thumb': {
+		'&:where(:root:not([data-scrollbar-harmonisation]) *)::-webkit-scrollbar-thumb': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 			backgroundColor: token('color.background.neutral.subtle'),
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'&:hover::-webkit-scrollbar-thumb': {
+		'&:where(:root:not([data-scrollbar-harmonisation]) *):hover::-webkit-scrollbar-thumb': {
 			backgroundColor: token('color.background.neutral.bold'),
 			borderRadius: token('radius.large'),
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'&::-webkit-scrollbar-thumb:hover': {
+		'&:where(:root:not([data-scrollbar-harmonisation]) *)::-webkit-scrollbar-thumb:hover': {
 			backgroundColor: token('color.background.neutral.bold.hovered'),
 		},
 	},

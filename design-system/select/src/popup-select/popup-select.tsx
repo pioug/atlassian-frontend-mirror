@@ -2,7 +2,9 @@ import React, { type KeyboardEventHandler, PureComponent, type ReactNode } from 
 import { createPortal } from 'react-dom';
 
 import { type UnbindFn, bind } from 'bind-event-listener';
+// eslint-disable-next-line @atlaskit/design-system/no-third-party-focus-traps -- existing usage from before this rule was added
 import FocusLock from 'react-focus-lock';
+// eslint-disable-next-line @atlaskit/design-system/no-third-party-layering -- existing usage from before this rule was added
 import {
 	Manager as LegacyManager,
 	Popper as LegacyPopper,

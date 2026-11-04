@@ -1,5 +1,21 @@
 # @atlaskit/editor-core
 
+## 242.0.11
+
+### Patch Changes
+
+- [`1ada59f0fc583`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1ada59f0fc583) -
+  Let the full-page and chromeless editors use the shared scrollbar treatment when
+  `platform_dst_scrollbar_harmonisation` is active, preserving the subtle thumb outside hover and
+  highlighting only the thumb on hover.
+- Updated dependencies
+
+## 242.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 242.0.9
 
 ### Patch Changes
@@ -8318,8 +8334,8 @@
 ### Patch Changes
 
 - [#171482](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/171482)
-  [`aaa3084f0ce5e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aaa3084f0ce5e) - \*
-  I18n translations, see
+  [`aaa3084f0ce5e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aaa3084f0ce5e) -
+  \* I18n translations, see
   [commit](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c5e33f6fd2cf86464047d15fc050a0759daa17a6)
   - Add `platform_editor_disable_context_panel_animation`, see
     [commit](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f5354e057194e15abfc9fa16aa288e42044d710c)
@@ -30197,11 +30213,11 @@ Remove applicationCard node and action mark
     - https://product-fabric.atlassian.net/browse/ED-7288
   - Cache resizeState in pluginState to avoid expensive DOM operations. – [table][affects: resizing]
     - https://product-fabric.atlassian.net/browse/ED-7343
-  - Delay MutationObserver initialization in table. –
-    [table][affects: initial table rendering, size adjustment on initial render]
+  - Delay MutationObserver initialization in table. – [table][affects: initial table rendering, size
+    adjustment on initial render]
     - https://product-fabric.atlassian.net/browse/ED-7436
-  - Improve the way we handle mouse events in table –
-    [table][affects: column drag handlers, table controls, resizing]
+  - Improve the way we handle mouse events in table – [table][affects: column drag handlers, table
+    controls, resizing]
     - https://product-fabric.atlassian.net/browse/ED-7342
 
   **SmartCards**

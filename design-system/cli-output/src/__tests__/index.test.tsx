@@ -8,6 +8,7 @@ it('renders a GitHub-dark-like code surface with compact indentation', () => {
 	expect(header).toContain('tsx');
 	expect(output).toContain('  const Button = () => null;');
 	expect(output).not.toContain('\t');
+	// @ts-expect-error - TS18048 - 'code' is possibly 'undefined'.
 	expect(header).toHaveLength(code.length);
 });
 

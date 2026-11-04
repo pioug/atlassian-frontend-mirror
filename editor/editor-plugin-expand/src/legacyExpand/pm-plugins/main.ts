@@ -15,6 +15,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-edi
 import type { Slice } from '@atlaskit/editor-prosemirror/model';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { ExpandPlugin, ExpandPluginState } from '../../types';
 import { setExpandRef } from '../commands';
@@ -82,10 +83,15 @@ export const createPlugin = (
 		},
 		// @see ED-8027 to follow up on this work-around
 		filterTransaction(tr) {
+			// Preserve title editing against selection changes unless explicitly allowed.
 			if (
 				containsClass(document.activeElement, expandClassNames.titleInput) &&
 				tr.selectionSet &&
-				(!tr.steps.length || tr.isGeneric)
+				(!tr.steps.length || tr.isGeneric) &&
+				!(
+					isExperimentEnabled('platform_editor_remix_reliability_improvements') &&
+					tr.getMeta('allowSelectionChangeWhileExpandTitleFocused') === true
+				)
 			) {
 				return false;
 			}

@@ -6,6 +6,7 @@ import { personalizationConstants } from '../../services/personalization/constan
 import { getProviderPctMap } from '../../services/personalization/getProviderPctMap';
 import { getProviderPctMapSync } from '../../services/personalization/getProviderPctMapSync';
 import type { ProviderPctMap } from '../../services/personalization/types';
+import useHydrationSafeContent from '../use-hydration-safe-content';
 
 export interface SocialProof {
 	connectedPct: number | undefined;
@@ -33,7 +34,8 @@ const NOT_ENABLED_RESULT: SocialProof = {
  * This means:
  * - First page visit (cold): no social proof rendered, no experiment exposure fired.
  *   Background fetch populates localStorage for next time.
- * - Second page visit (warm): social proof renders immediately from localStorage.
+ * - Second page visit (warm): social proof renders from localStorage, after hydration
+ *   when the platform_sl_hydration_safe_content experiment is enabled (immediately on client-only mounts).
  *   Background refresh keeps localStorage fresh.
  *
  * Callers decide separately (e.g. via Statsig experiment) whether to surface the data.
@@ -44,6 +46,7 @@ const useSocialProof = (
 	baseUriWithNoTrailingSlash = '',
 ): SocialProof => {
 	const isEnabled = isKillswitchOn;
+	const shouldUseHydrationSafeContent = useHydrationSafeContent(isEnabled);
 
 	const [snapshot] = useState<{
 		cloudId: string | undefined;
@@ -75,6 +78,11 @@ const useSocialProof = (
 	}, [baseUriWithNoTrailingSlash, isEnabled]);
 
 	return useMemo(() => {
+		if (shouldUseHydrationSafeContent) {
+			// SSR cannot access this browser's cache. Match its fallback through hydration
+			// before revealing the mount-stable snapshot; async refresh still affects future mounts only.
+			return NOT_ENABLED_RESULT;
+		}
 		if (!isEnabled) {
 			return NOT_ENABLED_RESULT;
 		}
@@ -85,7 +93,7 @@ const useSocialProof = (
 			isEnabled: Boolean(snapshot.cloudId && snapshot.providerPctMap),
 			isLoading: false, // sync read is instant; never in "loading" state
 		};
-	}, [extensionKey, isEnabled, snapshot]);
+	}, [extensionKey, isEnabled, shouldUseHydrationSafeContent, snapshot]);
 };
 
 export default useSocialProof;

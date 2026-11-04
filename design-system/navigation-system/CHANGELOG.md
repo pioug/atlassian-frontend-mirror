@@ -1,5 +1,17 @@
 # @atlassian/navigation-system
 
+## 11.5.0
+
+### Minor Changes
+
+- [`872ac4f53e5e9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/872ac4f53e5e9) -
+  Make TopNav layout, Search and action overflow respond to container width, behind
+  `platform-dst-chat-panel-layout`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.4.3
 
 ### Patch Changes

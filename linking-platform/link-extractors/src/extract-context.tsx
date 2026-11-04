@@ -17,7 +17,7 @@ interface LinkContext {
 }
 
 export const extractContext = (jsonLd: JsonLd.Data.BaseData): LinkContext | undefined => {
-	const context = jsonLd.context;
+	const context = jsonLd?.context;
 	if (context) {
 		if (typeof context === 'string') {
 			return { name: context };

@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-
 import type { ADFEntity, ADFEntityMark } from '../types';
 import type {
 	AttributesSpec,
@@ -484,10 +482,6 @@ export function validator(
 
 	// Whether specs that only exist in the stage-0 schema are declined for this caller.
 	const rejectStage0Specs = !stage0;
-
-	// Whether an empty `marks` array is dropped from a node that only ever takes an empty one. Resolved
-	// once for the same reasons as above. Gate off keeps such a node rejected.
-	const acceptEmptyMarks = fg('platform_editor_adf_validator_empty_marks');
 
 	const validatorSpecs = createSpec(nodes, marks);
 
@@ -1377,7 +1371,7 @@ export function validator(
 			// validated. Mark validation has nothing to reject in it, so it reports the node valid with an
 			// empty `marksValidationOutput`, which reads to the parent's `validateChildMarks` as every
 			// mark on the child having been rejected, and the candidate spec gets declined.
-			if (acceptEmptyMarks && prevEntity.marks.length === 0 && declaresEmptyMarksOnly(spec)) {
+			if (prevEntity.marks.length === 0 && declaresEmptyMarksOnly(spec)) {
 				delete newEntity.marks;
 				return specBasedValidationResult;
 			}

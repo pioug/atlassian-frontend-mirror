@@ -38,6 +38,7 @@ describe('resolvePackageMappings', () => {
 		);
 
 		expect(result.mappedCount).toBe(1);
+		// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 		expect(result.barrelMap[''].Box).toMatchObject({
 			'entry-point': '/box',
 			voltCompliant: true,
@@ -80,6 +81,7 @@ describe('resolvePackageMappings', () => {
 			{ voltCompliant: false, consumersMigrated: false },
 		);
 
+		// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 		expect(result.barrelMap[''].default).toMatchObject({
 			'entry-point': '/image',
 			voltCompliant: false,

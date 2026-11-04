@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useMemo, useRef } from 'react';
 
+import { cleanup } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import { StorageClient } from '@atlaskit/frontend-utilities/StorageClient';
+import {
+	createChoreographedContent,
+	type ChoreographerHook,
+} from '@atlaskit/link-provider/create-choreographed-content';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers/intersection-observer';
 import { mockExp } from '@atlassian/experiment-test-utils/mock-exp';
 import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
@@ -53,6 +59,33 @@ jest.mock('../../../../HoverCard/components/HoverCardContent', () => ({
 	default: () => <div data-testid="preview-content">Preview</div>,
 }));
 
+let delivery: 'grant' | 'blocked' | 'pending' = 'grant';
+let deliverPending: (() => void) | undefined;
+const released = jest.fn();
+const useChoreographer: ChoreographerHook = (_messageId, callbacks) => {
+	const latest = useRef(callbacks);
+	latest.current = callbacks;
+	return useMemo(
+		() => ({
+			startMessage: (attempt: unknown) =>
+				new Promise<string>((resolve) => {
+					const offer = () => resolve(latest.current.start(attempt) ? 'started' : 'canceled');
+					if (delivery === 'pending') deliverPending = offer;
+					else if (delivery === 'blocked') resolve('blocked');
+					else offer();
+				}),
+			stopMessage: async () => {
+				released();
+				latest.current.stop();
+				return 'stopped';
+			},
+		}),
+		[],
+	);
+};
+
+const TestChoreographer = createChoreographedContent(useChoreographer);
+
 const gate = 'platform_sl_one_click_chat_spotlight_v2_fg';
 const experiment = 'platform_sl_one_click_chat_spotlight_v2_exp';
 const url = 'https://private.example/secret-document';
@@ -60,6 +93,9 @@ const mockInvoke = jest.fn();
 const sendPromptMessage = jest.fn();
 
 beforeEach(() => {
+	delivery = 'grant';
+	deliverPending = undefined;
+	released.mockClear();
 	mockSimpleIntersectionObserver();
 	mockCreateEvent.mockClear();
 	mockFire.mockClear();
@@ -74,7 +110,11 @@ beforeEach(() => {
 		dismiss: () => true,
 	});
 });
-afterEach(() => jest.restoreAllMocks());
+afterEach(async () => {
+	cleanup();
+	await act(async () => {});
+	jest.restoreAllMocks();
+});
 
 function renderAction(
 	provider = 'google-object-provider',
@@ -106,9 +146,11 @@ function renderAction(
 		</Wrapper>
 	);
 	return render(
-		<IntlProvider locale="en">
-			{withHover ? <HoverCardComponent url={url}>{action}</HoverCardComponent> : action}
-		</IntlProvider>,
+		<SmartCardProvider choreographer={TestChoreographer}>
+			<IntlProvider locale="en">
+				{withHover ? <HoverCardComponent url={url}>{action}</HoverCardComponent> : action}
+			</IntlProvider>
+		</SmartCardProvider>,
 	);
 }
 
@@ -499,4 +541,49 @@ describe.each([false, true])('explicit dismissal with top layer %s', (topLayer) 
 			}
 		},
 	);
+});
+
+describe.each([false, true])('choreography with top layer %s', (topLayer) => {
+	beforeEach(() => {
+		passGate(gate);
+		(topLayer ? passGate : failGate)('platform-dst-top-layer');
+		mockExp(experiment, { isEnabled: true });
+	});
+
+	it('keeps the inline action working when another message blocks the spotlight', async () => {
+		delivery = 'blocked';
+		renderAction();
+		await act(async () => {});
+		expect(screen.queryByTestId('one-click-chat-spotlight-v2')).not.toBeInTheDocument();
+		expect(spotlightEvents()).toEqual([]);
+		expect(suppression.isSpotlightActive()).toBe(false);
+		fireEvent.click(screen.getByTestId('action'));
+		expect(mockInvoke).toHaveBeenCalledTimes(1);
+	});
+
+	it('waits for permission before showing or recording an impression', async () => {
+		delivery = 'pending';
+		renderAction();
+		await waitFor(() => expect(deliverPending).toBeDefined());
+		expect(screen.queryByTestId('one-click-chat-spotlight-v2')).not.toBeInTheDocument();
+		expect(spotlightEvents()).toEqual([]);
+		await act(async () => deliverPending?.());
+		await screen.findByTestId('one-click-chat-spotlight-v2');
+		expect(spotlightEvents().map((event) => event.action)).toEqual(['viewed']);
+		fireEvent.click(screen.getByRole('button', { name: 'Dismiss spotlight' }));
+		await waitFor(() => expect(released).toHaveBeenCalled());
+	});
+
+	it('cancels a pending spotlight when the inline action is used', async () => {
+		delivery = 'pending';
+		renderAction();
+		await waitFor(() => expect(deliverPending).toBeDefined());
+		fireEvent.click(screen.getByTestId('action'));
+		expect(mockInvoke).toHaveBeenCalledTimes(1);
+		await act(async () => deliverPending?.());
+		expect(screen.queryByTestId('one-click-chat-spotlight-v2')).not.toBeInTheDocument();
+		expect(spotlightEvents()).toEqual([]);
+		expect(suppression.isSpotlightActive()).toBe(false);
+		await waitFor(() => expect(released).toHaveBeenCalled());
+	});
 });

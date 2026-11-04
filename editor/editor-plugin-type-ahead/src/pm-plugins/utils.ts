@@ -8,7 +8,6 @@ import type { TypeAheadItem } from '@atlaskit/editor-common/types/type-ahead';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { AGENT_MENTION_LOAD_ERROR_ID } from '@atlaskit/mention/types';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { TypeAheadPlugin } from '../typeAheadPluginType';
@@ -238,11 +237,9 @@ export const getTypeAheadListAriaLabels = (
 ): TypeAheadAssistiveLabels => {
 	switch (trigger) {
 		case '@': {
-			const description =
-				editorExperiment('platform_editor_agent_mentions', true) &&
-				fg('platform_editor_mention_typeahead_profilecard')
-					? item?.mention?.description
-					: undefined;
+			const description = editorExperiment('platform_editor_agent_mentions', true)
+				? item?.mention?.description
+				: undefined;
 			const name = item?.mention?.name || '';
 			const shortName = item?.mention?.mentionName || '';
 			return {

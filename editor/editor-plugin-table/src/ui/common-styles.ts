@@ -657,8 +657,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 				: token('elevation.surface')};
 	}
 
-	${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
-	isExperimentEnabled('platform_editor_table_q4_patch_8')
+	${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
 		? `
 	/* Borders floor to device pixels at fractional zoom; overlap the sticky row by 1px to avoid a seam. */
 	.${ClassName.TABLE_NODE_WRAPPER}:has(tr.${ClassName.NATIVE_STICKY})::before {
@@ -1356,8 +1355,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 	.${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW} > .${ClassName.DRAG_COLUMN_CONTROLS_WRAPPER} {
 		/* +2px is to overlap the table border on the sides */
 		width: calc(anchor-size(width) + 2px);
-		height: ${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
-		isExperimentEnabled('platform_editor_table_q4_patch_8')
+		height: ${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
 			? tableMarginTop - 1
 			: tableMarginTop}px;
 		background: ${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
@@ -1369,16 +1367,12 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		position-visibility: anchors-visible;
 		z-index: ${getTableZIndexes().aboveHeader};
 		${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
-			? isExperimentEnabled('platform_editor_table_q4_patch_8')
-				? `
+			? `
 		/* Transparent bottom 1px so the sticky header row's top border stays visible. */
 		padding-bottom: 1px;
 		background-clip: content-box;
 		/* Chrome can fall back to start alignment after zoom, covering the header. */
 		align-self: unsafe end;`
-				: `
-		/* Leave a 1px gap so the sticky header row's top border stays visible. */
-		translate: 0 -1px;`
 			: ``}
 	}
 
@@ -1390,8 +1384,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 		display: inline-block;
 		margin-left: -${akEditorTableNumberColumnWidth + dragRowControlsWidth}px;
 		width: ${akEditorTableNumberColumnWidth + dragRowControlsWidth}px;
-		height: ${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
-		isExperimentEnabled('platform_editor_table_q4_patch_8')
+		height: ${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
 			? tableMarginTop - 1
 			: tableMarginTop}px;
 		background: ${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
@@ -1487,8 +1480,7 @@ const baseTableStylesWithoutSharedStyle = (props: {
 	.${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW}
 		.${ClassName.DRAG_COLUMN_CONTROLS_INNER}:not(.${ClassName.NESTED_TABLE_WITH_CONTROLS} *) {
 		/* !important to override the inline style in the inner controls component */
-		margin-top: ${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
-		isExperimentEnabled('platform_editor_table_q4_patch_8')
+		margin-top: ${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
 			? tableMarginTop - 1
 			: tableMarginTop}px !important;
 	}

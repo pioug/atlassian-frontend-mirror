@@ -8,6 +8,7 @@ import { forwardRef, type ReactNode } from 'react';
 import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { useHasCustomTheme } from './themed/has-custom-theme-context';
@@ -26,6 +27,18 @@ const styles = cssMap({
 		paddingInlineEnd: token('space.100'),
 		display: 'none',
 		// Hiding the CustomTitle on smaller viewports
+	},
+	// Text color used in standard light/dark mode. Custom theming will use an inherited `color` value.
+	subtleText: {
+		color: token('color.text.subtle'),
+	},
+	container: {
+		display: 'var(--n_tnLogoDisplay, none)',
+		'@media (min-width: 64rem)': {
+			display: 'var(--n_tnLogoDisplay, flex)',
+		},
+	},
+	viewport: {
 		'@media (min-width: 64rem)': {
 			// '&&' is required to add more CSS specificity to resolve non-deterministic ordering, which can result in broken UI.
 			// Clean up task: https://jplat.atlassian.net/browse/BLU-4788
@@ -35,10 +48,6 @@ const styles = cssMap({
 				display: 'flex',
 			},
 		},
-	},
-	// Text color used in standard light/dark mode. Custom theming will use an inherited `color` value.
-	subtleText: {
-		color: token('color.text.subtle'),
 	},
 });
 
@@ -72,6 +81,7 @@ export const CustomTitle: React.ForwardRefExoticComponent<
 			ref={ref}
 			css={[
 				styles.root,
+				fg('platform-dst-chat-panel-layout') ? styles.container : styles.viewport,
 				// Only setting a text color when there is no custom theming.
 				// With custom theming, the text will inherit the `color` set on the `TopNav`.
 				// In the future we might want an explicit CSS var for this color, such as a subtle theme-aware color.

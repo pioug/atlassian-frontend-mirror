@@ -7,7 +7,7 @@ The on/off setting is the `numberedHeadings.enabled` value of `@atlaskit/editor-
 a required dependency. Numbering starts from the stored value, follows changes to it (late loads,
 collaborators), and the toolbar toggle saves through that plugin's provider, which reverts a failed
 save. Without a provider, the setting lives in editor state for one editor instance and starts off.
-The toggle changes no ADF and does not enter undo history. Document changes still recalculate or map
+The toggle changes no ADF; it can be undone and redone, including while the Text styles menu is open. Document changes still recalculate or map
 the heading decorations.
 
 The Confluence full-page preset includes this plugin in its legacy and next paths when

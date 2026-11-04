@@ -1,6 +1,6 @@
 import React, { useContext, useRef, useState } from 'react';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { resetMatchMedia, setMediaQuery } from '@atlassian/test-utils/match-media';
 import { fireEvent } from '@atlassian/testing-library/fire-event';
 import { render } from '@atlassian/testing-library/render';
@@ -391,145 +391,147 @@ describe('useToggleSideNav', () => {
 			HTMLElement.prototype.checkVisibility = () => true;
 		});
 
-		ffTest.on(
-			'platform_dst_nav4_skip_link_a11y_1',
-			'with focus on expand feature flag enabled',
-			() => {
-				it('should move focus to the first visible link in the side nav when expanding on desktop', async () => {
-					setMediaQuery('(min-width: 64rem)', { initial: true });
+		describe('platform_dst_nav4_skip_link_a11y_1 is on with focus on expand feature flag enabled', () => {
+			it('should move focus to the first visible link in the side nav when expanding on desktop', async () => {
+				passGate('platform_dst_nav4_skip_link_a11y_1');
 
-					render(
-						<MockProvider
-							initialState={{
-								mobile: 'collapsed',
-								desktop: 'collapsed',
-								flyout: 'closed',
-								lastTrigger: null,
-							}}
-						>
-							<TestComponentWithSideNavRef trigger="toggle-button" />
-						</MockProvider>,
-					);
+				setMediaQuery('(min-width: 64rem)', { initial: true });
 
-					const firstLink = screen.getByRole('link', { name: 'First link' });
+				render(
+					<MockProvider
+						initialState={{
+							mobile: 'collapsed',
+							desktop: 'collapsed',
+							flyout: 'closed',
+							lastTrigger: null,
+						}}
+					>
+						<TestComponentWithSideNavRef trigger="toggle-button" />
+					</MockProvider>,
+				);
 
-					const toggleButton = screen.getByRole('button', { name: 'Toggle side nav' });
-					fireEvent.click(toggleButton);
+				const firstLink = screen.getByRole('link', { name: 'First link' });
 
-					expect(firstLink).toHaveFocus();
-				});
+				const toggleButton = screen.getByRole('button', { name: 'Toggle side nav' });
+				fireEvent.click(toggleButton);
 
-				it('should move focus to the first visible link in the side nav when expanding on mobile', async () => {
-					setMediaQuery('(min-width: 64rem)', { initial: false });
+				expect(firstLink).toHaveFocus();
+			});
 
-					render(
-						<MockProvider
-							initialState={{
-								mobile: 'collapsed',
-								desktop: 'collapsed',
-								flyout: 'closed',
-								lastTrigger: null,
-							}}
-						>
-							<TestComponentWithSideNavRef trigger="toggle-button" />
-						</MockProvider>,
-					);
+			it('should move focus to the first visible link in the side nav when expanding on mobile', async () => {
+				passGate('platform_dst_nav4_skip_link_a11y_1');
 
-					const firstLink = screen.getByRole('link', { name: 'First link' });
+				setMediaQuery('(min-width: 64rem)', { initial: false });
 
-					const toggleButton = screen.getByRole('button', { name: 'Toggle side nav' });
-					fireEvent.click(toggleButton);
+				render(
+					<MockProvider
+						initialState={{
+							mobile: 'collapsed',
+							desktop: 'collapsed',
+							flyout: 'closed',
+							lastTrigger: null,
+						}}
+					>
+						<TestComponentWithSideNavRef trigger="toggle-button" />
+					</MockProvider>,
+				);
 
-					expect(firstLink).toHaveFocus();
-				});
+				const firstLink = screen.getByRole('link', { name: 'First link' });
 
-				it('should not move focus when collapsing via the toggle (desktop)', async () => {
-					setMediaQuery('(min-width: 64rem)', { initial: true });
-					const user = userEvent.setup();
+				const toggleButton = screen.getByRole('button', { name: 'Toggle side nav' });
+				fireEvent.click(toggleButton);
 
-					render(
-						<MockProvider
-							initialState={{
-								mobile: 'collapsed',
-								desktop: 'expanded',
-								flyout: 'closed',
-								lastTrigger: null,
-							}}
-						>
-							<TestComponentWithSideNavRef trigger="toggle-button" />
-						</MockProvider>,
-					);
+				expect(firstLink).toHaveFocus();
+			});
 
-					const firstLink = screen.getByRole('link', { name: 'First link' });
+			it('should not move focus when collapsing via the toggle (desktop)', async () => {
+				passGate('platform_dst_nav4_skip_link_a11y_1');
 
-					const toggleButton = screen.getByRole('button', { name: 'Toggle side nav' });
-					toggleButton.focus();
-					await user.click(toggleButton);
+				setMediaQuery('(min-width: 64rem)', { initial: true });
+				const user = userEvent.setup();
 
-					expect(toggleButton).toHaveFocus();
-					expect(firstLink).not.toHaveFocus();
-				});
+				render(
+					<MockProvider
+						initialState={{
+							mobile: 'collapsed',
+							desktop: 'expanded',
+							flyout: 'closed',
+							lastTrigger: null,
+						}}
+					>
+						<TestComponentWithSideNavRef trigger="toggle-button" />
+					</MockProvider>,
+				);
 
-				it('should not move focus when the trigger is not toggle-button', async () => {
-					setMediaQuery('(min-width: 64rem)', { initial: true });
-					const user = userEvent.setup();
+				const firstLink = screen.getByRole('link', { name: 'First link' });
 
-					render(
-						<MockProvider
-							initialState={{
-								mobile: 'collapsed',
-								desktop: 'collapsed',
-								flyout: 'closed',
-								lastTrigger: null,
-							}}
-						>
-							<TestComponentWithSideNavRef trigger="programmatic" />
-						</MockProvider>,
-					);
+				const toggleButton = screen.getByRole('button', { name: 'Toggle side nav' });
+				toggleButton.focus();
+				await user.click(toggleButton);
 
-					const firstLink = screen.getByRole('link', { name: 'First link' });
+				expect(toggleButton).toHaveFocus();
+				expect(firstLink).not.toHaveFocus();
+			});
 
-					const toggleButton = screen.getByRole('button', { name: 'Toggle side nav' });
-					toggleButton.focus();
-					await user.click(toggleButton);
+			it('should not move focus when the trigger is not toggle-button', async () => {
+				passGate('platform_dst_nav4_skip_link_a11y_1');
 
-					expect(toggleButton).toHaveFocus();
-					expect(firstLink).not.toHaveFocus();
-				});
-			},
-		);
+				setMediaQuery('(min-width: 64rem)', { initial: true });
+				const user = userEvent.setup();
 
-		ffTest.off(
-			'platform_dst_nav4_skip_link_a11y_1',
-			'with focus on expand feature flag disabled',
-			() => {
-				it('should not move focus to the first item when the feature flag is off', async () => {
-					setMediaQuery('(min-width: 64rem)', { initial: true });
-					const user = userEvent.setup();
+				render(
+					<MockProvider
+						initialState={{
+							mobile: 'collapsed',
+							desktop: 'collapsed',
+							flyout: 'closed',
+							lastTrigger: null,
+						}}
+					>
+						<TestComponentWithSideNavRef trigger="programmatic" />
+					</MockProvider>,
+				);
 
-					render(
-						<MockProvider
-							initialState={{
-								mobile: 'collapsed',
-								desktop: 'collapsed',
-								flyout: 'closed',
-								lastTrigger: null,
-							}}
-						>
-							<TestComponentWithSideNavRef trigger="toggle-button" />
-						</MockProvider>,
-					);
+				const firstLink = screen.getByRole('link', { name: 'First link' });
 
-					const firstLink = screen.getByRole('link', { name: 'First link' });
+				const toggleButton = screen.getByRole('button', { name: 'Toggle side nav' });
+				toggleButton.focus();
+				await user.click(toggleButton);
 
-					const toggleButton = screen.getByRole('button', { name: 'Toggle side nav' });
-					toggleButton.focus();
-					await user.click(toggleButton);
+				expect(toggleButton).toHaveFocus();
+				expect(firstLink).not.toHaveFocus();
+			});
+		});
 
-					expect(toggleButton).toHaveFocus();
-					expect(firstLink).not.toHaveFocus();
-				});
-			},
-		);
+		describe('platform_dst_nav4_skip_link_a11y_1 is off with focus on expand feature flag disabled', () => {
+			it('should not move focus to the first item when the feature flag is off', async () => {
+				failGate('platform_dst_nav4_skip_link_a11y_1');
+
+				setMediaQuery('(min-width: 64rem)', { initial: true });
+				const user = userEvent.setup();
+
+				render(
+					<MockProvider
+						initialState={{
+							mobile: 'collapsed',
+							desktop: 'collapsed',
+							flyout: 'closed',
+							lastTrigger: null,
+						}}
+					>
+						<TestComponentWithSideNavRef trigger="toggle-button" />
+					</MockProvider>,
+				);
+
+				const firstLink = screen.getByRole('link', { name: 'First link' });
+
+				const toggleButton = screen.getByRole('button', { name: 'Toggle side nav' });
+				toggleButton.focus();
+				await user.click(toggleButton);
+
+				expect(toggleButton).toHaveFocus();
+				expect(firstLink).not.toHaveFocus();
+			});
+		});
 	});
 });

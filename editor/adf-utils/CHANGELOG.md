@@ -1,5 +1,14 @@
 # @atlaskit/adf-utils
 
+## 20.9.83
+
+### Patch Changes
+
+- [`c77950c797b6c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c77950c797b6c) -
+  Cleanup `feature_gate` `platform_editor_adf_validator_empty_marks`. The validator now always
+  accepts an explicitly empty `marks` array on a node whose spec only ever declares empty marks,
+  dropping the property from the validated entity instead of rejecting the node.
+
 ## 20.9.82
 
 ### Patch Changes

@@ -78,8 +78,8 @@ export default function Example(): React.JSX.Element {
 		<main css={styles.page}>
 			<h1>Scrollbar appearance</h1>
 			<p>
-				This example changes scrollbar color and track surface. The browser still controls
-				visibility and width.
+				On supported fine-pointer browsers, the thumb stays 8px wide and highlights on hover or
+				press. Other environments retain browser sizing. Compare both surfaces before rollout.
 			</p>
 			<div css={styles.control}>
 				<label htmlFor="harmonised-scrollbars">Use harmonised appearance</label>

@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-numbered-headings
 
+## 4.1.0
+
+### Minor Changes
+
+- [`b15354550dd8a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b15354550dd8a) -
+  The toolbar toggle is now one undoable change, and Cmd/Ctrl+Z and Shift+Z/Y undo and redo it while
+  the numbered headings menu has focus. Adds dependencies on @atlaskit/browser-apis,
+  @atlaskit/prosemirror-history and bind-event-listener. Behind platform_editor_numbered_headings.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.0.0
 
 ### Major Changes

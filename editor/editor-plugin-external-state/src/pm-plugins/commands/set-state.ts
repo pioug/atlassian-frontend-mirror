@@ -1,9 +1,10 @@
 import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 
 import type { ExternalState, ExternalStateKey } from '../../externalStatePluginType';
-import { getChangedValues, setValuesMeta } from '../main';
+import { ExternalStateStep } from '../external-state-step';
+import { getChangedValues } from '../main';
 
-/** Sets `key` in editor state only. Dispatches nothing when the value is unchanged. */
+/** Dispatches nothing when the value is unchanged. */
 export const setState =
 	<K extends ExternalStateKey>(
 		getCurrentState: () => ExternalState,
@@ -12,5 +13,5 @@ export const setState =
 	): EditorCommand =>
 	({ tr }) => {
 		const changed = getChangedValues(getCurrentState(), { [key]: value });
-		return changed ? setValuesMeta(tr, changed) : null;
+		return changed ? tr.step(new ExternalStateStep(changed, getCurrentState)) : null;
 	};

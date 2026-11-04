@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import { createPortal } from 'react-dom';
 
 import rafSchedule from 'raf-schd';
@@ -13,6 +13,8 @@ import { getTableZIndexes } from '../sticky-header-z-index';
 const BUTTON_WIDTH = 20;
 
 interface Props {
+	/** Changes when the cell may have moved without a re-render; see `useCellLayoutVersion`. */
+	cellLayoutVersion?: number;
 	children: React.ReactNode;
 	isContextualMenuOpen: boolean | undefined;
 	mountTo: HTMLElement;
@@ -50,6 +52,7 @@ export const calcObserverTargetMargin = (
 };
 
 export const FixedButton = ({
+	cellLayoutVersion = 0,
 	children,
 	isContextualMenuOpen,
 	mountTo,
@@ -135,10 +138,28 @@ export const FixedButton = ({
 
 	const fixedButtonTop = 0;
 
+	// The left position below is read from the cell's current rect, which already includes the
+	// table's horizontal scroll, so the scroll translation accumulated so far must start again.
+	useLayoutEffect(() => {
+		const fixedButtonRefCurrent = fixedButtonRef.current;
+		const observerTargetRefCurrent = observerTargetRef.current;
+		if (cellLayoutVersion === 0 || !fixedButtonRefCurrent || !observerTargetRefCurrent) {
+			return;
+		}
+
+		fixedButtonRefCurrent.style.transform = '';
+		scrollDataRef.current = tableWrapper.scrollLeft;
+		leftPosDataRef.current = 0;
+		observerTargetRefCurrent.style.marginLeft = `${calcObserverTargetMargin(
+			tableWrapper,
+			fixedButtonRefCurrent,
+		)}px`;
+	}, [cellLayoutVersion, tableWrapper]);
+
 	const containerLeft = useMemo(() => {
 		const container = targetCellRef.closest('[data-editor-container="true"]');
 		return container?.getBoundingClientRect().left || 0;
-	}, [targetCellRef]);
+	}, [targetCellRef, cellLayoutVersion]);
 
 	const left = useMemo(() => {
 		const targetCellRect = targetCellRef.getBoundingClientRect();
@@ -150,7 +171,7 @@ export const FixedButton = ({
 		});
 
 		return baseLeft - containerLeft;
-	}, [containerLeft, targetCellRef, offset]);
+	}, [containerLeft, targetCellRef, offset, cellLayoutVersion]);
 
 	// Using a portal here to ensure wrapperRef has the tableWrapper as an
 	// ancestor. This is required to make the Intersection Observer work.

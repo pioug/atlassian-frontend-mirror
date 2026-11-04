@@ -32,6 +32,7 @@ import type {
 	SurfaceContext,
 } from '@atlaskit/editor-ui-control-model/types';
 
+import { normalizeQuickInsertMatchResult } from '../normalizeQuickInsertMatchResult';
 import { QuickInsertSearchResultsSection } from './QuickInsertSearchResultsSection';
 import type { QuickInsertCategoryItemSelectionPolicy } from './selectQuickInsertCategoryItems';
 
@@ -203,15 +204,12 @@ const buildSearchSections = ({
 			) {
 				continue;
 			}
+			const normalizedMatch = normalizeQuickInsertMatchResult(match);
 			const candidate: MatchedItem = {
 				identity: getComponentIdentity(item),
 				item,
 				itemRank: getParentRank(item, section.key),
-				priorityGroup:
-					match?.priorityGroup !== undefined && Number.isFinite(match.priorityGroup)
-						? match.priorityGroup
-						: undefined,
-				score: Math.min(1, Math.max(0, match?.score ?? 0)),
+				...normalizedMatch,
 				sectionRank,
 				sourceIndex: sourceIndexByComponent.get(item) ?? Number.MAX_SAFE_INTEGER,
 			};

@@ -1,5 +1,20 @@
 # @atlaskit/emoji
 
+## 73.3.8
+
+### Patch Changes
+
+- [`12727dc9ff879`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/12727dc9ff879) -
+  Reuse the provider's MDPI image for compact standard and Atlassian emojis behind
+  platform_emoji_adaptive_image_size when it has enough pixels for the display. Preserve catalogue
+  images for larger or denser displays and providers without a suitable URL.
+
+## 73.3.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 73.3.6
 
 ### Patch Changes

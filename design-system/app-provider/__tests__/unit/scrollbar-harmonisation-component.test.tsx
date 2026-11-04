@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { render } from '@atlassian/testing-library/render';
 import { waitFor } from '@atlassian/testing-library/wait-for';
@@ -46,9 +47,8 @@ describe('ScrollbarHarmonisation', () => {
 		});
 	});
 
-	it('does not install transparent track styling when only the base gate is on', () => {
+	it('uses only the main attribute for transparent tracks', () => {
 		passGate('platform_dst_scrollbar_harmonisation');
-		failGate('platform_dst_scrollbar_harmonisation_transparent');
 
 		render(<ScrollbarHarmonisation />);
 
@@ -56,19 +56,18 @@ describe('ScrollbarHarmonisation', () => {
 		expect(document.documentElement).not.toHaveAttribute(transparentAttribute);
 	});
 
-	it('installs transparent track styling when both gates are on', () => {
+	it('installs only the main attribute without evaluating the obsolete transparent gate', () => {
 		passGate('platform_dst_scrollbar_harmonisation');
-		passGate('platform_dst_scrollbar_harmonisation_transparent');
 
 		render(<ScrollbarHarmonisation />);
 
 		expect(document.documentElement).toHaveAttribute(attribute);
-		expect(document.documentElement).toHaveAttribute(transparentAttribute);
+		expect(document.documentElement).not.toHaveAttribute(transparentAttribute);
+		expect(fg).not.toHaveBeenCalledWith('platform_dst_scrollbar_harmonisation_transparent');
 	});
 
-	it('does not install either appearance when only the transparent gate is on', () => {
+	it('does not install an obsolete transparency attribute when disabled', () => {
 		failGate('platform_dst_scrollbar_harmonisation');
-		passGate('platform_dst_scrollbar_harmonisation_transparent');
 
 		render(<ScrollbarHarmonisation />);
 
@@ -80,7 +79,6 @@ describe('ScrollbarHarmonisation', () => {
 describe('useScrollbarHarmonisation', () => {
 	it('does not install transparent track styling when the base gate is off despite an enabled override', () => {
 		failGate('platform_dst_scrollbar_harmonisation');
-		passGate('platform_dst_scrollbar_harmonisation_transparent');
 
 		render(<ScrollbarHarmonisationHookHarness isEnabled />);
 

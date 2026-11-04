@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-expand
 
+## 31.1.4
+
+### Patch Changes
+
+- [`87d171d3ba846`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/87d171d3ba846) -
+  Allow the Expand floating toolbar to open Remix while the Expand title has focus under the
+  `platform_editor_remix_reliability_improvements` experiment, while preserving Expand keyboard
+  navigation.
+
+## 31.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 31.1.2
 
 ### Patch Changes

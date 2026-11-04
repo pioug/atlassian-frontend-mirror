@@ -10,6 +10,7 @@ import {
 	TELEPOINTER_PULSE_DURING_TR_DURATION_MS,
 } from '@atlaskit/editor-common/collab';
 import type { CollabEditOptions, CollabParticipant } from '@atlaskit/editor-common/collab';
+import { LocalOnlyStep } from '@atlaskit/editor-common/collab-local-only-step';
 import { processRawValueWithoutValidation } from '@atlaskit/editor-common/process-raw-value';
 import { ZERO_WIDTH_JOINER } from '@atlaskit/editor-common/whitespace/whitespace';
 import { Transaction, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
@@ -19,6 +20,7 @@ import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
 import type { DecorationSet, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { getParticipantColor } from '@atlaskit/editor-shared-styles/utils';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
@@ -318,8 +320,11 @@ export const isOrganicChange = (tr: ReadonlyTransaction): boolean => {
 	}
 
 	return tr.steps.some((step: Step) => {
-		// If a step is an instance of AnalyticsStep, it is not considered organic
-		if (step instanceof AnalyticsStep) {
+		// Analytics and local-only steps (for example external page settings) are not organic
+		if (
+			step instanceof AnalyticsStep ||
+			(isExperimentEnabled('platform_editor_numbered_headings') && step instanceof LocalOnlyStep)
+		) {
 			return false;
 		}
 

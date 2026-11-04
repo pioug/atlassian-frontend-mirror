@@ -1,5 +1,18 @@
 # @atlaskit/css-reset
 
+## 8.4.9
+
+### Patch Changes
+
+- [`1ada59f0fc583`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1ada59f0fc583) -
+  Use fixed 8px subtle gray thumbs with stronger hover and pressed colours under
+  platform_dst_scrollbar_harmonisation on supported fine-pointer browsers.
+
+  Preserve the custom treatment when Confluence minifies the reset with CSSO.
+
+  Use the same subtle resting token and browser-defined thin sizing in fallback environments; retain
+  native colours and sizing in forced-colours mode.
+
 ## 8.4.8
 
 ### Patch Changes

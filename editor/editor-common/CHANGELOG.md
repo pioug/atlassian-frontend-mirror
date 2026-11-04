@@ -1,5 +1,58 @@
 # @atlaskit/editor-common
 
+## 134.6.2
+
+### Patch Changes
+
+- [`7b848418c36db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b848418c36db) -
+  Clean up duplicate_actionsubjectid_to_attributes so sampled editor experience events always
+  include actionSubjectId in their attributes.
+- [`268f46899e7a7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/268f46899e7a7) -
+  Clean up feature gate `platform_editor_use_vanilla_components_patch_2`
+- Updated dependencies
+
+## 134.6.1
+
+### Patch Changes
+
+- [`aa66de25a7d3f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa66de25a7d3f) -
+  Remove `rovo_skill_tag_label_wrapping` after its completed rollout. Skill labels now consistently
+  wrap in chat messages, scheduled prompts and agent skill lists, while respecting the renderer's
+  default and inverse colour themes.
+
+  Keep the independent slanted-background kill switch and apply Editor's flowing inline layout only
+  to extensions with its opt-in marker. Preserve the existing skill-name fallback when no slash
+  command is supplied.
+
+- [`5556dc905577a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5556dc905577a) -
+  [EDITOR-9776] Size registered slash and insert menus for the side Popup actually opens on, and
+  keep an 8px gap to the boundary edge, so they no longer overflow the editor's visible area
+  (platform_editor_slash_command).
+- [`92255b30e6242`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/92255b30e6242) -
+  Keep Quick Insert match scores consistent across menus. Recommend Jira work items followed by Jira
+  work item creation for `ji`, `jir`, and `jira`. Add `task` as a search keyword for Jira work item
+  creation under `platform_editor_slash_command`.
+- Updated dependencies
+
+## 134.6.0
+
+### Minor Changes
+
+- [`b15354550dd8a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b15354550dd8a) -
+  Add `LocalOnlyStep` (`@atlaskit/editor-common/collab-local-only-step`), a base class for steps
+  that change no document content and are never sent to collaborators, so settings stored outside
+  ADF can be undone.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 134.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 134.5.0
 
 ### Minor Changes
@@ -12530,8 +12583,8 @@
 ### Patch Changes
 
 - [#171482](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/171482)
-  [`aaa3084f0ce5e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aaa3084f0ce5e) - \*
-  I18n translations, see
+  [`aaa3084f0ce5e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aaa3084f0ce5e) -
+  \* I18n translations, see
   [commit](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/445044272c9e6779d186874b3e2e7ad714a13457)
 - [#169039](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/pull-requests/169039)
   [`d2488752fcad8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2488752fcad8) -

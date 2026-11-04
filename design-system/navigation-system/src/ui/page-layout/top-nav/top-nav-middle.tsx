@@ -40,6 +40,18 @@ const styles = cssMap({
 		 * Because we need to set it on the column, we need to make an assumption / requirement
 		 * that the search is always the first item.
 		 */
+	},
+	container: {
+		display: 'var(--n_tnMiddleDisplay, flex)',
+		gridTemplateColumns: 'minmax(min-content, 780px)',
+		gridAutoFlow: 'column',
+		gridAutoColumns: 'max-content',
+		justifyItems: 'end',
+		'@media (min-width: 48rem)': {
+			display: 'var(--n_tnMiddleDisplay, grid)',
+		},
+	},
+	viewport: {
 		'@media (min-width: 48rem)': {
 			display: 'grid',
 			// This column constraint is only relevant for the search bar
@@ -90,7 +102,9 @@ export function TopNavMiddle({
 	children: React.ReactNode;
 }): JSX.Element {
 	return (
-		<div css={styles.root}>
+		<div
+			css={[styles.root, fg('platform-dst-chat-panel-layout') ? styles.container : styles.viewport]}
+		>
 			{/* Nothing reads this namespace. The observer is not used when the top-layer gate is on. */}
 			{fg('platform-dst-top-layer') ? (
 				children

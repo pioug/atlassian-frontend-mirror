@@ -1,9 +1,5 @@
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-
 import type { ADFEntity } from '../../../types';
 import { validator } from '../../validator';
-
-const GATE = 'platform_editor_adf_validator_empty_marks';
 
 const docWith = (node: ADFEntity): ADFEntity => ({ type: 'doc', version: 1, content: [node] });
 
@@ -26,12 +22,8 @@ const expand: ADFEntity = {
 	marks: [],
 };
 
-describe('validator: empty marks array, gate ON', () => {
-	let validate: ReturnType<typeof validator>;
-	beforeEach(() => {
-		passGate(GATE);
-		validate = validator();
-	});
+describe('validator: empty marks array', () => {
+	const validate = validator();
 
 	// ADF gives these nodes a `marks` property that no mark type may go into
 	// (`marks: { type: 'array', maxItems: 0 }`), so an empty array is the only value it can hold and
@@ -91,23 +83,5 @@ describe('validator: empty marks array, gate ON', () => {
 		};
 
 		expect(() => validate(docWith(withStrong))).toThrow();
-	});
-});
-
-describe('validator: empty marks array, gate OFF', () => {
-	let validate: ReturnType<typeof validator>;
-	beforeEach(() => {
-		failGate(GATE);
-		validate = validator();
-	});
-
-	it.each([
-		['paragraph', paragraph],
-		['heading', heading],
-		['extension', extension],
-		['panel with a codeBlock', codeBlockInPanel],
-		['expand', expand],
-	])('rejects an empty marks array on %s', (_name, node) => {
-		expect(() => validate(docWith(node))).toThrow();
 	});
 });

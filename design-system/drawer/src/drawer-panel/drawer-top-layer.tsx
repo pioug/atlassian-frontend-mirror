@@ -101,10 +101,13 @@ const enterFromStyles = cssMap({
 
 /**
  * Resolve the native `<dialog>` accessible name props. Prefer the consumer's
- * `label`, then their `titleId`. If neither is supplied (legacy allowed this),
- * fall back to a generic name so the dialog is never unlabelled. Note:
- * `@atlaskit/drawer` has no i18n setup, so this fallback is English only;
- * consumers should pass a localised `label` or `titleId`.
+ * `titleId`, then their `label`. This keeps the legacy name: legacy set both
+ * `aria-labelledby` and `aria-label`, and `aria-labelledby` wins. `Dialog`
+ * drops `labelledBy` when `label` is set, so pass only one. If neither is
+ * supplied (legacy allowed this), fall back to a generic name so the dialog is
+ * never unlabelled. Note: `@atlaskit/drawer` has no i18n setup, so this
+ * fallback is English only; consumers should pass a localised `label` or
+ * `titleId`.
  */
 function getAccessibleName({
 	label,
@@ -113,11 +116,12 @@ function getAccessibleName({
 	label: string | undefined;
 	titleId: string | undefined;
 }): { label: string } | { labelledBy: string } {
-	if (label) {
-		return { label };
-	}
+	// Preferencing a visible heading if available over a label. Matching legacy decision
 	if (titleId) {
 		return { labelledBy: titleId };
+	}
+	if (label) {
+		return { label };
 	}
 	return { label: 'Drawer' };
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 
+// eslint-disable-next-line @atlaskit/design-system/no-third-party-focus-traps -- existing usage from before this rule was added
 import ReactFocusLock from 'react-focus-lock';
 
 import { type FocusLockProps } from '../types';

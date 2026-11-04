@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9b59d50b9da42c3c0189d89a2a021f0c>>
+ * @codegen <<SignedSource::837f9eb44175195064be1e69aa693df7>>
  * @codegenCommand afm workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import type { Rule } from 'eslint';
@@ -52,6 +52,8 @@ import noPlaceholder from './no-placeholder';
 import noReadonlyOrDisabledInputs from './no-readonly-or-disabled-inputs';
 import noSeparatorWithListElements from './no-separator-with-list-elements';
 import noStyledTaggedTemplateExpression from './no-styled-tagged-template-expression';
+import noThirdPartyFocusTraps from './no-third-party-focus-traps';
+import noThirdPartyLayering from './no-third-party-layering';
 import noToMatchSnapshot from './no-to-match-snapshot';
 import noUnsafeDesignTokenUsage from './no-unsafe-design-token-usage';
 import noUnsafeInlineSnapshot from './no-unsafe-inline-snapshot';
@@ -139,6 +141,8 @@ export const rules: Record<string, Rule.RuleModule> = {
 	'no-readonly-or-disabled-inputs': noReadonlyOrDisabledInputs,
 	'no-separator-with-list-elements': noSeparatorWithListElements,
 	'no-styled-tagged-template-expression': noStyledTaggedTemplateExpression,
+	'no-third-party-focus-traps': noThirdPartyFocusTraps,
+	'no-third-party-layering': noThirdPartyLayering,
 	'no-to-match-snapshot': noToMatchSnapshot,
 	'no-unsafe-design-token-usage': noUnsafeDesignTokenUsage,
 	'no-unsafe-inline-snapshot': noUnsafeInlineSnapshot,

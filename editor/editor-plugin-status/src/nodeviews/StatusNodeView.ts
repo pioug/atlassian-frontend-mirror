@@ -4,6 +4,7 @@ import { messages } from '@atlaskit/editor-common/messages/status';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { NodeView } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { normalizeStatusColorAttr } from '../utils/normalizeStatusColor';
@@ -60,10 +61,21 @@ export class StatusNodeView implements NodeView {
 			return false;
 		}
 
+		const wasEmpty = !this.node.attrs.text;
+		const isEmpty = !node.attrs.text;
+
 		if (this.textContainer && node.attrs.text !== this.node.attrs.text) {
-			this.textContainer.textContent = node.attrs.text;
+			if (!isExperimentEnabled('platform_editor_improve_inp_batch_2') || !isEmpty) {
+				this.textContainer.textContent = node.attrs.text;
+			}
 			// Also update data-text on outer wrapper for parseDOM extraction when copying
-			this.domElement?.setAttribute('data-text', node.attrs.text);
+			this.domElement?.setAttribute(
+				'data-text',
+				// Avoid serialising a null text attr as the literal string "null"
+				isExperimentEnabled('platform_editor_improve_inp_batch_2')
+					? (node.attrs.text ?? '')
+					: node.attrs.text,
+			);
 		}
 
 		if (
@@ -81,12 +93,22 @@ export class StatusNodeView implements NodeView {
 			this.domElement?.setAttribute('data-color', dataColor);
 		}
 
-		if (!node.attrs.text) {
-			this.setPlaceholder();
-		}
+		if (isExperimentEnabled('platform_editor_improve_inp_batch_2')) {
+			if (wasEmpty !== isEmpty) {
+				if (isEmpty) {
+					this.setPlaceholder();
+				} else {
+					this.domElement?.style.setProperty('opacity', '1');
+				}
+			}
+		} else {
+			if (!node.attrs.text) {
+				this.setPlaceholder();
+			}
 
-		if (node.attrs.text && this.domElement) {
-			this.domElement.style.setProperty('opacity', '1');
+			if (node.attrs.text && this.domElement) {
+				this.domElement.style.setProperty('opacity', '1');
+			}
 		}
 
 		this.node = node;

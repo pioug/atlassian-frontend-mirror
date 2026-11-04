@@ -1,0 +1,103 @@
+# no-third-party-focus-traps
+
+Do not use a third-party focus trap library, such as `react-focus-lock` or `focus-trap`. Design
+System layering components manage focus for you. If no Design System component fits, use
+`@atlaskit/top-layer`.
+
+Layers are moving to the browser
+[top layer](https://developer.mozilla.org/en-US/docs/Glossary/Top_layer). A focus trap from another
+library does not know about layers in the top layer:
+
+- It can pull focus out of a Design System layer that opens outside the trap, such as a flag, or a
+  modal dialog that another part of the page opens.
+- Around a layer that is not in the top layer, it does not contain the content that moves to the top
+  layer. Tab can move into or out of the trapped region.
+- It repeats what a modal `<dialog>` already does. A modal dialog makes the rest of the page inert,
+  and the Design System keeps focus inside the dialog.
+
+Design System layers own their focus:
+
+- `Dialog` from `@atlaskit/top-layer`, and components that use it such as
+  [modal-dialog](https://atlassian.design/components/modal-dialog), keep focus inside the dialog and
+  make the rest of the page inert.
+- `Popover` with `role="dialog"` keeps Tab and Shift+Tab inside the popover.
+- Both put focus in the layer when it opens. When it closes, `Dialog` always gives focus back, and
+  `Popover` gives focus back unless the user pressed outside it.
+
+Use, in this order:
+
+1. A Design System component:
+   - Overlays: [popup](https://atlassian.design/components/popup),
+     [inline-dialog](https://atlassian.design/components/inline-dialog)
+   - Messaging: [modal-dialog](https://atlassian.design/components/modal-dialog),
+     [drawer](https://atlassian.design/components/drawer),
+     [spotlight](https://atlassian.design/components/spotlight)
+   - Forms and inputs: [dropdown-menu](https://atlassian.design/components/dropdown-menu),
+     [select](https://atlassian.design/components/select)
+2. `@atlaskit/top-layer`, only if no Design System component fits: `Dialog`, or `Popover` with
+   `role="dialog"`.
+
+## Examples
+
+This rule marks each module that a file loads from a focus trap library, as a whole package or a
+subpath:
+
+- `import` and `import type` declarations, and `import 'module'`
+- `export … from 'module'`
+- `import('module')`
+- `require('module')`
+
+These libraries are marked: `focus-lock`, `focus-trap`, `focus-trap-react`, `react-focus-lock`,
+`react-focus-on`, `react-focus-trap`.
+
+### Not covered
+
+- Focus traps that you write yourself, such as a `keydown` listener that moves focus.
+- Code that makes the rest of the page inert with the `inert` attribute or `aria-hidden`.
+- `jest.mock('module')` and `vi.mock('module')`. A mock does not trap focus.
+- Specifiers that are only known at runtime, such as `import(name)`.
+- TypeScript `import name = require('module')`.
+
+### Incorrect
+
+```tsx
+import FocusLock from 'react-focus-lock';
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+import { createFocusTrap } from 'focus-trap';
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+import type { ReactFocusLockProps } from 'react-focus-lock/interfaces';
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+const FocusTrap = require('focus-trap-react');
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+```
+
+### Correct
+
+```tsx
+import ModalDialog, { ModalBody, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
+
+<ModalDialog onClose={onClose}>
+	<ModalHeader>
+		<ModalTitle>Settings</ModalTitle>
+	</ModalHeader>
+	<ModalBody>{children}</ModalBody>
+</ModalDialog>;
+```
+
+## When not to use it
+
+- **A focus region that is not a layer.** For example, a full screen presentation mode that is part
+  of the page. Make sure that no Design System layer can open outside the region while it traps
+  focus.
+- **A Design System package that wraps a library.** For example, the legacy path of a Design System
+  layering component.
+
+An `eslint-disable` comment silences this rule. In the Atlassian Frontend Monorepo, the ratchet "Do
+not disable @atlaskit/design-system/no-third-party-focus-traps (AFM-wide)" counts these comments,
+and `'off'` for this rule in an ESLint config, so a new one fails ratcheting. For a real exception,
+give a reason after `--` in the disable comment, and add the file to the ratchet's `excluded` list
+in `platform/monorepo.config/tasks/global-ratcheting/rules/no-third-party-focus-traps.ts` with an
+owner and a reason.

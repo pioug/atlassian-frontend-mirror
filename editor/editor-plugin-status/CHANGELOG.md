@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-status
 
+## 31.0.9
+
+### Patch Changes
+
+- [`12017af1f8a8e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/12017af1f8a8e) -
+  Reduce redundant StatusNodeView text and opacity updates behind the
+  platform_editor_improve_inp_batch_2 experiment.
+- Updated dependencies
+
+## 31.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 31.0.7
 
 ### Patch Changes

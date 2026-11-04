@@ -5,6 +5,7 @@
 import { Component, type ComponentType, type FC, type MouseEvent } from 'react';
 
 import { css, jsx } from '@compiled/react';
+// eslint-disable-next-line @atlaskit/design-system/no-third-party-focus-traps -- existing usage from before this rule was added
 import FocusLock from 'react-focus-lock';
 import {
 	FormattedMessage,

@@ -6,6 +6,7 @@ import React, { useContext, useEffect, useRef } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { TopNavStartAttachRef } from '../../../context/top-nav-start/top-nav-start-attach-ref';
@@ -13,6 +14,7 @@ import { TopNavStartAttachRef } from '../../../context/top-nav-start/top-nav-sta
 /**
  * Styles for the TopNavStart element.
  */
+
 const innerStyles = cssMap({
 	root: {
 		// Taking up the full height of top bar to allow for monitoring mouse events, for improving the side nav flyout experience
@@ -22,6 +24,17 @@ const innerStyles = cssMap({
 		gap: token('space.050'),
 		gridColumn: 1,
 		// Sets a minimum width on the content so that it aligns with the side nav (when side nav is at default width)
+	},
+	container: {
+		width: 'var(--n_tnSideWidth, auto)',
+		minWidth: 'var(--n_tnStartMinWidth, 0px)',
+		boxSizing: 'border-box',
+		'@media (min-width: 64rem)': {
+			width: 'var(--n_tnSideWidth, max-content)',
+			minWidth: 'var(--n_tnStartMinWidth, 330px)',
+		},
+	},
+	viewport: {
 		'@media (min-width: 64rem)': {
 			// Intrinsic width of content without wrapping
 			// The actual grid column can still be larger
@@ -86,7 +99,14 @@ export function TopNavStart({
 	}, [elementRef, ref]);
 
 	return (
-		<div ref={elementRef} data-testid={testId} css={innerStyles.root}>
+		<div
+			ref={elementRef}
+			data-testid={testId}
+			css={[
+				innerStyles.root,
+				fg('platform-dst-chat-panel-layout') ? innerStyles.container : innerStyles.viewport,
+			]}
+		>
 			{sideNavToggleButton}
 			{children}
 		</div>

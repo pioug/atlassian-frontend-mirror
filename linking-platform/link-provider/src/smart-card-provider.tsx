@@ -40,6 +40,7 @@ export function SmartCardProvider({
 	isPreviewRestricted,
 	openPreviewPanel,
 	rovoOptions,
+	choreographer,
 	xpcProduct,
 	xpcSubProduct,
 }: CardProviderProps): React.JSX.Element {
@@ -144,6 +145,7 @@ export function SmartCardProvider({
 			...(fg('preview_panel_unit_check') ? { isPreviewRestricted } : undefined),
 			openPreviewPanel,
 			rovoOptions,
+			choreographer,
 			xpcProduct,
 			xpcSubProduct,
 		};
@@ -159,6 +161,7 @@ export function SmartCardProvider({
 		renderers,
 		shouldControlDataExport,
 		rovoOptions,
+		choreographer,
 		store,
 		xpcProduct,
 		xpcSubProduct,

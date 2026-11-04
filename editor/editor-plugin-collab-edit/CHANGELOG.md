@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 32.0.4
+
+### Patch Changes
+
+- [`b15354550dd8a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b15354550dd8a) -
+  Drop `LocalOnlyStep` steps before sending, rebasing and organic-change checks, behind
+  `platform_editor_numbered_headings`.
+- Updated dependencies
+
+## 32.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 32.0.2
 
 ### Patch Changes

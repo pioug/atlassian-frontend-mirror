@@ -11,9 +11,18 @@ import {
 	createPlugin,
 	externalStatePluginKey,
 	getChangedValues,
-	getValuesMeta,
+	getStepValues,
+	getTransactionValues,
 	setValuesMeta,
 } from './pm-plugins/main';
+
+const pickValues = (state: ExternalState, keys: ExternalStateKey[]): Partial<ExternalState> => {
+	const picked: Partial<ExternalState> = {};
+	for (const key of keys) {
+		Object.assign(picked, { [key]: state[key] });
+	}
+	return picked;
+};
 
 type KeySaves = {
 	loop?: Promise<boolean>;
@@ -73,7 +82,7 @@ export const externalStatePlugin: ExternalStatePlugin = ({ config, api }) => {
 			return true;
 		} catch {
 			if (!saves.requested && !isDestroyed) {
-				api?.core?.actions.execute(setStateCommand(key, confirmedState[key]));
+				api?.core?.actions.execute(({ tr }) => setValuesMeta(tr, { [key]: confirmedState[key] }));
 			}
 			return false;
 		}
@@ -154,11 +163,28 @@ export const externalStatePlugin: ExternalStatePlugin = ({ config, api }) => {
 			];
 		},
 
+		// Save values changed by local steps: a toggle, or its undo or redo.
+		onEditorViewStateUpdated({ transactions, oldEditorState, newEditorState }) {
+			let keys: ExternalStateKey[] = [];
+			for (const tr of transactions) {
+				keys = [...keys, ...(Object.keys(getStepValues(tr) ?? {}) as ExternalStateKey[])];
+			}
+			if (keys.length === 0) {
+				return;
+			}
+			const before = externalStatePluginKey.getState(oldEditorState)?.state ?? initialState;
+			const after = externalStatePluginKey.getState(newEditorState)?.state ?? initialState;
+			const changed = getChangedValues(before, pickValues(after, keys));
+			for (const key of Object.keys(changed ?? {}) as ExternalStateKey[]) {
+				void requestSave(key, after[key]);
+			}
+		},
+
 		actions: {
 			getState: (key) => getCurrentState()[key],
 
 			getStateChange: (tr, key) => {
-				const values = getValuesMeta(tr);
+				const values = getTransactionValues(tr);
 				return values && key in values ? { value: values[key] } : undefined;
 			},
 

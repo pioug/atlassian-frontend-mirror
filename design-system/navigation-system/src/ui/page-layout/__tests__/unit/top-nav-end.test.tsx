@@ -3,11 +3,13 @@ import React, { useState } from 'react';
 import SettingsIcon from '@atlaskit/icon/core/settings';
 import { UNSAFE_useMediaQuery } from '@atlaskit/primitives/compiled/use-media-query';
 import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { act } from '@atlassian/testing-library/act';
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
 import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { EndItem } from '../../../top-nav-items/end-item';
+import { TopNavElementContext } from '../../top-nav/top-nav-element-context';
 import { TopNavEnd } from '../../top-nav/top-nav-end';
 
 jest.mock('@atlaskit/primitives/compiled/use-media-query', () => ({
@@ -30,6 +32,58 @@ describe('TopNavEnd', () => {
 	});
 
 	const BasicAction = () => <EndItem icon={SettingsIcon} label="Settings" />;
+
+	it('should keep overflow open when a viewport event does not change the container layout', async () => {
+		passGate('platform-dst-chat-panel-layout');
+		const compact = { belowSm: true };
+		render(
+			<TopNavElementContext.Provider value={compact}>
+				<TopNavEnd>
+					<BasicAction />
+				</TopNavEnd>
+			</TopNavElementContext.Provider>,
+		);
+		await userEvent.click(screen.getByRole('button', { name: 'Show more' }));
+		const onViewportChange = mockUseMediaQuery.mock.calls
+			.filter(([, onChange]) => typeof onChange === 'function')
+			.at(-1)![1];
+		act(() => onViewportChange({ matches: true }));
+		expect(screen.getByRole('button', { name: 'Show more' })).toHaveAttribute(
+			'aria-expanded',
+			'true',
+		);
+	});
+
+	it.each([false, true])(
+		'should retain viewport closing without a container provider (gate: %s)',
+		async (enabled) => {
+			(enabled ? passGate : failGate)('platform-dst-chat-panel-layout');
+			mockUseMediaQuery.mockReturnValue({ matches: true });
+			render(
+				<TopNavEnd>
+					<BasicAction />
+				</TopNavEnd>,
+			);
+			await userEvent.click(screen.getByRole('button', { name: 'Show more' }));
+			mockUseMediaQuery.mockReturnValue({ matches: false });
+			act(() =>
+				mockUseMediaQuery.mock.calls
+					.filter(([, onChange]) => typeof onChange === 'function')
+					.at(-1)![1]({ matches: false }),
+			);
+			expect(screen.queryByRole('button', { name: 'Show more' })).not.toBeInTheDocument();
+			mockUseMediaQuery.mockReturnValue({ matches: true });
+			act(() =>
+				mockUseMediaQuery.mock.calls
+					.filter(([, onChange]) => typeof onChange === 'function')
+					.at(-1)![1]({ matches: true }),
+			);
+			expect(screen.getByRole('button', { name: 'Show more' })).toHaveAttribute(
+				'aria-expanded',
+				'false',
+			);
+		},
+	);
 
 	describe('persistent actions', () => {
 		it.each([

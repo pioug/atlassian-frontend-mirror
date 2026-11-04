@@ -23,8 +23,9 @@
  *    reports `pointer-events: none`, so a `user-event` pointer action on it throws, as a user
  *    cannot hit it. `element.click()` and `dispatchEvent()` still work, as in a browser. The
  *    `inert` attribute works the same way.
- *  - An open popover, and its content, report `pointer-events: auto` where they inherit `none` from
- *    outside the popover, as an ADS `Popover` host resets it. jsdom cannot match that reset.
+ *  - Layer surface reset: `Popover` and `Dialog` reset `pointer-events` to `auto` on the host with a
+ *    `:defined` rule, which jsdom cannot match. So `getComputedStyle()` reports `auto` for an open
+ *    popover or dialog host, and for content in it that would inherit `none` from outside it.
  *  - Nothing that a browser does not render can take focus: content in a closed dialog, a closed
  *    popover, or a `hidden` subtree.
  *  - Popover focus: showPopover runs the popover focusing steps (`autofocus`), and records the
@@ -38,7 +39,7 @@
  *    rendering update. Not synchronously. With fake timers, use `jest.runOnlyPendingTimers()`.
  *  - Dialog `closedBy` IDL property, and Escape honours `closedby` (as a browser that supports
  *    it). Delete `HTMLDialogElement.prototype.closedBy` to model a browser without `closedby`.
- *  - The popover open state is the `data-popover-open` attribute (jsdom has no `:popover-open`).
+ *  - Top-layer selectors use the `data-popover-open` and `data-top-layer-polyfill-modal` attributes.
  *  - Auto and hint popovers: each mode has an open stack. A press (pointer or mouse down and up)
  *    outside the open chain light-dismisses them, and Escape dismisses the topmost one.
  *  - Escape: the dismissal is the keydown's default action. It runs when `dispatchEvent()`
@@ -620,6 +621,7 @@ function runDialogRemovingSteps({ dialog }: { dialog: TPolyfillDialog }) {
 	unregisterEscapeLayer({ element: dialog });
 	removeModalDialog({ dialog });
 	dialog._isModal = false;
+	dialog.removeAttribute('data-top-layer-polyfill-modal');
 }
 
 /**
@@ -629,6 +631,7 @@ function runDialogRemovingSteps({ dialog }: { dialog: TPolyfillDialog }) {
  */
 function runDialogInsertionSteps({ dialog }: { dialog: TPolyfillDialog }) {
 	dialog._isModal = false;
+	dialog.removeAttribute('data-top-layer-polyfill-modal');
 	if (dialog.hasAttribute('open') && dialog.isConnected) {
 		registerEscapeLayer({ layer: { type: 'dialog', element: dialog } });
 	}
@@ -999,7 +1002,8 @@ function hasInlinePointerEventsUpTo({
  * popover, from outside that popover. ADS `Popover` resets its host to `auto` with a `:defined`
  * rule, so in a browser the surface stays hittable in a `pointer-events: none` ancestor. jsdom does
  * not support `:defined`, so it lets the outside `none` through. jsdom inherits along
- * `parentElement`, so this does too. An inline `pointer-events` in the popover is kept.
+ * `parentElement`, so this does too. A `pointer-events` set in the popover, inline or by a style
+ * sheet rule, is kept.
  * See `notes/decisions/polyfill-inert-pointer-events.md`.
  */
 function inheritsNoneIntoOpenPopover({
@@ -1011,10 +1015,17 @@ function inheritsNoneIntoOpenPopover({
 }): boolean {
 	const host = element.closest('[popover][data-popover-open]');
 	const hostParent = host?.parentElement ?? null;
-	if (!host || !hostParent || readPointerEvents({ element: hostParent }) !== 'none') {
+	if (
+		!(host instanceof HTMLElement) ||
+		!hostParent ||
+		readPointerEvents({ element: hostParent }) !== 'none'
+	) {
 		return false;
 	}
-	return !hasInlinePointerEventsUpTo({ element, host });
+	return (
+		!hasInlinePointerEventsUpTo({ element, host }) &&
+		!setsPointerEventsInsideHost({ element, host })
+	);
 }
 
 /**
@@ -1052,6 +1063,128 @@ function getHitTestPointerEvents({
 		return 'auto';
 	}
 	return null;
+}
+
+function isStyleRule(rule: CSSRule): rule is CSSStyleRule {
+	return 'selectorText' in rule && 'style' in rule;
+}
+
+function isMediaRule(rule: CSSRule): rule is CSSMediaRule {
+	return 'media' in rule && 'cssRules' in rule;
+}
+
+/**
+ * Whether `rule`, or a rule inside it, sets `pointer-events` on `element`. Follows the rule walk of
+ * jsdom's `getComputedStyle()`: it reads an `@media` rule only when the rule lists `screen`, and a
+ * selector that jsdom cannot parse matches nothing.
+ */
+function ruleSetsPointerEvents({ rule, element }: { rule: CSSRule; element: Element }): boolean {
+	if (isMediaRule(rule)) {
+		return (
+			Array.from(rule.media).includes('screen') &&
+			Array.from(rule.cssRules).some((innerRule) =>
+				ruleSetsPointerEvents({ rule: innerRule, element }),
+			)
+		);
+	}
+	if (!isStyleRule(rule) || rule.style.getPropertyValue('pointer-events') === '') {
+		return false;
+	}
+	try {
+		return element.matches(rule.selectorText);
+	} catch {
+		return false;
+	}
+}
+
+/**
+ * Whether the inline style or a style sheet rule sets `pointer-events` on `element`.
+ */
+function setsPointerEvents({ element }: { element: Element }): boolean {
+	if (element instanceof HTMLElement && element.style.getPropertyValue('pointer-events') !== '') {
+		return true;
+	}
+	return Array.from(element.ownerDocument.styleSheets).some((sheet) =>
+		Array.from(sheet.cssRules).some((rule) => ruleSetsPointerEvents({ rule, element })),
+	);
+}
+
+function isOpenLayerHost({ element }: { element: HTMLElement }): boolean {
+	if (element instanceof HTMLDialogElement) {
+		return element.open;
+	}
+	return isPopoverOpen({ element });
+}
+
+/**
+ * The nearest open popover or dialog host that is `element` or contains it. It follows
+ * `parentElement`, as jsdom does when it resolves an inherited value.
+ */
+function findOpenLayerHost({ element }: { element: Element }): HTMLElement | null {
+	if (element instanceof HTMLElement && isOpenLayerHost({ element })) {
+		return element;
+	}
+	const parent = element.parentElement;
+	if (!parent) {
+		return null;
+	}
+	return findOpenLayerHost({ element: parent });
+}
+
+/**
+ * Whether `element`, or an element between it and `host`, sets `pointer-events`.
+ */
+function setsPointerEventsInsideHost({
+	element,
+	host,
+}: {
+	element: Element;
+	host: HTMLElement;
+}): boolean {
+	if (element === host) {
+		return false;
+	}
+	if (setsPointerEvents({ element })) {
+		return true;
+	}
+	const parent = element.parentElement;
+	if (!parent) {
+		return false;
+	}
+	return setsPointerEventsInsideHost({ element: parent, host });
+}
+
+/**
+ * Whether a browser computes `pointer-events: auto` for `element` from the surface reset of an open
+ * popover or dialog host, where jsdom computes another value.
+ *
+ * `Popover` and `Dialog` reset `pointer-events` to `auto` on the host with a `:defined` rule. jsdom
+ * does not support `:defined`, so the reset never applies there. Content in a layer inside a
+ * `pointer-events: none` ancestor then inherits `none`, and a `user-event` click on it throws.
+ *
+ * - The host gets `auto` unless its inline style sets a value. The boosted reset rule beats other
+ *   style sheet rules, but not an inline style.
+ * - Content in the host gets `auto` when it inherits `none` and nothing between it and the host
+ *   sets `pointer-events`. Only then are the style sheets read, as that costs the most.
+ */
+function getsPointerEventsFromSurfaceReset({
+	element,
+	computedValue,
+}: {
+	element: Element;
+	computedValue: string;
+}): boolean {
+	if (computedValue === 'auto') {
+		return false;
+	}
+	const host = findOpenLayerHost({ element });
+	if (!host || host.style.getPropertyValue('pointer-events') !== '') {
+		return false;
+	}
+	if (element === host) {
+		return true;
+	}
+	return computedValue === 'none' && !setsPointerEventsInsideHost({ element, host });
 }
 
 /**
@@ -1093,6 +1226,16 @@ if (typeof window !== 'undefined' && typeof window.getComputedStyle === 'functio
 			});
 			if (pointerEvents !== null) {
 				declaration.setProperty('pointer-events', pointerEvents);
+			}
+			// Model the layer surface reset that jsdom cannot match. Inert content stays `none`.
+			if (
+				pointerEvents === null &&
+				getsPointerEventsFromSurfaceReset({
+					element,
+					computedValue: declaration.getPropertyValue('pointer-events'),
+				})
+			) {
+				declaration.setProperty('pointer-events', 'auto');
 			}
 			return declaration;
 		};
@@ -1785,37 +1928,68 @@ function handleDocumentPointerup(event: PointerEvent) {
 	hidePopoversInStackNotInChainTo({ stack: openAutoStack, target });
 }
 
-if (typeof HTMLElement !== 'undefined') {
-	// jsdom throws `SyntaxError` on `:popover-open`. The patch answers it from the
-	// `data-popover-open` attribute, answers `:modal`, and passes every other selector to jsdom.
-	// Spec: https://html.spec.whatwg.org/multipage/semantics-other.html#selector-popover-open
-	const originalMatches = Element.prototype.matches;
-	const matchesMarker = '__topLayerPolyfillMatches';
-	// A second copy of the polyfill (for example after `jest.resetModules()`) must not answer
-	// `:modal` from its own, empty state: only the first copy patches `matches`.
-	if (!(matchesMarker in originalMatches)) {
-		// A function expression: oxlint forbids a function declaration in a block.
-		const patchedMatches = function patchedMatches(this: Element, selector: string): boolean {
-			if (selector === ':popover-open') {
-				// A removed popover is hidden at once, as in a browser.
-				flushRemovalObserver();
-				return this.hasAttribute('data-popover-open');
-			}
-			// jsdom does not support `:modal` either.
-			if (selector === ':modal') {
-				if (!(this instanceof HTMLDialogElement)) {
-					return false;
-				}
-				flushRemovalObserver();
-				return this.open && Boolean((this as TPolyfillDialog)._isModal);
-			}
-			return originalMatches.call(this, selector);
-		};
-		Object.defineProperty(patchedMatches, matchesMarker, { value: true });
-		// The DOM types give `Element.prototype.matches` type predicate overloads. The patch
-		// returns a plain boolean, so cast it to the original member type.
-		Element.prototype.matches = patchedMatches as typeof Element.prototype.matches;
+// Match escapes and strings first so their contents are not rewritten.
+const escapedCharacter = String.raw`\\[\s\S]`;
+const quotedString = String.raw`"(?:${escapedCharacter}|[^"\\])*"|'(?:${escapedCharacter}|[^'\\])*'`;
+// Match whole pseudo-class and pseudo-element names so :modal-dialog and ::modal stay unchanged.
+const pseudoSelector = String.raw`::?[\w-]+`;
+const selectorTokens = new RegExp([escapedCharacter, quotedString, pseudoSelector].join('|'), 'g');
+
+function replaceTopLayerSelectors(selector: string): string {
+	const normalizedSelector = selector.toLowerCase();
+	if (!normalizedSelector.includes(':modal') && !normalizedSelector.includes(':popover-open')) {
+		return selector;
 	}
+
+	return selector.replace(selectorTokens, (token) => {
+		const normalizedToken = token.toLowerCase();
+		if (normalizedToken === ':modal') {
+			return '[open][data-top-layer-polyfill-modal]';
+		}
+		if (normalizedToken === ':popover-open') {
+			return '[data-popover-open]';
+		}
+		return token;
+	});
+}
+
+function createTopLayerSelectorMethod<TMethod extends (selector: string) => unknown>(
+	original: TMethod,
+): TMethod {
+	const marker = '__topLayerPolyfillSelectorMethod';
+	// Reuse the first wrapper so repeated imports keep reading the original modal state.
+	if (marker in original) {
+		return original;
+	}
+
+	function topLayerSelectorMethod(this: ThisParameterType<TMethod>, argument: unknown): unknown {
+		if (arguments.length === 0) {
+			return Reflect.apply(original, this, []);
+		}
+
+		// DOMString conversion rejects symbols, unlike String(), and runs only once.
+		const selector = `${argument}`;
+		const translatedSelector = replaceTopLayerSelectors(selector);
+		if (translatedSelector !== selector) {
+			// MutationObserver callbacks run later. Drain queued removal and insertion records now
+			// so a dialog or popover removed or moved before this call loses its top-layer state.
+			flushRemovalObserver();
+		}
+		return original.call(this, translatedSelector);
+	}
+	Object.defineProperty(topLayerSelectorMethod, marker, { value: true });
+	// Preserve the original method's generic overloads and type predicates.
+	return topLayerSelectorMethod as TMethod;
+}
+
+if (typeof HTMLElement !== 'undefined') {
+	Element.prototype.matches = createTopLayerSelectorMethod(Element.prototype.matches);
+	Element.prototype.closest = createTopLayerSelectorMethod(Element.prototype.closest);
+
+	[Document.prototype, Element.prototype, DocumentFragment.prototype].forEach((prototype) => {
+		prototype.querySelector = createTopLayerSelectorMethod(prototype.querySelector);
+		prototype.querySelectorAll = createTopLayerSelectorMethod(prototype.querySelectorAll);
+	});
 
 	if (!HTMLElement.prototype.showPopover) {
 		// Changing or removing the `popover` attribute hides an open popover synchronously.
@@ -2053,6 +2227,7 @@ if (typeof HTMLDialogElement !== 'undefined') {
 
 			this.setAttribute('open', '');
 			this._isModal = true;
+			this.setAttribute('data-top-layer-polyfill-modal', '');
 			// The document is now blocked by this dialog: everything outside it is inert.
 			removeModalDialog({ dialog: this });
 			modalDialogs.push(this);
@@ -2104,6 +2279,7 @@ if (typeof HTMLDialogElement !== 'undefined') {
 
 			this.setAttribute('open', '');
 			this._isModal = false;
+			this.removeAttribute('data-top-layer-polyfill-modal');
 			// Non-modal dialogs can opt into Escape through closedby.
 			registerEscapeLayer({ layer: { type: 'dialog', element: this } });
 			watchDialogForRemoval({ dialog: this });
@@ -2144,6 +2320,7 @@ if (typeof HTMLDialogElement !== 'undefined') {
 			stopWatchingDialog({ dialog: this });
 			const wasModal = Boolean(this._isModal);
 			this._isModal = false;
+			this.removeAttribute('data-top-layer-polyfill-modal');
 			removeModalDialog({ dialog: this });
 			if (returnValue !== undefined) {
 				this.returnValue = returnValue;

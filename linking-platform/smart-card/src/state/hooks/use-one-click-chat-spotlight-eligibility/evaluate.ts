@@ -10,6 +10,7 @@ export type EligibilityReason =
 	| 'unsupported_product'
 	| 'suppression_unavailable'
 	| 'spotlight_active'
+	| 'choreography_unavailable'
 	| 'dismissal_cooldown'
 	| 'shown_today'
 	| 'weekly_limit'

@@ -4,7 +4,6 @@ import { getDocument } from '@atlaskit/browser-apis';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { installScrollbarHarmonisation } from './install-scrollbar-harmonisation';
-import { installScrollbarHarmonisationTransparentTrack } from './install-scrollbar-harmonisation-transparent-track';
 
 /**
  * Activates the harmonised scrollbar appearance. An explicit value overrides the shared rollout
@@ -13,8 +12,6 @@ import { installScrollbarHarmonisationTransparentTrack } from './install-scrollb
 export function useScrollbarHarmonisation(isEnabled?: boolean): void {
 	const isGateEnabled = fg('platform_dst_scrollbar_harmonisation');
 	const shouldEnable = isEnabled ?? isGateEnabled;
-	const isTransparentTrackGateEnabled = fg('platform_dst_scrollbar_harmonisation_transparent');
-	const shouldUseTransparentTrack = isGateEnabled && isTransparentTrackGateEnabled;
 
 	useEffect(() => {
 		if (!shouldEnable) {
@@ -26,14 +23,6 @@ export function useScrollbarHarmonisation(isEnabled?: boolean): void {
 			return;
 		}
 
-		const cleanupHarmonisation = installScrollbarHarmonisation(targetDocument);
-		const cleanupTransparentTrack = shouldUseTransparentTrack
-			? installScrollbarHarmonisationTransparentTrack(targetDocument)
-			: undefined;
-
-		return () => {
-			cleanupTransparentTrack?.();
-			cleanupHarmonisation();
-		};
-	}, [shouldEnable, shouldUseTransparentTrack]);
+		return installScrollbarHarmonisation(targetDocument);
+	}, [shouldEnable]);
 }

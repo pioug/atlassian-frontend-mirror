@@ -11,6 +11,7 @@ import { skipA11yAudit } from '@af/accessibility-testing/skip-a11y-audit';
 import __noop from '@atlaskit/ds-lib/noop';
 import EmojiIcon from '@atlaskit/icon/core/emoji';
 import { token } from '@atlaskit/tokens';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { Drawer } from '../../drawer';
 import { DrawerCloseButton } from '../../drawer-panel/drawer-close-button';
@@ -124,6 +125,7 @@ describe('Drawer Transitions', () => {
 	});
 
 	it('should call onClose when blanket is clicked', async () => {
+		failGate('platform-dst-top-layer');
 		const onClose = jest.fn();
 		render(createDrawer({ isOpen: true, onClose: onClose }));
 		expect(onClose).not.toHaveBeenCalled();
@@ -131,6 +133,16 @@ describe('Drawer Transitions', () => {
 		// is a press on its backdrop.
 		await userEvent.click(screen.queryByTestId(`${testId}--blanket`) ?? screen.getByTestId(testId));
 		await waitFor(() => expect(onClose).toHaveBeenCalled());
+	});
+
+	// The top-layer drawer has no blanket. A press on the `::backdrop` targets the `<dialog>`.
+	it('should call onClose when the backdrop is clicked (top layer)', async () => {
+		passGate('platform-dst-top-layer');
+		const onClose = jest.fn();
+		render(createDrawer({ isOpen: true, onClose: onClose }));
+		expect(onClose).not.toHaveBeenCalled();
+		await userEvent.click(screen.getByRole('dialog', { name: 'Default Drawer' }));
+		expect(onClose).toHaveBeenCalled();
 	});
 
 	it('should call onClose when the close button is clicked', () => {
@@ -161,8 +173,9 @@ describe('Drawer Transitions', () => {
 		const onCloseComplete = jest.fn();
 		const { rerender } = render(createDrawer({ isOpen: true, onCloseComplete: onCloseComplete }));
 		rerender(createDrawer({ isOpen: false, onCloseComplete: onCloseComplete }));
-		act(() => {
+		await act(async () => {
 			jest.runAllTimers();
+			await Promise.resolve();
 		});
 		// The top-layer drawer settles its exit in a promise after the timers run.
 		await waitFor(() => expect(onCloseComplete).toHaveBeenCalled());
@@ -173,25 +186,26 @@ describe('Drawer Transitions', () => {
 		jest.useFakeTimers();
 		const onOpenComplete = jest.fn();
 		render(createDrawer({ isOpen: true, onOpenComplete: onOpenComplete }));
-		act(() => {
+		await act(async () => {
 			jest.runAllTimers();
+			await Promise.resolve();
 		});
 		// The top-layer drawer settles its entry in a promise after the timers run.
 		await waitFor(() => expect(onOpenComplete).toHaveBeenCalled());
 		jest.useRealTimers();
 	});
 
-	it('should call onKeyDown if user press ESC', () => {
+	// Press a real key: on the top-layer path the first `keydown` listener on `window` is the
+	// `Dialog` Escape listener, not the drawer's, so calling the first spied listener does not work.
+	it('should call onKeyDown if user press ESC', async () => {
 		const onKeyDown = jest.fn();
-		const event = { key: 'Escape' };
 		render(createDrawer({ isOpen: true, onKeyDown: onKeyDown }));
-		const [eventName, eventHandler] = findKeydownListenerCall(window.addEventListener);
-		eventHandler(event);
-		expect(eventName).toBe('keydown');
-		expect(onKeyDown).toHaveBeenCalledWith(event);
+		await userEvent.keyboard('{Escape}');
+		expect(onKeyDown).toHaveBeenCalledWith(expect.objectContaining({ key: 'Escape' }));
 	});
 
-	it('should be a modal dialog when opened', () => {
+	it('should have role="dialog" and aria-modal="true" when opened', () => {
+		failGate('platform-dst-top-layer');
 		render(
 			<Drawer isOpen width="wide" testId="drawer" label="Default drawer">
 				<DrawerContent>
@@ -200,12 +214,26 @@ describe('Drawer Transitions', () => {
 			</Drawer>,
 		);
 		const drawerContainer = screen.getByTestId('drawer');
-		expect(screen.getByRole('dialog', { name: 'Default drawer' })).toBe(drawerContainer);
-		// The legacy drawer sets `aria-modal="true"`. The top-layer drawer is a native <dialog>
-		// opened with `showModal()`, which is modal without that attribute.
-		expect(
-			drawerContainer.getAttribute('aria-modal') === 'true' || drawerContainer.matches(':modal'),
-		).toBe(true);
+		expect(drawerContainer).toHaveAttribute('role', 'dialog');
+		expect(drawerContainer).toHaveAttribute('aria-modal', 'true');
+	});
+
+	// A native modal `<dialog>` has an implicit `dialog` role and is modal, so the top-layer drawer
+	// sets neither attribute.
+	it('should be a native modal dialog when opened (top layer)', () => {
+		passGate('platform-dst-top-layer');
+		render(
+			<Drawer isOpen width="wide" testId="drawer" label="Default drawer">
+				<DrawerContent>
+					<span>Content</span>
+				</DrawerContent>
+			</Drawer>,
+		);
+		const dialog = screen.getByRole('dialog', { name: 'Default drawer' });
+		expect(dialog).toBe(screen.getByTestId('drawer'));
+		expect(dialog.tagName).toBe('DIALOG');
+		expect(dialog).not.toHaveAttribute('role');
+		expect(dialog).not.toHaveAttribute('aria-modal');
 	});
 
 	it('should autofocus the first focusable element when opened', () => {
@@ -222,11 +250,36 @@ describe('Drawer Transitions', () => {
 	});
 
 	it('should autofocus the focusable element with the autoFocus prop when opened', () => {
+		failGate('platform-dst-top-layer');
 		render(
 			<Drawer isOpen width="wide" testId="drawer" label="Default drawer">
 				<DrawerContent>
 					<button type="button">First Button</button>
 					<button type="button" autoFocus>
+						Second Button
+					</button>
+				</DrawerContent>
+			</Drawer>,
+		);
+		const secondButton = screen.getByRole('button', { name: 'Second Button' });
+		expect(secondButton).toHaveFocus();
+	});
+
+	// React `autoFocus` calls `focus()` before `showModal()`, so the browser ignores it. React does
+	// not set the HTML `autofocus` attribute, so the content sets it. `showModal()` then focuses it.
+	// See `@atlaskit/top-layer` notes: `follow-ups/dialog-react-autofocus.md`.
+	it('should focus the element with the autofocus attribute when opened (top layer)', () => {
+		passGate('platform-dst-top-layer');
+		render(
+			<Drawer isOpen width="wide" testId="drawer" label="Default drawer">
+				<DrawerContent>
+					<button type="button">First Button</button>
+					<button
+						type="button"
+						ref={(element) => {
+							element?.setAttribute('autofocus', '');
+						}}
+					>
 						Second Button
 					</button>
 				</DrawerContent>

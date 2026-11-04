@@ -1,5 +1,6 @@
 import React, { Component, type ComponentType, type ReactNode } from 'react';
 
+// eslint-disable-next-line @atlaskit/design-system/no-third-party-focus-traps -- existing usage from before this rule was added
 import FocusLock from 'react-focus-lock';
 
 import { type Placement, Popper } from '@atlaskit/popper/main';

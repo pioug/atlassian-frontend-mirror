@@ -10,6 +10,7 @@ import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gat
 
 import type { EmojiId } from '../../../..';
 import type { EmojiProvider } from '../../../../api/EmojiResource';
+import * as pixelRatio from '../../../../api/getPixelRatio';
 import ResourcedEmoji from '../../../../components/common/ResourcedEmoji';
 import { type EmojiDescription, UfoEmojiTimings } from '../../../../types';
 import * as samplingUfo from '../../../../util/analytics/samplingUfo';
@@ -34,6 +35,221 @@ const mockConstants = constants as {
 Loadable.preloadAll();
 
 describe('<ResourcedEmoji />', () => {
+	describe('adaptive image size', () => {
+		const imageURL = '/emoji/atlassian-thumbs_up/path?scale=MDPI';
+		const catalogueURL = 'https://example.com/emoji-128px.png';
+		const metadata: EmojiDescription = {
+			id: 'atlassian-thumbs_up',
+			shortName: ':thumbsup:',
+			name: 'thumbs up',
+			type: 'ATLASSIAN',
+			category: 'PEOPLE',
+			searchable: true,
+			representation: { imagePath: catalogueURL, width: 128, height: 128 },
+		};
+		afterEach(() => jest.restoreAllMocks());
+
+		const renderAdaptiveEmoji = async (
+			height: number | undefined,
+			emoji = metadata,
+			url: string | undefined = imageURL,
+		) => {
+			const provider: Partial<EmojiProvider> = {
+				fetchByEmojiId: jest.fn().mockResolvedValue(emoji),
+				getOptimisticImageURL: jest.fn().mockReturnValue(url),
+			};
+			renderWithIntl(
+				<ResourcedEmoji
+					emojiProvider={Promise.resolve(provider as EmojiProvider)}
+					emojiId={{ id: emoji.id, shortName: emoji.shortName }}
+					fitToHeight={height}
+				/>,
+			);
+			return { image: await screen.findByAltText(emoji.name!), provider };
+		};
+
+		it.each<[number, number | undefined, string]>([
+			[0, 16, imageURL],
+			[1, 16, imageURL],
+			[1.5, 20, imageURL],
+			[2, 16, imageURL],
+			[3, 16, catalogueURL],
+			[2, 20, catalogueURL],
+			[2, undefined, catalogueURL],
+			[1, 40, catalogueURL],
+		])('selects enough pixels for DPR %s and height %s', async (ratio, height, expected) => {
+			passGate('platform_emoji_adaptive_image_size');
+			jest.spyOn(pixelRatio, 'getPixelRatio').mockReturnValue(ratio);
+			const { image } = await renderAdaptiveEmoji(height);
+			expect(image).toHaveAttribute('src', expected);
+		});
+
+		it('reuses image selection when the emoji ID object changes without changing its values', async () => {
+			passGate('platform_emoji_adaptive_image_size');
+			jest.spyOn(pixelRatio, 'getPixelRatio').mockReturnValue(2);
+			const getOptimisticImageURL = jest.fn().mockReturnValue(imageURL);
+			const provider = Promise.resolve({
+				fetchByEmojiId: jest.fn().mockReturnValue(metadata),
+				getOptimisticImageURL,
+			} as unknown as EmojiProvider);
+			const renderEmoji = () => (
+				<ResourcedEmoji
+					emojiProvider={provider}
+					emojiId={{ id: metadata.id, shortName: metadata.shortName }}
+					fitToHeight={16}
+				/>
+			);
+			const { rerender } = renderWithIntl(renderEmoji());
+			expect(await screen.findByAltText(metadata.name!)).toHaveAttribute('src', imageURL);
+			getOptimisticImageURL.mockClear();
+			rerender(renderEmoji());
+			expect(screen.getByAltText(metadata.name!)).toHaveAttribute('src', imageURL);
+			expect(getOptimisticImageURL).not.toHaveBeenCalled();
+		});
+
+		it('preserves the catalogue image with the flag off', async () => {
+			failGate('platform_emoji_adaptive_image_size');
+			jest.spyOn(pixelRatio, 'getPixelRatio').mockReturnValue(2);
+			const { image, provider } = await renderAdaptiveEmoji(16);
+			expect(image).toHaveAttribute('src', catalogueURL);
+			expect(provider.getOptimisticImageURL).not.toHaveBeenCalled();
+		});
+
+		it.each(['SITE', 'CUSTOM'])('preserves %s emoji images', async (type) => {
+			passGate('platform_emoji_adaptive_image_size');
+			jest.spyOn(pixelRatio, 'getPixelRatio').mockReturnValue(2);
+			const { image } = await renderAdaptiveEmoji(16, { ...metadata, type });
+			expect(image).toHaveAttribute('src', catalogueURL);
+		});
+
+		it('also reuses standard emoji images when adequately sized', async () => {
+			passGate('platform_emoji_adaptive_image_size');
+			jest.spyOn(pixelRatio, 'getPixelRatio').mockReturnValue(2);
+			const { image } = await renderAdaptiveEmoji(16, { ...metadata, type: 'STANDARD' });
+			expect(image).toHaveAttribute('src', imageURL);
+		});
+
+		it.each([
+			'https://example.com/unknown.png',
+			'/emoji/path?scale=XXXHDPI',
+			'http://[invalid',
+			'',
+		])('keeps the catalogue image for unsupported provider URL %s', async (url) => {
+			passGate('platform_emoji_adaptive_image_size');
+			jest.spyOn(pixelRatio, 'getPixelRatio').mockReturnValue(2);
+			const { image } = await renderAdaptiveEmoji(16, metadata, url);
+			expect(image).toHaveAttribute('src', catalogueURL);
+		});
+
+		it.each([20, 40])(
+			'upgrades an explicit MDPI optimistic image for height %s on retina displays',
+			async (height) => {
+				passGate('platform_emoji_adaptive_image_size');
+				jest.spyOn(pixelRatio, 'getPixelRatio').mockReturnValue(2);
+				const provider = {
+					fetchByEmojiId: jest.fn().mockResolvedValue(metadata),
+				} as unknown as EmojiProvider;
+				renderWithIntl(
+					<ResourcedEmoji
+						emojiProvider={Promise.resolve(provider)}
+						emojiId={{ id: metadata.id, shortName: metadata.shortName }}
+						optimisticImageURL={imageURL}
+						fitToHeight={height}
+					/>,
+				);
+				expect(await screen.findByAltText(metadata.name!)).toHaveAttribute('src', catalogueURL);
+			},
+		);
+
+		it('preserves an explicit optimistic image with the flag off', async () => {
+			failGate('platform_emoji_adaptive_image_size');
+			jest.spyOn(pixelRatio, 'getPixelRatio').mockReturnValue(2);
+			const provider = {
+				fetchByEmojiId: jest.fn().mockResolvedValue(metadata),
+			} as unknown as EmojiProvider;
+			renderWithIntl(
+				<ResourcedEmoji
+					emojiProvider={Promise.resolve(provider)}
+					emojiId={{ id: metadata.id, shortName: metadata.shortName }}
+					optimisticImageURL={imageURL}
+					fitToHeight={20}
+				/>,
+			);
+			await waitFor(() => expect(provider.fetchByEmojiId).toHaveBeenCalled());
+			expect(screen.getByAltText(metadata.shortName)).toHaveAttribute('src', imageURL);
+		});
+
+		it('falls back to the catalogue image if the small image fails to load', async () => {
+			passGate('platform_emoji_adaptive_image_size');
+			jest.spyOn(pixelRatio, 'getPixelRatio').mockReturnValue(2);
+			const { image } = await renderAdaptiveEmoji(16);
+			expect(image).toHaveAttribute('src', imageURL);
+			fireEvent.error(image);
+			await waitFor(() =>
+				expect(screen.getByAltText(metadata.name!)).toHaveAttribute('src', catalogueURL),
+			);
+		});
+
+		it('uses the text fallback if both the small and catalogue images fail', async () => {
+			passGate('platform_emoji_adaptive_image_size');
+			jest.spyOn(pixelRatio, 'getPixelRatio').mockReturnValue(2);
+			const { image } = await renderAdaptiveEmoji(16);
+			fireEvent.error(image);
+			await waitFor(() =>
+				expect(screen.getByAltText(metadata.name!)).toHaveAttribute('src', catalogueURL),
+			);
+			fireEvent.error(screen.getByAltText(metadata.name!));
+			expect(await screen.findByText(metadata.shortName)).toBeVisible();
+		});
+
+		it('tries the small image for a different emoji after an earlier image fails', async () => {
+			passGate('platform_emoji_adaptive_image_size');
+			jest.spyOn(pixelRatio, 'getPixelRatio').mockReturnValue(2);
+			const nextEmoji = { ...metadata, id: 'atlassian-wave', shortName: ':wave:', name: 'wave' };
+			const nextImageURL = '/emoji/atlassian-wave/path?scale=MDPI';
+			const fetchByEmojiId = jest.fn().mockReturnValue(metadata);
+			const getOptimisticImageURL = jest.fn().mockReturnValue(imageURL);
+			const provider = Promise.resolve({
+				fetchByEmojiId,
+				getOptimisticImageURL,
+			} as unknown as EmojiProvider);
+			const renderEmoji = (emoji: EmojiDescription) => (
+				<ResourcedEmoji
+					emojiProvider={provider}
+					emojiId={{ id: emoji.id, shortName: emoji.shortName }}
+					fitToHeight={16}
+				/>
+			);
+			const { rerender } = renderWithIntl(renderEmoji(metadata));
+			const image = await screen.findByAltText(metadata.name!);
+			expect(image).toHaveAttribute('src', imageURL);
+			fireEvent.error(image);
+			await waitFor(() =>
+				expect(screen.getByAltText(metadata.name!)).toHaveAttribute('src', catalogueURL),
+			);
+			fetchByEmojiId.mockReturnValue(nextEmoji);
+			getOptimisticImageURL.mockReturnValue(nextImageURL);
+			rerender(renderEmoji(nextEmoji));
+			expect(await screen.findByAltText(nextEmoji.name)).toHaveAttribute('src', nextImageURL);
+		});
+
+		it('keeps the catalogue image when the provider has no optimistic image API', async () => {
+			passGate('platform_emoji_adaptive_image_size');
+			jest.spyOn(pixelRatio, 'getPixelRatio').mockReturnValue(2);
+			const provider = {
+				fetchByEmojiId: jest.fn().mockResolvedValue(metadata),
+			} as unknown as EmojiProvider;
+			renderWithIntl(
+				<ResourcedEmoji
+					emojiProvider={Promise.resolve(provider)}
+					emojiId={{ id: metadata.id, shortName: metadata.shortName }}
+					fitToHeight={16}
+				/>,
+			);
+			expect(await screen.findByAltText(metadata.name!)).toHaveAttribute('src', catalogueURL);
+		});
+	});
+
 	describe('preserves optimistic images for page-title emoji', () => {
 		it('with platform_emoji_prevent_img_src_changing on', async () => {
 			passGate('platform_emoji_prevent_img_src_changing');

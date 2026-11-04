@@ -402,7 +402,7 @@ export default (
 				if (
 					editorExperiment('advanced_layouts', true) &&
 					isLayoutResizingPluginAvailable &&
-					!(isViewMode() && isExperimentEnabled('platform_editor_disable_view_layout_resize'))
+					!isViewMode()
 				) {
 					const dividerDecorations = getColumnDividerDecorations(
 						state,

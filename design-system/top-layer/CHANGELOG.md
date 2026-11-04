@@ -1,5 +1,27 @@
 # @atlaskit/top-layer
 
+## 7.1.3
+
+### Patch Changes
+
+- [`02a0137756e67`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/02a0137756e67) -
+  Support :modal and :popover-open in querySelector, querySelectorAll, closest, and matches in the
+  testing polyfill, including selector arrays and other stringifiable arguments.
+- [`31390e24dc3be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/31390e24dc3be) -
+  `@atlaskit/top-layer/testing/polyfill`: `getComputedStyle()` now reports `pointer-events: auto`
+  for an open popover or dialog host, and for content in it that would otherwise inherit `none` from
+  outside the layer. `Popover` and `Dialog` reset `pointer-events` on the host with a `:defined`
+  rule, which jsdom does not support, so `user-event` could not click a layer inside a
+  `pointer-events: none` ancestor.
+
+## 7.1.2
+
+### Patch Changes
+
+- [`11262f27dd429`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/11262f27dd429) -
+  Support :modal and :popover-open in querySelector, querySelectorAll, closest, and matches in the
+  top-layer testing polyfill.
+
 ## 7.1.1
 
 ### Patch Changes

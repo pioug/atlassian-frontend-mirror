@@ -26,7 +26,7 @@ const extractProviderImage = (
  * @deprecated Use `import { extractSmartLinkProvider } from '@atlaskit/link-extractors/extract-smart-link-provider'` instead.
  */
 export const extractProvider = (jsonLd: JsonLd.Data.BaseData): LinkProvider | undefined => {
-	const generator = jsonLd.generator;
+	const generator = jsonLd?.generator;
 	if (generator) {
 		if (typeof generator === 'string') {
 			throw Error('Link.generator requires a name and icon.');

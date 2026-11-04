@@ -2,6 +2,7 @@ import React, { useState, useEffect, useLayoutEffect, useRef, useCallback } from
 import { type SyntheticEvent } from 'react';
 
 import { start } from 'perf-marks';
+// eslint-disable-next-line @atlaskit/design-system/no-third-party-focus-traps -- existing usage from before this rule was added
 import FocusLock from 'react-focus-lock';
 import { IntlProvider, injectIntl, type WrappedComponentProps } from 'react-intl';
 import ScrollLock from 'react-scrolllock';

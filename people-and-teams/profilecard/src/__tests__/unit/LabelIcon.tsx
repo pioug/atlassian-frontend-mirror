@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { default as IconLabel } from '../../components/Icon/IconLabel';
 
@@ -38,8 +38,10 @@ describe('Profilecard', () => {
 			});
 		});
 
-		ffTest.on('ptc_a11y_profile_card_text_spacing', 'text spacing fix on', () => {
+		describe('ptc_a11y_profile_card_text_spacing is on text spacing fix on', () => {
 			it('should wrap long details text instead of clipping it', () => {
+				passGate('ptc_a11y_profile_card_text_spacing');
+
 				render(
 					<dl>
 						<IconLabel icon="email" isDescriptionListItem>
@@ -52,8 +54,10 @@ describe('Profilecard', () => {
 			});
 		});
 
-		ffTest.off('ptc_a11y_profile_card_text_spacing', 'text spacing fix off', () => {
+		describe('ptc_a11y_profile_card_text_spacing is off text spacing fix off', () => {
 			it('should clip long details text', () => {
+				failGate('ptc_a11y_profile_card_text_spacing');
+
 				render(
 					<dl>
 						<IconLabel icon="email" isDescriptionListItem>

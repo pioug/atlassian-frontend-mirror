@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-extension
 
+## 33.0.11
+
+### Patch Changes
+
+- [`af6421f9b80ca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/af6421f9b80ca) -
+  [EDITOR-9924] When `platform_editor_lovability_resize_exts_gracefully` and
+  `platform_editor_lovability_resize_exts_patch_1` are enabled, use the breakout mark for extension
+  node width across both resizing cohorts and synchronize existing layouts with breakout widths for
+  users in the resizing: false cohort.
+- Updated dependencies
+
+## 33.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 33.0.9
 
 ### Patch Changes

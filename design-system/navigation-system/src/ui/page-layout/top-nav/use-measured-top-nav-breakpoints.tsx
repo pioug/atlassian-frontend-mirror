@@ -10,6 +10,7 @@ export function useMeasuredTopNavBreakpoints(
 ): TopNavBreakpoints {
 	const [breakpoints, setBreakpoints] = useState<TopNavBreakpoints>({
 		belowSm: false,
+		hasMeasured: false,
 	});
 
 	useLayoutEffect(() => {
@@ -24,7 +25,11 @@ export function useMeasuredTopNavBreakpoints(
 			// Navigation can still be hydrating inside Suspense. An urgent context
 			// update would discard its server DOM and show the loading fallback.
 			startTransition(() => {
-				setBreakpoints((previous) => (previous.belowSm === belowSm ? previous : { belowSm }));
+				setBreakpoints((previous) =>
+					previous.hasMeasured && previous.belowSm === belowSm
+						? previous
+						: { belowSm, hasMeasured: true },
+				);
 			});
 		};
 		let width = topNav.getBoundingClientRect().width;

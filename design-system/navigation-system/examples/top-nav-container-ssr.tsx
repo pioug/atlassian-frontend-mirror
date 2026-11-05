@@ -10,6 +10,7 @@ import { renderToString } from 'react-dom/server';
 
 import Button from '@atlaskit/button/default/button';
 import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
+import { RovoIcon } from '@atlaskit/logo/rovo/icon';
 import { Root } from '@atlaskit/navigation-system/layout/root';
 import { SideNav, SideNavToggleButton } from '@atlaskit/navigation-system/layout/side-nav';
 import {
@@ -18,8 +19,14 @@ import {
 	TopNavMiddle,
 	TopNavStart,
 } from '@atlaskit/navigation-system/layout/top-nav';
+import { TopNavIconButton } from '@atlaskit/navigation-system/theming/top-nav-button';
 import { AppLogo, AppSwitcher, Search } from '@atlaskit/navigation-system/top-nav-items';
+import { CreateButton } from '@atlaskit/navigation-system/top-nav-items/create-button';
 import { CustomTitle } from '@atlaskit/navigation-system/top-nav-items/custom-title';
+import { Help } from '@atlaskit/navigation-system/top-nav-items/help';
+import { Notifications } from '@atlaskit/navigation-system/top-nav-items/notifications';
+import { Profile } from '@atlaskit/navigation-system/top-nav-items/profile';
+import { ResponsiveTopNavButton } from '@atlaskit/navigation-system/top-nav-items/responsive-button';
 import { Settings } from '@atlaskit/navigation-system/top-nav-items/settings';
 import { Popup } from '@atlaskit/popup/popup';
 
@@ -45,6 +52,10 @@ function SettingsWithPopup() {
 	);
 }
 
+function RovoIconBefore(): React.JSX.Element {
+	return <RovoIcon label="" size="xxsmall" />;
+}
+
 const getNavigation = (customTheme = false) => (
 	<Root>
 		<TopNav
@@ -67,9 +78,21 @@ const getNavigation = (customTheme = false) => (
 				<div data-testid="container-search" css={styles.search}>
 					<Search label="Seiten, Bereiche und Personen durchsuchen" />
 				</div>
+				<CreateButton>Create</CreateButton>
 			</TopNavMiddle>
-			<TopNavEnd>
+			<TopNavEnd
+				persistentItems={
+					<ResponsiveTopNavButton
+						iconButton={TopNavIconButton}
+						icon={RovoIconBefore}
+						label="Ask Rovo"
+					/>
+				}
+			>
+				<Notifications label="Notifications" badge={() => null} />
+				<Help label="Help" />
 				<SettingsWithPopup />
+				<Profile label="Your profile" />
 			</TopNavEnd>
 		</TopNav>
 		<SideNav>Sidebar content</SideNav>

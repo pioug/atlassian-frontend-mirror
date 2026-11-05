@@ -28,5 +28,7 @@ module.exports = {
 		'enforce-editor-view-state-scope': require('./rules/enforce-editor-view-state-scope').rule,
 		// eslint-disable-next-line import/no-commonjs
 		'enforce-compiled-migration-gate': require('./rules/enforce-compiled-migration-gate'),
+		// eslint-disable-next-line import/no-commonjs
+		'apply-engine-vocabulary-conflicts': require('./rules/apply-engine-vocabulary-conflicts').rule,
 	},
 };

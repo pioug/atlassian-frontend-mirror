@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-card
 
+## 36.0.15
+
+### Patch Changes
+
+- [`b78930b7fb23b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b78930b7fb23b) -
+  The smart link appearance dropdown now disables unsupported appearances and shows why in a
+  tooltip.
+
+## 36.0.14
+
+### Patch Changes
+
+- [`4d0e8142c81f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4d0e8142c81f3) -
+  Request 100 items per page for Assets datasource tables behind
+  `astral_assets_default_page_size_100`.
+- Updated dependencies
+
+## 36.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 36.0.12
 
 ### Patch Changes

@@ -10,7 +10,7 @@ import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 import { mockNonUploadingEmojiResourceFactory } from '@atlaskit/util-data-test/mock-non-uploading-emoji-resource-factory';
 import type { ServiceConfig } from '@atlaskit/util-service-support/types';
-import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import EmojiRepository from '../../../../api/EmojiRepository';
 import { EmojiResource, type EmojiResourceConfig } from '../../../../api/EmojiResource';
@@ -1088,6 +1088,23 @@ describe('<EmojiPicker />', () => {
 	});
 
 	describe('Accessibility', () => {
+		it('removes the presentation role from the search input wrapper when the feature gate is enabled', async () => {
+			passGate('platform_ally_emoji_fixes_various');
+			await helper.setupPicker();
+
+			expect(screen.getByRole('dialog').querySelector(':scope > div')).not.toHaveAttribute('role');
+		});
+
+		it('retains the presentation role on the search input wrapper when the feature gate is disabled', async () => {
+			failGate('platform_ally_emoji_fixes_various');
+			await helper.setupPicker();
+
+			expect(screen.getByRole('dialog').querySelector(':scope > div')).toHaveAttribute(
+				'role',
+				'presentation',
+			);
+		});
+
 		it('focuses the selected Atlassian category instead of search', async () => {
 			await helper.setupPicker();
 			const atlassianCategory = await screen.findByRole('tab', {

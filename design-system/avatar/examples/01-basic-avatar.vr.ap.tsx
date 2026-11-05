@@ -28,13 +28,26 @@ export default (): React.JSX.Element => (
 		</Block>
 		<Block heading="Hexagon">
 			<Tooltip content="xxlarge">
-				<Avatar appearance="hexagon" name="xxlarge" size="xxlarge" presence="focus" />
+				<Avatar
+					appearance="hexagon"
+					hasInnerBorder
+					name="xxlarge"
+					size="xxlarge"
+					presence="focus"
+				/>
 			</Tooltip>
-			<Avatar appearance="hexagon" name="xlarge" size="xlarge" status="approved" />
-			<Avatar appearance="hexagon" name="large" size="large" status="declined" />
-			<Avatar appearance="hexagon" name="medium" size="medium" presence="busy" />
-			<Avatar appearance="hexagon" name="small" size="small" isDisabled presence="focus" />
-			<Avatar appearance="hexagon" name="xxsmall" size="xxsmall" />
+			<Avatar appearance="hexagon" hasInnerBorder name="xlarge" size="xlarge" status="approved" />
+			<Avatar appearance="hexagon" hasInnerBorder name="large" size="large" status="declined" />
+			<Avatar appearance="hexagon" hasInnerBorder name="medium" size="medium" presence="busy" />
+			<Avatar
+				appearance="hexagon"
+				hasInnerBorder
+				name="small"
+				size="small"
+				isDisabled
+				presence="focus"
+			/>
+			<Avatar appearance="hexagon" hasInnerBorder name="xxsmall" size="xxsmall" />
 		</Block>
 		<Block heading="Disabled">
 			<Tooltip content="xxlarge">

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-media",
-	"version": "32.2.8",
+	"version": "32.2.10",
 	"description": "Media plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -119,9 +119,6 @@
 		"aifc_page_create_defer_generated_visuals": {
 			"type": "boolean",
 			"referenceOnly": true
-		},
-		"cc-maui-phase-2": {
-			"type": "boolean"
 		},
 		"cc-maui-toolbar-separators-update-jira": {
 			"type": "boolean",

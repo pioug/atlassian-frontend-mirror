@@ -1,5 +1,12 @@
 # @atlaskit/menu
 
+## 11.0.5
+
+### Patch Changes
+
+- [`4a2eee56dd519`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4a2eee56dd519) -
+  Mark Menu as intent to deprecate and add replacement guidance to the atlassian.design warning.
+
 ## 11.0.4
 
 ### Patch Changes

@@ -3,7 +3,7 @@
  *
  * Structured content components from *.docs.tsx files outside of design-system
  *
- * @codegen <<SignedSource::e40e39d2edd9428006a2c96514052034>>
+ * @codegen <<SignedSource::25dbd37baecffbb3a93eb6c4458bed64>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -4675,6 +4675,11 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				isRequired: true,
 			},
 			{
+				name: 'choreographer',
+				type: 'SmartLinkChoreographer | undefined',
+				description: 'Stable product-owned component shared by Smart Card experiments.',
+			},
+			{
 				name: 'client',
 				type: 'CardClient | undefined',
 				description:
@@ -4784,6 +4789,11 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description: 'Any React components contains linking components.',
 				isRequired: true,
+			},
+			{
+				name: 'choreographer',
+				type: 'SmartLinkChoreographer | undefined',
+				description: 'Stable product-owned component shared by Smart Card experiments.',
 			},
 			{
 				name: 'client',
@@ -4897,6 +4907,11 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				isRequired: true,
 			},
 			{
+				name: 'choreographer',
+				type: 'SmartLinkChoreographer | undefined',
+				description: 'Stable product-owned component shared by Smart Card experiments.',
+			},
+			{
 				name: 'client',
 				type: 'CardClient | undefined',
 				description:
@@ -5008,6 +5023,11 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Any React components contains linking components.',
 				isRequired: true,
+			},
+			{
+				name: 'choreographer',
+				type: 'SmartLinkChoreographer | undefined',
+				description: 'Stable product-owned component shared by Smart Card experiments.',
 			},
 			{
 				name: 'client',
@@ -15127,6 +15147,374 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		props: [],
 	},
 	{
+		name: 'AgentCard',
+		package: '@atlassian/agent-profile-card',
+		description:
+			'Load a Rovo agent profile by identity account ID. Uses the host Relay environment for the browse-kit treatment and the host profile client for the legacy fallback.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use this card when the subject is already known to be a Rovo agent. Use the host user-profile-card integration when the subject could be a person or an agent.',
+			'Show actions that the viewer can take, and keep navigation and chat orchestration in the host experience.',
+			'For card overrides and slot examples, see AgentCard and AgentCardRelay in @atlassian/studio-browse-kit. This wrapper exposes slots.content and slots.footer; set slots.footer to null to hide footer actions. Cover and badge slots belong to browse-kit directly.',
+			'The browse-kit treatment ignores the legacy hide* props and renderCTA. Use the content and footer slots instead.',
+		],
+		keywords: ['rovo', 'agent', 'profile', 'identity', 'chat', 'conversation'],
+		category: 'rovo',
+		examples: [
+			"import { AgentCardExample } from './utils/agent-card-example';\nimport { ExampleFrame } from './utils/example-frame';\n/** Shows the account-ID integration with a local Relay environment. */\nexport default function AgentCardPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<AgentCardExample />\n\t\t</ExampleFrame>\n\t);\n}",
+			"import { MockFetchProvider } from '@atlassian/teams-app-internal-playground/mock-fetch';\nimport { mockDepletedCredits } from './mocks/mockCredits';\nimport { AgentCardExample } from './utils/agent-card-example';\nimport { ExampleFrame } from './utils/example-frame';\nconst creditGateOverrides = { rovo_credits_degradation_ui: true };\n/** Shows the profile card with the provider-owned out-of-credits message. */\nexport default function OutOfCreditsPreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame gateOverrides={creditGateOverrides}>\n\t\t\t<MockFetchProvider\n\t\t\t\tmockHandlers={mockDepletedCredits}\n\t\t\t\tstate={{ networkThrottle: 'no-throttle' }}\n\t\t\t>\n\t\t\t\t<AgentCardExample />\n\t\t\t</MockFetchProvider>\n\t\t</ExampleFrame>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'accountId',
+				type: 'string',
+				isRequired: true,
+			},
+			{
+				name: 'addFlag',
+				type: '((flag: Flag) => void) | undefined',
+			},
+			{
+				name: 'agentName',
+				type: 'string | undefined',
+				description: 'Name shown in reduced card when user lacks permission',
+			},
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
+			},
+			{
+				name: 'cloudId',
+				type: 'string',
+				isRequired: true,
+			},
+			{
+				name: 'footerComponent',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
+				description: 'Optional component rendered at the bottom of the agent profile card.',
+			},
+			{
+				name: 'hideAgentActions',
+				type: 'boolean | undefined',
+				description:
+					'Hide the agent actions (chat button and dropdown menu). Defaults to false (agent actions are shown by default).',
+			},
+			{
+				name: 'hideAiDisclaimer',
+				type: 'boolean | undefined',
+				description:
+					'Hide the AI disclaimer. Defaults to false (disclaimer is shown by default).\nHide the AI disclaimer',
+			},
+			{
+				name: 'hideConversationStarters',
+				type: 'boolean | undefined',
+				description:
+					'Hide the conversation starters. Defaults to false (conversation starters are shown by default).\nHide the conversation starters section',
+			},
+			{
+				name: 'hideMoreActions',
+				type: 'boolean | undefined',
+				description:
+					'Hide the Agent more actions dropdown when true, is also hidden when hideAgentActions is true',
+			},
+			{
+				name: 'hideStarButton',
+				type: 'boolean | undefined',
+				description:
+					'Hide the favourite (star) button. Defaults to false (the star is shown).\nHide the star button',
+			},
+			{
+				name: 'onChatClick',
+				type: '(((event: React.MouseEvent<Element, MouseEvent>, agentStudioId?: string | undefined) => void) & ((event: React.MouseEvent<Element, MouseEvent>) => void)) | undefined',
+				description:
+					'Called when the "Chat with Agent" button is clicked. Receives the mouse event\nand the Agent Studio UUID.\nSo callers can open Rovo chat with the correct agent without needing\ntheir own AAID→UUID resolution.',
+			},
+			{
+				name: 'onConversationStartersClick',
+				type: '((starter: ConversationStarter) => void) | undefined',
+			},
+			{
+				name: 'onCopyLink',
+				type: '(() => void) | undefined',
+			},
+			{
+				name: 'onDeleteAgent',
+				type: '((agentId: string) => { restore: () => void; }) | undefined',
+			},
+			{
+				name: 'onDuplicate',
+				type: '(() => void) | undefined',
+			},
+			{
+				name: 'onEdit',
+				type: '(() => void) | undefined',
+			},
+			{
+				name: 'onViewProfile',
+				type: '(() => void) | undefined',
+			},
+			{
+				name: 'renderCTA',
+				type: '(() => React.ReactNode) | undefined',
+				description:
+					'Override the default "Chat with agent" CTA.\nLegacy cards only. The browse-kit card ignores this prop; use slots.footer.',
+			},
+			{
+				name: 'renderMoreActions',
+				type: '((slotProps?: AgentProfileCardMoreActionsSlotProps | undefined) => React.ReactNode) | undefined',
+				description: 'Override the default more-actions dropdown.',
+			},
+			{
+				name: 'resourceClient',
+				type: 'ProfileClient',
+				isRequired: true,
+			},
+			{
+				name: 'showCreatorNameWithoutLink',
+				type: 'boolean | undefined',
+				description: 'Render the creator/author as plain text with no link. Defaults to false.',
+			},
+			{
+				name: 'slots',
+				type: 'AgentCardSlots | undefined',
+			},
+			{
+				name: 'trigger',
+				type: 'TriggerType | undefined',
+			},
+		],
+	},
+	{
+		name: 'AgentProfileCardWithTrigger',
+		package: '@atlassian/agent-profile-card',
+		description:
+			'Open a Relay-backed Rovo agent profile card from a hover or click trigger. Requires the host Relay environment.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use a popup when agent details are secondary to the current task and should be available without navigating away.',
+			'For card overrides, refer to the AgentCard and AgentCardRelay slot examples in @atlassian/studio-browse-kit. The profile-card integration supports content and footer slots.',
+		],
+		accessibilityGuidelines: [
+			'Apply the trigger props to an interactive element that supports keyboard focus and activation. Give the trigger an accessible name that identifies the agent.',
+		],
+		keywords: ['rovo', 'agent', 'profile', 'popup', 'hover', 'trigger'],
+		category: 'rovo',
+		examples: [],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
+				description:
+					'Trigger element that opens the agent profile card on interaction.\n\nUsed as the fallback when `renderTrigger` is not provided, or when the card cannot be\nrendered (no agent reference, or an error). Optional when `renderTrigger` supplies the\ntrigger.',
+			},
+			{
+				name: 'cloudId',
+				type: 'string',
+				description: '',
+				isRequired: true,
+			},
+			{
+				name: 'hideAiDisclaimer',
+				type: 'boolean | undefined',
+				description: 'Hide the AI disclaimer',
+			},
+			{
+				name: 'hideConversationStarters',
+				type: 'boolean | undefined',
+				description: 'Hide the conversation starters section',
+			},
+			{
+				name: 'hideStarButton',
+				type: 'boolean | undefined',
+				description: 'Hide the star button',
+			},
+			{
+				name: 'identityAccountId',
+				type: 'string | undefined',
+				description: '',
+			},
+			{
+				name: 'onChatClick',
+				type: '((event: React.MouseEvent<Element, MouseEvent>) => void) | undefined',
+			},
+			{
+				name: 'onConversationStarterClick',
+				type: '((prompt: string) => void) | undefined',
+			},
+			{
+				name: 'onCopyLink',
+				type: '(() => void) | undefined',
+			},
+			{
+				name: 'onDelete',
+				type: '((agentId: string) => void | Promise<void>) | undefined',
+			},
+			{
+				name: 'onDuplicate',
+				type: '(() => void) | undefined',
+			},
+			{
+				name: 'onEdit',
+				type: '(() => void) | undefined',
+			},
+			{
+				name: 'onOpenChange',
+				type: '((isOpen: boolean) => void) | undefined',
+				description: 'Called when the agent profile card popup opens or closes.',
+			},
+			{
+				name: 'onViewProfile',
+				type: '(() => void) | undefined',
+			},
+			{
+				name: 'placement',
+				type: 'Placement | undefined',
+				description:
+					'Placement of where the popup should be displayed relative to the trigger element.\nThe default is `"auto"`.\nPlacement of where the popup should be displayed relative to the trigger element.\nThe default is `"auto"`.',
+				defaultValue: '"bottom-start"',
+			},
+			{
+				name: 'renderCTA',
+				type: '(() => React.ReactNode) | undefined',
+				description:
+					'Override the default "Chat with agent" CTA.\nLegacy cards only. The browse-kit card ignores this prop; use slots.footer.\nOverride the default "Chat with agent" CTA.\nLegacy cards only. The browse-kit card ignores this prop; use slots.footer.\nOverride the default "Chat with agent" CTA.\nLegacy cards only. The browse-kit card ignores this prop; use slots.footer.',
+			},
+			{
+				name: 'renderMoreActions',
+				type: '((slotProps?: AgentProfileCardMoreActionsSlotProps | undefined) => React.ReactNode) | undefined',
+				description: 'Override the default more-actions dropdown.',
+			},
+			{
+				name: 'renderTrigger',
+				type: '((triggerProps: TriggerProps) => React.ReactNode) | undefined',
+				description:
+					"Render the trigger element with the popup's trigger props spread onto it.\n\nThe trigger props are spread onto the consumer's already-interactive element instead of\nwrapping `children`, preserving the element's own interactive semantics and styling.",
+			},
+			{
+				name: 'shouldRenderToParent',
+				type: 'boolean | undefined',
+				description: 'Whether to render the popup in the parent DOM node instead of a portal.',
+				defaultValue: 'false',
+			},
+			{
+				name: 'slots',
+				type: 'AgentCardSlots | undefined',
+			},
+			{
+				name: 'trigger',
+				type: 'TriggerMode | undefined',
+				description: "How the popup should be triggered.\nOptions: 'hover', 'click', or both.",
+			},
+		],
+	},
+	{
+		name: 'ExternalAgentProfileCard',
+		package: '@atlassian/agent-profile-card',
+		description:
+			'Display an external agent identity and optional invoking-person attribution from host-supplied data, without querying Studio.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Keep the agent identity separate from the people who invoked it, so viewers can distinguish the actor from the person it acted on behalf of.',
+			'Only show invoking-person, channel, and vendor attribution supported by authoritative host data. Do not infer attribution from an agent name, icon, or brand.',
+		],
+		keywords: ['agent', 'external', 'profile', 'identity', 'attribution', 'mcp', 'facepile'],
+		category: 'rovo',
+		examples: [
+			"import { ExternalAgentProfileCard } from '@atlassian/agent-profile-card/external-card';\nimport { mockExternalAgentIcon, mockInvokingUser } from './mocks/mockExternalAgent';\nimport { ExampleFrame } from './utils/example-frame';\n/** Shows MCP attribution for an external agent, with or without an invoking person. */\nexport function ExternalAgentPreview({\n\tattribution = 'invoked',\n}: {\n\tattribution?: 'invoked' | 'unbound';\n}): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<ExternalAgentProfileCard\n\t\t\t\taccountId=\"712020:sample-agent\"\n\t\t\t\tname=\"Sample Agent\"\n\t\t\t\ticonUrl={mockExternalAgentIcon}\n\t\t\t\tdescription=\"Helps organize and update your work.\"\n\t\t\t\twithUser={attribution === 'invoked' ? mockInvokingUser : undefined}\n\t\t\t\tvia=\"mcp\"\n\t\t\t\ttestId=\"external-agent-card\"\n\t\t\t/>\n\t\t</ExampleFrame>\n\t);\n}\nexport default ExternalAgentPreview;",
+			'import { ExternalAgentPreview } from \'./external-agent\';\n/** Shows an external agent without an invoking person or channel byline. */\nexport default function UnboundExternalAgentPreview(): React.JSX.Element {\n\treturn <ExternalAgentPreview attribution="unbound" />;\n}',
+			'import { ExternalAgentProfileCard } from \'@atlassian/agent-profile-card/external-card\';\nimport { mockExternalAgentIcon, mockInvokingUsers } from \'./mocks/mockExternalAgent\';\nimport { ExampleFrame } from \'./utils/example-frame\';\n/** Shows an external agent with a facepile of invoking people. */\nexport default function ExternalAgentAggregatePreview(): React.JSX.Element {\n\treturn (\n\t\t<ExampleFrame>\n\t\t\t<ExternalAgentProfileCard\n\t\t\t\taccountId="712020:sample-agent"\n\t\t\t\tname="Sample Agent"\n\t\t\t\ticonUrl={mockExternalAgentIcon}\n\t\t\t\twithUser={mockInvokingUsers}\n\t\t\t\tvia="mcp"\n\t\t\t\ttestId="aggregate-agent-card"\n\t\t\t/>\n\t\t</ExampleFrame>\n\t);\n}',
+		],
+		props: [
+			{
+				name: 'accountId',
+				type: 'string',
+				description: 'Identity account ID of the external AppUser.',
+				isRequired: true,
+			},
+			{
+				name: 'description',
+				type: 'string | undefined',
+			},
+			{
+				name: 'iconUrl',
+				type: 'string | undefined',
+			},
+			{
+				name: 'name',
+				type: 'string',
+				isRequired: true,
+			},
+			{
+				name: 'renderInvokingUser',
+				type: 'ExternalAgentInvokingUserRenderer | undefined',
+				description: 'Optional host profile-card trigger for invoking people with account IDs.',
+			},
+			{
+				name: 'vendorLine',
+				type: 'string | undefined',
+				description: 'Secondary line under the name, e.g. the vendor that publishes the agent.',
+			},
+			{
+				name: 'via',
+				type: 'ExternalAgentChannel | undefined',
+				description: 'Renders the channel attribution when the invoking person is also supplied.',
+			},
+			{
+				name: 'withUser',
+				type: 'ExternalAgentInvokedByInput | undefined',
+				description: 'One invoking person or a short facepile for aggregate usage.',
+			},
+		],
+	},
+	{
+		name: 'ExternalAgentProfileCardSkeleton',
+		package: '@atlassian/agent-profile-card',
+		description:
+			'Reserve the external agent card layout while its identity, description, and attribution load.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Match the placeholder to the expected description and attribution layout to reduce movement when the loaded card replaces it.',
+		],
+		accessibilityGuidelines: [
+			'Provide any loading announcement in the surrounding interaction; the decorative skeleton is hidden from assistive technology.',
+		],
+		keywords: ['agent', 'external', 'profile', 'loading', 'skeleton', 'attribution'],
+		category: 'rovo',
+		examples: [],
+		props: [
+			{
+				name: 'attributionRows',
+				type: '0 | 1 | 2 | undefined',
+				description: 'Rows to reserve: none, invoking person only, or invoking person and channel.',
+				defaultValue: '0',
+			},
+			{
+				name: 'hasDescription',
+				type: 'boolean | undefined',
+				defaultValue: 'false',
+			},
+			{
+				name: 'hasVendorLine',
+				type: 'boolean | undefined',
+				defaultValue: 'false',
+			},
+		],
+	},
+	{
+		name: 'AgentCardLoading',
+		package: '@atlassian/agent-profile-card',
+		description: 'Reserve the Rovo agent card layout while the active card implementation loads.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Keep the loading placeholder in the same location as the requested profile, then replace it with the loaded card or the host error state when the request settles.',
+			'The browse-kit treatment uses AgentCardSkeleton from @atlassian/studio-browse-kit. See that component for the loading example.',
+		],
+		keywords: ['rovo', 'agent', 'profile', 'loading', 'skeleton', 'placeholder'],
+		category: 'rovo',
+		examples: [],
+		props: [],
+	},
+	{
 		name: 'AgentScope',
 		package: '@atlassian/agent-scope',
 		description:
@@ -18355,7 +18743,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				name: 'components',
 				type: 'Partial<CharlieTableComponentsMap> | undefined',
 				description:
-					"Optional component overrides. Custom `Table` / `RowCell` implementations should spread the\nsame props as the compiled defaults so sizing CSS variables, pinning, and a11y keep working.\nNo `forwardRef` wrapper is needed — the table ref is delivered via the `tableRef` prop.\n\n@example\n```tsx\nimport CharlieTable from '@atlassian/charlie-table/compiled';\nimport { RowCell, Table } from '@atlassian/charlie-table/components';\n\n// No forwardRef needed — tableRef flows through the spread.\nconst MyTable = (props) => (\n  <Table {...props} xcss={cx(props.xcss, myTableStyles)} />\n);\n\nconst MyRowCell = (props) => (\n  <RowCell {...props} xcss={cx(props.xcss, myRowCellStyles)} />\n);\n\n<CharlieTable components={{ Table: MyTable, RowCell: MyRowCell }} ... />\n```",
+					"Optional component overrides. Custom `Table` / `RowCell` / `HeadCell` implementations should\nspread the same props as the compiled defaults so sizing CSS variables, pinning, and a11y keep\nworking. No `forwardRef` wrapper is needed — refs are delivered via the `tableRef` and\n`headCellRef` props. `HeadCell` is also used for columns with resizing or reordering enabled.\n\n@example\n```tsx\nimport CharlieTable from '@atlassian/charlie-table/compiled';\nimport { RowCell, Table } from '@atlassian/charlie-table/components';\n\n// No forwardRef needed — tableRef flows through the spread.\nconst MyTable = (props) => (\n  <Table {...props} xcss={cx(props.xcss, myTableStyles)} />\n);\n\nconst MyRowCell = (props) => (\n  <RowCell {...props} xcss={cx(props.xcss, myRowCellStyles)} />\n);\n\n<CharlieTable components={{ Table: MyTable, RowCell: MyRowCell }} ... />\n```",
 			},
 			{
 				name: 'data',
@@ -27837,6 +28225,11 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				isRequired: true,
 			},
 			{
+				name: 'onOpenComplete',
+				type: '(() => void) | undefined',
+				description: 'Called when the modal has finished opening.',
+			},
+			{
 				name: 'searchPlaceholder',
 				type: 'string | undefined',
 			},
@@ -28194,6 +28587,12 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 					'Message ID for analytics tracking deduplication\nMessage ID for analytics tracking deduplication',
 			},
 			{
+				name: 'metricsConfig',
+				type: 'any',
+				description:
+					'Metrics configuration for charts that source from Metrics Layer\nMetrics configuration for charts that source from Metrics Layer',
+			},
+			{
 				name: 'vizConfig',
 				type: 'ChartConfig<{ BarChart: Record<never, never>; }> | undefined',
 				description: 'Viz config for the chart',
@@ -28240,6 +28639,12 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				type: 'string | undefined',
 				description:
 					'Message ID for analytics tracking deduplication\nMessage ID for analytics tracking deduplication',
+			},
+			{
+				name: 'metricsConfig',
+				type: 'any',
+				description:
+					'Metrics configuration for charts that source from Metrics Layer\nMetrics configuration for charts that source from Metrics Layer',
 			},
 			{
 				name: 'vizConfig',
@@ -30797,11 +31202,10 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		name: 'DiscoveryDashboard',
 		package: '@atlassian/discovery',
 		description:
-			'The Assets Discovery charts dashboard. The package currently builds its dashboard configuration internally and defaults chart services to mock services, so hosts must supply real tenant context and authorized services before production use.',
+			'The Assets Discovery overview dashboard. It fetches the DP overview for a cloud ID with one Relay query; each widget reads its own fragment and renders with AVP chart components or ADS primitives. Jira mounts it on the Discovery route, which enable-jsm-discovery-route controls. Loading, the empty state, errors, and retry are handled by the dashboard.',
 		status: 'early-access',
 		usageGuidelines: [
-			'Configure the workspace, site, environment, and locale for the signed-in app.',
-			'Render DiscoveryDashboardActionsSlot beside the page title to show dashboard filter actions in that row.',
+			'Pass the cloud ID of the signed-in tenant, and render inside a RelayEnvironmentProvider and IntlProvider.',
 		],
 		contentGuidelines: [],
 		accessibilityGuidelines: [
@@ -30810,73 +31214,15 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['@atlassian/discovery', 'Assets Discovery', 'dashboard', 'charts'],
 		category: 'components',
 		examples: [
-			"import React, { type ComponentProps } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Heading from '@atlaskit/heading/heading';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport DiscoveryDashboard from '@atlassian/discovery/ui/dashboard';\nimport DiscoveryDashboardActionsSlot from '@atlassian/discovery/ui/dashboard/actions-slot';\ntype DiscoveryDashboardProps = ComponentProps<typeof DiscoveryDashboard>;\n/**\n * Bind this adapter to the active JSM Assets tenant context in the host application.\n * Supply real workspace, user, environment, and chart services rather than preview fixtures.\n * The package currently creates its dashboard configuration internally; this adapter does not\n * provide a configuration override.\n */\nexport function AssetsDiscoveryDashboard(props: DiscoveryDashboardProps): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale={props.locale}>\n\t\t\t<Box padding=\"space.300\">\n\t\t\t\t<Inline alignBlock=\"center\" space=\"space.200\">\n\t\t\t\t\t<Heading as=\"h1\" size=\"large\">\n\t\t\t\t\t\tAssets Discovery\n\t\t\t\t\t</Heading>\n\t\t\t\t\t<DiscoveryDashboardActionsSlot />\n\t\t\t\t</Inline>\n\t\t\t\t<DiscoveryDashboard {...props} />\n\t\t\t</Box>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { type ComponentProps } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Heading from '@atlaskit/heading/heading';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport DiscoveryDashboard from '@atlassian/discovery/ui/dashboard';\ntype DiscoveryDashboardProps = ComponentProps<typeof DiscoveryDashboard> & { locale: string };\n/**\n * Bind this adapter to the active JSM Assets tenant in the host application. Render it inside the\n * host's RelayEnvironmentProvider; the dashboard only needs the tenant's cloud ID.\n */\nexport function AssetsDiscoveryDashboard({\n\tlocale,\n\t...props\n}: DiscoveryDashboardProps): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale={locale}>\n\t\t\t<Box padding=\"space.300\">\n\t\t\t\t<Stack space=\"space.300\">\n\t\t\t\t\t<Heading as=\"h1\" size=\"large\">\n\t\t\t\t\t\tAssets Discovery\n\t\t\t\t\t</Heading>\n\t\t\t\t\t<DiscoveryDashboard {...props} />\n\t\t\t\t</Stack>\n\t\t\t</Box>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
-			{
-				name: 'activationId',
-				type: 'string',
-				isRequired: true,
-			},
-			{
-				name: 'atlassianUser',
-				type: '{ account_id: string; account_status?: string | undefined; account_type?: string | undefined; email?: string | undefined; email_verified?: boolean | undefined; locale?: string | undefined; name: string; nickname?: string | undefined; picture: string; principal_type?: string | undefined; }',
-				isRequired: true,
-			},
 			{
 				name: 'cloudId',
 				type: 'string',
 				isRequired: true,
 			},
-			{
-				name: 'environment',
-				type: '"local" | "prod" | "staging" | "dev"',
-				isRequired: true,
-			},
-			{
-				name: 'isUserOrgAdmin',
-				type: 'boolean',
-				isRequired: true,
-			},
-			{
-				name: 'locale',
-				type: 'string',
-				isRequired: true,
-			},
-			{
-				name: 'perimeter',
-				type: 'PERIMETERS | undefined',
-				defaultValue: '"commercial"',
-			},
-			{
-				name: 'services',
-				type: 'OptionalAndNullable<Services> | undefined',
-			},
-			{
-				name: 'workspace',
-				type: '{ id: WorkspaceId; cloud_id: string; access: 0 | 1 | 2 | 3; atlassian_org_id: string; is_data_compliant: boolean | undefined; slug: "analytics"; url: string; default_theme_slug: "atlassian-ads"; admin_manage_users_url?: string | undefined; }',
-				isRequired: true,
-			},
 		],
-	},
-	{
-		name: 'DiscoveryDashboardActionsSlot',
-		package: '@atlassian/discovery',
-		description:
-			'A portal target for dashboard filter actions. This is a host page layout slot to mount beside its title, not a standalone control.',
-		status: 'early-access',
-		usageGuidelines: [
-			'Place this slot beside the page title. DiscoveryDashboard renders its filter actions there when the slot is present.',
-			'Keep the slot and dashboard in the same document, and remove both when leaving the dashboard.',
-		],
-		contentGuidelines: [],
-		accessibilityGuidelines: [],
-		keywords: ['@atlassian/discovery', 'dashboard', 'actions slot', 'portal target'],
-		category: 'components',
-		examples: [
-			"import React, { type ComponentProps } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Heading from '@atlaskit/heading/heading';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport DiscoveryDashboard from '@atlassian/discovery/ui/dashboard';\nimport DiscoveryDashboardActionsSlot from '@atlassian/discovery/ui/dashboard/actions-slot';\ntype DiscoveryDashboardProps = ComponentProps<typeof DiscoveryDashboard>;\n/**\n * Bind this adapter to the active JSM Assets tenant context in the host application.\n * Supply real workspace, user, environment, and chart services rather than preview fixtures.\n * The package currently creates its dashboard configuration internally; this adapter does not\n * provide a configuration override.\n */\nexport function AssetsDiscoveryDashboard(props: DiscoveryDashboardProps): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale={props.locale}>\n\t\t\t<Box padding=\"space.300\">\n\t\t\t\t<Inline alignBlock=\"center\" space=\"space.200\">\n\t\t\t\t\t<Heading as=\"h1\" size=\"large\">\n\t\t\t\t\t\tAssets Discovery\n\t\t\t\t\t</Heading>\n\t\t\t\t\t<DiscoveryDashboardActionsSlot />\n\t\t\t\t</Inline>\n\t\t\t\t<DiscoveryDashboard {...props} />\n\t\t\t</Box>\n\t\t</IntlProvider>\n\t);\n}",
-		],
-		props: [],
 	},
 	{
 		name: 'DiscoveryPage',
@@ -30893,7 +31239,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['@atlassian/discovery', 'Assets Discovery', 'DiscoveryPage'],
 		category: 'components',
 		examples: [
-			"import React, { useEffect, useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Heading from '@atlaskit/heading/heading';\nimport { Anchor } from '@atlaskit/primitives/compiled/anchor';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { AtlBrowserStorageLocal } from '@atlassian/browser-storage-controls/web-storage-service';\nimport DiscoveryPage from '@atlassian/discovery/ui/discovery';\nimport { CredentialsPage } from '@atlassian/discovery/ui/discovery/credentials';\nimport { LogsPage } from '@atlassian/discovery/ui/discovery/logs';\nimport { OverviewPage } from '@atlassian/discovery/ui/discovery/overview';\nimport { RecordsPage } from '@atlassian/discovery/ui/discovery/records';\nimport { ScanJobsPage } from '@atlassian/discovery/ui/discovery/scan-jobs';\nimport { SystemsPage } from '@atlassian/discovery/ui/discovery/systems';\nconst links = {\n\toverview: { href: '#discovery/overview', label: 'Overview' },\n\trecords: { href: '#discovery/records', label: 'Records' },\n\t'scan-jobs': { href: '#discovery/scan-jobs', label: 'Scan jobs' },\n\tsystems: { href: '#discovery/systems', label: 'Systems' },\n\tcredentials: { href: '#discovery/credentials', label: 'Credentials' },\n\tlogs: { href: '#discovery/logs', label: 'Logs' },\n};\ntype DiscoverySection = keyof typeof links;\nconst sections: Record<DiscoverySection, React.ComponentType> = {\n\toverview: OverviewPage,\n\trecords: RecordsPage,\n\t'scan-jobs': ScanJobsPage,\n\tsystems: SystemsPage,\n\tcredentials: CredentialsPage,\n\tlogs: LogsPage,\n};\nfunction sectionFromHash(): DiscoverySection {\n\treturn (\n\t\t(Object.keys(links) as DiscoverySection[]).find(\n\t\t\t(section) => links[section].href === window.location.hash,\n\t\t) ?? 'overview'\n\t);\n}\nexport default function WholeDiscovery(): React.JSX.Element {\n\tconst [activeSection, setActiveSection] = useState<DiscoverySection>('overview');\n\tconst [isProvisioned, setIsProvisioned] = useState(false);\n\tuseEffect(() => {\n\t\t// The shell shows GettingStartedScreen for an unprovisioned tenant. Seed only the\n\t\t// preview's host state before mounting it, then restore the viewer's previous value.\n\t\tconst storageKey = 'discovery-platform-state';\n\t\tconst previousState = AtlBrowserStorageLocal.getItem(storageKey);\n\t\tlet cancelled = false;\n\t\tvoid (async () => {\n\t\t\tlet parsedState: Record<string, unknown> = {};\n\t\t\ttry {\n\t\t\t\tparsedState = previousState ? JSON.parse(previousState) : {};\n\t\t\t} catch {\n\t\t\t\t// An invalid previous value is replaced for this preview and removed on cleanup.\n\t\t\t}\n\t\t\tawait AtlBrowserStorageLocal.setItem(\n\t\t\t\tstorageKey,\n\t\t\t\tJSON.stringify({ ...parsedState, provisionStatus: 'PROVISIONED' }),\n\t\t\t);\n\t\t\tif (!cancelled) {\n\t\t\t\tsetIsProvisioned(true);\n\t\t\t}\n\t\t})();\n\t\treturn () => {\n\t\t\tcancelled = true;\n\t\t\tif (previousState === null) {\n\t\t\t\tAtlBrowserStorageLocal.removeItem(storageKey);\n\t\t\t} else {\n\t\t\t\tvoid AtlBrowserStorageLocal.setItem(storageKey, previousState);\n\t\t\t}\n\t\t};\n\t}, []);\n\tuseEffect(() => {\n\t\tconst syncSection = () => setActiveSection(sectionFromHash());\n\t\tsyncSection();\n\t\twindow.addEventListener('hashchange', syncSection);\n\t\treturn () => window.removeEventListener('hashchange', syncSection);\n\t}, []);\n\tconst SectionPage = sections[activeSection];\n\tif (!isProvisioned) {\n\t\treturn <div aria-live=\"polite\">Preparing Discovery preview…</div>;\n\t}\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<DiscoveryPage>\n\t\t\t\t<>\n\t\t\t\t\t<Box padding=\"space.300\">\n\t\t\t\t\t\t<Heading as=\"h1\" size=\"large\">\n\t\t\t\t\t\t\tDiscovery\n\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t{/* Preview links only. Jira supplies the production horizontal navigation. */}\n\t\t\t\t\t\t<Box as=\"nav\" aria-label=\"Discovery sections\">\n\t\t\t\t\t\t\t<Inline space=\"space.200\" shouldWrap>\n\t\t\t\t\t\t\t\t{(Object.keys(links) as DiscoverySection[]).map((section) => (\n\t\t\t\t\t\t\t\t\t<Anchor\n\t\t\t\t\t\t\t\t\t\tkey={section}\n\t\t\t\t\t\t\t\t\t\thref={links[section].href}\n\t\t\t\t\t\t\t\t\t\taria-current={section === activeSection ? 'page' : undefined}\n\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t{links[section].label}\n\t\t\t\t\t\t\t\t\t</Anchor>\n\t\t\t\t\t\t\t\t))}\n\t\t\t\t\t\t\t</Inline>\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t</Box>\n\t\t\t\t\t<SectionPage />\n\t\t\t\t</>\n\t\t\t</DiscoveryPage>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useEffect, useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { RelayEnvironmentProvider } from 'react-relay';\nimport { createMockEnvironment, MockPayloadGenerator } from 'relay-test-utils';\nimport Heading from '@atlaskit/heading/heading';\nimport { Anchor } from '@atlaskit/primitives/compiled/anchor';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { AtlBrowserStorageLocal } from '@atlassian/browser-storage-controls/web-storage-service';\nimport DiscoveryPage from '@atlassian/discovery/ui/discovery';\nimport { CredentialsPage } from '@atlassian/discovery/ui/discovery/credentials';\nimport { LogsPage } from '@atlassian/discovery/ui/discovery/logs';\nimport { RecordsPage } from '@atlassian/discovery/ui/discovery/records';\nimport { ScanJobsPage } from '@atlassian/discovery/ui/discovery/scan-jobs';\nimport { SystemsPage } from '@atlassian/discovery/ui/discovery/systems';\nimport { ExampleOverviewPage } from './fixtures/overview-page';\nconst links = {\n\toverview: { href: '#discovery/overview', label: 'Overview' },\n\trecords: { href: '#discovery/records', label: 'Records' },\n\t'scan-jobs': { href: '#discovery/scan-jobs', label: 'Scan jobs' },\n\tsystems: { href: '#discovery/systems', label: 'Systems' },\n\tcredentials: { href: '#discovery/credentials', label: 'Credentials' },\n\tlogs: { href: '#discovery/logs', label: 'Logs' },\n};\ntype DiscoverySection = keyof typeof links;\nconst exampleCloudId = 'example-cloud-id';\nconst exampleScanJobs = [\n\t{\n\t\tid: 'example-job-1',\n\t\tname: 'Head office network',\n\t\tstatus: 'CONFIGURED',\n\t\tisDraft: false,\n\t\tnextStep: null,\n\t\tprovider: 'ATLASSIAN',\n\t\tupdatedAt: '2026-09-30T09:15:00.000Z',\n\t\towner: { accountId: 'example-account-1', displayName: 'Alana Grant' },\n\t\tschedules: [\n\t\t\t{ id: 'example-schedule-1', cronExpression: '0 2 * * *' },\n\t\t\t{ id: 'example-schedule-2', cronExpression: '0 14 * * 6' },\n\t\t],\n\t},\n\t{\n\t\tid: 'example-job-2',\n\t\tname: 'Data centre sweep',\n\t\tstatus: 'DRAFT_3',\n\t\tisDraft: true,\n\t\tnextStep: 'CREDENTIALS',\n\t\tprovider: 'ADVANCED',\n\t\tupdatedAt: '2026-10-01T16:40:00.000Z',\n\t\towner: { accountId: 'example-account-2', displayName: null },\n\t\tschedules: [],\n\t},\n];\nfunction createExampleEnvironment() {\n\tconst environment = createMockEnvironment();\n\tenvironment.mock.queueOperationResolver((operation) =>\n\t\tMockPayloadGenerator.generate(operation, {\n\t\t\tDiscoveryJobConnection: () => ({\n\t\t\t\tnodes: exampleScanJobs,\n\t\t\t\tpageInfo: { endCursor: null, hasNextPage: false },\n\t\t\t}),\n\t\t}),\n\t);\n\treturn environment;\n}\nfunction ExampleScanJobsPage(): React.JSX.Element {\n\treturn <ScanJobsPage cloudId={exampleCloudId} />;\n}\nconst sections: Record<DiscoverySection, React.ComponentType> = {\n\toverview: ExampleOverviewPage,\n\trecords: RecordsPage,\n\t'scan-jobs': ExampleScanJobsPage,\n\tsystems: SystemsPage,\n\tcredentials: CredentialsPage,\n\tlogs: LogsPage,\n};\nfunction sectionFromHash(): DiscoverySection {\n\treturn (\n\t\t(Object.keys(links) as DiscoverySection[]).find(\n\t\t\t(section) => links[section].href === window.location.hash,\n\t\t) ?? 'overview'\n\t);\n}\nexport default function WholeDiscovery(): React.JSX.Element {\n\tconst [activeSection, setActiveSection] = useState<DiscoverySection>('overview');\n\tconst [isProvisioned, setIsProvisioned] = useState(false);\n\tuseEffect(() => {\n\t\t// The shell shows GettingStartedScreen for an unprovisioned tenant. Seed only the\n\t\t// preview's host state before mounting it, then restore the viewer's previous value.\n\t\tconst storageKey = 'discovery-platform-state';\n\t\tconst previousState = AtlBrowserStorageLocal.getItem(storageKey);\n\t\tlet cancelled = false;\n\t\tvoid (async () => {\n\t\t\tlet parsedState: Record<string, unknown> = {};\n\t\t\ttry {\n\t\t\t\tparsedState = previousState ? JSON.parse(previousState) : {};\n\t\t\t} catch {\n\t\t\t\t// An invalid previous value is replaced for this preview and removed on cleanup.\n\t\t\t}\n\t\t\tawait AtlBrowserStorageLocal.setItem(\n\t\t\t\tstorageKey,\n\t\t\t\tJSON.stringify({ ...parsedState, provisionStatus: 'PROVISIONED' }),\n\t\t\t);\n\t\t\tif (!cancelled) {\n\t\t\t\tsetIsProvisioned(true);\n\t\t\t}\n\t\t})();\n\t\treturn () => {\n\t\t\tcancelled = true;\n\t\t\tif (previousState === null) {\n\t\t\t\tAtlBrowserStorageLocal.removeItem(storageKey);\n\t\t\t} else {\n\t\t\t\tvoid AtlBrowserStorageLocal.setItem(storageKey, previousState);\n\t\t\t}\n\t\t};\n\t}, []);\n\tconst [environment] = useState(createExampleEnvironment);\n\tuseEffect(() => {\n\t\tconst syncSection = () => setActiveSection(sectionFromHash());\n\t\tsyncSection();\n\t\twindow.addEventListener('hashchange', syncSection);\n\t\treturn () => window.removeEventListener('hashchange', syncSection);\n\t}, []);\n\tconst SectionPage = sections[activeSection];\n\tif (!isProvisioned) {\n\t\treturn <div aria-live=\"polite\">Preparing Discovery preview…</div>;\n\t}\n\treturn (\n\t\t<RelayEnvironmentProvider environment={environment}>\n\t\t\t<IntlProvider locale=\"en\">\n\t\t\t\t<DiscoveryPage>\n\t\t\t\t\t<>\n\t\t\t\t\t\t<Box padding=\"space.300\">\n\t\t\t\t\t\t\t<Heading as=\"h1\" size=\"large\">\n\t\t\t\t\t\t\t\tDiscovery\n\t\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t\t{/* Preview links only. Jira supplies the production horizontal navigation. */}\n\t\t\t\t\t\t\t<Box as=\"nav\" aria-label=\"Discovery sections\">\n\t\t\t\t\t\t\t\t<Inline space=\"space.200\" shouldWrap>\n\t\t\t\t\t\t\t\t\t{(Object.keys(links) as DiscoverySection[]).map((section) => (\n\t\t\t\t\t\t\t\t\t\t<Anchor\n\t\t\t\t\t\t\t\t\t\t\tkey={section}\n\t\t\t\t\t\t\t\t\t\t\thref={links[section].href}\n\t\t\t\t\t\t\t\t\t\t\taria-current={section === activeSection ? 'page' : undefined}\n\t\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t\t{links[section].label}\n\t\t\t\t\t\t\t\t\t\t</Anchor>\n\t\t\t\t\t\t\t\t\t))}\n\t\t\t\t\t\t\t\t</Inline>\n\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t<SectionPage />\n\t\t\t\t\t</>\n\t\t\t\t</DiscoveryPage>\n\t\t\t</IntlProvider>\n\t\t</RelayEnvironmentProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -30917,7 +31263,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['@atlassian/discovery', 'Assets Discovery', 'CredentialsPage'],
 		category: 'components',
 		examples: [
-			"import React, { useEffect, useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Heading from '@atlaskit/heading/heading';\nimport { Anchor } from '@atlaskit/primitives/compiled/anchor';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { AtlBrowserStorageLocal } from '@atlassian/browser-storage-controls/web-storage-service';\nimport DiscoveryPage from '@atlassian/discovery/ui/discovery';\nimport { CredentialsPage } from '@atlassian/discovery/ui/discovery/credentials';\nimport { LogsPage } from '@atlassian/discovery/ui/discovery/logs';\nimport { OverviewPage } from '@atlassian/discovery/ui/discovery/overview';\nimport { RecordsPage } from '@atlassian/discovery/ui/discovery/records';\nimport { ScanJobsPage } from '@atlassian/discovery/ui/discovery/scan-jobs';\nimport { SystemsPage } from '@atlassian/discovery/ui/discovery/systems';\nconst links = {\n\toverview: { href: '#discovery/overview', label: 'Overview' },\n\trecords: { href: '#discovery/records', label: 'Records' },\n\t'scan-jobs': { href: '#discovery/scan-jobs', label: 'Scan jobs' },\n\tsystems: { href: '#discovery/systems', label: 'Systems' },\n\tcredentials: { href: '#discovery/credentials', label: 'Credentials' },\n\tlogs: { href: '#discovery/logs', label: 'Logs' },\n};\ntype DiscoverySection = keyof typeof links;\nconst sections: Record<DiscoverySection, React.ComponentType> = {\n\toverview: OverviewPage,\n\trecords: RecordsPage,\n\t'scan-jobs': ScanJobsPage,\n\tsystems: SystemsPage,\n\tcredentials: CredentialsPage,\n\tlogs: LogsPage,\n};\nfunction sectionFromHash(): DiscoverySection {\n\treturn (\n\t\t(Object.keys(links) as DiscoverySection[]).find(\n\t\t\t(section) => links[section].href === window.location.hash,\n\t\t) ?? 'overview'\n\t);\n}\nexport default function WholeDiscovery(): React.JSX.Element {\n\tconst [activeSection, setActiveSection] = useState<DiscoverySection>('overview');\n\tconst [isProvisioned, setIsProvisioned] = useState(false);\n\tuseEffect(() => {\n\t\t// The shell shows GettingStartedScreen for an unprovisioned tenant. Seed only the\n\t\t// preview's host state before mounting it, then restore the viewer's previous value.\n\t\tconst storageKey = 'discovery-platform-state';\n\t\tconst previousState = AtlBrowserStorageLocal.getItem(storageKey);\n\t\tlet cancelled = false;\n\t\tvoid (async () => {\n\t\t\tlet parsedState: Record<string, unknown> = {};\n\t\t\ttry {\n\t\t\t\tparsedState = previousState ? JSON.parse(previousState) : {};\n\t\t\t} catch {\n\t\t\t\t// An invalid previous value is replaced for this preview and removed on cleanup.\n\t\t\t}\n\t\t\tawait AtlBrowserStorageLocal.setItem(\n\t\t\t\tstorageKey,\n\t\t\t\tJSON.stringify({ ...parsedState, provisionStatus: 'PROVISIONED' }),\n\t\t\t);\n\t\t\tif (!cancelled) {\n\t\t\t\tsetIsProvisioned(true);\n\t\t\t}\n\t\t})();\n\t\treturn () => {\n\t\t\tcancelled = true;\n\t\t\tif (previousState === null) {\n\t\t\t\tAtlBrowserStorageLocal.removeItem(storageKey);\n\t\t\t} else {\n\t\t\t\tvoid AtlBrowserStorageLocal.setItem(storageKey, previousState);\n\t\t\t}\n\t\t};\n\t}, []);\n\tuseEffect(() => {\n\t\tconst syncSection = () => setActiveSection(sectionFromHash());\n\t\tsyncSection();\n\t\twindow.addEventListener('hashchange', syncSection);\n\t\treturn () => window.removeEventListener('hashchange', syncSection);\n\t}, []);\n\tconst SectionPage = sections[activeSection];\n\tif (!isProvisioned) {\n\t\treturn <div aria-live=\"polite\">Preparing Discovery preview…</div>;\n\t}\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<DiscoveryPage>\n\t\t\t\t<>\n\t\t\t\t\t<Box padding=\"space.300\">\n\t\t\t\t\t\t<Heading as=\"h1\" size=\"large\">\n\t\t\t\t\t\t\tDiscovery\n\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t{/* Preview links only. Jira supplies the production horizontal navigation. */}\n\t\t\t\t\t\t<Box as=\"nav\" aria-label=\"Discovery sections\">\n\t\t\t\t\t\t\t<Inline space=\"space.200\" shouldWrap>\n\t\t\t\t\t\t\t\t{(Object.keys(links) as DiscoverySection[]).map((section) => (\n\t\t\t\t\t\t\t\t\t<Anchor\n\t\t\t\t\t\t\t\t\t\tkey={section}\n\t\t\t\t\t\t\t\t\t\thref={links[section].href}\n\t\t\t\t\t\t\t\t\t\taria-current={section === activeSection ? 'page' : undefined}\n\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t{links[section].label}\n\t\t\t\t\t\t\t\t\t</Anchor>\n\t\t\t\t\t\t\t\t))}\n\t\t\t\t\t\t\t</Inline>\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t</Box>\n\t\t\t\t\t<SectionPage />\n\t\t\t\t</>\n\t\t\t</DiscoveryPage>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useEffect, useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { RelayEnvironmentProvider } from 'react-relay';\nimport { createMockEnvironment, MockPayloadGenerator } from 'relay-test-utils';\nimport Heading from '@atlaskit/heading/heading';\nimport { Anchor } from '@atlaskit/primitives/compiled/anchor';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { AtlBrowserStorageLocal } from '@atlassian/browser-storage-controls/web-storage-service';\nimport DiscoveryPage from '@atlassian/discovery/ui/discovery';\nimport { CredentialsPage } from '@atlassian/discovery/ui/discovery/credentials';\nimport { LogsPage } from '@atlassian/discovery/ui/discovery/logs';\nimport { RecordsPage } from '@atlassian/discovery/ui/discovery/records';\nimport { ScanJobsPage } from '@atlassian/discovery/ui/discovery/scan-jobs';\nimport { SystemsPage } from '@atlassian/discovery/ui/discovery/systems';\nimport { ExampleOverviewPage } from './fixtures/overview-page';\nconst links = {\n\toverview: { href: '#discovery/overview', label: 'Overview' },\n\trecords: { href: '#discovery/records', label: 'Records' },\n\t'scan-jobs': { href: '#discovery/scan-jobs', label: 'Scan jobs' },\n\tsystems: { href: '#discovery/systems', label: 'Systems' },\n\tcredentials: { href: '#discovery/credentials', label: 'Credentials' },\n\tlogs: { href: '#discovery/logs', label: 'Logs' },\n};\ntype DiscoverySection = keyof typeof links;\nconst exampleCloudId = 'example-cloud-id';\nconst exampleScanJobs = [\n\t{\n\t\tid: 'example-job-1',\n\t\tname: 'Head office network',\n\t\tstatus: 'CONFIGURED',\n\t\tisDraft: false,\n\t\tnextStep: null,\n\t\tprovider: 'ATLASSIAN',\n\t\tupdatedAt: '2026-09-30T09:15:00.000Z',\n\t\towner: { accountId: 'example-account-1', displayName: 'Alana Grant' },\n\t\tschedules: [\n\t\t\t{ id: 'example-schedule-1', cronExpression: '0 2 * * *' },\n\t\t\t{ id: 'example-schedule-2', cronExpression: '0 14 * * 6' },\n\t\t],\n\t},\n\t{\n\t\tid: 'example-job-2',\n\t\tname: 'Data centre sweep',\n\t\tstatus: 'DRAFT_3',\n\t\tisDraft: true,\n\t\tnextStep: 'CREDENTIALS',\n\t\tprovider: 'ADVANCED',\n\t\tupdatedAt: '2026-10-01T16:40:00.000Z',\n\t\towner: { accountId: 'example-account-2', displayName: null },\n\t\tschedules: [],\n\t},\n];\nfunction createExampleEnvironment() {\n\tconst environment = createMockEnvironment();\n\tenvironment.mock.queueOperationResolver((operation) =>\n\t\tMockPayloadGenerator.generate(operation, {\n\t\t\tDiscoveryJobConnection: () => ({\n\t\t\t\tnodes: exampleScanJobs,\n\t\t\t\tpageInfo: { endCursor: null, hasNextPage: false },\n\t\t\t}),\n\t\t}),\n\t);\n\treturn environment;\n}\nfunction ExampleScanJobsPage(): React.JSX.Element {\n\treturn <ScanJobsPage cloudId={exampleCloudId} />;\n}\nconst sections: Record<DiscoverySection, React.ComponentType> = {\n\toverview: ExampleOverviewPage,\n\trecords: RecordsPage,\n\t'scan-jobs': ExampleScanJobsPage,\n\tsystems: SystemsPage,\n\tcredentials: CredentialsPage,\n\tlogs: LogsPage,\n};\nfunction sectionFromHash(): DiscoverySection {\n\treturn (\n\t\t(Object.keys(links) as DiscoverySection[]).find(\n\t\t\t(section) => links[section].href === window.location.hash,\n\t\t) ?? 'overview'\n\t);\n}\nexport default function WholeDiscovery(): React.JSX.Element {\n\tconst [activeSection, setActiveSection] = useState<DiscoverySection>('overview');\n\tconst [isProvisioned, setIsProvisioned] = useState(false);\n\tuseEffect(() => {\n\t\t// The shell shows GettingStartedScreen for an unprovisioned tenant. Seed only the\n\t\t// preview's host state before mounting it, then restore the viewer's previous value.\n\t\tconst storageKey = 'discovery-platform-state';\n\t\tconst previousState = AtlBrowserStorageLocal.getItem(storageKey);\n\t\tlet cancelled = false;\n\t\tvoid (async () => {\n\t\t\tlet parsedState: Record<string, unknown> = {};\n\t\t\ttry {\n\t\t\t\tparsedState = previousState ? JSON.parse(previousState) : {};\n\t\t\t} catch {\n\t\t\t\t// An invalid previous value is replaced for this preview and removed on cleanup.\n\t\t\t}\n\t\t\tawait AtlBrowserStorageLocal.setItem(\n\t\t\t\tstorageKey,\n\t\t\t\tJSON.stringify({ ...parsedState, provisionStatus: 'PROVISIONED' }),\n\t\t\t);\n\t\t\tif (!cancelled) {\n\t\t\t\tsetIsProvisioned(true);\n\t\t\t}\n\t\t})();\n\t\treturn () => {\n\t\t\tcancelled = true;\n\t\t\tif (previousState === null) {\n\t\t\t\tAtlBrowserStorageLocal.removeItem(storageKey);\n\t\t\t} else {\n\t\t\t\tvoid AtlBrowserStorageLocal.setItem(storageKey, previousState);\n\t\t\t}\n\t\t};\n\t}, []);\n\tconst [environment] = useState(createExampleEnvironment);\n\tuseEffect(() => {\n\t\tconst syncSection = () => setActiveSection(sectionFromHash());\n\t\tsyncSection();\n\t\twindow.addEventListener('hashchange', syncSection);\n\t\treturn () => window.removeEventListener('hashchange', syncSection);\n\t}, []);\n\tconst SectionPage = sections[activeSection];\n\tif (!isProvisioned) {\n\t\treturn <div aria-live=\"polite\">Preparing Discovery preview…</div>;\n\t}\n\treturn (\n\t\t<RelayEnvironmentProvider environment={environment}>\n\t\t\t<IntlProvider locale=\"en\">\n\t\t\t\t<DiscoveryPage>\n\t\t\t\t\t<>\n\t\t\t\t\t\t<Box padding=\"space.300\">\n\t\t\t\t\t\t\t<Heading as=\"h1\" size=\"large\">\n\t\t\t\t\t\t\t\tDiscovery\n\t\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t\t{/* Preview links only. Jira supplies the production horizontal navigation. */}\n\t\t\t\t\t\t\t<Box as=\"nav\" aria-label=\"Discovery sections\">\n\t\t\t\t\t\t\t\t<Inline space=\"space.200\" shouldWrap>\n\t\t\t\t\t\t\t\t\t{(Object.keys(links) as DiscoverySection[]).map((section) => (\n\t\t\t\t\t\t\t\t\t\t<Anchor\n\t\t\t\t\t\t\t\t\t\t\tkey={section}\n\t\t\t\t\t\t\t\t\t\t\thref={links[section].href}\n\t\t\t\t\t\t\t\t\t\t\taria-current={section === activeSection ? 'page' : undefined}\n\t\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t\t{links[section].label}\n\t\t\t\t\t\t\t\t\t\t</Anchor>\n\t\t\t\t\t\t\t\t\t))}\n\t\t\t\t\t\t\t\t</Inline>\n\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t<SectionPage />\n\t\t\t\t\t</>\n\t\t\t\t</DiscoveryPage>\n\t\t\t</IntlProvider>\n\t\t</RelayEnvironmentProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -30952,7 +31298,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['@atlassian/discovery', 'Assets Discovery', 'LogsPage'],
 		category: 'components',
 		examples: [
-			"import React, { useEffect, useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Heading from '@atlaskit/heading/heading';\nimport { Anchor } from '@atlaskit/primitives/compiled/anchor';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { AtlBrowserStorageLocal } from '@atlassian/browser-storage-controls/web-storage-service';\nimport DiscoveryPage from '@atlassian/discovery/ui/discovery';\nimport { CredentialsPage } from '@atlassian/discovery/ui/discovery/credentials';\nimport { LogsPage } from '@atlassian/discovery/ui/discovery/logs';\nimport { OverviewPage } from '@atlassian/discovery/ui/discovery/overview';\nimport { RecordsPage } from '@atlassian/discovery/ui/discovery/records';\nimport { ScanJobsPage } from '@atlassian/discovery/ui/discovery/scan-jobs';\nimport { SystemsPage } from '@atlassian/discovery/ui/discovery/systems';\nconst links = {\n\toverview: { href: '#discovery/overview', label: 'Overview' },\n\trecords: { href: '#discovery/records', label: 'Records' },\n\t'scan-jobs': { href: '#discovery/scan-jobs', label: 'Scan jobs' },\n\tsystems: { href: '#discovery/systems', label: 'Systems' },\n\tcredentials: { href: '#discovery/credentials', label: 'Credentials' },\n\tlogs: { href: '#discovery/logs', label: 'Logs' },\n};\ntype DiscoverySection = keyof typeof links;\nconst sections: Record<DiscoverySection, React.ComponentType> = {\n\toverview: OverviewPage,\n\trecords: RecordsPage,\n\t'scan-jobs': ScanJobsPage,\n\tsystems: SystemsPage,\n\tcredentials: CredentialsPage,\n\tlogs: LogsPage,\n};\nfunction sectionFromHash(): DiscoverySection {\n\treturn (\n\t\t(Object.keys(links) as DiscoverySection[]).find(\n\t\t\t(section) => links[section].href === window.location.hash,\n\t\t) ?? 'overview'\n\t);\n}\nexport default function WholeDiscovery(): React.JSX.Element {\n\tconst [activeSection, setActiveSection] = useState<DiscoverySection>('overview');\n\tconst [isProvisioned, setIsProvisioned] = useState(false);\n\tuseEffect(() => {\n\t\t// The shell shows GettingStartedScreen for an unprovisioned tenant. Seed only the\n\t\t// preview's host state before mounting it, then restore the viewer's previous value.\n\t\tconst storageKey = 'discovery-platform-state';\n\t\tconst previousState = AtlBrowserStorageLocal.getItem(storageKey);\n\t\tlet cancelled = false;\n\t\tvoid (async () => {\n\t\t\tlet parsedState: Record<string, unknown> = {};\n\t\t\ttry {\n\t\t\t\tparsedState = previousState ? JSON.parse(previousState) : {};\n\t\t\t} catch {\n\t\t\t\t// An invalid previous value is replaced for this preview and removed on cleanup.\n\t\t\t}\n\t\t\tawait AtlBrowserStorageLocal.setItem(\n\t\t\t\tstorageKey,\n\t\t\t\tJSON.stringify({ ...parsedState, provisionStatus: 'PROVISIONED' }),\n\t\t\t);\n\t\t\tif (!cancelled) {\n\t\t\t\tsetIsProvisioned(true);\n\t\t\t}\n\t\t})();\n\t\treturn () => {\n\t\t\tcancelled = true;\n\t\t\tif (previousState === null) {\n\t\t\t\tAtlBrowserStorageLocal.removeItem(storageKey);\n\t\t\t} else {\n\t\t\t\tvoid AtlBrowserStorageLocal.setItem(storageKey, previousState);\n\t\t\t}\n\t\t};\n\t}, []);\n\tuseEffect(() => {\n\t\tconst syncSection = () => setActiveSection(sectionFromHash());\n\t\tsyncSection();\n\t\twindow.addEventListener('hashchange', syncSection);\n\t\treturn () => window.removeEventListener('hashchange', syncSection);\n\t}, []);\n\tconst SectionPage = sections[activeSection];\n\tif (!isProvisioned) {\n\t\treturn <div aria-live=\"polite\">Preparing Discovery preview…</div>;\n\t}\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<DiscoveryPage>\n\t\t\t\t<>\n\t\t\t\t\t<Box padding=\"space.300\">\n\t\t\t\t\t\t<Heading as=\"h1\" size=\"large\">\n\t\t\t\t\t\t\tDiscovery\n\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t{/* Preview links only. Jira supplies the production horizontal navigation. */}\n\t\t\t\t\t\t<Box as=\"nav\" aria-label=\"Discovery sections\">\n\t\t\t\t\t\t\t<Inline space=\"space.200\" shouldWrap>\n\t\t\t\t\t\t\t\t{(Object.keys(links) as DiscoverySection[]).map((section) => (\n\t\t\t\t\t\t\t\t\t<Anchor\n\t\t\t\t\t\t\t\t\t\tkey={section}\n\t\t\t\t\t\t\t\t\t\thref={links[section].href}\n\t\t\t\t\t\t\t\t\t\taria-current={section === activeSection ? 'page' : undefined}\n\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t{links[section].label}\n\t\t\t\t\t\t\t\t\t</Anchor>\n\t\t\t\t\t\t\t\t))}\n\t\t\t\t\t\t\t</Inline>\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t</Box>\n\t\t\t\t\t<SectionPage />\n\t\t\t\t</>\n\t\t\t</DiscoveryPage>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useEffect, useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { RelayEnvironmentProvider } from 'react-relay';\nimport { createMockEnvironment, MockPayloadGenerator } from 'relay-test-utils';\nimport Heading from '@atlaskit/heading/heading';\nimport { Anchor } from '@atlaskit/primitives/compiled/anchor';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { AtlBrowserStorageLocal } from '@atlassian/browser-storage-controls/web-storage-service';\nimport DiscoveryPage from '@atlassian/discovery/ui/discovery';\nimport { CredentialsPage } from '@atlassian/discovery/ui/discovery/credentials';\nimport { LogsPage } from '@atlassian/discovery/ui/discovery/logs';\nimport { RecordsPage } from '@atlassian/discovery/ui/discovery/records';\nimport { ScanJobsPage } from '@atlassian/discovery/ui/discovery/scan-jobs';\nimport { SystemsPage } from '@atlassian/discovery/ui/discovery/systems';\nimport { ExampleOverviewPage } from './fixtures/overview-page';\nconst links = {\n\toverview: { href: '#discovery/overview', label: 'Overview' },\n\trecords: { href: '#discovery/records', label: 'Records' },\n\t'scan-jobs': { href: '#discovery/scan-jobs', label: 'Scan jobs' },\n\tsystems: { href: '#discovery/systems', label: 'Systems' },\n\tcredentials: { href: '#discovery/credentials', label: 'Credentials' },\n\tlogs: { href: '#discovery/logs', label: 'Logs' },\n};\ntype DiscoverySection = keyof typeof links;\nconst exampleCloudId = 'example-cloud-id';\nconst exampleScanJobs = [\n\t{\n\t\tid: 'example-job-1',\n\t\tname: 'Head office network',\n\t\tstatus: 'CONFIGURED',\n\t\tisDraft: false,\n\t\tnextStep: null,\n\t\tprovider: 'ATLASSIAN',\n\t\tupdatedAt: '2026-09-30T09:15:00.000Z',\n\t\towner: { accountId: 'example-account-1', displayName: 'Alana Grant' },\n\t\tschedules: [\n\t\t\t{ id: 'example-schedule-1', cronExpression: '0 2 * * *' },\n\t\t\t{ id: 'example-schedule-2', cronExpression: '0 14 * * 6' },\n\t\t],\n\t},\n\t{\n\t\tid: 'example-job-2',\n\t\tname: 'Data centre sweep',\n\t\tstatus: 'DRAFT_3',\n\t\tisDraft: true,\n\t\tnextStep: 'CREDENTIALS',\n\t\tprovider: 'ADVANCED',\n\t\tupdatedAt: '2026-10-01T16:40:00.000Z',\n\t\towner: { accountId: 'example-account-2', displayName: null },\n\t\tschedules: [],\n\t},\n];\nfunction createExampleEnvironment() {\n\tconst environment = createMockEnvironment();\n\tenvironment.mock.queueOperationResolver((operation) =>\n\t\tMockPayloadGenerator.generate(operation, {\n\t\t\tDiscoveryJobConnection: () => ({\n\t\t\t\tnodes: exampleScanJobs,\n\t\t\t\tpageInfo: { endCursor: null, hasNextPage: false },\n\t\t\t}),\n\t\t}),\n\t);\n\treturn environment;\n}\nfunction ExampleScanJobsPage(): React.JSX.Element {\n\treturn <ScanJobsPage cloudId={exampleCloudId} />;\n}\nconst sections: Record<DiscoverySection, React.ComponentType> = {\n\toverview: ExampleOverviewPage,\n\trecords: RecordsPage,\n\t'scan-jobs': ExampleScanJobsPage,\n\tsystems: SystemsPage,\n\tcredentials: CredentialsPage,\n\tlogs: LogsPage,\n};\nfunction sectionFromHash(): DiscoverySection {\n\treturn (\n\t\t(Object.keys(links) as DiscoverySection[]).find(\n\t\t\t(section) => links[section].href === window.location.hash,\n\t\t) ?? 'overview'\n\t);\n}\nexport default function WholeDiscovery(): React.JSX.Element {\n\tconst [activeSection, setActiveSection] = useState<DiscoverySection>('overview');\n\tconst [isProvisioned, setIsProvisioned] = useState(false);\n\tuseEffect(() => {\n\t\t// The shell shows GettingStartedScreen for an unprovisioned tenant. Seed only the\n\t\t// preview's host state before mounting it, then restore the viewer's previous value.\n\t\tconst storageKey = 'discovery-platform-state';\n\t\tconst previousState = AtlBrowserStorageLocal.getItem(storageKey);\n\t\tlet cancelled = false;\n\t\tvoid (async () => {\n\t\t\tlet parsedState: Record<string, unknown> = {};\n\t\t\ttry {\n\t\t\t\tparsedState = previousState ? JSON.parse(previousState) : {};\n\t\t\t} catch {\n\t\t\t\t// An invalid previous value is replaced for this preview and removed on cleanup.\n\t\t\t}\n\t\t\tawait AtlBrowserStorageLocal.setItem(\n\t\t\t\tstorageKey,\n\t\t\t\tJSON.stringify({ ...parsedState, provisionStatus: 'PROVISIONED' }),\n\t\t\t);\n\t\t\tif (!cancelled) {\n\t\t\t\tsetIsProvisioned(true);\n\t\t\t}\n\t\t})();\n\t\treturn () => {\n\t\t\tcancelled = true;\n\t\t\tif (previousState === null) {\n\t\t\t\tAtlBrowserStorageLocal.removeItem(storageKey);\n\t\t\t} else {\n\t\t\t\tvoid AtlBrowserStorageLocal.setItem(storageKey, previousState);\n\t\t\t}\n\t\t};\n\t}, []);\n\tconst [environment] = useState(createExampleEnvironment);\n\tuseEffect(() => {\n\t\tconst syncSection = () => setActiveSection(sectionFromHash());\n\t\tsyncSection();\n\t\twindow.addEventListener('hashchange', syncSection);\n\t\treturn () => window.removeEventListener('hashchange', syncSection);\n\t}, []);\n\tconst SectionPage = sections[activeSection];\n\tif (!isProvisioned) {\n\t\treturn <div aria-live=\"polite\">Preparing Discovery preview…</div>;\n\t}\n\treturn (\n\t\t<RelayEnvironmentProvider environment={environment}>\n\t\t\t<IntlProvider locale=\"en\">\n\t\t\t\t<DiscoveryPage>\n\t\t\t\t\t<>\n\t\t\t\t\t\t<Box padding=\"space.300\">\n\t\t\t\t\t\t\t<Heading as=\"h1\" size=\"large\">\n\t\t\t\t\t\t\t\tDiscovery\n\t\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t\t{/* Preview links only. Jira supplies the production horizontal navigation. */}\n\t\t\t\t\t\t\t<Box as=\"nav\" aria-label=\"Discovery sections\">\n\t\t\t\t\t\t\t\t<Inline space=\"space.200\" shouldWrap>\n\t\t\t\t\t\t\t\t\t{(Object.keys(links) as DiscoverySection[]).map((section) => (\n\t\t\t\t\t\t\t\t\t\t<Anchor\n\t\t\t\t\t\t\t\t\t\t\tkey={section}\n\t\t\t\t\t\t\t\t\t\t\thref={links[section].href}\n\t\t\t\t\t\t\t\t\t\t\taria-current={section === activeSection ? 'page' : undefined}\n\t\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t\t{links[section].label}\n\t\t\t\t\t\t\t\t\t\t</Anchor>\n\t\t\t\t\t\t\t\t\t))}\n\t\t\t\t\t\t\t\t</Inline>\n\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t<SectionPage />\n\t\t\t\t\t</>\n\t\t\t\t</DiscoveryPage>\n\t\t\t</IntlProvider>\n\t\t</RelayEnvironmentProvider>\n\t);\n}",
 		],
 		props: [],
 	},
@@ -30960,19 +31306,24 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		name: 'OverviewPage',
 		package: '@atlassian/discovery',
 		description:
-			'The Discovery overview section with dashboard charts. Its current preview uses the package’s mock dashboard configuration, mock services, and fabricated mock tenant values.',
+			'The Discovery overview section. Pass dashboardProps with the tenant cloud ID to render DiscoveryDashboard; without them it shows an unavailable message.',
 		status: 'early-access',
 		usageGuidelines: [
-			'Treat the bundled overview data as a visual preview only; replace fabricated tenant context and mock services with the host’s authorized tenant values and data integration before production use.',
+			'Render inside the host’s RelayEnvironmentProvider and IntlProvider, and pass the active tenant’s cloud ID.',
 		],
 		contentGuidelines: [],
 		accessibilityGuidelines: [],
 		keywords: ['@atlassian/discovery', 'Assets Discovery', 'OverviewPage'],
 		category: 'components',
 		examples: [
-			"import React, { useEffect, useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Heading from '@atlaskit/heading/heading';\nimport { Anchor } from '@atlaskit/primitives/compiled/anchor';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { AtlBrowserStorageLocal } from '@atlassian/browser-storage-controls/web-storage-service';\nimport DiscoveryPage from '@atlassian/discovery/ui/discovery';\nimport { CredentialsPage } from '@atlassian/discovery/ui/discovery/credentials';\nimport { LogsPage } from '@atlassian/discovery/ui/discovery/logs';\nimport { OverviewPage } from '@atlassian/discovery/ui/discovery/overview';\nimport { RecordsPage } from '@atlassian/discovery/ui/discovery/records';\nimport { ScanJobsPage } from '@atlassian/discovery/ui/discovery/scan-jobs';\nimport { SystemsPage } from '@atlassian/discovery/ui/discovery/systems';\nconst links = {\n\toverview: { href: '#discovery/overview', label: 'Overview' },\n\trecords: { href: '#discovery/records', label: 'Records' },\n\t'scan-jobs': { href: '#discovery/scan-jobs', label: 'Scan jobs' },\n\tsystems: { href: '#discovery/systems', label: 'Systems' },\n\tcredentials: { href: '#discovery/credentials', label: 'Credentials' },\n\tlogs: { href: '#discovery/logs', label: 'Logs' },\n};\ntype DiscoverySection = keyof typeof links;\nconst sections: Record<DiscoverySection, React.ComponentType> = {\n\toverview: OverviewPage,\n\trecords: RecordsPage,\n\t'scan-jobs': ScanJobsPage,\n\tsystems: SystemsPage,\n\tcredentials: CredentialsPage,\n\tlogs: LogsPage,\n};\nfunction sectionFromHash(): DiscoverySection {\n\treturn (\n\t\t(Object.keys(links) as DiscoverySection[]).find(\n\t\t\t(section) => links[section].href === window.location.hash,\n\t\t) ?? 'overview'\n\t);\n}\nexport default function WholeDiscovery(): React.JSX.Element {\n\tconst [activeSection, setActiveSection] = useState<DiscoverySection>('overview');\n\tconst [isProvisioned, setIsProvisioned] = useState(false);\n\tuseEffect(() => {\n\t\t// The shell shows GettingStartedScreen for an unprovisioned tenant. Seed only the\n\t\t// preview's host state before mounting it, then restore the viewer's previous value.\n\t\tconst storageKey = 'discovery-platform-state';\n\t\tconst previousState = AtlBrowserStorageLocal.getItem(storageKey);\n\t\tlet cancelled = false;\n\t\tvoid (async () => {\n\t\t\tlet parsedState: Record<string, unknown> = {};\n\t\t\ttry {\n\t\t\t\tparsedState = previousState ? JSON.parse(previousState) : {};\n\t\t\t} catch {\n\t\t\t\t// An invalid previous value is replaced for this preview and removed on cleanup.\n\t\t\t}\n\t\t\tawait AtlBrowserStorageLocal.setItem(\n\t\t\t\tstorageKey,\n\t\t\t\tJSON.stringify({ ...parsedState, provisionStatus: 'PROVISIONED' }),\n\t\t\t);\n\t\t\tif (!cancelled) {\n\t\t\t\tsetIsProvisioned(true);\n\t\t\t}\n\t\t})();\n\t\treturn () => {\n\t\t\tcancelled = true;\n\t\t\tif (previousState === null) {\n\t\t\t\tAtlBrowserStorageLocal.removeItem(storageKey);\n\t\t\t} else {\n\t\t\t\tvoid AtlBrowserStorageLocal.setItem(storageKey, previousState);\n\t\t\t}\n\t\t};\n\t}, []);\n\tuseEffect(() => {\n\t\tconst syncSection = () => setActiveSection(sectionFromHash());\n\t\tsyncSection();\n\t\twindow.addEventListener('hashchange', syncSection);\n\t\treturn () => window.removeEventListener('hashchange', syncSection);\n\t}, []);\n\tconst SectionPage = sections[activeSection];\n\tif (!isProvisioned) {\n\t\treturn <div aria-live=\"polite\">Preparing Discovery preview…</div>;\n\t}\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<DiscoveryPage>\n\t\t\t\t<>\n\t\t\t\t\t<Box padding=\"space.300\">\n\t\t\t\t\t\t<Heading as=\"h1\" size=\"large\">\n\t\t\t\t\t\t\tDiscovery\n\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t{/* Preview links only. Jira supplies the production horizontal navigation. */}\n\t\t\t\t\t\t<Box as=\"nav\" aria-label=\"Discovery sections\">\n\t\t\t\t\t\t\t<Inline space=\"space.200\" shouldWrap>\n\t\t\t\t\t\t\t\t{(Object.keys(links) as DiscoverySection[]).map((section) => (\n\t\t\t\t\t\t\t\t\t<Anchor\n\t\t\t\t\t\t\t\t\t\tkey={section}\n\t\t\t\t\t\t\t\t\t\thref={links[section].href}\n\t\t\t\t\t\t\t\t\t\taria-current={section === activeSection ? 'page' : undefined}\n\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t{links[section].label}\n\t\t\t\t\t\t\t\t\t</Anchor>\n\t\t\t\t\t\t\t\t))}\n\t\t\t\t\t\t\t</Inline>\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t</Box>\n\t\t\t\t\t<SectionPage />\n\t\t\t\t</>\n\t\t\t</DiscoveryPage>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useEffect, useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { RelayEnvironmentProvider } from 'react-relay';\nimport { createMockEnvironment, MockPayloadGenerator } from 'relay-test-utils';\nimport Heading from '@atlaskit/heading/heading';\nimport { Anchor } from '@atlaskit/primitives/compiled/anchor';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { AtlBrowserStorageLocal } from '@atlassian/browser-storage-controls/web-storage-service';\nimport DiscoveryPage from '@atlassian/discovery/ui/discovery';\nimport { CredentialsPage } from '@atlassian/discovery/ui/discovery/credentials';\nimport { LogsPage } from '@atlassian/discovery/ui/discovery/logs';\nimport { RecordsPage } from '@atlassian/discovery/ui/discovery/records';\nimport { ScanJobsPage } from '@atlassian/discovery/ui/discovery/scan-jobs';\nimport { SystemsPage } from '@atlassian/discovery/ui/discovery/systems';\nimport { ExampleOverviewPage } from './fixtures/overview-page';\nconst links = {\n\toverview: { href: '#discovery/overview', label: 'Overview' },\n\trecords: { href: '#discovery/records', label: 'Records' },\n\t'scan-jobs': { href: '#discovery/scan-jobs', label: 'Scan jobs' },\n\tsystems: { href: '#discovery/systems', label: 'Systems' },\n\tcredentials: { href: '#discovery/credentials', label: 'Credentials' },\n\tlogs: { href: '#discovery/logs', label: 'Logs' },\n};\ntype DiscoverySection = keyof typeof links;\nconst exampleCloudId = 'example-cloud-id';\nconst exampleScanJobs = [\n\t{\n\t\tid: 'example-job-1',\n\t\tname: 'Head office network',\n\t\tstatus: 'CONFIGURED',\n\t\tisDraft: false,\n\t\tnextStep: null,\n\t\tprovider: 'ATLASSIAN',\n\t\tupdatedAt: '2026-09-30T09:15:00.000Z',\n\t\towner: { accountId: 'example-account-1', displayName: 'Alana Grant' },\n\t\tschedules: [\n\t\t\t{ id: 'example-schedule-1', cronExpression: '0 2 * * *' },\n\t\t\t{ id: 'example-schedule-2', cronExpression: '0 14 * * 6' },\n\t\t],\n\t},\n\t{\n\t\tid: 'example-job-2',\n\t\tname: 'Data centre sweep',\n\t\tstatus: 'DRAFT_3',\n\t\tisDraft: true,\n\t\tnextStep: 'CREDENTIALS',\n\t\tprovider: 'ADVANCED',\n\t\tupdatedAt: '2026-10-01T16:40:00.000Z',\n\t\towner: { accountId: 'example-account-2', displayName: null },\n\t\tschedules: [],\n\t},\n];\nfunction createExampleEnvironment() {\n\tconst environment = createMockEnvironment();\n\tenvironment.mock.queueOperationResolver((operation) =>\n\t\tMockPayloadGenerator.generate(operation, {\n\t\t\tDiscoveryJobConnection: () => ({\n\t\t\t\tnodes: exampleScanJobs,\n\t\t\t\tpageInfo: { endCursor: null, hasNextPage: false },\n\t\t\t}),\n\t\t}),\n\t);\n\treturn environment;\n}\nfunction ExampleScanJobsPage(): React.JSX.Element {\n\treturn <ScanJobsPage cloudId={exampleCloudId} />;\n}\nconst sections: Record<DiscoverySection, React.ComponentType> = {\n\toverview: ExampleOverviewPage,\n\trecords: RecordsPage,\n\t'scan-jobs': ExampleScanJobsPage,\n\tsystems: SystemsPage,\n\tcredentials: CredentialsPage,\n\tlogs: LogsPage,\n};\nfunction sectionFromHash(): DiscoverySection {\n\treturn (\n\t\t(Object.keys(links) as DiscoverySection[]).find(\n\t\t\t(section) => links[section].href === window.location.hash,\n\t\t) ?? 'overview'\n\t);\n}\nexport default function WholeDiscovery(): React.JSX.Element {\n\tconst [activeSection, setActiveSection] = useState<DiscoverySection>('overview');\n\tconst [isProvisioned, setIsProvisioned] = useState(false);\n\tuseEffect(() => {\n\t\t// The shell shows GettingStartedScreen for an unprovisioned tenant. Seed only the\n\t\t// preview's host state before mounting it, then restore the viewer's previous value.\n\t\tconst storageKey = 'discovery-platform-state';\n\t\tconst previousState = AtlBrowserStorageLocal.getItem(storageKey);\n\t\tlet cancelled = false;\n\t\tvoid (async () => {\n\t\t\tlet parsedState: Record<string, unknown> = {};\n\t\t\ttry {\n\t\t\t\tparsedState = previousState ? JSON.parse(previousState) : {};\n\t\t\t} catch {\n\t\t\t\t// An invalid previous value is replaced for this preview and removed on cleanup.\n\t\t\t}\n\t\t\tawait AtlBrowserStorageLocal.setItem(\n\t\t\t\tstorageKey,\n\t\t\t\tJSON.stringify({ ...parsedState, provisionStatus: 'PROVISIONED' }),\n\t\t\t);\n\t\t\tif (!cancelled) {\n\t\t\t\tsetIsProvisioned(true);\n\t\t\t}\n\t\t})();\n\t\treturn () => {\n\t\t\tcancelled = true;\n\t\t\tif (previousState === null) {\n\t\t\t\tAtlBrowserStorageLocal.removeItem(storageKey);\n\t\t\t} else {\n\t\t\t\tvoid AtlBrowserStorageLocal.setItem(storageKey, previousState);\n\t\t\t}\n\t\t};\n\t}, []);\n\tconst [environment] = useState(createExampleEnvironment);\n\tuseEffect(() => {\n\t\tconst syncSection = () => setActiveSection(sectionFromHash());\n\t\tsyncSection();\n\t\twindow.addEventListener('hashchange', syncSection);\n\t\treturn () => window.removeEventListener('hashchange', syncSection);\n\t}, []);\n\tconst SectionPage = sections[activeSection];\n\tif (!isProvisioned) {\n\t\treturn <div aria-live=\"polite\">Preparing Discovery preview…</div>;\n\t}\n\treturn (\n\t\t<RelayEnvironmentProvider environment={environment}>\n\t\t\t<IntlProvider locale=\"en\">\n\t\t\t\t<DiscoveryPage>\n\t\t\t\t\t<>\n\t\t\t\t\t\t<Box padding=\"space.300\">\n\t\t\t\t\t\t\t<Heading as=\"h1\" size=\"large\">\n\t\t\t\t\t\t\t\tDiscovery\n\t\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t\t{/* Preview links only. Jira supplies the production horizontal navigation. */}\n\t\t\t\t\t\t\t<Box as=\"nav\" aria-label=\"Discovery sections\">\n\t\t\t\t\t\t\t\t<Inline space=\"space.200\" shouldWrap>\n\t\t\t\t\t\t\t\t\t{(Object.keys(links) as DiscoverySection[]).map((section) => (\n\t\t\t\t\t\t\t\t\t\t<Anchor\n\t\t\t\t\t\t\t\t\t\t\tkey={section}\n\t\t\t\t\t\t\t\t\t\t\thref={links[section].href}\n\t\t\t\t\t\t\t\t\t\t\taria-current={section === activeSection ? 'page' : undefined}\n\t\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t\t{links[section].label}\n\t\t\t\t\t\t\t\t\t\t</Anchor>\n\t\t\t\t\t\t\t\t\t))}\n\t\t\t\t\t\t\t\t</Inline>\n\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t<SectionPage />\n\t\t\t\t\t</>\n\t\t\t\t</DiscoveryPage>\n\t\t\t</IntlProvider>\n\t\t</RelayEnvironmentProvider>\n\t);\n}",
 		],
-		props: [],
+		props: [
+			{
+				name: 'dashboardProps',
+				type: 'DiscoveryDashboardProps | undefined',
+			},
+		],
 	},
 	{
 		name: 'RecordsPage',
@@ -30989,7 +31340,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['@atlassian/discovery', 'Assets Discovery', 'RecordsPage'],
 		category: 'components',
 		examples: [
-			"import React, { useEffect, useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Heading from '@atlaskit/heading/heading';\nimport { Anchor } from '@atlaskit/primitives/compiled/anchor';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { AtlBrowserStorageLocal } from '@atlassian/browser-storage-controls/web-storage-service';\nimport DiscoveryPage from '@atlassian/discovery/ui/discovery';\nimport { CredentialsPage } from '@atlassian/discovery/ui/discovery/credentials';\nimport { LogsPage } from '@atlassian/discovery/ui/discovery/logs';\nimport { OverviewPage } from '@atlassian/discovery/ui/discovery/overview';\nimport { RecordsPage } from '@atlassian/discovery/ui/discovery/records';\nimport { ScanJobsPage } from '@atlassian/discovery/ui/discovery/scan-jobs';\nimport { SystemsPage } from '@atlassian/discovery/ui/discovery/systems';\nconst links = {\n\toverview: { href: '#discovery/overview', label: 'Overview' },\n\trecords: { href: '#discovery/records', label: 'Records' },\n\t'scan-jobs': { href: '#discovery/scan-jobs', label: 'Scan jobs' },\n\tsystems: { href: '#discovery/systems', label: 'Systems' },\n\tcredentials: { href: '#discovery/credentials', label: 'Credentials' },\n\tlogs: { href: '#discovery/logs', label: 'Logs' },\n};\ntype DiscoverySection = keyof typeof links;\nconst sections: Record<DiscoverySection, React.ComponentType> = {\n\toverview: OverviewPage,\n\trecords: RecordsPage,\n\t'scan-jobs': ScanJobsPage,\n\tsystems: SystemsPage,\n\tcredentials: CredentialsPage,\n\tlogs: LogsPage,\n};\nfunction sectionFromHash(): DiscoverySection {\n\treturn (\n\t\t(Object.keys(links) as DiscoverySection[]).find(\n\t\t\t(section) => links[section].href === window.location.hash,\n\t\t) ?? 'overview'\n\t);\n}\nexport default function WholeDiscovery(): React.JSX.Element {\n\tconst [activeSection, setActiveSection] = useState<DiscoverySection>('overview');\n\tconst [isProvisioned, setIsProvisioned] = useState(false);\n\tuseEffect(() => {\n\t\t// The shell shows GettingStartedScreen for an unprovisioned tenant. Seed only the\n\t\t// preview's host state before mounting it, then restore the viewer's previous value.\n\t\tconst storageKey = 'discovery-platform-state';\n\t\tconst previousState = AtlBrowserStorageLocal.getItem(storageKey);\n\t\tlet cancelled = false;\n\t\tvoid (async () => {\n\t\t\tlet parsedState: Record<string, unknown> = {};\n\t\t\ttry {\n\t\t\t\tparsedState = previousState ? JSON.parse(previousState) : {};\n\t\t\t} catch {\n\t\t\t\t// An invalid previous value is replaced for this preview and removed on cleanup.\n\t\t\t}\n\t\t\tawait AtlBrowserStorageLocal.setItem(\n\t\t\t\tstorageKey,\n\t\t\t\tJSON.stringify({ ...parsedState, provisionStatus: 'PROVISIONED' }),\n\t\t\t);\n\t\t\tif (!cancelled) {\n\t\t\t\tsetIsProvisioned(true);\n\t\t\t}\n\t\t})();\n\t\treturn () => {\n\t\t\tcancelled = true;\n\t\t\tif (previousState === null) {\n\t\t\t\tAtlBrowserStorageLocal.removeItem(storageKey);\n\t\t\t} else {\n\t\t\t\tvoid AtlBrowserStorageLocal.setItem(storageKey, previousState);\n\t\t\t}\n\t\t};\n\t}, []);\n\tuseEffect(() => {\n\t\tconst syncSection = () => setActiveSection(sectionFromHash());\n\t\tsyncSection();\n\t\twindow.addEventListener('hashchange', syncSection);\n\t\treturn () => window.removeEventListener('hashchange', syncSection);\n\t}, []);\n\tconst SectionPage = sections[activeSection];\n\tif (!isProvisioned) {\n\t\treturn <div aria-live=\"polite\">Preparing Discovery preview…</div>;\n\t}\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<DiscoveryPage>\n\t\t\t\t<>\n\t\t\t\t\t<Box padding=\"space.300\">\n\t\t\t\t\t\t<Heading as=\"h1\" size=\"large\">\n\t\t\t\t\t\t\tDiscovery\n\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t{/* Preview links only. Jira supplies the production horizontal navigation. */}\n\t\t\t\t\t\t<Box as=\"nav\" aria-label=\"Discovery sections\">\n\t\t\t\t\t\t\t<Inline space=\"space.200\" shouldWrap>\n\t\t\t\t\t\t\t\t{(Object.keys(links) as DiscoverySection[]).map((section) => (\n\t\t\t\t\t\t\t\t\t<Anchor\n\t\t\t\t\t\t\t\t\t\tkey={section}\n\t\t\t\t\t\t\t\t\t\thref={links[section].href}\n\t\t\t\t\t\t\t\t\t\taria-current={section === activeSection ? 'page' : undefined}\n\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t{links[section].label}\n\t\t\t\t\t\t\t\t\t</Anchor>\n\t\t\t\t\t\t\t\t))}\n\t\t\t\t\t\t\t</Inline>\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t</Box>\n\t\t\t\t\t<SectionPage />\n\t\t\t\t</>\n\t\t\t</DiscoveryPage>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useEffect, useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { RelayEnvironmentProvider } from 'react-relay';\nimport { createMockEnvironment, MockPayloadGenerator } from 'relay-test-utils';\nimport Heading from '@atlaskit/heading/heading';\nimport { Anchor } from '@atlaskit/primitives/compiled/anchor';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { AtlBrowserStorageLocal } from '@atlassian/browser-storage-controls/web-storage-service';\nimport DiscoveryPage from '@atlassian/discovery/ui/discovery';\nimport { CredentialsPage } from '@atlassian/discovery/ui/discovery/credentials';\nimport { LogsPage } from '@atlassian/discovery/ui/discovery/logs';\nimport { RecordsPage } from '@atlassian/discovery/ui/discovery/records';\nimport { ScanJobsPage } from '@atlassian/discovery/ui/discovery/scan-jobs';\nimport { SystemsPage } from '@atlassian/discovery/ui/discovery/systems';\nimport { ExampleOverviewPage } from './fixtures/overview-page';\nconst links = {\n\toverview: { href: '#discovery/overview', label: 'Overview' },\n\trecords: { href: '#discovery/records', label: 'Records' },\n\t'scan-jobs': { href: '#discovery/scan-jobs', label: 'Scan jobs' },\n\tsystems: { href: '#discovery/systems', label: 'Systems' },\n\tcredentials: { href: '#discovery/credentials', label: 'Credentials' },\n\tlogs: { href: '#discovery/logs', label: 'Logs' },\n};\ntype DiscoverySection = keyof typeof links;\nconst exampleCloudId = 'example-cloud-id';\nconst exampleScanJobs = [\n\t{\n\t\tid: 'example-job-1',\n\t\tname: 'Head office network',\n\t\tstatus: 'CONFIGURED',\n\t\tisDraft: false,\n\t\tnextStep: null,\n\t\tprovider: 'ATLASSIAN',\n\t\tupdatedAt: '2026-09-30T09:15:00.000Z',\n\t\towner: { accountId: 'example-account-1', displayName: 'Alana Grant' },\n\t\tschedules: [\n\t\t\t{ id: 'example-schedule-1', cronExpression: '0 2 * * *' },\n\t\t\t{ id: 'example-schedule-2', cronExpression: '0 14 * * 6' },\n\t\t],\n\t},\n\t{\n\t\tid: 'example-job-2',\n\t\tname: 'Data centre sweep',\n\t\tstatus: 'DRAFT_3',\n\t\tisDraft: true,\n\t\tnextStep: 'CREDENTIALS',\n\t\tprovider: 'ADVANCED',\n\t\tupdatedAt: '2026-10-01T16:40:00.000Z',\n\t\towner: { accountId: 'example-account-2', displayName: null },\n\t\tschedules: [],\n\t},\n];\nfunction createExampleEnvironment() {\n\tconst environment = createMockEnvironment();\n\tenvironment.mock.queueOperationResolver((operation) =>\n\t\tMockPayloadGenerator.generate(operation, {\n\t\t\tDiscoveryJobConnection: () => ({\n\t\t\t\tnodes: exampleScanJobs,\n\t\t\t\tpageInfo: { endCursor: null, hasNextPage: false },\n\t\t\t}),\n\t\t}),\n\t);\n\treturn environment;\n}\nfunction ExampleScanJobsPage(): React.JSX.Element {\n\treturn <ScanJobsPage cloudId={exampleCloudId} />;\n}\nconst sections: Record<DiscoverySection, React.ComponentType> = {\n\toverview: ExampleOverviewPage,\n\trecords: RecordsPage,\n\t'scan-jobs': ExampleScanJobsPage,\n\tsystems: SystemsPage,\n\tcredentials: CredentialsPage,\n\tlogs: LogsPage,\n};\nfunction sectionFromHash(): DiscoverySection {\n\treturn (\n\t\t(Object.keys(links) as DiscoverySection[]).find(\n\t\t\t(section) => links[section].href === window.location.hash,\n\t\t) ?? 'overview'\n\t);\n}\nexport default function WholeDiscovery(): React.JSX.Element {\n\tconst [activeSection, setActiveSection] = useState<DiscoverySection>('overview');\n\tconst [isProvisioned, setIsProvisioned] = useState(false);\n\tuseEffect(() => {\n\t\t// The shell shows GettingStartedScreen for an unprovisioned tenant. Seed only the\n\t\t// preview's host state before mounting it, then restore the viewer's previous value.\n\t\tconst storageKey = 'discovery-platform-state';\n\t\tconst previousState = AtlBrowserStorageLocal.getItem(storageKey);\n\t\tlet cancelled = false;\n\t\tvoid (async () => {\n\t\t\tlet parsedState: Record<string, unknown> = {};\n\t\t\ttry {\n\t\t\t\tparsedState = previousState ? JSON.parse(previousState) : {};\n\t\t\t} catch {\n\t\t\t\t// An invalid previous value is replaced for this preview and removed on cleanup.\n\t\t\t}\n\t\t\tawait AtlBrowserStorageLocal.setItem(\n\t\t\t\tstorageKey,\n\t\t\t\tJSON.stringify({ ...parsedState, provisionStatus: 'PROVISIONED' }),\n\t\t\t);\n\t\t\tif (!cancelled) {\n\t\t\t\tsetIsProvisioned(true);\n\t\t\t}\n\t\t})();\n\t\treturn () => {\n\t\t\tcancelled = true;\n\t\t\tif (previousState === null) {\n\t\t\t\tAtlBrowserStorageLocal.removeItem(storageKey);\n\t\t\t} else {\n\t\t\t\tvoid AtlBrowserStorageLocal.setItem(storageKey, previousState);\n\t\t\t}\n\t\t};\n\t}, []);\n\tconst [environment] = useState(createExampleEnvironment);\n\tuseEffect(() => {\n\t\tconst syncSection = () => setActiveSection(sectionFromHash());\n\t\tsyncSection();\n\t\twindow.addEventListener('hashchange', syncSection);\n\t\treturn () => window.removeEventListener('hashchange', syncSection);\n\t}, []);\n\tconst SectionPage = sections[activeSection];\n\tif (!isProvisioned) {\n\t\treturn <div aria-live=\"polite\">Preparing Discovery preview…</div>;\n\t}\n\treturn (\n\t\t<RelayEnvironmentProvider environment={environment}>\n\t\t\t<IntlProvider locale=\"en\">\n\t\t\t\t<DiscoveryPage>\n\t\t\t\t\t<>\n\t\t\t\t\t\t<Box padding=\"space.300\">\n\t\t\t\t\t\t\t<Heading as=\"h1\" size=\"large\">\n\t\t\t\t\t\t\t\tDiscovery\n\t\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t\t{/* Preview links only. Jira supplies the production horizontal navigation. */}\n\t\t\t\t\t\t\t<Box as=\"nav\" aria-label=\"Discovery sections\">\n\t\t\t\t\t\t\t\t<Inline space=\"space.200\" shouldWrap>\n\t\t\t\t\t\t\t\t\t{(Object.keys(links) as DiscoverySection[]).map((section) => (\n\t\t\t\t\t\t\t\t\t\t<Anchor\n\t\t\t\t\t\t\t\t\t\t\tkey={section}\n\t\t\t\t\t\t\t\t\t\t\thref={links[section].href}\n\t\t\t\t\t\t\t\t\t\t\taria-current={section === activeSection ? 'page' : undefined}\n\t\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t\t{links[section].label}\n\t\t\t\t\t\t\t\t\t\t</Anchor>\n\t\t\t\t\t\t\t\t\t))}\n\t\t\t\t\t\t\t\t</Inline>\n\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t<SectionPage />\n\t\t\t\t\t</>\n\t\t\t\t</DiscoveryPage>\n\t\t\t</IntlProvider>\n\t\t</RelayEnvironmentProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -31021,7 +31372,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		category: 'components',
 		examples: [
 			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport Discovery from '@atlassian/discovery/ui/discovery/scan-job-setup';\nexport default function Basic(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Button appearance=\"primary\" onClick={() => setIsOpen(true)}>\n\t\t\t\tOpen scan job setup\n\t\t\t</Button>\n\t\t\t<Discovery isOpen={isOpen} onClose={() => setIsOpen(false)} />\n\t\t</IntlProvider>\n\t);\n}",
-			"import React, { useEffect, useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Heading from '@atlaskit/heading/heading';\nimport { Anchor } from '@atlaskit/primitives/compiled/anchor';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { AtlBrowserStorageLocal } from '@atlassian/browser-storage-controls/web-storage-service';\nimport DiscoveryPage from '@atlassian/discovery/ui/discovery';\nimport { CredentialsPage } from '@atlassian/discovery/ui/discovery/credentials';\nimport { LogsPage } from '@atlassian/discovery/ui/discovery/logs';\nimport { OverviewPage } from '@atlassian/discovery/ui/discovery/overview';\nimport { RecordsPage } from '@atlassian/discovery/ui/discovery/records';\nimport { ScanJobsPage } from '@atlassian/discovery/ui/discovery/scan-jobs';\nimport { SystemsPage } from '@atlassian/discovery/ui/discovery/systems';\nconst links = {\n\toverview: { href: '#discovery/overview', label: 'Overview' },\n\trecords: { href: '#discovery/records', label: 'Records' },\n\t'scan-jobs': { href: '#discovery/scan-jobs', label: 'Scan jobs' },\n\tsystems: { href: '#discovery/systems', label: 'Systems' },\n\tcredentials: { href: '#discovery/credentials', label: 'Credentials' },\n\tlogs: { href: '#discovery/logs', label: 'Logs' },\n};\ntype DiscoverySection = keyof typeof links;\nconst sections: Record<DiscoverySection, React.ComponentType> = {\n\toverview: OverviewPage,\n\trecords: RecordsPage,\n\t'scan-jobs': ScanJobsPage,\n\tsystems: SystemsPage,\n\tcredentials: CredentialsPage,\n\tlogs: LogsPage,\n};\nfunction sectionFromHash(): DiscoverySection {\n\treturn (\n\t\t(Object.keys(links) as DiscoverySection[]).find(\n\t\t\t(section) => links[section].href === window.location.hash,\n\t\t) ?? 'overview'\n\t);\n}\nexport default function WholeDiscovery(): React.JSX.Element {\n\tconst [activeSection, setActiveSection] = useState<DiscoverySection>('overview');\n\tconst [isProvisioned, setIsProvisioned] = useState(false);\n\tuseEffect(() => {\n\t\t// The shell shows GettingStartedScreen for an unprovisioned tenant. Seed only the\n\t\t// preview's host state before mounting it, then restore the viewer's previous value.\n\t\tconst storageKey = 'discovery-platform-state';\n\t\tconst previousState = AtlBrowserStorageLocal.getItem(storageKey);\n\t\tlet cancelled = false;\n\t\tvoid (async () => {\n\t\t\tlet parsedState: Record<string, unknown> = {};\n\t\t\ttry {\n\t\t\t\tparsedState = previousState ? JSON.parse(previousState) : {};\n\t\t\t} catch {\n\t\t\t\t// An invalid previous value is replaced for this preview and removed on cleanup.\n\t\t\t}\n\t\t\tawait AtlBrowserStorageLocal.setItem(\n\t\t\t\tstorageKey,\n\t\t\t\tJSON.stringify({ ...parsedState, provisionStatus: 'PROVISIONED' }),\n\t\t\t);\n\t\t\tif (!cancelled) {\n\t\t\t\tsetIsProvisioned(true);\n\t\t\t}\n\t\t})();\n\t\treturn () => {\n\t\t\tcancelled = true;\n\t\t\tif (previousState === null) {\n\t\t\t\tAtlBrowserStorageLocal.removeItem(storageKey);\n\t\t\t} else {\n\t\t\t\tvoid AtlBrowserStorageLocal.setItem(storageKey, previousState);\n\t\t\t}\n\t\t};\n\t}, []);\n\tuseEffect(() => {\n\t\tconst syncSection = () => setActiveSection(sectionFromHash());\n\t\tsyncSection();\n\t\twindow.addEventListener('hashchange', syncSection);\n\t\treturn () => window.removeEventListener('hashchange', syncSection);\n\t}, []);\n\tconst SectionPage = sections[activeSection];\n\tif (!isProvisioned) {\n\t\treturn <div aria-live=\"polite\">Preparing Discovery preview…</div>;\n\t}\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<DiscoveryPage>\n\t\t\t\t<>\n\t\t\t\t\t<Box padding=\"space.300\">\n\t\t\t\t\t\t<Heading as=\"h1\" size=\"large\">\n\t\t\t\t\t\t\tDiscovery\n\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t{/* Preview links only. Jira supplies the production horizontal navigation. */}\n\t\t\t\t\t\t<Box as=\"nav\" aria-label=\"Discovery sections\">\n\t\t\t\t\t\t\t<Inline space=\"space.200\" shouldWrap>\n\t\t\t\t\t\t\t\t{(Object.keys(links) as DiscoverySection[]).map((section) => (\n\t\t\t\t\t\t\t\t\t<Anchor\n\t\t\t\t\t\t\t\t\t\tkey={section}\n\t\t\t\t\t\t\t\t\t\thref={links[section].href}\n\t\t\t\t\t\t\t\t\t\taria-current={section === activeSection ? 'page' : undefined}\n\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t{links[section].label}\n\t\t\t\t\t\t\t\t\t</Anchor>\n\t\t\t\t\t\t\t\t))}\n\t\t\t\t\t\t\t</Inline>\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t</Box>\n\t\t\t\t\t<SectionPage />\n\t\t\t\t</>\n\t\t\t</DiscoveryPage>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useEffect, useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { RelayEnvironmentProvider } from 'react-relay';\nimport { createMockEnvironment, MockPayloadGenerator } from 'relay-test-utils';\nimport Heading from '@atlaskit/heading/heading';\nimport { Anchor } from '@atlaskit/primitives/compiled/anchor';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { AtlBrowserStorageLocal } from '@atlassian/browser-storage-controls/web-storage-service';\nimport DiscoveryPage from '@atlassian/discovery/ui/discovery';\nimport { CredentialsPage } from '@atlassian/discovery/ui/discovery/credentials';\nimport { LogsPage } from '@atlassian/discovery/ui/discovery/logs';\nimport { RecordsPage } from '@atlassian/discovery/ui/discovery/records';\nimport { ScanJobsPage } from '@atlassian/discovery/ui/discovery/scan-jobs';\nimport { SystemsPage } from '@atlassian/discovery/ui/discovery/systems';\nimport { ExampleOverviewPage } from './fixtures/overview-page';\nconst links = {\n\toverview: { href: '#discovery/overview', label: 'Overview' },\n\trecords: { href: '#discovery/records', label: 'Records' },\n\t'scan-jobs': { href: '#discovery/scan-jobs', label: 'Scan jobs' },\n\tsystems: { href: '#discovery/systems', label: 'Systems' },\n\tcredentials: { href: '#discovery/credentials', label: 'Credentials' },\n\tlogs: { href: '#discovery/logs', label: 'Logs' },\n};\ntype DiscoverySection = keyof typeof links;\nconst exampleCloudId = 'example-cloud-id';\nconst exampleScanJobs = [\n\t{\n\t\tid: 'example-job-1',\n\t\tname: 'Head office network',\n\t\tstatus: 'CONFIGURED',\n\t\tisDraft: false,\n\t\tnextStep: null,\n\t\tprovider: 'ATLASSIAN',\n\t\tupdatedAt: '2026-09-30T09:15:00.000Z',\n\t\towner: { accountId: 'example-account-1', displayName: 'Alana Grant' },\n\t\tschedules: [\n\t\t\t{ id: 'example-schedule-1', cronExpression: '0 2 * * *' },\n\t\t\t{ id: 'example-schedule-2', cronExpression: '0 14 * * 6' },\n\t\t],\n\t},\n\t{\n\t\tid: 'example-job-2',\n\t\tname: 'Data centre sweep',\n\t\tstatus: 'DRAFT_3',\n\t\tisDraft: true,\n\t\tnextStep: 'CREDENTIALS',\n\t\tprovider: 'ADVANCED',\n\t\tupdatedAt: '2026-10-01T16:40:00.000Z',\n\t\towner: { accountId: 'example-account-2', displayName: null },\n\t\tschedules: [],\n\t},\n];\nfunction createExampleEnvironment() {\n\tconst environment = createMockEnvironment();\n\tenvironment.mock.queueOperationResolver((operation) =>\n\t\tMockPayloadGenerator.generate(operation, {\n\t\t\tDiscoveryJobConnection: () => ({\n\t\t\t\tnodes: exampleScanJobs,\n\t\t\t\tpageInfo: { endCursor: null, hasNextPage: false },\n\t\t\t}),\n\t\t}),\n\t);\n\treturn environment;\n}\nfunction ExampleScanJobsPage(): React.JSX.Element {\n\treturn <ScanJobsPage cloudId={exampleCloudId} />;\n}\nconst sections: Record<DiscoverySection, React.ComponentType> = {\n\toverview: ExampleOverviewPage,\n\trecords: RecordsPage,\n\t'scan-jobs': ExampleScanJobsPage,\n\tsystems: SystemsPage,\n\tcredentials: CredentialsPage,\n\tlogs: LogsPage,\n};\nfunction sectionFromHash(): DiscoverySection {\n\treturn (\n\t\t(Object.keys(links) as DiscoverySection[]).find(\n\t\t\t(section) => links[section].href === window.location.hash,\n\t\t) ?? 'overview'\n\t);\n}\nexport default function WholeDiscovery(): React.JSX.Element {\n\tconst [activeSection, setActiveSection] = useState<DiscoverySection>('overview');\n\tconst [isProvisioned, setIsProvisioned] = useState(false);\n\tuseEffect(() => {\n\t\t// The shell shows GettingStartedScreen for an unprovisioned tenant. Seed only the\n\t\t// preview's host state before mounting it, then restore the viewer's previous value.\n\t\tconst storageKey = 'discovery-platform-state';\n\t\tconst previousState = AtlBrowserStorageLocal.getItem(storageKey);\n\t\tlet cancelled = false;\n\t\tvoid (async () => {\n\t\t\tlet parsedState: Record<string, unknown> = {};\n\t\t\ttry {\n\t\t\t\tparsedState = previousState ? JSON.parse(previousState) : {};\n\t\t\t} catch {\n\t\t\t\t// An invalid previous value is replaced for this preview and removed on cleanup.\n\t\t\t}\n\t\t\tawait AtlBrowserStorageLocal.setItem(\n\t\t\t\tstorageKey,\n\t\t\t\tJSON.stringify({ ...parsedState, provisionStatus: 'PROVISIONED' }),\n\t\t\t);\n\t\t\tif (!cancelled) {\n\t\t\t\tsetIsProvisioned(true);\n\t\t\t}\n\t\t})();\n\t\treturn () => {\n\t\t\tcancelled = true;\n\t\t\tif (previousState === null) {\n\t\t\t\tAtlBrowserStorageLocal.removeItem(storageKey);\n\t\t\t} else {\n\t\t\t\tvoid AtlBrowserStorageLocal.setItem(storageKey, previousState);\n\t\t\t}\n\t\t};\n\t}, []);\n\tconst [environment] = useState(createExampleEnvironment);\n\tuseEffect(() => {\n\t\tconst syncSection = () => setActiveSection(sectionFromHash());\n\t\tsyncSection();\n\t\twindow.addEventListener('hashchange', syncSection);\n\t\treturn () => window.removeEventListener('hashchange', syncSection);\n\t}, []);\n\tconst SectionPage = sections[activeSection];\n\tif (!isProvisioned) {\n\t\treturn <div aria-live=\"polite\">Preparing Discovery preview…</div>;\n\t}\n\treturn (\n\t\t<RelayEnvironmentProvider environment={environment}>\n\t\t\t<IntlProvider locale=\"en\">\n\t\t\t\t<DiscoveryPage>\n\t\t\t\t\t<>\n\t\t\t\t\t\t<Box padding=\"space.300\">\n\t\t\t\t\t\t\t<Heading as=\"h1\" size=\"large\">\n\t\t\t\t\t\t\t\tDiscovery\n\t\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t\t{/* Preview links only. Jira supplies the production horizontal navigation. */}\n\t\t\t\t\t\t\t<Box as=\"nav\" aria-label=\"Discovery sections\">\n\t\t\t\t\t\t\t\t<Inline space=\"space.200\" shouldWrap>\n\t\t\t\t\t\t\t\t\t{(Object.keys(links) as DiscoverySection[]).map((section) => (\n\t\t\t\t\t\t\t\t\t\t<Anchor\n\t\t\t\t\t\t\t\t\t\t\tkey={section}\n\t\t\t\t\t\t\t\t\t\t\thref={links[section].href}\n\t\t\t\t\t\t\t\t\t\t\taria-current={section === activeSection ? 'page' : undefined}\n\t\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t\t{links[section].label}\n\t\t\t\t\t\t\t\t\t\t</Anchor>\n\t\t\t\t\t\t\t\t\t))}\n\t\t\t\t\t\t\t\t</Inline>\n\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t<SectionPage />\n\t\t\t\t\t</>\n\t\t\t\t</DiscoveryPage>\n\t\t\t</IntlProvider>\n\t\t</RelayEnvironmentProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -31052,9 +31403,14 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['@atlassian/discovery', 'Assets Discovery', 'ScanJobsPage'],
 		category: 'components',
 		examples: [
-			"import React, { useEffect, useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Heading from '@atlaskit/heading/heading';\nimport { Anchor } from '@atlaskit/primitives/compiled/anchor';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { AtlBrowserStorageLocal } from '@atlassian/browser-storage-controls/web-storage-service';\nimport DiscoveryPage from '@atlassian/discovery/ui/discovery';\nimport { CredentialsPage } from '@atlassian/discovery/ui/discovery/credentials';\nimport { LogsPage } from '@atlassian/discovery/ui/discovery/logs';\nimport { OverviewPage } from '@atlassian/discovery/ui/discovery/overview';\nimport { RecordsPage } from '@atlassian/discovery/ui/discovery/records';\nimport { ScanJobsPage } from '@atlassian/discovery/ui/discovery/scan-jobs';\nimport { SystemsPage } from '@atlassian/discovery/ui/discovery/systems';\nconst links = {\n\toverview: { href: '#discovery/overview', label: 'Overview' },\n\trecords: { href: '#discovery/records', label: 'Records' },\n\t'scan-jobs': { href: '#discovery/scan-jobs', label: 'Scan jobs' },\n\tsystems: { href: '#discovery/systems', label: 'Systems' },\n\tcredentials: { href: '#discovery/credentials', label: 'Credentials' },\n\tlogs: { href: '#discovery/logs', label: 'Logs' },\n};\ntype DiscoverySection = keyof typeof links;\nconst sections: Record<DiscoverySection, React.ComponentType> = {\n\toverview: OverviewPage,\n\trecords: RecordsPage,\n\t'scan-jobs': ScanJobsPage,\n\tsystems: SystemsPage,\n\tcredentials: CredentialsPage,\n\tlogs: LogsPage,\n};\nfunction sectionFromHash(): DiscoverySection {\n\treturn (\n\t\t(Object.keys(links) as DiscoverySection[]).find(\n\t\t\t(section) => links[section].href === window.location.hash,\n\t\t) ?? 'overview'\n\t);\n}\nexport default function WholeDiscovery(): React.JSX.Element {\n\tconst [activeSection, setActiveSection] = useState<DiscoverySection>('overview');\n\tconst [isProvisioned, setIsProvisioned] = useState(false);\n\tuseEffect(() => {\n\t\t// The shell shows GettingStartedScreen for an unprovisioned tenant. Seed only the\n\t\t// preview's host state before mounting it, then restore the viewer's previous value.\n\t\tconst storageKey = 'discovery-platform-state';\n\t\tconst previousState = AtlBrowserStorageLocal.getItem(storageKey);\n\t\tlet cancelled = false;\n\t\tvoid (async () => {\n\t\t\tlet parsedState: Record<string, unknown> = {};\n\t\t\ttry {\n\t\t\t\tparsedState = previousState ? JSON.parse(previousState) : {};\n\t\t\t} catch {\n\t\t\t\t// An invalid previous value is replaced for this preview and removed on cleanup.\n\t\t\t}\n\t\t\tawait AtlBrowserStorageLocal.setItem(\n\t\t\t\tstorageKey,\n\t\t\t\tJSON.stringify({ ...parsedState, provisionStatus: 'PROVISIONED' }),\n\t\t\t);\n\t\t\tif (!cancelled) {\n\t\t\t\tsetIsProvisioned(true);\n\t\t\t}\n\t\t})();\n\t\treturn () => {\n\t\t\tcancelled = true;\n\t\t\tif (previousState === null) {\n\t\t\t\tAtlBrowserStorageLocal.removeItem(storageKey);\n\t\t\t} else {\n\t\t\t\tvoid AtlBrowserStorageLocal.setItem(storageKey, previousState);\n\t\t\t}\n\t\t};\n\t}, []);\n\tuseEffect(() => {\n\t\tconst syncSection = () => setActiveSection(sectionFromHash());\n\t\tsyncSection();\n\t\twindow.addEventListener('hashchange', syncSection);\n\t\treturn () => window.removeEventListener('hashchange', syncSection);\n\t}, []);\n\tconst SectionPage = sections[activeSection];\n\tif (!isProvisioned) {\n\t\treturn <div aria-live=\"polite\">Preparing Discovery preview…</div>;\n\t}\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<DiscoveryPage>\n\t\t\t\t<>\n\t\t\t\t\t<Box padding=\"space.300\">\n\t\t\t\t\t\t<Heading as=\"h1\" size=\"large\">\n\t\t\t\t\t\t\tDiscovery\n\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t{/* Preview links only. Jira supplies the production horizontal navigation. */}\n\t\t\t\t\t\t<Box as=\"nav\" aria-label=\"Discovery sections\">\n\t\t\t\t\t\t\t<Inline space=\"space.200\" shouldWrap>\n\t\t\t\t\t\t\t\t{(Object.keys(links) as DiscoverySection[]).map((section) => (\n\t\t\t\t\t\t\t\t\t<Anchor\n\t\t\t\t\t\t\t\t\t\tkey={section}\n\t\t\t\t\t\t\t\t\t\thref={links[section].href}\n\t\t\t\t\t\t\t\t\t\taria-current={section === activeSection ? 'page' : undefined}\n\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t{links[section].label}\n\t\t\t\t\t\t\t\t\t</Anchor>\n\t\t\t\t\t\t\t\t))}\n\t\t\t\t\t\t\t</Inline>\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t</Box>\n\t\t\t\t\t<SectionPage />\n\t\t\t\t</>\n\t\t\t</DiscoveryPage>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useEffect, useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { RelayEnvironmentProvider } from 'react-relay';\nimport { createMockEnvironment, MockPayloadGenerator } from 'relay-test-utils';\nimport Heading from '@atlaskit/heading/heading';\nimport { Anchor } from '@atlaskit/primitives/compiled/anchor';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { AtlBrowserStorageLocal } from '@atlassian/browser-storage-controls/web-storage-service';\nimport DiscoveryPage from '@atlassian/discovery/ui/discovery';\nimport { CredentialsPage } from '@atlassian/discovery/ui/discovery/credentials';\nimport { LogsPage } from '@atlassian/discovery/ui/discovery/logs';\nimport { RecordsPage } from '@atlassian/discovery/ui/discovery/records';\nimport { ScanJobsPage } from '@atlassian/discovery/ui/discovery/scan-jobs';\nimport { SystemsPage } from '@atlassian/discovery/ui/discovery/systems';\nimport { ExampleOverviewPage } from './fixtures/overview-page';\nconst links = {\n\toverview: { href: '#discovery/overview', label: 'Overview' },\n\trecords: { href: '#discovery/records', label: 'Records' },\n\t'scan-jobs': { href: '#discovery/scan-jobs', label: 'Scan jobs' },\n\tsystems: { href: '#discovery/systems', label: 'Systems' },\n\tcredentials: { href: '#discovery/credentials', label: 'Credentials' },\n\tlogs: { href: '#discovery/logs', label: 'Logs' },\n};\ntype DiscoverySection = keyof typeof links;\nconst exampleCloudId = 'example-cloud-id';\nconst exampleScanJobs = [\n\t{\n\t\tid: 'example-job-1',\n\t\tname: 'Head office network',\n\t\tstatus: 'CONFIGURED',\n\t\tisDraft: false,\n\t\tnextStep: null,\n\t\tprovider: 'ATLASSIAN',\n\t\tupdatedAt: '2026-09-30T09:15:00.000Z',\n\t\towner: { accountId: 'example-account-1', displayName: 'Alana Grant' },\n\t\tschedules: [\n\t\t\t{ id: 'example-schedule-1', cronExpression: '0 2 * * *' },\n\t\t\t{ id: 'example-schedule-2', cronExpression: '0 14 * * 6' },\n\t\t],\n\t},\n\t{\n\t\tid: 'example-job-2',\n\t\tname: 'Data centre sweep',\n\t\tstatus: 'DRAFT_3',\n\t\tisDraft: true,\n\t\tnextStep: 'CREDENTIALS',\n\t\tprovider: 'ADVANCED',\n\t\tupdatedAt: '2026-10-01T16:40:00.000Z',\n\t\towner: { accountId: 'example-account-2', displayName: null },\n\t\tschedules: [],\n\t},\n];\nfunction createExampleEnvironment() {\n\tconst environment = createMockEnvironment();\n\tenvironment.mock.queueOperationResolver((operation) =>\n\t\tMockPayloadGenerator.generate(operation, {\n\t\t\tDiscoveryJobConnection: () => ({\n\t\t\t\tnodes: exampleScanJobs,\n\t\t\t\tpageInfo: { endCursor: null, hasNextPage: false },\n\t\t\t}),\n\t\t}),\n\t);\n\treturn environment;\n}\nfunction ExampleScanJobsPage(): React.JSX.Element {\n\treturn <ScanJobsPage cloudId={exampleCloudId} />;\n}\nconst sections: Record<DiscoverySection, React.ComponentType> = {\n\toverview: ExampleOverviewPage,\n\trecords: RecordsPage,\n\t'scan-jobs': ExampleScanJobsPage,\n\tsystems: SystemsPage,\n\tcredentials: CredentialsPage,\n\tlogs: LogsPage,\n};\nfunction sectionFromHash(): DiscoverySection {\n\treturn (\n\t\t(Object.keys(links) as DiscoverySection[]).find(\n\t\t\t(section) => links[section].href === window.location.hash,\n\t\t) ?? 'overview'\n\t);\n}\nexport default function WholeDiscovery(): React.JSX.Element {\n\tconst [activeSection, setActiveSection] = useState<DiscoverySection>('overview');\n\tconst [isProvisioned, setIsProvisioned] = useState(false);\n\tuseEffect(() => {\n\t\t// The shell shows GettingStartedScreen for an unprovisioned tenant. Seed only the\n\t\t// preview's host state before mounting it, then restore the viewer's previous value.\n\t\tconst storageKey = 'discovery-platform-state';\n\t\tconst previousState = AtlBrowserStorageLocal.getItem(storageKey);\n\t\tlet cancelled = false;\n\t\tvoid (async () => {\n\t\t\tlet parsedState: Record<string, unknown> = {};\n\t\t\ttry {\n\t\t\t\tparsedState = previousState ? JSON.parse(previousState) : {};\n\t\t\t} catch {\n\t\t\t\t// An invalid previous value is replaced for this preview and removed on cleanup.\n\t\t\t}\n\t\t\tawait AtlBrowserStorageLocal.setItem(\n\t\t\t\tstorageKey,\n\t\t\t\tJSON.stringify({ ...parsedState, provisionStatus: 'PROVISIONED' }),\n\t\t\t);\n\t\t\tif (!cancelled) {\n\t\t\t\tsetIsProvisioned(true);\n\t\t\t}\n\t\t})();\n\t\treturn () => {\n\t\t\tcancelled = true;\n\t\t\tif (previousState === null) {\n\t\t\t\tAtlBrowserStorageLocal.removeItem(storageKey);\n\t\t\t} else {\n\t\t\t\tvoid AtlBrowserStorageLocal.setItem(storageKey, previousState);\n\t\t\t}\n\t\t};\n\t}, []);\n\tconst [environment] = useState(createExampleEnvironment);\n\tuseEffect(() => {\n\t\tconst syncSection = () => setActiveSection(sectionFromHash());\n\t\tsyncSection();\n\t\twindow.addEventListener('hashchange', syncSection);\n\t\treturn () => window.removeEventListener('hashchange', syncSection);\n\t}, []);\n\tconst SectionPage = sections[activeSection];\n\tif (!isProvisioned) {\n\t\treturn <div aria-live=\"polite\">Preparing Discovery preview…</div>;\n\t}\n\treturn (\n\t\t<RelayEnvironmentProvider environment={environment}>\n\t\t\t<IntlProvider locale=\"en\">\n\t\t\t\t<DiscoveryPage>\n\t\t\t\t\t<>\n\t\t\t\t\t\t<Box padding=\"space.300\">\n\t\t\t\t\t\t\t<Heading as=\"h1\" size=\"large\">\n\t\t\t\t\t\t\t\tDiscovery\n\t\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t\t{/* Preview links only. Jira supplies the production horizontal navigation. */}\n\t\t\t\t\t\t\t<Box as=\"nav\" aria-label=\"Discovery sections\">\n\t\t\t\t\t\t\t\t<Inline space=\"space.200\" shouldWrap>\n\t\t\t\t\t\t\t\t\t{(Object.keys(links) as DiscoverySection[]).map((section) => (\n\t\t\t\t\t\t\t\t\t\t<Anchor\n\t\t\t\t\t\t\t\t\t\t\tkey={section}\n\t\t\t\t\t\t\t\t\t\t\thref={links[section].href}\n\t\t\t\t\t\t\t\t\t\t\taria-current={section === activeSection ? 'page' : undefined}\n\t\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t\t{links[section].label}\n\t\t\t\t\t\t\t\t\t\t</Anchor>\n\t\t\t\t\t\t\t\t\t))}\n\t\t\t\t\t\t\t\t</Inline>\n\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t<SectionPage />\n\t\t\t\t\t</>\n\t\t\t\t</DiscoveryPage>\n\t\t\t</IntlProvider>\n\t\t</RelayEnvironmentProvider>\n\t);\n}",
 		],
 		props: [
+			{
+				name: 'cloudId',
+				type: 'string',
+				isRequired: true,
+			},
 			{
 				name: 'detailSection',
 				type: 'string | undefined',
@@ -31083,7 +31439,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['@atlassian/discovery', 'Assets Discovery', 'SystemsPage'],
 		category: 'components',
 		examples: [
-			"import React, { useEffect, useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Heading from '@atlaskit/heading/heading';\nimport { Anchor } from '@atlaskit/primitives/compiled/anchor';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { AtlBrowserStorageLocal } from '@atlassian/browser-storage-controls/web-storage-service';\nimport DiscoveryPage from '@atlassian/discovery/ui/discovery';\nimport { CredentialsPage } from '@atlassian/discovery/ui/discovery/credentials';\nimport { LogsPage } from '@atlassian/discovery/ui/discovery/logs';\nimport { OverviewPage } from '@atlassian/discovery/ui/discovery/overview';\nimport { RecordsPage } from '@atlassian/discovery/ui/discovery/records';\nimport { ScanJobsPage } from '@atlassian/discovery/ui/discovery/scan-jobs';\nimport { SystemsPage } from '@atlassian/discovery/ui/discovery/systems';\nconst links = {\n\toverview: { href: '#discovery/overview', label: 'Overview' },\n\trecords: { href: '#discovery/records', label: 'Records' },\n\t'scan-jobs': { href: '#discovery/scan-jobs', label: 'Scan jobs' },\n\tsystems: { href: '#discovery/systems', label: 'Systems' },\n\tcredentials: { href: '#discovery/credentials', label: 'Credentials' },\n\tlogs: { href: '#discovery/logs', label: 'Logs' },\n};\ntype DiscoverySection = keyof typeof links;\nconst sections: Record<DiscoverySection, React.ComponentType> = {\n\toverview: OverviewPage,\n\trecords: RecordsPage,\n\t'scan-jobs': ScanJobsPage,\n\tsystems: SystemsPage,\n\tcredentials: CredentialsPage,\n\tlogs: LogsPage,\n};\nfunction sectionFromHash(): DiscoverySection {\n\treturn (\n\t\t(Object.keys(links) as DiscoverySection[]).find(\n\t\t\t(section) => links[section].href === window.location.hash,\n\t\t) ?? 'overview'\n\t);\n}\nexport default function WholeDiscovery(): React.JSX.Element {\n\tconst [activeSection, setActiveSection] = useState<DiscoverySection>('overview');\n\tconst [isProvisioned, setIsProvisioned] = useState(false);\n\tuseEffect(() => {\n\t\t// The shell shows GettingStartedScreen for an unprovisioned tenant. Seed only the\n\t\t// preview's host state before mounting it, then restore the viewer's previous value.\n\t\tconst storageKey = 'discovery-platform-state';\n\t\tconst previousState = AtlBrowserStorageLocal.getItem(storageKey);\n\t\tlet cancelled = false;\n\t\tvoid (async () => {\n\t\t\tlet parsedState: Record<string, unknown> = {};\n\t\t\ttry {\n\t\t\t\tparsedState = previousState ? JSON.parse(previousState) : {};\n\t\t\t} catch {\n\t\t\t\t// An invalid previous value is replaced for this preview and removed on cleanup.\n\t\t\t}\n\t\t\tawait AtlBrowserStorageLocal.setItem(\n\t\t\t\tstorageKey,\n\t\t\t\tJSON.stringify({ ...parsedState, provisionStatus: 'PROVISIONED' }),\n\t\t\t);\n\t\t\tif (!cancelled) {\n\t\t\t\tsetIsProvisioned(true);\n\t\t\t}\n\t\t})();\n\t\treturn () => {\n\t\t\tcancelled = true;\n\t\t\tif (previousState === null) {\n\t\t\t\tAtlBrowserStorageLocal.removeItem(storageKey);\n\t\t\t} else {\n\t\t\t\tvoid AtlBrowserStorageLocal.setItem(storageKey, previousState);\n\t\t\t}\n\t\t};\n\t}, []);\n\tuseEffect(() => {\n\t\tconst syncSection = () => setActiveSection(sectionFromHash());\n\t\tsyncSection();\n\t\twindow.addEventListener('hashchange', syncSection);\n\t\treturn () => window.removeEventListener('hashchange', syncSection);\n\t}, []);\n\tconst SectionPage = sections[activeSection];\n\tif (!isProvisioned) {\n\t\treturn <div aria-live=\"polite\">Preparing Discovery preview…</div>;\n\t}\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<DiscoveryPage>\n\t\t\t\t<>\n\t\t\t\t\t<Box padding=\"space.300\">\n\t\t\t\t\t\t<Heading as=\"h1\" size=\"large\">\n\t\t\t\t\t\t\tDiscovery\n\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t{/* Preview links only. Jira supplies the production horizontal navigation. */}\n\t\t\t\t\t\t<Box as=\"nav\" aria-label=\"Discovery sections\">\n\t\t\t\t\t\t\t<Inline space=\"space.200\" shouldWrap>\n\t\t\t\t\t\t\t\t{(Object.keys(links) as DiscoverySection[]).map((section) => (\n\t\t\t\t\t\t\t\t\t<Anchor\n\t\t\t\t\t\t\t\t\t\tkey={section}\n\t\t\t\t\t\t\t\t\t\thref={links[section].href}\n\t\t\t\t\t\t\t\t\t\taria-current={section === activeSection ? 'page' : undefined}\n\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t{links[section].label}\n\t\t\t\t\t\t\t\t\t</Anchor>\n\t\t\t\t\t\t\t\t))}\n\t\t\t\t\t\t\t</Inline>\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t</Box>\n\t\t\t\t\t<SectionPage />\n\t\t\t\t</>\n\t\t\t</DiscoveryPage>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useEffect, useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { RelayEnvironmentProvider } from 'react-relay';\nimport { createMockEnvironment, MockPayloadGenerator } from 'relay-test-utils';\nimport Heading from '@atlaskit/heading/heading';\nimport { Anchor } from '@atlaskit/primitives/compiled/anchor';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { AtlBrowserStorageLocal } from '@atlassian/browser-storage-controls/web-storage-service';\nimport DiscoveryPage from '@atlassian/discovery/ui/discovery';\nimport { CredentialsPage } from '@atlassian/discovery/ui/discovery/credentials';\nimport { LogsPage } from '@atlassian/discovery/ui/discovery/logs';\nimport { RecordsPage } from '@atlassian/discovery/ui/discovery/records';\nimport { ScanJobsPage } from '@atlassian/discovery/ui/discovery/scan-jobs';\nimport { SystemsPage } from '@atlassian/discovery/ui/discovery/systems';\nimport { ExampleOverviewPage } from './fixtures/overview-page';\nconst links = {\n\toverview: { href: '#discovery/overview', label: 'Overview' },\n\trecords: { href: '#discovery/records', label: 'Records' },\n\t'scan-jobs': { href: '#discovery/scan-jobs', label: 'Scan jobs' },\n\tsystems: { href: '#discovery/systems', label: 'Systems' },\n\tcredentials: { href: '#discovery/credentials', label: 'Credentials' },\n\tlogs: { href: '#discovery/logs', label: 'Logs' },\n};\ntype DiscoverySection = keyof typeof links;\nconst exampleCloudId = 'example-cloud-id';\nconst exampleScanJobs = [\n\t{\n\t\tid: 'example-job-1',\n\t\tname: 'Head office network',\n\t\tstatus: 'CONFIGURED',\n\t\tisDraft: false,\n\t\tnextStep: null,\n\t\tprovider: 'ATLASSIAN',\n\t\tupdatedAt: '2026-09-30T09:15:00.000Z',\n\t\towner: { accountId: 'example-account-1', displayName: 'Alana Grant' },\n\t\tschedules: [\n\t\t\t{ id: 'example-schedule-1', cronExpression: '0 2 * * *' },\n\t\t\t{ id: 'example-schedule-2', cronExpression: '0 14 * * 6' },\n\t\t],\n\t},\n\t{\n\t\tid: 'example-job-2',\n\t\tname: 'Data centre sweep',\n\t\tstatus: 'DRAFT_3',\n\t\tisDraft: true,\n\t\tnextStep: 'CREDENTIALS',\n\t\tprovider: 'ADVANCED',\n\t\tupdatedAt: '2026-10-01T16:40:00.000Z',\n\t\towner: { accountId: 'example-account-2', displayName: null },\n\t\tschedules: [],\n\t},\n];\nfunction createExampleEnvironment() {\n\tconst environment = createMockEnvironment();\n\tenvironment.mock.queueOperationResolver((operation) =>\n\t\tMockPayloadGenerator.generate(operation, {\n\t\t\tDiscoveryJobConnection: () => ({\n\t\t\t\tnodes: exampleScanJobs,\n\t\t\t\tpageInfo: { endCursor: null, hasNextPage: false },\n\t\t\t}),\n\t\t}),\n\t);\n\treturn environment;\n}\nfunction ExampleScanJobsPage(): React.JSX.Element {\n\treturn <ScanJobsPage cloudId={exampleCloudId} />;\n}\nconst sections: Record<DiscoverySection, React.ComponentType> = {\n\toverview: ExampleOverviewPage,\n\trecords: RecordsPage,\n\t'scan-jobs': ExampleScanJobsPage,\n\tsystems: SystemsPage,\n\tcredentials: CredentialsPage,\n\tlogs: LogsPage,\n};\nfunction sectionFromHash(): DiscoverySection {\n\treturn (\n\t\t(Object.keys(links) as DiscoverySection[]).find(\n\t\t\t(section) => links[section].href === window.location.hash,\n\t\t) ?? 'overview'\n\t);\n}\nexport default function WholeDiscovery(): React.JSX.Element {\n\tconst [activeSection, setActiveSection] = useState<DiscoverySection>('overview');\n\tconst [isProvisioned, setIsProvisioned] = useState(false);\n\tuseEffect(() => {\n\t\t// The shell shows GettingStartedScreen for an unprovisioned tenant. Seed only the\n\t\t// preview's host state before mounting it, then restore the viewer's previous value.\n\t\tconst storageKey = 'discovery-platform-state';\n\t\tconst previousState = AtlBrowserStorageLocal.getItem(storageKey);\n\t\tlet cancelled = false;\n\t\tvoid (async () => {\n\t\t\tlet parsedState: Record<string, unknown> = {};\n\t\t\ttry {\n\t\t\t\tparsedState = previousState ? JSON.parse(previousState) : {};\n\t\t\t} catch {\n\t\t\t\t// An invalid previous value is replaced for this preview and removed on cleanup.\n\t\t\t}\n\t\t\tawait AtlBrowserStorageLocal.setItem(\n\t\t\t\tstorageKey,\n\t\t\t\tJSON.stringify({ ...parsedState, provisionStatus: 'PROVISIONED' }),\n\t\t\t);\n\t\t\tif (!cancelled) {\n\t\t\t\tsetIsProvisioned(true);\n\t\t\t}\n\t\t})();\n\t\treturn () => {\n\t\t\tcancelled = true;\n\t\t\tif (previousState === null) {\n\t\t\t\tAtlBrowserStorageLocal.removeItem(storageKey);\n\t\t\t} else {\n\t\t\t\tvoid AtlBrowserStorageLocal.setItem(storageKey, previousState);\n\t\t\t}\n\t\t};\n\t}, []);\n\tconst [environment] = useState(createExampleEnvironment);\n\tuseEffect(() => {\n\t\tconst syncSection = () => setActiveSection(sectionFromHash());\n\t\tsyncSection();\n\t\twindow.addEventListener('hashchange', syncSection);\n\t\treturn () => window.removeEventListener('hashchange', syncSection);\n\t}, []);\n\tconst SectionPage = sections[activeSection];\n\tif (!isProvisioned) {\n\t\treturn <div aria-live=\"polite\">Preparing Discovery preview…</div>;\n\t}\n\treturn (\n\t\t<RelayEnvironmentProvider environment={environment}>\n\t\t\t<IntlProvider locale=\"en\">\n\t\t\t\t<DiscoveryPage>\n\t\t\t\t\t<>\n\t\t\t\t\t\t<Box padding=\"space.300\">\n\t\t\t\t\t\t\t<Heading as=\"h1\" size=\"large\">\n\t\t\t\t\t\t\t\tDiscovery\n\t\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t\t{/* Preview links only. Jira supplies the production horizontal navigation. */}\n\t\t\t\t\t\t\t<Box as=\"nav\" aria-label=\"Discovery sections\">\n\t\t\t\t\t\t\t\t<Inline space=\"space.200\" shouldWrap>\n\t\t\t\t\t\t\t\t\t{(Object.keys(links) as DiscoverySection[]).map((section) => (\n\t\t\t\t\t\t\t\t\t\t<Anchor\n\t\t\t\t\t\t\t\t\t\t\tkey={section}\n\t\t\t\t\t\t\t\t\t\t\thref={links[section].href}\n\t\t\t\t\t\t\t\t\t\t\taria-current={section === activeSection ? 'page' : undefined}\n\t\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t\t{links[section].label}\n\t\t\t\t\t\t\t\t\t\t</Anchor>\n\t\t\t\t\t\t\t\t\t))}\n\t\t\t\t\t\t\t\t</Inline>\n\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t<SectionPage />\n\t\t\t\t\t</>\n\t\t\t\t</DiscoveryPage>\n\t\t\t</IntlProvider>\n\t\t</RelayEnvironmentProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -43399,20 +43755,20 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'writing style', 'settings', 'shortcut'],
 		category: 'rovo',
 		examples: [
-			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { IntlProvider } from 'react-intl';\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { token } from '@atlaskit/tokens';\nimport type { RovoResponseTone } from '@atlassian/conversation-assistant-service-api/types/assistance-service';\nimport { WritingStyleSettingsShortCutCard } from '../src/ui/writing-style-settings-short-cut-card/WritingStyleSettingsShortCutCard';\nconst styles = cssMap({\n\tcontainer: {\n\t\twidth: '420px',\n\t\tmaxWidth: '100%',\n\t\tpaddingTop: token('space.300'),\n\t\tpaddingRight: token('space.300'),\n\t\tpaddingBottom: token('space.300'),\n\t\tpaddingLeft: token('space.300'),\n\t},\n});\nconst STYLE_OPTION_IDS: readonly RovoResponseTone[] = [\n\t'rovo_default',\n\t'professional',\n\t'empathetic',\n\t'creative',\n];\nexport default function Example(): JSX.Element {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Box xcss={styles.container}>\n\t\t\t\t<Stack space=\"space.300\">\n\t\t\t\t\t{STYLE_OPTION_IDS.map((selectedStyleId) => (\n\t\t\t\t\t\t<WritingStyleSettingsShortCutCard\n\t\t\t\t\t\t\tkey={selectedStyleId}\n\t\t\t\t\t\t\tselectedStyleId={selectedStyleId}\n\t\t\t\t\t\t\tonDismiss={() => {}}\n\t\t\t\t\t\t\tonSettingsClick={() => {}}\n\t\t\t\t\t\t\tonStyleSelect={() => {}}\n\t\t\t\t\t\t/>\n\t\t\t\t\t))}\n\t\t\t\t</Stack>\n\t\t\t</Box>\n\t\t</IntlProvider>\n\t);\n}",
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { IntlProvider } from 'react-intl';\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { token } from '@atlaskit/tokens';\nimport type { RovoResponseTone } from '@atlassian/conversation-assistant-service-api/types/assistance-service';\nimport { WritingStyleSettingsShortCutCard } from '../src/ui/writing-style-settings-short-cut-card/WritingStyleSettingsShortCutCard';\nconst styles = cssMap({\n\tcontainer: {\n\t\twidth: '480px',\n\t\tmaxWidth: '100%',\n\t\tpaddingTop: token('space.300'),\n\t\tpaddingRight: token('space.300'),\n\t\tpaddingBottom: token('space.300'),\n\t\tpaddingLeft: token('space.300'),\n\t},\n});\nconst STYLE_OPTION_IDS: readonly RovoResponseTone[] = [\n\t'rovo_default',\n\t'professional',\n\t'empathetic',\n\t'creative',\n];\nexport default function Example(): JSX.Element {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Box xcss={styles.container}>\n\t\t\t\t<Stack space=\"space.300\">\n\t\t\t\t\t{STYLE_OPTION_IDS.map((selectedStyleId) => (\n\t\t\t\t\t\t<WritingStyleSettingsShortCutCard\n\t\t\t\t\t\t\tkey={selectedStyleId}\n\t\t\t\t\t\t\tselectedStyleId={selectedStyleId}\n\t\t\t\t\t\t\tonSettingsClick={() => {}}\n\t\t\t\t\t\t\tonStyleSelect={() => {}}\n\t\t\t\t\t\t/>\n\t\t\t\t\t))}\n\t\t\t\t</Stack>\n\t\t\t</Box>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
 				name: 'onDismiss',
 				type: '(() => void) | undefined',
 				description:
-					'Called when the user dismisses the card. When omitted, the dismiss button is\nnot rendered.',
+					'Retained for caller compatibility. The discovery card has no visible dismiss control.',
 			},
 			{
 				name: 'onSettingsClick',
 				type: '(() => void) | undefined',
 				description:
-					'Called when the user selects Customize from the writing-style dropdown.\nOptional for the visual-only entry point; when omitted the action is a no-op.',
+					'Called by the settings icon or Customize action in the writing-style dropdown.\nOptional for the visual-only entry point; when omitted the action is a no-op.',
 			},
 			{
 				name: 'onStyleSelect',
@@ -43424,7 +43780,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				name: 'selectedStyleId',
 				type: 'RovoResponseTone | undefined',
 				description:
-					'The writing-style tone shown as selected. Defaults to "Rovo default" when\nomitted, keeping the component usable as a purely presentational entry point.',
+					'The writing-style tone shown as selected. Defaults to "Natural" when\nomitted, keeping the component usable as a purely presentational entry point.',
 			},
 		],
 	},
@@ -45142,9 +45498,9 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'bulkFinalizeSmartCreate',
-				type: '((params: { siteId: string; items: BulkFinalizeSmartCreateItem[]; }) => Promise<BulkFinalizeSmartCreateItemResult[]>) | undefined',
+				type: '((params: { siteId: string; items: BulkFinalizeSmartCreateItem[]; newFolder?: BulkFinalizeNewFolder | undefined; }) => Promise<BulkFinalizeSmartCreateItemResult[]>) | undefined',
 				description:
-					'Finalizes every staged object of a BE-created message in one request. Only used when the\n`cwr-be-based-multi-creation-v0` experiment is on and the previewed action has already been\ncreated by the backend, in which case finalization goes straight to Confluence rather than\nthrough convo-ai.',
+					'Finalizes every staged object of a BE-created message in one request. Only used when the\npreviewed action has already been created by the backend, in which case finalization goes\nstraight to Confluence rather than through convo-ai.',
 			},
 			{
 				name: 'closeModal',
@@ -48211,7 +48567,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['primitive', 'icon', 'wave', 'animation'],
 		category: 'motion',
 		examples: [
-			'import React, { useState, type ReactNode } from \'react\';\nimport Button from \'@atlaskit/button/default/button\';\nimport { cssMap } from \'@atlaskit/css\';\nimport AppsIcon from \'@atlaskit/icon/core/apps\';\nimport BoardIcon from \'@atlaskit/icon/core/board\';\nimport DashboardIcon from \'@atlaskit/icon/core/dashboard\';\nimport PageIcon from \'@atlaskit/icon/core/page\';\nimport SearchIcon from \'@atlaskit/icon/core/search\';\nimport StarIcon from \'@atlaskit/icon/core/star-starred\';\nimport { Box } from \'@atlaskit/primitives/compiled/box\';\nimport { Inline } from \'@atlaskit/primitives/compiled/inline\';\nimport { Stack } from \'@atlaskit/primitives/compiled/stack\';\nimport { Text } from \'@atlaskit/primitives/compiled/text\';\nimport { setupEditorExperiments } from \'@atlaskit/tmp-editor-statsig/setup\';\nimport { token } from \'@atlaskit/tokens\';\nimport { GhostIconWave } from \'@atlassian/rovo-platform-ui-components/primitives/GhostIconWave\';\n// `GhostIconWave` is gated behind the `confluence_3p_in_cwr_ghost_icons`\n// experiment and defaults to off. `expVal` checks the editor-statsig\n// package\'s internal `_overrides` before falling through to the FeatureGates\n// client, so flipping the experiment on for this example is a synchronous\n// `setupEditorExperiments` call — no FeatureGates init needed.\nsetupEditorExperiments(\'confluence\', {\n\tconfluence_3p_in_cwr_ghost_icons: true,\n});\nconst Replayable = ({ children }: { children: (replayKey: number) => ReactNode }) => {\n\tconst [replayKey, setReplayKey] = useState(0);\n\treturn (\n\t\t<Inline space="space.200" alignBlock="center">\n\t\t\t{children(replayKey)}\n\t\t\t<Button onClick={() => setReplayKey((k) => k + 1)}>Replay</Button>\n\t\t</Inline>\n\t);\n};\nconst styles = cssMap({\n\twrapper: {\n\t\tpaddingTop: token(\'space.200\'),\n\t\tpaddingRight: token(\'space.200\'),\n\t\tpaddingBottom: token(\'space.200\'),\n\t\tpaddingLeft: token(\'space.200\'),\n\t\tmaxWidth: \'600px\',\n\t},\n\tcard: {\n\t\tborderWidth: token(\'border.width\'),\n\t\tborderStyle: \'solid\',\n\t\tborderColor: token(\'color.border\'),\n\t\tpaddingTop: token(\'space.200\'),\n\t\tpaddingRight: token(\'space.200\'),\n\t\tpaddingBottom: token(\'space.200\'),\n\t\tpaddingLeft: token(\'space.200\'),\n\t\twidth: \'100%\',\n\t},\n});\nconst defaultIcons = [\n\t<AppsIcon key="apps" label="" color={token(\'color.icon\')} />,\n\t<PageIcon key="page" label="" color={token(\'color.icon\')} />,\n];\nconst plainIcons = [\n\t<AppsIcon key="apps-plain" label="" color={token(\'color.icon\')} />,\n\t<PageIcon key="page-plain" label="" color={token(\'color.icon\')} />,\n];\nconst singleIconList = [<SearchIcon key="search-only" label="" color={token(\'color.icon\')} />];\nconst fiveIcons = [\n\t<AppsIcon key="apps-5" label="" color={token(\'color.icon\')} />,\n\t<PageIcon key="page-5" label="" color={token(\'color.icon\')} />,\n\t<SearchIcon key="search-5" label="" color={token(\'color.icon\')} />,\n\t<BoardIcon key="board-5" label="" color={token(\'color.icon\')} />,\n\t<DashboardIcon key="dashboard-5" label="" color={token(\'color.icon\')} />,\n\t<StarIcon key="star-5" label="" color={token(\'color.icon\')} />,\n];\nexport default function GhostIconWaveExample(): React.JSX.Element {\n\treturn (\n\t\t<Box xcss={styles.wrapper}>\n\t\t\t<Stack space="space.400">\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">Default — 2 icons, dashed ghost frame, 3 waves</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<Replayable>\n\t\t\t\t\t\t\t{(replayKey) => <GhostIconWave key={replayKey} icons={defaultIcons} />}\n\t\t\t\t\t\t</Replayable>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">Single icon (maxVisible=1)</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<Replayable>\n\t\t\t\t\t\t\t{(replayKey) => (\n\t\t\t\t\t\t\t\t<GhostIconWave key={replayKey} icons={singleIconList} maxVisible={1} />\n\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t</Replayable>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">\n\t\t\t\t\t\tFive icons (maxVisible=5, faster timing) — six icons passed, only the first five render\n\t\t\t\t\t</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<Replayable>\n\t\t\t\t\t\t\t{(replayKey) => (\n\t\t\t\t\t\t\t\t<GhostIconWave\n\t\t\t\t\t\t\t\t\tkey={replayKey}\n\t\t\t\t\t\t\t\t\ticons={fiveIcons}\n\t\t\t\t\t\t\t\t\tmaxVisible={5}\n\t\t\t\t\t\t\t\t\tbobDuration={320}\n\t\t\t\t\t\t\t\t\tstagger={150}\n\t\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t</Replayable>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">Without ghost frame (withGhostFrame=false)</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<Replayable>\n\t\t\t\t\t\t\t{(replayKey) => (\n\t\t\t\t\t\t\t\t<GhostIconWave key={replayKey} icons={plainIcons} withGhostFrame={false} />\n\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t</Replayable>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">Tall amplitude / fast stagger (amplitude=8, stagger=80)</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<Replayable>\n\t\t\t\t\t\t\t{(replayKey) => (\n\t\t\t\t\t\t\t\t<GhostIconWave key={replayKey} icons={defaultIcons} amplitude={8} stagger={80} />\n\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t</Replayable>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">Single wave (waveCount=1)</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<Replayable>\n\t\t\t\t\t\t\t{(replayKey) => <GhostIconWave key={replayKey} icons={defaultIcons} waveCount={1} />}\n\t\t\t\t\t\t</Replayable>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">Rest state (waveCount=0)</Text>\n\t\t\t\t\t<Text size="small">\n\t\t\t\t\t\tUse this when callers only animate first-view states and keep later renders static.\n\t\t\t\t\t</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<GhostIconWave icons={defaultIcons} waveCount={0} />\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">Infinite loop (waveCount=Infinity)</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<GhostIconWave icons={defaultIcons} waveCount={Infinity} />\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">\n\t\t\t\t\t\tWith aria-label (label=&quot;Loading apps&quot;) — inspect with devtools\n\t\t\t\t\t</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<Replayable>\n\t\t\t\t\t\t\t{(replayKey) => (\n\t\t\t\t\t\t\t\t<GhostIconWave key={replayKey} icons={defaultIcons} label="Loading apps" />\n\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t</Replayable>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t</Stack>\n\t\t</Box>\n\t);\n}',
+			'import React, { useState, type ReactNode } from \'react\';\nimport Button from \'@atlaskit/button/default/button\';\nimport { cssMap } from \'@atlaskit/css\';\nimport AppsIcon from \'@atlaskit/icon/core/apps\';\nimport BoardIcon from \'@atlaskit/icon/core/board\';\nimport DashboardIcon from \'@atlaskit/icon/core/dashboard\';\nimport PageIcon from \'@atlaskit/icon/core/page\';\nimport SearchIcon from \'@atlaskit/icon/core/search\';\nimport StarIcon from \'@atlaskit/icon/core/star-starred\';\nimport { Box } from \'@atlaskit/primitives/compiled/box\';\nimport { Inline } from \'@atlaskit/primitives/compiled/inline\';\nimport { Stack } from \'@atlaskit/primitives/compiled/stack\';\nimport { Text } from \'@atlaskit/primitives/compiled/text\';\nimport { token } from \'@atlaskit/tokens\';\nimport { GhostIconWave } from \'@atlassian/rovo-platform-ui-components/primitives/GhostIconWave\';\nconst Replayable = ({ children }: { children: (replayKey: number) => ReactNode }) => {\n\tconst [replayKey, setReplayKey] = useState(0);\n\treturn (\n\t\t<Inline space="space.200" alignBlock="center">\n\t\t\t{children(replayKey)}\n\t\t\t<Button onClick={() => setReplayKey((k) => k + 1)}>Replay</Button>\n\t\t</Inline>\n\t);\n};\nconst styles = cssMap({\n\twrapper: {\n\t\tpaddingTop: token(\'space.200\'),\n\t\tpaddingRight: token(\'space.200\'),\n\t\tpaddingBottom: token(\'space.200\'),\n\t\tpaddingLeft: token(\'space.200\'),\n\t\tmaxWidth: \'600px\',\n\t},\n\tcard: {\n\t\tborderWidth: token(\'border.width\'),\n\t\tborderStyle: \'solid\',\n\t\tborderColor: token(\'color.border\'),\n\t\tpaddingTop: token(\'space.200\'),\n\t\tpaddingRight: token(\'space.200\'),\n\t\tpaddingBottom: token(\'space.200\'),\n\t\tpaddingLeft: token(\'space.200\'),\n\t\twidth: \'100%\',\n\t},\n});\nconst defaultIcons = [\n\t<AppsIcon key="apps" label="" color={token(\'color.icon\')} />,\n\t<PageIcon key="page" label="" color={token(\'color.icon\')} />,\n];\nconst plainIcons = [\n\t<AppsIcon key="apps-plain" label="" color={token(\'color.icon\')} />,\n\t<PageIcon key="page-plain" label="" color={token(\'color.icon\')} />,\n];\nconst singleIconList = [<SearchIcon key="search-only" label="" color={token(\'color.icon\')} />];\nconst fiveIcons = [\n\t<AppsIcon key="apps-5" label="" color={token(\'color.icon\')} />,\n\t<PageIcon key="page-5" label="" color={token(\'color.icon\')} />,\n\t<SearchIcon key="search-5" label="" color={token(\'color.icon\')} />,\n\t<BoardIcon key="board-5" label="" color={token(\'color.icon\')} />,\n\t<DashboardIcon key="dashboard-5" label="" color={token(\'color.icon\')} />,\n\t<StarIcon key="star-5" label="" color={token(\'color.icon\')} />,\n];\nexport default function GhostIconWaveExample(): React.JSX.Element {\n\treturn (\n\t\t<Box xcss={styles.wrapper}>\n\t\t\t<Stack space="space.400">\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">Default — 2 icons, dashed ghost frame, 3 waves</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<Replayable>\n\t\t\t\t\t\t\t{(replayKey) => <GhostIconWave key={replayKey} icons={defaultIcons} />}\n\t\t\t\t\t\t</Replayable>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">Single icon (maxVisible=1)</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<Replayable>\n\t\t\t\t\t\t\t{(replayKey) => (\n\t\t\t\t\t\t\t\t<GhostIconWave key={replayKey} icons={singleIconList} maxVisible={1} />\n\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t</Replayable>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">\n\t\t\t\t\t\tFive icons (maxVisible=5, faster timing) — six icons passed, only the first five render\n\t\t\t\t\t</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<Replayable>\n\t\t\t\t\t\t\t{(replayKey) => (\n\t\t\t\t\t\t\t\t<GhostIconWave\n\t\t\t\t\t\t\t\t\tkey={replayKey}\n\t\t\t\t\t\t\t\t\ticons={fiveIcons}\n\t\t\t\t\t\t\t\t\tmaxVisible={5}\n\t\t\t\t\t\t\t\t\tbobDuration={320}\n\t\t\t\t\t\t\t\t\tstagger={150}\n\t\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t</Replayable>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">Without ghost frame (withGhostFrame=false)</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<Replayable>\n\t\t\t\t\t\t\t{(replayKey) => (\n\t\t\t\t\t\t\t\t<GhostIconWave key={replayKey} icons={plainIcons} withGhostFrame={false} />\n\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t</Replayable>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">Tall amplitude / fast stagger (amplitude=8, stagger=80)</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<Replayable>\n\t\t\t\t\t\t\t{(replayKey) => (\n\t\t\t\t\t\t\t\t<GhostIconWave key={replayKey} icons={defaultIcons} amplitude={8} stagger={80} />\n\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t</Replayable>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">Single wave (waveCount=1)</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<Replayable>\n\t\t\t\t\t\t\t{(replayKey) => <GhostIconWave key={replayKey} icons={defaultIcons} waveCount={1} />}\n\t\t\t\t\t\t</Replayable>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">Rest state (waveCount=0)</Text>\n\t\t\t\t\t<Text size="small">\n\t\t\t\t\t\tUse this when callers only animate first-view states and keep later renders static.\n\t\t\t\t\t</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<GhostIconWave icons={defaultIcons} waveCount={0} />\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">Infinite loop (waveCount=Infinity)</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<GhostIconWave icons={defaultIcons} waveCount={Infinity} />\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space="space.100">\n\t\t\t\t\t<Text weight="bold">\n\t\t\t\t\t\tWith aria-label (label=&quot;Loading apps&quot;) — inspect with devtools\n\t\t\t\t\t</Text>\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<Replayable>\n\t\t\t\t\t\t\t{(replayKey) => (\n\t\t\t\t\t\t\t\t<GhostIconWave key={replayKey} icons={defaultIcons} label="Loading apps" />\n\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t</Replayable>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t</Stack>\n\t\t</Box>\n\t);\n}',
 		],
 		props: [
 			{

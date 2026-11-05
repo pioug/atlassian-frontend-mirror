@@ -1,10 +1,11 @@
 import React from 'react';
 
-import { cleanup, createEvent, fireEvent } from '@testing-library/react';
+import { cleanup, createEvent, fireEvent, screen } from '@testing-library/react';
 import { axe, toHaveNoViolations } from 'jest-axe';
 import { mockAllIsIntersecting } from 'react-intersection-observer/test-utils';
 
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { RENDER_EMOJI_DELETE_BUTTON_TESTID } from '../../../../components/common/DeleteButton';
 import Emoji from '../../../../components/common/Emoji';
@@ -237,10 +238,34 @@ describe('<Emoji />', () => {
 		});
 
 		it('should have button role if interactive', async () => {
-			const result = await renderWithIntl(<Emoji emoji={imageEmoji} shouldBeInteractive />);
+			await renderWithIntl(<Emoji emoji={imageEmoji} shouldBeInteractive />);
 			mockAllIsIntersecting(true);
-			const emoji = result.getByTestId(`image-emoji-${imageEmoji.shortName}`);
+			const emoji = screen.getByTestId(`image-emoji-${imageEmoji.shortName}`);
 			expect(emoji).toHaveAttribute('role', 'button');
+		});
+
+		it('should render the image as decorative when interactive and the gate is enabled', async () => {
+			passGate('platform_ally_emoji_fixes_various');
+			await renderWithIntl(<Emoji emoji={imageEmoji} shouldBeInteractive />);
+			mockAllIsIntersecting(true);
+			const emoji = screen.getByTestId(`image-emoji-${imageEmoji.shortName}`);
+			const image = emoji.querySelector('img');
+
+			expect(emoji).toHaveAccessibleName();
+			expect(image).toHaveAttribute('alt', '');
+			expect(image).toHaveAttribute('data-emoji-short-name', imageEmoji.shortName);
+			expect(image).toHaveAttribute('data-emoji-id', imageEmoji.id);
+			expect(image).toHaveAttribute('data-emoji-text', imageEmoji.fallback);
+		});
+
+		it('should retain the image alt text when the decorative image gate is disabled', async () => {
+			failGate('platform_ally_emoji_fixes_various');
+			await renderWithIntl(<Emoji emoji={imageEmoji} shouldBeInteractive />);
+			mockAllIsIntersecting(true);
+			const emoji = screen.getByTestId(`image-emoji-${imageEmoji.shortName}`);
+			const image = emoji.querySelector('img');
+
+			expect(image).toHaveAttribute('alt', imageEmoji.name);
 		});
 
 		it('should not have any accessibility violations for sprite emoji', async () => {

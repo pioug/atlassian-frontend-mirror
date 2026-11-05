@@ -18,6 +18,28 @@ test.describe('PopupSelect', () => {
 		await expect(select).toBeHidden();
 	});
 
+	test('Popup Select menu should open in the viewport below its trigger', async ({ page }) => {
+		await page.visitExample<typeof import('../../../../examples/18-popup-select.vr.ap.tsx')>(
+			'design-system',
+			'select',
+			'popup-select',
+		);
+
+		const trigger = page.getByTestId('button-for-testing');
+		const menu = page.getByTestId('select-for-testing--menu');
+		await trigger.click();
+		await expect(menu).toBeVisible();
+		await expect(menu).toBeInViewport();
+
+		const [triggerBounds, menuBounds] = await Promise.all([
+			trigger.boundingBox(),
+			menu.boundingBox(),
+		]);
+		expect(triggerBounds).not.toBeNull();
+		expect(menuBounds).not.toBeNull();
+		expect(menuBounds?.y).toBeGreaterThanOrEqual(triggerBounds?.y ?? 0);
+	});
+
 	test('Popup Select should open with down arrow', async ({ page, skipAxeCheck }) => {
 		await page.visitExample<typeof import('../../../../examples/18-popup-select.vr.ap.tsx')>(
 			'design-system',

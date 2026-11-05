@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
 
@@ -11,6 +11,7 @@ import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { messages } from '../../messages';
 import { CloseButtonContainer } from './styled';
+import { useFocusOnOpen } from './useFocusOnOpen';
 
 interface Props {
 	inDynamicHeader?: boolean;
@@ -33,6 +34,10 @@ export const CloseButton: React.FC<Props & WrappedComponentProps> = ({
 	intl: { formatMessage },
 }) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
+	const buttonRef = useRef<HTMLButtonElement>(null);
+
+	// The Close button is the first control in the panel, so focus starts there when it opens
+	useFocusOnOpen(buttonRef);
 
 	const handleOnClick = (event: React.MouseEvent<HTMLElement, MouseEvent>): void => {
 		if (onClick) {
@@ -47,6 +52,7 @@ export const CloseButton: React.FC<Props & WrappedComponentProps> = ({
 		<CloseButtonContainer inDynamicHeader={inDynamicHeader}>
 			<Tooltip content={formatMessage(messages.help_panel_header_close)} position="left">
 				<Button
+					ref={buttonRef}
 					onClick={handleOnClick}
 					appearance="subtle"
 					aria-label={formatMessage(messages.help_panel_header_close)}

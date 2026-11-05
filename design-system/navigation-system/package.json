@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/navigation-system",
-	"version": "11.5.0",
+	"version": "11.6.0",
 	"description": "The latest navigation system for Atlassian apps.",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"license": "Apache-2.0",
@@ -20,6 +20,7 @@
 		"./fhs-rollout": "./src/entry-points/fhs-rollout.tsx",
 		"./top-nav-items/notifications": "./src/entry-points/top-nav-items/notifications.tsx",
 		"./top-nav-items/create-button": "./src/entry-points/top-nav-items/create-button.tsx",
+		"./top-nav-items/responsive-button": "./src/entry-points/top-nav-items/responsive-button.tsx",
 		"./top-nav-items/help": "./src/entry-points/top-nav-items/help.tsx",
 		"./top-nav-items/profile": "./src/entry-points/top-nav-items/profile.tsx",
 		"./top-nav-items/settings": "./src/entry-points/top-nav-items/settings.tsx",
@@ -166,6 +167,7 @@
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/test-utils": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
+		"@atlassian/universal-create": "workspace:^",
 		"@atlassian/workbench": "workspace:^",
 		"@axe-core/playwright": "root:*",
 		"raf-stub": "root:*",

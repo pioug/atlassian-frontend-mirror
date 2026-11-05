@@ -21,6 +21,7 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { useDatasourceAnalyticsEvents } from '../analytics';
 import { useDatasourceActions } from '../state';
 import { useDiscoverActions } from '../state/actions/useDiscoverActions';
+import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '../ui/assets-modal';
 import useErrorLogger from './useErrorLogger';
 import { useIsInPDFRender } from './useIsInPDFRender';
 
@@ -230,11 +231,24 @@ export const useDatasourceTableState = ({
 			} = requestInfo;
 
 			const isFullSchemaLoaded = fullSchema.properties.length > 0;
+			let pageSize: number;
+			/*
+			Note: The Assets backend currently ignores `pageSize` and always returns 100 items, so we request
+			always returns 100 items, so we request 100 explicitly to keep the same behaviour once the backend starts honouring it.
+			*/
+			if (fg('astral_assets_default_page_size_100')) {
+				pageSize =
+					isInPDFRender || datasourceId === ASSETS_LIST_OF_LINKS_DATASOURCE_ID
+						? INCREASED_DATASOURCE_DATA_PAGE_SIZE
+						: DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE;
+			} else {
+				pageSize = isInPDFRender
+					? INCREASED_DATASOURCE_DATA_PAGE_SIZE
+					: DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE;
+			}
 			const datasourceDataRequest: DatasourceDataRequest = {
 				parameters,
-				pageSize: isInPDFRender
-					? INCREASED_DATASOURCE_DATA_PAGE_SIZE
-					: DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE,
+				pageSize,
 				pageCursor: shouldRequestFirstPage ? undefined : nextCursor,
 				fields: fieldKeys,
 				includeSchema: isFullSchemaLoaded ? false : isSchemaFromData,

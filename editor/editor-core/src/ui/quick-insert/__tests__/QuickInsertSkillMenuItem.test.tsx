@@ -128,13 +128,15 @@ describe('QuickInsertSkillMenuItem', () => {
 		const item = createItem({ moduleKey: undefined, lozenge: undefined });
 
 		await renderAndFlushIcons(
-			<div aria-label="Quick insert" role="listbox">
-				<QuickInsertSkillMenuItem
-					apiRef={{ current: undefined }}
-					editorActions={{} as never}
-					item={item}
-				/>
-			</div>,
+			<IntlProvider locale="en">
+				<div aria-label="Quick insert" role="listbox">
+					<QuickInsertSkillMenuItem
+						apiRef={{ current: undefined }}
+						editorActions={{} as never}
+						item={item}
+					/>
+				</div>
+			</IntlProvider>,
 		);
 		expect(screen.getByRole('option', { name: item.title })).toHaveTextContent('Research');
 	});
@@ -175,14 +177,16 @@ describe('QuickInsertSkillMenuItem', () => {
 		const item = createItem();
 
 		await renderAndFlushIcons(
-			<div aria-label="Quick insert" role="listbox">
-				<QuickInsertSkillMenuItem
-					apiRef={{ current: undefined }}
-					editorActions={{} as never}
-					item={item}
-					onInsert={onInsert}
-				/>
-			</div>,
+			<IntlProvider locale="en">
+				<div aria-label="Quick insert" role="listbox">
+					<QuickInsertSkillMenuItem
+						apiRef={{ current: undefined }}
+						editorActions={{} as never}
+						item={item}
+						onInsert={onInsert}
+					/>
+				</div>
+			</IntlProvider>,
 		);
 
 		fireEvent.click(screen.getByRole('option', { name: item.title }));
@@ -201,14 +205,16 @@ describe('QuickInsertSkillMenuItem', () => {
 		const onInsert = jest.fn();
 
 		await renderAndFlushIcons(
-			<div aria-label="Quick insert" role="listbox">
-				<QuickInsertSkillMenuItem
-					apiRef={{ current: undefined }}
-					editorActions={{} as never}
-					item={item}
-					onInsert={onInsert}
-				/>
-			</div>,
+			<IntlProvider locale="en">
+				<div aria-label="Quick insert" role="listbox">
+					<QuickInsertSkillMenuItem
+						apiRef={{ current: undefined }}
+						editorActions={{} as never}
+						item={item}
+						onInsert={onInsert}
+					/>
+				</div>
+			</IntlProvider>,
 		);
 
 		const option = screen.getByRole('option', { name: item.title });
@@ -228,13 +234,15 @@ describe('QuickInsertSkillMenuItem', () => {
 		const item = createItem();
 
 		await renderAndFlushIcons(
-			<div aria-label="Quick insert" role="listbox">
-				<QuickInsertSkillMenuItem
-					apiRef={{ current: undefined }}
-					editorActions={{} as never}
-					item={item}
-				/>
-			</div>,
+			<IntlProvider locale="en">
+				<div aria-label="Quick insert" role="listbox">
+					<QuickInsertSkillMenuItem
+						apiRef={{ current: undefined }}
+						editorActions={{} as never}
+						item={item}
+					/>
+				</div>
+			</IntlProvider>,
 		);
 
 		const option = screen.getByRole('option', { name: item.title });

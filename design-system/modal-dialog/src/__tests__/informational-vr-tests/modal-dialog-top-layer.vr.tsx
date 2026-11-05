@@ -19,6 +19,7 @@ import WithHiddenBlanket from '../../../examples/92-with-hidden-blanket.vr.ap';
 import { MultiColumnExample } from '../../../examples/93-multi-column.vr.ap';
 import { ModalWithCustomChildExample } from '../../../examples/95-custom-child.vr.ap';
 import WithCurrentSurface from '../../../examples/96-with-current-surface.vr.ap';
+import TallerThanViewport from '../../../examples/105-testing-taller-than-viewport.vr.ap';
 
 const topLayerFlag = {
 	'platform-dst-top-layer': [true, false],
@@ -300,6 +301,27 @@ snapshotInformational(Height, {
 	featureFlags: topLayerFlag,
 	prepare: async (page) => {
 		await page.getByRole('button', { name: '100%' }).click();
+	},
+});
+
+// ── Taller than the viewport ──
+// The modal fits the viewport. The body scrolls and the footer stays in view.
+
+snapshotInformational(TallerThanViewport, {
+	description: 'taller than the viewport with a height',
+	drawsOutsideBounds: true,
+	featureFlags: topLayerFlag,
+	prepare: async (page) => {
+		await page.getByRole('button', { name: 'Open with a height of 150vh' }).click();
+	},
+});
+
+snapshotInformational(TallerThanViewport, {
+	description: 'taller than the viewport with a form around the content',
+	drawsOutsideBounds: true,
+	featureFlags: topLayerFlag,
+	prepare: async (page) => {
+		await page.getByRole('button', { name: 'Open with a form around tall content' }).click();
 	},
 });
 

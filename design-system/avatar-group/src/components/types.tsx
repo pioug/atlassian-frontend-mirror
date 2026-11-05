@@ -1,7 +1,7 @@
 import type { ElementType, ForwardRefExoticComponent, ReactNode, RefAttributes } from 'react';
 
 import type AnalyticsEvent from '@atlaskit/analytics-next/AnalyticsEvent';
-import type { default as Avatar, AvatarPropTypes } from '@atlaskit/avatar/avatar';
+import type { AvatarPropTypes } from '@atlaskit/avatar/avatar';
 import type { SizeType } from '@atlaskit/avatar/types';
 import type { MenuGroupProps } from '@atlaskit/menu/types';
 import type { DialogContentProps } from '@atlaskit/popup/types';
@@ -27,11 +27,7 @@ export interface AvatarGroupOverrides {
 		) => ReactNode;
 	};
 	Avatar?: {
-		render?: (
-			Component: typeof Avatar | ElementType<AvatarProps>,
-			props: AvatarProps,
-			index: number,
-		) => ReactNode;
+		render?: (Component: ElementType<AvatarProps>, props: AvatarProps, index: number) => ReactNode;
 	};
 	MoreIndicator?: {
 		render?: (

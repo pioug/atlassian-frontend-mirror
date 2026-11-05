@@ -11,10 +11,12 @@ import React, { useContext, useState } from 'react';
 import { jsx, css } from '@emotion/react';
 
 import type { Layout as ExtensionLayout } from '@atlaskit/adf-schema/extensions';
+import { hasBreakoutWidth } from '@atlaskit/editor-common/extensibility/has-breakout-width';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions/extension-handler';
 import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import type { Mark as PMMark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import AnalyticsContext from '../../analytics/analyticsContext';
 import { RendererCssClassName } from '../../consts';
@@ -93,11 +95,13 @@ const MultiBodiedExtensionNavigation = ({ children }: React.PropsWithChildren) =
 };
 
 const MultiBodiedExtensionWrapperNext = ({
+	isBreakoutWidth,
 	path,
 	layout,
 	rendererAppearance,
 	children,
 }: React.PropsWithChildren<{
+	isBreakoutWidth: boolean;
 	layout: ExtensionLayout;
 	path: PMNode[];
 	rendererAppearance?: RendererAppearance;
@@ -108,7 +112,7 @@ const MultiBodiedExtensionWrapperNext = ({
 		? rendererAppearance === 'full-page'
 		: true;
 	const isCustomLayout =
-		isTopLevel && ['wide', 'full-width'].includes(layout) && canUseCustomLayout;
+		!isBreakoutWidth && isTopLevel && ['wide', 'full-width'].includes(layout) && canUseCustomLayout;
 	const centerAlignClass = isCustomLayout ? RendererCssClassName.EXTENSION_CENTER_ALIGN : '';
 
 	// This hierarchy is copied from regular extension (see extension.tsx)
@@ -117,16 +121,18 @@ const MultiBodiedExtensionWrapperNext = ({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={`${RendererCssClassName.EXTENSION} ${centerAlignClass}`}
 			style={{
-				width: (
-					isExperimentEnabled('platform_editor_remove_important_in_render_ext')
-						? isCustomLayout
-						: isTopLevel
-				)
-					? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						calcBreakoutWidthCss(layout)
-					: isExperimentEnabled('platform_editor_remove_important_in_render_ext')
-						? undefined
-						: '100%',
+				width: isBreakoutWidth
+					? '100%'
+					: (
+								isExperimentEnabled('platform_editor_remove_important_in_render_ext')
+									? isCustomLayout
+									: isTopLevel
+						  )
+						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+							calcBreakoutWidthCss(layout)
+						: isExperimentEnabled('platform_editor_remove_important_in_render_ext')
+							? undefined
+							: '100%',
 			}}
 			data-layout={layout}
 			data-testid="multiBodiedExtension--wrapper-renderer"
@@ -225,9 +231,18 @@ const MultiBodiedExtension = (props: Props): jsx.JSX.Element => {
 	]);
 
 	const isTopLevel = path.length < 1;
-	const useCenterWrapper = isTopLevel && ['wide', 'full-width'].includes(layout);
+	const isBreakoutResizingEnabled =
+		fg('platform_editor_lovability_resize_exts_gracefully') &&
+		isExperimentEnabled('platform_editor_lovability_resize_exts_patch_1');
+
+	const isBreakoutWidth = isBreakoutResizingEnabled && hasBreakoutWidth(marks);
+
+	const useCenterWrapper =
+		!isBreakoutWidth && isTopLevel && ['wide', 'full-width'].includes(layout);
+
 	const wrapper = (
 		<MultiBodiedExtensionWrapperNext
+			isBreakoutWidth={isBreakoutWidth}
 			layout={layout}
 			path={path}
 			rendererAppearance={rendererAppearance}

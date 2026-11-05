@@ -50,6 +50,8 @@ import { Node } from '@atlaskit/editor-prosemirror/model';
 import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';
 // eslint-disable-next-line import/default
 import ProseMirrorCollab from '@atlaskit/prosemirror-collab';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import type { Provider } from '../';
@@ -1063,6 +1065,7 @@ describe('Provider', () => {
 
 	describe('AI provider change messages', () => {
 		it('sends the AI provider change when platform_move_presence_agents is disabled', () => {
+			mockExpEnabled('agentic_presence_facepile_master_exp');
 			failGate('platform_move_presence_agents');
 			const provider = createSocketIOCollabProvider(testProviderConfig);
 			const sendAIProviderChangedSpy = jest.spyOn(
@@ -1080,7 +1083,26 @@ describe('Provider', () => {
 			expect(sendAIProviderChangedSpy).toHaveBeenCalledTimes(1);
 		});
 
+		it('sends the legacy AI provider change when the master experiment is disabled', () => {
+			mockExpDisabled('agentic_presence_facepile_master_exp');
+			const provider = createSocketIOCollabProvider(testProviderConfig);
+			const sendAIProviderChangedSpy = jest.spyOn(
+				// @ts-ignore Accessing the service to verify the provider boundary.
+				provider.participantsService,
+				'sendAIProviderChanged',
+			);
+
+			provider.sendMessage({
+				type: 'ai-provider:change',
+				action: 'add',
+				providerId: 'agent:test-agent',
+			});
+
+			expect(sendAIProviderChangedSpy).toHaveBeenCalledTimes(1);
+		});
+
 		it('does not send the AI provider change when platform_move_presence_agents is enabled', () => {
+			mockExpEnabled('agentic_presence_facepile_master_exp');
 			passGate('platform_move_presence_agents');
 			const provider = createSocketIOCollabProvider(testProviderConfig);
 			const sendAIProviderChangedSpy = jest.spyOn(

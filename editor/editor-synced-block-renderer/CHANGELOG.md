@@ -1,5 +1,15 @@
 # @atlaskit/editor-synced-block-renderer
 
+## 28.0.2
+
+### Patch Changes
+
+- [`5ed76eebcd597`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5ed76eebcd597) -
+  Synced blocks automatically inherit the enclosing renderer's Performance Mode decision without
+  remounting content when activation changes. Without a parent decision, Performance Mode remains
+  inactive. Confluence supplies the parent decision through confluence_view_page_performance_mode.
+- Updated dependencies
+
 ## 28.0.1
 
 ### Patch Changes

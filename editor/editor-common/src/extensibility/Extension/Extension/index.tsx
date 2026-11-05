@@ -26,6 +26,7 @@ import type { OverflowShadowProps, OverflowShadowState } from '../../../ui';
 import { overflowShadow } from '../../../ui';
 import { calculateBreakoutStyles } from '../../../utils';
 import type { ExtensionsPluginInjectionAPI, MacroInteractionDesignFeatureFlags } from '../../types';
+import { hasBreakoutWidth } from '../../utils/has-breakout-width';
 import { shouldExtensionBreakout } from '../../utils/should-extension-breakout';
 import { ExtensionCommentBadge } from '../ExtensionCommentBadge';
 import ExtensionLozenge from '../Lozenge';
@@ -156,6 +157,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 		isTopLevelNode,
 		editorAppearance,
 		hasBreakoutMark: node.marks?.some((mark) => mark.type.name === 'breakout'),
+		hasBreakoutWidth: hasBreakoutWidth(node.marks),
 	});
 
 	// We don't want to show border for non-empty 1p bodied extensions in live pages

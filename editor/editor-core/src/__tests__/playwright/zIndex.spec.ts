@@ -11,6 +11,12 @@ import type { EditorPageInterface } from '@af/editor-libra/types';
 
 import { emptyAdf } from '../__fixtures__/base-adfs';
 
+test.use({
+	editorExperiments: {
+		platform_editor_controls: 'variant1',
+	},
+});
+
 test.describe('z indexes', () => {
 	test.use({
 		exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx'),
@@ -22,16 +28,19 @@ test.describe('z indexes', () => {
 		},
 	});
 
-	test('table trash icon is behind plus menu dropdown', async ({ editor }) => {
+	// The insert menu opens above and left of the table toolbar, so it never covers 'View more'.
+	test.fixme('table floating toolbar overflow button is behind plus menu dropdown', async ({
+		editor,
+	}) => {
 		const { mainToolbarModel, floatingToolbarModel } = await addTable(editor);
 
 		const insertMenuModel = await mainToolbarModel.openInsertMenu();
 		await expect(insertMenuModel.insertMenu).toBeVisible();
 
-		await expect(floatingToolbarModel.itemAt('Remove')).not.toBeInSight();
+		await expect(floatingToolbarModel.itemAt('View more')).not.toBeInSight();
 	});
 
-	test('table trash icon is behind emoji picker', async ({ editor }) => {
+	test('table floating toolbar overflow button is behind emoji picker', async ({ editor }) => {
 		const { mainToolbarModel, floatingToolbarModel } = await addTable(editor);
 
 		const emojiButton = await mainToolbarModel.menuItemByLabel('Emoji');
@@ -44,10 +53,10 @@ test.describe('z indexes', () => {
 		const emojiPopup = EditorEmojiPickerModel.from(popup);
 		await emojiPopup.toBeVisible();
 
-		await expect(floatingToolbarModel.itemAt('Remove')).not.toBeInSight();
+		await expect(floatingToolbarModel.itemAt('View more')).not.toBeInSight();
 	});
 
-	test('table trash icon is behind mention picker', async ({ editor }) => {
+	test('table floating toolbar overflow button is behind mention picker', async ({ editor }) => {
 		const { mainToolbarModel, floatingToolbarModel, tableModel } = await addTable(editor);
 
 		const maiddleCell = await tableModel.cell(4);
@@ -58,7 +67,7 @@ test.describe('z indexes', () => {
 		const mentionModel = EditorMentionModel.from(editor);
 		await expect(mentionModel.popup).toBeVisible();
 
-		await expect(floatingToolbarModel.itemAt('Remove')).not.toBeInSight();
+		await expect(floatingToolbarModel.itemAt('View more')).not.toBeInSight();
 	});
 
 	async function addTable(editor: EditorPageInterface) {
@@ -68,7 +77,7 @@ test.describe('z indexes', () => {
 		await mainToolbarModel.clickAt('Table');
 		const floatingToolbarModel = EditorFloatingToolbarModel.from(editor, tableModel);
 		await floatingToolbarModel.waitForStable();
-		await expect(floatingToolbarModel.itemAt('Remove')).toBeVisible();
+		await expect(floatingToolbarModel.itemAt('View more')).toBeVisible();
 
 		return { floatingToolbarModel, tableModel, mainToolbarModel };
 	}

@@ -107,6 +107,7 @@ type ChatModeParam = {
 	useCurrentPageContext?: boolean;
 	spaceSourceCount?: number;
 	appFilters?: unknown[];
+	selectedCloudIds?: string[];
 };
 
 export type ResultAttributionContextPayload = {

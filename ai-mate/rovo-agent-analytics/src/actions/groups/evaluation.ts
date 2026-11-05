@@ -21,11 +21,20 @@ type EvalAttributesBase = {
 type BatchEvaluationDatasetSource = 'csvUpload' | 'liveConversations';
 
 type BatchEvaluationDatasetCreateFailedReason =
+	// Live conversations
 	| 'recordingDisabled'
 	| 'noReviewPermission'
 	| 'noRecordedConversations'
 	| 'noOpeningMessages'
+	// CSV upload
+	| 'tooManyQuestions'
+	| 'multiTurnNotEnabled'
+	| 'noValidRows'
+	| 'blankPrompt'
+	| 'blankExpectedResponse'
 	| 'other';
+
+type AgentRubricUpdateFailedReason = 'forbidden' | 'invalid' | 'other';
 
 export type EvaluationEventPayload =
 	| ({
@@ -52,9 +61,14 @@ export type EvaluationEventPayload =
 			actionSubject: 'batchEvaluationJob';
 			action: 'created';
 			attributes: {
-				datasetSize: number;
-				isDraftAgent: boolean;
+				// Not known for re-runs from evaluation history
+				datasetSize?: number;
+				isDraftAgent?: boolean;
 				judgeMode: string | undefined;
+				datasetId?: string;
+				datasetType?: string | null;
+				judgeConfigId?: string;
+				trigger?: 'runForm' | 'rerun';
 			};
 	  } & EvalAttributesBase)
 	| ({
@@ -75,6 +89,7 @@ export type EvaluationEventPayload =
 			action: 'viewed';
 			attributes: {
 				trigger: 'row_action' | 'flag_action';
+				judgeMode?: string | null;
 			};
 	  } & EvalAttributesBase)
 	| ({
@@ -85,5 +100,32 @@ export type EvaluationEventPayload =
 				status: string | null;
 				durationMs: number | null;
 				datasetSize: number | null | undefined;
+				judgeMode?: string | null;
+			};
+	  } & EvalAttributesBase)
+	| ({
+			// Agent rubric viewed - https://data-portal.internal.atlassian.com/analytics/registry/114361
+			actionSubject: 'agentRubric';
+			action: 'viewed';
+			attributes: {
+				trigger: 'tab' | 'runForm';
+				isDefaultRubric: boolean;
+				canEdit: boolean;
+			};
+	  } & EvalAttributesBase)
+	| ({
+			// Agent rubric updated - https://data-portal.internal.atlassian.com/analytics/registry/114362
+			actionSubject: 'agentRubric';
+			action: 'updated';
+			attributes: {
+				wasDefaultRubric: boolean;
+			};
+	  } & EvalAttributesBase)
+	| ({
+			// Agent rubric update failed - https://data-portal.internal.atlassian.com/analytics/registry/114363
+			actionSubject: 'agentRubric';
+			action: 'updateFailed';
+			attributes: {
+				reason: AgentRubricUpdateFailedReason;
 			};
 	  } & EvalAttributesBase);

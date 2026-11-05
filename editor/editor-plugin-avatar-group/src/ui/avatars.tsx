@@ -20,6 +20,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-edi
 import type { ReadOnlyParticipants } from '@atlaskit/editor-plugin-collab-edit/types';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { AvatarGroupPlugin } from '../avatarGroupPluginType';
@@ -104,7 +105,13 @@ export const Avatars: React.MemoExoticComponent<(props: AvatarsProps) => jsx.JSX
 		// .slice() turns ReadonlyArray<CollabParticipant> into a mutable CollabParticipant[]
 		const participants = props.participants?.toArray()?.slice();
 		const missingActingUserIdsKey = React.useMemo((): string => {
-			if (!participants || !fg('platform_move_presence_agents')) {
+			if (
+				!participants ||
+				!(
+					isExperimentEnabled('agentic_presence_facepile_master_exp') &&
+					fg('platform_move_presence_agents')
+				)
+			) {
 				return '';
 			}
 

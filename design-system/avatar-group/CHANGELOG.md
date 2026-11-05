@@ -1,5 +1,13 @@
 # @atlaskit/avatar-group
 
+## 14.4.9
+
+### Patch Changes
+
+- [`39797377de932`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/39797377de932) -
+  Preserve AvatarGroup custom avatar typing with Avatar's discriminated appearance props.
+- Updated dependencies
+
 ## 14.4.8
 
 ### Patch Changes

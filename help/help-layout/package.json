@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/help-layout",
-	"version": "8.1.5",
+	"version": "8.2.0",
 	"description": "Layout for the atlaskit/help component.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -34,6 +34,7 @@
 		"@atlaskit/css": "workspace:^",
 		"@atlaskit/heading": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
@@ -47,6 +48,7 @@
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
+		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
 		"@atlassian/workbench": "workspace:^",
 		"@types/react-transition-group": "root:*",
@@ -71,5 +73,10 @@
 		},
 		"./messages": "./src/messages.ts",
 		"./HelpLayout": "./src/entry-points/HelpLayout.tsx"
+	},
+	"platform-feature-flags": {
+		"jfp_a11y_fix_help_panel_initial_focus": {
+			"type": "boolean"
+		}
 	}
 }

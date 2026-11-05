@@ -1,4 +1,6 @@
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import AnalyticsHelper from '../../analytics/analytics-helper';
@@ -150,6 +152,7 @@ describe('participants-service-presence', () => {
 	describe('sendPresence', () => {
 		describe('on success', () => {
 			beforeEach(() => {
+				mockExpEnabled('agentic_presence_facepile_master_exp');
 				failGate('platform_move_presence_agents');
 				jest.spyOn(window, 'setTimeout');
 				// @ts-expect-error private function
@@ -187,8 +190,18 @@ describe('participants-service-presence', () => {
 			});
 		});
 
+		it('broadcasts legacy AI provider presence when the master is disabled', () => {
+			mockExpDisabled('agentic_presence_facepile_master_exp');
+
+			participantsService.sendPresenceActivityChanged();
+
+			expect(broadcast).toHaveBeenCalledTimes(2);
+			expect(getAIProviderActiveIds).toHaveBeenCalledTimes(1);
+		});
+
 		describe('when platform_move_presence_agents is enabled', () => {
 			beforeEach(() => {
+				mockExpEnabled('agentic_presence_facepile_master_exp');
 				passGate('platform_move_presence_agents');
 				jest.spyOn(window, 'setTimeout');
 				// @ts-expect-error private function

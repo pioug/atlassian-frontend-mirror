@@ -46,6 +46,7 @@ const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
 const containerStyles = css({
 	display: 'inline-block',
+	width: 'fit-content',
 	position: 'relative',
 	outline: 0,
 });
@@ -174,6 +175,22 @@ export interface AvatarPropTypes extends Partial<TriggerAriaProps> {
 	imgLoading?: 'lazy' | 'eager';
 }
 
+export type AvatarProps = Omit<AvatarPropTypes, 'appearance'> &
+	(
+		| {
+				appearance: 'hexagon';
+				/**
+				 * Adds an inner border to distinguish the avatar content from the hexagon edge.
+				 * Defaults to `false`.
+				 */
+				hasInnerBorder?: boolean;
+		  }
+		| {
+				appearance?: Exclude<AppearanceType, 'hexagon'>;
+				hasInnerBorder?: never;
+		  }
+	);
+
 /**
  * __Avatar__
  *
@@ -183,27 +200,38 @@ export interface AvatarPropTypes extends Partial<TriggerAriaProps> {
  * - [Code](https://atlassian.design/components/avatar/code)
  * - [Usage](https://atlassian.design/components/avatar/usage)
  */
-type AvatarPropsWithoutDeprecatedSize = Omit<AvatarPropTypes, 'size'> & {
-	size?: Exclude<SizeType, 'xsmall'>;
-};
+type WithCurrentSize<T> = T extends unknown
+	? Omit<T, 'size'> & { size?: Exclude<SizeType, 'xsmall'> }
+	: never;
+
+type AvatarPropsWithoutDeprecatedSize = WithCurrentSize<AvatarProps>;
 
 interface AvatarComponent {
 	(
 		props: PropsWithoutRef<AvatarPropsWithoutDeprecatedSize> & RefAttributes<HTMLElement>,
 	): ReactNode;
 	/**
+	 * @private
 	 * @deprecated Use `xxsmall` for 16px avatars.
 	 */
-	(props: PropsWithoutRef<AvatarPropTypes> & RefAttributes<HTMLElement>): ReactNode;
+	(props: PropsWithoutRef<AvatarProps> & RefAttributes<HTMLElement>): ReactNode;
+	/**
+	 * Preserves compatibility for components that forward the legacy broad Avatar prop interface.
+	 */
+	(
+		props: PropsWithoutRef<AvatarPropTypes & { hasInnerBorder?: never }> &
+			RefAttributes<HTMLElement>,
+	): ReactNode;
 	displayName?: string;
 }
 
-const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
+const Avatar = forwardRef<HTMLElement, AvatarProps>(
 	(
 		{
 			analyticsContext,
 			appearance = 'circle',
 			UNSAFE_isUpdatedGeometry,
+			hasInnerBorder,
 			label,
 			borderColor,
 			children,
@@ -333,6 +361,7 @@ const Avatar = forwardRef<HTMLElement, AvatarPropTypes>(
 							as: getCustomElement(isDisabled, href, onClick, ariaHasPopup),
 							appearance,
 							UNSAFE_isUpdatedGeometry: isUpdatedHexagonGeometry,
+							hasInnerBorder,
 							borderColor,
 							href,
 							isDisabled,

@@ -14,7 +14,7 @@ yarn add @atlaskit/css-reset
 
 ## Standalone scrollbar appearance
 
-Products that do not consume the full CSS reset can import only the harmonised scrollbar styles:
+Products that do not consume the full CSS reset can import only the harmonized scrollbar styles:
 
 ```ts
 import '@atlaskit/css-reset/scrollbars.css';
@@ -24,30 +24,28 @@ The stylesheet remains inactive until the product adds `data-scrollbar-harmonisa
 document root. Products own feature-gate evaluation and attribute cleanup. Tracks are always
 transparent; no separate transparency attribute is needed.
 
-On browsers supporting the required WebKit scrollbar selectors, with a fine pointer, hover support,
-and no coarse pointer, the thumb paints at a fixed 8px inside a 12px scrollbar allocation (2px
-transparent insets). It uses `color.background.accent.gray.subtle` at rest and
-`color.background.accent.gray.bolder` while the thumb is hovered or pressed. Its width does not
-grow; the browser controls its length. Component-owned scrollbar styles take precedence.
+Only colors change: the thumb uses `color.background.accent.gray.subtle` and the track is
+transparent, set once with `scrollbar-color` on the root and inherited. Scrollbar size, visibility
+and overlay behavior stay native, so operating system preferences such as macOS "When scrolling" are
+honored and apply live when changed. Custom WebKit scrollbar sizing is not used because browsers
+never draw it as an overlay. Browsers without `scrollbar-color` support keep native colors. Forced
+colors use browser colors.
 
-Other environments use the same inherited `color.background.accent.gray.subtle` thumb colour and
-`scrollbar-width: thin` on scroll containers. The browser chooses the pixel width for `thin`;
-browsers without that property retain native sizing. Direct-thumb hover/pressed highlighting is
-available only on the supported WebKit selector path described above. Forced colours use browser
-colours and native sizing. Custom sizing can affect operating system scrollbar appearance; validate
-supported browsers and user preferences before rollout.
+In Chromium, a non-auto `scrollbar-color` disables `::-webkit-scrollbar` styles on the same element.
+Components that own a custom WebKit scrollbar should set their own `scrollbar-color`, or
+`scrollbar-color: auto`, on their scroll container.
 
 The subtle token has approximately 3.24:1 contrast against the white page surface in light mode and
 2.85:1 against the #1F1F21 page surface in dark mode; contrast is lower on raised and overlay
-surfaces. This contrast is accepted for the harmonised treatment, which is not a claim of
+surfaces. This contrast is accepted for the harmonized treatment, which is not a claim of
 accessibility conformance. Painted width and allocated width are not a target-size conformance
 assessment.
 
-### Avoiding a flash of un-harmonised scrollbars on SSR pages
+### Avoiding a flash of un-harmonized scrollbars on SSR pages
 
 The attributes above are normally installed on `document.documentElement` at runtime by
 `useScrollbarHarmonisation` (`@atlaskit/app-provider/use-scrollbar-harmonisation`). On a
-server-rendered page that hook only runs client-side, so scrollbars briefly render un-harmonised
+server-rendered page that hook only runs client-side, so scrollbars briefly render un-harmonized
 until the effect fires. Products that render `<html>` from a server-side template can instead call
 `getScrollbarHarmonisationHtmlAttrs`
 (`@atlaskit/app-provider/get-scrollbar-harmonisation-html-attrs`) and spread its result onto the

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-avatar-group
 
+## 31.0.2
+
+### Patch Changes
+
+- [`d4a516b9f1709`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4a516b9f1709) -
+  Gate core presence publication, movement and avatar filtering behind
+  agentic_presence_facepile_master_exp while preserving child controls and legacy fallbacks.
+
 ## 31.0.1
 
 ### Patch Changes

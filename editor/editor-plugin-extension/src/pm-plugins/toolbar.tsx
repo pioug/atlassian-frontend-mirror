@@ -70,6 +70,7 @@ import type {
 	ExtensionPluginOptions,
 	ExtensionState,
 } from '../extensionPluginType';
+import { getExtensionLayout } from '../utils/getExtensionLayout';
 import { pluginKey as macroPluginKey } from './macro/plugin-key';
 import { getPluginState } from './plugin-factory';
 import type { Position } from './utils';
@@ -134,6 +135,25 @@ const isLayoutSupported = (state: EditorState, selectedExtNode: { node: PMNode; 
 	);
 };
 
+// if an extension node has been resized via breakout resizing,
+// the layout dropdown button should reflect the breakout resized with
+const getToolbarLayout = (node: PMNode) => {
+	let { layout } = node.attrs;
+	let isCustomWidth = false;
+	const hasBreakoutMark = node.marks.some((mark) => mark.type.name === 'breakout');
+	if (
+		fg('platform_editor_lovability_resize_exts_gracefully') &&
+		isExperimentEnabled('platform_editor_lovability_resize_exts_patch_1') &&
+		hasBreakoutMark
+	) {
+		// a custom width leaves the presets unselected and uses the 'Custom width' dropdown label
+		const matchedLayout = getExtensionLayout(node);
+		isCustomWidth = matchedLayout === null;
+		layout = matchedLayout ?? layout;
+	}
+	return { layout, isCustomWidth };
+};
+
 const breakoutButtonListOptions = (
 	state: EditorState,
 	formatMessage: IntlShape['formatMessage'],
@@ -150,7 +170,7 @@ const breakoutButtonListOptions = (
 		isLayoutSupported(state, nodeWithPos) &&
 		!isNestedNBM(state, nodeWithPos)
 	) {
-		const { layout } = nodeWithPos.node.attrs;
+		const { layout, isCustomWidth } = getToolbarLayout(nodeWithPos.node);
 		return [
 			{
 				type: 'button',
@@ -162,7 +182,7 @@ const breakoutButtonListOptions = (
 				),
 				iconFallback: ContentWidthNarrowIcon,
 				onClick: updateExtensionLayout('default', editorAnalyticsAPI),
-				selected: layout === 'default',
+				selected: !isCustomWidth && layout === 'default',
 				title: formatMessage(commonMessages.layoutFixedWidth),
 				tabIndex: null,
 			},
@@ -176,7 +196,7 @@ const breakoutButtonListOptions = (
 				),
 				iconFallback: ContentWidthWideIcon,
 				onClick: updateExtensionLayout('wide', editorAnalyticsAPI),
-				selected: layout === 'wide',
+				selected: !isCustomWidth && layout === 'wide',
 				title: formatMessage(commonMessages.layoutWide),
 				tabIndex: null,
 			},
@@ -190,7 +210,7 @@ const breakoutButtonListOptions = (
 				),
 				iconFallback: ExpandHorizontalIcon,
 				onClick: updateExtensionLayout('full-width', editorAnalyticsAPI),
-				selected: layout === 'full-width',
+				selected: !isCustomWidth && layout === 'full-width',
 				title: formatMessage(commonMessages.layoutFullWidth),
 				tabIndex: null,
 			},
@@ -217,26 +237,32 @@ const breakoutDropdownOptions = (
 		return [];
 	}
 
-	const { layout } = nodeWithPos.node.attrs;
+	const { layout, isCustomWidth } = getToolbarLayout(nodeWithPos.node);
 	let title = '';
 	let IconComponent: {
 		(props: NewCoreIconProps): JSX.Element;
 		displayName: string;
 	};
-	switch (layout) {
-		case 'wide':
-			title = formatMessage(commonMessages.layoutStateWide);
-			IconComponent = ContentWidthWideIcon;
-			break;
-		case 'full-width':
-			title = formatMessage(commonMessages.layoutStateFullWidth);
-			IconComponent = ExpandHorizontalIcon;
-			break;
-		case 'default':
-		default:
-			title = formatMessage(commonMessages.layoutStateFixedWidth);
-			IconComponent = ContentWidthNarrowIcon;
-			break;
+	// the 'Custom width' option is a label only, the dropdown items are unchanged
+	if (isCustomWidth) {
+		title = formatMessage(messages.customWidth);
+		IconComponent = ExpandHorizontalIcon;
+	} else {
+		switch (layout) {
+			case 'wide':
+				title = formatMessage(commonMessages.layoutStateWide);
+				IconComponent = ContentWidthWideIcon;
+				break;
+			case 'full-width':
+				title = formatMessage(commonMessages.layoutStateFullWidth);
+				IconComponent = ExpandHorizontalIcon;
+				break;
+			case 'default':
+			default:
+				title = formatMessage(commonMessages.layoutStateFixedWidth);
+				IconComponent = ContentWidthNarrowIcon;
+				break;
+		}
 	}
 
 	const options: DropdownOptionT<Command>[] = [
@@ -244,7 +270,7 @@ const breakoutDropdownOptions = (
 			id: 'editor.extensions.width.default',
 			title: formatMessage(commonMessages.layoutFixedWidth),
 			onClick: updateExtensionLayout('default', editorAnalyticsAPI),
-			selected: layout === 'default',
+			selected: !isCustomWidth && layout === 'default',
 			icon: (
 				<ContentWidthNarrowIcon
 					color="currentColor"
@@ -257,7 +283,7 @@ const breakoutDropdownOptions = (
 			id: 'editor.extensions.width.wide',
 			title: formatMessage(commonMessages.layoutWide),
 			onClick: updateExtensionLayout('wide', editorAnalyticsAPI),
-			selected: layout === 'wide',
+			selected: !isCustomWidth && layout === 'wide',
 			icon: (
 				<ContentWidthWideIcon
 					color="currentColor"
@@ -270,7 +296,7 @@ const breakoutDropdownOptions = (
 			id: 'editor.extensions.width.full-width',
 			title: formatMessage(commonMessages.layoutFullWidth),
 			onClick: updateExtensionLayout('full-width', editorAnalyticsAPI),
-			selected: layout === 'full-width',
+			selected: !isCustomWidth && layout === 'full-width',
 			icon: (
 				<ExpandHorizontalIcon
 					color="currentColor"

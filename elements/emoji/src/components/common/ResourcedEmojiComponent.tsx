@@ -140,7 +140,6 @@ export const ResourcedEmojiComponent = ({
 	optimistic = false,
 	optimisticImageURL = undefined,
 	editorEmoji,
-	pageTitleEmoji = false,
 	placeholderXcss,
 	onEmojiLoadSuccess,
 	onEmojiLoadFail,
@@ -271,22 +270,6 @@ export const ResourcedEmojiComponent = ({
 			return emoji;
 		}
 
-		// reduce blast radius by targeting page title
-		if (pageTitleEmoji && optimisticImageURL && fg('platform_emoji_prevent_img_src_changing')) {
-			return {
-				id,
-				shortName,
-				fallback,
-				type: '',
-				category: '',
-				searchable: true,
-				representation: {
-					height: fitToHeight || defaultEmojiHeight,
-					width: fitToHeight || defaultEmojiHeight,
-					imagePath: optimisticImageURL,
-				},
-			};
-		}
 		// Keep the optimistic representation stable when catalogue data arrives.
 		if (optimisticImageURL) {
 			return {
@@ -334,7 +317,6 @@ export const ResourcedEmojiComponent = ({
 		fitToHeight,
 		id,
 		shortName,
-		pageTitleEmoji,
 		resolvedEmojiProvider,
 		failedAdaptiveImageURL,
 	]);

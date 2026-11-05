@@ -559,6 +559,33 @@ test.describe('ModalDialog top-layer — WCAG 2.4.11 Focus Not Obscured', () => 
 	});
 });
 
+// The full-screen surface is `position: fixed`, so the `<dialog>` needs its own size to be visible.
+test.describe('ModalDialog top-layer — full screen', () => {
+	test('should fill the viewport', async ({ page }) => {
+		await page.visitExample<typeof import('../../../../../examples/51-full-screen.vr.ap.tsx')>(
+			'design-system',
+			'modal-dialog',
+			'full-screen',
+			{ featureFlag, 'react-18-mode': 'modern' },
+		);
+
+		await page.getByTestId('modal-trigger').click();
+
+		const dialog = page.getByRole('dialog');
+		await expect(dialog).toBeVisible();
+
+		const viewportSize = page.viewportSize();
+		const boundingBox = await dialog.boundingBox();
+
+		expect(boundingBox).not.toBeNull();
+		expect(viewportSize).not.toBeNull();
+		invariant(boundingBox !== null && viewportSize !== null);
+
+		expect(boundingBox.width).toBe(viewportSize.width);
+		expect(boundingBox.height).toBe(viewportSize.height);
+	});
+});
+
 test.describe('ModalDialog top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 	test('should have role="dialog" attribute (sanity check)', async ({ page }) => {
 		await page.visitExample<typeof import('../../../../../examples/00-default-modal.vr.ap.tsx')>(

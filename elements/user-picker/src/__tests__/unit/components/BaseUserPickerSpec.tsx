@@ -1,9 +1,11 @@
 import React from 'react';
 
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
 import Select from '@atlaskit/select/default';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import {
 	BaseUserPicker,
@@ -87,6 +89,30 @@ describe('BaseUserPicker', () => {
 		await waitFor(() => expect(onFocus).toHaveBeenCalled());
 		await expect(document.body).toBeAccessible();
 	});
+
+	it.each([true, false])(
+		'notifies once when clicking to open and pressing Escape to close (top layer: %s)',
+		async (topLayer) => {
+			if (topLayer) {
+				passGate('platform-dst-top-layer');
+			} else {
+				failGate('platform-dst-top-layer');
+			}
+			const onOpen = jest.fn();
+			const onClose = jest.fn();
+			renderBase({ options, onOpen, onClose });
+
+			await userEvent.click(screen.getByRole('combobox'));
+
+			expect(screen.getByRole('listbox')).toBeVisible();
+			expect(onOpen).toHaveBeenCalledTimes(1);
+
+			await userEvent.keyboard('{Escape}');
+
+			expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
+			expect(onClose).toHaveBeenCalledTimes(1);
+		},
+	);
 
 	it('should invoke onSelection when an option is selected', async () => {
 		const onSelection = jest.fn();

@@ -56,7 +56,7 @@ const categoryGridStyles = css({
 	paddingInline: token('space.050'),
 	position: 'sticky',
 	top: 0,
-	'@media (max-width: 599px)': {
+	'@media (max-width: 822px)': {
 		backgroundColor: token('elevation.surface.overlay'),
 		gridAutoColumns: 'max-content',
 		gridAutoFlow: 'column',

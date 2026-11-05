@@ -73,8 +73,12 @@ const extractFlexibleUiContext = ({
 	if (!response) {
 		return undefined;
 	}
-	const data = response.data as JsonLd.Data.BaseData;
-	const meta = response.meta as JsonLd.Meta.BaseMeta;
+	// ORS may return a response without `data` (e.g. `meta` only) or without `meta`.
+	// Default to empty objects so downstream JSON-LD extractors never read properties of undefined.
+	// Only evaluate the gate when data or meta is missing, so exposure is logged for affected responses only.
+	const isNullSafe = (!response.data || !response.meta) && fg('platform_sl_null_safe_extractors');
+	const data = (isNullSafe ? (response.data ?? {}) : response.data) as JsonLd.Data.BaseData;
+	const meta = (isNullSafe ? (response.meta ?? {}) : response.meta) as JsonLd.Meta.BaseMeta;
 	const url = extractSmartLinkUrl(response);
 
 	return {

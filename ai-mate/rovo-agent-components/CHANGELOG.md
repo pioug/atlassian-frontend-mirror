@@ -1,5 +1,39 @@
 # @atlaskit/rovo-agent-components
 
+## 10.6.0
+
+### Minor Changes
+
+- [`a14ada4ddf365`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a14ada4ddf365) -
+  Update i18n NPM package versions for ai-mate,ai,ai-opt-in,insights-ai-platform (Group 2)
+
+## 10.5.1
+
+### Patch Changes
+
+- [`68149f04b293a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/68149f04b293a) -
+  Remove jira_ai_force_rovo_dev_avatar and the retired demo-agent avatar override, retaining normal
+  avatar selection.
+- Updated dependencies
+
+## 10.5.0
+
+### Minor Changes
+
+- [`b742aadf7b807`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b742aadf7b807) -
+  Adopt the major `@atlaskit/tmp-editor-statsig` release that removes
+  `confluence_3p_in_cwr_ghost_icons`, preserving each consumer's public API.
+
+  In `@atlassian/conversation-assistant-chat-prompt-input`, make the shipped ghost icon eligibility
+  and `confluence_3p_in_cwr_ghost_icons_v2` behavior permanent. Preserve target-app scope, consent,
+  dismissal, profile readiness, and the separate Sources styling gate. Skip ghost icon absence
+  analytics on unsupported target apps. Remove obsolete rollout setup from the retained behavior
+  tests.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.4.1
 
 ### Patch Changes

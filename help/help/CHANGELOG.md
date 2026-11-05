@@ -1,5 +1,14 @@
 # @atlaskit/help
 
+## 12.2.8
+
+### Patch Changes
+
+- [`7c64c6271f7be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c64c6271f7be) -
+  Keep focus on the Close button when an article opened on load finishes loading, instead of moving
+  it into the article container. Behind the jfp_a11y_fix_help_panel_initial_focus feature gate.
+- Updated dependencies
+
 ## 12.2.7
 
 ### Patch Changes

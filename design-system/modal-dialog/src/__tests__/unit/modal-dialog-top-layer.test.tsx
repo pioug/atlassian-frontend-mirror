@@ -28,14 +28,18 @@ function pressEscape(dialogEl: Element) {
 	fireEvent.keyDown(dialogEl, { key: 'Escape' });
 }
 
-function getModalCustomProperties(dialogEl: HTMLElement): string {
+function getModalSurface(dialogEl: HTMLElement): HTMLElement {
 	// eslint-disable-next-line testing-library/no-node-access -- The visual container has no accessible role or test ID; locate it by the custom property under test.
 	const visualContainer = dialogEl.querySelector<HTMLElement>('[style*="--modal-dialog-width"]');
 	if (!visualContainer) {
 		throw new Error('Could not find the modal visual container');
 	}
 
-	return visualContainer.getAttribute('style') ?? '';
+	return visualContainer;
+}
+
+function getModalCustomProperties(dialogEl: HTMLElement): string {
+	return getModalSurface(dialogEl).getAttribute('style') ?? '';
 }
 
 /**
@@ -272,9 +276,8 @@ describe('ModalDialog top-layer rendering', () => {
 
 		render(<ControlledModal />);
 
-		// The visual container is a focusable div inside the dialog
-		const visualContainer = screen.getByRole('dialog', { hidden: true });
-		expect(visualContainer).toBeInTheDocument();
+		const dialog = screen.getByRole('dialog', { name: 'Test Modal' });
+		expect(dialog).toContainElement(getModalSurface(dialog));
 	});
 
 	it('should render with default width (medium)', () => {
@@ -668,13 +671,19 @@ describe('ModalDialog top-layer rendering', () => {
 
 	// ── Role and semantics ──
 
-	it('should have role="dialog" on the visual content container', () => {
+	// Decision: `Dialog` keeps native semantics. The `<dialog>` has an implicit `dialog` role and
+	// `showModal()` makes it modal, so neither `role` nor `aria-modal` is set.
+	it('should expose the native <dialog> as the only dialog, with no role or aria-modal attribute', () => {
 		passGate('platform-dst-top-layer');
 
 		render(<ControlledModal />);
 
-		const dialogRole = screen.getByRole('dialog', { hidden: true });
-		expect(dialogRole).toBeInTheDocument();
+		const dialog = screen.getByRole('dialog', { name: 'Test Modal' });
+		expect(dialog).toBe(screen.getByTestId('modal'));
+		expect(dialog.tagName).toBe('DIALOG');
+		expect(dialog).not.toHaveAttribute('role');
+		expect(dialog).not.toHaveAttribute('aria-modal');
+		expect(screen.getAllByRole('dialog')).toHaveLength(1);
 	});
 
 	it('should set aria-label on dialog when label prop is a custom value', () => {

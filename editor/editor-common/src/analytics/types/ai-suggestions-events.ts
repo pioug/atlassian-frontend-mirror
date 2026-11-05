@@ -19,6 +19,8 @@ export enum AiSuggestionsEntryPointValue {
 	SUGGESTIONS_PANEL_MOUNT = 'suggestionsPanelMount',
 	/** The "Review" button on the follow-up card after the last suggestion is actioned. */
 	FOLLOW_UP_CARD = 'followUpCard',
+	/** The call to action on the contextual nudge that points at the Review suggestions button. */
+	CONTEXTUAL_NUDGE = 'contextualNudge',
 }
 export type AiSuggestionsEntryPoint = `${AiSuggestionsEntryPointValue}`;
 export type AiSuggestionInteractionPoint = 'sidebar' | 'card' | 'statusBar';

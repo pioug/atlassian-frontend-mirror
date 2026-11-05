@@ -1,62 +1,73 @@
 import { defineMessages } from 'react-intl';
 
 export const messages: {
-	edit: {
-		id: string;
+	confirmDeleteLinkedModalMessage: {
 		defaultMessage: string;
 		description: string;
-	};
-	deleteElementTitle: {
 		id: string;
-		defaultMessage: string;
-		description: string;
-	};
-	unnamedSource: {
-		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	confirmDeleteLinkedModalOKButton: {
-		id: string;
 		defaultMessage: string;
 		description: string;
-	};
-	confirmDeleteLinkedModalMessage: {
 		id: string;
-		defaultMessage: string;
-		description: string;
 	};
 	confirmModalCheckboxLabel: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	saveIndicator: {
-		id: string;
+	customWidth: {
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	panelLoadingError: {
-		id: string;
+	deleteElementTitle: {
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	edit: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	extensionLoadingError: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
 	};
-	unknownMacroPlaceholderAriaLabel: {
-		id: string;
+	panelLoadingError: {
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	saveIndicator: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	unknownMacroHeader: {
-		id: string;
 		defaultMessage: string;
 		description: string;
+		id: string;
+	};
+	unknownMacroPlaceholderAriaLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	unnamedSource: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 } = defineMessages({
+	customWidth: {
+		id: 'fabric.editor.extension.customWidth',
+		defaultMessage: 'Custom width',
+		description:
+			'Label for the layout button in the extension toolbar when the extension has been resized to a custom width.',
+	},
 	edit: {
 		id: 'fabric.editor.edit',
 		defaultMessage: 'Edit',

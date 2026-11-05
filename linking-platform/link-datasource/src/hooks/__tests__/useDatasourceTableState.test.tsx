@@ -23,6 +23,7 @@ import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gat
 
 import { EVENT_CHANNEL } from '../../analytics/constants';
 import { Store } from '../../state';
+import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '../../ui/assets-modal';
 import {
 	type DatasourceTableStateProps,
 	INCREASED_DATASOURCE_DATA_PAGE_SIZE,
@@ -468,6 +469,63 @@ describe('useDatasourceTableState', () => {
 					}),
 					false,
 				);
+			});
+		});
+
+		describe('assets datasource page size', () => {
+			const renderAssetsHook = (datasourceId: string) => {
+				asMock(useDatasourceClientExtension).mockReturnValue({
+					getDatasourceDetails,
+					getDatasourceData,
+					getDatasourceActionsAndPermissions,
+				});
+				renderHook(
+					() =>
+						useDatasourceTableState({
+							datasourceId,
+							parameters: { cloudId: mockCloudId, aql: 'objectSchema = "test"' },
+						}),
+					{ wrapper },
+				);
+			};
+
+			it('should request 100 items for assets when astral_assets_default_page_size_100 is on', async () => {
+				passGate('astral_assets_default_page_size_100');
+				renderAssetsHook(ASSETS_LIST_OF_LINKS_DATASOURCE_ID);
+
+				await waitFor(() => {
+					expect(getDatasourceData).toHaveBeenCalledWith(
+						ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
+						expect.objectContaining({ pageSize: INCREASED_DATASOURCE_DATA_PAGE_SIZE }),
+						false,
+					);
+				});
+			});
+
+			it('should request the default page size for assets when astral_assets_default_page_size_100 is off', async () => {
+				failGate('astral_assets_default_page_size_100');
+				renderAssetsHook(ASSETS_LIST_OF_LINKS_DATASOURCE_ID);
+
+				await waitFor(() => {
+					expect(getDatasourceData).toHaveBeenCalledWith(
+						ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
+						expect.objectContaining({ pageSize: DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE }),
+						false,
+					);
+				});
+			});
+
+			it('should keep the default page size for non-assets datasources when astral_assets_default_page_size_100 is on', async () => {
+				passGate('astral_assets_default_page_size_100');
+				renderAssetsHook(mockDatasourceId);
+
+				await waitFor(() => {
+					expect(getDatasourceData).toHaveBeenCalledWith(
+						mockDatasourceId,
+						expect.objectContaining({ pageSize: DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE }),
+						false,
+					);
+				});
 			});
 		});
 	});

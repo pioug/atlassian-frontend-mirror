@@ -2,13 +2,14 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { useMemo } from 'react';
+import React, { useId, useMemo } from 'react';
 
 import { css } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import type { QuickInsertSelectionHandler } from '@atlaskit/editor-common/quick-insert/context';
+import { messages } from '@atlaskit/editor-common/quick-insert/messages';
 import { QuickInsertProvider } from '@atlaskit/editor-common/quick-insert/provider';
 import type { EmptyStateHandler } from '@atlaskit/editor-common/types/empty-state-handler';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -17,7 +18,8 @@ import { token } from '@atlaskit/tokens';
 
 import { QuickInsertEmptyState } from '../registered-menu/QuickInsertEmptyState';
 // oxlint-disable-next-line eslint/no-redeclare
-import type { RegistryElementBrowserItem } from './model';
+import { getRecommendedTileSize, type RegistryElementBrowserItem } from './model';
+import { getFirstEnabledOption } from './options';
 
 type Props = {
 	editorView: EditorView;
@@ -29,6 +31,8 @@ type Props = {
 	onKeyDown: (event: React.KeyboardEvent) => void;
 	onSelect: (key: string, handler: QuickInsertSelectionHandler) => void;
 	query: string;
+	/** Shown under a Recommended heading, above `items` under All elements. */
+	recommendedItems: RegistryElementBrowserItem[];
 	resultsId: string;
 	section?: string;
 	selectedKey?: string;
@@ -37,16 +41,56 @@ type Props = {
 
 const resultsGridStyles = css({
 	alignContent: 'start',
-	alignItems: 'start',
 	display: 'grid',
-	gap: token('space.100'),
+	gap: token('space.200'),
 	gridTemplateColumns: 'minmax(0, 1fr)',
-	'@media (min-width: 550px) and (max-width: 1023px)': {
+	// Each step keeps tiles at least 215px wide in a modal of 100vw - 120px with a 15px scrollbar.
+	// min-width only, so a fractional viewport (when zoomed) can't fall between two ranges.
+	'@media (min-width: 613px)': {
 		gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
 	},
-	'@media (min-width: 1024px)': {
-		gridTemplateColumns: 'repeat(3, 232px)',
+	'@media (min-width: 1054px)': {
+		gridTemplateColumns: 'repeat(3, minmax(0, 264px))',
 	},
+});
+
+// Six half-tile columns line wide and regular tiles up with the three-column grid below:
+// a regular tile spans two (264px) and a wide tile spans three.
+const recommendedGridStyles = css({
+	'@media (min-width: 1054px)': {
+		gridTemplateColumns: 'repeat(6, minmax(0, 124px))',
+	},
+});
+
+const regularTileStyles = css({
+	minWidth: 0,
+	'@media (min-width: 1054px)': {
+		gridColumn: 'span 2',
+	},
+});
+
+const wideTileStyles = css({
+	minWidth: 0,
+	'@media (min-width: 1054px)': {
+		gridColumn: 'span 3',
+	},
+});
+
+const groupedResultsStyles = css({
+	display: 'grid',
+	gap: token('space.200'),
+});
+
+const resultGroupStyles = css({
+	display: 'grid',
+	gap: token('space.100'),
+});
+
+const resultGroupHeadingStyles = css({
+	color: token('color.text.subtle'),
+	font: token('font.heading.xxsmall'),
+	paddingBlockEnd: token('space.100'),
+	paddingInline: token('space.150'),
 });
 
 const emptyStateGridItemStyles = css({
@@ -117,6 +161,7 @@ export const RegistryElementBrowserSearchResults = ({
 	isOffline,
 	items,
 	query,
+	recommendedItems,
 	resultsId,
 	section,
 	selectedKey,
@@ -125,6 +170,7 @@ export const RegistryElementBrowserSearchResults = ({
 	onSelect,
 }: Props): React.JSX.Element => {
 	const { formatMessage } = useIntl();
+	const groupHeadingIdPrefix = useId();
 	const hasFallbackItems = Boolean(
 		!isLoading && items.length === 0 && query.trim().length > 0 && fallbackItems?.length,
 	);
@@ -133,7 +179,40 @@ export const RegistryElementBrowserSearchResults = ({
 		id: 'editor.quick-insert.results-label',
 	});
 	const displayedItems = hasFallbackItems && fallbackItems ? fallbackItems : items;
-	const shouldRenderEmptyState = items.length === 0 && !isLoading;
+	const groups =
+		recommendedItems.length > 0
+			? [
+					{
+						items: recommendedItems,
+						key: 'recommended',
+						title: formatMessage(messages.categoryRecommended),
+					},
+					{
+						items,
+						key: 'all-elements',
+						title: formatMessage({
+							defaultMessage: 'All elements',
+							description:
+								'Heading above the remaining elements in the element browser All category, shown below the Recommended elements.',
+							id: 'editor.quick-insert.all-elements',
+						}),
+					},
+				].filter((group) => group.items.length > 0)
+			: undefined;
+	const isGrouped = groups !== undefined;
+	const renderItems = (itemsToRender: RegistryElementBrowserItem[]) =>
+		itemsToRender.map((item) => (
+			<RegistryElementBrowserItem
+				editorView={editorView}
+				isOffline={isOffline}
+				isSelected={selectedKey === item.registration.key}
+				item={item}
+				key={item.registration.key}
+				onSelect={onSelect}
+				surfaceContext={surfaceContext}
+			/>
+		));
+	const shouldRenderEmptyState = items.length === 0 && recommendedItems.length === 0 && !isLoading;
 	const emptyState = shouldRenderEmptyState
 		? emptyStateHandler?.({
 				mode: 'full',
@@ -145,34 +224,54 @@ export const RegistryElementBrowserSearchResults = ({
 
 	return (
 		<div data-testid="registry-element-browser-results" id={resultsId} tabIndex={-1}>
-			{displayedItems.length > 0 && (
+			{(isGrouped || displayedItems.length > 0) && (
 				<div
 					aria-label={resultsLabel}
-					css={resultsGridStyles}
+					css={[isGrouped && groupedResultsStyles, !isGrouped && resultsGridStyles]}
 					onFocus={(event) => {
 						if (event.target === event.currentTarget) {
-							event.currentTarget
-								.querySelector<HTMLElement>(
-									'[role="option"]:not([aria-disabled="true"]):not([disabled])',
-								)
-								?.focus();
+							getFirstEnabledOption(event.currentTarget)?.focus();
 						}
 					}}
 					onKeyDown={onKeyDown}
 					role="listbox"
 					tabIndex={0}
 				>
-					{displayedItems.map((item) => (
-						<RegistryElementBrowserItem
-							editorView={editorView}
-							isOffline={isOffline}
-							isSelected={selectedKey === item.registration.key}
-							item={item}
-							key={item.registration.key}
-							onSelect={onSelect}
-							surfaceContext={surfaceContext}
-						/>
-					))}
+					{groups
+						? groups.map((group) => (
+								<div
+									aria-labelledby={`${groupHeadingIdPrefix}-${group.key}`}
+									css={resultGroupStyles}
+									key={group.key}
+									role="group"
+								>
+									<div
+										aria-hidden
+										css={resultGroupHeadingStyles}
+										id={`${groupHeadingIdPrefix}-${group.key}`}
+									>
+										{group.title}
+									</div>
+									{group.key === 'recommended' ? (
+										<div css={[resultsGridStyles, recommendedGridStyles]}>
+											{group.items.map((item, index) => {
+												const isWide = getRecommendedTileSize(index, group.items.length) === 'wide';
+												return (
+													<div
+														css={[isWide && wideTileStyles, !isWide && regularTileStyles]}
+														key={item.registration.key}
+													>
+														{renderItems([item])}
+													</div>
+												);
+											})}
+										</div>
+									) : (
+										<div css={resultsGridStyles}>{renderItems(group.items)}</div>
+									)}
+								</div>
+							))
+						: renderItems(displayedItems)}
 				</div>
 			)}
 			{shouldRenderEmptyState && !hasFallbackItems && query.trim().length > 0 && (

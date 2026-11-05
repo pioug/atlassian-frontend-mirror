@@ -1,5 +1,13 @@
 # @atlaskit/rovo-triggers
 
+## 12.13.0
+
+### Minor Changes
+
+- [`e3413612995ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3413612995ac) -
+  Preserve selected site IDs when handing off a new chat from Rovo Home so the first query and
+  subsequent conversation filters retain the selection behind rovo_chat_sites_source_filter.
+
 ## 12.12.0
 
 ### Minor Changes

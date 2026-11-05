@@ -1,4 +1,6 @@
 import type { ProviderParticipant } from '@atlaskit/editor-common/collab';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import AnalyticsHelper from '../../analytics/analytics-helper';
@@ -91,6 +93,7 @@ describe('onParticpantUpdated updateParticipantEager', () => {
 		});
 
 		it('includes agent type when agent presence is moved', async () => {
+			mockExpEnabled('agentic_presence_facepile_master_exp');
 			passGate('platform_move_presence_agents');
 			const emit = jest.fn();
 			const participantsService = participantsServiceConstructor({ emit, getUser });
@@ -102,7 +105,20 @@ describe('onParticpantUpdated updateParticipantEager', () => {
 			});
 		});
 
+		it('omits agent type when the master experiment is disabled', async () => {
+			mockExpDisabled('agentic_presence_facepile_master_exp');
+			const emit = jest.fn();
+			const participantsService = participantsServiceConstructor({ emit, getUser });
+
+			await participantsService.onParticipantUpdated({ ...payload, agentType: 'mcp' });
+
+			expect(emit).toHaveBeenCalledWith('presence', {
+				joined: [expect.objectContaining({ agentType: undefined })],
+			});
+		});
+
 		it('omits agent type when agent presence is not moved', async () => {
+			mockExpEnabled('agentic_presence_facepile_master_exp');
 			failGate('platform_move_presence_agents');
 			const emit = jest.fn();
 			const participantsService = participantsServiceConstructor({ emit, getUser });
@@ -531,6 +547,7 @@ describe('onParticipantUpdated updateParticipantLazy', () => {
 	);
 
 	it('updates agent type when agent presence is moved', async () => {
+		mockExpEnabled('agentic_presence_facepile_master_exp');
 		passGate('platform_move_presence_agents');
 		const participantsState = new ParticipantsState();
 		participantsState.setBySessionId(hydratedParticipant.sessionId, hydratedParticipant);
@@ -551,6 +568,7 @@ describe('onParticipantUpdated updateParticipantLazy', () => {
 	});
 
 	it('omits agent type when agent presence is not moved', async () => {
+		mockExpEnabled('agentic_presence_facepile_master_exp');
 		failGate('platform_move_presence_agents');
 		const participantsState = new ParticipantsState();
 		participantsState.setBySessionId(hydratedParticipant.sessionId, hydratedParticipant);
@@ -579,6 +597,7 @@ describe('agent expiry lifecycle', () => {
 	};
 
 	beforeEach(() => {
+		mockExpEnabled('agentic_presence_facepile_master_exp');
 		passGate('platform_move_presence_agents');
 		jest.useFakeTimers();
 		jest.setSystemTime(baseTime);

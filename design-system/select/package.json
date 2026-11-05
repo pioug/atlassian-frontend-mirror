@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/select",
-	"version": "23.1.5",
+	"version": "23.1.6",
 	"description": "Select allows users to make a single selection or multiple selections from a list of options.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -75,7 +75,6 @@
 		"@popperjs/core": "root:*",
 		"bind-event-listener": "root:*",
 		"react-focus-lock": "root:*",
-		"react-popper": "root:*",
 		"shallow-equal": "root:*"
 	},
 	"peerDependencies": {
@@ -120,10 +119,6 @@
 		},
 		"platform-dst-top-layer": {
 			"type": "boolean"
-		},
-		"platform-dst-popper-consolidation": {
-			"type": "boolean",
-			"referenceOnly": true
 		},
 		"platform-dst-tokens-finesse": {
 			"type": "boolean"

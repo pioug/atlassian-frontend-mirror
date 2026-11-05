@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-editor
 
+## 2.1.0
+
+### Minor Changes
+
+- [`164c6b8513f1f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/164c6b8513f1f) -
+  Add `apply-engine-vocabulary-conflicts`, which reports `@atlassian/editor-ai-apply-engine`
+  vocabulary parts that give different facts for the same node type (`containerFor`, `itemFor`,
+  `variants`), or that can't be checked because they aren't plain literals.
+
 ## 2.0.3
 
 ### Patch Changes

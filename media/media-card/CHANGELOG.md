@@ -1,5 +1,11 @@
 # @atlaskit/media-card
 
+## 82.2.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 82.2.7
 
 ### Patch Changes

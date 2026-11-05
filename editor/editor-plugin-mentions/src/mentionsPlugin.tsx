@@ -122,6 +122,7 @@ const mentionsPlugin: MentionsPlugin = ({ config: options, api }) => {
 	};
 
 	const typeAhead = createTypeAheadConfig({
+		agentSectionLozenge: options?.agentSectionLozenge,
 		canOpenTypeAhead: options?.canOpenTypeAhead,
 		sanitizePrivateContent: options?.sanitizePrivateContent,
 		mentionInsertDisplayName: options?.insertDisplayName,

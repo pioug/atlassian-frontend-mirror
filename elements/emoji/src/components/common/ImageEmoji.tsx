@@ -8,6 +8,7 @@ import React, { useEffect, useCallback, useMemo, type SyntheticEvent } from 'rea
 import { jsx } from '@compiled/react';
 
 import { getDocument } from '@atlaskit/browser-apis';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { shouldUseAltRepresentation } from '../../api/shouldUseAltRepresentation';
@@ -63,6 +64,7 @@ export const ImageEmoji = (props: Props): JSX.Element => {
 		disableLazyLoad,
 		autoWidth,
 		isDecorative,
+		shouldBeInteractive,
 	} = props;
 
 	const [ref, inView] = useInView({
@@ -162,7 +164,10 @@ export const ImageEmoji = (props: Props): JSX.Element => {
 		}
 	}, [inView, onBeforeLoad]);
 
-	const imgAlt = isDecorative ? '' : emoji.name || emoji.shortName || '';
+	const imgAlt =
+		isDecorative || (shouldBeInteractive && fg('platform_ally_emoji_fixes_various'))
+			? ''
+			: emoji.name || emoji.shortName || '';
 
 	const emojiNode = (
 		<img

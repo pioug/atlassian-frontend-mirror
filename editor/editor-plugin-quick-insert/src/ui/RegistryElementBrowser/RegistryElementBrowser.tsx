@@ -30,13 +30,21 @@ import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 
+import type { RecommendedItemsResolver } from '../registered-menu/get-quick-insert-menu-model';
 import { useQuickInsertSearchAnalytics } from '../registered-menu/useQuickInsertSearchAnalytics';
+import {
+	getArrowKeyTargetIndex,
+	RETURN_TO_SEARCH,
+	type RegistryElementBrowserArrowKey,
+	type RegistryElementBrowserOption,
+} from './getArrowKeyTargetIndex';
 import {
 	createRegistryElementBrowserModel,
 	getInitialRegistryElementBrowserSection,
 	getRegistryElementBrowserItems,
 	type RegistryElementBrowserItem,
 } from './model';
+import { getFirstEnabledOption, isOptionDisabled } from './options';
 import { RegistryElementBrowserCategories } from './RegistryElementBrowserCategories';
 import { RegistryElementBrowserFooter } from './RegistryElementBrowserFooter';
 import { RegistryElementBrowserSearchResults } from './RegistryElementBrowserSearchResults';
@@ -47,6 +55,7 @@ type Props = {
 	editorView: EditorView;
 	emptyStateHandler?: EmptyStateHandler;
 	fireAnalyticsEvent?: EditorAnalyticsAPI['fireAnalyticsEvent'];
+	getRecommendedItems?: RecommendedItemsResolver;
 	helpUrl?: string;
 	isLoading?: boolean;
 	isOffline: boolean;
@@ -74,18 +83,21 @@ const browserLayoutStyles = css({
 	gap: categoryColumnGap,
 	gridTemplateColumns: browserGridTemplateColumns,
 	paddingBlockStart: token('space.050'),
-	paddingInline: token('space.050'),
-	'@media (max-width: 599px)': {
+	paddingInline: token('space.200'),
+	'@media (max-width: 822px)': {
 		gridTemplateColumns: 'minmax(0, 1fr)',
+		rowGap: token('space.150'),
 	},
 });
 
+// The modal header keeps its 24px inline padding, so a narrower gap lines the search field up
+// with the results below (16px body padding + 182px + 28px gap).
 const headerContentStyles = css({
 	display: 'grid',
-	gap: categoryColumnGap,
+	gap: token('space.250'),
 	gridTemplateColumns: browserGridTemplateColumns,
 	width: '100%',
-	'@media (max-width: 599px)': {
+	'@media (max-width: 822px)': {
 		gridTemplateColumns: 'minmax(0, 1fr)',
 	},
 });
@@ -103,19 +115,20 @@ const EMPTY_ITEMS: RegistryElementBrowserItem[] = [];
 const resultsId = 'registry-element-browser-results';
 const modalTestId = 'registry-element-browser-modal';
 
-const getRenderedColumnCount = (options: HTMLElement[]): number => {
-	const firstRowTop = options[0]?.getBoundingClientRect().top;
-	const nextRowIndex = options.findIndex(
-		(option) => firstRowTop !== undefined && option.getBoundingClientRect().top > firstRowTop + 1,
-	);
-	return nextRowIndex > 0 ? nextRowIndex : options.length;
-};
+const arrowKeys = new Set<string>(['ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowUp']);
+const isArrowKey = (key: string): key is RegistryElementBrowserArrowKey => arrowKeys.has(key);
+
+const toArrowKeyOption = (option: HTMLElement): RegistryElementBrowserOption => ({
+	getRect: () => option.getBoundingClientRect(),
+	isDisabled: isOptionDisabled(option),
+});
 
 export const RegistryElementBrowser = ({
 	components,
 	emptyStateHandler,
 	fireAnalyticsEvent,
 	defaultSection,
+	getRecommendedItems,
 	helpUrl,
 	editorView,
 	isLoading = false,
@@ -149,6 +162,11 @@ export const RegistryElementBrowser = ({
 	});
 	const { query, section, selectedRegistration } = browserState;
 	const selectedRegistrationRef = useRef<RegisterMenuItem | undefined>(undefined);
+	// Recommendations depend only on the registry, so typing a query does not re-run the resolver.
+	const recommendedRegistrations = useMemo(
+		() => getRecommendedItems?.({ components, surfaceContext }),
+		[components, getRecommendedItems, surfaceContext],
+	);
 	const browserModel = useMemo(() => {
 		const model = createRegistryElementBrowserModel(components, {
 			footerKey: getMenuFooterSectionKey(MENU.key),
@@ -158,6 +176,7 @@ export const RegistryElementBrowser = ({
 					.filter((component) => component.type === 'menu-section')
 					.map((component) => getSectionOverflowItemKey(component.key)),
 			),
+			recommendedRegistrations,
 			recommendedSectionKey: RECOMMENDED_SECTION.key,
 			rootKey: MENU.key,
 		});
@@ -166,19 +185,20 @@ export const RegistryElementBrowser = ({
 		return {
 			model,
 			effectiveSection,
-			items: getRegistryElementBrowserItems({
+			...getRegistryElementBrowserItems({
 				formatMessage,
 				model,
 				query,
 				section: effectiveSection,
 			}),
 		};
-	}, [components, formatMessage, query, section, surfaceContext]);
-	const { model, effectiveSection, items } = browserModel;
+	}, [components, formatMessage, query, recommendedRegistrations, section, surfaceContext]);
+	const { model, effectiveSection, items, recommendedItems } = browserModel;
+	const resultItems = useMemo(() => [...recommendedItems, ...items], [items, recommendedItems]);
 	const visibleItems =
-		items.length === 0 && !isLoading && query.trim().length > 0
+		resultItems.length === 0 && !isLoading && query.trim().length > 0
 			? (model.fallbackItems ?? EMPTY_ITEMS)
-			: items;
+			: resultItems;
 	const isSelectedRegistrationCurrent = Boolean(
 		selectedRegistration &&
 		browserState.selectionIsOffline === isOffline &&
@@ -239,10 +259,10 @@ export const RegistryElementBrowser = ({
 	}, [browserState.invalidation, isOpen, onClearSelection]);
 
 	const resultCount =
-		items.length || (!isLoading && query.trim() ? (model.fallbackItems?.length ?? 0) : 0);
+		resultItems.length || (!isLoading && query.trim() ? (model.fallbackItems?.length ?? 0) : 0);
 	const flushSearchAnalytics = useQuickInsertSearchAnalytics({
 		query,
-		resultCount: items.length,
+		resultCount: resultItems.length,
 		surface: 'element-browser',
 		category: effectiveSection ?? 'all',
 		isOpen: isOpen && !isLoading,
@@ -344,7 +364,7 @@ export const RegistryElementBrowser = ({
 				return;
 			}
 
-			if (['ArrowDown', 'ArrowUp', 'ArrowLeft', 'ArrowRight'].includes(event.key)) {
+			if (isArrowKey(event.key)) {
 				if (
 					event.currentTarget === searchInputRef.current &&
 					(event.key === 'ArrowLeft' || event.key === 'ArrowRight')
@@ -359,33 +379,17 @@ export const RegistryElementBrowser = ({
 				const currentIndex = options.findIndex(
 					(option) => option === event.currentTarget.ownerDocument.activeElement,
 				);
-				const columnCount = getRenderedColumnCount(options);
-				const step =
-					event.key === 'ArrowDown'
-						? columnCount
-						: event.key === 'ArrowUp'
-							? -columnCount
-							: event.key === 'ArrowRight'
-								? 1
-								: -1;
-				let nextIndex = currentIndex < 0 ? 0 : currentIndex + step;
-				if (event.key === 'ArrowDown' && columnCount < options.length) {
-					nextIndex = Math.min(nextIndex, options.length - 1);
-				}
-				while (
-					nextIndex >= 0 &&
-					nextIndex < options.length &&
-					(options[nextIndex].hasAttribute('disabled') ||
-						options[nextIndex].getAttribute('aria-disabled') === 'true')
-				) {
-					nextIndex += step;
-				}
-				const nextOption = options[nextIndex];
+				const targetIndex = getArrowKeyTargetIndex(
+					options.map(toArrowKeyOption),
+					currentIndex,
+					event.key,
+				);
+				const nextOption = targetIndex === undefined ? undefined : options[targetIndex];
 				if (nextOption) {
 					event.preventDefault();
 					nextOption.focus();
 					nextOption.click();
-				} else if (nextIndex < 0 && currentIndex >= 0) {
+				} else if (targetIndex === RETURN_TO_SEARCH) {
 					event.preventDefault();
 					searchInputRef.current?.focus();
 				}
@@ -403,11 +407,9 @@ export const RegistryElementBrowser = ({
 					event.target instanceof HTMLElement
 						? event.target.closest<HTMLElement>('[role="option"]')
 						: null;
-				const firstOption = event.currentTarget.ownerDocument
-					.getElementById(resultsId)
-					?.querySelector<HTMLElement>(
-						'[role="option"]:not([aria-disabled="true"]):not([disabled])',
-					);
+				const firstOption = getFirstEnabledOption(
+					event.currentTarget.ownerDocument.getElementById(resultsId),
+				);
 				const optionToActivate = focusedOption ?? firstOption;
 				if (isSelectedRegistrationCurrent || optionToActivate) {
 					event.preventDefault();
@@ -429,12 +431,12 @@ export const RegistryElementBrowser = ({
 						defaultMessage: 'Insert elements',
 						id: 'editor.quick-insert.title',
 					})}
-					height="664px"
+					height="804px"
 					onClose={closeBrowser}
 					onCloseComplete={onCloseComplete}
 					onOpenComplete={onModalOpenComplete}
 					testId={modalTestId}
-					width="min(968px, calc(100vw - 32px))"
+					width="min(1072px, calc(100vw - 32px))"
 				>
 					<ModalHeader>
 						<div css={headerContentStyles}>
@@ -470,7 +472,7 @@ export const RegistryElementBrowser = ({
 							</div>
 						</div>
 					</ModalHeader>
-					<ModalBody>
+					<ModalBody hasInlinePadding={false}>
 						<div css={browserLayoutStyles} onFocusCapture={onBrowserFocusCapture}>
 							<RegistryElementBrowserCategories
 								section={effectiveSection}
@@ -486,6 +488,7 @@ export const RegistryElementBrowser = ({
 								items={items}
 								fallbackItems={model.fallbackItems}
 								query={query}
+								recommendedItems={recommendedItems}
 								resultsId={resultsId}
 								surfaceContext={surfaceContext}
 								section={effectiveSection}

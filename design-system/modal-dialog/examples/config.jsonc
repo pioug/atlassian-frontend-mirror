@@ -12,6 +12,7 @@
 		"45-form.vr.ap.tsx",
 		"46-form-as-container.vr.ap.tsx",
 		"50-width.vr.ap.tsx",
+		"51-full-screen.vr.ap.tsx",
 		"55-scroll.vr.ap.tsx",
 		"56-scroll-horizontal.vr.ap.tsx",
 		"65-multi-line-titles.vr.ap.tsx",

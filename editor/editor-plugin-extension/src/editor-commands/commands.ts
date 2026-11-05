@@ -27,10 +27,13 @@ import {
 	removeParentNodeOfType,
 	removeSelectedNode,
 } from '@atlaskit/editor-prosemirror/utils';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { ExtensionAction, ExtensionState, RejectSave } from '../extensionPluginType';
 import { createCommand } from '../pm-plugins/plugin-factory';
 import { getSelectedExtension } from '../pm-plugins/utils';
+import { getExtensionPresetWidth } from '../utils/getExtensionLayout';
 
 // AFP-2532 TODO: Fix automatic suppressions below
 
@@ -93,10 +96,34 @@ export const updateExtensionLayout = (
 		const selectedExtension = getSelectedExtension(state, true);
 
 		if (selectedExtension) {
-			const trWithNewNodeMarkup: Transaction = tr.setNodeMarkup(selectedExtension.pos, undefined, {
-				...selectedExtension.node.attrs,
-				layout,
-			});
+			let marks = selectedExtension.node.marks;
+			if (
+				fg('platform_editor_lovability_resize_exts_gracefully') &&
+				isExperimentEnabled('platform_editor_lovability_resize_exts_patch_1')
+			) {
+				const breakoutMark = marks.find((mark) => mark.type.name === 'breakout');
+				if (
+					breakoutMark &&
+					(layout === 'default' || layout === 'wide' || layout === 'full-width')
+				) {
+					// the resizing:false cohort is still using the layout presets, so updating
+					// the layout should also update the breakout mark's width, which is the source of
+					// truth for the node's width.
+					marks = breakoutMark.type
+						.create({
+							...breakoutMark.attrs,
+							width: getExtensionPresetWidth(layout),
+							mode: layout === 'full-width' ? 'full-width' : 'wide',
+						})
+						.addToSet(marks);
+				}
+			}
+			const trWithNewNodeMarkup: Transaction = tr.setNodeMarkup(
+				selectedExtension.pos,
+				undefined,
+				{ ...selectedExtension.node.attrs, layout },
+				marks,
+			);
 			trWithNewNodeMarkup.setMeta('scrollIntoView', false);
 			if (analyticsApi) {
 				analyticsApi.attachAnalyticsEvent({

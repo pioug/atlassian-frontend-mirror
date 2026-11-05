@@ -9,6 +9,7 @@ import { v4 as uuidv4 } from 'uuid';
 import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next/withAnalyticsEvents';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import type { PopupSelectProps } from '@atlaskit/select/popup-select';
 import type { SelectComponentsConfig, StylesConfig } from '@atlaskit/select/types';
 import type { UFOExperience } from '@atlaskit/ufo/experience';
@@ -494,7 +495,7 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 	private handleKeyDown = (event: React.KeyboardEvent) => {
 		if (!this.isMenuOpenOnClickForSingleSelect) {
 			// Escape
-			if (event.keyCode === 27) {
+			if (event.keyCode === 27 && !fg('platform-dst-top-layer')) {
 				this.blur();
 			}
 
@@ -520,10 +521,12 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 		this.props.onKeyDown && this.props.onKeyDown(event);
 
 		if (event.key === 'Escape') {
-			this.setState({
-				menuIsOpen: false,
-				options: [],
-			});
+			if (!fg('platform-dst-top-layer')) {
+				this.setState({
+					menuIsOpen: false,
+					options: [],
+				});
+			}
 			this.props.setIsFooterFocused && this.props.setIsFooterFocused(false);
 			this.props.setIsHeaderFocused && this.props.setIsHeaderFocused(false);
 		}

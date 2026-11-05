@@ -5,7 +5,6 @@ import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
-import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
@@ -74,50 +73,12 @@ describe('useStandardNodeWidth', () => {
 		).getByTestId('editor-content-container');
 
 	describe('comment appearance', () => {
-		it('uses the block menu value without the editor controls experiment when the gate is on', () => {
-			passGate(GATE);
-			setupEditorExperiments('test', { platform_editor_controls: 'control' });
-
+		it('uses the block menu value', () => {
 			expect(renderComment(true)).toHaveAttribute('data-use-standard-node-width', 'true');
 		});
 
-		it('stays off when the block menu value is false and the gate is on', () => {
-			passGate(GATE);
-			setupEditorExperiments('test', { platform_editor_controls: 'variant1' });
-
+		it('stays off when the block menu value is false', () => {
 			expect(renderComment(false)).toHaveAttribute('data-use-standard-node-width', 'false');
-		});
-
-		it('needs the editor controls experiment when the gate is off', () => {
-			failGate(GATE);
-			mockExpDisabled(WORK_ITEM_MODERNIZATION);
-			setupEditorExperiments('test', { platform_editor_controls: 'control' });
-
-			expect(renderComment(true)).toHaveAttribute('data-use-standard-node-width', 'false');
-		});
-
-		it('uses the block menu value in the editor controls experiment when the gate is off', () => {
-			failGate(GATE);
-			setupEditorExperiments('test', { platform_editor_controls: 'variant1' });
-
-			expect(renderComment(true)).toHaveAttribute('data-use-standard-node-width', 'true');
-		});
-
-		it('uses the block menu value in the work item modernization experiment when the gate is off', () => {
-			failGate(GATE);
-			mockExpEnabled(WORK_ITEM_MODERNIZATION);
-			setupEditorExperiments('test', { platform_editor_controls: 'control' });
-
-			expect(renderComment(true)).toHaveAttribute('data-use-standard-node-width', 'true');
-		});
-
-		it('uses the block menu value in the modernization cohort when the gate is off', () => {
-			failGate(GATE);
-			passGate(COHORT_GATE);
-			mockExpDisabled(WORK_ITEM_MODERNIZATION);
-			setupEditorExperiments('test', { platform_editor_controls: 'control' });
-
-			expect(renderComment(true)).toHaveAttribute('data-use-standard-node-width', 'true');
 		});
 	});
 

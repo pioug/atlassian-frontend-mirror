@@ -956,7 +956,6 @@ export const getNumberIdForAvatar = ({
 	return null;
 };
 
-const ROVO_DEV_AGENT_ID = '027f0676-e8e9-4939-8962-3850987d78bb';
 const getAvatarRender = ({
 	agentNamedId,
 	agentId,
@@ -965,15 +964,6 @@ const getAvatarRender = ({
 	size,
 }: GeneratedAvatarProps) => {
 	if (isRovoDev) {
-		return {
-			render: <RovoDevAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />,
-			color: greenColor.v1,
-		};
-	}
-
-	//@TODO CRCS-3129: Remove Rovo Dev hardcoded icon after TeamEU demos
-	// Handle Rovo Dev agent avatar for TeamEU Demo
-	if (agentId === ROVO_DEV_AGENT_ID && fg('jira_ai_force_rovo_dev_avatar')) {
 		return {
 			render: <RovoDevAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />,
 			color: greenColor.v1,

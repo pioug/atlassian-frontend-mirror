@@ -9,6 +9,12 @@ import { fixTest } from '@af/integration-testing';
 
 import { adfDate, emptyDocument } from './escape-keydown.spec.ts-fixtures';
 
+test.use({
+	editorExperiments: {
+		platform_editor_controls: 'variant1',
+	},
+});
+
 test.describe('Escape Keydown: date', () => {
 	test.use({
 		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx'),
@@ -80,7 +86,8 @@ test.describe('Escape Keydown: insert block', () => {
 		});
 
 		const toolbar = EditorMainToolbarModel.from(editor);
-		await toolbar.openInsertMenu();
+		const insertMenuModel = await toolbar.openInsertMenu();
+		await expect(insertMenuModel.searchInput).toBeFocused();
 
 		await editor.keyboard.press('Escape');
 		await expect(editor.page.locator('[data-testid="bubble"]')).toHaveCount(0);
@@ -245,8 +252,8 @@ test.describe('Escape Keydown: more formatting', () => {
 		await editor.selection.set({ anchor: 2, head: 2 });
 
 		const toolbar = EditorMainToolbarModel.from(editor);
-		const moreFormattingMenu = await toolbar.openMoreFormattingMenu();
-		await expect(moreFormattingMenu.menu).toBeVisible();
+		await toolbar.clickAt('Format text');
+		await expect(toolbar.droplistContentMenu.menu).toBeVisible();
 
 		await editor.keyboard.press('Escape');
 		await expect(editor.page.locator('[data-testid="bubble"]')).toHaveCount(0);

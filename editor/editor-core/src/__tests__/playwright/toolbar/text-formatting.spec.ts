@@ -7,7 +7,18 @@ import { doc, em, h1, p, strong, underline } from '@atlaskit/editor-test-helpers
 
 import { blockQuoteAdf } from './text-formatting.spec.ts-fixtures';
 
+test.use({
+	editorExperiments: {
+		platform_editor_controls: 'variant1',
+	},
+});
+
 const appearances: Array<EditorAppearance> = ['full-page', 'comment'];
+
+const toggleFormat = async (toolbar: EditorMainToolbarModel, label: string) => {
+	const formattingMenu = await toolbar.openMoreFormattingMenu();
+	await formattingMenu.clickAt(label);
+};
 
 const shortcutSelectAll = process.platform === 'darwin' ? 'Meta+a' : 'Control+a';
 
@@ -33,10 +44,10 @@ test.describe('text formatting toolbar: styles', () => {
 			});
 
 			await test.step('changing to italic', async () => {
-				await toolbar.clickAt('Italic');
+				await toggleFormat(toolbar, 'Italic');
 				await expect(editor).toHaveDocument(doc(p(em('Hello world'))));
 				// reset to normal text
-				await toolbar.clickAt('Italic');
+				await toggleFormat(toolbar, 'Italic');
 			});
 
 			await test.step('changing from italic to bold', async () => {
@@ -48,24 +59,23 @@ test.describe('text formatting toolbar: styles', () => {
 
 			await test.step('changing normal to bold and italic', async () => {
 				await toolbar.clickAt('Bold');
-				await toolbar.clickAt('Italic');
+				await toggleFormat(toolbar, 'Italic');
 				await expect(editor).toHaveDocument(doc(p(strong(em('Hello world')))));
 				// reset to normal text
 				await toolbar.clickAt('Bold');
-				await toolbar.clickAt('Italic');
+				await toggleFormat(toolbar, 'Italic');
 			});
 
 			await test.step('changing to underline', async () => {
-				const formattingMenu = await toolbar.openMoreFormattingMenu();
-				await formattingMenu.clickAt('Underline');
+				await toggleFormat(toolbar, 'Underline');
 				await expect(editor).toHaveDocument(doc(p(underline('Hello world'))));
 			});
 
 			await test.step('changing to underline and italic', async () => {
-				await toolbar.clickAt('Italic');
+				await toggleFormat(toolbar, 'Italic');
 				await expect(editor).toHaveDocument(doc(p(underline(em('Hello world')))));
 				// reset italic
-				await toolbar.clickAt('Italic');
+				await toggleFormat(toolbar, 'Italic');
 			});
 
 			await test.step('changing to underline and bold', async () => {
@@ -74,7 +84,7 @@ test.describe('text formatting toolbar: styles', () => {
 			});
 
 			await test.step('changing to underline, bold and italic', async () => {
-				await toolbar.clickAt('Italic');
+				await toggleFormat(toolbar, 'Italic');
 				await expect(editor).toHaveDocument(doc(p(underline(strong(em('Hello world'))))));
 			});
 		});

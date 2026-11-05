@@ -10,6 +10,7 @@ type AvatarContentContextProps = Partial<TriggerAriaProps> & {
 	UNSAFE_isUpdatedGeometry?: boolean;
 	avatarImage: ReactNode;
 	borderColor?: string;
+	hasInnerBorder?: boolean;
 	href?: string;
 	isDisabled?: boolean;
 	label?: string;

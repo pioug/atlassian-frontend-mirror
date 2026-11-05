@@ -18,6 +18,7 @@ import type {
 import type { GetResolvedEditorStateReason } from '@atlaskit/editor-common/types/editor-actions';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import AnalyticsHelper from '../analytics/analytics-helper';
@@ -589,7 +590,12 @@ export class Provider extends Emitter<CollabEvents> implements CollabEditProvide
 					shouldTelepointerBeSampled() ? telepointerCallback(this.config.documentAri) : undefined,
 				);
 			} else if (data?.type === 'ai-provider:change') {
-				if (!fg('platform_move_presence_agents')) {
+				if (
+					!(
+						isExperimentEnabled('agentic_presence_facepile_master_exp') &&
+						fg('platform_move_presence_agents')
+					)
+				) {
 					this.participantsService.sendAIProviderChanged({
 						...basePayload,
 						...data,

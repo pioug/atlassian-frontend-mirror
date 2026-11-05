@@ -1,27 +1,20 @@
 /**
  * @jsxRuntime classic
  * @jsx jsx
- * @jsxFrag React.Fragment
  */
 import React, { type ReactNode, useLayoutEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 
-// Viewport calculations and multiline clamping require styles outside @atlaskit/css's schema.
+// Viewport calculations require styles outside @atlaskit/css's schema.
 import { cssMap, jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
-import { useIntl } from 'react-intl';
 
-import { cssMap as layoutCssMap } from '@atlaskit/css';
 // Viewport clamping requires modifiers, which the top-layer adapter does not support.
 import { Popper, type PopperChildrenProps } from '@atlaskit/popper/react-popper';
-import { Box } from '@atlaskit/primitives/compiled/box';
-import { Inline } from '@atlaskit/primitives/compiled/inline';
-import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
-import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 
-import { messages } from './messages';
 import type { QuickInsertPreview } from './preview';
+import { QuickInsertPreviewContent } from './QuickInsertPreviewContent';
 
 const PREVIEW_MODIFIERS = [
 	{ name: 'offset', options: { offset: [0, 4] } },
@@ -47,23 +40,6 @@ const PREVIEW_MODIFIERS = [
 	},
 ];
 
-const layoutStyles = layoutCssMap({
-	titleRow: {
-		minWidth: 0,
-	},
-	titleIcon: {
-		alignItems: 'center',
-		display: 'flex',
-		flexShrink: 0,
-		justifyContent: 'center',
-	},
-	attributionText: {
-		flex: '1 1 auto',
-		minWidth: 0,
-		overflowWrap: 'anywhere',
-	},
-});
-
 const styles = cssMap({
 	positioner: {
 		maxHeight: 'calc(100vh - 16px)',
@@ -82,80 +58,6 @@ const styles = cssMap({
 		paddingBlock: token('space.150'),
 		paddingInline: token('space.150'),
 		width: '264px',
-	},
-	content: {
-		display: 'flex',
-		flexDirection: 'column',
-		gap: token('space.100'),
-	},
-	title: {
-		color: token('color.text.subtle'),
-		font: token('font.heading.xsmall'),
-		flex: '1 1 auto',
-		minWidth: 0,
-		overflow: 'hidden',
-		overflowWrap: 'anywhere',
-		display: '-webkit-box',
-		WebkitBoxOrient: 'vertical',
-		WebkitLineClamp: 2,
-	},
-	unclampedTitle: {
-		color: token('color.text'),
-		font: token('font.body'),
-		fontWeight: token('font.weight.bold'),
-		flex: '1 1 auto',
-		minWidth: 0,
-		overflowWrap: 'anywhere',
-	},
-	description: {
-		color: token('color.text'),
-		display: '-webkit-box',
-		font: token('font.body'),
-		overflow: 'hidden',
-		overflowWrap: 'anywhere',
-		WebkitBoxOrient: 'vertical',
-		WebkitLineClamp: 4,
-	},
-	unclampedDescription: {
-		color: token('color.text'),
-		font: token('font.body'),
-		overflowWrap: 'anywhere',
-	},
-	imageArea: {
-		backgroundColor: token('elevation.surface.sunken'),
-		borderRadius: token('radius.small'),
-		height: '120px',
-		marginBlockEnd: token('space.100'),
-		maxWidth: '100%',
-		overflow: 'hidden',
-		width: '240px',
-	},
-	image: {
-		display: 'block',
-		height: '100%',
-		objectFit: 'contain',
-		width: '100%',
-	},
-	imageHidden: {
-		visibility: 'hidden',
-	},
-	attribution: {
-		alignItems: 'center',
-		color: token('color.text.subtle'),
-		display: 'flex',
-		gap: token('space.050'),
-		overflowWrap: 'anywhere',
-	},
-	compactAttribution: {
-		font: token('font.body.small'),
-	},
-	attributionIcon: {
-		alignItems: 'center',
-		display: 'flex',
-		flex: '0 0 16px',
-		height: '16px',
-		justifyContent: 'center',
-		width: '16px',
 	},
 });
 
@@ -182,12 +84,6 @@ export const QuickInsertHoverPreview = ({
 	/** Rich content rendered in place of the title. */
 	titleContent?: ReactNode;
 }): React.JSX.Element => {
-	const { colorMode } = useThemeObserver();
-	const imageUrl = preview.image
-		? colorMode === 'dark' && preview.image.dark
-			? preview.image.dark
-			: preview.image.light
-		: undefined;
 	const hasAccessibleContent = Boolean(description || preview.attribution);
 	const portalTarget = popupsMountPoint ?? referenceElement.ownerDocument.body;
 
@@ -204,7 +100,6 @@ export const QuickInsertHoverPreview = ({
 						description={description}
 						icon={icon}
 						id={hasAccessibleContent ? id : undefined}
-						imageUrl={imageUrl}
 						preview={preview}
 						popupsMountPoint={popupsMountPoint}
 						referenceElement={referenceElement}
@@ -224,7 +119,6 @@ const QuickInsertPreviewPanel = ({
 	description,
 	icon,
 	id,
-	imageUrl,
 	preview,
 	popupsMountPoint,
 	referenceElement,
@@ -236,7 +130,6 @@ const QuickInsertPreviewPanel = ({
 	description?: string;
 	icon?: ReactNode;
 	id?: string;
-	imageUrl?: string;
 	popupsMountPoint?: HTMLElement;
 	preview: QuickInsertPreview;
 	referenceElement: HTMLElement;
@@ -245,16 +138,7 @@ const QuickInsertPreviewPanel = ({
 	titleContent?: ReactNode;
 	update: PopperChildrenProps['update'];
 }): React.JSX.Element => {
-	const { formatMessage } = useIntl();
 	const [panelElement, setPanelElement] = useState<HTMLDivElement | null>(null);
-	const AttributionIcon = preview.attribution?.icon;
-	const attributionName = preview.attribution?.name;
-	const formattedAttributionName =
-		typeof attributionName === 'string'
-			? attributionName
-			: attributionName
-				? formatMessage(attributionName)
-				: '';
 
 	useLayoutEffect(() => {
 		void update();
@@ -291,77 +175,13 @@ const QuickInsertPreviewPanel = ({
 			css={styles.panel}
 			data-testid="quick-insert-preview-panel"
 		>
-			<>
-				{imageUrl && <PreviewImage key={imageUrl} imageUrl={imageUrl} />}
-				<div css={styles.content}>
-					<Inline
-						alignBlock="center"
-						space="space.100"
-						xcss={layoutStyles.titleRow}
-						aria-hidden="true"
-					>
-						{icon && (
-							<Box as="span" aria-hidden="true" xcss={layoutStyles.titleIcon}>
-								{icon}
-							</Box>
-						)}
-						<span
-							css={[shouldClampText && styles.title, !shouldClampText && styles.unclampedTitle]}
-						>
-							{titleContent ?? title}
-						</span>
-					</Inline>
-					{description && (
-						<div
-							css={[
-								shouldClampText && styles.description,
-								!shouldClampText && styles.unclampedDescription,
-							]}
-						>
-							{description}
-						</div>
-					)}
-					{preview.attribution && (
-						<div css={[styles.attribution, shouldClampText && styles.compactAttribution]}>
-							{AttributionIcon && (
-								<span aria-hidden="true" css={styles.attributionIcon}>
-									<AttributionIcon />
-								</span>
-							)}
-							<span css={layoutStyles.attributionText}>
-								<Text size="small" color="color.text.subtle">
-									{AttributionIcon
-										? formattedAttributionName
-										: formatMessage(messages.previewAttributionBy, {
-												name: formattedAttributionName,
-											})}
-								</Text>
-							</span>
-						</div>
-					)}
-				</div>
-			</>
-		</div>
-	);
-};
-
-const PreviewImage = ({ imageUrl }: { imageUrl: string }): React.JSX.Element => {
-	const [hasFailed, setHasFailed] = useState(false);
-	const [hasLoaded, setHasLoaded] = useState(false);
-
-	return (
-		<div css={styles.imageArea} aria-hidden="true" data-testid="quick-insert-preview-image-area">
-			{!hasFailed && (
-				<img
-					css={[styles.image, !hasLoaded && styles.imageHidden]}
-					aria-hidden="true"
-					data-testid="quick-insert-hover-preview"
-					src={imageUrl}
-					alt=""
-					onLoad={() => setHasLoaded(true)}
-					onError={() => setHasFailed(true)}
-				/>
-			)}
+			<QuickInsertPreviewContent
+				description={description}
+				icon={icon}
+				preview={preview}
+				shouldClampText={shouldClampText}
+				title={titleContent ?? title}
+			/>
 		</div>
 	);
 };

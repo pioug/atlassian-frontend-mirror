@@ -1,5 +1,14 @@
 # @atlaskit/react-select
 
+## 4.12.9
+
+### Patch Changes
+
+- [`e6810f6d54e5a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e6810f6d54e5a) -
+  Restore mousedown opening so controlled Select consumers receive menu-open callbacks before
+  updating visibility. Let Select handle Escape without blurring UserPicker inputs on the top-layer
+  path.
+
 ## 4.12.8
 
 ### Patch Changes

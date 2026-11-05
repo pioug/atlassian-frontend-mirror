@@ -7,6 +7,7 @@ import type { AvatarProps } from '@atlaskit/avatar-group/types';
 import type { CollabParticipant } from '@atlaskit/editor-common/collab';
 import { avatarGroupMessages } from '@atlaskit/editor-common/messages/avatar-group';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { AvatarGroupPlugin } from '../avatarGroupPluginType';
@@ -18,7 +19,13 @@ const getUserNameForAttribution = (
 	userNamesById: Record<string, string> = {},
 ): string | undefined => {
 	const actingUserId = participant.actingUserId;
-	if (!fg('platform_move_presence_agents') || !actingUserId) {
+	if (
+		!actingUserId ||
+		!(
+			isExperimentEnabled('agentic_presence_facepile_master_exp') &&
+			fg('platform_move_presence_agents')
+		)
+	) {
 		return undefined;
 	}
 

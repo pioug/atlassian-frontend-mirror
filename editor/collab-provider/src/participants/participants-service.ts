@@ -7,6 +7,7 @@ import type {
 	StepJson,
 	UserPermitType,
 } from '@atlaskit/editor-common/collab';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type AnalyticsHelper from '../analytics/analytics-helper';
@@ -225,7 +226,10 @@ export class ParticipantsService {
 
 		const participant: ProviderParticipant = {
 			...payload,
-			...(fg('platform_move_presence_agents') ? { presenceActivity: 'editor' as const } : {}),
+			...(isExperimentEnabled('agentic_presence_facepile_master_exp') &&
+			fg('platform_move_presence_agents')
+				? { presenceActivity: 'editor' as const }
+				: {}),
 			// `payload.userId` is typed `string | undefined`; here it is always the (string)
 			// providerId, so pin it to satisfy ProviderParticipant.userId (string).
 			userId: providerId,
@@ -249,7 +253,9 @@ export class ParticipantsService {
 			existing.agentId !== agentId ||
 			existing.agentName !== (name || undefined) ||
 			existing.agentNamedId !== agentNamedId ||
-			(fg('platform_move_presence_agents') && wasInactive)
+			(isExperimentEnabled('agentic_presence_facepile_master_exp') &&
+				fg('platform_move_presence_agents') &&
+				wasInactive)
 		) {
 			this.emitPresence({ joined: [participant] }, 'adding agent participant from remote step');
 		}
@@ -267,9 +273,11 @@ export class ParticipantsService {
 			clearTimeout(existingTimer);
 		}
 
-		const ttl = fg('platform_move_presence_agents')
-			? AGENT_PRESENCE_TTL_MS
-			: AGENT_PRESENCE_INACTIVE_MS;
+		const ttl =
+			isExperimentEnabled('agentic_presence_facepile_master_exp') &&
+			fg('platform_move_presence_agents')
+				? AGENT_PRESENCE_TTL_MS
+				: AGENT_PRESENCE_INACTIVE_MS;
 		const delay = Math.max(0, lastActive + ttl - Date.now());
 		this.agentPresenceTimers.set(
 			sessionId,
@@ -279,9 +287,12 @@ export class ParticipantsService {
 
 	private scheduleRemoteAgentExpiry = (participant: ProviderParticipant): void => {
 		if (
-			!fg('platform_move_presence_agents') ||
 			!isAIProviderID(participant.userId) ||
-			!Number.isFinite(participant.lastActive)
+			!Number.isFinite(participant.lastActive) ||
+			!(
+				isExperimentEnabled('agentic_presence_facepile_master_exp') &&
+				fg('platform_move_presence_agents')
+			)
 		) {
 			return;
 		}
@@ -303,8 +314,9 @@ export class ParticipantsService {
 	): boolean => {
 		const now = Date.now();
 		return (
-			fg('platform_move_presence_agents') &&
 			isAIProviderID(current.userId) &&
+			isExperimentEnabled('agentic_presence_facepile_master_exp') &&
+			fg('platform_move_presence_agents') &&
 			now - previous.lastActive >= AGENT_PRESENCE_INACTIVE_MS &&
 			now - current.lastActive < AGENT_PRESENCE_INACTIVE_MS
 		);
@@ -538,7 +550,11 @@ export class ParticipantsService {
 	onParticipantUpdated = async (payload: PresencePayload): Promise<void> => {
 		const gatedPayload = {
 			...payload,
-			agentType: fg('platform_move_presence_agents') ? payload.agentType : undefined,
+			agentType:
+				isExperimentEnabled('agentic_presence_facepile_master_exp') &&
+				fg('platform_move_presence_agents')
+					? payload.agentType
+					: undefined,
 		};
 
 		if (this.batchProps) {
@@ -584,12 +600,14 @@ export class ParticipantsService {
 	};
 
 	disconnect = (reason: string, sessionId: string | undefined): void => {
-		const left = fg('platform_move_presence_agents')
-			? [
-					...this.participantsState.getParticipants(),
-					...this.participantsState.getAIProviderParticipants(),
-				]
-			: this.participantsState.getParticipants();
+		const left =
+			isExperimentEnabled('agentic_presence_facepile_master_exp') &&
+			fg('platform_move_presence_agents')
+				? [
+						...this.participantsState.getParticipants(),
+						...this.participantsState.getAIProviderParticipants(),
+					]
+				: this.participantsState.getParticipants();
 		this.participantsState.clear();
 		// Stop any pending agent presence timers so they don't fire against cleared state.
 		this.clearAgentPresenceTimers();
@@ -868,7 +886,12 @@ export class ParticipantsService {
 			// AAID and carrying an `agentType`. These ids come from the editor AI plugin instead,
 			// keyed on the agent's Convo-AI id with no `agentType`, so re-broadcasting them adds a
 			// second, unresolvable participant for an agent that is already present.
-			if (!fg('platform_move_presence_agents')) {
+			if (
+				!(
+					isExperimentEnabled('agentic_presence_facepile_master_exp') &&
+					fg('platform_move_presence_agents')
+				)
+			) {
 				this.sendAIProvidersPresence();
 			}
 		} catch (error) {

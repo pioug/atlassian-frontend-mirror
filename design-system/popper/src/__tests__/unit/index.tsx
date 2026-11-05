@@ -12,21 +12,6 @@ import { Popper } from '../../popper';
 
 const user = userEvent.setup();
 
-jest.mock('popper.js', () => {
-	const PopperJS = jest.requireActual('popper.js');
-
-	return class Popper {
-		static placements = PopperJS.placements;
-
-		constructor() {
-			return {
-				destroy: __noop,
-				scheduleUpdate: __noop,
-			};
-		}
-	};
-});
-
 class VirtualReference implements VirtualElement {
 	getBoundingClientRect(): DOMRect {
 		return {

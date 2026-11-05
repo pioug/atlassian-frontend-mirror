@@ -191,6 +191,8 @@ closes), which modal-dialog uses to signal `ExitingPersistence` to unmount. The 
 | Full screen                                          | `--dialog-width: 100vw`, `maxBlockSize: 100vh`, `maxWidth: 100vw` |
 | Viewport scroll                                      | `maxBlockSize: none`                                              |
 | Custom height                                        | `--modal-dialog-height` CSS var on visual container               |
+| Body scroll (desktop)                                | `max-height: calc(100vh - 120px)` on visual container (see #13)   |
+| Form as the only child                               | `min-height: 0` on the form, so it shrinks (see #13)              |
 
 ### Separation of concerns
 
@@ -408,6 +410,47 @@ This is likely caused by the tooltip's positioning calculation (which uses fixed
 positioning or portals) interacting differently with the `<dialog>` element's containing block and
 stacking context.
 
+#### 13. ~~Body scroll: tall content pushes the footer off-screen~~ (FIXED)
+
+**Severity: High**
+
+Found when `platform-dst-top-layer` was forced on in all AFM tests (image editor, eoc incoming
+actions, jira forms, adminhub). Playwright reported footer buttons as "outside of the viewport".
+
+~~In body scroll the `<dialog>` is fixed and has `overflow: visible` (for the box shadow), so the
+page cannot scroll to content below the fold. Two cases left the footer there:~~
+
+- ~~A custom `height` taller than the viewport (for example the image editor `height={800}` in a
+  720px viewport). The visual container had no viewport cap. Legacy capped it in the `Positioner`
+  (`max-height: calc(100vh - 120px + 1px)`).~~
+- ~~A `<form>` that wraps all the content. `& > form:only-child { max-height: inherit }` copied the
+  visual container's `max-height: max-content` (the keyword, not a length). The form is a flex item,
+  so it kept its content height and overflowed the visual container.~~
+
+**Fix applied:**
+
+- Body scroll (desktop) caps the visual container at `max-height: calc(100vh - 120px)`, the space
+  between the 60px `<dialog>` margins. This matches the default height. With no custom `height`,
+  `max-height: max-content` still applies, and the default height does the cap.
+- The `form:only-child` rule adds `min-height: 0`, so the form shrinks to the visual container and
+  `ModalBody` scrolls. This also matches legacy in full screen, where the form inherited a length
+  cap.
+
+**Tests:**
+
+- Jest (`modal-dialog-top-layer.test.tsx`, "ModalDialog top-layer height"): the styles only. jsdom
+  does no layout.
+- Playwright (`ff-testing/platform-dst-top-layer/modal.spec.tsx`, "tall content in body scroll"):
+  the footer is in the viewport for a `42em` modal in a 600px viewport, and for the
+  form-as-container example in a 400px viewport.
+
+**Still needs a real browser:** content that is not in `ModalBody` and not in a `form:only-child`
+(for example a `<div>` that wraps the header, body and footer). Legacy could scroll the whole
+`Positioner` into view. Top layer cannot, because the `<dialog>` does not scroll in body scroll.
+
+**VR:** the informational `height 42em` snapshot with `platform-dst-top-layer` on now shows a capped
+modal (as the gate-off snapshot does) when the VR viewport is shorter than 792px.
+
 ### Scenarios confirmed visually identical
 
 The following scenarios showed no meaningful visual difference between flag on and off (only the
@@ -449,6 +492,7 @@ accepted subtle backdrop color artifact from #5):
 | 10  | `height` prop not applied                 | Medium   | Bug         | Open      |
 | 11  | `width: "100%"` fills viewport            | Medium   | Bug         | Open      |
 | 12  | Tooltip positioning differs in `<dialog>` | Medium   | Bug         | Open      |
+| 13  | Body scroll footer off-screen             | High     | Bug         | **Fixed** |
 
 ### Visual regression test coverage
 

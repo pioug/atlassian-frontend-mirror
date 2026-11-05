@@ -215,6 +215,49 @@ const hexagonBorderFixStyles = unboundCssMap({
 	},
 });
 
+// Gated behind `platform-dst-avatar-updated-geometry`.
+// Hexagon avatars are shaped with `clip-path`, so a real `border` or inset `box-shadow` can't follow
+// the hexagon edges. Instead, a `::before` overlay is painted above the avatar image and clipped to a
+// ring: an `evenodd` polygon made of the full box with an inner hexagon cut out. The inner hexagon is
+// the avatar hexagon scaled inward by the border width, where each point `p%` becomes
+// `p% + (1 - 2p) * width` (equivalent to `width + (100% - 2 * width) * p`).
+// The surrounding hexagon `clip-path` on the avatar then clips the outer edge of the ring.
+const hexagonInnerBorderStyles = unboundCssMap({
+	root: {
+		'--avatar-inner-border-width': '1.5px',
+		// Option 3a: https://hello.atlassian.net/wiki/spaces/DST/pages/8105858255
+		// There is no semantic token for these palette values yet, so the raw values are used directly.
+		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage -- Neutral200A, no semantic token exists
+		// '--avatar-inner-border-color': '#0515240F', // Neutral200A
+		'--avatar-inner-border-color': token('color.border'), // Neutral200A
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- swaps the color by color mode without re-rendering
+		'html[data-color-mode="dark"] &': {
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage -- DarkNeutral350A, no semantic token exists
+			'--avatar-inner-border-color': '#E8EDFD2E', // DarkNeutral350A
+		},
+		'&::before': {
+			position: 'absolute',
+			inset: token('space.0'),
+			zIndex: 1,
+			backgroundColor: 'var(--avatar-inner-border-color)',
+			content: "''",
+			pointerEvents: 'none',
+		},
+	},
+	legacyGeometry: {
+		'&::before': {
+			clipPath:
+				'polygon(evenodd, 0 0, 100% 0, 100% 100%, 0 100%, 0 0, calc(45% + 0.1 * var(--avatar-inner-border-width)) calc(1.33975% + 0.9732 * var(--avatar-inner-border-width)), calc(46.5798% + 0.0684 * var(--avatar-inner-border-width)) calc(0.60307% + 0.98794 * var(--avatar-inner-border-width)), calc(48.26352% + 0.03473 * var(--avatar-inner-border-width)) calc(0.15192% + 0.99696 * var(--avatar-inner-border-width)), calc(50% + 0 * var(--avatar-inner-border-width)) calc(0% + 1 * var(--avatar-inner-border-width)), calc(51.73648% + -0.03473 * var(--avatar-inner-border-width)) calc(0.15192% + 0.99696 * var(--avatar-inner-border-width)), calc(53.4202% + -0.0684 * var(--avatar-inner-border-width)) calc(0.60307% + 0.98794 * var(--avatar-inner-border-width)), calc(55% + -0.1 * var(--avatar-inner-border-width)) calc(1.33975% + 0.9732 * var(--avatar-inner-border-width)), calc(89.64102% + -0.79282 * var(--avatar-inner-border-width)) calc(21.33975% + 0.5732 * var(--avatar-inner-border-width)), calc(91.06889% + -0.82138 * var(--avatar-inner-border-width)) calc(22.33956% + 0.55321 * var(--avatar-inner-border-width)), calc(92.30146% + -0.84603 * var(--avatar-inner-border-width)) calc(23.57212% + 0.52856 * var(--avatar-inner-border-width)), calc(93.30127% + -0.86603 * var(--avatar-inner-border-width)) calc(25% + 0.5 * var(--avatar-inner-border-width)), calc(94.03794% + -0.88076 * var(--avatar-inner-border-width)) calc(26.5798% + 0.4684 * var(--avatar-inner-border-width)), calc(94.48909% + -0.88978 * var(--avatar-inner-border-width)) calc(28.26352% + 0.43473 * var(--avatar-inner-border-width)), calc(94.64102% + -0.89282 * var(--avatar-inner-border-width)) calc(30% + 0.4 * var(--avatar-inner-border-width)), calc(94.64102% + -0.89282 * var(--avatar-inner-border-width)) calc(70% + -0.4 * var(--avatar-inner-border-width)), calc(94.48909% + -0.88978 * var(--avatar-inner-border-width)) calc(71.73648% + -0.43473 * var(--avatar-inner-border-width)), calc(94.03794% + -0.88076 * var(--avatar-inner-border-width)) calc(73.4202% + -0.4684 * var(--avatar-inner-border-width)), calc(93.30127% + -0.86603 * var(--avatar-inner-border-width)) calc(75% + -0.5 * var(--avatar-inner-border-width)), calc(92.30146% + -0.84603 * var(--avatar-inner-border-width)) calc(76.42788% + -0.52856 * var(--avatar-inner-border-width)), calc(91.06889% + -0.82138 * var(--avatar-inner-border-width)) calc(77.66044% + -0.55321 * var(--avatar-inner-border-width)), calc(89.64102% + -0.79282 * var(--avatar-inner-border-width)) calc(78.66025% + -0.57321 * var(--avatar-inner-border-width)), calc(55% + -0.1 * var(--avatar-inner-border-width)) calc(98.66025% + -0.97321 * var(--avatar-inner-border-width)), calc(53.4202% + -0.0684 * var(--avatar-inner-border-width)) calc(99.39693% + -0.98794 * var(--avatar-inner-border-width)), calc(51.73648% + -0.03473 * var(--avatar-inner-border-width)) calc(99.84808% + -0.99696 * var(--avatar-inner-border-width)), calc(50% + 0 * var(--avatar-inner-border-width)) calc(100% + -1 * var(--avatar-inner-border-width)), calc(48.26352% + 0.03473 * var(--avatar-inner-border-width)) calc(99.84808% + -0.99696 * var(--avatar-inner-border-width)), calc(46.5798% + 0.0684 * var(--avatar-inner-border-width)) calc(99.39693% + -0.98794 * var(--avatar-inner-border-width)), calc(45% + 0.1 * var(--avatar-inner-border-width)) calc(98.66025% + -0.97321 * var(--avatar-inner-border-width)), calc(10.35898% + 0.79282 * var(--avatar-inner-border-width)) calc(78.66025% + -0.57321 * var(--avatar-inner-border-width)), calc(8.93111% + 0.82138 * var(--avatar-inner-border-width)) calc(77.66044% + -0.55321 * var(--avatar-inner-border-width)), calc(7.69854% + 0.84603 * var(--avatar-inner-border-width)) calc(76.42788% + -0.52856 * var(--avatar-inner-border-width)), calc(6.69873% + 0.86603 * var(--avatar-inner-border-width)) calc(75% + -0.5 * var(--avatar-inner-border-width)), calc(5.96206% + 0.88076 * var(--avatar-inner-border-width)) calc(73.4202% + -0.4684 * var(--avatar-inner-border-width)), calc(5.51091% + 0.88978 * var(--avatar-inner-border-width)) calc(71.73648% + -0.43473 * var(--avatar-inner-border-width)), calc(5.35898% + 0.89282 * var(--avatar-inner-border-width)) calc(70% + -0.4 * var(--avatar-inner-border-width)), calc(5.35898% + 0.89282 * var(--avatar-inner-border-width)) calc(30% + 0.4 * var(--avatar-inner-border-width)), calc(5.51091% + 0.88978 * var(--avatar-inner-border-width)) calc(28.26352% + 0.43473 * var(--avatar-inner-border-width)), calc(5.96206% + 0.88076 * var(--avatar-inner-border-width)) calc(26.5798% + 0.4684 * var(--avatar-inner-border-width)), calc(6.69873% + 0.86603 * var(--avatar-inner-border-width)) calc(25% + 0.5 * var(--avatar-inner-border-width)), calc(7.69854% + 0.84603 * var(--avatar-inner-border-width)) calc(23.57212% + 0.52856 * var(--avatar-inner-border-width)), calc(8.93111% + 0.82138 * var(--avatar-inner-border-width)) calc(22.33956% + 0.55321 * var(--avatar-inner-border-width)), calc(10.35898% + 0.79282 * var(--avatar-inner-border-width)) calc(21.33975% + 0.5732 * var(--avatar-inner-border-width)), calc(45% + 0.1 * var(--avatar-inner-border-width)) calc(1.33975% + 0.9732 * var(--avatar-inner-border-width)))',
+		},
+	},
+	updatedGeometry: {
+		'&::before': {
+			clipPath:
+				'polygon(evenodd, 0 0, 100% 0, 100% 100%, 0 100%, 0 0, calc(43.61555% + 0.12769 * var(--avatar-inner-border-width)) calc(1.47441% + 0.97051 * var(--avatar-inner-border-width)), calc(46.08136% + 0.07837 * var(--avatar-inner-border-width)) calc(0.49147% + 0.99017 * var(--avatar-inner-border-width)), calc(48.6791% + 0.02642 * var(--avatar-inner-border-width)) calc(0% + 1 * var(--avatar-inner-border-width)), calc(51.3208% + -0.02642 * var(--avatar-inner-border-width)) calc(0% + 1 * var(--avatar-inner-border-width)), calc(53.91847% + -0.07837 * var(--avatar-inner-border-width)) calc(0.49147% + 0.99017 * var(--avatar-inner-border-width)), calc(56.38412% + -0.12768 * var(--avatar-inner-border-width)) calc(1.47441% + 0.97051 * var(--avatar-inner-border-width)), calc(93.61555% + -0.87231 * var(--avatar-inner-border-width)) calc(20.77327% + 0.58453 * var(--avatar-inner-border-width)), calc(95.79666% + -0.91593 * var(--avatar-inner-border-width)) calc(22.19894% + 0.55602 * var(--avatar-inner-border-width)), calc(97.56964% + -0.95139 * var(--avatar-inner-border-width)) calc(23.97299% + 0.52054 * var(--avatar-inner-border-width)), calc(98.89052% + -0.97781 * var(--avatar-inner-border-width)) calc(26.02699% + 0.47946 * var(--avatar-inner-border-width)), calc(99.7153% + -0.99431 * var(--avatar-inner-border-width)) calc(28.29251% + 0.43415 * var(--avatar-inner-border-width)), calc(100% + -1 * var(--avatar-inner-border-width)) calc(30.70112% + 0.38598 * var(--avatar-inner-border-width)), calc(100% + -1 * var(--avatar-inner-border-width)) calc(69.29883% + -0.38598 * var(--avatar-inner-border-width)), calc(99.7153% + -0.99431 * var(--avatar-inner-border-width)) calc(71.70746% + -0.43415 * var(--avatar-inner-border-width)), calc(98.89052% + -0.97781 * var(--avatar-inner-border-width)) calc(73.973% + -0.47946 * var(--avatar-inner-border-width)), calc(97.56964% + -0.95139 * var(--avatar-inner-border-width)) calc(76.027% + -0.52054 * var(--avatar-inner-border-width)), calc(95.79666% + -0.91593 * var(--avatar-inner-border-width)) calc(77.801% + -0.55602 * var(--avatar-inner-border-width)), calc(93.61555% + -0.87231 * var(--avatar-inner-border-width)) calc(79.22654% + -0.58453 * var(--avatar-inner-border-width)), calc(56.38412% + -0.12768 * var(--avatar-inner-border-width)) calc(98.5254% + -0.97051 * var(--avatar-inner-border-width)), calc(53.91847% + -0.07837 * var(--avatar-inner-border-width)) calc(99.50837% + -0.99017 * var(--avatar-inner-border-width)), calc(51.3208% + -0.02642 * var(--avatar-inner-border-width)) calc(99.99991% + -1 * var(--avatar-inner-border-width)), calc(48.6791% + 0.02642 * var(--avatar-inner-border-width)) calc(100% + -1 * var(--avatar-inner-border-width)), calc(46.08136% + 0.07837 * var(--avatar-inner-border-width)) calc(99.5086% + -0.99017 * var(--avatar-inner-border-width)), calc(43.61555% + 0.12769 * var(--avatar-inner-border-width)) calc(98.52569% + -0.97051 * var(--avatar-inner-border-width)), calc(6.38428% + 0.87231 * var(--avatar-inner-border-width)) calc(79.22654% + -0.58453 * var(--avatar-inner-border-width)), calc(4.20328% + 0.91593 * var(--avatar-inner-border-width)) calc(77.801% + -0.55602 * var(--avatar-inner-border-width)), calc(2.43035% + 0.95139 * var(--avatar-inner-border-width)) calc(76.027% + -0.52054 * var(--avatar-inner-border-width)), calc(1.10949% + 0.97781 * var(--avatar-inner-border-width)) calc(73.973% + -0.47946 * var(--avatar-inner-border-width)), calc(0.28471% + 0.99431 * var(--avatar-inner-border-width)) calc(71.70746% + -0.43415 * var(--avatar-inner-border-width)), calc(0% + 1 * var(--avatar-inner-border-width)) calc(69.29883% + -0.38598 * var(--avatar-inner-border-width)), calc(0% + 1 * var(--avatar-inner-border-width)) calc(30.70112% + 0.38598 * var(--avatar-inner-border-width)), calc(0.28471% + 0.99431 * var(--avatar-inner-border-width)) calc(28.29251% + 0.43415 * var(--avatar-inner-border-width)), calc(1.10949% + 0.97781 * var(--avatar-inner-border-width)) calc(26.02699% + 0.47946 * var(--avatar-inner-border-width)), calc(2.43035% + 0.95139 * var(--avatar-inner-border-width)) calc(23.97299% + 0.52054 * var(--avatar-inner-border-width)), calc(4.20328% + 0.91593 * var(--avatar-inner-border-width)) calc(22.19894% + 0.55602 * var(--avatar-inner-border-width)), calc(6.38428% + 0.87231 * var(--avatar-inner-border-width)) calc(20.77327% + 0.58453 * var(--avatar-inner-border-width)), calc(43.61555% + 0.12769 * var(--avatar-inner-border-width)) calc(1.47441% + 0.97051 * var(--avatar-inner-border-width)))',
+		},
+	},
+});
+
 // See https://hello.atlassian.net/wiki/spaces/DST/pages/7432283012
 const updatedHexagonBorderFixStyles = unboundCssMap({
 	hexagonBorderContainer: {
@@ -289,6 +332,7 @@ export const AvatarContent: React.ForwardRefExoticComponent<
 		UNSAFE_isUpdatedGeometry,
 		avatarImage,
 		borderColor = token('elevation.surface'),
+		hasInnerBorder,
 		href,
 		isDisabled,
 		label,
@@ -305,6 +349,10 @@ export const AvatarContent: React.ForwardRefExoticComponent<
 	} = useContext(AvatarContentContext);
 
 	const isInteractive = Boolean(onClick || href || isDisabled || ariaHasPopup);
+	const hasHexagonInnerBorder =
+		appearance === 'hexagon' &&
+		hasInnerBorder === true &&
+		fg('platform-dst-avatar-updated-geometry');
 
 	const renderedContent = (
 		<Container
@@ -318,12 +366,19 @@ export const AvatarContent: React.ForwardRefExoticComponent<
 				appearance === 'square' && styles.square,
 				appearance === 'circle' && styles.circle,
 				appearance === 'hexagon' && unboundStyles.hexagon,
+				hasHexagonInnerBorder && hexagonInnerBorderStyles.root,
+				hasHexagonInnerBorder &&
+					!UNSAFE_isUpdatedGeometry &&
+					hexagonInnerBorderStyles.legacyGeometry,
+				hasHexagonInnerBorder &&
+					UNSAFE_isUpdatedGeometry &&
+					hexagonInnerBorderStyles.updatedGeometry,
 				widthHeightMap[size],
 				UNSAFE_isUpdatedGeometry &&
 					updatedHexagonDimensionMap[
 						size as 'xxsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge'
 					],
-				stackIndex !== undefined && styles.positionRelative,
+				(hasHexagonInnerBorder || stackIndex !== undefined) && styles.positionRelative,
 				isInteractive && !isDisabled && unboundStyles.interactive,
 				isInteractive &&
 					!isDisabled &&

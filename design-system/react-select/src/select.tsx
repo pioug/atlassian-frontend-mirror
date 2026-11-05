@@ -967,7 +967,6 @@ export default class Select<
 	initialTouchX = 0;
 	initialTouchY = 0;
 	openAfterFocus = false;
-	openAfterClick: 'first' | 'last' | null = null;
 	scrollToFocusedOptionOnUpdate = false;
 	multiValueExitFallbackTimeout: ReturnType<typeof setTimeout> | null = null;
 	userIsDragging?: boolean;
@@ -1272,41 +1271,6 @@ export default class Select<
 	// aliased for consumers
 	focus: () => void = this.focusInput;
 	blur: () => void = this.blurInput;
-
-	/**
-	 * Whether to defer the menu open until the in-flight click completes.
-	 * Any renderer that drives a `popover="auto"` element must, otherwise
-	 * the browser's light-dismiss can close the menu during the opening
-	 * gesture. Today only the top-layer path needs it.
-	 */
-	private shouldDeferOpenUntilClick(): boolean {
-		return fg('platform-dst-top-layer');
-	}
-
-	/**
-	 * Open the menu after the current click, instead of
-	 * synchronously inside `mousedown`.
-	 *
-	 * On the top-layer path the menu is a `popover="auto"` element. The
-	 * browser performs light-dismiss during the pointer gesture. Deferring
-	 * until `click` ensures light-dismiss has completed before the popover opens.
-	 * Off the top-layer path we open synchronously as before.
-	 */
-	private openMenuAfterClick(focusOption: 'first' | 'last'): void {
-		if (!this.shouldDeferOpenUntilClick()) {
-			this.openMenu(focusOption);
-			return;
-		}
-		this.openAfterClick = focusOption;
-	}
-
-	onControlClick: MouseEventHandler<HTMLDivElement> = () => {
-		const focusOption = this.openAfterClick;
-		this.openAfterClick = null;
-		if (focusOption && !this.props.menuIsOpen) {
-			this.openMenu(focusOption);
-		}
-	};
 
 	openMenu(focusOption: 'first' | 'last'): void {
 		const { selectValue, isFocused } = this.state;
@@ -1785,7 +1749,7 @@ export default class Select<
 			this.focusInput();
 		} else if (!this.props.menuIsOpen) {
 			if (openMenuOnClick) {
-				this.openMenuAfterClick('first');
+				this.openMenu('first');
 			}
 		} else {
 			if (
@@ -1822,7 +1786,7 @@ export default class Select<
 			this.setState({ inputIsHiddenAfterUpdate: !isMulti });
 			this.onMenuClose();
 		} else {
-			this.openMenuAfterClick('first');
+			this.openMenu('first');
 		}
 		event.preventDefault();
 	};
@@ -1995,14 +1959,7 @@ export default class Select<
 			isFocused: true,
 		});
 		if (this.openAfterFocus || this.props.openMenuOnFocus) {
-			// `openAfterFocus` always follows a pointer gesture, so defer until
-			// click. `openMenuOnFocus` alone can come from a keyboard tab
-			// with no pointer gesture in flight, so open synchronously.
-			if (this.openAfterFocus) {
-				this.openMenuAfterClick('first');
-			} else {
-				this.openMenu('first');
-			}
+			this.openMenu('first');
 		}
 		this.openAfterFocus = false;
 	};
@@ -2940,7 +2897,6 @@ export default class Select<
 						innerRef={this.getControlRef}
 						innerProps={{
 							onMouseDown: this.onControlMouseDown,
-							onClick: this.onControlClick,
 							onTouchEnd: this.onControlTouchEnd,
 							...(testId && {
 								'data-testid': `${testId}-select--control`,

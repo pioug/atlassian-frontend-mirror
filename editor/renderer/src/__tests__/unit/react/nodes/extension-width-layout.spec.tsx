@@ -9,6 +9,7 @@ import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions/exten
 import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { RendererCssClassName } from '../../../../consts';
 import ReactSerializer from '../../../../react';
@@ -62,6 +63,36 @@ describe('Extension - canUseCustomLayout behavior with rendererAppearance', () =
 		localId: 'c145e554-f571-4208-a0f1-2170e1987722',
 		isTopLevel: true,
 	};
+
+	it('uses breakout sizing when extension resizing is enabled', () => {
+		mockExpEnabled('platform_editor_lovability_resize_extensions');
+
+		mockExpEnabled('platform_editor_lovability_resize_exts_patch_1');
+		passGate('platform_editor_lovability_resize_exts_gracefully');
+
+		const schema = getSchemaBasedOnStage('stage0');
+		const marks = [schema.marks.breakout.create({ mode: 'wide', width: 900 })];
+		render(<Extension {...baseProps} marks={marks} layout="wide" rendererAppearance="full-page" />);
+
+		const wrapper = screen.getByTestId('extension--wrapper');
+		expect(wrapper.className).not.toContain(RendererCssClassName.EXTENSION_CENTER_ALIGN);
+		expect(wrapper.style.width).toBe('100%');
+	});
+
+	it('uses breakout sizing when extension resizing is disabled', () => {
+		mockExpDisabled('platform_editor_lovability_resize_extensions');
+
+		mockExpEnabled('platform_editor_lovability_resize_exts_patch_1');
+		passGate('platform_editor_lovability_resize_exts_gracefully');
+
+		const schema = getSchemaBasedOnStage('stage0');
+		const marks = [schema.marks.breakout.create({ mode: 'wide', width: 900 })];
+		render(<Extension {...baseProps} marks={marks} layout="wide" rendererAppearance="full-page" />);
+
+		const wrapper = screen.getByTestId('extension--wrapper');
+		expect(wrapper.className).not.toContain(RendererCssClassName.EXTENSION_CENTER_ALIGN);
+		expect(wrapper.style.width).toBe('100%');
+	});
 
 	describe('remove important experiment', () => {
 		beforeEach(() => {
@@ -204,6 +235,46 @@ describe('BodiedExtension - passes rendererAppearance to renderExtension', () =>
 		layout: 'default' as const,
 		parameters: { extensionId: 'test-extension-id' },
 	};
+
+	it('uses breakout sizing when extension resizing is enabled', () => {
+		mockExpEnabled('platform_editor_lovability_resize_extensions');
+
+		passGate('platform_editor_lovability_resize_exts_gracefully');
+		mockExpEnabled('platform_editor_lovability_resize_exts_patch_1');
+
+		const schema = getSchemaBasedOnStage('stage0');
+		const marks = [schema.marks.breakout.create({ mode: 'wide', width: 900 })];
+
+		render(
+			<BodiedExtension {...baseProps} marks={marks} layout="wide" rendererAppearance="full-page">
+				<p>Test Content</p>
+			</BodiedExtension>,
+		);
+
+		const wrapper = screen.getByTestId('extension--wrapper');
+		expect(wrapper.className).not.toContain(RendererCssClassName.EXTENSION_CENTER_ALIGN);
+		expect(wrapper.style.width).toBe('100%');
+	});
+
+	it('uses breakout sizing when extension resizing is disabled', () => {
+		mockExpDisabled('platform_editor_lovability_resize_extensions');
+
+		passGate('platform_editor_lovability_resize_exts_gracefully');
+		mockExpEnabled('platform_editor_lovability_resize_exts_patch_1');
+
+		const schema = getSchemaBasedOnStage('stage0');
+		const marks = [schema.marks.breakout.create({ mode: 'wide', width: 900 })];
+
+		render(
+			<BodiedExtension {...baseProps} marks={marks} layout="wide" rendererAppearance="full-page">
+				<p>Test Content</p>
+			</BodiedExtension>,
+		);
+
+		const wrapper = screen.getByTestId('extension--wrapper');
+		expect(wrapper.className).not.toContain(RendererCssClassName.EXTENSION_CENTER_ALIGN);
+		expect(wrapper.style.width).toBe('100%');
+	});
 
 	describe('remove important experiment enabled', () => {
 		beforeEach(() => {

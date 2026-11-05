@@ -35,7 +35,7 @@ describe('TopNavEnd', () => {
 
 	it('should keep overflow open when a viewport event does not change the container layout', async () => {
 		passGate('platform-dst-chat-panel-layout');
-		const compact = { belowSm: true };
+		const compact = { belowSm: true, hasMeasured: true };
 		render(
 			<TopNavElementContext.Provider value={compact}>
 				<TopNavEnd>

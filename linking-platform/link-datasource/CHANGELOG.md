@@ -1,5 +1,14 @@
 # @atlaskit/link-datasource
 
+## 7.12.1
+
+### Patch Changes
+
+- [`4d0e8142c81f3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4d0e8142c81f3) -
+  Request 100 items per page for Assets datasource tables behind
+  `astral_assets_default_page_size_100`.
+- Updated dependencies
+
 ## 7.12.0
 
 ### Minor Changes

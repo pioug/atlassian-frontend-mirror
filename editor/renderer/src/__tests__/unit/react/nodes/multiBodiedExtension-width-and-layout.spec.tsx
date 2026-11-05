@@ -4,8 +4,10 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
+import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { RendererCssClassName } from '../../../../consts';
 import MultiBodiedExtension from '../../../../react/nodes/multiBodiedExtension';
@@ -49,6 +51,60 @@ const defaultProps: any = {
 	marks: [],
 	localId: 'local-id',
 };
+
+describe('multi-bodied extensions with breakout marks', () => {
+	it('uses breakout sizing when extension resizing is enabled', () => {
+		mockExpEnabled('platform_editor_lovability_resize_extensions');
+
+		passGate('platform_editor_lovability_resize_exts_gracefully');
+		mockExpEnabled('platform_editor_lovability_resize_exts_patch_1');
+
+		const schema = getSchemaBasedOnStage('stage0');
+		const marks = [schema.marks.breakout.create({ mode: 'wide', width: 900 })];
+
+		render(
+			<MultiBodiedExtension
+				{...defaultProps}
+				marks={marks}
+				layout="wide"
+				path={[]}
+				rendererAppearance="full-page"
+			>
+				Test Content
+			</MultiBodiedExtension>,
+		);
+
+		const wrapper = screen.getByTestId('multiBodiedExtension--wrapper-renderer');
+		expect(wrapper.className).not.toContain(RendererCssClassName.EXTENSION_CENTER_ALIGN);
+		expect(wrapper.style.width).toBe('100%');
+	});
+
+	it('uses breakout sizing when extension resizing is disabled', () => {
+		mockExpDisabled('platform_editor_lovability_resize_extensions');
+
+		passGate('platform_editor_lovability_resize_exts_gracefully');
+		mockExpEnabled('platform_editor_lovability_resize_exts_patch_1');
+
+		const schema = getSchemaBasedOnStage('stage0');
+		const marks = [schema.marks.breakout.create({ mode: 'wide', width: 900 })];
+
+		render(
+			<MultiBodiedExtension
+				{...defaultProps}
+				marks={marks}
+				layout="wide"
+				path={[]}
+				rendererAppearance="full-page"
+			>
+				Test Content
+			</MultiBodiedExtension>,
+		);
+
+		const wrapper = screen.getByTestId('multiBodiedExtension--wrapper-renderer');
+		expect(wrapper.className).not.toContain(RendererCssClassName.EXTENSION_CENTER_ALIGN);
+		expect(wrapper.style.width).toBe('100%');
+	});
+});
 
 describe('remove important experiment enabled', () => {
 	beforeEach(() => {

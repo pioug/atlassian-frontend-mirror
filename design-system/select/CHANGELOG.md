@@ -1,5 +1,19 @@
 # @atlaskit/select
 
+## 23.1.6
+
+### Patch Changes
+
+- [`f1dbe14f9e8d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f1dbe14f9e8d0) -
+  Cleanup `feature_gate` `platform-dst-popper-consolidation`. `PopupSelect`, the Editor `Layer` and
+  `VanillaTooltip` now always position through `@atlaskit/popper`, and the direct `react-popper`,
+  `popper.js` and `@popperjs/core` paths are removed.
+
+  `Layer` mounts its content in the commit that opens it again, as the `popper.js` path did, so
+  Editor dropdown menus opened by keyboard focus their first item.
+
+- Updated dependencies
+
 ## 23.1.5
 
 ### Patch Changes
@@ -2748,7 +2762,7 @@
   Remove imports of `@types/react-select` - no longer required as react-select v5 now uses
   Typescript,
 
-  **_ Example _**
+  **\_ Example \_**
 
   @atlaskit/select v15 and earlier:
 

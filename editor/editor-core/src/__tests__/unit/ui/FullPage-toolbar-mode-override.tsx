@@ -5,8 +5,6 @@
  * AND the toolbar plugin's `contextualFormattingModeOverride` runtime field is
  * `'always-pinned'` (e.g. Markdown Mode source/preview view), the primary
  * toolbar must still mount — otherwise the override has no UI to drive.
- *
- * `platform_editor_controls = variant1` is set via `eeTest`.
  */
 
 import React from 'react';
@@ -15,7 +13,7 @@ import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
+import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import { skipAutoA11y } from '@atlassian/a11y-jest-testing/skip-decorator';
 
 // Drives the runtime override returned to `FullPage.tsx`'s selector.
@@ -103,31 +101,40 @@ const renderFullPage = () =>
 		</IntlProvider>,
 	);
 
-eeTest
-	.describe('platform_editor_controls', 'FullPage → primary toolbar mount gate (runtime override)')
-	.variant('variant1', () => {
-		beforeEach(() => {
-			mockToolbarOverride.value = undefined;
-		});
+beforeEach(() => {
+	setupEditorExperiments(
+		'test',
+		{ platform_editor_controls: 'variant1' },
+		{},
+		{
+			disableTestOverrides: true,
+		},
+	);
+});
 
-		it("hides the primary toolbar when docking pref is 'none' and no runtime override", async () => {
-			// Override is undefined, so `forcePrimaryToolbarPinned` short-circuits
-			// before reading the toolbar-mode-override gate.
-			renderFullPage();
-			expect(screen.queryByTestId('ak-editor-main-toolbar')).not.toBeInTheDocument();
-			await expect(document.body).toBeAccessible();
-		});
-
-		// The mounted toolbar surface here is built from mocked sub-components
-		// whose `aria-controls="ak-editor-textarea"` points at an element that
-		// only exists in real editor renders. The auto-a11y check is opted out
-		// for this test; the sibling test above covers the a11y baseline.
-		it(
-			"mounts the primary toolbar when docking pref is 'none' but override forces 'always-pinned'",
-			skipAutoA11y(() => {
-				mockToolbarOverride.value = 'always-pinned';
-				renderFullPage();
-				expect(screen.getByTestId('ak-editor-main-toolbar')).toBeInTheDocument();
-			}),
-		);
+describe('FullPage → primary toolbar mount gate (runtime override)', () => {
+	beforeEach(() => {
+		mockToolbarOverride.value = undefined;
 	});
+
+	it("hides the primary toolbar when docking pref is 'none' and no runtime override", async () => {
+		// Override is undefined, so `forcePrimaryToolbarPinned` short-circuits
+		// before reading the toolbar-mode-override gate.
+		renderFullPage();
+		expect(screen.queryByTestId('ak-editor-main-toolbar')).not.toBeInTheDocument();
+		await expect(document.body).toBeAccessible();
+	});
+
+	// The mounted toolbar surface here is built from mocked sub-components
+	// whose `aria-controls="ak-editor-textarea"` points at an element that
+	// only exists in real editor renders. The auto-a11y check is opted out
+	// for this test; the sibling test above covers the a11y baseline.
+	it(
+		"mounts the primary toolbar when docking pref is 'none' but override forces 'always-pinned'",
+		skipAutoA11y(() => {
+			mockToolbarOverride.value = 'always-pinned';
+			renderFullPage();
+			expect(screen.getByTestId('ak-editor-main-toolbar')).toBeInTheDocument();
+		}),
+	);
+});

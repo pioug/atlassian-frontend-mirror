@@ -21,6 +21,7 @@ import LinkItem from '@atlaskit/menu/link-item';
 import MenuGroup from '@atlaskit/menu/menu-group';
 import Section from '@atlaskit/menu/section';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
+import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { changeSelectedCardToLink, setSelectedCardAppearance } from '../pm-plugins/doc';
 import { DatasourceDropdownOption, datasourceDisplayInformation } from './DatasourceDropdownOption';
@@ -158,18 +159,26 @@ export const LinkAppearanceMenu = ({
 		<MenuGroup>
 			<Section>
 				{finalOptions.map((option) => {
-					return (
+					const item = (
 						<ButtonItem
 							key={option.title}
 							iconBefore={option.icon}
 							// eslint-disable-next-line @atlassian/perf-linting/detect-unnecessary-rerenders, @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							onClick={() => option.onClick()}
 							isSelected={option.selected}
+							isDisabled={option.disabled}
 							description={option.description}
 							shouldDescriptionWrap={true}
 						>
 							{option.title}
 						</ButtonItem>
+					);
+					return option.tooltip ? (
+						<Tooltip key={option.title} content={option.tooltip}>
+							{item}
+						</Tooltip>
+					) : (
+						item
 					);
 				})}
 				<DatasourceDropdownOption

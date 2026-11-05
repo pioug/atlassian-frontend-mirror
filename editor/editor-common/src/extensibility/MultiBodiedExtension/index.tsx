@@ -33,6 +33,7 @@ import { calculateBreakoutStyles, getExtensionLozengeData } from '../../utils';
 import ExtensionLozenge from '../Extension/Lozenge';
 import { ExtensionFloatingLabel } from '../Extension/Lozenge/ExtensionFloatingLabel';
 import type { ExtensionsPluginInjectionAPI, MacroInteractionDesignFeatureFlags } from '../types';
+import { hasBreakoutWidth } from '../utils/has-breakout-width';
 import { shouldExtensionBreakout } from '../utils/should-extension-breakout';
 import { useMultiBodiedExtensionActions } from './action-api';
 import {
@@ -374,6 +375,7 @@ const MultiBodiedExtensionWithWidth = ({
 		editorAppearance,
 		isTopLevelNode: true,
 		hasBreakoutMark: node.marks?.some((mark) => mark.type.name === 'breakout'),
+		hasBreakoutWidth: hasBreakoutWidth(node.marks),
 	});
 
 	let mbeWrapperStyles = {};

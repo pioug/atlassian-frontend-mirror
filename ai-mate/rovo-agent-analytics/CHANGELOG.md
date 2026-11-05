@@ -1,5 +1,14 @@
 # @atlaskit/rovo-agent-analytics
 
+## 6.7.2
+
+### Patch Changes
+
+- [`7a81d6e80fb0d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7a81d6e80fb0d) -
+  Add evaluation journey analytics: dataset and rubric details on batch evaluation job events, CSV
+  upload failure reasons on `batchEvaluationDataset createFailed`, and `agentRubric viewed`,
+  `updated` and `updateFailed` events.
+
 ## 6.7.1
 
 ### Patch Changes

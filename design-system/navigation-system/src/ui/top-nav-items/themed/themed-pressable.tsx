@@ -76,7 +76,7 @@ const styles = cssMap({
 			color: `var(--ds-top-bar-button-disabled-text)`,
 		},
 		'&::after': {
-			borderColor: 'transparent',
+			borderColor: 'var(--ds-top-bar-button-disabled-border, transparent)',
 		},
 	},
 });

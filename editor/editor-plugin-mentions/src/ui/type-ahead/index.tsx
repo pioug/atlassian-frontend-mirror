@@ -403,6 +403,7 @@ const buildNodesForTeamMention = (
 };
 
 type Props = {
+	agentSectionLozenge?: React.ReactNode;
 	api: ExtractInjectionAPI<MentionsPlugin> | undefined;
 	canOpenTypeAhead?: () => boolean;
 	enableAgentSectioning?: boolean;
@@ -525,6 +526,7 @@ const makeTransformMentionsToTypeAheadItems = ({
 };
 
 export const createTypeAheadConfig = ({
+	agentSectionLozenge,
 	canOpenTypeAhead,
 	sanitizePrivateContent,
 	mentionInsertDisplayName,
@@ -561,6 +563,19 @@ export const createTypeAheadConfig = ({
 			}),
 		).call,
 	});
+
+	const getAgentSectionLozenge = (label: string): React.ReactNode => {
+		if (fg('platform_editor_agent_mentions_hide_labs_lozenge')) {
+			return null;
+		}
+		if (agentSectionLozenge !== undefined) {
+			return agentSectionLozenge;
+		}
+		if (!fg('platform_editor_agent_mentions_drop_one_fixes') || showAgentMentionsLabsLozenge) {
+			return <Lozenge appearance="discovery">{label}</Lozenge>;
+		}
+		return null;
+	};
 
 	const typeAhead: TypeAheadHandler = {
 		canOpen: canOpenTypeAhead,
@@ -666,14 +681,9 @@ export const createTypeAheadConfig = ({
 					filter: applySearchOrder ? isSearchOrderedAgentTypeAheadItem : isAgentTypeAheadItem,
 					limit: 5,
 					sectionTitleDisplay: { showWhenQueryPresent: false, showWhenOnlySection: true },
-					lozenge:
-						!fg('platform_editor_agent_mentions_hide_labs_lozenge') &&
-						(!fg('platform_editor_agent_mentions_drop_one_fixes') ||
-							showAgentMentionsLabsLozenge) ? (
-							<Lozenge appearance="discovery">
-								{intl.formatMessage(mentionMessages.typeAheadSectionAgentsLabsLozengeLabel)}
-							</Lozenge>
-						) : null,
+					lozenge: getAgentSectionLozenge(
+						intl.formatMessage(mentionMessages.typeAheadSectionAgentsLabsLozengeLabel),
+					),
 				},
 			];
 		},

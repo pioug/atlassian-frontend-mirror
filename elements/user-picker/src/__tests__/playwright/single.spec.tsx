@@ -60,4 +60,31 @@ test.describe('User Picker', () => {
 			ignoreCase: true,
 		});
 	});
+
+	test('top-layer menu opens on mousedown and Escape preserves input focus', async ({
+		userPicker,
+		page,
+	}) => {
+		await page.visitExample<typeof import('../../../examples/00-single.tsx')>(
+			'elements',
+			'user-picker',
+			EXAMPLE,
+			{ featureFlag: 'platform-dst-top-layer' },
+		);
+		await userPicker.input.fill('team');
+		await expect(userPicker.firstOption).toBeVisible();
+		await userPicker.input.press('Escape');
+		await expect(page.getByRole('listbox')).toHaveCount(0);
+		await expect(userPicker.input).toBeFocused();
+
+		await userPicker.input.hover();
+		await page.mouse.down();
+		await expect(page.getByRole('listbox')).toBeVisible();
+		await page.mouse.up();
+		await expect(page.getByRole('listbox')).toBeVisible();
+
+		await userPicker.input.press('Escape');
+		await expect(page.getByRole('listbox')).toHaveCount(0);
+		await expect(userPicker.input).toBeFocused();
+	});
 });

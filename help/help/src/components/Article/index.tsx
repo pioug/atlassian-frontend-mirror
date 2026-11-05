@@ -9,6 +9,7 @@ import { css, jsx } from '@compiled/react';
 import { Transition } from 'react-transition-group';
 
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import type { HistoryItem } from '../../model/Help';
@@ -102,12 +103,20 @@ export const Article: React.FC<ArticleProps> = ({ isAiEnabled }) => {
 	}, [history]);
 
 	const onArticleEntered = (): void => {
+		// An article that is already open on load (skipArticleSlideInAnimation) was not chosen by the
+		// user, so focus stays on the Close button instead of jumping into the article once it loads
+		const shouldKeepFocusOnOpen =
+			fg('jfp_a11y_fix_help_panel_initial_focus') && skipArticleSlideInAnimation;
+
 		onArticleEnteredTimeout.current = window.setTimeout(() => {
 			// if skipArticleSlideInAnimation is true, set to false after the
 			// first slide-in animation
 			// NOTE: skipArticleSlideInAnimation could be true only after the mounting
 			if (skipArticleSlideInAnimation) {
 				setSkipArticleSlideInAnimation(false);
+			}
+			if (shouldKeepFocusOnOpen) {
+				return;
 			}
 			// Move focus to the article container for accessibility
 			articleContainerRef.current?.focus();

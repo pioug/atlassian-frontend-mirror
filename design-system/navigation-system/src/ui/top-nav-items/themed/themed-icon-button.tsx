@@ -4,10 +4,11 @@
  */
 import React, { forwardRef } from 'react';
 
-import { jsx } from '@compiled/react';
+import { cssMap, jsx } from '@compiled/react';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import type { PressableProps } from '@atlaskit/primitives/compiled/pressable';
+import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
@@ -15,17 +16,34 @@ import IconRenderer from '../icon-renderer';
 import { ThemedPressable } from './themed-pressable';
 import type { CommonProps, IconButtonCommonProps, OverriddenPrimitiveProps } from './types';
 
+const styles = cssMap({
+	label: { fontWeight: token('font.weight.medium') },
+});
+
 export interface ThemedIconButtonProps
-	extends CommonProps, Omit<PressableProps, OverriddenPrimitiveProps>, IconButtonCommonProps {}
+	extends CommonProps, Omit<PressableProps, OverriddenPrimitiveProps>, IconButtonCommonProps {
+	/**
+	 * Whether to suppress the icon button tooltip.
+	 */
+	isTooltipDisabled?: boolean;
+	/**
+	 * Show the label without replacing the underlying button. Used by ResponsiveTopNavButton.
+	 */
+	shouldShowLabel?: boolean;
+}
 
 export const ThemedIconButton: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<ThemedIconButtonProps> & React.RefAttributes<HTMLButtonElement>
 > = forwardRef<HTMLButtonElement, ThemedIconButtonProps>(function ThemedIconButton(
-	{ icon: Icon, label, tooltip, ...props },
+	{ icon: Icon, label, tooltip, isTooltipDisabled, shouldShowLabel = false, ...props },
 	ref,
 ) {
 	return (
-		<Tooltip {...tooltip} content={tooltip?.content ?? label}>
+		// Keep the trigger mounted when tooltip availability changes so focus is preserved.
+		<Tooltip
+			{...tooltip}
+			content={isTooltipDisabled || shouldShowLabel ? null : (tooltip?.content ?? label)}
+		>
 			{(triggerProps) => (
 				/**
 				 * The `aria-describedby` from `triggerProps` is intentionally not passed down,
@@ -35,7 +53,7 @@ export const ThemedIconButton: React.ForwardRefExoticComponent<
 				 */
 				<ThemedPressable
 					{...props}
-					shape="square"
+					shape={shouldShowLabel ? 'default' : 'square'}
 					ref={mergeRefs([ref, triggerProps.ref])}
 					onClick={(event, analyticsEvent) => {
 						props.onClick?.(event, analyticsEvent);
@@ -67,7 +85,11 @@ export const ThemedIconButton: React.ForwardRefExoticComponent<
 					}}
 				>
 					<IconRenderer icon={Icon} />
-					<VisuallyHidden>{label}</VisuallyHidden>
+					{shouldShowLabel ? (
+						<span css={styles.label}>{label}</span>
+					) : (
+						<VisuallyHidden>{label}</VisuallyHidden>
+					)}
 				</ThemedPressable>
 			)}
 		</Tooltip>

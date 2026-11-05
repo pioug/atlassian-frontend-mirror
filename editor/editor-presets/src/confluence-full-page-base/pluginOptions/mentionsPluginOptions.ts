@@ -7,12 +7,13 @@ import type { MentionProvider } from '@atlaskit/mention/types';
 
 interface Props {
 	options: {
+		agentSectionLozenge?: MentionsPluginOptions['agentSectionLozenge'];
 		currentUserId?: string;
 		enableAgentSectioning?: boolean;
 		getIsRovoPanelOpen?: () => boolean;
 		handleMentionsChanged: MentionsChangedHandler;
-		showAgentMentionsLabsLozenge?: boolean;
 		onAgentMentionChatClick?: MentionsPluginOptions['onAgentMentionChatClick'];
+		showAgentMentionsLabsLozenge?: boolean;
 	};
 	providers: {
 		mentionProvider: Promise<MentionProvider> | undefined;
@@ -22,6 +23,7 @@ interface Props {
 
 export function mentionsPluginOptions({ options, providers }: Props): MentionsPluginOptions {
 	return {
+		agentSectionLozenge: options.agentSectionLozenge,
 		sanitizePrivateContent: true,
 		insertDisplayName: true,
 		allowZeroWidthSpaceAfter: true,

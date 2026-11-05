@@ -86,6 +86,8 @@ export interface EmojiResourceConfig {
 	 */
 	allowUpload?: boolean;
 
+	asciiApi?: string;
+
 	/**
 	 * Logged user in the Product.
 	 */

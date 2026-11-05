@@ -216,13 +216,10 @@ through the unguarded host (raised on PR 467939).
 
 ```css
 /* ✗ WRONG — guard on the last branch only. Measured F→T: no protection at all. */
-.x:has(button, a:not(:where([popover], dialog, [popover] *, dialog *)))
-
-/* ✓ RIGHT — every top-level branch guarded. */
-.x:has(
-  button:not(:where([popover], dialog, [popover] *, dialog *)),
-  a:not(:where([popover], dialog, [popover] *, dialog *))
-)
+.x: has(button, a: not(: where([popover], dialog, [popover] *, dialog *)))
+	/* ✓ RIGHT — every top-level branch guarded. */
+	.x: has(button: not(: where([popover], dialog, [popover] *, dialog
+	*)), a: not(: where([popover], dialog, [popover] *, dialog *)));
 ```
 
 A positional pseudo nested inside a `:has()` argument takes the ordinary `of S` rewrite one level
@@ -264,7 +261,7 @@ warning and no build error. The class is on the element and no rule applies.
   control is 1 in all three.
 
 **Where each transform runs.** Gemini VR builds all of platform with `VR_BUNDLER=ap-headless`, which
-the Statsig gate `enable_platform_gemini_vr_ap_headless` turns on
+is enabled whenever the product's VR config sets `apHeadless`
 (`platform/packages/monorepo-tooling/gemini/src/run-tests.ts`, `platform/vr.config.js`). Jira and
 Confluence production builds use `@atlaspack/transformer-compiled-css-in-js`, which is
 `@atlaspack/rust`, in the processes the `compiledCssInJsTransformer` rollout flag covers, and babel

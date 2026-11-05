@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 30.0.6
+
+### Patch Changes
+
+- [`7b6b2186d8c8b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b6b2186d8c8b) -
+  Element Browser (platform_editor_slash_command experiment): show Recommended elements above All
+  elements in the All category; render every tile as its hover preview card (image, full
+  description, attribution) with lazily loaded images, equal heights per row and aligned footers;
+  show each tile's shortcut beside its title, which uses the hover preview's title style; enlarge
+  the modal to 1072x804 with 264px tiles; and support arrow-key navigation across rows of different
+  widths. Unclamped Quick Insert hover previews (Rovo skills) use the same subtle heading title as
+  other previews.
+- Updated dependencies
+
 ## 30.0.5
 
 ### Patch Changes

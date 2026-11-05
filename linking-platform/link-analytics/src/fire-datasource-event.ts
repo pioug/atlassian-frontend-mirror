@@ -5,6 +5,7 @@ import {
 	type DatasourceDataRequest,
 	type DatasourceDataResponse,
 } from '@atlaskit/linking-types/datasource';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { LinkCreatedAttributesType } from './common/utils/analytics/analytics.types';
 import createEventPayload from './common/utils/analytics/create-event-payload';
@@ -13,6 +14,9 @@ import { PACKAGE_DATA } from './fire-event';
 import { type DatasourceLifecycleEventCallback, type LifecycleAction } from './types';
 import { getDomainFromUrl } from './utils/get-domain-from-url';
 import { mergeAttributes } from './utils/merge-attributes';
+
+const ASSETS_LIST_OF_LINKS_DATASOURCE_ID = '361d618a-3c04-40ad-9b27-3c8ea6927020';
+const ASSETS_DATASOURCE_DATA_PAGE_SIZE = 100;
 
 export const fireDatasourceEvent = (
 	action: LifecycleAction,
@@ -31,7 +35,11 @@ export const fireDatasourceEvent = (
 		} = await getDatasourceData(details.datasourceId, {
 			parameters: details.parameters,
 			// Currently, pageSize doesn't change the values we are interested in
-			pageSize: DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE,
+			pageSize:
+				fg('astral_assets_default_page_size_100') &&
+				details.datasourceId === ASSETS_LIST_OF_LINKS_DATASOURCE_ID
+					? ASSETS_DATASOURCE_DATA_PAGE_SIZE
+					: DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE,
 			includeSchema: true,
 			fields: [],
 		});

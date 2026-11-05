@@ -1,5 +1,14 @@
 # @atlaskit/css-reset
 
+## 8.4.10
+
+### Patch Changes
+
+- [`328bc43ad1ac9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/328bc43ad1ac9) -
+  Harmonized scrollbars (behind `platform_dst_scrollbar_harmonisation`) now change only color. Size
+  and overlay behavior stay native, so operating system preferences such as macOS "When scrolling"
+  are honored.
+
 ## 8.4.9
 
 ### Patch Changes

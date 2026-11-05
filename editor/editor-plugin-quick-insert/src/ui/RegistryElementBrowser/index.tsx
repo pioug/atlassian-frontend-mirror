@@ -19,6 +19,7 @@ import type { RegisterComponent } from '@atlaskit/editor-ui-control-model/types'
 import { closeElementBrowser } from '../../pm-plugins/commands';
 import { pluginKey } from '../../pm-plugins/plugin-key';
 import type { QuickInsertPlugin } from '../../quickInsertPluginType';
+import type { RecommendedItemsResolver } from '../registered-menu/get-quick-insert-menu-model';
 import { RegistryElementBrowser } from './RegistryElementBrowser';
 
 const EMPTY_COMPONENTS: RegisterComponent[] = [];
@@ -26,10 +27,12 @@ const subscribeToNothing = () => () => {};
 
 export const RegistryElementBrowserContainer = ({
 	editorView,
+	getRecommendedItems,
 	pluginInjectionAPI,
 	helpUrl,
 }: {
 	editorView: EditorView;
+	getRecommendedItems?: RecommendedItemsResolver;
 	helpUrl?: string;
 	pluginInjectionAPI: ExtractInjectionAPI<QuickInsertPlugin> | undefined;
 }): React.JSX.Element => {
@@ -155,6 +158,7 @@ export const RegistryElementBrowserContainer = ({
 			components={components}
 			fireAnalyticsEvent={pluginInjectionAPI?.analytics?.actions.fireAnalyticsEvent}
 			emptyStateHandler={emptyStateHandler}
+			getRecommendedItems={getRecommendedItems}
 			helpUrl={helpUrl}
 			defaultSection={pluginKey.getState(editorView.state)?.elementBrowserInitialCategory}
 			editorView={editorView}

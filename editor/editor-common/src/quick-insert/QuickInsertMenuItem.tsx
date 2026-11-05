@@ -74,9 +74,10 @@ export const QuickInsertMenuItem = ({
 			isDisabled={isDisabled}
 			lozenge={lozenge}
 			onSelect={onSelect}
+			preview={preview}
+			previewImageUrls={previewImageUrls}
 			shortcut={shortcut}
 			titleContent={titleContent}
-			shouldWrapIcon={shouldWrapIcon}
 			title={title}
 		/>
 	) : (

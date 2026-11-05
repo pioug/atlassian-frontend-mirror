@@ -79,7 +79,12 @@ const dialogStyles = compiledCssMap({
 		width: '100vw',
 		height: '100vh',
 	},
-	'full-screen': {},
+	'full-screen': {
+		// The surface inside is `position: fixed`, so it does not size the `<dialog>`. Without a size
+		// the `<dialog>` box is empty, and tools that check visibility see it as hidden.
+		width: '100vw',
+		height: '100vh',
+	},
 });
 
 // Visual styles for modal content inside native <dialog>.
@@ -120,6 +125,11 @@ const surfaceStyles = cssMap({
 		'& > form:only-child': {
 			display: 'inherit',
 			maxHeight: 'inherit',
+			// The form is a flex item, so by default it does not shrink below its content. Let it
+			// shrink to the surface, so `ModalBody` scrolls and the footer stays in view.
+			// `max-height: inherit` alone does not do this: with no `height` the surface has
+			// `max-height: max-content`, and the form copies that keyword, not a length.
+			minHeight: '0px',
 			flexDirection: 'inherit',
 		},
 	},
@@ -160,6 +170,11 @@ const topLayerScrollModeStyles = compiledCssMap({
 			height: 'var(--modal-dialog-height)',
 			width: 'var(--modal-dialog-width)',
 			maxWidth: 'calc(100vw - 120px)',
+			// Fit the viewport between the 60px `<dialog>` margins, so a taller `height` does not push
+			// the footer off-screen: `ModalBody` scrolls instead. The `<dialog>` is fixed and has
+			// visible overflow, so the page cannot scroll to content below the fold. Legacy capped
+			// the size in the `Positioner`.
+			maxHeight: 'calc(100vh - 120px)',
 		},
 	},
 });

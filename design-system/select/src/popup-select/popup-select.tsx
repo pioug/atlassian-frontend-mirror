@@ -4,23 +4,17 @@ import { createPortal } from 'react-dom';
 import { type UnbindFn, bind } from 'bind-event-listener';
 // eslint-disable-next-line @atlaskit/design-system/no-third-party-focus-traps -- existing usage from before this rule was added
 import FocusLock from 'react-focus-lock';
-// eslint-disable-next-line @atlaskit/design-system/no-third-party-layering -- existing usage from before this rule was added
-import {
-	Manager as LegacyManager,
-	Popper as LegacyPopper,
-	Reference as LegacyReference,
-} from 'react-popper';
 import { shallowEqualObjects } from 'shallow-equal';
 
 import { IdProvider } from '@atlaskit/ds-lib/id-provider';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import type { Placement } from '@atlaskit/popper/main';
 import {
-	Manager as WrappedManager,
+	Manager,
 	type Modifier,
-	Popper as WrappedPopper,
+	Popper,
 	type PopperProps,
-	Reference as WrappedReference,
+	Reference,
 } from '@atlaskit/popper/react-popper';
 import type { components as RSComponents } from '@atlaskit/react-select/components';
 import { mergeStyles } from '@atlaskit/react-select/styles';
@@ -50,22 +44,6 @@ type SelectComponents = typeof RSComponents;
  */
 const canUseDOM = () =>
 	Boolean(typeof window !== 'undefined' && window.document && window.document.createElement);
-
-function getPopperComponents() {
-	if (fg('platform-dst-popper-consolidation')) {
-		return {
-			Manager: WrappedManager,
-			Popper: WrappedPopper,
-			Reference: WrappedReference,
-		};
-	}
-
-	return {
-		Manager: LegacyManager,
-		Popper: LegacyPopper,
-		Reference: LegacyReference,
-	};
-}
 
 // ==============================
 // Types
@@ -582,7 +560,6 @@ class PopupSelectLegacy<
 		} = this.props;
 
 		const { focusLockEnabled, isOpen, mergedComponents, mergedPopperProps } = this.state;
-		const { Popper } = getPopperComponents();
 		const showSearchControl = this.showSearchControl();
 		const portalDestination = canUseDOM() ? document.body : null;
 
@@ -663,7 +640,6 @@ class PopupSelectLegacy<
 	render(): React.JSX.Element {
 		const { target } = this.props;
 		const { isOpen } = this.state;
-		const { Manager, Reference } = getPopperComponents();
 
 		return (
 			<Manager>

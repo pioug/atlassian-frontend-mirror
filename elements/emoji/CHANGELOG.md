@@ -1,5 +1,45 @@
 # @atlaskit/emoji
 
+## 73.4.2
+
+### Patch Changes
+
+- [`5764694cfc17a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5764694cfc17a) -
+  Cleanup `feature_gate` `platform_emoji_prevent_img_src_changing`. Page-title emoji keep their
+  optimistic image src through the unconditional optimistic-image path.
+
+## 73.4.1
+
+### Patch Changes
+
+- [`52041aceb2dbb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/52041aceb2dbb) -
+  Restore focus to the Add custom emoji button after cancelling behind
+  platform_ally_emoji_fixes_various
+- [`17e8d92cb49c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/17e8d92cb49c7) -
+  [ux] Mark emoji picker images as decorative while preserving the interactive emoji's accessible
+  name, behind the `platform_ally_emoji_fixes_various` feature gate.
+
+## 73.4.0
+
+### Minor Changes
+
+- [`df88d83ca2263`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/df88d83ca2263) -
+  Add an optional asciiApi URL to EmojiResourceConfig for the confluence_on_demand_emoji_repository
+  experiment.
+
+### Patch Changes
+
+- [`5dd091d3c082d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5dd091d3c082d) -
+  Remove the presentation role from the emoji picker search wrapper behind
+  platform_ally_emoji_fixes_various
+- Updated dependencies
+
+## 73.3.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 73.3.8
 
 ### Patch Changes

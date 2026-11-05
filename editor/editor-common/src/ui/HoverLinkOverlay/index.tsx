@@ -153,6 +153,7 @@ const HoverLinkOverlay = ({
 	const [showLabel, setShowLabel] = useState(true);
 	const [isHovered, setHovered] = useState(false);
 	const openTextWidthRef = useRef<number | null>(null);
+	const shouldDeferMeasurement = isExperimentEnabled('platform_editor_improve_inp_batch_2');
 
 	const regularPadding = DYNAMIC_PADDING_BLOCK;
 	const memoizedHoverLinkStyles = useMemo(
@@ -171,6 +172,47 @@ const HoverLinkOverlay = ({
 		if (!isVisible || !isHovered) {
 			return;
 		}
+
+		if (shouldDeferMeasurement) {
+			const container = containerRef.current;
+			const button = hoverLinkButtonRef.current;
+			const hiddenText = hiddenTextRef.current;
+			if (!container || !button || !hiddenText) {
+				return;
+			}
+
+			const observer = new ResizeObserver(() => {
+				// One measurement per hover; hiding the label must not trigger another one.
+				observer.disconnect();
+
+				const cardWidth = container.offsetWidth;
+				const openButtonWidth = button.offsetWidth;
+				// Get the hidden text width
+				const openTextWidth = hiddenText.offsetWidth || DEFAULT_OPEN_TEXT_WIDTH;
+
+				if (!cardWidth || !openButtonWidth) {
+					return;
+				}
+
+				let canShowLabel =
+					cardWidth - openTextWidth > MIN_AVAILABLE_SPACE_WITH_LABEL_OVERLAY + ICON_WIDTH;
+
+				// When a smart link wraps to multiple lines in a constrained container (e.g. table cell),
+				// the hover button can overflow beyond the container bounds. We detect this by comparing
+				// the button's right edge to the container's right edge, and hide the label if it overflows.
+				const containerRight = container.getBoundingClientRect().right;
+				const buttonRight = button.getBoundingClientRect().right;
+
+				if (buttonRight > containerRight) {
+					canShowLabel = false;
+				}
+
+				setShowLabel(canShowLabel);
+			});
+			observer.observe(button);
+			return () => observer.disconnect();
+		}
+
 		const cardWidth = containerRef.current?.offsetWidth;
 		const openButtonWidth = hoverLinkButtonRef.current?.offsetWidth;
 		// Get the hidden text width
@@ -214,7 +256,7 @@ const HoverLinkOverlay = ({
 		}
 
 		setShowLabel(canShowLabel);
-	}, [isVisible, isHovered]);
+	}, [isVisible, isHovered, shouldDeferMeasurement]);
 
 	const handleOverlayChange = (isHovered: boolean) => {
 		setHovered(isHovered);
@@ -280,11 +322,13 @@ const HoverLinkOverlay = ({
 			}
 		>
 			{children}
-			<span css={hiddenTextStyle} aria-hidden="true">
-				<Text ref={hiddenTextRef} size="small" maxLines={1}>
-					{label}
-				</Text>
-			</span>
+			{(!shouldDeferMeasurement || isHovered) && (
+				<span css={hiddenTextStyle} aria-hidden="true">
+					<Text ref={hiddenTextRef} size="small" maxLines={shouldDeferMeasurement ? undefined : 1}>
+						{label}
+					</Text>
+				</span>
+			)}
 			{isHovered && (
 				<Anchor
 					ref={hoverLinkButtonRef}

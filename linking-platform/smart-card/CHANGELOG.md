@@ -1,5 +1,21 @@
 # @atlaskit/smart-card
 
+## 46.13.4
+
+### Patch Changes
+
+- [`93d2771d53c68`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/93d2771d53c68) -
+  Behind feature gate platform_sl_null_safe_extractors: stop smart link cards from throwing when the
+  ORS resolve response has no data (e.g. meta only) by defaulting missing data/meta in the flexible
+  UI context and guarding block card metadata for Bitbucket and Jira.
+- Updated dependencies
+
+## 46.13.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 46.13.2
 
 ### Patch Changes

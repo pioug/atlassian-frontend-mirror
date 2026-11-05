@@ -1,5 +1,12 @@
 # @atlaskit/ads-mcp
 
+## 1.12.4
+
+### Patch Changes
+
+- [`b742aadf7b807`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b742aadf7b807) -
+  Refresh GhostIconWave examples to remove the retired ghost icons experiment override.
+
 ## 1.12.3
 
 ### Patch Changes

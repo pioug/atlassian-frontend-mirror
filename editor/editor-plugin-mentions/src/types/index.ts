@@ -36,6 +36,8 @@ export type MentionChange = {
 export type MentionsChangedHandler = (changes: MentionChange[]) => void;
 
 export interface MentionsPluginOptions extends MentionPluginConfig {
+	/** Undefined preserves the legacy Labs policy; null hides the badge. The Platform hide gate overrides all values. */
+	agentSectionLozenge?: React.ReactNode;
 	allowZeroWidthSpaceAfter?: boolean;
 	/**
 	 * Optional predicate evaluated before opening the @mention typeahead. When

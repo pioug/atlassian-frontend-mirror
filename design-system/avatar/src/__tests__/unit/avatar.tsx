@@ -7,7 +7,7 @@ import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEv
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import __noop from '@atlaskit/ds-lib/noop';
-import { failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { render } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
@@ -669,6 +669,78 @@ describe('Avatar', () => {
 				clipPath: toCompiledClipPathCss(updatedHexagonClipPath),
 			});
 		});
+	});
+
+	describe('hexagon inner border', () => {
+		const gate = 'platform-dst-avatar-updated-geometry';
+
+		cases(
+			'should render the inner border on hexagon avatars when the gate is enabled',
+			({ isUpdatedGeometry }: { isUpdatedGeometry: boolean }) => {
+				passGate(gate);
+				render(
+					<Avatar
+						appearance="hexagon"
+						hasInnerBorder
+						testId={testId}
+						UNSAFE_isUpdatedGeometry={isUpdatedGeometry}
+					/>,
+				);
+
+				const inner = screen.getByTestId(`${testId}--inner`);
+
+				expect(inner).toHaveCompiledCss('background-color', 'var(--avatar-inner-border-color)', {
+					target: ':before',
+				});
+				expect(inner).toHaveCompiledCss('position', 'absolute', { target: ':before' });
+			},
+			[
+				{ name: 'legacy geometry', isUpdatedGeometry: false },
+				{ name: 'updated geometry', isUpdatedGeometry: true },
+			],
+		);
+
+		it('should not render the inner border on hexagon avatars when the gate is disabled', () => {
+			failGate(gate);
+			render(<Avatar appearance="hexagon" hasInnerBorder testId={testId} />);
+
+			expect(screen.getByTestId(`${testId}--inner`)).not.toHaveCompiledCss('position', 'absolute', {
+				target: ':before',
+			});
+		});
+
+		cases(
+			'should not render the inner border when hasInnerBorder is false or omitted',
+			({ hasInnerBorder }: { hasInnerBorder?: false }) => {
+				render(<Avatar appearance="hexagon" hasInnerBorder={hasInnerBorder} testId={testId} />);
+
+				expect(screen.getByTestId(`${testId}--inner`)).not.toHaveCompiledCss(
+					'position',
+					'absolute',
+					{ target: ':before' },
+				);
+			},
+			[
+				{ name: 'omitted', hasInnerBorder: undefined },
+				{ name: 'false', hasInnerBorder: false as const },
+			],
+		);
+
+		cases(
+			'should not render the inner border on non-hexagon appearances',
+			({ appearance }: { appearance: Exclude<AppearanceType, 'hexagon'> }) => {
+				render(<Avatar appearance={appearance} testId={testId} />);
+
+				expect(screen.getByTestId(`${testId}--inner`)).not.toHaveCompiledCss(
+					'position',
+					'absolute',
+					{
+						target: ':before',
+					},
+				);
+			},
+			[{ appearance: 'circle' as const }, { appearance: 'square' as const }],
+		);
 	});
 
 	describe('avatar context', () => {

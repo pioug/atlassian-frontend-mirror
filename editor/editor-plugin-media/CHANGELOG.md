@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-media
 
+## 32.2.10
+
+### Patch Changes
+
+- [`8a3ef7c9293bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8a3ef7c9293bc) -
+  Remove the fully launched cc-maui-phase-2 gate from Editor AI, media decorations, and the Rovo
+  bridge, retaining enabled behavior.
+- Updated dependencies
+
+## 32.2.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 32.2.8
 
 ### Patch Changes

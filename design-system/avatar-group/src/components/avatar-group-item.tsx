@@ -17,7 +17,7 @@ export interface AvatarGroupItemProps {
 	 * Custom component used to render the avatar inside the dropdown menu item.
 	 * When not provided, defaults to the standard Avatar component.
 	 */
-	avatarComponent?: typeof Avatar | ElementType<AvatarProps>;
+	avatarComponent?: ElementType<AvatarProps>;
 	isActive?: boolean;
 	isHover?: boolean;
 	avatarOverrides?: ReturnType<typeof getOverrides>['Avatar'];
@@ -96,7 +96,7 @@ const AvatarGroupItem: React.ForwardRefExoticComponent<
 		);
 	};
 
-	const AvatarComponent = avatarComponent ?? Avatar;
+	const AvatarComponent: ElementType<AvatarProps> = avatarComponent ?? Avatar;
 
 	const AvatarIcon = avatarOverrides ? (
 		avatarOverrides.render(

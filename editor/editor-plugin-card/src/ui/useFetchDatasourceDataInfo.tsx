@@ -8,11 +8,15 @@ import {
 	DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE,
 	useDatasourceClientExtension,
 } from '@atlaskit/link-client-extension/use-data-source-client-extension';
+import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource/assets-modal';
 import type { JiraIssueDatasourceParameters } from '@atlaskit/link-datasource/jira-issues-modal/types';
 import type {
 	DatasourceParameters,
 	DatasourceDataRequest,
 } from '@atlaskit/linking-types/datasource';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
+const ASSETS_DATASOURCE_DATA_PAGE_SIZE = 100;
 
 export interface useFetchDatasourceDataInfoProps {
 	datasourceId: string;
@@ -38,7 +42,11 @@ export const useFetchDatasourceDataInfo = ({
 				}
 				const datasourceDataRequest: DatasourceDataRequest = {
 					parameters,
-					pageSize: DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE,
+					pageSize:
+						fg('astral_assets_default_page_size_100') &&
+						datasourceId === ASSETS_LIST_OF_LINKS_DATASOURCE_ID
+							? ASSETS_DATASOURCE_DATA_PAGE_SIZE
+							: DEFAULT_GET_DATASOURCE_DATA_PAGE_SIZE,
 					pageCursor: undefined,
 					fields: visibleColumnKeys,
 					includeSchema: true,

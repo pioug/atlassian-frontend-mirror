@@ -1,10 +1,9 @@
 // eslint-disable-next-line @atlaskit/design-system/no-third-party-layering -- existing usage from before this rule was added
-import { createPopper as createLegacyPopper, type Instance, type Placement } from '@popperjs/core';
+import type { Instance, Placement } from '@popperjs/core';
 import { bind } from 'bind-event-listener';
 
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { createPopper as createWrappedPopper } from '@atlaskit/popper/unsafe-imperative';
+import { createPopper } from '@atlaskit/popper/unsafe-imperative';
 
 import { logException } from '../monitoring/error';
 
@@ -48,14 +47,6 @@ const generateTooltipId = (() => {
 			? `${TOOLTIP_ID_PREFIX}-${crypto.randomUUID()}`
 			: `${TOOLTIP_ID_PREFIX}-${(count += 1)}`;
 })();
-
-function getCreatePopper() {
-	if (fg('platform-dst-popper-consolidation')) {
-		return createWrappedPopper;
-	}
-
-	return createLegacyPopper;
-}
 
 /**
  * A tooltip component similar to "@atlaskit/tooltip" but built for vanilla scenarios
@@ -286,7 +277,7 @@ export class VanillaTooltip {
 	}
 
 	private createPopperInstance() {
-		this.popperInstance = getCreatePopper()(this.trigger, this.tooltip, {
+		this.popperInstance = createPopper(this.trigger, this.tooltip, {
 			placement: this.placement,
 			modifiers: [startingOffset],
 		});
@@ -365,13 +356,12 @@ export class VanillaTooltip {
 				if (isExperimentEnabled('platform_editor_use_vanilla_components')) {
 					// Released rather than reconfigured. The instance was previously kept for the
 					// trigger's whole lifetime, so every element the pointer passed over retained
-					// one — and under `platform-dst-popper-consolidation` an instance owns a
-					// detached React root, so that was a retained root per hovered trigger.
+					// one — and an instance owns a detached React root, so that was a retained
+					// root per hovered trigger.
 					//
 					// Destroying is also the only way to release that root's capture-phase
-					// `scroll`/`resize` listeners on the consolidated path, where the
-					// `eventListeners: false` reconfiguration in the control arm is accepted but
-					// does nothing.
+					// `scroll`/`resize` listeners, where the `eventListeners: false`
+					// reconfiguration in the control arm is accepted but does nothing.
 					this.popperInstance?.destroy();
 					this.popperInstance = undefined;
 					this.tooltip.style.opacity = '0';

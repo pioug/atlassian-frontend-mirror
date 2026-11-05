@@ -24,6 +24,8 @@ export type RegistryElementBrowserItem = {
 export type RegistryElementBrowserModel = {
 	fallbackItems?: RegistryElementBrowserItem[];
 	items: RegistryElementBrowserItem[];
+	/** Recommended items that are also available in a browser category, in recommendation order. */
+	recommendedItems: RegistryElementBrowserItem[];
 	sections: RegistryElementBrowserSection[];
 };
 
@@ -79,12 +81,14 @@ export const createRegistryElementBrowserModel = (
 	{
 		footerKey,
 		overflowKeys,
+		recommendedRegistrations = [],
 		recommendedSectionKey,
 		rootKey,
 		surfaceContext,
 	}: {
 		footerKey: string;
 		overflowKeys: Set<string>;
+		recommendedRegistrations?: RegisterMenuItem[];
 		recommendedSectionKey: string;
 		rootKey: string;
 		surfaceContext?: SurfaceContext;
@@ -128,12 +132,26 @@ export const createRegistryElementBrowserModel = (
 		({ registration }) => registration.key === ASK_ROVO_MENU_ITEM.key,
 	);
 
+	const recommendedItems = [...new Set(recommendedRegistrations.map(({ key }) => key))].flatMap(
+		(key) => itemByKey.get(key) ?? [],
+	);
+
 	return {
 		fallbackItems: fallbackItems.length > 0 ? fallbackItems : undefined,
 		items,
+		recommendedItems,
 		sections,
 	};
 };
+
+export type RecommendedTileSize = 'regular' | 'wide';
+
+/**
+ * Lays out Recommended so every row is full: wide tiles take half a row and regular tiles a third.
+ * An odd count of three or more ends with a row of three regular tiles; every other tile is wide.
+ */
+export const getRecommendedTileSize = (index: number, count: number): RecommendedTileSize =>
+	count >= 3 && count % 2 === 1 && index >= count - 3 ? 'regular' : 'wide';
 
 export const getInitialRegistryElementBrowserSection = (
 	model: RegistryElementBrowserModel,
@@ -151,18 +169,35 @@ export const getRegistryElementBrowserItems = ({
 	model: RegistryElementBrowserModel;
 	query: string;
 	section?: string;
-}): RegistryElementBrowserItem[] => {
-	const normalizedQuery = query.trim();
-	const items = section
-		? model.items.filter((item) => item.sectionKeys.includes(section))
-		: model.items;
-	const itemsWithDescriptions = items.map((item) => ({
+}): {
+	items: RegistryElementBrowserItem[];
+	/** Shown above `items` under a Recommended heading; empty unless browsing All. */
+	recommendedItems: RegistryElementBrowserItem[];
+} => {
+	const withDescription = (item: RegistryElementBrowserItem): RegistryElementBrowserItem => ({
 		...item,
 		description: createQuickInsertMatcher.getDescription?.(item.registration.match, formatMessage),
-	}));
+	});
+
+	if (section === undefined && query === '') {
+		const recommendedKeys = new Set(
+			model.recommendedItems.map(({ registration }) => registration.key),
+		);
+		return {
+			items: model.items
+				.filter(({ registration }) => !recommendedKeys.has(registration.key))
+				.map(withDescription),
+			recommendedItems: model.recommendedItems.map(withDescription),
+		};
+	}
+
+	const normalizedQuery = query.trim();
+	const itemsWithDescriptions = (
+		section ? model.items.filter((item) => item.sectionKeys.includes(section)) : model.items
+	).map(withDescription);
 
 	if (!normalizedQuery) {
-		return itemsWithDescriptions;
+		return { items: itemsWithDescriptions, recommendedItems: [] };
 	}
 
 	const matches = itemsWithDescriptions.flatMap((item) => {
@@ -176,20 +211,23 @@ export const getRegistryElementBrowserItems = ({
 	const prioritized = matches.filter(({ priorityGroup }) => priorityGroup !== undefined);
 	const unprioritized = matches.filter(({ priorityGroup }) => priorityGroup === undefined);
 
-	return [
-		...prioritized.sort(
-			(left, right) =>
-				(right.priorityGroup ?? 0) - (left.priorityGroup ?? 0) ||
-				left.score - right.score ||
-				compareRanks(left.ranks, right.ranks) ||
-				left.registration.key.localeCompare(right.registration.key),
-		),
-		...unprioritized.sort(
-			(left, right) =>
-				(left.ranks[0] ?? 0) - (right.ranks[0] ?? 0) ||
-				left.score - right.score ||
-				compareRanks(left.ranks, right.ranks) ||
-				left.registration.key.localeCompare(right.registration.key),
-		),
-	];
+	return {
+		items: [
+			...prioritized.sort(
+				(left, right) =>
+					(right.priorityGroup ?? 0) - (left.priorityGroup ?? 0) ||
+					left.score - right.score ||
+					compareRanks(left.ranks, right.ranks) ||
+					left.registration.key.localeCompare(right.registration.key),
+			),
+			...unprioritized.sort(
+				(left, right) =>
+					(left.ranks[0] ?? 0) - (right.ranks[0] ?? 0) ||
+					left.score - right.score ||
+					compareRanks(left.ranks, right.ranks) ||
+					left.registration.key.localeCompare(right.registration.key),
+			),
+		],
+		recommendedItems: [],
+	};
 };

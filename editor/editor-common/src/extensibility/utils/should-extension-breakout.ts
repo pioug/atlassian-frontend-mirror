@@ -1,4 +1,5 @@
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { EditorAppearance } from '../../types';
 
@@ -23,6 +24,7 @@ const shouldRespectBreakoutForAppearance = (appearance?: EditorAppearance) => {
 interface ShouldExtensionBreakoutArgs {
 	editorAppearance?: EditorAppearance;
 	hasBreakoutMark?: boolean;
+	hasBreakoutWidth?: boolean;
 	isTopLevelNode?: boolean;
 	layout?: string;
 }
@@ -32,8 +34,19 @@ export const shouldExtensionBreakout = ({
 	isTopLevelNode = true,
 	editorAppearance,
 	hasBreakoutMark = false,
+	hasBreakoutWidth = false,
 }: ShouldExtensionBreakoutArgs): boolean => {
 	// the breakout mark wrapper owns the width, so the legacy layout must not size the node too
+	if (
+		fg('platform_editor_lovability_resize_exts_gracefully') &&
+		isExperimentEnabled('platform_editor_lovability_resize_exts_patch_1') &&
+		hasBreakoutWidth
+	) {
+		return false;
+	}
+
+	// once platform_editor_lovability_resize_exts_patch_1 is rolled out, we can remove this redundant check.
+	// because the previous check should have returned false already for extensions with breakout widths.
 	if (hasBreakoutMark && isExperimentEnabled('platform_editor_lovability_resize_extensions')) {
 		return false;
 	}

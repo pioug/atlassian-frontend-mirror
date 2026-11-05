@@ -219,6 +219,7 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 				return isExperimentEnabled('platform_editor_slash_command') && api?.uiControlRegistry ? (
 					<RegistryElementBrowserContainer
 						editorView={editorView}
+						getRecommendedItems={getRecommendedItems}
 						helpUrl={options?.elementBrowserHelpUrl}
 						pluginInjectionAPI={api}
 					/>

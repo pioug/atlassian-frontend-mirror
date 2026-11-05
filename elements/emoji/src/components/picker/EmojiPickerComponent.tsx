@@ -24,6 +24,7 @@ import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEv
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import { getDocument } from '@atlaskit/browser-apis';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { dropTargetForExternal } from '@atlaskit/pragmatic-drag-and-drop/adapter/drop-target-for-external';
 import { monitorForExternal } from '@atlaskit/pragmatic-drag-and-drop/adapter/monitor-for-external';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
@@ -374,9 +375,11 @@ const EmojiPickerComponent = ({
 			setUploadErrorMessage(undefined);
 		});
 		fireAnalytics(uploadCancelButton());
-		setTimeout(() => {
-			getDocument()?.getElementById('add-custom-emoji')?.focus();
-		}, 0);
+		if (fg('platform_ally_emoji_fixes_various')) {
+			setTimeout(() => {
+				getDocument()?.getElementById('add-custom-emoji')?.focus();
+			}, 0);
+		}
 	}, [fireAnalytics]);
 
 	const getDynamicCategories = useCallback((): Promise<CategoryId[]> => {
@@ -913,7 +916,7 @@ const EmojiPickerComponent = ({
 			aria-modal={true}
 		>
 			<div
-				role="presentation"
+				role={fg('platform_ally_emoji_fixes_various') ? undefined : 'presentation'}
 				onKeyPress={suppressKeyPress}
 				onKeyUp={suppressKeyPress}
 				onKeyDown={suppressKeyPress}

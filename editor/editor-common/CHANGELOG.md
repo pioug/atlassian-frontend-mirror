@@ -1,5 +1,59 @@
 # @atlaskit/editor-common
 
+## 134.8.0
+
+### Minor Changes
+
+- [`af6421f9b80ca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/af6421f9b80ca) -
+  [EDITOR-9924] When `platform_editor_lovability_resize_exts_gracefully` and
+  `platform_editor_lovability_resize_exts_patch_1` are enabled, use the breakout mark for extension
+  node width across both resizing cohorts and synchronize existing layouts with breakout widths for
+  users in the resizing: false cohort.
+
+### Patch Changes
+
+- [`56839f6b1b63c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/56839f6b1b63c) -
+  Defer smart-link hover overlay measurements with a one-shot ResizeObserver and avoid interleaving
+  hidden-label style writes with layout reads in the `platform_editor_improve_inp_batch_2`
+  experiment treatment.
+- Updated dependencies
+
+## 134.7.2
+
+### Patch Changes
+
+- [`f1dbe14f9e8d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f1dbe14f9e8d0) -
+  Cleanup `feature_gate` `platform-dst-popper-consolidation`. `PopupSelect`, the Editor `Layer` and
+  `VanillaTooltip` now always position through `@atlaskit/popper`, and the direct `react-popper`,
+  `popper.js` and `@popperjs/core` paths are removed.
+
+  `Layer` mounts its content in the commit that opens it again, as the `popper.js` path did, so
+  Editor dropdown menus opened by keyboard focus their first item.
+
+- [`7b6b2186d8c8b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b6b2186d8c8b) -
+  Element Browser (platform_editor_slash_command experiment): show Recommended elements above All
+  elements in the All category; render every tile as its hover preview card (image, full
+  description, attribution) with lazily loaded images, equal heights per row and aligned footers;
+  show each tile's shortcut beside its title, which uses the hover preview's title style; enlarge
+  the modal to 1072x804 with 264px tiles; and support arrow-key navigation across rows of different
+  widths. Unclamped Quick Insert hover previews (Rovo skills) use the same subtle heading title as
+  other previews.
+- Updated dependencies
+
+## 134.7.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 134.7.0
+
+### Minor Changes
+
+- [`3e09cc46e3481`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3e09cc46e3481) -
+  Add the `CONTEXTUAL_NUDGE` AI suggestions entry point so analytics can tell reviews started from
+  the contextual nudge's call to action apart from other entry points.
+
 ## 134.6.2
 
 ### Patch Changes

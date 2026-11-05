@@ -11,6 +11,8 @@ import type { Parameters } from '@atlaskit/editor-common/extensions/extension-pa
 import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import type { Mark as PMMark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { expVal } from '@atlaskit/platform-feature-experiments/exp-val';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { ACTION_SUBJECT } from '../../analytics/enums';
 import type { AnalyticsEventPayload } from '../../analytics/events';
@@ -89,6 +91,11 @@ const BodiedExtensionContent = (props: React.PropsWithChildren<Props>): React.JS
 		() => ({ allowNestedTables: true }),
 		[],
 	);
+
+	const isBreakoutResizingEnabled =
+		fg('platform_editor_lovability_resize_exts_gracefully') &&
+		isExperimentEnabled('platform_editor_lovability_resize_exts_patch_1');
+
 	return (
 		<ErrorBoundary
 			component={ACTION_SUBJECT.RENDERER}
@@ -127,6 +134,7 @@ const BodiedExtensionContent = (props: React.PropsWithChildren<Props>): React.JS
 									layout,
 									{
 										isTopLevel: path.length < 1,
+										marks: isBreakoutResizingEnabled ? props.marks : undefined,
 										rendererAppearance: props.rendererAppearance,
 										fireAnalyticsEvent,
 									},
@@ -148,6 +156,7 @@ const BodiedExtensionContent = (props: React.PropsWithChildren<Props>): React.JS
 										{
 											...presetOptions,
 											isTopLevel: path.length < 1,
+											marks: isBreakoutResizingEnabled ? props.marks : undefined,
 											rendererAppearance: props.rendererAppearance,
 											fireAnalyticsEvent,
 										},
@@ -172,6 +181,7 @@ const BodiedExtensionContent = (props: React.PropsWithChildren<Props>): React.JS
 								{
 									...presetOptions,
 									isTopLevel: path.length < 1,
+									marks: isBreakoutResizingEnabled ? props.marks : undefined,
 									rendererAppearance: props.rendererAppearance,
 									fireAnalyticsEvent,
 								},

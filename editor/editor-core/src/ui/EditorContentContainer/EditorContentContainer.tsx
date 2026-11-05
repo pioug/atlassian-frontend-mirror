@@ -4578,6 +4578,30 @@ const editorContentStyles = cssMapScoped({
 			backgroundImage: `linear-gradient(90deg, ${token('elevation.surface.pressed')} 35%, ${token('elevation.surface.raised')} 45%, ${token('elevation.surface.raised')} 55%, ${token('elevation.surface.pressed')} 65%)`,
 		},
 	},
+	// Rovo uses a dark pill in light mode and a light pill in dark mode, so both shimmer
+	// palettes come from the opposite theme. Fixed colors are intentional: token() would
+	// resolve against the current page theme. Animation timing and sizing remain shared.
+	// Light page: use the ordinary mention's dark-theme palette.
+	agentMentionRovoShimmer: {
+		'.agent-mention-analysing-state .editor-mention-primitive.mention-rovo-chat': {
+			backgroundImage: 'linear-gradient(90deg, #2B2C2F 35%, #242528 45%, #242528 55%, #2B2C2F 65%)',
+		},
+		// The shared background-clip: text rule paints this gradient inside the letters.
+		'.agent-mention-analysing-state .mention-rovo-chat .editor-mention-text': {
+			backgroundImage:
+				'linear-gradient(90deg, #CECFD2 35%, #A9ABAF 45%, #63666B 50%, #A9ABAF 55%, #CECFD2 65%)',
+		},
+	},
+	// Dark page: use the ordinary mention's light-theme palette for Rovo's light pill.
+	agentMentionRovoShimmerDarkMode: {
+		'.agent-mention-analysing-state .editor-mention-primitive.mention-rovo-chat': {
+			backgroundImage: 'linear-gradient(90deg, #EBEBEB 35%, #F0F1F2 45%, #F0F1F2 55%, #EBEBEB 65%)',
+		},
+		'.agent-mention-analysing-state .mention-rovo-chat .editor-mention-text': {
+			backgroundImage:
+				'linear-gradient(90deg, #292A2E 35%, #505258 45%, #B7B9BE 50%, #505258 55%, #292A2E 65%)',
+		},
+	},
 	mentionsSelectionStyles: {
 		'.danger': {
 			'.editor-mention-primitive': {
@@ -8816,6 +8840,12 @@ const EditorContentContainer: React.ForwardRefExoticComponent<
 				isExperimentEnabled('platform_editor_mention_avatar_nowrap') &&
 					editorContentStyles.mentionAvatarNoWrapStyles,
 				colorMode === 'dark' && editorContentStyles.agentMentionShimmerDarkMode,
+				isExperimentEnabled('platform_editor_mention_rovo') &&
+					colorMode !== 'dark' &&
+					editorContentStyles.agentMentionRovoShimmer,
+				isExperimentEnabled('platform_editor_mention_rovo') &&
+					colorMode === 'dark' &&
+					editorContentStyles.agentMentionRovoShimmerDarkMode,
 				editorContentStyles.mentionsSelectionStyles,
 				expValEquals('platform_editor_lovability_emoji_scaling', 'isEnabled', true)
 					? editorContentStyles.scaledEmojiStyles

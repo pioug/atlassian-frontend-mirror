@@ -1,5 +1,12 @@
 # @atlaskit/json-schema-generator
 
+## 4.1.2
+
+### Patch Changes
+
+- [`84e5b84deaf63`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/84e5b84deaf63) -
+  Delete unreachable source files
+
 ## 4.1.1
 
 ### Patch Changes

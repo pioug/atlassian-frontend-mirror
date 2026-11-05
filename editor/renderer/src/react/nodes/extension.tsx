@@ -15,6 +15,7 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics/types/enums';
+import { hasBreakoutWidth } from '@atlaskit/editor-common/extensibility/has-breakout-width';
 import type {
 	ExtensionHandlers,
 	ExtensionParams,
@@ -87,6 +88,7 @@ type RenderExtensionOptions = {
 	height?: number;
 	isCommentTarget?: boolean;
 	isTopLevel?: boolean;
+	marks?: PMMark[];
 	onBlur?: React.FocusEventHandler<HTMLDivElement>;
 	onFocus?: React.FocusEventHandler<HTMLDivElement>;
 	onMouseEnter?: React.MouseEventHandler<HTMLDivElement>;
@@ -201,12 +203,18 @@ export const renderExtension = (
 	// by default, we assume the extension is at top level, (direct child of doc node)
 	const { isTopLevel = true, rendererAppearance, fireAnalyticsEvent } = options || {};
 
+	const isBreakoutResizingEnabled =
+		fg('platform_editor_lovability_resize_exts_gracefully') &&
+		isExperimentEnabled('platform_editor_lovability_resize_exts_patch_1');
+
+	const isBreakoutWidth = isBreakoutResizingEnabled && hasBreakoutWidth(options.marks);
+
 	// we should only use custom layout for full-page appearance
 	const canUseCustomLayout = isExperimentEnabled('platform_editor_remove_important_in_render_ext')
 		? rendererAppearance === 'full-page'
 		: true;
 	const isCustomLayout =
-		isTopLevel && ['wide', 'full-width'].includes(layout) && canUseCustomLayout;
+		!isBreakoutWidth && isTopLevel && ['wide', 'full-width'].includes(layout) && canUseCustomLayout;
 	const centerAlignClass = isCustomLayout ? RendererCssClassName.EXTENSION_CENTER_ALIGN : '';
 	/**
 	 * To reduce cumulative layout shift, we check installed manifest values (viewportSize) for Forge and extension node parameters
@@ -279,16 +287,18 @@ export const renderExtension = (
 				...(!isInline && options.height !== undefined ? { height: options.height } : {}),
 				width: isInline
 					? undefined
-					: (
-								isExperimentEnabled('platform_editor_remove_important_in_render_ext')
-									? isCustomLayout
-									: isTopLevel
-						  )
-						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							calcBreakoutWidthCss(layout as ExtensionLayout)
-						: isExperimentEnabled('platform_editor_remove_important_in_render_ext')
-							? undefined
-							: '100%',
+					: isBreakoutWidth
+						? '100%'
+						: (
+									isExperimentEnabled('platform_editor_remove_important_in_render_ext')
+										? isCustomLayout
+										: isTopLevel
+							  )
+							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+								calcBreakoutWidthCss(layout as ExtensionLayout)
+							: isExperimentEnabled('platform_editor_remove_important_in_render_ext')
+								? undefined
+								: '100%',
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 				minHeight: isInline ? undefined : extensionMinHeight,
 			}}
@@ -487,6 +497,10 @@ const ExtensionContent = ({
 		? { height: props.nodePresetHeight }
 		: {};
 
+	const isBreakoutResizingEnabled =
+		fg('platform_editor_lovability_resize_exts_gracefully') &&
+		isExperimentEnabled('platform_editor_lovability_resize_exts_patch_1');
+
 	return (
 		<ExtensionRenderer
 			// Ignored via go/ees005
@@ -513,6 +527,7 @@ const ExtensionContent = ({
 								...presetOptions,
 								dataAttributes: props.dataAttributes,
 								isTopLevel: path.length < 1,
+								marks: isBreakoutResizingEnabled ? props.marks : undefined,
 								handleRef,
 								shadowClassNames,
 								tabIndex: props.tabIndex,
@@ -558,6 +573,7 @@ const ExtensionContent = ({
 						...presetOptions,
 						dataAttributes: props.dataAttributes,
 						isTopLevel: path.length < 1,
+						marks: isBreakoutResizingEnabled ? props.marks : undefined,
 						handleRef,
 						shadowClassNames,
 						tabIndex: props.tabIndex,

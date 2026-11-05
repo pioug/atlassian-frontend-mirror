@@ -251,9 +251,7 @@ describe('<ResourcedEmoji />', () => {
 	});
 
 	describe('preserves optimistic images for page-title emoji', () => {
-		it('with platform_emoji_prevent_img_src_changing on', async () => {
-			passGate('platform_emoji_prevent_img_src_changing');
-
+		it('keeps the optimistic image src after the emoji resolves', async () => {
 			const optSrc = 'https://opt.example/emoji.png';
 			let resolveEmoji: (value: any) => void;
 			const provider: Partial<EmojiProvider> = {
@@ -278,56 +276,6 @@ describe('<ResourcedEmoji />', () => {
 			await waitFor(() => expect(typeof resolveEmoji).toBe('function'));
 			// Now resolve the emoji and ensure we still render optimistic src
 			resolveEmoji!({
-				id: grinEmoji.id!,
-				shortName: grinEmoji.shortName,
-				fallback: grinEmoji.fallback,
-				type: grinEmoji.type,
-				category: grinEmoji.category,
-				searchable: true,
-				altRepresentation: {
-					mediaPath: 'real-sync.png',
-					width: 64,
-					height: 64,
-				},
-				representation: {
-					mediaPath: 'real-sync.png',
-					width: 32,
-					height: 32,
-				},
-			});
-			await waitFor(() => {
-				img = screen.getByAltText(grinEmoji.shortName);
-				expect(img).toHaveAttribute('src', expect.stringContaining(optSrc));
-			});
-		});
-
-		it('with platform_emoji_prevent_img_src_changing off', async () => {
-			failGate('platform_emoji_prevent_img_src_changing');
-
-			// The optimistic image is preserved even when the page-title gate is off.
-			const optSrc = 'https://opt.example/emoji.png';
-			let resolveEmojiOff: (value: any) => void;
-			const provider: Partial<EmojiProvider> = {
-				fetchByEmojiId: () =>
-					new Promise((resolve) => {
-						resolveEmojiOff = resolve;
-					}),
-			};
-			renderWithIntl(
-				<ResourcedEmoji
-					emojiProvider={Promise.resolve(provider as EmojiProvider)}
-					emojiId={{ id: grinEmoji.id, shortName: grinEmoji.shortName }}
-					optimisticImageURL={optSrc}
-					fitToHeight={40}
-					pageTitleEmoji={true}
-				/>,
-			);
-			// Initially optimistic src is rendered
-			let img = await screen.findByAltText(grinEmoji.shortName);
-			expect(img).toHaveAttribute('src', expect.stringContaining(optSrc));
-			// Wait until fetchByEmojiId has been invoked and we captured the resolver
-			await waitFor(() => expect(typeof resolveEmojiOff).toBe('function'));
-			resolveEmojiOff!({
 				id: grinEmoji.id!,
 				shortName: grinEmoji.shortName,
 				fallback: grinEmoji.fallback,

@@ -33,20 +33,22 @@ function getControl(): HTMLElement {
 }
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
-describe('openMenuAfterClick (flag ON)', () => {
+describe('mousedown opening (flag ON)', () => {
 	beforeEach(() => {
 		passGate('platform-dst-top-layer');
 	});
 
-	it('opens after click, not during the preceding pointer or mouse events', () => {
+	it('opens on mousedown without another callback on mouseup or click', () => {
 		const onMenuOpen = jest.fn();
 		renderSelect({ onMenuOpen });
 		const control = getControl();
 
 		fireEvent.mouseDown(control, { button: 0 });
+		expect(onMenuOpen).toHaveBeenCalledTimes(1);
+
 		fireEvent.pointerUp(control, { button: 0 });
 		fireEvent.mouseUp(control, { button: 0 });
-		expect(onMenuOpen).not.toHaveBeenCalled();
+		expect(onMenuOpen).toHaveBeenCalledTimes(1);
 
 		fireEvent.click(control, { button: 0 });
 		expect(onMenuOpen).toHaveBeenCalledTimes(1);

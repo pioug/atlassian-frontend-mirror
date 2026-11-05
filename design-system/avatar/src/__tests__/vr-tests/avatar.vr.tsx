@@ -25,6 +25,22 @@ snapshot(BasicAvatar, {
 });
 
 snapshot(BasicAvatar, {
+	description: 'hexagon inner border',
+	drawsOutsideBounds: true,
+	variants: [
+		{
+			name: 'light mode',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
+	featureFlags: {
+		'platform-dst-avatar-updated-geometry': true,
+	},
+});
+
+snapshot(BasicAvatar, {
 	description: 'tooltip on hover',
 	states: [{ state: 'hovered', selector: { byTestId: 'avatar' } }],
 	drawsOutsideBounds: true,

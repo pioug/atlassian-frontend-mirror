@@ -38,7 +38,6 @@ type Options = {
 	appearance?: EditorProps['appearance'];
 	customControls?: EditorProps['primaryToolbarComponents'];
 	docking?: 'top' | 'none';
-	editorControls?: boolean;
 	mode?: 'controlled' | 'always-pinned';
 	modeOverride?: 'always-pinned';
 	viewMode?: 'edit' | 'view';
@@ -109,7 +108,7 @@ describe('optimistic toolbar state before EditorView mounts', () => {
 
 	afterEach(() => {
 		jest.restoreAllMocks();
-		setupEditorExperiments('test', {});
+		setupEditorExperiments('test', { platform_editor_controls: 'variant1' });
 	});
 
 	describe.each([false, true])('SSR = %s', (ssr) => {
@@ -120,7 +119,7 @@ describe('optimistic toolbar state before EditorView mounts', () => {
 
 		const renderEditor = (options: Options, enabled = true, platformEnabled = enabled) => {
 			setupEditorExperiments('test', {
-				platform_editor_controls: options.editorControls === false ? 'control' : 'variant1',
+				platform_editor_controls: 'variant1',
 				platform_editor_ssr_toolbar_optimistic: enabled,
 			});
 			if (platformEnabled) {
@@ -154,7 +153,6 @@ describe('optimistic toolbar state before EditorView mounts', () => {
 			['view mode', { docking: 'top', viewMode: 'view' }, false],
 			['forced-pinned toolbar', { docking: 'none', mode: 'always-pinned' }, true],
 			['config override forcing pinning', { docking: 'none', modeOverride: 'always-pinned' }, true],
-			['legacy editor controls', { docking: 'none', editorControls: false }, true],
 			['custom controls', { docking: 'none', customControls: <span>Custom control</span> }, true],
 		] as Array<[string, Options, boolean]>)(
 			'only exposes initial state when needed: %s',

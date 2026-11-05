@@ -65,6 +65,9 @@
 			"path": "../../design-system/page/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/primitives/tsconfig.app.json"
 		},
 		{
@@ -72,6 +75,9 @@
 		},
 		{
 			"path": "../../design-system/tooltip/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/structured-docs-types/tsconfig.app.json"

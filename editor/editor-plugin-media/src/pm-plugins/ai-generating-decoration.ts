@@ -2,7 +2,6 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 /**
@@ -139,7 +138,7 @@ export function createAIGeneratingDecorationPlugin(): SafePlugin {
 
 			apply(tr, pluginState, _oldState, newState): AIGeneratingDecorationState {
 				// Disabled when gate/experiment off — drop decorations.
-				if (!fg('cc-maui-phase-2') || !expValEquals('cc-maui-experiment', 'isEnabled', true)) {
+				if (!expValEquals('cc-maui-experiment', 'isEnabled', true)) {
 					if (pluginState.generatingMediaIds.size > 0) {
 						return {
 							generatingMediaIds: new Set(),

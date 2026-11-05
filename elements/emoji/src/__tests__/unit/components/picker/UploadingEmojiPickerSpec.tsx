@@ -7,6 +7,7 @@ import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 import { MockEmojiResource } from '@atlaskit/util-data-test/mock-emoji-resource';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import EmojiRepository from '../../../../api/EmojiRepository';
 import { emojiDeletePreviewTestId } from '../../../../components/common/EmojiDeletePreview';
@@ -631,7 +632,8 @@ describe('<UploadingEmojiPicker />', () => {
 			);
 		});
 
-		it('Focus Add Emoji Button after upload cancel interaction when it was previously focused', async () => {
+		it('focuses the Add custom emoji button after cancelling when the accessibility fix is enabled', async () => {
+			passGate('platform_ally_emoji_fixes_various');
 			await helper.setupPicker(
 				{
 					emojiProvider,
@@ -647,14 +649,9 @@ describe('<UploadingEmojiPicker />', () => {
 			});
 
 			const addCustomEmojiButton = await helperTestingLibrary.getAddCustomEmojiButton();
-
-			// fireEvent.focus(addCustomEmojiButton);
-			addCustomEmojiButton.focus();
-
-			await waitFor(() => {
-				expect(document.activeElement).toBe(addCustomEmojiButton);
-			});
-
+			// Make EmojiUploadPicker's legacy remembered ID stale so this test specifically exercises
+			// the picker-level fallback to the stable Add custom emoji button ID.
+			addCustomEmojiButton.id = 'stale-add-custom-emoji';
 			await userEvent.click(addCustomEmojiButton);
 
 			await waitFor(() => {
@@ -672,6 +669,39 @@ describe('<UploadingEmojiPicker />', () => {
 			const addCustomEmojiButtonAfterCancel = await helperTestingLibrary.getAddCustomEmojiButton();
 
 			await waitFor(() => expect(addCustomEmojiButtonAfterCancel).toHaveFocus());
+		});
+
+		it('preserves existing focus behavior after cancelling when the accessibility fix is disabled', async () => {
+			failGate('platform_ally_emoji_fixes_various');
+			await helper.setupPicker(
+				{
+					emojiProvider,
+					hideToneSelector: true,
+				},
+				undefined,
+				onEvent,
+			);
+
+			await waitFor(() => {
+				expect(helperTestingLibrary.getEmojiActionsSection()).toBeInTheDocument();
+			});
+
+			const addCustomEmojiButton = await helperTestingLibrary.getAddCustomEmojiButton();
+			addCustomEmojiButton.id = 'stale-add-custom-emoji';
+			await userEvent.click(addCustomEmojiButton);
+
+			await waitFor(() => {
+				expect(helperTestingLibrary.getUploadEmojiNameInput()).toBeInTheDocument();
+			});
+
+			await userEvent.click(screen.getByTestId(cancelEmojiUploadPickerTestId));
+
+			await waitFor(() => {
+				expect(helperTestingLibrary.queryUploadPreview()).not.toBeInTheDocument();
+			});
+
+			const addCustomEmojiButtonAfterCancel = await helperTestingLibrary.getAddCustomEmojiButton();
+			expect(addCustomEmojiButtonAfterCancel).not.toHaveFocus();
 		});
 
 		it('Upload error interaction', async () => {

@@ -19,6 +19,7 @@ import { token } from '@atlaskit/tokens';
 import { QuickInsertHoverPreview } from './QuickInsertHoverPreview';
 import type { QuickInsertMenuItemProps } from './QuickInsertMenuItem';
 import { useQuickInsertMenuItemSelection } from './quickInsertMenuItemUtils';
+import { QuickInsertShortcut } from './QuickInsertShortcut';
 import { useQuickInsertContext } from './useQuickInsertContext';
 
 const styles = cssMap({
@@ -48,14 +49,6 @@ const styles = cssMap({
 		justifyContent: 'center',
 		overflow: 'hidden',
 		width: '32px',
-	},
-	shortcut: {
-		backgroundColor: token('color.background.neutral'),
-		borderRadius: token('radius.small'),
-		color: token('color.text.subtle'),
-		font: token('font.body.small'),
-		paddingBlock: token('space.025'),
-		paddingInline: token('space.050'),
 	},
 });
 
@@ -205,11 +198,7 @@ export const CompactQuickInsertMenuItem = ({
 					) : (
 						rowTitle
 					)}
-					{shortcut && (
-						<Box as="span" xcss={styles.shortcut}>
-							{shortcut}
-						</Box>
-					)}
+					{shortcut && <QuickInsertShortcut isDisabled={isDisabled} shortcut={shortcut} />}
 				</Inline>
 			</Pressable>
 			{shouldRenderPreview && referenceElement && (

@@ -1,5 +1,14 @@
 # @atlaskit/help-layout
 
+## 8.2.0
+
+### Minor Changes
+
+- [`7c64c6271f7be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c64c6271f7be) -
+  Move focus to the Close button when the help panel opens, instead of leaving it on a large generic
+  container, so screen reader users hear a clear control. Behind the
+  jfp_a11y_fix_help_panel_initial_focus feature gate.
+
 ## 8.1.5
 
 ### Patch Changes

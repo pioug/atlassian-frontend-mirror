@@ -2,8 +2,11 @@ import React, { forwardRef } from 'react';
 
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import AddIcon from '@atlaskit/icon/core/add';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
+import { ResponsiveButton } from './responsive-button';
 import { Button } from './themed/button';
+import { IconButton } from './themed/icon-button';
 
 type CreateButtonProps = {
 	/**
@@ -31,6 +34,8 @@ type CreateButtonProps = {
  * __Create button__
  *
  * The create button for the top navigation.
+ * With platform-dst-chat-panel-layout enabled, shows only its icon below the
+ * enclosing TopNav's 48rem breakpoint. Children remain its accessible label.
  */
 export const CreateButton: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<CreateButtonProps> & React.RefAttributes<HTMLButtonElement>
@@ -38,16 +43,29 @@ export const CreateButton: React.ForwardRefExoticComponent<
 	(
 		{ children, onClick, testId, interactionName }: CreateButtonProps,
 		ref: React.ForwardedRef<HTMLButtonElement>,
-	) => (
-		<Button
-			ref={ref}
-			appearance="primary"
-			iconBefore={AddIcon}
-			onClick={onClick}
-			testId={testId}
-			interactionName={interactionName}
-		>
-			{children}
-		</Button>
-	),
+	) =>
+		fg('platform-dst-chat-panel-layout') ? (
+			<ResponsiveButton
+				ref={ref}
+				appearance="primary"
+				iconButton={IconButton}
+				isTooltipDisabled={false}
+				icon={AddIcon}
+				label={children}
+				onClick={onClick}
+				testId={testId}
+				interactionName={interactionName}
+			/>
+		) : (
+			<Button
+				ref={ref}
+				appearance="primary"
+				iconBefore={AddIcon}
+				onClick={onClick}
+				testId={testId}
+				interactionName={interactionName}
+			>
+				{children}
+			</Button>
+		),
 );

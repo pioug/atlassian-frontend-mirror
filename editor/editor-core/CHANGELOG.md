@@ -1,5 +1,20 @@
 # @atlaskit/editor-core
 
+## 242.0.13
+
+### Patch Changes
+
+- [`e90d3e21d2635`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e90d3e21d2635) -
+  Use the opposite theme's default shimmer colors for Rovo mention task animations under
+  `platform_editor_mention_rovo`.
+- Updated dependencies
+
+## 242.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 242.0.11
 
 ### Patch Changes

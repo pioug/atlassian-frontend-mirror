@@ -1,5 +1,7 @@
 import type { ProviderParticipant } from '@atlaskit/editor-common/collab';
 import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
+import { mockExp } from '@atlassian/experiment-test-utils/mock-exp';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import AnalyticsHelper from '../../analytics/analytics-helper';
@@ -145,6 +147,7 @@ describe('upsertAIProviderParticipantLocally', () => {
 	});
 
 	it('adds the agent with editing activity when agent presence is moved', () => {
+		mockExpEnabled('agentic_presence_facepile_master_exp');
 		passGate('platform_move_presence_agents');
 		passGate('confluence_ncs_step_diffing_version_history');
 		const emit = jest.fn();
@@ -183,7 +186,25 @@ describe('upsertAIProviderParticipantLocally', () => {
 		expect(service.getParticipants()).toHaveLength(0);
 	});
 
+	it.each([false, undefined])(
+		'uses legacy activity and expiry when the master is %s',
+		(isEnabled) => {
+			mockExp('agentic_presence_facepile_master_exp', { isEnabled });
+			const emit = jest.fn();
+			const service = participantsServiceConstructor({ emit });
+
+			service.upsertAIProviderParticipantLocally(providerId, 'mcp');
+			expect(service.getAIProviderParticipants()[0]).not.toHaveProperty('presenceActivity');
+			emit.mockClear();
+			jest.advanceTimersByTime(AGENT_PRESENCE_INACTIVE_MS);
+
+			expect(service.getAIProviderParticipants()).toHaveLength(0);
+			expect(emit).toHaveBeenCalledWith('presence', { left: [{ sessionId: expectedSessionId }] });
+		},
+	);
+
 	it('preserves legacy agent presence activity when agent presence is not moved', () => {
+		mockExpEnabled('agentic_presence_facepile_master_exp');
 		failGate('platform_move_presence_agents');
 		const emit = jest.fn();
 		const service = participantsServiceConstructor({ emit });
@@ -224,6 +245,7 @@ describe('upsertAIProviderParticipantLocally', () => {
 	});
 
 	it('removes the agent and emits presence(left) after the 30s sliding window elapses', () => {
+		mockExpEnabled('agentic_presence_facepile_master_exp');
 		failGate('platform_move_presence_agents');
 		const emit = jest.fn();
 		const service = participantsServiceConstructor({ emit });
@@ -240,6 +262,7 @@ describe('upsertAIProviderParticipantLocally', () => {
 	});
 
 	it('slides the window: a refresh before expiry keeps the agent alive, then expires later', () => {
+		mockExpEnabled('agentic_presence_facepile_master_exp');
 		failGate('platform_move_presence_agents');
 		const service = participantsServiceConstructor({});
 
@@ -256,6 +279,7 @@ describe('upsertAIProviderParticipantLocally', () => {
 	});
 
 	it('retains an agent for 30 seconds active plus five minutes inactive when enriched presence is enabled', () => {
+		mockExpEnabled('agentic_presence_facepile_master_exp');
 		passGate('platform_move_presence_agents');
 		const emit = jest.fn();
 		const service = participantsServiceConstructor({ emit });
@@ -278,6 +302,7 @@ describe('upsertAIProviderParticipantLocally', () => {
 	});
 
 	it('emits presence when an inactive agent becomes active again', () => {
+		mockExpEnabled('agentic_presence_facepile_master_exp');
 		passGate('platform_move_presence_agents');
 		const emit = jest.fn();
 		const service = participantsServiceConstructor({ emit });
@@ -318,6 +343,7 @@ describe('upsertAIProviderParticipantLocally', () => {
 	});
 
 	it('clears an agent expiry timer when the agent leaves', () => {
+		mockExpEnabled('agentic_presence_facepile_master_exp');
 		passGate('platform_move_presence_agents');
 		const emit = jest.fn();
 		const service = participantsServiceConstructor({ emit });
@@ -334,6 +360,7 @@ describe('upsertAIProviderParticipantLocally', () => {
 	});
 
 	it('removes agents from consumers and clears their timers on disconnect', () => {
+		mockExpEnabled('agentic_presence_facepile_master_exp');
 		passGate('platform_move_presence_agents');
 		const emit = jest.fn();
 		const service = participantsServiceConstructor({ emit });
@@ -351,21 +378,27 @@ describe('upsertAIProviderParticipantLocally', () => {
 		expect(emit).not.toHaveBeenCalled();
 	});
 
-	it('preserves the legacy disconnect event when enriched presence is disabled', () => {
-		failGate('platform_move_presence_agents');
-		const emit = jest.fn();
-		const service = participantsServiceConstructor({
-			emit,
-			participantsState: new ParticipantsState(new Map([[activeUser.sessionId, activeUser]])),
-		});
+	it.each([true, false])(
+		'preserves the legacy disconnect event when enriched presence is disabled with master %s',
+		(isEnabled) => {
+			mockExp('agentic_presence_facepile_master_exp', { isEnabled });
+			if (isEnabled) {
+				failGate('platform_move_presence_agents');
+			}
+			const emit = jest.fn();
+			const service = participantsServiceConstructor({
+				emit,
+				participantsState: new ParticipantsState(new Map([[activeUser.sessionId, activeUser]])),
+			});
 
-		service.upsertAIProviderParticipantLocally(providerId);
-		emit.mockClear();
-		service.disconnect('CLOSE_CONNECTION', sessionId);
+			service.upsertAIProviderParticipantLocally(providerId);
+			emit.mockClear();
+			service.disconnect('CLOSE_CONNECTION', sessionId);
 
-		expect(service.getAIProviderParticipants()).toHaveLength(0);
-		expect(emit).toHaveBeenCalledWith('presence', { left: [activeUser] });
-	});
+			expect(service.getAIProviderParticipants()).toHaveLength(0);
+			expect(emit).toHaveBeenCalledWith('presence', { left: [activeUser] });
+		},
+	);
 });
 
 describe('onParticipantLeft', () => {

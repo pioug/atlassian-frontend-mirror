@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/rovo-agent-components",
-	"version": "10.4.1",
+	"version": "10.6.0",
 	"description": "This package host public components related to rovo agents, the components here are needed for other public atlaskit packages",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
 	"atlassian": {
@@ -126,9 +126,6 @@
 			"type": "boolean"
 		},
 		"rovo_agent_versioning_enabled": {
-			"type": "boolean"
-		},
-		"jira_ai_force_rovo_dev_avatar": {
 			"type": "boolean"
 		},
 		"rovo_agent_support_a2a_avatar": {

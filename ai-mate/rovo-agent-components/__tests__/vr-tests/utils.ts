@@ -9,7 +9,4 @@ export const snapshotOptions: SnapshotTestOptions<any> = {
 			},
 		},
 	],
-	featureFlags: {
-		jira_ai_force_rovo_dev_avatar: true,
-	},
 };

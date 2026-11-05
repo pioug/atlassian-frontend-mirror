@@ -1,5 +1,19 @@
 # @atlaskit/collab-provider
 
+## 39.1.5
+
+### Patch Changes
+
+- [`d4a516b9f1709`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4a516b9f1709) -
+  Gate core presence publication, movement and avatar filtering behind
+  agentic_presence_facepile_master_exp while preserving child controls and legacy fallbacks.
+
+## 39.1.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 39.1.3
 
 ### Patch Changes

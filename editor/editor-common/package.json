@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "134.6.2",
+	"version": "134.8.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -74,6 +74,8 @@
 		"./expand": "./src/expand/index.ts",
 		"./experiences": "./src/experiences/index.ts",
 		"./extensibility": "./src/extensibility/index.ts",
+		"./extensibility/has-breakout-width": "./src/extensibility/utils/has-breakout-width.ts",
+		"./extensibility/get-breakout-width": "./src/extensibility/utils/get-breakout-width.ts",
 		"./extensions": "./src/extensions.ts",
 		"./floating-toolbar": "./src/floating-toolbar/index.ts",
 		"./get-dom-ref-from-selection": "./src/utils/get-dom-ref-from-selection.ts",
@@ -811,7 +813,6 @@
 		"lodash": "root:*",
 		"markdown-it": "root:*",
 		"memoize-one": "root:*",
-		"popper.js": "root:*",
 		"prop-types": "root:*",
 		"raf-schd": "root:*",
 		"re-resizable": "root:*",
@@ -876,10 +877,6 @@
 		},
 		"platform_editor_hide_configure_lozenge_non_configurable": {
 			"type": "boolean"
-		},
-		"platform-dst-popper-consolidation": {
-			"type": "boolean",
-			"referenceOnly": true
 		},
 		"platform-dst-top-layer": {
 			"type": "boolean"

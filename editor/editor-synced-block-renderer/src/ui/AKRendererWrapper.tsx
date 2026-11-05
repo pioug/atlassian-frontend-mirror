@@ -9,7 +9,7 @@ import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-e
 import { RendererActionsContext } from '@atlaskit/renderer/actions/renderer-actions-context';
 import { nodeToReact as defaultNodeComponents } from '@atlaskit/renderer/nodes';
 import ReactRenderer from '@atlaskit/renderer/renderer';
-import { RendererContextProvider } from '@atlaskit/renderer/renderer-context';
+import { RendererContextProvider, useRendererContext } from '@atlaskit/renderer/renderer-context';
 import { ValidationContextProvider } from '@atlaskit/renderer/validation-context';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
@@ -98,6 +98,8 @@ export const AKRendererWrapper: React.MemoExoticComponent<
 		headingIdPrefix?: string;
 		options: SyncedBlockRendererOptions | undefined;
 	}): React.JSX.Element => {
+		// Read the host decision before the synced-block context provider replaces it.
+		const { isPerformanceModeActive = false } = useRendererContext();
 		const mergedOptions = { ...defaultOptions, ...options };
 
 		const {
@@ -189,6 +191,7 @@ export const AKRendererWrapper: React.MemoExoticComponent<
 								smartLinks={smartLinks}
 								stickyHeaders={stickyHeaders}
 								contentMode={contentMode}
+								isPerformanceModeActive={isPerformanceModeActive}
 							/>
 						</div>
 					</RendererContextProvider>

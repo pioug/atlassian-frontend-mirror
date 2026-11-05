@@ -14,6 +14,10 @@ test.describe('Box shadow with short browsers', () => {
 		},
 	});
 
+	test.beforeEach(async ({ editor }) => {
+		await EditorMainToolbarModel.from(editor).pinToTop({ anchor: 1, head: 2 });
+	});
+
 	test('should be none when scroll position is top of page', async ({ editor }) => {
 		const toolbar = EditorMainToolbarModel.from(editor);
 		await expect(toolbar.wrapper).toHaveCSS('box-shadow', 'none');

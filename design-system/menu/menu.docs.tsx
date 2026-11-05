@@ -5,7 +5,7 @@ const documentation: StructuredContentSource = {
 		{
 			name: 'MenuGroup',
 			description: 'A list of options to action or navigate.',
-			status: 'general-availability',
+			status: 'intent-to-deprecate',
 			designSource: {
 				figmaUrl: 'https://go.atlassian.com/figma-library-ads-13200-39907',
 			},
@@ -48,7 +48,7 @@ const documentation: StructuredContentSource = {
 			name: 'ButtonItem',
 			description:
 				'A menu item that triggers an action when clicked. Use for actions like Copy, Delete, or Create.',
-			status: 'general-availability',
+			status: 'intent-to-deprecate',
 			import: {
 				name: 'ButtonItem',
 				package: '@atlaskit/menu/button-item',
@@ -79,7 +79,7 @@ const documentation: StructuredContentSource = {
 			name: 'LinkItem',
 			description:
 				'A menu item that navigates to a URL when clicked. Use for navigation links like Dashboard or Settings.',
-			status: 'general-availability',
+			status: 'intent-to-deprecate',
 			import: {
 				name: 'LinkItem',
 				package: '@atlaskit/menu/link-item',
@@ -108,7 +108,7 @@ const documentation: StructuredContentSource = {
 			name: 'CustomItem',
 			description:
 				'A menu item that accepts a custom component for advanced use cases when ButtonItem or LinkItem do not meet your needs.',
-			status: 'general-availability',
+			status: 'intent-to-deprecate',
 			import: {
 				name: 'CustomItem',
 				package: '@atlaskit/menu/custom-item',
@@ -138,7 +138,7 @@ const documentation: StructuredContentSource = {
 		{
 			name: 'Section',
 			description: 'Groups related menu items together with an optional title or heading.',
-			status: 'general-availability',
+			status: 'intent-to-deprecate',
 			import: {
 				name: 'Section',
 				package: '@atlaskit/menu/section',
@@ -186,7 +186,7 @@ const documentation: StructuredContentSource = {
 			name: 'HeadingItem',
 			description:
 				'A non-interactive heading within a menu section. Use to label groups of items when Section title is not used.',
-			status: 'general-availability',
+			status: 'intent-to-deprecate',
 			import: {
 				name: 'HeadingItem',
 				package: '@atlaskit/menu/heading-item',
@@ -212,7 +212,7 @@ const documentation: StructuredContentSource = {
 		{
 			name: 'SkeletonItem',
 			description: 'A skeleton placeholder for a menu item during loading states.',
-			status: 'general-availability',
+			status: 'intent-to-deprecate',
 			import: {
 				name: 'SkeletonItem',
 				package: '@atlaskit/menu/skeleton-item',
@@ -237,7 +237,7 @@ const documentation: StructuredContentSource = {
 		{
 			name: 'SkeletonHeadingItem',
 			description: 'A skeleton placeholder for a menu heading during loading states.',
-			status: 'general-availability',
+			status: 'intent-to-deprecate',
 			import: {
 				name: 'SkeletonHeadingItem',
 				package: '@atlaskit/menu/skeleton-heading-item',

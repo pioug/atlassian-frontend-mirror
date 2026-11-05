@@ -65,9 +65,11 @@ for (const newTheme of [false, true]) {
 		await page.keyboard.press('Enter');
 		await expect(header).toHaveAttribute('data-search-activated', 'true');
 
-		// Space activates Search in every browser, regardless of native :active styling.
+		// Space activates on release in every browser, regardless of native :active styling.
 		await header.evaluate((element) => element.removeAttribute('data-search-activated'));
-		await page.keyboard.press('Space');
+		await page.keyboard.down('Space');
+		await expect(header).not.toHaveAttribute('data-search-activated');
+		await page.keyboard.up('Space');
 		await expect(header).toHaveAttribute('data-search-activated', 'true');
 		await expect(search).toBeFocused();
 

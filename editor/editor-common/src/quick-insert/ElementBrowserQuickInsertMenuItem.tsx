@@ -2,101 +2,86 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { useMemo } from 'react';
+import React, { useId, useMemo } from 'react';
 
 import { css } from '@compiled/react';
 
 import { jsx } from '@atlaskit/css';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 /* eslint-disable @atlaskit/design-system/no-emotion-primitives -- Compiled primitives do not provide Pressable. */
 import { Box } from '@atlaskit/primitives/box';
-import { Inline } from '@atlaskit/primitives/inline';
 import { Pressable } from '@atlaskit/primitives/pressable';
-import { Stack } from '@atlaskit/primitives/stack';
-import { Text } from '@atlaskit/primitives/text';
 import { xcss } from '@atlaskit/primitives/xcss/xcss';
 import { token } from '@atlaskit/tokens';
 
 import type { QuickInsertMenuItemProps } from './QuickInsertMenuItem';
 import { useQuickInsertMenuItemSelection } from './quickInsertMenuItemUtils';
+import { QuickInsertPreviewContent } from './QuickInsertPreviewContent';
 import { useQuickInsertContext } from './useQuickInsertContext';
 
-const borderlessItemStyles = xcss({
-	alignItems: 'start',
-	backgroundColor: 'color.background.neutral.subtle',
-	borderRadius: 'radius.medium',
+const cardStyles = xcss({
+	backgroundColor: 'elevation.surface',
+	borderColor: 'color.border',
+	borderRadius: 'radius.large',
+	borderStyle: 'solid',
+	borderWidth: 'border.width',
 	color: 'color.text',
 	cursor: 'pointer',
 	display: 'flex',
-	gap: 'space.150',
-	height: '88px',
+	flexDirection: 'column',
+	gap: 'space.100',
+	// Fills the grid row so every tile in a row is as tall as the tallest one.
+	height: '100%',
 	padding: 'space.150',
 	textAlign: 'start',
 	width: '100%',
-});
-
-const borderlessSelectedItemStyles = xcss({
-	alignItems: 'start',
-	backgroundColor: 'color.background.selected',
-	borderRadius: 'radius.medium',
-	color: 'color.text',
-	cursor: 'pointer',
-	display: 'flex',
-	gap: 'space.150',
-	height: '88px',
-	padding: 'space.150',
-	position: 'relative',
-	textAlign: 'start',
-	width: '100%',
-	'::before': {
-		borderInlineStartColor: 'color.border.selected',
-		borderInlineStartStyle: 'solid',
-		borderInlineStartWidth: 'border.width.selected',
-		content: "''",
-		insetBlock: 'space.0',
-		insetInlineStart: 'space.0',
-		pointerEvents: 'none',
-		position: 'absolute',
+	':hover': {
+		backgroundColor: 'elevation.surface.hovered',
 	},
 });
 
-const borderlessDisabledItemStyles = xcss({
-	alignItems: 'start',
-	backgroundColor: 'color.background.neutral.subtle',
-	borderRadius: 'radius.medium',
+// Each state is a complete style so the tile can pick one without composing styles at render.
+const selectedCardStyles = xcss({
+	backgroundColor: 'color.background.selected',
+	borderColor: 'color.border.selected',
+	borderRadius: 'radius.large',
+	borderStyle: 'solid',
+	borderWidth: 'border.width',
+	color: 'color.text',
+	cursor: 'pointer',
+	display: 'flex',
+	flexDirection: 'column',
+	gap: 'space.100',
+	height: '100%',
+	padding: 'space.150',
+	textAlign: 'start',
+	width: '100%',
+	':hover': {
+		backgroundColor: 'color.background.selected.hovered',
+	},
+	// Keyboard focus draws the focus ring, so drop the selected border to avoid a double outline.
+	':focus-visible': {
+		borderColor: 'color.border',
+	},
+});
+
+const disabledCardStyles = xcss({
+	backgroundColor: 'elevation.surface',
+	borderColor: 'color.border',
+	borderRadius: 'radius.large',
+	borderStyle: 'solid',
+	borderWidth: 'border.width',
 	color: 'color.text.disabled',
 	cursor: 'not-allowed',
 	display: 'flex',
-	gap: 'space.150',
-	height: '88px',
+	flexDirection: 'column',
+	gap: 'space.100',
+	height: '100%',
 	padding: 'space.150',
 	textAlign: 'start',
 	width: '100%',
 });
 
-const hoveredItemStyles = xcss({
-	':hover': {
-		backgroundColor: 'elevation.surface.hovered',
-		borderRadius: 'radius.medium',
-	},
-});
-
 const iconStyles = xcss({
-	alignItems: 'center',
-	backgroundColor: 'elevation.surface.overlay',
-	borderColor: 'color.border',
-	borderRadius: 'radius.medium',
-	borderStyle: 'solid',
-	borderWidth: 'border.width',
-	display: 'flex',
-	flexShrink: 0,
-	height: '40px',
-	justifyContent: 'center',
-	overflow: 'hidden',
-	width: '40px',
-});
-
-const iconLargeStyles = xcss({
 	alignItems: 'center',
 	backgroundColor: 'elevation.surface.overlay',
 	borderColor: 'color.border',
@@ -105,10 +90,10 @@ const iconLargeStyles = xcss({
 	borderWidth: 'border.width',
 	display: 'flex',
 	flexShrink: 0,
-	height: '40px',
+	height: '32px',
 	justifyContent: 'center',
 	overflow: 'hidden',
-	width: '40px',
+	width: '32px',
 });
 
 const iconColorStyles = css({ color: token('color.icon') });
@@ -126,107 +111,62 @@ const pinnedIconColorResetStyles = css({
 });
 /* eslint-enable @atlaskit/design-system/no-unsafe-design-token-usage, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-important-styles */
 
-const shortcutStyles = xcss({
-	backgroundColor: 'color.background.neutral',
-	borderRadius: 'radius.small',
-	color: 'color.text.subtle',
-	font: 'font.body.small',
-	paddingBlock: 'space.025',
-	paddingInline: 'space.050',
-});
-
+/**
+ * An Element Browser tile: the item's hover preview card (image, title, full description, and
+ * attribution), with its shortcut beside the title. Items without a preview image show their icon,
+ * always in a bordered box, above the title instead. The hover card's small title icon
+ * (`previewIcon`) is not shown, so a tile never repeats its icon.
+ */
 export const ElementBrowserQuickInsertMenuItem = ({
 	ariaLabel,
 	description,
 	iconBefore,
-	isDisabled,
+	isDisabled = false,
 	lozenge,
 	onSelect,
+	preview,
+	previewImageUrls,
 	shortcut,
 	titleContent,
-	shouldWrapIcon = true,
 	title,
 }: QuickInsertMenuItemProps): React.JSX.Element => {
 	const { item } = useQuickInsertContext();
 	const { id, isSelected } = item ?? { id: undefined, isSelected: false };
 	const itemDescription = description ?? item?.description;
 	const handleClick = useQuickInsertMenuItemSelection(onSelect);
-	const itemStyles = useMemo(
-		() => [
-			isDisabled
-				? borderlessDisabledItemStyles
-				: isSelected
-					? borderlessSelectedItemStyles
-					: borderlessItemStyles,
-			isExperimentEnabled('platform_editor_slash_command') &&
-				!isDisabled &&
-				!isSelected &&
-				hoveredItemStyles,
-		],
-		[isDisabled, isSelected],
+	const descriptionId = useId();
+	const resolvedPreview = useMemo(
+		() => preview ?? (previewImageUrls ? { image: previewImageUrls } : {}),
+		[preview, previewImageUrls],
 	);
-
-	const itemTitle = titleContent ?? (
-		<Text
-			color={isDisabled ? 'color.text.disabled' : 'color.text'}
-			maxLines={1}
-			size="medium"
-			weight="medium"
-		>
-			{title}
-		</Text>
-	);
-
-	// Disabled items keep the dimmed colour inherited from the item.
+	const hasDescription = Boolean(itemDescription || resolvedPreview.attribution || shortcut);
 	const icon = iconBefore ? (
 		<span css={[pinnedIconColorResetStyles, !isDisabled && iconColorStyles]}>{iconBefore}</span>
-	) : (
-		iconBefore
-	);
+	) : undefined;
 
 	return (
 		<Pressable
-			aria-label={ariaLabel}
+			aria-describedby={hasDescription ? descriptionId : undefined}
+			aria-label={ariaLabel ?? title}
 			aria-selected={isSelected}
 			id={id}
 			isDisabled={isDisabled}
 			onClick={handleClick}
 			role="option"
 			tabIndex={isSelected ? 0 : -1}
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Memoizes composition of module-scoped xcss styles for Pressable.
-			xcss={itemStyles}
+			xcss={isDisabled ? disabledCardStyles : isSelected ? selectedCardStyles : cardStyles}
 		>
-			{iconBefore && shouldWrapIcon ? (
-				<Box
-					xcss={isExperimentEnabled('platform_editor_slash_command') ? iconLargeStyles : iconStyles}
-				>
-					{icon}
-				</Box>
-			) : (
-				icon
-			)}
-			<Stack space="space.050" grow="fill">
-				<Inline alignBlock="center" spread="space-between" space="space.100">
-					{lozenge ? (
-						<Inline alignBlock="center" space="space.100">
-							{itemTitle}
-							{lozenge}
-						</Inline>
-					) : (
-						itemTitle
-					)}
-					{shortcut && (
-						<Box as="span" xcss={shortcutStyles}>
-							{shortcut}
-						</Box>
-					)}
-				</Inline>
-				{itemDescription && (
-					<Text color="color.text.subtlest" maxLines={2} size="small" weight="regular">
-						{itemDescription}
-					</Text>
-				)}
-			</Stack>
+			{!resolvedPreview.image && icon && <Box xcss={iconStyles}>{icon}</Box>}
+			<QuickInsertPreviewContent
+				description={itemDescription}
+				id={hasDescription ? descriptionId : undefined}
+				isDisabled={isDisabled}
+				lozenge={lozenge}
+				preview={resolvedPreview}
+				shortcut={shortcut}
+				shouldClampText={false}
+				title={titleContent ?? title}
+			/>
 		</Pressable>
 	);
 };

@@ -1,5 +1,17 @@
 # @atlassian/navigation-system
 
+## 11.6.0
+
+### Minor Changes
+
+- [`8cded96236762`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8cded96236762) -
+  Add `ResponsiveTopNavButton` and make placeholder Create icon-only below 48rem of TopNav container
+  width, behind `platform-dst-chat-panel-layout`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.5.0
 
 ### Minor Changes

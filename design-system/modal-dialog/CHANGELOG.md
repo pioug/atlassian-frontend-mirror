@@ -1,5 +1,12 @@
 # @atlaskit/modal-dialog
 
+## 17.2.1
+
+### Patch Changes
+
+- [`c7a4861c669f1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c7a4861c669f1) -
+  Behind `platform-dst-top-layer`, the modal fits the viewport and a full-screen modal fills it.
+
 ## 17.2.0
 
 ### Minor Changes

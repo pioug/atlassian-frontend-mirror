@@ -1,5 +1,15 @@
 # @atlaskit/user-picker
 
+## 14.5.2
+
+### Patch Changes
+
+- [`e6810f6d54e5a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e6810f6d54e5a) -
+  Restore mousedown opening so controlled Select consumers receive menu-open callbacks before
+  updating visibility. Let Select handle Escape without blurring UserPicker inputs on the top-layer
+  path.
+- Updated dependencies
+
 ## 14.5.1
 
 ### Patch Changes

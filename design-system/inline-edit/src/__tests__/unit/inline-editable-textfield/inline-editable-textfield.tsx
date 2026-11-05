@@ -181,3 +181,78 @@ it.each([true, false])(
 		expect(screen.queryByText('Enter a name')).not.toBeInTheDocument();
 	},
 );
+
+it.each([true, false])(
+	'keeps focus in the field when the validation message opens (top layer %s)',
+	async (isTopLayerEnabled) => {
+		if (isTopLayerEnabled) {
+			passGate('platform-dst-top-layer');
+		} else {
+			failGate('platform-dst-top-layer');
+		}
+		const user = userEvent.setup();
+		render(
+			<InlineEditableTextfield
+				defaultValue="Existing"
+				placeholder="Enter name"
+				label="Name"
+				startWithEditViewOpen
+				validate={(value) => (value.trim() ? undefined : 'Enter a name')}
+				onConfirm={jest.fn()}
+			/>,
+		);
+		const input = screen.getByRole('textbox', { name: 'Name' });
+		expect(input).toHaveFocus();
+
+		// An invalid value opens the message while the user types.
+		await user.clear(input);
+		expect(await screen.findByText('Enter a name')).toBeVisible();
+		expect(input).toHaveFocus();
+
+		// Typing goes on in the field.
+		await user.keyboard('A');
+		expect(input).toHaveValue('A');
+	},
+);
+
+it.each([true, false])(
+	'closes the validation message when the value becomes valid during the edit (top layer %s)',
+	async (isTopLayerEnabled) => {
+		if (isTopLayerEnabled) {
+			passGate('platform-dst-top-layer');
+		} else {
+			failGate('platform-dst-top-layer');
+		}
+		const user = userEvent.setup();
+		const onConfirm = jest.fn();
+		render(
+			<InlineEditableTextfield
+				defaultValue="Existing"
+				placeholder="Enter name"
+				label="Name"
+				startWithEditViewOpen
+				validate={(value) => (value.trim() ? undefined : 'Enter a name')}
+				onConfirm={onConfirm}
+			/>,
+		);
+		const input = screen.getByRole('textbox', { name: 'Name' });
+		await user.clear(input);
+		expect(await screen.findByText('Enter a name')).toBeVisible();
+		if (isTopLayerEnabled) {
+			// The popover (`role="none"`) that shows the message.
+			expect(screen.getByRole('none')).toHaveTextContent('Enter a name');
+		}
+
+		await user.type(input, 'Corrected');
+
+		await waitFor(() => expect(screen.queryByText('Enter a name')).not.toBeInTheDocument());
+		if (isTopLayerEnabled) {
+			// The popover itself closes, not only its text.
+			await waitFor(() => expect(screen.queryByRole('none')).not.toBeInTheDocument());
+		}
+		// The edit view stays open with the new value.
+		expect(input).toHaveFocus();
+		expect(input).toHaveValue('Corrected');
+		expect(onConfirm).not.toHaveBeenCalled();
+	},
+);

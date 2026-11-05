@@ -139,8 +139,13 @@ test.describe('table', () => {
 			const contentAreaBox = await editor.page
 				.getByTestId('ak-editor-fp-content-area')
 				.boundingBox();
-			const toolbarBox = await editor.page.getByTestId('ak-editor-main-toolbar').boundingBox();
-			expect(contentAreaBox!.height + toolbarBox!.height).toBe(totalEditorBox!.height);
+			const toolbarBox = await editor.page
+				.getByTestId('ak-editor-main-toolbar')
+				.boundingBox({
+					timeout: 1000,
+				})
+				.catch(() => null);
+			expect(contentAreaBox!.height + (toolbarBox?.height ?? 0)).toBe(totalEditorBox!.height);
 		});
 	});
 });

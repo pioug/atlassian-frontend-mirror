@@ -1,5 +1,18 @@
 # @atlaskit/avatar
 
+## 30.1.0
+
+### Minor Changes
+
+- [`39797377de932`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/39797377de932) -
+  Add a hasInnerBorder prop for hexagon avatars behind platform-dst-avatar-updated-geometry.
+
+### Patch Changes
+
+- [`39797377de932`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/39797377de932) -
+  Adds an inner border to hexagon avatars with separate light and dark mode colors, behind the
+  `platform-dst-avatar-updated-geometry` feature gate.
+
 ## 30.0.6
 
 ### Patch Changes

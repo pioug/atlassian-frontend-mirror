@@ -691,13 +691,6 @@ export const editorExperimentsConfig: {
 		typeGuard: IsBooleanType;
 	};
 	// Added 2026-06-01
-	confluence_3p_in_cwr_ghost_icons: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-06-01
 	platform_editor_lovability_text_bg_color: {
 		defaultValue: boolean;
 		param: string;
@@ -1520,18 +1513,6 @@ export const editorExperimentsConfig: {
 			confluence: 'platform_editor_ai_new_aifc_editor_experience',
 		},
 		param: 'isBackendReviewMomentEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-06-01
-	// Gates the `GhostIconWave` animation primitive in
-	// `@atlassian/rovo-platform-ui-components` — rendered as a loading cue on
-	// Confluence's 3p-in-CWR (Rovo) surfaces. When off the primitive renders
-	// nothing.
-	confluence_3p_in_cwr_ghost_icons: createBooleanExperiment({
-		productKeys: {
-			confluence: 'confluence_3p_in_cwr_ghost_icons',
-		},
-		param: 'isEnabled',
 		defaultValue: false,
 	}),
 	// Added 2026-06-01

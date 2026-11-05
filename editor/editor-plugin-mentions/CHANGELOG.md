@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-mentions
 
+## 32.1.0
+
+### Minor Changes
+
+- [`71401187eef88`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71401187eef88) -
+  Add a consumer-owned agent section lozenge for confluence_agentic_awareness_enabled.
+
+  Allow `platform_editor_agent_mentions_hide_labs_lozenge` to suppress both the default Labs lozenge
+  and any consumer-supplied lozenge.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 32.0.12
 
 ### Patch Changes

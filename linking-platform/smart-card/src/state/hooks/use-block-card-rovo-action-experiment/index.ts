@@ -33,6 +33,8 @@ const useBlockCardRovoAction = (url?: string, actionOptions?: CardActionOptions)
 	const isRovoChatEnabled = getIsRovoChatEnabled(rovoConfig);
 	const cardState = useSmartCardState(url ?? '');
 	const extensionKey = getExtensionKey(cardState.details);
+	// TODO: ASIMO-5567 - Also check canShowAction(CardAction.RovoChatAction, actionOptions) so the
+	// hook returns false when the consumer hides the Rovo chat action via actionOptions.hide/exclude.
 	const isRovoChatActionOptedIn = actionOptions?.rovoChatAction?.optIn ?? false;
 
 	return useMemo(() => {

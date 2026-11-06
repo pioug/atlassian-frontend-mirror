@@ -1,5 +1,41 @@
 # @atlaskit/editor-plugin-media
 
+## 32.2.15
+
+### Patch Changes
+
+- [`5115f648812e3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5115f648812e3) -
+  EDITOR-9978: Behind the `platform_editor_improve_inp_batch_2` experiment, reduce selection changes
+  and forced layout on clicks. Before calling `posAtCoords`, the gap cursor click handler now skips
+  clicks where it can never place a gap cursor: clicks on text or inline content, and clicks on an
+  atom node such as media. The media node view no longer re-dispatches a `mediaSingle` selection
+  that is already set.
+- Updated dependencies
+
+## 32.2.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 32.2.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 32.2.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 32.2.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 32.2.10
 
 ### Patch Changes

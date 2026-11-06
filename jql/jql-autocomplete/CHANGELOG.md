@@ -1,5 +1,19 @@
 # @atlaskit/jql-autocomplete
 
+## 3.1.1
+
+### Patch Changes
+
+- [`ba265c32b5854`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ba265c32b5854) -
+  [JRACLOUD-100041] fix(jql): keep token positions in UTF-16 code units so autocomplete and AST
+  positions stay aligned with the editor after an emoji
+
+  Behind `filter_jql_jracloud-100041`: the lexer input is built with `ANTLRInputStream` (UTF-16 code
+  units) instead of `CharStreams.fromString` (code points). The editor passes caret positions as
+  string offsets, so every token after an astral character (e.g. 🟡) was one position off:
+  autocomplete classified a field slot as an operator slot and AST positions (syntax highlighting,
+  rich inline nodes) were shifted.
+
 ## 3.1.0
 
 ### Minor Changes

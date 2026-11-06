@@ -1,7 +1,7 @@
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import type { AgentBrandColorScheme } from '@atlaskit/agent-color/agent-presence-color-types';
 import { getAgentColor, type AgentColor } from '@atlaskit/agent-color/get-agent-color';
 import { getThirdPartyAgentColor } from '@atlaskit/agent-color/get-third-party-agent-color';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { type ParticipantColor, participantColors } from './consts';
 
@@ -92,7 +92,7 @@ export function getHashCode(str: string): number {
 /**
  * Returns a fixed agent brand colour, an Agent Studio palette preference, or a hashed identity.
  *
- * Under `confluence_ncs_step_diffing_version_history`, brand colours are enabled with named IDs
+ * Under `platform_editor_attributed_version_history`, brand colours are enabled with named IDs
  * taking precedence over display names, and red slots are skipped.
  *
  * @param str - The input string used to determine the participant color.
@@ -105,7 +105,7 @@ export function getParticipantColor(
 	agentName?: string,
 	agentNamedId?: string,
 ): { color: ParticipantColor; index: number; isFixed?: true } {
-	const brand = fg('confluence_ncs_step_diffing_version_history')
+	const brand = isExperimentEnabled('platform_editor_attributed_version_history')
 		? getThirdPartyAgentColor({ agentNamedId, agentName })
 		: undefined;
 
@@ -125,7 +125,7 @@ export function getParticipantColor(
 		? AGENT_COLOR_TO_PARTICIPANT_COLOR_INDEX[agentColor]
 		: getHashCode(str) % participantColors.length;
 
-	const index = fg('confluence_ncs_step_diffing_version_history')
+	const index = isExperimentEnabled('platform_editor_attributed_version_history')
 		? getAssignableIndex(preferredIndex)
 		: preferredIndex;
 

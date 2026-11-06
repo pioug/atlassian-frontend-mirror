@@ -91,7 +91,7 @@ const getChangedContentStyleNext = (
 	// getter rather than `getDeletedContentStyle`, so without this they never receive the
 	// glyphTint background + underline that plain deleted text already gets.
 	if (
-		fg('confluence_ncs_step_diffing_version_history') &&
+		isExperimentEnabled('platform_editor_attributed_version_history') &&
 		colors.deletedInlineTreatment === 'glyphTint'
 	) {
 		return base + buildDeletedInlineContentStyleExtended(colors, isActive);

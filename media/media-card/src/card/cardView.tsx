@@ -495,6 +495,9 @@ export const CardViewBase = ({
 						forceSyncDisplay={forceSyncDisplay}
 						identifier={identifier}
 						wrapperRef={divRef}
+						useWhiteBackground={
+							fg('platform_media_white_bg_transparent_images') && !backgroundColor
+						}
 						backgroundColor={backgroundColor}
 					/>
 				)}

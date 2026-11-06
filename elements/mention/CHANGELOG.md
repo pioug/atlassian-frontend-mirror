@@ -1,5 +1,42 @@
 # @atlaskit/mention
 
+## 30.7.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.7.10
+
+### Patch Changes
+
+- [`ab90c400d397a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab90c400d397a) -
+  Apply corrected agent mention avatar geometry in both editor rendering paths for
+  `canvas_agentic_experiences_master_exp` alongside `platform_editor_agent_hexagon_ui_fix`.
+- Updated dependencies
+
+## 30.7.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.7.8
+
+### Patch Changes
+
+- [`f26f633c25699`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f26f633c25699) -
+  Move Rovo chat mention visuals and their supporting identity resolution, SSR cache reads and Chat
+  handoff metadata under platform_editor_mention_rovo_special_visual. Keep Rovo mention availability
+  and task routing under platform_editor_mention_rovo.
+- Updated dependencies
+
+## 30.7.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 30.7.6
 
 ### Patch Changes

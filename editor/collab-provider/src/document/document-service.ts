@@ -19,6 +19,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
 import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { getCollabState, sendableSteps } from '@atlaskit/prosemirror-collab';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -546,7 +547,7 @@ export class DocumentService implements DocumentServiceInterface {
 				this.participantsService.upsertAIProviderParticipantLocally(
 					providerId,
 					agentType,
-					fg('confluence_ncs_step_diffing_version_history')
+					isExperimentEnabled('platform_editor_attributed_version_history')
 						? { agentId, agentName, agentNamedId }
 						: undefined,
 				),

@@ -1,5 +1,23 @@
 # @atlaskit/link-datasource
 
+## 7.12.3
+
+### Patch Changes
+
+- [`8ec7e4654ec86`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8ec7e4654ec86) -
+  Update the Assets modal loading skeleton header alignment to match the new UI behind the
+  `astral_assets_macro_table_ui_uplift` feature gate
+- Updated dependencies
+
+## 7.12.2
+
+### Patch Changes
+
+- [`6c40bad082f67`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6c40bad082f67) -
+  Clean up feature gate `platform_sllv_duplicated_row`: datasource rows that share an ARI are now
+  always deduplicated.
+- Updated dependencies
+
 ## 7.12.1
 
 ### Patch Changes

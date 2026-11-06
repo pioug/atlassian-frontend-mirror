@@ -122,9 +122,8 @@ const COLOR_SCHEME_LABELS: Record<ColorSchemeMode, string> = {
 
 // This example intentionally enables attribution colours and contributor tags so they can be
 // exercised without a Confluence host application.
-setBooleanFeatureFlagResolver(
-	(flagKey) => flagKey === 'confluence_ncs_step_diffing_version_history',
-);
+setBooleanFeatureFlagResolver(() => false);
+UNSAFE_overrideExperiment('platform_editor_attributed_version_history', { isEnabled: true });
 UNSAFE_overrideExperiment('platform_editor_show_diff_color_scheme_refactor', {
 	isEnabled: true,
 });

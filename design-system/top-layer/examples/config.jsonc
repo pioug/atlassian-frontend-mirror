@@ -63,6 +63,8 @@
 		"165-testing-popover-focus-handoff.tsx",
 		"166-testing-dialog-escape-refused.tsx",
 		"167-testing-dialog-in-auto-popover.tsx",
+		"168-testing-manual-focus-restore-target.tsx",
+		"169-testing-manual-light-dismiss-focus.tsx",
 		// The VR examples in the 80-89 band are imported by their spec rather than
 		// visited by URL, and the others are unregistered. The ones listed here are
 		// the ones recent changes added: a missing entry cannot fail anything, it

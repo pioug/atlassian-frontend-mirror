@@ -14,7 +14,7 @@ import { WidthObserver } from '@atlaskit/width-detector/width-observer';
 import type { RovoChatActionData } from '../../../../state/flexible-ui-context/types';
 import useInvokeClientAction from '../../../../state/hooks/use-invoke-client-action';
 import useRovoChat, { type SendPromptMessageData } from '../../../../state/hooks/use-rovo-chat';
-import { getPromptAction, type RovoChatPromptKey } from '../../../common/rovo-chat-utils';
+import { getPromptAction, RovoChatPromptKey } from '../../../common/rovo-chat-utils';
 import AIEditIcon from '../../../FlexibleCard/assets/ai-edit-icon';
 
 type PromptAction = NonNullable<ReturnType<typeof getPromptAction>>;
@@ -130,11 +130,14 @@ const EmbedRovoActionsFooter = ({
 				}
 
 				const isPrimaryAction = actions.length === 0;
+				// The primary action normally uses the branded AI icon. Visualize keeps its own
+				// chart icon so the action stays recognisable, including in the icon-only view.
+				const shouldUseBrandedIcon = isPrimaryAction && promptKey !== RovoChatPromptKey.VISUALIZE;
 
 				actions.push(
 					<RovoPromptButton
 						hideContent={isPrimaryAction && shouldHidePrimaryActionContent}
-						icon={isPrimaryAction ? <AIEditIcon /> : promptAction.icon}
+						icon={shouldUseBrandedIcon ? <AIEditIcon /> : promptAction.icon}
 						key={promptKey}
 						onClick={onClick}
 						promptAction={promptAction}

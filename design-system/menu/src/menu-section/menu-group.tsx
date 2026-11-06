@@ -39,28 +39,30 @@ const MenuGroup: (props: MenuGroupProps) => JSX.Element = ({
 	// @ts-expect-error
 	className: UNSAFE_className,
 	...rest
-}: MenuGroupProps) => (
-	<SpacingContext.Provider value={spacing}>
-		<SELECTION_STYLE_CONTEXT_DO_NOT_USE.Provider value="border">
-			<div
-				aria-busy={isLoading}
-				style={{
-					minWidth,
-					maxWidth,
-					minHeight,
-					maxHeight,
-				}}
-				css={baseStyles}
-				data-testid={testId}
-				role={role}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-				className={UNSAFE_className}
-				aria-label={menuLabel}
-				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-				{...rest}
-			/>
-		</SELECTION_STYLE_CONTEXT_DO_NOT_USE.Provider>
-	</SpacingContext.Provider>
-);
+}: MenuGroupProps) => {
+	return (
+		<SpacingContext.Provider value={spacing}>
+			<SELECTION_STYLE_CONTEXT_DO_NOT_USE.Provider value="border">
+				<div
+					aria-busy={isLoading}
+					style={{
+						minWidth,
+						maxWidth,
+						minHeight,
+						maxHeight,
+					}}
+					css={baseStyles}
+					data-testid={testId}
+					role={role}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+					className={UNSAFE_className}
+					aria-label={menuLabel}
+					// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+					{...rest}
+				/>
+			</SELECTION_STYLE_CONTEXT_DO_NOT_USE.Provider>
+		</SpacingContext.Provider>
+	);
+};
 
 export default MenuGroup;

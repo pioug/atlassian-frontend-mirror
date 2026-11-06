@@ -235,9 +235,10 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
 		expect(listWrapper).toBeInTheDocument();
 	});
 
-	describe('reading order (a11y_reactions_reading_order gate)', () => {
-		it('renders the picker panel in a portal outside the picker wrapper when the gate is OFF', async () => {
+	describe('reading order (a11y_reactions_reading_order gates)', () => {
+		it('renders the picker panel in a portal outside the picker wrapper when both gates are OFF', async () => {
 			failGate('a11y_reactions_reading_order');
+			failGate('a11y_reactions_reading_order_other_apps');
 			renderWithIntl(renderPicker());
 			const triggerButton = await screen.getByTestId(RENDER_TRIGGER_BUTTON_TESTID);
 
@@ -249,8 +250,22 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
 			expect(wrapper).not.toContainElement(panel);
 		});
 
-		it('renders the picker panel inline after the trigger inside the picker wrapper when the gate is ON', async () => {
+		it('renders the picker panel inline after the trigger inside the picker wrapper when the original gate is ON', async () => {
 			passGate('a11y_reactions_reading_order');
+			renderWithIntl(renderPicker());
+			const triggerButton = await screen.getByTestId(RENDER_TRIGGER_BUTTON_TESTID);
+
+			await user.click(triggerButton);
+			await screen.findAllByTestId(RENDER_BUTTON_TESTID);
+
+			const wrapper = screen.getByTestId(RENDER_REACTIONPICKER_TESTID);
+			const panel = screen.getByTestId(RENDER_REACTIONPICKERPANEL_TESTID);
+			expect(wrapper).toContainElement(panel);
+		});
+
+		it('renders the picker panel inline after the trigger inside the picker wrapper when only the other apps gate is ON', async () => {
+			failGate('a11y_reactions_reading_order');
+			passGate('a11y_reactions_reading_order_other_apps');
 			renderWithIntl(renderPicker());
 			const triggerButton = await screen.getByTestId(RENDER_TRIGGER_BUTTON_TESTID);
 

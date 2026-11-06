@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-paste",
-	"version": "31.1.4",
+	"version": "31.2.0",
 	"description": "Paste plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -82,12 +82,9 @@
 		},
 		"platform_editor_paste_strip_invalid_block_marks": {
 			"type": "boolean"
-		}
-	},
-	"platform-experiments": {
-		"platform_editor_paste_autoconvert_robustness": {
-			"param": "isEnabled",
-			"defaultValue": false
+		},
+		"platform_editor_paste_panel_c1_into_container": {
+			"type": "boolean"
 		}
 	}
 }

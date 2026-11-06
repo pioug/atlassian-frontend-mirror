@@ -10,6 +10,8 @@ export enum AiSuggestionsEntryPointValue {
 	 */
 	COMMENTS_EMPTY_STATE = 'commentsEmptyState',
 	SUGGESTIONS_PANEL_EMPTY_STATE = 'suggestionsPanelEmptyState',
+	PUBLISHED_SUGGESTIONS_PANEL_EMPTY_STATE = 'publishedSuggestionsPanelEmptyState',
+	LIVE_DOC_VIEW_SUGGESTIONS_PANEL_EMPTY_STATE = 'liveDocViewSuggestionsPanelEmptyState',
 	SUGGESTIONS_PANEL_HEADER = 'suggestionsPanelHeader',
 	OBJECT_SIDEBAR_CONTROL = 'objectSidebarControl',
 	/**

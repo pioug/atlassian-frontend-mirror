@@ -3,12 +3,12 @@ import React from 'react';
 
 import fetchMock from 'jest-fetch-mock';
 import { IntlProvider } from 'react-intl';
-import TestRenderer from 'react-test-renderer';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
+import { act } from '@atlassian/testing-library/act';
 import { renderHook } from '@atlassian/testing-library/render-hook';
 
 import { ANALYTICS_CHANNEL } from '../../../../utils/analytics/analytics';
@@ -30,8 +30,6 @@ jest.mock('uuid', () => ({
 jest.mock('../../use-ai-summary/ai-summary-service/readStream', () => ({
 	readStream: jest.fn(),
 }));
-
-const { act } = TestRenderer;
 
 describe('useAISummaryAction', () => {
 	const url = 'test-url';

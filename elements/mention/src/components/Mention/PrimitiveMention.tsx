@@ -28,7 +28,8 @@ const getStyle = (
 	{ mentionType, isRovoChat }: Pick<PrimitiveMentionProps, 'mentionType' | 'isRovoChat'>,
 	property: 'background' | 'borderColor' | 'text' | 'hoveredBackground' | 'pressedBackground',
 ) => {
-	const isRovoChatEnabled = isRovoChat && isExperimentEnabled('platform_editor_mention_rovo');
+	const isRovoChatEnabled =
+		isRovoChat && isExperimentEnabled('platform_editor_mention_rovo_special_visual');
 
 	if (isRovoChatEnabled) {
 		if (property === 'text') {

@@ -1,3 +1,4 @@
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import type { IntlShape } from 'react-intl';
 
 import { toggleExpandRange } from '@atlaskit/editor-common/expand';
@@ -260,7 +261,7 @@ export const createPlugin = (
 									? {
 											from: activeDecoration.from,
 											to: activeDecoration.to,
-											...(fg('confluence_ncs_step_diffing_version_history')
+											...(isExperimentEnabled('platform_editor_attributed_version_history')
 												? {
 														attributionKey: isDiffDecoration(activeDecoration)
 															? activeDecoration.spec.attributionKey

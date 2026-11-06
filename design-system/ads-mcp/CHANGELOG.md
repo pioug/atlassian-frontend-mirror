@@ -1,5 +1,28 @@
 # @atlaskit/ads-mcp
 
+## 1.12.5
+
+### Patch Changes
+
+- [`a9c65041a487b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a9c65041a487b) -
+  Reduce third-party starter loading latency under `rovo_chat_3p_zero_state_prompt` by fetching
+  recent activity alongside page context, retaining Relay results for five minutes, and warming the
+  same query on launcher hover or keyboard focus. Share prefetches with Chat requests and preserve
+  page-link priority and existing fallback behavior. Read fresh cached activity on the first render
+  when Chat reopens.
+
+  Keep third-party starter actions and icon components stable across equivalent context updates, and
+  reuse connector fallback selections when their inputs are unchanged. Refresh Smart Link discovery
+  subscriptions on page navigation so third-party starters do not remain loading after the page
+  changes.
+
+  Use the configured account ID before profile hydration so reopening Chat preserves fresh activity.
+  Preserve known-account cache entries and in-flight prefetches while the account ID is temporarily
+  unavailable. Remove the activity parser dependency from Chat now that the service package owns it.
+
+  Share launcher warm-up wiring through `useThirdPartyStarterPrefetch` while preserving each
+  launcher's eligibility and account lookup behavior.
+
 ## 1.12.4
 
 ### Patch Changes

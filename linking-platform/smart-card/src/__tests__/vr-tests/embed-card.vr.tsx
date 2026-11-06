@@ -28,9 +28,7 @@ import EmbedCardNotFoundView from '../../../examples/vr-embed-card/vr-embed-card
 import EmbedCardResolvedViewCompetitorPrompt from '../../../examples/vr-embed-card/vr-embed-card-resolved-competitor-prompt.vr.ap';
 import EmbedCardResolvedViewEntities from '../../../examples/vr-embed-card/vr-embed-card-resolved-entities.vr.ap';
 import EmbedCardResolvedViewNoPreview from '../../../examples/vr-embed-card/vr-embed-card-resolved-no-preview.vr.ap';
-import VREmbedCardResolvedRovoActionsFooter, {
-	VREmbedCardResolvedRovoActionsFooterKillSwitchOff,
-} from '../../../examples/vr-embed-card/vr-embed-card-resolved-rovo-actions-footer.vr.ap';
+import VREmbedCardResolvedRovoActionsFooter from '../../../examples/vr-embed-card/vr-embed-card-resolved-rovo-actions-footer.vr.ap';
 import EmbedCardResolvedSmall from '../../../examples/vr-embed-card/vr-embed-card-resolved-small.vr.ap';
 import EmbedCardResolvedView from '../../../examples/vr-embed-card/vr-embed-card-resolved.vr.ap';
 import EmbedCardResolvingView from '../../../examples/vr-embed-card/vr-embed-card-resolving.vr.ap';
@@ -66,11 +64,7 @@ snapshot.skip(EmbedCardResolvedViewCompetitorPrompt);
 snapshot(EmbedCardResolvedViewNoPreview);
 // Will be re-enabled as part of UTEST-2316.
 snapshot.skip(VREmbedCardResolvedRovoActionsFooter, {
-	description: 'embed card resolved view with Rovo actions footer FG on',
-});
-// Will be re-enabled as part of UTEST-2316.
-snapshot.skip(VREmbedCardResolvedRovoActionsFooterKillSwitchOff, {
-	description: 'embed card resolved view with Rovo actions footer FG off',
+	description: 'embed card resolved view with Rovo actions footer',
 });
 snapshot(EmbedCardResolvingView);
 // Will be re-enabled as part of UTEST-2316.

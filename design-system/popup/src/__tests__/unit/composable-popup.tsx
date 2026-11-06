@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 import Button from '@atlaskit/button/default/button';
 import __noop from '@atlaskit/ds-lib/noop';
@@ -10,7 +10,16 @@ import { userEvent } from '@atlassian/testing-library/user-event';
 import { Popup } from '../../compositional/popup';
 import { PopupContent } from '../../compositional/popup-content';
 import { PopupTrigger } from '../../compositional/popup-trigger';
-import type { TriggerProps } from '../../types';
+import type { PopupComponentProps, TriggerProps } from '../../types';
+
+const CustomContainer = forwardRef<HTMLDivElement, PopupComponentProps>(
+	({ children, 'data-testid': testId, id }, ref) => (
+		<section ref={ref} data-testid={testId} id={id}>
+			{children}
+		</section>
+	),
+);
+CustomContainer.displayName = 'CustomContainer';
 
 describe('Popup with composable API', () => {
 	it('should render correctly when popup is closed', () => {
@@ -93,28 +102,14 @@ describe('Popup with composable API', () => {
 		expect(onClose).toHaveBeenCalledTimes(1);
 	});
 
-	it('should call onClose when clicking on trigger', async () => {
-		const onClose = jest.fn();
-		render(
-			<Popup isOpen>
-				<PopupTrigger>
-					{(triggerProps) => (
-						<button type="button" onClick={onClose} {...triggerProps}>
-							trigger
-						</button>
-					)}
-				</PopupTrigger>
-				<PopupContent onClose={onClose}>{() => <div>content</div>}</PopupContent>
-			</Popup>,
-		);
+	describe('trigger press on the top layer', () => {
+		beforeEach(() => {
+			passGate('platform-dst-top-layer');
+		});
 
-		await userEvent.click(screen.getByText('trigger'));
-
-		expect(onClose).toHaveBeenCalledTimes(1);
-	});
-
-	describe('`aria-controls`', () => {
-		it('should be set if no `id` provided', () => {
+		// The trigger is outside the auto popover, so a press on it light-dismisses the popup.
+		it('should call onClose when clicking on trigger', async () => {
+			const onClose = jest.fn();
 			render(
 				<Popup isOpen>
 					<PopupTrigger>
@@ -124,37 +119,187 @@ describe('Popup with composable API', () => {
 							</button>
 						)}
 					</PopupTrigger>
-					<PopupContent testId="popup-container">{() => <div>content</div>}</PopupContent>
+					<PopupContent onClose={onClose}>{() => <div>content</div>}</PopupContent>
 				</Popup>,
 			);
 
-			const triggerAriaControlsValue = screen.getByText('trigger').getAttribute('aria-controls');
+			await userEvent.click(screen.getByText('trigger'));
 
-			expect(triggerAriaControlsValue).toBeTruthy();
+			expect(onClose).toHaveBeenCalledTimes(1);
+		});
+	});
 
-			// They should match
-			expect(screen.getByTestId('popup-container')).toHaveAttribute('id', triggerAriaControlsValue);
+	describe('trigger press on the legacy path', () => {
+		beforeEach(() => {
+			failGate('platform-dst-top-layer');
 		});
 
-		it('should be set with the provided `id`', () => {
-			const id = 'id';
-
+		// The legacy popup ignores a press on the trigger. The trigger closes it itself.
+		it('should call onClose when clicking on trigger', async () => {
+			const onClose = jest.fn();
 			render(
-				<Popup id={id} isOpen>
+				<Popup isOpen>
 					<PopupTrigger>
 						{(triggerProps) => (
-							<button type="button" {...triggerProps}>
+							<button type="button" onClick={onClose} {...triggerProps}>
 								trigger
 							</button>
 						)}
 					</PopupTrigger>
-					<PopupContent testId="popup-container">{() => <div>content</div>}</PopupContent>
+					<PopupContent onClose={onClose}>{() => <div>content</div>}</PopupContent>
 				</Popup>,
 			);
 
-			expect(screen.getByText('trigger')).toHaveAttribute('aria-controls', id);
+			await userEvent.click(screen.getByText('trigger'));
 
-			expect(screen.getByTestId('popup-container')).toHaveAttribute('id', id);
+			expect(onClose).toHaveBeenCalledTimes(1);
+		});
+	});
+
+	describe('`aria-controls`', () => {
+		describe('on the top layer', () => {
+			beforeEach(() => {
+				passGate('platform-dst-top-layer');
+			});
+
+			// The `Popover` host has the id and the `--container` test id.
+			it('should be set if no `id` provided', () => {
+				render(
+					<Popup isOpen>
+						<PopupTrigger>
+							{(triggerProps) => (
+								<button type="button" {...triggerProps}>
+									trigger
+								</button>
+							)}
+						</PopupTrigger>
+						<PopupContent testId="popup-container">{() => <div>content</div>}</PopupContent>
+					</Popup>,
+				);
+
+				const triggerAriaControlsValue = screen.getByText('trigger').getAttribute('aria-controls');
+
+				expect(triggerAriaControlsValue).toBeTruthy();
+
+				// They should match
+				expect(screen.getByTestId('popup-container--container')).toHaveAttribute(
+					'id',
+					triggerAriaControlsValue,
+				);
+			});
+
+			it('should be set with the provided `id`', () => {
+				const id = 'id';
+
+				render(
+					<Popup id={id} isOpen>
+						<PopupTrigger>
+							{(triggerProps) => (
+								<button type="button" {...triggerProps}>
+									trigger
+								</button>
+							)}
+						</PopupTrigger>
+						<PopupContent testId="popup-container">{() => <div>content</div>}</PopupContent>
+					</Popup>,
+				);
+
+				expect(screen.getByText('trigger')).toHaveAttribute('aria-controls', id);
+
+				expect(screen.getByTestId('popup-container--container')).toHaveAttribute('id', id);
+			});
+
+			it('should put the `id` only on the host when a `popupComponent` is used', () => {
+				const id = 'id';
+
+				render(
+					<Popup id={id} isOpen>
+						<PopupTrigger>
+							{(triggerProps) => (
+								<button type="button" {...triggerProps}>
+									trigger
+								</button>
+							)}
+						</PopupTrigger>
+						<PopupContent testId="popup-container" popupComponent={CustomContainer}>
+							{() => <div>content</div>}
+						</PopupContent>
+					</Popup>,
+				);
+
+				expect(screen.getByTestId('popup-container--container')).toHaveAttribute('id', id);
+				expect(screen.getByTestId('popup-container')).not.toHaveAttribute('id');
+			});
+
+			// The host is not in the DOM while closed.
+			it('should not be set while closed', () => {
+				render(
+					<Popup>
+						<PopupTrigger>
+							{(triggerProps) => (
+								<button type="button" {...triggerProps}>
+									trigger
+								</button>
+							)}
+						</PopupTrigger>
+						<PopupContent testId="popup-container">{() => <div>content</div>}</PopupContent>
+					</Popup>,
+				);
+
+				expect(screen.getByText('trigger')).not.toHaveAttribute('aria-controls');
+			});
+		});
+
+		describe('on the legacy path', () => {
+			beforeEach(() => {
+				failGate('platform-dst-top-layer');
+			});
+
+			it('should be set if no `id` provided', () => {
+				render(
+					<Popup isOpen>
+						<PopupTrigger>
+							{(triggerProps) => (
+								<button type="button" {...triggerProps}>
+									trigger
+								</button>
+							)}
+						</PopupTrigger>
+						<PopupContent testId="popup-container">{() => <div>content</div>}</PopupContent>
+					</Popup>,
+				);
+
+				const triggerAriaControlsValue = screen.getByText('trigger').getAttribute('aria-controls');
+
+				expect(triggerAriaControlsValue).toBeTruthy();
+
+				// They should match
+				expect(screen.getByTestId('popup-container')).toHaveAttribute(
+					'id',
+					triggerAriaControlsValue,
+				);
+			});
+
+			it('should be set with the provided `id`', () => {
+				const id = 'id';
+
+				render(
+					<Popup id={id} isOpen>
+						<PopupTrigger>
+							{(triggerProps) => (
+								<button type="button" {...triggerProps}>
+									trigger
+								</button>
+							)}
+						</PopupTrigger>
+						<PopupContent testId="popup-container">{() => <div>content</div>}</PopupContent>
+					</Popup>,
+				);
+
+				expect(screen.getByText('trigger')).toHaveAttribute('aria-controls', id);
+
+				expect(screen.getByTestId('popup-container')).toHaveAttribute('id', id);
+			});
 		});
 
 		it('should have aria-haspopup set to dialog if role is dialog', () => {
@@ -175,20 +320,26 @@ describe('Popup with composable API', () => {
 			);
 		});
 
-		it('should have aria-haspopup set to true if role is not dialog', () => {
-			render(
-				<Popup>
-					<PopupTrigger>
-						{(triggerProps) => <Button {...triggerProps}>Trigger</Button>}
-					</PopupTrigger>
-					<PopupContent testId="popup-container">{() => <div>content</div>}</PopupContent>
-				</Popup>,
-			);
+		describe('aria-haspopup without a role on the legacy path', () => {
+			beforeEach(() => {
+				failGate('platform-dst-top-layer');
+			});
 
-			expect(screen.getByRole('button', { name: 'Trigger' })).toHaveAttribute(
-				'aria-haspopup',
-				'true',
-			);
+			it('should have aria-haspopup set to true if role is not dialog', () => {
+				render(
+					<Popup>
+						<PopupTrigger>
+							{(triggerProps) => <Button {...triggerProps}>Trigger</Button>}
+						</PopupTrigger>
+						<PopupContent testId="popup-container">{() => <div>content</div>}</PopupContent>
+					</Popup>,
+				);
+
+				expect(screen.getByRole('button', { name: 'Trigger' })).toHaveAttribute(
+					'aria-haspopup',
+					'true',
+				);
+			});
 		});
 	});
 
@@ -206,6 +357,34 @@ describe('Popup with composable API', () => {
 			);
 
 			expect(screen.getByRole('button', { name: 'Trigger' })).not.toHaveAttribute('aria-haspopup');
+		});
+
+		// The role decides focus too: a popup with no role takes no focus.
+		it('should keep focus on the trigger when the popup has no role', () => {
+			passGate('platform-dst-top-layer');
+
+			const { rerender } = render(
+				<Popup>
+					<PopupTrigger>
+						{(triggerProps) => <Button {...triggerProps}>Trigger</Button>}
+					</PopupTrigger>
+					<PopupContent>{() => <button type="button">Inside</button>}</PopupContent>
+				</Popup>,
+			);
+			const trigger = screen.getByRole('button', { name: 'Trigger' });
+			trigger.focus();
+
+			rerender(
+				<Popup isOpen>
+					<PopupTrigger>
+						{(triggerProps) => <Button {...triggerProps}>Trigger</Button>}
+					</PopupTrigger>
+					<PopupContent>{() => <button type="button">Inside</button>}</PopupContent>
+				</Popup>,
+			);
+
+			expect(screen.getByRole('button', { name: 'Inside' })).toBeInTheDocument();
+			expect(trigger).toHaveFocus();
 		});
 
 		it('should set aria-haspopup to dialog if role is dialog', () => {
@@ -285,6 +464,64 @@ describe('Popup with composable API', () => {
 		const popup = screen.getByText('content');
 
 		expect(parent).toContainElement(popup);
+	});
+
+	describe('content render prop on the top layer', () => {
+		beforeEach(() => {
+			passGate('platform-dst-top-layer');
+		});
+
+		it('should not call children while closed', () => {
+			const content = jest.fn(() => <div>content</div>);
+
+			const { rerender } = render(
+				<Popup>
+					<PopupTrigger>
+						{(triggerProps) => <Button {...triggerProps}>Trigger</Button>}
+					</PopupTrigger>
+					<PopupContent>{content}</PopupContent>
+				</Popup>,
+			);
+
+			expect(content).not.toHaveBeenCalled();
+
+			rerender(
+				<Popup isOpen>
+					<PopupTrigger>
+						{(triggerProps) => <Button {...triggerProps}>Trigger</Button>}
+					</PopupTrigger>
+					<PopupContent>{content}</PopupContent>
+				</Popup>,
+			);
+
+			expect(content).toHaveBeenCalledWith(expect.objectContaining({ isOpen: true }));
+		});
+	});
+
+	describe('shouldRenderToParent on the top layer', () => {
+		beforeEach(() => {
+			passGate('platform-dst-top-layer');
+		});
+
+		// The popover always renders in place, so `shouldRenderToParent` has no effect.
+		it('should render the popup inside the parent when shouldRenderToParent is false', () => {
+			render(
+				<div data-testid="parent">
+					<Popup isOpen>
+						<PopupTrigger>
+							{(triggerProps) => (
+								<button type="button" {...triggerProps}>
+									trigger
+								</button>
+							)}
+						</PopupTrigger>
+						<PopupContent shouldRenderToParent={false}>{() => <div>content</div>}</PopupContent>
+					</Popup>
+				</div>,
+			);
+
+			expect(screen.getByTestId('parent')).toContainElement(screen.getByText('content'));
+		});
 	});
 
 	it('should not render the popup inside the parent when shouldRenderToParent is false', () => {

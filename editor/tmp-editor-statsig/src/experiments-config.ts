@@ -284,13 +284,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-11-19
-	platform_editor_lovability_navigation_fixes: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-08-05
 	platform_editor_native_anchor_with_dnd: {
 		defaultValue: boolean;
@@ -341,13 +334,6 @@ export const editorExperimentsConfig: {
 		typeGuard: (value: unknown) => value is 'control' | 'test';
 		values: ('control' | 'test')[];
 	};
-	// Added 2025-04-23
-	platform_renderer_fix_analytics_memo_callback: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2024-09-18
 	platform_renderer_table_sticky_scrollbar: {
 		defaultValue: boolean;
@@ -357,13 +343,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-03-27 — Pre-auth inline smart link: improved unauthorised hover card (boolean: isEnabled)
 	platform_sl_3p_preauth_better_hovercard: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-05-21 — Post-auth GDrive Smart Link to Rovo Chat auto-open (boolean: isEnabled)
-	platform_sl_3p_post_auth_chat_open_exp: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -454,13 +433,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-06-12
 	prompt_tile_content_type_localizaiton: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-04-24
-	'cwr-modal-ui-refresh': {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -990,14 +962,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-04-23
-	platform_renderer_fix_analytics_memo_callback: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_renderer_fix_analytics_memo_callback',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-04-30
 	platform_editor_code_block_q4_lovability: createBooleanExperiment({
 		productKeys: {
@@ -1117,28 +1081,11 @@ export const editorExperimentsConfig: {
 		defaultValue: false,
 	}),
 
-	// Added 2025-11-19
-	platform_editor_lovability_navigation_fixes: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_lovability_navigation_fixes',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-03-27 — Pre-auth unauthorised inline hover card UX
 	platform_sl_3p_preauth_better_hovercard: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_sl_3p_preauth_better_hovercard',
 			jira: 'platform_sl_3p_preauth_better_hovercard',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-05-21 — Post-auth GDrive Smart Link to Rovo Chat auto-open
-	platform_sl_3p_post_auth_chat_open_exp: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_sl_3p_post_auth_chat_open_exp',
-			jira: 'platform_sl_3p_post_auth_chat_open_exp',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -1226,14 +1173,6 @@ export const editorExperimentsConfig: {
 	prompt_tile_content_type_localizaiton: createBooleanExperiment({
 		productKeys: {
 			confluence: 'prompt_tile_content_type_localizaiton',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-04-24
-	'cwr-modal-ui-refresh': createBooleanExperiment({
-		productKeys: {
-			confluence: 'cwr-modal-ui-refresh',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

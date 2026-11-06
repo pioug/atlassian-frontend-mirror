@@ -1,3 +1,4 @@
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import type { Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
@@ -200,7 +201,7 @@ function groupTouchingDecorations(
  * 3. Deduplicates diff-block decorations with same from, to and nodeName
  * 4. When `doc` is passed: excludes diff-inline decorations whose range has no inline content
  *    (invalid positions, or block-only slices with no text/atoms — e.g. empty blocks)
- * 5. When `confluence_ncs_step_diffing_version_history` is enabled, groups overlapping or
+ * 5. When `platform_editor_attributed_version_history` is enabled, groups overlapping or
  *    directly touching ranges across decoration types into one result per contributor, using the
  *    union of all grouped ranges
  *    (zero-width widgets can join a group without extending it). Under
@@ -239,11 +240,15 @@ export const getScrollableDecorations = (
 
 		if (isBlockDecoration(dec)) {
 			// Skip listItem blocks as they are not scrollable
-			if (dec.spec?.nodeName === 'listItem') return false;
+			if (dec.spec?.nodeName === 'listItem') {
+				return false;
+			}
 
 			const key = `${dec.from}-${dec.to}-${dec.spec.nodeName ?? ''}`;
 			// Skip blocks that have already been seen
-			if (seenBlockKeys.has(key)) return false;
+			if (seenBlockKeys.has(key)) {
+				return false;
+			}
 			seenBlockKeys.add(key);
 		}
 		return true;
@@ -259,7 +264,7 @@ export const getScrollableDecorations = (
 	const widgets = filtered.filter(isWidgetDecoration);
 
 	let result: Decoration[];
-	if (fg('confluence_ncs_step_diffing_version_history')) {
+	if (isExperimentEnabled('platform_editor_attributed_version_history')) {
 		// Group overlapping or directly touching ranges into one customer-facing edit.
 		result = groupTouchingDecorations([...blocks, ...inlines, ...widgets], isInlineDecoration, doc);
 	} else {

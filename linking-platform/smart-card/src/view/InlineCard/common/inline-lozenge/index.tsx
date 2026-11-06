@@ -10,20 +10,7 @@ import type { NewLozengeProps } from '@atlaskit/lozenge/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
-const wrapperStylesOld = css({
-	display: 'inline-block',
-	// Align the label with the text
-	verticalAlign: '1px',
-	marginTop: 0,
-	marginRight: token('space.050'),
-	marginBottom: 0,
-	marginLeft: token('space.025'),
-
-	// Set max width to prevent Lozenge to overflow on top of other element in smaller space, e.g. inside table cell
-	maxWidth: '100%',
-});
-
-const wrapperStylesNew = css({
+const wrapperStyles = css({
 	display: 'inline-block',
 	// Align the label with the text without causing a layout shift (top & position)
 	top: '-1px',
@@ -44,24 +31,10 @@ const wrapperStylesNewLozenge = css({
 
 type InlineLozengeProps = LozengeProps | NewLozengeProps;
 const InlineLozenge = (props: InlineLozengeProps): JSX.Element => {
-	if (fg('jfp-magma-platform-lozenge-jump-fix')) {
-		return (
-			<span
-				css={[
-					wrapperStylesNew,
-					fg('platform-dst-lozenge-tag-badge-visual-uplifts') ? wrapperStylesNewLozenge : undefined,
-				]}
-				data-inline-card-lozenge
-			>
-				<Lozenge {...props} />
-			</span>
-		);
-	}
-
 	return (
 		<span
 			css={[
-				wrapperStylesOld,
+				wrapperStyles,
 				fg('platform-dst-lozenge-tag-badge-visual-uplifts') ? wrapperStylesNewLozenge : undefined,
 			]}
 			data-inline-card-lozenge

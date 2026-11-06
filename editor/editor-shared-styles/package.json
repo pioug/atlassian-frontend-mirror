@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-shared-styles",
-	"version": "5.0.4",
+	"version": "5.1.0",
 	"description": "Style values used in the editor/renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -20,10 +20,6 @@
 		"team": "Editor: Lego"
 	},
 	"platform-feature-flags": {
-		"confluence_ncs_step_diffing_version_history": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_ai_aifc_streaming": {
 			"type": "boolean"
 		}
@@ -45,6 +41,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/agent-color": "workspace:^",
+		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
@@ -52,6 +49,7 @@
 		"@emotion/react": "root:*"
 	},
 	"devDependencies": {
+		"@atlassian/experiment-test-utils": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^"
 	}
 }

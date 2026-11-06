@@ -164,7 +164,8 @@ export const MentionWithProviders: React.MemoExoticComponent<
 			null,
 		);
 		const [isRovoChat, setIsRovoChat] = useState(
-			isExperimentEnabled('platform_editor_mention_rovo') && Boolean(mentionNodeData?.isRovoChat),
+			isExperimentEnabled('platform_editor_mention_rovo_special_visual') &&
+				Boolean(mentionNodeData?.isRovoChat),
 		);
 		const mountedRef = useRef(true);
 
@@ -195,10 +196,10 @@ export const MentionWithProviders: React.MemoExoticComponent<
 
 		useEffect(() => {
 			if (mentionNodeData?.isRovoChat) {
-				setIsRovoChat(isExperimentEnabled('platform_editor_mention_rovo'));
+				setIsRovoChat(isExperimentEnabled('platform_editor_mention_rovo_special_visual'));
 				return;
 			}
-			if (!isExperimentEnabled('platform_editor_mention_rovo') || !mentionProvider) {
+			if (!isExperimentEnabled('platform_editor_mention_rovo_special_visual') || !mentionProvider) {
 				setIsRovoChat(false);
 				return;
 			}

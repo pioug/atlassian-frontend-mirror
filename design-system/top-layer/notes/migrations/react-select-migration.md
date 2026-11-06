@@ -51,6 +51,23 @@ See `packages/design-system/top-layer/notes/architecture/focus.md` for the broad
 substrate; the `react-select` carve-out lives in
 `packages/design-system/react-select/__tests__/playwright/top-layer-focus.spec.tsx`.
 
+**Focus return on close.** Custom menu content can take focus (for example DatePicker's calendar).
+The platform restores focus only for a popover that is hidden while it is still in the DOM, not one
+that is removed. So when `menuIsOpen` turns `false`, Select keeps the default menu portal mounted,
+hides its manual Popover (`isOpen={false}`), and unmounts the menu after the Popover's
+`onExitFinish`. Popover's fallback then returns focus that is inside the menu to the element that
+was focused when the menu opened. There is no fallback to Select's input: Safari, like Firefox on
+macOS, does not focus a clicked button, so a mouse-opened menu can have nothing to return to. See
+[`../architecture/focus.md`](../architecture/focus.md#focus-restoration).
+
+- **While closing**, the menu is not open anywhere: light dismiss, Escape, scroll capture and scroll
+  lock stop, and `aria-expanded` and `aria-controls` follow `menuIsOpen`. A reopen during the close
+  shows the same menu again. A custom `MenuPortal` has no exit signal, so it unmounts at once.
+- **Return, not arrival.** Focus that reaches the input while the menu is closing is a return, so
+  `openMenuOnFocus` does not reopen the menu. `onFocus` still fires.
+- **Outside press.** `useManualLightDismiss` blurs focus that an outside press left inside the menu,
+  so the press does not return focus, as with native light dismiss.
+
 ## Test coverage
 
 - **Unit** - `src/__tests__/unit/menu-portal-top-layer.test.tsx`,
@@ -79,3 +96,7 @@ substrate; the `react-select` carve-out lives in
 4. **`PopupSelect`** is migrated separately via the popup migration; the two flags
    (`platform-dst-top-layer` + `popup`'s gate) can be rolled together because both target the same
    underlying top-layer primitive.
+5. **The closed menu leaves the DOM later.** With the flag on, the hidden listbox stays in the DOM
+   until the Popover's exit finishes. A test that checks right after a close that the listbox is
+   gone should first call `flushPopoverExit()` (from
+   `@atlaskit/top-layer/testing/flush-popover-exit`), or use `waitFor`.

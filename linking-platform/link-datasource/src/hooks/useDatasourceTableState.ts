@@ -289,26 +289,23 @@ export const useDatasourceTableState = ({
 				setTotalCount(totalCount);
 				setNextCursor(nextPageCursor);
 
-				const isDuplicateRowDeduplicationEnabled = fg('platform_sllv_duplicated_row');
-				if (shouldRequestFirstPage && isDuplicateRowDeduplicationEnabled) {
+				if (shouldRequestFirstPage) {
 					responseItemAris.current.clear();
 				}
 
-				const itemsToAdd = isDuplicateRowDeduplicationEnabled
-					? items.filter((item) => {
-							const ari = item.ari?.data;
-							if (typeof ari !== 'string') {
-								return true;
-							}
+				const itemsToAdd = items.filter((item) => {
+					const ari = item.ari?.data;
+					if (typeof ari !== 'string') {
+						return true;
+					}
 
-							if (responseItemAris.current.has(ari)) {
-								return false;
-							}
+					if (responseItemAris.current.has(ari)) {
+						return false;
+					}
 
-							responseItemAris.current.add(ari);
-							return true;
-						})
-					: items;
+					responseItemAris.current.add(ari);
+					return true;
+				});
 
 				setResponseItems((currentResponseItems) => {
 					if (shouldRequestFirstPage) {
@@ -333,9 +330,7 @@ export const useDatasourceTableState = ({
 					entityType,
 				);
 				setResponseItemIds((currentIds) =>
-					isDuplicateRowDeduplicationEnabled && shouldRequestFirstPage
-						? newIds
-						: [...currentIds, ...newIds],
+					shouldRequestFirstPage ? newIds : [...currentIds, ...newIds],
 				);
 
 				if (!isFedRamp()) {

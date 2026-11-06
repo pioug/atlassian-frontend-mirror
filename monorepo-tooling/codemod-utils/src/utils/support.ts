@@ -9,6 +9,8 @@ import type {
 	ImportSpecifier,
 	JSXAttribute,
 	JSXElement,
+	JSXOpeningElement,
+	JSXSpreadAttribute,
 	Program,
 	StringLiteral,
 	TemplateElement,
@@ -207,6 +209,32 @@ const getJSXAttributesByName = (
 				.filter((identifier) => identifier.value.name === attributeName);
 			return Boolean(matches.length);
 		});
+};
+
+const getJSXAttributeByName = (
+	j: core.JSCodeshift,
+	element: ASTPath<any>,
+	attributeName: string,
+): JSXAttribute | undefined => getJSXAttributesByName(j, element, attributeName).nodes()[0];
+
+const hasJSXAttributeWithValue = (
+	element: JSXOpeningElement | JSXSpreadAttribute | undefined,
+	attributeName: string,
+	attributeValue: string,
+): boolean => {
+	if (!element || element.type === 'JSXSpreadAttribute') {
+		return false;
+	}
+
+	return Boolean(
+		element.attributes?.some(
+			(attribute) =>
+				attribute.type === 'JSXAttribute' &&
+				attribute.name.name === attributeName &&
+				attribute.value?.type === 'StringLiteral' &&
+				attribute.value.value === attributeValue,
+		),
+	);
 };
 
 const isEmpty: any = (string: StringLiteral): boolean => string && string.value !== '';
@@ -496,6 +524,8 @@ export {
 	getDefaultSpecifier,
 	getNamedSpecifier,
 	getJSXAttributesByName,
+	getJSXAttributeByName,
+	hasJSXAttributeWithValue,
 	hasJSXAttributesByName,
 	hasImportDeclaration,
 	hasImportDeclarationFromAnyPackageEntrypoint,

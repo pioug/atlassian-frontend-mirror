@@ -5,7 +5,7 @@
 import React, { forwardRef, type Ref, useCallback, useId, useMemo, useRef } from 'react';
 
 import { cssMap, cx, jsx } from '@compiled/react';
-import { bind } from 'bind-event-listener';
+import { bind, bindAll } from 'bind-event-listener';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import once from '@atlaskit/ds-lib/once';
@@ -326,6 +326,9 @@ export const Popover: React.ForwardRefExoticComponent<
 	// Tracks the close reason, including our own hidePopover() calls.
 	const closeReasonRef = useRef<TPopoverCloseReason>('light-dismiss');
 
+	// The last Escape `keydown` while open, kept until its `keyup` (see the listener).
+	const escapeKeydownRef = useRef<KeyboardEvent | null>(null);
+
 	// Pre-open focus target, cleared before close when restoration is not eligible.
 	const focusRestorationTargetRef = useRef<HTMLElement | null>(null);
 
@@ -338,9 +341,35 @@ export const Popover: React.ForwardRefExoticComponent<
 		const { ownerDocument } = popover;
 		const { activeElement } = ownerDocument;
 		if (event.newState === 'open') {
+			// The target is never inside the popover. Focus is already inside when StrictMode shows the
+			// popover again after content effects moved focus in, or when it reopens during its close.
+			// Keep the target from before.
+			if (popover.contains(activeElement)) {
+				return;
+			}
 			focusRestorationTargetRef.current =
 				activeElement instanceof HTMLElement ? activeElement : null;
 			return;
+		}
+
+		/**
+		 * The browser closes the topmost popover on an Escape `keydown` that no listener prevented,
+		 * before the `keyup`. So a close between that `keydown` and its `keyup` is an Escape close,
+		 * wherever focus was (for example on the trigger). Our own `hidePopover()` keeps
+		 * `programmatic`.
+		 *
+		 * Known gap: if that Escape closes another layer, and the close of that layer then closes
+		 * this popover before the `keyup` (for example its `onClose` opens a modal dialog), this
+		 * close is also reported as `escape`.
+		 */
+		const escapeKeydown = escapeKeydownRef.current;
+		escapeKeydownRef.current = null;
+		if (
+			closeReasonRef.current === 'light-dismiss' &&
+			escapeKeydown &&
+			!escapeKeydown.defaultPrevented
+		) {
+			closeReasonRef.current = 'escape';
 		}
 
 		/**
@@ -402,16 +431,43 @@ export const Popover: React.ForwardRefExoticComponent<
 			return;
 		}
 
-		// Tag Escape before the browser processes light dismiss.
-		const unbindEscape = bind(element, {
-			type: 'keydown',
-			listener: (event: KeyboardEvent) => {
-				// Ignore Escape events dispatched after native close.
-				if (event.key === 'Escape' && isNativeElementOpen({ element })) {
-					closeReasonRef.current = 'escape';
-				}
+		/**
+		 * Record an Escape `keydown` for `beforetoggle` to check. On the document, not the popover:
+		 * the browser closes the topmost popover on Escape wherever focus is, for example on the
+		 * trigger. It closes it before the `keyup`, so forget the record on `keyup`. Then an Escape
+		 * that closed another layer, or that a listener prevented, cannot tag a later close of this
+		 * one.
+		 */
+		const unbindEscape = bindAll(
+			element.ownerDocument,
+			[
+				{
+					type: 'keydown',
+					listener: (event: KeyboardEvent) => {
+						// Only an Escape while this popover is open can close it.
+						if (event.key !== 'Escape' || !isNativeElementOpen({ element })) {
+							return;
+						}
+						escapeKeydownRef.current = event;
+					},
+				},
+				{
+					type: 'keyup',
+					listener: (event: KeyboardEvent) => {
+						if (event.key === 'Escape') {
+							escapeKeydownRef.current = null;
+						}
+					},
+				},
+			],
+			{ capture: true },
+		);
+		// The `keyup` does not come here when focus leaves the window, so forget the record then too.
+		const unbindBlur = bind(element.ownerDocument.defaultView ?? window, {
+			type: 'blur',
+			listener: () => {
+				escapeKeydownRef.current = null;
 			},
-			options: { capture: true },
 		});
 		const unbindToggle = bind(element, {
 			type: 'toggle',
@@ -443,6 +499,7 @@ export const Popover: React.ForwardRefExoticComponent<
 
 		return () => {
 			unbindEscape();
+			unbindBlur();
 			unbindToggle();
 			unbindBeforeToggle();
 			unbindRequestClose();
@@ -463,6 +520,7 @@ export const Popover: React.ForwardRefExoticComponent<
 			// the host element, and interrupted close lifecycles may not reach
 			// `handleToggleClosed` to reset it.
 			closeReasonRef.current = 'light-dismiss';
+			escapeKeydownRef.current = null;
 			try {
 				element.showPopover();
 			} catch {}

@@ -17,6 +17,7 @@
 		"should-not-return-focus.tsx",
 		"testing-popup-with-dropdown-escape.tsx",
 		"testing-popup-with-datetime-picker-escape.tsx",
+		"testing-manual-light-dismiss-focus.tsx",
 	],
 	"exampleDependencies": [],
 }

@@ -69,7 +69,7 @@ eeTest
 		it.each(['712020:abc', 'ari:cloud:identity::user/712020:abc'])(
 			'preserves normalized identity for %s when later steps omit presentation metadata',
 			(agentId) => {
-				passGate('confluence_ncs_step_diffing_version_history');
+				mockExpEnabled('platform_editor_attributed_version_history');
 				ctx.processSteps([
 					buildStep({
 						agentType: 'mcp',
@@ -90,7 +90,7 @@ eeTest
 		);
 
 		it('does not forward display identity when the version-history gate is off', () => {
-			failGate('confluence_ncs_step_diffing_version_history');
+			mockExpDisabled('platform_editor_attributed_version_history');
 			ctx.processSteps([
 				buildStep({ agentType: 'mcp', agentId: '712020:abc', agentName: 'Claude' }),
 			]);

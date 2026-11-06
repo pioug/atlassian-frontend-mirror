@@ -7,8 +7,18 @@ import { screen } from '@atlassian/testing-library/screen';
 import { within } from '@atlassian/testing-library/within';
 
 import MockAtlasProject from '../../../../__fixtures__/atlas-project';
+import { isRovoChatActionVisualizeEnabled } from '../../../../utils/is-rovo-chat-action-visualize-enabled';
 import ResolvedView from '../ResolvedView';
 import { mockConfluenceResponse } from './__mocks__/blockCardMocks';
+
+jest.mock('../../../../utils/is-rovo-chat-action-visualize-enabled', () => {
+	const actual = jest.requireActual('../../../../utils/is-rovo-chat-action-visualize-enabled');
+	return {
+		isRovoChatActionVisualizeEnabled: jest.fn(actual.isRovoChatActionVisualizeEnabled),
+	};
+});
+
+const mockIsRovoChatActionVisualizeEnabled = jest.mocked(isRovoChatActionVisualizeEnabled);
 
 describe('ResolvedView', () => {
 	const url = 'https://some.url';
@@ -86,5 +96,48 @@ describe('ResolvedView', () => {
 			</SmartCardProvider>,
 		);
 		await expect(container).toBeAccessible();
+	});
+
+	describe('Rovo chat action prompts', () => {
+		const googleSheetsResponse = {
+			...mockConfluenceResponse,
+			meta: { ...mockConfluenceResponse.meta, key: 'google-object-provider' },
+			data: {
+				...mockConfluenceResponse.data,
+				'@type': ['Document', 'schema:SpreadsheetDigitalDocument'],
+			},
+		} as typeof mockConfluenceResponse;
+
+		const renderGoogleSheet = (
+			actionOptions: React.ComponentProps<typeof ResolvedView>['actionOptions'],
+		) =>
+			renderWithIntl(
+				<SmartCardProvider
+					product="CONFLUENCE"
+					rovoOptions={{ isRovoEnabled: true, isRovoLLMEnabled: true }}
+				>
+					<ResolvedView
+						cardState={{ status: 'resolved', details: googleSheetsResponse } as CardState}
+						url={url}
+						actionOptions={actionOptions}
+					/>
+				</SmartCardProvider>,
+			);
+
+		beforeEach(() => {
+			mockIsRovoChatActionVisualizeEnabled.mockClear();
+		});
+
+		it('evaluates visualize when Rovo chat action is shown', async () => {
+			renderGoogleSheet({ hide: false, rovoChatAction: { optIn: true } });
+			await screen.findByTestId('smart-footer-block-resolved-view');
+
+			expect(mockIsRovoChatActionVisualizeEnabled).toHaveBeenCalledWith(
+				expect.objectContaining({
+					extensionKey: 'google-object-provider',
+					product: 'CONFLUENCE',
+				}),
+			);
+		});
 	});
 });

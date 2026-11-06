@@ -1,5 +1,6 @@
 import {
 	type ANTLRErrorStrategy,
+	ANTLRInputStream,
 	CharStreams,
 	CommonTokenStream,
 	type ParserErrorListener,
@@ -8,6 +9,7 @@ import memoize from 'memoize-one';
 
 import { JQLLexer } from '@atlaskit/jql-parser/JQLLexer';
 import { JQLParser } from '@atlaskit/jql-parser/JQLParser';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import creators from '../creators';
 import { JastBuilderErrorListener, JQLParseError } from '../errors';
@@ -29,7 +31,11 @@ export class JastBuilder {
 	}
 
 	private getTokens = memoize((value: string): CommonTokenStream => {
-		const chars = CharStreams.fromString(value);
+		// AST positions are applied to the editor text, which is indexed in UTF-16 code units.
+		// `CharStreams.fromString` counts code points and shifts positions after an emoji.
+		const chars = fg('filter_jql_jracloud-100041')
+			? new ANTLRInputStream(value)
+			: CharStreams.fromString(value);
 		const lexer = new JQLLexer(chars);
 		return new CommonTokenStream(lexer);
 	});

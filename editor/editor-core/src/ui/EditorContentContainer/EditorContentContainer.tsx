@@ -8379,7 +8379,7 @@ const editorContentStyles = cssMapScoped({
 	 * Keyed on the literals the plugin writes (`CONTRIBUTOR_TAG_CLASS`,
 	 * `CONTRIBUTOR_TAG_REVEALED_ATTRIBUTE`), because cssMap keys must be static — rename in step.
 	 *
-	 * Gated behind `confluence_ncs_step_diffing_version_history`, where the tags render.
+	 * Gated behind `platform_editor_attributed_version_history`, where the tags render.
 	 */
 	contributorTagStyles: {
 		'.ProseMirror': {
@@ -8727,7 +8727,7 @@ const EditorContentContainer: React.ForwardRefExoticComponent<
 				editorContentStyles.embedCardStyles,
 				editorContentStyles.unsupportedStyles,
 				editorContentStyles.vanillaTooltipDefaultStyles,
-				fg('confluence_ncs_step_diffing_version_history') &&
+				isExperimentEnabled('platform_editor_attributed_version_history') &&
 					editorContentStyles.contributorTagStyles,
 				isExperimentEnabled('platform_editor_vanilla_node_views_phase1') &&
 					editorContentStyles.vanillaUnsupportedStyles,
@@ -8840,10 +8840,10 @@ const EditorContentContainer: React.ForwardRefExoticComponent<
 				isExperimentEnabled('platform_editor_mention_avatar_nowrap') &&
 					editorContentStyles.mentionAvatarNoWrapStyles,
 				colorMode === 'dark' && editorContentStyles.agentMentionShimmerDarkMode,
-				isExperimentEnabled('platform_editor_mention_rovo') &&
+				isExperimentEnabled('platform_editor_mention_rovo_special_visual') &&
 					colorMode !== 'dark' &&
 					editorContentStyles.agentMentionRovoShimmer,
-				isExperimentEnabled('platform_editor_mention_rovo') &&
+				isExperimentEnabled('platform_editor_mention_rovo_special_visual') &&
 					colorMode === 'dark' &&
 					editorContentStyles.agentMentionRovoShimmerDarkMode,
 				editorContentStyles.mentionsSelectionStyles,

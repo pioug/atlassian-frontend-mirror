@@ -28,7 +28,6 @@ import {
 	MentionNameStatus,
 	type MentionNameDetails,
 } from '@atlaskit/mention/types';
-import { expVal as platformExpVal } from '@atlaskit/platform-feature-experiments/exp-val';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
@@ -77,9 +76,12 @@ const isAgentMentionsExperimentEnabled = (): boolean =>
 const isAgentMentionUserType = (userType: string | null | undefined): boolean =>
 	userType === 'APP' || userType === 'AGENT';
 
-// In SSR `HTMLElement` is not defined, so we need to use duck typing here, follow the same pattern used from the emoji and layout plugins.
+// SSR replaces HTMLElement without changing DOM prototypes. Preserve existing mention avatars
+// under the original rollout, and support Rovo colors when their rollout is enabled independently.
 const isHTMLElement = (node: Node): node is HTMLElement =>
-	isExperimentEnabled('platform_editor_mention_rovo') && isSSR()
+	(isExperimentEnabled('platform_editor_mention_rovo') ||
+		isExperimentEnabled('platform_editor_mention_rovo_special_visual')) &&
+	isSSR()
 		? 'innerHTML' in node && 'style' in node && 'classList' in node
 		: node instanceof HTMLElement;
 
@@ -254,17 +256,11 @@ export class MentionNodeView implements NodeView {
 		const hasProvider = Boolean(options?.mentionNodeDataProvider);
 		const canReportMissingProvider =
 			!hasProvider && fg('platform_editor_mention_avatar_observability');
-		const cohort = platformExpVal<string>(
-			'convo_ai_entity_hover_cards_non_hello_exp',
-			'hover_card_cohort',
-			'control',
-		);
 		const isAvatarEnabled =
 			(hasProvider || canReportMissingProvider) &&
 			node.attrs.userType !== 'SPECIAL' &&
 			!genericMentionIds.includes(node.attrs.id) &&
-			(cohort === 'person' ||
-				cohort === 'all' ||
+			(fg('rovo_chat_people_entity_hover_cards') ||
 				isExperimentEnabled('platform_editor_mention_node_avatar') ||
 				isExperimentEnabled('canvas_agentic_experiences_master_exp') ||
 				isExperimentEnabled('platform_editor_mention_node_graphql_provider') ||
@@ -304,14 +300,14 @@ export class MentionNodeView implements NodeView {
 		}
 
 		const { mentionProvider } = api?.mention.sharedState.currentState() ?? {};
-		if (isExperimentEnabled('platform_editor_mention_rovo')) {
+		if (isExperimentEnabled('platform_editor_mention_rovo_special_visual')) {
 			void this.resolveRovoChatIdentity(mentionProvider);
 		}
 		this.updateState(mentionProvider);
 		this.subscribeToProviderDisabledStateChanges(mentionProvider);
 
 		this.cleanup = api?.mention.sharedState.onChange(({ nextSharedState }) => {
-			if (isExperimentEnabled('platform_editor_mention_rovo')) {
+			if (isExperimentEnabled('platform_editor_mention_rovo_special_visual')) {
 				void this.resolveRovoChatIdentity(nextSharedState?.mentionProvider);
 			}
 			this.updateState(nextSharedState?.mentionProvider);
@@ -367,7 +363,7 @@ export class MentionNodeView implements NodeView {
 
 	private isRovoChatFromCache(): boolean {
 		return (
-			isExperimentEnabled('platform_editor_mention_rovo') &&
+			isExperimentEnabled('platform_editor_mention_rovo_special_visual') &&
 			this.config.options?.mentionNodeDataProvider?.getMentionDataFromCache({
 				id: this.node.attrs.id,
 				userType: this.node.attrs.userType,
@@ -391,7 +387,7 @@ export class MentionNodeView implements NodeView {
 		this.lastMentionProviderForRovoIdentity = mentionProvider;
 
 		if (
-			!isExperimentEnabled('platform_editor_mention_rovo') ||
+			!isExperimentEnabled('platform_editor_mention_rovo_special_visual') ||
 			!mentionProvider?.getRovoChatAgentIdentityAccountId
 		) {
 			this.setRovoChatStyles(false);
@@ -407,7 +403,7 @@ export class MentionNodeView implements NodeView {
 		if (this.isDestroyed || this.lastMentionProviderForRovoIdentity !== mentionProvider) {
 			return;
 		}
-		if (isExperimentEnabled('platform_editor_mention_rovo')) {
+		if (isExperimentEnabled('platform_editor_mention_rovo_special_visual')) {
 			// Recheck after awaiting: newer cached identity must take precedence over this lookup's result.
 			this.setRovoChatStyles(
 				this.isRovoChatFromCache() ||
@@ -457,7 +453,7 @@ export class MentionNodeView implements NodeView {
 		primitive.style.setProperty('color', inverseText);
 		this.mentionTextElement?.style.setProperty('color', inverseText);
 		// SSR needs the styles above; mouse listeners are attached only on the client.
-		if (isExperimentEnabled('platform_editor_mention_rovo') && isSSR()) {
+		if (isExperimentEnabled('platform_editor_mention_rovo_special_visual') && isSSR()) {
 			return;
 		}
 

@@ -1,14 +1,14 @@
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
 import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Transform } from '@atlaskit/editor-prosemirror/transform';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 /**
  * Returns true when documents have the same text and block structure, while ignoring marks and
  * attributes. This is useful when comparing documents produced by different serialization paths.
  */
 export function areDocsEqualByBlockStructureAndText(node1: Node, node2: Node): boolean {
-	if (fg('confluence_ncs_step_diffing_version_history')) {
+	if (isExperimentEnabled('platform_editor_attributed_version_history')) {
 		node1 = normalizeDocument(node1);
 		node2 = normalizeDocument(node2);
 	}

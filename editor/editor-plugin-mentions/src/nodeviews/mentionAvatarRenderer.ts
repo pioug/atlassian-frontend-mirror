@@ -66,7 +66,9 @@ export const mentionAvatarRenderer = ({
 		render: ({ appType, avatarUrl, isAvatarImagePreShaped }) => {
 			const shouldApplyAgentClip = !isAvatarImagePreShaped && appType === 'agent';
 			const shouldApplyFixedAgentClip =
-				shouldApplyAgentClip && isExperimentEnabled('platform_editor_agent_hexagon_ui_fix');
+				shouldApplyAgentClip &&
+				(isExperimentEnabled('platform_editor_agent_hexagon_ui_fix') ||
+					isExperimentEnabled('canvas_agentic_experiences_master_exp'));
 			container.classList.toggle(agentAvatarClassName, shouldApplyAgentClip);
 			container.classList.toggle(fixedAgentAvatarClassName, shouldApplyFixedAgentClip);
 			removeFallback();

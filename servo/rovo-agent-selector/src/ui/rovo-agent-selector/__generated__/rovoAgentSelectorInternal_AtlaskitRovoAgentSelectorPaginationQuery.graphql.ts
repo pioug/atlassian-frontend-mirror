@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9e0ac1b6e5fbeae43b2b6c7f0315b8c5>>
+ * @generated SignedSource<<e820eeba4c055f14546d9e2da705a8d4>>
  * @relayHash 1e5f1ac51962defa355a8e4fc5f6f0c3
  * @lightSyntaxTransform
  * @nogrep
@@ -26,6 +26,7 @@ export type AgentStudioAgentQueryInput = {
   onlyMyAgents?: boolean | null;
   onlyPublishedEditableAgents?: boolean | null;
   onlyPublishedEditableAgentsWithForge?: boolean | null;
+  onlyTagKeys?: ReadonlyArray<string> | null;
   onlyTemplateAgents?: boolean | null;
   onlyUnpublishedAgents?: boolean | null;
   onlyVerifiedAgents?: boolean | null;

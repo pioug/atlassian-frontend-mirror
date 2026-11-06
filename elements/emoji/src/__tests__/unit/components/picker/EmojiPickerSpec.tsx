@@ -1088,6 +1088,28 @@ describe('<EmojiPicker />', () => {
 	});
 
 	describe('Accessibility', () => {
+		it('uses a descriptive emoji search label when the feature gate is enabled', async () => {
+			passGate('platform_ally_emoji_fixes_various');
+			await helper.setupPicker();
+
+			expect(
+				screen.getByRole('searchbox', {
+					name: messages.searchLabelUpdated.defaultMessage,
+				}),
+			).toBeInTheDocument();
+		});
+
+		it('retains the existing emoji search label when the feature gate is disabled', async () => {
+			failGate('platform_ally_emoji_fixes_various');
+			await helper.setupPicker();
+
+			expect(
+				screen.getByRole('searchbox', {
+					name: messages.searchLabel.defaultMessage,
+				}),
+			).toBeInTheDocument();
+		});
+
 		it('removes the presentation role from the search input wrapper when the feature gate is enabled', async () => {
 			passGate('platform_ally_emoji_fixes_various');
 			await helper.setupPicker();

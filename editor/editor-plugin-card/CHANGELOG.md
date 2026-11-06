@@ -1,5 +1,37 @@
 # @atlaskit/editor-plugin-card
 
+## 36.0.20
+
+### Patch Changes
+
+- [`dd3768b8944a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dd3768b8944a6) -
+  Delete unreachable source files and unused dependencies
+- Updated dependencies
+
+## 36.0.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.0.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.0.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.0.16
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 36.0.15
 
 ### Patch Changes

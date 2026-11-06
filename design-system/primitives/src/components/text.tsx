@@ -104,6 +104,11 @@ const textAlignMap: {
 	start: css({ textAlign: 'start' }),
 };
 
+/**
+ * These styles might seem odd, but are required for line-clamp to work until browsers support the feature without the webkit prefix.
+ * Despite the properties being deprecated, it is fully specified behavior and will continue to be supported in browsers.
+ * https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/line-clamp#description
+ */
 const truncationStyles = css({
 	display: '-webkit-box',
 	overflow: 'hidden',

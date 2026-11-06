@@ -56,6 +56,18 @@ export type TUseManualLightDismissOptions = {
 };
 
 /**
+ * Native light dismiss does not return focus, but `Popover` returns focus that is inside it when the
+ * consumer sets `isOpen` to `false`. The press usually moved focus out already. If not (for example
+ * an outside `mousedown` called `preventDefault()`), blur first, so focus is not returned.
+ */
+function blurFocusInside({ element }: { element: HTMLElement | null }) {
+	const activeElement = element?.ownerDocument.activeElement;
+	if (activeElement instanceof HTMLElement && element?.contains(activeElement)) {
+		activeElement.blur();
+	}
+}
+
+/**
  * **Manual light dismiss**
  *
  * Gives a `popover="manual"` element the outside press and Escape dismissal of an auto popover.
@@ -75,6 +87,8 @@ export type TUseManualLightDismissOptions = {
  *   across the boundary (for example a text selection), a touch scroll or native drag
  *   (`pointercancel`), and a keyboard or programmatic `click()` do not dismiss. Any button
  *   dismisses, as in Chrome and Firefox. Nothing dismisses while `popoverRef` is not attached.
+ *   With `mode: 'popover'`, focus that the press left inside the popover is blurred before
+ *   `onClose`, so the close does not return focus, as with native light dismiss.
  * - **Escape, `mode: 'popover'`:** an Escape `keydown` from anywhere on the page. The topmost layer
  *   takes it, as with native close watchers. The hook ignores it when `event.defaultPrevented`,
  *   during IME composition, or when a layer that takes Escape is above the popover:
@@ -112,7 +126,12 @@ export function useManualLightDismiss({
 		elementRef: popoverRef,
 		additionalInsideElementRefs,
 		isOpen,
-		onOutsidePress: () => onCloseRef.current({ reason: 'light-dismiss' }),
+		onOutsidePress: () => {
+			if (isPopover) {
+				blurFocusInside({ element: popoverRef.current });
+			}
+			onCloseRef.current({ reason: 'light-dismiss' });
+		},
 	});
 
 	// Page surface: Escape closes it only while no owner is above it.

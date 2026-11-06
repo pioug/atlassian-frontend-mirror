@@ -76,6 +76,9 @@
 			"path": "../code/tsconfig.app.json"
 		},
 		{
+			"path": "../../monorepo-tooling/codemod-utils/tsconfig.app.json"
+		},
+		{
 			"path": "../css/tsconfig.app.json"
 		},
 		{

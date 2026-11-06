@@ -11,7 +11,6 @@ import Loadable from 'react-loadable';
 import LinkGlyph from '@atlaskit/icon/core/link';
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
-import { componentWithFG } from '@atlaskit/platform-feature-flags-react/component-with-fg';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
@@ -114,8 +113,11 @@ const EmbedFrameWithRovoFooter = ({
 
 		return getRovoPostAuthPromptKeys({
 			extensionKey: getExtensionKey(details),
+			isRovoChatActionShown: !!rovoActionData,
+			product,
+			response: details,
 		});
-	}, [details, isEmbedRovoActionsFooterEnabled]);
+	}, [details, isEmbedRovoActionsFooterEnabled, product, rovoActionData]);
 	const footer = React.useMemo(
 		() =>
 			rovoActionData && prompts.length > 0 ? (
@@ -145,14 +147,6 @@ const EmbedFrameWithRovoFooter = ({
 		frame
 	);
 };
-
-const EmbedFrameWithoutRovoFooter = ({ frame }: EmbedFrameWithRovoFooterProps) => frame;
-
-const EmbedFrameWithOptionalRovoFooter = componentWithFG(
-	'platform_sl_3p_auth_rovo_embed_footer_kill_switch',
-	EmbedFrameWithRovoFooter,
-	EmbedFrameWithoutRovoFooter,
-);
 
 export interface EmbedCardResolvedViewProps {
 	actionOptions?: CardActionOptions;
@@ -296,7 +290,7 @@ export const EmbedCardResolvedView: React.ForwardRefExoticComponent<
 			/>
 		);
 		const frameWithFooter = (
-			<EmbedFrameWithOptionalRovoFooter
+			<EmbedFrameWithRovoFooter
 				actionOptions={actionOptions}
 				details={details}
 				frame={frame}

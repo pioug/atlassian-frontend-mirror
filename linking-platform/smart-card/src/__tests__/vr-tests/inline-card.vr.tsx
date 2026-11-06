@@ -69,9 +69,6 @@ snapshot(InlineCardDefaultWithEntities, {
 
 snapshot(InlineCardDefault, {
 	description: 'inline card renders correctly when hovering over url',
-	featureFlags: {
-		'jfp-magma-platform-lozenge-jump-fix': [true, false],
-	},
 	ignoredErrors: [
 		{
 			pattern: /Failed to load resource/,
@@ -84,9 +81,6 @@ snapshot(InlineCardDefault, {
 
 snapshot(InlineCardSelected, {
 	description: 'inline card when selected',
-	featureFlags: {
-		'jfp-magma-platform-lozenge-jump-fix': true,
-	},
 	ignoredErrors: [
 		{
 			pattern: /Failed to load resource/,
@@ -109,9 +103,6 @@ snapshot(InlineCardDefaultTruncate, {
 
 snapshot(InlineCardTextWrap, {
 	description: 'inline card with wrapped text renders correctly',
-	featureFlags: {
-		'jfp-magma-platform-lozenge-jump-fix': [true, false],
-	},
 	ignoredErrors: [
 		{
 			pattern: /Failed to load resource/,
@@ -134,7 +125,6 @@ snapshot(InlineCardForbidden, {
 	description: 'inline card forbidden view',
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'jfp-magma-platform-lozenge-jump-fix': [true, false],
 	},
 });
 snapshot(InlineCardForbidden, {
@@ -173,9 +163,6 @@ snapshot(InlineCardForbiddenDeniedSiteAccess, {
 // Design refresh: emotion + legacy icon
 snapshot(InlineCardForbiddenDefaultIcon, {
 	description: 'inline card forbidden view with default legacy icon',
-	featureFlags: {
-		'jfp-magma-platform-lozenge-jump-fix': [true, false],
-	},
 });
 
 // Design refresh: compiled + DS visual refresh
@@ -183,7 +170,6 @@ snapshot(InlineCardForbiddenDefaultIcon, {
 	description: 'inline card forbidden view with default icon',
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'jfp-magma-platform-lozenge-jump-fix': [true, false],
 	},
 });
 snapshot(InlineCardNotFound, {
@@ -285,33 +271,21 @@ snapshot(InlineCardUnauthorisedSocialProofLowNoContext, {
 snapshot(InlineCardFontSizeDefault, {
 	description: 'inline card with default font size',
 	mockRequests: mockPersonalizationRequests,
-	featureFlags: {
-		'jfp-magma-platform-lozenge-jump-fix': [true, false],
-	},
 });
 
 snapshot(InlineCardFontSize32, {
 	description: 'inline card with 32 font size',
 	mockRequests: mockPersonalizationRequests,
-	featureFlags: {
-		'jfp-magma-platform-lozenge-jump-fix': [true, false],
-	},
 });
 
 snapshot(InlineCardFontSize24, {
 	description: 'inline card with 24 font size',
 	mockRequests: mockPersonalizationRequests,
-	featureFlags: {
-		'jfp-magma-platform-lozenge-jump-fix': [true, false],
-	},
 });
 
 snapshot(InlineCardFontSize16, {
 	description: 'inline card with 16 font size',
 	mockRequests: mockPersonalizationRequests,
-	featureFlags: {
-		'jfp-magma-platform-lozenge-jump-fix': [true, false],
-	},
 });
 
 snapshot(InlineCardWordWrapResolving, {
@@ -319,15 +293,9 @@ snapshot(InlineCardWordWrapResolving, {
 	waitForReactLazy: true,
 });
 snapshot(InlineCardWordWrapResolved, {
-	featureFlags: {
-		'jfp-magma-platform-lozenge-jump-fix': [true, false],
-	},
 	waitForReactLazy: true,
 });
 snapshot(InlineCardWordWrapForbidden, {
-	featureFlags: {
-		'jfp-magma-platform-lozenge-jump-fix': [true, false],
-	},
 	waitForReactLazy: true,
 });
 snapshot(InlineCardWordWrapForbiddenWithSiteRequestAccess, {
@@ -387,7 +355,6 @@ snapshot.skip(VRInlineCardAllExamplesInText, {
 	description: `inline card with all card examples in text`,
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'jfp-magma-platform-lozenge-jump-fix': [true, false],
 	},
 });
 

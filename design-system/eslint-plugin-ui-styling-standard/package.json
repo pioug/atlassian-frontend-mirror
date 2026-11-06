@@ -50,6 +50,7 @@
 		"postcss-selector-parser": "root:*"
 	},
 	"devDependencies": {
+		"@af/codegen-utils": "workspace:^",
 		"@af/formatting": "workspace:^",
 		"@atlaskit/ds-lib": "workspace:^",
 		"@atlassian/codegen": "workspace:^",

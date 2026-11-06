@@ -10,6 +10,7 @@ import { useIntl } from 'react-intl';
 import { useDebouncedCallback } from 'use-debounce';
 
 import SearchIcon from '@atlaskit/icon/core/search';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import TextField from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
@@ -115,7 +116,11 @@ export const EmojiPickerListSearch = (props: Props): JSX.Element => {
 			<div css={textFieldWrapperNew}>
 				<TextField
 					role="searchbox"
-					aria-label={formatMessage(messages.searchLabel)}
+					aria-label={formatMessage(
+						fg('platform_ally_emoji_fixes_various')
+							? messages.searchLabelUpdated
+							: messages.searchLabel,
+					)}
 					css={inputNew}
 					autoComplete="off"
 					name="search"

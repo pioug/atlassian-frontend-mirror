@@ -3,7 +3,7 @@
  *
  * Structured content hooks from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::32cbac9200091bcd2203fac2c2bc0734>>
+ * @codegen <<SignedSource::5a256eea96620feac883f72ce361e3c7>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -992,6 +992,24 @@ export const atlaskitHooks: HookMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'ai', 'platform'],
 		category: 'rovo',
 		package: '@atlassian/conversation-assistant-preview-card',
+		examples: [],
+	},
+	{
+		name: 'useThirdPartyStarterPrefetch',
+		description:
+			'Warms recent-activity starter data when a Rovo Chat launcher receives hover or focus.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use for Rovo Chat launchers that share the recent-activity starter query. Keep surface-specific eligibility at the call site and render the returned prefetch node beside the launcher.',
+			'Call warmThirdPartyStarter on hover or keyboard focus. Supply a known accountId, or fetchAccountId for intent-time profile lookup; mounting the hook does not load Relay or fetch a profile.',
+			'The hook checks the starter experiment without exposure. Each intent allows a retry; the service reuses fresh results and in-flight requests. Profile and chunk failures remain invisible because Chat fetches independently when opened.',
+		],
+		keywords: ['rovo', 'chat', 'starter', 'prefetch', 'hover', 'focus'],
+		category: 'rovo',
+		returns: {
+			type: '{ warmThirdPartyStarter: () => void; prefetch: ReactNode }',
+		},
+		package: '@atlassian/conversation-assistant-service',
 		examples: [],
 	},
 	{

@@ -1,8 +1,10 @@
 import { CAPTION_PLACEHOLDER_ID } from '@atlaskit/editor-common/media-single/constants';
 import { Side } from '@atlaskit/editor-common/selection';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection/gap-cursor/selection';
 import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
 import { UnsupportedSharedCssClassName } from '@atlaskit/editor-common/styles/unsupported-content';
 import type { Node as PMNode, ResolvedPos, Schema } from '@atlaskit/editor-prosemirror/model';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 export const isLeftCursor = (side: Side): side is Side.LEFT => side === Side.LEFT;
@@ -115,13 +117,89 @@ export function getLayoutModeFromTargetNode(node: PMNode): string {
 	return layout;
 }
 
-export const isIgnoredClick = (elem: HTMLElement | null): boolean | null => {
+type ClickContext = {
+	nodePos: number;
+	view: EditorView;
+};
+
+/**
+ * Whether `node`, starting at `start`, is an atom whose DOM contains the click target.
+ */
+const isClickInsideAtom = (
+	elem: HTMLElement,
+	node: PMNode | null,
+	start: number,
+	view: EditorView,
+): boolean => {
+	// ProseMirror counts text as an atom, but a text node can't contain an element.
+	if (!node?.isAtom || node.isText) {
+		return false;
+	}
+	const dom = view.nodeDOM(start);
+	return dom instanceof Node && dom.contains(elem);
+};
+
+/**
+ * Rule 1: no gap cursor can be placed for a click at `nodePos`.
+ *
+ * Skips clicks on text and inline atoms (mentions, emoji, status, dates, inline cards), where
+ * `nodePos` is inside a textblock. Inside a `mediaSingle` the handler places the gap cursor beside
+ * it instead, so clicks beside nested images aren't skipped.
+ */
+const cannotPlaceGapCursorAt = ($pos: ResolvedPos): boolean =>
+	$pos.parent.type.name !== 'mediaSingle' && !GapCursorSelection.valid($pos);
+
+/**
+ * Rule 2: the click target is inside the DOM of the atom before or after `nodePos`.
+ *
+ * Skips clicks on block atoms (images, block and embed cards, extensions, dividers), which the
+ * handler already ignored via `posAtCoords.inside`. Clicks beside them, outside their DOM, aren't
+ * skipped.
+ */
+const isClickOnAdjacentAtom = (elem: HTMLElement, $pos: ResolvedPos, view: EditorView): boolean => {
+	const { nodeAfter, nodeBefore, pos } = $pos;
+	return (
+		isClickInsideAtom(elem, nodeAfter, pos, view) ||
+		isClickInsideAtom(elem, nodeBefore, pos - (nodeBefore?.nodeSize ?? 0), view)
+	);
+};
+
+/**
+ * Whether the gap cursor click handler would return false whatever `posAtCoords` returns, so the
+ * layout read can be skipped.
+ */
+const isClickWithoutGapCursor = (elem: HTMLElement, { view, nodePos }: ClickContext): boolean => {
+	const { doc } = view.state;
+	if (nodePos < 0 || nodePos > doc.content.size) {
+		return false;
+	}
+
+	const $pos = doc.resolve(nodePos);
+	return cannotPlaceGapCursorAt($pos) || isClickOnAdjacentAtom(elem, $pos, view);
+};
+
+/**
+ * Whether a click should be left to other handlers instead of placing a gap cursor.
+ *
+ * Pass `clickContext` to also ignore clicks where no gap cursor can be placed: clicks on text or
+ * inline content, and clicks on an atom node such as media, cards or extensions.
+ */
+export const isIgnoredClick = (
+	elem: HTMLElement | null,
+	clickContext?: ClickContext,
+): boolean | null => {
 	if (elem?.nodeName === 'BUTTON' || elem?.closest('button')) {
 		return true;
 	}
 
 	// check if we're clicking an image caption placeholder
 	if (elem?.closest(`[data-id="${CAPTION_PLACEHOLDER_ID}"]`)) {
+		return true;
+	}
+
+	// check if no gap cursor can be placed for this click (text, inline content or an atom node).
+	// This runs before the table check so clicks inside tables are covered too.
+	if (elem && clickContext && isClickWithoutGapCursor(elem, clickContext)) {
 		return true;
 	}
 

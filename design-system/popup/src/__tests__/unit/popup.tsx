@@ -102,36 +102,6 @@ describe('Popup', () => {
 		expect(popupTrigger0).not.toBeInTheDocument();
 	});
 
-	describe('with iframe', () => {
-		const Iframe = ({ title = 'outerIframe' }: { title?: string }) => (
-			<iframe width="100px" height="100px" title={title} />
-		);
-		it('should call onClose on iframe click if iframe is outside popup', async () => {
-			const onClose = jest.fn();
-			render(
-				<div>
-					<Popup
-						{...defaultProps}
-						onClose={onClose}
-						content={() => <div>content</div>}
-						trigger={() => <button type="button">trigger</button>}
-						testId="popup"
-						isOpen
-					/>
-					<Iframe />
-				</div>,
-			);
-			const popupWrapper = screen.getByTestId('popup');
-			expect(popupWrapper).toBeInTheDocument();
-			// The layering level attribute is legacy-only. The top layer needs no layering level.
-			if (!fg('platform-dst-top-layer')) {
-				expect(popupWrapper).toHaveAttribute('data-ds--level');
-			}
-			await userEvent.click(screen.getByTitle('outerIframe'));
-			expect(onClose).toHaveBeenCalledTimes(1);
-		});
-	});
-
 	it('renders the trigger correctly when the popup is not open', () => {
 		const trigger = (props: TriggerProps) => (
 			<button
@@ -158,126 +128,210 @@ describe('Popup', () => {
 	});
 
 	describe('aria-haspopup set to "dialog" when role is "dialog"', () => {
-		it('with platform_dst_popup-disable-focuslock on', () => {
-			passGate('platform_dst_popup-disable-focuslock');
+		// On the legacy path, `platform_dst_popup-disable-focuslock` decides the value.
+		describe('on the legacy path', () => {
+			beforeEach(() => {
+				failGate('platform-dst-top-layer');
+			});
 
-			const trigger = (props: TriggerProps) => (
-				<button
-					// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-					{...props}
-					type="button"
-					ref={props.ref}
-				>
-					trigger
-				</button>
-			);
-			render(<Popup {...defaultProps} role="dialog" isOpen={false} trigger={trigger} />);
-			const triggerEl = screen.getByText('trigger');
+			it('is "dialog" when platform_dst_popup-disable-focuslock is on', () => {
+				passGate('platform_dst_popup-disable-focuslock');
+				const trigger = (props: TriggerProps) => (
+					<button
+						// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+						{...props}
+						type="button"
+						ref={props.ref}
+					>
+						trigger
+					</button>
+				);
+				render(<Popup {...defaultProps} role="dialog" isOpen={false} trigger={trigger} />);
+				const triggerEl = screen.getByText('trigger');
 
-			expect({
-				'aria-haspopup': triggerEl.getAttribute('aria-haspopup'),
-			}).toEqual({
-				'aria-haspopup': 'dialog',
+				expect({
+					'aria-haspopup': triggerEl.getAttribute('aria-haspopup'),
+				}).toEqual({
+					'aria-haspopup': 'dialog',
+				});
+			});
+
+			it('is "true" when platform_dst_popup-disable-focuslock is off', () => {
+				failGate('platform_dst_popup-disable-focuslock');
+				const trigger = (props: TriggerProps) => (
+					<button
+						// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+						{...props}
+						type="button"
+						ref={props.ref}
+					>
+						trigger
+					</button>
+				);
+				render(<Popup {...defaultProps} role="dialog" isOpen={false} trigger={trigger} />);
+				const triggerEl = screen.getByText('trigger');
+
+				expect({
+					'aria-haspopup': triggerEl.getAttribute('aria-haspopup'),
+				}).toEqual({
+					'aria-haspopup': 'true',
+				});
 			});
 		});
 
-		it('with platform_dst_popup-disable-focuslock off', () => {
-			failGate('platform_dst_popup-disable-focuslock');
+		describe('on the top layer', () => {
+			beforeEach(() => {
+				passGate('platform-dst-top-layer');
+			});
 
-			const trigger = (props: TriggerProps) => (
-				<button
-					// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-					{...props}
-					type="button"
-					ref={props.ref}
-				>
-					trigger
-				</button>
-			);
-			render(<Popup {...defaultProps} role="dialog" isOpen={false} trigger={trigger} />);
-			const triggerEl = screen.getByText('trigger');
+			it('is set from the role', () => {
+				render(<Popup {...defaultProps} role="dialog" label="Dialog" isOpen={false} />);
 
-			expect({
-				'aria-haspopup': triggerEl.getAttribute('aria-haspopup'),
-			}).toEqual({
-				'aria-haspopup': 'true',
+				expect(screen.getByText('trigger')).toHaveAttribute('aria-haspopup', 'dialog');
 			});
 		});
 	});
 
 	describe('`aria-controls`', () => {
-		it('should be set if no `id` provided', () => {
-			const trigger = (props: TriggerProps) => (
-				<button
-					// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-					{...props}
-					type="button"
-					ref={props.ref}
-				>
-					trigger
-				</button>
-			);
-			render(<Popup {...defaultProps} isOpen={true} trigger={trigger} testId="popup-container" />);
+		describe('on the legacy path', () => {
+			beforeEach(() => {
+				failGate('platform-dst-top-layer');
+			});
 
-			const triggerAriaControlsValue = screen.getByText('trigger').getAttribute('aria-controls');
+			it('should be set if no `id` provided', () => {
+				const trigger = (props: TriggerProps) => (
+					<button
+						// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+						{...props}
+						type="button"
+						ref={props.ref}
+					>
+						trigger
+					</button>
+				);
+				render(
+					<Popup {...defaultProps} isOpen={true} trigger={trigger} testId="popup-container" />,
+				);
 
-			expect(triggerAriaControlsValue).toBeTruthy();
+				const triggerAriaControlsValue = screen.getByText('trigger').getAttribute('aria-controls');
 
-			// They should match
-			expect(screen.getByTestId('popup-container')).toHaveAttribute('id', triggerAriaControlsValue);
+				expect(triggerAriaControlsValue).toBeTruthy();
+
+				// They should match
+				expect(screen.getByTestId('popup-container')).toHaveAttribute(
+					'id',
+					triggerAriaControlsValue,
+				);
+			});
+
+			it('should be set with the provided `id`', () => {
+				const id = 'id';
+
+				const trigger = (props: TriggerProps) => (
+					<button
+						// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+						{...props}
+						type="button"
+						ref={props.ref}
+					>
+						trigger
+					</button>
+				);
+
+				render(
+					<Popup
+						{...defaultProps}
+						id={id}
+						isOpen={true}
+						trigger={trigger}
+						testId="popup-container"
+					/>,
+				);
+
+				expect(screen.getByText('trigger')).toHaveAttribute('aria-controls', id);
+
+				expect(screen.getByTestId('popup-container')).toHaveAttribute('id', id);
+			});
 		});
 
-		it('should be set with the provided `id`', () => {
-			const id = 'id';
+		// On the top layer, the `id` is on the popover host (`${testId}--container`), not on the
+		// element with `testId`.
+		describe('on the top layer', () => {
+			beforeEach(() => {
+				passGate('platform-dst-top-layer');
+			});
 
-			const trigger = (props: TriggerProps) => (
-				<button
-					// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-					{...props}
-					type="button"
-					ref={props.ref}
-				>
-					trigger
-				</button>
-			);
+			it('should point at the popover host if no `id` provided', () => {
+				render(<Popup {...defaultProps} isOpen={true} testId="popup-container" />);
 
-			render(
-				<Popup
-					{...defaultProps}
-					id={id}
-					isOpen={true}
-					trigger={trigger}
-					testId="popup-container"
-				/>,
-			);
+				const triggerAriaControlsValue = screen.getByText('trigger').getAttribute('aria-controls');
 
-			expect(screen.getByText('trigger')).toHaveAttribute('aria-controls', id);
+				expect(triggerAriaControlsValue).toBeTruthy();
+				expect(screen.getByTestId('popup-container--container')).toHaveAttribute(
+					'id',
+					triggerAriaControlsValue,
+				);
+			});
 
-			expect(screen.getByTestId('popup-container')).toHaveAttribute('id', id);
+			it('should point at the popover host with the provided `id`', () => {
+				const id = 'id';
+
+				render(<Popup {...defaultProps} id={id} isOpen={true} testId="popup-container" />);
+
+				expect(screen.getByText('trigger')).toHaveAttribute('aria-controls', id);
+				expect(screen.getByTestId('popup-container--container')).toHaveAttribute('id', id);
+			});
 		});
 	});
 
-	it('renders the trigger correctly when the popup is open', () => {
-		const trigger = (props: TriggerProps) => (
-			<button
-				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-				{...props}
-				type="button"
-				ref={props.ref}
-			>
-				trigger
-			</button>
-		);
-		render(<Popup {...defaultProps} isOpen trigger={trigger} />);
+	describe('open trigger on the legacy path', () => {
+		beforeEach(() => {
+			failGate('platform-dst-top-layer');
+		});
 
-		const triggerEl = screen.getByText('trigger');
+		it('renders the trigger correctly when the popup is open', () => {
+			const trigger = (props: TriggerProps) => (
+				<button
+					// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+					{...props}
+					type="button"
+					ref={props.ref}
+				>
+					trigger
+				</button>
+			);
+			render(<Popup {...defaultProps} isOpen trigger={trigger} />);
 
-		expect({
-			'aria-expanded': triggerEl.getAttribute('aria-expanded'),
-			'aria-haspopup': triggerEl.getAttribute('aria-haspopup'),
-		}).toEqual({
-			'aria-expanded': 'true',
-			'aria-haspopup': 'true',
+			const triggerEl = screen.getByText('trigger');
+
+			expect({
+				'aria-expanded': triggerEl.getAttribute('aria-expanded'),
+				'aria-haspopup': triggerEl.getAttribute('aria-haspopup'),
+			}).toEqual({
+				'aria-expanded': 'true',
+				'aria-haspopup': 'true',
+			});
+		});
+	});
+
+	describe('open trigger on the top layer', () => {
+		beforeEach(() => {
+			passGate('platform-dst-top-layer');
+		});
+
+		it('renders the trigger correctly when the popup is open', () => {
+			render(<Popup {...defaultProps} isOpen />);
+
+			const triggerEl = screen.getByText('trigger');
+
+			expect({
+				'aria-expanded': triggerEl.getAttribute('aria-expanded'),
+				'aria-haspopup': triggerEl.getAttribute('aria-haspopup'),
+			}).toEqual({
+				'aria-expanded': 'true',
+				// The top-layer path sets `aria-haspopup` from the popup role, and this popup has no role.
+				'aria-haspopup': null,
+			});
 		});
 	});
 
@@ -360,43 +414,72 @@ describe('Popup', () => {
 		expect(screen.getByText('content')).toBeInTheDocument();
 	});
 
-	it('does not re-render the trigger unnecessarily', () => {
-		const triggerRender = jest.fn();
-		const contentRender = jest.fn();
+	describe('does not re-render the trigger unnecessarily', () => {
+		const renderCountingPopup = () => {
+			const triggerRender = jest.fn();
+			const contentRender = jest.fn();
 
-		const trigger = (props: TriggerProps) => {
-			triggerRender();
-			return (
-				<button
-					// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-					{...props}
-					type="button"
-					ref={props.ref}
-				>
-					trigger
-				</button>
-			);
+			const trigger = (props: TriggerProps) => {
+				triggerRender();
+				return (
+					<button
+						// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+						{...props}
+						type="button"
+						ref={props.ref}
+					>
+						trigger
+					</button>
+				);
+			};
+
+			const content = () => {
+				contentRender();
+				return <div>content</div>;
+			};
+
+			const props = {
+				trigger: trigger,
+				content: content,
+			};
+
+			const { rerender } = render(<Popup {...defaultProps} {...props} isOpen={false} />);
+
+			expect(triggerRender).toHaveBeenCalledTimes(1);
+			expect(contentRender).toHaveBeenCalledTimes(0);
+
+			rerender(<Popup {...defaultProps} {...props} isOpen />);
+
+			return { triggerRender, contentRender };
 		};
 
-		const content = () => {
-			contentRender();
-			return <div>content</div>;
-		};
+		describe('on the legacy path', () => {
+			beforeEach(() => {
+				failGate('platform-dst-top-layer');
+			});
 
-		const props = {
-			trigger: trigger,
-			content: content,
-		};
+			it('renders the trigger and the content three times when opened', () => {
+				const { triggerRender, contentRender } = renderCountingPopup();
 
-		const { rerender } = render(<Popup {...defaultProps} {...props} isOpen={false} />);
+				expect(triggerRender).toHaveBeenCalledTimes(3);
+				expect(contentRender).toHaveBeenCalledTimes(3);
+			});
+		});
 
-		expect(triggerRender).toHaveBeenCalledTimes(1);
-		expect(contentRender).toHaveBeenCalledTimes(0);
+		// The top layer has no Popper update after open, so the trigger and the content render only
+		// once for the open.
+		describe('on the top layer', () => {
+			beforeEach(() => {
+				passGate('platform-dst-top-layer');
+			});
 
-		rerender(<Popup {...defaultProps} {...props} isOpen />);
+			it('renders the trigger and the content once when opened', () => {
+				const { triggerRender, contentRender } = renderCountingPopup();
 
-		expect(triggerRender).toHaveBeenCalledTimes(3);
-		expect(contentRender).toHaveBeenCalledTimes(3);
+				expect(triggerRender).toHaveBeenCalledTimes(2);
+				expect(contentRender).toHaveBeenCalledTimes(1);
+			});
+		});
 	});
 
 	it('does not call onClose after pressing escape when the popup is not open', async () => {
@@ -423,72 +506,77 @@ describe('Popup', () => {
 		expect(onClose).toHaveBeenCalledTimes(1);
 	});
 
-	it('with platform_dst_nested_escape on', async () => {
-		passGate('platform_dst_nested_escape');
+	// `data-ds--level` layering is legacy only. On the top layer, each nested layer is its own popover.
+	describe('nested Escape on the legacy path', () => {
+		beforeEach(() => {
+			failGate('platform-dst-top-layer');
+		});
 
-		const onClose = jest.fn();
-		render(
-			<Popup
-				{...defaultProps}
-				isOpen
-				onClose={onClose}
-				shouldRenderToParent
-				role="dialog"
-				label="Popup with nested overlay"
-				content={() => (
-					<div data-ds--level="2">
-						<button type="button" data-testid="nested-overlay-trigger">
-							nested overlay
+		it('does not call onClose on Escape inside a nested layer when platform_dst_nested_escape is on', async () => {
+			passGate('platform_dst_nested_escape');
+			const onClose = jest.fn();
+			render(
+				<Popup
+					{...defaultProps}
+					isOpen
+					onClose={onClose}
+					shouldRenderToParent
+					role="dialog"
+					label="Popup with nested overlay"
+					content={() => (
+						<div data-ds--level="2">
+							<button type="button" data-testid="nested-overlay-trigger">
+								nested overlay
+							</button>
+						</div>
+					)}
+					trigger={(props: TriggerProps) => (
+						<button {...props} type="button" data-testid="popup-trigger-escape-test">
+							Open popup
 						</button>
-					</div>
-				)}
-				trigger={(props: TriggerProps) => (
-					<button {...props} type="button" data-testid="popup-trigger-escape-test">
-						Open popup
-					</button>
-				)}
-			/>,
-		);
+					)}
+				/>,
+			);
 
-		const nestedTrigger = screen.getByTestId('nested-overlay-trigger');
-		nestedTrigger.focus();
-		await userEvent.keyboard('{Escape}');
+			const nestedTrigger = screen.getByTestId('nested-overlay-trigger');
+			nestedTrigger.focus();
+			await userEvent.keyboard('{Escape}');
 
-		expect(onClose).not.toHaveBeenCalled();
-	});
+			expect(onClose).not.toHaveBeenCalled();
+		});
 
-	it('with platform_dst_nested_escape off', async () => {
-		failGate('platform_dst_nested_escape');
-
-		const onClose = jest.fn();
-		render(
-			<Popup
-				{...defaultProps}
-				isOpen
-				onClose={onClose}
-				shouldRenderToParent
-				role="dialog"
-				label="Popup with nested overlay"
-				content={() => (
-					<div data-ds--level="2">
-						<button type="button" data-testid="nested-overlay-trigger">
-							nested overlay
+		it('calls onClose on Escape inside a nested layer when platform_dst_nested_escape is off', async () => {
+			failGate('platform_dst_nested_escape');
+			const onClose = jest.fn();
+			render(
+				<Popup
+					{...defaultProps}
+					isOpen
+					onClose={onClose}
+					shouldRenderToParent
+					role="dialog"
+					label="Popup with nested overlay"
+					content={() => (
+						<div data-ds--level="2">
+							<button type="button" data-testid="nested-overlay-trigger">
+								nested overlay
+							</button>
+						</div>
+					)}
+					trigger={(props: TriggerProps) => (
+						<button {...props} type="button" data-testid="popup-trigger-escape-test">
+							Open popup
 						</button>
-					</div>
-				)}
-				trigger={(props: TriggerProps) => (
-					<button {...props} type="button" data-testid="popup-trigger-escape-test">
-						Open popup
-					</button>
-				)}
-			/>,
-		);
+					)}
+				/>,
+			);
 
-		const nestedTrigger = screen.getByTestId('nested-overlay-trigger');
-		nestedTrigger.focus();
-		await userEvent.keyboard('{Escape}');
+			const nestedTrigger = screen.getByTestId('nested-overlay-trigger');
+			nestedTrigger.focus();
+			await userEvent.keyboard('{Escape}');
 
-		expect(onClose).toHaveBeenCalledTimes(1);
+			expect(onClose).toHaveBeenCalledTimes(1);
+		});
 	});
 
 	it('calls onClose after clicking on the trigger when the popup is open', async () => {
@@ -634,28 +722,36 @@ describe('Popup', () => {
 		});
 	});
 
-	it('popup stays open if propagation is stopped on an event before it reaches window', async () => {
-		const content = () => (
-			<button
-				type="button"
-				onClick={(event) => {
-					event.stopPropagation();
-				}}
-			>
-				Popup content
-			</button>
-		);
+	// On the top layer, native light dismiss closes the other popup on a press outside it, and
+	// `stopPropagation()` in a click handler does not stop that.
+	describe('stopped propagation on the legacy path', () => {
+		beforeEach(() => {
+			failGate('platform-dst-top-layer');
+		});
 
-		render(
-			<div>
-				<Popup {...defaultProps} content={content} isOpen />
-				<Popup {...defaultProps} content={content} isOpen />
-			</div>,
-		);
+		it('popup stays open if propagation is stopped on an event before it reaches window', async () => {
+			const content = () => (
+				<button
+					type="button"
+					onClick={(event) => {
+						event.stopPropagation();
+					}}
+				>
+					Popup content
+				</button>
+			);
 
-		await userEvent.click((await screen.findAllByText('Popup content'))[0]);
+			render(
+				<div>
+					<Popup {...defaultProps} content={content} isOpen />
+					<Popup {...defaultProps} content={content} isOpen />
+				</div>,
+			);
 
-		expect((await screen.findAllByText('Popup content'))[1]).toBeDefined();
+			await userEvent.click((await screen.findAllByText('Popup content'))[0]);
+
+			expect((await screen.findAllByText('Popup content'))[1]).toBeDefined();
+		});
 	});
 
 	it('popup stays open when clicked element (which is inside content) is removed from the DOM', async () => {
@@ -704,13 +800,34 @@ describe('Popup', () => {
 		expect(triggerParent).toContainElement(popupEl);
 	});
 
-	it('popup renders outside parent when the shouldRenderToParent is not passed', () => {
-		render(<Popup {...defaultProps} isOpen />);
-		const popupEl = screen.getByText('content');
-		const triggerEl = screen.getByText('trigger');
-		const triggerParent = triggerEl.parentElement as HTMLElement;
-		expect(screen.getByText('content')).toBeInTheDocument();
-		expect(triggerParent).not.toContainElement(popupEl);
+	describe('portal on the legacy path', () => {
+		beforeEach(() => {
+			failGate('platform-dst-top-layer');
+		});
+
+		it('popup renders outside parent when the shouldRenderToParent is not passed', () => {
+			render(<Popup {...defaultProps} isOpen />);
+			const popupEl = screen.getByText('content');
+			const triggerEl = screen.getByText('trigger');
+			const triggerParent = triggerEl.parentElement as HTMLElement;
+			expect(screen.getByText('content')).toBeInTheDocument();
+			expect(triggerParent).not.toContainElement(popupEl);
+		});
+	});
+
+	// The top layer does not use a portal. The popup always renders next to the trigger.
+	describe('no portal on the top layer', () => {
+		beforeEach(() => {
+			passGate('platform-dst-top-layer');
+		});
+
+		it('popup renders inside parent when the shouldRenderToParent is not passed', () => {
+			render(<Popup {...defaultProps} isOpen />);
+			const popupEl = screen.getByText('content');
+			const triggerEl = screen.getByText('trigger');
+			const triggerParent = triggerEl.parentElement as HTMLElement;
+			expect(triggerParent).toContainElement(popupEl);
+		});
 	});
 
 	describe('when shouldFitContainer is passed', () => {
@@ -723,46 +840,61 @@ describe('Popup', () => {
 			expect(triggerParent).toContainElement(popupEl);
 		});
 
-		it('renders a wrapper div with position relative', () => {
-			render(<Popup {...defaultProps} isOpen shouldFitContainer />);
-			const triggerEl = screen.getByText('trigger');
-			const triggerParent = triggerEl.parentElement as HTMLElement;
-			expect(triggerParent).toHaveStyle('position: relative');
+		// The wrapper and the `position` and `width` styles are legacy only. On the top layer, the
+		// popover takes the trigger's width through anchor positioning.
+		describe('on the legacy path', () => {
+			beforeEach(() => {
+				failGate('platform-dst-top-layer');
+			});
+
+			it('renders a wrapper div with position relative', () => {
+				render(<Popup {...defaultProps} isOpen shouldFitContainer />);
+				const triggerEl = screen.getByText('trigger');
+				const triggerParent = triggerEl.parentElement as HTMLElement;
+				expect(triggerParent).toHaveStyle('position: relative');
+			});
+
+			it('popup container renders with position absolute', () => {
+				render(<Popup {...defaultProps} isOpen shouldFitContainer />);
+				const popupEl = screen.getByText('content');
+				const popupParent = popupEl.parentElement as HTMLElement;
+				expect(popupParent).toHaveStyle('position: absolute');
+			});
+
+			it('popup container renders with width 100%', () => {
+				render(<Popup {...defaultProps} isOpen shouldFitContainer />);
+				const popupEl = screen.getByText('content');
+				const popupParent = popupEl.parentElement as HTMLElement;
+				expect(popupParent).toHaveStyle('width: 100%');
+			});
+		});
+	});
+
+	// `strategy` is a Popper option. On the top layer, it does nothing.
+	describe('position strategy on the legacy path', () => {
+		beforeEach(() => {
+			failGate('platform-dst-top-layer');
 		});
 
-		it('popup container renders with position absolute', () => {
-			render(<Popup {...defaultProps} isOpen shouldFitContainer />);
+		it('popup renders position fixed by default', () => {
+			render(<Popup {...defaultProps} isOpen />);
+			const popupEl = screen.getByText('content');
+			const popupParent = popupEl.parentElement as HTMLElement;
+			expect(popupParent).toHaveStyle('position: fixed');
+		});
+
+		it('popup renders position absolute when specified', () => {
+			render(<Popup {...defaultProps} isOpen strategy="absolute" />);
 			const popupEl = screen.getByText('content');
 			const popupParent = popupEl.parentElement as HTMLElement;
 			expect(popupParent).toHaveStyle('position: absolute');
 		});
 
-		it('popup container renders with width 100%', () => {
-			render(<Popup {...defaultProps} isOpen shouldFitContainer />);
+		it('popup renders position fixed when specified', () => {
+			render(<Popup {...defaultProps} isOpen strategy="fixed" />);
 			const popupEl = screen.getByText('content');
 			const popupParent = popupEl.parentElement as HTMLElement;
-			expect(popupParent).toHaveStyle('width: 100%');
+			expect(popupParent).toHaveStyle('position: fixed');
 		});
-	});
-
-	it('popup renders position fixed by default', () => {
-		render(<Popup {...defaultProps} isOpen />);
-		const popupEl = screen.getByText('content');
-		const popupParent = popupEl.parentElement as HTMLElement;
-		expect(popupParent).toHaveStyle('position: fixed');
-	});
-
-	it('popup renders position absolute when specified', () => {
-		render(<Popup {...defaultProps} isOpen strategy="absolute" />);
-		const popupEl = screen.getByText('content');
-		const popupParent = popupEl.parentElement as HTMLElement;
-		expect(popupParent).toHaveStyle('position: absolute');
-	});
-
-	it('popup renders position fixed when specified', () => {
-		render(<Popup {...defaultProps} isOpen strategy="fixed" />);
-		const popupEl = screen.getByText('content');
-		const popupParent = popupEl.parentElement as HTMLElement;
-		expect(popupParent).toHaveStyle('position: fixed');
 	});
 });

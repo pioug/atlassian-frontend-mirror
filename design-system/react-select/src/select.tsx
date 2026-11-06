@@ -690,6 +690,11 @@ interface State<Option, IsMulti extends boolean, Group extends GroupBase<Option>
 	controlElement: HTMLDivElement | null;
 	isMultiValueExiting: boolean;
 	hasCompletedMultiValueExit: boolean;
+	/**
+	 * Top-layer path, default `MenuPortal` only: `menuIsOpen` is `false`, but the menu stays
+	 * mounted until its `Popover` has finished closing. See `getIsMenuClosing`.
+	 */
+	isMenuClosing: boolean;
 }
 
 interface CategorizedOption<Option> {
@@ -929,6 +934,31 @@ const shouldHideSelectedOptions = <
 	return hideSelectedOptions;
 };
 
+/**
+ * Top-layer path: when `menuIsOpen` turns `false`, the default menu portal stays mounted so its
+ * `Popover` hides while it is still in the DOM. The platform restores focus only for a popover that
+ * is hidden, not one that is removed (see `top-layer/notes/architecture/focus.md`). The closing
+ * state ends when the `Popover` has finished closing (`handleMenuExitFinish`) or the menu reopens.
+ * A custom `MenuPortal` has no exit signal, so it unmounts at once, as before.
+ */
+function getIsMenuClosing<Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
+	props,
+	state,
+}: {
+	props: SelectProps<Option, IsMulti, Group>;
+	state: State<Option, IsMulti, Group>;
+}): boolean {
+	const MenuPortal = props.components?.MenuPortal;
+	const isDefaultMenuPortal = !MenuPortal || MenuPortal === builtinComponents.MenuPortal;
+	if (props.menuIsOpen || !isDefaultMenuPortal || !fg('platform-dst-top-layer')) {
+		return false;
+	}
+	if (state.prevProps?.menuIsOpen) {
+		return true;
+	}
+	return state.isMenuClosing;
+}
+
 let instanceId = 1;
 
 // eslint-disable-next-line @repo/internal/react/no-class-components, @atlaskit/volt-strict-mode/no-multiple-exports
@@ -956,6 +986,7 @@ export default class Select<
 		controlElement: null,
 		isMultiValueExiting: false,
 		hasCompletedMultiValueExit: false,
+		isMenuClosing: false,
 	};
 
 	// Misc. Instance Properties
@@ -1035,6 +1066,7 @@ export default class Select<
 				inputIsHiddenAfterUpdate: undefined;
 				isMultiValueExiting: boolean;
 				hasCompletedMultiValueExit: boolean;
+				isMenuClosing: boolean;
 		  }
 		| {
 				prevProps: SelectProps<unknown, boolean, GroupBase<unknown>>;
@@ -1044,6 +1076,7 @@ export default class Select<
 				inputIsHiddenAfterUpdate?: undefined;
 				isMultiValueExiting: boolean;
 				hasCompletedMultiValueExit: boolean;
+				isMenuClosing: boolean;
 		  } {
 		const {
 			prevProps,
@@ -1137,6 +1170,7 @@ export default class Select<
 			prevWasFocused: hasKeptFocus,
 			isMultiValueExiting,
 			hasCompletedMultiValueExit,
+			isMenuClosing: getIsMenuClosing({ props, state }),
 		};
 	}
 	onMultiValueMotionFinish = (): void => {
@@ -1273,7 +1307,7 @@ export default class Select<
 	blur: () => void = this.blurInput;
 
 	openMenu(focusOption: 'first' | 'last'): void {
-		const { selectValue, isFocused } = this.state;
+		const { selectValue, isFocused, isMenuClosing } = this.state;
 		const focusableOptions = this.buildFocusableOptions();
 		let openAtIndex = focusOption === 'first' ? 0 : focusableOptions.length - 1;
 
@@ -1287,7 +1321,8 @@ export default class Select<
 		const focusedOption = focusableOptions[openAtIndex];
 
 		// only scroll if the menu isn't already open
-		this.scrollToFocusedOptionOnUpdate = !(isFocused && this.menuListRef);
+		// A closing top-layer menu still has its list, but it is not open, so it scrolls.
+		this.scrollToFocusedOptionOnUpdate = isMenuClosing || !(isFocused && this.menuListRef);
 
 		this.setState(
 			{
@@ -1958,7 +1993,10 @@ export default class Select<
 			inputIsHiddenAfterUpdate: false,
 			isFocused: true,
 		});
-		if (this.openAfterFocus || this.props.openMenuOnFocus) {
+		// Focus that arrives while the top-layer menu is closing is the platform returning it to the
+		// input, not the user arriving at the input, so it does not reopen the menu.
+		const shouldOpenOnFocus = this.props.openMenuOnFocus && !this.state.isMenuClosing;
+		if (this.openAfterFocus || shouldOpenOnFocus) {
 			this.openMenu('first');
 		}
 		this.openAfterFocus = false;
@@ -2563,7 +2601,9 @@ export default class Select<
 			testId,
 		} = this.props;
 
-		if (!menuIsOpen) {
+		// While the top-layer menu is closing it renders from current state, and its `Popover` is
+		// hidden in the same commit.
+		if (!menuIsOpen && !this.state.isMenuClosing) {
 			return null;
 		}
 
@@ -2648,13 +2688,14 @@ export default class Select<
 			});
 		} else if (isLoading) {
 			const message = loadingMessage({ inputValue });
-			if (message === null) {
+			// A closing menu stays mounted, even when empty, so that its exit can end the close.
+			if (message === null && !this.state.isMenuClosing) {
 				return null;
 			}
 			menuUI = <LoadingMessage {...commonProps}>{message}</LoadingMessage>;
 		} else {
 			const message = noOptionsMessage({ inputValue });
-			if (message === null) {
+			if (message === null && !this.state.isMenuClosing) {
 				return null;
 			}
 			menuUI = (
@@ -2700,10 +2741,11 @@ export default class Select<
 						placement={placement}
 					>
 						<ScrollManager
-							captureEnabled={captureMenuScroll}
+							// A closing menu does not capture or block page scroll.
+							captureEnabled={captureMenuScroll && menuIsOpen}
 							onTopArrive={onMenuScrollToTop}
 							onBottomArrive={onMenuScrollToBottom}
-							lockEnabled={menuShouldBlockScroll}
+							lockEnabled={menuShouldBlockScroll && menuIsOpen}
 						>
 							{(scrollTargetRef) => (
 								<MenuList
@@ -2773,13 +2815,13 @@ export default class Select<
 				{menuElement}
 			</MenuPortal>
 		);
-		// The Provider plumbs the close signal to MenuPortalTopLayer; not
-		// needed on the legacy path.
+		// The Provider plumbs the close and exit signals to MenuPortalTopLayer;
+		// not needed on the legacy path.
 		if (!fg('platform-dst-top-layer')) {
 			return menuPortal;
 		}
 		return (
-			<MenuPortalCloseContext.Provider value={this.handleMenuCloseSignal}>
+			<MenuPortalCloseContext.Provider value={this.menuPortalCloseContext}>
 				{menuPortal}
 			</MenuPortalCloseContext.Provider>
 		);
@@ -2856,6 +2898,20 @@ export default class Select<
 			this.setState({ inputIsHiddenAfterUpdate: false });
 		}
 		this.onMenuClose();
+	};
+
+	// Top-layer path: the menu's `Popover` has finished closing, so the menu can unmount. A late
+	// signal after the menu reopened does nothing.
+	private handleMenuExitFinish = (): void => {
+		if (this.state.isMenuClosing) {
+			this.setState({ isMenuClosing: false });
+		}
+	};
+
+	// Declared after its handlers, so that they are defined. Stable, so the context does not change.
+	private menuPortalCloseContext = {
+		closeMenu: this.handleMenuCloseSignal,
+		onExitFinish: this.handleMenuExitFinish,
 	};
 
 	render(): React.JSX.Element {

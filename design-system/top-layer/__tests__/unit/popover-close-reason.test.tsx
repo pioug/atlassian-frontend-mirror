@@ -320,3 +320,136 @@ describe('polyfilled Escape focus restoration', () => {
 		expect(trigger).toHaveFocus();
 	});
 });
+
+describe('Popover close reason when Escape is pressed outside the popover', () => {
+	it('reports "escape" when Escape closes the popover while focus is on the trigger', async () => {
+		const onClose = jest.fn();
+		function Example() {
+			const [isOpen, setIsOpen] = useState(false);
+			return (
+				<>
+					<button onClick={() => setIsOpen(true)}>Open popup</button>
+					<Popover
+						isOpen={isOpen}
+						onClose={(args) => {
+							onClose(args);
+							setIsOpen(false);
+						}}
+					>
+						<button>Popup action</button>
+					</Popover>
+				</>
+			);
+		}
+		render(<Example />);
+		const trigger = screen.getByRole('button', { name: 'Open popup' });
+		await userEvent.click(trigger);
+		const popupAction = screen.getByRole('button', { name: 'Popup action' });
+		expect(popupAction).toBeVisible();
+		// A popover with no role takes no initial focus, so focus stays on the trigger.
+		expect(trigger).toHaveFocus();
+
+		await userEvent.keyboard('{Escape}');
+
+		await waitFor(() => expect(popupAction).not.toBeInTheDocument());
+		expect(onClose).toHaveBeenCalledTimes(1);
+		expect(onClose).toHaveBeenCalledWith({ reason: 'escape' });
+	});
+
+	it('reports "light-dismiss" for an outside press after the content prevented an Escape', async () => {
+		const onClose = jest.fn();
+		render(
+			<>
+				<button>Outside</button>
+				<Popover isOpen onClose={onClose} role="dialog" label="prevented-escape">
+					<button
+						onKeyDown={(event) => {
+							// The content uses Escape itself, so the popover stays open.
+							if (event.key === 'Escape') {
+								event.preventDefault();
+							}
+						}}
+					>
+						Clear search
+					</button>
+				</Popover>
+			</>,
+		);
+		await waitFor(() => expect(screen.getByRole('button', { name: 'Clear search' })).toHaveFocus());
+
+		await userEvent.keyboard('{Escape}');
+		expect(screen.getByRole('dialog', { name: 'prevented-escape' })).toBeVisible();
+
+		await userEvent.click(screen.getByRole('button', { name: 'Outside' }));
+
+		await waitFor(() => expect(onClose).toHaveBeenCalledTimes(1));
+		expect(onClose).toHaveBeenCalledWith({ reason: 'light-dismiss' });
+	});
+
+	it('reports "light-dismiss" for the parent after Escape closed only a child popover', async () => {
+		const onParentClose = jest.fn();
+		const onChildClose = jest.fn();
+		function Example({ isChildOpen }: { isChildOpen: boolean }) {
+			return (
+				<>
+					<button>Outside</button>
+					<Popover isOpen onClose={onParentClose} role="dialog" label="parent">
+						<div>
+							<Popover isOpen={isChildOpen} onClose={onChildClose} role="dialog" label="child">
+								<button>Child action</button>
+							</Popover>
+						</div>
+					</Popover>
+				</>
+			);
+		}
+		// Open the child after the parent: opening the parent second would close the child.
+		const { rerender } = render(<Example isChildOpen={false} />);
+		rerender(<Example isChildOpen />);
+		await waitFor(() => expect(screen.getByRole('button', { name: 'Child action' })).toHaveFocus());
+
+		await userEvent.keyboard('{Escape}');
+
+		await waitFor(() => expect(onChildClose).toHaveBeenCalledWith({ reason: 'escape' }));
+		expect(onParentClose).not.toHaveBeenCalled();
+
+		await userEvent.click(screen.getByRole('button', { name: 'Outside' }));
+
+		await waitFor(() => expect(onParentClose).toHaveBeenCalledTimes(1));
+		expect(onParentClose).toHaveBeenCalledWith({ reason: 'light-dismiss' });
+	});
+
+	it('reports "light-dismiss" for the parent when the window lost focus before the Escape keyup', async () => {
+		const onParentClose = jest.fn();
+		const onChildClose = jest.fn();
+		function Example({ isChildOpen }: { isChildOpen: boolean }) {
+			return (
+				<>
+					<button>Outside</button>
+					<Popover isOpen onClose={onParentClose} role="dialog" label="parent">
+						<div>
+							<Popover isOpen={isChildOpen} onClose={onChildClose} role="dialog" label="child">
+								<button>Child action</button>
+							</Popover>
+						</div>
+					</Popover>
+				</>
+			);
+		}
+		const { rerender } = render(<Example isChildOpen={false} />);
+		rerender(<Example isChildOpen />);
+		await waitFor(() => expect(screen.getByRole('button', { name: 'Child action' })).toHaveFocus());
+
+		// Press Escape without releasing it, then the window loses focus, so no `keyup` comes.
+		await userEvent.keyboard('{Escape>}');
+		await waitFor(() => expect(onChildClose).toHaveBeenCalledWith({ reason: 'escape' }));
+		act(() => {
+			window.dispatchEvent(new FocusEvent('blur'));
+		});
+
+		await userEvent.click(screen.getByRole('button', { name: 'Outside' }));
+
+		await waitFor(() => expect(onParentClose).toHaveBeenCalledTimes(1));
+		expect(onParentClose).toHaveBeenCalledWith({ reason: 'light-dismiss' });
+	});
+});

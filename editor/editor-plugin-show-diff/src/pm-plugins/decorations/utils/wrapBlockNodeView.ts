@@ -518,7 +518,7 @@ const createBlockNodeContentWrapper = ({
 		!isInserted &&
 		resolveBaseNodeName(targetNode.type.name) === 'layoutColumn' &&
 		targetNode.textContent.length === 0 &&
-		fg('confluence_ncs_step_diffing_version_history');
+		isExperimentEnabled('platform_editor_attributed_version_history');
 	if (isEmptyDeletedLayoutColumn && nodeView instanceof HTMLElement) {
 		// Give an empty deleted column height so its diff box doesn't collapse
 		const placeholderTarget =

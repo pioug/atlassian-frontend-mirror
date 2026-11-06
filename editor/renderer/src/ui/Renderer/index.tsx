@@ -40,7 +40,6 @@ import { WidthProvider } from '@atlaskit/editor-common/WidthProvider';
 import { WithCreateAnalyticsEvent } from '@atlaskit/editor-common/WithCreateAnalyticsEvent';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import AnalyticsContext from '../../analytics/analyticsContext';
 import type { AnalyticsEventPayload, FireAnalyticsCallback } from '../../analytics/events';
@@ -261,19 +260,7 @@ export const RendererFunctionalComponent = (
 		[nestedRendererType],
 	);
 
-	const fireAnalyticsEventOld: FireAnalyticsCallback = useCallback(
-		(event) => {
-			const { createAnalyticsEvent } = props;
-
-			if (createAnalyticsEvent) {
-				const channel = FabricChannel.editor;
-				createAnalyticsEvent(event).fire(channel);
-			}
-		},
-		[props],
-	);
-
-	const fireAnalyticsEventNew: FireAnalyticsCallback = useCallback(
+	const fireAnalyticsEvent: FireAnalyticsCallback = useCallback(
 		(event) => {
 			if (createAnalyticsEvent) {
 				const channel = FabricChannel.editor;
@@ -282,14 +269,6 @@ export const RendererFunctionalComponent = (
 		},
 		[createAnalyticsEvent],
 	);
-
-	const fireAnalyticsEvent = editorExperiment(
-		'platform_renderer_fix_analytics_memo_callback',
-		true,
-		{ exposure: true },
-	)
-		? fireAnalyticsEventNew
-		: fireAnalyticsEventOld;
 
 	const deriveSerializerProps = useCallback(
 		(props: RendererProps & { startPos?: number }): ReactSerializerInit => {
@@ -780,45 +759,43 @@ export function Renderer(props: RendererProps): jsx.JSX.Element {
 // For the nested renderers - see RendererWithAnnotationSelection.
 export const RendererWithAnalytics: React.MemoExoticComponent<
 	(props: RendererProps) => jsx.JSX.Element
-> = React.memo(
-	(props: RendererProps): jsx.JSX.Element => (
-		<FabricEditorAnalyticsContext
+> = React.memo((props: RendererProps): jsx.JSX.Element => (
+	<FabricEditorAnalyticsContext
+		// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+		data={{
+			appearance: getAnalyticsAppearance(props.appearance),
+			packageName,
+			packageVersion,
+			componentName: 'renderer',
+			// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
+			editorSessionId: uuid(),
+		}}
+	>
+		<WithCreateAnalyticsEvent
 			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-			data={{
-				appearance: getAnalyticsAppearance(props.appearance),
-				packageName,
-				packageVersion,
-				componentName: 'renderer',
-				// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
-				editorSessionId: uuid(),
+			render={(createAnalyticsEvent) => {
+				// `IntlErrorBoundary` only captures Internationalisation errors, leaving others for `ErrorBoundary`.
+				return (
+					<ErrorBoundary
+						component={ACTION_SUBJECT.RENDERER}
+						rethrowError
+						fallbackComponent={null}
+						createAnalyticsEvent={createAnalyticsEvent}
+					>
+						<IntlErrorBoundary>
+							<Renderer
+								// Ignored via go/ees005
+								// eslint-disable-next-line react/jsx-props-no-spreading
+								{...props}
+								createAnalyticsEvent={createAnalyticsEvent}
+							/>
+						</IntlErrorBoundary>
+					</ErrorBoundary>
+				);
 			}}
-		>
-			<WithCreateAnalyticsEvent
-				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-				render={(createAnalyticsEvent) => {
-					// `IntlErrorBoundary` only captures Internationalisation errors, leaving others for `ErrorBoundary`.
-					return (
-						<ErrorBoundary
-							component={ACTION_SUBJECT.RENDERER}
-							rethrowError
-							fallbackComponent={null}
-							createAnalyticsEvent={createAnalyticsEvent}
-						>
-							<IntlErrorBoundary>
-								<Renderer
-									// Ignored via go/ees005
-									// eslint-disable-next-line react/jsx-props-no-spreading
-									{...props}
-									createAnalyticsEvent={createAnalyticsEvent}
-								/>
-							</IntlErrorBoundary>
-						</ErrorBoundary>
-					);
-				}}
-			/>
-		</FabricEditorAnalyticsContext>
-	),
-);
+		/>
+	</FabricEditorAnalyticsContext>
+));
 
 export type RendererWrapperProps = {
 	addTelepointer?: boolean;

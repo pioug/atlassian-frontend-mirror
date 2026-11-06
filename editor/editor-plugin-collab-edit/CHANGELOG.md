@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 32.0.9
+
+### Patch Changes
+
+- [`202f9b8386f13`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/202f9b8386f13) -
+  Migrate attributed version history checks to the platform_editor_attributed_version_history
+  experiment.
+- Updated dependencies
+
+## 32.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 32.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 32.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 32.0.5
 
 ### Patch Changes

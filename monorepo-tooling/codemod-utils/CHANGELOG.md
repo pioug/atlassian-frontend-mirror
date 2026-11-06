@@ -1,5 +1,12 @@
 # @atlaskit/codemod-utils
 
+## 5.2.0
+
+### Minor Changes
+
+- [`0dfcf62a5ef99`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0dfcf62a5ef99) -
+  Add shared JSX attribute helpers to the codemod support API.
+
 ## 5.1.0
 
 ### Minor Changes

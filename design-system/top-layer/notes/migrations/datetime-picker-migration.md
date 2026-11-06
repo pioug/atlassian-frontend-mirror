@@ -16,16 +16,29 @@ When the flag is on, the react-select **`Menu`** component is **`MenuTopLayer`**
 (`internal/menu-top-layer.tsx`) instead of legacy **`Menu`** (`internal/menu.tsx` — `Layering` +
 `FixedLayer` + portal-style positioning).
 
-- **`MenuTopLayer`** renders **`Popup.Content`** in **standalone** mode (no `Popup` root in this
-  file): `triggerRef` is wired to **`selectProps.calendarContainerRef`** so the calendar anchors to
-  the picker's container.
-- **`role="dialog"`**, **`label="calendar"`**, **`animate`** enabled for default top-layer popover
-  motion, placement **`bottom-start`** via `fromLegacyPlacement`.
+- **`MenuTopLayer`** renders only the calendar content. Select's top-layer menu
+  (`MenuPortalTopLayer`, a role-less `mode="manual"` Popover) owns the popover, its position and its
+  dismissal.
+- The wrapper has `role="presentation"` and swallows a left-button `mousedown`, so a click in the
+  calendar does not close the menu or move focus.
 
-`date-picker.tsx` contains **conditional focus restoration**: when the flag is on, it relies on
-top-layer **`Popup.Content`** behavior for dialog role instead of manually focusing the calendar
-button or combobox on close / Escape (see comments in source around `onCalendarSelect`, Escape
-handling, and opening from the calendar button).
+**Focus on close.** When Select's menu closes with focus inside the calendar (after a pick or
+Escape), Select hides the menu's popover and unmounts it after the close. The platform then returns
+focus to whatever had focus when the menu opened, usually the calendar button or the combobox. There
+is no fallback: Safari, like Firefox on macOS, does not focus a clicked button, so focus can fall to
+`<body>`. See [`../architecture/focus.md`](../architecture/focus.md#focus-restoration).
+
+On the top-layer path, `date-picker.tsx` does not move focus. While the calendar is closed but still
+mounted, Select's menu is closing. DatePicker handles focus events in that window as follows:
+
+- A focus that returns to the input does not change the open state. The calendar counts as closed
+  when an `isOpen={false}` prop closed it, so it shows again when the consumer removes that prop
+  (for example, Jira's date field while its recur work form is open).
+- A blur to `<body>` (Firefox, and sometimes WebKit, move focus there as the popover hides) is not
+  focus leaving the field, so it does not reset the picker or call `onBlur`.
+- A blur to another element outside the picker is focus leaving the field, even while the calendar
+  closes (for example, a Tab that the browser handles before the popover hides). It resets the
+  picker and calls `onBlur`.
 
 ### Time picker
 
@@ -47,10 +60,10 @@ When the flag is on, the menu component is **`FixedLayerMenuTopLayer`**
 
 ## What was replaced (conceptually)
 
-| Legacy                                    | Top-layer                                                        |
-| ----------------------------------------- | ---------------------------------------------------------------- |
-| `Layering` + `FixedLayer` + z-index       | Browser top layer + CSS Anchor Positioning                       |
-| Manual focus return on close (some paths) | Role-based focus restoration on `Popup.Content` where applicable |
+| Legacy                                    | Top-layer                                                 |
+| ----------------------------------------- | --------------------------------------------------------- |
+| `Layering` + `FixedLayer` + z-index       | Browser top layer + CSS Anchor Positioning                |
+| Manual focus return on close (some paths) | The platform returns focus as Select's menu popover hides |
 
 ---
 
@@ -89,7 +102,7 @@ in the datetime-picker adopter and a long tail of test mis-attribution. Nothing 
 2. **`components/date-picker.tsx`: extend the existing Esc → trigger-focus restoration to the FF-on
    path.** `mode="manual"` disables the browser's built-in focus return; the legacy code path
    already handled this for itself, just behind an `fg('platform-dst-top-layer')` negation. Fixed 1
-   failure.
+   failure. (Later removed: the platform now returns focus as Select's menu popover hides.)
 
 ### Test fixes (selectors and expectations)
 

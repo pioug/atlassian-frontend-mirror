@@ -6,8 +6,8 @@ import {
 	type StringLiteral,
 } from 'jscodeshift';
 
-import { getJSXAttributeByName } from './get-jsx-attribute-by-name';
-import { getJSXAttributesByName } from './get-jsx-attributes-by-name';
+import { getJSXAttributeByName, getJSXAttributesByName } from '@atlaskit/codemod-utils/support';
+
 import { removeJSXAttributeByName } from './remove-jsx-attribute-by-name';
 
 export const removeJSXAttributeObjectPropertyByName: (

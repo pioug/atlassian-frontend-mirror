@@ -19,6 +19,7 @@ import { layers } from '@atlaskit/theme/constants';
 import DropdownMenuTopLayer from './dropdown-menu-top-layer';
 import FocusManager from './internal/components/focus-manager';
 import MenuWrapper from './internal/components/menu-wrapper';
+import { DropdownTriggerContext } from './internal/context/dropdown-trigger-context';
 import SelectionStore from './internal/context/selection-store';
 import useRegisterItemWithFocusManager from './internal/hooks/use-register-item-with-focus-manager';
 import useGeneratedId, { PREFIX } from './internal/utils/use-generated-id';
@@ -45,10 +46,9 @@ const getFallbackPlacements = (placement: Placement): Placement[] | undefined =>
 	if (!['top', 'bottom'].includes(mainAxis)) {
 		return undefined;
 	}
-
 	// Top and bottom placements need to flip to the right/left to ensure
 	// long lists don't extend off the screen
-	else if (placementPieces.length === 2 && ['start', 'end'].includes(placementPieces[1])) {
+	if (placementPieces.length === 2 && ['start', 'end'].includes(placementPieces[1])) {
 		const crossAxis = placementPieces[1] as crossAxes;
 		return [
 			`${mainAxis}`,
@@ -58,16 +58,15 @@ const getFallbackPlacements = (placement: Placement): Placement[] | undefined =>
 			`${opposites[mainAxis]}-${opposites[crossAxis]}`,
 			'auto',
 		] as Placement[];
-	} else {
-		return [
-			`${mainAxis}-start`,
-			`${mainAxis}-end`,
-			`${opposites[mainAxis]}`,
-			`${opposites[mainAxis]}-start`,
-			`${opposites[mainAxis]}-end`,
-			`auto`,
-		] as Placement[];
 	}
+	return [
+		`${mainAxis}-start`,
+		`${mainAxis}-end`,
+		`${opposites[mainAxis]}`,
+		`${opposites[mainAxis]}-start`,
+		`${opposites[mainAxis]}-end`,
+		`auto`,
+	] as Placement[];
 };
 
 function isKeyboardEvent(
@@ -113,6 +112,7 @@ function DropdownMenuLegacy<T extends HTMLElement = any>({
 	const id = useGeneratedId();
 	const itemRef = useRegisterItemWithFocusManager();
 	const { currentLevel } = useLayering();
+	const oldSpacing = (spacing === 'spacious' ? 'cozy' : spacing) || 'cozy';
 
 	const fallbackPlacements = useMemo(() => getFallbackPlacements(placement), [placement]);
 
@@ -319,17 +319,21 @@ function DropdownMenuLegacy<T extends HTMLElement = any>({
 					...rest
 				}: TriggerProps) => {
 					if (typeof trigger === 'function') {
-						return trigger({
-							'aria-controls': ariaControls,
-							'aria-expanded': ariaExpanded,
-							'aria-haspopup': ariaHasPopup,
-							...rest,
-							...bindFocus,
-							triggerRef: mergeRefs([ref, triggerRef, itemRef]),
-							isSelected: isLocalOpen,
-							onClick: handleTriggerClicked,
-							testId: testId && `${testId}--trigger`,
-						});
+						return (
+							<DropdownTriggerContext.Provider value={true}>
+								{trigger({
+									'aria-controls': ariaControls,
+									'aria-expanded': ariaExpanded,
+									'aria-haspopup': ariaHasPopup,
+									...rest,
+									...bindFocus,
+									triggerRef: mergeRefs([ref, triggerRef, itemRef]),
+									isSelected: isLocalOpen,
+									onClick: handleTriggerClicked,
+									testId: testId && `${testId}--trigger`,
+								})}
+							</DropdownTriggerContext.Provider>
+						);
 					}
 
 					return (
@@ -355,7 +359,7 @@ function DropdownMenuLegacy<T extends HTMLElement = any>({
 				content={(contentProps) => (
 					<FocusManager onClose={handleOnClose}>
 						<MenuWrapper
-							spacing={spacing}
+							spacing={oldSpacing}
 							maxHeight={MAX_HEIGHT}
 							maxWidth={shouldFitContainer ? undefined : 800}
 							onClose={handleOnClose}

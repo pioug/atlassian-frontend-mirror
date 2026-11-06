@@ -19,6 +19,7 @@ import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import { useMotion } from '@atlaskit/motion/entering/use-motion';
 import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import { useExitingPersistence } from '@atlaskit/motion/exiting-persistence/use-exiting-persistence';
+import { expVal } from '@atlaskit/platform-feature-experiments/exp-val';
 import { token } from '@atlaskit/tokens';
 
 import { TagStatus } from './tag-status';
@@ -29,6 +30,15 @@ const motionWrapperStyles = cssMap({
 		display: 'inline-grid',
 		gridTemplateColumns: 'minmax(0, 1fr)',
 		overflow: 'hidden',
+	},
+	focusRingOverflow: {
+		overflow: 'visible',
+	},
+	// Reduced motion has no browser animationend event to clear the phase.
+	reducedMotionFocusRingOverflow: {
+		'@media (prefers-reduced-motion: reduce)': {
+			overflow: 'visible',
+		},
 	},
 	entering: {
 		animation: token('motion.label.enter'),
@@ -73,6 +83,11 @@ function TagMotionContent({
 	hasMargin,
 	onExitComplete,
 }: Omit<TagMotionProps, 'status'>): ReactNode {
+	const shouldAllowFocusRingOverflow = expVal(
+		'prefetch_nin_resources_on_user_intent_m2',
+		'isEnabled',
+		false,
+	);
 	const [motionPhase, setMotionPhase] = useState<MotionPhase | null>(null);
 	const [hasEllipsis, setHasEllipsis] = useState<boolean | null>(null);
 	const motionElementRef = useRef<HTMLSpanElement | null>(null);
@@ -110,9 +125,13 @@ function TagMotionContent({
 			onAnimationEnd={onAnimationEnd}
 			css={[
 				motionWrapperStyles.root,
+				shouldAllowFocusRingOverflow &&
+					activeMotionPhase === null &&
+					motionWrapperStyles.focusRingOverflow,
 				activeMotionPhase === 'entering' && motionWrapperStyles.entering,
 				activeMotionPhase === 'exiting' && motionWrapperStyles.exiting,
 				motionWrapperStyles.reducedMotion,
+				shouldAllowFocusRingOverflow && motionWrapperStyles.reducedMotionFocusRingOverflow,
 			]}
 		>
 			{hasMargin ? (

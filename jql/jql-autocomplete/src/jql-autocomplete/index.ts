@@ -1,8 +1,9 @@
-import { CharStreams, CommonTokenStream, type Token } from 'antlr4ts';
+import { ANTLRInputStream, CharStreams, CommonTokenStream, type Token } from 'antlr4ts';
 import { type ParseTree } from 'antlr4ts/tree';
 
 import { JQLLexer } from '@atlaskit/jql-parser/JQLLexer';
 import { JQLParser } from '@atlaskit/jql-parser/JQLParser';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { BaseAutocomplete } from '../base-autocomplete';
 import { type RuleSuggestionsWithRuleList, type Suggestions } from '../base-autocomplete/types';
@@ -48,7 +49,12 @@ export class JQLAutocomplete extends BaseAutocomplete<JQLRuleContext> {
 		preferredRules?: Set<number>,
 		delimiterTokens?: Set<number>,
 	): JQLAutocomplete {
-		const charStream = CharStreams.fromString(text);
+		// Callers pass caret positions as UTF-16 offsets (string length), so token indices must use the
+		// same unit. `CharStreams.fromString` counts code points, which puts every token after an emoji
+		// or other astral character one position to the left of the caret.
+		const charStream = fg('filter_jql_jracloud-100041')
+			? new ANTLRInputStream(text)
+			: CharStreams.fromString(text);
 		const lexer = new JQLLexer(charStream);
 		const tokenStream = new CommonTokenStream(lexer);
 		const parser = new JQLParser(tokenStream);

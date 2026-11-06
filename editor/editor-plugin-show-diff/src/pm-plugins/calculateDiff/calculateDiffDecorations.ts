@@ -209,7 +209,7 @@ const isRangeActive = (
 	if (activeIndexPos === undefined) {
 		return undefined;
 	}
-	if (!fg('confluence_ncs_step_diffing_version_history')) {
+	if (!isExperimentEnabled('platform_editor_attributed_version_history')) {
 		return from === activeIndexPos.from && to === activeIndexPos.to;
 	}
 	return (
@@ -622,7 +622,7 @@ const calculateDiffDecorationsInner = ({
 	// node replacements, e.g. changing an emoji or mention without changing the node type.
 	const { tokenEncoder, shouldHideMarkOnlyDeletions } = selectTokenEncoder(
 		(diffType === 'smart' && fg('platform_editor_ai_smart_diff')) ||
-			fg('confluence_ncs_step_diffing_version_history'),
+			isExperimentEnabled('platform_editor_attributed_version_history'),
 	);
 	let changes: AttributedColumnAwareChange[];
 	let contentChanges: readonly Change[];
@@ -1019,12 +1019,12 @@ const calculateDiffDecorationsInner = ({
 	getMarkChangeRanges(
 		simplifiedSteps,
 		simplifiedStepAttributions,
-		fg('confluence_ncs_step_diffing_version_history') ? stepMaps : undefined,
+		isExperimentEnabled('platform_editor_attributed_version_history') ? stepMaps : undefined,
 	)
 		.filter(({ fromB, toB }) => !isHandledByTable(fromB, toB))
 		.filter(
 			(range) =>
-				!fg('confluence_ncs_step_diffing_version_history') ||
+				!isExperimentEnabled('platform_editor_attributed_version_history') ||
 				(!changes.some((change) => change.fromB <= range.fromB && change.toB >= range.toB) &&
 					hasUnhighlightedMarkChanges(range)),
 		)
@@ -1051,7 +1051,7 @@ const calculateDiffDecorationsInner = ({
 		.filter(({ fromB, toB }) => !isHandledByTable(fromB, toB))
 		.filter(
 			({ fromB, toB, isInline }) =>
-				!fg('confluence_ncs_step_diffing_version_history') ||
+				!isExperimentEnabled('platform_editor_attributed_version_history') ||
 				!isInline ||
 				!changes.some((change) => change.fromB === fromB && change.toB === toB),
 		)

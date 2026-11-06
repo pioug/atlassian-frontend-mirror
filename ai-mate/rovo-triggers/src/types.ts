@@ -434,12 +434,8 @@ export type SmartLink3PProjectContext = {
 export type SmartLink3PPostAuthProvider = 'Google Drive';
 
 /**
- * Experiment-scoped Smart Link post-auth launch event for
- * platform_sl_3p_post_auth_chat_open_fg / platform_sl_3p_post_auth_chat_open_exp.
- *
- * This opens Rovo Chat in mini-modal mode with custom post-auth UI, without sending
- * a prompt. If the experiment does not become permanent, remove this event type as
- * part of the experiment cleanup.
+ * Smart Link post-auth launch event for opening Rovo Chat in mini-modal mode with
+ * custom post-auth UI, without sending a prompt.
  */
 export type ChatSmartLink3PPostAuthLaunchPayload = PayloadCore<
 	'chat-smartlink-3p-post-auth-launch',

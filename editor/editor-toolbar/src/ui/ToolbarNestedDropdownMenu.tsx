@@ -16,6 +16,7 @@ import { jsx, cssMap, cx } from '@compiled/react';
 import { mergeRefs } from 'use-callback-ref';
 
 import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import type { OnOpenChangeArgs } from '@atlaskit/dropdown-menu/types';
 import { Box } from '@atlaskit/primitives/compiled/box';
 
 import { ToolbarDropdownItem } from './ToolbarDropdownItem';
@@ -62,6 +63,7 @@ const PopupVisibilityController = ({
 };
 
 type ToolbarNestedDropdownMenuProps = {
+	autoFocus?: boolean;
 	children?: ReactNode;
 	'data-extension-item-key'?: string;
 	dropdownTestId?: string;
@@ -73,8 +75,11 @@ type ToolbarNestedDropdownMenuProps = {
 	 */
 	enableMaxHeight?: boolean;
 	isDisabled?: boolean;
+	/** When omitted, the native dropdown continues to own its open state. */
+	isOpen?: boolean;
 	isPopupVisible?: boolean;
 	onClick?: (e: MouseEvent | KeyboardEvent) => void;
+	onOpenChange?: (args: OnOpenChangeArgs) => void;
 	shouldFitContainer?: boolean;
 	shouldIgnoreCloseEvent?: (event: Event | MouseEvent | KeyboardEvent) => boolean;
 	shouldTitleWrap?: boolean;
@@ -84,12 +89,15 @@ type ToolbarNestedDropdownMenuProps = {
 };
 
 export const ToolbarNestedDropdownMenu = ({
+	autoFocus,
 	elemBefore,
 	text,
 	elemAfterText,
 	elemAfter,
 	children,
 	isDisabled,
+	isOpen,
+	onOpenChange,
 	testId,
 	dropdownTestId,
 	enableMaxHeight = false,
@@ -106,6 +114,9 @@ export const ToolbarNestedDropdownMenu = ({
 
 	return (
 		<DropdownMenu<HTMLButtonElement>
+			autoFocus={autoFocus}
+			isOpen={isOpen}
+			onOpenChange={onOpenChange}
 			shouldFitContainer={shouldFitContainer}
 			shouldIgnoreCloseEvent={shouldIgnoreCloseEvent}
 			placement="right-start"

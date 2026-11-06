@@ -36,16 +36,15 @@
 	],
 	"exclude": [],
 	"compilerOptions": {
-		"lib": [
-			"ES2021.String",
-			"ES2022.Array",
-			"ES2022.String"
-		],
+		"lib": ["ES2021.String", "ES2022.Array", "ES2022.String"],
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__eslint-plugin-design-system/app",
 		"isolatedDeclarations": true
 	},
 	"references": [
+		{
+			"path": "../codegen-utils/tsconfig.app.json"
+		},
 		{
 			"path": "../ds-lib/tsconfig.app.json"
 		},

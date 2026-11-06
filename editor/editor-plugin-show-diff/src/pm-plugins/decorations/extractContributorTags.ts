@@ -1,5 +1,5 @@
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import type { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { ContributorTagModel, DiffDescriptor, TagContributor } from '../../showDiffPluginType';
 import { resolveBaseNodeName } from '../utils/baseNodeName';
@@ -50,7 +50,7 @@ const isSameChange = (widget: TaggableDecoration, inline: TaggableDecoration): b
  * `inlineDeletedDiffPlacement: 'after'`, where the inline half leads instead.
  */
 const leadsReplacement = (widget: TaggableDecoration): boolean =>
-	fg('confluence_ncs_step_diffing_version_history') && widget.spec.side === -1;
+	isExperimentEnabled('platform_editor_attributed_version_history') && widget.spec.side === -1;
 
 /**
  * Whether `inner` captions the same change as the block decoration `block`, in which case only the
@@ -88,7 +88,7 @@ const byLeadingPosition = (a: TagTarget, b: TagTarget): number =>
 /** Select the first layout column only when the inline layout range starts immediately before it. */
 const navigationLeader = (members: TagTarget[]): TagTarget => {
 	const ordered = [...members].sort(byLeadingPosition);
-	const layoutColumn = fg('confluence_ncs_step_diffing_version_history')
+	const layoutColumn = isExperimentEnabled('platform_editor_attributed_version_history')
 		? ordered.find(
 				({ decoration }) =>
 					decoration.spec.decorationType === 'block' &&
@@ -147,7 +147,7 @@ const resolveActiveTarget = (
 ): TagTarget | undefined =>
 	containedBy(surviving, activeIndexPos).find(
 		(target) =>
-			!fg('confluence_ncs_step_diffing_version_history') ||
+			!isExperimentEnabled('platform_editor_attributed_version_history') ||
 			!('attributionKey' in activeIndexPos) ||
 			target.decoration.spec.attributionKey === activeIndexPos.attributionKey,
 	);
@@ -274,7 +274,7 @@ export const extractContributorTags = (
 	}
 
 	// A nested block folds into the outermost one of the same contributor, so nesting adds no tags.
-	if (fg('confluence_ncs_step_diffing_version_history')) {
+	if (isExperimentEnabled('platform_editor_attributed_version_history')) {
 		const blocksByContributor = new Map<string, TagTarget[]>();
 		for (const target of blockTargets) {
 			const key = target.decoration.spec.attributionKey ?? '';

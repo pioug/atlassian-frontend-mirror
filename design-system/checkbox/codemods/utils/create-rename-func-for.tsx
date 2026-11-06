@@ -1,8 +1,9 @@
 import { type JSCodeshift, type VariableDeclaration } from 'jscodeshift';
 import { type Collection } from 'jscodeshift/src/Collection';
 
+import { getJSXAttributesByName } from '@atlaskit/codemod-utils/support';
+
 import { findIdentifierAndReplaceAttribute } from './find-identifier-and-replace-attribute';
-import { getJSXAttributesByName } from './get-jsx-attributes-by-name';
 import { getNamedSpecifier } from './get-named-specifier';
 import { hasVariableAssignment } from './has-variable-assignment';
 

@@ -1,5 +1,22 @@
 # @atlaskit/top-layer
 
+## 7.1.5
+
+### Patch Changes
+
+- [`707b02e5709b3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/707b02e5709b3) -
+  `Popover` reports an Escape close as `escape` wherever focus is. An Escape that did not close the
+  popover, for example one that its content prevented, no longer makes its next close report
+  `escape`.
+
+## 7.1.4
+
+### Patch Changes
+
+- [`60b28ae0201d7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/60b28ae0201d7) -
+  `Popover` no longer returns focus to an element inside itself, and `useManualLightDismiss` blurs
+  focus that an outside press left inside the popover, as native light dismiss does.
+
 ## 7.1.3
 
 ### Patch Changes

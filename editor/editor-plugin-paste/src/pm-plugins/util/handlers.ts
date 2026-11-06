@@ -69,7 +69,6 @@ import {
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { replaceSelectedTable } from '@atlaskit/editor-tables/utils/replace-table';
 import type { CardAdf, CardAppearance, DatasourceAdf } from '@atlaskit/linking-common/types';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { closeHistory } from '@atlaskit/prosemirror-history/closeHistory';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -113,7 +112,7 @@ type Func<A, B> = (a: A) => B;
 function compose<
 	F1 extends Func<any, any>,
 	FN extends Array<Func<any, any>>,
-	R extends FN extends []
+	R extends (FN extends []
 		? F1
 		: FN extends [Func<infer A, any>]
 			? (a: A) => ReturnType<F1>
@@ -125,7 +124,7 @@ function compose<
 						? (a: A) => ReturnType<F1>
 						: FN extends [any, any, any, any, Func<infer A, any>]
 							? (a: A) => ReturnType<F1>
-							: Func<any, ReturnType<F1>>, // Doubtful we'd ever want to pipe this many functions, but in the off chance someone does, we can still infer the return type
+							: Func<any, ReturnType<F1>>), // Doubtful we'd ever want to pipe this many functions, but in the off chance someone does, we can still infer the return type
 >(func: F1, ...funcs: FN): R {
 	const allFuncs = [func, ...funcs];
 	return function composed(raw: any) {
@@ -886,54 +885,16 @@ async function getSmartLinkAdf(
 	return await provider.resolve(text, type);
 }
 
-function insertAutoMacroOld(
-	slice: Slice,
-	macro: PMNode,
-	view?: EditorView,
-	from?: number,
-	to?: number,
-): boolean {
-	if (view) {
-		// insert the text or linkified/md-converted clipboard data
-		const selection = view.state.tr.selection;
-		let tr: Transaction;
-		let before: number;
-		if (typeof from === 'number' && typeof to === 'number') {
-			tr = view.state.tr.replaceRange(from, to, slice);
-			before = tr.mapping.map(from, -1);
-		} else {
-			tr = view.state.tr.replaceSelection(slice);
-			before = tr.mapping.map(selection.from, -1);
-		}
-		view.dispatch(tr);
-
-		// replace the text with the macro as a separate transaction
-		// so the autoconversion generates 2 undo steps
-		const macroTr = closeHistory(view.state.tr)
-			.replaceRangeWith(before, before + slice.size, macro)
-			.scrollIntoView();
-		addLinkMetadata(view.state.selection, macroTr, {
-			inputMethod: INPUT_METHOD.CLIPBOARD,
-			cardAction: 'AUTO_CONVERT',
-		});
-		view.dispatch(macroTr);
-		return true;
-	}
-	return false;
-}
-
 /**
- * Replacement for `insertAutoMacroOld` behind
- * `platform_editor_paste_autoconvert_robustness`.
+ * Inserts the pasted content and then replaces it with `macro` as a separate transaction.
  *
- * Identical in shape, except that the range the macro replaces is derived from the steps
- * that were actually applied rather than from `slice.size`. `slice.size` is the slice's
- * own measure and does not account for ProseMirror's fitting behaviour in
- * `replaceRange`/`replaceSelection`, so the two can disagree — and when they do the macro
- * is inserted without removing the text it should replace, leaving both the pasted text
- * and the macro in the document.
+ * The range the macro replaces is derived from the steps that were actually applied
+ * rather than from `slice.size`. `slice.size` is the slice's own measure and does not
+ * account for ProseMirror's fitting behaviour in `replaceRange`/`replaceSelection`, so
+ * the two can disagree — and when they do the macro would be inserted without removing
+ * the text it should replace, leaving both the pasted text and the macro in the document.
  */
-function insertAutoMacroNew(
+function insertAutoMacro(
 	slice: Slice,
 	macro: PMNode,
 	view?: EditorView,
@@ -975,18 +936,6 @@ function insertAutoMacroNew(
 	});
 	view.dispatch(macroTr);
 	return true;
-}
-
-function insertAutoMacro(
-	slice: Slice,
-	macro: PMNode,
-	view?: EditorView,
-	from?: number,
-	to?: number,
-): boolean {
-	return isExperimentEnabled('platform_editor_paste_autoconvert_robustness')
-		? insertAutoMacroNew(slice, macro, view, from, to)
-		: insertAutoMacroOld(slice, macro, view, from, to);
 }
 
 /**
@@ -1180,74 +1129,38 @@ export function handleMacroAutoConvert(
 				const trackingFrom = `handleMacroAutoConvert-from-${trackingId}`;
 				const trackingTo = `handleMacroAutoConvert-to-${trackingId}`;
 
-				if (isExperimentEnabled('platform_editor_paste_autoconvert_robustness')) {
-					// Insert the pasted content straight away. The smart link provider is only
-					// consulted to decide whether the inserted link should later be swapped for
-					// a macro, so it does not need to gate the insert — otherwise every
-					// autoconvertible paste appears to do nothing until a network round trip
-					// completes.
-					let insertedRange: { from: number; to: number } | undefined;
-					handleMarkdownWithInsertedRange(slice, queueCardsFromChangedTr, (range) => {
-						insertedRange = range;
-					})(state, dispatch);
+				// Insert the pasted content straight away. The smart link provider is only
+				// consulted to decide whether the inserted link should later be swapped for
+				// a macro, so it does not need to gate the insert — otherwise every
+				// autoconvertible paste appears to do nothing until a network round trip
+				// completes.
+				let insertedRange: { from: number; to: number } | undefined;
+				handleMarkdownWithInsertedRange(slice, queueCardsFromChangedTr, (range) => {
+					insertedRange = range;
+				})(state, dispatch);
 
-					if (!insertedRange) {
-						return true;
-					}
-
-					startTrackingPastedMacroPositions({
-						[trackingFrom]: insertedRange.from,
-						[trackingTo]: insertedRange.to,
-					})(view.state, dispatch);
-
-					getSmartLinkAdf(text, 'inline', cardsOptions)
-						.catch(() => {
-							// Smart links could not resolve the URL, so fall back to the macro.
-							// we use view.state rather than state because state becomes a stale
-							// state reference after getSmartLinkAdf's async work
-							const { pastedMacroPositions } = getPastePluginState(view.state);
-							replacePastedLinkWithMacro(
-								view,
-								autoConvertMacro,
-								text,
-								pastedMacroPositions[trackingFrom],
-								pastedMacroPositions[trackingTo],
-								editorAnalyticsAPI,
-							);
-						})
-						.finally(() => {
-							stopTrackingPastedMacroPositions([trackingFrom, trackingTo])(view.state, dispatch);
-						});
+				if (!insertedRange) {
 					return true;
 				}
 
 				startTrackingPastedMacroPositions({
-					[trackingFrom]: state.selection.from,
-					[trackingTo]: state.selection.to,
-				})(state, dispatch);
+					[trackingFrom]: insertedRange.from,
+					[trackingTo]: insertedRange.to,
+				})(view.state, dispatch);
 
 				getSmartLinkAdf(text, 'inline', cardsOptions)
-					.then(() => {
+					.catch(() => {
+						// Smart links could not resolve the URL, so fall back to the macro.
 						// we use view.state rather than state because state becomes a stale
 						// state reference after getSmartLinkAdf's async work
 						const { pastedMacroPositions } = getPastePluginState(view.state);
-						if (dispatch) {
-							handleMarkdown(
-								slice,
-								queueCardsFromChangedTr,
-								pastedMacroPositions[trackingFrom],
-								pastedMacroPositions[trackingTo],
-							)(view.state, dispatch);
-						}
-					})
-					.catch(() => {
-						const { pastedMacroPositions } = getPastePluginState(view.state);
-						insertAutoMacro(
-							slice,
-							macro as PMNode,
+						replacePastedLinkWithMacro(
 							view,
+							autoConvertMacro,
+							text,
 							pastedMacroPositions[trackingFrom],
 							pastedMacroPositions[trackingTo],
+							editorAnalyticsAPI,
 						);
 					})
 					.finally(() => {
@@ -1626,8 +1539,7 @@ function resolveParagraphMarks(
 }
 
 /**
- * Variant of `handleMarkdown` used by macro auto-conversion behind
- * `platform_editor_paste_autoconvert_robustness`.
+ * Variant of `handleMarkdown` used by macro auto-conversion.
  *
  * Differs in two ways: the inserted range is derived from the steps that were applied
  * rather than from `markdownSlice.size`, which does not account for ProseMirror's fitting
@@ -2211,6 +2123,81 @@ export function applyContainerNodeTransformToSlice(
 	} catch {
 		return slice;
 	}
+}
+
+/**
+ * Finds the type of the nearest ancestor of the paste position that can hold the panel in either
+ * of its forms. That is the node a block-level panel would be placed into, which is not always the
+ * direct parent of the cursor's textblock (e.g. a blockquote inside a table cell).
+ */
+function findNearestPanelHolderType(
+	$from: ResolvedPos,
+	panelAsC1: PMNode,
+	panelAsPlain: PMNode,
+): NodeType | undefined {
+	const panelAsC1Content = Fragment.from(panelAsC1);
+	const panelAsPlainContent = Fragment.from(panelAsPlain);
+	for (let depth = $from.depth; depth >= 0; depth--) {
+		const ancestorType = $from.node(depth).type;
+		if (
+			ancestorType.validContent(panelAsC1Content) ||
+			ancestorType.validContent(panelAsPlainContent)
+		) {
+			return ancestorType;
+		}
+	}
+	return undefined;
+}
+
+/**
+ * Turns top-level `panel_c1` children of the slice back into `panel` when the nearest ancestor of
+ * the paste position that can hold a panel accepts `panel` but not `panel_c1`. Only panels whose
+ * content is valid for a plain `panel` are changed, that is content without the containers only
+ * `panel_c1` allows: tables (`platform_editor_nest_table_in_panel`), and expands, nested panels and
+ * other containers when `platform_editor_nest_container_in_panel` is on.
+ *
+ * A partial copy from a top-level panel is re-wrapped as `panel_c1` from the clipboard context, and
+ * a wrapper the destination cannot hold makes the paste insert the panel after the container (e.g.
+ * below a table) instead of pasting the text where the cursor is.
+ */
+export function downgradePanelC1ForDestination(
+	slice: Slice,
+	schema: Schema,
+	$from: ResolvedPos,
+): Slice {
+	const { panel, panel_c1 } = schema.nodes;
+	if (!panel || !panel_c1) {
+		return slice;
+	}
+
+	let isDowngraded = false;
+	const children: PMNode[] = [];
+	slice.content.forEach((child) => {
+		if (child.type !== panel_c1 || !panel.validContent(child.content)) {
+			children.push(child);
+			return;
+		}
+		const plainPanel = panel.create(
+			child.attrs,
+			child.content,
+			child.marks.filter((mark) => panel.allowsMarkType(mark.type)),
+		);
+		const holderType = findNearestPanelHolderType($from, child, plainPanel);
+		const holderOnlyAcceptsPlainPanel =
+			!!holderType &&
+			!holderType.validContent(Fragment.from(child)) &&
+			holderType.validContent(Fragment.from(plainPanel));
+		if (holderOnlyAcceptsPlainPanel) {
+			isDowngraded = true;
+			children.push(plainPanel);
+			return;
+		}
+		children.push(child);
+	});
+
+	return isDowngraded
+		? new Slice(Fragment.fromArray(children), slice.openStart, slice.openEnd)
+		: slice;
 }
 
 /*

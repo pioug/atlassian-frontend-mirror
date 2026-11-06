@@ -15,44 +15,41 @@ const iconSpacingStyles = cssMap({
 	},
 });
 
-const NestedDropdown = () => {
-	return (
-		<DropdownMenu
-			placement="right-start"
-			shouldRenderToParent
-			trigger={({ triggerRef, ...triggerProps }) => (
-				<DropdownItem
-					{...triggerProps}
-					ref={triggerRef}
-					elemAfter={
-						<Flex xcss={iconSpacingStyles.space075}>
-							<ChevronRightIcon size="small" color={token('color.icon.subtle')} label="" />
-						</Flex>
-					}
-				>
-					<span>Nested Menu</span>
-				</DropdownItem>
-			)}
-		>
-			<DropdownItemGroup>
-				<NestedDropdown />
-				<NestedDropdown />
-				<DropdownItem>One of many items</DropdownItem>
-				<DropdownItem>One of many items</DropdownItem>
-			</DropdownItemGroup>
-		</DropdownMenu>
-	);
-};
-const NestedDropdownMenuExample = (): React.JSX.Element => {
-	return (
-		<DropdownMenu trigger="Nested" shouldRenderToParent>
-			<DropdownItemGroup>
-				<NestedDropdown />
-				<NestedDropdown />
-				<DropdownItem>first of many items</DropdownItem>
-				<DropdownItem>Second of many items</DropdownItem>
-			</DropdownItemGroup>
-		</DropdownMenu>
-	);
-};
+const NestedDropdown = () => (
+	<DropdownMenu
+		placement="right-start"
+		shouldRenderToParent
+		trigger={({ triggerRef, ...triggerProps }) => (
+			<DropdownItem
+				{...triggerProps}
+				ref={triggerRef}
+				// TODO: Remove from example when platform-dst-new-menu is enabled to avoid two chevrons rendering
+				elemAfter={
+					<Flex xcss={iconSpacingStyles.space075}>
+						<ChevronRightIcon size="small" color={token('color.icon.subtle')} label="" />
+					</Flex>
+				}
+			>
+				<span>Nested Menu</span>
+			</DropdownItem>
+		)}
+	>
+		<DropdownItemGroup>
+			<NestedDropdown />
+			<NestedDropdown />
+			<DropdownItem>One of many items</DropdownItem>
+			<DropdownItem>One of many items</DropdownItem>
+		</DropdownItemGroup>
+	</DropdownMenu>
+);
+const NestedDropdownMenuExample = (): React.JSX.Element => (
+	<DropdownMenu trigger="Nested" shouldRenderToParent>
+		<DropdownItemGroup>
+			<NestedDropdown />
+			<NestedDropdown />
+			<DropdownItem>first of many items</DropdownItem>
+			<DropdownItem>Second of many items</DropdownItem>
+		</DropdownItemGroup>
+	</DropdownMenu>
+);
 export default NestedDropdownMenuExample;

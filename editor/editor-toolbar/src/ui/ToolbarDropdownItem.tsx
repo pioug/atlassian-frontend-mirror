@@ -86,11 +86,13 @@ export type ToolbarDropdownItemRole = 'menuitem' | 'menuitemcheckbox' | 'menuite
 
 export type CustomDropdownMenuItemButtonProps = CustomItemComponentProps &
 	ToolbarDropdownItemInteractionProps & {
+		'aria-controls'?: string;
 		'aria-disabled'?: boolean;
-		'aria-haspopup'?: boolean;
+		'aria-haspopup'?: React.AriaAttributes['aria-haspopup'];
 		'aria-keyshortcuts'?: string;
 		'aria-pressed'?: boolean;
 		'data-extension-item-key'?: string;
+		id?: string;
 		itemRole?: ToolbarDropdownItemRole;
 		title?: string;
 	};
@@ -116,10 +118,13 @@ const CustomDropdownMenuItemButton = forwardRef<
 			title,
 			'data-extension-item-key': dataExtensionItemKey,
 			itemRole,
+			...dataAttributes
 		},
 		ref,
 	) => (
 		<Pressable
+			// eslint-disable-next-line react/jsx-props-no-spreading -- Forward the native trigger relationship and data attributes.
+			{...dataAttributes}
 			role={itemRole || 'menuitem'}
 			testId={testId as string}
 			xcss={cx(
@@ -150,6 +155,9 @@ const CustomDropdownMenuItemButton = forwardRef<
 );
 
 type ToolbarDropdownItemProps = ToolbarDropdownItemInteractionProps & {
+	'aria-controls'?: string;
+	/** Accessible relationship for items that open a nested popup. */
+	'aria-haspopup'?: React.AriaAttributes['aria-haspopup'];
 	ariaKeyshortcuts?: string;
 	children?: React.ReactNode;
 	elemAfter?: ReactNode;
@@ -157,6 +165,7 @@ type ToolbarDropdownItemProps = ToolbarDropdownItemInteractionProps & {
 	elemBefore?: ReactNode;
 	hasNestedDropdownMenu?: boolean;
 	href?: string;
+	id?: string;
 	isDisabled?: boolean;
 	isSelected?: boolean;
 	onClick?: (e: React.MouseEvent | React.KeyboardEvent) => void;
@@ -172,11 +181,13 @@ type ToolbarDropdownItemProps = ToolbarDropdownItemInteractionProps & {
 
 type CustomDropdownMenuItemAnchorProps = CustomItemComponentProps &
 	ToolbarDropdownItemInteractionProps & {
+		'aria-controls'?: string;
 		'aria-disabled'?: boolean;
-		'aria-haspopup'?: boolean;
+		'aria-haspopup'?: React.AriaAttributes['aria-haspopup'];
 		'aria-keyshortcuts'?: string;
 		'aria-pressed'?: boolean;
 		href: string;
+		id?: string;
 		itemRole?: ToolbarDropdownItemRole;
 		rel?: string;
 		target?: string;
@@ -246,6 +257,7 @@ const CustomDropdownMenuItemAnchor = forwardRef<
 );
 
 export const ToolbarDropdownItem = ({
+	'aria-haspopup': ariaHasPopup,
 	onClick,
 	onBlur,
 	onFocus,
@@ -304,7 +316,7 @@ export const ToolbarDropdownItem = ({
 			elemAfter={injectedElemAfter}
 			isSelected={isSelected}
 			isDisabled={isDisabled}
-			aria-haspopup={hasNestedDropdownMenu}
+			aria-haspopup={ariaHasPopup ?? hasNestedDropdownMenu}
 			aria-pressed={isSelected}
 			aria-keyshortcuts={ariaKeyshortcuts}
 			itemRole={role}

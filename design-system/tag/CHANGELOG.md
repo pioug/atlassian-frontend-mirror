@@ -1,5 +1,13 @@
 # @atlaskit/tag
 
+## 17.1.0
+
+### Minor Changes
+
+- [`3a7895ae23693`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a7895ae23693) -
+  Preserve linked Tag focus outlines when prefetch_nin_resources_on_user_intent_m2 is enabled. Keep
+  normal enter/exit motion clipped and support reduced motion.
+
 ## 17.0.3
 
 ### Patch Changes

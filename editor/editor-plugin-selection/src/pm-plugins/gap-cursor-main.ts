@@ -118,9 +118,10 @@ const plugin: SafePlugin<GapCursorPluginState> = new SafePlugin({
 		handleClick(view: EditorView, nodePos: number, event: MouseEvent) {
 			const target = event.target instanceof HTMLElement ? event.target : null;
 			// Check the experiment first so the control group runs isIgnoredClick once, after
-			// posAtCoords, exactly as before.
+			// posAtCoords, exactly as before. Only this path passes { view, nodePos }, which also
+			// ignores clicks that can never place a gap cursor (text, inline content, atom nodes).
 			const checkIgnoredClickFirst = isExperimentEnabled('platform_editor_improve_inp_batch_2');
-			if (checkIgnoredClickFirst && target && isIgnoredClick(target)) {
+			if (checkIgnoredClickFirst && target && isIgnoredClick(target, { view, nodePos })) {
 				return false;
 			}
 

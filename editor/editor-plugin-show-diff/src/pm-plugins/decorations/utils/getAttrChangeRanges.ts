@@ -1,3 +1,4 @@
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import isEqual from 'lodash/isEqual';
 import omit from 'lodash/omit';
 
@@ -6,7 +7,6 @@ import { getBaseNodeTypeName } from '@atlaskit/editor-common/utils/node-type-uti
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { AttrStep } from '@atlaskit/editor-prosemirror/transform';
 import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { getRequiredIncludedDiffableAttrs, isDiffableAttr } from './diffableAttrs';
 import {
@@ -140,7 +140,7 @@ export const getAttrChangeRanges = (
 					attrsToCheck.some(
 						(attr) =>
 							watchedAttrs.includes(attr) &&
-							(!fg('confluence_ncs_step_diffing_version_history') ||
+							(!isExperimentEnabled('platform_editor_attributed_version_history') ||
 								!originalNodeAtPos ||
 								originalNodeAtPos.type !== nodeAtPos?.type ||
 								!isEqual(originalNodeAtPos.attrs[attr], nodeAtPos?.attrs[attr])),
@@ -247,7 +247,7 @@ export const getAttrChangeRanges = (
 			// (e.g. setNodeAttribute(pos, 'text', ...) + setNodeAttribute(pos, 'color', ...))
 			// should produce only one decoration, not one per step.
 			.filter((range, i, arr) =>
-				fg('confluence_ncs_step_diffing_version_history')
+				isExperimentEnabled('platform_editor_attributed_version_history')
 					? !arr.some((r, nextIndex) => nextIndex > i && r.fromB === range.fromB)
 					: arr.findIndex((r) => r.fromB === range.fromB) === i,
 			)

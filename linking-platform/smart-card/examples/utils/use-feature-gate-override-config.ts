@@ -16,11 +16,15 @@ const experimentConfig: Record<string, FeatureGateConfig> = {
 	social_proof_3p_unauth_block_exp: {
 		isEnabled: true,
 	},
+	platform_sl_3p_auth_visualize_exp: {
+		isEnabled: true,
+	},
 };
 
 const enabledGates = [
 	'platform_sl_3p_preauth_better_hovercard_killswitch',
 	'social-proof-3p-unauth-block-fg',
+	'platform_sl_3p_auth_visualize_killswitch',
 ];
 
 const emptyConfig = {};

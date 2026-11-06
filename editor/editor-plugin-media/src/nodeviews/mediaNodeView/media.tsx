@@ -19,6 +19,7 @@ import { setNodeSelection, setTextSelection } from '@atlaskit/editor-common/util
 import type { ImageLoaderProps } from '@atlaskit/editor-common/utils/imageLoader';
 import { withImageLoader } from '@atlaskit/editor-common/utils/imageLoader';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
@@ -362,6 +363,18 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 				state.selection.to > propPos ? state.selection.to : propPos + 2,
 			);
 		} else {
+			if (
+				isExperimentEnabled('platform_editor_improve_inp_batch_2') &&
+				state.selection instanceof NodeSelection &&
+				state.selection.from === propPos - 1
+			) {
+				// This mediaSingle is already selected: ProseMirror selects the media node from the
+				// DOM selection when the click moves it, and the media plugin's appendTransaction
+				// moves that selection to the parent mediaSingle in the same dispatch.
+				// setNodeSelection always dispatches, so re-selecting it would run another view
+				// update and force another style recalc and layout for no change.
+				return;
+			}
 			setNodeSelection(this.props.view, propPos - 1);
 		}
 	};

@@ -114,7 +114,8 @@ export default class Mention extends PureComponent<MentionProps, object> {
 					eventHandlers={eventHandlers}
 					mentionProvider={mentionProvider}
 					mentionNodeData={
-						mentionNodeDataProvider && isExperimentEnabled('platform_editor_mention_rovo')
+						mentionNodeDataProvider &&
+						isExperimentEnabled('platform_editor_mention_rovo_special_visual')
 							? mentionNodeDataProvider.getMentionDataFromCache({ id, userType })
 							: undefined
 					}

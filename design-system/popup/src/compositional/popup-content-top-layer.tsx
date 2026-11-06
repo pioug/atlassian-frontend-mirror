@@ -28,6 +28,7 @@ import type { TPopoverCloseReason } from '@atlaskit/top-layer/popover/types';
 import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 
 import { getPopupAxisSizes } from '../internal/get-popup-axis-sizes';
+import { PopupContentRenderer } from '../internal/popup-content-renderer';
 import { useRoleProps } from '../internal/top-layer-bridge';
 import {
 	type ContentProps,
@@ -192,6 +193,8 @@ export function PopupContentTopLayer({
 	return (
 		<Popover
 			ref={popoverRef}
+			// The `Popup` id, so the trigger's `aria-controls` points at the host.
+			id={providedId}
 			{...roleProps}
 			isOpen={isOpen}
 			shouldAnimate
@@ -201,8 +204,9 @@ export function PopupContentTopLayer({
 		>
 			{Container ? (
 				<Container
+					// No `id`: the `Popover` host has it. Passing it here too would put the same `id` on
+					// two elements.
 					style={EMPTY_STYLE}
-					id={providedId}
 					data-placement={placement}
 					data-testid={testId}
 					// Focusable by script and by a click on empty space inside, so focus
@@ -213,7 +217,7 @@ export function PopupContentTopLayer({
 					// `overflow: auto` branch off it.
 					shouldFitViewport={shouldFitViewport}
 				>
-					{children(contentProps)}
+					<PopupContentRenderer render={children} contentProps={contentProps} />
 				</Container>
 			) : (
 				// `PopoverSurface` owns `overflow: auto` and the `box-shadow` on the
@@ -228,7 +232,7 @@ export function PopupContentTopLayer({
 						className={xcss}
 						data-testid={testId}
 					>
-						{children(contentProps)}
+						<PopupContentRenderer render={children} contentProps={contentProps} />
 					</div>
 				</PopoverSurface>
 			)}

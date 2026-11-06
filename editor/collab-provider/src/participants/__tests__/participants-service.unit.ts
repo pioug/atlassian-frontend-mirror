@@ -1,3 +1,4 @@
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import type { ProviderParticipant } from '@atlaskit/editor-common/collab';
 import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 import { mockExp } from '@atlassian/experiment-test-utils/mock-exp';
@@ -104,7 +105,7 @@ describe('upsertAIProviderParticipantLocally', () => {
 	});
 
 	it('retains supplied identity on later steps and emits changes without fetching a profile', () => {
-		passGate('confluence_ncs_step_diffing_version_history');
+		mockExpEnabled('platform_editor_attributed_version_history');
 		const emit = jest.fn();
 		const getUser = jest.fn();
 		const service = participantsServiceConstructor({ emit, getUser });
@@ -133,7 +134,7 @@ describe('upsertAIProviderParticipantLocally', () => {
 	});
 
 	it('keeps legacy empty identity when the version-history gate is off', () => {
-		failGate('confluence_ncs_step_diffing_version_history');
+		mockExpDisabled('platform_editor_attributed_version_history');
 		const service = participantsServiceConstructor({});
 		service.upsertAIProviderParticipantLocally(providerId, 'mcp', {
 			agentId: 'abc',
@@ -149,7 +150,7 @@ describe('upsertAIProviderParticipantLocally', () => {
 	it('adds the agent with editing activity when agent presence is moved', () => {
 		mockExpEnabled('agentic_presence_facepile_master_exp');
 		passGate('platform_move_presence_agents');
-		passGate('confluence_ncs_step_diffing_version_history');
+		mockExpEnabled('platform_editor_attributed_version_history');
 		const emit = jest.fn();
 		const getUser = jest.fn();
 		const service = participantsServiceConstructor({ emit, getUser });

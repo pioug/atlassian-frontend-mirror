@@ -1,5 +1,14 @@
 # @atlaskit/dropdown-menu
 
+## 21.1.0
+
+### Minor Changes
+
+- [`d316b1a8582db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d316b1a8582db) -
+  Added new Dropdown Menu components with a new design and updated API. This new component is behind
+  the `platform-dst-new-menu` feature gate and will be enabled by default in the future. There are
+  no changes to the existing components.
+
 ## 21.0.5
 
 ### Patch Changes

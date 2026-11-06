@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
@@ -14,6 +14,7 @@ import useControlledState from '@atlaskit/ds-lib/use-controlled';
 import useFocus from '@atlaskit/ds-lib/use-focus-event';
 import ExpandIcon from '@atlaskit/icon/core/chevron-down';
 import MenuGroup from '@atlaskit/menu/menu-group';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import Spinner from '@atlaskit/spinner/spinner';
 import { token } from '@atlaskit/tokens';
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
@@ -26,10 +27,13 @@ import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 import { useArrowNavigation } from '@atlaskit/top-layer/use-arrow-navigation/use-arrow-navigation';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
+import { DropdownTriggerContext } from './internal/context/dropdown-trigger-context';
 import SelectionStore from './internal/context/selection-store';
+import { NewSpacingContext } from './internal/context/spacing-context';
 import type { DropdownMenuProps } from './types';
 
 const MAX_HEIGHT = `calc(100vh - 16px)`;
+const MAX_WIDTH = '800px';
 
 const styles = cssMap({
 	spinnerContainer: {
@@ -40,6 +44,18 @@ const styles = cssMap({
 		paddingInlineEnd: token('space.250', '20px'),
 		paddingBlockEnd: token('space.250', '20px'),
 		paddingInlineStart: token('space.250', '20px'),
+	},
+	newWrapper: {
+		display: 'flex',
+		position: 'static',
+		flexDirection: 'column',
+		overflow: 'auto',
+	},
+	height: {
+		maxHeight: MAX_HEIGHT,
+	},
+	width: {
+		maxWidth: MAX_WIDTH,
 	},
 });
 
@@ -111,6 +127,7 @@ function DropdownMenuTopLayer({
 	menuLabel,
 }: DropdownMenuProps): React.JSX.Element {
 	const [isLocalOpen, setLocalIsOpen] = useControlledState(isOpenProp, () => defaultOpen);
+	const [isNestedTrigger, setIsNestedTrigger] = useState(false);
 	const triggerRef = useRef<HTMLElement | null>(null);
 	const popoverRef = useRef<HTMLDivElement | null>(null);
 	const setPopoverRef = useCallback(
@@ -124,12 +141,19 @@ function DropdownMenuTopLayer({
 		[isLoading],
 	);
 
+	const oldSpacing = (spacing === 'spacious' ? 'cozy' : spacing) || 'cozy';
+	const newSpacing = (spacing === 'cozy' ? 'spacious' : spacing) || 'spacious';
 	const popoverId = usePopoverId();
 
-	const topLayerPlacement = useMemo(
-		() => fromLegacyPlacement({ legacy: placement as TLegacyPlacement }),
-		[placement],
-	);
+	const topLayerPlacement = useMemo(() => {
+		const nestedMenuOffset = newSpacing === 'compact' ? 16 : 20;
+
+		return fromLegacyPlacement({
+			legacy: placement as TLegacyPlacement,
+			// If the menu is nested, give it an offset so it doesn't overlap the edges of the previous menu
+			offset: fg('platform-dst-new-menu') && isNestedTrigger ? [0, nestedMenuOffset] : undefined,
+		});
+	}, [placement, isNestedTrigger, newSpacing]);
 
 	// DropdownMenu has no `shouldFitViewport` equivalent, so neither axis ever
 	// fits and `blockSize` stays `'content'` - `MenuGroup`'s `maxHeight` owns the
@@ -182,18 +206,19 @@ function DropdownMenuTopLayer({
 	// but inside a vertical submenu, ArrowDown navigates between siblings
 	// and ArrowRight opens nested menus instead.
 	useEffect(() => {
+		const isNestedTriggerLocal = Boolean(triggerRef.current?.closest('[role="menu"]'));
+		setIsNestedTrigger(isNestedTriggerLocal);
+
 		if (!isFocused || isLocalOpen) {
 			return;
 		}
 
 		// Do not open on ArrowDown if this trigger is inside a parent menu.
 		// Nested menus should only be opened via ArrowRight or Enter.
-		const isNestedTrigger = Boolean(triggerRef.current?.closest('[role="menu"]'));
-
 		return bind(window, {
 			type: 'keydown',
 			listener: function openOnKeyDown(e: KeyboardEvent) {
-				if (e.key === KEY_DOWN && !isNestedTrigger) {
+				if (e.key === KEY_DOWN && !isNestedTriggerLocal) {
 					e.preventDefault();
 					handleTriggerClicked(e);
 				}
@@ -273,15 +298,19 @@ function DropdownMenuTopLayer({
 
 	const renderTrigger = () => {
 		if (typeof trigger === 'function') {
-			return trigger({
-				...ariaAttributes,
-				onFocus: bindFocus.onFocus,
-				onBlur: bindFocus.onBlur,
-				triggerRef: setTriggerRef,
-				isSelected: isLocalOpen,
-				onClick: handleTriggerClicked,
-				testId: testId && `${testId}--trigger`,
-			});
+			return (
+				<DropdownTriggerContext.Provider value={true}>
+					{trigger({
+						...ariaAttributes,
+						onFocus: bindFocus.onFocus,
+						onBlur: bindFocus.onBlur,
+						triggerRef: setTriggerRef,
+						isSelected: isLocalOpen,
+						onClick: handleTriggerClicked,
+						testId: testId && `${testId}--trigger`,
+					})}
+				</DropdownTriggerContext.Provider>
+			);
 		}
 
 		return (
@@ -302,6 +331,49 @@ function DropdownMenuTopLayer({
 		);
 	};
 
+	if (fg('platform-dst-new-menu')) {
+		return (
+			<SelectionStore>
+				{renderTrigger()}
+				<Popover
+					ref={popoverRef}
+					id={popoverId}
+					role="menu"
+					label={menuLabel ?? label ?? (typeof trigger === 'string' ? trigger : 'Menu')}
+					isOpen={isLocalOpen}
+					onClose={handleOnClose}
+					shouldAnimate
+					placement={topLayerPlacement}
+					testId={testId && `${testId}--content`}
+				>
+					<PopoverSurface>
+						<NewSpacingContext.Provider value={newSpacing}>
+							{/* eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/no-static-element-interactions, @atlassian/a11y/interactive-element-not-keyboard-focusable */}
+							<div
+								css={[
+									styles.newWrapper,
+									styles.height,
+									shouldFitContainer ? undefined : styles.width,
+								]}
+								onClick={handleMenuClick}
+								data-testid={testId && `${testId}--menu-wrapper--menu-group`}
+							>
+								{isLoading ? (
+									<LoadingIndicator
+										statusLabel={statusLabel}
+										testId={testId && `${testId}--menu-wrapper--loading-indicator`}
+									/>
+								) : (
+									children
+								)}
+							</div>
+						</NewSpacingContext.Provider>
+					</PopoverSurface>
+				</Popover>
+			</SelectionStore>
+		);
+	}
+
 	return (
 		<SelectionStore>
 			{renderTrigger()}
@@ -319,9 +391,9 @@ function DropdownMenuTopLayer({
 				<PopoverSurface>
 					<MenuGroup
 						maxHeight={MAX_HEIGHT}
-						maxWidth={shouldFitContainer ? undefined : 800}
+						maxWidth={shouldFitContainer ? undefined : MAX_WIDTH}
 						onClick={handleMenuClick}
-						spacing={spacing}
+						spacing={oldSpacing}
 						testId={testId && `${testId}--menu-wrapper--menu-group`}
 					>
 						{isLoading ? (

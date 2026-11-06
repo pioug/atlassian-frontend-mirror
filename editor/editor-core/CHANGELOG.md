@@ -1,5 +1,36 @@
 # @atlaskit/editor-core
 
+## 242.0.17
+
+### Patch Changes
+
+- [`202f9b8386f13`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/202f9b8386f13) -
+  Migrate attributed version history checks to the platform_editor_attributed_version_history
+  experiment.
+- Updated dependencies
+
+## 242.0.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 242.0.15
+
+### Patch Changes
+
+- [`f26f633c25699`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f26f633c25699) -
+  Move Rovo chat mention visuals and their supporting identity resolution, SSR cache reads and Chat
+  handoff metadata under platform_editor_mention_rovo_special_visual. Keep Rovo mention availability
+  and task routing under platform_editor_mention_rovo.
+- Updated dependencies
+
+## 242.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 242.0.13
 
 ### Patch Changes

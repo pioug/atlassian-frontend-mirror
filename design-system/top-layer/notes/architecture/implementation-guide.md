@@ -373,12 +373,26 @@ If unsupported, `'hint'` falls back to `'auto'` transparently.
 
 ### Close Reason Detection
 
-Escape detection uses a capture-phase keydown listener on the popover element. The sequence:
+Escape detection uses a capture-phase keydown listener on the document, not on the popover. The
+browser closes the topmost popover on Escape wherever focus is, for example on the trigger. The
+sequence:
 
-1. User presses Escape → capture-phase keydown fires → `closeReasonRef.current = 'escape'`
-2. Browser processes light dismiss → native `toggle` event fires with `newState: 'closed'`
-3. Toggle handler reads `closeReasonRef.current` → calls `onClose({ reason: 'escape' })`
+1. User presses Escape → capture-phase keydown fires → if the popover is open, it records the event
+2. Browser closes the popover after the keydown, before the keyup → `beforetoggle` (closed) fires →
+   if the recorded keydown is not `defaultPrevented`, `closeReasonRef.current = 'escape'`
+3. Native `toggle` event fires with `newState: 'closed'` → the handler reads
+   `closeReasonRef.current` → calls `onClose({ reason: 'escape' })`
 4. Ref is reset to `'light-dismiss'` for the next dismiss
+
+The Escape `keyup` clears the record, and so does a window `blur` (the `keyup` does not come when
+focus leaves the window). So an Escape that closed another layer (for example a child popover) or
+that a listener prevented cannot tag a later light dismiss of this popover as `escape`. A microtask
+is too early to clear the record: in Chromium and WebKit it runs before the browser closes the
+popover.
+
+Known gap: any close between the Escape keydown and its keyup is reported as `escape`. For example,
+Escape closes a child popover, and the child's `onClose` opens a modal dialog, which closes the
+parent before the keyup. The parent then reports `escape`, not `light-dismiss`.
 
 For programmatic close (`isOpen` goes `false`), `programmaticCloseRef` is set to `true` before
 calling `hidePopover()`. The toggle handler checks this ref and skips calling `onClose`.

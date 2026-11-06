@@ -1,9 +1,10 @@
 import { type JSCodeshift } from 'jscodeshift';
 import { type Collection } from 'jscodeshift/src/Collection';
 
+import { getJSXAttributesByName } from '@atlaskit/codemod-utils/support';
+
 import { addCommentToStartOfFile } from './add-comment-to-start-of-file';
 import { getDefaultSpecifier } from './get-default-specifier';
-import { getJSXAttributesByName } from './get-jsx-attributes-by-name';
 import { getNamedSpecifier } from './get-named-specifier';
 
 export const createRemoveFuncIfBooleanFor: (

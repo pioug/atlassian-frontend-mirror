@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-tasks-and-decisions",
-	"version": "33.0.10",
+	"version": "33.0.15",
 	"description": "Tasks and decisions plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -33,7 +33,6 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "workspace:^",
-		"@atlaskit/analytics-namespaced-context": "workspace:^",
 		"@atlaskit/css": "workspace:^",
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
 		"@atlaskit/editor-plugin-block-menu": "workspace:^",

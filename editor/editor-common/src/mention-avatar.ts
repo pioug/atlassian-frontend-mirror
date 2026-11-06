@@ -1,5 +1,5 @@
-import { expVal } from '@atlaskit/platform-feature-experiments/exp-val';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { MentionNodeDataUserType } from './ui/Mention/mention-node-data-provider';
 
@@ -17,18 +17,11 @@ export function isMentionAvatarEnabled({
 	id: string;
 	userType?: MentionNodeDataUserType;
 }): boolean {
-	// Preserve Platform's cohort exposure, including when a provider is missing.
-	const cohort = expVal<string>(
-		'convo_ai_entity_hover_cards_non_hello_exp',
-		'hover_card_cohort',
-		'control',
-	);
 	return (
 		(hasProvider || canReportMissingProvider) &&
 		userType !== 'SPECIAL' &&
 		!GENERIC_MENTION_IDS.includes(id) &&
-		(cohort === 'person' ||
-			cohort === 'all' ||
+		(fg('rovo_chat_people_entity_hover_cards') ||
 			isExperimentEnabled('platform_editor_mention_node_avatar') ||
 			isExperimentEnabled('canvas_agentic_experiences_master_exp') ||
 			isExperimentEnabled('platform_editor_mention_node_graphql_provider') ||

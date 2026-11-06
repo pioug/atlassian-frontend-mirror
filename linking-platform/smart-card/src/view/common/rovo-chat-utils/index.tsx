@@ -5,7 +5,9 @@ import { type IntlShape } from 'react-intl';
 import AiSearchIcon from '@atlaskit/icon-lab/core/ai-search';
 import AiChatIcon from '@atlaskit/icon/core/ai-chat';
 import AiGenerativeTextSummaryIcon from '@atlaskit/icon/core/ai-generative-text-summary';
+import ChartBarIcon from '@atlaskit/icon/core/chart-bar';
 import RovoChatIcon from '@atlaskit/icon/core/rovo-chat';
+import type { NewCoreIconProps } from '@atlaskit/icon/types';
 import type { ProductType } from '@atlaskit/linking-common/types';
 import { RovoIcon } from '@atlaskit/logo/rovo/icon';
 
@@ -34,6 +36,7 @@ export enum RovoChatPromptKey {
 	EXPLAIN_CODE = 'explain-code',
 	CATCH_UP = 'catch-up',
 	SALESFORCE_PREP = 'salesforce-prep',
+	VISUALIZE = 'visualize',
 }
 
 type CurrentContextType = {
@@ -370,6 +373,28 @@ export const getPromptAction = ({
 					prompt: htmlToAdf(html_overview),
 				},
 				icon: <AiGenerativeTextSummaryIcon label={label_overview} size={iconSize} />,
+			};
+		case RovoChatPromptKey.VISUALIZE:
+			const label_visualize = intl.formatMessage(messages.rovo_prompt_button_visualize);
+			const html_visualize = intl.formatMessage(
+				messages.rovo_prompt_message_visualize,
+				{ url },
+				{ ignoreTag: true },
+			);
+			const visualizeIconProps: NewCoreIconProps = {
+				label: label_visualize,
+				size: iconSize,
+				...(cardAppearance === CardDisplay.HoverCardPreview ? { spacing: 'spacious' } : {}),
+			};
+			return {
+				content: label_visualize,
+				tooltipMessage: label_visualize,
+				data: {
+					name: label_visualize,
+					dialogues: [],
+					prompt: htmlToAdf(html_visualize),
+				},
+				icon: <ChartBarIcon {...visualizeIconProps} />,
 			};
 	}
 };

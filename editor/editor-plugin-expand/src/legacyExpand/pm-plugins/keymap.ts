@@ -21,7 +21,6 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { isInTable } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { deleteEmptyLineAfterCollapsedExpand } from '../../editor-commands/deleteEmptyLineAfterCollapsedExpand';
 import type { ExpandPlugin } from '../../types';
@@ -212,11 +211,9 @@ export function expandKeymap(
 				return focusTitle($from.pos + 1)(state, dispatch, editorView);
 			}
 
-			if (expValEquals('platform_editor_lovability_navigation_fixes', 'isEnabled', true)) {
-				const nextExpandPos = getNextNodeExpandPos(editorView, selection);
-				if (nextExpandPos !== undefined) {
-					return focusTitle(nextExpandPos)(state, dispatch, editorView);
-				}
+			const nextExpandPos = getNextNodeExpandPos(editorView, selection);
+			if (nextExpandPos !== undefined) {
+				return focusTitle(nextExpandPos)(state, dispatch, editorView);
 			}
 
 			if (editorView.endOfTextblock('down')) {

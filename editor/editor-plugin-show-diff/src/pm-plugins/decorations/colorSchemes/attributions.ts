@@ -3,7 +3,6 @@ import type { Change } from 'prosemirror-changeset';
 import { getThirdPartyAgentColor } from '@atlaskit/agent-color/get-third-party-agent-color';
 import { getParticipantColor } from '@atlaskit/editor-shared-styles/utils';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import {
 	DIFF_AGENT_BRANDS,
@@ -47,7 +46,7 @@ const HASHED_PARTICIPANT_COLOR_SCHEMES = [
 /**
  * Red means "deleted" in both public schemes, so it never identifies an actor. Reserving it here
  * covers every path into an attribution colour; `createAttributionColorMap` is the only caller, and
- * it is gated on `confluence_ncs_step_diffing_version_history` plus
+ * it is gated on `platform_editor_attributed_version_history` plus
  * `platform_editor_show_diff_color_scheme_refactor`.
  */
 const RESERVED_ATTRIBUTION_COLORS: ReadonlySet<AdsAccentColor> = new Set(['red']);
@@ -138,7 +137,7 @@ export const resolveContributors = (
 };
 
 export const areAttributionColorGatesEnabled = (): boolean =>
-	fg('confluence_ncs_step_diffing_version_history') &&
+	isExperimentEnabled('platform_editor_attributed_version_history') &&
 	isExperimentEnabled('platform_editor_show_diff_color_scheme_refactor');
 
 export const isAttributionColoringEnabled = (
@@ -283,7 +282,7 @@ export const getAttributionKeyForChange = (
 	const directKey = getAttributionKeyForChanges([change]);
 	return (
 		directKey ??
-		(fg('confluence_ncs_step_diffing_version_history')
+		(isExperimentEnabled('platform_editor_attributed_version_history')
 			? undefined
 			: getAttributionKeyForChanges(
 					attributedChanges.filter((attributedChange) => changesOverlap(change, attributedChange)),

@@ -5,6 +5,7 @@ import { IntlProvider } from 'react-intl';
 import { screen } from '@atlassian/testing-library/screen';
 import { render } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
+import { within } from '@atlassian/testing-library/within';
 
 import { ActionName, CardDisplay } from '../../../../../constants';
 import * as useInvokeClientAction from '../../../../../state/hooks/use-invoke-client-action';
@@ -28,6 +29,16 @@ jest.mock('@atlaskit/width-detector/width-observer', () => {
 		},
 	};
 });
+
+jest.mock('../../../../FlexibleCard/assets/ai-edit-icon', () => ({
+	__esModule: true,
+	default: () => <span data-testid="ai-edit-icon" />,
+}));
+
+jest.mock('@atlaskit/icon/core/chart-bar', () => ({
+	__esModule: true,
+	default: () => <span data-testid="chart-bar-icon" />,
+}));
 
 describe('EmbedRovoActionsFooter', () => {
 	const sendPromptMessageMock = jest.fn();
@@ -100,6 +111,35 @@ describe('EmbedRovoActionsFooter', () => {
 		expect(summarizeButton).toBeInTheDocument();
 		expect(summarizeButton).not.toHaveTextContent('Summarize');
 		expect(screen.queryByRole('button', { name: 'Key highlights' })).not.toBeInTheDocument();
+	});
+
+	it('uses the branded AI icon for the primary action', () => {
+		setup([RovoChatPromptKey.SUMMARIZE_LINK, RovoChatPromptKey.KEY_HIGHLIGHTS]);
+
+		const summarizeButton = screen.getByRole('button', { name: 'Summarize' });
+
+		expect(within(summarizeButton).getByTestId('ai-edit-icon')).toBeInTheDocument();
+		expect(screen.getAllByTestId('ai-edit-icon')).toHaveLength(1);
+	});
+
+	it('keeps the Visualize chart icon when Visualize is the primary action', () => {
+		setup([RovoChatPromptKey.VISUALIZE, RovoChatPromptKey.SUMMARIZE_DOCUMENT]);
+
+		const visualizeButton = screen.getByRole('button', { name: 'Visualize' });
+
+		expect(within(visualizeButton).getByTestId('chart-bar-icon')).toBeInTheDocument();
+		expect(screen.queryByTestId('ai-edit-icon')).not.toBeInTheDocument();
+	});
+
+	it('keeps the Visualize chart icon in the icon-only view', async () => {
+		mockObservedWidth = 200;
+
+		setup([RovoChatPromptKey.VISUALIZE, RovoChatPromptKey.SUMMARIZE_DOCUMENT]);
+
+		const visualizeButton = await screen.findByRole('button', { name: 'Visualize' });
+
+		expect(visualizeButton).not.toHaveTextContent('Visualize');
+		expect(within(visualizeButton).getByTestId('chart-bar-icon')).toBeInTheDocument();
 	});
 
 	it('invokes the selected Rovo prompt without bubbling to the embed frame', async () => {

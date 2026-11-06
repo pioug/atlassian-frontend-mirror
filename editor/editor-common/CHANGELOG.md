@@ -1,5 +1,62 @@
 # @atlaskit/editor-common
 
+## 134.9.0
+
+### Minor Changes
+
+- [`176e8d71cac97`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/176e8d71cac97) -
+  Add the `publishedSuggestionsPanelEmptyState` and `liveDocViewSuggestionsPanelEmptyState` AI
+  suggestions entry points, for Reviews started from the Suggestions panel empty state on published
+  pages and on live docs in view mode. The review generation experience reports their completed and
+  abandoned runs (confluence_suggestions_panel_view_mode).
+
+### Patch Changes
+
+- Updated dependencies
+
+## 134.8.5
+
+### Patch Changes
+
+- [`9a31ce5238178`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9a31ce5238178) -
+  Retire frontend evaluation of `convo_ai_entity_hover_cards_non_hello_exp`. Use
+  `rovo_chat_people_entity_hover_cards` alone for people annotation enrollment and mention-avatar
+  provider activation. Enable inferred projects through `rovo_chat_inferred_project_hover_cards` or
+  `convo_ai_entity_hover_cards_inferred_project_exp` with `inferred_project_cohort` set to
+  `treatment`, defaulting to control and skipping experiment evaluation when the gate is enabled.
+  Preserve independent editor avatar rollouts and the deprecated helper for compatibility.
+
+## 134.8.4
+
+### Patch Changes
+
+- [`202f9b8386f13`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/202f9b8386f13) -
+  Migrate attributed version history checks to the platform_editor_attributed_version_history
+  experiment.
+- Updated dependencies
+
+## 134.8.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 134.8.2
+
+### Patch Changes
+
+- [`f26f633c25699`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f26f633c25699) -
+  Move Rovo chat mention visuals and their supporting identity resolution, SSR cache reads and Chat
+  handoff metadata under platform_editor_mention_rovo_special_visual. Keep Rovo mention availability
+  and task routing under platform_editor_mention_rovo.
+- Updated dependencies
+
+## 134.8.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 134.8.0
 
 ### Minor Changes

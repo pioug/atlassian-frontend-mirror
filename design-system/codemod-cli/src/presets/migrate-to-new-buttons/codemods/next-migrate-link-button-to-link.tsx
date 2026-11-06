@@ -1,7 +1,7 @@
 import { getImportDeclaration } from '@hypermod/utils';
 import { type API, type ASTPath, type FileInfo, type ImportDeclaration } from 'jscodeshift';
 
-import { addCommentBefore } from '@atlaskit/codemod-utils/support';
+import { addCommentBefore, hasJSXAttributeWithValue } from '@atlaskit/codemod-utils/support';
 
 import {
 	NEW_BUTTON_ENTRY_POINT,
@@ -9,7 +9,6 @@ import {
 	migrateButtonToSubtleLinkButton,
 	migrateSubtleButtonToSubtleLinkButton,
 } from '../utils/constants';
-import { findJSXAttributeWithValue } from '../utils/find-attribute-with-value';
 import { modifyLinkAttributes } from '../utils/modify-link-attributes';
 import moveIconValueFromLinkButtonPropsToLinkChildren from '../utils/move-icon-value-from-link-button-to-link-children';
 
@@ -61,15 +60,11 @@ function transformer(file: FileInfo, api: API): string {
 	allLinkButtons
 		.filter(
 			(path) =>
-				findJSXAttributeWithValue(path.value.openingElement, 'appearance', 'link') ||
-				findJSXAttributeWithValue(path.value.openingElement, 'appearance', 'subtle-link'),
+				hasJSXAttributeWithValue(path.value.openingElement, 'appearance', 'link') ||
+				hasJSXAttributeWithValue(path.value.openingElement, 'appearance', 'subtle-link'),
 		)
 		.forEach((path) => {
-			const hasSpacingNone = findJSXAttributeWithValue(
-				path.value.openingElement,
-				'spacing',
-				'none',
-			);
+			const hasSpacingNone = hasJSXAttributeWithValue(path.value.openingElement, 'spacing', 'none');
 			if (!hasSpacingNone) {
 				let oldAppearanceValue;
 				j(path)

@@ -15,7 +15,6 @@ import type { AuthError } from '@atlaskit/outbound-auth-flow-client/error';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { ROVO_POST_MESSAGE_EVENT_TYPE } from '@atlaskit/rovo-triggers/post-message-to-pubsub';
 import { type ChatSmartLink3PPostAuthLaunchPayload } from '@atlaskit/rovo-triggers/types';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import { SmartLinkStatus } from '../../constants';
@@ -269,14 +268,7 @@ export const useSmartCardActions = (
 							fg('platform_sl_3p_post_auth_chat_open_fg') &&
 							getIsRovoChatEnabled(rovoOptionsRef.current);
 
-						// Experiment check: fires exposure for both control and treatment.
-						// Only reached after eligibility preconditions + kill switch pass, so
-						// exposure is counted for the triggered eligible pool.
-						const isPostAuthChatTreatment =
-							isEligibleForPostAuthChat &&
-							expValEquals('platform_sl_3p_post_auth_chat_open_exp', 'isEnabled', true);
-
-						if (status === 'unauthorized' && !isPostAuthChatTreatment) {
+						if (status === 'unauthorized' && !isEligibleForPostAuthChat) {
 							const provider = extractSmartLinkProvider(details);
 							flags.showConnectFlag({
 								id: `smart-link-connect-success-${extensionKey}`,
@@ -286,7 +278,7 @@ export const useSmartCardActions = (
 
 						reload();
 
-						if (isPostAuthChatTreatment) {
+						if (isEligibleForPostAuthChat) {
 							sendPostAuthChatOpenMessage(url, extractSmartLinkTitle(details));
 						}
 					},

@@ -104,6 +104,7 @@ type ProductivityColorPopupContentProps = {
 	colorPreviewEmojis: Partial<Record<ProductivityColor, EmojiDescription>>;
 	focusSelectedColorOnMount: boolean;
 	onColorSelected: (color: ProductivityColor) => void;
+	onEscape: () => void;
 	selectedColor: ProductivityColor;
 };
 
@@ -111,6 +112,7 @@ const ProductivityColorPopupContent = ({
 	colorPreviewEmojis,
 	focusSelectedColorOnMount,
 	onColorSelected,
+	onEscape,
 	selectedColor,
 }: ProductivityColorPopupContentProps) => {
 	const popupRef = useRef<HTMLDivElement>(null);
@@ -144,6 +146,16 @@ const ProductivityColorPopupContent = ({
 
 			event.stopPropagation();
 		};
+		const handleEscape = (event: globalThis.KeyboardEvent) => {
+			if (
+				fg('platform_emoji_color_picker_escape_focus') &&
+				(event.key === 'Escape' || event.key === 'Esc')
+			) {
+				event.preventDefault();
+				event.stopPropagation();
+				onEscape();
+			}
+		};
 
 		window.addEventListener('pointerdown', stopNonInputDismissalBeforeDocument, true);
 		window.addEventListener('mousedown', stopNonInputDismissalBeforeDocument, true);
@@ -151,6 +163,7 @@ const ProductivityColorPopupContent = ({
 		popupElement.addEventListener('pointerdown', stopNonInputDismissal);
 		popupElement.addEventListener('mousedown', stopNonInputDismissal);
 		popupElement.addEventListener('click', stopNonInputDismissal);
+		popupElement.addEventListener('keydown', handleEscape);
 
 		return () => {
 			window.removeEventListener('pointerdown', stopNonInputDismissalBeforeDocument, true);
@@ -159,8 +172,9 @@ const ProductivityColorPopupContent = ({
 			popupElement.removeEventListener('pointerdown', stopNonInputDismissal);
 			popupElement.removeEventListener('mousedown', stopNonInputDismissal);
 			popupElement.removeEventListener('click', stopNonInputDismissal);
+			popupElement.removeEventListener('keydown', handleEscape);
 		};
-	}, []);
+	}, [onEscape]);
 
 	return (
 		<div ref={popupRef} css={productivityColorPopup}>
@@ -280,6 +294,11 @@ const TonesWrapper = (props: TonesWrapperProps) => {
 		[onProductivityColorSelected, onToneClose],
 	);
 
+	const onProductivityColorEscape = useCallback(() => {
+		onToneClose();
+		setFocusTonePreviewButton(true);
+	}, [onToneClose]);
+
 	const onProductivityColorToggle = useCallback(
 		(event?: MouseEvent<HTMLButtonElement>) => {
 			const isKeyboardClick = event?.detail === 0;
@@ -294,11 +313,21 @@ const TonesWrapper = (props: TonesWrapperProps) => {
 
 	const onProductivityColorPreviewKeyDown = useCallback(
 		(event: KeyboardEvent<HTMLButtonElement>) => {
+			if (
+				showToneSelector &&
+				fg('platform_emoji_color_picker_escape_focus') &&
+				(event.key === 'Escape' || event.key === 'Esc')
+			) {
+				event.preventDefault();
+				event.stopPropagation();
+				onProductivityColorEscape();
+				return;
+			}
 			if (event.key === 'Enter' || event.key === ' ' || event.key === 'Spacebar') {
 				openProductivityColorSelectorWithKeyboard.current = true;
 			}
 		},
-		[],
+		[onProductivityColorEscape, showToneSelector],
 	);
 
 	const shouldShowProductivityColorSelector = !!(
@@ -339,6 +368,7 @@ const TonesWrapper = (props: TonesWrapperProps) => {
 								focusSelectedColorOnMount={focusSelectedProductivityColorOnMount}
 								selectedColor={selectedProductivityColor}
 								onColorSelected={onProductivityColorSelectedHandler}
+								onEscape={onProductivityColorEscape}
 							/>
 						</div>
 					)}

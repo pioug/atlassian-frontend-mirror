@@ -1,5 +1,13 @@
 # @atlaskit/teams-client
 
+## 6.2.1
+
+### Patch Changes
+
+- [`876ff1e379f05`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/876ff1e379f05) -
+  Preserve public Teams Client aliases with distinct source entry points that share their existing
+  singleton implementations.
+
 ## 6.2.0
 
 ### Minor Changes

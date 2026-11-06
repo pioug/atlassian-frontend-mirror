@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "242.0.13",
+	"version": "242.0.17",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -193,10 +193,6 @@
 	},
 	"platform-feature-flags": {
 		"platform_editor_ai_show_diff_patch_2": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"confluence_ncs_step_diffing_version_history": {
 			"type": "boolean",
 			"referenceOnly": true
 		},

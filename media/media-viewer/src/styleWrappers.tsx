@@ -22,6 +22,7 @@ import Heading from '@atlaskit/heading/heading';
 import type { MediaType } from '@atlaskit/media-common/main-types';
 import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import SlideIn from '@atlaskit/motion/slide-in';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box } from '@atlaskit/primitives/box';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
@@ -614,6 +615,11 @@ const insetViewerImgStyles = css({
 
 const pixelatedImgStyles = css({
 	imageRendering: 'pixelated',
+});
+
+const whiteBackgroundImgStyles = css({
+	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+	backgroundColor: 'white', // Masks transparency so the dark blanket doesn't show through
 });
 
 const medatadataTextWrapperStyles = css({
@@ -1358,6 +1364,7 @@ export const Img: ForwardRefExoticComponent<ImgProps & RefAttributes<HTMLImageEl
 						imgStyles,
 						shouldPixelate && pixelatedImgStyles,
 						isInsetViewer && insetViewerImgStyles,
+						fg('platform_media_white_bg_transparent_images') && whiteBackgroundImgStyles,
 					]}
 					alt={alt}
 					data-testid={datatestId}

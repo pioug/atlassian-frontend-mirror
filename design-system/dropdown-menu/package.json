@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/dropdown-menu",
-	"version": "21.0.5",
+	"version": "21.1.0",
 	"description": "A dropdown menu displays a list of actions or options to a user.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -111,6 +111,12 @@
 			"type": "boolean"
 		},
 		"platform-dst-top-layer": {
+			"type": "boolean"
+		},
+		"platform-dst-tokens-finesse": {
+			"type": "boolean"
+		},
+		"platform-dst-new-menu": {
 			"type": "boolean"
 		}
 	},

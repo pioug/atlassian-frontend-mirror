@@ -152,6 +152,54 @@ test.describe('Popup top-layer — WCAG 2.4.3 Focus Order', () => {
 		await page.keyboard.press('Escape');
 		await expect(trigger).toBeFocused();
 	});
+
+	/**
+	 * `shouldReturnFocus={false}` has no effect on the top layer: native focus return wins, as for
+	 * ModalDialog. A consumer that wants another target focuses it in `onClose`. Twin of the legacy
+	 * "Should not return focus to trigger when configured" test in `../../popup.spec.tsx`.
+	 */
+	test('focus returns to trigger after Escape even when shouldReturnFocus is false', async ({
+		page,
+	}) => {
+		await page.visitExample<typeof import('../../../../../examples/should-not-return-focus.tsx')>(
+			'design-system',
+			'popup',
+			'should-not-return-focus',
+			{
+				featureFlag,
+			},
+		);
+
+		const trigger = page.getByText('Trigger');
+		const content = page.getByText('Content');
+
+		await trigger.focus();
+		await trigger.press('Enter');
+		await expect(content).toBeFocused();
+
+		await page.keyboard.press('Escape');
+		await expect(content).toBeHidden();
+		await expect(trigger).toBeFocused();
+	});
+
+	test('a press outside leaves focus on the pressed element', async ({ page }) => {
+		await page.visitExample<
+			typeof import('../../../../../examples/21-popup-should-render-to-parent.tsx')
+		>('design-system', 'popup', 'popup-should-render-to-parent', {
+			featureFlag,
+		});
+
+		const trigger = page.getByTestId('popup-trigger');
+		const outsideButton = page.getByTestId('button-0');
+
+		await trigger.focus();
+		await trigger.press('Enter');
+		await expect(page.getByTestId('popup--container')).toBeVisible();
+
+		await outsideButton.click();
+		await expect(page.getByTestId('popup--container')).toBeHidden();
+		await expect(outsideButton).toBeFocused();
+	});
 });
 
 type FocusOptionsWithVisible = NonNullable<Parameters<HTMLElement['focus']>[0]> & {
@@ -718,5 +766,28 @@ test.describe('Popup top-layer — Dialog role focus behavior', () => {
 
 		await page.getByTestId('button-1').click();
 		await expect(dialog).toBeHidden();
+	});
+});
+
+test.describe('Popup top-layer — Manual mode light dismiss', () => {
+	test('an outside press that leaves focus in the popup does not return focus to the trigger', async ({
+		page,
+	}) => {
+		await page.visitExample<
+			typeof import('../../../../../examples/testing-manual-light-dismiss-focus.tsx')
+		>('design-system', 'popup', 'testing-manual-light-dismiss-focus', { featureFlag });
+
+		// Open with the keyboard, as Safari and Firefox on macOS do not focus a clicked button.
+		const trigger = page.getByRole('button', { name: 'Open manual popup' });
+		await trigger.focus();
+		await page.keyboard.press('Enter');
+		await expect(page.getByTestId('manual-popup-inside')).toBeFocused();
+
+		// This element cancels `mousedown`, so the press does not move focus out of the popup.
+		await page.getByTestId('press-without-focus').click();
+
+		await expect(page.getByTestId('manual-popup-inside')).toBeHidden();
+		await expect(trigger).not.toBeFocused();
+		await expect(page.locator('body')).toBeFocused();
 	});
 });

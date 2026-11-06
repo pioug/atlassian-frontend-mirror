@@ -1,5 +1,43 @@
 # @atlaskit/editor-plugin-paste
 
+## 31.2.0
+
+### Minor Changes
+
+- [`960570244e4c8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/960570244e4c8) -
+  Keep the text of a partially copied panel in the destination table cell, table header or expand
+  instead of inserting a new panel after it, behind platform_editor_paste_panel_c1_into_container
+
+### Patch Changes
+
+- [`4f6171751461e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4f6171751461e) -
+  Clean up experiment `platform_editor_paste_autoconvert_robustness`
+- Updated dependencies
+
+## 31.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 31.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 31.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 31.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 31.1.4
 
 ### Patch Changes

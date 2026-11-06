@@ -1,5 +1,23 @@
 # @atlaskit/popup
 
+## 10.2.2
+
+### Patch Changes
+
+- [`707b02e5709b3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/707b02e5709b3) -
+  Behind `platform-dst-top-layer`, Popup calls its content only while open, puts its `id` on one
+  element, and keeps a stable trigger ref. The trigger sets `aria-controls` only while open.
+- Updated dependencies
+
+## 10.2.1
+
+### Patch Changes
+
+- [`60b28ae0201d7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/60b28ae0201d7) -
+  `Popover` no longer returns focus to an element inside itself, and `useManualLightDismiss` blurs
+  focus that an outside press left inside the popover, as native light dismiss does.
+- Updated dependencies
+
 ## 10.2.0
 
 ### Minor Changes

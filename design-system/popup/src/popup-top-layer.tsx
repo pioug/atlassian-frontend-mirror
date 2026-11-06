@@ -34,6 +34,7 @@ import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 import { getPopupAxisSizes } from './internal/get-popup-axis-sizes';
 import { getTriggerRole } from './internal/get-trigger-role';
+import { PopupContentRenderer } from './internal/popup-content-renderer';
 import { useRoleProps } from './internal/top-layer-bridge';
 import {
 	type ContentProps,
@@ -101,7 +102,8 @@ export const PopupTopLayer: FC<DialogPopupProps | PopupProps> = memo(function Po
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	autoFocus: _autoFocus = true,
 	shouldFitContainer = false,
-	// top-layer: focus restoration is handled natively by the Popover API. No-op.
+	// top-layer: the Popover API returns focus natively, and `false` does not stop it. No-op.
+	// To focus another element, focus it in `onClose`.
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	shouldReturnFocus: _shouldReturnFocus = true,
 	role,
@@ -151,6 +153,10 @@ export const PopupTopLayer: FC<DialogPopupProps | PopupProps> = memo(function Po
 }: DialogPopupProps | PopupProps) {
 	const onClose = providedOnClose ?? noop;
 	const triggerRef = useRef<HTMLElement | null>(null);
+	// Stable, so the trigger ref is not detached and attached again on every render.
+	const setTriggerRef = useCallback((node: HTMLElement | null) => {
+		triggerRef.current = node;
+	}, []);
 	const popoverRef = useRef<HTMLDivElement>(null);
 
 	/**
@@ -207,34 +213,16 @@ export const PopupTopLayer: FC<DialogPopupProps | PopupProps> = memo(function Po
 	/**
 	 * Manual mode: the browser never light-dismisses the popover, so a press on the trigger does not
 	 * close it. With `onClose`, an outside press or Escape calls it, as on an auto popup. The trigger
-	 * is exempt.
+	 * is exempt. The hook blurs focus that an outside press left inside, so the close does not return
+	 * focus, as with native light dismiss.
 	 */
 	const isManual = mode === 'manual';
 	const triggerRefs = useMemo(() => [triggerRef], []);
-	const handleManualLightDismiss = useCallback(
-		({ reason }: { reason: TPopoverCloseReason }) => {
-			if (reason !== 'light-dismiss') {
-				handleOnClose({ reason });
-				return;
-			}
-			// Native light dismiss does not restore focus, but the consumer's programmatic close does
-			// when focus is inside the popover. The press usually moved focus out already. If not (for
-			// example an outside `mousedown` called `preventDefault()`), blur first, as an auto light
-			// dismiss would.
-			const popover = popoverRef.current;
-			const activeElement = popover?.ownerDocument.activeElement;
-			if (activeElement instanceof HTMLElement && popover?.contains(activeElement)) {
-				activeElement.blur();
-			}
-			handleOnClose({ reason });
-		},
-		[handleOnClose],
-	);
 	useManualLightDismiss({
 		isOpen: isOpen && isManual && Boolean(providedOnClose),
 		popoverRef,
 		additionalInsideElementRefs: triggerRefs,
-		onClose: handleManualLightDismiss,
+		onClose: handleOnClose,
 	});
 
 	// Content render-prop bridge.
@@ -278,9 +266,7 @@ export const PopupTopLayer: FC<DialogPopupProps | PopupProps> = memo(function Po
 
 	// Map to legacy TriggerProps.
 	const triggerProps: TriggerProps = {
-		ref: (node: HTMLElement | null) => {
-			triggerRef.current = node;
-		},
+		ref: setTriggerRef,
 		'aria-controls': ariaAttributes['aria-controls'],
 		// `aria-expanded` reflects current open state.
 		'aria-expanded': ariaAttributes['aria-expanded'],
@@ -303,8 +289,9 @@ export const PopupTopLayer: FC<DialogPopupProps | PopupProps> = memo(function Po
 			>
 				{Container ? (
 					<Container
+						// No `id`: the `Popover` host has it, and the trigger's `aria-controls` points at
+						// the host. Passing it here too would put the same `id` on two elements.
 						style={EMPTY_STYLE}
-						id={providedId}
 						data-placement={placement}
 						data-testid={testId}
 						tabIndex={-1}
@@ -313,7 +300,9 @@ export const PopupTopLayer: FC<DialogPopupProps | PopupProps> = memo(function Po
 						// `overflow: auto` branch off it.
 						shouldFitViewport={shouldFitViewport}
 					>
-						<MotionPresenceBoundary>{content(contentProps)}</MotionPresenceBoundary>
+						<MotionPresenceBoundary>
+							<PopupContentRenderer render={content} contentProps={contentProps} />
+						</MotionPresenceBoundary>
 					</Container>
 				) : (
 					// `PopoverSurface` owns `overflow: auto` and the `box-shadow` on the
@@ -328,7 +317,9 @@ export const PopupTopLayer: FC<DialogPopupProps | PopupProps> = memo(function Po
 							className={xcss}
 							data-testid={testId}
 						>
-							<MotionPresenceBoundary>{content(contentProps)}</MotionPresenceBoundary>
+							<MotionPresenceBoundary>
+								<PopupContentRenderer render={content} contentProps={contentProps} />
+							</MotionPresenceBoundary>
 						</div>
 					</PopoverSurface>
 				)}

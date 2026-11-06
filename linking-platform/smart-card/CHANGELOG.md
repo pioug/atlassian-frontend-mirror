@@ -1,5 +1,62 @@
 # @atlaskit/smart-card
 
+## 46.13.11
+
+### Patch Changes
+
+- [`ae16152bb7842`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ae16152bb7842) -
+  Cleanup `feature_gate` `jfp-magma-platform-lozenge-jump-fix`. Inline card lozenges now always use
+  relative positioning (`top: -1px`) to align with text without causing a layout shift.
+
+## 46.13.10
+
+### Patch Changes
+
+- [`fee3f4bde13ca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fee3f4bde13ca) -
+  Cleanup `feature_gate` `platform_sl_3p_auth_rovo_embed_footer_kill_switch`. The Confluence embed
+  card Rovo actions footer setup is now always enabled.
+- Updated dependencies
+
+## 46.13.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.13.8
+
+### Patch Changes
+
+- [`7f0754c33e3cc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7f0754c33e3cc) -
+  [ux] Add a Rovo "Visualize" prompt for Google Sheets Smart Links (inline, block and embed card) in
+  Confluence, behind the `platform_sl_3p_auth_visualize_exp` experiment and
+  `platform_sl_3p_auth_visualize_killswitch` kill switch.
+- [`6429528944cd2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6429528944cd2) -
+  Clean up `platform-smart-card-shift-key` while retaining the existing Ctrl and Command click
+  behavior.
+- Updated dependencies
+
+## 46.13.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.13.6
+
+### Patch Changes
+
+- [`4ae03b7faac86`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4ae03b7faac86) -
+  Make the shipped Google Smart Link post-auth Rovo Chat treatment permanent behind its feature
+  gate.
+- Updated dependencies
+
+## 46.13.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 46.13.4
 
 ### Patch Changes

@@ -23,6 +23,7 @@ import DropdownmenuFocusToRefOnCloseExample from '../21-dropdownmenu-focus-to-re
 import DropdownmenuFocusWhenRefNotProvidedExample from '../22-dropdownmenu-focus-when-ref-not-provided';
 import DropdownmenuFocusOnCustomTriggerExample from '../23-dropdownmenu-focus-on-custom-trigger';
 import DropdownTriggerFocusClickOutsideExample from '../30-dropdown-trigger-focus-click-outside';
+import NewDropdownMenuItemExample from '../40-new-dropdown-item';
 import TestingShouldPreventEscapePropagationExample from '../88-testing-should-prevent-escape-propagation';
 import TestingKeyboardNavigationDisabledItemsExample from '../89-testing-keyboard-navigation-disabled-items';
 import TestingReturnFocusRefRenderedInParentExample from '../90-testing-return-focus-ref-rendered-in-parent';
@@ -149,4 +150,8 @@ export const SelectionStatesVr: WorkbenchExample<typeof SelectionStatesVrExample
 	wb(SelectionStatesVrExample);
 export const TestingTopLayerFocus: WorkbenchExample<typeof TestingTopLayerFocusExample> = wb(
 	TestingTopLayerFocusExample,
+);
+
+export const NewDropdownMenuItem: WorkbenchExample<typeof NewDropdownMenuItemExample> = wb(
+	NewDropdownMenuItemExample,
 );

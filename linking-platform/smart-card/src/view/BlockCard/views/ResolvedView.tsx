@@ -15,6 +15,7 @@ import extractRovoChatAction from '../../../extractors/flexible/actions/extract-
 import { getExtensionKey } from '../../../state/getExtensionKey';
 import useBlockCardRovoAction from '../../../state/hooks/use-block-card-rovo-action-experiment';
 import useRovoConfig from '../../../state/hooks/use-rovo-config';
+import { isRovoChatActionVisualizeEnabled } from '../../../utils/is-rovo-chat-action-visualize-enabled';
 import { RovoChatPromptKey } from '../../common/rovo-chat-utils';
 import FlexibleCard from '../../FlexibleCard';
 import { default as FooterBlock } from '../../FlexibleCard/components/blocks/footer-block';
@@ -111,13 +112,26 @@ const ResolvedView = ({
 				extensionKey === 'google-object-provider' &&
 				linkType?.includes('schema:SpreadsheetDigitalDocument')
 			) {
+				if (
+					isRovoChatActionVisualizeEnabled({
+						extensionKey,
+						product: rovoConfig?.product,
+						response: cardState?.details,
+					})
+				) {
+					return [
+						RovoChatPromptKey.IDENTIFY_KEY_TRENDS,
+						RovoChatPromptKey.VISUALIZE,
+						...defaultPrompts,
+					];
+				}
 				return [RovoChatPromptKey.IDENTIFY_KEY_TRENDS, ...defaultPrompts];
 			}
 
 			return [RovoChatPromptKey.SUMMARIZE_LINK, ...defaultPrompts];
 		}
 		return [];
-	}, [cardState?.details?.data, extensionKey, is3PRovoBlockRovoActionEnabled]);
+	}, [cardState?.details, extensionKey, is3PRovoBlockRovoActionEnabled, rovoConfig?.product]);
 
 	const footerActions: ActionItem[] = useMemo(() => {
 		const showRovoResolvedView =

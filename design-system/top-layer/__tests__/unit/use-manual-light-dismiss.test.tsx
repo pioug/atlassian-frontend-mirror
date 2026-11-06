@@ -629,6 +629,53 @@ describe('useManualLightDismiss()', () => {
 		expect(first).not.toHaveBeenCalled();
 		expect(second).toHaveBeenCalledTimes(1);
 	});
+
+	// The subject popover is closed by default, and closed popover content cannot take focus.
+	function showSubjectAndFocus({ name }: { name: string }): HTMLElement {
+		act(() => screen.getByTestId('subject').showPopover());
+		const element = screen.getByRole('button', { name });
+		act(() => element.focus());
+		expect(element).toHaveFocus();
+		return element;
+	}
+
+	it('blurs focus that an outside press left inside the popover, before calling onClose', () => {
+		let isInsideFocusedInOnClose: boolean | null = null;
+		const onClose = jest.fn(() => {
+			isInsideFocusedInOnClose = screen.getByRole('button', { name: 'Inside' }).matches(':focus');
+		});
+		render(<Subject onClose={onClose} />);
+		showSubjectAndFocus({ name: 'Inside' });
+
+		// The press does not move focus, as when the pressed element cancels `mousedown`.
+		firePress({ start: screen.getByRole('button', { name: 'Outside' }) });
+
+		expect(onClose).toHaveBeenCalledWith({ reason: 'light-dismiss' });
+		expect(isInsideFocusedInOnClose).toBe(false);
+		expect(document.body).toHaveFocus();
+	});
+
+	it('keeps focus that an outside press moved out of the popover', () => {
+		const onClose = jest.fn();
+		render(<Subject onClose={onClose} />);
+		const outside = showSubjectAndFocus({ name: 'Outside' });
+
+		firePress({ start: outside });
+
+		expect(onClose).toHaveBeenCalledWith({ reason: 'light-dismiss' });
+		expect(outside).toHaveFocus();
+	});
+
+	it('does not blur focus inside the popover on Escape', () => {
+		const onClose = jest.fn();
+		render(<Subject onClose={onClose} />);
+		const inside = showSubjectAndFocus({ name: 'Inside' });
+
+		fireKeyDown({ target: inside });
+
+		expect(onClose).toHaveBeenCalledWith({ reason: 'escape' });
+		expect(inside).toHaveFocus();
+	});
 });
 
 describe('useManualLightDismiss() inside a Dialog', () => {
@@ -1334,6 +1381,20 @@ describe("useManualLightDismiss() with mode: 'page-surface'", () => {
 		firePress({ start: screen.getByRole('button', { name: 'Outside' }) });
 
 		expect(onSurfaceClose).toHaveBeenCalledWith({ reason: 'light-dismiss' });
+	});
+
+	// The blur only stops the focus return of a `Popover`, and a page surface is not one.
+	it('does not blur focus that an outside press left inside the surface', () => {
+		const onSurfaceClose = jest.fn();
+		render(<Page onSurfaceClose={onSurfaceClose} />);
+		const inside = screen.getByRole('button', { name: 'Inside surface' });
+		act(() => inside.focus());
+
+		// The press does not move focus, as when the pressed element cancels `mousedown`.
+		firePress({ start: screen.getByRole('button', { name: 'Outside' }) });
+
+		expect(onSurfaceClose).toHaveBeenCalledWith({ reason: 'light-dismiss' });
+		expect(inside).toHaveFocus();
 	});
 
 	it('closes on Escape while no layer is open', () => {

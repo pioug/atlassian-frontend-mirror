@@ -583,13 +583,6 @@ describe('Smart Card: Actions', () => {
 	});
 
 	describe('post-auth Chat auto-open', () => {
-		beforeEach(() => {
-			jest.clearAllMocks();
-
-			const { expValEquals } = jest.requireMock('@atlaskit/tmp-editor-statsig/exp-val-equals');
-			expValEquals.mockReturnValue(false);
-		});
-
 		const gdriveMockDetails = {
 			meta: {
 				access: 'unauthorized',
@@ -608,9 +601,6 @@ describe('Smart Card: Actions', () => {
 		const enabledRovoOptions = { isRovoEnabled: true, isRovoLLMEnabled: true };
 
 		const setupPostAuthTest = () => {
-			const { expValEquals } = jest.requireMock('@atlaskit/tmp-editor-statsig/exp-val-equals');
-			expValEquals.mockReturnValue(true);
-
 			mockContext.rovoOptions = enabledRovoOptions;
 			const mockPostMessage = jest.spyOn(window, 'postMessage').mockImplementation(jest.fn());
 			const mockShowConnectFlag = jest.fn();
@@ -622,11 +612,11 @@ describe('Smart Card: Actions', () => {
 				[url]: { status: 'unauthorized', details: gdriveMockDetails },
 			}));
 
-			return { expValEquals, mockPostMessage, mockShowConnectFlag };
+			return { mockPostMessage, mockShowConnectFlag };
 		};
 
 		describe('platform_sl_3p_post_auth_chat_open_fg is on', () => {
-			it('posts chat-new message after successful GDrive auth when gate on + treatment', async () => {
+			it('posts chat-new message after successful GDrive auth when gate is on', async () => {
 				passGate('platform_sl_3p_post_auth_chat_open_fg');
 
 				const { mockPostMessage, mockShowConnectFlag } = setupPostAuthTest();
@@ -673,28 +663,6 @@ describe('Smart Card: Actions', () => {
 
 			expect(mockPostMessage).not.toHaveBeenCalled();
 			expect(mockShowConnectFlag).toHaveBeenCalled();
-		});
-
-		describe('platform_sl_3p_post_auth_chat_open_fg is on', () => {
-			it('does NOT post chat-new message when in experiment control group', async () => {
-				passGate('platform_sl_3p_post_auth_chat_open_fg');
-
-				const { expValEquals, mockPostMessage, mockShowConnectFlag } = setupPostAuthTest();
-				expValEquals.mockReturnValue(false);
-				url = 'https://docs.google.com/document/d/abc123/edit';
-				mockFetchData(Promise.resolve(mocks.success));
-
-				const result = renderHook(() => useSmartCardActions(id, url));
-				await result.current.authorize('inline');
-
-				expect(expValEquals).toHaveBeenCalledWith(
-					'platform_sl_3p_post_auth_chat_open_exp',
-					'isEnabled',
-					true,
-				);
-				expect(mockPostMessage).not.toHaveBeenCalled();
-				expect(mockShowConnectFlag).toHaveBeenCalled();
-			});
 		});
 
 		it('does NOT post chat-new message for non-GDrive providers', async () => {

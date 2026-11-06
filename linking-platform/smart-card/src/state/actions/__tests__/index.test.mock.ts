@@ -64,6 +64,3 @@ jest.doMock('@atlaskit/link-provider/use-smart-link-context', () => ({
 jest.doMock('@atlaskit/rovo-triggers/post-message-to-pubsub', () => ({
 	ROVO_POST_MESSAGE_EVENT_TYPE: 'rovo-post-message',
 }));
-jest.doMock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
-	expValEquals: jest.fn().mockReturnValue(true),
-}));

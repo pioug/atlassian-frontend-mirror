@@ -26,9 +26,6 @@
 			"path": "../../adf-schema/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../../analytics/analytics-namespaced-context/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../../design-system/css/afm-products/tsconfig.json"
 		},
 		{

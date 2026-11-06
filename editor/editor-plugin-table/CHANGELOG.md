@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-table
 
+## 42.3.6
+
+### Patch Changes
+
+- [`6b39e1960a578`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6b39e1960a578) -
+  Clean up feature gate `platform_editor_table_view_mode_scaling_fix`
+- Updated dependencies
+
+## 42.3.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 42.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 42.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 42.3.2
 
 ### Patch Changes

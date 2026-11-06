@@ -1,5 +1,56 @@
 # @atlaskit/editor-toolbar
 
+## 2.10.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.10.0
+
+### Minor Changes
+
+- [`1bade6c23d0b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1bade6c23d0b8) -
+  Add optional product-owned Writing Styles discovery, reactive toolbar badge wrappers, and
+  style-selection callbacks that receive the selected item's stable ID before rewriting. Observer
+  errors do not prevent rewrites, and local actions keep their existing callbacks. Add controlled
+  nested-menu props for opening the Writing Styles submenu. Consumers that omit the new options
+  retain their current menu behavior. Confluence supplies the discovery component and badge
+  visibility separately under the existing rovo_response_and_writing_styles_mvt assignment.
+
+## 2.9.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.9.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.9.0
+
+### Minor Changes
+
+- [`2d08872dfd3da`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2d08872dfd3da) -
+  Add an optional product-supplied async AI credit decision accepting a typed Editor feature-name
+  context object and returning a content renderer, with the editor block menu as the first consumer.
+  Menu actions declare optional credit-check configuration. Editor owns popup activation and
+  lifecycle; Confluence owns credit state and experiment eligibility. Export the shared credit
+  content for host-owned popups.
+
+  Blocked decisions require product-supplied content. If the advisory check rejects, Editor allows
+  the action to proceed; its backend remains authoritative for enforcement.
+
+  Confluence selects the guard with `confluence_ubp_edit_with_rovo_afm` behind the
+  `rovo_credits_degradation_ui` prerequisite, recording both cohorts at registration.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.8.51
 
 ### Patch Changes

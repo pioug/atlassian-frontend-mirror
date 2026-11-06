@@ -52,7 +52,13 @@ const CardExample = ({
 			<Box paddingBlockStart="space.025">
 				{isEmbedSupported ? (
 					<ErrorBoundary fallback={fallback} onError={onError}>
-						<Card appearance="embed" frameStyle="show" platform="web" url={url} />
+						<Card
+							actionOptions={actionOptions}
+							appearance="embed"
+							frameStyle="show"
+							platform="web"
+							url={url}
+						/>
 					</ErrorBoundary>
 				) : (
 					<Text size="small">(Whoops! This link does not support embed view.)</Text>

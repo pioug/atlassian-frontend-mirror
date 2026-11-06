@@ -9,6 +9,7 @@ import { css, jsx } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
 import { cssMap, cx } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
@@ -61,6 +62,15 @@ const styles = cssMap({
 		'&:hover': {
 			color: token('color.text.selected'),
 			borderBottomColor: token('color.border.brand'),
+		},
+	},
+
+	focusedCategoryNew: {
+		'&:focus-visible': {
+			outlineColor: token('color.border.focused'),
+			outlineStyle: 'solid',
+			outlineWidth: token('border.width.focused'),
+			outlineOffset: token('space.negative.025'),
 		},
 	},
 
@@ -240,6 +250,7 @@ const CategorySelector = (props: Props): JSX.Element => {
 								xcss={cx(
 									styles.commonCategoryNew,
 									styles.defaultCategoryNew,
+									fg('platform_ally_emoji_fixes_various') && styles.focusedCategoryNew,
 									categoryId === activeCategoryId && styles.activeCategoryNew,
 									disableCategories && styles.disabledCategory,
 								)}

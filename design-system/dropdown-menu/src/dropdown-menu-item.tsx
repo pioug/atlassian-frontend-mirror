@@ -6,6 +6,7 @@ import CustomItem from '@atlaskit/menu/custom-item';
 import LinkItem from '@atlaskit/menu/link-item';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
+import NewDropdownMenuItem from './dropdown-menu-item-new';
 import useRegisterItemWithFocusManager from './internal/hooks/use-register-item-with-focus-manager';
 import { type CustomItemHtmlProps, type DropdownItemProps } from './types';
 
@@ -26,28 +27,33 @@ const DropdownMenuItem: React.ForwardRefExoticComponent<
 			children,
 			component,
 			description,
-			elemAfter,
 			elemBefore,
-			href,
-			isDisabled,
-			isSelected,
-			onClick,
-			rel,
-			shouldDescriptionWrap = true,
+			elemAfter,
 			shouldTitleWrap = true,
+			shouldDescriptionWrap = true,
+			isSelected,
+			isDisabled,
+			hasNestedMenu,
+			shortcut,
+			appearance,
+			href,
+			onClick,
 			target,
+			rel,
 			testId,
 			UNSAFE_shouldDisableRouterLink,
 			returnFocusRef,
 			interactionName,
 			role,
+			'aria-haspopup': ariaHasPopup,
+			'aria-expanded': ariaExpanded,
 			...rest
 		}: DropdownItemProps,
 		ref,
 	) => {
 		// Nested submenu triggers register with the focus manager inside DropdownMenu.
 		// Dialog triggers must register here so arrow navigation can reach them.
-		const isNestedTrigger = !!rest['aria-haspopup'] && rest['aria-haspopup'] !== 'dialog';
+		const isNestedTrigger = !!ariaHasPopup && ariaHasPopup !== 'dialog';
 		const itemRef = useRegisterItemWithFocusManager(isNestedTrigger);
 
 		const handleItemClick = useCallback(
@@ -61,6 +67,32 @@ const DropdownMenuItem: React.ForwardRefExoticComponent<
 			},
 			[onClick, returnFocusRef],
 		);
+
+		if (fg('platform-dst-new-menu')) {
+			return (
+				<NewDropdownMenuItem
+					title={children}
+					description={description}
+					elemBefore={elemBefore}
+					elemAfter={elemAfter}
+					shouldTitleWrap={shouldTitleWrap}
+					shouldDescriptionWrap={shouldDescriptionWrap}
+					isSelected={isSelected}
+					isDisabled={isDisabled}
+					hasNestedMenu={hasNestedMenu}
+					shortcut={shortcut}
+					appearance={appearance}
+					href={href}
+					onClick={handleItemClick}
+					target={target}
+					rel={rel}
+					testId={testId}
+					aria-haspopup={ariaHasPopup}
+					aria-expanded={ariaExpanded}
+					ref={mergeRefs([ref, itemRef])}
+				/>
+			);
+		}
 
 		if (component) {
 			return (
@@ -83,13 +115,16 @@ const DropdownMenuItem: React.ForwardRefExoticComponent<
 					target={target}
 					rel={rel}
 					interactionName={interactionName}
+					aria-haspopup={ariaHasPopup}
+					aria-expanded={ariaExpanded}
 					// DSP-13312 TODO: remove spread props in future major release
 					{...rest}
 				>
 					{children}
 				</CustomItem>
 			);
-		} else if (href) {
+		}
+		if (href) {
 			return (
 				<LinkItem
 					description={description}
@@ -108,45 +143,48 @@ const DropdownMenuItem: React.ForwardRefExoticComponent<
 					testId={testId}
 					UNSAFE_shouldDisableRouterLink={UNSAFE_shouldDisableRouterLink}
 					interactionName={interactionName}
+					aria-haspopup={ariaHasPopup}
+					aria-expanded={ariaExpanded}
 					// DSP-13312 TODO: remove spread props in future major release
 					{...rest}
 				>
 					{children}
 				</LinkItem>
 			);
-		} else {
-			return (
-				<ButtonItem
-					description={description}
-					iconAfter={elemAfter}
-					iconBefore={elemBefore}
-					isDisabled={isDisabled}
-					isSelected={isSelected}
-					onClick={handleItemClick}
-					ref={mergeRefs([ref, itemRef])}
-					role={role || 'menuitem'}
-					shouldDescriptionWrap={shouldDescriptionWrap}
-					shouldTitleWrap={shouldTitleWrap}
-					testId={testId}
-					// Thanks to spread props, these attributes are passed to CustomItem, even though
-					// it's not in the component's prop types.
-					// @ts-expect-error
-					target={target}
-					rel={rel}
-					interactionName={interactionName}
-					// DSP-13312 TODO: remove spread props in future major release
-					{...rest}
-					// When used as a nested submenu trigger, the item's open state is conveyed via
-					// `aria-expanded`. `aria-current` (which ButtonItem sets from `isSelected`) is
-					// inappropriate here and misleads screen reader users, so override it. (A11Y-29757)
-					{...(isNestedTrigger && fg('platform_dst_dropdown_nested_trigger_aria_current')
-						? { 'aria-current': undefined }
-						: {})}
-				>
-					{children}
-				</ButtonItem>
-			);
 		}
+		return (
+			<ButtonItem
+				description={description}
+				iconAfter={elemAfter}
+				iconBefore={elemBefore}
+				isDisabled={isDisabled}
+				isSelected={isSelected}
+				onClick={handleItemClick}
+				ref={mergeRefs([ref, itemRef])}
+				role={role || 'menuitem'}
+				shouldDescriptionWrap={shouldDescriptionWrap}
+				shouldTitleWrap={shouldTitleWrap}
+				testId={testId}
+				// Thanks to spread props, these attributes are passed to CustomItem, even though
+				// it's not in the component's prop types.
+				// @ts-expect-error
+				target={target}
+				rel={rel}
+				interactionName={interactionName}
+				aria-haspopup={ariaHasPopup}
+				aria-expanded={ariaExpanded}
+				// DSP-13312 TODO: remove spread props in future major release
+				{...rest}
+				// When used as a nested submenu trigger, the item's open state is conveyed via
+				// `aria-expanded`. `aria-current` (which ButtonItem sets from `isSelected`) is
+				// inappropriate here and misleads screen reader users, so override it. (A11Y-29757)
+				{...(isNestedTrigger && fg('platform_dst_dropdown_nested_trigger_aria_current')
+					? { 'aria-current': undefined }
+					: {})}
+			>
+				{children}
+			</ButtonItem>
+		);
 	},
 );
 

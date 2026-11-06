@@ -13,6 +13,6 @@ snapshotInformational(EmojiPickerWithUpload, {
 	],
 	prepare: async (page) => {
 		await page.getByTestId('sprite-emoji-:grinning:').hover();
-		await page.getByRole('searchbox', { name: 'Emoji name' }).focus();
+		await page.getByRole('searchbox', { name: 'Search emoji by name' }).focus();
 	},
 });

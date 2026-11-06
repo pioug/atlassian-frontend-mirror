@@ -1002,6 +1002,15 @@ describe('Avatar', () => {
 			expect(element.tagName).toBe('BUTTON');
 		});
 
+		// The popup role decides `aria-haspopup`. A role-less popup sets none, so its Avatar trigger
+		// stays a `span`. Avatar does not read `aria-expanded`.
+		it('should not render as a button when only aria-expanded is set', () => {
+			render(<Avatar testId={testId} name="Alexander Nevermind" aria-expanded={false} />);
+			const element = screen.getByTestId(`${testId}--inner`);
+
+			expect(element.tagName).toBe('SPAN');
+		});
+
 		it('should apply aria-label when aria-haspopup is set without onClick', () => {
 			render(<Avatar testId={testId} name="Alexander Nevermind" aria-haspopup={true} />);
 			const element = screen.getByTestId(`${testId}--inner`);

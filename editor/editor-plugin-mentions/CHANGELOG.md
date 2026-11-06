@@ -1,5 +1,55 @@
 # @atlaskit/editor-plugin-mentions
 
+## 32.1.6
+
+### Patch Changes
+
+- [`9a31ce5238178`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9a31ce5238178) -
+  Retire frontend evaluation of `convo_ai_entity_hover_cards_non_hello_exp`. Use
+  `rovo_chat_people_entity_hover_cards` alone for people annotation enrollment and mention-avatar
+  provider activation. Enable inferred projects through `rovo_chat_inferred_project_hover_cards` or
+  `convo_ai_entity_hover_cards_inferred_project_exp` with `inferred_project_cohort` set to
+  `treatment`, defaulting to control and skipping experiment evaluation when the gate is enabled.
+  Preserve independent editor avatar rollouts and the deprecated helper for compatibility.
+- Updated dependencies
+
+## 32.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 32.1.4
+
+### Patch Changes
+
+- [`ab90c400d397a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab90c400d397a) -
+  Apply corrected agent mention avatar geometry in both editor rendering paths for
+  `canvas_agentic_experiences_master_exp` alongside `platform_editor_agent_hexagon_ui_fix`.
+- Updated dependencies
+
+## 32.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 32.1.2
+
+### Patch Changes
+
+- [`f26f633c25699`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f26f633c25699) -
+  Move Rovo chat mention visuals and their supporting identity resolution, SSR cache reads and Chat
+  handoff metadata under platform_editor_mention_rovo_special_visual. Keep Rovo mention availability
+  and task routing under platform_editor_mention_rovo.
+- Updated dependencies
+
+## 32.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 32.1.0
 
 ### Minor Changes

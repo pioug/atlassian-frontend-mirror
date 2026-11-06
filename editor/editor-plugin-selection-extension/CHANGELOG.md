@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection-extension
 
+## 33.0.5
+
+### Patch Changes
+
+- [`dd3768b8944a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dd3768b8944a6) -
+  Delete unreachable source files and unused dependencies
+- Updated dependencies
+
 ## 33.0.4
 
 ### Patch Changes

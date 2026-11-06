@@ -24,6 +24,7 @@ import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSha
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { DecorationSet, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles/constants';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
 
@@ -142,6 +143,7 @@ export const TypeAheadPopup: React.MemoExoticComponent<
 	const moreElementsInQuickInsertViewEnabled =
 		moreElementsInQuickInsertView && triggerHandler.id === TypeAheadAvailableNodes.QUICK_INSERT;
 	const isEditorControlsEnabled = editorExperiment('platform_editor_controls', 'variant1');
+	const typeAheadOptimizationsEnabled = isExperimentEnabled('platform_editor_block_control_inp');
 
 	const defaultMenuHeight = useMemo(
 		() =>
@@ -266,7 +268,23 @@ export const TypeAheadPopup: React.MemoExoticComponent<
 		return setFitHeight(minFitHeight);
 	}, [anchorElement, defaultMenuHeight, popupsBoundariesElement, popupsMountPoint]);
 
-	const getFitHeightDebounced = rafSchedule(getFitHeight);
+	const stableGetFitHeightDebounced = useMemo(
+		() => (typeAheadOptimizationsEnabled ? rafSchedule(getFitHeight) : undefined),
+		[getFitHeight, typeAheadOptimizationsEnabled],
+	);
+	// A new rafSchedule instance on every render re-runs the layout effect below (two forced
+	// layouts plus listener re-binding) on every popup render; the memoised one keeps it stable.
+	const getFitHeightDebounced = stableGetFitHeightDebounced ?? rafSchedule(getFitHeight);
+
+	useEffect(() => {
+		if (stableGetFitHeightDebounced) {
+			// eslint-disable-next-line @atlassian/perf-linting/no-chain-state-updates -- rAF-batched measurement keeps popup geometry fresh without re-binding listeners
+			stableGetFitHeightDebounced();
+		}
+		// Cancel our own pending frame so this effect does not rely on the layout effect cleanup
+		// below. raf-schd's cancel() is a no-op when nothing is scheduled, so double-cancel is safe.
+		return () => stableGetFitHeightDebounced?.cancel();
+	}, [props.decorationSet, isEmptyQuery, items, stableGetFitHeightDebounced]);
 
 	useLayoutEffect(() => {
 		// Ignored via go/ees005
@@ -291,8 +309,15 @@ export const TypeAheadPopup: React.MemoExoticComponent<
 				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 				scrollableElement.removeEventListener('scroll', getFitHeightDebounced);
 			}
+			stableGetFitHeightDebounced?.cancel();
 		};
-	}, [anchorElement, popupsScrollableElement, getFitHeightDebounced, getFitHeight]);
+	}, [
+		anchorElement,
+		popupsScrollableElement,
+		getFitHeightDebounced,
+		getFitHeight,
+		stableGetFitHeightDebounced,
+	]);
 
 	useLayoutEffect(() => {
 		const { removePrefixTriggerOnCancel } = getPluginState(editorView.state) || {};

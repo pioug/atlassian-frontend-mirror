@@ -2,6 +2,7 @@ import React, { useCallback, useRef, useState } from 'react';
 
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
+import type { TPopoverCloseReason } from '@atlaskit/top-layer/popover/types';
 import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
@@ -21,9 +22,9 @@ export default function TestingPopoverEscape(): React.ReactNode {
 		});
 	}, []);
 
-	const close = useCallback(() => {
+	const close = useCallback(({ reason }: { reason: TPopoverCloseReason }) => {
 		setIsOpen(false);
-		setClosedBy('light-dismiss');
+		setClosedBy(reason);
 	}, []);
 
 	useAnchoredPopover({

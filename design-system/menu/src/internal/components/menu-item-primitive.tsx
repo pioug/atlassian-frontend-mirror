@@ -232,8 +232,8 @@ const MenuItemPrimitive: (props: MenuItemPrimitiveProps) => JSX.Element = ({
 
 	return (
 		<ClassNames>
-			{({ css: cn }: any) => {
-				return children({
+			{({ css: cn }: any) =>
+				children({
 					className: ax([
 						cn(
 							styles.root,
@@ -276,6 +276,7 @@ const MenuItemPrimitive: (props: MenuItemPrimitiveProps) => JSX.Element = ({
 											shouldTitleWrap ? styles.wordBreak : styles.truncate,
 										),
 										'data-item-title': true,
+										'data-testid': testId && `${testId}--title`,
 									})}
 									{description && (
 										<span
@@ -303,8 +304,8 @@ const MenuItemPrimitive: (props: MenuItemPrimitiveProps) => JSX.Element = ({
 							)}
 						</Inline>
 					),
-				});
-			}}
+				})
+			}
 		</ClassNames>
 	);
 };

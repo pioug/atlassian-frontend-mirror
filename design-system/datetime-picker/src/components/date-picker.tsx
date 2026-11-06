@@ -111,7 +111,8 @@ const DatePicker: React.ForwardRefExoticComponent<
 	// Track whether focus was caused by an active pointer gesture. Pointer-driven focus must defer
 	// opening a top-layer popover until click, while keyboard and programmatic focus can open it now.
 	const isPointerInteractionRef = useRef(false);
-	const focusRestorationTargetRef = useRef<HTMLElement | null>(null);
+	// Top layer: set when Escape is left to Select, so `onMenuClose` resets the picker state.
+	const isEscapeCloseRef = useRef(false);
 
 	const {
 		appearance = 'default' as Appearance,
@@ -216,6 +217,11 @@ const DatePicker: React.ForwardRefExoticComponent<
 
 	const getValue = () => propValue ?? value;
 	const getIsOpen = () => isOpenProp ?? isOpen;
+	// Top layer: the calendar is closed but still mounted while Select's menu closes. The platform
+	// then returns focus, and Firefox first moves focus to `<body>` as the popover hides. Neither is
+	// the user leaving or arriving at the field.
+	const isCalendarClosing = () =>
+		fg('platform-dst-top-layer') && !getIsOpen() && calendarRef.current !== null;
 
 	const onCalendarChange = ({ iso }: { iso: string }) => {
 		setCalendarValue(getParsedISO({ iso }));
@@ -229,8 +235,8 @@ const DatePicker: React.ForwardRefExoticComponent<
 		setWasOpenedFromCalendarButton(false);
 		onChangePropWithAnalytics(iso);
 
-		// When using top-layer, PopupContent handles focus restoration automatically
-		// on close based on the role. Only manually restore focus for the legacy path.
+		// Top layer: no focus move here. Select hides its menu's popover, and the platform returns
+		// focus.
 		if (!fg('platform-dst-top-layer')) {
 			if (wasOpenedFromCalendarButton) {
 				calendarButtonRef.current?.focus();
@@ -253,8 +259,11 @@ const DatePicker: React.ForwardRefExoticComponent<
 	const onContainerBlur = (event: React.FocusEvent<HTMLInputElement>) => {
 		const newlyFocusedElement = event.relatedTarget as HTMLElement;
 		isPointerInteractionRef.current = false;
+		// A blur to nowhere while the calendar closes is part of the close. A blur to a real element
+		// is the user leaving the field.
+		const isClosingBlur = isCalendarClosing() && newlyFocusedElement === null;
 
-		if (!containerRef?.current?.contains(newlyFocusedElement)) {
+		if (!isClosingBlur && !containerRef?.current?.contains(newlyFocusedElement)) {
 			setIsOpen(false);
 			setShouldSetFocusOnCurrentDay(false);
 			setWasOpenedFromCalendarButton(false);
@@ -290,7 +299,11 @@ const DatePicker: React.ForwardRefExoticComponent<
 		} else {
 			// Opening an auto popover during pointer focus allows the matching pointerup
 			// to immediately light-dismiss it. Let the subsequent click open it instead.
-			if (!fg('platform-dst-top-layer') || !isPointerInteractionRef.current) {
+			const isPointerFocus = fg('platform-dst-top-layer') && isPointerInteractionRef.current;
+			// Focus that returns while the calendar closes must not change the open state.
+			// `getIsOpen()` includes an `isOpen={false}` prop, so the calendar shows again when the prop
+			// is removed.
+			if (!isPointerFocus && !isCalendarClosing()) {
 				// Don't open when focused into via keyboard if the calendar button is present
 				setIsOpen(!shouldShowCalendarButton);
 			}
@@ -337,11 +350,9 @@ const DatePicker: React.ForwardRefExoticComponent<
 
 		if (shouldDeferEscapeHandling) {
 			// Select owns Escape cancellation and dismissal for its default top-layer popup.
-			// Defer DatePicker's focus and state cleanup until the menu has closed.
-			const focusRestorationTarget = wasOpenedFromCalendarButton
-				? calendarButtonRef.current
-				: (containerRef.current?.querySelector<HTMLElement>('[role="combobox"]') ?? null);
-			focusRestorationTargetRef.current = event.defaultPrevented ? null : focusRestorationTarget;
+			// Defer DatePicker's state cleanup until the menu has closed. No focus move here: Select
+			// hides its menu's popover, and the platform returns focus.
+			isEscapeCloseRef.current = !event.defaultPrevented;
 			return;
 		}
 
@@ -410,11 +421,10 @@ const DatePicker: React.ForwardRefExoticComponent<
 	};
 
 	const onMenuClose = () => {
-		const focusTarget = focusRestorationTargetRef.current;
-		focusRestorationTargetRef.current = null;
+		const isEscapeClose = isEscapeCloseRef.current;
+		isEscapeCloseRef.current = false;
 
-		if (fg('platform-dst-top-layer') && focusTarget) {
-			focusTarget.focus();
+		if (fg('platform-dst-top-layer') && isEscapeClose) {
 			setIsOpen(false);
 			setShouldSetFocusOnCurrentDay(false);
 			setWasOpenedFromCalendarButton(false);

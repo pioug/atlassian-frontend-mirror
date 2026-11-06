@@ -1,4 +1,4 @@
-import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 /**
  * A node type's base name, with a schema variant's suffix stripped: `panel`, `panel_c1` and
@@ -16,4 +16,4 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
  * in the styling decisions would move the legacy diff for readers who see no tags.
  */
 export const resolveBaseNodeName = (name: string): string =>
-	fg('confluence_ncs_step_diffing_version_history') ? name.split('_')[0] : name;
+	isExperimentEnabled('platform_editor_attributed_version_history') ? name.split('_')[0] : name;

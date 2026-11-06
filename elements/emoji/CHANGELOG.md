@@ -1,5 +1,58 @@
 # @atlaskit/emoji
 
+## 73.4.9
+
+### Patch Changes
+
+- [`d9151fc03c40e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d9151fc03c40e) -
+  Inset the emoji category focus outline so it stays clear of the picker edge.
+
+## 73.4.8
+
+### Patch Changes
+
+- [`0194650c85835`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0194650c85835) -
+  Closes the productivity colour selector on Escape and restores focus to its trigger behind the
+  `platform_emoji_color_picker_escape_focus` feature gate.
+- Updated dependencies
+
+## 73.4.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 73.4.6
+
+### Patch Changes
+
+- [`af710251cf46e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/af710251cf46e) -
+  Match the custom emoji name input's accessible name to its visible label behind the
+  `platform_ally_emoji_fixes_various` feature gate.
+- [`2c7cd60cc134e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c7cd60cc134e) -
+  Update the emoji picker search label under platform_ally_emoji_fixes_various
+
+## 73.4.5
+
+### Patch Changes
+
+- [`ec809235e06d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec809235e06d2) -
+  Announce duplicate emoji name errors and focus the name field behind
+  platform_ally_emoji_fixes_various.
+- Updated dependencies
+
+## 73.4.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 73.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 73.4.2
 
 ### Patch Changes

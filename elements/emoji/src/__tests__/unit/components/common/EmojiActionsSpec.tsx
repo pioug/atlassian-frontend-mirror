@@ -780,6 +780,85 @@ describe('<EmojiActions />', () => {
 
 				expect(handleProductivityColorSelected).toHaveBeenCalledWith('red');
 			});
+
+			it('should close the productivity colour selector, stop propagation, and restore trigger focus on Escape', async () => {
+				passGate('platform_emoji_color_picker_escape_focus');
+				const handleParentKeyDown = jest.fn();
+				const zeroSquareBlue = {
+					...baseToneEmoji,
+					id: '0_zero_square_blue',
+					shortName: ':0_zero_square_blue:',
+					name: 'Zero square blue',
+				};
+
+				await renderWithIntl(
+					<div onKeyDown={handleParentKeyDown}>
+						<EmojiActions
+							{...props}
+							toneEmoji={toneEmoji}
+							activeCategoryId="ATLASSIAN"
+							activeAtlassianSubcategory="Productivity"
+							selectedProductivityColor="blue"
+							productivityColorPreviewEmojis={{ blue: zeroSquareBlue }}
+							onProductivityColorSelected={jest.fn()}
+						/>
+					</div>,
+				);
+
+				const productivityColorButton = screen.getByRole('button', {
+					name: 'Productivity emoji color selector',
+				});
+				productivityColorButton.focus();
+				await userEvent.keyboard('{Enter}');
+
+				const selectedColor = screen.getByTestId('productivity-color-blue--radio-input');
+				expect(selectedColor).toHaveFocus();
+				handleParentKeyDown.mockClear();
+
+				await userEvent.keyboard('{Escape}');
+
+				expect(screen.queryByTestId(productivityColorSelectorTestId)).toBeNull();
+				expect(productivityColorButton).toHaveAttribute('aria-expanded', 'false');
+				expect(productivityColorButton).toHaveFocus();
+				expect(handleParentKeyDown).not.toHaveBeenCalled();
+			});
+
+			it('should preserve Escape propagation when the productivity colour selector fix is disabled', async () => {
+				failGate('platform_emoji_color_picker_escape_focus');
+				const handleParentKeyDown = jest.fn();
+				const zeroSquareBlue = {
+					...baseToneEmoji,
+					id: '0_zero_square_blue',
+					shortName: ':0_zero_square_blue:',
+					name: 'Zero square blue',
+				};
+
+				await renderWithIntl(
+					<div onKeyDown={handleParentKeyDown}>
+						<EmojiActions
+							{...props}
+							toneEmoji={toneEmoji}
+							activeCategoryId="ATLASSIAN"
+							activeAtlassianSubcategory="Productivity"
+							selectedProductivityColor="blue"
+							productivityColorPreviewEmojis={{ blue: zeroSquareBlue }}
+							onProductivityColorSelected={jest.fn()}
+						/>
+					</div>,
+				);
+
+				const productivityColorButton = screen.getByRole('button', {
+					name: 'Productivity emoji color selector',
+				});
+				productivityColorButton.focus();
+				await userEvent.keyboard('{Enter}');
+				handleParentKeyDown.mockClear();
+
+				await userEvent.keyboard('{Escape}');
+
+				expect(screen.getByTestId(productivityColorSelectorTestId)).toBeInTheDocument();
+				expect(handleParentKeyDown).toHaveBeenCalledTimes(1);
+			});
 		});
 	});
 

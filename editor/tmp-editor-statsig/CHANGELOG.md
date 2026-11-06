@@ -1,5 +1,46 @@
 # @atlaskit/editor-statsig-tmp
 
+## 258.0.1
+
+### Patch Changes
+
+- [`c664068f4fc6a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c664068f4fc6a) -
+  Default `platform_editor_controls` to `variant1`, so tests and apps without an initialised Statsig
+  client get the shipped editor controls experience.
+
+## 258.0.0
+
+### Major Changes
+
+- [`861d385203ae7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/861d385203ae7) -
+  [FFCLEANUP-144039] remove the `platform_editor_lovability_navigation_fixes` experiment to improve
+  expand keyboard navigation
+
+## 257.0.0
+
+### Major Changes
+
+- [`4e1cc6af54d56`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4e1cc6af54d56) -
+  Make the renderer analytics callback depend only on `createAnalyticsEvent`, preserving the enabled
+  behavior of `platform_renderer_fix_analytics_memo_callback`. Remove the experiment registration
+  and test override. Consumers must stop referencing the removed experiment key; the renderer now
+  always uses the memoization fix.
+
+## 256.0.0
+
+### Major Changes
+
+- [`4ae03b7faac86`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4ae03b7faac86) -
+  Make the shipped Google Smart Link post-auth Rovo Chat treatment permanent behind its feature
+  gate.
+
+## 255.0.0
+
+### Major Changes
+
+- [`2a471e10208fa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2a471e10208fa) -
+  Remove the cwr-modal-ui-refresh experiment from the editor experiment config after cleanup.
+
 ## 254.0.0
 
 ### Major Changes

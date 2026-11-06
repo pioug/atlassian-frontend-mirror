@@ -30,7 +30,6 @@ import {
 } from '@atlaskit/editor-smart-link-draggable';
 import { SmartCardContext } from '@atlaskit/link-provider/context';
 import { componentWithCondition } from '@atlaskit/platform-feature-flags-react/component-with-condition';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Card } from '@atlaskit/smart-card/card/lazy';
 import { EmbedResizeMessageListener } from '@atlaskit/smart-card/embed-resize-message-listener';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
@@ -206,7 +205,7 @@ function EmbedCardInternal(props: EmbedCardInternalProps) {
 					};
 
 					let cardComponent;
-					if (smartLinks?.ssr && url && fg('platform_ssr_smartlink_embeds')) {
+					if (smartLinks?.ssr && url) {
 						const ssrCardProps = {
 							url,
 							onClick,

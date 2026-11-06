@@ -93,15 +93,13 @@ Converts Popper.js placement strings (e.g. `'bottom-start'`) to the top-layer ob
 | -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `isOpen`             | Passed directly to `Popup.Content isOpen`                                                                                                                                                                                                                                                                      |
 | `trigger`            | Rendered via `Popup.TriggerFunction` render prop                                                                                                                                                                                                                                                               |
-| `content`            | Called with `{ isOpen, update: noop, onClose, setInitialFocusRef }` inside `Popup.Content`                                                                                                                                                                                                                     |
+| `content`            | Called with `{ isOpen, update: noop, onClose, setInitialFocusRef }` inside the `Popover`. Called only while the popover host is mounted (open, or during the exit animation), never while closed, as on the legacy path                                                                                        |
 | `onClose`            | Bridged via `onClose({ reason })` → synthesized DOM events (see below)                                                                                                                                                                                                                                         |
 | `placement`          | Converted via `fromLegacyPlacement()` to CSS Anchor Positioning placement                                                                                                                                                                                                                                      |
 | `testId`             | Raw ID on the content container (default wrapper or custom `popupComponent`); popover host gets `${testId}--container`                                                                                                                                                                                         |
-| `id`                 | Forwarded to `aria-controls` on trigger                                                                                                                                                                                                                                                                        |
-| `popupComponent`     | Rendered as child inside `<div popover>` with empty `style={}`                                                                                                                                                                                                                                                 |
-| `autoFocus`          | Passed through (native popover handles initial focus)                                                                                                                                                                                                                                                          |
+| `id`                 | Set on the `Popover` host. The trigger gets it as `aria-controls` while the popup is open. Not passed to a custom `popupComponent`, so the document has one element with the `id`                                                                                                                              |
+| `popupComponent`     | Rendered as child inside `<div popover>` with empty `style={}` and no `id` (the host has it)                                                                                                                                                                                                                   |
 | `shouldFitContainer` | Mapped to `width="trigger"` on `Popup.Content` (CSS `anchor-size(width)`)                                                                                                                                                                                                                                      |
-| `shouldReturnFocus`  | Focus returned to trigger on Escape when true                                                                                                                                                                                                                                                                  |
 | `role`               | Mapped to `Popup.Content` role prop (dialog, menu, listbox, etc.). `alertdialog` is intentionally unsupported in top-layer; migrate to `dialog` instead                                                                                                                                                        |
 | `label`              | Mapped to `aria-label` on `Popup.Content`                                                                                                                                                                                                                                                                      |
 | `titleId`            | Mapped to `labelledBy` on `Popup.Content` (overrides `label`)                                                                                                                                                                                                                                                  |
@@ -126,6 +124,8 @@ Converts Popper.js placement strings (e.g. `'bottom-start'`) to the top-layer ob
 | `shouldUseCaptureOnOutsideClick` | Native light dismiss (`popover="auto"`) handles this                                                                                                                                                                                                                                                                                                                                                                                              |
 | `shouldDisableFocusLock`         | Focus behavior is role-based in top layer (dialog traps, others don't)                                                                                                                                                                                                                                                                                                                                                                            |
 | `appearance`                     | Accepted but `UNSAFE_modal-below-sm` is not implemented                                                                                                                                                                                                                                                                                                                                                                                           |
+| `autoFocus`                      | Initial focus follows `role` (decision in [../decisions/role-and-focus.md](../decisions/role-and-focus.md)). A popup with no role takes no focus                                                                                                                                                                                                                                                                                                  |
+| `shouldReturnFocus`              | Native focus return wins, as for ModalDialog. `false` does not stop it. To focus another element on close, focus it synchronously in `onClose` (see [../architecture/focus.md](../architecture/focus.md))                                                                                                                                                                                                                                         |
 
 ### Offset conversion
 
@@ -159,8 +159,25 @@ The legacy `onClose(event)` callback receives a DOM event. The top-layer path re
 `@atlaskit/top-layer/popover` (same helper as `@atlaskit/inline-dialog`). See that module for the
 exact `KeyboardEvent` / `MouseEvent` / `Event` shapes and options (e.g. `bubbles`).
 
-After Escape, if `shouldReturnFocus` is true, focus returns to the trigger via
-`requestAnimationFrame(() => triggerRef.current?.focus())`.
+Focus return is native. On Escape or a programmatic close, the browser returns focus to the element
+that had focus before the popup opened (usually the trigger). A light dismiss leaves focus where the
+press put it. `shouldReturnFocus` has no effect on this path, and `false` does not stop the native
+return. This matches ModalDialog (see `modal-dialog-migration.md`). A consumer that wants another
+target focuses it synchronously in `onClose`.
+
+---
+
+## Dismissal
+
+- **Native `auto` behaviour.** An auto popup closes on a press outside it, on Escape, and when an
+  unrelated auto layer opens. A press on the trigger is a press outside the popup, so it
+  light-dismisses it. Use `mode="manual"` only where a callsite cannot work with this: a press on
+  the trigger must not close the popup, or app state decides when it closes (for example a hover
+  popup, or a message that stays open until a state change).
+- **Focus may leave the popup while it stays open.** The legacy path closes the popup on a window
+  `blur` when focus moves into an outside iframe (`use-close-manager.tsx`). The top-layer path has
+  no such rule. The popup closes on the next press in the page, or on Escape. A press inside an
+  iframe is not a press in the page, so it does not light-dismiss the popup.
 
 ---
 
@@ -331,7 +348,10 @@ When rolling out `platform-dst-top-layer=true`, expect these breaking changes:
 3. **Synthetic `onClose` events** may not match the original DOM event type (e.g., `MouseEvent` vs
    `KeyboardEvent`)
 4. **`aria-haspopup` with no role**: not set (legacy sets `'true'`). With a role, it follows the
-   role.
+   role. The role also decides initial focus, so a role-less popup takes no focus. No wrapper
+   guesses a role: an `Avatar` trigger of a role-less popup has no `aria-haspopup`, so it renders a
+   `span`. A click-opened popup whose content must take focus is a dialog: set `role="dialog"` and a
+   label.
 
 The fit work (2026-08 to 2026-09) added these rollout checks:
 

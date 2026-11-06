@@ -578,10 +578,8 @@ describe('useDatasourceTableState', () => {
 				});
 			});
 
-			describe('platform_sllv_duplicated_row is on with duplicate-row deduplication enabled', () => {
+			describe('duplicate-row deduplication', () => {
 				it('should omit duplicate ARIs while preserving items without an ARI from one response', async () => {
-					passGate('platform_sllv_duplicated_row');
-
 					const itemWithoutAri = {
 						id: { data: 'EDM-17' },
 						description: { data: 'Be a cool guy' },
@@ -612,10 +610,8 @@ describe('useDatasourceTableState', () => {
 				});
 			});
 
-			describe('platform_sllv_duplicated_row is on with duplicate-row deduplication enabled', () => {
+			describe('duplicate-row deduplication', () => {
 				it('should retain unique ARIs across pages', async () => {
-					passGate('platform_sllv_duplicated_row');
-
 					const [itemA, itemB, itemC] = mockDatasourceDataResponse.data.items;
 					const firstPageResponse = {
 						...mockDatasourceDataResponse,
@@ -830,38 +826,14 @@ describe('useDatasourceTableState', () => {
 								attributes: {
 									extensionKey: 'jira-object-provider',
 									destinationObjectTypes: ['issue'],
-									loadedItemCount: 8,
+									// The next page returns the same items as the first page, so rows with
+									// duplicate ARIs are deduplicated and only the first page's items remain.
+									loadedItemCount: 4,
 								},
 							},
 						},
 						EVENT_CHANNEL,
 					);
-				});
-			});
-
-			describe('platform_sllv_duplicated_row is off with duplicate-row deduplication disabled', () => {
-				it('should retain duplicate ARI rows from one response', async () => {
-					failGate('platform_sllv_duplicated_row');
-
-					const datasourceResponse = {
-						...mockDatasourceDataResponse,
-						data: {
-							...mockDatasourceDataResponse.data,
-							items: [
-								mockDatasourceDataResponse.data.items[0],
-								mockDatasourceDataResponse.data.items[0],
-							],
-						},
-					};
-					asMock(getDatasourceData).mockResolvedValue(datasourceResponse);
-
-					const { result } = setup();
-
-					await waitFor(() => {
-						expect(getDatasourceData).toHaveBeenCalledTimes(1);
-						expect(result.current.responseItems).toStrictEqual(datasourceResponse.data.items);
-						expect(result.current.responseItemIds).toHaveLength(2);
-					});
 				});
 			});
 
@@ -1182,10 +1154,8 @@ describe('useDatasourceTableState', () => {
 			});
 		});
 
-		describe('platform_sllv_duplicated_row is on with duplicate-row deduplication enabled', () => {
+		describe('duplicate-row deduplication', () => {
 			it('should allow ARIs to be loaded again after reset', async () => {
-				passGate('platform_sllv_duplicated_row');
-
 				const { result } = setup();
 
 				await waitFor(() => {

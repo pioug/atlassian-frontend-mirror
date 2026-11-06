@@ -1,4 +1,4 @@
-import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 /**
  * Single source of truth for which attributes of a node type represent a
@@ -75,9 +75,10 @@ export const getDiffableAttrNames = (
 	attrs: Record<string, unknown>,
 ): readonly string[] | undefined => {
 	// Adding a column updates existing widths, ignore this attribute change. Move this into
-	// DIFFABLE_ATTRS_BY_NODE_TYPE when cleaning up confluence_ncs_step_diffing_version_history
+	// DIFFABLE_ATTRS_BY_NODE_TYPE when cleaning up platform_editor_attributed_version_history
 	const ignoreColumnWidth =
-		nodeTypeName === 'layoutColumn' && fg('confluence_ncs_step_diffing_version_history');
+		nodeTypeName === 'layoutColumn' &&
+		isExperimentEnabled('platform_editor_attributed_version_history');
 	const rule = DIFFABLE_ATTRS_BY_NODE_TYPE[nodeTypeName];
 	if (!rule) {
 		return Object.keys(attrs)

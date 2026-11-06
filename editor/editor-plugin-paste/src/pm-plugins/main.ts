@@ -101,6 +101,7 @@ import { handleVSCodeBlock } from './util/edge-cases/handleVSCodeBlock';
 import { getMarkdownSliceViaGfm } from './util/get-markdown-slice';
 import {
 	applyContainerNodeTransformToSlice,
+	downgradePanelC1ForDestination,
 	splitTablesOutOfPanelHtml,
 	handleMacroAutoConvert,
 	handleMention,
@@ -473,6 +474,9 @@ export function createPlugin(
 					const destinationParentType =
 						view.state.selection.$from.node(-1)?.type.name ?? view.state.doc.type.name;
 					slice = applyContainerNodeTransformToSlice(slice, schema, destinationParentType);
+					if (fg('platform_editor_paste_panel_c1_into_container')) {
+						slice = downgradePanelC1ForDestination(slice, schema, view.state.selection.$from);
+					}
 				}
 
 				slice = handleVSCodeBlock({ state, slice, event, text });

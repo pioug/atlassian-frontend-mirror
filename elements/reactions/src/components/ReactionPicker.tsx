@@ -41,6 +41,9 @@ import { RepositionOnUpdate } from './RepositionOnUpdate';
 import { Selector, type SelectorProps } from './Selector';
 import { Trigger, type TriggerProps } from './Trigger';
 
+const isReadingOrderInlineEnabled = (): boolean =>
+	fg('a11y_reactions_reading_order') || fg('a11y_reactions_reading_order_other_apps');
+
 const pickerStyle = css({
 	verticalAlign: 'middle',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
@@ -411,7 +414,7 @@ export const ReactionPicker: React.MemoExoticComponent<
 		// ufo reactions picker opened success
 		PickerRender.success({
 			metadata: {
-				readingOrderInline: fg('a11y_reactions_reading_order'),
+				readingOrderInline: isReadingOrderInlineEnabled(),
 			},
 		});
 	}, [
@@ -575,7 +578,7 @@ export const ReactionPicker: React.MemoExoticComponent<
 					)}
 				</Reference>
 				{isPopupTrayOpen &&
-					(fg('a11y_reactions_reading_order') ? (
+					(isReadingOrderInlineEnabled() ? (
 						// Render the picker panel inline (a DOM sibling directly after the trigger)
 						// so assistive technologies encounter the expanded content in the correct
 						// reading order. The popper still positions with `position: fixed`, so the

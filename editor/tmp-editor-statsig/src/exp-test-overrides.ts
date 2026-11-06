@@ -4,20 +4,24 @@ type MultivariateConfig<Value> = Value extends boolean ? false : true;
 type BooleanConfig<Value> = Value extends boolean ? true : false;
 
 export type EditorExperimentOverridesMultivariate = {
-	[K in keyof EditorExperimentsConfig as MultivariateConfig<
-		EditorExperimentsConfig[K]['defaultValue']
-	> extends true
-		? K
-		: never]: EditorExperimentsConfig[K]['defaultValue'];
+	[
+		K in keyof EditorExperimentsConfig as MultivariateConfig<
+			EditorExperimentsConfig[K]['defaultValue']
+		> extends true
+			? K
+			: never
+	]: EditorExperimentsConfig[K]['defaultValue'];
 };
 
 export type EditorExperimentOverridesBoolean = {
-	[K in keyof EditorExperimentsConfig as BooleanConfig<
-		EditorExperimentsConfig[K]['defaultValue']
-	> extends true
-		? K
-		: // Optional as boolean will default to true if not specified here
-			never]?: EditorExperimentsConfig[K]['defaultValue'];
+	[
+		K in keyof EditorExperimentsConfig as BooleanConfig<
+			EditorExperimentsConfig[K]['defaultValue']
+		> extends true
+			? K
+			: // Optional as boolean will default to true if not specified here
+				never
+	]?: EditorExperimentsConfig[K]['defaultValue'];
 };
 
 export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = {
@@ -45,13 +49,11 @@ export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	single_column_layouts: false,
 	platform_editor_ai_unsplash_page_header: false,
 	platform_editor_ai_edit_response_in_preview: false,
-	platform_renderer_fix_analytics_memo_callback: false,
 	platform_editor_block_controls_perf_optimization: false,
 	platform_editor_paste_actions_menu: false,
 	platform_editor_table_fit_to_content_on_demand: false,
 	platform_editor_table_q4_loveability: false,
 	platform_editor_table_menu_updates: false,
-	'cwr-modal-ui-refresh': false,
 	'cwr-reduce-prompt-suggestion-max-chars': false,
 	'cwr-staging-area-close-as-minimize-button': false,
 	prompt_tile_content_type_localizaiton: false,

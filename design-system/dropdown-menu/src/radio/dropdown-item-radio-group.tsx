@@ -3,7 +3,9 @@ import React, { useContext, useState } from 'react';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import Section from '@atlaskit/menu/section';
 import type { SectionProps } from '@atlaskit/menu/types';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
+import DropdownMenuItemGroup from '../dropdown-menu-item-group';
 import GroupTitle from '../internal/components/group-title';
 import { SelectionStoreContext } from '../internal/context/selection-store-context';
 import resetOptionsInGroup from '../internal/utils/reset-options-in-group';
@@ -27,12 +29,13 @@ const DropdownItemRadioGroup = ({
 	isScrollable,
 	testId,
 	title,
+	titleId,
 	// DSP-13312 TODO: remove spread props in future major release
 	...rest
 }: DropdownItemRadioGroupProps): React.JSX.Element => {
 	const { setGroupState, getGroupState } = useContext(SelectionStoreContext);
 	const uid = useId();
-	const titleId = `dropdown-menu-item-radio-group-title-${uid}`;
+	const groupTitleId = titleId || `dropdown-menu-item-radio-group-title-${uid}`;
 
 	/**
 	 *  - initially `radioGroupState` is from selection store, so it's safe to update without re-rendering
@@ -50,6 +53,23 @@ const DropdownItemRadioGroup = ({
 		setGroupState(id, newValue);
 	};
 
+	if (fg('platform-dst-new-menu')) {
+		return (
+			<RadioGroupContext.Provider value={{ id, radioGroupState, selectRadioItem }}>
+				<DropdownMenuItemGroup
+					id={id}
+					hasSeparator={hasSeparator}
+					isScrollable={isScrollable}
+					testId={testId}
+					title={title}
+					titleId={groupTitleId}
+				>
+					{children}
+				</DropdownMenuItemGroup>
+			</RadioGroupContext.Provider>
+		);
+	}
+
 	return (
 		<RadioGroupContext.Provider value={{ id, radioGroupState, selectRadioItem }}>
 			<Section
@@ -58,11 +78,11 @@ const DropdownItemRadioGroup = ({
 				isList={isList}
 				isScrollable={isScrollable}
 				testId={testId}
-				titleId={title ? titleId : undefined}
+				titleId={title ? groupTitleId : undefined}
 				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 				{...rest}
 			>
-				{title && <GroupTitle id={titleId} title={title} />}
+				{title && <GroupTitle id={groupTitleId} title={title} />}
 				{children}
 			</Section>
 		</RadioGroupContext.Provider>

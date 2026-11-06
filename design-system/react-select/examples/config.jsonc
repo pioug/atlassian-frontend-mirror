@@ -8,5 +8,6 @@
 		"00-single-select.vr.ap.tsx",
 		"01-multi-select.tsx",
 		"35-menu-portal-viewport-edge.vr.ap.tsx",
+		"testing-top-layer-menu-focus-return.tsx",
 	],
 }

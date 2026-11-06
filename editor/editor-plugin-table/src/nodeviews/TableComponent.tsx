@@ -1185,7 +1185,6 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 	// Function gets called when table is nested.
 	private scaleTable = (scaleOptions: { parentWidth?: number }, isUserTriggered = false) => {
 		if (
-			fg('platform_editor_table_view_mode_scaling_fix') &&
 			this.props.pluginInjectionApi?.editorViewMode?.sharedState.currentState()?.mode === 'view'
 		) {
 			return;

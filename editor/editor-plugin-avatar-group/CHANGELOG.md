@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-avatar-group
 
+## 31.0.3
+
+### Patch Changes
+
+- [`202f9b8386f13`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/202f9b8386f13) -
+  Migrate attributed version history checks to the platform_editor_attributed_version_history
+  experiment.
+- Updated dependencies
+
 ## 31.0.2
 
 ### Patch Changes

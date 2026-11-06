@@ -6,6 +6,8 @@ import {
 	doesIdentifierExist,
 	getDefaultSpecifier,
 	getJSXAttributesByName,
+	getJSXAttributeByName,
+	hasJSXAttributeWithValue,
 	getSafeImportName,
 	hasImportDeclaration,
 	hasImportDeclarationFromAnyPackageEntrypoint,
@@ -420,6 +422,34 @@ describe('supporting functions', () => {
 
 			expect(attributes.length).toEqual(1);
 			expect(attributes.get('value').value.value).toEqual('warning');
+		});
+	});
+
+	describe('get jsx attribute by name', () => {
+		it('should return the first attribute matching the name from the parent element', () => {
+			const source = jscodeshift('<ModalDialog appearance="warning" />') as Collection<Node>;
+			const element = source.findJSXElements('ModalDialog').get() as ASTPath<JSXElement>;
+
+			expect(getJSXAttributeByName(jscodeshift, element, 'appearance')?.value).toMatchObject({
+				value: 'warning',
+			});
+		});
+	});
+
+	describe('has jsx attribute with value', () => {
+		it('should match a string-valued JSX attribute', () => {
+			const openingElement = jscodeshift.jsxOpeningElement(jscodeshift.jsxIdentifier('Button'), [
+				jscodeshift.jsxAttribute(
+					jscodeshift.jsxIdentifier('appearance'),
+					jscodeshift.stringLiteral('primary'),
+				),
+			]);
+
+			expect(hasJSXAttributeWithValue(openingElement, 'appearance', 'primary')).toBe(true);
+		});
+
+		it('should not match an absent opening element', () => {
+			expect(hasJSXAttributeWithValue(undefined, 'appearance', 'primary')).toBe(false);
 		});
 	});
 });

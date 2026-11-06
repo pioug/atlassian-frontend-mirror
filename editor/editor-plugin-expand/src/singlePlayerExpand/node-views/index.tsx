@@ -381,11 +381,7 @@ export class ExpandNodeView implements NodeView {
 				this.handleArrowLeftFromTitle(event);
 				break;
 			case 'ArrowUp':
-				if (expValEquals('platform_editor_lovability_navigation_fixes', 'isEnabled', true)) {
-					this.moveToPreviousLine(event);
-				} else {
-					this.setLeftGapCursor(event);
-				}
+				this.moveToPreviousLine(event);
 				break;
 			case 'Backspace':
 				this.deleteEmptyExpand();

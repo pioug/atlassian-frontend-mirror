@@ -95,11 +95,11 @@ import type {
 // - `platform_editor_ai_smart_diff` ............ the `smart` diff type
 // - `platform_editor_ai_show_diff_patch_1` ..... diff correctness patch
 //
-// `confluence_ncs_step_diffing_version_history` is deliberately omitted: it is a Confluence version
-// history concern, not something this example exercises.
 setBooleanFeatureFlagResolver((flagKey) =>
 	['platform_editor_ai_smart_diff', 'platform_editor_ai_show_diff_patch_1'].includes(flagKey),
 );
+
+UNSAFE_overrideExperiment('platform_editor_attributed_version_history', { isEnabled: false });
 
 // Parts of the show-diff pipeline also require the Milestone 1 streaming
 // UX umbrella experiment to be enrolled. Override its `isEnabled` value so this example shows the

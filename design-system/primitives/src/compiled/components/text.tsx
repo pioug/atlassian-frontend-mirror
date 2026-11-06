@@ -116,9 +116,13 @@ const styles = unboundedCssMap({
 	'textAlign.end': { textAlign: 'end' },
 	'textAlign.start': { textAlign: 'start' },
 	truncation: {
+		/**
+		 * These styles might seem odd, but are required for line-clamp to work until browsers support the feature without the webkit prefix.
+		 * Despite the properties being deprecated, it is fully specified behavior and will continue to be supported in browsers.
+		 * https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/line-clamp#description
+		 */
 		display: '-webkit-box',
 		overflow: 'hidden',
-		// NOTE: This is an obsolete property not used in modern CSS, perhaps unused, but likely added for some compatibility
 		WebkitBoxOrient: 'vertical',
 	},
 	breakAll: { wordBreak: 'break-all' },

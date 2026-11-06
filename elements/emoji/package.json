@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/emoji",
-	"version": "73.4.2",
+	"version": "73.4.9",
 	"description": "Fabric emoji React components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -157,6 +157,10 @@
 		"./utils": "./src/utils.ts"
 	},
 	"platform-feature-flags": {
+		"platform_ally_emoji_fixes_various": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"nike_r19_render_unmount": {
 			"type": "boolean"
 		},

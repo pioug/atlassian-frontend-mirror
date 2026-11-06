@@ -73,6 +73,29 @@ test.describe('Nested layers - nested popovers', () => {
 		await expect(page.getByTestId('second-popover')).toBeHidden();
 	});
 
+	// The browser closes the child before the Escape `keyup`, so the Escape must not tag the parent.
+	test('a press outside after Escape closed the child reports "light-dismiss" for the parent', async ({
+		page,
+	}) => {
+		await page.visitExample<typeof import('../../examples/94-testing-nested-popovers.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-nested-popovers',
+		);
+
+		await page.getByTestId('first-trigger').click();
+		await page.getByTestId('second-trigger').click();
+		await expect(page.getByTestId('second-popover')).toBeVisible();
+
+		await page.keyboard.press('Escape');
+		await expect(page.getByTestId('second-popover')).toBeHidden();
+		await expect(page.getByTestId('first-popover')).toBeVisible();
+
+		await page.getByTestId('outside-target').click();
+		await expect(page.getByTestId('first-popover')).toBeHidden();
+		await expect(page.getByTestId('first-close-reason')).toHaveText('light-dismiss');
+	});
+
 	// WCAG 2.4.3 Focus Order - nested focus return at each level. Generated for both
 	// modalities; mouse skipped on WebKit.
 	for (const scenario of focusInteractionScenarios) {

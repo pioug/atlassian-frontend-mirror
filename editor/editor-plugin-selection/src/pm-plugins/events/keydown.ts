@@ -3,7 +3,6 @@ import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/m
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 /*
  * The way expand was built, no browser recognize selection on it.
@@ -155,11 +154,7 @@ const isNavigatingVerticallyWhenCursorIsInsideInlineNode = (
 		Boolean(selection.$cursor.nodeBefore?.isInline) &&
 		Boolean(selection.$cursor.nodeAfter?.isInline);
 
-	if (
-		isNavigatingInlineNodeDownward &&
-		getNextNodeExpandPos(view, selection) !== undefined &&
-		expValEqualsNoExposure('platform_editor_lovability_navigation_fixes', 'isEnabled', true)
-	) {
+	if (isNavigatingInlineNodeDownward && getNextNodeExpandPos(view, selection) !== undefined) {
 		return false;
 	}
 	return isNavigatingInlineNodeDownward;

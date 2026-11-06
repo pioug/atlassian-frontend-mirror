@@ -1,5 +1,14 @@
 # @atlaskit/datetime-picker
 
+## 19.4.3
+
+### Patch Changes
+
+- [`60b28ae0201d7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/60b28ae0201d7) -
+  Behind `platform-dst-top-layer`, focus returns to the opener when the menu closes with focus
+  inside it.
+- Updated dependencies
+
 ## 19.4.2
 
 ### Patch Changes

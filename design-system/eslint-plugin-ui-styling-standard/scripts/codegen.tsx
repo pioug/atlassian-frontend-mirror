@@ -8,9 +8,10 @@ import type { Linter } from 'eslint';
 import camelCase from 'lodash/camelCase';
 import outdent from 'outdent';
 
+import { writeGeneratedMarkdownSection } from '@af/codegen-utils/write-generated-markdown-section';
+import { writeGeneratedSource } from '@af/codegen-utils/write-generated-source';
 import format from '@af/formatting/sync';
 import { getPathSafeName, type LintRule } from '@atlaskit/eslint-utils/create-rule';
-import { createSignedArtifact } from '@atlassian/codegen/signed-artifact';
 
 import { type ExternalRuleMeta, externalRules } from '../src/rules/external-rules';
 
@@ -124,25 +125,21 @@ async function generatePresetConfig(name: 'all' | 'recommended', rules: FoundRul
 		return rulesRecord;
 	}, {});
 
-	const legacyCode = format(
-		`
+	const legacyCode = `
 import type { ESLint } from "eslint";
 
 const config: ESLint.ConfigData = ${JSON.stringify(
-			{
-				plugins: [pluginName, ...Array.from(externalPlugins.map((p) => p.name))],
-				rules: ruleConfig,
-			},
-			null,
-			2,
-		)};
+		{
+			plugins: [pluginName, ...Array.from(externalPlugins.map((p) => p.name))],
+			rules: ruleConfig,
+		},
+		null,
+		2,
+	)};
 
-export default config;`,
-		'typescript',
-	);
+export default config;`;
 
-	const flatCode = format(
-		`import type { Linter } from 'eslint';
+	const flatCode = `import type { Linter } from 'eslint';
 		${externalPlugins
 			.map((plugin) => `import * as ${plugin.identifier} from '${plugin.specifier}';`)
 			.join('\n')}
@@ -155,30 +152,24 @@ const config: Linter.FlatConfig = {
 		rules: ${JSON.stringify(ruleConfig, null, 2)},
 		};
 
-export default config;`,
-		'typescript',
-	);
+export default config;`;
 
-	await writeFile(join(presetsDir, `${name}-flat.codegen.tsx`), flatCode);
-	await writeFile(join(presetsDir, `${name}.codegen.tsx`), legacyCode);
+	await writeGeneratedSource({
+		filePath: join(presetsDir, `${name}-flat.codegen.tsx`),
+		source: flatCode,
+		command: codegenCommand,
+	});
+	await writeGeneratedSource({
+		filePath: join(presetsDir, `${name}.codegen.tsx`),
+		source: legacyCode,
+		command: codegenCommand,
+	});
 
 	generatedConfigs.push({
 		name: camelCase(name),
 		path: './' + relative(srcDir, join(presetsDir, `${name}.codegen`)),
 		flatPath: './' + relative(srcDir, join(presetsDir, `${name}-flat.codegen`)),
 	});
-}
-
-/**
- * Write contents to a given file, creating a signed artifact if it's not a markdown file.
- */
-async function writeFile(filepath: string, code: string) {
-	await fs.writeFile(
-		filepath,
-		extname(filepath).includes('.md')
-			? format(code, 'markdown')
-			: createSignedArtifact(format(code, 'typescript'), codegenCommand),
-	);
 }
 
 /**
@@ -199,15 +190,18 @@ import type { Rule } from 'eslint';
     }
   `;
 
-	await writeFile(join(srcDir, 'rules/index.codegen.tsx'), code);
+	await writeGeneratedSource({
+		filePath: join(srcDir, 'rules/index.codegen.tsx'),
+		source: code,
+		command: codegenCommand,
+	});
 }
 
 /**
  * Generates the `src/index.codegen.tsx` entrypoint, exporting all the preset configs.
  */
 async function generatePluginIndex() {
-	const code = format(
-		`
+	const code = `
 import type { ESLint } from 'eslint';
 
 	${generatedConfigs
@@ -256,12 +250,14 @@ import type { ESLint } from 'eslint';
 
 		export default plugin;
 
-  `,
-		'typescript',
-	);
+  `;
 
 	const filepath = join(srcDir, 'index.codegen.tsx');
-	await writeFile(filepath, code);
+	await writeGeneratedSource({
+		filePath: filepath,
+		source: code,
+		command: codegenCommand,
+	});
 }
 
 const conditional = (cond: string, content?: boolean | string) => (content ? cond : '');
@@ -305,7 +301,7 @@ async function generateExternalRulePage(rule: ExternalRule, destination: string)
 			}
     `;
 
-	await writeFile(destination, ruleContent);
+	await fs.writeFile(destination, format(ruleContent, 'mdx'));
 }
 
 async function generateInternalRulePage(rule: InternalRule, destination: string) {
@@ -321,7 +317,7 @@ async function generateInternalRulePage(rule: InternalRule, destination: string)
       ${file}
     `;
 
-	await writeFile(destination, ruleContent);
+	await fs.writeFile(destination, format(ruleContent, 'mdx'));
 }
 
 /**
@@ -329,7 +325,6 @@ async function generateInternalRulePage(rule: InternalRule, destination: string)
  * This is the list of all rules and their metadata.
  */
 async function generateRuleTable(filepath: string, linkTo: 'docs' | 'repo', rules: FoundRule[]) {
-	const file = await fs.readFile(filepath, 'utf-8');
 	const rows: string[] = [];
 
 	for (const rule of rules) {
@@ -361,25 +356,12 @@ async function generateRuleTable(filepath: string, linkTo: 'docs' | 'repo', rule
     ${rows.join('\n')}
   `;
 
-	const found = /<!-- START_RULE_TABLE_CODEGEN -->(.|\n)*<!-- END_RULE_TABLE_CODEGEN -->/.exec(
-		file,
-	);
-
-	if (!found) {
-		throw new Error(`invariant: could not find the partial codegen section in ${filepath}`);
-	}
-
-	const updatedFile = file.replace(
-		found[0],
-		outdent`
-      <!-- START_RULE_TABLE_CODEGEN -->
-      <!-- @codegenCommand ${codegenCommand} -->
-      ${code}
-      <!-- END_RULE_TABLE_CODEGEN -->
-    `,
-	);
-
-	await writeFile(filepath, updatedFile);
+	await writeGeneratedMarkdownSection({
+		filePath: filepath,
+		section: 'RULE_TABLE_CODEGEN',
+		content: code,
+		command: codegenCommand,
+	});
 }
 
 const validateInternalRule = (rule: InternalRule) => {

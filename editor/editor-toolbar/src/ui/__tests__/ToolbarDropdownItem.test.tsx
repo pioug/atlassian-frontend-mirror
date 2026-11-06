@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { fireEvent } from '@testing-library/react';
+
 import { screen } from '@atlassian/testing-library/screen';
 import { render } from '@atlassian/testing-library/testing-library/react';
 
@@ -90,4 +92,45 @@ describe('ToolbarDropdownItem roles', () => {
 		expect(item).toHaveAttribute('aria-checked', 'true');
 		expect(item).not.toHaveAttribute('aria-pressed');
 	});
+});
+
+const mockCloseMenu = jest.fn();
+jest.mock('../ToolbarDropdownMenuContext', () => ({
+	useToolbarDropdownMenu: () => ({ closeMenu: mockCloseMenu }),
+}));
+
+it('keeps the parent menu open for a nested dialog and forwards its accessible relationship', () => {
+	const onClick = jest.fn();
+	render(
+		<div role="menu">
+			<ToolbarDropdownItem
+				id="credits-trigger"
+				aria-haspopup="dialog"
+				aria-controls="credits-popup"
+				hasNestedDropdownMenu
+				isSelected
+				onClick={onClick}
+			>
+				Ask Rovo
+			</ToolbarDropdownItem>
+		</div>,
+	);
+	const item = screen.getByRole('menuitem');
+	fireEvent.click(item);
+	expect(onClick).toHaveBeenCalledTimes(1);
+	expect(mockCloseMenu).not.toHaveBeenCalled();
+	expect(item).toHaveAttribute('id', 'credits-trigger');
+	expect(item).toHaveAttribute('aria-haspopup', 'dialog');
+	expect(item).toHaveAttribute('aria-controls', 'credits-popup');
+	expect(item).toHaveAttribute('aria-expanded', 'true');
+});
+
+it('still closes the parent menu for a regular action', () => {
+	render(
+		<div role="menu">
+			<ToolbarDropdownItem>Run action</ToolbarDropdownItem>
+		</div>,
+	);
+	fireEvent.click(screen.getByRole('menuitem'));
+	expect(mockCloseMenu).toHaveBeenCalledTimes(1);
 });

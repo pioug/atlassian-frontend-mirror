@@ -1,5 +1,37 @@
 # @atlaskit/renderer
 
+## 153.2.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 153.2.16
+
+### Patch Changes
+
+- [`1ce7034c443be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1ce7034c443be) -
+  Remove the `platform_ssr_smartlink_embeds` gate, preserving enabled behavior. Embed cards use
+  server-side rendering when `smartLinks.ssr` is enabled and a URL is available.
+- [`4e1cc6af54d56`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4e1cc6af54d56) -
+  Make the renderer analytics callback depend only on `createAnalyticsEvent`, preserving the enabled
+  behavior of `platform_renderer_fix_analytics_memo_callback`. Remove the experiment registration
+  and test override. Consumers must stop referencing the removed experiment key; the renderer now
+  always uses the memoization fix.
+- Updated dependencies
+
+## 153.2.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 153.2.14
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 153.2.13
 
 ### Patch Changes

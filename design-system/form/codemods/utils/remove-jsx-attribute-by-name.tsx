@@ -1,6 +1,7 @@
 import { type ASTPath, type JSCodeshift, type JSXElement } from 'jscodeshift';
 
-import { getJSXAttributeByName } from './get-jsx-attribute-by-name';
+import { getJSXAttributeByName } from '@atlaskit/codemod-utils/support';
+
 import { getJSXAttributes } from './get-jsx-attributes';
 
 export const removeJSXAttributeByName: (

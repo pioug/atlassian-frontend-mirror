@@ -3,7 +3,9 @@ import React, { type KeyboardEvent, type MouseEvent, useCallback } from 'react';
 import noop from '@atlaskit/ds-lib/noop';
 import ButtonItem from '@atlaskit/menu/button-item';
 import { SELECTION_STYLE_CONTEXT_DO_NOT_USE } from '@atlaskit/menu/selection-style-context-do-not-use';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
+import NewDropdownMenuItem from '../dropdown-menu-item-new';
 import RadioIcon from '../internal/components/radio-icon';
 import useRadioState from '../internal/hooks/use-radio-state';
 import useRegisterItemWithFocusManager from '../internal/hooks/use-register-item-with-focus-manager';
@@ -27,6 +29,7 @@ const DropdownItemRadio = ({
 	description,
 	isDisabled,
 	isSelected,
+	shortcut,
 	onClick: providedOnClick = noop,
 	shouldDescriptionWrap = true,
 	shouldTitleWrap = true,
@@ -52,7 +55,7 @@ const DropdownItemRadio = ({
 		defaultSelected,
 	});
 
-	const onClickHandler = useCallback(
+	const handleItemClick = useCallback(
 		(event: MouseEvent | KeyboardEvent) => {
 			setSelected((selected) => !selected);
 			providedOnClick(event);
@@ -62,33 +65,59 @@ const DropdownItemRadio = ({
 
 	const itemRef = useRegisterItemWithFocusManager();
 
+	// Just to force the toggle in atlaspack workbench
+	// @ts-ignore
+	const _nothing = fg('platform-dst-tokens-finesse');
+
+	const radioItem = fg('platform-dst-new-menu') ? (
+		// eslint-disable-next-line @atlassian/a11y/aria-toggle-field-name -- Linter demands the component has children, but the title prop here handles children which maintains accessibility.
+		<NewDropdownMenuItem
+			title={children}
+			description={description}
+			elemBefore={<RadioIcon checked={selected} disabled={isDisabled} />}
+			isSelected={selected}
+			aria-checked={selected}
+			isDisabled={isDisabled}
+			shouldTitleWrap={shouldTitleWrap}
+			shouldDescriptionWrap={shouldDescriptionWrap}
+			shortcut={shortcut}
+			onClick={handleItemClick}
+			role="menuitemradio"
+			testId={testId}
+			id={id}
+			ref={itemRef}
+		/>
+	) : (
+		<ButtonItem
+			aria-checked={selected}
+			description={description}
+			iconBefore={<RadioIcon checked={selected} />}
+			id={id}
+			isDisabled={isDisabled}
+			isSelected={selected}
+			onClick={handleItemClick}
+			ref={itemRef}
+			role="menuitemradio"
+			shouldDescriptionWrap={shouldDescriptionWrap}
+			shouldTitleWrap={shouldTitleWrap}
+			testId={testId}
+			// Thanks to spread props, this attribute are passed to ButtonItem, even though
+			// it's not in the component's prop types.
+			// @ts-expect-error
+			title={title}
+			interactionName={interactionName}
+			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+			{...rest}
+			// Override ButtonItem's default aria-current, as aria-checked is the correct attribute for menuitemradio (A11Y-37930)
+			aria-current={undefined}
+		>
+			{children}
+		</ButtonItem>
+	);
+
 	return (
 		<SELECTION_STYLE_CONTEXT_DO_NOT_USE.Provider value="none">
-			<ButtonItem
-				aria-checked={selected}
-				description={description}
-				iconBefore={<RadioIcon checked={selected} />}
-				id={id}
-				isDisabled={isDisabled}
-				isSelected={selected}
-				onClick={onClickHandler}
-				ref={itemRef}
-				role="menuitemradio"
-				shouldDescriptionWrap={shouldDescriptionWrap}
-				shouldTitleWrap={shouldTitleWrap}
-				testId={testId}
-				// Thanks to spread props, this attribute are passed to ButtonItem, even though
-				// it's not in the component's prop types.
-				// @ts-expect-error
-				title={title}
-				interactionName={interactionName}
-				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-				{...rest}
-				// Override ButtonItem's default aria-current, as aria-checked is the correct attribute for menuitemradio (A11Y-37930)
-				aria-current={undefined}
-			>
-				{children}
-			</ButtonItem>
+			{radioItem}
 		</SELECTION_STYLE_CONTEXT_DO_NOT_USE.Provider>
 	);
 };

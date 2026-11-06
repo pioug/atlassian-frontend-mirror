@@ -9,7 +9,10 @@ import {
 
 snapshot(EmojiPickerWithUpload, {
 	states: [
-		{ selector: { byRole: 'searchbox', options: { name: 'Emoji name' } }, state: 'focused' },
+		{
+			selector: { byRole: 'searchbox', options: { name: 'Search emoji by name' } },
+			state: 'focused',
+		},
 	],
 	ignoredErrors: [
 		{
@@ -21,7 +24,10 @@ snapshot(EmojiPickerWithUpload, {
 });
 snapshot(EmojiPickerWithoutUpload, {
 	states: [
-		{ selector: { byRole: 'searchbox', options: { name: 'Emoji name' } }, state: 'focused' },
+		{
+			selector: { byRole: 'searchbox', options: { name: 'Search emoji by name' } },
+			state: 'focused',
+		},
 	],
 	ignoredErrors: [
 		{
@@ -33,7 +39,10 @@ snapshot(EmojiPickerWithoutUpload, {
 });
 snapshot(EmojiPickerWithFallbackWithUpload, {
 	states: [
-		{ selector: { byRole: 'searchbox', options: { name: 'Emoji name' } }, state: 'focused' },
+		{
+			selector: { byRole: 'searchbox', options: { name: 'Search emoji by name' } },
+			state: 'focused',
+		},
 	],
 	ignoredErrors: [
 		{
@@ -50,7 +59,10 @@ snapshot(EmojiPickerWithFallbackWithUpload, {
 });
 snapshot(EmojiPickerWithFallbackWithoutUpload, {
 	states: [
-		{ selector: { byRole: 'searchbox', options: { name: 'Emoji name' } }, state: 'focused' },
+		{
+			selector: { byRole: 'searchbox', options: { name: 'Search emoji by name' } },
+			state: 'focused',
+		},
 	],
 	ignoredErrors: [
 		{

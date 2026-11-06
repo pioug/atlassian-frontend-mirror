@@ -1,5 +1,14 @@
 # @atlaskit/rovo-triggers
 
+## 12.13.1
+
+### Patch Changes
+
+- [`4ae03b7faac86`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4ae03b7faac86) -
+  Make the shipped Google Smart Link post-auth Rovo Chat treatment permanent behind its feature
+  gate.
+- Updated dependencies
+
 ## 12.13.0
 
 ### Minor Changes

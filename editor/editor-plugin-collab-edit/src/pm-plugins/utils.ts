@@ -21,7 +21,6 @@ import type { DecorationSet, EditorView } from '@atlaskit/editor-prosemirror/vie
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { getParticipantColor } from '@atlaskit/editor-shared-styles/utils';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { preserveNodeIdentity } from './preserve-node-identity';
@@ -51,8 +50,8 @@ export function getAvatarColor(
 } {
 	const participantColor = getParticipantColor(
 		str,
-		fg('confluence_ncs_step_diffing_version_history') ? agentName : undefined,
-		fg('confluence_ncs_step_diffing_version_history') ? agentNamedId : undefined,
+		isExperimentEnabled('platform_editor_attributed_version_history') ? agentName : undefined,
+		isExperimentEnabled('platform_editor_attributed_version_history') ? agentNamedId : undefined,
 	);
 
 	return {

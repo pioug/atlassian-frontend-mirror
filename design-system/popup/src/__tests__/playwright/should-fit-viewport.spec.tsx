@@ -11,6 +11,13 @@ const isScrollable = (popupContent: Locator) =>
 		),
 	);
 
+/**
+ * These tests check `overflow` on the content container, which only the legacy path has. On the top
+ * layer the `PopoverSurface` is the scroll container. The path-agnostic geometry checks are in
+ * `popup/__tests__/playwright/fit-viewport.spec.tsx`.
+ */
+const featureFlag = 'platform-dst-top-layer=false';
+
 test('should be scrollable when shouldFitViewport is true', async ({ page, skipAxeCheck }) => {
 	// The example is just for tests
 	skipAxeCheck();
@@ -19,6 +26,7 @@ test('should be scrollable when shouldFitViewport is true', async ({ page, skipA
 		'design-system',
 		'popup',
 		'should-fit-viewport',
+		{ featureFlag },
 	);
 
 	// Open popup
@@ -35,6 +43,7 @@ test('should not be scrollable when shouldFitViewport is false', async ({ page, 
 		'design-system',
 		'popup',
 		'should-fit-viewport',
+		{ featureFlag },
 	);
 
 	// Toggle should fit viewport to false

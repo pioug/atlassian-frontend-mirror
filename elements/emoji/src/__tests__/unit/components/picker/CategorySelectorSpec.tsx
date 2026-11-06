@@ -3,6 +3,8 @@ import React from 'react';
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 import { act } from 'react-test-renderer';
 
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
 import { messages } from '../../../../components/i18n';
 import { CategoryDescriptionMapNew } from '../../../../components/picker/categories';
 import type { Props } from '../../../../components/picker/CategorySelector';
@@ -28,6 +30,28 @@ describe('<CategorySelector />', () => {
 
 	afterEach(() => {
 		jest.restoreAllMocks();
+	});
+
+	it('insets the category focus outline when the accessibility gate is enabled', async () => {
+		passGate('platform_ally_emoji_fixes_various');
+		await setupComponent();
+
+		expect(screen.getAllByRole('tab')[0]).toHaveCompiledCss(
+			'outline-offset',
+			'var(--ds-space-negative-025,-2px)',
+			{ target: ':focus-visible' },
+		);
+	});
+
+	it('does not apply the category focus outline when the accessibility gate is disabled', async () => {
+		failGate('platform_ally_emoji_fixes_various');
+		await setupComponent();
+
+		expect(screen.getAllByRole('tab')[0]).not.toHaveCompiledCss(
+			'outline-offset',
+			'var(--ds-space-negative-025,-2px)',
+			{ target: ':focus-visible' },
+		);
 	});
 
 	it('all standard categories visible by default', async () => {

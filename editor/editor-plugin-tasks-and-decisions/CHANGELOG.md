@@ -1,5 +1,37 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 33.0.15
+
+### Patch Changes
+
+- [`dd3768b8944a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dd3768b8944a6) -
+  Delete unreachable source files and unused dependencies
+- Updated dependencies
+
+## 33.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 33.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 33.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 33.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 33.0.10
 
 ### Patch Changes

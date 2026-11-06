@@ -221,6 +221,160 @@ test.describe('DatePicker top-layer — WCAG 2.4.3 Focus Order', () => {
 		await expect(calendar).toBeVisible();
 		await expect(previousYearButton).toBeFocused();
 	});
+
+	// Select returns focus to the opener when its menu closes with focus inside.
+	test('focus returns to the calendar button after a keyboard pick', async ({ page }) => {
+		await page.visitExample<
+			typeof import('../../../../../../examples/14-date-picker-tabcheck.tsx')
+		>('design-system', 'datetime-picker', 'date-picker-tabcheck', {
+			featureFlag,
+			'react-18-mode': 'modern',
+		});
+
+		const calendarButton = page.getByTestId('datepicker-1--open-calendar-button');
+		const calendar = page.getByTestId('datepicker-1--calendar--calendar');
+
+		// Open with the keyboard: Safari does not focus a clicked button.
+		await calendarButton.focus();
+		await page.keyboard.press('Enter');
+		await expect(calendar.locator('button[data-testid$="previous-year"]')).toBeFocused();
+		// Tab past the other header buttons to the focused day, then pick it.
+		await page.keyboard.press('Tab');
+		await page.keyboard.press('Tab');
+		await page.keyboard.press('Tab');
+		await page.keyboard.press('Tab');
+		await expect(calendar.locator('[data-focused="true"]')).toBeFocused();
+		await page.keyboard.press('Enter');
+
+		await expect(calendar).toBeHidden();
+		await expect(calendarButton).toBeFocused();
+	});
+
+	test('focus returns to the calendar button after a mouse pick', async ({ page, browserName }) => {
+		test.skip(
+			browserName === 'webkit',
+			'Safari, like Firefox on macOS, does not focus a clicked button, so focus has no opener to return to.',
+		);
+		await page.visitExample<
+			typeof import('../../../../../../examples/14-date-picker-tabcheck.tsx')
+		>('design-system', 'datetime-picker', 'date-picker-tabcheck', {
+			featureFlag,
+			'react-18-mode': 'modern',
+		});
+
+		const calendarButton = page.getByTestId('datepicker-1--open-calendar-button');
+		const calendar = page.getByTestId('datepicker-1--calendar--calendar');
+
+		// A click on the calendar button moves focus into the calendar (DSP-25706).
+		await calendarButton.click();
+		await expect(calendar.locator('button[data-testid$="previous-year"]')).toBeFocused();
+		// The 15th is in the shown month and appears once in the grid.
+		await calendar.getByRole('button', { name: /^15, / }).click();
+
+		await expect(calendar).toBeHidden();
+		await expect(calendarButton).toBeFocused();
+	});
+
+	test('focus returns to the input after a keyboard pick, and the calendar stays closed', async ({
+		page,
+	}) => {
+		await page.visitExample<
+			typeof import('../../../../../../examples/testing-top-layer-focus.tsx')
+		>('design-system', 'datetime-picker', 'testing-top-layer-focus', {
+			featureFlag,
+			'react-18-mode': 'modern',
+		});
+
+		const input = page.getByRole('combobox');
+		const calendar = page.getByTestId('date-picker--calendar--calendar');
+
+		// With no calendar button, focus on the input opens the calendar.
+		await input.focus();
+		await expect(calendar).toBeVisible();
+		await page.keyboard.press('ArrowDown');
+		await expect(calendar.locator('[data-focused="true"]')).toBeFocused();
+		await page.keyboard.press('ArrowRight');
+		await page.keyboard.press('Enter');
+
+		await expect(calendar).toBeHidden();
+		await expect(input).toBeFocused();
+		await expect(input).toHaveAttribute('aria-expanded', 'false');
+	});
+
+	test('Escape from the calendar returns focus to the calendar button', async ({ page }) => {
+		await page.visitExample<
+			typeof import('../../../../../../examples/14-date-picker-tabcheck.tsx')
+		>('design-system', 'datetime-picker', 'date-picker-tabcheck', {
+			featureFlag,
+			'react-18-mode': 'modern',
+		});
+
+		const calendarButton = page.getByTestId('datepicker-1--open-calendar-button');
+		const calendar = page.getByTestId('datepicker-1--calendar--calendar');
+
+		await calendarButton.focus();
+		await page.keyboard.press('Enter');
+		await expect(calendar.locator('button[data-testid$="previous-year"]')).toBeFocused();
+		await page.keyboard.press('Escape');
+
+		await expect(calendar).toBeHidden();
+		await expect(calendarButton).toBeFocused();
+	});
+
+	test('Escape returns focus to the input, and the calendar stays closed, without a calendar button', async ({
+		page,
+	}) => {
+		await page.visitExample<
+			typeof import('../../../../../../examples/testing-top-layer-focus.tsx')
+		>('design-system', 'datetime-picker', 'testing-top-layer-focus', {
+			featureFlag,
+			'react-18-mode': 'modern',
+		});
+
+		const input = page.getByRole('combobox');
+		const calendar = page.getByTestId('date-picker--calendar--calendar');
+
+		await input.focus();
+		await expect(calendar).toBeVisible();
+		await page.keyboard.press('ArrowDown');
+		await expect(calendar.locator('[data-focused="true"]')).toBeFocused();
+		await page.keyboard.press('Escape');
+
+		await expect(calendar).toBeHidden();
+		await expect(input).toBeFocused();
+		await expect(input).toHaveAttribute('aria-expanded', 'false');
+	});
+
+	test('shows the calendar again when an `isOpen={false}` prop that closed it is removed', async ({
+		page,
+	}) => {
+		await page.visitExample<
+			typeof import('../../../../../../examples/testing-date-picker-closed-by-prop.tsx')
+		>('design-system', 'datetime-picker', 'testing-date-picker-closed-by-prop', {
+			featureFlag,
+			'react-18-mode': 'modern',
+		});
+
+		const input = page.getByRole('combobox');
+		const calendar = page.getByTestId('closed-by-prop--calendar--calendar');
+		const state = page.getByTestId('closed-by-prop-state');
+
+		// The calendar button is present, so the keyboard opens the calendar with ArrowDown.
+		await input.focus();
+		await page.keyboard.press('ArrowDown');
+		await expect(calendar.locator('[data-focused="true"]')).toBeFocused();
+
+		// F2 sets `isOpen={false}`: the calendar closes and focus returns to the input.
+		await page.keyboard.press('F2');
+		await expect(state).toHaveText('Closed by isOpen={false}');
+		await expect(calendar).toBeHidden();
+		await expect(input).toBeFocused();
+
+		// F2 removes the prop. The return did not change the open state, so the calendar shows.
+		await page.keyboard.press('F2');
+		await expect(state).toHaveText('No isOpen prop');
+		await expect(calendar).toBeVisible();
+	});
 });
 
 test.describe('DatePicker top-layer — WCAG 2.4.7 Focus Visible', () => {

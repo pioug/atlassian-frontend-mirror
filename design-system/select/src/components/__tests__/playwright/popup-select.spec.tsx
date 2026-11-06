@@ -2,61 +2,72 @@
 
 import { expect, test } from '@af/integration-testing';
 
-test.describe('PopupSelect', () => {
-	test('Popup Select should open and close when interacted with', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../examples/18-popup-select.vr.ap.tsx')>(
-			'design-system',
-			'select',
-			'popup-select',
-		);
-		const button = page.getByTestId('button-for-testing');
-		await button.click();
-		const select = page.getByTestId('select-for-testing--menu');
-		await expect(select).toBeVisible();
+const featureFlags = [undefined, 'platform-dst-top-layer'];
 
-		await page.keyboard.press('Escape');
-		await expect(select).toBeHidden();
-	});
+featureFlags.forEach((featureFlag) => {
+	test.describe(`PopupSelect${featureFlag ? ` (${featureFlag})` : ''}`, () => {
+		test('Popup Select should open and close when interacted with', async ({ page }) => {
+			await page.visitExample<typeof import('../../../../examples/18-popup-select.vr.ap.tsx')>(
+				'design-system',
+				'select',
+				'popup-select',
+				featureFlag ? { featureFlag } : undefined,
+			);
+			const button = page.getByTestId('button-for-testing');
+			await button.click();
+			const select = page.getByTestId('select-for-testing--menu');
+			await expect(select).toBeVisible();
 
-	test('Popup Select menu should open in the viewport below its trigger', async ({ page }) => {
-		await page.visitExample<typeof import('../../../../examples/18-popup-select.vr.ap.tsx')>(
-			'design-system',
-			'select',
-			'popup-select',
-		);
+			await page.keyboard.press('Escape');
+			await expect(select).toBeHidden();
+		});
 
-		const trigger = page.getByTestId('button-for-testing');
-		const menu = page.getByTestId('select-for-testing--menu');
-		await trigger.click();
-		await expect(menu).toBeVisible();
-		await expect(menu).toBeInViewport();
+		test('Popup Select menu should open in the viewport below its trigger', async ({
+			page,
+			skipAxeCheck,
+		}) => {
+			await page.visitExample<typeof import('../../../../examples/18-popup-select.vr.ap.tsx')>(
+				'design-system',
+				'select',
+				'popup-select',
+				featureFlag ? { featureFlag } : undefined,
+			);
 
-		const [triggerBounds, menuBounds] = await Promise.all([
-			trigger.boundingBox(),
-			menu.boundingBox(),
-		]);
-		expect(triggerBounds).not.toBeNull();
-		expect(menuBounds).not.toBeNull();
-		expect(menuBounds?.y).toBeGreaterThanOrEqual(triggerBounds?.y ?? 0);
-	});
+			const trigger = page.getByTestId('button-for-testing');
+			const menu = page.getByTestId('select-for-testing--menu');
+			await trigger.click();
+			await expect(menu).toBeVisible();
+			await expect(menu).toBeInViewport();
 
-	test('Popup Select should open with down arrow', async ({ page, skipAxeCheck }) => {
-		await page.visitExample<typeof import('../../../../examples/18-popup-select.vr.ap.tsx')>(
-			'design-system',
-			'select',
-			'popup-select',
-		);
-		const button = page.getByTestId('button-for-testing');
-		await expect(button).toBeVisible();
-		await page.keyboard.press('Tab');
-		await expect(button).toBeFocused();
-		await page.keyboard.press('ArrowDown');
-		const select = page.getByTestId('select-for-testing--menu');
-		await expect(select).toBeVisible();
+			const [triggerBounds, menuBounds] = await Promise.all([
+				trigger.boundingBox(),
+				menu.boundingBox(),
+			]);
+			expect(triggerBounds).not.toBeNull();
+			expect(menuBounds).not.toBeNull();
+			expect(menuBounds?.y).toBeGreaterThanOrEqual(triggerBounds?.y ?? 0);
+			skipAxeCheck();
+		});
 
-		// Received:
-		// Scrollable region must have keyboard access (scrollable-region-focusable) in reference to the
-		// Select's list of items. Since focus never really moves into this area, this test is not valid.
-		skipAxeCheck();
+		test('Popup Select should open with down arrow', async ({ page, skipAxeCheck }) => {
+			await page.visitExample<typeof import('../../../../examples/18-popup-select.vr.ap.tsx')>(
+				'design-system',
+				'select',
+				'popup-select',
+				featureFlag ? { featureFlag } : undefined,
+			);
+			const button = page.getByTestId('button-for-testing');
+			await expect(button).toBeVisible();
+			await page.keyboard.press('Tab');
+			await expect(button).toBeFocused();
+			await page.keyboard.press('ArrowDown');
+			const select = page.getByTestId('select-for-testing--menu');
+			await expect(select).toBeVisible();
+
+			// Received:
+			// Scrollable region must have keyboard access (scrollable-region-focusable) in reference to the
+			// Select's list of items. Since focus never really moves into this area, this test is not valid.
+			skipAxeCheck();
+		});
 	});
 });

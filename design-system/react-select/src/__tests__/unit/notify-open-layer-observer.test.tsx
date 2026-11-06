@@ -5,6 +5,7 @@ import { act, render, screen } from '@testing-library/react';
 
 import { hasOpenDialogOrPopover } from '@atlaskit/top-layer/page-surface/has-open-dialog-or-popover';
 import { requestClosePopovers } from '@atlaskit/top-layer/page-surface/request-close-popovers';
+import { flushPopoverExit } from '@atlaskit/top-layer/testing/flush-popover-exit';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import Select from '../../select';
@@ -98,7 +99,7 @@ describe('Open layers - flag ON (found through the DOM, not the observer)', () =
 		expect(hasOpenDialogOrPopover()).toBe(false);
 	});
 
-	it('flag ON - requestClosePopovers closes the menu', () => {
+	it('flag ON - requestClosePopovers closes the menu', async () => {
 		const onMenuClose = jest.fn();
 		render(
 			<StateManagedSelect
@@ -115,8 +116,10 @@ describe('Open layers - flag ON (found through the DOM, not the observer)', () =
 		});
 
 		expect(onMenuClose).toHaveBeenCalledTimes(1);
-		expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
 		expect(hasOpenDialogOrPopover()).toBe(false);
+		// The menu stays mounted, hidden, until its popover has finished closing.
+		await flushPopoverExit();
+		expect(screen.queryByRole('listbox')).not.toBeInTheDocument();
 	});
 
 	it('flag ON - requestClosePopovers outside the select leaves the menu open', () => {

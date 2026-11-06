@@ -61,6 +61,24 @@ describe('Popup top-layer: trigger rendering', () => {
 		expect(screen.getByRole('button', { name: 'Trigger' })).toBeInTheDocument();
 	});
 
+	it('passes the same trigger ref on each render', () => {
+		passGate('platform-dst-top-layer');
+
+		const refs = new Set<TriggerProps['ref']>();
+		const trigger = (props: TriggerProps) => {
+			refs.add(props.ref);
+			return defaultTrigger(props);
+		};
+		const { rerender } = render(
+			<Popup isOpen={false} content={defaultContent} trigger={trigger} />,
+		);
+
+		rerender(<Popup isOpen={true} content={defaultContent} trigger={trigger} testId={testId} />);
+		rerender(<Popup isOpen={false} content={defaultContent} trigger={trigger} />);
+
+		expect(refs.size).toBe(1);
+	});
+
 	it('sets aria-expanded=false when closed', () => {
 		passGate('platform-dst-top-layer');
 
@@ -296,6 +314,75 @@ describe('Popup top-layer: popupComponent', () => {
 		// style attribute should be empty or minimal — positioning is on the popover parent
 		expect(container.getAttribute('style')).toBeFalsy();
 	});
+
+	it('puts the provided id only on the popover host', () => {
+		passGate('platform-dst-top-layer');
+
+		const CustomContainer = forwardRef<HTMLDivElement, PopupComponentProps>(
+			({ children, id }, ref) => (
+				<div ref={ref} id={id} data-testid="custom-container">
+					{children}
+				</div>
+			),
+		);
+		CustomContainer.displayName = 'CustomContainer';
+
+		render(
+			<Popup
+				id="popup-id"
+				isOpen={true}
+				content={defaultContent}
+				trigger={defaultTrigger}
+				popupComponent={CustomContainer}
+				testId={testId}
+			/>,
+		);
+
+		expect(screen.getByTestId(`${testId}--container`)).toHaveAttribute('id', 'popup-id');
+		expect(screen.getByTestId('custom-container')).not.toHaveAttribute('id');
+		expect(screen.getByRole('button', { name: 'Trigger' })).toHaveAttribute(
+			'aria-controls',
+			'popup-id',
+		);
+	});
+});
+
+describe('Popup top-layer: content render prop', () => {
+	it.each([false, true])(
+		'does not call content while closed (popupComponent: %s)',
+		(hasPopupComponent) => {
+			passGate('platform-dst-top-layer');
+
+			const CustomContainer = forwardRef<HTMLDivElement, PopupComponentProps>(
+				({ children }, ref) => <div ref={ref}>{children}</div>,
+			);
+			CustomContainer.displayName = 'CustomContainer';
+			const content = jest.fn(defaultContent);
+
+			const { rerender } = render(
+				<Popup
+					isOpen={false}
+					content={content}
+					trigger={defaultTrigger}
+					popupComponent={hasPopupComponent ? CustomContainer : undefined}
+				/>,
+			);
+
+			expect(content).not.toHaveBeenCalled();
+
+			rerender(
+				<Popup
+					isOpen={true}
+					content={content}
+					trigger={defaultTrigger}
+					popupComponent={hasPopupComponent ? CustomContainer : undefined}
+				/>,
+			);
+
+			expect(content).toHaveBeenCalledWith(expect.objectContaining({ isOpen: true }));
+			expect(screen.getByTestId('popup-content')).toBeInTheDocument();
+		},
+	);
 });
 
 describe('Popup top-layer: WCAG 4.1.2 — role attribute', () => {

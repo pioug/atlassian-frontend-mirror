@@ -39,6 +39,28 @@ test.describe('Popup - open and close', () => {
 		await expect(content).toBeHidden();
 	});
 
+	// The browser closes the topmost popover on Escape wherever focus is.
+	test('reports "escape" for an Escape with focus on the trigger', async ({ page }) => {
+		await page.visitExample<typeof import('../../examples/92-testing-popover-escape.tsx')>(
+			'design-system',
+			'top-layer',
+			'testing-popover-escape',
+		);
+
+		const trigger = page.getByTestId('popover-trigger');
+		const content = page.getByTestId('popover-content');
+
+		await trigger.click();
+		await expect(content).toBeVisible();
+		await trigger.focus();
+		await expect(trigger).toBeFocused();
+
+		await page.keyboard.press('Escape');
+		await expect(content).toBeHidden();
+		await expect(page.getByTestId('close-reason')).toHaveText('escape');
+		await expect(trigger).toBeFocused();
+	});
+
 	test('native light dismiss unmounts the non-animated popover host', async ({ page }) => {
 		await page.visitExample<typeof import('../../examples/92-testing-popover-escape.tsx')>(
 			'design-system',

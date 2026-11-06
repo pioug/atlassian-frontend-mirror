@@ -3,8 +3,8 @@ import React from 'react';
 
 import fetchMock from 'jest-fetch-mock';
 import { IntlProvider } from 'react-intl';
-import TestRenderer from 'react-test-renderer';
 
+import { act } from '@atlassian/testing-library/act';
 import { renderHook } from '@atlassian/testing-library/render-hook';
 
 import { aiSummaryMocks } from '../../__tests__/__mocks__/ai-summary-mocks';
@@ -21,8 +21,6 @@ jest.mock('uuid', () => ({
 jest.mock('../ai-summary-service/readStream', () => ({
 	readStream: jest.fn(),
 }));
-
-const { act } = TestRenderer;
 
 const mockUseAISummaryProps = { url: 'test-url', ari: 'test-ari' };
 

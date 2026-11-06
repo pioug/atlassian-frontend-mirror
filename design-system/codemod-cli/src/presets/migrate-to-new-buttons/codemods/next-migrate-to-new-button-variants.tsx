@@ -6,7 +6,7 @@ import {
 	type ImportSpecifier,
 } from 'jscodeshift';
 
-import { addCommentBefore } from '@atlaskit/codemod-utils/support';
+import { addCommentBefore, hasJSXAttributeWithValue } from '@atlaskit/codemod-utils/support';
 
 import { addCommentForCustomThemeButtons } from '../utils/add-comment-for-custom-theme-buttons';
 import { addCommentForOverlayProp } from '../utils/add-comment-for-overlay-prop';
@@ -22,7 +22,6 @@ import {
 	noSpacinglinkButtonMissingHrefComment,
 } from '../utils/constants';
 import { entryPointsMapping } from '../utils/entry-points-mapping';
-import { findJSXAttributeWithValue } from '../utils/find-attribute-with-value';
 import { generateLinkComponent } from '../utils/generate-link-component';
 import { generateNewElement } from '../utils/generate-new-element';
 import getDefaultImports from '../utils/get-default-imports';
@@ -150,7 +149,7 @@ const transformer = (file: FileInfo, api: API): string => {
 					attr.value.value !== 'none',
 			) || !buttonAttributes.includes('spacing');
 
-		const hasSpacingNone = findJSXAttributeWithValue(
+		const hasSpacingNone = hasJSXAttributeWithValue(
 			element.value.openingElement,
 			'spacing',
 			'none',

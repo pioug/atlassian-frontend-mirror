@@ -2,25 +2,18 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useEffect, useState } from 'react';
-
 import { css, jsx } from '@compiled/react';
 
-import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
-import { FeatureGateEnvironment } from '@atlaskit/feature-gate-js-client/types';
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { iconGoogleDrive } from '@atlaskit/link-test-helpers/smart-card/images';
 import { GoogleDoc, GoogleDocUrl } from '@atlaskit/link-test-helpers/smart-card/mocks/gdrive';
-import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags/setBooleanFeatureFlagResolver';
 
 import { Card } from '../../src';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 // Statically import the lazy footer so the snapshot captures the loaded state.
 import '../../src/view/EmbedCard/components/rovo-actions-footer';
-
-const EMBED_ROVO_ACTIONS_FOOTER_KILL_SWITCH = 'platform_sl_3p_auth_rovo_embed_footer_kill_switch';
 
 const googleDocWithRovoActions = {
 	...GoogleDoc,
@@ -44,110 +37,30 @@ const embedWrapperStyles = css({
 	width: '760px',
 });
 
-type RovoActionsFooterGateConfig = {
-	isKillSwitchEnabled: boolean;
-};
-
-const useRovoActionsFooterGateConfig = ({
-	isKillSwitchEnabled,
-}: RovoActionsFooterGateConfig): number => {
-	const [revision, setRevision] = useState(0);
-
-	useEffect(() => {
-		let cancelled = false;
-
-		const setup = async () => {
-			await FeatureGates.initializeFromValues(
-				{
-					environment: FeatureGateEnvironment.Development,
-					localMode: true,
-					targetApp: '',
-				},
-				{},
-			);
-
-			FeatureGates.clearAllOverrides();
-			FeatureGates.overrideGate(EMBED_ROVO_ACTIONS_FOOTER_KILL_SWITCH, isKillSwitchEnabled);
-
-			setBooleanFeatureFlagResolver((flagKey) => {
-				if (flagKey === EMBED_ROVO_ACTIONS_FOOTER_KILL_SWITCH) {
-					return isKillSwitchEnabled;
-				}
-
-				// `fg()` delegates to this resolver, so read the local FeatureGates overrides directly.
-				return FeatureGates.checkGate(flagKey);
-			});
-
-			if (!cancelled) {
-				setRevision((revision) => revision + 1);
-			}
-		};
-
-		void setup();
-
-		return () => {
-			cancelled = true;
-		};
-	}, [isKillSwitchEnabled]);
-
-	return revision;
-};
-
 type RovoActionsFooterComponent = {
 	(): JSX.Element;
 	displayName: string;
 };
 
-const createVREmbedCardResolvedRovoActionsFooter = (
-	name: string,
-	config: RovoActionsFooterGateConfig,
-): RovoActionsFooterComponent => {
-	const VREmbedCardResolvedRovoActionsFooter = (): JSX.Element => {
-		const gateRevision = useRovoActionsFooterGateConfig(config);
-
-		if (!gateRevision) {
-			return <VRTestWrapper />;
-		}
-
-		return (
-			<VRTestWrapper>
-				<div key={gateRevision} css={embedWrapperStyles}>
-					<SmartCardProvider
-						client={new RovoActionsEmbedClient()}
-						product="CONFLUENCE"
-						rovoOptions={{ isRovoEnabled: true, isRovoLLMEnabled: true }}
-					>
-						<Card
-							actionOptions={{ hide: false, rovoChatAction: { optIn: true } }}
-							appearance="embed"
-							frameStyle="show"
-							platform="web"
-							url={GoogleDocUrl}
-						/>
-					</SmartCardProvider>
-				</div>
-			</VRTestWrapper>
-		);
-	};
-
-	VREmbedCardResolvedRovoActionsFooter.displayName = name;
-
-	return VREmbedCardResolvedRovoActionsFooter;
-};
-
-export const VREmbedCardResolvedRovoActionsFooterEnabled: RovoActionsFooterComponent =
-	createVREmbedCardResolvedRovoActionsFooter('VREmbedCardResolvedRovoActionsFooterEnabled', {
-		isKillSwitchEnabled: true,
-	});
-
-export const VREmbedCardResolvedRovoActionsFooterKillSwitchOff: RovoActionsFooterComponent =
-	createVREmbedCardResolvedRovoActionsFooter('VREmbedCardResolvedRovoActionsFooterKillSwitchOff', {
-		isKillSwitchEnabled: false,
-	});
-
-const VREmbedCardResolvedRovoActionsFooter: RovoActionsFooterComponent = (): JSX.Element => {
-	return <VREmbedCardResolvedRovoActionsFooterEnabled />;
-};
+const VREmbedCardResolvedRovoActionsFooter: RovoActionsFooterComponent = (): JSX.Element => (
+	<VRTestWrapper>
+		<div css={embedWrapperStyles}>
+			<SmartCardProvider
+				client={new RovoActionsEmbedClient()}
+				product="CONFLUENCE"
+				rovoOptions={{ isRovoEnabled: true, isRovoLLMEnabled: true }}
+			>
+				<Card
+					actionOptions={{ hide: false, rovoChatAction: { optIn: true } }}
+					appearance="embed"
+					frameStyle="show"
+					platform="web"
+					url={GoogleDocUrl}
+				/>
+			</SmartCardProvider>
+		</div>
+	</VRTestWrapper>
+);
 
 VREmbedCardResolvedRovoActionsFooter.displayName = 'VREmbedCardResolvedRovoActionsFooter';
 

@@ -11,5 +11,7 @@
 		"1-colors.vr.ap.tsx",
 		"3-text-max-length.tsx",
 		"9-simple-tag.tsx",
+		"keyboard-focus.tsx",
+		"vr-tests/keyboard-focus.vr.ap.tsx",
 	],
 }

@@ -371,6 +371,20 @@ describe('<UploadingEmojiPicker />', () => {
 				.forEach((element) => expect(element).toBeInTheDocument());
 		});
 
+		it.each([
+			{ gateEnabled: true, accessibleName: 'Emoji name' },
+			{ gateEnabled: false, accessibleName: 'Enter a name for the new emoji' },
+		])(
+			'uses $accessibleName for the emoji name field when the gate is $gateEnabled',
+			async ({ gateEnabled, accessibleName }) => {
+				(gateEnabled ? passGate : failGate)('platform_ally_emoji_fixes_various');
+				await helper.setupPicker({ emojiProvider, hideToneSelector: true });
+				await emojiProvider;
+				await userEvent.click(await helperTestingLibrary.getAddCustomEmojiButton());
+				expect(screen.getByTestId(uploadEmojiNameInputTestId)).toHaveAccessibleName(accessibleName);
+			},
+		);
+
 		it('shows unsupported file type error in refresh upload flow', async () => {
 			await helper.setupPicker({
 				emojiProvider,
@@ -655,7 +669,7 @@ describe('<UploadingEmojiPicker />', () => {
 			await userEvent.click(addCustomEmojiButton);
 
 			await waitFor(() => {
-				expect(helperTestingLibrary.getUploadEmojiNameInput()).toBeInTheDocument();
+				expect(screen.getByTestId(uploadEmojiNameInputTestId)).toBeInTheDocument();
 			});
 
 			const closeButton = screen.getByTestId(cancelEmojiUploadPickerTestId);

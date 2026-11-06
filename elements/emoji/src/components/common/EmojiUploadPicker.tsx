@@ -30,6 +30,7 @@ import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEv
 import { getDocument } from '@atlaskit/browser-apis';
 import Button from '@atlaskit/button/default/button';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import TextField from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
@@ -198,7 +199,10 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 	} = props;
 	const { formatMessage } = intl;
 	const fileChooserButtonDescriptionId = 'choose.emoji.file.button.screen.reader.description.id';
+	const emojiNameErrorId = 'new-emoji-name-error';
 	const inputRef = useRef<HTMLElement>(null);
+	const isA11yFixEnabled = fg('platform_ally_emoji_fixes_various');
+	const shouldFocusNameOnError = !!nameErrorMessage && isA11yFixEnabled;
 
 	const onKeyDownHandler: KeyboardEventHandler<HTMLInputElement> = useCallback(
 		(event) => {
@@ -214,6 +218,12 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 			inputRef.current?.focus();
 		});
 	}, []);
+
+	useEffect(() => {
+		if (shouldFocusNameOnError) {
+			inputRef.current?.focus();
+		}
+	}, [shouldFocusNameOnError]);
 
 	const emojiPlaceholder = formatMessage(messages.emojiPlaceholder);
 	const emojiNameAriaLabel = formatMessage(messages.emojiNameAriaLabel);
@@ -259,7 +269,9 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 					</label>
 					<TextField
 						placeholder={emojiPlaceholder}
-						aria-label={emojiNameAriaLabel}
+						aria-label={
+							isA11yFixEnabled ? formatMessage(messages.emojiNameLabel) : emojiNameAriaLabel
+						}
 						maxLength={maxNameLength}
 						onChange={onNameChange}
 						onKeyDown={onKeyDownHandler}
@@ -267,14 +279,20 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 						isCompact
 						autoFocus
 						isInvalid={!!nameErrorMessage}
+						aria-describedby={isA11yFixEnabled ? emojiNameErrorId : undefined}
 						testId={uploadEmojiNameInputTestId}
 						ref={inputRef}
 						id="new-emoji-name-input"
 						aria-required={true}
 					/>
-					{nameErrorMessage && (
-						<EmojiErrorMessage errorStyle="chooseFile" message={nameErrorMessage} />
-					)}
+					{nameErrorMessage &&
+						(isA11yFixEnabled ? (
+							<div id={emojiNameErrorId} role="alert" aria-atomic="true">
+								<EmojiErrorMessage errorStyle="chooseFile" message={nameErrorMessage} />
+							</div>
+						) : (
+							<EmojiErrorMessage errorStyle="chooseFile" message={nameErrorMessage} />
+						))}
 				</div>
 			</div>
 			<div css={uploadAddRowNew}>

@@ -12,11 +12,13 @@ import { ToolTipContent } from '@atlaskit/editor-common/keymaps';
 import { messages } from '@atlaskit/editor-common/messages/block-controls';
 import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
+import { isEmptyNode } from '@atlaskit/editor-common/utils';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNode, findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import AddIcon from '@atlaskit/icon/core/add';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
@@ -104,6 +106,24 @@ const isNonEditableBlock = (start: number, view: EditorView): boolean => {
 	return node.isBlock && (node.isAtom || node.isLeaf);
 };
 
+const getNextEmptyParagraphPosition = (start: number, view: EditorView): number | undefined => {
+	const node = view.state.doc.nodeAt(start);
+	if (!node) {
+		return undefined;
+	}
+
+	const positionAfterTarget = start + node.nodeSize;
+	const nextNode = view.state.doc.resolve(positionAfterTarget).nodeAfter;
+	if (nextNode?.type !== view.state.schema.nodes.paragraph || nextNode.marks.length > 0) {
+		return undefined;
+	}
+	if (!isEmptyNode(view.state.schema)(nextNode)) {
+		return undefined;
+	}
+
+	return positionAfterTarget + 1;
+};
+
 const openQuickInsert = (
 	api: ExtractInjectionAPI<QuickInsertPlugin>,
 	view: EditorView,
@@ -111,8 +131,24 @@ const openQuickInsert = (
 	openTypeAhead: () => void,
 ): void => {
 	const isSelectionInsideNode = isSelectionInNode(start, view);
-	if (!isSelectionInsideNode || isNonEditableBlock(start, view)) {
+	const shouldCreateNewLine = !isSelectionInsideNode || isNonEditableBlock(start, view);
+	const reusableParagraphPosition =
+		shouldCreateNewLine && isExperimentEnabled('platform_editor_block_control_inp')
+			? getNextEmptyParagraphPosition(start, view)
+			: undefined;
+	if (shouldCreateNewLine && reusableParagraphPosition === undefined) {
 		api.core.actions.execute(createNewLine(start));
+	} else if (
+		reusableParagraphPosition !== undefined &&
+		// Only skip when the cursor is already collapsed in the reused paragraph. A range selection
+		// that merely starts there must still be collapsed, otherwise opening the typeahead deletes
+		// the selected content (openTypeAheadAtCursor calls deleteSelection for non-cursor ranges).
+		!(view.state.selection.empty && view.state.selection.from === reusableParagraphPosition)
+	) {
+		api.core.actions.execute(({ tr }) => {
+			tr.setSelection(TextSelection.create(tr.doc, reusableParagraphPosition));
+			return tr;
+		});
 	}
 
 	const { codeBlock } = view.state.schema.nodes;
@@ -120,7 +156,7 @@ const openQuickInsert = (
 	const codeBlockParentNode = findParentNodeOfType(codeBlock)(selection);
 	if (codeBlockParentNode) {
 		api.core.actions.execute(createNewLine(codeBlockParentNode.pos));
-	} else if (isSelectionInsideNode) {
+	} else if (isSelectionInsideNode && reusableParagraphPosition === undefined) {
 		const currentSelection = view.state.selection;
 
 		if (

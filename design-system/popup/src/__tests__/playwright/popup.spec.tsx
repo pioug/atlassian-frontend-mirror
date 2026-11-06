@@ -148,7 +148,12 @@ test.describe('Popup top-layer — WCAG 2.4.3 Focus Order', () => {
 	test('Focus moves into popup content on open', async ({ page }) => {
 		await page.visitExample<
 			typeof import('../../../examples/21-popup-should-render-to-parent.tsx')
-		>('design-system', 'popup', 'popup-should-render-to-parent', { 'react-18-mode': 'modern' });
+		>('design-system', 'popup', 'popup-should-render-to-parent', {
+			// Legacy only. The example has no `role`, so on the top layer focus stays on the trigger.
+			// See `ff-testing/platform-dst-top-layer/popup.spec.tsx`.
+			featureFlag: 'platform-dst-top-layer=false',
+			'react-18-mode': 'modern',
+		});
 
 		const trigger = page.getByTestId('popup-trigger');
 		const content = page.getByTestId('popup');
@@ -282,7 +287,7 @@ test.describe('Popup top-layer — WCAG 4.1.2 Name, Role, Value', () => {
 		await trigger.click();
 		await expect(content).toBeVisible();
 
-		// role="dialog" or "alertdialog", on `popup` (legacy) or on its top-layer container
+		// role="dialog" or "alertdialog", on `popup` (legacy) or on its top-layer popover host
 		const dialog = page.getByRole('dialog').or(page.getByRole('alertdialog'));
 		await expect(dialog.filter({ has: content }).or(dialog.and(content))).toBeVisible();
 	});
@@ -753,7 +758,12 @@ test.describe('Popup top-layer — Complex interactions', () => {
 			'design-system',
 			'popup',
 			'should-not-return-focus',
-			{ 'react-18-mode': 'modern' },
+			{
+				// Legacy only. On the top layer `shouldReturnFocus={false}` has no effect and native
+				// focus return wins. See `ff-testing/platform-dst-top-layer/popup.spec.tsx`.
+				featureFlag: 'platform-dst-top-layer=false',
+				'react-18-mode': 'modern',
+			},
 		);
 
 		const trigger = page.getByText('Trigger');
@@ -789,14 +799,18 @@ test.describe('Popup — trigger focus rescue (platform_dst-popup-trigger-initia
 	 * that focus-trap's own `returnFocusOnDeactivate` silently failed. If the trigger is still
 	 * connected to the DOM at that point, the gate manually calls `triggerRef.focus()`
 	 * to rescue focus back to the trigger.
+	 *
+	 * The gate only acts on the legacy focus trap, so these tests run on the legacy path. The
+	 * top-layer path returns focus natively. See `ff-testing/platform-dst-top-layer/popup.spec.tsx`.
 	 */
-	const triggerFocusRescueFlag = 'platform_dst-popup-trigger-initial-focus-ref';
+	const legacyTriggerFocusRescueFlags =
+		'platform_dst-popup-trigger-initial-focus-ref,platform-dst-top-layer=false';
 
 	test('focus returns to trigger after closing with Escape key', async ({ page }) => {
 		await page.visitExample<
 			typeof import('../../../examples/21-popup-should-render-to-parent.tsx')
 		>('design-system', 'popup', 'popup-should-render-to-parent', {
-			featureFlag: triggerFocusRescueFlag,
+			featureFlag: legacyTriggerFocusRescueFlags,
 			'react-18-mode': 'modern',
 		});
 
@@ -819,7 +833,7 @@ test.describe('Popup — trigger focus rescue (platform_dst-popup-trigger-initia
 		await page.visitExample<
 			typeof import('../../../examples/21-popup-should-render-to-parent.tsx')
 		>('design-system', 'popup', 'popup-should-render-to-parent', {
-			featureFlag: triggerFocusRescueFlag,
+			featureFlag: legacyTriggerFocusRescueFlags,
 			'react-18-mode': 'modern',
 		});
 
@@ -842,7 +856,7 @@ test.describe('Popup — trigger focus rescue (platform_dst-popup-trigger-initia
 		await page.visitExample<
 			typeof import('../../../examples/21-popup-should-render-to-parent.tsx')
 		>('design-system', 'popup', 'popup-should-render-to-parent', {
-			featureFlag: triggerFocusRescueFlag,
+			featureFlag: legacyTriggerFocusRescueFlags,
 			'react-18-mode': 'modern',
 		});
 
@@ -873,7 +887,7 @@ test.describe('Popup — trigger focus rescue (platform_dst-popup-trigger-initia
 			'popup',
 			'should-not-return-focus',
 			{
-				featureFlag: triggerFocusRescueFlag,
+				featureFlag: legacyTriggerFocusRescueFlags,
 				'react-18-mode': 'modern',
 			},
 		);

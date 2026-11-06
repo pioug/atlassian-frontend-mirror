@@ -42,7 +42,9 @@ export type RovoChatActionMessageKey =
 	| 'rovo_prompt_button_catch_up'
 	| 'rovo_prompt_message_catch_up'
 	| 'rovo_prompt_button_salesforce_prep'
-	| 'rovo_prompt_message_salesforce_prep';
+	| 'rovo_prompt_message_salesforce_prep'
+	| 'rovo_prompt_button_visualize'
+	| 'rovo_prompt_message_visualize';
 export type MessageKey =
 	| 'assigned_to'
 	| 'ai_summarize'
@@ -1504,5 +1506,17 @@ export const messages: Messages = defineMessages({
 		defaultMessage: 'Your team sees richer <b>{provider}</b> previews.',
 		description:
 			'Social proof message shown on unauthorized 3P block cards when less than 30% of the tenant has connected the provider. {provider} is the 3P app name (e.g. OneDrive).',
+	},
+	rovo_prompt_button_visualize: {
+		id: 'fabric.linking.rovo_prompt_button_visualize.non-final',
+		defaultMessage: 'Visualize',
+		description:
+			'The name of the action to send prompt message to Rovo Chat in relation to current Smart Link',
+	},
+	rovo_prompt_message_visualize: {
+		id: 'fabric.linking.rovo_prompt_message_visualize.non-final',
+		defaultMessage: '<p>Visualize this link <a>{url}</a></p>',
+		description:
+			'The prompt message to send to Rovo Chat. {url} refers to Smart Link that the user triggers this action from. (Please make sure all html tags remain the same.)',
 	},
 });

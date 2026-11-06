@@ -230,7 +230,9 @@ export class MentionInternal extends React.PureComponent<Props, State> {
 		const visibleText = showAvatarSlot && text.startsWith('@') ? text.slice(1) : text;
 		const shouldApplyAgentShape = appType === 'agent' && !isAvatarImagePreShaped;
 		const shouldApplyFixedAgentShape =
-			shouldApplyAgentShape && isExperimentEnabled('platform_editor_agent_hexagon_ui_fix');
+			shouldApplyAgentShape &&
+			(isExperimentEnabled('platform_editor_agent_hexagon_ui_fix') ||
+				isExperimentEnabled('canvas_agentic_experiences_master_exp'));
 		const shouldRenderAvatar = avatarUrl && !this.state.hasAvatarError;
 
 		const showRestrictedTooltip = mentionType === MentionType.RESTRICTED;

@@ -281,7 +281,7 @@ const collapse = (changes: AttributedChange[]): AttributedChange[] => {
  * Both leave ranges that only touch, so they survive the collapse.
  *
  * Carries no gate of its own: the only caller reaches it through the attributed changeset, which
- * already requires `confluence_ncs_step_diffing_version_history`.
+ * already requires `platform_editor_attributed_version_history`.
  */
 export const collapseOverlappingChanges = (changes: Change[], doc?: PMNode): AttributedChange[] =>
 	collapse(splitContainedChanges(splitMixedIdentityChanges(changes, doc), doc));

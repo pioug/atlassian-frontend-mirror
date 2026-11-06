@@ -15,6 +15,8 @@ import type {
 } from '@atlaskit/menu/types';
 import type { ContentProps, DialogContentProps, TriggerProps } from '@atlaskit/popup/types';
 
+import type { Shortcut } from './internal/components/keyboard-shortcut';
+
 export type FocusableElementRef = RefObject<HTMLAnchorElement | HTMLButtonElement>;
 export type Action = 'next' | 'prev' | 'first' | 'last' | 'tab';
 
@@ -188,8 +190,9 @@ interface InternalDropdownMenuProps<TriggerElement extends HTMLElement = any> {
 
 	/**
 	 * Controls the spacing density of the menu.
+	 * NOTE: `cozy` is deprecated and will be removed. `spacious` replaces `cozy` and results in the same visual appearance.
 	 */
-	spacing?: Extract<MenuGroupProps['spacing'], 'cozy' | 'compact'>;
+	spacing?: 'cozy' | 'compact' | 'spacious';
 
 	/**
 	 * Content that triggers the dropdown menu to open and close. Use with
@@ -370,6 +373,13 @@ export interface DropdownItemProps {
 	 */
 	elemAfter?: React.ReactNode;
 
+	shortcut?: string[];
+	appearance?: 'danger';
+	/**
+	 * Shows a submenu indicator for custom submenu triggers. DropdownMenu triggers automatically infer this from context so you do not need to set this prop manually. Only set it manually if you are using a trigger other than DropdownMenu trigger (e.g. Popup trigger)
+	 */
+	hasNestedMenu?: boolean;
+
 	/**
 	 * The relationship of the linked URL as space-separated link types.
 	 * Generally you'll want to set this to "noopener noreferrer" when `target` is "_blank".
@@ -403,6 +413,7 @@ export interface DropdownItemProps {
 	 * An optional boolean value used to indicate if the dropdown item has popup or not.
 	 */
 	'aria-haspopup'?: TriggerProps['aria-haspopup'];
+	'aria-expanded'?: boolean;
 	/**
 	 * An optional string value that specifies the role of the dropdown item.
 	 * Use this to indicate whether the item is
@@ -453,6 +464,8 @@ export interface DropdownItemCheckboxProps {
 	 * Sets whether the checkbox begins selected.
 	 */
 	defaultSelected?: boolean;
+
+	shortcut?: Shortcut;
 
 	/**
 	 * Unique id of a checkbox.
@@ -518,6 +531,8 @@ export interface DropdownItemRadioProps {
 	 */
 	defaultSelected?: boolean;
 
+	shortcut?: Shortcut;
+
 	/**
 	 * Unique ID of the checkbox.
 	 */
@@ -545,4 +560,50 @@ export interface CustomItemHtmlProps extends CustomItemComponentProps {
 	 * Link to another page.
 	 */
 	href?: string;
+}
+
+export interface NewDropdownMenuItemBaseProps {
+	/**
+	 * Shows a submenu indicator for custom submenu triggers. DropdownMenu triggers infer this from context.
+	 */
+	hasNestedMenu?: boolean;
+
+	title: React.ReactNode;
+	description?: React.ReactNode;
+	elemAfter?: React.ReactNode;
+	elemBefore?: React.ReactNode;
+	shouldTitleWrap?: boolean;
+	shouldDescriptionWrap?: boolean;
+	/**
+	 * Only applies when Menu item is a button - has no effect when href is provided
+	 */
+	isDisabled?: boolean;
+	isSelected?: boolean;
+	shortcut?: Shortcut;
+	appearance?: 'danger';
+	id?: string;
+	testId?: string;
+	role?: 'menuitem' | 'menuitemcheckbox' | 'menuitemradio';
+	'aria-checked'?: boolean;
+	'aria-haspopup'?: TriggerProps['aria-haspopup'];
+	'aria-expanded'?: boolean;
+}
+
+export interface NewDropdownMenuItemProps extends NewDropdownMenuItemBaseProps {
+	href?: string;
+	/**
+	 * Event that's triggered when the element is clicked.
+	 */
+	onClick?: (e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void;
+	/**
+	 * Where to display the linked URL,
+	 * see [anchor information](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a) on mdn for more information.
+	 */
+	target?: string;
+
+	/**
+	 * The relationship of the linked URL as space-separated link types.
+	 * Generally you'll want to set this to "noopener noreferrer" when `target` is "_blank".
+	 */
+	rel?: string;
 }

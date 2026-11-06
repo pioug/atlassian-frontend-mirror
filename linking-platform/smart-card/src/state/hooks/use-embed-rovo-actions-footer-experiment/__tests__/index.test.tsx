@@ -3,7 +3,6 @@ import React from 'react';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import type { CardProviderStoreOpts } from '@atlaskit/link-provider/types';
 import type { ProductType } from '@atlaskit/linking-common/types';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { renderHook } from '@atlassian/testing-library/render-hook';
 
 import useEmbedRovoActionsFooterExperiment from '../index';
@@ -78,104 +77,80 @@ describe('useEmbedRovoActionsFooterExperiment', () => {
 		expect(result.current.isEnabled).toBe(false);
 	});
 
-	describe('platform_sl_3p_auth_rovo_embed_footer_kill_switch is on', () => {
-		it.each([
-			'google-object-provider',
-			'onedrive-object-provider',
-			'github-object-provider',
-			'gitlab-object-provider',
-		])('returns isEnabled=true when rovo is enabled for %s', (extensionKey) => {
-			passGate('platform_sl_3p_auth_rovo_embed_footer_kill_switch');
-
-			const result = renderHook(
-				() =>
-					useEmbedRovoActionsFooterExperiment(
-						mockUrl,
-						optedInActionOptions,
-						enabledRovoOptions,
-						'CONFLUENCE',
-					),
-				{
-					wrapper: wrapper(enabledRovoOptions, extensionKey, undefined, 'CONFLUENCE'),
-				},
-			);
-			expect(result.current.isEnabled).toBe(true);
-		});
-
-		it.each([
-			'figma-object-provider',
-			'slack-object-provider',
-			'ms-teams-object-provider',
-			'salesforce-object-provider',
-		])('returns isEnabled=false when extensionKey is unsupported: %s', (extensionKey) => {
-			const result = renderHook(
-				() =>
-					useEmbedRovoActionsFooterExperiment(
-						mockUrl,
-						optedInActionOptions,
-						enabledRovoOptions,
-						'CONFLUENCE',
-					),
-				{
-					wrapper: wrapper(enabledRovoOptions, extensionKey, undefined, 'CONFLUENCE'),
-				},
-			);
-			expect(result.current.isEnabled).toBe(false);
-		});
-
-		it('returns isEnabled=false when actionOptions.rovoChatAction.optIn is not true', () => {
-			const result = renderHook(
-				() =>
-					useEmbedRovoActionsFooterExperiment(
-						mockUrl,
-						{
-							hide: false,
-							rovoChatAction: { optIn: false },
-						},
-						enabledRovoOptions,
-						'CONFLUENCE',
-					),
-				{
-					wrapper: wrapper(enabledRovoOptions, 'google-object-provider', undefined, 'CONFLUENCE'),
-				},
-			);
-			expect(result.current.isEnabled).toBe(false);
-		});
-
-		it('returns isEnabled=false when product is not Confluence', () => {
-			const result = renderHook(
-				() =>
-					useEmbedRovoActionsFooterExperiment(
-						mockUrl,
-						optedInActionOptions,
-						enabledRovoOptions,
-						'JSM',
-					),
-				{
-					wrapper: wrapper(enabledRovoOptions, 'google-object-provider', undefined, 'JSM'),
-				},
-			);
-			expect(result.current.isEnabled).toBe(false);
-		});
+	it.each([
+		'google-object-provider',
+		'onedrive-object-provider',
+		'github-object-provider',
+		'gitlab-object-provider',
+	])('returns isEnabled=true when rovo is enabled for %s', (extensionKey) => {
+		const result = renderHook(
+			() =>
+				useEmbedRovoActionsFooterExperiment(
+					mockUrl,
+					optedInActionOptions,
+					enabledRovoOptions,
+					'CONFLUENCE',
+				),
+			{
+				wrapper: wrapper(enabledRovoOptions, extensionKey, undefined, 'CONFLUENCE'),
+			},
+		);
+		expect(result.current.isEnabled).toBe(true);
 	});
 
-	describe('platform_sl_3p_auth_rovo_embed_footer_kill_switch is off', () => {
-		it('returns isEnabled=false when kill switch is off', () => {
-			failGate('platform_sl_3p_auth_rovo_embed_footer_kill_switch');
+	it.each([
+		'figma-object-provider',
+		'slack-object-provider',
+		'ms-teams-object-provider',
+		'salesforce-object-provider',
+	])('returns isEnabled=false when extensionKey is unsupported: %s', (extensionKey) => {
+		const result = renderHook(
+			() =>
+				useEmbedRovoActionsFooterExperiment(
+					mockUrl,
+					optedInActionOptions,
+					enabledRovoOptions,
+					'CONFLUENCE',
+				),
+			{
+				wrapper: wrapper(enabledRovoOptions, extensionKey, undefined, 'CONFLUENCE'),
+			},
+		);
+		expect(result.current.isEnabled).toBe(false);
+	});
 
-			const result = renderHook(
-				() =>
-					useEmbedRovoActionsFooterExperiment(
-						mockUrl,
-						optedInActionOptions,
-						enabledRovoOptions,
-						'CONFLUENCE',
-					),
-				{
-					wrapper: wrapper(enabledRovoOptions, 'google-object-provider', undefined, 'CONFLUENCE'),
-				},
-			);
-			expect(result.current.isEnabled).toBe(false);
-		});
+	it('returns isEnabled=false when actionOptions.rovoChatAction.optIn is not true', () => {
+		const result = renderHook(
+			() =>
+				useEmbedRovoActionsFooterExperiment(
+					mockUrl,
+					{
+						hide: false,
+						rovoChatAction: { optIn: false },
+					},
+					enabledRovoOptions,
+					'CONFLUENCE',
+				),
+			{
+				wrapper: wrapper(enabledRovoOptions, 'google-object-provider', undefined, 'CONFLUENCE'),
+			},
+		);
+		expect(result.current.isEnabled).toBe(false);
+	});
+
+	it('returns isEnabled=false when product is not Confluence', () => {
+		const result = renderHook(
+			() =>
+				useEmbedRovoActionsFooterExperiment(
+					mockUrl,
+					optedInActionOptions,
+					enabledRovoOptions,
+					'JSM',
+				),
+			{
+				wrapper: wrapper(enabledRovoOptions, 'google-object-provider', undefined, 'JSM'),
+			},
+		);
+		expect(result.current.isEnabled).toBe(false);
 	});
 });

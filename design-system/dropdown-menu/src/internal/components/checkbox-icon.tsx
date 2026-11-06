@@ -5,7 +5,8 @@
  */
 import React from 'react';
 
-import { css, jsx } from '@atlaskit/css';
+import { css, cssMap, jsx } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 const svgStyles = css({
@@ -14,6 +15,36 @@ const svgStyles = css({
 	pointerEvents: 'none',
 });
 
+const styles = cssMap({
+	svg: {
+		pointerEvents: 'none',
+	},
+});
+
+function getFillColor(checked: boolean, disabled?: boolean) {
+	if (disabled) {
+		if (checked) {
+			return token('color.icon.disabled');
+		} else {
+			return token('color.background.input');
+		}
+	}
+	if (checked) {
+		return token('color.background.selected.bold');
+	}
+	return token('color.background.input');
+}
+
+function getStrokeColor(checked: boolean, disabled?: boolean) {
+	if (disabled) {
+		return token('color.border.disabled');
+	}
+	if (checked) {
+		return token('color.border.selected');
+	}
+	return token('color.border.input');
+}
+
 /**
  * __Checkbox icon__
  *
@@ -21,7 +52,31 @@ const svgStyles = css({
  *
  * @internal
  */
-const CheckboxIcon = ({ checked }: { checked: boolean }): React.JSX.Element => {
+const CheckboxIcon = ({
+	checked,
+	disabled,
+}: {
+	checked: boolean;
+	disabled?: boolean;
+}): React.JSX.Element => {
+	if (fg('platform-dst-new-menu')) {
+		return (
+			<svg width="16" height="16" viewBox="0 0 16 16" fill="none" css={styles.svg}>
+				<path
+					d="M3 1.5H13C13.8284 1.5 14.5 2.17157 14.5 3V13C14.5 13.8284 13.8284 14.5 13 14.5H3C2.17157 14.5 1.5 13.8284 1.5 13V3C1.5 2.17157 2.17157 1.5 3 1.5Z"
+					fill={getFillColor(checked, disabled)}
+					stroke={getStrokeColor(checked, disabled)}
+				/>
+				<path
+					d="M12.3223 5.4803L11.1699 4.52002L6.74609 9.82862L4.82225 7.52002L3.66992 8.4803L6.16992 11.4803C6.31242 11.6513 6.5235 11.7502 6.74609 11.7502C6.96867 11.7502 7.17976 11.6513 7.32225 11.4803L12.3223 5.4803Z"
+					fillRule="evenodd"
+					clipRule="evenodd"
+					fill={checked ? token('color.icon.inverse') : 'transparent'}
+				/>
+			</svg>
+		);
+	}
+
 	return (
 		<svg
 			width={24}

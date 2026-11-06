@@ -1,5 +1,39 @@
 # @atlaskit/reactions
 
+## 37.2.15
+
+### Patch Changes
+
+- [`aa38a369d8ee2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa38a369d8ee2) -
+  Render the reaction picker panel inline for screen reader reading order when either the
+  `a11y_reactions_reading_order` or the new `a11y_reactions_reading_order_other_apps` gate is
+  enabled.
+- Updated dependencies
+
+## 37.2.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.2.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.2.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.2.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 37.2.10
 
 ### Patch Changes

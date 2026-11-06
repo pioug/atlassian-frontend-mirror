@@ -1,3 +1,4 @@
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import type { Node as PMNode, Slice } from '@atlaskit/editor-prosemirror/model';
 import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
@@ -628,7 +629,7 @@ export const createInlineIndicatorAnchorWidgets = ({
 	// Gated purely so the `createAnchorSpanWidget` rewrite can be rolled back independently of the
 	// contributor-tag anchors it was extracted for: both branches build the same two widgets at the
 	// same positions. Drop the fallback with the gate.
-	if (fg('confluence_ncs_step_diffing_version_history')) {
+	if (isExperimentEnabled('platform_editor_attributed_version_history')) {
 		return [
 			createAnchorSpanWidget({
 				pos: fromPos,

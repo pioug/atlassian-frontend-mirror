@@ -1,6 +1,8 @@
 import { type API, type FileInfo, type JSCodeshift, type Options } from 'jscodeshift';
 import { type Collection } from 'jscodeshift/src/Collection';
 
+import { getJSXAttributeByName, getJSXAttributesByName } from '@atlaskit/codemod-utils/support';
+
 import { addJSXAttributeToJSXElement } from './utils/add-jsx-attribute-to-jsx-element';
 import {
 	dtpPropsToMoveIntoPickerProps,
@@ -9,8 +11,6 @@ import {
 import { getImportDeclarationCollection } from './utils/get-import-declaration-collection';
 import { getImportSpecifierCollection } from './utils/get-import-specifier-collection';
 import { getImportSpecifierName } from './utils/get-import-specifier-name';
-import { getJSXAttributeByName } from './utils/get-jsx-attribute-by-name';
-import { getJSXAttributesByName } from './utils/get-jsx-attributes-by-name';
 import { hasImportDeclaration } from './utils/has-import-declaration';
 import { removeJSXAttributeByName } from './utils/remove-jsx-attribute-by-name';
 import { removeJSXAttributeObjectPropertyByName } from './utils/remove-jsx-attribute-object-property-by-name';

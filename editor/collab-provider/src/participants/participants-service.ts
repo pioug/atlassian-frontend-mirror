@@ -149,7 +149,8 @@ export class ParticipantsService {
 			sessionId: `${providerId}::${defaultPresenceData.sessionId}`,
 			userId: providerId,
 			clientId: `${providerId}::${defaultPresenceData.clientId}`,
-			...(fg('confluence_ncs_step_diffing_version_history') && isAIProviderID(providerId)
+			...(isExperimentEnabled('platform_editor_attributed_version_history') &&
+			isAIProviderID(providerId)
 				? {
 						// Match the bare agent AAID used by step attribution rather than the synthetic
 						// per-editor-session provider ID, so telepointer and diff colours share a seed.
@@ -211,13 +212,13 @@ export class ParticipantsService {
 		const { sessionId } = payload;
 		const existing = this.participantsState.getBySessionId(sessionId);
 		const hasAgentTypeChanged = existing?.agentType !== agentType;
-		const agentId = fg('confluence_ncs_step_diffing_version_history')
+		const agentId = isExperimentEnabled('platform_editor_attributed_version_history')
 			? identity?.agentId?.trim() || existing?.agentId
 			: undefined;
-		const name = fg('confluence_ncs_step_diffing_version_history')
+		const name = isExperimentEnabled('platform_editor_attributed_version_history')
 			? identity?.agentName?.trim() || existing?.name || ''
 			: '';
-		const agentNamedId = fg('confluence_ncs_step_diffing_version_history')
+		const agentNamedId = isExperimentEnabled('platform_editor_attributed_version_history')
 			? identity?.agentNamedId?.trim() || existing?.agentNamedId
 			: undefined;
 		const wasInactive = existing
@@ -886,12 +887,10 @@ export class ParticipantsService {
 			// AAID and carrying an `agentType`. These ids come from the editor AI plugin instead,
 			// keyed on the agent's Convo-AI id with no `agentType`, so re-broadcasting them adds a
 			// second, unresolvable participant for an agent that is already present.
-			if (
-				!(
-					isExperimentEnabled('agentic_presence_facepile_master_exp') &&
-					fg('platform_move_presence_agents')
-				)
-			) {
+			if (!(
+				isExperimentEnabled('agentic_presence_facepile_master_exp') &&
+				fg('platform_move_presence_agents')
+			)) {
 				this.sendAIProvidersPresence();
 			}
 		} catch (error) {

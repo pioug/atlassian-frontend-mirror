@@ -286,7 +286,7 @@ export const createNodeChangedDecorationWidget = ({
 	const safeInsertPos = findSafeInsertPos(newDoc, anchorPos, slice);
 	const isActive =
 		activeIndexPos &&
-		(fg('confluence_ncs_step_diffing_version_history')
+		(isExperimentEnabled('platform_editor_attributed_version_history')
 			? safeInsertPos >= activeIndexPos.from &&
 				safeInsertPos <= activeIndexPos.to &&
 				(!('attributionKey' in activeIndexPos) || activeIndexPos.attributionKey === attributionKey)
@@ -572,7 +572,7 @@ export const createNodeChangedDecorationWidget = ({
 				contributorTagAnchorName === undefined &&
 				resolveBaseNodeName(node.type.name) === 'layoutColumn' &&
 				nodeView instanceof HTMLElement &&
-				fg('confluence_ncs_step_diffing_version_history')
+				isExperimentEnabled('platform_editor_attributed_version_history')
 			) {
 				// The deleted column is rendered inside this widget; anchor to its box.
 				contributorTagAnchorName = buildAnchorDecorationKey({
@@ -702,7 +702,10 @@ export const createNodeChangedDecorationWidget = ({
 		dom.style.setProperty('anchor-name', `--${buildAnchorDecorationKey({ diffId })}`);
 		// `dom` is inline, so its box fragments across a line wrap and `anchor()` resolves to the
 		// wrong edge. The tag anchors to its own point marker instead (EDITOR-9286).
-		if (fg('confluence_ncs_step_diffing_version_history') && !contributorTagAnchorName) {
+		if (
+			isExperimentEnabled('platform_editor_attributed_version_history') &&
+			!contributorTagAnchorName
+		) {
 			const tagPointAnchorName = buildAnchorDecorationKey({
 				diffId,
 				anchorType: AnchorTypeKey.tag,

@@ -8,10 +8,9 @@ import {
 	type JSXSpreadAttribute,
 } from 'jscodeshift';
 
-import { addCommentBefore } from '@atlaskit/codemod-utils/support';
+import { addCommentBefore, hasJSXAttributeWithValue } from '@atlaskit/codemod-utils/support';
 
 import { spreadPropsComment } from '../utils/comments';
-import { findJSXAttributeWithValue } from '../utils/find-attribute-with-value';
 import { genericUnsupportedMigrationComment } from '../utils/generic-unsupported-migration-comment';
 import { stylePropComment } from '../utils/style-prop-comment';
 
@@ -38,7 +37,7 @@ export default function transformer(file: FileInfo, api: API): string {
 				path.value.openingElement.name.type === 'JSXIdentifier' &&
 				/^[a-z]+$/.test(path.value.openingElement.name.name) &&
 				(path.value.openingElement.name.name === 'a' ||
-					findJSXAttributeWithValue(path.value.openingElement, 'role', 'link')),
+					hasJSXAttributeWithValue(path.value.openingElement, 'role', 'link')),
 		);
 
 	// No native links are found, exit early

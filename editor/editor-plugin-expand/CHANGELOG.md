@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-expand
 
+## 31.1.9
+
+### Patch Changes
+
+- [`861d385203ae7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/861d385203ae7) -
+  [FFCLEANUP-144039] remove the `platform_editor_lovability_navigation_fixes` experiment to improve
+  expand keyboard navigation
+- Updated dependencies
+
+## 31.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 31.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 31.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 31.1.5
 
 ### Patch Changes

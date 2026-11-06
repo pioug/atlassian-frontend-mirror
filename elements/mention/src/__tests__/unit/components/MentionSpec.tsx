@@ -12,6 +12,8 @@ import AnalyticsListenerNext from '@atlaskit/analytics-next/AnalyticsListener';
 // Commented due to HOT-111922
 // import { type ConcurrentExperience } from '@atlaskit/ufo';
 import FocusRing from '@atlaskit/focus-ring/focus-ring';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { ELEMENTS_CHANNEL, UNKNOWN_USER_ID } from '../../../_constants';
@@ -247,6 +249,22 @@ describe('<Mention />', () => {
 			expect(screen.queryByRole('img')).not.toBeInTheDocument();
 
 			await expect(document.body).toBeAccessible();
+		});
+
+		it('should apply corrected agent avatar geometry for the canvas experiment', async () => {
+			mockExpDisabled('platform_editor_agent_hexagon_ui_fix');
+			mockExpEnabled('canvas_agentic_experiences_master_exp');
+			await renderWait(
+				<Mention
+					{...mentionData}
+					appType="agent"
+					avatarUrl="https://example.com/agent.png"
+					renderAvatarSlot
+				/>,
+			);
+			expect(getComputedStyle(screen.getByTestId('mention-avatar-slot')).clipPath).toContain(
+				'45% 1.33975%',
+			);
 		});
 
 		it('should reserve avatar space in server-rendered markup without an image URL', () => {

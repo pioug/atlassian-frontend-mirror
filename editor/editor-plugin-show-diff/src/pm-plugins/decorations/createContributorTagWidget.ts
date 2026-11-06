@@ -1,9 +1,9 @@
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import type { IntlShape } from 'react-intl';
 
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { ShowDiffPlugin } from '../../showDiffPluginType';
 import { ContributorTagController } from '../../ui/ContributorTag/contributorTagController';
@@ -22,7 +22,7 @@ export const CONTRIBUTOR_TAG_HOST_ATTRIBUTE = 'data-contributor-tag-host';
 
 // Contributor tags only render behind this gate — see `areAttributionColorGatesEnabled`.
 export const isContributorTagWidgetEnabled = (): boolean =>
-	fg('confluence_ncs_step_diffing_version_history');
+	isExperimentEnabled('platform_editor_attributed_version_history');
 
 /**
  * Everything a tag needs to draw itself into the document, plumbed down from the plugin. Absent in

@@ -1,3 +1,4 @@
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
 import type { CollabEditProvider } from '@atlaskit/editor-common/collab';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
@@ -107,7 +108,7 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 			if (!state) {
 				return {
 					initialised: {
-						...(fg('confluence_ncs_step_diffing_version_history') && {
+						...(isExperimentEnabled('platform_editor_attributed_version_history') && {
 							localHumanBodyChangeCount: 0,
 						}),
 						collabInitialisedAt: null,
@@ -133,7 +134,7 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 				activeParticipants: collabPluginState?.activeParticipants,
 				sessionId: collabPluginState?.sessionId,
 				initialised: {
-					...(fg('confluence_ncs_step_diffing_version_history') && {
+					...(isExperimentEnabled('platform_editor_attributed_version_history') && {
 						localHumanBodyChangeCount: lastOrganicChangeState?.localHumanBodyChangeCount ?? 0,
 					}),
 					collabInitialisedAt: metadata?.collabInitialisedAt || null,

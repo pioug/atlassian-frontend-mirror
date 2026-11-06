@@ -1,5 +1,39 @@
 # @atlaskit/media-viewer
 
+## 54.12.14
+
+### Patch Changes
+
+- [`fb94245b198b4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fb94245b198b4) -
+  [BMPT-8317] Show transparent images on a white background in media card and media viewer, so the
+  dark background doesn't show through. Behind the `platform_media_white_bg_transparent_images`
+  feature gate.
+- Updated dependencies
+
+## 54.12.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.12.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.12.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 54.12.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 54.12.9
 
 ### Patch Changes

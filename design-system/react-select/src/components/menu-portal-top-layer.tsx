@@ -6,6 +6,7 @@ import { type ReactNode, useCallback, useContext, useMemo, useRef } from 'react'
 
 import { cssMap, cx, jsx } from '@compiled/react';
 
+import { useLayoutEffect } from '@atlaskit/ds-lib/use-layout-effect';
 import { token } from '@atlaskit/tokens';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { type TPopoverCloseReason } from '@atlaskit/top-layer/popover/types';
@@ -59,8 +60,8 @@ export function MenuPortalTopLayer<
 		menuPosition,
 		xcss,
 	} = props;
-	// Select's "close the menu" callback, distinct from `Popover.onClose`.
-	const closeSelect = useContext(MenuPortalCloseContext);
+	// Select's close and exit callbacks. `undefined` when rendered outside `Select`.
+	const menuPortalClose = useContext(MenuPortalCloseContext);
 
 	const popoverRef = useRef<HTMLDivElement | null>(null);
 
@@ -74,6 +75,9 @@ export function MenuPortalTopLayer<
 	// its ref into state. While null, every hook below no-ops to avoid DOM
 	// reads or registering an unpositioned popover.
 	const isAnchored = controlElement !== null;
+	// Select keeps this portal mounted while the menu closes (`menuIsOpen` is `false`), so the
+	// Popover hides in the DOM and the platform restores focus.
+	const isOpen = isAnchored && Boolean(props.selectProps.menuIsOpen);
 	const additionalInsideElementRefs = useMemo(
 		() => [anchorRef, ...(additionalInsideElementRefsProp ?? [])],
 		[additionalInsideElementRefsProp, anchorRef],
@@ -90,7 +94,7 @@ export function MenuPortalTopLayer<
 			// Keep the popover separated from the control, even when it flips to the opposite side.
 			offset: { gap: token('space.100') },
 		},
-		isOpen: isAnchored,
+		isOpen,
 		inlineSize: 'match-anchor',
 		// Fit long menus into available space, rather than only capping at the full viewport height.
 		blockSize: 'max-available',
@@ -98,19 +102,36 @@ export function MenuPortalTopLayer<
 
 	const handlePopoverClose = useCallback(
 		(args?: { reason: TPopoverCloseReason }) => {
-			if (closeSelect) {
-				closeSelect(args);
-			}
+			menuPortalClose?.closeMenu(args);
 		},
-		[closeSelect],
+		[menuPortalClose],
 	);
 
 	useManualLightDismiss({
 		popoverRef,
 		additionalInsideElementRefs,
-		isOpen: isAnchored,
+		isOpen,
 		onClose: handlePopoverClose,
 	});
+
+	const onExitFinish = menuPortalClose?.onExitFinish;
+	// Read through a ref, so that the unmount cleanup sees the latest callback.
+	const onExitFinishRef = useRef(onExitFinish);
+	onExitFinishRef.current = onExitFinish;
+	// With nothing showing there is no exit to wait for (for example the menu closed before its
+	// control was attached), so tell Select now. A shown Popover calls `onExitFinish` itself.
+	useLayoutEffect(() => {
+		if (!isOpen && !popoverRef.current) {
+			onExitFinishRef.current?.();
+		}
+	}, [isOpen]);
+	// An unmount during the close (for example Select rendered no menu) also ends it.
+	useLayoutEffect(
+		() => () => {
+			onExitFinishRef.current?.();
+		},
+		[],
+	);
 
 	// Top-layer owns positioning; zero offset/rect preserves the consumer
 	// styles call shape.
@@ -133,12 +154,19 @@ export function MenuPortalTopLayer<
 	// The Popover host is intentionally roleless: the inner `MenuList`
 	// keeps `role="listbox"` and the id referenced by `aria-controls`.
 	//
-	// TODO: add open / close animation. Select unmounts MenuPortalTopLayer
-	// the moment `menuIsOpen` flips false, so Popover's `animate` exit
-	// transition never gets a frame. Needs keeping the portal mounted
-	// through the exit (`onExitFinish`) on the Select side.
+	// Select keeps this portal mounted until `onExitFinish`, so the Popover hides
+	// in the DOM and its focus restoration runs.
+	//
+	// TODO: add open / close animation. The menu now stays mounted through the
+	// close, so Popover's `shouldAnimate` exit is possible, but it is not enabled.
 	return (
-		<Popover ref={popoverRef} mode="manual" isOpen={isAnchored} onClose={handlePopoverClose}>
+		<Popover
+			ref={popoverRef}
+			mode="manual"
+			isOpen={isOpen}
+			onClose={handlePopoverClose}
+			onExitFinish={onExitFinish}
+		>
 			<div
 				css={menuPortalStyles.root}
 				// `className` carries consumer `styles.menuPortal({...})` output,

@@ -7,7 +7,6 @@ import type CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers/intersection-observer';
 import * as userAgent from '@atlaskit/linking-common/user-agent';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import '@atlaskit/link-test-helpers/jest';
 import { screen } from '@atlassian/testing-library/screen';
 import { render } from '@atlassian/testing-library/testing-library/react';
@@ -258,10 +257,8 @@ describe('`link clicked`', () => {
 			/**
 			 * This is not the default behaviour but hijacked behaviour
 			 */
-			describe('platform-smart-card-shift-key is off shift key is not considered a special key', () => {
+			describe('shift key is not considered a special key', () => {
 				it('should fire with `clickOutcome` = `clickThrough` if the shift key is held', async () => {
-					failGate('platform-smart-card-shift-key');
-
 					const { spy, user, link } = await setup();
 
 					await user.keyboard('{Shift>}');
@@ -286,64 +283,6 @@ describe('`link clicked`', () => {
 				});
 
 				it('should fire with `clickOutcome` = `clickThroughNewTabOrWindow` if the shift key is held and `onClick` is provided', async () => {
-					failGate('platform-smart-card-shift-key');
-
-					const { spy, user, link } = await setup({
-						onClick: jest.fn(),
-					});
-
-					await user.keyboard('{Shift>}');
-					await user.click(link);
-
-					expect(spy).toBeFiredWithAnalyticEventOnce(
-						{
-							payload: {
-								action: 'clicked',
-								actionSubject: 'link',
-								eventType: 'ui',
-								attributes: {
-									clickType: 'left',
-									clickOutcome: 'clickThroughNewTabOrWindow',
-									defaultPrevented: true,
-									keysHeld: ['shift'],
-								},
-							},
-						},
-						ANALYTICS_CHANNEL,
-					);
-				});
-			});
-
-			describe('platform-smart-card-shift-key is on shift key is considered a special key', () => {
-				it('should fire with `clickOutcome` = `clickThroughNewTabOrWindow` if the shift key is held', async () => {
-					passGate('platform-smart-card-shift-key');
-
-					const { spy, user, link } = await setup();
-
-					await user.keyboard('{Shift>}');
-					await user.click(link);
-
-					expect(spy).toBeFiredWithAnalyticEventOnce(
-						{
-							payload: {
-								action: 'clicked',
-								actionSubject: 'link',
-								eventType: 'ui',
-								attributes: {
-									clickType: 'left',
-									clickOutcome: 'clickThroughNewTabOrWindow',
-									defaultPrevented: true,
-									keysHeld: ['shift'],
-								},
-							},
-						},
-						ANALYTICS_CHANNEL,
-					);
-				});
-
-				it('should fire with `clickOutcome` = `clickThroughNewTabOrWindow` if the shift key is held and `onClick` is provided', async () => {
-					passGate('platform-smart-card-shift-key');
-
 					const { spy, user, link } = await setup({
 						onClick: jest.fn(),
 					});
@@ -615,10 +554,8 @@ describe('`link clicked`', () => {
 			/**
 			 * This is not the default behaviour but hijacked behaviour
 			 */
-			describe('platform-smart-card-shift-key is off shift key is not considered a special key', () => {
+			describe('shift key is not considered a special key', () => {
 				it('should fire with `clickOutcome` = `clickThrough` if the shift key is held when triggered with keyboard', async () => {
-					failGate('platform-smart-card-shift-key');
-
 					const { spy, user, link } = await setup();
 
 					link.focus();
@@ -633,34 +570,6 @@ describe('`link clicked`', () => {
 								attributes: {
 									clickType: 'keyboard',
 									clickOutcome: 'clickThrough',
-									defaultPrevented: true,
-									keysHeld: ['shift'],
-								},
-							},
-						},
-						ANALYTICS_CHANNEL,
-					);
-				});
-			});
-
-			describe('platform-smart-card-shift-key is on shift key is considered a special key', () => {
-				it('should fire with `clickOutcome` = `clickThroughNewTabOrWindow` if the shift key is held when triggered with keyboard', async () => {
-					passGate('platform-smart-card-shift-key');
-
-					const { spy, user, link } = await setup();
-
-					link.focus();
-					await user.keyboard('{Shift>}{Enter}');
-
-					expect(spy).toBeFiredWithAnalyticEventOnce(
-						{
-							payload: {
-								action: 'clicked',
-								actionSubject: 'link',
-								eventType: 'ui',
-								attributes: {
-									clickType: 'keyboard',
-									clickOutcome: 'clickThroughNewTabOrWindow',
 									defaultPrevented: true,
 									keysHeld: ['shift'],
 								},

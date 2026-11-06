@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 30.0.7
+
+### Patch Changes
+
+- [`1935babc0509d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1935babc0509d) -
+  Improve editor interaction performance behind `platform_editor_block_control_inp`. Quick Insert
+  now reuses an unformatted empty paragraph that already immediately follows the target block
+  instead of inserting a new one, and the typeahead popup reuses a single memoized layout scheduler.
+  Paths that keep the cursor inside the target block, such as cell selections and text selections,
+  are unchanged.
+- Updated dependencies
+
 ## 30.0.6
 
 ### Patch Changes

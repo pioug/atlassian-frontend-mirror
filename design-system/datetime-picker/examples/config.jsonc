@@ -11,6 +11,7 @@
 		"130-date-time-label-examples.vr.ap.tsx",
 		"20-datetime-picker-states.tsx",
 		"30-time-picker-states.tsx",
+		"testing-date-picker-closed-by-prop.tsx",
 	],
 	"exampleDependencies": [
 		"@atlaskit/modal-dialog",

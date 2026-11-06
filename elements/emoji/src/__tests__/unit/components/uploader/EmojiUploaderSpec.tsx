@@ -6,8 +6,9 @@ import { axe, toHaveNoViolations } from 'jest-axe';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 import { MockEmojiResource } from '@atlaskit/util-data-test/mock-emoji-resource';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
-import {
+import EmojiUploadPicker, {
 	cancelEmojiUploadPickerTestId,
 	uploadEmojiComponentTestId,
 	uploadEmojiNameInputTestId,
@@ -58,6 +59,39 @@ export function setupUploader(props?: Props, onEvent?: () => void): void {
 }
 
 describe('<EmojiUploader />', () => {
+	it.each([
+		['enabled', passGate, true],
+		['disabled', failGate, false],
+	])(
+		'handles duplicate emoji name errors when the accessibility gate is %s',
+		async (_, setGate, enabled) => {
+			setGate('platform_ally_emoji_fixes_various');
+			const onUploadEmoji = jest.fn();
+			const onUploadCancelled = jest.fn();
+			const props = { onUploadEmoji, onUploadCancelled, initialUploadName: 'sample' };
+			const { rerender } = renderWithIntl(<EmojiUploadPicker {...props} />);
+			const input = screen.getByTestId(uploadEmojiNameInputTestId);
+			const cancelButton = screen.getByTestId(cancelEmojiUploadPickerTestId);
+			cancelButton.focus();
+
+			rerender(
+				<EmojiUploadPicker {...props} errorMessage={messages.emojiDuplicateName.defaultMessage} />,
+			);
+
+			const error = screen.getByText(messages.emojiDuplicateName.defaultMessage);
+			if (enabled) {
+				const alert = error.closest('#new-emoji-name-error');
+				await waitFor(() => expect(input).toHaveFocus());
+				expect(alert).toHaveAttribute('id', input.getAttribute('aria-describedby'));
+				expect(alert).toHaveAttribute('role', 'alert');
+				expect(alert).toHaveAttribute('aria-atomic', 'true');
+			} else {
+				expect(input).not.toHaveAttribute('aria-describedby');
+				expect(cancelButton).toHaveFocus();
+			}
+		},
+	);
+
 	const uploadPreviewShown = () => {
 		const emoji = helperTestingLibrary.getUploadPreview();
 		expect(emoji).toHaveAttribute('alt', 'sample');

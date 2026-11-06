@@ -1,5 +1,29 @@
 # @atlaskit/profilecard
 
+## 27.6.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.6.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.6.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.6.0
 
 ### Minor Changes

@@ -324,10 +324,11 @@ Restoration returns focus to whatever was focused when the overlay opened. On th
 (focus the trigger, then Enter) that is the trigger, so close returns focus to the trigger in
 Chrome, Firefox, and Safari alike (verified against WebKit 26 and real Safari 26.5).
 
-Safari does not focus a `<button>` on a pointer click, so a mouse-opened overlay has no trigger
-focus to restore and Safari leaves focus on `<body>` on close. This is native Safari behavior for
-both `<dialog>` and `[popover]`; Chrome and Firefox focus the button on click, so they restore to
-the trigger for pointer activation too. We lean into the platform here rather than normalizing it.
+Safari, and Firefox on macOS, do not focus a `<button>` on a pointer click, so a mouse-opened
+overlay has no trigger focus to restore and focus is left on `<body>` on close. This is native
+behavior for both `<dialog>` and `[popover]`. Chrome, and Firefox on other platforms, focus the
+button on click, so they restore to the trigger for pointer activation too. We lean into the
+platform here rather than normalizing it.
 
 Practical consequence for tests: exercise restoration by opening via the keyboard (focus the
 trigger, then Enter), not `trigger.click()`, which never focuses the trigger on Safari.
@@ -382,6 +383,10 @@ browser preserves the user's click context rather than yanking focus back to the
 This is the correct behavior per WCAG — the click event still fires on the clicked element, and
 focus stays where the user intended.
 
+A manual popover closes through `isOpen={false}`, which our fallback treats as a programmatic close.
+So `useManualLightDismiss` blurs focus that an outside press left inside the popover before it calls
+`onClose`, and the close does not return focus, as with native light dismiss.
+
 ### Why Dialog and Popover differ on light dismiss — and why that's correct
 
 This asymmetry is a deliberate platform decision that we lean into, not a bug:
@@ -414,7 +419,9 @@ shadow-including descendant. It does not scroll the viewport.
 We let the browser restore focus first, then apply our fallback. We track focus across opening and
 closing to avoid overriding focus moved elsewhere:
 
-1. **Before open:** Remember the focused element so we can return focus to it on close.
+1. **Before open:** Remember the focused element so we can return focus to it on close. The target
+   is never inside the popover: when focus is already inside (StrictMode shows the popover again
+   after its content moved focus in, or it reopens during its close), keep the earlier target.
 2. **Before close:** Skip custom restoration if the close is a light dismiss or focus is already
    outside the popover.
 3. **After native restoration:** Otherwise, check focus in the closed `toggle` handler. If focus is

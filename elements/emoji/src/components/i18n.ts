@@ -16,31 +16,6 @@ export const messages: {
 		description: string;
 		id: string;
 	};
-	createEmojiWithRovoTitle: {
-		defaultMessage: string;
-		description: string;
-		id: string;
-	};
-	createEmojiWithRovoPromptPlaceholder: {
-		defaultMessage: string;
-		description: string;
-		id: string;
-	};
-	createEmojiWithRovoPromptAriaLabel: {
-		defaultMessage: string;
-		description: string;
-		id: string;
-	};
-	createEmojiWithRovoGenerateLabel: {
-		defaultMessage: string;
-		description: string;
-		id: string;
-	};
-	createEmojiWithRovoError: {
-		defaultMessage: string;
-		description: string;
-		id: string;
-	};
 	allUploadsCustomCategory: {
 		defaultMessage: string;
 		description: string;
@@ -62,6 +37,31 @@ export const messages: {
 		id: string;
 	};
 	changeEmojiShortnameButtonLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	createEmojiWithRovoError: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	createEmojiWithRovoGenerateLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	createEmojiWithRovoPromptAriaLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	createEmojiWithRovoPromptPlaceholder: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	createEmojiWithRovoTitle: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -156,12 +156,12 @@ export const messages: {
 		description: string;
 		id: string;
 	};
-	emojiPickerNoResults: {
+	emojiPickerListPanel: {
 		defaultMessage: string;
 		description: string;
 		id: string;
 	};
-	emojiPickerListPanel: {
+	emojiPickerNoResults: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -186,17 +186,17 @@ export const messages: {
 		description: string;
 		id: string;
 	};
-	emojiSelectSkinToneButtonAriaLabelText: {
-		defaultMessage: string;
-		description: string;
-		id: string;
-	};
 	emojiSelectColorButtonAriaLabelText: {
 		defaultMessage: string;
 		description: string;
 		id: string;
 	};
 	emojiSelectColorListAriaLabelText: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	emojiSelectSkinToneButtonAriaLabelText: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -272,6 +272,11 @@ export const messages: {
 		id: string;
 	};
 	searchLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	searchLabelUpdated: {
 		defaultMessage: string;
 		description: string;
 		id: string;
@@ -464,6 +469,12 @@ export const messages: {
 	searchLabel: {
 		id: 'fabric.emoji.search.label',
 		defaultMessage: 'Emoji name',
+		description:
+			'Accessible label for the emoji name search input field in the emoji picker, used by screen readers.',
+	},
+	searchLabelUpdated: {
+		id: 'emoji.i18n.searchLabelUpdated',
+		defaultMessage: 'Search emoji by name',
 		description:
 			'Accessible label for the emoji name search input field in the emoji picker, used by screen readers.',
 	},

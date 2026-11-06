@@ -49,8 +49,9 @@ export const PopupTrigger = ({ children }: PopupTriggerProps): React.JSX.Element
 	// When the top-layer flag is on, bypass Popper's <Reference> entirely.
 	// We only need to set triggerRefObject.current — no Popper ref merging needed.
 	if (fg('platform-dst-top-layer')) {
-		// Only `aria-haspopup` is used, so `popoverId` does not matter here.
-		const { 'aria-haspopup': topLayerAriaHasPopup } = getAriaForTrigger({
+		// The `Popover` host has the `Popup` id. It is in the DOM only while open, so `aria-controls`
+		// is set only while open.
+		const ariaAttributes = getAriaForTrigger({
 			role,
 			isOpen,
 			popoverId: id ?? '',
@@ -59,9 +60,9 @@ export const PopupTrigger = ({ children }: PopupTriggerProps): React.JSX.Element
 			<>
 				{children({
 					ref: triggerRef,
-					'aria-controls': id,
+					'aria-controls': ariaAttributes['aria-controls'],
 					'aria-expanded': isOpen,
-					'aria-haspopup': topLayerAriaHasPopup,
+					'aria-haspopup': ariaAttributes['aria-haspopup'],
 				})}
 			</>
 		);

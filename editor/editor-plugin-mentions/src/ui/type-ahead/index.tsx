@@ -565,7 +565,7 @@ export const createTypeAheadConfig = ({
 	});
 
 	const getAgentSectionLozenge = (label: string): React.ReactNode => {
-		if (fg('platform_editor_agent_mentions_hide_labs_lozenge')) {
+		if (isExperimentEnabled('platform_editor_mention_rovo')) {
 			return null;
 		}
 		if (agentSectionLozenge !== undefined) {

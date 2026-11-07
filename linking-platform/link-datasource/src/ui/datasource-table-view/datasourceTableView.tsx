@@ -67,6 +67,8 @@ const DatasourceTableViewWithoutAnalytics = ({
 	onWrappedColumnsChange,
 	scrollableContainerHeight = DefaultScrollableContainerHeight,
 	onRequestSettled,
+	enableRequestSettled = false,
+	renderEmptyState,
 }: DatasourceTableViewProps) => {
 	// Local copy lets us apply in-session sort mutations without mutating external parameters.
 	const [sessionParameters, setSessionParameters] = useState(parameters);
@@ -171,7 +173,7 @@ const DatasourceTableViewWithoutAnalytics = ({
 	const lastSettledResultRef = useRef<DatasourceTableRequestSettledResult | null>(null);
 
 	useEffect(() => {
-		if (!fg('platform_lp_sllv_on_request_settled')) {
+		if (!fg('platform_lp_sllv_on_request_settled') && !enableRequestSettled) {
 			return;
 		}
 
@@ -197,7 +199,7 @@ const DatasourceTableViewWithoutAnalytics = ({
 
 		lastSettledResultRef.current = result;
 		onRequestSettled?.(result);
-	}, [status, responseItems.length, totalCount, onRequestSettled]);
+	}, [status, responseItems.length, totalCount, onRequestSettled, enableRequestSettled]);
 
 	useEffect(() => {
 		const shouldStartUfoExperience =
@@ -262,6 +264,9 @@ const DatasourceTableViewWithoutAnalytics = ({
 	}, [reset]);
 
 	const isResolvedWithNoResults = status === 'resolved' && !responseItems.length;
+	if (isResolvedWithNoResults && renderEmptyState) {
+		return renderEmptyState();
+	}
 	// With columns available the table can keep its headers and footer and show the empty state
 	// in place of the rows, instead of replacing the whole view with it.
 	const shouldRenderTableWithNoResults = isResolvedWithNoResults && hasColumns;
@@ -361,8 +366,10 @@ const DatasourceTableViewWithoutAnalytics = ({
 export const DatasourceTableView: ForwardRefExoticComponent<
 	{
 		datasourceId: string;
+		enableRequestSettled?: boolean;
 		onRequestSettled?: (result: DatasourceTableRequestSettledResult) => void;
 		parameters: DatasourceParameters;
+		renderEmptyState?: DatasourceTableViewProps['renderEmptyState'];
 		url?: string;
 	} & Partial<
 		Pick<
@@ -392,8 +399,10 @@ export const DatasourceTableView: ForwardRefExoticComponent<
 export const DataSourceTableViewNoSuspense: ForwardRefExoticComponent<
 	{
 		datasourceId: string;
+		enableRequestSettled?: boolean;
 		onRequestSettled?: (result: DatasourceTableRequestSettledResult) => void;
 		parameters: DatasourceParameters;
+		renderEmptyState?: DatasourceTableViewProps['renderEmptyState'];
 		url?: string;
 	} & Partial<
 		Pick<

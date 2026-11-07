@@ -17,6 +17,7 @@ import { asMock } from '@atlaskit/link-test-helpers/jest/as-mock';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 
 import { EVENT_CHANNEL } from '../../../../analytics/constants';
+import { FILTER_SELECTION_DEBOUNCE_MS } from '../../../common/modal/popup-select/constants';
 import { type SelectOption } from '../../../common/modal/popup-select/types';
 import { useFilterOptions } from '../../basic-filters/hooks/useFilterOptions';
 import {
@@ -26,6 +27,7 @@ import {
 import { type BasicFilterFieldType } from '../../basic-filters/types';
 import { availableBasicFilterTypes } from '../../basic-filters/ui';
 import { type JiraIssueDatasourceParameters } from '../../types';
+import * as jqlBuilder from '../buildJQL';
 import { DEFAULT_JQL_QUERY, JiraSearchContainer, type SearchContainerProps } from '../index';
 
 jest.mock('../../basic-filters/hooks/useHydrateJqlQuery');
@@ -168,6 +170,18 @@ const setupBasicFilter = async ({
 describe('JiraSearchContainer', () => {
 	beforeEach(() => {
 		jest.clearAllMocks();
+	});
+
+	it('does not initialize embedded drafts for existing modal consumers', () => {
+		const buildJql = jest.spyOn(jqlBuilder, 'buildJQL');
+		try {
+			const { rerender } = setup();
+			expect(buildJql).not.toHaveBeenCalled();
+			rerenderHelper(rerender, { searchBarJql: 'project = DEMO' });
+			expect(buildJql).not.toHaveBeenCalled();
+		} finally {
+			buildJql.mockRestore();
+		}
 	});
 
 	it('renders the JQL input when initially rendered without parameters', async () => {
@@ -1335,5 +1349,73 @@ describe('setHasJqlSyntaxErrors behaviour', () => {
 		});
 
 		expect(mockSetHasJqlSyntaxErrors).toHaveBeenCalledWith(false);
+	});
+	it('prefills embedded Basic search without relying on JQL hydration', () => {
+		setup({
+			layout: 'inline',
+			initialSearchMethod: 'basic',
+			initialBasicSearchTerm: 'login failures',
+			searchBarJql: 'textfields ~ "login failures*"',
+			allowBasicModeReset: true,
+			textSearchField: 'textfields',
+		});
+		expect(screen.getByDisplayValue('login failures')).toBeInTheDocument();
+		expect(screen.getByTestId('mode-toggle-basic').querySelector('input')).toBeChecked();
+		const root = screen.getByTestId('jira-search-container');
+		const controls = Array.from(root.children).filter((element) => element.tagName !== 'STYLE');
+		expect(controls[0]).toContainElement(screen.getByTestId('mode-toggle-container'));
+	});
+
+	it('submits the debounced filter snapshot even if hydration updates selections while pending', async () => {
+		jest.useFakeTimers();
+		const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+		try {
+			const props = { layout: 'inline' as const, initialSearchMethod: 'basic' as const };
+			const { mockOnSearch, rerender } = setup(props);
+			await user.click(screen.getByTestId('jlol-basic-filter-status-trigger--button'));
+			const menu = screen.getByTestId('jlol-basic-filter-status-popup-select--menu');
+			const options = within(menu).getAllByTestId('basic-filter-popup-select-option--lozenge');
+			await user.click(options[0]);
+			await user.click(options[1]);
+			expect(mockOnSearch).not.toHaveBeenCalled();
+
+			// A pending hydration response can update component state independently of the submitted filters.
+			asMock(useHydrateJqlQuery).mockReturnValue({
+				fetchHydratedJqlOptions: jest.fn(),
+				hydratedOptions: {},
+				status: 'resolved',
+			});
+			rerenderHelper(rerender, { ...props, onSearch: mockOnSearch });
+			act(() => {
+				jest.advanceTimersByTime(FILTER_SELECTION_DEBOUNCE_MS);
+			});
+
+			expect(mockOnSearch).toHaveBeenCalledTimes(1);
+			expect(mockOnSearch).toHaveBeenCalledWith(
+				{ jql: 'status in (Authorize, "Awaiting approval") ORDER BY created DESC' },
+				{
+					searchMethod: 'basic',
+					basicFilterSelections: { status: fieldValuesResponseForStatusesMapped.slice(0, 2) },
+					isQueryComplex: false,
+				},
+			);
+		} finally {
+			jest.useRealTimers();
+		}
+	});
+
+	it('keeps Basic enabled for complex JQL and preserves the advanced draft', async () => {
+		const complex = 'resolution = Unresolved AND assignee = currentUser()';
+		const { mockSetSearchBarJql } = setup({
+			layout: 'inline',
+			initialSearchMethod: 'jql',
+			searchBarJql: complex,
+			allowBasicModeReset: true,
+		});
+		expect(screen.getByTestId('mode-toggle-basic').querySelector('input')).not.toBeDisabled();
+		await userEvent.click(screen.getByTestId('mode-toggle-basic'));
+		expect(mockSetSearchBarJql).toHaveBeenLastCalledWith('ORDER BY created DESC');
+		await userEvent.click(screen.getByTestId('mode-toggle-jql'));
+		expect(mockSetSearchBarJql).toHaveBeenLastCalledWith(complex);
 	});
 });

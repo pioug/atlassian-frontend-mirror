@@ -1,5 +1,24 @@
 # @atlaskit/table-tree
 
+## 13.3.7
+
+### Patch Changes
+
+- [`0fc06f6848257`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0fc06f6848257) -
+  Fixed composed TableTree row chevron labels so `mainColumnForExpandCollapseLabel` can use a
+  non-first cell.
+- Updated dependencies
+
+## 13.3.6
+
+### Patch Changes
+
+- [`afdf7c7d36594`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/afdf7c7d36594) -
+  Remove the redundant word "row" from the expand and collapse chevron button's accessible name. It
+  now reads "Expand Chapter 1: Clean Code" instead of "Expand Chapter 1: Clean Code row", and
+  "Expand item1" instead of "Expand row item1". When a row has no `itemId` or extended label, the
+  button is named "Expand" or "Collapse" with no trailing space.
+
 ## 13.3.5
 
 ### Patch Changes

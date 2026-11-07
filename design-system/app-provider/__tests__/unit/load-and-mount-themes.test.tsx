@@ -37,7 +37,7 @@ describe('loadAndMountThemes', () => {
 			'--ds-background-neutral-subtle-hovered: #BDBDBD0A',
 		);
 		expect(document.head.querySelector('style[data-theme="typography-finesse"]')).toHaveTextContent(
-			'--ds-font-heading-medium: normal 500',
+			'--ds-font-heading-medium: normal 600',
 		);
 	});
 

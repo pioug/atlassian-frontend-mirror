@@ -1,5 +1,64 @@
 # @atlaskit/link-datasource
 
+## 7.13.0
+
+### Minor Changes
+
+- [`d72c778a8a606`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d72c778a8a606) -
+  Keep inline Basic filter dropdowns within the visible viewport, including the search control and
+  pagination footer, and resize their scrollable option lists on window or viewport changes.
+
+  Reuse the work-item picker's search and no-results illustrations in a stable in-card search area.
+  Use its native table skeleton for every retry, hold the measured card height and keep loading
+  perceptible for fast unchanged-query requests, preserve the existing result table, and remove the
+  explanatory Basic/JQL helper copy.
+
+  Ease the loading-to-no-results content change with a short opacity entrance using ADS motion
+  tokens, disabled when reduced motion is requested.
+
+  Use a smaller illustrated area for the recovery card, remove the duplicate visible no-results
+  message above the toolbar while retaining accessible status announcements, and preserve the
+  measured area during retries. The compact illustrated layout is optional and leaves the shared
+  default intact.
+
+  Expose the existing Jira Basic/JQL search controls through a supported, localized subpath with an
+  optional inline layout, keyword prefill, and preserved drafts when complex JQL needs a separate
+  Basic search. Add an optional full empty-table renderer that keeps datasource requests active.
+
+  Implement in-card Jira no-result recovery for `JiraCardNoResultsVariant: jql-search` in the
+  existing SAIN UX Hello/customer layers. Reuse `kd_sain_jira_card_no_results_rollout` and preserve
+  its collapse override. Keyword intent starts in Basic; natural-language intent starts with the
+  generated JQL. Keep the card frame, feedback, hide/reveal, and result expansion, and attribute
+  retries and a deduplicated recovery interaction to the original FPS search.
+
+  Keep existing modal search behavior on its original component path. Mount draft preservation and
+  viewport-aware popup hooks only for explicitly opted-in embedded consumers, preserve the default
+  JQL focus lifecycle, and separate optional completion reporting from empty-state rendering through
+  `enableRequestSettled`. Match the configured Arm 2 experiment value, `jql-search`.
+
+  Preserve the original gate-controlled Jira result interaction reporting after recovery. Keep
+  Basic/JQL toolbar clicks and retries separate from the existing answer-click and SAIN usage
+  signals, and include the retry attempt in submission activity events. Experiment metric
+  definitions remain downstream.
+
+  Share the existing Jira search default query and allowed sort keys between modal and embedded
+  controls without changing their values or the existing exported entry points.
+
+  Add optional `noResultsVariant: jql-search` metadata to the existing Search AI work-item click and
+  edit-start events after a recovery retry returns results. Preserve normal result payloads, event
+  names/counts and existing usage gates; toolbar, retry and table-refresh activity are not tagged as
+  recovered work-item interactions.
+
+  Keep embedded debounced Basic filter search metadata aligned with the submitted JQL by using the
+  scheduled filter selection snapshot, even when pending hydration updates the displayed selections.
+
+  Use compact Basic/JQL inputs in the opt-in inline recovery toolbar to align with the mode toggle
+  and filter buttons, and omit the keyword helper line in this layout. Keep the standard input size
+  and helper text for existing modal consumers.
+
+  Add an optional Basic submit-button visibility setting. Search AI recovery opts out of the button
+  and retains Enter-to-search; other consumers keep the existing button and submission behavior.
+
 ## 7.12.3
 
 ### Patch Changes

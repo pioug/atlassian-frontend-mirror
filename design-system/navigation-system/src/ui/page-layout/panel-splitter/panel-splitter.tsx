@@ -531,6 +531,13 @@ const PortaledPanelSplitter = ({
 	const focusSequence = useRef(0);
 	const keyboardBoundsReady = useRef(false);
 	const pendingKeyboardWidth = useRef<number | null>(null);
+	useEffect(() => {
+		if (fg('platform-dst-chat-panel-layout') && onResizeInternal) {
+			// Reconcile queued keyboard intent when allocation changes the effective
+			// width, including viewport and sibling changes while focus is retained.
+			pendingKeyboardWidth.current = panelWidth;
+		}
+	}, [panelWidth, onResizeInternal]);
 	const handleSliderInputChange = useCallback(
 		async (event: React.SyntheticEvent<HTMLInputElement>, pendingKey?: string) => {
 			const isManagedResize = onResizeInternal;
@@ -550,8 +557,8 @@ const PortaledPanelSplitter = ({
 				const min = convertResizeBoundToPixels(bounds.min);
 				const max = convertResizeBoundToPixels(bounds.max);
 				if (pendingKey) {
-					// Native range inputs would apply these keys to the placeholder bounds.
-					// Preserve the intent until the chunk provides the real bounds instead.
+					// Resolve keys against live bounds, including limits between 20px steps.
+					// Before activation, preserve the intent until the chunk is ready.
 					const current = pendingKeyboardWidth.current ?? getPixelWidth(panel);
 					const doesArrowRightIncrease = panelGrowthSide
 						? panelGrowthSide === 'right'
@@ -596,7 +603,8 @@ const PortaledPanelSplitter = ({
 		(event: React.KeyboardEvent<HTMLInputElement>) => {
 			if (
 				prepareResize &&
-				!keyboardBoundsReady.current &&
+				(!keyboardBoundsReady.current ||
+					(onResizeInternal && fg('platform-dst-chat-panel-layout'))) &&
 				[
 					'Home',
 					'End',
@@ -612,7 +620,7 @@ const PortaledPanelSplitter = ({
 				void handleSliderInputChange(event, event.key);
 			}
 		},
-		[handleSliderInputChange, prepareResize],
+		[handleSliderInputChange, onResizeInternal, prepareResize],
 	);
 
 	const resizeEventListenerCleanupFn = useRef<(() => void) | null>(null);
@@ -723,7 +731,7 @@ const PortaledPanelSplitter = ({
 							type="range"
 							dir={panelGrowthSide ? rangeInputDirs[panelGrowthSide] : undefined}
 							value={rangeInputValue}
-							step={20}
+							step={onResizeInternal && fg('platform-dst-chat-panel-layout') ? 'any' : 20}
 							min={rangeInputBounds.min}
 							max={rangeInputBounds.max}
 							aria-valuetext={ariaValueText}

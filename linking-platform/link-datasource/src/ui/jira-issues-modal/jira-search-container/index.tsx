@@ -35,6 +35,7 @@ import {
 	type JiraIssueDatasourceParametersQuery,
 } from '../types';
 import { buildJQL } from './buildJQL';
+import { EmbeddedJiraSearchContainer } from './embedded';
 import { modeSwitcherMessages } from './messages';
 
 const styles = cssMap({
@@ -60,8 +61,14 @@ export const DEFAULT_JQL_QUERY = 'ORDER BY created DESC';
 export const ALLOWED_ORDER_BY_KEYS: string[] = ['key', 'summary', 'assignee', 'status', 'created'];
 
 export interface SearchContainerProps {
+	/** Keep a separate Basic draft instead of disabling Basic for complex JQL. */
+	allowBasicModeReset?: boolean;
+	/** Seed Basic directly when the originating keyword query cannot be hydrated by Basic. */
+	initialBasicSearchTerm?: string;
 	initialSearchMethod: JiraSearchMethod;
 	isSearching?: boolean;
+	/** Inline layout for embedded search; the configuration modal keeps its existing layout. */
+	layout?: 'modal' | 'inline';
 	onSearch: (
 		query: JiraIssueDatasourceParametersQuery,
 		{
@@ -78,10 +85,34 @@ export interface SearchContainerProps {
 	searchBarJql?: string;
 	setHasJqlSyntaxErrors?: (hasErrors: boolean) => void;
 	setSearchBarJql: (jql: string) => void;
+	/** Keep the Basic submit button by default; embedded consumers may use Enter only. */
+	showBasicSearchButton?: boolean;
 	site?: Site;
+	/** Use the same text field as the originating keyword search on explicit Basic retries. */
+	textSearchField?: 'textfields';
 }
 
+/** Opt-in consumers use a separate component; the configuration modal retains its existing path. */
 export const JiraSearchContainer = (props: SearchContainerProps): JSX.Element => {
+	if (
+		props.layout === 'inline' ||
+		props.allowBasicModeReset ||
+		props.initialBasicSearchTerm !== undefined ||
+		props.showBasicSearchButton === false ||
+		props.textSearchField !== undefined
+	) {
+		return (
+			<EmbeddedJiraSearchContainer
+				{...props}
+				defaultJql={DEFAULT_JQL_QUERY}
+				allowedOrderByKeys={ALLOWED_ORDER_BY_KEYS}
+			/>
+		);
+	}
+	return <ModalJiraSearchContainer {...props} />;
+};
+
+const ModalJiraSearchContainer = (props: SearchContainerProps): JSX.Element => {
 	const {
 		isSearching,
 		parameters,

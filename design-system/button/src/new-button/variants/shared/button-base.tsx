@@ -55,6 +55,7 @@ export type ControlledEvents<TagName extends HTMLElement> = Pick<
 	Pick<CommonButtonProps<TagName>, 'onClick'>;
 
 type ButtonBaseProps<TagName extends HTMLElement> = CommonBaseProps &
+	Pick<React.AriaAttributes, 'aria-live'> &
 	Pick<
 		CommonButtonProps<TagName>,
 		'autoFocus' | 'isDisabled' | 'isSelected' | 'testId' | 'analyticsContext' | 'interactionName'
@@ -608,6 +609,7 @@ const ButtonBase: React.ForwardRefExoticComponent<
 	// @ts-ignore: to unblock React 18.2.0 -> 18.3.1 version bump in Jira
 	(
 		{
+			'aria-live': ariaLive = 'polite',
 			appearance: propAppearance,
 			autoFocus = false,
 			isDisabled: propIsDisabled = false,
@@ -743,7 +745,7 @@ const ButtonBase: React.ForwardRefExoticComponent<
 					rootXcss,
 				)}
 				isDisabled={isDisabled}
-				aria-live="polite"
+				aria-live={fg('rovo_chat_accessible_responses') ? ariaLive : 'polite'}
 				{...(isLoading && { 'aria-disabled': true })}
 				aria-label={
 					isLoading && ariaLabel && !ariaLabelledBy ? `${ariaLabel} ${LOADING_LABEL}` : ariaLabel

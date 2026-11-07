@@ -2,6 +2,18 @@ import { type BasicFilterFieldType } from '../../basic-filters/types';
 import { buildJQL } from '../buildJQL';
 
 describe('buildJQL', () => {
+	it.each(['a "quoted" bug', 'back\\slash', 'x OR project = SECRET', '<img src=x>', 'prefix*'])(
+		'keeps keyword input as one textfields operand: %s',
+		(rawSearch) => {
+			const jql = buildJQL({ rawSearch, textSearchField: 'textfields' });
+			const { JastBuilder } = require('@atlaskit/jql-ast/jast-builder');
+			const ast = new JastBuilder().build(jql);
+			expect(ast.errors).toEqual([]);
+			expect(ast.query.where.field.value).toBe('textfields');
+			expect(ast.query.where.operand.value).toBe(rawSearch + (/["*?]$/.test(rawSearch) ? '' : '*'));
+		},
+	);
+
 	it('outputs JQL with the default order keys', () => {
 		const jql = buildJQL({
 			rawSearch: 'testing',

@@ -10,7 +10,10 @@ import { makeGetJqlAutocompleteData } from '../../../services/makeGetJqlAutocomp
 import { makeGetJqlSuggestionsData } from '../../../services/makeGetJqlSuggestionsData';
 
 export interface JiraJQLEditorProps {
+	autoFocus?: boolean;
 	cloudId: string;
+	/** Use compact editor sizing for an embedded toolbar. */
+	isCompact?: boolean;
 	isSearching?: boolean;
 	onChange?: (query: string, jast: Jast) => void;
 	onSearch: () => void;
@@ -19,6 +22,8 @@ export interface JiraJQLEditorProps {
 
 export const JiraJQLEditor = ({
 	cloudId,
+	autoFocus = true,
+	isCompact = false,
 	isSearching,
 	onChange,
 	onSearch,
@@ -33,10 +38,13 @@ export const JiraJQLEditor = ({
 	// This is an expected (pretty strange imo) way of making sure text field is in focus when rendered
 	const inputRef = useRef({ focus: () => {} });
 	useEffect(() => {
+		if (!autoFocus) {
+			return;
+		}
 		requestAnimationFrame(() => {
 			inputRef.current?.focus();
 		});
-	}, []);
+	}, [autoFocus]);
 
 	const searchIfValidJql = (_: string, jast: Jast) => {
 		if (jast.errors.length === 0) {
@@ -51,6 +59,7 @@ export const JiraJQLEditor = ({
 			onSearch={searchIfValidJql}
 			onUpdate={onChange}
 			isSearching={isSearching}
+			isCompact={isCompact}
 			inputRef={inputRef}
 			query={query}
 			aria-label={

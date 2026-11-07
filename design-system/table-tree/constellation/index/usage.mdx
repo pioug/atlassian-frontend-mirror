@@ -35,6 +35,18 @@ wrapping content onto multiple lines is strongly recommended because truncation 
 Use either the `label` or `referencedLabel` prop to provide an accessible name for the table. You
 can also customise the accessible labels for the expand/collapse button and loading states.
 
+### Name expand and collapse buttons
+
+Each expandable row must give its chevron an accessible name that identifies the row it expands or
+collapses. Whenever practical, make the first column the visible, human-readable column that
+identifies the row. If the identifying column is not first, set `mainColumnForExpandCollapseLabel`
+to its component name when using the `items` API, or its zero-based cell index when composing rows
+with `<Rows>` and `<Row>`. This is required when the first cell is blank or contains only controls,
+unless the item's `id` is itself a meaningful user-facing label.
+
+If you do not set this prop, the chevron name follows the "Expand `<id>`" or "Collapse `<id>`"
+pattern. In that case, every expandable item must have a non-empty, human-readable `id`.
+
 ## Behavior
 
 The table tree contains nested columns which can be opened by interacting with the expand/collapse

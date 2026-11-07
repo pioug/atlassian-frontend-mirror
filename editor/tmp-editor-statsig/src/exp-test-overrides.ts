@@ -25,7 +25,6 @@ export type EditorExperimentOverridesBoolean = {
 };
 
 export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = {
-	cwr_publish_flow_live_doc_toggle_exp: 'control',
 	'example-multivariate': 'one',
 	'platform_editor_ai-prompts-placeholder': 'control',
 	platform_editor_controls: 'control',

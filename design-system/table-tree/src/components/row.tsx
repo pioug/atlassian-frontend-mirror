@@ -35,6 +35,22 @@ const getExtendedLabel = (
 	return undefined;
 };
 
+const getComposedExtendedLabel = (cellContent: ReactNode): string | undefined => {
+	if (typeof cellContent === 'string' || typeof cellContent === 'number') {
+		return String(cellContent);
+	}
+
+	if (React.isValidElement<{ children?: ReactNode }>(cellContent)) {
+		return getComposedExtendedLabel(cellContent.props.children);
+	}
+
+	if (Array.isArray(cellContent)) {
+		return cellContent.map(getComposedExtendedLabel).filter(Boolean).join('') || undefined;
+	}
+
+	return undefined;
+};
+
 export interface RowProps<Item> {
 	/**
 	 * Whether the row has children.
@@ -104,7 +120,7 @@ export interface RowProps<Item> {
 	 */
 	depth?: number;
 	/**
-    Adds detail to the expand and collapse row button's aria label by appending the value from the given column. If you don't set this prop, the aria label will read out "Expand `itemId` row".
+    Adds detail to the expand and collapse button's aria label by appending the value from the given column. If you don't set this prop, the aria label will read out "Expand `itemId`".
 
     Should be a string when we pass data via `items` property in the table tree. The value should be one of the property `columns` names in the table tree.
 
@@ -188,15 +204,27 @@ function Row<Item extends { id: string }>({
 		}
 	};
 
+	const composedCells = React.Children.toArray(children);
+	const composedExtendedLabel =
+		typeof mainColumnForExpandCollapseLabel === 'number'
+			? getComposedExtendedLabel(
+					(
+						composedCells[mainColumnForExpandCollapseLabel] as
+							| React.ReactElement<{ children?: ReactNode }>
+							| undefined
+					)?.props.children,
+				)
+			: undefined;
+
 	const renderCell = (cell: any, cellIndex: number) => {
 		const isFirstCell = cellIndex === 0;
 		const indentLevel = isFirstCell ? depth : 0;
 		let cellContent = cell.props.children || [];
-		const extendedLabel = getExtendedLabel(
-			cellContent,
-			cellIndex,
-			mainColumnForExpandCollapseLabel,
-		);
+		const extendedLabel =
+			composedExtendedLabel ||
+			(typeof mainColumnForExpandCollapseLabel === 'number'
+				? undefined
+				: getExtendedLabel(cellContent, cellIndex, mainColumnForExpandCollapseLabel));
 
 		if (isFirstCell && hasChildren) {
 			cellContent = [
@@ -232,7 +260,7 @@ function Row<Item extends { id: string }>({
 				aria-expanded={hasChildren ? isExpandedState : undefined}
 				aria-level={depth ? depth : undefined}
 			>
-				{React.Children.map(children, (cell, index) => renderCell(cell, index))}
+				{composedCells.map((cell, index) => renderCell(cell, index))}
 			</TreeRowContainer>
 			{hasChildren &&
 				(isProvidedExpanded !== undefined ? isProvidedExpanded : isExpandedState) &&

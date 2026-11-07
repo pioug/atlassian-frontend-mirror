@@ -23,19 +23,25 @@ describe('Chevron', () => {
 	});
 
 	it('should give context of the row ID in the label', () => {
-		const changedRowId = '100';
-		render(<Chevron rowId={changedRowId} />);
+		render(<Chevron rowId="100" />);
 
-		const chevronIconWithRowIdInLabel = screen.getByText(new RegExp(changedRowId));
-		expect(chevronIconWithRowIdInLabel).toBeInTheDocument();
+		expect(screen.getByRole('button', { name: 'Expand 100' })).toBeInTheDocument();
 	});
 
 	it('should give context of the row content in the label', () => {
-		const extendedLabel = 'Chapter 1: Clean Code';
-		render(<Chevron rowId="1" extendedLabel={extendedLabel} />);
+		render(<Chevron rowId="1" extendedLabel="Chapter 1: Clean Code" />);
 
-		const labelElement = screen.getByText(new RegExp(extendedLabel));
-		expect(labelElement).toBeInTheDocument();
+		expect(
+			screen.getByRole('button', { name: 'Expand Chapter 1: Clean Code' }),
+		).toBeInTheDocument();
+	});
+
+	it('should use only the expand or collapse label when there is no row context', () => {
+		const { rerender } = render(<Chevron rowId="" />);
+		expect(screen.getByRole('button', { name: 'Expand' })).toBeInTheDocument();
+
+		rerender(<Chevron rowId="" isExpanded />);
+		expect(screen.getByRole('button', { name: 'Collapse' })).toBeInTheDocument();
 	});
 
 	test('expanded', () => {

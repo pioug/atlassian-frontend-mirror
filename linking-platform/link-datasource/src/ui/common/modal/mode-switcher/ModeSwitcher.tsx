@@ -28,6 +28,8 @@ const modeSwitcherStyles = css({
 	height: '32px',
 });
 
+const inlineModeSwitcherStyles = css({ marginLeft: token('space.0') });
+
 const compactModeSwitcherStyles = css({
 	paddingTop: token('space.050'),
 	paddingRight: token('space.050'),
@@ -103,6 +105,7 @@ export const ModeSwitcher = <T extends string = string>(
 ): JSX.Element | null => {
 	const {
 		isCompact,
+		isInline,
 		isDisabled,
 		onOptionValueChange,
 		options,
@@ -115,7 +118,11 @@ export const ModeSwitcher = <T extends string = string>(
 
 	return options.length > 0 ? (
 		<fieldset
-			css={[modeSwitcherStyles, isCompact && compactModeSwitcherStyles]}
+			css={[
+				modeSwitcherStyles,
+				isCompact && compactModeSwitcherStyles,
+				isInline && inlineModeSwitcherStyles,
+			]}
 			data-testid="mode-toggle-container"
 			disabled={isDisabled}
 		>
@@ -169,6 +176,7 @@ export interface ModeSwitcherPropsOption<T extends string = string> {
 export interface ModeSwitcherProps<T extends string = string> {
 	isCompact?: boolean;
 	isDisabled?: boolean;
+	isInline?: boolean;
 	onOptionValueChange: (selectedOptionValue: T) => void;
 	options: ModeSwitcherPropsOption<T>[];
 	selectedOptionValue?: string;

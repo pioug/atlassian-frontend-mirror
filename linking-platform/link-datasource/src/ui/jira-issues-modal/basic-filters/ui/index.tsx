@@ -19,6 +19,7 @@ export const availableBasicFilterTypes: BasicFilterFieldType[] = [
 ];
 
 export interface BasicFilterContainerProps {
+	isInline?: boolean;
 	isJQLHydrating: boolean;
 	jql: string;
 	onChange: (filterType: BasicFilterFieldType, options: SelectOption[]) => void;
@@ -38,6 +39,7 @@ const BasicFilterContainer = ({
 	onChange,
 	selections,
 	isJQLHydrating,
+	isInline = false,
 }: BasicFilterContainerProps): React.JSX.Element => {
 	const extractedFilterValues = useMemo(
 		() => (isJQLHydrating ? extractValuesFromNonComplexJQL(jql) : {}),
@@ -50,6 +52,7 @@ const BasicFilterContainer = ({
 		<Flex
 			xcss={styles.basicFilterContainerStyles}
 			gap="space.100"
+			wrap={isInline ? 'wrap' : 'nowrap'}
 			testId="jlol-basic-filter-container"
 		>
 			{availableBasicFilterTypes.map((filter: BasicFilterFieldType) => {
@@ -58,6 +61,7 @@ const BasicFilterContainer = ({
 
 				return (
 					<AsyncPopupSelect
+						isInline={isInline}
 						site={site}
 						filterType={filter}
 						key={filter}

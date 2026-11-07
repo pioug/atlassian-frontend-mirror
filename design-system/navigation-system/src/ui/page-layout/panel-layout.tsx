@@ -65,7 +65,7 @@ export type PanelLayoutProps = {
 	 */
 	compactDefaultPanelWidth?: number;
 	/**
-	 * Minimum width in pixels. Defaults to 320; overlays can be smaller in a narrower container.
+	 * Minimum width in pixels. Defaults to 320. With chat layout enabled, overlays retain this minimum.
 	 */
 	panelMinWidth?: number;
 	/**
@@ -121,9 +121,18 @@ function CoordinatedPanelLayout({
 		}
 	}, [coordinator]);
 
-	const [defaultWidth] = useState(defaultPanelWidth ?? panelWidth ?? defaults.panelWidth);
+	const [defaultWidth] = useState(
+		defaultPanelWidth ??
+			(fg('platform-dst-chat-panel-layout')
+				? defaults.panelWidth
+				: (panelWidth ?? defaults.panelWidth)),
+	);
 	const [compactWidth] = useState(
-		compactDefaultPanelWidth ?? defaultPanelWidth ?? panelWidth ?? defaults.compactPanelWidth,
+		compactDefaultPanelWidth ??
+			defaultPanelWidth ??
+			(fg('platform-dst-chat-panel-layout')
+				? defaults.compactPanelWidth
+				: (panelWidth ?? defaults.compactPanelWidth)),
 	);
 	// Use the controlled request before measurement too, without changing the mount-time default.
 	const fallbackWidth = Math.max(
@@ -182,6 +191,8 @@ function CoordinatedPanelLayout({
 		<PanelLayoutShell
 			isPanelOpen={isPanelOpen}
 			panelWidth={state?.width ?? fallbackWidth}
+			defaultPanelWidth={defaultWidth}
+			compactDefaultPanelWidth={compactWidth}
 			compactPanelWidth={Math.max(
 				panelMinWidth,
 				Math.min(panelWidth ?? compactWidth, panelMaxWidth ?? Infinity),

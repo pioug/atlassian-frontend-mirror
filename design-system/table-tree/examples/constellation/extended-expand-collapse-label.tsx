@@ -168,13 +168,14 @@ const items: Item[] = [
 const Title = (props: Content) => <Box as="span">{props.title}</Box>;
 const Numbering = (props: Content) => <Box as="span">{props.numbering}</Box>;
 const Page = (props: Content) => <Box as="span">{props.page}</Box>;
+const EmptyCell = () => null;
 
 export default (): React.JSX.Element => (
 	<TableTree
-		columns={[Title, Numbering, Page]}
-		headers={['Chapter Title', 'Numbering', 'Page']}
+		columns={[EmptyCell, Title, Numbering, Page]}
+		headers={['Status', 'Chapter Title', 'Numbering', 'Page']}
 		mainColumnForExpandCollapseLabel="title"
-		columnWidths={['200px', '100px', '100px']}
+		columnWidths={['32px', '200px', '100px', '100px']}
 		items={items}
 		label="Aria labelled expand and collapse button example"
 	/>

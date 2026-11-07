@@ -13,6 +13,7 @@ import type {
 	DatasourceDataResponseItem,
 	DatasourceTableStatusType,
 } from '@atlaskit/linking-types/datasource';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import type { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
@@ -50,8 +51,9 @@ const mockColumnPickerRenderUfoFailure = jest.fn();
 jest.mock('@atlaskit/ufo/concurrent-experience', () => ({
 	...jest.requireActual('@atlaskit/ufo/concurrent-experience'),
 	__esModule: true,
-	ConcurrentExperience: jest.fn().mockImplementation(
-		(experienceId: string): Partial<ConcurrentExperience> => ({
+	ConcurrentExperience: jest
+		.fn()
+		.mockImplementation((experienceId: string): Partial<ConcurrentExperience> => ({
 			experienceId: experienceId,
 			getInstance: jest.fn().mockImplementation(() => {
 				if (experienceId === 'datasource-rendered') {
@@ -68,8 +70,7 @@ jest.mock('@atlaskit/ufo/concurrent-experience', () => ({
 					};
 				}
 			}),
-		}),
-	),
+		})),
 }));
 
 jest.mock('@atlaskit/outbound-auth-flow-client/auth', () => ({
@@ -898,6 +899,57 @@ describe('DatasourceTableView', () => {
 
 			expect(getByText("We couldn't find anything matching your search")).toBeInTheDocument();
 			expect(queryByTestId('datasource-table-view--head')).not.toBeInTheDocument();
+		});
+	});
+
+	describe('host empty-state rendering', () => {
+		it('replaces the whole empty table and explicitly enables completion without the legacy callback gate', () => {
+			failGate('platform_lp_sllv_on_request_settled');
+			const onRequestSettled = jest.fn();
+			const { queryByTestId, getByText } = setup(
+				{ responseItems: [], totalCount: 0 },
+				{
+					onRequestSettled,
+					enableRequestSettled: true,
+					renderEmptyState: () => <Text as="p">Refine this search</Text>,
+				},
+			);
+			expect(getByText('Refine this search')).toBeInTheDocument();
+			expect(queryByTestId('datasource-table-view')).not.toBeInTheDocument();
+			expect(queryByTestId('datasource-table-view--no-results-row')).not.toBeInTheDocument();
+			expect(onRequestSettled).toHaveBeenCalledWith({
+				status: 'resolved',
+				itemCount: 0,
+				totalCount: 0,
+			});
+		});
+
+		it('does not enable completion reporting just by customizing the empty display', () => {
+			failGate('platform_lp_sllv_on_request_settled');
+			const onRequestSettled = jest.fn();
+			const { getByText } = setup(
+				{ responseItems: [], totalCount: 0 },
+				{ onRequestSettled, renderEmptyState: () => <Text as="p">No matching items</Text> },
+			);
+			expect(getByText('No matching items')).toBeInTheDocument();
+			expect(onRequestSettled).not.toHaveBeenCalled();
+		});
+
+		it('can explicitly enable completion while retaining the default table display', () => {
+			failGate('platform_lp_sllv_on_request_settled');
+			const onRequestSettled = jest.fn();
+			const { getByTestId } = setup(
+				{ responseItems: [], totalCount: 0 },
+				{ onRequestSettled, enableRequestSettled: true },
+			);
+			expect(getByTestId('datasource-table-view--no-results-row')).toBeInTheDocument();
+			expect(onRequestSettled).toHaveBeenCalledTimes(1);
+		});
+
+		it('keeps access failures distinct from an empty result', () => {
+			const renderEmptyState = jest.fn();
+			setup({ status: 'unauthorized', responseItems: [] }, { renderEmptyState });
+			expect(renderEmptyState).not.toHaveBeenCalled();
 		});
 	});
 

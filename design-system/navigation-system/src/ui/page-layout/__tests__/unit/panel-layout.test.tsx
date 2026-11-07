@@ -177,15 +177,15 @@ it('does not replace a controlled preference until the caller accepts a resize',
 	expect(screen.getByTestId('layout--panel-slot')).toHaveStyle({ '--p_lclPnlW': '500px' });
 });
 
-it('caps overlay width below the configured minimum in a narrow host', () => {
+it('retains the configured overlay minimum in a narrow host', () => {
 	passGate('platform-dst-chat-panel-layout');
 	jest.spyOn(HTMLElement.prototype, 'clientWidth', 'get').mockReturnValue(300);
 	render(<Host panelWidth={480} panelMinWidth={320} />);
 	const slider = screen.getByRole('slider', { name: 'Resize panel', hidden: true });
 	fireEvent.focus(slider);
-	expect(slider).toHaveAttribute('min', '270');
-	expect(slider).toHaveAttribute('max', '270');
-	expect(screen.getByTestId('layout--panel-slot')).toHaveStyle({ '--p_lclPnlW': '270px' });
+	expect(slider).toHaveAttribute('min', '320');
+	expect(slider).toHaveAttribute('max', '320');
+	expect(screen.getByTestId('layout--panel-slot')).toHaveStyle({ '--p_lclPnlW': '320px' });
 	expect(screen.getByTestId('layout--panel-slot')).toHaveCompiledCss('grid-area', 'main');
 });
 

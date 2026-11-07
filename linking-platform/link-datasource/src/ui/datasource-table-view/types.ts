@@ -1,3 +1,5 @@
+import type { ReactElement } from 'react';
+
 import type { DatasourceParameters } from '@atlaskit/linking-types/datasource';
 
 import { type IssueLikeDataTableViewProps } from '../issue-like-table/types';
@@ -14,7 +16,8 @@ export type DatasourceTableRequestSettledResult = {
 export type DatasourceTableViewProps = {
 	/** Unique identifier for which type of datasource is being rendered and for making its requests */
 	datasourceId: string;
-
+	/** Explicitly enable completion reporting for embedded hosts; otherwise use the existing gate. */
+	enableRequestSettled?: boolean;
 	/**
 	 * Called each time a data request settles (including next-page loads and refreshes), so hosts can
 	 * react to the outcome, e.g. replace the table with their own empty state when `itemCount` is 0.
@@ -23,6 +26,9 @@ export type DatasourceTableViewProps = {
 
 	/** Parameters for making the data requests necessary to render data within the table */
 	parameters: DatasourceParameters;
+
+	/** Replace the entire resolved empty table, including headers and footer, without stopping requests. */
+	renderEmptyState?: () => ReactElement | null;
 
 	/** Url for an existing datasource, initially used for displaying to a user unauthorized to query that site  */
 	url?: string;

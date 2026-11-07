@@ -1,5 +1,14 @@
 # @atlaskit/editor-statsig-tmp
 
+## 259.0.0
+
+### Major Changes
+
+- [`d20d8036ad27b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d20d8036ad27b) -
+  Clean up experiment `cwr_publish_flow_live_doc_toggle_exp`. The "Add to Confluence space" finalize
+  popup permanently keeps the control behaviour: the live doc / page toggle is shown for page
+  objects and the original title is used.
+
 ## 258.0.1
 
 ### Patch Changes

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { act } from '@atlassian/testing-library/act';
 import { render as renderWithoutStrictMode } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
@@ -1009,4 +1010,156 @@ describe.each([false, true])('layout area sizing (Strict Mode: %s)', (strictMode
 		expect(closeChatPanel).not.toHaveBeenCalled();
 		window.innerWidth = originalInnerWidth;
 	});
+});
+
+describe('local overlay clearance', () => {
+	beforeEach(() => passGate('platform-dst-chat-panel-layout'));
+
+	it.each([320, 375, 639])('retains the local minimum at %ipx', (viewport) => {
+		expect(calculate(viewport).panel).toMatchObject({ mode: 'overlay', width: 320, minWidth: 320 });
+	});
+
+	it.each([
+		[1040, 288, 400],
+		[1028, 288, 388],
+		[1024, 288, 384],
+	])('reserves clearance at %ipx', (viewport, nav, chat) => {
+		const result = calculate(viewport);
+		expect(result).toMatchObject({
+			'side-nav': { mode: 'inline', width: nav },
+			panel: { mode: 'overlay', width: 320 },
+			'chat-panel': { mode: 'inline', width: chat },
+		});
+		expect(viewport - nav - chat - result.panel!.width).toBe(32);
+	});
+
+	it('restores automatic compression on close and retains explicit resized widths', () => {
+		const closed = { ...openAreas, panel: { ...openAreas.panel, isOpen: false } };
+		expect(calculate(1040, closed)).toMatchObject({
+			'side-nav': { width: 320 },
+			'chat-panel': { width: 400 },
+		});
+		expect(
+			calculate(1040, { ...closed, 'side-nav': { ...closed['side-nav'], preferredWidth: 260 } }),
+		).toMatchObject({ 'side-nav': { width: 260 }, 'chat-panel': { width: 400 } });
+	});
+
+	it.each([
+		[1040, 368],
+		[1101, 414.9],
+	])('caps local overlay growth at %ipx without shrinking Chat', (viewportWidth, max) => {
+		const result = calculateLayoutAreaStates({
+			viewportWidth,
+			isChatPanelOverlay: false,
+			isSideNavOverlay: false,
+			mainMinWidth: 320,
+			areas: {
+				...openAreas,
+				panel: { ...openAreas.panel, liveResize: { mode: 'overlay', width: 600 } },
+			},
+			resizeSession: {
+				area: 'panel',
+				baselineWidths: { 'side-nav': 288, 'chat-panel': 400 },
+				overlayModes: { 'side-nav': 'inline', panel: 'overlay', 'chat-panel': 'inline' },
+			},
+		});
+		expect(result).toMatchObject({
+			'side-nav': { width: 240 },
+			'chat-panel': { width: 400 },
+			panel: { width: expect.closeTo(max), resizeBounds: { min: 320, max: expect.closeTo(max) } },
+		});
+	});
+
+	it.each([
+		[349, 400],
+		[429, 320],
+		[800, 320],
+	])('caps a SideNav request of %ipx', (target, chat) => {
+		const result = calculateLayoutAreaStates({
+			viewportWidth: 1101,
+			isChatPanelOverlay: false,
+			isSideNavOverlay: false,
+			mainMinWidth: 320,
+			areas: {
+				...openAreas,
+				panel: { ...openAreas.panel, preferredWidth: 320 },
+				'side-nav': { ...openAreas['side-nav'], liveResize: { mode: 'inline', width: target } },
+			},
+			resizeSession: { area: 'side-nav', baselineWidths: { 'side-nav': 320, 'chat-panel': 400 } },
+		});
+		expect(result).toMatchObject({
+			'side-nav': { width: Math.min(target, 429), resizeBounds: { max: 429 } },
+			'chat-panel': { width: chat },
+			panel: { width: 320 },
+		});
+	});
+
+	it.each([
+		{ viewport: 1024, nav: 320, panelMode: 'overlay' },
+		{ viewport: 1040, nav: 240, panelMode: 'inline' },
+		{ viewport: 1071, nav: 271, panelMode: 'inline' },
+	])(
+		'moves Chat to overlay when custom local minimum needs clearance at $viewport',
+		({ viewport, nav, panelMode }) => {
+			const result = calculate(viewport, {
+				...openAreas,
+				panel: { ...openAreas.panel, minWidth: 480 },
+			});
+			expect(result).toMatchObject({
+				'side-nav': { mode: 'inline', width: nav },
+				'chat-panel': { mode: 'overlay' },
+				panel: { mode: panelMode, width: 480 },
+			});
+			expect(viewport - nav - result.panel!.width).toBeGreaterThanOrEqual(32);
+		},
+	);
+
+	it('moves navigation to overlay if its minimum cannot coexist with local clearance', () => {
+		const result = calculateLayoutAreaStates({
+			viewportWidth: 1440,
+			layoutWidth: 700,
+			isChatPanelOverlay: false,
+			isSideNavOverlay: false,
+			mainMinWidth: 320,
+			areas: { ...openAreas, panel: { ...openAreas.panel, minWidth: 480 } },
+		});
+		expect(result).toMatchObject({
+			'side-nav': { mode: 'overlay' },
+			'chat-panel': { mode: 'inline', width: 380 },
+			panel: { mode: 'overlay', width: 480 },
+		});
+	});
+
+	it('uses custom panel and Main minimums', () => {
+		const result = calculateLayoutAreaStates({
+			viewportWidth: 1100,
+			isChatPanelOverlay: false,
+			isSideNavOverlay: false,
+			mainMinWidth: 400,
+			areas: { ...openAreas, panel: { ...openAreas.panel, minWidth: 360 } },
+		});
+		expect(result['side-nav']?.resizeBounds.max).toBe(380);
+		expect(result.panel!.width).toBeGreaterThanOrEqual(360);
+		expect(
+			1100 - result['side-nav']!.width - result['chat-panel']!.width - result.panel!.width,
+		).toBeGreaterThanOrEqual(32);
+	});
+
+	it('does not reserve clearance for inline local panels or overlay SideNav', () => {
+		expect(calculate(1200)).toMatchObject({
+			'side-nav': { width: 240 },
+			panel: { mode: 'inline', width: 320 },
+			'chat-panel': { width: 320 },
+		});
+		expect(calculate(1023)).toMatchObject({
+			'side-nav': { mode: 'overlay' },
+			panel: { mode: 'inline', width: 320 },
+			'chat-panel': { width: 320 },
+		});
+	});
+});
+
+it('preserves the gate-off overlay cap', () => {
+	failGate('platform-dst-chat-panel-layout');
+	expect(calculate(320).panel).toMatchObject({ width: 288, minWidth: 288 });
 });

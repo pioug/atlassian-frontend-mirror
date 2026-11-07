@@ -50,7 +50,7 @@ import { convertResizeBoundToPixels } from '../panel-splitter/convert-resize-bou
 import { PanelSplitterProvider } from '../panel-splitter/provider';
 import type { ResizeBound, ResizeBounds } from '../panel-splitter/types';
 import { resolveLayoutWidth } from '../resolve-layout-width';
-import { gridRootChatFitId, gridRootId } from '../root';
+import { gridRootChatFitId, gridRootFitId, gridRootId } from '../root';
 import type { CommonSlotProps } from '../types';
 import { useLayoutAreaSizing } from '../use-layout-area-sizing';
 import { useLayoutId } from '../use-layout-id';
@@ -1391,6 +1391,7 @@ function SideNavInternal({
 				id={id}
 				{...devTimeOnlyAttributes}
 				data-layout-slot
+				data-layout-side-nav-open={isChatPanelLayoutEnabled && isExpandedOnDesktop ? '' : undefined}
 				aria-label={label}
 				style={
 					{
@@ -1456,7 +1457,11 @@ function SideNavInternal({
 					// CSS reserves only the nav minimum for chat's fit decision, before effects or lazy loading.
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles
 					<style>{`
+#${gridRootFitId} { --n_clearanceNavMin: 0px; --n_clearanceNavTarget: ${clampedWidth}; }
 #${gridRootChatFitId} { --n_fitNav: 0px; }
+@media (min-width: 64rem) {
+  #${gridRootFitId} { --n_clearanceNavMin: ${isExpandedOnDesktop ? minWidth : '0px'}; }
+}
 ${shouldApplyUnmanagedSizing ? `#${gridRootId} nav[data-layout-slot] { grid-area: main / aside / aside / aside; width: min(90%, ${clampedWidth}); }` : ''}
 @media (min-width: 64rem) {
   @container navigation-main-space (min-width: ${minWidth}) {

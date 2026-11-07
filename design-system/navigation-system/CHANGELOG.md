@@ -1,5 +1,21 @@
 # @atlassian/navigation-system
 
+## 11.7.0
+
+### Minor Changes
+
+- [`248cb52df6c6d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/248cb52df6c6d) -
+  Add ChatPanel compactDefaultWidth to override the compact viewport default independently of
+  defaultWidth behind platform-dst-chat-panel-layout.
+
+## 11.6.1
+
+### Patch Changes
+
+- [`d60083c697495`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d60083c697495) -
+  Refine local-panel minimum widths and overlay clearance, fit the initial inline layout, and
+  preserve keyboard resize direction after viewport changes behind platform-dst-chat-panel-layout.
+
 ## 11.6.0
 
 ### Minor Changes

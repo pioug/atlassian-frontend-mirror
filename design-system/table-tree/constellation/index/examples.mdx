@@ -112,10 +112,15 @@ Use either the `label` or `referencedLabel` prop to provide an accessible name f
 
 ### Extended accessible label for expand and collapse button
 
-Use the `mainColumnForExpandCollapseLabel` prop to add detail to the expand and collapse button’s
-`aria-label` announcement. The prop accepts a column's component name and adds the text from that
-column's cell to the row's expand button.
+Whenever practical, make the first column the one that identifies the row. If the identifying column
+is not first, use `mainColumnForExpandCollapseLabel` to add it to the expand and collapse button’s
+`aria-label` announcement. When you pass data with `items`, provide the identifying column's
+component name. When you compose rows with `<Rows>` and `<Row>`, provide the zero-based index of the
+identifying cell. This is especially important when the first cell is blank or contains only
+controls.
 
-For example, the first expand button below would read "Expand chapter 1: clean code row".
+For example, the first expand button below reads "Expand chapter 1: clean code", using the Chapter
+Title column rather than the empty first column. Without this prop, the button uses the item's `id`
+in an "Expand `<id>`" label, so use a non-empty, human-readable ID when relying on that fallback.
 
 <Example Component={ExtendedExpandLabelTableTreeExample} packageName="@atlaskit/table-tree" />

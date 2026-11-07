@@ -13,7 +13,14 @@ for (const coordinated of [false, true]) {
 		[270, 270],
 	]) {
 		const isInline = rootWidth >= 640;
-		const panelWidth = Math.min(600, isInline ? rootWidth - 320 : rootWidth * 0.9);
+		const panelWidth = Math.min(
+			600,
+			isInline
+				? rootWidth - 320
+				: coordinated
+					? Math.max(320, Math.min(rootWidth, Math.max(400, rootWidth * 0.9)))
+					: rootWidth * 0.9,
+		);
 		const mainWidth = isInline ? rootWidth - panelWidth : rootWidth;
 		const area = isInline ? 'panel' : 'main';
 		// Splitters are hidden below 48rem; those cases retain CSS sizing after hydration.
@@ -86,4 +93,42 @@ for (const coordinated of [false, true]) {
 			expect(await main.boundingBox()).toEqual(mainBefore);
 		});
 	}
+}
+
+for (const [width, navWidth, chatWidth, panelWidth, area, gap] of [
+	[1000, 0, 360, 320, 'panel', 320],
+	[1040, 288, 400, 320, 'main', 32],
+	[1200, 240, 320, 320, 'panel', 320],
+	[1280, 320, 320, 320, 'panel', 320],
+] as const) {
+	test(`all-open SSR keeps its geometry through hydration at ${width}px`, async ({ page }) => {
+		await page.setViewportSize({ width, height: 900 });
+		await page.visitExample<typeof import('../../../examples/panel-layout-all-open-ssr')>(
+			'design-system',
+			'navigation-system',
+			'panel-layout-all-open-ssr',
+			{ featureFlag: 'platform-dst-chat-panel-layout' },
+		);
+		const nav = page.getByTestId('ssr-side-nav');
+		const chat = page.getByTestId('ssr-chat');
+		const panel = page.getByRole('region', { name: 'Panel', exact: true });
+		const assertGeometry = async () => {
+			await expect.poll(async () => (await nav.boundingBox())?.width ?? 0).toBe(navWidth);
+			await expect.poll(async () => (await chat.boundingBox())?.width).toBe(chatWidth);
+			await expect.poll(async () => (await panel.boundingBox())?.width).toBe(panelWidth);
+			await expect(panel).toHaveCSS('grid-area', area);
+			await expect
+				.poll(async () => {
+					const p = (await panel.boundingBox())!;
+					const n = await nav.boundingBox();
+					return p.x - (n?.x ?? 0) - (n?.width ?? 0);
+				})
+				.toBe(gap);
+		};
+		await assertGeometry();
+		await page.getByRole('button', { name: 'Hydrate layout' }).click();
+		await assertGeometry();
+		await page.getByRole('slider', { name: 'Resize panel', exact: true }).focus();
+		await assertGeometry();
+	});
 }

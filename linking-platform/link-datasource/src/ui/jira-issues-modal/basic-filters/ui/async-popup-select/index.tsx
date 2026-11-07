@@ -17,6 +17,7 @@ import { asyncPopupSelectMessages } from './messages';
 export interface AsyncPopupSelectProps {
 	filterType: BasicFilterFieldType;
 	isDisabled?: boolean;
+	isInline?: boolean;
 	isJQLHydrating: boolean;
 	onSelectionChange?: (filterType: BasicFilterFieldType, options: SelectOption[]) => void;
 	selection: SelectOption[];
@@ -30,6 +31,7 @@ const AsyncPopupSelect = ({
 	isJQLHydrating,
 	onSelectionChange = () => {},
 	isDisabled = false,
+	isInline = false,
 }: AsyncPopupSelectProps): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 
@@ -120,6 +122,7 @@ const AsyncPopupSelect = ({
 
 	return (
 		<FilterPopupSelect
+			isInline={isInline}
 			filterName={filterName}
 			status={status}
 			showLoading={isLoading}

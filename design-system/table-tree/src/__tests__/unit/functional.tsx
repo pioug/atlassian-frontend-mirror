@@ -362,11 +362,46 @@ describe('expanding and collapsing', () => {
 
 		render(jsxTableTree);
 
-		expect(screen.getByText(/Expand Chapter 1: Clean Code/)).toBeInTheDocument();
-		expect(screen.queryByText(/Expand row item1/)).not.toBeInTheDocument();
+		expect(
+			screen.getByRole('button', { name: 'Expand Chapter 1: Clean Code' }),
+		).toBeInTheDocument();
+		expect(screen.queryByText(/Expand item1/)).not.toBeInTheDocument();
 	});
 
-	it('should show extended span for expand and collapse button when the mainColumnForExpandCollapseLabel is passed as number', () => {
+	it('uses a non-first main column for the chevron name when the first cell is empty', () => {
+		const nestedItems = [
+			{
+				id: '',
+				content: {
+					title: 'Payments',
+				},
+				children: [
+					{
+						id: 'payment-history',
+						content: {
+							title: 'Payment history',
+						},
+					},
+				],
+			},
+		];
+
+		const EmptyCell = () => null;
+		const Title = (props: { title: string }) => <span>{props.title}</span>;
+
+		render(
+			<TableTree
+				items={nestedItems}
+				columns={[EmptyCell, Title]}
+				headers={['Status', 'Name']}
+				mainColumnForExpandCollapseLabel="title"
+			/>,
+		);
+
+		expect(screen.getByRole('button', { name: 'Expand Payments' })).toBeInTheDocument();
+	});
+
+	it('uses a non-first composed cell for chevron names when the first cell is a status column', async () => {
 		const nestedData = [
 			{
 				title: 'Chapter 1: Clean Code',
@@ -393,9 +428,12 @@ describe('expanding and collapsing', () => {
 							itemId={numbering}
 							items={children}
 							hasChildren={children?.length}
-							mainColumnForExpandCollapseLabel={0}
+							mainColumnForExpandCollapseLabel={1}
 						>
-							<Cell>{title}</Cell>
+							<Cell>{null}</Cell>
+							<Cell>
+								<strong>{title}</strong>
+							</Cell>
 							<Cell>{numbering}</Cell>
 							<Cell>{page}</Cell>
 						</Row>
@@ -406,8 +444,31 @@ describe('expanding and collapsing', () => {
 
 		render(jsxTableTree);
 
-		expect(screen.getByText(/Expand Chapter 1: Clean Code/)).toBeInTheDocument();
+		const user = userEvent.setup();
+		const chevron = screen.getByRole('button', { name: 'Expand Chapter 1: Clean Code' });
+		expect(chevron).toBeInTheDocument();
+
+		await user.click(chevron);
+
+		expect(
+			screen.getByRole('button', { name: 'Collapse Chapter 1: Clean Code' }),
+		).toBeInTheDocument();
 		expect(screen.queryByText(/Expand row item1/)).not.toBeInTheDocument();
+	});
+
+	it('falls back to the row id when the selected composed cell has no text', () => {
+		render(
+			<TableTree>
+				<Row itemId="chapter-one" hasChildren mainColumnForExpandCollapseLabel={1}>
+					<Cell>{null}</Cell>
+					<Cell>
+						<span />
+					</Cell>
+				</Row>
+			</TableTree>,
+		);
+
+		expect(screen.getByRole('button', { name: 'Expand chapter-one' })).toBeInTheDocument();
 	});
 
 	it('should show default span for expand and collapse button when the mainColumnForExpandCollapseLabel is not passed', () => {
@@ -445,7 +506,7 @@ describe('expanding and collapsing', () => {
 
 		render(jsxTableTree);
 
-		expect(screen.getByText(/Expand row item1/)).toBeInTheDocument();
+		expect(screen.getByRole('button', { name: 'Expand item1' })).toBeInTheDocument();
 	});
 
 	it('should have proper aria attributes on the row when collapsed and expanded', async () => {

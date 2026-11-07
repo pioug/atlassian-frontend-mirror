@@ -15,6 +15,7 @@ type BuildJQLInput = {
 	orderDirection?: string;
 	orderKey?: string;
 	rawSearch: string;
+	textSearchField?: 'textfields';
 };
 
 const fuzzySearchRegExp = /^"(.+)"$/;
@@ -28,6 +29,11 @@ const constructTerminalClause = (field: string, operator: OperatorValue, value: 
 		creators.valueOperand(value),
 	);
 
+// The generic AST string sanitizer quotes values but does not escape backslashes.
+// Embedded keyword search accepts literal user text, so quote both delimiters explicitly.
+const escapedValueOperand = (value: string) =>
+	creators.byText.valueOperand(`"${value.replace(/\\/g, '\\\\').replace(/"/g, '\\"')}"`);
+
 export const buildJQL = (input: BuildJQLInput): string => {
 	/**
 	 * Jql ast - Transforming the ast
@@ -38,6 +44,7 @@ export const buildJQL = (input: BuildJQLInput): string => {
 	const { query } = jast;
 	const {
 		rawSearch,
+		textSearchField,
 		orderDirection = ORDER_BY_DIRECTION_DESC,
 		orderKey = 'created',
 		filterValues,
@@ -57,7 +64,17 @@ export const buildJQL = (input: BuildJQLInput): string => {
 		return '';
 	}
 
-	if (trimmedRawSearch) {
+	if (trimmedRawSearch && textSearchField === 'textfields') {
+		const suffix = /["*?]$/.test(trimmedRawSearch) ? '' : fuzzyCharacter;
+		query.appendClause(
+			creators.terminalClause(
+				creators.field('textfields'),
+				creators.operator(OPERATOR_LIKE),
+				escapedValueOperand(`${trimmedRawSearch}${suffix}`),
+			),
+			COMPOUND_OPERATOR_AND,
+		);
+	} else if (trimmedRawSearch) {
 		const fuzzy = !trimmedRawSearch.match(fuzzySearchRegExp) ? fuzzyCharacter : '';
 		const basicSearch = trimmedRawSearch.replace(/['"?*]+/g, '');
 
@@ -90,7 +107,9 @@ export const buildJQL = (input: BuildJQLInput): string => {
 				creators.operator(OPERATOR_IN),
 				creators.listOperand(
 					filterFieldValues.map((filterFieldValue) =>
-						creators.valueOperand(filterFieldValue.value),
+						textSearchField
+							? escapedValueOperand(filterFieldValue.value)
+							: creators.valueOperand(filterFieldValue.value),
 					),
 				),
 			);

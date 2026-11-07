@@ -5,6 +5,7 @@ import BasicJiraIssuesTableExample from './basic-jira-issues-table';
 import BasicJiraIssuesTablePdfExportExample from './basic-jira-issues-table-pdf-export';
 import BasicJiraIssuesTableSingleLineExample from './basic-jira-issues-table-single-line';
 import ErrorStateExample from './error-state';
+import InlineJiraSearchRecoveryExample from './inline-jira-search-recovery';
 import IssueLikeTableExample from './issue-like-table';
 import IssueLikeTable3pUnauthExample from './issue-like-table-3p-unauth.vr.ap';
 import IssueLikeTableJ2wsExample from './issue-like-table-j2ws';
@@ -49,3 +50,5 @@ export const WithIssuesModalBackendIntegration: WorkbenchExample = wb(
 	WithIssuesModalBackendIntegrationExample,
 );
 export const WithIssuesModal: WorkbenchExample = wb(WithIssuesModalExample);
+
+export const InlineJiraSearchRecovery: WorkbenchExample = wb(InlineJiraSearchRecoveryExample);

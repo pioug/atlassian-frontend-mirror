@@ -41,11 +41,25 @@ const styles = cssMap({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Shared layout CSS variable name.
 		width: `max(0px, calc(var(--n_layoutW) - var(${'--n_mainMinW' satisfies typeof mainMinimumWidthVar}) - var(--n_fitAside, 0px) - var(--n_fitRibbon, 0px) - var(--n_fitPanel, 0px)))`,
 	},
+	panelNavSpace: {
+		containerType: 'inline-size',
+		containerName: 'navigation-panel-nav-space',
+		// One extra pixel distinguishes an exact fit from negative capacity clamped to zero.
+		width:
+			'max(0px, calc(var(--n_layoutW) - var(--n_mainMinW) - var(--n_fitAside, 0px) - var(--n_fitRibbon, 0px) - var(--n_fitPanel, 0px) - var(--n_clearanceNavMin, 0px) + 1px))',
+	},
+	panelChatSpace: {
+		containerType: 'inline-size',
+		containerName: 'navigation-panel-chat-space',
+		width:
+			'max(0px, calc(var(--n_layoutW) - var(--n_mainMinW) - var(--n_fitAside, 0px) - var(--n_fitRibbon, 0px) - var(--n_fitPanel, 0px) - var(--n_clearanceNavMin, 0px) - var(--n_clearanceChatMin, 0px) + 1px))',
+	},
 	chatSpace: {
 		'--n_fitNav': '0px',
 		containerType: 'inline-size',
 		containerName: 'navigation-chat-space',
-		width: 'max(0px, calc(100% - var(--n_fitNav)))',
+		width:
+			'max(0px, calc(var(--n_layoutW) - var(--n_mainMinW) - var(--n_fitAside, 0px) - var(--n_fitRibbon, 0px) - var(--n_fitPanel, 0px) - var(--n_fitNav)))',
 	},
 	legacyRoot: {
 		display: 'grid',
@@ -157,8 +171,12 @@ function LayoutFitContainers({ children }: { children: React.ReactNode }) {
 				}}
 			/>
 			<div css={styles.mainSpace} id={gridRootFitId}>
-				<div css={styles.chatSpace} id={gridRootChatFitId}>
-					{children}
+				<div css={styles.panelNavSpace}>
+					<div css={styles.panelChatSpace}>
+						<div css={styles.chatSpace} id={gridRootChatFitId}>
+							{children}
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -712,14 +712,6 @@ export const editorExperimentsConfig: {
 		typeGuard: (value: unknown) => value is 'control' | 'variant_a' | 'variant_b';
 		values: ('control' | 'variant_a' | 'variant_b')[];
 	};
-	// Added 2026-07-28
-	cwr_publish_flow_live_doc_toggle_exp: {
-		defaultValue: 'control' | 'variantA' | 'variantB' | 'variantC';
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: (value: unknown) => value is 'control' | 'variantA' | 'variantB' | 'variantC';
-		values: ('control' | 'variantA' | 'variantB' | 'variantC')[];
-	};
 } = {
 	// new format to avoid collisions with other users when updating the file
 	// Added 2026-07-18
@@ -1503,14 +1495,5 @@ export const editorExperimentsConfig: {
 		},
 		param: 'value',
 		defaultValue: false,
-	}),
-	// Added 2026-07-28
-	cwr_publish_flow_live_doc_toggle_exp: createMultivariateExperiment({
-		productKeys: {
-			confluence: 'cwr_publish_flow_live_doc_toggle_exp',
-		},
-		param: 'cohort',
-		defaultValue: 'control' as const,
-		values: ['control', 'variantA', 'variantB', 'variantC'] as const,
 	}),
 } satisfies Record<string, ExperimentConfigValue>;

@@ -37,8 +37,10 @@ const Chevron = ({
 	extendedLabel,
 	onExpandToggle = __noop,
 }: ChevronProps): React.JSX.Element => {
-	const getLabel = (defaultLabel: string) =>
-		extendedLabel ? `${defaultLabel} ${extendedLabel} row` : `${defaultLabel} row ${rowId}`;
+	const getLabel = (defaultLabel: string) => {
+		const rowContext = extendedLabel || rowId;
+		return rowContext ? `${defaultLabel} ${rowContext}` : defaultLabel;
+	};
 
 	return (
 		<ChevronContainer>

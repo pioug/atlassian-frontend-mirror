@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
 import type {
 	LayoutArea,
 	LayoutAreaAllocation,
@@ -81,6 +83,7 @@ export function calculateLayoutAreaStates({
 	initialModes?: Partial<Record<LayoutArea, LayoutAreaMode>>;
 }): Partial<Record<LayoutArea, LayoutAreaAllocation>> {
 	const mainMinWidth = resolveLayoutWidth(mainMinWidthBound, viewportWidth);
+	const isRefinedLayout = fg('platform-dst-chat-panel-layout');
 	const availableWidth = Math.max(0, layoutWidth - occupiedWidth);
 	const sideNav = areas['side-nav'];
 	const panel = areas.panel;
@@ -101,6 +104,11 @@ export function calculateLayoutAreaStates({
 	const shouldCollapseSideNav = Boolean(
 		resizeSession &&
 		resizeSession.area !== 'side-nav' &&
+		!(
+			isRefinedLayout &&
+			resizeSession.overlayModes?.panel === 'overlay' &&
+			resizeSession.area === 'panel'
+		) &&
 		resizeSession.baselineWidths['side-nav'] !== undefined &&
 		resizeSession.baselineWidths[resizeSession.area] !== undefined &&
 		resizingArea &&
@@ -125,33 +133,65 @@ export function calculateLayoutAreaStates({
 						: 0),
 	);
 
-	const isSideNavOpenInline = Boolean(
+	let isSideNavOpenInline = Boolean(
 		sideNav?.isOpen &&
 		!shouldCollapseSideNav &&
 		(layoutModes
 			? layoutModes['side-nav'] === 'inline'
 			: !isSideNavOverlay && availableWidth >= mainMinWidth + sideNavMinWidth),
 	);
-	const isChatPanelOpenInline = Boolean(
-		chatPanel?.isOpen &&
-		(!resizeSession || resizeSession.baselineWidths['chat-panel'] !== undefined) &&
-		(layoutModes
-			? layoutModes['chat-panel'] === 'inline'
-			: !isChatPanelOverlay &&
-				availableWidth >=
-					mainMinWidth + chatPanelMinWidth + (isSideNavOpenInline ? sideNavMinWidth : 0)),
-	);
-	const isPanelInline = Boolean(
+	const canInlineChat = () =>
+		Boolean(
+			chatPanel?.isOpen &&
+			(!resizeSession || resizeSession.baselineWidths['chat-panel'] !== undefined) &&
+			(layoutModes
+				? layoutModes['chat-panel'] === 'inline'
+				: !isChatPanelOverlay &&
+					availableWidth >=
+						mainMinWidth + chatPanelMinWidth + (isSideNavOpenInline ? sideNavMinWidth : 0)),
+		);
+	let isChatPanelOpenInline = canInlineChat();
+	const canInlinePanel = () =>
+		Boolean(
+			panel?.isOpen &&
+			(!resizeSession || resizeSession.baselineWidths.panel !== undefined) &&
+			(layoutModes
+				? layoutModes.panel === 'inline'
+				: availableWidth >=
+					mainMinWidth +
+						panelMinWidth +
+						(isChatPanelOpenInline ? chatPanelMinWidth : 0) +
+						(isSideNavOpenInline ? sideNavMinWidth : 0)),
+		);
+
+	let isPanelInline = canInlinePanel();
+	const overlayMainMinWidth = Math.max(mainMinWidth, panelMinWidth + 32);
+	if (
+		isRefinedLayout &&
 		panel?.isOpen &&
-		(!resizeSession || resizeSession.baselineWidths.panel !== undefined) &&
-		(layoutModes
-			? layoutModes.panel === 'inline'
-			: availableWidth >=
-				mainMinWidth +
-					panelMinWidth +
-					(isChatPanelOpenInline ? chatPanelMinWidth : 0) +
-					(isSideNavOpenInline ? sideNavMinWidth : 0)),
-	);
+		!isPanelInline &&
+		isSideNavOpenInline &&
+		availableWidth <
+			overlayMainMinWidth + sideNavMinWidth + (isChatPanelOpenInline ? chatPanelMinWidth : 0)
+	) {
+		// Wider app minimums may leave no capacity for the clearance even after
+		// both siblings reach minimum. Move Chat to overlay, then recheck local.
+		isChatPanelOpenInline = false;
+		isPanelInline = canInlinePanel();
+		if (!isPanelInline && availableWidth < overlayMainMinWidth + sideNavMinWidth) {
+			// A constrained Root may not fit even navigation beside local's overlay.
+			isSideNavOpenInline = false;
+			isChatPanelOpenInline = canInlineChat();
+			isPanelInline = canInlinePanel();
+		}
+	}
+
+	// The clearance belongs to Main only while local overlays an inline SideNav.
+	// Decide placement using the ordinary minimum first, so the gap does not
+	// unnecessarily promote an otherwise-fitting inline panel to overlay.
+	const hasPanelClearance =
+		isRefinedLayout && panel?.isOpen && !isPanelInline && isSideNavOpenInline;
+	const effectiveMainMinWidth = hasPanelClearance ? overlayMainMinWidth : mainMinWidth;
 
 	const inlineAreas = (
 		[
@@ -217,7 +257,7 @@ export function calculateLayoutAreaStates({
 	let overflow = Math.max(
 		0,
 		Array.from(widths.values()).reduce((total, width) => total + width, 0) -
-			(availableWidth - mainMinWidth),
+			(availableWidth - (resizeSession ? effectiveMainMinWidth : mainMinWidth)),
 	);
 	const compressionOrder: LayoutArea[] = ['panel', 'chat-panel', 'side-nav'];
 	// Main gives up spare space first. Only regions beyond the moving rail may
@@ -241,6 +281,45 @@ export function calculateLayoutAreaStates({
 		overflow -= reduction;
 	}
 
+	if (hasPanelClearance && panel) {
+		// Opening/viewport fitting gives up SideNav width before Chat. During a
+		// panel drag only SideNav yields; Chat retains its starting width.
+		const isPanelResize = resizeSession?.area === 'panel';
+		const desiredPanelWidth = Math.max(
+			panelMinWidth,
+			Math.min(
+				getOverlayTargetWidth(panel, isSideNavOverlay, 'panel'),
+				panel.maxWidth === undefined ? Infinity : resolveLayoutWidth(panel.maxWidth, viewportWidth),
+			),
+		);
+		const overlayDefault = isSideNavOverlay
+			? (panel.compactDefaultWidth ?? panel.defaultWidth)
+			: panel.defaultWidth;
+		const reservedMainWidth = isPanelResize
+			? Math.max(
+					effectiveMainMinWidth,
+					desiredPanelWidth + 32,
+					// Above the default, Main must also fit the panel within its 90% cap.
+					desiredPanelWidth > overlayDefault ? desiredPanelWidth / 0.9 : 0,
+				)
+			: effectiveMainMinWidth;
+		let deficit = Math.max(
+			0,
+			reservedMainWidth +
+				(widths.get('side-nav') ?? 0) +
+				(widths.get('chat-panel') ?? 0) -
+				availableWidth,
+		);
+		for (const name of (isPanelResize
+			? ['side-nav']
+			: ['side-nav', 'chat-panel']) as LayoutArea[]) {
+			const width = widths.get(name) ?? 0;
+			const reduction = Math.min(deficit, Math.max(0, width - (minimums.get(name) ?? 0)));
+			widths.set(name, width - reduction);
+			deficit -= reduction;
+		}
+	}
+
 	const states: Partial<Record<LayoutArea, LayoutAreaAllocation>> = {};
 	for (const areaName of inlineAreas) {
 		const width = widths.get(areaName) ?? 0;
@@ -261,7 +340,7 @@ export function calculateLayoutAreaStates({
 					Math.min(
 						configuredMax,
 						availableWidth -
-							mainMinWidth -
+							effectiveMainMinWidth -
 							inlineAreas.reduce(
 								(total, sibling) =>
 									sibling === areaName || (sibling === 'side-nav' && areaName !== 'side-nav')
@@ -299,10 +378,35 @@ export function calculateLayoutAreaStates({
 		// Chat covers Root; SideNav and the local panel overlay Main's grid track.
 		// Occupied tracks and inline chat are not part of that covered region.
 		const layoutMax = (areaName === 'chat-panel' ? layoutWidth : mainAreaWidth) * 0.9;
-		const max = Math.max(0, Math.min(configuredMax, layoutMax));
-		const effectiveMin = Math.min(min, max);
+		const defaultWidth = isSideNavOverlay
+			? (area.compactDefaultWidth ?? area.defaultWidth)
+			: area.defaultWidth;
+		const overlayMax =
+			isRefinedLayout && areaName === 'panel'
+				? hasPanelClearance
+					? Math.min(
+							availableWidth - sideNavMinWidth - inlineChatPanelWidth - 32,
+							Math.max(
+								defaultWidth,
+								(availableWidth - sideNavMinWidth - inlineChatPanelWidth) * 0.9,
+							),
+						)
+					: Math.min(mainAreaWidth, Math.max(defaultWidth, layoutMax))
+				: layoutMax;
+		const max =
+			isRefinedLayout && areaName === 'panel'
+				? Math.max(min, Math.min(configuredMax, overlayMax))
+				: Math.max(0, Math.min(configuredMax, overlayMax));
+		const effectiveMin = isRefinedLayout && areaName === 'panel' ? min : Math.min(min, max);
 		const target = getOverlayTargetWidth(area, isSideNavOverlay, areaName);
-		const width = clampTargetWidth({ target, min: effectiveMin, max });
+		const width = clampTargetWidth({
+			target,
+			min: effectiveMin,
+			max:
+				hasPanelClearance && areaName === 'panel'
+					? Math.min(max, mainAreaWidth - 32, Math.max(defaultWidth, layoutMax))
+					: max,
+		});
 
 		states[areaName] = {
 			mode: 'overlay',

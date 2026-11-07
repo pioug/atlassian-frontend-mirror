@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-mentions
 
+## 32.1.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 32.1.7
+
+### Patch Changes
+
+- [`0ea42caf97069`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0ea42caf97069) -
+  Use platform_editor_mention_rovo to hide the agent mentions Labs lozenge.
+
 ## 32.1.6
 
 ### Patch Changes

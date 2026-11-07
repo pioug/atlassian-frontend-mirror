@@ -1,5 +1,11 @@
 # @atlaskit/editor-synced-block-provider
 
+## 26.0.15
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 26.0.14
 
 ### Patch Changes

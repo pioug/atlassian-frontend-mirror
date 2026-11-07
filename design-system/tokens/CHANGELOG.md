@@ -1,5 +1,12 @@
 # @atlaskit/tokens
 
+## 20.9.1
+
+### Patch Changes
+
+- [`c0a384336b505`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c0a384336b505) -
+  Use semibold (600) for all seven heading sizes when `platform-dst-tokens-finesse` is enabled.
+
 ## 20.9.0
 
 ### Minor Changes

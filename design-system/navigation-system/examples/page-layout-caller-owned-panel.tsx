@@ -32,6 +32,7 @@ export default function CallerOwnedPanelExample(): JSX.Element {
 	const [content, setContent] = useState('First preview');
 	const [width, setWidth] = useState(400);
 	const [mainMinWidth, setMainMinWidth] = useState(320);
+	const [panelMinWidth, setPanelMinWidth] = useState(320);
 	const [completedResize, setCompletedResize] = useState<PanelResizeEnd | null>(null);
 	const chatEnabled = fg('platform-dst-chat-panel-layout');
 	return (
@@ -63,6 +64,7 @@ export default function CallerOwnedPanelExample(): JSX.Element {
 						panelKey={content}
 						panelWidth={width}
 						panelMaxWidth={600}
+						panelMinWidth={panelMinWidth}
 						onPanelWidthChange={setWidth}
 						onResizeEnd={setCompletedResize}
 						panelLabel="Preview"
@@ -96,6 +98,7 @@ export default function CallerOwnedPanelExample(): JSX.Element {
 								<p>Requested width: {width}px</p>
 								<Button onClick={() => setWidth(480)}>Set width to 480</Button>
 								<Button onClick={() => setMainMinWidth(500)}>Set Main minimum to 500</Button>
+								<Button onClick={() => setPanelMinWidth(480)}>Set panel minimum to 480</Button>
 								<p data-testid="caller-resize-result">
 									{completedResize ? JSON.stringify(completedResize) : 'No completed resize'}
 								</p>

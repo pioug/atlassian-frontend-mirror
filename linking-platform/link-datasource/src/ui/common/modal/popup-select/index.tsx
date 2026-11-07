@@ -17,6 +17,7 @@ import CustomMenuList, { type CustomMenuListProps } from './menu-list';
 import { asyncPopupSelectMessages } from './messages';
 import PopupTrigger from './trigger';
 import { type SelectOption } from './types';
+import { useInlinePopupLayout } from './useInlinePopupLayout';
 
 // Needed to disable filtering from react-select
 const noFilterOptions = () => true;
@@ -25,6 +26,7 @@ export interface FilterPopupSelectProps {
 	buttonLabel: string;
 	filterName: string;
 	isDisabled: boolean;
+	isInline?: boolean;
 	menuListProps: CustomMenuListProps;
 	onInputChange: (newValue: string, actionMeta: InputActionMeta) => void;
 	onMenuClose?: () => void;
@@ -40,7 +42,44 @@ export interface FilterPopupSelectProps {
 	totalCount?: number;
 }
 
-export const FilterPopupSelect = ({
+type InlinePopupProps = {
+	maxMenuHeight?: number;
+	minMenuHeight: number;
+	popperProps?: PopupSelect<SelectOption, true>['props']['popperProps'];
+	ref: React.RefObject<PopupSelect<SelectOption, true>>;
+};
+
+export const FilterPopupSelect = (props: FilterPopupSelectProps): React.JSX.Element =>
+	props.isInline ? <InlineFilterPopupSelect {...props} /> : <FilterPopupSelectBase {...props} />;
+
+const InlineFilterPopupSelect = (props: FilterPopupSelectProps): React.JSX.Element => {
+	const popupRef = useRef<PopupSelect<SelectOption, true>>(null);
+	const layout = useInlinePopupLayout(true, popupRef);
+	const { onMenuOpen, onMenuClose } = props;
+	const handleOpen = useCallback(() => {
+		layout.onOpen();
+		onMenuOpen?.();
+	}, [layout.onOpen, onMenuOpen]);
+	const handleClose = useCallback(() => {
+		layout.onClose();
+		onMenuClose?.();
+	}, [layout.onClose, onMenuClose]);
+	return (
+		<FilterPopupSelectBase
+			{...props}
+			onMenuOpen={handleOpen}
+			onMenuClose={handleClose}
+			inlinePopupProps={{
+				ref: popupRef,
+				maxMenuHeight: layout.maxMenuHeight,
+				minMenuHeight: 0,
+				popperProps: layout.popperProps,
+			}}
+		/>
+	);
+};
+
+const FilterPopupSelectBase = ({
 	filterName,
 	totalCount = 0,
 	status,
@@ -57,7 +96,8 @@ export const FilterPopupSelect = ({
 	onInputChange,
 	onMenuClose,
 	onMenuOpen,
-}: FilterPopupSelectProps): React.JSX.Element => {
+	inlinePopupProps,
+}: FilterPopupSelectProps & { inlinePopupProps?: InlinePopupProps }): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const { fireEvent } = useDatasourceAnalyticsEvents();
 	const [searchTerm, setSearchTerm] = useState('');
@@ -168,6 +208,7 @@ export const FilterPopupSelect = ({
 
 	return (
 		<PopupSelect<SelectOption, true>
+			{...inlinePopupProps}
 			isMulti
 			maxMenuWidth={300}
 			minMenuWidth={300}

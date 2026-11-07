@@ -23,7 +23,7 @@ import { convertResizeBoundToPixels } from './panel-splitter/convert-resize-boun
 import { PanelSplitterProvider } from './panel-splitter/provider';
 import type { ResizeBound, ResizeBounds } from './panel-splitter/types';
 import { resolveLayoutWidth } from './resolve-layout-width';
-import { gridRootId } from './root';
+import { gridRootFitId, gridRootId } from './root';
 import type { CommonSlotProps } from './types';
 import { useLayoutAreaSizing } from './use-layout-area-sizing';
 import { useLayoutId } from './use-layout-id';
@@ -132,6 +132,7 @@ const styles = cssMap({
 export function ChatPanel({
 	children,
 	defaultWidth: defaultWidthProp,
+	compactDefaultWidth: compactDefaultWidthProp,
 	minWidth = fallbackMinWidth,
 	maxWidth,
 	label = 'Chat panel',
@@ -151,9 +152,16 @@ export function ChatPanel({
 	 */
 	label?: string;
 	/**
-	 * The default width of the layout area in pixels.
+	 * The default width of the layout area in pixels. Defaults to 400.
+	 * Also used at compact viewport sizes unless compactDefaultWidth is supplied.
 	 */
 	defaultWidth?: number;
+	/**
+	 * Default width in pixels at compact viewport sizes, before user resizing.
+	 * Falls back to an explicitly supplied defaultWidth, then 320.
+	 * Requires platform-dst-chat-panel-layout. Available space and resize bounds still apply.
+	 */
+	compactDefaultWidth?: number;
 	/**
 	 * The minimum width the chat panel can be resized to.
 	 */
@@ -184,8 +192,15 @@ export function ChatPanel({
 		fallbackDefaultWidth,
 		slotName: 'ChatPanel',
 	});
-	const compactDefaultWidth =
+	const compactFallbackWidth =
 		defaultWidthProp === undefined ? fallbackCompactDefaultWidth : defaultWidth;
+	const compactDefaultWidth = useSafeDefaultWidth({
+		defaultWidthProp: fg('platform-dst-chat-panel-layout')
+			? (compactDefaultWidthProp ?? compactFallbackWidth)
+			: compactFallbackWidth,
+		fallbackDefaultWidth: compactFallbackWidth,
+		slotName: 'ChatPanel compactDefaultWidth',
+	});
 
 	useSkipLinkInternal({
 		id,
@@ -331,6 +346,7 @@ export function ChatPanel({
 #${gridRootId} { --n_chatTrack: ${mode === 'inline' ? `${renderedWidth}px` : '0px'}; ${chatPanelLiveWidthVar}: var(--n_chatTrack); }
 `
 						: `
+#${gridRootFitId} { --n_clearanceChatMin: ${minWidth}; --n_clearanceChatTarget: ${chatPanelVariableWidth}; }
 #${gridRootId} { --n_chatTrack: 0px; ${chatPanelLiveWidthVar}: 0px; }
 #${gridRootId} [data-layout-chat-panel] {
   grid-area: 2 / 1 / -1 / -1;

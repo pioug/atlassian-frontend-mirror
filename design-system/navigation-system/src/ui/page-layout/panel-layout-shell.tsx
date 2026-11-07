@@ -14,10 +14,12 @@ import { cssMap, jsx } from '@compiled/react';
 
 import type ContainerAtRule from '@atlaskit/css/at-rules/container';
 import type MediaAboveMd from '@atlaskit/css/at-rules/media-above-md';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import type { mainMinimumWidthVar } from './constants';
 import type { LayoutAreaMode } from './layout-area-sizing-context';
+import { LayoutOverlayClearance } from './layout-overlay-clearance';
 import { MainMinWidthContext } from './main-min-width-context';
 
 // The grid uses runtime CSS variables and container sizing outside @atlaskit/css's bounded values.
@@ -58,8 +60,10 @@ const styles = cssMap({
 		gridTemplateAreas: `var(--p_lclPnlSsrAreas, 'main')`,
 		gridTemplateColumns: 'var(--p_lclPnlSsrColumns, minmax(0, 1fr))',
 		'--p_lclPnlSsrPreferredW': 'var(--p_lclPnlCompactW)',
+		'--p_lclPnlSsrDefaultW': 'var(--p_lclPnlCompactDefaultW)',
 		['@media (min-width: 64rem)' satisfies MediaAboveMd]: {
 			'--p_lclPnlSsrPreferredW': 'var(--p_lclPnlTrackW)',
+			'--p_lclPnlSsrDefaultW': 'var(--p_lclPnlDefaultW)',
 		},
 	},
 	managedInline: {
@@ -112,6 +116,11 @@ type PanelLayoutShellProps = {
 	panelWidth: number;
 	compactPanelWidth: number;
 	/**
+	 * Mount-time defaults determine the overlay cap independently of saved widths.
+	 */
+	defaultPanelWidth: number;
+	compactDefaultPanelWidth: number;
+	/**
 	 * Minimum panel width in pixels.
 	 */
 	panelMinWidth?: number;
@@ -139,6 +148,8 @@ export function PanelLayoutShell({
 	isPanelOpen,
 	panelWidth,
 	compactPanelWidth,
+	defaultPanelWidth,
+	compactDefaultPanelWidth,
 	panelMinWidth = 320,
 	mode,
 	layoutRef,
@@ -154,10 +165,12 @@ export function PanelLayoutShell({
 		`@container local-panel-layout (min-width: ${mainMinWidth + panelMinWidth}px)` satisfies ContainerAtRule;
 	return (
 		<div css={styles.container}>
-			{mode === undefined &&
-				isPanelOpen && (
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles -- Instance-scoped SSR query supports caller-defined minimums; CSS variables are not allowed in query conditions.
-					<style>{`${inlineQuery} {
+			{mode === undefined && isPanelOpen && fg('platform-dst-chat-panel-layout') && (
+				<LayoutOverlayClearance panelMinWidth={panelMinWidth} mainMinWidth={mainMinWidth} />
+			)}
+			{mode === undefined && isPanelOpen && (
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles -- Instance-scoped SSR query supports caller-defined minimums; CSS variables are not allowed in query conditions.
+				<style>{`${inlineQuery} {
 					#${id} {
 						--p_lclPnlSsrAreas: var(--p_lclPnlSsrInlineAreas);
 						--p_lclPnlSsrColumns: minmax(0, 1fr) min(var(--p_lclPnlSsrPreferredW), calc(100% - ${mainMinWidth}px));
@@ -168,7 +181,7 @@ export function PanelLayoutShell({
 						--p_lclPnlSsrBorder: ${token('border.width')} solid ${token('color.border')};
 					}
 				}`}</style>
-				)}
+			)}
 			<div
 				id={id}
 				css={[
@@ -189,6 +202,10 @@ export function PanelLayoutShell({
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-unsafe-values
 						[localPanelMinWidthVar]: `${panelMinWidth}px`,
 						'--p_lclPnlCompactW': `${compactPanelWidth}px`,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-unsafe-values
+						'--p_lclPnlDefaultW': `${defaultPanelWidth}px`,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-unsafe-values
+						'--p_lclPnlCompactDefaultW': `${compactDefaultPanelWidth}px`,
 					} as CSSProperties
 				}
 			>

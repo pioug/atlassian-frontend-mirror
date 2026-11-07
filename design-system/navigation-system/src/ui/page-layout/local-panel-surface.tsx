@@ -70,6 +70,10 @@ const styles = cssMap({
 		insetBlockStart: '0px',
 		width: `var(${panelSplitterResizingVar}, var(${localPanelVar}))`,
 	},
+	refinedUnmeasured: {
+		width:
+			'var(--p_lclPnlSsrWidth, max(var(--p_lclPnlMinW), min(var(--p_lclPnlSsrPreferredW), 100%, var(--n_localPanelOverlayMax, 100%), max(var(--p_lclPnlSsrDefaultW), 90%))))',
+	},
 	unmeasured: {
 		// The shell's local container query keeps the surface and reserved track in sync during SSR.
 		gridArea: 'var(--p_lclPnlSsrArea, main)',
@@ -291,6 +295,7 @@ export function LocalPanelSurface({
 				styles.panelWrapper,
 				styles.border,
 				!managedSizing && styles.unmeasured,
+				!managedSizing && fg('platform-dst-chat-panel-layout') && styles.refinedUnmeasured,
 				managedSizing?.mode === 'inline' && styles.managedInline,
 				managedSizing?.mode === 'overlay' && styles.managedOverlay,
 				managedSizing?.mode === 'inline' && styles.managedInlineBorder,

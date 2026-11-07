@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-mentions",
-	"version": "32.1.6",
+	"version": "32.1.8",
 	"description": "Mentions plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -115,14 +115,15 @@
 		"platform_editor_agent_mentions_invite_order": {
 			"type": "boolean"
 		},
-		"platform_editor_agent_mentions_hide_labs_lozenge": {
-			"type": "boolean"
-		},
 		"platform_editor_agent_card_fixes": {
 			"type": "boolean"
 		}
 	},
 	"platform-experiments": {
+		"platform_editor_mention_rovo": {
+			"param": "isEnabled",
+			"defaultValue": false
+		},
 		"platform_editor_mention_node_avatar": {
 			"param": "isEnabled",
 			"defaultValue": false

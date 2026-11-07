@@ -9,7 +9,7 @@ jest.mock('../../layout-area-sizing-provider', () => ({
 
 import { renderToString } from 'react-dom/server';
 
-import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { act } from '@atlassian/testing-library/act';
 import { fireEvent } from '@atlassian/testing-library/fire-event';
 import { render } from '@atlassian/testing-library/render';
@@ -298,5 +298,83 @@ it('constrains the server-rendered chat track before hydration at the inline bre
 		window.innerWidth = originalWidth;
 		media.mockRestore();
 		width.mockRestore();
+	}
+});
+
+// Cover the CSS fallback used before the sizing runtime is activated.
+it.each([
+	{ defaultWidth: undefined, compactDefaultWidth: undefined, inline: 400, compact: 320 },
+	{ defaultWidth: 440, compactDefaultWidth: undefined, inline: 440, compact: 440 },
+	{ defaultWidth: 440, compactDefaultWidth: 360, inline: 440, compact: 360 },
+	{ defaultWidth: undefined, compactDefaultWidth: 360, inline: 400, compact: 360 },
+])(
+	'uses independent chat defaults: %o',
+	({ defaultWidth, compactDefaultWidth, inline, compact }) => {
+		passGate('platform-dst-chat-panel-layout');
+		render(
+			<ChatPanel
+				onClose={jest.fn()}
+				testId="chat"
+				defaultWidth={defaultWidth}
+				compactDefaultWidth={compactDefaultWidth}
+			>
+				chat
+			</ChatPanel>,
+		);
+		expect(screen.getByTestId('chat')).toHaveStyle({
+			'--n_cPnlW': `clamp(320px, ${inline}px, 100vw)`,
+			'--n_cPnlOverlayW': `clamp(320px, ${compact}px, min(90vw, 100vw))`,
+		});
+	},
+);
+
+it.each([undefined, 440])(
+	'ignores compactDefaultWidth with the gate off and defaultWidth %s',
+	(defaultWidth) => {
+		failGate('platform-dst-chat-panel-layout');
+		render(
+			<ChatPanel
+				onClose={jest.fn()}
+				testId="chat"
+				defaultWidth={defaultWidth}
+				compactDefaultWidth={360}
+			>
+				chat
+			</ChatPanel>,
+		);
+		expect(screen.getByTestId('chat')).toHaveStyle({
+			'--n_cPnlW': `clamp(320px, ${defaultWidth ?? 400}px, 100vw)`,
+			'--n_cPnlOverlayW': `clamp(320px, ${defaultWidth ?? 320}px, min(90vw, 100vw))`,
+		});
+	},
+);
+
+it.each([
+	{ width: 600, expected: 360 },
+	{ width: 1600, expected: 440 },
+	{ width: 360, expected: 324 },
+])('allocates the chat default within a $width px Root', ({ width, expected }) => {
+	passGate('platform-dst-chat-panel-layout');
+	const originalWidth = window.innerWidth;
+	window.innerWidth = width;
+	const matchMedia = window.matchMedia;
+	jest.spyOn(window, 'matchMedia').mockImplementation((query) => ({
+		...matchMedia(query),
+		matches: width >= 1024,
+	}));
+	jest.spyOn(HTMLElement.prototype, 'clientWidth', 'get').mockReturnValue(width);
+	try {
+		render(
+			<Root>
+				<Main>main</Main>
+				<ChatPanel onClose={jest.fn()} testId="chat" defaultWidth={440} compactDefaultWidth={360}>
+					chat
+				</ChatPanel>
+			</Root>,
+		);
+		expect(screen.getByTestId('chat')).toHaveStyle({ '--n_cPnlW': `${expected}px` });
+	} finally {
+		window.innerWidth = originalWidth;
+		jest.restoreAllMocks();
 	}
 });

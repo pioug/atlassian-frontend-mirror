@@ -1,5 +1,15 @@
 # @atlaskit/button
 
+## 25.7.1
+
+### Patch Changes
+
+- [`5e2a7da8bd294`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5e2a7da8bd294) -
+  Improve Rovo Chat accessibility by preserving composer focus on first submission, focusing the
+  completed answer once when the user has not interacted during generation, and suppressing
+  intermediate progress and control announcements. Honor explicit button live-region settings. Gate
+  these changes behind `rovo_chat_accessible_responses`.
+
 ## 25.7.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "7.12.3",
+	"version": "7.13.0",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -168,7 +168,9 @@
 		"./types": "./src/common/types.ts",
 		"./ui/issue-like-table/render-type/render-type": "./src/ui/issue-like-table/render-type/renderType.tsx",
 		"./ui/issue-like-table/render-type/stringify-type": "./src/ui/issue-like-table/render-type/stringifyType.tsx",
-		"./utils/schema": "./src/common/utils/schema-utils.ts"
+		"./utils/schema": "./src/common/utils/schema-utils.ts",
+		"./jira-search-container": "./src/ui/jira-issues-modal/jira-search-container/JiraSearchContainerWithWrappers.tsx",
+		"./jira-search-state": "./src/ui/jira-search-state/index.tsx"
 	},
 	"platform-feature-flags": {
 		"platform_datasource_missing_columns_error": {

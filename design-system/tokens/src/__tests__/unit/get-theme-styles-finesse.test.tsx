@@ -62,11 +62,11 @@ describe('getThemeStyles finesse overrides', () => {
 		expect(darkFinesse?.css).toContain('--ds-background-neutral-subtle-pressed: #CECED912');
 
 		const typographyFinesse = results.find(({ id }) => id === 'typography-finesse');
-		expect(typographyFinesse?.css).toContain('--ds-font-heading-medium: normal 500');
-		expect(typographyFinesse?.css).toContain('--ds-font-heading-small: normal 500');
-		expect(typographyFinesse?.css).toContain('--ds-font-heading-xsmall: normal 500');
-		expect(typographyFinesse?.css).toContain('--ds-font-heading-xxsmall: normal 500');
-		expect(typographyFinesse?.css).not.toContain('--ds-font-heading-large');
+		for (const size of ['xxlarge', 'xlarge', 'large', 'medium', 'small', 'xsmall', 'xxsmall']) {
+			expect(typographyFinesse?.css).toContain(`--ds-font-heading-${size}: normal 600`);
+		}
+		expect(typographyFinesse?.css).not.toContain('--ds-font-body');
+		expect(typographyFinesse?.css).not.toContain('--ds-font-weight-bold');
 	});
 
 	it('excludes all finesse overrides when the gate is off', async () => {
@@ -75,6 +75,11 @@ describe('getThemeStyles finesse overrides', () => {
 
 		const results = await getThemeStyles({ contrastMode: 'no-preference' });
 		const allResults = await getThemeStyles('all');
+
+		const typography = results.find(({ id }) => id === 'typography');
+		for (const size of ['xxlarge', 'xlarge', 'large', 'medium', 'small', 'xsmall', 'xxsmall']) {
+			expect(typography?.css).toContain(`--ds-font-heading-${size}: normal 653`);
+		}
 
 		expect(getThemeData(results)).toEqual([
 			{ id: 'light', attrs: { 'data-theme': 'light' } },

@@ -19,11 +19,15 @@ import { basicSearchInputMessages } from './messages';
 export interface BasicSearchInputProps {
 	ariaLabel: MessageDescriptor;
 	fullWidth?: boolean;
+	/** Match compact toolbar controls without changing the default input size. */
+	isCompact?: boolean;
 	isDisabled?: boolean;
 	isSearching?: boolean;
 	onChange: React.FormEventHandler<HTMLInputElement>;
 	onSearch: (searchTerm: string) => void;
 	searchTerm: string;
+	/** Hide the submit button for consumers that use Enter to search. */
+	showSearchButton?: boolean;
 	testId: string;
 }
 
@@ -41,11 +45,13 @@ const formWithMaxWidthStyles = css({
 });
 
 export const BasicSearchInput = ({
+	isCompact = false,
 	isDisabled,
 	isSearching,
 	onChange,
 	onSearch,
 	searchTerm,
+	showSearchButton = true,
 	fullWidth,
 	testId,
 	ariaLabel,
@@ -66,26 +72,29 @@ export const BasicSearchInput = ({
 	return (
 		<form css={[fullWidth ? formStyles : formWithMaxWidthStyles]} onSubmit={handleFormSubmit}>
 			<Textfield
+				isCompact={isCompact}
 				elemAfterInput={
-					<Box xcss={styles.searchButtonContainer}>
-						<IconButton
-							appearance="primary"
-							isLoading={isSearching}
-							icon={(iconProps) => (
-								<SearchIcon {...iconProps} spacing="spacious" color="currentColor" />
-							)}
-							spacing="compact"
-							type="submit"
-							label={formatMessage(
-								fg('confluence-issue-terminology-refresh')
-									? basicSearchInputMessages.basicTextSearchLabelIssueTermRefresh
-									: basicSearchInputMessages.basicTextSearchLabel,
-							)}
-							isDisabled={isDisabled}
-							testId={`${testId}--basic-search-button`}
-							onClick={handleSearchWithAnalytics}
-						/>
-					</Box>
+					showSearchButton ? (
+						<Box xcss={styles.searchButtonContainer}>
+							<IconButton
+								appearance="primary"
+								isLoading={isSearching}
+								icon={(iconProps) => (
+									<SearchIcon {...iconProps} spacing="spacious" color="currentColor" />
+								)}
+								spacing="compact"
+								type="submit"
+								label={formatMessage(
+									fg('confluence-issue-terminology-refresh')
+										? basicSearchInputMessages.basicTextSearchLabelIssueTermRefresh
+										: basicSearchInputMessages.basicTextSearchLabel,
+								)}
+								isDisabled={isDisabled}
+								testId={`${testId}--basic-search-button`}
+								onClick={handleSearchWithAnalytics}
+							/>
+						</Box>
+					) : undefined
 				}
 				autoFocus
 				onChange={onChange}

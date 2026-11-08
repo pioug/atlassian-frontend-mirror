@@ -6,6 +6,10 @@ import rule from '../index';
 tester.run('feature-flags/no-module-level-eval', rule, {
 	valid: [
 		{
+			name: 'Renamed Jira experiment evaluated inside a function',
+			code: "import { expVal } from '@jira/platform__feature-experiments'; const read = () => expVal('exp', 'key', false);",
+		},
+		{
 			name: 'Variable declaration within arrow function',
 			code: outdent`
                 import { ff } from '@atlassian/jira-feature-flagging';
@@ -128,6 +132,11 @@ tester.run('feature-flags/no-module-level-eval', rule, {
 		},
 	],
 	invalid: [
+		{
+			name: 'Renamed Jira experiment evaluated at module level',
+			code: "import { expVal } from '@jira/platform__feature-experiments'; const value = expVal('exp', 'key', false);",
+			errors: [{ messageId: 'noModuleLevelEval' }],
+		},
 		{
 			name: 'Immediate call',
 			code: outdent`

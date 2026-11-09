@@ -51,3 +51,13 @@ first, edit, then `kg.py edit <path> --message "<reason>"`.
 - Integration tests exist under `examples/Test-Integration-*.tsx`
 - All new behaviour changes must be behind a feature gate (`fg()` from
   `@atlaskit/platform-feature-flags`)
+
+## Cards without Media reads
+
+With `platform_media_upload_without_read` enabled, pass `skipRemoteFileState: true` to reuse
+`FileCard` with cached file state and local blob previews. Missing cache entries never trigger
+metadata requests, and pending preview processing does not leave uploads stuck in progress.
+
+Remote SVG rendering, inline playback, built-in downloads and the Media Viewer are disabled. Custom
+actions remain the caller's responsibility. With the prop absent or the gate off, the existing
+remote flow is preserved.

@@ -195,7 +195,6 @@ export class ResizingMarkView implements NodeView {
 			target: contentDOM,
 			...callbacks,
 			intl: this.intl,
-			nodeViewPortalProviderAPI: this.nodeViewPortalProviderAPI,
 		});
 
 		if (leftHandle) {

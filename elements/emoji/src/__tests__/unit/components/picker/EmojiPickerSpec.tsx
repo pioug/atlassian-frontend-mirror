@@ -861,6 +861,23 @@ describe('<EmojiPicker />', () => {
 	});
 
 	describe('skin tone selection', () => {
+		it('makes the skin tone button tabbable and opens it with Enter when the accessibility gate is enabled', async () => {
+			passGate('platform_ally_emoji_fixes_various');
+			await helper.setupPicker();
+			const emojis = await helper.emojisVisible(getUpdatedList());
+			await userEvent.hover(emojis[0]);
+
+			const trigger = screen.getByRole('button', {
+				name: /Choose your skin tone, .* skin tone selected/,
+			});
+			expect(trigger).toHaveAttribute('tabindex', '0');
+			trigger.focus();
+			expect(trigger).toHaveFocus();
+
+			await userEvent.keyboard('{Enter}');
+			expect(screen.getByRole('radiogroup')).toBeVisible();
+		});
+
 		it('updates the hand and preference when clicking a visible tone', async () => {
 			passGate('platform_suppression_removal_fix_reactions');
 			passGate('platform_emoji_skin_tone_blur_fix');

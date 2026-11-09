@@ -148,7 +148,7 @@ const ProductivityColorPopupContent = ({
 		};
 		const handleEscape = (event: globalThis.KeyboardEvent) => {
 			if (
-				fg('platform_emoji_color_picker_escape_focus') &&
+				fg('platform_ally_emoji_fixes_various') &&
 				(event.key === 'Escape' || event.key === 'Esc')
 			) {
 				event.preventDefault();
@@ -315,7 +315,7 @@ const TonesWrapper = (props: TonesWrapperProps) => {
 		(event: KeyboardEvent<HTMLButtonElement>) => {
 			if (
 				showToneSelector &&
-				fg('platform_emoji_color_picker_escape_focus') &&
+				fg('platform_ally_emoji_fixes_various') &&
 				(event.key === 'Escape' || event.key === 'Esc')
 			) {
 				event.preventDefault();

@@ -175,6 +175,12 @@ export interface CardProps extends SharedCardProps, CardEventProps {
 	readonly mediaClient: MediaClient;
 	/** Instance of file identifier. */
 	readonly identifier: Identifier;
+	/**
+	 * Use cached file state and local blob previews without fetching Media metadata or previews.
+	 * Disables remote SVG rendering, inline playback, built-in downloads and the Media Viewer.
+	 * Requires platform_media_upload_without_read. Custom actions remain the caller's responsibility.
+	 */
+	readonly skipRemoteFileState?: boolean;
 	/** Lazy loads the media file. */
 	readonly isLazy?: boolean;
 	/** Uses the inline player for media file. */

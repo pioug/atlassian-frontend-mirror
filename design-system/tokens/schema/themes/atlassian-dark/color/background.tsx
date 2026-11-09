@@ -35,6 +35,8 @@ const color: ValueSchema<BackgroundColorTokenSchema<BaseToken>> = {
 			},
 		},
 		background: {
+			droptarget: { value: 'Blue1000' },
+			draghandle: { value: 'Blue400' },
 			disabled: { value: 'DarkNeutral300A' },
 			inverse: {
 				subtle: {

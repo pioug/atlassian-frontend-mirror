@@ -5,8 +5,12 @@ import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { renderWithIntl } from '@atlaskit/link-test-helpers/react-testing-library';
 import { ResolvedClient } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
+import { type CardStore } from '@atlaskit/linking-common/store';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
+import { startUfoExperience } from '../../../../state/analytics/startUfoExperience';
 import { ANALYTICS_CHANNEL } from '../../../../utils/analytics/analytics';
+import { shouldSample } from '../../../../utils/shouldSample';
 import * as componentModule from '../../component';
 import { LazyIntersectionObserverCard } from '../LazyIntersectionObserverCard';
 
@@ -17,6 +21,19 @@ jest.mock('../../../../state/hooks/usePrefetch', () => ({
 	usePrefetch: (url: string, appearance: CardAppearance) => mockUsePrefetch(url, appearance),
 }));
 
+jest.mock('../../../../state/analytics/startUfoExperience', () => ({
+	startUfoExperience: jest.fn(),
+}));
+
+jest.mock('../../../../utils/shouldSample', () => ({
+	shouldSample: jest.fn(),
+}));
+
+jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
+	fg: jest.fn(),
+}));
+
 describe('LazyIntersectionObserverCard', () => {
 	afterEach(() => {
 		jest.clearAllMocks();
@@ -24,11 +41,15 @@ describe('LazyIntersectionObserverCard', () => {
 
 	const setup = (
 		props: Partial<React.ComponentProps<typeof LazyIntersectionObserverCard>> = {},
+		initialState?: CardStore,
 	) => {
 		const onEvent = jest.fn();
 
 		const renderResult = renderWithIntl(
-			<SmartCardProvider client={new ResolvedClient()}>
+			<SmartCardProvider
+				client={new ResolvedClient()}
+				storeOptions={initialState ? { initialState } : undefined}
+			>
 				<AnalyticsListener onEvent={onEvent} channel={ANALYTICS_CHANNEL}>
 					<LazyIntersectionObserverCard
 						appearance="block"
@@ -41,6 +62,17 @@ describe('LazyIntersectionObserverCard', () => {
 		);
 
 		return { ...renderResult, onEvent };
+	};
+
+	const storeWith = (status: CardStore[string]['status']): CardStore => ({
+		'http://example.com': { status, details: undefined },
+	});
+
+	const enableSettledRender = () => {
+		(fg as jest.Mock).mockImplementation(
+			(flag: string) => flag === 'platform_smartlink_render_settled_link_on_mount',
+		);
+		(shouldSample as jest.Mock).mockReturnValue(true);
 	};
 
 	describe('when not intersecting', () => {
@@ -76,6 +108,58 @@ describe('LazyIntersectionObserverCard', () => {
 			setup({ appearance: 'inline' });
 
 			expect(mockUsePrefetch).toHaveBeenCalledWith('http://example.com', 'inline');
+		});
+
+		describe('when the store has the link on mount', () => {
+			beforeEach(() => {
+				jest
+					.spyOn(componentModule, 'CardWithUrlContent')
+					.mockImplementation(() => <div data-testid="card-content" />);
+			});
+
+			afterEach(() => {
+				jest.restoreAllMocks();
+			});
+
+			it.each(['resolved', 'unauthorized', 'forbidden', 'not_found'] as const)(
+				'should render a %s link at once and still observe it',
+				(status) => {
+					(fg as jest.Mock).mockImplementation(
+						(flag: string) => flag === 'platform_smartlink_render_settled_link_on_mount',
+					);
+					const { queryByTestId } = setup({}, storeWith(status));
+
+					expect(queryByTestId('card-content')).toBeInTheDocument();
+					expect(queryByTestId('lazy-render-placeholder')).not.toBeInTheDocument();
+					expect(observe).toHaveBeenCalledWith(expect.any(HTMLDivElement));
+				},
+			);
+
+			it('should render the placeholder for a link that is still resolving', () => {
+				(fg as jest.Mock).mockReturnValue(true);
+				const { queryByTestId } = setup({}, storeWith('resolving'));
+
+				expect(queryByTestId('card-content')).not.toBeInTheDocument();
+				expect(queryByTestId('lazy-render-placeholder')).toBeInTheDocument();
+			});
+
+			it('should render the placeholder when the gate is off', () => {
+				(fg as jest.Mock).mockReturnValue(false);
+				const { queryByTestId } = setup({}, storeWith('resolved'));
+
+				expect(queryByTestId('card-content')).not.toBeInTheDocument();
+				expect(queryByTestId('lazy-render-placeholder')).toBeInTheDocument();
+			});
+
+			it('should start the rendered experience before the card renders', () => {
+				enableSettledRender();
+				setup({}, storeWith('resolved'));
+
+				expect(startUfoExperience).toHaveBeenCalledWith('smart-link-rendered', '123');
+				expect((startUfoExperience as jest.Mock).mock.invocationCallOrder[0]).toBeLessThan(
+					(componentModule.CardWithUrlContent as unknown as jest.Mock).mock.invocationCallOrder[0],
+				);
+			});
 		});
 	});
 
@@ -142,6 +226,14 @@ describe('LazyIntersectionObserverCard', () => {
 			);
 
 			unmount();
+		});
+
+		it('should start the rendered experience once for a link settled on mount', () => {
+			jest.spyOn(componentModule, 'CardWithUrlContent').mockImplementation(() => <div />);
+			enableSettledRender();
+			setup({}, storeWith('resolved'));
+
+			expect(startUfoExperience).toHaveBeenCalledTimes(1);
 		});
 	});
 });

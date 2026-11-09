@@ -1114,7 +1114,7 @@ describe('local overlay clearance', () => {
 		},
 	);
 
-	it('moves navigation to overlay if its minimum cannot coexist with local clearance', () => {
+	it('retains desktop navigation when custom minimums exceed the host capacity', () => {
 		const result = calculateLayoutAreaStates({
 			viewportWidth: 1440,
 			layoutWidth: 700,
@@ -1124,8 +1124,8 @@ describe('local overlay clearance', () => {
 			areas: { ...openAreas, panel: { ...openAreas.panel, minWidth: 480 } },
 		});
 		expect(result).toMatchObject({
-			'side-nav': { mode: 'overlay' },
-			'chat-panel': { mode: 'inline', width: 380 },
+			'side-nav': { mode: 'inline', width: 240 },
+			'chat-panel': { mode: 'overlay', width: 400 },
 			panel: { mode: 'overlay', width: 480 },
 		});
 	});

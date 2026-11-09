@@ -1,34 +1,27 @@
 /**
  * Unit tests for getPermissionMap() and allPermissions() in constants.ts.
  *
- * Covers all 23 TeamAction permissions with gate ON and OFF for:
- *   `ptc-enable-team-type-permission-enabled`  (PTC_GATE)
- *
- * Gate effects by location:
+ * Covers all 23 TeamAction permissions. Notable behaviour by location:
  *
  *   allPermissions():
- *     - EDIT_TEAM_TYPE: default && (isOrgAdmin || fg(PTC))
- *     - ARCHIVE_TEAM:   default && (isMember   || fg(PTC))
- *
- *   OPEN / MEMBER_INVITE:
- *     - ARCHIVE_TEAM override: (FULL_WRITE && (isMember || isOrgAdmin)) || (basePermissions.ARCHIVE_TEAM && fg(PTC))
- *       With ptc ON + FULL_WRITE + non-member/non-orgAdmin: basePermissions.ARCHIVE_TEAM=true → whole expr=true
+ *     - EDIT_TEAM_TYPE / ARCHIVE_TEAM: defaultPermission
  *
  *   ORG_ADMIN_MANAGED:
- *     - EDIT_TEAM_LINK:          (isMember || FULL_WRITE) || (base.EDIT_TEAM_LINK && fg(PTC))
- *     - ADD_AGENT_TO_TEAM:       (isMember || FULL_WRITE) || (base.ADD_AGENT_TO_TEAM && fg(PTC))
- *     - REMOVE_AGENT_FROM_TEAM:  (isMember || FULL_WRITE) || (base.REMOVE_AGENT_FROM_TEAM && fg(PTC))
- *     - CAN_EDIT_HIERARCHY:      FULL_WRITE || (base.CAN_EDIT_HIERARCHY && fg(PTC))
- *     - EDIT_TEAM_TYPE:          FULL_WRITE || (base.EDIT_TEAM_TYPE && fg(PTC))
- *     - EDIT_TEAM_MEMBERSHIP:    false || (base.EDIT_TEAM_MEMBERSHIP && fg(PTC))
- *     - REQUEST_TO_JOIN et al.:  fg(PTC) && false || base.* = always just base.* (gate has no real effect)
+ *     - EDIT_TEAM_LINK:          (isMember || FULL_WRITE) || base.EDIT_TEAM_LINK
+ *     - ADD_AGENT_TO_TEAM:       (isMember || FULL_WRITE) || base.ADD_AGENT_TO_TEAM
+ *     - REMOVE_AGENT_FROM_TEAM:  (isMember || FULL_WRITE) || base.REMOVE_AGENT_FROM_TEAM
+ *     - CAN_EDIT_HIERARCHY:      FULL_WRITE || base.CAN_EDIT_HIERARCHY
+ *     - EDIT_TEAM_TYPE:          FULL_WRITE || base.EDIT_TEAM_TYPE
+ *     - EDIT_TEAM_MEMBERSHIP:    base.EDIT_TEAM_MEMBERSHIP
+ *     - REQUEST_TO_JOIN / CANCEL_JOIN_REQUEST / APPROVE_JOIN_REQUEST / REJECT_JOIN_REQUEST: false
  *
  *   DISBANDED teams:
- *     - UNARCHIVE_TEAM: canUnarchive || (fg(PTC) && FULL_WRITE)
- *       OPEN/MEMBER_INVITE canUnarchive = (isMember || isOrgAdmin) && FULL_WRITE
- *       EXTERNAL/ORG_ADMIN_MANAGED canUnarchive = isOrgAdmin
+ *     - UNARCHIVE_TEAM: FULL_WRITE || (isOrgAdmin && EXTERNAL/ORG_ADMIN_MANAGED)
+ *     - DELETE_TEAM:
+ *       OPEN/MEMBER_INVITE = (isMember || isOrgAdmin) && FULL_WRITE
+ *       EXTERNAL/ORG_ADMIN_MANAGED = isOrgAdmin
  *
- *   EXTERNAL: not affected by PTC gate (uses enable_edit_team_name_external_type_teams gate instead)
+ *   EXTERNAL: EDIT_TEAM_NAME depends on the enable_edit_team_name_external_type_teams gate
  */
 
 import { fg } from '@atlaskit/platform-feature-flags/fg';
@@ -38,12 +31,10 @@ import { getPermissionMap } from './get-permission-map';
 
 jest.mock('@atlaskit/platform-feature-flags/fg');
 
-const PTC_GATE = 'ptc-enable-team-type-permission-enabled';
 const EDIT_EXTERNAL_GATE = 'enable_edit_team_name_external_type_teams';
 
-const mockFg = (ptcOn: boolean, editExternalOn = false) => {
+const mockFg = (editExternalOn = false) => {
 	(fg as jest.Mock).mockImplementation((flag: string) => {
-		if (flag === PTC_GATE) return ptcOn;
 		if (flag === EDIT_EXTERNAL_GATE) return editExternalOn;
 		return false;
 	});
@@ -79,15 +70,8 @@ const disbanded = (
 // allPermissions – direct tests for gate-controlled fields
 // ─────────────────────────────────────────────────────────────────────────────
 describe('allPermissions – EDIT_TEAM_TYPE', () => {
-	it('gate OFF: requires isOrgAdmin', () => {
-		mockFg(false);
-		expect(allPermissions(true, true, false).EDIT_TEAM_TYPE).toBe(false); // member, not org admin
-		expect(allPermissions(true, false, true).EDIT_TEAM_TYPE).toBe(true); // org admin
-		expect(allPermissions(false, false, true).EDIT_TEAM_TYPE).toBe(false); // org admin but no default
-	});
-
-	it('gate ON: any user with defaultPermission can edit team type', () => {
-		mockFg(true);
+	it('any user with defaultPermission can edit team type', () => {
+		mockFg();
 		expect(allPermissions(true, true, false).EDIT_TEAM_TYPE).toBe(true); // regular member
 		expect(allPermissions(true, false, false).EDIT_TEAM_TYPE).toBe(true); // non-member
 		expect(allPermissions(false, true, false).EDIT_TEAM_TYPE).toBe(false); // no default permission
@@ -95,15 +79,8 @@ describe('allPermissions – EDIT_TEAM_TYPE', () => {
 });
 
 describe('allPermissions – ARCHIVE_TEAM', () => {
-	it('gate OFF: requires isMember', () => {
-		mockFg(false);
-		expect(allPermissions(true, true, false).ARCHIVE_TEAM).toBe(true); // member
-		expect(allPermissions(true, false, false).ARCHIVE_TEAM).toBe(false); // non-member
-		expect(allPermissions(false, true, false).ARCHIVE_TEAM).toBe(false); // no default
-	});
-
-	it('gate ON: any user with defaultPermission can archive', () => {
-		mockFg(true);
+	it('any user with defaultPermission can archive', () => {
+		mockFg();
 		expect(allPermissions(true, false, false).ARCHIVE_TEAM).toBe(true); // non-member
 		expect(allPermissions(true, true, false).ARCHIVE_TEAM).toBe(true); // member
 		expect(allPermissions(false, false, false).ARCHIVE_TEAM).toBe(false); // no default
@@ -114,8 +91,8 @@ describe('allPermissions – ARCHIVE_TEAM', () => {
 // OPEN teams – all 23 permissions
 // ─────────────────────────────────────────────────────────────────────────────
 describe('getPermissionMap – OPEN', () => {
-	describe('gate OFF', () => {
-		beforeEach(() => mockFg(false));
+	describe('with defaultPermission', () => {
+		beforeEach(() => mockFg());
 
 		it('ADD_MEMBER_TO_TEAM: true with FULL_WRITE, false without', () => {
 			expect(open('FULL_WRITE', true).ADD_MEMBER_TO_TEAM).toBe(true);
@@ -196,8 +173,8 @@ describe('getPermissionMap – OPEN', () => {
 			expect(open('FULL_READ', true).EDIT_TEAM_MEMBERSHIP).toBe(false);
 		});
 
-		it('EDIT_TEAM_TYPE: false for non-org-admin member, true for org admin with FULL_WRITE', () => {
-			expect(open('FULL_WRITE', true, false).EDIT_TEAM_TYPE).toBe(false);
+		it('EDIT_TEAM_TYPE: true with FULL_WRITE', () => {
+			expect(open('FULL_WRITE', true, false).EDIT_TEAM_TYPE).toBe(true);
 			expect(open('FULL_WRITE', true, true).EDIT_TEAM_TYPE).toBe(true);
 			expect(open('FULL_READ', true, true).EDIT_TEAM_TYPE).toBe(false);
 		});
@@ -212,10 +189,10 @@ describe('getPermissionMap – OPEN', () => {
 			expect(open('FULL_READ', true).ADD_AGENT_TO_TEAM).toBe(false);
 		});
 
-		it('ARCHIVE_TEAM: true for member/orgAdmin with FULL_WRITE, false for non-member non-orgAdmin', () => {
+		it('ARCHIVE_TEAM: true for member/orgAdmin/non-member with FULL_WRITE', () => {
 			expect(open('FULL_WRITE', true, false).ARCHIVE_TEAM).toBe(true); // member
 			expect(open('FULL_WRITE', false, true).ARCHIVE_TEAM).toBe(true); // org admin
-			expect(open('FULL_WRITE', false, false).ARCHIVE_TEAM).toBe(false); // neither
+			expect(open('FULL_WRITE', false, false).ARCHIVE_TEAM).toBe(true); // non-member with FULL_WRITE
 			expect(open('FULL_READ', true, false).ARCHIVE_TEAM).toBe(false); // no FULL_WRITE
 		});
 
@@ -233,39 +210,14 @@ describe('getPermissionMap – OPEN', () => {
 			expect(open('FULL_READ', true).CAN_CHANGE_MEMBERSHIP_SETTINGS).toBe(false);
 		});
 	});
-
-	describe('gate ON – only gate-affected permissions change', () => {
-		beforeEach(() => mockFg(true));
-
-		it('EDIT_TEAM_TYPE: true for non-org-admin member (gate substitutes for isOrgAdmin)', () => {
-			expect(open('FULL_WRITE', true, false).EDIT_TEAM_TYPE).toBe(true);
-			expect(open('FULL_READ', true, false).EDIT_TEAM_TYPE).toBe(false); // still needs FULL_WRITE
-		});
-
-		it('ARCHIVE_TEAM: true for non-member non-orgAdmin with FULL_WRITE (gate enables via basePermissions)', () => {
-			// Override: (FULL_WRITE && (isMember=false || isOrgAdmin=false)) || (basePermissions.ARCHIVE_TEAM && fg(PTC))
-			// basePermissions.ARCHIVE_TEAM = FULL_WRITE && (isMember=false || ptc=true) = true
-			// → false || true = true
-			expect(open('FULL_WRITE', false, false).ARCHIVE_TEAM).toBe(true);
-			expect(open('FULL_READ', false, false).ARCHIVE_TEAM).toBe(false); // still needs FULL_WRITE
-		});
-
-		it('All other permissions unaffected by gate – spot checks', () => {
-			expect(open('FULL_WRITE', true).JOIN_TEAM).toBe(true);
-			expect(open('FULL_WRITE', true).LEAVE_TEAM).toBe(true);
-			expect(open('FULL_WRITE', true).EDIT_DESCRIPTION).toBe(true);
-			expect(open('FULL_WRITE', true).EDIT_TEAM_MEMBERSHIP).toBe(true);
-			expect(open('FULL_WRITE', true).CAN_EDIT_HIERARCHY).toBe(true);
-		});
-	});
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
 // MEMBER_INVITE teams – gate-affected permissions only (rest mirror OPEN)
 // ─────────────────────────────────────────────────────────────────────────────
 describe('getPermissionMap – MEMBER_INVITE', () => {
-	describe('gate OFF', () => {
-		beforeEach(() => mockFg(false));
+	describe('with defaultPermission', () => {
+		beforeEach(() => mockFg());
 
 		it('REQUEST_TO_JOIN: true with FULL_READ (inviteOnlyPermissions override)', () => {
 			expect(memberInvite('FULL_READ', false).REQUEST_TO_JOIN).toBe(true);
@@ -281,26 +233,13 @@ describe('getPermissionMap – MEMBER_INVITE', () => {
 			expect(memberInvite('FULL_READ', false).JOIN_TEAM).toBe(false);
 		});
 
-		it('EDIT_TEAM_TYPE: false for non-org-admin, true for org admin with FULL_WRITE', () => {
-			expect(memberInvite('FULL_WRITE', true, false).EDIT_TEAM_TYPE).toBe(false);
-			expect(memberInvite('FULL_WRITE', true, true).EDIT_TEAM_TYPE).toBe(true);
-		});
-
-		it('ARCHIVE_TEAM: true for member with FULL_WRITE, false for non-member non-orgAdmin', () => {
-			expect(memberInvite('FULL_WRITE', true, false).ARCHIVE_TEAM).toBe(true);
-			expect(memberInvite('FULL_WRITE', false, false).ARCHIVE_TEAM).toBe(false);
-		});
-	});
-
-	describe('gate ON', () => {
-		beforeEach(() => mockFg(true));
-
 		it('EDIT_TEAM_TYPE: true for non-org-admin member', () => {
 			expect(memberInvite('FULL_WRITE', true, false).EDIT_TEAM_TYPE).toBe(true);
 			expect(memberInvite('FULL_READ', true, false).EDIT_TEAM_TYPE).toBe(false);
 		});
 
-		it('ARCHIVE_TEAM: true for non-member non-orgAdmin with FULL_WRITE (gate enables via basePermissions)', () => {
+		it('ARCHIVE_TEAM: true for member or non-member with FULL_WRITE', () => {
+			expect(memberInvite('FULL_WRITE', true, false).ARCHIVE_TEAM).toBe(true);
 			expect(memberInvite('FULL_WRITE', false, false).ARCHIVE_TEAM).toBe(true);
 			expect(memberInvite('FULL_READ', false, false).ARCHIVE_TEAM).toBe(false);
 		});
@@ -312,7 +251,7 @@ describe('getPermissionMap – MEMBER_INVITE', () => {
 // ─────────────────────────────────────────────────────────────────────────────
 describe('getPermissionMap – ORG_ADMIN_MANAGED', () => {
 	describe('gate OFF', () => {
-		beforeEach(() => mockFg(false));
+		beforeEach(() => mockFg());
 
 		it('ADD_MEMBER_TO_TEAM: true with FULL_WRITE, false without', () => {
 			expect(orgAdminManaged('FULL_WRITE', false).ADD_MEMBER_TO_TEAM).toBe(true);
@@ -324,24 +263,23 @@ describe('getPermissionMap – ORG_ADMIN_MANAGED', () => {
 			expect(orgAdminManaged('FULL_READ', false).JOIN_TEAM).toBe(false);
 		});
 
-		it('REQUEST_TO_JOIN: equals basePermissions (FULL_WRITE)', () => {
-			// fg(PTC) && false || base.REQUEST_TO_JOIN = base.REQUEST_TO_JOIN = FULL_WRITE
-			expect(orgAdminManaged('FULL_WRITE', false).REQUEST_TO_JOIN).toBe(true);
+		it('REQUEST_TO_JOIN: false as no invite flow in org_admin_managed', () => {
+			expect(orgAdminManaged('FULL_WRITE', false).REQUEST_TO_JOIN).toBe(false);
 			expect(orgAdminManaged('FULL_READ', false).REQUEST_TO_JOIN).toBe(false);
 		});
 
-		it('CANCEL_JOIN_REQUEST: equals basePermissions (FULL_WRITE)', () => {
-			expect(orgAdminManaged('FULL_WRITE', false).CANCEL_JOIN_REQUEST).toBe(true);
+		it('CANCEL_JOIN_REQUEST: false as no invite flow in org_admin_managed', () => {
+			expect(orgAdminManaged('FULL_WRITE', false).CANCEL_JOIN_REQUEST).toBe(false);
 			expect(orgAdminManaged('FULL_READ', false).CANCEL_JOIN_REQUEST).toBe(false);
 		});
 
-		it('APPROVE_JOIN_REQUEST: equals basePermissions (FULL_WRITE)', () => {
-			expect(orgAdminManaged('FULL_WRITE', false).APPROVE_JOIN_REQUEST).toBe(true);
+		it('APPROVE_JOIN_REQUEST: false as no invite flow in org_admin_managed', () => {
+			expect(orgAdminManaged('FULL_WRITE', false).APPROVE_JOIN_REQUEST).toBe(false);
 			expect(orgAdminManaged('FULL_READ', false).APPROVE_JOIN_REQUEST).toBe(false);
 		});
 
-		it('REJECT_JOIN_REQUEST: equals basePermissions (FULL_WRITE)', () => {
-			expect(orgAdminManaged('FULL_WRITE', false).REJECT_JOIN_REQUEST).toBe(true);
+		it('REJECT_JOIN_REQUEST: false as no invite flow in org_admin_managed', () => {
+			expect(orgAdminManaged('FULL_WRITE', false).REJECT_JOIN_REQUEST).toBe(false);
 			expect(orgAdminManaged('FULL_READ', false).REJECT_JOIN_REQUEST).toBe(false);
 		});
 
@@ -392,9 +330,13 @@ describe('getPermissionMap – ORG_ADMIN_MANAGED', () => {
 			expect(orgAdminManaged('FULL_READ', false).EDIT_TEAM_SETTINGS).toBe(false);
 		});
 
-		it('EDIT_TEAM_MEMBERSHIP: always false (gate OFF)', () => {
-			// false || (base.EDIT_TEAM_MEMBERSHIP && fg(PTC)=false) = false
-			expect(orgAdminManaged('FULL_WRITE', true, true).EDIT_TEAM_MEMBERSHIP).toBe(false);
+		it('EDIT_TEAM_MEMBERSHIP: true with FULL_WRITE', () => {
+			// basePermissions.EDIT_TEAM_MEMBERSHIP = allPermissions(FULL_WRITE, isMember, isOrgAdmin)
+			// So true for any FULL_WRITE case
+			expect(orgAdminManaged('FULL_WRITE', true, true).EDIT_TEAM_MEMBERSHIP).toBe(true);
+			expect(orgAdminManaged('FULL_WRITE', true, false).EDIT_TEAM_MEMBERSHIP).toBe(true);
+			expect(orgAdminManaged('FULL_WRITE', false, true).EDIT_TEAM_MEMBERSHIP).toBe(true);
+			expect(orgAdminManaged('FULL_READ', true, false).EDIT_TEAM_MEMBERSHIP).toBe(false);
 		});
 
 		it('EDIT_TEAM_TYPE: true with FULL_WRITE, false without (gate not needed)', () => {
@@ -415,10 +357,10 @@ describe('getPermissionMap – ORG_ADMIN_MANAGED', () => {
 			expect(orgAdminManaged('FULL_READ', false).ADD_AGENT_TO_TEAM).toBe(false);
 		});
 
-		it('ARCHIVE_TEAM: from basePermissions – true for member with FULL_WRITE', () => {
-			// basePermissions.ARCHIVE_TEAM = FULL_WRITE && (isMember || ptc=false)
+		it('ARCHIVE_TEAM: true for member/non-member with FULL_WRITE', () => {
+			// basePermissions.ARCHIVE_TEAM = FULL_WRITE
 			expect(orgAdminManaged('FULL_WRITE', true).ARCHIVE_TEAM).toBe(true);
-			expect(orgAdminManaged('FULL_WRITE', false).ARCHIVE_TEAM).toBe(false); // non-member, gate OFF
+			expect(orgAdminManaged('FULL_WRITE', false).ARCHIVE_TEAM).toBe(true); // non-member with FULL_WRITE
 			expect(orgAdminManaged('FULL_READ', true).ARCHIVE_TEAM).toBe(false);
 		});
 
@@ -439,7 +381,7 @@ describe('getPermissionMap – ORG_ADMIN_MANAGED', () => {
 	});
 
 	describe('gate ON', () => {
-		beforeEach(() => mockFg(true));
+		beforeEach(() => mockFg());
 
 		it('EDIT_TEAM_LINK: true for non-member without FULL_WRITE when gate ON (base.EDIT_TEAM_LINK=false→still false)', () => {
 			// (isMember=false || FULL_READ) || (base.EDIT_TEAM_LINK=false && true) = false
@@ -518,7 +460,7 @@ describe('getPermissionMap – ORG_ADMIN_MANAGED', () => {
 // ─────────────────────────────────────────────────────────────────────────────
 describe('getPermissionMap – EXTERNAL (legacy path, enable_edit OFF)', () => {
 	describe('gate OFF', () => {
-		beforeEach(() => mockFg(false, false));
+		beforeEach(() => mockFg());
 
 		it('ADD_MEMBER_TO_TEAM: always false (allPermissions(false,...))', () => {
 			expect(getPermissionMap('EXTERNAL', 'FULL_WRITE', true, false).ADD_MEMBER_TO_TEAM).toBe(
@@ -581,7 +523,7 @@ describe('getPermissionMap – EXTERNAL (legacy path, enable_edit OFF)', () => {
 	});
 
 	describe('gate ON – PTC has no effect on EXTERNAL legacy path', () => {
-		beforeEach(() => mockFg(true, false));
+		beforeEach(() => mockFg());
 
 		it('ARCHIVE_TEAM: still only org admin (PTC gate does not affect EXTERNAL legacy path)', () => {
 			expect(getPermissionMap('EXTERNAL', 'FULL_WRITE', true, false).ARCHIVE_TEAM).toBe(false);
@@ -599,8 +541,8 @@ describe('getPermissionMap – EXTERNAL (legacy path, enable_edit OFF)', () => {
 // DISBANDED teams – UNARCHIVE_TEAM and DELETE_TEAM
 // ─────────────────────────────────────────────────────────────────────────────
 describe('getPermissionMap – DISBANDED teams', () => {
-	describe('OPEN / MEMBER_INVITE – gate OFF', () => {
-		beforeEach(() => mockFg(false));
+	describe('OPEN / MEMBER_INVITE', () => {
+		beforeEach(() => mockFg());
 
 		it('UNARCHIVE_TEAM: true for member with FULL_WRITE', () => {
 			expect(disbanded('OPEN', 'FULL_WRITE', true, false).UNARCHIVE_TEAM).toBe(true);
@@ -611,15 +553,18 @@ describe('getPermissionMap – DISBANDED teams', () => {
 			expect(disbanded('OPEN', 'FULL_WRITE', false, true).UNARCHIVE_TEAM).toBe(true);
 		});
 
-		it('UNARCHIVE_TEAM: false for non-member non-orgAdmin even with FULL_WRITE', () => {
-			expect(disbanded('OPEN', 'FULL_WRITE', false, false).UNARCHIVE_TEAM).toBe(false);
+		it('UNARCHIVE_TEAM: true for non-member non-orgAdmin with FULL_WRITE', () => {
+			expect(disbanded('OPEN', 'FULL_WRITE', false, false).UNARCHIVE_TEAM).toBe(true);
+			expect(disbanded('MEMBER_INVITE', 'FULL_WRITE', false, false).UNARCHIVE_TEAM).toBe(true);
 		});
 
 		it('UNARCHIVE_TEAM: false without FULL_WRITE', () => {
 			expect(disbanded('OPEN', 'FULL_READ', true, false).UNARCHIVE_TEAM).toBe(false);
+			expect(disbanded('OPEN', 'FULL_READ', false, false).UNARCHIVE_TEAM).toBe(false);
+			expect(disbanded('OPEN', 'FULL_READ', false, true).UNARCHIVE_TEAM).toBe(false);
 		});
 
-		it('DELETE_TEAM: mirrors canUnarchive (isMember || isOrgAdmin) && FULL_WRITE', () => {
+		it('DELETE_TEAM: (isMember || isOrgAdmin) && FULL_WRITE', () => {
 			expect(disbanded('OPEN', 'FULL_WRITE', true, false).DELETE_TEAM).toBe(true);
 			expect(disbanded('OPEN', 'FULL_WRITE', false, false).DELETE_TEAM).toBe(false);
 		});
@@ -633,48 +578,17 @@ describe('getPermissionMap – DISBANDED teams', () => {
 		});
 	});
 
-	describe('OPEN / MEMBER_INVITE – gate ON', () => {
-		beforeEach(() => mockFg(true));
+	describe('EXTERNAL / ORG_ADMIN_MANAGED', () => {
+		beforeEach(() => mockFg());
 
-		it('UNARCHIVE_TEAM: true for non-member non-orgAdmin with FULL_WRITE (gate enables it)', () => {
-			// canUnarchive = (isMember=false || isOrgAdmin=false) && FULL_WRITE = false
-			// UNARCHIVE_TEAM = canUnarchive || (fg(PTC)=true && FULL_WRITE=true) = true
-			expect(disbanded('OPEN', 'FULL_WRITE', false, false).UNARCHIVE_TEAM).toBe(true);
-			expect(disbanded('MEMBER_INVITE', 'FULL_WRITE', false, false).UNARCHIVE_TEAM).toBe(true);
-		});
-
-		it('UNARCHIVE_TEAM: false without FULL_WRITE even with gate ON', () => {
-			expect(disbanded('OPEN', 'FULL_READ', false, false).UNARCHIVE_TEAM).toBe(false);
-		});
-
-		it('DELETE_TEAM: still requires canUnarchive (gate does NOT affect DELETE_TEAM)', () => {
-			// DELETE_TEAM = canUnarchive only, no gate fallback
-			expect(disbanded('OPEN', 'FULL_WRITE', false, false).DELETE_TEAM).toBe(false);
-			expect(disbanded('OPEN', 'FULL_WRITE', true, false).DELETE_TEAM).toBe(true);
-		});
-	});
-
-	describe('EXTERNAL / ORG_ADMIN_MANAGED – gate OFF', () => {
-		beforeEach(() => mockFg(false));
-
-		it('UNARCHIVE_TEAM: true only for org admin (canUnarchive = isOrgAdmin)', () => {
+		it('UNARCHIVE_TEAM: true for org admin or FULL_WRITE non-member', () => {
 			expect(disbanded('EXTERNAL', undefined, false, true).UNARCHIVE_TEAM).toBe(true);
-			expect(disbanded('EXTERNAL', 'FULL_WRITE', true, false).UNARCHIVE_TEAM).toBe(false);
-			expect(disbanded('ORG_ADMIN_MANAGED', undefined, false, true).UNARCHIVE_TEAM).toBe(true);
-			expect(disbanded('ORG_ADMIN_MANAGED', 'FULL_WRITE', true, false).UNARCHIVE_TEAM).toBe(false);
-		});
-	});
-
-	describe('EXTERNAL / ORG_ADMIN_MANAGED – gate ON', () => {
-		beforeEach(() => mockFg(true));
-
-		it('UNARCHIVE_TEAM: true for non-orgAdmin with FULL_WRITE (gate fallback)', () => {
-			// canUnarchive = isOrgAdmin=false; UNARCHIVE_TEAM = false || (ptc=true && FULL_WRITE=true) = true
 			expect(disbanded('EXTERNAL', 'FULL_WRITE', true, false).UNARCHIVE_TEAM).toBe(true);
+			expect(disbanded('ORG_ADMIN_MANAGED', undefined, false, true).UNARCHIVE_TEAM).toBe(true);
 			expect(disbanded('ORG_ADMIN_MANAGED', 'FULL_WRITE', true, false).UNARCHIVE_TEAM).toBe(true);
 		});
 
-		it('UNARCHIVE_TEAM: false without FULL_WRITE even with gate ON', () => {
+		it('UNARCHIVE_TEAM: false without FULL_WRITE', () => {
 			expect(disbanded('EXTERNAL', 'FULL_READ', true, false).UNARCHIVE_TEAM).toBe(false);
 			expect(disbanded('ORG_ADMIN_MANAGED', 'FULL_READ', true, false).UNARCHIVE_TEAM).toBe(false);
 		});

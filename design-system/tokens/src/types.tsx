@@ -284,6 +284,8 @@ export interface BackgroundColorTokenSchema<
 			danger: PaintToken<BaseToken>;
 		};
 		background: {
+			droptarget: PaintToken<BaseToken>;
+			draghandle: PaintToken<BaseToken>;
 			disabled: PaintToken<BaseToken>;
 			inverse: {
 				subtle: {
@@ -450,6 +452,10 @@ export interface BackgroundColorTokenSchema<
 export interface BorderColorTokenSchema<BaseToken> {
 	color: {
 		border: {
+			dropindicator: {
+				'[default]': PaintToken<BaseToken>;
+				warning: PaintToken<BaseToken>;
+			};
 			'[default]': PaintToken<BaseToken>;
 			bold: PaintToken<BaseToken>;
 			inverse: PaintToken<BaseToken>;
@@ -1290,6 +1296,8 @@ export interface SpacingTokenSchema<BaseToken> {
 			xlarge: SpacingToken<BaseToken>;
 			xxlarge: SpacingToken<BaseToken>;
 			'3xlarge': SpacingToken<BaseToken>;
+			'4xlarge': SpacingToken<BaseToken>;
+			'5xlarge': SpacingToken<BaseToken>;
 		};
 		negative: {
 			'025': SpacingToken<BaseToken>;

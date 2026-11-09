@@ -82,6 +82,18 @@ const primitiveArtifactDefinitions: PrimitiveArtifactDefinition[] = [
 		needsTokenImport: true,
 	},
 	{
+		fileName: 'margin-space.tsx',
+		template: () => createSpacingStylesFromTemplate('margin'),
+		dependencies: [spacingTokensDependencyPath],
+		needsTokenImport: true,
+	},
+	{
+		fileName: 'padding-space.tsx',
+		template: () => createSpacingStylesFromTemplate('padding'),
+		dependencies: [spacingTokensDependencyPath],
+		needsTokenImport: true,
+	},
+	{
 		fileName: 'gap-space.tsx',
 		template: () => createSpacingStylesFromTemplate('gap'),
 		dependencies: [spacingTokensDependencyPath],
@@ -119,7 +131,7 @@ const primitiveArtifactDefinitions: PrimitiveArtifactDefinition[] = [
 	},
 	{
 		fileName: 'inverse-color.tsx',
-		template: createInverseColorMapTemplate,
+		template: () => createInverseColorMapTemplate(),
 		dependencies: [colorTokensDependencyPath],
 	},
 	{
@@ -212,26 +224,28 @@ const legacyCssCodemodArtifactDefinitions = [
 		id: 'spacing',
 		template: () =>
 			(['positive', 'negative', 'all', 'gap'] as const)
-				.map(createSpacingStylesFromTemplate)
+				.map((property) => createSpacingStylesFromTemplate(property))
 				.join('\n'),
 		dependencies: [spacingTokensDependencyPath],
 	},
 	{
 		id: 'inverse-colors',
-		template: createInverseColorMapTemplate,
+		template: () => createInverseColorMapTemplate(),
 		dependencies: [colorTokensDependencyPath],
 	},
 	{
 		id: 'elevation',
 		template: () =>
-			(['opacity', 'shadow', 'surface'] as const).map(createElevationStylesFromTemplate).join('\n'),
+			(['opacity', 'shadow', 'surface'] as const)
+				.map((property) => createElevationStylesFromTemplate(property))
+				.join('\n'),
 		dependencies: [colorTokensDependencyPath],
 	},
 	{
 		id: 'colors',
 		template: () =>
 			(['border', 'background', 'text', 'fill'] as const)
-				.map(createColorStylesFromTemplate)
+				.map((property) => createColorStylesFromTemplate(property))
 				.join('\n'),
 		dependencies: [colorTokensDependencyPath],
 	},
@@ -242,14 +256,17 @@ const legacyCssCodemodArtifactDefinitions = [
 	},
 	{
 		id: 'border',
-		template: () => (['width', 'radius'] as const).map(createShapeStylesFromTemplate).join('\n'),
+		template: () =>
+			(['width', 'radius'] as const)
+				.map((property) => createShapeStylesFromTemplate(property))
+				.join('\n'),
 		dependencies: [shapeTokensDependencyPath],
 	},
 	{
 		id: 'typography',
 		template: () =>
 			(['font', 'fontWeight', 'fontFamily'] as const)
-				.map(createTypographyStylesFromTemplate)
+				.map((property) => createTypographyStylesFromTemplate(property))
 				.join('\n'),
 		dependencies: templateFiles,
 	},
@@ -257,7 +274,7 @@ const legacyCssCodemodArtifactDefinitions = [
 		id: 'text',
 		template: () =>
 			(['textSize', 'textWeight', 'metricTextSize'] as const)
-				.map(createTextStylesFromTemplate)
+				.map((property) => createTextStylesFromTemplate(property))
 				.join('\n'),
 		dependencies: templateFiles,
 	},
@@ -273,25 +290,38 @@ const legacyCssCodemodArtifactDefinitions = [
  * @see https://developer.atlassian.com/platform/forge/ui-kit/components/xcss/
  */
 const generateForgeTokensContent = (): string => {
+	const options = { excludeExperimental: true };
 	const sections = [
 		'/* eslint @repo/internal/codegen/signed-source-integrity: "warn", perfectionist/sort-object-types: "off" */',
 		createStylesFromFileTemplate('dimensions'),
 		'',
-		...(['positive', 'negative', 'all'] as const).map(createSpacingStylesFromTemplate),
+		...(['positive', 'negative', 'all'] as const).map((property) =>
+			createSpacingStylesFromTemplate(property, options),
+		),
 		'',
-		...(['text', 'background', 'border'] as const).map(createColorStylesFromTemplate),
+		...(['text', 'background', 'border'] as const).map((property) =>
+			createColorStylesFromTemplate(property, options),
+		),
 		'',
-		createInverseColorMapTemplate(),
+		createInverseColorMapTemplate(options),
 		'',
-		...(['opacity', 'shadow', 'surface'] as const).map(createElevationStylesFromTemplate),
+		...(['opacity', 'shadow', 'surface'] as const).map((property) =>
+			createElevationStylesFromTemplate(property, options),
+		),
 		'',
-		...(['width', 'radius'] as const).map(createShapeStylesFromTemplate),
+		...(['width', 'radius'] as const).map((property) =>
+			createShapeStylesFromTemplate(property, options),
+		),
 		'',
 		createStylesFromFileTemplate('layer'),
 		'',
-		...(['font', 'fontWeight', 'fontFamily'] as const).map(createTypographyStylesFromTemplate),
+		...(['font', 'fontWeight', 'fontFamily'] as const).map((property) =>
+			createTypographyStylesFromTemplate(property, options),
+		),
 		'',
-		...(['textSize', 'textWeight', 'metricTextSize'] as const).map(createTextStylesFromTemplate),
+		...(['textSize', 'textWeight', 'metricTextSize'] as const).map((property) =>
+			createTextStylesFromTemplate(property, options),
+		),
 	];
 
 	return sections.join('\n');

@@ -1,6 +1,5 @@
 import { bind } from 'bind-event-listener';
 import isEqual from 'lodash/isEqual';
-import uniqueId from 'lodash/uniqueId';
 import type { IntlShape } from 'react-intl';
 
 import { getDocument } from '@atlaskit/browser-apis';
@@ -28,9 +27,7 @@ import type {
 	EmojiRepresentation,
 	OptionalEmojiDescriptionWithVariations,
 } from '@atlaskit/emoji/types';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { token } from '@atlaskit/tokens';
 
 import type { EmojiPlugin } from '../emojiPluginType';
 import type { EmojiNodeDataProvider } from '../pm-plugins/providers/EmojiNodeDataProvider';
@@ -48,18 +45,9 @@ interface Params {
 const EMOJI_TOOLTIP_CLASS = 'emoji-tooltip-editor';
 
 /**
- * Shared default look plus our own hook, replacing the inline styles the control arm passes.
+ * Shared default look plus our own hook.
  */
 const EMOJI_TOOLTIP_CLASS_NAMES = `${VANILLA_TOOLTIP_DEFAULT_CLASS} ${EMOJI_TOOLTIP_CLASS}`;
-
-/**
- * Control arm only — `VanillaTooltip` generates its own id when none is supplied.
- * `crypto.randomUUID()` is undefined outside a secure context, hence the `uniqueId` fallback.
- */
-const nextFallbackTooltipId = (): string =>
-	typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
-		? `emoji-tooltip-${crypto.randomUUID()}`
-		: uniqueId('emoji-tooltip-');
 
 export class EmojiNodeView implements NodeView {
 	dom: Node;
@@ -79,13 +67,9 @@ export class EmojiNodeView implements NodeView {
 
 	private destroyTooltip(): void {
 		this.destroyLazyTooltipListeners?.();
+		// `tooltipInstance.destroy()` removes the `popovertarget` and `aria-describedby`
+		// attributes from the tooltip target.
 		this.tooltipInstance?.destroy();
-		// with platform_editor_use_vanilla_components the tooltipInstance?.destroy()
-		// will remove the popovertarget and aria-describedby attributes from the tooltipTarget
-		if (!isExperimentEnabled('platform_editor_use_vanilla_components')) {
-			this.tooltipTarget?.removeAttribute('popovertarget');
-			this.tooltipTarget?.removeAttribute('aria-describedby');
-		}
 		this.destroyLazyTooltipListeners = undefined;
 		this.tooltipInstance = undefined;
 		this.tooltipTarget = undefined;
@@ -290,47 +274,19 @@ export class EmojiNodeView implements NodeView {
 			this.destroyLazyTooltipListeners?.();
 			this.destroyLazyTooltipListeners = undefined;
 
-			// `undefined` lets `VanillaTooltip` generate the id.
-			const tooltipId = isExperimentEnabled('platform_editor_use_vanilla_components')
-				? undefined
-				: nextFallbackTooltipId();
-
-			// Control arm only — the experiment arm gets the same declarations from
-			// `VANILLA_TOOLTIP_DEFAULT_CLASS`.
-			const tooltipStyles = isExperimentEnabled('platform_editor_use_vanilla_components')
-				? undefined
-				: {
-						boxSizing: 'border-box',
-						maxWidth: '240px',
-						backgroundColor: token('color.background.neutral.bold'),
-						border: 'none',
-						borderRadius: token('radius.small', '3px'),
-						color: token('color.text.inverse'),
-						font: token('font.body.small'),
-						fontFamily: token('font.family.body'),
-						insetBlockStart: token('space.0', '0px'),
-						insetInlineStart: token('space.0', '0px'),
-						overflowWrap: 'break-word',
-						paddingBlockStart: token('space.050', '4px'),
-						paddingBlockEnd: token('space.050', '4px'),
-						paddingInlineEnd: token('space.075', '6px'),
-						paddingInlineStart: token('space.075', '6px'),
-						whiteSpace: 'normal',
-					};
-
 			try {
 				// Flag-on (platform-dst-top-layer), positioning is async via a React root;
 				// safe here as VanillaTooltip stays hidden until positioned.
 				const tooltipInstance = new VanillaTooltip(
 					element,
 					shortName,
-					tooltipId,
-					isExperimentEnabled('platform_editor_use_vanilla_components')
-						? EMOJI_TOOLTIP_CLASS_NAMES
-						: EMOJI_TOOLTIP_CLASS,
+					// `undefined` lets `VanillaTooltip` generate the id.
+					undefined,
+					EMOJI_TOOLTIP_CLASS_NAMES,
 					// default timeout
 					300,
-					tooltipStyles,
+					// The look comes from `VANILLA_TOOLTIP_DEFAULT_CLASS`, so no inline styles.
+					undefined,
 				);
 
 				this.tooltipInstance = tooltipInstance;

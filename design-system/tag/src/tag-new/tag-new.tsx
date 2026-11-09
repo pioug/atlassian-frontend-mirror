@@ -9,6 +9,7 @@ import { forwardRef, memo, useCallback } from 'react';
 import { cssMap as cssMapUnbound, cx, jsx } from '@compiled/react';
 
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { cssMap } from '@atlaskit/css';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Pressable } from '@atlaskit/primitives/compiled/pressable';
@@ -199,6 +200,27 @@ const styles = cssMapUnbound({
 	},
 });
 
+const semanticStyles = cssMap({
+	baseStyles: {
+		height: 'auto',
+		gap: token('space.gap.xsmall'),
+		paddingBlock: token('space.inset.xxsmall', '2px'),
+		marginBlock: token('space.gap.xsmall'),
+		marginInline: token('space.gap.xsmall'),
+	},
+	noMarginStyles: {
+		marginBlock: token('space.0'),
+		marginInline: token('space.0'),
+	},
+	removableStyles: {
+		gap: token('space.gap.xsmall'),
+	},
+	trailingMetric: {
+		paddingInline: token('space.inset.xsmall'),
+		paddingBlock: 0,
+	},
+});
+
 // For accent borders, we use the new color.border.accent.*.subtle tokens (Color300
 // light / Color800 dark) which provide proper decorative-border colours
 //
@@ -369,6 +391,12 @@ const dropdownStyles = cssMapUnbound({
 	},
 });
 
+const semanticDropdownStyles = cssMap({
+	content: {
+		gap: token('space.gap.xsmall', '4px'),
+	},
+});
+
 /**
  * __TagNew__
  *
@@ -459,6 +487,11 @@ const TagNewComponent = forwardRef<HTMLSpanElement, TagNewProps>(function TagNew
 					trailingMetric != null &&
 					trailingMetric !== '' &&
 					styles.trailingMetricEndPadding,
+				fg('platform-semantic-spacing') && semanticStyles.baseStyles,
+				fg('platform-semantic-spacing') &&
+					(isMotionEnabled || !hasMargin) &&
+					semanticStyles.noMarginStyles,
+				fg('platform-semantic-spacing') && isRemovable && semanticStyles.removableStyles,
 			]}
 			data-testid={testId}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- maxWidth is a runtime consumer value
@@ -490,7 +523,13 @@ const TagNewComponent = forwardRef<HTMLSpanElement, TagNewProps>(function TagNew
 					{normalizedText}
 				</span>
 				{trailingMetric != null && trailingMetric !== '' && (
-					<span css={styles.trailingMetric} data-testid={testId && `${testId}--metric`}>
+					<span
+						css={[
+							styles.trailingMetric,
+							fg('platform-semantic-spacing') && semanticStyles.trailingMetric,
+						]}
+						data-testid={testId && `${testId}--metric`}
+					>
 						{trailingMetric}
 					</span>
 				)}
@@ -583,6 +622,8 @@ export const TagDropdownTriggerComponent: import('react').ForwardRefExoticCompon
 					trailingMetric != null &&
 					trailingMetric !== '' &&
 					styles.trailingMetricEndPadding,
+				fg('platform-semantic-spacing') && semanticStyles.baseStyles,
+				fg('platform-semantic-spacing') && !hasMargin && semanticStyles.noMarginStyles,
 			)}
 			onClick={isLoading ? undefined : onClick}
 			style={{
@@ -599,6 +640,7 @@ export const TagDropdownTriggerComponent: import('react').ForwardRefExoticCompon
 					dropdownStyles.content,
 					isMotionEnabled && dropdownStyles.loadingMotion,
 					isLoading && dropdownStyles.loadingContent,
+					fg('platform-semantic-spacing') && semanticDropdownStyles.content,
 				]}
 			>
 				<SwatchBefore
@@ -619,7 +661,13 @@ export const TagDropdownTriggerComponent: import('react').ForwardRefExoticCompon
 					{getTagText(text)}
 				</span>
 				{trailingMetric != null && trailingMetric !== '' && (
-					<span css={styles.trailingMetric} data-testid={testId && `${testId}--metric`}>
+					<span
+						css={[
+							styles.trailingMetric,
+							fg('platform-semantic-spacing') && semanticStyles.trailingMetric,
+						]}
+						data-testid={testId && `${testId}--metric`}
+					>
 						{trailingMetric}
 					</span>
 				)}

@@ -73,6 +73,8 @@ export interface InsertBlockPluginOptions {
 	allowExpand?: boolean;
 	allowTables?: boolean;
 	appearance?: EditorAppearance;
+	/** Opt this editor surface out of the optimistic SSR toolbar experiment. */
+	disableOptimisticToolbar?: boolean;
 	horizontalRuleEnabled?: boolean;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	insertMenuItems?: any;

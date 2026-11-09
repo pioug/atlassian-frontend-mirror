@@ -30,15 +30,20 @@ const POPUP_OFFSET: [number, number] = [0, 3];
 
 type Props = {
 	api?: ExtractInjectionAPI<InsertBlockPlugin>;
+	disableOptimisticToolbar?: boolean;
 };
 
 /**
  * The toolbar owns its popup lifecycle, but renders the same registered items
  * and menu model as slash command.
  */
-export const RegisteredInsertButton = ({ api }: Props): React.JSX.Element | null => {
+export const RegisteredInsertButton = ({
+	api,
+	disableOptimisticToolbar,
+}: Props): React.JSX.Element | null => {
 	const { editorView } = useEditorToolbar();
-	const isOptimistic = isExperimentEnabled('platform_editor_ssr_toolbar_optimistic');
+	const isOptimistic =
+		!disableOptimisticToolbar && isExperimentEnabled('platform_editor_ssr_toolbar_optimistic');
 	const { formatMessage } = useIntl();
 	const { isDisabled, popupsBoundariesElement, popupsMountPoint, popupsScrollableElement } =
 		useToolbarUI();

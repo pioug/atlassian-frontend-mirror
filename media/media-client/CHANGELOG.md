@@ -1,5 +1,20 @@
 # @atlaskit/media-client
 
+## 39.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 39.4.0
+
+### Minor Changes
+
+- [`9826a3254f648`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9826a3254f648) -
+  Add `UploadableFile.skipRemoteFileState` and an optional upload response argument to
+  `onUploadFinish` behind `platform_media_upload_without_read`. Opted-in uploads complete from the
+  upload response without fetching remote metadata.
+
 ## 39.3.13
 
 ### Patch Changes

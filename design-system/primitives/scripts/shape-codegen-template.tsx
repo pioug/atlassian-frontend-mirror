@@ -2,10 +2,12 @@ import format from '@af/formatting/sync';
 import shapeTokens from '@atlaskit/tokens/atlassian-shape';
 
 import { capitalize } from './capitalize';
+import { filterTokensForCodegen, type TokenFilterOptions } from './filter-tokens-for-codegen';
 import { generateTypeDefs } from './generate-type-defs';
 import { constructTokenFunctionCall } from './utils';
 
 type Token = {
+	attributes: { state: string };
 	token: string;
 	fallback: string;
 	isDeprecated: boolean;
@@ -30,17 +32,18 @@ const tokenStyles = {
 
 const activeTokens = shapeTokens
 	.filter((t) => t.attributes.state !== 'deleted')
-	.map(
-		(t): Token => ({
-			token: t.cleanName,
-			fallback: t.value === '4px' ? '3px' : (t.value as string),
-			isDeprecated: t.attributes.state === 'deprecated',
-		}),
-	);
+	.map((t): Token => ({
+		attributes: t.attributes,
+		token: t.cleanName,
+		fallback: t.value === '4px' ? '3px' : (t.value as string),
+		isDeprecated: t.attributes.state === 'deprecated',
+	}));
 
-export const createShapeStylesFromTemplate: (property: keyof typeof tokenStyles) => string = (
+export const createShapeStylesFromTemplate: (
 	property: keyof typeof tokenStyles,
-): string => {
+	options?: TokenFilterOptions,
+) => string = (property, options = {}) => {
+	const filteredTokens = filterTokensForCodegen(activeTokens, options);
 	if (!tokenStyles[property]) {
 		throw new Error(`[codegen] Unknown option found "${property}"`);
 	}
@@ -51,9 +54,9 @@ export const createShapeStylesFromTemplate: (property: keyof typeof tokenStyles)
 		format(
 			`
 export const ${objectName}Map: {
-			${generateTypeDefs(activeTokens.filter(filterFn).map((t) => t.token))}
+			${generateTypeDefs(filteredTokens.filter(filterFn).map((t) => t.token))}
 } = {
-  ${activeTokens
+  ${filteredTokens
 		.filter(filterFn)
 		.map((t) => {
 			return `

@@ -723,7 +723,7 @@ describe('ARCHIVE_TEAM and UNARCHIVE_TEAM permissions', () => {
 				).toBe(false);
 			});
 
-			it('returns false for non-member', () => {
+			it('returns true for non-member with FULL_WRITE', () => {
 				(isMember as jest.Mock).mockReturnValue(false);
 				expect(
 					hasPermission(
@@ -736,7 +736,7 @@ describe('ARCHIVE_TEAM and UNARCHIVE_TEAM permissions', () => {
 						undefined,
 						'DISBANDED',
 					),
-				).toBe(false);
+				).toBe(true);
 				(isMember as jest.Mock).mockReturnValue(true);
 			});
 		});
@@ -793,7 +793,7 @@ describe('ARCHIVE_TEAM and UNARCHIVE_TEAM permissions', () => {
 				).toBe(true);
 			});
 
-			it('returns false for non-org-admin even with FULL_WRITE permission', () => {
+			it('returns true for non-org-admin with FULL_WRITE permission', () => {
 				expect(
 					hasPermission(
 						'UNARCHIVE_TEAM',
@@ -809,7 +809,7 @@ describe('ARCHIVE_TEAM and UNARCHIVE_TEAM permissions', () => {
 						undefined,
 						'DISBANDED',
 					),
-				).toBe(false);
+				).toBe(true);
 			});
 
 			it('returns false for member without org admin privileges', () => {
@@ -912,7 +912,11 @@ describe('In ORG_ADMIN_MANAGED teams', () => {
 
 		it.each(
 			allActionsExceptJoinAndType.filter(
-				(a) => a !== 'UNARCHIVE_TEAM' && a !== 'EDIT_TEAM_MEMBERSHIP',
+				(a) =>
+					a !== 'UNARCHIVE_TEAM' &&
+					a !== 'EDIT_TEAM_MEMBERSHIP' &&
+					a !== 'APPROVE_JOIN_REQUEST' &&
+					a !== 'REJECT_JOIN_REQUEST',
 			),
 		)('members with write permission can perform %s', (action) => {
 			expect(
@@ -929,7 +933,7 @@ describe('In ORG_ADMIN_MANAGED teams', () => {
 			).toBe(true);
 		});
 
-		it('members with write permission cannot unarchive disbanded teams (only org admins can)', () => {
+		it('members with write permission can unarchive disbanded teams', () => {
 			expect(
 				hasPermission(
 					'UNARCHIVE_TEAM',
@@ -941,7 +945,7 @@ describe('In ORG_ADMIN_MANAGED teams', () => {
 					undefined,
 					'DISBANDED',
 				),
-			).toBe(false);
+			).toBe(true);
 		});
 
 		it.each(
@@ -1022,9 +1026,16 @@ describe('In ORG_ADMIN_MANAGED teams', () => {
 		it.each(
 			AllTeamActions.filter(
 				(a) =>
-					!['LEAVE_TEAM', 'UNARCHIVE_TEAM', 'EDIT_TEAM_MEMBERSHIP', 'ARCHIVE_TEAM'].some((s) =>
-						a.includes(s),
-					),
+					![
+						'LEAVE_TEAM',
+						'UNARCHIVE_TEAM',
+						'EDIT_TEAM_MEMBERSHIP',
+						'ARCHIVE_TEAM',
+						'REQUEST_TO_JOIN',
+						'CANCEL_JOIN_REQUEST',
+						'APPROVE_JOIN_REQUEST',
+						'REJECT_JOIN_REQUEST',
+					].some((s) => a.includes(s)),
 			),
 		)('non-members with FULL_WRITE (no org admin) can perform %s', (action) => {
 			expect(
@@ -1056,7 +1067,7 @@ describe('In ORG_ADMIN_MANAGED teams', () => {
 			).toBe(false);
 		});
 
-		it('non-members with FULL_WRITE cannot unarchive disbanded teams (requires org admin)', () => {
+		it('non-members with FULL_WRITE can unarchive disbanded teams with FULL_WRITE', () => {
 			expect(
 				hasPermission(
 					'UNARCHIVE_TEAM',
@@ -1068,7 +1079,7 @@ describe('In ORG_ADMIN_MANAGED teams', () => {
 					undefined,
 					'DISBANDED',
 				),
-			).toBe(false);
+			).toBe(true);
 		});
 	});
 
@@ -1266,7 +1277,7 @@ describe('In ORG_ADMIN_MANAGED teams', () => {
 				).toBe(true);
 			});
 
-			it('does not allow non-members with FULL_WRITE to archive teams', () => {
+			it('allows non-members with FULL_WRITE to archive teams', () => {
 				(isMember as jest.Mock).mockReturnValue(false);
 				expect(
 					hasPermission(
@@ -1279,7 +1290,7 @@ describe('In ORG_ADMIN_MANAGED teams', () => {
 						undefined,
 						'ACTIVE',
 					),
-				).toBe(false);
+				).toBe(true);
 			});
 
 			it('does not allow users without FULL_WRITE to archive teams', () => {
@@ -1325,7 +1336,7 @@ describe('In ORG_ADMIN_MANAGED teams', () => {
 			).toBe(true);
 		});
 
-		it('does not allow members with FULL_WRITE to unarchive disbanded teams', () => {
+		it('allows members with FULL_WRITE to unarchive disbanded teams', () => {
 			(isMember as jest.Mock).mockReturnValue(true);
 			expect(
 				hasPermission(
@@ -1338,10 +1349,10 @@ describe('In ORG_ADMIN_MANAGED teams', () => {
 					undefined,
 					'DISBANDED',
 				),
-			).toBe(false);
+			).toBe(true);
 		});
 
-		it('does not allow non-org-admins to unarchive disbanded teams', () => {
+		it('allows non-org-admins to unarchive disbanded teams with FULL_WRITE', () => {
 			(isMember as jest.Mock).mockReturnValue(false);
 			expect(
 				hasPermission(
@@ -1358,7 +1369,7 @@ describe('In ORG_ADMIN_MANAGED teams', () => {
 					undefined,
 					'DISBANDED',
 				),
-			).toBe(false);
+			).toBe(true);
 		});
 	});
 });

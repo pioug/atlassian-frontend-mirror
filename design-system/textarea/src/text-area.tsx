@@ -27,6 +27,24 @@ const compactVerticalPadding = 2;
 const verticalPadding = 6;
 const borderWidth = 2;
 
+// Keep additive overrides in the existing Compiled styling path.
+const semanticAtomicInlinePaddingStyles = cssMap({
+	borderless: {
+		paddingInlineStart: token('space.inset.small'),
+		paddingInlineEnd: token('space.inset.small'),
+	},
+});
+const semanticAtomicDensityStyles = cssMap({
+	compact: {
+		paddingBlockStart: token('space.inset.xxsmall'),
+		paddingBlockEnd: token('space.inset.xxsmall'),
+	},
+	default: {
+		paddingBlockStart: token('space.inset.small'),
+		paddingBlockEnd: token('space.inset.small'),
+	},
+});
+
 const baseStyles = css({
 	display: 'block',
 	boxSizing: 'border-box',
@@ -542,6 +560,13 @@ const InnerTextArea: React.ForwardRefExoticComponent<
 				resizeStyles[resize],
 				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 				!fg('platform-textarea-atomic-styles') && compactMinHeightStyles,
+				fg('platform-semantic-spacing') &&
+					fg('platform-textarea-atomic-styles') &&
+					appearance === 'none' &&
+					semanticAtomicInlinePaddingStyles.borderless,
+				fg('platform-semantic-spacing') &&
+					fg('platform-textarea-atomic-styles') &&
+					semanticAtomicDensityStyles[isCompact ? 'compact' : 'default'],
 			]}
 			style={{
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/design-system/use-tokens-typography -- Runtime density must override the mobile font shorthand, which sorts after atomic longhands.

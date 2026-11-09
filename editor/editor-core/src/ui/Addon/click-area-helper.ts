@@ -1,5 +1,6 @@
 import { closestElement } from '@atlaskit/editor-common/utils/dom';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { checkForModal } from './checkForModal';
 import { ignoreAttribute } from './ClickAreaBlock/contentComponentWrapper';
@@ -21,6 +22,31 @@ const insideContentArea = (ref: HTMLElement | null): boolean => {
 const insideProseMirrorEditableArea = (ref: HTMLElement | null): boolean => {
 	return Boolean(ref?.closest('.ProseMirror'));
 };
+
+/**
+ * The scroll gutter is the blank space below the document. A click on the gutter element itself
+ * (not on UI such as floating toolbars rendered over it) should continue the document.
+ */
+const isScrollGutter = (target: HTMLElement): boolean =>
+	target.hasAttribute('data-editor-scroll-gutter');
+
+/**
+ * Plain primary-button press. On macOS Ctrl+click opens the context menu, so modifiers are excluded
+ * along with right and middle clicks.
+ */
+const isPlainPrimaryPress = (event: React.MouseEvent<HTMLElement>): boolean =>
+	event.button === 0 && !event.ctrlKey && !event.shiftKey && !event.metaKey && !event.altKey;
+
+/**
+ * A click lands on a content component's wrapper itself only where none of its content is under the
+ * pointer, for example the slot a relatively offset footer leaves behind. Products can nest a wrapper
+ * inside their content component to mark such blank space.
+ */
+const isContentComponentWrapper = (target: HTMLElement): boolean =>
+	target.hasAttribute(ignoreAttribute);
+
+const isBelowDocument = (view: EditorView, event: React.MouseEvent<HTMLElement>): boolean =>
+	event.clientY > view.dom.getBoundingClientRect().bottom;
 
 const clickAreaClickHandler = (
 	view: EditorView,
@@ -108,8 +134,22 @@ const clickAreaClickHandler = (
 		!isTargetInsideContentArea &&
 		!isEditorFocused;
 
+	const isScrollGutterClickedWhileFocused = isEditorFocused && isScrollGutter(target);
+	const isContentComponentWrapperClicked = isContentComponentWrapper(target);
+
+	// The gate is read before isBelowDocument so gate OFF adds no layout read.
+	const isBlankSpaceBelowDocumentClicked =
+		(isScrollGutterClickedWhileFocused || isContentComponentWrapperClicked) &&
+		isPlainPrimaryPress(event) &&
+		fg('platform_editor_scroll_gutter_click_add_line') &&
+		(isScrollGutterClickedWhileFocused || isBelowDocument(view, event));
+
 	const edgeCases =
-		edgeCaseScenario1 || edgeCaseScenario2 || edgeCaseScenario3 || edgeCaseScenario4;
+		edgeCaseScenario1 ||
+		edgeCaseScenario2 ||
+		edgeCaseScenario3 ||
+		edgeCaseScenario4 ||
+		isBlankSpaceBelowDocumentClicked;
 
 	const isClickOutsideEditor =
 		edgeCases &&
@@ -121,7 +161,7 @@ const clickAreaClickHandler = (
 		!isPopupClicked &&
 		!isBreadcrumbClicked &&
 		!isEditorPopupTextSelected &&
-		!isContentComponent &&
+		(!isContentComponent || isBlankSpaceBelowDocumentClicked) &&
 		checkForModal(target);
 
 	// click was within editor container and focus should be brought to input

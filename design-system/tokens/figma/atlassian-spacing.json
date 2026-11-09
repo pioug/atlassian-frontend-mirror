@@ -251,8 +251,28 @@
       "attributes": {
         "group": "spacing",
         "state": "experimental",
-        "replacement": "space.600",
+        "replacement": "space.300",
         "introduced": "20.7.0",
+        "description": "Use for very large padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
+      },
+      "value": 24
+    },
+    "Spacing/space.inset.4xlarge": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "space.400",
+        "introduced": "20.10.0",
+        "description": "Use for 32px default padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
+      },
+      "value": 32
+    },
+    "Spacing/space.inset.5xlarge": {
+      "attributes": {
+        "group": "spacing",
+        "state": "experimental",
+        "replacement": "space.600",
+        "introduced": "20.10.0",
         "description": "Use for the largest padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
       },
       "value": 48
@@ -261,71 +281,71 @@
       "attributes": {
         "group": "spacing",
         "state": "experimental",
-        "replacement": "space.250",
+        "replacement": "space.150",
         "introduced": "20.7.0",
         "description": "Use for large padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
       },
-      "value": 20
+      "value": 12
     },
     "Spacing/space.inset.medium": {
       "attributes": {
         "group": "spacing",
         "state": "experimental",
-        "replacement": "space.200",
+        "replacement": "space.100",
         "introduced": "20.7.0",
         "description": "Use for medium padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
       },
-      "value": 16
+      "value": 8
     },
     "Spacing/space.inset.small": {
       "attributes": {
         "group": "spacing",
         "state": "experimental",
-        "replacement": "space.150",
+        "replacement": "space.075",
         "introduced": "20.7.0",
         "description": "Use for small padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
       },
-      "value": 12
+      "value": 6
     },
     "Spacing/space.inset.xlarge": {
       "attributes": {
         "group": "spacing",
         "state": "experimental",
-        "replacement": "space.300",
+        "replacement": "space.200",
         "introduced": "20.7.0",
         "description": "Use for extra-large padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
       },
-      "value": 24
+      "value": 16
     },
     "Spacing/space.inset.xsmall": {
       "attributes": {
         "group": "spacing",
         "state": "experimental",
-        "replacement": "space.100",
+        "replacement": "space.050",
         "introduced": "20.7.0",
         "description": "Use for extra-small padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
       },
-      "value": 8
+      "value": 4
     },
     "Spacing/space.inset.xxlarge": {
       "attributes": {
         "group": "spacing",
         "state": "experimental",
-        "replacement": "space.400",
+        "replacement": "space.250",
         "introduced": "20.7.0",
         "description": "Use for extra-extra-large padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
       },
-      "value": 32
+      "value": 20
     },
     "Spacing/space.inset.xxsmall": {
       "attributes": {
         "group": "spacing",
         "state": "experimental",
-        "replacement": "space.050",
+        "replacement": "space.025",
         "introduced": "20.7.0",
         "description": "Use for the smallest padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions."
       },
-      "value": 4
+      "value": 2
     },
     "Spacing/space.negative.025": {
       "attributes": {
@@ -467,13 +487,15 @@
     "Spacing/space.gap.large": "Spacing/space.150",
     "Spacing/space.gap.xlarge": "Spacing/space.200",
     "Spacing/space.gap.xxlarge": "Spacing/space.300",
-    "Spacing/space.inset.xxsmall": "Spacing/space.050",
-    "Spacing/space.inset.xsmall": "Spacing/space.100",
-    "Spacing/space.inset.small": "Spacing/space.150",
-    "Spacing/space.inset.medium": "Spacing/space.200",
-    "Spacing/space.inset.large": "Spacing/space.250",
-    "Spacing/space.inset.xlarge": "Spacing/space.300",
-    "Spacing/space.inset.xxlarge": "Spacing/space.400",
-    "Spacing/space.inset.3xlarge": "Spacing/space.600"
+    "Spacing/space.inset.xxsmall": "Spacing/space.025",
+    "Spacing/space.inset.xsmall": "Spacing/space.050",
+    "Spacing/space.inset.small": "Spacing/space.075",
+    "Spacing/space.inset.medium": "Spacing/space.100",
+    "Spacing/space.inset.large": "Spacing/space.150",
+    "Spacing/space.inset.xlarge": "Spacing/space.200",
+    "Spacing/space.inset.xxlarge": "Spacing/space.250",
+    "Spacing/space.inset.3xlarge": "Spacing/space.300",
+    "Spacing/space.inset.4xlarge": "Spacing/space.400",
+    "Spacing/space.inset.5xlarge": "Spacing/space.600"
   }
 }

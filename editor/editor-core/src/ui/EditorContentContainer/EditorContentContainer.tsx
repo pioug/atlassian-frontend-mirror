@@ -5105,7 +5105,6 @@ const editorContentStyles = cssMapScoped({
 			},
 		},
 		// Positions the vanilla resize tooltip at the pointer's Y, set by `pragmatic-resizer.tsx`.
-		// Inert until `platform_editor_use_vanilla_components` — nothing carries this class on control.
 		'.pm-breakout-resize-tooltip-anchor': {
 			position: 'absolute',
 			left: 0,
@@ -5172,9 +5171,6 @@ const editorContentStyles = cssMapScoped({
 			'[role="presentation"]:not(:where([popover], dialog, [popover] *, dialog *))': {
 				height: '100%',
 				width: '100%',
-			},
-			'.pm-breakout-resize-handle-rail-inside-tooltip': {
-				height: '100%',
 			},
 		},
 	},

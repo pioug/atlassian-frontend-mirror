@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::ade76e0524ae0e3f6bbef2cac3ed66a9>>
+ * @codegen <<SignedSource::e68e3bf942778f6d143c61a4cc089166>>
  * @codegenCommand yarn build tokens
  */
 export type ActiveTokens =
@@ -211,6 +211,8 @@ export type ActiveTokens =
 	| 'color.background.code.removed.highlight'
 	| 'color.background.code.removed.line'
 	| 'color.background.disabled'
+	| 'color.background.draghandle'
+	| 'color.background.droptarget'
 	| 'color.background.input'
 	| 'color.background.input.hovered'
 	| 'color.background.input.pressed'
@@ -314,6 +316,8 @@ export type ActiveTokens =
 	| 'color.border.accent.gray.subtle'
 	| 'color.border.code'
 	| 'color.border.disabled'
+	| 'color.border.dropindicator'
+	| 'color.border.dropindicator.warning'
 	| 'color.border.focused'
 	| 'color.border.input'
 	| 'color.border.input.search'

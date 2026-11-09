@@ -11,6 +11,7 @@ import type { VirtualItem as VirtualItemContext } from '@tanstack/react-virtual'
 import { useIntl } from 'react-intl';
 
 import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { EmojiPickerListContextProvider } from '../../context/EmojiPickerListContext';
 import type {
@@ -78,6 +79,24 @@ const atlassianSubcategoryOrder = [
 	productivityAtlassianSubcategory,
 	'Logos',
 ];
+
+const atlassianSubcategoryMessageKeys: Partial<Record<string, keyof typeof messages>> = {
+	Faces: 'atlassianFacesSubcategory',
+	Hands: 'atlassianHandsSubcategory',
+	Reactions: 'atlassianReactionsSubcategory',
+	Objects: 'atlassianObjectsSubcategory',
+	Productivity: 'atlassianProductivitySubcategory',
+	Logos: 'atlassianLogosSubcategory',
+	Other: 'atlassianOtherSubcategory',
+};
+
+const getAtlassianSubcategoryHeadingTitle = (title: string): string => {
+	if (!fg('platform_ally_emoji_fixes_various')) {
+		return title;
+	}
+
+	return atlassianSubcategoryMessageKeys[title] || title;
+};
 
 type CategoryKeyToGroup = { [key in CategoryGroupKey]: EmojiGroup };
 
@@ -450,7 +469,7 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 					items.push(
 						new CategoryHeadingItem({
 							id: group.category,
-							title: subcategory.title,
+							title: getAtlassianSubcategoryHeadingTitle(subcategory.title),
 							className: categoryClassname,
 						}),
 					);

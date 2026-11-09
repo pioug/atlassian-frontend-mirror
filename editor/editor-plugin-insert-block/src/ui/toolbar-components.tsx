@@ -135,7 +135,12 @@ export const getToolbarComponents = ({
 					rank: MEDIA_GROUP_RANK[MEDIA_BUTTON.key],
 				},
 			],
-			component: () => (!!api?.imageUpload ? <ImageButton api={api} /> : <MediaButton api={api} />),
+			component: () =>
+				!!api?.imageUpload ? (
+					<ImageButton api={api} />
+				) : (
+					<MediaButton api={api} disableOptimisticToolbar={options.disableOptimisticToolbar} />
+				),
 		});
 	}
 
@@ -193,7 +198,9 @@ export const getToolbarComponents = ({
 					rank: MENTION_GROUP_RANK[MENTION_BUTTON.key],
 				},
 			],
-			component: () => <MentionButton api={api} />,
+			component: () => (
+				<MentionButton api={api} disableOptimisticToolbar={options.disableOptimisticToolbar} />
+			),
 		});
 	}
 
@@ -306,7 +313,10 @@ export const getToolbarComponents = ({
 		const createInsertButtonComponent = (breakpoint: Breakpoint | null) => {
 			return () =>
 				isExperimentEnabled('platform_editor_slash_command') ? (
-					<RegisteredInsertButton api={api} />
+					<RegisteredInsertButton
+						api={api}
+						disableOptimisticToolbar={options.disableOptimisticToolbar}
+					/>
 				) : (
 					<InsertButton
 						api={api}

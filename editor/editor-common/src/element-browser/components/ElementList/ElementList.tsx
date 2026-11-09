@@ -30,6 +30,7 @@ import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE, fireAnalyticsEvent } from '../../../analytics';
 import type { QuickInsertItem } from '../../../provider-factory';
+import type { InsertMenuItemTriggerProps } from '../../../provider-factory/quick-insert-provider';
 import { IconFallback } from '../../../quick-insert';
 import type { EmptyStateHandler } from '../../../types';
 import {
@@ -530,6 +531,7 @@ type ElementItemType = {
 const MemoizedElementItem = memo(ElementItem);
 MemoizedElementItem.displayName = 'MemoizedElementItem';
 
+/** Render an insert item, optionally wrapped by its interaction policy. */
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function ElementItem({
 	inlineMode,
@@ -542,6 +544,7 @@ export function ElementItem({
 	role,
 }: ElementItemType): jsx.JSX.Element {
 	const ref = useFocus(focus);
+	const surface = inlineMode ? 'toolbar' : 'element-browser';
 
 	/**
 	 * Note: props.onSelectItem(item) is not called here as the StatelessElementBrowser's
@@ -553,8 +556,11 @@ export function ElementItem({
 			e.preventDefault();
 			e.stopPropagation();
 			setFocusedItemIndex(index);
-
-			switch (e.nativeEvent.detail) {
+			const detail = e.nativeEvent.detail;
+			if (item.onBeforeSelect?.({ surface }) === false) {
+				return;
+			}
+			switch (detail) {
 				case 0:
 					onInsertItem(item);
 					break;
@@ -572,19 +578,67 @@ export function ElementItem({
 					return;
 			}
 		},
-		[index, inlineMode, item, onInsertItem, setFocusedItemIndex],
+		[index, inlineMode, item, onInsertItem, setFocusedItemIndex, surface],
 	);
 
+	const renderItem = useCallback(
+		(triggerProps?: InsertMenuItemTriggerProps) => (
+			<ElementItemButton
+				item={item}
+				index={index}
+				inlineMode={inlineMode}
+				selected={selected}
+				role={role}
+				onClick={onClick}
+				focusRef={ref}
+				triggerProps={triggerProps}
+			/>
+		),
+		[item, index, inlineMode, selected, role, onClick, ref],
+	);
+	return item.renderMenuItemWrapper
+		? item.renderMenuItemWrapper({ isActive: focus || selected, surface, renderItem })
+		: renderItem();
+}
+
+const ElementItemButton = ({
+	item,
+	index,
+	inlineMode,
+	selected,
+	role,
+	onClick,
+	focusRef,
+	triggerProps,
+}: Pick<ElementItemType, 'item' | 'index' | 'inlineMode' | 'selected' | 'role'> & {
+	focusRef: ReturnType<typeof useFocus>;
+	onClick: (event: React.MouseEvent<Element, MouseEvent> | React.KeyboardEvent<Element>) => void;
+	triggerProps?: InsertMenuItemTriggerProps;
+}) => {
+	const popupRef = triggerProps?.ref;
+	const setTriggerRef = useCallback(
+		(element: HTMLElement | null) => {
+			Object.assign(focusRef, { current: element });
+			if (typeof popupRef === 'function') {
+				popupRef(element);
+			} else if (popupRef) {
+				Object.assign(popupRef, { current: element });
+			}
+		},
+		[focusRef, popupRef],
+	);
 	const { icon, title, description, keyshortcut, isDisabled, lozenge } = item;
 	return (
 		<Tooltip content={description} testId={`element-item-tooltip-${index}`}>
 			<ButtonItem
 				onClick={onClick}
 				iconBefore={<ElementBefore icon={icon} title={title} />}
-				isSelected={selected}
+				isSelected={triggerProps?.isSelected ?? selected}
+				aria-controls={triggerProps?.['aria-controls']}
 				aria-label={title}
-				ref={ref}
+				ref={setTriggerRef}
 				testId={`element-item-${index}`}
+				// Keep the search combobox's aria-activedescendant target stable.
 				id={`searched-item-${index}`}
 				isDisabled={isDisabled}
 				role={role}
@@ -603,7 +657,7 @@ export function ElementItem({
 			</ButtonItem>
 		</Tooltip>
 	);
-}
+};
 
 /**
  * Inline mode should use the existing Align-items:center value.

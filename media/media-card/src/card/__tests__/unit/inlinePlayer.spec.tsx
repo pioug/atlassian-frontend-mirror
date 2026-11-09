@@ -12,7 +12,7 @@ import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers/mocked
 import type { FileState } from '@atlaskit/media-state/file-state';
 import { generateSampleFileItem } from '@atlaskit/media-test-data/sample-file-items';
 import { expectFunctionToHaveBeenCalledWith } from '@atlaskit/media-test-helpers/jestHelpers';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { spinnerTestId, inlinePlayerTestId } from '../../../__tests__/utils/_testIDs';
 import { createMockedMediaClientProvider } from '../../../utils/__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProvider';
@@ -58,7 +58,7 @@ describe('<InlinePlayer />', () => {
 		await expect(container).toBeAccessible();
 	});
 
-	ffTest.on('platform_media_resume_video_on_token_expiry', '', () => {
+	describe('platform_media_resume_video_on_token_expiry is on', () => {
 		const setup = {
 			processed() {
 				const [fileItem_, identifier_] = generateSampleFileItem.workingVideo();
@@ -94,6 +94,8 @@ describe('<InlinePlayer />', () => {
 		] as const)(
 			'should use the latest cached token when $trigger ($status)',
 			async ({ status, trigger }) => {
+				passGate('platform_media_resume_video_on_token_expiry');
+
 				let token = 'apple';
 				let [fileItem, identifier] = setup[status]();
 

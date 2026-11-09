@@ -709,8 +709,37 @@ describe('platform_dst_nav4_skip_link_a11y_1 is on with skip link a11y improveme
 	});
 
 	describe('SkipLinksPopup close + navigate ordering', () => {
-		it('closes the popup BEFORE invoking the consumer navigate', async () => {
+		it('closes the popup BEFORE invoking the consumer navigate on the top-layer path', async () => {
 			passGate('platform_dst_nav4_skip_link_a11y_1');
+			passGate('platform-dst-top-layer');
+
+			const user = userEvent.setup();
+			// On top-layer, the closed popover stays in the DOM until its exit animation ends.
+			// So check that it is hidden, not that it is gone.
+			const navigate = jest.fn(() => {
+				expect(screen.getByRole('dialog', { name: 'Skip to' })).not.toBeVisible();
+			});
+
+			render(
+				<Root testId="root">
+					<CustomSkipLinkWithHandlers navigate={navigate} />
+				</Root>,
+			);
+
+			await user.click(screen.getByRole('button', { name: 'Skip to' }));
+			expect(screen.getByRole('dialog', { name: 'Skip to' })).toBeVisible();
+
+			await user.click(screen.getByRole('link', { name: 'Custom skip' }));
+
+			expect(navigate).toHaveBeenCalledTimes(1);
+			// Fails if the check in `navigate` threw.
+			expect(navigate).toHaveReturned();
+			expect(screen.queryByRole('dialog', { name: 'Skip to' })).not.toBeInTheDocument();
+		});
+
+		it('removes the popup BEFORE invoking the consumer navigate on the legacy path', async () => {
+			passGate('platform_dst_nav4_skip_link_a11y_1');
+			failGate('platform-dst-top-layer');
 
 			const user = userEvent.setup();
 			let dialogPresentWhenNavigateRan: boolean | undefined;

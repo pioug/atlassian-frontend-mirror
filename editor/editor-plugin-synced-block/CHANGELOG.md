@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 28.0.25
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.0.24
+
+### Patch Changes
+
+- [`c17aea7934635`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c17aea7934635) -
+  Use named dropdown-menu imports.
+- Updated dependencies
+
+## 28.0.23
+
+### Patch Changes
+
+- Updated dependencies
+
+## 28.0.22
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 28.0.21
 
 ### Patch Changes

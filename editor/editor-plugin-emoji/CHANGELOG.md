@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-emoji
 
+## 31.0.17
+
+### Patch Changes
+
+- Updated dependencies
+
+## 31.0.16
+
+### Patch Changes
+
+- [`49fcffc905097`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/49fcffc905097) -
+  Clean up experiment `platform_editor_use_vanilla_components`, keeping the shipped vanilla DOM
+  tooltip implementations and removing the React-based control paths.
+- Updated dependencies
+
 ## 31.0.15
 
 ### Patch Changes

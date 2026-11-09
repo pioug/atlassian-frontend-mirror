@@ -15,6 +15,8 @@ import { type PluginItemPayload } from './domain/plugin';
 export interface UploadParams {
 	collection?: string;
 	expireAfter?: number;
+	/** Upload without reading remote file metadata after finalization. */
+	skipRemoteFileState?: boolean;
 	onUploadRejection?: (data: UploadRejectionData) => boolean;
 	/** Return false to cancel the files before any upload starts. */
 	onBeforeUpload?: (files: File[]) => boolean | Promise<boolean>;

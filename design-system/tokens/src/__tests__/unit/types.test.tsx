@@ -11,6 +11,8 @@ describe('schema types', () => {
 		'xlarge',
 		'xxlarge',
 		'3xlarge',
+		'4xlarge',
+		'5xlarge',
 	] as const)('allows %s inset tokens for all padding properties', (size) => {
 		const inset = `var(--ds-space-inset-${size})` as const;
 		const styles: Partial<DesignTokenStyles> = {
@@ -47,7 +49,29 @@ describe('schema types', () => {
 		expect(styles.padding).toEqual(inset);
 	});
 
-	it('limits gap tokens to gap, rowGap, and columnGap', () => {
+	it.each(['xxsmall', 'xsmall', 'small', 'medium', 'large', 'xlarge', 'xxlarge'] as const)(
+		'allows %s gap tokens for all margin properties',
+		(size) => {
+			const gap = `var(--ds-space-gap-${size})` as const;
+			const styles: Partial<DesignTokenStyles> = {
+				margin: gap,
+				marginBlock: gap,
+				marginBlockEnd: gap,
+				marginBlockStart: gap,
+				marginBottom: gap,
+				marginInline: gap,
+				marginInlineEnd: gap,
+				marginInlineStart: gap,
+				marginLeft: gap,
+				marginRight: gap,
+				marginTop: gap,
+			};
+
+			expect(Object.values(styles)).toEqual(Array(11).fill(gap));
+		},
+	);
+
+	it('limits gap tokens to gap and margin properties', () => {
 		const gap = 'var(--ds-space-gap-medium)' as const;
 		const styles: Partial<DesignTokenStyles> = {
 			gap,
@@ -55,7 +79,6 @@ describe('schema types', () => {
 			columnGap: gap,
 			// @ts-expect-error Gap tokens must not be used for padding.
 			padding: gap,
-			// @ts-expect-error Gap tokens must not be used for margin.
 			margin: gap,
 			// @ts-expect-error Gap tokens must not be used for insets.
 			inset: gap,

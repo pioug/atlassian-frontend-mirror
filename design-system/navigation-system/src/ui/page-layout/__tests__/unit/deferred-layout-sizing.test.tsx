@@ -11,6 +11,7 @@ import { waitFor } from '@atlassian/testing-library/wait-for';
 
 import { LayoutAreaSizingContext, type LayoutArea } from '../../layout-area-sizing-context';
 import { LayoutAreaSizingProvider } from '../../layout-area-sizing-provider';
+import * as cssLayout from '../../use-css-layout-area-states';
 import { useLayoutAreaSizing } from '../../use-layout-area-sizing';
 import { useLayoutMainSizing } from '../../use-layout-main-sizing';
 
@@ -300,5 +301,42 @@ it('keeps SSR content and CSS widths through hydration and deferred activation w
 		resizeObserver.mockRestore();
 		width.mockRestore();
 		rect.mockRestore();
+	}
+});
+
+it('uses the latest opening order when a new overlay registers during a mode update', () => {
+	const matchMedia = window.matchMedia;
+	jest
+		.spyOn(window, 'matchMedia')
+		.mockImplementation((query) => ({ ...matchMedia(query), matches: false }));
+	const modes = jest.spyOn(cssLayout, 'useCssLayoutAreaStates');
+	modes.mockReturnValue({ 'side-nav': 'overlay' });
+	const closeNav = jest.fn();
+	const closeChat = jest.fn();
+	function Area({ area, onClose }: { area: 'side-nav' | 'chat-panel'; onClose: () => void }) {
+		useLayoutAreaSizing({
+			area,
+			config: { isOpen: true, defaultWidth: 320, minWidth: 320, onRequestClose: onClose },
+		});
+		return null;
+	}
+	function Fixture({ chatOpen }: { chatOpen: boolean }) {
+		return (
+			<LayoutAreaSizingProvider>
+				<Area area="side-nav" onClose={closeNav} />
+				{chatOpen && <Area area="chat-panel" onClose={closeChat} />}
+			</LayoutAreaSizingProvider>
+		);
+	}
+	try {
+		const { rerender } = render(<Fixture chatOpen={false} />);
+		// CSS observation and a newly mounted Chat can commit together. Its
+		// registration must supersede the opening order from the previous render.
+		modes.mockReturnValue({ 'side-nav': 'overlay', 'chat-panel': 'overlay' });
+		rerender(<Fixture chatOpen />);
+		expect(closeNav).toHaveBeenCalled();
+		expect(closeChat).not.toHaveBeenCalled();
+	} finally {
+		jest.restoreAllMocks();
 	}
 });

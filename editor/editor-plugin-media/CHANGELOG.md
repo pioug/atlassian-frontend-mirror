@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-media
 
+## 32.3.0
+
+### Minor Changes
+
+- [`059477aa93f45`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/059477aa93f45) -
+  Add an optimistic-toolbar opt-out to plugin configuration. Exclude Live pages from
+  platform_editor_ssr_toolbar_optimistic, including early editor-state exposure, toolbar rendering,
+  and asynchronous media and mention provider initialization. Preserve the experiment for Edit pages
+  regardless of toolbar docking position.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 32.2.16
 
 ### Patch Changes

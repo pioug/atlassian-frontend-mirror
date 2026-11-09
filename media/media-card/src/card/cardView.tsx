@@ -80,6 +80,8 @@ const i18n = defineMessages({
 export interface CardViewProps {
 	readonly identifier: Identifier;
 	readonly disableOverlay?: boolean;
+	/** Suppress image and SVG renderers for metadata-only upload cards. */
+	readonly disablePreview?: boolean;
 	readonly resizeMode?: ImageResizeMode;
 	readonly dimensions: CardDimensions;
 	readonly actions?: Array<CardAction>;
@@ -183,6 +185,7 @@ export const CardViewBase = ({
 	forceSyncDisplay,
 	actions,
 	disableOverlay,
+	disablePreview = false,
 	titleBoxBgColor,
 	titleBoxIcon,
 	error,
@@ -267,8 +270,8 @@ export const CardViewBase = ({
 
 		const defaultConfig: RenderConfigByStatus = {
 			renderTypeIcon: !didImageRender && !didSvgRender,
-			renderImageRenderer: !didSvgRender,
-			renderSvgView: mimeType === 'image/svg+xml',
+			renderImageRenderer: !disablePreview && !didSvgRender,
+			renderSvgView: !disablePreview && mimeType === 'image/svg+xml',
 			renderPlayButton: !!cardPreview && mediaType === 'video',
 			renderBlanket: !disableOverlay,
 			renderTitleBox: !disableOverlay,

@@ -1,12 +1,8 @@
-/**
- * TODO: remove when social-proof-3p-unauth-block-fg is cleaned up
- */
 import React from 'react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import type { CardState } from '@atlaskit/linking-common/store';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { waitFor } from '@atlassian/testing-library/testing-library/react';
 
@@ -78,24 +74,8 @@ describe('UnauthorisedView social proof experiment', () => {
 		jest.restoreAllMocks();
 	});
 
-	describe('social-proof-3p-unauth-block-fg is off FG off', () => {
-		it('renders default content without social proof', async () => {
-			failGate('social-proof-3p-unauth-block-fg');
-
-			renderComponent();
-
-			const description = await screen.findByTestId(descriptionTestId);
-			expect(description).toHaveTextContent(/Turn your URLs into rich, interactive previews\./i);
-			expect(screen.queryByTestId('smart-block-social-proof-message')).not.toBeInTheDocument();
-			expect(mockUseSocialProofExperiment).not.toHaveBeenCalled();
-			expect(mockGetSocialProofExperimentMeta).not.toHaveBeenCalled();
-		});
-	});
-
-	describe('social-proof-3p-unauth-block-fg is on FG on', () => {
+	describe('social proof message', () => {
 		it('renders social proof message for treatment with not-low tier', async () => {
-			passGate('social-proof-3p-unauth-block-fg');
-
 			mockUseSocialProofExperiment.mockReturnValue({
 				isTreatment: true,
 				tier: 'not-low',
@@ -115,8 +95,6 @@ describe('UnauthorisedView social proof experiment', () => {
 		});
 
 		it('renders default content when hook returns isTreatment=false (cold cache)', async () => {
-			passGate('social-proof-3p-unauth-block-fg');
-
 			mockUseSocialProofExperiment.mockReturnValue(defaultHookResult);
 
 			renderComponent();
@@ -127,8 +105,6 @@ describe('UnauthorisedView social proof experiment', () => {
 		});
 
 		it('renders default content when hook returns isTreatment=false (experiment off)', async () => {
-			passGate('social-proof-3p-unauth-block-fg');
-
 			mockUseSocialProofExperiment.mockReturnValue({
 				isTreatment: false,
 				tier: 'not-low',

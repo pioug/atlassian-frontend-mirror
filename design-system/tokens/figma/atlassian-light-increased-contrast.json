@@ -1153,6 +1153,24 @@
         "description": "Use for backgrounds of elements in a disabled state."
       }
     },
+    "Light increased-contrast/color.background.draghandle": {
+      "value": "#123263",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "20.10.0",
+        "description": "Use for a prominent filled drag-handle background, such as a table grip. This is not a universal drag-handle icon or draggable-item background. Use color.icon.inverse for the handle icon. Keep selection and keyboard focus separate, and verify contrast on the actual surfaces in each theme."
+      }
+    },
+    "Light increased-contrast/color.background.droptarget": {
+      "value": "#E9F2FE",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "20.10.0",
+        "description": "Use for the eligible region currently accepting a dragged item when area feedback is needed. This is not ordinary hover, persistent selection, or reserved placeholder space. Use an insertion indicator for before/after placement; preserve maintained combine and nested-group treatments instead of replacing them with this fill."
+      }
+    },
     "Light increased-contrast/color.background.input": {
       "value": "#FFFFFF",
       "attributes": {
@@ -2078,6 +2096,24 @@
         "state": "active",
         "introduced": "0.6.0",
         "description": "Use for borders of elements in a disabled state."
+      }
+    },
+    "Light increased-contrast/color.border.dropindicator": {
+      "value": "#1558BC",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "20.10.0",
+        "description": "Use for the outline of an active, eligible drop target or a before/after insertion indicator. Geometry distinguishes an accepting area from relative insertion. Keep keyboard focus separate. Prefer maintained drag-and-drop indicators and preserve their component-owned treatments; reserved placeholder space alone does not require this feedback."
+      }
+    },
+    "Light increased-contrast/color.border.dropindicator.warning": {
+      "value": "#9E4C00",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "20.10.0",
+        "description": "Use for a drop-target outline or insertion indicator communicating a blocked drop instruction. Keep rejection and the displayed operation consistent; do not pair with an accepting drop-target background. Preserve maintained indicator warning treatments and separate keyboard focus."
       }
     },
     "Light increased-contrast/color.border.focused": {

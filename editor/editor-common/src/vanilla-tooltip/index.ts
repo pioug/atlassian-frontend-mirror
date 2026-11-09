@@ -2,7 +2,6 @@
 import type { Instance, Placement } from '@popperjs/core';
 import { bind } from 'bind-event-listener';
 
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { createPopper } from '@atlaskit/popper/unsafe-imperative';
 
 import { logException } from '../monitoring/error';
@@ -128,15 +127,11 @@ export class VanillaTooltip {
 		 * an ancestor stops matching — including `VANILLA_TOOLTIP_DEFAULT_CLASS`, whose rule is scoped
 		 * under `.ProseMirror`. Pass `styles` for the look instead.
 		 */
-		private hoistContainer?: HTMLElement | undefined,
+		hoistContainer?: HTMLElement | undefined,
 	) {
 		// Created in the trigger's own document rather than the global one, so nothing depends on
-		// the parent realm when the editor renders inside an iframe. Gated alongside the Escape
-		// listener's window so the whole iframe fix moves as a single unit.
-		const ownerDocument = isExperimentEnabled('platform_editor_use_vanilla_components')
-			? trigger.ownerDocument
-			: document;
-		const tooltip = ownerDocument.createElement('span');
+		// the parent realm when the editor renders inside an iframe.
+		const tooltip = trigger.ownerDocument.createElement('span');
 		tooltip.role = 'tooltip';
 		// eslint-disable-next-line @atlaskit/design-system/no-native-popover-or-dialog -- a plain DOM tooltip for ProseMirror that hides on Escape with its own window listener, outside the shared Escape stack; TODO move to a top-layer primitive
 		tooltip.popover = 'hint';
@@ -145,9 +140,7 @@ export class VanillaTooltip {
 		tooltip.textContent = content;
 
 		// A tooltip is never a hit target. Set before the caller's styles so it can be overridden.
-		if (isExperimentEnabled('platform_editor_use_vanilla_components')) {
-			tooltip.style.pointerEvents = 'none';
-		}
+		tooltip.style.pointerEvents = 'none';
 
 		if (styles) {
 			Object.assign(tooltip.style, styles);
@@ -180,56 +173,27 @@ export class VanillaTooltip {
 			);
 		});
 
-		// Bound for this tooltip's whole lifetime, even while it is off screen. The experiment
-		// moves this to `show()` so nothing is retained at rest.
-		if (!isExperimentEnabled('platform_editor_use_vanilla_components')) {
-			this.listeners.push(
-				bind(window, {
-					type: 'keydown',
-					listener: (e) => {
-						if (e.key === 'Escape') {
-							this.hide(true);
-						}
-					},
-				}),
-			);
-		}
-
 		// Resets `isDisplayed` when the browser closes the popover without going through `hide()`
 		// (e.g. light-dismissal). Prevents the guard in `show()` from becoming stale.
-		if (isExperimentEnabled('platform_editor_use_vanilla_components')) {
-			this.listeners.push(
-				bind(tooltip, {
-					type: 'toggle',
-					listener: (event) => {
-						if (event.newState === 'closed') {
-							this.isDisplayed = false;
-							// Cancel a pending show, which would otherwise mark a closed popover as
-							// displayed and announce a tooltip the user never saw.
-							//
-							// `shouldHidePopover` is set by `hide()` and cleared by `show()`, so it
-							// is false exactly when the pending timeout is a show. A pending hide
-							// must survive: it still has the positioning instance to release.
-							if (!this.shouldHidePopover && this.currentTimeoutId !== undefined) {
-								clearTimeout(this.currentTimeoutId);
-							}
+		this.listeners.push(
+			bind(tooltip, {
+				type: 'toggle',
+				listener: (event) => {
+					if (event.newState === 'closed') {
+						this.isDisplayed = false;
+						// Cancel a pending show, which would otherwise mark a closed popover as
+						// displayed and announce a tooltip the user never saw.
+						//
+						// `shouldHidePopover` is set by `hide()` and cleared by `show()`, so it
+						// is false exactly when the pending timeout is a show. A pending hide
+						// must survive: it still has the positioning instance to release.
+						if (!this.shouldHidePopover && this.currentTimeoutId !== undefined) {
+							clearTimeout(this.currentTimeoutId);
 						}
-					},
-				}),
-			);
-		}
-
-		// Hide the tooltip if the hide transition has completed.
-		//
-		// Only reachable in the control arm: no consumer declares a transition on the tooltip, so
-		// this never fires today, and the experiment closes the popover in `hide()` regardless.
-		if (!isExperimentEnabled('platform_editor_use_vanilla_components')) {
-			this.tooltip.ontransitionend = () => {
-				if (this.shouldHidePopover) {
-					this.tooltip.hidePopover();
-				}
-			};
-		}
+					}
+				},
+			}),
+		);
 	}
 
 	/**
@@ -295,19 +259,17 @@ export class VanillaTooltip {
 		});
 
 		// Undoes what the constructor added to the trigger, matching the React `@atlaskit/tooltip`
-		// callers are moving off, whose unmount took its DOM with it. A hoisted tooltip is removed
-		// either way: it sits outside the trigger, so nothing else takes it away with it.
-		if (isExperimentEnabled('platform_editor_use_vanilla_components') || this.hoistContainer) {
-			// A popover removed while still showing is never light-dismissed, so the top layer
-			// keeps treating it as open.
-			this.closePopover();
-			this.tooltip.remove();
-			if (this.trigger.getAttribute('aria-describedby') === this.tooltip.id) {
-				this.trigger.removeAttribute('aria-describedby');
-			}
-			if (this.trigger.getAttribute('popovertarget') === this.tooltip.id) {
-				this.trigger.removeAttribute('popovertarget');
-			}
+		// callers are moving off, whose unmount took its DOM with it.
+		//
+		// A popover removed while still showing is never light-dismissed, so the top layer
+		// keeps treating it as open.
+		this.closePopover();
+		this.tooltip.remove();
+		if (this.trigger.getAttribute('aria-describedby') === this.tooltip.id) {
+			this.trigger.removeAttribute('aria-describedby');
+		}
+		if (this.trigger.getAttribute('popovertarget') === this.tooltip.id) {
+			this.trigger.removeAttribute('popovertarget');
 		}
 	}
 
@@ -353,74 +315,47 @@ export class VanillaTooltip {
 		// Disable the event listeners
 		this.currentTimeoutId = setTimeout(
 			() => {
-				if (isExperimentEnabled('platform_editor_use_vanilla_components')) {
-					// Released rather than reconfigured. The instance was previously kept for the
-					// trigger's whole lifetime, so every element the pointer passed over retained
-					// one — and an instance owns a detached React root, so that was a retained
-					// root per hovered trigger.
-					//
-					// Destroying is also the only way to release that root's capture-phase
-					// `scroll`/`resize` listeners, where the `eventListeners: false`
-					// reconfiguration in the control arm is accepted but does nothing.
-					this.popperInstance?.destroy();
-					this.popperInstance = undefined;
-					this.tooltip.style.opacity = '0';
-					this.isDisplayed = false;
+				// Released rather than reconfigured. The instance was previously kept for the
+				// trigger's whole lifetime, so every element the pointer passed over retained
+				// one — and an instance owns a detached React root, so that was a retained
+				// root per hovered trigger.
+				//
+				// Destroying is also the only way to release that root's capture-phase
+				// `scroll`/`resize` listeners, where an `eventListeners: false`
+				// reconfiguration is accepted but does nothing.
+				this.popperInstance?.destroy();
+				this.popperInstance = undefined;
+				this.tooltip.style.opacity = '0';
+				this.isDisplayed = false;
 
-					// Closed here rather than from `ontransitionend`. No consumer declares a
-					// transition on the tooltip, so that event never fires and the popover would
-					// otherwise stay open in the top layer for good.
-					this.closePopover();
-					// Paired with the `visibility` that `show()` sets, so a popover left open by
-					// a failed close cannot intercept pointer events over the content.
-					this.tooltip.style.visibility = 'hidden';
-				} else {
-					this.popperInstance?.setOptions((options) => ({
-						...options,
-						modifiers: [startingOffset, { name: 'eventListeners', enabled: false }],
-					}));
-					this.tooltip.style.opacity = '0';
-					this.isDisplayed = false;
-					// If transition animations are disabled immediately hide the popover
-					if (this.tooltip.style.transition === 'none') {
-						this.tooltip.hidePopover();
-					}
-				}
+				// Closed here rather than from a transition end. No consumer declares a
+				// transition on the tooltip, so that event never fires and the popover would
+				// otherwise stay open in the top layer for good.
+				this.closePopover();
+				// Paired with the `visibility` that `show()` sets, so a popover left open by
+				// a failed close cannot intercept pointer events over the content.
+				this.tooltip.style.visibility = 'hidden';
 			},
 			immediate ? 0 : this.timeout,
 		);
 	}
 
 	private show() {
-		// Ahead of the `isDisplayed` guard, unlike the equivalent below: `hide()` takes effect
-		// synchronously but leaves the tooltip on screen until its timeout, so a pointer
-		// returning in that window finds `isDisplayed` still true and returns early. Cancelling
-		// first keeps the tooltip up and stops it being left undismissable with a hide pending.
-		if (isExperimentEnabled('platform_editor_use_vanilla_components')) {
-			this.bindEscapeListener();
-			clearTimeout(this.currentTimeoutId);
-			this.shouldHidePopover = false;
-		}
+		// Ahead of the `isDisplayed` guard: `hide()` takes effect synchronously but leaves the
+		// tooltip on screen until its timeout, so a pointer returning in that window finds
+		// `isDisplayed` still true and returns early. Cancelling first keeps the tooltip up and
+		// stops it being left undismissable with a hide pending.
+		this.bindEscapeListener();
+		clearTimeout(this.currentTimeoutId);
+		this.shouldHidePopover = false;
 
 		if (this.isDisplayed) {
 			return;
 		}
 
-		// Control only: the experiment cancels above, ahead of the guard. Kept gated rather than
-		// left unconditional — despite being a no-op once the block above has run — so that
-		// experiment cleanup can delete it outright instead of having to reason about it.
-		if (!isExperimentEnabled('platform_editor_use_vanilla_components')) {
-			clearTimeout(this.currentTimeoutId);
-			this.shouldHidePopover = false;
-		}
-
 		// Make the tooltip visible - but hide until
 		this.tooltip.style.visibility = 'hidden';
-		if (isExperimentEnabled('platform_editor_use_vanilla_components')) {
-			this.openPopover();
-		} else {
-			this.tooltip.showPopover();
-		}
+		this.openPopover();
 
 		// Update its position
 		if (!this.popperInstance) {

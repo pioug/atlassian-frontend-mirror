@@ -782,7 +782,7 @@ describe('<EmojiActions />', () => {
 			});
 
 			it('should close the productivity colour selector, stop propagation, and restore trigger focus on Escape', async () => {
-				passGate('platform_emoji_color_picker_escape_focus');
+				passGate('platform_ally_emoji_fixes_various');
 				const handleParentKeyDown = jest.fn();
 				const zeroSquareBlue = {
 					...baseToneEmoji,
@@ -824,7 +824,7 @@ describe('<EmojiActions />', () => {
 			});
 
 			it('should preserve Escape propagation when the productivity colour selector fix is disabled', async () => {
-				failGate('platform_emoji_color_picker_escape_focus');
+				failGate('platform_ally_emoji_fixes_various');
 				const handleParentKeyDown = jest.fn();
 				const zeroSquareBlue = {
 					...baseToneEmoji,

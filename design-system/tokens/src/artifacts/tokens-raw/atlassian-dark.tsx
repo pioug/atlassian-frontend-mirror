@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a310062cb7336e4c0e920ee15f52e421>>
+ * @codegen <<SignedSource::a9764730e80f68963bde65b3d3cfba4d>>
  * @codegenCommand yarn build tokens
  */
 
@@ -3890,6 +3890,60 @@ const tokens: Token[] = [
     "attributes": {
       "group": "paint",
       "state": "active",
+      "introduced": "20.10.0",
+      "description": "Use for a prominent filled drag-handle background, such as a table grip. This is not a universal drag-handle icon or draggable-item background. Use color.icon.inverse for the handle icon. Keep selection and keyboard focus separate, and verify contrast on the actual surfaces in each theme."
+    },
+    "value": "#669DF1",
+    "filePath": "schema/themes/atlassian-dark/color/background.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "20.10.0",
+        "description": "Use for a prominent filled drag-handle background, such as a table grip. This is not a universal drag-handle icon or draggable-item background. Use color.icon.inverse for the handle icon. Keep selection and keyboard focus separate, and verify contrast on the actual surfaces in each theme."
+      },
+      "value": "Blue400"
+    },
+    "name": "color.background.draghandle",
+    "path": [
+      "color",
+      "background",
+      "draghandle"
+    ],
+    "cleanName": "color.background.draghandle"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "20.10.0",
+      "description": "Use for the eligible region currently accepting a dragged item when area feedback is needed. This is not ordinary hover, persistent selection, or reserved placeholder space. Use an insertion indicator for before/after placement; preserve maintained combine and nested-group treatments instead of replacing them with this fill."
+    },
+    "value": "#1C2B42",
+    "filePath": "schema/themes/atlassian-dark/color/background.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "20.10.0",
+        "description": "Use for the eligible region currently accepting a dragged item when area feedback is needed. This is not ordinary hover, persistent selection, or reserved placeholder space. Use an insertion indicator for before/after placement; preserve maintained combine and nested-group treatments instead of replacing them with this fill."
+      },
+      "value": "Blue1000"
+    },
+    "name": "color.background.droptarget",
+    "path": [
+      "color",
+      "background",
+      "droptarget"
+    ],
+    "cleanName": "color.background.droptarget"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
       "introduced": "0.6.0",
       "description": "Use for background of form UI elements, such as text fields, checkboxes, and radio buttons."
     },
@@ -6863,6 +6917,62 @@ const tokens: Token[] = [
       "disabled"
     ],
     "cleanName": "color.border.disabled"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "20.10.0",
+      "description": "Use for the outline of an active, eligible drop target or a before/after insertion indicator. Geometry distinguishes an accepting area from relative insertion. Keep keyboard focus separate. Prefer maintained drag-and-drop indicators and preserve their component-owned treatments; reserved placeholder space alone does not require this feedback."
+    },
+    "value": "#4688EC",
+    "filePath": "schema/themes/atlassian-dark/color/border.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "20.10.0",
+        "description": "Use for the outline of an active, eligible drop target or a before/after insertion indicator. Geometry distinguishes an accepting area from relative insertion. Keep keyboard focus separate. Prefer maintained drag-and-drop indicators and preserve their component-owned treatments; reserved placeholder space alone does not require this feedback."
+      },
+      "value": "Blue500"
+    },
+    "name": "color.border.dropindicator.[default]",
+    "path": [
+      "color",
+      "border",
+      "dropindicator",
+      "[default]"
+    ],
+    "cleanName": "color.border.dropindicator"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "20.10.0",
+      "description": "Use for a drop-target outline or insertion indicator communicating a blocked drop instruction. Keep rejection and the displayed operation consistent; do not pair with an accepting drop-target background. Preserve maintained indicator warning treatments and separate keyboard focus."
+    },
+    "value": "#F68909",
+    "filePath": "schema/themes/atlassian-dark/color/border.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "20.10.0",
+        "description": "Use for a drop-target outline or insertion indicator communicating a blocked drop instruction. Keep rejection and the displayed operation consistent; do not pair with an accepting drop-target background. Preserve maintained indicator warning treatments and separate keyboard focus."
+      },
+      "value": "Orange500"
+    },
+    "name": "color.border.dropindicator.warning",
+    "path": [
+      "color",
+      "border",
+      "dropindicator",
+      "warning"
+    ],
+    "cleanName": "color.border.dropindicator.warning"
   },
   {
     "attributes": {

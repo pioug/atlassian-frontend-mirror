@@ -14,11 +14,12 @@ import {
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import type { BackgroundColor, Space } from '../compiled';
+import type { BackgroundColor } from '../compiled';
 import { SurfaceContext } from '../utils/surface-context';
 import { type SVGElements } from '../utils/types';
 import { backgroundColorStylesMap } from '../xcss/background-color-styles-map';
 import { isSurfaceColorToken } from '../xcss/is-surface-color-token';
+import type { PaddingSpace } from '../xcss/padding-space';
 import { paddingStylesMap } from '../xcss/padding-styles-map';
 import { parseXcss } from '../xcss/parse-xcss';
 import { surfaceColorStylesMap } from '../xcss/surface-color-styles-map';
@@ -64,37 +65,37 @@ type BaseBoxProps<T extends CustomElementType> = {
 	 * @see paddingBlock
 	 * @see paddingInline
 	 */
-	padding?: Space;
+	padding?: PaddingSpace;
 	/**
 	 * Tokens representing CSS shorthand `paddingBlock`.
 	 *
 	 * @see paddingBlockStart
 	 * @see paddingBlockEnd
 	 */
-	paddingBlock?: Space;
+	paddingBlock?: PaddingSpace;
 	/**
 	 * Tokens representing CSS `paddingBlockStart`.
 	 */
-	paddingBlockStart?: Space;
+	paddingBlockStart?: PaddingSpace;
 	/**
 	 * Tokens representing CSS `paddingBlockEnd`.
 	 */
-	paddingBlockEnd?: Space;
+	paddingBlockEnd?: PaddingSpace;
 	/**
 	 * Tokens representing CSS shorthand `paddingInline`.
 	 *
 	 * @see paddingInlineStart
 	 * @see paddingInlineEnd
 	 */
-	paddingInline?: Space;
+	paddingInline?: PaddingSpace;
 	/**
 	 * Tokens representing CSS `paddingInlineStart`.
 	 */
-	paddingInlineStart?: Space;
+	paddingInlineStart?: PaddingSpace;
 	/**
 	 * Tokens representing CSS `paddingInlineEnd`.
 	 */
-	paddingInlineEnd?: Space;
+	paddingInlineEnd?: PaddingSpace;
 	/**
 	 * Forwarded ref.
 	 */

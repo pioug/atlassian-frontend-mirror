@@ -1,5 +1,17 @@
 # @atlaskit/ds-explorations
 
+## 6.3.5
+
+### Patch Changes
+
+- [`e60cde59891c8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e60cde59891c8) -
+  Add `color.border.dropindicator`, `color.border.dropindicator.warning`,
+  `color.background.droptarget`, and `color.background.draghandle` for active receiving areas,
+  insertion/target indicators, blocked instructions, and prominent filled handles. Include theme
+  mappings and primitive background styles without changing existing drag-and-drop component
+  treatments.
+- Updated dependencies
+
 ## 6.3.4
 
 ### Patch Changes

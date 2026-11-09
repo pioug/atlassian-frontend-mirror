@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 30.0.9
+
+### Patch Changes
+
+- [`151543bef053c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/151543bef053c) -
+  Simplify synchronous Editor credit checks at insert-menu call sites, preserve active feedback
+  across provider changes, and keep query keyboard listeners stable. Credit enforcement remains
+  behind the product UBP experiments and rovo_credits_degradation_ui.
+- Updated dependencies
+
+## 30.0.8
+
+### Patch Changes
+
+- [`fba2967936dfd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fba2967936dfd) -
+  Consume cached AI credit decisions synchronously in Editor, removing deferred action and selection
+  handling. Legacy Promise callbacks fail open immediately until they migrate. Confluence credit
+  enforcement remains controlled by rovo_credits_degradation_ui and the existing UBP feature
+  experiments.
+- [`fba2967936dfd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fba2967936dfd) -
+  Check optional item eligibility before insertion from the element-browser modal and disable Insert
+  when no item is selected. Used by confluence_ubp_quick_insert_menu.
+- Updated dependencies
+
 ## 30.0.7
 
 ### Patch Changes

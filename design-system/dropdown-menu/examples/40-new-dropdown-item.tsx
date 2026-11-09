@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import DropdownItemCheckbox from '@atlaskit/dropdown-menu/dropdown-item-checkbox';
-import DropdownItemRadio from '@atlaskit/dropdown-menu/dropdown-item-radio';
-import NewDropdownMenuItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import { DropdownItemCheckbox } from '@atlaskit/dropdown-menu/dropdown-item-checkbox';
+import { DropdownItemRadio } from '@atlaskit/dropdown-menu/dropdown-item-radio';
+import { DropdownItem as NewDropdownMenuItem } from '@atlaskit/dropdown-menu/dropdown-menu-item';
 import Heading from '@atlaskit/heading/heading';
 import EmojiIcon from '@atlaskit/icon/core/emoji';
 import Lozenge from '@atlaskit/lozenge/lozenge';

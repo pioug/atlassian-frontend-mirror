@@ -4,7 +4,7 @@
  * Auto-generated list of token pairings that may need to have sufficient contrast.
  * Not currently used by tests, but is used by the custom theme contrast checker example
  *
- * @codegen <<SignedSource::98b668876456c4b28b6e57af3cfda658>>
+ * @codegen <<SignedSource::ae9f2c264bc0445a0fe19ce4c997f233>>
  * @codegenCommand yarn build tokens
  */
 export const generatedPairs: {
@@ -342,6 +342,12 @@ export const generatedPairs: {
 		foreground: 'color.text',
 		background: 'color.background.accent.gray.subtler.pressed',
 		desiredContrast: 4.5,
+	},
+	{
+		foreground: 'color.text',
+		background: 'color.background.droptarget',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
 	{
 		foreground: 'color.text',
@@ -2283,6 +2289,12 @@ export const generatedPairs: {
 	},
 	{
 		foreground: 'color.text.subtlest',
+		background: 'color.background.droptarget',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.text.subtlest',
 		background: 'color.background.input',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
@@ -2754,6 +2766,12 @@ export const generatedPairs: {
 		foreground: 'color.text.subtle',
 		background: 'color.background.accent.gray.subtler.pressed',
 		desiredContrast: 4.5,
+	},
+	{
+		foreground: 'color.text.subtle',
+		background: 'color.background.droptarget',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
 	{
 		foreground: 'color.text.subtle',
@@ -3303,6 +3321,12 @@ export const generatedPairs: {
 		foreground: 'color.link',
 		background: 'color.background.accent.gray.subtler.pressed',
 		desiredContrast: 4.5,
+	},
+	{
+		foreground: 'color.link',
+		background: 'color.background.droptarget',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
 	{
 		foreground: 'color.link',
@@ -3851,6 +3875,12 @@ export const generatedPairs: {
 	},
 	{
 		foreground: 'color.link.pressed',
+		background: 'color.background.droptarget',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.link.pressed',
 		background: 'color.background.input',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
@@ -4400,6 +4430,12 @@ export const generatedPairs: {
 	},
 	{
 		foreground: 'color.link.visited',
+		background: 'color.background.droptarget',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.link.visited',
 		background: 'color.background.input',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
@@ -4949,6 +4985,12 @@ export const generatedPairs: {
 	},
 	{
 		foreground: 'color.link.visited.pressed',
+		background: 'color.background.droptarget',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.link.visited.pressed',
 		background: 'color.background.input',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
@@ -5495,6 +5537,12 @@ export const generatedPairs: {
 		foreground: 'color.icon',
 		background: 'color.background.accent.gray.subtler.pressed',
 		desiredContrast: 3,
+	},
+	{
+		foreground: 'color.icon',
+		background: 'color.background.droptarget',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
 	{
 		foreground: 'color.icon',
@@ -6215,6 +6263,12 @@ export const generatedPairs: {
 	},
 	{
 		foreground: 'color.icon.inverse',
+		background: 'color.background.draghandle',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.icon.inverse',
 		background: 'color.background.neutral.bold',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.inverse.subtle'],
@@ -6758,6 +6812,12 @@ export const generatedPairs: {
 	},
 	{
 		foreground: 'color.icon.subtlest',
+		background: 'color.background.droptarget',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.icon.subtlest',
 		background: 'color.background.input',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
@@ -7229,6 +7289,12 @@ export const generatedPairs: {
 		foreground: 'color.icon.subtle',
 		background: 'color.background.accent.gray.subtler.pressed',
 		desiredContrast: 3,
+	},
+	{
+		foreground: 'color.icon.subtle',
+		background: 'color.background.droptarget',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
 	{
 		foreground: 'color.icon.subtle',
@@ -8108,6 +8174,12 @@ export const generatedPairs: {
 		foreground: 'color.border.accent.gray.subtle',
 		background: 'color.background.accent.gray.subtler.pressed',
 		desiredContrast: 3,
+	},
+	{
+		foreground: 'color.border.dropindicator',
+		background: 'color.background.droptarget',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
 	{
 		foreground: 'color.border.input',
@@ -9149,6 +9221,12 @@ export const generatedPairs: {
 	},
 	{
 		foreground: 'color.border.bold',
+		background: 'color.background.droptarget',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.bold',
 		background: 'color.background.input',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
@@ -18089,6 +18167,102 @@ export const generatedPairs: {
 	},
 	{
 		foreground: 'color.border.accent.gray.subtle',
+		background: 'elevation.surface.sunken',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.dropindicator',
+		background: 'elevation.surface',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.dropindicator',
+		background: 'elevation.surface.hovered',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.dropindicator',
+		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.dropindicator',
+		background: 'elevation.surface.overlay',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.dropindicator',
+		background: 'elevation.surface.raised',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.dropindicator',
+		background: 'elevation.surface.raised.hovered',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.dropindicator',
+		background: 'elevation.surface.raised.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.dropindicator',
+		background: 'elevation.surface.sunken',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.dropindicator.warning',
+		background: 'elevation.surface',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.dropindicator.warning',
+		background: 'elevation.surface.hovered',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.dropindicator.warning',
+		background: 'elevation.surface.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.dropindicator.warning',
+		background: 'elevation.surface.overlay',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.dropindicator.warning',
+		background: 'elevation.surface.raised',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.dropindicator.warning',
+		background: 'elevation.surface.raised.hovered',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.dropindicator.warning',
+		background: 'elevation.surface.raised.pressed',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.dropindicator.warning',
 		background: 'elevation.surface.sunken',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],

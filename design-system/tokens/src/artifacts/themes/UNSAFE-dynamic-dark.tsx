@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9753a40333e627875d0f7af0a86b4725>>
+ * @codegen <<SignedSource::49124e0236edd9cb60c7a29352fbdf3f>>
  * @codegenCommand yarn build tokens
  */
 export default `
@@ -145,6 +145,8 @@ html[data-color-mode="dark"][data-theme~="dark:UNSAFE-dynamic-dark"], [data-subt
   --ds-background-code-removed-highlight: #42221F;
   --ds-background-code-removed-line: #5D1F1AB2;
   --ds-background-disabled: var(--ds-dynamic-color-disabled);
+  --ds-background-draghandle: var(--ds-dynamic-foreground, #FFFFFF);
+  --ds-background-droptarget: var(--ds-dynamic-color-background-subtle);
   --ds-background-input: var(--ds-dynamic-background, #000000);
   --ds-background-input-hovered: var(--ds-dynamic-color-background-subtle);
   --ds-background-input-pressed: var(--ds-dynamic-color-background-pressed);
@@ -248,6 +250,8 @@ html[data-color-mode="dark"][data-theme~="dark:UNSAFE-dynamic-dark"], [data-subt
   --ds-border-accent-gray-subtle: #4B4D51;
   --ds-border-code: #E3E4F21F;
   --ds-border-disabled: var(--ds-dynamic-color-disabled);
+  --ds-border-dropindicator: var(--ds-dynamic-foreground, #FFFFFF);
+  --ds-border-dropindicator-warning: var(--ds-dynamic-foreground, #FFFFFF);
   --ds-border-focused: var(--ds-dynamic-foreground, #FFFFFF);
   --ds-border-input: var(--ds-dynamic-foreground, #FFFFFF);
   --ds-border-input-search: var(--ds-dynamic-color-border-subtle);

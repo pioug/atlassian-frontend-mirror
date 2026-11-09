@@ -12,7 +12,6 @@ import type CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers/intersection-observer';
 import { asMock, type JestFunction } from '@atlaskit/media-test-helpers/jestHelpers';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { fireEvent, render, waitFor } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
@@ -262,9 +261,8 @@ describe('smart-card: success analytics', () => {
 				);
 			};
 
-			describe('with social proof renderSuccess metadata gate on', () => {
+			describe('with social proof renderSuccess metadata', () => {
 				it('adds nested experimentMeta for unauthorized block cards', async () => {
-					passGate('social-proof-3p-unauth-block-fg');
 					jest.spyOn(socialProofExperimentModule, 'getSocialProofExperimentMeta').mockReturnValue({
 						social_proof_3p_unauth_block_exp: { isEligible: true, tier: 'not-low' },
 					});
@@ -287,7 +285,6 @@ describe('smart-card: success analytics', () => {
 				});
 
 				it('adds ineligible nested experimentMeta for unauthorized block cards without cached eligibility', async () => {
-					passGate('social-proof-3p-unauth-block-fg');
 					jest.spyOn(socialProofExperimentModule, 'getSocialProofExperimentMeta').mockReturnValue({
 						social_proof_3p_unauth_block_exp: { isEligible: false },
 					});
@@ -313,29 +310,6 @@ describe('smart-card: success analytics', () => {
 				it('does not include experimentMeta in renderSuccess for unauthorized inline cards', async () => {
 					await renderCard('inline');
 
-					expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							action: 'renderSuccess',
-							actionSubject: 'smartLink',
-							attributes: expect.not.objectContaining({
-								experimentMeta: expect.anything(),
-							}),
-						}),
-					);
-				});
-			});
-
-			describe('with social proof renderSuccess metadata gate off', () => {
-				it('does not add nested experimentMeta for unauthorized block cards', async () => {
-					failGate('social-proof-3p-unauth-block-fg');
-					const getSocialProofExperimentMetaSpy = jest.spyOn(
-						socialProofExperimentModule,
-						'getSocialProofExperimentMeta',
-					);
-
-					await renderCard('block');
-
-					expect(getSocialProofExperimentMetaSpy).not.toHaveBeenCalled();
 					expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
 						expect.objectContaining({
 							action: 'renderSuccess',

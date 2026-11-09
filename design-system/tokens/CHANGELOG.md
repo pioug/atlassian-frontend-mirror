@@ -1,5 +1,36 @@
 # @atlaskit/tokens
 
+## 20.11.0
+
+### Minor Changes
+
+- [`e60cde59891c8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e60cde59891c8) -
+  Add `color.border.dropindicator`, `color.border.dropindicator.warning`,
+  `color.background.droptarget`, and `color.background.draghandle` for active receiving areas,
+  insertion/target indicators, blocked instructions, and prominent filled handles. Include theme
+  mappings and primitive background styles without changing existing drag-and-drop component
+  treatments.
+
+## 20.10.0
+
+### Minor Changes
+
+- [`e23c12da8c164`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e23c12da8c164) -
+  [ux] Revise experimental inset spacing defaults to 2, 4, 6, 8, 12, 16, 20, 24, 32, and 48px; add
+  space.inset.4xlarge and space.inset.5xlarge. Existing inset consumers must migrate names to
+  preserve default padding; gap token names and values are unchanged.
+
+  This minor release revises experimental tokens. Numeric and gap token values are unchanged.
+
+  The inset scale now includes 2px and 6px defaults and aligns with gap defaults through `xlarge`,
+  while retaining the 20px inset step. To preserve previous default padding, update inset sizes as
+  follows: `xxsmall` to `xsmall`, `xsmall` to `medium`, `small` to `large`, `medium` to `xlarge`,
+  `large` to `xxlarge`, `xlarge` to `3xlarge`, `xxlarge` to `4xlarge`, and `3xlarge` to `5xlarge`.
+  Custom spacing themes can still change semantic spacing independently of numeric tokens.
+
+  Allow experimental space.gap tokens on physical and logical margin properties in the CSS type
+  schema.
+
 ## 20.9.1
 
 ### Patch Changes

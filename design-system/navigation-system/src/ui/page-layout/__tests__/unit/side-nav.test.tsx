@@ -120,7 +120,7 @@ describe('Side nav', () => {
 	});
 
 	describe('slot size', () => {
-		it('collapses the real desktop SideNav when a chat resize exhausts inline space', async () => {
+		it('keeps the real desktop SideNav open when a chat resize exhausts inline space', async () => {
 			passGate('platform-dst-chat-panel-layout');
 			const originalWidth = window.innerWidth;
 			window.innerWidth = 1600;
@@ -159,16 +159,15 @@ describe('Side nav', () => {
 				const slider = screen.getByRole('slider', { name: 'Resize chat', hidden: true });
 				fireEvent.focus(slider);
 				// Focus loads sizing asynchronously, as it does in the browser.
-				await waitFor(() => expect(slider).toHaveAttribute('max', '960'));
+				await waitFor(() => expect(slider).toHaveAttribute('max', '720'));
 				// Exact range-input values exercise the keyboard resizing contract.
 				// eslint-disable-next-line testing-library/prefer-user-event
 				fireEvent.change(slider, { target: { value: 800 } });
 				await waitFor(() =>
-					expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'false'),
+					expect(screen.getByTestId('chat')).toHaveStyle({ '--n_cPnlW': '720px' }),
 				);
-				expect(onCollapse).toHaveBeenCalledTimes(1);
-				expect(onCollapse).toHaveBeenCalledWith({ screen: 'desktop', trigger: 'programmatic' });
-				expect(screen.getByTestId('chat')).toHaveStyle({ '--n_cPnlW': '800px' });
+				expect(screen.getByTestId('sidenav')).toHaveAttribute('data-visible', 'large');
+				expect(onCollapse).not.toHaveBeenCalled();
 			} finally {
 				window.innerWidth = originalWidth;
 				rootWidth.mockRestore();

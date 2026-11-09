@@ -7,9 +7,9 @@ import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
-import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
-import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
-import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
+import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
+import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import type { ErrorReporter } from '@atlaskit/editor-common/error-reporter';
 import { mediaEditingMessages } from '@atlaskit/editor-common/messages/media-editing';
 import CheckMarkIcon from '@atlaskit/icon/core/check-mark';

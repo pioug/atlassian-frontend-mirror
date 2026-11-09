@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/teams-client",
-	"version": "6.2.1",
+	"version": "6.2.3",
 	"description": "A client to retrieve team related data",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -110,7 +110,8 @@
 	"scripts": {
 		"generate:types:public-api": "swagger-typescript-api -p ./src/services/public-api-client/swagger.json -o ./src/services/public-api-client/generated/ --modular --no-client --union-enums",
 		"generate:docs:teams-client": "ts-node --project ../../../tsconfig.node.json ./scripts/generate-docs.ts && yarn ../../.. prettier --write packages/people-and-teams/teams-client/docs",
-		"test:coverage": "(cd ../../.. && afm run test -- 'packages/people-and-teams/teams-client/src' --coverage --coverageProvider=v8 --collectCoverageFrom='[\"packages/people-and-teams/teams-client/src/**\", \"!packages/people-and-teams/teams-client/src/**/**/types.ts\", \"!packages/people-and-teams/teams-client/src/ui/**/styled.tsx\"]')"
+		"test:coverage": "(cd ../../.. && afm run test -- 'packages/people-and-teams/teams-client/src' --coverage --coverageProvider=v8 --collectCoverageFrom='[\"packages/people-and-teams/teams-client/src/**\", \"!packages/people-and-teams/teams-client/src/**/**/types.ts\", \"!packages/people-and-teams/teams-client/src/ui/**/styled.tsx\"]')",
+		"ak-postbuild": "ls -d dist/* | grep -v dist/types | xargs -n 1 copyfiles -u 1 -V 'src/mocks/images/*.png'"
 	},
 	"dependencies": {
 		"@atlaskit/atlassian-context": "workspace:^",
@@ -146,9 +147,6 @@
 			"type": "boolean"
 		},
 		"ptc-enable-team-scoped-header-image-media-upload": {
-			"type": "boolean"
-		},
-		"ptc-enable-team-type-permission-enabled": {
 			"type": "boolean"
 		},
 		"ptc-onboard-teams-slack-app-to-global-edge-url": {

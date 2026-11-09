@@ -20,6 +20,7 @@ import { MultiColumnExample } from '../../../examples/93-multi-column.vr.ap';
 import { ModalWithCustomChildExample } from '../../../examples/95-custom-child.vr.ap';
 import WithCurrentSurface from '../../../examples/96-with-current-surface.vr.ap';
 import TallerThanViewport from '../../../examples/105-testing-taller-than-viewport.vr.ap';
+import FlexChildWithoutHeight from '../../../examples/106-testing-flex-child-without-height.vr.ap';
 
 const topLayerFlag = {
 	'platform-dst-top-layer': [true, false],
@@ -578,5 +579,23 @@ snapshotInformational(WithLayeredComponentsExample, {
 		await scrollContainer?.waitForElementState('stable');
 
 		await page.getByRole('button', { name: "I'm a dropdown menu, click me!" }).click();
+	},
+});
+
+snapshotInformational(FlexChildWithoutHeight, {
+	description: 'flex child without a height in body scroll',
+	drawsOutsideBounds: true,
+	featureFlags: topLayerFlag,
+	prepare: async (page) => {
+		await page.getByRole('button', { name: 'Open with body scroll' }).click();
+	},
+});
+
+snapshotInformational(FlexChildWithoutHeight, {
+	description: 'flex child without a height in viewport scroll',
+	drawsOutsideBounds: true,
+	featureFlags: topLayerFlag,
+	prepare: async (page) => {
+		await page.getByRole('button', { name: 'Open with viewport scroll' }).click();
 	},
 });

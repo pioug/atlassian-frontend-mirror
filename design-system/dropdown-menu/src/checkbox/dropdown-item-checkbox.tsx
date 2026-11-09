@@ -20,7 +20,7 @@ import { type DropdownItemCheckboxProps } from '../types';
  * - [Code](https://atlassian.design/components/dropdown-menu/dropdown-item-checkbox/code)
  * - [Usage](https://atlassian.design/components/dropdown-menu/dropdown-item-checkbox/usage)
  */
-const DropdownItemCheckbox = ({
+export const DropdownItemCheckbox = ({
 	children,
 	defaultSelected,
 	description,

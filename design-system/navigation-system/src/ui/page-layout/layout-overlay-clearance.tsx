@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { token } from '@atlaskit/tokens';
-
 import { gridRootChatFitId, gridRootId } from './root';
 
 /**
@@ -68,8 +66,7 @@ ${selector} > [data-layout-chat-panel] { width: var(--n_chatTrack); }
 	// stylesheet contains only internal selectors/tokens and numeric width props.
 	const css = `@media (min-width: 64rem) {
 @container navigation-panel-nav-space (width < ${extra + 1}px) {
-${fit} { --n_fitNav: 0px; }
-${root} > nav[data-layout-slot] { grid-area: main; width: min(90%, ${navTarget}); background-color: ${token('elevation.surface.overlay')}; box-shadow: ${token('elevation.shadow.overlay')}; border-inline-end: none; }
+${root} > nav[data-layout-slot] { width: ${navMin}; }
 }
 @container navigation-panel-nav-space (width >= ${extra + 1}px) {
   @container navigation-panel-chat-space (width < ${panelMinWidth + 1}px) {

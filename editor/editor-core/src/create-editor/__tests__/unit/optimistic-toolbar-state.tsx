@@ -17,6 +17,7 @@ import { userPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences/
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import * as editorSSRRendererModule from '@atlaskit/editor-ssr-renderer/editor-ssr-renderer';
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
+import * as experiment from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
@@ -38,6 +39,7 @@ type Options = {
 	appearance?: EditorProps['appearance'];
 	customControls?: EditorProps['primaryToolbarComponents'];
 	docking?: 'top' | 'none';
+	livePage?: boolean;
 	mode?: 'controlled' | 'always-pinned';
 	modeOverride?: 'always-pinned';
 	viewMode?: 'edit' | 'view';
@@ -45,6 +47,7 @@ type Options = {
 
 const createProps = ({
 	appearance = 'full-page',
+	livePage = false,
 	docking = 'top',
 	mode = 'controlled',
 	viewMode = 'edit',
@@ -89,6 +92,7 @@ const createProps = ({
 		onEditorCreated: jest.fn(),
 		onEditorDestroyed: jest.fn(),
 		editorProps: {
+			__livePage: livePage,
 			appearance,
 			primaryToolbarComponents: customControls,
 			defaultValue: {
@@ -115,6 +119,7 @@ describe('optimistic toolbar state before EditorView mounts', () => {
 		beforeEach(() => {
 			jest.spyOn(isSSRModule, 'isSSR').mockReturnValue(ssr);
 			jest.spyOn(editorSSRRendererModule, 'EditorSSRRenderer');
+			jest.spyOn(experiment, 'expValEquals');
 		});
 
 		const renderEditor = (options: Options, enabled = true, platformEnabled = enabled) => {
@@ -147,17 +152,27 @@ describe('optimistic toolbar state before EditorView mounts', () => {
 
 		it.each([
 			['docked toolbar', { docking: 'top' }, true],
-			['undocked toolbar', { docking: 'none' }, false],
+			['undocked toolbar', { docking: 'none' }, true],
 			['docked max-width toolbar', { appearance: 'max', docking: 'top' }, true],
-			['undocked max-width toolbar', { appearance: 'max', docking: 'none' }, false],
-			['view mode', { docking: 'top', viewMode: 'view' }, false],
+			['undocked max-width toolbar', { appearance: 'max', docking: 'none' }, true],
+			['Live page in view mode', { livePage: true, docking: 'top', viewMode: 'view' }, false],
+			['Live page in edit mode', { livePage: true, docking: 'top' }, false],
+			['Live page undocked', { livePage: true, docking: 'none' }, false],
+			['Live page max width', { livePage: true, appearance: 'max' }, false],
 			['forced-pinned toolbar', { docking: 'none', mode: 'always-pinned' }, true],
 			['config override forcing pinning', { docking: 'none', modeOverride: 'always-pinned' }, true],
 			['custom controls', { docking: 'none', customControls: <span>Custom control</span> }, true],
 		] as Array<[string, Options, boolean]>)(
-			'only exposes initial state when needed: %s',
+			'exposes early state only for Edit pages: %s',
 			(_name, options, expected) => {
 				const { observations } = renderEditor(options);
+				if (options.livePage) {
+					expect(experiment.expValEquals).not.toHaveBeenCalledWith(
+						'platform_editor_ssr_toolbar_optimistic',
+						'isEnabled',
+						true,
+					);
+				}
 				expect(observations[0]).toEqual({ hasState: expected, hasView: false });
 				if (ssr) {
 					const renderer = jest.mocked(editorSSRRendererModule.EditorSSRRenderer);

@@ -2,7 +2,7 @@ import React, { forwardRef, isValidElement, cloneElement } from 'react';
 import type { ReactNode, Ref } from 'react';
 
 import { cssMap, cx } from '@atlaskit/css';
-import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-menu-item';
 import type { CustomItemComponentProps } from '@atlaskit/menu/types';
 import { Anchor } from '@atlaskit/primitives/compiled/anchor';
 import { Box } from '@atlaskit/primitives/compiled/box';

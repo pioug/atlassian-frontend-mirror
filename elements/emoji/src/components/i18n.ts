@@ -21,6 +21,41 @@ export const messages: {
 		description: string;
 		id: string;
 	};
+	atlassianFacesSubcategory: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	atlassianHandsSubcategory: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	atlassianLogosSubcategory: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	atlassianObjectsSubcategory: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	atlassianOtherSubcategory: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	atlassianProductivitySubcategory: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	atlassianReactionsSubcategory: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	cancelLabel: {
 		defaultMessage: string;
 		description: string;
@@ -307,6 +342,44 @@ export const messages: {
 		id: string;
 	};
 } = defineMessages({
+	atlassianFacesSubcategory: {
+		id: 'fabric.emoji.subcategory.atlassian.faces',
+		defaultMessage: 'Faces',
+		description: 'Heading for the Faces subcategory in the Atlassian section of the emoji picker.',
+	},
+	atlassianHandsSubcategory: {
+		id: 'fabric.emoji.subcategory.atlassian.hands',
+		defaultMessage: 'Hands',
+		description: 'Heading for the Hands subcategory in the Atlassian section of the emoji picker.',
+	},
+	atlassianLogosSubcategory: {
+		id: 'fabric.emoji.subcategory.atlassian.logos',
+		defaultMessage: 'Logos',
+		description: 'Heading for the Logos subcategory in the Atlassian section of the emoji picker.',
+	},
+	atlassianObjectsSubcategory: {
+		id: 'fabric.emoji.subcategory.atlassian.objects',
+		defaultMessage: 'Objects',
+		description:
+			'Heading for the Objects subcategory in the Atlassian section of the emoji picker.',
+	},
+	atlassianOtherSubcategory: {
+		id: 'fabric.emoji.subcategory.atlassian.other',
+		defaultMessage: 'Other',
+		description: 'Heading for uncategorized emoji in the Atlassian section of the emoji picker.',
+	},
+	atlassianProductivitySubcategory: {
+		id: 'fabric.emoji.subcategory.atlassian.productivity',
+		defaultMessage: 'Productivity',
+		description:
+			'Heading for the Productivity subcategory in the Atlassian section of the emoji picker.',
+	},
+	atlassianReactionsSubcategory: {
+		id: 'fabric.emoji.subcategory.atlassian.reactions',
+		defaultMessage: 'Reactions',
+		description:
+			'Heading for the Reactions subcategory in the Atlassian section of the emoji picker.',
+	},
 	deleteEmojiTooltip: {
 		id: 'fabric.emoji.delete.tooltip',
 		defaultMessage: 'Delete',

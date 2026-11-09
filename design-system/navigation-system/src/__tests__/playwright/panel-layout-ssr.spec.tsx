@@ -96,7 +96,7 @@ for (const coordinated of [false, true]) {
 }
 
 for (const [width, navWidth, chatWidth, panelWidth, area, gap] of [
-	[1000, 0, 360, 320, 'panel', 320],
+	[1000, 0, 320, 320, 'panel', 360],
 	[1040, 288, 400, 320, 'main', 32],
 	[1200, 240, 320, 320, 'panel', 320],
 	[1280, 320, 320, 320, 'panel', 320],

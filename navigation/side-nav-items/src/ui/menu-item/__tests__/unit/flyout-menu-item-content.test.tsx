@@ -86,7 +86,6 @@ describe.each([false, true])(
 		});
 
 		it('should name the dialog from the label when there is no FlyoutHeader', async () => {
-			passGate('navx-5263-a11y-flyout-dialog-name');
 			render(<LabelledFlyoutFixture hasHeader={false} />);
 
 			const dialog = screen.getByRole('dialog', { name: 'Recent' });
@@ -96,21 +95,12 @@ describe.each([false, true])(
 		});
 
 		it('should not duplicate ids when a FlyoutHeader is also rendered', async () => {
-			passGate('navx-5263-a11y-flyout-dialog-name');
 			render(<LabelledFlyoutFixture hasHeader />);
 
 			const heading = screen.getByRole('heading', { name: 'Header title' });
 			const dialog = screen.getByRole('dialog', { name: 'Recent' });
 			expect(document.querySelectorAll(`[id="${heading.id}"]`)).toHaveLength(1);
 			await expect(dialog).toBeAccessible();
-		});
-
-		it('should ignore the label when navx-5263-a11y-flyout-dialog-name is disabled', () => {
-			failGate('navx-5263-a11y-flyout-dialog-name');
-			render(<LabelledFlyoutFixture hasHeader={false} />);
-
-			const titleId = screen.getByRole('dialog').getAttribute('aria-labelledby');
-			expect(document.getElementById(titleId!)).toBeNull();
 		});
 	},
 );

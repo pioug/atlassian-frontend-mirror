@@ -1,5 +1,25 @@
 # @atlaskit/media-card
 
+## 82.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 82.3.0
+
+### Minor Changes
+
+- [`9826a3254f648`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9826a3254f648) -
+  Add `CardProps.skipRemoteFileState` behind `platform_media_upload_without_read` to reuse FileCard
+  with cached upload state and local blob previews, without fetching remote metadata or previews.
+  Remote SVG rendering, inline playback, built-in downloads and the Media Viewer remain disabled in
+  this mode.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 82.2.14
 
 ### Patch Changes

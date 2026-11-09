@@ -1,8 +1,8 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2852cd6e8656adbef1c6b8cb926235c9>>
+ * @codegen <<SignedSource::d484d8bbb62b29a9995026c09f7dd309>>
  * @codegenCommand afm workspace @atlaskit/primitives codegen-styles
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::2d05e18dbb472322c67fd0bc8ec55082>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::80bcaa5103d6398f48bb733e6dbe9f55>>
  */
 import { token } from '@atlaskit/tokens';
 
@@ -30,6 +30,8 @@ export const borderColorMap: {
 	'color.border.accent.gray.subtle': 'var(--ds-border-accent-gray-subtle)';
 	'color.border.code': 'var(--ds-border-code)';
 	'color.border.disabled': 'var(--ds-border-disabled)';
+	'color.border.dropindicator': 'var(--ds-border-dropindicator)';
+	'color.border.dropindicator.warning': 'var(--ds-border-dropindicator-warning)';
 	'color.border.focused': 'var(--ds-border-focused)';
 	'color.border.input': 'var(--ds-border-input)';
 	'color.border.input.search': 'var(--ds-border-input-search)';
@@ -71,6 +73,8 @@ export const borderColorMap: {
 	'color.border.accent.gray.subtle': token('color.border.accent.gray.subtle', '#B7B9BE'),
 	'color.border.code': token('color.border.code', '#0B120E24'),
 	'color.border.disabled': token('color.border.disabled', '#0515240F'),
+	'color.border.dropindicator': token('color.border.dropindicator', '#357DE8'),
+	'color.border.dropindicator.warning': token('color.border.dropindicator.warning', '#E06C00'),
 	'color.border.focused': token('color.border.focused', '#4688EC'),
 	'color.border.input': token('color.border.input', '#8C8F97'),
 	'color.border.input.search': token('color.border.input.search', '#0B120E24'),

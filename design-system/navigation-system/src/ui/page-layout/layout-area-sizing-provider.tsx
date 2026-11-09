@@ -42,9 +42,7 @@ export function LayoutAreaSizingProvider({
 	const [states, setStates] = useState<Partial<Record<LayoutArea, LayoutAreaState>>>({});
 	const actions = useRef<LayoutAreaSizingContextValue | null>(null);
 	const configs = useRef<Partial<Record<LayoutArea, LayoutAreaConfig>>>({});
-	const [lastOpenedOverlay, setLastOpenedOverlay] = useState<'side-nav' | 'chat-panel' | null>(
-		null,
-	);
+	const lastOpenedOverlay = useRef<'side-nav' | 'chat-panel' | null>(null);
 	const [configRevision, setConfigRevision] = useState(0);
 	const cssModes = useCssLayoutAreaStates(layoutRef, configRevision, Runtime === null);
 	const sideNavMode = states['side-nav']?.mode ?? cssModes['side-nav'];
@@ -52,12 +50,14 @@ export function LayoutAreaSizingProvider({
 
 	// Overlay dismissal is available before the sizing chunk loads. Keep the open
 	// order here too: replaying registrations into the runtime loses that order.
+	// Read the order from the same registration snapshot as configs, even when a
+	// child registers a newly opened overlay before this commit's effect runs.
 	useEffect(() => {
 		const inlineChatQuery = window.matchMedia('(min-width: 40rem)');
 		const dismissOlderOverlay = () => {
 			const sideNav = configs.current['side-nav'];
 			const chatPanel = configs.current['chat-panel'];
-			if (!sideNav?.isOpen || !chatPanel?.isOpen || !lastOpenedOverlay) {
+			if (!sideNav?.isOpen || !chatPanel?.isOpen || !lastOpenedOverlay.current) {
 				return;
 			}
 			// Before allocation, CSS puts both areas in overlay below 40rem. Once
@@ -65,12 +65,12 @@ export function LayoutAreaSizingProvider({
 			if (inlineChatQuery.matches && (sideNavMode !== 'overlay' || chatPanelMode !== 'overlay')) {
 				return;
 			}
-			const olderOverlay = lastOpenedOverlay === 'side-nav' ? chatPanel : sideNav;
+			const olderOverlay = lastOpenedOverlay.current === 'side-nav' ? chatPanel : sideNav;
 			olderOverlay.onRequestClose?.();
 		};
 		dismissOlderOverlay();
 		return bind(inlineChatQuery, { type: 'change', listener: dismissOlderOverlay });
-	}, [chatPanelMode, lastOpenedOverlay, sideNavMode]);
+	}, [chatPanelMode, configRevision, sideNavMode]);
 
 	const splitters = useRef(new Set<HTMLElement>());
 	const registerSplitter = useCallback((element: HTMLElement) => {
@@ -192,7 +192,7 @@ export function LayoutAreaSizingProvider({
 			registerSplitter,
 			registerArea: (area, config) => {
 				if (area !== 'panel' && config.isOpen && !configs.current[area]?.isOpen) {
-					setLastOpenedOverlay(area);
+					lastOpenedOverlay.current = area;
 				}
 				configs.current[area] = config;
 				setConfigRevision((revision) => revision + 1);

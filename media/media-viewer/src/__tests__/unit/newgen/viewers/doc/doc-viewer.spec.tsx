@@ -10,7 +10,7 @@ import { createServerUnauthorizedError } from '@atlaskit/media-client/test-helpe
 import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers/mocked-media-api';
 import type { FileState } from '@atlaskit/media-state/file-state';
 import { generateSampleFileItem } from '@atlaskit/media-test-data/sample-file-items';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { DocViewer } from '../../../../../viewers/doc/DocViewer';
 
@@ -531,7 +531,11 @@ describe('<DocViewer />', () => {
 	});
 
 	describe('T5.8 — platform_media_excel_lazy_load gate wiring', () => {
-		ffTest.on('platform_media_excel_lazy_load', 'when gate is ON', () => {
+		describe('platform_media_excel_lazy_load is on when gate is ON', () => {
+			beforeEach(() => {
+				passGate('platform_media_excel_lazy_load');
+			});
+
 			it('should pass enableLazyPageRendering=true for xlsx mime type', async () => {
 				const [fileItem] = generateSampleFileItem.workingPdfWithRemotePreview();
 				const { mediaApi } = createMockedMediaApi(fileItem);
@@ -754,8 +758,10 @@ describe('<DocViewer />', () => {
 			);
 		});
 
-		ffTest.off('platform_media_excel_lazy_load', 'when gate is OFF', () => {
+		describe('platform_media_excel_lazy_load is off when gate is OFF', () => {
 			it('should pass enableLazyPageRendering=false for xlsx even when Excel mimetype', async () => {
+				failGate('platform_media_excel_lazy_load');
+
 				const [fileItem] = generateSampleFileItem.workingPdfWithRemotePreview();
 				const { mediaApi } = createMockedMediaApi(fileItem);
 

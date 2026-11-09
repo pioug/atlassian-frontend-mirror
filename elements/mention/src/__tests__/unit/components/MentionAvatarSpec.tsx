@@ -108,8 +108,9 @@ describe('MentionAvatar', () => {
 			await expect(document.body).toBeAccessible();
 		});
 
-		it('keeps agent APP mentions on the baseline appearance path when the experiment is disabled', async () => {
+		it('keeps agent APP mentions on the baseline appearance path when both rollouts are disabled', async () => {
 			mockMentionAgentsExperiment(false);
+			failGate('canvas-rovo-comment-sessions');
 			passGate('jira_ai_agent_avatar_issue_view_comment_mentions');
 			const mockGetAppearanceForAppType = getAppearanceForAppType as jest.Mock;
 			mockGetAppearanceForAppType.mockReturnValue('circle');
@@ -133,8 +134,11 @@ describe('MentionAvatar', () => {
 			await expect(document.body).toBeAccessible();
 		});
 
-		it('renders agent APP mentions as hexagon avatars when the experiment is enabled', async () => {
-			mockMentionAgentsExperiment(true);
+		it.each(['Rovo', 'Canvas'])('renders agent hexagons with %s enabled', async (rollout) => {
+			mockMentionAgentsExperiment(rollout === 'Rovo');
+			if (rollout === 'Canvas') {
+				passGate('canvas-rovo-comment-sessions');
+			}
 
 			const props = {
 				mention: {

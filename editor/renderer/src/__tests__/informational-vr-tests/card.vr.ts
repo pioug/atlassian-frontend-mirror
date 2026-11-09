@@ -114,6 +114,13 @@ snapshotInformational(RendererBlockCardResolving, {
 	featureFlags: {},
 });
 snapshotInformational(RendererBlockCardUnauthorized, {
+	mockRequests: [
+		{
+			urlPattern: /\/gateway\/api\/tap-delivery\/api\/v3\/personalization\/site\//u,
+			body: JSON.stringify({ attributes: [] }),
+			contentType: 'application/json',
+		},
+	],
 	prepare: async (page) => {
 		await page.getByTestId('smart-block-unauthorized-view').waitFor({ state: 'visible' });
 	},

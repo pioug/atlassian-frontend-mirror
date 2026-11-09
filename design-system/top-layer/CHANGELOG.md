@@ -1,5 +1,13 @@
 # @atlaskit/top-layer
 
+## 7.1.6
+
+### Patch Changes
+
+- [`7a0dc47e62ccc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7a0dc47e62ccc) -
+  `useArrowNavigation` ignores keys pressed in a nested layer, such as a dialog opened from a menu.
+- Updated dependencies
+
 ## 7.1.5
 
 ### Patch Changes

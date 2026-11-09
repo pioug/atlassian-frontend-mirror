@@ -1,8 +1,8 @@
 import React from 'react';
 
-import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
-import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
-import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
+import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
+import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import { Label } from '@atlaskit/form/label/default';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
 import Toggle from '@atlaskit/toggle/toggle';

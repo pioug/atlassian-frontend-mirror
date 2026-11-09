@@ -8,7 +8,7 @@ import React from 'react';
 import { renderHook } from '@testing-library/react';
 
 import { generateSampleFileItem } from '@atlaskit/media-test-data/sample-file-items';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { useFilePreview } from '../useFilePreview';
 import { createMockedMediaClientProvider } from './helpers/_MockedMediaClientProvider';
@@ -70,8 +70,10 @@ describe('useFilePreview — seeded CDN URL guard', () => {
 		mockGetSSRPreview.mockReturnValue({ dataURI: 'data:image/jpeg;base64,zzz' });
 	});
 
-	ffTest.on('platform_media_ssr_data_seed', 'SSR data seeding enabled', () => {
+	describe('platform_media_ssr_data_seed is on SSR data seeding enabled', () => {
 		it('forwards the complete seeded CDN URL when CDN delivery is enabled', () => {
+			passGate('platform_media_ssr_data_seed');
+
 			mockIsCDNEnabled.mockReturnValue(true);
 
 			renderWithSeededCdnUrl();
@@ -107,8 +109,10 @@ describe('useFilePreview — seeded CDN URL guard', () => {
 		});
 	});
 
-	ffTest.off('platform_media_ssr_data_seed', 'SSR data seeding disabled', () => {
+	describe('platform_media_ssr_data_seed is off SSR data seeding disabled', () => {
 		it('does not forward the seeded CDN URL even when CDN delivery is enabled', () => {
+			failGate('platform_media_ssr_data_seed');
+
 			mockIsCDNEnabled.mockReturnValue(true);
 
 			renderWithSeededCdnUrl();

@@ -1,7 +1,7 @@
 import { isGoogleCloudPlatform } from '@atlaskit/atlassian-context/cloud-provider';
 import { isIsolatedCloud } from '@atlaskit/atlassian-context/is-isolated-cloud';
 import { isGCPtenant as isGCPtenantInStaging } from '@atlaskit/media-common/mediaEnvUtils';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { isCDNEnabled } from '../../utils/isCDNEnabled';
 import { mapToMediaCdnUrl } from '../../utils/mapToMediaCdnUrl';
@@ -36,185 +36,285 @@ describe('mediaCdn', () => {
 	});
 
 	// When path-based route is enabled, CDN should always be disabled
-	ffTest.on(
-		'platform_media_path_based_route',
-		'when platform_media_path_based_route is enabled',
-		() => {
-			ffTest.on('platform_media_cdn_delivery', 'when CDN delivery is also enabled', () => {
-				it('should disable CDN when path-based route is enabled', () => {
-					expect(isCDNEnabled()).toBe(false);
-				});
-
-				it('should not map to cdn url when path-based route is enabled', () => {
-					const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
-					expect(mapToMediaCdnUrl(originalUrl, '')).toBe(originalUrl);
-				});
-
-				it('should not map to cdn url when path-based route is enabled even with valid mapping', () => {
-					const originalUrl = 'https://media.staging.atl-paas.net/path/to/resource';
-					expect(mapToMediaCdnUrl(originalUrl, '')).toBe(originalUrl);
-				});
-
-				it('should not map to cdn url when path-based route is enabled regardless of token length', () => {
-					const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
-					const shortToken = 'short';
-					expect(mapToMediaCdnUrl(originalUrl, shortToken)).toBe(originalUrl);
-				});
+	describe('platform_media_path_based_route is on when platform_media_path_based_route is enabled', () => {
+		describe('platform_media_cdn_delivery is on when CDN delivery is also enabled', () => {
+			beforeEach(() => {
+				passGate('platform_media_path_based_route');
 			});
-		},
-	);
+
+			it('should disable CDN when path-based route is enabled', () => {
+				passGate('platform_media_cdn_delivery');
+
+				expect(isCDNEnabled()).toBe(false);
+			});
+
+			it('should not map to cdn url when path-based route is enabled', () => {
+				passGate('platform_media_cdn_delivery');
+
+				const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
+				expect(mapToMediaCdnUrl(originalUrl, '')).toBe(originalUrl);
+			});
+
+			it('should not map to cdn url when path-based route is enabled even with valid mapping', () => {
+				passGate('platform_media_cdn_delivery');
+
+				const originalUrl = 'https://media.staging.atl-paas.net/path/to/resource';
+				expect(mapToMediaCdnUrl(originalUrl, '')).toBe(originalUrl);
+			});
+
+			it('should not map to cdn url when path-based route is enabled regardless of token length', () => {
+				passGate('platform_media_cdn_delivery');
+
+				const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
+				const shortToken = 'short';
+				expect(mapToMediaCdnUrl(originalUrl, shortToken)).toBe(originalUrl);
+			});
+		});
+	});
 
 	// When path-based route is disabled, test CDN functionality
-	ffTest.off(
-		'platform_media_path_based_route',
-		'when platform_media_path_based_route is disabled',
-		() => {
-			ffTest.on('platform_media_cdn_delivery', 'when CDN delivery is enabled', () => {
-				ffTest.on('platform_media_cdn_single_host', 'when single host is enabled', () => {
-					it('should map to cdn url if not isolated cloud', () => {
-						(isIsolatedCloud as jest.Mock).mockReturnValue(false);
+	describe('platform_media_path_based_route is off when platform_media_path_based_route is disabled', () => {
+		describe('platform_media_cdn_delivery is on when CDN delivery is enabled', () => {
+			describe('platform_media_cdn_single_host is on when single host is enabled', () => {
+				it('should map to cdn url if not isolated cloud', () => {
+					failGate('platform_media_path_based_route');
+					passGate('platform_media_cdn_delivery');
+					passGate('platform_media_cdn_single_host');
 
-						const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
-						expect(mapToMediaCdnUrl(originalUrl, '')).toBe(
-							'https://media-cdn.atlassian.com/path/to/resource',
-						);
-					});
+					(isIsolatedCloud as jest.Mock).mockReturnValue(false);
 
-					it('should map to cdn url if mapping found and not isolated cloud', () => {
-						const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
-						expect(mapToMediaCdnUrl(originalUrl, '')).toBe(
-							'https://media-cdn.atlassian.com/path/to/resource',
-						);
-					});
-
-					it('should not map to cdn url if mapping not found', () => {
-						const originalUrl = 'https://api.dev.atlassian.com/path/to/resource';
-						expect(mapToMediaCdnUrl(originalUrl, '')).toBe(originalUrl);
-					});
-
-					it('should not map to cdn url if token is exceeding limit', () => {
-						const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
-						const fixedLengthString = 'A'.repeat(7001);
-						expect(mapToMediaCdnUrl(originalUrl, fixedLengthString)).toBe(originalUrl);
-					});
-
-					it('should map to cdn url if token is equal limit', () => {
-						const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
-						const fixedLengthString = 'A'.repeat(7000);
-						expect(mapToMediaCdnUrl(originalUrl, fixedLengthString)).toBe(
-							'https://media-cdn.atlassian.com/path/to/resource',
-						);
-					});
-
-					it('should map to cdn url if token is below limit', () => {
-						const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
-						const fixedLengthString = 'A'.repeat(6999);
-						expect(mapToMediaCdnUrl(originalUrl, fixedLengthString)).toBe(
-							'https://media-cdn.atlassian.com/path/to/resource',
-						);
-					});
-
-					it('should map to cdn url only in commercial environment', () => {
-						global.MICROS_PERIMETER = 'fedramp-moderate';
-						const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
-						expect(mapToMediaCdnUrl(originalUrl, '')).toBe(originalUrl);
-
-						jsdom.reconfigure({
-							url: 'https://atlassian-us-gov-mod.com',
-						});
-						expect(mapToMediaCdnUrl(originalUrl, '')).toBe(originalUrl);
-
-						global.MICROS_PERIMETER = 'commercial';
-						jsdom.reconfigure({
-							url: 'https://hello.atlassian.net',
-						});
-						expect(mapToMediaCdnUrl(originalUrl, '')).toBe(
-							'https://media-cdn.atlassian.com/path/to/resource',
-						);
-					});
-
-					it('should not map to cdn url when isolated cloud', () => {
-						(isIsolatedCloud as jest.Mock).mockReturnValue(true);
-
-						const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
-						expect(mapToMediaCdnUrl(originalUrl, '')).toBe(originalUrl);
-					});
-
-					it('should return false for isCDNEnabled when isolated cloud', () => {
-						(isIsolatedCloud as jest.Mock).mockReturnValue(true);
-						expect(isCDNEnabled()).toBe(false);
-					});
-
-					it('should return true for isCDNEnabled when not isolated cloud', () => {
-						(isIsolatedCloud as jest.Mock).mockReturnValue(false);
-						expect(isCDNEnabled()).toBe(true);
-					});
-
-					it('should return false for isCDNEnabled when GCP tenant', () => {
-						(isGoogleCloudPlatform as jest.Mock).mockReturnValue(true);
-						expect(isCDNEnabled()).toBe(false);
-					});
-
-					it('should not map to cdn url when GCP tenant', () => {
-						(isGoogleCloudPlatform as jest.Mock).mockReturnValue(true);
-
-						const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
-						expect(mapToMediaCdnUrl(originalUrl, '')).toBe(originalUrl);
-					});
-
-					// Additional test cases explicitly covering GCP cookie/SSR scenarios
-					// Note: SSR (globalThis.ssrContext?.isInGCP) and raw cookie parsing behavior
-					// are unit-tested directly in the helper's own test suite at
-					// @atlaskit/atlassian-context/cloud-provider. This spec verifies that
-					// mediaCdn.ts correctly consumes the helper's boolean result.
-
-					it('should disable CDN when GCP cookie scenario (isGoogleCloudPlatform returns true)', () => {
-						(isGoogleCloudPlatform as jest.Mock).mockReturnValue(true);
-						expect(isCDNEnabled()).toBe(false);
-					});
-
-					it('should enable CDN when AWS cookie / non-GCP scenario (isGoogleCloudPlatform returns false)', () => {
-						(isGoogleCloudPlatform as jest.Mock).mockReturnValue(false);
-						// When isGoogleCloudPlatform is false (AWS or unknown), CDN should be enabled
-						// (assuming other conditions like isCommercial, isIsolatedCloud, and feature flags are met)
-						expect(isCDNEnabled()).toBe(true);
-					});
-
-					// Staging GCP tenants do not have a reliable value for the
-					// Bifrost-Atl-Ctx-Cloud-Service-Provider cookie, so isGoogleCloudPlatform()
-					// returns false. We fall back to the staging hostname pattern via
-					// isGCPtenantInStaging() and combine the two checks with `||`.
-					it('should return false for isCDNEnabled when GCP staging tenant (cookie missing but hostname matches)', () => {
-						(isGoogleCloudPlatform as jest.Mock).mockReturnValue(false);
-						(isGCPtenantInStaging as jest.Mock).mockReturnValue(true);
-						expect(isCDNEnabled()).toBe(false);
-					});
-
-					it('should not map to cdn url when GCP staging tenant (cookie missing but hostname matches)', () => {
-						(isGoogleCloudPlatform as jest.Mock).mockReturnValue(false);
-						(isGCPtenantInStaging as jest.Mock).mockReturnValue(true);
-
-						const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
-						expect(mapToMediaCdnUrl(originalUrl, '')).toBe(originalUrl);
-					});
+					const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
+					expect(mapToMediaCdnUrl(originalUrl, '')).toBe(
+						'https://media-cdn.atlassian.com/path/to/resource',
+					);
 				});
 
-				ffTest.off('platform_media_cdn_single_host', 'when single host is disabled', () => {
-					it('should not map to cdn url when single host is disabled', () => {
-						const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
-						expect(mapToMediaCdnUrl(originalUrl, '')).toBe(originalUrl);
+				it('should map to cdn url if mapping found and not isolated cloud', () => {
+					failGate('platform_media_path_based_route');
+					passGate('platform_media_cdn_delivery');
+					passGate('platform_media_cdn_single_host');
+
+					const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
+					expect(mapToMediaCdnUrl(originalUrl, '')).toBe(
+						'https://media-cdn.atlassian.com/path/to/resource',
+					);
+				});
+
+				it('should not map to cdn url if mapping not found', () => {
+					failGate('platform_media_path_based_route');
+					passGate('platform_media_cdn_delivery');
+					passGate('platform_media_cdn_single_host');
+
+					const originalUrl = 'https://api.dev.atlassian.com/path/to/resource';
+					expect(mapToMediaCdnUrl(originalUrl, '')).toBe(originalUrl);
+				});
+
+				it('should not map to cdn url if token is exceeding limit', () => {
+					passGate('platform_media_cdn_single_host');
+
+					failGate('platform_media_path_based_route');
+					passGate('platform_media_cdn_delivery');
+
+					const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
+					const fixedLengthString = 'A'.repeat(7001);
+					expect(mapToMediaCdnUrl(originalUrl, fixedLengthString)).toBe(originalUrl);
+
+					expect(mapToMediaCdnUrl(originalUrl, 'short')).toBe(
+						'https://media-cdn.atlassian.com/path/to/resource',
+					);
+				});
+
+				it('should map to cdn url if token is equal limit', () => {
+					failGate('platform_media_path_based_route');
+					passGate('platform_media_cdn_delivery');
+					passGate('platform_media_cdn_single_host');
+
+					const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
+					const fixedLengthString = 'A'.repeat(7000);
+					expect(mapToMediaCdnUrl(originalUrl, fixedLengthString)).toBe(
+						'https://media-cdn.atlassian.com/path/to/resource',
+					);
+				});
+
+				it('should map to cdn url if token is below limit', () => {
+					failGate('platform_media_path_based_route');
+					passGate('platform_media_cdn_delivery');
+					passGate('platform_media_cdn_single_host');
+
+					const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
+					const fixedLengthString = 'A'.repeat(6999);
+					expect(mapToMediaCdnUrl(originalUrl, fixedLengthString)).toBe(
+						'https://media-cdn.atlassian.com/path/to/resource',
+					);
+				});
+
+				it('should map to cdn url only in commercial environment', () => {
+					failGate('platform_media_path_based_route');
+					passGate('platform_media_cdn_delivery');
+					passGate('platform_media_cdn_single_host');
+
+					global.MICROS_PERIMETER = 'fedramp-moderate';
+					const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
+					expect(mapToMediaCdnUrl(originalUrl, '')).toBe(originalUrl);
+
+					jsdom.reconfigure({
+						url: 'https://atlassian-us-gov-mod.com',
 					});
+					expect(mapToMediaCdnUrl(originalUrl, '')).toBe(originalUrl);
+
+					global.MICROS_PERIMETER = 'commercial';
+					jsdom.reconfigure({
+						url: 'https://hello.atlassian.net',
+					});
+					expect(mapToMediaCdnUrl(originalUrl, '')).toBe(
+						'https://media-cdn.atlassian.com/path/to/resource',
+					);
+				});
+
+				it('should not map to cdn url when isolated cloud', () => {
+					failGate('platform_media_path_based_route');
+					passGate('platform_media_cdn_delivery');
+					passGate('platform_media_cdn_single_host');
+
+					(isIsolatedCloud as jest.Mock).mockReturnValue(true);
+
+					const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
+					expect(mapToMediaCdnUrl(originalUrl, '')).toBe(originalUrl);
+
+					(isIsolatedCloud as jest.Mock).mockReturnValue(false);
+					expect(mapToMediaCdnUrl(originalUrl, '')).toBe(
+						'https://media-cdn.atlassian.com/path/to/resource',
+					);
+				});
+
+				it('should return false for isCDNEnabled when isolated cloud', () => {
+					failGate('platform_media_path_based_route');
+					passGate('platform_media_cdn_delivery');
+
+					(isIsolatedCloud as jest.Mock).mockReturnValue(true);
+					expect(isCDNEnabled()).toBe(false);
+
+					(isIsolatedCloud as jest.Mock).mockReturnValue(false);
+					expect(isCDNEnabled()).toBe(true);
+				});
+
+				it('should return true for isCDNEnabled when not isolated cloud', () => {
+					failGate('platform_media_path_based_route');
+					passGate('platform_media_cdn_delivery');
+
+					(isIsolatedCloud as jest.Mock).mockReturnValue(false);
+					expect(isCDNEnabled()).toBe(true);
+				});
+
+				it('should return false for isCDNEnabled when GCP tenant', () => {
+					failGate('platform_media_path_based_route');
+					passGate('platform_media_cdn_delivery');
+
+					(isGoogleCloudPlatform as jest.Mock).mockReturnValue(true);
+					expect(isCDNEnabled()).toBe(false);
+
+					(isGoogleCloudPlatform as jest.Mock).mockReturnValue(false);
+					expect(isCDNEnabled()).toBe(true);
+				});
+
+				it('should not map to cdn url when GCP tenant', () => {
+					failGate('platform_media_path_based_route');
+					passGate('platform_media_cdn_delivery');
+					passGate('platform_media_cdn_single_host');
+
+					(isGoogleCloudPlatform as jest.Mock).mockReturnValue(true);
+
+					const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
+					expect(mapToMediaCdnUrl(originalUrl, '')).toBe(originalUrl);
+
+					(isGoogleCloudPlatform as jest.Mock).mockReturnValue(false);
+					expect(mapToMediaCdnUrl(originalUrl, '')).toBe(
+						'https://media-cdn.atlassian.com/path/to/resource',
+					);
+				});
+
+				// Additional test cases explicitly covering GCP cookie/SSR scenarios
+				// Note: SSR (globalThis.ssrContext?.isInGCP) and raw cookie parsing behavior
+				// are unit-tested directly in the helper's own test suite at
+				// @atlaskit/atlassian-context/cloud-provider. This spec verifies that
+				// mediaCdn.ts correctly consumes the helper's boolean result.
+
+				it('should disable CDN when GCP cookie scenario (isGoogleCloudPlatform returns true)', () => {
+					failGate('platform_media_path_based_route');
+					passGate('platform_media_cdn_delivery');
+
+					(isGoogleCloudPlatform as jest.Mock).mockReturnValue(true);
+					expect(isCDNEnabled()).toBe(false);
+
+					(isGoogleCloudPlatform as jest.Mock).mockReturnValue(false);
+					expect(isCDNEnabled()).toBe(true);
+				});
+
+				it('should enable CDN when AWS cookie / non-GCP scenario (isGoogleCloudPlatform returns false)', () => {
+					failGate('platform_media_path_based_route');
+					passGate('platform_media_cdn_delivery');
+
+					(isGoogleCloudPlatform as jest.Mock).mockReturnValue(false);
+					// When isGoogleCloudPlatform is false (AWS or unknown), CDN should be enabled
+					// (assuming other conditions like isCommercial, isIsolatedCloud, and feature flags are met)
+					expect(isCDNEnabled()).toBe(true);
+				});
+
+				// Staging GCP tenants do not have a reliable value for the
+				// Bifrost-Atl-Ctx-Cloud-Service-Provider cookie, so isGoogleCloudPlatform()
+				// returns false. We fall back to the staging hostname pattern via
+				// isGCPtenantInStaging() and combine the two checks with `||`.
+				it('should return false for isCDNEnabled when GCP staging tenant (cookie missing but hostname matches)', () => {
+					failGate('platform_media_path_based_route');
+					passGate('platform_media_cdn_delivery');
+
+					(isGoogleCloudPlatform as jest.Mock).mockReturnValue(false);
+					(isGCPtenantInStaging as jest.Mock).mockReturnValue(true);
+					expect(isCDNEnabled()).toBe(false);
+
+					(isGCPtenantInStaging as jest.Mock).mockReturnValue(false);
+					expect(isCDNEnabled()).toBe(true);
+				});
+
+				it('should not map to cdn url when GCP staging tenant (cookie missing but hostname matches)', () => {
+					failGate('platform_media_path_based_route');
+					passGate('platform_media_cdn_delivery');
+					passGate('platform_media_cdn_single_host');
+
+					(isGoogleCloudPlatform as jest.Mock).mockReturnValue(false);
+					(isGCPtenantInStaging as jest.Mock).mockReturnValue(true);
+
+					const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
+					expect(mapToMediaCdnUrl(originalUrl, '')).toBe(originalUrl);
+
+					(isGCPtenantInStaging as jest.Mock).mockReturnValue(false);
+					expect(mapToMediaCdnUrl(originalUrl, '')).toBe(
+						'https://media-cdn.atlassian.com/path/to/resource',
+					);
 				});
 			});
 
-			ffTest.off('platform_media_cdn_delivery', 'when CDN delivery is disabled', () => {
-				it('should not map to cdn url when CDN delivery is disabled', () => {
+			describe('platform_media_cdn_single_host is off when single host is disabled', () => {
+				it('should not map to cdn url when single host is disabled', () => {
+					failGate('platform_media_path_based_route');
+					passGate('platform_media_cdn_delivery');
+					failGate('platform_media_cdn_single_host');
+
 					const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
 					expect(mapToMediaCdnUrl(originalUrl, '')).toBe(originalUrl);
 				});
 			});
-		},
-	);
+		});
+
+		describe('platform_media_cdn_delivery is off when CDN delivery is disabled', () => {
+			it('should not map to cdn url when CDN delivery is disabled', () => {
+				failGate('platform_media_cdn_delivery');
+
+				const originalUrl = 'https://api.media.atlassian.com/path/to/resource';
+				expect(mapToMediaCdnUrl(originalUrl, '')).toBe(originalUrl);
+			});
+		});
+	});
 });
 
 describe('mapToSeedBasedCdnUrl', () => {

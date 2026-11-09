@@ -1,9 +1,11 @@
 import React from 'react';
 
 import { matchers } from '@emotion/jest';
-import { act, fireEvent, screen, waitFor, within } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
+import { IntlProvider } from 'react-intl';
 
 import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { RENDER_EMOJI_DELETE_BUTTON_TESTID } from '../../../../components/common/DeleteButton';
 import { tonePreviewTestId } from '../../../../components/common/TonePreviewButton';
@@ -129,6 +131,15 @@ describe('<EmojiPickerList />', () => {
 
 	const renderEmojiPickerList = (customProps: Partial<EmojiPickerListProps> = {}) =>
 		renderWithIntl(<EmojiPickerList {...defaultProps} {...customProps} />);
+	const renderEmojiPickerListWithTranslations = (
+		translations: Record<string, string>,
+		customProps: Partial<EmojiPickerListProps> = {},
+	) =>
+		render(
+			<IntlProvider locale="fr" defaultLocale="fr" messages={translations}>
+				<EmojiPickerList {...defaultProps} {...customProps} />
+			</IntlProvider>,
+		);
 
 	describe('list', () => {
 		it('should contain search ', async () => {
@@ -245,6 +256,37 @@ describe('<EmojiPickerList />', () => {
 
 			expect(await screen.findByText('Productivity')).toBeInTheDocument();
 			expect(screen.getByTestId('image-emoji-:0_zero_square_blue:')).toBeInTheDocument();
+		});
+
+		it('should translate Atlassian subcategory headings when the feature gate is enabled', async () => {
+			passGate('platform_ally_emoji_fixes_various');
+			const facesEmoji = createTestEmoji('faces-atlassian', 'FACES', 0, {
+				type: 'ATLASSIAN',
+			});
+
+			renderEmojiPickerListWithTranslations(
+				{ [messages.atlassianFacesSubcategory.id]: 'Visages' },
+				{ emojis: [facesEmoji] },
+			);
+
+			expect(await screen.findByRole('heading', { name: 'Visages' })).toBeInTheDocument();
+			expect(screen.queryByRole('heading', { name: 'Faces' })).not.toBeInTheDocument();
+			await expect(document.body).toBeAccessible();
+		});
+
+		it('should preserve untranslated Atlassian subcategory headings when the feature gate is disabled', async () => {
+			failGate('platform_ally_emoji_fixes_various');
+			const facesEmoji = createTestEmoji('faces-atlassian', 'FACES', 0, {
+				type: 'ATLASSIAN',
+			});
+
+			renderEmojiPickerListWithTranslations(
+				{ [messages.atlassianFacesSubcategory.id]: 'Visages' },
+				{ emojis: [facesEmoji] },
+			);
+
+			expect(await screen.findByRole('heading', { name: 'Faces' })).toBeInTheDocument();
+			expect(screen.queryByRole('heading', { name: 'Visages' })).not.toBeInTheDocument();
 		});
 
 		it('should not render emojis with a hidden metadata tag', async () => {

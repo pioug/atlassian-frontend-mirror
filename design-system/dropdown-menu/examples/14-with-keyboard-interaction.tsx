@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/default/button';
-import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
-import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
-import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
+import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
+import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import Heading from '@atlaskit/heading/heading';
 import ModalBody from '@atlaskit/modal-dialog/modal-body';
 import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';

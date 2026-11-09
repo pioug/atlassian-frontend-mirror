@@ -73,6 +73,13 @@ snapshot(BlockCardNotFoundSiteAccessExists, {
 	waitForReactLazy: true,
 });
 snapshot(BlockCardUnauthorisedView, {
+	mockRequests: [
+		{
+			urlPattern: /\/gateway\/api\/tap-delivery\/api\/v3\/personalization\/site\//u,
+			body: JSON.stringify({ attributes: [] }),
+			contentType: 'application/json',
+		},
+	],
 	featureFlags: {},
 	waitForReactLazy: true,
 });
@@ -181,25 +188,16 @@ snapshot(BlockCardEntities, {
 
 snapshot(SocialProofBlockCardNotLowTier, {
 	description: 'block card: social proof message not-low tier',
-	featureFlags: {
-		'social-proof-3p-unauth-block-fg': true,
-	},
 	waitForReactLazy: true,
 });
 
 snapshot(SocialProofBlockCardLowTier, {
 	description: 'block card: social proof message low tier',
-	featureFlags: {
-		'social-proof-3p-unauth-block-fg': true,
-	},
 	waitForReactLazy: true,
 });
 
 snapshot(SocialProofBlockCardLoading, {
 	description: 'block card: social proof cold cache',
-	featureFlags: {
-		'social-proof-3p-unauth-block-fg': true,
-	},
 	waitForReactLazy: true,
 });
 

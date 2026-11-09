@@ -1,5 +1,81 @@
 # @atlaskit/editor-common
 
+## 134.11.1
+
+### Patch Changes
+
+- [`151543bef053c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/151543bef053c) -
+  Simplify synchronous Editor credit checks at insert-menu call sites, preserve active feedback
+  across provider changes, and keep query keyboard listeners stable. Credit enforcement remains
+  behind the product UBP experiments and rovo_credits_degradation_ui.
+
+## 134.11.0
+
+### Minor Changes
+
+- [`fba2967936dfd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fba2967936dfd) -
+  Add optional insert-item rendering and pre-selection hooks for toolbar and element-browser menus.
+  Selection appearance can be overridden independently of activation. Existing behavior is preserved
+  for items without these hooks.
+
+  Expose the shared CreditCheckedPopup toolbar action interface and useAICreditGuard through the
+  credit-guard entrypoint. Reuse the popup across block and legacy insert menus, including
+  nested-menu focus behavior. Rollout remains controlled by rovo_credits_degradation_ui and
+  product-owned UBP experiments.
+
+  Portal nested credit feedback outside virtualized insert-menu scroll containers, using the
+  existing Editor dialog layer to avoid clipping.
+
+### Patch Changes
+
+- [`fba2967936dfd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fba2967936dfd) -
+  Consume cached AI credit decisions synchronously in Editor, removing deferred action and selection
+  handling. Legacy Promise callbacks fail open immediately until they migrate. Confluence credit
+  enforcement remains controlled by rovo_credits_degradation_ui and the existing UBP feature
+  experiments.
+
+## 134.10.1
+
+### Patch Changes
+
+- [`4ff087c29f9e4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4ff087c29f9e4) -
+  Prioritize Remix slash commands for remix and chart searches under cc_remix_slash_commands
+- [`c17aea7934635`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c17aea7934635) -
+  Use named dropdown-menu imports.
+- [`8092be2405d78`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8092be2405d78) -
+  Remove the retired text colour tracking kill switch while preserving mark analytics attributes.
+- Updated dependencies
+
+## 134.10.0
+
+### Minor Changes
+
+- [`77aeba2398de1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/77aeba2398de1) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+- [`969bc780b9fda`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/969bc780b9fda) -
+  Keep the top of editor popups that are taller than the visible scroll area inside it (pinned below
+  the visible top) behind platform_editor_popup_clamp_to_scroll_area
+
+### Patch Changes
+
+- Updated dependencies
+
+## 134.9.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 134.9.2
+
+### Patch Changes
+
+- [`49fcffc905097`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/49fcffc905097) -
+  Clean up experiment `platform_editor_use_vanilla_components`, keeping the shipped vanilla DOM
+  tooltip implementations and removing the React-based control paths.
+- Updated dependencies
+
 ## 134.9.1
 
 ### Patch Changes

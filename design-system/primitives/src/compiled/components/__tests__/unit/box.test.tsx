@@ -31,6 +31,32 @@ const styles = cssMap({
 describe('Box component', () => {
 	const testId = 'test';
 
+	it.each([
+		['space.inset.xxsmall', 'xxsmall', '2px'],
+		['space.inset.xsmall', 'xsmall', '4px'],
+		['space.inset.small', 'small', '6px'],
+		['space.inset.medium', 'medium', '8px'],
+		['space.inset.large', 'large', '9pt'],
+		['space.inset.xlarge', 'xlarge', '1pc'],
+		['space.inset.xxlarge', 'xxlarge', '20px'],
+		['space.inset.3xlarge', '3xlarge', '24px'],
+		['space.inset.4xlarge', '4xlarge', '2pc'],
+		['space.inset.5xlarge', '5xlarge', '3pc'],
+	] as const)('applies %s to all padding sides', (padding, size, fallback) => {
+		render(<Box testId="inset-box" padding={padding} />);
+		const element = screen.getByTestId('inset-box');
+		for (const property of [
+			'paddingBlockStart',
+			'paddingBlockEnd',
+			'paddingInlineStart',
+			'paddingInlineEnd',
+		]) {
+			expect(element).toHaveCompiledCss({
+				[property]: `var(--ds-space-inset-${size},${fallback})`,
+			});
+		}
+	});
+
 	it('should render Box', () => {
 		render(<Box backgroundColor="elevation.surface">Box</Box>);
 		expect(screen.getByText('Box')).toBeInTheDocument();

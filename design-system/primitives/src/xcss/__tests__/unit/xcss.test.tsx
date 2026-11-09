@@ -52,12 +52,69 @@ describe('xcss()', () => {
 		['space.gap.large', '--ds-space-gap-large', '12px'],
 		['space.gap.xlarge', '--ds-space-gap-xlarge', '16px'],
 		['space.gap.xxlarge', '--ds-space-gap-xxlarge', '24px'],
-	] as const)('resolves %s for gap properties', (gap, cssVariable, fallback) => {
-		const styles = xcss({ gap, rowGap: gap, columnGap: gap });
+	] as const)('resolves %s for gap and margin properties', (gap, cssVariable, fallback) => {
+		const styles = xcss({ gap, rowGap: gap, columnGap: gap, margin: gap });
 		expect(parseXcss(styles).emotion?.[0]).toEqual({
 			gap: `var(${cssVariable}, ${fallback})`,
 			rowGap: `var(${cssVariable}, ${fallback})`,
 			columnGap: `var(${cssVariable}, ${fallback})`,
+			margin: `var(${cssVariable}, ${fallback})`,
+		});
+	});
+
+	it('resolves semantic gap tokens for all margin properties', () => {
+		const gap = 'space.gap.medium' as const;
+		const styles = xcss({
+			margin: gap,
+			marginBlock: gap,
+			marginBlockEnd: gap,
+			marginBlockStart: gap,
+			// eslint-disable-next-line @atlaskit/design-system/no-physical-properties
+			marginBottom: gap,
+			marginInline: gap,
+			marginInlineEnd: gap,
+			marginInlineStart: gap,
+			// eslint-disable-next-line @atlaskit/design-system/no-physical-properties
+			marginLeft: gap,
+			// eslint-disable-next-line @atlaskit/design-system/no-physical-properties
+			marginRight: gap,
+			// eslint-disable-next-line @atlaskit/design-system/no-physical-properties
+			marginTop: gap,
+		});
+		const value = 'var(--ds-space-gap-medium, 8px)';
+		expect(parseXcss(styles).emotion?.[0]).toEqual({
+			margin: value,
+			marginBlock: value,
+			marginBlockEnd: value,
+			marginBlockStart: value,
+			marginBottom: value,
+			marginInline: value,
+			marginInlineEnd: value,
+			marginInlineStart: value,
+			marginLeft: value,
+			marginRight: value,
+			marginTop: value,
+		});
+	});
+
+	it.each([
+		['space.inset.xxsmall', 'xxsmall', '2px'],
+		['space.inset.xsmall', 'xsmall', '4px'],
+		['space.inset.small', 'small', '6px'],
+		['space.inset.medium', 'medium', '8px'],
+		['space.inset.large', 'large', '12px'],
+		['space.inset.xlarge', 'xlarge', '16px'],
+		['space.inset.xxlarge', 'xxlarge', '20px'],
+		['space.inset.3xlarge', '3xlarge', '24px'],
+		['space.inset.4xlarge', '4xlarge', '32px'],
+		['space.inset.5xlarge', '5xlarge', '48px'],
+	] as const)('resolves %s for padding properties', (padding, size, fallback) => {
+		const styles = xcss({ padding, paddingBlock: padding, paddingInline: padding });
+		const value = `var(--ds-space-inset-${size}, ${fallback})`;
+		expect(parseXcss(styles).emotion?.[0]).toEqual({
+			padding: value,
+			paddingBlock: value,
+			paddingInline: value,
 		});
 	});
 

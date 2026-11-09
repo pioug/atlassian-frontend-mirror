@@ -15,6 +15,7 @@ import {
 import { getFirstFocusable } from '../focus/get-first-focusable';
 import { getLastFocusable } from '../focus/get-last-focusable';
 import { getNextFocusable } from '../focus/get-next-focusable';
+import { isNestedLayerFocused } from '../focus/is-nested-layer-focused';
 import { type TFocusableFilter } from '../focus/types';
 
 const menuSelector = '[role="menu"]';
@@ -69,7 +70,7 @@ export type TUseArrowNavigationArgs = {
 
 /**
  * Whether the focused element belongs to this menu level, so the hook acts on the key. A nested
- * menu handles its own keys.
+ * menu or other nested layer handles its own keys.
  */
 function isFocusedElementAtThisLevel({
 	focusedElement,
@@ -82,6 +83,10 @@ function isFocusedElementAtThisLevel({
 }): boolean {
 	if (!(focusedElement instanceof HTMLElement)) {
 		return true;
+	}
+	// A layer opened from the menu (for example a dialog with a text field) owns its keys.
+	if (isNestedLayerFocused({ container })) {
+		return false;
 	}
 	if (filter) {
 		return filter(focusedElement, container);
@@ -110,6 +115,9 @@ function isFocusedElementAtThisLevel({
  * menu does not act on keys that belong to a nested menu. With a `filter`, the filter decides.
  * Without one, a `role="menu"` container acts only when the closest `role="menu"` of the focused
  * element is the container.
+ *
+ * The hook ignores all keys while focus is in a nested layer (a `[popover]` or `<dialog>` inside
+ * the container), such as a dialog that a menu item opens. That layer handles its own keys.
  *
  * @example Basic usage
  * ```tsx

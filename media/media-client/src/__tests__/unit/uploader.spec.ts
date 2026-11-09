@@ -100,6 +100,32 @@ describe('Uploader', () => {
 			baseUrl: '',
 		});
 
+	it.each([true, false])(
+		'returns the final upload response when skipRemoteFileState is %s',
+		async (enabled) => {
+			const { mediaStore, createFileFromUpload } = setup();
+			const response = { data: { id: uploadableFileUpfrontIds.id, processingStatus: 'pending' } };
+			createFileFromUpload.mockResolvedValue(response);
+			const onUploadFinish = jest.fn();
+			await new Promise<void>((resolve, reject) => {
+				uploadFile(
+					{ ...file, skipRemoteFileState: enabled },
+					mediaStore as MediaStore,
+					uploadableFileUpfrontIds,
+					{
+						onProgress: jest.fn(),
+						onUploadFinish: (...args) => {
+							onUploadFinish(...args);
+							args[0] ? reject(args[0]) : resolve();
+						},
+					},
+				);
+			});
+			expect(onUploadFinish).toHaveBeenCalledWith(undefined, response);
+			expect(onUploadFinish).toHaveBeenCalledTimes(1);
+		},
+	);
+
 	it('should pass down the file content to Chunkinator', async () => {
 		const { mediaStore, ChunkinatorMock } = setup();
 

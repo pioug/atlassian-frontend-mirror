@@ -1,7 +1,6 @@
 import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
 import type { CardState } from '@atlaskit/linking-common/store';
 import type { CardAppearance } from '@atlaskit/linking-common/types';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { getExtensionKey } from '../../../state/getExtensionKey';
 import type { BlockCardSocialProofExperimentMeta } from '../../../state/hooks/use-social-proof-experiment';
@@ -27,7 +26,7 @@ const useExperimentMetaEventAttributes = ({
 	const extensionKey = getExtensionKey(details);
 
 	const blockSocialProofExperimentMeta =
-		appearance === 'block' && status === 'unauthorized' && fg('social-proof-3p-unauth-block-fg')
+		appearance === 'block' && status === 'unauthorized'
 			? getSocialProofExperimentMeta({
 					extensionKey,
 					baseUriWithNoTrailingSlash,

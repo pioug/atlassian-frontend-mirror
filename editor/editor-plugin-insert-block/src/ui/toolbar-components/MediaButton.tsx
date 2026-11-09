@@ -24,9 +24,13 @@ import type { InsertBlockPlugin } from '../../insertBlockPluginType';
 
 type MediaButtonProps = {
 	api?: ExtractInjectionAPI<InsertBlockPlugin>;
+	disableOptimisticToolbar?: boolean;
 };
 
-export const MediaButton = ({ api }: MediaButtonProps): React.JSX.Element | null => {
+export const MediaButton = ({
+	api,
+	disableOptimisticToolbar,
+}: MediaButtonProps): React.JSX.Element | null => {
 	const { formatMessage } = useIntl();
 	const { popupsMountPoint } = useToolbarUI();
 
@@ -79,7 +83,9 @@ export const MediaButton = ({ api }: MediaButtonProps): React.JSX.Element | null
 		isOffline ||
 		!(
 			allowsUploads ||
-			(isExperimentEnabled('platform_editor_ssr_toolbar_optimistic') && isUploadPending)
+			(!disableOptimisticToolbar &&
+				isExperimentEnabled('platform_editor_ssr_toolbar_optimistic') &&
+				isUploadPending)
 		);
 
 	return (

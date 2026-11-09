@@ -89,7 +89,6 @@ import { filterPluginsForReconfigure } from './filter-plugins-for-reconfigure';
 import { editorMessages } from './messages';
 import { getUAPrefix } from './ReactEditorView/getUAPrefix';
 import { handleEditorFocus } from './ReactEditorView/handleEditorFocus';
-import { shouldUseOptimisticToolbarState } from './ReactEditorView/shouldUseOptimisticToolbarState';
 import { useDispatchTransaction } from './ReactEditorView/useDispatchTransaction';
 import { useFireFullWidthEvent } from './ReactEditorView/useFireFullWidthEvent';
 
@@ -158,7 +157,6 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 			featureFlags: editorPropFeatureFlags,
 			errorReporterHandler,
 			defaultValue,
-			primaryToolbarComponents,
 			shouldFocus,
 		},
 		onEditorCreated,
@@ -170,6 +168,9 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 	// On client first render: set to initialEditorState for the same reason.
 	// Cleared to undefined once createEditorView runs and viewRef.current becomes available.
 	const preMountEditorStateRef = useRef<EditorState | undefined>(undefined);
+	const isOptimisticToolbar =
+		!props.editorProps.__livePage &&
+		expValEquals('platform_editor_ssr_toolbar_optimistic', 'isEnabled', true);
 	const editorRef = useRef<HTMLDivElement | null>(null);
 	const viewRef = useRef<EditorView | undefined>();
 	const focusTimeoutId = useRef<number | undefined | void>();
@@ -383,18 +384,11 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 				// ED-4759: Don't set selection at end for full-page editor - should be at start.
 				// Match SSR's start selection so the optimistic toolbar hydrates with the same block type.
 				selectionAtStart:
-					isFullPage(nextAppearance) ||
-					(nextAppearance === 'max' &&
-						expValEquals('platform_editor_ssr_toolbar_optimistic', 'isEnabled', true)),
+					isFullPage(nextAppearance) || (nextAppearance === 'max' && isOptimisticToolbar),
 			});
 
-			if (
-				shouldUseOptimisticToolbarState(pluginInjectionAPI.current.api(), {
-					appearance: nextAppearance,
-					primaryToolbarComponents,
-				})
-			) {
-				// Only expose state before mount when the initial toolbar needs it.
+			if (isOptimisticToolbar) {
+				// CSR only, synchronously set preMountEditorStateRef so it's ready to be consumed by children including toolbar
 				preMountEditorStateRef.current = state;
 			}
 
@@ -724,7 +718,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 			// previously, this will contain the previous state of the editor.
 			const view = new EditorView({ mount: node }, getDirectEditorProps());
 			viewRef.current = view;
-			if (expValEquals('platform_editor_ssr_toolbar_optimistic', 'isEnabled', true)) {
+			if (isOptimisticToolbar) {
 				// clears pre-mount state as soon as the final view is mounted
 				preMountEditorStateRef.current = undefined;
 			}
@@ -834,7 +828,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 			});
 			return view;
 		},
-		[getDirectEditorProps, dispatchAnalyticsEvent],
+		[getDirectEditorProps, dispatchAnalyticsEvent, isOptimisticToolbar],
 	);
 
 	const [editorView, setEditorView] = useState<EditorView | undefined>(undefined);
@@ -1176,18 +1170,13 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 			pluginInjectionAPI.current.api()?.editorViewMode?.sharedState.currentState()?.mode === 'view';
 		const ariaReadonly = isViewMode ? ('true' as const) : undefined;
 
-		// When the optimistic toolbar needs initial state, create SSR-safe PM plugins and EditorState
+		// When the platform_editor_ssr_toolbar_optimistic is on, we create SSR-safe PM plugins and EditorState
 		// HERE in ssrDeps — before any children render — so that FullPageToolbarNext can read correct
 		// plugin state via useSharedPluginStateWithSelector → currentState() → getEditorState().
 		//
 		// We also pass these pre-built pmPlugins and editorState to EditorSSRRenderer so it can
 		// skip redundant creation (avoids double createPluginsList + EditorState.create).
-		if (
-			shouldUseOptimisticToolbarState(pluginInjectionAPI.current.api(), {
-				appearance: nextAppearance,
-				primaryToolbarComponents,
-			})
-		) {
+		if (isOptimisticToolbar) {
 			const ssrPMPlugins = profileSSROperation(
 				`${SSR_TRACE_SEGMENT_NAME}/createSSRPMPlugins`,
 				() =>
@@ -1227,8 +1216,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 		onSSRMeasure,
 		props.portalProviderAPI,
 		props.intl,
-		nextAppearance,
-		primaryToolbarComponents,
+		isOptimisticToolbar,
 	]);
 	// SSR only, synchronously set preMountEditorStateRef so it's ready to be consumed by children including toolbar
 	if (ssrDeps?.ssrEditorState) {

@@ -14,6 +14,7 @@ import {
 
 import { css, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import type { EmojiDescription } from '../../types';
@@ -113,6 +114,7 @@ export const TonePreviewButton: ForwardRefExoticComponent<
 			aria-label={ariaLabelText}
 			aria-expanded={ariaExpanded}
 			aria-controls={ariaControls}
+			tabIndex={fg('platform_ally_emoji_fixes_various') ? 0 : undefined}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={{ overflow: 'hidden' }}
 			data-testid={tonePreviewTestId}

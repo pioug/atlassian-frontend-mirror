@@ -54,3 +54,14 @@ first, edit, then `kg.py edit <path> --message "<reason>"`.
   `platform_media_auth_provider_analytics`, `platform_media_unique_external_upload_name`
 - All new behaviour changes must be behind a feature gate (`fg()` from
   `@atlaskit/platform-feature-flags`)
+
+## Uploads without collection read access
+
+With `platform_media_upload_without_read` enabled, pass `skipRemoteFileState: true` on an
+`UploadableFile` to complete from the successful `/file/upload` response. The client publishes that
+response into the file-state store and completes the upload stream without requesting `/items` or
+polling processing status. `processing` still means that preview processing is pending; it does not
+mean the upload failed. Upload errors and cancellation still use the existing error path. Consumers
+must also avoid components that fetch previews or download files.
+
+The default upload flow continues to fetch remote file state.

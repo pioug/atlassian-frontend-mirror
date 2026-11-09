@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c3554c5febd836a4b5be9a51b32c1bf4>>
+ * @codegen <<SignedSource::b6eb71d3f40ef3c6e0afd8123bd194a0>>
  * @codegenCommand yarn build tokens
  */
 var tokens = {
@@ -222,6 +222,8 @@ var tokens = {
   'color.background.code.removed.highlight': '--ds-background-code-removed-highlight',
   'color.background.code.removed.line': '--ds-background-code-removed-line',
   'color.background.disabled': '--ds-background-disabled',
+  'color.background.draghandle': '--ds-background-draghandle',
+  'color.background.droptarget': '--ds-background-droptarget',
   'color.background.input': '--ds-background-input',
   'color.background.input.hovered': '--ds-background-input-hovered',
   'color.background.input.pressed': '--ds-background-input-pressed',
@@ -325,6 +327,8 @@ var tokens = {
   'color.border.accent.gray.subtle': '--ds-border-accent-gray-subtle',
   'color.border.code': '--ds-border-code',
   'color.border.disabled': '--ds-border-disabled',
+  'color.border.dropindicator': '--ds-border-dropindicator',
+  'color.border.dropindicator.warning': '--ds-border-dropindicator-warning',
   'color.border.focused': '--ds-border-focused',
   'color.border.input': '--ds-border-input',
   'color.border.input.search': '--ds-border-input-search',
@@ -583,6 +587,8 @@ var tokens = {
   'space.gap.xxlarge': '--ds-space-gap-xxlarge',
   'space.gap.xxsmall': '--ds-space-gap-xxsmall',
   'space.inset.3xlarge': '--ds-space-inset-3xlarge',
+  'space.inset.4xlarge': '--ds-space-inset-4xlarge',
+  'space.inset.5xlarge': '--ds-space-inset-5xlarge',
   'space.inset.large': '--ds-space-inset-large',
   'space.inset.medium': '--ds-space-inset-medium',
   'space.inset.small': '--ds-space-inset-small',

@@ -1,7 +1,7 @@
 configVersion: 1
 id: ari:cloud:compass:a436116f-02ce-4520-8fbb-7301462a1674:component/c5751cc6-3513-4070-9deb-af31e86aed34/29ed8f1c-1651-45dc-a6d9-bb648fc30da3
 name: '@atlaskit/jql-editor-autocomplete-rest'
-ownerId: ari:cloud:identity::team/og-04e7b563-fc66-4f9f-b0d7-8e51d2c332c9 # Jira Cloud Platform - Empanada
+ownerId: ari:cloud:identity::team/da9b244f-f4ba-41cf-a87d-890c6713ca40
 labels:
   - platform-code
   - platform-afm
@@ -26,7 +26,7 @@ customFields:
     value: Eng - Jira Transformation - Workspace - Empanada
   - name: Technical Owner
     type: user
-    value: ari:cloud:identity::user/5e1edccbb5771b0ca441bd94 # Daniel Sinnott
+    value: ari:cloud:identity::user/5e1edccbb5771b0ca441bd94
   - name: Required Reviewers Opt In
     type: boolean
     value: true
@@ -36,3 +36,9 @@ customFields:
   - name: Required Reviewer Approvals
     type: number
     value: 1
+  - name: Reviewer Team
+    type: text
+    value: ari:cloud:identity::team/4e3ef816-5009-4fa7-9108-a168a02ba8d9
+  - name: Trusted Reviewer Teams
+    type: text
+    value: ari:cloud:identity::team/469c0795-81f7-4b0d-ab7c-cabe4dd2173f,ari:cloud:identity::team/c4c303e9-a926-40ab-b5d4-012c9a5dcaaa,ari:cloud:identity::team/6ac6a99d-0830-4033-a10a-97c060502cc5

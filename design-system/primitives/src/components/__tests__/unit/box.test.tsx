@@ -19,6 +19,23 @@ const styles = xcss({
 describe('Box component', () => {
 	const testId = 'test';
 
+	it.each([
+		['space.inset.xxsmall', 'xxsmall', '2px'],
+		['space.inset.xsmall', 'xsmall', '4px'],
+		['space.inset.small', 'small', '6px'],
+		['space.inset.medium', 'medium', '8px'],
+		['space.inset.large', 'large', '12px'],
+		['space.inset.xlarge', 'xlarge', '16px'],
+		['space.inset.xxlarge', 'xxlarge', '20px'],
+		['space.inset.3xlarge', '3xlarge', '24px'],
+		['space.inset.4xlarge', '4xlarge', '32px'],
+		['space.inset.5xlarge', '5xlarge', '48px'],
+	] as const)('applies %s to all padding sides', (padding, size, fallback) => {
+		render(<Box testId="inset-box" padding={padding} />);
+		const element = screen.getByTestId('inset-box');
+		expect(element).toHaveCompiledCss({ padding: `var(--ds-space-inset-${size}, ${fallback})` });
+	});
+
 	it('should render box', () => {
 		render(<Box>Box</Box>);
 		expect(screen.getByText('Box')).toBeInTheDocument();

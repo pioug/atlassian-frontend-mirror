@@ -75,7 +75,18 @@ export type PositiveSpaceToken =
 	| 'space.800'
 	| 'space.1000';
 export type Space = PositiveSpaceToken;
-export type PaddingToken = PositiveSpaceToken;
+export type PaddingToken =
+	| PositiveSpaceToken
+	| 'space.inset.xxsmall'
+	| 'space.inset.xsmall'
+	| 'space.inset.small'
+	| 'space.inset.medium'
+	| 'space.inset.large'
+	| 'space.inset.xlarge'
+	| 'space.inset.xxlarge'
+	| 'space.inset.3xlarge'
+	| 'space.inset.4xlarge'
+	| 'space.inset.5xlarge';
 export type GapToken =
 	| PositiveSpaceToken
 	| 'space.gap.xxsmall'

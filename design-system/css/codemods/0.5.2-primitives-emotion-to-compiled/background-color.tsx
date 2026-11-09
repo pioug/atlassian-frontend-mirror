@@ -1,8 +1,8 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7b9ffd6dcccead720baadbffd4a1648a>>
+ * @codegen <<SignedSource::01a0b16d94e43c26cf20e20e416164ac>>
  * @codegenCommand afm workspace @atlaskit/primitives codegen-styles
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::2d05e18dbb472322c67fd0bc8ec55082>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::80bcaa5103d6398f48bb733e6dbe9f55>>
  */
 import { token } from '@atlaskit/tokens';
 
@@ -135,6 +135,8 @@ export const backgroundColorMap: {
 	'color.background.code.removed.highlight': 'var(--ds-background-code-removed-highlight)';
 	'color.background.code.removed.line': 'var(--ds-background-code-removed-line)';
 	'color.background.disabled': 'var(--ds-background-disabled)';
+	'color.background.draghandle': 'var(--ds-background-draghandle)';
+	'color.background.droptarget': 'var(--ds-background-droptarget)';
 	'color.background.input': 'var(--ds-background-input)';
 	'color.background.input.hovered': 'var(--ds-background-input-hovered)';
 	'color.background.input.pressed': 'var(--ds-background-input-pressed)';
@@ -678,6 +680,8 @@ export const backgroundColorMap: {
 	),
 	'color.background.code.removed.line': token('color.background.code.removed.line', '#FFD5D266'),
 	'color.background.disabled': token('color.background.disabled', '#0515240F'),
+	'color.background.draghandle': token('color.background.draghandle', '#1868DB'),
+	'color.background.droptarget': token('color.background.droptarget', '#E9F2FE'),
 	'color.background.input': token('color.background.input', '#FFFFFF'),
 	'color.background.input.hovered': token('color.background.input.hovered', '#F8F8F8'),
 	'color.background.input.pressed': token('color.background.input.pressed', '#FFFFFF'),

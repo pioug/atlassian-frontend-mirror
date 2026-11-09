@@ -19,7 +19,7 @@ import {
 	asMockFunction,
 } from '@atlaskit/media-test-helpers/jestHelpers';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { InsetViewerProvider } from '../../../../../insetViewerContext';
 import { MediaViewerError } from '../../../../../MediaViewerError';
@@ -232,29 +232,31 @@ describe('EmailViewer', () => {
 	});
 
 	describe('Code Viewer Advanced', () => {
-		ffTest(
-			'media_advanced_text_viewer',
-			async () => {
-				const fetchPromise = Promise.resolve();
-				const { onSuccess } = createFixture(fetchPromise, codeItem);
-				await waitFor(() =>
-					expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument(),
-				);
+		it('with media_advanced_text_viewer on', async () => {
+			passGate('media_advanced_text_viewer');
 
-				expect(onSuccess).toHaveBeenCalled();
-				expect(screen.getByText('some-src')).toBeInTheDocument();
-			},
-			async () => {
-				const fetchPromise = Promise.resolve();
-				const { onSuccess } = createFixture(fetchPromise, codeItem);
-				await waitFor(() =>
-					expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument(),
-				);
+			const fetchPromise = Promise.resolve();
+			const { onSuccess } = createFixture(fetchPromise, codeItem);
+			await waitFor(() =>
+				expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument(),
+			);
 
-				expect(onSuccess).toHaveBeenCalled();
-				expect(screen.getByText('some')).toBeInTheDocument();
-			},
-		);
+			expect(onSuccess).toHaveBeenCalled();
+			expect(screen.getByText('some-src')).toBeInTheDocument();
+		});
+
+		it('with media_advanced_text_viewer off', async () => {
+			failGate('media_advanced_text_viewer');
+
+			const fetchPromise = Promise.resolve();
+			const { onSuccess } = createFixture(fetchPromise, codeItem);
+			await waitFor(() =>
+				expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument(),
+			);
+
+			expect(onSuccess).toHaveBeenCalled();
+			expect(screen.getByText('some')).toBeInTheDocument();
+		});
 	});
 
 	describe('Code Viewer Advanced in the inset viewer', () => {
@@ -299,46 +301,45 @@ describe('EmailViewer', () => {
 				{ advancedViewer: 'off', lineCountProps: {} },
 			] as const
 		).forEach(({ advancedViewer, lineCountProps }) => {
-			ffTest[advancedViewer](
-				'media_advanced_text_viewer',
-				`when the advanced viewer is ${advancedViewer === 'on' ? 'enabled' : 'disabled'}`,
-				() => {
-					it('should not render the footer when the inset viewer is disabled', async () => {
-						renderInsetViewer(codeItem, { isInsetViewer: false });
+			describe(`media_advanced_text_viewer is ${advancedViewer} when the advanced viewer is ${advancedViewer === 'on' ? 'enabled' : 'disabled'}`, () => {
+				beforeEach(() => {
+					(advancedViewer === 'on' ? passGate : failGate)('media_advanced_text_viewer');
+				});
+				it('should not render the footer when the inset viewer is disabled', async () => {
+					renderInsetViewer(codeItem, { isInsetViewer: false });
 
-						await waitFor(() =>
-							expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument(),
-						);
+					await waitFor(() =>
+						expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument(),
+					);
 
-						expect(CodeViewerFooter).not.toHaveBeenCalled();
-					});
+					expect(CodeViewerFooter).not.toHaveBeenCalled();
+				});
 
-					it('should render the footer with the language name and the footer element when the inset viewer is enabled', async () => {
-						renderInsetViewer(codeItem);
+				it('should render the footer with the language name and the footer element when the inset viewer is enabled', async () => {
+					renderInsetViewer(codeItem);
 
-						await waitFor(() =>
-							expect(lastFooterProps()).toEqual({
-								...lineCountProps,
-								languageName: 'Python',
-								footerElement: expect.any(HTMLElement),
-							}),
-						);
-					});
+					await waitFor(() =>
+						expect(lastFooterProps()).toEqual({
+							...lineCountProps,
+							languageName: 'Python',
+							footerElement: expect.any(HTMLElement),
+						}),
+					);
+				});
 
-					it('should render the footer without a language name when the file has no known language', async () => {
-						renderInsetViewer(textItem);
+				it('should render the footer without a language name when the file has no known language', async () => {
+					renderInsetViewer(textItem);
 
-						await waitFor(() => expect(CodeViewerFooter).toHaveBeenCalled());
-						expect(lastFooterProps()?.languageName).toBeUndefined();
-					});
+					await waitFor(() => expect(CodeViewerFooter).toHaveBeenCalled());
+					expect(lastFooterProps()?.languageName).toBeUndefined();
+				});
 
-					it('should pass no footer element when the footer is not mounted', async () => {
-						renderInsetViewer(codeItem, { withFooter: false });
+				it('should pass no footer element when the footer is not mounted', async () => {
+					renderInsetViewer(codeItem, { withFooter: false });
 
-						await waitFor(() => expect(lastFooterProps()?.footerElement).toBeNull());
-					});
-				},
-			);
+					await waitFor(() => expect(lastFooterProps()?.footerElement).toBeNull());
+				});
+			});
 		});
 	});
 

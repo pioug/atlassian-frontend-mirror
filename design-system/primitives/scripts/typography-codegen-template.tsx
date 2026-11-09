@@ -2,10 +2,12 @@ import format from '@af/formatting/sync';
 import tokens from '@atlaskit/tokens/atlassian-typography';
 
 import { capitalize } from './capitalize';
+import { filterTokensForCodegen, type TokenFilterOptions } from './filter-tokens-for-codegen';
 import { generateTypeDefs } from './generate-type-defs';
 import { constructTokenFunctionCall } from './utils';
 
 type Token = {
+	attributes: { state: string };
 	name: string;
 	fallback: string;
 	isDeprecated: boolean;
@@ -23,6 +25,7 @@ type TypographyPropertyConfig = {
 const activeTokens: Token[] = tokens
 	.filter((t) => t.attributes.state !== 'deleted')
 	.map((t) => ({
+		attributes: t.attributes,
 		name: t.name,
 		fallback: t.value,
 		isDeprecated: t.attributes.state === 'deprecated',
@@ -53,9 +56,11 @@ const typographyProperties: Record<TypographyProperty, TypographyPropertyConfig>
 	},
 };
 
-export const createTypographyStylesFromTemplate: (property: TypographyProperty) => string = (
-	property,
-) => {
+export const createTypographyStylesFromTemplate: (
+	property: TypographyProperty,
+	options?: TokenFilterOptions,
+) => string = (property, options = {}) => {
+	const filteredTokens = filterTokensForCodegen(activeTokens, options);
 	if (!typographyProperties[property]) {
 		throw new Error(`[codegen] Unknown option found "${property}"`);
 	}
@@ -67,13 +72,13 @@ export const createTypographyStylesFromTemplate: (property: TypographyProperty) 
 			`
 export const ${objectName}Map: {
 	${generateTypeDefs(
-		activeTokens
+		filteredTokens
 			.filter(filterFn)
 			.map((t) => t.name.replace(/\.\[default\]/g, ''))
 			.sort((a, b) => (a < b ? -1 : 1)),
 	)}
 } = {
-${activeTokens
+${filteredTokens
 	.filter(filterFn)
 	.map((t) => ({ ...t, name: t.name.replace(/\.\[default\]/g, '') }))
 	.sort((a, b) => (a.name < b.name ? -1 : 1))

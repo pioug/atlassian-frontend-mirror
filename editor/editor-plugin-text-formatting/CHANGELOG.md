@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 31.0.0
+
+### Major Changes
+
+- [`656ef3137dfaa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/656ef3137dfaa) -
+  [FFCLEANUP-144040] clean up the `platform_editor_lovability_inline_code` experiment – this change
+  removes the `codeRegexWithBackwardMatch` export, and uses `codeRegex` instead which supports
+  backwards matching for inline code autoformatting.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 30.2.9
 
 ### Patch Changes

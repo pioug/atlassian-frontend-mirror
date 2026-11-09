@@ -1,8 +1,8 @@
 import React from 'react';
 
-import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
-import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
-import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
+import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
+import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags/setBooleanFeatureFlagResolver';
 
 const fgs = ['select-avoid-duplicated-registered-ref'];

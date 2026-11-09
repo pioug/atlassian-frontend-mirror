@@ -102,13 +102,9 @@ export function calculateLayoutAreaStates({
 	// A growing panel cascades towards inline-start. Chat is on the other side
 	// of the local rail, so local growth must reserve its full starting width.
 	const shouldCollapseSideNav = Boolean(
+		!isRefinedLayout &&
 		resizeSession &&
 		resizeSession.area !== 'side-nav' &&
-		!(
-			isRefinedLayout &&
-			resizeSession.overlayModes?.panel === 'overlay' &&
-			resizeSession.area === 'panel'
-		) &&
 		resizeSession.baselineWidths['side-nav'] !== undefined &&
 		resizeSession.baselineWidths[resizeSession.area] !== undefined &&
 		resizingArea &&
@@ -133,12 +129,14 @@ export function calculateLayoutAreaStates({
 						: 0),
 	);
 
-	let isSideNavOpenInline = Boolean(
+	const isSideNavOpenInline = Boolean(
 		sideNav?.isOpen &&
 		!shouldCollapseSideNav &&
-		(layoutModes
-			? layoutModes['side-nav'] === 'inline'
-			: !isSideNavOverlay && availableWidth >= mainMinWidth + sideNavMinWidth),
+		(isRefinedLayout
+			? !isSideNavOverlay
+			: layoutModes
+				? layoutModes['side-nav'] === 'inline'
+				: !isSideNavOverlay && availableWidth >= mainMinWidth + sideNavMinWidth),
 	);
 	const canInlineChat = () =>
 		Boolean(
@@ -178,12 +176,6 @@ export function calculateLayoutAreaStates({
 		// both siblings reach minimum. Move Chat to overlay, then recheck local.
 		isChatPanelOpenInline = false;
 		isPanelInline = canInlinePanel();
-		if (!isPanelInline && availableWidth < overlayMainMinWidth + sideNavMinWidth) {
-			// A constrained Root may not fit even navigation beside local's overlay.
-			isSideNavOpenInline = false;
-			isChatPanelOpenInline = canInlineChat();
-			isPanelInline = canInlinePanel();
-		}
 	}
 
 	// The clearance belongs to Main only while local overlays an inline SideNav.
@@ -343,7 +335,8 @@ export function calculateLayoutAreaStates({
 							effectiveMainMinWidth -
 							inlineAreas.reduce(
 								(total, sibling) =>
-									sibling === areaName || (sibling === 'side-nav' && areaName !== 'side-nav')
+									sibling === areaName ||
+									(!isRefinedLayout && sibling === 'side-nav' && areaName !== 'side-nav')
 										? total
 										: total +
 											(areaName === 'panel' && sibling === 'chat-panel'

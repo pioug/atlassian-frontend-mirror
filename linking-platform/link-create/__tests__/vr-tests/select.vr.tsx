@@ -20,7 +20,4 @@ snapshot(DefaultSelect, {
 });
 snapshot(SelectorAllProps, {
 	...options,
-	featureFlags: {
-		'linking-platform-create-field-error-association': [true, false],
-	},
 });

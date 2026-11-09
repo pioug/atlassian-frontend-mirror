@@ -4,6 +4,7 @@ import type { FullPageEditorAppearance } from '../types';
 
 interface Props {
 	options: {
+		disableOptimisticToolbar?: InsertBlockPluginOptions['disableOptimisticToolbar'];
 		editorAppearance: FullPageEditorAppearance;
 		toolbarButtons: InsertBlockPluginOptions['toolbarButtons'];
 	};
@@ -11,6 +12,7 @@ interface Props {
 
 export function insertBlockPluginOptions({ options }: Props): InsertBlockPluginOptions {
 	return {
+		disableOptimisticToolbar: options.disableOptimisticToolbar,
 		allowTables: true,
 		allowExpand: true,
 		horizontalRuleEnabled: true,

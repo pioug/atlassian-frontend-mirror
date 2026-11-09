@@ -4,6 +4,7 @@ import type { BaseToken } from '../../../palettes/palette';
 const color: ExtendedValueSchema<BackgroundColorTokenSchema<BaseToken>> = {
 	color: {
 		background: {
+			draghandle: { value: 'Blue200' },
 			brand: {
 				bold: {
 					'[default]': { value: 'Blue200' },

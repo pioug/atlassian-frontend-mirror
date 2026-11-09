@@ -7,7 +7,9 @@ import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
 import type { ChunkHashAlgorithm } from '@atlaskit/media-core/chunk-hash-algorithm';
 
 import type { MediaStore } from '../client/media-store/MediaStore';
+import type { MediaStoreResponse } from '../client/media-store/types';
 import { CHUNK_SIZE, PROCESSING_BATCH_SIZE } from '../constants';
+import type { MediaFile } from '../models/media';
 import { createHasher } from '../utils/hashing/hasherCreator';
 import { calculateChunkSize, fileSizeError } from './calculateChunkSize';
 import { UploaderError } from './UploaderError';
@@ -19,6 +21,8 @@ export type UploadableFile = {
 	mimeType?: string;
 	collection?: string;
 	size: number;
+	/** Complete from the upload response without fetching remote file metadata. */
+	skipRemoteFileState?: boolean;
 };
 
 export type UploadableFileUpfrontIds = {
@@ -29,7 +33,7 @@ export type UploadableFileUpfrontIds = {
 
 export type UploadFileCallbacks = {
 	onProgress: (progress: number) => void;
-	onUploadFinish: (error?: any) => void;
+	onUploadFinish: (error?: any, response?: MediaStoreResponse<MediaFile>) => void;
 };
 
 export interface UploadFileResult {
@@ -170,6 +174,7 @@ export const uploadFile = (
 
 	const onUploadFinish = (callbacks && callbacks.onUploadFinish) || (() => {});
 
+	let uploadResponse: MediaStoreResponse<MediaFile> | undefined;
 	const subscription = from(deferredUploadId)
 		.pipe(
 			concatMap((uploadId) =>
@@ -183,8 +188,11 @@ export const uploadFile = (
 			),
 		)
 		.subscribe({
+			next: (response) => {
+				uploadResponse = response;
+			},
 			error: (err) => onUploadFinish(err),
-			complete: () => onUploadFinish(),
+			complete: () => onUploadFinish(undefined, uploadResponse),
 		});
 
 	return {

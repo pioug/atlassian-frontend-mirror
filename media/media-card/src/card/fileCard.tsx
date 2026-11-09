@@ -93,6 +93,8 @@ import { performanceNow } from './performance';
 import type { SsrItemDetails } from './types';
 
 export interface FileCardProps extends CardEventProps {
+	/** Use cached file state and local previews only; requires platform_media_upload_without_read. */
+	readonly skipRemoteFileState?: boolean;
 	/** Overlay the media file. */
 	readonly disableOverlay?: boolean;
 	/** Resize the media to 'crop' | 'fit' | 'full-fit' | 'stretchy-fit'. */
@@ -212,9 +214,10 @@ export const FileCard = ({
 	contextId,
 	alt,
 	actions,
-	shouldEnableDownloadButton,
-	useInlinePlayer,
-	shouldOpenMediaViewer,
+	shouldEnableDownloadButton: enableDownloadButton,
+	useInlinePlayer: enableInlinePlayer,
+	shouldOpenMediaViewer: enableMediaViewer,
+	skipRemoteFileState: skipRemoteFileStateProp,
 	onFullscreenChange,
 	selectable,
 	selected,
@@ -241,6 +244,11 @@ export const FileCard = ({
 	mediaViewerExtensions,
 	fallbackMediaNameFetcher,
 }: FileCardProps): React.JSX.Element => {
+	const skipRemoteFileState =
+		fg('platform_media_upload_without_read') && Boolean(skipRemoteFileStateProp);
+	const shouldEnableDownloadButton = !skipRemoteFileState && enableDownloadButton;
+	const useInlinePlayer = !skipRemoteFileState && enableInlinePlayer;
+	const shouldOpenMediaViewer = !skipRemoteFileState && enableMediaViewer;
 	const { formatMessage } = useIntl();
 	const [isAbuseModalOpen, setIsAbuseModalOpen] = useState(false);
 	const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -286,7 +294,7 @@ export const FileCard = ({
 	);
 
 	const { fileState } = useFileState(identifier.id, {
-		skipRemote: !isCardVisible,
+		skipRemote: skipRemoteFileState || !isCardVisible,
 		collectionName: identifier.collectionName,
 		occurrenceKey: identifier.occurrenceKey,
 		includeHashForDuplicateFiles,
@@ -317,6 +325,7 @@ export const FileCard = ({
 		lastFetchedFileId.current = currentId;
 
 		if (
+			!skipRemoteFileState &&
 			fileStateValue &&
 			!fileStateValue.name &&
 			fallbackMediaNameFetcher &&
@@ -332,7 +341,7 @@ export const FileCard = ({
 				},
 			);
 		}
-	}, [fileStateValue, fallbackMediaNameFetcher]);
+	}, [fileStateValue, fallbackMediaNameFetcher, skipRemoteFileState]);
 
 	const dateOverrides = useContext(DateOverrideContext);
 	const overridenDate = dateOverrides?.[identifier.id];
@@ -379,7 +388,7 @@ export const FileCard = ({
 	}, [alt, previewDimensions, contextId, fileStateValue, identifier, originalDimensions]);
 
 	const {
-		preview,
+		preview: cachedPreview,
 		status: previewStatus,
 		error: previewError,
 		nonCriticalError,
@@ -394,12 +403,19 @@ export const FileCard = ({
 		mediaBlobUrlAttrs,
 		resizeMode: imageResizeModeToFileImageMode(resizeMode),
 		identifier,
-		ssr,
+		ssr: skipRemoteFileState ? undefined : ssr,
 		dimensions: previewDimensions,
 		traceContext,
-		skipRemote: !isCardVisible,
+		skipRemote: skipRemoteFileState || !isCardVisible,
 		source: 'mediaCard',
 	});
+
+	const preview =
+		!skipRemoteFileState ||
+		cachedPreview?.source === 'local' ||
+		cachedPreview?.source === 'cache-local'
+			? cachedPreview
+			: undefined;
 
 	const shouldSendPerformanceEvent = useMemo(() => shouldPerformanceBeSampled(), []);
 
@@ -414,7 +430,8 @@ export const FileCard = ({
 	// CXP-2723 TODO: TEMPORARY VARIABLES
 	const finalError =
 		error ||
-		(previewError &&
+		(!skipRemoteFileState &&
+		previewError &&
 		previewError.primaryReason !== 'failed-processing' &&
 		fileStateValue?.mimeType !== 'image/svg+xml'
 			? previewError
@@ -434,8 +451,8 @@ export const FileCard = ({
 	const { getMediaViewerSelectedItem, onSelectedItemChange }: MediaViewerExtensions =
 		isExperimentEnabled('cc_comments_media_viewer_sidebar') ? (mediaViewerExtensions ?? {}) : {};
 
-	const [mediaViewerSelectedItem, setMediaViewerSelectedItem] = useState<Identifier | null>(
-		() => getMediaViewerSelectedItem?.(identifier) ?? null,
+	const [mediaViewerSelectedItem, setMediaViewerSelectedItem] = useState<Identifier | null>(() =>
+		skipRemoteFileState ? null : (getMediaViewerSelectedItem?.(identifier) ?? null),
 	);
 
 	const openMediaViewer = useCallback(() => {
@@ -562,7 +579,10 @@ export const FileCard = ({
 	]);
 
 	const computedActions = useMemo(() => {
-		if (finalStatus === 'failed-processing' || shouldEnableDownloadButton) {
+		if (
+			!skipRemoteFileState &&
+			(finalStatus === 'failed-processing' || shouldEnableDownloadButton)
+		) {
 			const handler = async () => {
 				if (!!fileStateValue?.abuseClassification) {
 					setIsAbuseModalOpen(true);
@@ -583,6 +603,7 @@ export const FileCard = ({
 		}
 	}, [
 		actions,
+		skipRemoteFileState,
 		mediaClient.config.enforceDataSecurityPolicy,
 		shouldEnableDownloadButton,
 		finalStatus,
@@ -931,8 +952,20 @@ export const FileCard = ({
 	const updateFileStateRef = useCurrentValueRef(() => {
 		// This effect has race condition with Complete effect. We share the same check to ovid status overrides
 
+		if (skipRemoteFileState && !fileState) {
+			setStatus('loading');
+			uploadProgressRef.current = undefined;
+			return;
+		}
+
+		if (skipRemoteFileState && fileState && fileState.status !== 'error') {
+			setStatus(fileState.status === 'uploading' ? 'uploading' : 'complete');
+			uploadProgressRef.current = fileState.status === 'uploading' ? fileState.progress : 1;
+			return;
+		}
+
 		// do not update the card status if the status is final
-		if (['complete', 'error', 'failed-processing'].includes(finalStatus)) {
+		if (!skipRemoteFileState && ['complete', 'error', 'failed-processing'].includes(finalStatus)) {
 			return;
 		}
 
@@ -972,7 +1005,8 @@ export const FileCard = ({
 			} else {
 				const e = toCommonMediaClientError(fileState);
 
-				const errorReason = finalStatus === 'uploading' ? 'upload' : 'metadata-fetch';
+				const errorReason =
+					skipRemoteFileState || finalStatus === 'uploading' ? 'upload' : 'metadata-fetch';
 				setError(new MediaCardError(errorReason, e));
 				setStatus('error');
 			}
@@ -1072,6 +1106,7 @@ export const FileCard = ({
 				error={finalError}
 				mediaItemType={mediaItemType}
 				metadata={metadata}
+				disablePreview={skipRemoteFileState && metadata.mimeType === 'image/svg+xml'}
 				cardPreview={preview}
 				alt={alt}
 				resizeMode={resizeMode}
@@ -1177,7 +1212,7 @@ export const FileCard = ({
 			) : (
 				renderCard()
 			)}
-			{mediaViewerSelectedItem ? (
+			{!skipRemoteFileState && mediaViewerSelectedItem ? (
 				<MediaViewer
 					collectionName={collectionName}
 					items={mediaViewerItems || []}

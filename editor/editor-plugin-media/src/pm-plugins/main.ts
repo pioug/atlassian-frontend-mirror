@@ -230,6 +230,13 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 		return this.mediaDropTargets;
 	}
 
+	private get isOptimisticToolbarEnabled(): boolean {
+		return (
+			!this.mediaOptions?.disableOptimisticToolbar &&
+			isExperimentEnabled('platform_editor_ssr_toolbar_optimistic')
+		);
+	}
+
 	constructor(
 		state: EditorState,
 		options: MediaPluginOptions,
@@ -253,7 +260,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 
 		if (mediaOptions?.syncProvider) {
 			this.setMediaProvider(mediaOptions.syncProvider);
-			if (mediaOptions.provider && isExperimentEnabled('platform_editor_ssr_toolbar_optimistic')) {
+			if (mediaOptions.provider && this.isOptimisticToolbarEnabled) {
 				// The synchronous SSR provider may only support viewing. Keep its view
 				// config, but wait for the full provider before deciding upload availability.
 				if (!this.allowsUploads) {
@@ -320,11 +327,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 		// Prevent someone trying to set the exact same provider twice for performance reasons
 		if (
 			this.previousMediaProvider === mediaProvider &&
-			!(
-				isExperimentEnabled('platform_editor_ssr_toolbar_optimistic') &&
-				this.uploadStatus === 'pending' &&
-				!mediaProvider
-			)
+			!(this.isOptimisticToolbarEnabled && this.uploadStatus === 'pending' && !mediaProvider)
 		) {
 			return;
 		}
@@ -334,10 +337,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 
 			this.allowsUploads = false;
 			this.uploadStatus = 'unavailable';
-			if (
-				!this.destroyed &&
-				(this.view || !isExperimentEnabled('platform_editor_ssr_toolbar_optimistic'))
-			) {
+			if (!this.destroyed && (this.view || !this.isOptimisticToolbarEnabled)) {
 				this.view.dispatch(
 					this.view.state.tr.setMeta(stateKey, {
 						allowsUploads: this.allowsUploads,
@@ -355,7 +355,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 			const resolvedProvider =
 				mediaProvider instanceof Promise ? await mediaProvider : mediaProvider;
 			if (
-				isExperimentEnabled('platform_editor_ssr_toolbar_optimistic') &&
+				this.isOptimisticToolbarEnabled &&
 				(this.destroyed || this.previousMediaProvider !== mediaProvider)
 			) {
 				return;
@@ -381,7 +381,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 			);
 		} catch (err) {
 			if (
-				isExperimentEnabled('platform_editor_ssr_toolbar_optimistic') &&
+				this.isOptimisticToolbarEnabled &&
 				(this.destroyed || this.previousMediaProvider !== mediaProvider)
 			) {
 				return;
@@ -397,10 +397,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 
 			this.allowsUploads = false;
 			this.uploadStatus = 'unavailable';
-			if (
-				!this.destroyed &&
-				(this.view || !isExperimentEnabled('platform_editor_ssr_toolbar_optimistic'))
-			) {
+			if (!this.destroyed && (this.view || !this.isOptimisticToolbarEnabled)) {
 				this.view.dispatch(
 					this.view.state.tr.setMeta(stateKey, {
 						allowsUploads: this.allowsUploads,
@@ -935,7 +932,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 	setView(view: EditorView): void {
 		this.view = view;
 		if (
-			isExperimentEnabled('platform_editor_ssr_toolbar_optimistic') &&
+			this.isOptimisticToolbarEnabled &&
 			this.uploadStatus === 'pending' &&
 			!this.previousMediaProvider
 		) {

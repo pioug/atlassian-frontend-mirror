@@ -859,6 +859,21 @@ function TopLayerTooltipPopup({
 	);
 	const hostRef = mergeRefs([popoverRef, setPopoverNode]);
 
+	// `ignoreTooltipPointerEvents` must also reach the popover host: `Popover` resets the host to
+	// `pointer-events: auto`, so the host would still catch presses. `Popover` has no prop for host
+	// styles, so set it inline (an inline style beats the reset). The host mounts and unmounts with
+	// this component, so the effect always sees it.
+	useLayoutEffect(() => {
+		const host = popoverRef.current;
+		if (!ignoreTooltipPointerEvents || !host) {
+			return;
+		}
+		host.style.setProperty('pointer-events', 'none');
+		return () => {
+			host.style.removeProperty('pointer-events');
+		};
+	}, [ignoreTooltipPointerEvents]);
+
 	// `shouldStayOpenOnTriggerClick`: a press on the trigger light-dismisses the hint
 	// popover, and the browser gives no way to cancel that. The dismiss runs
 	// before the `pointerup` is dispatched, so show the popover again from the

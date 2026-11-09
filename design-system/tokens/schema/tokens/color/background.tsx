@@ -132,6 +132,24 @@ const color: AttributeSchema<BackgroundColorTokenSchema<BaseToken>> = {
 			},
 		},
 		background: {
+			droptarget: {
+				attributes: {
+					group: 'paint',
+					state: 'active',
+					introduced: '20.10.0',
+					description:
+						'Use for the eligible region currently accepting a dragged item when area feedback is needed. This is not ordinary hover, persistent selection, or reserved placeholder space. Use an insertion indicator for before/after placement; preserve maintained combine and nested-group treatments instead of replacing them with this fill.',
+				},
+			},
+			draghandle: {
+				attributes: {
+					group: 'paint',
+					state: 'active',
+					introduced: '20.10.0',
+					description:
+						'Use for a prominent filled drag-handle background, such as a table grip. This is not a universal drag-handle icon or draggable-item background. Use color.icon.inverse for the handle icon. Keep selection and keyboard focus separate, and verify contrast on the actual surfaces in each theme.',
+				},
+			},
 			disabled: {
 				attributes: {
 					group: 'paint',

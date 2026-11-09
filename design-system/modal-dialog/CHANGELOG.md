@@ -1,5 +1,13 @@
 # @atlaskit/modal-dialog
 
+## 17.2.2
+
+### Patch Changes
+
+- [`6a5baf4c2b1ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6a5baf4c2b1ac) -
+  Behind `platform-dst-top-layer`, a modal with no `height` sizes to its content again. Before, a
+  child with `flex: 1` collapsed the modal to 0px.
+
 ## 17.2.1
 
 ### Patch Changes

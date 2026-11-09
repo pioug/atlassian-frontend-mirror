@@ -31,10 +31,10 @@ export type Dimension = keyof typeof dimensionMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::83fd6469dc706393c07885ee3675776b>>
+ * @codegen <<SignedSource::49eb165a7fdbaa655d502491e3733b1a>>
  * @codegenId spacing
  * @codegenCommand afm workspace @atlaskit/primitives codegen-styles
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::27b3f9240cb9c6f16e54a6ebd2c859b9>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-spacing.tsx <<SignedSource::7dec71ad97d8266142fd46405e12a3dc>>
  */
 export const positiveSpaceMap: {
 	'space.0': 'var(--ds-space-0)';
@@ -200,10 +200,10 @@ export type GapSpace = keyof typeof gapSpaceMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::443a20c4a851f9756bffe8a4678e8eee>>
+ * @codegen <<SignedSource::0be2ed94f4e6f112cd8fdf635fa9e67c>>
  * @codegenId inverse-colors
  * @codegenCommand afm workspace @atlaskit/primitives codegen-styles
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::2d05e18dbb472322c67fd0bc8ec55082>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::80bcaa5103d6398f48bb733e6dbe9f55>>
  */
 export const inverseColorMap: {
 	'color.background.neutral.bold': 'color.text.inverse';
@@ -275,11 +275,11 @@ export const inverseColorMap: {
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::021a7b200355ff1fb2e712568f17a868>>
+ * @codegen <<SignedSource::0e43280c203fd99528b67353d911158e>>
  * @codegenId elevation
  * @codegenCommand afm workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["opacity", "shadow", "surface"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::2d05e18dbb472322c67fd0bc8ec55082>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::80bcaa5103d6398f48bb733e6dbe9f55>>
  */
 export const opacityMap: {
 	'opacity.disabled': 'var(--ds-opacity-disabled)';
@@ -354,11 +354,11 @@ export type SurfaceColor = keyof typeof surfaceColorMap;
 
 /**
  * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6dde013d843faceafc952aff984e7e05>>
+ * @codegen <<SignedSource::edd07f00bee7f7873c9d16f1eb2d6572>>
  * @codegenId colors
  * @codegenCommand afm workspace @atlaskit/primitives codegen-styles
  * @codegenParams ["border", "background", "text", "fill"]
- * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::2d05e18dbb472322c67fd0bc8ec55082>>
+ * @codegenDependency ../../../tokens/src/artifacts/tokens-raw/atlassian-light.tsx <<SignedSource::80bcaa5103d6398f48bb733e6dbe9f55>>
  */
 export const borderColorMap: {
 	'color.border': 'var(--ds-border)';
@@ -384,6 +384,8 @@ export const borderColorMap: {
 	'color.border.accent.gray.subtle': 'var(--ds-border-accent-gray-subtle)';
 	'color.border.code': 'var(--ds-border-code)';
 	'color.border.disabled': 'var(--ds-border-disabled)';
+	'color.border.dropindicator': 'var(--ds-border-dropindicator)';
+	'color.border.dropindicator.warning': 'var(--ds-border-dropindicator-warning)';
 	'color.border.focused': 'var(--ds-border-focused)';
 	'color.border.input': 'var(--ds-border-input)';
 	'color.border.input.search': 'var(--ds-border-input-search)';
@@ -425,6 +427,8 @@ export const borderColorMap: {
 	'color.border.accent.gray.subtle': token('color.border.accent.gray.subtle', '#B7B9BE'),
 	'color.border.code': token('color.border.code', '#0B120E24'),
 	'color.border.disabled': token('color.border.disabled', '#0515240F'),
+	'color.border.dropindicator': token('color.border.dropindicator', '#357DE8'),
+	'color.border.dropindicator.warning': token('color.border.dropindicator.warning', '#E06C00'),
 	'color.border.focused': token('color.border.focused', '#4688EC'),
 	'color.border.input': token('color.border.input', '#8C8F97'),
 	'color.border.input.search': token('color.border.input.search', '#0B120E24'),
@@ -575,6 +579,8 @@ export const backgroundColorMap: {
 	'color.background.code.removed.highlight': 'var(--ds-background-code-removed-highlight)';
 	'color.background.code.removed.line': 'var(--ds-background-code-removed-line)';
 	'color.background.disabled': 'var(--ds-background-disabled)';
+	'color.background.draghandle': 'var(--ds-background-draghandle)';
+	'color.background.droptarget': 'var(--ds-background-droptarget)';
 	'color.background.input': 'var(--ds-background-input)';
 	'color.background.input.hovered': 'var(--ds-background-input-hovered)';
 	'color.background.input.pressed': 'var(--ds-background-input-pressed)';
@@ -1118,6 +1124,8 @@ export const backgroundColorMap: {
 	),
 	'color.background.code.removed.line': token('color.background.code.removed.line', '#FFD5D266'),
 	'color.background.disabled': token('color.background.disabled', '#0515240F'),
+	'color.background.draghandle': token('color.background.draghandle', '#1868DB'),
+	'color.background.droptarget': token('color.background.droptarget', '#E9F2FE'),
 	'color.background.input': token('color.background.input', '#FFFFFF'),
 	'color.background.input.hovered': token('color.background.input.hovered', '#F8F8F8'),
 	'color.background.input.pressed': token('color.background.input.pressed', '#FFFFFF'),

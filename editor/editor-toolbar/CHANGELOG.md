@@ -1,5 +1,19 @@
 # @atlaskit/editor-toolbar
 
+## 2.10.4
+
+### Patch Changes
+
+- [`c17aea7934635`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c17aea7934635) -
+  Use named dropdown-menu imports.
+- Updated dependencies
+
+## 2.10.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.10.2
 
 ### Patch Changes

@@ -11,7 +11,12 @@ import {
 	type DiffStepAttribution,
 	type TagContributor,
 } from '../../../showDiffPluginType';
-import { PARTICIPANT_COLOR_SCHEMES, type AdsAccentColor, type ColorScheme } from './types';
+import {
+	PARTICIPANT_COLOR_SCHEMES,
+	type AccentColor,
+	type AdsAccentColor,
+	type ColorScheme,
+} from './types';
 
 export type DiffAttributionSpanData = DiffStepAttribution & {
 	stepIndex: number;
@@ -44,8 +49,8 @@ const HASHED_PARTICIPANT_COLOR_SCHEMES = [
 ] as const satisfies readonly AdsAccentColor[];
 
 /**
- * Red means "deleted" in both public schemes, so it never identifies an actor. Reserving it here
- * covers every path into an attribution colour; `createAttributionColorMap` is the only caller, and
+ * ADS red means "deleted" in both public schemes, so it is excluded from hashed participant colours.
+ * Brand schemes retain their own palettes. `createAttributionColorMap` is the only caller, and
  * it is gated on `platform_editor_attributed_version_history` plus
  * `platform_editor_show_diff_color_scheme_refactor`.
  */
@@ -170,43 +175,53 @@ const getAttributionParticipantColor = (
 	attribution: DiffStepAttribution | undefined,
 	identity: AttributionIdentity,
 	contributors: ResolvedDiffContributors | undefined,
-): ReturnType<typeof getParticipantColor> => {
+): ReturnType<typeof getParticipantColor> & { scheme?: AccentColor } => {
 	const contributor = contributors?.[identity.key];
 	const brand = isDiffAgentBrand(contributor?.agentKind) ? contributor?.agentKind : undefined;
+	const brandColor = getThirdPartyAgentColor({
+		agentNamedId: brand ? undefined : attribution?.agentNamedId,
+		agentName: brand ?? contributor?.name,
+	});
 	const agentName =
 		brand ??
-		getThirdPartyAgentColor({
-			agentNamedId: attribution?.agentNamedId,
-			agentName: contributor?.name,
-		})?.name ??
+		brandColor?.name ??
 		(attribution?.agentId?.trim() ? contributor?.name || 'Agent' : undefined);
 
-	return getParticipantColor(
-		identity.colorSeed,
-		agentName,
-		// Keep an explicitly resolved brand consistent with the contributor's icon.
-		brand ? undefined : attribution?.agentNamedId,
-	);
+	return {
+		...getParticipantColor(
+			identity.colorSeed,
+			agentName,
+			// Keep an explicitly resolved brand consistent with the contributor's icon.
+			brand ? undefined : attribution?.agentNamedId,
+		),
+		scheme: brandColor?.scheme,
+	};
 };
 
 export const createAttributionColorMap = (
 	stepAttributions: Array<DiffStepAttribution | undefined>,
 	contributors?: ResolvedDiffContributors,
-): Map<string, AdsAccentColor> => {
-	const colors = new Map<string, AdsAccentColor>();
+): Map<string, AccentColor> => {
+	const colors = new Map<string, AccentColor>();
 	const allocatedColors = new Set<AdsAccentColor>();
 
-	// Reserve shared brand colours before hashing other actors, regardless of step order. A brand
-	// slot is pinned deliberately, so it is taken verbatim rather than through `getSlotColor`.
+	// Keep brand schemes intact; only unbranded contributors use the hashed ADS palette below.
 	for (const attribution of stepAttributions) {
 		const identity = getAttributionIdentity(attribution);
 		if (!identity) {
 			continue;
 		}
-		const { index, isFixed } = getAttributionParticipantColor(attribution, identity, contributors);
+		const { index, isFixed, scheme } = getAttributionParticipantColor(
+			attribution,
+			identity,
+			contributors,
+		);
+		if (scheme) {
+			colors.set(identity.key, scheme);
+		}
+		// Keep the old slot reserved so selecting a brand cannot recolour other contributors.
 		const color = HASHED_PARTICIPANT_COLOR_SCHEMES[index];
 		if (isFixed && color) {
-			colors.set(identity.key, color);
 			allocatedColors.add(color);
 		}
 	}
@@ -293,7 +308,7 @@ export const getAttributionKeyForChange = (
 export const getColorSchemeForChange = (
 	change: Change,
 	attributedChanges: Change[],
-	attributionColors: Map<string, AdsAccentColor>,
+	attributionColors: Map<string, AccentColor>,
 	// Widened from `PublicColorScheme` so a caller of the imperative `showDiff` command (see
 	// `PMDiffParams.colorScheme`) can also request a specific accent as the base for unattributed
 	// changes — an attributed change still wins via `attributionColors`.

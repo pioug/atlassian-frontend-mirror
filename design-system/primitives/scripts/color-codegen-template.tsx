@@ -2,10 +2,12 @@ import format from '@af/formatting/sync';
 import tokens from '@atlaskit/tokens/atlassian-light';
 
 import { capitalize } from './capitalize';
+import { filterTokensForCodegen, type TokenFilterOptions } from './filter-tokens-for-codegen';
 import { generateTypeDefs } from './generate-type-defs';
 import { constructTokenFunctionCall, type ShadowDefinition } from './utils';
 
 type Token = {
+	attributes: { state: string };
 	token: string;
 	fallback: string | ShadowDefinition;
 	isDeprecated: boolean;
@@ -48,23 +50,24 @@ const tokenStyles = {
 
 const activeTokens = tokens
 	.filter((t) => t.attributes.state !== 'deleted')
-	.map(
-		(t): Token => ({
-			token: t.name,
-			fallback: t.value as string | ShadowDefinition,
-			isDeprecated: t.attributes.state === 'deprecated',
-		}),
-	);
+	.map((t): Token => ({
+		attributes: t.attributes,
+		token: t.name,
+		fallback: t.value as string | ShadowDefinition,
+		isDeprecated: t.attributes.state === 'deprecated',
+	}));
 
-export const createColorStylesFromTemplate: (colorProperty: keyof typeof tokenStyles) => string = (
+export const createColorStylesFromTemplate: (
 	colorProperty: keyof typeof tokenStyles,
-) => {
+	options?: TokenFilterOptions,
+) => string = (colorProperty, options = {}) => {
+	const filteredTokens = filterTokensForCodegen(activeTokens, options);
 	if (!tokenStyles[colorProperty]) {
 		throw new Error(`[codegen] Unknown option found "${colorProperty}"`);
 	}
 
 	const { filterFn, objectName } = tokenStyles[colorProperty];
-	const typeDefsTokens = activeTokens
+	const typeDefsTokens = filteredTokens
 		.filter(filterFn)
 		// @ts-ignore
 		.map((t) => t.token.replaceAll('.[default]', ''));
@@ -75,7 +78,7 @@ export const createColorStylesFromTemplate: (colorProperty: keyof typeof tokenSt
 export const ${objectName}Map: {
 	${generateTypeDefs(typeDefsTokens)}
 } = {
-  ${activeTokens
+  ${filteredTokens
 		.filter(filterFn)
 		// @ts-ignore
 		.map((t) => ({ ...t, token: t.token.replaceAll('.[default]', '') }))

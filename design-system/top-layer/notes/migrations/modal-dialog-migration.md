@@ -451,6 +451,53 @@ page cannot scroll to content below the fold. Two cases left the footer there:~~
 **VR:** the informational `height 42em` snapshot with `platform-dst-top-layer` on now shows a capped
 modal (as the gate-off snapshot does) when the VR viewport is shorter than 792px.
 
+#### 14. ~~No `height`: a `flex: 1` child collapses the modal to 0px~~ (FIXED)
+
+**Severity: High**
+
+Found in the Confluence share dialog. The modal shows while it loads (Confluence passes a pixel
+`height`), then disappears when the content loads (`height` becomes `undefined`). The `<dialog>`
+stays open, so the backdrop stays and the page stays inert.
+
+~~With no `height`, the visual container had `height: calc(100vh - 120px)` and
+`max-height: max-content`. The fixed height let children with `height: 100%` fill the modal
+(#430089). But with a fixed height, a child with a `0%` flex basis (`flex: 1`) counts as 0px tall
+when the browser works out `max-content`. The share dialog wraps its content in
+`flex: 1; min-height: 0; overflow: hidden`, so the visual container was 0px tall and the overflow
+hid the content.~~
+
+**Fix applied:** a sizing container between the `<dialog>` and the visual container, as the legacy
+`Positioner` does.
+
+- It is a grid with one row. The visual container is stretched to the row, so it has a definite
+  height and `height: 100%` children still fill it.
+- With no `height`, the visual container is `height: auto`, so the row sizes to the content.
+- Body scroll (desktop): the row is `minmax(0, 1fr)` and the container has
+  `max-height: calc(100vh - 120px)`, so the row shrinks to fit the viewport and `ModalBody` scrolls.
+- The container has `pointer-events: none`, so a press outside the visual container is still a
+  backdrop press.
+- The `<dialog>` box stays the size of the visual container, so the entry animation is unchanged.
+
+Checked in Chromium, Firefox and WebKit: a `flex: 1` child sizes to its content, the two-column
+example (`95-top-layer-scroll-reproduction`) still scrolls each column, and a custom `height` is
+still capped to the viewport.
+
+**VR:** informational `flex child without a height in body scroll` and `... in viewport scroll`
+(example `106-testing-flex-child-without-height`).
+
+**Jest (known test-environment issue):** in kitsune and platform, jsdom can lose the surface's
+`pointer-events: auto` rule. These tests use the real Compiled runtime, which renders each rule once
+per tree, in a `<style>`. When the element that rendered the rule re-renders, React removes that
+`<style>`. The surface's content then inherits `none` from the sizing container, and a `user-event`
+press on it throws. A browser keeps the rule, so this is not a modal-dialog bug.
+
+- Jira and Townsquare are not affected. They use `@af/jest/compiled-mock`, which keeps one
+  persistent stylesheet. Confluence renders no Compiled CSS in Jest.
+- Until kitsune and platform use a persistent stylesheet, pass `pointerEventsCheck: 0` to the press.
+  See `kitsune/apps/feedback/src/components/Forms/tests/Forms.test.tsx`.
+- `pointerEventsCheck: 0` also skips the inertness check for that press. Use it only for presses
+  inside the open modal.
+
 ### Scenarios confirmed visually identical
 
 The following scenarios showed no meaningful visual difference between flag on and off (only the

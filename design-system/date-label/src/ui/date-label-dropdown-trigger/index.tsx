@@ -128,6 +128,54 @@ const iconStyles = cssMapUnbound({
 });
 /* eslint-enable @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors */
 
+// The icon and label have different colors, including warning's pressed state.
+// A parent-owned custom property carries hover/pressed color to the icon only.
+const atomicIconColors = cssMapUnbound({
+	neutral: {
+		'--date-label-icon-color': token('color.icon.subtlest'),
+		// @ts-expect-error -- Compiled supports custom properties, but cssMap's pseudo-selector types omit them.
+		'&:hover': { '--date-label-icon-color': token('color.text.subtle') },
+		// @ts-expect-error -- Compiled supports custom properties, but cssMap's pseudo-selector types omit them.
+		'&:active': { '--date-label-icon-color': token('color.text.subtle') },
+	},
+	warning: {
+		'--date-label-icon-color': token('color.icon.warning'),
+		// @ts-expect-error -- Compiled supports custom properties, but cssMap's pseudo-selector types omit them.
+		'&:hover': { '--date-label-icon-color': token('color.text.warning') },
+		// @ts-expect-error -- Compiled supports custom properties, but cssMap's pseudo-selector types omit them.
+		'&:active': { '--date-label-icon-color': token('color.text.warning') },
+	},
+	danger: {
+		'--date-label-icon-color': token('color.icon.danger'),
+		// @ts-expect-error -- Compiled supports custom properties, but cssMap's pseudo-selector types omit them.
+		'&:hover': { '--date-label-icon-color': token('color.text.danger') },
+		// @ts-expect-error -- Compiled supports custom properties, but cssMap's pseudo-selector types omit them.
+		'&:active': { '--date-label-icon-color': token('color.text.danger') },
+	},
+});
+
+// Selected icons and spacious neutral icons use the corresponding text color.
+const atomicIconColorOverrides = cssMapUnbound({
+	neutral: {
+		'--date-label-icon-color': token('color.text.subtle'),
+	},
+	warning: {
+		'--date-label-icon-color': token('color.text.warning'),
+	},
+	danger: {
+		'--date-label-icon-color': token('color.text.danger'),
+	},
+});
+
+// Custom properties are outside the bounded CSS API.
+const atomicIconStyles = cssMapUnbound({
+	base: {
+		display: 'flex',
+		flexShrink: 0,
+		color: 'var(--date-label-icon-color)',
+	},
+});
+
 const loadingStyles = cssMap({
 	overlay: {
 		display: 'flex',
@@ -221,6 +269,10 @@ export default function DateLabelDropdownTrigger({
 				isSelected ? containerStyles.selected : containerStyles.hoveredAndPressed,
 				isSelected && appearance === 'warning' && containerStyles.selectedWarning,
 				isMotionEnabled && containerStyles.motion,
+				fg('platform-date-label-atomic-styles') && atomicIconColors[appearance],
+				fg('platform-date-label-atomic-styles') &&
+					(isSelected || (isSpacious && appearance === 'neutral')) &&
+					atomicIconColorOverrides[appearance],
 			]}
 			type="button"
 			onClick={isLoading ? undefined : onClick}
@@ -230,8 +282,8 @@ export default function DateLabelDropdownTrigger({
 			aria-haspopup={ariaHaspopup}
 			aria-label={ariaLabel}
 			data-testid={testId}
-			data-appearance={appearance}
-			data-selected={isSelected || undefined}
+			data-appearance={fg('platform-date-label-atomic-styles') ? undefined : appearance}
+			data-selected={fg('platform-date-label-atomic-styles') ? undefined : isSelected || undefined}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={{ maxWidth: maxWidthValue, cursor: isLoading ? 'progress' : undefined }}
 		>
@@ -245,7 +297,14 @@ export default function DateLabelDropdownTrigger({
 				]}
 			>
 				{hasIconBefore && (
-					<span css={[iconStyles.base, isSpacious && iconStyles.isNeutralSpacious]}>
+					<span
+						css={[
+							fg('platform-date-label-atomic-styles') ? atomicIconStyles.base : iconStyles.base,
+							!fg('platform-date-label-atomic-styles') &&
+								isSpacious &&
+								iconStyles.isNeutralSpacious,
+						]}
+					>
 						{appearance === 'neutral' && (
 							<CalendarIcon label={resolvedIconLabel} size={iconSize} color="currentColor" />
 						)}

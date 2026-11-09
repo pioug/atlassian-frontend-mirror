@@ -142,6 +142,10 @@
 		"platform_editor_mention_avatar_observability": {
 			"type": "boolean"
 		},
+		"canvas-rovo-comment-sessions": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"rovo_chat_mention_agents": {
 			"type": "experiment",
 			"referenceOnly": true
@@ -164,5 +168,5 @@
 		"*.compiled.css"
 	],
 	"types": "dist/types/index.d.ts",
-	"version": "30.7.12"
+	"version": "30.8.1"
 }

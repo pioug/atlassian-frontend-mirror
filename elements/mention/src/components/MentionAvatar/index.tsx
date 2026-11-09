@@ -30,7 +30,7 @@ export const MentionAvatar = ({ mention, selected }: MentionAvatarProps): React.
 	const shouldRenderAgentMentionAvatar =
 		isAppMention(mention) &&
 		mention.appType === 'agent' &&
-		isExperimentEnabled('rovo_chat_mention_agents');
+		(isExperimentEnabled('rovo_chat_mention_agents') || fg('canvas-rovo-comment-sessions'));
 
 	const avatarAppearance = shouldRenderAgentMentionAvatar
 		? 'hexagon'

@@ -86,7 +86,9 @@ const ModalElementBrowser = (props: Props & WrappedComponentProps) => {
 
 	const onInsertItem = useCallback(
 		(item: QuickInsertItem) => {
-			onInsertItemFn(item);
+			if (item.onBeforeSelect?.({ surface: 'element-browser' }) !== false) {
+				onInsertItemFn(item);
+			}
 		},
 		[onInsertItemFn],
 	);
@@ -95,8 +97,9 @@ const ModalElementBrowser = (props: Props & WrappedComponentProps) => {
 		() => (
 			<Footer
 				// Ignored via go/ees005
-				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-				onInsert={() => onInsertItem(selectedItem!)}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+				onInsert={() => selectedItem && onInsertItem(selectedItem)}
+				isDisabled={!selectedItem}
 				beforeElement={helpUrl ? HelpLink(helpUrl, intl.formatMessage(messages.help)) : undefined}
 			/>
 		),
@@ -164,9 +167,11 @@ ModalElementBrowser.displayName = 'ModalElementBrowser';
 
 const Footer = ({
 	onInsert,
+	isDisabled,
 	beforeElement,
 }: {
 	beforeElement?: JSX.Element;
+	isDisabled?: boolean;
 	onInsert: () => void;
 }) => {
 	const intl = useIntl();
@@ -179,6 +184,7 @@ const Footer = ({
 					<Button
 						appearance="primary"
 						onClick={onInsert}
+						isDisabled={isDisabled}
 						testId="ModalElementBrowser__insert-button"
 					>
 						{intl.formatMessage(messages.insert)}

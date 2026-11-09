@@ -230,8 +230,7 @@ export const FlyoutMenuItemContent: React.ForwardRefExoticComponent<
 		// The title id is only rendered by a FlyoutHeader, so without one the dialog has no name.
 		// The label gets its own id so it can never duplicate a FlyoutHeader's id.
 		const labelId = useId();
-		const shouldUseLabel =
-			fg('navx-5263-a11y-flyout-dialog-name') && Boolean(label) && providedTitleId === undefined;
+		const shouldUseLabel = Boolean(label) && providedTitleId === undefined;
 
 		const computedMaxHeight = useMemo(
 			() =>

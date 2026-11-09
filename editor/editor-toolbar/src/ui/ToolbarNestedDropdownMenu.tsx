@@ -15,7 +15,7 @@ import {
 import { jsx, cssMap, cx } from '@compiled/react';
 import { mergeRefs } from 'use-callback-ref';
 
-import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
 import type { OnOpenChangeArgs } from '@atlaskit/dropdown-menu/types';
 import { Box } from '@atlaskit/primitives/compiled/box';
 

@@ -24,6 +24,7 @@
 		"97-modal-a11y-background-inert.tsx",
 		"104-testing-escape-refused.tsx",
 		"96-with-current-surface.vr.ap.tsx",
+		"106-testing-flex-child-without-height.vr.ap.tsx",
 	],
 	"exampleDependencies": ["react-beautiful-dnd"],
 }

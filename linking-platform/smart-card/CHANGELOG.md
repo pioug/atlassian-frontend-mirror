@@ -1,5 +1,28 @@
 # @atlaskit/smart-card
 
+## 46.13.14
+
+### Patch Changes
+
+- [`bd9956a08cd92`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd9956a08cd92) -
+  A lazy-loaded card whose link the store has already settled renders at once instead of the loading
+  placeholder, behind the `platform_smartlink_render_settled_link_on_mount` gate.
+- Updated dependencies
+
+## 46.13.13
+
+### Patch Changes
+
+- [`63dbc92cc0454`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/63dbc92cc0454) -
+  Block card Rovo actions now respect `actionOptions.hide` / `exclude` for the Rovo chat action
+  behind `platform_sl_block_card_rovo_action_respect_hide`, so prompt experiments aren't evaluated
+  when the action is hidden.
+- [`dc96c4e123816`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dc96c4e123816) -
+  Cleanup `feature_gate` `social-proof-3p-unauth-block-fg`. Unauthorised block cards now always use
+  the social proof experiment wrapper and include social proof `experimentMeta` in `renderSuccess`
+  analytics.
+- Updated dependencies
+
 ## 46.13.12
 
 ### Patch Changes

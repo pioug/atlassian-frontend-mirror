@@ -52,6 +52,8 @@ export interface MentionsPluginOptions extends MentionPluginConfig {
 	 * Takes priority over `MentionProvider.shouldHighlightMention()` if both are present.
 	 */
 	currentUserId?: string;
+	/** Opt this editor surface out of the optimistic SSR toolbar experiment. */
+	disableOptimisticToolbar?: boolean;
 	/**
 	 * Enables People / Agents sectioning in the mentions typeahead.
 	 *

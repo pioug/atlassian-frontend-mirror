@@ -2,9 +2,9 @@ import React, { Fragment, useState } from 'react';
 
 import IconButton from '@atlaskit/button/icon/button';
 import { cssMap } from '@atlaskit/css';
-import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
-import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
-import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
+import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
+import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import MediaServicesAddCommentIcon from '@atlaskit/icon/core/comment-add';
 import { Popup } from '@atlaskit/popup/popup';
 import { Box } from '@atlaskit/primitives/compiled/box';

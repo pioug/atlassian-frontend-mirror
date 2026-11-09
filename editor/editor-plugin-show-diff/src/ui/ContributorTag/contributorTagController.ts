@@ -71,6 +71,13 @@ const getTagAccent = ({
 	return getAccentTokens(accent);
 };
 
+/** Person's diameter in a connected pair. */
+const CONNECTED_USER_AVATAR_SIZE = 12;
+/** Px the person overlaps the agent. */
+const CONNECTED_AVATAR_OVERLAP = 3;
+/** Px of ring around the person in a connected pair. */
+const CONNECTED_USER_RING_WIDTH = 1;
+
 /** Bespoke accents for agent kinds that use standard ADS tokens rather than the agent-color registry. */
 const BESPOKE_AGENT_ACCENTS: Readonly<Record<string, { background: string; text: string }>> = {
 	rovo: {
@@ -354,26 +361,40 @@ export class ContributorTagController {
 		const agent = isPrimaryAgent ? model.contributor : model.connectedContributor;
 
 		// Hand-rolled avatar stack: `@atlaskit/avatar-group` cannot render below 24px and the tag uses
-		// 16px avatars.
-		const stack: Array<{ contributor: TagContributor; stackIndex?: number }> =
-			model.connectedContributor
-				? [
-						...(agent ? [{ contributor: agent, stackIndex: 1 }] : []),
-						...(user ? [{ contributor: user, stackIndex: 0 }] : []),
-					]
-				: [{ contributor: model.contributor }];
+		// 16px avatars. A connected pair's person is smaller and overlaps the agent.
+		const stack: Array<{
+			contributor: TagContributor;
+			ringWidth?: number;
+			size?: number;
+			stackIndex?: number;
+		}> = model.connectedContributor
+			? [
+					...(agent ? [{ contributor: agent, stackIndex: 0 }] : []),
+					...(user
+						? [
+								{
+									contributor: user,
+									ringWidth: CONNECTED_USER_RING_WIDTH,
+									size: CONNECTED_USER_AVATAR_SIZE,
+									stackIndex: 1,
+								},
+							]
+						: []),
+				]
+			: [{ contributor: model.contributor }];
 
-		stack.forEach(({ contributor, stackIndex }, index) => {
+		stack.forEach(({ contributor, ringWidth, size, stackIndex }, index) => {
 			const avatar = contributorAvatarRenderer({
 				contributor,
 				doc,
 				ringColor: background,
+				ringWidth,
+				size,
 				stackIndex,
 			});
 			if (index < stack.length - 1) {
-				// Sits the leading avatar of a connected pair flush against the one behind it, with
-				// no overlap and no extra gap.
-				avatar.element.style.setProperty('margin-inline-end', '0');
+				// The person's ring cuts a gap into the agent.
+				avatar.element.style.setProperty('margin-inline-end', `-${CONNECTED_AVATAR_OVERLAP}px`);
 			}
 			container.appendChild(avatar.element);
 			this.avatars.push(avatar);

@@ -23,7 +23,6 @@ const experimentConfig: Record<string, FeatureGateConfig> = {
 
 const enabledGates = [
 	'platform_sl_3p_preauth_better_hovercard_killswitch',
-	'social-proof-3p-unauth-block-fg',
 	'platform_sl_3p_auth_visualize_killswitch',
 ];
 

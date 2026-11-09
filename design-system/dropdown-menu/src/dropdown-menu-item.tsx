@@ -19,7 +19,7 @@ import { type CustomItemHtmlProps, type DropdownItemProps } from './types';
  * - [Code](https://atlassian.design/components/dropdown-menu/dropdown-item/code)
  * - [Usage](https://atlassian.design/components/dropdown-menu/dropdown-item/usage)
  */
-const DropdownMenuItem: React.ForwardRefExoticComponent<
+export const DropdownItem: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<DropdownItemProps> & React.RefAttributes<HTMLElement>
 > = forwardRef<HTMLElement, DropdownItemProps>(
 	(
@@ -188,4 +188,4 @@ const DropdownMenuItem: React.ForwardRefExoticComponent<
 	},
 );
 
-export default DropdownMenuItem;
+export default DropdownItem;

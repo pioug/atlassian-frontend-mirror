@@ -97,7 +97,7 @@ import MediaViewer from '@atlaskit/media-viewer/media-viewer-loader';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import {
 	imgTestId,
@@ -4220,8 +4220,10 @@ describe('Card ', () => {
 		);
 	});
 
-	ffTest.on('platform_media_cross_client_copy', 'copy intent', () => {
+	describe('platform_media_cross_client_copy is on copy intent', () => {
 		it('should call copy intent', async () => {
+			passGate('platform_media_cross_client_copy');
+
 			const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 			const { mediaApi } = createMockedMediaApi(fileItem);
 
@@ -6044,7 +6046,11 @@ describe('Card ', () => {
 		['SVG', generateSampleFileItem.svg()],
 	])('should render with correct resizing styles for %s', (title, [fileItem, identifier]) => {
 		// Remove "should render SVG with correct resizing styles" once this flag is removed
-		ffTest.on('platform_media_card_image_render', `for ${title}`, () => {
+		describe('platform_media_card_image_render is on' + ' ' + `for ${title}`, () => {
+			beforeEach(() => {
+				passGate('platform_media_card_image_render');
+			});
+
 			afterEach(() => {
 				calculateDimensionsMock.mockClear();
 			});
@@ -6223,7 +6229,11 @@ describe('Card ', () => {
 		});
 	});
 
-	ffTest.on('platform_media_resume_video_on_token_expiry', '', () => {
+	describe('platform_media_resume_video_on_token_expiry is on', () => {
+		beforeEach(() => {
+			passGate('platform_media_resume_video_on_token_expiry');
+		});
+
 		// Media Client Mock
 		beforeEach(() => {
 			HTMLMediaElement.prototype.play = function () {

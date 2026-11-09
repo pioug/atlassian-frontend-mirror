@@ -251,6 +251,7 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
 	/* Only for hitting enter to select item when focused on search bar,
 	 * The actual enter key press is handled on individual items level.
 	 */
+	const surface = props.mode === 'inline' ? 'toolbar' : 'element-browser';
 	const selectedItem = selectedItemIndex !== undefined ? items[selectedItemIndex] : null;
 	const onItemsEnterTabKeyPress = useCallback(
 		(e: React.KeyboardEvent) => {
@@ -265,12 +266,21 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
 				return;
 			}
 
-			if (onInsertItem && selectedItem != null && !(selectedItem.isDisabled ?? false)) {
-				onInsertItem(selectedItem);
-			}
 			e.preventDefault();
+			if (onInsertItem && selectedItem != null && !(selectedItem.isDisabled ?? false)) {
+				if (selectedItem.onBeforeSelect?.({ surface }) !== false) {
+					onInsertItem(selectedItem);
+				}
+			}
 		},
-		[onInsertItem, selectedItem, setFocusedCategoryIndex, showCategories, selectedCategoryIndex],
+		[
+			onInsertItem,
+			selectedItem,
+			setFocusedCategoryIndex,
+			showCategories,
+			selectedCategoryIndex,
+			surface,
+		],
 	);
 
 	/**
@@ -279,9 +289,13 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
 	 */
 	useEffect(() => {
 		if (onSelectItem && selectedItem != null) {
-			onSelectItem(selectedItem);
+			// Highlighting is eligibility-only: arrows must never open a popup or take focus.
+			// eslint-disable-next-line @atlassian/perf-linting/no-chain-state-updates -- Synchronize silent eligibility with the product-supplied guard before notifying the parent selection.
+			if (selectedItem.onBeforeSelect?.({ surface, showFeedback: false }) !== false) {
+				onSelectItem(selectedItem);
+			}
 		}
-	}, [onSelectItem, selectedItem]);
+	}, [onSelectItem, selectedItem, surface, focusedItemIndex, selectedItemIndex]);
 
 	const onSelectCategoryCB = useCallback(
 		(category: Category) => {

@@ -67,10 +67,6 @@ export interface MediaPluginOptions {
 	allowDropzoneDropLine?: boolean;
 	allowImageEditing?: boolean;
 	allowImagePreview?: boolean;
-	/**
-	 * Shows the Expand toolbar button for video media.
-	 */
-	allowVideoPreview?: boolean;
 	allowLazyLoading?: boolean;
 	allowLinking?: boolean;
 	allowMarkingUploadsAsIncomplete?: boolean;
@@ -93,6 +89,10 @@ export interface MediaPluginOptions {
 	allowResizing?: boolean;
 	allowResizingInTables?: boolean;
 	allowTemplatePlaceholders?: boolean | PlaceholderTextOptions;
+	/**
+	 * Shows the Expand toolbar button for video media.
+	 */
+	allowVideoPreview?: boolean;
 	// returns array of validation errors based on value, if no errors returned - value is considered to be valid
 	altTextValidator?: (value: string) => string[];
 	createCommentExperience?: {
@@ -111,6 +111,8 @@ export interface MediaPluginOptions {
 	};
 	customDropzoneContainer?: HTMLElement;
 	customMediaPicker?: CustomMediaPicker;
+	/** Opt this editor surface out of the optimistic SSR toolbar experiment. */
+	disableOptimisticToolbar?: boolean;
 	disableQuickInsert?: boolean;
 	editorAppearance?: EditorAppearance;
 	editorSelectionAPI?: EditorSelectionAPI;
@@ -242,7 +244,6 @@ export type MediaFloatingToolbarOptions = {
 	allowCommentsOnMedia?: boolean;
 	allowImageEditing?: boolean;
 	allowImagePreview?: boolean;
-	allowVideoPreview?: boolean;
 	allowLinking?: boolean;
 	allowMediaInline?: boolean;
 	allowMediaInlineImages?: boolean;
@@ -255,6 +256,7 @@ export type MediaFloatingToolbarOptions = {
 	allowPixelResizing?: boolean;
 	allowResizing?: boolean;
 	allowResizingInTables?: boolean;
+	allowVideoPreview?: boolean;
 	altTextValidator?: (value: string) => string[];
 	createCommentExperience?: MediaPluginOptions['createCommentExperience'];
 	fullWidthEnabled?: boolean;

@@ -1,5 +1,14 @@
 # @atlaskit/teams-public
 
+## 3.9.1
+
+### Patch Changes
+
+- [`88562e560b0d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/88562e560b0d1) -
+  Remove an a11y ESLint suppression by marking the deprecated add container card wrapper as role
+  none
+- Updated dependencies
+
 ## 3.9.0
 
 ### Minor Changes

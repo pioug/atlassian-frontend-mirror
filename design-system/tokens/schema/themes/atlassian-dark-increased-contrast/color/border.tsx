@@ -4,6 +4,10 @@ import type { BaseToken } from '../../../palettes/palette';
 const color: ExtendedValueSchema<BorderColorTokenSchema<BaseToken>> = {
 	color: {
 		border: {
+			dropindicator: {
+				'[default]': { value: 'Blue300' },
+				warning: { value: 'Orange300' },
+			},
 			'[default]': {
 				value: 'DarkNeutral500A',
 			},

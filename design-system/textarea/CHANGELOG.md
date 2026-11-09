@@ -1,5 +1,13 @@
 # @atlaskit/textarea
 
+## 10.3.1
+
+### Patch Changes
+
+- [`02bbf91913650`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/02bbf91913650) -
+  Add semantic spacing style overrides for textarea behind platform-semantic-spacing. Existing
+  numeric styles remain when the feature flag is off.
+
 ## 10.3.0
 
 ### Minor Changes

@@ -1,4 +1,4 @@
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { SimpleHasher } from '../../simpleHasher';
 
@@ -43,7 +43,11 @@ describe('SimpleHasher', () => {
 			(global as any).FileReader = MockFileReader as unknown as typeof FileReader;
 		};
 
-		ffTest.on('platform_media_filereader_error_surfacing', 'enabled', () => {
+		describe('platform_media_filereader_error_surfacing is on enabled', () => {
+			beforeEach(() => {
+				passGate('platform_media_filereader_error_surfacing');
+			});
+
 			it('rejects with a real Error carrying the DOMException name', () => {
 				mockFailingFileReader(new DOMException('cannot read', 'NotReadableError'));
 				return expect(new SimpleHasher().hash(blob)).rejects.toMatchObject({
@@ -60,8 +64,10 @@ describe('SimpleHasher', () => {
 			});
 		});
 
-		ffTest.off('platform_media_filereader_error_surfacing', 'disabled', () => {
+		describe('platform_media_filereader_error_surfacing is off disabled', () => {
 			it('rejects with the raw event (legacy behaviour)', () => {
+				failGate('platform_media_filereader_error_surfacing');
+
 				mockFailingFileReader(new DOMException('cannot read', 'NotReadableError'));
 				return expect(new SimpleHasher().hash(blob)).rejects.not.toBeInstanceOf(Error);
 			});

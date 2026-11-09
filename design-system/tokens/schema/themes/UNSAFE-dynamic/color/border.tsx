@@ -5,6 +5,10 @@ import { dynamicColor } from '../_formulas';
 const color: ValueSchema<BorderColorTokenSchema<BaseToken>> = {
 	color: {
 		border: {
+			dropindicator: {
+				'[default]': { value: dynamicColor.foreground },
+				warning: { value: dynamicColor.foreground },
+			},
 			'[default]': {
 				value: dynamicColor.borderSubtle,
 			},

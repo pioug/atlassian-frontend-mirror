@@ -709,6 +709,16 @@ const setSurfaceTokenMap = unboundedCssMap({
 });
 
 const paddingBlockStartMap = cssMap({
+	'space.inset.xxsmall': { paddingBlockStart: token('space.inset.xxsmall') },
+	'space.inset.xsmall': { paddingBlockStart: token('space.inset.xsmall') },
+	'space.inset.small': { paddingBlockStart: token('space.inset.small') },
+	'space.inset.medium': { paddingBlockStart: token('space.inset.medium') },
+	'space.inset.large': { paddingBlockStart: token('space.inset.large') },
+	'space.inset.xlarge': { paddingBlockStart: token('space.inset.xlarge') },
+	'space.inset.xxlarge': { paddingBlockStart: token('space.inset.xxlarge') },
+	'space.inset.3xlarge': { paddingBlockStart: token('space.inset.3xlarge') },
+	'space.inset.4xlarge': { paddingBlockStart: token('space.inset.4xlarge') },
+	'space.inset.5xlarge': { paddingBlockStart: token('space.inset.5xlarge') },
 	'space.0': { paddingBlockStart: token('space.0') },
 	'space.025': { paddingBlockStart: token('space.025') },
 	'space.050': { paddingBlockStart: token('space.050') },
@@ -725,6 +735,16 @@ const paddingBlockStartMap = cssMap({
 	'space.1000': { paddingBlockStart: token('space.1000') },
 });
 const paddingBlockEndMap = cssMap({
+	'space.inset.xxsmall': { paddingBlockEnd: token('space.inset.xxsmall') },
+	'space.inset.xsmall': { paddingBlockEnd: token('space.inset.xsmall') },
+	'space.inset.small': { paddingBlockEnd: token('space.inset.small') },
+	'space.inset.medium': { paddingBlockEnd: token('space.inset.medium') },
+	'space.inset.large': { paddingBlockEnd: token('space.inset.large') },
+	'space.inset.xlarge': { paddingBlockEnd: token('space.inset.xlarge') },
+	'space.inset.xxlarge': { paddingBlockEnd: token('space.inset.xxlarge') },
+	'space.inset.3xlarge': { paddingBlockEnd: token('space.inset.3xlarge') },
+	'space.inset.4xlarge': { paddingBlockEnd: token('space.inset.4xlarge') },
+	'space.inset.5xlarge': { paddingBlockEnd: token('space.inset.5xlarge') },
 	'space.0': { paddingBlockEnd: token('space.0') },
 	'space.025': { paddingBlockEnd: token('space.025') },
 	'space.050': { paddingBlockEnd: token('space.050') },
@@ -741,6 +761,16 @@ const paddingBlockEndMap = cssMap({
 	'space.1000': { paddingBlockEnd: token('space.1000') },
 });
 const paddingInlineStartMap = cssMap({
+	'space.inset.xxsmall': { paddingInlineStart: token('space.inset.xxsmall') },
+	'space.inset.xsmall': { paddingInlineStart: token('space.inset.xsmall') },
+	'space.inset.small': { paddingInlineStart: token('space.inset.small') },
+	'space.inset.medium': { paddingInlineStart: token('space.inset.medium') },
+	'space.inset.large': { paddingInlineStart: token('space.inset.large') },
+	'space.inset.xlarge': { paddingInlineStart: token('space.inset.xlarge') },
+	'space.inset.xxlarge': { paddingInlineStart: token('space.inset.xxlarge') },
+	'space.inset.3xlarge': { paddingInlineStart: token('space.inset.3xlarge') },
+	'space.inset.4xlarge': { paddingInlineStart: token('space.inset.4xlarge') },
+	'space.inset.5xlarge': { paddingInlineStart: token('space.inset.5xlarge') },
 	'space.0': { paddingInlineStart: token('space.0') },
 	'space.025': { paddingInlineStart: token('space.025') },
 	'space.050': { paddingInlineStart: token('space.050') },
@@ -757,6 +787,16 @@ const paddingInlineStartMap = cssMap({
 	'space.1000': { paddingInlineStart: token('space.1000') },
 });
 const paddingInlineEndMap = cssMap({
+	'space.inset.xxsmall': { paddingInlineEnd: token('space.inset.xxsmall') },
+	'space.inset.xsmall': { paddingInlineEnd: token('space.inset.xsmall') },
+	'space.inset.small': { paddingInlineEnd: token('space.inset.small') },
+	'space.inset.medium': { paddingInlineEnd: token('space.inset.medium') },
+	'space.inset.large': { paddingInlineEnd: token('space.inset.large') },
+	'space.inset.xlarge': { paddingInlineEnd: token('space.inset.xlarge') },
+	'space.inset.xxlarge': { paddingInlineEnd: token('space.inset.xxlarge') },
+	'space.inset.3xlarge': { paddingInlineEnd: token('space.inset.3xlarge') },
+	'space.inset.4xlarge': { paddingInlineEnd: token('space.inset.4xlarge') },
+	'space.inset.5xlarge': { paddingInlineEnd: token('space.inset.5xlarge') },
 	'space.0': { paddingInlineEnd: token('space.0') },
 	'space.025': { paddingInlineEnd: token('space.025') },
 	'space.050': { paddingInlineEnd: token('space.050') },

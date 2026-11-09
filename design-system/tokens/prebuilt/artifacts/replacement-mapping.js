@@ -18,7 +18,7 @@ exports.default = void 0;
  * These changes will then be picked up by our tooling which will attempt to
  * migrate as many of these renames as possible.
  *
- * @codegen <<SignedSource::5a8e973f81e48005526b845142d65937>>
+ * @codegen <<SignedSource::2ed01e1f886244375c24b411a0efbed8>>
  * @codegenCommand yarn build tokens
  */
 
@@ -68,34 +68,42 @@ var replacementMapper = [{
 }, {
   "path": "space.inset.3xlarge",
   "state": "experimental",
+  "replacement": "space.300"
+}, {
+  "path": "space.inset.4xlarge",
+  "state": "experimental",
+  "replacement": "space.400"
+}, {
+  "path": "space.inset.5xlarge",
+  "state": "experimental",
   "replacement": "space.600"
 }, {
   "path": "space.inset.large",
   "state": "experimental",
-  "replacement": "space.250"
+  "replacement": "space.150"
 }, {
   "path": "space.inset.medium",
   "state": "experimental",
-  "replacement": "space.200"
+  "replacement": "space.100"
 }, {
   "path": "space.inset.small",
   "state": "experimental",
-  "replacement": "space.150"
+  "replacement": "space.075"
 }, {
   "path": "space.inset.xlarge",
   "state": "experimental",
-  "replacement": "space.300"
+  "replacement": "space.200"
 }, {
   "path": "space.inset.xsmall",
   "state": "experimental",
-  "replacement": "space.100"
+  "replacement": "space.050"
 }, {
   "path": "space.inset.xxlarge",
   "state": "experimental",
-  "replacement": "space.400"
+  "replacement": "space.250"
 }, {
   "path": "space.inset.xxsmall",
   "state": "experimental",
-  "replacement": "space.050"
+  "replacement": "space.025"
 }];
 var _default = exports.default = replacementMapper;

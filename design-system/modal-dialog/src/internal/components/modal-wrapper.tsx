@@ -179,9 +179,28 @@ const topLayerScrollModeStyles = compiledCssMap({
 	},
 });
 
-const topLayerAutoHeightStyles = css({
-	'@media (min-width: 30rem)': {
-		maxHeight: 'max-content',
+/**
+ * Sizing container around the surface. As a stretched grid item, the surface sizes to its content
+ * and has a definite height. A fixed height with `max-height: max-content` collapses with a
+ * `flex: 1` child. `pointer-events: none` keeps presses beside the surface as backdrop presses.
+ */
+const sizingContainerStyles = compiledCssMap({
+	'body-scroll': {
+		display: 'grid',
+		gridTemplateRows: 'minmax(0, 1fr)',
+		pointerEvents: 'none',
+		'@media (min-width: 30rem)': {
+			// The row shrinks to fit the viewport, so `ModalBody` scrolls.
+			maxHeight: 'calc(100vh - 120px)',
+		},
+	},
+	'viewport-scroll': {
+		display: 'grid',
+		pointerEvents: 'none',
+	},
+	'full-screen': {
+		display: 'grid',
+		pointerEvents: 'none',
 	},
 });
 
@@ -259,11 +278,9 @@ function getTopLayerSurfaceWidth(input: ModalDialogProps['width']) {
 
 function getTopLayerSurfaceHeight(input: ModalDialogProps['height']) {
 	if (!input) {
-		// Although this value would ordinarily fill the viewport height,
-		// there is also a `max-height: max-content` applied to keep it constrained.
-		// But we need to provide the modal with a fixed height (non-keyword, non-percentage)
-		// in order for child elements with 100% height to work correctly.
-		return 'calc(100vh - 120px)';
+		// Size to the content. The sizing container gives the surface a definite height, so
+		// children with `height: 100%` still fill it. See `sizingContainerStyles`.
+		return 'auto';
 	}
 
 	if (typeof input === 'number') {
@@ -496,33 +513,34 @@ function ModalWrapperTopLayer(props: InternalModalWrapperProps): React.ReactNode
 			 * `ExitingPersistence` unmounts this subtree after the exit settles.
 			 */}
 			<DialogScrollLock isOpen={true} />
-			{/* Visual content container - Dialog handles the raw <dialog>. */}
-			{/* No tabIndex: native <dialog>.showModal() picks the first focusable
-			    descendant as initial focus target. A tabIndex on this wrapper
-			    would steal that focus from the close button (or other intended
-			    autofocus target). The <dialog> element itself receives the
-			    focus ring when no descendants are focusable. */}
-			<div
-				ref={contentRef}
-				css={[
-					surfaceStyles.root,
-					!isFullScreen && surfaceStyles.borderRadius,
-					topLayerScrollModeStyles[scrollMode],
-					// Unless the consumer is explicitly setting a height, we don't want to be taller than the content
-					!height && !isFullScreen && topLayerAutoHeightStyles,
-				]}
-				style={
-					{
-						'--modal-dialog-height': getTopLayerSurfaceHeight(height),
-						'--modal-dialog-width': getTopLayerSurfaceWidth(width),
-					} as React.CSSProperties
-				}
-			>
-				<ModalContext.Provider value={modalDialogContext}>
-					<ScrollContext.Provider value={shouldScrollInViewport}>
-						<MotionPresenceBoundary>{children}</MotionPresenceBoundary>
-					</ScrollContext.Provider>
-				</ModalContext.Provider>
+			{/* The surface sizes to content and keeps a definite height for `height: 100%` children. */}
+			<div css={sizingContainerStyles[scrollMode]}>
+				{/* Visual content container - Dialog handles the raw <dialog>. */}
+				{/* No tabIndex: native <dialog>.showModal() picks the first focusable
+				    descendant as initial focus target. A tabIndex on this wrapper
+				    would steal that focus from the close button (or other intended
+				    autofocus target). The <dialog> element itself receives the
+				    focus ring when no descendants are focusable. */}
+				<div
+					ref={contentRef}
+					css={[
+						surfaceStyles.root,
+						!isFullScreen && surfaceStyles.borderRadius,
+						topLayerScrollModeStyles[scrollMode],
+					]}
+					style={
+						{
+							'--modal-dialog-height': getTopLayerSurfaceHeight(height),
+							'--modal-dialog-width': getTopLayerSurfaceWidth(width),
+						} as React.CSSProperties
+					}
+				>
+					<ModalContext.Provider value={modalDialogContext}>
+						<ScrollContext.Provider value={shouldScrollInViewport}>
+							<MotionPresenceBoundary>{children}</MotionPresenceBoundary>
+						</ScrollContext.Provider>
+					</ModalContext.Provider>
+				</div>
 			</div>
 		</Dialog>
 	);

@@ -7,7 +7,7 @@ import type { ReactNode } from 'react';
 
 import { jsx, cssMap, cx } from '@compiled/react';
 
-import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
 import type { OnOpenChangeArgs } from '@atlaskit/dropdown-menu/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled/box';

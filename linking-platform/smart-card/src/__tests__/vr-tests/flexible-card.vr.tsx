@@ -378,6 +378,13 @@ snapshot(FlexibleUiPlaceholderData, {
 });
 // Error states
 snapshot(FlexibleUiBlockCardErroredStates, {
+	mockRequests: [
+		{
+			urlPattern: /\/gateway\/api\/tap-delivery\/api\/v3\/personalization\/site\//u,
+			body: JSON.stringify({ attributes: [] }),
+			contentType: 'application/json',
+		},
+	],
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 	},

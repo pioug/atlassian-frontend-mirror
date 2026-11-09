@@ -9,8 +9,10 @@ import { fontFamilyMap } from './font-family';
 import { fontWeightMap } from './font-weight';
 import { gapSpaceMap } from './gap-space';
 import { layerMap } from './layer';
+import { marginSpaceMap } from './margin-space';
 import { opacityMap } from './opacity';
-import { positiveSpaceMap } from './positive-space';
+import { paddingSpaceMap } from './padding-space';
+import type { positiveSpaceMap } from './positive-space';
 import { shadowMap } from './shadow';
 import { textColorMap } from './text-color';
 import type { TokenisedProps } from './tokenised-props';
@@ -22,8 +24,10 @@ type StrictTokensMap = {
 		| typeof borderColorMap
 		| typeof borderRadiusMap
 		| typeof borderWidthMap
+		| typeof marginSpaceMap
 		| typeof layerMap
 		| typeof opacityMap
+		| typeof paddingSpaceMap
 		| typeof positiveSpaceMap
 		| typeof gapSpaceMap
 		| typeof allSpaceMap
@@ -86,17 +90,17 @@ export const tokensMap: {
 	readonly insetInlineEnd: typeof allSpaceMap;
 	readonly insetInlineStart: typeof allSpaceMap;
 	readonly left: typeof allSpaceMap;
-	readonly margin: typeof allSpaceMap;
-	readonly marginBlock: typeof allSpaceMap;
-	readonly marginBlockEnd: typeof allSpaceMap;
-	readonly marginBlockStart: typeof allSpaceMap;
-	readonly marginBottom: typeof allSpaceMap;
-	readonly marginInline: typeof allSpaceMap;
-	readonly marginInlineEnd: typeof allSpaceMap;
-	readonly marginInlineStart: typeof allSpaceMap;
-	readonly marginLeft: typeof allSpaceMap;
-	readonly marginRight: typeof allSpaceMap;
-	readonly marginTop: typeof allSpaceMap;
+	readonly margin: typeof marginSpaceMap;
+	readonly marginBlock: typeof marginSpaceMap;
+	readonly marginBlockEnd: typeof marginSpaceMap;
+	readonly marginBlockStart: typeof marginSpaceMap;
+	readonly marginBottom: typeof marginSpaceMap;
+	readonly marginInline: typeof marginSpaceMap;
+	readonly marginInlineEnd: typeof marginSpaceMap;
+	readonly marginInlineStart: typeof marginSpaceMap;
+	readonly marginLeft: typeof marginSpaceMap;
+	readonly marginRight: typeof marginSpaceMap;
+	readonly marginTop: typeof marginSpaceMap;
 	readonly maxBlockSize: typeof dimensionMap;
 	readonly maxHeight: typeof dimensionMap;
 	readonly maxInlineSize: typeof dimensionMap;
@@ -109,17 +113,17 @@ export const tokensMap: {
 	readonly outlineColor: typeof borderColorMap;
 	readonly outlineOffset: typeof allSpaceMap;
 	readonly outlineWidth: typeof borderWidthMap;
-	readonly padding: typeof positiveSpaceMap;
-	readonly paddingBlock: typeof positiveSpaceMap;
-	readonly paddingBlockEnd: typeof positiveSpaceMap;
-	readonly paddingBlockStart: typeof positiveSpaceMap;
-	readonly paddingBottom: typeof positiveSpaceMap;
-	readonly paddingInline: typeof positiveSpaceMap;
-	readonly paddingInlineEnd: typeof positiveSpaceMap;
-	readonly paddingInlineStart: typeof positiveSpaceMap;
-	readonly paddingLeft: typeof positiveSpaceMap;
-	readonly paddingRight: typeof positiveSpaceMap;
-	readonly paddingTop: typeof positiveSpaceMap;
+	readonly padding: typeof paddingSpaceMap;
+	readonly paddingBlock: typeof paddingSpaceMap;
+	readonly paddingBlockEnd: typeof paddingSpaceMap;
+	readonly paddingBlockStart: typeof paddingSpaceMap;
+	readonly paddingBottom: typeof paddingSpaceMap;
+	readonly paddingInline: typeof paddingSpaceMap;
+	readonly paddingInlineEnd: typeof paddingSpaceMap;
+	readonly paddingInlineStart: typeof paddingSpaceMap;
+	readonly paddingLeft: typeof paddingSpaceMap;
+	readonly paddingRight: typeof paddingSpaceMap;
+	readonly paddingTop: typeof paddingSpaceMap;
 	readonly right: typeof allSpaceMap;
 	readonly rowGap: typeof gapSpaceMap;
 	readonly top: typeof allSpaceMap;
@@ -177,17 +181,17 @@ export const tokensMap: {
 	insetInlineEnd: allSpaceMap,
 	insetInlineStart: allSpaceMap,
 	left: allSpaceMap,
-	margin: allSpaceMap,
-	marginBlock: allSpaceMap,
-	marginBlockEnd: allSpaceMap,
-	marginBlockStart: allSpaceMap,
-	marginBottom: allSpaceMap,
-	marginInline: allSpaceMap,
-	marginInlineEnd: allSpaceMap,
-	marginInlineStart: allSpaceMap,
-	marginLeft: allSpaceMap,
-	marginRight: allSpaceMap,
-	marginTop: allSpaceMap,
+	margin: marginSpaceMap,
+	marginBlock: marginSpaceMap,
+	marginBlockEnd: marginSpaceMap,
+	marginBlockStart: marginSpaceMap,
+	marginBottom: marginSpaceMap,
+	marginInline: marginSpaceMap,
+	marginInlineEnd: marginSpaceMap,
+	marginInlineStart: marginSpaceMap,
+	marginLeft: marginSpaceMap,
+	marginRight: marginSpaceMap,
+	marginTop: marginSpaceMap,
 	maxBlockSize: dimensionMap,
 	maxHeight: dimensionMap,
 	maxInlineSize: dimensionMap,
@@ -200,17 +204,17 @@ export const tokensMap: {
 	outlineColor: borderColorMap,
 	outlineOffset: allSpaceMap,
 	outlineWidth: borderWidthMap,
-	padding: positiveSpaceMap,
-	paddingBlock: positiveSpaceMap,
-	paddingBlockEnd: positiveSpaceMap,
-	paddingBlockStart: positiveSpaceMap,
-	paddingBottom: positiveSpaceMap,
-	paddingInline: positiveSpaceMap,
-	paddingInlineEnd: positiveSpaceMap,
-	paddingInlineStart: positiveSpaceMap,
-	paddingLeft: positiveSpaceMap,
-	paddingRight: positiveSpaceMap,
-	paddingTop: positiveSpaceMap,
+	padding: paddingSpaceMap,
+	paddingBlock: paddingSpaceMap,
+	paddingBlockEnd: paddingSpaceMap,
+	paddingBlockStart: paddingSpaceMap,
+	paddingBottom: paddingSpaceMap,
+	paddingInline: paddingSpaceMap,
+	paddingInlineEnd: paddingSpaceMap,
+	paddingInlineStart: paddingSpaceMap,
+	paddingLeft: paddingSpaceMap,
+	paddingRight: paddingSpaceMap,
+	paddingTop: paddingSpaceMap,
 	right: allSpaceMap,
 	rowGap: gapSpaceMap,
 	top: allSpaceMap,

@@ -1,5 +1,30 @@
 # @atlaskit/mention
 
+## 30.8.1
+
+### Patch Changes
+
+- [`a756e0d4e879f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a756e0d4e879f) -
+  Render hexagonal agent avatars in mention pickers when canvas-rovo-comment-sessions is enabled.
+
+## 30.8.0
+
+### Minor Changes
+
+- [`77aeba2398de1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/77aeba2398de1) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.7.13
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 30.7.12
 
 ### Patch Changes

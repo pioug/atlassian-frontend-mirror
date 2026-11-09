@@ -133,7 +133,7 @@ it.each([false, true])(
 			}));
 			const slider = screen.getByRole('slider', { name: 'Resize chat', hidden: true });
 			fireEvent.focus(slider);
-			const maximum = 960;
+			const maximum = overlayNav ? 960 : 640;
 			expect(slider).toHaveAttribute('max', String(maximum));
 			// An over-limit keyboard request is clamped by the range input.
 			// eslint-disable-next-line testing-library/prefer-user-event

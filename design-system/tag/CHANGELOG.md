@@ -1,5 +1,13 @@
 # @atlaskit/tag
 
+## 17.1.1
+
+### Patch Changes
+
+- [`c6d5d5c1517ef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c6d5d5c1517ef) -
+  Add semantic spacing style overrides for tag behind platform-semantic-spacing. Existing numeric
+  styles remain when the feature flag is off.
+
 ## 17.1.0
 
 ### Minor Changes

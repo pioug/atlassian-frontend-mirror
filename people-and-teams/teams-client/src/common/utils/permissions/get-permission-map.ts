@@ -14,7 +14,7 @@ import { SCIMSyncTeamPermissions } from './scim-sync-team-permissions';
 
 /**
  * Returns permission map for disbanded teams
- * Only UNARCHIVE_TEAM action is allowed based on team settings and user permissions
+ * Only UNARCHIVE_TEAM and DELETE_TEAM actions are allowed based on team settings and user permissions
  */
 const getDisbandedTeamPermissionMap = (
 	settings: TeamMembershipSettings,
@@ -25,25 +25,27 @@ const getDisbandedTeamPermissionMap = (
 	// Base permission map - all actions disabled for disbanded teams
 	const basePermissions = allPermissions(false, false, false);
 
-	let canUnarchive: boolean;
+	const isOrgAdminControlled = settings === 'EXTERNAL' || settings === 'ORG_ADMIN_MANAGED';
 
-	// On fg('ptc-enable-team-type-permission-enabled') clean up delete this code block
-	if (settings === 'EXTERNAL' || settings === 'ORG_ADMIN_MANAGED') {
-		// For EXTERNAL and ORG_ADMIN_MANAGED teams, only org admins can unarchive
-		canUnarchive = isOrgAdmin;
+	let canDelete: boolean;
+
+	if (isOrgAdminControlled) {
+		// For EXTERNAL and ORG_ADMIN_MANAGED teams, only org admins can delete
+		canDelete = isOrgAdmin;
 	} else {
-		// For OPEN and MEMBER_INVITE teams, members with FULL_WRITE (or org admins) can unarchive
-		canUnarchive = (isMember || isOrgAdmin) && permission === 'FULL_WRITE';
+		// For OPEN and MEMBER_INVITE teams, members with FULL_WRITE (or org admins) can delete
+		canDelete = (isMember || isOrgAdmin) && permission === 'FULL_WRITE';
 	}
 
 	return {
 		...basePermissions,
 		CAN_EDIT_HIERARCHY: false,
-		UNARCHIVE_TEAM:
-			canUnarchive ||
-			(permission === 'FULL_WRITE' && fg('ptc-enable-team-type-permission-enabled')),
-		// With 'ptc-enable-team-type-permission-enabled' DELETE_TEAM perm is _wrong_ here and handled in the hook
-		DELETE_TEAM: canUnarchive,
+		// Any user with FULL_WRITE can unarchive. Org admins can also unarchive EXTERNAL and
+		// ORG_ADMIN_MANAGED teams without FULL_WRITE.
+		UNARCHIVE_TEAM: permission === 'FULL_WRITE' || (isOrgAdminControlled && isOrgAdmin),
+		// Fallback only: useTeamPermission uses the server's CAN_DELETE_TEAM when relay permissions
+		// are available
+		DELETE_TEAM: canDelete,
 	};
 };
 
@@ -63,20 +65,12 @@ const getActiveTeamPermissionMap = (
 		return {
 			...basePermissions,
 			...openPermissions(permission),
-			// Delete this row on enable_edit_team_name_external_type_teams cleanup
-			ARCHIVE_TEAM:
-				(permission === 'FULL_WRITE' && (isMember || isOrgAdmin)) ||
-				(basePermissions.ARCHIVE_TEAM && fg('ptc-enable-team-type-permission-enabled')),
 		};
 	}
 	if (settings === 'MEMBER_INVITE') {
 		return {
 			...basePermissions,
 			...inviteOnlyPermissions(permission),
-			// Delete this row on enable_edit_team_name_external_type_teams cleanup
-			ARCHIVE_TEAM:
-				(permission === 'FULL_WRITE' && (isMember || isOrgAdmin)) ||
-				(basePermissions.ARCHIVE_TEAM && fg('ptc-enable-team-type-permission-enabled')),
 		};
 	} else if (settings === 'EXTERNAL') {
 		if (fg('enable_edit_team_name_external_type_teams')) {
@@ -117,43 +111,22 @@ const getActiveTeamPermissionMap = (
 		return {
 			...basePermissions,
 			// Delete all there rows on enable_edit_team_name_external_type_teams cleanup
-			EDIT_TEAM_LINK:
-				isMember ||
-				permission === 'FULL_WRITE' ||
-				(basePermissions.EDIT_TEAM_LINK && fg('ptc-enable-team-type-permission-enabled')),
+			EDIT_TEAM_LINK: isMember || permission === 'FULL_WRITE' || basePermissions.EDIT_TEAM_LINK,
 			ADD_AGENT_TO_TEAM:
-				isMember ||
-				permission === 'FULL_WRITE' ||
-				(basePermissions.ADD_AGENT_TO_TEAM && fg('ptc-enable-team-type-permission-enabled')),
+				isMember || permission === 'FULL_WRITE' || basePermissions.ADD_AGENT_TO_TEAM,
 			REMOVE_AGENT_FROM_TEAM:
-				isMember ||
-				permission === 'FULL_WRITE' ||
-				(basePermissions.REMOVE_AGENT_FROM_TEAM && fg('ptc-enable-team-type-permission-enabled')),
-			CAN_EDIT_HIERARCHY:
-				permission === 'FULL_WRITE' ||
-				(basePermissions.CAN_EDIT_HIERARCHY && fg('ptc-enable-team-type-permission-enabled')),
-			EDIT_TEAM_TYPE:
-				permission === 'FULL_WRITE' ||
-				(basePermissions.EDIT_TEAM_TYPE && fg('ptc-enable-team-type-permission-enabled')),
+				isMember || permission === 'FULL_WRITE' || basePermissions.REMOVE_AGENT_FROM_TEAM,
+			CAN_EDIT_HIERARCHY: permission === 'FULL_WRITE' || basePermissions.CAN_EDIT_HIERARCHY,
+			EDIT_TEAM_TYPE: permission === 'FULL_WRITE' || basePermissions.EDIT_TEAM_TYPE,
 
 			// ORG_ADMIN_MANAGED teams should not provide options to edit membership settings
-			EDIT_TEAM_MEMBERSHIP:
-				false ||
-				(basePermissions.EDIT_TEAM_MEMBERSHIP && fg('ptc-enable-team-type-permission-enabled')),
+			EDIT_TEAM_MEMBERSHIP: basePermissions.EDIT_TEAM_MEMBERSHIP,
 
 			// There is no "invite" flow in org_admin_managed teams
-			REQUEST_TO_JOIN: fg('ptc-enable-team-type-permission-enabled')
-				? false
-				: basePermissions.REQUEST_TO_JOIN,
-			CANCEL_JOIN_REQUEST: fg('ptc-enable-team-type-permission-enabled')
-				? false
-				: basePermissions.CANCEL_JOIN_REQUEST,
-			APPROVE_JOIN_REQUEST: fg('ptc-enable-team-type-permission-enabled')
-				? false
-				: basePermissions.APPROVE_JOIN_REQUEST,
-			REJECT_JOIN_REQUEST: fg('ptc-enable-team-type-permission-enabled')
-				? false
-				: basePermissions.REJECT_JOIN_REQUEST,
+			REQUEST_TO_JOIN: false,
+			CANCEL_JOIN_REQUEST: false,
+			APPROVE_JOIN_REQUEST: false,
+			REJECT_JOIN_REQUEST: false,
 		};
 	}
 

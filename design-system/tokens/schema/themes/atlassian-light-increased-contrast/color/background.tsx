@@ -13,6 +13,7 @@ const color: ExtendedValueSchema<BackgroundColorTokenSchema<BaseToken>> = {
 		//   danger: { value: '#EF5C4814' },
 		// },
 		background: {
+			draghandle: { value: 'Blue900' },
 			// disabled: { value: 'Neutral100A' },
 			// neutral: {
 			//   '[default]': {

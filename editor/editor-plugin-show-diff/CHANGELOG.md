@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 30.0.12
+
+### Patch Changes
+
+- [`ba8362b562ea6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ba8362b562ea6) -
+  EDITOR-10060 Renders the human avatar in a connected agent+human contributor tag 4px smaller
+  (12px) and overlapping the agent icon, instead of sitting flush beside it.
+- Updated dependencies
+
+## 30.0.11
+
+### Patch Changes
+
+- [`4ad02bd627f7f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4ad02bd627f7f) -
+  Respect explicit brand active colours and otherwise use the existing gray active diff treatment.
+  Preserve Rovo purple active colours and Claude specified light and dark colours. Route contributor
+  attribution through shared brand schemes under platform_editor_attributed_version_history,
+  platform_editor_show_diff_color_scheme_refactor, platform_editor_agent_mentions and
+  platform_editor_agent_telepointer_redesign.
+- Updated dependencies
+
 ## 30.0.10
 
 ### Patch Changes

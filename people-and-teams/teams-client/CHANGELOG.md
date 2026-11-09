@@ -1,5 +1,20 @@
 # @atlaskit/teams-client
 
+## 6.2.3
+
+### Patch Changes
+
+- [`26ce675586eee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/26ce675586eee) -
+  Include mock avatar PNG images used by the published mocks entry points in the built dist output
+
+## 6.2.2
+
+### Patch Changes
+
+- [`48004769105ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/48004769105ce) -
+  Clean up feature gate `ptc-enable-team-type-permission-enabled` (shipped as enabled). Associate
+  the team type select's label with its input, including while it is loading.
+
 ## 6.2.1
 
 ### Patch Changes

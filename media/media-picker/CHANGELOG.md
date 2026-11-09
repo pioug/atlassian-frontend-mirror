@@ -1,5 +1,17 @@
 # @atlaskit/media-picker
 
+## 73.3.0
+
+### Minor Changes
+
+- [`9826a3254f648`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9826a3254f648) -
+  Add `UploadParams.skipRemoteFileState` behind `platform_media_upload_without_read` to forward
+  upload-only behavior to Media Client and finish uploads without reading remote file metadata.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 73.2.0
 
 ### Minor Changes

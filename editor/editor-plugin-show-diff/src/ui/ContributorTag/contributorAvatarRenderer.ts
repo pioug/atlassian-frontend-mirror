@@ -12,43 +12,37 @@ import { getContributorTagIcon } from './contributorTagIcons';
 const AVATAR_SIZE = AVATAR_SIZES.xxsmall;
 /** `xxsmall` also carried a `space.025` margin — the same 2px — which is where the ring is painted. */
 const AVATAR_RING_WIDTH = BORDER_WIDTH;
-const AVATAR_BOX_SIZE = AVATAR_SIZE + AVATAR_RING_WIDTH * 2;
 
 /** Reused from `@atlaskit/avatar`'s `avatar-content`, so the two shapes cannot drift. */
 const HEXAGON_CLIP_PATH =
 	'polygon(45% 1.33975%, 46.5798% 0.60307%, 48.26352% 0.15192%, 50% 0%, 51.73648% 0.15192%, 53.4202% 0.60307%, 55% 1.33975%, 89.64102% 21.33975%, 91.06889% 22.33956%, 92.30146% 23.57212%, 93.30127% 25%, 94.03794% 26.5798%, 94.48909% 28.26352%, 94.64102% 30%, 94.64102% 70%, 94.48909% 71.73648%, 94.03794% 73.4202%, 93.30127% 75%, 92.30146% 76.42788%, 91.06889% 77.66044%, 89.64102% 78.66025%, 55% 98.66025%, 53.4202% 99.39693%, 51.73648% 99.84808%, 50% 100%, 48.26352% 99.84808%, 46.5798% 99.39693%, 45% 98.66025%, 10.35898% 78.66025%, 8.93111% 77.66044%, 7.69854% 76.42788%, 6.69873% 75%, 5.96206% 73.4202%, 5.51091% 71.73648%, 5.35898% 70%, 5.35898% 30%, 5.51091% 28.26352%, 5.96206% 26.5798%, 6.69873% 25%, 7.69854% 23.57212%, 8.93111% 22.33956%, 10.35898% 21.33975%)';
 
-const boxStyle = convertToInlineCss({
-	display: 'inline-flex',
-	alignItems: 'center',
-	justifyContent: 'center',
-	flexShrink: 0,
-	boxSizing: 'border-box',
-	width: `${AVATAR_BOX_SIZE}px`,
-	height: `${AVATAR_BOX_SIZE}px`,
-});
+/** The avatar plus its ring. */
+const getBoxStyle = (size: number, ringWidth: number): string => {
+	const boxSize = size + ringWidth * 2;
 
-/** Agents get a drop shadow instead of a ring, so their box skips the ring's padding. */
-const agentBoxStyle = convertToInlineCss({
-	display: 'inline-flex',
-	alignItems: 'center',
-	justifyContent: 'center',
-	flexShrink: 0,
-	boxSizing: 'border-box',
-	width: `${AVATAR_SIZE}px`,
-	height: `${AVATAR_SIZE}px`,
-});
+	return convertToInlineCss({
+		display: 'inline-flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+		flexShrink: 0,
+		boxSizing: 'border-box',
+		width: `${boxSize}px`,
+		height: `${boxSize}px`,
+	});
+};
 
-const shapeStyle = convertToInlineCss({
-	display: 'flex',
-	alignItems: 'center',
-	justifyContent: 'center',
-	boxSizing: 'border-box',
-	width: `${AVATAR_SIZE}px`,
-	height: `${AVATAR_SIZE}px`,
-	aspectRatio: '1/1',
-	overflow: 'hidden',
-});
+const getShapeStyle = (size: number): string =>
+	convertToInlineCss({
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+		boxSizing: 'border-box',
+		width: `${size}px`,
+		height: `${size}px`,
+		aspectRatio: '1/1',
+		overflow: 'hidden',
+	});
 
 /**
  * The shadow's colour per theme. In the dark theme `elevation.shadow.overflow.perimeter` is
@@ -100,17 +94,25 @@ export const contributorAvatarRenderer = ({
 	contributor,
 	doc,
 	ringColor,
+	ringWidth = AVATAR_RING_WIDTH,
+	size = AVATAR_SIZE,
 	stackIndex,
 }: {
 	contributor: TagContributor;
 	doc: Document;
 	ringColor: string;
-	/** Paints the leading avatar of a connected pair over the one it overlaps. */
+	/** Ring width in px around a person. */
+	ringWidth?: number;
+	/** Diameter in px. */
+	size?: number;
+	/** Paints above lower indexes: the person (1) over the agent (0) in a connected pair. */
 	stackIndex?: number;
 }): ContributorAvatar => {
 	const isAgent = contributor.kind === 'agent';
 	const element = doc.createElement('span');
-	element.setAttribute('style', isAgent ? `${agentBoxStyle} ${agentShadowStyle}` : boxStyle);
+	// Agents get a drop shadow instead of a ring, so their box skips the ring's padding.
+	const boxStyle = getBoxStyle(size, isAgent ? 0 : ringWidth);
+	element.setAttribute('style', isAgent ? `${boxStyle} ${agentShadowStyle}` : boxStyle);
 	// Decorative: the tag names its contributors in the visually hidden label its screen-reader
 	// announcement comes from.
 	element.setAttribute('aria-hidden', 'true');
@@ -119,7 +121,7 @@ export const contributorAvatarRenderer = ({
 	}
 
 	const shape = doc.createElement('span');
-	shape.setAttribute('style', shapeStyle);
+	shape.setAttribute('style', getShapeStyle(size));
 	element.appendChild(shape);
 
 	if (isAgent) {
@@ -168,7 +170,7 @@ export const contributorAvatarRenderer = ({
 			shape.style.setProperty('background', nextRingColor);
 			return;
 		}
-		shape.style.setProperty('box-shadow', `0 0 0 ${AVATAR_RING_WIDTH}px ${nextRingColor}`);
+		shape.style.setProperty('box-shadow', `0 0 0 ${ringWidth}px ${nextRingColor}`);
 		shape.style.setProperty('background', nextRingColor);
 	};
 	setRingColor(ringColor);

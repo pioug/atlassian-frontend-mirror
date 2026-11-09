@@ -188,7 +188,9 @@ export const FullPageEditor = (props: ComponentProps): React.JSX.Element => {
 					{!isEditorToolbarHidden &&
 						(isToolbarAIFCEnabled ? (
 							<FullPageToolbarNext
+								disableOptimisticToolbar={props.__livePage}
 								disabled={
+									!props.__livePage &&
 									expValEquals('platform_editor_ssr_toolbar_optimistic', 'isEnabled', true)
 										? !hasHadInteraction
 											? false

@@ -1,3 +1,5 @@
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+
 import { isBody } from './isBody';
 import { isTextNode } from './isTextNode';
 export interface Position {
@@ -274,6 +276,12 @@ const getPopupXInsideParent = (
 	return Math.max(minPopupMargin, x);
 };
 
+/**
+ * Lifts a bottom-placed popup that would run past the visible bottom of its scroll parent so its
+ * bottom sits `offset` above that edge. Under `platform_editor_popup_clamp_to_scroll_area`, a popup
+ * taller than the visible area is instead pinned `offset` below the visible top, so its start (for
+ * the link picker, the URL field) is never clipped; its bottom may extend past the visible area.
+ */
 const calculateVerticalStickBottom = ({
 	target,
 	targetTop,
@@ -299,17 +307,27 @@ const calculateVerticalStickBottom = ({
 	const newPos = { ...position };
 
 	if (scrollParent) {
+		const margin = offset[1];
+		const visibleHeight = scrollParent.clientHeight;
 		const topOffsetTop = targetTop - scrollParent.getBoundingClientRect().top;
 		const targetEnd = targetHeight + topOffsetTop;
-		if (
-			scrollParent.clientHeight - targetEnd <= popup.clientHeight + offset[1] * 2 &&
-			topOffsetTop < scrollParent.clientHeight
-		) {
-			const scroll = targetEnd - scrollParent.clientHeight + offset[1] * 2;
-			let top = newPos.top || 0;
-			top = top - (scroll + popup.clientHeight);
+		const popupHeight = popup.clientHeight;
 
-			newPos.top = top;
+		if (visibleHeight - targetEnd <= popupHeight + margin * 2 && topOffsetTop < visibleHeight) {
+			const scroll = targetEnd - visibleHeight + margin * 2;
+			const liftedTop = (newPos.top || 0) - (scroll + popupHeight);
+			// Lifting only clips the popup once its top would pass the visible top.
+			const liftsAboveVisibleTop = popupHeight > visibleHeight - margin;
+
+			if (
+				liftsAboveVisibleTop &&
+				isExperimentEnabled('platform_editor_popup_clamp_to_scroll_area')
+			) {
+				const scrollAreaTop = liftedTop + popupHeight + margin - visibleHeight;
+				newPos.top = scrollAreaTop + margin;
+			} else {
+				newPos.top = liftedTop;
+			}
 		}
 	}
 

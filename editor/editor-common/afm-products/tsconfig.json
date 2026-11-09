@@ -155,6 +155,9 @@
 			"path": "../../../design-system/popper/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/popup/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/primitives/afm-products/tsconfig.json"
 		},
 		{

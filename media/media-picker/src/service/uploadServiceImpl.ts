@@ -277,6 +277,10 @@ export class UploadServiceImpl implements UploadService {
 					name: file.name,
 					mimeType: file.type,
 					size: file.size,
+					...(fg('platform_media_upload_without_read') &&
+					this.tenantUploadParams.skipRemoteFileState
+						? { skipRemoteFileState: true }
+						: {}),
 				};
 
 				const uploadableUpfrontIds: UploadableFileUpfrontIds = {

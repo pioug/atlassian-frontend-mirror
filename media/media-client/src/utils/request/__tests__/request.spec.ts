@@ -1,5 +1,5 @@
 import { nextTick } from '@atlaskit/media-common/nextTick';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { request } from '..';
 import { fetchRetry } from '../fetchRetry';
@@ -792,7 +792,11 @@ describe('request', () => {
 		});
 
 		describe('when platform_media_retry_edge_error is enabled', () => {
-			ffTest.on('platform_media_retry_edge_error', 'when feature flag is on', () => {
+			describe('platform_media_retry_edge_error is on when feature flag is on', () => {
+				beforeEach(() => {
+					passGate('platform_media_retry_edge_error');
+				});
+
 				it('should not retry original URL but fallback to path-based URL on Edge browser with fetch network errors', async () => {
 					mockGetNavigator.mockReturnValue({
 						userAgent:
@@ -963,8 +967,10 @@ describe('request', () => {
 		});
 
 		describe('when platform_media_retry_edge_error is disabled', () => {
-			ffTest.off('platform_media_retry_edge_error', 'when feature flag is off', () => {
+			describe('platform_media_retry_edge_error is off when feature flag is off', () => {
 				it('should use normal fetchRetry without Edge-specific retry logic', async () => {
+					failGate('platform_media_retry_edge_error');
+
 					// Reset mocks to defaults
 					mockIsFetchNetworkError.mockReturnValue(false);
 					mockDefaultShouldRetryError.mockReturnValue(true);

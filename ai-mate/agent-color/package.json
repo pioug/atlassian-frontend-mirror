@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/agent-color",
-	"version": "1.0.6",
+	"version": "1.1.0",
 	"description": "Stable colour selection for agents",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

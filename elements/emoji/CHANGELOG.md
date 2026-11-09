@@ -1,5 +1,35 @@
 # @atlaskit/emoji
 
+## 73.5.1
+
+### Patch Changes
+
+- [`b077233b28755`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b077233b28755) -
+  Restore Tab focus and Enter activation for the skin tone picker in Safari behind
+  `platform_ally_emoji_fixes_various`.
+- [`d6fd42be3082d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d6fd42be3082d) -
+  Update feature gate for focus fix to platform_ally_emoji_fixes_various
+
+## 73.5.0
+
+### Minor Changes
+
+- [`77aeba2398de1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/77aeba2398de1) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 73.4.11
+
+### Patch Changes
+
+- [`f11baec59d920`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f11baec59d920) -
+  Translate Atlassian emoji subcategory headings behind platform_ally_emoji_fixes_various.
+- Updated dependencies
+
 ## 73.4.10
 
 ### Patch Changes

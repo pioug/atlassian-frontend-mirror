@@ -146,8 +146,8 @@ via `@starting-style` / `allow-discrete` in the animation preset.
 
 ### `content` function `update` is a no-op
 
-When `content` is a function, it receives `{ update }`. On the top-layer path, `update` is a no-op
--- CSS Anchor Positioning (or the JS fallback) handles repositioning automatically without the
+When `content` is a function, it receives `{ update }`. On the top-layer path, `update` is a
+no-op -- CSS Anchor Positioning (or the JS fallback) handles repositioning automatically without the
 consumer needing to trigger updates.
 
 ### Offset
@@ -229,6 +229,16 @@ attributable to the rendering path alone. Triggers that discard the render-prop 
 handlers included, so the tooltip has never rendered on either side of the flag — are a separate
 class and were left alone:
 **[follow-ups/tooltip-triggers-discarding-render-prop-props.md](../follow-ups/tooltip-triggers-discarding-render-prop-props.md)**.
+
+A custom `component` gets no Popper `style` on the top-layer path, only `pointerEvents` when
+`ignoreTooltipPointerEvents` is set. A wrapper that rewrote Popper's `transform` to adjust the
+position does nothing there. The `role="tooltip"` element is also the popover host, not the
+`component` element, so a margin on the component does not move the host box.
+
+- navigation-system `PanelSplitterTooltip` (`panel-splitter.tsx`) clamps the legacy tooltip below
+  the top navigation by rewriting the `transform`. On the top-layer path the clamp does nothing, so
+  the tooltip stays centred on the cursor and can cover the banner and top navigation near the top
+  of the splitter. Design accepted this (6 Nov 2026), so there is no top-layer clamp.
 
 ### Resolved risks
 

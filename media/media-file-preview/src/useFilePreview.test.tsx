@@ -11,7 +11,7 @@ import type {
 import { createMediaStoreError } from '@atlaskit/media-client/test-helpers';
 import { sampleBinaries } from '@atlaskit/media-test-data/sample-binaries';
 import { generateSampleFileItem } from '@atlaskit/media-test-data/sample-file-items';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { createMockedMediaClientProvider } from './__tests__/helpers/_MockedMediaClientProvider';
 import { mediaFilePreviewCache } from './getPreview/cache';
@@ -64,7 +64,11 @@ describe('useFilePreview', () => {
 	});
 
 	describe('Cross-client copy with auth', () => {
-		ffTest.on('platform_media_cross_client_copy_with_auth', 'when feature flag is enabled', () => {
+		describe('platform_media_cross_client_copy_with_auth is on when feature flag is enabled', () => {
+			beforeEach(() => {
+				passGate('platform_media_cross_client_copy_with_auth');
+			});
+
 			it('should include clientId in remote preview blob URL via enrichAttrsWithClientId', async () => {
 				const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
 				const { MockedMediaClientProvider, mediaApi } = createMockedMediaClientProvider({
@@ -152,38 +156,36 @@ describe('useFilePreview', () => {
 			});
 		});
 
-		ffTest.off(
-			'platform_media_cross_client_copy_with_auth',
-			'when feature flag is disabled',
-			() => {
-				it('should not enrich preview with clientId', async () => {
-					const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
-					const { MockedMediaClientProvider, mediaApi } = createMockedMediaClientProvider({
-						initialItems: fileItem,
-					});
+		describe('platform_media_cross_client_copy_with_auth is off when feature flag is disabled', () => {
+			it('should not enrich preview with clientId', async () => {
+				failGate('platform_media_cross_client_copy_with_auth');
 
-					// Add mocks — they should NOT be called when flag is off
-					const mockGetClientId = jest.fn().mockResolvedValue('test-client-id');
-					(mediaApi as any).getClientId = mockGetClientId;
-					(mediaApi as any).getClientIdSync = jest.fn().mockReturnValue('test-client-id');
-
-					const { result } = renderHook(useFilePreview, {
-						wrapper: ({ children }) => (
-							<MockedMediaClientProvider>{children}</MockedMediaClientProvider>
-						),
-						initialProps: {
-							identifier,
-						},
-					});
-
-					// Wait for preview to be complete
-					await waitFor(() => expect(result?.current.status).toBe('complete'));
-
-					// Preview should not contain clientId when flag is off
-					expect(result?.current.preview?.dataURI).not.toContain('clientId=');
+				const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
+				const { MockedMediaClientProvider, mediaApi } = createMockedMediaClientProvider({
+					initialItems: fileItem,
 				});
-			},
-		);
+
+				// Add mocks — they should NOT be called when flag is off
+				const mockGetClientId = jest.fn().mockResolvedValue('test-client-id');
+				(mediaApi as any).getClientId = mockGetClientId;
+				(mediaApi as any).getClientIdSync = jest.fn().mockReturnValue('test-client-id');
+
+				const { result } = renderHook(useFilePreview, {
+					wrapper: ({ children }) => (
+						<MockedMediaClientProvider>{children}</MockedMediaClientProvider>
+					),
+					initialProps: {
+						identifier,
+					},
+				});
+
+				// Wait for preview to be complete
+				await waitFor(() => expect(result?.current.status).toBe('complete'));
+
+				// Preview should not contain clientId when flag is off
+				expect(result?.current.preview?.dataURI).not.toContain('clientId=');
+			});
+		});
 	});
 
 	describe('Files with no preview and other errors', () => {
@@ -547,7 +549,11 @@ describe('useFilePreview', () => {
 				},
 			);
 
-			ffTest.on('media-perf-uplift-mutation-fix', 'SSR loadPromise handling', () => {
+			describe('media-perf-uplift-mutation-fix is on SSR loadPromise handling', () => {
+				beforeEach(() => {
+					passGate('media-perf-uplift-mutation-fix');
+				});
+
 				it('should set status to complete when loadPromise resolves', async () => {
 					const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
 					const { MockedMediaClientProvider } = createMockedMediaClientProvider({
@@ -2046,7 +2052,11 @@ describe('useFilePreview', () => {
 		});
 
 		describe('SSR preview refetch on resize', () => {
-			ffTest.on('media-perf-uplift-mutation-fix', 'SSR preview resize optimization', () => {
+			describe('media-perf-uplift-mutation-fix is on SSR preview resize optimization', () => {
+				beforeEach(() => {
+					passGate('media-perf-uplift-mutation-fix');
+				});
+
 				it.each`
 					width  | height | previewType
 					${100} | ${100} | ${'ssr-client'}
@@ -2270,8 +2280,10 @@ describe('useFilePreview', () => {
 				});
 			});
 
-			ffTest.off('media-perf-uplift-mutation-fix', 'without feature flag', () => {
+			describe('media-perf-uplift-mutation-fix is off without feature flag', () => {
 				it('should refetch SSR preview immediately on mount', async () => {
+					failGate('media-perf-uplift-mutation-fix');
+
 					const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
 					const { MockedMediaClientProvider, mediaApi } = createMockedMediaClientProvider({
 						initialItems: fileItem,

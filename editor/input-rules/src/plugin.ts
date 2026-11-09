@@ -1,6 +1,5 @@
 import type { SafePluginSpec } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey, TextSelection } from '@atlaskit/editor-prosemirror/state';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { TEXT_INPUT_RULE_TRANSACTION_KEY } from './constants';
 import type { InputRuleWrapper } from './editor-common';
@@ -78,10 +77,7 @@ export function createInputRulePlugin(
 
 			// after inserting inline code, we need to reset the selection back
 			// else, we set the selection at the end of the inline code which doesn't make sense if we are closing the inline code from R to L
-			if (
-				isBackwardMatch &&
-				expValEquals('platform_editor_lovability_inline_code', 'isEnabled', true)
-			) {
+			if (isBackwardMatch) {
 				const prevSelection = oldState.selection.map(tr.doc, tr.mapping);
 				tr.setSelection(new TextSelection(prevSelection.$from));
 			}

@@ -24,8 +24,7 @@ import { IntlProvider } from 'react-intl';
 import type { ProcessedFileState } from '@atlaskit/media-state/file-state';
 import { fakeMediaClient } from '@atlaskit/media-test-helpers/fakeMediaClient';
 import { messages as i18nMessages } from '@atlaskit/media-ui/messages';
-import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { render, waitFor } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
@@ -349,7 +348,11 @@ describe('Archive', () => {
 			});
 		});
 
-		ffTest.on('platform_media_archive_zip_guard', 'when the zip guard is enabled', () => {
+		describe('platform_media_archive_zip_guard is on when the zip guard is enabled', () => {
+			beforeEach(() => {
+				passGate('platform_media_archive_zip_guard');
+			});
+
 			it('throws archiveviewer-not-zip for a non-ZIP archive mime type', async () => {
 				const nonZipFileState: ProcessedFileState = {
 					...fileState,
@@ -391,8 +394,10 @@ describe('Archive', () => {
 			});
 		});
 
-		ffTest.off('platform_media_archive_zip_guard', 'when the zip guard is disabled', () => {
+		describe('platform_media_archive_zip_guard is off when the zip guard is disabled', () => {
 			it('does not short-circuit non-ZIP archives and proceeds to unzip (legacy behaviour)', async () => {
+				failGate('platform_media_archive_zip_guard');
+
 				mockUnzip.mockResolvedValue({ archive: 'file', entries: {} });
 				const nonZipFileState: ProcessedFileState = {
 					...fileState,

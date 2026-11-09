@@ -1,5 +1,16 @@
 # @atlaskit/agent-color
 
+## 1.1.0
+
+### Minor Changes
+
+- [`4ad02bd627f7f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4ad02bd627f7f) -
+  Respect explicit brand active colours and otherwise use the existing gray active diff treatment.
+  Preserve Rovo purple active colours and Claude specified light and dark colours. Route contributor
+  attribution through shared brand schemes under platform_editor_attributed_version_history,
+  platform_editor_show_diff_color_scheme_refactor, platform_editor_agent_mentions and
+  platform_editor_agent_telepointer_redesign.
+
 ## 1.0.6
 
 ### Patch Changes

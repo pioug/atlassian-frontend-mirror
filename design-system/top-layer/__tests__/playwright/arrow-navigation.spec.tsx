@@ -441,6 +441,46 @@ test.describe('useArrowNavigation - Mixed element types', () => {
 	});
 });
 
+test.describe('useArrowNavigation - Nested dialog layer', () => {
+	test('keys pressed in a dialog opened from the menu stay with the dialog', async ({ page }) => {
+		await page.visitExample<typeof import('../../examples/140-testing-arrow-navigation.tsx')>(
+			'design-system',
+			'top-layer',
+			exampleName,
+		);
+
+		await page.getByTestId('dialog-menu-trigger').click();
+		await page.getByTestId('dialog-menu-item-1').click();
+		const input = page.getByTestId('dialog-menu-input');
+		await input.focus();
+
+		for (const key of ['ArrowDown', 'ArrowUp', 'Home', 'End']) {
+			await page.keyboard.press(key);
+			await expect(input).toBeFocused();
+		}
+
+		// Tab stays in the dialog, and the menu stays open.
+		await page.keyboard.press('Tab');
+		await expect(page.getByTestId('dialog-menu-close')).toBeFocused();
+		await expect(page.getByTestId('dialog-menu')).toBeVisible();
+	});
+
+	test('the menu still handles keys on its own items', async ({ page }) => {
+		await page.visitExample<typeof import('../../examples/140-testing-arrow-navigation.tsx')>(
+			'design-system',
+			'top-layer',
+			exampleName,
+		);
+
+		await page.getByTestId('dialog-menu-trigger').click();
+		await page.getByTestId('dialog-menu-item-1').click();
+		await page.getByTestId('dialog-menu-item-1').focus();
+
+		await page.keyboard.press('ArrowDown');
+		await expect(page.getByTestId('dialog-menu-item-2')).toBeFocused();
+	});
+});
+
 test.describe('useArrowNavigation - Unhandled keys pass through', () => {
 	test('letter keys are not intercepted', async ({ page }) => {
 		await page.visitExample<typeof import('../../examples/140-testing-arrow-navigation.tsx')>(

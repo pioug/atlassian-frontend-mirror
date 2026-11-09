@@ -55,3 +55,10 @@ first, edit, then `kg.py edit <path> --message "<reason>"`.
   `./preview`, `./types`
 - All new behaviour changes must be behind a feature gate (`fg()` from
   `@atlaskit/platform-feature-flags`)
+
+## Uploads without collection read access
+
+With `platform_media_upload_without_read` enabled, `uploadParams.skipRemoteFileState: true` forwards
+the upload-only option to Media Client. `upload-end` is emitted after `/file/upload` succeeds,
+including when preview processing is still pending. Pair this option with a card that does not fetch
+remote metadata or previews. Browser and Dropzone share this upload service.

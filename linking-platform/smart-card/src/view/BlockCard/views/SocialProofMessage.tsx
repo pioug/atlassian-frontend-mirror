@@ -19,7 +19,6 @@ export interface SocialProofMessageProps {
 	tier: SocialProofTier;
 }
 
-// TODO: remove when social-proof-3p-unauth-block-fg is cleaned up
 const SocialProofMessage = ({
 	tier,
 	connectedPct,

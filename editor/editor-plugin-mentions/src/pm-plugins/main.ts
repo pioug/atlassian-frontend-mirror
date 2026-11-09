@@ -245,7 +245,9 @@ export function createMentionPlugin({
 		},
 		view(editorView) {
 			let destroyed = false;
-			const optimistic = isExperimentEnabled('platform_editor_ssr_toolbar_optimistic');
+			const optimistic =
+				!options?.disableOptimisticToolbar &&
+				isExperimentEnabled('platform_editor_ssr_toolbar_optimistic');
 			let currentProviderPromise: Promise<MentionProvider | ContextIdentifierProvider> | undefined;
 			const providerHandler = (
 				name: string,

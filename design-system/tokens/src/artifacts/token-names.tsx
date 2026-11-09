@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c3554c5febd836a4b5be9a51b32c1bf4>>
+ * @codegen <<SignedSource::b6eb71d3f40ef3c6e0afd8123bd194a0>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
@@ -226,6 +226,8 @@ const tokens = {
 	'color.background.code.removed.highlight': '--ds-background-code-removed-highlight',
 	'color.background.code.removed.line': '--ds-background-code-removed-line',
 	'color.background.disabled': '--ds-background-disabled',
+	'color.background.draghandle': '--ds-background-draghandle',
+	'color.background.droptarget': '--ds-background-droptarget',
 	'color.background.input': '--ds-background-input',
 	'color.background.input.hovered': '--ds-background-input-hovered',
 	'color.background.input.pressed': '--ds-background-input-pressed',
@@ -329,6 +331,8 @@ const tokens = {
 	'color.border.accent.gray.subtle': '--ds-border-accent-gray-subtle',
 	'color.border.code': '--ds-border-code',
 	'color.border.disabled': '--ds-border-disabled',
+	'color.border.dropindicator': '--ds-border-dropindicator',
+	'color.border.dropindicator.warning': '--ds-border-dropindicator-warning',
 	'color.border.focused': '--ds-border-focused',
 	'color.border.input': '--ds-border-input',
 	'color.border.input.search': '--ds-border-input-search',
@@ -587,6 +591,8 @@ const tokens = {
 	'space.gap.xxlarge': '--ds-space-gap-xxlarge',
 	'space.gap.xxsmall': '--ds-space-gap-xxsmall',
 	'space.inset.3xlarge': '--ds-space-inset-3xlarge',
+	'space.inset.4xlarge': '--ds-space-inset-4xlarge',
+	'space.inset.5xlarge': '--ds-space-inset-5xlarge',
 	'space.inset.large': '--ds-space-inset-large',
 	'space.inset.medium': '--ds-space-inset-medium',
 	'space.inset.small': '--ds-space-inset-small',
@@ -852,6 +858,8 @@ export type CSSTokenMap = {
 	'color.background.code.removed.highlight': 'var(--ds-background-code-removed-highlight)';
 	'color.background.code.removed.line': 'var(--ds-background-code-removed-line)';
 	'color.background.disabled': 'var(--ds-background-disabled)';
+	'color.background.draghandle': 'var(--ds-background-draghandle)';
+	'color.background.droptarget': 'var(--ds-background-droptarget)';
 	'color.background.input': 'var(--ds-background-input)';
 	'color.background.input.hovered': 'var(--ds-background-input-hovered)';
 	'color.background.input.pressed': 'var(--ds-background-input-pressed)';
@@ -955,6 +963,8 @@ export type CSSTokenMap = {
 	'color.border.accent.gray.subtle': 'var(--ds-border-accent-gray-subtle)';
 	'color.border.code': 'var(--ds-border-code)';
 	'color.border.disabled': 'var(--ds-border-disabled)';
+	'color.border.dropindicator': 'var(--ds-border-dropindicator)';
+	'color.border.dropindicator.warning': 'var(--ds-border-dropindicator-warning)';
 	'color.border.focused': 'var(--ds-border-focused)';
 	'color.border.input': 'var(--ds-border-input)';
 	'color.border.input.search': 'var(--ds-border-input-search)';
@@ -1213,6 +1223,8 @@ export type CSSTokenMap = {
 	'space.gap.xxlarge': 'var(--ds-space-gap-xxlarge)';
 	'space.gap.xxsmall': 'var(--ds-space-gap-xxsmall)';
 	'space.inset.3xlarge': 'var(--ds-space-inset-3xlarge)';
+	'space.inset.4xlarge': 'var(--ds-space-inset-4xlarge)';
+	'space.inset.5xlarge': 'var(--ds-space-inset-5xlarge)';
 	'space.inset.large': 'var(--ds-space-inset-large)';
 	'space.inset.medium': 'var(--ds-space-inset-medium)';
 	'space.inset.small': 'var(--ds-space-inset-small)';

@@ -3,7 +3,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import OpenMediaViewerButton from '../openMediaViewerButton';
 
@@ -18,11 +18,17 @@ const renderButton = (props = {}) =>
 
 describe('OpenMediaViewerButton', () => {
 	describe('gate: create_modernization_ga_fixes_drop_2', () => {
-		ffTest.off('create_modernization_ga_fixes_drop_2', 'gate OFF — no aria-label injected', () => {
-			it('should not set an aria-label attribute on the button', () => {
-				renderButton();
+		describe('create_modernization_ga_fixes_drop_2 is off gate OFF — no aria-label injected', () => {
+			beforeEach(() => {
+				failGate('create_modernization_ga_fixes_drop_2');
+			});
+
+			it('should not set an aria-label attribute on the button', async () => {
+				const { container } = renderButton();
 				const button = screen.getByRole('button');
 				expect(button).not.toHaveAttribute('aria-label');
+
+				await expect(container).toBeAccessible();
 			});
 
 			it('should render the button text content with the file name', () => {
@@ -38,7 +44,11 @@ describe('OpenMediaViewerButton', () => {
 			});
 		});
 
-		ffTest.on('create_modernization_ga_fixes_drop_2', 'gate ON — aria-label injected', () => {
+		describe('create_modernization_ga_fixes_drop_2 is on gate ON — aria-label injected', () => {
+			beforeEach(() => {
+				passGate('create_modernization_ga_fixes_drop_2');
+			});
+
 			it('should set aria-label to "Open {fileName} in fullscreen"', () => {
 				renderButton();
 				const button = screen.getByRole('button');

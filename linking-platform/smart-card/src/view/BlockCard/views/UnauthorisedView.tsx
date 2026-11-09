@@ -12,7 +12,6 @@ import { di } from 'react-magnetic-di';
 import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import { extractSmartLinkProvider } from '@atlaskit/link-extractors/extract-smart-link-provider';
 import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
-import { componentWithFG } from '@atlaskit/platform-feature-flags-react/component-with-fg';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
@@ -355,10 +354,9 @@ const UnauthorisedViewBase = ({
 };
 
 /**
- * Experiment wrapper: fires social proof exposure and renders social proof UI when FG is on.
- * TODO: remove when social-proof-3p-unauth-block-fg is cleaned up
+ * Experiment wrapper: fires social proof exposure and renders social proof UI for the treatment cohort.
  */
-const UnauthorisedViewWithExperiment = ({
+const UnauthorisedView = ({
 	testId = 'smart-block-unauthorized-view',
 	...props
 }: FlexibleBlockCardProps): JSX.Element => {
@@ -406,16 +404,6 @@ const UnauthorisedViewWithExperiment = ({
 		</AnalyticsContext>
 	);
 };
-
-const UnauthorisedViewWithoutExperiment = (props: FlexibleBlockCardProps): JSX.Element => {
-	return <UnauthorisedViewBase {...props} />;
-};
-
-const UnauthorisedView = componentWithFG(
-	'social-proof-3p-unauth-block-fg',
-	UnauthorisedViewWithExperiment,
-	UnauthorisedViewWithoutExperiment,
-);
 
 const _default_1: (props: FlexibleBlockCardProps) => JSX.Element =
 	withFlexibleUIBlockCardStyle(UnauthorisedView);

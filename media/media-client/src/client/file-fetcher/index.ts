@@ -62,6 +62,7 @@ import { defaultShouldRetryError } from '../../utils/request/defaultShouldRetryE
 import { shouldFetchRemoteFileStates } from '../../utils/shouldFetchRemoteFileStates';
 import { MediaStore as MediaApi } from '../media-store/MediaStore';
 import type {
+	MediaStoreResponse,
 	MediaStoreCopyFileWithTokenBody,
 	MediaStoreCopyFileWithTokenParams,
 	TouchedFiles,
@@ -583,11 +584,17 @@ export class FileFetcherImpl implements FileFetcher {
 		const { id, occurrenceKey } = upfrontId;
 
 		const stateBase = this.getUploadingFileStateBase(file, upfrontId);
+		const skipRemoteFileState =
+			fg('platform_media_upload_without_read') && file.skipRemoteFileState;
 
 		const subject = createMediaSubject<FileState>();
 		getFileStreamsCache().set(id, subject);
 
+		let uploadFinished = false;
 		const onProgress = (progress: number) => {
+			if (skipRemoteFileState && uploadFinished) {
+				return;
+			}
 			const fileState: UploadingFileState = {
 				status: 'uploading',
 				...stateBase,
@@ -600,11 +607,26 @@ export class FileFetcherImpl implements FileFetcher {
 
 		let processingSubscription: Subscription = new Subscription();
 
-		const onUploadFinish = (error?: any) => {
+		const onUploadFinish = (error?: any, response?: MediaStoreResponse<MediaFile>) => {
+			uploadFinished = true;
 			if (error) {
 				const errorFileState: ErrorFileState = this.getErrorFileState(error, id, occurrenceKey);
 				this.setFileState(id, errorFileState);
 				return subject.error(error);
+			}
+			if (skipRemoteFileState) {
+				const uploadedFileState: FileState = response
+					? mapMediaFileToFileState(response)
+					: { ...stateBase, status: 'processing' };
+				const fileState: FileState = {
+					...stateBase,
+					...uploadedFileState,
+					...overrideMediaTypeIfUnknown(uploadedFileState, stateBase.mediaType),
+				};
+				this.setFileState(id, fileState);
+				subject.next(fileState);
+				subject.complete();
+				return;
 			}
 			processingSubscription = this.createDownloadFileStream(id, collection, occurrenceKey)
 				.pipe(

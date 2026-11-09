@@ -20,7 +20,7 @@ import { type DropdownItemRadioProps } from '../types';
  * - [Code](https://atlassian.design/components/dropdown-menu/dropdown-item-radio/code)
  * - [Usage](https://atlassian.design/components/dropdown-menu/dropdown-item-radio/usage)
  */
-const DropdownItemRadio = ({
+export const DropdownItemRadio = ({
 	children,
 	defaultSelected,
 	testId,

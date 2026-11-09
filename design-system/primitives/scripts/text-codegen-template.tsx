@@ -2,10 +2,12 @@ import format from '@af/formatting/sync';
 import tokens from '@atlaskit/tokens/atlassian-typography';
 
 import { capitalize } from './capitalize';
+import { filterTokensForCodegen, type TokenFilterOptions } from './filter-tokens-for-codegen';
 import { generateTypeDefs } from './generate-type-defs';
 import { constructTokenFunctionCall } from './utils';
 
 type Token = {
+	attributes: { state: string };
 	name: string;
 	fallback: string;
 };
@@ -22,6 +24,7 @@ type TextPropertyConfig = {
 const activeTokens: Token[] = tokens
 	.filter((t) => t.attributes.state !== 'deleted')
 	.map((t) => ({
+		attributes: t.attributes,
 		name: t.name,
 		fallback: t.value,
 	}));
@@ -72,14 +75,18 @@ const removeVerbosity = (name: string): string => {
 	return name;
 };
 
-export const createTextStylesFromTemplate: (property: TextProperty) => string = (property) => {
+export const createTextStylesFromTemplate: (
+	property: TextProperty,
+	options?: TokenFilterOptions,
+) => string = (property, options = {}) => {
+	const filteredTokens = filterTokensForCodegen(activeTokens, options);
 	if (!textProperties[property]) {
 		throw new Error(`[codegen] Unknown option found "${property}"`);
 	}
 
 	const { filterFn, objectName } = textProperties[property];
 
-	const tokenNames = activeTokens
+	const tokenNames = filteredTokens
 		.filter(filterFn)
 		.map((t) => t.name.replace(/\.\[default\]/g, ''))
 		.sort((a, b) => (a < b ? -1 : 1));
@@ -93,7 +100,7 @@ export const createTextStylesFromTemplate: (property: TextProperty) => string = 
 			tokenNames.map((token) => removeVerbosity(token)),
 		)}
 	} = {
-	${activeTokens
+	${filteredTokens
 		.filter(filterFn)
 		.map((t) => ({ ...t, name: t.name.replace(/\.\[default\]/g, '') }))
 		.sort((a, b) => (a.name < b.name ? -1 : 1))

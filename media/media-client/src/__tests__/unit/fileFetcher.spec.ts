@@ -1701,6 +1701,89 @@ describe('FileFetcher', () => {
 		});
 	});
 
+	describe('uploads without collection read access', () => {
+		it.each(['pending', 'succeeded', 'failed'] as const)(
+			'completes from a %s upload response without fetching items',
+			async (processingStatus) => {
+				passGate('platform_media_upload_without_read');
+				const { fileFetcher, mediaStore, createUploadableFile, uploadFileUpfrontIds } = setup();
+				let callbacks: UploadFileCallbacks | undefined;
+				asMockFunction(uploadFile).mockImplementation((_file, _store, _ids, handlers) => {
+					callbacks = handlers;
+					return { cancel: jest.fn() };
+				});
+				const uploadedFile = {
+					...createUploadableFile('photo.png', 'image/png', collectionName),
+					skipRemoteFileState: true,
+				};
+				const localIds = { ...uploadFileUpfrontIds, id: `no-read-${processingStatus}` };
+				const next = jest.fn();
+				const complete = jest.fn();
+				fileFetcher.upload(uploadedFile, undefined, localIds).subscribe({ next, complete });
+				callbacks?.onUploadFinish(undefined, {
+					data: {
+						id: localIds.id,
+						name: 'photo.png',
+						size: 57,
+						mimeType: 'image/png',
+						mediaType: 'unknown',
+						processingStatus,
+						artifacts: {},
+						representations: {},
+					},
+				});
+				await sleep(1);
+				expect(mediaStore.getItems).not.toHaveBeenCalled();
+				expect(complete).toHaveBeenCalledTimes(1);
+				expect(next).toHaveBeenLastCalledWith(
+					expect.objectContaining({
+						id: localIds.id,
+						status:
+							processingStatus === 'pending'
+								? 'processing'
+								: processingStatus === 'succeeded'
+									? 'processed'
+									: 'failed-processing',
+						name: 'photo.png',
+						size: 57,
+						mediaType: 'image',
+						occurrenceKey: uploadFileUpfrontIds.occurrenceKey,
+						preview: { value: uploadedFile.content, origin: 'local' },
+					}),
+				);
+				expect(fileStateStore.getState().files[localIds.id]).toEqual(next.mock.calls.at(-1)?.[0]);
+			},
+		);
+
+		it('completes from local upload details without reading when the response is absent', async () => {
+			passGate('platform_media_upload_without_read');
+			const { fileFetcher, mediaStore, createUploadableFile, uploadFileUpfrontIds } = setup();
+			const file = { ...createUploadableFile('photo.png', 'image/png'), skipRemoteFileState: true };
+			const next = jest.fn();
+			const complete = jest.fn();
+			const error = jest.fn();
+			fileFetcher
+				.upload(file, undefined, uploadFileUpfrontIds)
+				.subscribe({ next, complete, error });
+			await sleep(1);
+			expect(mediaStore.getItems).not.toHaveBeenCalled();
+			expect(complete).toHaveBeenCalledTimes(1);
+			expect(error).not.toHaveBeenCalled();
+			expect(next).toHaveBeenLastCalledWith(
+				expect.objectContaining({
+					id: uploadFileUpfrontIds.id,
+					name: file.name,
+					mimeType: 'image/png',
+					status: 'processing',
+					preview: { value: file.content, origin: 'local' },
+				}),
+			);
+			expect(fileStateStore.getState().files[uploadFileUpfrontIds.id]).toEqual(
+				next.mock.calls.at(-1)?.[0],
+			);
+		});
+	});
+
 	describe('upload()', () => {
 		it('should populate cache before upload finishes', async () => {
 			const { fileFetcher, createUploadableFile, uploadFileUpfrontIds } = setup();

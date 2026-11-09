@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6f5372f65db86e6fccc61c55db3afb5b>>
+ * @codegen <<SignedSource::604a2386688192a04e1b2ef7ec2e8a5d>>
  * @codegenCommand yarn build tokens
  */
 
@@ -2827,6 +2827,50 @@ var tokens = [{
   "path": ["color", "background", "disabled"],
   "cleanName": "color.background.disabled"
 }, {
+  "value": "var(--ds-dynamic-foreground, #FFFFFF)",
+  "filePath": "schema/themes/UNSAFE-dynamic/color/background.tsx",
+  "isSource": true,
+  "attributes": {
+    "group": "paint",
+    "state": "active",
+    "introduced": "20.10.0",
+    "description": "Use for a prominent filled drag-handle background, such as a table grip. This is not a universal drag-handle icon or draggable-item background. Use color.icon.inverse for the handle icon. Keep selection and keyboard focus separate, and verify contrast on the actual surfaces in each theme."
+  },
+  "original": {
+    "value": "var(--ds-dynamic-foreground, #FFFFFF)",
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "20.10.0",
+      "description": "Use for a prominent filled drag-handle background, such as a table grip. This is not a universal drag-handle icon or draggable-item background. Use color.icon.inverse for the handle icon. Keep selection and keyboard focus separate, and verify contrast on the actual surfaces in each theme."
+    }
+  },
+  "name": "color.background.draghandle",
+  "path": ["color", "background", "draghandle"],
+  "cleanName": "color.background.draghandle"
+}, {
+  "value": "oklch(from var(--ds-dynamic-background, #000000) calc(l - (0.03 * max(0, sign(l - 0.9 + 0.0001))) + (0.03 * max(0, sign(0.9 - l - 0.0001) * sign(l - 0.5 + 0.0001))) - (0.03 * max(0, sign(0.5 - l - 0.0001) * sign(l - 0.3 - 0.0001))) + (0.03 * 2 * max(0, sign(0.3 - l + 0.0001)))) c h)",
+  "filePath": "schema/themes/UNSAFE-dynamic/color/background.tsx",
+  "isSource": true,
+  "attributes": {
+    "group": "paint",
+    "state": "active",
+    "introduced": "20.10.0",
+    "description": "Use for the eligible region currently accepting a dragged item when area feedback is needed. This is not ordinary hover, persistent selection, or reserved placeholder space. Use an insertion indicator for before/after placement; preserve maintained combine and nested-group treatments instead of replacing them with this fill."
+  },
+  "original": {
+    "value": "oklch(from var(--ds-dynamic-background, #000000) calc(l - (0.03 * max(0, sign(l - 0.9 + 0.0001))) + (0.03 * max(0, sign(0.9 - l - 0.0001) * sign(l - 0.5 + 0.0001))) - (0.03 * max(0, sign(0.5 - l - 0.0001) * sign(l - 0.3 - 0.0001))) + (0.03 * 2 * max(0, sign(0.3 - l + 0.0001)))) c h)",
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "20.10.0",
+      "description": "Use for the eligible region currently accepting a dragged item when area feedback is needed. This is not ordinary hover, persistent selection, or reserved placeholder space. Use an insertion indicator for before/after placement; preserve maintained combine and nested-group treatments instead of replacing them with this fill."
+    }
+  },
+  "name": "color.background.droptarget",
+  "path": ["color", "background", "droptarget"],
+  "cleanName": "color.background.droptarget"
+}, {
   "value": "var(--ds-dynamic-background, #000000)",
   "filePath": "schema/themes/UNSAFE-dynamic/color/background.tsx",
   "isSource": true,
@@ -5092,6 +5136,50 @@ var tokens = [{
   "name": "color.border.disabled",
   "path": ["color", "border", "disabled"],
   "cleanName": "color.border.disabled"
+}, {
+  "value": "var(--ds-dynamic-foreground, #FFFFFF)",
+  "filePath": "schema/themes/UNSAFE-dynamic/color/border.tsx",
+  "isSource": true,
+  "attributes": {
+    "group": "paint",
+    "state": "active",
+    "introduced": "20.10.0",
+    "description": "Use for the outline of an active, eligible drop target or a before/after insertion indicator. Geometry distinguishes an accepting area from relative insertion. Keep keyboard focus separate. Prefer maintained drag-and-drop indicators and preserve their component-owned treatments; reserved placeholder space alone does not require this feedback."
+  },
+  "original": {
+    "value": "var(--ds-dynamic-foreground, #FFFFFF)",
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "20.10.0",
+      "description": "Use for the outline of an active, eligible drop target or a before/after insertion indicator. Geometry distinguishes an accepting area from relative insertion. Keep keyboard focus separate. Prefer maintained drag-and-drop indicators and preserve their component-owned treatments; reserved placeholder space alone does not require this feedback."
+    }
+  },
+  "name": "color.border.dropindicator.[default]",
+  "path": ["color", "border", "dropindicator", "[default]"],
+  "cleanName": "color.border.dropindicator"
+}, {
+  "value": "var(--ds-dynamic-foreground, #FFFFFF)",
+  "filePath": "schema/themes/UNSAFE-dynamic/color/border.tsx",
+  "isSource": true,
+  "attributes": {
+    "group": "paint",
+    "state": "active",
+    "introduced": "20.10.0",
+    "description": "Use for a drop-target outline or insertion indicator communicating a blocked drop instruction. Keep rejection and the displayed operation consistent; do not pair with an accepting drop-target background. Preserve maintained indicator warning treatments and separate keyboard focus."
+  },
+  "original": {
+    "value": "var(--ds-dynamic-foreground, #FFFFFF)",
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "20.10.0",
+      "description": "Use for a drop-target outline or insertion indicator communicating a blocked drop instruction. Keep rejection and the displayed operation consistent; do not pair with an accepting drop-target background. Preserve maintained indicator warning treatments and separate keyboard focus."
+    }
+  },
+  "name": "color.border.dropindicator.warning",
+  "path": ["color", "border", "dropindicator", "warning"],
+  "cleanName": "color.border.dropindicator.warning"
 }, {
   "value": "var(--ds-dynamic-foreground, #FFFFFF)",
   "filePath": "schema/themes/UNSAFE-dynamic/color/border.tsx",

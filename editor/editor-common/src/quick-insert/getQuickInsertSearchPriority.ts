@@ -295,6 +295,15 @@ const RECOMMENDED_ITEM_KEYS_BY_QUERY: [string, readonly string[]][] = [
 		[JIRA_WORK_ITEMS_MENU_ITEM.key, getQuickInsertProviderMenuItemKey(JIRA_ISSUE_MENU_ITEM.key)],
 	],
 	[
+		'remix',
+		[
+			getQuickInsertProviderMenuItemKey('remix-slash:bar-chart'),
+			getQuickInsertProviderMenuItemKey('remix-slash:line-chart'),
+			getQuickInsertProviderMenuItemKey('remix-slash:infographic'),
+			getQuickInsertProviderMenuItemKey('remix-slash:flip-card'),
+		],
+	],
+	[
 		'db',
 		[
 			getQuickInsertProviderMenuItemKey(DATABASE_MENU_ITEM.key),

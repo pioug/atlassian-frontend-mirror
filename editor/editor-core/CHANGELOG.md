@@ -1,5 +1,47 @@
 # @atlaskit/editor-core
 
+## 242.2.0
+
+### Minor Changes
+
+- [`77aeba2398de1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/77aeba2398de1) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 242.1.1
+
+### Patch Changes
+
+- [`059477aa93f45`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/059477aa93f45) -
+  Revert docking-based optimistic toolbar state initialization under
+  platform_editor_ssr_toolbar_optimistic.
+- [`059477aa93f45`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/059477aa93f45) -
+  Add an optimistic-toolbar opt-out to plugin configuration. Exclude Live pages from
+  platform_editor_ssr_toolbar_optimistic, including early editor-state exposure, toolbar rendering,
+  and asynchronous media and mention provider initialization. Preserve the experiment for Edit pages
+  regardless of toolbar docking position.
+- Updated dependencies
+
+## 242.1.0
+
+### Minor Changes
+
+- [`1271afd81bc66`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1271afd81bc66) -
+  Clicking blank space below the document (the scroll gutter, or a content component wrapper's own
+  box) now adds or focuses a final line on the first click (behind
+  platform_editor_scroll_gutter_click_add_line)
+
+### Patch Changes
+
+- [`49fcffc905097`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/49fcffc905097) -
+  Clean up experiment `platform_editor_use_vanilla_components`, keeping the shipped vanilla DOM
+  tooltip implementations and removing the React-based control paths.
+- Updated dependencies
+
 ## 242.0.18
 
 ### Patch Changes

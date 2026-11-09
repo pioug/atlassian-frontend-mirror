@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::0421f2e65a001d003083bd8b9154489e>>
+ * @codegen <<SignedSource::d316c7882ebc9cd544de43e241f90617>>
  * @codegenCommand yarn build tokens
  */
 export default `
@@ -137,6 +137,8 @@ html[data-color-mode="dark"][data-contrast-mode="more"][data-theme~="dark:dark"]
   --ds-background-code-removed-highlight: #42221F;
   --ds-background-code-removed-line: #5D1F1AB2;
   --ds-background-disabled: #E3E4F21F;
+  --ds-background-draghandle: #CFE1FD;
+  --ds-background-droptarget: #1C2B42;
   --ds-background-input: #242528;
   --ds-background-input-hovered: #2B2C2F;
   --ds-background-input-pressed: #242528;
@@ -240,6 +242,8 @@ html[data-color-mode="dark"][data-contrast-mode="more"][data-theme~="dark:dark"]
   --ds-border-accent-gray-subtle: #4B4D51;
   --ds-border-code: #E3E4F21F;
   --ds-border-disabled: #E3E4F21F;
+  --ds-border-dropindicator: #8FB8F6;
+  --ds-border-dropindicator-warning: #FBC828;
   --ds-border-focused: #8FB8F6;
   --ds-border-input: #A9ABAF;
   --ds-border-input-search: #E3E4F21F;

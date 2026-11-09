@@ -7,8 +7,10 @@ import { type ReactNode, useCallback, useRef, useState } from 'react';
 import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
+import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 import { isAtCurrentMenuLevel } from '@atlaskit/top-layer/is-at-current-menu-level';
+import { Popover } from '@atlaskit/top-layer/popover/popover';
 import { useArrowNavigation } from '@atlaskit/top-layer/use-arrow-navigation/use-arrow-navigation';
 
 const styles = cssMap({
@@ -209,12 +211,80 @@ function MixedMenu() {
 	);
 }
 
+/**
+ * Menu with an item that opens a nested dialog layer.
+ * Tests: keys pressed in the dialog stay with the dialog.
+ */
+function MenuWithDialog() {
+	const [isOpen, setIsOpen] = useState(false);
+	const [isDialogOpen, setIsDialogOpen] = useState(false);
+	const menuRef = useRef<HTMLDivElement>(null);
+
+	const onClose = useCallback(() => setIsOpen(false), []);
+
+	useArrowNavigation({
+		containerRef: menuRef,
+		onClose,
+		isEnabled: isOpen,
+		filter: isAtCurrentMenuLevel,
+	});
+
+	return (
+		<div>
+			<button
+				type="button"
+				data-testid="dialog-menu-trigger"
+				onClick={() => setIsOpen((prev) => !prev)}
+				aria-expanded={isOpen}
+				aria-haspopup={true}
+			>
+				Menu with dialog
+			</button>
+			{isOpen && (
+				// The container wraps the menu and the dialog, so the dialog is not a child of `role="menu"`.
+				<div ref={menuRef}>
+					<div role="menu" data-testid="dialog-menu">
+						<button
+							type="button"
+							role="menuitem"
+							css={styles.menuItem}
+							data-testid="dialog-menu-item-1"
+							onClick={() => setIsDialogOpen(true)}
+						>
+							Open dialog
+						</button>
+						<button
+							type="button"
+							role="menuitem"
+							css={styles.menuItem}
+							data-testid="dialog-menu-item-2"
+						>
+							Item 2
+						</button>
+					</div>
+					<Popover mode="manual" isOpen={isDialogOpen} role="dialog" label="Dialog in menu">
+						<Textfield aria-label="Dialog text field" testId="dialog-menu-input" />
+						<button
+							type="button"
+							data-testid="dialog-menu-close"
+							onClick={() => setIsDialogOpen(false)}
+						>
+							Close dialog
+						</button>
+					</Popover>
+				</div>
+			)}
+		</div>
+	);
+}
+
 export default function ArrowNavigationExample(): ReactNode {
 	return (
 		<div css={styles.layout}>
 			<BasicMenu />
 			<NestedMenu />
 			<MixedMenu />
+			<MenuWithDialog />
 		</div>
 	);
 }

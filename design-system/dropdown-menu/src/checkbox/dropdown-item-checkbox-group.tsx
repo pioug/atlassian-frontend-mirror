@@ -22,7 +22,7 @@ interface DropdownItemCheckboxGroupProps extends SectionProps {
  * A wrapping element for dropdown menu checkbox items.
  *
  */
-const DropdownItemCheckboxGroup = ({
+export const DropdownItemCheckboxGroup = ({
 	children,
 	hasSeparator,
 	id,

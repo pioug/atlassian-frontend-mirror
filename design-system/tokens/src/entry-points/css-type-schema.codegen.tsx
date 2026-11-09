@@ -3,7 +3,7 @@
  *
  * Strict design token based typedef representing a subset of safe CSS properties.
  *
- * @codegen <<SignedSource::43d30eedaa22e1a7d712759d5fb552d8>>
+ * @codegen <<SignedSource::15c6b7a00b086b014e479324ee60e312>>
  * @codegenCommand yarn build tokens
  */
 export type BackgroundColorHovered =
@@ -203,6 +203,8 @@ export type BackgroundColor =
 	| 'var(--ds-background-code-removed-highlight)'
 	| 'var(--ds-background-code-removed-line)'
 	| 'var(--ds-background-disabled)'
+	| 'var(--ds-background-draghandle)'
+	| 'var(--ds-background-droptarget)'
 	| 'var(--ds-background-input)'
 	| 'var(--ds-background-inverse-subtle)'
 	| 'var(--ds-background-neutral)'
@@ -315,6 +317,8 @@ export type BorderColor =
 	| 'var(--ds-border-accent-gray-subtle)'
 	| 'var(--ds-border-code)'
 	| 'var(--ds-border-disabled)'
+	| 'var(--ds-border-dropindicator)'
+	| 'var(--ds-border-dropindicator-warning)'
 	| 'var(--ds-border-focused)'
 	| 'var(--ds-border-input)'
 	| 'var(--ds-border-input-search)'
@@ -404,6 +408,8 @@ export type SpaceGap =
 export type SpacePadding =
 	| Space
 	| 'var(--ds-space-inset-3xlarge)'
+	| 'var(--ds-space-inset-4xlarge)'
+	| 'var(--ds-space-inset-5xlarge)'
 	| 'var(--ds-space-inset-large)'
 	| 'var(--ds-space-inset-medium)'
 	| 'var(--ds-space-inset-small)'
@@ -411,7 +417,7 @@ export type SpacePadding =
 	| 'var(--ds-space-inset-xsmall)'
 	| 'var(--ds-space-inset-xxlarge)'
 	| 'var(--ds-space-inset-xxsmall)';
-export type SpaceMargin = Space | 'auto' | '0 auto';
+export type SpaceMargin = SpaceGap | 'auto' | '0 auto';
 export type SpaceInset = Space | '50%';
 export type Shadow =
 	| 'var(--ds-shadow-overflow)'

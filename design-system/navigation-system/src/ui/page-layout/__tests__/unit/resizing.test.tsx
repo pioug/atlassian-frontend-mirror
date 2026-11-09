@@ -12,6 +12,7 @@ import {
 	FlyoutMenuItemTrigger,
 } from '@atlaskit/side-nav-items/flyout-menu-item';
 import { MenuList } from '@atlaskit/side-nav-items/menu-list';
+import { flushPopoverExit } from '@atlaskit/top-layer/testing/flush-popover-exit';
 import { resetMatchMedia } from '@atlassian/test-utils/match-media';
 import { screen } from '@atlassian/testing-library/screen';
 import { fireEvent, render } from '@atlassian/testing-library/testing-library/react';
@@ -29,8 +30,14 @@ import {
 	type ResetConsoleErrorFn,
 } from './_filter-from-console-error-output';
 
-function ControlledPopupSelect({ options }: { options: OptionType[] }) {
-	const [isOpen, setIsOpen] = useState(true);
+function ControlledPopupSelect({
+	options,
+	defaultIsOpen,
+}: {
+	options: OptionType[];
+	defaultIsOpen: boolean;
+}) {
+	const [isOpen, setIsOpen] = useState(defaultIsOpen);
 	const [selectedOption, setSelectedOption] = useState<OptionType | null>(null);
 
 	return (
@@ -44,7 +51,7 @@ function ControlledPopupSelect({ options }: { options: OptionType[] }) {
 			target={({ isOpen: _isOpen, ...triggerProps }) => (
 				<Button {...triggerProps}>Controlled popup select</Button>
 			)}
-			defaultIsOpen
+			defaultIsOpen={defaultIsOpen}
 		/>
 	);
 }
@@ -65,6 +72,12 @@ function ControlledSelect({ options }: { options: OptionType[] }) {
 		/>
 	);
 }
+
+/**
+ * `popover="auto"` layers are exclusive: opening one closes any other auto layer that is not its
+ * ancestor. So the tests that check layers inside and outside a layout area open one layer per case.
+ */
+const openLayerLocations = ['inside', 'outside'] as const;
 
 describe('Resizing layout slots', () => {
 	const getPixelWidthMock = jest.spyOn(panelSplitterWidthUtils, 'getPixelWidth');
@@ -89,76 +102,102 @@ describe('Resizing layout slots', () => {
 			resetConsoleErrorSpyFn();
 		});
 
-		it('should close any open layers from both inside and outside the side nav when resizing the side nav with mouse', async () => {
-			render(
-				<Root>
-					<SideNav testId="sidenav" defaultWidth={360}>
-						sidenav
-						<PanelSplitter label="Resize Side Nav" testId="panel-splitter" />
-						<MenuList>
-							<FlyoutMenuItem isDefaultOpen>
-								<FlyoutMenuItemTrigger>Flyout menu item trigger</FlyoutMenuItemTrigger>
-								<FlyoutMenuItemContent>Flyout menu item content</FlyoutMenuItemContent>
-							</FlyoutMenuItem>
-						</MenuList>
-					</SideNav>
-					<Main>
-						<DropdownMenu shouldRenderToParent trigger="Dropdown trigger" defaultOpen>
-							Dropdown content
-						</DropdownMenu>
-					</Main>
-				</Root>,
-			);
+		it.each(openLayerLocations)(
+			'should close any open layers from both inside and outside the side nav when resizing the side nav with mouse (layer %s open)',
+			async (openLayerLocation) => {
+				render(
+					<Root>
+						<SideNav testId="sidenav" defaultWidth={360}>
+							sidenav
+							<PanelSplitter label="Resize Side Nav" testId="panel-splitter" />
+							<MenuList>
+								<FlyoutMenuItem isDefaultOpen={openLayerLocation === 'inside'}>
+									<FlyoutMenuItemTrigger>Flyout menu item trigger</FlyoutMenuItemTrigger>
+									<FlyoutMenuItemContent>Flyout menu item content</FlyoutMenuItemContent>
+								</FlyoutMenuItem>
+							</MenuList>
+						</SideNav>
+						<Main>
+							<DropdownMenu
+								shouldRenderToParent
+								trigger="Dropdown trigger"
+								defaultOpen={openLayerLocation === 'outside'}
+							>
+								Dropdown content
+							</DropdownMenu>
+						</Main>
+					</Root>,
+				);
 
-			// Layers should be open before resizing
-			expect(screen.getByText('Flyout menu item content')).toBeVisible();
-			expect(screen.getByText('Dropdown content')).toBeVisible();
+				// The layer should be open before resizing
+				expect(
+					screen.getByText(
+						openLayerLocation === 'inside' ? 'Flyout menu item content' : 'Dropdown content',
+					),
+				).toBeVisible();
 
-			// Resize the side nav
-			const splitter = screen.getByTestId('panel-splitter');
-			fireEvent.dragStart(splitter, { clientX: 360 });
-			fireEvent.dragEnter(splitter, { clientX: 420 });
-			fireEvent.drop(splitter);
+				// Resize the side nav
+				const splitter = screen.getByTestId('panel-splitter');
+				fireEvent.dragStart(splitter, { clientX: 360 });
+				fireEvent.dragEnter(splitter, { clientX: 420 });
+				fireEvent.drop(splitter);
 
-			// Layers should now be closed
-			expect(screen.queryByText('Flyout menu item content')).not.toBeInTheDocument();
-			expect(screen.queryByText('Dropdown content')).not.toBeInTheDocument();
-		});
+				// A top-layer popover unmounts its content after the exit, so let the exit finish
+				await flushPopoverExit();
 
-		it('should close any open layers from both inside and outside the side nav when resizing the side nav with keyboard', async () => {
-			render(
-				<Root>
-					<SideNav testId="sidenav" defaultWidth={360}>
-						sidenav
-						<PanelSplitter label="Resize side nav" testId="panel-splitter" />
-						<MenuList>
-							<FlyoutMenuItem isDefaultOpen>
-								<FlyoutMenuItemTrigger>Flyout menu item trigger</FlyoutMenuItemTrigger>
-								<FlyoutMenuItemContent>Flyout menu item content</FlyoutMenuItemContent>
-							</FlyoutMenuItem>
-						</MenuList>
-					</SideNav>
-					<Main>
-						<DropdownMenu shouldRenderToParent trigger="Dropdown trigger" defaultOpen>
-							Dropdown content
-						</DropdownMenu>
-					</Main>
-				</Root>,
-			);
+				// Layers should now be closed
+				expect(screen.queryByText('Flyout menu item content')).not.toBeInTheDocument();
+				expect(screen.queryByText('Dropdown content')).not.toBeInTheDocument();
+			},
+		);
 
-			// Layers should be open before resizing
-			expect(screen.getByText('Flyout menu item content')).toBeVisible();
-			expect(screen.getByText('Dropdown content')).toBeVisible();
+		it.each(openLayerLocations)(
+			'should close any open layers from both inside and outside the side nav when resizing the side nav with keyboard (layer %s open)',
+			async (openLayerLocation) => {
+				render(
+					<Root>
+						<SideNav testId="sidenav" defaultWidth={360}>
+							sidenav
+							<PanelSplitter label="Resize side nav" testId="panel-splitter" />
+							<MenuList>
+								<FlyoutMenuItem isDefaultOpen={openLayerLocation === 'inside'}>
+									<FlyoutMenuItemTrigger>Flyout menu item trigger</FlyoutMenuItemTrigger>
+									<FlyoutMenuItemContent>Flyout menu item content</FlyoutMenuItemContent>
+								</FlyoutMenuItem>
+							</MenuList>
+						</SideNav>
+						<Main>
+							<DropdownMenu
+								shouldRenderToParent
+								trigger="Dropdown trigger"
+								defaultOpen={openLayerLocation === 'outside'}
+							>
+								Dropdown content
+							</DropdownMenu>
+						</Main>
+					</Root>,
+				);
 
-			// Resize the side nav using keyboard
-			const splitter = screen.getByRole('slider', { name: 'Resize side nav', hidden: true });
-			splitter.focus();
-			fireEvent.change(splitter, { target: { value: 120 } });
+				// The layer should be open before resizing
+				expect(
+					screen.getByText(
+						openLayerLocation === 'inside' ? 'Flyout menu item content' : 'Dropdown content',
+					),
+				).toBeVisible();
 
-			// Layers should now be closed
-			expect(screen.queryByText('Flyout menu item content')).not.toBeInTheDocument();
-			expect(screen.queryByText('Dropdown content')).not.toBeInTheDocument();
-		});
+				// Resize the side nav using keyboard
+				const splitter = screen.getByRole('slider', { name: 'Resize side nav', hidden: true });
+				splitter.focus();
+				fireEvent.change(splitter, { target: { value: 120 } });
+
+				// A top-layer popover unmounts its content after the exit, so let the exit finish
+				await flushPopoverExit();
+
+				// Layers should now be closed
+				expect(screen.queryByText('Flyout menu item content')).not.toBeInTheDocument();
+				expect(screen.queryByText('Dropdown content')).not.toBeInTheDocument();
+			},
+		);
 
 		describe('closing select menus', () => {
 			it('should close uncontrolled select menus when resizing the side nav with mouse', async () => {
@@ -299,151 +338,199 @@ describe('Resizing layout slots', () => {
 				expect(screen.queryByText('Option 1 inside main')).not.toBeInTheDocument();
 			});
 
-			it('should close uncontrolled popup select menus when resizing the side nav with mouse', async () => {
-				render(
-					<Root>
-						<SideNav testId="sidenav" defaultWidth={360}>
-							sidenav
-							<PanelSplitter label="Resize side nav" testId="panel-splitter" />
-							<PopupSelect
-								options={[{ label: 'Option 1 inside side nav', value: 'option-1-inside-side-nav' }]}
-								target={({ isOpen: _isOpen, ...triggerProps }) => (
-									<Button {...triggerProps}>Uncontrolled popup select</Button>
-								)}
-								defaultIsOpen
-							/>
-						</SideNav>
-						<Main>
-							<PopupSelect
-								options={[{ label: 'Option 1 inside main', value: 'option-1-inside-main' }]}
-								target={({ isOpen: _isOpen, ...triggerProps }) => (
-									<Button {...triggerProps}>Uncontrolled popup select</Button>
-								)}
-								defaultIsOpen
-							/>
-						</Main>
-					</Root>,
-				);
+			it.each(openLayerLocations)(
+				'should close uncontrolled popup select menus when resizing the side nav with mouse (menu %s open)',
+				async (openLayerLocation) => {
+					render(
+						<Root>
+							<SideNav testId="sidenav" defaultWidth={360}>
+								sidenav
+								<PanelSplitter label="Resize side nav" testId="panel-splitter" />
+								<PopupSelect
+									options={[
+										{ label: 'Option 1 inside side nav', value: 'option-1-inside-side-nav' },
+									]}
+									target={({ isOpen: _isOpen, ...triggerProps }) => (
+										<Button {...triggerProps}>Uncontrolled popup select</Button>
+									)}
+									defaultIsOpen={openLayerLocation === 'inside'}
+								/>
+							</SideNav>
+							<Main>
+								<PopupSelect
+									options={[{ label: 'Option 1 inside main', value: 'option-1-inside-main' }]}
+									target={({ isOpen: _isOpen, ...triggerProps }) => (
+										<Button {...triggerProps}>Uncontrolled popup select</Button>
+									)}
+									defaultIsOpen={openLayerLocation === 'outside'}
+								/>
+							</Main>
+						</Root>,
+					);
 
-				// Layers should be open before resizing
-				expect(screen.getByText('Option 1 inside side nav')).toBeVisible();
-				expect(screen.getByText('Option 1 inside main')).toBeVisible();
+					// The menu should be open before resizing
+					expect(
+						screen.getByText(
+							openLayerLocation === 'inside' ? 'Option 1 inside side nav' : 'Option 1 inside main',
+						),
+					).toBeVisible();
 
-				// Resize the side nav
-				const splitter = screen.getByTestId('panel-splitter');
-				fireEvent.dragStart(splitter, { clientX: 360 });
-				fireEvent.dragEnter(splitter, { clientX: 420 });
-				fireEvent.drop(splitter);
+					// Resize the side nav
+					const splitter = screen.getByTestId('panel-splitter');
+					fireEvent.dragStart(splitter, { clientX: 360 });
+					fireEvent.dragEnter(splitter, { clientX: 420 });
+					fireEvent.drop(splitter);
 
-				// Layers should now be closed
-				expect(screen.queryByText('Option 1 inside side nav')).not.toBeInTheDocument();
-				expect(screen.queryByText('Option 1 inside main')).not.toBeInTheDocument();
-			});
+					// A top-layer popover unmounts its content after the exit, so let the exit finish
+					await flushPopoverExit();
 
-			it('should close controlled popup select menus when resizing the side nav with mouse', async () => {
-				render(
-					<Root>
-						<SideNav testId="sidenav" defaultWidth={360}>
-							sidenav
-							<PanelSplitter label="Resize side nav" testId="panel-splitter" />
-							<ControlledPopupSelect
-								options={[{ label: 'Option 1 inside side nav', value: 'option-1-inside-side-nav' }]}
-							/>
-						</SideNav>
-						<Main>
-							<ControlledPopupSelect
-								options={[{ label: 'Option 1 inside main', value: 'option-1-inside-main' }]}
-							/>
-						</Main>
-					</Root>,
-				);
+					// Layers should now be closed
+					expect(screen.queryByText('Option 1 inside side nav')).not.toBeInTheDocument();
+					expect(screen.queryByText('Option 1 inside main')).not.toBeInTheDocument();
+				},
+			);
 
-				// Layers should be open before resizing
-				expect(screen.getByText('Option 1 inside side nav')).toBeVisible();
-				expect(screen.getByText('Option 1 inside main')).toBeVisible();
+			it.each(openLayerLocations)(
+				'should close controlled popup select menus when resizing the side nav with mouse (menu %s open)',
+				async (openLayerLocation) => {
+					render(
+						<Root>
+							<SideNav testId="sidenav" defaultWidth={360}>
+								sidenav
+								<PanelSplitter label="Resize side nav" testId="panel-splitter" />
+								<ControlledPopupSelect
+									options={[
+										{ label: 'Option 1 inside side nav', value: 'option-1-inside-side-nav' },
+									]}
+									defaultIsOpen={openLayerLocation === 'inside'}
+								/>
+							</SideNav>
+							<Main>
+								<ControlledPopupSelect
+									options={[{ label: 'Option 1 inside main', value: 'option-1-inside-main' }]}
+									defaultIsOpen={openLayerLocation === 'outside'}
+								/>
+							</Main>
+						</Root>,
+					);
 
-				// Resize the side nav
-				const splitter = screen.getByTestId('panel-splitter');
-				fireEvent.dragStart(splitter, { clientX: 360 });
-				fireEvent.dragEnter(splitter, { clientX: 420 });
-				fireEvent.drop(splitter);
+					// The menu should be open before resizing
+					expect(
+						screen.getByText(
+							openLayerLocation === 'inside' ? 'Option 1 inside side nav' : 'Option 1 inside main',
+						),
+					).toBeVisible();
 
-				// Layers should now be closed
-				expect(screen.queryByText('Option 1 inside side nav')).not.toBeInTheDocument();
-				expect(screen.queryByText('Option 1 inside main')).not.toBeInTheDocument();
-			});
+					// Resize the side nav
+					const splitter = screen.getByTestId('panel-splitter');
+					fireEvent.dragStart(splitter, { clientX: 360 });
+					fireEvent.dragEnter(splitter, { clientX: 420 });
+					fireEvent.drop(splitter);
 
-			it('should close uncontrolled popup select menus when resizing the side nav with keyboard', async () => {
-				render(
-					<Root>
-						<SideNav testId="sidenav" defaultWidth={360}>
-							sidenav
-							<PanelSplitter label="Resize side nav" testId="panel-splitter" />
-							<PopupSelect
-								options={[{ label: 'Option 1 inside side nav', value: 'option-1-inside-side-nav' }]}
-								target={({ isOpen: _isOpen, ...triggerProps }) => (
-									<Button {...triggerProps}>Uncontrolled popup select</Button>
-								)}
-								defaultIsOpen
-							/>
-						</SideNav>
-						<Main>
-							<PopupSelect
-								options={[{ label: 'Option 1 inside main', value: 'option-1-inside-main' }]}
-								target={({ isOpen: _isOpen, ...triggerProps }) => (
-									<Button {...triggerProps}>Uncontrolled popup select</Button>
-								)}
-								defaultIsOpen
-							/>
-						</Main>
-					</Root>,
-				);
+					// A top-layer popover unmounts its content after the exit, so let the exit finish
+					await flushPopoverExit();
 
-				// Layers should be open before resizing
-				expect(screen.getByText('Option 1 inside side nav')).toBeVisible();
-				expect(screen.getByText('Option 1 inside main')).toBeVisible();
+					// Layers should now be closed
+					expect(screen.queryByText('Option 1 inside side nav')).not.toBeInTheDocument();
+					expect(screen.queryByText('Option 1 inside main')).not.toBeInTheDocument();
+				},
+			);
 
-				// Resize the side nav using keyboard
-				const splitter = screen.getByRole('slider', { name: 'Resize side nav', hidden: true });
-				splitter.focus();
-				fireEvent.change(splitter, { target: { value: 120 } });
+			it.each(openLayerLocations)(
+				'should close uncontrolled popup select menus when resizing the side nav with keyboard (menu %s open)',
+				async (openLayerLocation) => {
+					render(
+						<Root>
+							<SideNav testId="sidenav" defaultWidth={360}>
+								sidenav
+								<PanelSplitter label="Resize side nav" testId="panel-splitter" />
+								<PopupSelect
+									options={[
+										{ label: 'Option 1 inside side nav', value: 'option-1-inside-side-nav' },
+									]}
+									target={({ isOpen: _isOpen, ...triggerProps }) => (
+										<Button {...triggerProps}>Uncontrolled popup select</Button>
+									)}
+									defaultIsOpen={openLayerLocation === 'inside'}
+								/>
+							</SideNav>
+							<Main>
+								<PopupSelect
+									options={[{ label: 'Option 1 inside main', value: 'option-1-inside-main' }]}
+									target={({ isOpen: _isOpen, ...triggerProps }) => (
+										<Button {...triggerProps}>Uncontrolled popup select</Button>
+									)}
+									defaultIsOpen={openLayerLocation === 'outside'}
+								/>
+							</Main>
+						</Root>,
+					);
 
-				// Layers should now be closed
-				expect(screen.queryByText('Option 1 inside side nav')).not.toBeInTheDocument();
-				expect(screen.queryByText('Option 1 inside main')).not.toBeInTheDocument();
-			});
+					// The menu should be open before resizing
+					expect(
+						screen.getByText(
+							openLayerLocation === 'inside' ? 'Option 1 inside side nav' : 'Option 1 inside main',
+						),
+					).toBeVisible();
 
-			it('should close controlled popup select menus when resizing the side nav with keyboard', async () => {
-				render(
-					<Root>
-						<SideNav testId="sidenav" defaultWidth={360}>
-							sidenav
-							<PanelSplitter label="Resize side nav" testId="panel-splitter" />
-							<ControlledPopupSelect
-								options={[{ label: 'Option 1 inside side nav', value: 'option-1-inside-side-nav' }]}
-							/>
-						</SideNav>
-						<Main>
-							<ControlledPopupSelect
-								options={[{ label: 'Option 1 inside main', value: 'option-1-inside-main' }]}
-							/>
-						</Main>
-					</Root>,
-				);
+					// Resize the side nav using keyboard
+					const splitter = screen.getByRole('slider', { name: 'Resize side nav', hidden: true });
+					splitter.focus();
+					fireEvent.change(splitter, { target: { value: 120 } });
 
-				// Layers should be open before resizing
-				expect(screen.getByText('Option 1 inside side nav')).toBeVisible();
-				expect(screen.getByText('Option 1 inside main')).toBeVisible();
+					// A top-layer popover unmounts its content after the exit, so let the exit finish
+					await flushPopoverExit();
 
-				// Resize the side nav using keyboard
-				const splitter = screen.getByRole('slider', { name: 'Resize side nav', hidden: true });
-				splitter.focus();
-				fireEvent.change(splitter, { target: { value: 120 } });
+					// Layers should now be closed
+					expect(screen.queryByText('Option 1 inside side nav')).not.toBeInTheDocument();
+					expect(screen.queryByText('Option 1 inside main')).not.toBeInTheDocument();
+				},
+			);
 
-				// Layers should now be closed
-				expect(screen.queryByText('Option 1 inside side nav')).not.toBeInTheDocument();
-				expect(screen.queryByText('Option 1 inside main')).not.toBeInTheDocument();
-			});
+			it.each(openLayerLocations)(
+				'should close controlled popup select menus when resizing the side nav with keyboard (menu %s open)',
+				async (openLayerLocation) => {
+					render(
+						<Root>
+							<SideNav testId="sidenav" defaultWidth={360}>
+								sidenav
+								<PanelSplitter label="Resize side nav" testId="panel-splitter" />
+								<ControlledPopupSelect
+									options={[
+										{ label: 'Option 1 inside side nav', value: 'option-1-inside-side-nav' },
+									]}
+									defaultIsOpen={openLayerLocation === 'inside'}
+								/>
+							</SideNav>
+							<Main>
+								<ControlledPopupSelect
+									options={[{ label: 'Option 1 inside main', value: 'option-1-inside-main' }]}
+									defaultIsOpen={openLayerLocation === 'outside'}
+								/>
+							</Main>
+						</Root>,
+					);
+
+					// The menu should be open before resizing
+					expect(
+						screen.getByText(
+							openLayerLocation === 'inside' ? 'Option 1 inside side nav' : 'Option 1 inside main',
+						),
+					).toBeVisible();
+
+					// Resize the side nav using keyboard
+					const splitter = screen.getByRole('slider', { name: 'Resize side nav', hidden: true });
+					splitter.focus();
+					fireEvent.change(splitter, { target: { value: 120 } });
+
+					// A top-layer popover unmounts its content after the exit, so let the exit finish
+					await flushPopoverExit();
+
+					// Layers should now be closed
+					expect(screen.queryByText('Option 1 inside side nav')).not.toBeInTheDocument();
+					expect(screen.queryByText('Option 1 inside main')).not.toBeInTheDocument();
+				},
+			);
 		});
 
 		describe('side nav', () => {
@@ -564,39 +651,58 @@ describe('Resizing layout slots', () => {
 			);
 		});
 
-		it('should close any open layers from both inside and outside the panel when resizing the panel', async () => {
-			render(
-				<Root>
-					<Main>
-						<DropdownMenu shouldRenderToParent trigger="Dropdown in main - trigger" defaultOpen>
-							Dropdown in main - content
-						</DropdownMenu>
-					</Main>
-					<Aside testId="aside" defaultWidth={360}>
-						<DropdownMenu shouldRenderToParent trigger="Dropdown in aside - trigger" defaultOpen>
-							Dropdown in aside - content
-						</DropdownMenu>
+		it.each(openLayerLocations)(
+			'should close any open layers from both inside and outside the panel when resizing the panel (layer %s open)',
+			async (openLayerLocation) => {
+				render(
+					<Root>
+						<Main>
+							<DropdownMenu
+								shouldRenderToParent
+								trigger="Dropdown in main - trigger"
+								defaultOpen={openLayerLocation === 'outside'}
+							>
+								Dropdown in main - content
+							</DropdownMenu>
+						</Main>
+						<Aside testId="aside" defaultWidth={360}>
+							<DropdownMenu
+								shouldRenderToParent
+								trigger="Dropdown in aside - trigger"
+								defaultOpen={openLayerLocation === 'inside'}
+							>
+								Dropdown in aside - content
+							</DropdownMenu>
 
-						<PanelSplitter label="Resize aside" testId="panel-splitter" />
-					</Aside>
-					<Main>main</Main>
-				</Root>,
-			);
+							<PanelSplitter label="Resize aside" testId="panel-splitter" />
+						</Aside>
+						<Main>main</Main>
+					</Root>,
+				);
 
-			// Layers should be open before resizing
-			expect(screen.getByText('Dropdown in main - content')).toBeVisible();
-			expect(screen.getByText('Dropdown in aside - content')).toBeVisible();
+				// The layer should be open before resizing
+				expect(
+					screen.getByText(
+						openLayerLocation === 'inside'
+							? 'Dropdown in aside - content'
+							: 'Dropdown in main - content',
+					),
+				).toBeVisible();
 
-			// Resize the aside
-			const splitter = screen.getByTestId('panel-splitter');
-			fireEvent.dragStart(splitter, { clientX: 360 });
-			fireEvent.dragEnter(splitter, { clientX: 420 });
-			fireEvent.drop(splitter);
+				// Resize the aside
+				const splitter = screen.getByTestId('panel-splitter');
+				fireEvent.dragStart(splitter, { clientX: 360 });
+				fireEvent.dragEnter(splitter, { clientX: 420 });
+				fireEvent.drop(splitter);
 
-			// Layers should now be closed
-			expect(screen.queryByText('Dropdown in main - content')).not.toBeInTheDocument();
-			expect(screen.queryByText('Dropdown in aside - content')).not.toBeInTheDocument();
-		});
+				// A top-layer popover unmounts its content after the exit, so let the exit finish
+				await flushPopoverExit();
+
+				// Layers should now be closed
+				expect(screen.queryByText('Dropdown in main - content')).not.toBeInTheDocument();
+				expect(screen.queryByText('Dropdown in aside - content')).not.toBeInTheDocument();
+			},
+		);
 	});
 
 	describe('panel resizing', () => {
@@ -656,38 +762,57 @@ describe('Resizing layout slots', () => {
 			);
 		});
 
-		it('should close any open layers from both inside and outside the panel when resizing the panel', async () => {
-			render(
-				<Root>
-					<Main>
-						<DropdownMenu shouldRenderToParent trigger="Dropdown in main - trigger" defaultOpen>
-							Dropdown in main - content
-						</DropdownMenu>
-					</Main>
-					<Panel testId="panel" defaultWidth={360}>
-						<DropdownMenu shouldRenderToParent trigger="Dropdown in panel - trigger" defaultOpen>
-							Dropdown in panel - content
-						</DropdownMenu>
+		it.each(openLayerLocations)(
+			'should close any open layers from both inside and outside the panel when resizing the panel (layer %s open)',
+			async (openLayerLocation) => {
+				render(
+					<Root>
+						<Main>
+							<DropdownMenu
+								shouldRenderToParent
+								trigger="Dropdown in main - trigger"
+								defaultOpen={openLayerLocation === 'outside'}
+							>
+								Dropdown in main - content
+							</DropdownMenu>
+						</Main>
+						<Panel testId="panel" defaultWidth={360}>
+							<DropdownMenu
+								shouldRenderToParent
+								trigger="Dropdown in panel - trigger"
+								defaultOpen={openLayerLocation === 'inside'}
+							>
+								Dropdown in panel - content
+							</DropdownMenu>
 
-						<PanelSplitter label="Resize panel" testId="panel-splitter" />
-					</Panel>
-					<Main>main</Main>
-				</Root>,
-			);
+							<PanelSplitter label="Resize panel" testId="panel-splitter" />
+						</Panel>
+						<Main>main</Main>
+					</Root>,
+				);
 
-			// Layers should be open before resizing
-			expect(screen.getByText('Dropdown in main - content')).toBeVisible();
-			expect(screen.getByText('Dropdown in panel - content')).toBeVisible();
+				// The layer should be open before resizing
+				expect(
+					screen.getByText(
+						openLayerLocation === 'inside'
+							? 'Dropdown in panel - content'
+							: 'Dropdown in main - content',
+					),
+				).toBeVisible();
 
-			// Resize the panel
-			const splitter = screen.getByTestId('panel-splitter');
-			fireEvent.dragStart(splitter, { clientX: 360 });
-			fireEvent.dragEnter(splitter, { clientX: 420 });
-			fireEvent.drop(splitter);
+				// Resize the panel
+				const splitter = screen.getByTestId('panel-splitter');
+				fireEvent.dragStart(splitter, { clientX: 360 });
+				fireEvent.dragEnter(splitter, { clientX: 420 });
+				fireEvent.drop(splitter);
 
-			// Layers should now be closed
-			expect(screen.queryByText('Dropdown in main - content')).not.toBeInTheDocument();
-			expect(screen.queryByText('Dropdown in panel - content')).not.toBeInTheDocument();
-		});
+				// A top-layer popover unmounts its content after the exit, so let the exit finish
+				await flushPopoverExit();
+
+				// Layers should now be closed
+				expect(screen.queryByText('Dropdown in main - content')).not.toBeInTheDocument();
+				expect(screen.queryByText('Dropdown in panel - content')).not.toBeInTheDocument();
+			},
+		);
 	});
 });

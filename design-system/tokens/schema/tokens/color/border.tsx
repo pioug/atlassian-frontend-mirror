@@ -13,6 +13,26 @@ const color: AttributeSchema<BorderColorTokenSchema<BaseToken>> = {
 						'Use to visually group or separate UI elements, such as flat cards or side panel dividers.',
 				},
 			},
+			dropindicator: {
+				'[default]': {
+					attributes: {
+						group: 'paint',
+						state: 'active',
+						introduced: '20.10.0',
+						description:
+							'Use for the outline of an active, eligible drop target or a before/after insertion indicator. Geometry distinguishes an accepting area from relative insertion. Keep keyboard focus separate. Prefer maintained drag-and-drop indicators and preserve their component-owned treatments; reserved placeholder space alone does not require this feedback.',
+					},
+				},
+				warning: {
+					attributes: {
+						group: 'paint',
+						state: 'active',
+						introduced: '20.10.0',
+						description:
+							'Use for a drop-target outline or insertion indicator communicating a blocked drop instruction. Keep rejection and the displayed operation consistent; do not pair with an accepting drop-target background. Preserve maintained indicator warning treatments and separate keyboard focus.',
+					},
+				},
+			},
 			bold: {
 				attributes: {
 					group: 'paint',

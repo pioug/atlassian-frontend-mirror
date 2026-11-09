@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { render } from '@testing-library/react';
+import { renderToString } from 'react-dom/server';
 import { IntlProvider } from 'react-intl';
 
 import { TOOLBARS, VIEW_MODE_TOGGLE_SECTION } from '@atlaskit/editor-common/toolbar/keys';
@@ -9,6 +10,7 @@ import type { PublicPluginAPI } from '@atlaskit/editor-common/types/next-editor-
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 
 import type { MarkdownModePlugin, MarkdownModeView } from '../../../../src/types/markdown-mode';
 import { FullPageToolbarNext } from '../../../../src/ui/Appearance/FullPage/FullPageToolbarNext';
@@ -443,5 +445,30 @@ describe('FullPageToolbarNext', () => {
 			expect(screen.getByTestId('ak-editor-main-toolbar')).toBeInTheDocument();
 			expect(screen.getByTestId('primary-toolbar')).toBeInTheDocument();
 		});
+	});
+});
+
+describe('optimistic toolbar page scope', () => {
+	beforeEach(() =>
+		setupEditorExperiments('test', { platform_editor_ssr_toolbar_optimistic: true }),
+	);
+	afterEach(() => setupEditorExperiments('test', {}));
+
+	it.each([false, true])('uses the same SSR and pre-mount path for livePage=%s', (livePage) => {
+		const toolbar = (
+			<IntlProvider locale="en">
+				<div id="ak-editor-textarea" />
+				<FullPageToolbarNext
+					editorAPI={getMockEditorAPIWithToolbar()}
+					disableOptimisticToolbar={livePage}
+					toolbarDockingPosition="top"
+					showKeyline={false}
+					disabled={false}
+				/>
+			</IntlProvider>
+		);
+		expect(renderToString(toolbar).includes('data-testid="primary-toolbar"')).toBe(!livePage);
+		const screen = render(toolbar);
+		expect(Boolean(screen.queryByTestId('primary-toolbar'))).toBe(!livePage);
 	});
 });

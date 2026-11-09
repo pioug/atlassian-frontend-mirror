@@ -9,6 +9,7 @@ interface Props {
 	options: {
 		agentSectionLozenge?: MentionsPluginOptions['agentSectionLozenge'];
 		currentUserId?: string;
+		disableOptimisticToolbar?: MentionsPluginOptions['disableOptimisticToolbar'];
 		enableAgentSectioning?: boolean;
 		getIsRovoPanelOpen?: () => boolean;
 		handleMentionsChanged: MentionsChangedHandler;
@@ -23,6 +24,7 @@ interface Props {
 
 export function mentionsPluginOptions({ options, providers }: Props): MentionsPluginOptions {
 	return {
+		disableOptimisticToolbar: options.disableOptimisticToolbar,
 		agentSectionLozenge: options.agentSectionLozenge,
 		sanitizePrivateContent: true,
 		insertDisplayName: true,

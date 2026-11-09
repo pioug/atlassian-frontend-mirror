@@ -48,7 +48,7 @@ const styles = cssMap({
  * A wrapping element for dropdown menu items.
  *
  */
-const DropdownMenuItemGroup: React.ForwardRefExoticComponent<
+export const DropdownItemGroup: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<SectionProps> & React.RefAttributes<HTMLElement>
 > = forwardRef<HTMLElement, SectionProps>(
 	(
@@ -113,4 +113,4 @@ const DropdownMenuItemGroup: React.ForwardRefExoticComponent<
 	},
 );
 
-export default DropdownMenuItemGroup;
+export default DropdownItemGroup;

@@ -1,9 +1,6 @@
-import React, { useLayoutEffect, useState } from 'react';
-
 import { bind } from 'bind-event-listener';
 import type { IntlShape, MessageDescriptor } from 'react-intl';
 
-import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
 import { messages } from '@atlaskit/editor-common/messages/breakout';
 import {
 	VANILLA_TOOLTIP_DEFAULT_CLASS,
@@ -19,7 +16,6 @@ import { disableNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/util
 import { preventUnhandled } from '@atlaskit/pragmatic-drag-and-drop/utils/prevent-unhandled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 const getNodeName = (nodeName?: string) => {
 	if (nodeName === 'layoutSection') {
@@ -62,40 +58,6 @@ export const resizeHandleMessage: Record<string, MessageDescriptor> = {
 	multiBodiedExtension: messages.resizeExtension,
 };
 
-type Props = {
-	intl: IntlShape;
-	rail: HTMLElement;
-	target: HTMLElement;
-};
-
-/**
- * Remove during `platform_editor_use_vanilla_components` cleanup — replaced by
- * `createHandleTooltip`, which does the same job without a React tree per resize handle.
- */
-const RailWithTooltip = ({ rail, target, intl }: Props) => {
-	const [nodeName, setNodeName] = useState('node');
-
-	useLayoutEffect(() => {
-		const node = target.querySelector<HTMLElement>('[data-prosemirror-node-name]');
-		const name = getNodeName(node?.dataset.prosemirrorNodeName);
-		setNodeName(name);
-	}, [target]);
-
-	return (
-		<Tooltip content={intl.formatMessage(resizeHandleMessage[nodeName])} position="mouse">
-			<div
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-				className="pm-breakout-resize-handle-rail-inside-tooltip"
-				ref={(el) => {
-					if (el && rail.parentNode !== el) {
-						el.appendChild(rail);
-					}
-				}}
-			/>
-		</Tooltip>
-	);
-};
-
 /** Identifies the vanilla tooltip for tests and debugging. */
 const TOOLTIP_CLASS_NAME = 'pm-breakout-resize-tooltip';
 
@@ -107,10 +69,10 @@ const TOOLTIP_CLASS_NAME = 'pm-breakout-resize-tooltip';
 const TOOLTIP_CLASS_NAMES = `${VANILLA_TOOLTIP_DEFAULT_CLASS} ${TOOLTIP_CLASS_NAME}`;
 
 /**
- * Vanilla DOM equivalent of `RailWithTooltip`, behind `platform_editor_use_vanilla_components`.
+ * Builds the resize handle's tooltip as plain DOM.
  *
  * Anchored to a point rather than to the rail, which spans the node's full height and would strand
- * the tooltip at the top of a tall node. This reproduces the control arm's `position="mouse"`,
+ * the tooltip at the top of a tall node. This reproduces the ADS tooltip's `position="mouse"`,
  * which latches the cursor as the tooltip opens and does not move it afterwards — so no cursor
  * tracking is needed, just one style write per hover.
  */
@@ -140,7 +102,7 @@ const createHandleTooltip = ({
 		undefined,
 		// No `onShow`.
 		undefined,
-		// Below the cursor, matching the control arm's `position="mouse"`.
+		// Below the cursor, matching the ADS tooltip's `position="mouse"`.
 		'bottom',
 	);
 };
@@ -151,10 +113,8 @@ export const createPragmaticResizer = ({
 	onDrag,
 	onDrop,
 	intl,
-	nodeViewPortalProviderAPI,
 }: {
 	intl: IntlShape;
-	nodeViewPortalProviderAPI: PortalProviderAPI;
 	onDrag: (args: BaseEventPayload<ElementDragType>) => void;
 	onDragStart: (args: BaseEventPayload<ElementDragType>) => void;
 	onDrop: (args: BaseEventPayload<ElementDragType>) => void;
@@ -198,35 +158,21 @@ export const createPragmaticResizer = ({
 		rail.appendChild(thumb);
 
 		// Marks the point the pointer entered the rail, and anchors the tooltip there: zero height
-		// so it is a point not a box, full rail width so the tooltip centres like the control arm.
+		// so it is a point not a box, full rail width so the tooltip centres on the cursor.
 		//
 		// Must stay a child of `rail` — `openTooltipAt` sets `top` from the rail's `offsetY`, which
 		// only lines up while the rail is the containing block. jsdom cannot catch a wrong parent.
 		//
-		// Not built on the control arm, which must keep byte-identical DOM.
-		let tooltipAnchor: HTMLElement | undefined;
+		// Positioned by `.pm-breakout-resize-tooltip-anchor`; only the pointer's Y is passed in.
+		const tooltipAnchor = document.createElement('div');
+		tooltipAnchor.classList.add('pm-breakout-resize-tooltip-anchor');
 
-		if (isExperimentEnabled('platform_editor_use_vanilla_components')) {
-			// Positioned by `.pm-breakout-resize-tooltip-anchor`; only the pointer's Y is passed in.
-			tooltipAnchor = document.createElement('div');
-			tooltipAnchor.classList.add('pm-breakout-resize-tooltip-anchor');
-
-			rail.appendChild(tooltipAnchor);
-		}
+		rail.appendChild(tooltipAnchor);
 
 		const tooltipContainer = document.createElement('div');
 		tooltipContainer.classList.add('pm-breakout-resize-handle-rail-wrapper');
 		handle.appendChild(tooltipContainer);
 		handle.appendChild(handleHitBox);
-
-		const key = crypto.randomUUID();
-
-		const renderTooltip = () =>
-			nodeViewPortalProviderAPI.render(
-				() => <RailWithTooltip rail={rail} target={target} intl={intl} />,
-				tooltipContainer,
-				key,
-			);
 
 		let vanillaTooltip: VanillaTooltip | undefined;
 
@@ -239,29 +185,18 @@ export const createPragmaticResizer = ({
 			}
 			isTooltipMounted = true;
 
-			// `tooltipAnchor` is always set when the experiment is on; the check also narrows it.
-			if (isExperimentEnabled('platform_editor_use_vanilla_components') && tooltipAnchor) {
-				vanillaTooltip = createHandleTooltip({ anchor: tooltipAnchor, target, intl });
-				return;
-			}
-
-			// `RailWithTooltip`'s ref moves `rail` into the tooltip wrapper, so the DOM ends up
-			// identical to the pre-mount state below.
-			renderTooltip();
+			vanillaTooltip = createHandleTooltip({ anchor: tooltipAnchor, target, intl });
 		};
 
-		// React 18 registers ~130 native event listeners on every portal container (see
-		// `listenToAllSupportedEvents`), and never removes them. Mounting this tooltip up front
-		// costs that for every resizable node in the document — two containers per node when the
-		// left handle is enabled — even though only the hovered handle can ever show a tooltip.
+		// The tooltip is built on the first `mouseenter` of the node (see `registerEvents` below)
+		// rather than up front, so a handle that is never hovered costs nothing. The rail has
+		// `opacity: 0` until the pointer is inside the node, so the pre-mount DOM is never
+		// visible, and the `mouseenter` fires on the whole node — long before the pointer reaches
+		// the 7px handle.
 		//
-		// Instead, park `rail` directly in the wrapper and mount the tooltip on the first
-		// `mouseenter` of the node (see `registerEvents` below). The rail has `opacity: 0` until
-		// the pointer is inside the node, so the pre-mount DOM is never visible, and the
-		// `mouseenter` fires on the whole node — long before the pointer reaches the 7px handle.
-		//
-		// Parking the rail also needs `width: 100%`: without the ADS tooltip's wrappers (stretched
-		// by `pragmaticResizerStylesForTooltip`) it would size to its content as a flex item.
+		// Parking the rail in the wrapper also needs `width: 100%`: without the ADS tooltip's
+		// wrappers (stretched by `pragmaticResizerStylesForTooltip`) it would size to its content
+		// as a flex item.
 		rail.style.width = '100%';
 		tooltipContainer.appendChild(rail);
 
@@ -273,24 +208,11 @@ export const createPragmaticResizer = ({
 			handleHitBox,
 			mountTooltip,
 			destroyTooltip: () => {
-				// Re-read is safe: the gate is fixed for the page, so it matches what `mountTooltip`
-				// saw. At cleanup, keep this body and delete the control arm below.
-				if (isExperimentEnabled('platform_editor_use_vanilla_components')) {
-					// May never have mounted, and there is no portal to remove either way.
-					if (vanillaTooltip) {
-						vanillaTooltip.destroy();
-						vanillaTooltip = undefined;
-					}
-					isTooltipMounted = false;
-					return;
+				// May never have mounted, as the tooltip is built on first hover.
+				if (vanillaTooltip) {
+					vanillaTooltip.destroy();
+					vanillaTooltip = undefined;
 				}
-
-				// The tooltip mounts on first hover, so `destroyTooltip` can be reached without
-				// anything having been mounted.
-				if (!isTooltipMounted) {
-					return;
-				}
-				nodeViewPortalProviderAPI.remove(key);
 				isTooltipMounted = false;
 			},
 		};
@@ -312,13 +234,11 @@ export const createPragmaticResizer = ({
 				state = 'resizing';
 				handleElement.classList.add('pm-breakout-resize-handle-container--active');
 
-				// The ADS tooltip hides itself on press; the vanilla one has no pointer-press
-				// listener, and its anchor moves with the rail, so it would follow the drag.
-				// Tearing it down hides it immediately; the next hover rebuilds it.
-				if (isExperimentEnabled('platform_editor_use_vanilla_components')) {
-					rightHandle.destroyTooltip();
-					leftHandle?.destroyTooltip();
-				}
+				// The tooltip has no pointer-press listener, and its anchor moves with the rail,
+				// so it would follow the drag. Tearing it down hides it immediately; the next
+				// hover rebuilds it.
+				rightHandle.destroyTooltip();
+				leftHandle?.destroyTooltip();
 
 				onDragStart(args);
 			},
@@ -366,13 +286,11 @@ export const createPragmaticResizer = ({
 				type: 'mouseenter',
 				listener: (event) => {
 					// Mounted on first hover rather than up front, so a handle that is never
-					// hovered costs no portal and no listeners.
+					// hovered costs nothing.
 					rightHandle.mountTooltip();
 					leftHandle?.mountTooltip();
-					if (isExperimentEnabled('platform_editor_use_vanilla_components')) {
-						// After the mount above, so the tooltip always exists to be opened.
-						openTooltipAt(hoverAnchor, event);
-					}
+					// After the mount above, so the tooltip always exists to be opened.
+					openTooltipAt(hoverAnchor, event);
 					rightHandle.rail.style.setProperty('opacity', '1');
 					leftHandle?.rail.style.setProperty('opacity', '1');
 				},
@@ -380,11 +298,9 @@ export const createPragmaticResizer = ({
 			bind(element, {
 				type: 'mouseleave',
 				listener: () => {
-					// Ahead of the resize guard below: the ADS tooltip hides whenever the pointer
+					// Ahead of the resize guard below: the tooltip hides whenever the pointer
 					// leaves the rail, including part-way through a resize.
-					if (isExperimentEnabled('platform_editor_use_vanilla_components')) {
-						closeTooltip(hoverAnchor);
-					}
+					closeTooltip(hoverAnchor);
 
 					if (state === 'resizing') {
 						return;

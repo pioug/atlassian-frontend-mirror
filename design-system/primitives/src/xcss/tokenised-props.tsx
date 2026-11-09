@@ -11,14 +11,15 @@ import type { FontFamily } from './font-family';
 import type { FontWeight } from './font-weight';
 import type { GapSpace } from './gap-space';
 import type { Layer } from './layer';
+import type { MarginSpace as MarginToken } from './margin-space';
 import type { Opacity } from './opacity';
-import type { Space } from './positive-space';
+import type { PaddingSpace as PaddingToken } from './padding-space';
 import type { Shadow } from './shadow';
 import type { TextColor } from './text-color';
 
 // Margin needs some bespoke types: https://atlassian.slack.com/archives/CKRHB23K8/p1712623192772909
-type MarginSpace = AllSpace | 'auto' | '0';
-type PaddingSpace = Space | '0';
+type MarginSpace = MarginToken | 'auto' | '0';
+type PaddingSpace = PaddingToken | '0';
 type BorderWidthExtended = BorderWidth | 0 | '0';
 
 /**

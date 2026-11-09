@@ -1,5 +1,12 @@
 # @atlaskit/dropdown-menu
 
+## 21.2.0
+
+### Minor Changes
+
+- [`44de9176c110c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/44de9176c110c) -
+  Added named exports for all Dropdown Menu components. Prefer named exports instead of defaults.
+
 ## 21.1.0
 
 ### Minor Changes

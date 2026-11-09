@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-undo-redo
 
+## 30.0.15
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 30.0.14
 
 ### Patch Changes

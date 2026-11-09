@@ -37,7 +37,6 @@ const brandColors: Readonly<Record<AgentBrandColorScheme, AgentPresenceColor>> =
 		bold: themed('#000000', '#E8E8EA'),
 		boldText: themed('#FFFFFF', '#000000'),
 		border: themed('#BEB9B9', '#656567'),
-		emphasisBackground: themed('#E5E5E5', '#333335'),
 		text: themed('#292A2E', '#E8E8EA'),
 	},
 	'agent-brand-databricks': {
@@ -83,22 +82,26 @@ const brandColors: Readonly<Record<AgentBrandColorScheme, AgentPresenceColor>> =
 	},
 	'agent-brand-gemini': monochrome,
 	'agent-brand-antigravity': monochrome,
-	/** ADS orange, the fixed telepointer/attribution slot Claude has always used. */
+	/** Claude's edit chrome in light and dark mode. */
 	'agent-brand-claude': {
-		accentText: token('color.text.accent.orange'),
-		background: token('color.background.accent.orange.subtlest'),
-		bold: token('color.background.accent.orange.bolder'),
+		accentText: themed('#BD5B00', '#BD5B00'),
+		activeBorder: themed('#BD5B00', '#BD5B00'),
+		background: themed('#FBF1EE', '#3F3230'),
+		bold: themed('#BD5B00', '#BD5B00'),
 		boldText: token('color.text.inverse'),
-		border: token('color.border.accent.orange'),
+		border: themed('#FFDCD1', '#603B30'),
+		emphasisBackground: themed('#FFDCD1', '#603B30'),
 		text: token('color.text'),
 	},
 	/** ADS purple, the fixed telepointer/attribution slot Rovo has always used. */
 	'agent-brand-rovo': {
 		accentText: token('color.text.accent.purple'),
+		activeBorder: token('color.border.accent.purple'),
 		background: token('color.background.accent.purple.subtlest'),
 		bold: token('color.background.accent.purple.bolder'),
 		boldText: token('color.text.inverse'),
 		border: token('color.border.accent.purple'),
+		emphasisBackground: token('color.background.accent.purple.subtler.pressed'),
 		text: token('color.text'),
 	},
 	'agent-brand-chatgpt': {

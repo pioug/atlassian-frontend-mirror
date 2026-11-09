@@ -816,7 +816,14 @@ const EmojiPickerComponent = ({
 		// since products like Bitbucket might have parent forms
 		// that listen for keydown events to trigger form submission
 		// https://product-fabric.atlassian.net/browse/ED-19532
-		if (e.key === KeyboardKeys.Enter) {
+		if (
+			e.key === KeyboardKeys.Enter &&
+			!(
+				fg('platform_ally_emoji_fixes_various') &&
+				e.target instanceof HTMLButtonElement &&
+				e.target.type === 'button'
+			)
+		) {
 			e.preventDefault();
 		}
 	};

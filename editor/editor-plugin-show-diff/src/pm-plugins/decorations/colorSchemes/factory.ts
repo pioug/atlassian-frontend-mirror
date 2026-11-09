@@ -161,7 +161,11 @@ function bgBolder(color: AccentColor): string {
 }
 
 function bgSubtlerPressed(color: AccentColor): string {
-	return getBrand(color)?.background ?? bgSubtlerPressedMap[color as AdsAccentColor];
+	return (
+		getBrand(color)?.emphasisBackground ??
+		bgSubtlerPressedMap[color as AdsAccentColor] ??
+		bgSubtlerPressedMap.gray
+	);
 }
 
 function borderAccent(color: AccentColor): string {
@@ -263,7 +267,7 @@ export function buildInsertStyleExtendedActive(colors: DiffColorScheme): string 
 	return convertToInlineCss({
 		background: bgSubtlerPressed(colors.insertActiveColor),
 		...(brand ? { color: brand.text } : {}),
-		borderBottom: `2px solid ${borderAccent(colors.insertColor)}`,
+		borderBottom: `2px solid ${brand?.activeBorder ?? borderAccentMap[colors.insertColor as AdsAccentColor] ?? borderAccentMap.gray}`,
 		padding: `1px 0 2px`,
 	});
 }

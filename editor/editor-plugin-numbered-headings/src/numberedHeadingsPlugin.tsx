@@ -2,6 +2,7 @@ import type {
 	InternalNumberedHeadingsPlugin,
 	NumberedHeadingsPlugin,
 } from './numberedHeadingsPluginType';
+import { createNumberedHeadingsKeymapPlugin } from './pm-plugins/keymap';
 import { createNumberedHeadingsPlugin, numberedHeadingsPluginKey } from './pm-plugins/main';
 import { getToolbarComponents } from './ui/toolbar-components';
 
@@ -16,6 +17,11 @@ const internalNumberedHeadingsPlugin: InternalNumberedHeadingsPlugin = ({ api })
 				{
 					name: 'numberedHeadings',
 					plugin: () => createNumberedHeadingsPlugin(api),
+				},
+				{
+					// Handles keydown directly, so it runs before the panel, table and block-type keymaps.
+					name: 'numberedHeadingsKeymap',
+					plugin: () => createNumberedHeadingsKeymapPlugin(),
 				},
 			];
 		},

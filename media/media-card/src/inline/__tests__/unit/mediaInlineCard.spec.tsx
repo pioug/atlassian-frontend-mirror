@@ -17,7 +17,7 @@ import { generateSampleFileItem } from '@atlaskit/media-test-data/src';
 import MediaViewer from '@atlaskit/media-viewer/media-viewer-loader';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { createMockedMediaClientProvider } from '../../../utils/__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProvider';
 import * as analyticsModule from '../../../utils/analytics/fireMediaCardEvent';
@@ -361,8 +361,10 @@ describe('<MediaInlineCard />', () => {
 		});
 	});
 
-	ffTest.on('platform_media_cross_client_copy', 'Copy', () => {
+	describe('platform_media_cross_client_copy is on Copy', () => {
 		it('should call copy intent', async () => {
+			passGate('platform_media_cross_client_copy');
+
 			const user = userEvent.setup();
 
 			const [fileItem, identifier] = generateSampleFileItem.workingJpegWithRemotePreview();

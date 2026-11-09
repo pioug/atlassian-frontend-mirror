@@ -342,10 +342,10 @@ for (const { width, navWidth, area } of [
 for (const { rootWidth, navWidth, chatWidth, navArea, chatArea } of [
 	{
 		rootWidth: 700,
-		navWidth: 288,
-		chatWidth: 380,
-		navArea: 'main',
-		chatArea: 'chat-panel',
+		navWidth: 240,
+		chatWidth: 400,
+		navArea: 'side-nav',
+		chatArea: '2 / 1 / -1 / -1',
 	},
 	{
 		rootWidth: 752,

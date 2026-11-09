@@ -35,7 +35,6 @@ import { token } from '@atlaskit/tokens';
 
 import type { MentionsPlugin } from '../mentionsPluginType';
 import type { MentionPluginOptions } from '../types';
-import { disabledTooltipRenderer } from './disabledTooltipRenderer';
 import { type MentionAvatarController, mentionAvatarRenderer } from './mentionAvatarRenderer';
 import { profileCardRenderer } from './profileCardRenderer';
 
@@ -240,12 +239,6 @@ export class MentionNodeView implements NodeView {
 	private hasRovoChatStyles: boolean | undefined;
 	private hasAvatarSlot = false;
 	private isDestroyed = false;
-	private disabledTooltip:
-		| {
-				destroy: () => void;
-				setTooltip: (text: string | undefined) => void;
-		  }
-		| undefined;
 	private vanillaDisabledTooltip: VanillaTooltip | undefined;
 	private vanillaDisabledTooltipText: string | undefined;
 	private unsubscribeFromDisabledStateChanges: (() => void) | undefined;
@@ -552,28 +545,7 @@ export class MentionNodeView implements NodeView {
 			? disabledState.tooltip
 			: undefined;
 
-		if (isExperimentEnabled('platform_editor_use_vanilla_components')) {
-			this.syncVanillaDisabledTooltip(tooltipText);
-			return;
-		}
-
-		const chip = this.mentionPrimitiveElement;
-		const { portalProviderAPI } = this.config;
-		if (!chip || !portalProviderAPI) {
-			return;
-		}
-		if (tooltipText) {
-			if (!this.disabledTooltip) {
-				this.disabledTooltip = disabledTooltipRenderer({
-					chipElement: chip,
-					portalProviderAPI,
-				});
-			}
-			this.disabledTooltip.setTooltip(tooltipText);
-		} else if (this.disabledTooltip) {
-			this.disabledTooltip.destroy();
-			this.disabledTooltip = undefined;
-		}
+		this.syncVanillaDisabledTooltip(tooltipText);
 	}
 
 	private setTextContent(name: string | undefined, isAgentMentionsEnabled: boolean) {
@@ -733,13 +705,9 @@ export class MentionNodeView implements NodeView {
 		this.destroyProfileCard?.();
 		this.mentionAvatar?.destroy();
 		this.mentionAvatar = undefined;
-		this.disabledTooltip?.destroy();
-		this.disabledTooltip = undefined;
-		if (isExperimentEnabled('platform_editor_use_vanilla_components')) {
-			this.vanillaDisabledTooltip?.destroy();
-			this.vanillaDisabledTooltip = undefined;
-			this.vanillaDisabledTooltipText = undefined;
-		}
+		this.vanillaDisabledTooltip?.destroy();
+		this.vanillaDisabledTooltip = undefined;
+		this.vanillaDisabledTooltipText = undefined;
 		this.unsubscribeFromDisabledStateChanges?.();
 		this.unsubscribeFromDisabledStateChanges = undefined;
 		this.subscribedProvider = undefined;

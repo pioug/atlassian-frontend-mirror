@@ -35,6 +35,7 @@ type FullPageToolbarNextProps = {
 	customPrimaryToolbarComponents?: PrimaryToolbarComponents;
 	disabled: boolean;
 	disabledWithoutInteractionLogic?: boolean;
+	disableOptimisticToolbar?: boolean;
 	editorAPI?: FullPageToolbarPluginAPI;
 	editorView?: EditorView;
 	popupsBoundariesElement?: HTMLElement;
@@ -188,7 +189,11 @@ export const FullPageToolbarNext = ({
 	customPrimaryToolbarComponents,
 	disabled,
 	disabledWithoutInteractionLogic,
+	disableOptimisticToolbar,
 }: FullPageToolbarNextProps): JSX.Element => {
+	const isOptimisticToolbar =
+		!disableOptimisticToolbar &&
+		expValEquals('platform_editor_ssr_toolbar_optimistic', 'isEnabled', true);
 	const components = editorAPI?.toolbar?.actions.getComponents();
 	const runtimeOverride = useSharedPluginStateWithSelector(
 		editorAPI,
@@ -259,9 +264,7 @@ export const FullPageToolbarNext = ({
 	// injection API but its components not yet populated. Bypass the early-return
 	// so the toolbar chrome stays mounted for layout stability; ToolbarNext renders
 	// null inside it until components arrive.
-	const isAwaitingToolbarComponents =
-		expValEquals('platform_editor_ssr_toolbar_optimistic', 'isEnabled', true) &&
-		!Boolean(editorAPI?.toolbar);
+	const isAwaitingToolbarComponents = isOptimisticToolbar && !Boolean(editorAPI?.toolbar);
 
 	if (
 		!isAwaitingToolbarComponents &&
@@ -299,7 +302,7 @@ export const FullPageToolbarNext = ({
 							)}
 							<React.Fragment>
 								<FirstChildWrapper>
-									{expValEquals('platform_editor_ssr_toolbar_optimistic', 'isEnabled', true) ? (
+									{isOptimisticToolbar ? (
 										// optimistic toolbar — render immediately on both SSR and CSR with items enabled.
 										// Clicks are noops until editorView mounts.
 										primaryToolbarDockingConfigEnabled &&

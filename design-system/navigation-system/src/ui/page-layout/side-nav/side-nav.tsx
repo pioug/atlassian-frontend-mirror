@@ -1464,10 +1464,8 @@ function SideNavInternal({
 }
 ${shouldApplyUnmanagedSizing ? `#${gridRootId} nav[data-layout-slot] { grid-area: main / aside / aside / aside; width: min(90%, ${clampedWidth}); }` : ''}
 @media (min-width: 64rem) {
-  @container navigation-main-space (min-width: ${minWidth}) {
     #${gridRootChatFitId} { --n_fitNav: ${isExpandedOnDesktop ? minWidth : '0px'}; }
-    ${shouldApplyUnmanagedSizing ? `#${gridRootId} nav[data-layout-slot] { grid-area: side-nav; width: min(${clampedWidth}, calc(100cqw + var(--n_fitNav) - var(--n_chatTrack, 0px))); }` : ''}
-  }
+    ${shouldApplyUnmanagedSizing ? `#${gridRootId} nav[data-layout-slot] { grid-area: side-nav; width: max(${minWidth}, min(${clampedWidth}, calc(100cqw + var(--n_fitNav) - var(--n_chatTrack, 0px)))); }` : ''}
 }
 `}</style>
 				)}

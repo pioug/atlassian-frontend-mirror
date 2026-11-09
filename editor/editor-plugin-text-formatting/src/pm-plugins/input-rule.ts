@@ -14,7 +14,6 @@ import { inputRuleWithAnalytics } from '@atlaskit/editor-common/utils/input-rule
 import type { MarkType, Schema } from '@atlaskit/editor-prosemirror/model';
 import { leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules/constants';
 import { createPlugin } from '@atlaskit/prosemirror-input-rules/utils';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { TextFormattingPlugin } from '../textFormattingPluginType';
 
@@ -80,9 +79,6 @@ function addMark(
 		// fixes the following case: my `*name` is *
 		// expected result: should ignore special characters inside "code"
 		if (textPrefix !== char || schema?.marks?.code?.isInSet(doc.resolve(start + 1).marks())) {
-			if (!expValEquals('platform_editor_lovability_inline_code', 'isEnabled', true)) {
-				return null;
-			}
 			// if the prefix is not a character but the suffix is, continue
 			const suffix = state.doc.textBetween(end - char.length, end);
 			if (suffix !== char) {
@@ -168,32 +164,7 @@ class ReverseRegexExp extends RegExp {
 	}
 }
 
-const buildRegex = (char: ValidAutoformatChars) => {
-	// Ignored via go/ees005
-	// eslint-disable-next-line require-unicode-regexp
-	const escapedChar = char.replace(/(\W)/g, '\\$1');
-	// Ignored via go/ees005
-	// eslint-disable-next-line require-unicode-regexp, @atlassian/perf-linting/no-expensive-split-replace -- Ignored via go/ees017 (to be fixed)
-	const combinations = ValidCombinations[char].map((c) => c.replace(/(\W)/g, '\\$1')).join('|');
-
-	// Single X - https://regex101.com/r/McT3yq/14/
-	// Double X - https://regex101.com/r/pQUgjx/1/
-	const baseRegex = '^X(?=[^X\\s]).*?[^\\sX]X(?=[\\sOBJECT_REPLACEMENT_CHARACTER]COMBINATIONS|$)'
-		.replace('OBJECT_REPLACEMENT_CHARACTER', leafNodeReplacementCharacter)
-		.replace('COMBINATIONS', combinations ? `|${combinations}` : '');
-
-	const replacedRegex = String.prototype.hasOwnProperty('replaceAll')
-		? // Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			(baseRegex as any).replaceAll('X', escapedChar)
-		: // Ignored via go/ees005
-			// eslint-disable-next-line require-unicode-regexp
-			baseRegex.replace(/X/g, escapedChar);
-
-	return new ReverseRegexExp(replacedRegex);
-};
-
-const buildRegexNew = (char: ValidAutoformatChars, allowsBackwardMatch: boolean = false) => {
+const buildRegex = (char: ValidAutoformatChars, allowsBackwardMatch: boolean = false) => {
 	// Ignored via go/ees005
 	// eslint-disable-next-line require-unicode-regexp
 	const escapedChar = char.replace(/(\W)/g, '\\$1');
@@ -224,11 +195,7 @@ export const strongRegex2: ReverseRegexExp = buildRegex(ValidAutoformatChars.STR
 export const italicRegex1: ReverseRegexExp = buildRegex(ValidAutoformatChars.ITALIC);
 export const italicRegex2: ReverseRegexExp = buildRegex(ValidAutoformatChars.ITALIC_MARKDOWN);
 export const strikeRegex: ReverseRegexExp = buildRegex(ValidAutoformatChars.STRIKE);
-export const codeRegex: ReverseRegexExp = buildRegex(ValidAutoformatChars.CODE);
-export const codeRegexWithBackwardMatch: ReverseRegexExp = buildRegexNew(
-	ValidAutoformatChars.CODE,
-	true,
-);
+export const codeRegex: ReverseRegexExp = buildRegex(ValidAutoformatChars.CODE, true);
 
 /**
  * Create input rules for strong mark
@@ -360,15 +327,10 @@ function getCodeInputRules(
 		editorAnalyticsAPI,
 	);
 
-	const allowsBackwardMatch = expValEquals(
-		'platform_editor_lovability_inline_code',
-		'isEnabled',
-		true,
-	);
 	const backTickRule = createRule(
-		allowsBackwardMatch ? codeRegexWithBackwardMatch : codeRegex,
+		codeRegex,
 		addMark(schema.marks.code, schema, ValidAutoformatChars.CODE, api),
-		allowsBackwardMatch,
+		true,
 	);
 
 	return [ruleWithCodeAnalytics(backTickRule)];

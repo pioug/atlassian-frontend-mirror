@@ -3,7 +3,7 @@ jest.mock('../../client/media-store/resolveAuth');
 jest.mock('../../client/media-store/resolveInitialAuth');
 import { nextTick } from '@atlaskit/media-common/nextTick';
 import type { Auth } from '@atlaskit/media-core/auth';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import {
 	type CreatedTouchedFile,
@@ -150,57 +150,59 @@ describe('MediaStore', () => {
 		});
 
 		describe('path-based URL transformation', () => {
-			ffTest(
-				'platform_media_path_based_route',
-				async () => {
-					const collectionName = 'some-collection-name';
-					const data: ItemsPayload[] = [];
-					const expectedTransformedUrl = `http://hello.atlassian.net/media-api/items`;
+			it('with platform_media_path_based_route on', async () => {
+				passGate('platform_media_path_based_route');
 
-					fetchMock.once(JSON.stringify({ data }), {
-						status: 200,
-						statusText: 'Ok',
-					});
+				const collectionName = 'some-collection-name';
+				const data: ItemsPayload[] = [];
+				const expectedTransformedUrl = `http://hello.atlassian.net/media-api/items`;
 
-					await mediaStore.getItems(['some-id'], collectionName);
+				fetchMock.once(JSON.stringify({ data }), {
+					status: 200,
+					statusText: 'Ok',
+				});
 
-					// Verify the transformed URL was used in the request
-					expect(requestModuleMock).toHaveBeenCalledWith(
-						expectedTransformedUrl,
-						expect.objectContaining({
-							auth: expect.objectContaining({
-								baseUrl,
-								clientId,
-								token,
-							}),
-							method: 'POST',
-							endpoint: '/items',
+				await mediaStore.getItems(['some-id'], collectionName);
+
+				// Verify the transformed URL was used in the request
+				expect(requestModuleMock).toHaveBeenCalledWith(
+					expectedTransformedUrl,
+					expect.objectContaining({
+						auth: expect.objectContaining({
+							baseUrl,
+							clientId,
+							token,
 						}),
-						undefined,
-					);
-				},
-				async () => {
-					const collectionName = 'some-collection-name';
-					const data: ItemsPayload[] = [];
+						method: 'POST',
+						endpoint: '/items',
+					}),
+					undefined,
+				);
+			});
 
-					fetchMock.once(JSON.stringify({ data }), {
-						status: 200,
-						statusText: 'Ok',
-					});
+			it('with platform_media_path_based_route off', async () => {
+				failGate('platform_media_path_based_route');
 
-					await mediaStore.getItems(['some-id'], collectionName);
+				const collectionName = 'some-collection-name';
+				const data: ItemsPayload[] = [];
 
-					// Verify the original URL was used
-					expect(requestModuleMock).toHaveBeenCalledWith(
-						`${baseUrl}/items`,
-						expect.objectContaining({
-							method: 'POST',
-							endpoint: '/items',
-						}),
-						undefined,
-					);
-				},
-			);
+				fetchMock.once(JSON.stringify({ data }), {
+					status: 200,
+					statusText: 'Ok',
+				});
+
+				await mediaStore.getItems(['some-id'], collectionName);
+
+				// Verify the original URL was used
+				expect(requestModuleMock).toHaveBeenCalledWith(
+					`${baseUrl}/items`,
+					expect.objectContaining({
+						method: 'POST',
+						endpoint: '/items',
+					}),
+					undefined,
+				);
+			});
 		});
 
 		describe('createUpload', () => {
@@ -458,74 +460,76 @@ describe('MediaStore', () => {
 				});
 			});
 
-			ffTest(
-				'platform_media_upload_expected_size_header',
-				async () => {
-					const body = {
-						uploadId: 'some-upload-id',
-						name: 'some-name',
-						mimeType: 'application/pdf',
-						conditions: { size: 12345 },
-					};
-					const params = { collection: 'some-collection' };
+			it('with platform_media_upload_expected_size_header on', async () => {
+				passGate('platform_media_upload_expected_size_header');
 
-					fetchMock.once(JSON.stringify({ data }), {
-						status: 201,
-						statusText: 'Created',
-					});
+				const body = {
+					uploadId: 'some-upload-id',
+					name: 'some-name',
+					mimeType: 'application/pdf',
+					conditions: { size: 12345 },
+				};
+				const params = { collection: 'some-collection' };
 
-					await mediaStore.createFileFromUpload(body, params, undefined, {
-						expectedFileSize: 12345,
-					});
+				fetchMock.once(JSON.stringify({ data }), {
+					status: 201,
+					statusText: 'Created',
+				});
 
-					expect(fetchMock).toHaveBeenCalledWith(
-						`${baseUrl}/file/upload?collection=some-collection`,
-						{
-							method: 'POST',
-							headers: {
-								'X-Client-Id': clientId,
-								Authorization: `Bearer ${token}`,
-								Accept: 'application/json',
-								'Content-Type': 'application/json',
-								'x-expected-size': '12345',
-							},
-							body: JSON.stringify(body),
+				await mediaStore.createFileFromUpload(body, params, undefined, {
+					expectedFileSize: 12345,
+				});
+
+				expect(fetchMock).toHaveBeenCalledWith(
+					`${baseUrl}/file/upload?collection=some-collection`,
+					{
+						method: 'POST',
+						headers: {
+							'X-Client-Id': clientId,
+							Authorization: `Bearer ${token}`,
+							Accept: 'application/json',
+							'Content-Type': 'application/json',
+							'x-expected-size': '12345',
 						},
-					);
-				},
-				async () => {
-					const body = {
-						uploadId: 'some-upload-id',
-						name: 'some-name',
-						mimeType: 'application/pdf',
-						conditions: { size: 12345 },
-					};
-					const params = { collection: 'some-collection' };
+						body: JSON.stringify(body),
+					},
+				);
+			});
 
-					fetchMock.once(JSON.stringify({ data }), {
-						status: 201,
-						statusText: 'Created',
-					});
+			it('with platform_media_upload_expected_size_header off', async () => {
+				failGate('platform_media_upload_expected_size_header');
 
-					await mediaStore.createFileFromUpload(body, params, undefined, {
-						expectedFileSize: 12345,
-					});
+				const body = {
+					uploadId: 'some-upload-id',
+					name: 'some-name',
+					mimeType: 'application/pdf',
+					conditions: { size: 12345 },
+				};
+				const params = { collection: 'some-collection' };
 
-					expect(fetchMock).toHaveBeenCalledWith(
-						`${baseUrl}/file/upload?collection=some-collection`,
-						{
-							method: 'POST',
-							headers: {
-								'X-Client-Id': clientId,
-								Authorization: `Bearer ${token}`,
-								Accept: 'application/json',
-								'Content-Type': 'application/json',
-							},
-							body: JSON.stringify(body),
+				fetchMock.once(JSON.stringify({ data }), {
+					status: 201,
+					statusText: 'Created',
+				});
+
+				await mediaStore.createFileFromUpload(body, params, undefined, {
+					expectedFileSize: 12345,
+				});
+
+				expect(fetchMock).toHaveBeenCalledWith(
+					`${baseUrl}/file/upload?collection=some-collection`,
+					{
+						method: 'POST',
+						headers: {
+							'X-Client-Id': clientId,
+							Authorization: `Bearer ${token}`,
+							Accept: 'application/json',
+							'Content-Type': 'application/json',
 						},
-					);
-				},
-			);
+						body: JSON.stringify(body),
+					},
+				);
+			});
 
 			it('should fail if response is malformed JSON', async () => {
 				const body = {
@@ -787,72 +791,74 @@ describe('MediaStore', () => {
 				});
 			});
 
-			ffTest(
-				'platform_media_upload_expected_size_header',
-				async () => {
-					const uploadId = '29c49470-adac-4b16-82ec-301340c7b16a';
-					const body = {
-						chunks: [
-							'0675a983536736a69f835438bcf8629e044f190d-4096',
-							'e6295a0966535d295582670afeeb14059969d359-209',
-						],
-						hash: 'sha1:b0edf951dd0c86f80d989e20b9dc3060c53d66a6',
-						offset: 0,
-					};
+			it('with platform_media_upload_expected_size_header on', async () => {
+				passGate('platform_media_upload_expected_size_header');
 
-					fetchMock.once('', {
-						status: 200,
-						statusText: 'Ok',
-					});
+				const uploadId = '29c49470-adac-4b16-82ec-301340c7b16a';
+				const body = {
+					chunks: [
+						'0675a983536736a69f835438bcf8629e044f190d-4096',
+						'e6295a0966535d295582670afeeb14059969d359-209',
+					],
+					hash: 'sha1:b0edf951dd0c86f80d989e20b9dc3060c53d66a6',
+					offset: 0,
+				};
 
-					await mediaStore.appendChunksToUpload(uploadId, body, undefined, undefined, {
-						expectedFileSize: 12345,
-					});
+				fetchMock.once('', {
+					status: 200,
+					statusText: 'Ok',
+				});
 
-					expect(fetchMock).toHaveBeenCalledWith(`${baseUrl}/upload/${uploadId}/chunks`, {
-						method: 'PUT',
-						headers: {
-							'X-Client-Id': clientId,
-							Authorization: `Bearer ${token}`,
-							Accept: 'application/json',
-							'Content-Type': 'application/json',
-							'x-expected-size': '12345',
-						},
-						body: JSON.stringify(body),
-					});
-				},
-				async () => {
-					const uploadId = '29c49470-adac-4b16-82ec-301340c7b16a';
-					const body = {
-						chunks: [
-							'0675a983536736a69f835438bcf8629e044f190d-4096',
-							'e6295a0966535d295582670afeeb14059969d359-209',
-						],
-						hash: 'sha1:b0edf951dd0c86f80d989e20b9dc3060c53d66a6',
-						offset: 0,
-					};
+				await mediaStore.appendChunksToUpload(uploadId, body, undefined, undefined, {
+					expectedFileSize: 12345,
+				});
 
-					fetchMock.once('', {
-						status: 200,
-						statusText: 'Ok',
-					});
+				expect(fetchMock).toHaveBeenCalledWith(`${baseUrl}/upload/${uploadId}/chunks`, {
+					method: 'PUT',
+					headers: {
+						'X-Client-Id': clientId,
+						Authorization: `Bearer ${token}`,
+						Accept: 'application/json',
+						'Content-Type': 'application/json',
+						'x-expected-size': '12345',
+					},
+					body: JSON.stringify(body),
+				});
+			});
 
-					await mediaStore.appendChunksToUpload(uploadId, body, undefined, undefined, {
-						expectedFileSize: 12345,
-					});
+			it('with platform_media_upload_expected_size_header off', async () => {
+				failGate('platform_media_upload_expected_size_header');
 
-					expect(fetchMock).toHaveBeenCalledWith(`${baseUrl}/upload/${uploadId}/chunks`, {
-						method: 'PUT',
-						headers: {
-							'X-Client-Id': clientId,
-							Authorization: `Bearer ${token}`,
-							Accept: 'application/json',
-							'Content-Type': 'application/json',
-						},
-						body: JSON.stringify(body),
-					});
-				},
-			);
+				const uploadId = '29c49470-adac-4b16-82ec-301340c7b16a';
+				const body = {
+					chunks: [
+						'0675a983536736a69f835438bcf8629e044f190d-4096',
+						'e6295a0966535d295582670afeeb14059969d359-209',
+					],
+					hash: 'sha1:b0edf951dd0c86f80d989e20b9dc3060c53d66a6',
+					offset: 0,
+				};
+
+				fetchMock.once('', {
+					status: 200,
+					statusText: 'Ok',
+				});
+
+				await mediaStore.appendChunksToUpload(uploadId, body, undefined, undefined, {
+					expectedFileSize: 12345,
+				});
+
+				expect(fetchMock).toHaveBeenCalledWith(`${baseUrl}/upload/${uploadId}/chunks`, {
+					method: 'PUT',
+					headers: {
+						'X-Client-Id': clientId,
+						Authorization: `Bearer ${token}`,
+						Accept: 'application/json',
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify(body),
+				});
+			});
 
 			it('calls request with traceContext', async () => {
 				const uploadId = '29c49470-adac-4b16-82ec-301340c7b16a';
@@ -964,70 +970,72 @@ describe('MediaStore', () => {
 				);
 			});
 
-			ffTest(
-				'platform_media_upload_expected_size_header',
-				async () => {
-					const data: TouchedFiles = {
-						created: [createdTouchedFile1],
-					};
+			it('with platform_media_upload_expected_size_header on', async () => {
+				passGate('platform_media_upload_expected_size_header');
 
-					fetchMock.once(JSON.stringify({ data }), {
-						status: 201,
-						statusText: 'Created',
-					});
+				const data: TouchedFiles = {
+					created: [createdTouchedFile1],
+				};
 
-					const body: MediaStoreTouchFileBody = {
-						descriptors: [descriptor1],
-					};
+				fetchMock.once(JSON.stringify({ data }), {
+					status: 201,
+					statusText: 'Created',
+				});
 
-					await mediaStore.touchFiles(body, params, undefined, { expectedFileSize: 12345 });
+				const body: MediaStoreTouchFileBody = {
+					descriptors: [descriptor1],
+				};
 
-					expect(fetchMock).toHaveBeenCalledWith(
-						`${baseUrl}/upload/createWithFiles?hashAlgorithm=sha256`,
-						{
-							method: 'POST',
-							headers: {
-								'X-Client-Id': clientId,
-								Authorization: `Bearer ${token}`,
-								Accept: 'application/json',
-								'Content-Type': 'application/json',
-								'x-expected-size': '12345',
-							},
-							body: JSON.stringify(body),
+				await mediaStore.touchFiles(body, params, undefined, { expectedFileSize: 12345 });
+
+				expect(fetchMock).toHaveBeenCalledWith(
+					`${baseUrl}/upload/createWithFiles?hashAlgorithm=sha256`,
+					{
+						method: 'POST',
+						headers: {
+							'X-Client-Id': clientId,
+							Authorization: `Bearer ${token}`,
+							Accept: 'application/json',
+							'Content-Type': 'application/json',
+							'x-expected-size': '12345',
 						},
-					);
-				},
-				async () => {
-					const data: TouchedFiles = {
-						created: [createdTouchedFile1],
-					};
+						body: JSON.stringify(body),
+					},
+				);
+			});
 
-					fetchMock.once(JSON.stringify({ data }), {
-						status: 201,
-						statusText: 'Created',
-					});
+			it('with platform_media_upload_expected_size_header off', async () => {
+				failGate('platform_media_upload_expected_size_header');
 
-					const body: MediaStoreTouchFileBody = {
-						descriptors: [descriptor1],
-					};
+				const data: TouchedFiles = {
+					created: [createdTouchedFile1],
+				};
 
-					await mediaStore.touchFiles(body, params, undefined, { expectedFileSize: 12345 });
+				fetchMock.once(JSON.stringify({ data }), {
+					status: 201,
+					statusText: 'Created',
+				});
 
-					expect(fetchMock).toHaveBeenCalledWith(
-						`${baseUrl}/upload/createWithFiles?hashAlgorithm=sha256`,
-						{
-							method: 'POST',
-							headers: {
-								'X-Client-Id': clientId,
-								Authorization: `Bearer ${token}`,
-								Accept: 'application/json',
-								'Content-Type': 'application/json',
-							},
-							body: JSON.stringify(body),
+				const body: MediaStoreTouchFileBody = {
+					descriptors: [descriptor1],
+				};
+
+				await mediaStore.touchFiles(body, params, undefined, { expectedFileSize: 12345 });
+
+				expect(fetchMock).toHaveBeenCalledWith(
+					`${baseUrl}/upload/createWithFiles?hashAlgorithm=sha256`,
+					{
+						method: 'POST',
+						headers: {
+							'X-Client-Id': clientId,
+							Authorization: `Bearer ${token}`,
+							Accept: 'application/json',
+							'Content-Type': 'application/json',
 						},
-					);
-				},
-			);
+						body: JSON.stringify(body),
+					},
+				);
+			});
 
 			it('should fail if error status is returned', async () => {
 				fetchMock.once('something went wrong', {
@@ -1156,72 +1164,74 @@ describe('MediaStore', () => {
 
 				const cdnURL = `${baseUrl}/file/1234/image/cdn?allowAnimated=true&client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&mode=crop&token=${token}`;
 
-				ffTest(
-					'platform_media_cdn_delivery',
-					async () => {
-						// Test against fedramp micros perimeter, should return non-cdn url
-						global.MICROS_PERIMETER = 'fedramp-moderate';
-						let url = await mediaStore.getFileImageURL('1234', {
-							collection,
-						});
-						expect(resolveAuth).toHaveBeenCalledWith(
-							authProvider,
-							{
-								collectionName: collection,
-							},
-							undefined,
-						);
-						expect(url).toEqual(nonCdnURL);
+				it('with platform_media_cdn_delivery on', async () => {
+					passGate('platform_media_cdn_delivery');
 
-						// Test against fedramp hostname, should return non-cdn url
-						Object.defineProperty(window.location, 'hostname', {
-							writable: true,
-							value: 'atlassian-us-gov-mod.com',
-						});
-						url = await mediaStore.getFileImageURL('1234', {
-							collection,
-						});
-						expect(resolveAuth).toHaveBeenCalledWith(
-							authProvider,
-							{
-								collectionName: collection,
-							},
-							undefined,
-						);
-						expect(url).toEqual(nonCdnURL);
+					// Test against fedramp micros perimeter, should return non-cdn url
+					global.MICROS_PERIMETER = 'fedramp-moderate';
+					let url = await mediaStore.getFileImageURL('1234', {
+						collection,
+					});
+					expect(resolveAuth).toHaveBeenCalledWith(
+						authProvider,
+						{
+							collectionName: collection,
+						},
+						undefined,
+					);
+					expect(url).toEqual(nonCdnURL);
 
-						// Test against commercial micros perimeter and hostname, should return cdn url
-						global.MICROS_PERIMETER = 'commercial';
-						Object.defineProperty(window.location, 'hostname', {
-							writable: true,
-							value: 'hello.atlassian.net',
-						});
-						url = await mediaStore.getFileImageURL('1234', {
-							collection,
-						});
-						expect(resolveAuth).toHaveBeenCalledWith(
-							authProvider,
-							{
-								collectionName: collection,
-							},
-							undefined,
-						);
-						expect(url).toEqual(cdnURL);
-					},
-					async () => {
-						const url = await mediaStore.getFileImageURL('1234', {
-							collection,
-						});
-						expect(resolveAuth).toHaveBeenCalledWith(
-							authProvider,
-							{
-								collectionName: collection,
-							},
-							undefined,
-						);
-						expect(url).toEqual(nonCdnURL);
-					},
-				);
+					// Test against fedramp hostname, should return non-cdn url
+					Object.defineProperty(window.location, 'hostname', {
+						writable: true,
+						value: 'atlassian-us-gov-mod.com',
+					});
+					url = await mediaStore.getFileImageURL('1234', {
+						collection,
+					});
+					expect(resolveAuth).toHaveBeenCalledWith(
+						authProvider,
+						{
+							collectionName: collection,
+						},
+						undefined,
+					);
+					expect(url).toEqual(nonCdnURL);
+
+					// Test against commercial micros perimeter and hostname, should return cdn url
+					global.MICROS_PERIMETER = 'commercial';
+					Object.defineProperty(window.location, 'hostname', {
+						writable: true,
+						value: 'hello.atlassian.net',
+					});
+					url = await mediaStore.getFileImageURL('1234', {
+						collection,
+					});
+					expect(resolveAuth).toHaveBeenCalledWith(
+						authProvider,
+						{
+							collectionName: collection,
+						},
+						undefined,
+					);
+					expect(url).toEqual(cdnURL);
+				});
+
+				it('with platform_media_cdn_delivery off', async () => {
+					failGate('platform_media_cdn_delivery');
+
+					const url = await mediaStore.getFileImageURL('1234', {
+						collection,
+					});
+					expect(resolveAuth).toHaveBeenCalledWith(
+						authProvider,
+						{
+							collectionName: collection,
+						},
+						undefined,
+					);
+					expect(url).toEqual(nonCdnURL);
+				});
 			});
 
 			it('should return the file image preview url based on the file id', async () => {
@@ -1259,45 +1269,47 @@ describe('MediaStore', () => {
 			});
 
 			describe('watermark version param', () => {
-				ffTest(
-					'confluence_watermark_admin_ui',
-					async () => {
-						const collection = 'some-collection';
-						const watermarkPayload = {
-							v: 'WjtFdA',
-							ari: 'ari:cloud:confluence:abc:space/123',
-						};
-						const jwtPayload = {
-							iss: 'test-issuer',
-							watermark: JSON.stringify(watermarkPayload),
-						};
-						const jwtToken = `header.${btoa(JSON.stringify(jwtPayload))}.signature`;
-						const authWithWatermark = { baseUrl, clientId, token: jwtToken };
-						(resolveAuth as jest.Mock).mockResolvedValueOnce(authWithWatermark);
+				it('with confluence_watermark_admin_ui on', async () => {
+					passGate('confluence_watermark_admin_ui');
 
-						const url = await mediaStore.getFileImageURL('1234', { collection });
+					const collection = 'some-collection';
+					const watermarkPayload = {
+						v: 'WjtFdA',
+						ari: 'ari:cloud:confluence:abc:space/123',
+					};
+					const jwtPayload = {
+						iss: 'test-issuer',
+						watermark: JSON.stringify(watermarkPayload),
+					};
+					const jwtToken = `header.${btoa(JSON.stringify(jwtPayload))}.signature`;
+					const authWithWatermark = { baseUrl, clientId, token: jwtToken };
+					(resolveAuth as jest.Mock).mockResolvedValueOnce(authWithWatermark);
 
-						expect(url).toContain('wmv=WjtFdA');
-					},
-					async () => {
-						const collection = 'some-collection';
-						const watermarkPayload = {
-							v: 'WjtFdA',
-							ari: 'ari:cloud:confluence:abc:space/123',
-						};
-						const jwtPayload = {
-							iss: 'test-issuer',
-							watermark: JSON.stringify(watermarkPayload),
-						};
-						const jwtToken = `header.${btoa(JSON.stringify(jwtPayload))}.signature`;
-						const authWithWatermark = { baseUrl, clientId, token: jwtToken };
-						(resolveAuth as jest.Mock).mockResolvedValueOnce(authWithWatermark);
+					const url = await mediaStore.getFileImageURL('1234', { collection });
 
-						const url = await mediaStore.getFileImageURL('1234', { collection });
+					expect(url).toContain('wmv=WjtFdA');
+				});
 
-						expect(url).not.toContain('wmv=');
-					},
-				);
+				it('with confluence_watermark_admin_ui off', async () => {
+					failGate('confluence_watermark_admin_ui');
+
+					const collection = 'some-collection';
+					const watermarkPayload = {
+						v: 'WjtFdA',
+						ari: 'ari:cloud:confluence:abc:space/123',
+					};
+					const jwtPayload = {
+						iss: 'test-issuer',
+						watermark: JSON.stringify(watermarkPayload),
+					};
+					const jwtToken = `header.${btoa(JSON.stringify(jwtPayload))}.signature`;
+					const authWithWatermark = { baseUrl, clientId, token: jwtToken };
+					(resolveAuth as jest.Mock).mockResolvedValueOnce(authWithWatermark);
+
+					const url = await mediaStore.getFileImageURL('1234', { collection });
+
+					expect(url).not.toContain('wmv=');
+				});
 			});
 		});
 
@@ -1308,37 +1320,39 @@ describe('MediaStore', () => {
 			const originalUrl = `${baseUrl}/file/1234/image?allowAnimated=true&client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&mode=crop&token=${token}`;
 
 			describe('getFileImageURL', () => {
-				ffTest(
-					'platform_media_path_based_route',
-					async () => {
-						const url = await mediaStore.getFileImageURL(fileId, { collection });
+				it('with platform_media_path_based_route on', async () => {
+					passGate('platform_media_path_based_route');
 
-						expect(resolveAuth).toHaveBeenCalledWith(
-							authProvider,
-							{
-								collectionName: collection,
-							},
-							undefined,
-						);
+					const url = await mediaStore.getFileImageURL(fileId, { collection });
 
-						// Should return the path-based URL
-						expect(url).toEqual(expectedPathBasedUrl);
-					},
-					async () => {
-						const url = await mediaStore.getFileImageURL(fileId, { collection });
+					expect(resolveAuth).toHaveBeenCalledWith(
+						authProvider,
+						{
+							collectionName: collection,
+						},
+						undefined,
+					);
 
-						expect(resolveAuth).toHaveBeenCalledWith(
-							authProvider,
-							{
-								collectionName: collection,
-							},
-							undefined,
-						);
+					// Should return the path-based URL
+					expect(url).toEqual(expectedPathBasedUrl);
+				});
 
-						// Should return the original CDN URL (existing behavior)
-						expect(url).toEqual(originalUrl);
-					},
-				);
+				it('with platform_media_path_based_route off', async () => {
+					failGate('platform_media_path_based_route');
+
+					const url = await mediaStore.getFileImageURL(fileId, { collection });
+
+					expect(resolveAuth).toHaveBeenCalledWith(
+						authProvider,
+						{
+							collectionName: collection,
+						},
+						undefined,
+					);
+
+					// Should return the original CDN URL (existing behavior)
+					expect(url).toEqual(originalUrl);
+				});
 			});
 
 			describe('getFileImageURLSync', () => {
@@ -1351,71 +1365,75 @@ describe('MediaStore', () => {
 					});
 				});
 
-				ffTest(
-					'platform_media_path_based_route',
-					() => {
-						const url = mediaStoreSync.getFileImageURLSync(fileId, { collection });
+				it('with platform_media_path_based_route on', () => {
+					passGate('platform_media_path_based_route');
 
-						expect(resolveInitialAuth).toHaveBeenCalledWith(auth);
+					const url = mediaStoreSync.getFileImageURLSync(fileId, { collection });
 
-						// Should return the path-based URL
-						expect(url).toEqual(expectedPathBasedUrl);
-					},
-					() => {
-						const url = mediaStoreSync.getFileImageURLSync(fileId, { collection });
+					expect(resolveInitialAuth).toHaveBeenCalledWith(auth);
 
-						expect(resolveInitialAuth).toHaveBeenCalledWith(auth);
+					// Should return the path-based URL
+					expect(url).toEqual(expectedPathBasedUrl);
+				});
 
-						// Should return the original CDN URL (existing behavior)
-						expect(url).toEqual(originalUrl);
-					},
-				);
+				it('with platform_media_path_based_route off', () => {
+					failGate('platform_media_path_based_route');
+
+					const url = mediaStoreSync.getFileImageURLSync(fileId, { collection });
+
+					expect(resolveInitialAuth).toHaveBeenCalledWith(auth);
+
+					// Should return the original CDN URL (existing behavior)
+					expect(url).toEqual(originalUrl);
+				});
 			});
 
 			describe('edge cases with path-based URLs', () => {
-				ffTest(
-					'platform_media_path_based_route',
-					async () => {
-						// Test with custom parameters
-						const customParams = {
-							collection,
-							width: 500,
-							height: 300,
-							mode: 'full-fit' as const,
-							upscale: true,
-						};
+				it('with platform_media_path_based_route on', async () => {
+					passGate('platform_media_path_based_route');
 
-						const expectedPathBasedUrl = `http://hello.atlassian.net/media-api/file/${fileId}/image?allowAnimated=true&client=some-client-id&collection=${collection}&height=300&max-age=${FILE_CACHE_MAX_AGE}&mode=full-fit&token=${token}&upscale=true&width=500`;
+					// Test with custom parameters
+					const customParams = {
+						collection,
+						width: 500,
+						height: 300,
+						mode: 'full-fit' as const,
+						upscale: true,
+					};
 
-						const url = await mediaStore.getFileImageURL(fileId, customParams);
+					const expectedPathBasedUrl = `http://hello.atlassian.net/media-api/file/${fileId}/image?allowAnimated=true&client=some-client-id&collection=${collection}&height=300&max-age=${FILE_CACHE_MAX_AGE}&mode=full-fit&token=${token}&upscale=true&width=500`;
 
-						expect(url).toEqual(expectedPathBasedUrl);
+					const url = await mediaStore.getFileImageURL(fileId, customParams);
 
-						// Test without collection parameter
-						const expectedPathBasedUrlNoCollection = `http://hello.atlassian.net/media-api/file/${fileId}/image?allowAnimated=true&client=some-client-id&max-age=${FILE_CACHE_MAX_AGE}&mode=crop&token=${token}`;
+					expect(url).toEqual(expectedPathBasedUrl);
 
-						const urlNoCollection = await mediaStore.getFileImageURL(fileId);
+					// Test without collection parameter
+					const expectedPathBasedUrlNoCollection = `http://hello.atlassian.net/media-api/file/${fileId}/image?allowAnimated=true&client=some-client-id&max-age=${FILE_CACHE_MAX_AGE}&mode=crop&token=${token}`;
 
-						expect(urlNoCollection).toEqual(expectedPathBasedUrlNoCollection);
-					},
-					async () => {
-						// Test that edge cases work normally when feature flag is disabled
-						const customParams = {
-							collection,
-							width: 500,
-							height: 300,
-							mode: 'full-fit' as const,
-							upscale: true,
-						};
+					const urlNoCollection = await mediaStore.getFileImageURL(fileId);
 
-						const expectedOriginalUrl = `${baseUrl}/file/${fileId}/image?allowAnimated=true&client=some-client-id&collection=${collection}&height=300&max-age=${FILE_CACHE_MAX_AGE}&mode=full-fit&token=${token}&upscale=true&width=500`;
+					expect(urlNoCollection).toEqual(expectedPathBasedUrlNoCollection);
+				});
 
-						const url = await mediaStore.getFileImageURL(fileId, customParams);
+				it('with platform_media_path_based_route off', async () => {
+					failGate('platform_media_path_based_route');
 
-						// Should return the original CDN URL
-						expect(url).toEqual(expectedOriginalUrl);
-					},
-				);
+					// Test that edge cases work normally when feature flag is disabled
+					const customParams = {
+						collection,
+						width: 500,
+						height: 300,
+						mode: 'full-fit' as const,
+						upscale: true,
+					};
+
+					const expectedOriginalUrl = `${baseUrl}/file/${fileId}/image?allowAnimated=true&client=some-client-id&collection=${collection}&height=300&max-age=${FILE_CACHE_MAX_AGE}&mode=full-fit&token=${token}&upscale=true&width=500`;
+
+					const url = await mediaStore.getFileImageURL(fileId, customParams);
+
+					// Should return the original CDN URL
+					expect(url).toEqual(expectedOriginalUrl);
+				});
 			});
 		});
 
@@ -1423,79 +1441,81 @@ describe('MediaStore', () => {
 			describe('should return file image preview only in commercial environment', () => {
 				const nonCdnURL = `${baseUrl}/file/123/image?allowAnimated=true&clientId=some-client-id&max-age=${FILE_CACHE_MAX_AGE}&mode=crop`;
 				const cdnURL = `${baseUrl}/file/123/image/cdn?allowAnimated=true&clientId=some-client-id&max-age=${FILE_CACHE_MAX_AGE}&mode=crop`;
-				ffTest(
-					'platform_media_cdn_delivery',
-					async () => {
-						fetchMock.once(JSON.stringify({ data }), {
-							status: 201,
-							statusText: 'Created',
-						});
+				it('with platform_media_cdn_delivery on', async () => {
+					passGate('platform_media_cdn_delivery');
 
-						// Test against fedramp micros perimeter, should return non-cdn url
-						global.MICROS_PERIMETER = 'fedramp-moderate';
-						let image = await mediaStore.getImage('123');
+					fetchMock.once(JSON.stringify({ data }), {
+						status: 201,
+						statusText: 'Created',
+					});
 
-						expect(image).toBeInstanceOf(Blob);
-						expect(fetchMock).toHaveBeenCalledWith(nonCdnURL, {
-							method: 'GET',
-							headers: {
-								'X-Client-Id': clientId,
-								Authorization: `Bearer ${token}`,
-							},
-						});
+					// Test against fedramp micros perimeter, should return non-cdn url
+					global.MICROS_PERIMETER = 'fedramp-moderate';
+					let image = await mediaStore.getImage('123');
 
-						// Test against fedramp hostname, should return non-cdn url
-						Object.defineProperty(window.location, 'hostname', {
-							writable: true,
-							value: 'atlassian-us-gov-mod.com',
-						});
-						image = await mediaStore.getImage('123');
+					expect(image).toBeInstanceOf(Blob);
+					expect(fetchMock).toHaveBeenCalledWith(nonCdnURL, {
+						method: 'GET',
+						headers: {
+							'X-Client-Id': clientId,
+							Authorization: `Bearer ${token}`,
+						},
+					});
 
-						expect(image).toBeInstanceOf(Blob);
-						expect(fetchMock).toHaveBeenCalledWith(nonCdnURL, {
-							method: 'GET',
-							headers: {
-								'X-Client-Id': clientId,
-								Authorization: `Bearer ${token}`,
-							},
-						});
+					// Test against fedramp hostname, should return non-cdn url
+					Object.defineProperty(window.location, 'hostname', {
+						writable: true,
+						value: 'atlassian-us-gov-mod.com',
+					});
+					image = await mediaStore.getImage('123');
 
-						// Test against commercial micros perimeter and hostname, should return cdn url
-						global.MICROS_PERIMETER = 'commercial';
-						Object.defineProperty(window.location, 'hostname', {
-							writable: true,
-							value: 'hello.atlassian.net',
-						});
+					expect(image).toBeInstanceOf(Blob);
+					expect(fetchMock).toHaveBeenCalledWith(nonCdnURL, {
+						method: 'GET',
+						headers: {
+							'X-Client-Id': clientId,
+							Authorization: `Bearer ${token}`,
+						},
+					});
 
-						image = await mediaStore.getImage('123');
+					// Test against commercial micros perimeter and hostname, should return cdn url
+					global.MICROS_PERIMETER = 'commercial';
+					Object.defineProperty(window.location, 'hostname', {
+						writable: true,
+						value: 'hello.atlassian.net',
+					});
 
-						expect(image).toBeInstanceOf(Blob);
-						expect(fetchMock).toHaveBeenCalledWith(cdnURL, {
-							method: 'GET',
-							headers: {
-								'X-Client-Id': clientId,
-								Authorization: `Bearer ${token}`,
-							},
-						});
-					},
-					async () => {
-						fetchMock.once(JSON.stringify({ data }), {
-							status: 201,
-							statusText: 'Created',
-						});
+					image = await mediaStore.getImage('123');
 
-						const image = await mediaStore.getImage('123');
+					expect(image).toBeInstanceOf(Blob);
+					expect(fetchMock).toHaveBeenCalledWith(cdnURL, {
+						method: 'GET',
+						headers: {
+							'X-Client-Id': clientId,
+							Authorization: `Bearer ${token}`,
+						},
+					});
+				});
 
-						expect(image).toBeInstanceOf(Blob);
-						expect(fetchMock).toHaveBeenCalledWith(nonCdnURL, {
-							method: 'GET',
-							headers: {
-								'X-Client-Id': clientId,
-								Authorization: `Bearer ${token}`,
-							},
-						});
-					},
-				);
+				it('with platform_media_cdn_delivery off', async () => {
+					failGate('platform_media_cdn_delivery');
+
+					fetchMock.once(JSON.stringify({ data }), {
+						status: 201,
+						statusText: 'Created',
+					});
+
+					const image = await mediaStore.getImage('123');
+
+					expect(image).toBeInstanceOf(Blob);
+					expect(fetchMock).toHaveBeenCalledWith(nonCdnURL, {
+						method: 'GET',
+						headers: {
+							'X-Client-Id': clientId,
+							Authorization: `Bearer ${token}`,
+						},
+					});
+				});
 			});
 
 			it('should merge default params with given ones', async () => {
@@ -1685,57 +1705,59 @@ describe('MediaStore', () => {
 			});
 
 			describe('watermark version param', () => {
-				ffTest(
-					'confluence_watermark_admin_ui',
-					async () => {
-						const watermarkPayload = {
-							v: 'WjtFdA',
-							ari: 'ari:cloud:confluence:abc:space/123',
-						};
-						const jwtPayload = {
-							iss: 'test-issuer',
-							watermark: JSON.stringify(watermarkPayload),
-						};
-						const jwtToken = `header.${btoa(JSON.stringify(jwtPayload))}.signature`;
-						const authWithWatermark = { baseUrl, clientId, token: jwtToken };
-						(resolveAuth as jest.Mock).mockResolvedValueOnce(authWithWatermark);
+				it('with confluence_watermark_admin_ui on', async () => {
+					passGate('confluence_watermark_admin_ui');
 
-						fetchMock.once(JSON.stringify({ data }), {
-							status: 201,
-							statusText: 'Created',
-						});
+					const watermarkPayload = {
+						v: 'WjtFdA',
+						ari: 'ari:cloud:confluence:abc:space/123',
+					};
+					const jwtPayload = {
+						iss: 'test-issuer',
+						watermark: JSON.stringify(watermarkPayload),
+					};
+					const jwtToken = `header.${btoa(JSON.stringify(jwtPayload))}.signature`;
+					const authWithWatermark = { baseUrl, clientId, token: jwtToken };
+					(resolveAuth as jest.Mock).mockResolvedValueOnce(authWithWatermark);
 
-						await mediaStore.getImage('123');
+					fetchMock.once(JSON.stringify({ data }), {
+						status: 201,
+						statusText: 'Created',
+					});
 
-						expect(fetchMock).toHaveBeenCalledWith(
-							expect.stringContaining('wmv=WjtFdA'),
-							expect.any(Object),
-						);
-					},
-					async () => {
-						const watermarkPayload = {
-							v: 'WjtFdA',
-							ari: 'ari:cloud:confluence:abc:space/123',
-						};
-						const jwtPayload = {
-							iss: 'test-issuer',
-							watermark: JSON.stringify(watermarkPayload),
-						};
-						const jwtToken = `header.${btoa(JSON.stringify(jwtPayload))}.signature`;
-						const authWithWatermark = { baseUrl, clientId, token: jwtToken };
-						(resolveAuth as jest.Mock).mockResolvedValueOnce(authWithWatermark);
+					await mediaStore.getImage('123');
 
-						fetchMock.once(JSON.stringify({ data }), {
-							status: 201,
-							statusText: 'Created',
-						});
+					expect(fetchMock).toHaveBeenCalledWith(
+						expect.stringContaining('wmv=WjtFdA'),
+						expect.any(Object),
+					);
+				});
 
-						await mediaStore.getImage('123');
+				it('with confluence_watermark_admin_ui off', async () => {
+					failGate('confluence_watermark_admin_ui');
 
-						const calledUrl = fetchMock.mock.calls[fetchMock.mock.calls.length - 1][0];
-						expect(calledUrl).not.toContain('wmv=');
-					},
-				);
+					const watermarkPayload = {
+						v: 'WjtFdA',
+						ari: 'ari:cloud:confluence:abc:space/123',
+					};
+					const jwtPayload = {
+						iss: 'test-issuer',
+						watermark: JSON.stringify(watermarkPayload),
+					};
+					const jwtToken = `header.${btoa(JSON.stringify(jwtPayload))}.signature`;
+					const authWithWatermark = { baseUrl, clientId, token: jwtToken };
+					(resolveAuth as jest.Mock).mockResolvedValueOnce(authWithWatermark);
+
+					fetchMock.once(JSON.stringify({ data }), {
+						status: 201,
+						statusText: 'Created',
+					});
+
+					await mediaStore.getImage('123');
+
+					const calledUrl = fetchMock.mock.calls[fetchMock.mock.calls.length - 1][0];
+					expect(calledUrl).not.toContain('wmv=');
+				});
 			});
 		});
 
@@ -1748,40 +1770,42 @@ describe('MediaStore', () => {
 					}),
 				)}.signature`;
 
-			ffTest(
-				'confluence_watermark_admin_ui',
-				async () => {
-					(resolveAuth as jest.Mock).mockResolvedValueOnce({
-						baseUrl,
-						clientId,
-						token: tokenWithWatermark({ v: 'WjtFdA', ari: 'ari:cloud:confluence:abc:space/123' }),
-					});
+			it('with confluence_watermark_admin_ui on', async () => {
+				passGate('confluence_watermark_admin_ui');
 
-					await expect(mediaStore.getImageWatermarkVersion('some-collection')).resolves.toBe(
-						'WjtFdA',
-					);
-					expect(resolveAuth).toHaveBeenLastCalledWith(
-						authProvider,
-						{ collectionName: 'some-collection' },
-						undefined,
-					);
+				(resolveAuth as jest.Mock).mockResolvedValueOnce({
+					baseUrl,
+					clientId,
+					token: tokenWithWatermark({ v: 'WjtFdA', ari: 'ari:cloud:confluence:abc:space/123' }),
+				});
 
-					// A token without a watermark claim has no version.
-					(resolveAuth as jest.Mock).mockResolvedValueOnce({
-						baseUrl,
-						clientId,
-						token: tokenWithWatermark(),
-					});
-					await expect(mediaStore.getImageWatermarkVersion()).resolves.toBe(undefined);
-				},
-				async () => {
-					// `getImage` sends no `wmv` with the gate off, so there is no version to compare.
-					await expect(mediaStore.getImageWatermarkVersion('some-collection')).resolves.toBe(
-						undefined,
-					);
-					expect(resolveAuth).not.toHaveBeenCalled();
-				},
-			);
+				await expect(mediaStore.getImageWatermarkVersion('some-collection')).resolves.toBe(
+					'WjtFdA',
+				);
+				expect(resolveAuth).toHaveBeenLastCalledWith(
+					authProvider,
+					{ collectionName: 'some-collection' },
+					undefined,
+				);
+
+				// A token without a watermark claim has no version.
+				(resolveAuth as jest.Mock).mockResolvedValueOnce({
+					baseUrl,
+					clientId,
+					token: tokenWithWatermark(),
+				});
+				await expect(mediaStore.getImageWatermarkVersion()).resolves.toBe(undefined);
+			});
+
+			it('with confluence_watermark_admin_ui off', async () => {
+				failGate('confluence_watermark_admin_ui');
+
+				// `getImage` sends no `wmv` with the gate off, so there is no version to compare.
+				await expect(mediaStore.getImageWatermarkVersion('some-collection')).resolves.toBe(
+					undefined,
+				);
+				expect(resolveAuth).not.toHaveBeenCalled();
+			});
 		});
 
 		describe('getItems', () => {
@@ -2090,63 +2114,65 @@ describe('MediaStore', () => {
 					endpoint: '/file/{fileId}/binary/cdn',
 				};
 
-				ffTest(
-					'platform_media_cdn_delivery',
-					async () => {
-						// Test against fedramp micros perimeter, should return non-cdn url
-						let response = await mediaStore.getFileBinary('1234', 'some-collection-name');
-						// Test against fedramp hostname, should return non-cdn url
-						global.MICROS_PERIMETER = 'fedramp-moderate';
-						response = await mediaStore.getFileBinary('1234', 'some-collection-name');
-						expect(requestModuleMock).toHaveBeenCalledWith(
-							`${baseUrl}/file/1234/binary`,
-							expect.objectContaining(nonCdnObject),
-							undefined,
-						);
+				it('with platform_media_cdn_delivery on', async () => {
+					passGate('platform_media_cdn_delivery');
 
-						expect(response).toEqual(expect.any(Blob));
-						// Test against commercial micros perimeter and hostname, should return cdn url
-						Object.defineProperty(window.location, 'hostname', {
-							writable: true,
-							value: 'atlassian-us-gov-mod.com',
-						});
-						response = await mediaStore.getFileBinary('1234', 'some-collection-name');
-						expect(requestModuleMock).toHaveBeenCalledWith(
-							`${baseUrl}/file/1234/binary`,
-							expect.objectContaining(nonCdnObject),
-							undefined,
-						);
+					// Test against fedramp micros perimeter, should return non-cdn url
+					let response = await mediaStore.getFileBinary('1234', 'some-collection-name');
+					// Test against fedramp hostname, should return non-cdn url
+					global.MICROS_PERIMETER = 'fedramp-moderate';
+					response = await mediaStore.getFileBinary('1234', 'some-collection-name');
+					expect(requestModuleMock).toHaveBeenCalledWith(
+						`${baseUrl}/file/1234/binary`,
+						expect.objectContaining(nonCdnObject),
+						undefined,
+					);
 
-						expect(response).toEqual(expect.any(Blob));
+					expect(response).toEqual(expect.any(Blob));
+					// Test against commercial micros perimeter and hostname, should return cdn url
+					Object.defineProperty(window.location, 'hostname', {
+						writable: true,
+						value: 'atlassian-us-gov-mod.com',
+					});
+					response = await mediaStore.getFileBinary('1234', 'some-collection-name');
+					expect(requestModuleMock).toHaveBeenCalledWith(
+						`${baseUrl}/file/1234/binary`,
+						expect.objectContaining(nonCdnObject),
+						undefined,
+					);
 
-						// When the feature flag is enabled, the URL should contain the /binary/cdn path
-						global.MICROS_PERIMETER = 'commercial';
-						Object.defineProperty(window.location, 'hostname', {
-							writable: true,
-							value: 'hello.atlassian.net',
-						});
-						response = await mediaStore.getFileBinary('1234', 'some-collection-name');
-						expect(requestModuleMock).toHaveBeenCalledWith(
-							`${baseUrl}/file/1234/binary/cdn`,
-							expect.objectContaining(cdnObject),
-							undefined,
-						);
+					expect(response).toEqual(expect.any(Blob));
 
-						expect(response).toEqual(expect.any(Blob));
-					},
-					async () => {
-						const response = await mediaStore.getFileBinary('1234', 'some-collection-name');
-						// When the feature flag is disabled, the URL should contain the /binary path
+					// When the feature flag is enabled, the URL should contain the /binary/cdn path
+					global.MICROS_PERIMETER = 'commercial';
+					Object.defineProperty(window.location, 'hostname', {
+						writable: true,
+						value: 'hello.atlassian.net',
+					});
+					response = await mediaStore.getFileBinary('1234', 'some-collection-name');
+					expect(requestModuleMock).toHaveBeenCalledWith(
+						`${baseUrl}/file/1234/binary/cdn`,
+						expect.objectContaining(cdnObject),
+						undefined,
+					);
 
-						expect(requestModuleMock).toHaveBeenCalledWith(
-							`${baseUrl}/file/1234/binary`,
-							expect.objectContaining(nonCdnObject),
-							undefined,
-						);
+					expect(response).toEqual(expect.any(Blob));
+				});
 
-						expect(response).toEqual(expect.any(Blob));
-					},
-				);
+				it('with platform_media_cdn_delivery off', async () => {
+					failGate('platform_media_cdn_delivery');
+
+					const response = await mediaStore.getFileBinary('1234', 'some-collection-name');
+					// When the feature flag is disabled, the URL should contain the /binary path
+
+					expect(requestModuleMock).toHaveBeenCalledWith(
+						`${baseUrl}/file/1234/binary`,
+						expect.objectContaining(nonCdnObject),
+						undefined,
+					);
+
+					expect(response).toEqual(expect.any(Blob));
+				});
 			});
 		});
 
@@ -2155,39 +2181,41 @@ describe('MediaStore', () => {
 				const nonCdnURL = `${baseUrl}/file/1234/binary?client=some-client-id&collection=some-collection-name&dl=true&max-age=${FILE_CACHE_MAX_AGE}&token=${token}`;
 
 				const cdnURL = `${baseUrl}/file/1234/binary/cdn?client=some-client-id&collection=some-collection-name&dl=true&max-age=${FILE_CACHE_MAX_AGE}&token=${token}`;
-				ffTest(
-					'platform_media_cdn_delivery',
-					async () => {
-						// When the feature flag is enabled, the URL should contain the new path
+				it('with platform_media_cdn_delivery on', async () => {
+					passGate('platform_media_cdn_delivery');
 
-						// Test against fedramp micros perimeter, should return non-cdn url
-						global.MICROS_PERIMETER = 'fedramp-moderate';
-						let url = await mediaStore.getFileBinaryURL('1234', 'some-collection-name');
-						expect(url).toEqual(nonCdnURL);
+					// When the feature flag is enabled, the URL should contain the new path
 
-						// Test against fedramp hostname, should return non-cdn url
-						Object.defineProperty(window.location, 'hostname', {
-							writable: true,
-							value: 'atlassian-us-gov-mod.com',
-						});
-						url = await mediaStore.getFileBinaryURL('1234', 'some-collection-name');
-						expect(url).toEqual(nonCdnURL);
+					// Test against fedramp micros perimeter, should return non-cdn url
+					global.MICROS_PERIMETER = 'fedramp-moderate';
+					let url = await mediaStore.getFileBinaryURL('1234', 'some-collection-name');
+					expect(url).toEqual(nonCdnURL);
 
-						// Test against commercial micros perimeter and hostname, should return cdn url
-						global.MICROS_PERIMETER = 'commercial';
-						Object.defineProperty(window.location, 'hostname', {
-							writable: true,
-							value: 'hello.atlassian.net',
-						});
-						url = await mediaStore.getFileBinaryURL('1234', 'some-collection-name');
-						expect(url).toEqual(cdnURL);
-					},
-					async () => {
-						const url = await mediaStore.getFileBinaryURL('1234', 'some-collection-name');
-						// When the feature flag is disabled, the URL should contain the old path
-						expect(url).toEqual(nonCdnURL);
-					},
-				);
+					// Test against fedramp hostname, should return non-cdn url
+					Object.defineProperty(window.location, 'hostname', {
+						writable: true,
+						value: 'atlassian-us-gov-mod.com',
+					});
+					url = await mediaStore.getFileBinaryURL('1234', 'some-collection-name');
+					expect(url).toEqual(nonCdnURL);
+
+					// Test against commercial micros perimeter and hostname, should return cdn url
+					global.MICROS_PERIMETER = 'commercial';
+					Object.defineProperty(window.location, 'hostname', {
+						writable: true,
+						value: 'hello.atlassian.net',
+					});
+					url = await mediaStore.getFileBinaryURL('1234', 'some-collection-name');
+					expect(url).toEqual(cdnURL);
+				});
+
+				it('with platform_media_cdn_delivery off', async () => {
+					failGate('platform_media_cdn_delivery');
+
+					const url = await mediaStore.getFileBinaryURL('1234', 'some-collection-name');
+					// When the feature flag is disabled, the URL should contain the old path
+					expect(url).toEqual(nonCdnURL);
+				});
 			});
 
 			describe('path-based URL transformation', () => {
@@ -2196,37 +2224,39 @@ describe('MediaStore', () => {
 				const expectedPathBasedUrl = `http://hello.atlassian.net/media-api/file/1234/binary?client=some-client-id&collection=${collection}&dl=true&max-age=${FILE_CACHE_MAX_AGE}&token=${token}`;
 				const originalUrl = `${baseUrl}/file/1234/binary?client=some-client-id&collection=${collection}&dl=true&max-age=${FILE_CACHE_MAX_AGE}&token=${token}`;
 
-				ffTest(
-					'platform_media_path_based_route',
-					async () => {
-						const url = await mediaStore.getFileBinaryURL(fileId, collection);
+				it('with platform_media_path_based_route on', async () => {
+					passGate('platform_media_path_based_route');
 
-						expect(resolveAuth).toHaveBeenCalledWith(
-							authProvider,
-							{
-								collectionName: collection,
-							},
-							undefined,
-						);
+					const url = await mediaStore.getFileBinaryURL(fileId, collection);
 
-						// Should return the path-based URL
-						expect(url).toEqual(expectedPathBasedUrl);
-					},
-					async () => {
-						const url = await mediaStore.getFileBinaryURL(fileId, collection);
+					expect(resolveAuth).toHaveBeenCalledWith(
+						authProvider,
+						{
+							collectionName: collection,
+						},
+						undefined,
+					);
 
-						expect(resolveAuth).toHaveBeenCalledWith(
-							authProvider,
-							{
-								collectionName: collection,
-							},
-							undefined,
-						);
+					// Should return the path-based URL
+					expect(url).toEqual(expectedPathBasedUrl);
+				});
 
-						// Should return the original URL (existing behavior)
-						expect(url).toEqual(originalUrl);
-					},
-				);
+				it('with platform_media_path_based_route off', async () => {
+					failGate('platform_media_path_based_route');
+
+					const url = await mediaStore.getFileBinaryURL(fileId, collection);
+
+					expect(resolveAuth).toHaveBeenCalledWith(
+						authProvider,
+						{
+							collectionName: collection,
+						},
+						undefined,
+					);
+
+					// Should return the original URL (existing behavior)
+					expect(url).toEqual(originalUrl);
+				});
 			});
 
 			it('should call resolveAuth with authProvider and given collection name', async () => {
@@ -2298,66 +2328,66 @@ describe('MediaStore', () => {
 					const cdnURL =
 						'http://some-host/sd-video/cdn?client=some-client-id&collection=some-collection&max-age=2592000&token=some-token';
 
-					ffTest(
-						'platform_media_cdn_delivery',
-						async () => {
-							// Test against fedramp micros perimeter, should return non-cdn url
-							global.MICROS_PERIMETER = 'fedramp-moderate';
-							let url = await mediaStore.getArtifactURL(
-								{
-									'video_640.mp4': {
-										processingStatus: 'succeeded',
-										url: '/sd-video',
-										cdnUrl: 'backend-provided-cdn-url',
-									},
+					it('with platform_media_cdn_delivery on', async () => {
+						passGate('platform_media_cdn_delivery');
+
+						// Test against fedramp micros perimeter, should return non-cdn url
+						global.MICROS_PERIMETER = 'fedramp-moderate';
+						let url = await mediaStore.getArtifactURL(
+							{
+								'video_640.mp4': {
+									processingStatus: 'succeeded',
+									url: '/sd-video',
+									cdnUrl: 'backend-provided-cdn-url',
 								},
-								'video_640.mp4',
-								'some-collection',
-							);
-							expect(url).toEqual(nonCdnURL);
+							},
+							'video_640.mp4',
+							'some-collection',
+						);
+						expect(url).toEqual(nonCdnURL);
 
-							// Test against fedramp hostname, should return non-cdn url
-							Object.defineProperty(window.location, 'hostname', {
-								writable: true,
-								value: 'atlassian-us-gov-mod.com',
-							});
-							url = await mediaStore.getArtifactURL(
-								{
-									'video_640.mp4': {
-										processingStatus: 'succeeded',
-										url: '/sd-video',
-									},
+						// Test against fedramp hostname, should return non-cdn url
+						Object.defineProperty(window.location, 'hostname', {
+							writable: true,
+							value: 'atlassian-us-gov-mod.com',
+						});
+						url = await mediaStore.getArtifactURL(
+							{
+								'video_640.mp4': {
+									processingStatus: 'succeeded',
+									url: '/sd-video',
 								},
-								'video_640.mp4',
-								'some-collection',
-							);
-							expect(url).toEqual(nonCdnURL);
+							},
+							'video_640.mp4',
+							'some-collection',
+						);
+						expect(url).toEqual(nonCdnURL);
 
-							// Test against commercial micros perimeter and hostname, without provided backend cdn url, should return cdn url
-							global.MICROS_PERIMETER = 'commercial';
-							Object.defineProperty(window.location, 'hostname', {
-								writable: true,
-								value: 'hello.atlassian.net',
-							});
+						// Test against commercial micros perimeter and hostname, without provided backend cdn url, should return cdn url
+						global.MICROS_PERIMETER = 'commercial';
+						Object.defineProperty(window.location, 'hostname', {
+							writable: true,
+							value: 'hello.atlassian.net',
+						});
 
-							url = await mediaStore.getArtifactURL(
-								{
-									'video_640.mp4': {
-										processingStatus: 'succeeded',
-										url: '/sd-video',
-									},
+						url = await mediaStore.getArtifactURL(
+							{
+								'video_640.mp4': {
+									processingStatus: 'succeeded',
+									url: '/sd-video',
 								},
-								'video_640.mp4',
-								'some-collection',
-							);
+							},
+							'video_640.mp4',
+							'some-collection',
+						);
 
-							expect(url).toEqual(cdnURL);
+						expect(url).toEqual(cdnURL);
 
-							// ----- WARNING -----
-							// Uncomment when artifact.cdnUrl works in Jira
-							// -----------------
-							// Test against commercial micros perimeter and hostname, with provided backend cdn url, should return provided backend cdn url
-							/* url = await mediaStore.getArtifactURL(
+						// ----- WARNING -----
+						// Uncomment when artifact.cdnUrl works in Jira
+						// -----------------
+						// Test against commercial micros perimeter and hostname, with provided backend cdn url, should return provided backend cdn url
+						/* url = await mediaStore.getArtifactURL(
 								{
 									'video_640.mp4': {
 										processingStatus: 'succeeded',
@@ -2371,24 +2401,26 @@ describe('MediaStore', () => {
 
 							expect(url).toEqual('backend-provided-cdn-url');
 							*/
-						},
-						async () => {
-							const url = await mediaStore.getArtifactURL(
-								{
-									'video_640.mp4': {
-										processingStatus: 'succeeded',
-										url: '/sd-video',
-										cdnUrl:
-											'https://media-cdn.dev.atlassian.com/adev/v1/cdn/file/1234/image?token=cdn-token',
-									},
-								},
-								'video_640.mp4',
-								'some-collection',
-							);
+					});
 
-							expect(url).toEqual(nonCdnURL);
-						},
-					);
+					it('with platform_media_cdn_delivery off', async () => {
+						failGate('platform_media_cdn_delivery');
+
+						const url = await mediaStore.getArtifactURL(
+							{
+								'video_640.mp4': {
+									processingStatus: 'succeeded',
+									url: '/sd-video',
+									cdnUrl:
+										'https://media-cdn.dev.atlassian.com/adev/v1/cdn/file/1234/image?token=cdn-token',
+								},
+							},
+							'video_640.mp4',
+							'some-collection',
+						);
+
+						expect(url).toEqual(nonCdnURL);
+					});
 				});
 			});
 
@@ -2417,37 +2449,39 @@ describe('MediaStore', () => {
 				const expectedPathBasedUrl = `http://hello.atlassian.net/media-api/sd-video?client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&token=${token}`;
 				const originalUrl = `${baseUrl}/sd-video?client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&token=${token}`;
 
-				ffTest(
-					'platform_media_path_based_route',
-					async () => {
-						const url = await mediaStore.getArtifactURL(artifacts, artifactName, collection);
+				it('with platform_media_path_based_route on', async () => {
+					passGate('platform_media_path_based_route');
 
-						expect(resolveAuth).toHaveBeenCalledWith(
-							authProvider,
-							{
-								collectionName: collection,
-							},
-							undefined,
-						);
+					const url = await mediaStore.getArtifactURL(artifacts, artifactName, collection);
 
-						// Should return the path-based URL
-						expect(url).toEqual(expectedPathBasedUrl);
-					},
-					async () => {
-						const url = await mediaStore.getArtifactURL(artifacts, artifactName, collection);
+					expect(resolveAuth).toHaveBeenCalledWith(
+						authProvider,
+						{
+							collectionName: collection,
+						},
+						undefined,
+					);
 
-						expect(resolveAuth).toHaveBeenCalledWith(
-							authProvider,
-							{
-								collectionName: collection,
-							},
-							undefined,
-						);
+					// Should return the path-based URL
+					expect(url).toEqual(expectedPathBasedUrl);
+				});
 
-						// Should return the original URL (existing behavior)
-						expect(url).toEqual(originalUrl);
-					},
-				);
+				it('with platform_media_path_based_route off', async () => {
+					failGate('platform_media_path_based_route');
+
+					const url = await mediaStore.getArtifactURL(artifacts, artifactName, collection);
+
+					expect(resolveAuth).toHaveBeenCalledWith(
+						authProvider,
+						{
+							collectionName: collection,
+						},
+						undefined,
+					);
+
+					// Should return the original URL (existing behavior)
+					expect(url).toEqual(originalUrl);
+				});
 			});
 
 			describe('when baseUrl already contains /media-api', () => {
@@ -2501,117 +2535,121 @@ describe('MediaStore', () => {
 				});
 
 				describe('with CDN enabled', () => {
-					ffTest(
-						'platform_media_cdn_delivery',
-						async () => {
-							// Set up commercial environment for CDN
-							global.MICROS_PERIMETER = 'commercial';
-							Object.defineProperty(window.location, 'hostname', {
-								writable: true,
-								value: 'hello.atlassian.net',
-							});
-							Object.defineProperty(window.document.location, 'hostname', {
-								writable: true,
-								value: 'hello.atlassian.net',
-							});
+					it('with platform_media_cdn_delivery on', async () => {
+						passGate('platform_media_cdn_delivery');
 
-							const expectedUrl = `${baseUrlWithMediaApi}/sd-video/cdn?client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&token=${token}`;
+						// Set up commercial environment for CDN
+						global.MICROS_PERIMETER = 'commercial';
+						Object.defineProperty(window.location, 'hostname', {
+							writable: true,
+							value: 'hello.atlassian.net',
+						});
+						Object.defineProperty(window.document.location, 'hostname', {
+							writable: true,
+							value: 'hello.atlassian.net',
+						});
 
-							const url = await mediaStoreWithMediaApiBase.getArtifactURL(
-								artifacts,
-								artifactName,
-								collection,
-							);
+						const expectedUrl = `${baseUrlWithMediaApi}/sd-video/cdn?client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&token=${token}`;
 
-							expect(resolveAuth).toHaveBeenCalledWith(
-								authProvider,
-								{
-									collectionName: collection,
-								},
-								undefined,
-							);
+						const url = await mediaStoreWithMediaApiBase.getArtifactURL(
+							artifacts,
+							artifactName,
+							collection,
+						);
 
-							// Should return CDN URL with /media-api in baseUrl, with /cdn suffix
-							expect(url).toEqual(expectedUrl);
-							expect(url).not.toContain('/media-api/media-api');
-						},
-						async () => {
-							const expectedUrl = `${baseUrlWithMediaApi}/sd-video?client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&token=${token}`;
+						expect(resolveAuth).toHaveBeenCalledWith(
+							authProvider,
+							{
+								collectionName: collection,
+							},
+							undefined,
+						);
 
-							const url = await mediaStoreWithMediaApiBase.getArtifactURL(
-								artifacts,
-								artifactName,
-								collection,
-							);
+						// Should return CDN URL with /media-api in baseUrl, with /cdn suffix
+						expect(url).toEqual(expectedUrl);
+						expect(url).not.toContain('/media-api/media-api');
+					});
 
-							expect(resolveAuth).toHaveBeenCalledWith(
-								authProvider,
-								{
-									collectionName: collection,
-								},
-								undefined,
-							);
+					it('with platform_media_cdn_delivery off', async () => {
+						failGate('platform_media_cdn_delivery');
 
-							// Should return non-CDN URL with /media-api in baseUrl
-							expect(url).toEqual(expectedUrl);
-						},
-					);
+						const expectedUrl = `${baseUrlWithMediaApi}/sd-video?client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&token=${token}`;
+
+						const url = await mediaStoreWithMediaApiBase.getArtifactURL(
+							artifacts,
+							artifactName,
+							collection,
+						);
+
+						expect(resolveAuth).toHaveBeenCalledWith(
+							authProvider,
+							{
+								collectionName: collection,
+							},
+							undefined,
+						);
+
+						// Should return non-CDN URL with /media-api in baseUrl
+						expect(url).toEqual(expectedUrl);
+					});
 				});
 
 				describe('with path-based URL transformation enabled', () => {
-					ffTest(
-						'platform_media_path_based_route',
-						async () => {
-							// When path-based routing is enabled AND baseUrl contains /media-api,
-							// it should not duplicate the /media-api prefix
-							const url = await mediaStoreWithMediaApiBase.getArtifactURL(
-								artifacts,
-								artifactName,
-								collection,
-							);
+					it('with platform_media_path_based_route on', async () => {
+						passGate('platform_media_path_based_route');
 
-							expect(resolveAuth).toHaveBeenCalledWith(
-								authProvider,
-								{
-									collectionName: collection,
-								},
-								undefined,
-							);
+						// When path-based routing is enabled AND baseUrl contains /media-api,
+						// it should not duplicate the /media-api prefix
+						const url = await mediaStoreWithMediaApiBase.getArtifactURL(
+							artifacts,
+							artifactName,
+							collection,
+						);
 
-							// Should not duplicate /media-api in the path
-							expect(url).not.toContain('/media-api/media-api');
+						expect(resolveAuth).toHaveBeenCalledWith(
+							authProvider,
+							{
+								collectionName: collection,
+							},
+							undefined,
+						);
 
-							// Should maintain the /media-api path from baseUrl
-							expect(url).toContain('/media-api/');
+						// Should not duplicate /media-api in the path
+						expect(url).not.toContain('/media-api/media-api');
 
-							// Should use the current hostname
-							expect(url).toContain('hello.atlassian.net');
+						// Should maintain the /media-api path from baseUrl
+						expect(url).toContain('/media-api/');
 
-							// Verify the complete expected structure
-							const expectedUrl = `http://hello.atlassian.net/media-api/sd-video?client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&token=${token}`;
-							expect(url).toEqual(expectedUrl);
-						},
-						async () => {
-							// When path-based routing is disabled, should return URL with baseUrl as-is
-							const expectedUrl = `${baseUrlWithMediaApi}/sd-video?client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&token=${token}`;
+						// Should use the current hostname
+						expect(url).toContain('hello.atlassian.net');
 
-							const url = await mediaStoreWithMediaApiBase.getArtifactURL(
-								artifacts,
-								artifactName,
-								collection,
-							);
+						// Verify the complete expected structure
+						const expectedUrl = `http://hello.atlassian.net/media-api/sd-video?client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&token=${token}`;
+						expect(url).toEqual(expectedUrl);
+					});
 
-							expect(resolveAuth).toHaveBeenCalledWith(
-								authProvider,
-								{
-									collectionName: collection,
-								},
-								undefined,
-							);
+					it('with platform_media_path_based_route off', async () => {
+						failGate('platform_media_path_based_route');
 
-							expect(url).toEqual(expectedUrl);
-						},
-					);
+						// When path-based routing is disabled, should return URL with baseUrl as-is
+						const expectedUrl = `${baseUrlWithMediaApi}/sd-video?client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&token=${token}`;
+
+						const url = await mediaStoreWithMediaApiBase.getArtifactURL(
+							artifacts,
+							artifactName,
+							collection,
+						);
+
+						expect(resolveAuth).toHaveBeenCalledWith(
+							authProvider,
+							{
+								collectionName: collection,
+							},
+							undefined,
+						);
+
+						expect(url).toEqual(expectedUrl);
+					});
 				});
 			});
 		});
@@ -3045,60 +3083,62 @@ describe('MediaStore', () => {
 
 					const nonCdnURL = `${baseUrl}/file/1234/image?allowAnimated=true&client=some-client-id&collection=${collection}&max-age=${FILE_CACHE_MAX_AGE}&mode=crop&token=${token}`;
 
-					ffTest(
-						'platform_media_cdn_delivery',
-						async () => {
-							// Test against fedramp micros perimeter, should return non-cdn url
-							global.MICROS_PERIMETER = 'fedramp-moderate';
-							let url = mediaStoreSync.getFileImageURLSync('1234', {
-								collection,
-							});
-							expect(resolveInitialAuth).toHaveBeenCalledWith(auth);
-							expect(url).toEqual(nonCdnURL);
+					it('with platform_media_cdn_delivery on', async () => {
+						passGate('platform_media_cdn_delivery');
 
-							// Test against fedramp hostname, should return non-cdn url
-							Object.defineProperty(window.location, 'hostname', {
-								writable: true,
-								value: 'atlassian-us-gov-mod.com',
-							});
-							url = mediaStoreSync.getFileImageURLSync('1234', {
-								collection,
-							});
-							expect(resolveInitialAuth).toHaveBeenCalledWith(auth);
-							expect(url).toEqual(nonCdnURL);
+						// Test against fedramp micros perimeter, should return non-cdn url
+						global.MICROS_PERIMETER = 'fedramp-moderate';
+						let url = mediaStoreSync.getFileImageURLSync('1234', {
+							collection,
+						});
+						expect(resolveInitialAuth).toHaveBeenCalledWith(auth);
+						expect(url).toEqual(nonCdnURL);
 
-							// Test against commercial micros perimeter and hostname, should return cdn url
-							global.MICROS_PERIMETER = 'commercial';
-							Object.defineProperty(window.location, 'hostname', {
-								writable: true,
-								value: 'hello.atlassian.net',
-							});
-							url = mediaStoreSync.getFileImageURLSync('1234', {
-								collection,
-							});
-							expect(resolveInitialAuth).toHaveBeenCalledWith(auth);
-							expect(url).toEqual(cdnURL);
+						// Test against fedramp hostname, should return non-cdn url
+						Object.defineProperty(window.location, 'hostname', {
+							writable: true,
+							value: 'atlassian-us-gov-mod.com',
+						});
+						url = mediaStoreSync.getFileImageURLSync('1234', {
+							collection,
+						});
+						expect(resolveInitialAuth).toHaveBeenCalledWith(auth);
+						expect(url).toEqual(nonCdnURL);
 
-							const seededCdnUrl =
-								'https://media-cdn.atlassian.com/region/v2/cdn/client/client-id/file/seeded-id/image?token=cdn-token&wm-ari=ari%3Acloud%3Aconfluence%3Asite%3Aspace%2F1&wm-v=version&Policy=policy&Key-Pair-Id=key&Signature=signature';
-							url = mediaStoreSync.getFileImageURLSync(
-								'1234',
-								{ collection, width: 100, height: 200, mode: 'crop' },
-								seededCdnUrl,
-							);
-							expect(url).toEqual(
-								`https://media-cdn.atlassian.com/region/v2/cdn/client/client-id/file/seeded-id/image?token=cdn-token&width=100&height=200&mode=crop&max-age=${FILE_CACHE_MAX_AGE}&allowAnimated=true&wm-ari=ari%3Acloud%3Aconfluence%3Asite%3Aspace%2F1&wm-v=version&Policy=policy&Key-Pair-Id=key&Signature=signature`,
-							);
-						},
-						async () => {
-							const collection = 'some-collection';
-							const url = mediaStoreSync.getFileImageURLSync('1234', {
-								collection,
-							});
-							expect(resolveInitialAuth).toHaveBeenCalledWith(auth);
-							expect(url).toEqual(nonCdnURL);
-						},
-					);
+						// Test against commercial micros perimeter and hostname, should return cdn url
+						global.MICROS_PERIMETER = 'commercial';
+						Object.defineProperty(window.location, 'hostname', {
+							writable: true,
+							value: 'hello.atlassian.net',
+						});
+						url = mediaStoreSync.getFileImageURLSync('1234', {
+							collection,
+						});
+						expect(resolveInitialAuth).toHaveBeenCalledWith(auth);
+						expect(url).toEqual(cdnURL);
+
+						const seededCdnUrl =
+							'https://media-cdn.atlassian.com/region/v2/cdn/client/client-id/file/seeded-id/image?token=cdn-token&wm-ari=ari%3Acloud%3Aconfluence%3Asite%3Aspace%2F1&wm-v=version&Policy=policy&Key-Pair-Id=key&Signature=signature';
+						url = mediaStoreSync.getFileImageURLSync(
+							'1234',
+							{ collection, width: 100, height: 200, mode: 'crop' },
+							seededCdnUrl,
+						);
+						expect(url).toEqual(
+							`https://media-cdn.atlassian.com/region/v2/cdn/client/client-id/file/seeded-id/image?token=cdn-token&width=100&height=200&mode=crop&max-age=${FILE_CACHE_MAX_AGE}&allowAnimated=true&wm-ari=ari%3Acloud%3Aconfluence%3Asite%3Aspace%2F1&wm-v=version&Policy=policy&Key-Pair-Id=key&Signature=signature`,
+						);
+					});
+
+					it('with platform_media_cdn_delivery off', async () => {
+						failGate('platform_media_cdn_delivery');
+
+						const collection = 'some-collection';
+						const url = mediaStoreSync.getFileImageURLSync('1234', {
+							collection,
+						});
+						expect(resolveInitialAuth).toHaveBeenCalledWith(auth);
+						expect(url).toEqual(nonCdnURL);
+					});
 				});
 			});
 		});

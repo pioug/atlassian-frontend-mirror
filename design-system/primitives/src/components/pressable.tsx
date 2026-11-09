@@ -23,9 +23,10 @@ import { type BackgroundColor } from '../xcss/background-color';
 import { backgroundColorStylesMap } from '../xcss/background-color-styles-map';
 import { borderColorMap } from '../xcss/border-color';
 import { borderWidthMap } from '../xcss/border-width';
+import type { PaddingSpace } from '../xcss/padding-space';
 import { paddingStylesMap } from '../xcss/padding-styles-map';
 import { parseXcss } from '../xcss/parse-xcss';
-import { positiveSpaceMap, type Space } from '../xcss/positive-space';
+import { positiveSpaceMap } from '../xcss/positive-space';
 import type { BasePrimitiveProps, StyleProp } from './types';
 
 type BasePressableProps = {
@@ -64,37 +65,37 @@ type BasePressableProps = {
 	 * @see paddingBlock
 	 * @see paddingInline
 	 */
-	padding?: Space;
+	padding?: PaddingSpace;
 	/**
 	 * Tokens representing CSS shorthand `paddingBlock`.
 	 *
 	 * @see paddingBlockStart
 	 * @see paddingBlockEnd
 	 */
-	paddingBlock?: Space;
+	paddingBlock?: PaddingSpace;
 	/**
 	 * Tokens representing CSS `paddingBlockStart`.
 	 */
-	paddingBlockStart?: Space;
+	paddingBlockStart?: PaddingSpace;
 	/**
 	 * Tokens representing CSS `paddingBlockEnd`.
 	 */
-	paddingBlockEnd?: Space;
+	paddingBlockEnd?: PaddingSpace;
 	/**
 	 * Tokens representing CSS shorthand `paddingInline`.
 	 *
 	 * @see paddingInlineStart
 	 * @see paddingInlineEnd
 	 */
-	paddingInline?: Space;
+	paddingInline?: PaddingSpace;
 	/**
 	 * Tokens representing CSS `paddingInlineStart`.
 	 */
-	paddingInlineStart?: Space;
+	paddingInlineStart?: PaddingSpace;
 	/**
 	 * Tokens representing CSS `paddingInlineEnd`.
 	 */
-	paddingInlineEnd?: Space;
+	paddingInlineEnd?: PaddingSpace;
 	/**
 	 * Forwarded ref.
 	 */

@@ -1,7 +1,14 @@
+import { agentBrandColorSchemes } from './agent-brand-color-schemes';
 import { getAgentPresenceColor } from './get-agent-presence-color';
 import { getThirdPartyAgentColor } from './get-third-party-agent-color';
 
 describe('agent presence colours', () => {
+	it('shares one flat colour palette per brand', () => {
+		for (const palette of Object.values(agentBrandColorSchemes)) {
+			expect(Object.values(palette).every((value) => typeof value === 'string')).toBe(true);
+		}
+	});
+
 	it('uses named identity before a conflicting display name', () => {
 		expect(
 			getThirdPartyAgentColor({ agentNamedId: 'mcp_amplitude_agent', agentName: 'Slack' })?.scheme,

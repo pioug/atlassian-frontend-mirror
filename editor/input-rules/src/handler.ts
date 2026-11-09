@@ -1,5 +1,4 @@
 import type { EditorState, PluginKey, Transaction } from '@atlaskit/editor-prosemirror/state';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {
 	leafNodeReplacementCharacter,
@@ -65,7 +64,7 @@ export const createInputEventHandler =
 		});
 
 		let isBackwardMatch;
-		if (!result && expValEquals('platform_editor_lovability_inline_code', 'isEnabled', true)) {
+		if (!result) {
 			if (TYPEAHEAD_TRIGGERS.includes(text)) {
 				return false;
 			}
@@ -90,10 +89,6 @@ export const createInputEventHandler =
 				state,
 				isBackwardMatch,
 			});
-
-			if (!result) {
-				return false;
-			}
 		}
 
 		if (!result) {
@@ -152,11 +147,7 @@ function findMatchOnRules({
 			: textToMatch;
 
 		// if the user is formatting text to inline code from R to L i.e. backwards
-		if (
-			rule.allowsBackwardMatch &&
-			isBackwardMatch &&
-			expValEquals('platform_editor_lovability_inline_code', 'isEnabled', true)
-		) {
+		if (rule.allowsBackwardMatch && isBackwardMatch) {
 			// if the match has a parenthesis before it, but no whitespace or empty space before that, exit
 			const charBefore = state.doc.textBetween(from - 1, from);
 			if (charBefore === '(') {

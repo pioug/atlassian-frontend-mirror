@@ -3,7 +3,7 @@
  *
  * Metadata for generation of `@atlaskit/ads-mcp` and https://atlassian.design/llms-tokens.txt.
  *
- * @codegen <<SignedSource::573b751f39aa74217c5e108917a37bd2>>
+ * @codegen <<SignedSource::c42084a2a6187c09cd21e4f3c61b08f4>>
  * @codegenCommand yarn build tokens
  */
 export interface Token {
@@ -2077,6 +2077,30 @@ export const tokens: Token[] = [
 		},
 	},
 	{
+		name: 'color.background.draghandle',
+		path: ['color', 'background', 'draghandle'],
+		description:
+			'Use for a prominent filled drag-handle background, such as a table grip. This is not a universal drag-handle icon or draggable-item background. Use color.icon.inverse for the handle icon. Keep selection and keyboard focus separate, and verify contrast on the actual surfaces in each theme.',
+		exampleValue: '#1868DB',
+		usageGuidelines: {
+			usage:
+				'The color for backgrounds. Use for areas behind content (e.g. color.background.neutral, color.background.selected)',
+			cssProperties: ['background-color'],
+		},
+	},
+	{
+		name: 'color.background.droptarget',
+		path: ['color', 'background', 'droptarget'],
+		description:
+			'Use for the eligible region currently accepting a dragged item when area feedback is needed. This is not ordinary hover, persistent selection, or reserved placeholder space. Use an insertion indicator for before/after placement; preserve maintained combine and nested-group treatments instead of replacing them with this fill.',
+		exampleValue: '#E9F2FE',
+		usageGuidelines: {
+			usage:
+				'The color for backgrounds. Use for areas behind content (e.g. color.background.neutral, color.background.selected)',
+			cssProperties: ['background-color'],
+		},
+	},
+	{
 		name: 'color.background.input',
 		path: ['color', 'background', 'input', '[default]'],
 		description:
@@ -3255,6 +3279,30 @@ export const tokens: Token[] = [
 		path: ['color', 'border', 'disabled'],
 		description: 'Use for borders of elements in a disabled state.',
 		exampleValue: '#0515240F',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.border.dropindicator',
+		path: ['color', 'border', 'dropindicator', '[default]'],
+		description:
+			'Use for the outline of an active, eligible drop target or a before/after insertion indicator. Geometry distinguishes an accepting area from relative insertion. Keep keyboard focus separate. Prefer maintained drag-and-drop indicators and preserve their component-owned treatments; reserved placeholder space alone does not require this feedback.',
+		exampleValue: '#357DE8',
+		usageGuidelines: {
+			usage:
+				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',
+			cssProperties: ['border-color', 'outline-color'],
+		},
+	},
+	{
+		name: 'color.border.dropindicator.warning',
+		path: ['color', 'border', 'dropindicator', 'warning'],
+		description:
+			'Use for a drop-target outline or insertion indicator communicating a blocked drop instruction. Keep rejection and the displayed operation consistent; do not pair with an accepting drop-target background. Preserve maintained indicator warning treatments and separate keyboard focus.',
+		exampleValue: '#E06C00',
 		usageGuidelines: {
 			usage:
 				'The color for borders or outlines. Use for border and outline colors on components (e.g. color.border, color.border.focused)',

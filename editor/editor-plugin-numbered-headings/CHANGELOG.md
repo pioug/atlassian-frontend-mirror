@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-numbered-headings
 
+## 4.1.1
+
+### Patch Changes
+
+- [`5b9db653e98c2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5b9db653e98c2) -
+  [EDITOR-9767] With numbered headings turned on, Backspace in an empty heading now turns it into a
+  paragraph wherever it is (top level, panels, layouts, table cells, expands). Before, the result
+  depended on the container: in a panel, for example, the whole panel was deleted. The next
+  Backspace works as it does today. Part of the `platform_editor_numbered_headings` experiment.
+- Updated dependencies
+
 ## 4.1.0
 
 ### Minor Changes

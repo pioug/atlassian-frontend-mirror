@@ -63,6 +63,8 @@ export type SVGElements =
 	| 'view';
 
 export type BackgroundColorToken =
+	| 'color.background.droptarget'
+	| 'color.background.draghandle'
 	| 'color.rovo.background.brand.bold'
 	| 'color.rovo.background.brand.bold.hovered'
 	| 'color.rovo.background.brand.bold.pressed'

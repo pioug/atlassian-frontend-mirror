@@ -395,7 +395,7 @@ function DropdownMenuLegacy<T extends HTMLElement = any>({
  * - [Code](https://atlassian.design/components/dropdown-menu/code)
  * - [Usage](https://atlassian.design/components/dropdown-menu/usage)
  */
-const DropdownMenu = <T extends HTMLElement = any>(
+export const DropdownMenu = <T extends HTMLElement = any>(
 	props: DropdownMenuProps<T>,
 ): React.JSX.Element => {
 	const {

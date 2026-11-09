@@ -17,9 +17,13 @@ import type { InsertBlockPlugin } from '../../insertBlockPluginType';
 
 type MentionButtonProps = {
 	api?: ExtractInjectionAPI<InsertBlockPlugin>;
+	disableOptimisticToolbar?: boolean;
 };
 
-export const MentionButton = ({ api }: MentionButtonProps): React.JSX.Element | null => {
+export const MentionButton = ({
+	api,
+	disableOptimisticToolbar,
+}: MentionButtonProps): React.JSX.Element | null => {
 	const { formatMessage } = useIntl();
 	const {
 		canInsertMention,
@@ -45,11 +49,12 @@ export const MentionButton = ({ api }: MentionButtonProps): React.JSX.Element | 
 
 	// The SSR state cannot resolve providers. Keep pending and available visually identical,
 	// while preserving known selection restrictions and settled provider failures.
-	const isDisabled = isExperimentEnabled('platform_editor_ssr_toolbar_optimistic')
-		? canInsertMention === false ||
-			(hasMentionState && isTypeAheadAllowed === false) ||
-			(mentionProviderStatus !== 'pending' && hasMentionState && !mentionProvider)
-		: !canInsertMention || !mentionProvider || !isTypeAheadAllowed;
+	const isDisabled =
+		!disableOptimisticToolbar && isExperimentEnabled('platform_editor_ssr_toolbar_optimistic')
+			? canInsertMention === false ||
+				(hasMentionState && isTypeAheadAllowed === false) ||
+				(mentionProviderStatus !== 'pending' && hasMentionState && !mentionProvider)
+			: !canInsertMention || !mentionProvider || !isTypeAheadAllowed;
 
 	return (
 		<ToolbarTooltip

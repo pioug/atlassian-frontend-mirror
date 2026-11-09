@@ -2,12 +2,12 @@
 import type { SerializedStyles } from '@emotion/react';
 
 import { createSpacingStylesMap, type SpacingProperty } from './create-spacing-styles-map';
-import { positiveSpaceMap, type Space } from './positive-space';
+import { type PaddingSpace, paddingSpaceMap } from './padding-space';
 
 export const paddingStylesMap: Record<
 	Exclude<SpacingProperty, 'gap' | 'rowGap' | 'columnGap'>,
-	Record<Space, SerializedStyles>
-> = createSpacingStylesMap(positiveSpaceMap, [
+	Record<PaddingSpace, SerializedStyles>
+> = createSpacingStylesMap(paddingSpaceMap, [
 	'padding',
 	'paddingBlock',
 	'paddingBlockStart',

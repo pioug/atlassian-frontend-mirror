@@ -1,5 +1,14 @@
 # @atlaskit/side-nav-items
 
+## 2.6.1
+
+### Patch Changes
+
+- [`cb32aabf31aee`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cb32aabf31aee) -
+  Clean up the `navx-5263-a11y-flyout-dialog-name` feature gate. `FlyoutMenuItemContent` now always
+  uses its `label` prop to name the flyout dialog when no `titleId` is provided.
+- Updated dependencies
+
 ## 2.6.0
 
 ### Minor Changes

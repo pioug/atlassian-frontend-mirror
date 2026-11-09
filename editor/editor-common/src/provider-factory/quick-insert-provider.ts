@@ -1,3 +1,5 @@
+import type { ReactElement, Ref } from 'react';
+
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { RegisterMenuItem } from '@atlaskit/editor-ui-control-model/types';
@@ -58,6 +60,23 @@ export type QuickInsertItemId =
 	| 'aiSpeechToText'
 	| 'aiImageGeneration';
 
+/** Insert-menu hosts keep interaction policy outside of the shared Editor packages. */
+export type InsertMenuSurface = 'toolbar' | 'element-browser';
+
+export type InsertMenuItemTriggerProps = {
+	'aria-controls'?: string;
+	id?: string;
+	/** Override insertion-selection appearance without changing keyboard focus. */
+	isSelected?: boolean;
+	ref?: Ref<HTMLElement>;
+};
+
+export type InsertMenuItemWrapperProps = {
+	isActive: boolean;
+	renderItem: (triggerProps?: InsertMenuItemTriggerProps) => ReactElement;
+	surface: InsertMenuSurface;
+};
+
 export type QuickInsertItem = TypeAheadItem & {
 	/**
 	 * What to do on insert
@@ -77,6 +96,7 @@ export type QuickInsertItem = TypeAheadItem & {
 	) => Transaction | false;
 	/** App contributing this item. */
 	app?: ExtensionApp;
+
 	/** categories where to find the item */
 	categories?: Array<string>;
 	/**
@@ -92,8 +112,16 @@ export type QuickInsertItem = TypeAheadItem & {
 	isHidden?: () => boolean;
 	/** other names used to find the item */
 	keywords?: Array<string>;
+	/**
+	 * Return false to retain the menu without selecting/inserting this item.
+	 * With showFeedback=false this must not open feedback or move focus.
+	 * Decisions must be synchronous so actions run in their original event handler.
+	 */
+	onBeforeSelect?: (options: { showFeedback?: boolean; surface: InsertMenuSurface }) => boolean;
 	/** Optional visual and attribution content shown while this item is selected. */
 	preview?: QuickInsertPreview;
+	/** Optional wrapper; trigger bindings must be forwarded to the actual menu control. */
+	renderMenuItemWrapper?: (props: InsertMenuItemWrapperProps) => ReactElement;
 };
 
 export type QuickInsertProvider = {

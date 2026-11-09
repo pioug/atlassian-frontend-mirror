@@ -3,10 +3,12 @@ import tokens from '@atlaskit/tokens/atlassian-light';
 import { CURRENT_SURFACE_CSS_VAR } from '@atlaskit/tokens/constants';
 
 import { capitalize } from './capitalize';
+import { filterTokensForCodegen, type TokenFilterOptions } from './filter-tokens-for-codegen';
 import { generateTypeDefs } from './generate-type-defs';
 import { constructTokenFunctionCall, type ShadowDefinition } from './utils';
 
 type Token = {
+	attributes: { state: string };
 	token: string;
 	fallback: string | ShadowDefinition;
 	isDeprecated: boolean;
@@ -55,24 +57,25 @@ const tokenStyles: {
 
 const activeTokens = tokens
 	.filter((t) => t.attributes.state !== 'deleted')
-	.map(
-		(t): Token => ({
-			token: t.name,
-			fallback: t.value as string | ShadowDefinition,
-			isDeprecated: t.attributes.state === 'deprecated',
-		}),
-	);
+	.map((t): Token => ({
+		attributes: t.attributes,
+		token: t.name,
+		fallback: t.value as string | ShadowDefinition,
+		isDeprecated: t.attributes.state === 'deprecated',
+	}));
 
-export const createElevationStylesFromTemplate: (property: keyof typeof tokenStyles) => string = (
+export const createElevationStylesFromTemplate: (
 	property: keyof typeof tokenStyles,
-) => {
+	options?: TokenFilterOptions,
+) => string = (property, options = {}) => {
+	const filteredTokens = filterTokensForCodegen(activeTokens, options);
 	if (!tokenStyles[property]) {
 		throw new Error(`[codegen] Unknown option found "${property}"`);
 	}
 
 	const { filterFn, objectName } = tokenStyles[property];
 
-	const typeDefsTokens = activeTokens
+	const typeDefsTokens = filteredTokens
 		.filter(filterFn)
 		// @ts-ignore
 		.map((t) => t.token.replaceAll('.[default]', ''));
@@ -83,7 +86,7 @@ export const createElevationStylesFromTemplate: (property: keyof typeof tokenSty
 export const ${objectName}Map: {
 	${generateTypeDefs(typeDefsTokens)}
 } = {
-  ${activeTokens
+  ${filteredTokens
 		.filter(filterFn)
 		// @ts-ignore
 		.map((t) => ({ ...t, token: t.token.replaceAll('.[default]', '') }))

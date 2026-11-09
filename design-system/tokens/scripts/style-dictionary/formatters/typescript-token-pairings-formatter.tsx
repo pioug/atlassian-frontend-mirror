@@ -18,7 +18,9 @@ const isInteractiveOverlay = (token: ContrastTokenMetadata) =>
 	['elevation.surface.overlay.pressed', 'elevation.surface.overlay.hovered'].includes(token.name);
 
 // Manual overrides of auto-detection
-const includePairings: [string, string][] = [];
+const includePairings: [string, string][] = [
+	['color.border.dropindicator', 'color.background.droptarget'],
+];
 
 const excludePairings: [string, string][] = [];
 
@@ -40,6 +42,11 @@ function classifyTokenPair(
 
 	if (isIncludedPairing) {
 		return true;
+	}
+
+	// Filled drag handles pair with inverse icons, not regular text or links.
+	if (backgroundToken.name === 'color.background.draghandle') {
+		return foregroundToken.name === 'color.icon.inverse';
 	}
 
 	// Code backgrounds have a dedicated composition model. They must not be inferred as

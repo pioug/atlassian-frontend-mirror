@@ -442,7 +442,9 @@ const PortaledPanelSplitter = ({
 						// The allocator needs below-minimum requests for the local-to-chat cascade.
 						const currentBounds = getResizeBounds();
 						const width = Math.max(
-							0,
+							// A negative local request represents drag distance passed on to Chat.
+							// The allocator clamps actual panel widths to their minimums.
+							prepareResize ? Number.NEGATIVE_INFINITY : 0,
 							Math.min(
 								targetWidth,
 								prepareResize ? window.innerWidth : convertResizeBoundToPixels(currentBounds.max),

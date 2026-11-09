@@ -10,6 +10,35 @@ function getThemeData(themes: ThemeStyles[]) {
 }
 
 describe('getThemeStyles finesse overrides', () => {
+	it.each([true, false])(
+		'preserves blue drag feedback with Finesse enabled: %s',
+		async (enabled) => {
+			if (enabled) {
+				passGate('platform-dst-tokens-finesse');
+			} else {
+				failGate('platform-dst-tokens-finesse');
+			}
+
+			const results = await getThemeStyles({ contrastMode: 'no-preference' });
+			for (const id of ['light', 'dark']) {
+				const base = results.find((theme) => theme.id === id);
+				const finesse = results.find((theme) => theme.id === `${id}-finesse`);
+				for (const property of [
+					'--ds-border-dropindicator',
+					'--ds-border-dropindicator-warning',
+					'--ds-background-droptarget',
+					'--ds-background-draghandle',
+				]) {
+					expect(base?.css).toContain(`${property}:`);
+					if (enabled) {
+						expect(finesse).toBeDefined();
+						expect(finesse?.css).not.toContain(`${property}:`);
+					}
+				}
+			}
+		},
+	);
+
 	it('includes only state-relevant finesse overrides when the gate is on', async () => {
 		passGate('platform-dst-tokens-finesse');
 		failGate('platform_increased-contrast-themes');

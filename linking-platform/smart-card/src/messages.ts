@@ -1494,7 +1494,6 @@ export const messages: Messages = defineMessages({
 		description:
 			'The prompt message to send to Rovo Chat. {url} refers to Smart Link that the user triggers this action from. (Please make sure all html tags remain the same.)',
 	},
-	// TODO: remove when social-proof-3p-unauth-block-fg is cleaned up
 	pre_auth_block_social_proof_not_low: {
 		id: 'fabric.linking.pre_auth_block_social_proof_not_low',
 		defaultMessage: '<b>{percentage}%</b> of your team sees <b>{provider}</b> previews.',

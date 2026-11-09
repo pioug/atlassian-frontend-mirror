@@ -1,5 +1,13 @@
 # @atlaskit/date-label
 
+## 1.3.0
+
+### Minor Changes
+
+- [`6258f4998bdb6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6258f4998bdb6) -
+  Replace data-attribute styling selectors with atomic-friendly styles behind the
+  platform-date-label-atomic-styles feature gate.
+
 ## 1.2.5
 
 ### Patch Changes

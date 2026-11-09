@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-card",
-	"version": "82.2.14",
+	"version": "82.3.1",
 	"description": "Includes all media card related components, CardView, CardViewSmall, Card...",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -155,6 +155,9 @@
 		"uuid": "root:*"
 	},
 	"platform-feature-flags": {
+		"platform_media_upload_without_read": {
+			"type": "boolean"
+		},
 		"aifc_page_create_defer_generated_visuals": {
 			"type": "boolean",
 			"referenceOnly": true

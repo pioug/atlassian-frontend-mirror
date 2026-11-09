@@ -4,7 +4,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import type { MediaApi } from '@atlaskit/media-client/media-store/types';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { MockedMediaClientProvider } from '../test-helpers/MockedMediaClientProvider';
 import { useCopyIntent } from './useCopyIntent';
@@ -54,10 +54,14 @@ describe('useCopyIntent', () => {
 		};
 	});
 
-	ffTest.on('platform_media_cross_client_copy', 'Copy intent', () => {
+	describe('platform_media_cross_client_copy is on Copy intent', () => {
+		beforeEach(() => {
+			passGate('platform_media_cross_client_copy');
+		});
+
 		it('should call registerCopyIntent when the component is copied', async () => {
 			const user = userEvent.setup();
-			render(
+			const { container } = render(
 				<MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
 					<div>from here</div>
 					<DummyComponent id="some-id" />
@@ -84,6 +88,8 @@ describe('useCopyIntent', () => {
 				{ spanId: expect.any(String), traceId: expect.any(String) },
 				auth,
 			);
+
+			await expect(container).toBeAccessible();
 		});
 
 		it('should not call registerCopyIntent when the component is not selected', async () => {
@@ -277,9 +283,15 @@ describe('useCopyIntent', () => {
 	});
 
 	describe('Cross-client copy with auth', () => {
-		ffTest.on('platform_media_cross_client_copy_with_auth', 'when feature flag is enabled', () => {
-			ffTest.on('platform_media_cross_client_copy', 'and copy intent flag is enabled', () => {
+		describe('platform_media_cross_client_copy_with_auth is on when feature flag is enabled', () => {
+			describe('platform_media_cross_client_copy is on and copy intent flag is enabled', () => {
+				beforeEach(() => {
+					passGate('platform_media_cross_client_copy_with_auth');
+				});
+
 				it('should inject clientId into clipboard HTML when copying', async () => {
+					passGate('platform_media_cross_client_copy');
+
 					const user = userEvent.setup();
 					const mockGetClientId = jest.fn().mockResolvedValue('test-client-id');
 					mockedMediaApi.resolveAuth = jest.fn().mockResolvedValue({
@@ -335,6 +347,8 @@ describe('useCopyIntent', () => {
 				});
 
 				it('should not inject clientId if clientId is not available', async () => {
+					passGate('platform_media_cross_client_copy');
+
 					const user = userEvent.setup();
 					// Return undefined instead of rejecting to avoid unhandled promise errors
 					const mockGetClientId = jest.fn().mockResolvedValue(undefined);
@@ -387,6 +401,8 @@ describe('useCopyIntent', () => {
 				});
 
 				it('should handle getClientId failure gracefully (e.g. when authProvider is not configured)', async () => {
+					passGate('platform_media_cross_client_copy');
+
 					const user = userEvent.setup();
 					// Simulate the error that occurs when authProvider is not a function
 					// This is what happens in some test environments (like Jira unit tests)
@@ -447,62 +463,61 @@ describe('useCopyIntent', () => {
 			});
 		});
 
-		ffTest.off(
-			'platform_media_cross_client_copy_with_auth',
-			'when feature flag is disabled',
-			() => {
-				ffTest.on('platform_media_cross_client_copy', 'and copy intent flag is enabled', () => {
-					it('should not inject clientId into clipboard HTML', async () => {
-						const user = userEvent.setup();
-						const mockGetClientId = jest.fn().mockResolvedValue('test-client-id');
+		describe('platform_media_cross_client_copy_with_auth is off when feature flag is disabled', () => {
+			describe('platform_media_cross_client_copy is on and copy intent flag is enabled', () => {
+				it('should not inject clientId into clipboard HTML', async () => {
+					failGate('platform_media_cross_client_copy_with_auth');
+					passGate('platform_media_cross_client_copy');
 
-						render(
-							<MockedMediaClientProvider
-								mockedMediaApi={mockedMediaApi}
-								mockGetClientId={mockGetClientId}
-							>
-								<div>from here</div>
-								<DummyComponent id="some-id" collectionName="some-collection" />
-								<div>to here</div>
-								<div>other text</div>
-							</MockedMediaClientProvider>,
-						);
+					const user = userEvent.setup();
+					const mockGetClientId = jest.fn().mockResolvedValue('test-client-id');
 
-						// clientId should not be fetched when flag is off
-						expect(mockGetClientId).not.toHaveBeenCalled();
+					render(
+						<MockedMediaClientProvider
+							mockedMediaApi={mockedMediaApi}
+							mockGetClientId={mockGetClientId}
+						>
+							<div>from here</div>
+							<DummyComponent id="some-id" collectionName="some-collection" />
+							<div>to here</div>
+							<div>other text</div>
+						</MockedMediaClientProvider>,
+					);
 
-						await user.pointer({
-							keys: '[MouseLeft][MouseLeft>]',
-							target: screen.getByText('from here'),
-							offset: 0,
-						});
+					// clientId should not be fetched when flag is off
+					expect(mockGetClientId).not.toHaveBeenCalled();
 
-						await user.pointer({
-							target: screen.getByText('to here'),
-						});
-
-						// Create a mock ClipboardEvent with HTML that matches media nodes
-						const clipboardData = new DataTransfer();
-						clipboardData.setData(
-							'text/html',
-							'<div data-node-type="media" data-id="some-file-id" data-context-id="some-context">some content</div>',
-						);
-
-						const copyEvent = new ClipboardEvent('copy', {
-							clipboardData,
-							bubbles: true,
-							cancelable: true,
-						});
-
-						// Dispatch the copy event
-						document.dispatchEvent(copyEvent);
-
-						// Verify the HTML was not modified with clientId (flag is off)
-						const modifiedHtml = clipboardData.getData('text/html');
-						expect(modifiedHtml).not.toContain('data-client-id');
+					await user.pointer({
+						keys: '[MouseLeft][MouseLeft>]',
+						target: screen.getByText('from here'),
+						offset: 0,
 					});
+
+					await user.pointer({
+						target: screen.getByText('to here'),
+					});
+
+					// Create a mock ClipboardEvent with HTML that matches media nodes
+					const clipboardData = new DataTransfer();
+					clipboardData.setData(
+						'text/html',
+						'<div data-node-type="media" data-id="some-file-id" data-context-id="some-context">some content</div>',
+					);
+
+					const copyEvent = new ClipboardEvent('copy', {
+						clipboardData,
+						bubbles: true,
+						cancelable: true,
+					});
+
+					// Dispatch the copy event
+					document.dispatchEvent(copyEvent);
+
+					// Verify the HTML was not modified with clientId (flag is off)
+					const modifiedHtml = clipboardData.getData('text/html');
+					expect(modifiedHtml).not.toContain('data-client-id');
 				});
-			},
-		);
+			});
+		});
 	});
 });

@@ -1,8 +1,12 @@
 import { expect, type Page, test } from '@af/integration-testing';
 
-for (const { mode, buttons, expected } of [
+// Below 1200px, Main and the three slot minimums cannot all fit inline.
+const localOverlayViewportWidth = 1190;
+
+for (const { mode, viewportWidth, buttons, expected } of [
 	{
 		mode: 'inline',
+		viewportWidth: 1300,
 		buttons: ['open local panel'],
 		expected: {
 			gridArea: 'panel',
@@ -15,6 +19,7 @@ for (const { mode, buttons, expected } of [
 	},
 	{
 		mode: 'overlay',
+		viewportWidth: localOverlayViewportWidth,
 		buttons: ['Ask Rovo', 'open local panel'],
 		expected: {
 			gridArea: 'main',
@@ -29,7 +34,7 @@ for (const { mode, buttons, expected } of [
 	test(`local ${mode} presentation follows container placement before and after sizing activation`, async ({
 		page,
 	}) => {
-		await page.setViewportSize({ width: 1300, height: 900 });
+		await page.setViewportSize({ width: viewportWidth, height: 900 });
 		await page.visitExample<typeof import('../../../examples/page-layout-chat-panel.tsx')>(
 			'design-system',
 			'navigation-system',
@@ -76,7 +81,7 @@ for (const { mode, buttons, expected } of [
 }
 
 async function prepareLocalOverlay(page: Page) {
-	await page.setViewportSize({ width: 1300, height: 900 });
+	await page.setViewportSize({ width: localOverlayViewportWidth, height: 900 });
 	await page.visitExample<typeof import('../../../examples/page-layout-chat-panel.tsx')>(
 		'design-system',
 		'navigation-system',
@@ -95,12 +100,12 @@ async function prepareLocalOverlay(page: Page) {
 			.not.toBe('panel');
 		await expect(nav).toHaveWidth(320);
 		await expect(chat).toHaveWidth(400);
-		await expect(main).toHaveWidth(580);
+		await expect(main).toHaveWidth(470);
 	};
 	await assertLayout(400);
 	const slider = page.getByRole('slider', { name: 'Resize panel', exact: true });
 	await slider.focus();
-	await expect(slider).toHaveAttribute('max', '522');
+	await expect(slider).toHaveAttribute('max', '495');
 	await assertLayout(400);
 	return { slider, assertLayout };
 }
@@ -137,11 +142,12 @@ test('local overlay pointer resizing preserves its mode and inline siblings', as
 	await page.mouse.move(x, y);
 	await page.mouse.down();
 	await page.mouse.move(x - 10, y);
-	await page.mouse.move(x - 50, y, { steps: 10 });
-	await page.mouse.move(x - 50, y);
-	await assertLayout(450);
+	// Stay below Main's 90% cap so this drag need not compress either sibling.
+	await page.mouse.move(x - 20, y, { steps: 10 });
+	await page.mouse.move(x - 20, y);
+	await assertLayout(420);
 	await page.mouse.up();
-	await assertLayout(450);
+	await assertLayout(420);
 	await slider.blur();
 	await page.mouse.move(0, 0);
 	await expect(page.getByRole('tooltip')).toBeHidden();
@@ -173,18 +179,13 @@ test('resizing Aside after activation releases the adopted layout without a view
 	await asideSlider.focus();
 	await asideSlider.press('End');
 	await expect(page.locator('#aside')).toHaveWidth(800);
-	await expect(main).toHaveWidth(450);
+	// The independent Aside can exhaust the host, but desktop navigation keeps
+	// its minimum inline track rather than switching to mobile presentation.
+	await expect(main).toHaveWidth(320);
+	await expect(nav).toHaveWidth(240);
 	await expect
 		.poll(() => nav.evaluate((element) => getComputedStyle(element).gridArea))
-		.toBe('main');
-	await expect
-		.poll(() =>
-			main.evaluate((element) => {
-				const root = element.parentElement!;
-				return root.scrollWidth <= root.clientWidth;
-			}),
-		)
-		.toBe(true);
+		.toBe('side-nav');
 	await asideSlider.blur();
 	await page.mouse.move(0, 0);
 	await expect(page.getByRole('tooltip')).toBeHidden();
@@ -251,7 +252,7 @@ test('mounting Chat after sizing activation reallocates the adopted widths', asy
 	await expect(page.getByRole('tooltip')).toBeHidden();
 });
 
-test('caps overlay navigation to Main inside a constrained Root with an Aside', async ({
+test('keeps desktop navigation inline inside a constrained Root with an Aside', async ({
 	page,
 }) => {
 	await page.setViewportSize({ width: 1200, height: 900 });
@@ -269,15 +270,18 @@ test('caps overlay navigation to Main inside a constrained Root with an Aside', 
 	await page.addStyleTag({ content: '[data-layout-width-container] { width: 900px; }' });
 	const nav = page.getByTestId('side-nav');
 	const main = page.getByRole('main');
-	await expect.poll(async () => (await main.boundingBox())?.width).toBe(500);
+	await expect
+		.poll(() => nav.evaluate((element) => getComputedStyle(element).gridArea))
+		.toBe('side-nav');
+	await expect.poll(async () => (await main.boundingBox())?.width).toBe(320);
 	await slider.focus();
-	await expect(slider).toHaveAttribute('max', '450');
+	await expect(slider).toHaveAttribute('max', '240');
 	await slider.press('End');
 	const keyboardWidth = Number(await slider.inputValue());
 	await expect.poll(async () => (await nav.boundingBox())?.width).toBe(keyboardWidth);
-	expect(keyboardWidth).toBeLessThanOrEqual(450);
+	expect(keyboardWidth).toBe(240);
 	await expect(
-		page.getByText(`Last called with: {"initialWidth":320,"finalWidth":${keyboardWidth}}`, {
+		page.getByText(`Last called with: {"initialWidth":240,"finalWidth":${keyboardWidth}}`, {
 			exact: true,
 		}),
 	).toBeVisible();
@@ -295,10 +299,10 @@ test('caps overlay navigation to Main inside a constrained Root with an Aside', 
 	await page.mouse.move(x + 10, y);
 	await page.mouse.move(850, y, { steps: 10 });
 	await page.mouse.move(850, y);
-	await expect.poll(async () => (await nav.boundingBox())?.width).toBe(450);
+	await expect.poll(async () => (await nav.boundingBox())?.width).toBe(240);
 	await page.mouse.up();
-	await expect(nav).toHaveWidth(450);
-	await expect(main).toHaveWidth(500);
+	await expect(nav).toHaveWidth(240);
+	await expect(main).toHaveWidth(320);
 	await slider.blur();
 	await page.mouse.move(0, 0);
 	await expect(page.getByRole('tooltip')).toBeHidden();

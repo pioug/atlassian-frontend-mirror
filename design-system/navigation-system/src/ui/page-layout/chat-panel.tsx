@@ -210,6 +210,7 @@ export function ChatPanel({
 
 	const ref = useRef<HTMLDivElement | null>(null);
 	const [inlineWidth, setInlineWidth] = useState(defaultWidth);
+	const [hasInlinePreference, setHasInlinePreference] = useState(false);
 	const [overlayWidth, setOverlayWidth] = useState(compactDefaultWidth);
 	const [isInline, setIsInline] = useState(false);
 	const {
@@ -298,6 +299,7 @@ export function ChatPanel({
 		(finalWidth: number) => {
 			if (mode === 'inline') {
 				setInlineWidth(finalWidth);
+				setHasInlinePreference(true);
 			} else {
 				setOverlayWidth(finalWidth);
 			}
@@ -346,7 +348,10 @@ export function ChatPanel({
 #${gridRootId} { --n_chatTrack: ${mode === 'inline' ? `${renderedWidth}px` : '0px'}; ${chatPanelLiveWidthVar}: var(--n_chatTrack); }
 `
 						: `
-#${gridRootFitId} { --n_clearanceChatMin: ${minWidth}; --n_clearanceChatTarget: ${chatPanelVariableWidth}; }
+#${gridRootFitId} { --n_chatPreferredW: ${fg('platform-dst-chat-panel-layout') && !hasInlinePreference ? `clamp(${minWidth}, ${compactDefaultWidth}px, ${configuredMaxWidth})` : chatPanelVariableWidth}; --n_clearanceChatMin: ${minWidth}; --n_clearanceChatTarget: var(--n_chatPreferredW); }
+@media (min-width: 64rem) {
+  #${gridRootFitId} { --n_chatPreferredW: ${chatPanelVariableWidth}; }
+}
 #${gridRootId} { --n_chatTrack: 0px; ${chatPanelLiveWidthVar}: 0px; }
 #${gridRootId} [data-layout-chat-panel] {
   grid-area: 2 / 1 / -1 / -1;
@@ -357,10 +362,10 @@ export function ChatPanel({
 }
 @media (min-width: 40rem) {
   @container navigation-chat-space (min-width: ${minWidth}) {
-    #${gridRootId} { --n_chatTrack: min(100cqw, var(${panelSplitterResizingVar}, ${chatPanelVariableWidth})); ${chatPanelLiveWidthVar}: var(--n_chatTrack); }
+    #${gridRootId} { --n_chatTrack: min(100cqw, var(${panelSplitterResizingVar}, var(--n_chatPreferredW))); ${chatPanelLiveWidthVar}: var(--n_chatTrack); }
     #${gridRootId} [data-layout-chat-panel] {
       grid-area: chat-panel;
-      width: min(100cqw, var(${panelSplitterResizingVar}, ${chatPanelVariableWidth}));
+      width: min(100cqw, var(${panelSplitterResizingVar}, var(--n_chatPreferredW)));
       z-index: auto;
       background-color: ${token('elevation.surface')};
       ${hasBorder ? `box-shadow: initial; border-inline-start: ${token('border.width')} solid ${token('color.border')};` : ''}

@@ -243,3 +243,28 @@ Use `color.border.input.search` for search input borders. Continue to use `color
 -<span className="text-green-600 bg-green-100">Success</span>
 +<span css={styles.success}}>Success</span>
 ```
+
+# Drag-and-drop feedback
+
+- `color.border.dropindicator` identifies an active accepting target outline or a before/after
+  insertion position. Geometry distinguishes these operations; keyboard focus stays separate.
+- `color.background.droptarget` tints only the active eligible receiving area when area feedback
+  is needed. It is not ordinary hover, persistent selection, or a universal placeholder fill.
+- `color.border.dropindicator.warning` communicates a blocked instruction. Do not add an accepting
+  background to a blocked region.
+- `color.background.draghandle` is for a prominent filled handle, not every draggable item or
+  standard handle icon. Pair with `color.icon.inverse` and verify contrast in each theme.
+
+The default light and dark themes keep these roles blue when Finesse is enabled. Finesse changes
+selection independently; it does not turn drag feedback into a neutral or keyboard-focus role.
+The increased-contrast themes strengthen the indicator and filled-handle colors.
+
+The existing custom-brand generator does not override these roles, so custom-branded themes inherit
+the default drag colors. The experimental dynamic themes map them to their dynamic foreground and
+background colors. Agree custom-brand mappings before migrating consumers that rely on branded
+drag feedback; track that adoption work in DSP-26302. Keep the blocked-drop warning role separate
+from the accepting destination, and check the indicator against the destination fill at 3:1.
+
+Preserve maintained PDD indicators and their component-owned combine, nested-group, line, terminal
+and border treatments. Reserved layout space can retain an appropriate neutral treatment without
+active-target feedback. A matching example hex value alone does not establish semantic suitability.

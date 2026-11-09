@@ -9,7 +9,7 @@ import type { Identifier } from '@atlaskit/media-client/identifier';
 import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers/mocked-media-api';
 import { generateSampleFileItem } from '@atlaskit/media-test-data/sample-file-items';
 import { fakeIntl } from '@atlaskit/media-test-helpers/fakeI18n';
-import { ffTest } from '@atlassian/feature-flags-test-utils/test-runner';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { Header, type Props as HeaderProps } from '../../../header';
 import { InsetViewerProvider } from '../../../insetViewerContext';
@@ -107,8 +107,10 @@ describe('<Header />', () => {
 			);
 		};
 
-		ffTest.on('platform_media_archive_zip_guard', 'when the zip guard is enabled', () => {
+		describe('platform_media_archive_zip_guard is on when the zip guard is enabled', () => {
 			it('does NOT reserve the sidebar (avoids empty 300px gap) for a non-ZIP archive', async () => {
+				passGate('platform_media_archive_zip_guard');
+
 				const onSetArchiveSideBarVisible = jest.fn();
 				renderHeaderForNonZipArchive(onSetArchiveSideBarVisible);
 				await waitFor(() => {
@@ -117,8 +119,10 @@ describe('<Header />', () => {
 			});
 		});
 
-		ffTest.off('platform_media_archive_zip_guard', 'when the zip guard is disabled', () => {
+		describe('platform_media_archive_zip_guard is off when the zip guard is disabled', () => {
 			it('still reserves the sidebar for a non-ZIP archive (legacy behaviour)', async () => {
+				failGate('platform_media_archive_zip_guard');
+
 				const onSetArchiveSideBarVisible = jest.fn();
 				renderHeaderForNonZipArchive(onSetArchiveSideBarVisible);
 				await waitFor(() => {

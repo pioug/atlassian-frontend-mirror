@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-mentions
 
+## 32.2.0
+
+### Minor Changes
+
+- [`059477aa93f45`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/059477aa93f45) -
+  Add an optimistic-toolbar opt-out to plugin configuration. Exclude Live pages from
+  platform_editor_ssr_toolbar_optimistic, including early editor-state exposure, toolbar rendering,
+  and asynchronous media and mention provider initialization. Preserve the experiment for Edit pages
+  regardless of toolbar docking position.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 32.1.9
+
+### Patch Changes
+
+- [`49fcffc905097`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/49fcffc905097) -
+  Clean up experiment `platform_editor_use_vanilla_components`, keeping the shipped vanilla DOM
+  tooltip implementations and removing the React-based control paths.
+- Updated dependencies
+
 ## 32.1.8
 
 ### Patch Changes

@@ -870,7 +870,7 @@ export default function PageLayoutChatPanelConfluenceMockExample(): JSX.Element 
 							</LayoutWithPanel>
 						</Main>
 						{isChatPanelOpen && (
-							<ChatPanel defaultWidth={400} onClose={() => setIsChatPanelOpen(false)}>
+							<ChatPanel onClose={() => setIsChatPanelOpen(false)}>
 								<PanelSplitter label="Resize Rovo" />
 								<RovoChatMock onClose={() => setIsChatPanelOpen(false)} />
 							</ChatPanel>

@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-paste-options-toolbar
 
+## 31.0.17
+
+### Patch Changes
+
+- [`c17aea7934635`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c17aea7934635) -
+  Use named dropdown-menu imports.
+- Updated dependencies
+
+## 31.0.16
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 31.0.15
 
 ### Patch Changes

@@ -4,6 +4,10 @@ import type { BaseToken } from '../../../palettes/palette';
 const color: ExtendedValueSchema<BorderColorTokenSchema<BaseToken>> = {
 	color: {
 		border: {
+			dropindicator: {
+				'[default]': { value: 'Blue800' },
+				warning: { value: 'Orange800' },
+			},
 			'[default]': {
 				// TODO: Confirm. Not sure we're meant to use Dark Neutral pallette in light themes but might be fine
 				value: 'DarkNeutral500A',

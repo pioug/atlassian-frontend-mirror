@@ -8,7 +8,6 @@ import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
-import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { act } from '@atlassian/testing-library/act';
 
 import { getCurrentSiteCloudId } from '../../../../state/services/current-site-cloud-id/getCurrentSiteCloudId';
@@ -40,7 +39,6 @@ describe('block Smart Link and modified date hydration', () => {
 	])(
 		'hydrates with $warmCache warm cache, fix enabled: $hydrationFixEnabled, treatment: $treatment',
 		async ({ hydrationFixEnabled, warmCache, treatment }) => {
-			passGate('social-proof-3p-unauth-block-fg');
 			jest.mocked(expValEquals).mockReturnValue(treatment);
 			if (hydrationFixEnabled) {
 				mockExpEnabled(HYDRATION_EXPERIMENT);

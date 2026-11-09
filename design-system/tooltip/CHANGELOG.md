@@ -1,5 +1,13 @@
 # @atlaskit/tooltip
 
+## 24.4.4
+
+### Patch Changes
+
+- [`bbde478b8c076`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bbde478b8c076) -
+  Behind `platform-dst-top-layer-tooltip`, `ignoreTooltipPointerEvents` also stops the tooltip's
+  popover host catching presses.
+
 ## 24.4.3
 
 ### Patch Changes

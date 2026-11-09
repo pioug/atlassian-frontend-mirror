@@ -21,7 +21,7 @@ interface DropdownItemRadioGroupProps extends SectionProps {
  *  across mount and unmounts.
  *
  */
-const DropdownItemRadioGroup = ({
+export const DropdownItemRadioGroup = ({
 	children,
 	hasSeparator,
 	id,

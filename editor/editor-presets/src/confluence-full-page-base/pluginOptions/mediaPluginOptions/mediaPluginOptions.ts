@@ -14,6 +14,7 @@ interface Props {
 	intl: IntlShape;
 	options: {
 		createCommentExperience: MediaPluginOptions['createCommentExperience'];
+		disableOptimisticToolbar?: MediaPluginOptions['disableOptimisticToolbar'];
 		editorAppearance: FullPageEditorAppearance;
 		mediaViewerExtensions: MediaPluginOptions['mediaViewerExtensions'];
 		onMediaRenderEvent?: MediaPluginOptions['onMediaRenderEvent'];
@@ -27,6 +28,7 @@ interface Props {
 /** Builds media plugin options from Confluence editor preset configuration. */
 export function mediaPluginOptions({ intl, options, providers }: Props): MediaPluginOptions {
 	return {
+		disableOptimisticToolbar: options.disableOptimisticToolbar,
 		// SECTION: From confluence/next/packages/editor-features/src/utils/mediaOptions.ts
 		provider: providers.mediaProvider,
 		syncProvider: providers.syncMediaProvider,

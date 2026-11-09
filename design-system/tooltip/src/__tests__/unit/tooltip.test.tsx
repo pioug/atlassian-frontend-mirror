@@ -1640,6 +1640,11 @@ describe('Tooltip', () => {
 	});
 
 	describe('pointer events', () => {
+		beforeEach(() => {
+			// These tests check the popover host, which only the top-layer tooltip renders.
+			passGate('platform-dst-top-layer-tooltip');
+		});
+
 		it('should not disable pointer events by default', async () => {
 			const user = createUser();
 			const { rerender } = render(
@@ -1661,6 +1666,7 @@ describe('Tooltip', () => {
 				jest.runAllTimers();
 			});
 
+			expect(screen.getByTestId('tooltip--popover')).not.toHaveStyle('pointer-events: none');
 			expect(screen.getByTestId('tooltip--wrapper')).not.toHaveStyle('pointer-events: none');
 		});
 
@@ -1685,7 +1691,37 @@ describe('Tooltip', () => {
 				jest.runAllTimers();
 			});
 
+			// The popover host is the box in the top layer, so it must not catch presses either.
+			expect(screen.getByTestId('tooltip--popover')).toHaveStyle('pointer-events: none');
 			expect(screen.getByTestId('tooltip--wrapper')).toHaveStyle('pointer-events: none');
+		});
+
+		it('should enable pointer events again if ignorePointerEvents becomes false while open', async () => {
+			const user = createUser();
+			const { rerender } = render(
+				<Tooltip testId="tooltip" content="Save" ignoreTooltipPointerEvents>
+					<button data-testid="trigger" type="button">
+						focus me
+					</button>
+				</Tooltip>,
+			);
+			await user.hover(screen.getByTestId('trigger'));
+
+			act(() => {
+				jest.runAllTimers();
+			});
+			expect(screen.getByTestId('tooltip--popover')).toHaveStyle('pointer-events: none');
+
+			rerender(
+				<Tooltip testId="tooltip" content="Save">
+					<button data-testid="trigger" type="button">
+						focus me
+					</button>
+				</Tooltip>,
+			);
+
+			expect(screen.getByTestId('tooltip--popover')).not.toHaveStyle('pointer-events: none');
+			expect(screen.getByTestId('tooltip--wrapper')).not.toHaveStyle('pointer-events: none');
 		});
 	});
 });

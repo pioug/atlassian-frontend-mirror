@@ -206,7 +206,7 @@ const spacing: AttributeSchema<SpacingTokenSchema<SpacingPaletteToken>> = {
 				attributes: {
 					group: 'spacing',
 					state: 'experimental',
-					replacement: 'space.050',
+					replacement: 'space.025',
 					introduced: '20.7.0',
 					description:
 						'Use for the smallest padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions.',
@@ -216,7 +216,7 @@ const spacing: AttributeSchema<SpacingTokenSchema<SpacingPaletteToken>> = {
 				attributes: {
 					group: 'spacing',
 					state: 'experimental',
-					replacement: 'space.100',
+					replacement: 'space.050',
 					introduced: '20.7.0',
 					description:
 						'Use for extra-small padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions.',
@@ -226,7 +226,7 @@ const spacing: AttributeSchema<SpacingTokenSchema<SpacingPaletteToken>> = {
 				attributes: {
 					group: 'spacing',
 					state: 'experimental',
-					replacement: 'space.150',
+					replacement: 'space.075',
 					introduced: '20.7.0',
 					description:
 						'Use for small padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions.',
@@ -236,7 +236,7 @@ const spacing: AttributeSchema<SpacingTokenSchema<SpacingPaletteToken>> = {
 				attributes: {
 					group: 'spacing',
 					state: 'experimental',
-					replacement: 'space.200',
+					replacement: 'space.100',
 					introduced: '20.7.0',
 					description:
 						'Use for medium padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions.',
@@ -246,7 +246,7 @@ const spacing: AttributeSchema<SpacingTokenSchema<SpacingPaletteToken>> = {
 				attributes: {
 					group: 'spacing',
 					state: 'experimental',
-					replacement: 'space.250',
+					replacement: 'space.150',
 					introduced: '20.7.0',
 					description:
 						'Use for large padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions.',
@@ -256,7 +256,7 @@ const spacing: AttributeSchema<SpacingTokenSchema<SpacingPaletteToken>> = {
 				attributes: {
 					group: 'spacing',
 					state: 'experimental',
-					replacement: 'space.300',
+					replacement: 'space.200',
 					introduced: '20.7.0',
 					description:
 						'Use for extra-large padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions.',
@@ -266,7 +266,7 @@ const spacing: AttributeSchema<SpacingTokenSchema<SpacingPaletteToken>> = {
 				attributes: {
 					group: 'spacing',
 					state: 'experimental',
-					replacement: 'space.400',
+					replacement: 'space.250',
 					introduced: '20.7.0',
 					description:
 						'Use for extra-extra-large padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions.',
@@ -276,8 +276,28 @@ const spacing: AttributeSchema<SpacingTokenSchema<SpacingPaletteToken>> = {
 				attributes: {
 					group: 'spacing',
 					state: 'experimental',
-					replacement: 'space.600',
+					replacement: 'space.300',
 					introduced: '20.7.0',
+					description:
+						'Use for very large padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions.',
+				},
+			},
+			'4xlarge': {
+				attributes: {
+					group: 'spacing',
+					state: 'experimental',
+					replacement: 'space.400',
+					introduced: '20.10.0',
+					description:
+						'Use for 32px default padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions.',
+				},
+			},
+			'5xlarge': {
+				attributes: {
+					group: 'spacing',
+					state: 'experimental',
+					replacement: 'space.600',
+					introduced: '20.10.0',
 					description:
 						'Use for the largest padding between a surface and its content, on individual sides or all sides. Do not use for gaps, margins, or dimensions.',
 				},

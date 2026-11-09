@@ -2,6 +2,7 @@ import type { AgentColor } from './get-agent-color';
 
 export type AgentPresenceColor = {
 	accentText: string;
+	activeBorder?: string;
 	background: string;
 	bold: string;
 	boldText: string;

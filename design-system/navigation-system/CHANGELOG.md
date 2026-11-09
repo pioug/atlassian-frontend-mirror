@@ -1,5 +1,13 @@
 # @atlassian/navigation-system
 
+## 11.7.1
+
+### Patch Changes
+
+- [`08ae3998563eb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/08ae3998563eb) -
+  Restore local-panel minimum sizing, overlay clearance and coordinated resize limits behind
+  platform-dst-chat-panel-layout.
+
 ## 11.7.0
 
 ### Minor Changes

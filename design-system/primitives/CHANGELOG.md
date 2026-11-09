@@ -1,5 +1,30 @@
 # @atlaskit/primitives
 
+## 22.7.1
+
+### Patch Changes
+
+- [`e60cde59891c8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e60cde59891c8) -
+  Add `color.border.dropindicator`, `color.border.dropindicator.warning`,
+  `color.background.droptarget`, and `color.background.draghandle` for active receiving areas,
+  insertion/target indicators, blocked instructions, and prominent filled handles. Include theme
+  mappings and primitive background styles without changing existing drag-and-drop component
+  treatments.
+- Updated dependencies
+
+## 22.7.0
+
+### Minor Changes
+
+- [`e23c12da8c164`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e23c12da8c164) -
+  Support experimental space.inset tokens for padding in Box, legacy Anchor and Pressable, and xcss.
+  Keep numeric spacing available and semantic inset tokens restricted to padding. Support
+  experimental space.gap tokens for physical and logical margin properties in xcss.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.6.0
 
 ### Minor Changes

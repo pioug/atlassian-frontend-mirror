@@ -5,8 +5,8 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import Button from '@atlaskit/button/default/button';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
+import DropdownItem from '../../dropdown-item';
 import DropdownMenu from '../../dropdown-menu';
-import DropdownItem from '../../dropdown-menu-item';
 import type { CustomTriggerProps } from '../../types';
 
 describe('dropdown trigger context', () => {

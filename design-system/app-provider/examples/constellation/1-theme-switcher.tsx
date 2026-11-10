@@ -4,9 +4,9 @@ import { useColorMode } from '@atlaskit/app-provider/use-color-mode';
 import { useSetColorMode } from '@atlaskit/app-provider/use-set-color-mode';
 import { useSetTheme } from '@atlaskit/app-provider/use-set-theme';
 import { useTheme } from '@atlaskit/app-provider/use-theme';
-import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
-import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
-import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
+import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';
+import { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-item-group';
+import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
 import { Box } from '@atlaskit/primitives/compiled/box';
 
 const AppProviderThemeCodeBlock = `import React from 'react';

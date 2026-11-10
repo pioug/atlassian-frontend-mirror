@@ -1,5 +1,21 @@
 # @atlaskit/dropdown-menu
 
+## 21.3.1
+
+### Patch Changes
+
+- [`cbf32123c26d7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cbf32123c26d7) -
+  Add semantic spacing style overrides for dropdown-menu behind platform-semantic-spacing. Existing
+  numeric styles remain when the feature flag is off.
+- Updated dependencies
+
+## 21.3.0
+
+### Minor Changes
+
+- [`e0fb460e4c662`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e0fb460e4c662) -
+  Added new export paths for some exports which will replace older ones in a future major release.
+
 ## 21.2.0
 
 ### Minor Changes

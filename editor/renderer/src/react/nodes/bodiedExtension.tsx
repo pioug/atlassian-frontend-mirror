@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useContext, useMemo } from 'react';
 
 import type { Layout as ExtensionLayout } from '@atlaskit/adf-schema/extensions';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
@@ -10,7 +10,6 @@ import type {
 import type { Parameters } from '@atlaskit/editor-common/extensions/extension-parameters';
 import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import type { Mark as PMMark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { expVal } from '@atlaskit/platform-feature-experiments/exp-val';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
@@ -25,7 +24,8 @@ import { ValidationContextProvider } from '../../ui/Renderer/ValidationContext';
 import type { RendererContext, ExtensionViewportSize } from '../types';
 import { hasExtensionViewportSize, renderExtension } from './extension';
 import ForgeBodiedExtensionHandoff from './ForgeBodiedExtensionHandoff';
-import { FORGE_BODIED_EXTENSION_HANDOFF_KEYS } from './forgeBodiedExtensionHandoffConfig';
+import { getForgeBodiedExtensionHandoffMode } from './forgeBodiedExtensionHandoffConfig';
+import { ForgeBodiedExtensionHandoffContext } from './forgeBodiedExtensionHandoffContext';
 import { useNodeHeight, type ScheduleExtensionHeightRemoval } from './useNodeHeight';
 
 interface Props {
@@ -74,6 +74,7 @@ const BodiedExtensionContent = (props: React.PropsWithChildren<Props>): React.JS
 		shouldDisplayExtensionAsInline,
 		fireAnalyticsEvent,
 	} = props;
+	const preserveUntilReadyInstances = useContext(ForgeBodiedExtensionHandoffContext);
 	const presetOptions = props.scheduleExtensionHeightRemoval
 		? { height: props.nodePresetHeight }
 		: {};
@@ -117,17 +118,19 @@ const BodiedExtensionContent = (props: React.PropsWithChildren<Props>): React.JS
 						type="bodiedExtension"
 					>
 						{({ node, result }) => {
-							if (
-								localId &&
-								extensionType === 'com.atlassian.ecosystem' &&
-								FORGE_BODIED_EXTENSION_HANDOFF_KEYS.has(extensionKey) &&
-								!shouldDisplayExtensionAsInline?.(node) &&
-								expVal('cc_aura_table_filter_cls', 'isEnabled', false)
-							) {
+							const handoffMode = getForgeBodiedExtensionHandoffMode({
+								extensionType,
+								extensionKey,
+								localId,
+								isInline: () => Boolean(shouldDisplayExtensionAsInline?.(node)),
+								preserveUntilReadyInstances,
+							});
+							if (localId && handoffMode) {
 								return renderExtension(
 									<ForgeBodiedExtensionHandoff
 										key={localId}
 										localId={localId}
+										preserveContentUntilReady={handoffMode === 'preserve-until-ready'}
 										fallback={children}
 										result={React.isValidElement(result) ? result : null}
 									/>,

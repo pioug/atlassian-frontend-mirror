@@ -16,6 +16,7 @@ import { Pressable } from '@atlaskit/primitives/pressable';
 import { xcss } from '@atlaskit/primitives/xcss/xcss';
 import { token } from '@atlaskit/tokens';
 
+import type { QuickInsertPreview } from './preview';
 import { QuickInsertHoverPreview } from './QuickInsertHoverPreview';
 import type { QuickInsertMenuItemProps } from './QuickInsertMenuItem';
 import { useQuickInsertMenuItemSelection } from './quickInsertMenuItemUtils';
@@ -150,7 +151,7 @@ export const CompactQuickInsertMenuItem = ({
 	const previewId = useId();
 	const handleClick = useQuickInsertMenuItemSelection(onSelect);
 	const [referenceElement, setReferenceElement] = useState<HTMLElement | null>(null);
-	const resolvedPreview = useMemo(
+	const resolvedPreview = useMemo<QuickInsertPreview>(
 		() => preview ?? (previewImageUrls ? { image: previewImageUrls } : {}),
 		[preview, previewImageUrls],
 	);

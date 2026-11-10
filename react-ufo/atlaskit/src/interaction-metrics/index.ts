@@ -4,8 +4,6 @@
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Preserves the existing UUID implementation.
 import { v4 as createUUID } from 'uuid';
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-
 import coinflip from '../coinflip';
 import type {
 	AbortReasonType,
@@ -1621,9 +1619,7 @@ export function addNewInteraction(
 		preloadKey,
 		type,
 		previousInteractionName: PreviousInteractionLog.name,
-		...(fg('platform_ufo_emit_previous_interaction_id')
-			? { previousInteractionId: PreviousInteractionLog.id }
-			: {}),
+		previousInteractionId: PreviousInteractionLog.id,
 		isPreviousInteractionAborted: PreviousInteractionLog.isAborted === true,
 		marks: [],
 		customData: [],

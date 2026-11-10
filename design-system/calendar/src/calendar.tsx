@@ -40,6 +40,7 @@ const InnerCalendar: React.ForwardRefExoticComponent<
 > = forwardRef<HTMLDivElement, CalendarProps>(function Calendar(
 	{
 		label = 'calendar',
+		headingLevel,
 		day,
 		defaultDay = 0,
 		defaultMonth = 0,
@@ -224,6 +225,7 @@ const InnerCalendar: React.ForwardRefExoticComponent<
 						handleClickPrevMonth={handleClickPrevMonth}
 						handleClickPrevYear={handleClickPrevYear}
 						headerId={headerId}
+						headingLevel={headingLevel}
 						tabIndex={tabIndex}
 						testId={testId}
 					/>

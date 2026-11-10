@@ -3,27 +3,35 @@ import React from 'react';
 import {
 	LOOM_MENU_SECTION,
 	LOOM_MENU_ITEM,
+	INSERT_BLOCK_SECTION,
+	LOOM_TOOLBAR_GROUP,
+	LOOM_TOOLBAR_BUTTON,
 	OVERFLOW_MENU_PRIMARY_TOOLBAR,
 	OVERFLOW_EXTENSIONS_MENU_SECTION,
 } from '@atlaskit/editor-common/toolbar/keys';
 import {
 	LOOM_MENU_SECTION_RANK,
+	LOOM_TOOLBAR_GROUP_RANK,
+	INSERT_BLOCK_SECTION_RANK,
 	OVERFLOW_MENU_PRIMARY_TOOLBAR_RANK,
 	OVERFLOW_EXTENSIONS_MENU_SECTION_RANK,
 } from '@atlaskit/editor-common/toolbar/rank';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { RegisterComponent } from '@atlaskit/editor-toolbar-model/types';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { LoomPlugin } from '../loomPluginType';
 import type { LoomPluginOptions } from '../types';
 import { LoomMenuItem } from './LoomMenuItem';
+import { LoomToolbarButtonGroup } from './LoomToolbarButtonGroup';
+import { createToolbarButton, LoomToolbarButtonWrapper } from './LoomToolbarButtonWrapper';
 import { MenuSection } from './MenuSection';
 
 export const getToolbarComponents = (
 	config: LoomPluginOptions,
 	api: ExtractInjectionAPI<LoomPlugin> | undefined,
 ): RegisterComponent[] => {
-	return [
+	const components: RegisterComponent[] = [
 		{
 			type: LOOM_MENU_SECTION.type,
 			key: LOOM_MENU_SECTION.key,
@@ -70,4 +78,43 @@ export const getToolbarComponents = (
 			},
 		},
 	];
+
+	if (
+		(config.editorAppearance === 'full-page' ||
+			config.editorAppearance === 'full-width' ||
+			config.editorAppearance === 'max') &&
+		isExperimentEnabled('twc_growth_loom_conf_pinned_toolbar')
+	) {
+		const ButtonComponent = createToolbarButton(api);
+
+		components.push(
+			{
+				...LOOM_TOOLBAR_GROUP,
+				parents: [
+					{
+						type: INSERT_BLOCK_SECTION.type,
+						key: INSERT_BLOCK_SECTION.key,
+						rank: INSERT_BLOCK_SECTION_RANK[LOOM_TOOLBAR_GROUP.key],
+					},
+				],
+				component: ({ children }: { children: React.ReactNode }) => (
+					<LoomToolbarButtonGroup renderButton={config.renderButton}>
+						{children}
+					</LoomToolbarButtonGroup>
+				),
+			},
+			{
+				...LOOM_TOOLBAR_BUTTON,
+				parents: [
+					{
+						...LOOM_TOOLBAR_GROUP,
+						rank: LOOM_TOOLBAR_GROUP_RANK[LOOM_TOOLBAR_BUTTON.key],
+					},
+				],
+				component: () => <LoomToolbarButtonWrapper buttonComponent={ButtonComponent} />,
+			},
+		);
+	}
+
+	return components;
 };

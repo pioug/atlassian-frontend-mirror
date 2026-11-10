@@ -414,7 +414,7 @@ describe('platform_dst_nav4_skip_link_a11y_1 is on with skip link a11y improveme
 		resetConsoleErrorSpyFn();
 	});
 
-	it('should only render skip links for the SideNav and Main slots', async () => {
+	it('should only render skip links for the TopNav, SideNav and Main slots', async () => {
 		passGate('platform_dst_nav4_skip_link_a11y_1');
 
 		const user = userEvent.setup();
@@ -434,7 +434,8 @@ describe('platform_dst_nav4_skip_link_a11y_1 is on with skip link a11y improveme
 
 		const skipLinksContainer = within(screen.getByTestId('root--skip-links-container'));
 
-		expect(skipLinksContainer.getAllByRole('link')).toHaveLength(2);
+		expect(skipLinksContainer.getAllByRole('link')).toHaveLength(3);
+		expect(skipLinksContainer.getByRole('link', { name: 'Global navigation' })).toBeInTheDocument();
 		expect(skipLinksContainer.getByRole('link', { name: 'Sidebar' })).toBeInTheDocument();
 		expect(skipLinksContainer.getByRole('link', { name: 'Main content' })).toBeInTheDocument();
 	});

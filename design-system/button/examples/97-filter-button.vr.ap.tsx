@@ -1,9 +1,9 @@
 import React from 'react';
 
 import FilterButton from '@atlaskit/button/filter-button';
-import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
-import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
-import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
+import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';
+import { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-item-group';
+import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
 import FilterIcon from '@atlaskit/icon/core/filter';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { Stack } from '@atlaskit/primitives/compiled/stack';

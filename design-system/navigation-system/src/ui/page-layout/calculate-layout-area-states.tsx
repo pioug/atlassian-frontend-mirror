@@ -385,12 +385,17 @@ export function calculateLayoutAreaStates({
 							),
 						)
 					: Math.min(mainAreaWidth, Math.max(defaultWidth, layoutMax))
-				: layoutMax;
+				: isRefinedLayout && areaName === 'chat-panel'
+					? Math.min(layoutWidth, Math.max(defaultWidth, layoutMax))
+					: layoutMax;
 		const max =
-			isRefinedLayout && areaName === 'panel'
+			isRefinedLayout && (areaName === 'panel' || areaName === 'chat-panel')
 				? Math.max(min, Math.min(configuredMax, overlayMax))
 				: Math.max(0, Math.min(configuredMax, overlayMax));
-		const effectiveMin = isRefinedLayout && areaName === 'panel' ? min : Math.min(min, max);
+		const effectiveMin =
+			isRefinedLayout && (areaName === 'panel' || areaName === 'chat-panel')
+				? min
+				: Math.min(min, max);
 		const target = getOverlayTargetWidth(area, isSideNavOverlay, areaName);
 		const width = clampTargetWidth({
 			target,

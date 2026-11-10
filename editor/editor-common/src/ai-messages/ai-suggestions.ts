@@ -86,6 +86,11 @@ export const aiSuggestionsMessages: {
 		description: string;
 		id: string;
 	};
+	cardOutdatedLabel: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	cardPreviousSuggestionButtonLabel: {
 		defaultMessage: string;
 		description: string;
@@ -584,6 +589,11 @@ export const aiSuggestionsMessages: {
 		defaultMessage: 'Show suggestions',
 		description:
 			'Label and tooltip for the button on the AI suggestions card that opens the suggestions sidebar',
+	},
+	cardOutdatedLabel: {
+		defaultMessage: 'Outdated',
+		description: 'Status lozenge shown before an AI suggestion that is no longer up to date',
+		id: 'fabric.editor.ai.suggestions.card.outdatedLabel.non-final',
 	},
 	cardPreviousSuggestionButtonLabel: {
 		id: 'fabric.editor.ai.suggestions.card.previousSuggestionButtonLabel.non-final',

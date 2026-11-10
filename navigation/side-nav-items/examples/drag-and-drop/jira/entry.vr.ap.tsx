@@ -7,9 +7,9 @@
 import { jsx } from '@compiled/react';
 
 import Badge from '@atlaskit/badge/badge';
-import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
-import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
-import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
+import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';
+import { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-item-group';
+import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
 import { JiraIcon } from '@atlaskit/logo/jira-icon';
 import { PanelSplitter } from '@atlaskit/navigation-system/layout/panel-splitter';
 import { Root } from '@atlaskit/navigation-system/layout/root';

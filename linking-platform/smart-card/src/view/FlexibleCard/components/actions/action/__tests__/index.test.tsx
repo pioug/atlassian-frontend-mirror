@@ -5,8 +5,8 @@
 import '@testing-library/jest-dom';
 import { css, jsx } from '@compiled/react';
 
-import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
-import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
+import { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-item-group';
+import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';

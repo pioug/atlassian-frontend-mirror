@@ -38,24 +38,21 @@ describe('Code', () => {
 		expect(screen.getByTestId('valid').textContent === 'valid');
 	});
 
-	// skipping this test as it does not work with jsdom.reconfigure. Need to rewrite this test.
-	// https://hello.jira.atlassian.cloud/browse/UTEST-2000
-	it.skip('should have the correct bg color', () => {
+	it('should have the correct bg color', () => {
 		render(<Code testId="bg">{javaCode}</Code>);
-		expect(screen.getByTestId('bg')).toHaveStyle(
-			`background-color: ${token('color.background.neutral')};`,
+		// Compiled styles include the token's fallback value, so match on the CSS variable reference only.
+		expect(getComputedStyle(screen.getByTestId('bg')).backgroundColor).toContain(
+			token('color.background.neutral').split(/[,)]/)[0],
 		);
 	});
 
-	// skipping this test as it does not work with jsdom.reconfigure. Need to rewrite this test.
-	// https://hello.jira.atlassian.cloud/browse/UTEST-2000
-	it.skip('should style code container with a red color', () => {
+	it('should style code container with a red color', () => {
 		render(
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			<Code testId="style-property" style={{ color: 'red' }}>
 				{pyCode}
 			</Code>,
 		);
-		expect(screen.getByTestId('style-property')).toHaveStyle('color: red;');
+		expect(screen.getByTestId('style-property')).toHaveStyle('color: rgb(255, 0, 0);');
 	});
 });

@@ -5,7 +5,7 @@ import ButtonItem from '@atlaskit/menu/button-item';
 import { SELECTION_STYLE_CONTEXT_DO_NOT_USE } from '@atlaskit/menu/selection-style-context-do-not-use';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import NewDropdownMenuItem from '../dropdown-menu-item-new';
+import NewDropdownMenuItem from '../dropdown-item-new';
 import RadioIcon from '../internal/components/radio-icon';
 import useRadioState from '../internal/hooks/use-radio-state';
 import useRegisterItemWithFocusManager from '../internal/hooks/use-register-item-with-focus-manager';

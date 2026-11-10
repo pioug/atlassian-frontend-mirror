@@ -8,6 +8,7 @@ import { cssMap, jsx } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
 import Button from '@atlaskit/button/default/button';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 import { WidthObserver } from '@atlaskit/width-detector/width-observer';
 
@@ -132,7 +133,11 @@ const EmbedRovoActionsFooter = ({
 				const isPrimaryAction = actions.length === 0;
 				// The primary action normally uses the branded AI icon. Visualize keeps its own
 				// chart icon so the action stays recognisable, including in the icon-only view.
-				const shouldUseBrandedIcon = isPrimaryAction && promptKey !== RovoChatPromptKey.VISUALIZE;
+				// With platform_sl_rovo_summarize_icon_consistency on, every action keeps its own
+				// prompt icon so Summarize matches the inline and block cards.
+				const shouldUseBrandedIcon = fg('platform_sl_rovo_summarize_icon_consistency')
+					? false
+					: isPrimaryAction && promptKey !== RovoChatPromptKey.VISUALIZE;
 
 				actions.push(
 					<RovoPromptButton

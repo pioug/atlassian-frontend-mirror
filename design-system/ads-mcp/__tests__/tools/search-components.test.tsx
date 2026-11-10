@@ -31,7 +31,7 @@ const expectedComponentResults: [string[], string[]][] = [
 	[['popup'], ['Popup', 'PopupSelect']],
 	[['pagination'], ['Pagination', 'Dynamic table']],
 	[['breadcrumb'], ['BreadcrumbsItem', 'Breadcrumbs']],
-	[['menu'], ['MenuGroup', 'DropdownMenu']],
+	[['menu'], ['DropdownMenu', 'DropdownItem']],
 	[['dropdown'], ['DropdownItemCheckbox', 'DropdownItemRadio']],
 
 	// Content & display
@@ -70,7 +70,7 @@ const expectedComponentResults: [string[], string[]][] = [
 	],
 	[
 		['section', 'message'],
-		['Section', 'MessageWrapper', 'SectionMessage', 'ErrorMessage'],
+		['SectionMessage', 'MessageWrapper', 'ErrorMessage'],
 	],
 ];
 

@@ -84,6 +84,7 @@ const browserLayoutStyles = css({
 	gridTemplateColumns: browserGridTemplateColumns,
 	paddingBlockStart: token('space.050'),
 	paddingInline: token('space.200'),
+	// Narrow modal: categories stack above the results instead of sitting beside them.
 	'@media (max-width: 822px)': {
 		gridTemplateColumns: 'minmax(0, 1fr)',
 		rowGap: token('space.150'),
@@ -97,6 +98,7 @@ const headerContentStyles = css({
 	gap: token('space.250'),
 	gridTemplateColumns: browserGridTemplateColumns,
 	width: '100%',
+	// Narrow modal: the search field spans the full width, matching the stacked categories.
 	'@media (max-width: 822px)': {
 		gridTemplateColumns: 'minmax(0, 1fr)',
 	},
@@ -427,10 +429,7 @@ export const RegistryElementBrowser = ({
 		<ModalTransition>
 			{isOpen && (
 				<Modal
-					label={formatMessage({
-						defaultMessage: 'Insert elements',
-						id: 'editor.quick-insert.title',
-					})}
+					label={formatMessage(messages.elementBrowserTitle)}
 					height="804px"
 					onClose={closeBrowser}
 					onCloseComplete={onCloseComplete}
@@ -440,20 +439,12 @@ export const RegistryElementBrowser = ({
 				>
 					<ModalHeader>
 						<div css={headerContentStyles}>
-							<ModalTitle>
-								{formatMessage({
-									defaultMessage: 'Insert elements',
-									id: 'editor.quick-insert.title',
-								})}
-							</ModalTitle>
+							<ModalTitle>{formatMessage(messages.elementBrowserTitle)}</ModalTitle>
 							<div css={headerSearchStyles}>
 								<Textfield
 									autoFocus
 									aria-controls={resultsId}
-									aria-label={formatMessage({
-										defaultMessage: 'Search elements',
-										id: 'editor.quick-insert.search',
-									})}
+									aria-label={formatMessage(messages.elementBrowserSearch)}
 									isCompact
 									name="registry-element-browser-search"
 									onFocus={onSearchFocus}

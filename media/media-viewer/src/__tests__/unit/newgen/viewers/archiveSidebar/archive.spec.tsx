@@ -8,6 +8,72 @@ jest.mock('../../../../../analytics/events/operational/previewUnsupported', () =
 	createPreviewUnsupportedEvent: jest.fn(),
 }));
 
+jest.mock('../../../../../errorMessageWithAnalytics', () => {
+	const React = require('react');
+	const actual = jest.requireActual('../../../../../errorMessageWithAnalytics');
+	return {
+		__esModule: true,
+		default: jest.fn((props: any) => React.createElement(actual.default, props)),
+	};
+});
+jest.mock('../../../../../styleWrappers', () => {
+	const React = require('react');
+	const actual = jest.requireActual('../../../../../styleWrappers');
+	return {
+		...actual,
+		ItemStage: jest.fn(({ children }: any) =>
+			React.createElement(
+				'div',
+				{ 'data-testid': 'item-stage' },
+				React.createElement(actual.ItemStage, null, children),
+			),
+		),
+		CustomMediaPlayerWrapper: jest.fn((props: any) =>
+			React.createElement(actual.CustomMediaPlayerWrapper, props),
+		),
+		AudioPlayer: jest.fn((props: any) => React.createElement(actual.AudioPlayer, props)),
+		DefaultCoverWrapper: jest.fn((props: any) =>
+			React.createElement(actual.DefaultCoverWrapper, props),
+		),
+		CustomAudioPlayerWrapper: jest.fn((props: any) =>
+			React.createElement(actual.CustomAudioPlayerWrapper, props),
+		),
+	};
+});
+// The frames render only the player they're given, with the props a frame passes it, so the tests
+// can see which of the archive viewer's own wrappers it uses.
+const mockInsetVideoPlayerProps = { controlsPortalElement: null, onVideoElementChange: () => {} };
+const mockInsetAudioPlayerProps = { controlsPortalElement: null };
+jest.mock('../../../../../viewers/inset-video-frame', () => ({
+	...jest.requireActual('../../../../../viewers/inset-video-frame'),
+	InsetVideoFrame: jest.fn(({ renderPlayer }: any) => renderPlayer(mockInsetVideoPlayerProps)),
+}));
+jest.mock('../../../../../viewers/inset-audio-frame', () => ({
+	...jest.requireActual('../../../../../viewers/inset-audio-frame'),
+	InsetAudioFrame: jest.fn(({ renderPlayer }: any) => renderPlayer(mockInsetAudioPlayerProps)),
+}));
+jest.mock('@atlaskit/media-ui/customMediaPlayer', () => {
+	const React = require('react');
+	const actual = jest.requireActual('@atlaskit/media-ui/customMediaPlayer');
+	return {
+		...actual,
+		CustomMediaPlayer: jest.fn((props: any) =>
+			React.createElement(actual.CustomMediaPlayer, props),
+		),
+	};
+});
+jest.mock('../../../../../DownloadItem', () => {
+	const original = jest.requireActual('../../../../../DownloadItem');
+	return { ...original, DownloadItem: jest.fn(original.DownloadItem) };
+});
+jest.mock('../../../../../viewers/archiveSidebar/download-archive-entry', () => ({
+	downloadArchiveEntry: jest.fn(),
+}));
+jest.mock('../../../../../viewers/archiveSidebar/nativePdfViewer', () => ({
+	...jest.requireActual('../../../../../viewers/archiveSidebar/nativePdfViewer'),
+	canRenderInNativePdfViewer: jest.fn(),
+}));
+
 const mockUnzip = jest.fn();
 
 jest.mock('unzipit', () => ({
@@ -23,21 +89,37 @@ import { IntlProvider } from 'react-intl';
 
 import type { ProcessedFileState } from '@atlaskit/media-state/file-state';
 import { fakeMediaClient } from '@atlaskit/media-test-helpers/fakeMediaClient';
+import { CustomMediaPlayer } from '@atlaskit/media-ui/customMediaPlayer';
 import { messages as i18nMessages } from '@atlaskit/media-ui/messages';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { render, waitFor } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
+import { within } from '@atlassian/testing-library/within';
 
 import { createPreviewUnsupportedEvent } from '../../../../../analytics/events/operational/previewUnsupported';
 import { createZipEntryLoadFailedEvent } from '../../../../../analytics/events/operational/zipEntryLoadFailed';
 import { createZipEntryLoadSucceededEvent } from '../../../../../analytics/events/operational/zipEntryLoadSucceeded';
 import { ArchiveViewerError } from '../../../../../ArchiveViewerError';
+import { DownloadItem } from '../../../../../DownloadItem';
+import ErrorMessage from '../../../../../errorMessageWithAnalytics';
+import { InsetViewerProvider, useHasArchiveColumn } from '../../../../../insetViewerContext';
 import { MAX_FILE_SIZE_SUPPORTED_BY_CODEVIEWER } from '../../../../../item-viewer';
+import {
+	AudioPlayer,
+	CustomAudioPlayerWrapper,
+	CustomMediaPlayerWrapper,
+	DefaultCoverWrapper,
+} from '../../../../../styleWrappers';
 import type { Props as ArchiveViewerProps } from '../../../../../viewers/archiveSidebar/archive';
+import { ArchiveViewer } from '../../../../../viewers/archiveSidebar/archive';
 import { ArchiveViewerBase } from '../../../../../viewers/archiveSidebar/archive-viewer-base';
 import { ENCRYPTED_ENTRY_ERROR_MESSAGE } from '../../../../../viewers/archiveSidebar/consts';
+import { downloadArchiveEntry } from '../../../../../viewers/archiveSidebar/download-archive-entry';
 import { getArchiveEntriesFromFileState } from '../../../../../viewers/archiveSidebar/get-archive-entries-from-file-state';
+import { canRenderInNativePdfViewer } from '../../../../../viewers/archiveSidebar/nativePdfViewer';
+import { InsetAudioFrame } from '../../../../../viewers/inset-audio-frame';
+import { InsetVideoFrame } from '../../../../../viewers/inset-video-frame';
 
 type EntryConfig = {
 	name: string;
@@ -459,5 +541,236 @@ describe('Archive', () => {
 		expect(onErrorMock).toHaveBeenCalledWith(
 			expect.objectContaining({ message: 'archiveviewer-read-binary' }),
 		);
+	});
+
+	describe('in the inset viewer', () => {
+		const ArchiveColumnProbe = () => (
+			<span data-testid="has-archive-column">{String(useHasArchiveColumn())}</span>
+		);
+
+		const renderInset = (passedProps: Partial<ArchiveViewerProps> = {}) => {
+			const props = {
+				mediaClient,
+				item: fileState,
+				collectionName,
+				onError: () => {},
+				onSuccess: () => {},
+				traceContext: { traceId: 'some-trace-id' },
+				...passedProps,
+			};
+			const tree = (showViewer: boolean) => (
+				<IntlProvider locale="en">
+					<InsetViewerProvider isInsetViewer>
+						<ArchiveColumnProbe />
+						{showViewer && <ArchiveViewer {...props} />}
+					</InsetViewerProvider>
+				</IntlProvider>
+			);
+			const { rerender } = render(tree(true));
+			return { unmountViewer: () => rerender(tree(false)) };
+		};
+
+		const lastErrorMessageProps = () => {
+			const calls = (ErrorMessage as unknown as jest.Mock).mock.calls;
+			return calls[calls.length - 1][0];
+		};
+
+		beforeEach(() => {
+			// The wrapped viewer has real analytics, which need an event to fire.
+			const analyticsEvent = {
+				eventType: 'operational',
+				actionSubject: 'mediaViewer',
+				action: 'some-action',
+				attributes: {},
+			};
+			(createPreviewUnsupportedEvent as jest.Mock).mockReturnValue(analyticsEvent);
+			(createZipEntryLoadFailedEvent as jest.Mock).mockReturnValue(analyticsEvent);
+			(createZipEntryLoadSucceededEvent as jest.Mock).mockReturnValue(analyticsEvent);
+			(downloadArchiveEntry as jest.Mock).mockResolvedValue(undefined);
+		});
+
+		it('should show the spinner in the item stage, then the empty state until an entry is picked', async () => {
+			renderInset();
+
+			// While the zip is read, the spinner is centred in the item stage.
+			expect(
+				within(screen.getByTestId('item-stage')).getByTestId('spinner-wrapper'),
+			).toBeInTheDocument();
+
+			// Once the list loads, and before anything is picked, the empty state replaces it.
+			expect(await screen.findByTestId('archive-empty-state')).toBeInTheDocument();
+			expect(screen.queryByTestId('item-stage')).not.toBeInTheDocument();
+			await expect(document.body).toBeAccessible();
+		});
+
+		it('should set the archive column flag while the layout is mounted and clear it after', async () => {
+			const { unmountViewer } = renderInset();
+
+			expect(screen.getByTestId('has-archive-column')).toHaveTextContent('true');
+
+			unmountViewer();
+
+			expect(screen.getByTestId('has-archive-column')).toHaveTextContent('false');
+		});
+
+		it('should render video and audio in the inset frames, not the overlay viewer wrappers', async () => {
+			setUnzipEntries([{ name: 'file_a.mov' }, { name: 'file_b.mp3' }]);
+			renderInset();
+
+			// Picking a video renders it in the inset video frame, and the player gets the entry and
+			// whatever the frame passes it.
+			await userEvent.click(await screen.findByText('file_a.mov'));
+			await waitFor(() =>
+				expect(InsetVideoFrame).toHaveBeenCalledWith(
+					expect.objectContaining({ 'data-testid': 'media-viewer-video-content' }),
+					expect.anything(),
+				),
+			);
+			expect(InsetAudioFrame).not.toHaveBeenCalled();
+			expect(CustomMediaPlayer).toHaveBeenLastCalledWith(
+				expect.objectContaining({
+					type: 'video',
+					src: 'blob:fake-url',
+					isAutoPlay: false,
+					...mockInsetVideoPlayerProps,
+				}),
+				expect.anything(),
+			);
+
+			// Picking audio renders it in the inset audio frame instead.
+			await userEvent.click(screen.getByText('file_b.mp3'));
+			await waitFor(() => expect(InsetAudioFrame).toHaveBeenCalled());
+			expect(CustomMediaPlayer).toHaveBeenLastCalledWith(
+				expect.objectContaining({
+					type: 'audio',
+					src: 'blob:fake-url',
+					isAutoPlay: false,
+					...mockInsetAudioPlayerProps,
+				}),
+				expect.anything(),
+			);
+
+			// Neither uses the wrappers the overlay viewer renders the players in.
+			expect(CustomMediaPlayerWrapper).not.toHaveBeenCalled();
+			expect(AudioPlayer).not.toHaveBeenCalled();
+			expect(DefaultCoverWrapper).not.toHaveBeenCalled();
+			expect(CustomAudioPlayerWrapper).not.toHaveBeenCalled();
+		});
+
+		it('should show the unsupported error, and report previewUnsupported once, for documents the native viewer cannot show', async () => {
+			// The browser can't show either entry in its PDF viewer.
+			(canRenderInNativePdfViewer as jest.Mock).mockReturnValue(false);
+			setUnzipEntries([{ name: 'file_a.docx' }, { name: 'file_b.pdf' }]);
+			renderInset();
+
+			// Picking the first shows the unsupported error in the item stage, and reports it once.
+			await userEvent.click(await screen.findByText('file_a.docx'));
+			expect(
+				within(await screen.findByTestId('item-stage')).getByTestId('media-viewer-error'),
+			).toBeInTheDocument();
+			expect(lastErrorMessageProps().error).toEqual(
+				expect.objectContaining({ primaryReason: 'archiveviewer-unsupported' }),
+			);
+			expect(createPreviewUnsupportedEvent).toHaveBeenCalledTimes(1);
+			expect(createPreviewUnsupportedEvent).toHaveBeenLastCalledWith(fileState);
+
+			// Picking the second reports it again, once, and never as a failed load.
+			await userEvent.click(screen.getByText('file_b.pdf'));
+			await waitFor(() => expect(createPreviewUnsupportedEvent).toHaveBeenCalledTimes(2));
+			expect(lastErrorMessageProps().error).toEqual(
+				expect.objectContaining({ primaryReason: 'archiveviewer-unsupported' }),
+			);
+			expect(canRenderInNativePdfViewer).toHaveBeenLastCalledWith('application/pdf');
+			expect(createZipEntryLoadFailedEvent).not.toHaveBeenCalled();
+		});
+
+		it('should render the native pdf viewer for a pdf the browser can show', async () => {
+			(canRenderInNativePdfViewer as jest.Mock).mockReturnValue(true);
+			setUnzipEntries([{ name: 'file_a.pdf' }]);
+			renderInset();
+
+			await userEvent.click(await screen.findByText('file_a.pdf'));
+
+			expect(await screen.findByTestId('native-pdf-viewer')).toBeInTheDocument();
+			expect(canRenderInNativePdfViewer).toHaveBeenLastCalledWith('application/pdf');
+			expect(createPreviewUnsupportedEvent).not.toHaveBeenCalled();
+		});
+
+		it('should offer to download an entry that failed to preview, and report a failed download', async () => {
+			const onError = jest.fn();
+			setUnzipEntries([
+				{
+					name: 'dir/file_a.txt',
+					size: (MAX_FILE_SIZE_SUPPORTED_BY_CODEVIEWER + 1) * 1024 * 1024,
+					blob: jest.fn().mockResolvedValue({ text: jest.fn().mockResolvedValue('src') }) as any,
+				},
+			]);
+			renderInset({ onError });
+
+			// A text file too big for the code viewer, inside a folder, shows the error view.
+			await userEvent.click(await screen.findByText('dir/'));
+			await userEvent.click(await screen.findByText('file_a.txt'));
+
+			// Its Download button is the inset viewer's themed button, and downloads that entry under its
+			// own name, without the folder.
+			const stage = await screen.findByTestId('item-stage');
+			expect(DownloadItem).toHaveBeenCalledWith(
+				expect.objectContaining({
+					testId: 'media-viewer-error-download-button',
+					variant: 'insetText',
+				}),
+				expect.anything(),
+			);
+			await userEvent.click(within(stage).getByTestId('media-viewer-error-download-button'));
+			expect(downloadArchiveEntry).toHaveBeenCalledWith(
+				expect.objectContaining({ name: 'dir/file_a.txt' }),
+				'file_a.txt',
+				'some-id',
+			);
+			expect(onError).not.toHaveBeenCalled();
+
+			// A download that fails is reported through onError.
+			const downloadError = new Error('download failed');
+			(downloadArchiveEntry as jest.Mock).mockRejectedValueOnce(downloadError);
+			await userEvent.click(screen.getByTestId('media-viewer-error-download-button'));
+			await waitFor(() => expect(onError).toHaveBeenCalledWith(downloadError));
+		});
+
+		it('should not offer to download an entry that could not be read', async () => {
+			setUnzipEntries([
+				{
+					name: 'file_a.jpeg',
+					blob: jest.fn().mockImplementation(() => {
+						throw new Error(ENCRYPTED_ENTRY_ERROR_MESSAGE);
+					}),
+				},
+				{
+					name: 'file_b.doc',
+					blob: jest.fn().mockImplementation(() => {
+						throw new Error('some-error');
+					}),
+				},
+			]);
+			renderInset();
+
+			// An encrypted entry can't be read, so there's nothing to download.
+			await userEvent.click(await screen.findByText('file_a.jpeg'));
+			await waitFor(() =>
+				expect(lastErrorMessageProps().error).toEqual(
+					expect.objectContaining({ primaryReason: 'archiveviewer-encrypted-entry' }),
+				),
+			);
+			expect(screen.queryByTestId('media-viewer-error-download-button')).not.toBeInTheDocument();
+
+			// Nor is there for an entry whose read failed for any other reason.
+			await userEvent.click(screen.getByText('file_b.doc'));
+			await waitFor(() =>
+				expect(lastErrorMessageProps().error).toEqual(
+					expect.objectContaining({ primaryReason: 'archiveviewer-create-url' }),
+				),
+			);
+			expect(screen.getByTestId('media-viewer-error')).toBeInTheDocument();
+			expect(screen.queryByTestId('media-viewer-error-download-button')).not.toBeInTheDocument();
+		});
 	});
 });

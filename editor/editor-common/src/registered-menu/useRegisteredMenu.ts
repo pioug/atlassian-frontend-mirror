@@ -9,8 +9,8 @@ import type {
 import type { RegisteredMenuModel, RegisteredMenuSelectionSource } from './types';
 import { useRegisteredMenuSelection } from './useRegisteredMenuSelection';
 
-type ItemActivation = {
-	itemKey: string;
+/** An open preview always belongs to the selected item, so only whether it's open is stored. */
+type PreviewActivation = {
 	model: RegisteredMenuModel;
 	resetKey?: string | number | symbol;
 	source: 'keyboard' | 'pointer';
@@ -32,12 +32,13 @@ const getSelectableItemIdentity = (
 	]);
 
 export type RegisteredMenuState = {
-	activeItemKey?: string;
-	onItemBlur: (itemKey: string) => void;
-	onItemFocus: (index: number, itemKey?: string) => void;
-	onItemHover: (index: number, itemKey?: string) => void;
-	onItemLeave: (itemKey: string) => void;
-	onItemVisibilityChange: (itemKey: string, isVisible: boolean) => void;
+	/** Whether the selected item shows item-specific feedback, such as a preview. */
+	isPreviewOpen: boolean;
+	onItemBlur: (index: number) => void;
+	onItemFocus: (index: number) => void;
+	onItemHover: (index: number) => void;
+	onItemLeave: (index: number) => void;
+	onItemVisibilityChange: (index: number, isVisible: boolean) => void;
 	rows: Array<RegisterMenuItem | RegisterMenuSection>;
 	select: (index: number, source: RegisteredMenuSelectionSource) => void;
 	selectableItems: RegisterMenuItem[];
@@ -82,25 +83,42 @@ export const useRegisteredMenu = ({ model, resetKey }: Options): RegisteredMenuS
 		return { rows, selectableItems, selectableItemIdentities };
 	}, [model]);
 	const selection = useRegisteredMenuSelection({ identities: selectableItemIdentities, resetKey });
-	const { selectedIndex: selectedItemIndex, selectionSource, select } = selection;
-	const [activation, setItemActivation] = useState<ItemActivation | undefined>();
-	const activeItemKey =
-		activation?.model === model && activation.resetKey === resetKey
-			? activation.itemKey
-			: undefined;
+	const { getSelectedIndex, selectedIndex: selectedItemIndex, selectionSource, select } = selection;
+	const [activation, setActivation] = useState<PreviewActivation | undefined>();
+	const isPreviewOpen = activation?.model === model && activation.resetKey === resetKey;
 
 	useLayoutEffect(() => {
-		setItemActivation(undefined);
+		setActivation(undefined);
 	}, [model, resetKey]);
 
-	const activateKeyboardItem = useCallback(
-		(index: number) => {
-			const item = selectableItems[index];
-			setItemActivation(
-				item ? { itemKey: item.key, model, resetKey, source: 'keyboard' } : undefined,
+	/**
+	 * Closes the preview when the event comes from the selected item, optionally only for one source.
+	 * Rows report leaving, blur and visibility from effects, including cleanups. Reading the latest
+	 * selection keeps this callback stable, so a selection change doesn't re-run those effects and
+	 * a row's cleanup can't close the preview that just moved to another row.
+	 */
+	const closePreviewFor = useCallback(
+		(index: number, source?: PreviewActivation['source']) => {
+			if (index !== getSelectedIndex()) {
+				return;
+			}
+			setActivation((current) =>
+				current && (source === undefined || current.source === source) ? undefined : current,
 			);
 		},
-		[model, resetKey, selectableItems],
+		[getSelectedIndex],
+	);
+
+	// Only listed items show a preview; the footer comes after them.
+	const hasPreview = useCallback(
+		(index: number) => index < selectableItems.length,
+		[selectableItems],
+	);
+	const activateKeyboardItem = useCallback(
+		(index: number) => {
+			setActivation(hasPreview(index) ? { model, resetKey, source: 'keyboard' } : undefined);
+		},
+		[hasPreview, model, resetKey],
 	);
 	const selectNext = useCallback(() => {
 		activateKeyboardItem(selection.selectNext());
@@ -109,59 +127,54 @@ export const useRegisteredMenu = ({ model, resetKey }: Options): RegisteredMenuS
 		activateKeyboardItem(selection.selectPrevious());
 	}, [selection.selectPrevious, activateKeyboardItem]);
 	const onItemHover = useCallback(
-		(index: number, itemKey?: string) => {
+		(index: number) => {
 			select(index, 'pointer');
-			setItemActivation((current) => {
+			setActivation((current) => {
+				if (!hasPreview(index)) {
+					return undefined;
+				}
 				if (
-					itemKey &&
-					current?.itemKey === itemKey &&
-					current.model === model &&
+					current?.model === model &&
 					current.resetKey === resetKey &&
 					current.source === 'pointer'
 				) {
 					return current;
 				}
-				return itemKey ? { itemKey, model, resetKey, source: 'pointer' } : undefined;
+				return { model, resetKey, source: 'pointer' };
 			});
 		},
-		[model, resetKey, select],
+		[hasPreview, model, resetKey, select],
 	);
 	const onItemFocus = useCallback(
-		(index: number, itemKey?: string) => {
+		(index: number) => {
+			const isSelectedItem = index === selectedItemIndex;
 			// A press focuses the item the pointer already selected. Scrolling it then would move it before the click lands.
-			select(
-				index,
-				index === selectedItemIndex && selectionSource === 'pointer' ? 'pointer' : 'keyboard',
-			);
-			setItemActivation((current) => {
-				if (
-					itemKey &&
-					current?.itemKey === itemKey &&
-					current.model === model &&
-					current.resetKey === resetKey
-				) {
+			select(index, isSelectedItem && selectionSource === 'pointer' ? 'pointer' : 'keyboard');
+			setActivation((current) => {
+				if (!hasPreview(index)) {
+					return undefined;
+				}
+				if (isSelectedItem && current?.model === model && current.resetKey === resetKey) {
 					return current;
 				}
-				return itemKey ? { itemKey, model, resetKey, source: 'keyboard' } : undefined;
+				return { model, resetKey, source: 'keyboard' };
 			});
 		},
-		[model, resetKey, select, selectedItemIndex, selectionSource],
+		[hasPreview, model, resetKey, select, selectedItemIndex, selectionSource],
 	);
-	const onItemLeave = useCallback((itemKey: string) => {
-		setItemActivation((current) =>
-			current?.source === 'pointer' && current.itemKey === itemKey ? undefined : current,
-		);
-	}, []);
-	const onItemBlur = useCallback((itemKey: string) => {
-		setItemActivation((current) => (current?.itemKey === itemKey ? undefined : current));
-	}, []);
-	const onItemVisibilityChange = useCallback((itemKey: string, isVisible: boolean) => {
-		if (!isVisible) {
-			setItemActivation((current) =>
-				current?.source === 'pointer' && current.itemKey === itemKey ? undefined : current,
-			);
-		}
-	}, []);
+	const onItemLeave = useCallback(
+		(index: number) => closePreviewFor(index, 'pointer'),
+		[closePreviewFor],
+	);
+	const onItemBlur = useCallback((index: number) => closePreviewFor(index), [closePreviewFor]);
+	const onItemVisibilityChange = useCallback(
+		(index: number, isVisible: boolean) => {
+			if (!isVisible) {
+				closePreviewFor(index, 'pointer');
+			}
+		},
+		[closePreviewFor],
+	);
 
 	return {
 		rows,
@@ -171,7 +184,7 @@ export const useRegisteredMenu = ({ model, resetKey }: Options): RegisteredMenuS
 		select,
 		selectNext,
 		selectPrevious,
-		activeItemKey,
+		isPreviewOpen,
 		onItemHover,
 		onItemFocus,
 		onItemLeave,

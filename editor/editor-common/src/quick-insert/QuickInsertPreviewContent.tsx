@@ -16,7 +16,7 @@ import { token } from '@atlaskit/tokens';
 import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 
 import { messages } from './messages';
-import type { QuickInsertPreview } from './preview';
+import type { PreviewImage as PreviewImageAsset, QuickInsertPreview } from './preview';
 import { QuickInsertShortcut } from './QuickInsertShortcut';
 
 const layoutStyles = layoutCssMap({
@@ -51,7 +51,7 @@ const styles = cssMap({
 		gap: token('space.100'),
 	},
 	title: {
-		color: token('color.text.subtle'),
+		color: token('color.text'),
 		font: token('font.heading.xsmall'),
 		// Shrinks and wraps but doesn't grow, so a lozenge or shortcut stays beside the title.
 		flex: '0 1 auto',
@@ -94,6 +94,9 @@ const styles = cssMap({
 		height: '100%',
 		objectFit: 'contain',
 		width: '100%',
+	},
+	imageCover: {
+		objectFit: 'cover',
 	},
 	imageHidden: {
 		visibility: 'hidden',
@@ -188,7 +191,9 @@ export const QuickInsertPreviewContent = ({
 
 	return (
 		<div css={styles.root} id={id}>
-			{imageUrl && <PreviewImage key={imageUrl} imageUrl={imageUrl} />}
+			{imageUrl && (
+				<PreviewImage key={imageUrl} imageUrl={imageUrl} objectFit={preview.image?.objectFit} />
+			)}
 			<div css={styles.content}>
 				{shortcut ? (
 					<Inline alignBlock="start" space="space.100" spread="space-between">
@@ -238,7 +243,13 @@ export const QuickInsertPreviewContent = ({
 	);
 };
 
-const PreviewImage = ({ imageUrl }: { imageUrl: string }): React.JSX.Element => {
+const PreviewImage = ({
+	imageUrl,
+	objectFit,
+}: {
+	imageUrl: string;
+	objectFit: PreviewImageAsset['objectFit'];
+}): React.JSX.Element => {
 	const [hasFailed, setHasFailed] = useState(false);
 	const [hasLoaded, setHasLoaded] = useState(false);
 
@@ -246,7 +257,11 @@ const PreviewImage = ({ imageUrl }: { imageUrl: string }): React.JSX.Element => 
 		<div css={styles.imageArea} aria-hidden="true" data-testid="quick-insert-preview-image-area">
 			{!hasFailed && (
 				<img
-					css={[styles.image, !hasLoaded && styles.imageHidden]}
+					css={[
+						styles.image,
+						objectFit === 'cover' && styles.imageCover,
+						!hasLoaded && styles.imageHidden,
+					]}
 					aria-hidden="true"
 					data-testid="quick-insert-hover-preview"
 					// Element Browser tiles below the fold load as they scroll into view.

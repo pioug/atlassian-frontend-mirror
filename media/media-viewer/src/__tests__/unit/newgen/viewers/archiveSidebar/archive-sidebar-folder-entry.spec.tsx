@@ -5,23 +5,28 @@ import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 import { type ZipEntry } from 'unzipit';
 
-import * as MediaCommon from '@atlaskit/media-common/downloadUrl';
 import {
 	fakeMediaClient,
 	getDefaultMediaClientConfig,
 } from '@atlaskit/media-test-helpers/fakeMediaClient';
+import * as MediaTypeIconModule from '@atlaskit/media-ui/media-type-icon';
 
+import { InsetViewerProvider } from '../../../../../insetViewerContext';
 import {
 	ArchiveSidebarFolderEntry,
 	type ArchiveSidebarFolderProps,
 } from '../../../../../viewers/archiveSidebar/archive-sidebar-folder-entry';
+import * as CustomButtonItemModule from '../../../../../viewers/archiveSidebar/custom-button-item';
+import { downloadArchiveEntry } from '../../../../../viewers/archiveSidebar/download-archive-entry';
 
 jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
 	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
 	fg: jest.fn().mockReturnValue(false),
 }));
 
-jest.spyOn(MediaCommon, 'downloadUrl');
+jest.mock('../../../../../viewers/archiveSidebar/download-archive-entry', () => ({
+	downloadArchiveEntry: jest.fn(),
+}));
 
 afterEach(() => {
 	jest.resetAllMocks();
@@ -384,13 +389,14 @@ describe('ArchiveSidebarFolderEntry', () => {
 				entry,
 			} as any,
 			root: 'root/',
+			fileId: 'file-id',
 		};
 
 		render(<ArchiveSidebarFolderEntryWithIntl {...baseProps} {...props} />);
 		const downloadButtonWrapper = await screen.findByTestId('media-archiveDownloadButton');
 		expect(downloadButtonWrapper).toBeInTheDocument();
 		await user.click(downloadButtonWrapper);
-		await waitFor(() => expect(MediaCommon.downloadUrl).toHaveBeenCalled());
+		expect(downloadArchiveEntry).toHaveBeenCalledWith(entry, 'entry1.jpg', 'file-id');
 	});
 
 	it('Clicking downloadButtonWrapper should open abuse modal if shouldRenderAbuseModal = true', async () => {
@@ -421,7 +427,7 @@ describe('ArchiveSidebarFolderEntry', () => {
 		const proceed = await screen.findByText('Proceed with download');
 		await user.click(proceed);
 
-		await waitFor(() => expect(MediaCommon.downloadUrl).toHaveBeenCalled());
+		expect(downloadArchiveEntry).toHaveBeenCalledWith(entry, 'entry1.jpg', undefined);
 	});
 
 	it('should close abuse modal when cancel', async () => {
@@ -451,7 +457,7 @@ describe('ArchiveSidebarFolderEntry', () => {
 		const cancel = await screen.findByText('Cancel');
 		await user.click(cancel);
 
-		expect(MediaCommon.downloadUrl).not.toHaveBeenCalled();
+		expect(downloadArchiveEntry).not.toHaveBeenCalled();
 	});
 
 	it('disabledArchiveDownloadButton should be rendered if DSP is enforced', async () => {
@@ -480,17 +486,16 @@ describe('ArchiveSidebarFolderEntry', () => {
 		const downloadButtonWrapper = await screen.findByTestId('media-disabledArchiveDownloadButton');
 		expect(downloadButtonWrapper).toBeInTheDocument();
 		await user.click(downloadButtonWrapper);
-		expect(MediaCommon.downloadUrl).not.toHaveBeenCalled();
+		expect(downloadArchiveEntry).not.toHaveBeenCalled();
 	});
 
-	it('should call onError if rejectAfter throws an error', async () => {
+	it('should call onError if downloading the entry fails', async () => {
 		const user = userEvent.setup();
+		const error = new Error('download failed');
+		jest.mocked(downloadArchiveEntry).mockRejectedValue(error);
 		const entry = {
 			name: 'root/entry1.jpg',
 			isDirectory: false,
-			blob: jest.fn().mockImplementation(() => {
-				throw new Error();
-			}),
 		} as unknown as ZipEntry;
 		const onErrorMock = jest.fn();
 		const props: Partial<ArchiveSidebarFolderProps> = {
@@ -506,7 +511,82 @@ describe('ArchiveSidebarFolderEntry', () => {
 		const downloadButtonWrapper = await screen.findByTestId('media-archiveDownloadButton');
 		expect(downloadButtonWrapper).toBeInTheDocument();
 		await user.click(downloadButtonWrapper);
-		expect(onErrorMock).toHaveBeenCalledWith(new Error(), entry);
-		expect(MediaCommon.downloadUrl).toHaveBeenCalledTimes(0);
+		await waitFor(() => expect(onErrorMock).toHaveBeenCalledWith(error, entry));
+	});
+
+	describe('with the inset viewer', () => {
+		const entries = {
+			file1: { name: 'file1.png', isDirectory: false } as ZipEntry,
+			file2: { name: 'file2.mp4', isDirectory: false } as ZipEntry,
+			folder1: { name: 'folder1/', isDirectory: true } as ZipEntry,
+		};
+		const OriginalMediaTypeIcon = MediaTypeIconModule.MediaTypeIcon;
+
+		beforeEach(() => {
+			jest.spyOn(CustomButtonItemModule, 'CustomButtonItem');
+			// MediaTypeIcon is a class, so the spy renders the original rather than calling it.
+			jest
+				.spyOn(MediaTypeIconModule, 'MediaTypeIcon')
+				.mockImplementation(((props: MediaTypeIconModule.FileIconProps) => (
+					<OriginalMediaTypeIcon {...props} />
+				)) as unknown as () => MediaTypeIconModule.MediaTypeIcon);
+		});
+
+		afterEach(() => {
+			jest.restoreAllMocks();
+		});
+
+		const renderEntries = (isInsetViewer: boolean) =>
+			render(
+				<InsetViewerProvider isInsetViewer={isInsetViewer}>
+					<ArchiveSidebarFolderEntryWithIntl
+						{...baseProps}
+						entries={entries}
+						selectedEntryName="file2.mp4"
+					/>
+				</InsetViewerProvider>,
+			);
+
+		it('should only mark the selected entry as selected', () => {
+			renderEntries(true);
+
+			expect(CustomButtonItemModule.CustomButtonItem).toHaveBeenCalledWith(
+				expect.objectContaining({ children: 'file2.mp4', isSelected: true }),
+				expect.anything(),
+			);
+			expect(CustomButtonItemModule.CustomButtonItem).toHaveBeenCalledWith(
+				expect.objectContaining({ children: 'file1.png', isSelected: false }),
+				expect.anything(),
+			);
+			expect(CustomButtonItemModule.CustomButtonItem).toHaveBeenCalledWith(
+				expect.objectContaining({ children: 'folder1/', isSelected: false }),
+				expect.anything(),
+			);
+		});
+
+		it.each([
+			{ isInsetViewer: true, spacing: 'none' },
+			{ isInsetViewer: false, spacing: undefined },
+		])(
+			'should give the entry icons spacing $spacing (inset: $isInsetViewer)',
+			({ isInsetViewer, spacing }) => {
+				renderEntries(isInsetViewer);
+
+				expect(MediaTypeIconModule.MediaTypeIcon).toHaveBeenCalledWith(
+					expect.objectContaining({ type: 'image', spacing }),
+					expect.anything(),
+				);
+				expect(MediaTypeIconModule.MediaTypeIcon).toHaveBeenCalledWith(
+					expect.objectContaining({ type: 'video', spacing }),
+					expect.anything(),
+				);
+			},
+		);
+
+		it('should be accessible', async () => {
+			const { container } = renderEntries(true);
+
+			await expect(container).toBeAccessible();
+		});
 	});
 });

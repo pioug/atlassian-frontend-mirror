@@ -1,15 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
-import { userEvent } from '@atlassian/testing-library/user-event';
 
 import {
 	InsetViewerProvider,
 	useMediaFooterControls,
-	withInsetViewerFooter,
+	useRegisterMediaFooterPlayerControls,
+	useSetHasArchiveColumn,
 } from '../../../insetViewerContext';
-import { InsetSidebarHeaderRow, MediaFooterBar, SidebarColumn } from '../../../styleWrappers';
+import {
+	HeaderWrapper,
+	InsetSidebarHeaderRow,
+	MediaFooterBar,
+	SidebarColumn,
+} from '../../../styleWrappers';
 
 describe('styleWrappers', () => {
 	describe('SidebarColumn', () => {
@@ -53,6 +58,39 @@ describe('styleWrappers', () => {
 		});
 	});
 
+	describe('archive column line', () => {
+		const ArchiveColumnSetter = ({ hasArchiveColumn }: { hasArchiveColumn: boolean }) => {
+			const setHasArchiveColumn = useSetHasArchiveColumn();
+			useEffect(() => {
+				setHasArchiveColumn(hasArchiveColumn);
+			}, [hasArchiveColumn, setHasArchiveColumn]);
+			return null;
+		};
+
+		it.each([
+			{ isInsetViewer: true, hasArchiveColumn: true, hasLine: true },
+			{ isInsetViewer: true, hasArchiveColumn: false, hasLine: false },
+			{ isInsetViewer: false, hasArchiveColumn: true, hasLine: false },
+		])(
+			'should render the line in the header and footer: $hasLine (inset: $isInsetViewer, archive column: $hasArchiveColumn)',
+			({ isInsetViewer, hasArchiveColumn, hasLine }) => {
+				render(
+					<InsetViewerProvider isInsetViewer={isInsetViewer}>
+						<ArchiveColumnSetter hasArchiveColumn={hasArchiveColumn} />
+						<HeaderWrapper isArchiveSideBarVisible={false}>
+							<span>Header content</span>
+						</HeaderWrapper>
+						<MediaFooterBar />
+					</InsetViewerProvider>,
+				);
+
+				expect(screen.getByText('Header content')).toBeInTheDocument();
+				expect(!!screen.queryByTestId('media-viewer-header-archive-column-line')).toBe(hasLine);
+				expect(!!screen.queryByTestId('media-viewer-footer-archive-column-line')).toBe(hasLine);
+			},
+		);
+	});
+
 	describe('MediaFooterBar', () => {
 		it('should register its element with the media footer context', () => {
 			const FooterProbe = () => {
@@ -70,29 +108,21 @@ describe('styleWrappers', () => {
 			expect(screen.getByText('registered')).toBeInTheDocument();
 		});
 
-		it('should use different footer styles once video controls are registered', async () => {
-			class Setter extends React.Component<{
-				setHasPlayerControls?: (hasPlayerControls: boolean) => void;
-			}> {
-				render() {
-					return (
-						<button type="button" onClick={() => this.props.setHasPlayerControls?.(true)}>
-							register video controls
-						</button>
-					);
-				}
-			}
-			const WrappedSetter = withInsetViewerFooter(Setter);
-
-			render(
+		it('should use different footer styles once video controls are registered', () => {
+			const Player = () => {
+				useRegisterMediaFooterPlayerControls();
+				return null;
+			};
+			const tree = (hasPlayer: boolean) => (
 				<InsetViewerProvider isInsetViewer>
 					<MediaFooterBar />
-					<WrappedSetter />
-				</InsetViewerProvider>,
+					{hasPlayer && <Player />}
+				</InsetViewerProvider>
 			);
+			const { rerender } = render(tree(false));
 			const classesBefore = screen.getByTestId('media-viewer-media-footer').getAttribute('class');
 
-			await userEvent.click(screen.getByRole('button', { name: 'register video controls' }));
+			rerender(tree(true));
 
 			expect(screen.getByTestId('media-viewer-media-footer').getAttribute('class')).not.toEqual(
 				classesBefore,

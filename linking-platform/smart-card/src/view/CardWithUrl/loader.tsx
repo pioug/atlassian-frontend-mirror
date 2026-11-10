@@ -95,7 +95,11 @@ export function CardWithURLRenderer(props: CardProps): React.JSX.Element {
 			if (error.name === 'ChunkLoadError') {
 				fireEvent('operational.smartLink.chunkLoadFailed', {
 					...analyticsContext?.attributes,
-					display: appearance,
+					display: fg('platform_smartlink_cardssr_missing_events')
+						? isFlexibleUi
+							? 'flexible'
+							: appearance
+						: appearance,
 					error: error as any,
 					errorInfo: errorInfo as any,
 					definitionId: null,

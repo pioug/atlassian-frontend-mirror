@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { skipA11yAudit } from '@af/accessibility-testing/skip-a11y-audit';
 import Button from '@atlaskit/button/default/button';
-import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
 import Select from '@atlaskit/select/default';
 import { PopupSelect } from '@atlaskit/select/popup-select';
 import type { OptionType } from '@atlaskit/select/types';

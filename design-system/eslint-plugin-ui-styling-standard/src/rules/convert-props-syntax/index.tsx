@@ -358,7 +358,7 @@ const rule: Rule.RuleModule = createLintRule({
 		name: 'convert-props-syntax',
 		docs: {
 			description:
-				'Convert props syntax that is unsupported by styled-components@<4 or @emotion/styled to props syntax that is supported. This is useful when used in conjunction with `no-styled-tagged-template-expression`, as output from the latter may use props syntax unsupported by those libraries.',
+				'Convert props syntax that is unsupported by `styled-components@<4` or @emotion/styled to props syntax that is supported. This is useful when used in conjunction with `no-styled-tagged-template-expression`, as output from the latter may use props syntax unsupported by those libraries.',
 			recommended: true,
 			severity: 'error',
 		},

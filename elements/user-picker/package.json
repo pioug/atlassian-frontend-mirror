@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/user-picker",
-	"version": "14.6.0",
+	"version": "14.8.0",
 	"description": "Fabric component for display a dropdown to select a user from",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -160,6 +160,7 @@
 		"@atlaskit/teams-avatar": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlaskit/tooltip": "workspace:^",
+		"@atlaskit/top-layer": "workspace:^",
 		"@atlaskit/ufo": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
@@ -178,6 +179,9 @@
 		"ui"
 	],
 	"platform-feature-flags": {
+		"platform-dst-top-layer": {
+			"type": "boolean"
+		},
 		"platform-component-visual-refresh": {
 			"type": "boolean"
 		},

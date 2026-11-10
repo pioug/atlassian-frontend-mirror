@@ -66,6 +66,8 @@ interface CustomSelectProps extends WithAnalyticsEventsProps {
 	 * Controls how the menu is rendered. The default `popup` mode uses the normal transient menu
 	 * rendering. The `inline` mode renders within the parent layout and keeps the menu open
 	 * by default. Set `menuIsOpen` to control its visibility.
+	 *
+	 * The `inline` mode does not use `components.MenuPortal`. It keeps a custom `components.Menu`.
 	 */
 	menuRenderMode?: 'popup' | 'inline';
 	/**

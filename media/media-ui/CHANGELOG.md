@@ -1,5 +1,29 @@
 # @atlaskit/media-ui
 
+## 31.9.0
+
+### Minor Changes
+
+- [`3d2733c4e7948`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d2733c4e7948) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+## 31.8.0
+
+### Minor Changes
+
+- [`fea7a6bd91c98`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fea7a6bd91c98) -
+  In the inset Media Viewer, zip files now show their file list on the right of the stage, with an
+  "Attachments in this zip file" heading, a "Choose an attachment to preview it" empty state and the
+  picked file marked as selected. Video and audio inside a zip use the same players and layout as on
+  their own, documents the browser can't show get the error view, and the error view offers a
+  download. The previous and next arrows stay centred as you move between files. Applies when
+  `useInsetViewer` is set and `cc_comments_inset_media_viewer` is on.
+
+  `@atlaskit/media-ui` adds the `archive_attachments_heading` and `archive_choose_attachment`
+  messages, and a `spacing` prop on `MediaTypeIcon`: `'none'` removes the padding around the large
+  icon.
+
 ## 31.7.0
 
 ### Minor Changes

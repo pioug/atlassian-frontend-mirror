@@ -9,9 +9,9 @@ import invariant from 'tiny-invariant';
 
 import IconButton from '@atlaskit/button/icon/button';
 import { jsx } from '@atlaskit/css';
-import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
-import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
-import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
+import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';
+import { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-item-group';
+import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
 import SettingsIcon from '@atlaskit/icon/core/settings';
 import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import TagIcon from '@atlaskit/icon/core/tag';

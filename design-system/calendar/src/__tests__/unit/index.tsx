@@ -6,6 +6,7 @@ import userEvent from '@testing-library/user-event';
 import { parseISO } from 'date-fns';
 import cases from 'jest-in-case';
 
+import HeadingContextProvider from '@atlaskit/heading/heading-context/default';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import Calendar from '../../calendar';
@@ -106,12 +107,101 @@ describe('Calendar', () => {
 	};
 
 	describe('Heading and Month/Year Navigation', () => {
-		it('should render the title', () => {
+		it('should render the title as a level 2 heading by default', () => {
 			setup();
 
-			const heading = screen.getByRole('heading');
+			const heading = screen.getByRole('heading', { level: 2 });
 			expect(heading).toBeInTheDocument();
 			expect(heading).toHaveTextContent(`${defaultMonthName} ${defaultYear}`);
+		});
+
+		it.each([1, 2, 3, 4, 5, 6] as const)(
+			'should render a level %s heading that labels the calendar grid',
+			(headingLevel) => {
+				setup({ headingLevel });
+
+				const heading = screen.getByRole('heading', { level: headingLevel });
+				expect(heading).toHaveTextContent(`${defaultMonthName} ${defaultYear}`);
+				expect(screen.getByRole('grid')).toHaveAttribute('aria-labelledby', heading.id);
+			},
+		);
+
+		it.each([1, 3, 6, 7] as const)(
+			'should use heading context level %s when no headingLevel prop is provided',
+			(headingLevel) => {
+				render(
+					<HeadingContextProvider value={headingLevel}>
+						<Calendar defaultMonth={defaultMonth} defaultYear={defaultYear} />
+					</HeadingContextProvider>,
+				);
+
+				const heading = screen.getByRole('heading', { level: headingLevel });
+				expect(heading.tagName).toBe(headingLevel > 6 ? 'DIV' : `H${headingLevel}`);
+				expect(heading).toHaveTextContent(`${defaultMonthName} ${defaultYear}`);
+				expect(screen.getByRole('grid')).toHaveAttribute('aria-labelledby', heading.id);
+			},
+		);
+
+		it.each([2, 5] as const)(
+			'should use explicit heading level %s instead of the surrounding heading context',
+			(headingLevel) => {
+				render(
+					<HeadingContextProvider value={4}>
+						<Calendar
+							defaultMonth={defaultMonth}
+							defaultYear={defaultYear}
+							headingLevel={headingLevel}
+						/>
+					</HeadingContextProvider>,
+				);
+
+				expect(screen.getByRole('heading', { level: headingLevel }).tagName).toBe(
+					`H${headingLevel}`,
+				);
+			},
+		);
+
+		it('should use the nearest heading context', () => {
+			render(
+				<HeadingContextProvider value={3}>
+					<HeadingContextProvider>
+						<Calendar defaultMonth={defaultMonth} defaultYear={defaultYear} />
+					</HeadingContextProvider>
+				</HeadingContextProvider>,
+			);
+
+			expect(screen.getByRole('heading', { level: 4 }).tagName).toBe('H4');
+		});
+
+		it('should update the heading when its context changes', () => {
+			const { rerender } = render(
+				<HeadingContextProvider value={3}>
+					<Calendar defaultMonth={defaultMonth} defaultYear={defaultYear} />
+				</HeadingContextProvider>,
+			);
+			const headingId = screen.getByRole('heading', { level: 3 }).id;
+
+			rerender(
+				<HeadingContextProvider value={4}>
+					<Calendar defaultMonth={defaultMonth} defaultYear={defaultYear} />
+				</HeadingContextProvider>,
+			);
+
+			expect(screen.getByRole('heading', { level: 4 })).toHaveAttribute('id', headingId);
+			expect(screen.getByRole('grid')).toHaveAttribute('aria-labelledby', headingId);
+		});
+
+		it('should preserve month navigation and live announcements with a custom heading level', async () => {
+			const user = userEvent.setup();
+			setup({ headingLevel: 3 });
+
+			const headingContainer = screen.getByTestId(`${testId}--current-month-year--container`);
+			expect(headingContainer).not.toHaveAttribute('aria-live');
+
+			await user.click(screen.getByTestId(`${testId}--next-month`));
+
+			expect(screen.getByRole('heading', { level: 3 })).toHaveTextContent('January 2020');
+			expect(headingContainer).toHaveAttribute('aria-live', 'polite');
 		});
 
 		it('should render month/year section as a live region only after user has interacted with either previous/next month/year buttons', async () => {

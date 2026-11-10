@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "134.11.1",
+	"version": "134.15.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -29,6 +29,8 @@
 	},
 	"exports": {
 		"./credit-guard": "./src/credit-guard/index.ts",
+		"./credit-guard/floating-toolbar-button": "./src/credit-guard/CreditCheckedFloatingToolbarButton.tsx",
+		"./credit-guard/floating-toolbar-item": "./src/credit-guard/getCreditCheckedFloatingToolbarItem.tsx",
 		"./ai-messages": "./src/ai-messages/index.ts",
 		"./ai-xstate-migration": "./src/utils/ai-xstate-migration.ts",
 		"./ai-xstate-migration-no-exposure": "./src/utils/ai-xstate-migration-no-exposure.ts",

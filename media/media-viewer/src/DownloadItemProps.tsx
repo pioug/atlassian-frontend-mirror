@@ -18,4 +18,6 @@ export type DownloadItemProps = {
 	variant?: DownloadButtonProps['variant'];
 	traceContext: MediaTraceContext;
 	fallbackMediaName?: string;
+	// Downloads something other than the file itself, such as one entry of a zip file.
+	onDownload?: () => void;
 };

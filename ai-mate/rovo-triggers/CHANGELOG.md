@@ -1,5 +1,15 @@
 # @atlaskit/rovo-triggers
 
+## 12.14.0
+
+### Minor Changes
+
+- [`cc232ed4ec22d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cc232ed4ec22d) -
+  Add Rovo prompt, context and native command contracts for
+  twcg-2432-ai-prompt-in-first-landing-doc. Keep initial prompt submission independent of callback
+  identity changes. Preserve page context and deliver automatic prompts once after Strict Mode
+  effect replay.
+
 ## 12.13.1
 
 ### Patch Changes

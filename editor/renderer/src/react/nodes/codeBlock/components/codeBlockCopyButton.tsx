@@ -13,7 +13,6 @@ import { injectIntl } from 'react-intl';
 import Button from '@atlaskit/button/custom-theme-button/custom-theme-button';
 import { codeBlockButtonMessages } from '@atlaskit/editor-common/messages/codeBlockButton';
 import CopyIcon from '@atlaskit/icon/core/copy';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import AnalyticsContext from '../../../../analytics/analyticsContext';
@@ -45,7 +44,6 @@ const CopyButton = ({ content, intl }: Props & WrappedComponentProps) => {
 						<div onMouseLeave={onMouseLeave} onBlur={onMouseLeave}>
 							<Button
 								appearance="subtle"
-								aria-haspopup={fg('platform_editor_a11y_codeblock_haspopup') ? undefined : true}
 								aria-label={tooltip}
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 								className={className}

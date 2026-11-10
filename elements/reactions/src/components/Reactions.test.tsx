@@ -16,6 +16,7 @@ import { getReactionSummary, ari, containerAri } from '../MockReactionsClient';
 import { DefaultReactions, TeamojiDefaultReactions } from '../shared/constants';
 import { messages } from '../shared/i18n';
 import { type QuickReactionEmojiSummary, ReactionStatus, type ReactionSummary } from '../types';
+import { RENDER_BUTTON_TESTID } from './EmojiButton';
 import { RENDER_REACTION_TESTID } from './Reaction';
 import { RENDER_REACTIONPICKER_TESTID } from './ReactionPicker';
 import { RENDER_REACTIONPICKERPANEL_TESTID } from './ReactionPicker';
@@ -127,6 +128,33 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 			</AnalyticsListener>,
 		);
 	};
+
+	it('focuses the newly added reaction after selecting it from the picker', async () => {
+		passGate('platform_ally_emoji_fixes_various');
+		const StatefulReactions = () => {
+			const [currentReactions, setCurrentReactions] = React.useState<ReactionSummary[]>([]);
+			return (
+				<Reactions
+					emojiProvider={getTestEmojiResource() as Promise<EmojiProvider>}
+					reactions={currentReactions}
+					status={status}
+					onReactionClick={mockOnReactionsClick}
+					onSelection={(emojiId) =>
+						setCurrentReactions([{ ari, containerAri, emojiId, count: 1, reacted: true }])
+					}
+					loadReaction={mockLoadReaction}
+					pickerQuickReactionEmojiIds={DefaultReactions}
+					hideDefaultReactions
+				/>
+			);
+		};
+		renderWithIntl(<StatefulReactions />);
+		screen.getByTestId(RENDER_TRIGGER_BUTTON_TESTID).focus();
+		await userEvent.keyboard('{Enter}');
+		(await screen.findAllByTestId(RENDER_BUTTON_TESTID))[0].focus();
+		await userEvent.keyboard('{Enter}');
+		await waitFor(() => expect(screen.getByTestId(RENDER_REACTION_TESTID)).toHaveFocus());
+	});
 
 	it('should trigger "onReactionClick" when Reaction is clicked', async () => {
 		renderReactions();

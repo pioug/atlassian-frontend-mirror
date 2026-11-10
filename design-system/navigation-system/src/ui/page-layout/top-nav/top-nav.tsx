@@ -178,7 +178,7 @@ function TopNavOld({
 	children,
 	xcss,
 	height: heightProp,
-	skipLinkLabel = 'Top Bar',
+	skipLinkLabel = fg('platform_dst_nav4_skip_link_a11y_1') ? 'Global navigation' : 'Top Bar',
 	testId,
 	id: providedId,
 	customTheme: customThemeConfig,
@@ -199,7 +199,6 @@ function TopNavOld({
 	useSkipLinkInternal({
 		id,
 		label: skipLinkLabel,
-		isHidden: fg('platform_dst_nav4_skip_link_a11y_1'),
 	});
 
 	const height = heightProp ?? (fg('platform_dst_ads_appswitcher_improvements') ? 56 : 48);
@@ -251,7 +250,7 @@ function TopNavNew({
 	children,
 	xcss,
 	height: heightProp,
-	skipLinkLabel = 'Top Bar',
+	skipLinkLabel = fg('platform_dst_nav4_skip_link_a11y_1') ? 'Global navigation' : 'Top Bar',
 	testId,
 	id: providedId,
 	customTheme: customThemeConfig,
@@ -272,7 +271,6 @@ function TopNavNew({
 	useSkipLinkInternal({
 		id,
 		label: skipLinkLabel,
-		isHidden: fg('platform_dst_nav4_skip_link_a11y_1'),
 	});
 
 	const height = heightProp ?? (fg('platform_dst_ads_appswitcher_improvements') ? 56 : 48);

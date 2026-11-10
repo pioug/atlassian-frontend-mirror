@@ -1,6 +1,6 @@
 export { default } from './dropdown-menu';
-export { default as DropdownItemGroup } from './dropdown-menu-item-group';
-export { default as DropdownItem } from './dropdown-menu-item';
+export { default as DropdownItemGroup } from './dropdown-item-group';
+export { default as DropdownItem } from './dropdown-item';
 export { default as DropdownItemCheckbox } from './checkbox/dropdown-item-checkbox';
 export { default as DropdownItemCheckboxGroup } from './checkbox/dropdown-item-checkbox-group';
 

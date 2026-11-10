@@ -9,8 +9,8 @@ import type {
 	RegisterMenuSection,
 } from '@atlaskit/editor-ui-control-model/types';
 
-import { ActiveMenuItemKeyContext } from './ActiveMenuItemKeyContext';
 import { MeasuredRow } from './MeasuredRow';
+import { PreviewItemIndexContext } from './PreviewItemIndexContext';
 import { RegisteredMenuListItemRow } from './RegisteredMenuListItemRow';
 import type { RegisteredMenuListItemIdParams } from './RegisteredMenuListItemRow';
 import type { RegisteredMenuItemProps, RegisteredMenuSelectionSource } from './types';
@@ -19,19 +19,20 @@ import { useMenuListHeight } from './useMenuListHeight';
 const ESTIMATED_ROW_HEIGHT = 44;
 
 export type RegisteredMenuListProps = {
-	activeItemKey?: string;
 	containerRole?: 'presentation';
 	getItemId: (params: RegisteredMenuListItemIdParams) => string;
 	hasScrollPadding?: boolean;
+	/** Whether the selected item shows its preview. */
+	isPreviewOpen?: boolean;
 	Item: React.ComponentType<RegisteredMenuItemProps>;
 	lastRowPadding?: 'none' | 'space.100';
 	maxHeight: number;
 	omitAriaReadonly?: boolean;
-	onItemBlur: (itemKey: string) => void;
-	onItemFocus: (itemIndex: number, itemKey?: string) => void;
-	onItemHover: (itemIndex: number, itemKey?: string) => void;
-	onItemLeave: (itemKey: string) => void;
-	onItemVisibilityChange: (itemKey: string, isVisible: boolean) => void;
+	onItemBlur: (itemIndex: number) => void;
+	onItemFocus: (itemIndex: number) => void;
+	onItemHover: (itemIndex: number) => void;
+	onItemLeave: (itemIndex: number) => void;
+	onItemVisibilityChange: (itemIndex: number, isVisible: boolean) => void;
 	onRenderedItemsChange?: (range: { startIndex: number; stopIndex: number }) => void;
 	role?: 'presentation' | 'group';
 	rows: Array<RegisterMenuItem | RegisterMenuSection>;
@@ -48,7 +49,7 @@ export const RegisteredMenuList = ({
 	rows,
 	Item,
 	selectedItemIndex,
-	activeItemKey,
+	isPreviewOpen = false,
 	maxHeight,
 	width,
 	getItemId,
@@ -125,13 +126,12 @@ export const RegisteredMenuList = ({
 
 	const handleRowsRendered = useCallback<NonNullable<ListProps['onRowsRendered']>>(
 		({ overscanStartIndex, overscanStopIndex, startIndex, stopIndex }) => {
-			if (activeItemKey) {
-				const activeRowIndex = rows.findIndex(
-					(row) => row.type === 'menu-item' && row.key === activeItemKey,
-				);
-				if (activeRowIndex >= 0 && (activeRowIndex < startIndex || activeRowIndex > stopIndex)) {
-					onItemVisibilityChange(activeItemKey, false);
-				}
+			if (
+				isPreviewOpen &&
+				selectedRowIndex >= 0 &&
+				(selectedRowIndex < startIndex || selectedRowIndex > stopIndex)
+			) {
+				onItemVisibilityChange(selectedItemIndex, false);
 			}
 			updateHeight();
 			const indexes = [...itemIndexByRowIndex]
@@ -143,11 +143,12 @@ export const RegisteredMenuList = ({
 			});
 		},
 		[
-			activeItemKey,
+			isPreviewOpen,
 			itemIndexByRowIndex,
 			onItemVisibilityChange,
 			onRenderedItemsChange,
-			rows,
+			selectedItemIndex,
+			selectedRowIndex,
 			updateHeight,
 		],
 	);
@@ -231,7 +232,7 @@ export const RegisteredMenuList = ({
 	}
 
 	return (
-		<ActiveMenuItemKeyContext.Provider value={activeItemKey}>
+		<PreviewItemIndexContext.Provider value={isPreviewOpen ? selectedItemIndex : undefined}>
 			<List
 				aria-readonly={ariaReadonly}
 				containerRole={containerRole}
@@ -250,6 +251,6 @@ export const RegisteredMenuList = ({
 				tabIndex={tabIndex}
 				width={width}
 			/>
-		</ActiveMenuItemKeyContext.Provider>
+		</PreviewItemIndexContext.Provider>
 	);
 };

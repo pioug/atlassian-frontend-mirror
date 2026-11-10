@@ -1,5 +1,35 @@
 # @atlassian/navigation-system
 
+## 11.7.5
+
+### Patch Changes
+
+- [`57d9afc065559`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/57d9afc065559) -
+  Retain ChatPanel resize preferences across close and reopen, preserve compact overlay minimums,
+  and enable local and chat resize handles at small viewports behind platform-dst-chat-panel-layout.
+
+## 11.7.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.7.3
+
+### Patch Changes
+
+- [`e101697538934`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e101697538934) -
+  Show the TopNav skip link with the Global navigation fallback label when
+  platform_dst_nav4_skip_link_a11y_1 is enabled.
+
+## 11.7.2
+
+### Patch Changes
+
+- [`aa82f87964406`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa82f87964406) -
+  Fix desktop SideNav retention, continuous panel-to-chat resizing, compact Chat defaults and
+  overlay opening order behind platform-dst-chat-panel-layout.
+
 ## 11.7.1
 
 ### Patch Changes

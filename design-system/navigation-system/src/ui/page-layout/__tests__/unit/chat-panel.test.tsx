@@ -64,7 +64,7 @@ it.each([600, 300])('keeps overlay keyboard values and completion within a %ipx 
 		);
 		const slider = screen.getByRole('slider', { name: 'Resize chat', hidden: true });
 		fireEvent.focus(slider);
-		const maximum = width * 0.9;
+		const maximum = Math.max(320, width * 0.9);
 		expect(slider).toHaveAttribute('min', String(Math.min(320, maximum)));
 		expect(slider).toHaveAttribute('max', String(maximum));
 		// Simulate an input event queued with stale bounds before Root contracted.
@@ -323,7 +323,7 @@ it.each([
 		);
 		expect(screen.getByTestId('chat')).toHaveStyle({
 			'--n_cPnlW': `clamp(320px, ${inline}px, 100vw)`,
-			'--n_cPnlOverlayW': `clamp(320px, ${compact}px, min(90vw, 100vw))`,
+			'--n_cPnlOverlayW': `clamp(320px, var(--n_chatDefaultW, ${compact}px), max(320px, min(100vw, var(--n_layoutW, 100vw), max(var(--n_chatDefaultW, ${compact}px), calc(var(--n_layoutW, 100vw) * 0.9)))))`,
 		});
 	},
 );
@@ -352,7 +352,7 @@ it.each([undefined, 440])(
 it.each([
 	{ width: 600, expected: 360 },
 	{ width: 1600, expected: 440 },
-	{ width: 360, expected: 324 },
+	{ width: 360, expected: 360 },
 ])('allocates the chat default within a $width px Root', ({ width, expected }) => {
 	passGate('platform-dst-chat-panel-layout');
 	const originalWidth = window.innerWidth;
@@ -377,4 +377,22 @@ it.each([
 		window.innerWidth = originalWidth;
 		jest.restoreAllMocks();
 	}
+});
+
+it.each([false, true])('keeps the Chat rail inside the panel with layout gate %s', (enabled) => {
+	if (enabled) {
+		passGate('platform-dst-chat-panel-layout');
+	} else {
+		failGate('platform-dst-chat-panel-layout');
+	}
+	render(
+		<ChatPanel onClose={jest.fn()}>
+			<PanelSplitter label="Resize chat" testId="splitter" />
+		</ChatPanel>,
+	);
+	const grabArea = screen.getByTestId('splitter');
+	expect(grabArea).toHaveCompiledCss('width', '17px');
+	// The decorative rail has no accessible role or label; inspect its compiled styles directly.
+	// eslint-disable-next-line testing-library/no-node-access
+	expect(grabArea.lastElementChild).toHaveCompiledCss('inset-inline-start', '9px');
 });

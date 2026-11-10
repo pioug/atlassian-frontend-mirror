@@ -1,6 +1,6 @@
 import React from 'react';
 
-import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { handleOnClick } from '../../../../../../utils/handle-on-click';

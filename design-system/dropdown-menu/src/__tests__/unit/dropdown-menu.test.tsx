@@ -6,9 +6,9 @@ import Button from '@atlaskit/button/standard-button';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
+import DropdownItem from '../../dropdown-item';
+import DropdownItemGroup from '../../dropdown-item-group';
 import DropdownMenu from '../../dropdown-menu';
-import DropdownItem from '../../dropdown-menu-item';
-import DropdownItemGroup from '../../dropdown-menu-item-group';
 import { type DropdownMenuProps } from '../../types';
 
 const triggerText = 'Options';

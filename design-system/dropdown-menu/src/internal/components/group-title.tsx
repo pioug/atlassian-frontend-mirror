@@ -28,6 +28,13 @@ const styles = cssMap({
 	},
 });
 
+const semanticStyles = cssMap({
+	heading: {
+		paddingBlock: token('space.0'),
+		paddingInline: token('space.inset.xlarge'),
+	},
+});
+
 /**
  * __Group title__
  *
@@ -58,7 +65,7 @@ const GroupTitle = ({ id, title }: { id?: string; title: string }): React.JSX.El
 			role="menuitem"
 			id={id}
 			aria-hidden="true"
-			xcss={styles.heading}
+			xcss={cx(styles.heading, fg('platform-semantic-spacing') && semanticStyles.heading)}
 		>
 			{title}
 		</Box>

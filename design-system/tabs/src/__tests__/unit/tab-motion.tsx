@@ -13,6 +13,7 @@ import Tabs from '../../components/tabs';
 import useTab from '../../use-tab';
 
 const motionGate = 'platform-dst-motion-uplift-tab';
+const skipMountMotionGate = 'platform-dst-tabs-skip-mount-motion';
 const tabTransition = 'var(--ds-tab,color opacity .15s cubic-bezier(.4,1,.6,1))';
 const selectedBorder =
 	'var(--ds-border-width-selected,2px) solid var(--ds-border-selected,#1868db)';
@@ -204,6 +205,7 @@ describe('tab motion uplift', () => {
 
 	it('uses the same root-owned indicator contract for default and custom tabs', () => {
 		passGate(motionGate);
+		failGate(skipMountMotionGate);
 		const { unmount } = renderDefaultTabs();
 
 		const defaultTab = screen.getByTestId('tab-1');
@@ -229,8 +231,45 @@ describe('tab motion uplift', () => {
 		expect(screen.queryByTestId('custom-tab-1--indicator')).not.toBeInTheDocument();
 	});
 
+	it('shows the initial indicator immediately and animates only selection changes', () => {
+		passGate(motionGate);
+		passGate(skipMountMotionGate);
+		const { unmount } = render(<DefaultTabs />);
+		const firstTab = screen.getByTestId('tab-1');
+		const secondTab = screen.getByTestId('tab-2');
+		expect(firstTab).toHaveAttribute('data-motion-state', 'visible');
+		fireEvent.click(secondTab);
+		expect(firstTab).toHaveAttribute('data-motion-state', 'exiting');
+		expect(secondTab).toHaveAttribute('data-motion-state', 'entering');
+		fireIndicatorAnimationEnd(firstTab);
+		fireIndicatorAnimationEnd(secondTab);
+		expect(secondTab).toHaveAttribute('data-motion-state', 'visible');
+		unmount();
+		render(<DefaultTabs />);
+		expect(screen.getByTestId('tab-1')).toHaveAttribute('data-motion-state', 'visible');
+	});
+
+	it('also skips entry for custom tabs while preserving selection motion', () => {
+		passGate(motionGate);
+		passGate(skipMountMotionGate);
+		renderCustomTabs();
+		expect(screen.getByTestId('custom-tab-1')).toHaveAttribute('data-motion-state', 'visible');
+		fireEvent.click(screen.getByTestId('custom-tab-2'));
+		expect(screen.getByTestId('custom-tab-1')).toHaveAttribute('data-motion-state', 'exiting');
+		expect(screen.getByTestId('custom-tab-2')).toHaveAttribute('data-motion-state', 'entering');
+	});
+
+	it('renders the initial indicator visibly on the server with the fix enabled', () => {
+		passGate(motionGate);
+		passGate(skipMountMotionGate);
+		const view = renderToString(<DefaultTabs />);
+		expect(view).toContain('data-motion-state="visible"');
+		expect(view).not.toContain('data-motion-state="entering"');
+	});
+
 	it('keeps the first render deterministic before reconciling reduced motion', () => {
 		passGate(motionGate);
+		failGate(skipMountMotionGate);
 		updatePrefersReducedMotion(true);
 
 		const view = renderToString(<DefaultTabs />);
@@ -242,6 +281,7 @@ describe('tab motion uplift', () => {
 
 	it('captures indicator completion before a custom tab stops bubbling', () => {
 		passGate(motionGate);
+		failGate(skipMountMotionGate);
 		const onAnimationEnd = jest.fn((event: React.AnimationEvent<HTMLSpanElement>) => {
 			event.stopPropagation();
 		});
@@ -257,6 +297,7 @@ describe('tab motion uplift', () => {
 
 	it('maps right and left selection changes to matching enter and exit tokens', () => {
 		passGate(motionGate);
+		failGate(skipMountMotionGate);
 		renderDefaultTabs();
 		const tabList = screen.getByRole('tablist');
 		const tab1 = screen.getByTestId('tab-1');
@@ -294,6 +335,7 @@ describe('tab motion uplift', () => {
 
 	it('settles only matching root pseudo-element animation completions', () => {
 		passGate(motionGate);
+		failGate(skipMountMotionGate);
 		renderDefaultTabs();
 		const tab1 = screen.getByTestId('tab-1');
 		const tab3 = screen.getByTestId('tab-3');
@@ -315,6 +357,7 @@ describe('tab motion uplift', () => {
 
 	it('ignores descendant, non-indicator, invalid, and stale animation events', () => {
 		passGate(motionGate);
+		failGate(skipMountMotionGate);
 		renderDefaultTabs();
 		const tab = screen.getByTestId('tab-1');
 		const descendant = screen.getByText('Tab 1');
@@ -342,6 +385,7 @@ describe('tab motion uplift', () => {
 
 	it('preserves multiple captured exit directions and completes each independently', () => {
 		passGate(motionGate);
+		failGate(skipMountMotionGate);
 		renderDefaultTabs();
 		const tab1 = screen.getByTestId('tab-1');
 		const tab2 = screen.getByTestId('tab-2');
@@ -372,6 +416,7 @@ describe('tab motion uplift', () => {
 
 	it('removes a reselected tab from exits while other exits finish independently', () => {
 		passGate(motionGate);
+		failGate(skipMountMotionGate);
 		renderDefaultTabs();
 		const tab1 = screen.getByTestId('tab-1');
 		const tab2 = screen.getByTestId('tab-2');
@@ -402,6 +447,7 @@ describe('tab motion uplift', () => {
 
 	it('renders and changes selection without exits when reduced motion is initially preferred', () => {
 		passGate(motionGate);
+		failGate(skipMountMotionGate);
 		updatePrefersReducedMotion(true);
 		renderDefaultTabs();
 		const tab1 = screen.getByTestId('tab-1');
@@ -417,6 +463,7 @@ describe('tab motion uplift', () => {
 
 	it('clears exits and settles the selected tab when reduced motion changes at runtime', () => {
 		passGate(motionGate);
+		failGate(skipMountMotionGate);
 		renderDefaultTabs();
 		const tab1 = screen.getByTestId('tab-1');
 		const tab2 = screen.getByTestId('tab-2');
@@ -439,6 +486,7 @@ describe('tab motion uplift', () => {
 
 	it('keeps text and neutral-line transitions while layering the selected indicator', () => {
 		passGate(motionGate);
+		failGate(skipMountMotionGate);
 		renderDefaultTabs();
 		const tabList = screen.getByRole('tablist');
 

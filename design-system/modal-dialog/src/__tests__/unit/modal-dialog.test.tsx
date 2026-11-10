@@ -2,9 +2,9 @@ import React, { useCallback, useRef, useState } from 'react';
 
 import { skipA11yAudit } from '@af/accessibility-testing/skip-a11y-audit';
 import Button from '@atlaskit/button/default/button';
-import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
-import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
-import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
+import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';
+import { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-item-group';
+import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
 import noop from '@atlaskit/ds-lib/noop';
 import { failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
@@ -444,9 +444,7 @@ describe('<ModalDialog />', () => {
 		});
 	});
 
-	// skipping this test as it does not work with jsdom.reconfigure. Need to rewrite this test.
-	// https://hello.jira.atlassian.cloud/browse/UTEST-2000
-	describe.skip('isBlanketHidden', () => {
+	describe('isBlanketHidden', () => {
 		it('set blanket as hidden', () => {
 			render(
 				createModal({
@@ -455,7 +453,7 @@ describe('<ModalDialog />', () => {
 			);
 
 			const blanket = screen.getByTestId(`${testId}--blanket`);
-			expect(blanket).toHaveStyle('background-color: transparent');
+			expect(blanket).toHaveStyle('background-color: rgba(0, 0, 0, 0)');
 		});
 	});
 
@@ -536,7 +534,7 @@ describe('<ModalDialog />', () => {
 		});
 
 		// Skipped until https://product-fabric.atlassian.net/browse/DSP-17750 is merged.
-		it.skip('should have `aria-labelledby` if label is not provided', () => {
+		it('should have `aria-labelledby` if label is not provided', () => {
 			render(createModal({ label: undefined }));
 			const modal = screen.getByRole('dialog');
 

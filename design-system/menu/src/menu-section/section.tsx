@@ -6,6 +6,7 @@ import { Children, forwardRef, Fragment, type Ref } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import HeadingItem from '../menu-item/heading-item';
@@ -85,6 +86,12 @@ const styles = cssMap({
 	},
 });
 
+const semanticStyles = cssMap({
+	sideNavSectionHeading: {
+		paddingInline: token('space.inset.medium'),
+	},
+});
+
 /**
  * __Section__
  *
@@ -148,7 +155,12 @@ const Section: React.ForwardRefExoticComponent<
 						aria-hidden
 						// @ts-expect-error
 						// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
-						css={isSideNavSection && styles.sideNavSectionHeading}
+						css={[
+							isSideNavSection && styles.sideNavSectionHeading,
+							fg('platform-semantic-spacing') &&
+								isSideNavSection &&
+								semanticStyles.sideNavSectionHeading,
+						]}
 					>
 						{title}
 					</HeadingItem>

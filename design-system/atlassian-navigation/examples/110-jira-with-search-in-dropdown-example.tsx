@@ -19,7 +19,7 @@ import { Drawer } from '@atlaskit/drawer/drawer';
 import { DrawerCloseButton } from '@atlaskit/drawer/drawer-close-button';
 import { DrawerContent } from '@atlaskit/drawer/drawer-content';
 import { DrawerSidebar } from '@atlaskit/drawer/drawer-sidebar';
-import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';
 import { Label } from '@atlaskit/form/label/default';
 import EditorAddIcon from '@atlaskit/icon/core/add';
 import EditorPeopleIcon from '@atlaskit/icon/core/people-group';

@@ -448,28 +448,22 @@ describe('IconMotion', () => {
 		expect(getAnimationStyle('icon-b')).not.toContain('--ds-test');
 	});
 
-	describe('interaction motion', () => {
+	describe('IconMotion.Rotate', () => {
 		type EffectProps = Pick<
-			React.ComponentProps<typeof IconMotion>,
-			'interactionMotion' | 'isInteractionActive' | 'enteringAnimation' | 'exitingAnimation'
+			React.ComponentProps<typeof IconMotion.Rotate>,
+			'isActive' | 'enteringAnimation' | 'exitingAnimation'
 		>;
 
-		const renderEffect = ({
-			interactionMotion,
-			isInteractionActive,
-			enteringAnimation,
-			exitingAnimation,
-		}: EffectProps) =>
+		const renderEffect = ({ isActive, enteringAnimation, exitingAnimation }: EffectProps) =>
 			render(
-				<IconMotion
+				<IconMotion.Rotate
 					testId="icon-motion"
-					interactionMotion={interactionMotion}
-					isInteractionActive={isInteractionActive}
+					isActive={isActive}
 					enteringAnimation={enteringAnimation}
 					exitingAnimation={exitingAnimation}
 				>
 					<IconA />
-				</IconMotion>,
+				</IconMotion.Rotate>,
 			);
 
 		// jsdom can't compute `transform`, so a pose is detected by the element's classes changing
@@ -482,41 +476,49 @@ describe('IconMotion', () => {
 			return className;
 		};
 
-		it('styles the icon only when interaction motion is set', () => {
-			expect(getClassNameFor({ interactionMotion: 'rotate' })).not.toBe(getClassNameFor({}));
+		it('adds the pose classes on top of the base ones', () => {
+			const { unmount } = renderIcon(<IconA />);
+			const base = getClassName().split(' ');
+			unmount();
+
+			const rotate = getClassNameFor({}).split(' ');
+
+			expect(base.every((name) => rotate.includes(name))).toBe(true);
+			expect(rotate.length).toBeGreaterThan(base.length);
 		});
 
-		it('holds the pose while isInteractionActive and releases it when it is not', () => {
-			const held = getClassNameFor({ interactionMotion: 'rotate', isInteractionActive: true });
+		it('ignores isActive on the base IconMotion', () => {
+			const { unmount } = renderIcon(<IconA />);
+			const base = getClassName();
+			unmount();
 
-			expect(getClassNameFor({ interactionMotion: 'rotate', isInteractionActive: false })).not.toBe(
-				held,
-			);
-			expect(getClassNameFor({ interactionMotion: 'rotate' })).toBe(
-				getClassNameFor({ interactionMotion: 'rotate', isInteractionActive: false }),
-			);
+			// Passed through a cast, as an untyped caller could
+			renderIcon(<IconA />, { isActive: true } as object);
+
+			expect(getClassName()).toBe(base);
 		});
 
-		it('ignores isInteractionActive without interaction motion', () => {
-			expect(getClassNameFor({ isInteractionActive: true })).toBe(getClassNameFor({}));
+		it('holds the pose while isActive and releases it when it is not', () => {
+			const held = getClassNameFor({ isActive: true });
+
+			expect(getClassNameFor({ isActive: false })).not.toBe(held);
+			expect(getClassNameFor({})).toBe(getClassNameFor({ isActive: false }));
 		});
 
-		it('still swaps icons while interaction motion is set', () => {
+		it('still swaps icons', () => {
 			const { rerender } = renderEffect({
-				interactionMotion: 'rotate',
 				enteringAnimation: ENTERING_ANIMATION,
 				exitingAnimation: EXITING_ANIMATION,
 			});
 
 			rerender(
-				<IconMotion
+				<IconMotion.Rotate
 					testId="icon-motion"
-					interactionMotion="rotate"
 					enteringAnimation={ENTERING_ANIMATION}
 					exitingAnimation={EXITING_ANIMATION}
 				>
 					<IconB />
-				</IconMotion>,
+				</IconMotion.Rotate>,
 			);
 
 			expect(getAnimationStyle('icon-a')).toContain('var(--ds-test-exit)');

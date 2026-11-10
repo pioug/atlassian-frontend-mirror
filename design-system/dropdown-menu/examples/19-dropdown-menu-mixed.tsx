@@ -4,7 +4,7 @@ import { useOverflowStatus } from '@atlaskit/atlassian-navigation/overflow';
 import Avatar from '@atlaskit/avatar/avatar';
 import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
-import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';
 import { Label } from '@atlaskit/form/label/default';
 import EditorAddIcon from '@atlaskit/icon/core/add';
 import EditorPeopleIcon from '@atlaskit/icon/core/people-group';

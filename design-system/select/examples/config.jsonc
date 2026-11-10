@@ -12,6 +12,7 @@
 		"24-disabled.vr.ap.tsx",
 		"26-appearance.vr.ap.tsx",
 		"36-persistent-inline-menu.tsx",
+		"37-inline-menu-custom-menu.vr.ap.tsx",
 	],
 	"exampleDependencies": [],
 }

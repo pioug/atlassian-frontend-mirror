@@ -342,6 +342,13 @@ const atomicInputStyle = css({
 	},
 });
 
+const semanticAtomicInputStyle = cssMap({
+	root: {
+		paddingInlineEnd: token('space.inset.small'),
+		paddingInlineStart: token('space.inset.small'),
+	},
+});
+
 // The bounded CSS API does not support this pointer media query; preserve the input's mobile sizing.
 const atomicInputSpacing = cssMap({
 	compact: {
@@ -358,6 +365,26 @@ const atomicInputSpacing = cssMap({
 		'@media (pointer: coarse) and (max-width: 30rem)': {
 			paddingBlockEnd: token('space.075'),
 			paddingBlockStart: token('space.075'),
+		},
+	},
+});
+
+// The bounded CSS API cannot express the existing coarse-pointer media query.
+const semanticAtomicInputSpacing = cssMap({
+	compact: {
+		paddingBlockEnd: token('space.inset.xsmall'),
+		paddingBlockStart: token('space.inset.xsmall'),
+		'@media (pointer: coarse) and (max-width: 30rem)': {
+			paddingBlockEnd: token('space.inset.xxsmall'),
+			paddingBlockStart: token('space.inset.xxsmall'),
+		},
+	},
+	default: {
+		paddingBlockEnd: token('space.inset.medium'),
+		paddingBlockStart: token('space.inset.medium'),
+		'@media (pointer: coarse) and (max-width: 30rem)': {
+			paddingBlockEnd: token('space.inset.small'),
+			paddingBlockStart: token('space.inset.small'),
 		},
 	},
 });
@@ -511,6 +538,12 @@ const Textfield: React.ForwardRefExoticComponent<
 						atomicInputSpacing[isCompact ? 'compact' : 'default'],
 					isDisabled && inputDisabledStyle,
 					isDisabled && inputMediaDisabled,
+					fg('platform-semantic-spacing') &&
+						fg('platform-textfield-atomic-styles') &&
+						semanticAtomicInputStyle.root,
+					fg('platform-semantic-spacing') &&
+						fg('platform-textfield-atomic-styles') &&
+						semanticAtomicInputSpacing[isCompact ? 'compact' : 'default'],
 				]}
 				data-compact={isCompact && !fg('platform-textfield-atomic-styles') ? isCompact : undefined}
 				data-ds--text-field--input

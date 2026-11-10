@@ -68,6 +68,35 @@ macOS, does not focus a clicked button, so a mouse-opened menu can have nothing 
 - **Outside press.** `useManualLightDismiss` blurs focus that an outside press left inside the menu,
   so the press does not return focus, as with native light dismiss.
 
+### Virtual focus at open
+
+Every open gives the virtual focus (`aria-activedescendant`) to the selected option, else the first
+option, as `openMenu('first')` does. This holds for a pointer or keyboard open, and for a controlled
+or uncontrolled `menuIsOpen`.
+
+A pointer open of a controlled menu that is already open (for example an `@atlaskit/select`
+inline-mode menu) still moves the virtual focus: the press focuses the input, and the focus opens
+the menu with `openMenu('first')`.
+
+## Escape
+
+On the top-layer path an open menu is its own layer. The top layer gives one Escape press to one
+layer: the menu closes, and the layer under it (a Popup, a ModalDialog) stays open. Select does not
+call `preventDefault()` or `stopPropagation()` for Escape itself.
+
+`shouldPreventEscapePropagation` does nothing on the top-layer path (decision 10 in
+`flag-on-all-tests/REPORT.md`). The top layer already keeps the parent layer open. To copy the
+legacy behaviour, Select would have to call `stopPropagation()`, and that hides Escape from document
+listeners (including the top-layer Escape handling of the layers under the menu). The prop is
+`@deprecated`, so that no new callsites add it. Consumers remove it when `platform-dst-top-layer` is
+cleaned up. Tests assert the outcome (the menu closes, the parent layer stays open), not a
+`stopPropagation` spy.
+
+A menu that is forced always open (`menuIsOpen` stays `true`) is content, not a layer. Render it in
+place, with `menuRenderMode="inline"` on `@atlaskit/select` or `@atlaskit/user-picker` (decision 4,
+see `select-migration.md`). Then Escape goes to the layer that contains it. As a layer, it would
+claim every Escape and never close.
+
 ## Test coverage
 
 - **Unit** - `src/__tests__/unit/menu-portal-top-layer.test.tsx`,
@@ -100,3 +129,5 @@ macOS, does not focus a clicked button, so a mouse-opened menu can have nothing 
    until the Popover's exit finishes. A test that checks right after a close that the listbox is
    gone should first call `flushPopoverExit()` (from
    `@atlaskit/top-layer/testing/flush-popover-exit`), or use `waitFor`.
+6. **`shouldPreventEscapePropagation`** does nothing on the top-layer path and is deprecated (see
+   [Escape](#escape)).

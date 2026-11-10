@@ -81,6 +81,8 @@ export type MessageKey =
 	| 'give_feedback'
 	| 'try_downloading_file'
 	| 'line_count'
+	| 'archive_attachments_heading'
+	| 'archive_choose_attachment'
 	| 'plain_text'
 	| 'archive_format_not_supported'
 	| 'unsupported_file_format'
@@ -622,6 +624,17 @@ export const messages: Messages = defineMessages({
 		id: 'fabric.media.line_count',
 		defaultMessage: '{count, plural, one {# line} other {# lines}}',
 		description: 'The number of lines in a text file, shown in the Media Viewer footer',
+	},
+	archive_attachments_heading: {
+		id: 'fabric.media.archive_attachments_heading',
+		defaultMessage: 'Attachments in this zip file',
+		description: 'Heading above the list of files in a zip file, shown in the Media Viewer',
+	},
+	archive_choose_attachment: {
+		id: 'fabric.media.archive_choose_attachment',
+		defaultMessage: 'Choose an attachment to preview it',
+		description:
+			'Shown in the Media Viewer for a zip file before the user picks a file from it to preview',
 	},
 	plain_text: {
 		id: 'fabric.media.plain_text',

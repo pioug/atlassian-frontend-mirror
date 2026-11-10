@@ -2,8 +2,8 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import DropdownItem from '../../dropdown-menu-item';
-import DropdownItemGroup from '../../dropdown-menu-item-group';
+import DropdownItem from '../../dropdown-item';
+import DropdownItemGroup from '../../dropdown-item-group';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('DropdownMenu Item Group', () => {

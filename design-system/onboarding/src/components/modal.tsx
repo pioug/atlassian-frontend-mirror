@@ -2,11 +2,15 @@ import React, { Component, type ElementType, type ReactNode } from 'react';
 
 import Button from '@atlaskit/button/custom-theme-button/custom-theme-button';
 import ButtonTheme from '@atlaskit/button/theme';
+import AkHeading from '@atlaskit/heading/heading';
 import { useModal } from '@atlaskit/modal-dialog/hooks';
 import ModalBody from '@atlaskit/modal-dialog/modal-body';
 import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import type { ModalFooterProps as FooterComponentProps } from '@atlaskit/modal-dialog/modal-footer';
 import type { ModalHeaderProps as HeaderComponentProps } from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 import {
 	ModalBody as Body,
@@ -129,6 +133,17 @@ export default class BenefitsModal extends Component<ModalProps> {
 
 		const CustomHeader = () => {
 			const { titleId } = useModal();
+			if (fg('platform_dst-modal_title_phase2')) {
+				return (
+					<Box paddingBlockEnd="space.100">
+						<ModalTitle>
+							<AkHeading as="span" size="medium">
+								{heading}
+							</AkHeading>
+						</ModalTitle>
+					</Box>
+				);
+			}
 			return <Heading id={titleId}>{heading}</Heading>;
 		};
 

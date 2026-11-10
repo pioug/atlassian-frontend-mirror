@@ -1,5 +1,11 @@
 # @atlaskit/contextual-survey
 
+## 7.3.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.3.4
 
 ### Patch Changes
@@ -1198,13 +1204,12 @@
   - 🛠If `<ContextualSurvey />` is dismissed while `onSubmit` is resolving, then
     `getUserHasAnsweredMailingList()` is not called. We do this as we won't be showing the email
     sign up
-  - 🛠If the user marks that they do not want to be contacted, then
-    `getUserHasAnsweredMailingList()` is not called. Previously `getUserHasAnsweredMailingList()`
-    was always called _regardless_ of whether the user wanted to be contacted. The email sign up is
-    only showed if the user states that they want to be contacted and if
-    `getUserHasAnsweredMailingList` returns `false`. We now don't call
-    `getUserHasAnsweredMailingList` if the user has stated they don't want to be contacted as it is
-    a precondition.
+  - 🛠If the user marks that they do not want to be contacted, then `getUserHasAnsweredMailingList()`
+    is not called. Previously `getUserHasAnsweredMailingList()` was always called _regardless_ of
+    whether the user wanted to be contacted. The email sign up is only showed if the user states
+    that they want to be contacted and if `getUserHasAnsweredMailingList` returns `false`. We now
+    don't call `getUserHasAnsweredMailingList` if the user has stated they don't want to be
+    contacted as it is a precondition.
   - 🚀 The user is able to dismiss the form at any time using the `escape` key
   - 🕵️‍ After clicking a score the response `textarea` is given browser focus.
   - ✅ New behaviour for the _can contact_ checkbox. It is now not selected by default. When a user

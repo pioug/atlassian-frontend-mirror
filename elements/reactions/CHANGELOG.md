@@ -1,5 +1,38 @@
 # @atlaskit/reactions
 
+## 37.5.0
+
+### Minor Changes
+
+- [`4ab533f9bc99f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4ab533f9bc99f) -
+  Focus the newly added reaction after emoji selection behind platform_ally_emoji_fixes_various.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.4.0
+
+### Minor Changes
+
+- [`3d2733c4e7948`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d2733c4e7948) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.3.1
+
+### Patch Changes
+
+- [`c99178222d1f9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c99178222d1f9) -
+  Remove the `platform_reactions_tooltip_hide_empty_footer` feature gate. The reaction tooltip now
+  always omits the trailing footer item when the number of reacting users is within the display
+  limit, so the tooltip no longer has empty space at the bottom.
+- Updated dependencies
+
 ## 37.3.0
 
 ### Minor Changes

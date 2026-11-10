@@ -28,6 +28,9 @@ export interface FileIconProps {
 	testId?: string;
 	type?: MediaType;
 	size?: 'small' | 'large';
+	// `none` drops the padding around the large glyph, for layouts that size and align the icon
+	// themselves. Defaults to `default`.
+	spacing?: 'default' | 'none';
 	className?: string;
 }
 
@@ -73,13 +76,17 @@ export class MediaTypeIcon extends React.Component<FileIconProps, {}> {
 	};
 
 	render(): JSX.Element {
-		const { type, size, testId } = this.props;
+		const { type, size, spacing, testId } = this.props;
 		const typeWithDefault = type || defaultType;
 		const icons = size === 'large' ? largeIcons : smallIcons;
 		const Icon = icons[typeWithDefault] || icons[defaultType];
 
 		return (
-			<span data-testid={testId} data-type={type} css={[iconStyles, iconStyleMap[size ?? 'small']]}>
+			<span
+				data-testid={testId}
+				data-type={type}
+				css={[iconStyles, spacing !== 'none' && iconStyleMap[size ?? 'small']]}
+			>
 				<Icon label="media-type" />
 			</span>
 		);

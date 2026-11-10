@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import { screen } from '@atlassian/testing-library/screen';
 import { act, render } from '@atlassian/testing-library/testing-library/react';
 
 import ForgeBodiedExtensionHandoff from '../../../../react/nodes/ForgeBodiedExtensionHandoff';
+import { ForgeBodiedExtensionHandoffReadyContext } from '../../../../react/nodes/forgeBodiedExtensionHandoffContext';
 
 describe('Forge bodied extension handoff', () => {
 	beforeEach(() => jest.useFakeTimers());
@@ -69,5 +70,66 @@ describe('Forge bodied extension handoff', () => {
 		);
 		unmount();
 		expect(jest.getTimerCount()).toBe(0);
+	});
+});
+
+describe('UI Kit SSR handoff', () => {
+	beforeEach(() => jest.useFakeTimers());
+	afterEach(() => jest.useRealTimers());
+	const Client = ({ ready = false, localId = 'macro' }: { localId?: string; ready?: boolean }) => {
+		const notify = useContext(ForgeBodiedExtensionHandoffReadyContext);
+		useEffect(() => {
+			if (ready && notify?.localId === localId) notify.onReady();
+		}, [notify, ready, localId]);
+		return ready ? <button>Client body</button> : null;
+	};
+	const view = (result: React.ReactNode) => (
+		<ForgeBodiedExtensionHandoff
+			localId="macro"
+			preserveContentUntilReady
+			fallback={<p>Server body</p>}
+			result={result}
+		/>
+	);
+
+	it('keeps native content visible through a null renderer and loader until the matching client commits', async () => {
+		const { rerender, container } = render(view(null));
+		const body = screen.getByText('Server body');
+		rerender(view(<Client />));
+		expect(body).toBeVisible();
+		rerender(view(<div>Loading</div>));
+		expect(body).toBeVisible();
+		expect(screen.getByText('Loading')).not.toBeVisible();
+		rerender(view(<Client ready localId="another-instance" />));
+		expect(body).toBeVisible();
+		expect(screen.queryByRole('button')).not.toBeInTheDocument();
+		rerender(view(<Client ready />));
+		expect(body).not.toBeInTheDocument();
+		expect(screen.getByRole('button', { name: 'Client body' })).toBeVisible();
+		await expect(container).toBeAccessible();
+	});
+
+	it('does not bind a bridge listener or release on its message when waiting for a commit', () => {
+		const addEventListener = jest.spyOn(window, 'addEventListener');
+		render(view(<Client />));
+		expect(addEventListener.mock.calls.some(([type]) => type === 'message')).toBe(false);
+		addEventListener.mockRestore();
+		act(() =>
+			window.dispatchEvent(
+				new MessageEvent('message', {
+					source: window,
+					origin: window.location.origin,
+					data: { source: 'forge-extension', type: 'EXTENSION_READY', localId: 'macro' },
+				}),
+			),
+		);
+		expect(screen.getByText('Server body')).toBeVisible();
+	});
+
+	it('releases the client on timeout if rendering fails or the app intentionally stays empty', () => {
+		render(view(<div>App failed</div>));
+		act(() => jest.advanceTimersByTime(30000));
+		expect(screen.queryByText('Server body')).not.toBeInTheDocument();
+		expect(screen.getByText('App failed')).toBeVisible();
 	});
 });

@@ -144,7 +144,7 @@ const Actions = ({
 			{regularActions.map((action, index) => {
 				const isKudos = action.id === GIVE_KUDOS_ACTION_ID;
 
-				if (isKudos && fg('fix_give_kudos_btn_incorrect_role')) {
+				if (isKudos) {
 					const kudosButton = (
 						<Button
 							appearance="default"
@@ -170,7 +170,7 @@ const Actions = ({
 					);
 				}
 
-				const button = (
+				return (
 					<TeamsLinkButton
 						appearance="default"
 						key={action.id || index}
@@ -184,24 +184,8 @@ const Actions = ({
 						aria-labelledby={`action-button-${action.id} profilecard-name-label`}
 					>
 						{action.label}
-						{isKudos && (
-							<AnimationWrapper>
-								<KudosBlobAnimation />
-							</AnimationWrapper>
-						)}
 					</TeamsLinkButton>
 				);
-
-				// TODO: Remove this once fix_give_kudos_btn_incorrect_role is fully rolled out
-				if (isKudos) {
-					return (
-						<AnimatedKudosButton key={`profile-card-action-kudos_${action.id || index}`}>
-							{button}
-						</AnimatedKudosButton>
-					);
-				}
-
-				return button;
 			})}
 			{overflowActions && (
 				<OverflowProfileCardButtons

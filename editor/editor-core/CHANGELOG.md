@@ -1,5 +1,41 @@
 # @atlaskit/editor-core
 
+## 242.3.1
+
+### Patch Changes
+
+- [`8b99da6c70e6e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8b99da6c70e6e) -
+  [ux] [EDITOR-10134] apply danger styles to the divider itself on hover of delete
+- [`78609aee12c06`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/78609aee12c06) -
+  Dispatch error analytics from the outer `PluginSlot` error boundary when per-plugin error
+  isolation is off, so plugin UI crashes (e.g. Quick Insert menu) are reported. Gated behind the
+  `platform_editor_error_analytics_on_menu_crash` experiment.
+- [`7821d47c01236`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7821d47c01236) -
+  Default full-page content popups to the existing editor scroll container behind
+  platform_editor_improve_inp_batch_3, avoiding target scroll-parent discovery. Preserve consumer
+  overrides and main toolbar behavior.
+- Updated dependencies
+
+## 242.3.0
+
+### Minor Changes
+
+- [`3d2733c4e7948`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d2733c4e7948) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 242.2.1
+
+### Patch Changes
+
+- [`76a9e522fc180`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76a9e522fc180) -
+  Delete unreachable source files
+- Updated dependencies
+
 ## 242.2.0
 
 ### Minor Changes

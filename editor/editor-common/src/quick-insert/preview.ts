@@ -6,6 +6,12 @@ import type { MessageDescriptor } from 'react-intl';
 export type PreviewImage = {
 	dark?: string;
 	light: string;
+	/**
+	 * How the image fills the preview's fixed-height image area, as CSS `object-fit`. Defaults to
+	 * `contain`, which shows the whole image. Use `cover` only for images whose edges are
+	 * background, since it crops whatever doesn't fit the area's shape.
+	 */
+	objectFit?: 'contain' | 'cover';
 };
 
 export type QuickInsertPreview = {

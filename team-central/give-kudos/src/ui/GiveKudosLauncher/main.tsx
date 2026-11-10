@@ -23,7 +23,6 @@ import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import Portal from '@atlaskit/portal/portal';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-atlaskit-theme
@@ -160,15 +159,10 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 	const shouldCloseDrawerAfterConfirmModalRef = useRef(false);
 
 	const requestDrawerCloseFromConfirmModal = useCallback(() => {
-		if (!fg('teams_a11y_focus_high_priority')) {
-			closeDrawer();
-			return;
-		}
-
 		shouldCloseDrawerAfterConfirmModalRef.current = true;
 		setIsDirty(false);
 		setIsCloseConfirmModalOpen(false);
-	}, [closeDrawer]);
+	}, []);
 
 	const handleConfirmModalCloseComplete = useCallback(() => {
 		if (!shouldCloseDrawerAfterConfirmModalRef.current) {
@@ -392,9 +386,7 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 				zIndex={zIndex}
 				onClose={handleCloseDrawerClicked}
 				onCloseComplete={onCloseComplete}
-				shouldReturnFocus={
-					fg('teams_a11y_focus_high_priority') && triggerRef ? triggerRef : undefined
-				}
+				shouldReturnFocus={triggerRef}
 			>
 				<div css={styles.drawerCloseButtonContainer}>
 					<IconButton
@@ -430,10 +422,8 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 						<Modal
 							onClose={closeWarningModal}
 							width="small"
-							shouldReturnFocus={fg('teams_a11y_focus_high_priority') ? backButtonRef : undefined}
-							onCloseComplete={
-								fg('teams_a11y_focus_high_priority') ? handleConfirmModalCloseComplete : undefined
-							}
+							shouldReturnFocus={backButtonRef}
+							onCloseComplete={handleConfirmModalCloseComplete}
 						>
 							<ModalHeader hasCloseButton>
 								<ModalTitle>

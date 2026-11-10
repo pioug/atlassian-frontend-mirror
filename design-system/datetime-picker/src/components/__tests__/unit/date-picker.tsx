@@ -684,7 +684,7 @@ describe('DatePicker', () => {
 
 		// Don't know why this is failing. It clearly works with manual testing.
 		// This is in the integration tests, but would rather have it here
-		xit('should open the calendar when the input is focused via mouse', async () => {
+		it('should open the calendar when the input is focused via mouse', async () => {
 			const user = userEvent.setup();
 			render(createDatePicker());
 

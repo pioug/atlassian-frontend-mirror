@@ -85,7 +85,7 @@ component's rendering.
 | ---------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
 | `target` (render prop)             | Rendered via `Popup.TriggerFunction` — pass `ref`, `aria-haspopup`, `aria-expanded`, `aria-controls`, `onKeyDown` |
 | `popperProps.placement`            | Convert via `fromLegacyPlacement()` to CSS Anchor Positioning placement                                           |
-| `popperProps.modifiers`            | No-op — CSS Anchor Positioning handles offset/overflow/flip natively                                              |
+| `popperProps.modifiers`            | Only the `offset` modifier is read. No `modifiers` gives `[0, 8]`; other `modifiers` with no offset give `[0, 0]` |
 | `popperProps.strategy`             | No-op — top layer doesn't need `fixed`/`absolute` strategy                                                        |
 | `isOpen` / `defaultIsOpen`         | Map to `Popup.Content isOpen` (controlled) or internal state (uncontrolled)                                       |
 | `maxMenuWidth` / `minMenuWidth`    | Inline styles on the content container                                                                            |
@@ -206,6 +206,51 @@ Create `popup-select/__tests__/informational-vr-tests/popup-select-top-layer.vr.
 
 **As of 2026-03:** Steps 1–3 and test/doc artifacts are in place; unit-test depth for the top-layer
 path was still a known gap in the 2026-03-16 migration audit.
+
+---
+
+## Behaviour on the top-layer path (2026-11)
+
+These follow the decisions in `flag-on-all-tests/REPORT.md`.
+
+- **Trigger `aria-controls`.** The popover host is in the DOM only while the popup is open, so
+  `target` gets `aria-controls` only while open (as `getAriaForTrigger` and the legacy path do; see
+  `decisions/aria-controls-trigger-contract.md`).
+- **`popperProps.modifiers`.** Only the `offset` modifier is read. Legacy spreads `popperProps` over
+  its defaults, so any consumer `modifiers` value replaces the default `[0, 8]` offset. With no
+  consumer offset modifier, the offset is `[0, 0]`. Popper ignores a popper v1 `modifiers` object,
+  so it also gives `[0, 0]`.
+- **Escape and `shouldPreventEscapePropagation` (decision 10).** The popup is a `popover="auto"`
+  layer. The top layer gives one Escape press to one layer, so the popup closes and the layer under
+  it stays open. `shouldPreventEscapePropagation` does nothing here: to copy the legacy behaviour,
+  PopupSelect would have to call `stopPropagation()`, which hides Escape from document listeners.
+  The prop is `@deprecated` on Select and PopupSelect. Consumers remove it when the gate is cleaned
+  up. Tests assert the outcome (the popup closes, the parent stays open), not a `stopPropagation`
+  spy.
+- **Virtual focus at open (decision 11a).** PopupSelect calls `openMenu('first')` on every open, so
+  the virtual focus goes to the selected option, else the first one. Legacy left no focused option
+  after a pointer open. Tests that press ArrowDown after the open move from that option.
+- **Inline mode keeps a consumer `Menu` (decision 4).** PopupSelect renders its Select with
+  `menuRenderMode="inline"`. Inline mode keeps a consumer `components.Menu` on both paths (the
+  listbox ID stays on `MenuList` only), so a custom `Menu` (for example a search field above the
+  options) still renders. Inline mode never uses `components.MenuPortal`.
+
+### Always-open Selects inside a layer
+
+A Select whose `menuIsOpen` is forced on inside a Popup must render its menu in place. Without that
+the menu is its own layer: it claims every Escape but cannot close, so the Popup never closes with
+Escape, and the menu can cover the Popup footer.
+
+- **A Select** passes `menuRenderMode="inline"` behind the gate, with any gate client
+  (paginated-picker, jira `PopupFilter`, `StatusPicker`, `SelectableList`, jql-builder and
+  filter-refinement `BaseSelect`). Inline mode keeps a custom `components.Menu` on both paths. Jira
+  Storybook, and so jira Playwright, can turn on Jira gates while platform gates stay off: there the
+  callsite picks inline mode and the Select takes the legacy path, which must keep the Menu too.
+  Inline mode does not apply `styles.menu` when there is no custom Menu.
+- **A user picker** (`@atlaskit/user-picker`, `@atlaskit/smart-user-picker`) passes
+  `menuRenderMode="inline"` behind the gate in the same way (townsquare `TeamOrUserPicker`,
+  plan-create `TeamPicker`). User picker forwards the prop to Select. Its `Menu` (which renders
+  `header` and `footer`) is a custom Menu, so inline mode keeps it and `styles.menu` still applies.
 
 ---
 

@@ -13,9 +13,9 @@ import Badge from '@atlaskit/badge/badge';
 import Button from '@atlaskit/button/default/button';
 import IconButton from '@atlaskit/button/icon/button';
 import { cssMap } from '@atlaskit/css';
-import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
-import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
-import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
+import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';
+import { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-item-group';
+import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
 import Heading from '@atlaskit/heading/heading';
 import AddIcon from '@atlaskit/icon/core/add';
 import AlignTextLeftIcon from '@atlaskit/icon/core/align-text-left';
@@ -555,13 +555,15 @@ export default function PageLayoutChatPanelConfluenceMockExample(): JSX.Element 
 								<CreateButton>Create</CreateButton>
 							</TopNavMiddle>
 							<TopNavEnd>
-								<TopNavButton
-									iconBefore={(props) => <RovoIcon {...props} size="xxsmall" label="" />}
-									isSelected={isChatPanelOpen}
-									onClick={() => setIsChatPanelOpen((isOpen) => !isOpen)}
-								>
-									Ask Rovo
-								</TopNavButton>
+								<MenuListItem>
+									<TopNavButton
+										iconBefore={(props) => <RovoIcon {...props} size="xxsmall" label="" />}
+										isSelected={isChatPanelOpen}
+										onClick={() => setIsChatPanelOpen((isOpen) => !isOpen)}
+									>
+										Ask Rovo
+									</TopNavButton>
+								</MenuListItem>
 								<Help label="Help" />
 								<Notifications
 									badge={() => (
@@ -603,24 +605,28 @@ export default function PageLayoutChatPanelConfluenceMockExample(): JSX.Element 
 									</LinkMenuItem>
 								</MenuList>
 								<Box xcss={pageStyles.sideNavHeader}>
-									<ButtonMenuItem
-										elemBefore={<Image src={dstLogo} width="24" height="24" alt="" />}
-									>
-										Design System
-									</ButtonMenuItem>
+									<MenuList>
+										<ButtonMenuItem
+											elemBefore={<Image src={dstLogo} width="24" height="24" alt="" />}
+										>
+											Design System
+										</ButtonMenuItem>
+									</MenuList>
 								</Box>
-								<ExpandableMenuItem isDefaultExpanded>
-									<ExpandableMenuItemTrigger>Content</ExpandableMenuItemTrigger>
-									<ExpandableMenuItemContent>
-										{['Overview', 'Foundations', 'Components', 'Patterns', 'Resources'].map(
-											(item) => (
-												<LinkMenuItem href="#" key={item}>
-													{item}
-												</LinkMenuItem>
-											),
-										)}
-									</ExpandableMenuItemContent>
-								</ExpandableMenuItem>
+								<MenuList>
+									<ExpandableMenuItem isDefaultExpanded>
+										<ExpandableMenuItemTrigger>Content</ExpandableMenuItemTrigger>
+										<ExpandableMenuItemContent>
+											{['Overview', 'Foundations', 'Components', 'Patterns', 'Resources'].map(
+												(item) => (
+													<LinkMenuItem href="#" key={item}>
+														{item}
+													</LinkMenuItem>
+												),
+											)}
+										</ExpandableMenuItemContent>
+									</ExpandableMenuItem>
+								</MenuList>
 							</SideNavBody>
 							<SideNavPanelSplitter label="Resize side navigation" />
 						</SideNav>

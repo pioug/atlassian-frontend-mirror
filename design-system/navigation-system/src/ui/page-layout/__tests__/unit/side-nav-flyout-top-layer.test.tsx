@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { skipA11yAudit } from '@af/accessibility-testing/skip-a11y-audit';
-import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
 import { Popup } from '@atlaskit/popup/popup';
 import {
 	FlyoutMenuItem,

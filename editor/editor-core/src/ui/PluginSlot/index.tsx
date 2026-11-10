@@ -12,6 +12,7 @@ import type {
 	UIComponentFactory,
 } from '@atlaskit/editor-common/types/ui-components';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type EditorActions from '../../actions';
@@ -113,7 +114,19 @@ const PluginSlot = ({
 		expValEquals('platform_editor_per_plugin_error_boundary', 'isEnabled', true);
 
 	return (
-		<ErrorBoundary component={ACTION_SUBJECT.PLUGIN_SLOT} fallbackComponent={null}>
+		<ErrorBoundary
+			component={ACTION_SUBJECT.PLUGIN_SLOT}
+			// When plugin isolation is off, this outer boundary is the only one catching plugin
+			// content crashes, so it must report them. When isolation is on, the per-plugin
+			// boundaries below already report, so we skip it here to avoid double counting.
+			dispatchAnalyticsEvent={
+				!isolatePluginSlotFailures &&
+				isExperimentEnabled('platform_editor_error_analytics_on_menu_crash')
+					? dispatchAnalyticsEvent
+					: undefined
+			}
+			fallbackComponent={null}
+		>
 			<MountPluginHooks
 				editorView={editorView}
 				pluginHooks={pluginHooks}

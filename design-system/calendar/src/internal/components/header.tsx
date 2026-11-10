@@ -9,6 +9,7 @@ import { css, jsx } from '@compiled/react';
 import IconButton from '@atlaskit/button/icon/button';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import Heading from '@atlaskit/heading/heading';
+import { useHeading } from '@atlaskit/heading/use-heading';
 import ChevronDoubleLeftIcon from '@atlaskit/icon/core/chevron-double-left';
 import ChevronDoubleRightIcon from '@atlaskit/icon/core/chevron-double-right';
 import ChevronLeftIcon from '@atlaskit/icon/core/chevron-left';
@@ -17,7 +18,7 @@ import { Box } from '@atlaskit/primitives/compiled/box';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { token } from '@atlaskit/tokens';
 
-import { type TabIndex } from '../../types';
+import { type HeadingLevel, type TabIndex } from '../../types';
 
 const arrowMotionStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-nested-styles
@@ -52,6 +53,7 @@ interface HeaderProps {
 	handleClickPrevMonth: (e: React.MouseEvent<HTMLElement>) => void;
 	handleClickPrevYear: (e: React.MouseEvent<HTMLElement>) => void;
 	headerId: string;
+	headingLevel?: HeadingLevel;
 	tabIndex?: TabIndex;
 	testId?: string;
 }
@@ -72,9 +74,11 @@ const Header: React.NamedExoticComponent<HeaderProps> = memo<HeaderProps>(functi
 	handleClickNextMonth,
 	handleClickNextYear,
 	headerId,
+	headingLevel,
 	tabIndex,
 	testId,
 }) {
+	const [, inferredHeadingElement] = useHeading('h2');
 	const announceId = useId();
 
 	// All of this is because `aria-atomic` is not fully supported for different
@@ -145,7 +149,7 @@ const Header: React.NamedExoticComponent<HeaderProps> = memo<HeaderProps>(functi
 				>
 					<Heading
 						size="xsmall"
-						as="h2"
+						as={headingLevel === undefined ? inferredHeadingElement : `h${headingLevel}`}
 						id={headerId}
 						testId={testId && `${testId}--current-month-year`}
 					>

@@ -19,5 +19,7 @@
 		"24-disable-input.tsx",
 		"25-disable-options.tsx",
 		"26-footer.vr.ap.tsx",
+		"40-inline-menu-header-footer.vr.ap.tsx",
+		"99-testing-escape-in-modal.tsx",
 	],
 }

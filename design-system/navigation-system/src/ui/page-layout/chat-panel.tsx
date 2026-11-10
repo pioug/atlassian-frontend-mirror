@@ -19,6 +19,7 @@ import {
 	localSlotLayers,
 	mainMinimumWidthVar,
 } from './constants';
+import { chatPanelPanelSplitterId } from './panel-splitter/chat-panel-panel-splitter-id';
 import { convertResizeBoundToPixels } from './panel-splitter/convert-resize-bound-to-pixels';
 import { PanelSplitterProvider } from './panel-splitter/provider';
 import type { ResizeBound, ResizeBounds } from './panel-splitter/types';
@@ -30,7 +31,6 @@ import { useLayoutId } from './use-layout-id';
 import { useResizingWidthCssVarOnRootElement } from './use-resizing-width-css-var-on-root-element';
 import { useSafeDefaultWidth } from './use-safe-default-width';
 
-const chatPanelPanelSplitterId = Symbol('ChatPanel PanelSplitter');
 const panelSplitterResizingVar = '--n_cPnlRsz';
 const chatPanelOverlayWidthVar = '--n_cPnlOverlayW';
 const fallbackDefaultWidth = 400;
@@ -71,6 +71,9 @@ const styles = cssMap({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
 			width: `var(${panelSplitterResizingVar}, var(${'--n_cPnlW' satisfies typeof chatPanelVar}))`,
 		},
+	},
+	refinedOverlay: {
+		maxWidth: 'none',
 	},
 	managedInline: {
 		// Increased specificity ensures calculated modes override the responsive fallback.
@@ -128,6 +131,8 @@ const styles = cssMap({
  * full-height column in the page layout grid.
  *
  * You can optionally render a `PanelSplitter` as a child to make the chat panel resizable.
+ * With chat layout enabled, Root retains separate inline and overlay resize preferences
+ * when ChatPanel is closed and remounted during the same layout session.
  */
 export function ChatPanel({
 	children,
@@ -211,6 +216,7 @@ export function ChatPanel({
 	const ref = useRef<HTMLDivElement | null>(null);
 	const [inlineWidth, setInlineWidth] = useState(defaultWidth);
 	const [hasInlinePreference, setHasInlinePreference] = useState(false);
+	const [hasOverlayPreference, setHasOverlayPreference] = useState(false);
 	const [overlayWidth, setOverlayWidth] = useState(compactDefaultWidth);
 	const [isInline, setIsInline] = useState(false);
 	const {
@@ -292,9 +298,13 @@ export function ChatPanel({
 	const chatPanelVariableWidth = managedSizing
 		? `${renderedWidth}px`
 		: `clamp(${minWidth}, ${inlineWidth}px, ${configuredMaxWidth})`;
+	const overlayDefault = `var(--n_chatDefaultW, ${compactDefaultWidth}px)`;
+	const overlayMaximum = `max(${minWidth}, min(${configuredMaxWidth}, var(--n_layoutW, 100vw), max(${overlayDefault}, calc(var(--n_layoutW, 100vw) * 0.9))))`;
 	const chatPanelOverlayVariableWidth = managedSizing
 		? `${renderedWidth}px`
-		: `clamp(${minWidth}, ${overlayWidth}px, min(90vw, ${configuredMaxWidth}))`;
+		: fg('platform-dst-chat-panel-layout')
+			? `clamp(${minWidth}, ${hasOverlayPreference ? `${overlayWidth}px` : overlayDefault}, ${overlayMaximum})`
+			: `clamp(${minWidth}, ${overlayWidth}px, min(90vw, ${configuredMaxWidth}))`;
 	const onCompleteResize = useCallback(
 		(finalWidth: number) => {
 			if (mode === 'inline') {
@@ -302,6 +312,7 @@ export function ChatPanel({
 				setHasInlinePreference(true);
 			} else {
 				setOverlayWidth(finalWidth);
+				setHasOverlayPreference(true);
 			}
 			completeResize(mode, finalWidth);
 		},
@@ -322,6 +333,9 @@ export function ChatPanel({
 				hasBorder && styles.border,
 				managedSizing?.mode === 'inline' && styles.managedInline,
 				managedSizing?.mode === 'overlay' && styles.managedOverlay,
+				fg('platform-dst-chat-panel-layout') &&
+					managedSizing?.mode === 'overlay' &&
+					styles.refinedOverlay,
 				hasBorder && managedSizing?.mode === 'inline' && styles.managedInlineBorder,
 				hasBorder && managedSizing?.mode === 'overlay' && styles.managedOverlayBorder,
 			]}
@@ -348,14 +362,15 @@ export function ChatPanel({
 #${gridRootId} { --n_chatTrack: ${mode === 'inline' ? `${renderedWidth}px` : '0px'}; ${chatPanelLiveWidthVar}: var(--n_chatTrack); }
 `
 						: `
-#${gridRootFitId} { --n_chatPreferredW: ${fg('platform-dst-chat-panel-layout') && !hasInlinePreference ? `clamp(${minWidth}, ${compactDefaultWidth}px, ${configuredMaxWidth})` : chatPanelVariableWidth}; --n_clearanceChatMin: ${minWidth}; --n_clearanceChatTarget: var(--n_chatPreferredW); }
+#${gridRootFitId} { --n_chatDefaultW: ${compactDefaultWidth}px; --n_chatPreferredW: ${fg('platform-dst-chat-panel-layout') && !hasInlinePreference ? `clamp(${minWidth}, ${compactDefaultWidth}px, ${configuredMaxWidth})` : chatPanelVariableWidth}; --n_clearanceChatMin: ${minWidth}; --n_clearanceChatTarget: var(--n_chatPreferredW); }
 @media (min-width: 64rem) {
-  #${gridRootFitId} { --n_chatPreferredW: ${chatPanelVariableWidth}; }
+  #${gridRootFitId} { --n_chatDefaultW: ${defaultWidth}px; --n_chatPreferredW: ${chatPanelVariableWidth}; }
 }
 #${gridRootId} { --n_chatTrack: 0px; ${chatPanelLiveWidthVar}: 0px; }
 #${gridRootId} [data-layout-chat-panel] {
   grid-area: 2 / 1 / -1 / -1;
-  width: min(calc(var(--n_layoutW) * 0.9), ${chatPanelOverlayVariableWidth});
+  width: ${fg('platform-dst-chat-panel-layout') ? chatPanelOverlayVariableWidth : `min(calc(var(--n_layoutW) * 0.9), ${chatPanelOverlayVariableWidth})`};
+  ${fg('platform-dst-chat-panel-layout') ? 'max-width: none;' : ''}
   z-index: ${localSlotLayers.chatPanelOverlay};
   background-color: ${token('elevation.surface.overlay')};
   ${hasBorder ? `box-shadow: ${token('elevation.shadow.overlay')}; border-inline-start: none;` : ''}
@@ -366,6 +381,7 @@ export function ChatPanel({
     #${gridRootId} [data-layout-chat-panel] {
       grid-area: chat-panel;
       width: min(100cqw, var(${panelSplitterResizingVar}, var(--n_chatPreferredW)));
+      max-width: 100%;
       z-index: auto;
       background-color: ${token('elevation.surface')};
       ${hasBorder ? `box-shadow: initial; border-inline-start: ${token('border.width')} solid ${token('color.border')};` : ''}

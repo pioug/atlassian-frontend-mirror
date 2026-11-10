@@ -31,6 +31,7 @@ import { token } from '@atlaskit/tokens';
 
 import {
 	useHasMediaFooterPlayerControls,
+	useHasArchiveColumn,
 	useIsInsetViewer,
 	useSetMediaFooterControls,
 } from './insetViewerContext';
@@ -43,6 +44,8 @@ export const INSET_VIEWER_GUTTER_PX = 24;
 const INSET_SIDEBAR_WIDTH = '400px';
 // The media footer is the header's height, and taller when it holds player controls.
 const INSET_PLAYER_FOOTER_HEIGHT = `calc(${INSET_HEADER_HEIGHT} + ${token('space.050')})`;
+// The gap the footer and the next arrow keep from a zip file's list, as they would from the edge.
+const INSET_ARCHIVE_COLUMN_OFFSET = `calc(${INSET_SIDEBAR_WIDTH} + ${INSET_VIEWER_GUTTER_PX}px)`;
 
 const insetSidebarWidthTransitionStyles = css({
 	transitionProperty: 'width',
@@ -262,6 +265,22 @@ const insetViewerMediaFooterBarStyles = css({
 	position: 'relative',
 	overflow: 'visible',
 	pointerEvents: 'all',
+});
+
+// Continues the zip file list's left border through the header and footer rows.
+const insetViewerArchiveColumnLineStyles = css({
+	position: 'absolute',
+	top: 0,
+	bottom: 0,
+	// Sits on the list's own left border, which is the first pixel inside its width.
+	right: `calc(${INSET_SIDEBAR_WIDTH} - ${token('border.width')})`,
+	width: token('border.width'),
+	backgroundColor: token('color.border'),
+});
+
+// Centers the footer controls under the preview, not under the preview and the zip file list.
+const insetViewerArchiveColumnFooterStyles = css({
+	paddingRight: INSET_ARCHIVE_COLUMN_OFFSET,
 });
 
 const insetViewerPlayerMediaFooterBarStyles = css({
@@ -524,6 +543,11 @@ const insetViewerRightWrapperStyles = css({
 	right: token('space.300'),
 });
 
+// Keeps the next arrow in the preview area, left of a zip file's list.
+const insetViewerArchiveColumnRightWrapperStyles = css({
+	right: INSET_ARCHIVE_COLUMN_OFFSET,
+});
+
 const arrowsWrapperStyles = css({
 	display: 'flex',
 	position: 'absolute',
@@ -719,12 +743,30 @@ const audioPlayerStyles = css({
 	position: 'relative',
 });
 
+// Fills the inset media frame, which owns the gutter, corners and surface.
 const insetViewerAudioPlayerStyles = css({
-	backgroundColor: token('color.background.neutral'),
-	borderRadius: token('radius.large', '8px'),
-	// Same horizontal gutter as the video is fitted to.
+	backgroundColor: 'transparent',
+	width: '100%',
+	height: '100%',
+});
+
+// The inset viewer's frame for media in the stage: the same side gutter the video is fitted to, and
+// the same corners.
+const insetMediaFrameStyles = css({
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'center',
 	width: `calc(100% - ${INSET_VIEWER_GUTTER_PX * 2}px)`,
 	height: '100%',
+	marginLeft: 'auto',
+	marginRight: 'auto',
+	borderRadius: token('radius.large', '8px'),
+	overflow: 'hidden',
+	boxSizing: 'border-box',
+});
+
+const insetMediaFrameNeutralStyles = css({
+	backgroundColor: token('color.background.neutral'),
 });
 
 const insetViewerAudioCoverStyles = css({
@@ -977,6 +1019,7 @@ export const HeaderWrapper: {
 	isArchiveSideBarVisible,
 }: ClassName & Children & HeaderWrapperProps): JSX.Element => {
 	const isInsetViewer = useIsInsetViewer();
+	const hasArchiveColumn = useHasArchiveColumn();
 	return (
 		<div
 			css={[
@@ -988,6 +1031,12 @@ export const HeaderWrapper: {
 			className={className}
 		>
 			{children}
+			{isInsetViewer && hasArchiveColumn ? (
+				<div
+					css={insetViewerArchiveColumnLineStyles}
+					data-testid="media-viewer-header-archive-column-line"
+				/>
+			) : null}
 		</div>
 	);
 };
@@ -1005,15 +1054,25 @@ export const MediaStage = ({ children }: Children): JSX.Element => (
 export const MediaFooterBar = (): JSX.Element => {
 	const setMediaFooterControls = useSetMediaFooterControls();
 	const hasPlayerControls = useHasMediaFooterPlayerControls();
+	const isInsetViewer = useIsInsetViewer();
+	const hasArchiveColumn = useHasArchiveColumn();
 	return (
 		<div
 			ref={setMediaFooterControls}
 			css={[
 				insetViewerMediaFooterBarStyles,
 				hasPlayerControls && insetViewerPlayerMediaFooterBarStyles,
+				isInsetViewer && hasArchiveColumn && insetViewerArchiveColumnFooterStyles,
 			]}
 			data-testid="media-viewer-media-footer"
-		/>
+		>
+			{isInsetViewer && hasArchiveColumn ? (
+				<div
+					css={insetViewerArchiveColumnLineStyles}
+					data-testid="media-viewer-footer-archive-column-line"
+				/>
+			) : null}
+		</div>
 	);
 };
 
@@ -1208,7 +1267,7 @@ export const LeftWrapper = ({
 			css={[
 				arrowWrapperStyles,
 				leftWrapperStyles,
-				isArchiveSideBarVisible && leftWrapperStylesWithSideBar,
+				!isInsetViewer && isArchiveSideBarVisible && leftWrapperStylesWithSideBar,
 				isInsetViewer && insetViewerArrowWrapperStyles,
 				isInsetViewer && hasPlayerControls && insetViewerPlayerArrowWrapperStyles,
 				isInsetViewer && insetViewerLeftWrapperStyles,
@@ -1221,6 +1280,7 @@ export const LeftWrapper = ({
 
 export const RightWrapper = ({ children }: Children): JSX.Element => {
 	const isInsetViewer = useIsInsetViewer();
+	const hasArchiveColumn = useHasArchiveColumn();
 	const hasPlayerControls = useHasMediaFooterPlayerControls();
 	return (
 		<div
@@ -1230,6 +1290,7 @@ export const RightWrapper = ({ children }: Children): JSX.Element => {
 				isInsetViewer && insetViewerArrowWrapperStyles,
 				isInsetViewer && hasPlayerControls && insetViewerPlayerArrowWrapperStyles,
 				isInsetViewer && insetViewerRightWrapperStyles,
+				isInsetViewer && hasArchiveColumn && insetViewerArchiveColumnRightWrapperStyles,
 			]}
 		>
 			{children}
@@ -1252,7 +1313,7 @@ export const Header = ({
 		<div
 			css={[
 				headerStyles,
-				isArchiveSideBarVisible && headerStyleWithSideBar,
+				!isInsetViewer && isArchiveSideBarVisible && headerStyleWithSideBar,
 				isInsetViewer && insetViewerHeaderStyles,
 			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
@@ -1441,6 +1502,25 @@ export const CustomAudioPlayerWrapper = ({ children }: Children): JSX.Element =>
 		</div>
 	);
 };
+
+type InsetMediaFrameProps = DataTestID &
+	Children & {
+		// Gives the frame the neutral surface, for media with nothing of its own to fill it.
+		isNeutral?: boolean;
+	};
+
+export const InsetMediaFrame = ({
+	'data-testid': datatestId,
+	children,
+	isNeutral,
+}: InsetMediaFrameProps): JSX.Element => (
+	<div
+		css={[insetMediaFrameStyles, isNeutral && insetMediaFrameNeutralStyles]}
+		data-testid={datatestId}
+	>
+		{children}
+	</div>
+);
 
 type AudioPlayerProps = DataTestID & Children;
 

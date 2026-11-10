@@ -3,8 +3,8 @@ import React from 'react';
 import { Component } from 'react';
 
 import Button from '@atlaskit/button/default/button';
-import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
-import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';
+import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
 import { MediaClient } from '@atlaskit/media-client/media-client';
 import type { FileState } from '@atlaskit/media-client/media-state';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';

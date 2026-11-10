@@ -8,6 +8,7 @@ import * as jestExtendedMatchers from 'jest-extended';
 import type { JestFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 import { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
 import { ExperiencePerformanceTypes, ExperienceTypes } from '@atlaskit/ufo/experience-types';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import type { addMetadataToExperience as AddMetadataToExperienceType } from '../addMetadataToExperience';
 import type { failUfoExperience as FailUfoExperienceType } from '../failUfoExperience';
@@ -130,6 +131,38 @@ describe('ufoExperience', () => {
 			expect(mockGetInstance).toHaveBeenCalledWith('b-test-id');
 			expect(mockStart).toHaveBeenCalledTimes(1);
 			expect(mockAddMetadata).not.toHaveBeenCalled();
+		});
+
+		describe('with platform_smartlink_cardssr_missing_events enabled', () => {
+			beforeEach(() => {
+				passGate('platform_smartlink_cardssr_missing_events');
+			});
+
+			it('should start the experience with the provided start time', () => {
+				setExpectedExperienceIdCallback('smart-link-rendered');
+
+				startUfoExperience('smart-link-rendered', 'c-test-id', { ssr: true }, 0);
+
+				expect(mockGetInstance).toHaveBeenCalledWith('c-test-id');
+				expect(mockStart).toHaveBeenCalledWith(0);
+				expect(mockAddMetadata).toHaveBeenCalledWith({ ssr: true });
+			});
+		});
+
+		describe('with platform_smartlink_cardssr_missing_events disabled', () => {
+			beforeEach(() => {
+				failGate('platform_smartlink_cardssr_missing_events');
+			});
+
+			it('should ignore the provided start time', () => {
+				setExpectedExperienceIdCallback('smart-link-rendered');
+
+				startUfoExperience('smart-link-rendered', 'c-test-id', { ssr: true }, 0);
+
+				expect(mockGetInstance).toHaveBeenCalledWith('c-test-id');
+				expect(mockStart).toHaveBeenCalledWith();
+				expect(mockAddMetadata).toHaveBeenCalledWith({ ssr: true });
+			});
 		});
 	});
 

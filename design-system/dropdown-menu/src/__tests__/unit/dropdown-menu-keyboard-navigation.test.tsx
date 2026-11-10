@@ -14,9 +14,9 @@ import {
 } from '@atlaskit/ds-lib/keycodes';
 import { flushPopoverExit } from '@atlaskit/top-layer/testing/flush-popover-exit';
 
+import DropdownItem from '../../dropdown-item';
+import DropdownItemGroup from '../../dropdown-item-group';
 import DropdownMenu from '../../dropdown-menu';
-import DropdownItem from '../../dropdown-menu-item';
-import DropdownItemGroup from '../../dropdown-menu-item-group';
 
 const triggerText = 'Options';
 

@@ -21,6 +21,7 @@ export const DownloadItem = ({
 	variant,
 	children,
 	fallbackMediaName,
+	onDownload,
 }: DownloadItemProps): React.JSX.Element => {
 	const [isAbuseModalOpen, setIsAbuseModalOpen] = useState(false);
 	const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -28,12 +29,14 @@ export const DownloadItem = ({
 
 	const shouldRenderAbuseModal = !isErrorFileState(fileState) && !!fileState.abuseClassification;
 
-	const itemDownloader = createItemDownloader(fileState, mediaClient, {
-		collectionName: collectionName,
-		createAnalyticsEvent,
-		traceContext,
-		fallbackMediaName,
-	});
+	const itemDownloader =
+		onDownload ??
+		createItemDownloader(fileState, mediaClient, {
+			collectionName: collectionName,
+			createAnalyticsEvent,
+			traceContext,
+			fallbackMediaName,
+		});
 
 	return (
 		<>

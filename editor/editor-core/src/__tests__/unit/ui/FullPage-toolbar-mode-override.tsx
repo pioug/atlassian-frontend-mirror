@@ -18,6 +18,7 @@ import { skipAutoA11y } from '@atlassian/a11y-jest-testing/skip-decorator';
 
 // Drives the runtime override returned to `FullPage.tsx`'s selector.
 const mockToolbarOverride: { value: 'always-pinned' | undefined } = { value: undefined };
+const mockViewMode: { value: 'edit' | 'view' } = { value: 'edit' };
 
 // Selector mock dispatched by the subscribed plugin set so we don't break
 // other consumers (e.g. ContextPanel, Toolbar) that share the same hook.
@@ -31,7 +32,7 @@ jest.mock('@atlaskit/editor-common/useSharedPluginStateWithSelector', () => ({
 				return {
 					primaryToolbarComponents: undefined,
 					interactionState: 'hasNotHadInteraction',
-					editorViewMode: 'edit',
+					editorViewMode: mockViewMode.value,
 					contextualFormattingModeOverride: mockToolbarOverride.value,
 				};
 			}
@@ -39,7 +40,7 @@ jest.mock('@atlaskit/editor-common/useSharedPluginStateWithSelector', () => ({
 				// Toolbar.tsx selector inside the rendered toolbar surface.
 				return {
 					connectivityStateMode: 'online',
-					editorViewMode: 'edit',
+					editorViewMode: mockViewMode.value,
 					editorToolbarDockingPreference: 'none',
 				};
 			}
@@ -115,11 +116,20 @@ beforeEach(() => {
 describe('FullPage → primary toolbar mount gate (runtime override)', () => {
 	beforeEach(() => {
 		mockToolbarOverride.value = undefined;
+		mockViewMode.value = 'edit';
 	});
 
 	it("hides the primary toolbar when docking pref is 'none' and no runtime override", async () => {
 		// Override is undefined, so `forcePrimaryToolbarPinned` short-circuits
 		// before reading the toolbar-mode-override gate.
+		renderFullPage();
+		expect(screen.queryByTestId('ak-editor-main-toolbar')).not.toBeInTheDocument();
+		await expect(document.body).toBeAccessible();
+	});
+
+	it('hides the primary toolbar in view mode even when the override forces pinning', async () => {
+		mockToolbarOverride.value = 'always-pinned';
+		mockViewMode.value = 'view';
 		renderFullPage();
 		expect(screen.queryByTestId('ak-editor-main-toolbar')).not.toBeInTheDocument();
 		await expect(document.body).toBeAccessible();

@@ -24,6 +24,7 @@ import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import type { QuickInsertPlugin } from '../quickInsertPluginType';
+import { openQuickInsertInSingleTransaction } from './open-quick-insert-in-single-transaction';
 
 const TEXT_PARENT_TYPES = ['paragraph', 'heading', 'blockquote', 'taskItem', 'decisionItem'];
 
@@ -124,7 +125,7 @@ const getNextEmptyParagraphPosition = (start: number, view: EditorView): number 
 	return positionAfterTarget + 1;
 };
 
-const openQuickInsert = (
+export const openQuickInsert = (
 	api: ExtractInjectionAPI<QuickInsertPlugin>,
 	view: EditorView,
 	start: number,
@@ -232,10 +233,15 @@ export const BlockControlQuickInsertButton = ({
 			api.typeAhead.actions.close({ insertCurrentQueryAsRawText: false });
 		}
 	}, [api, view]);
-	const handleClick = useCallback(
-		() => openQuickInsert(api, view, start, openTypeAhead),
-		[api, openTypeAhead, start, view],
-	);
+	const handleClick = useCallback(() => {
+		if (
+			isExperimentEnabled('platform_editor_block_control_inp') &&
+			openQuickInsertInSingleTransaction(api, start)
+		) {
+			return;
+		}
+		openQuickInsert(api, view, start, openTypeAhead);
+	}, [api, openTypeAhead, start, view]);
 
 	return (
 		<Tooltip position="top" content={<ToolTipContent description={label} />}>

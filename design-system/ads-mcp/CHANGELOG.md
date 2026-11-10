@@ -1,5 +1,15 @@
 # @atlaskit/ads-mcp
 
+## 1.12.6
+
+### Patch Changes
+
+- [`8d61c80c1735e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8d61c80c1735e) -
+  Refresh generated structured-content catalogs from AFM master.
+- [`29f7ca0e8850d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/29f7ca0e8850d) -
+  Clarify sentence-case guidance for lozenge labels, including AI-generated labels, and update the
+  example to match.
+
 ## 1.12.5
 
 ### Patch Changes

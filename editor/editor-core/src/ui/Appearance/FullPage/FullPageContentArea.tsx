@@ -382,7 +382,11 @@ const Content = React.forwardRef<
 							contentArea={contentAreaRef.current ?? undefined}
 							popupsMountPoint={props.popupsMountPoint}
 							popupsBoundariesElement={props.popupsBoundariesElement}
-							popupsScrollableElement={props.popupsScrollableElement}
+							popupsScrollableElement={
+								isExperimentEnabled('platform_editor_improve_inp_batch_3')
+									? (props.popupsScrollableElement ?? scrollContainerRef.current ?? undefined)
+									: props.popupsScrollableElement
+							}
 							disabled={!!props.disabled}
 							containerElement={scrollContainerRef.current}
 							dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}

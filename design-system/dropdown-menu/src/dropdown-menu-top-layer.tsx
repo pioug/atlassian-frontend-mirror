@@ -59,6 +59,15 @@ const styles = cssMap({
 	},
 });
 
+const semanticStyles = cssMap({
+	spinnerContainer: {
+		paddingBlockStart: token('space.inset.xxlarge', '20px'),
+		paddingInlineEnd: token('space.inset.xxlarge', '20px'),
+		paddingBlockEnd: token('space.inset.xxlarge', '20px'),
+		paddingInlineStart: token('space.inset.xxlarge', '20px'),
+	},
+});
+
 /**
  * Event types produced by trigger interactions.
  *
@@ -88,7 +97,13 @@ function LoadingIndicator({
 	testId?: string;
 }) {
 	return (
-		<div css={styles.spinnerContainer} role="menuitem">
+		<div
+			css={[
+				styles.spinnerContainer,
+				fg('platform-semantic-spacing') && semanticStyles.spinnerContainer,
+			]}
+			role="menuitem"
+		>
 			<Spinner size="small" label={statusLabel} testId={testId} />
 		</div>
 	);

@@ -800,6 +800,18 @@ describe('PanelSplitter', () => {
 	});
 
 	describe('splitter styles', () => {
+		it.each(['start', 'end'] as const)(
+			'keeps other panels centered at the %s edge',
+			(position) => {
+				render(<TestComponent position={position} panelId={Symbol('Other panel')} />);
+				const splitter = screen.getByTestId('panel-splitter');
+				expect(splitter).toHaveCompiledCss('width', '17px');
+				// The decorative line has no accessible role or label.
+				// eslint-disable-next-line testing-library/no-node-access
+				expect(splitter.lastElementChild).toHaveCompiledCss('inset-inline-start', '7px');
+			},
+		);
+
 		// We are testing these styles directly as they can't be asserted in a VR test.
 		it('should hide the panel splitter faster than when showing', () => {
 			render(<TestComponent />);

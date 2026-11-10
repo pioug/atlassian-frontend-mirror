@@ -1,5 +1,26 @@
 # @atlaskit/emoji
 
+## 73.6.1
+
+### Patch Changes
+
+- [`a91d94fc24642`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a91d94fc24642) -
+  Return focus to the productivity colour button after selecting a colour with the keyboard, behind
+  the `platform_ally_emoji_fixes_various` feature gate.
+- Updated dependencies
+
+## 73.6.0
+
+### Minor Changes
+
+- [`3d2733c4e7948`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d2733c4e7948) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 73.5.1
 
 ### Patch Changes

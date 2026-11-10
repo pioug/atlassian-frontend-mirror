@@ -34,16 +34,16 @@ export const CardSSR = (props: CardSSRProps): React.JSX.Element => {
 	// FlexibleCards always need full ORS data regardless of appearance prop,
 	// because they render custom blocks (TitleBlock etc.) requiring a complete response.
 	// Override appearance to 'block' for FlexibleCards when FG is enabled.
+	const isFlexibleCard = isFlexibleUiCard(props.children, props.ui);
 	const effectiveAppearance =
-		isFlexibleUiCard(props.children, props.ui) &&
-		fg('platform_smartlink_inline_resolve_optimization')
+		isFlexibleCard && fg('platform_smartlink_inline_resolve_optimization')
 			? 'block'
 			: props.appearance;
 	const propsWithId = { ...props, id, appearance: effectiveAppearance };
 
 	return (
 		<AnalyticsContext data={context}>
-			<CardErrorBoundary {...propsWithId}>
+			<CardErrorBoundary {...propsWithId} isFlexibleCard={isFlexibleCard}>
 				<CardWithUrl {...propsWithId} />
 			</CardErrorBoundary>
 		</AnalyticsContext>

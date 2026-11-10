@@ -17,13 +17,11 @@ Use `IconMotion` to apply entry and exit animations to icons. Pass a pre-defined
 token to `enteringAnimation` and `exitingAnimation`.
 
 It also supports motion that moves an icon in response to an interaction, such as someone clicking a
-button. `IconMotion` has two props for it.
+button. Each is its own component on `IconMotion`. Currently, there is only `IconMotion.Rotate`.
 
-- `interactionMotion` chooses the motion. Currently, it can only be `rotate`.
-- `isInteractionActive` holds the motion when it is `true`, and eases the icon back when it is
-  `false`.
-
-You decide when the motion plays and pass the result to `isInteractionActive`.
+`IconMotion.Rotate` takes every `IconMotion` prop, plus `isActive`, which holds the rotated pose
+when it is `true`, and eases the icon back when it is `false`. You decide when the motion plays and
+pass the result to `isActive`.
 
 The following sections describe the usage guidance and scenarios for applying motion to icons.
 

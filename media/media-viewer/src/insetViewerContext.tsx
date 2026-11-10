@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, type ReactNode } from 'react';
+import React, { createContext, useContext, useLayoutEffect, useState, type ReactNode } from 'react';
 
 const InsetViewerContext = createContext(false);
 
@@ -14,6 +14,10 @@ const SetHasMediaFooterPlayerControlsContext = createContext<(hasPlayerControls:
 	() => {},
 );
 
+// Whether a zip file's list is showing, so the header and footer can continue its column.
+const HasArchiveColumnContext = createContext(false);
+const SetHasArchiveColumnContext = createContext<(hasArchiveColumn: boolean) => void>(() => {});
+
 export const InsetViewerProvider = ({
 	isInsetViewer = false,
 	children,
@@ -23,13 +27,18 @@ export const InsetViewerProvider = ({
 }): React.JSX.Element => {
 	const [mediaFooterControls, setMediaFooterControls] = useState<HTMLElement | null>(null);
 	const [hasPlayerControls, setHasPlayerControls] = useState(false);
+	const [hasArchiveColumn, setHasArchiveColumn] = useState(false);
 	return (
 		<InsetViewerContext.Provider value={isInsetViewer}>
 			<SetMediaFooterControlsContext.Provider value={setMediaFooterControls}>
 				<MediaFooterControlsContext.Provider value={mediaFooterControls}>
 					<SetHasMediaFooterPlayerControlsContext.Provider value={setHasPlayerControls}>
 						<HasMediaFooterPlayerControlsContext.Provider value={hasPlayerControls}>
-							{children}
+							<SetHasArchiveColumnContext.Provider value={setHasArchiveColumn}>
+								<HasArchiveColumnContext.Provider value={hasArchiveColumn}>
+									{children}
+								</HasArchiveColumnContext.Provider>
+							</SetHasArchiveColumnContext.Provider>
 						</HasMediaFooterPlayerControlsContext.Provider>
 					</SetHasMediaFooterPlayerControlsContext.Provider>
 				</MediaFooterControlsContext.Provider>
@@ -49,8 +58,23 @@ export const useSetMediaFooterControls = (): ((element: HTMLElement | null) => v
 export const useHasMediaFooterPlayerControls = (): boolean =>
 	useContext(HasMediaFooterPlayerControlsContext);
 
-export const useSetHasMediaFooterPlayerControls = (): ((hasPlayerControls: boolean) => void) =>
+const useSetHasMediaFooterPlayerControls = (): ((hasPlayerControls: boolean) => void) =>
 	useContext(SetHasMediaFooterPlayerControlsContext);
+
+// Gives the footer room for player controls while the calling player is mounted. A layout effect, so
+// one player's cleanup always runs before the next one registers.
+export const useRegisterMediaFooterPlayerControls = (): void => {
+	const setHasPlayerControls = useSetHasMediaFooterPlayerControls();
+	useLayoutEffect(() => {
+		setHasPlayerControls(true);
+		return () => setHasPlayerControls(false);
+	}, [setHasPlayerControls]);
+};
+
+export const useHasArchiveColumn = (): boolean => useContext(HasArchiveColumnContext);
+
+export const useSetHasArchiveColumn = (): ((hasArchiveColumn: boolean) => void) =>
+	useContext(SetHasArchiveColumnContext);
 
 export type WithInsetViewerProps = {
 	isInsetViewer?: boolean;
@@ -84,7 +108,6 @@ export const withInsetViewer = <Props, Component>(
 
 export type WithInsetViewerFooterProps = WithInsetViewerProps & {
 	mediaFooterControls?: HTMLElement | null;
-	setHasPlayerControls?: (hasPlayerControls: boolean) => void;
 };
 
 export const withInsetViewerFooter = <Props, Component>(
@@ -106,14 +129,12 @@ export const withInsetViewerFooter = <Props, Component>(
 	const WithInsetViewerFooter = React.forwardRef<any, WrappedProps>((props, ref) => {
 		const isInsetViewer = useIsInsetViewer();
 		const mediaFooterControls = useMediaFooterControls();
-		const setHasPlayerControls = useSetHasMediaFooterPlayerControls();
 		return (
 			<WrappedComponent
 				{...(props as any)}
 				ref={ref}
 				isInsetViewer={isInsetViewer}
 				mediaFooterControls={mediaFooterControls}
-				setHasPlayerControls={setHasPlayerControls}
 			/>
 		);
 	});

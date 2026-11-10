@@ -3,9 +3,9 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 
 import Button from '@atlaskit/button/standard-button';
-import DropdownItemRadio from '@atlaskit/dropdown-menu/dropdown-item-radio';
-import DropdownItemRadioGroup from '@atlaskit/dropdown-menu/dropdown-item-radio-group';
-import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import { DropdownItemRadio } from '@atlaskit/dropdown-menu/dropdown-item-radio';
+import { DropdownItemRadioGroup } from '@atlaskit/dropdown-menu/dropdown-item-radio-group';
+import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import type { EnvironmentsKeys } from '@atlaskit/linking-common/types';

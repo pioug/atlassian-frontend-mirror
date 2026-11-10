@@ -1,21 +1,38 @@
 import React from 'react';
 
+import { FormattedMessage } from 'react-intl';
 import { type ZipEntry, type ZipInfo, unzip } from 'unzipit';
 
+import { cssMap } from '@atlaskit/css';
+import Heading from '@atlaskit/heading/heading';
 import type { MediaClient } from '@atlaskit/media-client/media-client';
+import { messages } from '@atlaskit/media-ui/messages';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { token } from '@atlaskit/tokens';
 
 import type { ArchiveViewerError } from '../../ArchiveViewerError';
+import { type WithInsetViewerProps, withInsetViewer } from '../../insetViewerContext';
 import { extractArchiveFolderName } from '../../utils/extractArchiveFolderName';
 import { getFolderParent } from '../../utils/getFolderParent';
 import { getMediaTypeFromFilename } from '../../utils/getMediaTypeFromFilename';
 import { rejectAfter } from '../../utils/rejectAfter';
+import { ArchiveSidebarFileEntryWrapper } from './archive-sidebar-file-entry-wrapper';
 import {
 	ArchiveSidebarFolderEntry,
 	type ArchiveSidebarFolderProps,
 } from './archive-sidebar-folder-entry';
 import { ArchiveSidebarHeader } from './archive-sidebar-header';
 import { Separator } from './separator';
+import { SidebarItemWrapper } from './sidebar-item-wrapper';
 import { ArchiveSideBar } from './styleWrappers';
+
+const styles = cssMap({
+	heading: {
+		paddingBottom: token('space.150'),
+		paddingLeft: token('space.200'),
+		paddingRight: token('space.200'),
+	},
+});
 
 export interface ArchiveSidebarProps {
 	entries: { [key: string]: ZipEntry };
@@ -30,10 +47,15 @@ export interface ArchiveSidebarProps {
 
 export type ArchiveSidebarState = {
 	currentArchiveSidebarFolder: ArchiveSidebarFolderProps;
+	// The file entry last picked in the inset viewer, so the list shows it as selected straight away.
+	selectedEntryName?: string;
 };
 
-export class ArchiveSidebar extends React.Component<ArchiveSidebarProps, ArchiveSidebarState> {
-	constructor(props: ArchiveSidebarProps) {
+class ArchiveSidebarBase extends React.Component<
+	ArchiveSidebarProps & WithInsetViewerProps,
+	ArchiveSidebarState
+> {
+	constructor(props: ArchiveSidebarProps & WithInsetViewerProps) {
 		super(props);
 		const { isArchiveEntryLoading, entries, mediaClient, onError, shouldRenderAbuseModal, fileId } =
 			props;
@@ -65,8 +87,11 @@ export class ArchiveSidebar extends React.Component<ArchiveSidebarProps, Archive
 	};
 
 	private onEntrySelected = async (entry: ZipEntry) => {
-		const { onEntrySelected } = this.props;
+		const { onEntrySelected, isInsetViewer } = this.props;
 		if (!entry.isDirectory) {
+			if (isInsetViewer) {
+				this.setState({ selectedEntryName: entry.name });
+			}
 			onEntrySelected(entry);
 		}
 
@@ -137,17 +162,47 @@ export class ArchiveSidebar extends React.Component<ArchiveSidebarProps, Archive
 
 	render(): React.JSX.Element {
 		const { currentArchiveSidebarFolder } = this.state;
-		const { onError } = this.props;
+		const { onError, isInsetViewer } = this.props;
+		const header = (
+			<ArchiveSidebarHeader
+				folderName={currentArchiveSidebarFolder.root}
+				onHeaderClick={this.onHeaderClicked}
+			/>
+		);
 
 		return (
 			<ArchiveSideBar>
-				<ArchiveSidebarHeader
-					folderName={currentArchiveSidebarFolder.root}
-					onHeaderClick={this.onHeaderClicked}
+				{/* The inset viewer always shows the heading, so opening a folder doesn't move the list, and
+				puts the Back row under it as one more row of the list. Neither has a separator. */}
+				{isInsetViewer ? (
+					<>
+						<Box xcss={styles.heading}>
+							<Heading as="h2" size="xxsmall">
+								<FormattedMessage {...messages.archive_attachments_heading} />
+							</Heading>
+						</Box>
+						{currentArchiveSidebarFolder.root ? (
+							<ArchiveSidebarFileEntryWrapper index="back">
+								<SidebarItemWrapper>{header}</SidebarItemWrapper>
+							</ArchiveSidebarFileEntryWrapper>
+						) : null}
+					</>
+				) : (
+					<>
+						{header}
+						<Separator />
+					</>
+				)}
+				<ArchiveSidebarFolderEntry
+					{...currentArchiveSidebarFolder}
+					onError={onError}
+					selectedEntryName={this.state.selectedEntryName}
 				/>
-				<Separator />
-				<ArchiveSidebarFolderEntry {...currentArchiveSidebarFolder} onError={onError} />
 			</ArchiveSideBar>
 		);
 	}
 }
+
+export const ArchiveSidebar: React.ForwardRefExoticComponent<
+	ArchiveSidebarProps & React.RefAttributes<any>
+> = withInsetViewer(ArchiveSidebarBase);

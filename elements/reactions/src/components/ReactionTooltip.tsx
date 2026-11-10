@@ -165,31 +165,30 @@ export const ReactionTooltip = ({
 					{/* If count of reactions higher than given threshold then render custom message */}
 					{/* Only render the footer <li> when there is overflow text to show; an empty <li>
 					    adds unwanted vertical space at the bottom of the tooltip. */}
-					{!fg('platform_reactions_tooltip_hide_empty_footer') || users.length > maxReactions ? (
+					{users.length > maxReactions ? (
 						<li css={footerStyle}>
-							{users.length > maxReactions &&
-								(allowUserDialog && handleOpenReactionsDialog ? (
-									<button
-										type="button"
-										css={[footerButtonStyle, footerButtonColorStyle, underlineStyle]}
-										onClick={handleClick}
-										onMouseDown={(e) => e.preventDefault()}
-									>
-										<FormattedMessage
-											{...messages.otherUsers}
-											values={{
-												count: users.length - maxReactions,
-											}}
-										/>
-									</button>
-								) : (
+							{allowUserDialog && handleOpenReactionsDialog ? (
+								<button
+									type="button"
+									css={[footerButtonStyle, footerButtonColorStyle, underlineStyle]}
+									onClick={handleClick}
+									onMouseDown={(e) => e.preventDefault()}
+								>
 									<FormattedMessage
 										{...messages.otherUsers}
 										values={{
 											count: users.length - maxReactions,
 										}}
 									/>
-								))}
+								</button>
+							) : (
+								<FormattedMessage
+									{...messages.otherUsers}
+									values={{
+										count: users.length - maxReactions,
+									}}
+								/>
+							)}
 						</li>
 					) : null}
 				</ul>

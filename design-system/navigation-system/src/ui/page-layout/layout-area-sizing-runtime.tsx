@@ -2,6 +2,8 @@ import React, { type ReactNode, useCallback, useEffect, useMemo, useState } from
 
 import { bind } from 'bind-event-listener';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
 import { calculateLayoutAreaStates } from './calculate-layout-area-states';
 import { defaultMainMinWidth } from './constants';
 import {
@@ -214,8 +216,21 @@ export function LayoutAreaSizingRuntime({
 			if (!current[area]) {
 				return current;
 			}
+			if (area === 'chat-panel' && fg('platform-dst-chat-panel-layout')) {
+				// Chat's public close contract unmounts the slot. Keep preferences in Root,
+				// but release its allocation, in-progress resize and dismissal callback.
+				return {
+					...current,
+					[area]: {
+						...current[area],
+						isOpen: false,
+						liveResize: undefined,
+						onRequestClose: undefined,
+					},
+				};
+			}
 			// Closing uses isOpen: false and retains preferences. Unregistering means
-			// the owning component unmounted; a replacement must start with its own defaults.
+			// the owning component unmounted. Only Chat retains preferences across this close path.
 			const next = { ...current };
 			delete next[area];
 			return next;

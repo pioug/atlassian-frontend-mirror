@@ -212,13 +212,6 @@ const TrialGuideAvatar = lazy(
 		import(/* webpackChunkName: "@atlaskit-rovo-avatar-TrialGuideAvatar"*/ './assets/trial-guide'),
 );
 
-const JsmRovoServiceAgentAvatar = lazy(
-	() =>
-		import(
-			/* webpackChunkName: "@atlaskit-rovo-avatar-JsmRovoServiceAgentAvatar"*/ './assets/jsm-rovo-service-agent'
-		),
-);
-
 const JsmRequestResolverAgentAvatar = lazy(
 	() =>
 		import(
@@ -783,18 +776,12 @@ const outOfTheBoxAgentAvatar: Record<
 				);
 			}
 
-			if (fg('rename-rovo-service-to-request-resolver')) {
-				return (
-					<JsmRequestResolverAgentAvatar
-						size={AVATAR_SIZES[size]}
-						primaryColor=""
-						secondaryColor=""
-					/>
-				);
-			}
-
 			return (
-				<JsmRovoServiceAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
+				<JsmRequestResolverAgentAvatar
+					size={AVATAR_SIZES[size]}
+					primaryColor=""
+					secondaryColor=""
+				/>
 			);
 		},
 		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? yellowColor.v2 : yellowColor.v1),

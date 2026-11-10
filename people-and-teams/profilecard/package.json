@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "27.6.6",
+	"version": "27.6.8",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -168,9 +168,6 @@
 		"atlas_profilecard_skip_workspace_type_fetch": {
 			"type": "boolean"
 		},
-		"platform_agg_user_query_doc_change": {
-			"type": "boolean"
-		},
 		"platform-adopt-teams-nav-config": {
 			"type": "boolean"
 		},
@@ -184,9 +181,6 @@
 			"type": "boolean"
 		},
 		"jira_improve_agent_profile_for_a2a": {
-			"type": "boolean"
-		},
-		"fix_give_kudos_btn_incorrect_role": {
 			"type": "boolean"
 		},
 		"create_modernization_ga_fixes_drop_2": {

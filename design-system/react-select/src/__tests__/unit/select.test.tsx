@@ -2862,12 +2862,11 @@ cases(
 	},
 );
 
-// skipping this test as it does not work with jsdom.reconfigure. Need to rewrite this test.
-// https://hello.jira.atlassian.cloud/browse/UTEST-2000
-test.skip('sets inputMode="none" when isSearchable is false', () => {
+test('sets inputMode="none" when isSearchable is false', () => {
 	render(
 		<Select
 			classNamePrefix="react-select"
+			testId={testId}
 			options={OPTIONS}
 			isSearchable={false}
 			onChange={noop}
@@ -2880,7 +2879,9 @@ test.skip('sets inputMode="none" when isSearchable is false', () => {
 	);
 	let input = screen.getByTestId<HTMLInputElement>(`${testId}-select--input`);
 	expect(input!.inputMode).toBe('none');
-	expect(window.getComputedStyle(input!).getPropertyValue('caret-color')).toEqual('transparent');
+	expect(window.getComputedStyle(input!).getPropertyValue('caret-color')).toEqual(
+		'rgba(0, 0, 0, 0)',
+	);
 });
 
 cases(
@@ -3412,6 +3413,8 @@ describe('escape keydown event propagation', () => {
 	});
 
 	it('should be prevented if "shouldPreventEscapePropagation" is true', async () => {
+		failGate('platform-dst-top-layer');
+
 		render(
 			// eslint-disable-next-line @atlassian/a11y/no-noninteractive-element-interactions
 			<dialog open onKeyDown={handleKeyDownMock}>
@@ -3422,6 +3425,43 @@ describe('escape keydown event propagation', () => {
 		await clickAndHitEscape();
 
 		expect(handleKeyDownMock).not.toHaveBeenCalled();
+	});
+
+	// On the top-layer path the prop does nothing. The menu layer takes the Escape press, so the
+	// menu closes and the layer under it stays open, with no `stopPropagation()`.
+	it('closes only the menu if "shouldPreventEscapePropagation" is true', async () => {
+		passGate('platform-dst-top-layer');
+
+		const onModalClose = jest.fn();
+		const SelectInModal = () => {
+			const [menuIsOpen, setMenuIsOpen] = React.useState(true);
+			return (
+				<ModalTransition>
+					<Modal onClose={onModalClose}>
+						<ModalHeader hasCloseButton>
+							<ModalTitle>Parent layer</ModalTitle>
+						</ModalHeader>
+						<Select
+							{...BASIC_PROPS}
+							menuIsOpen={menuIsOpen}
+							onMenuOpen={() => setMenuIsOpen(true)}
+							onMenuClose={() => setMenuIsOpen(false)}
+							shouldPreventEscapePropagation
+						/>
+					</Modal>
+				</ModalTransition>
+			);
+		};
+		render(<SelectInModal />);
+		expect(await screen.findByRole('listbox')).toBeInTheDocument();
+
+		const user = userEvent.setup();
+		screen.getByTestId(`${testId}-select--input`).focus();
+		await user.keyboard('[Escape]');
+
+		await waitFor(() => expect(screen.queryByRole('listbox')).not.toBeInTheDocument());
+		expect(onModalClose).not.toHaveBeenCalled();
+		expect(screen.getByRole('dialog', { name: 'Parent layer' })).toBeInTheDocument();
 	});
 
 	afterEach(() => {

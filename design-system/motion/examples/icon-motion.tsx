@@ -184,18 +184,17 @@ const SwapIconsOnHoverAndRotateOnClick = () => {
 				onMouseEnter={() => setIsHovered(true)}
 				onMouseLeave={() => setIsHovered(false)}
 				iconBefore={(iconProps) => (
-					<IconMotion
+					<IconMotion.Rotate
 						enteringAnimation={token('motion.iconography.enter.fade')}
 						exitingAnimation={token('motion.iconography.exit.fade')}
-						interactionMotion="rotate"
-						isInteractionActive={rotateIcon}
+						isActive={rotateIcon}
 					>
 						{isHovered || rotateIcon ? (
 							<ChevronRightIcon label={iconProps.label} />
 						) : (
 							<AppsIcon label={iconProps.label} />
 						)}
-					</IconMotion>
+					</IconMotion.Rotate>
 				)}
 			>
 				Apps
@@ -276,9 +275,9 @@ const ButtonWithRotate = () => {
 		<Inline space="space.050">
 			<Button onClick={() => setIsExpanded((previous) => !previous)}>Rotate</Button>
 			<Flex xcss={iconMotionStyles.motionBase}>
-				<IconMotion interactionMotion="rotate" isInteractionActive={isExpanded}>
+				<IconMotion.Rotate isActive={isExpanded}>
 					<ChevronRightIcon label="" />
-				</IconMotion>
+				</IconMotion.Rotate>
 			</Flex>
 		</Inline>
 	);
@@ -288,9 +287,9 @@ const IconButtonRotateOnClick = () => {
 	const [isExpanded, setIsExpanded] = useState(false);
 
 	const renderIcon = (iconProps: IconProps) => (
-		<IconMotion interactionMotion="rotate" isInteractionActive={isExpanded}>
+		<IconMotion.Rotate isActive={isExpanded}>
 			<ChevronRightIcon label={iconProps.label} />
-		</IconMotion>
+		</IconMotion.Rotate>
 	);
 
 	return (
@@ -314,9 +313,9 @@ const IconButtonRotateOnHover = () => {
 	const [isHovered, setIsHovered] = useState(false);
 
 	const renderIcon = (iconProps: IconProps) => (
-		<IconMotion interactionMotion="rotate" isInteractionActive={isHovered}>
+		<IconMotion.Rotate isActive={isHovered}>
 			<ChevronRightIcon label={iconProps.label} />
-		</IconMotion>
+		</IconMotion.Rotate>
 	);
 
 	return (

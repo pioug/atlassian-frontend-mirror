@@ -3,7 +3,7 @@
  *
  * Structured content utilities from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::e6e44c29d9e64ca1550302488f7a3010>>
+ * @codegen <<SignedSource::248b555affacc1f7e90612759f48ba5e>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -9427,7 +9427,7 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		examples: [],
 		kind: 'type',
 		definition:
-			"enum PageContextType { ADMIN_HUB = 'admin-hub', BITBUCKET = 'bitbucket', BITBUCKET_PULL_REQUEST = 'bitbucket-pull-request', BITBUCKET_CREATE_PULL_REQUEST = 'bitbucket-create-pull-request', BITBUCKET_PIPELINES = 'bitbucket-pipelines', BITBUCKET_REPOSITORY_SOURCE = 'bitbucket-repository-source', CONFLUENCE_HOME = 'confluence-home', CONFLUENCE_PAGE_VIEW = 'confluence-page-view', CONFLUENCE_PAGE_EDIT = 'confluence-page-edit', CONFLUENCE_BLOG_VIEW = 'confluence-blog-view', CONFLUENCE_BLOG_EDIT = 'confluence-blog-edit', CONFLUENCE_WHITEBOARD = 'confluence-whiteboard', JIRA_HOME = 'jira-home', JIRA_FOR_YOU = 'jira-for-you', JIRA_ISSUE_VIEW = 'jira-issue-view', JIRA_PROJECT = 'jira-project', JIRA_BOARD = 'jira-board', JIRA_BACKLOG = 'jira-backlog', JIRA_CMP_SPACE_SETTINGS_PEOPLE_LEGACY = 'jira-cmp-space-settings-people-legacy', JIRA_CMP_SPACE_SETTINGS_PERMISSIONS_LEGACY = 'jira-cmp-space-settings-permissions-legacy', JIRA_TMP_SPACE_SETTINGS_ACCESS = 'jira-tmp-space-settings-access', JSM_INCIDENT_VIEW = 'jsm-incident-view', JSM_INCIDENT_LIST_VIEW = 'jsm-incident-list-view', JSM_ALERT_VIEW = 'jsm-alert-view', JSM_ALERT_LIST_VIEW = 'jsm-alert-list-view', JSM_ALERT_GROUP_DETAIL_VIEW = 'jsm-alert-group-detail-view', ATLAS_HOME = 'atlas-home', ATLAS_HOME_MAIN = 'atlas-home-main', ATLAS_HOME_DISCOVER = 'atlas-home-discover', ATLAS_HOME_RECENTS = 'atlas-home-recents', ATLAS_HOME_FULL_PAGE_NOTIFICATIONS = 'atlas-home-full-page-notifications', ATLAS_HOME_PROJECT_UPDATES_LIST = 'atlas-home-project-updates-list', ATLAS_HOME_GOAL_UPDATES_LIST = 'atlas-home-goal-updates-list', ATLAS_HOME_TEAM_UPDATES_LIST = 'atlas-home-team-updates-list', ATLAS_HOME_TAG_UPDATES_LIST = 'atlas-home-tag-updates-list', FOCUS = 'focus', FOCUS_FOR_YOU = 'focus-for-you', FOCUS_FOCUS_AREA_PAGE = 'focus-focus-area-page', FOCUS_FOCUS_AREA_GOAL_VIEW = 'focus-focus-area-goal-view', FOCUS_FOCUS_AREA_WORK_VIEW = 'focus-focus-area-work-view', FOCUS_FOCUS_AREA_FUNDS_VIEW = 'focus-focus-area-funds-view', SAC = 'sac', TRELLO_BOARD = 'trello-board', TRELLO_CARD = 'trello-card', STUDIO_AGENT_BUILDER = 'studio-agent-builder', UNKNOWN = 'unknown' }",
+			"enum PageContextType { ADMIN_HUB = 'admin-hub', BITBUCKET = 'bitbucket', BITBUCKET_PULL_REQUEST = 'bitbucket-pull-request', BITBUCKET_CREATE_PULL_REQUEST = 'bitbucket-create-pull-request', BITBUCKET_PIPELINES = 'bitbucket-pipelines', BITBUCKET_REPOSITORY_SOURCE = 'bitbucket-repository-source', CONFLUENCE_HOME = 'confluence-home', CONFLUENCE_PAGE_VIEW = 'confluence-page-view', CONFLUENCE_PAGE_EDIT = 'confluence-page-edit', CONFLUENCE_BLOG_VIEW = 'confluence-blog-view', CONFLUENCE_BLOG_EDIT = 'confluence-blog-edit', CONFLUENCE_WHITEBOARD = 'confluence-whiteboard', JIRA_HOME = 'jira-home', JIRA_FOR_YOU = 'jira-for-you', JIRA_ISSUE_VIEW = 'jira-issue-view', JIRA_PROJECT = 'jira-project', JIRA_BOARD = 'jira-board', JIRA_CMP_SPACE_SETTINGS_PEOPLE_LEGACY = 'jira-cmp-space-settings-people-legacy', JIRA_CMP_SPACE_SETTINGS_PERMISSIONS_LEGACY = 'jira-cmp-space-settings-permissions-legacy', JIRA_TMP_SPACE_SETTINGS_ACCESS = 'jira-tmp-space-settings-access', JSM_INCIDENT_VIEW = 'jsm-incident-view', JSM_INCIDENT_LIST_VIEW = 'jsm-incident-list-view', JSM_ALERT_VIEW = 'jsm-alert-view', JSM_ALERT_LIST_VIEW = 'jsm-alert-list-view', JSM_ALERT_GROUP_DETAIL_VIEW = 'jsm-alert-group-detail-view', ATLAS_HOME = 'atlas-home', ATLAS_HOME_MAIN = 'atlas-home-main', ATLAS_HOME_DISCOVER = 'atlas-home-discover', ATLAS_HOME_RECENTS = 'atlas-home-recents', ATLAS_HOME_FULL_PAGE_NOTIFICATIONS = 'atlas-home-full-page-notifications', ATLAS_HOME_PROJECT_UPDATES_LIST = 'atlas-home-project-updates-list', ATLAS_HOME_GOAL_UPDATES_LIST = 'atlas-home-goal-updates-list', ATLAS_HOME_TEAM_UPDATES_LIST = 'atlas-home-team-updates-list', ATLAS_HOME_TAG_UPDATES_LIST = 'atlas-home-tag-updates-list', FOCUS = 'focus', FOCUS_FOR_YOU = 'focus-for-you', FOCUS_FOCUS_AREA_PAGE = 'focus-focus-area-page', FOCUS_FOCUS_AREA_GOAL_VIEW = 'focus-focus-area-goal-view', FOCUS_FOCUS_AREA_WORK_VIEW = 'focus-focus-area-work-view', FOCUS_FOCUS_AREA_FUNDS_VIEW = 'focus-focus-area-funds-view', SAC = 'sac', TRELLO_BOARD = 'trello-board', TRELLO_CARD = 'trello-card', STUDIO_AGENT_BUILDER = 'studio-agent-builder', UNKNOWN = 'unknown' }",
 	},
 	{
 		name: 'pageTypeConversationStarters',
@@ -9630,18 +9630,6 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		examples: [],
 		kind: 'type',
 		definition: '{ [skillSlug: string]: SkillMetadata }',
-	},
-	{
-		name: 'SPRINT_ONLY_BACKLOG_MESSAGES',
-		description: 'Backlog starter messages that only apply when a Jira sprint is active.',
-		status: 'general-availability',
-		usageGuidelines: ['Use when filtering Jira backlog starters by active-sprint context.'],
-		keywords: ['rovo', 'conversation starters', 'jira', 'sprint'],
-		category: 'rovo',
-		package: '@atlassian/rovo-conversation-actions',
-		examples: [],
-		kind: 'constant',
-		type: 'ReadonlySet<MessageDescriptor>',
 	},
 	{
 		name: 'useCaseOptions',

@@ -135,7 +135,7 @@ const QuickInsertMenuRoot = ({
 		rows,
 		selectableItems,
 		selectedItemIndex,
-		activeItemKey,
+		isPreviewOpen,
 		selectionSource,
 		...listEvents
 	} = useRegisteredMenu({ model, resetKey: query });
@@ -229,7 +229,7 @@ const QuickInsertMenuRoot = ({
 					{surface === 'typeahead' ? (
 						<TypeAheadQuickInsertMenu
 							Item={RegisteredQuickInsertMenuItem}
-							activeItemKey={activeItemKey}
+							isPreviewOpen={isPreviewOpen}
 							hasScrollPadding
 							itemCount={itemCount}
 							listId={listId}
@@ -250,7 +250,7 @@ const QuickInsertMenuRoot = ({
 					) : (
 						<ToolbarQuickInsertMenu
 							Item={RegisteredQuickInsertMenuItem}
-							activePreviewItemKey={activeItemKey}
+							isPreviewOpen={isPreviewOpen}
 							emptyStateHandler={emptyStateHandler}
 							itemCount={itemCount}
 							listId={listId}

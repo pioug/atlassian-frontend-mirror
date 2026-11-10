@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
 
 import { cssMap } from '@atlaskit/css';
+import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';
+import { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-item-group';
 import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
-import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-menu-item';
-import { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import { type Placement } from '@atlaskit/dropdown-menu/types';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Grid } from '@atlaskit/primitives/compiled/grid';

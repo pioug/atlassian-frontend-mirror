@@ -1,5 +1,40 @@
 # @atlaskit/renderer
 
+## 153.4.1
+
+### Patch Changes
+
+- [`c1719eb17b3b9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c1719eb17b3b9) -
+  Clean up feature gate platform_editor_a11y_codeblock_haspopup
+- Updated dependencies
+
+## 153.4.0
+
+### Minor Changes
+
+- [`3d2733c4e7948`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d2733c4e7948) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+- [`d993018bd2aac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d993018bd2aac) -
+  Add a host-selected SSR body handoff and UI Kit commit readiness behind
+  confluence_forge_uikit_bodied_ssr_handoff, preserving existing Aura handoff behavior. Expose an
+  optional generic UI Kit commit callback and connect it to the macro handoff in xen-editor-provider
+  without coupling Forge UI renderers to ADF instance contexts. Keep Aura instances in their
+  existing experiment, expose the new experiment only for qualifying instances, and release the
+  preserved body immediately when a selected client render path cannot report readiness.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 153.3.1
+
+### Patch Changes
+
+- [`76a9e522fc180`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76a9e522fc180) -
+  Delete unreachable source files
+- Updated dependencies
+
 ## 153.3.0
 
 ### Minor Changes

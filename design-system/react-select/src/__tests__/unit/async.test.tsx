@@ -170,24 +170,6 @@ test('in case of callbacks display the most recently-requested loaded options (i
 	expect(screen.getByTestId(`${testId}-select--option-0`)).toHaveTextContent('bar');
 });
 
-// QUESTION: we currently do not do this, do we want to?
-test.skip('in case of callbacks should handle an error by setting options to an empty array', () => {
-	const loadOptions = (_inputValue: string, callback: (options: readonly Option[]) => void) => {
-		// @ts-ignore
-		callback(new Error('error'));
-	};
-	render(<Async loadOptions={loadOptions} options={OPTIONS} testId={testId} />);
-	let input = screen.getByTestId(`${testId}-select--input`);
-	fireEvent.input(input!, {
-		target: {
-			value: 'foo',
-		},
-		bubbles: true,
-		cancelable: true,
-	});
-	expect(screen.getAllByRole('option').length).toBe(0);
-});
-
 test('should announce NoOptionsMessage', async () => {
 	const loadOptions = (_inputValue: string, callBack: (options: readonly Option[]) => void) => {
 		setTimeout(() => {

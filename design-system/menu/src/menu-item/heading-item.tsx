@@ -5,6 +5,7 @@
 import { memo } from 'react';
 
 import { css, jsx } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import type { HeadingItemProps } from '../types';
@@ -14,6 +15,11 @@ const headingStyles = css({
 	font: token('font.heading.xxsmall'),
 	paddingBlock: token('space.0'),
 	paddingInline: token('space.200'),
+});
+
+const semanticHeadingStyles = css({
+	paddingBlock: token('space.0'),
+	paddingInline: token('space.inset.xlarge'),
 });
 
 /**
@@ -48,7 +54,7 @@ const HeadingItem: import('react').MemoExoticComponent<
 	}: HeadingItemProps) => {
 		return (
 			<div
-				css={headingStyles}
+				css={[headingStyles, fg('platform-semantic-spacing') && semanticHeadingStyles]}
 				role="heading"
 				aria-level={headingLevel}
 				data-testid={testId}

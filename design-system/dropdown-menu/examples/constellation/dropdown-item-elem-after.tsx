@@ -1,8 +1,8 @@
 import React from 'react';
 
+import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';
+import { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-item-group';
 import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
-import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-menu-item';
-import { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import CheckCircleIcon from '@atlaskit/icon/core/check-circle';
 
 const DropdownItemElemAfterExample = (): React.JSX.Element => {

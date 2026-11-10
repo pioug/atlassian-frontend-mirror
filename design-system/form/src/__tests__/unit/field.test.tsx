@@ -480,8 +480,11 @@ describe('Field', () => {
 		});
 
 		// TODO: Fix flaky test, example: https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/%7B840045bf-9955-4d65-8f42-d40d498b9811%7D/steps/%7B20298ecd-cd6b-4355-8491-b5c20777c58b%7D/test-report
-		it.skip('should indicate whether form is submitting', async () => {
-			const promise = new Promise<void>((resolve) => setTimeout(resolve, 100));
+		it('should indicate whether form is submitting', async () => {
+			let resolveSubmission: () => void;
+			const promise = new Promise<void>((resolve) => {
+				resolveSubmission = resolve;
+			});
 			render(
 				<Form onSubmit={() => promise}>
 					{({ formProps, submitting }) => (
@@ -497,8 +500,10 @@ describe('Field', () => {
 			expect(button).toHaveTextContent('submit');
 
 			await user.click(button);
-			await expect(button).toHaveTextContent('submitting');
-			await expect(button).toHaveTextContent('submit');
+			await waitFor(() => expect(button).toHaveTextContent('submitting'));
+
+			resolveSubmission!();
+			await waitFor(() => expect(button).toHaveTextContent('submit'));
 		});
 
 		it('should disable all fields in form when iDisabled is set to true', () => {
@@ -969,7 +974,9 @@ describe('Field', () => {
 			);
 		});
 
-		it.skip('should always show most recent validation result', async () => {
+		it('should always show most recent validation result', async () => {
+			let resolveAsyncValidation: (result: string) => void;
+
 			render(
 				<Form onSubmit={jest.fn()}>
 					{() => (
@@ -982,8 +989,8 @@ describe('Field', () => {
 									return 'TOO_SHORT';
 								}
 								if (value === 'Joe Bloggs') {
-									return new Promise((res) => {
-										res('TAKEN_USERNAME');
+									return new Promise<string>((resolve) => {
+										resolveAsyncValidation = resolve;
 									});
 								}
 								return undefined;
@@ -1003,17 +1010,16 @@ describe('Field', () => {
 
 			const input = screen.getByTestId('TextField');
 
-			// kick off an async validation that will fail
-			await user.keyboard(`{Tab}Joe Bloggs`);
-			await user.dblClick(input);
-			// causes a sync validation failure
-			await user.keyboard(`{Backspace}{Backspace}{Backspace}`);
+			await user.click(input);
+			await user.type(input, 'Joe Bloggs');
+			await waitFor(() => expect(resolveAsyncValidation).toBeDefined());
 
-			// check that the most recent error message is visible - should be the sync validation error
-			setTimeout(() => {
-				expect(screen.queryByText('Username is in use')).not.toBeInTheDocument();
-				expect(screen.getByText('Too short')).toBeInTheDocument();
-			});
+			await user.clear(input);
+			await user.type(input, 'Jo');
+			await screen.findByText('Too short');
+
+			resolveAsyncValidation!('TAKEN_USERNAME');
+			await waitFor(() => expect(screen.queryByText('Username is in use')).not.toBeInTheDocument());
 		});
 
 		it('should re-validate the form if key was changed', async () => {

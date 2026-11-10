@@ -50,6 +50,32 @@ const menuDialogStyles = css({
 	boxShadow: token('elevation.shadow.overlay'),
 });
 
+type TPopperOffsetModifier = { name?: string; options?: { offset?: unknown } };
+
+/**
+ * The `[along, away]` offset the legacy popper gave for `popperProps.modifiers`.
+ *
+ * Legacy PopupSelect spreads `popperProps` over its defaults, so a consumer `modifiers` value
+ * replaces the default list, with its `[0, 8]` offset. Only a consumer offset modifier then sets
+ * the offset. Popper ignores a popper v1 `modifiers` object, so that gives `[0, 0]` too.
+ *
+ * Exported for tests only.
+ */
+export function getLegacyOffset({ modifiers }: { modifiers: unknown }): [number, number] {
+	if (modifiers == null) {
+		return [0, 8];
+	}
+	const value = Array.isArray(modifiers)
+		? (modifiers as ReadonlyArray<TPopperOffsetModifier | null | undefined>).find(
+				(modifier) => modifier?.name === 'offset',
+			)?.options?.offset
+		: undefined;
+	if (Array.isArray(value) && value.length === 2) {
+		return [Number(value[0]) || 0, Number(value[1]) || 0];
+	}
+	return [0, 0];
+}
+
 /**
  * Top-layer implementation of PopupSelect.
  *
@@ -96,6 +122,8 @@ function PopupSelectTopLayerInner<
 		// No-op props in top-layer path.
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		popperProps,
+		// Escape closes only this popover: the top layer gives one Escape press to one layer.
+		// `stopPropagation()` would hide Escape from document listeners, so this stays a no-op.
 		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		shouldPreventEscapePropagation: _shouldPreventEscapePropagation,
 
@@ -121,19 +149,10 @@ function PopupSelectTopLayerInner<
 
 	// Placement.
 	const legacyPlacement = (popperProps?.placement ?? 'bottom-start') as string;
-	// `popup-select` historically defaulted to an `[along, away] = [0, 8]` popper offset
-	// modifier; consumers can override it via `popperProps.modifiers`. Honour both here so
-	// the top-layer rendering matches the legacy popper output.
-	const legacyOffset = useMemo<[number, number]>(() => {
-		const modifiers = popperProps?.modifiers as
-			| ReadonlyArray<{ name?: string; options?: { offset?: [number, number] } }>
-			| undefined;
-		const value = modifiers?.find((modifier) => modifier?.name === 'offset')?.options?.offset;
-		if (Array.isArray(value) && value.length === 2) {
-			return [Number(value[0]) || 0, Number(value[1]) || 0];
-		}
-		return [0, 8];
-	}, [popperProps?.modifiers]);
+	const legacyOffset = useMemo(
+		() => getLegacyOffset({ modifiers: popperProps?.modifiers }),
+		[popperProps?.modifiers],
+	);
 	const topLayerPlacement = useMemo(
 		() =>
 			fromLegacyPlacement({
@@ -371,11 +390,10 @@ function PopupSelectTopLayerInner<
 		// legacy behavior. See go/DSP-22283
 		'aria-haspopup': 'true' as const,
 		'aria-expanded': isOpen,
-		// Always emit aria-controls referencing the controlled element.
-		// Matches the behavior of `getAriaForTrigger` (see
-		// `@atlaskit/top-layer/get-aria-for-trigger`) and aligns with the
-		// WAI-ARIA spec recommendation.
-		'aria-controls': popoverId,
+		// The popover host is in the DOM only while open, so `aria-controls` is set only then.
+		// Matches `getAriaForTrigger` (see
+		// `top-layer/notes/decisions/aria-controls-trigger-contract.md`) and the legacy path.
+		'aria-controls': isOpen ? popoverId : undefined,
 		isOpen,
 	};
 

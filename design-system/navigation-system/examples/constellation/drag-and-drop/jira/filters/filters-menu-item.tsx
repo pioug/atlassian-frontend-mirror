@@ -16,9 +16,9 @@ import { jsx } from '@compiled/react';
 import invariant from 'tiny-invariant';
 
 import IconButton from '@atlaskit/button/icon/button';
-import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
-import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
-import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
+import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';
+import { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-item-group';
+import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
 import AddIcon from '@atlaskit/icon/core/add';
 import FilterIcon from '@atlaskit/icon/core/filter';
 import GrowVerticalIcon from '@atlaskit/icon/core/grow-vertical';

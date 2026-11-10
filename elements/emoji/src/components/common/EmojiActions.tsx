@@ -21,6 +21,7 @@ import { css, jsx } from '@compiled/react';
 import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'react-intl';
 
 import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
+import { getDocument } from '@atlaskit/browser-apis';
 import { cssMap } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
@@ -257,6 +258,7 @@ const TonesWrapper = (props: TonesWrapperProps) => {
 	const { formatMessage } = intl;
 	const tonePreviewButtonRef = useRef<HTMLButtonElement>(null);
 	const openProductivityColorSelectorWithKeyboard = useRef(false);
+	const productivityColorPopupRef = useRef<HTMLDivElement>(null);
 	const [focusTonePreviewButton, setFocusTonePreviewButton] = useState(false);
 	const [focusSelectedProductivityColorOnMount, setFocusSelectedProductivityColorOnMount] =
 		useState(false);
@@ -287,9 +289,17 @@ const TonesWrapper = (props: TonesWrapperProps) => {
 
 	const onProductivityColorSelectedHandler = useCallback(
 		(color: ProductivityColor) => {
+			// colour was selected via keyboard (focus is within the popup), so return focus to the colour button
+			// once the popup is closed, otherwise focus is lost when the focused colour option unmounts
+			const shouldRestoreFocus =
+				fg('platform_ally_emoji_fixes_various') &&
+				!!productivityColorPopupRef.current?.contains(getDocument()?.activeElement ?? null);
 			onProductivityColorSelected?.(color);
 			onToneClose();
 			setFocusSelectedProductivityColorOnMount(false);
+			if (shouldRestoreFocus) {
+				setFocusTonePreviewButton(true);
+			}
 		},
 		[onProductivityColorSelected, onToneClose],
 	);
@@ -362,7 +372,7 @@ const TonesWrapper = (props: TonesWrapperProps) => {
 						ariaLabelText={formatMessage(messages.emojiSelectColorButtonAriaLabelText)}
 					/>
 					{showToneSelector && (
-						<div css={productivityColorPopupPosition}>
+						<div ref={productivityColorPopupRef} css={productivityColorPopupPosition}>
 							<ProductivityColorPopupContent
 								colorPreviewEmojis={productivityColorPreviewEmojis}
 								focusSelectedColorOnMount={focusSelectedProductivityColorOnMount}

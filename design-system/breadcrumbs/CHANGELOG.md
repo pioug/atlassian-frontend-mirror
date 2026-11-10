@@ -1,5 +1,13 @@
 # @atlaskit/breadcrumbs
 
+## 17.8.7
+
+### Patch Changes
+
+- [`e0fb460e4c662`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e0fb460e4c662) -
+  Use named dropdown menu component imports from their dedicated export paths.
+- Updated dependencies
+
 ## 17.8.6
 
 ### Patch Changes

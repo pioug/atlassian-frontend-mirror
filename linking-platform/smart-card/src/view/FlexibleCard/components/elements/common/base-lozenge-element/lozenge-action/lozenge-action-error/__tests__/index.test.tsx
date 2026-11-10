@@ -4,7 +4,7 @@ import { IntlProvider } from 'react-intl';
 
 import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
-import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 import { screen } from '@atlassian/testing-library/screen';
 import { render } from '@atlassian/testing-library/testing-library/react';

@@ -9,6 +9,7 @@ import withAnalyticsEvents, {
 } from '@atlaskit/analytics-next/withAnalyticsEvents';
 
 import type { ArchiveViewerError } from '../../ArchiveViewerError';
+import { withInsetViewer } from '../../insetViewerContext';
 import { ArchiveViewerBase } from './archive-viewer-base';
 import { type ArchiveViewerProps } from './types';
 
@@ -27,4 +28,4 @@ export type Content = {
 
 export const ArchiveViewer: React.ForwardRefExoticComponent<
 	Omit<ArchiveViewerProps, keyof WithAnalyticsEventsProps> & React.RefAttributes<any>
-> = withAnalyticsEvents()(ArchiveViewerBase);
+> = withInsetViewer(withAnalyticsEvents()(ArchiveViewerBase));

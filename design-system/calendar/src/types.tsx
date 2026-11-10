@@ -9,6 +9,8 @@ export type WeekDay = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
 export type TabIndex = -1 | 0;
 
+export type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
+
 export type ChangeEvent = {
 	iso: ISODate;
 	type: 'left' | 'up' | 'right' | 'down' | 'prevMonth' | 'prevYear' | 'nextMonth' | 'nextYear';
@@ -25,6 +27,13 @@ export interface CalendarProps extends WithAnalyticsEventsProps {
 	 * @default 'calendar'
 	 */
 	label?: string;
+	/**
+	 * The semantic heading level for the month and year title. Does not change its visual appearance.
+	 *
+	 * Overrides the surrounding `HeadingContextProvider` when provided. Otherwise, uses the heading
+	 * context, falling back to level 2 when no context is available.
+	 */
+	headingLevel?: HeadingLevel;
 	/**
 	 * The number of the day currently focused. Places border around the date. Enter `0` to highlight no date.
 	 */

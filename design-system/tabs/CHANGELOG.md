@@ -1,5 +1,17 @@
 # @atlaskit/tabs
 
+## 21.3.1
+
+### Patch Changes
+
+- [`4e814883e6de4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4e814883e6de4) -
+  Show the initially selected tab indicator immediately when `platform-dst-tabs-skip-mount-motion`
+  is enabled. Animate indicators only when selection changes, including for custom tabs. Newly
+  mounted or reopened tab lists do not play an entrance animation. No consumer configuration is
+  required. Gate-off behavior is preserved; indicator animations still require
+  `platform-dst-motion-uplift-tab` and respect reduced motion.
+- Updated dependencies
+
 ## 21.3.0
 
 ### Minor Changes

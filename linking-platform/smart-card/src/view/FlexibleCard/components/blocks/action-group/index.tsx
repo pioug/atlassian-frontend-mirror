@@ -13,7 +13,7 @@ import { di } from 'react-magnetic-di';
 import ButtonGroup from '@atlaskit/button/button-group';
 import IconButton from '@atlaskit/button/icon/button';
 import type { Appearance } from '@atlaskit/button/old-button/types';
-import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';

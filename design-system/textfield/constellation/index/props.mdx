@@ -7,7 +7,6 @@ props:
     - default
 ---
 
-import Link from '@atlaskit/link';
 import SectionMessage from '@atlaskit/section-message';
 
 ## Props
@@ -19,29 +18,13 @@ import SectionMessage from '@atlaskit/section-message';
 ### HTML Input props
 
 <SectionMessage>
-	<p>
-		<inlineCode>@atlaskit/textfield</inlineCode> extends{' '}
-		<Link
-			rel="noopener noreferrer"
-			href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input"
-			target="_blank"
-		>
-			<inlineCode>HTML Input</inlineCode>
-		</Link>{' '}
-		and supports the props that a native
-		<Link
-			rel="noopener noreferrer"
-			href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input"
-			target="_blank"
-		>
-			<inlineCode>input</inlineCode>
-		</Link>{' '}
-		element supports. The prop <inlineCode>disabled</inlineCode> is not supported, please use{' '}
-		<Link href="#isDisabled">
-			<inlineCode>isDisabled</inlineCode>
-		</Link>{' '}
-		instead.
-	</p>
+
+`@atlaskit/textfield` extends
+[`HTML Input`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input) and supports the
+props that a native [`input`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input)
+element supports. The prop `disabled` is not supported, please use [`isDisabled`](#isDisabled)
+instead.
+
 </SectionMessage>
 
 #### Useful HTML `input` props

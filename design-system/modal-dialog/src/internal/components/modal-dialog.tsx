@@ -86,8 +86,7 @@ const dialogStyles = cssMap({
 		},
 
 		/**
-		 * This is to support scrolling if the modal's children are wrapped in
-		 * a form.
+		 * This supports scrolling when the modal content is wrapped in a form.
 		 */
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'& > form:only-child': {
@@ -128,6 +127,16 @@ const dialogStyles = cssMap({
 		'@media (min-width: 30rem)': {
 			height: '100%',
 		},
+	},
+});
+
+const formWithStatusAnnouncementStyles = css({
+	// Allow the form to scroll when a fixed-position live region is also a direct child.
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'& > form': {
+		display: 'inherit',
+		maxHeight: 'inherit',
+		flexDirection: 'inherit',
 	},
 });
 
@@ -263,6 +272,8 @@ const ModalDialog: React.ForwardRefExoticComponent<
 								}
 								css={[
 									dialogStyles.root,
+									fg('dst_platform-global_ep_status_announcement') &&
+										formWithStatusAnnouncementStyles,
 									dialogStyles.rootMotion,
 									!isFullScreen && dialogStyles.borderRadius,
 									shouldScrollInViewport ? viewportScrollStyles : bodyScrollStyles,
@@ -302,6 +313,8 @@ const ModalDialog: React.ForwardRefExoticComponent<
 									}
 									css={[
 										dialogStyles.root,
+										fg('dst_platform-global_ep_status_announcement') &&
+											formWithStatusAnnouncementStyles,
 										!isFullScreen && dialogStyles.borderRadius,
 										shouldScrollInViewport ? viewportScrollStyles : bodyScrollStyles,
 									]}

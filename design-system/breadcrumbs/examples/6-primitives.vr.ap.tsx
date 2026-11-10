@@ -21,9 +21,9 @@ import { BreadcrumbsItemPrimitive, BreadcrumbsRoot } from '@atlaskit/breadcrumbs
 import { useOverflowCollapse } from '@atlaskit/breadcrumbs/use-overflow-collapse';
 import Button from '@atlaskit/button/default/button';
 import IconButton from '@atlaskit/button/icon/button';
-import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
-import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
-import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
+import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';
+import { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-item-group';
+import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
 import AddIcon from '@atlaskit/icon/core/add';
 import ImageIcon from '@atlaskit/icon/core/image';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';

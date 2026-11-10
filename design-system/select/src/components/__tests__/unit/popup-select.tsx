@@ -3,6 +3,10 @@
 import React from 'react';
 
 import { skipA11yAudit } from '@af/accessibility-testing/skip-a11y-audit';
+import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { render, waitFor } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
@@ -115,6 +119,8 @@ describe('Popup Select', () => {
 	});
 
 	it('should stop propagation of Escape key event when shouldPreventEscapePropagation is true', async () => {
+		failGate('platform-dst-top-layer');
+
 		const parentKeyDownHandler = jest.fn();
 
 		render(
@@ -148,6 +154,44 @@ describe('Popup Select', () => {
 		window.dispatchEvent(escapeKeyDownEvent);
 
 		expect(stopPropagationSpy).toHaveBeenCalled();
+	});
+
+	// On the top-layer path the prop does nothing. The popup layer takes the Escape press, so the
+	// popup closes and the layer under it stays open, with no `stopPropagation()`.
+	it('closes only the popup on Escape when shouldPreventEscapePropagation is true', async () => {
+		passGate('platform-dst-top-layer');
+
+		const onModalClose = jest.fn();
+
+		render(
+			<ModalDialog onClose={onModalClose}>
+				<ModalHeader hasCloseButton>
+					<ModalTitle>Parent layer</ModalTitle>
+				</ModalHeader>
+				<PopupSelect
+					options={OPTIONS}
+					value={OPTIONS[0]}
+					shouldPreventEscapePropagation
+					testId={testId}
+					target={({ isOpen: _isOpen, ...triggerProps }) => (
+						<button type="button" {...triggerProps}>
+							Target
+						</button>
+					)}
+					label="Options"
+				/>
+			</ModalDialog>,
+		);
+
+		const trigger = screen.getByText('Target');
+		await user.click(trigger);
+		expect(await screen.findByTestId(`${testId}--menu`)).toBeInTheDocument();
+
+		await user.keyboard('{Escape}');
+
+		await waitFor(() => expect(trigger).toHaveAttribute('aria-expanded', 'false'));
+		expect(onModalClose).not.toHaveBeenCalled();
+		expect(screen.getByRole('dialog', { name: 'Parent layer' })).toBeInTheDocument();
 	});
 
 	it('should not stop propagation of Escape key event when shouldPreventEscapePropagation is false or not set', async () => {

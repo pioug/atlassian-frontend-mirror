@@ -864,7 +864,7 @@ describe('UNSAFE_isUpdatedGeometry', () => {
 
 describe('Accessibility', () => {
 	// FIXME: Jest 29 upgrade - this test suite is failing when running with flag IS_REACT_18
-	it.skip('Avatar Group items inside more should have role equal to button and get focus', async () => {
+	it('Avatar Group items inside more should have role equal to button and get focus', async () => {
 		const user = userEvent.setup();
 		render(
 			<AvatarGroup

@@ -312,8 +312,8 @@ for (const width of [600, 300]) {
 	test(`chat overlay keyboard width matches its rendered width in a ${width}px Root`, async ({
 		page,
 	}) => {
-		// Splitters are intentionally hidden below 48rem. Keep the viewport desktop
-		// sized while constraining the actual region available to the overlay.
+		// Check host constraints independently of viewport breakpoints. Actual narrow
+		// viewport handle reachability is covered in chat-layout-session.spec.tsx.
 		await page.setViewportSize({ width: 1200, height: 900 });
 		await page.visitExample<typeof import('../../../examples/page-layout-chat-panel.tsx')>(
 			'design-system',
@@ -331,9 +331,10 @@ for (const width of [600, 300]) {
 		await expect
 			.poll(async () => (await page.getByRole('main').boundingBox())?.width)
 			.toBe(Math.max(320, width));
+		// The viewport is desktop-sized even though Root is narrow.
 		await expect
 			.poll(async () => (await chat.boundingBox())?.width)
-			.toBe(Math.min(320, width * 0.9));
+			.toBe(Math.max(320, Math.min(400, width)));
 		await expect
 			.poll(() => chat.locator('style').textContent())
 			.toContain('@container navigation-chat-space');
@@ -343,11 +344,13 @@ for (const width of [600, 300]) {
 			.poll(() => chat.locator('style').textContent())
 			.not.toContain('@container navigation-chat-space');
 		await expect(chat).toHaveWidth(beforeActivation!.width);
-		await expect(slider).toHaveAttribute('min', String(Math.min(320, width * 0.9)));
-		await expect(slider).toHaveAttribute('max', String(width * 0.9));
+		await expect(slider).toHaveAttribute('min', '320');
+		await expect(slider).toHaveAttribute('max', String(Math.max(320, width * 0.9)));
 		await slider.press('End');
-		await expect(slider).toHaveValue(String(width * 0.9));
-		await expect.poll(async () => (await chat.boundingBox())?.width).toBe(width * 0.9);
+		await expect(slider).toHaveValue(String(Math.max(320, width * 0.9)));
+		await expect
+			.poll(async () => (await chat.boundingBox())?.width)
+			.toBe(Math.max(320, width * 0.9));
 	});
 }
 

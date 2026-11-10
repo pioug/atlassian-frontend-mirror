@@ -7,6 +7,7 @@ import { useContext } from 'react';
 import { ClassNames, cssMap, jsx } from '@compiled/react';
 import { ax } from '@compiled/react/runtime';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Inline, type InlineProps } from '@atlaskit/primitives/compiled/inline';
 import { token } from '@atlaskit/tokens';
 
@@ -193,10 +194,30 @@ const spacingMapStyles = cssMap({
 	},
 });
 
+const semanticSpacingStyles = cssMap({
+	cozy: {
+		paddingBlockStart: token('space.inset.medium'),
+		paddingBlockEnd: token('space.inset.medium'),
+		paddingInlineStart: token('space.inset.xlarge'),
+		paddingInlineEnd: token('space.inset.xlarge'),
+	},
+	compact: {
+		paddingBlockStart: token('space.inset.xsmall'),
+		paddingBlockEnd: token('space.inset.xsmall'),
+		paddingInlineStart: token('space.inset.large'),
+		paddingInlineEnd: token('space.inset.large'),
+	},
+});
+
 const gapMap: Record<SpacingMode, InlineProps['space']> = {
 	compact: 'space.100',
 	cozy: 'space.150',
 };
+
+const semanticGapStyles = cssMap({
+	cozy: { rowGap: token('space.gap.large'), columnGap: token('space.gap.large') },
+	compact: { rowGap: token('space.gap.medium'), columnGap: token('space.gap.medium') },
+});
 
 /**
  * __Menu item primitive__
@@ -238,6 +259,7 @@ const MenuItemPrimitive: (props: MenuItemPrimitiveProps) => JSX.Element = ({
 						cn(
 							styles.root,
 							spacingMapStyles[spacing],
+							fg('platform-semantic-spacing') && semanticSpacingStyles[spacing],
 							!isDisabled && !isSelected && styles.unselected,
 							!isDisabled && !isSelected && styles.motionUnselected,
 							!isDisabled && isSelected && styles.selected,
@@ -255,6 +277,7 @@ const MenuItemPrimitive: (props: MenuItemPrimitiveProps) => JSX.Element = ({
 							spread="space-between"
 							alignBlock="center"
 							space={gapMap[spacing]}
+							xcss={fg('platform-semantic-spacing') && semanticGapStyles[spacing]}
 							grow="fill"
 							testId={testId && `${testId}--container`}
 						>

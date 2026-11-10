@@ -2,6 +2,7 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { render } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
@@ -33,6 +34,11 @@ jest.mock('@atlaskit/width-detector/width-observer', () => {
 jest.mock('../../../../FlexibleCard/assets/ai-edit-icon', () => ({
 	__esModule: true,
 	default: () => <span data-testid="ai-edit-icon" />,
+}));
+
+jest.mock('@atlaskit/icon/core/ai-generative-text-summary', () => ({
+	__esModule: true,
+	default: () => <span data-testid="summary-icon" />,
 }));
 
 jest.mock('@atlaskit/icon/core/chart-bar', () => ({
@@ -129,6 +135,28 @@ describe('EmbedRovoActionsFooter', () => {
 
 		expect(within(visualizeButton).getByTestId('chart-bar-icon')).toBeInTheDocument();
 		expect(screen.queryByTestId('ai-edit-icon')).not.toBeInTheDocument();
+	});
+
+	describe('with platform_sl_rovo_summarize_icon_consistency', () => {
+		it('keeps the primary action prompt icon when the gate is on', () => {
+			passGate('platform_sl_rovo_summarize_icon_consistency');
+			setup([RovoChatPromptKey.SUMMARIZE_DOCUMENT, RovoChatPromptKey.KEY_HIGHLIGHTS]);
+
+			const summarizeButton = screen.getByRole('button', { name: 'Summarize' });
+
+			expect(within(summarizeButton).getByTestId('summary-icon')).toBeInTheDocument();
+			expect(screen.queryByTestId('ai-edit-icon')).not.toBeInTheDocument();
+		});
+
+		it('uses the branded AI icon for the primary action when the gate is off', () => {
+			failGate('platform_sl_rovo_summarize_icon_consistency');
+			setup([RovoChatPromptKey.SUMMARIZE_DOCUMENT, RovoChatPromptKey.KEY_HIGHLIGHTS]);
+
+			const summarizeButton = screen.getByRole('button', { name: 'Summarize' });
+
+			expect(within(summarizeButton).getByTestId('ai-edit-icon')).toBeInTheDocument();
+			expect(within(summarizeButton).queryByTestId('summary-icon')).not.toBeInTheDocument();
+		});
 	});
 
 	it('keeps the Visualize chart icon in the icon-only view', async () => {

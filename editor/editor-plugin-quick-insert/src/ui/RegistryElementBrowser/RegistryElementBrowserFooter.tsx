@@ -29,24 +29,17 @@ export const RegistryElementBrowserFooter = ({
 		<Inline alignBlock="center" grow="fill" spread="space-between">
 			<Inline alignBlock="center" space="space.100">
 				<Text color="color.text.subtlest">
-					{formatMessage(
-						{
-							defaultMessage:
-								'{count, plural, one {# result available} other {# results available}}',
-							id: 'editor.quick-insert.results-available',
-						},
-						{ count: resultCount },
-					)}
+					{formatMessage(messages.elementBrowserResultsAvailable, { count: resultCount })}
 				</Text>
 				{helpUrl && (
 					<LinkButton appearance="subtle" href={helpUrl} target="_blank">
-						{formatMessage({ defaultMessage: 'Help', id: 'editor.quick-insert.help' })}
+						{formatMessage(messages.help)}
 					</LinkButton>
 				)}
 			</Inline>
 			<Inline space="space.100">
 				<Button appearance="primary" isDisabled={!isInsertEnabled} onClick={onConfirmInsert}>
-					{formatMessage({ defaultMessage: 'Insert', id: 'editor.quick-insert.insert' })}
+					{formatMessage(messages.insert)}
 				</Button>
 				<Button appearance="subtle" onClick={onClose}>
 					{formatMessage(messages.close)}

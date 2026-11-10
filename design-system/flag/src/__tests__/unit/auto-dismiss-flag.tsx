@@ -59,7 +59,7 @@ describe('Auto dismiss flag', () => {
 				expect(onDismissedSpy).toHaveBeenCalledWith('0', expect.anything());
 			});
 
-			it.skip('should auto dismiss second flag after 16 seconds if there are 2 AutoDismissFlags', () => {
+			it('should auto dismiss second flag after 16 seconds if there are 2 AutoDismissFlags', () => {
 				const onDismissedSpy = jest.fn();
 				const { rerender } = render(
 					<FlagGroup onDismissed={onDismissedSpy}>
@@ -69,11 +69,14 @@ describe('Auto dismiss flag', () => {
 				);
 				expect(onDismissedSpy).not.toHaveBeenCalled();
 				runTimer();
+				expect(onDismissedSpy).toHaveBeenCalledWith('0', expect.anything());
+				onDismissedSpy.mockClear();
 				rerender(
 					<FlagGroup onDismissed={onDismissedSpy}>
 						{generateAutoDismissFlag({ id: '1' })}
 					</FlagGroup>,
 				);
+				runTimer();
 				runTimer();
 				expect(onDismissedSpy).toHaveBeenCalledWith('1', expect.anything());
 			});

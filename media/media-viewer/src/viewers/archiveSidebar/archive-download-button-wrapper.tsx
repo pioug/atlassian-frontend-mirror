@@ -11,6 +11,7 @@ import { useIntl } from 'react-intl';
 import { messages } from '@atlaskit/media-ui/messages';
 import { token } from '@atlaskit/tokens';
 
+import { useIsInsetViewer } from '../../insetViewerContext';
 import type { Children } from './styleWrappers';
 
 const archiveDownloadButtonWrapperStyles = css({
@@ -55,6 +56,20 @@ const archiveDownloadButtonWrapperStyleFix = css({
 	},
 });
 
+// The row around the button owns the padding and the hover in the inset viewer.
+const insetViewerArchiveDownloadButtonWrapperStyles = css({
+	paddingTop: token('space.0'),
+	paddingRight: token('space.0'),
+	paddingBottom: token('space.0'),
+	paddingLeft: token('space.0'),
+	'&:hover': {
+		backgroundColor: 'transparent',
+	},
+	'&:active': {
+		backgroundColor: 'transparent',
+	},
+});
+
 type OnClick = {
 	onClick: (event: MouseEvent<HTMLDivElement>) => void;
 };
@@ -64,6 +79,7 @@ export const ArchiveDownloadButtonWrapper = ({
 	onClick,
 }: Children & OnClick): JSX.Element => {
 	const intl = useIntl();
+	const isInsetViewer = useIsInsetViewer();
 	return (
 		<button
 			aria-label={intl.formatMessage(messages.archive_download_label_assistive_text)}
@@ -71,6 +87,7 @@ export const ArchiveDownloadButtonWrapper = ({
 				archiveDownloadButtonWrapperStyleFix,
 				archiveDownloadButtonWrapperStyles,
 				archiveDownloadButtonMotionStyles,
+				isInsetViewer && insetViewerArchiveDownloadButtonWrapperStyles,
 			]}
 			onClick={(event) => onClick && onClick(event as unknown as React.MouseEvent<HTMLDivElement>)}
 			data-testid="media-archiveDownloadButton"

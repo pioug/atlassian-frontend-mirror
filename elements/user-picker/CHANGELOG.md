@@ -1,5 +1,35 @@
 # @atlaskit/user-picker
 
+## 14.8.0
+
+### Minor Changes
+
+- [`397890f8868c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/397890f8868c1) -
+  Add the `menuRenderMode` prop. User picker forwards it to Select. With `menuRenderMode="inline"`,
+  the menu renders in place, for example for a menu that is always open inside a popup. The default
+  is `popup`, so nothing changes when you do not set the prop.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.7.0
+
+### Minor Changes
+
+- [`3d2733c4e7948`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d2733c4e7948) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+## 14.6.1
+
+### Patch Changes
+
+- [`29ee4d305fa27`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/29ee4d305fa27) -
+  Behind `platform-dst-top-layer`, an Escape while a popup in the header or footer is open closes
+  only that popup. The picker menu stays open.
+- Updated dependencies
+
 ## 14.6.0
 
 ### Minor Changes

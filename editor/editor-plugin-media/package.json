@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-media",
-	"version": "32.3.0",
+	"version": "32.3.1",
 	"description": "Media plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -89,9 +89,6 @@
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"platform-feature-flags": {
-		"platform_editor_a11y_border_radiogroup_label": {
-			"type": "boolean"
-		},
 		"platform_media_cross_client_copy": {
 			"type": "boolean"
 		},

@@ -78,6 +78,6 @@ export interface GiveKudosDrawerProps {
 	 * Optional attributes merged into the createKudos opened analytics event (e.g. isNewUserProfile).
 	 */
 	openedEventAttributes?: Record<string, string | boolean | undefined>;
-	/** Element to return focus to on close (behind `teams_a11y_focus_high_priority`). */
+	/** Element to return focus to on close. */
 	triggerRef?: React.RefObject<HTMLElement | null>;
 }

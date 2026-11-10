@@ -35,6 +35,7 @@ export interface Props {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	iconAfter?: React.ReactElement<any>;
+	id?: string;
 	interactionName?: string;
 	isLoading?: boolean;
 	isRadioButton?: boolean;
@@ -64,6 +65,7 @@ const FloatingToolbarButton = (
 		title,
 		icon,
 		iconAfter,
+		id,
 		onClick,
 		onKeyDown,
 		onMouseEnter,
@@ -180,6 +182,7 @@ const FloatingToolbarButton = (
 								...rest,
 							};
 						}}
+						id={id}
 						aria-label={ariaLabel || title}
 						aria-pressed={ariaPressed}
 						aria-checked={ariaChecked}

@@ -339,6 +339,69 @@ describe('<EmojiActions />', () => {
 				});
 			});
 
+			describe('keyboard colour selection focus', () => {
+				const zeroSquareRed = {
+					...baseToneEmoji,
+					id: '0_zero_square_red',
+					shortName: ':0_zero_square_red:',
+					name: 'Zero square red',
+				};
+				const zeroSquareBlue = {
+					...baseToneEmoji,
+					id: '0_zero_square_blue',
+					shortName: ':0_zero_square_blue:',
+					name: 'Zero square blue',
+				};
+
+				const EmojiActionsWithProductivityColor = () => {
+					const [selectedColor, setSelectedColor] = React.useState<'blue' | 'red'>('blue');
+					return (
+						<EmojiActions
+							{...props}
+							toneEmoji={toneEmoji}
+							activeCategoryId="ATLASSIAN"
+							activeAtlassianSubcategory="Productivity"
+							selectedProductivityColor={selectedColor}
+							productivityColorPreviewEmojis={{
+								red: zeroSquareRed,
+								blue: zeroSquareBlue,
+							}}
+							onProductivityColorSelected={(color) => setSelectedColor(color as 'blue' | 'red')}
+						/>
+					);
+				};
+
+				const selectColorWithKeyboard = async () => {
+					await renderWithIntl(<EmojiActionsWithProductivityColor />);
+					const productivityColorButton = screen.getByRole('button', {
+						name: 'Productivity emoji color selector',
+					});
+					act(() => productivityColorButton.focus());
+					await userEvent.keyboard('{Enter}');
+					await waitFor(() =>
+						expect(screen.getByTestId('productivity-color-blue--radio-input')).toHaveFocus(),
+					);
+					await userEvent.keyboard('{ArrowRight}');
+					await userEvent.keyboard('{Enter}');
+					await waitFor(() =>
+						expect(screen.queryByTestId(productivityColorSelectorTestId)).toBeNull(),
+					);
+					return screen.getByRole('button', { name: 'Productivity emoji color selector' });
+				};
+
+				it('should return focus to the productivity colour button after selecting a colour with keyboard when gate is enabled', async () => {
+					passGate('platform_ally_emoji_fixes_various');
+					const productivityColorButton = await selectColorWithKeyboard();
+					await waitFor(() => expect(productivityColorButton).toHaveFocus());
+				});
+
+				it('should not return focus to the productivity colour button after selecting a colour with keyboard when gate is disabled', async () => {
+					failGate('platform_ally_emoji_fixes_various');
+					const productivityColorButton = await selectColorWithKeyboard();
+					expect(productivityColorButton).not.toHaveFocus();
+				});
+			});
+
 			it('should not show productivity colour button for non-productivity Atlassian subcategories', async () => {
 				const zeroSquareBlue = {
 					...baseToneEmoji,

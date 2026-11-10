@@ -12,6 +12,7 @@ import withAnalyticsEvents, {
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import type { PopupSelectProps } from '@atlaskit/select/popup-select';
 import type { SelectComponentsConfig, StylesConfig } from '@atlaskit/select/types';
+import { hasOpenDialogOrPopover } from '@atlaskit/top-layer/page-surface/has-open-dialog-or-popover';
 import type { UFOExperience } from '@atlaskit/ufo/experience';
 import { UFOExperienceState } from '@atlaskit/ufo/experience-state';
 
@@ -492,7 +493,28 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 		}
 	}
 
+	/**
+	 * With the top layer, an Escape while a popup in the header or footer is open (for example a
+	 * select menu) belongs to that popup. It closes, and the picker stays as it is. On the legacy
+	 * path, such a nested select stops its Escape itself.
+	 *
+	 * The popup renders inside the picker menu, and it closes only after this handler runs, so it
+	 * is found whether focus is on its trigger or inside it.
+	 */
+	private isEscapeForNestedPopup = (event: React.KeyboardEvent): boolean => {
+		if (event.key !== 'Escape' || !fg('platform-dst-top-layer')) {
+			return false;
+		}
+		const { target } = event;
+		const menu = target instanceof Element ? target.closest(`.${classNamePrefix}__menu`) : null;
+		return menu !== null && hasOpenDialogOrPopover({ within: menu });
+	};
+
 	private handleKeyDown = (event: React.KeyboardEvent) => {
+		if (this.isEscapeForNestedPopup(event)) {
+			this.props.onKeyDown && this.props.onKeyDown(event);
+			return;
+		}
 		if (!this.isMenuOpenOnClickForSingleSelect) {
 			// Escape
 			if (event.keyCode === 27 && !fg('platform-dst-top-layer')) {
@@ -782,6 +804,7 @@ export const BaseUserPicker: React.ForwardRefExoticComponent<
 				menuMinWidth?: number;
 				menuPortalTarget?: HTMLElement;
 				menuPosition?: 'absolute' | 'fixed';
+				menuRenderMode?: 'popup' | 'inline';
 				menuShouldBlockScroll?: boolean;
 				name?: string;
 				noBorder?: boolean;
@@ -877,6 +900,7 @@ export const BaseUserPicker: React.ForwardRefExoticComponent<
 		| 'menuMinWidth'
 		| 'menuPortalTarget'
 		| 'menuPosition'
+		| 'menuRenderMode'
 		| 'menuShouldBlockScroll'
 		| 'name'
 		| 'onBlur'

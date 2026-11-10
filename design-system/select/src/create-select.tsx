@@ -37,6 +37,26 @@ const InlineMenu = ({ children, innerProps }: MenuProps<OptionType, boolean>): J
 	</div>
 );
 
+type MenuComponent = ComponentType<MenuProps<any, boolean>>;
+
+/**
+ * Wraps a consumer `Menu` for inline mode. The consumer Menu gets every react-select Menu prop,
+ * as in popup mode, except the listbox ID: MenuList owns it.
+ */
+const createInlineConsumerMenu = (ConsumerMenu: MenuComponent): MenuComponent => {
+	const InlineConsumerMenu = (props: MenuProps<any, boolean>): JSX.Element => {
+		const menuProps: MenuProps<any, boolean> = {
+			...props,
+			innerProps: { ...props.innerProps, id: undefined },
+		};
+		return <ConsumerMenu {...menuProps} />;
+	};
+	InlineConsumerMenu.displayName = `InlineConsumerMenu(${
+		ConsumerMenu.displayName || ConsumerMenu.name || 'Menu'
+	})`;
+	return InlineConsumerMenu;
+};
+
 export default function createSelect(WrappedComponent: ComponentType<any>) {
 	const AtlaskitSelect: React.ForwardRefExoticComponent<
 		React.PropsWithoutRef<AtlaskitSelectProps<any, boolean>> &
@@ -57,13 +77,21 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
 		} = props;
 
 		const internalSelectRef = useRef<BaseSelect | null>(null);
+		const consumerMenu: MenuComponent | undefined = components?.Menu;
+		// Inline mode keeps a consumer `Menu`, as popup mode does. Not gated: a callsite can pick
+		// inline mode with a gate client other than this package's, so both Select paths must
+		// keep it. Memoised on the Menu alone, so a new `components` object does not remount it.
+		const inlineMenu = useMemo(
+			() => (consumerMenu ? createInlineConsumerMenu(consumerMenu) : InlineMenu),
+			[consumerMenu],
+		);
 		const inlineMenuComponents = useMemo(
 			() => ({
 				...components,
 				MenuPortal: InlineMenuPortal,
-				Menu: InlineMenu,
+				Menu: inlineMenu,
 			}),
-			[components],
+			[components, inlineMenu],
 		);
 
 		/**

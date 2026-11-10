@@ -11,9 +11,9 @@ import { useIntl } from 'react-intl';
 
 import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
 import type { WithContextProps } from '@atlaskit/analytics-next/withAnalyticsContext';
+import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';
+import { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-item-group';
 import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
-import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-menu-item';
-import { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import type { CustomTriggerProps, OnOpenChangeArgs } from '@atlaskit/dropdown-menu/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';

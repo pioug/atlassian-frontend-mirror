@@ -1,6 +1,8 @@
 import React from 'react';
 
 import ErrorMessage from '../../errorMessageWithAnalytics';
+import { useIsInsetViewer } from '../../insetViewerContext';
+import { Spinner } from '../../loading';
 import { MediaViewerError } from '../../MediaViewerError';
 import ModalSpinner from '../modalSpinner';
 import { type ArchiveViewerProps } from './types';
@@ -9,6 +11,11 @@ export type archiveViewerState = {
 	ArchiveViewer?: React.ComponentType<ArchiveViewerProps>;
 	isErrored: boolean;
 };
+
+// The overlay viewer covers the screen while the zip viewer loads. The inset viewer shows the same
+// spinner as its other viewers do while they load.
+const ArchiveViewerLoading = (): React.JSX.Element =>
+	useIsInsetViewer() ? <Spinner /> : <ModalSpinner />;
 
 export default class ArchiveViewerLoader extends React.PureComponent<ArchiveViewerProps> {
 	static ArchiveViewer?: React.ComponentType<ArchiveViewerProps>;
@@ -49,7 +56,7 @@ export default class ArchiveViewerLoader extends React.PureComponent<ArchiveView
 		if (ArchiveViewer) {
 			return <ArchiveViewer {...this.props} />;
 		} else {
-			return <ModalSpinner />;
+			return <ArchiveViewerLoading />;
 		}
 	}
 }

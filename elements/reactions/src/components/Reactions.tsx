@@ -431,6 +431,7 @@ export const Reactions: React.MemoExoticComponent<
 	}: ReactionsProps): JSX.Element => {
 		const intl = useIntl();
 		const [selectedEmojiId, setSelectedEmojiId] = useState<string>('');
+		const pendingSelectedReactionRef = useRef<string | null>(null);
 		const [summaryViewParticleEffectEmojiId, setSummaryViewParticleEffectEmojiId] = useState<{
 			id: string;
 			shortName: string;
@@ -512,6 +513,15 @@ export const Reactions: React.MemoExoticComponent<
 			[reactions, setSummaryViewParticleEffectEmojiId],
 		);
 
+		const shouldFocusSelectedReaction = useCallback(
+			(emojiId: string) =>
+				fg('platform_ally_emoji_fixes_various') &&
+				!onlyRenderPicker &&
+				!summaryViewEnabled &&
+				!reactions.some((reaction) => reaction.emojiId === emojiId && reaction.reacted),
+			[onlyRenderPicker, summaryViewEnabled, reactions],
+		);
+
 		const handleOnSelection = useCallback(
 			(emojiId: string, source: ReactionSource) => {
 				createAndFireSafe(
@@ -523,10 +533,21 @@ export const Reactions: React.MemoExoticComponent<
 					openTime.current,
 				);
 				openTime.current = undefined;
+				if (shouldFocusSelectedReaction(emojiId)) {
+					pendingSelectedReactionRef.current = emojiId;
+				} else {
+					pendingSelectedReactionRef.current = null;
+				}
 				onSelection(emojiId);
 				handleSetSummaryViewParticleEffectEmojiId(emojiId);
 			},
-			[createAnalyticsEvent, onSelection, reactions, handleSetSummaryViewParticleEffectEmojiId],
+			[
+				createAnalyticsEvent,
+				onSelection,
+				reactions,
+				handleSetSummaryViewParticleEffectEmojiId,
+				shouldFocusSelectedReaction,
+			],
 		);
 
 		const handleSummaryViewReactionClick = useCallback(
@@ -623,6 +644,23 @@ export const Reactions: React.MemoExoticComponent<
 		}, [memorizedReactions]);
 
 		const wrapperRef = useRef<HTMLDivElement>(null);
+		useEffect(() => {
+			const emojiId = pendingSelectedReactionRef.current;
+			if (
+				!emojiId ||
+				!reactions.some((reaction) => reaction.emojiId === emojiId && reaction.reacted)
+			) {
+				return;
+			}
+			pendingSelectedReactionRef.current = null;
+			const wrapper = wrapperRef.current;
+			if (!wrapper || wrapper.ownerDocument.activeElement !== wrapper.ownerDocument.body) {
+				return;
+			}
+			Array.from(wrapper.querySelectorAll<HTMLButtonElement>('button[data-emoji-button-id]'))
+				.find((button) => button.dataset.emojiButtonId === emojiId)
+				?.focus();
+		}, [reactions]);
 		/**
 		 * The reaction button the user activated while it had focus, with the order of the reactions shown alongside it
 		 */
@@ -886,6 +924,7 @@ export const Reactions: React.MemoExoticComponent<
 							pickerQuickReactionEmojiIds={pickerQuickReactionEmojiIds}
 							disabled={status !== ReactionStatus.ready}
 							onSelection={handleOnSelection}
+							focusSelectedReaction={shouldFocusSelectedReaction}
 							onOpen={handlePickerOpen}
 							onCancel={handleOnCancel}
 							onShowMore={handleOnMore}

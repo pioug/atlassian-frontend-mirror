@@ -1,5 +1,16 @@
 # @atlassian/smart-user-picker
 
+## 12.12.0
+
+### Minor Changes
+
+- [`397890f8868c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/397890f8868c1) -
+  Add `menuRenderMode`. Use `inline` to render the menu in place, not as a popup.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.11.0
 
 ### Minor Changes

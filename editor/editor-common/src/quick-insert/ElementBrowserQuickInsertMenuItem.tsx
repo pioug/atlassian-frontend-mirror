@@ -13,6 +13,7 @@ import { Pressable } from '@atlaskit/primitives/pressable';
 import { xcss } from '@atlaskit/primitives/xcss/xcss';
 import { token } from '@atlaskit/tokens';
 
+import type { QuickInsertPreview } from './preview';
 import type { QuickInsertMenuItemProps } from './QuickInsertMenuItem';
 import { useQuickInsertMenuItemSelection } from './quickInsertMenuItemUtils';
 import { QuickInsertPreviewContent } from './QuickInsertPreviewContent';
@@ -135,7 +136,7 @@ export const ElementBrowserQuickInsertMenuItem = ({
 	const itemDescription = description ?? item?.description;
 	const handleClick = useQuickInsertMenuItemSelection(onSelect);
 	const descriptionId = useId();
-	const resolvedPreview = useMemo(
+	const resolvedPreview = useMemo<QuickInsertPreview>(
 		() => preview ?? (previewImageUrls ? { image: previewImageUrls } : {}),
 		[preview, previewImageUrls],
 	);

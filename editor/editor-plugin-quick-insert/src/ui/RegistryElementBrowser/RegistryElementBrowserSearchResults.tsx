@@ -46,9 +46,11 @@ const resultsGridStyles = css({
 	gridTemplateColumns: 'minmax(0, 1fr)',
 	// Each step keeps tiles at least 215px wide in a modal of 100vw - 120px with a 15px scrollbar.
 	// min-width only, so a fractional viewport (when zoomed) can't fall between two ranges.
+	// Two columns of tiles.
 	'@media (min-width: 613px)': {
 		gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
 	},
+	// Three columns of tiles, up to 264px wide each.
 	'@media (min-width: 1054px)': {
 		gridTemplateColumns: 'repeat(3, minmax(0, 264px))',
 	},
@@ -64,6 +66,7 @@ const recommendedGridStyles = css({
 
 const regularTileStyles = css({
 	minWidth: 0,
+	// Three-column layout: a regular Recommended tile spans two of the six half-tile columns.
 	'@media (min-width: 1054px)': {
 		gridColumn: 'span 2',
 	},
@@ -71,6 +74,7 @@ const regularTileStyles = css({
 
 const wideTileStyles = css({
 	minWidth: 0,
+	// Three-column layout: a wide Recommended tile spans three of the six half-tile columns.
 	'@media (min-width: 1054px)': {
 		gridColumn: 'span 3',
 	},
@@ -88,9 +92,8 @@ const resultGroupStyles = css({
 
 const resultGroupHeadingStyles = css({
 	color: token('color.text.subtle'),
-	font: token('font.heading.xxsmall'),
+	font: token('font.heading.small'),
 	paddingBlockEnd: token('space.100'),
-	paddingInline: token('space.150'),
 });
 
 const emptyStateGridItemStyles = css({
@@ -174,10 +177,7 @@ export const RegistryElementBrowserSearchResults = ({
 	const hasFallbackItems = Boolean(
 		!isLoading && items.length === 0 && query.trim().length > 0 && fallbackItems?.length,
 	);
-	const resultsLabel = formatMessage({
-		defaultMessage: 'Element results',
-		id: 'editor.quick-insert.results-label',
-	});
+	const resultsLabel = formatMessage(messages.elementBrowserResultsLabel);
 	const displayedItems = hasFallbackItems && fallbackItems ? fallbackItems : items;
 	const groups =
 		recommendedItems.length > 0
@@ -190,12 +190,7 @@ export const RegistryElementBrowserSearchResults = ({
 					{
 						items,
 						key: 'all-elements',
-						title: formatMessage({
-							defaultMessage: 'All elements',
-							description:
-								'Heading above the remaining elements in the element browser All category, shown below the Recommended elements.',
-							id: 'editor.quick-insert.all-elements',
-						}),
+						title: formatMessage(messages.elementBrowserAllElements),
 					},
 				].filter((group) => group.items.length > 0)
 			: undefined;

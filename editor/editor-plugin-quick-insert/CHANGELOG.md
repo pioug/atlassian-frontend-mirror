@@ -1,5 +1,37 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 30.0.12
+
+### Patch Changes
+
+- [`5dc6e8c217a9a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5dc6e8c217a9a) -
+  [EDITOR-10045] Behind `platform_editor_slash_command`: in the `/` and toolbar `+` menus, every
+  category lists all the items it owns (their first declared parent), including recommended ones, so
+  a recommended item is listed in Recommended and in its category. Hovering one copy of a duplicated
+  item shows one preview. Search results and the Element Browser are unchanged.
+- Updated dependencies
+
+## 30.0.11
+
+### Patch Changes
+
+- [`1754902b31de6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1754902b31de6) -
+  Element Browser (platform_editor_slash_command experiment): section headings use Heading/S and
+  align with the tiles. Ask Rovo uses a 770x240 preview image with `cover`, so its dotted background
+  fills every tile and the slash-menu preview. Element Browser strings come from editor-common
+  messages.
+- Updated dependencies
+
+## 30.0.10
+
+### Patch Changes
+
+- [`39a39edab3875`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/39a39edab3875) -
+  [EDITOR-10075] Behind the platform_editor_block_control_inp experiment, the block control quick
+  insert button prepares the cursor and opens the typeahead in a single transaction instead of up to
+  four dispatches, improving click responsiveness (INP).
+- Updated dependencies
+
 ## 30.0.9
 
 ### Patch Changes

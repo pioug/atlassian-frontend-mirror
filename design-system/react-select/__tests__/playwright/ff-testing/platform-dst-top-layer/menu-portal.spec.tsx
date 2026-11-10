@@ -92,7 +92,7 @@ test.describe('react-select MenuPortal - top-layer-specific contracts', () => {
 		// modal swallows the keyboard activation.
 		await page.keyboard.press('ArrowDown');
 		await page.keyboard.press('Enter');
-		await expect(listbox).toBeHidden();
+		await expect(page.getByRole('listbox', { includeHidden: true })).toHaveCount(0);
 		await expect(page.getByText('Brisbane', { exact: true })).toBeVisible();
 	});
 
@@ -233,7 +233,7 @@ test.describe('react-select MenuPortal - top-layer-specific contracts', () => {
 		await expect(page.getByRole('listbox')).toBeVisible();
 
 		await page.getByRole('option', { name: 'Brisbane' }).click();
-		await expect(page.getByRole('listbox')).toHaveCount(0);
+		await expect(page.getByRole('listbox', { includeHidden: true })).toHaveCount(0);
 		await expect(combobox).toHaveValue('');
 		await expect(page.getByText('Brisbane', { exact: true })).toBeVisible();
 		await expect(page.getByTestId('menu-close-count')).toHaveText('1');

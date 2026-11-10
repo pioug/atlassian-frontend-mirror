@@ -1,9 +1,9 @@
 import React from 'react';
 
 import IconButton from '@atlaskit/button/icon/button';
-import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
-import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
-import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
+import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';
+import { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-item-group';
+import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
 import Heading from '@atlaskit/heading/heading';
 import StarStarredIcon from '@atlaskit/icon/core/star-starred';
 import StoryObject from '@atlaskit/object/story';

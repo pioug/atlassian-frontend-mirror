@@ -1,5 +1,84 @@
 # @atlaskit/editor-common
 
+## 134.15.0
+
+### Minor Changes
+
+- [`5dc6e8c217a9a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5dc6e8c217a9a) -
+  [EDITOR-10045] Under the `platform_editor_slash_command` experiment, `useRegisteredMenu` and
+  `RegisteredMenuList` show a preview only on the selected row, so hovering one copy of an item
+  listed in two sections previews only that copy. `useRegisteredMenu` returns `isPreviewOpen` and
+  `RegisteredMenuList` accepts an `isPreviewOpen` prop, replacing `activeItemKey`; the item
+  callbacks take the item index instead of its key.
+
+## 134.14.0
+
+### Minor Changes
+
+- [`1754902b31de6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1754902b31de6) -
+  Element Browser (platform_editor_slash_command experiment): Quick Insert preview images accept an
+  optional `objectFit` (`contain` by default, or `cover` to crop the image to fill its area). Item
+  titles in Element Browser tiles and slash-menu previews use `color.text`. Adds Element Browser
+  messages for the dialog title, search, category and result labels.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 134.13.0
+
+### Minor Changes
+
+- [`47ddac78e97b7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/47ddac78e97b7) -
+  Add an optional `id` prop to the floating toolbar `Button`, and the
+  `@atlaskit/editor-common/credit-guard/floating-toolbar-button`
+  (`CreditCheckedFloatingToolbarButton`) and
+  `@atlaskit/editor-common/credit-guard/floating-toolbar-item`
+  (`getCreditCheckedFloatingToolbarItem`) entry points, which wrap a floating toolbar button so it
+  checks `getAICreditStatus` before running and anchors the product's credits popup to itself when
+  credits are blocked.
+- [`3d2733c4e7948`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d2733c4e7948) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 134.12.0
+
+### Minor Changes
+
+- [`359422f69ffa7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/359422f69ffa7) -
+  Add a pinned primary-toolbar Loom button beside media behind twc_growth_loom_conf_pinned_toolbar,
+  reusing existing recording and access actions. Use “Record a Loom” for the pinned button tooltip
+  and accessible label while preserving the overflow menu wording.
+
+  Add an optional editorAppearance plugin option to register the pinned entry point only for page
+  editors, supporting full-page, full-width, and max appearances.
+
+  Centralize Loom toolbar keys and ranks and render its responsive container in the registered
+  group, while omitting the entire group when product eligibility hides the button.
+
+### Patch Changes
+
+- [`118340b8c0a41`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/118340b8c0a41) -
+  Extract the Suggested Edits card into @atlassian/ai-suggestions-ui-components and select the same
+  new card at the editor and Confluence consumer boundaries under
+  platform_editor_ai_content_suggested_edits_labs. Keep new card unit and VR coverage alongside the
+  shared components in @atlassian/ai-suggestions-ui-components. Retain the existing implementations
+  for Labs-off and preserve product-specific behavior. Improve the outdated suggestion card
+  treatment under platform_editor_ai_content_suggested_edits_labs.
+- Updated dependencies
+
+## 134.11.2
+
+### Patch Changes
+
+- [`e0fb460e4c662`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e0fb460e4c662) -
+  Use named dropdown menu component imports from their dedicated export paths.
+- Updated dependencies
+
 ## 134.11.1
 
 ### Patch Changes

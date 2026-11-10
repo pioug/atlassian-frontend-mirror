@@ -11,10 +11,12 @@ const wrapGap = token('space.150', '12px');
 const noWrapGap = token('space.300', '24px');
 
 /* eslint-disable @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-important-styles -- Styles injected via Global; !important overrides extension inline width */
+// Native Tabs emits this boundary marker under its existing experiment. An embed may
+// live inside a tab, but its alignment/chrome must never restyle the enclosing Tabs macro.
 export const nativeEmbedAlignmentStyles: SerializedStyles = css({
 	// Remove margin on extension-overflow-wrapper when it contains a native embed to prevent width overflow.
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Target overflow wrapper by data attribute
-	'.extension-overflow-wrapper:has([data-native-embed-alignment])': {
+	'.extension-overflow-wrapper:not(:has([data-native-tabs])):has([data-native-embed-alignment])': {
 		margin: '0 !important',
 	},
 	// The renderer sets overflow-x:auto on .ak-renderer-extension-overflow-container, which clips a
@@ -22,10 +24,11 @@ export const nativeEmbedAlignmentStyles: SerializedStyles = css({
 	// working (the scroll container also becomes the reference for the 50% offset). Override to
 	// visible so the embed can break out symmetrically on both sides, exactly as images do.
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Target overflow container by data attribute
-	'.ak-renderer-extension-overflow-container:has([data-native-embed-alignment])': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- !important string requires type cast incompatible with the CSSProperties type
-		overflowX: 'visible !important' as 'visible',
-	},
+	'.ak-renderer-extension-overflow-container:not(:has([data-native-tabs])):has([data-native-embed-alignment])':
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- !important string requires type cast incompatible with the CSSProperties type
+			overflowX: 'visible !important' as 'visible',
+		},
 	// For a center-aligned embed with an explicit pixel width, the outer .ak-renderer-extension
 	// wrapper's width is set directly as an inline style by the native embed useEffect (to override
 	// the renderer's own inline style="width:100%"). These CSS rules apply the centering transforms
@@ -35,7 +38,7 @@ export const nativeEmbedAlignmentStyles: SerializedStyles = css({
 	// the embed to break out of the narrow layout column (unlike 100% which would
 	// clamp to the ~760px parent).
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Target renderer extension wrapper by data attribute
-	'.ak-renderer-extension:has([data-native-embed-alignment="center"]):has([data-native-embed-width])':
+	'.ak-renderer-extension:not(:has([data-native-tabs])):has([data-native-embed-alignment="center"]):has([data-native-embed-width])':
 		{
 			position: 'relative',
 			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space -- geometric centering offset, not a spacing value
@@ -52,12 +55,12 @@ export const nativeEmbedAlignmentStyles: SerializedStyles = css({
 	// that containment off only while an explicit-width placeholder is mounted; the native embed UI
 	// restores the normal renderer path once it loads and imperatively sizes the outer wrapper.
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Target the renderer-owned size container by the shared placeholder marker
-	'.ak-renderer-extension-inner-wrapper:has([data-native-embed-initial-placeholder="true"][data-native-embed-width])':
+	'.ak-renderer-extension-inner-wrapper:not(:has([data-native-tabs])):has([data-native-embed-initial-placeholder="true"][data-native-embed-width])':
 		{
 			containerType: 'normal',
 		},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Target the renderer-owned wrapper by the shared native embed placeholder marker
-	'.ak-renderer-extension:has([data-native-embed-initial-placeholder="true"][data-native-embed-width])':
+	'.ak-renderer-extension:not(:has([data-native-tabs])):has([data-native-embed-initial-placeholder="true"][data-native-embed-width])':
 		{
 			width: 'fit-content !important',
 			maxWidth: '100cqw',
@@ -80,7 +83,7 @@ export const nativeEmbedAlignmentStyles: SerializedStyles = css({
 	// embed runtime's DOM nesting detection instead: table cells/headers, expands, layouts, enclosing
 	// extensions, sync blocks, and panels clamp the placeholder to the immediate containing node.
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Mirror native embed runtime nesting ancestors before its mounting effect is available
-	'td .ak-renderer-extension:has([data-native-embed-initial-placeholder="true"][data-native-embed-width]), th .ak-renderer-extension:has([data-native-embed-initial-placeholder="true"][data-native-embed-width]), [data-node-type="expand"] .ak-renderer-extension:has([data-native-embed-initial-placeholder="true"][data-native-embed-width]), [data-layout-section] .ak-renderer-extension:has([data-native-embed-initial-placeholder="true"][data-native-embed-width]), .ak-renderer-extension .ak-renderer-extension:has([data-native-embed-initial-placeholder="true"][data-native-embed-width]), [data-bodied-sync-block] .ak-renderer-extension:has([data-native-embed-initial-placeholder="true"][data-native-embed-width]), .ak-editor-panel .ak-renderer-extension:has([data-native-embed-initial-placeholder="true"][data-native-embed-width])':
+	'td .ak-renderer-extension:not(:has([data-native-tabs])):has([data-native-embed-initial-placeholder="true"][data-native-embed-width]), th .ak-renderer-extension:not(:has([data-native-tabs])):has([data-native-embed-initial-placeholder="true"][data-native-embed-width]), [data-node-type="expand"] .ak-renderer-extension:not(:has([data-native-tabs])):has([data-native-embed-initial-placeholder="true"][data-native-embed-width]), [data-layout-section] .ak-renderer-extension:not(:has([data-native-tabs])):has([data-native-embed-initial-placeholder="true"][data-native-embed-width]), .ak-renderer-extension .ak-renderer-extension:not(:has([data-native-tabs])):has([data-native-embed-initial-placeholder="true"][data-native-embed-width]), [data-bodied-sync-block] .ak-renderer-extension:not(:has([data-native-tabs])):has([data-native-embed-initial-placeholder="true"][data-native-embed-width]), .ak-editor-panel .ak-renderer-extension:not(:has([data-native-tabs])):has([data-native-embed-initial-placeholder="true"][data-native-embed-width])':
 		{
 			maxWidth: '100%',
 		},
@@ -88,7 +91,7 @@ export const nativeEmbedAlignmentStyles: SerializedStyles = css({
 	// Combined selectors cover both .extension-container (editor) and .ak-renderer-extension (renderer)
 	// which use different wrapper class names for the same structural element.
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Target extension wrappers by data attribute
-	'.extension-container:has([data-native-embed-alignment]):not(:has([data-native-embed-width])), .ak-renderer-extension:has([data-native-embed-alignment]):not(:has([data-native-embed-width]))':
+	'.extension-container:not(:has([data-native-tabs])):has([data-native-embed-alignment]):not(:has([data-native-embed-width])), .ak-renderer-extension:not(:has([data-native-tabs])):has([data-native-embed-alignment]):not(:has([data-native-embed-width]))':
 		{
 			width: '100% !important',
 			marginLeft: '0 !important',
@@ -100,7 +103,7 @@ export const nativeEmbedAlignmentStyles: SerializedStyles = css({
 	// Borderless experiences keep the smaller core wrapper radius so their iframe content is not clipped
 	// to a framed shape they do not visually own.
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Target extension wrappers by the resolved showBorder value
-	'.extension-container:has([data-native-embed-show-border="true"]), .ak-renderer-extension:has([data-native-embed-show-border="true"])':
+	'.extension-container:not(:has([data-native-tabs])):has([data-native-embed-show-border="true"]), .ak-renderer-extension:not(:has([data-native-tabs])):has([data-native-embed-show-border="true"])':
 		{
 			borderRadius: token('radius.xlarge'),
 		},
@@ -111,7 +114,7 @@ export const nativeEmbedAlignmentStyles: SerializedStyles = css({
 	// In the renderer, width is set directly as an inline style on .ak-renderer-extension (overriding
 	// the renderer's own inline style="width:100%"), so no CSS variable rule is needed for the renderer.
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Target nested extension container by data attribute on the container itself
-	'.extension-container[data-native-embed-nested]:has([data-native-embed-alignment]):has([data-native-embed-width])':
+	'.extension-container:not(:has([data-native-tabs]))[data-native-embed-nested]:has([data-native-embed-alignment]):has([data-native-embed-width])':
 		{
 			maxWidth: 'var(--native-embed-width) !important',
 			paddingLeft: '0 !important',
@@ -123,7 +126,7 @@ export const nativeEmbedAlignmentStyles: SerializedStyles = css({
 	// `.fabric-editor--full-width-mode:not(:has(#chromeless-editor))` with specificity (1, 3, 0).
 	// Without the second selector, the native embed's (0, 3, 0) rule loses the cascade battle.
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Second selector matches specificity of editor-core's full-width-mode rule; own ID won't work as our div is inside .extension-container, not an ancestor
-	'.extension-container:not([data-native-embed-nested]):has([data-native-embed-alignment]):has([data-native-embed-width]), .fabric-editor--full-width-mode:not(:has(#chromeless-editor)) .extension-container.block:not([data-native-embed-nested]):has([data-native-embed-alignment]):has([data-native-embed-width])':
+	'.extension-container:not(:has([data-native-tabs])):not([data-native-embed-nested]):has([data-native-embed-alignment]):has([data-native-embed-width]), .fabric-editor--full-width-mode:not(:has(#chromeless-editor)) .extension-container:not(:has([data-native-tabs])).block:not([data-native-embed-nested]):has([data-native-embed-alignment]):has([data-native-embed-width])':
 		{
 			width: 'var(--native-embed-width) !important',
 			paddingLeft: '0 !important',
@@ -134,7 +137,7 @@ export const nativeEmbedAlignmentStyles: SerializedStyles = css({
 	// actual layout-column DOM ancestry so an embed in a column still shrinks to
 	// the column instead of taking its stored pixel width.
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- DOM ancestry fallback for transient missing data-native-embed-nested
-	'.ProseMirror [data-layout-column] .extension-container:has([data-native-embed-alignment]):has([data-native-embed-width]), .fabric-editor--full-width-mode:not(:has(#chromeless-editor)) [data-layout-column] .extension-container.block:has([data-native-embed-alignment]):has([data-native-embed-width])':
+	'.ProseMirror [data-layout-column] .extension-container:not(:has([data-native-tabs])):has([data-native-embed-alignment]):has([data-native-embed-width]), .fabric-editor--full-width-mode:not(:has(#chromeless-editor)) [data-layout-column] .extension-container:not(:has([data-native-tabs])).block:has([data-native-embed-alignment]):has([data-native-embed-width])':
 		{
 			width: 'auto !important',
 			maxWidth: 'var(--native-embed-width) !important',
@@ -146,7 +149,7 @@ export const nativeEmbedAlignmentStyles: SerializedStyles = css({
 	// panel wrapper used by the old style and the content wrapper introduced by
 	// the new style, but only while the native embed containment kill switch is off.
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- DOM ancestry fallback for transient missing data-native-embed-nested
-	'.ProseMirror .ak-editor-panel .extension-container:has([data-native-embed-panel-resize-containment="true"]):has([data-native-embed-alignment]):has([data-native-embed-width]), .ProseMirror .ak-editor-panel__content .extension-container:has([data-native-embed-panel-resize-containment="true"]):has([data-native-embed-alignment]):has([data-native-embed-width]), .fabric-editor--full-width-mode:not(:has(#chromeless-editor)) .ak-editor-panel .extension-container.block:has([data-native-embed-panel-resize-containment="true"]):has([data-native-embed-alignment]):has([data-native-embed-width]), .fabric-editor--full-width-mode:not(:has(#chromeless-editor)) .ak-editor-panel__content .extension-container.block:has([data-native-embed-panel-resize-containment="true"]):has([data-native-embed-alignment]):has([data-native-embed-width])':
+	'.ProseMirror .ak-editor-panel .extension-container:not(:has([data-native-tabs])):has([data-native-embed-panel-resize-containment="true"]):has([data-native-embed-alignment]):has([data-native-embed-width]), .ProseMirror .ak-editor-panel__content .extension-container:not(:has([data-native-tabs])):has([data-native-embed-panel-resize-containment="true"]):has([data-native-embed-alignment]):has([data-native-embed-width]), .fabric-editor--full-width-mode:not(:has(#chromeless-editor)) .ak-editor-panel .extension-container:not(:has([data-native-tabs])).block:has([data-native-embed-panel-resize-containment="true"]):has([data-native-embed-alignment]):has([data-native-embed-width]), .fabric-editor--full-width-mode:not(:has(#chromeless-editor)) .ak-editor-panel__content .extension-container:not(:has([data-native-tabs])).block:has([data-native-embed-panel-resize-containment="true"]):has([data-native-embed-alignment]):has([data-native-embed-width])':
 		{
 			width: 'auto !important',
 			maxWidth: 'var(--native-embed-width) !important',
@@ -155,13 +158,13 @@ export const nativeEmbedAlignmentStyles: SerializedStyles = css({
 		},
 	// Override the extension wrapper's width so alignment margins take effect.
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Target extension wrappers by data attribute
-	'.extension-container:has([data-native-embed-alignment="left"]), .ak-renderer-extension:has([data-native-embed-alignment="left"])':
+	'.extension-container:not(:has([data-native-tabs])):has([data-native-embed-alignment="left"]), .ak-renderer-extension:not(:has([data-native-tabs])):has([data-native-embed-alignment="left"])':
 		{
 			margin: `${noWrapGap} auto ${noWrapGap} 0 !important`,
 			overflow: 'auto',
 		},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Target extension wrappers by data attribute
-	'.extension-container:has([data-native-embed-alignment="center"]), .ak-renderer-extension:has([data-native-embed-alignment="center"])':
+	'.extension-container:not(:has([data-native-tabs])):has([data-native-embed-alignment="center"]), .ak-renderer-extension:not(:has([data-native-tabs])):has([data-native-embed-alignment="center"])':
 		{
 			margin: `${noWrapGap} 0 !important`,
 			position: 'relative',
@@ -171,38 +174,42 @@ export const nativeEmbedAlignmentStyles: SerializedStyles = css({
 			marginRight: '0 !important',
 		},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Target extension wrappers by data attribute
-	'.extension-container:has([data-native-embed-alignment="right"]), .ak-renderer-extension:has([data-native-embed-alignment="right"])':
+	'.extension-container:not(:has([data-native-tabs])):has([data-native-embed-alignment="right"]), .ak-renderer-extension:not(:has([data-native-tabs])):has([data-native-embed-alignment="right"])':
 		{
 			margin: `${noWrapGap} 0 ${noWrapGap} auto !important`,
 			overflow: 'auto',
 		},
 	// wrap-left / wrap-right: float + margin like MediaSingle so text wraps around the embed.
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Target extension wrappers by data attribute
-	'.extension-container:has([data-native-embed-alignment="wrap-left"])': {
-		float: 'left',
-		margin: `${wrapGap} ${wrapGap} ${wrapGap} auto !important`,
-		maxWidth: `calc((var(--ak-editor-max-container-width, 100%) / 2) - ${wrapGap})`,
-	},
+	'.extension-container:not(:has([data-native-tabs])):has([data-native-embed-alignment="wrap-left"])':
+		{
+			float: 'left',
+			margin: `${wrapGap} ${wrapGap} ${wrapGap} auto !important`,
+			maxWidth: `calc((var(--ak-editor-max-container-width, 100%) / 2) - ${wrapGap})`,
+		},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Target extension wrappers by data attribute
-	'.ak-renderer-extension:has([data-native-embed-alignment="wrap-left"])': {
-		float: 'left',
-		margin: `${wrapGap} ${wrapGap} ${wrapGap} auto !important`,
-	},
+	'.ak-renderer-extension:not(:has([data-native-tabs])):has([data-native-embed-alignment="wrap-left"])':
+		{
+			float: 'left',
+			margin: `${wrapGap} ${wrapGap} ${wrapGap} auto !important`,
+		},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Target extension wrappers by data attribute
-	'.extension-container:has([data-native-embed-alignment="wrap-right"])': {
-		float: 'right',
-		margin: `${wrapGap} auto ${wrapGap} ${wrapGap} !important`,
-		maxWidth: `calc((var(--ak-editor-max-container-width, 100%) / 2) - ${wrapGap})`,
-	},
+	'.extension-container:not(:has([data-native-tabs])):has([data-native-embed-alignment="wrap-right"])':
+		{
+			float: 'right',
+			margin: `${wrapGap} auto ${wrapGap} ${wrapGap} !important`,
+			maxWidth: `calc((var(--ak-editor-max-container-width, 100%) / 2) - ${wrapGap})`,
+		},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Target extension wrappers by data attribute
-	'.ak-renderer-extension:has([data-native-embed-alignment="wrap-right"])': {
-		float: 'right',
-		margin: `${wrapGap} auto ${wrapGap} ${wrapGap} !important`,
-	},
+	'.ak-renderer-extension:not(:has([data-native-tabs])):has([data-native-embed-alignment="wrap-right"])':
+		{
+			float: 'right',
+			margin: `${wrapGap} auto ${wrapGap} ${wrapGap} !important`,
+		},
 	// Raised frames own their shadow and content clipping. The editor overflow wrapper and
 	// left/right alignment containers must let that shadow paint outside the frame bounds.
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Target host wrappers only when the experience opts into a raised frame
-	'.extension-overflow-wrapper:not(.with-body):has([data-native-embed-frame-elevation="raised"]), .extension-container:has([data-native-embed-frame-elevation="raised"]), .ak-renderer-extension:has([data-native-embed-frame-elevation="raised"])':
+	'.extension-overflow-wrapper:not(:has([data-native-tabs])):not(.with-body):has([data-native-embed-frame-elevation="raised"]), .extension-container:not(:has([data-native-tabs])):has([data-native-embed-frame-elevation="raised"]), .ak-renderer-extension:not(:has([data-native-tabs])):has([data-native-embed-frame-elevation="raised"])':
 		{
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Override editor-owned overflow styles regardless of injection order
 			overflow: 'visible !important' as 'visible',
@@ -215,11 +222,12 @@ export const nativeEmbedAlignmentStyles: SerializedStyles = css({
 	// Using :not(.ak-editor-selected-node *) avoids coupling to the intermediate DOM structure.
 	// In the renderer there is no selection ring so the :not() guard is not needed.
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Target extension wrapper hover by data attribute
-	'.extension-container:has([data-native-embed-alignment]):not(.ak-editor-selected-node *):hover': {
-		boxShadow: 'none !important',
-	},
+	'.extension-container:not(:has([data-native-tabs])):has([data-native-embed-alignment]):not(.ak-editor-selected-node *):hover':
+		{
+			boxShadow: 'none !important',
+		},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Target renderer extension wrapper hover by data attribute
-	'.ak-renderer-extension:has([data-native-embed-alignment]):hover': {
+	'.ak-renderer-extension:not(:has([data-native-tabs])):has([data-native-embed-alignment]):hover': {
 		boxShadow: 'none !important',
 	},
 	// Suppress the selection ring (box-shadow from .ak-editor-selected-node) for database embeds.
@@ -230,9 +238,10 @@ export const nativeEmbedAlignmentStyles: SerializedStyles = css({
 	// We target `.extension-container` directly using :has() to check for the experience attribute
 	// on the inner div, matching regardless of the intermediate DOM structure.
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Target extension-container for database embeds when selected
-	'.extension-container:has([data-native-embed-experience="database"])': {
-		boxShadow: 'none !important',
-	},
+	'.extension-container:not(:has([data-native-tabs])):has([data-native-embed-experience="database"])':
+		{
+			boxShadow: 'none !important',
+		},
 });
 
 // Kept separate so baseline and unidentified placeholders never install treatment-only CSS.

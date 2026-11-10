@@ -27,6 +27,7 @@ import { BlockCardConfluence } from '../../../examples/vr-block-card/vr-block-ca
 import { BlockCardEntities } from '../../../examples/vr-block-card/vr-block-card-resolved-entities.vr.ap';
 import BlockCardResolvedIconVariations from '../../../examples/vr-block-card/vr-block-card-resolved-icon-variations.vr.ap';
 import { BlockCardJira } from '../../../examples/vr-block-card/vr-block-card-resolved-jira.vr.ap';
+import VRBlockCardResolvedRovoActionsGoogleDoc from '../../../examples/vr-block-card/vr-block-card-resolved-rovo-actions-google-doc.vr.ap';
 import VRBlockCardResolvedRovoActions from '../../../examples/vr-block-card/vr-block-card-resolved-rovo-actions.vr.ap';
 import { BlockCardTrello } from '../../../examples/vr-block-card/vr-block-card-resolved-trello-image-preview.vr.ap';
 import { BlockCardUnauthorisedMultipleProviders } from '../../../examples/vr-block-card/vr-block-card-unauthorised-multiple-providers.vr.ap';
@@ -210,5 +211,13 @@ snapshot(FlexibleUiErroredTitleBlockCompetitorPrompt, {
 });
 
 snapshot(VRBlockCardResolvedRovoActions, {
+	waitForReactLazy: true,
+});
+
+snapshot(VRBlockCardResolvedRovoActionsGoogleDoc, {
+	description: 'block card Google Doc with Summarize Rovo action',
+	featureFlags: {
+		platform_sl_rovo_summarize_icon_consistency: true,
+	},
 	waitForReactLazy: true,
 });

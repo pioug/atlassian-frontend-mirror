@@ -1312,6 +1312,9 @@ const editorContentStyles = cssMapScoped({
 			backgroundColor: token('color.background.danger'),
 			boxShadow: `0 0 0 ${token('space.025')} ${token('color.background.danger')}`,
 		},
+		'.ProseMirror [data-rule-node-view].ak-editor-selected-node.danger > hr': {
+			backgroundColor: token('color.border.danger'),
+		},
 		// during the platform_editor_lovability_dividers clean up, consolidate this into firstBlockNodeStyles
 		'.ProseMirror > [data-rule-node-view]': {
 			marginTop: 0,

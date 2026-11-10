@@ -23,12 +23,12 @@ for (const coordinated of [false, true]) {
 		);
 		const mainWidth = isInline ? rootWidth - panelWidth : rootWidth;
 		const area = isInline ? 'panel' : 'main';
-		// Splitters are hidden below 48rem; those cases retain CSS sizing after hydration.
-		const prepareCoordinator =
-			viewportWidth < 768
-				? (splitter: Locator) => expect(splitter).toBeHidden()
-				: (splitter: Locator) => splitter.focus();
-		const remainingFallbacks = viewportWidth < 768 ? 1 : 0;
+		// Only the legacy layout hides small-screen splitters and retains CSS sizing.
+		const isSplitterHidden = !coordinated && viewportWidth < 768;
+		const prepareCoordinator = isSplitterHidden
+			? (splitter: Locator) => expect(splitter).toBeHidden()
+			: (splitter: Locator) => splitter.focus();
+		const remainingFallbacks = isSplitterHidden ? 1 : 0;
 
 		test(`SSR geometry remains stable (viewport: ${viewportWidth}, Root: ${rootWidth}, chat: ${coordinated})`, async ({
 			page,

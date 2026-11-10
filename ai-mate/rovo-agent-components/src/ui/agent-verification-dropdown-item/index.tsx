@@ -3,7 +3,7 @@ import React, { useCallback } from 'react';
 import { useIntl } from 'react-intl';
 import { graphql, useFragment, useMutation } from 'react-relay';
 
-import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
+import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';
 import { useFlags } from '@atlaskit/flag/use-flags';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
 import SuccessIcon from '@atlaskit/icon/core/status-success';

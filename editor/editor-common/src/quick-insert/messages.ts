@@ -47,6 +47,12 @@ export const messages: Messages<
 	| 'navigation'
 	| 'reporting'
 	| 'visuals'
+	| 'elementBrowserAllElements'
+	| 'elementBrowserCategoriesLabel'
+	| 'elementBrowserResultsAvailable'
+	| 'elementBrowserResultsLabel'
+	| 'elementBrowserSearch'
+	| 'elementBrowserTitle'
 > = defineMessages({
 	help: {
 		id: 'fabric.editor.elementBrowser.help',
@@ -274,5 +280,41 @@ export const messages: Messages<
 		defaultMessage: 'Microsoft',
 		description:
 			'Microsoft company name shown as the creator in a slash-command preview attribution.',
+	},
+	elementBrowserAllElements: {
+		id: 'editor.quick-insert.all-elements',
+		defaultMessage: 'All elements',
+		description:
+			'Heading above the remaining elements in the element browser All category, shown below the Recommended elements.',
+	},
+	elementBrowserCategoriesLabel: {
+		id: 'editor.quick-insert.categories-label',
+		defaultMessage: 'Element categories',
+		description:
+			'Accessible label for the group of category buttons in the element browser sidebar, read by screen readers.',
+	},
+	elementBrowserResultsAvailable: {
+		id: 'editor.quick-insert.results-available',
+		defaultMessage: '{count, plural, one {# result available} other {# results available}}',
+		description:
+			'Shown in the element browser footer. Tells the user how many elements match the current search and category.',
+	},
+	elementBrowserResultsLabel: {
+		id: 'editor.quick-insert.results-label',
+		defaultMessage: 'Element results',
+		description:
+			'Accessible label for the list of elements in the element browser, read by screen readers.',
+	},
+	elementBrowserSearch: {
+		id: 'editor.quick-insert.search',
+		defaultMessage: 'Search elements',
+		description:
+			'Accessible label for the search field at the top of the element browser, used to filter the elements that can be inserted.',
+	},
+	elementBrowserTitle: {
+		id: 'editor.quick-insert.title',
+		defaultMessage: 'Insert elements',
+		description:
+			'Title of the element browser dialog, where users browse and insert elements such as tables, panels and macros.',
 	},
 });

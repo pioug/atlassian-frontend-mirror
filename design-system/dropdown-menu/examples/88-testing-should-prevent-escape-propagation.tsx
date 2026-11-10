@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
+import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';
+import { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-item-group';
 import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
-import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-menu-item';
-import { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import ModalBody from '@atlaskit/modal-dialog/modal-body';

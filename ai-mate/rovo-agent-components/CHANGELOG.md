@@ -1,5 +1,22 @@
 # @atlaskit/rovo-agent-components
 
+## 10.8.1
+
+### Patch Changes
+
+- [`03f077bd839b2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/03f077bd839b2) -
+  Remove the fully rolled-out Request Resolver rename feature gate and legacy Rovo Service avatar.
+- [`e0fb460e4c662`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e0fb460e4c662) -
+  Use named dropdown menu component imports from their dedicated export paths.
+- Updated dependencies
+
+## 10.8.0
+
+### Minor Changes
+
+- [`c13009baa40e1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c13009baa40e1) -
+  Update i18n NPM package versions for ai-mate,ai,ai-opt-in,insights-ai-platform (Group 2)
+
 ## 10.7.2
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/collab-provider
 
+## 39.1.12
+
+### Patch Changes
+
+- [`76a9e522fc180`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76a9e522fc180) -
+  Delete unreachable source files
+- Updated dependencies
+
 ## 39.1.11
 
 ### Patch Changes

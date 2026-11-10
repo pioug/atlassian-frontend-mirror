@@ -56,6 +56,7 @@ const categoryGridStyles = css({
 	paddingInline: token('space.050'),
 	position: 'sticky',
 	top: 0,
+	// Narrow modal: categories become one horizontally scrolling row above the results.
 	'@media (max-width: 822px)': {
 		backgroundColor: token('elevation.surface.overlay'),
 		gridAutoColumns: 'max-content',
@@ -99,10 +100,7 @@ export const RegistryElementBrowserCategories = ({
 
 	return (
 		<div
-			aria-label={formatMessage({
-				defaultMessage: 'Element categories',
-				id: 'editor.quick-insert.categories-label',
-			})}
+			aria-label={formatMessage(messages.elementBrowserCategoriesLabel)}
 			css={categoryGridStyles}
 			data-testid="registry-element-browser-categories"
 			role="group"
@@ -119,7 +117,7 @@ export const RegistryElementBrowserCategories = ({
 				tabIndex={isAllSelected ? 0 : -1}
 			>
 				<Text align="start" color="inherit" maxLines={1} weight="medium">
-					{formatMessage({ defaultMessage: 'All', id: 'editor.quick-insert.all' })}
+					{formatMessage(messages.all)}
 				</Text>
 			</Button>
 			{sections.map((entry) => (

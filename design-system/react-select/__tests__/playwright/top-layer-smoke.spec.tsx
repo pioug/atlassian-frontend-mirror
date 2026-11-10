@@ -55,7 +55,7 @@ test.describe('react-select: top-layer smoke', () => {
 		await page.keyboard.press('ArrowDown');
 		await page.keyboard.press('Enter');
 
-		await expect(page.getByRole('listbox')).toBeHidden();
+		await expect(page.getByRole('listbox', { includeHidden: true })).toHaveCount(0);
 		await expect(page.getByText('Brisbane', { exact: true })).toBeVisible();
 	});
 

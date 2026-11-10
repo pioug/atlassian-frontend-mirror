@@ -5,7 +5,6 @@ import userEvent from '@testing-library/user-event';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import AnalyticsContext from '../../../../analytics/analyticsContext';
 import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '../../../../analytics/enums';
@@ -130,33 +129,13 @@ describe('Renderer - React/Nodes/CodeBlock', () => {
 		});
 	});
 
-	describe('aria-haspopup on the code block buttons', () => {
-		it('should not be set when the gate is enabled', () => {
-			passGate('platform_editor_a11y_codeblock_haspopup');
-			const { getByRole } = renderCodeBlock({
-				allowCopyToClipboard: true,
-				allowWrapCodeBlock: true,
-			});
-
-			expect(getByRole('button', { name: 'Copy code text' })).not.toHaveAttribute('aria-haspopup');
-			expect(getByRole('button', { name: 'Turn on wrap' })).not.toHaveAttribute('aria-haspopup');
+	it('should not set aria-haspopup on the code block buttons', () => {
+		const { getByRole } = renderCodeBlock({
+			allowCopyToClipboard: true,
+			allowWrapCodeBlock: true,
 		});
 
-		it('should be set when the gate is disabled', () => {
-			failGate('platform_editor_a11y_codeblock_haspopup');
-			const { getByRole } = renderCodeBlock({
-				allowCopyToClipboard: true,
-				allowWrapCodeBlock: true,
-			});
-
-			expect(getByRole('button', { name: 'Copy code text' })).toHaveAttribute(
-				'aria-haspopup',
-				'true',
-			);
-			expect(getByRole('button', { name: 'Turn on wrap' })).toHaveAttribute(
-				'aria-haspopup',
-				'true',
-			);
-		});
+		expect(getByRole('button', { name: 'Copy code text' })).not.toHaveAttribute('aria-haspopup');
+		expect(getByRole('button', { name: 'Turn on wrap' })).not.toHaveAttribute('aria-haspopup');
 	});
 });

@@ -29,6 +29,8 @@ const documentation: StructuredContentSource = {
 			],
 			contentGuidelines: [
 				'Use clear, concise text; use accurate labels (e.g. "Error", "Warning")',
+				'Use sentence case for labels, including AI-generated labels: "In progress" or "Off track", not "In Progress" or "IN PROGRESS".',
+				'Capitalize proper nouns and preserve acronyms. Preserve the original casing of existing user-generated labels.',
 				'Do not use for long text—lozenge is not focusable and truncation at ~200px is not accessible',
 				'Ensure text is meaningful and descriptive',
 				'Use consistent terminology across lozenges',
@@ -69,6 +71,8 @@ const documentation: StructuredContentSource = {
 			],
 			contentGuidelines: [
 				'Use clear, concise status labels',
+				'Use sentence case for labels, including AI-generated labels: "In progress" or "Off track", not "In Progress" or "IN PROGRESS".',
+				'Capitalize proper nouns and preserve acronyms. Preserve the original casing of existing user-generated labels.',
 				'Keep labels short—max 200px width causes truncation and lozenges are not focusable',
 				"Don't use color alone; use clear labels and supporting icons where relevant",
 			],

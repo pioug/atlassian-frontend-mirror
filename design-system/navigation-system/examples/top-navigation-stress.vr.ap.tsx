@@ -9,9 +9,9 @@ import { jsx } from '@compiled/react';
 
 import Badge from '@atlaskit/badge/badge';
 import { cssMap } from '@atlaskit/css';
-import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
-import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
-import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
+import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';
+import { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-item-group';
+import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
 import Heading from '@atlaskit/heading/heading';
 import EditionsIcon from '@atlaskit/icon-lab/core/editions';
 import AiChatIcon from '@atlaskit/icon/core/ai-chat';

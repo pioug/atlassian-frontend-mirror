@@ -8,38 +8,11 @@ import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor
 import { processPluginsList } from '../../../create-editor/create-editor';
 import { createPMPlugins } from '../../../create-editor/createPMPlugins';
 import { fixExcludes } from '../../../create-editor/fixExcludes';
-import { sortByRank } from '../../../create-editor/sortByRank';
 import type { EditorConfig } from '../../../types/editor-config';
 import { name } from '../../../version-wrapper';
 
 describe(name, () => {
 	describe('create-editor', () => {
-		describe('#sortByRank', () => {
-			it('should correctly sort object with rank property', () => {
-				const list = [
-					{ rank: 10 },
-					{ rank: 1 },
-					{ rank: 1000 },
-					{ rank: 30 },
-					{ rank: 100 },
-					{ rank: 40 },
-				];
-
-				const result = [
-					{ rank: 1 },
-					{ rank: 10 },
-					{ rank: 30 },
-					{ rank: 40 },
-					{ rank: 100 },
-					{ rank: 1000 },
-				];
-
-				list.sort(sortByRank);
-
-				expect(list.sort(sortByRank)).toEqual(result);
-			});
-		});
-
 		describe('#fixExcludes', () => {
 			it('should remove all unused marks from exclude', () => {
 				const marks = {

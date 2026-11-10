@@ -137,26 +137,27 @@ const readMenuSections = ({
 	return renderedSections;
 };
 
-const getOwnerSectionKey = (
-	item: RegisterMenuItem,
-	isRecommendedItem: (item: RegisterMenuItem) => boolean,
-): string | undefined => (isRecommendedItem(item) ? RECOMMENDED_SECTION.key : item.parents[0]?.key);
+const isOwnedBySection = (item: RegisterMenuItem, section: RegisterMenuSection): boolean =>
+	item.parents[0]?.key === section.key;
 
+/**
+ * Every category lists all the items it owns (first declared parent), so a recommended item also
+ * appears in its own category. Recommended lists the resolved items, which it never owns.
+ */
 const buildBrowseSections = ({
 	contentSections,
-	isRecommendedItem,
 	selectCategoryItems,
 }: {
 	contentSections: ContentSection[];
-	isRecommendedItem: (item: RegisterMenuItem) => boolean;
 	selectCategoryItems?: QuickInsertCategoryItemSelectionPolicy;
 }): QuickInsertMenuContent => {
 	const sections: RegisteredMenuSection[] = [];
 
 	for (const { items, section, viewMoreItem } of contentSections) {
-		const ownedItems = items.filter(
-			(item) => getOwnerSectionKey(item, isRecommendedItem) === section.key,
-		);
+		const ownedItems =
+			section.key === RECOMMENDED_SECTION.key
+				? items
+				: items.filter((item) => isOwnedBySection(item, section));
 		if (ownedItems.length === 0) {
 			continue;
 		}
@@ -176,14 +177,12 @@ const buildSearchSections = ({
 	components,
 	contentSections,
 	formatMessage,
-	isRecommendedItem,
 	query,
 	root,
 }: {
 	components: RegisterComponent[];
 	contentSections: ContentSection[];
 	formatMessage: IntlShape['formatMessage'];
-	isRecommendedItem: (item: RegisterMenuItem) => boolean;
 	query: string;
 	root: RegisterComponent;
 }): QuickInsertMenuContent => {
@@ -198,10 +197,7 @@ const buildSearchSections = ({
 				fallbackItem ??= item;
 			}
 			const match = item.match?.({ formatMessage, itemKey: item.key, query });
-			if (
-				(item.match && match === null) ||
-				getOwnerSectionKey(item, isRecommendedItem) !== section.key
-			) {
+			if ((item.match && match === null) || !isOwnedBySection(item, section)) {
 				continue;
 			}
 			const normalizedMatch = normalizeQuickInsertMatchResult(match);
@@ -299,21 +295,12 @@ export const getQuickInsertMenuModel = ({
 		({ section }) =>
 			!isMenuFooterSectionKey(section.key) && (isBrowse || section.key !== RECOMMENDED_SECTION.key),
 	);
-	const recommendedIdentities = new Set(
-		contentSections
-			.find(({ section }) => section.key === RECOMMENDED_SECTION.key)
-			?.items.map(getComponentIdentity),
-	);
-	const isRecommendedItem = (item: RegisterMenuItem) =>
-		recommendedIdentities.has(getComponentIdentity(item));
-
 	const content = isBrowse
-		? buildBrowseSections({ contentSections, isRecommendedItem, selectCategoryItems })
+		? buildBrowseSections({ contentSections, selectCategoryItems })
 		: buildSearchSections({
 				components: rankedComponents,
 				contentSections,
 				formatMessage,
-				isRecommendedItem,
 				query,
 				root,
 			});

@@ -15,7 +15,7 @@ describe('date-parser', () => {
 		});
 	});
 	// TODO: Failing / Inconsistent on Landkid.
-	describe.skip('Partial Dates', () => {
+	describe('Partial Dates', () => {
 		const parseDate = createDateParser('en-US');
 		const now = toDateObj(new Date());
 
@@ -31,7 +31,7 @@ describe('date-parser', () => {
 		});
 	});
 
-	describe.skip('defaults to the first of the selected month', () => {
+	describe('defaults to the first of the selected month', () => {
 		const parseDate = createDateParser('en-US');
 		const now = toDateObj(new Date());
 
@@ -46,7 +46,7 @@ describe('date-parser', () => {
 			).toEqual(expected);
 		});
 	});
-	describe.skip('Partial Month Dates defaultFirstDay false', () => {
+	describe('Partial Month Dates defaultFirstDay false', () => {
 		const parseDate = createDateParser('en-US');
 		const now = toDateObj(new Date());
 

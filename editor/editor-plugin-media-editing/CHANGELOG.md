@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-media-editing
 
+## 24.0.3
+
+### Patch Changes
+
+- [`e0fb460e4c662`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e0fb460e4c662) -
+  Use named dropdown menu component imports from their dedicated export paths.
+- Updated dependencies
+
 ## 24.0.2
 
 ### Patch Changes

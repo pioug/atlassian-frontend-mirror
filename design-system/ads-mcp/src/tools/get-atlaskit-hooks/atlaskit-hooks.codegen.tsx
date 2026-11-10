@@ -3,7 +3,7 @@
  *
  * Structured content hooks from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::5a256eea96620feac883f72ce361e3c7>>
+ * @codegen <<SignedSource::b5f167ff34a386b064b052413e41a745>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -2435,23 +2435,6 @@ export const atlaskitHooks: HookMcpPayload[] = [
 		},
 		package: '@atlassian/rovo-spaces',
 		examples: [],
-	},
-	{
-		name: 'useSpaceSourcePlugins',
-		description: 'Creates the Link Picker plugins used to select supported space sources.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Build the picker plugins with the cloud ID from the active site, then pass them into the authenticated Link Picker context. The hook supplies Confluence, Jira, Atlas, and Loom sources.',
-		],
-		keywords: ['rovo', 'spaces', 'source', 'link picker'],
-		category: 'rovo',
-		returns: {
-			type: 'LinkPickerPlugin[]',
-		},
-		package: '@atlassian/rovo-spaces',
-		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { SourceLinkPickerPopup } from '@atlassian/rovo-spaces/ui/SpaceLandingPage/SourceLinkPickerPopup';\nimport type { SpaceSource } from '@atlassian/rovo-spaces/ui/SpaceLandingPage/types';\nimport { useSpaceSourcePlugins } from '@atlassian/rovo-spaces/ui/SpaceLandingPage/useSpaceSourcePlugins';\ntype SourceLinkPickerPopupExampleProps = {\n\t/** Cloud ID from the host's authenticated Link Picker integration context. */\n\tcloudId: string;\n\t/** Persist this source and then pass the updated source list back to the picker. */\n\tonPersistSource: (source: SpaceSource) => Promise<void>;\n};\nexport default function SourceLinkPickerPopupExample({\n\tcloudId,\n\tonPersistSource,\n}: SourceLinkPickerPopupExampleProps): React.JSX.Element {\n\tconst plugins = useSpaceSourcePlugins(cloudId);\n\tconst [sources, setSources] = useState<SpaceSource[]>([]);\n\tconst [message, setMessage] = useState<string>();\n\tconst handleSourceAdded = (source: SpaceSource) => {\n\t\t// The picker resolves a link; the host owns authorization and persistence.\n\t\tvoid onPersistSource(source).then(\n\t\t\t() => setSources((current) => [...current, source]),\n\t\t\t() => setMessage(`Could not add ${source.title}`),\n\t\t);\n\t};\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<SmartCardProvider>\n\t\t\t\t<Stack space=\"space.150\">\n\t\t\t\t\t<SourceLinkPickerPopup\n\t\t\t\t\t\tcloudId={cloudId}\n\t\t\t\t\t\tplugins={plugins}\n\t\t\t\t\t\tsources={sources}\n\t\t\t\t\t\tonSourceAdded={handleSourceAdded}\n\t\t\t\t\t\ttrigger={({ onClick, ...triggerProps }) => (\n\t\t\t\t\t\t\t<Button {...triggerProps} onClick={onClick}>\n\t\t\t\t\t\t\t\tAdd a source\n\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t)}\n\t\t\t\t\t/>\n\t\t\t\t\t{sources.map((source) => (\n\t\t\t\t\t\t<Text key={source.id} size=\"small\">\n\t\t\t\t\t\t\t{source.title}\n\t\t\t\t\t\t</Text>\n\t\t\t\t\t))}\n\t\t\t\t\t{message && (\n\t\t\t\t\t\t<Text size=\"small\" role=\"status\">\n\t\t\t\t\t\t\t{message}\n\t\t\t\t\t\t</Text>\n\t\t\t\t\t)}\n\t\t\t\t</Stack>\n\t\t\t</SmartCardProvider>\n\t\t</IntlProvider>\n\t);\n}",
-		],
 	},
 	{
 		name: 'useActionInvocationStatuses',

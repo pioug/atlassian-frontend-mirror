@@ -134,6 +134,12 @@ export type UserPickerProps = WithAnalyticsEventsProps & {
 	menuPortalTarget?: HTMLElement;
 	/** React-select prop for controlling menu position */
 	menuPosition?: 'absolute' | 'fixed';
+	/**
+	 * How the menu renders. The default `popup` mode renders it as a popup. The `inline` mode
+	 * renders it in place, in the parent layout. Use `inline` for a menu that is always open inside
+	 * another layer, for example a popup.
+	 */
+	menuRenderMode?: 'popup' | 'inline';
 	/** Whether to block scrolling actions */
 	menuShouldBlockScroll?: boolean;
 	/** Sets the minimum height of the user picker. If not set, the minimum height will be based on the "height" prop then "compact" or "normal" appearance if height is not set. */

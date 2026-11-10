@@ -10,10 +10,9 @@ import { defaultSchema } from '@atlaskit/editor-test-helpers/schema';
 import { CellSelection } from '../../cell-selection';
 import { tableEditing } from '../../pm-plugins/table-editing';
 import type { Command } from '../../types';
-import { addColumnAfter } from '../../utils/add-column-after';
-import { addColumnBefore } from '../../utils/add-column-before';
-import { addRowAfter } from '../../utils/add-row-after';
-import { addRowBefore } from '../../utils/add-row-before';
+import { addColumn } from '../../utils/add-column';
+import { addRow } from '../../utils/add-row';
+import { selectedRect } from '../../utils/selection-rect';
 import {
 	c,
 	c11,
@@ -32,6 +31,27 @@ describe('CellSelection', () => {
 		tr(/*16*/ cEmpty, /*20*/ cEmpty, /*24*/ cEmpty),
 		tr(/*30*/ cEmpty, /*34*/ cEmpty, /*36*/ cEmpty),
 	);
+
+	const addRowBefore: Command = (state, dispatch) => {
+		const rect = selectedRect(state);
+		dispatch?.(addRow(state.tr, rect, rect.top));
+		return true;
+	};
+	const addRowAfter: Command = (state, dispatch) => {
+		const rect = selectedRect(state);
+		dispatch?.(addRow(state.tr, rect, rect.bottom));
+		return true;
+	};
+	const addColumnBefore: Command = (state, dispatch) => {
+		const rect = selectedRect(state);
+		dispatch?.(addColumn(state.tr, rect, rect.left));
+		return true;
+	};
+	const addColumnAfter: Command = (state, dispatch) => {
+		const rect = selectedRect(state);
+		dispatch?.(addColumn(state.tr, rect, rect.right));
+		return true;
+	};
 
 	function run(anchor: number, head: number, command: Command) {
 		let state = EditorState.create({

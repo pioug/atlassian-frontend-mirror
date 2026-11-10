@@ -1,5 +1,3 @@
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-
 import type { InteractionMetrics } from '../../common';
 import { setUFOConfig } from '../../config';
 import { createPayloads } from '../createPayloads';
@@ -96,8 +94,7 @@ describe('createPayloads previous interaction id', () => {
 		global.PerformanceObserver = originalPerformanceObserver;
 	});
 
-	it('emits previousInteractionId when the gate is enabled and the id is present', async () => {
-		passGate('platform_ufo_emit_previous_interaction_id');
+	it('emits previousInteractionId when the id is present', async () => {
 		const interactionMetrics = await getInteractionMetrics(createMinimalInteraction());
 
 		expect(interactionMetrics.previousInteractionName).toBe('work-item');
@@ -105,7 +102,6 @@ describe('createPayloads previous interaction id', () => {
 	});
 
 	it('leaves previousInteractionId undefined when absent from the interaction', async () => {
-		passGate('platform_ufo_emit_previous_interaction_id');
 		const interaction = createMinimalInteraction();
 		delete interaction.previousInteractionId;
 
@@ -113,13 +109,5 @@ describe('createPayloads previous interaction id', () => {
 
 		expect(interactionMetrics.previousInteractionName).toBe('work-item');
 		expect(interactionMetrics.previousInteractionId).toBeUndefined();
-	});
-
-	it('omits previousInteractionId when the gate is disabled', async () => {
-		failGate('platform_ufo_emit_previous_interaction_id');
-		const interactionMetrics = await getInteractionMetrics(createMinimalInteraction());
-
-		expect(interactionMetrics.previousInteractionName).toBe('work-item');
-		expect(interactionMetrics).not.toHaveProperty('previousInteractionId');
 	});
 });

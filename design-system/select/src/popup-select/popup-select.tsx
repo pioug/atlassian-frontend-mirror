@@ -169,6 +169,18 @@ export interface PopupSelectProps<
 	 * If `true`, the input value will be kept when an option is selected. The default is `false`.
 	 */
 	shouldKeepInputOnSelect?: boolean;
+	/**
+	 * Stops the Escape `keydown` event from propagating when Escape closes the popup.
+	 *
+	 * This prop does nothing when `platform-dst-top-layer` is on. There, the popup is a top-layer
+	 * layer, and the top layer gives one Escape press to one layer: the popup closes and the layer
+	 * under it stays open. To copy the legacy behaviour, PopupSelect would have to call
+	 * `stopPropagation()`, which hides Escape from document listeners. Remove this prop when the
+	 * gate is cleaned up.
+	 *
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-14529 Internal documentation for deprecation (no external access)}. Does nothing on the top-layer path, where Escape already closes only the popup.
+	 */
+	shouldPreventEscapePropagation?: boolean;
 }
 
 interface State<Modifiers = string> {

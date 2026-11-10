@@ -1,7 +1,6 @@
 import React from 'react';
 
 import AudioIcon from '@atlaskit/icon/core/audio';
-import IconTile from '@atlaskit/icon/icon-tile';
 import { globalMediaEventEmitter } from '@atlaskit/media-client/global-media-event-emitter';
 import type { MediaClient } from '@atlaskit/media-client/media-client';
 import type { MediaTraceContext } from '@atlaskit/media-common/analytics/types';
@@ -19,11 +18,11 @@ import {
 	Audio,
 	DefaultCoverWrapper,
 	CustomAudioPlayerWrapper,
-	CustomMediaPlayerWrapper,
 } from '../styleWrappers';
 import { getObjectUrlFromFileState } from '../utils/getObjectUrlFromFileState';
 import { isIE } from '../utils/isIE';
 import { type BaseState, BaseViewer } from './base-viewer';
+import { InsetAudioDefaultCover, InsetAudioFrame } from './inset-audio-frame';
 
 export type Props = Readonly<
 	{
@@ -57,20 +56,6 @@ const getCoverUrl = (
 	});
 
 class _AudioViewer extends BaseViewer<string, Props & WithInsetViewerFooterProps, State> {
-	componentDidMount(): void {
-		super.componentDidMount();
-		if (this.props.isInsetViewer) {
-			this.props.setHasPlayerControls?.(true);
-		}
-	}
-
-	componentWillUnmount(): void {
-		if (this.props.isInsetViewer) {
-			this.props.setHasPlayerControls?.(false);
-		}
-		super.componentWillUnmount();
-	}
-
 	protected get initialState(): {
 		content: Outcome<string, MediaViewerError>;
 	} {
@@ -86,14 +71,28 @@ class _AudioViewer extends BaseViewer<string, Props & WithInsetViewerFooterProps
 		if (coverUrl && item.status !== 'error') {
 			return <AudioCover src={coverUrl} alt={item.name} />;
 		} else if (this.props.isInsetViewer) {
-			return (
-				<DefaultCoverWrapper>
-					<IconTile icon={AudioIcon} label="cover" appearance="gray" size="xlarge" />
-				</DefaultCoverWrapper>
-			);
+			return <InsetAudioDefaultCover />;
 		} else {
 			return defaultCover;
 		}
+	};
+
+	private renderPlayer = (src: string, controlsPortalElement: HTMLElement | null | undefined) => {
+		const { item, showControls, previewCount, onCanPlay } = this.props;
+		return (
+			<CustomMediaPlayer
+				type="audio"
+				isAutoPlay={previewCount === 0}
+				src={src}
+				fileId={item.id}
+				isShortcutEnabled={true}
+				showControls={showControls}
+				onCanPlay={onCanPlay}
+				onFirstPlay={this.onFirstPlay}
+				onError={this.onError}
+				controlsPortalElement={controlsPortalElement}
+			/>
+		);
 	};
 
 	private saveAudioElement = (audioElement?: HTMLElement | null) => {
@@ -118,35 +117,31 @@ class _AudioViewer extends BaseViewer<string, Props & WithInsetViewerFooterProps
 	};
 
 	protected renderSuccessful(src: string): React.JSX.Element {
-		const { item, showControls, previewCount, onCanPlay, isInsetViewer, mediaFooterControls } =
-			this.props;
+		const { previewCount, isInsetViewer, mediaFooterControls } = this.props;
 
 		const useCustomAudioPlayer = !isIE();
 		const isAutoPlay = previewCount === 0;
+		if (useCustomAudioPlayer && isInsetViewer) {
+			return (
+				<InsetAudioFrame
+					cover={this.renderCover()}
+					renderPlayer={({ controlsPortalElement }) =>
+						this.renderPlayer(src, controlsPortalElement)
+					}
+				/>
+			);
+		}
 		if (useCustomAudioPlayer) {
-			const player = (
+			return (
 				<AudioPlayer data-testid="media-viewer-audio-content">
 					{this.renderCover()}
 					<CustomAudioPlayerWrapper>
 						<InsetViewerProvider isInsetViewer={isInsetViewer}>
-							<CustomMediaPlayer
-								type="audio"
-								isAutoPlay={isAutoPlay}
-								src={src}
-								fileId={item.id}
-								isShortcutEnabled={true}
-								showControls={showControls}
-								onCanPlay={onCanPlay}
-								onFirstPlay={this.onFirstPlay}
-								onError={this.onError}
-								controlsPortalElement={mediaFooterControls}
-							/>
+							{this.renderPlayer(src, mediaFooterControls)}
 						</InsetViewerProvider>
 					</CustomAudioPlayerWrapper>
 				</AudioPlayer>
 			);
-			// Same stage wrapper as the video, so audio fills the stage the same way.
-			return isInsetViewer ? <CustomMediaPlayerWrapper>{player}</CustomMediaPlayerWrapper> : player;
 		}
 		return (
 			<AudioPlayer>

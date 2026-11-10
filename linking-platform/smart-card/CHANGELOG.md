@@ -1,5 +1,32 @@
 # @atlaskit/smart-card
 
+## 46.13.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.13.15
+
+### Patch Changes
+
+- [`94556d43a90e7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/94556d43a90e7) -
+  Behind feature gate `platform_smartlink_cardssr_missing_events`:
+
+  - CardSSR fires the analytics and UFO events it was missing compared to Card: `renderFailed`,
+    `chunkLoadFailed`, `smart-link-rendered` and `smart-link-authenticated` UFO failures and
+    `onError` on render failure, the sampled `smart-link-rendered` UFO experience (started at the
+    active UFO interaction start time, with `ssr` and `timingStrategy` metadata) and performance
+    marks/measures cleanup on unmount.
+  - Card and CardSSR `chunkLoadFailed` event reports `display: 'flexible'` for flexible cards.
+
+- [`334b49b293c0a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/334b49b293c0a) -
+  Use the same Summarize Rovo action icon (AiGenerativeTextSummaryIcon) in inline, block and embed
+  cards behind the feature gate `platform_sl_rovo_summarize_icon_consistency`.
+- [`e0fb460e4c662`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e0fb460e4c662) -
+  Use named dropdown menu component imports from their dedicated export paths.
+- Updated dependencies
+
 ## 46.13.14
 
 ### Patch Changes

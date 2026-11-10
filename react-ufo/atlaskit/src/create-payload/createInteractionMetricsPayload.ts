@@ -382,7 +382,7 @@ export async function createInteractionMetricsPayload(
 					abortReason,
 					featureFlags,
 					previousInteractionName,
-					...(fg('platform_ufo_emit_previous_interaction_id') ? { previousInteractionId } : {}),
+					previousInteractionId,
 					isPreviousInteractionAborted,
 					abortedByInteractionName,
 

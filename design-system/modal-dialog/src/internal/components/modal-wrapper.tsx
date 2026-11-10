@@ -120,7 +120,7 @@ const surfaceStyles = cssMap({
 			outlineWidth: token('border.width.focused'),
 		},
 
-		// Allow scrolling when children are wrapped in a form
+		// Allow scrolling when children are wrapped in a form.
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'& > form:only-child': {
 			display: 'inherit',
@@ -138,6 +138,17 @@ const surfaceStyles = cssMap({
 		'@media (min-width: 30rem)': {
 			borderRadius: token('radius.xlarge', '12px'),
 		},
+	},
+});
+
+const formWithStatusAnnouncementStyles = css({
+	// Allow a direct form to scroll when a fixed-position live region is also a direct child.
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'& > form': {
+		display: 'inherit',
+		minHeight: '0px',
+		maxHeight: 'inherit',
+		flexDirection: 'inherit',
 	},
 });
 
@@ -525,6 +536,7 @@ function ModalWrapperTopLayer(props: InternalModalWrapperProps): React.ReactNode
 					ref={contentRef}
 					css={[
 						surfaceStyles.root,
+						fg('dst_platform-global_ep_status_announcement') && formWithStatusAnnouncementStyles,
 						!isFullScreen && surfaceStyles.borderRadius,
 						topLayerScrollModeStyles[scrollMode],
 					]}

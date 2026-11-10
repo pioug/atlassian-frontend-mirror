@@ -4,7 +4,7 @@
  */
 import { type KeyboardEvent, type MouseEvent, useContext, useEffect, useLayoutEffect } from 'react';
 
-import { cssMap, jsx } from '@atlaskit/css';
+import { cssMap, cx, jsx } from '@atlaskit/css';
 import MenuGroup from '@atlaskit/menu/menu-group';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled/box';
@@ -35,6 +35,15 @@ const styles = cssMap({
 	},
 });
 
+const semanticStyles = cssMap({
+	spinnerContainer: {
+		paddingBlockStart: token('space.inset.xxlarge'),
+		paddingInlineEnd: token('space.inset.xxlarge'),
+		paddingBlockEnd: token('space.inset.xxlarge'),
+		paddingInlineStart: token('space.inset.xxlarge'),
+	},
+});
+
 const LoadingIndicator = ({
 	statusLabel = 'Loading',
 	testId,
@@ -42,7 +51,13 @@ const LoadingIndicator = ({
 	statusLabel: MenuWrapperProps['statusLabel'];
 	testId?: string;
 }) => (
-	<Box xcss={styles.spinnerContainer} role="menuitem">
+	<Box
+		xcss={cx(
+			styles.spinnerContainer,
+			fg('platform-semantic-spacing') && semanticStyles.spinnerContainer,
+		)}
+		role="menuitem"
+	>
 		<Spinner size="small" label={statusLabel} testId={testId} />
 	</Box>
 );

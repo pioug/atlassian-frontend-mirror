@@ -1,5 +1,19 @@
 # @atlaskit/onboarding
 
+## 15.4.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.4.8
+
+### Patch Changes
+
+- [`b1cb68cc507c6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b1cb68cc507c6) -
+  Behind `platform_dst-modal_title_phase2`, the benefits modal renders its heading through
+  `ModalTitle`, keeping its original size and spacing. With the flag off, nothing changes.
+
 ## 15.4.7
 
 ### Patch Changes

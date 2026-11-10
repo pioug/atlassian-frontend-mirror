@@ -41,19 +41,19 @@ const styles = cssMap({
 });
 
 type Props = {
-	activePreviewItemKey?: string;
 	emptyStateHandler?: EmptyStateHandler;
+	isPreviewOpen?: boolean;
 	Item: React.ComponentType<RegisteredMenuItemProps>;
 	itemCount: number;
 	listId: string;
 	listLabel: string;
 	maxHeight: number;
 	model: RegisteredMenuModel;
-	onItemBlur: (key: string) => void;
-	onItemFocus: (index: number, key?: string) => void;
-	onItemHover: (index: number, key?: string) => void;
-	onItemLeave: (key: string) => void;
-	onItemVisibilityChange: (key: string, isVisible: boolean) => void;
+	onItemBlur: (index: number) => void;
+	onItemFocus: (index: number) => void;
+	onItemHover: (index: number) => void;
+	onItemLeave: (index: number) => void;
+	onItemVisibilityChange: (itemIndex: number, isVisible: boolean) => void;
 	onRenderedItemsChange: (range: { startIndex: number; stopIndex: number }) => void;
 	query: string;
 	rows: Array<RegisterMenuItem | RegisterMenuSection>;
@@ -66,7 +66,7 @@ export const ToolbarQuickInsertMenu = ({
 	model,
 	emptyStateHandler,
 	listLabel,
-	activePreviewItemKey,
+	isPreviewOpen,
 	itemCount,
 	listId,
 	maxHeight,
@@ -105,11 +105,11 @@ export const ToolbarQuickInsertMenu = ({
 	);
 	const onScrollableContentScroll = useCallback(
 		(event: React.UIEvent<HTMLDivElement>) => {
-			if (event.target === event.currentTarget && activePreviewItemKey) {
-				onItemVisibilityChange(activePreviewItemKey, false);
+			if (event.target === event.currentTarget && isPreviewOpen) {
+				onItemVisibilityChange(selectedItemIndex, false);
 			}
 		},
-		[activePreviewItemKey, onItemVisibilityChange],
+		[isPreviewOpen, onItemVisibilityChange, selectedItemIndex],
 	);
 	if (!model.root) {
 		return null;
@@ -130,7 +130,7 @@ export const ToolbarQuickInsertMenu = ({
 							width={LIST_WIDTH}
 							maxHeight={listMaxHeight}
 							getItemId={getItemId}
-							activeItemKey={activePreviewItemKey}
+							isPreviewOpen={isPreviewOpen}
 							selectedItemIndex={selectedItemIndex}
 							selectionSource={selectionSource}
 							scrollResetKey={query}

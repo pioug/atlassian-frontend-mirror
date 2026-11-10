@@ -130,6 +130,8 @@ export interface ReactionPickerProps
 	 * Provider for loading emojis
 	 */
 	emojiProvider: Promise<EmojiProvider>;
+	/** Whether a selection should focus its reaction button instead of the trigger. */
+	focusSelectedReaction?: (emojiId: string) => boolean;
 	/**
 	 * Optional prop for hoverable reaction picker
 	 */
@@ -206,6 +208,7 @@ export const ReactionPicker: React.MemoExoticComponent<
 		className,
 		contentId,
 		emojiProvider,
+		focusSelectedReaction,
 		onSelection,
 		allowAllEmojis,
 		disabled,
@@ -368,12 +371,13 @@ export const ReactionPicker: React.MemoExoticComponent<
 					: 'quickSelector',
 			);
 			close(item.id);
-			// After selecting an emoji, we would like focus to be returned to the trigger button
-			// This is for the purposes of navigation for keyboard users
-			requestAnimationFrame(() => triggerRef?.focus());
+			if (!focusSelectedReaction?.(item.id)) {
+				requestAnimationFrame(() => triggerRef?.focus());
+			}
 		},
 		[
 			close,
+			focusSelectedReaction,
 			onSelection,
 			settings.showFullPicker,
 			hoverableReactionPicker,

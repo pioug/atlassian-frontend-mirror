@@ -1,5 +1,23 @@
 # @atlaskit/react-select
 
+## 4.12.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.12.11
+
+### Patch Changes
+
+- [`29ee4d305fa27`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/29ee4d305fa27) -
+  Behind `platform-dst-top-layer`, a closed Select no longer renders a second time after mount.
+- [`29ee4d305fa27`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/29ee4d305fa27) -
+  Deprecate `shouldPreventEscapePropagation`. It does nothing behind `platform-dst-top-layer`, where
+  the open menu is its own layer and Escape closes only the menu.
+- [`9c17ba44aa91f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9c17ba44aa91f) -
+  Enable Select menu opening and closing animations when platform-dst-top-layer is enabled.
+
 ## 4.12.10
 
 ### Patch Changes

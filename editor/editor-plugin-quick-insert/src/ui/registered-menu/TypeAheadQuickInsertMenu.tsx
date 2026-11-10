@@ -30,19 +30,19 @@ const styles = cssMap({
 });
 
 type Props = {
-	activeItemKey?: string;
 	hasScrollPadding?: boolean;
+	isPreviewOpen?: boolean;
 	Item: React.ComponentType<RegisteredMenuItemProps>;
 	itemCount: number;
 	listId: string;
 	listLabel: string;
 	maxHeight: number;
 	model: RegisteredMenuModel;
-	onItemBlur: (itemKey: string) => void;
-	onItemFocus: (itemIndex: number, itemKey?: string) => void;
-	onItemHover: (itemIndex: number, itemKey?: string) => void;
-	onItemLeave: (itemKey: string) => void;
-	onItemVisibilityChange: (itemKey: string, isVisible: boolean) => void;
+	onItemBlur: (itemIndex: number) => void;
+	onItemFocus: (itemIndex: number) => void;
+	onItemHover: (itemIndex: number) => void;
+	onItemLeave: (itemIndex: number) => void;
+	onItemVisibilityChange: (itemIndex: number, isVisible: boolean) => void;
 	onRenderedItemsChange: (range: { startIndex: number; stopIndex: number }) => void;
 	query?: string;
 	rows: Array<RegisterMenuItem | RegisterMenuSection>;
@@ -53,7 +53,7 @@ type Props = {
 export const TypeAheadQuickInsertMenu = ({
 	Item,
 	rows,
-	activeItemKey,
+	isPreviewOpen,
 	itemCount,
 	listId,
 	listLabel,
@@ -106,7 +106,7 @@ export const TypeAheadQuickInsertMenu = ({
 					width={LIST_WIDTH}
 					maxHeight={listMaxHeight}
 					getItemId={getItemId}
-					activeItemKey={activeItemKey}
+					isPreviewOpen={isPreviewOpen}
 					selectedItemIndex={selectedItemIndex}
 					selectionSource={selectionSource}
 					scrollResetKey={query}

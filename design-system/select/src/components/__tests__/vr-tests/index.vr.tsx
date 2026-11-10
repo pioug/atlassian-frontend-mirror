@@ -7,6 +7,7 @@ import Disabled from '../../../../examples/24-disabled.vr.ap';
 import Appearance from '../../../../examples/26-appearance.vr.ap';
 import ControlledGroup from '../../../../examples/32-controlled-group.vr.ap';
 import ConstrainedWidth from '../../../../examples/35-dropdown-indicator-constrained-width.vr.ap';
+import InlineMenuCustomMenu from '../../../../examples/37-inline-menu-custom-menu.vr.ap';
 
 snapshot(Basic, {
 	variants: [
@@ -98,6 +99,20 @@ snapshot(ConstrainedWidth, {
 		platform_dst_select_dropdown_voice_control: true,
 	},
 	drawsOutsideBounds: true,
+	variants: [
+		{
+			name: 'desktop chrome',
+			device: Device.DESKTOP_CHROME,
+		},
+	],
+});
+
+// Inline mode keeps a custom `Menu` on both paths, so the header shows above the options.
+snapshot(InlineMenuCustomMenu, {
+	description: 'inline-menu-custom-menu',
+	featureFlags: {
+		'platform-dst-top-layer': [true, false],
+	},
 	variants: [
 		{
 			name: 'desktop chrome',

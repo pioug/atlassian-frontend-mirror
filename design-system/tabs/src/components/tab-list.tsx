@@ -245,7 +245,8 @@ const getInitialMotionSelection = (
 	exits: new Map(),
 	isReducedMotion,
 	selected,
-	selectedState: isReducedMotion ? 'visible' : 'entering',
+	selectedState:
+		fg('platform-dst-tabs-skip-mount-motion') || isReducedMotion ? 'visible' : 'entering',
 });
 
 const reconcileMotionSelection = (

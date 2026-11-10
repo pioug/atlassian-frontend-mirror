@@ -3,8 +3,6 @@ import React from 'react';
 import { act, fireEvent, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-
 import { mockReactDomWarningGlobal, renderWithIntl } from '../__tests__/_testing-library';
 import { TOOLTIP_USERS_LIMIT } from '../shared/constants';
 import { type ReactionSummary } from '../types';
@@ -132,23 +130,12 @@ describe('@atlaskit/reactions/components/ReactionTooltip', () => {
 			return usersListWrapper.querySelectorAll('li');
 		};
 
-		it('should not render an empty footer item when the gate is on', async () => {
-			passGate('platform_reactions_tooltip_hide_empty_footer');
+		it('should not render an empty footer item', async () => {
 			const items = await renderWithTwoUsers();
 			expect(items.length).toEqual(3);
 			expect(items[0].textContent).toEqual('emoji name');
 			expect(items[1].textContent).toEqual('User 1');
 			expect(items[2].textContent).toEqual('User 2');
-		});
-
-		it('should keep rendering the empty footer item when the gate is off', async () => {
-			failGate('platform_reactions_tooltip_hide_empty_footer');
-			const items = await renderWithTwoUsers();
-			expect(items.length).toEqual(4);
-			expect(items[0].textContent).toEqual('emoji name');
-			expect(items[1].textContent).toEqual('User 1');
-			expect(items[2].textContent).toEqual('User 2');
-			expect(items[3].textContent).toEqual('');
 		});
 	});
 

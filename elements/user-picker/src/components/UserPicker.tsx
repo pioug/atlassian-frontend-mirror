@@ -91,6 +91,7 @@ export class UserPickerWithoutAnalytics extends React.Component<UserPickerProps>
 			anchor,
 			menuPortalTarget,
 			menuPosition,
+			menuRenderMode,
 			menuShouldBlockScroll,
 			captureMenuScroll,
 			closeMenuOnScroll,
@@ -111,6 +112,7 @@ export class UserPickerWithoutAnalytics extends React.Component<UserPickerProps>
 			closeMenuOnScroll,
 			menuPortalTarget,
 			menuPosition,
+			menuRenderMode,
 			menuShouldBlockScroll,
 			captureMenuScroll,
 			required,
@@ -208,6 +210,7 @@ export const UserPicker: React.ForwardRefExoticComponent<
 				menuMinWidth?: number;
 				menuPortalTarget?: HTMLElement;
 				menuPosition?: 'absolute' | 'fixed';
+				menuRenderMode?: 'popup' | 'inline';
 				menuShouldBlockScroll?: boolean;
 				minHeight?: number | string;
 				name?: string;
@@ -304,6 +307,7 @@ export const UserPicker: React.ForwardRefExoticComponent<
 		| 'menuMinWidth'
 		| 'menuPortalTarget'
 		| 'menuPosition'
+		| 'menuRenderMode'
 		| 'menuShouldBlockScroll'
 		| 'noBorder'
 		| 'onClear'

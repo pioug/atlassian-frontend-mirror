@@ -1,6 +1,7 @@
 import type React from 'react';
 
 import type { ButtonProps as AKButtonProps } from '@atlaskit/button/button';
+import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
 
 export type VideoMeta = {
 	duration?: number;
@@ -73,6 +74,8 @@ export type ButtonComponent = React.ForwardRefExoticComponent<
 export type RenderButton = (ButtonComponent: ButtonComponent) => JSX.Element | null;
 
 export type LoomPluginOptionsWithProvider = {
+	/** Initial editor appearance used to register the pinned toolbar button. */
+	editorAppearance?: EditorAppearance;
 	loomProvider: LoomProviderOptions;
 	/**
 	 * Customize the button component, e.g. adding pulse, a11y.
@@ -90,6 +93,8 @@ export type LoomPluginOptionsWithProvider = {
 };
 
 export type LoomPluginOptionsWithoutProvider = {
+	/** Initial editor appearance used to register the pinned toolbar button. */
+	editorAppearance?: EditorAppearance;
 	loomProvider?: LoomProviderOptions;
 	/**
 	 * Customize the button component, e.g. adding pulse, a11y.

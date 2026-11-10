@@ -17,7 +17,10 @@ import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gat
 
 import * as fireAnalyticsModule from '../../../analytics/fireAnalytics';
 import * as ufoWrapper from '../../../analytics/ufoExperiences';
+import { InsetViewerProvider } from '../../../insetViewerContext';
 import { ItemViewer } from '../../../item-viewer';
+import ArchiveViewerLoader from '../../../viewers/archiveSidebar/archiveViewerLoader';
+import ModalSpinner from '../../../viewers/modalSpinner';
 import { createMockedMediaClientProvider } from '../../utils/_mockedMediaClientProvider';
 
 const traceContext = { traceId: 'some-trace-id' };
@@ -33,6 +36,11 @@ jest.mock('@atlaskit/media-client/request', () => ({
 		arrayBuffer: jest.fn().mockResolvedValue(new ArrayBuffer(0)),
 	}),
 }));
+
+jest.mock('../../../viewers/modalSpinner', () => {
+	const original = jest.requireActual('../../../viewers/modalSpinner');
+	return { __esModule: true, default: jest.fn(original.default) };
+});
 
 /* Jest Spies */
 
@@ -181,30 +189,41 @@ describe('<ItemViewer />', () => {
 			await expect(document.body).toBeAccessible();
 		});
 
-		it('should load archive viewer for archive', async () => {
-			const [fileItem, identifier] = generateSampleFileItem.workingArchive();
-			const { mediaApi } = createMockedMediaApi(fileItem);
+		it.each([
+			{ isInsetViewer: false, showsModalSpinner: true },
+			{ isInsetViewer: true, showsModalSpinner: false },
+		])(
+			'should load archive viewer for archive, showing the full-screen spinner while it loads: $showsModalSpinner (inset: $isInsetViewer)',
+			async ({ isInsetViewer, showsModalSpinner }) => {
+				// The loaded archive viewer is cached across mounts, so each case starts before it has loaded.
+				ArchiveViewerLoader.ArchiveViewer = undefined;
+				const [fileItem, identifier] = generateSampleFileItem.workingArchive();
+				const { mediaApi } = createMockedMediaApi(fileItem);
 
-			render(
-				<IntlProvider locale="en">
-					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-						<ItemViewer previewCount={0} identifier={identifier} traceContext={traceContext} />,
-					</MockedMediaClientProvider>
-				</IntlProvider>,
-			);
+				render(
+					<IntlProvider locale="en">
+						<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+							<InsetViewerProvider isInsetViewer={isInsetViewer}>
+								<ItemViewer previewCount={0} identifier={identifier} traceContext={traceContext} />
+							</InsetViewerProvider>
+						</MockedMediaClientProvider>
+					</IntlProvider>,
+				);
 
-			// check if the loading indicator is shown
-			expect(
-				screen.getByRole('img', {
-					name: /loading file/i,
-				}),
-			).toBeInTheDocument();
+				// check if the loading indicator is shown
+				expect(
+					screen.getByRole('img', {
+						name: /loading file/i,
+					}),
+				).toBeInTheDocument();
 
-			const archiveItem = await screen.findByTestId('archive-layout');
-			expect(archiveItem).toBeDefined();
+				const archiveItem = await screen.findByTestId('archive-layout');
+				expect(archiveItem).toBeDefined();
+				expect(jest.mocked(ModalSpinner).mock.calls.length > 0).toBe(showsModalSpinner);
 
-			await expect(document.body).toBeAccessible();
-		});
+				await expect(document.body).toBeAccessible();
+			},
+		);
 
 		it('should load code viewer for code', async () => {
 			const [fileItem, identifier] = generateSampleFileItem.workingCode();

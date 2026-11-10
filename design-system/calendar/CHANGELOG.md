@@ -1,5 +1,21 @@
 # @atlaskit/calendar
 
+## 19.6.0
+
+### Minor Changes
+
+- [`40e6513dc6b5a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/40e6513dc6b5a) -
+  Add an optional `headingLevel` prop to control the semantic level of the month and year title.
+  When provided, the prop overrides the nearest `HeadingContextProvider` value. When omitted, the
+  title uses that context value, falling back to level 2 when no context is available. The heading
+  retains its existing `xsmall` typography at every level.
+
+  The `HeadingLevel` type is available from `@atlaskit/calendar/types`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 19.5.1
 
 ### Patch Changes

@@ -15,6 +15,7 @@ import { ChunkLoadError } from '../../../utils/__tests__/index.test';
 import { mocks } from '../../../utils/mocks';
 import { Card } from '../../Card';
 import * as lazyComponent from '../../CardWithUrl/component-lazy';
+import { default as TitleBlock } from '../../FlexibleCard/components/blocks/title-block';
 
 mockSimpleIntersectionObserver();
 
@@ -25,6 +26,7 @@ jest.mock('../../../utils/analytics/analytics');
 describe('smart-card: error analytics', () => {
 	let mockWindowOpen: jest.Mock;
 	let mockUrl: string;
+	const actualLazyComponent = lazyComponent.default;
 	const mockedLazyComponent = jest.spyOn(lazyComponent, 'default');
 	let consoleErrorFn: jest.SpyInstance;
 	const mockAnalyticsClient = {
@@ -838,6 +840,61 @@ describe('smart-card: error analytics', () => {
 			}),
 			status: 'errored',
 			url: mockUrl,
+		});
+	});
+
+	describe('chunkLoadFailed display for flexible card', () => {
+		const throwOnResolve = () => {
+			throw new ChunkLoadError();
+		};
+
+		class MockClient extends CardClient {
+			async fetchData(_url: string): Promise<JsonLd.Response> {
+				return mocks.success;
+			}
+		}
+
+		beforeEach(() => {
+			mockedLazyComponent.mockImplementation(actualLazyComponent);
+		});
+
+		const setup = () =>
+			render(
+				<FabricAnalyticsListeners client={mockAnalyticsClient}>
+					<Provider client={new MockClient()}>
+						<Card appearance="inline" url={mockUrl} onResolve={throwOnResolve}>
+							<TitleBlock />
+						</Card>
+					</Provider>
+				</FabricAnalyticsListeners>,
+			);
+
+		it('should report flexible display when platform_smartlink_cardssr_missing_events is enabled', async () => {
+			passGate('platform_smartlink_cardssr_missing_events');
+			setup();
+
+			await waitFor(() =>
+				expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
+					expect.objectContaining({
+						action: 'chunkLoadFailed',
+						attributes: expect.objectContaining({ display: 'flexible' }),
+					}),
+				),
+			);
+		});
+
+		it('should report appearance as display when platform_smartlink_cardssr_missing_events is disabled', async () => {
+			failGate('platform_smartlink_cardssr_missing_events');
+			setup();
+
+			await waitFor(() =>
+				expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
+					expect.objectContaining({
+						action: 'chunkLoadFailed',
+						attributes: expect.objectContaining({ display: 'inline' }),
+					}),
+				),
+			);
 		});
 	});
 });

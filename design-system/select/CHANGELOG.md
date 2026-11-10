@@ -1,5 +1,22 @@
 # @atlaskit/select
 
+## 23.2.0
+
+### Minor Changes
+
+- [`29ee4d305fa27`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/29ee4d305fa27) -
+  Inline mode (`menuRenderMode="inline"`) now renders a custom `components.Menu`, as popup mode
+  does. Before, inline mode replaced it. If you pass a `Menu` that only suits popup mode, do not
+  pass it in inline mode.
+
+### Patch Changes
+
+- [`29ee4d305fa27`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/29ee4d305fa27) -
+  Behind `platform-dst-top-layer`, PopupSelect sets `aria-controls` only while open, and matches the
+  legacy offset for consumer `popperProps.modifiers`. `shouldPreventEscapePropagation` is
+  deprecated.
+- Updated dependencies
+
 ## 23.1.6
 
 ### Patch Changes

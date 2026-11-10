@@ -826,9 +826,18 @@ export const VIEW_MODE_TOGGLE_SECTION = {
 } as const;
 
 /**
- * Loom section
- * - Only rendered in dropdown menu in primary toolbar
+ * Loom toolbar and menu components
  */
+export const LOOM_TOOLBAR_GROUP = {
+	key: 'loom-toolbar-group',
+	type: 'group',
+} as const;
+
+export const LOOM_TOOLBAR_BUTTON = {
+	key: 'loom-toolbar-button',
+	type: 'button',
+} as const;
+
 export const LOOM_MENU_SECTION = {
 	key: 'loom-menu-section',
 	type: 'menu-section',

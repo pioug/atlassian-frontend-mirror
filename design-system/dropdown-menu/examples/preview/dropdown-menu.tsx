@@ -4,9 +4,9 @@ import { IntlProvider } from 'react-intl';
 
 import Button from '@atlaskit/button/default/button';
 import { cssMap } from '@atlaskit/css';
+import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';
+import { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-item-group';
 import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
-import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-menu-item';
-import { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 const styles = cssMap({

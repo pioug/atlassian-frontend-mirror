@@ -1,9 +1,26 @@
 import '@atlaskit/link-test-helpers/jest';
 import React from 'react';
 
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { render, waitFor } from '@atlassian/testing-library/testing-library/react';
 
+import { startUfoExperience } from '../../../../state/analytics/startUfoExperience';
+import { clearMarks } from '../../../../utils/clear-marks';
+import { clearMeasures } from '../../../../utils/clear-measures';
 import withCardIntersectionObserver from '../index';
+
+jest.mock('../../../../state/analytics/startUfoExperience', () => ({
+	startUfoExperience: jest.fn(),
+}));
+jest.mock('../../../../utils/shouldSample', () => ({
+	shouldSample: jest.fn(() => true),
+}));
+jest.mock('../../../../utils/clear-marks', () => ({
+	clearMarks: jest.fn(),
+}));
+jest.mock('../../../../utils/clear-measures', () => ({
+	clearMeasures: jest.fn(),
+}));
 
 jest.mock('../../../../state/hooks/use-smart-link-seen-event', () => ({
 	useSmartLinkSeenEvent: jest.fn(() => ({
@@ -16,10 +33,10 @@ describe('withCardIntersectionObserver', () => {
 	const InnerTestComponent = jest.fn(() => <div />);
 	const TestComponent = withCardIntersectionObserver(InnerTestComponent);
 
-	const setup = () => {
+	const setup = (props?: { id?: string }) => {
 		const onEvent = jest.fn();
 
-		const renderResult = render(<TestComponent appearance="inline" />);
+		const renderResult = render(<TestComponent appearance="inline" {...props} />);
 
 		return { ...renderResult, onEvent };
 	};
@@ -137,6 +154,71 @@ describe('withCardIntersectionObserver', () => {
 					expect.anything(),
 				);
 			});
+		});
+	});
+
+	describe('marks and measures cleanup on unmount', () => {
+		const gate = 'platform_smartlink_cardssr_missing_events';
+
+		it('should clear marks and measures on unmount when gate is enabled', () => {
+			passGate(gate);
+			const { unmount } = setup({ id: 'some-id' });
+
+			expect(clearMarks).not.toHaveBeenCalled();
+			expect(clearMeasures).not.toHaveBeenCalled();
+
+			unmount();
+
+			expect(clearMarks).toHaveBeenCalledWith('some-id');
+			expect(clearMeasures).toHaveBeenCalledWith('some-id');
+		});
+
+		it('should not clear marks and measures on unmount without id when gate is enabled', () => {
+			passGate(gate);
+			const { unmount } = setup();
+
+			unmount();
+
+			expect(clearMarks).not.toHaveBeenCalled();
+			expect(clearMeasures).not.toHaveBeenCalled();
+		});
+
+		it('should not clear marks and measures on unmount when gate is disabled', () => {
+			failGate(gate);
+			const { unmount } = setup({ id: 'some-id' });
+
+			unmount();
+
+			expect(clearMarks).not.toHaveBeenCalled();
+			expect(clearMeasures).not.toHaveBeenCalled();
+		});
+	});
+
+	describe('smart-link-rendered experience', () => {
+		const gate = 'platform_smartlink_cardssr_missing_events';
+
+		it('should start the experience once in StrictMode when gate is enabled', () => {
+			passGate(gate);
+			render(
+				<React.StrictMode>
+					<TestComponent appearance="inline" id="some-id" />
+				</React.StrictMode>,
+			);
+
+			expect(startUfoExperience).toHaveBeenCalledTimes(1);
+			expect(startUfoExperience).toHaveBeenCalledWith(
+				'smart-link-rendered',
+				'some-id',
+				expect.objectContaining({ ssr: true }),
+				undefined,
+			);
+		});
+
+		it('should not start the experience when gate is disabled', () => {
+			failGate(gate);
+			render(<TestComponent appearance="inline" id="some-id" />);
+
+			expect(startUfoExperience).not.toHaveBeenCalled();
 		});
 	});
 });

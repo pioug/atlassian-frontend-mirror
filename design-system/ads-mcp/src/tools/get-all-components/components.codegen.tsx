@@ -3,7 +3,7 @@
  *
  * Structured content components from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::6e25cf646795878ee80b1ce5105fe2f6>>
+ * @codegen <<SignedSource::697b00bec471cc15cc472df6e3567e67>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -2751,9 +2751,17 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['dropdown', 'menu', 'item', 'action', 'link', 'menuitem'],
 		category: 'navigation',
 		examples: [
-			"import IconButton from '@atlaskit/button/icon/button';\nimport DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';\nimport DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';\nimport DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';\nimport MoreIcon from '@atlaskit/icon/core/show-more-horizontal';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<DropdownMenu\n\t\t\tshouldRenderToParent\n\t\t\ttrigger={({ triggerRef, ...props }) => (\n\t\t\t\t<IconButton ref={triggerRef} {...props} icon={MoreIcon} label=\"More\" />\n\t\t\t)}\n\t\t>\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem href=\"/dashboard\">Dashboard</DropdownItem>\n\t\t\t\t<DropdownItem>Create</DropdownItem>\n\t\t\t\t<DropdownItem>Delete</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t\t<DropdownMenu shouldRenderToParent trigger=\"Actions\">\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem>Export</DropdownItem>\n\t\t\t\t<DropdownItem>Share</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t</>\n);\nexport default Examples;",
+			"import IconButton from '@atlaskit/button/icon/button';\nimport { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';\nimport { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-menu-item';\nimport { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-menu-item-group';\nimport MoreIcon from '@atlaskit/icon/core/show-more-horizontal';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<DropdownMenu\n\t\t\tshouldRenderToParent\n\t\t\ttrigger={({ triggerRef, ...props }) => (\n\t\t\t\t<IconButton ref={triggerRef} {...props} icon={MoreIcon} label=\"More\" />\n\t\t\t)}\n\t\t>\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem href=\"/dashboard\">Dashboard</DropdownItem>\n\t\t\t\t<DropdownItem>Create</DropdownItem>\n\t\t\t\t<DropdownItem>Delete</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t\t<DropdownMenu shouldRenderToParent trigger=\"Actions\">\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem>Export</DropdownItem>\n\t\t\t\t<DropdownItem>Share</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t</>\n);\nexport default Examples;",
 		],
 		props: [
+			{
+				name: 'appearance',
+				type: '"danger" | undefined',
+			},
+			{
+				name: 'aria-expanded',
+				type: 'boolean | undefined',
+			},
 			{
 				name: 'aria-haspopup',
 				type: 'boolean | "grid" | "dialog" | "menu" | "listbox" | "tree" | undefined',
@@ -2789,6 +2797,12 @@ export const components: ComponentMcpPayload[] = [
 				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description:
 					'Element to render before the item text.\nGenerally should be an [icon](https://atlaskit.atlassian.com/packages/design-system/icon) component.',
+			},
+			{
+				name: 'hasNestedMenu',
+				type: 'boolean | undefined',
+				description:
+					'Shows a submenu indicator for custom submenu triggers. DropdownMenu triggers automatically infer this from context so you do not need to set this prop manually. Only set it manually if you are using a trigger other than DropdownMenu trigger (e.g. Popup trigger)',
 			},
 			{
 				name: 'href',
@@ -2828,6 +2842,10 @@ export const components: ComponentMcpPayload[] = [
 				type: 'string | undefined',
 				description:
 					'An optional string value that specifies the role of the dropdown item.\nUse this to indicate whether the item is\nor presentational (e.g., \'presentation\') for accessibility purposes.\nIf not specified, it defaults to role="menuitem".',
+			},
+			{
+				name: 'shortcut',
+				type: 'string[] | undefined',
 			},
 			{
 				name: 'shouldDescriptionWrap',
@@ -2873,7 +2891,7 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['dropdown', 'menu', 'group', 'section', 'title'],
 		category: 'navigation',
 		examples: [
-			"import IconButton from '@atlaskit/button/icon/button';\nimport DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';\nimport DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';\nimport DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';\nimport MoreIcon from '@atlaskit/icon/core/show-more-horizontal';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<DropdownMenu\n\t\t\tshouldRenderToParent\n\t\t\ttrigger={({ triggerRef, ...props }) => (\n\t\t\t\t<IconButton ref={triggerRef} {...props} icon={MoreIcon} label=\"More\" />\n\t\t\t)}\n\t\t>\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem href=\"/dashboard\">Dashboard</DropdownItem>\n\t\t\t\t<DropdownItem>Create</DropdownItem>\n\t\t\t\t<DropdownItem>Delete</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t\t<DropdownMenu shouldRenderToParent trigger=\"Actions\">\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem>Export</DropdownItem>\n\t\t\t\t<DropdownItem>Share</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t</>\n);\nexport default Examples;",
+			"import IconButton from '@atlaskit/button/icon/button';\nimport { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';\nimport { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-menu-item';\nimport { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-menu-item-group';\nimport MoreIcon from '@atlaskit/icon/core/show-more-horizontal';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<DropdownMenu\n\t\t\tshouldRenderToParent\n\t\t\ttrigger={({ triggerRef, ...props }) => (\n\t\t\t\t<IconButton ref={triggerRef} {...props} icon={MoreIcon} label=\"More\" />\n\t\t\t)}\n\t\t>\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem href=\"/dashboard\">Dashboard</DropdownItem>\n\t\t\t\t<DropdownItem>Create</DropdownItem>\n\t\t\t\t<DropdownItem>Delete</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t\t<DropdownMenu shouldRenderToParent trigger=\"Actions\">\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem>Export</DropdownItem>\n\t\t\t\t<DropdownItem>Share</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t</>\n);\nexport default Examples;",
 		],
 		props: [
 			{
@@ -2944,7 +2962,7 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['dropdown', 'menu', 'checkbox', 'multi-select', 'toggle'],
 		category: 'navigation',
 		examples: [
-			"import IconButton from '@atlaskit/button/icon/button';\nimport DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';\nimport DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';\nimport DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';\nimport MoreIcon from '@atlaskit/icon/core/show-more-horizontal';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<DropdownMenu\n\t\t\tshouldRenderToParent\n\t\t\ttrigger={({ triggerRef, ...props }) => (\n\t\t\t\t<IconButton ref={triggerRef} {...props} icon={MoreIcon} label=\"More\" />\n\t\t\t)}\n\t\t>\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem href=\"/dashboard\">Dashboard</DropdownItem>\n\t\t\t\t<DropdownItem>Create</DropdownItem>\n\t\t\t\t<DropdownItem>Delete</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t\t<DropdownMenu shouldRenderToParent trigger=\"Actions\">\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem>Export</DropdownItem>\n\t\t\t\t<DropdownItem>Share</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t</>\n);\nexport default Examples;",
+			"import IconButton from '@atlaskit/button/icon/button';\nimport { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';\nimport { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-menu-item';\nimport { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-menu-item-group';\nimport MoreIcon from '@atlaskit/icon/core/show-more-horizontal';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<DropdownMenu\n\t\t\tshouldRenderToParent\n\t\t\ttrigger={({ triggerRef, ...props }) => (\n\t\t\t\t<IconButton ref={triggerRef} {...props} icon={MoreIcon} label=\"More\" />\n\t\t\t)}\n\t\t>\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem href=\"/dashboard\">Dashboard</DropdownItem>\n\t\t\t\t<DropdownItem>Create</DropdownItem>\n\t\t\t\t<DropdownItem>Delete</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t\t<DropdownMenu shouldRenderToParent trigger=\"Actions\">\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem>Export</DropdownItem>\n\t\t\t\t<DropdownItem>Share</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t</>\n);\nexport default Examples;",
 		],
 		props: [
 			{
@@ -2986,6 +3004,10 @@ export const components: ComponentMcpPayload[] = [
 				description: 'Event that is triggered when the checkbox is clicked.',
 			},
 			{
+				name: 'shortcut',
+				type: 'Shortcut | undefined',
+			},
+			{
 				name: 'shouldDescriptionWrap',
 				type: 'boolean | undefined',
 				description:
@@ -3020,7 +3042,7 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['dropdown', 'menu', 'checkbox', 'group', 'multi-select'],
 		category: 'navigation',
 		examples: [
-			"import React, { useState } from 'react';\nimport DropdownItemCheckbox from '@atlaskit/dropdown-menu/dropdown-item-checkbox';\nimport DropdownItemCheckboxGroup from '@atlaskit/dropdown-menu/dropdown-item-checkbox-group';\nimport DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';\nconst DropdownItemCheckboxExample = (): React.JSX.Element => {\n\tconst [checked, setChecked] = useState<Record<string, boolean>>({\n\t\ttodo: true,\n\t});\n\tconst toggle = (name: string) => {\n\t\tsetChecked((prev) => ({\n\t\t\t...prev,\n\t\t\t[name]: !prev[name],\n\t\t}));\n\t};\n\treturn (\n\t\t<DropdownMenu trigger=\"Status\" shouldRenderToParent>\n\t\t\t<DropdownItemCheckboxGroup title=\"Categories\" id=\"actions\">\n\t\t\t\t<DropdownItemCheckbox id=\"todo\" onClick={() => toggle('todo')} isSelected={checked['todo']}>\n\t\t\t\t\tTo do\n\t\t\t\t</DropdownItemCheckbox>\n\t\t\t\t<DropdownItemCheckbox\n\t\t\t\t\tid=\"inprogress\"\n\t\t\t\t\tonClick={() => toggle('inprogress')}\n\t\t\t\t\tisSelected={checked['inprogress']}\n\t\t\t\t>\n\t\t\t\t\tIn progress\n\t\t\t\t</DropdownItemCheckbox>\n\t\t\t\t<DropdownItemCheckbox id=\"done\" onClick={() => toggle('done')} isSelected={checked['done']}>\n\t\t\t\t\tDone\n\t\t\t\t</DropdownItemCheckbox>\n\t\t\t</DropdownItemCheckboxGroup>\n\t\t</DropdownMenu>\n\t);\n};\nexport default DropdownItemCheckboxExample;",
+			"import React, { useState } from 'react';\nimport { DropdownItemCheckbox } from '@atlaskit/dropdown-menu/dropdown-item-checkbox';\nimport { DropdownItemCheckboxGroup } from '@atlaskit/dropdown-menu/dropdown-item-checkbox-group';\nimport { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';\nconst DropdownItemCheckboxExample = (): React.JSX.Element => {\n\tconst [checked, setChecked] = useState<Record<string, boolean>>({\n\t\ttodo: true,\n\t});\n\tconst toggle = (name: string) => {\n\t\tsetChecked((prev) => ({\n\t\t\t...prev,\n\t\t\t[name]: !prev[name],\n\t\t}));\n\t};\n\treturn (\n\t\t<DropdownMenu trigger=\"Status\" shouldRenderToParent>\n\t\t\t<DropdownItemCheckboxGroup title=\"Categories\" id=\"actions\">\n\t\t\t\t<DropdownItemCheckbox id=\"todo\" onClick={() => toggle('todo')} isSelected={checked['todo']}>\n\t\t\t\t\tTo do\n\t\t\t\t</DropdownItemCheckbox>\n\t\t\t\t<DropdownItemCheckbox\n\t\t\t\t\tid=\"inprogress\"\n\t\t\t\t\tonClick={() => toggle('inprogress')}\n\t\t\t\t\tisSelected={checked['inprogress']}\n\t\t\t\t>\n\t\t\t\t\tIn progress\n\t\t\t\t</DropdownItemCheckbox>\n\t\t\t\t<DropdownItemCheckbox id=\"done\" onClick={() => toggle('done')} isSelected={checked['done']}>\n\t\t\t\t\tDone\n\t\t\t\t</DropdownItemCheckbox>\n\t\t\t</DropdownItemCheckboxGroup>\n\t\t</DropdownMenu>\n\t);\n};\nexport default DropdownItemCheckboxExample;",
 		],
 		props: [
 			{
@@ -3092,7 +3114,7 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['dropdown', 'menu', 'radio', 'single-select', 'choice'],
 		category: 'navigation',
 		examples: [
-			"import IconButton from '@atlaskit/button/icon/button';\nimport DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';\nimport DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';\nimport DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';\nimport MoreIcon from '@atlaskit/icon/core/show-more-horizontal';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<DropdownMenu\n\t\t\tshouldRenderToParent\n\t\t\ttrigger={({ triggerRef, ...props }) => (\n\t\t\t\t<IconButton ref={triggerRef} {...props} icon={MoreIcon} label=\"More\" />\n\t\t\t)}\n\t\t>\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem href=\"/dashboard\">Dashboard</DropdownItem>\n\t\t\t\t<DropdownItem>Create</DropdownItem>\n\t\t\t\t<DropdownItem>Delete</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t\t<DropdownMenu shouldRenderToParent trigger=\"Actions\">\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem>Export</DropdownItem>\n\t\t\t\t<DropdownItem>Share</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t</>\n);\nexport default Examples;",
+			"import IconButton from '@atlaskit/button/icon/button';\nimport { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';\nimport { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-menu-item';\nimport { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-menu-item-group';\nimport MoreIcon from '@atlaskit/icon/core/show-more-horizontal';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<DropdownMenu\n\t\t\tshouldRenderToParent\n\t\t\ttrigger={({ triggerRef, ...props }) => (\n\t\t\t\t<IconButton ref={triggerRef} {...props} icon={MoreIcon} label=\"More\" />\n\t\t\t)}\n\t\t>\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem href=\"/dashboard\">Dashboard</DropdownItem>\n\t\t\t\t<DropdownItem>Create</DropdownItem>\n\t\t\t\t<DropdownItem>Delete</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t\t<DropdownMenu shouldRenderToParent trigger=\"Actions\">\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem>Export</DropdownItem>\n\t\t\t\t<DropdownItem>Share</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t</>\n);\nexport default Examples;",
 		],
 		props: [
 			{
@@ -3134,6 +3156,10 @@ export const components: ComponentMcpPayload[] = [
 				description: 'Event that is triggered when the checkbox is clicked.',
 			},
 			{
+				name: 'shortcut',
+				type: 'Shortcut | undefined',
+			},
+			{
 				name: 'shouldDescriptionWrap',
 				type: 'boolean | undefined',
 				description:
@@ -3168,7 +3194,7 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['dropdown', 'menu', 'radio', 'group', 'single-select'],
 		category: 'navigation',
 		examples: [
-			"import React, { useState } from 'react';\nimport DropdownItemRadio from '@atlaskit/dropdown-menu/dropdown-item-radio';\nimport DropdownItemRadioGroup from '@atlaskit/dropdown-menu/dropdown-item-radio-group';\nimport DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';\nconst DropdownItemRadioExample = (): React.JSX.Element => {\n\tconst [selected, setSelected] = useState<string>('detail');\n\treturn (\n\t\t<DropdownMenu trigger=\"Views\" shouldRenderToParent>\n\t\t\t<DropdownItemRadioGroup title=\"Views\" id=\"actions\">\n\t\t\t\t<DropdownItemRadio\n\t\t\t\t\tid=\"detail\"\n\t\t\t\t\tonClick={() => setSelected('detail')}\n\t\t\t\t\tisSelected={selected === 'detail'}\n\t\t\t\t>\n\t\t\t\t\tDetail view\n\t\t\t\t</DropdownItemRadio>\n\t\t\t\t<DropdownItemRadio\n\t\t\t\t\tid=\"list\"\n\t\t\t\t\tonClick={() => setSelected('list')}\n\t\t\t\t\tisSelected={selected === 'list'}\n\t\t\t\t>\n\t\t\t\t\tList view\n\t\t\t\t</DropdownItemRadio>\n\t\t\t</DropdownItemRadioGroup>\n\t\t</DropdownMenu>\n\t);\n};\nexport default DropdownItemRadioExample;",
+			"import React, { useState } from 'react';\nimport { DropdownItemRadio } from '@atlaskit/dropdown-menu/dropdown-item-radio';\nimport { DropdownItemRadioGroup } from '@atlaskit/dropdown-menu/dropdown-item-radio-group';\nimport { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';\nconst DropdownItemRadioExample = (): React.JSX.Element => {\n\tconst [selected, setSelected] = useState<string>('detail');\n\treturn (\n\t\t<DropdownMenu trigger=\"Views\" shouldRenderToParent>\n\t\t\t<DropdownItemRadioGroup title=\"Views\" id=\"actions\">\n\t\t\t\t<DropdownItemRadio\n\t\t\t\t\tid=\"detail\"\n\t\t\t\t\tonClick={() => setSelected('detail')}\n\t\t\t\t\tisSelected={selected === 'detail'}\n\t\t\t\t>\n\t\t\t\t\tDetail view\n\t\t\t\t</DropdownItemRadio>\n\t\t\t\t<DropdownItemRadio\n\t\t\t\t\tid=\"list\"\n\t\t\t\t\tonClick={() => setSelected('list')}\n\t\t\t\t\tisSelected={selected === 'list'}\n\t\t\t\t>\n\t\t\t\t\tList view\n\t\t\t\t</DropdownItemRadio>\n\t\t\t</DropdownItemRadioGroup>\n\t\t</DropdownMenu>\n\t);\n};\nexport default DropdownItemRadioExample;",
 		],
 		props: [
 			{
@@ -3256,7 +3282,7 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['dropdown', 'menu', 'overflow', 'actions', 'options', 'popup', 'contextual'],
 		category: 'navigation',
 		examples: [
-			"import IconButton from '@atlaskit/button/icon/button';\nimport DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';\nimport DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';\nimport DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';\nimport MoreIcon from '@atlaskit/icon/core/show-more-horizontal';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<DropdownMenu\n\t\t\tshouldRenderToParent\n\t\t\ttrigger={({ triggerRef, ...props }) => (\n\t\t\t\t<IconButton ref={triggerRef} {...props} icon={MoreIcon} label=\"More\" />\n\t\t\t)}\n\t\t>\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem href=\"/dashboard\">Dashboard</DropdownItem>\n\t\t\t\t<DropdownItem>Create</DropdownItem>\n\t\t\t\t<DropdownItem>Delete</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t\t<DropdownMenu shouldRenderToParent trigger=\"Actions\">\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem>Export</DropdownItem>\n\t\t\t\t<DropdownItem>Share</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t</>\n);\nexport default Examples;",
+			"import IconButton from '@atlaskit/button/icon/button';\nimport { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';\nimport { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-menu-item';\nimport { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-menu-item-group';\nimport MoreIcon from '@atlaskit/icon/core/show-more-horizontal';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<DropdownMenu\n\t\t\tshouldRenderToParent\n\t\t\ttrigger={({ triggerRef, ...props }) => (\n\t\t\t\t<IconButton ref={triggerRef} {...props} icon={MoreIcon} label=\"More\" />\n\t\t\t)}\n\t\t>\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem href=\"/dashboard\">Dashboard</DropdownItem>\n\t\t\t\t<DropdownItem>Create</DropdownItem>\n\t\t\t\t<DropdownItem>Delete</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t\t<DropdownMenu shouldRenderToParent trigger=\"Actions\">\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem>Export</DropdownItem>\n\t\t\t\t<DropdownItem>Share</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t</>\n);\nexport default Examples;",
 		],
 		props: [
 			{
@@ -3334,8 +3360,9 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'spacing',
-				type: 'SpacingMode | undefined',
-				description: 'Controls the spacing density of the menu.',
+				type: '"compact" | "cozy" | "spacious" | undefined',
+				description:
+					'Controls the spacing density of the menu.\nNOTE: `cozy` is deprecated and will be removed. `spacious` replaces `cozy` and results in the same visual appearance.',
 			},
 			{
 				name: 'statusLabel',
@@ -5526,6 +5553,8 @@ export const components: ComponentMcpPayload[] = [
 		],
 		contentGuidelines: [
 			'Use clear, concise text; use accurate labels (e.g. "Error", "Warning")',
+			'Use sentence case for labels, including AI-generated labels: "In progress" or "Off track", not "In Progress" or "IN PROGRESS".',
+			'Capitalize proper nouns and preserve acronyms. Preserve the original casing of existing user-generated labels.',
 			'Do not use for long text—lozenge is not focusable and truncation at ~200px is not accessible',
 			'Ensure text is meaningful and descriptive',
 			'Use consistent terminology across lozenges',
@@ -5543,7 +5572,7 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['lozenge', 'badge', 'label', 'status', 'indicator', 'pill'],
 		category: 'status-indicators',
 		examples: [
-			'import Lozenge from \'@atlaskit/lozenge/new/lozenge\';\nconst _default_1: React.JSX.Element[] = [\n\t<Lozenge appearance="success">Done</Lozenge>,\n\t<Lozenge appearance="inprogress" isBold>\n\t\tIn Progress\n\t</Lozenge>,\n];\nexport default _default_1;',
+			'import Lozenge from \'@atlaskit/lozenge/new/lozenge\';\nconst _default_1: React.JSX.Element[] = [\n\t<Lozenge appearance="success">Done</Lozenge>,\n\t<Lozenge appearance="inprogress" isBold>\n\t\tIn progress\n\t</Lozenge>,\n];\nexport default _default_1;',
 		],
 		props: [
 			{
@@ -5604,6 +5633,8 @@ export const components: ComponentMcpPayload[] = [
 		],
 		contentGuidelines: [
 			'Use clear, concise status labels',
+			'Use sentence case for labels, including AI-generated labels: "In progress" or "Off track", not "In Progress" or "IN PROGRESS".',
+			'Capitalize proper nouns and preserve acronyms. Preserve the original casing of existing user-generated labels.',
 			'Keep labels short—max 200px width causes truncation and lozenges are not focusable',
 			"Don't use color alone; use clear labels and supporting icons where relevant",
 		],
@@ -5700,547 +5731,6 @@ export const components: ComponentMcpPayload[] = [
 				type: '"warning" | "default" | "removed" | "discovery" | "danger" | "neutral" | "success" | "information" | "inverse" | "inprogress" | "moved" | "new" | undefined',
 				description:
 					'Overrides the appearance of the trailing metric badge.\n\nIf not specified, the trailing metric badge inherits the lozenge appearance.\n\nThis prop is not supported for accent lozenges.\nTrailing metric appearance is not supported for accent lozenges.',
-			},
-		],
-	},
-	{
-		name: 'ButtonItem',
-		package: '@atlaskit/menu',
-		description:
-			'A menu item that triggers an action when clicked. Use for actions like Copy, Delete, or Create.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use for actions that do not navigate (e.g. Copy, Create article)',
-			'Combine with icons for clarity when they add meaning',
-			'Use secondary text for context when helpful (e.g. project type)',
-		],
-		contentGuidelines: [
-			'Use clear, action-oriented labels',
-			'Use consistent terminology across menus',
-		],
-		keywords: ['menu', 'button', 'item', 'action'],
-		category: 'navigation',
-		examples: [
-			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { cssMap, jsx } from '@compiled/react';\nimport ButtonItem from '@atlaskit/menu/button-item';\nimport { token } from '@atlaskit/tokens';\nimport ImgIcon from '../common/img-icon';\nimport Yeti from '../icons/yeti.png';\n// Mimics overrides in side-navigation\nconst styles = cssMap({\n\troot: {\n\t\tpaddingBlockStart: token('space.100'),\n\t\tpaddingInlineEnd: token('space.300'),\n\t\tpaddingBlockEnd: token('space.100'),\n\t\tpaddingInlineStart: token('space.300'),\n\t\tborderRadius: token('radius.small'),\n\t\tbackgroundColor: '#FAFBFC',\n\t\tcolor: '#42526E',\n\t\t'&:hover': {\n\t\t\tbackgroundColor: '#EBECF0',\n\t\t\ttextDecoration: 'none',\n\t\t\tcolor: '#42526E',\n\t\t},\n\t\t'&:active': {\n\t\t\tcolor: '#0052CC',\n\t\t\tbackgroundColor: '#DEEBFF',\n\t\t\tboxShadow: 'none',\n\t\t},\n\t\t'[data-item-elem-before]': {\n\t\t\tdisplay: 'flex',\n\t\t\theight: 8 * 1.25,\n\t\t\twidth: 8 * 1.25,\n\t\t\talignItems: 'center',\n\t\t\tjustifyContent: 'center',\n\t\t\tmarginInlineEnd: token('space.200'),\n\t\t},\n\t},\n\tdisabled: {\n\t\tcolor: token('color.text.disabled'),\n\t\tbackgroundColor: '#FAFBFC',\n\t\t'&:hover, &:active': {\n\t\t\tbackgroundColor: '#FAFBFC',\n\t\t\tcolor: token('color.text.disabled'),\n\t\t},\n\t},\n});\nconst _default: () => JSX.Element = () => (\n\t<div >\n\t\t<ButtonItem isSelected>Activate</ButtonItem>\n\t\t<ButtonItem isDisabled>Activate</ButtonItem>\n\t\t<ButtonItem>Activate</ButtonItem>\n\t\t<ButtonItem description=\"Next-gen software project\">Activate</ButtonItem>\n\t\t<ButtonItem description=\"Legacy software project\" isDisabled>\n\t\t\tActivate\n\t\t</ButtonItem>\n\t\t<ButtonItem iconBefore={<ImgIcon src={Yeti} alt=\"\" />} description=\"Next-gen software project\">\n\t\t\tActivate\n\t\t</ButtonItem>\n\t\t<ButtonItem css={styles.root} description=\"Style overrides\">\n\t\t\tActivate\n\t\t</ButtonItem>\n\t\t<ButtonItem isDisabled css={[styles.root, styles.disabled]} description=\"Style overrides\">\n\t\t\tActivate\n\t\t</ButtonItem>\n\t\t<ButtonItem css={styles.root} description=\"Style overrides\">\n\t\t\tActivate\n\t\t</ButtonItem>\n\t</div>\n);\nexport default _default;",
-		],
-		props: [
-			{
-				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
-				description: 'Primary content for the item.',
-			},
-			{
-				name: 'description',
-				type: 'string | global.JSX.Element | undefined',
-				description:
-					'Description of the item.\nThis will render smaller text below the primary text of the item, and slightly increase the height of the item.',
-			},
-			{
-				name: 'iconAfter',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
-				description:
-					'Element to render after the item text.\nUsually this is an [icon](https://atlaskit.atlassian.com/packages/design-system/icon) component.',
-			},
-			{
-				name: 'iconBefore',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
-				description:
-					'Element to render before the item text.\nUsually this is an [icon](https://atlaskit.atlassian.com/packages/design-system/icon) component.',
-			},
-			{
-				name: 'id',
-				type: 'string | undefined',
-				description: 'Unique identifier for the element.',
-			},
-			{
-				name: 'isDisabled',
-				type: 'boolean | undefined',
-				description:
-					'Makes the element appear disabled as well as removing interactivity. Avoid disabling menu items wherever possible as this isn’t accessible or usable.',
-			},
-			{
-				name: 'isSelected',
-				type: 'boolean | undefined',
-				description: 'Makes the element appear selected.',
-			},
-			{
-				name: 'onClick',
-				type: '((e: MouseEvent<HTMLElement, globalThis.MouseEvent> | KeyboardEvent<HTMLElement>) => void) | undefined',
-				description: "Event that's triggered when the element is clicked.",
-			},
-			{
-				name: 'onMouseDown',
-				type: 'MouseEventHandler<Element> | undefined',
-				description: "Event that's triggered when the element has been pressed.",
-			},
-			{
-				name: 'role',
-				type: 'string | undefined',
-				description: 'Use this to override the accessibility role for the element.',
-			},
-			{
-				name: 'shouldDescriptionWrap',
-				type: 'boolean | undefined',
-				description:
-					"When `true`, the description of the item will wrap multiple lines if it's long enough.",
-			},
-			{
-				name: 'shouldTitleWrap',
-				type: 'boolean | undefined',
-				description:
-					"When `true`, the title of the item will wrap multiple lines if it's long enough.",
-			},
-		],
-	},
-	{
-		name: 'CustomItem',
-		package: '@atlaskit/menu',
-		description:
-			'A menu item that accepts a custom component for advanced use cases when ButtonItem or LinkItem do not meet your needs.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use when ButtonItem or LinkItem cannot fulfill your requirements',
-			'Preserve menu item styling and behavior in custom implementations',
-		],
-		contentGuidelines: [
-			'Ensure custom components maintain accessibility',
-			'Keep custom implementations minimal',
-		],
-		keywords: ['menu', 'custom', 'item', 'component'],
-		category: 'navigation',
-		examples: [
-			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { cssMap, jsx } from '@compiled/react';\nimport CustomItem from '@atlaskit/menu/custom-item';\n// Legacy example: this prop type is deprecated with @atlaskit/side-navigation.\n// Use @atlaskit/navigation-system for new side navigation.\nimport { type CustomItemComponentProps } from '@atlaskit/menu/types';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport Slack from '../icons/slack';\ntype CustomComponentWithHrefProps = CustomItemComponentProps & {\n\thref: string;\n};\nconst CustomComponent = ({ children, href, ...props }: CustomComponentWithHrefProps) => {\n\treturn (\n\t\t<a href={href} {...props}>\n\t\t\t{children}\n\t\t</a>\n\t);\n};\nconst styles = cssMap({\n\troot: {\n\t\tposition: 'relative',\n\t\toverflow: 'hidden',\n\t\tuserSelect: 'none',\n\t},\n\tinteractive: {\n\t\t'&::before': {\n\t\t\tcontent: '\"\"',\n\t\t\tposition: 'absolute',\n\t\t\tinsetInlineStart: 0,\n\t\t\tinsetBlockStart: 0,\n\t\t\tinsetBlockEnd: 0,\n\t\t\twidth: 3,\n\t\t\ttransform: 'translateX(-1px)',\n\t\t\ttransition: 'transform 70ms ease-in-out',\n\t\t\tbackgroundColor: '#4C9AFF',\n\t\t},\n\t\t'&:hover::before': {\n\t\t\ttransform: 'translateX(0)',\n\t\t},\n\t},\n});\nconst _default: () => JSX.Element = () => (\n\t/**\n\t * It is not normally acceptable to add click handlers to non-interactive elements\n\t * as this is an accessibility anti-pattern. However, because this instance is\n\t * for performance reasons (to avoid multiple click handlers) and not creating an\n\t * inaccessible custom element, we can add role=\"presentation\" so that there is\n\t * no negative impacts to assistive technologies.\n\t */\n\t<Box onClick={(e: React.MouseEvent) => e.preventDefault()} role=\"presentation\">\n\t\t<CustomItem\n\t\t\thref=\"/navigation-system\"\n\t\t\tcomponent={CustomComponent}\n\t\t\tcss={[styles.root, styles.interactive]}\n\t\t>\n\t\t\tCustomItem\n\t\t</CustomItem>\n\t\t<CustomItem\n\t\t\thref=\"/navigation-system-1\"\n\t\t\tisSelected\n\t\t\tcomponent={CustomComponent}\n\t\t\tcss={[styles.root, styles.interactive]}\n\t\t>\n\t\t\tisSelected CustomItem\n\t\t</CustomItem>\n\t\t<CustomItem\n\t\t\thref=\"/navigation-system-2\"\n\t\t\tisDisabled\n\t\t\tcomponent={CustomComponent}\n\t\t\tcss={styles.root}\n\t\t>\n\t\t\tisDisabled CustomItem\n\t\t</CustomItem>\n\t\t<CustomItem\n\t\t\thref=\"/navigation-system-3\"\n\t\t\tcomponent={CustomComponent}\n\t\t\ticonBefore={<Slack />}\n\t\t\tcss={[styles.root, styles.interactive]}\n\t\t>\n\t\t\ticonBefore CustomItem\n\t\t</CustomItem>\n\t\t<CustomItem\n\t\t\thref=\"/navigation-system-4\"\n\t\t\tcomponent={CustomComponent}\n\t\t\ticonBefore={<Slack />}\n\t\t\tdescription=\"Next-gen software project\"\n\t\t\tcss={[styles.root, styles.interactive]}\n\t\t>\n\t\t\ticonBefore and description CustomItem\n\t\t</CustomItem>\n\t</Box>\n);\nexport default _default;",
-		],
-		props: [
-			{
-				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
-				description: 'Primary content for the item.',
-			},
-			{
-				name: 'component',
-				type: 'React.ComponentType<React.PropsWithChildren<TComponentProps>> | undefined',
-				description:
-					'Custom component to render as an item. This can be both a functional component or a class component.\n\nWill return `null` if no component is defined.\n\nProps passed to `CustomItem` will be passed down to this component. If the props for `component` have TypeScript types,\nCustomItem will extend them, providing type safety for your custom item.\n\nE.g. `<CustomItem to="/link" component={RouterLink} />`.\n\n__NOTE:__ Make sure the reference for this component does not change between renders else undefined behavior may happen.',
-			},
-			{
-				name: 'description',
-				type: 'string | JSX.Element | undefined',
-				description:
-					'Description of the item.\nThis will render smaller text below the primary text of the item, and slightly increase the height of the item.',
-			},
-			{
-				name: 'iconAfter',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
-				description:
-					'Element to render after the item text.\nUsually this is an [icon](https://atlaskit.atlassian.com/packages/design-system/icon) component.',
-			},
-			{
-				name: 'iconBefore',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
-				description:
-					'Element to render before the item text.\nUsually this is an [icon](https://atlaskit.atlassian.com/packages/design-system/icon) component.',
-			},
-			{
-				name: 'isDisabled',
-				type: 'boolean | undefined',
-				description:
-					'Makes the element appear disabled as well as removing interactivity. Avoid disabling menu items wherever possible as this isn’t accessible or usable.',
-			},
-			{
-				name: 'isSelected',
-				type: 'boolean | undefined',
-				description: 'Makes the element appear selected.',
-			},
-			{
-				name: 'onClick',
-				type: '((e: React.MouseEvent<HTMLElement, MouseEvent> | React.KeyboardEvent<HTMLElement>) => void) | undefined',
-				description: "Event that's triggered when the element is clicked.",
-			},
-			{
-				name: 'onMouseDown',
-				type: 'MouseEventHandler<Element> | undefined',
-				description: "Event that's triggered when the element has been pressed.",
-			},
-			{
-				name: 'shouldDescriptionWrap',
-				type: 'boolean | undefined',
-				description:
-					"When `true`, the description of the item will wrap multiple lines if it's long enough.",
-			},
-			{
-				name: 'shouldTitleWrap',
-				type: 'boolean | undefined',
-				description:
-					"When `true`, the title of the item will wrap multiple lines if it's long enough.",
-			},
-		],
-	},
-	{
-		name: 'HeadingItem',
-		package: '@atlaskit/menu',
-		description:
-			'A non-interactive heading within a menu section. Use to label groups of items when Section title is not used.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use to label section groups when a section title is not sufficient',
-			'Do not use for interactive content—headings are display-only',
-		],
-		contentGuidelines: ['Use clear, descriptive headings', 'Keep headings concise'],
-		keywords: ['menu', 'heading', 'item', 'label'],
-		category: 'navigation',
-		examples: [
-			"import ButtonItem from '@atlaskit/menu/button-item';\nimport MenuGroup from '@atlaskit/menu/menu-group';\nimport Section from '@atlaskit/menu/section';\nimport MenuGroupContainer from '../common/menu-group-container';\nexport default (): React.JSX.Element => (\n\t<MenuGroupContainer>\n\t\t<MenuGroup>\n\t\t\t<Section title=\"Actions\">\n\t\t\t\t<ButtonItem>Create article</ButtonItem>\n\t\t\t</Section>\n\t\t\t<Section>\n\t\t\t\t<ButtonItem>Create article</ButtonItem>\n\t\t\t</Section>\n\t\t</MenuGroup>\n\t</MenuGroupContainer>\n);",
-		],
-		props: [
-			{
-				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
-				description: 'The text of the heading.',
-				isRequired: true,
-			},
-			{
-				name: 'headingLevel',
-				type: '1 | 2 | 3 | 4 | 5 | 6 | undefined',
-				description:
-					'Specifies the heading level in the document structure.\nIf not specified, the default is `h2`.',
-			},
-			{
-				name: 'id',
-				type: 'string | undefined',
-				description:
-					'A unique identifier that can be referenced in the `labelledby` prop of a\nsection to allow assistive technology to announce the name of groups.',
-			},
-		],
-	},
-	{
-		name: 'LinkItem',
-		package: '@atlaskit/menu',
-		description:
-			'A menu item that navigates to a URL when clicked. Use for navigation links like Dashboard or Settings.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use for navigation (e.g. Team Spaces, Settings)',
-			'Indicate the current page when relevant',
-			'Combine with icons for context when they add meaning',
-		],
-		contentGuidelines: ['Use clear, descriptive labels for destinations', 'Keep labels concise'],
-		keywords: ['menu', 'link', 'item', 'navigation'],
-		category: 'navigation',
-		examples: [
-			"import React, { type MouseEvent, useState } from 'react';\nimport LinkItem from '@atlaskit/menu/link-item';\n// Legacy example: this prop type is deprecated with @atlaskit/side-navigation.\n// Use @atlaskit/navigation-system for new side navigation.\nimport { type LinkItemProps } from '@atlaskit/menu/types';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport ImgIcon from '../common/img-icon';\nimport koala from '../icons/koala.png';\nconst useLinkItemComputedProps = (initialSelectedHref?: string) => {\n\tconst [currentHref, setCurrentHref] = useState<string | undefined>(initialSelectedHref);\n\tconst getComputedProps = ({ href, ...restProps }: LinkItemProps) => ({\n\t\thref,\n\t\t...restProps,\n\t\tisSelected: currentHref === href,\n\t\tonClick: () => setCurrentHref(href),\n\t});\n\treturn getComputedProps;\n};\nexport default (): React.JSX.Element => {\n\tconst getComputedProps = useLinkItemComputedProps('#link-item2');\n\treturn (\n\t\t/**\n\t\t * It is not normally acceptable to add click handlers to non-interactive elements\n\t\t * as this is an accessibility anti-pattern. However, because this instance is\n\t\t * for performance reasons (to avoid multiple click handlers) and not creating an\n\t\t * inaccessible custom element, we can add role=\"presentation\" so that there is\n\t\t * no negative impacts to assistive technologies.\n\t\t */\n\t\t<Box onClick={(e: MouseEvent) => e.preventDefault()} role=\"presentation\">\n\t\t\t<LinkItem {...getComputedProps({ href: '#link-item1' })}>Customer Feedback</LinkItem>\n\t\t\t<LinkItem {...getComputedProps({ href: '#link-item2' })}>Customer Feedback</LinkItem>\n\t\t\t<LinkItem {...getComputedProps({ href: '#link-item3' })} isDisabled>\n\t\t\t\tCustomer Feedback\n\t\t\t</LinkItem>\n\t\t\t<LinkItem {...getComputedProps({ href: '#link-item4' })} description=\"Classic service desk\">\n\t\t\t\tCustomer Feedback\n\t\t\t</LinkItem>\n\t\t\t<LinkItem\n\t\t\t\t{...getComputedProps({ href: '#link-item5' })}\n\t\t\t\ticonBefore={<ImgIcon src={koala} alt={'A koala'} />}\n\t\t\t\tdescription=\"Classic service desk\"\n\t\t\t>\n\t\t\t\tCustomer Feedback\n\t\t\t</LinkItem>\n\t\t\t<LinkItem {...getComputedProps({ href: 'https://atlassian.design' })} testId=\"link-item\">\n\t\t\t\tAtlassian Design\n\t\t\t</LinkItem>\n\t\t</Box>\n\t);\n};",
-		],
-		props: [
-			{
-				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
-				description: 'Primary content for the item.',
-			},
-			{
-				name: 'description',
-				type: 'string | global.JSX.Element | undefined',
-				description:
-					'Description of the item.\nThis will render smaller text below the primary text of the item, and slightly increase the height of the item.',
-			},
-			{
-				name: 'href',
-				type: 'string | undefined',
-				description: 'Link to another page.',
-			},
-			{
-				name: 'iconAfter',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
-				description:
-					'Element to render after the item text.\nUsually this is an [icon](https://atlaskit.atlassian.com/packages/design-system/icon) component.',
-			},
-			{
-				name: 'iconBefore',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
-				description:
-					'Element to render before the item text.\nUsually this is an [icon](https://atlaskit.atlassian.com/packages/design-system/icon) component.',
-			},
-			{
-				name: 'isDisabled',
-				type: 'boolean | undefined',
-				description:
-					'Makes the element appear disabled as well as removing interactivity. Avoid disabling menu items wherever possible as this isn’t accessible or usable.',
-			},
-			{
-				name: 'isSelected',
-				type: 'boolean | undefined',
-				description: 'Makes the element appear selected.',
-			},
-			{
-				name: 'onClick',
-				type: '((e: MouseEvent<HTMLElement, globalThis.MouseEvent> | KeyboardEvent<HTMLElement>) => void) | undefined',
-				description: "Event that's triggered when the element is clicked.",
-			},
-			{
-				name: 'onMouseDown',
-				type: 'MouseEventHandler<Element> | undefined',
-				description: "Event that's triggered when the element has been pressed.",
-			},
-			{
-				name: 'rel',
-				type: 'string | undefined',
-				description:
-					'The relationship of the linked URL as space-separated link types.\nGenerally you\'ll want to set this to "noopener noreferrer" when `target` is "_blank".',
-			},
-			{
-				name: 'role',
-				type: 'string | undefined',
-				description: 'Use this to override the accessibility role for the element.',
-			},
-			{
-				name: 'shouldDescriptionWrap',
-				type: 'boolean | undefined',
-				description:
-					"When `true`, the description of the item will wrap multiple lines if it's long enough.",
-			},
-			{
-				name: 'shouldTitleWrap',
-				type: 'boolean | undefined',
-				description:
-					"When `true`, the title of the item will wrap multiple lines if it's long enough.",
-			},
-			{
-				name: 'target',
-				type: 'string | undefined',
-				description:
-					'Where to display the linked URL,\nsee [anchor information](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a) on mdn for more information.',
-			},
-		],
-	},
-	{
-		name: 'MenuGroup',
-		package: '@atlaskit/menu',
-		description: 'A list of options to action or navigate.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use for list of options to action or navigate',
-			'Button items = actions (e.g. Copy); Link items = navigate (e.g. Team Spaces)',
-			'Group related menu items together',
-			'Use clear section titles',
-		],
-		contentGuidelines: [
-			'Use clear, descriptive menu item labels',
-			'Group related items logically',
-			'Use consistent terminology',
-			'Keep menu structure simple',
-		],
-		accessibilityGuidelines: [
-			'Provide clear menu item labels',
-			'Use appropriate ARIA attributes',
-			'Ensure keyboard navigation with arrow keys',
-			'Provide clear section titles',
-		],
-		designSource: {
-			figmaUrl: 'https://go.atlassian.com/figma-library-ads-13200-39907',
-		},
-		keywords: ['menu', 'group', 'navigation', 'section', 'items'],
-		category: 'navigation',
-		examples: [
-			'import ButtonItem from \'@atlaskit/menu/button-item\';\nimport LinkItem from \'@atlaskit/menu/link-item\';\nimport MenuGroup from \'@atlaskit/menu/menu-group\';\nimport Section from \'@atlaskit/menu/section\';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<MenuGroup>\n\t\t\t<Section title="Navigation">\n\t\t\t\t<LinkItem href="/dashboard">Dashboard</LinkItem>\n\t\t\t\t<LinkItem href="/projects">Projects</LinkItem>\n\t\t\t\t<LinkItem href="/settings">Settings</LinkItem>\n\t\t\t</Section>\n\t\t</MenuGroup>\n\t\t<MenuGroup spacing="compact">\n\t\t\t<Section title="Actions">\n\t\t\t\t<ButtonItem>Create New</ButtonItem>\n\t\t\t\t<ButtonItem>Import</ButtonItem>\n\t\t\t\t<ButtonItem>Export</ButtonItem>\n\t\t\t</Section>\n\t\t\t<Section title="Help">\n\t\t\t\t<LinkItem href="/docs">Documentation</LinkItem>\n\t\t\t\t<LinkItem href="/support">Support</LinkItem>\n\t\t\t</Section>\n\t\t</MenuGroup>\n\t</>\n);\nexport default Examples;',
-		],
-		props: [
-			{
-				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
-				description: 'Children of the menu group.\nThis should generally be `Section` components.',
-				isRequired: true,
-			},
-			{
-				name: 'isLoading',
-				type: 'boolean | undefined',
-				description: 'Used this to tell assistive technologies that the menu group is loading.',
-			},
-			{
-				name: 'maxHeight',
-				type: 'Dimension | undefined',
-				description:
-					"Use this to constrain the menu group's height to a specific value.\nThis must be set if you want to have scrollable sections.",
-			},
-			{
-				name: 'maxWidth',
-				type: 'Dimension | undefined',
-				description: "Use this to constrain the menu group's maximum width to a specific value.",
-			},
-			{
-				name: 'menuLabel',
-				type: 'string | undefined',
-				description:
-					'Provide an accessible label via `aria-label` for the menu element for assistive technology.',
-			},
-			{
-				name: 'minHeight',
-				type: 'Dimension | undefined',
-				description: "Use this to constrain the menu group's minimum height to a specific value.",
-			},
-			{
-				name: 'minWidth',
-				type: 'Dimension | undefined',
-				description: "Use this to constrain the menu group's minimum width to a specific value.",
-			},
-			{
-				name: 'onClick',
-				type: '((event: React.MouseEvent<Element, MouseEvent> | React.KeyboardEvent<Element>) => void) | undefined',
-				description:
-					'Handler called when clicking on this element,\nor any children elements.\nUseful when needing to stop propagation of child events.',
-			},
-			{
-				name: 'role',
-				type: 'string | undefined',
-				description: 'Use this to override the accessibility role for the element.',
-			},
-			{
-				name: 'spacing',
-				type: 'SpacingMode | undefined',
-				description: 'Configure the density of the menu group content.',
-				defaultValue: '"cozy"',
-			},
-		],
-	},
-	{
-		name: 'Section',
-		package: '@atlaskit/menu',
-		description: 'Groups related menu items together with an optional title or heading.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use to group related menu items (e.g. Actions, Settings)',
-			'Use clear section titles when grouping',
-			'Use visual separators between sections when helpful',
-		],
-		contentGuidelines: ['Use clear section titles', 'Group items logically'],
-		keywords: ['menu', 'section', 'group', 'items'],
-		category: 'navigation',
-		examples: [
-			"import ButtonItem from '@atlaskit/menu/button-item';\nimport HeadingItem from '@atlaskit/menu/heading-item';\nimport MenuGroup from '@atlaskit/menu/menu-group';\nimport Section from '@atlaskit/menu/section';\nimport MenuGroupContainer from '../common/menu-group-container';\nexport default (): React.JSX.Element => (\n\t<MenuGroupContainer>\n\t\t<MenuGroup>\n\t\t\t<Section title=\"Actions\">\n\t\t\t\t<ButtonItem>Create article</ButtonItem>\n\t\t\t</Section>\n\t\t\t<Section aria-labelledby=\"settings\" hasSeparator>\n\t\t\t\t<HeadingItem id=\"settings\">Settings</HeadingItem>\n\t\t\t\t<ButtonItem>Manage account</ButtonItem>\n\t\t\t</Section>\n\t\t</MenuGroup>\n\t</MenuGroupContainer>\n);",
-		],
-		props: [
-			{
-				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
-				description:
-					'Children of the section.\nThis should generally be `Item` or `Heading` components,\nbut can also be [`EmptyState`](https://atlaskit.atlassian.com/packages/design-system/empty-state)s if you want to render errors.',
-				isRequired: true,
-			},
-			{
-				name: 'hasSeparator',
-				type: 'boolean | undefined',
-				description: 'Use this to render a border at the top of the section.',
-			},
-			{
-				name: 'id',
-				type: 'string | undefined',
-				description: 'Unique identifier for the element.',
-			},
-			{
-				name: 'isList',
-				type: 'boolean | undefined',
-				description:
-					'If your menu contains a list, use this to add `<ul>` and `<li>` tags around the items. This is essential for offering better, accessible semantic markup in a list of items.',
-			},
-			{
-				name: 'isScrollable',
-				type: 'boolean | undefined',
-				description:
-					"Enables scrolling within the section.\nThis won't work unless `maxHeight` is set on the parent `MenuGroup` component.",
-			},
-			{
-				name: 'label',
-				type: 'string | undefined',
-				description:
-					'Provide an accessible label for the section via `aria-label` for assistive technology.',
-			},
-			{
-				name: 'title',
-				type: 'string | undefined',
-				description:
-					"The text passed into the internal `HeadingItem`. If a title isn't provided,\nthe `HeadingItem` won't be rendered, and this component will act as a regular `Section`.",
-			},
-			{
-				name: 'titleId',
-				type: 'string | undefined',
-				description:
-					"ID referenced by the menu group wrapper's `aria-labelledby` attribute. This ID should be assigned to the group title element.\nUsage of either this, or the `label` attribute is strongly recommended.",
-			},
-		],
-	},
-	{
-		name: 'SkeletonHeadingItem',
-		package: '@atlaskit/menu',
-		description: 'A skeleton placeholder for a menu heading during loading states.',
-		status: 'general-availability',
-		usageGuidelines: ['Use during loading when a section heading will appear'],
-		keywords: ['menu', 'skeleton', 'heading', 'loading'],
-		category: 'loading',
-		examples: [
-			"import { cssMap } from '@atlaskit/css';\nimport SkeletonHeadingItem from '@atlaskit/menu/skeleton-heading-item';\nimport { token } from '@atlaskit/tokens';\nconst styles = cssMap({\n\tcustomPadding: {\n\t\tpaddingBlock: token('space.400'),\n\t},\n});\nexport default (): React.JSX.Element => (\n\t<>\n\t\t<SkeletonHeadingItem />\n\t\t<SkeletonHeadingItem isShimmering testId=\"is-shimmering\" />\n\t\t<SkeletonHeadingItem isShimmering xcss={styles.customPadding} />\n\t</>\n);",
-		],
-		props: [
-			{
-				name: 'isShimmering',
-				type: 'boolean | undefined',
-				description:
-					'Causes to the skeleton to have a slight horizontal shimmer.\nOnly use this when you want to bring more attention to the loading content.',
-				defaultValue: 'false',
-			},
-			{
-				name: 'width',
-				type: 'Dimension | undefined',
-				description:
-					"Width of the skeleton heading item.\nYou usually don't need to specify this, as it has a staggered width based on `:nth-child` by default.",
-			},
-			{
-				name: 'xcss',
-				type: 'false | (XCSSValue<"paddingBlockEnd" | "paddingBlockStart" | "paddingInlineEnd" | "paddingInlineStart" | "paddingBlock" | "paddingInline", DesignTokenStyles, ""> & ... 4 more ... & { ...; }) | null | undefined',
-				description: 'Bounded style overrides.',
-			},
-		],
-	},
-	{
-		name: 'SkeletonItem',
-		package: '@atlaskit/menu',
-		description: 'A skeleton placeholder for a menu item during loading states.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use during loading to maintain layout stability',
-			'Match the shape of the loaded item (e.g. with or without icon)',
-		],
-		keywords: ['menu', 'skeleton', 'loading', 'placeholder'],
-		category: 'loading',
-		examples: [
-			"import { cssMap } from '@compiled/react';\nimport SkeletonItem from '@atlaskit/menu/skeleton-item';\nimport { token } from '@atlaskit/tokens';\nconst styles = cssMap({\n\tcustomPadding: {\n\t\tpaddingBlock: token('space.400'),\n\t},\n});\nexport default (): React.JSX.Element => (\n\t<>\n\t\t<SkeletonItem />\n\t\t<div >\n\t\t\t<SkeletonItem isShimmering />\n\t\t\t<SkeletonItem hasAvatar isShimmering />\n\t\t\t<SkeletonItem hasIcon isShimmering />\n\t\t\t<SkeletonItem isShimmering xcss={styles.customPadding} />\n\t\t</div>\n\t</>\n);",
-		],
-		props: [
-			{
-				name: 'hasAvatar',
-				type: 'boolean | undefined',
-				description:
-					'Renders a skeleton circle in the `iconBefore` location.\nTakes priority over `hasIcon`.',
-			},
-			{
-				name: 'hasIcon',
-				type: 'boolean | undefined',
-				description: 'Renders a skeleton square in the `iconBefore` location.',
-			},
-			{
-				name: 'isShimmering',
-				type: 'boolean | undefined',
-				description:
-					'Causes to the skeleton to have a slight horizontal shimmer.\nOnly use this when you want to bring more attention to the loading content.',
-				defaultValue: 'false',
-			},
-			{
-				name: 'width',
-				type: 'Dimension | undefined',
-				description:
-					"Width of the skeleton item.\nYou usually don't need to specify this, as it has a staggered width based on `:nth-child` by default.",
-			},
-			{
-				name: 'xcss',
-				type: 'false | (XCSSValue<"minHeight" | "paddingBlockEnd" | "paddingBlockStart" | "paddingInlineEnd" | "paddingInlineStart" | "paddingBlock" | "paddingInline", DesignTokenStyles, ""> & ... 4 more ... & { ...; }) | null | undefined',
-				description: 'Bounded style overrides.',
 			},
 		],
 	},
@@ -7437,7 +6927,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'backgroundColor',
-				type: '"utility.elevation.surface.current" | "elevation.surface" | "elevation.surface.container" | "elevation.surface.overlay" | "elevation.surface.raised" | "elevation.surface.sunken" | ... 224 more ... | undefined',
+				type: '"utility.elevation.surface.current" | "elevation.surface" | "elevation.surface.container" | "elevation.surface.overlay" | "elevation.surface.raised" | "elevation.surface.sunken" | ... 226 more ... | undefined',
 				description: 'Token representing background color with a built-in fallback value.',
 			},
 			{
@@ -11881,7 +11371,7 @@ export const components: ComponentMcpPayload[] = [
 				name: 'mainColumnForExpandCollapseLabel',
 				type: 'string | number | undefined',
 				description:
-					'Adds detail to the expand and collapse row button\'s aria label by appending the value from the given column. If you don\'t set this prop, the aria label will read out "Expand `itemId` row".\n\n    Should be a string when we pass data via `items` property in the table tree. The value should be one of the property `columns` names in the table tree.\n\n    Should be a number  when we pass data via the `Rows` component as children in the table tree.',
+					'Adds detail to the expand and collapse button\'s aria label by appending the value from the given column. If you don\'t set this prop, the aria label will read out "Expand `itemId`".\n\n    Should be a string when we pass data via `items` property in the table tree. The value should be one of the property `columns` names in the table tree.\n\n    Should be a number  when we pass data via the `Rows` component as children in the table tree.',
 			},
 			{
 				name: 'onCollapse',

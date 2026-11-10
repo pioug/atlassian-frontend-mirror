@@ -128,6 +128,25 @@ describe('MenuPortalTopLayer - close propagation (flag ON)', () => {
 		expect(onMenuClose).toHaveBeenCalledTimes(1);
 	});
 
+	it('does not render again after mount while the menu is closed', () => {
+		const onControlRender = jest.fn();
+		const Control = ({ innerRef, children }) => {
+			onControlRender();
+			return <div ref={innerRef}>{children}</div>;
+		};
+		renderSelect({ menuIsOpen: false, components: { Control } });
+		expect(onControlRender).toHaveBeenCalledTimes(1);
+	});
+
+	it('anchors the menu to the control when it opens after mount', () => {
+		const { rerender } = renderSelect({ menuIsOpen: false });
+		expect(document.querySelector('[popover]')).toBeNull();
+
+		rerender(<Select testId={TEST_ID} options={options} onInputChange={__noop} menuIsOpen />);
+
+		expect(getOnlyPopover().matches(':popover-open')).toBe(true);
+	});
+
 	it('keeps the dismissal boundary current when a custom Control replaces its DOM node', async () => {
 		const FirstControl = ({ innerRef, children }) => <div ref={innerRef}>{children}</div>;
 		const SecondControl = ({ innerRef, children }) => <div ref={innerRef}>{children}</div>;
@@ -214,7 +233,9 @@ describe('MenuPortalTopLayer - close propagation (flag ON)', () => {
 			const callbackOrder: string[] = [];
 			const onParentKeyDown = jest.fn();
 			const onSelectKeyDown = jest.fn();
-			const onInputChange = jest.fn(() => callbackOrder.push('onInputChange'));
+			const onInputChange = jest.fn(() => {
+				callbackOrder.push('onInputChange');
+			});
 			const onMenuClose = jest.fn(() => callbackOrder.push('onMenuClose'));
 			render(
 				<div role="presentation" onKeyDown={onParentKeyDown}>
@@ -454,11 +475,15 @@ describe('MenuPortalTopLayer - focus when the menu closes (flag ON)', () => {
 
 		expect(popover.matches(':popover-open')).toBe(false);
 		expect(queryMenuButton()).toBeInTheDocument();
+		expect(
+			screen.getAllByRole('option', { hidden: true }).map((option) => option.textContent),
+		).toEqual(['one', 'two']);
 
 		await flushPopoverExit();
 
 		expect(queryMenuButton()).not.toBeInTheDocument();
 		expect(document.querySelector('[popover]')).toBeNull();
+		expect(screen.queryAllByRole('option', { hidden: true })).toHaveLength(0);
 	});
 
 	it('keeps the opener in StrictMode when content takes focus in a passive effect', async () => {

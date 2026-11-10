@@ -18,7 +18,6 @@ import {
 } from '@atlaskit/media-test-helpers/jestHelpers';
 import { CustomMediaPlayer } from '@atlaskit/media-ui/customMediaPlayer';
 import { MediaPlayer } from '@atlaskit/media-ui/mediaPlayer';
-import { Rectangle } from '@atlaskit/media-ui/rectangle';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { getErrorDetail } from '../../../../../getErrorDetail';
@@ -30,19 +29,14 @@ import {
 import { MediaViewerError } from '../../../../../MediaViewerError';
 import { MediaFooterBar, Video } from '../../../../../styleWrappers';
 import { isIE } from '../../../../../utils/isIE';
+import { InsetVideoFrame } from '../../../../../viewers/inset-video-frame';
 import { VideoViewer } from '../../../../../viewers/video';
 
 jest.mock('../../../../../styleWrappers', () => {
-	const { forwardRef } = jest.requireActual('react');
 	const original = jest.requireActual('../../../../../styleWrappers');
 	return {
 		...original,
 		Video: jest.fn(original.Video),
-		// lazy wrappers: the mock* fns are initialised after the factory runs
-		FittedVideoFrame: forwardRef((props: any, ref: any) => mockFittedVideoFrame(props, ref)),
-		CustomMediaPlayerWrapper: forwardRef((props: any, ref: any) =>
-			mockVideoPlayerWrapper(props, ref),
-		),
 	};
 });
 jest.mock('@atlaskit/media-ui/customMediaPlayer', () => {
@@ -53,29 +47,18 @@ jest.mock('@atlaskit/media-ui/customMediaPlayer', () => {
 		CustomMediaPlayer: jest.fn((props: any) => createElement(original.CustomMediaPlayer, props)),
 	};
 });
-jest.mock('../../../../../utils/fit-viewport', () => ({
-	insetFittedViewport: () => mockInsetFittedViewport(),
-}));
+jest.mock('../../../../../viewers/inset-video-frame', () => {
+	const { createElement } = jest.requireActual('react');
+	const original = jest.requireActual('../../../../../viewers/inset-video-frame');
+	return {
+		...original,
+		InsetVideoFrame: jest.fn((props: any) => createElement(original.InsetVideoFrame, props)),
+	};
+});
 jest.mock('@atlaskit/media-ui/mediaPlayer', () => ({
 	...jest.requireActual('@atlaskit/media-ui/mediaPlayer'),
 	MediaPlayer: jest.fn(() => null),
 }));
-
-const mockInsetFittedViewport = jest.fn();
-const mockFittedVideoFrame = jest.fn(
-	({ children }: { children?: React.ReactNode }, ref: React.Ref<HTMLDivElement>) => (
-		<div ref={ref} data-testid="fitted-video-frame">
-			{children}
-		</div>
-	),
-);
-const mockVideoPlayerWrapper = jest.fn(
-	({ children }: { children?: React.ReactNode }, ref: React.Ref<HTMLDivElement>) => (
-		<div ref={ref} data-testid="video-player-wrapper">
-			{children}
-		</div>
-	),
-);
 
 const token = 'some-token';
 const clientId = 'some-client-id';
@@ -156,29 +139,8 @@ function setup(options: SetupOptions = {}) {
 	return { mediaClient, el, item: item || videoItem, onError, unmountViewer };
 }
 
-// The viewer fits the video into the viewport that `insetFittedViewport` returns, which is mocked.
-const WIDE_VIEWPORT = new Rectangle(800, 600);
-const NARROW_VIEWPORT = new Rectangle(400, 600);
-const NO_WIDTH_VIEWPORT = new Rectangle(0, 600);
-
-const HD_VIDEO = { width: 1600, height: 900 };
-// An HD video (16:9) scaled to fit each viewport.
-const HD_VIDEO_IN_WIDE_VIEWPORT = { width: '800px', height: '450px' };
-const HD_VIDEO_IN_NARROW_VIEWPORT = { width: '400px', height: '225px' };
-
-const createVideo = (videoWidth: number, videoHeight: number) => {
-	const video = document.createElement('video');
-	Object.defineProperties(video, {
-		videoWidth: { configurable: true, value: videoWidth },
-		videoHeight: { configurable: true, value: videoHeight },
-	});
-	return video;
-};
-
 const waitForContent = () =>
 	waitFor(() => expect(screen.queryByLabelText('Loading file...')).not.toBeInTheDocument());
-
-const lastCustomPlayerProps = () => jest.mocked(CustomMediaPlayer).mock.lastCall![0];
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Video viewer', () => {
@@ -464,153 +426,12 @@ describe('Video viewer', () => {
 	});
 
 	describe('inset viewer', () => {
-		beforeEach(() => {
-			mockInsetFittedViewport.mockReturnValue(WIDE_VIEWPORT);
-		});
-
-		it('should tell the media footer it has video controls while mounted in the inset viewer', async () => {
-			setup({ isInsetViewer: true, probe: <HasPlayerControlsProbe /> });
-			await waitForContent();
-
-			expect(screen.getByTestId('has-video-controls')).toHaveTextContent('true');
-		});
-
-		it('should tell the media footer the video controls are gone once unmounted', async () => {
-			const { unmountViewer } = setup({ isInsetViewer: true, probe: <HasPlayerControlsProbe /> });
-			await waitForContent();
-
-			unmountViewer();
-
-			expect(screen.getByTestId('has-video-controls')).toHaveTextContent('false');
-		});
-
 		it('should not tell the media footer about video controls when the inset viewer is not enabled', async () => {
 			setup({ isInsetViewer: false, probe: <HasPlayerControlsProbe /> });
 			await waitForContent();
 
 			expect(screen.getByTestId('has-video-controls')).toHaveTextContent('false');
-		});
-
-		it('should fit the video frame to the viewport once the video metadata loads', async () => {
-			setup({ isInsetViewer: true });
-			await waitForContent();
-
-			const video = createVideo(0, 0);
-			act(() => lastCustomPlayerProps().onVideoElementChange!(video));
-
-			expect(screen.getByTestId('fitted-video-frame').style.width).toBe('');
-
-			Object.defineProperties(video, {
-				videoWidth: { value: HD_VIDEO.width },
-				videoHeight: { value: HD_VIDEO.height },
-			});
-			act(() => {
-				fireEvent.loadedMetadata(video);
-			});
-
-			expect(screen.getByTestId('fitted-video-frame').style).toMatchObject(
-				HD_VIDEO_IN_WIDE_VIEWPORT,
-			);
-		});
-
-		it('should leave the video frame unsized while the viewport has no width', async () => {
-			mockInsetFittedViewport.mockReturnValue(NO_WIDTH_VIEWPORT);
-			setup({ isInsetViewer: true });
-			await waitForContent();
-
-			act(() =>
-				lastCustomPlayerProps().onVideoElementChange!(createVideo(HD_VIDEO.width, HD_VIDEO.height)),
-			);
-
-			expect(screen.getByTestId('fitted-video-frame').style.width).toBe('');
-		});
-
-		describe('when the stage resizes', () => {
-			const observers = new Map<
-				Element,
-				{ callback: ResizeObserverCallback; disconnect: jest.Mock }
-			>();
-			class FakeResizeObserver {
-				disconnect = jest.fn();
-				unobserve = jest.fn();
-				constructor(private callback: ResizeObserverCallback) {}
-				observe = (target: Element) => {
-					observers.set(target, { callback: this.callback, disconnect: this.disconnect });
-				};
-			}
-			const OriginalResizeObserver = window.ResizeObserver;
-
-			beforeEach(() => {
-				window.ResizeObserver = FakeResizeObserver as unknown as typeof ResizeObserver;
-			});
-
-			afterEach(() => {
-				window.ResizeObserver = OriginalResizeObserver;
-				observers.clear();
-			});
-
-			it('should refit the video frame when the stage resizes', async () => {
-				setup({ isInsetViewer: true });
-				await waitForContent();
-				const stage = screen.getByTestId('video-player-wrapper');
-				act(() =>
-					lastCustomPlayerProps().onVideoElementChange!(
-						createVideo(HD_VIDEO.width, HD_VIDEO.height),
-					),
-				);
-
-				mockInsetFittedViewport.mockReturnValue(NARROW_VIEWPORT);
-				act(() => observers.get(stage)!.callback([], {} as ResizeObserver));
-
-				expect(screen.getByTestId('fitted-video-frame').style).toMatchObject(
-					HD_VIDEO_IN_NARROW_VIEWPORT,
-				);
-			});
-
-			it('should stop observing the stage when unmounted', async () => {
-				const { el } = setup({ isInsetViewer: true });
-				await waitForContent();
-				const stage = screen.getByTestId('video-player-wrapper');
-				act(() =>
-					lastCustomPlayerProps().onVideoElementChange!(
-						createVideo(HD_VIDEO.width, HD_VIDEO.height),
-					),
-				);
-
-				expect(observers.get(stage)!.disconnect).not.toHaveBeenCalled();
-
-				el.unmount();
-
-				expect(observers.get(stage)!.disconnect).toHaveBeenCalled();
-			});
-		});
-
-		describe('on IE', () => {
-			beforeEach(() => {
-				jest.mocked(isIE).mockReturnValue(true);
-			});
-
-			afterEach(() => {
-				jest.mocked(isIE).mockReturnValue(false);
-			});
-
-			it('should fit the native video to the viewport when the inset viewer is enabled', async () => {
-				setup({ isInsetViewer: true });
-				await waitForContent();
-
-				expect(mockVideoPlayerWrapper).toHaveBeenCalled();
-				expect(mockFittedVideoFrame).toHaveBeenCalled();
-
-				act(() =>
-					jest.mocked(Video).mock.lastCall![0].onVideoElementChange!(
-						createVideo(HD_VIDEO.width, HD_VIDEO.height),
-					),
-				);
-
-				expect(screen.getByTestId('fitted-video-frame').style).toMatchObject(
-					HD_VIDEO_IN_WIDE_VIEWPORT,
-				);
-			});
+			expect(InsetVideoFrame).not.toHaveBeenCalled();
 		});
 
 		const players = [
@@ -618,29 +439,46 @@ describe('Video viewer', () => {
 				name: 'custom player',
 				setGate: () => failGate('platform_media_video_captions'),
 				player: CustomMediaPlayer,
+				otherPlayer: MediaPlayer,
 			},
 			{
 				name: 'captions player',
 				setGate: () => passGate('platform_media_video_captions'),
 				player: MediaPlayer,
+				otherPlayer: CustomMediaPlayer,
 			},
 		];
 
 		it.each(players)(
-			'should hand the media footer and a video element callback to the $name when the inset viewer is enabled',
-			async ({ setGate, player }) => {
+			'should render the $name in an InsetVideoFrame with the footer, the video element callback and its usual props when the inset viewer is enabled',
+			async ({ setGate, player, otherPlayer }) => {
 				setGate();
 
 				setup({ isInsetViewer: true, withMediaFooter: true });
 				await waitForContent();
 				const footer = screen.getByTestId('media-viewer-media-footer');
 
+				expect(InsetVideoFrame).toHaveBeenCalledWith(
+					expect.objectContaining({
+						'data-testid': 'media-viewer-video-content',
+						renderPlayer: expect.any(Function),
+					}),
+					expect.anything(),
+				);
 				expect(jest.mocked(player).mock.lastCall![0]).toEqual(
 					expect.objectContaining({
+						type: 'video',
+						src: expect.stringContaining('video_hd'),
+						isAutoPlay: true,
+						isHDActive: true,
+						isHDAvailable: true,
+						isShortcutEnabled: true,
 						controlsPortalElement: footer,
 						onVideoElementChange: expect.any(Function),
+						lastWatchTimeConfig: { contentId: 'some-id' },
 					}),
 				);
+				expect(otherPlayer).not.toHaveBeenCalled();
 			},
 		);
 
@@ -655,5 +493,50 @@ describe('Video viewer', () => {
 				expect(jest.mocked(player).mock.lastCall![0].onVideoElementChange).toBeUndefined();
 			},
 		);
+
+		it('should render the custom player when the identifier is not a file', async () => {
+			setup({
+				isInsetViewer: true,
+				props: { identifier: { mediaItemType: 'external-image', dataURI: 'some-uri' } },
+			});
+			await waitForContent();
+
+			expect(CustomMediaPlayer).toHaveBeenCalled();
+			expect(MediaPlayer).not.toHaveBeenCalled();
+		});
+
+		describe('on IE', () => {
+			beforeEach(() => {
+				jest.mocked(isIE).mockReturnValue(true);
+			});
+
+			afterEach(() => {
+				jest.mocked(isIE).mockReturnValue(false);
+			});
+
+			it('should render the native video in an InsetVideoFrame when the inset viewer is enabled', async () => {
+				setup({ isInsetViewer: true });
+				await waitForContent();
+
+				expect(InsetVideoFrame).toHaveBeenCalled();
+				expect(jest.mocked(Video).mock.lastCall![0]).toEqual(
+					expect.objectContaining({
+						autoPlay: true,
+						controls: true,
+						src: expect.stringContaining('video_hd'),
+						onVideoElementChange: expect.any(Function),
+					}),
+				);
+				expect(CustomMediaPlayer).not.toHaveBeenCalled();
+			});
+
+			it('should render the native video without an InsetVideoFrame when the inset viewer is not enabled', async () => {
+				setup({ isInsetViewer: false });
+				await waitForContent();
+
+				expect(InsetVideoFrame).not.toHaveBeenCalled();
+				expect(jest.mocked(Video).mock.lastCall![0].onVideoElementChange).toBeUndefined();
+			});
+		});
 	});
 });

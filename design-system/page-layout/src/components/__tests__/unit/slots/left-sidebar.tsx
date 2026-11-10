@@ -910,9 +910,7 @@ describe('Left sidebar', () => {
 			expect(getDimension('leftSidebarWidth')).toEqual('552px');
 		});
 
-		// skipping this test as it does not work with jsdom.reconfigure. Need to rewrite this test.
-		// https://hello.jira.atlassian.cloud/browse/UTEST-2000
-		it.skip('should block pointer events on iframes while resizing', () => {
+		it('should block pointer events on iframes while resizing', () => {
 			const onResizeStart = jest.fn();
 			const onResizeEnd = jest.fn();
 			render(
@@ -936,7 +934,7 @@ describe('Left sidebar', () => {
 			const iframe = screen.getByTitle('test-iframe');
 
 			// pointer events allowed on the iframe before resizing
-			expect(window.getComputedStyle(iframe).pointerEvents).toBe('');
+			expect(window.getComputedStyle(iframe).pointerEvents).toBe('auto');
 
 			expect(onResizeStart).not.toHaveBeenCalled();
 
@@ -961,7 +959,7 @@ describe('Left sidebar', () => {
 			expect(onResizeEnd).toHaveBeenCalled();
 
 			// pointer events are allowed again
-			expect(window.getComputedStyle(iframe).pointerEvents).toBe('');
+			expect(window.getComputedStyle(iframe).pointerEvents).toBe('auto');
 		});
 
 		it('should not allow you to expand more than half the width of the page after a mouse movement', () => {

@@ -6,8 +6,11 @@ import { userEvent } from '@atlassian/testing-library/user-event';
 
 import {
 	InsetViewerProvider,
+	useHasArchiveColumn,
 	useHasMediaFooterPlayerControls,
 	useIsInsetViewer,
+	useRegisterMediaFooterPlayerControls,
+	useSetHasArchiveColumn,
 	useSetMediaFooterControls,
 	withInsetViewer,
 	withInsetViewerFooter,
@@ -191,50 +194,61 @@ describe('insetViewerContext', () => {
 			expect(withInsetViewerFooter(component as React.ComponentType).displayName).toBe(expected);
 		});
 	});
-	describe('media footer video controls', () => {
+	describe('useRegisterMediaFooterPlayerControls', () => {
 		const PlayerControlsProbe = () => (
 			<span data-testid="has-video">{String(useHasMediaFooterPlayerControls())}</span>
 		);
+		const Player = () => {
+			useRegisterMediaFooterPlayerControls();
+			return null;
+		};
 
-		class Setter extends React.Component<WithInsetViewerFooterProps> {
-			render() {
-				return (
-					<button type="button" onClick={() => this.props.setHasPlayerControls?.(true)}>
-						register video controls
-					</button>
-				);
-			}
-		}
-		const WrappedSetter = withInsetViewerFooter(Setter);
-
-		it('should default to false', () => {
-			render(
+		it('should be false by default, true while a player is mounted and false after it unmounts', () => {
+			const tree = (hasPlayer: boolean) => (
 				<InsetViewerProvider isInsetViewer>
+					{hasPlayer && <Player />}
 					<PlayerControlsProbe />
-				</InsetViewerProvider>,
+				</InsetViewerProvider>
 			);
+			const { rerender } = render(tree(false));
+			expect(screen.getByTestId('has-video')).toHaveTextContent('false');
+
+			rerender(tree(true));
+			expect(screen.getByTestId('has-video')).toHaveTextContent('true');
+
+			rerender(tree(false));
 			expect(screen.getByTestId('has-video')).toHaveTextContent('false');
 		});
 
-		it('should become true once a viewer registers video controls', async () => {
+		it('should tolerate registering video controls without a provider', () => {
+			expect(() => render(<Player />)).not.toThrow();
+		});
+	});
+
+	describe('archive column', () => {
+		const ArchiveColumnProbe = () => {
+			const setHasArchiveColumn = useSetHasArchiveColumn();
+			return (
+				<>
+					<span data-testid="has-archive-column">{String(useHasArchiveColumn())}</span>
+					<button type="button" onClick={() => setHasArchiveColumn(true)}>
+						show archive column
+					</button>
+				</>
+			);
+		};
+
+		it('should default to false and become true once it is set', async () => {
 			render(
 				<InsetViewerProvider isInsetViewer>
-					<WrappedSetter />
-					<PlayerControlsProbe />
+					<ArchiveColumnProbe />
 				</InsetViewerProvider>,
 			);
+			expect(screen.getByTestId('has-archive-column')).toHaveTextContent('false');
 
-			await userEvent.click(screen.getByRole('button', { name: 'register video controls' }));
+			await userEvent.click(screen.getByRole('button', { name: 'show archive column' }));
 
-			expect(screen.getByTestId('has-video')).toHaveTextContent('true');
-		});
-
-		it('should tolerate registering video controls without a provider', async () => {
-			render(<WrappedSetter />);
-
-			await userEvent.click(screen.getByRole('button', { name: 'register video controls' }));
-
-			expect(screen.getByRole('button', { name: 'register video controls' })).toBeInTheDocument();
+			expect(screen.getByTestId('has-archive-column')).toHaveTextContent('true');
 		});
 	});
 });

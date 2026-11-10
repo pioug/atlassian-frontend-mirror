@@ -1,5 +1,25 @@
 # @atlaskit/profilecard
 
+## 27.6.8
+
+### Patch Changes
+
+- [`f97d95e6bb3a5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f97d95e6bb3a5) -
+  Cleanup `feature_gate` `fix_give_kudos_btn_incorrect_role`. The Give Kudos action in the user
+  profile card now always renders as a button (correct role) instead of a link.
+- [`27bd8c0ebf736`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/27bd8c0ebf736) -
+  Remove the platform_agg_user_query_doc_change gate and always build the user query from its
+  GraphQL document.
+- Updated dependencies
+
+## 27.6.7
+
+### Patch Changes
+
+- [`e0fb460e4c662`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e0fb460e4c662) -
+  Use named dropdown menu component imports from their dedicated export paths.
+- Updated dependencies
+
 ## 27.6.6
 
 ### Patch Changes

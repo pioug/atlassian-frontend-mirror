@@ -520,6 +520,14 @@ export interface SelectProps<Option, IsMulti extends boolean, Group extends Grou
 	openMenuOnClick: boolean;
 	/**
 	 * Prevents "Escape" keydown event propagation
+	 *
+	 * This prop does nothing when `platform-dst-top-layer` is on. There, an open menu is its own
+	 * top-layer layer, and the top layer gives one Escape press to one layer: the menu closes and
+	 * the layer under it stays open. To copy the legacy behaviour, Select would have to call
+	 * `stopPropagation()`, which hides Escape from document listeners. Remove this prop when the
+	 * gate is cleaned up.
+	 *
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-14529 Internal documentation for deprecation (no external access)}. Does nothing on the top-layer path, where Escape already closes only the menu.
 	 */
 	shouldPreventEscapePropagation?: boolean;
 	/**
@@ -681,10 +689,11 @@ interface State<Option, IsMulti extends boolean, Group extends GroupBase<Option>
 	prevProps: SelectProps<Option, IsMulti, Group> | void;
 	instancePrefix: string;
 	/**
-	 * State mirror of `controlRef`, used only on the top-layer path so
-	 * `MenuPortalTopLayer` re-renders when the anchor attaches (its layout
-	 * effects depend on this prop). Legacy `MenuPortalLegacy` measures during
-	 * render and keeps reading `controlRef` directly. Stays `null` when the
+	 * State mirror of `controlRef`, used only on the top-layer path to render
+	 * again when the control attaches while the menu is mounted, so
+	 * `MenuPortalTopLayer` gets its anchor. The menu reads `controlRef`
+	 * directly. Not set while the menu is unmounted, so a closed Select does
+	 * not render again after mount. Stays `null` when the
 	 * `platform-dst-top-layer` flag is off.
 	 */
 	controlElement: HTMLDivElement | null;
@@ -1008,14 +1017,22 @@ export default class Select<
 	controlRef: HTMLDivElement | null = null;
 	getControlRef: RefCallback<HTMLDivElement> = (ref) => {
 		this.controlRef = ref;
-		// Mirror the ref into state on the top-layer path so
-		// `MenuPortalTopLayer`'s layout effects react to the anchor attaching.
+		// On the top-layer path, a mounted menu (open, or still closing) reads
+		// this ref as its anchor during render. When the control attaches while
+		// the menu is mounted (open at mount, or a new control node), mirror the
+		// ref into state to render the menu again with the anchor. An unmounted
+		// menu reads the ref when it opens, so skip the state update then: it
+		// would only add a render right after mount.
 		// Skip the null-ref (unmount) case: setState during unmount is unsafe
 		// and the state is dropped with the instance anyway.
 		if (ref === null) {
 			return;
 		}
-		if (this.state.controlElement !== ref && fg('platform-dst-top-layer')) {
+		if (
+			fg('platform-dst-top-layer') &&
+			(this.props.menuIsOpen || this.state.isMenuClosing) &&
+			this.state.controlElement !== ref
+		) {
 			this.setState({ controlElement: ref });
 		}
 	};
@@ -1249,8 +1266,13 @@ export default class Select<
 			this.setState({ isFocused: true });
 		}
 
-		// scroll the focused option into view if necessary
-		if (this.menuListRef && this.focusedOptionRef && this.scrollToFocusedOptionOnUpdate) {
+		// On the top-layer path, retained exit content must not consume a pending scroll.
+		if (
+			(fg('platform-dst-top-layer') ? menuIsOpen : true) &&
+			this.menuListRef &&
+			this.focusedOptionRef &&
+			this.scrollToFocusedOptionOnUpdate
+		) {
 			scrollIntoView(this.menuListRef, this.focusedOptionRef);
 			this.scrollToFocusedOptionOnUpdate = false;
 		}
@@ -2153,6 +2175,9 @@ export default class Select<
 			case 'Escape':
 				if (fg('platform-dst-top-layer')) {
 					if (menuIsOpen) {
+						// A top-layer menu claims this Escape and closes, and the layer under it stays
+						// open. `shouldPreventEscapePropagation` does nothing here, because
+						// `stopPropagation()` would hide Escape from document listeners.
 						this.setState({ inputIsHiddenAfterUpdate: false });
 						return;
 					}
@@ -2651,8 +2676,11 @@ export default class Select<
 
 		let menuUI: ReactNode;
 
-		if (this.hasOptions()) {
-			const items = this.getCategorizedOptions();
+		// Keep rendering options through exit; interaction helpers treat a closing menu as closed.
+		const topLayerOptions = fg('platform-dst-top-layer') ? this.buildCategorizedOptions() : null;
+		const hasOptions = topLayerOptions !== null ? topLayerOptions.length > 0 : this.hasOptions();
+		if (hasOptions) {
+			const items = topLayerOptions ?? this.getCategorizedOptions();
 			menuUI = items.map((item) => {
 				if (item.type === 'group') {
 					const { data, options, index: groupIndex } = item;
@@ -2798,17 +2826,15 @@ export default class Select<
 		if (!shouldPortal) {
 			return menuElement;
 		}
-		// Top-layer path needs the state mirror so MenuPortalTopLayer re-renders
-		// when the anchor attaches; legacy path keeps the direct ref read.
-		const controlElementForPortal = fg('platform-dst-top-layer')
-			? this.state.controlElement
-			: this.controlRef;
+		// Both paths read the ref directly. On the top-layer path,
+		// `getControlRef` renders again when the anchor attaches while the menu
+		// is mounted.
 		const menuPortal = (
 			<MenuPortal
 				{...commonProps}
 				appendTo={menuPortalTarget}
 				additionalInsideElementRefs={additionalInsideElementRefs}
-				controlElement={controlElementForPortal}
+				controlElement={this.controlRef}
 				menuPlacement={menuPlacement}
 				menuPosition={menuPosition}
 			>

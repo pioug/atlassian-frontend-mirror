@@ -10,6 +10,9 @@ import { type LinkComponentProps, type Stage } from '../../types';
 
 const defaultTestId = 'test';
 
+// Compiled styles include the token's fallback value, so match on the CSS variable reference only.
+const tokenReference = (path: Parameters<typeof token>[0]) => token(path).slice(0, -1);
+
 describe('@atlaskit/progress-tracker/stage', () => {
 	it('should render the component', () => {
 		const item: Stage = {
@@ -40,9 +43,7 @@ describe('@atlaskit/progress-tracker/stage', () => {
 	});
 
 	//Appearance
-	// skipping this test as it does not work with jsdom.reconfigure. Need to rewrite this test.
-	// https://hello.jira.atlassian.cloud/browse/UTEST-2000
-	it.skip('should render unvisited stage with correct state', () => {
+	it('should render unvisited stage with correct state', () => {
 		const percentageComplete = 0;
 		const item: Stage = {
 			id: 'unvisited-1',
@@ -66,20 +67,16 @@ describe('@atlaskit/progress-tracker/stage', () => {
 			/>,
 		);
 
-		const baseElement = screen.getByTestId(defaultTestId);
 		const marker = screen.getByTestId(`${defaultTestId}-marker`);
 		const title = screen.getByTestId(`${defaultTestId}-title`);
 
-		// get root styles
-		const styles = getComputedStyle(baseElement);
-		expect(styles.getPropertyValue('--ds--pt--bg')).toEqual(token('color.icon.subtle'));
-		expect(marker).toHaveStyle(`background-color: var(--ds--pt--bg)`);
+		expect(getComputedStyle(marker).backgroundColor).toContain(
+			tokenReference('color.background.neutral.bold'),
+		);
 
-		expect(title).toHaveStyle(`color: ${token('color.text.subtle')}`);
+		expect(getComputedStyle(title).color).toContain(tokenReference('color.text.subtlest'));
 	});
-	// skipping this test as it does not work with jsdom.reconfigure. Need to rewrite this test.
-	// https://hello.jira.atlassian.cloud/browse/UTEST-2000
-	it.skip('should render current stage with correct state', () => {
+	it('should render current stage with correct state', () => {
 		const percentageComplete = 0;
 		const item: Stage = {
 			id: 'current-1',
@@ -103,20 +100,16 @@ describe('@atlaskit/progress-tracker/stage', () => {
 			/>,
 		);
 
-		const baseElement = screen.getByTestId(defaultTestId);
 		const marker = screen.getByTestId(`${defaultTestId}-marker`);
 		const title = screen.getByTestId(`${defaultTestId}-title`);
 
-		// get root styles
-		const styles = getComputedStyle(baseElement);
-		expect(styles.getPropertyValue('--ds--pt--bg')).toEqual(token('color.icon.brand'));
-		expect(marker).toHaveStyle(`background-color: var(--ds--pt--bg)`);
+		expect(getComputedStyle(marker).backgroundColor).toContain(
+			tokenReference('color.background.brand.bold'),
+		);
 
-		expect(title).toHaveStyle(`color: ${token('color.text.brand')}`);
+		expect(getComputedStyle(title).color).toContain(tokenReference('color.text.brand'));
 	});
-	// skipping this test as it does not work with jsdom.reconfigure. Need to rewrite this test.
-	// https://hello.jira.atlassian.cloud/browse/UTEST-2000
-	it.skip('should render disabled stage with correct state', () => {
+	it('should render disabled stage with correct state', () => {
 		const percentageComplete = 0;
 		const item: Stage = {
 			id: 'disabled-1',
@@ -140,20 +133,16 @@ describe('@atlaskit/progress-tracker/stage', () => {
 			/>,
 		);
 
-		const baseElement = screen.getByTestId(defaultTestId);
 		const marker = screen.getByTestId(`${defaultTestId}-marker`);
 		const title = screen.getByTestId(`${defaultTestId}-title`);
 
-		// get root styles
-		const styles = getComputedStyle(baseElement);
-		expect(styles.getPropertyValue('--ds--pt--bg')).toEqual(token('color.icon.brand'));
-		expect(marker).toHaveStyle(`background-color: var(--ds--pt--bg)`);
+		expect(getComputedStyle(marker).backgroundColor).toContain(
+			tokenReference('color.background.disabled'),
+		);
 
-		expect(title).toHaveStyle(`color: ${token('color.text.disabled')}`);
+		expect(getComputedStyle(title).color).toContain(tokenReference('color.text.disabled'));
 	});
-	// skipping this test as it does not work with jsdom.reconfigure. Need to rewrite this test.
-	// https://hello.jira.atlassian.cloud/browse/UTEST-2000
-	it.skip('should render visited stage with default link and correct props', () => {
+	it('should render visited stage with default link and correct props', () => {
 		const percentageComplete = 100;
 		const item: Stage = {
 			id: 'visited-1',
@@ -177,20 +166,16 @@ describe('@atlaskit/progress-tracker/stage', () => {
 			/>,
 		);
 
-		const baseElement = screen.getByTestId(defaultTestId);
 		const marker = screen.getByTestId(`${defaultTestId}-marker`);
 		const title = screen.getByTestId(`${defaultTestId}-title`);
 
-		// get root styles
-		const styles = getComputedStyle(baseElement);
-		expect(styles.getPropertyValue('--ds--pt--bg')).toEqual(token('color.icon.brand'));
-		expect(marker).toHaveStyle(`background-color: var(--ds--pt--bg)`);
+		expect(getComputedStyle(marker).backgroundColor).toContain(
+			tokenReference('color.background.brand.bold'),
+		);
 
-		expect(title).toHaveStyle(`color: ${token('color.text')}`);
+		expect(getComputedStyle(title).color).toContain(tokenReference('color.text'));
 	});
-	// skipping this test as it does not work with jsdom.reconfigure. Need to rewrite this test.
-	// https://hello.jira.atlassian.cloud/browse/UTEST-2000
-	it.skip('should render visited stage without link if noLink is true', () => {
+	it('should render visited stage without link if noLink is true', () => {
 		const percentageComplete = 100;
 		const item: Stage = {
 			id: 'visited-1',

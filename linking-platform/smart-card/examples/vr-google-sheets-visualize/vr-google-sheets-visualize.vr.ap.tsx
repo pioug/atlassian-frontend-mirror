@@ -18,6 +18,7 @@ import '../../src/view/EmbedCard/components/rovo-actions-footer';
 
 const VISUALIZE_KILL_SWITCH = 'platform_sl_3p_auth_visualize_killswitch';
 const VISUALIZE_EXPERIMENT = 'platform_sl_3p_auth_visualize_exp';
+const SUMMARIZE_ICON_CONSISTENCY = 'platform_sl_rovo_summarize_icon_consistency';
 
 const googleSheetUrl = 'https://docs.google.com/spreadsheets/d/vr-google-sheets-visualize/edit';
 
@@ -65,7 +66,11 @@ const createVisualizeExample = (
 	const Example = (): JSX.Element => {
 		const revision = useVrExperimentGateConfig({
 			experiments: [{ key: VISUALIZE_EXPERIMENT, value: { isEnabled: isVisualizeEnabled } }],
-			gates: [{ key: VISUALIZE_KILL_SWITCH, value: isVisualizeEnabled }],
+			gates: [
+				{ key: VISUALIZE_KILL_SWITCH, value: isVisualizeEnabled },
+				// Summarize uses the same icon across inline, block and embed.
+				{ key: SUMMARIZE_ICON_CONSISTENCY, value: true },
+			],
 		});
 
 		if (!revision) {

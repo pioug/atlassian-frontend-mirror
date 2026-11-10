@@ -115,6 +115,8 @@ import {
 	PIN_BUTTON,
 	PIN_GROUP,
 	LOOM_MENU_SECTION,
+	LOOM_TOOLBAR_GROUP,
+	LOOM_TOOLBAR_BUTTON,
 	LOOM_MENU_ITEM,
 	OVERFLOW_SECTION_PRIMARY_TOOLBAR,
 	OVERFLOW_GROUP_PRIMARY_TOOLBAR,
@@ -571,6 +573,7 @@ export const INSERT_BLOCK_SECTION_RANK: {
 	'emoji-group': number;
 	'insert-group': number;
 	'layout-group': number;
+	'loom-toolbar-group': number;
 	'media-group': number;
 	'mention-group': number;
 	'synced-block-group': number;
@@ -579,6 +582,7 @@ export const INSERT_BLOCK_SECTION_RANK: {
 } = {
 	[TASK_LIST_GROUP.key]: 100,
 	[MEDIA_GROUP.key]: 200,
+	[LOOM_TOOLBAR_GROUP.key]: 250,
 	[CODE_BLOCK_GROUP.key]: 300,
 	[MENTION_GROUP.key]: 400,
 	[EMOJI_GROUP.key]: 500,
@@ -586,6 +590,12 @@ export const INSERT_BLOCK_SECTION_RANK: {
 	[SYNCED_BLOCK_GROUP.key]: 700,
 	[TABLE_GROUP.key]: 800,
 	[INSERT_GROUP.key]: 900,
+};
+
+export const LOOM_TOOLBAR_GROUP_RANK: {
+	'loom-toolbar-button': number;
+} = {
+	[LOOM_TOOLBAR_BUTTON.key]: 100,
 };
 
 export const TASK_LIST_GROUP_RANK: {

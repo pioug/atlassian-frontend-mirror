@@ -1,24 +1,22 @@
 import React from 'react';
 
-import { type WithIntlProps, type WrappedComponentProps, injectIntl } from 'react-intl';
+import { type WrappedComponentProps, injectIntl } from 'react-intl';
 import { type ZipEntry } from 'unzipit';
 
 import Folder24Icon from '@atlaskit/icon-file-type/glyph/folder/24';
-import { globalMediaEventEmitter } from '@atlaskit/media-client/global-media-event-emitter';
 import type { MediaClient } from '@atlaskit/media-client/media-client';
-import { downloadUrl } from '@atlaskit/media-common/downloadUrl';
 import { MediaTypeIcon } from '@atlaskit/media-ui/media-type-icon';
 import { messages } from '@atlaskit/media-ui/messages';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { ArchiveViewerError } from '../../ArchiveViewerError';
+import { type WithInsetViewerProps, withInsetViewer } from '../../insetViewerContext';
 import { getMediaTypeFromFilename } from '../../utils/getMediaTypeFromFilename';
 import { isMacPrivateFile } from '../../utils/isMacPrivateFile';
-import { rejectAfter } from '../../utils/rejectAfter';
 import { ArchiveDownloadButton } from './archive-download-button';
 import { ArchiveSidebarFileEntryWrapper } from './archive-sidebar-file-entry-wrapper';
 import { ArchiveSidebarFolderWrapper } from './archive-sidebar-folder-wrapper';
 import { CustomButtonItem } from './custom-button-item';
+import { downloadArchiveEntry } from './download-archive-entry';
 import { SidebarItemWrapper } from './sidebar-item-wrapper';
 
 type Entries = { [key: string]: ZipEntry };
@@ -34,22 +32,28 @@ export interface ArchiveSidebarFolderProps {
 	onError: (error: ArchiveViewerError, entry?: ZipEntry) => void;
 	shouldRenderAbuseModal: boolean;
 	fileId?: string;
+	selectedEntryName?: string;
 }
 
 class ArchiveSidebarFolderEntryBase extends React.Component<
-	ArchiveSidebarFolderProps & WrappedComponentProps,
+	ArchiveSidebarFolderProps & WrappedComponentProps & WithInsetViewerProps,
 	{ isAbuseModalOpen: boolean }
 > {
 	state = { isAbuseModalOpen: false };
 
 	renderEntry = (entry: ZipEntry) => {
-		const { root, onEntrySelected, mediaClient } = this.props;
+		const { root, onEntrySelected, mediaClient, selectedEntryName } = this.props;
 		const onClick = () => onEntrySelected(entry);
+		const isSelected = !!selectedEntryName && entry.name === selectedEntryName;
 
 		return (
-			<ArchiveSidebarFileEntryWrapper key={entry.name} index={entry.name}>
+			<ArchiveSidebarFileEntryWrapper key={entry.name} index={entry.name} isSelected={isSelected}>
 				<SidebarItemWrapper>
-					<CustomButtonItem iconBefore={this.renderEntryIcon(entry)} onClick={onClick}>
+					<CustomButtonItem
+						iconBefore={this.renderEntryIcon(entry)}
+						onClick={onClick}
+						isSelected={isSelected}
+					>
 						{this.formatName(root, entry.name)}
 					</CustomButtonItem>
 				</SidebarItemWrapper>
@@ -65,7 +69,10 @@ class ArchiveSidebarFolderEntryBase extends React.Component<
 			return <Folder24Icon label="Folder" />;
 		}
 		const mediaType = getMediaTypeFromFilename(entry.name);
-		return <MediaTypeIcon type={mediaType} />;
+		// The inset viewer's rows size and align the icon themselves, so it has no padding of its own.
+		return (
+			<MediaTypeIcon type={mediaType} spacing={this.props.isInsetViewer ? 'none' : undefined} />
+		);
 	};
 
 	private renderDownloadButton = (
@@ -92,19 +99,7 @@ class ArchiveSidebarFolderEntryBase extends React.Component<
 
 	private downloadZipEntry = async (entry: ZipEntry, root: string) => {
 		try {
-			const blob = await rejectAfter<Blob>(() => entry.blob());
-			const name = this.formatName(root, entry.name);
-
-			// Emit media-viewed event if feature flag is enabled
-			if (this.props.fileId && fg('download_event_for_jira_attachments')) {
-				globalMediaEventEmitter.emit('media-viewed', {
-					fileId: this.props.fileId,
-					viewingLevel: 'download',
-					childFileName: name,
-				});
-			}
-
-			downloadUrl(URL.createObjectURL(blob), { name });
+			await downloadArchiveEntry(entry, this.formatName(root, entry.name), this.props.fileId);
 		} catch (error) {
 			this.props.onError(error as ArchiveViewerError, entry);
 		}
@@ -151,8 +146,6 @@ class ArchiveSidebarFolderEntryBase extends React.Component<
 	}
 }
 
-export const ArchiveSidebarFolderEntry: React.FC<
-	WithIntlProps<ArchiveSidebarFolderProps & WrappedComponentProps>
-> & {
-	WrappedComponent: React.ComponentType<ArchiveSidebarFolderProps & WrappedComponentProps>;
-} = injectIntl(ArchiveSidebarFolderEntryBase);
+export const ArchiveSidebarFolderEntry: React.ForwardRefExoticComponent<
+	ArchiveSidebarFolderProps & React.RefAttributes<any>
+> = withInsetViewer(injectIntl(ArchiveSidebarFolderEntryBase));

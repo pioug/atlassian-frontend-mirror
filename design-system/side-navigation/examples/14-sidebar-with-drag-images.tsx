@@ -16,9 +16,9 @@ import {
 import { cssMap, jsx } from '@compiled/react';
 import invariant from 'tiny-invariant';
 
-import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
-import DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';
-import DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';
+import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';
+import { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-item-group';
+import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import Image from '@atlaskit/image';
 import { easeInOut } from '@atlaskit/motion/curves';

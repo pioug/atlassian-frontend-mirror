@@ -1,5 +1,13 @@
 # @atlaskit/textfield
 
+## 10.3.1
+
+### Patch Changes
+
+- [`29dcbf0ef1d5b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/29dcbf0ef1d5b) -
+  Add semantic spacing style overrides for textfield behind platform-semantic-spacing. Existing
+  numeric styles remain when the feature flag is off.
+
 ## 10.3.0
 
 ### Minor Changes

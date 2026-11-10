@@ -213,6 +213,12 @@ export type ChatNewPayload = PayloadCore<
 		 * that conversation once ready. Has no effect when `skipCreatingSeededConversation` is true.
 		 */
 		deferOpenUntilSeeded?: boolean;
+		/** Local first-landing lifecycle; never serialized into a service request. */
+		firstLandingLaunch?: {
+			isCurrent: () => boolean;
+			onOpened: () => void;
+			onFailed: () => void;
+		};
 		// Space to set as the selected space bar in the chat input
 		selectedSpace?: { id: string; name: string; emoji?: string };
 		// Reset to default chat view from previously selected view, e.g. Browse agents

@@ -10,6 +10,7 @@ import RovoChatIcon from '@atlaskit/icon/core/rovo-chat';
 import type { NewCoreIconProps } from '@atlaskit/icon/types';
 import type { ProductType } from '@atlaskit/linking-common/types';
 import { RovoIcon } from '@atlaskit/logo/rovo/icon';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { CardDisplay } from '../../../constants';
 import { messages } from '../../../messages';
@@ -95,7 +96,11 @@ export const getPromptAction = ({
 				{ ignoreTag: true },
 			);
 			return {
-				icon: <AiChatIcon label={label_summarize} size={iconSize} />,
+				icon: fg('platform_sl_rovo_summarize_icon_consistency') ? (
+					<AiGenerativeTextSummaryIcon label={label_summarize} size={iconSize} />
+				) : (
+					<AiChatIcon label={label_summarize} size={iconSize} />
+				),
 				content: label_summarize,
 				tooltipMessage: label_summarize,
 				data: {

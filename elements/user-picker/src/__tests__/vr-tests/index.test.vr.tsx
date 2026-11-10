@@ -15,6 +15,7 @@ import SingleUserPickerWithAgentHexagonAvatar from '../../../examples/35-agent-h
 import UserPickerWithIcon from '../../../examples/36-user-picker-with-icon.vr.ap';
 import MultiWithDefaultValuesWithSelectedOfficialTeams from '../../../examples/37-multi-with-default-values-with-selected-official-teams-and-admin-groups.vr.ap';
 import SingleWithDefaultValuesWithSelectedOfficialTeamSelected from '../../../examples/38-single-with-default-values-with-official-team-selected.vr.ap';
+import InlineMenuHeaderFooter from '../../../examples/40-inline-menu-header-footer.vr.ap';
 import GroupByTypeWithDefaultValue from '../../../examples/group-by-type-with-default-value.vr.ap';
 import MultiWithAutoFocus from '../../../examples/multi-with-auto-focus.vr.ap';
 import PopupWithDefaultOpen from '../../../examples/popup-with-default-open.vr.ap';
@@ -76,6 +77,14 @@ snapshot(Footer, {
 
 snapshot(Header, {
 	drawsOutsideBounds: true,
+});
+
+// Inline mode keeps the user picker Menu, so the header and the footer show around the options.
+snapshot(InlineMenuHeaderFooter, {
+	drawsOutsideBounds: true,
+	featureFlags: {
+		'platform-dst-top-layer': [true, false],
+	},
 });
 
 snapshot(TeamAvatarPlaceholder);

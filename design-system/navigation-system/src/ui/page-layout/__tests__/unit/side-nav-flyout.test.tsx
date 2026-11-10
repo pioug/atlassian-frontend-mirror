@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { skipA11yAudit } from '@af/accessibility-testing/skip-a11y-audit';
-import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
 import noop from '@atlaskit/ds-lib/noop';
 import { useNotifyOpenLayerObserver } from '@atlaskit/layering/use-notify-open-layer-observer';
 import { Popup } from '@atlaskit/popup/popup';

@@ -71,9 +71,10 @@ export function MenuPortalTopLayer<
 	const anchorRef = useRef<HTMLElement | null>(null);
 	anchorRef.current = controlElement;
 
-	// `controlElement` is null on initial mount / SSR until `Select` mirrors
-	// its ref into state. While null, every hook below no-ops to avoid DOM
-	// reads or registering an unpositioned popover.
+	// `controlElement` is null when the menu is open on initial mount / SSR,
+	// until `Select` renders again with its control ref. While null, every
+	// hook below no-ops to avoid DOM reads or registering an unpositioned
+	// popover.
 	const isAnchored = controlElement !== null;
 	// Select keeps this portal mounted while the menu closes (`menuIsOpen` is `false`), so the
 	// Popover hides in the DOM and the platform restores focus.
@@ -83,17 +84,20 @@ export function MenuPortalTopLayer<
 		[additionalInsideElementRefsProp, anchorRef],
 	);
 
-	// Inline rather than memoised: `useAnchoredPopover` re-derives a stable
-	// placement from the primitive fields.
-	useAnchoredPopover({
-		anchorRef,
-		popoverRef,
-		placement: {
-			axis: 'block',
+	const placement = useMemo(
+		() => ({
+			axis: 'block' as const,
 			edge: reactSelectEdgeToTopLayerEdge(menuPlacement),
 			// Keep the popover separated from the control, even when it flips to the opposite side.
 			offset: { gap: token('space.100') },
-		},
+		}),
+		[menuPlacement],
+	);
+	// Share the placement so Popover's animation direction matches the positioning hint.
+	useAnchoredPopover({
+		anchorRef,
+		popoverRef,
+		placement,
 		isOpen,
 		inlineSize: 'match-anchor',
 		// Fit long menus into available space, rather than only capping at the full viewport height.
@@ -156,14 +160,13 @@ export function MenuPortalTopLayer<
 	//
 	// Select keeps this portal mounted until `onExitFinish`, so the Popover hides
 	// in the DOM and its focus restoration runs.
-	//
-	// TODO: add open / close animation. The menu now stays mounted through the
-	// close, so Popover's `shouldAnimate` exit is possible, but it is not enabled.
 	return (
 		<Popover
 			ref={popoverRef}
 			mode="manual"
 			isOpen={isOpen}
+			shouldAnimate
+			placement={placement}
 			onClose={handlePopoverClose}
 			onExitFinish={onExitFinish}
 		>

@@ -111,9 +111,8 @@ describe('GeneratedAvatar', () => {
 		expect(await screen.findByTestId('refreshed-agent-avatar')).toHaveAttribute('viewBox', viewBox);
 	});
 
-	it('retains the Request Resolver rename path when the Team 26 EU gate is off', async () => {
+	it('renders the Request Resolver avatar when the Team 26 EU gate is off', async () => {
 		failGate('rovo_agent_avatar_refresh_teu26');
-		passGate('rename-rovo-service-to-request-resolver');
 		render(<GeneratedAvatar agentNamedId="jsm_rovo_service_agent" size="medium" />);
 
 		expect(await screen.findByTestId('jsm-request-resolver-agent-avatar')).toBeInTheDocument();

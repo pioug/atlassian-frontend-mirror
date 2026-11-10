@@ -11,8 +11,8 @@ import { bind } from 'bind-event-listener';
 
 import { useSetColorMode } from '@atlaskit/app-provider/use-set-color-mode';
 import { cssMap } from '@atlaskit/css';
-import DropdownItemRadio from '@atlaskit/dropdown-menu/dropdown-item-radio';
-import DropdownItemRadioGroup from '@atlaskit/dropdown-menu/dropdown-item-radio-group';
+import { DropdownItemRadio } from '@atlaskit/dropdown-menu/dropdown-item-radio';
+import { DropdownItemRadioGroup } from '@atlaskit/dropdown-menu/dropdown-item-radio-group';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { Text } from '@atlaskit/primitives/compiled/text';

@@ -16,11 +16,14 @@ import { Text } from '@atlaskit/primitives/compiled/text';
 import { createPreviewUnsupportedEvent } from '../../analytics/events/operational/previewUnsupported';
 import { createZipEntryLoadFailedEvent } from '../../analytics/events/operational/zipEntryLoadFailed';
 import { createZipEntryLoadSucceededEvent } from '../../analytics/events/operational/zipEntryLoadSucceeded';
+import { createFailedPreviewDownloadButtonClickedEvent } from '../../analytics/events/ui/failedPreviewDownloadButtonClicked';
 import { fireAnalytics } from '../../analytics/fireAnalytics';
 import { type ArchiveViewerErrorReason, ArchiveViewerError } from '../../ArchiveViewerError';
 import { buildVideoErrorDiagnostics } from '../../buildVideoErrorDiagnostics';
 import { Outcome } from '../../domain/outcome';
+import { DownloadItem } from '../../DownloadItem';
 import ErrorMessage from '../../errorMessageWithAnalytics';
+import { type WithInsetViewerProps } from '../../insetViewerContext';
 import { isMediaViewerError } from '../../isMediaViewerError';
 import { MAX_FILE_SIZE_SUPPORTED_BY_CODEVIEWER } from '../../item-viewer';
 import { Spinner } from '../../loading';
@@ -29,6 +32,8 @@ import {
 	AudioPlayer,
 	CustomAudioPlayerWrapper,
 	DefaultCoverWrapper,
+	DownloadButtonWrapper,
+	ItemStage,
 	ListWrapper,
 } from '../../styleWrappers';
 import { getMediaTypeFromFilename } from '../../utils/getMediaTypeFromFilename';
@@ -39,15 +44,25 @@ import { BaseViewer } from '../base-viewer';
 import { CodeViewRenderer } from '../codeViewer/CodeViewRenderer-2';
 import { DEFAULT_LANGUAGE } from '../codeViewer/util';
 import { InteractiveImg } from '../image/interactive-img';
+import { InsetAudioFrame, type InsetAudioPlayerProps } from '../inset-audio-frame';
+import { InsetVideoFrame, type InsetVideoPlayerProps } from '../inset-video-frame';
 import type { Content, Props } from './archive';
 import { ArchiveItemViewerWrapper } from './archive-item-viewer-wrapper';
 import { ArchiveLayout } from './archive-layout';
 import ArchiveSidebarRenderer from './archive-sidebar-renderer';
 import { ArchiveViewerWrapper } from './archive-viewer-wrapper';
 import { ENCRYPTED_ENTRY_ERROR_MESSAGE } from './consts';
-import { NativePdfViewer } from './nativePdfViewer';
+import { downloadArchiveEntry } from './download-archive-entry';
+import { canRenderInNativePdfViewer, NativePdfViewer } from './nativePdfViewer';
+import { ArchiveEmptyState } from './styleWrappers';
 
-export class ArchiveViewerBase extends BaseViewer<Content, Props> {
+// The entry itself couldn't be read, so downloading it would fail the same way.
+const UNREADABLE_ENTRY_REASONS: ReadonlyArray<ArchiveViewerErrorReason> = [
+	'archiveviewer-encrypted-entry',
+	'archiveviewer-create-url',
+];
+
+export class ArchiveViewerBase extends BaseViewer<Content, Props & WithInsetViewerProps> {
 	protected async init(): Promise<void> {
 		this.setState(this.initialState);
 	}
@@ -122,6 +137,18 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
 		const mimeType = getMimeTypeFromFilename(selectedArchiveEntry.name);
 
 		const isCodeMimeType = isCodeViewerItem(selectedArchiveEntry.name, mimeType);
+
+		if (
+			this.props.isInsetViewer &&
+			!selectedArchiveEntry.isDirectory &&
+			getMediaTypeFromFilename(selectedArchiveEntry.name) === 'doc' &&
+			!canRenderInNativePdfViewer(mimeType)
+		) {
+			fireAnalytics(
+				createPreviewUnsupportedEvent(this.props.item),
+				this.props.createAnalyticsEvent,
+			);
+		}
 
 		if (!selectedArchiveEntry.isDirectory) {
 			try {
@@ -209,31 +236,35 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
 	};
 
 	protected renderSuccessful(content: Content): React.JSX.Element {
-		const { item, mediaClient, collectionName } = this.props;
+		const { item, mediaClient, collectionName, isInsetViewer } = this.props;
 		const { selectedArchiveEntry, hasLoadedEntries } = content;
 		const hasSelectedArchiveEntry = selectedArchiveEntry !== undefined;
 
+		const sidebar = (
+			<ArchiveSidebarRenderer
+				selectedFileState={item}
+				mediaClient={mediaClient}
+				onSelectedArchiveEntryChange={this.onSelectedArchiveEntryChange}
+				onHeaderClicked={this.onHeaderClicked}
+				isArchiveEntryLoading={!hasSelectedArchiveEntry}
+				collectionName={collectionName}
+				onError={this.onError}
+				onSuccess={this.onSidebarLoaded}
+			/>
+		);
+		const viewer = (
+			<ArchiveViewerWrapper>
+				{!hasSelectedArchiveEntry && !hasLoadedEntries
+					? this.renderCentered(<Spinner />)
+					: this.renderArchiveItemViewer(content)}
+			</ArchiveViewerWrapper>
+		);
+
+		// The inset viewer shows the file list on the right, so it comes after the preview.
 		return (
 			<ArchiveLayout>
-				<ArchiveSidebarRenderer
-					selectedFileState={item}
-					mediaClient={mediaClient}
-					onSelectedArchiveEntryChange={this.onSelectedArchiveEntryChange}
-					onHeaderClicked={this.onHeaderClicked}
-					isArchiveEntryLoading={!hasSelectedArchiveEntry}
-					collectionName={collectionName}
-					onError={this.onError}
-					onSuccess={this.onSidebarLoaded}
-				/>
-				<ArchiveViewerWrapper>
-					{!hasSelectedArchiveEntry && !hasLoadedEntries ? (
-						<ListWrapper>
-							<Spinner />
-						</ListWrapper>
-					) : (
-						this.renderArchiveItemViewer(content)
-					)}
-				</ArchiveViewerWrapper>
+				{isInsetViewer ? viewer : sidebar}
+				{isInsetViewer ? sidebar : viewer}
 			</ArchiveLayout>
 		);
 	}
@@ -300,7 +331,7 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
 			switch (mediaType) {
 				case 'image':
 					return (
-						<ArchiveItemViewerWrapper>
+						<ArchiveItemViewerWrapper fullHeight={this.props.isInsetViewer}>
 							<InteractiveImg
 								src={src}
 								alt={name}
@@ -312,46 +343,78 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
 							/>
 						</ArchiveItemViewerWrapper>
 					);
-				case 'video':
+				case 'video': {
+					const renderVideoPlayer = (insetPlayerProps?: InsetVideoPlayerProps) => (
+						<CustomMediaPlayer
+							type="video"
+							isAutoPlay={false}
+							src={src}
+							onCanPlay={this.onViewerLoad(selectedArchiveEntry)}
+							onError={this.onViewerError(
+								'archiveviewer-videoviewer-onerror',
+								selectedArchiveEntry,
+							)}
+							{...insetPlayerProps}
+						/>
+					);
 					return (
-						<ArchiveItemViewerWrapper>
-							<CustomMediaPlayerWrapper data-testid="media-viewer-video-content">
-								<CustomMediaPlayer
-									type="video"
-									isAutoPlay={false}
-									src={src}
-									onCanPlay={this.onViewerLoad(selectedArchiveEntry)}
-									onError={this.onViewerError(
-										'archiveviewer-videoviewer-onerror',
-										selectedArchiveEntry,
-									)}
+						<ArchiveItemViewerWrapper fullHeight={this.props.isInsetViewer}>
+							{this.props.isInsetViewer ? (
+								<InsetVideoFrame
+									data-testid="media-viewer-video-content"
+									renderPlayer={renderVideoPlayer}
 								/>
-							</CustomMediaPlayerWrapper>
+							) : (
+								<CustomMediaPlayerWrapper data-testid="media-viewer-video-content">
+									{renderVideoPlayer()}
+								</CustomMediaPlayerWrapper>
+							)}
 						</ArchiveItemViewerWrapper>
 					);
-				case 'audio':
+				}
+				case 'audio': {
+					const renderAudioPlayer = (insetPlayerProps?: InsetAudioPlayerProps) => (
+						<CustomMediaPlayer
+							type="audio"
+							isAutoPlay={false}
+							src={src}
+							onCanPlay={this.onViewerLoad(selectedArchiveEntry)}
+							onError={this.onViewerError(
+								'archiveviewer-audioviewer-onerror',
+								selectedArchiveEntry,
+							)}
+							{...insetPlayerProps}
+						/>
+					);
 					return (
-						<ArchiveItemViewerWrapper>
-							<AudioPlayer data-testid="media-viewer-audio-content">
-								<DefaultCoverWrapper>
-									<AudioIcon label="cover" color="currentColor" />
-								</DefaultCoverWrapper>
-								<CustomAudioPlayerWrapper>
-									<CustomMediaPlayer
-										type="audio"
-										isAutoPlay={false}
-										src={src}
-										onCanPlay={this.onViewerLoad(selectedArchiveEntry)}
-										onError={this.onViewerError(
-											'archiveviewer-audioviewer-onerror',
-											selectedArchiveEntry,
-										)}
-									/>
-								</CustomAudioPlayerWrapper>
-							</AudioPlayer>
+						<ArchiveItemViewerWrapper fullHeight={this.props.isInsetViewer}>
+							{this.props.isInsetViewer ? (
+								<InsetAudioFrame renderPlayer={renderAudioPlayer} />
+							) : (
+								<AudioPlayer data-testid="media-viewer-audio-content">
+									<DefaultCoverWrapper>
+										<AudioIcon label="cover" color="currentColor" />
+									</DefaultCoverWrapper>
+									<CustomAudioPlayerWrapper>{renderAudioPlayer()}</CustomAudioPlayerWrapper>
+								</AudioPlayer>
+							)}
 						</ArchiveItemViewerWrapper>
 					);
+				}
 				case 'doc':
+					// The native viewer can't show this, and the browser would download it and leave the stage
+					// blank, so the inset viewer shows the can't-preview message instead.
+					if (
+						this.props.isInsetViewer &&
+						!canRenderInNativePdfViewer(getMimeTypeFromFilename(name))
+					) {
+						// Not a load failure: it's reported once from the selection, as previewUnsupported.
+						return this.renderPreviewError(
+							new ArchiveViewerError('archiveviewer-unsupported'),
+							selectedArchiveEntry,
+							false,
+						);
+					}
 					return (
 						<ArchiveItemViewerWrapper fullHeight={true}>
 							<NativePdfViewer
@@ -380,7 +443,24 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
 					);
 			}
 		}
+
+		// Nothing is picked yet, so the inset viewer asks for one instead of leaving the stage blank.
+		if (this.props.isInsetViewer) {
+			return <ArchiveEmptyState />;
+		}
 	}
+
+	private downloadEntry = async (entry: ZipEntry) => {
+		try {
+			await downloadArchiveEntry(
+				entry,
+				entry.name.split('/').pop() ?? entry.name,
+				this.props.item.id,
+			);
+		} catch (error) {
+			this.onError(error as ArchiveViewerError, entry);
+		}
+	};
 
 	private renderPreviewError(
 		error: ArchiveViewerError,
@@ -393,14 +473,41 @@ export class ArchiveViewerBase extends BaseViewer<Content, Props> {
 			fireAnalytics(createZipEntryLoadFailedEvent(item, error, entry), createAnalyticsEvent);
 		}
 
-		return (
-			<ListWrapper>
-				<ErrorMessage fileId={item.id} fileState={item} error={error} supressAnalytics={true}>
-					<Text>
-						<FormattedMessage {...messages.try_downloading_file} />
-					</Text>
-				</ErrorMessage>
-			</ListWrapper>
+		return this.renderCentered(
+			<ErrorMessage fileId={item.id} fileState={item} error={error} supressAnalytics={true}>
+				<Text>
+					<FormattedMessage {...messages.try_downloading_file} />
+				</Text>
+				{/* The inset viewer offers the download here too, as it does for a file of its own. */}
+				{this.props.isInsetViewer &&
+				entry &&
+				!UNREADABLE_ENTRY_REASONS.includes(error.primaryReason) ? (
+					<DownloadButtonWrapper>
+						<DownloadItem
+							testId="media-viewer-error-download-button"
+							appearance="primary"
+							variant="insetText"
+							analyticspayload={createFailedPreviewDownloadButtonClickedEvent(item, error)}
+							fileState={item}
+							mediaClient={this.props.mediaClient}
+							traceContext={this.props.traceContext}
+							onDownload={() => this.downloadEntry(entry)}
+						>
+							<FormattedMessage {...messages.download} />
+						</DownloadItem>
+					</DownloadButtonWrapper>
+				) : null}
+			</ErrorMessage>,
+		);
+	}
+
+	// In the inset viewer the list wrapper is the viewer's column layout, not a centering box, so the
+	// spinner and error view go in the item stage, as they do for a file of its own.
+	private renderCentered(children: React.ReactNode) {
+		return this.props.isInsetViewer ? (
+			<ItemStage>{children}</ItemStage>
+		) : (
+			<ListWrapper>{children}</ListWrapper>
 		);
 	}
 }

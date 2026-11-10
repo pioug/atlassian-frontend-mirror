@@ -1,5 +1,11 @@
 # @atlaskit/spotlight
 
+## 4.2.14
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.2.13
 
 ### Patch Changes

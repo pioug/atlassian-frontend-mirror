@@ -1,5 +1,3 @@
-/* eslint-disable testing-library/prefer-screen-queries */
-
 import { Device, snapshotInformational } from '@af/visual-regression';
 
 import TestingSafariFlexCollapse from '../../examples/153-testing-safari-flex-collapse.vr.ap';

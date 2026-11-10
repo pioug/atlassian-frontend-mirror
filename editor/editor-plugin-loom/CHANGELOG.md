@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-loom
 
+## 32.1.0
+
+### Minor Changes
+
+- [`359422f69ffa7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/359422f69ffa7) -
+  Add a pinned primary-toolbar Loom button beside media behind twc_growth_loom_conf_pinned_toolbar,
+  reusing existing recording and access actions. Use “Record a Loom” for the pinned button tooltip
+  and accessible label while preserving the overflow menu wording.
+
+  Add an optional editorAppearance plugin option to register the pinned entry point only for page
+  editors, supporting full-page, full-width, and max appearances.
+
+  Centralize Loom toolbar keys and ranks and render its responsive container in the registered
+  group, while omitting the entire group when product eligibility hides the button.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 32.0.2
 
 ### Patch Changes

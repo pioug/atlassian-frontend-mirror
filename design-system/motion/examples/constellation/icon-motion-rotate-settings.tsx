@@ -14,9 +14,9 @@ export default function IconMotionRotateSettingsExample(): React.JSX.Element {
 		<Inline space="space.100" alignBlock="center">
 			<Button onClick={() => setIsRotate((previous) => !previous)}>Rotate</Button>
 			<IconContainer>
-				<IconMotion interactionMotion="rotate" isInteractionActive={isRotate}>
+				<IconMotion.Rotate isActive={isRotate}>
 					<SettingsIcon label="" />
-				</IconMotion>
+				</IconMotion.Rotate>
 			</IconContainer>
 		</Inline>
 	);

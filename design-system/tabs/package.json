@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tabs",
-	"version": "21.3.0",
+	"version": "21.3.1",
 	"description": "Tabs are used to organize content by grouping similar information on the same page.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -90,6 +90,9 @@
 		"platform-dst-motion-uplift-tab": {
 			"type": "boolean",
 			"referenceOnly": true
+		},
+		"platform-dst-tabs-skip-mount-motion": {
+			"type": "boolean"
 		}
 	},
 	"homepage": "https://atlassian.design/components/tabs/"

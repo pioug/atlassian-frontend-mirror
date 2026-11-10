@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-media
 
+## 32.3.1
+
+### Patch Changes
+
+- [`51e95538007af`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/51e95538007af) -
+  Clean up feature gate platform_editor_a11y_border_radiogroup_label
+- [`76a9e522fc180`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76a9e522fc180) -
+  Delete unreachable source files
+- Updated dependencies
+
 ## 32.3.0
 
 ### Minor Changes

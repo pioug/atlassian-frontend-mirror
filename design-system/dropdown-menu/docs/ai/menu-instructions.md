@@ -10,7 +10,9 @@
 An example diff of a migration from Tailwind generated code to ADS generated code.
 
 ```diff
-+import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
++import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';
++import { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-item-group';
++import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
 
 -<div className="relative">
 -  <button

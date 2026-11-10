@@ -36,6 +36,7 @@ import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import { contentInsetBlockStart } from '../constants';
 import { LayoutAreaSizingContext } from '../layout-area-sizing-context';
+import { chatPanelPanelSplitterId } from './chat-panel-panel-splitter-id';
 import { convertResizeBoundToPixels } from './convert-resize-bound-to-pixels';
 import { getPanelGrowthSide } from './get-panel-growth-side';
 import { getPercentageWithinPixelBounds } from './get-percentage-within-pixel-bounds';
@@ -66,6 +67,9 @@ const containerStyles = cssMap({
 		// Concrete examples of this are when elements inside the side nav are sticky and have their own zindex set.
 		// For now we set this to the smallest possible value. We might need to increase this in the future.
 		zIndex: 1,
+	},
+	visibleOnSmallScreens: {
+		display: 'block',
 	},
 	positionEnd: {
 		// Offset 8px to the left of the container's right (inline-end) side, to position the grab area.
@@ -134,6 +138,10 @@ const lineStyles = cssMap({
 		backgroundColor: 'currentcolor',
 		// 7px is used instead of 8px to account for the container element's border and ensure the line remains visually centered.
 		insetInlineStart: '7px',
+	},
+	chatPanel: {
+		// Keep the full line inside ChatPanel so adjacent TopNav content cannot obscure it.
+		insetInlineStart: '9px',
 	},
 });
 
@@ -705,6 +713,11 @@ const PortaledPanelSplitter = ({
 		<div
 			css={[
 				containerStyles.root,
+				// Coordinated local and Chat panels keep their start-edge handles at every breakpoint.
+				fg('platform-dst-chat-panel-layout') &&
+					onResizeInternal &&
+					position === 'start' &&
+					containerStyles.visibleOnSmallScreens,
 				position === 'start' && containerStyles.positionStart,
 				position === 'end' && containerStyles.positionEnd,
 			]}
@@ -745,7 +758,12 @@ const PortaledPanelSplitter = ({
 						/>
 						<span id={labelId}>{label}</span>
 					</VisuallyHidden>
-					<span css={lineStyles.root} />
+					<span
+						css={[
+							lineStyles.root,
+							panelId === chatPanelPanelSplitterId && lineStyles.chatPanel,
+						]}
+					/>
 				</div>
 			</MaybeTooltip>
 		</div>,

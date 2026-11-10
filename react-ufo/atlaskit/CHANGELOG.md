@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 8.4.1
+
+### Patch Changes
+
+- [`dd92cc5c0b14a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dd92cc5c0b14a) -
+  Cleanup `feature_gate` `platform_ufo_emit_previous_interaction_id`. `previousInteractionId` is now
+  always emitted in UFO interaction metrics payloads.
+
 ## 8.4.0
 
 ### Minor Changes

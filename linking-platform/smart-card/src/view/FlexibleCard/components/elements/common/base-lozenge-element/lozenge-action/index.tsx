@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
-import DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';
+import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
 import type { CustomTriggerProps } from '@atlaskit/dropdown-menu/types';
 import type { ThemeAppearance } from '@atlaskit/lozenge/lozenge';
 import { fg } from '@atlaskit/platform-feature-flags/fg';

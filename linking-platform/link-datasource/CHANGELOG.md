@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 7.13.1
+
+### Patch Changes
+
+- [`e0fb460e4c662`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e0fb460e4c662) -
+  Use named dropdown menu component imports from their dedicated export paths.
+- Updated dependencies
+
 ## 7.13.0
 
 ### Minor Changes

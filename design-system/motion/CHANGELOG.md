@@ -1,5 +1,15 @@
 # @atlaskit/motion
 
+## 10.0.0
+
+### Major Changes
+
+- [`cc5c08d9aadf7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cc5c08d9aadf7) -
+  [ux] Adds `IconMotion.Rotate`, an `IconMotion` that rotates the icon 90° while `isActive`. The
+  `interactionMotion` and `isInteractionActive` props of the experimental `IconMotion` are removed
+  in favour of it: replace `<IconMotion interactionMotion="rotate" isInteractionActive={value}>`
+  with `<IconMotion.Rotate isActive={value}>`.
+
 ## 9.6.1
 
 ### Patch Changes

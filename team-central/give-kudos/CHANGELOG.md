@@ -1,5 +1,22 @@
 # @atlassian/give-kudos
 
+## 7.8.1
+
+### Patch Changes
+
+- [`f075c84890bcc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f075c84890bcc) -
+  Cleanup `feature_gate` `teams_a11y_focus_high_priority`. The Teams accessibility focus management
+  fixes are now permanent: focus moves to and returns from profile card, team card, kudos, reporting
+  lines and team member dialogs as it did with the gate on.
+- Updated dependencies
+
+## 7.8.0
+
+### Minor Changes
+
+- [`e84a493820e77`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e84a493820e77) -
+  Update i18n NPM package versions for townsquare,team-central (Group 10)
+
 ## 7.7.0
 
 ### Minor Changes

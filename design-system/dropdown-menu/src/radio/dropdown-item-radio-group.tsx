@@ -5,7 +5,7 @@ import Section from '@atlaskit/menu/section';
 import type { SectionProps } from '@atlaskit/menu/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import DropdownMenuItemGroup from '../dropdown-menu-item-group';
+import DropdownMenuItemGroup from '../dropdown-item-group';
 import GroupTitle from '../internal/components/group-title';
 import { SelectionStoreContext } from '../internal/context/selection-store-context';
 import resetOptionsInGroup from '../internal/utils/reset-options-in-group';

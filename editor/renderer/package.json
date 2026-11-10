@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "153.3.0",
+	"version": "153.4.1",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -147,9 +147,6 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_a11y_codeblock_haspopup": {
-			"type": "boolean"
-		},
 		"platform_native_embeds_rollout_non_maui_experience": {
 			"type": "boolean"
 		},
@@ -222,6 +219,7 @@
 		"./experimental-sync-custom-nodes/cards": "./src/entry-points/experimental-sync-custom-nodes/cards.ts",
 		"./experimental-sync-custom-nodes/media": "./src/entry-points/experimental-sync-custom-nodes/media.ts",
 		"./experimental-sync-custom-nodes/small-nodes": "./src/entry-points/experimental-sync-custom-nodes/small-nodes.ts",
+		"./extension-handoff": "./src/entry-points/extension-handoff.ts",
 		"./extension-renderer": "./src/entry-points/extension-renderer.tsx",
 		"./i18n/*": {
 			"publish": null,

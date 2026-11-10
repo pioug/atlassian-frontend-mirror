@@ -41,4 +41,4 @@ customFields:
     value: ari:cloud:identity::team/4e3ef816-5009-4fa7-9108-a168a02ba8d9
   - name: Trusted Reviewer Teams
     type: text
-    value: ari:cloud:identity::team/469c0795-81f7-4b0d-ab7c-cabe4dd2173f,ari:cloud:identity::team/c4c303e9-a926-40ab-b5d4-012c9a5dcaaa,ari:cloud:identity::team/6ac6a99d-0830-4033-a10a-97c060502cc5
+    value: ari:cloud:identity::team/469c0795-81f7-4b0d-ab7c-cabe4dd2173f,ari:cloud:identity::team/c4c303e9-a926-40ab-b5d4-012c9a5dcaaa

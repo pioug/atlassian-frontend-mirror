@@ -9,6 +9,8 @@ type Options = {
 };
 
 type RegisteredMenuSelectionState = {
+	/** The latest selection, for callbacks that must stay stable; render with `selectedIndex`. */
+	getSelectedIndex: () => number;
 	select: (index: number, source: RegisteredMenuSelectionSource) => void;
 	selectedIndex: number;
 	selectionSource: RegisteredMenuSelectionSource;
@@ -74,5 +76,7 @@ export const useRegisteredMenuSelection = ({
 		return previousIndex;
 	}, [itemCount, select]);
 
-	return { selectedIndex, selectionSource, select, selectNext, selectPrevious };
+	const getSelectedIndex = useCallback(() => selectedIndexRef.current, []);
+
+	return { getSelectedIndex, selectedIndex, selectionSource, select, selectNext, selectPrevious };
 };

@@ -2,11 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useEffect, useState, type ReactElement, type ReactNode } from 'react';
+import { useEffect, useMemo, useState, type ReactElement, type ReactNode } from 'react';
 
 import { bind } from 'bind-event-listener';
 
 import { cssMap, jsx } from '@atlaskit/css';
+
+import { ForgeBodiedExtensionHandoffReadyContext } from './forgeBodiedExtensionHandoffContext';
 
 const styles = cssMap({
 	container: { display: 'grid' },
@@ -17,6 +19,7 @@ const styles = cssMap({
 interface Props {
 	fallback: ReactNode;
 	localId: string;
+	preserveContentUntilReady?: boolean;
 	result: ReactNode;
 }
 
@@ -25,9 +28,16 @@ export default function ForgeBodiedExtensionHandoff({
 	fallback,
 	localId,
 	result,
+	preserveContentUntilReady = false,
 }: Props): ReactElement {
 	const [ready, setReady] = useState(false);
 	const hasResult = Boolean(result);
+	const handoff = useMemo(
+		() =>
+			preserveContentUntilReady && !ready ? { localId, onReady: () => setReady(true) } : undefined,
+		[localId, preserveContentUntilReady, ready],
+	);
+	const showNativeBody = preserveContentUntilReady && !ready;
 
 	useEffect(() => {
 		if (!hasResult || ready) {
@@ -44,26 +54,35 @@ export default function ForgeBodiedExtensionHandoff({
 				setReady(true);
 			}
 		};
-		const unbind = bind(window, { type: 'message', listener: onReady });
-		// Do not retain an invisible body indefinitely if app initialization fails.
+		const unbind = preserveContentUntilReady
+			? undefined
+			: bind(window, { type: 'message', listener: onReady });
+		// Release stalled or intentionally empty apps rather than retaining the server body forever.
 		const timeout = window.setTimeout(() => setReady(true), 30000);
 		return () => {
-			unbind();
+			unbind?.();
 			window.clearTimeout(timeout);
 		};
-	}, [hasResult, localId, ready]);
+	}, [hasResult, localId, ready, preserveContentUntilReady]);
 
 	return (
 		<div css={styles.container}>
 			{(!ready || !hasResult) && (
 				<div
-					css={[styles.layer, hasResult && styles.reservation]}
-					aria-hidden={hasResult || undefined}
+					css={[styles.layer, hasResult && !showNativeBody && styles.reservation]}
+					aria-hidden={(hasResult && !showNativeBody) || undefined}
 				>
 					{fallback}
 				</div>
 			)}
-			<div css={styles.layer}>{result}</div>
+			<div
+				css={[styles.layer, showNativeBody && styles.reservation]}
+				aria-hidden={showNativeBody || undefined}
+			>
+				<ForgeBodiedExtensionHandoffReadyContext.Provider value={handoff}>
+					{result}
+				</ForgeBodiedExtensionHandoffReadyContext.Provider>
+			</div>
 		</div>
 	);
 }

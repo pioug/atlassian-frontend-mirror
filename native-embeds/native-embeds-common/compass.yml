@@ -32,7 +32,7 @@ customFields:
     value: true
   - name: Reviewer Selection Mechanism
     type: text
-    value: random(2)
+    value: jsmSchedule(Canvas - Disturbed)
   - name: Required Reviewer Approvals
     type: number
     value: 1

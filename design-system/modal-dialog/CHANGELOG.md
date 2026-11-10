@@ -1,5 +1,18 @@
 # @atlaskit/modal-dialog
 
+## 17.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.2.3
+
+### Patch Changes
+
+- [`3827588cae5e1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3827588cae5e1) -
+  Preserve form-wrapped modal scrolling when fixed-position status announcements are enabled.
+
 ## 17.2.2
 
 ### Patch Changes

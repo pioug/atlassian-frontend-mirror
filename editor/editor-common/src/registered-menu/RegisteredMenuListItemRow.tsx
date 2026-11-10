@@ -2,7 +2,7 @@ import React, { useCallback, useContext, useLayoutEffect } from 'react';
 
 import type { RegisterMenuItem } from '@atlaskit/editor-ui-control-model/types';
 
-import { ActiveMenuItemKeyContext } from './ActiveMenuItemKeyContext';
+import { PreviewItemIndexContext } from './PreviewItemIndexContext';
 import type { RegisteredMenuItemProps } from './types';
 
 export type RegisteredMenuListItemIdParams = {
@@ -15,11 +15,11 @@ export type RegisteredMenuListItemRowProps = {
 	isVisible: boolean;
 	Item: React.ComponentType<RegisteredMenuItemProps>;
 	itemIndex: number;
-	onItemBlur: (itemKey: string) => void;
-	onItemFocus: (itemIndex: number, itemKey?: string) => void;
-	onItemHover: (itemIndex: number, itemKey?: string) => void;
-	onItemLeave: (itemKey: string) => void;
-	onItemVisibilityChange: (itemKey: string, isVisible: boolean) => void;
+	onItemBlur: (itemIndex: number) => void;
+	onItemFocus: (itemIndex: number) => void;
+	onItemHover: (itemIndex: number) => void;
+	onItemLeave: (itemIndex: number) => void;
+	onItemVisibilityChange: (itemIndex: number, isVisible: boolean) => void;
 	registration: RegisterMenuItem;
 	rowIndex: number;
 	selectedItemIndex: number;
@@ -45,31 +45,31 @@ export const RegisteredMenuListItemRow = ({
 	rowIndex,
 	selectedItemIndex,
 }: RegisteredMenuListItemRowProps): React.JSX.Element => {
-	const activeItemKey = useContext(ActiveMenuItemKeyContext);
+	const previewItemIndex = useContext(PreviewItemIndexContext);
 	useLayoutEffect(() => {
-		onItemVisibilityChange(registration.key, isVisible);
-		return () => onItemVisibilityChange(registration.key, false);
-	}, [isVisible, onItemVisibilityChange, registration.key]);
+		onItemVisibilityChange(itemIndex, isVisible);
+		return () => onItemVisibilityChange(itemIndex, false);
+	}, [isVisible, itemIndex, onItemVisibilityChange]);
 
 	const onBlur = useCallback(
 		(event: React.FocusEvent<HTMLDivElement>) => {
 			if (!event.currentTarget.contains(event.relatedTarget)) {
-				onItemBlur(registration.key);
+				onItemBlur(itemIndex);
 			}
 		},
-		[onItemBlur, registration.key],
+		[itemIndex, onItemBlur],
 	);
 
 	return (
 		<div
 			onBlur={onBlur}
-			onFocus={() => onItemFocus(itemIndex, registration.key)}
-			onMouseLeave={() => onItemLeave(registration.key)}
-			onMouseMove={() => onItemHover(itemIndex, registration.key)}
+			onFocus={() => onItemFocus(itemIndex)}
+			onMouseLeave={() => onItemLeave(itemIndex)}
+			onMouseMove={() => onItemHover(itemIndex)}
 		>
 			<Item
 				id={getItemId({ itemIndex, rowIndex })}
-				isActive={activeItemKey === registration.key}
+				isActive={previewItemIndex === itemIndex}
 				isSelected={itemIndex === selectedItemIndex}
 				registration={registration}
 			/>

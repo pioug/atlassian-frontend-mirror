@@ -3,7 +3,7 @@
  *
  * Structured content components from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::697b00bec471cc15cc472df6e3567e67>>
+ * @codegen <<SignedSource::34f5071976a7368b807e3d15e4282893>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -1384,7 +1384,7 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['button', 'split', 'dropdown', 'menu', 'action', 'options'],
 		category: 'form',
 		examples: [
-			"import Button from '@atlaskit/button/default/button';\nimport IconButton from '@atlaskit/button/icon/button';\nimport { SplitButton } from '@atlaskit/button/split-button/split-button';\nimport DropdownMenu from '@atlaskit/dropdown-menu/dropdown-menu';\nimport DropdownItem from '@atlaskit/dropdown-menu/dropdown-menu-item';\nimport DropdownItemGroup from '@atlaskit/dropdown-menu/dropdown-menu-item-group';\nimport ChevronDownIcon from '@atlaskit/icon/core/chevron-down';\nconst _default_1: React.JSX.Element = (\n\t<SplitButton spacing=\"compact\">\n\t\t<Button>Link work item</Button>\n\t\t<DropdownMenu\n\t\t\tshouldRenderToParent\n\t\t\ttrigger={({ triggerRef, ...triggerProps }) => (\n\t\t\t\t<IconButton\n\t\t\t\t\tref={triggerRef}\n\t\t\t\t\t{...triggerProps}\n\t\t\t\t\ticon={ChevronDownIcon}\n\t\t\t\t\tlabel=\"More link work item options\"\n\t\t\t\t/>\n\t\t\t)}\n\t\t>\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem>Create new link</DropdownItem>\n\t\t\t\t<DropdownItem>Link existing item</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t</SplitButton>\n);\nexport default _default_1;",
+			"import Button from '@atlaskit/button/default/button';\nimport IconButton from '@atlaskit/button/icon/button';\nimport { SplitButton } from '@atlaskit/button/split-button/split-button';\nimport { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';\nimport { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-item-group';\nimport { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';\nimport ChevronDownIcon from '@atlaskit/icon/core/chevron-down';\nconst _default_1: React.JSX.Element = (\n\t<SplitButton spacing=\"compact\">\n\t\t<Button>Link work item</Button>\n\t\t<DropdownMenu\n\t\t\tshouldRenderToParent\n\t\t\ttrigger={({ triggerRef, ...triggerProps }) => (\n\t\t\t\t<IconButton\n\t\t\t\t\tref={triggerRef}\n\t\t\t\t\t{...triggerProps}\n\t\t\t\t\ticon={ChevronDownIcon}\n\t\t\t\t\tlabel=\"More link work item options\"\n\t\t\t\t/>\n\t\t\t)}\n\t\t>\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem>Create new link</DropdownItem>\n\t\t\t\t<DropdownItem>Link existing item</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t</SplitButton>\n);\nexport default _default_1;",
 		],
 		props: [
 			{
@@ -1490,6 +1490,12 @@ export const components: ComponentMcpPayload[] = [
 				type: '((date: string) => boolean) | undefined',
 				description:
 					"A filter function that takes a date string in the format 'YYYY-MM-DD' and returns true if that date should be disabled.",
+			},
+			{
+				name: 'headingLevel',
+				type: 'HeadingLevel | undefined',
+				description:
+					'The semantic heading level for the month and year title. Does not change its visual appearance.\n\nOverrides the surrounding `HeadingContextProvider` when provided. Otherwise, uses the heading\ncontext, falling back to level 2 when no context is available.',
 			},
 			{
 				name: 'label',
@@ -2751,7 +2757,7 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['dropdown', 'menu', 'item', 'action', 'link', 'menuitem'],
 		category: 'navigation',
 		examples: [
-			"import IconButton from '@atlaskit/button/icon/button';\nimport { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';\nimport { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-menu-item';\nimport { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-menu-item-group';\nimport MoreIcon from '@atlaskit/icon/core/show-more-horizontal';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<DropdownMenu\n\t\t\tshouldRenderToParent\n\t\t\ttrigger={({ triggerRef, ...props }) => (\n\t\t\t\t<IconButton ref={triggerRef} {...props} icon={MoreIcon} label=\"More\" />\n\t\t\t)}\n\t\t>\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem href=\"/dashboard\">Dashboard</DropdownItem>\n\t\t\t\t<DropdownItem>Create</DropdownItem>\n\t\t\t\t<DropdownItem>Delete</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t\t<DropdownMenu shouldRenderToParent trigger=\"Actions\">\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem>Export</DropdownItem>\n\t\t\t\t<DropdownItem>Share</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t</>\n);\nexport default Examples;",
+			"import IconButton from '@atlaskit/button/icon/button';\nimport { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';\nimport { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-item-group';\nimport { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';\nimport MoreIcon from '@atlaskit/icon/core/show-more-horizontal';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<DropdownMenu\n\t\t\tshouldRenderToParent\n\t\t\ttrigger={({ triggerRef, ...props }) => (\n\t\t\t\t<IconButton ref={triggerRef} {...props} icon={MoreIcon} label=\"More\" />\n\t\t\t)}\n\t\t>\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem href=\"/dashboard\">Dashboard</DropdownItem>\n\t\t\t\t<DropdownItem>Create</DropdownItem>\n\t\t\t\t<DropdownItem>Delete</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t\t<DropdownMenu shouldRenderToParent trigger=\"Actions\">\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem>Export</DropdownItem>\n\t\t\t\t<DropdownItem>Share</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t</>\n);\nexport default Examples;",
 		],
 		props: [
 			{
@@ -2891,7 +2897,7 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['dropdown', 'menu', 'group', 'section', 'title'],
 		category: 'navigation',
 		examples: [
-			"import IconButton from '@atlaskit/button/icon/button';\nimport { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';\nimport { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-menu-item';\nimport { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-menu-item-group';\nimport MoreIcon from '@atlaskit/icon/core/show-more-horizontal';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<DropdownMenu\n\t\t\tshouldRenderToParent\n\t\t\ttrigger={({ triggerRef, ...props }) => (\n\t\t\t\t<IconButton ref={triggerRef} {...props} icon={MoreIcon} label=\"More\" />\n\t\t\t)}\n\t\t>\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem href=\"/dashboard\">Dashboard</DropdownItem>\n\t\t\t\t<DropdownItem>Create</DropdownItem>\n\t\t\t\t<DropdownItem>Delete</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t\t<DropdownMenu shouldRenderToParent trigger=\"Actions\">\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem>Export</DropdownItem>\n\t\t\t\t<DropdownItem>Share</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t</>\n);\nexport default Examples;",
+			"import IconButton from '@atlaskit/button/icon/button';\nimport { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';\nimport { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-item-group';\nimport { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';\nimport MoreIcon from '@atlaskit/icon/core/show-more-horizontal';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<DropdownMenu\n\t\t\tshouldRenderToParent\n\t\t\ttrigger={({ triggerRef, ...props }) => (\n\t\t\t\t<IconButton ref={triggerRef} {...props} icon={MoreIcon} label=\"More\" />\n\t\t\t)}\n\t\t>\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem href=\"/dashboard\">Dashboard</DropdownItem>\n\t\t\t\t<DropdownItem>Create</DropdownItem>\n\t\t\t\t<DropdownItem>Delete</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t\t<DropdownMenu shouldRenderToParent trigger=\"Actions\">\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem>Export</DropdownItem>\n\t\t\t\t<DropdownItem>Share</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t</>\n);\nexport default Examples;",
 		],
 		props: [
 			{
@@ -2962,7 +2968,7 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['dropdown', 'menu', 'checkbox', 'multi-select', 'toggle'],
 		category: 'navigation',
 		examples: [
-			"import IconButton from '@atlaskit/button/icon/button';\nimport { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';\nimport { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-menu-item';\nimport { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-menu-item-group';\nimport MoreIcon from '@atlaskit/icon/core/show-more-horizontal';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<DropdownMenu\n\t\t\tshouldRenderToParent\n\t\t\ttrigger={({ triggerRef, ...props }) => (\n\t\t\t\t<IconButton ref={triggerRef} {...props} icon={MoreIcon} label=\"More\" />\n\t\t\t)}\n\t\t>\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem href=\"/dashboard\">Dashboard</DropdownItem>\n\t\t\t\t<DropdownItem>Create</DropdownItem>\n\t\t\t\t<DropdownItem>Delete</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t\t<DropdownMenu shouldRenderToParent trigger=\"Actions\">\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem>Export</DropdownItem>\n\t\t\t\t<DropdownItem>Share</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t</>\n);\nexport default Examples;",
+			"import IconButton from '@atlaskit/button/icon/button';\nimport { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';\nimport { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-item-group';\nimport { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';\nimport MoreIcon from '@atlaskit/icon/core/show-more-horizontal';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<DropdownMenu\n\t\t\tshouldRenderToParent\n\t\t\ttrigger={({ triggerRef, ...props }) => (\n\t\t\t\t<IconButton ref={triggerRef} {...props} icon={MoreIcon} label=\"More\" />\n\t\t\t)}\n\t\t>\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem href=\"/dashboard\">Dashboard</DropdownItem>\n\t\t\t\t<DropdownItem>Create</DropdownItem>\n\t\t\t\t<DropdownItem>Delete</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t\t<DropdownMenu shouldRenderToParent trigger=\"Actions\">\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem>Export</DropdownItem>\n\t\t\t\t<DropdownItem>Share</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t</>\n);\nexport default Examples;",
 		],
 		props: [
 			{
@@ -3114,7 +3120,7 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['dropdown', 'menu', 'radio', 'single-select', 'choice'],
 		category: 'navigation',
 		examples: [
-			"import IconButton from '@atlaskit/button/icon/button';\nimport { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';\nimport { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-menu-item';\nimport { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-menu-item-group';\nimport MoreIcon from '@atlaskit/icon/core/show-more-horizontal';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<DropdownMenu\n\t\t\tshouldRenderToParent\n\t\t\ttrigger={({ triggerRef, ...props }) => (\n\t\t\t\t<IconButton ref={triggerRef} {...props} icon={MoreIcon} label=\"More\" />\n\t\t\t)}\n\t\t>\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem href=\"/dashboard\">Dashboard</DropdownItem>\n\t\t\t\t<DropdownItem>Create</DropdownItem>\n\t\t\t\t<DropdownItem>Delete</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t\t<DropdownMenu shouldRenderToParent trigger=\"Actions\">\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem>Export</DropdownItem>\n\t\t\t\t<DropdownItem>Share</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t</>\n);\nexport default Examples;",
+			"import IconButton from '@atlaskit/button/icon/button';\nimport { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';\nimport { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-item-group';\nimport { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';\nimport MoreIcon from '@atlaskit/icon/core/show-more-horizontal';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<DropdownMenu\n\t\t\tshouldRenderToParent\n\t\t\ttrigger={({ triggerRef, ...props }) => (\n\t\t\t\t<IconButton ref={triggerRef} {...props} icon={MoreIcon} label=\"More\" />\n\t\t\t)}\n\t\t>\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem href=\"/dashboard\">Dashboard</DropdownItem>\n\t\t\t\t<DropdownItem>Create</DropdownItem>\n\t\t\t\t<DropdownItem>Delete</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t\t<DropdownMenu shouldRenderToParent trigger=\"Actions\">\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem>Export</DropdownItem>\n\t\t\t\t<DropdownItem>Share</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t</>\n);\nexport default Examples;",
 		],
 		props: [
 			{
@@ -3282,7 +3288,7 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['dropdown', 'menu', 'overflow', 'actions', 'options', 'popup', 'contextual'],
 		category: 'navigation',
 		examples: [
-			"import IconButton from '@atlaskit/button/icon/button';\nimport { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';\nimport { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-menu-item';\nimport { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-menu-item-group';\nimport MoreIcon from '@atlaskit/icon/core/show-more-horizontal';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<DropdownMenu\n\t\t\tshouldRenderToParent\n\t\t\ttrigger={({ triggerRef, ...props }) => (\n\t\t\t\t<IconButton ref={triggerRef} {...props} icon={MoreIcon} label=\"More\" />\n\t\t\t)}\n\t\t>\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem href=\"/dashboard\">Dashboard</DropdownItem>\n\t\t\t\t<DropdownItem>Create</DropdownItem>\n\t\t\t\t<DropdownItem>Delete</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t\t<DropdownMenu shouldRenderToParent trigger=\"Actions\">\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem>Export</DropdownItem>\n\t\t\t\t<DropdownItem>Share</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t</>\n);\nexport default Examples;",
+			"import IconButton from '@atlaskit/button/icon/button';\nimport { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';\nimport { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-item-group';\nimport { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';\nimport MoreIcon from '@atlaskit/icon/core/show-more-horizontal';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<DropdownMenu\n\t\t\tshouldRenderToParent\n\t\t\ttrigger={({ triggerRef, ...props }) => (\n\t\t\t\t<IconButton ref={triggerRef} {...props} icon={MoreIcon} label=\"More\" />\n\t\t\t)}\n\t\t>\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem href=\"/dashboard\">Dashboard</DropdownItem>\n\t\t\t\t<DropdownItem>Create</DropdownItem>\n\t\t\t\t<DropdownItem>Delete</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t\t<DropdownMenu shouldRenderToParent trigger=\"Actions\">\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem>Export</DropdownItem>\n\t\t\t\t<DropdownItem>Share</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t</>\n);\nexport default Examples;",
 		],
 		props: [
 			{
@@ -8427,7 +8433,7 @@ export const components: ComponentMcpPayload[] = [
 				name: 'menuRenderMode',
 				type: '"inline" | "popup" | undefined',
 				description:
-					'Controls how the menu is rendered. The default `popup` mode uses the normal transient menu\nrendering. The `inline` mode renders within the parent layout and keeps the menu open\nby default. Set `menuIsOpen` to control its visibility.',
+					'Controls how the menu is rendered. The default `popup` mode uses the normal transient menu\nrendering. The `inline` mode renders within the parent layout and keeps the menu open\nby default. Set `menuIsOpen` to control its visibility.\n\nThe `inline` mode does not use `components.MenuPortal`. It keeps a custom `components.Menu`.',
 			},
 			{
 				name: 'menuShouldScrollIntoView',
@@ -8518,11 +8524,6 @@ export const components: ComponentMcpPayload[] = [
 				name: 'placeholder',
 				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Placeholder for the select value',
-			},
-			{
-				name: 'shouldPreventEscapePropagation',
-				type: 'boolean | undefined',
-				description: 'Prevents "Escape" keydown event propagation',
 			},
 			{
 				name: 'spacing',
@@ -8775,7 +8776,7 @@ export const components: ComponentMcpPayload[] = [
 				name: 'menuRenderMode',
 				type: '"inline" | "popup" | undefined',
 				description:
-					'Controls how the menu is rendered. The default `popup` mode uses the normal transient menu\nrendering. The `inline` mode renders within the parent layout and keeps the menu open\nby default. Set `menuIsOpen` to control its visibility.',
+					'Controls how the menu is rendered. The default `popup` mode uses the normal transient menu\nrendering. The `inline` mode renders within the parent layout and keeps the menu open\nby default. Set `menuIsOpen` to control its visibility.\n\nThe `inline` mode does not use `components.MenuPortal`. It keeps a custom `components.Menu`.',
 			},
 			{
 				name: 'menuShouldScrollIntoView',
@@ -8859,11 +8860,6 @@ export const components: ComponentMcpPayload[] = [
 				name: 'placeholder',
 				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Placeholder for the select value',
-			},
-			{
-				name: 'shouldPreventEscapePropagation',
-				type: 'boolean | undefined',
-				description: 'Prevents "Escape" keydown event propagation',
 			},
 			{
 				name: 'spacing',
@@ -9118,7 +9114,7 @@ export const components: ComponentMcpPayload[] = [
 				name: 'menuRenderMode',
 				type: '"inline" | "popup" | undefined',
 				description:
-					'Controls how the menu is rendered. The default `popup` mode uses the normal transient menu\nrendering. The `inline` mode renders within the parent layout and keeps the menu open\nby default. Set `menuIsOpen` to control its visibility.',
+					'Controls how the menu is rendered. The default `popup` mode uses the normal transient menu\nrendering. The `inline` mode renders within the parent layout and keeps the menu open\nby default. Set `menuIsOpen` to control its visibility.\n\nThe `inline` mode does not use `components.MenuPortal`. It keeps a custom `components.Menu`.',
 			},
 			{
 				name: 'menuShouldScrollIntoView',
@@ -9202,11 +9198,6 @@ export const components: ComponentMcpPayload[] = [
 				name: 'placeholder',
 				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Placeholder for the select value',
-			},
-			{
-				name: 'shouldPreventEscapePropagation',
-				type: 'boolean | undefined',
-				description: 'Prevents "Escape" keydown event propagation',
 			},
 			{
 				name: 'spacing',
@@ -9512,7 +9503,7 @@ export const components: ComponentMcpPayload[] = [
 				name: 'menuRenderMode',
 				type: '"inline" | "popup" | undefined',
 				description:
-					'Controls how the menu is rendered. The default `popup` mode uses the normal transient menu\nrendering. The `inline` mode renders within the parent layout and keeps the menu open\nby default. Set `menuIsOpen` to control its visibility.',
+					'Controls how the menu is rendered. The default `popup` mode uses the normal transient menu\nrendering. The `inline` mode renders within the parent layout and keeps the menu open\nby default. Set `menuIsOpen` to control its visibility.\n\nThe `inline` mode does not use `components.MenuPortal`. It keeps a custom `components.Menu`.',
 			},
 			{
 				name: 'menuShouldScrollIntoView',
@@ -9603,11 +9594,6 @@ export const components: ComponentMcpPayload[] = [
 				name: 'placeholder',
 				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Placeholder for the select value',
-			},
-			{
-				name: 'shouldPreventEscapePropagation',
-				type: 'boolean | undefined',
-				description: 'Prevents "Escape" keydown event propagation',
 			},
 			{
 				name: 'spacing',
@@ -9934,7 +9920,7 @@ export const components: ComponentMcpPayload[] = [
 				name: 'menuRenderMode',
 				type: '"inline" | "popup" | undefined',
 				description:
-					'Controls how the menu is rendered. The default `popup` mode uses the normal transient menu\nrendering. The `inline` mode renders within the parent layout and keeps the menu open\nby default. Set `menuIsOpen` to control its visibility.',
+					'Controls how the menu is rendered. The default `popup` mode uses the normal transient menu\nrendering. The `inline` mode renders within the parent layout and keeps the menu open\nby default. Set `menuIsOpen` to control its visibility.\n\nThe `inline` mode does not use `components.MenuPortal`. It keeps a custom `components.Menu`.',
 			},
 			{
 				name: 'menuShouldScrollIntoView',
@@ -10025,11 +10011,6 @@ export const components: ComponentMcpPayload[] = [
 				name: 'placeholder',
 				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Placeholder for the select value',
-			},
-			{
-				name: 'shouldPreventEscapePropagation',
-				type: 'boolean | undefined',
-				description: 'Prevents "Escape" keydown event propagation',
 			},
 			{
 				name: 'spacing',
@@ -10415,11 +10396,6 @@ export const components: ComponentMcpPayload[] = [
 					'If `true`, the input value will be kept when an option is selected. The default is `false`.',
 			},
 			{
-				name: 'shouldPreventEscapePropagation',
-				type: 'boolean | undefined',
-				description: 'Prevents "Escape" keydown event propagation',
-			},
-			{
 				name: 'spacing',
 				type: '"default" | "compact" | undefined',
 				description: 'Use this to set whether the component uses compact or standard spacing.',
@@ -10675,7 +10651,7 @@ export const components: ComponentMcpPayload[] = [
 				name: 'menuRenderMode',
 				type: '"inline" | "popup" | undefined',
 				description:
-					'Controls how the menu is rendered. The default `popup` mode uses the normal transient menu\nrendering. The `inline` mode renders within the parent layout and keeps the menu open\nby default. Set `menuIsOpen` to control its visibility.',
+					'Controls how the menu is rendered. The default `popup` mode uses the normal transient menu\nrendering. The `inline` mode renders within the parent layout and keeps the menu open\nby default. Set `menuIsOpen` to control its visibility.\n\nThe `inline` mode does not use `components.MenuPortal`. It keeps a custom `components.Menu`.',
 			},
 			{
 				name: 'menuShouldScrollIntoView',
@@ -10759,11 +10735,6 @@ export const components: ComponentMcpPayload[] = [
 				name: 'placeholder',
 				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description: 'Placeholder for the select value',
-			},
-			{
-				name: 'shouldPreventEscapePropagation',
-				type: 'boolean | undefined',
-				description: 'Prevents "Escape" keydown event propagation',
 			},
 			{
 				name: 'spacing',

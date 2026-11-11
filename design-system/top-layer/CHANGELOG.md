@@ -1,5 +1,25 @@
 # @atlaskit/top-layer
 
+## 7.2.1
+
+### Patch Changes
+
+- [`22e433775315e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22e433775315e) -
+  `Dialog` and `Popover`: a layer that opens in the same commit as the layer around it (for example
+  after a Suspense reveal) now shows on top of it and takes focus, instead of being covered or
+  closed by it. A `Popover` that React shows again while it stays open also takes initial focus
+  again, as a `Dialog` already does.
+
+## 7.2.0
+
+### Minor Changes
+
+- [`0fab8f25318c2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0fab8f25318c2) -
+  Add the `install-aui-top-layer-interop` entrypoint for product bootstrap to initialize AUI Escape
+  compatibility. When AUI has no open layers, its handler no longer prevents native Escape
+  dismissal. Jira and Confluence enable the utility behind
+  `platform-dst-top-layer-legacy-interop-1`; layer components do not initialize it.
+
 ## 7.1.6
 
 ### Patch Changes

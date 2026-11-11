@@ -1,5 +1,14 @@
 # @atlassian/navigation-system
 
+## 11.7.6
+
+### Patch Changes
+
+- [`0194dc608ff8e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0194dc608ff8e) -
+  Keep the full ChatPanel resize line inside its boundary so adjacent TopNav content cannot obscure
+  it. The styling is internal to ChatPanel and does not change the drag target or the public
+  splitter API.
+
 ## 11.7.5
 
 ### Patch Changes

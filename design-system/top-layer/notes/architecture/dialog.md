@@ -91,6 +91,11 @@ The dialog focusing steps run when a dialog is shown:
 Always use `autofocus` on the element the user is expected to interact with first. This makes intent
 explicit and keeps behaviour stable as the dialog's DOM changes over time.
 
+## Nested layers
+
+A `Dialog` or `Popover` inside another layer that shows in the same commit shows after that layer,
+so it is on top. See [layer-show-order.md](./layer-show-order.md).
+
 ## Server-side rendering
 
 For details on how `<dialog>` is rendered server-side, how `showModal()` is invoked after hydration,

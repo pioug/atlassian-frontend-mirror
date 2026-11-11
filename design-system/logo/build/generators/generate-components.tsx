@@ -84,7 +84,20 @@ export default function generateComponents(
 
 			const name = fileName.replace('.svg', '');
 
-			const jsx = getLogoJSX(name, type, svgoResult, customThemeSvgoResult);
+			let refreshedSvg: string | undefined;
+			if (name === 'loom' || name === 'loom-attribution') {
+				const refreshPath = path.resolve(root!, rawDirectory, 'loom-refresh', type, fileName);
+				refreshedSvg = optimize(
+					transformSVG(fs.readFileSync(refreshPath, 'utf-8'), type, name),
+					// @ts-ignore - svgo types are problematic
+					svgoConfig,
+				).data;
+				if (!refreshedSvg) {
+					throw new Error(`SVGO failure for refreshed ${name}`);
+				}
+			}
+
+			const jsx = getLogoJSX(name, type, svgoResult, customThemeSvgoResult, refreshedSvg);
 			// create file if it doesn't exist
 			fs.ensureFileSync(path.resolve(root!, 'src', targetDirectory, name, `${type}.tsx`));
 			fs.writeFileSync(
@@ -115,6 +128,7 @@ const getLogoJSX = (
 	type: 'logo' | 'icon' | 'logo-cs',
 	svg: string,
 	customThemeSvg?: string,
+	refreshedSvg?: string,
 ) => {
 	const capitalisedName = name
 		.split('-')
@@ -148,10 +162,15 @@ const getLogoJSX = (
 	let typeImport = `import type { ${propType} } from '../../../utils/types';\n`;
 
 	const componentDescription = `A component to represent the ${type === 'logo-cs' ? 'logo' : type} for ${productLabel}.`;
-	const isDeprecated = logoDocsSchema.find((logo) => logo.name === name)?.deprecated === true;
+	const docsName = name === 'loom-internal' ? 'loom-blurple' : name;
+	const isDeprecated = logoDocsSchema.find((logo) => logo.name === docsName)?.deprecated === true;
+	const replacement =
+		name === 'loom-internal'
+			? ` Use \`${type === 'icon' ? 'LoomIcon' : 'LoomLogoCS'}\` from \`@atlaskit/logo/loom/${type === 'icon' ? 'icon' : 'logo'}\` instead.`
+			: '';
 	const deprecationText = isDeprecated
 		? `
- * @deprecated ${componentName} is deprecated.`
+ * @deprecated ${componentName} is deprecated.${replacement}`
 		: '';
 	const iconEntryPoint = `./${name}/icon`;
 	const usageText =
@@ -162,11 +181,11 @@ const getLogoJSX = (
 
 	return `import React from 'react';
 
-import { ${WrapperName} } from '../../../utils/${type === 'icon' ? 'icon-wrapper' : 'logo-wrapper'}';
+${refreshedSvg ? "import { fg } from '@atlaskit/platform-feature-flags/fg';\n\n" : ''}import { ${WrapperName} } from '../../../utils/${type === 'icon' ? 'icon-wrapper' : 'logo-wrapper'}';
 ${typeImport}
 // \`height\` is set to 100% to allow the SVG to scale with the parent element${type === 'logo' || type === 'logo-cs' ? '\n// The text color is set to "currentColor" to allow the SVG to inherit the color set by the parent based on the theme.' : ''}
 const svg = \`${svg}\`;
-${customThemeSvg ? `const customThemeSvg = \`${customThemeSvg}\`;\n` : ''}
+${refreshedSvg ? `const refreshedSvg = \`${refreshedSvg}\`;\n` : ''}${customThemeSvg ? `const customThemeSvg = \`${customThemeSvg}\`;\n` : ''}
 /**
  * __${componentName}__
  *
@@ -178,7 +197,7 @@ export function ${componentName}({
 		${customThemeSvg && (type === 'logo' || type === 'logo-cs') ? 'textColor,' : ''} size = 'medium', appearance = "brand", label = "${productLabel}", testId
 	}: ${propType}): React.JSX.Element {
 	return <${WrapperName}
-			svg={svg} ${customThemeSvg ? 'customThemeSvg={customThemeSvg}' : ''}
+			svg={${refreshedSvg ? "fg('platform_dst_loom_logo_refresh') ? refreshedSvg : svg" : 'svg'}} ${customThemeSvg ? 'customThemeSvg={customThemeSvg}' : ''}
 			${customThemeSvg ? 'iconColor={iconColor}' : ''}
 			${customThemeSvg && type === 'logo' ? 'textColor={textColor}' : ''}
 			label={label}

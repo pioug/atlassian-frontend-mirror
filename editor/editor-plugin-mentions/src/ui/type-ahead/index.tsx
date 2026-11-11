@@ -844,14 +844,10 @@ export const createTypeAheadConfig = ({
 					buildNodesForTeamMention(schema, item.mention, mentionProvider, sanitizePrivateContent),
 				);
 
-				if (fg('platform_editor_team_mention_link_analytics')) {
-					return addLinkMetadata(state.selection, teamMentionTr, {
-						action: ACTION.INSERTED,
-						inputMethod: INPUT_METHOD.MENTION_TYPEAHEAD,
-					});
-				}
-
-				return teamMentionTr;
+				return addLinkMetadata(state.selection, teamMentionTr, {
+					action: ACTION.INSERTED,
+					inputMethod: INPUT_METHOD.MENTION_TYPEAHEAD,
+				});
 			}
 
 			if (

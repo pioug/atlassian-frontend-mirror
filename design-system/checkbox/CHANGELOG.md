@@ -1,5 +1,14 @@
 # @atlaskit/checkbox
 
+## 19.3.2
+
+### Patch Changes
+
+- [`f5417b37a04d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f5417b37a04d0) -
+  Add semantic spacing style overrides for checkbox behind platform-semantic-spacing. Existing
+  numeric styles remain when the feature flag is off.
+- Updated dependencies
+
 ## 19.3.1
 
 ### Patch Changes

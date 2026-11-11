@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-mentions
 
+## 32.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 32.2.1
+
+### Patch Changes
+
+- [`01bc5e31dd709`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/01bc5e31dd709) -
+  Clean up the `platform_editor_team_mention_link_analytics` feature gate. Team mention insertions
+  now always attach link metadata to the insert transaction.
+- Updated dependencies
+
 ## 32.2.0
 
 ### Minor Changes

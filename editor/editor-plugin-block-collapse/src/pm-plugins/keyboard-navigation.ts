@@ -2,7 +2,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { moveSelectionToHeading } from './commands';
+import { moveSelectionToHeading, toggleHeadingInTransaction } from './commands';
 import { blockCollapsePluginKey } from './plugin-key';
 
 const findTopLevelNodePosition = (state: EditorState): number | undefined => {
@@ -15,6 +15,44 @@ const moveToCollapsedHeading = (view: EditorView, headingPos: number): boolean =
 	moveSelectionToHeading(tr, headingPos);
 	view.dispatch(tr.scrollIntoView());
 	return true;
+};
+
+export const expandHeadingOnEnter = (view: EditorView, event: KeyboardEvent): boolean => {
+	if (
+		event.key !== 'Enter' ||
+		event.shiftKey ||
+		event.ctrlKey ||
+		event.metaKey ||
+		event.altKey ||
+		event.isComposing ||
+		view.composing
+	) {
+		return false;
+	}
+
+	const { selection } = view.state;
+	if (
+		!(selection instanceof TextSelection) ||
+		!selection.empty ||
+		selection.$head.depth !== 1 ||
+		selection.$head.parentOffset !== selection.$head.parent.content.size
+	) {
+		return false;
+	}
+
+	const headingPos = selection.$head.before(1);
+	const pluginState = blockCollapsePluginKey.getState(view.state);
+	if (!pluginState?.collapsedHeadingPositions.has(headingPos)) {
+		return false;
+	}
+
+	const tr = toggleHeadingInTransaction(view.state.tr, headingPos);
+	if (tr) {
+		view.dispatch(tr);
+	}
+
+	// Leave the split and mark preservation to the editor's normal Enter handlers.
+	return false;
 };
 
 export const handleArrowKey = (view: EditorView, event: KeyboardEvent): boolean => {

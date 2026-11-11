@@ -7,6 +7,7 @@ import { forwardRef, memo, type Ref, useRef } from 'react';
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Anchor } from '@atlaskit/primitives/compiled/anchor';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
@@ -103,6 +104,25 @@ const styles = cssMap({
 	},
 	circle: {
 		borderRadius: token('radius.full'),
+	},
+});
+
+const semanticStyles = cssMap({
+	base: {
+		columnGap: token('space.gap.xsmall'),
+		paddingBlock: token('space.inset.small'),
+		paddingInlineEnd: token('space.inset.large'),
+		paddingInlineStart: token('space.inset.large'),
+	},
+	spacingCompact: {
+		columnGap: token('space.gap.xsmall'),
+		paddingBlock: token('space.inset.xxsmall'),
+		paddingInlineEnd: token('space.inset.large'),
+		paddingInlineStart: token('space.inset.large'),
+	},
+	iconButton: {
+		paddingInlineEnd: token('space.0'),
+		paddingInlineStart: token('space.0'),
 	},
 });
 
@@ -363,6 +383,11 @@ const LinkIconButtonBase = <RouterLinkConfig extends Record<string, any> = never
 							styles.iconButton,
 							spacing === 'compact' && styles.spacingCompact,
 							shape === 'circle' && styles.circle,
+							fg('platform-semantic-spacing') && semanticStyles.base,
+							fg('platform-semantic-spacing') &&
+								spacing === 'compact' &&
+								semanticStyles.spacingCompact,
+							fg('platform-semantic-spacing') && semanticStyles.iconButton,
 						)}
 						onMouseDownCapture={onMouseDownCapture}
 						onMouseUpCapture={onMouseUpCapture}
@@ -415,6 +440,9 @@ const LinkIconButtonBase = <RouterLinkConfig extends Record<string, any> = never
 				styles.iconButton,
 				spacing === 'compact' && styles.spacingCompact,
 				shape === 'circle' && styles.circle,
+				fg('platform-semantic-spacing') && semanticStyles.base,
+				fg('platform-semantic-spacing') && spacing === 'compact' && semanticStyles.spacingCompact,
+				fg('platform-semantic-spacing') && semanticStyles.iconButton,
 			)}
 			onClick={onClick}
 			onMouseDownCapture={onMouseDownCapture}

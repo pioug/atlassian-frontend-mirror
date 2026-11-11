@@ -1,5 +1,25 @@
 # @atlaskit/renderer
 
+## 153.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 153.4.2
+
+### Patch Changes
+
+- [`240a19a352d7f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/240a19a352d7f) -
+  Make the nested renderer table width fix permanent after removing its feature gate.
+- [`fdf171f4096cb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fdf171f4096cb) -
+  EDITOR-10055: Enable empty-section chevrons to toggle and animate consistently in Editor and
+  Renderer behind platform_editor_empty_section_toggle.
+- [`c22895b56a761`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c22895b56a761) -
+  Make the shipped paragraph props fast path permanent while preserving generic props for explicit
+  paragraph overrides.
+- Updated dependencies
+
 ## 153.4.1
 
 ### Patch Changes

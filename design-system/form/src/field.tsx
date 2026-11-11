@@ -17,6 +17,7 @@ import { type FieldState } from 'final-form';
 
 import { css, jsx } from '@atlaskit/css';
 import { useId } from '@atlaskit/ds-lib/use-id';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { ErrorMessage } from './error-message';
@@ -31,6 +32,10 @@ import { ValidMessage } from './valid-message';
 
 const fieldWrapperStyles = css({
 	marginBlockStart: token('space.100'),
+});
+
+const semanticFieldWrapperStyles = css({
+	marginBlockStart: token('space.gap.medium'),
 });
 
 function isEvent(event: any): event is FormEvent<SupportedElements> {
@@ -438,7 +443,10 @@ export default function Field<
 	};
 
 	return (
-		<div css={fieldWrapperStyles} data-testid={props.testId}>
+		<div
+			css={[fieldWrapperStyles, fg('platform-semantic-spacing') && semanticFieldWrapperStyles]}
+			data-testid={props.testId}
+		>
 			{props.label && (
 				<Label
 					htmlFor={fieldId}

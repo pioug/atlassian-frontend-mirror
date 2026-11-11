@@ -1,5 +1,12 @@
 # @atlaskit/editor-markdown-transformer
 
+## 6.3.2
+
+### Patch Changes
+
+- [`b495c58269f2e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b495c58269f2e) -
+  Preserve text and document structure when images appear across Markdown paragraphs.
+
 ## 6.3.1
 
 ### Patch Changes

@@ -14,18 +14,14 @@ import {
 	type XCSSAllProperties,
 	type XCSSAllPseudos,
 } from '@atlaskit/css';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	container: {
 		backgroundColor: token('elevation.surface.overlay'),
-		borderRadius: token('radius.small'),
-		boxShadow: token('elevation.shadow.overlay'),
-	},
-	radiusUpdate: {
 		borderRadius: token('radius.large'),
+		boxShadow: token('elevation.shadow.overlay'),
 	},
 	emptyMenuSectionStyles: {
 		/*
@@ -69,13 +65,7 @@ export const ToolbarMenuContainer: React.ForwardRefExoticComponent<
 	({ children, onMouseDown, onMouseEnter, testId, xcss }, ref): React.JSX.Element => {
 		return (
 			<Box
-				xcss={cx(
-					styles.container,
-					isExperimentEnabled('platform_editor_menu_radius_update') && styles.radiusUpdate,
-					isExperimentEnabled('platform_editor_menu_radius_update') &&
-						styles.emptyMenuSectionStyles,
-					isExperimentEnabled('platform_editor_menu_radius_update') && xcss,
-				)}
+				xcss={cx(styles.container, styles.emptyMenuSectionStyles, xcss)}
 				testId={testId}
 				onMouseDown={onMouseDown}
 				onMouseEnter={onMouseEnter}

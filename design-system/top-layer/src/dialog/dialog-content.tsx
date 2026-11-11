@@ -13,6 +13,7 @@ import { useLayoutEffect } from '@atlaskit/ds-lib/use-layout-effect';
 import { token } from '@atlaskit/tokens';
 
 import { isNativeElementOpen } from '../internal/is-native-element-open';
+import { layerShowOrder } from '../internal/layer-show';
 import type { TBoostedSurfaceResetCheck } from '../internal/surface-reset';
 import { useAnimatedVisibility } from '../internal/use-animated-visibility';
 import { useFocusWrap } from '../internal/use-focus-wrap';
@@ -205,6 +206,17 @@ function reopenAfterUnaskedClose({ dialog }: { dialog: HTMLDialogElement }): boo
  *
  * See `notes/decisions/dialog-close-flow.md`.
  *
+ * **Nesting**
+ *
+ * A `Dialog` inside another `Dialog` or a `Popover` (in the DOM) shows after it, also when both
+ * open in the same commit. So the inner layer is above the outer one. A `Popover` inside a `Dialog`
+ * does the same.
+ *
+ * Do not design nested layers to open in the same commit. The show order is a defensive fix for
+ * React's effect order, not support for the pattern: the API cannot prevent it, and React can show
+ * nested layers again together (a Suspense reveal, or an Activity show). See
+ * `notes/architecture/layer-show-order.md`.
+ *
  * **Accessibility**
  *
  * Render at least one focusable element (typically a close button) when `isOpen` becomes `true`.
@@ -306,10 +318,18 @@ export const Dialog: React.ForwardRefExoticComponent<
 		}
 
 		if (isOpen) {
-			if (!dialog.open) {
-				dialog.showModal();
-			}
+			// Shows after a parent layer that opens in the same commit. A defensive fix for React's effect
+			// order, not support for the pattern (see `layer-show.tsx`).
+			const cancelShow = layerShowOrder.queueOrShow({
+				element: dialog,
+				show() {
+					if (!dialog.open) {
+						dialog.showModal();
+					}
+				},
+			});
 			return () => {
+				cancelShow();
 				if (dialog.open) {
 					dialog.close();
 				}
@@ -382,6 +402,8 @@ export const Dialog: React.ForwardRefExoticComponent<
 			// backdrop clicks itself. Always `none` (no feature check), so the server and the client
 			// render the same markup.
 			closedby="none"
+			// Keep in sync with `openRequestedAttribute` (internal/open-requested-attribute).
+			data-top-layer-open-requested={isOpen ? '' : undefined}
 			data-testid={testId}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
 			className={cx(

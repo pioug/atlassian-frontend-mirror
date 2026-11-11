@@ -1,5 +1,21 @@
 # @atlaskit/button
 
+## 25.8.1
+
+### Patch Changes
+
+- [`42adcdbedac5c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/42adcdbedac5c) -
+  Add semantic spacing style overrides for button behind platform-semantic-spacing. Existing numeric
+  styles remain when the feature flag is off.
+
+## 25.8.0
+
+### Minor Changes
+
+- [`81e066d7b5d49`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/81e066d7b5d49) -
+  Add explicit newWindowLabel support to LinkButton for localized new-window announcements. The
+  existing default announcement is unchanged.
+
 ## 25.7.1
 
 ### Patch Changes

@@ -3,7 +3,6 @@ import React, { useCallback } from 'react';
 import type { OnOpenChangeArgs } from '@atlaskit/dropdown-menu/types';
 import type { ToolbarUIContextType } from '@atlaskit/editor-toolbar/ui-context';
 import { ToolbarUIProvider } from '@atlaskit/editor-toolbar/ui-context';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { ExtractInjectionAPI, NextEditorPlugin } from '../types';
 
@@ -41,7 +40,6 @@ export const EditorToolbarUIProvider = ({
 				const shouldFocusEditor = !isKeyboardEscape;
 
 				if (
-					isExperimentEnabled('platform_editor_toolbar_multi_editor_fix') &&
 					event instanceof MouseEvent &&
 					event.target instanceof Element &&
 					!event.target.closest('[role="menu"]')

@@ -44,6 +44,15 @@ const placeholderStyles = cssMap({
 	finesse: { color: token('color.text.subtle') },
 });
 
+const semanticPlaceholderStyles = cssMap({
+	root: {
+		marginBlockStart: 0,
+		marginInlineEnd: token('space.gap.xxsmall'),
+		marginBlockEnd: 0,
+		marginInlineStart: token('space.gap.xxsmall'),
+	},
+});
+
 const Placeholder: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: PlaceholderProps<Option, IsMulti, Group>,
 ) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
@@ -59,6 +68,7 @@ const Placeholder: <Option, IsMulti extends boolean, Group extends GroupBase<Opt
 				placeholderStyles.root,
 				fg('platform-dst-tokens-finesse') && placeholderStyles.finesse,
 				isDisabled && placeholderStyles.disabled,
+				fg('platform-semantic-spacing') && semanticPlaceholderStyles.root,
 			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={css as CSSProperties}

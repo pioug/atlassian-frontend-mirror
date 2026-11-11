@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-card
 
+## 36.0.23
+
+### Patch Changes
+
+- [`97e1949785ccc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/97e1949785ccc) -
+  Remove the Slides experiment from shipped behavior.
+- Updated dependencies
+
 ## 36.0.22
 
 ### Patch Changes

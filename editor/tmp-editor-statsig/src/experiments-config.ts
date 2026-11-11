@@ -403,13 +403,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-03-05
-	'cc-mui-slides-experiment': {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-02-27
 	confluence_frontend_cwr_outcome_type_picker: {
 		defaultValue: boolean;
@@ -1118,14 +1111,6 @@ export const editorExperimentsConfig: {
 	confluence_native_tabs_experiment: createBooleanExperiment({
 		productKeys: {
 			confluence: 'confluence_native_tabs_experiment',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-03-05
-	'cc-mui-slides-experiment': createBooleanExperiment({
-		productKeys: {
-			confluence: 'cc-mui-slides-experiment',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

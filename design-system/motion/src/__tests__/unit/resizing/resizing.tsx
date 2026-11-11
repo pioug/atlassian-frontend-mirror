@@ -1,488 +1,331 @@
-import React, { forwardRef } from 'react';
+/* eslint-disable @atlassian/a11y/require-jest-coverage -- Hook tests use plain measurement fixtures; Lozenge provides component accessibility coverage. */
+import React from 'react';
 
-import replaceRaf from 'raf-stub';
+import { act, render, screen } from '@testing-library/react';
 
 import { token } from '@atlaskit/tokens';
-import { render } from '@atlassian/testing-library/render';
-import { screen } from '@atlassian/testing-library/screen';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
-import { useResizing } from '../../../resizing/use-resizing';
+import { type ResizingOpts, useResizing } from '../../../resizing/use-resizing';
 import { isReducedMotion } from '../../../utils/is-reduced-motion';
 
-type ResizingDimension = 'width' | 'height' | 'both';
-
 jest.mock('../../../utils/is-reduced-motion');
-
-replaceRaf();
-const raf = window.requestAnimationFrame as any;
-
-interface ContainerProps {
-	id: string;
-	width: number;
-	height: number;
-}
-
-const Container: React.ForwardRefExoticComponent<
-	React.PropsWithoutRef<ContainerProps> & React.RefAttributes<HTMLElement>
-> = forwardRef<HTMLElement, ContainerProps>(({ id, width, height, ...props }, ref) => {
-	const getBoundingClientRect = () => ({ width, height });
-
-	return (
-		<div
-			ref={(element) => {
-				const newRef: HTMLDivElement | null = element
-					? Object.assign(element, { getBoundingClientRect })
-					: null;
-
-				if (typeof ref === 'function') {
-					ref(newRef);
-				} else {
-					Object.assign(ref || {}, { current: newRef });
-				}
-			}}
-			{...props}
-			data-testid={id}
-		/>
-	);
+const originalObserver = global.ResizeObserver;
+const originalAnimate = HTMLElement.prototype.animate;
+const animations: Array<{
+	effect: { target: Element | null };
+	cancel: jest.Mock;
+	onfinish: (() => void) | null;
+	currentTime: number;
+}> = [];
+const animate = jest.fn(function (this: HTMLElement) {
+	const animation = {
+		effect: { target: this as Element | null },
+		cancel: jest.fn(),
+		onfinish: null as (() => void) | null,
+		currentTime: 0,
+	};
+	animations.push(animation);
+	return animation;
 });
+function latestAnimation() {
+	return animations[animations.length - 1];
+}
+function expectWidth(from: number, to: number) {
+	expect(animate).toHaveBeenLastCalledWith(
+		[
+			expect.objectContaining({ width: `${from}px` }),
+			expect.objectContaining({ width: `${to}px` }),
+		],
+		expect.any(Object),
+	);
+}
+let notify: ResizeObserverCallback;
+const observe = jest.fn();
+const unobserve = jest.fn();
+const disconnect = jest.fn();
 
-const TestComponent = (props: {
-	dimension: ResizingDimension;
-	width: number;
-	height: number;
-	onFinishMotion?: () => void;
-	onStartMotion?: () => void;
-}) => (
-	<Container
-		{...useResizing({
-			dimension: props.dimension,
-			duration: token('motion.duration.medium'),
-			easing: token('motion.easing.inout.bold'),
-			onFinishMotion: props.onFinishMotion,
-			onStartMotion: props.onStartMotion,
-		})}
-		width={props.width}
-		height={props.height}
-		id="element"
-	/>
-);
+function TestComponent({ label = 'Ready', ...opts }: Partial<ResizingOpts> & { label?: string }) {
+	return <Content label={label} options={opts} />;
+}
+function Content({ label, options }: { options: Partial<ResizingOpts>; label: string }) {
+	const resizing = useResizing({
+		dimension: 'width',
+		duration: token('motion.duration.medium'),
+		easing: token('motion.easing.inout.bold'),
+		...options,
+	});
+	return (
+		<div data-testid="parent">
+			<div {...resizing} data-testid="element">
+				<span>{label}</span>
+			</div>
+		</div>
+	);
+}
+function resize(width: number, height = 20) {
+	// jsdom does not inherit custom properties from the document theme.
+	const element = screen.getByTestId('element');
+	if (!element.style.getPropertyValue('--ds-duration-medium')) {
+		element.style.setProperty('--ds-duration-medium', '200ms');
+		element.style.setProperty('--ds-easing-inout-bold', 'cubic-bezier(0.4, 0, 0, 1)');
+	}
+	act(() =>
+		notify(
+			[
+				{
+					target: screen.getByTestId('element'),
+					borderBoxSize: [{ inlineSize: width, blockSize: height }],
+				} as unknown as ResizeObserverEntry,
+			],
+			{} as ResizeObserver,
+		),
+	);
+}
+function finish() {
+	act(() => {
+		latestAnimation()?.onfinish?.();
+	});
+}
 
 describe('useResizing', () => {
 	beforeEach(() => {
+		passGate('platform-dst-motion-uplift');
+		passGate('platform-dst-motion-observed-resizing');
+		animations.length = 0;
+		HTMLElement.prototype.animate = animate as unknown as typeof HTMLElement.prototype.animate;
+		jest.clearAllMocks();
 		(isReducedMotion as jest.Mock).mockReturnValue(false);
+		global.ResizeObserver = jest.fn((callback) => {
+			notify = callback;
+			return { observe, unobserve, disconnect };
+		}) as unknown as typeof ResizeObserver;
+	});
+	afterEach(() => {
+		global.ResizeObserver = originalObserver;
+		jest.restoreAllMocks();
+		HTMLElement.prototype.animate = originalAnimate;
 	});
 
-	describe('dimension="width"', () => {
-		it('should do nothing if width did not change over an update', () => {
-			render(<TestComponent dimension="width" width={100} height={50} />);
-
-			expect(screen.getByTestId('element')).not.toHaveAttribute('style');
-		});
-
-		it('should do nothing if user has turned on reduced motion', () => {
-			(isReducedMotion as jest.Mock).mockReturnValue(true);
-			const { rerender } = render(<TestComponent dimension="width" width={100} height={50} />);
-
-			rerender(<TestComponent dimension="width" width={500} height={50} />);
-
-			expect(screen.getByTestId('element')).not.toHaveAttribute('style');
-		});
-
-		it('should begin the animation from the before width', () => {
-			const { rerender } = render(<TestComponent dimension="width" width={100} height={50} />);
-
-			rerender(<TestComponent dimension="width" width={500} height={50} />);
-
-			expect(screen.getByTestId('element').style).toMatchObject({
-				width: '100px',
-			});
-		});
-
-		it('should prepare to animate width with width-only transition properties', () => {
-			const { rerender } = render(<TestComponent dimension="width" width={100} height={50} />);
-
-			rerender(<TestComponent dimension="width" width={500} height={50} />);
-
-			expect(screen.getByTestId('element').style).toMatchObject({
-				'will-change': 'width',
-				'transition-property': 'width',
-				'transition-duration': 'var(--ds-duration-medium)',
-				'transition-timing-function': 'var(--ds-easing-inout-bold)',
-				'box-sizing': 'border-box',
-			});
-		});
-
-		it('should not set height styles when only animating width', () => {
-			const { rerender } = render(<TestComponent dimension="width" width={100} height={50} />);
-
-			rerender(<TestComponent dimension="width" width={500} height={50} />);
-
-			expect(screen.getByTestId('element')).not.toHaveStyle({ height: '50px' });
-		});
-
-		it('should set the new width after two frames so the DOM can flush changes', () => {
-			const { rerender } = render(<TestComponent dimension="width" width={100} height={50} />);
-			rerender(<TestComponent dimension="width" width={500} height={50} />);
-
-			// Two ticks to start the motion.
-			raf.step();
-			raf.step();
-
-			expect(screen.getByTestId('element').style).toMatchObject({
-				width: '500px',
-			});
-		});
-
-		it('should clear the styling from the element after the animation has finished', () => {
-			jest.useFakeTimers({ doNotFake: ['requestAnimationFrame', 'cancelAnimationFrame'] });
-			const { rerender } = render(<TestComponent dimension="width" width={100} height={50} />);
-			rerender(<TestComponent dimension="width" width={500} height={50} />);
-
-			// Two ticks to start the motion.
-			raf.step();
-			raf.step();
-			// Run the timeout to cleanup the motion.
-			jest.runOnlyPendingTimers();
-			jest.useRealTimers();
-
-			expect(screen.getByTestId('element').style).not.toMatchObject({
-				width: '500px',
-			});
-		});
-
-		it('should call onFinishMotion after the animation completes', () => {
-			jest.useFakeTimers();
-			const onFinishMotion = jest.fn();
-			const { rerender } = render(
-				<TestComponent dimension="width" width={100} height={50} onFinishMotion={onFinishMotion} />,
-			);
-
-			rerender(
-				<TestComponent dimension="width" width={500} height={50} onFinishMotion={onFinishMotion} />,
-			);
-
-			expect(onFinishMotion).not.toHaveBeenCalled();
-
-			jest.advanceTimersByTime(200);
-
-			expect(onFinishMotion).toHaveBeenCalledTimes(1);
-
-			jest.useRealTimers();
-		});
-
-		it('should call onFinishMotion immediately when reduced motion is enabled', () => {
-			(isReducedMotion as jest.Mock).mockReturnValue(true);
-			const onFinishMotion = jest.fn();
-			const { rerender } = render(
-				<TestComponent dimension="width" width={100} height={50} onFinishMotion={onFinishMotion} />,
-			);
-
-			rerender(
-				<TestComponent dimension="width" width={500} height={50} onFinishMotion={onFinishMotion} />,
-			);
-
-			// No motion runs, so consumers shouldn't be left waiting on a transition that never happens.
-			expect(onFinishMotion).toHaveBeenCalledTimes(1);
-		});
-
-		it('should call onFinishMotion immediately if width did not change', () => {
-			const onFinishMotion = jest.fn();
-			const { rerender } = render(
-				<TestComponent dimension="width" width={100} height={50} onFinishMotion={onFinishMotion} />,
-			);
-
-			rerender(
-				<TestComponent
-					dimension="width"
-					width={100}
-					height={500}
-					onFinishMotion={onFinishMotion}
-				/>,
-			);
-
-			// Width didn't change, even though height did - should short-circuit.
-			expect(onFinishMotion).toHaveBeenCalledTimes(1);
-		});
-
-		it('should call onFinishMotion on each update where no motion was needed', () => {
-			const onFinishMotion = jest.fn();
-			const { rerender } = render(
-				<TestComponent dimension="width" width={100} height={50} onFinishMotion={onFinishMotion} />,
-			);
-
-			rerender(
-				<TestComponent dimension="width" width={100} height={50} onFinishMotion={onFinishMotion} />,
-			);
-			rerender(
-				<TestComponent dimension="width" width={100} height={50} onFinishMotion={onFinishMotion} />,
-			);
-
-			// There is nothing to wait on, so every update resolves - consumers must treat this as
-			// idempotent.
-			expect(onFinishMotion).toHaveBeenCalledTimes(2);
-		});
-
-		it('should call onFinishMotion on each update when reduced motion is enabled', () => {
-			(isReducedMotion as jest.Mock).mockReturnValue(true);
-			const onFinishMotion = jest.fn();
-			const { rerender } = render(
-				<TestComponent dimension="width" width={100} height={50} onFinishMotion={onFinishMotion} />,
-			);
-
-			rerender(
-				<TestComponent dimension="width" width={500} height={50} onFinishMotion={onFinishMotion} />,
-			);
-			rerender(
-				<TestComponent dimension="width" width={800} height={50} onFinishMotion={onFinishMotion} />,
-			);
-
-			// Same contract as the no-motion-needed case above: motion never runs, so each update
-			// resolves immediately.
-			expect(onFinishMotion).toHaveBeenCalledTimes(2);
-		});
-
-		it('should cleanup when unmounting and not throw an error', () => {
-			jest.useFakeTimers();
-			const { rerender, unmount } = render(
-				<TestComponent dimension="width" width={100} height={50} />,
-			);
-			rerender(<TestComponent dimension="width" width={500} height={50} />);
-			// Two ticks to start the motion.
-			raf.step();
-			raf.step();
-
-			unmount();
-
-			expect(() => {
-				raf.step();
-				raf.step();
-				jest.runOnlyPendingTimers();
-				jest.useRealTimers();
-			}).not.toThrow();
-		});
+	it('establishes the initial size without motion or synchronous geometry reads', () => {
+		const measure = jest.spyOn(HTMLElement.prototype, 'getBoundingClientRect');
+		const onStartMotion = jest.fn();
+		const { rerender } = render(<TestComponent onStartMotion={onStartMotion} />);
+		resize(100);
+		rerender(<TestComponent onStartMotion={onStartMotion} />);
+		rerender(<TestComponent onStartMotion={onStartMotion} label="Updated" />);
+		expect(onStartMotion).not.toHaveBeenCalled();
+		expect(measure).not.toHaveBeenCalled();
+		expect(screen.getByTestId('element')).toHaveStyle({ width: '' });
 	});
 
-	describe('dimension="height"', () => {
-		it('should do nothing if height did not change over an update', () => {
-			render(<TestComponent dimension="height" width={100} height={50} />);
-
-			expect(screen.getByTestId('element')).not.toHaveAttribute('style');
-		});
-
-		it('should begin the animation from the before height', () => {
-			const { rerender } = render(<TestComponent dimension="height" width={100} height={50} />);
-
-			rerender(<TestComponent dimension="height" width={100} height={200} />);
-
-			expect(screen.getByTestId('element').style).toMatchObject({
-				height: '50px',
-			});
-		});
-
-		it('should prepare to animate height with height-only transition properties', () => {
-			const { rerender } = render(<TestComponent dimension="height" width={100} height={50} />);
-
-			rerender(<TestComponent dimension="height" width={100} height={200} />);
-
-			expect(screen.getByTestId('element').style).toMatchObject({
-				'will-change': 'height',
-				'transition-property': 'height',
-				'box-sizing': 'border-box',
-			});
-		});
-
-		it('should not set width styles when only animating height', () => {
-			const { rerender } = render(<TestComponent dimension="height" width={100} height={50} />);
-
-			rerender(<TestComponent dimension="height" width={100} height={200} />);
-
-			expect(screen.getByTestId('element')).not.toHaveStyle({ width: '100px' });
-		});
-
-		it('should set the new height after two frames so the DOM can flush changes', () => {
-			const { rerender } = render(<TestComponent dimension="height" width={100} height={50} />);
-			rerender(<TestComponent dimension="height" width={100} height={200} />);
-
-			raf.step();
-			raf.step();
-
-			expect(screen.getByTestId('element').style).toMatchObject({
-				height: '200px',
-			});
-		});
-
-		it('should call onFinishMotion immediately if height did not change', () => {
-			const onFinishMotion = jest.fn();
-			const { rerender } = render(
-				<TestComponent
-					dimension="height"
-					width={100}
-					height={50}
-					onFinishMotion={onFinishMotion}
-				/>,
-			);
-
-			rerender(
-				<TestComponent
-					dimension="height"
-					width={500}
-					height={50}
-					onFinishMotion={onFinishMotion}
-				/>,
-			);
-
-			// Height didn't change, even though width did - should short-circuit.
-			expect(onFinishMotion).toHaveBeenCalledTimes(1);
-		});
-	});
-
-	describe('dimension="both"', () => {
-		it('should do nothing on initial mount', () => {
-			render(<TestComponent dimension="both" width={100} height={50} />);
-
-			expect(screen.getByTestId('element')).not.toHaveAttribute('style');
-		});
-
-		it('should animate when only width changes', () => {
-			const { rerender } = render(<TestComponent dimension="both" width={100} height={50} />);
-
-			rerender(<TestComponent dimension="both" width={500} height={50} />);
-
-			expect(screen.getByTestId('element').style).toMatchObject({
-				width: '100px',
-				height: '50px',
-				'will-change': 'width, height',
-				'transition-property': 'width, height',
-			});
-		});
-
-		it('should animate when only height changes', () => {
-			const { rerender } = render(<TestComponent dimension="both" width={100} height={50} />);
-
-			rerender(<TestComponent dimension="both" width={100} height={200} />);
-
-			expect(screen.getByTestId('element').style).toMatchObject({
-				width: '100px',
-				height: '50px',
-				'will-change': 'width, height',
-				'transition-property': 'width, height',
-			});
-		});
-
-		it('should begin the animation from the before width and height', () => {
-			const { rerender } = render(<TestComponent dimension="both" width={100} height={50} />);
-
-			rerender(<TestComponent dimension="both" width={500} height={200} />);
-
-			expect(screen.getByTestId('element').style).toMatchObject({
-				width: '100px',
-				height: '50px',
-			});
-		});
-
-		it('should set the new width and height after two frames so the DOM can flush changes', () => {
-			const { rerender } = render(<TestComponent dimension="both" width={100} height={50} />);
-			rerender(<TestComponent dimension="both" width={500} height={200} />);
-
-			raf.step();
-			raf.step();
-
-			expect(screen.getByTestId('element').style).toMatchObject({
-				width: '500px',
-				height: '200px',
-			});
-		});
-
-		it('should call onFinishMotion immediately if neither dimension changed', () => {
-			const onFinishMotion = jest.fn();
-			const { rerender } = render(
-				<TestComponent dimension="both" width={100} height={50} onFinishMotion={onFinishMotion} />,
-			);
-
-			rerender(
-				<TestComponent dimension="both" width={100} height={50} onFinishMotion={onFinishMotion} />,
-			);
-
-			expect(onFinishMotion).toHaveBeenCalledTimes(1);
-		});
-	});
-
-	describe('onStartMotion', () => {
-		it('should not be called on the initial render', () => {
+	it.each(['width', 'height', 'both'] as const)(
+		'animates observed %s changes with the existing duration and easing',
+		(dimension) => {
 			const onStartMotion = jest.fn();
+			const onFinishMotion = jest.fn();
 			render(
-				<TestComponent dimension="width" width={100} height={50} onStartMotion={onStartMotion} />,
+				<TestComponent
+					dimension={dimension}
+					onStartMotion={onStartMotion}
+					onFinishMotion={onFinishMotion}
+				/>,
 			);
-
-			expect(onStartMotion).not.toHaveBeenCalled();
-		});
-
-		it('should be called once per update', () => {
-			const onStartMotion = jest.fn();
-			const { rerender } = render(
-				<TestComponent dimension="width" width={100} height={50} onStartMotion={onStartMotion} />,
+			resize(100, 20);
+			resize(300, 40);
+			expect(animate).toHaveBeenCalledWith(
+				[
+					{
+						boxSizing: 'border-box',
+						...(dimension !== 'height' && { width: '100px' }),
+						...(dimension !== 'width' && { height: '20px' }),
+					},
+					{
+						boxSizing: 'border-box',
+						...(dimension !== 'height' && { width: '300px' }),
+						...(dimension !== 'width' && { height: '40px' }),
+					},
+				],
+				{ duration: 200, easing: 'cubic-bezier(0.4, 0, 0, 1)' },
 			);
-
-			rerender(
-				<TestComponent dimension="width" width={500} height={50} onStartMotion={onStartMotion} />,
-			);
-
 			expect(onStartMotion).toHaveBeenCalledTimes(1);
+			finish();
+			expect(latestAnimation().cancel).toHaveBeenCalledTimes(1);
+			expect(onFinishMotion).toHaveBeenCalledTimes(1);
+		},
+	);
 
-			rerender(
-				<TestComponent dimension="width" width={800} height={50} onStartMotion={onStartMotion} />,
-			);
+	it('ignores resize notifications from its own animation and survives unrelated renders', () => {
+		const onStartMotion = jest.fn();
+		const onFinishMotion = jest.fn();
+		const { rerender } = render(
+			<TestComponent onStartMotion={onStartMotion} onFinishMotion={onFinishMotion} />,
+		);
+		resize(100);
+		resize(300);
+		resize(150);
+		resize(250);
+		rerender(<TestComponent onStartMotion={onStartMotion} onFinishMotion={onFinishMotion} />);
+		expect(onStartMotion).toHaveBeenCalledTimes(1);
+		finish();
+		expect(onFinishMotion).toHaveBeenCalledTimes(1);
+		expect(screen.getByTestId('element')).toHaveStyle({ width: '' });
+	});
 
-			expect(onStartMotion).toHaveBeenCalledTimes(2);
-		});
-
-		it('should be called before any transition styles are applied so consumers measure natural layout', () => {
-			const styleWhenMeasured: (string | null)[] = [];
-			const onStartMotion = jest.fn(() => {
-				styleWhenMeasured.push(screen.getByTestId('element').getAttribute('style'));
+	it.each(['content', 'parent constraint'] as const)(
+		'retargets a running animation after a %s mutation from its last observed frame',
+		async (mutation) => {
+			const onFinishMotion = jest.fn();
+			render(<TestComponent onFinishMotion={onFinishMotion} />);
+			resize(100);
+			resize(300);
+			resize(180);
+			await act(async () => {
+				if (mutation === 'content') screen.getByText('Ready').textContent = 'Done';
+				else screen.getByTestId('parent').style.maxWidth = '250px';
 			});
-			const { rerender } = render(
-				<TestComponent dimension="width" width={100} height={50} onStartMotion={onStartMotion} />,
-			);
+			expect(unobserve).toHaveBeenCalled();
+			resize(80);
+			expectWidth(180, 80);
+			expect(animations[0].cancel).toHaveBeenCalledTimes(1);
+			finish();
+			expect(onFinishMotion).toHaveBeenCalledTimes(1);
+		},
+	);
 
-			rerender(
-				<TestComponent dimension="width" width={500} height={50} onStartMotion={onStartMotion} />,
-			);
-
-			expect(styleWhenMeasured).toEqual(['']);
-			// The transition styles land after the measurement.
-			expect(screen.getByTestId('element').style).toMatchObject({ width: '100px' });
-		});
-
-		it('should not be called when no motion is needed', () => {
+	it.each(['parent ARIA', 'content ARIA', 'color', 'same-size content'] as const)(
+		'preserves the same animation and clock after a %s change',
+		async (mutation) => {
 			const onStartMotion = jest.fn();
-			const { rerender } = render(
-				<TestComponent dimension="width" width={100} height={50} onStartMotion={onStartMotion} />,
-			);
+			const onFinishMotion = jest.fn();
+			render(<TestComponent onStartMotion={onStartMotion} onFinishMotion={onFinishMotion} />);
+			resize(100);
+			resize(300);
+			resize(180);
+			const animation = latestAnimation();
+			animation.currentTime = 75;
+			await act(async () => {
+				if (mutation === 'parent ARIA')
+					screen.getByTestId('parent').setAttribute('aria-label', 'Status');
+				else if (mutation === 'content ARIA')
+					screen.getByTestId('element').setAttribute('aria-label', 'Status');
+				else if (mutation === 'color') screen.getByTestId('element').style.color = 'red';
+				else screen.getByText('Ready').textContent = 'Other';
+			});
+			expect(animation.effect.target).toBeNull();
+			resize(300);
+			expect(animation.effect.target).toBe(screen.getByTestId('element'));
+			expect(animation.currentTime).toBe(75);
+			expect(animate).toHaveBeenCalledTimes(1);
+			expect(animation.cancel).not.toHaveBeenCalled();
+			expect(onStartMotion).toHaveBeenCalledTimes(1);
+			finish();
+			expect(onFinishMotion).toHaveBeenCalledTimes(1);
+		},
+	);
 
-			rerender(
-				<TestComponent dimension="width" width={100} height={500} onStartMotion={onStartMotion} />,
-			);
+	it('cancels motion when reduced motion is enabled', () => {
+		const onStartMotion = jest.fn();
+		const { rerender } = render(<TestComponent onStartMotion={onStartMotion} />);
+		resize(100);
+		resize(300);
+		(isReducedMotion as jest.Mock).mockReturnValue(true);
+		rerender(<TestComponent onStartMotion={onStartMotion} />);
+		resize(400);
+		finish();
+		expect(screen.getByTestId('element')).toHaveStyle({ width: '' });
+		expect(onStartMotion).toHaveBeenCalledTimes(1);
+		expect(latestAnimation().cancel).toHaveBeenCalledTimes(1);
+	});
 
-			// Width didn't change, so no animation runs - and therefore no motion ever starts.
-			expect(onStartMotion).not.toHaveBeenCalled();
-		});
-
-		it('should not be called when reduced motion is enabled', () => {
-			(isReducedMotion as jest.Mock).mockReturnValue(true);
-			const onStartMotion = jest.fn();
-			const { rerender } = render(
-				<TestComponent dimension="width" width={100} height={50} onStartMotion={onStartMotion} />,
-			);
-
-			rerender(
-				<TestComponent dimension="width" width={500} height={50} onStartMotion={onStartMotion} />,
-			);
-
-			// No animation distorts layout, so there's no measurement window to hand out - and no
-			// reason to force a layout read.
-			expect(onStartMotion).not.toHaveBeenCalled();
-			expect(screen.getByTestId('element')).not.toHaveAttribute('style');
+	it('resolves CSS fallback values for duration and easing', () => {
+		render(
+			<TestComponent
+				duration={'var(--missing-duration, 0.2s)' as ResizingOpts['duration']}
+				easing={'var(--missing-easing, cubic-bezier(0.4, 0, 0, 1))' as ResizingOpts['easing']}
+			/>,
+		);
+		resize(100);
+		resize(300);
+		expect(animate).toHaveBeenCalledWith(expect.any(Array), {
+			duration: 200,
+			easing: 'cubic-bezier(0.4, 0, 0, 1)',
 		});
 	});
+
+	it.each([false, true])(
+		'resolves nested timing fallbacks with custom properties set: %s',
+		(defined) => {
+			render(
+				<TestComponent
+					duration={
+						'var(--missing-duration, var(--fallback-duration, 0.2s))' as ResizingOpts['duration']
+					}
+					easing={
+						'var(--missing-easing, var(--fallback-easing, cubic-bezier(0.4, 0, 0, 1)))' as ResizingOpts['easing']
+					}
+				/>,
+			);
+			if (defined) {
+				const element = screen.getByTestId('element');
+				element.style.setProperty('--fallback-duration', '350ms');
+				element.style.setProperty('--fallback-easing', 'linear');
+			}
+			resize(100);
+			resize(300);
+			expect(animate).toHaveBeenCalledWith(expect.any(Array), {
+				duration: defined ? 350 : 200,
+				easing: defined ? 'linear' : 'cubic-bezier(0.4, 0, 0, 1)',
+			});
+		},
+	);
+
+	it('does not animate changes on the unselected axis', () => {
+		const onStartMotion = jest.fn();
+		render(<TestComponent onStartMotion={onStartMotion} />);
+		resize(100, 20);
+		resize(100, 40);
+		expect(onStartMotion).not.toHaveBeenCalled();
+	});
+
+	it('preserves unrelated inline styles', () => {
+		render(<TestComponent />);
+		const el = screen.getByTestId('element');
+		el.style.color = 'red';
+		resize(100);
+		resize(300);
+		finish();
+		expect(el).toHaveStyle({ color: 'rgb(255, 0, 0)' });
+	});
+
+	it('disconnects observers and cancels pending work on unmount', () => {
+		const onFinishMotion = jest.fn();
+		const { unmount } = render(<TestComponent onFinishMotion={onFinishMotion} />);
+		resize(100);
+		resize(300);
+		unmount();
+		finish();
+		expect(disconnect).toHaveBeenCalled();
+		expect(latestAnimation().cancel).toHaveBeenCalledTimes(1);
+		expect(onFinishMotion).not.toHaveBeenCalled();
+	});
+});
+
+it('does not attach observers when the rollout gate is disabled', () => {
+	passGate('platform-dst-motion-uplift');
+	failGate('platform-dst-motion-observed-resizing');
+	(isReducedMotion as jest.Mock).mockReturnValue(false);
+	const observerConstructor = jest.fn();
+	global.ResizeObserver = observerConstructor;
+	const measure = jest.spyOn(HTMLElement.prototype, 'getBoundingClientRect');
+	try {
+		const { rerender, unmount } = render(<TestComponent />);
+		rerender(<TestComponent label="Updated" />);
+		expect(observerConstructor).not.toHaveBeenCalled();
+		expect(measure).toHaveBeenCalled();
+		unmount();
+	} finally {
+		global.ResizeObserver = originalObserver;
+		measure.mockRestore();
+	}
 });

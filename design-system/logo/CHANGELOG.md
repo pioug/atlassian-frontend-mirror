@@ -1,5 +1,18 @@
 # @atlaskit/logo
 
+## 23.3.2
+
+### Patch Changes
+
+- [`37143e638e4bb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/37143e638e4bb) -
+  Refresh the Loom icon, logo, and attribution wordmark behind the platform_dst_loom_logo_refresh
+  feature gate.
+
+  Deprecate `LoomBlurpleLogo` and `LoomBlurpleIcon` (including their `LoomInternal` exports). Use
+  `LoomLogo` and `LoomIcon` instead. Existing blurple exports remain available for compatibility.
+
+- Updated dependencies
+
 ## 23.3.1
 
 ### Patch Changes

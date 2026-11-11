@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 8.4.2
+
+### Patch Changes
+
+- [`8f7aedc264b01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f7aedc264b01) -
+  Clean up platform_editor_media_vc_fixes experiment: simplify runtime checks to unconditional
+  behavior after complete rollout (FFCLEANUP-173308)
+
 ## 8.4.1
 
 ### Patch Changes

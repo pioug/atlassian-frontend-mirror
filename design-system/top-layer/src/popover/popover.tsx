@@ -14,6 +14,7 @@ import { token } from '@atlaskit/tokens';
 
 import { requestCloseEventName } from '../internal/closable-popover-contract';
 import { isNativeElementOpen } from '../internal/is-native-element-open';
+import { layerShowOrder } from '../internal/layer-show';
 import {
 	resolvePlacement,
 	type TPlacementAxis,
@@ -264,6 +265,17 @@ type TPopoverMode = 'auto' | 'hint' | 'manual';
  * Legacy triggers that must open on mousedown (e.g. `@atlaskit/react-select`)
  * should defer the open past the in-flight gesture; see
  * `Select.openMenuAfterPointerUp`.
+ *
+ * ### 🪆 Nesting
+ *
+ * A `Popover` inside another `Popover` or a `Dialog` (in the DOM) shows after
+ * it, also when both open in the same commit. So the inner layer is above the
+ * outer one, and takes its initial focus after it.
+ *
+ * Do not design nested layers to open in the same commit. The show order is a
+ * defensive fix for React's effect order, not support for the pattern: the API
+ * cannot prevent it, and React can show nested layers again together (a
+ * Suspense reveal, or an Activity show). See `notes/architecture/layer-show-order.md`.
  */
 export const Popover: React.ForwardRefExoticComponent<
 	TPopoverForwardedProps & React.RefAttributes<HTMLDivElement>
@@ -412,8 +424,8 @@ export const Popover: React.ForwardRefExoticComponent<
 		onExitFinish,
 	});
 
-	// Focus management: Tab cycling for dialog roles. Initial focus is below
-	// the show/hide layout effect. Restoration is native for outermost
+	// Focus management: Tab cycling for dialog roles. Initial focus is below,
+	// and runs once the popover has shown. Restoration is native for outermost
 	// popovers; nested popovers are handled above via the `beforetoggle`
 	// snapshot. Passing `phase` keeps `useFocusWrap` attached through the
 	// animated-exit window (WCAG 2.4.3 guard). See notes/architecture/focus.md.
@@ -506,6 +518,19 @@ export const Popover: React.ForwardRefExoticComponent<
 		};
 	}, [handleBeforeToggle, handleToggleClosed, isMounted, onBeforeToggle, onToggle]);
 
+	/**
+	 * Initial focus (role-dependent). The show below calls it right after `showPopover()` (a hidden
+	 * popover cannot take focus), also when this popover waits for a parent layer (see
+	 * `layer-show.tsx`). So a popover's own focus lands before the popovers inside it show and take
+	 * focus, in the same task as the open, before the browser paints.
+	 */
+	const takeInitialFocus = useInitialFocus({
+		elementRef: ownRef,
+		isEnabled: !UNSAFE__disableInitialAutoFocus,
+		initialFocusRef,
+		role,
+	});
+
 	// Show/hide based on isOpen. `showPopover`/`hidePopover` are no-ops when
 	// already in the target state. Try/catch guards `InvalidStateError` on
 	// disconnected elements (StrictMode/concurrent/unmount edge cases).
@@ -521,10 +546,19 @@ export const Popover: React.ForwardRefExoticComponent<
 			// `handleToggleClosed` to reset it.
 			closeReasonRef.current = 'light-dismiss';
 			escapeKeydownRef.current = null;
-			try {
-				element.showPopover();
-			} catch {}
+			// Shows after a parent layer that opens in the same commit. A defensive fix for React's effect
+			// order, not support for the pattern (see `layer-show.tsx`).
+			const cancelShow = layerShowOrder.queueOrShow({
+				element,
+				show() {
+					try {
+						element.showPopover();
+					} catch {}
+					takeInitialFocus();
+				},
+			});
 			return () => {
+				cancelShow();
 				closeReasonRef.current = 'programmatic';
 				try {
 					element.hidePopover();
@@ -536,19 +570,7 @@ export const Popover: React.ForwardRefExoticComponent<
 		try {
 			element.hidePopover();
 		} catch {}
-	}, [isOpen]);
-
-	// Initial focus (role-dependent) is a layout effect, so it must come AFTER
-	// the show/hide layout effect above: React runs layout effects in source
-	// order, and focus only works once `showPopover()` has run. Focus then
-	// lands in the same task as the open, before the browser paints.
-	useInitialFocus({
-		elementRef: ownRef,
-		isEnabled: !UNSAFE__disableInitialAutoFocus,
-		initialFocusRef,
-		phase,
-		role,
-	});
+	}, [isOpen, takeInitialFocus]);
 
 	// Unmount the host once exit completes so it does not leave an empty
 	// `role`/`popover` element in the accessibility tree. The element
@@ -567,6 +589,8 @@ export const Popover: React.ForwardRefExoticComponent<
 			role={role}
 			// Keep in sync with `closablePopoverAttribute` (internal/closable-popover-contract).
 			data-top-layer-closable={isClosable ? '' : undefined}
+			// Keep in sync with `openRequestedAttribute` (internal/open-requested-attribute).
+			data-top-layer-open-requested={isOpen ? '' : undefined}
 			aria-label={label}
 			aria-labelledby={labelledBy}
 			data-testid={testId}

@@ -33,7 +33,11 @@ export type BrowseCardAnalyticsContext = {
 		| 'marketplace'
 		| 'templates'
 		| 'agentSearch';
-	placementReason?: 'firstRecommendation' | 'jiraCodingAgent' | 'usageRankedFallback';
+	placementReason?:
+		| 'firstRecommendation'
+		| 'jiraCodingAgent'
+		| 'ursRecommendation'
+		| 'usageRankedFallback';
 	agentType?: 'codingAgent' | 'rovoAgent' | 'template' | 'unknown';
 	isJiraCodingAgent?: boolean;
 	isPopular?: boolean;

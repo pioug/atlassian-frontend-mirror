@@ -977,6 +977,19 @@ describe('<UploadingEmojiPicker />', () => {
 			await openDeletePrompt();
 		});
 
+		it.each([
+			{ setGate: passGate, level: 2 },
+			{ setGate: failGate, level: 4 },
+		])('renders the remove emoji heading at the correct level', async ({ setGate, level }) => {
+			setGate('platform_ally_emoji_fixes_various');
+			await helper.setupPicker({ emojiProvider }, undefined, onEvent);
+			await openDeletePrompt();
+
+			expect(
+				within(getEmojiDeletePreview()).getByRole('heading', { name: 'Remove emoji', level }),
+			).toBeInTheDocument();
+		});
+
 		it('calls #deleteSiteEmoji with the emoji to delete when button is clicked', async () => {
 			const spy = jest.spyOn(MockEmojiResource.prototype, 'deleteSiteEmoji');
 
@@ -1039,6 +1052,36 @@ describe('<UploadingEmojiPicker />', () => {
 			await waitFor(() => {
 				expect(queryEmojiDeletePreview()).not.toBeInTheDocument();
 			});
+		});
+
+		// The deletable emoji in 'Your uploads' that contains the delete button
+		const getDeletableEmoji = () =>
+			screen.getByTestId('emoji-delete-button').closest('[data-focus-index]');
+
+		it('restores focus to the emoji after cancel when the gate is enabled', async () => {
+			passGate('platform_ally_emoji_fixes_various');
+			await helper.setupPicker({ emojiProvider }, undefined, onEvent);
+			await openDeletePrompt();
+			await clickCancelDelete();
+			await waitFor(() => {
+				expect(queryEmojiDeletePreview()).not.toBeInTheDocument();
+			});
+			await waitFor(() => {
+				expect(getDeletableEmoji()).toHaveFocus();
+			});
+		});
+
+		it('does not restore focus to the emoji after cancel when the gate is disabled', async () => {
+			failGate('platform_ally_emoji_fixes_various');
+			await helper.setupPicker({ emojiProvider }, undefined, onEvent);
+			await openDeletePrompt();
+			await clickCancelDelete();
+			await waitFor(() => {
+				expect(queryEmojiDeletePreview()).not.toBeInTheDocument();
+			});
+			// allow the virtual list scroll timeout to elapse
+			await new Promise((resolve) => setTimeout(resolve, 150));
+			expect(getDeletableEmoji()).not.toHaveFocus();
 		});
 
 		it('cannot find deleted emoji from provider', async () => {

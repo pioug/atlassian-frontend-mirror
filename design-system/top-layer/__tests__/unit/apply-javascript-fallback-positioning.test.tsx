@@ -101,6 +101,19 @@ describe('applyJavaScriptFallbackPositioning()', () => {
 		cleanup();
 	});
 
+	it('hides a popover that opens after setup as soon as it shows, before its toggle event', () => {
+		const { popover, cleanup } = mount();
+		expect(popover.style.getPropertyValue('opacity')).toBe('');
+
+		// `beforetoggle` fires inside `showPopover()`. The `toggle` event comes in a later task, and the
+		// browser can paint before it.
+		popover.dispatchEvent(Object.assign(new Event('beforetoggle'), { newState: 'open' }));
+
+		expect(popover.style.getPropertyValue('opacity')).toBe('0');
+
+		cleanup();
+	});
+
 	describe('without ResizeObserver', () => {
 		const originalResizeObserver = window.ResizeObserver;
 		beforeEach(() => {

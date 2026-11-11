@@ -6,7 +6,7 @@ import AppProvider from '@atlaskit/app-provider/app-provider';
 import type { RouterLinkComponentProps } from '@atlaskit/app-provider/router-link-provider';
 import SettingsIcon from '@atlaskit/icon/core/settings';
 
-import LinkButton from '../../../new-button/variants/default/link';
+import LinkButton, { type LinkButtonProps } from '../../../new-button/variants/default/link';
 import LinkIconButton from '../../../new-button/variants/icon/link';
 import variants from '../../../utils/variants';
 
@@ -188,6 +188,45 @@ const testCases: Array<{
 				});
 			});
 		});
+	});
+});
+
+describe('LinkButton new-window label props', () => {
+	it('supports a custom announcement with a string URL', () => {
+		const props: LinkButtonProps = {
+			href: '/home',
+			children: 'Accueil',
+			target: '_blank',
+			newWindowLabel: 's’ouvre dans une nouvelle fenêtre',
+		};
+
+		render(<LinkButton {...props} />);
+
+		expect(screen.getByRole('link')).toHaveAccessibleName(
+			'Accueil , s’ouvre dans une nouvelle fenêtre',
+		);
+	});
+
+	it('preserves typed router URLs with a custom announcement', () => {
+		const props: LinkButtonProps<MyRouterLinkConfig> = {
+			href: { to: '/home', customProp: 'custom-value' },
+			children: 'Accueil',
+			target: '_blank',
+			newWindowLabel: 's’ouvre dans une nouvelle fenêtre',
+		};
+
+		render(
+			<AppProvider routerLinkComponent={MyRouterLinkComponent}>
+				<LinkButton<MyRouterLinkConfig> {...props} />
+			</AppProvider>,
+		);
+
+		const link = screen.getByRole('link');
+		expect(link).toHaveAttribute('href', '/home');
+		expect(link).toHaveAttribute('data-test-link-type', 'advanced');
+		expect(link).toHaveAttribute('data-custom-attribute', 'custom-value');
+		expect(link).toHaveAccessibleName('Accueil , s’ouvre dans une nouvelle fenêtre (Router link)');
+		expect(link).not.toHaveAttribute('newwindowlabel');
 	});
 });
 

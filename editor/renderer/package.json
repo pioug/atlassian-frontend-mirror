@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "153.4.1",
+	"version": "153.4.3",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -196,9 +196,6 @@
 			"referenceOnly": true
 		},
 		"platform-dst-lozenge-tag-badge-visual-uplifts": {
-			"type": "boolean"
-		},
-		"platform_nested_table_style_override_2": {
 			"type": "boolean"
 		}
 	},

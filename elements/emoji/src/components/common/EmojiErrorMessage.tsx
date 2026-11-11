@@ -7,6 +7,7 @@ import { useIntl } from 'react-intl';
 
 import { ErrorMessage } from '@atlaskit/form/error-message';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
@@ -69,7 +70,13 @@ const EmojiErrorMessage = (props: Props): JSX.Element => {
 		</div>
 	) : (
 		<div data-testid={emojiErrorMessageTestId}>
-			<ErrorMessage>{message}</ErrorMessage>
+			<ErrorMessage
+				iconLabel={
+					fg('platform_ally_emoji_fixes_various') ? formatMessage(messages.error) : undefined
+				}
+			>
+				{message}
+			</ErrorMessage>
 		</div>
 	);
 

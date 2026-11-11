@@ -1,8 +1,13 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React from 'react';
 
 import { useIntl } from 'react-intl';
 
 import IconButton from '@atlaskit/button/icon/button';
+import { cssMap, jsx } from '@atlaskit/css';
 import { BLOCK_CONTROL_UI_CONTEXT } from '@atlaskit/editor-common/block-controls/block-control-ui-context';
 import { BLOCK_CONTROLS_LEFT_GROUP } from '@atlaskit/editor-common/block-controls/surface-keys';
 import { messages as blockControlsMessages } from '@atlaskit/editor-common/messages/block-controls';
@@ -11,10 +16,30 @@ import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSha
 import type { RegisterButton } from '@atlaskit/editor-ui-control-model/types';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import type { BlockCollapsePlugin } from '../blockCollapsePluginType';
 
+const iconStyles = cssMap({
+	base: {
+		display: 'flex',
+		transitionProperty: 'transform',
+		transitionDuration: token('motion.duration.medium'),
+		transitionTimingFunction: token('motion.easing.inout.bold'),
+		'@media (prefers-reduced-motion: reduce)': {
+			transition: 'none',
+		},
+	},
+	expanded: { transform: 'rotate(90deg)' },
+});
+
+const AnimatedChevron = ({ isCollapsed }: { isCollapsed: boolean }) => (
+	<span css={[iconStyles.base, !isCollapsed && iconStyles.expanded]}>
+		<ChevronRightIcon label="" size="small" />
+	</span>
+);
 const ChevronDownSmallIcon = () => <ChevronDownIcon label="" size="small" />;
 const ChevronRightSmallIcon = () => <ChevronRightIcon label="" size="small" />;
 
@@ -36,12 +61,18 @@ const BlockCollapseButton = ({
 		isCollapsed ? blockControlsMessages.expandSection : blockControlsMessages.collapseSection,
 	);
 
+	const icon = isExperimentEnabled('platform_editor_empty_section_toggle')
+		? () => <AnimatedChevron isCollapsed={isCollapsed} />
+		: isCollapsed
+			? ChevronRightSmallIcon
+			: ChevronDownSmallIcon;
+
 	return (
 		<Tooltip content={label} position="top">
 			<IconButton
 				appearance="subtle"
 				aria-expanded={!isCollapsed}
-				icon={isCollapsed ? ChevronRightSmallIcon : ChevronDownSmallIcon}
+				icon={icon}
 				label={label}
 				onClick={handleClick}
 				spacing="compact"

@@ -1,5 +1,20 @@
 # @atlaskit/editor-toolbar
 
+## 2.10.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.10.6
+
+### Patch Changes
+
+- [`d2113fc99fc6f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2113fc99fc6f) -
+  [FFCLEANUP-243893] Clean up the `platform_editor_menu_radius_update` experiment, keeping the
+  shipped treatment: editor menus always use the large border radius, hide empty menu sections, and
+  the block menu and paste actions menu always render inside `ToolbarMenuContainer`.
+
 ## 2.10.5
 
 ### Patch Changes

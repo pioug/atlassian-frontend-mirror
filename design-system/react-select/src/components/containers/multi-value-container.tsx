@@ -7,6 +7,7 @@ import type { JSX } from 'react';
 
 import { cssMap, cx, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import type { GroupBase, MultiValueGenericProps } from '../../types';
@@ -46,6 +47,15 @@ const multiValueStyles = cssMap({
 	},
 });
 
+const semanticMultiValueStyles = cssMap({
+	root: {
+		marginBlockStart: token('space.gap.xxsmall'),
+		marginInlineEnd: token('space.gap.xxsmall'),
+		marginBlockEnd: token('space.gap.xxsmall'),
+		marginInlineStart: token('space.gap.xxsmall'),
+	},
+});
+
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const MultiValueContainer: <
 	Option,
@@ -76,6 +86,7 @@ export const MultiValueContainer: <
 				multiValueStyles.root,
 				isDisabled && multiValueStyles.disabled,
 				isFocused && multiValueStyles.focused,
+				fg('platform-semantic-spacing') && semanticMultiValueStyles.root,
 			]}
 			{...innerProps}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss

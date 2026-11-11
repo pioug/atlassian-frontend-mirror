@@ -1,5 +1,39 @@
 # @atlaskit/emoji
 
+## 73.6.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 73.6.4
+
+### Patch Changes
+
+- [`3c8339e0b216d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c8339e0b216d) -
+  Remove last reference to `platform_teamoji_26_refresh_emoji_picker_user_id` feature gate for
+  archival
+- [`3c674a49fb3fc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c674a49fb3fc) -
+  Use the internationalised error label for the emoji error message icon, behind the
+  `platform_ally_emoji_fixes_various` feature gate.
+- Updated dependencies
+
+## 73.6.3
+
+### Patch Changes
+
+- [`a7ee77f5fb468`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a7ee77f5fb468) -
+  [ux] Correct the "Remove emoji" heading to h2 when `platform_ally_emoji_fixes_various` is enabled.
+
+## 73.6.2
+
+### Patch Changes
+
+- [`157b7c1f3d2e0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/157b7c1f3d2e0) -
+  Restore focus to the emoji's delete button after cancelling deletion in the emoji picker, behind
+  the `platform_ally_emoji_fixes_various` feature gate.
+- Updated dependencies
+
 ## 73.6.1
 
 ### Patch Changes

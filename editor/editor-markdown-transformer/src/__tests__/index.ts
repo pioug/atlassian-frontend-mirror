@@ -28,6 +28,95 @@ describe('MarkdownTransformer', () => {
 		mediaSingle()(media({ url, type: 'external', alt })());
 
 	describe('media', () => {
+		it('should preserve text and image order across separate paragraphs', () => {
+			const md = 'First ![](a.png) here.\n\nSecond.\n\nThird ![](b.png) end.';
+
+			expect(transformer.parse(md)).toEqualDocument(
+				doc(
+					p('First '),
+					mediaNode({ url: 'a.png' }),
+					p(' here.'),
+					p('Second.'),
+					p('Third '),
+					mediaNode({ url: 'b.png' }),
+					p(' end.'),
+				),
+			);
+		});
+
+		it('should preserve paragraphs between image-only paragraphs', () => {
+			const md = '![](a.png)\n\nMiddle.\n\n![](b.png)\n\nAfter.';
+
+			expect(transformer.parse(md)).toEqualDocument(
+				doc(mediaNode({ url: 'a.png' }), p('Middle.'), mediaNode({ url: 'b.png' }), p('After.')),
+			);
+		});
+
+		it('should preserve multiple images and formatting across paragraphs', () => {
+			const md =
+				'**First** ![a](a.png) between ![b](b.png) **tail**\n\n**Next** ![c](c.png) **end**';
+
+			expect(transformer.parse(md)).toEqualDocument(
+				doc(
+					p(strong('First'), ' '),
+					mediaNode({ url: 'a.png', alt: 'a' }),
+					p(' between '),
+					mediaNode({ url: 'b.png', alt: 'b' }),
+					p(' ', strong('tail')),
+					p(strong('Next'), ' '),
+					mediaNode({ url: 'c.png', alt: 'c' }),
+					p(' ', strong('end')),
+				),
+			);
+		});
+
+		it('should preserve separate list items containing images', () => {
+			const md = '* First ![](a.png) tail\n* Middle\n* Last ![](b.png) end';
+
+			expect(transformer.parse(md)).toEqualDocument(
+				doc(
+					ul(
+						li(p('First '), mediaNode({ url: 'a.png' }), p(' tail')),
+						li(p('Middle')),
+						li(p('Last '), mediaNode({ url: 'b.png' }), p(' end')),
+					),
+				),
+			);
+		});
+
+		it('should preserve nested ordered lists and following paragraphs', () => {
+			const md = '1. Outer\n   1. First ![](a.png) tail\n   2. Last ![](b.png) end\n\nAfter.';
+
+			expect(transformer.parse(md)).toEqualDocument(
+				doc(
+					ol({ order: 1 })(
+						li(
+							p('Outer'),
+							ol({ order: 1 })(
+								li(p('First '), mediaNode({ url: 'a.png' }), p(' tail')),
+								li(p('Last '), mediaNode({ url: 'b.png' }), p(' end')),
+							),
+						),
+					),
+					p('After.'),
+				),
+			);
+		});
+
+		it('should preserve images and text across table cells and rows', () => {
+			const md = '|One|Two|\n|---|---|\n|First ![](a.png) tail|Middle|\n|Text|Last ![](b.png) end|';
+
+			expect(transformer.parse(md)).toEqualDocument(
+				doc(
+					table()(
+						tr(th()(p('One')), th()(p('Two'))),
+						tr(td()(p('First '), mediaNode({ url: 'a.png' }), p(' tail')), td()(p('Middle'))),
+						tr(td()(p('Text')), td()(p('Last '), mediaNode({ url: 'b.png' }), p(' end'))),
+					),
+				),
+			);
+		});
+
 		it('should allow for empty alt character', () => {
 			const md = `![](image.jpg)`;
 			expect(transformer.parse(md)).toEqualDocument(doc(mediaNode()));

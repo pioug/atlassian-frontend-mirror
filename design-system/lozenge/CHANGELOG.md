@@ -1,5 +1,23 @@
 # @atlaskit/lozenge
 
+## 17.0.8
+
+### Patch Changes
+
+- [`8993909a96871`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8993909a96871) -
+  Use ResizeObserver for resize motion when `platform-dst-motion-observed-resizing` and
+  `platform-dst-motion-uplift` are enabled. Size changes animate with the existing duration and
+  easing without synchronous bounding-rectangle measurements on React commits. Browser-owned
+  animations retain their timeline across mutations that leave the natural size unchanged, including
+  ARIA and color updates. Actual size changes retarget from the last observed size. No animation
+  frames, completion timers or temporary inline styles are managed by the observer implementation.
+  The gate-off implementation is unchanged.
+
+  Resolve nested CSS variable fallbacks for resize duration and easing so valid fallback timing
+  values do not skip the animation.
+
+- Updated dependencies
+
 ## 17.0.7
 
 ### Patch Changes

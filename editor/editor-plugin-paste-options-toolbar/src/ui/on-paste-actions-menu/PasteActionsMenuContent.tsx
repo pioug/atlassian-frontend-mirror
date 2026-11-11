@@ -1,6 +1,5 @@
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 
-import { cssMap } from '@atlaskit/css';
 import { PASTE_MENU } from '@atlaskit/editor-common/toolbar/keys';
 import { OutsideClickTargetRefContext } from '@atlaskit/editor-common/ui-react';
 import type { Slice } from '@atlaskit/editor-prosemirror/model';
@@ -10,20 +9,9 @@ import type {
 	AsyncHiddenContext,
 	RegisterComponent,
 } from '@atlaskit/editor-ui-control-model/types';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { Box } from '@atlaskit/primitives/compiled/box';
-import { token } from '@atlaskit/tokens';
 
 import { getSingleSmartLinkUrlFromSlice } from '../utils/current-pasted-smart-link';
 import { evaluateAsyncHidden, type AsyncHiddenResults } from './async-hidden';
-
-const styles = cssMap({
-	container: {
-		backgroundColor: token('elevation.surface.overlay'),
-		boxShadow: token('elevation.shadow.overlay'),
-		borderRadius: token('radius.small'),
-	},
-});
 
 const pasteMenuSurface = { type: PASTE_MENU.type, key: PASTE_MENU.key } as const;
 
@@ -116,22 +104,9 @@ export const PasteActionsMenuContent = ({
 		[setOutsideClickTargetRef, contentRef],
 	);
 
-	if (isExperimentEnabled('platform_editor_menu_radius_update')) {
-		return (
-			<ToolbarMenuContainer ref={mergedRef} onMouseDown={onMouseDown} onMouseEnter={onMouseEnter}>
-				<SurfaceRenderer surface={pasteMenuSurface} components={visibleComponents} />
-			</ToolbarMenuContainer>
-		);
-	}
-
 	return (
-		<Box
-			ref={mergedRef}
-			xcss={styles.container}
-			onMouseDown={onMouseDown}
-			onMouseEnter={onMouseEnter}
-		>
+		<ToolbarMenuContainer ref={mergedRef} onMouseDown={onMouseDown} onMouseEnter={onMouseEnter}>
 			<SurfaceRenderer surface={pasteMenuSurface} components={visibleComponents} />
-		</Box>
+		</ToolbarMenuContainer>
 	);
 };

@@ -10,6 +10,7 @@ jest.mock('../../logo-docs-schema', () => ({
 		{ name: 'jira', type: 'migration', category: 'app' },
 		{ name: 'home', type: 'new', category: 'app', deprecated: false },
 		{ name: 'confluence', type: 'migration', category: 'app', deprecated: true },
+		{ name: 'loom-blurple', type: 'new', category: 'app', deprecated: true },
 	],
 }));
 
@@ -20,7 +21,7 @@ let root: string;
 beforeAll(() => {
 	root = fs.mkdtempSync(path.join(os.tmpdir(), 'logo-deprecation-'));
 	for (const type of componentTypes) {
-		for (const name of ['jira', 'home', 'confluence']) {
+		for (const name of ['jira', 'home', 'confluence', 'loom-internal']) {
 			fs.outputFileSync(
 				path.join(root, 'raw', type, `${name}.svg`),
 				'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" /></svg>',
@@ -35,6 +36,19 @@ afterAll(() => {
 });
 
 describe('generated component deprecations', () => {
+	it.each(componentTypes)('maps the public Loom blurple deprecation to the internal %s', (type) => {
+		const source = fs.readFileSync(
+			path.join(root, 'src/generated/loom-internal', `${type}.tsx`),
+			'utf8',
+		);
+
+		expect(source).toContain('@deprecated');
+		expect(source).toContain(
+			`Use \`${type === 'icon' ? 'LoomIcon' : 'LoomLogoCS'}\` from \`@atlaskit/logo/loom/${type === 'icon' ? 'icon' : 'logo'}\` instead.`,
+		);
+		expect(source).not.toContain('Import `');
+	});
+
 	it.each(componentTypes)('preserves explicit deprecation for %s', (type) => {
 		const source = fs.readFileSync(
 			path.join(root, 'src/generated/confluence', `${type}.tsx`),

@@ -1,5 +1,42 @@
 # @atlaskit/profilecard
 
+## 27.8.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.8.0
+
+### Minor Changes
+
+- [`42ab874a99948`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/42ab874a99948) -
+  Update i18n NPM package versions for people-and-teams,identity (Group 8)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.7.1
+
+### Patch Changes
+
+- [`d0bb2f32f3025`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d0bb2f32f3025) -
+  Cleanup `feature_gate` `platform-adopt-teams-nav-config`. Profile, team, and directory links now
+  always use the shared `@atlaskit/teams-app-config` navigation.
+- Updated dependencies
+
+## 27.7.0
+
+### Minor Changes
+
+- [`f5b2e7ae6d6bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f5b2e7ae6d6bc) -
+  Update i18n NPM package versions for people-and-teams,identity (Group 8)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.6.8
 
 ### Patch Changes

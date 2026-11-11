@@ -26,6 +26,10 @@
 - Hovered and pressed states are temporary. Apply the matching `hovered` or `pressed` token for the
   element's current state, and keep a selected element recognizable during interaction.
 
+For drag-and-drop feedback, use the dedicated drop indicator, drop target, and drag handle tokens.
+Keep drop feedback separate from selection and keyboard focus. See
+[Drag-and-drop feedback](#drag-and-drop-feedback) for token choices and component-owned treatments.
+
 # Translation from Tailwind
 
 ## To convert

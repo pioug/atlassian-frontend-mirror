@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::da76ec6c9d3f8016abfd6bf91ac6509b>>
+ * @codegen <<SignedSource::ba01c5c36e686c2a355c924f19619d57>>
  * @codegenCommand afm workspace @atlaskit/logo generate:components
  */
 import React from 'react';
@@ -21,6 +21,7 @@ const svg = `<svg height="100%" viewBox="0 0 103 32">
  * __LoomInternalLogoCS__
  *
  * A component to represent the logo for Loom.
+ * @deprecated LoomInternalLogoCS is deprecated. Use `LoomLogoCS` from `@atlaskit/logo/loom/logo` instead.
  *
  */
 export function LoomInternalLogoCS({
@@ -30,6 +31,14 @@ export function LoomInternalLogoCS({
 	testId,
 }: AppLogoProps): React.JSX.Element {
 	return (
-		<LogoWrapper svg={svg} label={label} appearance={appearance} size={size} testId={testId} />
+		<LogoWrapper
+			svg={svg}
+
+			label={label}
+
+			appearance={appearance}
+			size={size}
+			testId={testId}
+		/>
 	);
 }

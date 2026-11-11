@@ -246,25 +246,28 @@ export function getInitialFocusTarget({
  * Role is taken from the typed `role` prop - this is the consumer's contract
  * and is not subject to drift from a directly-mutated DOM attribute.
  *
- * Always call this hook unconditionally. Focus is moved on each transition
- * into a visible phase, the moment the host element first becomes visible
- * for that open intent:
+ * `useInitialFocus` returns `takeInitialFocus`. `Popover` calls it in its
+ * show, right after `showPopover()`, so focus moves each time the popover
+ * shows:
  *
- * - Animated path: on `closed → entering`. The host has just been mounted
- *   and the layout effect that calls `showPopover()` / `showModal()` has
- *   already run, so the element is in the top layer. We focus before the
- *   entry transition settles to match the WAI-ARIA APG expectation that
- *   focus lands on the new menu / dialog the instant it opens, not after
- *   the CSS finishes animating.
- * - Non-animated path: on `closed → open` (the entering phase is skipped).
- * - Reopen mid-exit: on `exiting → entering`. When a user dismisses the
- *   popup (Escape, close button, light dismiss) the browser natively
- *   restores focus to the trigger as part of `hidePopover()` /
- *   `<dialog>.close()`. If the consumer reopens before the exit transition
- *   has settled, the phase machine jumps `exiting → entering` without
- *   passing through `closed`, so without this branch the popup would be
- *   visible again with focus stranded on the trigger - a keyboard usability
- *   gap for menu/dialog/listbox roles.
+ * - On an open: `isOpen` turns `true` (`closed → entering`, `closed → open`,
+ *   or a reopen during the exit, `exiting → entering`). We focus before the
+ *   entry transition settles, to match the WAI-ARIA APG expectation that
+ *   focus lands on the new menu / dialog the instant it opens.
+ * - On a re-show: React creates the show effect again while the popover
+ *   stays open (strict mode, a Suspense or Activity reveal). The popover
+ *   hides and shows again, as a `Dialog` does with `showModal()`.
+ *
+ * Other renders (for example `entering → open`, or a new `role`) do not move
+ * focus.
+ *
+ * Why a reopen during the exit takes focus: when a user dismisses the popup
+ * (Escape, close button, light dismiss) the browser natively restores focus
+ * to the trigger as part of `hidePopover()` / `<dialog>.close()`. If the
+ * consumer reopens before the exit transition has settled, the phase machine
+ * jumps `exiting → entering` without passing through `closed`. Without focus
+ * there, the popup would be visible again with focus stranded on the trigger,
+ * a keyboard usability gap for menu/dialog/listbox roles.
  *
  * Note: there is a rare programmatic path where a consumer flips `isOpen`
  * false → true without any user-initiated close gesture and had moved focus
@@ -274,15 +277,9 @@ export function getInitialFocusTarget({
  * `closed → entering` behavior and is considered acceptable given how
  * abstract the scenario is. See `notes/architecture/focus.md`.
  *
- * Pure `entering → exiting → entering` stutters where the popup never
- * reaches `closed` and the consumer toggles in the same frame are still
- * collapsed: the `prevPhase` ref guard rejects any transition whose
- * previous phase was not `closed` or `exiting`.
- *
- * Runs in a layout effect, so focus lands in the same task as the open,
- * before the browser paints. Call it AFTER the layout effect that calls
- * `showPopover()`: React runs a component's layout effects in source order,
- * and a hidden popover cannot take focus.
+ * Focus lands in the same task as the open, before the browser paints. A
+ * popover that waits for a parent layer takes focus after that parent shows
+ * (see `layer-show.tsx`). A hidden popover cannot take focus.
  *
  * An `initialFocusRef` target must be set by then: in a ref callback, a
  * child's layout effect, or during render. A child's `useEffect` runs later

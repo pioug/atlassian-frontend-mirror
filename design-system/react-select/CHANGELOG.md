@@ -1,5 +1,13 @@
 # @atlaskit/react-select
 
+## 4.12.13
+
+### Patch Changes
+
+- [`1e59671698fcd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1e59671698fcd) -
+  Add semantic spacing style overrides for select behind platform-semantic-spacing. Existing numeric
+  styles remain when the feature flag is off.
+
 ## 4.12.12
 
 ### Patch Changes

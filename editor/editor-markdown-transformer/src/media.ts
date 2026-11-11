@@ -85,6 +85,8 @@ function createRule() {
 		};
 
 		let processedTokens: string[] = [];
+		// Original token index minus the corresponding index in the accumulated output.
+		let indexOffset = 0;
 		const newTokens = State.tokens.reduce(
 			(tokens: Token[], token: Token, i: number, arr: Token[]) => {
 				const matchAll = Array.from(token.content.matchAll(regx));
@@ -138,10 +140,15 @@ function createRule() {
 
 					processedTokens = [...processedTokens, ...closingTokens.map((c) => c.type)];
 
-					tokens = [...tokens.slice(0, cursor), ...subTree];
+					const adjustedCursor = cursor - indexOffset;
+					tokens = [...tokens.slice(0, adjustedCursor), ...subTree];
+					// Replace the opening tokens and this inline token with the subtree.
+					indexOffset += i + 1 - cursor - subTree.length;
 				} else if (processedTokens.indexOf(token.type) !== -1) {
 					// Ignore token if it's already processed
 					processedTokens.splice(processedTokens.indexOf(token.type), 1);
+					// This original closing token was already emitted in the subtree.
+					indexOffset++;
 				} else {
 					tokens.push(token);
 				}

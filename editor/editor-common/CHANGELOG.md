@@ -1,5 +1,44 @@
 # @atlaskit/editor-common
 
+## 134.16.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 134.16.2
+
+### Patch Changes
+
+- [`6bc3894066dc8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6bc3894066dc8) -
+  Clean up the `platform_editor_toolbar_multi_editor_fix` experiment. The selection toolbar now
+  always scopes mouseups to its own editor, so it closes correctly when multiple editors are open.
+- Updated dependencies
+
+## 134.16.1
+
+### Patch Changes
+
+- [`c523bb44bcb8d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c523bb44bcb8d) -
+  Fix stale mention identities and properties when platform_editor_perf_lint_cleanup is enabled.
+- Updated dependencies
+
+## 134.16.0
+
+### Minor Changes
+
+- [`27176cc3c58fb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/27176cc3c58fb) -
+  Show a "Suggestions will appear when ready. Your content won’t change unless you accept a
+  suggestion." banner (max width 400px) on the AI suggestions thinking bar, behind the
+  `platform_editor_ai_suggested_edits_reduce_cancel` experiment. Adds the
+  `thinkingContentUnchangedBanner` message to the AI suggestions messages. The banner is shown for
+  the first 3 reviews per browser (counted in localStorage via browser storage controls) and is
+  hidden whenever the count can't be stored, e.g. when the storage key is blocked.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 134.15.0
 
 ### Minor Changes

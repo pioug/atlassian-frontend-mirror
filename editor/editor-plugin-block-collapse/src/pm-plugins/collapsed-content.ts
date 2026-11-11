@@ -1,5 +1,6 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { BlockCollapsePluginState } from './types';
 
@@ -45,6 +46,13 @@ export const reconcileCollapsedContent = (
 
 	const finishSection = (heading: ActiveCollapsedHeading, sectionEnd: number) => {
 		if (sectionEnd <= heading.contentFrom) {
+			if (
+				sectionEnd === heading.contentFrom &&
+				isExperimentEnabled('platform_editor_empty_section_toggle')
+			) {
+				// Empty sections retain toggle state, but have no hidden content to navigate around.
+				collapsedHeadingPositions.add(heading.pos);
+			}
 			return;
 		}
 		collapsedHeadingPositions.add(heading.pos);

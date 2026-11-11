@@ -2,6 +2,8 @@
 
 import React, { PureComponent } from 'react';
 
+import memoizeOne from 'memoize-one';
+
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
@@ -57,7 +59,7 @@ export default class Mention extends PureComponent<MentionProps, object> {
 		}
 	}
 
-	private renderWithProvider = (providers: Providers) => {
+	private renderWithProvider = (providers: Providers, props: MentionProps = this.props) => {
 		const {
 			accessLevel,
 			eventHandlers,
@@ -68,7 +70,7 @@ export default class Mention extends PureComponent<MentionProps, object> {
 			isDisabled,
 			disabledTooltip,
 			mentionNodeDataProvider,
-		} = this.props;
+		} = props;
 		const { mentionProvider, profilecardProvider } = providers;
 		const hasProvider = Boolean(mentionNodeDataProvider);
 		const canReportMissingProvider =
@@ -125,15 +127,25 @@ export default class Mention extends PureComponent<MentionProps, object> {
 		);
 	};
 
+	// WithProviders is pure, so its callback must change when mention props change.
+	private getRenderWithProvider = memoizeOne(
+		(props: MentionProps) => (providers: Providers) => this.renderWithProvider(providers, props),
+	);
+
 	render(): React.JSX.Element {
-		const providers = isExperimentEnabled('platform_editor_perf_lint_cleanup')
+		const isPerfLintCleanupEnabled = isExperimentEnabled('platform_editor_perf_lint_cleanup');
+		const providers = isPerfLintCleanupEnabled
 			? MENTION_PROVIDERS
 			: (['mentionProvider', 'profilecardProvider'] satisfies ProviderName[]);
 		return (
 			<WithProviders
 				providers={providers}
 				providerFactory={this.providerFactory}
-				renderNode={this.renderWithProvider}
+				renderNode={
+					isPerfLintCleanupEnabled
+						? this.getRenderWithProvider(this.props)
+						: this.renderWithProvider
+				}
 			/>
 		);
 	}

@@ -450,17 +450,23 @@ const LozengeBase: import('react').MemoExoticComponent<
 			ref,
 		) => {
 			const enableTruncationFixFG = fg('platform-dst-motion-lozenge-truncation-fix');
+			const enableObservedResizingFG = fg('platform-dst-motion-observed-resizing');
 
 			const [resizing, setResizing] = useState<boolean>(false);
 			const [isTruncated, setIsTruncated] = useState<boolean>(false);
 			const textRef = useRef<HTMLSpanElement>(null);
+			const isInteractive = typeof onClick === 'function';
+			const resolvedColor = resolveLozengeColor(appearance) || 'neutral';
 			const onFinishMotion = () => setResizing(false);
 			// `onStartMotion` fires while the element is at its natural layout, just before the resize
 			// animation starts, this allows us to calculate whether the text will be truncated at its
 			// final state
 			const onStartMotion = () => {
+				if (enableObservedResizingFG) {
+					setResizing(true);
+				}
 				const textElement = textRef.current;
-				if (textElement) {
+				if (enableTruncationFixFG && textElement) {
 					setIsTruncated(textElement.scrollWidth > textElement.clientWidth);
 				}
 			};
@@ -469,14 +475,21 @@ const LozengeBase: import('react').MemoExoticComponent<
 				duration: token('motion.duration.medium'),
 				easing: token('motion.easing.inout.bold'),
 				onFinishMotion,
-				onStartMotion: enableTruncationFixFG ? onStartMotion : undefined,
+				onStartMotion:
+					enableObservedResizingFG || enableTruncationFixFG ? onStartMotion : undefined,
 			});
-			const isInitialRender = useRef<boolean>(true);
+			const isInitialRender = useRef(true);
+			const childrenKey = typeof children === 'string' ? children : undefined;
+			useLayoutEffect(() => {
+				if (isInitialRender.current) {
+					isInitialRender.current = false;
+					return;
+				}
+				if (!enableObservedResizingFG) {
+					setResizing(true);
+				}
+			}, [childrenKey, enableObservedResizingFG]);
 
-			const isInteractive = typeof onClick === 'function';
-
-			// Determine the effective color, with fallback logic for legacy appearances
-			const resolvedColor = resolveLozengeColor(appearance) || 'neutral';
 			const { category, key } = getThemeStyles(resolvedColor);
 			const colorStyleKey = `${category}.${key}` as keyof typeof styles;
 			const interactiveStyleKey = `interactive.${category}.${key}` as keyof typeof styles;
@@ -530,16 +543,6 @@ const LozengeBase: import('react').MemoExoticComponent<
 				maxWidth: maxWidthIsPc ? maxWidth : `min(${maxWidthValue}, 100%)`,
 			};
 			const hasTrailingMetric = trailingMetric != null && trailingMetric !== '';
-
-			const childrenKey = typeof children === 'string' ? children : undefined;
-			useLayoutEffect(() => {
-				// Ignore initial render
-				if (isInitialRender.current) {
-					isInitialRender.current = false;
-					return;
-				}
-				setResizing(true);
-			}, [childrenKey]);
 
 			const enableMotionFG = fg('platform-dst-motion-uplift');
 
@@ -595,7 +598,7 @@ const LozengeBase: import('react').MemoExoticComponent<
 					>
 						{children}
 					</span>
-					{hasTrailingMetric && !resolvedColor.startsWith('accent-') && (
+					{hasTrailingMetric && category === 'semantic' && (
 						<span
 							css={styles.metricBadgeWrapper}
 							data-lozenge-metric-wrapper

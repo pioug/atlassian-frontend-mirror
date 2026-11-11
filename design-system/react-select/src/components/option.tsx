@@ -129,6 +129,13 @@ const optionStyles = cssMap({
 	},
 });
 
+const semanticOptionStyles = cssMap({
+	root: {
+		paddingBlock: token('space.inset.small'),
+		paddingInline: token('space.inset.large'),
+	},
+});
+
 const Option: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: OptionProps<Option, IsMulti, Group>,
 ) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
@@ -156,6 +163,7 @@ const Option: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>
 				isFocused && isSelected && optionStyles.focusedSelected,
 				!isDisabled && isSelected && optionStyles.motionSelected,
 				isDisabled && optionStyles.disabled,
+				fg('platform-semantic-spacing') && semanticOptionStyles.root,
 			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={css as CSSProperties}

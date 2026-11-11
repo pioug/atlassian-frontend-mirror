@@ -19,7 +19,6 @@ import * as contentGetter from '../../../react/utils/content-getter';
 import { AnnotationRangeStateContext } from '../../../ui/annotations/contexts/AnnotationRangeContext';
 import type { Position } from '../../../ui/annotations/types';
 
-const experiment = 'platform_renderer_paragraph_props_fast_path';
 const textExperiment = 'platform_renderer_text_paragraph_fast_path';
 
 const document = schema.nodeFromJSON({
@@ -52,16 +51,22 @@ function elements(node: React.ReactNode): React.ReactElement<Record<string, unkn
 	});
 }
 
-function serialize(
-	enabled: boolean,
+function serialize(init: ReactSerializerInit = {}, textFastPath = true, source = document) {
+	resetAllExperiments();
+	(textFastPath ? mockExpEnabled : mockExpDisabled)(textExperiment);
+	return new ReactSerializer(init).serializeFragment(source.content);
+}
+
+function serializeWithParagraphOverride(
 	init: ReactSerializerInit = {},
 	textFastPath = true,
 	source = document,
 ) {
-	resetAllExperiments();
-	(textFastPath ? mockExpEnabled : mockExpDisabled)(textExperiment);
-	(enabled ? mockExpEnabled : mockExpDisabled)(experiment);
-	return new ReactSerializer(init).serializeFragment(source.content);
+	return serialize(
+		{ ...init, nodeComponents: { ...init.nodeComponents, paragraph: Paragraph } },
+		textFastPath,
+		source,
+	);
 }
 
 const paragraphs = (output: React.ReactNode) =>
@@ -71,8 +76,8 @@ describe('paragraph props fast path', () => {
 	afterEach(() => jest.restoreAllMocks());
 
 	it.each([false, true])('preserves markup with the text fast path %s', async (textFastPath) => {
-		const control = serialize(false, {}, textFastPath);
-		const treatment = serialize(true, {}, textFastPath);
+		const control = serializeWithParagraphOverride({}, textFastPath);
+		const treatment = serialize({}, textFastPath);
 		const baseline = render(control);
 		const optimized = render(treatment);
 		expect(optimized.container.innerHTML).toBe(baseline.container.innerHTML);
@@ -105,10 +110,10 @@ describe('paragraph props fast path', () => {
 
 	it('avoids creating content getters for built-in paragraphs only', () => {
 		const getter = jest.spyOn(contentGetter, 'createContentGetter');
-		serialize(false);
+		serializeWithParagraphOverride();
 		const baselineCalls = getter.mock.calls.length;
 		getter.mockClear();
-		const output = serialize(true);
+		const output = serialize();
 		expect(getter).toHaveBeenCalledTimes(baselineCalls - 3);
 		for (const { props } of paragraphs(output)) {
 			expect(props).not.toHaveProperty('getContent');
@@ -125,8 +130,8 @@ describe('paragraph props fast path', () => {
 				component: ({ children }) => <mark>{children}</mark>,
 			},
 		};
-		const control = render(serialize(false, init));
-		const treatment = render(serialize(true, init));
+		const control = render(serializeWithParagraphOverride(init));
+		const treatment = render(serialize(init));
 		expect(treatment.container.innerHTML).toBe(control.container.innerHTML);
 		expect(within(treatment.container).getByText('Hello').tagName).toBe('MARK');
 	});
@@ -154,8 +159,8 @@ describe('paragraph props fast path', () => {
 				// Isolate extension loading; the serializer still computes inline paragraph positions.
 				nodeComponents: { bodiedExtension: ({ children }) => <>{children}</> },
 			};
-			const control = render(serialize(false, init, textFastPath, source));
-			const treatment = render(serialize(true, init, textFastPath, source));
+			const control = render(serializeWithParagraphOverride(init, textFastPath, source));
+			const treatment = render(serialize(init, textFastPath, source));
 			expect(treatment.container.innerHTML).toBe(control.container.innerHTML);
 			for (const text of ['Before', 'After']) {
 				expect(within(treatment.container).getByText(text)).toHaveAttribute('data-as-inline', 'on');
@@ -211,8 +216,8 @@ describe('paragraph props fast path', () => {
 					expected.push({ localId: node.attrs.localId, startPos: pos + 1 });
 				}
 			});
-			const controlTree = serialize(false, {}, textFastPath, source);
-			const treatmentTree = serialize(true, {}, textFastPath, source);
+			const controlTree = serializeWithParagraphOverride({}, textFastPath, source);
+			const treatmentTree = serialize({}, textFastPath, source);
 			for (const tree of [controlTree, treatmentTree]) {
 				expect(
 					paragraphs(tree).map(({ props }) => ({
@@ -286,8 +291,8 @@ describe('paragraph props fast path', () => {
 				surroundTextNodesWithTextWrapper: true,
 				allowAnnotations: true,
 			};
-			const controlTree = serialize(false, init, textFastPath, source);
-			const treatmentTree = serialize(true, init, textFastPath, source);
+			const controlTree = serializeWithParagraphOverride(init, textFastPath, source);
+			const treatmentTree = serialize(init, textFastPath, source);
 			const control = render(withDraft(controlTree, null));
 			const treatment = render(withDraft(treatmentTree, null));
 			const originalHTML = treatment.container.innerHTML;
@@ -316,7 +321,7 @@ describe('paragraph props fast path', () => {
 		const providers = new ProviderFactory();
 		const eventHandlers = {};
 		const CustomParagraph = (props: NodeProps) => <Paragraph {...props} />;
-		const output = serialize(true, {
+		const output = serialize({
 			providers,
 			eventHandlers,
 			nodeComponents: { paragraph: CustomParagraph },
@@ -337,28 +342,18 @@ describe('paragraph props fast path', () => {
 	});
 
 	it('keeps the generic contract even when the override is the default Paragraph', () => {
-		const output = serialize(true, { nodeComponents: { paragraph: Paragraph } });
+		const output = serializeWithParagraphOverride();
 		expect(paragraphs(output)[0].props.getContent).toEqual(expect.any(Function));
 	});
 
 	it('allows unrelated node overrides without disabling the fast path', () => {
-		const output = serialize(true, { nodeComponents: { heading: () => null } });
+		const output = serialize({ nodeComponents: { heading: () => null } });
 		expect(paragraphs(output)[0].props).not.toHaveProperty('getContent');
 	});
 
-	it('keeps the experiment assignment for the lifetime of a serializer', () => {
-		mockExpEnabled(experiment);
-		const serializer = new ReactSerializer({});
-		resetAllExperiments();
-		mockExpDisabled(experiment);
-		expect(paragraphs(serializer.serializeFragment(document.content))[0].props).not.toHaveProperty(
-			'getContent',
-		);
-	});
-
 	it('preserves SSR markup and hydrates without recoverable errors', async () => {
-		const control = renderToString(serialize(false));
-		const treatment = renderToString(serialize(true));
+		const control = renderToString(serializeWithParagraphOverride());
+		const treatment = renderToString(serialize());
 		expect(treatment).toBe(control);
 		const container = window.document.createElement('div');
 		container.innerHTML = treatment;
@@ -366,7 +361,7 @@ describe('paragraph props fast path', () => {
 		const onRecoverableError = jest.fn();
 		let root: ReturnType<typeof hydrateRoot>;
 		await act(async () => {
-			root = hydrateRoot(container, serialize(true), { onRecoverableError });
+			root = hydrateRoot(container, serialize(), { onRecoverableError });
 		});
 		expect(onRecoverableError).not.toHaveBeenCalled();
 		expect(container.innerHTML).toBe(initialHTML);

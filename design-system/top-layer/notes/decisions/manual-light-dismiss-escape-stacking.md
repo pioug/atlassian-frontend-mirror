@@ -143,11 +143,6 @@ But focus can stop a layer from getting the Escape:
 - A `<dialog>` opened by setting its `open` attribute, not with `show()` or `showModal()`. The
   browser gives it no close watcher, so Escape does not close it, but the checks count it as a layer
   that takes Escape (its `closedBy` is not `"none"`). Open dialogs with `show()` or `showModal()`.
-- Nested layers that open in the same commit. React runs child layout effects first, so an inner
-  `Dialog` calls `showModal()` before the outer one, and the outer dialog ends up above it in the
-  top layer. Escape follows containment and closes the inner dialog, which the outer one covers.
-  This is an open order problem in `Dialog` and `Popover`, not an Escape one; it predates this work.
-  A manual popover inside a `Dialog` that opens with it has the same open order.
 - `useManualLightDismiss` and `useCloseOnUnclaimedEscape` mark and listen in a passive effect (a
   layout effect would warn when server rendering in a DOM test environment). For a popover that
   opens outside a React event, a keydown before passive effects flush does not see it. `Dialog`

@@ -49,6 +49,12 @@ type Props = {
 
 export type ListRef = {
 	/**
+	 * Focus on a emoji in virtual list, only scrolling if the emoji is not currently visible
+	 * @param rIndex row index of virtual list
+	 * @param cIndex column index of virtual list
+	 */
+	focusEmojiPreservingScroll: (rIndex: number, cIndex: number) => void;
+	/**
 	 * Scroll to a emoji in virtual list and focus on it
 	 * @param rIndex row index of virtual list
 	 * @param cIndex column index of virtual list
@@ -356,6 +362,32 @@ export const VirtualList: React.ForwardRefExoticComponent<Props & React.RefAttri
 				},
 				scrollToEmojiAndFocus(rowIndex: number, columnIndex: number) {
 					focusEmoji(rowIndex, columnIndex, KeyboardNavigationDirection.Left, true);
+				},
+				focusEmojiPreservingScroll(rowIndex: number, columnIndex: number) {
+					const getEmojiElement = (): HTMLElement | null | undefined =>
+						virtualistItemsRef.current?.querySelector(
+							`[data-focus-index="${rowIndex}-${columnIndex}"]`,
+						);
+					const focusEmojiElement = (emojiElement: HTMLElement) => {
+						setEmojisFocus({ rowIndex, columnIndex });
+						emojiElement.focus({ preventScroll: true });
+					};
+
+					// keep the current scroll position if the emoji is still visible in the list
+					const renderedEmojiElement = getEmojiElement();
+					if (renderedEmojiElement && isElementVisible(renderedEmojiElement)) {
+						focusEmojiElement(renderedEmojiElement);
+						return;
+					}
+
+					// otherwise scroll to target rowIndex first to ensure the row is rendered in list.
+					rowVirtualizer.scrollToIndex(rowIndex);
+					setTimeout(() => {
+						const emojiElement = getEmojiElement();
+						if (emojiElement) {
+							focusEmojiElement(emojiElement);
+						}
+					}, 100); // 100ms is virtual list scrolling time
 				},
 				updateFocusIndex(rowIndex: number, columnIndex = 0) {
 					// row could be removed from virtual list after scrolling, we'll update emoji cell tabIndex after losing focus

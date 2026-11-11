@@ -1,5 +1,13 @@
 # @atlaskit/rovo-agent-analytics
 
+## 6.8.0
+
+### Minor Changes
+
+- [`676b862fc4eba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/676b862fc4eba) -
+  Add an analytics placement reason to distinguish URS recommendations from usage-ranked fallbacks
+  behind sgrow-479-jsm-agent-recommendations.
+
 ## 6.7.2
 
 ### Patch Changes

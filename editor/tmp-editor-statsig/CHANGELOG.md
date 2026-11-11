@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 261.0.0
+
+### Major Changes
+
+- [`97e1949785ccc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/97e1949785ccc) -
+  Remove the retired Slides experiment from the typed experiment configuration. Consumers must
+  remove reads of `cc-mui-slides-experiment` and use the shipped Slides behavior.
+
 ## 260.0.0
 
 ### Major Changes

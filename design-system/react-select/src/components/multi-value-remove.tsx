@@ -6,8 +6,9 @@ import type { JSX, ReactNode } from 'react';
 
 import { css, cssMap, cx, jsx, type XCSSProp } from '@compiled/react';
 
-import type { XCSSAllProperties, XCSSAllPseudos } from '@atlaskit/css';
+import { type XCSSAllProperties, type XCSSAllPseudos } from '@atlaskit/css';
 import CrossIcon from '@atlaskit/icon/core/cross';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import type { SelectProps } from '../select';
@@ -75,6 +76,16 @@ const multiValueRemoveStyles = cssMap({
 	},
 });
 
+const semanticMultiValueRemoveStyles = cssMap({
+	root: {
+		paddingBlockStart: token('space.inset.xxsmall'),
+		paddingInlineEnd: token('space.inset.xxsmall'),
+		paddingBlockEnd: token('space.inset.xxsmall'),
+		paddingInlineStart: token('space.inset.xxsmall'),
+		marginInlineEnd: token('space.gap.xxsmall'),
+	},
+});
+
 export function MultiValueRemove<Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
 	isDisabled,
 	isFocused,
@@ -85,7 +96,11 @@ export function MultiValueRemove<Option, IsMulti extends boolean, Group extends 
 	return (
 		// The Remove button is intentionally excluded from the tab order, please avoid assigning a non-negative tabIndex to it. Context: https://hello.atlassian.net/wiki/spaces/A11YKB/pages/3031993460/Clear+Options+on+an+Input+Field
 		<div
-			css={[multiValueRemoveStyles.root, isFocused && multiValueRemoveStyles.focused]}
+			css={[
+				multiValueRemoveStyles.root,
+				isFocused && multiValueRemoveStyles.focused,
+				fg('platform-semantic-spacing') && semanticMultiValueRemoveStyles.root,
+			]}
 			{...innerProps}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
 			className={cx(className as any, xcss, '-MultiValueRemove')}

@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-media
 
+## 32.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 32.3.3
+
+### Patch Changes
+
+- [`ca46449f94e5b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ca46449f94e5b) -
+  Remove the fully rolled-out `platform_media_cross_client_copy_with_auth` gate, retaining client-ID
+  propagation through media copy, preview URLs, and editor paste.
+- Updated dependencies
+
+## 32.3.2
+
+### Patch Changes
+
+- [`9f0b7d1361070`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f0b7d1361070) -
+  Behind platform_editor_improve_inp_batch_3, skip the legacy nested width read for pixel-width
+  mediaSingle nodes.
+
 ## 32.3.1
 
 ### Patch Changes

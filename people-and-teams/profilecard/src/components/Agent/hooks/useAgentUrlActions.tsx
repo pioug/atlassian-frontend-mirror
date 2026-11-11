@@ -197,15 +197,7 @@ export const useAgentUrlActions = ({
 			shouldOpenInSameTab: false,
 		});
 
-		if (fg('platform-adopt-teams-nav-config')) {
-			onNavigate();
-		} else {
-			window.open(
-				`${window.location.origin}/people/agent/${agentId}`,
-				'_blank',
-				'noopener, noreferrer',
-			);
-		}
+		onNavigate();
 
 		fireEvent('ui.button.clicked.viewAgentFullProfileButton', {
 			agentId,

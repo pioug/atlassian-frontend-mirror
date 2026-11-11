@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-block-collapse
 
+## 16.1.1
+
+### Patch Changes
+
+- [`c4fae75f85b97`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c4fae75f85b97) -
+  Expand a collapsed heading when Enter is pressed at its end so the new paragraph is visible. Uses
+  the existing platform_editor_collapsible_headings experiment.
+- Updated dependencies
+
+## 16.1.0
+
+### Minor Changes
+
+- [`fdf171f4096cb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fdf171f4096cb) -
+  EDITOR-10055: Enable empty-section chevrons to toggle and animate consistently in Editor and
+  Renderer behind platform_editor_empty_section_toggle.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.0.2
 
 ### Patch Changes

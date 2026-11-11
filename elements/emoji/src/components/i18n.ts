@@ -723,6 +723,6 @@ export const messages: {
 	error: {
 		id: 'fabric.emoji.emojipicker.error',
 		defaultMessage: 'Error!',
-		description: `Aria label for error icon, apperaed in emoji uploader screens and delete emoji screens of emoji picker`,
+		description: `Aria label for error icon, appeared in emoji uploader screens and delete emoji screens of emoji picker`,
 	},
 });

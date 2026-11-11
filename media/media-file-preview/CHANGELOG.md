@@ -1,5 +1,14 @@
 # @atlaskit/media-file-preview
 
+## 2.0.1
+
+### Patch Changes
+
+- [`ca46449f94e5b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ca46449f94e5b) -
+  Remove the fully rolled-out `platform_media_cross_client_copy_with_auth` gate, retaining client-ID
+  propagation through media copy, preview URLs, and editor paste.
+- Updated dependencies
+
 ## 2.0.0
 
 ### Major Changes

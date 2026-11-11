@@ -77,10 +77,6 @@ snapshotInformational(TopNavigationStressExample, {
 	},
 });
 
-/**
- * Introducing column min widths
- */
-
 snapshotInformational(CompositionVR, {
 	description: 'breakpoint md - composition',
 	variants: chromeBugWorkaroundVariants,
@@ -105,61 +101,6 @@ snapshotInformational(CompositionVR, {
 
 snapshotInformational(CompositionVR, {
 	description: 'breakpoint xl - composition',
-	variants: chromeBugWorkaroundVariants,
-	prepare: async (page: Page) => {
-		await page.setViewportSize({
-			width: 1768,
-			height: 720,
-		});
-	},
-});
-
-snapshotInformational(TopNavigationStressExample, {
-	description: 'breakpoint xs - with min widths',
-	variants: chromeBugWorkaroundVariants,
-	prepare: async (page: Page) => {
-		await page.setViewportSize({
-			width: 480,
-			height: 720,
-		});
-	},
-});
-
-snapshotInformational(TopNavigationStressExample, {
-	description: 'breakpoint sm - with min widths',
-	variants: chromeBugWorkaroundVariants,
-	prepare: async (page: Page) => {
-		await page.setViewportSize({
-			width: 768,
-			height: 720,
-		});
-	},
-});
-
-snapshotInformational(TopNavigationStressExample, {
-	description: 'breakpoint md - with min widths',
-	variants: chromeBugWorkaroundVariants,
-	prepare: async (page: Page) => {
-		await page.setViewportSize({
-			width: 1024,
-			height: 720,
-		});
-	},
-});
-
-snapshotInformational(TopNavigationStressExample, {
-	description: 'breakpoint lg - with min widths',
-	variants: chromeBugWorkaroundVariants,
-	prepare: async (page: Page) => {
-		await page.setViewportSize({
-			width: 1440,
-			height: 720,
-		});
-	},
-});
-
-snapshotInformational(TopNavigationStressExample, {
-	description: 'breakpoint xl - with min widths',
 	variants: chromeBugWorkaroundVariants,
 	prepare: async (page: Page) => {
 		await page.setViewportSize({

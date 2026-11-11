@@ -6,6 +6,7 @@ import { type CSSProperties, type JSX } from 'react';
 
 import { css, cx, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
@@ -18,6 +19,13 @@ const noticeStyles = css({
 	paddingInlineEnd: token('space.150'),
 	paddingInlineStart: token('space.150'),
 	textAlign: 'center',
+});
+
+const semanticNoticeStyles = css({
+	paddingBlockEnd: token('space.inset.medium'),
+	paddingBlockStart: token('space.inset.medium'),
+	paddingInlineEnd: token('space.inset.large'),
+	paddingInlineStart: token('space.inset.large'),
 });
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
@@ -46,7 +54,7 @@ export const LoadingMessage: <Option, IsMulti extends boolean, Group extends Gro
 	);
 	return (
 		<div
-			css={noticeStyles}
+			css={[noticeStyles, fg('platform-semantic-spacing') && semanticNoticeStyles]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
 			className={cx(className as any, xcss, '-LoadingMessage')}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop

@@ -1,3 +1,5 @@
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
 import { setParameters } from '../../index';
 import {
 	resolveNativeEmbedEffectiveWidth,
@@ -55,6 +57,39 @@ describe('resolveNativeEmbedInitialLayout', () => {
 		).toMatchObject({
 			effectiveHeight: 420,
 			effectiveWidth: 760,
+		});
+	});
+
+	describe('manifest aspect ratio defaults', () => {
+		const manifest = { parameterDefaults: { width: 760, aspectRatio: 16 / 9 } };
+
+		it.each([
+			{ dimensions: {}, expectedWidth: 760, expectedHeight: 428 },
+			{ dimensions: { width: 960 }, expectedWidth: 960, expectedHeight: 540 },
+			{ dimensions: { aspectRatio: 2 }, expectedWidth: 760, expectedHeight: 380 },
+			{ dimensions: { height: 600 }, expectedWidth: 760, expectedHeight: 600 },
+		])('resolves $dimensions with the gate on', ({ dimensions, expectedWidth, expectedHeight }) => {
+			passGate('native_embeds_manifest_dimension_defaults');
+			expect(
+				resolveNativeEmbedInitialLayout({ manifest, parameters: setParameters({}, dimensions) }),
+			).toMatchObject({ effectiveWidth: expectedWidth, effectiveHeight: expectedHeight });
+		});
+
+		it('keeps legacy height with the gate off', () => {
+			failGate('native_embeds_manifest_dimension_defaults');
+			expect(resolveNativeEmbedInitialLayout({ manifest })).toMatchObject({
+				effectiveWidth: 760,
+				effectiveHeight: 600,
+			});
+		});
+
+		it.each([0, -1, Infinity, NaN])('ignores invalid default aspect ratio %s', (aspectRatio) => {
+			passGate('native_embeds_manifest_dimension_defaults');
+			expect(
+				resolveNativeEmbedInitialLayout({
+					manifest: { parameterDefaults: { width: 760, aspectRatio } },
+				}),
+			).toMatchObject({ effectiveWidth: 760, effectiveHeight: 600 });
 		});
 	});
 

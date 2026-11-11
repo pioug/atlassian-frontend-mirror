@@ -1,5 +1,22 @@
 # @atlaskit/native-embeds-common
 
+## 2.10.0
+
+### Minor Changes
+
+- [`432269bbe97d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/432269bbe97d2) -
+  Respect experience-specific width, height, and aspect ratio defaults when converting cards to
+  native embeds, and support manifest aspect ratio fallbacks during layout behind
+  `native_embeds_manifest_dimension_defaults`. Preserve explicit stored dimensions.
+
+## 2.9.2
+
+### Patch Changes
+
+- [`849300283f162`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/849300283f162) -
+  Preserve enclosing Native Tabs macro spacing, alignment, and borders when a native embed is
+  inserted. Scoped by the Native Tabs boundary emitted under confluence_native_tabs_experiment.
+
 ## 2.9.1
 
 ### Patch Changes

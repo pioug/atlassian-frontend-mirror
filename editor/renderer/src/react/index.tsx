@@ -224,7 +224,6 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 	private startPos: number;
 	private surroundTextNodesWithTextWrapper: boolean = false;
 	private textFastPath: boolean = false;
-	private paragraphPropsFastPath: boolean = false;
 	private media?: MediaOptions;
 	private mentionNodeDataProvider?: MentionNodeDataProvider;
 	private emojiProviderLookupOrder?: EmojiProviderLookupOrder;
@@ -284,11 +283,6 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		this.allowAnnotations = Boolean(init.allowAnnotations);
 		this.surroundTextNodesWithTextWrapper = Boolean(init.surroundTextNodesWithTextWrapper);
 		this.textFastPath = expVal('platform_renderer_text_paragraph_fast_path', 'isEnabled', false);
-		this.paragraphPropsFastPath = expVal(
-			'platform_renderer_paragraph_props_fast_path',
-			'isEnabled',
-			false,
-		);
 		this.media = init.media;
 		this.mentionNodeDataProvider = init.mentionNodeDataProvider;
 		this.emojiProviderLookupOrder = init.emojiProviderLookupOrder;
@@ -327,9 +321,8 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 			case 'paragraph':
 				// Explicit paragraph overrides retain the full generic props contract.
 				if (
-					this.paragraphPropsFastPath &&
-					(!this.nodeComponents ||
-						!Object.prototype.hasOwnProperty.call(this.nodeComponents, 'paragraph'))
+					!this.nodeComponents ||
+					!Object.prototype.hasOwnProperty.call(this.nodeComponents, 'paragraph')
 				) {
 					return this.getParagraphProps(node, path);
 				}

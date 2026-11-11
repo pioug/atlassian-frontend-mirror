@@ -68,19 +68,7 @@ const desktopOnly: SnapshotTestOptions<Hooks> = {
 	],
 };
 
-snapshot(AllSlots, {
-	...defaultOptions,
-	a11y: {
-		/**
-		 * This test applies opacity for debugging purposes, which fails color contrast checks.
-		 * Because it's intentionally hacking things, and not representative of real usage, the a11y checking isn't valuable.
-		 *
-		 * I tried adding semi-transparent background colors instead of making the elements semi-transparent,
-		 * but then we run into type errors with the colors not being tokens. We can ignore them but it adds noise for no real gain.
-		 */
-		skip: true,
-	},
-});
+snapshot(AllSlots, defaultOptions);
 
 snapshot(AllSlotsRTL, defaultOptions);
 
@@ -264,12 +252,6 @@ snapshot(CompanyHubMockExample, {
 		/* eslint-enable @atlaskit/design-system/no-dark-theme-vr-tests */
 	],
 	description: 'Panel default background color',
-});
-
-snapshot(AllSlots, {
-	...defaultOptions,
-	// this example doesn't render the ribbon slot, this is a smoke test to check the layout doesn't break
-	description: 'All slots minus ribbon with ribbon flag enabled',
 });
 
 snapshot(RibbonExample, {

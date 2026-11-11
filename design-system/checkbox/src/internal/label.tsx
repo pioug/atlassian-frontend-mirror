@@ -4,6 +4,7 @@
  */
 import { css, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { type LabelProps } from '../types';
@@ -48,6 +49,10 @@ const baseStyles = css({
 const textLabelLayoutStyles = css({
 	gap: `${token('space.0')} ${token('space.050')}`,
 	gridTemplateColumns: 'min-content auto',
+});
+
+const semanticTextLabelLayoutStyles = css({
+	columnGap: token('space.gap.xsmall'),
 });
 
 // Checked/Indeterminate state
@@ -138,6 +143,7 @@ export default function Label({
 				isInvalid && invalidStyles,
 				isDisabled && disabledStyles,
 				isDisabled && (isChecked || isIndeterminate) && disabledCheckedStyles,
+				fg('platform-semantic-spacing') && label && semanticTextLabelLayoutStyles,
 			]}
 			data-testid={testId}
 			data-disabled={isDisabled || undefined}

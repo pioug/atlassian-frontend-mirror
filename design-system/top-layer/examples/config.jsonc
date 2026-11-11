@@ -65,6 +65,7 @@
 		"167-testing-dialog-in-auto-popover.tsx",
 		"168-testing-manual-focus-restore-target.tsx",
 		"169-testing-manual-light-dismiss-focus.tsx",
+		"170-testing-layer-show-order.tsx",
 		// The VR examples in the 80-89 band are imported by their spec rather than
 		// visited by URL, and the others are unregistered. The ones listed here are
 		// the ones recent changes added: a missing entry cannot fail anything, it
@@ -76,6 +77,7 @@
 		"89-vr-popover-position-visibility.vr.ap.tsx",
 		"89-vr-popover-host-specificity.vr.ap.tsx",
 		"89-vr-dialog-host-specificity.vr.ap.tsx",
+		"89-vr-layer-show-order.vr.ap.tsx",
 	],
 	// Entries here are excluded from the test cache hash, so
 	// `@atlaskit/pragmatic-drag-and-drop` is deliberately absent: it is what the

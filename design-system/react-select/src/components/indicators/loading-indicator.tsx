@@ -7,6 +7,7 @@ import { type CSSProperties, type JSX } from 'react';
 
 import { cssMap, cx, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import Spinner from '@atlaskit/spinner/spinner';
 import { token } from '@atlaskit/tokens';
 
@@ -19,6 +20,19 @@ const loadingIndicatorStyles = cssMap({
 		paddingInlineEnd: token('space.100'),
 		paddingBlockEnd: token('space.075'),
 		paddingInlineStart: token('space.100'),
+	},
+	compact: {
+		paddingBlockStart: 0,
+		paddingBlockEnd: 0,
+	},
+});
+
+const semanticLoadingIndicatorStyles = cssMap({
+	default: {
+		paddingBlockStart: token('space.inset.small'),
+		paddingInlineEnd: token('space.inset.medium'),
+		paddingBlockEnd: token('space.inset.small'),
+		paddingInlineStart: token('space.inset.medium'),
 	},
 	compact: {
 		paddingBlockStart: 0,
@@ -81,7 +95,12 @@ export const LoadingIndicator: <Option, IsMulti extends boolean, Group extends G
 
 	return (
 		<div
-			css={[loadingIndicatorStyles.default, isCompact && loadingIndicatorStyles.compact]}
+			css={[
+				loadingIndicatorStyles.default,
+				isCompact && loadingIndicatorStyles.compact,
+				fg('platform-semantic-spacing') && semanticLoadingIndicatorStyles.default,
+				fg('platform-semantic-spacing') && isCompact && semanticLoadingIndicatorStyles.compact,
+			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={css as CSSProperties}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss

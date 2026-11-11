@@ -8,6 +8,7 @@ import { createContext, type ReactNode, useContext, useEffect, useRef, useState 
 import { css, cssMap, jsx } from '@atlaskit/css';
 import ErrorIcon from '@atlaskit/icon/core/status-error';
 import SuccessIcon from '@atlaskit/icon/core/status-success';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { FieldId } from './field-id-context';
@@ -45,6 +46,13 @@ const messageStyles = css({
 	gap: token('space.075'),
 	font: token('font.body.small'),
 	marginBlockStart: token('space.050'),
+});
+
+const semanticMessageStyles = cssMap({
+	root: {
+		gap: token('space.gap.small'),
+		marginBlockStart: token('space.gap.xsmall'),
+	},
 });
 
 const messageAppearanceStyles = cssMap({
@@ -100,7 +108,11 @@ const Message = ({ children, appearance = 'default', fieldId, testId }: Internal
 
 	return (
 		<div
-			css={[messageStyles, messageAppearanceStyles[appearance]]}
+			css={[
+				messageStyles,
+				messageAppearanceStyles[appearance],
+				fg('platform-semantic-spacing') && semanticMessageStyles.root,
+			]}
 			data-testid={testId}
 			id={fieldId}
 			ref={messageRef}

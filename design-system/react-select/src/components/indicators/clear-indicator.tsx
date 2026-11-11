@@ -29,6 +29,15 @@ const iconContainerStyles = cssMap({
 	},
 });
 
+const semanticIconContainerStyles = cssMap({
+	root: {
+		paddingBlockStart: token('space.inset.xxsmall'),
+		paddingInlineEnd: token('space.inset.xxsmall'),
+		paddingBlockEnd: token('space.inset.xxsmall'),
+		paddingInlineStart: token('space.inset.xxsmall'),
+	},
+});
+
 export interface ClearIndicatorProps<
 	Option = unknown,
 	IsMulti extends boolean = boolean,
@@ -76,6 +85,19 @@ const clearIndicatorStyles = cssMap({
 	finesse: { color: token('color.icon.subtle'), '&:hover': { color: token('color.icon') } },
 });
 
+const semanticClearIndicatorStyles = cssMap({
+	default: {
+		paddingBlockStart: token('space.inset.small'),
+		paddingInlineEnd: token('space.inset.xxsmall'),
+		paddingBlockEnd: token('space.inset.small'),
+		paddingInlineStart: token('space.inset.xxsmall'),
+	},
+	compact: {
+		paddingBlockStart: 0,
+		paddingBlockEnd: 0,
+	},
+});
+
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const ClearIndicator: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: ClearIndicatorProps<Option, IsMulti, Group>,
@@ -93,6 +115,8 @@ export const ClearIndicator: <Option, IsMulti extends boolean, Group extends Gro
 				clearIndicatorStyles.default,
 				fg('platform-dst-tokens-finesse') && clearIndicatorStyles.finesse,
 				isCompact && clearIndicatorStyles.compact,
+				fg('platform-semantic-spacing') && semanticClearIndicatorStyles.default,
+				fg('platform-semantic-spacing') && isCompact && semanticClearIndicatorStyles.compact,
 			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={css as CSSProperties}
@@ -101,7 +125,14 @@ export const ClearIndicator: <Option, IsMulti extends boolean, Group extends Gro
 			{...innerProps}
 		>
 			{/* The Clear button is intentionally excluded from the tab order, please avoid assigning a non-negative tabIndex to it. Context: https://hello.atlassian.net/wiki/spaces/A11YKB/pages/3031993460/Clear+Options+on+an+Input+Field */}
-			<Pressable xcss={iconContainerStyles.root} tabIndex={-1} aria-label={clearControlLabel}>
+			<Pressable
+				xcss={cx(
+					iconContainerStyles.root,
+					fg('platform-semantic-spacing') && semanticIconContainerStyles.root,
+				)}
+				tabIndex={-1}
+				aria-label={clearControlLabel}
+			>
 				<CrossIcon label="" color="currentColor" size="small" />
 			</Pressable>
 		</div>

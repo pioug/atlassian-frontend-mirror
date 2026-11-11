@@ -265,6 +265,18 @@ export function applyJavaScriptFallbackPositioning({
 
 	return combine(
 		cleanupBaseStyles,
+		// Hide as the popover opens, before it can paint. `toggle` comes a task later, so a popover that
+		// shows after this setup (for example one that waits for its parent layer) would flash
+		// unpositioned. Skip without an observer: nothing would reveal it.
+		bind(popover, {
+			type: 'beforetoggle',
+			listener: (event: Event) => {
+				const toggleEvent = event as ToggleEvent;
+				if (toggleEvent.newState === 'open' && firstLayoutObserver) {
+					hideUntilPositioned();
+				}
+			},
+		}),
 		// Each open needs a fresh measurement, so hide and observe again.
 		bind(popover, {
 			type: 'toggle',

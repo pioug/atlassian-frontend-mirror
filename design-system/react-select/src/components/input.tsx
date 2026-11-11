@@ -85,6 +85,24 @@ const inputStylesOld = cssMap({
 	},
 });
 
+// Preserve the existing selector specificity and responsive conditions.
+const semanticInputStylesOld = cssMap({
+	root: {
+		'&::after': {
+			margin: 0,
+			padding: 0,
+		},
+		marginBlock: token('space.gap.xxsmall'),
+		marginInline: token('space.gap.xxsmall'),
+		paddingBlock: token('space.inset.xxsmall'),
+	},
+	labellingFFStyles: {
+		marginBlock: token('space.0'),
+		marginInline: token('space.0'),
+		paddingBlock: token('space.0'),
+	},
+});
+
 const inputStyles = cssMap({
 	root: {
 		position: 'relative',
@@ -120,6 +138,23 @@ const inputStyles = cssMap({
 	},
 });
 
+const semanticInputStyles = cssMap({
+	root: {
+		'&::after': {
+			margin: 0,
+			padding: 0,
+		},
+		marginBlock: token('space.gap.xxsmall'),
+		marginInline: token('space.gap.xxsmall'),
+		paddingBlock: token('space.inset.xxsmall'),
+	},
+	labellingFFStyles: {
+		marginBlock: token('space.0'),
+		marginInline: token('space.0'),
+		paddingBlock: token('space.0'),
+	},
+});
+
 const nativeInputStylesOld = css({
 	width: '100%',
 	minWidth: '2px',
@@ -132,6 +167,13 @@ const nativeInputStylesOld = css({
 	gridArea: '1 / 2',
 	opacity: 1,
 	outline: 0,
+});
+
+const semanticNativeInputStylesOld = cssMap({
+	root: {
+		margin: 0,
+		padding: 0,
+	},
 });
 
 const nativeInputStyles = css({
@@ -148,6 +190,13 @@ const nativeInputStyles = css({
 	gridArea: '1 / 2',
 	opacity: 1,
 	outline: 0,
+});
+
+const semanticNativeInputStyles = cssMap({
+	root: {
+		margin: 0,
+		padding: 0,
+	},
 });
 
 const hidden = css({
@@ -172,6 +221,8 @@ const Input: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 					inputStyles.root,
 					isMulti && inputStyles.labellingFFStyles,
 					isDisabled && inputStyles.disabled,
+					fg('platform-semantic-spacing') && semanticInputStyles.root,
+					fg('platform-semantic-spacing') && isMulti && semanticInputStyles.labellingFFStyles,
 				]}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 				style={css as CSSProperties}
@@ -184,7 +235,11 @@ const Input: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 					className={builtinCX({ input: true }, inputClassName, '-input')}
 					ref={innerRef}
-					css={[nativeInputStyles, isHidden && hidden]}
+					css={[
+						nativeInputStyles,
+						isHidden && hidden,
+						fg('platform-semantic-spacing') && semanticNativeInputStyles.root,
+					]}
 					disabled={isDisabled}
 					data-testid={dataId}
 					{...innerProps}
@@ -199,6 +254,8 @@ const Input: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 				inputStylesOld.root,
 				isMulti && inputStylesOld.labellingFFStyles,
 				isDisabled && inputStylesOld.disabled,
+				fg('platform-semantic-spacing') && semanticInputStylesOld.root,
+				fg('platform-semantic-spacing') && isMulti && semanticInputStylesOld.labellingFFStyles,
 			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={css as CSSProperties}
@@ -211,7 +268,11 @@ const Input: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 				className={builtinCX({ input: true }, inputClassName, '-input')}
 				ref={innerRef}
-				css={[nativeInputStylesOld, isHidden && hidden]}
+				css={[
+					nativeInputStylesOld,
+					isHidden && hidden,
+					fg('platform-semantic-spacing') && semanticNativeInputStylesOld.root,
+				]}
 				disabled={isDisabled}
 				data-testid={dataId}
 				{...innerProps}

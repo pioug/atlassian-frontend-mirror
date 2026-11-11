@@ -87,6 +87,12 @@ const styles = cssMap({
 	},
 });
 
+const semanticStyles = cssMap({
+	content: {
+		columnGap: token('space.gap.medium'),
+	},
+});
+
 // Match Badge/new's geometry and Text typography without importing the Badge package.
 // var() values consume the private host surface properties above.
 const metricStyles = unboundedCssMap({
@@ -104,6 +110,15 @@ const metricStyles = unboundedCssMap({
 		paddingBlockEnd: token('space.0'),
 		backgroundColor: 'var(--ds-filter-button-metric-background)',
 		color: 'var(--ds-filter-button-metric-text)',
+	},
+});
+
+const semanticMetricStyles = cssMap({
+	root: {
+		paddingInlineStart: token('space.inset.xsmall'),
+		paddingInlineEnd: token('space.inset.xsmall'),
+		paddingBlockStart: token('space.0'),
+		paddingBlockEnd: token('space.0'),
 	},
 });
 
@@ -168,10 +183,16 @@ const FilterButton: React.MemoExoticComponent<
 					</Content>
 				)}
 				<Content isLoading={isLoading}>
-					<span css={styles.content}>
+					<span css={[styles.content, fg('platform-semantic-spacing') && semanticStyles.content]}>
 						<span css={styles.label}>{children}</span>
 						{trailingMetric !== undefined && (
-							<span css={metricStyles.root} data-testid={rest.testId && `${rest.testId}--metric`}>
+							<span
+								css={[
+									metricStyles.root,
+									fg('platform-semantic-spacing') && semanticMetricStyles.root,
+								]}
+								data-testid={rest.testId && `${rest.testId}--metric`}
+							>
 								<Text size="small" align="center" color="inherit">
 									{trailingMetric}
 								</Text>

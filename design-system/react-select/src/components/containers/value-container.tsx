@@ -6,6 +6,7 @@ import { type CSSProperties, type JSX, type ReactNode } from 'react';
 
 import { cssMap, cx, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { getStyleProps } from '../../get-style-props';
@@ -69,6 +70,32 @@ const valueContainerStyles = cssMap({
 	},
 });
 
+const semanticValueContainerStyles = cssMap({
+	default: {
+		paddingInlineEnd: token('space.inset.small'),
+		paddingInlineStart: token('space.inset.small'),
+	},
+	verticalPaddingStandard: {
+		paddingBlockStart: token('space.inset.xxsmall'),
+		paddingBlockEnd: token('space.inset.xxsmall'),
+	},
+	verticalPaddingTagUpliftMulti: {
+		paddingBlockStart: token('space.inset.xsmall'),
+		paddingBlockEnd: token('space.inset.xsmall'),
+	},
+	verticalPaddingTagUpliftCompactMulti: {
+		paddingBlockStart: token('space.inset.xxsmall'),
+		paddingBlockEnd: token('space.inset.xxsmall'),
+	},
+	verticalPaddingCompactNonUplift: {
+		paddingBlockStart: token('space.0'),
+		paddingBlockEnd: token('space.0'),
+	},
+	flexWithGap: {
+		gap: token('space.gap.xsmall'),
+	},
+});
+
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const ValueContainer: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: ValueContainerProps<Option, IsMulti, Group>,
@@ -108,6 +135,26 @@ export const ValueContainer: <Option, IsMulti extends boolean, Group extends Gro
 					valueContainerStyles.verticalPaddingCompactNonUplift,
 				isMulti && hasValue && controlShouldRenderValue && valueContainerStyles.flex,
 				tagUpliftChipRow && valueContainerStyles.flexWithGap,
+				fg('platform-semantic-spacing') && semanticValueContainerStyles.default,
+				fg('platform-semantic-spacing') &&
+					tagUpliftMultiVertical &&
+					isCompact &&
+					semanticValueContainerStyles.verticalPaddingTagUpliftCompactMulti,
+				fg('platform-semantic-spacing') &&
+					tagUpliftMultiVertical &&
+					!isCompact &&
+					semanticValueContainerStyles.verticalPaddingTagUpliftMulti,
+				fg('platform-semantic-spacing') &&
+					!tagUpliftMultiVertical &&
+					!isCompact &&
+					semanticValueContainerStyles.verticalPaddingStandard,
+				fg('platform-semantic-spacing') &&
+					!tagUpliftMultiVertical &&
+					isCompact &&
+					semanticValueContainerStyles.verticalPaddingCompactNonUplift,
+				fg('platform-semantic-spacing') &&
+					tagUpliftChipRow &&
+					semanticValueContainerStyles.flexWithGap,
 			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
 			className={cx(className as any, xcss, '-ValueContainer')}

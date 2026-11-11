@@ -6,6 +6,7 @@ import { type ReactNode } from 'react';
 
 import { css, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 interface FormHeaderProps {
@@ -28,8 +29,16 @@ const formHeaderContentStyles = css({
 	marginBlockStart: token('space.100'),
 });
 
+const semanticFormHeaderContentStyles = css({
+	marginBlockStart: token('space.gap.medium'),
+});
+
 const formHeaderDescriptionStyles = css({
 	marginBlockStart: token('space.100'),
+});
+
+const semanticFormHeaderDescriptionStyles = css({
+	marginBlockStart: token('space.gap.medium'),
 });
 
 /**
@@ -46,8 +55,26 @@ export const FormHeader = ({ children, description, title }: FormHeaderProps): J
 	return (
 		<div>
 			{title && <Heading size="large">{title}</Heading>}
-			{description && <div css={formHeaderDescriptionStyles}>{description}</div>}
-			{children && <div css={formHeaderContentStyles}>{children}</div>}
+			{description && (
+				<div
+					css={[
+						formHeaderDescriptionStyles,
+						fg('platform-semantic-spacing') && semanticFormHeaderDescriptionStyles,
+					]}
+				>
+					{description}
+				</div>
+			)}
+			{children && (
+				<div
+					css={[
+						formHeaderContentStyles,
+						fg('platform-semantic-spacing') && semanticFormHeaderContentStyles,
+					]}
+				>
+					{children}
+				</div>
+			)}
 		</div>
 	);
 };

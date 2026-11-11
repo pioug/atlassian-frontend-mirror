@@ -225,28 +225,33 @@ affected consumers and the options for a general fix.
   hypothetical future caller — current consumers (`react-select`, `TimePicker`, `DatePicker`) all
   work correctly under the role-specific placement.
 
-- Fires on transitions into a visible phase, tracked via a `prevPhase` ref. Three transitions
-  qualify:
-  - `closed → entering` (animated path, fresh open).
-  - `closed → open` (non-animated path, fresh open).
-  - `exiting → entering` (mid-exit reopen). When a user dismisses the popup (Escape, close button,
-    light dismiss) the browser natively restores focus to the trigger as part of `hidePopover()` /
-    `<dialog>.close()`. If the consumer reopens before the exit transition has settled, the phase
-    machine jumps `exiting → entering` without passing through `closed`. Without this branch the
-    popup would be visible again with focus stranded on the trigger — a keyboard usability gap for
-    menu / dialog / listbox roles.
-  - Pure `entering → exiting → entering` stutters where the consumer toggles `isOpen` in the same
-    frame are still collapsed: any transition whose previous phase was neither `closed` nor
-    `exiting` is rejected.
+- Fires each time the popover shows. `useInitialFocus` returns `takeInitialFocus`, and `Popover`
+  calls it in its show, right after `showPopover()`. The show effect runs:
+  - When `isOpen` turns `true`: `closed → entering` (animated), `closed → open` (not animated), and
+    a reopen during the exit, `exiting → entering`. When a user dismisses the popup (Escape, close
+    button, light dismiss) the browser natively restores focus to the trigger as part of
+    `hidePopover()` / `<dialog>.close()`. If the consumer reopens before the exit transition has
+    settled, the phase machine jumps `exiting → entering` without passing through `closed`. Without
+    focus there, the popup would be visible again with focus stranded on the trigger, a keyboard
+    usability gap for menu / dialog / listbox roles.
+  - When React creates the effect again while the popover stays open: strict mode, a Suspense or
+    Activity hide and reveal, and Fast Refresh. The popover hides and shows again, so it takes
+    initial focus as on an open. A `Dialog` does the same natively: `showModal()` moves focus on
+    every show. So nested layers that show again end with focus in the innermost one.
+  - Other renders (`entering → open`, a new `role` or `initialFocusRef`) do not run the show effect,
+    so they do not move focus.
 - Focus moves the instant the host element first becomes visible — not after the entry transition
   settles. APG expects keyboard focus to land on the new menu / dialog the moment it opens, so a
   `transitionend`-gated focus call (~150ms late on a typical entry animation) is a focus-stealing
   hazard: subsequent user input (e.g. an arrow-left to back out of a nested submenu) can land before
   the deferred `focus()` fires, snapping focus back to a now-stale element.
-- Synchronous inside `useLayoutEffect` — no `requestAnimationFrame` wrapper. `Popover` calls the
-  hook after the show layout effect, so `showPopover()` has run and the host is in the top layer.
-  Focus lands in the same task as the open, before the browser paints, so the first frame already
-  shows focus where it belongs and the content's own `useEffect`s see it there.
+- Synchronous inside the show layout effect, with no `requestAnimationFrame` wrapper. It runs right
+  after `showPopover()`, so the host is in the top layer. A popover that waits for a parent layer
+  that opens in the same commit shows, and takes focus, after that parent shows (`layerShowOrder` in
+  `internal/layer-show.tsx`), so the innermost layer ends with focus (see
+  [layer-show-order.md](./layer-show-order.md)). Focus lands in the same task as the open, before
+  the browser paints, so the first frame already shows focus where it belongs and the content's own
+  `useEffect`s see it there.
 - **Content that moves focus itself.** Content that calls `.focus()` in its own layout effect (or a
   class `componentDidMount`, as `react-select`'s `autoFocus` does) runs before initial focus, as
   before. Content that calls `.focus()` in a `useEffect` now runs after it, so its focus wins and

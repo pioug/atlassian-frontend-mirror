@@ -1,5 +1,15 @@
 # @atlaskit/forge-react-types
 
+## 2.14.0
+
+### Minor Changes
+
+- [`7c03cad5997f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c03cad5997f4) -
+  Allow UI Kit apps to clear UserPicker selections with a reset-only value prop accepting null or an
+  empty array. Selections continue to come from the user directory; app-provided user objects and
+  account IDs are not accepted by value. The app can rearm a reset in onChange for repeated clears.
+  Runtime support is isolated behind forge-ui-userpicker-controlled-value.
+
 ## 2.13.0
 
 ### Minor Changes

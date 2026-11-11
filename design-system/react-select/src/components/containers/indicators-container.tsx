@@ -6,6 +6,7 @@ import { type CSSProperties, type JSX, type ReactNode } from 'react';
 
 import { css, cx, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { getStyleProps } from '../../get-style-props';
@@ -35,6 +36,10 @@ const indicatorContainerStyles = css({
 	paddingInlineEnd: token('space.050'),
 });
 
+const semanticIndicatorContainerStyles = css({
+	paddingInlineEnd: token('space.inset.xsmall'),
+});
+
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const IndicatorsContainer: <
 	Option,
@@ -51,7 +56,10 @@ export const IndicatorsContainer: <
 	});
 	return (
 		<div
-			css={indicatorContainerStyles}
+			css={[
+				indicatorContainerStyles,
+				fg('platform-semantic-spacing') && semanticIndicatorContainerStyles,
+			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={css as CSSProperties}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss

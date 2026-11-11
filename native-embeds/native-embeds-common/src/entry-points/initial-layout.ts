@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
 import type { AlignmentValue, NativeEmbedParameters } from '../utils/types';
 import { getParameters } from '../utils/utils';
 
@@ -7,6 +9,7 @@ export type NativeEmbedInitialLayoutManifest = {
 	id?: string;
 	lockResizeAspectRatio?: boolean | (() => boolean);
 	parameterDefaults?: {
+		aspectRatio?: number;
 		height?: number;
 		width?: number;
 	};
@@ -63,13 +66,18 @@ export const resolveNativeEmbedInitialLayout = ({
 		? height
 		: (manifest?.parameterDefaults?.height ?? null);
 
+	let effectiveAspectRatio = aspectRatioExplicitlyStored ? aspectRatio : undefined;
+	if (fg('native_embeds_manifest_dimension_defaults')) {
+		effectiveAspectRatio = effectiveAspectRatio ?? manifest?.parameterDefaults?.aspectRatio;
+	}
+
 	const effectiveHeight =
-		aspectRatioExplicitlyStored &&
-		aspectRatio != null &&
-		aspectRatio > 0 &&
+		effectiveAspectRatio != null &&
+		Number.isFinite(effectiveAspectRatio) &&
+		effectiveAspectRatio > 0 &&
 		effectiveWidth != null &&
 		!heightExplicitlyStored
-			? Math.round(effectiveWidth / aspectRatio)
+			? Math.round(effectiveWidth / effectiveAspectRatio)
 			: (effectiveHeightRaw ?? height);
 
 	const lockAspectRatio =

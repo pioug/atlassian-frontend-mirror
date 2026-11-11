@@ -1,5 +1,14 @@
 # @atlaskit/form
 
+## 18.3.3
+
+### Patch Changes
+
+- [`1c014d732eaa1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1c014d732eaa1) -
+  Add semantic spacing style overrides for form behind platform-semantic-spacing. Existing numeric
+  styles remain when the feature flag is off.
+- Updated dependencies
+
 ## 18.3.2
 
 ### Patch Changes

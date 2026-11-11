@@ -7,6 +7,7 @@ import { type CSSProperties, type JSX } from 'react';
 import { css, cx, jsx, type XCSSProp } from '@compiled/react';
 
 import type { XCSSAllProperties, XCSSAllPseudos } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { getStyleProps } from '../get-style-props';
@@ -53,6 +54,11 @@ const headingStyles = css({
 	textTransform: 'none',
 });
 
+const semanticHeadingStyles = css({
+	paddingInlineEnd: token('space.inset.large'),
+	paddingInlineStart: token('space.inset.large'),
+});
+
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const GroupHeading: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: GroupHeadingProps<Option, IsMulti, Group>,
@@ -64,7 +70,7 @@ export const GroupHeading: <Option, IsMulti extends boolean, Group extends Group
 	const { css, className } = getStyleProps(props, 'groupHeading', { 'group-heading': true });
 	return (
 		<div
-			css={headingStyles}
+			css={[headingStyles, fg('platform-semantic-spacing') && semanticHeadingStyles]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
 			className={cx(className as any, xcss, '-group')}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop

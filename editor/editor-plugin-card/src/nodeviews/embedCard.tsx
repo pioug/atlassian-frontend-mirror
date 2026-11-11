@@ -47,7 +47,6 @@ import { Card as SmartCard } from '@atlaskit/smart-card/card/lazy';
 import { EmbedResizeMessageListener } from '@atlaskit/smart-card/embed-resize-message-listener';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { cardPlugin } from '../index';
 import { registerCard, removeCard } from '../pm-plugins/actions';
@@ -70,12 +69,7 @@ import { isIntersectionObserverSupported } from './isIntersectionObserverSupport
  * @internal Exported for testing only.
  */
 export const getAspectRatioForUrl = (url: string | undefined): number | undefined => {
-	if (
-		url &&
-		isConfluenceSlideUrl(url) &&
-		!fg('cc-mui-slides-opted-out') &&
-		expValEqualsNoExposure('cc-mui-slides-experiment', 'isEnabled', true)
-	) {
+	if (url && isConfluenceSlideUrl(url) && !fg('cc-mui-slides-opted-out')) {
 		// Slides have a 16:9 canvas
 		return 16 / 9;
 	}

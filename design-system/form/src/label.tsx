@@ -5,6 +5,7 @@
 import { type ReactNode } from 'react';
 
 import { css, jsx } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 const fieldsetLabelStyles = css({
@@ -13,6 +14,11 @@ const fieldsetLabelStyles = css({
 	font: token('font.body.small'),
 	fontWeight: token('font.weight.bold'),
 	marginBlockEnd: token('space.050'),
+	marginBlockStart: token('space.0'),
+});
+
+const semanticFieldsetLabelStyles = css({
+	marginBlockEnd: token('space.gap.xsmall'),
 	marginBlockStart: token('space.0'),
 });
 
@@ -36,7 +42,12 @@ export const Label: ({ children, htmlFor, id, testId }: LabelProps) => JSX.Eleme
 	id,
 	testId,
 }: LabelProps) => (
-	<label css={fieldsetLabelStyles} id={id} htmlFor={htmlFor} data-testid={testId}>
+	<label
+		css={[fieldsetLabelStyles, fg('platform-semantic-spacing') && semanticFieldsetLabelStyles]}
+		id={id}
+		htmlFor={htmlFor}
+		data-testid={testId}
+	>
 		{children}
 	</label>
 );

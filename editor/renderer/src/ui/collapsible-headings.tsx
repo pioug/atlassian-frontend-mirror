@@ -4,6 +4,7 @@ import { bind } from 'bind-event-listener';
 import isEqual from 'lodash/isEqual';
 
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import {
 	COLLAPSED_CONTENT_OWNERS_ATTRIBUTE,
@@ -69,14 +70,15 @@ export function CollapsibleHeadingsProvider({
 	}>({ pmDocument, positions: new Set() });
 	const originalHiddenAttributes = React.useRef(new WeakMap<HTMLElement, string | null>()).current;
 	const sections = useMemo(() => buildTopLevelHeadingSections(pmDocument), [pmDocument]);
+	const allowEmptySections = isExperimentEnabled('platform_editor_empty_section_toggle');
 	const collapsibleSectionPositions = useMemo(
 		() =>
 			new Set(
 				sections
-					.filter((section) => section.contentFrom < section.to)
+					.filter((section) => allowEmptySections || section.contentFrom < section.to)
 					.map((section) => section.headingPos),
 			),
-		[sections],
+		[sections, allowEmptySections],
 	);
 	const isCurrentDocument = isSameDocument(state.pmDocument, pmDocument);
 	const collapsedHeadings = isCurrentDocument ? state.positions : emptyCollapsedHeadings;

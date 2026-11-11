@@ -1,5 +1,20 @@
 # @atlaskit/editor-core
 
+## 242.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 242.3.2
+
+### Patch Changes
+
+- [`2807f08310bca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2807f08310bca) -
+  Hide breakout resize handles when their direct content is collapsed under
+  platform_editor_collapsible_headings.
+- Updated dependencies
+
 ## 242.3.1
 
 ### Patch Changes

@@ -36,6 +36,7 @@ import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getAttrsFromUrl } from '@atlaskit/media-client';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
 import { insertAndSelectCaptionFromMediaSinglePos } from '../pm-plugins/commands/captions';
@@ -409,7 +410,6 @@ export const MediaSingleNodeNext = (
 	const mountedRef = React.useRef(true);
 	const pos = getPos();
 	const isSelected = selected();
-	const contentWidthForLegacyExperience = getMaxWidthForNestedNode(view, getPos()) || lineLength;
 	const mediaNode = useLatestMediaNode(nextMediaNode);
 
 	const mediaNodeUpdater = useMediaNodeUpdater({
@@ -466,6 +466,15 @@ export const MediaSingleNodeNext = (
 		widthType,
 		width: mediaSingleWidthAttribute,
 	} = mediaNode.attrs as ExtendedMediaAttributes;
+	// With pixel resizing, a pixel width is used as is, so skip the nested width (a layout read).
+	const skipLegacyContentWidth =
+		isExperimentEnabled('platform_editor_improve_inp_batch_3') &&
+		mediaOptions.allowPixelResizing &&
+		widthType === 'pixel' &&
+		!!mediaSingleWidthAttribute;
+	const contentWidthForLegacyExperience = skipLegacyContentWidth
+		? lineLength
+		: getMaxWidthForNestedNode(view, pos) || lineLength;
 	const childNode = mediaNode.firstChild;
 	const childMediaNodeAttrs = React.useMemo(() => {
 		return (childNode?.attrs as MediaADFAttrs) || {};

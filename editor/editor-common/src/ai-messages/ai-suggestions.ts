@@ -360,6 +360,11 @@ export const aiSuggestionsMessages: {
 		description: string;
 		id: string;
 	};
+	thinkingContentUnchangedBanner: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	thinkingErrorTokenLimitExceeded: {
 		defaultMessage: string;
 		description: string;
@@ -782,6 +787,13 @@ export const aiSuggestionsMessages: {
 		defaultMessage: 'Rovo is reviewing your page',
 		description:
 			'First loading message on the AI suggestions thinking bar, shown when the name of the reviewing agent is unknown',
+	},
+	thinkingContentUnchangedBanner: {
+		id: 'fabric.editor.ai.suggestions.thinking.contentUnchangedBanner',
+		defaultMessage:
+			'Suggestions will appear when ready. Your content won’t change unless you accept a suggestion.',
+		description:
+			'Informational banner shown above the AI suggestions thinking bar while a review is in progress, reassuring the user that the page is not modified until they accept a suggestion.',
 	},
 	thinkingPreparingAgent: {
 		id: 'fabric.editor.ai.suggestions.thinking.preparingAgent.non-final',

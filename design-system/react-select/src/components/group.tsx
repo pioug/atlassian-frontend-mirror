@@ -6,6 +6,7 @@ import type { ComponentType, CSSProperties, JSX, ReactNode } from 'react';
 
 import { cssMap, cx, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { getStyleProps } from '../get-style-props';
@@ -52,6 +53,13 @@ const styles = cssMap({
 	},
 });
 
+const semanticStyles = cssMap({
+	root: {
+		paddingBlockEnd: token('space.inset.medium'),
+		paddingBlockStart: token('space.inset.medium'),
+	},
+});
+
 const Group = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: GroupProps<Option, IsMulti, Group>,
 ): JSX.Element => {
@@ -70,7 +78,7 @@ const Group = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>
 	const { css, className } = getStyleProps(props, 'group', { group: true });
 	return (
 		<div
-			css={styles.root}
+			css={[styles.root, fg('platform-semantic-spacing') && semanticStyles.root]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={css as CSSProperties}
 			{...innerProps}

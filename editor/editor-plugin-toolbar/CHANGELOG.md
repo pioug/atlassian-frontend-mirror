@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 27.0.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.17
+
+### Patch Changes
+
+- [`6bc3894066dc8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6bc3894066dc8) -
+  Clean up the `platform_editor_toolbar_multi_editor_fix` experiment. The selection toolbar now
+  always scopes mouseups to its own editor, so it closes correctly when multiple editors are open.
+- Updated dependencies
+
 ## 27.0.16
 
 ### Patch Changes

@@ -14,6 +14,7 @@ import {
 import { css, cssMap, cx, jsx } from '@compiled/react';
 
 import type { UseMotionResult } from '@atlaskit/motion/entering/use-motion';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import Tag from '@atlaskit/tag/removable-tag';
 import type { NewTagColor } from '@atlaskit/tag/tag-new/types';
 import { token } from '@atlaskit/tokens';
@@ -147,6 +148,12 @@ const multiValueTagLikeStyles = cssMap({
 	},
 });
 
+const semanticMultiValueTagLikeStyles = cssMap({
+	root: {
+		height: 'auto',
+	},
+});
+
 const getMultiValueLabelText = (children: ReactNode, data: unknown): string => {
 	if (typeof children === 'string') {
 		return children;
@@ -257,6 +264,7 @@ const MultiValueContent: <Option, IsMulti extends boolean, Group extends GroupBa
 				data-multi-value-tag-like="true"
 				css={[
 					multiValueTagLikeStyles.root,
+					fg('platform-semantic-spacing') && semanticMultiValueTagLikeStyles.root,
 					tagLikeColorStyles.gray,
 					colorKey === 'blue' && tagLikeColorStyles.blue,
 					colorKey === 'green' && tagLikeColorStyles.green,

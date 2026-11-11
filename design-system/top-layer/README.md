@@ -226,3 +226,18 @@ See [`notes/`](notes/) for project documentation, architecture decisions, migrat
 audit reports. The [`notes/README.md`](notes/README.md) provides a full index, including **current
 migration status** and links to
 [`notes/decisions/migration-roadmap.md`](notes/decisions/migration-roadmap.md).
+
+## Legacy AUI top-layer interop
+
+Low-priority product bootstrap can import `installAuiTopLayerInterop` from
+`@atlaskit/top-layer/install-aui-top-layer-interop` and call it with the browser document. Call it
+only when the product's rollout gate is enabled. Popover and Dialog do not initialize it themselves.
+
+The utility skips AUI's Escape handler when its layer stack is empty, allowing modern layers to
+handle Escape. Open AUI layers retain their existing behavior. Missing or incompatible AUI APIs
+leave legacy behavior unchanged.
+
+Initialization is shared per document and lasts for the page lifetime. AUI can load later;
+installation retries on Escape while AUI is loading. Once its APIs are available, an unsupported
+handler is left unchanged without further retries. Disabling the rollout gate requires a page
+reload.

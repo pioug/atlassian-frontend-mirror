@@ -7,18 +7,24 @@ import { forwardRef, useRef } from 'react';
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Anchor } from '@atlaskit/primitives/compiled/anchor';
 import { token } from '@atlaskit/tokens';
 
 import Content from '../shared/content';
 import IconRenderer from '../shared/icon-renderer';
-import type { AdditionalDefaultLinkVariantProps, CommonLinkVariantProps } from '../types';
+import type {
+	AdditionalDefaultLinkVariantProps,
+	CommonAnchorProps,
+	CommonLinkVariantProps,
+} from '../types';
 import type { CommonDefaultButtonProps } from './types';
 
 export type LinkButtonProps<RouterLinkConfig extends Record<string, any> = never> =
 	CommonDefaultButtonProps &
 		CommonLinkVariantProps<RouterLinkConfig> &
-		AdditionalDefaultLinkVariantProps;
+		AdditionalDefaultLinkVariantProps &
+		CommonAnchorProps<RouterLinkConfig>;
 
 const styles = cssMap({
 	base: {
@@ -110,6 +116,30 @@ const styles = cssMap({
 	},
 	fullWidth: {
 		width: '100%',
+	},
+});
+
+const semanticStyles = cssMap({
+	base: {
+		height: 'auto',
+		columnGap: token('space.gap.xsmall'),
+		paddingBlock: token('space.inset.small'),
+		paddingInlineEnd: token('space.inset.large'),
+		paddingInlineStart: token('space.inset.large'),
+	},
+	spacingCompact: {
+		columnGap: token('space.gap.xsmall'),
+		paddingBlock: token('space.inset.xxsmall'),
+		paddingInlineEnd: token('space.inset.large'),
+		paddingInlineStart: token('space.inset.large'),
+	},
+	buttonIconBefore: {
+		paddingInlineStart: token('space.inset.large'),
+		columnGap: token('space.gap.small'),
+	},
+	buttonIconAfter: {
+		paddingInlineEnd: token('space.inset.large'),
+		columnGap: token('space.gap.small'),
 	},
 });
 
@@ -361,6 +391,7 @@ const LinkButtonBase = <RouterLinkConfig extends Record<string, any> = never>(
 		interactionName,
 		isDisabled,
 		isSelected,
+		newWindowLabel,
 		onClick,
 		onClickCapture,
 		onKeyDownCapture,
@@ -413,6 +444,7 @@ const LinkButtonBase = <RouterLinkConfig extends Record<string, any> = never>(
 			testId={testId}
 			componentName="LinkButton"
 			interactionName={interactionName}
+			newWindowLabel={newWindowLabel}
 			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 			{...saferRest}
 			xcss={cx(
@@ -435,6 +467,10 @@ const LinkButtonBase = <RouterLinkConfig extends Record<string, any> = never>(
 				hasIconBefore && styles.buttonIconBefore,
 				hasIconAfter && styles.buttonIconAfter,
 				shouldFitContainer && styles.fullWidth,
+				fg('platform-semantic-spacing') && semanticStyles.base,
+				fg('platform-semantic-spacing') && spacing === 'compact' && semanticStyles.spacingCompact,
+				fg('platform-semantic-spacing') && hasIconBefore && semanticStyles.buttonIconBefore,
+				fg('platform-semantic-spacing') && hasIconAfter && semanticStyles.buttonIconAfter,
 			)}
 		>
 			{iconBefore && (

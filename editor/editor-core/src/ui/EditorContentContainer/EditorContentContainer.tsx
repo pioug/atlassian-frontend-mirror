@@ -5295,6 +5295,18 @@ const editorContentStyles = cssMapScoped({
 			},
 		},
 	},
+	// Handles are siblings of the collapsed node, not its descendants. Hide them only when
+	// every direct content node is collapsed, preserving handles for visible or nested content.
+	pragmaticResizerStylesHiddenForCollapsedContent: {
+		'.fabric-editor-breakout-mark': {
+			'&:has(> .fabric-editor-breakout-mark-dom > [data-collapsible-heading-collapsed-content="true"]):not(:has(> .fabric-editor-breakout-mark-dom > :not([data-collapsible-heading-collapsed-content="true"])))':
+				{
+					'> .pm-breakout-resize-handle-container': {
+						display: 'none',
+					},
+				},
+		},
+	},
 	resizerStyles: {
 		'.resizer-item': {
 			willChange: 'width',
@@ -8803,6 +8815,8 @@ const EditorContentContainer: React.ForwardRefExoticComponent<
 				isExperimentEnabled('platform_editor_reduce_forced_layout') &&
 					!isExperimentEnabled('platform_editor_lovability_resize_extensions') &&
 					editorContentStyles.pragmaticResizerStylesHiddenForExtensions,
+				isExperimentEnabled('platform_editor_collapsible_headings') &&
+					editorContentStyles.pragmaticResizerStylesHiddenForCollapsedContent,
 				editorExperiment('advanced_layouts', true) &&
 					editorContentStyles.pragmaticStylesLayoutFirstNodeResizeHandleFix,
 				editorContentStyles.pragmaticResizerStylesForTooltip,

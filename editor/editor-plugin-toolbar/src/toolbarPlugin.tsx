@@ -13,10 +13,8 @@ import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-e
 import { getSelectionToolbarOpenExperiencePlugin } from './pm-plugins/experiences/selection-toolbar-open-experience';
 import { editorToolbarPluginKey } from './pm-plugins/plugin-key';
 import type { EditorToolbarPluginState, ToolbarPlugin } from './toolbarPluginType';
-import { DEFAULT_POPUP_SELECTORS } from './ui/consts';
 import { SelectionToolbarWithErrorBoundary } from './ui/SelectionToolbar';
 import { getToolbarComponents } from './ui/toolbar-components';
-import { isEventInContainer } from './ui/utils/toolbar';
 
 function getSelectedNode(editorState: EditorState): EditorToolbarPluginState['selectedNode'] {
 	const { selection } = editorState;
@@ -227,58 +225,30 @@ export const toolbarPlugin: ToolbarPlugin = ({
 										mouseState.isMouseDown = false;
 										const event = ev as MouseEvent;
 
-										if (isExperimentEnabled('platform_editor_toolbar_multi_editor_fix')) {
-											// Scope mouseups to this editor and its React-portaled toolbar.
-											const isMouseUpInOwnedToolbar = refs.toolbarMouseUpEvent === event;
-											const isMouseUpInEditor = event.composedPath().includes(view.dom);
-											refs.toolbarMouseUpEvent = undefined;
+										// Scope mouseups to this editor and its React-portaled toolbar.
+										const isMouseUpInOwnedToolbar = refs.toolbarMouseUpEvent === event;
+										const isMouseUpInEditor = event.composedPath().includes(view.dom);
+										refs.toolbarMouseUpEvent = undefined;
 
-											// Prevent outside clicks from reopening a blurred editor's toolbar.
-											const editorViewModePlugin = api?.editorViewMode?.sharedState.currentState();
-											const isViewModeEnabled = editorViewModePlugin?.mode === 'view';
-											// Include focus in nested editable islands.
-											const hasEditorFocus =
-												view.hasFocus() || view.dom.contains(view.root.activeElement);
-											const shouldShowToolbar = isViewModeEnabled
-												? isMouseUpInEditor || isMouseUpInOwnedToolbar
-												: hasEditorFocus || isMouseUpInOwnedToolbar;
-
-											const currentShouldShowToolbar =
-												api?.toolbar?.sharedState.currentState()?.shouldShowToolbar;
-											if (currentShouldShowToolbar !== shouldShowToolbar) {
-												view.dispatch(
-													view.state.tr.setMeta(editorToolbarPluginKey, {
-														shouldShowToolbar,
-													}),
-												);
-											}
-											return;
-										}
-
-										const isInToolbar = isEventInContainer(
-											event,
-											DEFAULT_POPUP_SELECTORS.toolbarContainer,
-										);
-										const isInPortal = isEventInContainer(event, DEFAULT_POPUP_SELECTORS.portal);
-
-										// We only want to set selectionStable to true if the editor has focus
-										// to prevent the toolbar from showing when the editor is blurred
-										// due to a click outside the editor.
+										// Prevent outside clicks from reopening a blurred editor's toolbar.
 										const editorViewModePlugin = api?.editorViewMode?.sharedState.currentState();
 										const isViewModeEnabled = editorViewModePlugin?.mode === 'view';
-										// Focus can sit inside a nested editable region ProseMirror does not own -
-										// such as a reference synced block's island - where `view.hasFocus()` is
-										// false but the user is still interacting with the editor.
+										// Include focus in nested editable islands.
 										const hasEditorFocus =
 											view.hasFocus() || view.dom.contains(view.root.activeElement);
+										const shouldShowToolbar = isViewModeEnabled
+											? isMouseUpInEditor || isMouseUpInOwnedToolbar
+											: hasEditorFocus || isMouseUpInOwnedToolbar;
 
-										view.dispatch(
-											view.state.tr.setMeta(editorToolbarPluginKey, {
-												shouldShowToolbar: !isViewModeEnabled
-													? hasEditorFocus || isInToolbar || isInPortal
-													: true,
-											}),
-										);
+										const currentShouldShowToolbar =
+											api?.toolbar?.sharedState.currentState()?.shouldShowToolbar;
+										if (currentShouldShowToolbar !== shouldShowToolbar) {
+											view.dispatch(
+												view.state.tr.setMeta(editorToolbarPluginKey, {
+													shouldShowToolbar,
+												}),
+											);
+										}
 									},
 								});
 

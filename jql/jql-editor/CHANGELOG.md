@@ -1,5 +1,26 @@
 # @atlaskit/jql-editor
 
+## 8.7.0
+
+### Minor Changes
+
+- [`9a53d3205129a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9a53d3205129a) -
+  Update i18n NPM package versions for jira-ai,jira,jsm,proforma,chroma,capacity-planning,jql
+  (Group 4)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.6.1
+
+### Patch Changes
+
+- [`8ec22639e394c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8ec22639e394c) -
+  Clean up the `a11y-oct-22nd-batch` experiment (shipped as enabled). The search button is no longer
+  wrapped in an `overflow: hidden` container, so its focus indicator is not clipped.
+- Updated dependencies
+
 ## 8.6.0
 
 ### Minor Changes

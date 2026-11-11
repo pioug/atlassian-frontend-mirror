@@ -6,6 +6,7 @@ import { type CSSProperties, type JSX, type LegacyRef, type ReactNode } from 're
 
 import { css, cx, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { getStyleProps } from '../get-style-props';
@@ -47,6 +48,11 @@ const menuListStyles = css({
 	WebkitOverflowScrolling: 'touch',
 });
 
+const semanticMenuListStyles = css({
+	paddingBlockEnd: token('space.inset.medium'),
+	paddingBlockStart: token('space.inset.medium'),
+});
+
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const MenuList: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: MenuListProps<Option, IsMulti, Group>,
@@ -60,7 +66,7 @@ export const MenuList: <Option, IsMulti extends boolean, Group extends GroupBase
 	});
 	return (
 		<div
-			css={menuListStyles}
+			css={[menuListStyles, fg('platform-semantic-spacing') && semanticMenuListStyles]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
 			className={cx(className as any, xcss, '-MenuList')}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop

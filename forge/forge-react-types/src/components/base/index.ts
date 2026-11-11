@@ -132,6 +132,12 @@ export type UserPickerProps = {
 	onChange?: (user: UserPickerValue) => void;
 	/** The placeholder helper text shown when no user is selected. */
 	placeholder?: string;
+	/**
+	 * Request a reset with null or a new empty array. User objects and account IDs are not accepted.
+	 * The picker owns subsequent selections. Set value back to undefined in onChange to rearm
+	 * the next reset, including repeated null requests. Updating value does not emit onChange.
+	 */
+	value?: null | [];
 };
 
 /**

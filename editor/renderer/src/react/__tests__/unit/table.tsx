@@ -255,13 +255,13 @@ describe('Tables inside nested renderers (e.g. Include Page macro)', () => {
 		expect(nestedTableContainer.style.getPropertyPriority('max-width')).not.toBe('important');
 	});
 
-	describe('with platform_nested_table_style_override_2', () => {
-		// A NON-resized table in a nested renderer takes a default layout cap
-		// (760px/1800px in `default`, or a `cqw` length in full-page/full-width)
-		// from the outer renderer's width context, which does not match the macro
-		// box. The gate-2 fix promotes width:100% for these. Explicitly resized
-		// tables (with attrs.width) are excluded and keep their author-chosen width
-		// (PGXT-10226).
+	// A NON-resized table in a nested renderer takes a default layout cap
+	// (760px/1800px in `default`, or a `cqw` length in full-page/full-width)
+	// from the outer renderer's width context, which does not match the macro
+	// box. The fix promotes width:100% for these. Explicitly resized
+	// tables (with attrs.width) are excluded and keep their author-chosen width
+	// (PGXT-10226).
+	describe('non-resized table style override', () => {
 		const tableNodeWithoutWidth = prosemirrorTableNode as any;
 
 		const NestedRendererTableNoWidth = () => (
@@ -307,8 +307,6 @@ describe('Tables inside nested renderers (e.g. Include Page macro)', () => {
 		);
 
 		it('promotes width:100% for a table in a nested renderer (no width attr)', () => {
-			passGate('platform_nested_table_style_override_2');
-
 			render(<NestedRendererTableNoWidth />);
 			const tableContainer = screen.getByTestId('table-container');
 			expect(tableContainer.style.getPropertyValue('width')).toBe('100%');
@@ -320,8 +318,6 @@ describe('Tables inside nested renderers (e.g. Include Page macro)', () => {
 		});
 
 		it('promotes width:100% for a fixed-pixel width in a default-appearance nested renderer (PGXT-10421 repro)', () => {
-			passGate('platform_nested_table_style_override_2');
-
 			render(<NestedRendererTableDefaultAppearance />);
 			const tableContainer = screen.getByTestId('table-container');
 			// Without the fix this container would carry a fixed px width (e.g.
@@ -331,12 +327,6 @@ describe('Tables inside nested renderers (e.g. Include Page macro)', () => {
 		});
 
 		it('preserves an explicitly resized table width (does NOT force 100%) so PGXT-10226 is not regressed', () => {
-			// Note: platform_nested_table_style_override_2 is intentionally NOT forced.
-			// For an explicitly resized table the gate-2 condition short-circuits on
-			// `!isExplicitlyResized` before the gate is read, so it is never called on
-			// this path (forcing it would fail the "unused forced gate" harness check).
-			// The resized width must be promoted verbatim regardless of gate-2.
-
 			// tableNodeWithWidth has attrs.width set (author-resized). The resized
 			// width/position must be promoted verbatim, not overwritten with 100%.
 			render(<NestedRendererTable />);
@@ -345,22 +335,7 @@ describe('Tables inside nested renderers (e.g. Include Page macro)', () => {
 			expect(tableContainer.style.getPropertyPriority('width')).toBe('important');
 		});
 
-		it('when gate-2 is OFF, a non-resized table keeps its computed width (not 100%)', () => {
-			failGate('platform_nested_table_style_override_2');
-
-			// Non-resized table so the gate-2 condition is evaluated (and here OFF),
-			// falling through to promoting the computed width.
-			render(<NestedRendererTableNoWidth />);
-			const tableContainer = screen.getByTestId('table-container');
-			expect(tableContainer.style.getPropertyValue('width')).not.toBe('100%');
-			expect(tableContainer.style.getPropertyPriority('width')).toBe('important');
-		});
-
 		it('still does not apply !important inside a table cell context (PGXT-10294)', () => {
-			// Note: platform_nested_table_style_override_2 is intentionally not forced
-			// here. The table-cell context short-circuits in applyNestedRendererTableFix
-			// before the gate-2 branch is reached, so the gate is never read on this path.
-
 			render(<NestedRendererTableInsideTableCell />);
 			const tableContainer = screen.getByTestId('table-container');
 			expect(tableContainer.style.getPropertyPriority('width')).not.toBe('important');

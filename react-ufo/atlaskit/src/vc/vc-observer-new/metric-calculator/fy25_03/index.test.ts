@@ -1,7 +1,6 @@
 // fy25_03/index.test.ts
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import { expVal } from '../../../expVal';
 import type { VCObserverEntry, ViewportEntryData, WindowEventEntryData } from '../../types';
 import {
 	DARK_READER_BROWSER_EXTENSION_ATTRIBUTES,
@@ -17,17 +16,13 @@ jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
 	fg: jest.fn(),
 }));
 
-jest.mock('../../../expVal');
-
 describe('VCCalculator_FY25_03', () => {
 	let calculator: VCCalculator_FY25_03;
 	const mockFg = fg as jest.Mock;
-	const mockExpVal = expVal as jest.Mock;
 
 	beforeEach(() => {
 		calculator = new VCCalculator_FY25_03();
 		mockFg.mockImplementation(() => false);
-		mockExpVal.mockImplementation(() => false);
 	});
 
 	afterEach(() => {
@@ -726,8 +721,6 @@ describe('VCCalculator_FY25_03', () => {
 			it('should exclude mutation:media entries with localid attribute when feature flag is enabled', () => {
 				mockFg.mockImplementation((flag) => flag === 'media-perf-uplift-mutation-fix');
 
-				mockExpVal.mockImplementation((flag) => flag === 'platform_editor_media_vc_fixes');
-
 				const entry: VCObserverEntry = {
 					time: 0,
 					data: {
@@ -740,25 +733,8 @@ describe('VCCalculator_FY25_03', () => {
 				};
 				expect(calculator['isEntryIncluded'](entry)).toBeFalsy();
 			});
-
-			it('should include mutation:media entries with localid attribute when feature flag is disabled', () => {
-				const entry: VCObserverEntry = {
-					time: 0,
-					data: {
-						type: 'mutation:media',
-						elementName: 'div',
-						rect: new DOMRect(),
-						visible: true,
-						attributeName: 'localid',
-					} as ViewportEntryData,
-				};
-				expect(calculator['isEntryIncluded'](entry)).toBeTruthy();
-			});
-
 			it('should exclude mutation:media entries with contenteditable attribute when feature flag is enabled', () => {
 				mockFg.mockImplementation((flag) => flag === 'media-perf-uplift-mutation-fix');
-
-				mockExpVal.mockImplementation((flag) => flag === 'platform_editor_media_vc_fixes');
 
 				const entry: VCObserverEntry = {
 					time: 0,
@@ -775,8 +751,6 @@ describe('VCCalculator_FY25_03', () => {
 
 			it('should exclude mutation:media entries with anchor-name attribute when feature flag is enabled', () => {
 				mockFg.mockImplementation((flag) => flag === 'media-perf-uplift-mutation-fix');
-
-				mockExpVal.mockImplementation((flag) => flag === 'platform_editor_media_vc_fixes');
 
 				const entry: VCObserverEntry = {
 					time: 0,

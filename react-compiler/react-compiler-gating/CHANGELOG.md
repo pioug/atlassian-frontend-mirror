@@ -1,5 +1,13 @@
 # @atlaskit/react-compiler-gating
 
+## 0.2.7
+
+### Patch Changes
+
+- [`8fe2d536e7f80`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8fe2d536e7f80) -
+  Cleanup `experiment` `confluence_cache_react_compiler_fg`. `isReactCompilerActivePlatform` now
+  always caches its result for the page load once Statsig has initialised.
+
 ## 0.2.6
 
 ### Patch Changes

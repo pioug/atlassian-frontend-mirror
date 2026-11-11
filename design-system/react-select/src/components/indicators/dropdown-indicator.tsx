@@ -26,6 +26,15 @@ const dropdownWrapperStyles = cssMap({
 	},
 });
 
+const semanticDropdownWrapperStyles = strictCssMap({
+	root: {
+		paddingBlockStart: token('space.inset.small'),
+		paddingInlineEnd: token('space.inset.small'),
+		paddingBlockEnd: token('space.inset.small'),
+		paddingInlineStart: token('space.inset.small'),
+	},
+});
+
 // Reset styles for the voice-control <Pressable> so the chevron renders
 // pixel-identical to the gate-off icon-in-a-div. Uses @atlaskit/css cssMap
 // (aliased as strictCssMap) because Pressable's xcss prop requires that type.
@@ -38,6 +47,15 @@ const voiceControlPressableStyles = strictCssMap({
 		backgroundColor: 'transparent',
 		display: 'flex',
 		alignItems: 'center',
+	},
+});
+
+const semanticVoiceControlPressableStyles = strictCssMap({
+	root: {
+		paddingBlock: 0,
+		paddingInline: 0,
+		marginBlock: 0,
+		marginInline: 0,
 	},
 });
 
@@ -102,6 +120,19 @@ const dropdownStyles = cssMap({
 	finesseDisabled: { color: token('color.icon.disabled') },
 });
 
+const semanticDropdownStyles = strictCssMap({
+	default: {
+		paddingBlockStart: token('space.inset.small'),
+		paddingInlineEnd: token('space.inset.xxsmall'),
+		paddingBlockEnd: token('space.inset.small'),
+		paddingInlineStart: token('space.inset.xxsmall'),
+	},
+	compact: {
+		paddingBlockStart: 0,
+		paddingBlockEnd: 0,
+	},
+});
+
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const DropdownIndicator: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: DropdownIndicatorProps<Option, IsMulti, Group>,
@@ -133,11 +164,20 @@ export const DropdownIndicator: <Option, IsMulti extends boolean, Group extends 
 			aria-label="toggle select menu"
 			isDisabled={isDisabled}
 			componentName="DropdownIndicatorVoiceControl"
-			xcss={voiceControlPressableStyles.root}
+			xcss={cx(
+				voiceControlPressableStyles.root,
+				fg('platform-semantic-spacing') && semanticVoiceControlPressableStyles.root,
+			)}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={voiceControlPressableSizeReset}
 		>
-			<Inline as="span" xcss={dropdownWrapperStyles.root}>
+			<Inline
+				as="span"
+				xcss={cx(
+					dropdownWrapperStyles.root,
+					fg('platform-semantic-spacing') && semanticDropdownWrapperStyles.root,
+				)}
+			>
 				<DownIcon color="currentColor" label="open" size="small" />
 			</Inline>
 		</Pressable>
@@ -151,6 +191,8 @@ export const DropdownIndicator: <Option, IsMulti extends boolean, Group extends 
 				isDisabled && dropdownStyles.disabled,
 				isDisabled && fg('platform-dst-tokens-finesse') && dropdownStyles.finesseDisabled,
 				isCompact && dropdownStyles.compact,
+				fg('platform-semantic-spacing') && semanticDropdownStyles.default,
+				fg('platform-semantic-spacing') && isCompact && semanticDropdownStyles.compact,
 			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={css as CSSProperties}
@@ -162,7 +204,13 @@ export const DropdownIndicator: <Option, IsMulti extends boolean, Group extends 
 			{isVoiceControlAccessible
 				? voiceControlAccessibleIndicator
 				: (children ?? (
-						<Inline as="span" xcss={dropdownWrapperStyles.root}>
+						<Inline
+							as="span"
+							xcss={cx(
+								dropdownWrapperStyles.root,
+								fg('platform-semantic-spacing') && semanticDropdownWrapperStyles.root,
+							)}
+						>
 							<DownIcon color="currentColor" label="open" size="small" />
 						</Inline>
 					))}

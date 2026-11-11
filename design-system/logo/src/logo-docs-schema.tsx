@@ -20,7 +20,7 @@ export const logoDocsSchema: LogoDocsSchema[] = [
 	{ name: 'confluence', type: 'migration', category: 'app' },
 	{ name: 'jira', type: 'migration', category: 'app' },
 	{ name: 'loom', type: 'migration', category: 'app' },
-	{ name: 'loom-blurple', type: 'new', category: 'app', skipExample: true },
+	{ name: 'loom-blurple', type: 'new', category: 'app', skipExample: true, deprecated: true },
 	{ name: 'loom-attribution', type: 'migration', category: 'app' },
 	{ name: 'jira-coding-agent', type: 'new', category: 'agent', skipLogo: true },
 	{ name: 'rovo', type: 'rovo-hex', category: 'app' },

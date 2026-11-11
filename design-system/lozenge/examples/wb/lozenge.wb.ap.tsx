@@ -9,6 +9,7 @@ import ContainersVrExample from '../6-containers.vr.ap';
 import NewLozengeVrExample from '../7-new-lozenge.vr.ap';
 import LozengeDropdownTriggerVrExample from '../8-lozenge-dropdown-trigger.vr.ap';
 import NewEntrypointExample from '../9-new-entrypoint';
+import ResizingExample from '../10-resizing';
 import TestingExample from '../99-testing';
 
 export const Basic: WorkbenchExample = wb(BasicVrExample);
@@ -21,3 +22,5 @@ export const NewLozengeVr: WorkbenchExample = wb(NewLozengeVrExample);
 export const LozengeDropdownTriggerVr: WorkbenchExample = wb(LozengeDropdownTriggerVrExample);
 export const NewEntrypoint: WorkbenchExample = wb(NewEntrypointExample);
 export const Testing: WorkbenchExample = wb(TestingExample);
+
+export const Resizing: WorkbenchExample = wb(ResizingExample);

@@ -230,6 +230,10 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 		VirtualItem<CategoryHeadingProps | EmojiRowProps | {}>[]
 	>([]);
 	const [lastYourUploadsRow, setLastYourUploadsRow] = useState(0);
+	// id of emoji that should regain focus after the delete preview is cancelled
+	const emojiToRestoreFocusRef = useRef<string | undefined>();
+	// whether delete has been confirmed, so closing the delete preview is not a cancel
+	const isDeletingEmojiRef = useRef(false);
 	const [activeAtlassianSubcategory, setActiveAtlassianSubcategory] = useState<string | null>(null);
 	const categoryTracker = useMemo(() => new CategoryTracker(), []);
 	const [categoriesChanged, setCategoriesChanged] = useState(false);
@@ -597,14 +601,37 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 	const handleOnCloseDelete = () => {
 		const list = listRef.current;
 		list?.updateFocusIndex(lastYourUploadsRow);
+		if (
+			fg('platform_ally_emoji_fixes_various') &&
+			emojiToDelete?.id &&
+			!isDeletingEmojiRef.current
+		) {
+			// delete was cancelled, restore focus to that emoji once the delete preview is closed
+			emojiToRestoreFocusRef.current = emojiToDelete.id;
+		}
+		isDeletingEmojiRef.current = false;
 		onCloseDelete();
 	};
 
-	const findEmojiRowAndColumnById = (emojiId: string) => {
+	const handleOnDeleteEmoji: OnDeleteEmoji = (emoji) => {
+		isDeletingEmojiRef.current = true;
+		return onDeleteEmoji(emoji).then((success) => {
+			if (!success) {
+				// deletion failed and the delete preview stays open, so a later cancel should still restore focus
+				isDeletingEmojiRef.current = false;
+			}
+			return success;
+		});
+	};
+
+	const findEmojiRowAndColumnById = (emojiId: string, deletableOnly = false) => {
 		let columnIndex = -1;
 		// for most of cases, it'd be in first emoji row, so should be quite fast to find in real world
 		let rowIndex = virtualItems.findIndex((rowItem) => {
 			if (rowItem instanceof EmojisRowItem) {
+				if (deletableOnly && !rowItem.props.showDelete) {
+					return false;
+				}
 				// find uploaded emoji in each emoji row
 				columnIndex = rowItem.props.emojis.findIndex((emoji) => emoji.id === emojiId);
 				return columnIndex !== -1;
@@ -688,6 +715,20 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 	}, [allEmojiGroups, buildVirtualItems]);
 
 	useEffect(() => {
+		const emojiId = emojiToRestoreFocusRef.current;
+		if (emojiToDelete || !emojiId || !fg('platform_ally_emoji_fixes_various')) {
+			return;
+		}
+		emojiToRestoreFocusRef.current = undefined;
+		// delete is only triggered from deletable emojis (i.e. "Your uploads"), so prefer those rows
+		const { rowIndex, columnIndex } = findEmojiRowAndColumnById(emojiId, true);
+		if (rowIndex !== -1) {
+			listRef.current?.focusEmojiPreservingScroll(rowIndex, columnIndex);
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [emojiToDelete]);
+
+	useEffect(() => {
 		if (categoriesChanged) {
 			onRowsRendered({ startIndex: 0 });
 			setCategoriesChanged(false);
@@ -727,7 +768,9 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 				onUploadCancelled={onUploadCancelled}
 				onUploadEmoji={onUploadEmoji}
 				onCloseDelete={handleOnCloseDelete}
-				onDeleteEmoji={onDeleteEmoji}
+				onDeleteEmoji={
+					fg('platform_ally_emoji_fixes_various') ? handleOnDeleteEmoji : onDeleteEmoji
+				}
 				onFileChooserClicked={onFileChooserClicked}
 				onOpenUpload={onOpenUpload}
 				onProductivityColorSelected={onProductivityColorSelected}

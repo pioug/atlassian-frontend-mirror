@@ -113,9 +113,7 @@ export const AgentProfileCardResourced = (
 					userCreator: userCreatorInfo
 						? {
 								name: userCreatorInfo.fullName ?? '',
-								profileLink: fg('platform-adopt-teams-nav-config')
-									? profileHref
-									: `/people/${currentCreatorUserId}`,
+								profileLink: profileHref,
 							}
 						: undefined,
 					forgeCreator: creator ?? undefined,

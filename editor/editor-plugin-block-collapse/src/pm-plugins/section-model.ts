@@ -1,10 +1,12 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { BlockCollapseSection } from '../blockCollapsePluginType';
 
 /**
- * Returns the top-level content owned by a heading. A section ends at the next heading whose level
- * is equal to or higher than the owning heading.
+ * Returns the top-level content owned by a heading if collapsible. A section ends at the next
+ * heading whose level is equal to or higher than the owning heading. Returns null if the heading
+ * is not found, is nested, or is empty and the experiment is not enabled.
  */
 export const getBlockCollapseSection = (
 	doc: PMNode,
@@ -26,7 +28,11 @@ export const getBlockCollapseSection = (
 		to += child.nodeSize;
 	}
 
-	return from < to ? { from, headingPos, to } : null;
+	if (from === to && !isExperimentEnabled('platform_editor_empty_section_toggle')) {
+		return null;
+	}
+
+	return { from, headingPos, to };
 };
 
 export const blockCollapseSectionContainsRange = (
@@ -36,5 +42,9 @@ export const blockCollapseSectionContainsRange = (
 	to: number,
 ): boolean => {
 	const section = getBlockCollapseSection(doc, headingPos);
-	return Boolean(section && from >= section.from && to <= section.to);
+	// Explicitly exclude empty sections (section.from === section.to) to prevent boundary expansion
+	if (!section || section.from === section.to) {
+		return false;
+	}
+	return from >= section.from && to <= section.to;
 };

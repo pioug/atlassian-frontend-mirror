@@ -3,7 +3,6 @@ import React, { type CSSProperties, useCallback } from 'react';
 import IconButton from '@atlaskit/button/icon/button';
 import LoadingButton from '@atlaskit/button/loading-button';
 import SearchIcon from '@atlaskit/icon/core/search';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box } from '@atlaskit/primitives/box';
@@ -18,19 +17,6 @@ const style: CSSProperties = {
 const iconStyle = xcss({
 	margin: 'space.050',
 	display: 'flex',
-});
-
-/**
- * Fixes an issue where loading button makes the editor flicker with a scrollbar.
- *
- * This clips the button's focus ring, which is painted outside the border box
- * (`outline-width: 2px` + `outline-offset: 2px`), leaving no visible focus indicator.
- * `IconButton` already contains its own loading spinner in an inset, `overflow: hidden`
- * overlay, so this container is redundant and is removed under the
- * `a11y-oct-22nd-batch` experiment. See A11Y-35618.
- */
-const buttonContainerStyle = xcss({
-	overflow: 'hidden',
 });
 
 type Props = {
@@ -69,12 +55,8 @@ export const BaseSearch = ({
 	);
 
 	return fg('platform-component-visual-refresh') ? (
-		// Rendering the button without the clipping container keeps its focus ring visible.
-		isExperimentEnabled('a11y-oct-22nd-batch') ? (
-			searchButton
-		) : (
-			<Box xcss={buttonContainerStyle}>{searchButton}</Box>
-		)
+		// Rendering the button without a clipping container keeps its focus ring visible.
+		searchButton
 	) : (
 		<>
 			<LoadingButton

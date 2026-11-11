@@ -3,14 +3,82 @@ import React from 'react';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import __noop from '@atlaskit/ds-lib/noop';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
-import { fireEvent, render } from '@atlassian/testing-library/testing-library/react';
+import { act, fireEvent, render } from '@atlassian/testing-library/testing-library/react';
 
 import Lozenge from '../../lozenge';
 import LozengeDropdownTrigger from '../../new/lozenge-dropdown-trigger';
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 describe('Lozenge', () => {
+	const originalObserver = global.ResizeObserver;
+	const originalAnimate = HTMLElement.prototype.animate;
+	const animate = jest.fn(function (this: HTMLElement) {
+		return { effect: { target: this }, cancel: jest.fn(), onfinish: null };
+	});
+	const observed = new Map<Element, ResizeObserverCallback>();
+	beforeEach(() => {
+		observed.clear();
+		animate.mockClear();
+		HTMLElement.prototype.animate = animate as unknown as typeof HTMLElement.prototype.animate;
+		global.ResizeObserver = jest.fn((callback) => ({
+			observe: (element: Element) => observed.set(element, callback),
+			unobserve: (element: Element) => observed.delete(element),
+			disconnect: () => observed.clear(),
+		})) as unknown as typeof ResizeObserver;
+		document.documentElement.style.setProperty('--ds-duration-medium', '200ms');
+	});
+	afterEach(() => {
+		global.ResizeObserver = originalObserver;
+		HTMLElement.prototype.animate = originalAnimate;
+		document.documentElement.style.removeProperty('--ds-duration-medium');
+		jest.restoreAllMocks();
+	});
+	function notifySize(width: number) {
+		const content = screen.getByTestId('status--content');
+		content.style.setProperty('--ds-duration-medium', '200ms');
+		act(() =>
+			observed.get(content)?.(
+				[
+					{
+						target: content,
+						borderBoxSize: [{ inlineSize: width, blockSize: 20 }],
+					} as unknown as ResizeObserverEntry,
+				],
+				{} as ResizeObserver,
+			),
+		);
+	}
+
+	it.each([Lozenge, LozengeDropdownTrigger])(
+		'does not synchronously measure unchanged renders or animation state updates',
+		(Component) => {
+			passGate('platform-dst-motion-uplift');
+			passGate('platform-dst-motion-observed-resizing');
+			const measure = jest.spyOn(HTMLElement.prototype, 'getBoundingClientRect');
+			const { rerender } = render(<Component testId="status">Ready</Component>);
+			notifySize(50);
+			rerender(
+				<Component testId="status" isSelected isLoading onClick={jest.fn()}>
+					Ready
+				</Component>,
+			);
+			rerender(
+				<Component testId="status" onClick={jest.fn()}>
+					Ready to merge
+				</Component>,
+			);
+			expect(screen.getByTestId('status--content')).toHaveStyle({ width: '' });
+			notifySize(120);
+			expect(animate).toHaveBeenCalledWith(
+				[expect.objectContaining({ width: '50px' }), expect.objectContaining({ width: '120px' })],
+				expect.any(Object),
+			);
+			expect(measure).not.toHaveBeenCalled();
+		},
+	);
+
 	it('@atlaskit/lozenge should have Compiled styles', () => {
 		render(<Lozenge testId="test">Hello</Lozenge>);
 

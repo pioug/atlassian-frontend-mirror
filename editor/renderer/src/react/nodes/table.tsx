@@ -25,7 +25,6 @@ import {
 	akEditorMaxWidthLayoutWidth,
 } from '@atlaskit/editor-shared-styles/constants';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
@@ -392,15 +391,12 @@ export class TableContainer extends React.Component<
 	 * element.style, because React may remove properties from the DOM when their
 	 * values transition to undefined between renders.
 	 *
-	 * `platform_nested_table_style_override_2` fixes a follow-up regression where a
-	 * NON-resized table inside an Excerpt macro (not Excerpt Include) on a
-	 * wide/full-width page shrinks to only show its first columns in the renderer.
-	 * Inside a nested renderer (a macro body) a non-resized table's computed width
-	 * is a default layout cap (760px/1800px, or a `cqw` length for full-page
-	 * appearances) taken from the outer renderer's width context. That value does
-	 * not match the macro's own box, so promoting it to inline `!important` makes
+	 * A NON-resized table inside a nested renderer (e.g. an Excerpt macro body)
+	 * takes a default layout cap (760px/1800px, or a `cqw` length for full-page
+	 * appearances) from the outer renderer's width context. That value does not
+	 * match the macro's own box, so promoting it to inline `!important` makes
 	 * the table collapse. Such tables have no author-chosen size to preserve, so
-	 * under this gate we re-assert the parent stylesheet's intent (fill the box:
+	 * we re-assert the parent stylesheet's intent (fill the box:
 	 * `width: 100%; left: 0`) with inline `!important`.
 	 *
 	 * Explicitly resized tables (`tableNode.attrs.width` set) are excluded and keep
@@ -424,7 +420,7 @@ export class TableContainer extends React.Component<
 		// derived from the outer renderer's appearance.
 		const isExplicitlyResized = Boolean(this.props.tableNode?.attrs.width);
 
-		if (!isExplicitlyResized && fg('platform_nested_table_style_override_2')) {
+		if (!isExplicitlyResized) {
 			// PGXT-10421: For a NON-resized table inside a nested renderer (e.g. an
 			// Excerpt macro body), the computed width is a default layout cap
 			// (760px/1800px, or a `cqw` length for full-page appearances) taken from

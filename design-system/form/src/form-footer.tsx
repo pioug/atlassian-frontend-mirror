@@ -5,6 +5,7 @@
 import { type ReactNode } from 'react';
 
 import { css, jsx } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { type Align } from './types';
@@ -25,6 +26,10 @@ const formFooterWrapperStyles = css({
 	marginBlockStart: token('space.300'),
 });
 
+const semanticFormFooterWrapperStyles = css({
+	marginBlockStart: token('space.gap.xxlarge'),
+});
+
 const justifyContentStyles = css({
 	justifyContent: 'flex-start',
 });
@@ -40,7 +45,13 @@ const justifyContentStyles = css({
  */
 export function FormFooter({ align = 'end', children }: FormFooterProps): JSX.Element {
 	return (
-		<footer css={[formFooterWrapperStyles, align === 'start' && justifyContentStyles]}>
+		<footer
+			css={[
+				formFooterWrapperStyles,
+				align === 'start' && justifyContentStyles,
+				fg('platform-semantic-spacing') && semanticFormFooterWrapperStyles,
+			]}
+		>
 			{children}
 		</footer>
 	);

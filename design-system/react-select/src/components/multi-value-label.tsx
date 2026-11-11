@@ -6,6 +6,7 @@ import type { JSX } from 'react';
 
 import { cssMap, cx, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import type { GroupBase, MultiValueGenericProps } from '../types';
@@ -25,6 +26,13 @@ const multiValueLabelStyles = cssMap({
 	},
 	ellipsis: {
 		textOverflow: 'ellipsis',
+	},
+});
+
+const semanticMultiValueLabelStyles = cssMap({
+	root: {
+		paddingInlineEnd: token('space.inset.xxsmall'),
+		paddingInlineStart: token('space.inset.xsmall'),
 	},
 });
 
@@ -54,6 +62,7 @@ export const MultiValueLabel: <Option, IsMulti extends boolean, Group extends Gr
 				multiValueLabelStyles.root,
 				isDisabled && multiValueLabelStyles.disabled,
 				hasEllipsis && multiValueLabelStyles.ellipsis,
+				fg('platform-semantic-spacing') && semanticMultiValueLabelStyles.root,
 			]}
 			{...innerProps}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss

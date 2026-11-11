@@ -63,6 +63,17 @@ const menuStyles = cssMap({
 	},
 });
 
+const semanticMenuStyles = cssMap({
+	root: {
+		marginBlockEnd: token('space.gap.medium'),
+		marginBlockStart: token('space.gap.medium'),
+	},
+	topLayer: {
+		marginBlockEnd: 0,
+		marginBlockStart: 0,
+	},
+});
+
 const Menu: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: MenuProps<Option, IsMulti, Group>,
 ) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
@@ -77,6 +88,10 @@ const Menu: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 				menuStyles.root,
 				// Only the legacy path needs placement insets; the top-layer host is already anchored.
 				fg('platform-dst-top-layer') ? menuStyles.topLayer : menuStyles[placement],
+				fg('platform-semantic-spacing') && semanticMenuStyles.root,
+				fg('platform-semantic-spacing') &&
+					fg('platform-dst-top-layer') &&
+					semanticMenuStyles.topLayer,
 			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
 			className={cx(xcss, className as any, '-menu')}

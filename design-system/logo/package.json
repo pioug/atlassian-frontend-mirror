@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/logo",
-	"version": "23.3.1",
+	"version": "23.3.2",
 	"description": "A logo is a visual representation of a brand or app. It can be a word, an image, or a combination of both.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -66,6 +66,7 @@
 		"@atlaskit/table": "workspace:^",
 		"@atlaskit/toggle": "workspace:^",
 		"@atlassian/codegen": "workspace:^",
+		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/ssr-tests": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",

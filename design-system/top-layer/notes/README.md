@@ -52,6 +52,8 @@ Technical design, reference guides, and deep-dives.
   `allow-discrete`, `isOpen` lifecycle), why animation stays on `Popover`, alternatives considered
 - **[focus.md](./architecture/focus.md)** — Focus wrapping, initial focus placement, focus
   restoration — all three focus concerns in one place
+- **[layer-show-order.md](./architecture/layer-show-order.md)**: Why a nested `Dialog` or `Popover`
+  that shows in the same commit as its parent waits for it, how the queue works, focus, and limits
 - **[test-ids.md](./architecture/test-ids.md)** — `testId` → `data-testid`: primitives, Popup /
   Tooltip suffixes
 - **[implementation-guide.md](./architecture/implementation-guide.md)** — Complete technical
@@ -101,6 +103,11 @@ Architectural decisions, design rationale, and decision logs.
 - **[outside-press-closes-every-layer.md](./decisions/outside-press-closes-every-layer.md)**:
   Decision: one outside press closes every open layer it is outside; Escape closes one layer per
   press. Who handles the press for each layer, with browser evidence
+- **[nested-layers-open-together-a11y.md](./decisions/nested-layers-open-together-a11y.md)**:
+  Decision: our position is do not design nested layers to open in the same commit. The API cannot
+  prevent it and React can show them again together (Suspense, Activity), so the show order is a
+  defensive fix for React's effect order. Per case: correct, accessible and good UX. The specs,
+  guides and sources
 - **[compiled.md](./decisions/compiled.md)** — Gap analysis for Compiled CSS-in-JS migration
   (animations, `@position-try`, `var()`, `calc()`)
 - **[width-from-anchor-floors.md](./decisions/width-from-anchor-floors.md)** — Decision: why an

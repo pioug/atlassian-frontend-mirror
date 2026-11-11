@@ -6,6 +6,7 @@ import { type CSSProperties, type JSX, type ReactNode } from 'react';
 
 import { cssMap, cx, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { getStyleProps } from '../get-style-props';
@@ -53,6 +54,15 @@ const styles = cssMap({
 	},
 });
 
+const semanticStyles = cssMap({
+	root: {
+		marginBlockStart: 0,
+		marginInlineEnd: token('space.gap.xxsmall'),
+		marginBlockEnd: 0,
+		marginInlineStart: token('space.gap.xxsmall'),
+	},
+});
+
 const SingleValue: <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: SingleValueProps<Option, IsMulti, Group>,
 ) => JSX.Element = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
@@ -65,7 +75,11 @@ const SingleValue: <Option, IsMulti extends boolean, Group extends GroupBase<Opt
 	});
 	return (
 		<div
-			css={[styles.root, isDisabled && styles.disalbed]}
+			css={[
+				styles.root,
+				isDisabled && styles.disalbed,
+				fg('platform-semantic-spacing') && semanticStyles.root,
+			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={css as CSSProperties}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss

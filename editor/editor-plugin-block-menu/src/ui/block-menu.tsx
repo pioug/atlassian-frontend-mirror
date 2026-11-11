@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useRef } from 'react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
-import { cssMap, cx } from '@atlaskit/css';
+import { cssMap } from '@atlaskit/css';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -30,10 +30,8 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingOverlapPanelZIndex } from '@atlaskit/editor-shared-styles/constants';
 import { ToolbarMenuContainer } from '@atlaskit/editor-toolbar/toolbar-menu-container';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { Box } from '@atlaskit/primitives/compiled/box';
 import { redo } from '@atlaskit/prosemirror-history/redo';
 import { undo } from '@atlaskit/prosemirror-history/undo';
-import { token } from '@atlaskit/tokens';
 
 import type { BlockMenuPlugin } from '../blockMenuPluginType';
 import { useBlockMenu } from './block-menu-provider';
@@ -41,31 +39,8 @@ import { BlockMenuRenderer } from './block-menu-renderer/BlockMenuRenderer';
 import { BlockMenuTargetVisibilityProvider } from './block-menu-target-visibility-context';
 
 const styles = cssMap({
-	base: {
-		backgroundColor: token('elevation.surface.overlay'),
-		boxShadow: token('elevation.shadow.overlay'),
-		borderRadius: token('radius.small'),
-	},
 	maxWidthStyles: {
 		maxWidth: '320px',
-	},
-	emptyMenuSectionStyles: {
-		/*
-		 * This is not great - but there is no way to know using React if a specific component returns null.
-		 * This style hides a menu-section if there are no menu items inside of it
-		 */
-		// @ts-expect-error - nested selectors are not typed in cssMap
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'[data-toolbar-component="menu-section"]:not(:has([data-toolbar-component="menu-item"]))': {
-			display: 'none',
-		},
-		/*
-		 * Hides the separator for any section that doesn't have any non-empty sections before it
-		 */
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'[data-toolbar-component="menu-section"]:not(:has([data-toolbar-component="menu-item"]) ~ *)': {
-			borderBlockStart: 'none',
-		},
 	},
 });
 
@@ -222,28 +197,8 @@ const BlockMenuContent = ({
 		return target.closest('[data-toolbar-nested-dropdown-menu]') !== null;
 	};
 
-	if (isExperimentEnabled('platform_editor_menu_radius_update')) {
-		return (
-			<ToolbarMenuContainer testId={BLOCK_MENU_TEST_ID} ref={ref} xcss={styles.maxWidthStyles}>
-				<ArrowKeyNavigationProvider
-					type={ArrowKeyNavigationType.MENU}
-					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-					handleClose={(e) => e.preventDefault()}
-					disableArrowKeyNavigation={shouldDisableArrowKeyNavigation}
-				>
-					<BlockMenuRenderer allRegisteredComponents={blockMenuComponents || []} />
-				</ArrowKeyNavigationProvider>
-			</ToolbarMenuContainer>
-		);
-	}
-
 	return (
-		<Box
-			testId={BLOCK_MENU_TEST_ID}
-			role="menu"
-			ref={ref}
-			xcss={cx(styles.base, styles.maxWidthStyles, styles.emptyMenuSectionStyles)}
-		>
+		<ToolbarMenuContainer testId={BLOCK_MENU_TEST_ID} ref={ref} xcss={styles.maxWidthStyles}>
 			<ArrowKeyNavigationProvider
 				type={ArrowKeyNavigationType.MENU}
 				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
@@ -252,7 +207,7 @@ const BlockMenuContent = ({
 			>
 				<BlockMenuRenderer allRegisteredComponents={blockMenuComponents || []} />
 			</ArrowKeyNavigationProvider>
-		</Box>
+		</ToolbarMenuContainer>
 	);
 };
 

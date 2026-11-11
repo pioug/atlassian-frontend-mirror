@@ -84,7 +84,7 @@ export const AgentProfileCardTrigger: React.ForwardRefExoticComponent<
 					return {
 						type: 'CUSTOMER' as const,
 						name: creatorInfo.fullName,
-						profileLink: fg('platform-adopt-teams-nav-config') ? profileHref : `/people/${userId}`,
+						profileLink: profileHref,
 						id: userId,
 					};
 				} catch {

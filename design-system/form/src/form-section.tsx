@@ -6,6 +6,7 @@ import { type ReactNode } from 'react';
 
 import { css, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 interface FormSectionProps {
@@ -27,16 +28,42 @@ const formSectionDescriptionStyles = css({
 	marginBlockStart: token('space.100'),
 });
 
+const semanticFormSectionDescriptionStyles = css({
+	marginBlockStart: token('space.gap.medium'),
+});
+
 const formSectionWrapperStyles = css({
 	marginBlockStart: token('space.300'),
 });
 
+const semanticFormSectionWrapperStyles = css({
+	marginBlockStart: token('space.gap.xxlarge'),
+});
+
 const FormSectionWrapper = ({ children }: { children?: ReactNode }) => {
-	return <div css={formSectionWrapperStyles}>{children}</div>;
+	return (
+		<div
+			css={[
+				formSectionWrapperStyles,
+				fg('platform-semantic-spacing') && semanticFormSectionWrapperStyles,
+			]}
+		>
+			{children}
+		</div>
+	);
 };
 
 const FormSectionDescription = ({ children }: { children: ReactNode }) => {
-	return <div css={formSectionDescriptionStyles}>{children}</div>;
+	return (
+		<div
+			css={[
+				formSectionDescriptionStyles,
+				fg('platform-semantic-spacing') && semanticFormSectionDescriptionStyles,
+			]}
+		>
+			{children}
+		</div>
+	);
 };
 
 /**

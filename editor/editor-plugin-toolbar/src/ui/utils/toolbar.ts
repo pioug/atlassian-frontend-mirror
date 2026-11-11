@@ -1,13 +1,3 @@
-export const isEventInContainer = (event: Event, containerSelector: string): boolean => {
-	const target = event.target instanceof Element ? event.target : null;
-
-	if (!target) {
-		return false;
-	}
-
-	return !!target.closest(containerSelector);
-};
-
 export const isShortcutToFocusToolbar = (event: KeyboardEvent): boolean => {
 	return event.altKey && event.key === 'F10';
 };

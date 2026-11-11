@@ -27,7 +27,6 @@ import { ToolbarButtonGroup } from '@atlaskit/editor-toolbar/toolbar-button-grou
 import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar/toolbar-dropdown-item-section';
 import { ToolbarSection } from '@atlaskit/editor-toolbar/toolbar-section';
 import { useToolbarUI } from '@atlaskit/editor-toolbar/ui-context';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { ToolbarPlugin } from '../../toolbarPluginType';
@@ -203,11 +202,7 @@ export const SelectionToolbar = ({
 			mountTo={mountPoint}
 			zIndex={akEditorFloatingDialogZIndex}
 		>
-			{isExperimentEnabled('platform_editor_toolbar_multi_editor_fix') ? (
-				<div onMouseUpCapture={onToolbarMouseUp}>{toolbarContent}</div>
-			) : (
-				toolbarContent
-			)}
+			<div onMouseUpCapture={onToolbarMouseUp}>{toolbarContent}</div>
 		</Popup>
 	);
 };

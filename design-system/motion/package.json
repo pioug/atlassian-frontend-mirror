@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/motion",
-	"version": "10.0.0",
+	"version": "10.0.1",
 	"description": "A set of utilities to apply motion in your application.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -179,6 +179,7 @@
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
 		"@atlassian/workbench": "workspace:*",
+		"@testing-library/react": "root:*",
 		"raf-stub": "root:*",
 		"react": "^19.0.0",
 		"react-dom": "^19.2.0"

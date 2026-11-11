@@ -220,6 +220,40 @@ const styles = cssMap({
 	},
 });
 
+const semanticStyles = cssMap({
+	base: {
+		columnGap: token('space.gap.xsmall'),
+		paddingBlock: token('space.inset.small'),
+		paddingInlineEnd: token('space.inset.large'),
+		paddingInlineStart: token('space.inset.large'),
+	},
+	spacingCompact: {
+		columnGap: token('space.gap.xsmall'),
+		paddingBlock: token('space.inset.xxsmall'),
+		paddingInlineEnd: token('space.inset.large'),
+		paddingInlineStart: token('space.inset.large'),
+	},
+	contentSized: {
+		height: 'auto',
+	},
+	iconButton: {
+		paddingInlineEnd: token('space.0'),
+		paddingInlineStart: token('space.0'),
+	},
+	buttonIconBefore: {
+		paddingInlineStart: token('space.inset.large'),
+		columnGap: token('space.gap.small'),
+	},
+	buttonIconAfter: {
+		paddingInlineEnd: token('space.inset.large'),
+		columnGap: token('space.gap.small'),
+	},
+	navigationSplitButton: {
+		paddingInlineEnd: token('space.inset.small'),
+		paddingInlineStart: token('space.inset.small'),
+	},
+});
+
 const defaultStyles = cssMap({
 	root: {
 		backgroundColor: token('color.background.neutral.subtle'),
@@ -742,6 +776,18 @@ const ButtonBase: React.ForwardRefExoticComponent<
 					isLoading && styles.loading,
 					isSplitButton && styles.splitButton,
 					isNavigationSplitButton && styles.navigationSplitButton,
+					fg('platform-semantic-spacing') && semanticStyles.base,
+					fg('platform-semantic-spacing') && spacing === 'compact' && semanticStyles.spacingCompact,
+					fg('platform-semantic-spacing') &&
+						!isIconButton &&
+						!isNavigationSplitButton &&
+						semanticStyles.contentSized,
+					fg('platform-semantic-spacing') && hasIconBefore && semanticStyles.buttonIconBefore,
+					fg('platform-semantic-spacing') && hasIconAfter && semanticStyles.buttonIconAfter,
+					fg('platform-semantic-spacing') && isIconButton && semanticStyles.iconButton,
+					fg('platform-semantic-spacing') &&
+						isNavigationSplitButton &&
+						semanticStyles.navigationSplitButton,
 					rootXcss,
 				)}
 				isDisabled={isDisabled}

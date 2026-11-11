@@ -1,7 +1,7 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 
-import { handleArrowKey } from './keyboard-navigation';
+import { expandHeadingOnEnter, handleArrowKey } from './keyboard-navigation';
 import { blockCollapsePluginKey } from './plugin-key';
 import { createInitialPluginState, updatePluginState } from './plugin-state';
 import type { BlockCollapseAction, BlockCollapsePluginState } from './types';
@@ -27,6 +27,10 @@ export const createPlugin = (): SafePlugin<BlockCollapsePluginState> =>
 		},
 		props: {
 			decorations: (state) => blockCollapsePluginKey.getState(state)?.decorations,
+			// Expand before keymaps split the heading, without consuming Enter.
+			handleDOMEvents: {
+				keydown: expandHeadingOnEnter,
+			},
 			handleKeyDown: handleArrowKey,
 		},
 	});

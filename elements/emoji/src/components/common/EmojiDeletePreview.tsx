@@ -16,6 +16,7 @@ import {
 
 import AkButton from '@atlaskit/button/default/button';
 import Heading from '@atlaskit/heading/heading';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
@@ -45,6 +46,12 @@ const deleteTextSection = css({
 	gap: token('space.050'),
 	alignItems: 'flex-start',
 	textAlign: 'left',
+});
+
+const deleteDescriptionText = css({
+	width: '100%',
+	minWidth: 0,
+	overflowWrap: 'anywhere',
 });
 
 const emojiPreviewLargeBox = css({
@@ -141,20 +148,34 @@ class EmojiDeletePreview extends Component<Props & WrappedComponentProps, State>
 		const { formatMessage } = intl;
 
 		return (
-			<FocusLock noFocusGuards>
+			<FocusLock
+				noFocusGuards
+				focusOptions={fg('platform_ally_emoji_fixes_various') ? { preventScroll: true } : undefined}
+			>
 				<div css={deletePreviewNew} data-testid={emojiDeletePreviewTestId}>
 					<div css={deleteTextSection}>
 						<Box paddingBlockEnd="space.100">
-							<Heading size="small">
+							<Heading size="small" as={fg('platform_ally_emoji_fixes_various') ? 'h2' : undefined}>
 								<FormattedMessage {...messages.deleteEmojiTitle} />
 							</Heading>
 						</Box>
-						<Text color="color.text.subtle" size="small">
-							<FormattedMessage
-								{...messages.deleteEmojiDescription}
-								values={{ emojiShortName: emoji.shortName }}
-							/>
-						</Text>
+						{fg('platform_ally_emoji_fixes_various') ? (
+							<div css={deleteDescriptionText}>
+								<Text color="color.text.subtle" size="small" maxLines={2}>
+									<FormattedMessage
+										{...messages.deleteEmojiDescription}
+										values={{ emojiShortName: emoji.shortName }}
+									/>
+								</Text>
+							</div>
+						) : (
+							<Text color="color.text.subtle" size="small">
+								<FormattedMessage
+									{...messages.deleteEmojiDescription}
+									values={{ emojiShortName: emoji.shortName }}
+								/>
+							</Text>
+						)}
 					</div>
 					<div css={emojiPreviewLargeBox}>
 						<CachingEmoji emoji={emoji} />

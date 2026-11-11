@@ -1,5 +1,29 @@
 # @atlaskit/ads-mcp
 
+## 1.12.9
+
+### Patch Changes
+
+- [`4e212cc6ced0a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4e212cc6ced0a) -
+  Regenerate agent card wrapper slot metadata and usage guidance.
+
+## 1.12.8
+
+### Patch Changes
+
+- [`1006ca3fec526`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1006ca3fec526) -
+  Clarify border verification for selection and keyboard focus states, including consumer and host
+  style overrides.
+
+  Route drop-destination indicators to the Pragmatic drag and drop guidance.
+
+## 1.12.7
+
+### Patch Changes
+
+- [`3ea48dcdced62`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3ea48dcdced62) -
+  Refresh generated structured-content catalogs from AFM master.
+
 ## 1.12.6
 
 ### Patch Changes

@@ -1,7 +1,6 @@
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { VCAbortReason } from '../../../../common/vc/types';
-import { expVal } from '../../../expVal';
 import { containsAnchorNameMutationInStyle } from '../../../vc-observer/observers/non-visual-styles/is-anchor-name-style-mutation';
 import type {
 	VCObserverEntry,
@@ -85,25 +84,22 @@ export default class VCCalculator_FY25_03 extends AbstractVCCalculatorBase {
 				(/data-(test|file|context)-\S+/g.test(attributeName) ||
 					attributeName === 'data-cursor' ||
 					attributeName === 'alt' ||
-					((attributeName === 'localid' ||
-						attributeName === 'contenteditable' ||
-						attributeName === 'anchor-name') &&
-						expVal('platform_editor_media_vc_fixes', 'isEnabled', false)))
+					attributeName === 'localid' ||
+					attributeName === 'contenteditable' ||
+					attributeName === 'anchor-name')
 			) {
 				return false;
 			}
 
 			// special case for style attribute to ignore only anchor-name changes
-			if (expVal('platform_editor_media_vc_fixes', 'isEnabled', false)) {
-				if (
-					containsAnchorNameMutationInStyle({
-						attributeName: entryData.attributeName,
-						oldValue: entryData.oldValue,
-						newValue: entryData.newValue,
-					})
-				) {
-					return false;
-				}
+			if (
+				containsAnchorNameMutationInStyle({
+					attributeName: entryData.attributeName,
+					oldValue: entryData.oldValue,
+					newValue: entryData.newValue,
+				})
+			) {
+				return false;
 			}
 		}
 

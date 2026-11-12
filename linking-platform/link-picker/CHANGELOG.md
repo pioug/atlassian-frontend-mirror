@@ -1,5 +1,13 @@
 # @atlaskit/link-picker
 
+## 6.20.1
+
+### Patch Changes
+
+- [`1eee38ad6d4e9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1eee38ad6d4e9) -
+  Remove the `platform_navx_fix_nested_footer_landmark` feature gate and always render link picker
+  form actions in a `div` to avoid nested footer landmarks.
+
 ## 6.20.0
 
 ### Minor Changes

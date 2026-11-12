@@ -352,6 +352,9 @@ export interface AgentProfileCardTriggerProps extends AgentActionsType {
 
 export type AgentProfileCardProps = {
 	resourceClient: ProfileClient;
+	/** Render an informational preview without built-in controls or links. Custom footer content must also be non-interactive. */
+	isReadOnly?: boolean;
+
 	agent?: RovoAgentProfileCardInfo;
 	isLoading?: boolean;
 	hasError?: boolean;

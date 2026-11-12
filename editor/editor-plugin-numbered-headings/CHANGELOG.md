@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-numbered-headings
 
+## 4.1.2
+
+### Patch Changes
+
+- [`a398471720bf7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a398471720bf7) -
+  Render heading numbers in editor SSR HTML, so headings don't shift when the client editor loads.
+  Applies only when the numbering setting is on.
+- Updated dependencies
+
 ## 4.1.1
 
 ### Patch Changes

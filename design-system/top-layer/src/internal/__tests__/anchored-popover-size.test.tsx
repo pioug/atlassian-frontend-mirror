@@ -87,8 +87,23 @@ function marginsFor({
 }
 
 /**
- * The 150px constant, clamped so the roomier cell beside the anchor can always
- * hold its margin box (`floor + gap + padding`).
+ * The viewport clamp: the most a floor can be while the roomier cell beside the
+ * anchor still holds its margin box (`floor + gap + padding`). The content-sized
+ * floor is capped at this alone.
+ */
+function flipFloorLimit({
+	axis,
+	gap = 'var(--ds-space-100, 8px)',
+}: {
+	axis: 'block' | 'inline';
+	gap?: string;
+}): string {
+	const unit = axis === 'block' ? 'dvh' : 'dvw';
+	return `max(0px, calc((100${unit} - anchor-size(self-${axis})) / 2 - ${gap} - 5px))`;
+}
+
+/**
+ * The 150px constant, clamped: the fixed floor for engines without `calc-size()`.
  */
 function clampedDefaultFloor({
 	axis,
@@ -97,8 +112,37 @@ function clampedDefaultFloor({
 	axis: 'block' | 'inline';
 	gap?: string;
 }): string {
-	const unit = axis === 'block' ? 'dvh' : 'dvw';
-	return `min(150px, max(0px, calc((100${unit} - anchor-size(self-${axis})) / 2 - ${gap} - 5px)))`;
+	return `min(150px, ${flipFloorLimit({ axis, gap })})`;
+}
+
+/**
+ * The `min-{axis}-size` the DEFAULT floor is written as. It reads the
+ * content-sized floor that `Popover`'s `@supports` rule defines, and falls back
+ * to the plain floor in `--ds-popover-flip-floor`. Literal, not imported, so a
+ * rename on one side fails here.
+ */
+const DEFAULT_FLOOR_SWITCH =
+	'var(--ds-popover-content-sized-flip-floor, var(--ds-popover-flip-floor))';
+
+/**
+ * Asserts that the placement axis takes the DEFAULT floor, with `floor` as the
+ * value where `calc-size()` is not supported and `limit` as the most the
+ * content-sized floor can be where it is.
+ */
+function expectDefaultFloor({
+	declarations,
+	axis,
+	floor,
+	limit,
+}: {
+	declarations: { [property: string]: string };
+	axis: 'block' | 'inline';
+	floor: string;
+	limit: string;
+}) {
+	expect(declarations[`min-${axis}-size`]).toBe(DEFAULT_FLOOR_SWITCH);
+	expect(declarations['--ds-popover-flip-floor']).toBe(floor);
+	expect(declarations['--ds-popover-flip-floor-limit']).toBe(limit);
 }
 
 describe('the unconditional viewport backstop', () => {
@@ -136,9 +180,14 @@ describe('the unconditional viewport backstop', () => {
 			writingMode: 'vertical',
 		});
 
-		expect(declarations['min-block-size']).toBe(
-			'min(150px, max(0px, calc((100dvw - anchor-size(self-block)) / 2 - var(--ds-space-100, 8px) - 5px)))',
-		);
+		expectDefaultFloor({
+			declarations,
+			axis: 'block',
+			floor:
+				'min(150px, max(0px, calc((100dvw - anchor-size(self-block)) / 2 - var(--ds-space-100, 8px) - 5px)))',
+			limit:
+				'max(0px, calc((100dvw - anchor-size(self-block)) / 2 - var(--ds-space-100, 8px) - 5px))',
+		});
 	});
 
 	it('still caps the axis carrying an exact anchor size, which is the bug it fixes', () => {
@@ -238,7 +287,7 @@ describe('Rule 1: the mirror fills an unset axis, and never overrides an explici
 		});
 
 		expect(declarations['max-inline-size']).toBe('calc(100% - 5px - var(--ds-space-100, 8px))');
-		expect(declarations['min-inline-size']).toBe('150px');
+		expectDefaultFloor({ declarations, axis: 'inline', floor: '150px', limit: '150px' });
 	});
 
 	it('never overrides an axis that was answered explicitly', () => {
@@ -265,21 +314,27 @@ describe('Rule 2: the flip floor on the placement axis', () => {
 		// A cap alone suppresses `position-try-fallbacks`: overflow detection reads
 		// the margin box AFTER the clamp, so the floor is what makes the overflow
 		// real. Both placements, since the units and keywords are per-axis.
-		expect(
-			sizesFor({
+		expectDefaultFloor({
+			declarations: sizesFor({
 				placement: { axis: 'block', edge: 'end' },
 				blockSize: 'max-available',
 				anchorSize: ANCHOR,
 			}),
-		).toHaveProperty('min-block-size', clampedDefaultFloor({ axis: 'block' }));
+			axis: 'block',
+			floor: clampedDefaultFloor({ axis: 'block' }),
+			limit: flipFloorLimit({ axis: 'block' }),
+		});
 
-		expect(
-			sizesFor({
+		expectDefaultFloor({
+			declarations: sizesFor({
 				placement: { axis: 'inline', edge: 'end' },
 				inlineSize: 'max-available',
 				anchorSize: ANCHOR,
 			}),
-		).toHaveProperty('min-inline-size', clampedDefaultFloor({ axis: 'inline' }));
+			axis: 'inline',
+			floor: clampedDefaultFloor({ axis: 'inline' }),
+			limit: flipFloorLimit({ axis: 'inline' }),
+		});
 	});
 
 	it('clamps the default floor so the roomier cell can always hold its margin box', () => {
@@ -295,19 +350,84 @@ describe('Rule 2: the flip floor on the placement axis', () => {
 			anchorSize: ANCHOR,
 		});
 
-		expect(declarations['min-block-size']).toBe(
-			'min(150px, max(0px, calc((100dvh - anchor-size(self-block)) / 2 - 20px - 5px)))',
-		);
+		expectDefaultFloor({
+			declarations,
+			axis: 'block',
+			floor: 'min(150px, max(0px, calc((100dvh - anchor-size(self-block)) / 2 - 20px - 5px)))',
+			limit: 'max(0px, calc((100dvh - anchor-size(self-block)) / 2 - 20px - 5px))',
+		});
 		// The cell cap, for contrast: the floor is NOT clamped against this.
 		expect(declarations['max-block-size']).toBe('calc(100% - 5px - 20px)');
+	});
+
+	it('clamps with a measured anchor length on an engine with positioning but no anchor-size()', () => {
+		// The hook measures the anchor there. The plain floor carries the pixel
+		// length, and the switch around it is the same.
+		expectDefaultFloor({
+			declarations: sizesFor({
+				placement: { axis: 'block', edge: 'end' },
+				blockSize: 'max-available',
+				anchorSize: { inline: '240px', block: '40px' },
+			}),
+			axis: 'block',
+			floor: 'min(150px, max(0px, calc((100dvh - 40px) / 2 - var(--ds-space-100, 8px) - 5px)))',
+			limit: 'max(0px, calc((100dvh - 40px) / 2 - var(--ds-space-100, 8px) - 5px))',
+		});
 	});
 
 	it('falls back to the raw 150px when the anchor size is unknown', () => {
 		// A safety net rather than a live branch: the hook always supplies the anchor
 		// size while fitting on the CSS path.
-		expect(
-			sizesFor({ placement: { axis: 'block', edge: 'end' }, blockSize: 'max-available' }),
-		).toHaveProperty('min-block-size', '150px');
+		expectDefaultFloor({
+			declarations: sizesFor({
+				placement: { axis: 'block', edge: 'end' },
+				blockSize: 'max-available',
+			}),
+			axis: 'block',
+			floor: '150px',
+			limit: '150px',
+		});
+	});
+
+	it('leaves the plain floor where calc-size() is not supported, exactly as before', () => {
+		// `--ds-popover-flip-floor` is the whole floor wherever `Popover`'s `@supports`
+		// rule does not apply (Safari, and Firefox with anchor positioning), because
+		// `--ds-popover-content-sized-flip-floor` is then undefined and the `var()`
+		// falls back. So its value must be the floor this recipe wrote before
+		// `calc-size()`, unchanged.
+		const declarations = sizesFor({
+			placement: { axis: 'block', edge: 'end' },
+			blockSize: 'max-available',
+			anchorSize: ANCHOR,
+		});
+
+		expect(declarations['--ds-popover-flip-floor']).toBe(
+			'min(150px, max(0px, calc((100dvh - anchor-size(self-block)) / 2 - var(--ds-space-100, 8px) - 5px)))',
+		);
+		// The fallback is the LAST argument of the outer `var()`, so an undefined
+		// content-sized floor resolves to exactly that value.
+		expect(declarations['min-block-size']).toBe(
+			'var(--ds-popover-content-sized-flip-floor, var(--ds-popover-flip-floor))',
+		);
+	});
+
+	it('writes the default floor only once, as the switch, so the stylesheet can pick its form', () => {
+		// On the raw declarations, because `sizesFor` would let a second
+		// `min-block-size` collapse into the first.
+		const floors = getAnchoredPopoverSizeDeclarations({
+			placement: resolvePlacement({ placement: { axis: 'block', edge: 'end' } }),
+			inlineSize: 'content',
+			blockSize: 'max-available',
+			isUsingCssAnchorPositioning: true,
+			anchorSize: ANCHOR,
+			writingMode: 'horizontal',
+		}).filter(({ property }) => property.startsWith('min-') || property.startsWith('--'));
+
+		expect(floors).toEqual([
+			{ property: '--ds-popover-flip-floor', value: clampedDefaultFloor({ axis: 'block' }) },
+			{ property: '--ds-popover-flip-floor-limit', value: flipFloorLimit({ axis: 'block' }) },
+			{ property: 'min-block-size', value: DEFAULT_FLOOR_SWITCH },
+		]);
 	});
 
 	it('goes on the placement axis only, never on the cross axis', () => {
@@ -333,6 +453,10 @@ describe('Rule 2: the flip floor on the placement axis', () => {
 		});
 
 		expect(declarations['min-block-size']).toBe('40px');
+		// An explicit floor is a consumer request, so it never takes the
+		// content-sized form.
+		expect(declarations).not.toHaveProperty('--ds-popover-flip-floor');
+		expect(declarations).not.toHaveProperty('--ds-popover-flip-floor-limit');
 	});
 
 	it('honours minSize: 0 as the "cap me but do not move me" escape hatch', () => {
@@ -344,6 +468,8 @@ describe('Rule 2: the flip floor on the placement axis', () => {
 		});
 
 		expect(declarations['min-block-size']).toBe('0px');
+		expect(declarations).not.toHaveProperty('--ds-popover-flip-floor');
+		expect(declarations).not.toHaveProperty('--ds-popover-flip-floor-limit');
 	});
 
 	it('applies an explicit minSize even when nothing is fitting', () => {
@@ -511,7 +637,12 @@ describe('anchor-relative sizing', () => {
 			'min(anchor-size(self-inline), calc(100dvw - 2 * 5px))',
 		);
 		// And the placement axis is floored by the clamped default, not the anchor.
-		expect(declarations['min-block-size']).toBe(clampedDefaultFloor({ axis: 'block' }));
+		expectDefaultFloor({
+			declarations,
+			axis: 'block',
+			floor: clampedDefaultFloor({ axis: 'block' }),
+			limit: flipFloorLimit({ axis: 'block' }),
+		});
 	});
 
 	it("CLAMPS an UNFITTED 'min-anchor' floor on the placement axis to the cap", () => {
@@ -579,6 +710,8 @@ describe('anchor-relative sizing', () => {
 		});
 
 		expect(declarations['min-inline-size']).toBe('anchor-size(self-inline)');
+		// A size contract, so it never takes the content-sized form either.
+		expect(declarations).not.toHaveProperty('--ds-popover-flip-floor');
 		// Inline was answered explicitly, so it keeps the viewport backstop. Neither
 		// axis gets a cell cap: only the placement axis can, and the axis that asked
 		// to fit is the cross one.
@@ -613,7 +746,7 @@ describe('anchor-relative sizing', () => {
 			anchorSize: NO_ANCHOR,
 		});
 
-		expect(declarations['min-inline-size']).toBe('150px');
+		expectDefaultFloor({ declarations, axis: 'inline', floor: '150px', limit: '150px' });
 	});
 
 	it('COMPOSES an explicit minSize with the anchor floor, rather than replacing it', () => {
@@ -765,14 +898,30 @@ describe('the JavaScript fallback path', () => {
 		expect(declarations['block-size']).toBe('40px');
 	});
 
+	it('writes neither form of the default floor, so calc-size() support changes nothing here', () => {
+		// The content-sized floor is only a form of the CSS path's flip floor. This
+		// path has no flip floor, with or without `calc-size()`, and a measured anchor
+		// does not bring one back.
+		const declarations = sizesFor({
+			placement: { axis: 'block', edge: 'end' },
+			blockSize: 'max-available',
+			isUsingCssAnchorPositioning: false,
+			anchorSize: { inline: '240px', block: '40px' },
+		});
+
+		expect(declarations).not.toHaveProperty('min-block-size');
+		expect(declarations).not.toHaveProperty('--ds-popover-flip-floor');
+	});
+
 	it('still honours an explicit minSize, which is a consumer request and not a flip driver', () => {
-		expect(
-			sizesFor({
-				placement: { axis: 'block', edge: 'end', minSize: 200 },
-				blockSize: 'max-available',
-				isUsingCssAnchorPositioning: false,
-			}),
-		).toHaveProperty('min-block-size', '200px');
+		const declarations = sizesFor({
+			placement: { axis: 'block', edge: 'end', minSize: 200 },
+			blockSize: 'max-available',
+			isUsingCssAnchorPositioning: false,
+		});
+
+		expect(declarations['min-block-size']).toBe('200px');
+		expect(declarations).not.toHaveProperty('--ds-popover-flip-floor');
 	});
 
 	it('clamps a FITTING anchor floor here, because there is no flip for it to drive', () => {

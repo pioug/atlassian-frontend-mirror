@@ -1,3 +1,4 @@
+import { isSSR } from '@atlaskit/editor-common/is-ssr';
 import {
 	getHeadingNumbers,
 	HEADING_NUMBER_ATTRIBUTE,
@@ -5,7 +6,11 @@ import {
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { ReadonlyTransaction, Transaction } from '@atlaskit/editor-prosemirror/state';
+import type {
+	EditorState,
+	ReadonlyTransaction,
+	Transaction,
+} from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import {
 	AttrStep,
@@ -16,6 +21,7 @@ import {
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 import type { InternalNumberedHeadingsPlugin } from '../numberedHeadingsPluginType';
+import { createSSRHeadingNodeView } from './ssr-heading-node-view';
 
 type Step = Transaction['steps'][number];
 
@@ -60,10 +66,45 @@ const createDecorations = (doc: PMNode): DecorationSet => {
 	const numbers = getHeadingNumbers(headings.map(({ level }) => level));
 	return DecorationSet.create(
 		doc,
-		headings.map(({ node, pos }, index) =>
-			Decoration.node(pos, pos + node.nodeSize, { [HEADING_NUMBER_ATTRIBUTE]: numbers[index] }),
-		),
+		headings.map(({ node, pos }, index) => {
+			const attrs: HeadingDecorationAttrs = { [HEADING_NUMBER_ATTRIBUTE]: numbers[index] };
+			// Also passed as the spec: decoration attrs can't be read back, the spec can. SSR copies
+			// the spec onto the heading, so any attribute added here reaches SSR HTML too.
+			return Decoration.node(pos, pos + node.nodeSize, attrs, attrs);
+		}),
 	);
+};
+
+/** DOM attributes this plugin's decorations add to a heading. Add new attributes here. */
+type HeadingDecorationAttrs = { [HEADING_NUMBER_ATTRIBUTE]: string };
+
+/**
+ * Heading attributes by heading start position, built once per decoration set. A `find` per heading
+ * would be quadratic: decorations covering top-level nodes all sit in the set's root array, which
+ * `find` scans linearly on every call.
+ */
+const headingAttrsByDecorations = new WeakMap<DecorationSet, Map<number, HeadingDecorationAttrs>>();
+
+const getHeadingAttrsByPos = (decorations: DecorationSet): Map<number, HeadingDecorationAttrs> => {
+	let attrsByPos = headingAttrsByDecorations.get(decorations);
+	if (!attrsByPos) {
+		attrsByPos = new Map();
+		// Every decoration in this set is a heading decoration whose spec is its attrs.
+		for (const decoration of decorations.find()) {
+			attrsByPos.set(decoration.from, decoration.spec as HeadingDecorationAttrs);
+		}
+		headingAttrsByDecorations.set(decorations, attrsByPos);
+	}
+	return attrsByPos;
+};
+
+/** The attributes the decorations give to the heading at `pos`, or undefined when numbering is off. */
+const getHeadingAttrsAt = (state: EditorState, pos: number): HeadingDecorationAttrs | undefined => {
+	const pluginState = numberedHeadingsPluginKey.getState(state);
+	if (!pluginState?.enabled) {
+		return undefined;
+	}
+	return getHeadingAttrsByPos(pluginState.decorations).get(pos);
 };
 
 const fragmentContainsHeading = (fragment: Fragment): boolean => {
@@ -204,21 +245,30 @@ const reduceNumberedHeadingsState = (
  */
 export const createNumberedHeadingsPlugin = (
 	api?: ExtractInjectionAPI<InternalNumberedHeadingsPlugin>,
-): SafePlugin =>
-	new SafePlugin<NumberedHeadingsPluginState>({
+): SafePlugin => {
+	// The plugin's state is created right after the plugin, so both read the same initial setting.
+	const initiallyEnabled = Boolean(
+		api?.externalState.actions.getState('numberedHeadings')?.enabled,
+	);
+
+	return new SafePlugin<NumberedHeadingsPluginState>({
 		key: numberedHeadingsPluginKey,
 		state: {
-			init: (_config, editorState) => {
-				const enabled = Boolean(api?.externalState.actions.getState('numberedHeadings')?.enabled);
-				return {
-					enabled,
-					decorations: enabled ? createDecorations(editorState.doc) : DecorationSet.empty,
-				};
-			},
+			init: (_config, editorState) => ({
+				enabled: initiallyEnabled,
+				decorations: initiallyEnabled ? createDecorations(editorState.doc) : DecorationSet.empty,
+			}),
 			apply: (tr, pluginState) =>
 				reduceNumberedHeadingsState(pluginState, getAction(tr, pluginState, api), tr),
 		},
 		props: {
 			decorations: (state) => numberedHeadingsPluginKey.getState(state)?.decorations,
+			// SSR renders once from the initial state, so the initial setting decides whether SSR needs
+			// the heading node view. With numbering off, SSR HTML stays exactly as before.
+			...(initiallyEnabled &&
+				isSSR() && {
+					nodeViews: { heading: createSSRHeadingNodeView(getHeadingAttrsAt) },
+				}),
 		},
 	});
+};

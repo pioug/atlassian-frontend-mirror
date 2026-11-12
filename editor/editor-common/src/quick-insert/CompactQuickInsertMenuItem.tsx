@@ -41,10 +41,8 @@ const styles = cssMap({
 	iconLarge: {
 		alignItems: 'center',
 		backgroundColor: token('elevation.surface.overlay'),
-		borderColor: token('color.border'),
+		border: `${token('border.width')} solid ${token('color.border')}`,
 		borderRadius: token('radius.large'),
-		borderStyle: 'solid',
-		borderWidth: token('border.width'),
 		display: 'flex',
 		height: '32px',
 		justifyContent: 'center',

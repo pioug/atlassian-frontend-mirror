@@ -35,7 +35,6 @@ import {
 	ul,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { defaultSchema as schema } from '@atlaskit/editor-test-helpers/schema';
-import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { BitbucketTransformer, type AdditionalParseOptions } from '../..';
 
@@ -1251,8 +1250,6 @@ describe('BitbucketTransformer: parser', () => {
 		});
 
 		it('should preserve emoji id and text from data attributes on the img', () => {
-			passGate('platform_bitbucket_fix_shortname_and_ordering');
-
 			expect(
 				parse(
 					'<p>' +

@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-toolbar
 
+## 27.1.0
+
+### Minor Changes
+
+- [`15d05a7347530`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/15d05a7347530) -
+  Add an element toolbar host to the composable toolbar, behind the
+  platform_editor_table_element_toolbar experiment. Element toolbars are `uiControlRegistry` toolbar
+  surfaces keyed by node type name, rendered with the new `ElementToolbarPopup`
+  (`@atlaskit/editor-plugin-toolbar/element-toolbar-popup`). Add `ConfirmDialog` and
+  `createConfirmDialogStore` (`@atlaskit/editor-plugin-toolbar/confirm-dialog`) so toolbar actions
+  can open a confirm dialog.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.0.19
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.0.18
 
 ### Patch Changes

@@ -10,7 +10,6 @@ import { defineMessages, type MessageDescriptor, useIntl } from 'react-intl';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/default/button';
 import EditorAddIcon from '@atlaskit/icon/core/add';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
@@ -139,10 +138,8 @@ export const FormFooter: MemoExoticComponent<
 			</Button>
 		);
 
-		const FormFooterElement = fg('platform_navx_fix_nested_footer_landmark') ? 'div' : 'footer';
-
 		return (
-			<FormFooterElement
+			<div
 				css={[formFooterStyles]}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 				className={className}
@@ -187,7 +184,7 @@ export const FormFooter: MemoExoticComponent<
 						/>
 					)}
 				</ButtonGroup>
-			</FormFooterElement>
+			</div>
 		);
 	},
 );

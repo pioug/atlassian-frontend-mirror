@@ -290,9 +290,40 @@ describe('useAnchoredPopover', () => {
 			);
 			// The default floor is clamped against the anchor's size, which is why a
 			// fitting popover resolves `anchor-size()` with no anchor-relative axis.
-			expect(popover.style.getPropertyValue('min-block-size')).toBe(
+			// It is written as a switch: `Popover`'s stylesheet defines the
+			// content-sized floor where `calc-size()` is supported, capped at the clamp
+			// alone, and everywhere else the `var()` falls back to the fixed floor.
+			expect(popover.style.getPropertyValue('--ds-popover-flip-floor')).toBe(
 				'min(150px, max(0px, calc((100dvh - anchor-size(self-block)) / 2 - var(--ds-space-100, 8px) - 5px)))',
 			);
+			expect(popover.style.getPropertyValue('--ds-popover-flip-floor-limit')).toBe(
+				'max(0px, calc((100dvh - anchor-size(self-block)) / 2 - var(--ds-space-100, 8px) - 5px))',
+			);
+			expect(popover.style.getPropertyValue('min-block-size')).toBe(
+				'var(--ds-popover-content-sized-flip-floor, var(--ds-popover-flip-floor))',
+			);
+		});
+
+		it('writes no flip floor of either form on the JavaScript fallback', () => {
+			render(<SizedPopover blockSize="max-available" forceFallbackPositioning />);
+
+			const popover = screen.getByTestId('popover');
+			expect(popover.style.getPropertyValue('min-block-size')).toBe('');
+			expect(popover.style.getPropertyValue('--ds-popover-flip-floor')).toBe('');
+			expect(popover.style.getPropertyValue('--ds-popover-flip-floor-limit')).toBe('');
+		});
+
+		it('removes both flip floor properties on unmount, with the floor that reads them', () => {
+			const { unmount } = render(<SizedPopover blockSize="max-available" />);
+			const popover = screen.getByTestId('popover');
+			expect(popover.style.getPropertyValue('--ds-popover-flip-floor')).not.toBe('');
+			expect(popover.style.getPropertyValue('--ds-popover-flip-floor-limit')).not.toBe('');
+
+			unmount();
+
+			expect(popover.style.getPropertyValue('--ds-popover-flip-floor')).toBe('');
+			expect(popover.style.getPropertyValue('--ds-popover-flip-floor-limit')).toBe('');
+			expect(popover.style.getPropertyValue('min-block-size')).toBe('');
 		});
 
 		it('writes the natural width by default, so a narrow cell is overflowed rather than wrapped into', () => {

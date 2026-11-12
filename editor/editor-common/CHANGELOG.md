@@ -1,5 +1,14 @@
 # @atlaskit/editor-common
 
+## 134.16.4
+
+### Patch Changes
+
+- [`e3430af79d96a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e3430af79d96a) -
+  Keep quick insert icon borders visible when Compiled Box reset styles load later, behind
+  platform_editor_slash_command.
+- Updated dependencies
+
 ## 134.16.3
 
 ### Patch Changes

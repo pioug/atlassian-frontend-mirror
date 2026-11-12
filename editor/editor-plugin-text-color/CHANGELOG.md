@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-text-color
 
+## 30.0.19
+
+### Patch Changes
+
+- [`195e20f8c4846`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/195e20f8c4846) -
+  Clean up feature gate platform_editor_a11y_color_palette_radiogroup
+- Updated dependencies
+
 ## 30.0.18
 
 ### Patch Changes

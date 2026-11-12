@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 
 import { DropdownItemRadio } from '@atlaskit/dropdown-menu/dropdown-item-radio';
 import { DropdownItemRadioGroup } from '@atlaskit/dropdown-menu/dropdown-item-radio-group';
-import { DropdownMenu as DropdownMenuStateless } from '@atlaskit/dropdown-menu/dropdown-menu';
+import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
 import type { OnOpenChangeArgs } from '@atlaskit/dropdown-menu/types';
 
 const DropdownMenuStatelessExample = (): React.JSX.Element => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	return (
-		<DropdownMenuStateless
+		<DropdownMenu
 			isOpen={isOpen}
 			onOpenChange={(attrs: OnOpenChangeArgs) => {
 				setIsOpen(attrs.isOpen);
@@ -26,7 +26,7 @@ const DropdownMenuStatelessExample = (): React.JSX.Element => {
 
 				<DropdownItemRadio id="melbourne">Melbourne</DropdownItemRadio>
 			</DropdownItemRadioGroup>
-		</DropdownMenuStateless>
+		</DropdownMenu>
 	);
 };
 

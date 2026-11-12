@@ -7,7 +7,6 @@ import React, { type PropsWithChildren } from 'react';
 import { css, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl';
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
@@ -143,11 +142,7 @@ export const ReactionTooltip = ({
 
 	const content =
 		users.length === 0 || !isEnabled ? null : (
-			// eslint-disable-next-line @atlassian/a11y/no-noninteractive-tabindex
-			<div
-				css={[tooltipStyle, wideTooltip && wideTooltipStyle]}
-				tabIndex={fg('platform_suppression_removal_fix_reactions') ? undefined : 0}
-			>
+			<div css={[tooltipStyle, wideTooltip && wideTooltipStyle]}>
 				<ul>
 					{emojiName ? <li css={emojiNameStyle}>{emojiName}</li> : null}
 					{users.slice(0, maxReactions).map((user) => (

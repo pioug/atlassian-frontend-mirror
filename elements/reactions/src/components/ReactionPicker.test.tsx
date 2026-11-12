@@ -202,13 +202,6 @@ describe('@atlaskit/reactions/components/ReactionPicker', () => {
 		await user.click(triggerPickerButton);
 		requestAnimationFrame.step();
 
-		// `focus-trap` >= 2.4.6 applies the trap's initial focus in a `setTimeout(…, 0)` rather
-		// than synchronously within `activate()`, so stepping the animation frame that activates
-		// the trap is no longer enough for focus to have left the trigger.
-		await waitFor(() => {
-			expect(triggerPickerButton).not.toHaveFocus();
-		});
-
 		// should show default reaction emojis
 		const selectorButtons = await screen.findAllByTestId(RENDER_BUTTON_TESTID);
 		expect(selectorButtons).toBeDefined();

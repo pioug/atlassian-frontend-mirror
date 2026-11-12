@@ -39,6 +39,7 @@ export const selectionDecoration = (
 			Decoration.inline(decorationFrom, decorationTo, {
 				style: isHighlight ? decorationHighlightStyle : decorationStyle,
 				'data-testid': 'selection-marker-selection',
+				'data-selection-marker': '',
 			}),
 		);
 		return true;

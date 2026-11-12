@@ -1,5 +1,22 @@
 # @atlaskit/reactions
 
+## 37.5.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.5.2
+
+### Patch Changes
+
+- [`2832efe885646`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2832efe885646) -
+  Cleanup `feature_gate` `platform_suppression_removal_fix_reactions`. The accessibility fixes for
+  reactions and emoji (no tab stops on non-interactive tooltip/picker wrappers, focus support on
+  reaction dialog tabs, blur dismissal for emoji actions, button role on typeahead items) are now
+  permanent.
+- Updated dependencies
+
 ## 37.5.1
 
 ### Patch Changes

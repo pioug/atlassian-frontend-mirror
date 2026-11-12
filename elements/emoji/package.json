@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/emoji",
-	"version": "73.6.5",
+	"version": "73.6.8",
 	"description": "Fabric emoji React components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -164,13 +164,7 @@
 		"nike_r19_render_unmount": {
 			"type": "boolean"
 		},
-		"platform_suppression_removal_fix_reactions": {
-			"type": "boolean"
-		},
 		"platform_emoji_skin_tone_blur_fix": {
-			"type": "boolean"
-		},
-		"platform_bitbucket_fix_shortname_and_ordering": {
 			"type": "boolean"
 		},
 		"use-elements-stargate-emoji-path": {

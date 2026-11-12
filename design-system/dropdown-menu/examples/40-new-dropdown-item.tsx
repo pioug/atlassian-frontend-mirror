@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import { DropdownItem as NewDropdownMenuItem } from '@atlaskit/dropdown-menu/dropdown-item';
+import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';
 import { DropdownItemCheckbox } from '@atlaskit/dropdown-menu/dropdown-item-checkbox';
 import { DropdownItemRadio } from '@atlaskit/dropdown-menu/dropdown-item-radio';
 import Heading from '@atlaskit/heading/heading';
@@ -32,279 +32,263 @@ const NewDropdownMenuItemExample = (): JSX.Element => (
 	<Stack space="space.050" xcss={styles.container}>
 		<Heading size="medium">Button</Heading>
 		<MenuGroup>
-			<NewDropdownMenuItem shortcut={['Ctrl', ']']}>No icon</NewDropdownMenuItem>
-			<NewDropdownMenuItem description="Description" shortcut={['Ctrl', ']']}>
+			<DropdownItem shortcut={['Ctrl', ']']}>No icon</DropdownItem>
+			<DropdownItem description="Description" shortcut={['Ctrl', ']']}>
 				No icon
-			</NewDropdownMenuItem>
-			<NewDropdownMenuItem elemBefore={<EmojiIcon label="" />} shortcut={['Ctrl', ']']}>
+			</DropdownItem>
+			<DropdownItem elemBefore={<EmojiIcon label="" />} shortcut={['Ctrl', ']']}>
 				With elemBefore
-			</NewDropdownMenuItem>
-			<NewDropdownMenuItem
+			</DropdownItem>
+			<DropdownItem
 				description="Description"
 				elemBefore={<EmojiIcon label="" />}
 				shortcut={['Ctrl', ']']}
 			>
 				With elemBefore
-			</NewDropdownMenuItem>
-			<NewDropdownMenuItem elemAfter={<EmojiIcon label="" />} shortcut={['Ctrl', ']']}>
+			</DropdownItem>
+			<DropdownItem elemAfter={<EmojiIcon label="" />} shortcut={['Ctrl', ']']}>
 				With elemAfter
-			</NewDropdownMenuItem>
-			<NewDropdownMenuItem
+			</DropdownItem>
+			<DropdownItem
 				description="Description"
 				elemAfter={<EmojiIcon label="" />}
 				shortcut={['Ctrl', ']']}
 			>
 				With elemAfter
-			</NewDropdownMenuItem>
-			<NewDropdownMenuItem
+			</DropdownItem>
+			<DropdownItem
 				elemBefore={<EmojiIcon label="" />}
 				elemAfter={<EmojiIcon label="" />}
 				shortcut={['Ctrl', ']']}
 			>
 				With elemBefore and elemAfter
-			</NewDropdownMenuItem>
-			<NewDropdownMenuItem
+			</DropdownItem>
+			<DropdownItem
 				description="Description"
 				elemBefore={<EmojiIcon label="" />}
 				elemAfter={<EmojiIcon label="" />}
 				shortcut={['Ctrl', ']']}
 			>
 				With elemBefore and elemAfter
-			</NewDropdownMenuItem>
+			</DropdownItem>
 		</MenuGroup>
 		<Heading size="small">Compact</Heading>
 		<MenuGroup spacing="compact">
-			<NewDropdownMenuItem shortcut={['Ctrl', ']']}>No icon</NewDropdownMenuItem>
-			<NewDropdownMenuItem description="Description" shortcut={['Ctrl', ']']}>
+			<DropdownItem shortcut={['Ctrl', ']']}>No icon</DropdownItem>
+			<DropdownItem description="Description" shortcut={['Ctrl', ']']}>
 				No icon
-			</NewDropdownMenuItem>
-			<NewDropdownMenuItem elemBefore={<EmojiIcon label="" />} shortcut={['Ctrl', ']']}>
+			</DropdownItem>
+			<DropdownItem elemBefore={<EmojiIcon label="" />} shortcut={['Ctrl', ']']}>
 				With elemBefore
-			</NewDropdownMenuItem>
-			<NewDropdownMenuItem
+			</DropdownItem>
+			<DropdownItem
 				description="Description"
 				elemBefore={<EmojiIcon label="" />}
 				shortcut={['Ctrl', ']']}
 			>
 				With elemBefore
-			</NewDropdownMenuItem>
-			<NewDropdownMenuItem elemAfter={<EmojiIcon label="" />} shortcut={['Ctrl', ']']}>
+			</DropdownItem>
+			<DropdownItem elemAfter={<EmojiIcon label="" />} shortcut={['Ctrl', ']']}>
 				With elemAfter
-			</NewDropdownMenuItem>
-			<NewDropdownMenuItem
+			</DropdownItem>
+			<DropdownItem
 				description="Description"
 				elemAfter={<EmojiIcon label="" />}
 				shortcut={['Ctrl', ']']}
 			>
 				With elemAfter
-			</NewDropdownMenuItem>
-			<NewDropdownMenuItem
+			</DropdownItem>
+			<DropdownItem
 				elemBefore={<EmojiIcon label="" />}
 				elemAfter={<EmojiIcon label="" />}
 				shortcut={['Ctrl', ']']}
 			>
 				With elemBefore and elemAfter
-			</NewDropdownMenuItem>
-			<NewDropdownMenuItem
+			</DropdownItem>
+			<DropdownItem
 				description="Description"
 				elemBefore={<EmojiIcon label="" />}
 				elemAfter={<EmojiIcon label="" />}
 				shortcut={['Ctrl', ']']}
 			>
 				With elemBefore and elemAfter
-			</NewDropdownMenuItem>
+			</DropdownItem>
 		</MenuGroup>
 		<Heading size="small">Selected</Heading>
-		<NewDropdownMenuItem isSelected>No icon</NewDropdownMenuItem>
-		<NewDropdownMenuItem description="Description" isSelected>
+		<DropdownItem isSelected>No icon</DropdownItem>
+		<DropdownItem description="Description" isSelected>
 			No icon
-		</NewDropdownMenuItem>
-		<NewDropdownMenuItem elemBefore={<EmojiIcon label="" />} isSelected>
+		</DropdownItem>
+		<DropdownItem elemBefore={<EmojiIcon label="" />} isSelected>
 			With elemBefore
-		</NewDropdownMenuItem>
-		<NewDropdownMenuItem description="Description" elemBefore={<EmojiIcon label="" />} isSelected>
+		</DropdownItem>
+		<DropdownItem description="Description" elemBefore={<EmojiIcon label="" />} isSelected>
 			With elemBefore
-		</NewDropdownMenuItem>
-		<NewDropdownMenuItem elemAfter={<EmojiIcon label="" />} isSelected>
+		</DropdownItem>
+		<DropdownItem elemAfter={<EmojiIcon label="" />} isSelected>
 			With elemAfter
-		</NewDropdownMenuItem>
-		<NewDropdownMenuItem description="Description" elemAfter={<EmojiIcon label="" />} isSelected>
+		</DropdownItem>
+		<DropdownItem description="Description" elemAfter={<EmojiIcon label="" />} isSelected>
 			With elemAfter
-		</NewDropdownMenuItem>
-		<NewDropdownMenuItem
-			elemBefore={<EmojiIcon label="" />}
-			elemAfter={<EmojiIcon label="" />}
-			isSelected
-		>
+		</DropdownItem>
+		<DropdownItem elemBefore={<EmojiIcon label="" />} elemAfter={<EmojiIcon label="" />} isSelected>
 			With elemBefore and elemAfter
-		</NewDropdownMenuItem>
-		<NewDropdownMenuItem
+		</DropdownItem>
+		<DropdownItem
 			description="Description"
 			elemBefore={<EmojiIcon label="" />}
 			elemAfter={<EmojiIcon label="" />}
 			isSelected
 		>
 			With elemBefore and elemAfter
-		</NewDropdownMenuItem>
+		</DropdownItem>
 		<Heading size="small">Disabled</Heading>
-		<NewDropdownMenuItem isDisabled>No icon</NewDropdownMenuItem>
-		<NewDropdownMenuItem description="Description" isDisabled>
+		<DropdownItem isDisabled>No icon</DropdownItem>
+		<DropdownItem description="Description" isDisabled>
 			No icon
-		</NewDropdownMenuItem>
-		<NewDropdownMenuItem elemBefore={<EmojiIcon label="" />} isDisabled>
+		</DropdownItem>
+		<DropdownItem elemBefore={<EmojiIcon label="" />} isDisabled>
 			With elemBefore
-		</NewDropdownMenuItem>
-		<NewDropdownMenuItem description="Description" elemBefore={<EmojiIcon label="" />} isDisabled>
+		</DropdownItem>
+		<DropdownItem description="Description" elemBefore={<EmojiIcon label="" />} isDisabled>
 			With elemBefore
-		</NewDropdownMenuItem>
-		<NewDropdownMenuItem elemAfter={<EmojiIcon label="" />} isDisabled>
+		</DropdownItem>
+		<DropdownItem elemAfter={<EmojiIcon label="" />} isDisabled>
 			With elemAfter
-		</NewDropdownMenuItem>
-		<NewDropdownMenuItem description="Description" elemAfter={<EmojiIcon label="" />} isDisabled>
+		</DropdownItem>
+		<DropdownItem description="Description" elemAfter={<EmojiIcon label="" />} isDisabled>
 			With elemAfter
-		</NewDropdownMenuItem>
-		<NewDropdownMenuItem
-			elemBefore={<EmojiIcon label="" />}
-			elemAfter={<EmojiIcon label="" />}
-			isDisabled
-		>
+		</DropdownItem>
+		<DropdownItem elemBefore={<EmojiIcon label="" />} elemAfter={<EmojiIcon label="" />} isDisabled>
 			With elemBefore and elemAfter
-		</NewDropdownMenuItem>
-		<NewDropdownMenuItem
+		</DropdownItem>
+		<DropdownItem
 			description="Description"
 			elemBefore={<EmojiIcon label="" />}
 			elemAfter={<EmojiIcon label="" />}
 			isDisabled
 		>
 			With elemBefore and elemAfter
-		</NewDropdownMenuItem>
-		<NewDropdownMenuItem
+		</DropdownItem>
+		<DropdownItem
 			elemBefore={<EmojiIcon label="" />}
 			elemAfter={<EmojiIcon label="" />}
 			isSelected
 			isDisabled
 		>
 			Selected and disabled?
-		</NewDropdownMenuItem>
+		</DropdownItem>
 		<Heading size="small">Danger</Heading>
-		<NewDropdownMenuItem appearance="danger">No icon</NewDropdownMenuItem>
-		<NewDropdownMenuItem description="Description" appearance="danger">
+		<DropdownItem appearance="danger">No icon</DropdownItem>
+		<DropdownItem description="Description" appearance="danger">
 			No icon
-		</NewDropdownMenuItem>
-		<NewDropdownMenuItem elemBefore={<EmojiIcon label="" />} appearance="danger">
+		</DropdownItem>
+		<DropdownItem elemBefore={<EmojiIcon label="" />} appearance="danger">
 			With elemBefore
-		</NewDropdownMenuItem>
-		<NewDropdownMenuItem
-			description="Description"
-			elemBefore={<EmojiIcon label="" />}
-			appearance="danger"
-		>
+		</DropdownItem>
+		<DropdownItem description="Description" elemBefore={<EmojiIcon label="" />} appearance="danger">
 			With elemBefore
-		</NewDropdownMenuItem>
-		<NewDropdownMenuItem elemAfter={<EmojiIcon label="" />} appearance="danger">
+		</DropdownItem>
+		<DropdownItem elemAfter={<EmojiIcon label="" />} appearance="danger">
 			With elemAfter
-		</NewDropdownMenuItem>
-		<NewDropdownMenuItem
-			description="Description"
-			elemAfter={<EmojiIcon label="" />}
-			appearance="danger"
-		>
+		</DropdownItem>
+		<DropdownItem description="Description" elemAfter={<EmojiIcon label="" />} appearance="danger">
 			With elemAfter
-		</NewDropdownMenuItem>
-		<NewDropdownMenuItem
+		</DropdownItem>
+		<DropdownItem
 			elemBefore={<EmojiIcon label="" />}
 			elemAfter={<EmojiIcon label="" />}
 			appearance="danger"
 		>
 			With elemBefore and elemAfter
-		</NewDropdownMenuItem>
-		<NewDropdownMenuItem
+		</DropdownItem>
+		<DropdownItem
 			description="Description"
 			elemBefore={<EmojiIcon label="" />}
 			elemAfter={<EmojiIcon label="" />}
 			appearance="danger"
 		>
 			With elemBefore and elemAfter
-		</NewDropdownMenuItem>
+		</DropdownItem>
 		<Heading size="small">With nested menu</Heading>
 		<DropdownTriggerContext.Provider value={true}>
-			<NewDropdownMenuItem shortcut={['Ctrl', ']']}>No icon</NewDropdownMenuItem>
-			<NewDropdownMenuItem description="Description" shortcut={['Ctrl', ']']}>
+			<DropdownItem shortcut={['Ctrl', ']']}>No icon</DropdownItem>
+			<DropdownItem description="Description" shortcut={['Ctrl', ']']}>
 				No icon
-			</NewDropdownMenuItem>
-			<NewDropdownMenuItem elemBefore={<EmojiIcon label="" />} shortcut={['Ctrl', ']']}>
+			</DropdownItem>
+			<DropdownItem elemBefore={<EmojiIcon label="" />} shortcut={['Ctrl', ']']}>
 				With elemBefore
-			</NewDropdownMenuItem>
-			<NewDropdownMenuItem
+			</DropdownItem>
+			<DropdownItem
 				description="Description"
 				elemBefore={<EmojiIcon label="" />}
 				shortcut={['Ctrl', ']']}
 			>
 				With elemBefore
-			</NewDropdownMenuItem>
-			<NewDropdownMenuItem elemAfter={<EmojiIcon label="" />} shortcut={['Ctrl', ']']}>
+			</DropdownItem>
+			<DropdownItem elemAfter={<EmojiIcon label="" />} shortcut={['Ctrl', ']']}>
 				With elemAfter
-			</NewDropdownMenuItem>
-			<NewDropdownMenuItem
+			</DropdownItem>
+			<DropdownItem
 				description="Description"
 				elemAfter={<EmojiIcon label="" />}
 				shortcut={['Ctrl', ']']}
 			>
 				With elemAfter
-			</NewDropdownMenuItem>
-			<NewDropdownMenuItem
+			</DropdownItem>
+			<DropdownItem
 				elemBefore={<EmojiIcon label="" />}
 				elemAfter={<EmojiIcon label="" />}
 				shortcut={['Ctrl', ']']}
 			>
 				With elemBefore and elemAfter
-			</NewDropdownMenuItem>
-			<NewDropdownMenuItem
+			</DropdownItem>
+			<DropdownItem
 				description="Description"
 				elemBefore={<EmojiIcon label="" />}
 				elemAfter={<EmojiIcon label="" />}
 				shortcut={['Ctrl', ']']}
 			>
 				With elemBefore and elemAfter
-			</NewDropdownMenuItem>
+			</DropdownItem>
 			<Heading size="small">With nested menu - selected</Heading>
-			<NewDropdownMenuItem shortcut={['Ctrl', ']']} isSelected>
+			<DropdownItem shortcut={['Ctrl', ']']} isSelected>
 				No icon
-			</NewDropdownMenuItem>
-			<NewDropdownMenuItem description="Description" shortcut={['Ctrl', ']']} isSelected>
+			</DropdownItem>
+			<DropdownItem description="Description" shortcut={['Ctrl', ']']} isSelected>
 				No icon
-			</NewDropdownMenuItem>
-			<NewDropdownMenuItem elemBefore={<EmojiIcon label="" />} shortcut={['Ctrl', ']']} isSelected>
+			</DropdownItem>
+			<DropdownItem elemBefore={<EmojiIcon label="" />} shortcut={['Ctrl', ']']} isSelected>
 				With elemBefore
-			</NewDropdownMenuItem>
-			<NewDropdownMenuItem
+			</DropdownItem>
+			<DropdownItem
 				description="Description"
 				elemBefore={<EmojiIcon label="" />}
 				shortcut={['Ctrl', ']']}
 				isSelected
 			>
 				With elemBefore
-			</NewDropdownMenuItem>
-			<NewDropdownMenuItem elemAfter={<EmojiIcon label="" />} shortcut={['Ctrl', ']']} isSelected>
+			</DropdownItem>
+			<DropdownItem elemAfter={<EmojiIcon label="" />} shortcut={['Ctrl', ']']} isSelected>
 				With elemAfter
-			</NewDropdownMenuItem>
-			<NewDropdownMenuItem
+			</DropdownItem>
+			<DropdownItem
 				description="Description"
 				elemAfter={<EmojiIcon label="" />}
 				shortcut={['Ctrl', ']']}
 				isSelected
 			>
 				With elemAfter
-			</NewDropdownMenuItem>
-			<NewDropdownMenuItem
+			</DropdownItem>
+			<DropdownItem
 				elemBefore={<EmojiIcon label="" />}
 				elemAfter={<EmojiIcon label="" />}
 				shortcut={['Ctrl', ']']}
 				isSelected
 			>
 				With elemBefore and elemAfter
-			</NewDropdownMenuItem>
-			<NewDropdownMenuItem
+			</DropdownItem>
+			<DropdownItem
 				description="Description"
 				elemBefore={<EmojiIcon label="" />}
 				elemAfter={<EmojiIcon label="" />}
@@ -312,10 +296,10 @@ const NewDropdownMenuItemExample = (): JSX.Element => (
 				isSelected
 			>
 				With elemBefore and elemAfter
-			</NewDropdownMenuItem>
+			</DropdownItem>
 		</DropdownTriggerContext.Provider>
 		<Heading size="small">Truncation & wrapping</Heading>
-		<NewDropdownMenuItem
+		<DropdownItem
 			description={loremText}
 			elemBefore={<EmojiIcon label="" />}
 			elemAfter={<EmojiIcon label="" />}
@@ -323,8 +307,8 @@ const NewDropdownMenuItemExample = (): JSX.Element => (
 			shouldDescriptionWrap={false}
 		>
 			Truncated with description - {loremText}
-		</NewDropdownMenuItem>
-		<NewDropdownMenuItem
+		</DropdownItem>
+		<DropdownItem
 			description={loremText}
 			elemBefore={<EmojiIcon label="" />}
 			elemAfter={<EmojiIcon label="" />}
@@ -332,8 +316,8 @@ const NewDropdownMenuItemExample = (): JSX.Element => (
 			shouldDescriptionWrap
 		>
 			Wrapped with description - {loremText}
-		</NewDropdownMenuItem>
-		<NewDropdownMenuItem
+		</DropdownItem>
+		<DropdownItem
 			shouldTitleWrap
 			elemBefore={<EmojiIcon label="" />}
 			elemAfter={<EmojiIcon label="" />}
@@ -342,77 +326,63 @@ const NewDropdownMenuItemExample = (): JSX.Element => (
 				With elemBefore and elemAfter long title something something something{' '}
 				<Lozenge appearance="discovery">New</Lozenge>
 			</Fragment>
-		</NewDropdownMenuItem>
+		</DropdownItem>
 		<Heading size="medium">Link</Heading>
-		<NewDropdownMenuItem href="#">No icon</NewDropdownMenuItem>
-		<NewDropdownMenuItem description="Description" href="#">
+		<DropdownItem href="#">No icon</DropdownItem>
+		<DropdownItem description="Description" href="#">
 			No icon
-		</NewDropdownMenuItem>
-		<NewDropdownMenuItem elemBefore={<EmojiIcon label="" />} href="#">
+		</DropdownItem>
+		<DropdownItem elemBefore={<EmojiIcon label="" />} href="#">
 			With elemBefore
-		</NewDropdownMenuItem>
-		<NewDropdownMenuItem description="Description" elemBefore={<EmojiIcon label="" />} href="#">
+		</DropdownItem>
+		<DropdownItem description="Description" elemBefore={<EmojiIcon label="" />} href="#">
 			With elemBefore
-		</NewDropdownMenuItem>
-		<NewDropdownMenuItem elemAfter={<EmojiIcon label="" />} href="#">
+		</DropdownItem>
+		<DropdownItem elemAfter={<EmojiIcon label="" />} href="#">
 			With elemAfter
-		</NewDropdownMenuItem>
-		<NewDropdownMenuItem description="Description" elemAfter={<EmojiIcon label="" />} href="#">
+		</DropdownItem>
+		<DropdownItem description="Description" elemAfter={<EmojiIcon label="" />} href="#">
 			With elemAfter
-		</NewDropdownMenuItem>
-		<NewDropdownMenuItem
-			elemBefore={<EmojiIcon label="" />}
-			elemAfter={<EmojiIcon label="" />}
-			href="#"
-		>
+		</DropdownItem>
+		<DropdownItem elemBefore={<EmojiIcon label="" />} elemAfter={<EmojiIcon label="" />} href="#">
 			With elemBefore and elemAfter
-		</NewDropdownMenuItem>
-		<NewDropdownMenuItem
+		</DropdownItem>
+		<DropdownItem
 			description="Description"
 			elemBefore={<EmojiIcon label="" />}
 			elemAfter={<EmojiIcon label="" />}
 			href="#"
 		>
 			With elemBefore and elemAfter
-		</NewDropdownMenuItem>
+		</DropdownItem>
 		<Heading size="small">Selected</Heading>
-		<NewDropdownMenuItem href="#" isSelected>
+		<DropdownItem href="#" isSelected>
 			No icon
-		</NewDropdownMenuItem>
-		<NewDropdownMenuItem description="Description" href="#" isSelected>
+		</DropdownItem>
+		<DropdownItem description="Description" href="#" isSelected>
 			No icon
-		</NewDropdownMenuItem>
-		<NewDropdownMenuItem elemBefore={<EmojiIcon label="" />} href="#" isSelected>
+		</DropdownItem>
+		<DropdownItem elemBefore={<EmojiIcon label="" />} href="#" isSelected>
 			With elemBefore
-		</NewDropdownMenuItem>
-		<NewDropdownMenuItem
-			description="Description"
-			elemBefore={<EmojiIcon label="" />}
-			href="#"
-			isSelected
-		>
+		</DropdownItem>
+		<DropdownItem description="Description" elemBefore={<EmojiIcon label="" />} href="#" isSelected>
 			With elemBefore
-		</NewDropdownMenuItem>
-		<NewDropdownMenuItem elemAfter={<EmojiIcon label="" />} href="#" isSelected>
+		</DropdownItem>
+		<DropdownItem elemAfter={<EmojiIcon label="" />} href="#" isSelected>
 			With elemAfter
-		</NewDropdownMenuItem>
-		<NewDropdownMenuItem
-			description="Description"
-			elemAfter={<EmojiIcon label="" />}
-			href="#"
-			isSelected
-		>
+		</DropdownItem>
+		<DropdownItem description="Description" elemAfter={<EmojiIcon label="" />} href="#" isSelected>
 			With elemAfter
-		</NewDropdownMenuItem>
-		<NewDropdownMenuItem
+		</DropdownItem>
+		<DropdownItem
 			elemBefore={<EmojiIcon label="" />}
 			elemAfter={<EmojiIcon label="" />}
 			href="#"
 			isSelected
 		>
 			With elemBefore and elemAfter
-		</NewDropdownMenuItem>
-		<NewDropdownMenuItem
+		</DropdownItem>
+		<DropdownItem
 			description="Description"
 			elemBefore={<EmojiIcon label="" />}
 			elemAfter={<EmojiIcon label="" />}
@@ -420,7 +390,7 @@ const NewDropdownMenuItemExample = (): JSX.Element => (
 			isSelected
 		>
 			With elemBefore and elemAfter
-		</NewDropdownMenuItem>
+		</DropdownItem>
 
 		<Heading size="medium">Checkbox</Heading>
 

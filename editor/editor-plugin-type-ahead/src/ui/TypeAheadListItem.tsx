@@ -24,7 +24,6 @@ import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles/constan
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut/main';
 import ButtonItem from '@atlaskit/menu/button-item';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
@@ -381,11 +380,10 @@ export const TypeAheadListItem: React.MemoExoticComponent<
 					iconBefore={elementIcon}
 					isSelected={isSelected}
 					// `aria-selected` already conveys which option is selected, so `aria-current` is
-					// inappropriate here (A11Y-32552). When the gate is off we fall back to the
-					// `aria-current="true"` that ButtonItem applies for selected items.
-					aria-current={
-						!fg('platform_editor_a11y_quick_insert_aria_current') && isSelected ? 'true' : undefined
-					}
+					// inappropriate here (A11Y-32552). ButtonItem applies `aria-current="true"` to
+					// selected items by default, so this explicit `undefined` is required to suppress
+					// it. Removing the prop entirely would reintroduce the attribute.
+					aria-current={undefined}
 					aria-selected={isSelected}
 					aria-label={skillTag?.name ?? title}
 					aria-describedby={descriptionText || shortcutText ? descriptionId : undefined}

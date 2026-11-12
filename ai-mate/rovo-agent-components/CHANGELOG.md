@@ -1,5 +1,19 @@
 # @atlaskit/rovo-agent-components
 
+## 10.9.3
+
+### Patch Changes
+
+- [`60a0fe732eef9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/60a0fe732eef9) -
+  Render the Codex SVG for `codex_for_jira_agent` through the OOTB avatar mapping.
+- Updated dependencies
+
+## 10.9.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.9.1
 
 ### Patch Changes

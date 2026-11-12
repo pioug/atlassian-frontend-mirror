@@ -34,7 +34,6 @@ import {
 	extension,
 } from '@atlaskit/editor-test-helpers/doc-builder';
 import { defaultSchema } from '@atlaskit/editor-test-helpers/schema';
-import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { MarkdownSerializer, marks, nodes } from '../../serializer';
 import { stringRepeat } from '../../util';
@@ -160,23 +159,7 @@ describe('BitbucketTransformer: serializer', () => {
 			expect(test).toEqual(':grinning:');
 		});
 
-		it('should only serialize emoji shortName when id and text are present and the feature gate is off', () => {
-			const node = doc(
-				p(
-					emoji({
-						shortName: ':grinning:',
-						id: '1f600',
-						text: '😀',
-					})(),
-				),
-			)(defaultSchema);
-			const test = markdownSerializer.serialize(node);
-			expect(test).toEqual(':grinning:');
-		});
-
-		it('should serialize emoji id and text as an attr-list suffix when the feature gate is on', () => {
-			passGate('platform_bitbucket_fix_shortname_and_ordering');
-
+		it('should serialize emoji id and text as an attr-list suffix', () => {
 			const node = doc(
 				p(
 					emoji({
@@ -190,9 +173,7 @@ describe('BitbucketTransformer: serializer', () => {
 			expect(test).toEqual(":grinning:{: data-emoji-id='1f600' data-emoji-text='😀' }");
 		});
 
-		it('should serialize emoji id without text as an attr-list suffix when the feature gate is on', () => {
-			passGate('platform_bitbucket_fix_shortname_and_ordering');
-
+		it('should serialize emoji id without text as an attr-list suffix', () => {
 			const node = doc(
 				p(
 					emoji({

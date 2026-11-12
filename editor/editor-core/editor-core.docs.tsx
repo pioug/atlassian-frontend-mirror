@@ -52,11 +52,6 @@ const documentation: StructuredContentSource = {
 					description: 'Chromeless appearance with custom UI.',
 					source: `${packagePath}/examples/1-chromeless-editor-component-composable.tsx`,
 				},
-				{
-					name: 'Collapsed editor',
-					description: 'Async collapsed editor (labs).',
-					source: `${packagePath}/examples/1-labs-async-collapsed-editor.tsx`,
-				},
 			],
 		},
 	],

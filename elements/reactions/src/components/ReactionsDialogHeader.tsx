@@ -14,7 +14,6 @@ import ChevronLeftIcon from '@atlaskit/icon/core/chevron-left';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
@@ -271,13 +270,9 @@ export const ReactionsDialogHeader = ({
 									onMouseEnter={() => {
 										handleMouseEnter(reaction);
 									}}
-									onFocus={
-										fg('platform_suppression_removal_fix_reactions')
-											? () => {
-													handleMouseEnter(reaction);
-												}
-											: undefined
-									}
+									onFocus={() => {
+										handleMouseEnter(reaction);
+									}}
 								>
 									<Tab>
 										<Tooltip

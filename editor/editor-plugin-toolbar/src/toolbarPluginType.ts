@@ -6,8 +6,10 @@ import type {
 } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics/analyticsPluginType';
 import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity/connectivityPluginType';
+import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled/editorDisabledPluginType';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode/editorViewmodePluginType';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection/selection-plugin-type';
+import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry/ui-control-registry-plugin-type';
 import type { UserIntentPlugin } from '@atlaskit/editor-plugin-user-intent/user-intent-plugin-type';
 import type { UserPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences/user-preferences-plugin-type';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -86,6 +88,8 @@ export type ToolbarPlugin = NextEditorPlugin<
 			OptionalPlugin<EditorViewModePlugin>,
 			OptionalPlugin<ConnectivityPlugin>,
 			OptionalPlugin<AnalyticsPlugin>,
+			OptionalPlugin<EditorDisabledPlugin>,
+			OptionalPlugin<UiControlRegistryPlugin>,
 		];
 		pluginConfiguration?: ToolbarPluginOptions;
 		sharedState: EditorToolbarPluginState;

@@ -51,9 +51,15 @@ const BlockCollapseButton = ({
 	headingPos: number;
 }): React.JSX.Element => {
 	const { formatMessage } = useIntl();
-	const isCollapsed = useSharedPluginStateWithSelector(api, ['blockCollapse'], (states) =>
-		Boolean(states.blockCollapseState?.collapsedHeadingPositions.has(headingPos)),
+	// The selector is retained across renders, so read the current position outside it.
+	const { collapsedHeadingPositions } = useSharedPluginStateWithSelector(
+		api,
+		['blockCollapse'],
+		(states) => ({
+			collapsedHeadingPositions: states.blockCollapseState?.collapsedHeadingPositions,
+		}),
 	);
+	const isCollapsed = Boolean(collapsedHeadingPositions?.has(headingPos));
 	const handleClick = React.useCallback(() => {
 		api?.core.actions.execute(api.blockCollapse?.commands.toggleHeading(headingPos));
 	}, [api, headingPos]);

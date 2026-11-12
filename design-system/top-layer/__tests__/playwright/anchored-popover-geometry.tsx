@@ -38,18 +38,33 @@ export function marginBoxAround({ size }: { size: number }): number {
 }
 
 /**
- * The flip threshold at the DEFAULT floor, which is what a fitting popover with
- * no anchor-relative placement axis and no `placement.minSize` gets. Only valid
- * where the clamp in `defaultFloor` does not bind; the short-viewport case
- * computes its own.
+ * The flip threshold at the fixed DEFAULT floor, which is what a fitting popover
+ * with no anchor-relative placement axis and no `placement.minSize` gets where
+ * `calc-size()` is not supported. Only valid where the clamp in `defaultFloor`
+ * does not bind; the short-viewport case computes its own. Where `calc-size()` is
+ * supported the floor follows the content instead; see `defaultFloorFor`.
  */
 export const MINIMUM_MARGIN_BOX: number = marginBoxAround({
 	size: FALLBACK_MINIMUM_MAIN_AXIS_SIZE,
 });
 
 /**
- * Mirrors `getDefaultPlacementAxisFloor`: the 150px constant, clamped so the
- * roomier of the two cells beside the anchor can always hold its margin box.
+ * Mirrors `getFlipFloorLimit`: the viewport clamp, the most a floor can be while
+ * the roomier of the two cells beside the anchor can still hold its margin box.
+ */
+export function flipFloorLimit({
+	viewportExtent,
+	anchorExtent,
+}: {
+	viewportExtent: number;
+	anchorExtent: number;
+}): number {
+	return Math.max(0, (viewportExtent - anchorExtent) / 2 - DEFAULT_GAP - VIEWPORT_PADDING);
+}
+
+/**
+ * Mirrors the fixed floor in `getDefaultPlacementAxisFloor`: the 150px constant,
+ * clamped.
  */
 export function defaultFloor({
 	viewportExtent,
@@ -60,15 +75,42 @@ export function defaultFloor({
 }): number {
 	return Math.min(
 		FALLBACK_MINIMUM_MAIN_AXIS_SIZE,
-		Math.max(0, (viewportExtent - anchorExtent) / 2 - DEFAULT_GAP - VIEWPORT_PADDING),
+		flipFloorLimit({ viewportExtent, anchorExtent }),
 	);
+}
+
+/**
+ * The DEFAULT floor a popover with `content` of this size actually gets. Where
+ * `calc-size()` is supported, `Popover`'s stylesheet makes the floor the
+ * content's own size up to the clamp, with no 150px term. Elsewhere it is the
+ * fixed `defaultFloor` whatever the content.
+ *
+ * Not for an explicit floor (`placement.minSize`, an anchor-relative size),
+ * which never takes the content-sized form.
+ */
+export function defaultFloorFor({
+	content,
+	isContentSizedFloor,
+	viewportExtent,
+	anchorExtent,
+}: {
+	content: number;
+	isContentSizedFloor: boolean;
+	viewportExtent: number;
+	anchorExtent: number;
+}): number {
+	if (isContentSizedFloor) {
+		return Math.min(content, flipFloorLimit({ viewportExtent, anchorExtent }));
+	}
+	return defaultFloor({ viewportExtent, anchorExtent });
 }
 
 /**
  * The size a fitting popover should end up at under CSS Anchor Positioning. The
  * cap is the cell less the gap and the reserved viewport padding; the floor wins
  * over the cap, which is what makes a too-small cell overflow. Pass `floor` to
- * model an explicit `placement.minSize`, including `0`.
+ * model an explicit `placement.minSize`, including `0`, or the content-sized
+ * default from `defaultFloorFor`.
  */
 export function expectedFittedSize({
 	cell,
@@ -95,6 +137,12 @@ export type TGeometry = {
 	 * reports support.
 	 */
 	isCssAnchorPositioning: boolean;
+	/**
+	 * Whether `Popover`'s `@supports` rule applies, so the DEFAULT floor is never
+	 * more than the content. Probed with the same condition as that rule. Only
+	 * meaningful on the CSS path: the fallback writes no default floor at all.
+	 */
+	isContentSizedFloor: boolean;
 };
 
 /**
@@ -132,6 +180,8 @@ export async function readGeometry({ page }: { page: Page }): Promise<TGeometry 
 			host: hostRect,
 			viewport: { width: window.innerWidth, height: window.innerHeight },
 			isCssAnchorPositioning: CSS.supports('anchor-name', '--a'),
+			// KEEP IN SYNC with the `@supports` condition in `popover/popover.tsx`.
+			isContentSizedFloor: CSS.supports('min-block-size', 'calc-size(max-content, size)'),
 		};
 	});
 }

@@ -3,15 +3,12 @@ import React, { useCallback, useMemo } from 'react';
 import { useIntl } from 'react-intl';
 
 import { ACTION_SUBJECT, ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics/types/enums';
-import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
 import { isOfflineMode } from '@atlaskit/editor-common/connectivity/isOfflineMode';
 import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
 import { isSSR } from '@atlaskit/editor-common/is-ssr';
 import { logException } from '@atlaskit/editor-common/monitoring/error';
 import Popup from '@atlaskit/editor-common/Popup';
 import { shouldShowSelectionToolbar } from '@atlaskit/editor-common/toolbar';
-import { EditorToolbarProvider } from '@atlaskit/editor-common/toolbar/context';
-import { EditorToolbarUIProvider } from '@atlaskit/editor-common/toolbar/EditorToolbarUIProvider';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import {
@@ -26,11 +23,11 @@ import type { RegisterToolbar, RegisterComponent } from '@atlaskit/editor-toolba
 import { ToolbarButtonGroup } from '@atlaskit/editor-toolbar/toolbar-button-group';
 import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar/toolbar-dropdown-item-section';
 import { ToolbarSection } from '@atlaskit/editor-toolbar/toolbar-section';
-import { useToolbarUI } from '@atlaskit/editor-toolbar/ui-context';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { ToolbarPlugin } from '../../toolbarPluginType';
 import { SELECTION_TOOLBAR_LABEL } from '../consts';
+import { ToolbarProviders } from '../ToolbarProviders';
 import { getKeyboardNavigationConfig } from './keyboard-config';
 import type { Position } from './types';
 import { getDomRefFromSelection } from './utils';
@@ -129,8 +126,6 @@ export const SelectionToolbar = ({
 		return getKeyboardNavigationConfig(editorView, intl, api);
 	}, [editorView, intl, api]);
 
-	const { isDisabled } = useToolbarUI();
-
 	const isOffline = isOfflineMode(connectivityStateMode);
 	const isTextSelection =
 		!editorView.state.selection.empty && editorView.state.selection instanceof TextSelection;
@@ -164,33 +159,25 @@ export const SelectionToolbar = ({
 	}
 
 	const toolbarContent = (
-		<EditorToolbarProvider
+		<ToolbarProviders
+			api={api}
 			editorView={editorView}
 			editorToolbarDockingPreference={editorToolbarDockingPreference}
 			editorViewMode={editorViewMode ?? 'edit'}
 			isOffline={isOffline}
+			keyboardNavigation={keyboardNavigation}
 		>
-			<EditorToolbarUIProvider
-				api={api}
-				isDisabled={isDisabled}
+			<ToolbarModelRenderer
+				toolbar={toolbar as RegisterToolbar}
+				components={components}
 				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-				fireAnalyticsEvent={(payload: unknown) => {
-					api?.analytics?.actions.fireAnalyticsEvent(payload as AnalyticsEventPayload);
+				fallbacks={{
+					section: ToolbarSection,
+					menuSection: ToolbarDropdownItemSection,
+					group: ToolbarButtonGroup,
 				}}
-				keyboardNavigation={keyboardNavigation}
-			>
-				<ToolbarModelRenderer
-					toolbar={toolbar as RegisterToolbar}
-					components={components}
-					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-					fallbacks={{
-						section: ToolbarSection,
-						menuSection: ToolbarDropdownItemSection,
-						group: ToolbarButtonGroup,
-					}}
-				/>
-			</EditorToolbarUIProvider>
-		</EditorToolbarProvider>
+			/>
+		</ToolbarProviders>
 	);
 
 	return (

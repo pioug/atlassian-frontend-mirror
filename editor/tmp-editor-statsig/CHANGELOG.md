@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 262.0.0
+
+### Major Changes
+
+- [`695c96a80f074`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/695c96a80f074) -
+  Remove the stale declaration for the retired `platform_editor_bodiedextension_layoutshift_fix`
+  experiment. Remove any remaining references to this experiment before upgrading.
+
 ## 261.0.0
 
 ### Major Changes

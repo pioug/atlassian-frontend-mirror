@@ -753,9 +753,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 	private getEmojiProps(node: Node, path: Array<Node> = []) {
 		return {
 			...this.getProps(node, path),
-			emojiProviderLookupOrder: fg('platform_bitbucket_fix_shortname_and_ordering')
-				? this.emojiProviderLookupOrder
-				: undefined,
+			emojiProviderLookupOrder: this.emojiProviderLookupOrder,
 			resourceConfig: this.emojiResourceConfig,
 		};
 	}

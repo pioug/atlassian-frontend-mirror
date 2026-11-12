@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 31.0.23
+
+### Patch Changes
+
+- Updated dependencies
+
+## 31.0.22
+
+### Patch Changes
+
+- [`661398ba8e576`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/661398ba8e576) -
+  Remove the platform_editor_a11y_quick_insert_aria_current feature gate and make its enabled
+  behaviour the default. Quick insert and typeahead options no longer set aria-current; selection is
+  conveyed by aria-selected only.
+
 ## 31.0.21
 
 ### Patch Changes

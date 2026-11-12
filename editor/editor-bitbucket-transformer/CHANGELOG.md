@@ -1,5 +1,14 @@
 # @atlaskit/editor-bitbucket-transformer
 
+## 10.2.4
+
+### Patch Changes
+
+- [`bd7e009f368a8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd7e009f368a8) -
+  Clean up feature gate `platform_bitbucket_fix_shortname_and_ordering`. Emoji provider lookup order
+  is now always forwarded, and the Bitbucket transformer always preserves emoji id and text when
+  parsing and serializing.
+
 ## 10.2.3
 
 ### Patch Changes

@@ -164,7 +164,6 @@ const BlockControlsLeftSurfaceContent = ({
 					isSticky && leftSurfaceStickyStyles,
 					isSticky &&
 						blockControlsContext?.targetNode.type.name === 'table' &&
-						isExperimentEnabled('platform_editor_block_controls_sticky_header_fix') &&
 						leftSurfaceStickyTableHeaderStyles,
 				]}
 			>
@@ -219,7 +218,6 @@ const BlockControlsLeftSurfaceWrapper = ({
 					isSticky && leftSurfaceStickyStyles,
 					isSticky &&
 						blockControlsContext?.targetNode.type.name === 'table' &&
-						isExperimentEnabled('platform_editor_block_controls_sticky_header_fix') &&
 						leftSurfaceStickyTableHeaderStyles,
 				]}
 			>

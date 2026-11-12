@@ -1,5 +1,23 @@
 # @atlaskit/profilecard
 
+## 27.9.0
+
+### Minor Changes
+
+- [`d6da98be8e020`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d6da98be8e020) -
+  Add an optional read-only agent profile card preview without built-in actions or links, for
+  assignee pickers that retain keyboard focus.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.8.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.8.1
 
 ### Patch Changes

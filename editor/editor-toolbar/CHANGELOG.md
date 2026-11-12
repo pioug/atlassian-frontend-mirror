@@ -1,5 +1,13 @@
 # @atlaskit/editor-toolbar
 
+## 2.10.8
+
+### Patch Changes
+
+- [`195e20f8c4846`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/195e20f8c4846) -
+  Clean up feature gate platform_editor_a11y_color_palette_radiogroup
+- Updated dependencies
+
 ## 2.10.7
 
 ### Patch Changes

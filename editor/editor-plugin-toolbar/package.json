@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-toolbar",
-	"version": "27.0.18",
+	"version": "27.1.0",
 	"description": "Toolbar plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -21,6 +21,8 @@
 	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
+		"./confirm-dialog": "./src/entry-points/confirm-dialog.tsx",
+		"./element-toolbar-popup": "./src/entry-points/element-toolbar-popup.tsx",
 		"./plugin-key": "./src/entry-points/plugin-key.ts",
 		"./toolbar-plugin": "./src/entry-points/toolbar-plugin.tsx",
 		"./toolbar-plugin-type": "./src/entry-points/toolbar-plugin-type.ts",
@@ -28,29 +30,44 @@
 	},
 	"dependencies": {
 		"@atlaskit/browser-apis": "workspace:^",
+		"@atlaskit/button": "workspace:^",
+		"@atlaskit/checkbox": "workspace:^",
+		"@atlaskit/css": "workspace:^",
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
 		"@atlaskit/editor-plugin-connectivity": "workspace:^",
+		"@atlaskit/editor-plugin-editor-disabled": "workspace:^",
 		"@atlaskit/editor-plugin-editor-viewmode": "workspace:^",
 		"@atlaskit/editor-plugin-selection": "workspace:^",
+		"@atlaskit/editor-plugin-ui-control-registry": "workspace:^",
 		"@atlaskit/editor-plugin-user-intent": "workspace:^",
 		"@atlaskit/editor-plugin-user-preferences": "workspace:^",
 		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/editor-shared-styles": "workspace:^",
 		"@atlaskit/editor-toolbar": "workspace:^",
 		"@atlaskit/editor-toolbar-model": "workspace:^",
+		"@atlaskit/editor-ui-control-model": "workspace:^",
+		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/modal-dialog": "workspace:^",
 		"@atlaskit/platform-feature-experiments": "workspace:^",
+		"@atlaskit/popper": "workspace:^",
+		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
+		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
-		"bind-event-listener": "root:*"
+		"bind-event-listener": "root:*",
+		"lodash": "root:*",
+		"raf-schd": "root:*"
 	},
 	"peerDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
 		"react": "^18.2.0 || ^19.2.0",
+		"react-dom": "^18.2.0 || ^19.2.0",
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
 		"@atlaskit/editor-common": "workspace:^",
 		"react": "^19.2.0",
+		"react-dom": "^19.2.0",
 		"react-intl": "root:*"
 	}
 }

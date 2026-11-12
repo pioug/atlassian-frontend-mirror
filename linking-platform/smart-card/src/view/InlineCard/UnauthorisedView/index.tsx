@@ -164,7 +164,7 @@ const UnauthorisedConnectWithSocialProof = ({
 	const canUseCachedProviderPctMap = React.useSyncExternalStore(
 		noopSubscribe,
 		() => true,
-		() => !fg('platform_sl_inline_social_proof_hydration_fix'),
+		() => false,
 	);
 	const providerPctMap = canUseCachedProviderPctMap ? cachedProviderPctMap : null;
 

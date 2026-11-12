@@ -1,0 +1,177 @@
+// ponytail: copy of editor-plugin-floating-toolbar/src/ui/ScrollButton.tsx. Keep the two in sync until
+// the floating toolbar plugin is deleted, then delete that copy.
+import React, { useEffect, useState } from 'react';
+
+import { bind } from 'bind-event-listener';
+import type { UnbindFn } from 'bind-event-listener';
+import rafSchedule from 'raf-schd';
+import type { IntlShape } from 'react-intl';
+
+import IconButton from '@atlaskit/button/icon/button';
+import { cssMap } from '@atlaskit/css';
+import messages from '@atlaskit/editor-common/floating-toolbar/messages';
+import type { Node } from '@atlaskit/editor-prosemirror/model';
+import ChevronLeftLargeIcon from '@atlaskit/icon/core/chevron-left';
+import ChevronRightLargeIcon from '@atlaskit/icon/core/chevron-right';
+import { Box } from '@atlaskit/primitives/compiled/box';
+import { token } from '@atlaskit/tokens';
+
+const styles = cssMap({
+	rightSide: {
+		borderLeftWidth: token('border.width'),
+		borderLeftStyle: 'solid',
+		borderLeftColor: token('color.border'),
+		right: token('space.0'),
+		borderTopRightRadius: token('radius.small'),
+		borderBottomRightRadius: token('radius.small'),
+		backgroundColor: token('elevation.surface.overlay'),
+		zIndex: 1,
+		position: 'absolute',
+	},
+	leftSide: {
+		borderRightWidth: token('border.width'),
+		borderRightStyle: 'solid',
+		borderRightColor: token('color.border'),
+		left: token('space.0'),
+		borderTopLeftRadius: token('radius.small'),
+		borderBottomLeftRadius: token('radius.small'),
+		backgroundColor: token('elevation.surface.overlay'),
+		zIndex: 1,
+		position: 'absolute',
+	},
+});
+
+type ScrollButtonProps = {
+	disabled: boolean;
+	intl: IntlShape;
+	node: Node;
+	scrollContainerRef: React.RefObject<HTMLDivElement>;
+	side: 'left' | 'right';
+};
+
+export const ScrollButton = ({
+	intl,
+	scrollContainerRef,
+	node,
+	disabled,
+	side,
+}: ScrollButtonProps): false | React.JSX.Element => {
+	const [needScroll, setNeedScroll] = useState(false);
+	const [canScrollToSide, setCanScrollToSide] = useState(true);
+
+	const setCanScrollDebounced = rafSchedule(() => {
+		// Refs are null before mounting and after unmount
+		if (!scrollContainerRef.current) {
+			return;
+		}
+		const { scrollLeft, scrollWidth, offsetWidth } = scrollContainerRef.current;
+
+		setCanScrollToSide(
+			// -1 to account for pixel rounding error
+			side === 'left' ? scrollLeft > 0 : scrollLeft < scrollWidth - offsetWidth - 1,
+		);
+	});
+
+	const onScroll = () => {
+		setCanScrollDebounced();
+	};
+
+	const onClick = () => {
+		const { width: scrollContainerWidth = 0 } =
+			scrollContainerRef.current?.getBoundingClientRect() || {};
+
+		const scrollLeft = scrollContainerRef.current?.scrollLeft || 0;
+
+		const scrollTo =
+			side === 'left' ? scrollLeft - scrollContainerWidth : scrollLeft + scrollContainerWidth;
+
+		scrollContainerRef.current?.scrollTo({
+			top: 0,
+			left: scrollTo,
+			behavior: 'smooth',
+		});
+	};
+
+	const resizeObserver = new ResizeObserver((_t) => {
+		const widthNeededToShowAllItems = scrollContainerRef.current?.scrollWidth || 0;
+
+		const parentNode = scrollContainerRef.current?.parentNode;
+		let availableSpace: number = -1;
+
+		if (parentNode instanceof HTMLElement) {
+			availableSpace = parentNode.offsetWidth;
+		}
+
+		if (availableSpace === -1) {
+			return;
+		}
+
+		if (availableSpace >= widthNeededToShowAllItems) {
+			setNeedScroll(false);
+		} else {
+			setNeedScroll(true);
+			onScroll();
+		}
+	});
+
+	useEffect(() => {
+		onScroll();
+		const scrollContainerRefCurrent = scrollContainerRef.current;
+		let unbind: UnbindFn | undefined;
+
+		if (scrollContainerRefCurrent) {
+			// Adding/removing scroll button depending on scroll position
+			unbind = bind(scrollContainerRefCurrent, {
+				type: 'scroll',
+				listener: onScroll,
+			});
+
+			// watch for toolbar resize and show/hide scroll buttons if needed
+			resizeObserver.observe(scrollContainerRefCurrent);
+		}
+
+		return () => {
+			if (scrollContainerRefCurrent) {
+				unbind?.();
+				resizeObserver.unobserve(scrollContainerRefCurrent);
+			}
+			setCanScrollDebounced.cancel();
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	useEffect(() => {
+		const scrollContainerRefCurrent = scrollContainerRef.current;
+		if (scrollContainerRefCurrent) {
+			// reset scroll position when switching from one node with toolbar to another
+			// scroll to made optional as it may not be rendered in testing env
+			scrollContainerRefCurrent.scrollTo?.({
+				left: 0,
+			});
+		}
+	}, [node.type, scrollContainerRef]);
+
+	const Icon = side === 'left' ? ChevronLeftLargeIcon : ChevronRightLargeIcon;
+	return (
+		needScroll &&
+		((side === 'left' && canScrollToSide) || (side === 'right' && canScrollToSide)) && (
+			<Box padding="space.050" xcss={side === 'left' ? styles.leftSide : styles.rightSide}>
+				<IconButton
+					appearance="subtle"
+					label={intl.formatMessage(
+						side === 'left'
+							? messages.floatingToolbarScrollLeft
+							: messages.floatingToolbarScrollRight,
+					)}
+					onClick={onClick}
+					isDisabled={disabled}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+					icon={(iconProps) => <Icon label={iconProps.label} size="small" />}
+					isTooltipDisabled={false}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+					tooltip={{ position: 'top' }}
+				/>
+			</Box>
+		)
+	);
+};

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<e820eeba4c055f14546d9e2da705a8d4>>
+ * @generated SignedSource<<85296433822e6c84782d6e46418316db>>
  * @relayHash 1e5f1ac51962defa355a8e4fc5f6f0c3
  * @lightSyntaxTransform
  * @nogrep
@@ -21,6 +21,7 @@ export type AgentStudioAgentQueryInput = {
   includeJiraCodingAgent?: boolean | null;
   includeRovoChatAgent?: boolean | null;
   name?: string | null;
+  onlyCodingAgents?: boolean | null;
   onlyEditableAgents?: boolean | null;
   onlyFavouriteAgents?: boolean | null;
   onlyMyAgents?: boolean | null;

@@ -18,6 +18,7 @@ const documentation: StructuredContentSource = {
 			},
 			usageGuidelines: [
 				'Use for contextual content that appears on demand',
+				'Do not render the popup open (isOpen) inside another layer that opens at the same time (for example, a modal that opens with the popup already open). Open the popup on a user action, after its parent layer has opened. Exception: a popup that shows state, such as a field error.',
 				'Position appropriately relative to trigger',
 				'Consider dismissal behavior',
 				'Use appropriate content sizing',

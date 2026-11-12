@@ -14,12 +14,16 @@ import {
 
 const opts = { drawsOutsideBounds: true } as const;
 
-// The floor's COST: a fitting popover whose content is shorter than the floor is
-// stretched up to it, leaving empty space below the content.
+// The floor's former COST, now removed where `calc-size()` is supported. VR runs
+// Chromium, where the default floor is never more than the content, so this hugs
+// its 56px content like the `minSize: 0` control below. Safari and Firefox still
+// stretch it to the 150px floor; `fit-available-space.spec.tsx` pins that.
 snapshot(VrFitFloorRoomyDefault, { ...opts, description: 'fit-floor-roomy-default' });
 
-// The same fixture with `placement.minSize: 0` as the ONLY difference, so the
-// height difference between these two snapshots is the floor and nothing else.
+// The same fixture with `placement.minSize: 0` as the ONLY difference. In VR
+// (Chromium) the two snapshots now match apart from the label, because the
+// content-sized floor asks for no more than the content. Where `calc-size()` is
+// not supported, the height difference between them is the floor and nothing else.
 snapshot(VrFitFloorRoomyMinSizeZero, { ...opts, description: 'fit-floor-roomy-min-size-zero' });
 
 // The floor's BENEFIT: only 40px of room below the anchor, so the floored margin
@@ -32,7 +36,8 @@ snapshot(VrFitFloorCrampedMinSizeZero, { ...opts, description: 'fit-floor-crampe
 
 // The JavaScript fallback twins of the two fixtures above, which had none: the
 // floor is CSS-path-only, so `js-fallback-fit-floor-roomy` hugs the same 56px
-// content that `fit-floor-roomy-default` stretches to 150px. Read them as a pair.
+// content that `fit-floor-roomy-default` stretches to 150px wherever `calc-size()`
+// is not supported. Read them as a pair.
 // What the pair guards is the popover's SIZE and SIDE on both paths; every
 // fixture in this file renders a solid block rather than a `PopoverSurface`, so
 // none of them says anything about the surface's own rendering.

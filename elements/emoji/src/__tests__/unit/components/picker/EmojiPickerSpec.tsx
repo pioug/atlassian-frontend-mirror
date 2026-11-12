@@ -879,7 +879,6 @@ describe('<EmojiPicker />', () => {
 		});
 
 		it('updates the hand and preference when clicking a visible tone', async () => {
-			passGate('platform_suppression_removal_fix_reactions');
 			passGate('platform_emoji_skin_tone_blur_fix');
 			const emojiProvider = getEmojiResourcePromiseFromRepository(
 				new EmojiRepository(JSON.parse(JSON.stringify(helper.allEmojis))),

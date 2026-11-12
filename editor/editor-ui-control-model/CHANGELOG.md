@@ -1,5 +1,13 @@
 # @atlaskit/editor-ui-control-model
 
+## 3.0.1
+
+### Patch Changes
+
+- [`15d05a7347530`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/15d05a7347530) -
+  Index registered components for `getComponent` when the platform_editor_table_element_toolbar
+  experiment is on.
+
 ## 3.0.0
 
 ### Major Changes

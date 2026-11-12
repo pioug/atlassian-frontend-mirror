@@ -21,6 +21,9 @@ import { AgentProfileCardLazy } from './lazyAgentProfileCard';
 
 export type AgentProfileCardResourcedProps = {
 	accountId: string;
+	/** Render an informational preview without built-in controls or links. Custom footer content must also be non-interactive. */
+	isReadOnly?: boolean;
+
 	cloudId: string;
 	resourceClient: ProfileClient;
 	trigger?: TriggerType;
@@ -223,6 +226,7 @@ export const AgentProfileCardResourced = (
 						hideAiDisclaimer={true}
 						hideStarButton={props.hideStarButton}
 						showCreatorNameWithoutLink={props.showCreatorNameWithoutLink}
+						isReadOnly={props.isReadOnly}
 						footerComponent={props.footerComponent}
 					/>
 				</Suspense>
@@ -234,9 +238,13 @@ export const AgentProfileCardResourced = (
 		return (
 			<AgentProfileCardWrapper>
 				<ErrorMessage
-					reload={() => {
-						fetchData();
-					}}
+					reload={
+						props.isReadOnly
+							? undefined
+							: () => {
+									fetchData();
+								}
+					}
 					errorType={error || null}
 					fireAnalytics={fireEvent}
 				/>
@@ -262,6 +270,7 @@ export const AgentProfileCardResourced = (
 				hideAgentActions={props.hideAgentActions}
 				hideStarButton={props.hideStarButton}
 				showCreatorNameWithoutLink={props.showCreatorNameWithoutLink}
+				isReadOnly={props.isReadOnly}
 				footerComponent={props.footerComponent}
 			/>
 		</Suspense>

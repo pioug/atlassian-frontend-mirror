@@ -5,7 +5,9 @@ import invariant from 'tiny-invariant';
 import { expect, type Page, test } from '@af/integration-testing';
 
 import {
+	DEFAULT_GAP,
 	defaultFloor,
+	defaultFloorFor,
 	expectedFittedSize,
 	expectGeometry,
 	expectOnScreen,
@@ -87,9 +89,18 @@ async function openFixture({
 }
 
 /**
- * The four cases from the ticket. `expectFlip` is not an independent expectation:
- * it is `MINIMUM_MARGIN_BOX > requested cell`, recomputed in the test from the
- * measured trigger.
+ * The four cases from the ticket, plus F. `expectFlip` is not an independent
+ * expectation: it is "the floored margin box > requested cell", recomputed in
+ * the test from the measured trigger.
+ *
+ * Where `calc-size()` is supported, the default floor is the content's own size
+ * up to the viewport clamp (`defaultFloorFor`). That changes B, F and G:
+ *
+ * - B hugs its 100px content instead of being padded to 150px.
+ * - F flips at its own 60px.
+ * - G, taller than 150px, flips to the side that holds it at full size, where
+ *   the fixed floor leaves it below and scrolling. `expectFlipWithContentSizedFloor`
+ *   is the only case that differs by engine.
  */
 const BLOCK_AXIS_CASES = [
 	{
@@ -120,9 +131,39 @@ const BLOCK_AXIS_CASES = [
 		contentBlockSize: 400,
 		expectFlip: false,
 	},
+	{
+		// Not from the ticket. Short content in a 30px cell: it still flips where
+		// the floor is content-sized, because its own 73px margin box overflows the
+		// cell. A cap with no floor at all letterboxes it to 17px below instead.
+		name: 'F - short content in a too-small cell: flips, at its own size where calc-size() is supported',
+		viewport: { width: 400, height: 400 },
+		triggerBlockStart: 350,
+		contentBlockSize: 60,
+		expectFlip: true,
+	},
+	{
+		// 170px below the 20px trigger, 210px above. The 175px content needs
+		// `175 + 13 = 188`, so it fits above only. The fixed floor's 163px margin
+		// box fits below, so it stays there and scrolls at 157px. The content-sized
+		// floor is the content itself (under the 177px clamp), so it overflows below
+		// and flips above at full size.
+		name: 'G - content taller than 150px that fits only above: flips at full size where calc-size() is supported',
+		viewport: { width: 400, height: 400 },
+		triggerBlockStart: 210,
+		contentBlockSize: 175,
+		expectFlip: false,
+		expectFlipWithContentSizedFloor: true,
+	},
 ] as const;
 
-BLOCK_AXIS_CASES.forEach(({ name, viewport, triggerBlockStart, contentBlockSize, expectFlip }) => {
+BLOCK_AXIS_CASES.forEach((blockAxisCase) => {
+	const { name, viewport, triggerBlockStart, contentBlockSize } = blockAxisCase;
+	const expectFlip = blockAxisCase.expectFlip;
+	const expectFlipWithContentSizedFloor =
+		'expectFlipWithContentSizedFloor' in blockAxisCase
+			? blockAxisCase.expectFlipWithContentSizedFloor
+			: blockAxisCase.expectFlip;
+
 	test(`fits the available block space: ${name}`, async ({ page, skipAxeCheck }) => {
 		skipAxeCheck();
 
@@ -134,7 +175,7 @@ BLOCK_AXIS_CASES.forEach(({ name, viewport, triggerBlockStart, contentBlockSize,
 
 		await expectGeometry({
 			page,
-			assert: ({ trigger, host, viewport: vp, isCssAnchorPositioning }) => {
+			assert: ({ trigger, host, viewport: vp, isCssAnchorPositioning, isContentSizedFloor }) => {
 				// Both paths: on screen, which is the assertion the shipped bug failed.
 				expect(host.y).toBeGreaterThanOrEqual(-TOLERANCE);
 				expect(host.y + host.height).toBeLessThanOrEqual(vp.height + TOLERANCE);
@@ -149,14 +190,21 @@ BLOCK_AXIS_CASES.forEach(({ name, viewport, triggerBlockStart, contentBlockSize,
 
 				const cellBelow = vp.height - (trigger.y + trigger.height);
 				const cellAbove = trigger.y;
+				const floor = defaultFloorFor({
+					content: contentBlockSize,
+					isContentSizedFloor,
+					viewportExtent: vp.height,
+					anchorExtent: trigger.height,
+				});
 
+				const isFlipExpected = isContentSizedFloor ? expectFlipWithContentSizedFloor : expectFlip;
 				const hasFlipped = host.y + host.height <= trigger.y + TOLERANCE;
-				expect(hasFlipped).toBe(expectFlip);
+				expect(hasFlipped).toBe(isFlipExpected);
 				// Restated from the recipe, so a failure says which half broke.
-				expect(MINIMUM_MARGIN_BOX > cellBelow).toBe(expectFlip);
+				expect(marginBoxAround({ size: floor }) > cellBelow).toBe(isFlipExpected);
 
 				const cell = hasFlipped ? cellAbove : cellBelow;
-				const expected = expectedFittedSize({ cell, content: contentBlockSize });
+				const expected = expectedFittedSize({ cell, content: contentBlockSize, floor });
 				expect(Math.abs(host.height - expected)).toBeLessThanOrEqual(TOLERANCE);
 			},
 		});
@@ -270,26 +318,33 @@ test('fits the available inline space, and flips across the inline axis', async 
  * flipped and nothing else, so each case is the mutation guard for the other.
  *
  * The viewport backstop is unconditional, so what fitting adds to the placement
- * axis is the CELL cap and the FLOOR. The fixture lets the floor decide both the
- * SIZE (60px of content against the 150px floor) and the SIDE (a 120px cell,
- * between the two margin boxes of 73px and 163px).
+ * axis is the CELL cap, the FLOOR and the 5px viewport padding. The fixture lets
+ * them decide the SIDE in every CSS engine: a 70px cell holds the unfitted
+ * popover's 68px margin box (`60 + 8`) and not the fitted one's, which is 73px
+ * with a content-sized floor (`60 + 8 + 5`) and 163px with the 150px floor. The
+ * floor also decides the SIZE where it is not content-sized (150px, not 60px).
+ *
+ * The floor is what makes the fitted case move. Without it the cell cap shrinks
+ * the popover to 57px, which fits the cell, so it would stay below.
  *
  * On the JavaScript fallback the two cases are indistinguishable, and that is the
  * contract: the cell cap needs a `position-area` and the floor only has a job
- * where it can overflow one.
+ * where it can overflow one. `60 + 8` fits the 70px cell there, so both stay.
  */
 const OPT_IN_VIEWPORT = { width: 700, height: 400 };
 
 /**
- * Smaller than the floor, so a floored popover cannot be mistaken for this.
+ * Smaller than the floor, so a popover floored at 150px cannot be mistaken for
+ * this.
  */
 const OPT_IN_CONTENT_BLOCK_SIZE = 60;
 
 /**
- * Larger than the content's margin box and smaller than the floor's, which is
- * what makes the two cases land on different sides.
+ * Between the unfitted margin box (`content + gap`) and the fitted one
+ * (`content + gap + padding`, or larger with the 150px floor), which is what
+ * makes the two cases land on different sides.
  */
-const OPT_IN_CELL_BELOW = 120;
+const OPT_IN_CELL_BELOW = 70;
 
 // The fixture's trigger is a fixed 80x20.
 const OPT_IN_TRIGGER_BLOCK_SIZE = 20;
@@ -301,18 +356,19 @@ const OPT_IN_CASES = [
 	{
 		name: 'without the option the popover is its content, in a cell a fitted one flips out of',
 		fit: false,
-		expectedHeight: OPT_IN_CONTENT_BLOCK_SIZE,
-		expectFlip: false,
+		expected: { height: OPT_IN_CONTENT_BLOCK_SIZE, isFlipped: false },
+		expectedWithContentSizedFloor: { height: OPT_IN_CONTENT_BLOCK_SIZE, isFlipped: false },
 	},
 	{
 		name: 'with the option the same popover is floored, and flips out of that cell',
 		fit: true,
-		expectedHeight: FALLBACK_MINIMUM_MAIN_AXIS_SIZE,
-		expectFlip: true,
+		expected: { height: FALLBACK_MINIMUM_MAIN_AXIS_SIZE, isFlipped: true },
+		// Floored at its own size, which still overflows the cell.
+		expectedWithContentSizedFloor: { height: OPT_IN_CONTENT_BLOCK_SIZE, isFlipped: true },
 	},
 ] as const;
 
-OPT_IN_CASES.forEach(({ name, fit, expectedHeight, expectFlip }) => {
+OPT_IN_CASES.forEach(({ name, fit, expected, expectedWithContentSizedFloor }) => {
 	test(`fitting is opt-in: ${name}`, async ({ page, skipAxeCheck }) => {
 		skipAxeCheck();
 
@@ -332,7 +388,13 @@ OPT_IN_CASES.forEach(({ name, fit, expectedHeight, expectFlip }) => {
 		await expectGeometry({
 			page,
 			assert: (geometry) => {
-				const { trigger, host, viewport: vp, isCssAnchorPositioning } = geometry;
+				const {
+					trigger,
+					host,
+					viewport: vp,
+					isCssAnchorPositioning,
+					isContentSizedFloor,
+				} = geometry;
 				expectOnScreen(geometry);
 
 				if (!isCssAnchorPositioning) {
@@ -345,20 +407,25 @@ OPT_IN_CASES.forEach(({ name, fit, expectedHeight, expectFlip }) => {
 				}
 
 				const cellBelow = vp.height - (trigger.y + trigger.height);
-				// Measured rather than assumed: the cell holds the content's margin box
-				// and not the floor's, so the two cases differ in side as well as size.
-				expect(marginBoxAround({ size: OPT_IN_CONTENT_BLOCK_SIZE })).toBeLessThan(cellBelow);
+				// Measured rather than assumed: the cell holds the unfitted margin box and
+				// neither fitted one, so the two cases differ in side in every CSS engine.
+				expect(OPT_IN_CONTENT_BLOCK_SIZE + DEFAULT_GAP).toBeLessThanOrEqual(cellBelow);
+				expect(marginBoxAround({ size: OPT_IN_CONTENT_BLOCK_SIZE })).toBeGreaterThan(cellBelow);
 				expect(MINIMUM_MARGIN_BOX).toBeGreaterThan(cellBelow);
 
-				// The floor is the sole author of the fitted height: the cap it competes
-				// with is larger than the content in either cell.
-				expect(Math.abs(host.height - expectedHeight)).toBeLessThanOrEqual(TOLERANCE);
+				const { height, isFlipped } = isContentSizedFloor
+					? expectedWithContentSizedFloor
+					: expected;
+
+				// The floor is the sole author of the fitted height: the cap of the cell
+				// it lands in is larger than the content.
+				expect(Math.abs(host.height - height)).toBeLessThanOrEqual(TOLERANCE);
 
 				// The side from both ends, so each case pins where the popover IS.
 				const hasFlipped = host.y + host.height <= trigger.y + TOLERANCE;
 				const isBelowTrigger = host.y >= trigger.y + trigger.height - TOLERANCE;
-				expect(hasFlipped).toBe(expectFlip);
-				expect(isBelowTrigger).toBe(!expectFlip);
+				expect(hasFlipped).toBe(isFlipped);
+				expect(isBelowTrigger).toBe(!isFlipped);
 
 				// The backstop is on in BOTH cases.
 				expect(host.height).toBeLessThanOrEqual(vp.height - 2 * VIEWPORT_PADDING + TOLERANCE);

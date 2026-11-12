@@ -1,5 +1,13 @@
 # @atlaskit/top-layer
 
+## 7.2.2
+
+### Patch Changes
+
+- [`1dfc8d07647c2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1dfc8d07647c2) -
+  Fitting popovers now keep their content size in Chrome instead of a 150px minimum, and flip to a
+  side that holds them. Safari and Firefox are unchanged.
+
 ## 7.2.1
 
 ### Patch Changes

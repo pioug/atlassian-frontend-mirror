@@ -540,7 +540,7 @@ export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 			data-testid={emojiActionsTestId}
 			css={previewFooterNew}
 			onMouseLeave={onMouseLeaveHandler}
-			onBlur={fg('platform_suppression_removal_fix_reactions') ? onBlurHandler : undefined}
+			onBlur={onBlurHandler}
 		>
 			<div
 				css={[

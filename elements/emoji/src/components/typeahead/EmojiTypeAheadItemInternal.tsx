@@ -7,7 +7,6 @@ import React from 'react';
 
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { EmojiCommonProvider } from '../../context/EmojiCommonProvider';
@@ -69,7 +68,7 @@ export function EmojiTypeAheadItemInternal(props: Props): JSX.Element {
 				onMouseMove={onEmojiMenuItemMouseMove}
 				data-emoji-id={emoji.shortName}
 				ref={forwardedRef}
-				role={fg('platform_suppression_removal_fix_reactions') ? 'button' : undefined}
+				role="presentation"
 			>
 				<div css={[typeAheadItemRow]}>{emoji && <EmojiPreviewComponent emoji={emoji} />}</div>
 			</div>

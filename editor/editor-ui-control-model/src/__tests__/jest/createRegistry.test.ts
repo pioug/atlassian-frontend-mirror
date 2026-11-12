@@ -14,6 +14,7 @@ describe('createRegistry', () => {
 		beforeEach(() => {
 			mockExpDisabled('platform_editor_slash_command');
 			mockExpDisabled('platform_editor_block_control_migration');
+			mockExpDisabled('platform_editor_table_element_toolbar');
 		});
 
 		it('appends registrations', () => {
@@ -108,10 +109,32 @@ describe('createRegistry', () => {
 		});
 	});
 
+	describe('when the table element toolbar experiment is enabled', () => {
+		beforeEach(() => {
+			mockExpDisabled('platform_editor_slash_command');
+			mockExpDisabled('platform_editor_block_control_migration');
+			mockExpEnabled('platform_editor_table_element_toolbar');
+		});
+
+		it('indexes appended registrations by identity', () => {
+			const registry = createRegistry();
+			const root = { key: 'table', type: 'toolbar' as const };
+			registry.register([root, component('table')]);
+
+			expect(registry.components).toHaveLength(2);
+			expect(registry.getComponent({ type: 'toolbar', key: 'table' })).toBe(root);
+
+			registry.unregister([{ type: 'toolbar', key: 'table' }]);
+			expect(registry.getComponent({ type: 'toolbar', key: 'table' })).toBeUndefined();
+			expect(registry.getComponent({ type: 'menu-item', key: 'table' })).toBeDefined();
+		});
+	});
+
 	describe('when the block control migration experiment is enabled', () => {
 		beforeEach(() => {
 			mockExpDisabled('platform_editor_slash_command');
 			mockExpEnabled('platform_editor_block_control_migration');
+			mockExpDisabled('platform_editor_table_element_toolbar');
 		});
 
 		it('resolves a surface registered after its descendants', () => {

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-mention-types",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"description": "Shared mention-name contracts for editor packages",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -8,10 +8,6 @@
 		"registry": "https://registry.npmjs.org/"
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
-	"main": "dist/cjs/index.js",
-	"module": "dist/esm/index.js",
-	"module:es2019": "dist/es2019/index.js",
-	"types": "dist/types/index.d.ts",
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {

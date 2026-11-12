@@ -16,23 +16,18 @@ import { defineMessages, useIntl } from 'react-intl';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import { getDocument } from '@atlaskit/browser-apis';
+import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
 import CrossIcon from '@atlaskit/icon/core/cross';
 import { ChoreographedContent } from '@atlaskit/link-provider/choreographed-content';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Popup } from '@atlaskit/popup/popup';
-import type { PopupComponentProps } from '@atlaskit/popup/types';
+import type { ContentProps, PopupComponentProps } from '@atlaskit/popup/types';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
-import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
-import { fromLegacyPlacement } from '@atlaskit/top-layer/placement-map/index';
-import { Popover } from '@atlaskit/top-layer/popover/popover';
-import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
-import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 import { EVENT_CHANNEL } from '../../../../common/analytics/constants';
 import { getExtensionKey } from '../../../../state/getExtensionKey';
@@ -118,27 +113,25 @@ const styles = cssMap({
 	},
 	content: { position: 'relative' },
 	body: { paddingRight: token('space.300') },
-	action: {
-		color: token('color.text.inverse'),
-		backgroundColor: token('color.background.neutral.bold'),
-		borderColor: token('color.border.accent.gray'),
-		borderStyle: 'solid',
-		borderWidth: token('border.width'),
-		borderRadius: token('radius.small'),
-		paddingTop: token('space.025'),
-		paddingBottom: token('space.025'),
-		paddingLeft: token('space.100'),
-		paddingRight: token('space.100'),
-		transition: token('motion.button.hovered'),
-		'&:hover': { backgroundColor: token('color.background.neutral.bold.hovered') },
-		'&:active': {
-			backgroundColor: token('color.background.neutral.bold.pressed'),
-			transition: token('motion.button.pressed'),
-		},
-	},
 });
 
+const SpotlightOpenContext = createContext(false);
 const TargetContext = createContext<React.RefObject<HTMLSpanElement> | null>(null);
+const PositionUpdateContext = createContext<React.MutableRefObject<
+	ContentProps['update'] | undefined
+> | null>(null);
+
+function LegacyPositionUpdater({ update }: Pick<ContentProps, 'update'>) {
+	const positionUpdate = useContext(PositionUpdateContext);
+	useEffect(() => {
+		if (!positionUpdate) return;
+		positionUpdate.current = update;
+		return () => {
+			positionUpdate.current = undefined;
+		};
+	}, [positionUpdate, update]);
+	return null;
+}
 
 // Keep Popup's inline trigger and focus handling. The design-system Spotlight
 // target renders a block element; the Smart Link action must stay inline.
@@ -157,7 +150,9 @@ const SpotlightSurface = forwardRef<HTMLDivElement, PopupComponentProps>(
 		},
 		forwardedRef,
 	) => {
+		const isOpen = useContext(SpotlightOpenContext);
 		const target = useContext(TargetContext);
+		const positionUpdate = useContext(PositionUpdateContext);
 		const surface = useRef<HTMLDivElement | null>(null);
 		const [caret, setCaret] = useState({ above: false, left: 24 });
 		const ref = useCallback(
@@ -171,38 +166,41 @@ const SpotlightSurface = forwardRef<HTMLDivElement, PopupComponentProps>(
 		useEffect(() => {
 			const element = surface.current;
 			const anchor = target?.current;
-			if (!element || !anchor) return;
+			if (!isOpen || !element || !anchor) return;
 			let frame = 0;
+			let previousTrigger: DOMRect | undefined;
+			let previousCaret: { above: boolean; left: number } | undefined;
+			// Navigation can translate the anchor without a resize or scroll event.
+			// Only the visible spotlight samples geometry; unchanged geometry causes no updates.
 			const measure = () => {
+				frame = requestAnimationFrame(measure);
 				const card = element.getBoundingClientRect();
 				const trigger = anchor.getBoundingClientRect();
+				if (
+					previousTrigger &&
+					(trigger.left !== previousTrigger.left ||
+						trigger.top !== previousTrigger.top ||
+						trigger.width !== previousTrigger.width ||
+						trigger.height !== previousTrigger.height)
+				) {
+					// Reuse Popup's positioning engine rather than moving its DOM ourselves.
+					void positionUpdate?.current?.();
+				}
+				previousTrigger = trigger;
 				if (!card.width) return;
 				const above = card.bottom <= trigger.top;
 				const left = Math.max(
 					16,
 					Math.min(card.width - 32, trigger.left + trigger.width / 2 - card.left - 8),
 				);
-				setCaret((previous) =>
-					previous.above === above && previous.left === left ? previous : { above, left },
-				);
+				if (previousCaret?.above !== above || previousCaret.left !== left) {
+					previousCaret = { above, left };
+					setCaret(previousCaret);
+				}
 			};
-			const schedule = () => {
-				cancelAnimationFrame(frame);
-				frame = requestAnimationFrame(measure);
-			};
-			const observer = new ResizeObserver(schedule);
-			observer.observe(element);
-			observer.observe(anchor);
-			window.addEventListener('resize', schedule);
-			window.addEventListener('scroll', schedule, true);
-			schedule();
-			return () => {
-				cancelAnimationFrame(frame);
-				observer.disconnect();
-				window.removeEventListener('resize', schedule);
-				window.removeEventListener('scroll', schedule, true);
-			};
-		}, [target]);
+			frame = requestAnimationFrame(measure);
+			return () => cancelAnimationFrame(frame);
+		}, [target, positionUpdate, isOpen]);
 		return (
 			<div {...props} ref={ref} style={style} css={styles.surface}>
 				<span
@@ -215,54 +213,6 @@ const SpotlightSurface = forwardRef<HTMLDivElement, PopupComponentProps>(
 		);
 	},
 );
-
-// The native auto popover used by Popup can hide independently of React state.
-// Compose the existing manual primitive here so persistence stays local to Smart Card.
-function TopLayerSpotlight({
-	isOpen,
-	label,
-	trigger,
-	children,
-}: {
-	children: React.ReactNode;
-	isOpen: boolean;
-	label: string;
-	trigger: React.ReactNode;
-}): React.JSX.Element {
-	const anchorRef = useRef<HTMLSpanElement>(null);
-	const popoverRef = useRef<HTMLDivElement>(null);
-	const id = usePopoverId();
-	const placement = fromLegacyPlacement({ legacy: 'bottom-start' });
-	useAnchoredPopover({
-		anchorRef,
-		popoverRef,
-		isOpen,
-		placement,
-		inlineSize: 'max-available',
-		blockSize: 'max-available',
-	});
-	return (
-		<React.Fragment>
-			<span ref={anchorRef} {...getAriaForTrigger({ role: 'dialog', isOpen, popoverId: id })}>
-				{trigger}
-			</span>
-			<Popover
-				ref={popoverRef}
-				id={id}
-				isOpen={isOpen}
-				mode="manual"
-				role="dialog"
-				label={label}
-				shouldAnimate
-				placement={placement}
-			>
-				<SpotlightSurface tabIndex={-1} data-placement="bottom-start" style={{}}>
-					{children}
-				</SpotlightSurface>
-			</Popover>
-		</React.Fragment>
-	);
-}
 
 function VisibleSpotlightCard({
 	onShown,
@@ -290,9 +240,9 @@ function VisibleSpotlightCard({
 					<Text color="color.text.inverse">{body}</Text>
 				</Box>
 				<Inline alignInline="end">
-					<Pressable xcss={styles.action} onClick={onAction}>
-						<Text color="color.text.inverse">{actionLabel}</Text>
-					</Pressable>
+					<Button appearance="primary" spacing="compact" onClick={onAction}>
+						{actionLabel}
+					</Button>
 				</Inline>
 			</Stack>
 		</Box>
@@ -312,6 +262,7 @@ export function OneClickChatSpotlight({
 }): React.JSX.Element {
 	const intl = useIntl();
 	const target = useRef<HTMLSpanElement>(null);
+	const positionUpdate = useRef<ContentProps['update'] | undefined>(undefined);
 	const [isOpportunity, setOpportunity] = useState(false);
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { product } = useRovoConfig();
@@ -411,26 +362,27 @@ export function OneClickChatSpotlight({
 					onKeyPress={(event) => event.stopPropagation()}
 				>
 					<TargetContext.Provider value={target}>
-						{fg('platform-dst-top-layer') ? (
-							<TopLayerSpotlight
-								isOpen={hasPermission}
-								label={intl.formatMessage(messages.heading)}
-								trigger={trigger}
-							>
-								{content}
-							</TopLayerSpotlight>
-						) : (
-							<Popup
-								popupComponent={SpotlightSurface}
-								shouldFitViewport
-								isOpen={hasPermission}
-								placement="bottom-start"
-								role="dialog"
-								label={intl.formatMessage(messages.heading)}
-								trigger={({ ref }) => <span ref={ref}>{trigger}</span>}
-								content={() => content}
-							/>
-						)}
+						<PositionUpdateContext.Provider value={positionUpdate}>
+							<SpotlightOpenContext.Provider value={hasPermission}>
+								<Popup
+									mode="manual"
+									popupComponent={SpotlightSurface}
+									shouldFitViewport
+									isOpen={hasPermission}
+									placement="bottom-start"
+									role="dialog"
+									label={intl.formatMessage(messages.heading)}
+									// This span only anchors the popup; it does not toggle it.
+									trigger={({ ref }) => <span ref={ref}>{trigger}</span>}
+									content={({ update }) => (
+										<React.Fragment>
+											<LegacyPositionUpdater update={update} />
+											{content}
+										</React.Fragment>
+									)}
+								/>
+							</SpotlightOpenContext.Provider>
+						</PositionUpdateContext.Provider>
 					</TargetContext.Provider>
 				</span>
 			)}

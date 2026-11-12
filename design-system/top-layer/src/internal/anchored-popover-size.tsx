@@ -8,12 +8,17 @@ import { type TStyleDeclaration } from './set-style';
 export const VIEWPORT_PADDING = '5px';
 
 /**
- * The upper bound of the default placement-axis floor.
+ * The upper bound of the default placement-axis floor where the floor cannot
+ * follow the content.
  *
  * A capped popover never overflows, so it never flips. This floor makes the
  * margin box overflow a too-small cell, so `position-try-fallbacks` fires. That
  * is its only job, so the JavaScript fallback, which has no cell to overflow,
  * never writes it. See `getPlacementAxisFloor`.
+ *
+ * Where `calc-size()` is supported the floor is the content's own size, up to
+ * the viewport clamp, and 150px plays no part. See
+ * `getPlacementAxisFloorDeclarations`.
  *
  * 150px is the value the flip was measured with, not a design constant
  * (`notes/plans/should-fit-viewport.md`). It is not a `space.*` token on
@@ -21,6 +26,27 @@ export const VIEWPORT_PADDING = '5px';
  * popover lands on.
  */
 export const FALLBACK_MINIMUM_MAIN_AXIS_SIZE = '150px';
+
+/**
+ * Holds the default flip floor where `calc-size()` is not supported. Written
+ * inline by this module. KEEP IN SYNC with `styles.root` in
+ * `popover/popover.tsx`.
+ */
+const FLIP_FLOOR_PROPERTY = '--ds-popover-flip-floor';
+
+/**
+ * Holds the most the content-sized flip floor can be: the viewport clamp, with
+ * no 150px term. Written inline by this module, for `Popover`'s stylesheet to
+ * read. KEEP IN SYNC with `styles.root` in `popover/popover.tsx`.
+ */
+const FLIP_FLOOR_LIMIT_PROPERTY = '--ds-popover-flip-floor-limit';
+
+/**
+ * The content-sized flip floor. Only `Popover`'s stylesheet defines it, and only
+ * where `calc-size()` is supported. KEEP IN SYNC with `styles.root` in
+ * `popover/popover.tsx`.
+ */
+const CONTENT_SIZED_FLIP_FLOOR_PROPERTY = '--ds-popover-content-sized-flip-floor';
 
 /**
  * Which way the POPOVER's inline axis runs; `'vertical'` covers the `vertical-*`
@@ -70,7 +96,10 @@ function viewportUnit({
  * 1. Fitting one axis fills a `'content'` other axis with `'max-available'` too.
  *    An explicit value is never overridden, so caps stay strictly per-axis.
  * 2. On the CSS path, fitting either axis floors the placement axis, because
- *    flipping is a whole-popover outcome. See `getPlacementAxisFloor`.
+ *    flipping is a whole-popover outcome. See `getPlacementAxisFloor`. Where
+ *    `calc-size()` is supported, the default floor is the content's own size up
+ *    to the viewport clamp, so content keeps its size whenever some side can
+ *    hold it. See `getPlacementAxisFloorDeclarations`.
  * 3. The viewport cap is unconditional, so a non-fitting axis still cannot
  *    overhang the screen. `'max-available'` and `'content'` are therefore
  *    indistinguishable on the cross axis.
@@ -93,7 +122,9 @@ export type TPopoverAxisSize = 'content' | 'match-anchor' | 'min-anchor' | 'max-
 export type TPopoverSizeProperty =
 	| `${TPlacementAxis}-size`
 	| `min-${TPlacementAxis}-size`
-	| `max-${TPlacementAxis}-size`;
+	| `max-${TPlacementAxis}-size`
+	| typeof FLIP_FLOOR_PROPERTY
+	| typeof FLIP_FLOOR_LIMIT_PROPERTY;
 
 /**
  * The anchor's size along each axis, as a CSS length. `null` when nothing needs
@@ -182,18 +213,62 @@ function getPlacementAxisAnchorFloor({
 }
 
 /**
- * The default flip floor, clamped so that SOME cell can always hold it.
+ * The viewport clamp: the most a default flip floor can be while SOME cell can
+ * still hold it.
  *
  * The two cells on either side of the anchor add up to the viewport less the
  * anchor, so the roomier one is at least half of that. A floor whose margin box
  * fits inside that half is guaranteed a cell somewhere in the fallback chain.
  * Unclamped, a short viewport with a centred anchor has NO cell that holds
- * 150px: every try-fallback overflows, the browser reverts to the base position,
- * and the floor pushes the popover past the viewport edge.
+ * the floor: every try-fallback overflows, the browser reverts to the base
+ * position, and the floor pushes the popover past the viewport edge.
  *
  * This is NOT the `min(floor, cellCap)` that suppresses flipping: it is relative
  * to the VIEWPORT, so a small base cell still overflows it. `max(0px, …)` stops
  * the floor going negative, for example for an anchor larger than the viewport.
+ *
+ * `null` when the anchor size is unknown.
+ */
+function getFlipFloorLimit({
+	placementAxis,
+	anchorValue,
+	gap,
+	writingMode,
+}: {
+	placementAxis: TPlacementAxis;
+	anchorValue: string | null;
+	gap: string;
+	writingMode: TPopoverWritingMode;
+}): string | null {
+	if (anchorValue === null) {
+		return null;
+	}
+	// The viewport term and the anchor term must measure the SAME axis; see
+	// `viewportUnit`.
+	const viewport = `100${viewportUnit({ axis: placementAxis, writingMode })}`;
+	return `max(0px, calc((${viewport} - ${anchorValue}) / 2 - ${gap} - ${VIEWPORT_PADDING}))`;
+}
+
+/**
+ * Which floor the placement axis takes. `'explicit'` is something the consumer
+ * asked for (`placement.minSize`, an anchor-relative size) and is written as is.
+ * `'default'` is the flip floor nobody asked for, which may follow the content
+ * up to `limit`; see `getPlacementAxisFloorDeclarations`.
+ */
+type TPlacementAxisFloor =
+	| { type: 'explicit'; value: string }
+	| { type: 'default'; value: string; limit: string };
+
+/**
+ * The default flip floor, in both forms.
+ *
+ * - `limit` is the viewport clamp alone. The content-sized floor is never more
+ *   than it, so the content keeps its own size whenever some cell can hold it.
+ * - `value` is the fixed floor for engines without `calc-size()`: 150px, also
+ *   never more than the clamp.
+ *
+ * With no anchor size both are 150px. That is a safety net, not a live branch:
+ * the hook always supplies the anchor size while fitting on the CSS path.
  */
 function getDefaultPlacementAxisFloor({
 	placementAxis,
@@ -205,15 +280,20 @@ function getDefaultPlacementAxisFloor({
 	anchorValue: string | null;
 	gap: string;
 	writingMode: TPopoverWritingMode;
-}): string {
-	if (anchorValue === null) {
-		return FALLBACK_MINIMUM_MAIN_AXIS_SIZE;
+}): TPlacementAxisFloor {
+	const limit = getFlipFloorLimit({ placementAxis, anchorValue, gap, writingMode });
+	if (limit === null) {
+		return {
+			type: 'default',
+			value: FALLBACK_MINIMUM_MAIN_AXIS_SIZE,
+			limit: FALLBACK_MINIMUM_MAIN_AXIS_SIZE,
+		};
 	}
-	// The viewport term and the anchor term must measure the SAME axis; see
-	// `viewportUnit`.
-	const viewport = `100${viewportUnit({ axis: placementAxis, writingMode })}`;
-	const halfOfRemainingViewport = `calc((${viewport} - ${anchorValue}) / 2 - ${gap} - ${VIEWPORT_PADDING})`;
-	return `min(${FALLBACK_MINIMUM_MAIN_AXIS_SIZE}, max(0px, ${halfOfRemainingViewport}))`;
+	return {
+		type: 'default',
+		value: `min(${FALLBACK_MINIMUM_MAIN_AXIS_SIZE}, ${limit})`,
+		limit,
+	};
 }
 
 /**
@@ -243,7 +323,7 @@ function getPlacementAxisFloor({
 	gap: string;
 	canFlip: boolean;
 	writingMode: TPopoverWritingMode;
-}): string | null {
+}): TPlacementAxisFloor | null {
 	const anchorFloor = getPlacementAxisAnchorFloor({
 		placementAxis,
 		placementAxisSize,
@@ -253,11 +333,14 @@ function getPlacementAxisFloor({
 	});
 
 	if (minSize !== undefined) {
-		return anchorFloor === null ? minSize : `max(${minSize}, ${anchorFloor})`;
+		return {
+			type: 'explicit',
+			value: anchorFloor === null ? minSize : `max(${minSize}, ${anchorFloor})`,
+		};
 	}
 
 	if (anchorFloor !== null) {
-		return anchorFloor;
+		return { type: 'explicit', value: anchorFloor };
 	}
 
 	if (!canFlip) {
@@ -265,6 +348,57 @@ function getPlacementAxisFloor({
 	}
 
 	return getDefaultPlacementAxisFloor({ placementAxis, anchorValue, gap, writingMode });
+}
+
+/**
+ * Writes the placement-axis floor. An explicit floor is written as is.
+ *
+ * The DEFAULT floor has two forms, picked by the browser and not by JavaScript:
+ *
+ * - Where `calc-size()` is supported (Chrome), the floor is
+ *   `calc-size(max-content, min(size, <limit>))`: the content's own size, up to
+ *   the viewport clamp. The popover keeps its size and flips whenever its
+ *   content does not fit the cell. Only content too tall for either side is
+ *   capped, and it stays on the roomier side.
+ * - Everywhere else it is the fixed `<floor>` (150px, clamped), exactly as
+ *   before `calc-size()` existed.
+ *
+ * An inline style cannot hold `@supports`, so the fixed floor goes into
+ * `--ds-popover-flip-floor`, the clamp into `--ds-popover-flip-floor-limit`,
+ * and `min-{A}-size` reads `--ds-popover-content-sized-flip-floor` first. Only
+ * `Popover`'s stylesheet defines that property, inside an `@supports` rule. On
+ * an element without that stylesheet the floor is the fixed one.
+ *
+ * It is still a floor, and it has to be: a cap alone never overflows, so it never
+ * flips (see `getAnchoredPopoverSizeDeclarations`). A `calc-size()` cap with no
+ * floor was measured and does not flip. A floor of plain `max-content` was
+ * measured too: it beats the caps, so tall content runs off the screen.
+ */
+function getPlacementAxisFloorDeclarations({
+	floor,
+	placementAxis,
+}: {
+	floor: TPlacementAxisFloor | null;
+	placementAxis: TPlacementAxis;
+}): TStyleDeclaration<TPopoverSizeProperty>[] {
+	if (floor === null) {
+		return [];
+	}
+
+	const property: TPopoverSizeProperty = `min-${placementAxis}-size`;
+
+	if (floor.type === 'explicit') {
+		return [{ property, value: floor.value }];
+	}
+
+	return [
+		{ property: FLIP_FLOOR_PROPERTY, value: floor.value },
+		{ property: FLIP_FLOOR_LIMIT_PROPERTY, value: floor.limit },
+		{
+			property,
+			value: `var(${CONTENT_SIZED_FLIP_FLOOR_PROPERTY}, var(${FLIP_FLOOR_PROPERTY}))`,
+		},
+	];
 }
 
 /**
@@ -277,7 +411,9 @@ function getPlacementAxisFloor({
  * reads the margin box AFTER the clamp (css-anchor-position-1 §6.5), so
  * `min(floor, cap)` suppresses `position-try-fallbacks` entirely. The cross-axis
  * floor is always clamped, because there it is a size contract rather than a flip
- * driver.
+ * driver. Capping the DEFAULT floor at the content's own size is a different
+ * thing and is safe: content that fits the cell does not need to flip. See
+ * `getPlacementAxisFloorDeclarations`.
  *
  * See `notes/decisions/fit-available-space.md` for the full recipe and the
  * measured evidence.
@@ -376,18 +512,20 @@ export function getAnchoredPopoverSizeDeclarations({
 		}
 	});
 
-	const placementAxisFloor = getPlacementAxisFloor({
-		minSize: placement.minSize,
-		placementAxis,
-		placementAxisSize: size[placementAxis],
-		anchorValue: anchorSize[placementAxis],
-		gap: placement.offset.gap,
-		canFlip,
-		writingMode,
-	});
-	if (placementAxisFloor !== null) {
-		declarations.push({ property: `min-${placementAxis}-size`, value: placementAxisFloor });
-	}
+	declarations.push(
+		...getPlacementAxisFloorDeclarations({
+			floor: getPlacementAxisFloor({
+				minSize: placement.minSize,
+				placementAxis,
+				placementAxisSize: size[placementAxis],
+				anchorValue: anchorSize[placementAxis],
+				gap: placement.offset.gap,
+				canFlip,
+				writingMode,
+			}),
+			placementAxis,
+		}),
+	);
 
 	// `'min-anchor'` on the cross axis is a size contract, not a flip driver, so it
 	// is clamped to the viewport cap.

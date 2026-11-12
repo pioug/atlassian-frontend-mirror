@@ -159,6 +159,26 @@ const styles = cssMap({
 			// Unstyled; consumers apply their own surface.
 			background: 'transparent',
 		},
+		/**
+		 * **Content-sized flip floor**
+		 *
+		 * `useAnchoredPopover` writes its fixed flip floor to
+		 * `--ds-popover-flip-floor` and the viewport clamp to
+		 * `--ds-popover-flip-floor-limit`, and its `min-{axis}-size` reads this
+		 * property first. Where `calc-size()` is supported, the floor is the
+		 * content's own size up to the clamp. The popover keeps its size, and flips
+		 * whenever its content does not fit. Elsewhere this property is not defined
+		 * and the fixed floor applies. Here because an inline style cannot hold
+		 * `@supports`.
+		 *
+		 * KEEP IN SYNC with `getPlacementAxisFloorDeclarations` in
+		 * `internal/anchored-popover-size.tsx`.
+		 * See notes/decisions/fit-available-space.md
+		 */
+		'@supports (min-block-size: calc-size(max-content, size))': {
+			'--ds-popover-content-sized-flip-floor':
+				'calc-size(max-content, min(size, var(--ds-popover-flip-floor-limit)))',
+		},
 		// `flex-grow` makes the single child fill the host on the main axis, which
 		// block flow did for free and a flex item does not.
 		//
@@ -179,11 +199,17 @@ const styles = cssMap({
 		// Not grid: a `minmax(0, 1fr)` track stretches an auto-sized child to the cap
 		// but cannot shrink one with an explicit `width`, which `flex-shrink` can.
 		// Measured on all three engines; see the decision note.
+		//
+		// The content-sized flip floor above is reset here so it is not inherited.
+		// Its value is resolved against THIS host's floor, so an element further in
+		// that `useAnchoredPopover` sizes, without this stylesheet, would take this
+		// host's floor instead of its own.
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- the child is consumer-owned, so only the host can make it fill; `:where` is the point, see above
 		'*:where(&) > *': {
 			flexGrow: 1,
 			minInlineSize: 0,
 			minBlockSize: 0,
+			'--ds-popover-content-sized-flip-floor': 'initial',
 		},
 	},
 	motion: {

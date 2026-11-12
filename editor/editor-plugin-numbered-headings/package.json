@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-numbered-headings",
-	"version": "4.1.1",
+	"version": "4.1.2",
 	"description": "Numbered headings plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

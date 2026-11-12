@@ -86,6 +86,9 @@ export const createRegistry = (): {
 	const listeners = new Set<RegistryListener>();
 	// Replacement and deduplication are part of the existing slash-command registration contract.
 	const supportsMutableRegistration = isExperimentEnabled('platform_editor_slash_command');
+	// The element toolbar host looks up toolbar roots by identity with getComponent.
+	const supportsComponentIndex =
+		supportsMutableRegistration || isExperimentEnabled('platform_editor_table_element_toolbar');
 	// Either registry-backed experience can opt the shared model into indexed, cached surface lookup.
 	const supportsOptimizedSurfaceLookup =
 		isExperimentEnabled('platform_editor_slash_command') ||
@@ -112,6 +115,9 @@ export const createRegistry = (): {
 	): void => {
 		if (!supportsMutableRegistration) {
 			components.push(...newComponents);
+			if (supportsComponentIndex) {
+				updateIndexes();
+			}
 			invalidateSurfaceCache();
 			if (newComponents.length > 0) {
 				notifyListeners();
@@ -206,7 +212,7 @@ export const createRegistry = (): {
 				}
 			});
 			if (hasChanged) {
-				if (supportsMutableRegistration) {
+				if (supportsComponentIndex) {
 					updateIndexes();
 				}
 				invalidateSurfaceCache();

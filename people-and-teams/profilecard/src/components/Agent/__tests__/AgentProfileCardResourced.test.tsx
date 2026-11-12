@@ -1,9 +1,12 @@
 import React from 'react';
 
-// eslint-disable-next-line @atlassian/testing-library/prefer-atlassian-testing-library
-import { render, screen, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
+import { render } from '@atlassian/testing-library/render';
+import { screen } from '@atlassian/testing-library/screen';
+import { waitFor } from '@atlassian/testing-library/wait-for';
+
+import { AgentForbiddenError } from '../../../client/AgentForbiddenError';
 import type { ProfileClient } from '../../../types';
 import { AgentProfileCardResourced } from '../AgentProfileCardResourced';
 
@@ -20,7 +23,7 @@ const rovoAgentProfile = {
 	description: 'Helpful agent',
 	system_prompt_template: '',
 	visibility: 'PUBLIC',
-	user_defined_conversation_starters: [],
+	user_defined_conversation_starters: ['Help me get started'],
 	named_id: 'agent-id',
 	creator: 'ari:cloud:identity::user/creator-aaid',
 	creator_type: 'CUSTOMER',
@@ -51,10 +54,16 @@ const createResourceClient = (): ProfileClient =>
 		}),
 	}) as unknown as ProfileClient;
 
-const renderCard = (resourceClient: ProfileClient, accountId = 'agent-account-id') =>
+const renderCard = (
+	resourceClient: ProfileClient,
+	accountId = 'agent-account-id',
+	isReadOnly = false,
+) =>
 	render(
 		<IntlProvider locale="en">
 			<AgentProfileCardResourced
+				isReadOnly={isReadOnly}
+				agentName="Rovo Agent"
 				accountId={accountId}
 				cloudId="cloud-id"
 				resourceClient={resourceClient}
@@ -94,4 +103,31 @@ describe('AgentProfileCardResourced', () => {
 
 		await waitFor(() => expect(resourceClient.getRovoAgentProfile).toHaveBeenCalledTimes(1));
 	});
+});
+
+test('capture and report a11y violations in an informational preview', async () => {
+	const { container } = renderCard(createResourceClient(), 'agent-account-id', true);
+	await screen.findByText('Agent Creator', { exact: false });
+	expect(screen.getByText('Helpful agent')).toBeVisible();
+	expect(screen.queryByRole('button')).not.toBeInTheDocument();
+	expect(screen.queryByRole('link')).not.toBeInTheDocument();
+	await expect(container).toBeAccessible();
+});
+
+test('does not offer an unreachable retry action in an informational preview', async () => {
+	const resourceClient = createResourceClient();
+	jest.mocked(resourceClient.getRovoAgentProfile).mockRejectedValue(new Error('network failure'));
+	renderCard(resourceClient, 'agent-account-id', true);
+	await screen.findByTestId('profilecard-error');
+	expect(screen.queryByRole('button')).not.toBeInTheDocument();
+	expect(screen.queryByRole('link')).not.toBeInTheDocument();
+});
+
+test('does not offer actions for a forbidden agent in an informational preview', async () => {
+	const resourceClient = createResourceClient();
+	jest.mocked(resourceClient.getRovoAgentProfile).mockRejectedValue(new AgentForbiddenError());
+	renderCard(resourceClient, 'agent-account-id', true);
+	await screen.findByText('Rovo Agent');
+	expect(screen.queryByRole('button')).not.toBeInTheDocument();
+	expect(screen.queryByRole('link')).not.toBeInTheDocument();
 });

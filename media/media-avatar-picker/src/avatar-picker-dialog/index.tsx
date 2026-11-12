@@ -28,6 +28,7 @@ import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
 import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
 import Textfield from '@atlaskit/textfield/text-field';
@@ -405,7 +406,7 @@ export class AvatarPickerDialog extends PureComponent<
 	}
 
 	renderBody(): JSX.Element {
-		const { avatars, isLoading, predefinedAvatarsText, requireAltText } = this.props;
+		const { avatars, isLoading, predefinedAvatarsText, requireAltText, maxImageSize } = this.props;
 		const { mode, selectedImageSource, selectedAvatar, errorMessage } = this.state;
 
 		switch (mode) {
@@ -422,6 +423,9 @@ export class AvatarPickerDialog extends PureComponent<
 								onImageUploaded={this.onImageUploaded}
 								onImageError={this.onImageError}
 								isLoading={isLoading}
+								maxImageSize={
+									fg('platform_media_avatar_picker_max_image_size') ? maxImageSize : undefined
+								}
 							/>
 							{this.renderPredefinedAvatarList()}
 						</Box>

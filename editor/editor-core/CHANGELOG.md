@@ -1,5 +1,13 @@
 # @atlaskit/editor-core
 
+## 242.3.4
+
+### Patch Changes
+
+- [`aa37beeadca8b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa37beeadca8b) -
+  Delete unreachable source files
+- Updated dependencies
+
 ## 242.3.3
 
 ### Patch Changes

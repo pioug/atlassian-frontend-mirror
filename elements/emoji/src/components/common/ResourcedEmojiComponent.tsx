@@ -168,7 +168,7 @@ export const ResourcedEmojiComponent = ({
 			const foundEmoji = _emojiProvider.fetchByEmojiId(
 				emojiId,
 				optimisticFetch,
-				fg('platform_bitbucket_fix_shortname_and_ordering') ? emojiProviderLookupOrder : undefined,
+				emojiProviderLookupOrder,
 			);
 
 			sampledUfoRenderedEmoji(emojiId).mark(UfoEmojiTimings.METADATA_START);

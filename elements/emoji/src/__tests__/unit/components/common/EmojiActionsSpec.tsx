@@ -100,6 +100,7 @@ describe('<EmojiActions />', () => {
 		});
 
 		it('should focus on the tone being selected or default tone', async () => {
+			passGate('platform_emoji_skin_tone_blur_fix');
 			await renderWithIntl(<EmojiActions {...props} toneEmoji={toneEmoji} />);
 
 			// Open Skin Tone UI
@@ -927,7 +928,6 @@ describe('<EmojiActions />', () => {
 
 	describe('blur dismissal with refreshed picker', () => {
 		beforeEach(() => {
-			passGate('platform_suppression_removal_fix_reactions');
 			passGate('platform_emoji_skin_tone_blur_fix');
 		});
 
@@ -1008,7 +1008,6 @@ describe('<EmojiActions />', () => {
 	});
 
 	it('preserves existing blur dismissal when the fix is disabled', async () => {
-		passGate('platform_suppression_removal_fix_reactions');
 		failGate('platform_emoji_skin_tone_blur_fix');
 		const onToneSelectorCancelled = jest.fn();
 		renderWithIntl(
@@ -1079,6 +1078,7 @@ describe('<EmojiActions />', () => {
 		});
 
 		it('should hide EmojiPickerListSearch when ToneSelector is open', async () => {
+			passGate('platform_emoji_skin_tone_blur_fix');
 			await renderWithIntl(<EmojiActions {...props} toneEmoji={toneEmoji} />);
 
 			// Open tone

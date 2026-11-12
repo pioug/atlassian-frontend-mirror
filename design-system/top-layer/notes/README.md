@@ -232,6 +232,9 @@ actually happened.
 - **[follow-ups/tooltip-new-content-on-trigger-click-chrome-dismiss-timing.md](./follow-ups/tooltip-new-content-on-trigger-click-chrome-dismiss-timing.md)**
   — Chromium's `LightDismissFromClick` can close a `hasNewContentOnTriggerClick` tooltip after its
   re-show
+- **[follow-ups/dropdown-menu-tall-menus.md](./follow-ups/dropdown-menu-tall-menus.md)** — held: a
+  tall top-layer `DropdownMenu` runs off screen (Chromium) or covers its trigger (WebKit). Why the
+  fit fix is held, five approaches measured, and the recommendation
 
 ### Reports
 

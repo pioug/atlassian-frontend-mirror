@@ -4,6 +4,7 @@ import { expect, type Page, test } from '@af/integration-testing';
 
 import {
 	DEFAULT_GAP,
+	defaultFloorFor,
 	expectedFittedSize,
 	expectGeometry,
 	expectOnScreen,
@@ -164,16 +165,20 @@ test.describe('rule 1: fitting mirrors onto an axis still on content', () => {
 		skipAxeCheck();
 
 		// Rule 2 reads the RAW requested values: a fit request on the CROSS axis
-		// still floors the placement axis. With no floor the 40px content fits the
-		// 60px cell below the trigger and nothing moves. Rule 1's mirror is masked
-		// here because a floor beats a max; `PER_AXIS_CAP_PARAMS` below unmasks it.
+		// still floors the placement axis. Rule 1's mirror also caps block to the
+		// cell, so with no floor the 40px content shrinks into the 45px cell below
+		// the trigger (a 32px letterbox) and nothing moves. With the floor its margin
+		// box overflows that cell and it flips in every engine: at 150px, or at its
+		// own 40px where the floor is content-sized (`40 + 8 + 5 = 53 > 45`).
+		const contentBlockSize = 40;
+
 		await openFixture({
 			page,
 			params: {
 				inlineSize: 'max-available',
-				triggerBlockStart: 320,
+				triggerBlockStart: 335,
 				triggerInlineStart: 160,
-				contentBlockSize: 40,
+				contentBlockSize,
 				contentInlineSize: 100,
 			},
 		});
@@ -181,25 +186,31 @@ test.describe('rule 1: fitting mirrors onto an axis still on content', () => {
 		await expectGeometry({
 			page,
 			assert: (geometry) => {
-				const { trigger, host, viewport, isCssAnchorPositioning } = geometry;
+				const { trigger, host, viewport, isCssAnchorPositioning, isContentSizedFloor } = geometry;
 				expectOnScreen(geometry);
 
 				if (!isCssAnchorPositioning) {
-					// Rule 2 is a CSS-path rule: this path has no cell to overflow, and
-					// measures the popover to pick a side instead.
-					expect(host.y).toBeGreaterThanOrEqual(trigger.y + trigger.height - TOLERANCE);
-					expect(host.height).toBeLessThan(FALLBACK_MINIMUM_MAIN_AXIS_SIZE);
+					// Rule 2 is a CSS-path rule. This path writes no floor and measures the
+					// popover to pick a side: `40 + 8` does not fit the 45px cell, so it
+					// moves at its content size rather than at a floor.
+					expect(host.y + host.height).toBeLessThanOrEqual(trigger.y + TOLERANCE);
+					expect(Math.abs(host.height - contentBlockSize)).toBeLessThanOrEqual(TOLERANCE);
 					return;
 				}
 
-				// The floored margin box overflows the cell, so the popover moves, and
-				// the floor is what makes it 150px tall rather than 40px.
 				const cellBelow = viewport.height - (trigger.y + trigger.height);
-				expect(MINIMUM_MARGIN_BOX).toBeGreaterThan(cellBelow);
+				const floor = defaultFloorFor({
+					content: contentBlockSize,
+					isContentSizedFloor,
+					viewportExtent: viewport.height,
+					anchorExtent: trigger.height,
+				});
+
+				// The floored margin box overflows the cell, so the popover moves, and
+				// the floor is what sizes it there rather than the 32px cell cap.
+				expect(marginBoxAround({ size: floor })).toBeGreaterThan(cellBelow);
 				expect(host.y + host.height).toBeLessThanOrEqual(trigger.y + TOLERANCE);
-				expect(Math.abs(host.height - FALLBACK_MINIMUM_MAIN_AXIS_SIZE)).toBeLessThanOrEqual(
-					TOLERANCE,
-				);
+				expect(Math.abs(host.height - floor)).toBeLessThanOrEqual(TOLERANCE);
 			},
 		});
 	});
@@ -229,7 +240,7 @@ test.describe('rule 1: fitting mirrors onto an axis still on content', () => {
 		await expectGeometry({
 			page,
 			assert: (geometry) => {
-				const { trigger, host, isCssAnchorPositioning } = geometry;
+				const { trigger, host, isCssAnchorPositioning, isContentSizedFloor } = geometry;
 				expectOnScreen(geometry);
 
 				expect(Math.abs(host.width - trigger.width)).toBeLessThanOrEqual(TOLERANCE);
@@ -239,6 +250,14 @@ test.describe('rule 1: fitting mirrors onto an axis still on content', () => {
 				if (!isCssAnchorPositioning) {
 					// No floor on this path, so the height is the content's.
 					expect(host.height).toBeLessThan(FALLBACK_MINIMUM_MAIN_AXIS_SIZE);
+					return;
+				}
+
+				if (isContentSizedFloor) {
+					// The floor is capped at the content, so the 100px content keeps
+					// its size. This is the cost below, removed where `calc-size()` is
+					// supported.
+					expect(Math.abs(host.height - 100)).toBeLessThanOrEqual(TOLERANCE);
 					return;
 				}
 
@@ -253,26 +272,53 @@ test.describe('rule 1: fitting mirrors onto an axis still on content', () => {
 });
 
 /**
- * Rule 2's threshold, pinned from both sides. A capped popover flips only because
- * the floor makes its margin box overflow the cell, at exactly
- * `floor + gap + padding = 150 + 8 + 5`. These cells sit 7px either side of it,
- * so a floor that stopped being applied fails the second case and one applied
- * where it should not be fails the first.
+ * Rule 2's threshold, pinned from both sides in every CSS engine. A capped
+ * popover flips only because the floor makes its margin box overflow the cell,
+ * at exactly `floor + gap + padding`. The content is 300px, taller than either
+ * side, so the floor is at its largest:
+ *
+ * - Without `calc-size()` the floor is the fixed 150px, so the threshold is
+ *   `150 + 8 + 5 = 163`. Pinned by the 170px and 156px cells.
+ * - With `calc-size()` the floor is the content up to the viewport clamp,
+ *   `(400 - 20) / 2 - 13 = 177`, so the threshold is `177 + 13 = 190`: half the
+ *   space the anchor leaves. Pinned by the 197px and 183px cells. A popover too
+ *   tall for either side lands on the roomier one, and a 150px term left in the
+ *   content-sized floor fails the 170px and 183px cases.
+ *
+ * Each pair sits 7px either side of its threshold, so a floor that stopped being
+ * applied fails one case of the pair and one applied where it should not be
+ * fails the other.
  */
 const FLIP_THRESHOLD_CASES = [
 	{
-		name: 'a cell just larger than the floor keeps the popover where it was asked',
-		cell: 170,
+		name: 'a 197px cell, larger than either threshold, keeps the popover where it was asked',
+		cell: 197,
 		expectFlip: false,
+		expectFlipWithContentSizedFloor: false,
 	},
 	{
-		name: 'a cell just smaller than the floor moves it, rather than letterboxing it',
+		name: 'a 183px cell, smaller than the clamp, moves it to the roomier side only where the floor follows the content',
+		cell: 183,
+		expectFlip: false,
+		expectFlipWithContentSizedFloor: true,
+	},
+	{
+		name: 'a 170px cell, just larger than the fixed floor, keeps it with that floor and moves it with the content-sized one',
+		cell: 170,
+		expectFlip: false,
+		expectFlipWithContentSizedFloor: true,
+	},
+	{
+		name: 'a 156px cell, smaller than either threshold, moves it rather than letterboxing it',
 		cell: 156,
 		expectFlip: true,
+		expectFlipWithContentSizedFloor: true,
 	},
 ] as const;
 
-FLIP_THRESHOLD_CASES.forEach(({ name, cell, expectFlip }) => {
+const FLIP_THRESHOLD_CONTENT_BLOCK_SIZE = 300;
+
+FLIP_THRESHOLD_CASES.forEach(({ name, cell, expectFlip, expectFlipWithContentSizedFloor }) => {
 	test(`rule 2, the default flip floor: ${name}`, async ({ page, skipAxeCheck }) => {
 		skipAxeCheck();
 
@@ -285,7 +331,7 @@ FLIP_THRESHOLD_CASES.forEach(({ name, cell, expectFlip }) => {
 				triggerBlockSize,
 				triggerBlockStart: VIEWPORT.height - triggerBlockSize - cell,
 				triggerInlineStart: 160,
-				contentBlockSize: 300,
+				contentBlockSize: FLIP_THRESHOLD_CONTENT_BLOCK_SIZE,
 				contentInlineSize: 100,
 			},
 		});
@@ -293,7 +339,7 @@ FLIP_THRESHOLD_CASES.forEach(({ name, cell, expectFlip }) => {
 		await expectGeometry({
 			page,
 			assert: (geometry) => {
-				const { trigger, host, viewport, isCssAnchorPositioning } = geometry;
+				const { trigger, host, viewport, isCssAnchorPositioning, isContentSizedFloor } = geometry;
 				expectOnScreen(geometry);
 
 				if (!isCssAnchorPositioning) {
@@ -305,16 +351,27 @@ FLIP_THRESHOLD_CASES.forEach(({ name, cell, expectFlip }) => {
 					return;
 				}
 
+				const isFlipExpected = isContentSizedFloor ? expectFlipWithContentSizedFloor : expectFlip;
+				const floor = defaultFloorFor({
+					content: FLIP_THRESHOLD_CONTENT_BLOCK_SIZE,
+					isContentSizedFloor,
+					viewportExtent: viewport.height,
+					anchorExtent: trigger.height,
+				});
+
 				const cellBelow = viewport.height - (trigger.y + trigger.height);
-				expect(MINIMUM_MARGIN_BOX > cellBelow).toBe(expectFlip);
+				// Restated from the recipe, so a failure says which half broke.
+				expect(marginBoxAround({ size: floor }) > cellBelow).toBe(isFlipExpected);
 
 				const hasFlipped = host.y + host.height <= trigger.y + TOLERANCE;
-				expect(hasFlipped).toBe(expectFlip);
-
-				expect(host.height).toBeGreaterThanOrEqual(FALLBACK_MINIMUM_MAIN_AXIS_SIZE - TOLERANCE);
+				expect(hasFlipped).toBe(isFlipExpected);
 
 				const occupiedCell = hasFlipped ? trigger.y : cellBelow;
-				const expected = expectedFittedSize({ cell: occupiedCell, content: 300 });
+				const expected = expectedFittedSize({
+					cell: occupiedCell,
+					content: FLIP_THRESHOLD_CONTENT_BLOCK_SIZE,
+					floor,
+				});
 				expect(Math.abs(host.height - expected)).toBeLessThanOrEqual(TOLERANCE);
 			},
 		});

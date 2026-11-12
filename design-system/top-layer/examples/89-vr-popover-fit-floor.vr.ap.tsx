@@ -197,8 +197,10 @@ function VrFitFloor({
 }
 
 /**
- * The floor's COST: with a roomy cell and content shorter than the floor, the
- * surface is stretched to 150px and carries empty space below its content.
+ * The floor's COST where `calc-size()` is not supported: with a roomy cell and
+ * content shorter than the floor, the surface is stretched to 150px and carries
+ * empty space below its content. Where it is supported (Chromium, so VR), the
+ * floor is never more than the content and the popover hugs it.
  */
 export function VrFitFloorRoomyDefault(): ReactNode {
 	return <VrFitFloor label="default floor" space="roomy" content="shortContent" />;
@@ -231,7 +233,8 @@ export function VrFitFloorCrampedMinSizeZero(): ReactNode {
 /**
  * The JavaScript fallback's twin of `VrFitFloorRoomyDefault`, on the same
  * geometry: fitting emits only the viewport backstop there, and NO floor, so the
- * popover hugs its 56px content where the CSS path stretches it to 150px. The
+ * popover hugs its 56px content where the CSS path without `calc-size()`
+ * stretches it to 150px. The
  * cell cap is meaningless without a `position-area`, and the floor is actively
  * harmful, because `computeFallbackPosition` picks a side from the popover's
  * MEASURED size and a floor only inflates the measurement it reads.

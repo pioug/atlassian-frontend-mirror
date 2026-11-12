@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-table
 
+## 42.4.2
+
+### Patch Changes
+
+- [`ee8b1497897d9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee8b1497897d9) -
+  Clean up the table cell menu button z-index experiment, retaining the raised anchored button above
+  sticky table headers.
+- Updated dependencies
+
+## 42.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 42.4.0
+
+### Minor Changes
+
+- [`c8289f4e731b6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c8289f4e731b6) -
+  Keep sticky table header columns aligned when the row under the header has merged cells (behind
+  platform_editor_sticky_header_merged_row_width_exp)
+
 ## 42.3.9
 
 ### Patch Changes

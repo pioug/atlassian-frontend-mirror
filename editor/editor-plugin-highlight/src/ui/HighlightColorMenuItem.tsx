@@ -26,7 +26,6 @@ import { useToolbarDropdownMenu } from '@atlaskit/editor-toolbar/toolbar-dropdow
 import Heading from '@atlaskit/heading/heading';
 import EditorDoneIcon from '@atlaskit/icon/core/check-mark';
 import Icon from '@atlaskit/icon/core/text-style';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Bleed } from '@atlaskit/primitives/compiled/bleed';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
@@ -227,7 +226,7 @@ export function HighlightColorMenuItem({ api, parents }: HighlightMenuItemProps)
 				id={labelId}
 				size="xxsmall"
 				// The label names the palette's radio group; a heading inside a menu is skipped and has no stable level here
-				as={fg('platform_editor_a11y_color_palette_radiogroup') ? 'div' : undefined}
+				as="div"
 			>
 				{formatMessage(messages.highlight)}
 			</Heading>

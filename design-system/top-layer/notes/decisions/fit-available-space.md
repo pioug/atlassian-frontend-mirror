@@ -16,7 +16,15 @@ some cell can always hold it; a non-anchor-relative inline axis is its natural w
 (`inline-size: max-content`), which restores the slide a too-narrow span used to get; and the fit
 margins pad only the viewport-facing cross side of a start / end-aligned popover — see
 [Update (2026-09-04)](#update-2026-09-04-three-corrections-from-review). Every measurement below
-still holds; only the API around them and the floor's value changed.
+still holds; only the API around them and the floor's value changed. Amended 2026-11-02: where
+`calc-size()` is supported (Chrome), the default floor is never more than the content, so short
+content keeps its own size and still flips. Case B is solved there; Safari and Firefox keep the
+150px floor. See
+[Update (2026-11-02)](#update-2026-11-02-the-default-floor-hugs-its-content-where-calc-size-is-supported).
+Amended 2026-11-12: in Chrome the content-sized floor has no 150px term. It is the content's own
+size up to the viewport clamp, so a popover keeps its size whenever some side can hold it, and only
+content too tall for either side is capped, on the roomier side. See
+[Update (2026-11-12)](#update-2026-11-12-the-content-sized-floor-has-no-150px-term).
 
 Fitting constrains an anchored popover to the space between its anchor and the viewport edge, so
 oversized content scrolls inside the popover instead of growing past the viewport and putting the
@@ -44,24 +52,35 @@ All of them come from one pure function, `getAnchoredPopoverSizeDeclarations` in
 `internal/anchor-positioning/fit-margins.tsx` for the margin half. For a resolved placement with
 axis `A`, cross axis `C`, edge `E` and gap `G`:
 
-| property             | value                                                                                                                                                     | when                                                                                           |
-| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
-| `max-{A}-size`       | `calc(100% - 5px - {G})` — the position-area cell                                                                                                         | **`A` itself** is fitting, on the CSS path                                                     |
-| `max-{A}-size`       | `calc(100d{vw\|vh} - 2 * 5px)` — the viewport                                                                                                             | otherwise — the **unconditional** backstop                                                     |
-| `max-{C}-size`       | `calc(100d{vw\|vh} - 2 * 5px)` — the viewport, never the cell                                                                                             | **always**                                                                                     |
-| `inline-size`        | `max-content` — the natural width, a definite size the caps beat                                                                                          | inline is `'content'` or `'max-available'`, on the CSS path, unless `shouldPreserveInlineSize` |
-| `{axis}-size`        | `anchor-size(self-{axis})`                                                                                                                                | that axis is `'match-anchor'`                                                                  |
-| `min-{A}-size`       | `max({minSize}, <anchor floor>)`                                                                                                                          | `minSize` was set AND `A` is anchor-rel. †                                                     |
-| `min-{A}-size`       | `placement.minSize`, **never clamped**                                                                                                                    | `minSize` was set — including `0`                                                              |
-| `min-{A}-size`       | `<anchor floor>`                                                                                                                                          | else `A` is anchor-relative †                                                                  |
-| `min-{A}-size`       | `min(150px, max(0px, calc((100d{vw\|vh} - anchor-size(self-{A})) / 2 - {G} - 5px)))` — clamped against the VIEWPORT, never the cell                       | else anything is fitting, on the CSS path                                                      |
-| `min-{C}-size`       | `min(anchor-size(self-{C}), <viewport cap>)`, **clamped**                                                                                                 | `C` is `'min-anchor'`                                                                          |
-| `margin-{A}-{E}`     | `5px`                                                                                                                                                     | anything is fitting, on the CSS path                                                           |
-| `margin-{C}-{side}`  | `calc({shift} + 5px)`, composed, on the viewport-facing side(s)                                                                                           | anything is fitting, on the CSS path                                                           |
-| `margin-{C}-{side}`  | `{shift}`, untouched, on the anchor-facing side                                                                                                           | `align` is `'start'` / `'end'`                                                                 |
-| `display`            | `flex`, scoped to `:popover-open`, unconditional                                                                                                          | `Popover`'s stylesheet                                                                         |
-| `> * { flex-grow }`  | `1`, unconditional                                                                                                                                        | `Popover`'s stylesheet                                                                         |
-| `> * { min-*-size }` | `0`, unconditional - so the cap can reach a non-scrolling child. Written as `:where(host) > *`, zero specificity, so a minimum the child sets itself wins | `Popover`'s stylesheet                                                                         |
+| property                                        | value                                                                                                                                                     | when                                                                                           |
+| ----------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `max-{A}-size`                                  | `calc(100% - 5px - {G})` — the position-area cell                                                                                                         | **`A` itself** is fitting, on the CSS path                                                     |
+| `max-{A}-size`                                  | `calc(100d{vw\|vh} - 2 * 5px)` — the viewport                                                                                                             | otherwise — the **unconditional** backstop                                                     |
+| `max-{C}-size`                                  | `calc(100d{vw\|vh} - 2 * 5px)` — the viewport, never the cell                                                                                             | **always**                                                                                     |
+| `inline-size`                                   | `max-content` — the natural width, a definite size the caps beat                                                                                          | inline is `'content'` or `'max-available'`, on the CSS path, unless `shouldPreserveInlineSize` |
+| `{axis}-size`                                   | `anchor-size(self-{axis})`                                                                                                                                | that axis is `'match-anchor'`                                                                  |
+| `min-{A}-size`                                  | `max({minSize}, <anchor floor>)`                                                                                                                          | `minSize` was set AND `A` is anchor-rel. †                                                     |
+| `min-{A}-size`                                  | `placement.minSize`, **never clamped**                                                                                                                    | `minSize` was set — including `0`                                                              |
+| `min-{A}-size`                                  | `<anchor floor>`                                                                                                                                          | else `A` is anchor-relative †                                                                  |
+| `min-{A}-size`                                  | `var(--ds-popover-content-sized-flip-floor, var(--ds-popover-flip-floor))` — the default floor, in one of two forms ‡                                     | else anything is fitting, on the CSS path                                                      |
+| `--ds-popover-flip-floor`                       | `min(150px, max(0px, calc((100d{vw\|vh} - anchor-size(self-{A})) / 2 - {G} - 5px)))` — clamped against the VIEWPORT, never the cell                       | with the row above                                                                             |
+| `min-{C}-size`                                  | `min(anchor-size(self-{C}), <viewport cap>)`, **clamped**                                                                                                 | `C` is `'min-anchor'`                                                                          |
+| `margin-{A}-{E}`                                | `5px`                                                                                                                                                     | anything is fitting, on the CSS path                                                           |
+| `margin-{C}-{side}`                             | `calc({shift} + 5px)`, composed, on the viewport-facing side(s)                                                                                           | anything is fitting, on the CSS path                                                           |
+| `margin-{C}-{side}`                             | `{shift}`, untouched, on the anchor-facing side                                                                                                           | `align` is `'start'` / `'end'`                                                                 |
+| `display`                                       | `flex`, scoped to `:popover-open`, unconditional                                                                                                          | `Popover`'s stylesheet                                                                         |
+| `> * { flex-grow }`                             | `1`, unconditional                                                                                                                                        | `Popover`'s stylesheet                                                                         |
+| `> * { min-*-size }`                            | `0`, unconditional - so the cap can reach a non-scrolling child. Written as `:where(host) > *`, zero specificity, so a minimum the child sets itself wins | `Popover`'s stylesheet                                                                         |
+| `--ds-popover-flip-floor-limit`                 | `max(0px, calc((100d{vw\|vh} - anchor-size(self-{A})) / 2 - {G} - 5px))`, the viewport clamp alone                                                        | with the row above                                                                             |
+| `--ds-popover-content-sized-flip-floor`         | `calc-size(max-content, min(size, var(--ds-popover-flip-floor-limit)))`, inside `@supports (min-block-size: calc-size(max-content, size))` ‡              | `Popover`'s stylesheet                                                                         |
+| `> * { --ds-popover-content-sized-flip-floor }` | `initial`, so the value above is not inherited                                                                                                            | `Popover`'s stylesheet                                                                         |
+
+‡ The default floor's two forms. Where `calc-size()` is supported, `min-{A}-size` resolves to the
+content-sized floor: the content's own size, up to the viewport clamp, with no 150px term.
+Everywhere else the property is undefined and the `var()` falls back to `--ds-popover-flip-floor`,
+which is the floor this table listed before 2026-11-02, unchanged. See
+[Update (2026-11-02)](#update-2026-11-02-the-default-floor-hugs-its-content-where-calc-size-is-supported)
+and [Update (2026-11-12)](#update-2026-11-12-the-content-sized-floor-has-no-150px-term).
 
 At most one `min-{A}-size` declaration is written, and the rows are read top down. The two EXPLICIT
 minimums — `placement.minSize` and the anchor floor — **compose** as `max()`, because both were
@@ -121,11 +140,14 @@ whenever the two differ. A wrong pairing is invisible in a horizontal writing mo
   anchor size when `A` is anchor-relative — as `max()`, uses whichever applies alone, and falls back
   to `FALLBACK_MINIMUM_MAIN_AXIS_SIZE` (150px, clamped against the viewport so the roomier cell can
   always hold it — see [Update (2026-09-04)](#update-2026-09-04-three-corrections-from-review)) only
-  when neither does. An explicit `minSize` always beats that default, **including `minSize: 0`** —
-  the "cap me but do not move me" escape hatch, which works on any axis with no anchor floor.
-  `resolvePlacement` leaves `minSize` `undefined` rather than defaulting it, precisely so `0` stays
-  distinguishable from unset. The rule is CSS-path-only because a floor is a flip driver and the JS
-  fallback has no cell to overflow; `minSize` still applies there, see
+  when neither does. Where `calc-size()` is supported that default is also never more than the
+  content, so it never pads; see
+  [Update (2026-11-02)](#update-2026-11-02-the-default-floor-hugs-its-content-where-calc-size-is-supported).
+  An explicit `minSize` always beats that default, **including `minSize: 0`** — the "cap me but do
+  not move me" escape hatch, which works on any axis with no anchor floor. `resolvePlacement` leaves
+  `minSize` `undefined` rather than defaulting it, precisely so `0` stays distinguishable from
+  unset. The rule is CSS-path-only because a floor is a flip driver and the JS fallback has no cell
+  to overflow; `minSize` still applies there, see
   [The JavaScript fallback](#the-javascript-fallback). Why the floor exists at all:
   [the cap alone suppresses `position-try-fallbacks`](#the-cap-alone-suppresses-position-try-fallbacks);
   why the cap is per-axis and this is not:
@@ -200,23 +222,30 @@ see [Two jobs, split](#two-jobs-split-a-per-axis-cap-and-a-whole-popover-floor).
 Measured on the ticket geometry and on the two cases that bracket it — **identical in Chromium,
 Firefox and WebKit**, and pinned by `__tests__/playwright/fit-available-space.spec.tsx`:
 
-| case                                                     | cap only (the bug) | cap + floor                  |
-| -------------------------------------------------------- | ------------------ | ---------------------------- |
-| A — 40px below / 340px above, 200px content              | below, **27px**    | **above, 200px**, no scroll  |
-| B — 180px below / 200px above, 100px content (fits)      | below, 100px       | below, 150px — **stays put** |
-| C — ticket 320x256, trigger low (66/170), 400px content  | below, **53px**    | **above, 157px**, scrolls    |
-| D — ticket 320x256, trigger high (176/60), 400px content | below, 163px       | below, 163px — unchanged     |
+| case                                                     | cap only (the bug) | cap + floor                  | cap + content-sized floor (Chrome, since 2026-11-02) |
+| -------------------------------------------------------- | ------------------ | ---------------------------- | ---------------------------------------------------- |
+| A — 40px below / 340px above, 200px content              | below, **27px**    | **above, 200px**, no scroll  | above, 200px                                         |
+| B — 180px below / 200px above, 100px content (fits)      | below, 100px       | below, 150px — **stays put** | **below, 100px** — stays put, no padding             |
+| C — ticket 320x256, trigger low (66/170), 400px content  | below, **53px**    | **above, 157px**, scrolls    | above, 157px                                         |
+| D — ticket 320x256, trigger high (176/60), 400px content | below, 163px       | below, 163px — unchanged     | below, 163px                                         |
+
+The last column was measured in Chromium 143 on 2026-11-02. WebKit 26 does not support `calc-size()`
+and gives the "cap + floor" column, as before.
 
 ### The cost, accepted
 
-Case B is the trade: the floor pads a 100px popover to 150px. A fitting popover has a minimum size.
-That is worth it for portable flip behaviour, and it is why fitting stays **opt-in** — see
-[Not doing](#deliberately-not-doing).
+Case B is the trade where `calc-size()` is not supported (Safari, Firefox): the floor pads a 100px
+popover to 150px. A fitting popover has a minimum size. That is worth it for portable flip
+behaviour, and it is why fitting stays **opt-in** — see [Not doing](#deliberately-not-doing).
 
-Revisit when `max-block-size: calc-size(stretch, min(size, MAX))` is portable. That formulation says
-"cap to the cell, but only if the content is taller" directly and needs no floor at all. It is
-Chrome-only today and will never ship in Firefox, so a two-branch `@supports` version is the most
-that is available.
+**Revisited 2026-11-02.** This section used to say: revisit when
+`max-block-size: calc-size(stretch, min(size, MAX))` is portable, because it says "cap to the cell,
+but only if the content is taller" and needs no floor. Measured, that formulation does not flip. It
+is still a cap, and a cap alone never overflows. What does work is `calc-size()` on the FLOOR:
+`calc-size(max-content, min(size, <floor>))`, a floor that is never more than the content. It is
+Chrome-only, so it ships as the two-branch `@supports` version this section predicted, and Case B is
+solved in Chrome only. See
+[Update (2026-11-02)](#update-2026-11-02-the-default-floor-hugs-its-content-where-calc-size-is-supported).
 
 ### Where the floor is NOT capped, and why that matters
 
@@ -582,13 +611,39 @@ oscillated because they measured the host, whose size the cap changes.
   caret-anchored editor autocompletes (jira JFX `SuggestionsPopup`, `@atlaskit/jql-editor`), where
   moving the surface mid-typing is a pure regression. Case B is the case it gets wrong; the floor is
   the case it gets right.
-- **Capped terminal `@position-try` options** (uncapped base so overflow detection stays real, cap
-  only in the last-resort options) — dead in Chrome. Controlled measurement: an inline
-  `max-block-size: 100px` clamps to 100px, but the identical declaration inside `@position-try` lays
-  out at 200px while `getComputedStyle` reports 100px. WebKit honours it. Worth filing a crbug.
+- **Capped terminal `@position-try` options** (uncapped options first so overflow detection stays
+  real, then a capped copy of each option as the last resort). This gives "full size on either side,
+  else capped on the roomier side" with no floor. Re-measured on 2026-11-11 in Chromium 143.0.7499.4
+  (the Playwright build), Chrome 157.0.8103.39 (stable), WebKit 26.0 and Firefox 159, with
+  screenshots and not only `getComputedStyle`. Two facts block it in Chrome:
+  - **Chrome uses only the first five entries of `position-try-fallbacks`.** The spec lets a browser
+    limit the list, to no fewer than five entries. Chrome 143 and 157 ignore every entry after the
+    fifth. WebKit 26 and Firefox 159 used all ten entries we tried. The start-aligned and centred
+    lists from `placementToTryFallbacks` already have five entries, so every capped copy is past the
+    limit. Making room means removing the cross-axis slides.
+  - **Chromium 143 ignores `max-*` sizes inside `@position-try`.** An inline `max-block-size: 100px`
+    clamps to 100px. The same declaration inside a `@position-try` rule lays out at 200px, while
+    `getComputedStyle` reports 100px. Chrome 157, WebKit 26 and Firefox 159 apply it, so the bug is
+    fixed in stable Chrome. It is still in the Playwright build, so CI and VR have it. A fixed
+    `block-size` inside `@position-try` works in every engine. That is enough here, because a capped
+    copy runs only when the content fits neither side, so the content is taller than the cell.
+
+  Also measured: `var()` and `anchor-size()` resolve inside `@position-try`, and a named rule
+  combines with a try tactic (`--fit flip-block`). `fit-content(150px)` is not valid on
+  `min-block-size` in any of the four engines. An engine split would work (the content-sized floor
+  in Chrome, capped copies in Safari and Firefox), but it needs named rules injected into a
+  stylesheet and a `CSS.supports()` proxy to choose between them. Safari and Firefox already give a
+  correct, padded result with the floor, so the split is not worth its cost.
+
 - **`max-block-size: stretch`** — byte-identical to the calc in Chrome, unsupported in WebKit 26
   where it silently reverts to no cap. Safari 26 is exactly the version with `position-area` but not
   `stretch`, so `supportsAnchorPositioning()` returns true, the fit path runs, and nothing caps.
+- **`max-block-size: calc-size(stretch, min(size, MAX))` and no floor** — measured in Chromium 143
+  on 2026-11-02, against both the cell cap and the viewport cap as `MAX`. Identical to the cap alone
+  in every case: A, C and E letterbox below the trigger. `stretch` resolves to the cell, so the
+  `min()` only picks between two caps, and a capped box never overflows. Only a minimum beats a
+  maximum, so `calc-size()` went on the floor instead; see
+  [Update (2026-11-02)](#update-2026-11-02-the-default-floor-hugs-its-content-where-calc-size-is-supported).
 - **JS-measured px caps** — what legacy popperjs did, and what every mature library still does
   (Floating UI's `size`, Radix and Base UI's `--*-available-height`). Kept in reserve as the only
   approach that also covers a non-anchor-positioning engine. See the fallback section above.
@@ -699,7 +754,14 @@ overriding an explicit request.
   the JavaScript fallback with a measured length. A fifth case asserts BOTH axes of an unfitted
   `'min-anchor'` popover at once, because the two clamps come from different code paths and a
   `dvw`/`dvh` swap in either is invisible while only one axis is asserted. jsdom has no layout or
-  cascade, so it stops at the declaration boundary on purpose.
+  cascade, so it stops at the declaration boundary on purpose. Since 2026-11-02 it also pins the
+  default floor's switch: `--ds-popover-flip-floor` carries the floor unchanged, `min-{A}-size`
+  reads the content-sized floor first, an explicit floor never takes the switch, and the JavaScript
+  fallback writes neither form.
+- `__tests__/unit/content-sized-flip-floor.test.tsx` — the stylesheet half of the switch. It reads
+  the `@supports` rule Compiled injects for `Popover` and resolves the `var()` chain by hand, once
+  with the rule applied (the content-sized floor) and once without (the plain floor, unchanged), and
+  pins the child reset that stops the value being inherited.
 - `__tests__/vr-tests/popover-fit-floor.vr.tsx` — a 2x2 of
   `{roomy, cramped} x {default floor, minSize: 0}`, so the two columns differ only in `minSize`. The
   cost of Rule 2 (a surface stretched to 150px with empty space below) and its benefit (flipped
@@ -783,6 +845,11 @@ transparent host below it. Arguably the better rendering — the surface fills t
 to — but it is a real difference. Now covered: `__tests__/vr-tests/popover-fit-floor.vr.tsx`'s
 `fit-floor-roomy-default` baseline is exactly this case, next to the `minSize: 0` control that hugs
 its 56px content.
+
+Since 2026-11-02 this is true only where `calc-size()` is not supported. VR runs Chromium, where the
+floor is never more than the content, so `fit-floor-roomy-default` now hugs its 56px content like
+the `minSize: 0` control. See
+[Update (2026-11-02)](#update-2026-11-02-the-default-floor-hugs-its-content-where-calc-size-is-supported).
 
 `@atlaskit/popper`'s flag-on VR baselines do **not** need regenerating, contrary to an earlier note
 here: those fixtures use `110vw` / `110vh` / `9999px` content, so the 150px floor never binds.
@@ -967,9 +1034,10 @@ consumer that does not ask it to fit, with why it was left.
   is on the viewport-facing cross side only (see the 2026-09-04 update above), and a slide fallback
   (`span-inline-end` → `span-inline-start`) does not swap the inline margins the way `flip-inline`
   does, so in the slid state the padding is on the anchor side and the viewport side has none.
-  Fixing it needs per-option margins, i.e. named `@position-try` rules in a stylesheet, the same
-  mechanism the Chrome sizing bug under [Why not the alternatives](#why-not-the-alternatives) makes
-  unattractive. Measure how often the slide state is reached before spending on it.
+  Fixing it needs per-option margins, i.e. named `@position-try` rules in a stylesheet, one for each
+  slide option. That replaces entries and does not add them, so Chrome's five-entry limit (see
+  [Why not the alternatives](#why-not-the-alternatives)) does not block it. Measure how often the
+  slide state is reached before spending on it.
 - **The clamped default floor is viewport-relative, so a tall anchor shrinks it further than the
   cells strictly require.** `(viewport - anchor) / 2` is a lower bound on the roomier cell, not its
   size: an anchor at the very top of the viewport has a cell below it nearly the whole viewport
@@ -1021,6 +1089,238 @@ consumer that does not ask it to fit, with why it was left.
   surface scrolls at the viewport edge, but it has no cell cap and no flip floor: a calendar taller
   than the space below its trigger overflows the cell rather than moving. A consumer decision, not a
   recipe gap.
+
+## Update (2026-11-02): the default floor hugs its content where `calc-size()` is supported
+
+> Amended by [Update (2026-11-12)](#update-2026-11-12-the-content-sized-floor-has-no-150px-term):
+> the content-sized floor below is now capped at the viewport clamp alone, not at the 150px floor.
+> Where this section writes `min(size, <floor>)` for Chrome, read `min(size, <clamp>)`. Safari and
+> Firefox are as described here.
+
+**Decided 2026-11-02.** The default floor padded every fitting popover whose content is shorter than
+150px: Case B. Where the visible surface is the host's only child, for example the `PopoverSurface`
+of a `<Popup shouldFitViewport>`, the flex context stretches that surface to the floor, so the
+padding shows as empty space below the content. It came up when `@atlaskit/dropdown-menu` tried
+`blockSize: 'max-available'` for tall menus, which would have padded every short menu. That
+DropdownMenu change is held; see
+[../follow-ups/dropdown-menu-tall-menus.md](../follow-ups/dropdown-menu-tall-menus.md).
+
+`@atlaskit/react-select`'s top-layer menu also fits its block axis, but its short menus were never
+visibly padded. Its host child is a transparent flex-column wrapper (`MenuPortalTopLayer`), and the
+visible `Menu` inside it does not grow, so only the transparent host and wrapper reached 150px. For
+Select the change is the flip threshold alone: a short menu now flips at `menu + gap + 5px` in
+Chrome, not at 163px.
+
+### What changed
+
+Where `calc-size()` is supported, the DEFAULT floor is `calc-size(max-content, min(size, <floor>))`,
+where `<floor>` is the clamped 150px floor from
+[Update (2026-09-04)](#the-150px-floor-could-push-the-popover-off-screen). It is never more than the
+content. Everywhere else it is `<floor>`, unchanged.
+
+- Content shorter than the floor keeps its own size. It flips once its own margin box
+  (`content + gap + padding`) overflows the cell. That is "flip when the content does not fit",
+  which is what legacy popper did.
+- Content at least as tall as the floor gets exactly the floor it got before.
+- Explicit floors do not change. `placement.minSize` (including `0`) and the anchor floors are
+  requests, and are written as before.
+
+### Measured
+
+Scratch pages in Chromium 143 and WebKit 26 (the Playwright browser builds), 2026-11-02, with the
+recipe's own declarations. Block placement, 20px trigger, 8px gap:
+
+| case                                       | cap only     | cap + 150px floor (WebKit 26; Chromium before) | cap + content-sized floor (Chromium 143) | `calc-size(stretch, …)` cap, no floor (Chromium 143) |
+| ------------------------------------------ | ------------ | ---------------------------------------------- | ---------------------------------------- | ---------------------------------------------------- |
+| A — 40 below / 340 above, 200px content    | below, 27px  | above, 200px                                   | above, 200px                             | below, 27px                                          |
+| B — 180 below / 200 above, 100px content   | below, 100px | below, 150px                                   | **below, 100px**                         | below, 100px                                         |
+| C — 320x256, trigger low, 400px content    | below, 53px  | above, 157px                                   | above, 157px                             | below, 53px                                          |
+| D — 320x256, trigger high, 400px content   | below, 163px | below, 163px                                   | below, 163px                             | below, 163px                                         |
+| E — 400x300, trigger at 150, 400px content | below, 117px | above, 137px                                   | above, 137px                             | below, 117px                                         |
+| F — 30 below / 300 above, 60px content     | below, 17px  | above, 150px                                   | **above, 60px**                          | below, 17px                                          |
+| H — 100 below / 300 above, 60px content    | below, 60px  | above, 150px                                   | **below, 60px**                          | below, 60px                                          |
+
+The inline axis behaves the same way: 60px-wide content with 40px of room to the inline end flips at
+60px in Chromium and at 150px in WebKit; with 120px of room it stays put at 60px in Chromium and
+flips at 150px in WebKit.
+
+The last column is the formulation this note used to suggest. It is the cap alone, as explained in
+[Why not the alternatives](#why-not-the-alternatives).
+
+### How: a custom property switched by `@supports`, no JavaScript
+
+The size declarations are inline styles, and an inline style cannot hold `@supports`. So:
+
+- `useAnchoredPopover` writes the plain floor to `--ds-popover-flip-floor`, and writes
+  `min-{A}-size: var(--ds-popover-content-sized-flip-floor, var(--ds-popover-flip-floor))`.
+- `Popover`'s stylesheet defines
+  `--ds-popover-content-sized-flip-floor: calc-size(max-content, min(size, var(--ds-popover-flip-floor)))`
+  inside `@supports (min-block-size: calc-size(max-content, size))`.
+- Where that rule does not apply, the property is undefined, so the `var()` falls back to the plain
+  floor: the same value as before.
+
+The hook stays the only writer of `min-{A}-size`; the stylesheet only supplies a value. There is no
+JavaScript probe. The browser picks the branch, so nothing is cached, nothing can mismatch on
+hydration, and nothing can disagree with the cascade.
+
+`Popover`'s child rule resets `--ds-popover-content-sized-flip-floor` to `initial`. A custom
+property inherits, and its value is resolved on the host that declares it. Without the reset, an
+element further in, sized by `useAnchoredPopover` without `Popover`'s stylesheet, took the outer
+host's floor: measured `0px` instead of its own `33px`.
+
+An element positioned without `Popover`'s stylesheet keeps the plain floor. Today nothing in the
+tree fits such an element: `@atlaskit/popper`'s `createPopper` adapter does not fit.
+
+### Guarantees kept
+
+- **The floor still drives the flip.** It is still a minimum, so a cell smaller than the content
+  still overflows. `min(content, floor)` is not the `min(floor, cap)` that suppresses flipping.
+- **The viewport clamp still holds.** The content-sized floor is never more than the clamped floor,
+  so some cell can still hold it.
+- **The JavaScript fallback is unchanged.** It writes no default floor, as since 2026-09-01, so it
+  writes neither form. `placement.minSize` still applies there.
+- **Explicit floors are unchanged**, on both paths.
+- **Safari and Firefox are unchanged.** `--ds-popover-flip-floor` holds the exact value this recipe
+  wrote before.
+
+### Costs, accepted
+
+- **Engines differ.** Chrome hugs and Safari and Firefox pad. Placement can differ too: in case H a
+  short popover stays below in Chrome and flips above in Safari. So in Safari and Firefox, a short
+  fitting popover whose surface is the host's only child still has a 150px surface, with empty space
+  below its content.
+- **A placement change in Chrome for short content.** A fitting popover with content under 150px
+  used to flip once its cell was smaller than 163px. It now flips once the cell is smaller than
+  `content + 13px`. In case H it used to flip above, padded to 150px, and now stays below at 60px.
+  That is the legacy outcome and the point of the change, but it is a change.
+- **The fit padding still counts.** A fitting popover flips at `content + gap + 5px`, a non-fitting
+  one at `content + gap`. Only a cell inside that 5px band sees a difference.
+
+### Tests
+
+- `src/internal/__tests__/anchored-popover-size.test.tsx` and
+  `src/internal/__tests__/use-anchored-popover.test.tsx`: the declarations of both forms, explicit
+  floors untouched, and the JavaScript fallback writing neither.
+- `__tests__/unit/content-sized-flip-floor.test.tsx`: the `@supports` rule, the `var()` chain
+  resolved with and without it, and the child reset.
+- Playwright: the geometry helpers probe `calc-size()` with the same condition as the stylesheet
+  (`isContentSizedFloor`), and `defaultFloorFor` gives the floor a popover actually gets. Case B and
+  the opt-in pair in `fit-available-space.spec.tsx`, and two cases in
+  `anchored-popover-size.spec.tsx`, now assert per engine. New case F pins "hugs and still flips":
+  60px of content in a 30px cell flips at 60px in Chrome and at 150px elsewhere, where a cap with no
+  floor letterboxes it to 17px.
+- Each floor test keeps a geometry where a DROPPED floor fails in every CSS engine, because a
+  content-sized floor is invisible wherever the content fits the cell. The cross-axis fit case in
+  `anchored-popover-size.spec.tsx` uses a 45px cell under 40px of content: with the floor it flips
+  (at 40px or 150px), without it the cell cap letterboxes it to 32px. The opt-in pair uses a 70px
+  cell under 60px of content: the unfitted 68px margin box fits and stays, the fitted 73px one flips
+  (at 60px or 150px), and without the floor the cap shrinks it to 57px and it stays. Both measured
+  in Chromium 143 and WebKit 26 on 2026-11-02.
+
+### VR
+
+VR runs Chromium, so every fitting popover whose content is shorter than 150px on its placement axis
+is now photographed at its content size. In this package four baselines move:
+`fit-floor-roomy-default` (it now hugs its 56px content, like `fit-floor-roomy-min-size-zero`) and
+`fit-align-{bottom-start,bottom-end,right-start}` (each was a short block stretched to 150px). The
+other fit-floor baselines do not move: their content is taller than the floor, their floor is
+explicit, or they are on the JavaScript fallback. In consumers, flag-on baselines of a short
+`<Popup shouldFitViewport>` now show a content-sized surface. `DropdownMenu` does not fit, so its
+baselines do not move. Short `Select` menus look the same as before; a baseline moves only where the
+new flip threshold changes the side.
+
+## Update (2026-11-12): the content-sized floor has no 150px term
+
+**Decided 2026-11-12 (user).** 150px is the value the flip was measured with, not a design value,
+and the content-sized floor does not need it. Where `calc-size()` is supported, the default floor is
+now `calc-size(max-content, min(size, <clamp>))`, where `<clamp>` is
+`max(0px, calc((100dvh - anchor) / 2 - gap - 5px))`. It was `min(size, min(150px, <clamp>))`.
+
+This is option B in
+[../follow-ups/dropdown-menu-tall-menus.md](../follow-ups/dropdown-menu-tall-menus.md), step 1 of
+its recommendation.
+
+### What it fixes
+
+With the 150px term, content taller than 150px shrank instead of flipping. A fitting popover flips
+only when its floor overflows the requested cell, so with 163px or more free on that side it stayed
+there and scrolled, even when the other side held the whole content. That is the gap the 2026-11-02
+change left open in Chrome.
+
+The clamp alone is enough:
+
+- **Content that fits a side keeps its size.** The floor is the content, so the popover overflows a
+  side that cannot hold it and moves to one that can.
+- **Content too tall for either side goes to the roomier side.** The floor is the clamp, half the
+  space the anchor leaves (less the gap and padding). The side that is at least that half holds it,
+  and the other side does not.
+- **Short content does not change.** It was already its own size.
+
+### How
+
+`useAnchoredPopover` writes the clamp to a new inline property, `--ds-popover-flip-floor-limit`, as
+well as the fixed floor `--ds-popover-flip-floor`. `Popover`'s `@supports` rule now reads the limit:
+`--ds-popover-content-sized-flip-floor: calc-size(max-content, min(size, var(--ds-popover-flip-floor-limit)))`.
+Nothing else in the switch changes. With no anchor size, which the hook never leaves out while
+fitting, both properties are 150px.
+
+### Measured
+
+Scratch pages with the recipe's declarations and `Popover`'s rule, 2026-11-12: a 400x400 viewport, a
+20px trigger, an 8px gap. The clamp is `(400 - 20) / 2 - 13 = 177`, so the content-sized threshold
+is `177 + 13 = 190`. Results as "side, height":
+
+| Space below / above, content | Chrome before | Chromium 143 and Chrome 157 now | WebKit 26 (unchanged) |
+| ---------------------------- | ------------- | ------------------------------- | --------------------- |
+| 197 / 183, 300px             | below, 184    | below, 184                      | below, 184            |
+| 183 / 197, 300px             | below, 170    | **above, 184**                  | below, 170            |
+| 170 / 210, 300px             | below, 157    | **above, 197**                  | below, 157            |
+| 156 / 224, 300px             | above, 211    | above, 211                      | above, 211            |
+| 170 / 210, 175px             | below, 157    | **above, 175**                  | below, 157            |
+| 180 / 200, 100px             | below, 100    | below, 100                      | below, 150            |
+
+A floor of plain `min-block-size: max-content` was measured too, and rejected. A minimum beats a
+maximum, so the caps never apply: tall content runs off the screen (Chromium 143) or overlaps the
+trigger (Chrome 157).
+
+### Guarantees kept
+
+- **Some side can always hold the floor.** The clamp is what guarantees it, and the clamp is
+  unchanged.
+- **Safari and Firefox are unchanged.** `--ds-popover-flip-floor` holds the same value as before.
+- **Explicit floors and the JavaScript fallback are unchanged.** Neither writes the default floor.
+
+### Costs, accepted
+
+- **More popovers move in Chrome.** Content between 150px and the clamp that does not fit the
+  requested side now flips to the side that holds it, where it used to stay and scroll. That is the
+  legacy outcome, but it is a change for `Select` menus and `<Popup shouldFitViewport>`.
+- **Engines differ more.** For such content Chrome flips and Safari and Firefox scroll in place.
+
+### Tests
+
+- Unit: `anchored-popover-size.test.tsx` and `use-anchored-popover.test.tsx` pin
+  `--ds-popover-flip-floor-limit` next to the fixed floor, and its removal.
+  `content-sized-flip-floor.test.tsx` pins the `@supports` rule reading the limit, and that the
+  resolved content-sized floor has no 150px term.
+- Playwright: `defaultFloorFor` models the content-sized floor as `min(content, clamp)`. The rule 2
+  threshold test in `anchored-popover-size.spec.tsx` now pins both thresholds with two pairs of
+  cells (170 / 156 for 163, 197 / 183 for 190), and fails if a 150px term comes back. New case G in
+  `fit-available-space.spec.tsx`: 175px of content that fits only above flips there at full size in
+  Chrome, and stays below at 157px elsewhere.
+
+### VR
+
+Checked on CI run 26498834, 2026-11-12. Three flag-on baselines in Popup's `popup-top-layer` move,
+and they are re-baselined in D12: "shouldFitViewport on the default surface", "shouldFitViewport
+reaching a custom popupComponent" and "shouldFitContainer and shouldFitViewport together". Each has
+640px of content under a 21px trigger, with 200px free below and 499px above, in a 720px viewport.
+Below holds 187px. With the 150px term the floor was 150px, which fits below, so the popup stayed
+below, capped at 187px. Now the floor is the clamp, `(720 - 21) / 2 - 13`, about 336px, which does
+not fit below, so the popup moves above, the roomier side, capped at about 486px. Their flag-off
+versions do not move. Nothing else moves: the top-layer fit-floor, fit-alignment and fit-scroll
+baselines, and the flag-on fitting baselines of Popper, `react-select` and `DatePicker`, are as they
+were on the 2026-11-11 D12 run.
 
 ## Related
 

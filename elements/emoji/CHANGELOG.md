@@ -1,5 +1,31 @@
 # @atlaskit/emoji
 
+## 73.6.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 73.6.7
+
+### Patch Changes
+
+- [`2832efe885646`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2832efe885646) -
+  Cleanup `feature_gate` `platform_suppression_removal_fix_reactions`. The accessibility fixes for
+  reactions and emoji (no tab stops on non-interactive tooltip/picker wrappers, focus support on
+  reaction dialog tabs, blur dismissal for emoji actions, button role on typeahead items) are now
+  permanent.
+- Updated dependencies
+
+## 73.6.6
+
+### Patch Changes
+
+- [`bd7e009f368a8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bd7e009f368a8) -
+  Clean up feature gate `platform_bitbucket_fix_shortname_and_ordering`. Emoji provider lookup order
+  is now always forwarded, and the Bitbucket transformer always preserves emoji id and text when
+  parsing and serializing.
+
 ## 73.6.5
 
 ### Patch Changes

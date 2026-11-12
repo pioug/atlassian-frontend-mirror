@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-collapse
 
+## 16.1.2
+
+### Patch Changes
+
+- [`95058aa9ec848`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/95058aa9ec848) -
+  Keep nested heading collapse toggles synchronized with their current document positions after
+  Enter expands a parent heading, under platform_editor_collapsible_headings.
+
 ## 16.1.1
 
 ### Patch Changes

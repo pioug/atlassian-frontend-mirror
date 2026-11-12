@@ -16,7 +16,6 @@ import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { ManualPromise } from '@atlaskit/link-test-helpers/promise/manual-promise';
 import { renderWithIntl as render } from '@atlaskit/link-test-helpers/react-testing-library';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import mockedPluginData from '../../__tests__/__helpers/mock-plugin-data';
 import {
@@ -1971,23 +1970,13 @@ describe('<LinkPicker />', () => {
 	});
 
 	describe('form action container semantics', () => {
-		it('renders a non-landmark container when the feature gate is enabled', () => {
-			passGate('platform_navx_fix_nested_footer_landmark');
+		it('renders form actions without a footer landmark', () => {
 			const { testIds } = setupLinkPicker();
 			const form = screen.getByTestId(testIds.urlInputField).closest('form');
 
 			expect(form).toBeInTheDocument();
 			expect(form?.lastElementChild?.tagName).toBe('DIV');
 			expect(form?.querySelector('footer')).toBeNull();
-		});
-
-		it('preserves the footer element when the feature gate is disabled', () => {
-			failGate('platform_navx_fix_nested_footer_landmark');
-			const { testIds } = setupLinkPicker();
-			const form = screen.getByTestId(testIds.urlInputField).closest('form');
-
-			expect(form).toBeInTheDocument();
-			expect(form?.lastElementChild?.tagName).toBe('FOOTER');
 		});
 	});
 

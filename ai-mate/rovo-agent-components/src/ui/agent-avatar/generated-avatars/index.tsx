@@ -222,6 +222,8 @@ const JsmRequestResolverAgentAvatar = lazy(
 /**
  * OOTB Agents avatars - start
  */
+const CodexAvatar = lazy(() => import('./assets/codex'));
+
 const AmplitudeAgentAvatar = lazy(
 	() =>
 		import(
@@ -405,6 +407,10 @@ const outOfTheBoxAgentAvatar: Record<
 	string,
 	{ getRender: (size: SizeType) => React.ReactNode; getColor: () => AgentAvatarColor }
 > = {
+	codex_for_jira_agent: {
+		getRender: (size: SizeType) => <CodexAvatar size={AVATAR_SIZES[size]} />,
+		getColor: () => blueColor.v1,
+	},
 	ai_mate_agent: {
 		getRender: (size: SizeType) => (
 			<RovoChatAvatar

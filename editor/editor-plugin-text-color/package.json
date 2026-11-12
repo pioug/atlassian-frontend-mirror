@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-text-color",
-	"version": "30.0.18",
+	"version": "30.0.19",
 	"description": "Text color plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -70,10 +70,5 @@
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0",
 		"react-intl": "root:*"
-	},
-	"platform-feature-flags": {
-		"platform_editor_a11y_color_palette_radiogroup": {
-			"type": "boolean"
-		}
 	}
 }

@@ -3,7 +3,7 @@
  *
  * Structured content components from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::34f5071976a7368b807e3d15e4282893>>
+ * @codegen <<SignedSource::5f4c7d73ece750beae58ea212084c28a>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -1078,7 +1078,7 @@ export const components: ComponentMcpPayload[] = [
 			{
 				name: 'appearance',
 				type: '"default" | "primary" | "discovery" | "rovo" | "subtle" | undefined',
-				description: 'The button style variation.\nThe button style variation.',
+				description: 'The button style variation.',
 			},
 			{
 				name: 'autoFocus',
@@ -1191,7 +1191,7 @@ export const components: ComponentMcpPayload[] = [
 				name: 'href',
 				type: '(string | RouterLinkConfig) & (string | RouterLinkConfig | undefined)',
 				description:
-					'Provides a URL for link buttons. When using an AppProvider with a configured router link component, a `RouterLinkConfig` object type can be provided for advanced usage. See the [Link Button routing example](/components/button/examples#routing) for more details.\nURL to navigate to.',
+					'Provides a URL for link buttons. When using an AppProvider with a configured router link component, a `RouterLinkConfig` object type can be provided for advanced usage. See the [Link Button routing example](/components/button/examples#routing) for more details.',
 				isRequired: true,
 			},
 			{
@@ -1231,18 +1231,18 @@ export const components: ComponentMcpPayload[] = [
 			{
 				name: 'onBlur',
 				type: 'React.FocusEventHandler<HTMLAnchorElement> | undefined',
-				description: 'Handler called on blur.\nHandler called on blur.',
+				description: 'Handler called on blur.',
 			},
 			{
 				name: 'onClick',
-				type: '(((e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, analyticsEvent: UIAnalyticsEvent) => void) & ((e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, analyticsEvent: UIAnalyticsEvent) => void)) | undefined',
+				type: '((e: React.MouseEvent<HTMLAnchorElement, MouseEvent>, analyticsEvent: UIAnalyticsEvent) => void) | undefined',
 				description:
-					'Handler called on click. You can use the second argument to fire Atlaskit analytics events on custom channels. They could then be routed to GASv3 analytics. See the pressable or anchor primitive code examples for information on [firing Atlaskit analytics events](https://atlassian.design/components/primitives/pressable/examples#atlaskit-analytics) or [routing these to GASv3 analytics](https://atlassian.design/components/primitives/pressable/examples#gasv3-analytics).\nHandler called on click. You can use the second argument to fire Atlaskit analytics events on custom channels. They could then be routed to GASv3 analytics. See the pressable or anchor primitive code examples for information on [firing Atlaskit analytics events](https://atlassian.design/components/primitives/pressable/examples#atlaskit-analytics) or [routing these to GASv3 analytics](https://atlassian.design/components/primitives/pressable/examples#gasv3-analytics).',
+					'Handler called on click. You can use the second argument to fire Atlaskit analytics events on custom channels. They could then be routed to GASv3 analytics. See the pressable or anchor primitive code examples for information on [firing Atlaskit analytics events](https://atlassian.design/components/primitives/pressable/examples#atlaskit-analytics) or [routing these to GASv3 analytics](https://atlassian.design/components/primitives/pressable/examples#gasv3-analytics).',
 			},
 			{
 				name: 'onFocus',
 				type: 'React.FocusEventHandler<HTMLAnchorElement> | undefined',
-				description: 'Handler called on focus.\nHandler called on focus.',
+				description: 'Handler called on focus.',
 			},
 			{
 				name: 'shape',
@@ -1306,7 +1306,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'href',
-				type: 'string | RouterLinkConfig',
+				type: '(string | RouterLinkConfig) & (string | RouterLinkConfig | undefined)',
 				description:
 					'Provides a URL for link buttons. When using an AppProvider with a configured router link component, a `RouterLinkConfig` object type can be provided for advanced usage. See the [Link Button routing example](/components/button/examples#routing) for more details.',
 				isRequired: true,
@@ -1330,6 +1330,12 @@ export const components: ComponentMcpPayload[] = [
 				name: 'isSelected',
 				type: 'boolean | undefined',
 				description: 'Indicates that the button is selected.',
+			},
+			{
+				name: 'newWindowLabel',
+				type: 'string | undefined',
+				description:
+					'Override the default text used to announce that the link opens in a new window.\nThis should be localized when the product is displayed in a non-English locale.',
 			},
 			{
 				name: 'onBlur',
@@ -2400,7 +2406,6 @@ export const components: ComponentMcpPayload[] = [
 			{
 				name: 'selectProps',
 				type: '(Omit<SelectProps<OptionType, false>, "aria-describedby" | "aria-label" | "placeholder" | "inputId"> & { \'aria-describedby\'?: undefined; \'aria-label\'?: undefined; inputId?: undefined; placeholder?: undefined; } & { ...; }) | undefined',
-				description: '',
 			},
 			{
 				name: 'shouldShowCalendarButton',
@@ -3262,6 +3267,7 @@ export const components: ComponentMcpPayload[] = [
 			'Avoid truncation—check max width; avoid truncated labels',
 			'Nested menu: maximum two layers',
 			'In a modal, use shouldRenderToParent for correct focus and screen reader behavior',
+			'Do not render the menu open (isOpen or defaultOpen) inside another layer that opens at the same time (for example, a modal that opens with the menu already open, or a submenu that is open when its parent menu opens). Open the menu on a user action, after its parent layer has opened.',
 			'Disabled triggers are not supported (see Button a11y)',
 			'Use Select for search/select; Checkbox for multiple from list; Radio for short single choice',
 		],
@@ -3356,7 +3362,7 @@ export const components: ComponentMcpPayload[] = [
 				name: 'shouldFitContainer',
 				type: 'boolean | undefined',
 				description:
-					"This fits the dropdown menu width to its parent's width.\nWhen set to `true`, the trigger and dropdown menu elements will be wrapped in a `div` with `position: relative`.\nThe dropdown menu will be rendered as a sibling to the trigger element, and will be full width.\nThe default is `false`.\n\nThis fits the dropdown menu width to its parent's width.\nWhen set to `true`, the trigger and dropdown menu elements will be wrapped in a `div` with `position: relative`.\nThe dropdown menu will be rendered as a sibling to the trigger element, and will be full width.\nThe default is `false`.",
+					"This fits the dropdown menu width to its parent's width.\nWhen set to `true`, the trigger and dropdown menu elements will be wrapped in a `div` with `position: relative`.\nThe dropdown menu will be rendered as a sibling to the trigger element, and will be full width.\nThe default is `false`.",
 			},
 			{
 				name: 'shouldIgnoreCloseEvent',
@@ -5585,7 +5591,7 @@ export const components: ComponentMcpPayload[] = [
 				name: 'appearance',
 				type: '"warning" | "default" | "removed" | "discovery" | "danger" | "neutral" | "success" | "information" | "inprogress" | "moved" | "new" | AccentColor | undefined',
 				description:
-					'The appearance of the lozenge. Supports legacy semantic appearances and new semantic colors.\nAccent appearance values.',
+					'The appearance of the lozenge. Supports legacy semantic appearances and new semantic colors.',
 				defaultValue: '"neutral"',
 			},
 			{
@@ -5615,14 +5621,13 @@ export const components: ComponentMcpPayload[] = [
 			{
 				name: 'trailingMetric',
 				type: 'string | undefined',
-				description:
-					'Numeric metric displayed at the end of the lozenge as a badge.\nTrailing metric is not supported for accent lozenges.',
+				description: 'Numeric metric displayed at the end of the lozenge as a badge.',
 			},
 			{
 				name: 'trailingMetricAppearance',
 				type: '"warning" | "default" | "removed" | "discovery" | "danger" | "neutral" | "success" | "information" | "inverse" | "inprogress" | "moved" | "new" | undefined',
 				description:
-					'Overrides the appearance of the trailing metric badge.\n\nIf not specified, the trailing metric badge inherits the lozenge appearance.\n\nThis prop is not supported for accent lozenges.\nTrailing metric appearance is not supported for accent lozenges.',
+					'Overrides the appearance of the trailing metric badge.\n\nIf not specified, the trailing metric badge inherits the lozenge appearance.\n\nThis prop is not supported for accent lozenges.',
 			},
 		],
 	},
@@ -5658,85 +5663,81 @@ export const components: ComponentMcpPayload[] = [
 				name: 'appearance',
 				type: '"warning" | "default" | "removed" | "discovery" | "danger" | "neutral" | "success" | "information" | "inprogress" | "moved" | "new" | AccentColor | undefined',
 				description:
-					'The appearance of the lozenge. Supports legacy semantic appearances and new semantic colors.\nAccent appearance values.',
+					'The appearance of the lozenge. Supports legacy semantic appearances and new semantic colors.',
 			},
 			{
 				name: 'aria-controls',
 				type: 'string | undefined',
 				description:
-					'Identifies the popup element that the trigger controls.\nShould match the `id` of the popup content for screen readers to understand the relationship.\nIdentifies the popup element that the trigger controls.\nShould match the `id` of the popup content for screen readers to understand the relationship.',
+					'Identifies the popup element that the trigger controls.\nShould match the `id` of the popup content for screen readers to understand the relationship.',
 			},
 			{
 				name: 'aria-expanded',
 				type: 'boolean | undefined',
 				description:
-					'Announces to assistive technology whether the popup is currently open or closed.\nAnnounces to assistive technology whether the popup is currently open or closed.',
+					'Announces to assistive technology whether the popup is currently open or closed.',
 			},
 			{
 				name: 'aria-haspopup',
 				type: 'boolean | "grid" | "dialog" | "menu" | "listbox" | "tree" | undefined',
 				description:
-					'Informs assistive technology that this element triggers a popup.\nWith `platform-dst-top-layer`, it is not set when the popup has no `role`.\nInforms assistive technology that this element triggers a popup.\nWith `platform-dst-top-layer`, it is not set when the popup has no `role`.',
+					'Informs assistive technology that this element triggers a popup.\nWith `platform-dst-top-layer`, it is not set when the popup has no `role`.',
 			},
 			{
 				name: 'aria-label',
 				type: 'string | undefined',
 				description:
-					'Defines a string value that labels the trigger element for assistive technology.\nDefines a string value that labels the trigger element for assistive technology.',
+					'Defines a string value that labels the trigger element for assistive technology.',
 			},
 			{
 				name: 'children',
 				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description:
-					'Elements to be rendered inside the lozenge. This should ideally be just a word or two.\nElements to be rendered inside the lozenge. This should ideally be just a word or two.',
+					'Elements to be rendered inside the lozenge. This should ideally be just a word or two.',
 			},
 			{
 				name: 'iconBefore',
 				type: 'IconProp | undefined',
-				description:
-					'Icon to display before the text content. Should be an ADS icon component.\nIcon to display before the text content. Should be an ADS icon component.',
+				description: 'Icon to display before the text content. Should be an ADS icon component.',
 			},
 			{
 				name: 'isLoading',
 				type: 'boolean | undefined',
 				description:
-					'Whether the dropdown trigger is in a loading state.\nWhen true, a spinner is shown and the trigger becomes non-interactive.\nWhether the dropdown trigger is in a loading state.\nWhen true, a spinner is shown and the trigger becomes non-interactive.',
+					'Whether the dropdown trigger is in a loading state.\nWhen true, a spinner is shown and the trigger becomes non-interactive.',
 			},
 			{
 				name: 'isSelected',
 				type: 'boolean | undefined',
-				description:
-					'Whether the dropdown is currently selected/open.\nWhether the dropdown is currently selected/open.',
+				description: 'Whether the dropdown is currently selected/open.',
 			},
 			{
 				name: 'maxWidth',
 				type: 'string | number | undefined',
-				description:
-					'max-width of lozenge container. Default to 200px.\nmax-width of lozenge container. Default to 200px.',
+				description: 'max-width of lozenge container. Default to 200px.',
 			},
 			{
 				name: 'onClick',
 				type: '((event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>, analyticsEvent: UIAnalyticsEvent) => void) | undefined',
 				description:
-					'Callback fired when the trigger is clicked. The second argument provides an Atlaskit UI analytics event that can be fired to a listening channel. See the [analytics-next documentation](https://atlaskit.atlassian.com/packages/analytics/analytics-next) for more information.\nCallback fired when the trigger is clicked. The second argument provides an Atlaskit UI analytics event that can be fired to a listening channel. See the [analytics-next documentation](https://atlaskit.atlassian.com/packages/analytics/analytics-next) for more information.',
+					'Callback fired when the trigger is clicked. The second argument provides an Atlaskit UI analytics event that can be fired to a listening channel. See the [analytics-next documentation](https://atlaskit.atlassian.com/packages/analytics/analytics-next) for more information.',
 			},
 			{
 				name: 'spacing',
 				type: 'LozengeSpacing | undefined',
 				description:
-					'Controls the overall spacing (padding + height) of the lozenge.\n\n- `default` matches the current visual appearance.\n- `spacious` increases padding and sets the lozenge height to 32px.\nControls the overall spacing (padding + height) of the lozenge.\n\n- `default` matches the current visual appearance.\n- `spacious` increases padding and sets the lozenge height to 32px.',
+					'Controls the overall spacing (padding + height) of the lozenge.\n\n- `default` matches the current visual appearance.\n- `spacious` increases padding and sets the lozenge height to 32px.',
 			},
 			{
 				name: 'trailingMetric',
 				type: 'string | undefined',
-				description:
-					'Numeric metric displayed at the end of the lozenge as a badge.\nTrailing metric is not supported for accent lozenges.',
+				description: 'Numeric metric displayed at the end of the lozenge as a badge.',
 			},
 			{
 				name: 'trailingMetricAppearance',
 				type: '"warning" | "default" | "removed" | "discovery" | "danger" | "neutral" | "success" | "information" | "inverse" | "inprogress" | "moved" | "new" | undefined',
 				description:
-					'Overrides the appearance of the trailing metric badge.\n\nIf not specified, the trailing metric badge inherits the lozenge appearance.\n\nThis prop is not supported for accent lozenges.\nTrailing metric appearance is not supported for accent lozenges.',
+					'Overrides the appearance of the trailing metric badge.\n\nIf not specified, the trailing metric badge inherits the lozenge appearance.\n\nThis prop is not supported for accent lozenges.',
 			},
 		],
 	},
@@ -5749,6 +5750,7 @@ export const components: ComponentMcpPayload[] = [
 			'Use for immediate task or critical/warning requiring a response; blocking until closed',
 			'Use sparingly—modals are invasive',
 			'One task per modal; limit interactions; no nested modals (inaccessible)',
+			'Do not open a layer inside the modal at the same time as the modal (for example, a modal that opens with its DropdownMenu, Popup or Select menu already open). Open the inner layer on a user action, after the modal has opened. Exception: a layer that shows state, such as a field error.',
 			'Anatomy: header (h1 title), close button, body, footer with primary + cancel/close',
 			'Footer: primary button on the right of secondary; multiple dismissal methods (close button, Esc, blanket click, Cancel/Close)',
 			'Use Popup for smaller info + controls; Spotlight for onboarding; Inline message for alert/action',
@@ -6075,14 +6077,17 @@ export const components: ComponentMcpPayload[] = [
 			'A motion primitive that can be used to animate the entry and exit of components. The recommended way to apply entry and exit animations in @atlaskit/motion. Wrap with ExitingPersistence to enable exit animations when elements are removed from the DOM.',
 		status: 'early-access',
 		usageGuidelines: [
+			'Use motion already owned by an ADS component instead of wrapping or replacing it',
 			'Use the Motion primitive as the recommended way to apply entry and exit animations',
 			'Wrap with ExitingPersistence to enable exit animations when elements are removed from the DOM',
-			'Pass pre-defined motion tokens to enteringAnimation and exitingAnimation for the simplest setup',
-			'Use enteringAnimationXcss and exitingAnimationXcss with cssMap styles for full control over animation properties',
+			'Prefer the complete semantic motion token for the affected role and state; inspect the full motion.<role>.* namespace so paired entry, exit, and reposition states are not missed',
+			'Do not invent a motion token or reconstruct an available semantic token from base duration, easing, and keyframe tokens',
+			'Use enteringAnimationXcss and exitingAnimationXcss only when no semantic motion token covers the required treatment, and compose only from published base motion tokens',
 			'Multiple keyframes can be composed by joining them in animationName (e.g. combining scale and fade)',
 			'Works with any React content including ADS Primitives — no render-prop pattern required',
 			'Use the appear prop on ExitingPersistence to also trigger the entering animation on first mount',
 			'The Motion primitive renders a wrapper div. If that wrapper would break layout, semantics, or an attribute a parent selector depends on, use the useMotion hook instead to animate an element you already render',
+			'Keep entry and exit motion subordinate to the task, and verify the result in the browser rather than treating an import or token reference as evidence that motion occurred',
 		],
 		accessibilityGuidelines: [
 			"Always respect the user's reduced-motion preference — use isReducedMotion() or useIsReducedMotion() to conditionally disable animations",
@@ -6148,6 +6153,7 @@ export const components: ComponentMcpPayload[] = [
 		status: 'general-availability',
 		usageGuidelines: [
 			'Wrap motion elements with ExitingPersistence to enable exit animations when elements are removed from the DOM',
+			'Keep ExitingPersistence mounted and conditionally render the child inside it; unmounting the persistence boundary prevents it from managing the exit',
 			'Set the appear prop to also trigger the entering animation when the component first mounts',
 			'Use exitThenEnter prop to make elements exit before new ones enter (sequential transition)',
 			'All direct children must have a unique key prop for ExitingPersistence to track additions and removals',
@@ -6213,6 +6219,79 @@ export const components: ComponentMcpPayload[] = [
 		],
 	},
 	{
+		name: 'Resizing',
+		package: '@atlaskit/motion',
+		description:
+			'Animates width, height, or both when an element changes dimensions. Use it only when the size change itself communicates state and a transform-based or non-animated treatment would not meet the design. Resizing layout properties can trigger reflow and degrade frame rate, so communicate that risk, consider a safer alternative, and verify the interaction on representative low-powered devices.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Prefer a transform-based or non-animated treatment when it preserves the intended behavior',
+			'Use Resizing only when changing width or height communicates a meaningful state change',
+			'Set dimension to width, height, or both and use published motion duration and easing tokens',
+			'Attach the supplied ref to the element whose dimensions change',
+			'Warn the user that width and height animation causes layout work, and suggest a safer treatment when the design permits one',
+			'Test rapid repeated changes, overflow, surrounding layout, and frame rate on representative low-powered devices',
+		],
+		accessibilityGuidelines: [
+			'Reduced-motion behavior is owned by Resizing; do not add a duplicate consumer workaround',
+			'Under reduced motion the content must reach its final dimensions immediately without waiting for the transition',
+			'Preserve focus, reading order, and screen-reader behavior while content changes size',
+		],
+		keywords: [
+			'motion',
+			'animation',
+			'resize',
+			'resizing',
+			'width',
+			'height',
+			'layout',
+			'performance',
+		],
+		category: 'animation',
+		examples: [
+			"import React, { useState } from 'react';\nimport { Resizing } from '@atlaskit/motion/resizing/resizing';\nimport { token } from '@atlaskit/tokens';\nexport default function ResizingExample(): JSX.Element {\n\tconst [expanded, setExpanded] = useState(false);\n\treturn (\n\t\t<>\n\t\t\t<button type=\"button\" onClick={() => setExpanded((value) => !value)}>\n\t\t\t\t{expanded ? 'Show less' : 'Show more'}\n\t\t\t</button>\n\t\t\t<Resizing\n\t\t\t\tdimension=\"height\"\n\t\t\t\tduration={token('motion.duration.short')}\n\t\t\t\teasing={token('motion.easing.inout.bold')}\n\t\t\t>\n\t\t\t\t{({ ref }) => (\n\t\t\t\t\t<div ref={ref}>\n\t\t\t\t\t\t<p>Always-visible content.</p>\n\t\t\t\t\t\t{expanded && <p>Additional content revealed by the interaction.</p>}\n\t\t\t\t\t</div>\n\t\t\t\t)}\n\t\t\t</Resizing>\n\t\t</>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'children',
+				type: '(opts: {    ref: CallbackRef;}) => React.ReactNode',
+				isRequired: true,
+			},
+			{
+				name: 'dimension',
+				type: '"height" | "width" | "both"',
+				description: "Which dimension(s) to animate. One of `'width'`, `'height'`, or `'both'`.",
+				isRequired: true,
+			},
+			{
+				name: 'duration',
+				type: '"var(--ds-duration-instant)" | "var(--ds-duration-long)" | "var(--ds-duration-medium)" | "var(--ds-duration-short)" | "var(--ds-duration-xlong)" | "var(--ds-duration-xshort)" | "var(--ds-duration-xxlong)" | "var(--ds-duration-xxshort)"',
+				description:
+					"Duration of the resize transition as a design token CSS variable.\n\nAccepts a `MotionDuration` token value, e.g. `token('motion.duration.medium')`.",
+				isRequired: true,
+			},
+			{
+				name: 'easing',
+				type: '"var(--ds-easing-in-practical)" | "var(--ds-easing-inout-bold)" | "var(--ds-easing-out-practical)" | "var(--ds-easing-out-bold)" | "var(--ds-easing-spring)"',
+				description:
+					"Easing of the resize transition as a design token CSS variable.\n\nAccepts a `MotionEasing` token value, e.g. `token('motion.easing.inout.bold')`.",
+				isRequired: true,
+			},
+			{
+				name: 'onFinishMotion',
+				type: '(() => void) | undefined',
+				description:
+					'Callback fired once the resize animation has completed,\nor when a pending resize is suppressed. With observed resizing, unchanged renders do not\nfire this callback.',
+			},
+			{
+				name: 'onStartMotion',
+				type: '(() => void) | undefined',
+				description:
+					'Callback fired immediately before a resize animation starts, while the element is still at\nits natural layout with no transition styles applied. Measurements taken here reflect the\nsize the element will settle at, rather than an intermediate animation frame.\n\nNot called on the initial render, under reduced motion,\nor when the dimension(s) did not change (no animation was needed).',
+			},
+		],
+	},
+	{
 		name: 'StaggeredEntrance',
 		package: '@atlaskit/motion',
 		description:
@@ -6220,11 +6299,14 @@ export const components: ComponentMcpPayload[] = [
 		status: 'general-availability',
 		usageGuidelines: [
 			'Wrap entering motion elements with StaggeredEntrance to create a cascading stagger effect',
+			'Use staggered entry only when the sequence improves comprehension; do not add it as decoration to large or frequently changing collections',
 			'All entering motion components must be direct descendants of StaggeredEntrance',
+			'Give every animated child a stable key so its identity is preserved across updates',
 			'Use the columns prop to specify a fixed grid layout, or "responsive" to calculate dynamically on the client',
 			'Use the delayStep prop to control how long each element group is staggered (defaults to 50ms)',
 			'Stagger delay uses a logarithmic scale so large lists do not feel excessively slow',
 			'Setting columns to a fixed number avoids elements being invisible before JavaScript executes (SSR-safe)',
+			'Keep the number of animated children and total delay bounded so users are not forced to wait for content',
 		],
 		keywords: ['motion', 'animation', 'stagger', 'entrance', 'list', 'grid', 'cascade', 'delay'],
 		category: 'animation',
@@ -6636,6 +6718,7 @@ export const components: ComponentMcpPayload[] = [
 		status: 'general-availability',
 		usageGuidelines: [
 			'Use for contextual content that appears on demand',
+			'Do not render the popup open (isOpen) inside another layer that opens at the same time (for example, a modal that opens with the popup already open). Open the popup on a user action, after its parent layer has opened. Exception: a popup that shows state, such as a field error.',
 			'Position appropriately relative to trigger',
 			'Consider dismissal behavior',
 			'Use appropriate content sizing',
@@ -6737,7 +6820,7 @@ export const components: ComponentMcpPayload[] = [
 				name: 'shouldFitContainer',
 				type: 'boolean | undefined',
 				description:
-					"This fits the popup width to its parent's width.\nWhen set to `true`, the trigger and popup elements will be wrapped in a `div` with `position: relative`.\nThe popup will be rendered as a sibling to the trigger element, and will be full width.\nThe default is `false`.\n\nThis fits the popup width to its parent's width.\nWhen set to `true`, the trigger and popup elements will be wrapped in a `div` with `position: relative`.\nThe popup will be rendered as a sibling to the trigger element, and will be full width.\nThe default is `false`.",
+					"This fits the popup width to its parent's width.\nWhen set to `true`, the trigger and popup elements will be wrapped in a `div` with `position: relative`.\nThe popup will be rendered as a sibling to the trigger element, and will be full width.\nThe default is `false`.",
 			},
 			{
 				name: 'shouldFitViewport',
@@ -8121,7 +8204,7 @@ export const components: ComponentMcpPayload[] = [
 				name: 'headingLevel',
 				type: 'HeadingElements | undefined',
 				description:
-					"Allows the section message's `title` to be rendered as the specified HTML\nheading element. The default heading element is `h2`.\n\nAllows the section message's `title` to be rendered as the specified HTML\nheading element. The default heading element is `h2`.",
+					"Allows the section message's `title` to be rendered as the specified HTML\nheading element. The default heading element is `h2`.",
 			},
 			{
 				name: 'icon',
@@ -8143,7 +8226,7 @@ export const components: ComponentMcpPayload[] = [
 			{
 				name: 'title',
 				type: 'string | undefined',
-				description: 'The heading of the section message.\n\nThe heading of the section message.',
+				description: 'The heading of the section message.',
 			},
 		],
 	},
@@ -8279,7 +8362,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'formatOptionLabel',
-				type: '((data: Option, formatOptionLabelMeta: FormatOptionLabelMeta<Option>) => React.ReactNode) | ((data: Option, formatOptionLabelMeta: FormatOptionLabelMeta<Option>) => React.ReactNode) | undefined',
+				type: '((data: Option, formatOptionLabelMeta: FormatOptionLabelMeta<Option>) => React.ReactNode) | undefined',
 				description: 'Formats option labels in the menu and control as React components',
 			},
 			{
@@ -8343,8 +8426,7 @@ export const components: ComponentMcpPayload[] = [
 			{
 				name: 'isLoading',
 				type: 'boolean | undefined',
-				description:
-					'Is the select in a state of loading (async)\nIs the select in a state of loading (async)\nWill cause the select to be displayed in the loading state, even if the\nAsync select is not currently waiting for loadOptions to resolve',
+				description: 'Is the select in a state of loading (async)',
 			},
 			{
 				name: 'isMulti',
@@ -8452,7 +8534,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'noOptionsMessage',
-				type: '((obj: { inputValue: string; }) => React.ReactNode) | ((obj: { inputValue: string; }) => React.ReactNode) | undefined',
+				type: '((obj: { inputValue: string; }) => React.ReactNode) | undefined',
 				description: 'Text to display when there are no options',
 			},
 			{
@@ -9349,7 +9431,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'formatOptionLabel',
-				type: '((data: Option, formatOptionLabelMeta: FormatOptionLabelMeta<Option>) => React.ReactNode) | ((data: Option, formatOptionLabelMeta: FormatOptionLabelMeta<Option>) => React.ReactNode) | undefined',
+				type: '((data: Option, formatOptionLabelMeta: FormatOptionLabelMeta<Option>) => React.ReactNode) | undefined',
 				description: 'Formats option labels in the menu and control as React components',
 			},
 			{
@@ -9413,8 +9495,7 @@ export const components: ComponentMcpPayload[] = [
 			{
 				name: 'isLoading',
 				type: 'boolean | undefined',
-				description:
-					'Is the select in a state of loading (async)\nIs the select in a state of loading (async)\nWill cause the select to be displayed in the loading state, even if the\nAsync select is not currently waiting for loadOptions to resolve',
+				description: 'Is the select in a state of loading (async)',
 			},
 			{
 				name: 'isMulti',
@@ -9522,7 +9603,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'noOptionsMessage',
-				type: '((obj: { inputValue: string; }) => React.ReactNode) | ((obj: { inputValue: string; }) => React.ReactNode) | undefined',
+				type: '((obj: { inputValue: string; }) => React.ReactNode) | undefined',
 				description: 'Text to display when there are no options',
 			},
 			{
@@ -9628,6 +9709,7 @@ export const components: ComponentMcpPayload[] = [
 			'Enable search for long option lists',
 			'Consider loading states for async data',
 			'Avoid alphabetical ordering (not localizable); use logical order for translatable option lists',
+			'Do not render the menu open (menuIsOpen or defaultMenuIsOpen) inside a layer that opens at the same time (for example, a modal that opens with the select menu already open). Open the menu on a user action, after the layer has opened.',
 		],
 		contentGuidelines: [
 			'Write clear, descriptive option labels',
@@ -9766,7 +9848,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'formatOptionLabel',
-				type: '((data: Option, formatOptionLabelMeta: FormatOptionLabelMeta<Option>) => React.ReactNode) | ((data: Option, formatOptionLabelMeta: FormatOptionLabelMeta<Option>) => React.ReactNode) | undefined',
+				type: '((data: Option, formatOptionLabelMeta: FormatOptionLabelMeta<Option>) => React.ReactNode) | undefined',
 				description: 'Formats option labels in the menu and control as React components',
 			},
 			{
@@ -9830,8 +9912,7 @@ export const components: ComponentMcpPayload[] = [
 			{
 				name: 'isLoading',
 				type: 'boolean | undefined',
-				description:
-					'Is the select in a state of loading (async)\nIs the select in a state of loading (async)\nWill cause the select to be displayed in the loading state, even if the\nAsync select is not currently waiting for loadOptions to resolve',
+				description: 'Is the select in a state of loading (async)',
 			},
 			{
 				name: 'isMulti',
@@ -9939,7 +10020,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'noOptionsMessage',
-				type: '((obj: { inputValue: string; }) => React.ReactNode) | ((obj: { inputValue: string; }) => React.ReactNode) | undefined',
+				type: '((obj: { inputValue: string; }) => React.ReactNode) | undefined',
 				description: 'Text to display when there are no options',
 			},
 			{
@@ -11634,81 +11715,74 @@ export const components: ComponentMcpPayload[] = [
 				name: 'avatar',
 				type: 'ComponentType<AvatarPropTypes> | ComponentType<TeamAvatarProps>',
 				description:
-					'The avatar component to render. AvatarTag will provide controlled props (size, appearance, borderColor).\nAccepts Avatar from `@atlaskit/avatar` package\nThe avatar component to render. AvatarTag will provide controlled props (size, appearance, borderColor).\nAccepts Avatar from `@atlaskit/avatar` or `@atlaskit/teams-avatar` package\nThe avatar component to render. AvatarTag will provide controlled props (size, appearance, borderColor).\nAccepts Avatar from `@atlaskit/avatar` package',
+					'The avatar component to render. AvatarTag will provide controlled props (size, appearance, borderColor).\nAccepts Avatar from `@atlaskit/avatar` package',
 				isRequired: true,
 			},
 			{
 				name: 'hasMargin',
 				type: 'boolean | undefined',
 				description:
-					"When false, removes the tag's default margin. Use in contexts like User-picker\nwhere the parent controls spacing. Defaults to `true`.\nWhen false, removes the tag's default margin. Use in contexts like User-picker\nwhere the parent controls spacing. Defaults to `true`.\nWhen false, removes the tag's default margin. Use in contexts like User-picker\nwhere the parent controls spacing. Defaults to `true`.",
+					"When false, removes the tag's default margin. Use in contexts like User-picker\nwhere the parent controls spacing. Defaults to `true`.",
 			},
 			{
 				name: 'href',
 				type: 'string | undefined',
-				description:
-					'URI or path. If provided, the tag will be a link.\nURI or path. If provided, the tag will be a link.\nURI or path. If provided, the tag will be a link.',
+				description: 'URI or path. If provided, the tag will be a link.',
 			},
 			{
 				name: 'isRemovable',
 				type: 'boolean | undefined',
-				description:
-					'Flag to indicate if a tag is removable. Defaults to true.\nFlag to indicate if a tag is removable. Defaults to true.\nFlag to indicate if a tag is removable. Defaults to true.',
+				description: 'Flag to indicate if a tag is removable. Defaults to true.',
 			},
 			{
 				name: 'isVerified',
 				type: 'boolean | undefined',
-				description:
-					'isVerified is not allowed for user tags.\nWhether this entity is verified. Shows a blue verified icon after the text.\nisVerified is not allowed for agent tags.',
+				description: 'isVerified is not allowed for user tags.',
 			},
 			{
 				name: 'linkComponent',
 				type: 'ComponentType<any> | undefined',
 				description:
-					'A link component to be used instead of our standard link. The styling of\nour link item will be applied to the link that is passed in.\nA link component to be used instead of our standard link. The styling of\nour link item will be applied to the link that is passed in.\nA link component to be used instead of our standard link. The styling of\nour link item will be applied to the link that is passed in.',
+					'A link component to be used instead of our standard link. The styling of\nour link item will be applied to the link that is passed in.',
 			},
 			{
 				name: 'maxWidth',
 				type: 'string | number | undefined',
 				description:
-					"Maximum width of the tag. When exceeded, the text will be truncated with ellipsis.\nAccepts any valid CSS max-width value (e.g., '200px', '15rem', '100%').\nMaximum width of the tag. When exceeded, the text will be truncated with ellipsis.\nAccepts any valid CSS max-width value (e.g., '200px', '15rem', '100%').\nMaximum width of the tag. When exceeded, the text will be truncated with ellipsis.\nAccepts any valid CSS max-width value (e.g., '200px', '15rem', '100%').",
+					"Maximum width of the tag. When exceeded, the text will be truncated with ellipsis.\nAccepts any valid CSS max-width value (e.g., '200px', '15rem', '100%').",
 			},
 			{
 				name: 'onAfterRemoveAction',
 				type: '((text: string) => void) | undefined',
-				description:
-					'Handler to be called after tag is removed.\nHandler to be called after tag is removed.\nHandler to be called after tag is removed.',
+				description: 'Handler to be called after tag is removed.',
 			},
 			{
 				name: 'onBeforeRemoveAction',
 				type: '(() => boolean) | undefined',
 				description:
-					'Handler to be called before the tag is removed. If it does not return a\ntruthy value, the tag will not be removed.\nHandler to be called before the tag is removed. If it does not return a\ntruthy value, the tag will not be removed.\nHandler to be called before the tag is removed. If it does not return a\ntruthy value, the tag will not be removed.',
+					'Handler to be called before the tag is removed. If it does not return a\ntruthy value, the tag will not be removed.',
 			},
 			{
 				name: 'onClick',
 				type: '((e: MouseEvent<HTMLAnchorElement, globalThis.MouseEvent>, analyticsEvent: UIAnalyticsEvent) => void) | undefined',
 				description:
-					'Handler called when the tag is clicked. Only fires for link tags (when href is provided).\nThe second argument provides an Atlaskit UI analytics event.\nHandler called when the tag is clicked. Only fires for link tags (when href is provided).\nThe second argument provides an Atlaskit UI analytics event.\nHandler called when the tag is clicked. Only fires for link tags (when href is provided).\nThe second argument provides an Atlaskit UI analytics event.',
+					'Handler called when the tag is clicked. Only fires for link tags (when href is provided).\nThe second argument provides an Atlaskit UI analytics event.',
 			},
 			{
 				name: 'removeButtonLabel',
 				type: 'string | undefined',
-				description:
-					'Text rendered as the aria-label for remove button.\nText rendered as the aria-label for remove button.\nText rendered as the aria-label for remove button.',
+				description: 'Text rendered as the aria-label for remove button.',
 			},
 			{
 				name: 'text',
 				type: 'string',
-				description:
-					"Text to be displayed in the tag (usually a person's name or entity name).\nText to be displayed in the tag (usually a person's name or entity name).\nText to be displayed in the tag (usually a person's name or entity name).",
+				description: "Text to be displayed in the tag (usually a person's name or entity name).",
 				isRequired: true,
 			},
 			{
 				name: 'type',
 				type: '"other" | "user" | "agent"',
-				description:
-					"The type of avatar tag. 'user' uses circular avatars for individuals.\nThe type of avatar tag. 'other' uses square avatars for teams/projects/spaces.\nThe type of avatar tag. 'agent' uses hexagonal avatars for AI agents.",
+				description: "The type of avatar tag. 'user' uses circular avatars for individuals.",
 				isRequired: true,
 			},
 		],

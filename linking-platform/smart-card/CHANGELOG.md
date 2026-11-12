@@ -1,5 +1,34 @@
 # @atlaskit/smart-card
 
+## 46.14.2
+
+### Patch Changes
+
+- [`3ff81b8eba204`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3ff81b8eba204) -
+  Use a primary button for the One Click Chat spotlight CTA behind
+  platform_sl_one_click_chat_spotlight_v2_fg.
+- Updated dependencies
+
+## 46.14.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.14.0
+
+### Minor Changes
+
+- [`75d086dab7677`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/75d086dab7677) -
+  Keep the One Click Chat spotlight arrow aligned when navigation moves its anchor, and use the
+  shared manual Popup for rendering. Controlled by `platform_sl_one_click_chat_spotlight_v2_fg`.
+
+### Patch Changes
+
+- [`58dfe28c3560c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/58dfe28c3560c) -
+  Remove `platform_sl_inline_social_proof_hydration_fix` and keep inline Smart Link social proof
+  hydration safe across shared consumers.
+
 ## 46.13.17
 
 ### Patch Changes

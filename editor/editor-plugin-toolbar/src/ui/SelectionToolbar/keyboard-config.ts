@@ -11,16 +11,23 @@ import type { ToolbarKeyboardNavigationProviderConfig } from '@atlaskit/editor-t
 import type { ToolbarPlugin } from '../../toolbarPluginType';
 import { getFocusableElements, isShortcutToFocusToolbar } from '../utils/toolbar';
 
+type KeyboardNavigationOptions = {
+	ariaLabel?: string;
+	toolbarSelector?: string;
+};
+
 export const getKeyboardNavigationConfig = (
 	editorView: EditorView,
 	intl: IntlShape,
 	api?: ExtractInjectionAPI<ToolbarPlugin>,
+	{
+		toolbarSelector = "[data-testid='editor-floating-toolbar']",
+		ariaLabel = intl.formatMessage(fullPageMessages.toolbarLabel),
+	}: KeyboardNavigationOptions = {},
 ): ToolbarKeyboardNavigationProviderConfig | undefined => {
 	if (!(editorView.dom instanceof HTMLElement)) {
 		return;
 	}
-
-	const toolbarSelector = "[data-testid='editor-floating-toolbar']";
 
 	return {
 		childComponentSelector: toolbarSelector,
@@ -68,6 +75,6 @@ export const getKeyboardNavigationConfig = (
 			}
 		},
 		ariaControls: EDIT_AREA_ID,
-		ariaLabel: intl.formatMessage(fullPageMessages.toolbarLabel),
+		ariaLabel,
 	};
 };

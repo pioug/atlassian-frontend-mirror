@@ -657,8 +657,6 @@ export const PopperWrapper = (props: PropsWithChildren<PopperWrapperProps>): JSX
 							}
 						}}
 						css={popupWrapperStyle}
-						// eslint-disable-next-line @atlassian/a11y/no-noninteractive-tabindex
-						tabIndex={fg('platform_suppression_removal_fix_reactions') ? undefined : 0}
 					>
 						<div css={visuallyHiddenStyle}>
 							<Heading as="h2" size="small" id={PICKER_LABEL_ID}>

@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-selection-marker
 
+## 30.1.0
+
+### Minor Changes
+
+- [`5bac5ab5c3969`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5bac5ab5c3969) -
+  Scope native selection suppression to selection marker decorations behind
+  platform_editor_improve_inp_batch_3 instead of an editor-root focus selector.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 30.0.3
 
 ### Patch Changes

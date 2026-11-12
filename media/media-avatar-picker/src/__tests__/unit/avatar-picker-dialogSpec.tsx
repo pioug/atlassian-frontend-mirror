@@ -18,11 +18,13 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { smallImage } from '@atlaskit/media-test-helpers/smallImageURI';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { type Avatar } from '../../avatar-list';
 import { AvatarPickerDialog, fixedCrop } from '../../avatar-picker-dialog';
 import { DEFAULT_VISIBLE_PREDEFINED_AVATARS } from '../../avatar-picker-dialog/layout-const';
 import * as exportCroppedImageModule from '../../image-navigator/exportCroppedImage';
+import * as utilModule from '../../util';
 
 // Polyfill needed for CSS.supports
 // @ts-ignore
@@ -843,6 +845,117 @@ describe('Avatar Picker Dialog', () => {
 
 			const alert = screen.queryByRole('alert');
 			expect(alert).not.toBeInTheDocument();
+		});
+	});
+
+	describe('maxImageSize', () => {
+		const originalFileReader = global.FileReader;
+		const niceImage = new File(['dsjklDFljk'], 'nice-photo.png', { type: 'image/png' });
+		const tooLargeText = (maxMb: number) => `Image is too large, must be no larger than ${maxMb}Mb`;
+
+		class MockFileReader {
+			onload: any;
+			result = 'data:image/png;base64,AAAA';
+			private loadListeners: Array<(event: any) => void> = [];
+
+			addEventListener(type: string, callback: (event: any) => void) {
+				if (type === 'load') {
+					this.loadListeners.push(callback);
+				}
+			}
+
+			removeEventListener(type: string, callback: (event: any) => void) {
+				if (type === 'load') {
+					this.loadListeners = this.loadListeners.filter((listener) => listener !== callback);
+				}
+			}
+			readAsDataURL() {
+				const event = { target: this };
+				this.onload?.(event);
+				this.loadListeners.forEach((listener) => listener(event));
+			}
+		}
+
+		const mockDropEvent = (file: any): any => ({
+			stopPropagation: jest.fn(),
+			preventDefault: jest.fn(),
+			dataTransfer: {
+				files: [file],
+			},
+		});
+
+		let fileSizeMbSpy: jest.SpyInstance;
+
+		beforeEach(() => {
+			fileSizeMbSpy = jest.spyOn(utilModule, 'fileSizeMb');
+			global.FileReader = MockFileReader as any;
+		});
+
+		afterEach(() => {
+			fileSizeMbSpy.mockRestore();
+			global.FileReader = originalFileReader;
+		});
+
+		const renderAndDrop = async (sizeMb: number, maxImageSize?: number) => {
+			fileSizeMbSpy.mockImplementationOnce(() => sizeMb);
+
+			render(
+				<AvatarPickerDialog
+					avatars={[]}
+					onAvatarPicked={jest.fn()}
+					onImagePicked={jest.fn()}
+					onImagePickedDataURI={jest.fn()}
+					onCancel={jest.fn()}
+					maxImageSize={maxImageSize}
+				/>,
+			);
+
+			const dragZone = await screen.findByTestId('dragzone');
+			fireEvent.drop(dragZone, mockDropEvent(niceImage));
+		};
+
+		describe('when the max image size gate is on', () => {
+			beforeEach(() => {
+				passGate('platform_media_avatar_picker_max_image_size');
+			});
+
+			it('shows an error when the image is larger than maxImageSize', async () => {
+				await renderAndDrop(4.01, 4);
+
+				expect(await screen.findByText(tooLargeText(4))).toBeInTheDocument();
+			});
+
+			it('accepts the image when it is within maxImageSize', async () => {
+				await renderAndDrop(3.99, 4);
+
+				await waitFor(() => expect(screen.queryByTestId('dragzone')).not.toBeInTheDocument());
+				expect(screen.queryByText(/Image is too large/)).not.toBeInTheDocument();
+			});
+
+			it('falls back to the default 10Mb limit when maxImageSize is not passed', async () => {
+				await renderAndDrop(10.01);
+
+				expect(await screen.findByText(tooLargeText(10))).toBeInTheDocument();
+			});
+		});
+
+		describe('when the max image size gate is off', () => {
+			beforeEach(() => {
+				failGate('platform_media_avatar_picker_max_image_size');
+			});
+
+			it('accepts an image above maxImageSize because the default limit applies', async () => {
+				await renderAndDrop(5, 4);
+
+				await waitFor(() => expect(screen.queryByTestId('dragzone')).not.toBeInTheDocument());
+				expect(screen.queryByText(/Image is too large/)).not.toBeInTheDocument();
+			});
+
+			it('shows the default 10Mb error when the image is larger than 10Mb', async () => {
+				await renderAndDrop(10.01, 4);
+
+				expect(await screen.findByText(tooLargeText(10))).toBeInTheDocument();
+			});
 		});
 	});
 });

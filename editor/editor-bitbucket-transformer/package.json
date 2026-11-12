@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-bitbucket-transformer",
-	"version": "10.2.3",
+	"version": "10.2.4",
 	"description": "Editor Bitbucket transformer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -49,10 +49,5 @@
 		"./serializer": "./src/serializer.ts",
 		"./tableSerializer": "./src/tableSerializer.ts",
 		"./util": "./src/util.ts"
-	},
-	"platform-feature-flags": {
-		"platform_bitbucket_fix_shortname_and_ordering": {
-			"type": "boolean"
-		}
 	}
 }

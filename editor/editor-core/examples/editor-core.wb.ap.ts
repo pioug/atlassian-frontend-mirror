@@ -7,7 +7,6 @@ import { default as CommentEditorComponentComposableExample } from './1-comment-
 import { default as ComposableEditorCustomToolbarExample } from './1-composable-editor-custom-toolbar';
 import { default as ComposableEditorOnBlurExample } from './1-composable-editor-on-blur';
 import { default as FullPageEditorComposableExample } from './1-full-page-editor-composable';
-import { default as LabsAsyncCollapsedEditorExample } from './1-labs-async-collapsed-editor';
 import { default as LazyNodeExampleExample } from './1-lazy-node-example';
 import { default as LegacyEditorMigratorExample } from './1-legacy-editor-migrator';
 import { default as LiveViewComposableEditorExample } from './1-live-view-composable-editor';
@@ -97,8 +96,6 @@ export const ComposableEditorOnBlur: WorkbenchExample<typeof ComposableEditorOnB
 );
 export const FullPageEditorComposable: WorkbenchExample<typeof FullPageEditorComposableExample> =
 	wb(FullPageEditorComposableExample);
-export const LabsAsyncCollapsedEditor: WorkbenchExample<typeof LabsAsyncCollapsedEditorExample> =
-	wb(LabsAsyncCollapsedEditorExample);
 export const LazyNodeExample: WorkbenchExample<typeof LazyNodeExampleExample> =
 	wb(LazyNodeExampleExample);
 export const LegacyEditorMigrator: WorkbenchExample<typeof LegacyEditorMigratorExample> = wb(

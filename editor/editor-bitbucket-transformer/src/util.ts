@@ -1,7 +1,5 @@
 /* eslint-disable require-unicode-regexp */
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-
 const ESCAPE_MARKDOWN_SPECIAL_CHARS_REGEX = /^[#-&(-*]/;
 
 const ESCAPE_MARKDOWN_ORDERED_LIST_REGEX = /^(\d+)\./;
@@ -331,16 +329,14 @@ export function transformHtml(
 				span.setAttribute('data-emoji-short-name', shortName);
 			}
 
-			if (fg('platform_bitbucket_fix_shortname_and_ordering')) {
-				const id = img.getAttribute('data-emoji-id') || '';
-				if (id) {
-					span.setAttribute('data-emoji-id', id);
-				}
+			const id = img.getAttribute('data-emoji-id') || '';
+			if (id) {
+				span.setAttribute('data-emoji-id', id);
+			}
 
-				const text = img.getAttribute('data-emoji-text') || '';
-				if (text) {
-					span.setAttribute('data-emoji-text', text);
-				}
+			const text = img.getAttribute('data-emoji-text') || '';
+			if (text) {
+				span.setAttribute('data-emoji-text', text);
 			}
 
 			// Ignored via go/ees005

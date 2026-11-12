@@ -377,7 +377,11 @@ The fit work (2026-08 to 2026-09) added these rollout checks:
    [../follow-ups/custom-popup-component-contract.md](../follow-ups/custom-popup-component-contract.md).
 9. **Mercury's ~25 "+N" / "more items" popups** are small, short-content popovers, exactly the shape
    the 150px flip floor pads out, and their open-popup baselines live in informational (non-gating)
-   VR suites, so a regression there does not fail a build.
+   VR suites, so a regression there does not fail a build. Since 2026-11-02 the floor is
+   content-sized where `calc-size()` is supported, so Chrome (and so VR) no longer pads them; Safari
+   and Firefox still do. See
+   [../decisions/fit-available-space.md](../decisions/fit-available-space.md) → _Update
+   (2026-11-02)_.
 10. **jira `horizontal-nav-tabs/AppTabMenu.tsx` sets `shouldFlip={false}`**, which is inert on this
     path, and reaches it through `JiraPopup`. The flip floor makes the inertness visible: a fitting
     popover now flips at `floor + gap + padding` where before it stayed put and shrank. See

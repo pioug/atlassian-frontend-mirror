@@ -6,7 +6,7 @@ const documentation: StructuredContentSource = {
 		packagePath: __dirname,
 		packageJson: require('./package.json'),
 		overview:
-			'Utilities for applying entry and exit animations. The Motion primitive is the recommended way to animate an element in or out, and the useMotion hook does the same without rendering a wrapper element. Pair either with ExitingPersistence to play exit animations before removal, and StaggeredEntrance to cascade a group. Motion tokens supply the durations, easings, and keyframes so animation stays consistent across products.',
+			'Utilities for applying ADS motion. Prefer motion already owned by an ADS component. For custom entry and exit behavior, use the Motion primitive by default and useMotion only when its wrapper would break layout or semantics. Pair either with ExitingPersistence to play exit animations before removal, and use StaggeredEntrance only when sequencing aids comprehension. Use Resizing or useResizing only when a dimension change communicates state and a transform-based or non-animated treatment would not meet the design. Prefer semantic motion tokens for the affected role and state; do not invent token names, durations, easings, or keyframes.',
 	},
 	components: [
 		{
@@ -22,14 +22,17 @@ const documentation: StructuredContentSource = {
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
+				'Use motion already owned by an ADS component instead of wrapping or replacing it',
 				'Use the Motion primitive as the recommended way to apply entry and exit animations',
 				'Wrap with ExitingPersistence to enable exit animations when elements are removed from the DOM',
-				'Pass pre-defined motion tokens to enteringAnimation and exitingAnimation for the simplest setup',
-				'Use enteringAnimationXcss and exitingAnimationXcss with cssMap styles for full control over animation properties',
+				'Prefer the complete semantic motion token for the affected role and state; inspect the full motion.<role>.* namespace so paired entry, exit, and reposition states are not missed',
+				'Do not invent a motion token or reconstruct an available semantic token from base duration, easing, and keyframe tokens',
+				'Use enteringAnimationXcss and exitingAnimationXcss only when no semantic motion token covers the required treatment, and compose only from published base motion tokens',
 				'Multiple keyframes can be composed by joining them in animationName (e.g. combining scale and fade)',
 				'Works with any React content including ADS Primitives — no render-prop pattern required',
 				'Use the appear prop on ExitingPersistence to also trigger the entering animation on first mount',
 				'The Motion primitive renders a wrapper div. If that wrapper would break layout, semantics, or an attribute a parent selector depends on, use the useMotion hook instead to animate an element you already render',
+				'Keep entry and exit motion subordinate to the task, and verify the result in the browser rather than treating an import or token reference as evidence that motion occurred',
 			],
 			accessibilityGuidelines: [
 				"Always respect the user's reduced-motion preference — use isReducedMotion() or useIsReducedMotion() to conditionally disable animations",
@@ -72,6 +75,7 @@ const documentation: StructuredContentSource = {
 			},
 			usageGuidelines: [
 				'Wrap motion elements with ExitingPersistence to enable exit animations when elements are removed from the DOM',
+				'Keep ExitingPersistence mounted and conditionally render the child inside it; unmounting the persistence boundary prevents it from managing the exit',
 				'Set the appear prop to also trigger the entering animation when the component first mounts',
 				'Use exitThenEnter prop to make elements exit before new ones enter (sequential transition)',
 				'All direct children must have a unique key prop for ExitingPersistence to track additions and removals',
@@ -86,6 +90,51 @@ const documentation: StructuredContentSource = {
 				},
 			],
 			keywords: ['motion', 'animation', 'exit', 'persistence', 'unmount', 'transition', 'fade'],
+			categories: ['animation'],
+		},
+		{
+			name: 'Resizing',
+			description:
+				'Animates width, height, or both when an element changes dimensions. Use it only when the size change itself communicates state and a transform-based or non-animated treatment would not meet the design. Resizing layout properties can trigger reflow and degrade frame rate, so communicate that risk, consider a safer alternative, and verify the interaction on representative low-powered devices.',
+			status: 'general-availability',
+			import: {
+				name: 'Resizing',
+				package: '@atlaskit/motion/resizing/resizing',
+				type: 'named',
+				packagePath: __dirname,
+				packageJson: require('./package.json'),
+			},
+			usageGuidelines: [
+				'Prefer a transform-based or non-animated treatment when it preserves the intended behavior',
+				'Use Resizing only when changing width or height communicates a meaningful state change',
+				'Set dimension to width, height, or both and use published motion duration and easing tokens',
+				'Attach the supplied ref to the element whose dimensions change',
+				'Warn the user that width and height animation causes layout work, and suggest a safer treatment when the design permits one',
+				'Test rapid repeated changes, overflow, surrounding layout, and frame rate on representative low-powered devices',
+			],
+			accessibilityGuidelines: [
+				'Reduced-motion behavior is owned by Resizing; do not add a duplicate consumer workaround',
+				'Under reduced motion the content must reach its final dimensions immediately without waiting for the transition',
+				'Preserve focus, reading order, and screen-reader behavior while content changes size',
+			],
+			examples: [
+				{
+					name: 'Animate a height change',
+					description:
+						'Resizing animates a meaningful height change and supplies the ref that must be attached to the element being measured.',
+					source: `${__dirname}/examples/ai/resizing.tsx`,
+				},
+			],
+			keywords: [
+				'motion',
+				'animation',
+				'resize',
+				'resizing',
+				'width',
+				'height',
+				'layout',
+				'performance',
+			],
 			categories: ['animation'],
 		},
 		{
@@ -140,11 +189,14 @@ const documentation: StructuredContentSource = {
 			},
 			usageGuidelines: [
 				'Wrap entering motion elements with StaggeredEntrance to create a cascading stagger effect',
+				'Use staggered entry only when the sequence improves comprehension; do not add it as decoration to large or frequently changing collections',
 				'All entering motion components must be direct descendants of StaggeredEntrance',
+				'Give every animated child a stable key so its identity is preserved across updates',
 				'Use the columns prop to specify a fixed grid layout, or "responsive" to calculate dynamically on the client',
 				'Use the delayStep prop to control how long each element group is staggered (defaults to 50ms)',
 				'Stagger delay uses a logarithmic scale so large lists do not feel excessively slow',
 				'Setting columns to a fixed number avoids elements being invisible before JavaScript executes (SSR-safe)',
+				'Keep the number of animated children and total delay bounded so users are not forced to wait for content',
 			],
 			examples: [
 				{
@@ -246,6 +298,53 @@ const documentation: StructuredContentSource = {
 				'fade',
 				'stagger',
 				'staggered',
+			],
+			categories: ['animation', 'hooks'],
+		},
+		{
+			name: 'useResizing',
+			description:
+				'A hook that animates width, height, or both when an existing element changes dimensions. Prefer the Resizing component unless the hook better fits the existing element. Dimension animation causes layout work, so use it only when size communicates state and a transform-based or non-animated treatment would not meet the design.',
+			status: 'general-availability',
+			import: {
+				name: 'useResizing',
+				package: '@atlaskit/motion/use-resizing',
+				type: 'named',
+				packagePath: __dirname,
+				packageJson: require('./package.json'),
+			},
+			usageGuidelines: [
+				'Prefer a transform-based or non-animated treatment when it preserves the intended behavior',
+				'Use useResizing only when changing width or height communicates a meaningful state change',
+				'Set dimension to width, height, or both and use published motion duration and easing tokens',
+				'Attach the returned ref to the element whose dimensions change',
+				'Warn the user that width and height animation causes layout work, and suggest a safer treatment when the design permits one',
+				'Use onStartMotion and onFinishMotion only for behavior that must align with the resize lifecycle',
+				'Test rapid repeated changes, overflow, surrounding layout, and frame rate on representative low-powered devices',
+			],
+			accessibilityGuidelines: [
+				'Reduced-motion behavior is owned by useResizing; do not add a duplicate consumer workaround',
+				'Under reduced motion the hook reaches the final dimensions immediately and calls onFinishMotion without waiting for a transition',
+				'Preserve focus, reading order, and screen-reader behavior while content changes size',
+			],
+			examples: [
+				{
+					name: 'Animate an existing element height',
+					description:
+						'useResizing returns the ref to attach directly to an existing element whose height changes.',
+					source: `${__dirname}/examples/ai/use-resizing.tsx`,
+				},
+			],
+			keywords: [
+				'motion',
+				'animation',
+				'hook',
+				'useresizing',
+				'resize',
+				'width',
+				'height',
+				'layout',
+				'performance',
 			],
 			categories: ['animation', 'hooks'],
 		},

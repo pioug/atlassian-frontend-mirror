@@ -19,6 +19,7 @@ const documentation: StructuredContentSource = {
 				'Provide clear open/close mechanisms',
 				'Consider screen size and drawer width',
 				'Use appropriate backdrop behavior',
+				'Do not open a layer inside the drawer at the same time as the drawer (for example, a drawer that opens with its DropdownMenu, Popup or Select menu already open). Open the inner layer on a user action, after the drawer has opened. Exception: a layer that shows state, such as a field error.',
 				'Consider alternative patterns like Modal for better UX',
 			],
 			contentGuidelines: [

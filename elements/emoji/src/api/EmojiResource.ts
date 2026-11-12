@@ -309,13 +309,9 @@ export class EmojiResource
 		optimistic: boolean,
 		emojiProviderLookupOrder?: EmojiProviderLookupOrder,
 	): Promise<OptionalEmojiDescriptionWithVariations> {
-		const shortNameLookupOrder = fg('platform_bitbucket_fix_shortname_and_ordering')
-			? emojiProviderLookupOrder
-			: undefined;
-
 		// Check if repository exists and emoji is defined.
 		if (this.isLoaded() && this.isRepositoryAvailable<EmojiRepository>(this.emojiRepository)) {
-			const emoji = await this.findByEmojiId(emojiId, shortNameLookupOrder);
+			const emoji = await this.findByEmojiId(emojiId, emojiProviderLookupOrder);
 			if (emoji) {
 				return await this.getMediaEmojiDescriptionURLWithInlineToken(emoji);
 			}
@@ -339,7 +335,7 @@ export class EmojiResource
 				}
 				return this.getMediaEmojiDescriptionURLWithInlineToken(loadEmoji.emojis[0]);
 			} catch {
-				const emoji = await this.findByEmojiId(emojiId, shortNameLookupOrder);
+				const emoji = await this.findByEmojiId(emojiId, emojiProviderLookupOrder);
 				if (!emoji) {
 					return;
 				}
@@ -347,7 +343,7 @@ export class EmojiResource
 			}
 		}
 
-		const emoji = await this.findByEmojiId(emojiId, shortNameLookupOrder);
+		const emoji = await this.findByEmojiId(emojiId, emojiProviderLookupOrder);
 		if (!emoji) {
 			return;
 		}

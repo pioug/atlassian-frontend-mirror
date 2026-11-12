@@ -5,7 +5,6 @@ import Loadable from 'react-loadable';
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EmojiId } from '@atlaskit/emoji/types';
-import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { render } from '@atlassian/testing-library/render';
 
 import { ReactSerializer } from '../../../entry-points/serializer-default';
@@ -80,8 +79,6 @@ describe('Renderer - ReactSerializer - Emoji', () => {
 
 	describe('when emojiProviderLookupOrder is defined', () => {
 		it('passes emojiProviderLookupOrder to emoji nodes', () => {
-			passGate('platform_bitbucket_fix_shortname_and_ordering');
-
 			renderEmojiList({
 				emojiProviderLookupOrder: ['STANDARD', 'ATLASSIAN'],
 			});

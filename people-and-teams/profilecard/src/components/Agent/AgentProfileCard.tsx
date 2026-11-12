@@ -103,6 +103,7 @@ const AgentProfileCard = ({
 	hideConversationStarters = false,
 	hideAgentActions = false,
 	hideStarButton = false,
+	isReadOnly = false,
 	showCreatorNameWithoutLink = false,
 	footerComponent,
 }: AgentProfileCardProps): React.JSX.Element => {
@@ -219,6 +220,7 @@ const AgentProfileCard = ({
 		(agent.creator_type === 'ROVO_DEV' && agent.name.toLowerCase() === 'jira coding agent');
 
 	const shouldShowConversationStarters =
+		!isReadOnly &&
 		!isRovoDevOrJiraCodingAgent &&
 		!(
 			((expValEquals('platform_editor_agent_mentions', 'isEnabled', true) &&
@@ -227,7 +229,7 @@ const AgentProfileCard = ({
 			hideConversationStarters
 		);
 
-	const shouldShowAgentActions = !isRovoDevOrJiraCodingAgent && !hideAgentActions;
+	const shouldShowAgentActions = !isReadOnly && !isRovoDevOrJiraCodingAgent && !hideAgentActions;
 
 	// Only for M1 hideAgentActions preview cards so other consumers stay unchanged.
 	const needsBottomPaddingFallback =
@@ -290,7 +292,7 @@ const AgentProfileCard = ({
 							agentName={agent.name}
 							isStarred={isStarred}
 							onStarToggle={handleSetFavourite}
-							showStarButton={!isRovoDev && !hideStarButton}
+							showStarButton={!isReadOnly && !isRovoDev && !hideStarButton}
 							isHidden={agent.visibility === 'PRIVATE'}
 							creatorRender={
 								agent.creatorInfo?.type && (
@@ -302,7 +304,7 @@ const AgentProfileCard = ({
 										}}
 										isLoading={false}
 										onCreatorLinkClick={() => {}}
-										showCreatorNameWithoutLink={showCreatorNameWithoutLink}
+										showCreatorNameWithoutLink={isReadOnly || showCreatorNameWithoutLink}
 									/>
 								)
 							}
@@ -339,17 +341,27 @@ const AgentProfileCard = ({
 									: styles.disclosureWrapperLegacy
 							}
 						>
-							<TeamsLink
-								href="https://www.atlassian.com/trust/atlassian-intelligence"
-								intent="reference"
-								appearance="subtle"
-							>
-								<InformationCircleIcon color={token('color.icon.subtlest')} label="" size="small" />
-								{` `}
+							{isReadOnly ? (
 								<Text size="small" color="color.text.subtlest">
 									{formatMessage(messages.aiDisclaimer)}
 								</Text>
-							</TeamsLink>
+							) : (
+								<TeamsLink
+									href="https://www.atlassian.com/trust/atlassian-intelligence"
+									intent="reference"
+									appearance="subtle"
+								>
+									<InformationCircleIcon
+										color={token('color.icon.subtlest')}
+										label=""
+										size="small"
+									/>
+									{` `}
+									<Text size="small" color="color.text.subtlest">
+										{formatMessage(messages.aiDisclaimer)}
+									</Text>
+								</TeamsLink>
+							)}
 						</Flex>
 					)}
 					{shouldShowConversationStarters && (

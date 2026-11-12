@@ -21,6 +21,7 @@ const documentation: StructuredContentSource = {
 				'Avoid truncation—check max width; avoid truncated labels',
 				'Nested menu: maximum two layers',
 				'In a modal, use shouldRenderToParent for correct focus and screen reader behavior',
+				'Do not render the menu open (isOpen or defaultOpen) inside another layer that opens at the same time (for example, a modal that opens with the menu already open, or a submenu that is open when its parent menu opens). Open the menu on a user action, after its parent layer has opened.',
 				'Disabled triggers are not supported (see Button a11y)',
 				'Use Select for search/select; Checkbox for multiple from list; Radio for short single choice',
 			],

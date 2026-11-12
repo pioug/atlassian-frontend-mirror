@@ -14,7 +14,6 @@ import type { ToolbarComponentTypes } from '@atlaskit/editor-toolbar-model/types
 import { ColorPalette } from '@atlaskit/editor-toolbar/color-palette';
 import { useToolbarDropdownMenu } from '@atlaskit/editor-toolbar/toolbar-dropdown-menu-context';
 import Heading from '@atlaskit/heading/heading';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Bleed } from '@atlaskit/primitives/compiled/bleed';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -108,7 +107,7 @@ export function TextColorMenuItem({ api, parents }: TextColorMenuItemProps): Rea
 				id={labelId}
 				size="xxsmall"
 				// The label names the palette's radio group; a heading inside a menu is skipped and has no stable level here
-				as={fg('platform_editor_a11y_color_palette_radiogroup') ? 'div' : undefined}
+				as="div"
 			>
 				{formatMessage(messages.textColorTooltip)}
 			</Heading>

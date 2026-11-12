@@ -1,5 +1,26 @@
 # @atlaskit/ads-mcp
 
+## 1.12.11
+
+### Patch Changes
+
+- [`5622d86e907cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5622d86e907cf) -
+  Regenerate component catalogs with one JSDoc description per prop and deduplicated union and
+  intersection type members.
+- Updated dependencies
+
+## 1.12.10
+
+### Patch Changes
+
+- [`6ea714ebcf238`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6ea714ebcf238) -
+  Add Motion API selection, lifecycle, token, accessibility, and performance guidance, and refresh
+  the generated structured-content catalogs.
+- [`cd99133ff5407`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd99133ff5407) -
+  Add structured content guidance to Modal, Popup, DropdownMenu and Select: do not open nested
+  layers at the same time. Open an inner layer on a user action, after its parent has opened. This
+  also refreshes the generated catalogs from AFM master.
+
 ## 1.12.9
 
 ### Patch Changes

@@ -5,6 +5,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable } from '@atlaskit/editor-tables/utils';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils/get-selection-rect';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { tableDeleteButtonSize } from '../../ui/consts';
 
@@ -194,6 +195,39 @@ const getRelativeDomCellWidths = ({ width, colspan, colwidth }: CellWidthInfo) =
 	return cellColWidths.map((cellColWidth) => width * (cellColWidth / totalCalculatedCellWidth));
 };
 
+const splitCellWidthEvenly = ({ width, colspan }: CellWidthInfo): number[] =>
+	new Array(colspan).fill(width / colspan);
+
+/**
+ * Splits a merged cell by its `data-colwidth` ratios only when they describe every spanned column
+ * with a positive width. Missing or zero entries (null colwidths serialise as empty strings and
+ * padded ones as 0) would collapse or shift columns, so those cells are split evenly instead.
+ */
+const splitCellWidthByValidColwidth = (cell: CellWidthInfo): number[] => {
+	const colwidths = cell.colwidth?.split(',').map(Number) ?? [];
+	const isUsable =
+		colwidths.length === cell.colspan &&
+		colwidths.every((colwidth) => Number.isFinite(colwidth) && colwidth > 0);
+	return isUsable ? getRelativeDomCellWidths(cell) : splitCellWidthEvenly(cell);
+};
+
+/**
+ * A merged cell spans several columns, so its width cannot tell the sticky header how wide each
+ * column is. Returns the first row from `startRow` onwards with exactly one cell per column. In a
+ * valid table such a row has no merged cells, and rows overlapped by a rowspan from above have
+ * fewer cells, so the cell count alone identifies it.
+ */
+const findFirstRowWithOneCellPerColumn = (
+	startRow: HTMLTableRowElement | null,
+	columnCount: number,
+): HTMLTableRowElement | null => {
+	let row: Element | null = startRow;
+	while (row && row.childElementCount !== columnCount) {
+		row = row.nextElementSibling;
+	}
+	return row as HTMLTableRowElement | null;
+};
+
 export const colWidthsForRow = (
 	tr: HTMLTableRowElement,
 	{ useColwidthRatios = false }: { useColwidthRatios?: boolean } = {},
@@ -211,7 +245,18 @@ export const colWidthsForRow = (
 	//
 	// prefer copying the widths via the DOM
 	// or inferring from the next row if one exists
-	const copyTarget = (tr.nextElementSibling as HTMLTableRowElement | null) || tr;
+	const nextRow = tr.nextElementSibling as HTMLTableRowElement | null;
+	let copyTarget = nextRow || tr;
+	let splitCellWidth = useColwidthRatios ? getRelativeDomCellWidths : splitCellWidthEvenly;
+	if (isExperimentEnabled('platform_editor_sticky_header_merged_row_width_exp')) {
+		const columnCount = rowColSpans.reduce((acc, val) => acc + val, 0);
+		const rowWithOneCellPerColumn = findFirstRowWithOneCellPerColumn(nextRow, columnCount);
+		if (rowWithOneCellPerColumn) {
+			copyTarget = rowWithOneCellPerColumn;
+		} else {
+			splitCellWidth = splitCellWidthByValidColwidth;
+		}
+	}
 
 	if (copyTarget) {
 		// either from the first row while it's still in the table
@@ -224,11 +269,7 @@ export const colWidthsForRow = (
 		// reverse engineer cell widths from table widths
 		const domBasedCellWidths: number[] = [];
 		cellInfos.map((cell) => {
-			domBasedCellWidths.push(
-				...(useColwidthRatios
-					? getRelativeDomCellWidths(cell)
-					: new Array(cell.colspan).fill(cell.width / cell.colspan)),
-			);
+			domBasedCellWidths.push(...splitCellWidth(cell));
 		});
 
 		if (cellInfos.reduce((acc, cell) => acc + cell.width, 0) !== 0) {

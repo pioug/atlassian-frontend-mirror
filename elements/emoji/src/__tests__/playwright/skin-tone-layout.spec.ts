@@ -4,7 +4,7 @@ test('opening and selecting a skin tone preserves the picker layout', async ({ p
 	await page.visitExample<
 		typeof import('../../../examples/05-standard-emoji-picker-with-upload.tsx')
 	>('elements', 'emoji', 'standard-emoji-picker-with-upload', {
-		featureFlag: 'platform_suppression_removal_fix_reactions,platform_emoji_skin_tone_blur_fix',
+		featureFlag: 'platform_emoji_skin_tone_blur_fix',
 	});
 	const actions = page.getByTestId('emoji-actions');
 	const grid = page.getByTestId('virtual-list-scroll-container');

@@ -1,5 +1,14 @@
 # @atlaskit/onboarding
 
+## 15.4.10
+
+### Patch Changes
+
+- [`ba8738a686f3e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ba8738a686f3e) -
+  Behind `platform_dst-modal_title_phase2`, `BenefitsModal`'s `ModalTitle` wrapper now keeps the
+  original heading's bottom margin instead of padding, so the modal body sits exactly where it does
+  with the flag off.
+
 ## 15.4.9
 
 ### Patch Changes

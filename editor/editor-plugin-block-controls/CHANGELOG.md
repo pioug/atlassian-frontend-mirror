@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 31.1.16
+
+### Patch Changes
+
+- [`f9bb037747011`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f9bb037747011) -
+  Clean up the platform_editor_block_controls_sticky_header_fix experiment. The sticky table header
+  padding fix for block controls surfaces is now always applied.
+- Updated dependencies
+
 ## 31.1.15
 
 ### Patch Changes

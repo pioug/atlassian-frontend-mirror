@@ -3,7 +3,6 @@ import React, { useMemo, useCallback, useRef, useEffect } from 'react';
 import chromatism from 'chromatism';
 import { useIntl } from 'react-intl';
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Grid } from '@atlaskit/primitives/compiled/grid';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -236,17 +235,13 @@ const ColorPalette = ({
 	);
 
 	const paletteGrid = (
-		<Grid
-			gap={gap}
-			ref={paletteRef}
-			role={fg('platform_editor_a11y_color_palette_radiogroup') ? 'presentation' : 'group'}
-		>
+		<Grid gap={gap} ref={paletteRef} role="presentation">
 			{colorsPerRow.map((row, rowIndex) => (
 				<Inline
 					space={shouldUseInlineColorGap ? gap : undefined}
 					rowSpace={shouldUseInlineColorGap ? undefined : gap}
 					key={`row-first-color-${row[0].value}`}
-					role={fg('platform_editor_a11y_color_palette_radiogroup') ? 'presentation' : 'radiogroup'}
+					role="presentation"
 				>
 					{row.map(({ value, label, border, message, decorator }, colIndex) => {
 						let tooltipMessage = message;
@@ -296,16 +291,12 @@ const ColorPalette = ({
 		</Grid>
 	);
 
-	if (fg('platform_editor_a11y_color_palette_radiogroup')) {
-		// All swatches are one radio group; the grid and its rows only carry the layout
-		return (
-			<div role="radiogroup" aria-labelledby={ariaLabelledBy}>
-				{paletteGrid}
-			</div>
-		);
-	}
-
-	return paletteGrid;
+	// All swatches are one radio group; the grid and its rows only carry the layout
+	return (
+		<div role="radiogroup" aria-labelledby={ariaLabelledBy}>
+			{paletteGrid}
+		</div>
+	);
 };
 
 export default ColorPalette;

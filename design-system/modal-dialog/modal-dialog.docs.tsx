@@ -20,6 +20,7 @@ const documentation: StructuredContentSource = {
 				'Use for immediate task or critical/warning requiring a response; blocking until closed',
 				'Use sparingly—modals are invasive',
 				'One task per modal; limit interactions; no nested modals (inaccessible)',
+				'Do not open a layer inside the modal at the same time as the modal (for example, a modal that opens with its DropdownMenu, Popup or Select menu already open). Open the inner layer on a user action, after the modal has opened. Exception: a layer that shows state, such as a field error.',
 				'Anatomy: header (h1 title), close button, body, footer with primary + cancel/close',
 				'Footer: primary button on the right of secondary; multiple dismissal methods (close button, Esc, blanket click, Cancel/Close)',
 				'Use Popup for smaller info + controls; Spotlight for onboarding; Inline message for alert/action',

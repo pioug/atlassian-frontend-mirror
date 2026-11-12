@@ -121,7 +121,8 @@ each axis has its own available space. Asking **either** axis to fit turns on `m
 along the placement axis, valued at the two EXPLICIT minimums composed — `placement.minSize` and the
 anchor's size when that axis is anchor-relative — as `max()`, whichever of them applies alone, or a
 `150px` default when neither does (clamped against the viewport so the roomier cell beside the
-anchor can always hold it); so `minSize: 0` zeroes the floor only where there is no anchor floor.
+anchor can always hold it; where `calc-size()` is supported, the content's own size up to that clamp
+instead, with no 150px term); so `minSize: 0` zeroes the floor only where there is no anchor floor.
 Unlike the cap that is not per-axis, because flipping is a whole-popover outcome. A viewport cap on
 both axes is unconditional. And a non-anchor-relative inline axis is its natural width
 (`inline-size: max-content`), so a popover too wide for the span beside its anchor overflows it and

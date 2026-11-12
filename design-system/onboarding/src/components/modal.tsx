@@ -10,7 +10,6 @@ import type { ModalFooterProps as FooterComponentProps } from '@atlaskit/modal-d
 import type { ModalHeaderProps as HeaderComponentProps } from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { Box } from '@atlaskit/primitives/compiled/box';
 
 import {
 	ModalBody as Body,
@@ -19,6 +18,7 @@ import {
 	ModalActionItem,
 	ModalImage,
 } from '../styled/modal';
+import { ModalTitleContainer } from '../styled/modal-title-container';
 import { type Actions } from '../types';
 import { modalButtonTheme } from './theme';
 
@@ -135,13 +135,13 @@ export default class BenefitsModal extends Component<ModalProps> {
 			const { titleId } = useModal();
 			if (fg('platform_dst-modal_title_phase2')) {
 				return (
-					<Box paddingBlockEnd="space.100">
+					<ModalTitleContainer>
 						<ModalTitle>
 							<AkHeading as="span" size="medium">
 								{heading}
 							</AkHeading>
 						</ModalTitle>
-					</Box>
+					</ModalTitleContainer>
 				);
 			}
 			return <Heading id={titleId}>{heading}</Heading>;

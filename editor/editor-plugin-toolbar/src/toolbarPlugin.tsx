@@ -13,6 +13,7 @@ import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-e
 import { getSelectionToolbarOpenExperiencePlugin } from './pm-plugins/experiences/selection-toolbar-open-experience';
 import { editorToolbarPluginKey } from './pm-plugins/plugin-key';
 import type { EditorToolbarPluginState, ToolbarPlugin } from './toolbarPluginType';
+import { FloatingToolbar } from './ui/FloatingToolbar';
 import { SelectionToolbarWithErrorBoundary } from './ui/SelectionToolbar';
 import { getToolbarComponents } from './ui/toolbar-components';
 
@@ -313,8 +314,8 @@ export const toolbarPlugin: ToolbarPlugin = ({
 			];
 		},
 
-		contentComponent: !disableSelectionToolbar
-			? ({ editorView, popupsMountPoint }) => {
+		contentComponent: isExperimentEnabled('platform_editor_table_element_toolbar')
+			? ({ editorView, popupsMountPoint, popupsBoundariesElement, popupsScrollableElement }) => {
 					refs.popupsMountPoint = popupsMountPoint || undefined;
 
 					if (!editorView) {
@@ -322,15 +323,36 @@ export const toolbarPlugin: ToolbarPlugin = ({
 					}
 
 					return (
-						<SelectionToolbarWithErrorBoundary
+						<FloatingToolbar
 							api={api}
 							editorView={editorView}
 							mountPoint={popupsMountPoint}
+							boundariesElement={popupsBoundariesElement}
+							scrollableElement={popupsScrollableElement}
+							disableSelectionToolbar={disableSelectionToolbar}
 							disableSelectionToolbarWhenPinned={disableSelectionToolbarWhenPinned ?? false}
 							onToolbarMouseUp={handleToolbarMouseUp}
 						/>
 					);
 				}
-			: undefined,
+			: !disableSelectionToolbar
+				? ({ editorView, popupsMountPoint }) => {
+						refs.popupsMountPoint = popupsMountPoint || undefined;
+
+						if (!editorView) {
+							return null;
+						}
+
+						return (
+							<SelectionToolbarWithErrorBoundary
+								api={api}
+								editorView={editorView}
+								mountPoint={popupsMountPoint}
+								disableSelectionToolbarWhenPinned={disableSelectionToolbarWhenPinned ?? false}
+								onToolbarMouseUp={handleToolbarMouseUp}
+							/>
+						);
+					}
+				: undefined,
 	};
 };

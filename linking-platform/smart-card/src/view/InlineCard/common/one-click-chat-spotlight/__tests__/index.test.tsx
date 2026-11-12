@@ -292,13 +292,17 @@ it('dismisses with Escape exactly once', async () => {
 	expect(mockInvoke).not.toHaveBeenCalled();
 });
 
-it('keeps the visible spotlight accessible', async () => {
-	passGate(gate);
-	mockExp(experiment, { isEnabled: true });
-	renderAction();
-	await screen.findByTestId('one-click-chat-spotlight-v2');
-	await expect(document.body).toBeAccessible();
-});
+it.each([false, true])(
+	'keeps the visible spotlight accessible with top layer %s',
+	async (topLayer) => {
+		(topLayer ? passGate : failGate)('platform-dst-top-layer');
+		passGate(gate);
+		mockExp(experiment, { isEnabled: true });
+		renderAction();
+		await screen.findByTestId('one-click-chat-spotlight-v2');
+		await expect(document.body).toBeAccessible();
+	},
+);
 
 it.each(['See takeaways', 'Dismiss spotlight', 'Escape'] as const)(
 	'keeps %s working for the same delivery across midnight without another impression',
@@ -587,3 +591,81 @@ describe.each([false, true])('choreography with top layer %s', (topLayer) => {
 		await waitFor(() => expect(released).toHaveBeenCalled());
 	});
 });
+
+it.each([false, true])(
+	'follows anchor movement without resize or scroll with top layer %s',
+	async (topLayer) => {
+		passGate(gate);
+		(topLayer ? passGate : failGate)('platform-dst-top-layer');
+		mockExp(experiment, { isEnabled: true });
+		const frames = new Map<number, FrameRequestCallback>();
+		let nextFrame = 0;
+		jest.spyOn(window, 'requestAnimationFrame').mockImplementation((callback) => {
+			frames.set(++nextFrame, callback);
+			return nextFrame;
+		});
+		jest.spyOn(window, 'cancelAnimationFrame').mockImplementation((id) => frames.delete(id));
+		const advanceFrame = async () => {
+			await act(async () => {
+				const pending = [...frames.values()];
+				frames.clear();
+				pending.forEach((callback) => callback(0));
+			});
+		};
+		const { unmount } = renderAction();
+		await screen.findByTestId('one-click-chat-spotlight-v2');
+		const dialog = screen.getByRole('dialog', { name: 'Explore this link with Rovo' });
+		const caret = dialog.querySelector('span[aria-hidden="true"]')!;
+		const surface = caret.parentElement!;
+		const anchor = screen.getByTestId('action').closest('[role="none"]')!;
+		const rect = (left: number, top: number, width: number, height: number): DOMRect => ({
+			x: left,
+			y: top,
+			left,
+			top,
+			width,
+			height,
+			right: left + width,
+			bottom: top + height,
+			toJSON: () => ({}),
+		});
+		const measureSurface = jest
+			.spyOn(surface, 'getBoundingClientRect')
+			.mockReturnValue(rect(100, 100, 296, 140));
+		const measureAnchor = jest
+			.spyOn(anchor, 'getBoundingClientRect')
+			.mockReturnValue(rect(160, 60, 60, 24));
+		await advanceFrame();
+		expect(caret).toHaveStyle({ left: '82px' });
+
+		// Opening the nav translates the button without changing its size.
+		measureAnchor.mockReturnValue(rect(240, 60, 60, 24));
+		await advanceFrame();
+		expect(caret).toHaveStyle({ left: '162px' });
+		// The popup then follows the button; the caret follows the new popup bounds too.
+		measureSurface.mockReturnValue(rect(180, 100, 296, 140));
+		await advanceFrame();
+		expect(caret).toHaveStyle({ left: '82px' });
+		// Closing the nav restores the original layout.
+		measureAnchor.mockReturnValue(rect(160, 60, 60, 24));
+		measureSurface.mockReturnValue(rect(100, 100, 296, 140));
+		await advanceFrame();
+		expect(caret).toHaveStyle({ left: '82px' });
+		expect(screen.getByTestId('one-click-chat-spotlight-v2')).toBeInTheDocument();
+		expect(spotlightEvents().map((event) => event.action)).toEqual(['viewed']);
+		expect(released).not.toHaveBeenCalled();
+
+		fireEvent.click(screen.getByRole('button', { name: 'Dismiss spotlight' }));
+		await waitFor(() =>
+			expect(screen.queryByTestId('one-click-chat-spotlight-v2')).not.toBeInTheDocument(),
+		);
+		measureSurface.mockClear();
+		await advanceFrame();
+		expect(measureSurface).not.toHaveBeenCalled();
+
+		unmount();
+		measureSurface.mockClear();
+		await advanceFrame();
+		expect(measureSurface).not.toHaveBeenCalled();
+	},
+);

@@ -16,6 +16,7 @@ const documentation: StructuredContentSource = {
 			},
 			usageGuidelines: [
 				'Trigger by user action (e.g. click); do not open automatically',
+				'Do not render the inline dialog open (isOpen) inside another layer that opens at the same time (for example, a modal that opens with the inline dialog already open). Open it on a user action, after its parent layer has opened. Exception: an inline dialog that shows state, such as a field error.',
 				'Use for section-level info or actions, not page-critical content',
 				'Keep content concise; only one inline dialog open at a time',
 				'Good for feature discovery and contextual controls',

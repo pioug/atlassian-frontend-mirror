@@ -3,11 +3,11 @@ import { snapshot } from '@af/visual-regression';
 import RadioExample from '../../../examples/02-form-example.vr.ap';
 
 snapshot(RadioExample, {
-	description: 'Legacy style',
+	description: 'Base',
 });
 
 snapshot(RadioExample, {
-	description: 'Legacy style - unchecked - hover',
+	description: 'Unchecked - hover',
 	states: [
 		{
 			state: 'hovered',
@@ -19,7 +19,7 @@ snapshot(RadioExample, {
 });
 
 snapshot(RadioExample, {
-	description: 'Legacy style - unchecked - focused',
+	description: 'Unchecked - focused',
 	states: [
 		{
 			state: 'focused',
@@ -31,7 +31,7 @@ snapshot(RadioExample, {
 });
 
 snapshot(RadioExample, {
-	description: 'Legacy style - unchecked - hovered and focused',
+	description: 'Unchecked - hovered and focused',
 	states: [
 		{
 			state: 'hovered',
@@ -49,7 +49,7 @@ snapshot(RadioExample, {
 });
 
 snapshot(RadioExample, {
-	description: 'Legacy style - checked - hover',
+	description: 'Checked - hover',
 	states: [
 		{
 			state: 'hovered',
@@ -61,7 +61,7 @@ snapshot(RadioExample, {
 });
 
 snapshot(RadioExample, {
-	description: 'Legacy style - checked - focused',
+	description: 'Checked - focused',
 	states: [
 		{
 			state: 'focused',
@@ -73,7 +73,7 @@ snapshot(RadioExample, {
 });
 
 snapshot(RadioExample, {
-	description: 'Legacy style - checked - hovered and focused',
+	description: 'Checked - hovered and focused',
 	states: [
 		{
 			state: 'hovered',
@@ -91,7 +91,7 @@ snapshot(RadioExample, {
 });
 
 snapshot(RadioExample, {
-	description: 'Legacy style - unchecked - disabled',
+	description: 'Unchecked - disabled',
 	states: [
 		{
 			state: 'focused',
@@ -103,7 +103,7 @@ snapshot(RadioExample, {
 });
 
 snapshot(RadioExample, {
-	description: 'Legacy style - checked - disabled',
+	description: 'Checked - disabled',
 	states: [
 		{
 			state: 'focused',
@@ -115,7 +115,7 @@ snapshot(RadioExample, {
 });
 
 snapshot(RadioExample, {
-	description: 'Legacy style - checked - disabled - hovered',
+	description: 'Checked - disabled - hovered',
 	states: [
 		{
 			state: 'hovered',
@@ -127,160 +127,7 @@ snapshot(RadioExample, {
 });
 
 snapshot(RadioExample, {
-	description: 'Legacy style - checked - disabled - hovered and focused',
-	states: [
-		{
-			state: 'hovered',
-			selector: {
-				byTestId: 'weather-sunny--radio-input',
-			},
-		},
-		{
-			state: 'focused',
-			selector: {
-				byTestId: 'weather-sunny--radio-input',
-			},
-		},
-	],
-});
-
-snapshot(RadioExample, {
-	description: 'Visual refresh style',
-	featureFlags: {},
-});
-
-snapshot(RadioExample, {
-	description: 'Visual refresh style - unchecked - hover',
-	featureFlags: {},
-	states: [
-		{
-			state: 'hovered',
-			selector: {
-				byTestId: 'color-red--radio-input',
-			},
-		},
-	],
-});
-
-snapshot(RadioExample, {
-	description: 'Visual refresh style - unchecked - focused',
-	featureFlags: {},
-	states: [
-		{
-			state: 'focused',
-			selector: {
-				byTestId: 'color-red--radio-input',
-			},
-		},
-	],
-});
-
-snapshot(RadioExample, {
-	description: 'Visual refresh style - unchecked - hovered and focused',
-	featureFlags: {},
-	states: [
-		{
-			state: 'hovered',
-			selector: {
-				byTestId: 'color-red--radio-input',
-			},
-		},
-		{
-			state: 'focused',
-			selector: {
-				byTestId: 'color-red--radio-input',
-			},
-		},
-	],
-});
-
-snapshot(RadioExample, {
-	description: 'Visual refresh style - checked - hover',
-	featureFlags: {},
-	states: [
-		{
-			state: 'hovered',
-			selector: {
-				byTestId: 'color-blue--radio-input',
-			},
-		},
-	],
-});
-
-snapshot(RadioExample, {
-	description: 'Visual refresh style - checked - focused',
-	featureFlags: {},
-	states: [
-		{
-			state: 'focused',
-			selector: {
-				byTestId: 'color-blue--radio-input',
-			},
-		},
-	],
-});
-
-snapshot(RadioExample, {
-	description: 'Visual refresh style - checked - hovered and focused',
-	featureFlags: {},
-	states: [
-		{
-			state: 'hovered',
-			selector: {
-				byTestId: 'color-blue--radio-input',
-			},
-		},
-		{
-			state: 'focused',
-			selector: {
-				byTestId: 'color-blue--radio-input',
-			},
-		},
-	],
-});
-
-snapshot(RadioExample, {
-	description: 'Visual refresh style - unchecked - disabled',
-	featureFlags: {},
-	states: [
-		{
-			state: 'focused',
-			selector: {
-				byTestId: 'weather-cloudy--radio-input',
-			},
-		},
-	],
-});
-
-snapshot(RadioExample, {
-	description: 'Visual refresh style - checked - disabled',
-	featureFlags: {},
-	states: [
-		{
-			state: 'focused',
-			selector: {
-				byTestId: 'weather-sunny--radio-input',
-			},
-		},
-	],
-});
-
-snapshot(RadioExample, {
-	description: 'Visual refresh style - checked - disabled - hovered',
-	featureFlags: {},
-	states: [
-		{
-			state: 'hovered',
-			selector: {
-				byTestId: 'weather-sunny--radio-input',
-			},
-		},
-	],
-});
-
-snapshot(RadioExample, {
-	description: 'Visual refresh style - checked - disabled - hovered and focused',
-	featureFlags: {},
+	description: 'Checked - disabled - hovered and focused',
 	states: [
 		{
 			state: 'hovered',

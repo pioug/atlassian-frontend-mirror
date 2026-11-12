@@ -1,5 +1,12 @@
 # @atlaskit/editor-mention-types
 
+## 2.0.1
+
+### Patch Changes
+
+- [`aa37beeadca8b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa37beeadca8b) -
+  Delete unreachable source files
+
 ## 2.0.0
 
 ### Major Changes

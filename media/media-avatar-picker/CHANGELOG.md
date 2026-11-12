@@ -1,5 +1,14 @@
 # @atlaskit/media-avatar-picker
 
+## 28.3.6
+
+### Patch Changes
+
+- [`cabdc28eee7be`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cabdc28eee7be) -
+  AvatarPickerDialog now forwards its maxImageSize prop to ImageNavigator behind the
+  platform_media_avatar_picker_max_image_size feature gate; with the gate off, behaviour is
+  unchanged (prop ignored, 10 MB default).
+
 ## 28.3.5
 
 ### Patch Changes

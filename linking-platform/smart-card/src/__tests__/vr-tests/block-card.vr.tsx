@@ -38,36 +38,15 @@ import { BlockCardForbiddenViews } from '../../../examples/vr-block-card/vr-flex
 import FlexibleUiErroredTitleBlockCompetitorPrompt from '../../../examples/vr-flexible-card/vr-flexible-ui-errored-title-block-competitor-prompt.vr.ap';
 
 snapshot(BlockCardErrorView, {
-	description: 'block card error view with design refresh FF',
-	featureFlags: {},
-	waitForReactLazy: true,
-});
-snapshot(BlockCardErrorView, {
-	description: 'block card error view - linking refresh only',
-	featureFlags: {},
-	waitForReactLazy: true,
-});
-snapshot(BlockCardForbiddenView, {
-	description: 'block card forbidden view with design refresh FF',
-	featureFlags: {},
-	waitForReactLazy: true,
-});
-snapshot(BlockCardForbiddenView, {
-	description: 'block card forbidden view - linking refresh only',
-	featureFlags: {},
+	description: 'block card error view',
 	waitForReactLazy: true,
 });
 snapshot(BlockCardForbiddenView, {
 	waitForReactLazy: true,
 });
 snapshot(BlockCardNotFoundView, {
-	description: 'block card not found view with design refresh FF',
-	featureFlags: {},
+	description: 'block card not found view',
 	waitForReactLazy: true,
-});
-snapshot(BlockCardNotFoundView, {
-	description: 'block card not found view - linking refresh only',
-	featureFlags: {},
 });
 snapshot(BlockCardNotFoundSiteAccessExists, {
 	featureFlags: {},

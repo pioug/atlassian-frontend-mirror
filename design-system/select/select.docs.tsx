@@ -22,6 +22,7 @@ const documentation: StructuredContentSource = {
 				'Enable search for long option lists',
 				'Consider loading states for async data',
 				'Avoid alphabetical ordering (not localizable); use logical order for translatable option lists',
+				'Do not render the menu open (menuIsOpen or defaultMenuIsOpen) inside a layer that opens at the same time (for example, a modal that opens with the select menu already open). Open the menu on a user action, after the layer has opened.',
 			],
 			contentGuidelines: [
 				'Write clear, descriptive option labels',

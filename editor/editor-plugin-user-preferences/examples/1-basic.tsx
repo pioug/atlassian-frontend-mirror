@@ -4,6 +4,7 @@ import applyDevTools from 'prosemirror-dev-tools';
 
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
+import { userPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences/user-preferences-plugin';
 import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import { annotationPlugin } from '@atlaskit/editor-plugins/annotation';
 import type { AnnotationProviders } from '@atlaskit/editor-plugins/annotation';
@@ -38,8 +39,6 @@ import { textFormattingPlugin } from '@atlaskit/editor-plugins/text-formatting';
 import { typeAheadPlugin } from '@atlaskit/editor-plugins/type-ahead';
 import { widthPlugin } from '@atlaskit/editor-plugins/width';
 import { getUserPreferencesProvider } from '@atlaskit/editor-test-helpers/mock-user-preference-provider';
-
-import { userPreferencesPlugin } from '../src';
 
 /**
  * This is an example Editor class

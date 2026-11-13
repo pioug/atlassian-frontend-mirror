@@ -46,11 +46,11 @@ const { ref, state } = useMotion<HTMLLIElement>();
 
 ## Returns
 
-| Property    | Type                         | Description                                                                                                                                                                         |
-| ----------- | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `state`     | `MotionState`                | The current state of the animation lifecycle. Map this to your animation styles.                                                                                                    |
-| `ref`       | Ref callback                 | Must be attached to the animated element. The hook reads the animation duration from it to time `onFinish` and removal by `ExitingPersistence`, and to receive its staggered delay. |
-| `reanimate` | `(value: Reanimate) => void` | Imperatively replays the animation. See [Reanimate](#reanimate).                                                                                                                    |
+| Property    | Type                         | Description                                                                                                                                    |
+| ----------- | ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `state`     | `MotionState`                | The current state of the animation lifecycle. Map this to your animation styles.                                                               |
+| `ref`       | Ref callback                 | Must be attached to the animated element. The hook reads the animation duration from it to time `onFinish` and to receive its staggered delay. |
+| `reanimate` | `(value: Reanimate) => void` | Imperatively replays the animation. See [Reanimate](#reanimate).                                                                               |
 
 ## MotionState
 

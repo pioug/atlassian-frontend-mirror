@@ -7,11 +7,31 @@ import type { Position } from '../types';
 
 export type RangeType = 'selection' | 'hover' | null;
 
+/**
+ * The range a draft should act on, published by the selection/hover mounters so the manager can
+ * resolve its target without reading the ambient `range`, which flips between selection and hover.
+ */
+export type DraftTarget = {
+	documentPosition: Position | false;
+	isAnnotationAllowed: boolean;
+	/** A block node carrying a node mark, so its position is collapsed, not a text range. */
+	isBlockNode?: boolean;
+	range: Range | null;
+	/** The range the target came from: a draft promotes and clears the draft state of its source. */
+	source?: Exclude<RangeType, null>;
+};
+
 // oxlint-disable-next-line eslint/no-redeclare
 interface AnnotationRangeStateContext {
+	/** Which surface the user engaged, tracked explicitly so a transient hover cannot win. */
+	draftIntentSource: RangeType;
+
 	hoverDraftDocumentPosition: Position | null;
 
 	hoverDraftRange: Range | null;
+
+	/** The live hover draft target (media). */
+	hoverDraftTarget: DraftTarget | null;
 
 	/**
 	 * This range represents the selection that the user has made before they intend to save an annotation
@@ -28,6 +48,9 @@ interface AnnotationRangeStateContext {
 	 * If the user does not set allowDraftMode, this will be ignored as it only is set when we call applyAnnotationDraftAt()
 	 */
 	selectionDraftRange: Range | null;
+
+	/** The live selection draft target, read by `startDraft`. */
+	selectionDraftTarget: DraftTarget | null;
 	/**
 	 * This represents the type of range that is currently set on the range property, ie, whether the range is a hover or selection.
 	 */
@@ -41,16 +64,22 @@ interface AnnotationRangeDispatchContext {
 	clearSelectionRange: () => void;
 	promoteHoverToDraft: (position: Position | null) => void;
 	promoteSelectionToDraft: (position: Position | null) => void;
+	setDraftIntentSource: (source: RangeType) => void;
+	setHoverDraftTarget: (target: DraftTarget | null) => void;
 	setHoverTarget?: (target: HTMLElement) => void;
+	setSelectionDraftTarget: (target: DraftTarget | null) => void;
 	setSelectionRange: (range: Range) => void;
 }
 
 type State = {
+	draftIntentSource: RangeType;
 	hoverDraftDocumentPosition: Position | null;
 	hoverDraftRange: Range | null;
+	hoverDraftTarget: DraftTarget | null;
 	hoverRange: Range | null;
 	selectionDraftDocumentPosition: Position | null;
 	selectionDraftRange: Range | null;
+	selectionDraftTarget: DraftTarget | null;
 	selectionRange: Range | null;
 	type: RangeType;
 };
@@ -63,6 +92,9 @@ const initialState: State = {
 	hoverDraftRange: null,
 	selectionDraftDocumentPosition: null,
 	hoverDraftDocumentPosition: null,
+	draftIntentSource: null,
+	selectionDraftTarget: null,
+	hoverDraftTarget: null,
 };
 
 type Action =
@@ -73,7 +105,10 @@ type Action =
 	| { position: Position | null; type: 'promoteSelectionToDraft' }
 	| { position: Position | null; type: 'promoteHoverToDraft' }
 	| { type: 'clearSelectionDraft' }
-	| { type: 'clearHoverDraft' };
+	| { type: 'clearHoverDraft' }
+	| { source: RangeType; type: 'setDraftIntentSource' }
+	| { target: DraftTarget | null; type: 'setSelectionDraftTarget' }
+	| { target: DraftTarget | null; type: 'setHoverDraftTarget' };
 
 function reducer(state: State, action: Action): State {
 	switch (action.type) {
@@ -143,6 +178,21 @@ function reducer(state: State, action: Action): State {
 				return { ...state, hoverDraftRange: null, hoverDraftDocumentPosition: null };
 			}
 			return state;
+		case 'setDraftIntentSource':
+			if (state.draftIntentSource !== action.source) {
+				return { ...state, draftIntentSource: action.source };
+			}
+			return state;
+		case 'setSelectionDraftTarget':
+			if (state.selectionDraftTarget !== action.target) {
+				return { ...state, selectionDraftTarget: action.target };
+			}
+			return state;
+		case 'setHoverDraftTarget':
+			if (state.hoverDraftTarget !== action.target) {
+				return { ...state, hoverDraftTarget: action.target };
+			}
+			return state;
 	}
 }
 
@@ -154,6 +204,9 @@ export const AnnotationRangeStateContext: React.Context<AnnotationRangeStateCont
 		hoverDraftRange: null,
 		selectionDraftDocumentPosition: null,
 		hoverDraftDocumentPosition: null,
+		draftIntentSource: null,
+		selectionDraftTarget: null,
+		hoverDraftTarget: null,
 	});
 
 export const AnnotationRangeDispatchContext: React.Context<AnnotationRangeDispatchContext> =
@@ -165,6 +218,9 @@ export const AnnotationRangeDispatchContext: React.Context<AnnotationRangeDispat
 		promoteHoverToDraft: () => {},
 		clearSelectionDraft: () => {},
 		clearHoverDraft: () => {},
+		setDraftIntentSource: () => {},
+		setSelectionDraftTarget: () => {},
+		setHoverDraftTarget: () => {},
 	});
 
 export const AnnotationRangeProviderInner = ({
@@ -186,6 +242,9 @@ export const AnnotationRangeProviderInner = ({
 			selectionDraftDocumentPosition,
 			hoverDraftRange,
 			hoverDraftDocumentPosition,
+			draftIntentSource,
+			selectionDraftTarget,
+			hoverDraftTarget,
 		},
 		dispatch,
 	] = useReducer(reducer, initialState);
@@ -258,6 +317,18 @@ export const AnnotationRangeProviderInner = ({
 		dispatch({ type: 'clearHoverDraft' });
 	}, []);
 
+	const setDraftIntentSource = useCallback((source: RangeType) => {
+		dispatch({ type: 'setDraftIntentSource', source });
+	}, []);
+
+	const setSelectionDraftTarget = useCallback((target: DraftTarget | null) => {
+		dispatch({ type: 'setSelectionDraftTarget', target });
+	}, []);
+
+	const setHoverDraftTarget = useCallback((target: DraftTarget | null) => {
+		dispatch({ type: 'setHoverDraftTarget', target });
+	}, []);
+
 	const stateData = useMemo(() => {
 		return {
 			// We techinically have two ranges, however we only want to expose one of them at a time, because only one draft
@@ -268,6 +339,9 @@ export const AnnotationRangeProviderInner = ({
 			hoverDraftRange,
 			selectionDraftDocumentPosition,
 			hoverDraftDocumentPosition,
+			draftIntentSource,
+			selectionDraftTarget,
+			hoverDraftTarget,
 		};
 	}, [
 		selectionRange,
@@ -277,6 +351,9 @@ export const AnnotationRangeProviderInner = ({
 		selectionDraftDocumentPosition,
 		hoverDraftRange,
 		hoverDraftDocumentPosition,
+		draftIntentSource,
+		selectionDraftTarget,
+		hoverDraftTarget,
 	]);
 
 	const dispatchData = useMemo(
@@ -289,6 +366,9 @@ export const AnnotationRangeProviderInner = ({
 			promoteHoverToDraft,
 			clearSelectionDraft,
 			clearHoverDraft,
+			setDraftIntentSource,
+			setSelectionDraftTarget,
+			setHoverDraftTarget,
 		}),
 		[
 			allowCommentsOnMedia,
@@ -301,6 +381,9 @@ export const AnnotationRangeProviderInner = ({
 			promoteHoverToDraft,
 			clearSelectionDraft,
 			clearHoverDraft,
+			setDraftIntentSource,
+			setSelectionDraftTarget,
+			setHoverDraftTarget,
 		],
 	);
 

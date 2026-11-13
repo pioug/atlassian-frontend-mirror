@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/ads-cli",
-	"version": "0.11.1",
+	"version": "0.12.0",
 	"description": "An npx-runnable command-line tool to query Atlassian Design System (ADS) structured content — components, tokens, icons, and guidelines — from the terminal.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -18,17 +18,19 @@
 	"bin": "./bin/ads-cli.js",
 	"scripts": {
 		"start": "./bin/ads-cli.js",
-		"build:atlas": "esbuild src/atlas-cli.tsx --bundle --outfile=build/atlas/ads-cli.js --format=cjs --platform=node --target=node18",
+		"build:atlas": "run-ts scripts/atlas/build-atlas.tsx",
 		"package:atlas:darwin-amd64": "pkg --public --public-packages '*' --compress GZip --target node18-macos-x64 --output build/atlas/ads-darwin-amd64 build/atlas/ads-cli.js",
 		"package:atlas:darwin-arm64": "pkg --public --public-packages '*' --compress GZip --target node18-macos-arm64 --output build/atlas/ads-darwin-arm64 build/atlas/ads-cli.js",
 		"package:atlas:linux-amd64": "pkg --public --public-packages '*' --compress GZip --target node18-linux-x64 --output build/atlas/ads-linux-amd64 build/atlas/ads-cli.js",
 		"package:atlas:linux-arm64": "pkg --public --public-packages '*' --compress GZip --target node18-linux-arm64 --output build/atlas/ads-linux-arm64 build/atlas/ads-cli.js",
 		"package:atlas:windows-amd64": "pkg --public --public-packages '*' --compress GZip --target node18-win-x64 --output build/atlas/ads-windows-amd64.exe build/atlas/ads-cli.js",
 		"package:atlas": "afm run build:atlas && afm run package:atlas:darwin-amd64 && afm run package:atlas:darwin-arm64 && afm run package:atlas:linux-amd64 && afm run package:atlas:linux-arm64 && afm run package:atlas:windows-amd64",
-		"release:atlas:fetch-manifest": "bash scripts/atlas/fetch-manifest.sh",
-		"release:atlas:prepare": "bash scripts/atlas/prepare-release.sh",
-		"release:atlas:upload": "bash scripts/atlas/upload-release.sh",
-		"release:atlas:promote": "bash scripts/atlas/promote-stable.sh"
+		"release:atlas:fetch-manifest": "run-ts scripts/atlas/fetch-manifest.tsx",
+		"release:atlas:prepare": "run-ts scripts/atlas/prepare-release.tsx",
+		"release:atlas:upload": "run-ts scripts/atlas/upload-release.tsx",
+		"release:atlas:promote": "run-ts scripts/atlas/promote-stable.tsx",
+		"release:atlas": "run-ts scripts/atlas/release-and-promote.tsx",
+		"release:atlas:policy": "run-ts scripts/atlas/publish-version-policy.tsx"
 	},
 	"exports": {
 		".": {
@@ -42,11 +44,13 @@
 		"@atlaskit/ads-mcp": "workspace:^",
 		"@atlaskit/cli-output": "workspace:^",
 		"@babel/runtime": "root:*",
-		"chalk": "root:*"
+		"chalk": "root:*",
+		"file-system-cache": "root:*"
 	},
 	"devDependencies": {
 		"@atlaskit/docs": "workspace:^",
 		"@atlassian/ts-loader": "workspace:^",
+		"@iarna/toml": "root:*",
 		"esbuild": "root:*",
 		"pkg": "root:*"
 	}

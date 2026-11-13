@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-rule
 
+## 30.1.0
+
+### Minor Changes
+
+- [`85d826388ed61`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/85d826388ed61) -
+  [ux] [EDITOR-8341] introduce `Add text` and `Align text` to the divider toolbar controls behind
+  `platform_editor_lovability_dividers` and `platform_editor_lovability_dividers_m2`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 30.0.3
 
 ### Patch Changes

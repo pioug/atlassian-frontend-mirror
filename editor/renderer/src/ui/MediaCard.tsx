@@ -292,6 +292,7 @@ export class MediaCardView extends Component<
 			dataAttributes,
 			enableSyncMediaCard,
 			localId,
+			mediaViewerExtensions,
 		} = this.props;
 
 		if (imageStatus === 'loading' || !url) {
@@ -332,6 +333,7 @@ export class MediaCardView extends Component<
 					disableOverlay={disableOverlay}
 					shouldOpenMediaViewer={shouldOpenMediaViewer}
 					mediaViewerItems={Array.from(mediaIdentifierMap.values())}
+					mediaViewerExtensions={mediaViewerExtensions}
 					featureFlags={featureFlags}
 					ssr={ssr?.mode}
 					shouldHideTooltip={false}

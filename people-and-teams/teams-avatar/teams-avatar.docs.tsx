@@ -11,8 +11,8 @@ const documentation: StructuredContentSource = {
 			description: 'A visual representation of a team, typically used in profile views or lists.',
 			status: 'general-availability',
 			import: {
-				name: 'default',
-				package: '@atlaskit/teams-avatar',
+				name: 'TeamsAvatar',
+				package: '@atlaskit/teams-avatar/index',
 				type: 'default',
 				packagePath,
 				packageJson,

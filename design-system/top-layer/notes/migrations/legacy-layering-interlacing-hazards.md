@@ -454,9 +454,18 @@ live region that kept announcing, a persistent call/chat bar, or a running produ
 **dead** while the modal is open. Note the asymmetry: a **non-modal `popover` does _not_ inert**
 anything — only `showModal()` does — so this hazard is specific to modal migration.
 
-**Fix** Render must-stay-live UI **inside** the dialog, or as its **own top-layer surface**
-(`popover`, which a sibling `<dialog>` does not inert, and which can be ordered above it). Put
-`aria-live` announcement regions inside the dialog so they are still conveyed.
+A popover does not escape this. While a modal `<dialog>` is open, everything outside the topmost
+modal dialog is inert, popovers too, even a popover that opened after the dialog and paints above
+it. Hit testing skips it, so a click lands on the dialog. The jsdom polyfill models the same rule.
+
+**Fix** Render must-stay-live UI **inside** the topmost dialog. A popover inside the dialog is not
+inert, and it paints above the dialog when it shows after it. For a layer that lives outside the
+dialog's React tree, wrap the layer in `DialogAwarePortal`
+(`@atlaskit/top-layer/dialog-aware-portal`): when it mounts while a `Dialog` is open, it renders the
+layer inside the topmost one. It does not follow a dialog that opens later, and it moves out when
+its dialog closes. A move remounts the layer. The top-layer `FlagGroup` does this for each flag's
+host, so a flag that shows over a modal or drawer is usable. Put `aria-live` announcement regions
+inside the dialog so they are still conveyed.
 
 ---
 

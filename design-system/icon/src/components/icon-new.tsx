@@ -37,6 +37,11 @@ const svgStyles = css({
 	},
 });
 
+// Animated icons move parts of the glyph (lifts, sparkles, rotations) beyond the 16px viewBox.
+const animatedSvgStyles = css({
+	overflow: 'visible',
+});
+
 const iconStyles = css({
 	display: 'inline-block',
 	boxSizing: 'border-box',
@@ -136,6 +141,7 @@ export const Icon: import('react').NamedExoticComponent<
 		shouldScale,
 		spacing = 'none',
 		name,
+		isAnimatedIcon,
 	} = props as InternalIconPropsNew;
 
 	const dangerouslySetInnerHTML = dangerouslySetGlyph
@@ -180,6 +186,7 @@ export const Icon: import('react').NamedExoticComponent<
 				role="presentation"
 				css={[
 					svgStyles,
+					isAnimatedIcon && animatedSvgStyles,
 					shouldScale
 						? scaleSize
 						: size === 'small'

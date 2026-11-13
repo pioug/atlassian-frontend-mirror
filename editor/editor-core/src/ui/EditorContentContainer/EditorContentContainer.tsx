@@ -2143,26 +2143,6 @@ const editorContentStyles = cssMapScoped({
 				},
 			},
 
-			// ...extensionLabelStyles
-			'&.danger > span > div > .extension-label': {
-				backgroundColor: token('color.background.accent.red.subtler'),
-				color: token('color.text.danger'),
-				opacity: 1,
-				boxShadow: 'none',
-			},
-			'&:not(.danger).ak-editor-selected-node > span > div > .extension-label': {
-				backgroundColor: token('color.background.selected'),
-				color: token('color.text.selected'),
-				opacity: 1,
-				boxShadow: 'none',
-			},
-			/* Targets the icon for bodied macro styling in button label */
-			'&.danger > span > div > .extension-label > span': {
-				display: 'inline',
-			},
-			'&:not(.danger).ak-editor-selected-node > span > div .extension-label > span': {
-				display: 'inline',
-			},
 			/* Start of bodied extension edit toggle styles */
 			'&.danger.ak-editor-selected-node > span > .extension-edit-toggle-container': {
 				opacity: 1,
@@ -2170,22 +2150,6 @@ const editorContentStyles = cssMapScoped({
 			'&:not(.danger).ak-editor-selected-node > span > .extension-edit-toggle-container': {
 				opacity: 1,
 			},
-			/* In view mode of the bodied macro, we never want to show the extension label */
-			'&.danger.ak-editor-selected-node > span > div > .extension-label.always-hide-label': {
-				opacity: 0,
-			},
-			'&:not(.danger).ak-editor-selected-node > span > div > .extension-label.always-hide-label': {
-				opacity: 0,
-			},
-			/* .with-bodied-macro-live-page-styles class will only be added to bodied macros with the renderer mode gate enabled */
-			'&:not(.danger).ak-editor-selected-node > span > div > .extension-label.with-bodied-macro-live-page-styles':
-				{
-					boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
-				},
-			'&.danger.ak-editor-selected-node > span > div > .extension-label.with-bodied-macro-live-page-styles':
-				{
-					boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
-				},
 			'&.danger.ak-editor-selected-node > span > .extension-edit-toggle-container > .extension-edit-toggle':
 				{
 					backgroundColor: token('color.background.accent.red.subtler'),
@@ -2349,6 +2313,73 @@ const editorContentStyles = cssMapScoped({
 						marginBottom: 0,
 					},
 				},
+			},
+		},
+	},
+	// Inline extension label rules for the div label container, used with
+	// platform_editor_inline_extension_spans off. Delete these when cleaning up the experiment.
+	inlineExtensionDivLabelStyles: {
+		'.inlineExtensionView-content-wrap': {
+			// ...extensionLabelStyles
+			'&.danger > span > div > .extension-label': {
+				backgroundColor: token('color.background.accent.red.subtler'),
+				color: token('color.text.danger'),
+				opacity: 1,
+				boxShadow: 'none',
+			},
+			'&:not(.danger).ak-editor-selected-node > span > div > .extension-label': {
+				backgroundColor: token('color.background.selected'),
+				color: token('color.text.selected'),
+				opacity: 1,
+				boxShadow: 'none',
+			},
+			/* Targets the icon for bodied macro styling in button label */
+			'&.danger > span > div > .extension-label > span': {
+				display: 'inline',
+			},
+			'&:not(.danger).ak-editor-selected-node > span > div .extension-label > span': {
+				display: 'inline',
+			},
+			/* In view mode of the bodied macro, we never want to show the extension label */
+			'&.danger.ak-editor-selected-node > span > div > .extension-label.always-hide-label': {
+				opacity: 0,
+			},
+			'&:not(.danger).ak-editor-selected-node > span > div > .extension-label.always-hide-label': {
+				opacity: 0,
+			},
+			/* .with-bodied-macro-live-page-styles class will only be added to bodied macros with the renderer mode gate enabled */
+			'&:not(.danger).ak-editor-selected-node > span > div > .extension-label.with-bodied-macro-live-page-styles':
+				{
+					boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
+				},
+			'&.danger.ak-editor-selected-node > span > div > .extension-label.with-bodied-macro-live-page-styles':
+				{
+					boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
+				},
+		},
+	},
+	// Inline extension label rules for the span label container rendered with
+	// platform_editor_inline_extension_spans. When cleaning up the experiment, move these selectors
+	// into the inlineExtensionView-content-wrap rules in extensionStyles.
+	inlineExtensionSpanLabelStyles: {
+		'.inlineExtensionView-content-wrap': {
+			'&.danger > span > span > .extension-label': {
+				backgroundColor: token('color.background.accent.red.subtler'),
+				color: token('color.text.danger'),
+				opacity: 1,
+				boxShadow: 'none',
+			},
+			'&:not(.danger).ak-editor-selected-node > span > span > .extension-label': {
+				backgroundColor: token('color.background.selected'),
+				color: token('color.text.selected'),
+				opacity: 1,
+				boxShadow: 'none',
+			},
+			'&.danger > span > span > .extension-label > span': {
+				display: 'inline',
+			},
+			'&:not(.danger).ak-editor-selected-node > span > span .extension-label > span': {
+				display: 'inline',
 			},
 		},
 	},
@@ -7526,20 +7557,12 @@ const editorContentStyles = cssMapScoped({
 			'.decisionItemView-content-wrap': {
 				marginTop: 0,
 			},
-			'.taskItemView-content-wrap': {
-				"span[contenteditable='false']": {
-					height: `${akEditorLineHeight}em`,
-				},
-			},
 			'.task-item': {
 				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 				lineHeight: akEditorLineHeight,
 			},
 		},
 		'div[data-task-local-id]': {
-			"span[contenteditable='false']": {
-				height: `${akEditorLineHeight}em`,
-			},
 			"span[contenteditable='false'] + div": {
 				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 				lineHeight: `${akEditorLineHeight}em`,
@@ -7562,6 +7585,23 @@ const editorContentStyles = cssMapScoped({
 			'> div[data-task-list-local-id]:first-child': {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 				margin: '0 !important',
+			},
+		},
+	},
+	// Used with platform_editor_inline_extension_spans off. Delete when cleaning up the experiment.
+	taskItemHeightOldStyles: {
+		'.ProseMirror .taskItemView-content-wrap, div[data-task-local-id]': {
+			"span[contenteditable='false']": {
+				height: `${akEditorLineHeight}em`,
+			},
+		},
+	},
+	// Task-owned controls need the line height; embedded content sizes itself.
+	// When cleaning up platform_editor_inline_extension_spans, move these into tasksAndDecisionsStyles.
+	taskItemHeightNextStyles: {
+		'.ProseMirror .taskItemView-content-wrap, div[data-task-local-id]': {
+			"[data-component='task-item-input-wrap'], [data-component='placeholder']": {
+				height: `${akEditorLineHeight}em`,
 			},
 		},
 	},
@@ -8595,6 +8635,12 @@ const EditorContentContainer: React.ForwardRefExoticComponent<
 		UNSAFE_expValNoExposure('platform_editor_update_status_colors', 'isEnabled', false) ||
 		UNSAFE_expValNoExposure('platform_editor_update_status_colors_jira', 'isEnabled', false);
 	const isStatusStylesTeam26 = fg('platform-dst-lozenge-tag-badge-visual-uplifts');
+	// Exposure fires where editor-common renders the spans, not on every editor load.
+	const isInlineExtensionSpansEnabled = UNSAFE_expValNoExposure(
+		'platform_editor_inline_extension_spans',
+		'isEnabled',
+		false,
+	);
 
 	return (
 		<div
@@ -8687,12 +8733,18 @@ const EditorContentContainer: React.ForwardRefExoticComponent<
 				editorContentStyles.panelStylesMixin,
 				editorContentStyles.mentionsStyles,
 				editorContentStyles.tasksAndDecisionsStyles,
+				isInlineExtensionSpansEnabled
+					? editorContentStyles.taskItemHeightNextStyles
+					: editorContentStyles.taskItemHeightOldStyles,
 				// condense vertical spacing between tasks/decisions items when content mode dense is active
 				contentMode === 'compact' && isDense && editorContentStyles.tasksAndDecisionsDenseStyles,
 				editorContentStyles.gridStyles,
 				editorContentStyles.blockMarksStyles,
 				editorContentStyles.dateStyles,
 				editorContentStyles.extensionStyles,
+				isInlineExtensionSpansEnabled
+					? editorContentStyles.inlineExtensionSpanLabelStyles
+					: editorContentStyles.inlineExtensionDivLabelStyles,
 				fg('platform_editor_lovability_resize_exts_gracefully') &&
 					editorContentStyles.extensionWithBreakoutStyles,
 				contentMode === 'compact' && editorContentStyles.extensionStylesDense,

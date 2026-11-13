@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import { tableCellBorderWidth, tableCellMinWidth } from '@atlaskit/editor-common/styles/table';
+import { normalizeTableColumnWidths } from '@atlaskit/editor-common/table/normalize-column-widths';
 import { WidthContext } from '@atlaskit/editor-common/WidthProvider';
 import {
 	akEditorTableNumberColumnWidth,
@@ -410,7 +411,11 @@ const renderScaleDownColgroup = (
 };
 
 export const Colgroup = (props: SharedTableProps): React.JSX.Element | null => {
-	const { isTopLevelRenderer, nestedRendererType } = useRendererContext();
+	const {
+		isTopLevelRenderer,
+		nestedRendererType,
+		isPerformanceModeActive = false,
+	} = useRendererContext();
 	const { columnWidths, isNumberColumnEnabled } = props;
 	const { width: contextWidth } = useContext(WidthContext);
 	if (!columnWidths) {
@@ -426,31 +431,42 @@ export const Colgroup = (props: SharedTableProps): React.JSX.Element | null => {
 
 	// renderSyncBlockColgroup returns null when not applicable (flag off, SSR, not a sync block),
 	// in which case ?? falls back to the standard renderScaleDownColgroup path.
-	const colStyles =
-		renderSyncBlockColgroup({
-			isInsideOfSyncBlock,
-			isInsideOfTable: !!props.isInsideOfTable,
-			tableNode: props.tableNode,
+	let colStyles: CSSProperties[] | null;
+	if (isPerformanceModeActive) {
+		// Keep authored widths without viewport-driven scaling, including sync blocks.
+		colStyles = normalizeTableColumnWidths({
 			columnWidths,
 			isNumberColumnEnabled: !!isNumberColumnEnabled,
-			renderWidth: props.renderWidth,
-			contextWidth,
-		}) ??
-		renderScaleDownColgroup({
-			...props,
-			isTopLevelRenderer,
-			isInsideOfSyncBlock,
-			isTableScalingEnabled:
-				props.rendererAppearance === 'full-page' ||
-				props.rendererAppearance === 'full-width' ||
-				props.rendererAppearance === 'max' ||
-				props.rendererAppearance === 'comment',
-			isTableFixedColumnWidthsOptionEnabled:
-				isTableFixedColumnWidthsOptionEnabled &&
-				(props.rendererAppearance === 'full-page' ||
+			skipMinWidth: !!(props.isInsideOfTable && isInsideOfSyncBlock),
+			tableWidth: props.tableWidth ?? getTableContainerWidth(props.tableNode),
+		}).map((width) => ({ width: `${width}px` }));
+	} else {
+		colStyles =
+			renderSyncBlockColgroup({
+				isInsideOfSyncBlock,
+				isInsideOfTable: !!props.isInsideOfTable,
+				tableNode: props.tableNode,
+				columnWidths,
+				isNumberColumnEnabled: !!isNumberColumnEnabled,
+				renderWidth: props.renderWidth,
+				contextWidth,
+			}) ??
+			renderScaleDownColgroup({
+				...props,
+				isTopLevelRenderer,
+				isInsideOfSyncBlock,
+				isTableScalingEnabled:
+					props.rendererAppearance === 'full-page' ||
 					props.rendererAppearance === 'full-width' ||
-					props.rendererAppearance === 'max'),
-		});
+					props.rendererAppearance === 'max' ||
+					props.rendererAppearance === 'comment',
+				isTableFixedColumnWidthsOptionEnabled:
+					isTableFixedColumnWidthsOptionEnabled &&
+					(props.rendererAppearance === 'full-page' ||
+						props.rendererAppearance === 'full-width' ||
+						props.rendererAppearance === 'max'),
+			});
+	}
 	if (!colStyles) {
 		return null;
 	}

@@ -1,0 +1,41 @@
+import React, { useState } from 'react';
+
+import { DropdownItemCheckbox } from '@atlaskit/dropdown-menu/dropdown-item-checkbox';
+import { DropdownItemCheckboxGroup } from '@atlaskit/dropdown-menu/dropdown-item-checkbox-group';
+import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
+
+const DropdownItemCheckboxExample = (): React.JSX.Element => {
+	const [checked, setChecked] = useState<Record<string, boolean>>({
+		todo: true,
+		inprogress: false,
+		done: false,
+	});
+	const toggle = (name: string) => {
+		setChecked((prev) => ({
+			...prev,
+			[name]: !prev[name],
+		}));
+	};
+
+	return (
+		<DropdownMenu trigger="Status" shouldRenderToParent>
+			<DropdownItemCheckboxGroup title="Status" id="status-filters">
+				<DropdownItemCheckbox id="todo" onClick={() => toggle('todo')} isSelected={checked['todo']}>
+					To do
+				</DropdownItemCheckbox>
+				<DropdownItemCheckbox
+					id="inprogress"
+					onClick={() => toggle('inprogress')}
+					isSelected={checked['inprogress']}
+				>
+					In progress
+				</DropdownItemCheckbox>
+				<DropdownItemCheckbox id="done" onClick={() => toggle('done')} isSelected={checked['done']}>
+					Done
+				</DropdownItemCheckbox>
+			</DropdownItemCheckboxGroup>
+		</DropdownMenu>
+	);
+};
+
+export default DropdownItemCheckboxExample;

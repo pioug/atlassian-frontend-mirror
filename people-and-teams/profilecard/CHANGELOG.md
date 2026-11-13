@@ -1,5 +1,30 @@
 # @atlaskit/profilecard
 
+## 27.10.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.10.0
+
+### Minor Changes
+
+- [`b0b0ddffdc33e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b0b0ddffdc33e) -
+  Update i18n NPM package versions for people-and-teams,identity (Group 8)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.9.1
+
+### Patch Changes
+
+- [`080910a39cbbe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/080910a39cbbe) -
+  Clean up feature gate `platform_editor_agent_card_fixes`
+- Updated dependencies
+
 ## 27.9.0
 
 ### Minor Changes

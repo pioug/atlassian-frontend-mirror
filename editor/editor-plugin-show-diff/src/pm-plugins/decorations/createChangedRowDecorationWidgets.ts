@@ -95,8 +95,7 @@ const extractChangedRows = ({
 	// was written for deletions only, so it used to discard every replacement and the changed row's
 	// content was never rendered anywhere. The reviewer was left with just the removed side.
 	const isRowDeletion = oldTableMap.height > newTableMap.height;
-	const handleRowReplacement =
-		oldTableMap.height === newTableMap.height && fg('platform_editor_ai_show_diff_patch_1');
+	const handleRowReplacement = oldTableMap.height === newTableMap.height;
 	// If no rows were changed, return empty
 	if (
 		!(isRowDeletion || handleRowReplacement) ||
@@ -250,15 +249,8 @@ const createChangedRowDOM = ({
 	}
 	// Mirrors the strikethrough condition above: an `isInserted` row is ADDED content, so it must not claim the "deleted" testid — page models match that as
 	// removed content (same reasoning as `createTableCellContentWidgets`).
-	tr.setAttribute(
-		'data-testid',
-		isInserted && fg('platform_editor_ai_show_diff_patch_1')
-			? 'show-diff-changed-row'
-			: 'show-diff-deleted-row',
-	);
-	if (fg('platform_editor_ai_show_diff_patch_1')) {
-		tr.style.setProperty('scroll-margin-top', scrollMarginTopValue);
-	}
+	tr.setAttribute('data-testid', isInserted ? 'show-diff-changed-row' : 'show-diff-deleted-row');
+	tr.style.setProperty('scroll-margin-top', scrollMarginTopValue);
 
 	// Serialize each cell in the row
 	let cellIndex = 0;
@@ -461,7 +453,7 @@ export const createChangedRowDecorationWidgets = ({
 		// is still created but can never resolve a position, so it silently does not render and the
 		// bar covers only the row being changed. `createNodeChangedDecorationWidget` sets the same
 		// property on its own widget DOM for non-table content; this path returns before reaching it.
-		if (showIndicators && fg('platform_editor_ai_show_diff_patch_1')) {
+		if (showIndicators) {
 			rowAnchorNames.push(buildAnchorDecorationKey({ diffId }));
 
 			// A table's content can extend past the doc margin, so the bar also needs a left anchor

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9369365b155008cc125ba161fe973a43>>
+ * @codegen <<SignedSource::f29cbc8222ec14e4c6e0c27a733ec82d>>
  * @codegenCommand yarn build tokens
  */
 export default `
@@ -308,8 +308,10 @@ html[data-theme~="motion:motion"], [data-subtree-theme][data-theme~="motion:moti
   --ds-form-message-exit: 100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutBottom2px forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards;
   --ds-iconography-enter-cycle-up: 400ms cubic-bezier(0.65, 0, 0.35, 1) SlideIn100PercentBottom backwards;
   --ds-iconography-enter-fade: 250ms cubic-bezier(0, 0.4, 0, 1) FadeIn0to100 backwards;
+  --ds-iconography-enter-fade-fast: 50ms cubic-bezier(0, 0.4, 0, 1) FadeIn0to100 backwards;
   --ds-iconography-exit-cycle-up: 400ms cubic-bezier(0.65, 0, 0.35, 1) SlideOut100PercentTop forwards;
   --ds-iconography-exit-fade: 250ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards;
+  --ds-iconography-exit-fade-fast: 50ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards;
   --ds-input: background-color 150ms cubic-bezier(0.4, 1, 0.6, 1), border-color 150ms cubic-bezier(0.4, 1, 0.6, 1), box-shadow 150ms cubic-bezier(0.4, 1, 0.6, 1);
   --ds-input-selection: background-color 150ms cubic-bezier(0.4, 1, 0.6, 1), border-color 150ms cubic-bezier(0.4, 1, 0.6, 1), color 150ms cubic-bezier(0.4, 1, 0.6, 1), fill 150ms cubic-bezier(0.4, 1, 0.6, 1), stroke 150ms cubic-bezier(0.4, 1, 0.6, 1), opacity 150ms cubic-bezier(0.4, 1, 0.6, 1);
   --ds-input-toggle: background-color 150ms cubic-bezier(0.4, 1, 0.6, 1), color 150ms cubic-bezier(0.4, 1, 0.6, 1), transform 150ms cubic-bezier(0.4, 1, 0.6, 1), opacity 150ms cubic-bezier(0.4, 1, 0.6, 1);

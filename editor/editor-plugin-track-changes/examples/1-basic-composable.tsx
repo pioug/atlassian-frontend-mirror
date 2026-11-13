@@ -41,6 +41,7 @@ import { showDiffPlugin } from '@atlaskit/editor-plugin-show-diff/show-diff-plug
 import { statusPlugin } from '@atlaskit/editor-plugin-status/status-plugin';
 import { tablePlugin as tablesPlugin } from '@atlaskit/editor-plugin-table/table-plugin';
 import { tasksAndDecisionsPlugin } from '@atlaskit/editor-plugin-tasks-and-decisions/tasks-and-decisions-plugin';
+import { trackChangesPlugin } from '@atlaskit/editor-plugin-track-changes/track-changes-plugin';
 import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead/type-ahead-plugin';
 import { widthPlugin } from '@atlaskit/editor-plugin-width/width-plugin';
 import { basePlugin } from '@atlaskit/editor-plugins/base';
@@ -48,8 +49,6 @@ import { textFormattingPlugin } from '@atlaskit/editor-plugins/text-formatting';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
-
-import { trackChangesPlugin } from '../src/trackChangesPlugin';
 
 const styles = cssMap({
 	aboveEditor: {

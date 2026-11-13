@@ -18,6 +18,7 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents'
 import { getDocument } from '@atlaskit/browser-apis';
 import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
+import Heading from '@atlaskit/heading/heading';
 import CrossIcon from '@atlaskit/icon/core/cross';
 import { ChoreographedContent } from '@atlaskit/link-provider/choreographed-content';
 import { Popup } from '@atlaskit/popup/popup';
@@ -28,6 +29,7 @@ import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
+import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 
 import { EVENT_CHANNEL } from '../../../../common/analytics/constants';
 import { getExtensionKey } from '../../../../state/getExtensionKey';
@@ -38,19 +40,23 @@ import useOneClickChatSpotlightEligibility, {
 import useRovoConfig from '../../../../state/hooks/use-rovo-config';
 import { useSmartCardState } from '../../../../state/store';
 import type { InternalCardActionOptions } from '../../../Card/types';
+// oxlint-disable-next-line import/extensions -- Asset imports require an explicit extension.
+import rovoSnapshotIllustrationDark from './assets/rovo-snapshot-illustration-dark@2x.png';
+// oxlint-disable-next-line import/extensions -- Asset imports require an explicit extension.
+import rovoSnapshotIllustration from './assets/rovo-snapshot-illustration@2x.png';
 
 const messages = defineMessages({
 	heading: {
-		id: 'smart-card.one-click-chat-spotlight-v2.heading.ai-non-final',
-		defaultMessage: 'Explore this link with Rovo',
+		id: 'smart-card.one-click-chat-spotlight-v2.gist-heading.ai-non-final',
+		defaultMessage: 'Get the gist from this link',
 		description:
-			'Accessible name of a spotlight introducing the Rovo action beside a resolved Smart Link.',
+			'Heading and accessible name of the Smart Link spotlight. Invites users to get a short summary of the linked content with Rovo.',
 	},
 	body: {
-		id: 'smart-card.one-click-chat-spotlight-v2.takeaways-body.ai-non-final',
-		defaultMessage: 'Get key decisions and next steps from this link.',
+		id: 'smart-card.one-click-chat-spotlight-v2.insights-body.ai-non-final',
+		defaultMessage: 'See key insights, context, and next steps.',
 		description:
-			'Spotlight body inviting users to get key decisions and next steps from a linked document or code using Rovo.',
+			'Smart Link spotlight body describing the insights, context, and next steps users can get from the linked content with Rovo.',
 	},
 	dismiss: {
 		id: 'smart-card.one-click-chat-spotlight-v2.dismiss.ai-non-final',
@@ -68,7 +74,8 @@ const messages = defineMessages({
 const styles = cssMap({
 	surface: {
 		position: 'relative',
-		width: '296px',
+		// The design's 295px card plus the existing 8px popup padding on each side.
+		width: '311px',
 		maxWidth: '100%',
 		boxSizing: 'border-box',
 		overflow: 'auto',
@@ -95,8 +102,8 @@ const styles = cssMap({
 	above: { bottom: 0, transform: 'rotate(180deg)' },
 	close: {
 		position: 'absolute',
-		top: token('space.100'),
-		right: token('space.100'),
+		top: token('space.200'),
+		right: token('space.200'),
 		paddingTop: token('space.025'),
 		paddingBottom: token('space.025'),
 		paddingLeft: token('space.025'),
@@ -112,7 +119,13 @@ const styles = cssMap({
 		},
 	},
 	content: { position: 'relative' },
-	body: { paddingRight: token('space.300') },
+	header: {
+		paddingTop: token('space.200'),
+		paddingBottom: token('space.200'),
+		paddingLeft: token('space.200'),
+		paddingRight: token('space.600'),
+	},
+	illustration: { display: 'block', width: '100%', height: 'auto' },
 });
 
 const SpotlightOpenContext = createContext(false);
@@ -216,6 +229,7 @@ const SpotlightSurface = forwardRef<HTMLDivElement, PopupComponentProps>(
 
 function VisibleSpotlightCard({
 	onShown,
+	heading,
 	body,
 	dismissLabel,
 	actionLabel,
@@ -225,26 +239,45 @@ function VisibleSpotlightCard({
 	actionLabel: string;
 	body: string;
 	dismissLabel: string;
+	heading: string;
 	onAction: () => void;
 	onDismiss: () => void;
 	onShown: () => void;
 }): React.JSX.Element {
+	const { colorMode } = useThemeObserver();
+	const illustration =
+		colorMode === 'dark' ? rovoSnapshotIllustrationDark : rovoSnapshotIllustration;
 	useEffect(() => onShown(), [onShown]);
 	return (
-		<Box testId="one-click-chat-spotlight-v2" xcss={styles.content} padding="space.150">
+		<Box testId="one-click-chat-spotlight-v2" xcss={styles.content}>
 			<Pressable xcss={styles.close} onClick={onDismiss} aria-label={dismissLabel}>
 				<CrossIcon label="" size="small" />
 			</Pressable>
-			<Stack space="space.050">
-				<Box xcss={styles.body}>
+			<Box xcss={styles.header}>
+				<Heading as="h2" size="xsmall" color="color.text.inverse">
+					{heading}
+				</Heading>
+			</Box>
+			<img
+				alt=""
+				aria-hidden="true"
+				css={styles.illustration}
+				data-testid="one-click-chat-spotlight-v2-illustration"
+				height={135}
+				src={illustration}
+				srcSet={`${illustration} 2x`}
+				width={295}
+			/>
+			<Box padding="space.200">
+				<Stack space="space.200">
 					<Text color="color.text.inverse">{body}</Text>
-				</Box>
-				<Inline alignInline="end">
-					<Button appearance="primary" spacing="compact" onClick={onAction}>
-						{actionLabel}
-					</Button>
-				</Inline>
-			</Stack>
+					<Inline alignInline="end">
+						<Button appearance="primary" spacing="compact" onClick={onAction}>
+							{actionLabel}
+						</Button>
+					</Inline>
+				</Stack>
+			</Box>
 		</Box>
 	);
 }
@@ -326,6 +359,7 @@ export function OneClickChatSpotlight({
 	const content = (
 		<VisibleSpotlightCard
 			onShown={spotlight.onShown}
+			heading={intl.formatMessage(messages.heading)}
 			body={intl.formatMessage(messages.body)}
 			dismissLabel={intl.formatMessage(messages.dismiss)}
 			actionLabel={intl.formatMessage(messages.action)}

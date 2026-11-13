@@ -13,7 +13,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'JQLEditor',
-				package: '@atlaskit/jql-editor',
+				package: '@atlaskit/jql-editor/ui',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -44,7 +44,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'JQLEditorAsync',
-				package: '@atlaskit/jql-editor',
+				package: '@atlaskit/jql-editor/async',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -74,7 +74,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'JQLEditorReadOnly',
-				package: '@atlaskit/jql-editor',
+				package: '@atlaskit/jql-editor/jql-editor-read-only',
 				type: 'named',
 				packagePath,
 				packageJson,

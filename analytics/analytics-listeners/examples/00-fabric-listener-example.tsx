@@ -1,9 +1,9 @@
 import React from 'react';
 
+import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
+import { FabricChannel } from '@atlaskit/analytics-listeners/types';
 import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 
-import FabricAnalyticsListeners from '../src/FabricAnalyticsListeners';
-import { FabricChannel } from '../src/types';
 import {
 	createAnalyticsWebClientMock,
 	createComponentWithAnalytics,

@@ -6,7 +6,9 @@ see [Update (2026-08-24)](#update-2026-08-24-the-floors-under-one-hook). Amended
 2026-08-25: the `150px` default stopped composing with the anchor floor, and the anchor floor on a
 placement axis with **nothing** fitting is now clamped to the viewport cap — see
 [Update (2026-08-25, later)](#update-2026-08-25-later-the-unfitted-anchor-floor-is-clamped). The
-measurements below are unchanged.
+measurements below are unchanged. `placement.minSize`, which the 2026-08-25 updates compose with the
+anchor floor, was removed on 2026-11-12, unused; see
+[fit-available-space.md](./fit-available-space.md) → _Update (2026-11-12, later)_.
 
 At most one floor per axis:
 

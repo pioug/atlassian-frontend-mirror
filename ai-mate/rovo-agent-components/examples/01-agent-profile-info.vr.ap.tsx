@@ -7,10 +7,12 @@ import { IntlProvider } from 'react-intl';
 import { cssMap, jsx } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Grid } from '@atlaskit/primitives/compiled/grid';
+import { AgentStarCount } from '@atlaskit/rovo-agent-components/ui/agent-profile-info/AgentStarCount';
+import {
+	AgentProfileCreator,
+	AgentProfileInfo,
+} from '@atlaskit/rovo-agent-components/ui/AgentProfileInfo';
 import { token } from '@atlaskit/tokens';
-
-import { AgentProfileCreator, AgentProfileInfo } from '../src/ui/agent-profile-info';
-import { AgentStarCount } from '../src/ui/agent-profile-info/agent-star-count';
 
 const styles = cssMap({
 	wrapper: {

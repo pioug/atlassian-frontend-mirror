@@ -30,7 +30,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Emoji',
-				package: '@atlaskit/emoji',
+				package: '@atlaskit/emoji/emoji',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -56,7 +56,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'EmojiPicker',
-				package: '@atlaskit/emoji',
+				package: '@atlaskit/emoji/emoji-picker',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -83,8 +83,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'EmojiTypeAhead',
-				package: '@atlaskit/emoji',
-				type: 'named',
+				package: '@atlaskit/emoji/emoji-type-ahead',
+				type: 'default',
 				packagePath,
 				packageJson,
 			},
@@ -115,8 +115,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'EmojiPlaceholder',
-				package: '@atlaskit/emoji',
-				type: 'named',
+				package: '@atlaskit/emoji/emoji-placeholder',
+				type: 'default',
 				packagePath,
 				packageJson,
 			},
@@ -140,8 +140,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'ResourcedEmoji',
-				package: '@atlaskit/emoji',
-				type: 'named',
+				package: '@atlaskit/emoji/resourced-emoji',
+				type: 'default',
 				packagePath,
 				packageJson,
 			},
@@ -166,7 +166,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'EmojiUploader',
-				package: '@atlaskit/emoji',
+				package: '@atlaskit/emoji/emoji-uploader',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -193,7 +193,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'EmojiTypeAheadItem',
-				package: '@atlaskit/emoji',
+				package: '@atlaskit/emoji/emoji-type-ahead-item',
 				type: 'named',
 				packagePath,
 				packageJson,

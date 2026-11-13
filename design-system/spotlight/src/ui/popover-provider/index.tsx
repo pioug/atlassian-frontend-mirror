@@ -2,11 +2,18 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { jsx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { type ReactNode } from 'react';
 
-import { PopoverProvider as Legacy } from './legacy';
-import { PopoverProvider as TopLayer } from './top-layer';
+import { jsx } from '@atlaskit/css';
+
+import { SpotlightContextProvider } from '../../controllers/context';
+
+interface PopoverProviderProps {
+	/**
+	 * The to be rendered in `PopoverProvider`. This is intended to be `PopoverContent`, and `PopoverTarget`.
+	 */
+	children: ReactNode;
+}
 
 /**
  * __Popover provider__
@@ -14,9 +21,6 @@ import { PopoverProvider as TopLayer } from './top-layer';
  * A popover provider provides necesary context for the `PopoverContent` and `PopoverTarget` components.
  *
  */
-export const PopoverProvider: typeof Legacy = ({ children }) =>
-	fg('platform-dst-top-layer-spotlight') ? (
-		<TopLayer>{children}</TopLayer>
-	) : (
-		<Legacy>{children}</Legacy>
-	);
+export const PopoverProvider = ({ children }: PopoverProviderProps): JSX.Element => {
+	return <SpotlightContextProvider>{children}</SpotlightContextProvider>;
+};

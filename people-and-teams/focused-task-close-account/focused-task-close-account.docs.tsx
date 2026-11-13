@@ -13,7 +13,7 @@ const documentation: StructuredContentSource = {
 			status: 'deprecated',
 			import: {
 				name: 'FocusedTaskCloseAccount',
-				package: '@atlaskit/focused-task-close-account',
+				package: '@atlaskit/focused-task-close-account/focused-task-close-account',
 				type: 'named',
 				packagePath,
 				packageJson,

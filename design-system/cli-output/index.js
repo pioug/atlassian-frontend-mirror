@@ -1,3 +1,4 @@
+/* oxlint-disable eslint-core-js/global-require -- Existing file-level ESLint disable uses original core rule IDs; Oxlint JS plugins report namespaced IDs. */
 /* eslint-disable global-require, import/no-extraneous-dependencies */
 
 const fs = require('fs');

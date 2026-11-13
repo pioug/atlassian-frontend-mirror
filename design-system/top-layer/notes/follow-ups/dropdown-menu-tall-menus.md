@@ -129,8 +129,9 @@ Why each one falls short:
   rules in a stylesheet, which an inline style cannot hold. Top layer would have to inject one (as
   in [viewport-edge-gap.md](./viewport-edge-gap.md)).
 - **A menu-specific floor** does not work either. `min-block-size: max-content` with no clamp means
-  that no side holds a tall menu, so it runs off screen. A `placement.minSize` that uses
-  `calc-size()` is dropped in Safari, so the menu never flips there.
+  that no side holds a tall menu, so it runs off screen. A menu floor that uses `calc-size()`,
+  passed in as `placement.minSize` (removed on 2026-11-12), is dropped in Safari, so the menu never
+  flips there.
 
 ## Recommendation
 

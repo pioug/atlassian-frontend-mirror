@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 20.12.0
+
+### Minor Changes
+
+- [`9e6962f85e9a3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9e6962f85e9a3) -
+  Adds `motion.iconography.enter.fade.fast` and `motion.iconography.exit.fade.fast` tokens (50ms)
+  for icon fades within particularly fast transitions, such as the Side Nav.
+
 ## 20.11.0
 
 ### Minor Changes

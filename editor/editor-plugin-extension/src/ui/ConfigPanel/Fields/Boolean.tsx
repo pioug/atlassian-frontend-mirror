@@ -2,14 +2,16 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { Fragment } from 'react';
+import React, { Fragment, useMemo } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 
 import { Checkbox as AKCheckbox } from '@atlaskit/checkbox/checkbox';
+import type { ExtensionManifest } from '@atlaskit/editor-common/extensions/extension-manifest';
 import type { BooleanField } from '@atlaskit/editor-common/extensions/field-definitions';
 import Field from '@atlaskit/form/field';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Text } from '@atlaskit/primitives/compiled/text';
 import AKToggle from '@atlaskit/toggle/toggle';
 import { token } from '@atlaskit/tokens';
@@ -59,13 +61,25 @@ function handleOnChange(
 function Checkbox({
 	name,
 	field,
+	extensionManifest,
 	onFieldChange,
 }: {
+	extensionManifest: ExtensionManifest;
 	field: BooleanField;
 	name: string;
 	onFieldChange: OnFieldChange;
 }) {
 	const { label, description, isRequired = false, defaultValue = false, isDisabled } = field;
+	const { key: extensionKey, type: extensionType } = extensionManifest;
+	// Without this, the checkbox's `checkbox changed` event has only `source: 'ConfigPanel'`, so it
+	// cannot say which field of which extension changed.
+	const analyticsContext = useMemo(
+		() =>
+			fg('platform_editor_config_panel_field_analytics')
+				? { attributes: { fieldName: name, extensionKey, extensionType } }
+				: undefined,
+		[name, extensionKey, extensionType],
+	);
 
 	return (
 		<Field<boolean | string>
@@ -85,6 +99,7 @@ function Checkbox({
 							// eslint-disable-next-line react/jsx-props-no-spreading
 							{...restFieldProps}
 							label={label}
+							analyticsContext={analyticsContext}
 							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							onChange={(event) => handleOnChange(fieldProps.onChange, onFieldChange, event)}
 							isChecked={parseBoolean(isChecked)}
@@ -153,8 +168,10 @@ function Toggle({
 export default function Boolean({
 	name,
 	field,
+	extensionManifest,
 	onFieldChange,
 }: {
+	extensionManifest: ExtensionManifest;
 	field: BooleanField;
 	name: string;
 	onFieldChange: OnFieldChange;
@@ -162,5 +179,12 @@ export default function Boolean({
 	if (field.style === 'toggle') {
 		return <Toggle name={name} field={field} onFieldChange={onFieldChange} />;
 	}
-	return <Checkbox name={name} field={field} onFieldChange={onFieldChange} />;
+	return (
+		<Checkbox
+			name={name}
+			field={field}
+			extensionManifest={extensionManifest}
+			onFieldChange={onFieldChange}
+		/>
+	);
 }

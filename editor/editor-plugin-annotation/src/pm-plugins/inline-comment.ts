@@ -11,6 +11,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import {
@@ -491,7 +492,8 @@ export const inlineCommentPlugin = (
 					}
 
 					// Find the nearest ancestor (or self) with the data-id attribute
-					const annotationId = event.target.closest('[data-id]')?.getAttribute('data-id');
+					const annotationElement = event.target.closest('[data-id]');
+					const annotationId = annotationElement?.getAttribute('data-id');
 					if (!annotationId) {
 						return false;
 					}
@@ -509,6 +511,16 @@ export const inlineCommentPlugin = (
 					const { annotations } = pluginState || {};
 					const isUnresolved = annotations && annotations[annotationId] === false;
 					if (!isUnresolved) {
+						return false;
+					}
+
+					// With the inset Media Viewer, clicking media doesn't open its inline comment
+					if (
+						annotationElement &&
+						UNSAFE_expValNoExposure('cc_comments_media_viewer_sidebar', 'isEnabled', false) &&
+						fg('cc_comments_inset_media_viewer') &&
+						view.state.doc.nodeAt(view.posAtDOM(annotationElement, 0))?.type.name === 'media'
+					) {
 						return false;
 					}
 

@@ -77,13 +77,11 @@ git grep -n "FUDGE(top-layer-api)" platform/packages/design-system
   well-defined threshold (`floor + gap + padding`) where before it stayed put and shrank. jira
   `horizontal-nav-tabs/AppTabMenu.tsx` is the site to watch; it sets the prop and reaches this path
   through `JiraPopup`.
-- **`placement.minSize: 0` is the expressible answer**, and did not exist before: it caps the
-  popover without giving it a reason to move. Consider exposing it on `Popup`, or wiring
-  `shouldFlip={false}` to it, rather than leaving the prop inert. One limit before promising it: on
-  a placement axis that is `'min-anchor'` or `'match-anchor'` while something is fitting,
-  `minSize: 0` composes as `max(0px, anchor)` and leaves the anchor floor, and therefore the flip,
-  standing. See [width-from-anchor-floors.md](./width-from-anchor-floors.md) → _Update (2026-08-25,
-  later)_.
+- **There is no answer for `shouldFlip={false}` now.** `placement.minSize: 0` was the proposed one:
+  it capped the popover without giving it a reason to move. It was removed on 2026-11-12, because
+  nothing used it; see [fit-available-space.md](./fit-available-space.md) → _Update (2026-11-12,
+  later)_. If `shouldFlip={false}` must work, add a sizing option next to `inlineSize` and
+  `blockSize` for it, not a `placement` field.
 - **`TPopoverAxisSize`, `VIEWPORT_PADDING` and `FALLBACK_MINIMUM_MAIN_AXIS_SIZE` have no `exports`
   subpath.** `anchored-popover-size.tsx` is internal and `use-anchored-popover.tsx` does not
   re-export them. `TAnchoredPopoverOptions['inlineSize']` is the only way to name the axis-size type

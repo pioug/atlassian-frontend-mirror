@@ -126,7 +126,6 @@ function useStablePlacement({ placement }: { placement: TPlacementOptions }): TP
 	const axis = resolved.axis;
 	const edge = resolved.edge;
 	const align = resolved.align;
-	const minSize = resolved.minSize;
 	const gap = resolved.offset.gap;
 	const shiftValue = resolved.offset.crossAxisShift.value;
 	const shiftDirection = resolved.offset.crossAxisShift.direction;
@@ -137,13 +136,12 @@ function useStablePlacement({ placement }: { placement: TPlacementOptions }): TP
 			axis,
 			edge,
 			align,
-			minSize,
 			offset: {
 				gap,
 				crossAxisShift: { value: shiftValue, direction: shiftDirection },
 			},
 		}),
-		[axis, edge, align, minSize, gap, shiftValue, shiftDirection],
+		[axis, edge, align, gap, shiftValue, shiftDirection],
 	);
 }
 
@@ -171,9 +169,9 @@ export type TAnchoredPopoverOptions = {
 	 */
 	popoverRef: RefObject<HTMLElement | null>;
 	/**
-	 * Where the popover sits relative to the anchor, plus `offset.gap`,
-	 * `offset.crossAxisShift` and `minSize`. Required, because the sizing rules read
-	 * the placement axis; individual fields are optional. See `TPlacementOptions`.
+	 * Where the popover sits relative to the anchor, plus `offset.gap` and
+	 * `offset.crossAxisShift`. Required, because the sizing rules read the
+	 * placement axis; individual fields are optional. See `TPlacementOptions`.
 	 */
 	placement: TPlacementOptions;
 	/**

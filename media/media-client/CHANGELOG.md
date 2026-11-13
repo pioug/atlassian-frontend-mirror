@@ -1,5 +1,16 @@
 # @atlaskit/media-client
 
+## 39.4.4
+
+### Patch Changes
+
+- [`c610de27bb9dc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c610de27bb9dc) -
+  Add the watermark configuration version (`wmv`) to image request URLs when the
+  `jira_enable_media_watermark_admin_ui` feature gate is enabled, in addition to the existing
+  `confluence_watermark_admin_ui` gate. This stops browser and disk caches from serving images
+  rendered with a previous Jira watermark configuration.
+- Updated dependencies
+
 ## 39.4.3
 
 ### Patch Changes

@@ -1,5 +1,27 @@
 # @atlassian/navigation-system
 
+## 11.7.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.7.7
+
+### Patch Changes
+
+- [`edb112dded7d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/edb112dded7d1) -
+  Keep direct skip links when platform_dst_nav4_skip_link_a11y_1 is enabled. Require
+  platform_dst_nav4_skip_link_menu_placeholder as well to enable the Skip to popup, while preserving
+  the new menu appearance, accessibility improvements and navigation callbacks.
+- [`b7671c4d66a16`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b7671c4d66a16) -
+  Fix the local panel enter and exit motion overlapping the top navigation. The panel now overlays
+  within the Main grid area, and on enter the inline panel track is only reserved after the overlay
+  phase so Main no longer resizes immediately. Before the panel is first measured, it now enters and
+  exits at its viewport-aware width (compact below 64rem), instead of animating at the default width
+  and snapping to the correct one.
+- Updated dependencies
+
 ## 11.7.6
 
 ### Patch Changes

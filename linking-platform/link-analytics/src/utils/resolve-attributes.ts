@@ -55,6 +55,7 @@ export const resolveAttributes = async (
 	destinationCategory: string | null;
 	destinationContainerId: string | null;
 	destinationObjectId: string | null;
+	destinationObjectSubtype?: ReturnType<typeof getResolvedAttributes>['destinationObjectSubtype'];
 	destinationObjectType: string | null;
 	destinationProduct: string | null;
 	destinationSubproduct: string | null;

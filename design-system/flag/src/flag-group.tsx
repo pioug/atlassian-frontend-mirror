@@ -3,16 +3,7 @@
  * @jsx jsx
  */
 
-import {
-	Children,
-	Fragment,
-	type ReactElement,
-	useCallback,
-	useEffect,
-	useMemo,
-	useRef,
-	useState,
-} from 'react';
+import { Children, type ReactElement, type ReactNode, useEffect, useMemo, useRef } from 'react';
 
 import { css, cssMap, jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
@@ -22,7 +13,6 @@ import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents'
 import { getDocument } from '@atlaskit/browser-apis';
 import { cssMap as cssMapAK, cx } from '@atlaskit/css';
 import noop from '@atlaskit/ds-lib/noop';
-import { useLayoutEffect } from '@atlaskit/ds-lib/use-layout-effect';
 import Motion from '@atlaskit/motion/entering/motion';
 import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import SlideIn from '@atlaskit/motion/slide-in';
@@ -32,6 +22,7 @@ import { Box } from '@atlaskit/primitives/compiled/box';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-atlaskit-theme
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
+import { DialogAwarePortal } from '@atlaskit/top-layer/dialog-aware-portal';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
@@ -139,6 +130,11 @@ const dismissAllowedStyles = css({
 	},
 });
 
+// Top layer only: the `dismissAllowedStyles` duration, for the flag after the first one.
+const secondFlagTransitionStyles = css({
+	transitionDuration: '175ms',
+});
+
 const flagGroupContainerStyles = css({
 	position: 'fixed',
 	zIndex: 'flag',
@@ -173,15 +169,44 @@ const flagGroupContainerStylesSymmetric = css({
 });
 
 /**
- * Tells the flag group when a flag mounts and unmounts. A flag stays mounted
- * while its exit animation plays, so the count includes exiting flags.
+ * Top layer only. Each flag gets its own host element, so that the portal location is decided for
+ * a flag at the point it is opened, and not when the first flag is opened. A flag that shows while
+ * a modal is open renders inside the modal (see `DialogAwarePortal`). The first flag's host (the
+ * newest one from `FlagsProvider`) has the group `id` and label.
  */
-function FlagPresence({ onChange }: { onChange: (delta: 1 | -1) => void }): null {
-	useLayoutEffect(() => {
-		onChange(1);
-		return () => onChange(-1);
-	}, [onChange]);
-	return null;
+function TopLayerFlagHost({
+	id,
+	label,
+	labelTag: LabelTag,
+	children,
+}: {
+	id?: string;
+	label?: string;
+	labelTag: React.ElementType;
+	children: ReactNode;
+}): JSX.Element {
+	return (
+		<DialogAwarePortal>
+			<Popover mode="manual" isOpen={true}>
+				<div
+					id={id}
+					css={[
+						flagGroupContainerStyles,
+						flagGroupContainerStylesTopLayer,
+						fg('cc_mohiti_flag_anchoring') && flagGroupContainerStylesSymmetric,
+					]}
+					data-vc-oob
+				>
+					{label === undefined ? null : (
+						<VisuallyHidden>
+							<LabelTag>{label}</LabelTag>
+						</VisuallyHidden>
+					)}
+					{children}
+				</div>
+			</Popover>
+		</DialogAwarePortal>
+	);
 }
 
 /**
@@ -205,26 +230,6 @@ export const FlagGroup = (props: FlagGroupProps): JSX.Element => {
 	const hasFlags = Array.isArray(children) ? children.length > 0 : Boolean(children);
 
 	const useTopLayer = fg('platform-dst-top-layer');
-
-	// Top layer only. The host renders in place, so an open host with no flags
-	// adds an empty element to the consumer's DOM. Open the host only while a
-	// flag is mounted, including a flag that plays its exit animation.
-	const [mountedFlagCount, setMountedFlagCount] = useState(0);
-	const onFlagPresenceChange = useCallback((delta: 1 | -1) => {
-		setMountedFlagCount((count) => count + delta);
-	}, []);
-	// `hasFlags` opens the host for the first flag: flags count themselves from
-	// inside the host, so the count is 0 until the host renders. The count keeps
-	// the host open after the last flag leaves `children` but is still exiting.
-	const isHostOpen = hasFlags || mountedFlagCount > 0;
-
-	// Top layer only. The host mounts with its first flag, so that flag must
-	// animate in. Flags that are present when the group mounts do not animate,
-	// as on the portal path.
-	const hasMountedRef = useRef(false);
-	useEffect(() => {
-		hasMountedRef.current = true;
-	}, []);
 
 	const dismissFlagContext: FlagGroupAPI = useMemo(
 		() => ({
@@ -316,7 +321,7 @@ export const FlagGroup = (props: FlagGroupProps): JSX.Element => {
 			? Children.map(children, (flag: ReactElement, index: number) => {
 					const isDismissAllowed = index === 0;
 
-					return fg('platform-dst-motion-uplift') ? (
+					const item = fg('platform-dst-motion-uplift') ? (
 						<Box
 							xcss={cx(
 								groupStylesNew.root,
@@ -338,7 +343,6 @@ export const FlagGroup = (props: FlagGroupProps): JSX.Element => {
 									}
 								>
 									{flag}
-									{useTopLayer ? <FlagPresence onChange={onFlagPresenceChange} /> : null}
 								</FlagGroupContext.Provider>
 							</Motion>
 						</Box>
@@ -358,6 +362,9 @@ export const FlagGroup = (props: FlagGroupProps): JSX.Element => {
 										index >= 1 && groupStyles.nth,
 										index >= 2 && groupStyles.hidden,
 										isDismissAllowed && dismissAllowedStyles,
+										// Each flag has its own host on top layer, so `dismissAllowedStyles` cannot
+										// reach the next flag as a sibling.
+										useTopLayer && index === 1 && secondFlagTransitionStyles,
 									]}
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 									className={className}
@@ -371,11 +378,23 @@ export const FlagGroup = (props: FlagGroupProps): JSX.Element => {
 										}
 									>
 										{flag}
-										{useTopLayer ? <FlagPresence onChange={onFlagPresenceChange} /> : null}
 									</FlagGroupContext.Provider>
 								</div>
 							)}
 						</SlideIn>
+					);
+
+					if (!useTopLayer) {
+						return item;
+					}
+					return (
+						<TopLayerFlagHost
+							id={index === 0 ? id : undefined}
+							label={index === 0 ? screenReaderLabel : undefined}
+							labelTag={LabelTag}
+						>
+							{item}
+						</TopLayerFlagHost>
 					);
 				})
 			: false;
@@ -389,14 +408,18 @@ export const FlagGroup = (props: FlagGroupProps): JSX.Element => {
 	// know they can press Escape to dismiss the topmost flag.
 	const screenReaderLabel = isKeyboardDismissEnabled ? `${label}. Press Escape to dismiss.` : label;
 
+	if (useTopLayer) {
+		// A modal dialog makes everything outside it inert, popovers too. So a flag that shows while
+		// a modal or drawer is open renders inside the topmost one. A modal that opens later covers
+		// it. When its modal closes, the flag moves: it animates in, and its timer starts again.
+		// `ExitingPersistence` keeps a flag, and its host, mounted while it exits.
+		return <ExitingPersistence>{renderChildren()}</ExitingPersistence>;
+	}
+
 	const flags = (
 		<div
 			id={id}
-			css={[
-				flagGroupContainerStyles,
-				useTopLayer && flagGroupContainerStylesTopLayer,
-				useSymmetricAnchor && flagGroupContainerStylesSymmetric,
-			]}
+			css={[flagGroupContainerStyles, useSymmetricAnchor && flagGroupContainerStylesSymmetric]}
 			data-vc-oob
 		>
 			{hasFlags ? (
@@ -405,24 +428,9 @@ export const FlagGroup = (props: FlagGroupProps): JSX.Element => {
 				</VisuallyHidden>
 			) : null}
 
-			<ExitingPersistence appear={useTopLayer && hasMountedRef.current}>
-				{renderChildren()}
-			</ExitingPersistence>
+			<ExitingPersistence>{renderChildren()}</ExitingPersistence>
 		</div>
 	);
-
-	if (useTopLayer) {
-		// Render no host (and run no Popover hooks) until a flag mounts.
-		return (
-			<Fragment>
-				{isHostOpen ? (
-					<Popover mode="manual" isOpen={true}>
-						{flags}
-					</Popover>
-				) : null}
-			</Fragment>
-		);
-	}
 
 	return shouldRenderToParent ? flags : <Portal zIndex={layers.flag()}>{flags}</Portal>;
 };

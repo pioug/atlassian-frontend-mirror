@@ -157,18 +157,37 @@ export interface IconProps extends GlyphProps, IconInternalGlyphProps {
 	glyph?: ComponentType<CustomGlyphProps>;
 }
 
-export interface UNSAFE_NewCoreGlyphProps extends NewCoreGlyphProps, IconInternalGlyphProps {
+export interface UNSAFE_NewCoreGlyphProps extends NewCoreGlyphProps {
 	shouldRecommendSmallIcon?: boolean;
+	/**
+	 * @internal NOT FOR PUBLIC USE.
+	 * SVG markup rendered inside the icon's `<svg>`. Set by the generated core icons and by animated icons.
+	 */
+	dangerouslySetGlyph?: string;
 	/**
 	 * Display name of the icon.
 	 */
 	name?: string;
+	/**
+	 * @internal NOT FOR PUBLIC USE.
+	 * Set by animated icons (`@atlaskit/icon/animated/*`) so their motion can extend past the icon bounds.
+	 */
+	isAnimatedIcon?: boolean;
 }
 
-export type NewCoreIconProps = Omit<UNSAFE_NewCoreGlyphProps, 'dangerouslySetGlyph'>;
+export type NewCoreIconProps = Omit<
+	UNSAFE_NewCoreGlyphProps,
+	'dangerouslySetGlyph' | 'isAnimatedIcon'
+>;
+
+/**
+ * Props for animated icons from `@atlaskit/icon/animated/*`.
+ * Animated icons always render at 16px, so they have no `size` prop.
+ */
+export type AnimatedIconProps = Omit<NewCoreIconProps, 'size'>;
 
 export type UNSAFE_NewGlyphProps = UNSAFE_NewCoreGlyphProps;
-export type NewIconProps = Omit<UNSAFE_NewGlyphProps, 'dangerouslySetGlyph'>;
+export type NewIconProps = Omit<UNSAFE_NewGlyphProps, 'dangerouslySetGlyph' | 'isAnimatedIcon'>;
 
 export type IconTileAppearance =
 	| 'gray'
@@ -261,3 +280,13 @@ interface LEGACY_Data {
 }
 
 export type LEGACY_Metadata = Record<string, LEGACY_Data>;
+
+/**
+ * Imperative handle exposed by animated icons from `@atlaskit/icon/animated/*`.
+ */
+export interface AnimatedIconRef {
+	/**
+	 * Restarts the icon's animation from the beginning.
+	 */
+	reanimate(): void;
+}

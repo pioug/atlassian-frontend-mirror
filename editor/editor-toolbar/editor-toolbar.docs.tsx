@@ -13,7 +13,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Toolbar',
-				package: '@atlaskit/editor-toolbar',
+				package: '@atlaskit/editor-toolbar/toolbar',
 				type: 'named',
 				packagePath,
 				packageJson,

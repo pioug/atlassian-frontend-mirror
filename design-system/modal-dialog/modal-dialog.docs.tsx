@@ -11,7 +11,7 @@ const documentation: StructuredContentSource = {
 			},
 			import: {
 				name: 'Modal',
-				package: '@atlaskit/modal-dialog',
+				package: '@atlaskit/modal-dialog/modal-dialog',
 				type: 'default',
 				packagePath: __dirname,
 				packageJson: require('./package.json'),

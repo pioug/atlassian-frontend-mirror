@@ -43,6 +43,10 @@ interface BaseSectionMessageProps {
 	 */
 	icon?: React.ElementType;
 	/**
+	 * Accessible label for the status icon. Use your internationalization library to provide a localized string.
+	 */
+	iconLabel?: string;
+	/**
 	 * Displays a dismiss button, that allows the user to dismiss the message.
 	 * It will be removed from the DOM immediately and will not be re-rendered.
 	 * It does not handle persistence of the dismissed state across page reloads or remounts.

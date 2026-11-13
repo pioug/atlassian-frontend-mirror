@@ -1,5 +1,84 @@
 # @atlaskit/editor-common
 
+## 134.20.0
+
+### Minor Changes
+
+- [`2828e9853e1d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2828e9853e1d1) -
+  Disable table sticky headers, overflow shadow tracking, and automatic table scaling when
+  Confluence View Page Performance Mode is active, controlled by
+  `confluence_view_page_performance_mode`. Preserve authored widths, horizontal scrolling, and
+  existing behavior outside Performance Mode. Share saved-width column normalization between full
+  and light tables, including number-column space, and preserve fit-to-content sizing in light
+  tables. Preserve inherited comment table sizing when no numeric table width is available.
+- [`1d1b39fac5db6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1d1b39fac5db6) -
+  With the `cc_comments_media_viewer_sidebar` experiment and `cc_comments_inset_media_viewer`
+  feature gate on, clicking an image that is already selected opens the Media Viewer, and the first
+  click on an annotated image only selects it instead of also opening its comment. The caption
+  placeholder for an image then says "Add a caption - click again to preview".
+
+  `@atlaskit/editor-common` adds the `captionMessages.placeholderWithClickAgainPrompt` message.
+
+### Patch Changes
+
+- [`04d5009a56c68`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/04d5009a56c68) -
+  Render an inline extension's edit-mode label container, wrapper and overlay as span elements
+  behind the `platform_editor_inline_extension_spans` experiment, so server-rendered inline
+  extensions stay inside their paragraph. With the experiment on, the inline extension label styles
+  target the span container, and task-item height styles apply only to the checkbox and placeholder
+  so inline extensions inside tasks keep their own height.
+- Updated dependencies
+
+## 134.19.0
+
+### Minor Changes
+
+- [`86477de71b158`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/86477de71b158) -
+  Converge Editor block Remix and image-generation credit guards on product-owned credit decisions.
+  Use the shared synchronous cached check with an optional invalidation subscription for mounted
+  surfaces, preserve host-owned content and Editor-owned visibility, and remove direct
+  credit-package dependencies from the shared consumers.
+
+  Preserve `featureName` and `touchPoint` analytics attribution for product-owned popup content,
+  including block-menu Ask Rovo impressions and credit requests. Existing
+  `rovo_credits_degradation_ui`, `confluence_ubp_remix`, and `confluence_ubp_ai_credits` rollout
+  controls remain in place.
+
+  Keep the reusable reactive credit hooks and provider contract in
+  `@atlaskit/editor-common/credit-guard`, alongside the existing check and popup. Image generation
+  and malleable-ui consume these shared foundations without importing credit helpers from the AI
+  plugin.
+
+  Expose the existing popup and synchronous guard helpers through granular public entrypoints and
+  migrate every credit-guard barrel consumer to its owning export.
+
+- [`85d826388ed61`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/85d826388ed61) -
+  [EDITOR-8341] export a shared AlignmentIconMap from editor-common and use it in the text alignment
+  and divider toolbars
+
+### Patch Changes
+
+- Updated dependencies
+
+## 134.18.0
+
+### Minor Changes
+
+- [`8bcfd4cbc0135`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8bcfd4cbc0135) -
+  Scope generated media and native embed entrance animations to the final Rovo create insertion
+  using existing media and extension plugin state behind cwr_remix_animate_stream_only.
+
+## 134.17.0
+
+### Minor Changes
+
+- [`b277bd792e5dc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b277bd792e5dc) -
+  `@atlaskit/editor-common`: `MediaInlineImageCard` takes an optional `mediaViewerExtensions` prop.
+  With the `cc_comments_media_viewer_sidebar` experiment on, it passes the extensions to the Media
+  Viewer it opens and calls `onSelectedItemChange` when it opens and closes.
+
+  `@atlaskit/renderer` passes `mediaViewerExtensions` to inline media and external images.
+
 ## 134.16.4
 
 ### Patch Changes

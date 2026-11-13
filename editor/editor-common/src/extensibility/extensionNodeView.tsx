@@ -11,6 +11,7 @@ import type {
 	EditorView,
 	NodeView,
 } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { isReactCompilerActivePlatform } from '@atlaskit/react-compiler-gating';
 
@@ -37,6 +38,7 @@ interface ExtensionNodeViewOptions {
 	allowAIGeneratedContentMotion?: boolean;
 	appearance?: EditorAppearance;
 	getExtensionHeight?: GetPMNodeHeight;
+	shouldAnimateGeneratedContent?: () => boolean;
 }
 
 interface ReactExtensionNodeProps {
@@ -467,7 +469,16 @@ export default function ExtensionNodeView(
 			providerFactory,
 			extensionHandlers,
 			extensionLoadingHandlers,
-			extensionNodeViewOptions,
+			// Capture the insertion state before the asynchronous React render.
+			extensionNodeViewOptions:
+				extensionNodeViewOptions?.allowAIGeneratedContentMotion &&
+				isExperimentEnabled('cwr_remix_animate_stream_only')
+					? {
+							...extensionNodeViewOptions,
+							allowAIGeneratedContentMotion:
+								!!extensionNodeViewOptions.shouldAnimateGeneratedContent?.(),
+						}
+					: extensionNodeViewOptions,
 			pluginInjectionApi,
 			macroInteractionDesignFeatureFlags,
 			showLivePagesBodiedMacrosRendererView,

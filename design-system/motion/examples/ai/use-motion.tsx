@@ -2,14 +2,17 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import { useMotion } from '@atlaskit/motion/entering/use-motion';
-import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
+import { Reanimate } from '@atlaskit/motion/reanimate';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
+	hidden: {
+		visibility: 'hidden',
+	},
 	entering: {
 		animation: token('motion.modal.enter'),
 		'@media (prefers-reduced-motion: reduce)': {
@@ -27,17 +30,25 @@ const styles = cssMap({
 /**
  * `useMotion` exposes the current motion `state`; the consumer maps that state to its
  * own styling and applies it directly to the element it renders — no extra wrapper
- * element is created. The returned `ref` must be attached so the exit animation can
- * complete before `ExitingPersistence` removes the element.
+ * element is created. Keep the hook owner mounted and call `reanimate` when application
+ * state changes.
  */
-function AnimatedItem(): JSX.Element {
-	const { state, ref } = useMotion<HTMLDivElement>();
+function AnimatedItem({ isVisible }: { isVisible: boolean }): JSX.Element {
+	const { state, ref, reanimate } = useMotion<HTMLDivElement>();
+
+	useEffect(() => {
+		reanimate(isVisible ? Reanimate.enter : Reanimate.exit);
+	}, [isVisible, reanimate]);
 
 	return (
 		<div
 			ref={ref}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss
-			className={cx(state === 'entering' && styles.entering, state === 'exiting' && styles.exiting)}
+			className={cx(
+				(state === 'init' || state === 'hidden') && styles.hidden,
+				state === 'entering' && styles.entering,
+				state === 'exiting' && styles.exiting,
+			)}
 		>
 			Content
 		</div>
@@ -51,7 +62,7 @@ export default function UseMotionExample(): JSX.Element {
 			<button type="button" onClick={() => setIsVisible((v) => !v)}>
 				Toggle
 			</button>
-			<ExitingPersistence appear>{isVisible && <AnimatedItem key="item" />}</ExitingPersistence>
+			<AnimatedItem isVisible={isVisible} />
 		</React.Fragment>
 	);
 }

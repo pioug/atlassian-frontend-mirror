@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-interactivity
 
+## 15.0.1
+
+### Patch Changes
+
+- [`552f6377f07aa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/552f6377f07aa) -
+  Keep a frozen copy of the interactivity plugin and choose between it and the current one with the
+  `platform_editor_interactivity_inp_collector` experiment
+- Updated dependencies
+
 ## 15.0.0
 
 ### Patch Changes

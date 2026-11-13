@@ -1,0 +1,49 @@
+---
+title: Animated icon trigger
+description: Tell the animated icons inside it when to play, without passing props or refs down.
+order: 0
+---
+
+## Usage
+
+Animated icon trigger watches for an interaction, such as someone hovering over or clicking a
+button. It tells every animated icon inside it to play. The button and the icon don’t need to know
+about each other, so you can wrap any control and keep your existing markup.
+
+It works with the icons imported from `@atlaskit/icon/animated/*`. Each icon plays its own animation
+once each time the trigger becomes active.
+
+### How it works
+
+The trigger renders a single wrapper that listens for events from the elements inside it. The
+wrapper doesn’t affect layout.
+
+| Trigger | Plays                                                           | Stops                                                                         |
+| ------- | --------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `hover` | When the pointer enters, or keyboard focus lands inside.        | When the pointer leaves or focus moves out. Leaving interrupts the animation. |
+| `click` | On a click, including keyboard activation of buttons and links. | When every icon that started has finished. Leaving doesn’t interrupt it.      |
+
+Icons with different durations all play through. The trigger clears once the last one is done.
+
+### Wrap the smallest area that makes sense.
+
+Wrap a single button or link and its icon. A trigger that surrounds a toolbar plays every icon in it
+when someone touches any one of them.
+
+### Choose the trigger that matches the action.
+
+Use `hover` for icons that preview what an action does. Use `click` for an animation that confirms
+an action and should always play through, even if the pointer moves away.
+
+### Use a controlled trigger for state changes.
+
+Pass `isActive` to play icons from something other than a pointer, such as a request starting. No
+wrapper is rendered. Set `onReset` to clear your state when the icons have finished.
+
+## Accessibility
+
+- Keyboard focus counts as hover, so people who don’t use a pointer see the same animation. Only
+  focus that comes from the keyboard plays it.
+- The trigger adds no role or label. Label the icon or the control as you normally would.
+- When someone turns motion down in their system settings, animated icons skip their animation. The
+  trigger still works, and the icon stays still.

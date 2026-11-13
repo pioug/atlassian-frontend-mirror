@@ -24,6 +24,19 @@ async function tabUntilFocused({
 	}
 }
 
+// Waits for the finite animations on the page to end, so the accessibility audit after the test
+// reads the final colours of a flag that is still animating in.
+async function waitForFiniteAnimations({ page }: { page: Page }): Promise<void> {
+	await page.evaluate(() =>
+		Promise.all(
+			document
+				.getAnimations()
+				.filter((animation) => animation.effect?.getComputedTiming().iterations !== Infinity)
+				.map((animation) => animation.finished.catch(() => undefined)),
+		),
+	);
+}
+
 test.describe('Flag top-layer — WCAG 2.1.1 Keyboard', () => {
 	test('flag dismiss button can be activated with Enter key', async ({ page }) => {
 		await page.visitExample<typeof import('../../../../../examples/99-testing.tsx')>(
@@ -268,7 +281,7 @@ test.describe('Flag top-layer — popover="manual" (migrated from unit)', () => 
 		await expect(page.getByTestId('MyFlagTestId--1')).toHaveAttribute('role', 'alert');
 	});
 
-	test('two flags share a single manual popover element', async ({ page }) => {
+	test('each flag has its own manual popover host', async ({ page }) => {
 		await page.visitExample<typeof import('../../../../../examples/99-testing.tsx')>(
 			'design-system',
 			'flag',
@@ -282,14 +295,30 @@ test.describe('Flag top-layer — popover="manual" (migrated from unit)', () => 
 		await addFlagBtn.click();
 		await addFlagBtn.click();
 
-		const manualPopoverCount = await page.evaluate(() => {
-			return document.querySelectorAll('[popover="manual"]').length;
+		await expect(page.getByTestId('MyFlagTestId--2')).toBeVisible();
+		await expect(page.locator('[popover="manual"]')).toHaveCount(2);
+
+		const hostsAreSeparateAndOpen = await page.evaluate(() => {
+			const first = document
+				.querySelector('[data-testid="MyFlagTestId--1"]')
+				?.closest('[popover="manual"]');
+			const second = document
+				.querySelector('[data-testid="MyFlagTestId--2"]')
+				?.closest('[popover="manual"]');
+			return Boolean(
+				first &&
+				second &&
+				first !== second &&
+				first.matches(':popover-open') &&
+				second.matches(':popover-open'),
+			);
 		});
 
-		expect(manualPopoverCount).toBe(1);
+		expect(hostsAreSeparateAndOpen).toBe(true);
+		await waitForFiniteAnimations({ page });
 	});
 
-	test('remaining flag stays inside manual popover after first flag is dismissed', async ({
+	test('remaining flag stays inside an open manual popover after the other flag is dismissed', async ({
 		page,
 	}) => {
 		await page.visitExample<typeof import('../../../../../examples/99-testing.tsx')>(
@@ -307,16 +336,18 @@ test.describe('Flag top-layer — popover="manual" (migrated from unit)', () => 
 
 		await page.getByTestId('MyFlagTestId--2-dismiss').click();
 
+		await expect(page.getByTestId('MyFlagTestId--2')).toBeHidden();
 		const flag1 = page.getByTestId('MyFlagTestId--1');
 		await expect(flag1).toBeVisible();
+		// The dismissed flag's host goes when its exit ends.
+		await expect(page.locator('[popover="manual"]')).toHaveCount(1);
 
-		const stillInsideManual = await page.evaluate(() => {
-			const popover = document.querySelector('[popover="manual"]');
+		const stillInsideOpenHost = await page.evaluate(() => {
 			const flag = document.querySelector('[data-testid="MyFlagTestId--1"]');
-			return Boolean(popover && flag && popover.contains(flag));
+			return Boolean(flag?.closest('[popover="manual"]')?.matches(':popover-open'));
 		});
 
-		expect(stillInsideManual).toBe(true);
+		expect(stillInsideOpenHost).toBe(true);
 	});
 });
 
@@ -336,8 +367,8 @@ test.describe('Flag top-layer — shouldRenderToParent (top-layer path)', () => 
 		});
 		expect(popoverMode).toBe('manual');
 
-		const portalCount = await page.locator('.atlaskit-portal').count();
-		expect(portalCount).toBe(0);
+		const portalCount = page.locator('.atlaskit-portal');
+		await expect(portalCount).toHaveCount(0);
 	});
 });
 

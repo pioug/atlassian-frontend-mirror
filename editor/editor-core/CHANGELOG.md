@@ -1,5 +1,17 @@
 # @atlaskit/editor-core
 
+## 242.3.5
+
+### Patch Changes
+
+- [`04d5009a56c68`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/04d5009a56c68) -
+  Render an inline extension's edit-mode label container, wrapper and overlay as span elements
+  behind the `platform_editor_inline_extension_spans` experiment, so server-rendered inline
+  extensions stay inside their paragraph. With the experiment on, the inline extension label styles
+  target the span container, and task-item height styles apply only to the checkbox and placeholder
+  so inline extensions inside tasks keep their own height.
+- Updated dependencies
+
 ## 242.3.4
 
 ### Patch Changes

@@ -203,7 +203,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Heading Item',
 					description: 'HeadingItem example',
-					source: `${__dirname}/examples/constellation/heading-item.tsx`,
+					source: `${__dirname}/examples/heading-item.tsx`,
 				},
 			],
 			keywords: ['menu', 'heading', 'item', 'label'],

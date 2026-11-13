@@ -1,5 +1,33 @@
 # @atlaskit/icon
 
+## 38.1.0
+
+### Minor Changes
+
+- [`806e5094cef3d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/806e5094cef3d) -
+  Add animated icons as groundwork for motion in iconography. Adds the `@atlaskit/icon/animated/*`
+  package export, whose icons play a single animation when told to, either through a ref
+  (`reanimate()`) or from an `AnimatedIconTrigger`. Adds the `@atlaskit/icon/animated-icon-trigger`
+  entry point, whose `AnimatedIconTrigger` tells the animated icons inside it when to play on hover,
+  focus or click, or from a controlled `isActive`. Animated icons always render at 16px and have no
+  `size` prop. Animated icons skip their motion when the user prefers reduced motion. Adds the
+  `@atlaskit/icon/metadata-animated` entry point, with the name, keywords, usage and owner of each
+  animated icon.
+
+  Animated icons added:
+
+  - `@atlaskit/icon/animated/ai-generative-remove-silence`
+  - `@atlaskit/icon/animated/ai-generative-text`
+  - `@atlaskit/icon/animated/ai-generative-text-summary`
+  - `@atlaskit/icon/animated/ai-search`
+  - `@atlaskit/icon/animated/magic-wand`
+  - `@atlaskit/icon/animated/signature`
+  - `@atlaskit/icon/animated/text-review`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 38.0.2
 
 ### Patch Changes

@@ -3,7 +3,6 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
 import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { AgentProfileCreator, getAgentCreator } from './index';
@@ -338,36 +337,11 @@ describe('AgentProfileCreator', () => {
 		);
 
 		expect(screen.getByText('Rovo Agent by John Doe Forge')).toBeInTheDocument();
-		expect(screen.getByTestId('rovo-icon-wrapper')).toBeInTheDocument();
+		expect(screen.queryByTestId('rovo-icon-wrapper')).not.toBeInTheDocument();
 		expect(screen.queryByTestId('agent-profile-creator-skeleton')).not.toBeInTheDocument();
 	});
 
-	eeTest.describe('platform_editor_agent_mentions', 'experiment on').variant(true, () => {
-		describe('platform_editor_agent_mentions_drop_one_fixes is on fg on', () => {
-			test('hides the Rovo icon', () => {
-				passGate('platform_editor_agent_mentions_drop_one_fixes');
-
-				render(
-					<AgentProfileCreator
-						creator={getAgentCreator({
-							creatorType: 'FORGE',
-							forgeCreator: 'John Doe Forge',
-						})}
-						isLoading={false}
-						onCreatorLinkClick={() => {}}
-					/>,
-					{ wrapper },
-				);
-
-				expect(screen.getByText('Rovo Agent by John Doe Forge')).toBeInTheDocument();
-				expect(screen.queryByTestId('rovo-icon-wrapper')).not.toBeInTheDocument();
-			});
-		});
-	});
-
 	test('render correctly for REMOTE_A2A: "Agent by" copy without the Rovo logo', () => {
-		passGate('jira_improve_agent_profile_for_a2a');
-
 		render(
 			<AgentProfileCreator
 				creator={{ type: 'REMOTE_A2A', name: 'Cursor' }}
@@ -379,19 +353,6 @@ describe('AgentProfileCreator', () => {
 
 		expect(screen.getByText('Agent by Cursor')).toBeInTheDocument();
 		expect(screen.queryByTestId('rovo-icon-wrapper')).not.toBeInTheDocument();
-	});
-
-	test('should apply aria-hidden to the decorative rovo icon element', () => {
-		render(
-			<AgentProfileCreator
-				creator={getAgentCreator({ creatorType: 'SYSTEM' })}
-				isLoading={false}
-				onCreatorLinkClick={() => {}}
-			/>,
-			{ wrapper },
-		);
-		// aria-hidden is applied on a wrapper element because RovoIcon does not support aria-hidden directly
-		expect(screen.getByTestId('rovo-icon-wrapper')).toHaveAttribute('aria-hidden', 'true');
 	});
 
 	test('render correctly without creator', () => {

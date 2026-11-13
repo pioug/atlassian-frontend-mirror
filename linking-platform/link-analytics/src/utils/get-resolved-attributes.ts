@@ -8,6 +8,7 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { type ResolvedAttributesType } from '../common/utils/analytics/analytics.types';
 import { type LinkDetails } from '../types';
 import { getDisplayCategory } from './get-display-category';
+import { getResourceSubtype } from './get-resource-subtype';
 
 /**
  * Returns a set of analytics attributes that be
@@ -18,10 +19,20 @@ export const getResolvedAttributes = (
 	details?: JsonLd.Response,
 	linkStatus?: CardType,
 	error?: CardState['error'],
-): ResolvedAttributesType => {
-	const status = linkStatus ?? (details && getStatus(details));
+): Required<Omit<ResolvedAttributesType, 'destinationObjectSubtype'>> &
+	Pick<ResolvedAttributesType, 'destinationObjectSubtype'> => {
+	const subtypeAnalyticsEnabled = fg('platform_smartlinks_subtype_analytics');
+	const status =
+		linkStatus ??
+		(subtypeAnalyticsEnabled
+			? details?.meta && typeof details.meta === 'object' && !Array.isArray(details.meta)
+				? getStatus(details)
+				: undefined
+			: details && getStatus(details));
 	const displayCategory =
 		linkDetails.displayCategory === 'link' ? 'link' : getDisplayCategory(status);
+
+	const subtype = subtypeAnalyticsEnabled ? getResourceSubtype(details?.data) : undefined;
 
 	return {
 		status: status ?? null,
@@ -39,5 +50,6 @@ export const getResolvedAttributes = (
 		destinationObjectId: details?.meta?.objectId ?? null,
 		destinationObjectType: details?.meta?.resourceType ?? null,
 		canBeDatasource: ((details as JsonLdDatasourceResponse)?.datasources || []).length > 0,
-	};
+		...(subtype !== undefined ? { destinationObjectSubtype: subtype } : {}),
+	} satisfies ResolvedAttributesType;
 };

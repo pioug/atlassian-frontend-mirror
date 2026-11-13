@@ -59,7 +59,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'DropdownItem',
-				package: '@atlaskit/dropdown-menu',
+				package: '@atlaskit/dropdown-menu/dropdown-item',
 				type: 'named',
 				packagePath: __dirname,
 				packageJson: require('./package.json'),
@@ -95,7 +95,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'DropdownItemGroup',
-				package: '@atlaskit/dropdown-menu',
+				package: '@atlaskit/dropdown-menu/dropdown-item-group',
 				type: 'named',
 				packagePath: __dirname,
 				packageJson: require('./package.json'),
@@ -144,9 +144,9 @@ const documentation: StructuredContentSource = {
 			],
 			examples: [
 				{
-					name: 'Dropdown Menu',
-					description: 'Dropdown Menu with checkbox items example',
-					source: `${__dirname}/examples/ai/dropdown-menu.tsx`,
+					name: 'Checkbox selection',
+					description: 'Dropdown menu with independently selectable checkbox items.',
+					source: `${__dirname}/examples/ai/dropdown-item-checkbox.tsx`,
 				},
 			],
 			keywords: ['dropdown', 'menu', 'checkbox', 'multi-select', 'toggle'],
@@ -173,7 +173,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Checkbox group',
 					description: 'DropdownItemCheckboxGroup with titled section and checkbox items.',
-					source: `${__dirname}/examples/constellation/dropdown-item-checkbox-selected.tsx`,
+					source: `${__dirname}/examples/ai/dropdown-item-checkbox.tsx`,
 				},
 			],
 			keywords: ['dropdown', 'menu', 'checkbox', 'group', 'multi-select'],
@@ -203,9 +203,9 @@ const documentation: StructuredContentSource = {
 			],
 			examples: [
 				{
-					name: 'Dropdown Menu',
-					description: 'Dropdown Menu with radio items example',
-					source: `${__dirname}/examples/ai/dropdown-menu.tsx`,
+					name: 'Radio selection',
+					description: 'Dropdown menu with a single selected radio item.',
+					source: `${__dirname}/examples/ai/dropdown-item-radio.tsx`,
 				},
 			],
 			keywords: ['dropdown', 'menu', 'radio', 'single-select', 'choice'],
@@ -232,7 +232,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Radio group',
 					description: 'DropdownItemRadioGroup with titled section and radio items.',
-					source: `${__dirname}/examples/constellation/dropdown-item-radio-selected.tsx`,
+					source: `${__dirname}/examples/ai/dropdown-item-radio.tsx`,
 				},
 			],
 			keywords: ['dropdown', 'menu', 'radio', 'group', 'single-select'],

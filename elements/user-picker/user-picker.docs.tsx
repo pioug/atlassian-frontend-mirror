@@ -22,9 +22,9 @@ const documentation: StructuredContentSource = {
 			description: 'The main user picker component.',
 			status: 'general-availability',
 			import: {
-				name: 'default',
-				package: '@atlaskit/user-picker',
-				type: 'default',
+				name: 'UserPicker',
+				package: '@atlaskit/user-picker/components/user-picker',
+				type: 'named',
 				packagePath,
 				packageJson,
 			},
@@ -56,7 +56,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'PopupUserPicker',
-				package: '@atlaskit/user-picker',
+				package: '@atlaskit/user-picker/components/popup-user-picker',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -82,7 +82,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'SingleValue',
-				package: '@atlaskit/user-picker',
+				package: '@atlaskit/user-picker/components/single-value',
 				type: 'named',
 				packagePath,
 				packageJson,

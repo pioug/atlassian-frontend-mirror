@@ -22,7 +22,6 @@ import {
 	deletedInlineContentStyleExtended,
 	deletedStyleQuoteNodeWithLozenge,
 	deletedStyleQuoteNodeWithLozengeActive,
-	editingContentStyleInBlockExtended,
 	editingContentStyleInBlockExtendedNoUnderline,
 	editingStyleExtended,
 	editingStyleExtendedNoUnderline,
@@ -169,9 +168,7 @@ export const getChangedNodeStyleLegacy = (
 
 	if (isInserted) {
 		if (isMultiContainerBlockNode(nodeName)) {
-			return hideAddedDiffsUnderline || fg('platform_editor_ai_show_diff_patch_1')
-				? editingContentStyleInBlockExtendedNoUnderline
-				: editingContentStyleInBlockExtended;
+			return editingContentStyleInBlockExtendedNoUnderline;
 		}
 		if (isTextLikeBlockNode(nodeName)) {
 			return undefined;

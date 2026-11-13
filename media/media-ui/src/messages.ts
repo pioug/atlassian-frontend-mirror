@@ -48,6 +48,7 @@ export type MessageKey =
 	| 'select_an_avatar'
 	| 'upload_an_avatar'
 	| 'or_select_default_avatars'
+	| 'upload_a_photo_to_continue'
 	| 'select_an_avatar_from_all_defaults'
 	| 'select_an_avatar_option'
 	| 'show_more_avatars_btn_label'
@@ -463,6 +464,12 @@ export const messages: Messages = defineMessages({
 		defaultMessage: 'Upload a photo or select from some default options',
 		description:
 			'Announced when a user is required to select an avatar by uploading an avatar or selecting from default options',
+	},
+	upload_a_photo_to_continue: {
+		id: 'fabric.media.upload_a_photo_to_continue',
+		defaultMessage: 'Upload a photo to continue',
+		description:
+			'The text is shown as an error when a user tries to save an avatar without uploading a photo and no default avatars are offered.',
 	},
 	loading: {
 		id: 'fabric.media.loading',

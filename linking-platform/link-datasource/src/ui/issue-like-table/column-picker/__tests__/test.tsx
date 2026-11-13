@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
@@ -6,6 +6,7 @@ import invariant from 'tiny-invariant';
 
 import type { DatasourceResponseSchemaProperty } from '@atlaskit/linking-types/datasource';
 import type { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { DatasourceExperienceIdProvider } from '../../../../contexts/datasource-experience-id/datasource-experience-id-provider';
 import { SELECT_ITEMS_MAXIMUM_THRESHOLD } from '../concatenated-menu-list';
@@ -23,19 +24,18 @@ const mockUfoSuccess = jest.fn();
 jest.mock('@atlaskit/ufo/concurrent-experience', () => ({
 	...jest.requireActual('@atlaskit/ufo/concurrent-experience'),
 	__esModule: true,
-	ConcurrentExperience: jest.fn().mockImplementation(
-		(): Partial<ConcurrentExperience> => ({
-			getInstance: jest.fn().mockImplementation(() => ({
-				start: mockUfoStart,
-				success: mockUfoSuccess,
-			})),
-		}),
-	),
+	ConcurrentExperience: jest.fn().mockImplementation((): Partial<ConcurrentExperience> => ({
+		getInstance: jest.fn().mockImplementation(() => ({
+			start: mockUfoStart,
+			success: mockUfoSuccess,
+		})),
+	})),
 }));
 
 const renderColumnPicker = (
 	columns: DatasourceResponseSchemaProperty[],
 	selectedColumnKeys: string[],
+	isColumnReorderEnabled?: boolean,
 ) => {
 	const columnPickerRender = render(
 		<DatasourceExperienceIdProvider>
@@ -44,6 +44,7 @@ const renderColumnPicker = (
 					columns={columns}
 					onSelectedColumnKeysChange={mockOnChange}
 					selectedColumnKeys={selectedColumnKeys}
+					isColumnReorderEnabled={isColumnReorderEnabled}
 				/>
 			</IntlProvider>
 		</DatasourceExperienceIdProvider>,
@@ -370,6 +371,146 @@ describe('Column picker', () => {
 			expect(mockUfoSuccess).not.toHaveBeenCalled();
 		});
 	});
+
+	describe('selected options drag handle and separator', () => {
+		const columns: DatasourceResponseSchemaProperty[] = [
+			{ key: 'matt', type: 'icon', title: 'Matt' },
+			{ key: 'tom', type: 'string', title: 'Tom' },
+			{ key: 'bob', type: 'string', title: 'Bob' },
+		];
+
+		it('should show drag handles on selected options and a separator before unselected options when astral_assets_macro_table_ui_coloumn_reorder is enabled', async () => {
+			passGate('astral_assets_macro_table_ui_coloumn_reorder');
+			const { openPopUpMenu, findByText } = renderColumnPicker(columns, ['tom'], true);
+
+			await act(async () => {
+				openPopUpMenu();
+			});
+
+			const mattOption = (await findByText('Matt')).closest(OPTION_CLASS);
+			const tomOption = screen.getByText('Tom').closest(OPTION_CLASS);
+			invariant(mattOption && tomOption);
+			const dragHandles = screen.getAllByTestId('column-picker-drag-handle');
+			const separator = screen.getByTestId('column-picker-selected-options-separator');
+
+			const reorderHint = screen.getByTestId('column-picker-reorder-hint');
+
+			expect(reorderHint).toHaveTextContent('Drag attributes to change their display order');
+			expect(reorderHint.compareDocumentPosition(tomOption)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+			expect(dragHandles).toHaveLength(1);
+			expect(dragHandles[0].parentElement).toContainElement(tomOption as HTMLElement);
+			expect(tomOption.compareDocumentPosition(separator)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+			expect(separator.compareDocumentPosition(mattOption)).toBe(Node.DOCUMENT_POSITION_FOLLOWING);
+		});
+
+		it('should not change the selection when the drag handle is clicked', async () => {
+			passGate('astral_assets_macro_table_ui_coloumn_reorder');
+			mockOnChange.mockClear();
+			const { openPopUpMenu } = renderColumnPicker(columns, ['tom', 'bob'], true);
+
+			await act(async () => {
+				openPopUpMenu();
+			});
+
+			const [dragHandle] = await screen.findAllByTestId('column-picker-drag-handle');
+
+			await act(async () => {
+				fireEvent.mouseDown(dragHandle);
+				fireEvent.click(dragHandle);
+			});
+
+			expect(mockOnChange).not.toHaveBeenCalled();
+		});
+
+		it('should move an unchecked option below the separator and keep all selected options above it when astral_assets_macro_table_ui_coloumn_reorder is enabled', async () => {
+			passGate('astral_assets_macro_table_ui_coloumn_reorder');
+			const fiveColumns: DatasourceResponseSchemaProperty[] = [
+				{ key: 'a', type: 'string', title: 'Alpha' },
+				{ key: 'b', type: 'string', title: 'Bravo' },
+				{ key: 'c', type: 'string', title: 'Charlie' },
+				{ key: 'd', type: 'string', title: 'Delta' },
+				{ key: 'e', type: 'string', title: 'Echo' },
+			];
+
+			const StatefulColumnPicker = () => {
+				const [selectedColumnKeys, setSelectedColumnKeys] = useState(['a', 'b', 'c', 'd']);
+				return (
+					<IntlProvider locale="en">
+						<ColumnPicker
+							columns={fiveColumns}
+							onSelectedColumnKeysChange={setSelectedColumnKeys}
+							selectedColumnKeys={selectedColumnKeys}
+							isColumnReorderEnabled
+						/>
+					</IntlProvider>
+				);
+			};
+
+			render(
+				<DatasourceExperienceIdProvider>
+					<StatefulColumnPicker />
+				</DatasourceExperienceIdProvider>,
+			);
+
+			await act(async () => {
+				fireEvent.click(screen.getByTestId('column-picker-trigger-button'));
+			});
+
+			const bravoOption = (await screen.findByText('Bravo')).closest(OPTION_CLASS);
+			invariant(bravoOption);
+
+			await act(async () => {
+				fireEvent.click(bravoOption);
+			});
+
+			const expectedOrder = [
+				screen.getByText('Alpha'),
+				screen.getByText('Charlie'),
+				screen.getByText('Delta'),
+				screen.getByTestId('column-picker-selected-options-separator'),
+				screen.getByText('Bravo'),
+				screen.getByText('Echo'),
+			];
+
+			expectedOrder.slice(1).forEach((element, index) => {
+				expect(expectedOrder[index].compareDocumentPosition(element)).toBe(
+					Node.DOCUMENT_POSITION_FOLLOWING,
+				);
+			});
+		});
+
+		it('should not show drag handles or a separator when astral_assets_macro_table_ui_coloumn_reorder is disabled', async () => {
+			failGate('astral_assets_macro_table_ui_coloumn_reorder');
+			const { openPopUpMenu, findByText } = renderColumnPicker(columns, ['tom'], true);
+
+			await act(async () => {
+				openPopUpMenu();
+			});
+
+			await findByText('Matt');
+			expect(screen.queryByTestId('column-picker-reorder-hint')).not.toBeInTheDocument();
+			expect(screen.queryByTestId('column-picker-drag-handle')).not.toBeInTheDocument();
+			expect(
+				screen.queryByTestId('column-picker-selected-options-separator'),
+			).not.toBeInTheDocument();
+		});
+
+		it('should not show drag handles or a separator when column reorder is not enabled for the datasource', async () => {
+			const { openPopUpMenu, findByText } = renderColumnPicker(columns, ['tom']);
+
+			await act(async () => {
+				openPopUpMenu();
+			});
+
+			await findByText('Matt');
+			expect(screen.queryByTestId('column-picker-reorder-hint')).not.toBeInTheDocument();
+			expect(screen.queryByTestId('column-picker-drag-handle')).not.toBeInTheDocument();
+			expect(
+				screen.queryByTestId('column-picker-selected-options-separator'),
+			).not.toBeInTheDocument();
+		});
+	});
+
 	it('should capture and report a11y violations', async () => {
 		const { container } = renderColumnPicker([], []);
 		await expect(container).toBeAccessible();

@@ -107,6 +107,9 @@ function MyModal() {
 }
 ```
 
+`DialogAwarePortal` renders a layer inside the `Dialog` that is topmost when it mounts, so the modal
+does not make the layer inert. See [dialog.md](./dialog.md).
+
 ---
 
 ## Hooks
@@ -124,7 +127,7 @@ our line, not the platform's.
   sibling `useAnchoredPopoverAtPoint({ getPoint })`, which creates a synthetic anchor and delegates
   here. See [../decisions/anchored-popover-at-point.md](../decisions/anchored-popover-at-point.md).
 - **`isEnabled`** — `false` for "do not position". Defaults to `true`.
-- **`placement`** — required. Carries the axis, edge, alignment, offsets, and `minSize`.
+- **`placement`** — required. Carries the axis, edge, alignment and offsets.
 - **`inlineSize` / `blockSize`** — `'content'` (default), `'match-anchor'`, `'min-anchor'` or
   `'max-available'`.
 
@@ -217,6 +220,7 @@ re-export shims. Use the per-export subpaths below.
 | `@atlaskit/top-layer/use-manual-light-dismiss`                     | Light dismiss for manual popovers                   |
 | `@atlaskit/top-layer/placement-map/index`                          | Legacy placement string conversion                  |
 | `@atlaskit/top-layer/dialog-scroll-lock`                           | Background scroll prevention for modals             |
+| `@atlaskit/top-layer/dialog-aware-portal`                          | Render a layer inside the topmost open `Dialog`     |
 | `@atlaskit/top-layer/page-surface/has-open-dialog-or-popover`      | Whether an open layer exists                        |
 | `@atlaskit/top-layer/page-surface/use-close-on-unclaimed-escape`   | Close a page surface on Escape                      |
 | `@atlaskit/top-layer/page-surface/request-close-popovers`          | Ask open layers to close                            |

@@ -10,12 +10,12 @@ import type { MessageDescriptor, WithIntlProps, WrappedComponentProps } from 're
 
 import { css, jsx } from '@atlaskit/css';
 import { alignmentMessages } from '@atlaskit/editor-common/alignment';
+import { AlignmentIconMap } from '@atlaskit/editor-common/alignment-icon-map';
 import type { Keymap } from '@atlaskit/editor-common/keymaps';
 import { alignCenter, alignLeft, alignRight } from '@atlaskit/editor-common/keymaps';
 import { token } from '@atlaskit/tokens';
 
 import type { AlignmentState } from '../../pm-plugins/types';
-import { IconMap } from '../ToolbarAlignment/icon-map';
 import AlignmentButton from './AlignmentButton';
 
 const alignmentWrapper = css({
@@ -80,7 +80,7 @@ function Alignment({ onClick, selectedAlignment, className, intl }: Props & Wrap
 				const message = intl.formatMessage(title);
 				return (
 					<AlignmentButton
-						content={<IconMap alignment={value} />}
+						content={<AlignmentIconMap alignment={value} />}
 						key={value}
 						value={value}
 						label={message}

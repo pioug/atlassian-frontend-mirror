@@ -16,7 +16,6 @@ import NoMedia from '../../examples/without-image.vr.ap';
 snapshot(Card, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'platform-dst-top-layer-spotlight': true,
 	},
 	variants: [
 		{
@@ -37,7 +36,6 @@ snapshot(Card, {
 snapshot(StepVariants, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'platform-dst-top-layer-spotlight': true,
 	},
 	variants: [
 		{
@@ -52,7 +50,6 @@ snapshot(StepVariants, {
 snapshot(NoMedia, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'platform-dst-top-layer-spotlight': true,
 	},
 	variants: [
 		{
@@ -67,7 +64,6 @@ snapshot(NoMedia, {
 snapshot(AllPlacements, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'platform-dst-top-layer-spotlight': true,
 	},
 	variants: [
 		{
@@ -82,7 +78,6 @@ snapshot(AllPlacements, {
 snapshot(OverlayingUI, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'platform-dst-top-layer-spotlight': true,
 	},
 	variants: [
 		{
@@ -97,7 +92,6 @@ snapshot(OverlayingUI, {
 snapshot(FullWidthTarget, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'platform-dst-top-layer-spotlight': true,
 	},
 	variants: [
 		{
@@ -111,7 +105,6 @@ snapshot(FullWidthTarget, {
 snapshot(Offset, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'platform-dst-top-layer-spotlight': true,
 	},
 	variants: [
 		{
@@ -125,7 +118,6 @@ snapshot(Offset, {
 snapshot(Links, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'platform-dst-top-layer-spotlight': true,
 	},
 	variants: [
 		{
@@ -139,7 +131,6 @@ snapshot(Links, {
 snapshot(OnModal, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'platform-dst-top-layer-spotlight': true,
 	},
 	variants: [
 		{
@@ -150,10 +141,11 @@ snapshot(OnModal, {
 		},
 	],
 });
+
 snapshot(Reflow, {
+	waitForHold: true,
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'platform-dst-top-layer-spotlight': true,
 	},
 	variants: [
 		{

@@ -14,6 +14,7 @@ import {
 	akEditorGutterPaddingReduced,
 	akEditorFullPageNarrowBreakout,
 } from '@atlaskit/editor-shared-styles/constants';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
@@ -116,6 +117,11 @@ const InlineExtension = (props: Props): jsx.JSX.Element => {
 		hideConfigureLabel,
 	} = props;
 	const { showMacroInteractionDesignUpdates } = macroInteractionDesignFeatureFlags || {};
+	// The HTML parser closes an open `<p>` at a `<div>`, so server-rendered inline
+	// extensions need span elements to stay inside their paragraph.
+	const WrapperElement = isExperimentEnabled('platform_editor_inline_extension_spans')
+		? 'span'
+		: 'div';
 
 	const { width } = useSharedPluginStateWithSelector(pluginInjectionApi, ['width'], (states) => {
 		return {
@@ -167,8 +173,9 @@ const InlineExtension = (props: Props): jsx.JSX.Element => {
 					hideConfigureLabel={hideConfigureLabel}
 				/>
 			)}
-			<div
+			<WrapperElement
 				data-testid="inline-extension-wrapper"
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- WrapperElement is a 'span' or 'div' tag, not a component
 				css={[
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 					wrapperStyle,
@@ -178,6 +185,7 @@ const InlineExtension = (props: Props): jsx.JSX.Element => {
 				]}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={classNames}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- WrapperElement is a 'span' or 'div' tag, not a component
 				onMouseEnter={() => handleMouseEvent(true)}
 				// @atlassian/a11y/mouse-events-have-key-events: hover border is also accessible via keyboard selection.
 				// No-ops here satisfy the rule without duplicating state updates.
@@ -186,6 +194,7 @@ const InlineExtension = (props: Props): jsx.JSX.Element => {
 						? () => {}
 						: undefined
 				}
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- WrapperElement is a 'span' or 'div' tag, not a component
 				onMouseLeave={() => handleMouseEvent(false)}
 				onBlur={
 					expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true)
@@ -194,7 +203,7 @@ const InlineExtension = (props: Props): jsx.JSX.Element => {
 				}
 			>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766  */}
-				<div css={overlay} className="extension-overlay" />
+				<WrapperElement css={overlay} className="extension-overlay" />
 				{children ? (
 					children
 				) : (
@@ -205,7 +214,7 @@ const InlineExtension = (props: Props): jsx.JSX.Element => {
 						hideConfigureLabel={hideConfigureLabel}
 					/>
 				)}
-			</div>
+			</WrapperElement>
 		</Fragment>
 	);
 

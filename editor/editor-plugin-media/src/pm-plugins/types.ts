@@ -80,6 +80,7 @@ export interface MediaPluginState {
 	setMediaProvider: (mediaProvider?: Promise<MediaProvider>) => Promise<void>;
 	setResizingWidth: (width: number) => void;
 	setView: (view: EditorView) => void;
+	shouldAnimateInsertedContent?: boolean;
 	showDropzone: boolean;
 	showEditingDialog?: boolean;
 	showMediaPicker: () => void;

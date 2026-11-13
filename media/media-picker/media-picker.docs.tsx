@@ -29,8 +29,8 @@ const documentation: StructuredContentSource = {
 			description: 'A component that triggers the native browser file dialog.',
 			status: 'general-availability',
 			import: {
-				name: 'Browser',
-				package: '@atlaskit/media-picker',
+				name: 'BrowserLoader',
+				package: '@atlaskit/media-picker/browser',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -61,8 +61,8 @@ const documentation: StructuredContentSource = {
 			description: 'A component that provides a drag-and-drop area for file uploads.',
 			status: 'general-availability',
 			import: {
-				name: 'Dropzone',
-				package: '@atlaskit/media-picker',
+				name: 'DropzoneLoader',
+				package: '@atlaskit/media-picker/dropzone',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -94,8 +94,8 @@ const documentation: StructuredContentSource = {
 				'A component that listens for pasted files in a configured area and uploads them.',
 			status: 'general-availability',
 			import: {
-				name: 'Clipboard',
-				package: '@atlaskit/media-picker',
+				name: 'ClipboardLoader',
+				package: '@atlaskit/media-picker/clipboard',
 				type: 'named',
 				packagePath,
 				packageJson,

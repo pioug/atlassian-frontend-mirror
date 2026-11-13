@@ -17,7 +17,7 @@ const documentation: StructuredContentSource = {
 			status: 'internal',
 			import: {
 				name: 'selectionMarkerPlugin',
-				package: '@atlaskit/editor-plugin-selection-marker',
+				package: '@atlaskit/editor-plugin-selection-marker/selection-marker-plugin',
 				type: 'named',
 				packagePath,
 				packageJson,

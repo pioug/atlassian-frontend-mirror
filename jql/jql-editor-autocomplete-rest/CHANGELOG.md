@@ -1,5 +1,14 @@
 # @atlaskit/jql-editor-autocomplete-rest
 
+## 4.7.0
+
+### Minor Changes
+
+- [`bf4a00aeb08b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bf4a00aeb08b0) -
+  Behind the `filter_refinement_butter_thanksgiving_drop` experiment, request 25 field value
+  suggestions (via `maxResults`) and show up to 25 field options in the JQL editor autocomplete
+  dropdown, instead of 15 and 20.
+
 ## 4.6.3
 
 ### Patch Changes

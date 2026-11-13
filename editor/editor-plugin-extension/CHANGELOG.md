@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-extension
 
+## 33.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 33.1.1
+
+### Patch Changes
+
+- [`57ad371c701cd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/57ad371c701cd) -
+  Behind `platform_editor_config_panel_field_analytics`, tag the ConfigPanel's `checkbox changed`
+  analytics event with the field name and the extension key and type.
+- Updated dependencies
+
+## 33.1.0
+
+### Minor Changes
+
+- [`8bcfd4cbc0135`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8bcfd4cbc0135) -
+  Scope generated media and native embed entrance animations to the final Rovo create insertion
+  using existing media and extension plugin state behind cwr_remix_animate_stream_only.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 33.0.19
 
 ### Patch Changes

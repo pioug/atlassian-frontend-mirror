@@ -17,7 +17,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'highlightPlugin',
-				package: '@atlaskit/editor-plugin-highlight',
+				package: '@atlaskit/editor-plugin-highlight/highlightPlugin',
 				type: 'named',
 				packagePath,
 				packageJson,

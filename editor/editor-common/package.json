@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "134.16.4",
+	"version": "134.20.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -29,6 +29,9 @@
 	},
 	"exports": {
 		"./credit-guard": "./src/credit-guard/index.ts",
+		"./credit-guard/popup": "./src/credit-guard/CreditCheckedPopup.tsx",
+		"./credit-guard/check-ai-credit-status": "./src/credit-guard/checkAICreditStatus.ts",
+		"./credit-guard/use-ai-credit-guard": "./src/credit-guard/useAICreditGuard.ts",
 		"./credit-guard/floating-toolbar-button": "./src/credit-guard/CreditCheckedFloatingToolbarButton.tsx",
 		"./credit-guard/floating-toolbar-item": "./src/credit-guard/getCreditCheckedFloatingToolbarItem.tsx",
 		"./ai-messages": "./src/ai-messages/index.ts",
@@ -216,6 +219,7 @@
 		"./analytics/types/ai-events": "./src/analytics/types/ai-events.ts",
 		"./analytics/types/ai-unified-events": "./src/analytics/types/ai-unified-events.ts",
 		"./alignment": "./src/messages/alignment.ts",
+		"./alignment-icon-map": "./src/ui/alignment-icon-map.tsx",
 		"./media/altText": "./src/media/messages/altText.ts",
 		"./analytics/types/type-ahead": "./src/analytics/types/type-ahead.ts",
 		"./analytics/types/utils": "./src/analytics/types/utils.ts",
@@ -287,6 +291,7 @@
 		"./const": "./src/ui/LinkSearch/const.ts",
 		"./keymaps/consts": "./src/keymaps/consts.ts",
 		"./table/content-mode": "./src/table/content-mode.ts",
+		"./table/normalize-column-widths": "./src/table/normalize-column-widths.ts",
 		"./provider-factory/context": "./src/provider-factory/context.ts",
 		"./selection/context-helpers": "./src/selection/context-helpers.ts",
 		"./provider-factory/context-identifier-provider": "./src/provider-factory/context-identifier-provider.ts",
@@ -735,7 +740,10 @@
 		"./validator": "./src/validator.ts",
 		"./vanilla-tooltip": "./src/vanilla-tooltip/index.ts",
 		"./whitespace": "./src/whitespace/index.ts",
-		"./quick-insert/insert-menu-check": "./src/quick-insert/insert-menu-check.ts"
+		"./quick-insert/insert-menu-check": "./src/quick-insert/insert-menu-check.ts",
+		"./credit-guard/types": "./src/credit-guard/types.ts",
+		"./credit-guard/use-ai-credit-status": "./src/credit-guard/useAICreditStatus.ts",
+		"./credit-guard/use-credit-checked-action": "./src/credit-guard/useCreditCheckedAction.ts"
 	},
 	"dependencies": {
 		"@atlaskit/activity-provider": "workspace:^",

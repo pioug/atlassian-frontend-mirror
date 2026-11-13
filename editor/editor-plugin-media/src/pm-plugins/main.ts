@@ -57,6 +57,8 @@ import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import type { UploadParams } from '@atlaskit/media-picker/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
 import { createMediaNodeUpdater } from '../nodeviews/mediaNodeUpdater';
@@ -73,7 +75,7 @@ import {
 } from '../pm-plugins/utils/media-common';
 import { insertMediaGroupNode, insertMediaInlineNode } from '../pm-plugins/utils/media-files';
 import { getMediaNodeInsertionType } from '../pm-plugins/utils/media-inline';
-import { insertMediaSingleNode } from '../pm-plugins/utils/media-single';
+import { insertMediaSingleNode, isVideo } from '../pm-plugins/utils/media-single';
 import { isRemixGeneratedMedia } from '../pm-plugins/utils/remix-media';
 import type {
 	getPosHandlerNode as ProsemirrorGetPosHandler,
@@ -155,6 +157,7 @@ const createDropPlaceholder = (
 
 const MEDIA_RESOLVED_STATES = ['ready', 'error', 'cancelled'];
 export class MediaPluginStateImplementation implements MediaPluginState {
+	shouldAnimateInsertedContent?: boolean;
 	allowsUploads: boolean = false;
 	uploadStatus: 'pending' | 'available' | 'unavailable' = 'pending';
 	mediaClientConfig?: MediaClientConfig;
@@ -248,6 +251,9 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 		this.mediaOptions = mediaOptions;
 		this.dispatch = dispatch;
 		this.pluginInjectionApi = pluginInjectionApi;
+		if (isExperimentEnabled('cwr_remix_animate_stream_only')) {
+			this.shouldAnimateInsertedContent = false;
+		}
 
 		this.waitForMediaUpload =
 			options.waitForMediaUpload === undefined ? true : options.waitForMediaUpload;
@@ -1359,6 +1365,12 @@ export const createPlugin = (
 
 				const meta = tr.getMeta(stateKey);
 				if (meta) {
+					if (
+						isExperimentEnabled('cwr_remix_animate_stream_only') &&
+						meta.shouldAnimateInsertedContent !== undefined
+					) {
+						pluginState.shouldAnimateInsertedContent = meta.shouldAnimateInsertedContent;
+					}
 					const { allowsUploads } = meta;
 					pluginState.updateAndDispatch({
 						allowsUploads:
@@ -1580,6 +1592,28 @@ export const createPlugin = (
 				}
 
 				getMediaPluginState(view.state).splitMediaGroup();
+				return false;
+			},
+			handleClickOn: (view, _pos, node, nodePos, event) => {
+				const { selection } = view.state;
+				// Clicking an image that was already selected opens the Media Viewer, like a double click
+				// does. ProseMirror selects the clicked node after this runs, so the selection here is the
+				// one from before the click.
+				if (
+					event.button === 0 && // Left click only, not right-click
+					node.type === view.state.schema.nodes.media && // The media inside a mediaSingle
+					!isVideo(node.attrs.__fileMimeType) &&
+					selection instanceof NodeSelection && // Something was already node-selected
+					selection.from === nodePos - 1 && // and it is this media's mediaSingle
+					getMediaPluginState(view.state).mediaOptions?.allowImagePreview &&
+					UNSAFE_expValNoExposure('cc_comments_media_viewer_sidebar', 'isEnabled', false) &&
+					fg('cc_comments_inset_media_viewer')
+				) {
+					pluginInjectionApi?.core.actions.execute(
+						pluginInjectionApi?.media.commands.showMediaViewer(node.attrs as MediaADFAttrs),
+					);
+					return true;
+				}
 				return false;
 			},
 			handleClick: (_editorView, _pos, event: MouseEvent) => {

@@ -2,14 +2,95 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { forwardRef } from 'react';
+import { forwardRef, useContext } from 'react';
 
-import { jsx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { cssMap, jsx } from '@atlaskit/css';
+import { token } from '@atlaskit/tokens';
 
+import { SpotlightContext } from '../../../controllers/context';
 import type { Placement } from '../../../types';
-import { Caret as Legacy } from './legacy';
-import { Caret as TopLayer } from './top-layer';
+import { getResolvedPositionArea } from '../../../utils/get-resolved-position-area';
+
+const styles = cssMap({
+	root: {
+		backgroundColor: token('color.background.neutral.bold'),
+		clipPath: 'polygon(0 0,100% 100%,0 100%)',
+		height: '15px',
+		position: 'absolute',
+		width: '15px',
+	},
+	'start span-start': {
+		insetBlockEnd: token('space.0'),
+		insetInlineEnd: token('space.250'),
+		transform: 'rotate(315deg)',
+	},
+	'block-start': {
+		insetBlockEnd: token('space.0'),
+		// @ts-expect-error
+		insetInlineStart: 'calc(50% - 7px)', // half the width of the card, minus half the width of the caret
+		transform: 'rotate(315deg)',
+	},
+	'start span-end': {
+		insetBlockEnd: token('space.0'),
+		// @ts-expect-error
+		insetInlineStart: '21px',
+		transform: 'rotate(315deg)',
+	},
+	'inline-start': {
+		insetInlineEnd: token('space.0'),
+		// @ts-expect-error
+		insetBlockStart: 'calc(50% - 7px)',
+		transform: 'rotate(225deg)',
+	},
+	'inline-end': {
+		insetInlineStart: token('space.0'),
+		// @ts-expect-error
+		insetBlockStart: 'calc(50% - 7px)',
+		transform: 'rotate(45deg)',
+	},
+	'span-start end': {
+		insetInlineStart: token('space.0'),
+		// @ts-expect-error
+		insetBlockEnd: '14px',
+		transform: 'rotate(45deg)',
+	},
+	'span-end end': {
+		insetInlineStart: token('space.0'),
+		// @ts-expect-error
+		insetBlockStart: '19px',
+		transform: 'rotate(45deg)',
+	},
+	'span-start start': {
+		insetInlineEnd: token('space.0'),
+		// @ts-expect-error
+		insetBlockEnd: '14px',
+		transform: 'rotate(225deg)',
+	},
+	'span-end start': {
+		insetInlineEnd: token('space.0'),
+		// @ts-expect-error
+		insetBlockStart: '19px',
+		transform: 'rotate(225deg)',
+	},
+	'end span-start': {
+		insetBlockStart: token('space.0'),
+		// @ts-expect-error
+		insetInlineEnd: '20px',
+		transform: 'rotate(135deg)',
+	},
+	'block-end': {
+		insetBlockStart: token('space.0'),
+		// @ts-expect-error
+		insetInlineStart: 'calc(50% - 7px)', // half the width of the card, minus half the width of the caret
+		transform: 'rotate(135deg)',
+	},
+	'end span-end': {
+		insetBlockStart: token('space.0'),
+		// @ts-expect-error
+		insetInlineStart: '21px',
+		transform: 'rotate(135deg)',
+	},
+});
 
 export interface CaretProps {
 	/**
@@ -24,6 +105,7 @@ export interface CaretProps {
 	 */
 	testId?: string;
 }
+
 /**
  * __Caret__
  *
@@ -33,9 +115,21 @@ export interface CaretProps {
 export const Caret: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<CaretProps> & React.RefAttributes<HTMLDivElement>
 > = forwardRef<HTMLDivElement, CaretProps>(({ placement, testId }: CaretProps, ref) => {
-	return fg('platform-dst-top-layer-spotlight') ? (
-		<TopLayer ref={ref} placement={placement} testId={testId} />
-	) : (
-		<Legacy ref={ref} placement={placement} testId={testId} />
+	const { card, popoverContent } = useContext(SpotlightContext);
+
+	const positionArea = getResolvedPositionArea(
+		placement || card.placement,
+		popoverContent.positionArea,
+	);
+
+	return (
+		<div
+			data-testid={testId}
+			ref={ref}
+			css={[styles.root, styles[positionArea]]}
+			// Growth Pattern Library designs dictate 1px radius. cssMap only allows tokens
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+			style={{ borderEndStartRadius: '1px' }}
+		></div>
 	);
 });

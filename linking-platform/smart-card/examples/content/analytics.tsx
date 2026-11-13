@@ -12,9 +12,8 @@ import {
 } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Text } from '@atlaskit/primitives/compiled/text';
+import { Card } from '@atlaskit/smart-card/card/lazy';
 import { token } from '@atlaskit/tokens';
-
-import { Card } from '../../src';
 
 const styles = cssMap({
 	heading: { marginBottom: token('space.100') },

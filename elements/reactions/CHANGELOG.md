@@ -1,5 +1,23 @@
 # @atlaskit/reactions
 
+## 37.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.6.0
+
+### Minor Changes
+
+- [`ce55603e7554c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ce55603e7554c) -
+  Show an animated skeleton across the name row until the agent name loads, behind
+  platform_reactions_agent_name_skeleton.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 37.5.3
 
 ### Patch Changes

@@ -284,8 +284,8 @@ The `--json` envelope is shared unchanged by the npm and Atlas distributions.
 
 ## Atlas CLI distribution
 
-The same command surface is available as `atlas ads`. Its entrypoint delegates directly to `run()`,
-so npm and Atlas share command parsing, output, and exit codes.
+The same command surface is available as `atlas ads`. Its entrypoint applies the Atlas release
+policy below, then delegates to `run()` for shared command parsing, output, and exit codes.
 
 Build the self-contained JavaScript bundle from the `platform/` directory:
 
@@ -298,25 +298,119 @@ The `.atlas-plugin` descriptor declares the `ads` plugin and the `atlas-cli-plug
 namespace. Every upload fetches `manifest.toml` from Statlas before adding a release, so the remote
 manifest history remains canonical.
 
-Prepare an Atlas-shaped release locally:
+The Atlas build and release scripts are TypeScript, executed with AFM's `run-ts` runner. They use
+Node APIs for files and SHA-256 checksums and a TOML parser for manifest changes; packaging still
+invokes `afm`, `tar` and the Atlas CLI.
 
-```sh
-VERSION=local-$(git rev-parse --short HEAD) \
-  afm workspace @atlaskit/ads-cli release:atlas:prepare
-```
+### Release and promotion
 
-This builds 5 variants under `build/releases/$VERSION`, creates each archive and checksum,
-smoke-tests the Linux AMD64 executable when running on Linux AMD64, and adds the release to the
-`alpha` channel in the working manifest.
+The
+[`ads-cli-release` pipeline](../../../../pipeline-definitions/pipelines/custom/platform/design-system/ads-cli-release.ts)
+runs manually from `master` or on a schedule, with no input variables. See its configuration for the
+schedule and CI setup. To run it manually, select `master` and `ads-cli-release` in Bitbucket's
+**Run pipeline** dialog.
 
-The `ads-cli-build-and-upload-to-statlas` custom pipeline runs the tests and typecheck, prepares the
-release, uploads all artifacts, then publishes the manifest. Run it from `master`.
+1. Compare `@atlaskit/ads-cli`'s `package.json` version with `package_version` on the latest stable
+   manifest entry. If unchanged, skip building, uploading and promoting; still check the policy.
+   Existing entries lack this field, so the first run releases once to establish the baseline.
+2. When changed, derive the Atlas release version from the pipeline build number and commit SHA.
+   Build and test the plugin, package all five platforms, smoke-test the Linux AMD64 executable, and
+   upload to `alpha`. The manifest is published after the artifacts.
+3. Verify all archives and checksums exist, promote that exact release to `stable`, and verify it.
+4. Read stable release history and publish the warning and blocking thresholds. **Warn from one
+   stable version behind; require an update at seven or more versions behind.** Sort distinct stable
+   releases by numeric build number: recommend the newest release, and set the minimum to the
+   seventh newest (six behind). Builds older than that minimum are seven or more behind and must
+   update. Alpha-only releases do not count. Seven releases need not mean seven days.
 
-After validating an alpha release, run the `ads-cli-promote-stable-version` custom pipeline from
-`master` with `VERSION_TO_PROMOTE` set to its exact version. Promotion updates the canonical remote
-manifest without rebuilding or uploading artifacts.
+With fewer than eight stable releases, publish only a warning threshold. A release or promotion
+failure stops the job before the minimum changes. An invalid policy or unavailable minimum-release
+artifact also stops policy publication, leaving the previous minimum intact. Retrying a partially
+completed build resumes from its existing alpha or stable release without rebuilding it. Older
+pipeline runs are rejected if promoting them would replace a newer stable build.
+
+This is the single ADS CLI release pipeline: it replaces the separate upload, promotion and policy
+pipelines. Manual and scheduled runs share a concurrency group to prevent concurrent manifest or
+policy writers. Each new release records its source package version in `package_version`.
+
+When rolling this out, remove any older external schedule that releases/promotes this plugin so
+there is only one scheduled release workflow. The ADS AI tooling code-generation pipeline remains
+separate.
 
 The Statlas namespace authorization and Atlas plugin registry entry are one-time external
 prerequisites. Until the registry entry is available, use `atlas atlasdev exec` to exercise a
 packaged binary in the Atlas runtime. The AFM package scripts own the Node.js executable build; the
 generic `atlas atlasdev plugin build` command doesn't drive this package.
+
+### Minimum supported Atlas release
+
+Atlas builds embed the release's `VERSION` (`<pipeline-build-number>-<8-character-commit>`).
+`atlas ads --version` reports that release identifier. The Atlas entrypoint checks an ADS-owned
+policy at `https://statlas.prod.atl-paas.net/atlas-cli-plugin-ads/version-policy.json` before
+executing a command. For example:
+
+```json
+{
+	"enabled": true,
+	"minimumVersion": "26396603-5ec9e9f7",
+	"recommendedVersion": "26400000-abcdef12"
+}
+```
+
+When enabled, a build below `recommendedVersion` prints an actionable warning to stderr and still
+runs. This includes JSON callers: stdout and the successful JSON envelope are unchanged. Builds at
+the newest stable release or newer (including alpha) do not warn.
+
+A build below `minimumVersion` exits `1` before returning ADS content and tells the caller to run
+`atlas plugin upgrade --name ads --channel stable`. JSON callers receive an `ads-cli/error` envelope
+with `error.code: "UPGRADE_REQUIRED"`. The minimum itself is allowed (with a warning if behind the
+recommendation). Help and version output remain available. The npm distribution and unversioned
+local builds do not perform this Atlas-only check.
+
+The policy, including disabled and failed checks, is cached for 24 hours using `file-system-cache`
+under `$ATLAS_CACHE/ads/` (default `~/.cache/atlassian/atlas/ads/`). The library manages cache
+filenames and expiry. This is a rolling 24-hour interval from each check, including disabled
+policies and failed lookups. A failed lookup allows usage and is retried after that interval. This
+avoids a remote request for each lookup. Cache writes are best-effort; unreadable or incomplete
+cache entries trigger a fresh check. A missing policy, invalid response, network failure or
+unexpected policy initialization error allows execution. The network request has a 1.5-second
+deadline. A valid unexpired cached minimum can still block an older plugin while offline, for up to
+24 hours after the check. An expired policy is not enforced when refreshing it fails. Requests
+include `Pragma: no-cache`, which
+[Statlas explicitly uses to bypass its ten-minute proxy cache](https://bitbucket.org/atlassian/statlas/src/main/nginx/nginx.conf).
+This was also verified against the ADS manifest (`X-Statlas-Cache: BYPASS`). The 24-hour local cache
+still applies, so policy changes can take up to 24 hours to reach a machine. This is not an
+immediate rollout guarantee: allow for service propagation and verify the result with a released
+binary after its cache refreshes. Browsers and other clients that omit the bypass header can see the
+proxy-cached policy for longer.
+
+**Rollout:** existing binaries cannot acquire this check retroactively. Users must first upgrade to
+a release containing it. The pipeline verifies the recommended and minimum releases are available on
+stable before publishing the policy. This check does not automatically upgrade machines; the
+scheduled pipeline advances the thresholds as described above.
+
+### Policy tooling
+
+The combined `ads-cli-release` pipeline calculates the policy automatically from stable release
+history, without input variables or manual overrides. It validates all five platforms' archives and
+checksums before publishing. A confirmed missing policy can be created; authentication errors,
+service failures and malformed existing policies stop publication. An unchanged policy is not
+republished.
+
+The namespace permits the AFM Bitbucket build identity to publish. Live uploads, promotions and
+policy writes require Statlas write access; ordinary developer uploads are not authorized.
+Publishing requires `BITBUCKET_BRANCH=master`. For a read-only local preview from `platform/`:
+
+```sh
+afm workspace @atlaskit/ads-cli release:atlas:policy --dry-run
+```
+
+The preview validates the automatic thresholds and saves
+`build/atlas/version-policy/version-policy.json` without writing to Statlas. The pipeline also reads
+back the published policy into `published-policy.json` for verification. Both files are pipeline
+artifacts.
+
+The publisher omits `--lifecycle` because
+[Statlas files are permanent by default](https://bitbucket.org/atlassian/statlas/src/main/documentation/content/platform/statlas/files/upload.md).
+Successful combined pipeline runs publish the automatic policy. Merging alone does not change the
+live policy; standalone upload/promotion scripts do not publish it.

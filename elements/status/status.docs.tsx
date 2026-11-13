@@ -12,7 +12,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Status',
-				package: '@atlaskit/status',
+				package: '@atlaskit/status/status',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -40,7 +40,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'StatusPicker',
-				package: '@atlaskit/status',
+				package: '@atlaskit/status/picker',
 				type: 'named',
 				packagePath,
 				packageJson,

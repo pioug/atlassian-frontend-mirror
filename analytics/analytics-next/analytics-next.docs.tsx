@@ -43,8 +43,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'AnalyticsListener',
-				package: '@atlaskit/analytics-next',
-				type: 'named',
+				package: '@atlaskit/analytics-next/AnalyticsListener',
+				type: 'default',
 				packagePath,
 				packageJson,
 			},
@@ -69,8 +69,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'AnalyticsContext',
-				package: '@atlaskit/analytics-next',
-				type: 'named',
+				package: '@atlaskit/analytics-next/AnalyticsContext',
+				type: 'default',
 				packagePath,
 				packageJson,
 			},
@@ -94,8 +94,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'AnalyticsErrorBoundary',
-				package: '@atlaskit/analytics-next',
-				type: 'named',
+				package: '@atlaskit/analytics-next/AnalyticsErrorBoundary',
+				type: 'default',
 				packagePath,
 				packageJson,
 			},

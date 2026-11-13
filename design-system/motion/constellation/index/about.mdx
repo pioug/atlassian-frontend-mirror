@@ -23,6 +23,7 @@ Wrap your component in `<Motion>` and get best-practice enter/exit transitions o
 import { Motion } from '@atlaskit/motion';
 
 <Motion
+	action={isVisible ? 'enter' : 'exit'}
 	enteringAnimation={token('motion.example.enter')}
 	exitingAnimation={token('motion.example.exit')}
 >
@@ -32,37 +33,25 @@ import { Motion } from '@atlaskit/motion';
 
 #### How motion components work together
 
-The Motion primitive can be paired with motion StaggeredEntrance and ExitingPersistence components
-for more detailed choreography.
+The Motion primitive can be paired with StaggeredEntrance for more detailed entry choreography. Keep
+each Motion mounted and control its entry or exit with `action`.
 
 ```tsx
-import { ExitingPersistence, StaggeredEntrance, Motion } from '@atlaskit/motion';
+import { Motion, StaggeredEntrance } from '@atlaskit/motion';
 import { token } from '@atlaskit/tokens';
 
 <StaggeredEntrance>
-	<ExitingPersistence appear>
-		{isIn && (
-			<Motion
-				enteringAnimationXcss={styles.entering}
-				exitingAnimation={styles.exiting}
-			>
-				<Card appearance="small" />
-			</Motion>
-			<Motion
-				enteringAnimationXcss={styles.entering}
-				exitingAnimation={styles.exiting}
-			>
-				<Card appearance="small" />
-			</Motion>
-			<Motion
-				enteringAnimationXcss={styles.entering}
-				exitingAnimation={styles.exiting}
-			>
-				<Card appearance="small" />
-			</Motion>
-		)}
-	</ExitingPersistence>
-</StaggeredEntrance>
+	{items.map((item) => (
+		<Motion
+			action={isVisible ? 'enter' : 'exit'}
+			enteringAnimation={token('motion.panel.content.enter')}
+			exitingAnimation={token('motion.panel.content.exit')}
+			key={item.id}
+		>
+			<Card appearance="small" />
+		</Motion>
+	))}
+</StaggeredEntrance>;
 ```
 
 ### useMotion hook

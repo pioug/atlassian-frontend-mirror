@@ -2,9 +2,14 @@ import React from 'react';
 
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import { isTableInContentMode } from '@atlaskit/editor-common/table/content-mode';
-import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles/constants';
+import {
+	akEditorDefaultLayoutWidth,
+	akEditorFullWidthLayoutWidth,
+	akEditorMaxWidthLayoutWidth,
+} from '@atlaskit/editor-shared-styles/constants';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
+import { useRendererContext } from '../../../renderer-context';
 import { Colgroup, colWidthSum } from './colgroup';
 import { isContentModeSupported } from './content-mode';
 import type { SharedTableProps } from './types';
@@ -54,9 +59,17 @@ export const Table: React.MemoExoticComponent<
 		fixTableSSRResizing = false,
 		allowFixedColumnWidthOption = false,
 	}: TableProps): React.JSX.Element => {
+		const { isPerformanceModeActive = false } = useRendererContext();
 		let tableWidth: number | 'inherit' = tableNode
 			? getTableContainerWidth(tableNode)
 			: akEditorDefaultLayoutWidth;
+		if (isPerformanceModeActive && !tableNode?.attrs.width) {
+			if (rendererAppearance === 'full-width') {
+				tableWidth = akEditorFullWidthLayoutWidth;
+			} else if (rendererAppearance === 'max') {
+				tableWidth = akEditorMaxWidthLayoutWidth;
+			}
+		}
 
 		let tableColumnWidths = columnWidths;
 		if (
@@ -95,9 +108,23 @@ export const Table: React.MemoExoticComponent<
 				data-table-display-mode={tableDisplayMode}
 				data-initial-width-mode={isContentMode ? 'content' : undefined}
 				ref={innerRef}
-				style={{ marginTop: fixTableSSRResizing ? '0px' : '' }}
+				style={{
+					marginTop: fixTableSSRResizing ? '0px' : '',
+					// Keep the table's saved width while its outer viewport can still shrink and scroll.
+					minWidth:
+						isPerformanceModeActive && !isContentMode && typeof tableWidth === 'number'
+							? tableWidth
+							: undefined,
+					width:
+						isPerformanceModeActive && !isContentMode && typeof tableWidth === 'number'
+							? tableWidth
+							: undefined,
+				}}
 			>
 				<Colgroup
+					tableWidth={
+						isPerformanceModeActive && typeof tableWidth === 'number' ? tableWidth : undefined
+					}
 					columnWidths={tableColumnWidths}
 					layout={layout}
 					isNumberColumnEnabled={isNumberColumnEnabled}

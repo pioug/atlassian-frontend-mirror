@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-quick-insert",
-	"version": "30.0.12",
+	"version": "30.1.0",
 	"description": "Quick insert plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -54,6 +54,7 @@
 		"@atlaskit/css": "workspace:^",
 		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
+		"@atlaskit/editor-plugin-block-collapse": "workspace:^",
 		"@atlaskit/editor-plugin-connectivity": "workspace:^",
 		"@atlaskit/editor-plugin-editor-viewmode": "workspace:^",
 		"@atlaskit/editor-plugin-metrics": "workspace:^",

@@ -2,9 +2,13 @@ import React from 'react';
 
 import type { IntlShape } from 'react-intl';
 
+import { alignmentMessages } from '@atlaskit/editor-common/alignment';
+import { AlignmentIconMap } from '@atlaskit/editor-common/alignment-icon-map';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import { alignLeft, alignCenter, alignRight, tooltip } from '@atlaskit/editor-common/keymaps';
 import commonMessages from '@atlaskit/editor-common/messages';
 import { ruleMessages } from '@atlaskit/editor-common/messages/rule';
+import { Shortcut } from '@atlaskit/editor-common/Shortcut';
 import type { Command } from '@atlaskit/editor-common/types/command';
 import type {
 	FloatingToolbarConfig,
@@ -17,9 +21,14 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles/constants';
+import { AlignTextCenterIcon } from '@atlaskit/editor-toolbar/align-text-center-icon';
+import { AlignTextLeftIcon } from '@atlaskit/editor-toolbar/align-text-left-icon';
+import { AlignTextRightIcon } from '@atlaskit/editor-toolbar/align-text-right-icon';
+import { FieldTextIcon } from '@atlaskit/editor-toolbar/field-text-icon';
 import CopyIcon from '@atlaskit/icon/core/copy';
 import CustomizeIcon from '@atlaskit/icon/core/customize';
 import DeleteIcon from '@atlaskit/icon/core/delete';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -33,6 +42,8 @@ import type { DividerStyle, DividerWeight } from './constants';
 import { dividerColorPalette } from './dividerColorPalette';
 import { dividerPaletteTooltipMessages } from './dividerColorPaletteMessages';
 import { DividerOptions } from './DividerOptions';
+
+const DividerAlignmentIcon = () => <AlignmentIconMap alignment="center" size="small" />;
 
 const getToolbarItems = (
 	formatMessage: IntlShape['formatMessage'],
@@ -99,6 +110,54 @@ const getToolbarItems = (
 			fullHeight: true,
 		},
 	];
+
+	if (isExperimentEnabled('platform_editor_lovability_dividers_m2')) {
+		items.push({
+			id: 'divider-add-text',
+			testId: 'divider-add-text',
+			type: 'button',
+			showTitle: true,
+			title: formatMessage(ruleMessages.addText),
+			ariaLabel: formatMessage(ruleMessages.addText),
+			icon: FieldTextIcon,
+			onClick: () => false,
+		});
+		items.push({
+			id: 'divider-align-text',
+			testId: 'divider-align-text',
+			type: 'dropdown',
+			title: formatMessage(ruleMessages.alignText),
+			icon: DividerAlignmentIcon,
+			showSelected: false,
+			options: [
+				{
+					id: 'divider-align-left',
+					title: formatMessage(alignmentMessages.alignLeft),
+					icon: <AlignTextLeftIcon label="" size="small" />,
+					elemAfter: <Shortcut>{tooltip(alignLeft)}</Shortcut>,
+					selected: false,
+					onClick: () => false,
+				},
+				{
+					id: 'divider-align-center',
+					title: formatMessage(alignmentMessages.alignCenter),
+					icon: <AlignTextCenterIcon label="" size="small" />,
+					elemAfter: <Shortcut>{tooltip(alignCenter)}</Shortcut>,
+					// TODO: EDITOR-8349 - center align is the default until alignment is implemented
+					selected: true,
+					onClick: () => false,
+				},
+				{
+					id: 'divider-align-right',
+					title: formatMessage(alignmentMessages.alignRight),
+					icon: <AlignTextRightIcon label="" size="small" />,
+					elemAfter: <Shortcut>{tooltip(alignRight)}</Shortcut>,
+					selected: false,
+					onClick: () => false,
+				},
+			],
+		});
+	}
 
 	const overflowMenuItems: FloatingToolbarItem<Command>[] = [
 		{

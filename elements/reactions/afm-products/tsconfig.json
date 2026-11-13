@@ -86,6 +86,9 @@
 			"path": "../../../react-ufo/atlaskit/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/skeleton/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/spinner/afm-products/tsconfig.json"
 		},
 		{

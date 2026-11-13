@@ -22,6 +22,7 @@ import { MentionResource, type MentionProvider } from '../../../api/MentionResou
 import Mention, { ANALYTICS_HOVER_DELAY } from '../../../components/Mention';
 import { mentionStyle } from '../../../components/Mention/mention-style';
 import { MentionInternal } from '../../../components/Mention/MentionInternal';
+import PrimitiveMention from '../../../components/Mention/PrimitiveMention';
 import ResourcedMention from '../../../components/Mention/ResourcedMention';
 import { MentionType, MentionNameStatus } from '../../../types';
 import {
@@ -409,6 +410,25 @@ describe('<Mention />', () => {
 			);
 
 			await expect(document.body).toBeAccessible();
+		});
+
+		it('uses disabled colors for a disabled Rovo mention', () => {
+			mockExpEnabled('platform_editor_mention_rovo_special_visual');
+			render(
+				<PrimitiveMention mentionType={MentionType.DISABLED} isRovoChat>
+					Rovo
+				</PrimitiveMention>,
+			);
+			const mention = screen.getByText('Rovo');
+			const styles = Array.from(document.styleSheets)
+				.flatMap((sheet) => Array.from(sheet.cssRules))
+				.filter((rule) => rule.cssText.includes(`.${mention.className}`))
+				.map((rule) => rule.cssText)
+				.join(' ');
+
+			expect(styles).toContain('--ds-background-disabled');
+			expect(styles).toContain('--ds-text-disabled');
+			expect(styles).not.toContain('--ds-background-neutral-bold');
 		});
 		it('should dispatch onClick-event', async () => {
 			const user = userEvent.setup();

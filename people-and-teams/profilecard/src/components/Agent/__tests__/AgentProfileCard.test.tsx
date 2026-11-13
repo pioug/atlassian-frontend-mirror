@@ -3,8 +3,6 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
-import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-utils';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { renderWithAnalyticsListener } from '@atlassian/ptc-test-utils/analytics';
 
 import ProfileClient from '../../../client/ProfileCardClient';
@@ -180,7 +178,7 @@ describe('ProfileCardTrigger', () => {
 		});
 	});
 
-	describe('platform_editor_agent_mentions_drop_one_fixes', () => {
+	describe('creator', () => {
 		const agentWithCreator: RovoAgentProfileCardInfo = {
 			...agent,
 			creatorInfo: {
@@ -190,34 +188,10 @@ describe('ProfileCardTrigger', () => {
 			},
 		};
 
-		eeTest.describe('platform_editor_agent_mentions', 'experiment on').variant(true, () => {
-			describe('platform_editor_agent_mentions_drop_one_fixes is on fg on', () => {
-				it('hides the creator Rovo icon', () => {
-					passGate('platform_editor_agent_mentions_drop_one_fixes');
+		it('hides the creator Rovo icon', () => {
+			renderWithIntl({ agentOverride: agentWithCreator });
 
-					renderWithIntl({ agentOverride: agentWithCreator });
-
-					expect(screen.queryByTestId('rovo-icon-wrapper')).not.toBeInTheDocument();
-				});
-			});
-
-			describe('platform_editor_agent_mentions_drop_one_fixes is off fg off', () => {
-				it('shows the creator Rovo icon', () => {
-					failGate('platform_editor_agent_mentions_drop_one_fixes');
-
-					renderWithIntl({ agentOverride: agentWithCreator });
-
-					expect(screen.getByTestId('rovo-icon-wrapper')).toBeInTheDocument();
-				});
-			});
-		});
-
-		eeTest.describe('platform_editor_agent_mentions', 'experiment off').variant(false, () => {
-			it('shows the creator Rovo icon', () => {
-				renderWithIntl({ agentOverride: agentWithCreator });
-
-				expect(screen.getByTestId('rovo-icon-wrapper')).toBeInTheDocument();
-			});
+			expect(screen.queryByTestId('rovo-icon-wrapper')).not.toBeInTheDocument();
 		});
 	});
 
@@ -258,8 +232,13 @@ describe('ProfileCardTrigger', () => {
 	describe('hideConversationStarters', () => {
 		const conversationStarterText = agent.user_defined_conversation_starters![0];
 
-		it('should show conversation starters even when hideConversationStarters is true', () => {
+		it('should hide conversation starters when hideConversationStarters is true', () => {
 			renderWithIntl({ hideConversationStarters: true });
+			expect(screen.queryByText(conversationStarterText)).not.toBeInTheDocument();
+		});
+
+		it('should show conversation starters by default', () => {
+			renderWithIntl({});
 			expect(screen.getByText(conversationStarterText)).toBeInTheDocument();
 		});
 	});

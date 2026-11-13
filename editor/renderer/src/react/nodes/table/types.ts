@@ -12,8 +12,11 @@ export type SharedTableProps = {
 	isInsideOfNestedRenderer?: boolean;
 	isInsideOfTable?: boolean;
 	isNumberColumnEnabled: boolean;
+	isPerformanceModeActive?: boolean;
 	layout: TableLayout;
 	rendererAppearance: RendererAppearance;
 	renderWidth: number;
+	scrollRegionLabel?: string;
 	tableNode?: PMNode;
+	tableWidth?: number;
 };

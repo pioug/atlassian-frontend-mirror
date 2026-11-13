@@ -2,7 +2,6 @@
 
 import React, { useContext, useLayoutEffect } from 'react';
 
-import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { render, waitFor } from '@atlassian/testing-library/testing-library/react';
 
 import { SpotlightContext } from '../../controllers/context';
@@ -21,8 +20,6 @@ const TargetRefProbe = ({ onRef }: { onRef: (element: HTMLElement | null) => voi
 
 describe('PopoverTarget', () => {
 	it('stores the target wrapper ref in spotlight context', async () => {
-		passGate('platform-dst-top-layer-spotlight');
-
 		const onRef = jest.fn();
 
 		render(

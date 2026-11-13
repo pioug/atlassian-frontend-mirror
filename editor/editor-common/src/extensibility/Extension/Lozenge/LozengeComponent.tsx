@@ -9,6 +9,7 @@ import { Fragment } from 'react';
 import { jsx } from '@emotion/react';
 
 import EditorFileIcon from '@atlaskit/icon/core/file';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { ExtensionsPluginInjectionAPI } from '../../types';
 import { placeholderFallback, placeholderFallbackParams } from '../styles';
@@ -97,9 +98,15 @@ export const LozengeComponent = ({
 		);
 	}
 	const isBlockExtension = extensionName === 'extension';
+	// A div inside an inline extension would close its paragraph in server-rendered HTML.
+	const FallbackElement =
+		extensionName === 'inlineExtension' &&
+		isExperimentEnabled('platform_editor_inline_extension_spans')
+			? 'span'
+			: 'div';
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-		<div data-testid="lozenge-fallback" css={placeholderFallback}>
+		<FallbackElement data-testid="lozenge-fallback" css={placeholderFallback}>
 			{lozengeData && !isBlockExtension ? (
 				renderImage({
 					height: ICON_SIZE,
@@ -111,13 +118,12 @@ export const LozengeComponent = ({
 			)}
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
 			<span className="extension-title">{capitalizedTitle}</span>
-			{params &&
-				!isBlockExtension && (
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-					<span css={placeholderFallbackParams}>
-						{Object.keys(params).map((key) => key && ` | ${key} = ${params[key].value}`)}
-					</span>
-				)}
-		</div>
+			{params && !isBlockExtension && (
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+				<span css={placeholderFallbackParams}>
+					{Object.keys(params).map((key) => key && ` | ${key} = ${params[key].value}`)}
+				</span>
+			)}
+		</FallbackElement>
 	);
 };

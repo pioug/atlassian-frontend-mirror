@@ -12,8 +12,8 @@ const documentation: StructuredContentSource = {
 				'A component for rendering media images with built-in support for authentication, error handling, and SSR.',
 			status: 'general-availability',
 			import: {
-				name: 'MediaImage',
-				package: '@atlaskit/media-image',
+				name: 'MediaImageWithErrorBoundary',
+				package: '@atlaskit/media-image/media-image-error-boundary',
 				type: 'named',
 				packagePath,
 				packageJson,

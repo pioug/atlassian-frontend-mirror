@@ -1,7 +1,7 @@
 /**
  * Types for the stable JSON envelope emitted when the CLI is run with `--json`.
  *
- * Agents (and a future `atlas ads` plugin) consume this shape, so it must stay stable and
+ * Agents and the `atlas ads` plugin consume this shape, so it must stay stable and
  * self-describing. Every envelope carries a `type` discriminator (`ads-cli/<command>` for
  * success, `ads-cli/error` for failures) so consumers can branch without re-parsing.
  */
@@ -45,10 +45,10 @@ export type SuccessEnvelope<Data = unknown> = {
 /**
  * Machine-readable error codes used inside {@link ErrorEnvelope}.
  *
- * These mirror the process exit codes but are surfaced as strings so JSON consumers do not
- * depend on numeric codes.
+ * These identify failure types without relying on numeric process exit codes. Different error
+ * codes can share an exit code, such as RUNTIME_ERROR and UPGRADE_REQUIRED both exiting with 1.
  */
-export type EnvelopeErrorCode = 'USAGE_ERROR' | 'NOT_FOUND' | 'RUNTIME_ERROR';
+export type EnvelopeErrorCode = 'USAGE_ERROR' | 'NOT_FOUND' | 'RUNTIME_ERROR' | 'UPGRADE_REQUIRED';
 
 /**
  * Failure envelope. Emitted (with `--json`) when a command cannot complete.

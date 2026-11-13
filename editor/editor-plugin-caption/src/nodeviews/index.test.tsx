@@ -15,6 +15,7 @@ import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor
 import { caption, doc, media, mediaSingle, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import captionNodeView from './index';
 
@@ -65,6 +66,51 @@ describe('caption', () => {
 			{ allowImagePreview: true },
 		);
 		expect(screen.getByText('Add a caption - double-click to preview')).not.toBeNull();
+	});
+
+	it.each([
+		{
+			name: 'says to click again for an image when the experiment and gate are on',
+			arrange: () => {
+				mockExpEnabled('cc_comments_media_viewer_sidebar');
+				passGate('cc_comments_inset_media_viewer');
+			},
+			placeholder: 'Add a caption - click again to preview',
+		},
+		{
+			name: 'says to double-click when the experiment is off',
+			arrange: () => {
+				mockExpDisabled('cc_comments_media_viewer_sidebar');
+			},
+			placeholder: 'Add a caption - double-click to preview',
+		},
+		{
+			name: 'says to double-click when the feature gate is off',
+			arrange: () => {
+				mockExpEnabled('cc_comments_media_viewer_sidebar');
+				failGate('cc_comments_inset_media_viewer');
+			},
+			placeholder: 'Add a caption - double-click to preview',
+		},
+		{
+			name: 'says to double-click for a video',
+			arrange: () => {
+				mockExpEnabled('cc_comments_media_viewer_sidebar');
+				passGate('cc_comments_inset_media_viewer');
+			},
+			mimeType: 'video/mp4',
+			placeholder: 'Add a caption - double-click to preview',
+		},
+	])('the placeholder $name', ({ arrange, mimeType = 'image/png', placeholder }) => {
+		arrange();
+		editor(
+			doc(
+				'{<node>}', // node selection
+				mediaSingle()(media({ ...mediaNodeAttrs, __fileMimeType: mimeType })()),
+			),
+			{ allowImagePreview: true },
+		);
+		expect(screen.getByText(placeholder)).not.toBeNull();
 	});
 
 	it('should not show a placeholder when selecting away from media single', async () => {

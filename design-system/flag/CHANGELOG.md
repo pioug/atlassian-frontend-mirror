@@ -1,5 +1,16 @@
 # @atlaskit/flag
 
+## 19.0.5
+
+### Patch Changes
+
+- [`f75b2f92210a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f75b2f92210a0) -
+  Behind `platform-dst-top-layer`: each flag has its own top-layer host. A flag that shows while a
+  modal dialog or drawer is open renders inside the topmost one, so it is not inert. A modal that
+  opens later, or in the same commit, covers the flag until it closes. When its modal closes, the
+  flag moves out and shows again (it animates in, and its auto-dismiss timer starts again).
+- Updated dependencies
+
 ## 19.0.4
 
 ### Patch Changes

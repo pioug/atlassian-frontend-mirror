@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useMemo } from 'react';
+import { Fragment, useMemo } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
@@ -11,6 +11,7 @@ import { token } from '@atlaskit/tokens';
 
 import { type SkipLinkData } from '../../context/skip-links/types';
 import { SkipLink } from './skip-link';
+import { SkipLinksContent } from './skip-links-content';
 import { SkipLinksPopup } from './skip-links-popup';
 
 const styles = cssMap({
@@ -40,6 +41,15 @@ const styles = cssMap({
 			opacity: 1,
 			pointerEvents: 'auto',
 		},
+	},
+	menuAppearance: {
+		color: token('color.text'),
+		gap: token('space.0'),
+		paddingBlock: token('space.0'),
+		paddingInline: token('space.0'),
+		borderRadius: token('radius.large'),
+		insetInlineStart: token('space.150'),
+		insetBlockStart: token('space.150'),
 	},
 	skipLinkList: {
 		display: 'flex',
@@ -120,7 +130,7 @@ const isOnlyWhitespaceRegex = /^\s*$/;
  * The label is used as the heading of the skip links container. If the provided label is a string
  * comprised only of only whitespace (e.g. '' or ' '), the skip link heading element will be removed.
  *
- * When `platform_dst_nav4_skip_link_a11y_1` is enabled, rendering is delegated to `SkipLinksPopup`.
+ * The popup interaction requires both the skip-link accessibility gate and the menu placeholder gate.
  */
 export function SkipLinksContainer({
 	label,
@@ -143,7 +153,10 @@ export function SkipLinksContainer({
 
 	const isEmptyLabel = isOnlyWhitespaceRegex.test(label);
 
-	if (fg('platform_dst_nav4_skip_link_a11y_1')) {
+	if (
+		fg('platform_dst_nav4_skip_link_menu_placeholder') &&
+		fg('platform_dst_nav4_skip_link_a11y_1')
+	) {
 		return (
 			<SkipLinksPopup
 				label={label}
@@ -154,26 +167,37 @@ export function SkipLinksContainer({
 		);
 	}
 
+	const skipLinks = sortedLinks.map(({ id, label, onBeforeNavigate, navigate }: SkipLinkData) => (
+		<SkipLink key={id} id={id} onBeforeNavigate={onBeforeNavigate} navigate={navigate}>
+			{label}
+		</SkipLink>
+	));
+
 	return (
 		// Capturing bubbled events, element itself is not interactive
 		// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions
 		<div
 			onKeyDown={closeOnEscape}
-			css={styles.root}
+			css={[styles.root, fg('platform_dst_nav4_skip_link_a11y_1') && styles.menuAppearance]}
 			data-testid={testId ? `${testId}--skip-links-container` : undefined}
 		>
-			{!isEmptyLabel && (
-				<Text weight="bold" testId={testId ? `${testId}--skip-links-container--label` : undefined}>
-					{label}
-				</Text>
+			{fg('platform_dst_nav4_skip_link_a11y_1') ? (
+				<SkipLinksContent label={isEmptyLabel ? undefined : label} testId={testId}>
+					{skipLinks}
+				</SkipLinksContent>
+			) : (
+				<Fragment>
+					{!isEmptyLabel && (
+						<Text
+							weight="bold"
+							testId={testId ? `${testId}--skip-links-container--label` : undefined}
+						>
+							{label}
+						</Text>
+					)}
+					<ol css={styles.skipLinkList}>{skipLinks}</ol>
+				</Fragment>
 			)}
-			<ol css={styles.skipLinkList}>
-				{sortedLinks.map(({ id, label, onBeforeNavigate }: SkipLinkData) => (
-					<SkipLink key={id} id={id} onBeforeNavigate={onBeforeNavigate}>
-						{label}
-					</SkipLink>
-				))}
-			</ol>
 		</div>
 	);
 }

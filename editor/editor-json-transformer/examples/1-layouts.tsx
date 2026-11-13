@@ -12,6 +12,7 @@ import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { createDefaultPreset } from '@atlaskit/editor-core/preset-default';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
+import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
 import { gridPlugin } from '@atlaskit/editor-plugin-grid/gridPlugin';
 import { mediaPlugin } from '@atlaskit/editor-plugin-media/media-plugin';
 import { layoutPlugin } from '@atlaskit/editor-plugins/layout';
@@ -19,8 +20,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { token } from '@atlaskit/tokens';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
-
-import { JSONTransformer } from '../src/JSONTransformer-2';
 
 const container = css({
 	display: 'grid',

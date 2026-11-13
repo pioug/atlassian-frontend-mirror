@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { CommentEditor } from '@atlaskit/editor-core/appearance-editor-comment';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import { basePlugin } from '@atlaskit/editor-plugins/base';
@@ -15,8 +16,6 @@ import { selectionPlugin } from '@atlaskit/editor-plugins/selection';
 import { tablesPlugin } from '@atlaskit/editor-plugins/table';
 import { typeAheadPlugin } from '@atlaskit/editor-plugins/type-ahead';
 import { widthPlugin } from '@atlaskit/editor-plugins/width';
-
-import { CommentEditor } from '../src/editor-appearances/CommentEditor';
 
 export default function Editor(): React.JSX.Element {
 	const { preset } = usePreset((builder) =>

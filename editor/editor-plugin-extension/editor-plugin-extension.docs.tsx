@@ -17,7 +17,7 @@ const documentation: StructuredContentSource = {
 			status: 'internal',
 			import: {
 				name: 'extensionPlugin',
-				package: '@atlaskit/editor-plugin-extension',
+				package: '@atlaskit/editor-plugin-extension/extensionPlugin',
 				type: 'named',
 				packagePath,
 				packageJson,

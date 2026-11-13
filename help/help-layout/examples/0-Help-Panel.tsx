@@ -1,10 +1,10 @@
 import React from 'react';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import HelpLayout from '@atlaskit/help-layout/HelpLayout';
 import Page from '@atlaskit/page/page';
 
 import LocaleIntlProvider from '../example-helpers/LocaleIntlProvider';
-import HelpLayout from '../src/index';
 import { ExampleWrapper, HelpWrapper, FooterContent, ExampleDefaultContent } from './utils/styled';
 
 const handleEvent = (analyticsEvent: { context: any; payload: any }) => {

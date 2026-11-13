@@ -16,7 +16,7 @@ import { jsx, css } from '@emotion/react';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { token } from '@atlaskit/tokens';
 
-import type { MentionType } from '../../types';
+import { MentionType } from '../../types';
 import { mentionStyle } from './mention-style';
 export interface PrimitiveMentionProps extends HTMLAttributes<HTMLSpanElement> {
 	isAvatarVisible?: boolean;
@@ -29,7 +29,9 @@ const getStyle = (
 	property: 'background' | 'borderColor' | 'text' | 'hoveredBackground' | 'pressedBackground',
 ) => {
 	const isRovoChatEnabled =
-		isRovoChat && isExperimentEnabled('platform_editor_mention_rovo_special_visual');
+		mentionType !== MentionType.DISABLED &&
+		isRovoChat &&
+		isExperimentEnabled('platform_editor_mention_rovo_special_visual');
 
 	if (isRovoChatEnabled) {
 		if (property === 'text') {

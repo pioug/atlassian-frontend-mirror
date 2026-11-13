@@ -10,11 +10,21 @@ const motion: ValueSchema<MotionIconographyTokenSchema<MotionPaletteToken>> = {
 		iconography: {
 			enter: {
 				fade: {
-					value: {
-						duration: 'Duration250',
-						curve: 'EaseBoldOut',
-						keyframes: ['FadeIn0to100'],
-						fill: 'AnimationFillModeBackwards',
+					'[default]': {
+						value: {
+							duration: 'Duration250',
+							curve: 'EaseBoldOut',
+							keyframes: ['FadeIn0to100'],
+							fill: 'AnimationFillModeBackwards',
+						},
+					},
+					fast: {
+						value: {
+							duration: 'Duration050',
+							curve: 'EaseBoldOut',
+							keyframes: ['FadeIn0to100'],
+							fill: 'AnimationFillModeBackwards',
+						},
 					},
 				},
 				cycle: {
@@ -30,11 +40,21 @@ const motion: ValueSchema<MotionIconographyTokenSchema<MotionPaletteToken>> = {
 			},
 			exit: {
 				fade: {
-					value: {
-						duration: 'Duration250',
-						curve: 'EasePracticalIn',
-						keyframes: ['FadeOut100to0'],
-						fill: 'AnimationFillModeForwards',
+					'[default]': {
+						value: {
+							duration: 'Duration250',
+							curve: 'EasePracticalIn',
+							keyframes: ['FadeOut100to0'],
+							fill: 'AnimationFillModeForwards',
+						},
+					},
+					fast: {
+						value: {
+							duration: 'Duration050',
+							curve: 'EasePracticalIn',
+							keyframes: ['FadeOut100to0'],
+							fill: 'AnimationFillModeForwards',
+						},
 					},
 				},
 				cycle: {

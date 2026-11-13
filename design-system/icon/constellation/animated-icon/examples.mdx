@@ -1,0 +1,56 @@
+---
+title: Animated icon
+description: Icons that play a single animation when someone interacts with them.
+order: 1
+---
+
+import AnimatedIconReanimate from '../../examples/constellation/animated-icon-reanimate.tsx';
+import AnimatedIconLabel from '../../examples/constellation/animated-icon-label.tsx';
+import AnimatedIconColor from '../../examples/constellation/animated-icon-color.tsx';
+
+Animated icons are imported from `@atlaskit/icon/animated/*` and used like any other icon. An
+animated icon only plays when it is told to. Each animation plays once, and is skipped when someone
+prefers reduced motion. Animated icons always render at 16px, so they don’t take a `size` prop.
+
+## Play with a trigger
+
+Wrap the icon and its button in [animated icon trigger](/components/icon/animated-icon-trigger) to
+play the icon on hover, focus or click, or from your own state. You can also call `reanimate` on the
+icon’s ref, as shown below.
+
+## Play from code
+
+Use the `reanimate` method on the icon's ref to play it from your own code. It does nothing while
+the icon is already playing.
+
+<Example
+	Component={AnimatedIconReanimate}
+	packageName="@atlaskit/icon"
+	hiddenSections={['iconography']}
+/>
+
+## Label
+
+Animated icons take the same `label` prop as other icons. If an icon doesn’t have an existing text
+label or accessible text, provide a clear label.
+
+If an icon is associated with a button or element that also has a text label, you don’t need to
+provide alternative text for the icon, because the label clarifies the meaning of the icon. You can
+do this by setting the `label` prop to an empty string (`""`).
+
+<Example
+	Component={AnimatedIconLabel}
+	packageName="@atlaskit/icon"
+	hiddenSections={['iconography']}
+/>
+
+## Color
+
+Animated icons use `currentColor` by default, like other icons. Set `color` to a color token to
+change it. The animation plays the same in every color.
+
+<Example
+	Component={AnimatedIconColor}
+	packageName="@atlaskit/icon"
+	hiddenSections={['iconography']}
+/>

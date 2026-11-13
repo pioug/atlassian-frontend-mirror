@@ -11,6 +11,7 @@ import { videoFileId } from '@atlaskit/media-test-helpers/exampleMediaItems';
 import { addGlobalEventEmitterListeners } from '@atlaskit/media-test-helpers/globalEventEmitterListeners';
 import { I18NWrapper } from '@atlaskit/media-test-helpers/I18nWrapper';
 import { createStorybookMediaClient } from '@atlaskit/media-test-helpers/mediaClientProvider';
+import MediaViewer from '@atlaskit/media-viewer/media-viewer-loader';
 
 import {
 	docIdentifier,
@@ -25,7 +26,6 @@ import {
 	audioItemNoCover,
 } from '../example-helpers';
 import { ButtonList, Group, MainWrapper } from '../example-helpers/MainWrapper';
-import { MediaViewer } from '../src';
 
 addGlobalEventEmitterListeners();
 

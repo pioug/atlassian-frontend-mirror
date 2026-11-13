@@ -1,5 +1,19 @@
 # @atlaskit/ads-cli
 
+## 0.12.0
+
+### Minor Changes
+
+- [`ba02fecea90d9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ba02fecea90d9) -
+  Add an Atlas-only minimum supported release gate controlled by an ADS Statlas policy, with checks
+  cached for 24 hours using file-system-cache and UPGRADE_REQUIRED errors. Policy lookup failures
+  leave commands usable, including unexpected initialization errors.
+
+  Warn at one to six stable releases behind and require an upgrade at seven or more behind. One
+  pipeline runs manually or daily without input variables, releasing and promoting only when the ADS
+  CLI package version changes. It automatically calculates the policy from stable release history,
+  even when release is skipped. With fewer than eight stable releases, the policy only warns.
+
 ## 0.11.1
 
 ### Patch Changes
@@ -77,15 +91,9 @@
   {
   	"name": "Avatar",
   	"package": "@atlaskit/avatar",
-  	"props": [
-  		/* ... */
-  	],
-  	"examples": [
-  		/* ... */
-  	],
-  	"designSource": {
-  		/* ... */
-  	},
+  	"props": [/* ... */],
+  	"examples": [/* ... */],
+  	"designSource": {/* ... */},
   }
   ```
 

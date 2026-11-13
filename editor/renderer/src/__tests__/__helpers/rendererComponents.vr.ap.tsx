@@ -3,7 +3,6 @@ import type { ComponentType } from 'react';
 
 import { IntlProvider } from 'react-intl';
 import { RelayEnvironmentProvider } from 'react-relay';
-import { createMockEnvironment } from 'relay-test-utils';
 
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
@@ -14,6 +13,8 @@ import { MockMediaClientProvider } from '@atlaskit/editor-test-helpers/media-cli
 import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
+
+import { createAtlassianMockRelayEnvironment } from '@atlassian/relay-test-utils/mock-environment';
 
 import type { RendererProps } from '../..';
 import { Renderer } from '../../entry-points/renderer-default';
@@ -30,7 +31,7 @@ import pixelWidthMediaNested from '../__fixtures__/media-pixel-size-nested.adf.j
 import { overflowTable } from '../__fixtures__/overflow.adf';
 import panelWithMedia from '../__fixtures__/panel-with-media.json';
 
-const mockEnvironment = createMockEnvironment();
+const mockEnvironment = createAtlassianMockRelayEnvironment();
 
 const contextIdentifierProvider = storyContextIdentifierProviderFactory();
 const providerFactory = ProviderFactory.create({

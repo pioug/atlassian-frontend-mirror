@@ -22,8 +22,8 @@ const documentation: StructuredContentSource = {
 			description: 'The main component for collecting user feedback.',
 			status: 'general-availability',
 			import: {
-				name: 'default',
-				package: '@atlaskit/feedback-collector',
+				name: 'FeedbackCollector',
+				package: '@atlaskit/feedback-collector/FeedbackCollector',
 				type: 'default',
 				packagePath,
 				packageJson,
@@ -48,7 +48,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'FeedbackButton',
-				package: '@atlaskit/feedback-collector',
+				package: '@atlaskit/feedback-collector/FeedbackButton',
 				type: 'named',
 				packagePath,
 				packageJson,

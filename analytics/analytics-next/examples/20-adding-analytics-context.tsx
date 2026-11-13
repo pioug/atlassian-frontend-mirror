@@ -1,8 +1,9 @@
 import React, { useCallback } from 'react';
 
-import AnalyticsContext from '../src/components/AnalyticsContext';
-import AnalyticsListener from '../src/components/AnalyticsListener';
-import type UIAnalyticsEvent from '../src/events/UIAnalyticsEvent';
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+
 import AnalyticsButton from './helpers/AnalyticsButton';
 
 const SaveButton = () => {

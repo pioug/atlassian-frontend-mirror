@@ -7,7 +7,6 @@ import moment from 'moment';
 
 import CreatableSelect from '@atlaskit/select/creatable-select';
 import type { OptionsType } from '@atlaskit/select/types';
-import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { type TimePickerBaseProps } from '../../../types';
 import TimePicker from '../../time-picker';
@@ -43,9 +42,6 @@ describe('TimePicker', () => {
 
 		createButton.value = value;
 		await user.click(createButton);
-	};
-	const enableLocaleAwareTimeParsing = () => {
-		passGate('platform-dst-locale-aware-time-parsing');
 	};
 
 	beforeEach(() => {
@@ -122,7 +118,6 @@ describe('TimePicker', () => {
 		);
 
 		it('should accept 24-hour and English day-period input when editable input uses a 24-hour locale', async () => {
-			enableLocaleAwareTimeParsing();
 			const user = userEvent.setup();
 			const onChangeSpy = jest.fn();
 			render(
@@ -141,7 +136,6 @@ describe('TimePicker', () => {
 		});
 
 		it('should parse a localized day period when editable input uses a 12-hour locale', async () => {
-			enableLocaleAwareTimeParsing();
 			const user = userEvent.setup();
 			const onChangeSpy = jest.fn();
 			render(
@@ -161,7 +155,6 @@ describe('TimePicker', () => {
 		});
 
 		it('should parse localized digits when editable input uses a 24-hour locale', async () => {
-			enableLocaleAwareTimeParsing();
 			const user = userEvent.setup();
 			const onChangeSpy = jest.fn();
 			render(
@@ -180,7 +173,6 @@ describe('TimePicker', () => {
 		cases(
 			'should parse representative locale time variations',
 			async ({ locale, input, output }: { locale: string; input: string; output: string }) => {
-				enableLocaleAwareTimeParsing();
 				const user = userEvent.setup();
 				const onChangeSpy = jest.fn();
 				render(createTimePicker({ locale, onChange: onChangeSpy, timeIsEditable: true }));
@@ -210,7 +202,6 @@ describe('TimePicker', () => {
 				output: string;
 				timeFormat?: string;
 			}) => {
-				enableLocaleAwareTimeParsing();
 				const user = userEvent.setup();
 				const onChangeSpy = jest.fn();
 				render(
@@ -246,7 +237,6 @@ describe('TimePicker', () => {
 				output: string;
 				timeFormat?: string;
 			}) => {
-				enableLocaleAwareTimeParsing();
 				const user = userEvent.setup();
 				const onChangeSpy = jest.fn();
 				render(
@@ -277,7 +267,6 @@ describe('TimePicker', () => {
 		);
 
 		it('should retain the selected value when editable input is invalid', async () => {
-			enableLocaleAwareTimeParsing();
 			const user = userEvent.setup();
 			const onChangeSpy = jest.fn();
 			render(

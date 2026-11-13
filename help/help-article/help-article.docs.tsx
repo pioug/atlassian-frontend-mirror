@@ -12,8 +12,8 @@ const documentation: StructuredContentSource = {
 				'A component for displaying help articles with support for various content formats.',
 			status: 'general-availability',
 			import: {
-				name: 'default',
-				package: '@atlaskit/help-article',
+				name: 'HelpArticle',
+				package: '@atlaskit/help-article/HelpArticle',
 				type: 'default',
 				packagePath,
 				packageJson,

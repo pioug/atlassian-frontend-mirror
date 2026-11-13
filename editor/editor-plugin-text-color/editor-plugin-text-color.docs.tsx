@@ -17,7 +17,7 @@ const documentation: StructuredContentSource = {
 			status: 'internal',
 			import: {
 				name: 'textColorPlugin',
-				package: '@atlaskit/editor-plugin-text-color',
+				package: '@atlaskit/editor-plugin-text-color/text-color-plugin',
 				type: 'named',
 				packagePath,
 				packageJson,

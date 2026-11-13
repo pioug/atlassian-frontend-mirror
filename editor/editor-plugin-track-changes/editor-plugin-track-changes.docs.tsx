@@ -17,7 +17,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'trackChangesPlugin',
-				package: '@atlaskit/editor-plugin-track-changes',
+				package: '@atlaskit/editor-plugin-track-changes/track-changes-plugin',
 				type: 'named',
 				packagePath,
 				packageJson,

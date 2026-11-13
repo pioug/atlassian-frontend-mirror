@@ -58,9 +58,11 @@ change size and still pass. Measured three times over while adding the fit fixtu
 | ----------------------------------- | --------------------------------- | ------------------------- | -------------- |
 | `js-fallback-fit-floor-roomy`       | flip floor written on the JS path | **passed** (62px → 150px) | 10,612px       |
 | `js-fallback-fit-floor-modest-cell` | same                              | 506px                     | 25,442px       |
-| `fit-floor-cramped-min-size-zero`   | both caps dropped                 | 1,045px                   | 19,156px       |
+| `fit-floor-cramped-min-size-zero` † | both caps dropped                 | 1,045px                   | 19,156px       |
 | `fit-floor-short-viewport`          | same                              | 250px                     | 15,806px       |
 | `xcss width and padding` (popup)    | `className={xcss}` dropped        | 1,081px                   | 13,835px       |
+
+† Removed on 2026-11-12 with `placement.minSize`. The measurement still stands.
 
 The first row is the one to remember: the popover grew by 88px and the comparison passed, because
 only its shadow moved.

@@ -1,6 +1,6 @@
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import type { Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { isDiffDecoration, isDiffDecorationSpec } from './decorations/decorationKeys';
@@ -157,24 +157,22 @@ function groupTouchingDecorations(
 		// Keep the group's range for navigation and active-range calculation, but scroll to the widget.
 		let scrollTarget: Decoration | undefined;
 		const startNode = doc?.nodeAt(from);
-		if (fg('platform_editor_ai_show_diff_patch_1')) {
-			if (
-				fg('platform_editor_ai_show_diff_patch_2_fix') &&
-				(startNode?.type.name === 'tableCell' || startNode?.type.name === 'tableHeader')
-			) {
-				scrollTarget = group.find(
-					(decoration) =>
-						decoration.from === from + 1 &&
-						decorationSide(decoration) < decorationSide(representative),
-				);
-			}
+		if (
+			fg('platform_editor_ai_show_diff_patch_2_fix') &&
+			(startNode?.type.name === 'tableCell' || startNode?.type.name === 'tableHeader')
+		) {
+			scrollTarget = group.find(
+				(decoration) =>
+					decoration.from === from + 1 &&
+					decorationSide(decoration) < decorationSide(representative),
+			);
+		}
 
-			if (!scrollTarget) {
-				scrollTarget = group.find(
-					(decoration) =>
-						decoration.from === from && decorationSide(decoration) < decorationSide(representative),
-				);
-			}
+		if (!scrollTarget) {
+			scrollTarget = group.find(
+				(decoration) =>
+					decoration.from === from && decorationSide(decoration) < decorationSide(representative),
+			);
 		}
 
 		if (!scrollTarget && representative.from === from && representative.to === to) {
@@ -204,8 +202,7 @@ function groupTouchingDecorations(
  * 5. When `platform_editor_attributed_version_history` is enabled, groups overlapping or
  *    directly touching ranges across decoration types into one result per contributor, using the
  *    union of all grouped ranges
- *    (zero-width widgets can join a group without extending it). Under
- *    `platform_editor_ai_show_diff_patch_1`, a group that starts with content painting above
+ *    (zero-width widgets can join a group without extending it). A group that starts with content painting above
  * 	  the content that replaced it — reports that widget as its `scrollTarget` spec,
  *    so scrolling reaches the visual start of the edit
  * 6. Results are sorted by from position, then by to position

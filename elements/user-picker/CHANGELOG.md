@@ -1,5 +1,20 @@
 # @atlaskit/user-picker
 
+## 14.8.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.8.1
+
+### Patch Changes
+
+- [`eeb885a1c8777`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eeb885a1c8777) -
+  Honor custom popup picker components behind rovo_credits_shared_query_cache while preserving the
+  popup input and title control. Memoize overrides per picker instance so the component
+  configuration remains stable across rerenders.
+
 ## 14.8.0
 
 ### Minor Changes

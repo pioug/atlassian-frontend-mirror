@@ -49,6 +49,7 @@ const appearanceIconSchema: {
 export function getAppearanceIconStyles(
 	appearance: Appearance,
 	icon: SectionMessageProps['icon'],
+	iconLabel: SectionMessageProps['iconLabel'],
 ): {
 	Icon:
 		| React.ElementType<any, keyof React.JSX.IntrinsicElements>
@@ -59,7 +60,11 @@ export function getAppearanceIconStyles(
 } {
 	const appearanceIconStyles = appearanceIconSchema[appearance] || appearanceIconSchema.information;
 	const AppearanceIcon = ({ primaryColor }: { primaryColor: string }): React.JSX.Element => (
-		<appearanceIconStyles.Icon color={primaryColor} spacing="spacious" label={appearance} />
+		<appearanceIconStyles.Icon
+			color={primaryColor}
+			spacing="spacious"
+			label={iconLabel ?? appearance}
+		/>
 	);
 	const Icon = icon || AppearanceIcon;
 

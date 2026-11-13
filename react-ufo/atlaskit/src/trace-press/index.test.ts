@@ -1,6 +1,8 @@
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Preserves the existing UUID mock used by these tests.
 import { v4 as createUUID } from 'uuid';
 
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
 // Mock all dependencies
 jest.mock('uuid');
 jest.mock('../coinflip');
@@ -21,7 +23,12 @@ import {
 import { getActiveTrace } from '../experience-trace-id-context/get-active-trace';
 import { setInteractionActiveTrace } from '../experience-trace-id-context/set-interaction-active-trace';
 import DefaultInteractionID from '../interaction-id-context/defaultInteractionId';
-import { abortAll, addNewInteraction, getActiveInteraction } from '../interaction-metrics';
+import {
+	abortAll,
+	addCustomData,
+	addNewInteraction,
+	getActiveInteraction,
+} from '../interaction-metrics';
 import UFORouteName from '../route-name-context';
 import traceUFOPress from './index';
 
@@ -88,6 +95,81 @@ describe('traceUFOPress', () => {
 			traceUFOPress('test-interaction');
 
 			expect(mockCoinflip).toHaveBeenCalledWith(5);
+		});
+	});
+
+	describe('custom data', () => {
+		const customData = { editSessionId: 'session-123', openStart: 500 };
+
+		beforeEach(() => {
+			mockCoinflip.mockReturnValue(true);
+			DefaultInteractionID.current = 'previous-interaction';
+		});
+
+		it('attaches data to the newly created interaction and preserves the event timestamp', () => {
+			passGate('platform_ufo_press_custom_data');
+
+			traceUFOPress('test-interaction', { timeStamp: 500 }, { customData });
+
+			expect(mockAddNewInteraction).toHaveBeenCalledWith(
+				'test-uuid-123',
+				'test-interaction',
+				'press',
+				500,
+				1,
+				[],
+				'test-route',
+				undefined,
+			);
+			expect(addCustomData).toHaveBeenCalledTimes(1);
+			expect(addCustomData).toHaveBeenCalledWith('test-uuid-123', [], customData);
+		});
+
+		it('still creates the press without metadata when the gate is off', () => {
+			failGate('platform_ufo_press_custom_data');
+
+			traceUFOPress('test-interaction', 500, { customData });
+
+			expect(mockAddNewInteraction).toHaveBeenCalled();
+			expect(addCustomData).not.toHaveBeenCalled();
+		});
+
+		it('does not annotate a previous interaction when sampling skips the press', () => {
+			mockCoinflip.mockReturnValue(false);
+
+			traceUFOPress('test-interaction', 500, { customData });
+
+			expect(mockAddNewInteraction).not.toHaveBeenCalled();
+			expect(addCustomData).not.toHaveBeenCalled();
+		});
+
+		it('does not attach metadata when UFO is disabled', () => {
+			mockIsUFOEnabled.mockReturnValue(false);
+
+			traceUFOPress('test-interaction', 500, { customData });
+
+			expect(mockAddNewInteraction).not.toHaveBeenCalled();
+			expect(addCustomData).not.toHaveBeenCalled();
+		});
+
+		it.each(['minor', 'do-not-abort'])('does not attach metadata to a %s interaction', (kind) => {
+			if (kind === 'minor') {
+				mockGetMinorInteractions.mockReturnValue(['test-interaction']);
+			} else {
+				mockGetDoNotAbortActivePressInteraction.mockReturnValue(['test-interaction']);
+			}
+
+			traceUFOPress('test-interaction', 500, { customData });
+
+			expect(mockAddNewInteraction).not.toHaveBeenCalled();
+			expect(addCustomData).not.toHaveBeenCalled();
+		});
+
+		it.each([undefined, {}])('leaves calls without metadata unchanged (%p)', (options) => {
+			traceUFOPress('test-interaction', 500, options);
+
+			expect(mockAddNewInteraction).toHaveBeenCalled();
+			expect(addCustomData).not.toHaveBeenCalled();
 		});
 	});
 

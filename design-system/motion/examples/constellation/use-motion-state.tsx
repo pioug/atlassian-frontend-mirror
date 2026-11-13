@@ -2,12 +2,12 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
 import { useMotion } from '@atlaskit/motion/entering/use-motion';
-import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
+import { Reanimate } from '@atlaskit/motion/reanimate';
 import StaggeredEntrance from '@atlaskit/motion/staggered-entrance';
 import { token } from '@atlaskit/tokens';
 
@@ -64,8 +64,14 @@ const styles = cssMap({
  * Renders the animated element alongside a readout of the state `useMotion` currently
  * returns, so the lifecycle can be observed as it runs.
  */
-function StatefulBlock(): React.JSX.Element {
-	const { ref, state } = useMotion<HTMLDivElement>();
+function StatefulBlock({ isVisible }: { isVisible: boolean }): React.JSX.Element {
+	const { ref, reanimate, state } = useMotion<HTMLDivElement>({
+		initialState: 'hidden',
+	});
+
+	useEffect(() => {
+		reanimate(isVisible ? Reanimate.enter : Reanimate.exit);
+	}, [isVisible, reanimate]);
 
 	return (
 		<div css={styles.row}>
@@ -93,15 +99,9 @@ export default function UseMotionStateExample(): React.JSX.Element {
 			</Button>
 			<div css={styles.list}>
 				<StaggeredEntrance delayStep={500} columns={1}>
-					<ExitingPersistence appear>
-						{isVisible && (
-							<React.Fragment>
-								<StatefulBlock key="first" />
-								<StatefulBlock key="second" />
-								<StatefulBlock key="third" />
-							</React.Fragment>
-						)}
-					</ExitingPersistence>
+					<StatefulBlock isVisible={isVisible} />
+					<StatefulBlock isVisible={isVisible} />
+					<StatefulBlock isVisible={isVisible} />
 				</StaggeredEntrance>
 			</div>
 		</React.Fragment>

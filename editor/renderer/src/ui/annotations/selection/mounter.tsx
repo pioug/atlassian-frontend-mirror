@@ -68,7 +68,12 @@ export const SelectionInlineCommentMounter: React.MemoExoticComponent<
 		generateIndexMatch,
 	} = props;
 
-	const { promoteSelectionToDraft, clearSelectionDraft } = useAnnotationRangeDispatch();
+	const {
+		promoteSelectionToDraft,
+		clearSelectionDraft,
+		setSelectionDraftTarget,
+		setDraftIntentSource,
+	} = useAnnotationRangeDispatch();
 	const { selectionDraftDocumentPosition } = useAnnotationRangeState();
 
 	const actions = useContext(ActionsContext);
@@ -273,6 +278,36 @@ export const SelectionInlineCommentMounter: React.MemoExoticComponent<
 		removeDraftModeCallback();
 		onCloseProps();
 	}, [onCloseProps, removeDraftModeCallback, createAnalyticsEvent, inlineNodeTypes]);
+
+	// Publish the range this mounter owns, so a draft can be resolved against the surface the user
+	// engaged rather than the ambient range, which flips between selection and hover. During a draft
+	// the selection range has been promoted away, and skipping the publish then keeps the target a
+	// draft captured.
+	useEffect(() => {
+		if (!annotationManager || !range) {
+			return;
+		}
+		setSelectionDraftTarget({ range, documentPosition, isAnnotationAllowed, source: 'selection' });
+		setDraftIntentSource('selection');
+	}, [
+		annotationManager,
+		range,
+		documentPosition,
+		isAnnotationAllowed,
+		setSelectionDraftTarget,
+		setDraftIntentSource,
+	]);
+
+	// Unmounting means the selection was cleared, so drop the published target.
+	useEffect(() => {
+		return () => {
+			if (annotationManager) {
+				setSelectionDraftTarget(null);
+			}
+		};
+		// Cleanup on unmount only; both dependencies are stable for this component's lifetime.
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	useEffect(() => {
 		if (annotationManager) {

@@ -5,6 +5,7 @@ import LongContent from '../../../examples/16-flag-long-content.vr.ap';
 import FlagGroupInModal from '../../../examples/20-flag-group-in-modal-dialog.vr.ap';
 import {
 	AppearanceFlags,
+	FlagsOverModal,
 	MultipleFlags,
 	SingleFlag,
 } from '../../../examples/vr-flag-group-top-layer.vr.ap';
@@ -112,5 +113,69 @@ snapshotInformational(FlagGroupInModal, {
 		await page.getByTestId('modal').waitFor({ state: 'visible' });
 		await page.getByRole('button', { name: 'Add flag' }).click();
 		await page.getByRole('alert').waitFor({ state: 'visible' });
+	},
+});
+
+// Each flag has its own top-layer host, which picks its place when the flag mounts.
+snapshotInformational(FlagsOverModal, {
+	description: 'flag shown while a modal is open',
+	drawsOutsideBounds: true,
+	featureFlags: featureFlagVariants,
+	variants: defaultLightVariants,
+	prepare: async (page) => {
+		await page.getByRole('button', { name: 'Open modal' }).click();
+		await page.getByTestId('modal').waitFor({ state: 'visible' });
+		await page.getByRole('button', { name: 'Show flag in modal' }).click();
+		await page.getByText('Shown in the modal').waitFor({ state: 'visible' });
+	},
+});
+
+snapshotInformational(FlagsOverModal, {
+	description: 'flag shown before a modal opens',
+	drawsOutsideBounds: true,
+	featureFlags: featureFlagVariants,
+	variants: defaultLightVariants,
+	prepare: async (page) => {
+		await page.getByRole('button', { name: 'Show flag' }).click();
+		await page.getByText('Shown before the modal').waitFor({ state: 'visible' });
+		await page.getByRole('button', { name: 'Open modal' }).click();
+		await page.getByTestId('modal').waitFor({ state: 'visible' });
+	},
+});
+
+snapshotInformational(FlagsOverModal, {
+	description: 'new flag in a modal over an earlier flag',
+	drawsOutsideBounds: true,
+	featureFlags: featureFlagVariants,
+	variants: defaultLightVariants,
+	prepare: async (page) => {
+		await page.getByRole('button', { name: 'Show flag' }).click();
+		await page.getByText('Shown before the modal').waitFor({ state: 'visible' });
+		await page.getByRole('button', { name: 'Open modal' }).click();
+		await page.getByTestId('modal').waitFor({ state: 'visible' });
+		await page.getByRole('button', { name: 'Show flag in modal' }).click();
+		await page.getByText('Shown in the modal').waitFor({ state: 'visible' });
+	},
+});
+
+// A real click: an inert flag under the modal would not get it.
+snapshotInformational(FlagsOverModal, {
+	description: 'flag shown while a modal is open is dismissed with a click',
+	drawsOutsideBounds: true,
+	featureFlags: featureFlagVariants,
+	variants: defaultLightVariants,
+	prepare: async (page) => {
+		await page.getByRole('button', { name: 'Show flag' }).click();
+		await page.getByText('Shown before the modal').waitFor({ state: 'visible' });
+		await page.getByRole('button', { name: 'Open modal' }).click();
+		await page.getByTestId('modal').waitFor({ state: 'visible' });
+		await page.getByRole('button', { name: 'Show flag in modal' }).click();
+		await page.getByText('Shown in the modal').waitFor({ state: 'visible' });
+		await page
+			.getByRole('alert')
+			.filter({ hasText: 'Shown in the modal' })
+			.getByRole('button', { name: /dismiss/i })
+			.click({ timeout: 5000 });
+		await page.getByText('Shown in the modal').waitFor({ state: 'detached' });
 	},
 });

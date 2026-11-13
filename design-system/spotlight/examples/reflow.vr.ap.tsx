@@ -14,6 +14,7 @@ import { cssMap, jsx } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { Text } from '@atlaskit/primitives/compiled/text';
+import UFOLoadHold from '@atlaskit/react-ufo/load-hold';
 import { SpotlightActions } from '@atlaskit/spotlight/actions';
 import { SpotlightBody } from '@atlaskit/spotlight/body';
 import { SpotlightCard } from '@atlaskit/spotlight/card';
@@ -31,7 +32,7 @@ import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	root: {
-		height: '150vh',
+		height: '100vh',
 		width: '100vw',
 		display: 'flex',
 		alignItems: 'center',
@@ -114,7 +115,11 @@ export const AsyncLoadedContent: ForwardRefExoticComponent<
 	});
 
 	if (isLoading) {
-		return <div ref={ref}>Loading</div>;
+		return (
+			<UFOLoadHold name={`reflow-${timeout}`}>
+				<div ref={ref}>Loading</div>
+			</UFOLoadHold>
+		);
 	}
 
 	return (

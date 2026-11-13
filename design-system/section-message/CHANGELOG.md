@@ -1,5 +1,12 @@
 # @atlaskit/section-message
 
+## 10.3.0
+
+### Minor Changes
+
+- [`c54a2220ddbac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c54a2220ddbac) -
+  Add iconLabel for localized status icon labels
+
 ## 10.2.6
 
 ### Patch Changes

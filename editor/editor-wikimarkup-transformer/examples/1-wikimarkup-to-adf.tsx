@@ -13,6 +13,7 @@ import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-f
 import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
+import type { Context } from '@atlaskit/editor-wikimarkup-transformer/interfaces';
 import type { MentionProvider } from '@atlaskit/mention/types';
 import ReactRenderer from '@atlaskit/renderer/renderer';
 import { token } from '@atlaskit/tokens';
@@ -21,7 +22,6 @@ import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-p
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 
 import { WikiMarkupTransformer } from '../src';
-import type { Context } from '../src/interfaces';
 
 const container = css({
 	display: 'grid',

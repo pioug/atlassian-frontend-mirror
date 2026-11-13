@@ -131,6 +131,18 @@ export const openQuickInsert = (
 	start: number,
 	openTypeAhead: () => void,
 ): void => {
+	if (
+		isExperimentEnabled('platform_editor_collapsible_headings') &&
+		api.blockCollapse?.sharedState.currentState()?.collapsedHeadingPositions.has(start)
+	) {
+		api.core.actions.execute(({ tr }) => {
+			api.blockCollapse?.commands.expandHeading(start)({ tr });
+			return createNewLine(start)({ tr });
+		});
+		openTypeAhead();
+		return;
+	}
+
 	const isSelectionInsideNode = isSelectionInNode(start, view);
 	const shouldCreateNewLine = !isSelectionInsideNode || isNonEditableBlock(start, view);
 	const reusableParagraphPosition =

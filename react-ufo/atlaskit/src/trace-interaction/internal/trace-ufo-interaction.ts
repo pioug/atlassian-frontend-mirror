@@ -3,6 +3,8 @@
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Preserves the existing UUID implementation.
 import { v4 as createUUID } from 'uuid';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
 import coinflip from '../../coinflip';
 import {
 	getDoNotAbortActivePressInteraction,
@@ -13,7 +15,13 @@ import {
 import { getActiveTrace } from '../../experience-trace-id-context/get-active-trace';
 import { setInteractionActiveTrace } from '../../experience-trace-id-context/set-interaction-active-trace';
 import DefaultInteractionID from '../../interaction-id-context/defaultInteractionId';
-import { abortAll, addNewInteraction, getActiveInteraction } from '../../interaction-metrics';
+import {
+	abortAll,
+	addCustomData,
+	addNewInteraction,
+	type CustomData,
+	getActiveInteraction,
+} from '../../interaction-metrics';
 import UFORouteName from '../../route-name-context';
 
 type InteractionType = 'press' | 'typing' | 'hover';
@@ -22,6 +30,7 @@ function traceUFOInteraction(
 	name: string,
 	interactionType: InteractionType,
 	startTime?: DOMHighResTimeStamp,
+	customData?: CustomData,
 ): void {
 	if (!isUFOEnabled()) {
 		return;
@@ -62,6 +71,16 @@ function traceUFOInteraction(
 			UFORouteName.current,
 			getActiveTrace(),
 		);
+
+		if (customData && fg('platform_ufo_press_custom_data')) {
+			addCustomData(
+				newId,
+				[],
+				typeof globalThis?.structuredClone === 'function'
+					? globalThis.structuredClone(customData)
+					: customData,
+			);
+		}
 	}
 }
 

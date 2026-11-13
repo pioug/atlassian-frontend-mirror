@@ -53,6 +53,9 @@
 			"path": "../../editor-shared-styles/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../editor-toolbar/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/icon/afm-products/tsconfig.json"
 		},
 		{

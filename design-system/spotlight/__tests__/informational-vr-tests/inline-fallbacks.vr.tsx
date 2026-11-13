@@ -5,7 +5,6 @@ import { InlineFallbacks } from '../../examples/all-placements.vr.ap';
 snapshotInformational(InlineFallbacks, {
 	featureFlags: {
 		'platform-component-visual-refresh': true,
-		'platform-dst-top-layer-spotlight': true,
 	},
 	variants: [{ name: 'Light', environment: { colorScheme: 'light' } }],
 	prepare: async (page) => {

@@ -1,13 +1,12 @@
 import React, { type FC, type MouseEvent, useCallback } from 'react';
 
-import AnalyticsListener from '../src/components/AnalyticsListener';
-import type UIAnalyticsEvent from '../src/events/UIAnalyticsEvent';
-import withAnalyticsEvents, {
-	type WithAnalyticsEventsProps,
-} from '../src/hocs/withAnalyticsEvents';
-import { useAnalyticsEvents } from '../src/hooks/useAnalyticsEvents';
-import { useCallbackWithAnalytics } from '../src/hooks/useCallbackWithAnalytics';
-import { usePlatformLeafEventHandler } from '../src/hooks/usePlatformLeafEventHandler';
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
+import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
+import { useCallbackWithAnalytics } from '@atlaskit/analytics-next/useCallbackWithAnalytics';
+import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
+import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
+import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
 
 interface Props extends WithAnalyticsEventsProps {
 	children: React.ReactNode;

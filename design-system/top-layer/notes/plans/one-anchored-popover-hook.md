@@ -23,7 +23,9 @@
 >   strategies collapse into one call site.
 > - **`placement` carries the floor.** `placement.minSize` is new, and is what makes Rule 2
 >   overridable — including `minSize: 0`, which is now the only expressible way to say "cap me but
->   do not move me".
+>   do not move me". (Removed 2026-11-12, unused; see
+>   [../decisions/fit-available-space.md](../decisions/fit-available-space.md) → _Update
+>   (2026-11-12, later)_.)
 > - **Step 1 was not done.** `setStyle` cleanup is still not idempotent. See
 >   [../decisions/anchored-popover-at-point.md](../decisions/anchored-popover-at-point.md) → _Open
 >   question_ — the argument for it is weaker with one writer, but it is not obviously zero.

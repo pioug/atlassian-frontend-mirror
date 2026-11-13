@@ -396,7 +396,16 @@ export const ReactMediaNode =
 		return new MediaNodeView(node, view, getPos, portalProviderAPI, eventDispatcher, {
 			eventDispatcher,
 			providerFactory,
-			mediaOptions,
+			mediaOptions:
+				mediaOptions?.allowAIGeneratedMediaMotion &&
+				isExperimentEnabled('cwr_remix_animate_stream_only')
+					? {
+							...mediaOptions,
+							allowAIGeneratedMediaMotion:
+								!!pluginInjectionApi?.media?.sharedState.currentState()
+									?.shouldAnimateInsertedContent,
+						}
+					: mediaOptions,
 			pluginInjectionApi,
 			intl,
 		}).init();

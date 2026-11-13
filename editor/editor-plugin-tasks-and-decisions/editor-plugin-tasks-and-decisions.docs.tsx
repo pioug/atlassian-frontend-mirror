@@ -17,7 +17,7 @@ const documentation: StructuredContentSource = {
 			status: 'internal',
 			import: {
 				name: 'tasksAndDecisionsPlugin',
-				package: '@atlaskit/editor-plugin-tasks-and-decisions',
+				package: '@atlaskit/editor-plugin-tasks-and-decisions/tasks-and-decisions-plugin',
 				type: 'named',
 				packagePath,
 				packageJson,

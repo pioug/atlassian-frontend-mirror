@@ -13,7 +13,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'DocumentViewer',
-				package: '@atlaskit/media-document-viewer',
+				package: '@atlaskit/media-document-viewer/document-viewer',
 				type: 'named',
 				packagePath,
 				packageJson,

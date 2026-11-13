@@ -7,9 +7,9 @@
 
 ## What was done
 
-The `FlagGroup` component wraps its flag container in `<Popover mode="manual">` from
-`@atlaskit/top-layer/popover` when `fg('platform-dst-top-layer')` is true. This replaces
-`@atlaskit/portal` with top-layer rendering.
+When `fg('platform-dst-top-layer')` is true, `FlagGroup` renders each flag in its own
+`<Popover mode="manual">` host from `@atlaskit/top-layer/popover`, inside a `DialogAwarePortal`.
+This replaces `@atlaskit/portal` with top-layer rendering.
 
 **Legacy path:**
 
@@ -20,8 +20,19 @@ shouldRenderToParent ? flags : <Portal zIndex={layers.flag()}>{flags}</Portal>
 **Top-layer path:**
 
 ```
-<Popover mode="manual" isOpen={true}>{flags}</Popover>
+<ExitingPersistence>
+  {flags.map((flag) => (
+    <DialogAwarePortal>
+      <Popover mode="manual" isOpen={true}>{flag}</Popover>
+    </DialogAwarePortal>
+  ))}
+</ExitingPersistence>
 ```
+
+Each flag has its own host. `DialogAwarePortal` (from `@atlaskit/top-layer/dialog-aware-portal`)
+renders it in place, or inside the `Dialog` that is topmost when the flag mounts. The first flag's
+host (the newest one from `FlagsProvider`) has the group label and `id`. See
+[Flags while a modal or drawer is open](#flags-while-a-modal-or-drawer-is-open).
 
 `isOpen` is **required** on `Popover`. Flag always passes `isOpen={true}` because flags are always
 visible when rendered — the flag group's own lifecycle (auto-dismiss timer, close button) controls
@@ -57,7 +68,61 @@ both for native light dismiss.
 Minimal. Flags now render in the browser's top layer instead of a portal. There are no API changes.
 
 The `shouldRenderToParent` prop still exists and is still accepted, but on the top-layer path it has
-no effect -- the Popover wrapper handles in-place rendering regardless.
+no effect: each flag host renders in place, or inside the topmost open `Dialog`.
+
+---
+
+## Flags while a modal or drawer is open
+
+A modal `<dialog>` makes everything outside it inert, popovers too, even a popover that paints above
+it. A flag host outside the open modal cannot be clicked or focused, and screen readers do not
+announce it. Legacy flags (z-index 600) sat above the modal blanket (510), and a pointer could use
+them. The legacy `ModalDialog` focus lock kept keyboard focus out of them by default.
+
+**Decided (2026-10-29, changed 2026-11-12):** each flag has its own host, which mounts with the
+flag. If a top-layer `Dialog` is open then (`ModalDialog`, `Drawer`, or a `Dialog` used directly),
+`FlagGroup` renders the host inside the topmost `<dialog>`, through `DialogAwarePortal`. When that
+dialog closes, the host moves (to the next open dialog, or in place). Every `FlagsProvider` gets
+this, with no API change.
+
+- A modal that opens while a flag shows, or in the same commit as the flag, does not take it. The
+  flag is under it, and inert, until it closes. The rule: a `Dialog` covers what was open before it.
+  This includes a modal that a flag action opens: focus returns to the action when it closes.
+- **Rejected (2026-11-12):** moving a flag into a modal that opens later. VoiceOver reads the moved
+  `role="alert"` again (remount, `append()` and `moveBefore()` all do), and it interrupts the
+  reading of the modal. We keep the flag's role. See
+  `decisions/dialog-covers-what-was-open-before.md`.
+- **Known gap:** a modal that blocks its close keeps a flag that showed before it unusable until it
+  closes. Keyboard users had this in legacy too (focus lock). Pointer users did not.
+- A new flag that shows while a modal is open renders inside it, even when earlier flags are under
+  it.
+- A modal dialog that a flag renders itself (for example a "Learn more" modal in the flag content)
+  is inside the host. Focus returns to the flag when that dialog closes.
+- **Accepted cost:** when a host's dialog closes, the move remounts that flag. It plays its enter
+  animation again, an `AutoDismissFlag` timer starts again, an expanded bold flag collapses, and a
+  screen reader reads it again.
+- A flag that shows in the commit that closes its modal (for example, a submit handler that shows a
+  flag and closes the modal) moves before paint. It does not show in the closing modal first.
+- **Accepted cost:** top-layer paint order is show order, not `z-index`. When flags remount
+  together, an older one can paint above the newest one during the slide after a dismiss.
+- **Known gap:** when a new flag shows while the first flag exits, the group label and `id` can be
+  on two hosts until the exit ends.
+- An Escape with focus in a flag goes to the dialog (a manual popover does not take Escape).
+- **Known gap:** Tab inside the dialog does not reach the flags yet. The dialog's focus wrap skips
+  every nested layer, and the flag host is a nested popover. A pointer press and screen readers
+  reach them.
+- React events from the flags still follow the React tree (`FlagsProvider`), not the dialog.
+
+See `architecture/dialog.md` ("Dialog aware portal").
+
+---
+
+## Server rendering
+
+The top-layer `FlagGroup` renders nothing on the server, as on the legacy path. `DialogAwarePortal`
+renders nothing on the server and while the client hydrates. After hydration, the hosts render, and
+the `Popover` layout effect calls `showPopover()`. Unlike the legacy path, flags that are present at
+hydration play their enter animation then. See `architecture/ssr.md`.
 
 ---
 
@@ -99,8 +164,8 @@ The pixel diff is concentrated around the flag card and the modal blanket region
 - **Legacy path**: `shouldRenderToParent={true}` renders the FlagGroup inline within the modal DOM.
   The flag has `position: fixed` so it still appears at the viewport bottom-left, but it exists
   within the modal's stacking context and z-index layer.
-- **Top-layer path**: The FlagGroup renders via `<Popover mode="manual">` in a separate top-layer
-  entry. This is a distinct stacking context above the modal's top-layer entry.
+- **Top-layer path**: each flag renders in its own `<Popover mode="manual">` host, inside the
+  modal's `<dialog>` (through `DialogAwarePortal`), so it is above the modal and not inert.
 
 Additionally, the `platform-dst-top-layer` flag also controls modal-dialog's own rendering path, so
 the modal's blanket rendering changes from a styled overlay to a native `::backdrop`. The
@@ -114,16 +179,18 @@ prop being ignored on the top-layer path.
 
 ## Test coverage
 
-Unit tests: The change is a thin wrapper (`<Popover>` around the existing flag group JSX), and
-existing flag-group tests run against whichever rendering path is active based on the feature flag
-in the test environment.
+Unit tests: each flag is wrapped in its own host (`DialogAwarePortal` and `<Popover>`), and existing
+flag-group tests run against whichever rendering path is active based on the feature flag in the
+test environment.
 
 Browser tests: `flag/src/__tests__/playwright/ff-testing/platform-dst-top-layer/flag.spec.tsx` — 6
 tests covering 1.3.2, 2.1.1, 2.4.7, 2.4.11, 4.1.2 (dismiss button accessible label test is SKIPPED).
 
-Visual regression tests: `flag/src/__tests__/informational-vr-tests/flag-top-layer.vr.tsx` — 9
-scenarios (18 snapshots total: 9 with flag on, 9 with flag off) covering single flag, multiple
-flags, appearances, hover/focus states, long title/content, mobile viewport, and flag-in-modal.
+Visual regression tests: `flag/src/__tests__/informational-vr-tests/flag-top-layer.vr.tsx` — 13
+scenarios (26 snapshots total: 13 with flag on, 13 with flag off) covering single flag, multiple
+flags, appearances, hover/focus states, long title/content, mobile viewport, flag-in-modal, and
+app-level flags over a modal (shown while it is open, shown before it opens, a new flag over an
+earlier one, and a dismiss by click).
 
 ### Accessibility (top-layer path)
 
@@ -164,6 +231,7 @@ top-layer migration. They exist in both the legacy and top-layer paths:
 | File                 | Change                                                                              |
 | -------------------- | ----------------------------------------------------------------------------------- |
 | `src/flag-group.tsx` | Added `<Popover mode="manual">` wrapper behind `platform-dst-top-layer` flag        |
+| `src/flag-group.tsx` | One host for each flag, in `DialogAwarePortal`, so it mounts in the topmost modal   |
 | `package.json`       | Added `platform-dst-top-layer` feature flag; added `@atlaskit/top-layer` dependency |
 
 ---
@@ -174,16 +242,17 @@ top-layer migration. They exist in both the legacy and top-layer paths:
 
 ### Changes that execute WITHOUT the feature flag
 
-- **Unconditional top-level import** of `@atlaskit/top-layer/popover` in `flag-group.tsx`
+- **Unconditional top-level imports** of `@atlaskit/top-layer/popover` and
+  `@atlaskit/top-layer/dialog-aware-portal` in `flag-group.tsx`
   - Import is side-effect-free; does not execute code at module load time
   - No top-level DOM access or initialization
   - **Impact:** Bundle size increase only (negligible; Popover is tree-shakeable)
 
 ### Changes gated behind `platform-dst-top-layer`
 
-- **`flag-group.tsx:201`** — `fg('platform-dst-top-layer')` condition wraps the
-  `<Popover mode="manual">` component
-  - When flag is ON: FlagGroup renders via `<Popover mode="manual">` (top-layer rendering)
+- **`flag-group.tsx`** — `fg('platform-dst-top-layer')` condition gives each flag its own
+  `<Popover mode="manual">` host
+  - When flag is ON: each flag renders via `<Popover mode="manual">` (top-layer rendering)
   - When flag is OFF: FlagGroup uses legacy Portal path (no change)
 
 ### Residual risks (flag off)
@@ -223,4 +292,4 @@ top-layer migration. They exist in both the legacy and top-layer paths:
 
 **Summary:** All existing tests pass. 11 new gap tests added and passing. VR tests confirm visual
 equivalence on the legacy path and expected behavior on the top-layer path. This is the simplest
-migration of all packages — a thin wrapper with no breaking changes to the legacy path.
+migration of all packages — a host for each flag, with no breaking changes to the legacy path.

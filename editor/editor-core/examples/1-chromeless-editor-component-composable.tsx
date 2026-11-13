@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { cssMap } from '@atlaskit/css';
+import { ChromelessEditor } from '@atlaskit/editor-core/appearance-editor-chromeless';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { highlightPlugin } from '@atlaskit/editor-plugin-highlight/highlightPlugin';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink/hyperlinkPlugin';
@@ -29,8 +30,6 @@ import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
 import Toggle from '@atlaskit/toggle/toggle';
 import { token } from '@atlaskit/tokens';
-
-import { ChromelessEditor } from '../src/editor-appearances/ChromelessEditor';
 
 const styles = cssMap({
 	container: {

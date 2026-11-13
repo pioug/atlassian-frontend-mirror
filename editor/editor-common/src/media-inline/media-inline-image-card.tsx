@@ -20,6 +20,7 @@ import type { FileIdentifier } from '@atlaskit/media-client/identifier';
 import type { MediaClient } from '@atlaskit/media-client/media-client';
 import type { FileState } from '@atlaskit/media-client/media-state';
 import MediaViewer from '@atlaskit/media-viewer/media-viewer-loader';
+import type { MediaViewerExtensions } from '@atlaskit/media-viewer/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
@@ -41,6 +42,8 @@ export interface MediaInlineImageCardProps {
 	isSelected?: boolean;
 	isViewOnly?: boolean;
 	mediaClient?: MediaClient;
+	/** Extensions passed to the Media Viewer this card opens. */
+	mediaViewerExtensions?: MediaViewerExtensions;
 	serializeDataAttrs?: boolean;
 	shouldOpenMediaViewer?: boolean;
 	ssr?: MediaSSR;
@@ -60,12 +63,26 @@ export const MediaInlineImageCardInternal = ({
 	serializeDataAttrs,
 	shouldOpenMediaViewer,
 	isViewOnly,
+	mediaViewerExtensions,
 }: MediaInlineImageCardProps & WrappedComponentProps & MediaInlineAttrs): jsx.JSX.Element => {
 	const [fileState, setFileState] = useState<FileState | undefined>();
 	const [subscribeError, setSubscribeError] = useState<Error>();
 	const [isFailedEventSent, setIsFailedEventSent] = useState(false);
 	const [isSucceededEventSent, setIsSucceededEventSent] = useState(false);
-	const [isMediaViewerVisible, setMediaViewerVisible] = useState(false);
+	const [isMediaViewerVisible, setMediaViewerVisibleState] = useState(false);
+	// Extension passing added as part of the comments-in-media-viewer work, so it follows that
+	// experiment to avoid shipping ungated changes.
+	const enabledMediaViewerExtensions =
+		mediaViewerExtensions && isExperimentEnabled('cc_comments_media_viewer_sidebar')
+			? mediaViewerExtensions
+			: undefined;
+	const setMediaViewerVisible = useCallback(
+		(isVisible: boolean) => {
+			setMediaViewerVisibleState(isVisible);
+			enabledMediaViewerExtensions?.onSelectedItemChange?.(isVisible ? identifier : null);
+		},
+		[identifier, enabledMediaViewerExtensions],
+	);
 	const { formatMessage } = intl || createIntl({ locale: 'en' });
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
@@ -236,12 +253,12 @@ export const MediaInlineImageCardInternal = ({
 				e.preventDefault();
 			}
 		},
-		[shouldOpenMediaViewer, isViewOnly],
+		[shouldOpenMediaViewer, isViewOnly, setMediaViewerVisible],
 	);
 
 	const onMediaInlinePreviewClose = useCallback(() => {
 		setMediaViewerVisible(false);
-	}, []);
+	}, [setMediaViewerVisible]);
 
 	const memoizedMediaViewerItems = useMemo(() => [identifier], [identifier]);
 
@@ -259,6 +276,7 @@ export const MediaInlineImageCardInternal = ({
 					mediaClientConfig={mediaClient?.mediaClientConfig}
 					selectedItem={identifier}
 					onClose={onMediaInlinePreviewClose}
+					extensions={enabledMediaViewerExtensions}
 				/>,
 				document.body,
 			);
@@ -270,6 +288,7 @@ export const MediaInlineImageCardInternal = ({
 		mediaClient?.mediaClientConfig,
 		onMediaInlinePreviewClose,
 		memoizedMediaViewerItems,
+		enabledMediaViewerExtensions,
 	]);
 
 	return (

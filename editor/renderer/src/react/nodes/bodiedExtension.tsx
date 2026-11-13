@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 
 import type { Layout as ExtensionLayout } from '@atlaskit/adf-schema/extensions';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
@@ -59,11 +59,33 @@ interface Props {
 	serializer: Serializer<any>;
 	shouldDisplayExtensionAsInline?: (extensionParams?: ExtensionParams<Parameters>) => boolean;
 	startPos: number;
+	/** Omit the raw SSR body until the initial app handoff. Later fallbacks and app input are unchanged. */
+	suppressInitialFallback?: boolean;
 }
+
+/** Restore the normal fallback after the renderer has committed its first app result. */
+const InitialBodiedExtensionFallback = ({
+	hasResult,
+	fallback,
+	render,
+}: {
+	fallback: React.ReactNode;
+	hasResult: boolean;
+	render: (fallback: React.ReactNode) => React.JSX.Element;
+}): React.JSX.Element => {
+	const [hasRenderedApp, setHasRenderedApp] = useState(false);
+	useEffect(() => {
+		if (hasResult) {
+			setHasRenderedApp(true);
+		}
+	}, [hasResult]);
+	return render(hasRenderedApp ? fallback : null);
+};
 
 const BodiedExtensionContent = (props: React.PropsWithChildren<Props>): React.JSX.Element => {
 	const {
 		children,
+		suppressInitialFallback = false,
 		layout = 'default',
 		path = [],
 		extensionKey,
@@ -132,6 +154,7 @@ const BodiedExtensionContent = (props: React.PropsWithChildren<Props>): React.JS
 										localId={localId}
 										preserveContentUntilReady={handoffMode === 'preserve-until-ready'}
 										fallback={children}
+										suppressInitialFallback={suppressInitialFallback}
 										result={React.isValidElement(result) ? result : null}
 									/>,
 									layout,
@@ -150,51 +173,62 @@ const BodiedExtensionContent = (props: React.PropsWithChildren<Props>): React.JS
 									node,
 								);
 							}
-							try {
-								if (result && React.isValidElement(result)) {
-									// Return the content directly if it's a valid JSX.Element
-									return renderExtension(
-										result,
-										layout,
-										{
-											...presetOptions,
-											isTopLevel: path.length < 1,
-											marks: isBreakoutResizingEnabled ? props.marks : undefined,
-											rendererAppearance: props.rendererAppearance,
-											fireAnalyticsEvent,
-										},
-										removeOverflow,
-										parameters?.extensionId,
-										extensionViewportSizes,
-										presetMinHeight,
-										localId,
-										shouldDisplayExtensionAsInline,
-										node,
-									);
+							const renderResult = (fallbackBody: React.ReactNode) => {
+								try {
+									if (result && React.isValidElement(result)) {
+										// Return the content directly if it's a valid JSX.Element
+										return renderExtension(
+											result,
+											layout,
+											{
+												...presetOptions,
+												isTopLevel: path.length < 1,
+												marks: isBreakoutResizingEnabled ? props.marks : undefined,
+												rendererAppearance: props.rendererAppearance,
+												fireAnalyticsEvent,
+											},
+											removeOverflow,
+											parameters?.extensionId,
+											extensionViewportSizes,
+											presetMinHeight,
+											localId,
+											shouldDisplayExtensionAsInline,
+											node,
+										);
+									}
+								} catch {
+									/** We don't want this error to block renderer */
+									/** Keep rendering the configured fallback. */
 								}
-							} catch {
-								/** We don't want this error to block renderer */
-								/** We keep rendering the default content */
-							}
 
-							// Always return default content if anything goes wrong
-							return renderExtension(
-								children,
-								layout,
-								{
-									...presetOptions,
-									isTopLevel: path.length < 1,
-									marks: isBreakoutResizingEnabled ? props.marks : undefined,
-									rendererAppearance: props.rendererAppearance,
-									fireAnalyticsEvent,
-								},
-								removeOverflow,
-								parameters?.extensionId,
-								extensionViewportSizes,
-								presetMinHeight,
-								localId,
-								shouldDisplayExtensionAsInline,
-								node,
+								// Render the configured body fallback when no app output is available.
+								return renderExtension(
+									fallbackBody,
+									layout,
+									{
+										...presetOptions,
+										isTopLevel: path.length < 1,
+										marks: isBreakoutResizingEnabled ? props.marks : undefined,
+										rendererAppearance: props.rendererAppearance,
+										fireAnalyticsEvent,
+									},
+									removeOverflow,
+									parameters?.extensionId,
+									extensionViewportSizes,
+									presetMinHeight,
+									localId,
+									shouldDisplayExtensionAsInline,
+									node,
+								);
+							};
+							return suppressInitialFallback ? (
+								<InitialBodiedExtensionFallback
+									hasResult={React.isValidElement(result)}
+									fallback={children}
+									render={renderResult}
+								/>
+							) : (
+								renderResult(children)
 							);
 						}}
 					</ExtensionRenderer>

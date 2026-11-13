@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 
+import Button from '@atlaskit/button/default/button';
 import noop from '@atlaskit/ds-lib/noop';
 import Flag from '@atlaskit/flag/flag';
 import { FlagGroup } from '@atlaskit/flag/flag-group';
+import { FlagsProvider } from '@atlaskit/flag/flags-provider';
 import { type AppearanceTypes } from '@atlaskit/flag/types';
+import { useFlags } from '@atlaskit/flag/use-flags';
 import StatusErrorIcon from '@atlaskit/icon/core/status-error';
 import StatusInformationIcon from '@atlaskit/icon/core/status-information';
 import StatusSuccessIcon from '@atlaskit/icon/core/status-success';
 import StatusWarningIcon from '@atlaskit/icon/core/status-warning';
+import ModalBody from '@atlaskit/modal-dialog/modal-body';
+import Modal from '@atlaskit/modal-dialog/modal-dialog';
+import ModalHeader from '@atlaskit/modal-dialog/modal-header';
+import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 import { token } from '@atlaskit/tokens';
 
 const actions = [
@@ -118,4 +126,49 @@ export function AppearanceFlags(): React.JSX.Element {
 
 export default function FlagGroupTopLayerExample(): React.JSX.Element {
 	return <SingleFlag />;
+}
+
+function FlagsOverModalPage() {
+	const [isOpen, setIsOpen] = useState(false);
+	const { showFlag } = useFlags();
+	function show({ title }: { title: string }) {
+		showFlag({
+			id: title,
+			icon: <StatusInformationIcon label="" color={token('color.icon.information')} />,
+			title,
+			description: 'This flag comes from the app-level flags provider.',
+		});
+	}
+	return (
+		<>
+			<Button onClick={() => show({ title: 'Shown before the modal' })}>Show flag</Button>
+			<Button onClick={() => setIsOpen(true)}>Open modal</Button>
+			<ModalTransition>
+				{isOpen ? (
+					<Modal onClose={() => setIsOpen(false)} testId="modal">
+						<ModalHeader hasCloseButton>
+							<ModalTitle>Modal</ModalTitle>
+						</ModalHeader>
+						<ModalBody>
+							<Button onClick={() => show({ title: 'Shown in the modal' })}>
+								Show flag in modal
+							</Button>
+						</ModalBody>
+					</Modal>
+				) : null}
+			</ModalTransition>
+		</>
+	);
+}
+
+/**
+ * App-level flags and a modal. With top layer on, a flag that shows while the modal is open renders
+ * inside it. A flag that showed before the modal opened stays under it.
+ */
+export function FlagsOverModal(): React.JSX.Element {
+	return (
+		<FlagsProvider>
+			<FlagsOverModalPage />
+		</FlagsProvider>
+	);
 }

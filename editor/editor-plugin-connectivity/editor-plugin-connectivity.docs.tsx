@@ -17,7 +17,7 @@ const documentation: StructuredContentSource = {
 			status: 'internal',
 			import: {
 				name: 'connectivityPlugin',
-				package: '@atlaskit/editor-plugin-connectivity',
+				package: '@atlaskit/editor-plugin-connectivity/connectivityPlugin',
 				type: 'named',
 				packagePath,
 				packageJson,

@@ -234,13 +234,11 @@ describe('useAnchoredPopover', () => {
 		function SizedPopover({
 			inlineSize,
 			blockSize,
-			minSize,
 			forceFallbackPositioning = false,
 			shouldPreserveInlineSize = false,
 		}: {
 			inlineSize?: Parameters<typeof useAnchoredPopover>[0]['inlineSize'];
 			blockSize?: Parameters<typeof useAnchoredPopover>[0]['blockSize'];
-			minSize?: number;
 			forceFallbackPositioning?: boolean;
 			shouldPreserveInlineSize?: boolean;
 		}) {
@@ -250,7 +248,7 @@ describe('useAnchoredPopover', () => {
 			useAnchoredPopover({
 				anchorRef: anchorRef,
 				popoverRef,
-				placement: { axis: 'block', edge: 'end', minSize },
+				placement: { axis: 'block', edge: 'end' },
 				inlineSize,
 				blockSize,
 				forceFallbackPositioning,
@@ -341,12 +339,6 @@ describe('useAnchoredPopover', () => {
 			expect(popover.style.getPropertyValue('inline-size')).toBe('');
 			// Everything else is still written.
 			expect(popover.style.getPropertyValue('max-inline-size')).toBe('calc(100dvw - 2 * 5px)');
-		});
-
-		it('lets minSize: 0 opt out of the floor', () => {
-			render(<SizedPopover blockSize="max-available" minSize={0} />);
-
-			expect(screen.getByTestId('popover').style.getPropertyValue('min-block-size')).toBe('0px');
 		});
 
 		it("uses anchor-size() for 'match-anchor' on the CSS path", () => {
@@ -1028,25 +1020,6 @@ describe('useAnchoredPopover', () => {
 			rerender(<Probe placement={{ axis: 'block', edge: 'start' }} onRender={onRender} />);
 
 			// Shape changed, so the effect must re-run and write styles.
-			expect(setPropertySpy).toHaveBeenCalled();
-
-			setPropertySpy.mockRestore();
-		});
-
-		it('does re-run the effect when only minSize changes', () => {
-			const onRender = jest.fn();
-
-			const { rerender } = render(
-				<Probe placement={{ axis: 'block', edge: 'end', minSize: 10 }} onRender={onRender} />,
-			);
-
-			const popover = screen.getByTestId('popover');
-			const setPropertySpy = jest.spyOn(popover.style, 'setProperty');
-
-			rerender(
-				<Probe placement={{ axis: 'block', edge: 'end', minSize: 20 }} onRender={onRender} />,
-			);
-
 			expect(setPropertySpy).toHaveBeenCalled();
 
 			setPropertySpy.mockRestore();

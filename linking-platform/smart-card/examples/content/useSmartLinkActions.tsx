@@ -7,10 +7,10 @@ import {
 	ResolvedClientUrl,
 } from '@atlaskit/link-test-helpers/smart-card/mocks/clients';
 import { Box } from '@atlaskit/primitives/compiled/box';
+import { Card } from '@atlaskit/smart-card/card/lazy';
+import { CardAction } from '@atlaskit/smart-card/enums';
+import { useSmartLinkActions } from '@atlaskit/smart-card/hook/use-smart-link-actions';
 
-import { Card } from '../../src';
-import { CardAction } from '../../src/constants';
-import { useSmartLinkActions } from '../../src/hooks';
 import ExampleContainer from './example-container';
 
 const PreviewButton = ({ url }: { url: string }) => {

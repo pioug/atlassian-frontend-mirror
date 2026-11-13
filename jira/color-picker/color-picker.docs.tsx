@@ -12,8 +12,8 @@ const documentation: StructuredContentSource = {
 				'A button that opens a palette for choosing one color to apply to a host object, such as a label or card.',
 			status: 'general-availability',
 			import: {
-				name: 'default',
-				package: '@atlaskit/color-picker',
+				name: 'ColorPicker',
+				package: '@atlaskit/color-picker/ColorPicker',
 				type: 'default',
 				packagePath,
 				packageJson,
@@ -46,7 +46,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'ColorPickerWithoutAnalytics',
-				package: '@atlaskit/color-picker',
+				package: '@atlaskit/color-picker/ColorPicker',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -78,8 +78,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'ColorPaletteMenu',
-				package: '@atlaskit/color-picker',
-				type: 'named',
+				package: '@atlaskit/color-picker/ColorPaletteMenu',
+				type: 'default',
 				packagePath,
 				packageJson,
 			},
@@ -112,7 +112,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'ColorPaletteMenuWithoutAnalytics',
-				package: '@atlaskit/color-picker',
+				package: '@atlaskit/color-picker/ColorPaletteMenu',
 				type: 'named',
 				packagePath,
 				packageJson,

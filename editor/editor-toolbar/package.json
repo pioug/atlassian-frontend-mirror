@@ -3,7 +3,7 @@
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
 	},
-	"version": "2.10.8",
+	"version": "2.11.1",
 	"description": "Common UI for Toolbars across the platform",
 	"atlassian": {
 		"website": {
@@ -63,6 +63,7 @@
 		"./define-icon": "./src/entry-points/define-icon.tsx",
 		"./delete-icon": "./src/entry-points/DeleteIcon.tsx",
 		"./emoji-icon": "./src/entry-points/emoji-icon.tsx",
+		"./field-text-icon": "./src/entry-points/field-text-icon.tsx",
 		"./heading-five-icon": "./src/entry-points/heading-five-icon.tsx",
 		"./heading-four-icon": "./src/entry-points/heading-four-icon.tsx",
 		"./heading-one-icon": "./src/entry-points/heading-one-icon.tsx",

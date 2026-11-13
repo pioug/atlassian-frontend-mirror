@@ -4,7 +4,6 @@
 import React from 'react';
 
 import { Text } from '@atlaskit/primitives/compiled/text';
-import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { fireEvent, render } from '@atlassian/testing-library/testing-library/react';
 
@@ -112,12 +111,9 @@ describe('PopoverContent', () => {
 
 	describe('with top-layer positioning enabled', () => {
 		it('renders a manual top-layer popover with dialog role', () => {
-			passGate('platform-dst-top-layer-spotlight');
-
 			// Visual placement wiring (target ↔ popover positioning) is
 			// covered by the `AllPlacements` and `Offset` visual-regression
 			// snapshots in `__tests__/vr-tests/index.vr.tsx` (with
-			// `platform-dst-top-layer-spotlight: true`). The placement map itself is
 			// unit-tested in `placement-map.test.tsx`. Here we only assert
 			// the configuration that VR cannot observe — `mode='manual'`
 			// (top-layer stack semantics) and `role='dialog'` (a11y).
@@ -161,8 +157,6 @@ describe('PopoverContent', () => {
 		});
 
 		it('dismisses on Escape with a synthetic keyboard event', () => {
-			passGate('platform-dst-top-layer-spotlight');
-
 			const mockDismiss = jest.fn();
 
 			render(
@@ -193,8 +187,6 @@ describe('PopoverContent', () => {
 		});
 
 		it('dismisses on outside click and respects shouldDismissOnClickOutside', () => {
-			passGate('platform-dst-top-layer-spotlight');
-
 			const mockDismiss = jest.fn();
 			const { rerender } = render(
 				<PopoverProvider>
@@ -247,8 +239,6 @@ describe('PopoverContent', () => {
 		});
 
 		it('does not dismiss when clicking inside the top-layer popover', () => {
-			passGate('platform-dst-top-layer-spotlight');
-
 			const mockDismiss = jest.fn();
 
 			render(
@@ -320,14 +310,15 @@ describe('PopoverContent', () => {
 			document.body.appendChild(outsideElement);
 
 			// Click outside the popover
-			fireEvent.mouseUp(outsideElement);
+			fireEvent.pointerDown(outsideElement);
+			fireEvent.pointerUp(outsideElement);
+			fireEvent.click(outsideElement);
 
 			// Should call dismiss
 			expect(mockDismiss).toHaveBeenCalledTimes(1);
 			expect(mockDismiss).toHaveBeenCalledWith(
 				expect.objectContaining({
-					type: 'mouseup',
-					target: outsideElement,
+					type: 'click',
 				}),
 			);
 		});
@@ -364,14 +355,15 @@ describe('PopoverContent', () => {
 			document.body.appendChild(outsideElement);
 
 			// Click outside the popover
-			fireEvent.mouseUp(outsideElement);
+			fireEvent.pointerDown(outsideElement);
+			fireEvent.pointerUp(outsideElement);
+			fireEvent.click(outsideElement);
 
 			// Should call dismiss (default behavior)
 			expect(mockDismiss).toHaveBeenCalledTimes(1);
 			expect(mockDismiss).toHaveBeenCalledWith(
 				expect.objectContaining({
-					type: 'mouseup',
-					target: outsideElement,
+					type: 'click',
 				}),
 			);
 		});
@@ -408,7 +400,9 @@ describe('PopoverContent', () => {
 			document.body.appendChild(outsideElement);
 
 			// Click outside the popover
-			fireEvent.mouseUp(outsideElement);
+			fireEvent.pointerDown(outsideElement);
+			fireEvent.pointerUp(outsideElement);
+			fireEvent.click(outsideElement);
 
 			// Should NOT call dismiss
 			expect(mockDismiss).not.toHaveBeenCalled();
@@ -449,9 +443,15 @@ describe('PopoverContent', () => {
 			document.body.appendChild(outsideElement2);
 
 			// Click outside the popover multiple times
-			fireEvent.mouseUp(outsideElement1);
-			fireEvent.mouseUp(outsideElement2);
-			fireEvent.mouseUp(document.body);
+			fireEvent.pointerDown(outsideElement1);
+			fireEvent.pointerUp(outsideElement1);
+			fireEvent.click(outsideElement1);
+			fireEvent.pointerDown(outsideElement2);
+			fireEvent.pointerUp(outsideElement2);
+			fireEvent.click(outsideElement2);
+			fireEvent.pointerDown(document.body);
+			fireEvent.pointerUp(document.body);
+			fireEvent.click(document.body);
 
 			// Should NOT call dismiss for any of the clicks
 			expect(mockDismiss).not.toHaveBeenCalled();
@@ -497,7 +497,9 @@ describe('PopoverContent', () => {
 			document.body.appendChild(outsideElement);
 
 			// Click outside the popover - should NOT dismiss
-			fireEvent.mouseUp(outsideElement);
+			fireEvent.pointerDown(outsideElement);
+			fireEvent.pointerUp(outsideElement);
+			fireEvent.click(outsideElement);
 			expect(mockDismiss).not.toHaveBeenCalled();
 
 			// Click the dismiss control - should dismiss

@@ -39,8 +39,8 @@ export function marginBoxAround({ size }: { size: number }): number {
 
 /**
  * The flip threshold at the fixed DEFAULT floor, which is what a fitting popover
- * with no anchor-relative placement axis and no `placement.minSize` gets where
- * `calc-size()` is not supported. Only valid where the clamp in `defaultFloor`
+ * with no anchor-relative placement axis gets where `calc-size()` is not
+ * supported. Only valid where the clamp in `defaultFloor`
  * does not bind; the short-viewport case computes its own. Where `calc-size()` is
  * supported the floor follows the content instead; see `defaultFloorFor`.
  */
@@ -85,8 +85,7 @@ export function defaultFloor({
  * content's own size up to the clamp, with no 150px term. Elsewhere it is the
  * fixed `defaultFloor` whatever the content.
  *
- * Not for an explicit floor (`placement.minSize`, an anchor-relative size),
- * which never takes the content-sized form.
+ * Not for an anchor floor, which never takes the content-sized form.
  */
 export function defaultFloorFor({
 	content,
@@ -109,8 +108,8 @@ export function defaultFloorFor({
  * The size a fitting popover should end up at under CSS Anchor Positioning. The
  * cap is the cell less the gap and the reserved viewport padding; the floor wins
  * over the cap, which is what makes a too-small cell overflow. Pass `floor` to
- * model an explicit `placement.minSize`, including `0`, or the content-sized
- * default from `defaultFloorFor`.
+ * model a different floor, for example the content-sized default from
+ * `defaultFloorFor`.
  */
 export function expectedFittedSize({
 	cell,

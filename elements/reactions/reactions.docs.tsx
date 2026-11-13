@@ -30,7 +30,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'ConnectedReactionPicker',
-				package: '@atlaskit/reactions',
+				package: '@atlaskit/reactions/ConnectedReactionPicker',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -57,7 +57,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'ConnectedReactionsView',
-				package: '@atlaskit/reactions',
+				package: '@atlaskit/reactions/ConnectedReactionsView',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -85,7 +85,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Reaction',
-				package: '@atlaskit/reactions',
+				package: '@atlaskit/reactions/Reaction',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -110,7 +110,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'ReactionPicker',
-				package: '@atlaskit/reactions',
+				package: '@atlaskit/reactions/ReactionPicker',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -135,7 +135,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Reactions',
-				package: '@atlaskit/reactions',
+				package: '@atlaskit/reactions/Reactions',
 				type: 'named',
 				packagePath,
 				packageJson,

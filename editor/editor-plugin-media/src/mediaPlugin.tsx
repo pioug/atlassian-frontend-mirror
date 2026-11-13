@@ -226,6 +226,14 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 			},
 		},
 		commands: {
+			setInsertAnimationEnabled:
+				(enabled) =>
+				({ tr }) =>
+					isExperimentEnabled('cwr_remix_animate_stream_only')
+						? tr
+								.setMeta(stateKey, { shouldAnimateInsertedContent: enabled })
+								.setMeta('addToHistory', false)
+						: null,
 			showMediaViewer,
 			hideMediaViewer,
 			trackMediaPaste,

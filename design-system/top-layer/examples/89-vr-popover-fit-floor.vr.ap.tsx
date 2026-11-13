@@ -4,11 +4,10 @@
  */
 /**
  * VR fixtures for the flip FLOOR that `useAnchoredPopover` turns on whenever
- * EITHER axis asks to fit, and for `placement.minSize: 0` opting out of it.
+ * EITHER axis asks to fit.
  *
- * A 2x2 of `{roomy, cramped} x {default floor, minSize: 0}`, so any difference
- * between the columns is the floor and nothing else. `insetBlockEnd` on the
- * cramped anchor leaves a fixed 40px cell below it whatever the VR viewport
+ * A roomy and a cramped cell, both with the default floor. `insetBlockEnd` on
+ * the cramped anchor leaves a fixed 40px cell below it whatever the VR viewport
  * height is, well under a floored popover's 163px margin box.
  *
  * `VrAnchorFloor` covers WHICH value the floor takes, and
@@ -133,34 +132,24 @@ const styles = cssMap({
 
 /**
  * An auto-opened popover fitting the available block space, with the anchor either
- * well clear of the viewport edge or hard against it. `minSize` is passed straight
- * through, so one column is exactly the other plus `minSize: 0`.
+ * well clear of the viewport edge or hard against it.
  */
 function VrFitFloor({
 	label,
 	space,
 	content,
-	minSize,
 	forceFallbackPositioning = false,
 }: {
 	label: string;
 	space: 'roomy' | 'cramped' | 'modest';
 	content: 'shortContent' | 'tallContent';
-	minSize?: 0;
 	forceFallbackPositioning?: boolean;
 }) {
 	const anchorRef = useRef<HTMLButtonElement>(null);
 	const popoverRef = useRef<HTMLDivElement>(null);
 	const [isOpen, setIsOpen] = useState(true);
 
-	const placement: TPlacementOptions = {
-		axis: 'block',
-		edge: 'end',
-		align: 'center',
-		// Absent means "not specified", which is what lets the default floor apply,
-		// so it is spread rather than passed as `undefined`.
-		...(minSize === undefined ? {} : { minSize }),
-	};
+	const placement: TPlacementOptions = { axis: 'block', edge: 'end', align: 'center' };
 
 	useAnchoredPopover({
 		anchorRef: anchorRef,
@@ -207,27 +196,11 @@ export function VrFitFloorRoomyDefault(): ReactNode {
 }
 
 /**
- * The same roomy cell with `minSize: 0`, so the popover hugs its content. The
- * height difference against the fixture above is the floor.
- */
-export function VrFitFloorRoomyMinSizeZero(): ReactNode {
-	return <VrFitFloor label="minSize 0" space="roomy" content="shortContent" minSize={0} />;
-}
-
-/**
  * The floor's BENEFIT: with only 40px of room below the anchor, the floored margin
  * box overflows that cell and the popover moves above it at full size.
  */
 export function VrFitFloorCrampedDefault(): ReactNode {
 	return <VrFitFloor label="default floor" space="cramped" content="tallContent" />;
-}
-
-/**
- * The same cramped cell with `minSize: 0`: with no floor the popover never
- * overflows, so it stays below the anchor and letterboxes.
- */
-export function VrFitFloorCrampedMinSizeZero(): ReactNode {
-	return <VrFitFloor label="minSize 0" space="cramped" content="tallContent" minSize={0} />;
 }
 
 /**

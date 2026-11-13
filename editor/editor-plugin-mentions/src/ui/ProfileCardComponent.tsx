@@ -23,7 +23,6 @@ import type {
 	TeamCentralReportingLinesData,
 } from '@atlaskit/profilecard/types';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 import { token } from '@atlaskit/tokens';
 
 import { Popup } from './PopperWrapper';
@@ -182,28 +181,6 @@ export function ProfileCardComponent({
 			},
 		});
 	});
-
-	if (
-		!expVal('platform_editor_agent_mentions', 'isEnabled', false) &&
-		!fg('platform_editor_agent_card_fixes')
-	) {
-		return (
-			<Popup
-				referenceElement={dom}
-				placement={placement}
-				offset={offset}
-				disableFocusTrap={disableFocusTrap}
-			>
-				<UserProfileCardContent
-					accessLevel={accessLevel}
-					id={id}
-					provider={provider}
-					text={text}
-					hideActions={hideActions}
-				/>
-			</Popup>
-		);
-	}
 
 	const isAgentMention = isAgentMentionType(userType);
 

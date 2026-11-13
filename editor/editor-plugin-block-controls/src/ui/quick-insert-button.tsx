@@ -22,6 +22,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { relativeSizeToBaseFontSize } from '@atlaskit/editor-shared-styles/constants';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import AddIcon from '@atlaskit/icon/core/add';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box } from '@atlaskit/primitives/box';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
@@ -366,7 +367,16 @@ export const TypeAheadControl = ({
 		// then insert a newline and trigger quick insert
 		const start = getPos();
 
-		if (start !== undefined) {
+		if (
+			start !== undefined &&
+			isExperimentEnabled('platform_editor_collapsible_headings') &&
+			api.blockCollapse?.sharedState.currentState()?.collapsedHeadingPositions.has(start)
+		) {
+			api.core.actions.execute(({ tr }) => {
+				api.blockCollapse?.commands.expandHeading(start)({ tr });
+				return createNewLine(start)({ tr });
+			});
+		} else if (start !== undefined) {
 			// if the selection is not within the node this decoration is rendered at
 			// or the node is non-editable, then insert a newline and trigger quick insert
 			const isSelectionInsideNode = isSelectionInNode(start, view);

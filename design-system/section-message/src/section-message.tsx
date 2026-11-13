@@ -79,6 +79,7 @@ const SectionMessage: React.ForwardRefExoticComponent<
 			title,
 			headingLevel = 'h2',
 			icon,
+			iconLabel,
 			isDismissible,
 			onDismiss,
 			testId,
@@ -96,7 +97,7 @@ const SectionMessage: React.ForwardRefExoticComponent<
 			primaryIconColor: primaryColor,
 			backgroundColor: secondaryColor,
 			Icon,
-		} = getAppearanceIconStyles(appearance, icon);
+		} = getAppearanceIconStyles(appearance, icon, iconLabel);
 
 		const actionElements =
 			actions && (actions as ReactElement).type === Fragment

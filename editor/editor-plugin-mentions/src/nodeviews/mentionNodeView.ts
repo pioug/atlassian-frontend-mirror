@@ -413,21 +413,21 @@ export class MentionNodeView implements NodeView {
 	}
 
 	private setRovoChatStyles(isRovoChat: boolean): void {
-		// Avoid resetting styles and rebinding mouse listeners when the state is unchanged.
-		if (this.hasRovoChatStyles === isRovoChat) {
-			return;
-		}
-		this.cleanupRovoChatStyles?.();
-		this.cleanupRovoChatStyles = undefined;
-
 		const primitive = this.mentionPrimitiveElement;
 		if (!primitive) {
 			return;
 		}
-		this.hasRovoChatStyles = isRovoChat;
-
 		primitive.classList.toggle('mention-rovo-chat', isRovoChat);
-		if (!isRovoChat) {
+		const shouldApplyRovoStyles = isRovoChat && !primitive.classList.contains('mention-disabled');
+		// Avoid resetting styles and rebinding mouse listeners when the state is unchanged.
+		if (this.hasRovoChatStyles === shouldApplyRovoStyles) {
+			return;
+		}
+		this.cleanupRovoChatStyles?.();
+		this.cleanupRovoChatStyles = undefined;
+		this.hasRovoChatStyles = shouldApplyRovoStyles;
+
+		if (!shouldApplyRovoStyles) {
 			primitive.style.removeProperty('background-color');
 			primitive.style.removeProperty('color');
 			this.mentionTextElement?.style.removeProperty('color');
@@ -648,6 +648,11 @@ export class MentionNodeView implements NodeView {
 		// the chip remains disabled. State-change-only writes would leave a
 		// stale aria-label after a tooltip-text-only update.
 		this.setClassList(newState, disabledTooltip);
+		if (isExperimentEnabled('platform_editor_mention_rovo_special_visual')) {
+			this.setRovoChatStyles(
+				this.mentionPrimitiveElement?.classList.contains('mention-rovo-chat') ?? false,
+			);
+		}
 		// Tooltip wiring runs every update (not just on state change) so that
 		// the tooltip text stays in sync if the disabled reason changes while
 		// the chip is already disabled.

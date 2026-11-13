@@ -1,5 +1,11 @@
 # @atlaskit/react-select
 
+## 4.12.14
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.12.13
 
 ### Patch Changes

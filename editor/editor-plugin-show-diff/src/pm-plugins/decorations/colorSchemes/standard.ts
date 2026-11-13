@@ -9,11 +9,6 @@ export const editingStyleExtended: string = convertToInlineCss({
 	padding: `1px 0 2px`,
 });
 
-export const editingContentStyleInBlockExtended: string = convertToInlineCss({
-	borderBottom: `2px solid ${token('color.border.accent.purple')}`,
-	padding: `1px 0 2px`,
-});
-
 export const editingStyleActiveExtended: string = convertToInlineCss({
 	background: token('color.background.accent.purple.subtler.pressed'),
 	borderBottom: `2px solid ${token('color.border.accent.purple')}`,

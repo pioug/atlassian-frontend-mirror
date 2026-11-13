@@ -2,12 +2,12 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
 import { useMotion } from '@atlaskit/motion/entering/use-motion';
-import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
+import { Reanimate } from '@atlaskit/motion/reanimate';
 import { token } from '@atlaskit/tokens';
 
 import { Block, Centered, RetryContainer } from '../utils';
@@ -42,8 +42,12 @@ const styles = cssMap({
  * A single motion token carries the animation name, duration, and easing, so it can be
  * assigned to the `animation` shorthand for the matching motion state.
  */
-const AnimatedBlock = (): JSX.Element => {
-	const { ref, state } = useMotion<HTMLDivElement>();
+const AnimatedBlock = ({ isIn }: { isIn: boolean }): JSX.Element => {
+	const { ref, reanimate, state } = useMotion<HTMLDivElement>();
+
+	useEffect(() => {
+		reanimate(isIn ? Reanimate.enter : Reanimate.exit);
+	}, [isIn, reanimate]);
 
 	return (
 		<Block
@@ -66,7 +70,7 @@ const UseMotionTokenExample = (): JSX.Element => {
 				<Button onClick={() => setIsIn((prev) => !prev)}>{isIn ? 'Exit' : 'Enter'}</Button>
 
 				<Centered css={styles.centered}>
-					<ExitingPersistence appear>{isIn && <AnimatedBlock />}</ExitingPersistence>
+					<AnimatedBlock isIn={isIn} />
 				</Centered>
 			</div>
 		</RetryContainer>

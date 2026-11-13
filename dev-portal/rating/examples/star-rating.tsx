@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/default/button';
+import { RatingGroup } from '@atlaskit/rating/rating-group';
+import { Star } from '@atlaskit/rating/star';
 import { token } from '@atlaskit/tokens';
-
-import { RatingGroup, Star } from '../src';
 
 export default (): React.JSX.Element => {
 	const [color, setColor] = useState<string>();

@@ -7,7 +7,9 @@ order: 1
 import SectionMessage from '@atlaskit/section-message';
 
 import IconMotionSwap from '../../examples/constellation/icon-motion-swap';
+import IconMotionSwapFast from '../../examples/constellation/icon-motion-swap-fast';
 import IconMotionEnterExit from '../../examples/constellation/icon-motion-enter-exit';
+import IconMotionEnterExitFast from '../../examples/constellation/icon-motion-enter-exit-fast';
 import IconMotionRotateChevron from '../../examples/constellation/icon-motion-rotate-chevron';
 import IconMotionRotateSettings from '../../examples/constellation/icon-motion-rotate-settings';
 import IconMotionCycleUp from '../../examples/constellation/icon-motion-cycle-up';
@@ -35,7 +37,9 @@ When an icon becomes a different icon after a press or a change in state, the fi
 the second fades in. The most widely available effect: it works on any supported icon, because it
 moves nothing inside the icon.
 
-The icon fades to clear over 250ms, is replaced, and the new icon fades to solid over 250ms.
+By default, the icon fades to clear over 250ms, is replaced, and the new icon fades to solid over
+250ms. Where the surrounding transition is particularly fast, use the [fast](#fast-change) variant,
+which runs over 50ms.
 
 | Usage guidance |
 | -------------- | -------------------------------------- |
@@ -45,6 +49,25 @@ The icon fades to clear over 250ms, is replaced, and the new icon fades to solid
 | Not for        | Hover                                  |
 
 <Example packageName="@atlaskit/motion" Component={IconMotionSwap} title="Change an icon" />
+
+#### Fast change
+
+Use the `fast` tokens, `motion.iconography.exit.fade.fast` and `motion.iconography.enter.fade.fast`,
+when the surrounding transition is particularly fast, such as the Side Nav. The whole icon fades
+from clear to solid over 50ms, so the icon change keeps pace with the movement around it instead of
+trailing behind.
+
+| Usage guidance |
+| -------------- | -------------------------------------------------------------------------- |
+| Tokens         | `motion.iconography.exit.fade.fast`, `motion.iconography.enter.fade.fast`  |
+| Use for        | An icon change inside a particularly fast transition, such as the Side Nav |
+| Not for        | A general speed-up. Default to 250ms                                       |
+
+<Example
+	packageName="@atlaskit/motion"
+	Component={IconMotionSwapFast}
+	title="Change an icon, fast"
+/>
 
 ## Bring an icon on or off
 
@@ -56,8 +79,9 @@ The same fades can bring an icon on screen or take it away. Do it only when its 
 information: a status that has started or stopped applying. Nothing should vanish for a reason the
 person cannot see.
 
-The icon fades in over 250ms when the thing it stands for starts to apply, and out over 250ms when
-it stops.
+By default, the icon fades in over 250ms when the thing it stands for starts to apply, and out over
+250ms when it stops. Where the surrounding transition is particularly fast, use the
+[fast](#fast-on-or-off) variant, which runs over 50ms.
 
 | Usage guidance |
 | -------------- | ------------------------------------------------------------------ |
@@ -70,6 +94,19 @@ it stops.
 	packageName="@atlaskit/motion"
 	Component={IconMotionEnterExit}
 	title="Bring an icon on or off"
+/>
+
+#### Fast on or off
+
+The `fast` tokens bring an icon on or off over 50ms. Use them under the same condition as for
+changing an icon: the surrounding transition is particularly fast, such as the Side Nav. Pair
+`motion.iconography.enter.fade.fast` with `motion.iconography.exit.fade.fast`. Don’t mix a fast
+token with a default one.
+
+<Example
+	packageName="@atlaskit/motion"
+	Component={IconMotionEnterExitFast}
+	title="Bring an icon on or off, fast"
 />
 
 ## Send or move forward
@@ -160,6 +197,7 @@ they open, and the gear. It plays on press.
 		<DoDontList
 			list={[
 				'Use fade out and fade in when one icon becomes another, or when an icon appears or disappears because its presence is the information.',
+				'Use the fast fade tokens only when the surrounding transition is particularly fast, such as the Side Nav.',
 				'Use rotate on a chevron or the gear, for 90°, to show something opening or closing.',
 				'Use cycle only in the Rovo Send Button, and let its direction point to where the result will appear.',
 			]}
@@ -170,6 +208,7 @@ they open, and the gear. It plays on press.
 			list={[
 				'Don’t animate an icon on page load, or leave any effect running while idle.',
 				'Don’t let an icon vanish without a cause the person can see, or fade icons to tidy a layout.',
+				'Don’t use the fast fade tokens as a general speed-up. Default to 250ms.',
 				'Don’t use cycle on any other up-arrow, or any other button.',
 				'Don’t let an effect change what the icon is. A pencil must still be a pencil when it lands.',
 			]}

@@ -7,7 +7,6 @@ import { useState } from 'react';
 import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
 import Motion from '@atlaskit/motion/entering/motion';
-import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import { token } from '@atlaskit/tokens';
 
 import { Block } from '../utils/blocks';
@@ -41,13 +40,13 @@ const MotionPrimitiveCustomExample = (): JSX.Element => {
 				<Button onClick={() => setIsIn((prev) => !prev)}>{isIn ? 'Exit' : 'Enter'}</Button>
 
 				<Centered css={styles.centered}>
-					<ExitingPersistence appear>
-						{isIn && (
-							<Motion enteringAnimationXcss={styles.entering} exitingAnimationXcss={styles.exiting}>
-								<Block />
-							</Motion>
-						)}
-					</ExitingPersistence>
+					<Motion
+						action={isIn ? 'enter' : 'exit'}
+						enteringAnimationXcss={styles.entering}
+						exitingAnimationXcss={styles.exiting}
+					>
+						<Block />
+					</Motion>
 				</Centered>
 			</div>
 		</RetryContainer>

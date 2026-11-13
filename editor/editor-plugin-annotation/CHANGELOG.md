@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-annotation
 
+## 30.0.17
+
+### Patch Changes
+
+- [`1d1b39fac5db6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1d1b39fac5db6) -
+  With the `cc_comments_media_viewer_sidebar` experiment and `cc_comments_inset_media_viewer`
+  feature gate on, clicking an image that is already selected opens the Media Viewer, and the first
+  click on an annotated image only selects it instead of also opening its comment. The caption
+  placeholder for an image then says "Add a caption - click again to preview".
+
+  `@atlaskit/editor-common` adds the `captionMessages.placeholderWithClickAgainPrompt` message.
+
+- Updated dependencies
+
 ## 30.0.16
 
 ### Patch Changes

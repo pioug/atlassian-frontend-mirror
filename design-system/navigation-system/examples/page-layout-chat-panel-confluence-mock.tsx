@@ -6,7 +6,6 @@ import { type ReactNode, type Ref, useMemo, useRef, useState } from 'react';
 
 import { jsx } from '@compiled/react';
 import { RelayEnvironmentProvider } from 'react-relay';
-import { createMockEnvironment } from 'relay-test-utils';
 
 import Avatar from '@atlaskit/avatar/avatar';
 import Badge from '@atlaskit/badge/badge';
@@ -88,6 +87,7 @@ import { PanelProvider } from '@atlassian/panel-system/panel-provider';
 import { Trigger } from '@atlassian/panel-system/trigger';
 import { JSResourceForInteraction } from '@atlassian/react-async';
 import { createEntryPoint } from '@atlassian/react-entrypoint';
+import { createAtlassianMockRelayEnvironment } from '@atlassian/relay-test-utils/mock-environment';
 
 import dstLogo from './images/dst.png';
 import { enableChatPanelLayout } from './utils/enable-chat-panel-layout';
@@ -414,7 +414,7 @@ const chatStyles = cssMap({
 });
 
 function RelayEnvironmentWrapper({ children }: { children: ReactNode }): JSX.Element {
-	const environment = useMemo(() => createMockEnvironment(), []);
+	const environment = useMemo(() => createAtlassianMockRelayEnvironment(), []);
 
 	return <RelayEnvironmentProvider environment={environment}>{children}</RelayEnvironmentProvider>;
 }

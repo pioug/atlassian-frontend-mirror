@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "153.4.5",
+	"version": "153.6.0",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -127,6 +127,7 @@
 		"@atlassian/a11y-playwright-testing": "workspace:^",
 		"@atlassian/experiment-test-utils": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
+		"@atlassian/relay-test-utils": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
 		"@atlassian/workbench": "workspace:*",

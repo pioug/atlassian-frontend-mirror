@@ -1,5 +1,15 @@
 # @atlaskit/link-analytics
 
+## 13.0.2
+
+### Patch Changes
+
+- [`291a122fb52ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/291a122fb52ec) -
+  Add allowlisted provider-neutral Smart Link analytics subtypes behind
+  platform_smartlinks_subtype_analytics. Prefer schema:fileFormat, use other for unrecognised
+  non-empty formats, and fall back to specific JSON-LD types only when the format is unavailable.
+  Omit the attribute when neither source provides an unambiguous category.
+
 ## 13.0.1
 
 ### Patch Changes

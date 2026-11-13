@@ -119,6 +119,23 @@ describe('SectionMessage', () => {
 		expect(foundIcon).toHaveAccessibleName('some label');
 	});
 
+	it('uses iconLabel for the default status icon', () => {
+		render(
+			<SectionMessage appearance="warning" iconLabel="Avertissement">
+				boo
+			</SectionMessage>,
+		);
+
+		expect(screen.getByRole('img', { name: 'Avertissement' })).toBeInTheDocument();
+	});
+
+	it('treats an empty iconLabel as an explicit decorative override', () => {
+		render(<SectionMessage iconLabel="">boo</SectionMessage>);
+
+		expect(screen.queryByRole('img')).not.toBeInTheDocument();
+		expect(screen.getByRole('presentation', { hidden: true })).toBeInTheDocument();
+	});
+
 	describe('actions', () => {
 		describe('should render actions as a list only if more than one action provided', () => {
 			const action = (

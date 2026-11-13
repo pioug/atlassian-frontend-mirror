@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/spotlight",
-	"version": "4.2.14",
+	"version": "4.2.16",
 	"description": "A spotlight introduces users to points of interest, from focused messages to multi-step tours.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -64,7 +64,6 @@
 		"@atlaskit/image": "workspace:^",
 		"@atlaskit/motion": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
-		"@atlaskit/popper": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/react-compiler-gating": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
@@ -85,6 +84,7 @@
 		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/dropdown-menu": "workspace:^",
 		"@atlaskit/modal-dialog": "workspace:^",
+		"@atlaskit/react-ufo": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
@@ -100,9 +100,6 @@
 			"type": "boolean"
 		},
 		"platform-dst-motion-uplift-spotlight": {
-			"type": "boolean"
-		},
-		"platform-dst-top-layer-spotlight": {
 			"type": "boolean"
 		}
 	},

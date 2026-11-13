@@ -94,6 +94,7 @@
 		"./abstract-mention-resource": "./src/api/AbstractMentionResource.ts",
 		"./abstract-presence-resource": "./src/api/AbstractPresenceResource.ts",
 		"./default-mention-name-resolver": "./src/api/DefaultMentionNameResolver.ts",
+		"./disabled-state-change-notifier": "./src/disabled-state-change-notifier.ts",
 		"./is-resolving-mention-provider": "./src/api/isResolvingMentionProvider.ts",
 		"./is-special-mention": "./src/is-special-mention.ts",
 		"./is-team-mention": "./src/is-team-mention.ts",
@@ -108,6 +109,7 @@
 		"./mention": "./src/components/Mention/index.tsx",
 		"./mention-item/styles": "./src/components/MentionItem/styles.ts",
 		"./mention-item": "./src/components/MentionItem/index.tsx",
+		"./mention-id-change-tracker": "./src/mention-id-change-tracker.ts",
 		"./mention-list": "./src/components/MentionList/index.tsx",
 		"./mention-name-client": "./src/api/MentionNameClient.ts",
 		"./mention-picker": "./src/components/MentionPicker/index.tsx",
@@ -168,5 +170,5 @@
 		"*.compiled.css"
 	],
 	"types": "dist/types/index.d.ts",
-	"version": "30.9.2"
+	"version": "30.10.0"
 }

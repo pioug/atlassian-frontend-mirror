@@ -1,6 +1,16 @@
 import { defineMessages } from 'react-intl';
 
 export const ruleMessages: {
+	addText: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	alignText: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	boldGrayDividerColor: {
 		defaultMessage: string;
 		description: string;
@@ -82,6 +92,16 @@ export const ruleMessages: {
 		id: string;
 	};
 } = defineMessages({
+	addText: {
+		id: 'editor-common.messages.rule.addText',
+		defaultMessage: 'Add text',
+		description: 'Button for adding a text label to a divider.',
+	},
+	alignText: {
+		id: 'editor-common.messages.rule.alignText',
+		defaultMessage: 'Align text',
+		description: 'Button for aligning the text label of a divider.',
+	},
 	customDividerColor: {
 		id: 'editor-common.messages.rule.customDividerColor',
 		defaultMessage: 'Custom',

@@ -15,8 +15,6 @@ import { expect, test } from '@af/integration-testing';
  * See: `platform/packages/design-system/top-layer/notes/architecture/focus.md`.
  */
 
-const featureFlag = 'platform-dst-top-layer-spotlight';
-
 test.beforeEach(async ({ skipAxeCheck }) => {
 	skipAxeCheck();
 });
@@ -27,7 +25,6 @@ test.describe('Spotlight: top-layer focus contract', () => {
 			'design-system',
 			'spotlight',
 			'testing-initial-focus-matrix',
-			{ featureFlag },
 		);
 
 		await page.getByTestId('default-spotlight-trigger').click();
@@ -44,7 +41,6 @@ test.describe('Spotlight: top-layer focus contract', () => {
 			'design-system',
 			'spotlight',
 			'testing-initial-focus-matrix',
-			{ featureFlag },
 		);
 
 		const trigger = page.getByTestId('default-spotlight-trigger');
@@ -63,7 +59,6 @@ test.describe('Spotlight: top-layer focus contract', () => {
 			'design-system',
 			'spotlight',
 			'testing-initial-focus-matrix',
-			{ featureFlag },
 		);
 
 		await page.getByTestId('autofocus-spotlight-trigger').click();
@@ -79,7 +74,6 @@ test.describe('Spotlight: top-layer focus contract', () => {
 			'design-system',
 			'spotlight',
 			'testing-initial-focus-matrix',
-			{ featureFlag },
 		);
 
 		await page.getByTestId('default-spotlight-trigger').click();

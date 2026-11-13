@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 31.1.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 31.1.17
+
+### Patch Changes
+
+- [`76946179af203`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76946179af203) -
+  [ux] Expand collapsed headings and insert a new paragraph with slash Quick Insert when pressing
+  the adjacent plus button, behind `platform_editor_collapsible_headings`. Quick Insert now declares
+  the optional block-collapse plugin dependency and preserves single-transaction insertion when the
+  existing block-control INP treatment is enabled.
+- Updated dependencies
+
 ## 31.1.16
 
 ### Patch Changes

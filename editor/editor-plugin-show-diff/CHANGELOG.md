@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 30.0.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.0.15
+
+### Patch Changes
+
+- [`446002cd24365`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/446002cd24365) -
+  Cleanup `feature_gate` `platform_editor_ai_show_diff_patch_1`. The show-diff correctness fixes
+  (layout/quote indicators, table row replacement diffs, ADF-safe strike styling, scroll targeting)
+  and the AI suggestion expand/localId wrapping fixes are now permanent.
+
 ## 30.0.14
 
 ### Patch Changes

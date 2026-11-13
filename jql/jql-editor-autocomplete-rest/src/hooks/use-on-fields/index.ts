@@ -10,6 +10,7 @@ import { toArray } from 'rxjs/operators/toArray';
 
 import type { JQLClause } from '@atlaskit/jql-autocomplete/jql-autocomplete/types';
 import type { AutocompleteOptions } from '@atlaskit/jql-editor-common/autocomplete/types';
+import { expVal } from '@atlaskit/platform-feature-experiments/exp-val';
 
 import { type JQLFieldResponse } from '../../common/types';
 import { filterJqlValue } from '../../utils/filter-jql-value';
@@ -19,6 +20,9 @@ import { getFieldType } from './getFieldType';
 
 // Hard coded limit to prevent excessive number of options being rendered in the autocomplete dropdown.
 export const MAX_VISIBLE_OPTIONS = 20;
+
+// Used instead of MAX_VISIBLE_OPTIONS when filter_refinement_butter_thanksgiving_drop is enabled.
+export const EXPANDED_MAX_VISIBLE_OPTIONS = 25;
 
 const useOnFields = (
 	jqlSearchableFields$: Observable<JQLFieldResponse>,
@@ -32,11 +36,18 @@ const useOnFields = (
 			}
 
 			const jqlFields$ = clause === 'orderBy' ? jqlOrderableFields$ : jqlSearchableFields$;
+			const maxVisibleOptions = expVal(
+				'filter_refinement_butter_thanksgiving_drop',
+				'isEnabled',
+				false,
+			)
+				? EXPANDED_MAX_VISIBLE_OPTIONS
+				: MAX_VISIBLE_OPTIONS;
 
 			return jqlFields$.pipe(
 				filter((field) => filterJqlValue(field, query)),
-				// Limit the result to MAX_VISIBLE_OPTIONS
-				take(MAX_VISIBLE_OPTIONS),
+				// Limit the result to the maximum number of visible options
+				take(maxVisibleOptions),
 				map((field) => {
 					const fieldType = getFieldType(field);
 					if (fieldType !== null) {

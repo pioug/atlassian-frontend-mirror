@@ -1,5 +1,18 @@
 # @atlaskit/rovo-agent-components
 
+## 10.9.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.9.4
+
+### Patch Changes
+
+- [`080910a39cbbe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/080910a39cbbe) -
+  Clean up feature gate `platform_editor_agent_card_fixes`
+
 ## 10.9.3
 
 ### Patch Changes

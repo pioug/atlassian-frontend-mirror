@@ -319,9 +319,10 @@ export class MediaStore implements MediaApi {
 		params?: MediaStoreGetFileImageParams,
 		seededCdnUrl?: string,
 	): string {
-		const wmv = fg('confluence_watermark_admin_ui')
-			? getWatermarkVersionFromToken(auth.token)
-			: undefined;
+		const wmv =
+			fg('confluence_watermark_admin_ui') || fg('jira_enable_media_watermark_admin_ui')
+				? getWatermarkVersionFromToken(auth.token)
+				: undefined;
 		const options: CreateUrlOptions = {
 			params: {
 				...extendImageParams(params),
@@ -579,7 +580,7 @@ export class MediaStore implements MediaApi {
 			authContext: { collectionName: params && params.collection },
 		};
 
-		if (fg('confluence_watermark_admin_ui')) {
+		if (fg('confluence_watermark_admin_ui') || fg('jira_enable_media_watermark_admin_ui')) {
 			const auth = await this.resolveAuth(authOptions.authContext);
 			const wmv = getWatermarkVersionFromToken(auth.token);
 			if (wmv) {

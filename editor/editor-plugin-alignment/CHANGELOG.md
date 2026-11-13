@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-alignment
 
+## 31.1.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 31.1.13
+
+### Patch Changes
+
+- [`85d826388ed61`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/85d826388ed61) -
+  [EDITOR-8341] export a shared AlignmentIconMap from editor-common and use it in the text alignment
+  and divider toolbars
+- Updated dependencies
+
 ## 31.1.12
 
 ### Patch Changes

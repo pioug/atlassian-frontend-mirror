@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a6acbf4b040f25e1a657f4310da10ea7>>
+ * @codegen <<SignedSource::fdd6830c83f8174fde4dd0866da5127e>>
  * @codegenCommand yarn build tokens
  */
 
@@ -985,14 +985,58 @@ const tokens: Token[] = [
         "fill": "AnimationFillModeBackwards"
       }
     },
-    "name": "motion.iconography.enter.fade",
+    "name": "motion.iconography.enter.fade.[default]",
     "path": [
       "motion",
       "iconography",
       "enter",
-      "fade"
+      "fade",
+      "[default]"
     ],
     "cleanName": "motion.iconography.enter.fade"
+  },
+  {
+    "attributes": {
+      "group": "motion",
+      "state": "experimental",
+      "introduced": "20.10.0",
+      "description": "Use for an icon fading in as it appears or replaces another icon. Pair with `motion.iconography.exit.fade.fast`."
+    },
+    "value": {
+      "duration": 50,
+      "curve": "cubic-bezier(0, 0.4, 0, 1)",
+      "keyframes": [
+        "FadeIn0to100"
+      ],
+      "fill": "backwards"
+    },
+    "filePath": "schema/themes/atlassian-motion/motion-iconography.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "motion",
+        "state": "experimental",
+        "introduced": "20.10.0",
+        "description": "Use for an icon fading in as it appears or replaces another icon. Pair with `motion.iconography.exit.fade.fast`."
+      },
+      "value": {
+        "duration": "Duration050",
+        "curve": "EaseBoldOut",
+        "keyframes": [
+          "FadeIn0to100"
+        ],
+        "fill": "AnimationFillModeBackwards"
+      }
+    },
+    "name": "motion.iconography.enter.fade.fast",
+    "path": [
+      "motion",
+      "iconography",
+      "enter",
+      "fade",
+      "fast"
+    ],
+    "cleanName": "motion.iconography.enter.fade.fast"
   },
   {
     "attributes": {
@@ -1070,14 +1114,58 @@ const tokens: Token[] = [
         "fill": "AnimationFillModeForwards"
       }
     },
-    "name": "motion.iconography.exit.fade",
+    "name": "motion.iconography.exit.fade.[default]",
     "path": [
       "motion",
       "iconography",
       "exit",
-      "fade"
+      "fade",
+      "[default]"
     ],
     "cleanName": "motion.iconography.exit.fade"
+  },
+  {
+    "attributes": {
+      "group": "motion",
+      "state": "experimental",
+      "introduced": "20.10.0",
+      "description": "Use for an icon fading out as it disappears or is replaced by another icon. Pair with `motion.iconography.enter.fade.fast`."
+    },
+    "value": {
+      "duration": 50,
+      "curve": "cubic-bezier(0.6, 0, 0.8, 0.6)",
+      "keyframes": [
+        "FadeOut100to0"
+      ],
+      "fill": "forwards"
+    },
+    "filePath": "schema/themes/atlassian-motion/motion-iconography.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "motion",
+        "state": "experimental",
+        "introduced": "20.10.0",
+        "description": "Use for an icon fading out as it disappears or is replaced by another icon. Pair with `motion.iconography.enter.fade.fast`."
+      },
+      "value": {
+        "duration": "Duration050",
+        "curve": "EasePracticalIn",
+        "keyframes": [
+          "FadeOut100to0"
+        ],
+        "fill": "AnimationFillModeForwards"
+      }
+    },
+    "name": "motion.iconography.exit.fade.fast",
+    "path": [
+      "motion",
+      "iconography",
+      "exit",
+      "fade",
+      "fast"
+    ],
+    "cleanName": "motion.iconography.exit.fade.fast"
   },
   {
     "attributes": {

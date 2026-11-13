@@ -1,5 +1,11 @@
 # @atlaskit/drawer
 
+## 14.3.12
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.3.11
 
 ### Patch Changes

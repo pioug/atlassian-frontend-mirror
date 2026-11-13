@@ -8,6 +8,7 @@ import { Component } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
+import { MediaImageWithErrorBoundary } from '@atlaskit/media-image/media-image-error-boundary';
 import {
 	genericFileId,
 	gifFileId,
@@ -22,7 +23,6 @@ import Spinner from '@atlaskit/spinner/spinner';
 import Textfield from '@atlaskit/textfield/text-field';
 
 import { optionsWrapperStyles, mediaImageWrapperStyles } from '../example-helpers/styles';
-import { MediaImage } from '../src';
 
 export interface ExampleProps {}
 
@@ -93,7 +93,7 @@ class Example extends Component<ExampleProps, ExampleState> {
 				</div>
 				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<div css={mediaImageWrapperStyles}>
-					<MediaImage
+					<MediaImageWithErrorBoundary
 						identifier={imageId.value}
 						mediaClientConfig={mediaClientConfig}
 						apiConfig={{ width, height }}
@@ -114,7 +114,7 @@ class Example extends Component<ExampleProps, ExampleState> {
 
 							return <img src={data.src} alt="Media" />;
 						}}
-					</MediaImage>
+					</MediaImageWithErrorBoundary>
 				</div>
 			</div>
 		);

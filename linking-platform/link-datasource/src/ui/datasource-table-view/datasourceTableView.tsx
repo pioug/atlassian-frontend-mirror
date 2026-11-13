@@ -344,6 +344,10 @@ const DatasourceTableViewWithoutAnalytics = ({
 										: DefaultScrollableContainerHeight
 							}
 							extensionKey={extensionKey}
+							isColumnReorderEnabled={
+								fg('astral_assets_macro_table_ui_coloumn_reorder') &&
+								datasourceId === ASSETS_LIST_OF_LINKS_DATASOURCE_ID
+							}
 						/>
 					) : (
 						<EmptyState testId="datasource-table-view-skeleton" isCompact />

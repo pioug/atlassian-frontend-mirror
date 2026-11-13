@@ -1622,13 +1622,19 @@ export interface MotionIconographyTokenSchema<BaseToken> {
 	motion: {
 		iconography: {
 			enter: {
-				fade: MotionToken<BaseToken>;
+				fade: {
+					'[default]': MotionToken<BaseToken>;
+					fast: MotionToken<BaseToken>;
+				};
 				cycle: {
 					up: MotionToken<BaseToken>;
 				};
 			};
 			exit: {
-				fade: MotionToken<BaseToken>;
+				fade: {
+					'[default]': MotionToken<BaseToken>;
+					fast: MotionToken<BaseToken>;
+				};
 				cycle: {
 					up: MotionToken<BaseToken>;
 				};

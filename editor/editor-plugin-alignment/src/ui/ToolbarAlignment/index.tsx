@@ -9,6 +9,7 @@ import { injectIntl } from 'react-intl';
 
 import { jsx } from '@atlaskit/css';
 import { alignmentMessages as messages } from '@atlaskit/editor-common/alignment';
+import { AlignmentIconMap } from '@atlaskit/editor-common/alignment-icon-map';
 import type { OpenChangedEvent } from '@atlaskit/editor-common/DropList';
 import { alignCenter, alignLeft, alignRight, tooltip } from '@atlaskit/editor-common/keymaps';
 import { Shortcut } from '@atlaskit/editor-common/Shortcut';
@@ -31,7 +32,6 @@ import type { AlignmentPlugin } from '../../alignmentPluginType';
 import { ToolbarType } from '../../pm-plugins/types';
 import type { AlignmentState } from '../../pm-plugins/types';
 import Alignment from '../Alignment';
-import { IconMap } from './icon-map';
 
 interface State {
 	isOpen: boolean;
@@ -145,7 +145,7 @@ class AlignmentToolbar extends React.Component<Props & WrappedComponentProps, St
 							onKeyDown={this.toggleOpenByKeyboard}
 							iconBefore={
 								<ToolbarDropdownTriggerWrapper>
-									<IconMap alignment={alignment} />
+									<AlignmentIconMap alignment={alignment} />
 									<ToolbarExpandIcon />
 								</ToolbarDropdownTriggerWrapper>
 							}
@@ -186,7 +186,7 @@ class AlignmentToolbar extends React.Component<Props & WrappedComponentProps, St
 								onKeyDown={this.toggleOpenByKeyboard}
 								iconBefore={
 									<ToolbarDropdownTriggerWrapper>
-										<IconMap alignment={alignment} />
+										<AlignmentIconMap alignment={alignment} />
 										<ToolbarExpandIcon />
 									</ToolbarDropdownTriggerWrapper>
 								}

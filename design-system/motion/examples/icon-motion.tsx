@@ -54,6 +54,7 @@ export default function IconMotionExample(): React.JSX.Element {
 			</Inline>
 
 			<Heading size="medium">Enter/Exit</Heading>
+			<Heading size="small">Default (250ms)</Heading>
 			<Inline space="space.050" xcss={styles.container}>
 				<IconMotion
 					enteringAnimation={token('motion.iconography.enter.fade')}
@@ -68,8 +69,24 @@ export default function IconMotionExample(): React.JSX.Element {
 					{animate && <HeartIcon label="Signature" />}
 				</IconMotion>
 			</Inline>
+			<Heading size="small">Fast (50ms)</Heading>
+			<Inline space="space.050" xcss={styles.container}>
+				<IconMotion
+					enteringAnimation={token('motion.iconography.enter.fade.fast')}
+					exitingAnimation={token('motion.iconography.exit.fade.fast')}
+				>
+					{animate && <SignatureIcon label="Signature" />}
+				</IconMotion>
+				<IconMotion
+					enteringAnimation={token('motion.iconography.enter.fade.fast')}
+					exitingAnimation={token('motion.iconography.exit.fade.fast')}
+				>
+					{animate && <HeartIcon label="Signature" />}
+				</IconMotion>
+			</Inline>
 
 			<Heading size="medium">Swap Icons</Heading>
+			<Heading size="small">Default (250ms)</Heading>
 			<Inline space="space.050" xcss={styles.container}>
 				<IconMotion
 					enteringAnimation={token('motion.iconography.enter.fade')}
@@ -80,6 +97,21 @@ export default function IconMotionExample(): React.JSX.Element {
 				<IconMotion
 					enteringAnimation={token('motion.iconography.enter.fade')}
 					exitingAnimation={token('motion.iconography.exit.fade')}
+				>
+					{animate ? <ChevronDownIcon label="" /> : <PagesIcon label="" />}
+				</IconMotion>
+			</Inline>
+			<Heading size="small">Fast (50ms)</Heading>
+			<Inline space="space.050" xcss={styles.container}>
+				<IconMotion
+					enteringAnimation={token('motion.iconography.enter.fade.fast')}
+					exitingAnimation={token('motion.iconography.exit.fade.fast')}
+				>
+					{animate ? <SidebarExpandIcon label="" /> : <SidebarCollapseIcon label="" />}
+				</IconMotion>
+				<IconMotion
+					enteringAnimation={token('motion.iconography.enter.fade.fast')}
+					exitingAnimation={token('motion.iconography.exit.fade.fast')}
 				>
 					{animate ? <ChevronDownIcon label="" /> : <PagesIcon label="" />}
 				</IconMotion>

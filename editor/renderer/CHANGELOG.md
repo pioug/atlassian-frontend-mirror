@@ -1,5 +1,64 @@
 # @atlaskit/renderer
 
+## 153.6.0
+
+### Minor Changes
+
+- [`f8377a1c386f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f8377a1c386f2) -
+  Add an optional suppressInitialFallback prop to BodiedExtension. Hosts can omit incorrect SSR body
+  output through the initial app handoff while preserving app input, mounted app state, and later
+  fallback behavior. Confluence opts in through confluence_forge_bodied_ssr_blocklist.
+
+## 153.5.1
+
+### Patch Changes
+
+- [`2828e9853e1d1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2828e9853e1d1) -
+  Disable table sticky headers, overflow shadow tracking, and automatic table scaling when
+  Confluence View Page Performance Mode is active, controlled by
+  `confluence_view_page_performance_mode`. Preserve authored widths, horizontal scrolling, and
+  existing behavior outside Performance Mode. Share saved-width column normalization between full
+  and light tables, including number-column space, and preserve fit-to-content sizing in light
+  tables. Preserve inherited comment table sizing when no numeric table width is available.
+- Updated dependencies
+
+## 153.5.0
+
+### Minor Changes
+
+- [`2bf9b457b16ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2bf9b457b16ce) -
+  Track the range a draft targets explicitly in `AnnotationRangeContext`, behind
+  `platform_editor_comments_api_manager`. The selection and hover mounters can render at the same
+  time and the ambient `range` flips between them, so a draft could be built against whichever
+  surface updated last. The context now holds a `DraftTarget` per surface plus the surface the user
+  engaged (`draftIntentSource`), and the selection mounter publishes its target while it is mounted
+  and drops it when the selection is cleared. Nothing reads these yet, so behaviour is unchanged.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 153.4.7
+
+### Patch Changes
+
+- [`ef0e136c312f5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef0e136c312f5) -
+  Remove obsolete nested-table rollout documentation from renderer declarations.
+- Updated dependencies
+
+## 153.4.6
+
+### Patch Changes
+
+- [`b277bd792e5dc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b277bd792e5dc) -
+  `@atlaskit/editor-common`: `MediaInlineImageCard` takes an optional `mediaViewerExtensions` prop.
+  With the `cc_comments_media_viewer_sidebar` experiment on, it passes the extensions to the Media
+  Viewer it opens and calls `onSelectedItemChange` when it opens and closes.
+
+  `@atlaskit/renderer` passes `mediaViewerExtensions` to inline media and external images.
+
+- Updated dependencies
+
 ## 153.4.5
 
 ### Patch Changes

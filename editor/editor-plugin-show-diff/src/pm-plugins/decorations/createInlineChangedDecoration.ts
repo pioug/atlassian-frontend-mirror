@@ -304,7 +304,7 @@ export const createInlineChangedDecoration = ({
 		atomicInlineAttrs?.styleSuffix,
 		deletedInlineNodeAttrs?.styleSuffix,
 		tagWidget ? stackBelowContributorTagStyle : undefined,
-		fg('platform_editor_ai_show_diff_patch_1') ? scrollMarginTopStyle : undefined,
+		scrollMarginTopStyle,
 	]
 		.filter(Boolean)
 		.join('');

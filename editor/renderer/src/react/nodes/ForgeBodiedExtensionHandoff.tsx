@@ -21,6 +21,7 @@ interface Props {
 	localId: string;
 	preserveContentUntilReady?: boolean;
 	result: ReactNode;
+	suppressInitialFallback?: boolean;
 }
 
 /** Keep the native body in layout until Forge finishes its initial rendering. */
@@ -29,6 +30,7 @@ export default function ForgeBodiedExtensionHandoff({
 	localId,
 	result,
 	preserveContentUntilReady = false,
+	suppressInitialFallback = false,
 }: Props): ReactElement {
 	const [ready, setReady] = useState(false);
 	const hasResult = Boolean(result);
@@ -72,7 +74,7 @@ export default function ForgeBodiedExtensionHandoff({
 					css={[styles.layer, hasResult && !showNativeBody && styles.reservation]}
 					aria-hidden={(hasResult && !showNativeBody) || undefined}
 				>
-					{fallback}
+					{suppressInitialFallback && !ready ? null : fallback}
 				</div>
 			)}
 			<div

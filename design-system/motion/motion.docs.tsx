@@ -6,13 +6,13 @@ const documentation: StructuredContentSource = {
 		packagePath: __dirname,
 		packageJson: require('./package.json'),
 		overview:
-			'Utilities for applying ADS motion. Prefer motion already owned by an ADS component. For custom entry and exit behavior, use the Motion primitive by default and useMotion only when its wrapper would break layout or semantics. Pair either with ExitingPersistence to play exit animations before removal, and use StaggeredEntrance only when sequencing aids comprehension. Use Resizing or useResizing only when a dimension change communicates state and a transform-based or non-animated treatment would not meet the design. Prefer semantic motion tokens for the affected role and state; do not invent token names, durations, easings, or keyframes.',
+			'Utilities for applying ADS motion. Prefer motion already owned by an ADS component and choose the smallest API combination that satisfies the task. For entry and exit behavior, keep Motion mounted and pass action="enter" or action="exit" with the corresponding semantic tokens. Do not use ExitingPersistence for new Motion implementations; it remains documented for existing integrations while its remaining use cases are validated. Use useMotion only when the Motion wrapper would break layout or semantics, and use StaggeredEntrance only when sequencing aids comprehension. Use Resizing or useResizing only when a dimension change communicates state and a transform-based or non-animated treatment would not meet the design. Prefer semantic motion tokens for the affected role and state; do not invent token names, durations, easings, or keyframes.',
 	},
 	components: [
 		{
 			name: 'Motion',
 			description:
-				'A motion primitive that can be used to animate the entry and exit of components. The recommended way to apply entry and exit animations in @atlaskit/motion. Wrap with ExitingPersistence to enable exit animations when elements are removed from the DOM.',
+				'A motion primitive that can animate the entry and exit of components. The recommended way to apply entry and exit animations in @atlaskit/motion is to keep Motion mounted and control its lifecycle with the action prop.',
 			status: 'early-access',
 			import: {
 				name: 'Motion',
@@ -24,13 +24,14 @@ const documentation: StructuredContentSource = {
 			usageGuidelines: [
 				'Use motion already owned by an ADS component instead of wrapping or replacing it',
 				'Use the Motion primitive as the recommended way to apply entry and exit animations',
-				'Wrap with ExitingPersistence to enable exit animations when elements are removed from the DOM',
+				'Pass action="enter" or action="exit" whenever Motion needs to respond to application state, and keep Motion mounted so it can play the exit animation before rendering null',
+				'Provide enteringAnimation for action="enter" and exitingAnimation for action="exit"; omit the unused animation only when the component can never perform that action',
+				'Do not use ExitingPersistence for new Motion implementations; it remains available only for existing integrations while its remaining use cases are validated',
 				'Prefer the complete semantic motion token for the affected role and state; inspect the full motion.<role>.* namespace so paired entry, exit, and reposition states are not missed',
 				'Do not invent a motion token or reconstruct an available semantic token from base duration, easing, and keyframe tokens',
 				'Use enteringAnimationXcss and exitingAnimationXcss only when no semantic motion token covers the required treatment, and compose only from published base motion tokens',
 				'Multiple keyframes can be composed by joining them in animationName (e.g. combining scale and fade)',
 				'Works with any React content including ADS Primitives — no render-prop pattern required',
-				'Use the appear prop on ExitingPersistence to also trigger the entering animation on first mount',
 				'The Motion primitive renders a wrapper div. If that wrapper would break layout, semantics, or an attribute a parent selector depends on, use the useMotion hook instead to animate an element you already render',
 				'Keep entry and exit motion subordinate to the task, and verify the result in the browser rather than treating an import or token reference as evidence that motion occurred',
 			],
@@ -40,9 +41,9 @@ const documentation: StructuredContentSource = {
 			],
 			examples: [
 				{
-					name: 'Motion with tokens',
+					name: 'Motion with semantic tokens',
 					description:
-						'The simplest way to use the Motion primitive is with pre-defined motion tokens. Pass a motion token to enteringAnimation and exitingAnimation to apply a paired entering and exiting animation.',
+						'Keep Motion mounted, pass action="enter" or action="exit" from application state, and provide the corresponding semantic tokens. Motion renders null after its exit animation completes.',
 					source: `${__dirname}/examples/ai/motion-primitive.tsx`,
 				},
 				{
@@ -64,7 +65,7 @@ const documentation: StructuredContentSource = {
 		{
 			name: 'ExitingPersistence',
 			description:
-				'Motion helper that keeps elements mounted and plays their exit animation before they are removed from the DOM. Without it, elements are removed immediately and no exit animation plays. Works with both the Motion primitive and legacy entering-motion components.',
+				'Motion helper that keeps conditionally rendered elements mounted while their exit animation plays. It remains available while its remaining use cases are validated, but it is not recommended for new Motion implementations; keep Motion mounted and use its action prop instead.',
 			status: 'general-availability',
 			import: {
 				name: 'ExitingPersistence',
@@ -74,7 +75,8 @@ const documentation: StructuredContentSource = {
 				packageJson: require('./package.json'),
 			},
 			usageGuidelines: [
-				'Wrap motion elements with ExitingPersistence to enable exit animations when elements are removed from the DOM',
+				'Do not introduce ExitingPersistence in new Motion implementations; keep Motion mounted and control it with action="enter" or action="exit" instead',
+				'Retain ExitingPersistence only in existing integrations that have not yet migrated to an internally controlled Motion lifecycle',
 				'Keep ExitingPersistence mounted and conditionally render the child inside it; unmounting the persistence boundary prevents it from managing the exit',
 				'Set the appear prop to also trigger the entering animation when the component first mounts',
 				'Use exitThenEnter prop to make elements exit before new ones enter (sequential transition)',
@@ -214,7 +216,7 @@ const documentation: StructuredContentSource = {
 		{
 			name: 'useMotion',
 			description:
-				'A hook form of the Motion primitive that runs the same entry and exit animation lifecycle but renders no markup of its own. It returns { state, ref, reanimate }: state is the current point in the animation lifecycle, which the consumer maps to their own animation styles, and ref must be attached to the animated element. Use it instead of the Motion primitive when its wrapper div would break layout (a CSS grid or flex slot), break semantics (a ul/li or table/tr pairing), or drop an attribute a parent selector depends on. The Motion primitive is built on this hook and is not deprecated. Wrap with ExitingPersistence to enable exit animations.',
+				'A hook form of the Motion primitive that runs the same entry and exit animation lifecycle but renders no markup of its own. It returns { state, ref, reanimate }: state is the current point in the animation lifecycle, which the consumer maps to their own animation styles, and ref must be attached to the animated element. Use it instead of the Motion primitive when its wrapper div would break layout (a CSS grid or flex slot), break semantics (a ul/li or table/tr pairing), or drop an attribute a parent selector depends on. The Motion primitive is built on this hook and is not deprecated.',
 			status: 'early-access',
 			import: {
 				name: 'useMotion',
@@ -235,15 +237,15 @@ const documentation: StructuredContentSource = {
 			returns: {
 				type: '{ state: MotionState; ref: (node: T | null) => void; reanimate: (value: Reanimate) => void }',
 				description:
-					'`state` is the current point in the animation lifecycle — one of `init` (mounted, waiting on a stagger delay), `entering`, `visible` (at rest), `exiting` (still mounted), or `hidden` (animated out but still mounted) — and the consumer maps it to their own animation styles. `ref` must be attached to the animated element; it measures the animation duration so exit timing, `onFinish`, and removal by `ExitingPersistence` work, and it receives the staggered delay. `reanimate` replays the animation imperatively with `Reanimate.enter`, `Reanimate.exit`, or `Reanimate.exit_then_enter`.',
+					'`state` is the current point in the animation lifecycle — one of `init` (mounted, waiting on a stagger delay), `entering`, `visible` (at rest), `exiting` (still mounted), or `hidden` (animated out but still mounted) — and the consumer maps it to their own animation styles. `ref` must be attached to the animated element; it measures the animation duration so exit timing and `onFinish` work, and it receives the staggered delay. `reanimate` replays the animation imperatively with `Reanimate.enter`, `Reanimate.exit`, or `Reanimate.exit_then_enter`.',
 			},
 			usageGuidelines: [
 				'Prefer the Motion primitive by default — reach for useMotion only when an extra wrapper element would break layout, semantics, or an attribute a parent selector depends on',
 				'The hook does not return styles. It returns the current state, and the consumer writes the animation CSS for each state and selects it by state — either with the Compiled css prop (css={[state === "entering" && styles.entering]}) or by passing cssMap styles through cx into className',
 				'state is one of init, entering, visible, exiting, or hidden',
-				'Attach the returned ref to the animated element — it is used to measure the animation duration so the exit animation completes before ExitingPersistence removes the element and before onFinish is called, and to receive a staggered delay',
+				'Attach the returned ref to the animated element — it is used to measure the animation duration before onFinish is called and to receive a staggered delay',
 				'Style the init and hidden states as not visible (for example visibility: hidden), otherwise the element flashes into view before its entry animation starts and stays visible after being animated out',
-				'Wrap the conditionally rendered child in ExitingPersistence with a unique key so its exit animation plays before it is removed from the DOM, and set appear to also animate on first mount',
+				'Keep the hook owner mounted and call reanimate with Reanimate.enter or Reanimate.exit when application state changes; do not introduce ExitingPersistence in new implementations',
 				'Use initialState to start the machine in visible (rendered at rest with no entry animation) or hidden (mounted and hidden until reanimate is called)',
 				'Use reanimate to replay animations imperatively: Reanimate.enter, Reanimate.exit (settles in hidden without unmounting), or Reanimate.exit_then_enter',
 				'onFinish is called with entering or exiting when the matching animation completes',
@@ -251,7 +253,7 @@ const documentation: StructuredContentSource = {
 				'The consuming component must use the Compiled jsx pragma to apply cssMap styles via the css prop',
 			],
 			accessibilityGuidelines: [
-				'When reduced motion is preferred the hook settles its state machine immediately rather than waiting out the animation duration, so onFinish still fires and ExitingPersistence still removes the element promptly',
+				'When reduced motion is preferred the hook settles its state machine immediately rather than waiting out the animation duration, so onFinish still fires promptly',
 				'The hook does not disable your animation styles — because the consumer owns the animation CSS, you must add @media (prefers-reduced-motion: reduce) to your own styles to turn them off. This differs from the Motion primitive, which handles reduced motion for you',
 				'Use isReducedMotion() or useIsReducedMotion() when you need to branch on the preference in JavaScript rather than CSS',
 			],

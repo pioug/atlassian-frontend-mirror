@@ -11,15 +11,12 @@ test('Spotlight should be able to be identified by data-testid', async ({ page }
 	await expect(page.locator(exampleComponent).first()).toBeVisible();
 });
 
-test.describe('top-layer migration', () => {
+test.describe('popover behavior', () => {
 	test.beforeEach(async ({ page }) => {
 		await page.visitExample<typeof import('../../examples/single-step.tsx')>(
 			'design-system',
 			'spotlight',
 			'single-step',
-			{
-				featureFlag: 'platform-dst-top-layer-spotlight',
-			},
 		);
 	});
 

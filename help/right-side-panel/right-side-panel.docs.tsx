@@ -13,7 +13,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'RightSidePanel',
-				package: '@atlaskit/right-side-panel',
+				package: '@atlaskit/right-side-panel/RightSidePanel',
 				type: 'named',
 				packagePath,
 				packageJson,

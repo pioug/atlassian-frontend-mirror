@@ -18,7 +18,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'genericExtractPropsFromJSONLD',
-				package: '@atlaskit/link-extractors',
+				package: '@atlaskit/link-extractors/extract-name-from-json-ld',
 				type: 'named',
 				packagePath,
 				packageJson,

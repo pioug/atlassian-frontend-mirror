@@ -17,7 +17,7 @@ const documentation: StructuredContentSource = {
 			status: 'internal',
 			import: {
 				name: 'userPreferencesPlugin',
-				package: '@atlaskit/editor-plugin-user-preferences',
+				package: '@atlaskit/editor-plugin-user-preferences/user-preferences-plugin',
 				type: 'named',
 				packagePath,
 				packageJson,

@@ -37,6 +37,26 @@ describe('Forge bodied extension handoff', () => {
 		expect(screen.getByRole('button', { name: 'Filter table' })).toBeVisible();
 	});
 
+	it('suppresses only the initial bridge fallback and restores later fallbacks', () => {
+		const view = (result: React.ReactNode) => (
+			<ForgeBodiedExtensionHandoff
+				localId="table"
+				fallback={fallback}
+				result={result}
+				suppressInitialFallback
+			/>
+		);
+		const { rerender } = render(view(null));
+		expect(screen.queryByText('Native table')).not.toBeInTheDocument();
+		rerender(view(app));
+		const button = screen.getByRole('button', { name: 'Filter table' });
+		expect(screen.queryByText('Native table')).not.toBeInTheDocument();
+		notifyReady();
+		expect(screen.getByRole('button', { name: 'Filter table' })).toBe(button);
+		rerender(view(null));
+		expect(screen.getByText('Native table')).toBeVisible();
+	});
+
 	it('ignores other app instances and foreign origins', () => {
 		render(<ForgeBodiedExtensionHandoff localId="table" fallback={fallback} result={app} />);
 		notifyReady('other');
@@ -79,7 +99,9 @@ describe('UI Kit SSR handoff', () => {
 	const Client = ({ ready = false, localId = 'macro' }: { localId?: string; ready?: boolean }) => {
 		const notify = useContext(ForgeBodiedExtensionHandoffReadyContext);
 		useEffect(() => {
-			if (ready && notify?.localId === localId) notify.onReady();
+			if (ready && notify?.localId === localId) {
+				notify.onReady();
+			}
 		}, [notify, ready, localId]);
 		return ready ? <button>Client body</button> : null;
 	};
@@ -107,6 +129,27 @@ describe('UI Kit SSR handoff', () => {
 		expect(body).not.toBeInTheDocument();
 		expect(screen.getByRole('button', { name: 'Client body' })).toBeVisible();
 		await expect(container).toBeAccessible();
+	});
+
+	it('suppresses the raw body through UI Kit readiness and restores later fallbacks', () => {
+		const view = (result: React.ReactNode) => (
+			<ForgeBodiedExtensionHandoff
+				localId="macro"
+				preserveContentUntilReady
+				suppressInitialFallback
+				fallback={<p>Server body</p>}
+				result={result}
+			/>
+		);
+		const { rerender } = render(view(null));
+		expect(screen.queryByText('Server body')).not.toBeInTheDocument();
+		rerender(view(<Client />));
+		expect(screen.queryByText('Server body')).not.toBeInTheDocument();
+		rerender(view(<Client ready />));
+		expect(screen.getByRole('button', { name: 'Client body' })).toBeVisible();
+		expect(screen.queryByText('Server body')).not.toBeInTheDocument();
+		rerender(view(null));
+		expect(screen.getByText('Server body')).toBeVisible();
 	});
 
 	it('does not bind a bridge listener or release on its message when waiting for a commit', () => {

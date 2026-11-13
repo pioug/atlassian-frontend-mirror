@@ -6,9 +6,8 @@ import { Box } from '@atlaskit/primitives/compiled/box';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Grid } from '@atlaskit/primitives/grid';
-
-import { AgentAvatar } from '../src/ui/agent-avatar';
-import { TOTAL_AVATAR_COMBINATIONS } from '../src/ui/agent-avatar/generated-avatars';
+import { TOTAL_AVATAR_COMBINATIONS } from '@atlaskit/rovo-agent-components/ui/agent-avatar/GeneratedAvatar';
+import { AgentAvatar } from '@atlaskit/rovo-agent-components/ui/AgentAvatar';
 
 export default function (): React.JSX.Element {
 	return (

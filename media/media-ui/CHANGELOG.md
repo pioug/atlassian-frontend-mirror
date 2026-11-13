@@ -1,5 +1,13 @@
 # @atlaskit/media-ui
 
+## 31.10.0
+
+### Minor Changes
+
+- [`97d6202707031`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/97d6202707031) -
+  Avatar picker: when no default avatars are provided, the save error asks the user to upload a
+  photo instead of mentioning default options.
+
 ## 31.9.0
 
 ### Minor Changes

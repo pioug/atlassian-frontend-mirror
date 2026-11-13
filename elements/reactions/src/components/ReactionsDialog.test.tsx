@@ -7,6 +7,7 @@ import { flushPromises } from '@atlaskit/editor-test-helpers/e2e-helpers';
 import type { EmojiProvider } from '@atlaskit/emoji/types';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { renderWithIntl } from '../__tests__/_testing-library';
 import { ReactionsDialog, type ReactionsDialogProps } from './ReactionsDialog';
@@ -361,4 +362,25 @@ it('should not render profile card for users that are missing an account id', as
 
 	const profileCards = screen.queryAllByText('ProfileCard');
 	expect(profileCards).toHaveLength(1);
+});
+
+it('fills the agent description with a skeleton while the full label loads', async () => {
+	passGate('platform_reactions_agent_name_skeleton');
+	await renderReactionsDialog({
+		reactions: [
+			{
+				...reactionsData[0],
+				users: [
+					{ ...reactionsData[0].users[0], agent: { name: 'External agent', isLoading: true } },
+				],
+			},
+		],
+	});
+	const status = screen.getByRole('status', { name: 'Loading...' });
+	expect(status.parentElement?.parentElement).toHaveCompiledCss({
+		flexGrow: '1',
+		minWidth: '0',
+		flexDirection: 'column',
+	});
+	expect(screen.queryByText(/with Bette Davis-test/)).not.toBeInTheDocument();
 });

@@ -73,14 +73,10 @@ function readAlign({ params }: { params: URLSearchParams }): 'start' | 'center' 
 }
 
 function readPlacement({ params }: { params: URLSearchParams }): TPlacementOptions {
-	const minSize = params.get('minSize');
 	return {
 		axis: params.get('axis') === 'inline' ? 'inline' : 'block',
 		edge: params.get('edge') === 'start' ? 'start' : 'end',
 		align: readAlign({ params }),
-		// An absent param must stay ABSENT rather than becoming `0`: that is what
-		// lets the default flip floor apply, and `0` is the opt-out.
-		...(minSize === null ? {} : { minSize: Number(minSize) }),
 	};
 }
 
@@ -100,8 +96,8 @@ function readNumber({
 /**
  * Test fixture for `useAnchoredPopover`'s PER-AXIS sizing. Where
  * `160-testing-popover-fit-available-space` drives one whole-popover `fit`
- * switch, this names each axis independently and exposes `placement.minSize`, so
- * the rules that only appear when the two axes DISAGREE are reachable.
+ * switch, this names each axis independently, so the rules that only appear when
+ * the two axes DISAGREE are reachable.
  *
  * ONE popover per page load, deliberately: measuring several open popovers on a
  * single page gave inconsistent readings.
@@ -111,8 +107,6 @@ function readNumber({
  * - `axis`, `edge`, `align`: the placement (defaults `block` / `end` / `center`)
  * - `inlineSize`, `blockSize`: `content` (default) / `match-anchor` /
  *   `min-anchor` / `max-available`
- * - `minSize`: `placement.minSize` in px. Omit for "not specified", which lets
- *   the default flip floor apply; `0` opts out of it.
  * - `triggerBlockStart`, `triggerInlineStart`: absolute trigger offset in px.
  *   Negative values are allowed.
  * - `triggerBlockSize`, `triggerInlineSize`: the trigger's size in px (defaults

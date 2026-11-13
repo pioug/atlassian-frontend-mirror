@@ -85,6 +85,9 @@
 			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
 		},
 		{
+			"path": "../../relay/relay-test-utils/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/structured-docs-types/tsconfig.app.json"
 		},
 		{

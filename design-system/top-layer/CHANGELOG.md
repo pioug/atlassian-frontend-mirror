@@ -1,5 +1,22 @@
 # @atlaskit/top-layer
 
+## 8.0.0
+
+### Major Changes
+
+- [`6281b902bcd93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6281b902bcd93) -
+  Removes the unused `placement.minSize` option. To upgrade, remove `minSize` from your `placement`
+  objects.
+
+### Minor Changes
+
+- [`f75b2f92210a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f75b2f92210a0) -
+  New entry point `@atlaskit/top-layer/dialog-aware-portal`: `DialogAwarePortal` portals its
+  children into the `Dialog` that is topmost when it mounts, so that the dialog does not make them
+  inert. With no `Dialog` open, it renders them in place. A `Dialog` makes everything outside it
+  inert, popovers too, so use it for a layer that must stay usable over a `Dialog`. It does not move
+  into a `Dialog` that opens later, or in the same commit. When its `Dialog` closes, it picks again.
+
 ## 7.2.2
 
 ### Patch Changes

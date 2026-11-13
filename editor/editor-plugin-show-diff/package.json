@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-show-diff",
-	"version": "30.0.14",
+	"version": "30.0.16",
 	"description": "ShowDiff plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -87,9 +87,6 @@
 		"platform_editor_ai_suggestion_table_scroll_fix": {
 			"type": "boolean",
 			"referenceOnly": true
-		},
-		"platform_editor_ai_show_diff_patch_1": {
-			"type": "boolean"
 		},
 		"platform_editor_ai_show_diff_patch_2": {
 			"type": "boolean"

@@ -959,3 +959,44 @@ describe('Avatar Picker Dialog', () => {
 		});
 	});
 });
+
+describe('Avatar Picker Dialog without default avatars', () => {
+	it('shows the upload-only error when no default avatars are provided', async () => {
+		render(
+			<AvatarPickerDialog
+				avatars={[]}
+				onAvatarPicked={jest.fn()}
+				onImagePicked={jest.fn()}
+				onImagePickedDataURI={jest.fn()}
+				onCancel={jest.fn()}
+			/>,
+		);
+
+		const form = await screen.findByRole('form');
+		fireEvent.submit(form);
+
+		const alert = await screen.findByRole('alert');
+		expect(alert).toBeInTheDocument();
+		expect(alert.textContent).toContain('Upload a photo to continue');
+		expect(alert.textContent).not.toContain('Upload a photo or select from some default options');
+	});
+
+	it('shows the upload-only error when the avatars prop is omitted', async () => {
+		render(
+			<AvatarPickerDialog
+				onAvatarPicked={jest.fn()}
+				onImagePicked={jest.fn()}
+				onImagePickedDataURI={jest.fn()}
+				onCancel={jest.fn()}
+			/>,
+		);
+
+		const form = await screen.findByRole('form');
+		fireEvent.submit(form);
+
+		const alert = await screen.findByRole('alert');
+		expect(alert).toBeInTheDocument();
+		expect(alert.textContent).toContain('Upload a photo to continue');
+		expect(alert.textContent).not.toContain('Upload a photo or select from some default options');
+	});
+});

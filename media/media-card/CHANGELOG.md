@@ -1,5 +1,19 @@
 # @atlaskit/media-card
 
+## 82.3.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 82.3.4
+
+### Patch Changes
+
+- [`ef90ef12894f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef90ef12894f2) -
+  Remove the fully launched cc-maui-phase-2 gate in Media Exif packages, retaining the enabled
+  behavior.
+
 ## 82.3.3
 
 ### Patch Changes

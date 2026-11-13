@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { render } from '@atlassian/testing-library/testing-library/react';
 
@@ -86,8 +85,6 @@ describe('SpotlightCard', () => {
 		'left-start',
 		'left-end',
 	])('renders the existing caret visual for %s', (placement) => {
-		passGate('platform-dst-top-layer-spotlight');
-
 		renderWithPlacement(placement);
 
 		expect(screen.getByTestId(testId)).toHaveTextContent('Hello, world!');

@@ -12,8 +12,8 @@ const documentation: StructuredContentSource = {
 				'A layout component for help content, providing a consistent structure for help panels and pages.',
 			status: 'general-availability',
 			import: {
-				name: 'default',
-				package: '@atlaskit/help-layout',
+				name: 'HelpLayout',
+				package: '@atlaskit/help-layout/HelpLayout',
 				type: 'default',
 				packagePath,
 				packageJson,

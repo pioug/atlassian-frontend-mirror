@@ -142,10 +142,7 @@ const TimePicker: React.ForwardRefExoticComponent<
 		const [shouldFocusTimeInput, setShouldFocusTimeInput] = useState(false);
 		const [value, setValue] = useState<string>(defaultValue);
 		const l10n: LocalizationProvider = createLocalizationProvider(locale);
-		const localeTimeFormat = useMemo(
-			() => (fg('platform-dst-locale-aware-time-parsing') ? getTimeFormat(locale) : undefined),
-			[locale],
-		);
+		const localeTimeFormat = useMemo(() => getTimeFormat(locale), [locale]);
 
 		// Hack to force update: https://legacy.reactjs.org/docs/hooks-faq.html#is-there-something-like-forceupdate
 		const [, forceUpdate] = useReducer((x) => x + 1, 0);

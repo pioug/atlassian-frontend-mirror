@@ -67,6 +67,8 @@ export type FocusableProps<T extends CustomElement> = Omit<
 type BaseFocusableProps<T extends CustomElement> = {
 	/**
 	 * The DOM element to render as the Focusable element.
+	 * Explicit `as` values exclude native anchors and buttons. Use Anchor for links and Pressable
+	 * for buttons. Supported values are intrinsic element tags, not arbitrary React components.
 	 * @default 'button'
 	 */
 	as?: T;

@@ -10,13 +10,11 @@ import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
 import Link from '@atlaskit/link/link';
 import { AtlassianIcon } from '@atlaskit/logo/atlassian-icon';
-import { RovoIcon } from '@atlaskit/logo/rovo/icon';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
 import Skeleton from '@atlaskit/skeleton';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
@@ -31,10 +29,6 @@ const styles = cssMap({
 		display: 'flex',
 		alignItems: 'center',
 		gap: token('space.050'),
-	},
-
-	rovoIconWrapper: {
-		display: 'flex',
 	},
 
 	name: {
@@ -204,36 +198,7 @@ export const AgentProfileCreator = ({
 
 	const creatorRender = getCreatorRender();
 
-	const hideCreatorIcon =
-		(expValEquals('platform_editor_agent_mentions', 'isEnabled', true) &&
-			fg('platform_editor_agent_mentions_drop_one_fixes')) ||
-		fg('platform_editor_agent_card_fixes');
-
-	if (fg('jira_improve_agent_profile_for_a2a')) {
-		const showRovoIcon = !hideCreatorIcon && creator?.type !== 'REMOTE_A2A';
-
-		return creatorRender ? (
-			<Box xcss={styles.clickableItem}>
-				{showRovoIcon ? (
-					<Box xcss={styles.rovoIconWrapper} testId="rovo-icon-wrapper" aria-hidden="true">
-						<RovoIcon appearance="brand" size="small" />
-					</Box>
-				) : null}
-				{creatorRender}
-			</Box>
-		) : null;
-	}
-
-	return creatorRender ? (
-		<Box xcss={styles.clickableItem}>
-			{!hideCreatorIcon && (
-				<Box xcss={styles.rovoIconWrapper} testId="rovo-icon-wrapper" aria-hidden="true">
-					<RovoIcon appearance="brand" size="small" />
-				</Box>
-			)}
-			{creatorRender}
-		</Box>
-	) : null;
+	return creatorRender ? <Box xcss={styles.clickableItem}>{creatorRender}</Box> : null;
 };
 
 export const AgentProfileInfo = ({

@@ -402,6 +402,51 @@ function CustomSkipLinkWithHandlers({
 	);
 }
 
+describe('skip links without the menu interaction', () => {
+	it('renders direct skip links without trapping focus when only the accessibility gate is on', async () => {
+		passGate('platform_dst_nav4_skip_link_a11y_1');
+		failGate('platform_dst_nav4_skip_link_menu_placeholder');
+
+		const user = userEvent.setup();
+		render(
+			<Root testId="root">
+				<Main>
+					<button>Continue</button>
+				</Main>
+			</Root>,
+		);
+
+		expect(screen.getByRole('link', { name: 'Main content' })).toBeInTheDocument();
+		expect(screen.queryByTestId('root--skip-links-trigger')).not.toBeInTheDocument();
+
+		await user.tab();
+		expect(screen.getByRole('link', { name: 'Main content' })).toHaveFocus();
+		await user.tab();
+		expect(screen.getByRole('button', { name: 'Continue' })).toHaveFocus();
+	});
+
+	it('preserves custom navigation with the accessibility gate on and the menu gate off', async () => {
+		passGate('platform_dst_nav4_skip_link_a11y_1');
+		failGate('platform_dst_nav4_skip_link_menu_placeholder');
+
+		const user = userEvent.setup();
+		const navigate = jest.fn();
+		const onBeforeNavigate = jest.fn();
+		render(
+			<Root>
+				<CustomSkipLinkWithHandlers navigate={navigate} onBeforeNavigate={onBeforeNavigate} />
+			</Root>,
+		);
+
+		await user.tab();
+		await user.keyboard('{Enter}');
+
+		expect(navigate).toHaveBeenCalledTimes(1);
+		expect(onBeforeNavigate).not.toHaveBeenCalled();
+		expect(screen.getByText('custom target')).not.toHaveAttribute('tabindex');
+	});
+});
+
 describe('platform_dst_nav4_skip_link_a11y_1 is on with skip link a11y improvements', () => {
 	let resetConsoleErrorSpyFn: ResetConsoleErrorFn;
 	beforeAll(() => {
@@ -416,6 +461,7 @@ describe('platform_dst_nav4_skip_link_a11y_1 is on with skip link a11y improveme
 
 	it('should only render skip links for the TopNav, SideNav and Main slots', async () => {
 		passGate('platform_dst_nav4_skip_link_a11y_1');
+		passGate('platform_dst_nav4_skip_link_menu_placeholder');
 
 		const user = userEvent.setup();
 		render(
@@ -442,6 +488,7 @@ describe('platform_dst_nav4_skip_link_a11y_1 is on with skip link a11y improveme
 
 	it('renders a skip-to button and does not expose skip links until the dialog is open', () => {
 		passGate('platform_dst_nav4_skip_link_a11y_1');
+		passGate('platform_dst_nav4_skip_link_menu_placeholder');
 
 		render(
 			<Root testId="root">
@@ -455,6 +502,7 @@ describe('platform_dst_nav4_skip_link_a11y_1 is on with skip link a11y improveme
 
 	it('focuses the skip-to trigger when it is the first tab stop', async () => {
 		passGate('platform_dst_nav4_skip_link_a11y_1');
+		passGate('platform_dst_nav4_skip_link_menu_placeholder');
 
 		const user = userEvent.setup();
 		render(
@@ -473,6 +521,7 @@ describe('platform_dst_nav4_skip_link_a11y_1 is on with skip link a11y improveme
 
 	it('uses the provided `skipLinksTriggerLabel` for the trigger button', () => {
 		passGate('platform_dst_nav4_skip_link_a11y_1');
+		passGate('platform_dst_nav4_skip_link_menu_placeholder');
 
 		render(
 			<Root testId="root" skipLinksTriggerLabel="Jump to a section">
@@ -485,6 +534,7 @@ describe('platform_dst_nav4_skip_link_a11y_1 is on with skip link a11y improveme
 
 	it('opens a dialog with skip links when the trigger is activated', async () => {
 		passGate('platform_dst_nav4_skip_link_a11y_1');
+		passGate('platform_dst_nav4_skip_link_menu_placeholder');
 
 		const user = userEvent.setup();
 		render(
@@ -502,6 +552,7 @@ describe('platform_dst_nav4_skip_link_a11y_1 is on with skip link a11y improveme
 
 	it('uses the provided `skipLinksLabel` as the dialog accessible name and visible heading', async () => {
 		passGate('platform_dst_nav4_skip_link_a11y_1');
+		passGate('platform_dst_nav4_skip_link_menu_placeholder');
 
 		const user = userEvent.setup();
 		render(
@@ -520,6 +571,7 @@ describe('platform_dst_nav4_skip_link_a11y_1 is on with skip link a11y improveme
 
 	it('renders all registered skip links inside the dialog', async () => {
 		passGate('platform_dst_nav4_skip_link_a11y_1');
+		passGate('platform_dst_nav4_skip_link_menu_placeholder');
 
 		const user = userEvent.setup();
 		render(
@@ -540,6 +592,7 @@ describe('platform_dst_nav4_skip_link_a11y_1 is on with skip link a11y improveme
 
 	it('moves focus to the target when a skip link in the dialog is activated', async () => {
 		passGate('platform_dst_nav4_skip_link_a11y_1');
+		passGate('platform_dst_nav4_skip_link_menu_placeholder');
 
 		const user = userEvent.setup();
 		render(
@@ -562,6 +615,7 @@ describe('platform_dst_nav4_skip_link_a11y_1 is on with skip link a11y improveme
 
 	it('closes the dialog and restores focus to the trigger when Escape is pressed', async () => {
 		passGate('platform_dst_nav4_skip_link_a11y_1');
+		passGate('platform_dst_nav4_skip_link_menu_placeholder');
 
 		const user = userEvent.setup();
 		render(
@@ -597,6 +651,7 @@ describe('platform_dst_nav4_skip_link_a11y_1 is on with skip link a11y improveme
 
 	it('should pass an aXe accessibility audit when the popup is open', async () => {
 		passGate('platform_dst_nav4_skip_link_a11y_1');
+		passGate('platform_dst_nav4_skip_link_menu_placeholder');
 
 		const user = userEvent.setup();
 		render(
@@ -617,6 +672,7 @@ describe('platform_dst_nav4_skip_link_a11y_1 is on with skip link a11y improveme
 	describe('useSkipLinkInternal navigate replaces default focus', () => {
 		it('calls navigate instead of focusing the slot element', async () => {
 			passGate('platform_dst_nav4_skip_link_a11y_1');
+			passGate('platform_dst_nav4_skip_link_menu_placeholder');
 
 			const user = userEvent.setup();
 			const navigate = jest.fn();
@@ -638,6 +694,7 @@ describe('platform_dst_nav4_skip_link_a11y_1 is on with skip link a11y improveme
 
 		it('should manage focus for the targeted element when navigate is not provided', async () => {
 			passGate('platform_dst_nav4_skip_link_a11y_1');
+			passGate('platform_dst_nav4_skip_link_menu_placeholder');
 
 			const user = userEvent.setup();
 			render(
@@ -664,6 +721,7 @@ describe('platform_dst_nav4_skip_link_a11y_1 is on with skip link a11y improveme
 
 		it('does NOT call onBeforeNavigate when the gate is on (legacy callback is disabled)', async () => {
 			passGate('platform_dst_nav4_skip_link_a11y_1');
+			passGate('platform_dst_nav4_skip_link_menu_placeholder');
 
 			const user = userEvent.setup();
 			const onBeforeNavigate = jest.fn();
@@ -682,6 +740,7 @@ describe('platform_dst_nav4_skip_link_a11y_1 is on with skip link a11y improveme
 
 		it('invokes navigate even when there is no DOM element matching the skip-link id', async () => {
 			passGate('platform_dst_nav4_skip_link_a11y_1');
+			passGate('platform_dst_nav4_skip_link_menu_placeholder');
 
 			const user = userEvent.setup();
 			const navigate = jest.fn();
@@ -712,6 +771,7 @@ describe('platform_dst_nav4_skip_link_a11y_1 is on with skip link a11y improveme
 	describe('SkipLinksPopup close + navigate ordering', () => {
 		it('closes the popup BEFORE invoking the consumer navigate on the top-layer path', async () => {
 			passGate('platform_dst_nav4_skip_link_a11y_1');
+			passGate('platform_dst_nav4_skip_link_menu_placeholder');
 			passGate('platform-dst-top-layer');
 
 			const user = userEvent.setup();
@@ -740,6 +800,7 @@ describe('platform_dst_nav4_skip_link_a11y_1 is on with skip link a11y improveme
 
 		it('removes the popup BEFORE invoking the consumer navigate on the legacy path', async () => {
 			passGate('platform_dst_nav4_skip_link_a11y_1');
+			passGate('platform_dst_nav4_skip_link_menu_placeholder');
 			failGate('platform-dst-top-layer');
 
 			const user = userEvent.setup();
@@ -768,6 +829,7 @@ describe('platform_dst_nav4_skip_link_a11y_1 is on with skip link a11y improveme
 
 		it('closes the popup BEFORE the fallback focusElement runs (no consumer navigate)', async () => {
 			passGate('platform_dst_nav4_skip_link_a11y_1');
+			passGate('platform_dst_nav4_skip_link_menu_placeholder');
 
 			const user = userEvent.setup();
 			render(
@@ -788,6 +850,7 @@ describe('platform_dst_nav4_skip_link_a11y_1 is on with skip link a11y improveme
 
 		it('does NOT restore focus to the trigger after a skip link is activated', async () => {
 			passGate('platform_dst_nav4_skip_link_a11y_1');
+			passGate('platform_dst_nav4_skip_link_menu_placeholder');
 
 			const user = userEvent.setup();
 			render(
@@ -809,6 +872,7 @@ describe('platform_dst_nav4_skip_link_a11y_1 is on with skip link a11y improveme
 
 		it('can be reopened after a skip link has been activated', async () => {
 			passGate('platform_dst_nav4_skip_link_a11y_1');
+			passGate('platform_dst_nav4_skip_link_menu_placeholder');
 
 			const user = userEvent.setup();
 			render(

@@ -49,10 +49,6 @@ The `TPlacement` shape encodes positioning intent:
   bottom/right in LTR).
 - **`align: 'start' | 'center' | 'end'`** — cross-axis alignment of the popover with the trigger.
 - **`offset: { gap, shift }`** — see Offset model below.
-- **`minSize`** — the minimum size along the placement axis. Sizing, not positioning, but it lives
-  here because it is only meaningful relative to a resolved axis, and because it is the knob that
-  decides whether a capped popover flips or letterboxes. Deliberately left `undefined` when unset,
-  so `minSize: 0` stays distinguishable from "not asked".
 
 ASCII examples:
 
@@ -118,13 +114,12 @@ property has exactly one writer.
 Four defaults are worth knowing, and are documented on the hook. Asking one axis to fit spreads to
 an axis still on `'content'` (never to an explicit one), and the cap is otherwise **per-axis** —
 each axis has its own available space. Asking **either** axis to fit turns on `min-{axis}-size`
-along the placement axis, valued at the two EXPLICIT minimums composed — `placement.minSize` and the
-anchor's size when that axis is anchor-relative — as `max()`, whichever of them applies alone, or a
-`150px` default when neither does (clamped against the viewport so the roomier cell beside the
-anchor can always hold it; where `calc-size()` is supported, the content's own size up to that clamp
-instead, with no 150px term); so `minSize: 0` zeroes the floor only where there is no anchor floor.
-Unlike the cap that is not per-axis, because flipping is a whole-popover outcome. A viewport cap on
-both axes is unconditional. And a non-anchor-relative inline axis is its natural width
+along the placement axis, valued at the anchor's size when that axis is anchor-relative, or else a
+`150px` default (clamped against the viewport so the roomier cell beside the anchor can always hold
+it; where `calc-size()` is supported, the content's own size up to that clamp instead, with no 150px
+term). A consumer cannot turn it off: `placement.minSize` was removed on 2026-11-12, unused. Unlike
+the cap that is not per-axis, because flipping is a whole-popover outcome. A viewport cap on both
+axes is unconditional. And a non-anchor-relative inline axis is its natural width
 (`inline-size: max-content`), so a popover too wide for the span beside its anchor overflows it and
 slides to the roomier side rather than wrapping into it.
 
@@ -204,8 +199,7 @@ visible. The Playwright spec `__tests__/playwright/form-in-popup.spec.tsx` exerc
   `anchor-positioning-fallback.tsx` is the pure math, taking pre-resolved pixel `gap` and
   `crossAxisShift`.
 - `src/internal/resolve-placement.tsx` — type definitions and `resolvePlacement` defaults;
-  normalizes number offsets to `${n}px` strings, and carries `minSize`, the placement-axis floor,
-  which it deliberately leaves `undefined` when unset.
+  normalizes number offsets to `${n}px` strings.
 - `src/internal/resolve-css-length.tsx` — `toCssLengthString` helper for the API boundary.
 - `src/internal/javascript-fallback/resolve-css-length-to-pixels.tsx` — DOM-probe resolver used by
   the JS fallback to convert any CSS length string (token / `calc` / `var` / etc) to pixels.

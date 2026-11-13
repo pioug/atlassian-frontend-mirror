@@ -12,8 +12,8 @@ const documentation: StructuredContentSource = {
 				'A user picker component that provides ranked recommendations based on the current context.',
 			status: 'general-availability',
 			import: {
-				name: 'default',
-				package: '@atlaskit/smart-user-picker',
+				name: 'SmartUserPicker',
+				package: '@atlaskit/smart-user-picker/components',
 				type: 'default',
 				packagePath,
 				packageJson,

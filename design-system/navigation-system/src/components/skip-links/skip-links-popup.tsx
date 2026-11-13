@@ -15,29 +15,7 @@ import { token } from '@atlaskit/tokens';
 import { type SkipLinkData } from '../../context/skip-links/types';
 import { focusElement } from './focus-element';
 import { SkipLink } from './skip-link';
-
-const contentStyles = cssMap({
-	root: {
-		display: 'flex',
-		flexDirection: 'column',
-		paddingBlock: token('space.100'),
-		paddingInline: token('space.200'),
-		zIndex: 'calc(infinity)',
-	},
-	skipLinkList: {
-		display: 'flex',
-		flexDirection: 'column',
-		listStylePosition: 'outside',
-		listStyleType: 'none',
-		marginBlockStart: token('space.0'),
-		paddingInlineStart: token('space.0'),
-	},
-	label: {
-		font: token('font.heading.xxsmall'),
-		color: token('color.text.subtle'),
-		paddingBlock: token('space.100'),
-	},
-});
+import { SkipLinksContent } from './skip-links-content';
 
 const triggerStyles = cssMap({
 	root: {
@@ -65,7 +43,7 @@ const triggerStyles = cssMap({
 const popupOffset: [number, number] = [0, 0];
 
 /**
- * Skip links shown behind `platform_dst_nav4_skip_link_a11y_1`: a single focus-revealed
+ * Skip links shown behind `platform_dst_nav4_skip_link_menu_placeholder`: a single focus-revealed
  * control opens a dialog listing skip targets.
  */
 export function SkipLinksPopup({
@@ -126,50 +104,41 @@ export function SkipLinksPopup({
 			testId={testId ? `${testId}--skip-links-container` : undefined}
 			offset={popupOffset}
 			content={() => (
-				<div css={contentStyles.root}>
-					<div
-						css={contentStyles.label}
-						data-testid={testId ? `${testId}--skip-links-container--label` : undefined}
-						id={titleId}
-					>
-						{title}
-					</div>
-					<ol css={[contentStyles.skipLinkList]}>
-						{links.map(({ id, label, navigate }) => (
-							<SkipLink
-								key={id}
-								id={id}
-								/**
-								 * The popup always owns the navigation effect under the
-								 * `platform_dst_nav4_skip_link_a11y_1` gate (the only path
-								 * that renders `SkipLinksPopup`). It first closes itself
-								 * synchronously so its focus lock is released, then either:
-								 *
-								 *  - delegates to the consumer's `navigate` (e.g. SideNav
-								 *    expanding and focusing its first nav item), or
-								 *  - falls back to focusing the slot element with `id`.
-								 *
-								 * This means `SkipLink`'s `onBeforeNavigate` hook is never
-								 * needed under the gate and can be removed on cleanup.
-								 */
-								navigate={() => {
-									closePopup();
-									if (navigate) {
-										navigate();
-										return;
-									}
-									// Intentionally not using `document.querySelector` because many valid IDs are not valid selectors.
-									const target = document.getElementById(id);
-									if (target) {
-										focusElement(target);
-									}
-								}}
-							>
-								{label}
-							</SkipLink>
-						))}
-					</ol>
-				</div>
+				<SkipLinksContent label={title} titleId={titleId} testId={testId}>
+					{links.map(({ id, label, navigate }) => (
+						<SkipLink
+							key={id}
+							id={id}
+							/**
+							 * The popup always owns the navigation effect under the
+							 * `platform_dst_nav4_skip_link_a11y_1` gate, enabled
+							 * alongside the menu placeholder gate. It first closes itself
+							 * synchronously so its focus lock is released, then either:
+							 *
+							 *  - delegates to the consumer's `navigate` (e.g. SideNav
+							 *    expanding and focusing its first nav item), or
+							 *  - falls back to focusing the slot element with `id`.
+							 *
+							 * This means `SkipLink`'s `onBeforeNavigate` hook is never
+							 * needed under the gate and can be removed on cleanup.
+							 */
+							navigate={() => {
+								closePopup();
+								if (navigate) {
+									navigate();
+									return;
+								}
+								// Intentionally not using `document.querySelector` because many valid IDs are not valid selectors.
+								const target = document.getElementById(id);
+								if (target) {
+									focusElement(target);
+								}
+							}}
+						>
+							{label}
+						</SkipLink>
+					))}
+				</SkipLinksContent>
 			)}
 			trigger={(triggerProps) => (
 				<div css={[triggerStyles.root, isOpen && triggerStyles.isOpen]}>

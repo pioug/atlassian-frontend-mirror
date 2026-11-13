@@ -8,17 +8,6 @@ import type { ShowDiffPlugin } from '../showDiffPluginType';
 import { isDiffDecoration, SCROLL_TARGET_MARGIN_CSS_PROPERTY } from './decorations/decorationKeys';
 import { getWidgetElement } from './decorations/utils/getWidgetElement';
 
-/**
- * Extra space above the scrolled-to element so it does not sit flush under the
- * viewport edge (helps with sticky table headers, toolbars, etc.).
- *
- * Implemented with `scroll-margin-top` so we still use the browser’s native
- * `scrollIntoView`, which scrolls every relevant scrollport (nested containers
- * and the window). A single manual `scrollTop` on one ancestor often misses
- * outer scroll or mis-identifies the active scroll container.
- */
-const SCROLL_TOP_MARGIN_PX = 100;
-
 type PluginInjectionAPI = ExtractInjectionAPI<ShowDiffPlugin>;
 
 function updateScrollTargetMargin(
@@ -47,19 +36,7 @@ function scrollToSelection(node: Node | null | undefined): void {
 	if (fg('platform_editor_ai_suggestion_table_scroll_fix')) {
 		scrollOptions.inline = 'center';
 	}
-	if (fg('platform_editor_ai_show_diff_patch_1')) {
-		element.scrollIntoView(scrollOptions);
-		return;
-	}
-
-	// scroll-margin is included in scroll-into-view math; it does not change layout.
-	const previousScrollMarginTop = element.style.scrollMarginTop;
-	element.style.scrollMarginTop = `${SCROLL_TOP_MARGIN_PX}px`;
-	try {
-		element.scrollIntoView(scrollOptions);
-	} finally {
-		element.style.scrollMarginTop = previousScrollMarginTop;
-	}
+	element.scrollIntoView(scrollOptions);
 }
 
 function resolveScrollTarget(view: EditorView, target: Decoration): Node | null | undefined {
@@ -97,7 +74,7 @@ export const scrollToDecoration = (
 
 	// A grouped decoration spans a whole customer-facing edit, which can visually start with a
 	// deleted-content widget rather than at the group's `from` position — see `scrollTarget` in
-	// `getScrollableDecorations`. Only set under `platform_editor_ai_show_diff_patch_1`.
+	// `getScrollableDecorations`.
 	const target = (isDiffDecoration(decoration) && decoration.spec.scrollTarget) || decoration;
 
 	let rafId: number | null = null;
@@ -107,9 +84,7 @@ export const scrollToDecoration = (
 		if (view.isDestroyed) {
 			return;
 		}
-		if (fg('platform_editor_ai_show_diff_patch_1')) {
-			updateScrollTargetMargin(view, target.from, api);
-		}
+		updateScrollTargetMargin(view, target.from, api);
 		scrollToSelection(resolveScrollTarget(view, target));
 	};
 

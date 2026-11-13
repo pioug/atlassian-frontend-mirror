@@ -3,7 +3,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 
 import { cssMap, cx } from '@atlaskit/css';
-import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 import InformationCircleIcon from '@atlaskit/icon/core/information-circle';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled/box';
@@ -21,7 +20,6 @@ import {
 } from '@atlaskit/rovo-agent-components/ui/AgentProfileInfo';
 import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/teams-app-internal-analytics/use-analytics-events';
 import { TeamsLink } from '@atlaskit/teams-app-internal-navigation/teams-link';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { type AgentProfileCardProps } from '../../types';
@@ -53,12 +51,6 @@ const styles = cssMap({
 		position: 'relative',
 		overflow: 'hidden',
 	},
-	cardContainerStylesLegacy: {
-		borderRadius: token('radius.large'),
-		boxShadow: token('elevation.shadow.overlay'),
-		position: 'relative',
-		overflow: 'hidden',
-	},
 	agentProfileInfoWrapper: {
 		paddingInline: token('space.200'),
 	},
@@ -74,13 +66,6 @@ const styles = cssMap({
 		paddingInline: token('space.150'),
 	},
 	disclosureWrapper: {
-		paddingInline: token('space.200'),
-		gap: token('space.050'),
-	},
-	// Legacy block padding.
-	disclosureWrapperLegacy: {
-		paddingBlockStart: token('space.150'),
-		paddingBlockEnd: token('space.150'),
 		paddingInline: token('space.200'),
 		gap: token('space.050'),
 	},
@@ -220,36 +205,13 @@ const AgentProfileCard = ({
 		(agent.creator_type === 'ROVO_DEV' && agent.name.toLowerCase() === 'jira coding agent');
 
 	const shouldShowConversationStarters =
-		!isReadOnly &&
-		!isRovoDevOrJiraCodingAgent &&
-		!(
-			((expValEquals('platform_editor_agent_mentions', 'isEnabled', true) &&
-				fg('platform_editor_agent_mentions_drop_one_fixes')) ||
-				fg('platform_editor_agent_card_fixes')) &&
-			hideConversationStarters
-		);
+		!isReadOnly && !isRovoDevOrJiraCodingAgent && !hideConversationStarters;
 
 	const shouldShowAgentActions = !isReadOnly && !isRovoDevOrJiraCodingAgent && !hideAgentActions;
 
-	// Only for M1 hideAgentActions preview cards so other consumers stay unchanged.
-	const needsBottomPaddingFallback =
-		hideAgentActions &&
-		(FeatureGates.getExperimentValue('jira_agent_recommendations_m1', 'isEnabled', false) ||
-			(expValEquals('platform_editor_agent_mentions', 'isEnabled', true) &&
-				fg('platform_editor_agent_mentions_drop_one_fixes')) ||
-			fg('platform_editor_agent_card_fixes'));
-
 	return (
 		<AgentProfileCardWrapper>
-			<Box
-				xcss={
-					(expValEquals('platform_editor_agent_mentions', 'isEnabled', true) &&
-						fg('platform_editor_agent_mentions_drop_one_fixes')) ||
-					fg('platform_editor_agent_card_fixes')
-						? styles.cardContainerStyles
-						: styles.cardContainerStylesLegacy
-				}
-			>
+			<Box xcss={styles.cardContainerStyles}>
 				<AgentBanner
 					agentId={agent.id}
 					agentNamedId={agent.external_config_reference ?? agent.named_id}
@@ -275,16 +237,10 @@ const AgentProfileCard = ({
 				</Box>
 
 				<Stack
-					space={
-						(expValEquals('platform_editor_agent_mentions', 'isEnabled', true) &&
-							fg('platform_editor_agent_mentions_drop_one_fixes')) ||
-						fg('platform_editor_agent_card_fixes')
-							? 'space.150'
-							: 'space.100'
-					}
+					space="space.150"
 					xcss={cx(
 						styles.detailWrapper,
-						needsBottomPaddingFallback && styles.detailWrapperPreviewBottomPadding,
+						hideAgentActions && styles.detailWrapperPreviewBottomPadding,
 					)}
 				>
 					<Box xcss={styles.agentProfileInfoWrapper}>
@@ -309,37 +265,21 @@ const AgentProfileCard = ({
 								)
 							}
 							starCountRender={null}
-							agentDescription={
-								(expValEquals('platform_editor_agent_mentions', 'isEnabled', true) &&
-									fg('platform_editor_agent_mentions_drop_one_fixes')) ||
-								fg('platform_editor_agent_card_fixes')
-									? undefined
-									: agent.description
-							}
 						/>
 					</Box>
-					{!!agent.description &&
-						((expValEquals('platform_editor_agent_mentions', 'isEnabled', true) &&
-							fg('platform_editor_agent_mentions_drop_one_fixes')) ||
-							fg('platform_editor_agent_card_fixes')) && (
-							<Box xcss={styles.descriptionWrapper}>
-								<Box xcss={styles.description} as="p">
-									{agent.description}
-								</Box>
+					{!!agent.description && (
+						<Box xcss={styles.descriptionWrapper}>
+							<Box xcss={styles.description} as="p">
+								{agent.description}
 							</Box>
-						)}
+						</Box>
+					)}
 					{!hideAiDisclaimer && (
 						<Flex
 							alignItems="start"
 							direction="column"
 							gap="space.050"
-							xcss={
-								(expValEquals('platform_editor_agent_mentions', 'isEnabled', true) &&
-									fg('platform_editor_agent_mentions_drop_one_fixes')) ||
-								fg('platform_editor_agent_card_fixes')
-									? styles.disclosureWrapper
-									: styles.disclosureWrapperLegacy
-							}
+							xcss={styles.disclosureWrapper}
 						>
 							{isReadOnly ? (
 								<Text size="small" color="color.text.subtlest">

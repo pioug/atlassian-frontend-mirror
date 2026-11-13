@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 
 import { RelayEnvironmentProvider } from 'react-relay';
-import { createMockEnvironment } from 'relay-test-utils';
 
 import type { DocNode } from '@atlaskit/adf-schema/doc';
 import {
@@ -13,9 +12,11 @@ import { mockSyncedBlockProviderWithStaticData } from '@atlaskit/editor-test-hel
 import { Renderer } from '../../entry-points/renderer-default';
 import type { RendererProps } from '../../ui/renderer-props';
 
-const mockEnvironment = createMockEnvironment();
+const mockEnvironment = createAtlassianMockRelayEnvironment();
 
 import { SyncBlockActionsProvider } from '@atlaskit/editor-common/sync-block/SyncBlockActionsContext';
+
+import { createAtlassianMockRelayEnvironment } from '@atlassian/relay-test-utils/mock-environment';
 
 import type { RendererContentMode } from '../../ui/Renderer/types';
 import {

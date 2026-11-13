@@ -18,7 +18,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'defaults',
-				package: '@atlaskit/json-ld-types',
+				package: '@atlaskit/json-ld-types/default-states',
 				type: 'named',
 				packagePath,
 				packageJson,

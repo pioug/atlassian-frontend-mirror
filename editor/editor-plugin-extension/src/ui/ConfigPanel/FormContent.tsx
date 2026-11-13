@@ -68,7 +68,14 @@ export function FieldComponent({
 			);
 
 		case 'boolean':
-			return <Boolean name={parentedName} field={field} onFieldChange={onFieldChange} />;
+			return (
+				<Boolean
+					name={parentedName}
+					field={field}
+					extensionManifest={extensionManifest}
+					onFieldChange={onFieldChange}
+				/>
+			);
 
 		case 'color':
 			return (

@@ -13,6 +13,7 @@ import Tooltip from '@atlaskit/tooltip/Tooltip';
 import { TOOLTIP_USERS_LIMIT } from '../shared/constants';
 import { messages } from '../shared/i18n';
 import { type ReactionSummary } from '../types';
+import { AgentReactionName } from './AgentReactionName';
 import { type OpenReactionsDialogOptions } from './Reactions';
 
 export const verticalMargin = 5;
@@ -148,10 +149,7 @@ export const ReactionTooltip = ({
 					{users.slice(0, maxReactions).map((user) => (
 						<li key={user.id}>
 							{user.agent ? (
-								<FormattedMessage
-									{...messages.agentWithPerson}
-									values={{ agentName: user.agent.name, personName: user.displayName }}
-								/>
+								<AgentReactionName agent={user.agent} personName={user.displayName} />
 							) : (
 								user.displayName
 							)}

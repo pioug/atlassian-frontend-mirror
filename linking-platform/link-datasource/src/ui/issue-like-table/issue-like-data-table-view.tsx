@@ -392,6 +392,7 @@ export const IssueLikeDataTableView = ({
 	hasNextPage,
 	scrollableContainerHeight,
 	extensionKey,
+	isColumnReorderEnabled,
 }: IssueLikeDataTableViewProps): JSX.Element => {
 	const { formatMessage } = useIntl();
 	const tableId = useMemo(() => Symbol('unique-id'), []);
@@ -910,6 +911,7 @@ export const IssueLikeDataTableView = ({
 											selectedColumnKeys={shouldDisplayColumnsInPicker ? visibleColumnKeys : []}
 											onSelectedColumnKeysChange={onSelectedColumnKeysChange}
 											onOpen={handlePickerOpen}
+											isColumnReorderEnabled={isColumnReorderEnabled}
 										/>
 										<TableSettingsMenu wrapTextSetting={tableSettingsMenuProps.wrapTextSetting} />
 									</Inline>
@@ -921,6 +923,7 @@ export const IssueLikeDataTableView = ({
 										selectedColumnKeys={shouldDisplayColumnsInPicker ? visibleColumnKeys : []}
 										onSelectedColumnKeysChange={onSelectedColumnKeysChange}
 										onOpen={handlePickerOpen}
+										isColumnReorderEnabled={isColumnReorderEnabled}
 									/>
 								</ColumnPickerHeader>
 							))}

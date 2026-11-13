@@ -20,13 +20,14 @@ It supports two approaches for defining animations:
   `exitingAnimationXcss` for full control over `animationName`, `animationDuration`,
   `animationTimingFunction`, and `animationDelay`.
 
-Wrap the Motion primitive with `<ExitingPersistence>` to enable exit animations when elements are
-removed from the DOM.
+Keep the Motion primitive mounted and pass `action="enter"` or `action="exit"` when application
+state changes. Motion plays the requested animation and renders `null` after the exit completes. Do
+not add `ExitingPersistence` to new Motion implementations.
 
 ## Using motion tokens
 
 The simplest way to use the Motion primitive is with pre-defined motion tokens. Pass a motion token
-to `enteringAnimation` and `exitingAnimation` to apply a paired entering and exiting animation.
+to `enteringAnimation` and `exitingAnimation`, then use `action` to select the animation.
 
 <Example
 	highlight="9,37-39"

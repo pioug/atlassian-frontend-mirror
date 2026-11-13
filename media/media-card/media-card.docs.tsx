@@ -23,8 +23,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Card',
-				package: '@atlaskit/media-card',
-				type: 'named',
+				package: '@atlaskit/media-card/cardLoader',
+				type: 'default',
 				packagePath,
 				packageJson,
 			},
@@ -58,8 +58,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'MediaInlineCard',
-				package: '@atlaskit/media-card',
-				type: 'named',
+				package: '@atlaskit/media-card/loader',
+				type: 'default',
 				packagePath,
 				packageJson,
 			},
@@ -85,8 +85,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'CardSync',
-				package: '@atlaskit/media-card',
-				type: 'named',
+				package: '@atlaskit/media-card/cardSync',
+				type: 'default',
 				packagePath,
 				packageJson,
 			},
@@ -109,7 +109,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'CardPlaceholder',
-				package: '@atlaskit/media-card',
+				package: '@atlaskit/media-card/cardPlaceholder',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -137,7 +137,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'CardLoading',
-				package: '@atlaskit/media-card',
+				package: '@atlaskit/media-card/cardLoading',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -163,7 +163,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'CardError',
-				package: '@atlaskit/media-card',
+				package: '@atlaskit/media-card/cardError',
 				type: 'named',
 				packagePath,
 				packageJson,

@@ -17,6 +17,7 @@ module.exports = {
 		const isInSchemaOrNextSchema =
 			filename.match(nextSchemaFilesPattern) || filename.match(schemaFilesPattern);
 
+		/* oxlint-disable eslint-core-js/consistent-return -- Existing ESLint suppression uses the core rule ID. */
 		// eslint-disable-next-line consistent-return
 		const findDefine = (node) => {
 			const callExpression = node;
@@ -29,6 +30,7 @@ module.exports = {
 				return findDefine(memberExpression.object);
 			}
 		};
+		/* oxlint-enable eslint-core-js/consistent-return */
 
 		const reportInSchema = (objectExpression) => {
 			if (!objectExpression) {

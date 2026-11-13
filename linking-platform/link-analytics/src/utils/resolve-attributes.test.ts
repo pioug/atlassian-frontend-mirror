@@ -1,4 +1,5 @@
 import { APIError } from '@atlaskit/linking-common/api-error';
+import { failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { fakeFactory, mocks } from '../__fixtures__/mocks';
 import { resolveAttributes } from './resolve-attributes';
@@ -11,6 +12,7 @@ describe('resolveAttributes', () => {
 
 	beforeEach(() => {
 		jest.resetAllMocks();
+		failGate('platform_smartlinks_subtype_analytics');
 		mockStore.getState.mockImplementation(() => ({}));
 	});
 

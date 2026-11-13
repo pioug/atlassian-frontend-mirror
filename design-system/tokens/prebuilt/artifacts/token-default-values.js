@@ -13,7 +13,7 @@ exports.default = void 0;
  * Token names mapped to their value in the default Atlassian themes ('light').
  * These default values are used by the Babel plugin to optionally provide automatic fallbacks.
  *
- * @codegen <<SignedSource::b7f87978e0786849e10a2c9e7d7939e2>>
+ * @codegen <<SignedSource::8766013657ec7971e7d4a015e032d837>>
  * @codegenCommand yarn build tokens
  */
 var defaultTokenValues = {
@@ -44,8 +44,10 @@ var defaultTokenValues = {
   'motion.form.message.exit': '100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutBottom2px forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
   'motion.iconography.enter.cycle.up': '400ms cubic-bezier(0.65, 0, 0.35, 1) SlideIn100PercentBottom backwards',
   'motion.iconography.enter.fade': '250ms cubic-bezier(0, 0.4, 0, 1) FadeIn0to100 backwards',
+  'motion.iconography.enter.fade.fast': '50ms cubic-bezier(0, 0.4, 0, 1) FadeIn0to100 backwards',
   'motion.iconography.exit.cycle.up': '400ms cubic-bezier(0.65, 0, 0.35, 1) SlideOut100PercentTop forwards',
   'motion.iconography.exit.fade': '250ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
+  'motion.iconography.exit.fade.fast': '50ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
   'motion.input': 'background-color 150ms cubic-bezier(0.4, 1, 0.6, 1), border-color 150ms cubic-bezier(0.4, 1, 0.6, 1), box-shadow 150ms cubic-bezier(0.4, 1, 0.6, 1)',
   'motion.input.selection': 'background-color 150ms cubic-bezier(0.4, 1, 0.6, 1), border-color 150ms cubic-bezier(0.4, 1, 0.6, 1), color 150ms cubic-bezier(0.4, 1, 0.6, 1), fill 150ms cubic-bezier(0.4, 1, 0.6, 1), stroke 150ms cubic-bezier(0.4, 1, 0.6, 1), opacity 150ms cubic-bezier(0.4, 1, 0.6, 1)',
   'motion.input.toggle': 'background-color 150ms cubic-bezier(0.4, 1, 0.6, 1), color 150ms cubic-bezier(0.4, 1, 0.6, 1), transform 150ms cubic-bezier(0.4, 1, 0.6, 1), opacity 150ms cubic-bezier(0.4, 1, 0.6, 1)',

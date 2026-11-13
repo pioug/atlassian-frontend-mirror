@@ -281,6 +281,9 @@ describe('paragraph props fast path', () => {
 						selectionDraftRange: null,
 						hoverDraftRange: null,
 						hoverDraftDocumentPosition: null,
+						draftIntentSource: null,
+						selectionDraftTarget: null,
+						hoverDraftTarget: null,
 						selectionDraftDocumentPosition: position,
 					}}
 				>

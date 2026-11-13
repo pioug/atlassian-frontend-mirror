@@ -18,7 +18,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'DatasourceDetailsRequest',
-				package: '@atlaskit/linking-types',
+				package: '@atlaskit/linking-types/datasource',
 				type: 'named',
 				packagePath,
 				packageJson,

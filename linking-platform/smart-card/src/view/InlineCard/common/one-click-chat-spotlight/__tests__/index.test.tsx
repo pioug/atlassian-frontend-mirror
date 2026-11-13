@@ -50,6 +50,13 @@ jest.mock('../../../../../state/hooks/use-rovo-config');
 jest.mock('../../../../../state/hooks/use-rovo-chat');
 jest.mock('../../../../../state/hooks/use-invoke-client-action');
 jest.mock('../../../../../state/store');
+// Keep the exports distinct instead of resolving both PNGs to the shared file mock.
+jest.mock('../assets/rovo-snapshot-illustration@2x.png', () => 'spotlight-light.png', {
+	virtual: true,
+});
+jest.mock('../assets/rovo-snapshot-illustration-dark@2x.png', () => 'spotlight-dark.png', {
+	virtual: true,
+});
 jest.mock('../../../../../state/renderers', () => ({ useSmartLinkRenderers: () => ({}) }));
 jest.mock('../../../../../state/actions', () => ({
 	useSmartCardActions: () => ({ loadMetadata: jest.fn(), register: jest.fn() }),
@@ -154,6 +161,35 @@ function renderAction(
 	);
 }
 
+it('updates the illustration when the theme changes without recording another impression', async () => {
+	const previousMode = document.documentElement.getAttribute('data-color-mode');
+	try {
+		document.documentElement.setAttribute('data-color-mode', 'light');
+		passGate(gate);
+		mockExp(experiment, { isEnabled: true });
+		renderAction();
+		const illustration = await screen.findByTestId('one-click-chat-spotlight-v2-illustration');
+		expect(illustration).toHaveAttribute('src', 'spotlight-light.png');
+		await act(async () => {
+			document.documentElement.setAttribute('data-color-mode', 'dark');
+		});
+		expect(illustration).toHaveAttribute('src', 'spotlight-dark.png');
+		expect(illustration).toHaveAttribute('srcset', 'spotlight-dark.png 2x');
+		await act(async () => {
+			document.documentElement.setAttribute('data-color-mode', 'light');
+		});
+		expect(illustration).toHaveAttribute('src', 'spotlight-light.png');
+		expect(spotlightEvents().map((event) => event.action)).toEqual(['viewed']);
+	} finally {
+		cleanup();
+		if (previousMode === null) {
+			document.documentElement.removeAttribute('data-color-mode');
+		} else {
+			document.documentElement.setAttribute('data-color-mode', previousMode);
+		}
+	}
+});
+
 it.each([
 	['google-object-provider', 'CONFLUENCE', 'summarize-document'],
 	['github-object-provider', 'JSW', 'explain-code'],
@@ -164,12 +200,15 @@ it.each([
 		mockExp(experiment, { isEnabled: true });
 		renderAction(provider, product);
 		await screen.findByTestId('one-click-chat-spotlight-v2');
-		expect(screen.getByRole('dialog', { name: 'Explore this link with Rovo' })).toBeInTheDocument();
-		expect(screen.queryByRole('heading')).not.toBeInTheDocument();
-		expect(screen.getByRole('button', { name: 'Dismiss spotlight' })).toBeInTheDocument();
+		expect(screen.getByRole('dialog', { name: 'Get the gist from this link' })).toBeInTheDocument();
 		expect(
-			screen.getByText('Get key decisions and next steps from this link.'),
+			screen.getByRole('heading', { name: 'Get the gist from this link', level: 2 }),
 		).toBeInTheDocument();
+		const illustration = screen.getByTestId('one-click-chat-spotlight-v2-illustration');
+		expect(illustration).toHaveAttribute('alt', '');
+		expect(illustration).toHaveAttribute('aria-hidden', 'true');
+		expect(screen.getByRole('button', { name: 'Dismiss spotlight' })).toBeInTheDocument();
+		expect(screen.getByText('See key insights, context, and next steps.')).toBeInTheDocument();
 		await waitFor(() =>
 			expect(mockCreateEvent).toHaveBeenCalledWith(expect.objectContaining({ action: 'viewed' })),
 		);
@@ -379,15 +418,15 @@ it.each([false, true])(
 		mockExp(experiment, { isEnabled: true });
 		renderAction('google-object-provider', 'CONFLUENCE', undefined, true);
 		await screen.findByTestId('one-click-chat-spotlight-v2');
-		const heading = screen.getByText('Get key decisions and next steps from this link.');
+		const heading = screen.getByText('See key insights, context, and next steps.');
 		if (topLayer) {
 			expect(heading.closest('a')).toHaveAttribute('href', url);
 		}
 		// A cancelled native click cannot activate the enclosing hyperlink.
 		expect(fireEvent.click(heading)).toBe(false);
-		expect(
-			fireEvent.click(screen.getByText('Get key decisions and next steps from this link.')),
-		).toBe(false);
+		expect(fireEvent.click(screen.getByText('See key insights, context, and next steps.'))).toBe(
+			false,
+		);
 		expect(mockNavigate).not.toHaveBeenCalled();
 		expect(mockInvoke).not.toHaveBeenCalled();
 		expect(spotlightEvents().map((event) => event.action)).toEqual(['viewed']);
@@ -515,7 +554,7 @@ describe.each([false, true])('explicit dismissal with top layer %s', (topLayer) 
 				expect(mockInvoke).not.toHaveBeenCalled();
 
 				if (interaction === 'Escape') {
-					await user.click(screen.getByText('Get key decisions and next steps from this link.'));
+					await user.click(screen.getByText('See key insights, context, and next steps.'));
 					screen.getByRole('button', { name: 'Dismiss spotlight' }).focus();
 					await user.keyboard('{Escape}');
 				} else {
@@ -614,7 +653,7 @@ it.each([false, true])(
 		};
 		const { unmount } = renderAction();
 		await screen.findByTestId('one-click-chat-spotlight-v2');
-		const dialog = screen.getByRole('dialog', { name: 'Explore this link with Rovo' });
+		const dialog = screen.getByRole('dialog', { name: 'Get the gist from this link' });
 		const caret = dialog.querySelector('span[aria-hidden="true"]')!;
 		const surface = caret.parentElement!;
 		const anchor = screen.getByTestId('action').closest('[role="none"]')!;

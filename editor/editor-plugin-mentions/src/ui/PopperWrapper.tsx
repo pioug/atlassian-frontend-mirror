@@ -7,7 +7,6 @@ import type { PopperChildrenProps, Placement } from '@atlaskit/popper/main';
 import Portal from '@atlaskit/portal/portal';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-atlaskit-theme
 import { layers } from '@atlaskit/theme/constants';
-import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import { useFocusTrap } from './useFocusTrap';
 
@@ -129,27 +128,17 @@ export function Popup({
 					placement={placement}
 					strategy="fixed"
 					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-					modifiers={
-						expVal('platform_editor_agent_mentions', 'isEnabled', false) ||
-						fg('platform_editor_agent_card_fixes')
-							? [
-									{ name: 'flip', options: { rootBoundary: 'viewport', padding: 5 } },
-									{ name: 'preventOverflow', options: { rootBoundary: 'viewport', padding: 5 } },
-								]
-							: []
-					}
+					modifiers={[
+						{ name: 'flip', options: { rootBoundary: 'viewport', padding: 5 } },
+						{ name: 'preventOverflow', options: { rootBoundary: 'viewport', padding: 5 } },
+					]}
 				>
 					{({ ref, style, update, forceUpdate }) => (
 						<PopupInner
 							ref={ref}
 							style={style}
 							update={update}
-							forceUpdate={
-								expVal('platform_editor_agent_mentions', 'isEnabled', false) ||
-								fg('platform_editor_agent_card_fixes')
-									? forceUpdate
-									: undefined
-							}
+							forceUpdate={forceUpdate}
 							setPopupRef={setPopupRef}
 						>
 							{children}

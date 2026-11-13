@@ -15,6 +15,7 @@ import {
 
 import { cssMap, jsx } from '@compiled/react';
 
+import type MediaAboveMd from '@atlaskit/css/at-rules/media-above-md';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import { useLayoutEffect } from '@atlaskit/ds-lib/use-layout-effect';
 import useStableRef from '@atlaskit/ds-lib/use-stable-ref';
@@ -109,13 +110,35 @@ const styles = cssMap({
 			"[dir='rtl'] &": {
 				animation: token('motion.panel.enter.left'),
 			},
-			transitionProperty: 'position',
+			// The shell holds its single-column grid for `motion.duration.short`, so overlay `main` for that
+			// long, then snap into the panel track. The end-aligned panel sits at the same inline position
+			// in both areas, so nothing visibly jumps.
+			transitionProperty: 'grid-area',
 			transitionDuration: token('motion.duration.instant'),
 			transitionDelay: token('motion.duration.short'),
 			transitionBehavior: 'allow-discrete',
 			'@starting-style': {
-				position: 'fixed',
+				gridArea: 'main',
 			},
+			// Percentage widths (used before the first measurement) resolve against the grid area, which is
+			// the full-width `main` area. Pin the width so the panel keeps its own width while overlaying.
+			width: 'var(--p_lclPnlRsz, var(--p_lclPnlW))',
+		},
+	},
+	motionUnmeasured: {
+		// Viewport-aware preferred width, derived here because the shell only defines
+		// `--p_lclPnlSsrPreferredW` while it is open and unmeasured (not during exit).
+		'--p_lclPnlMotionW': 'var(--p_lclPnlCompactW)',
+		['@media (min-width: 64rem)' satisfies MediaAboveMd]: {
+			'--p_lclPnlMotionW': 'var(--p_lclPnlTrackW)',
+		},
+		'@media (prefers-reduced-motion: no-preference)': {
+			// Without managed sizing `localPanelVar` is the full default width, so pin the viewport-aware
+			// preferred width instead; otherwise the panel animates at the wrong width and then snaps.
+			// Cap at 90% of the layout container, matching the settled overlay width. `cqw` is used rather than
+			// `%` because a percentage resolves against the grid area, which changes from `main` to the panel
+			// track when the shell snaps, and would resize the panel.
+			width: 'min(90cqw, var(--p_lclPnlMotionW))',
 		},
 	},
 	exiting: {
@@ -125,7 +148,11 @@ const styles = cssMap({
 			"[dir='rtl'] &": {
 				animation: token('motion.panel.exit.left'),
 			},
-			position: 'fixed',
+			// The shell has already collapsed its panel track, so overlay `main` while exiting.
+			gridArea: 'main',
+			// Percentage widths (used before the first measurement) resolve against the grid area, which is
+			// the full-width `main` area. Pin the width so the panel keeps its own width while exiting.
+			width: 'var(--p_lclPnlRsz, var(--p_lclPnlW))',
 		},
 	},
 	contentEntering: {
@@ -292,6 +319,10 @@ export function LocalPanelSurface({
 			css={[
 				isMotionUpliftEnabled && state === 'entering' && styles.entering,
 				isMotionUpliftEnabled && state === 'exiting' && styles.exiting,
+				isMotionUpliftEnabled &&
+					(state === 'entering' || state === 'exiting') &&
+					!managedSizing &&
+					styles.motionUnmeasured,
 				styles.panelWrapper,
 				styles.border,
 				!managedSizing && styles.unmeasured,

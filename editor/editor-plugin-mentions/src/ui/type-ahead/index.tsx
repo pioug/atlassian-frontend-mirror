@@ -16,7 +16,6 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import Lozenge from '@atlaskit/lozenge/new/lozenge';
 import { isResolvingMentionProvider } from '@atlaskit/mention/is-resolving-mention-provider';
-import MentionItem from '@atlaskit/mention/mention-item';
 import {
 	MENTION_ITEM_HEIGHT,
 	MENTION_ITEM_HEIGHT_REFRESHED,
@@ -224,25 +223,15 @@ const makeMentionToTypeaheadItem =
 
 		return {
 			title: mention.id,
-			render: ({ isSelected, onClick, onHover }) =>
-				expVal('platform_editor_agent_mentions', 'isEnabled', false) ||
-				fg('platform_editor_agent_card_fixes') ? (
-					<MentionItemWithProfileCard
-						mention={mention}
-						selected={isSelected}
-						onSelection={onClick}
-						height={itemHeight}
-						profilecardProvider={profilecardProvider}
-					/>
-				) : (
-					<MentionItem
-						mention={mention}
-						selected={isSelected}
-						onMouseEnter={onHover}
-						onSelection={onClick}
-						height={itemHeight}
-					/>
-				),
+			render: ({ isSelected, onClick }) => (
+				<MentionItemWithProfileCard
+					mention={mention}
+					selected={isSelected}
+					onSelection={onClick}
+					height={itemHeight}
+					profilecardProvider={profilecardProvider}
+				/>
+			),
 			getCustomComponentHeight: () => {
 				return customComponentHeight;
 			},

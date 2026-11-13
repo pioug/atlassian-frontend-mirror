@@ -2,6 +2,12 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
+import { BaseUserPickerWithoutAnalytics } from '../../../components/BaseUserPicker';
+import { getPopupComponents } from '../../../components/components';
+import { PopupControl } from '../../../components/PopupControl';
+import { PopupInput } from '../../../components/PopupInput';
 import { PopupUserPickerWithoutAnalytics } from '../../../components/PopupUserPicker';
 import { getPopupStyles } from '../../../components/styles';
 import { type PopupUserPickerProps } from '../../../types';
@@ -11,7 +17,7 @@ jest.mock('../../../components/styles', () => ({
 }));
 
 jest.mock('../../../components/BaseUserPicker', () => ({
-	BaseUserPickerWithoutAnalytics: (props: any) => {
+	BaseUserPickerWithoutAnalytics: jest.fn((props: any) => {
 		const modifiers = props.pickerProps.popperProps.modifiers;
 		const preventOverflow = modifiers.find(
 			({ name }: { name: string }) => name === 'preventOverflow',
@@ -40,7 +46,7 @@ jest.mock('../../../components/BaseUserPicker', () => ({
 				data-width={String(props.width)}
 			/>
 		);
-	},
+	}),
 }));
 
 const defaultProps: Partial<PopupUserPickerProps> = {
@@ -58,6 +64,10 @@ describe('PopupUserPicker', () => {
 		render(<PopupUserPickerWithoutAnalytics fieldId="test" target={jest.fn()} {...props} />);
 
 	const getConfig = () => screen.getByTestId('popup-picker-config');
+	const getPickerComponents = () => {
+		const calls = jest.mocked(BaseUserPickerWithoutAnalytics).mock.calls;
+		return calls[calls.length - 1][0].components;
+	};
 
 	beforeEach(() => {
 		jest.clearAllMocks();
@@ -92,6 +102,109 @@ describe('PopupUserPicker', () => {
 
 		expect(getConfig()).toHaveAttribute('data-has-popup-control', 'true');
 		expect(getConfig()).toHaveAttribute('data-popup-title', 'title');
+	});
+
+	it.each(['title', undefined])(
+		'preserves popup controls with custom components and popupTitle=%s',
+		(popupTitle) => {
+			passGate('rovo_credits_shared_query_cache');
+			const CustomOption = () => null;
+			const CustomMenuList = () => null;
+			const CustomControl = () => null;
+			const CustomInput = () => null;
+			renderPopupUserPicker({
+				popupTitle,
+				components: {
+					Option: CustomOption,
+					MenuList: CustomMenuList,
+					Control: CustomControl,
+					Input: CustomInput,
+				},
+			});
+
+			expect(getPickerComponents()).toMatchObject({
+				Option: CustomOption,
+				MenuList: CustomMenuList,
+				Input: PopupInput,
+				Control: popupTitle ? PopupControl : CustomControl,
+			});
+		},
+	);
+
+	it.each(['title', undefined])(
+		'ignores custom components with the gate off and popupTitle=%s',
+		(popupTitle) => {
+			failGate('rovo_credits_shared_query_cache');
+			const CustomComponent = () => null;
+			renderPopupUserPicker({
+				popupTitle,
+				components: {
+					Option: CustomComponent,
+					MenuList: CustomComponent,
+					Control: CustomComponent,
+					Input: CustomComponent,
+				},
+			});
+			expect(getPickerComponents()).toBe(getPopupComponents(!!popupTitle));
+		},
+	);
+
+	it('retains the component map across rerenders even when another picker renders', () => {
+		passGate('rovo_credits_shared_query_cache');
+		const components = { Option: () => null };
+		const target = jest.fn();
+		const { rerender } = renderPopupUserPicker({ components, target });
+		const initialComponents = getPickerComponents();
+
+		renderPopupUserPicker({ popupTitle: 'Other picker', components: { Option: () => null } });
+		rerender(
+			<PopupUserPickerWithoutAnalytics
+				fieldId="test"
+				target={target}
+				components={components}
+				width={500}
+			/>,
+		);
+
+		expect(getPickerComponents()).toBe(initialComponents);
+	});
+
+	it('updates the component map when overrides or the popup title change', () => {
+		passGate('rovo_credits_shared_query_cache');
+		const components = { Option: () => null };
+		const target = jest.fn();
+		const { rerender } = renderPopupUserPicker({ components, target });
+		const initialComponents = getPickerComponents();
+		const updatedComponents = { Option: () => null };
+
+		rerender(
+			<PopupUserPickerWithoutAnalytics
+				fieldId="test"
+				target={target}
+				components={updatedComponents}
+			/>,
+		);
+		expect(getPickerComponents()).not.toBe(initialComponents);
+		expect(getPickerComponents()).toMatchObject(updatedComponents);
+
+		rerender(
+			<PopupUserPickerWithoutAnalytics
+				fieldId="test"
+				target={target}
+				components={updatedComponents}
+				popupTitle="Title"
+			/>,
+		);
+		expect(getPickerComponents()).toMatchObject({ ...updatedComponents, Control: PopupControl });
+
+		rerender(
+			<PopupUserPickerWithoutAnalytics
+				fieldId="test"
+				target={target}
+				components={updatedComponents}
+			/>,
+		);
+		expect(getPickerComponents()).not.toHaveProperty('Control');
 	});
 
 	it('does not add a custom Control when popupTitle is absent', () => {

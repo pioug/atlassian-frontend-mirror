@@ -5,18 +5,18 @@
 import { useMemo } from 'react';
 
 import { css, cssMap, jsx } from '@compiled/react';
-import { FormattedMessage } from 'react-intl';
 
 import Avatar from '@atlaskit/avatar/Avatar';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Flex } from '@atlaskit/primitives/compiled/flex';
 import Spinner from '@atlaskit/spinner/spinner';
 import TabPanel from '@atlaskit/tabs/tab-panel';
 import { token } from '@atlaskit/tokens';
 
-import { messages } from '../shared/i18n';
 import { type ReactionSummary, type ProfileCardWrapper } from '../types';
 import { AgentReactionAvatar } from './AgentReactionAvatar';
+import { AgentReactionName } from './AgentReactionName';
 
 const userListStyle = css({
 	listStyle: 'none',
@@ -46,6 +46,13 @@ const userStyle = css({
 const styles = cssMap({
 	userDescriptionStyle: {
 		marginLeft: token('space.150'),
+	},
+
+	userDescriptionFillStyle: {
+		marginLeft: token('space.150'),
+		flexGrow: 1,
+		minWidth: '0',
+		flexDirection: 'column',
 	},
 
 	profileWrapperStyle: {
@@ -124,13 +131,16 @@ export const ReactionView = ({ reaction, ProfileCardWrapper }: ReactionViewProps
 									) : (
 										<Avatar size="medium" src={profile} testId="profile" />
 									)}
-									<Flex xcss={styles.userDescriptionStyle}>
+									<Flex
+										xcss={
+											fg('platform_reactions_agent_name_skeleton')
+												? styles.userDescriptionFillStyle
+												: styles.userDescriptionStyle
+										}
+									>
 										<div>
 											{user.agent ? (
-												<FormattedMessage
-													{...messages.agentWithPerson}
-													values={{ agentName: user.agent.name, personName: user.displayName }}
-												/>
+												<AgentReactionName agent={user.agent} personName={user.displayName} />
 											) : (
 												user.displayName
 											)}

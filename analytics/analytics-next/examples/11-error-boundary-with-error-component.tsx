@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import AnalyticsErrorBoundary from '../src/components/AnalyticsErrorBoundary';
+import AnalyticsErrorBoundary from '@atlaskit/analytics-next/AnalyticsErrorBoundary';
 
 const ComponentWithError = () => {
 	useEffect(() => {

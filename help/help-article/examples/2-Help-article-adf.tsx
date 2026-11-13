@@ -1,10 +1,11 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/default/button';
+import HelpArticle from '@atlaskit/help-article/HelpArticle';
+import { BODY_FORMAT_TYPES } from '@atlaskit/help-article/model/HelpArticle';
+import type { AdfDoc } from '@atlaskit/help-article/model/HelpArticle';
 import { token } from '@atlaskit/tokens';
 
-import HelpArticle, { BODY_FORMAT_TYPES } from '../src';
-import type { AdfDoc } from '../src';
 import { AdfDocument, AdfDocumentComplex } from './utils/mockData';
 
 const dataExamples = [

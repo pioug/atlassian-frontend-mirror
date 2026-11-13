@@ -16,6 +16,7 @@ import type { Parameters } from '@atlaskit/editor-common/extensions/extension-pa
 import type { ExtensionProvider } from '@atlaskit/editor-common/extensions/extension-provider';
 import type { MacroProvider } from '@atlaskit/editor-common/provider-factory/macro-provider';
 import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
+import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import type {
 	NextEditorPlugin,
 	OptionalPlugin,
@@ -52,6 +53,7 @@ export type ExtensionState<T extends Parameters = Parameters> = {
 	positions?: Record<number, number>;
 	processParametersAfter?: TransformAfter<T>;
 	processParametersBefore?: TransformBefore<T>;
+	shouldAnimateInsertedContent?: boolean;
 	showContextPanel: boolean;
 	showCopyButton: boolean;
 	showEditButton: boolean;
@@ -178,12 +180,17 @@ export type ExtensionPlugin = NextEditorPlugin<
 	'extension',
 	{
 		actions: ExtensionPluginActions;
+		commands: {
+			/** Controls entrance motion for node views created while enabled. */
+			setInsertAnimationEnabled: (enabled: boolean) => EditorCommand;
+		};
 		dependencies: ExtensionPluginDependencies;
 		pluginConfiguration: ExtensionPluginOptions | undefined;
 		sharedState:
 			| {
 					extensionProvider?: ExtensionState['extensionProvider'];
 					processParametersAfter?: ExtensionState['processParametersAfter'];
+					shouldAnimateInsertedContent?: boolean;
 					showContextPanel: boolean | undefined;
 			  }
 			| undefined;

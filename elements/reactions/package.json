@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/reactions",
-	"version": "37.5.3",
+	"version": "37.6.1",
 	"description": "Reactions component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -55,6 +55,7 @@
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/react-compiler-gating": "workspace:^",
 		"@atlaskit/react-ufo": "workspace:^",
+		"@atlaskit/skeleton": "workspace:^",
 		"@atlaskit/spinner": "workspace:^",
 		"@atlaskit/tabs": "workspace:^",
 		"@atlaskit/theme": "workspace:^",

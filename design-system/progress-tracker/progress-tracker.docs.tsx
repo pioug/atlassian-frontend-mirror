@@ -11,8 +11,8 @@ const documentation: StructuredContentSource = {
 			},
 			import: {
 				name: 'ProgressTracker',
-				package: '@atlaskit/progress-tracker',
-				type: 'named',
+				package: '@atlaskit/progress-tracker/progress-tracker',
+				type: 'default',
 				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},

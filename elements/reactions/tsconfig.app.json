@@ -114,6 +114,9 @@
 			"path": "../../design-system/section-message/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/skeleton/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/spinner/tsconfig.app.json"
 		},
 		{

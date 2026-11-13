@@ -1,5 +1,7 @@
 import React from 'react';
 
+import memoizeOne from 'memoize-one';
+
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
@@ -50,6 +52,19 @@ export class PopupUserPickerWithoutAnalytics extends React.Component<PopupUserPi
 	state = {
 		flipped: false,
 	};
+
+	private getComponentsWithOverrides = memoizeOne(
+		(hasPopupTitle: boolean, customComponents: NonNullable<PopupUserPickerProps['components']>) => {
+			const popupComponents = getPopupComponents(hasPopupTitle);
+			return {
+				...popupComponents,
+				...customComponents,
+				// Keep the popup's input behavior and title header when applying caller overrides.
+				Input: popupComponents.Input,
+				...('Control' in popupComponents ? { Control: popupComponents.Control } : {}),
+			};
+		},
+	);
 
 	handleFlipStyle = (data: {
 		flipped: boolean;
@@ -118,7 +133,11 @@ export class PopupUserPickerWithoutAnalytics extends React.Component<PopupUserPi
 				SelectComponent={PopupSelect}
 				width={width}
 				styles={selectStyles}
-				components={getPopupComponents(!!popupTitle)}
+				components={
+					fg('rovo_credits_shared_query_cache') && this.props.components
+						? this.getComponentsWithOverrides(!!popupTitle, this.props.components)
+						: getPopupComponents(!!popupTitle)
+				}
 				pickerProps={pickerProps}
 			/>
 		);

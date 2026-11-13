@@ -13,7 +13,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Filmstrip',
-				package: '@atlaskit/media-filmstrip',
+				package: '@atlaskit/media-filmstrip/filmstrip',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -48,7 +48,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'FilmstripView',
-				package: '@atlaskit/media-filmstrip',
+				package: '@atlaskit/media-filmstrip/filmstrip-view',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -79,7 +79,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'LeftArrow',
-				package: '@atlaskit/media-filmstrip',
+				package: '@atlaskit/media-filmstrip/wrappers',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -107,7 +107,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'RightArrow',
-				package: '@atlaskit/media-filmstrip',
+				package: '@atlaskit/media-filmstrip/wrappers',
 				type: 'named',
 				packagePath,
 				packageJson,

@@ -17,7 +17,7 @@ const documentation: StructuredContentSource = {
 			status: 'internal',
 			import: {
 				name: 'selectionToolbarPlugin',
-				package: '@atlaskit/editor-plugin-selection-toolbar',
+				package: '@atlaskit/editor-plugin-selection-toolbar/selection-toolbar-plugin',
 				type: 'named',
 				packagePath,
 				packageJson,

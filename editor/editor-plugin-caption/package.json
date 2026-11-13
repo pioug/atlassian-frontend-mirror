@@ -41,6 +41,7 @@
 		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/editor-test-helpers": "workspace:^",
 		"@atlassian/experiment-test-utils": "workspace:^",
+		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"react": "^19.2.0"
 	}
 }

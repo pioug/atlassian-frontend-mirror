@@ -256,23 +256,13 @@ const applyMultiContainerLikeStyles = ({
 		const nestedInsertedNodeStyle = resolveNestedInsertedNodeStyle(colorScheme);
 		element.querySelectorAll('li').forEach((listItem) => {
 			const currentListItemStyle = listItem.getAttribute('style') || '';
-			listItem.setAttribute(
-				'style',
-				fg('platform_editor_ai_show_diff_patch_1')
-					? combineStyles(currentListItemStyle, nestedInsertedNodeStyle)
-					: `${currentListItemStyle}${nestedInsertedNodeStyle}`,
-			);
+			listItem.setAttribute('style', combineStyles(currentListItemStyle, nestedInsertedNodeStyle));
 		});
 	} else if (targetNode.type.name === 'layoutSection') {
 		const nestedInsertedNodeStyle = resolveNestedInsertedNodeStyle(colorScheme);
 		element.querySelectorAll('[data-layout-column="true"]').forEach((section) => {
 			const currentSectionStyle = section.getAttribute('style') || '';
-			section.setAttribute(
-				'style',
-				fg('platform_editor_ai_show_diff_patch_1')
-					? combineStyles(currentSectionStyle, nestedInsertedNodeStyle)
-					: `${currentSectionStyle}${nestedInsertedNodeStyle}`,
-			);
+			section.setAttribute('style', combineStyles(currentSectionStyle, nestedInsertedNodeStyle));
 		});
 	} else if (targetNode.type.name === 'taskList') {
 		const nestedInsertedNodeStyle = resolveNestedInsertedNodeStyle(colorScheme);
@@ -282,12 +272,7 @@ const applyMultiContainerLikeStyles = ({
 		});
 	}
 
-	element.setAttribute(
-		'style',
-		fg('platform_editor_ai_show_diff_patch_1')
-			? combineStyles(currentStyle, nodeSpecificStyle)
-			: `${currentStyle};${nodeSpecificStyle}`,
-	);
+	element.setAttribute('style', combineStyles(currentStyle, nodeSpecificStyle));
 };
 
 const combineStyles = (currentStyle: string, appendedStyle: string): string => {
@@ -756,7 +741,7 @@ export const wrapBlockNodeView = ({
 				hideAddedDiffsUnderline,
 				highlightInlineLeafNodes,
 			});
-			if (targetNode.type.name === 'blockquote' && fg('platform_editor_ai_show_diff_patch_1')) {
+			if (targetNode.type.name === 'blockquote') {
 				appendStyleToElement(nodeView, quoteBlockLevelStyle);
 			}
 			dom.append(nodeView);

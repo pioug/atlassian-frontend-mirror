@@ -8,6 +8,7 @@ import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions/exten
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types/plugin-factory';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import {
@@ -79,9 +80,26 @@ export const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) 
 			const pluginState = pluginKey.getState(state);
 			return {
 				showContextPanel: pluginState?.showContextPanel,
+				...(isExperimentEnabled('cwr_remix_animate_stream_only') && {
+					shouldAnimateInsertedContent: pluginState?.shouldAnimateInsertedContent ?? false,
+				}),
 				extensionProvider: pluginState?.extensionProvider,
 				processParametersAfter: pluginState?.processParametersAfter,
 			};
+		},
+
+		commands: {
+			setInsertAnimationEnabled:
+				(enabled) =>
+				({ tr }) =>
+					isExperimentEnabled('cwr_remix_animate_stream_only')
+						? tr
+								.setMeta(pluginKey, {
+									type: 'UPDATE_STATE',
+									data: { shouldAnimateInsertedContent: enabled },
+								})
+								.setMeta('addToHistory', false)
+						: null,
 		},
 
 		pmPlugins() {

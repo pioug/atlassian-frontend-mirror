@@ -17,7 +17,7 @@ const documentation: StructuredContentSource = {
 			status: 'internal',
 			import: {
 				name: 'blockControlsPlugin',
-				package: '@atlaskit/editor-plugin-block-controls',
+				package: '@atlaskit/editor-plugin-block-controls/blockControlsPlugin',
 				type: 'named',
 				packagePath,
 				packageJson,

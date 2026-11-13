@@ -12,7 +12,7 @@ const documentation: StructuredContentSource = {
 			},
 			import: {
 				name: 'DynamicTable',
-				package: '@atlaskit/dynamic-table',
+				package: '@atlaskit/dynamic-table/stateful',
 				type: 'default',
 				packagePath: __dirname,
 				packageJson: require('./package.json'),
@@ -22,11 +22,6 @@ const documentation: StructuredContentSource = {
 					name: 'Stateful',
 					description: 'Stateful dynamic table example',
 					source: `${__dirname}/examples/0-stateful.vr.ap.tsx`,
-				},
-				{
-					name: 'Stateless',
-					description: 'Stateless dynamic table example',
-					source: `${__dirname}/examples/1-stateless.tsx`,
 				},
 			],
 			keywords: [
@@ -50,8 +45,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'DynamicTableStateless',
-				package: '@atlaskit/dynamic-table',
-				type: 'named',
+				package: '@atlaskit/dynamic-table/stateless',
+				type: 'default',
 				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},

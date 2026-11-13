@@ -20,6 +20,7 @@ import type { FileIdentifier } from '@atlaskit/media-client/identifier';
 import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
 import type { FileState } from '@atlaskit/media-state/file-state';
 import { MediaInlineCardLoadingView } from '@atlaskit/media-ui/LoadingView';
+import type { MediaViewerExtensions } from '@atlaskit/media-viewer/types';
 
 import { ACTION_SUBJECT } from '../../analytics/enums';
 import type { MediaSSR } from '../../types/mediaOptions';
@@ -38,6 +39,7 @@ type RenderMediaInlineProps = {
 	featureFlags?: MediaFeatureFlags;
 	identifier: FileIdentifier;
 	intl?: IntlShape;
+	mediaViewerExtensions?: MediaViewerExtensions;
 	rendererAppearance?: RendererAppearance;
 	rendererContext?: RendererContext;
 	ssr?: MediaSSR;
@@ -50,6 +52,7 @@ type MediaInlineProps = {
 	featureFlags?: MediaFeatureFlags;
 	id: string;
 	marks?: Array<Mark>;
+	mediaViewerExtensions?: MediaViewerExtensions;
 	providers: ProviderFactory;
 	rendererAppearance?: RendererAppearance;
 	ssr?: MediaSSR;
@@ -62,6 +65,7 @@ const RenderMediaInline = ({
 	eventHandlers,
 	identifier,
 	fallbackMediaNameFetcher,
+	mediaViewerExtensions,
 	ssr,
 }: RenderMediaInlineProps) => {
 	const [contextIdentifier, setContextIdentifier] = useState<
@@ -163,6 +167,7 @@ const RenderMediaInline = ({
 				shouldDisplayToolTip={shouldDisplayToolTip}
 				mediaClientConfig={mediaClient.mediaClientConfig}
 				mediaViewerItems={Array.from(mediaIdentifierMap.values())}
+				mediaViewerExtensions={mediaViewerExtensions}
 				fallbackMediaNameFetcher={fallbackMediaNameFetcher}
 				ssrMediaItem={ssrMediaItem}
 			/>
@@ -184,6 +189,7 @@ const MediaInline = (props: MediaInlineProps & WrappedComponentProps & MediaInli
 		marks,
 		ssr,
 		fallbackMediaNameFetcher,
+		mediaViewerExtensions,
 	} = props;
 
 	const clipboardAttrs: ClipboardAttrs = {
@@ -225,6 +231,7 @@ const MediaInline = (props: MediaInlineProps & WrappedComponentProps & MediaInli
 					border={{ borderSize, borderColor }}
 					serializeDataAttrs
 					shouldOpenMediaViewer={!hasLinkMark}
+					mediaViewerExtensions={mediaViewerExtensions}
 				/>
 			</ErrorBoundary>
 		);
@@ -240,6 +247,7 @@ const MediaInline = (props: MediaInlineProps & WrappedComponentProps & MediaInli
 			collection={collection}
 			featureFlags={featureFlags}
 			fallbackMediaNameFetcher={fallbackMediaNameFetcher}
+			mediaViewerExtensions={mediaViewerExtensions}
 			ssr={ssr}
 		/>
 	);

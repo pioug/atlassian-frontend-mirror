@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b6eb71d3f40ef3c6e0afd8123bd194a0>>
+ * @codegen <<SignedSource::31519a211d338086afd7d72500518c92>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
@@ -31,8 +31,10 @@ const tokens = {
 	'motion.form.message.exit': '--ds-form-message-exit',
 	'motion.iconography.enter.cycle.up': '--ds-iconography-enter-cycle-up',
 	'motion.iconography.enter.fade': '--ds-iconography-enter-fade',
+	'motion.iconography.enter.fade.fast': '--ds-iconography-enter-fade-fast',
 	'motion.iconography.exit.cycle.up': '--ds-iconography-exit-cycle-up',
 	'motion.iconography.exit.fade': '--ds-iconography-exit-fade',
+	'motion.iconography.exit.fade.fast': '--ds-iconography-exit-fade-fast',
 	'motion.input': '--ds-input',
 	'motion.input.selection': '--ds-input-selection',
 	'motion.input.toggle': '--ds-input-toggle',
@@ -673,8 +675,10 @@ export type CSSTokenMap = {
 	'motion.form.message.exit': 'var(--ds-form-message-exit)';
 	'motion.iconography.enter.cycle.up': 'var(--ds-iconography-enter-cycle-up)';
 	'motion.iconography.enter.fade': 'var(--ds-iconography-enter-fade)';
+	'motion.iconography.enter.fade.fast': 'var(--ds-iconography-enter-fade-fast)';
 	'motion.iconography.exit.cycle.up': 'var(--ds-iconography-exit-cycle-up)';
 	'motion.iconography.exit.fade': 'var(--ds-iconography-exit-fade)';
+	'motion.iconography.exit.fade.fast': 'var(--ds-iconography-exit-fade-fast)';
 	'motion.input': 'var(--ds-input)';
 	'motion.input.selection': 'var(--ds-input-selection)';
 	'motion.input.toggle': 'var(--ds-input-toggle)';

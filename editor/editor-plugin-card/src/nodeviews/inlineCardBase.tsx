@@ -77,10 +77,7 @@ export const InlineCard: React.MemoExoticComponent<
 			const id = refId.current;
 			removeCardDispatched.current = false;
 			return () => {
-				if (
-					isExperimentEnabled('platform_editor_inline_card_dispatch_guard') &&
-					removeCardDispatched.current
-				) {
+				if (removeCardDispatched.current) {
 					return;
 				}
 				removeCardDispatched.current = true;

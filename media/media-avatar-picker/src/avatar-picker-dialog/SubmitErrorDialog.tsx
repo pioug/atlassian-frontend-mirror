@@ -20,7 +20,11 @@ const avatarPickerErrorStyles = css({
 	marginBottom: token('space.200'),
 });
 
-export const SubmitErrorDialog = (): JSX.Element => {
+export const SubmitErrorDialog = ({
+	hasDefaultAvatars,
+}: {
+	hasDefaultAvatars: boolean;
+}): JSX.Element => {
 	const intl = useIntl();
 	const flagContainerRef: React.RefObject<HTMLDivElement> = useRef(null);
 
@@ -37,7 +41,11 @@ export const SubmitErrorDialog = (): JSX.Element => {
 				icon={<ErrorIcon label="Error" color="currentColor" spacing="spacious" />}
 				id="avatar-picker-error"
 				key="error"
-				title={intl.formatMessage(messages.or_select_default_avatars)}
+				title={intl.formatMessage(
+					hasDefaultAvatars
+						? messages.or_select_default_avatars
+						: messages.upload_a_photo_to_continue,
+				)}
 			/>
 		</div>
 	);

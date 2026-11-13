@@ -250,13 +250,13 @@ function getFlipFloorLimit({
 }
 
 /**
- * Which floor the placement axis takes. `'explicit'` is something the consumer
- * asked for (`placement.minSize`, an anchor-relative size) and is written as is.
- * `'default'` is the flip floor nobody asked for, which may follow the content
- * up to `limit`; see `getPlacementAxisFloorDeclarations`.
+ * Which floor the placement axis takes. `'anchor'` comes from an anchor-relative
+ * size the consumer asked for, and is written as is. `'default'` is the flip
+ * floor nobody asked for, which may follow the content up to `limit`; see
+ * `getPlacementAxisFloorDeclarations`.
  */
 type TPlacementAxisFloor =
-	| { type: 'explicit'; value: string }
+	| { type: 'anchor'; value: string }
 	| { type: 'default'; value: string; limit: string };
 
 /**
@@ -297,18 +297,15 @@ function getDefaultPlacementAxisFloor({
 }
 
 /**
- * The placement-axis floor, or `null` for none. Explicit minimums COMPOSE, the
- * default does not:
+ * The placement-axis floor, or `null` for none.
  *
- * - `placement.minSize` and the anchor term are both explicit requests, so they
- *   compose as `max()`. As intended, `minSize: 0` does not remove an anchor
- *   floor, because `max(0px, anchor)` IS the anchor.
- * - The default floor applies only when neither is set and the popover can flip.
- *   It never composes: in a `max()` it would only win by overriding a size the
- *   consumer asked for, and the anchor term drives the flip on its own.
+ * - An anchor floor is a size the consumer asked for, so it always wins.
+ * - The default floor applies only when there is no anchor floor and the popover
+ *   can flip. It never composes with the anchor floor: in a `max()` it would only
+ *   win by overriding a size the consumer asked for, and the anchor floor drives
+ *   the flip on its own.
  */
 function getPlacementAxisFloor({
-	minSize,
 	placementAxis,
 	placementAxisSize,
 	anchorValue,
@@ -316,7 +313,6 @@ function getPlacementAxisFloor({
 	canFlip,
 	writingMode,
 }: {
-	minSize: string | undefined;
 	placementAxis: TPlacementAxis;
 	placementAxisSize: TPopoverAxisSize;
 	anchorValue: string | null;
@@ -332,15 +328,8 @@ function getPlacementAxisFloor({
 		writingMode,
 	});
 
-	if (minSize !== undefined) {
-		return {
-			type: 'explicit',
-			value: anchorFloor === null ? minSize : `max(${minSize}, ${anchorFloor})`,
-		};
-	}
-
 	if (anchorFloor !== null) {
-		return { type: 'explicit', value: anchorFloor };
+		return { type: 'anchor', value: anchorFloor };
 	}
 
 	if (!canFlip) {
@@ -351,7 +340,7 @@ function getPlacementAxisFloor({
 }
 
 /**
- * Writes the placement-axis floor. An explicit floor is written as is.
+ * Writes the placement-axis floor. An anchor floor is written as is.
  *
  * The DEFAULT floor has two forms, picked by the browser and not by JavaScript:
  *
@@ -387,7 +376,7 @@ function getPlacementAxisFloorDeclarations({
 
 	const property: TPopoverSizeProperty = `min-${placementAxis}-size`;
 
-	if (floor.type === 'explicit') {
+	if (floor.type === 'anchor') {
 		return [{ property, value: floor.value }];
 	}
 
@@ -428,7 +417,7 @@ export function getAnchoredPopoverSizeDeclarations({
 	shouldPreserveInlineSize = false,
 }: {
 	/**
-	 * Supplies the axis, the gap and `minSize`.
+	 * Supplies the axis and the gap.
 	 */
 	placement: TPlacement;
 	/**
@@ -515,7 +504,6 @@ export function getAnchoredPopoverSizeDeclarations({
 	declarations.push(
 		...getPlacementAxisFloorDeclarations({
 			floor: getPlacementAxisFloor({
-				minSize: placement.minSize,
 				placementAxis,
 				placementAxisSize: size[placementAxis],
 				anchorValue: anchorSize[placementAxis],

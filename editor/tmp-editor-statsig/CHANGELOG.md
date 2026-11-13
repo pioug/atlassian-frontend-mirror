@@ -1,5 +1,12 @@
 # @atlaskit/editor-statsig-tmp
 
+## 263.0.0
+
+### Major Changes
+
+- [`ed5878d6a9c69`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ed5878d6a9c69) -
+  Clean up experiment `platform_editor_inline_card_dispatch_guard`
+
 ## 262.0.0
 
 ### Major Changes

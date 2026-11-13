@@ -1,9 +1,9 @@
 import React, { useRef, useState } from 'react';
 
 import Button from '@atlaskit/button/default/button';
+import FeedbackCollector from '@atlaskit/feedback-collector/FeedbackCollector';
+import { FeedbackFlag } from '@atlaskit/feedback-collector/FeedbackFlag';
 import { FlagGroup } from '@atlaskit/flag/flag-group';
-
-import FeedbackCollector, { FeedbackFlag } from '../src';
 
 const ENTRYPOINT_ID: string = 'e0d501eb-7386-4ba7-aedc-68dc1dde485a';
 const name: string = 'Feedback Sender';

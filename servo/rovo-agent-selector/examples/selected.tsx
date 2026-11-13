@@ -2,7 +2,9 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 import { graphql, RelayEnvironmentProvider, useLazyLoadQuery } from 'react-relay';
-import { createMockEnvironment, MockPayloadGenerator } from 'relay-test-utils';
+
+import { createAtlassianMockRelayEnvironment } from '@atlassian/relay-test-utils/mock-environment';
+import { MockPayloadGenerator } from 'relay-test-utils';
 
 import { RovoAgentSelector } from '../src';
 import { generateMockAgentEdges } from '../src/common/utils/generate-mock-agent-edges';
@@ -42,7 +44,7 @@ const TestRenderer = () => {
 };
 
 export default function Selected(): React.JSX.Element {
-	const environment = createMockEnvironment();
+	const environment = createAtlassianMockRelayEnvironment();
 
 	environment.mock.queueOperationResolver((operation) =>
 		MockPayloadGenerator.generate(operation, {

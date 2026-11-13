@@ -12,8 +12,8 @@ const documentation: StructuredContentSource = {
 				'A cross-product help component that provides a unified interface for displaying articles, search, and AI-powered assistance.',
 			status: 'general-availability',
 			import: {
-				name: 'default',
-				package: '@atlaskit/help',
+				name: 'Help',
+				package: '@atlaskit/help/Help',
 				type: 'default',
 				packagePath,
 				packageJson,

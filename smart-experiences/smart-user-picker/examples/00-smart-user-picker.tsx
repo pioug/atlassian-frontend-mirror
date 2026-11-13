@@ -6,6 +6,7 @@ import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import Button from '@atlaskit/button/standard-button';
 import Select from '@atlaskit/select/default';
+import SmartUserPicker from '@atlaskit/smart-user-picker/components';
 import Textfield from '@atlaskit/textfield/text-field';
 import type {
 	ActionTypes,
@@ -17,12 +18,12 @@ import type {
 	User,
 	Team,
 } from '@atlaskit/user-picker/types';
-import { search as thirdPartyIntegrationSearch } from '@atlassian/integrations/third-party/integrations';
 
 import '../example-helpers/mock-ufo';
+import { search as thirdPartyIntegrationSearch } from '@atlassian/integrations/third-party/integrations';
+
 import { options } from '../example-helpers/options';
 import { useEndpointMocks } from '../example-helpers/use-endpoint-mocks';
-import SmartUserPicker from '../src/components';
 
 const exampleLocales = ['en-EN', 'cs-CZ', 'da-DK', 'de-DE'];
 

@@ -6,6 +6,7 @@ import React, { useRef } from 'react';
 import { renderToString } from 'react-dom/server';
 
 import { Dialog } from '../../src/dialog';
+import { DialogAwarePortal } from '../../src/dialog/dialog-aware-portal';
 import { useCloseOnUnclaimedEscape } from '../../src/page-surface/use-close-on-unclaimed-escape';
 import { Popover } from '../../src/popover';
 import { useManualLightDismiss } from '../../src/use-manual-light-dismiss';
@@ -92,6 +93,19 @@ describe('top-layer on the server', () => {
 
 		expect(html).toContain('Popover content');
 		expect(html).toContain('Surface content');
+		expect(consoleMessages).toEqual([]);
+	});
+
+	it('renders nothing for a dialog aware portal, which picks its place on the client', () => {
+		const { html, consoleMessages } = renderOnServer(
+			<DialogAwarePortal>
+				<Popover isOpen mode="manual">
+					<div>Portal content</div>
+				</Popover>
+			</DialogAwarePortal>,
+		);
+
+		expect(html).toBe('');
 		expect(consoleMessages).toEqual([]);
 	});
 });

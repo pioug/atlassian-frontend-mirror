@@ -3,7 +3,8 @@ import React from 'react';
 import {
 	NORMAL_SEVERITY_THRESHOLD,
 	DEGRADED_SEVERITY_THRESHOLD,
-} from '../../renderer/src/ui/Renderer';
+} from '@atlaskit/renderer/renderer';
+
 import RendererDemo from './helper/RendererDemo';
 
 export default function Example(): React.JSX.Element {

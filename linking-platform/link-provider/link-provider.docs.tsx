@@ -18,7 +18,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'SmartCardProvider',
-				package: '@atlaskit/link-provider',
+				package: '@atlaskit/link-provider/provider',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -41,8 +41,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'CardClient',
-				package: '@atlaskit/link-provider',
-				type: 'named',
+				package: '@atlaskit/link-provider/client',
+				type: 'default',
 				packagePath,
 				packageJson,
 			},
@@ -62,7 +62,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'SmartCardContext',
-				package: '@atlaskit/link-provider',
+				package: '@atlaskit/link-provider/context',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -83,7 +83,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'EditorSmartCardProvider',
-				package: '@atlaskit/link-provider',
+				package: '@atlaskit/link-provider/editor-smart-card-provider',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -106,7 +106,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'useSmartCardContext',
-				package: '@atlaskit/link-provider',
+				package: '@atlaskit/link-provider/use-smart-card-context',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -126,7 +126,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'useSmartLinkContext',
-				package: '@atlaskit/link-provider',
+				package: '@atlaskit/link-provider/use-smart-link-context',
 				type: 'named',
 				packagePath,
 				packageJson,

@@ -10,7 +10,7 @@ import {
 	useId,
 } from 'react';
 
-import { cssMap, jsx } from '@compiled/react';
+import { cssMap, jsx, keyframes } from '@compiled/react';
 
 import type ContainerAtRule from '@atlaskit/css/at-rules/container';
 import type MediaAboveMd from '@atlaskit/css/at-rules/media-above-md';
@@ -27,7 +27,26 @@ const localPanelTrackWidthVar = '--p_lclPnlTrackW';
 const localPanelResizingVar = '--p_lclPnlRsz';
 const localPanelMinWidthVar = '--p_lclPnlMinW';
 
+// Holds the single-column (closed) grid while the entering panel overlays `main`. With `backwards` fill
+// the `from` frame applies for the animation delay, then the real inline grid takes over. An animation
+// (rather than a transition) only starts when the class is added, so live resizing is never delayed.
+const holdClosedGrid = keyframes({
+	from: {
+		gridTemplateAreas: `'main'`,
+		gridTemplateColumns: 'minmax(0, 1fr)',
+		gridTemplateRows: '1fr',
+	},
+});
+
 const styles = cssMap({
+	panelEntering: {
+		'@media (prefers-reduced-motion: no-preference)': {
+			animationName: holdClosedGrid,
+			animationDuration: token('motion.duration.instant'),
+			animationDelay: token('motion.duration.short'),
+			animationFillMode: 'backwards',
+		},
+	},
 	container: {
 		containerName: 'local-panel-layout',
 		containerType: 'inline-size',
@@ -189,6 +208,14 @@ export function PanelLayoutShell({
 					mode === undefined && isPanelOpen && styles.unmeasured,
 					shouldClipOverflow && styles.panelUplift,
 					mode === 'inline' && styles.managedInline,
+					// Added from the first open render (including before the first measurement, when `mode` is
+					// undefined and the SSR query would already reserve the track), and kept across the
+					// undefined -> 'inline' handoff so the animation doesn't restart. Closing removes it,
+					// so re-opening replays it.
+					shouldClipOverflow &&
+						isPanelOpen &&
+						(mode === undefined || mode === 'inline') &&
+						styles.panelEntering,
 					mode === 'overlay' && styles.managedOverlay,
 					!isPanelOpen && styles.panelClosed,
 				]}

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/icon",
-	"version": "38.0.2",
+	"version": "38.1.0",
 	"description": "An icon is a symbol representing a command, device, directory, or common action.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -36,6 +36,24 @@
 					"title": "Icon tile",
 					"id": "icon-tile",
 					"sortKey": 1
+				},
+				{
+					"title": "Animated icon",
+					"id": "animated-icon",
+					"sortKey": 2,
+					"status": {
+						"type": "alpha",
+						"description": "Animated icons are in early access. The icons, their animations and the `AnimatedIconTrigger` API may change, with limited notice, before general release."
+					}
+				},
+				{
+					"title": "Animated icon trigger",
+					"id": "animated-icon-trigger",
+					"sortKey": 3,
+					"status": {
+						"type": "alpha",
+						"description": "Animated icon trigger is in early access. The API may change, with limited notice, before general release."
+					}
 				}
 			]
 		}
@@ -102,6 +120,8 @@
 	"homepage": "https://atlassian.design/components/icon/",
 	"exports": {
 		".": "./src/index.tsx",
+		"./animated/*": "./src/animated/*.tsx",
+		"./animated-icon-trigger": "./src/components/animated-icon-trigger.tsx",
 		"./components/icon-new": "./src/components/icon-new.tsx",
 		"./core": "./core",
 		"./core/*": {
@@ -111,6 +131,7 @@
 		"./deprecated-core": "./src/deprecated-core.tsx",
 		"./deprecated-map": "./src/deprecated-core.tsx",
 		"./icon-tile": "./src/components/icon-tile/index.tsx",
+		"./metadata-animated": "./src/metadata-animated.tsx",
 		"./metadata": "./src/entry-points/metadata.tsx",
 		"./metadata-core": "./src/metadata-core.tsx",
 		"./skeleton": "./src/components/skeleton.tsx",

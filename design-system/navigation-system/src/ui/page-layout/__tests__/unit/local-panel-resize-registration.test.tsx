@@ -9,12 +9,12 @@ jest.mock('../../layout-area-sizing-provider', () => ({
 
 import createStub from 'raf-stub';
 import { RelayEnvironmentProvider } from 'react-relay';
-import { createMockEnvironment } from 'relay-test-utils';
 
 import * as elementAdapter from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { LayoutWithPanel } from '@atlassian/panel-system/layout-with-panel';
 import { PanelProvider } from '@atlassian/panel-system/panel-provider';
+import { createAtlassianMockRelayEnvironment } from '@atlassian/relay-test-utils/mock-environment';
 import { act } from '@atlassian/testing-library/act';
 import { fireEvent } from '@atlassian/testing-library/fire-event';
 import { render } from '@atlassian/testing-library/render';
@@ -132,7 +132,7 @@ it.each(['panel', 'chat'] as const)(
 		const entryPointPanel = { instanceId: 'panel', entryPoint, entryPointReference, params: {} };
 		try {
 			const { unmount } = render(
-				<RelayEnvironmentProvider environment={createMockEnvironment()}>
+				<RelayEnvironmentProvider environment={createAtlassianMockRelayEnvironment()}>
 					<Root>
 						<Main>
 							<PanelProvider

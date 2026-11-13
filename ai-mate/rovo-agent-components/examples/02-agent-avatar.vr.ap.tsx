@@ -6,8 +6,8 @@ import Heading from '@atlaskit/heading/heading';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { AgentAvatar } from '@atlaskit/rovo-agent-components/ui/AgentAvatar';
 
-import { AgentAvatar } from '../src/ui/agent-avatar';
 import { imageAgentAvatar } from './helpers';
 
 export default function (): React.JSX.Element {

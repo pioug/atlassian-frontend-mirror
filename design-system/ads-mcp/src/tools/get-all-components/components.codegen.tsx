@@ -3,7 +3,7 @@
  *
  * Structured content components from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::5f4c7d73ece750beae58ea212084c28a>>
+ * @codegen <<SignedSource::794c4f7233aa76bc963c500c777994ed>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -2884,77 +2884,6 @@ export const components: ComponentMcpPayload[] = [
 		],
 	},
 	{
-		name: 'DropdownItemGroup',
-		package: '@atlaskit/dropdown-menu',
-		description:
-			'Wrapping element for dropdown menu items. Use to group related items; optional short uppercase title (e.g. "Edit page", "Tools") separates sections.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use inside DropdownMenu to group related items',
-			'Use short, uppercase title to describe the group',
-			'Nested menu: maximum two layers',
-		],
-		contentGuidelines: [
-			'Group related actions logically',
-			'Use consistent terminology across menu items',
-		],
-		accessibilityGuidelines: ['Provide clear group titles', 'Nested menu: maximum two layers'],
-		keywords: ['dropdown', 'menu', 'group', 'section', 'title'],
-		category: 'navigation',
-		examples: [
-			"import IconButton from '@atlaskit/button/icon/button';\nimport { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';\nimport { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-item-group';\nimport { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';\nimport MoreIcon from '@atlaskit/icon/core/show-more-horizontal';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<DropdownMenu\n\t\t\tshouldRenderToParent\n\t\t\ttrigger={({ triggerRef, ...props }) => (\n\t\t\t\t<IconButton ref={triggerRef} {...props} icon={MoreIcon} label=\"More\" />\n\t\t\t)}\n\t\t>\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem href=\"/dashboard\">Dashboard</DropdownItem>\n\t\t\t\t<DropdownItem>Create</DropdownItem>\n\t\t\t\t<DropdownItem>Delete</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t\t<DropdownMenu shouldRenderToParent trigger=\"Actions\">\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem>Export</DropdownItem>\n\t\t\t\t<DropdownItem>Share</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t</>\n);\nexport default Examples;",
-		],
-		props: [
-			{
-				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
-				description:
-					'Children of the section.\nThis should generally be `Item` or `Heading` components,\nbut can also be [`EmptyState`](https://atlaskit.atlassian.com/packages/design-system/empty-state)s if you want to render errors.',
-				isRequired: true,
-			},
-			{
-				name: 'hasSeparator',
-				type: 'boolean | undefined',
-				description: 'Use this to render a border at the top of the section.',
-			},
-			{
-				name: 'id',
-				type: 'string | undefined',
-				description: 'Unique identifier for the element.',
-			},
-			{
-				name: 'isList',
-				type: 'boolean | undefined',
-				description:
-					'If your menu contains a list, use this to add `<ul>` and `<li>` tags around the items. This is essential for offering better, accessible semantic markup in a list of items.',
-			},
-			{
-				name: 'isScrollable',
-				type: 'boolean | undefined',
-				description:
-					"Enables scrolling within the section.\nThis won't work unless `maxHeight` is set on the parent `MenuGroup` component.",
-			},
-			{
-				name: 'label',
-				type: 'string | undefined',
-				description:
-					'Provide an accessible label for the section via `aria-label` for assistive technology.',
-			},
-			{
-				name: 'title',
-				type: 'string | undefined',
-				description:
-					"The text passed into the internal `HeadingItem`. If a title isn't provided,\nthe `HeadingItem` won't be rendered, and this component will act as a regular `Section`.",
-			},
-			{
-				name: 'titleId',
-				type: 'string | undefined',
-				description:
-					"ID referenced by the menu group wrapper's `aria-labelledby` attribute. This ID should be assigned to the group title element.\nUsage of either this, or the `label` attribute is strongly recommended.",
-			},
-		],
-	},
-	{
 		name: 'DropdownItemCheckbox',
 		package: '@atlaskit/dropdown-menu',
 		description:
@@ -2973,7 +2902,7 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['dropdown', 'menu', 'checkbox', 'multi-select', 'toggle'],
 		category: 'navigation',
 		examples: [
-			"import IconButton from '@atlaskit/button/icon/button';\nimport { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';\nimport { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-item-group';\nimport { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';\nimport MoreIcon from '@atlaskit/icon/core/show-more-horizontal';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<DropdownMenu\n\t\t\tshouldRenderToParent\n\t\t\ttrigger={({ triggerRef, ...props }) => (\n\t\t\t\t<IconButton ref={triggerRef} {...props} icon={MoreIcon} label=\"More\" />\n\t\t\t)}\n\t\t>\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem href=\"/dashboard\">Dashboard</DropdownItem>\n\t\t\t\t<DropdownItem>Create</DropdownItem>\n\t\t\t\t<DropdownItem>Delete</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t\t<DropdownMenu shouldRenderToParent trigger=\"Actions\">\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem>Export</DropdownItem>\n\t\t\t\t<DropdownItem>Share</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t</>\n);\nexport default Examples;",
+			"import React, { useState } from 'react';\nimport { DropdownItemCheckbox } from '@atlaskit/dropdown-menu/dropdown-item-checkbox';\nimport { DropdownItemCheckboxGroup } from '@atlaskit/dropdown-menu/dropdown-item-checkbox-group';\nimport { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';\nconst DropdownItemCheckboxExample = (): React.JSX.Element => {\n\tconst [checked, setChecked] = useState<Record<string, boolean>>({\n\t\ttodo: true,\n\t\tinprogress: false,\n\t\tdone: false,\n\t});\n\tconst toggle = (name: string) => {\n\t\tsetChecked((prev) => ({\n\t\t\t...prev,\n\t\t\t[name]: !prev[name],\n\t\t}));\n\t};\n\treturn (\n\t\t<DropdownMenu trigger=\"Status\" shouldRenderToParent>\n\t\t\t<DropdownItemCheckboxGroup title=\"Status\" id=\"status-filters\">\n\t\t\t\t<DropdownItemCheckbox id=\"todo\" onClick={() => toggle('todo')} isSelected={checked['todo']}>\n\t\t\t\t\tTo do\n\t\t\t\t</DropdownItemCheckbox>\n\t\t\t\t<DropdownItemCheckbox\n\t\t\t\t\tid=\"inprogress\"\n\t\t\t\t\tonClick={() => toggle('inprogress')}\n\t\t\t\t\tisSelected={checked['inprogress']}\n\t\t\t\t>\n\t\t\t\t\tIn progress\n\t\t\t\t</DropdownItemCheckbox>\n\t\t\t\t<DropdownItemCheckbox id=\"done\" onClick={() => toggle('done')} isSelected={checked['done']}>\n\t\t\t\t\tDone\n\t\t\t\t</DropdownItemCheckbox>\n\t\t\t</DropdownItemCheckboxGroup>\n\t\t</DropdownMenu>\n\t);\n};\nexport default DropdownItemCheckboxExample;",
 		],
 		props: [
 			{
@@ -3053,7 +2982,7 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['dropdown', 'menu', 'checkbox', 'group', 'multi-select'],
 		category: 'navigation',
 		examples: [
-			"import React, { useState } from 'react';\nimport { DropdownItemCheckbox } from '@atlaskit/dropdown-menu/dropdown-item-checkbox';\nimport { DropdownItemCheckboxGroup } from '@atlaskit/dropdown-menu/dropdown-item-checkbox-group';\nimport { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';\nconst DropdownItemCheckboxExample = (): React.JSX.Element => {\n\tconst [checked, setChecked] = useState<Record<string, boolean>>({\n\t\ttodo: true,\n\t});\n\tconst toggle = (name: string) => {\n\t\tsetChecked((prev) => ({\n\t\t\t...prev,\n\t\t\t[name]: !prev[name],\n\t\t}));\n\t};\n\treturn (\n\t\t<DropdownMenu trigger=\"Status\" shouldRenderToParent>\n\t\t\t<DropdownItemCheckboxGroup title=\"Categories\" id=\"actions\">\n\t\t\t\t<DropdownItemCheckbox id=\"todo\" onClick={() => toggle('todo')} isSelected={checked['todo']}>\n\t\t\t\t\tTo do\n\t\t\t\t</DropdownItemCheckbox>\n\t\t\t\t<DropdownItemCheckbox\n\t\t\t\t\tid=\"inprogress\"\n\t\t\t\t\tonClick={() => toggle('inprogress')}\n\t\t\t\t\tisSelected={checked['inprogress']}\n\t\t\t\t>\n\t\t\t\t\tIn progress\n\t\t\t\t</DropdownItemCheckbox>\n\t\t\t\t<DropdownItemCheckbox id=\"done\" onClick={() => toggle('done')} isSelected={checked['done']}>\n\t\t\t\t\tDone\n\t\t\t\t</DropdownItemCheckbox>\n\t\t\t</DropdownItemCheckboxGroup>\n\t\t</DropdownMenu>\n\t);\n};\nexport default DropdownItemCheckboxExample;",
+			"import React, { useState } from 'react';\nimport { DropdownItemCheckbox } from '@atlaskit/dropdown-menu/dropdown-item-checkbox';\nimport { DropdownItemCheckboxGroup } from '@atlaskit/dropdown-menu/dropdown-item-checkbox-group';\nimport { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';\nconst DropdownItemCheckboxExample = (): React.JSX.Element => {\n\tconst [checked, setChecked] = useState<Record<string, boolean>>({\n\t\ttodo: true,\n\t\tinprogress: false,\n\t\tdone: false,\n\t});\n\tconst toggle = (name: string) => {\n\t\tsetChecked((prev) => ({\n\t\t\t...prev,\n\t\t\t[name]: !prev[name],\n\t\t}));\n\t};\n\treturn (\n\t\t<DropdownMenu trigger=\"Status\" shouldRenderToParent>\n\t\t\t<DropdownItemCheckboxGroup title=\"Status\" id=\"status-filters\">\n\t\t\t\t<DropdownItemCheckbox id=\"todo\" onClick={() => toggle('todo')} isSelected={checked['todo']}>\n\t\t\t\t\tTo do\n\t\t\t\t</DropdownItemCheckbox>\n\t\t\t\t<DropdownItemCheckbox\n\t\t\t\t\tid=\"inprogress\"\n\t\t\t\t\tonClick={() => toggle('inprogress')}\n\t\t\t\t\tisSelected={checked['inprogress']}\n\t\t\t\t>\n\t\t\t\t\tIn progress\n\t\t\t\t</DropdownItemCheckbox>\n\t\t\t\t<DropdownItemCheckbox id=\"done\" onClick={() => toggle('done')} isSelected={checked['done']}>\n\t\t\t\t\tDone\n\t\t\t\t</DropdownItemCheckbox>\n\t\t\t</DropdownItemCheckboxGroup>\n\t\t</DropdownMenu>\n\t);\n};\nexport default DropdownItemCheckboxExample;",
 		],
 		props: [
 			{
@@ -3107,6 +3036,77 @@ export const components: ComponentMcpPayload[] = [
 		],
 	},
 	{
+		name: 'DropdownItemGroup',
+		package: '@atlaskit/dropdown-menu',
+		description:
+			'Wrapping element for dropdown menu items. Use to group related items; optional short uppercase title (e.g. "Edit page", "Tools") separates sections.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use inside DropdownMenu to group related items',
+			'Use short, uppercase title to describe the group',
+			'Nested menu: maximum two layers',
+		],
+		contentGuidelines: [
+			'Group related actions logically',
+			'Use consistent terminology across menu items',
+		],
+		accessibilityGuidelines: ['Provide clear group titles', 'Nested menu: maximum two layers'],
+		keywords: ['dropdown', 'menu', 'group', 'section', 'title'],
+		category: 'navigation',
+		examples: [
+			"import IconButton from '@atlaskit/button/icon/button';\nimport { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';\nimport { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-item-group';\nimport { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';\nimport MoreIcon from '@atlaskit/icon/core/show-more-horizontal';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<DropdownMenu\n\t\t\tshouldRenderToParent\n\t\t\ttrigger={({ triggerRef, ...props }) => (\n\t\t\t\t<IconButton ref={triggerRef} {...props} icon={MoreIcon} label=\"More\" />\n\t\t\t)}\n\t\t>\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem href=\"/dashboard\">Dashboard</DropdownItem>\n\t\t\t\t<DropdownItem>Create</DropdownItem>\n\t\t\t\t<DropdownItem>Delete</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t\t<DropdownMenu shouldRenderToParent trigger=\"Actions\">\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem>Export</DropdownItem>\n\t\t\t\t<DropdownItem>Share</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t</>\n);\nexport default Examples;",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
+				description:
+					'Children of the section.\nThis should generally be `Item` or `Heading` components,\nbut can also be [`EmptyState`](https://atlaskit.atlassian.com/packages/design-system/empty-state)s if you want to render errors.',
+				isRequired: true,
+			},
+			{
+				name: 'hasSeparator',
+				type: 'boolean | undefined',
+				description: 'Use this to render a border at the top of the section.',
+			},
+			{
+				name: 'id',
+				type: 'string | undefined',
+				description: 'Unique identifier for the element.',
+			},
+			{
+				name: 'isList',
+				type: 'boolean | undefined',
+				description:
+					'If your menu contains a list, use this to add `<ul>` and `<li>` tags around the items. This is essential for offering better, accessible semantic markup in a list of items.',
+			},
+			{
+				name: 'isScrollable',
+				type: 'boolean | undefined',
+				description:
+					"Enables scrolling within the section.\nThis won't work unless `maxHeight` is set on the parent `MenuGroup` component.",
+			},
+			{
+				name: 'label',
+				type: 'string | undefined',
+				description:
+					'Provide an accessible label for the section via `aria-label` for assistive technology.',
+			},
+			{
+				name: 'title',
+				type: 'string | undefined',
+				description:
+					"The text passed into the internal `HeadingItem`. If a title isn't provided,\nthe `HeadingItem` won't be rendered, and this component will act as a regular `Section`.",
+			},
+			{
+				name: 'titleId',
+				type: 'string | undefined',
+				description:
+					"ID referenced by the menu group wrapper's `aria-labelledby` attribute. This ID should be assigned to the group title element.\nUsage of either this, or the `label` attribute is strongly recommended.",
+			},
+		],
+	},
+	{
 		name: 'DropdownItemRadio',
 		package: '@atlaskit/dropdown-menu',
 		description:
@@ -3125,7 +3125,7 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['dropdown', 'menu', 'radio', 'single-select', 'choice'],
 		category: 'navigation',
 		examples: [
-			"import IconButton from '@atlaskit/button/icon/button';\nimport { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';\nimport { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-item-group';\nimport { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';\nimport MoreIcon from '@atlaskit/icon/core/show-more-horizontal';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<DropdownMenu\n\t\t\tshouldRenderToParent\n\t\t\ttrigger={({ triggerRef, ...props }) => (\n\t\t\t\t<IconButton ref={triggerRef} {...props} icon={MoreIcon} label=\"More\" />\n\t\t\t)}\n\t\t>\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem href=\"/dashboard\">Dashboard</DropdownItem>\n\t\t\t\t<DropdownItem>Create</DropdownItem>\n\t\t\t\t<DropdownItem>Delete</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t\t<DropdownMenu shouldRenderToParent trigger=\"Actions\">\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem>Export</DropdownItem>\n\t\t\t\t<DropdownItem>Share</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t</>\n);\nexport default Examples;",
+			"import React, { useState } from 'react';\nimport { DropdownItemRadio } from '@atlaskit/dropdown-menu/dropdown-item-radio';\nimport { DropdownItemRadioGroup } from '@atlaskit/dropdown-menu/dropdown-item-radio-group';\nimport { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';\nconst DropdownItemRadioExample = (): React.JSX.Element => {\n\tconst [selected, setSelected] = useState<string>('detail');\n\treturn (\n\t\t<DropdownMenu trigger=\"Views\" shouldRenderToParent>\n\t\t\t<DropdownItemRadioGroup title=\"Views\" id=\"view-options\">\n\t\t\t\t<DropdownItemRadio\n\t\t\t\t\tid=\"detail\"\n\t\t\t\t\tonClick={() => setSelected('detail')}\n\t\t\t\t\tisSelected={selected === 'detail'}\n\t\t\t\t>\n\t\t\t\t\tDetail view\n\t\t\t\t</DropdownItemRadio>\n\t\t\t\t<DropdownItemRadio\n\t\t\t\t\tid=\"list\"\n\t\t\t\t\tonClick={() => setSelected('list')}\n\t\t\t\t\tisSelected={selected === 'list'}\n\t\t\t\t>\n\t\t\t\t\tList view\n\t\t\t\t</DropdownItemRadio>\n\t\t\t</DropdownItemRadioGroup>\n\t\t</DropdownMenu>\n\t);\n};\nexport default DropdownItemRadioExample;",
 		],
 		props: [
 			{
@@ -3205,7 +3205,7 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['dropdown', 'menu', 'radio', 'group', 'single-select'],
 		category: 'navigation',
 		examples: [
-			"import React, { useState } from 'react';\nimport { DropdownItemRadio } from '@atlaskit/dropdown-menu/dropdown-item-radio';\nimport { DropdownItemRadioGroup } from '@atlaskit/dropdown-menu/dropdown-item-radio-group';\nimport { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';\nconst DropdownItemRadioExample = (): React.JSX.Element => {\n\tconst [selected, setSelected] = useState<string>('detail');\n\treturn (\n\t\t<DropdownMenu trigger=\"Views\" shouldRenderToParent>\n\t\t\t<DropdownItemRadioGroup title=\"Views\" id=\"actions\">\n\t\t\t\t<DropdownItemRadio\n\t\t\t\t\tid=\"detail\"\n\t\t\t\t\tonClick={() => setSelected('detail')}\n\t\t\t\t\tisSelected={selected === 'detail'}\n\t\t\t\t>\n\t\t\t\t\tDetail view\n\t\t\t\t</DropdownItemRadio>\n\t\t\t\t<DropdownItemRadio\n\t\t\t\t\tid=\"list\"\n\t\t\t\t\tonClick={() => setSelected('list')}\n\t\t\t\t\tisSelected={selected === 'list'}\n\t\t\t\t>\n\t\t\t\t\tList view\n\t\t\t\t</DropdownItemRadio>\n\t\t\t</DropdownItemRadioGroup>\n\t\t</DropdownMenu>\n\t);\n};\nexport default DropdownItemRadioExample;",
+			"import React, { useState } from 'react';\nimport { DropdownItemRadio } from '@atlaskit/dropdown-menu/dropdown-item-radio';\nimport { DropdownItemRadioGroup } from '@atlaskit/dropdown-menu/dropdown-item-radio-group';\nimport { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';\nconst DropdownItemRadioExample = (): React.JSX.Element => {\n\tconst [selected, setSelected] = useState<string>('detail');\n\treturn (\n\t\t<DropdownMenu trigger=\"Views\" shouldRenderToParent>\n\t\t\t<DropdownItemRadioGroup title=\"Views\" id=\"view-options\">\n\t\t\t\t<DropdownItemRadio\n\t\t\t\t\tid=\"detail\"\n\t\t\t\t\tonClick={() => setSelected('detail')}\n\t\t\t\t\tisSelected={selected === 'detail'}\n\t\t\t\t>\n\t\t\t\t\tDetail view\n\t\t\t\t</DropdownItemRadio>\n\t\t\t\t<DropdownItemRadio\n\t\t\t\t\tid=\"list\"\n\t\t\t\t\tonClick={() => setSelected('list')}\n\t\t\t\t\tisSelected={selected === 'list'}\n\t\t\t\t>\n\t\t\t\t\tList view\n\t\t\t\t</DropdownItemRadio>\n\t\t\t</DropdownItemRadioGroup>\n\t\t</DropdownMenu>\n\t);\n};\nexport default DropdownItemRadioExample;",
 		],
 		props: [
 			{
@@ -3413,7 +3413,6 @@ export const components: ComponentMcpPayload[] = [
 		category: 'data display',
 		examples: [
 			'import DynamicTable from \'@atlaskit/dynamic-table/stateful\';\nimport { head, rows } from \'./content/sample-data\';\nexport default function TableUncontrolled(): React.JSX.Element {\n\treturn (\n\t\t<DynamicTable\n\t\t\thead={head}\n\t\t\trows={rows}\n\t\t\trowsPerPage={5}\n\t\t\tdefaultPage={1}\n\t\t\tloadingSpinnerSize="large"\n\t\t\tisRankable\n\t\t\ttestId="table"\n\t\t/>\n\t);\n}',
-			"import React, { useState } from 'react';\nimport Banner from '@atlaskit/banner/banner';\nimport ButtonGroup from '@atlaskit/button/button-group';\nimport Button from '@atlaskit/button/default/button';\nimport { cssMap } from '@atlaskit/css';\nimport DynamicTableStateless from '@atlaskit/dynamic-table/stateless';\nimport WarningIcon from '@atlaskit/icon/core/status-warning';\nimport { Flex } from '@atlaskit/primitives/compiled/flex';\nimport { token } from '@atlaskit/tokens';\nimport { head, rows } from './content/sample-data';\nconst iconSpacingStyles = cssMap({\n\tspace050: {\n\t\tpaddingBlock: token('space.050'),\n\t\tpaddingInline: token('space.050'),\n\t},\n});\nexport default function TableControlled(): React.JSX.Element {\n\tconst [pageNumber, setPageNumber] = useState(3);\n\tconst navigateTo = (pageNumber: number) => {\n\t\tsetPageNumber(pageNumber);\n\t};\n\treturn (\n\t\t<>\n\t\t\t<Banner\n\t\t\t\tappearance=\"warning\"\n\t\t\t\ticon={\n\t\t\t\t\t<Flex xcss={iconSpacingStyles.space050}>\n\t\t\t\t\t\t<WarningIcon label=\"\" />\n\t\t\t\t\t</Flex>\n\t\t\t\t}\n\t\t\t>\n\t\t\t\tThis is a stateless table example, which doesn't have pagination support. To navigate pages,\n\t\t\t\tuse the \"Previous page\" and \"Next page\" buttons.\n\t\t\t</Banner>\n\t\t\t<ButtonGroup label=\"Paging navigation\">\n\t\t\t\t<Button isDisabled={pageNumber === 1} onClick={() => navigateTo(pageNumber - 1)}>\n\t\t\t\t\tPrevious Page\n\t\t\t\t</Button>\n\t\t\t\t<Button isDisabled={pageNumber === 5} onClick={() => navigateTo(pageNumber + 1)}>\n\t\t\t\t\tNext Page\n\t\t\t\t</Button>\n\t\t\t</ButtonGroup>\n\t\t\t<DynamicTableStateless\n\t\t\t\thead={head}\n\t\t\t\trows={rows}\n\t\t\t\trowsPerPage={5}\n\t\t\t\tpage={pageNumber}\n\t\t\t\tloadingSpinnerSize=\"large\"\n\t\t\t\tisLoading={false}\n\t\t\t\tisFixedSize\n\t\t\t\tsortKey=\"term\"\n\t\t\t\tsortOrder=\"DESC\"\n\t\t\t\tonSort={() => console.log('onSort')}\n\t\t\t\tonSetPage={() => console.log('onSetPage')}\n\t\t\t/>\n\t\t</>\n\t);\n}",
 		],
 		props: [
 			{
@@ -5742,6 +5741,76 @@ export const components: ComponentMcpPayload[] = [
 		],
 	},
 	{
+		name: 'CloseButton',
+		package: '@atlaskit/modal-dialog',
+		description:
+			'An accessible close button for use in custom modal headers. Ensures users have an obvious way to close the modal.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use when customizing ModalHeader without hasCloseButton',
+			'Render CloseButton first in DOM for proper focus order',
+			'Use Flex with row-reverse if close should appear on the right',
+			'Provide label prop for custom accessible name',
+		],
+		accessibilityGuidelines: [
+			'Close button is required for modals (consult a11y team for rare exceptions)',
+			'Ensure close button is keyboard accessible',
+		],
+		keywords: ['modal', 'close', 'button', 'dismiss'],
+		category: 'overlay',
+		examples: [
+			"import React, { Fragment, useCallback, useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { cssMap } from '@atlaskit/css';\nimport Heading from '@atlaskit/heading/heading';\nimport { CloseButton } from '@atlaskit/modal-dialog/close-button';\nimport { useModal } from '@atlaskit/modal-dialog/hooks';\nimport ModalBody from '@atlaskit/modal-dialog/modal-body';\nimport Modal from '@atlaskit/modal-dialog/modal-dialog';\nimport ModalFooter from '@atlaskit/modal-dialog/modal-footer';\nimport ModalTransition from '@atlaskit/modal-dialog/modal-transition';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nconst styles = cssMap({\n\theader: {\n\t\tdisplay: 'flex',\n\t\talignItems: 'center',\n\t\tjustifyContent: 'space-between',\n\t\tflexDirection: 'row-reverse',\n\t},\n});\nconst CustomHeader = () => {\n\tconst { onClose, titleId } = useModal();\n\treturn (\n\t\t<Box xcss={styles.header} padding=\"space.300\">\n\t\t\t{/* We have the close button first in the DOM and then are reversing it\n\t\t\tusing the flex styles to ensure that it is focused as the first\n\t\t\tinteractive element in the modal, *before* any other relevant content\n\t\t\tinside the modal. This ensures users of assistive technology get all\n\t\t\trelevant content. */}\n\t\t\t<CloseButton onClick={onClose} />\n\t\t\t<Heading as=\"h1\" size=\"medium\" id={titleId}>\n\t\t\t\tCustom modal header\n\t\t\t</Heading>\n\t\t</Box>\n\t);\n};\nexport default function Example(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(false);\n\tconst openModal = useCallback(() => setIsOpen(true), []);\n\tconst closeModal = useCallback(() => setIsOpen(false), []);\n\treturn (\n\t\t<Fragment>\n\t\t\t<Button aria-haspopup=\"dialog\" appearance=\"primary\" onClick={openModal}>\n\t\t\t\tOpen modal\n\t\t\t</Button>\n\t\t\t<ModalTransition>\n\t\t\t\t{isOpen && (\n\t\t\t\t\t// This is fixed in the custom header\n\t\t\t\t\t<Modal onClose={closeModal}>\n\t\t\t\t\t\t<CustomHeader />\n\t\t\t\t\t\t<ModalBody>\n\t\t\t\t\t\t\t<Text as=\"p\">\n\t\t\t\t\t\t\t\tIf you wish to customise a modal dialog, it accepts any valid React element as\n\t\t\t\t\t\t\t\tchildren.\n\t\t\t\t\t\t\t</Text>\n\t\t\t\t\t\t\t<Text as=\"p\">\n\t\t\t\t\t\t\t\tModal header accepts any valid React element as children, so you can use modal title\n\t\t\t\t\t\t\t\tin conjunction with other elements like an exit button in the top right.\n\t\t\t\t\t\t\t</Text>\n\t\t\t\t\t\t\t<Text as=\"p\">\n\t\t\t\t\t\t\t\tModal footer accepts any valid React element as children. For example, you can add\n\t\t\t\t\t\t\t\tan avatar in the footer. For very custom use cases, you can achieve the same thing\n\t\t\t\t\t\t\t\twithout modal footer.\n\t\t\t\t\t\t\t</Text>\n\t\t\t\t\t\t</ModalBody>\n\t\t\t\t\t\t<ModalFooter>\n\t\t\t\t\t\t\t<Button appearance=\"subtle\">About modals</Button>\n\t\t\t\t\t\t\t<Button appearance=\"primary\" onClick={closeModal}>\n\t\t\t\t\t\t\t\tClose\n\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t</ModalFooter>\n\t\t\t\t\t</Modal>\n\t\t\t\t)}\n\t\t\t</ModalTransition>\n\t\t</Fragment>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'label',
+				type: 'string | undefined',
+				description: 'The accessible name to give to the close button.',
+			},
+			{
+				name: 'onBlur',
+				type: 'React.FocusEventHandler<HTMLButtonElement> | undefined',
+				description: 'The `onBlur` handler for the close button.',
+			},
+			{
+				name: 'onClick',
+				type: '(e: KeyboardOrMouseEvent, analyticEvent: UIAnalyticsEvent) => void',
+				description: 'The same close handler you give to the top-level modal component.',
+				isRequired: true,
+			},
+		],
+	},
+	{
+		name: 'ModalBody',
+		package: '@atlaskit/modal-dialog',
+		description: 'The main content area of a modal dialog.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use for the primary content between header and footer',
+			'Accepts any valid React element as children',
+			'Handles overflow and scrolling when content exceeds viewport',
+		],
+		contentGuidelines: ['Keep content focused on a single task', 'Use clear, readable content'],
+		keywords: ['modal', 'body', 'content'],
+		category: 'overlay',
+		examples: [
+			"import React, { Fragment, useCallback, useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport ModalBody from '@atlaskit/modal-dialog/modal-body';\nimport Modal from '@atlaskit/modal-dialog/modal-dialog';\nimport ModalFooter from '@atlaskit/modal-dialog/modal-footer';\nimport ModalHeader from '@atlaskit/modal-dialog/modal-header';\nimport ModalTitle from '@atlaskit/modal-dialog/modal-title';\nimport ModalTransition from '@atlaskit/modal-dialog/modal-transition';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nexport default function Example(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(false);\n\tconst openModal = useCallback(() => setIsOpen(true), []);\n\tconst closeModal = useCallback(() => setIsOpen(false), []);\n\treturn (\n\t\t<Fragment>\n\t\t\t<Button aria-haspopup=\"dialog\" appearance=\"primary\" onClick={openModal}>\n\t\t\t\tOpen modal\n\t\t\t</Button>\n\t\t\t<ModalTransition>\n\t\t\t\t{isOpen && (\n\t\t\t\t\t<Modal onClose={closeModal}>\n\t\t\t\t\t\t<ModalHeader hasCloseButton>\n\t\t\t\t\t\t\t<ModalTitle>Duplicate this page</ModalTitle>\n\t\t\t\t\t\t</ModalHeader>\n\t\t\t\t\t\t<ModalBody>\n\t\t\t\t\t\t\tDuplicating this page will make it a child page of{' '}\n\t\t\t\t\t\t\t<Text weight=\"bold\">Search - user exploration</Text>, in the{' '}\n\t\t\t\t\t\t\t<Text weight=\"bold\">Search & Smarts</Text> space.\n\t\t\t\t\t\t</ModalBody>\n\t\t\t\t\t\t<ModalFooter>\n\t\t\t\t\t\t\t<Button appearance=\"subtle\" onClick={closeModal}>\n\t\t\t\t\t\t\t\tCancel\n\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t\t<Button appearance=\"primary\" onClick={closeModal}>\n\t\t\t\t\t\t\t\tDuplicate\n\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t</ModalFooter>\n\t\t\t\t\t</Modal>\n\t\t\t\t)}\n\t\t\t</ModalTransition>\n\t\t</Fragment>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
+				description: 'Children of modal dialog footer.',
+				isRequired: true,
+			},
+			{
+				name: 'hasInlinePadding',
+				type: 'boolean | undefined',
+				description: 'Determines whether inline padding will be applied. Defaults to true.',
+			},
+		],
+	},
+	{
 		name: 'Modal',
 		package: '@atlaskit/modal-dialog',
 		description: 'A modal dialog component for important content.',
@@ -5876,76 +5945,6 @@ export const components: ComponentMcpPayload[] = [
 		],
 	},
 	{
-		name: 'CloseButton',
-		package: '@atlaskit/modal-dialog',
-		description:
-			'An accessible close button for use in custom modal headers. Ensures users have an obvious way to close the modal.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use when customizing ModalHeader without hasCloseButton',
-			'Render CloseButton first in DOM for proper focus order',
-			'Use Flex with row-reverse if close should appear on the right',
-			'Provide label prop for custom accessible name',
-		],
-		accessibilityGuidelines: [
-			'Close button is required for modals (consult a11y team for rare exceptions)',
-			'Ensure close button is keyboard accessible',
-		],
-		keywords: ['modal', 'close', 'button', 'dismiss'],
-		category: 'overlay',
-		examples: [
-			"import React, { Fragment, useCallback, useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { cssMap } from '@atlaskit/css';\nimport Heading from '@atlaskit/heading/heading';\nimport { CloseButton } from '@atlaskit/modal-dialog/close-button';\nimport { useModal } from '@atlaskit/modal-dialog/hooks';\nimport ModalBody from '@atlaskit/modal-dialog/modal-body';\nimport Modal from '@atlaskit/modal-dialog/modal-dialog';\nimport ModalFooter from '@atlaskit/modal-dialog/modal-footer';\nimport ModalTransition from '@atlaskit/modal-dialog/modal-transition';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nconst styles = cssMap({\n\theader: {\n\t\tdisplay: 'flex',\n\t\talignItems: 'center',\n\t\tjustifyContent: 'space-between',\n\t\tflexDirection: 'row-reverse',\n\t},\n});\nconst CustomHeader = () => {\n\tconst { onClose, titleId } = useModal();\n\treturn (\n\t\t<Box xcss={styles.header} padding=\"space.300\">\n\t\t\t{/* We have the close button first in the DOM and then are reversing it\n\t\t\tusing the flex styles to ensure that it is focused as the first\n\t\t\tinteractive element in the modal, *before* any other relevant content\n\t\t\tinside the modal. This ensures users of assistive technology get all\n\t\t\trelevant content. */}\n\t\t\t<CloseButton onClick={onClose} />\n\t\t\t<Heading as=\"h1\" size=\"medium\" id={titleId}>\n\t\t\t\tCustom modal header\n\t\t\t</Heading>\n\t\t</Box>\n\t);\n};\nexport default function Example(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(false);\n\tconst openModal = useCallback(() => setIsOpen(true), []);\n\tconst closeModal = useCallback(() => setIsOpen(false), []);\n\treturn (\n\t\t<Fragment>\n\t\t\t<Button aria-haspopup=\"dialog\" appearance=\"primary\" onClick={openModal}>\n\t\t\t\tOpen modal\n\t\t\t</Button>\n\t\t\t<ModalTransition>\n\t\t\t\t{isOpen && (\n\t\t\t\t\t// This is fixed in the custom header\n\t\t\t\t\t<Modal onClose={closeModal}>\n\t\t\t\t\t\t<CustomHeader />\n\t\t\t\t\t\t<ModalBody>\n\t\t\t\t\t\t\t<Text as=\"p\">\n\t\t\t\t\t\t\t\tIf you wish to customise a modal dialog, it accepts any valid React element as\n\t\t\t\t\t\t\t\tchildren.\n\t\t\t\t\t\t\t</Text>\n\t\t\t\t\t\t\t<Text as=\"p\">\n\t\t\t\t\t\t\t\tModal header accepts any valid React element as children, so you can use modal title\n\t\t\t\t\t\t\t\tin conjunction with other elements like an exit button in the top right.\n\t\t\t\t\t\t\t</Text>\n\t\t\t\t\t\t\t<Text as=\"p\">\n\t\t\t\t\t\t\t\tModal footer accepts any valid React element as children. For example, you can add\n\t\t\t\t\t\t\t\tan avatar in the footer. For very custom use cases, you can achieve the same thing\n\t\t\t\t\t\t\t\twithout modal footer.\n\t\t\t\t\t\t\t</Text>\n\t\t\t\t\t\t</ModalBody>\n\t\t\t\t\t\t<ModalFooter>\n\t\t\t\t\t\t\t<Button appearance=\"subtle\">About modals</Button>\n\t\t\t\t\t\t\t<Button appearance=\"primary\" onClick={closeModal}>\n\t\t\t\t\t\t\t\tClose\n\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t</ModalFooter>\n\t\t\t\t\t</Modal>\n\t\t\t\t)}\n\t\t\t</ModalTransition>\n\t\t</Fragment>\n\t);\n}",
-		],
-		props: [
-			{
-				name: 'label',
-				type: 'string | undefined',
-				description: 'The accessible name to give to the close button.',
-			},
-			{
-				name: 'onBlur',
-				type: 'React.FocusEventHandler<HTMLButtonElement> | undefined',
-				description: 'The `onBlur` handler for the close button.',
-			},
-			{
-				name: 'onClick',
-				type: '(e: KeyboardOrMouseEvent, analyticEvent: UIAnalyticsEvent) => void',
-				description: 'The same close handler you give to the top-level modal component.',
-				isRequired: true,
-			},
-		],
-	},
-	{
-		name: 'ModalBody',
-		package: '@atlaskit/modal-dialog',
-		description: 'The main content area of a modal dialog.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use for the primary content between header and footer',
-			'Accepts any valid React element as children',
-			'Handles overflow and scrolling when content exceeds viewport',
-		],
-		contentGuidelines: ['Keep content focused on a single task', 'Use clear, readable content'],
-		keywords: ['modal', 'body', 'content'],
-		category: 'overlay',
-		examples: [
-			"import React, { Fragment, useCallback, useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport ModalBody from '@atlaskit/modal-dialog/modal-body';\nimport Modal from '@atlaskit/modal-dialog/modal-dialog';\nimport ModalFooter from '@atlaskit/modal-dialog/modal-footer';\nimport ModalHeader from '@atlaskit/modal-dialog/modal-header';\nimport ModalTitle from '@atlaskit/modal-dialog/modal-title';\nimport ModalTransition from '@atlaskit/modal-dialog/modal-transition';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nexport default function Example(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(false);\n\tconst openModal = useCallback(() => setIsOpen(true), []);\n\tconst closeModal = useCallback(() => setIsOpen(false), []);\n\treturn (\n\t\t<Fragment>\n\t\t\t<Button aria-haspopup=\"dialog\" appearance=\"primary\" onClick={openModal}>\n\t\t\t\tOpen modal\n\t\t\t</Button>\n\t\t\t<ModalTransition>\n\t\t\t\t{isOpen && (\n\t\t\t\t\t<Modal onClose={closeModal}>\n\t\t\t\t\t\t<ModalHeader hasCloseButton>\n\t\t\t\t\t\t\t<ModalTitle>Duplicate this page</ModalTitle>\n\t\t\t\t\t\t</ModalHeader>\n\t\t\t\t\t\t<ModalBody>\n\t\t\t\t\t\t\tDuplicating this page will make it a child page of{' '}\n\t\t\t\t\t\t\t<Text weight=\"bold\">Search - user exploration</Text>, in the{' '}\n\t\t\t\t\t\t\t<Text weight=\"bold\">Search & Smarts</Text> space.\n\t\t\t\t\t\t</ModalBody>\n\t\t\t\t\t\t<ModalFooter>\n\t\t\t\t\t\t\t<Button appearance=\"subtle\" onClick={closeModal}>\n\t\t\t\t\t\t\t\tCancel\n\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t\t<Button appearance=\"primary\" onClick={closeModal}>\n\t\t\t\t\t\t\t\tDuplicate\n\t\t\t\t\t\t\t</Button>\n\t\t\t\t\t\t</ModalFooter>\n\t\t\t\t\t</Modal>\n\t\t\t\t)}\n\t\t\t</ModalTransition>\n\t\t</Fragment>\n\t);\n}",
-		],
-		props: [
-			{
-				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
-				description: 'Children of modal dialog footer.',
-				isRequired: true,
-			},
-			{
-				name: 'hasInlinePadding',
-				type: 'boolean | undefined',
-				description: 'Determines whether inline padding will be applied. Defaults to true.',
-			},
-		],
-	},
-	{
 		name: 'ModalFooter',
 		package: '@atlaskit/modal-dialog',
 		description: 'The footer section of a modal dialog, typically containing action buttons.',
@@ -6074,18 +6073,19 @@ export const components: ComponentMcpPayload[] = [
 		name: 'Motion',
 		package: '@atlaskit/motion',
 		description:
-			'A motion primitive that can be used to animate the entry and exit of components. The recommended way to apply entry and exit animations in @atlaskit/motion. Wrap with ExitingPersistence to enable exit animations when elements are removed from the DOM.',
+			'A motion primitive that can animate the entry and exit of components. The recommended way to apply entry and exit animations in @atlaskit/motion is to keep Motion mounted and control its lifecycle with the action prop.',
 		status: 'early-access',
 		usageGuidelines: [
 			'Use motion already owned by an ADS component instead of wrapping or replacing it',
 			'Use the Motion primitive as the recommended way to apply entry and exit animations',
-			'Wrap with ExitingPersistence to enable exit animations when elements are removed from the DOM',
+			'Pass action="enter" or action="exit" whenever Motion needs to respond to application state, and keep Motion mounted so it can play the exit animation before rendering null',
+			'Provide enteringAnimation for action="enter" and exitingAnimation for action="exit"; omit the unused animation only when the component can never perform that action',
+			'Do not use ExitingPersistence for new Motion implementations; it remains available only for existing integrations while its remaining use cases are validated',
 			'Prefer the complete semantic motion token for the affected role and state; inspect the full motion.<role>.* namespace so paired entry, exit, and reposition states are not missed',
 			'Do not invent a motion token or reconstruct an available semantic token from base duration, easing, and keyframe tokens',
 			'Use enteringAnimationXcss and exitingAnimationXcss only when no semantic motion token covers the required treatment, and compose only from published base motion tokens',
 			'Multiple keyframes can be composed by joining them in animationName (e.g. combining scale and fade)',
 			'Works with any React content including ADS Primitives — no render-prop pattern required',
-			'Use the appear prop on ExitingPersistence to also trigger the entering animation on first mount',
 			'The Motion primitive renders a wrapper div. If that wrapper would break layout, semantics, or an attribute a parent selector depends on, use the useMotion hook instead to animate an element you already render',
 			'Keep entry and exit motion subordinate to the task, and verify the result in the browser rather than treating an import or token reference as evidence that motion occurred',
 		],
@@ -6096,9 +6096,9 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['motion', 'animation', 'enter', 'exit', 'transition', 'primitive', 'fade', 'css'],
 		category: 'animation',
 		examples: [
-			"import React, { useState } from 'react';\nimport Motion from '@atlaskit/motion/entering/motion';\nimport ExitingPersistence from '@atlaskit/motion/exiting-persistence';\nimport { token } from '@atlaskit/tokens';\nexport default function MotionPrimitiveExample(): JSX.Element {\n\tconst [isVisible, setIsVisible] = useState(true);\n\treturn (\n\t\t<>\n\t\t\t<button type=\"button\" onClick={() => setIsVisible((v) => !v)}>\n\t\t\t\tToggle\n\t\t\t</button>\n\t\t\t<ExitingPersistence appear>\n\t\t\t\t{isVisible && (\n\t\t\t\t\t<Motion\n\t\t\t\t\t\tkey=\"item\"\n\t\t\t\t\t\tenteringAnimation={token('motion.modal.enter')}\n\t\t\t\t\t\texitingAnimation={token('motion.modal.exit')}\n\t\t\t\t\t>\n\t\t\t\t\t\t<div>Content</div>\n\t\t\t\t\t</Motion>\n\t\t\t\t)}\n\t\t\t</ExitingPersistence>\n\t\t</>\n\t);\n}",
-			"import React, { useState } from 'react';\nimport { cssMap } from '@atlaskit/css';\nimport Motion from '@atlaskit/motion/entering/motion';\nimport ExitingPersistence from '@atlaskit/motion/exiting-persistence';\nimport { token } from '@atlaskit/tokens';\nconst styles = cssMap({\n\tentering: {\n\t\tanimationDuration: token('motion.duration.xlong'),\n\t\tanimationTimingFunction: token('motion.easing.out.practical'),\n\t\tanimationName: `${token('motion.keyframe.scale.in.medium')}, ${token('motion.keyframe.fade.in')}`,\n\t},\n\texiting: {\n\t\tanimationDuration: token('motion.duration.long'),\n\t\tanimationTimingFunction: token('motion.easing.in.practical'),\n\t\tanimationName: `${token('motion.keyframe.scale.out.medium')}, ${token('motion.keyframe.fade.out')}`,\n\t},\n});\nexport default function MotionPrimitiveCustomExample(): JSX.Element {\n\tconst [isVisible, setIsVisible] = useState(true);\n\treturn (\n\t\t<>\n\t\t\t<button type=\"button\" onClick={() => setIsVisible((v) => !v)}>\n\t\t\t\tToggle\n\t\t\t</button>\n\t\t\t<ExitingPersistence appear>\n\t\t\t\t{isVisible && (\n\t\t\t\t\t<Motion\n\t\t\t\t\t\tkey=\"item\"\n\t\t\t\t\t\tenteringAnimationXcss={styles.entering}\n\t\t\t\t\t\texitingAnimationXcss={styles.exiting}\n\t\t\t\t\t>\n\t\t\t\t\t\t<div>Content</div>\n\t\t\t\t\t</Motion>\n\t\t\t\t)}\n\t\t\t</ExitingPersistence>\n\t\t</>\n\t);\n}",
-			"import React, { useState } from 'react';\nimport { keyframes } from '@compiled/react';\nimport { cssMap } from '@atlaskit/css';\nimport Motion from '@atlaskit/motion/entering/motion';\nimport ExitingPersistence from '@atlaskit/motion/exiting-persistence';\nimport { token } from '@atlaskit/tokens';\nconst slideIn = keyframes({\n\t'0%': { transform: 'translateX(-24px)' },\n\t'100%': { transform: 'translateX(0)' },\n});\nconst slideOut = keyframes({\n\t'0%': { transform: 'translateX(0)' },\n\t'100%': { transform: 'translateX(-24px)' },\n});\nconst styles = cssMap({\n\tentering: {\n\t\tanimationDuration: token('motion.duration.xxlong'),\n\t\tanimationTimingFunction: token('motion.easing.out.practical'),\n\t\tanimationName: `${slideIn}, ${token('motion.keyframe.fade.in')}`,\n\t},\n\texiting: {\n\t\tanimationDuration: token('motion.duration.xxlong'),\n\t\tanimationTimingFunction: token('motion.easing.in.practical'),\n\t\tanimationName: `${slideOut}, ${token('motion.keyframe.fade.out')}`,\n\t},\n});\nexport default function MotionPrimitiveCustomKeyframeExample(): JSX.Element {\n\tconst [isVisible, setIsVisible] = useState(true);\n\treturn (\n\t\t<>\n\t\t\t<button type=\"button\" onClick={() => setIsVisible((v) => !v)}>\n\t\t\t\tToggle\n\t\t\t</button>\n\t\t\t<ExitingPersistence appear>\n\t\t\t\t{isVisible && (\n\t\t\t\t\t<Motion\n\t\t\t\t\t\tkey=\"item\"\n\t\t\t\t\t\tenteringAnimationXcss={styles.entering}\n\t\t\t\t\t\texitingAnimationXcss={styles.exiting}\n\t\t\t\t\t>\n\t\t\t\t\t\t<div>Content</div>\n\t\t\t\t\t</Motion>\n\t\t\t\t)}\n\t\t\t</ExitingPersistence>\n\t\t</>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport Motion from '@atlaskit/motion/entering/motion';\nimport { token } from '@atlaskit/tokens';\nexport default function MotionPrimitiveExample(): JSX.Element {\n\tconst [isVisible, setIsVisible] = useState(true);\n\treturn (\n\t\t<>\n\t\t\t<button type=\"button\" onClick={() => setIsVisible((v) => !v)}>\n\t\t\t\tToggle\n\t\t\t</button>\n\t\t\t<Motion\n\t\t\t\taction={isVisible ? 'enter' : 'exit'}\n\t\t\t\tenteringAnimation={token('motion.modal.enter')}\n\t\t\t\texitingAnimation={token('motion.modal.exit')}\n\t\t\t>\n\t\t\t\t<div>Content</div>\n\t\t\t</Motion>\n\t\t</>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { cssMap } from '@atlaskit/css';\nimport Motion from '@atlaskit/motion/entering/motion';\nimport { token } from '@atlaskit/tokens';\nconst styles = cssMap({\n\tentering: {\n\t\tanimationDuration: token('motion.duration.xlong'),\n\t\tanimationTimingFunction: token('motion.easing.out.practical'),\n\t\tanimationName: `${token('motion.keyframe.scale.in.medium')}, ${token('motion.keyframe.fade.in')}`,\n\t},\n\texiting: {\n\t\tanimationDuration: token('motion.duration.long'),\n\t\tanimationTimingFunction: token('motion.easing.in.practical'),\n\t\tanimationName: `${token('motion.keyframe.scale.out.medium')}, ${token('motion.keyframe.fade.out')}`,\n\t},\n});\nexport default function MotionPrimitiveCustomExample(): JSX.Element {\n\tconst [isVisible, setIsVisible] = useState(true);\n\treturn (\n\t\t<>\n\t\t\t<button type=\"button\" onClick={() => setIsVisible((v) => !v)}>\n\t\t\t\tToggle\n\t\t\t</button>\n\t\t\t<Motion\n\t\t\t\taction={isVisible ? 'enter' : 'exit'}\n\t\t\t\tenteringAnimationXcss={styles.entering}\n\t\t\t\texitingAnimationXcss={styles.exiting}\n\t\t\t>\n\t\t\t\t<div>Content</div>\n\t\t\t</Motion>\n\t\t</>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { keyframes } from '@compiled/react';\nimport { cssMap } from '@atlaskit/css';\nimport Motion from '@atlaskit/motion/entering/motion';\nimport { token } from '@atlaskit/tokens';\nconst slideIn = keyframes({\n\t'0%': { transform: 'translateX(-24px)' },\n\t'100%': { transform: 'translateX(0)' },\n});\nconst slideOut = keyframes({\n\t'0%': { transform: 'translateX(0)' },\n\t'100%': { transform: 'translateX(-24px)' },\n});\nconst styles = cssMap({\n\tentering: {\n\t\tanimationDuration: token('motion.duration.xxlong'),\n\t\tanimationTimingFunction: token('motion.easing.out.practical'),\n\t\tanimationName: `${slideIn}, ${token('motion.keyframe.fade.in')}`,\n\t},\n\texiting: {\n\t\tanimationDuration: token('motion.duration.xxlong'),\n\t\tanimationTimingFunction: token('motion.easing.in.practical'),\n\t\tanimationName: `${slideOut}, ${token('motion.keyframe.fade.out')}`,\n\t},\n});\nexport default function MotionPrimitiveCustomKeyframeExample(): JSX.Element {\n\tconst [isVisible, setIsVisible] = useState(true);\n\treturn (\n\t\t<>\n\t\t\t<button type=\"button\" onClick={() => setIsVisible((v) => !v)}>\n\t\t\t\tToggle\n\t\t\t</button>\n\t\t\t<Motion\n\t\t\t\taction={isVisible ? 'enter' : 'exit'}\n\t\t\t\tenteringAnimationXcss={styles.entering}\n\t\t\t\texitingAnimationXcss={styles.exiting}\n\t\t\t>\n\t\t\t\t<div>Content</div>\n\t\t\t</Motion>\n\t\t</>\n\t);\n}",
 		],
 		props: [
 			{
@@ -6149,10 +6149,11 @@ export const components: ComponentMcpPayload[] = [
 		name: 'ExitingPersistence',
 		package: '@atlaskit/motion',
 		description:
-			'Motion helper that keeps elements mounted and plays their exit animation before they are removed from the DOM. Without it, elements are removed immediately and no exit animation plays. Works with both the Motion primitive and legacy entering-motion components.',
+			'Motion helper that keeps conditionally rendered elements mounted while their exit animation plays. It remains available while its remaining use cases are validated, but it is not recommended for new Motion implementations; keep Motion mounted and use its action prop instead.',
 		status: 'general-availability',
 		usageGuidelines: [
-			'Wrap motion elements with ExitingPersistence to enable exit animations when elements are removed from the DOM',
+			'Do not introduce ExitingPersistence in new Motion implementations; keep Motion mounted and control it with action="enter" or action="exit" instead',
+			'Retain ExitingPersistence only in existing integrations that have not yet migrated to an internally controlled Motion lifecycle',
 			'Keep ExitingPersistence mounted and conditionally render the child inside it; unmounting the persistence boundary prevents it from managing the exit',
 			'Set the appear prop to also trigger the entering animation when the component first mounts',
 			'Use exitThenEnter prop to make elements exit before new ones enter (sequential transition)',
@@ -8213,6 +8214,12 @@ export const components: ComponentMcpPayload[] = [
 					'An Icon component to be rendered instead of the default icon for the component.\nThis should only be an `@atlaskit/icon` icon. You can check out [this example](/packages/design-system/section-message/example/custom-icon)\nto see how to provide this icon.',
 			},
 			{
+				name: 'iconLabel',
+				type: 'string | undefined',
+				description:
+					'Accessible label for the status icon. Use your internationalization library to provide a localized string.',
+			},
+			{
 				name: 'isDismissible',
 				type: 'boolean | undefined',
 				description:
@@ -8244,7 +8251,7 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['select', 'async', 'dropdown', 'form', 'api'],
 		category: 'form',
 		examples: [
-			"import { Label } from '@atlaskit/form/label/default';\nimport Select from '@atlaskit/select/default';\nimport { type OptionsType } from '@atlaskit/select/types';\nimport { cities } from '../common/data';\nconst filterCities = (inputValue: string) =>\n\tcities.filter((i) => i.label.toLowerCase().includes(inputValue.toLowerCase()));\nconst promiseOptions = (inputValue: string) =>\n\tnew Promise<OptionsType>((resolve) => {\n\t\tsetTimeout(() => {\n\t\t\tresolve(filterCities(inputValue));\n\t\t}, 1000);\n\t});\nconst WithPromises = () => {\n\treturn (\n\t\t<>\n\t\t\t<Label htmlFor=\"async-select-example\">What city do you live in?</Label>\n\t\t\t<Select\n\t\t\t\tinputId=\"async-select-example\"\n\t\t\t\tcacheOptions\n\t\t\t\tdefaultOptions\n\t\t\t\tloadOptions={promiseOptions}\n\t\t\t/>\n\t\t</>\n\t);\n};\nexport default (): React.JSX.Element => <WithPromises />;",
+			"import { Label } from '@atlaskit/form/label/default';\nimport AsyncSelect from '@atlaskit/select/async-select';\nimport { type OptionsType } from '@atlaskit/select/types';\nimport { cities } from '../common/data';\nconst filterCities = (inputValue: string) =>\n\tcities.filter((i) => i.label.toLowerCase().includes(inputValue.toLowerCase()));\nconst promiseOptions = (inputValue: string) =>\n\tnew Promise<OptionsType>((resolve) => {\n\t\tsetTimeout(() => {\n\t\t\tresolve(filterCities(inputValue));\n\t\t}, 1000);\n\t});\nconst WithPromises = () => {\n\treturn (\n\t\t<>\n\t\t\t<Label htmlFor=\"async-select-example\">What city do you live in?</Label>\n\t\t\t<AsyncSelect\n\t\t\t\tinputId=\"async-select-example\"\n\t\t\t\tcacheOptions\n\t\t\t\tdefaultOptions\n\t\t\t\tloadOptions={promiseOptions}\n\t\t\t/>\n\t\t</>\n\t);\n};\nexport default (): React.JSX.Element => <WithPromises />;",
 		],
 		props: [
 			{
@@ -11151,9 +11158,9 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
 				description:
-					"The content to be rendered in `PopoverContent`. This is intended to be a `SpotlightCard`.\n\nPass ONE element. On the top-layer code path it is rendered into a flex-row\nhost so the viewport cap can reach it, and a fragment's children would become\nside-by-side flex items. See `children` on `Popover` in `@atlaskit/top-layer`.",
+					"The content to be rendered in `PopoverContent`. This is intended to be a `SpotlightCard`.\n\nPass ONE element. It is rendered into a flex-row\nhost so the viewport cap can reach it, and a fragment's children would become\nside-by-side flex items. See `children` on `Popover` in `@atlaskit/top-layer`.",
 				isRequired: true,
 			},
 			{
@@ -11176,7 +11183,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'motion',
-				type: 'React.ComponentType<{ children: React.ReactNode; }> | null | undefined',
+				type: 'React.ComponentType<{ children: ReactNode; }> | null | undefined',
 				description: 'The motion to be applied to the `SpotlightCard`.',
 			},
 			{
@@ -11220,7 +11227,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
 				description:
 					'The to be rendered in `PopoverProvider`. This is intended to be `PopoverContent`, and `PopoverTarget`.',
 				isRequired: true,
@@ -11242,7 +11249,7 @@ export const components: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
 				description:
 					'The content to be rendered in `PopoverTarget`. This is intended to be the element you want to point the spotlight at.',
 				isRequired: true,

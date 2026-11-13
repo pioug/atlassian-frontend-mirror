@@ -1,0 +1,45 @@
+---
+title: Animated icon trigger
+description: Tell the animated icons inside it when to play, without passing props or refs down.
+order: 1
+---
+
+import AnimatedIconHover from '../../examples/constellation/animated-icon-hover.tsx';
+import AnimatedIconClick from '../../examples/constellation/animated-icon-click.tsx';
+import AnimatedIconControlled from '../../examples/constellation/animated-icon-controlled.tsx';
+
+Wrap a button and its animated icon in `AnimatedIconTrigger`, and choose what plays it with
+`trigger`.
+
+## Hover and focus
+
+The default. The icon plays while the pointer is over the button, or keyboard focus is inside it.
+Moving away interrupts it.
+
+<Example
+	Component={AnimatedIconHover}
+	packageName="@atlaskit/icon"
+	hiddenSections={['iconography']}
+/>
+
+## Click
+
+Set `trigger="click"` to play the icon when someone clicks inside. It always plays through to the
+end, even if the pointer leaves.
+
+<Example
+	Component={AnimatedIconClick}
+	packageName="@atlaskit/icon"
+	hiddenSections={['iconography']}
+/>
+
+## Controlled
+
+Set `isActive` to play the icon from your own state. Clear the state in `onReset`, which is called
+when every icon has finished.
+
+<Example
+	Component={AnimatedIconControlled}
+	packageName="@atlaskit/icon"
+	hiddenSections={['iconography']}
+/>

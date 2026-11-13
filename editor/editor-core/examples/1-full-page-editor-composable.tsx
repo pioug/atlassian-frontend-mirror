@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/default/button';
+import { FullPageEditor } from '@atlaskit/editor-core/appearance-editor-full-page';
+import { FullWidthEditor } from '@atlaskit/editor-core/appearance-editor-full-width';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import { basePlugin } from '@atlaskit/editor-plugins/base';
@@ -16,9 +18,6 @@ import { selectionPlugin } from '@atlaskit/editor-plugins/selection';
 import { tablesPlugin } from '@atlaskit/editor-plugins/table';
 import { typeAheadPlugin } from '@atlaskit/editor-plugins/type-ahead';
 import { widthPlugin } from '@atlaskit/editor-plugins/width';
-
-import { FullPageEditor } from '../src/editor-appearances/FullPageEditor';
-import { FullWidthEditor } from '../src/editor-appearances/FullWidthEditor';
 
 export default function Editor(): React.JSX.Element {
 	const { preset } = usePreset((builder) =>

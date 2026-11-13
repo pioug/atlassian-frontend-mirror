@@ -3,13 +3,10 @@ import React from 'react';
 import { IntlProvider } from 'react-intl';
 import { graphql, RelayEnvironmentProvider, useLazyLoadQuery } from 'react-relay';
 import { __internal } from 'relay-runtime';
-import {
-	createMockEnvironment,
-	type MockEnvironment,
-	MockPayloadGenerator,
-} from 'relay-test-utils';
+import { type MockEnvironment, MockPayloadGenerator } from 'relay-test-utils';
 
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { createAtlassianMockRelayEnvironment } from '@atlassian/relay-test-utils/mock-environment';
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
 import { waitFor } from '@atlassian/testing-library/testing-library/react';
@@ -77,7 +74,7 @@ describe.each([false, true])('RovoAgentSelector (creation fix: %s)', (creationFi
 			failGate(CREATION_FIX_GATE);
 		}
 		__internal.withProvidedVariables.tests_only_resetDebugCache?.();
-		environment = createMockEnvironment();
+		environment = createAtlassianMockRelayEnvironment();
 	});
 
 	type TestArgs = {

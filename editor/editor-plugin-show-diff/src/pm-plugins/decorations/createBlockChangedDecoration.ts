@@ -305,11 +305,7 @@ export const createBlockChangedDecoration = ({
 		isActive,
 	});
 	const styleOld = tagAnchorName
-		? [
-				nodeStyle,
-				convertToInlineCss({ anchorName: `--${tagAnchorName}` }),
-				fg('platform_editor_ai_show_diff_patch_1') ? scrollMarginTopStyle : undefined,
-			]
+		? [nodeStyle, convertToInlineCss({ anchorName: `--${tagAnchorName}` }), scrollMarginTopStyle]
 				.filter(Boolean)
 				.join(' ')
 		: nodeStyle;

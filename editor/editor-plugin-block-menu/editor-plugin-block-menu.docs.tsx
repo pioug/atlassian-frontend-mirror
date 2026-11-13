@@ -17,7 +17,7 @@ const documentation: StructuredContentSource = {
 			status: 'internal',
 			import: {
 				name: 'blockMenuPlugin',
-				package: '@atlaskit/editor-plugin-block-menu',
+				package: '@atlaskit/editor-plugin-block-menu/blockMenuPlugin',
 				type: 'named',
 				packagePath,
 				packageJson,

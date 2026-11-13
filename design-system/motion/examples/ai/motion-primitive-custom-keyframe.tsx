@@ -4,7 +4,6 @@ import { keyframes } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
 import Motion from '@atlaskit/motion/entering/motion';
-import ExitingPersistence from '@atlaskit/motion/exiting-persistence';
 import { token } from '@atlaskit/tokens';
 
 const slideIn = keyframes({
@@ -37,17 +36,13 @@ export default function MotionPrimitiveCustomKeyframeExample(): JSX.Element {
 			<button type="button" onClick={() => setIsVisible((v) => !v)}>
 				Toggle
 			</button>
-			<ExitingPersistence appear>
-				{isVisible && (
-					<Motion
-						key="item"
-						enteringAnimationXcss={styles.entering}
-						exitingAnimationXcss={styles.exiting}
-					>
-						<div>Content</div>
-					</Motion>
-				)}
-			</ExitingPersistence>
+			<Motion
+				action={isVisible ? 'enter' : 'exit'}
+				enteringAnimationXcss={styles.entering}
+				exitingAnimationXcss={styles.exiting}
+			>
+				<div>Content</div>
+			</Motion>
 		</>
 	);
 }

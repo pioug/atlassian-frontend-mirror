@@ -445,38 +445,6 @@ describe('Rule 2: the flip floor on the placement axis', () => {
 		expect(blockAxis).not.toHaveProperty('min-inline-size');
 		expect(inlineAxis).not.toHaveProperty('min-block-size');
 	});
-
-	it('is overridden by an explicit placement.minSize', () => {
-		const declarations = sizesFor({
-			placement: { axis: 'block', edge: 'end', minSize: 40 },
-			blockSize: 'max-available',
-		});
-
-		expect(declarations['min-block-size']).toBe('40px');
-		// An explicit floor is a consumer request, so it never takes the
-		// content-sized form.
-		expect(declarations).not.toHaveProperty('--ds-popover-flip-floor');
-		expect(declarations).not.toHaveProperty('--ds-popover-flip-floor-limit');
-	});
-
-	it('honours minSize: 0 as the "cap me but do not move me" escape hatch', () => {
-		// `0` must survive rather than being treated as "not specified" and
-		// replaced by the 150px default.
-		const declarations = sizesFor({
-			placement: { axis: 'block', edge: 'end', minSize: 0 },
-			blockSize: 'max-available',
-		});
-
-		expect(declarations['min-block-size']).toBe('0px');
-		expect(declarations).not.toHaveProperty('--ds-popover-flip-floor');
-		expect(declarations).not.toHaveProperty('--ds-popover-flip-floor-limit');
-	});
-
-	it('applies an explicit minSize even when nothing is fitting', () => {
-		expect(
-			sizesFor({ placement: { axis: 'inline', edge: 'end', minSize: '10rem' } }),
-		).toHaveProperty('min-inline-size', '10rem');
-	});
 });
 
 /**
@@ -749,101 +717,9 @@ describe('anchor-relative sizing', () => {
 		expectDefaultFloor({ declarations, axis: 'inline', floor: '150px', limit: '150px' });
 	});
 
-	it('COMPOSES an explicit minSize with the anchor floor, rather than replacing it', () => {
-		// Two EXPLICIT requests, and `max()` is the operator for "satisfy both". A
-		// first-wins chain let `minSize: 40` on a `<DropdownMenu shouldFitContainer>`
-		// with a 200px trigger produce a 40px menu. Only the 150px DEFAULT is an
-		// alternative rather than a term.
-		const declarations = sizesFor({
-			placement: { axis: 'inline', edge: 'end', minSize: 40 },
-			inlineSize: 'min-anchor',
-			blockSize: 'max-available',
-			anchorSize: ANCHOR,
-		});
-
-		expect(declarations['min-inline-size']).toBe('max(40px, anchor-size(self-inline))');
-	});
-
-	it('composes minSize with the CLAMPED anchor floor when nothing is fitting', () => {
-		// The nesting: `max(minSize, min(anchor, cap))`, not
-		// `min(max(minSize, anchor), cap)`. Only the ANCHOR term is clamped, because
-		// `minSize` already overhangs the backstop on an axis with no anchor floor,
-		// so clamping it only for `'min-anchor'` would make one input behave two ways.
-		const declarations = sizesFor({
-			placement: { axis: 'inline', edge: 'end', minSize: 40 },
-			inlineSize: 'min-anchor',
-			anchorSize: ANCHOR,
-		});
-
-		expect(declarations['min-inline-size']).toBe(
-			'max(40px, min(anchor-size(self-inline), calc(100dvw - 2 * 5px)))',
-		);
-	});
-
-	it("composes on a fitting 'match-anchor' placement axis too", () => {
-		// The other way to earn an anchor floor. Same composition, and a non-pixel
-		// `minSize` so the two terms are not silently added up somewhere.
-		const declarations = sizesFor({
-			placement: { axis: 'inline', edge: 'end', minSize: '10rem' },
-			inlineSize: 'match-anchor',
-			blockSize: 'max-available',
-			anchorSize: ANCHOR,
-		});
-
-		expect(declarations['min-inline-size']).toBe('max(10rem, anchor-size(self-inline))');
-	});
-
-	it('keeps the anchor floor under minSize: 0, which no longer removes it', () => {
-		// The knock-on of composing: `max(0px, anchor)` IS the anchor, so `minSize: 0`
-		// means "do not apply the flip floor", not "break my `min-anchor` contract".
-		// It still opts out entirely where there is no anchor floor - the case below.
-		const declarations = sizesFor({
-			placement: { axis: 'inline', edge: 'end', minSize: 0 },
-			inlineSize: 'min-anchor',
-			blockSize: 'max-available',
-			anchorSize: ANCHOR,
-		});
-
-		expect(declarations['min-inline-size']).toBe('max(0px, anchor-size(self-inline))');
-	});
-
-	it('emits minSize ALONE where there is no anchor floor to compose with', () => {
-		// An unfitted `'match-anchor'` placement axis earns no anchor floor (nothing
-		// to flip out of), so there is nothing to compose and `minSize: 0` really is
-		// zero.
-		expect(
-			sizesFor({
-				placement: { axis: 'inline', edge: 'end', minSize: 40 },
-				inlineSize: 'match-anchor',
-				anchorSize: ANCHOR,
-			}),
-		).toHaveProperty('min-inline-size', '40px');
-
-		expect(
-			sizesFor({
-				placement: { axis: 'inline', edge: 'end', minSize: 0 },
-				inlineSize: 'match-anchor',
-				anchorSize: ANCHOR,
-			}),
-		).toHaveProperty('min-inline-size', '0px');
-	});
-
-	it('emits minSize alone when the anchor size is unavailable', () => {
-		// There is no `max(40px, null)`: the anchor term drops out and the consumer's
-		// minimum is the whole floor.
-		expect(
-			sizesFor({
-				placement: { axis: 'inline', edge: 'end', minSize: 40 },
-				inlineSize: 'min-anchor',
-				blockSize: 'max-available',
-				anchorSize: NO_ANCHOR,
-			}),
-		).toHaveProperty('min-inline-size', '40px');
-	});
-
 	it('emits no floor at all when the anchor size is unavailable and nothing is fitting', () => {
-		// Neither term applies and the 150px default needs a fit request, so the
-		// placement axis keeps only the viewport backstop.
+		// The anchor floor has no anchor size and the 150px default needs a fit
+		// request, so the placement axis keeps only the viewport backstop.
 		expect(
 			sizesFor({
 				placement: { axis: 'inline', edge: 'end' },
@@ -910,17 +786,6 @@ describe('the JavaScript fallback path', () => {
 		});
 
 		expect(declarations).not.toHaveProperty('min-block-size');
-		expect(declarations).not.toHaveProperty('--ds-popover-flip-floor');
-	});
-
-	it('still honours an explicit minSize, which is a consumer request and not a flip driver', () => {
-		const declarations = sizesFor({
-			placement: { axis: 'block', edge: 'end', minSize: 200 },
-			blockSize: 'max-available',
-			isUsingCssAnchorPositioning: false,
-		});
-
-		expect(declarations['min-block-size']).toBe('200px');
 		expect(declarations).not.toHaveProperty('--ds-popover-flip-floor');
 	});
 

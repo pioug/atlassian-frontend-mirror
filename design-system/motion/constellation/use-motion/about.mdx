@@ -43,8 +43,9 @@ state on each render.
 | `exiting`  | The exit animation is running.               |
 | `hidden`   | The element has exited but remains mounted.  |
 
-The usual lifecycle is `init` → `entering` → `visible` → `exiting`, after which `ExitingPersistence`
-unmounts the element. The `hidden` state is used when an imperative exit keeps the element mounted.
+The usual lifecycle is `init` → `entering` → `visible` → `exiting` → `hidden`. Keep the hook owner
+mounted and use `reanimate(Reanimate.enter)` or `reanimate(Reanimate.exit)` when application state
+changes. Do not introduce `ExitingPersistence` in new implementations.
 
 See [Examples](/components/motion/use-motion/examples) for styling and lifecycle patterns, and
 [Code](/components/motion/use-motion/code) for the API.

@@ -23,8 +23,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'AvatarPickerDialog',
-				package: '@atlaskit/media-avatar-picker',
-				type: 'named',
+				package: '@atlaskit/media-avatar-picker/avatar-picker-dialog-loader',
+				type: 'default',
 				packagePath,
 				packageJson,
 			},
@@ -65,8 +65,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'ImageCropper',
-				package: '@atlaskit/media-avatar-picker',
-				type: 'named',
+				package: '@atlaskit/media-avatar-picker/image-cropper',
+				type: 'default',
 				packagePath,
 				packageJson,
 			},
@@ -94,8 +94,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'ImageNavigator',
-				package: '@atlaskit/media-avatar-picker',
-				type: 'named',
+				package: '@atlaskit/media-avatar-picker/image-navigator',
+				type: 'default',
 				packagePath,
 				packageJson,
 			},
@@ -120,8 +120,8 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Slider',
-				package: '@atlaskit/media-avatar-picker',
-				type: 'named',
+				package: '@atlaskit/media-avatar-picker/slider',
+				type: 'default',
 				packagePath,
 				packageJson,
 			},

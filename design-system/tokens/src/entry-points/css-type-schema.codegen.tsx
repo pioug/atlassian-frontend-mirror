@@ -3,7 +3,7 @@
  *
  * Strict design token based typedef representing a subset of safe CSS properties.
  *
- * @codegen <<SignedSource::15c6b7a00b086b014e479324ee60e312>>
+ * @codegen <<SignedSource::6fcaccef83ebb54359b32999f495545a>>
  * @codegenCommand yarn build tokens
  */
 export type BackgroundColorHovered =
@@ -589,8 +589,10 @@ export type Motion =
 export type MotionIconography =
 	| 'var(--ds-iconography-enter-cycle-up)'
 	| 'var(--ds-iconography-enter-fade)'
+	| 'var(--ds-iconography-enter-fade-fast)'
 	| 'var(--ds-iconography-exit-cycle-up)'
-	| 'var(--ds-iconography-exit-fade)';
+	| 'var(--ds-iconography-exit-fade)'
+	| 'var(--ds-iconography-exit-fade-fast)';
 
 export interface CSSPropertiesHovered {
 	backgroundColor: BackgroundColorHovered;

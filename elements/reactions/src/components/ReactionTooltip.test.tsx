@@ -3,6 +3,8 @@ import React from 'react';
 import { act, fireEvent, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
 import { mockReactDomWarningGlobal, renderWithIntl } from '../__tests__/_testing-library';
 import { TOOLTIP_USERS_LIMIT } from '../shared/constants';
 import { type ReactionSummary } from '../types';
@@ -61,6 +63,7 @@ describe('@atlaskit/reactions/components/ReactionTooltip', () => {
 		dismissTooltip = () => {},
 		handleOpenReactionsDialog = () => {},
 		allowUserDialog = false,
+		wideTooltip = false,
 	}) =>
 		renderWithIntl(
 			<ReactionTooltip
@@ -70,12 +73,36 @@ describe('@atlaskit/reactions/components/ReactionTooltip', () => {
 				handleOpenReactionsDialog={handleOpenReactionsDialog}
 				dismissTooltip={dismissTooltip}
 				allowUserDialog={allowUserDialog}
+				wideTooltip={wideTooltip}
 			>
 				<div id="content" data-testid={RENDER_CONTENT_TESTID}>
 					content
 				</div>
 			</ReactionTooltip>,
 		);
+
+	it('shows only a full-width skeleton beside a longer hydrated entry', async () => {
+		passGate('platform_reactions_agent_name_skeleton');
+		renderReactionTooltip({
+			wideTooltip: true,
+			reactionSummary: {
+				...demoReaction,
+				users: [
+					{
+						id: 'pending',
+						displayName: 'Pending person',
+						agent: { name: 'External agent', isLoading: true },
+					},
+					{ id: 'loaded', displayName: 'Another person', agent: { name: 'Readiness Checker' } },
+				],
+			},
+		});
+		await userEvent.hover(screen.getByTestId(RENDER_CONTENT_TESTID));
+		const tooltip = within(await screen.findByRole('tooltip'));
+		expect(tooltip.getByText('Readiness Checker with Another person')).toBeInTheDocument();
+		expect(tooltip.getByTestId('agent-name-skeleton')).toHaveStyle({ width: '100%' });
+		expect(tooltip.queryByText(/Pending person/)).not.toBeInTheDocument();
+	});
 
 	it('should render tooltip', async () => {
 		renderReactionTooltip({});

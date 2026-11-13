@@ -65,6 +65,16 @@ context:
       required: false
       description: |
         The `objectId` of the linked resource.
+    destinationObjectSubtype:
+      type:
+        ['document', 'spreadsheet', 'presentation', 'folder', 'form', 'pdf', 'image', 'audio', 'video', 'other']
+      required: false
+      description: |
+        Provider-neutral file kind derived from exact allowlisted schema:fileFormat values.
+        A non-empty file format is authoritative; unrecognised formats produce other.
+        When the format is unavailable, specific allowlisted JSON-LD @type values are used instead.
+        Omitted when neither source provides a category, fallback types conflict, or
+        platform_smartlinks_subtype_analytics is disabled. Never contains raw provider values.
     destinationObjectType:
       type: string
       required: false

@@ -9,6 +9,8 @@ export const shadowClassNames = {
 };
 
 export interface OverflowShadowProps {
+	/** Skip shadow observers and listeners, rather than only hiding their output. */
+	disableShadowTracking?: boolean;
 	disableTableOverflowShadow?: boolean;
 	handleRef?: (ref: HTMLElement | null) => void;
 	shadowClassNames?: string;
@@ -52,9 +54,22 @@ export default function overflowShadow<P>(
 			showRightShadow: false,
 		};
 
+		static getDerivedStateFromProps(
+			props: P & OverflowShadowProps,
+			state: OverflowShadowState,
+		): Partial<OverflowShadowState> | null {
+			if (props.disableShadowTracking && (state.showLeftShadow || state.showRightShadow)) {
+				return { showLeftShadow: false, showRightShadow: false };
+			}
+			return null;
+		}
+
 		private disabled?: boolean;
 
 		get isDisabled(): boolean {
+			if (this.props.disableShadowTracking) {
+				return true;
+			}
 			if (this.disabled === undefined) {
 				this.disabled = options.isDisabled?.() ?? false;
 			}
@@ -74,7 +89,19 @@ export default function overflowShadow<P>(
 			this.updateShadows();
 		}
 
-		componentDidUpdate() {
+		componentDidUpdate(prevProps: P & OverflowShadowProps) {
+			if (this.props.disableShadowTracking !== prevProps.disableShadowTracking) {
+				if (this.props.disableShadowTracking) {
+					this.shadowObserver?.dispose();
+					this.shadowObserver = undefined;
+					// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+					this.overflowContainer?.removeEventListener('scroll', this.handleScroll);
+				} else if (prevProps.disableShadowTracking && this.container) {
+					const container = this.container;
+					this.container = undefined;
+					this.handleContainer(container);
+				}
+			}
 			if (!options.useShadowObserver) {
 				this.updateShadows();
 			}
@@ -187,6 +214,9 @@ export default function overflowShadow<P>(
 			this.shadowObserver = new ShadowObserver({
 				scrollContainer: this.overflowContainer,
 				onUpdateShadows: (shadowStates) => {
+					if (this.props.disableShadowTracking) {
+						return;
+					}
 					this.setState((prevState) => {
 						const { showLeftShadow, showRightShadow } = shadowStates;
 						if (

@@ -1,3 +1,4 @@
+/* oxlint-disable eslint-core-js/global-require -- Existing file-level ESLint disable uses original core rule IDs; Oxlint JS plugins report namespaced IDs. */
 /**
  * This is a custom `main` entrypoint that switches between source/dist depending on environment, similar to the /bin entrypoint
  */

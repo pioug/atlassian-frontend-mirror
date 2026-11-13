@@ -2,6 +2,8 @@ import React, { useRef, useState } from 'react';
 
 import { IntlProvider } from 'react-intl';
 
+import EmojiTypeAhead from '@atlaskit/emoji/emoji-type-ahead';
+import type { EmojiId, OptionalEmojiDescription } from '@atlaskit/emoji/types';
 // Legacy demo layering: layers is deprecated. Use an ADS popup or overlay component
 // to manage layering in application code rather than copying this z-index override.
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-atlaskit-theme
@@ -16,8 +18,6 @@ import { onClose } from '../example-helpers/on-close';
 import { onOpen } from '../example-helpers/on-open';
 import { onSelection } from '../example-helpers/on-selection';
 import type { TypeaheadProps } from '../example-helpers/typeahead-props';
-import { EmojiTypeAhead } from '../src/typeahead';
-import type { EmojiId, OptionalEmojiDescription } from '../src/types';
 import debug from '../src/util/logger';
 
 const loremContent = (

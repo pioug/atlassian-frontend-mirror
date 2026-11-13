@@ -17,7 +17,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'dropboxExtension',
-				package: '@atlaskit/editor-extension-dropbox',
+				package: '@atlaskit/editor-extension-dropbox/manifest',
 				type: 'default',
 				packagePath,
 				packageJson,

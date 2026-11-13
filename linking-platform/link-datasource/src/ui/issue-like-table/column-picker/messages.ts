@@ -2,24 +2,29 @@ import { defineMessages } from 'react-intl';
 
 export const columnPickerMessages: {
 	maximumItemsShownLine1: {
-		id: string;
-		description: string;
 		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	maximumItemsShownLine2: {
-		id: string;
-		description: string;
 		defaultMessage: string;
+		description: string;
+		id: string;
+	};
+	reorderHint: {
+		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	search: {
-		id: string;
-		description: string;
 		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 	tooltip: {
-		id: string;
-		description: string;
 		defaultMessage: string;
+		description: string;
+		id: string;
 	};
 } = defineMessages({
 	maximumItemsShownLine1: {
@@ -38,6 +43,12 @@ export const columnPickerMessages: {
 		id: 'linkDataSource.column-picker.search',
 		description: 'Search bar message to look for more fields',
 		defaultMessage: 'Search for fields',
+	},
+	reorderHint: {
+		id: 'linkDataSource.column-picker.reorderHint',
+		description:
+			'Hint shown above the selected attributes in the column picker dropdown, explaining that they can be dragged to change the order the columns are displayed in the table.',
+		defaultMessage: 'Drag attributes to change their display order',
 	},
 	tooltip: {
 		id: 'linkDataSource.column-picker.tooltip',

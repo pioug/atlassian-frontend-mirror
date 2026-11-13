@@ -13,7 +13,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'Rating',
-				package: '@atlaskit/rating',
+				package: '@atlaskit/rating/rating',
 				type: 'named',
 				packagePath,
 				packageJson,

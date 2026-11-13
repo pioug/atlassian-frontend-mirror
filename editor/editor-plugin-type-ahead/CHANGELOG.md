@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 31.0.25
+
+### Patch Changes
+
+- Updated dependencies
+
+## 31.0.24
+
+### Patch Changes
+
+- [`aea0ca65a6eac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aea0ca65a6eac) -
+  Use selected border tokens for custom editor typeahead options, including focused mentions, behind
+  platform-dst-tokens-finesse.
+- Updated dependencies
+
 ## 31.0.23
 
 ### Patch Changes

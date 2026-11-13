@@ -284,7 +284,9 @@ export class AvatarPickerDialog extends PureComponent<
 						</ModalTitle>
 					</ModalHeader>
 
-					{this.state.isSubmitted && <SubmitErrorDialog />}
+					{this.state.isSubmitted && (
+						<SubmitErrorDialog hasDefaultAvatars={this.props.avatars.length > 0} />
+					)}
 
 					{/* eslint-disable-next-line @atlassian/i18n/no-literal-string-in-jsx */}
 					<form aria-label="form" onSubmit={this.onSave} css={formStyles}>

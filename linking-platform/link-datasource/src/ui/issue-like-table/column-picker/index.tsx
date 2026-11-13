@@ -5,14 +5,18 @@ import { useIntl } from 'react-intl';
 import IconButton from '@atlaskit/button/icon/button';
 import TableColumnsDistributeIcon from '@atlaskit/icon/core/table-columns-distribute';
 import type { DatasourceResponseSchemaProperty } from '@atlaskit/linking-types/datasource';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { createFilter } from '@atlaskit/react-select/filters';
 import { type ModifierList, PopupSelect } from '@atlaskit/select/popup-select';
 import type { OptionType } from '@atlaskit/select/types';
 
 import { succeedUfoExperience } from '../../../analytics/ufoExperiences/succeedUfoExperience';
 import { useDatasourceExperienceId } from '../../../contexts/datasource-experience-id/use-datasource-experience-id';
-import { ConcatenatedMenuList } from './concatenated-menu-list';
-import { MenuItem } from './menu-item';
+import {
+	ConcatenatedMenuList,
+	ConcatenatedMenuListWithSelectedSeparator,
+} from './concatenated-menu-list';
+import { MenuItem, ReorderableMenuItem } from './menu-item';
 import { columnPickerMessages } from './messages';
 import { type ColumnPickerProps } from './types';
 
@@ -21,8 +25,11 @@ export const ColumnPicker = ({
 	selectedColumnKeys,
 	onSelectedColumnKeysChange,
 	onOpen,
+	isColumnReorderEnabled = false,
 }: ColumnPickerProps): React.JSX.Element => {
 	const intl = useIntl();
+	const shouldShowReorderUI =
+		isColumnReorderEnabled && fg('astral_assets_macro_table_ui_coloumn_reorder');
 	const experienceId = useDatasourceExperienceId();
 	const [allOptions, setAllOptions] = useState<OptionType[]>([]);
 	const pickerRef = useRef<PopupSelect<OptionType, true, ModifierList>>(null);
@@ -50,9 +57,16 @@ export const ColumnPicker = ({
 				return indexA - indexB;
 			});
 
+			if (shouldShowReorderUI) {
+				setAllOptions((options) => [
+					...options.filter(({ value }) => selectedValues.includes(value as string)),
+					...options.filter(({ value }) => !selectedValues.includes(value as string)),
+				]);
+			}
+
 			onSelectedColumnKeysChange(selectedValues);
 		},
-		[columns, onSelectedColumnKeysChange],
+		[columns, onSelectedColumnKeysChange, shouldShowReorderUI],
 	);
 
 	const sortSelectedColumnsTop = useCallback(() => {
@@ -110,7 +124,11 @@ export const ColumnPicker = ({
 		<PopupSelect
 			classNamePrefix={'column-picker-popup'}
 			testId={'column-picker-popup'}
-			components={{ Option: MenuItem, MenuList: ConcatenatedMenuList }}
+			components={
+				shouldShowReorderUI
+					? { Option: ReorderableMenuItem, MenuList: ConcatenatedMenuListWithSelectedSeparator }
+					: { Option: MenuItem, MenuList: ConcatenatedMenuList }
+			}
 			filterOption={createFilter({ ignoreAccents: false })}
 			options={allOptions}
 			value={selectedOptions}

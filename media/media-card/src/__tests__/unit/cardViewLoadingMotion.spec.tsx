@@ -181,16 +181,12 @@ describe('CardView loading motion', () => {
 		.describe('cc-maui-experiment', 'AI generating overlay vs. generated media motion')
 		.variant(true, () => {
 			it('draws no AI generating overlay when the motion owns the loading state', () => {
-				passGate('cc-maui-phase-2');
-
 				renderWithMotion({ isAIGenerating: true, status: 'uploading' });
 
 				expect(screen.queryByTestId('media-card-ai-generating-overlay')).not.toBeInTheDocument();
 			});
 
 			it('still draws the AI generating overlay without the motion', () => {
-				passGate('cc-maui-phase-2');
-
 				renderCardView({ isAIGenerating: true, status: 'uploading' });
 
 				expect(screen.getByTestId('media-card-ai-generating-overlay')).toBeInTheDocument();

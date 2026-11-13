@@ -29,7 +29,6 @@ import {
 	buildDeletedWrappedBlockOutline,
 	buildInsertedBlockNodeStyle,
 	buildInsertedInlineStyle,
-	buildInsertStyleInBlockExtended,
 	buildInsertStyleInBlockExtendedNoUnderline,
 	buildInsertStyleNode,
 } from '../colorSchemes/factory';
@@ -51,7 +50,7 @@ const getColorScheme = (colorScheme: ColorScheme | undefined): DiffColorScheme =
 	colorSchemeRegistry[colorScheme ?? 'standard'];
 
 /**
- * Preserve the historical purple nested outlines when the layout/decision diff patch is off.
+ * Scheme for the outline of an inserted multi-container block (layouts, decision lists, etc.).
  */
 const nestedContentScheme = standardScheme;
 
@@ -111,9 +110,7 @@ const getChangedNodeStyleNext = (
 
 	if (isInserted) {
 		if (isMultiContainerBlockNode(nodeName)) {
-			return hideAddedDiffsUnderline || fg('platform_editor_ai_show_diff_patch_1')
-				? buildInsertStyleInBlockExtendedNoUnderline(nestedContentScheme)
-				: buildInsertStyleInBlockExtended(nestedContentScheme);
+			return buildInsertStyleInBlockExtendedNoUnderline(nestedContentScheme);
 		}
 		if (isTextLikeBlockNode(nodeName)) {
 			return undefined;
@@ -196,9 +193,7 @@ const resolveRemovedLozengeStyleNext = (
 };
 
 const resolveNestedInsertedNodeStyleNext = (colorScheme?: ColorScheme): string =>
-	buildInsertStyleNode(
-		fg('platform_editor_ai_show_diff_patch_1') ? getColorScheme(colorScheme) : nestedContentScheme,
-	);
+	buildInsertStyleNode(getColorScheme(colorScheme));
 
 // Only 'stateful' schemes have a resting ring.
 const hasRestingDeletedRingNext = (colorScheme?: ColorScheme): boolean =>

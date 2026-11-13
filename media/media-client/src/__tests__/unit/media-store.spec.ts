@@ -1310,6 +1310,48 @@ describe('MediaStore', () => {
 
 					expect(url).not.toContain('wmv=');
 				});
+
+				it('should add wmv when only the Jira watermark gate is enabled', async () => {
+					failGate('confluence_watermark_admin_ui');
+					passGate('jira_enable_media_watermark_admin_ui');
+					const collection = 'some-collection';
+					const watermarkPayload = {
+						v: 'WjtFdA',
+						ari: 'ari:cloud:jira:abc:project/123',
+					};
+					const jwtPayload = {
+						iss: 'test-issuer',
+						watermark: JSON.stringify(watermarkPayload),
+					};
+					const jwtToken = `header.${btoa(JSON.stringify(jwtPayload))}.signature`;
+					const authWithWatermark = { baseUrl, clientId, token: jwtToken };
+					(resolveAuth as jest.Mock).mockResolvedValueOnce(authWithWatermark);
+
+					const url = await mediaStore.getFileImageURL('1234', { collection });
+
+					expect(url).toContain('wmv=WjtFdA');
+				});
+
+				it('should not add wmv when both watermark gates are disabled', async () => {
+					failGate('confluence_watermark_admin_ui');
+					failGate('jira_enable_media_watermark_admin_ui');
+					const collection = 'some-collection';
+					const watermarkPayload = {
+						v: 'WjtFdA',
+						ari: 'ari:cloud:jira:abc:project/123',
+					};
+					const jwtPayload = {
+						iss: 'test-issuer',
+						watermark: JSON.stringify(watermarkPayload),
+					};
+					const jwtToken = `header.${btoa(JSON.stringify(jwtPayload))}.signature`;
+					const authWithWatermark = { baseUrl, clientId, token: jwtToken };
+					(resolveAuth as jest.Mock).mockResolvedValueOnce(authWithWatermark);
+
+					const url = await mediaStore.getFileImageURL('1234', { collection });
+
+					expect(url).not.toContain('wmv=');
+				});
 			});
 		});
 
@@ -1739,6 +1781,60 @@ describe('MediaStore', () => {
 					const watermarkPayload = {
 						v: 'WjtFdA',
 						ari: 'ari:cloud:confluence:abc:space/123',
+					};
+					const jwtPayload = {
+						iss: 'test-issuer',
+						watermark: JSON.stringify(watermarkPayload),
+					};
+					const jwtToken = `header.${btoa(JSON.stringify(jwtPayload))}.signature`;
+					const authWithWatermark = { baseUrl, clientId, token: jwtToken };
+					(resolveAuth as jest.Mock).mockResolvedValueOnce(authWithWatermark);
+
+					fetchMock.once(JSON.stringify({ data }), {
+						status: 201,
+						statusText: 'Created',
+					});
+
+					await mediaStore.getImage('123');
+
+					const calledUrl = fetchMock.mock.calls[fetchMock.mock.calls.length - 1][0];
+					expect(calledUrl).not.toContain('wmv=');
+				});
+
+				it('should add wmv to image requests when only the Jira watermark gate is enabled', async () => {
+					failGate('confluence_watermark_admin_ui');
+					passGate('jira_enable_media_watermark_admin_ui');
+					const watermarkPayload = {
+						v: 'WjtFdA',
+						ari: 'ari:cloud:jira:abc:project/123',
+					};
+					const jwtPayload = {
+						iss: 'test-issuer',
+						watermark: JSON.stringify(watermarkPayload),
+					};
+					const jwtToken = `header.${btoa(JSON.stringify(jwtPayload))}.signature`;
+					const authWithWatermark = { baseUrl, clientId, token: jwtToken };
+					(resolveAuth as jest.Mock).mockResolvedValueOnce(authWithWatermark);
+
+					fetchMock.once(JSON.stringify({ data }), {
+						status: 201,
+						statusText: 'Created',
+					});
+
+					await mediaStore.getImage('123');
+
+					expect(fetchMock).toHaveBeenCalledWith(
+						expect.stringContaining('wmv=WjtFdA'),
+						expect.any(Object),
+					);
+				});
+
+				it('should not add wmv to image requests when both watermark gates are disabled', async () => {
+					failGate('confluence_watermark_admin_ui');
+					failGate('jira_enable_media_watermark_admin_ui');
+					const watermarkPayload = {
+						v: 'WjtFdA',
+						ari: 'ari:cloud:jira:abc:project/123',
 					};
 					const jwtPayload = {
 						iss: 'test-issuer',

@@ -10,7 +10,11 @@ import MotionFadeOutListOfElements from '../../examples/constellation/motion-fad
 Exiting persistence keeps elements mounted and plays their exit animation before they are removed
 from the DOM. Without it, elements are removed immediately and no exit animation plays.
 
-It works with both the recommended [Motion](/components/motion/motion-primitive) component and the
+It remains available for existing integrations while its remaining use cases are validated. Do not
+introduce it in new [Motion](/components/motion/motion-primitive) implementations; keep Motion
+mounted and control its lifecycle with `action="enter"` or `action="exit"` instead.
+
+The examples below document existing ExitingPersistence behavior, including integrations with
 [legacy entering-motion](/components/motion/entering-motion/examples) components.
 
 Set the `appear` prop to also trigger the entering animation when the component first mounts (not

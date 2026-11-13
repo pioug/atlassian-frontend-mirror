@@ -8,9 +8,10 @@ import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/default/button';
 import { Checkbox } from '@atlaskit/checkbox/checkbox';
+import { ContextualSurvey, DismissTrigger } from '@atlaskit/contextual-survey/ContextualSurvey';
+import type { OnDismissArgs } from '@atlaskit/contextual-survey/ContextualSurvey';
+import { SurveyMarshal } from '@atlaskit/contextual-survey/SurveyMarshal';
 import { token } from '@atlaskit/tokens';
-
-import { ContextualSurvey, DismissTrigger, type OnDismissArgs, SurveyMarshal } from '../src';
 
 const styles = css({
 	paddingTop: token('space.100'),

@@ -108,6 +108,10 @@ Architectural decisions, design rationale, and decision logs.
   prevent it and React can show them again together (Suspense, Activity), so the show order is a
   defensive fix for React's effect order. Per case: correct, accessible and good UX. The specs,
   guides and sources
+- **[dialog-covers-what-was-open-before.md](./decisions/dialog-covers-what-was-open-before.md)** —
+  Decision: `DialogAwarePortal` does not move a flag into a `Dialog` that opens later; the `Dialog`
+  covers it, as the browser does. Every move makes VoiceOver read a `role="alert"` again. It moves
+  only when its `Dialog` closes
 - **[compiled.md](./decisions/compiled.md)** — Gap analysis for Compiled CSS-in-JS migration
   (animations, `@position-try`, `var()`, `calc()`)
 - **[width-from-anchor-floors.md](./decisions/width-from-anchor-floors.md)** — Decision: why an

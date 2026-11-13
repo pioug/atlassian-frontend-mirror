@@ -17,7 +17,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'EditorSSRRenderer',
-				package: '@atlaskit/editor-ssr-renderer',
+				package: '@atlaskit/editor-ssr-renderer/editor-ssr-renderer',
 				type: 'named',
 				packagePath,
 				packageJson,

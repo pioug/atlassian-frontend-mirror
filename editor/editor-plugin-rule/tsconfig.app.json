@@ -77,6 +77,9 @@
 			"path": "../editor-shared-styles/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-toolbar/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-ui-control-model/tsconfig.app.json"
 		},
 		{

@@ -6,12 +6,23 @@ const iconography: AttributeSchema<MotionIconographyTokenSchema<MotionPaletteTok
 		iconography: {
 			enter: {
 				fade: {
-					attributes: {
-						group: 'motion',
-						state: 'experimental',
-						introduced: '20.9.0',
-						description:
-							'Use for an icon fading in as it appears or replaces another icon. Pair with `motion.iconography.exit.fade`.',
+					'[default]': {
+						attributes: {
+							group: 'motion',
+							state: 'experimental',
+							introduced: '20.9.0',
+							description:
+								'Use for an icon fading in as it appears or replaces another icon. Pair with `motion.iconography.exit.fade`.',
+						},
+					},
+					fast: {
+						attributes: {
+							group: 'motion',
+							state: 'experimental',
+							introduced: '20.10.0',
+							description:
+								'Use for an icon fading in as it appears or replaces another icon. Pair with `motion.iconography.exit.fade.fast`.',
+						},
 					},
 				},
 				cycle: {
@@ -28,12 +39,23 @@ const iconography: AttributeSchema<MotionIconographyTokenSchema<MotionPaletteTok
 			},
 			exit: {
 				fade: {
-					attributes: {
-						group: 'motion',
-						state: 'experimental',
-						introduced: '20.9.0',
-						description:
-							'Use for an icon fading out as it disappears or is replaced by another icon. Pair with `motion.iconography.enter.fade`.',
+					'[default]': {
+						attributes: {
+							group: 'motion',
+							state: 'experimental',
+							introduced: '20.9.0',
+							description:
+								'Use for an icon fading out as it disappears or is replaced by another icon. Pair with `motion.iconography.enter.fade`.',
+						},
+					},
+					fast: {
+						attributes: {
+							group: 'motion',
+							state: 'experimental',
+							introduced: '20.10.0',
+							description:
+								'Use for an icon fading out as it disappears or is replaced by another icon. Pair with `motion.iconography.enter.fade.fast`.',
+						},
 					},
 				},
 				cycle: {

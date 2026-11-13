@@ -1,7 +1,7 @@
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import type { Node as PMNode, Slice } from '@atlaskit/editor-prosemirror/model';
 import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import {
@@ -78,7 +78,7 @@ const edgeCases = (
 		? (nodeOverride ?? resolvedNode)
 		: resolvedNode;
 
-	if (node.type.name === 'layoutSection' && fg('platform_editor_ai_show_diff_patch_1')) {
+	if (node.type.name === 'layoutSection') {
 		// Columns extend past the node-view wrapper via negative margins (12px or 20px).
 		// Measure their container so the indicator stays outside the diff outline, including
 		// breakout layouts and after responsive resizing, without changing the column geometry.
@@ -458,9 +458,10 @@ export const createBlockIndicatorAnchorWidgets = ({
 		['tableCell', 'tableHeader', 'tableRow'].includes(ancestor.type.name),
 	);
 
-	const parentLayout = fg('platform_editor_ai_show_diff_patch_1')
-		? findParentNodeClosestToPos($from, (ancestor) => ancestor.type.name === 'layoutSection')
-		: undefined;
+	const parentLayout = findParentNodeClosestToPos(
+		$from,
+		(ancestor) => ancestor.type.name === 'layoutSection',
+	);
 	// Layouts flatten direct widget children with display: contents. Such a wrapper has no
 	// bounding box or positioning context, so measuring its top produces an offset from the
 	// viewport origin and displaces the indicator into content below the editor. Keep the

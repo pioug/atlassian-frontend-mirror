@@ -175,12 +175,12 @@ feature-gate calls at all (no `fg(`, no `@atlaskit/platform-feature-flags` usage
 
 Adoption is gated one level up, in the consumers that switch between the legacy portal and the
 top-layer path — e.g. `packages/design-system/popper/src/popper.tsx:115` and
-`packages/design-system/drawer/src/drawer.tsx:150`. Three distinct gate names exist across
-`packages/design-system`: `platform-dst-top-layer`, `platform-dst-top-layer-spotlight`,
-`platform-dst-top-layer-tooltip`. So the plan's "land rungs 1 and 2 behind the same flag as the
-rollout" needs a decision: the natural gate is `platform-dst-top-layer`, but it is not currently
-readable from inside this package, and Jira's unit tests force all `platform-dst-top-layer*` gates
-off — a gated reset would go unexercised in that suite.
+`packages/design-system/drawer/src/drawer.tsx:150`. Two distinct gate names exist across
+`packages/design-system`: `platform-dst-top-layer` and `platform-dst-top-layer-tooltip`. So the
+plan's "land rungs 1 and 2 behind the same flag as the rollout" needs a decision: the natural gate
+is `platform-dst-top-layer`, but it is not currently readable from inside this package, and Jira's
+unit tests force all `platform-dst-top-layer*` gates off — a gated reset would go unexercised in
+that suite.
 
 ## Work items
 

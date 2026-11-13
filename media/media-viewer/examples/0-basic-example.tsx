@@ -4,10 +4,10 @@ import type { Identifier } from '@atlaskit/media-client/identifier';
 import { MediaClient } from '@atlaskit/media-client/media-client';
 import { defaultCollectionName } from '@atlaskit/media-test-helpers/collectionNames';
 import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers/mediaClientProvider';
+import MediaViewer from '@atlaskit/media-viewer/media-viewer-loader';
 
 import { imageItem } from '../example-helpers';
 import { NativeMediaPreview } from '../example-helpers/NativeMediaPreview';
-import { MediaViewer } from '../src';
 
 const mediaClientConfig = createStorybookMediaClientConfig();
 const mediaClient = new MediaClient(mediaClientConfig);

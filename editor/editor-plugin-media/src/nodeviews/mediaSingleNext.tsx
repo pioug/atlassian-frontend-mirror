@@ -37,10 +37,13 @@ import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/u
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getAttrsFromUrl } from '@atlaskit/media-client';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
 import { insertAndSelectCaptionFromMediaSinglePos } from '../pm-plugins/commands/captions';
 import { isMediaBlobUrlFromAttrs } from '../pm-plugins/utils/media-common';
+import { isVideo } from '../pm-plugins/utils/media-single';
 import type { ForwardRef, MediaOptions } from '../types';
 import { CaptionPlaceholderButton } from '../ui/CaptionPlaceholder';
 import { CommentBadgeWrapper } from '../ui/CommentBadge';
@@ -664,7 +667,11 @@ export const MediaSingleNodeNext = (
 					onClick={clickPlaceholder}
 					placeholderMessage={
 						mediaOptions.allowImagePreview
-							? captionMessages.placeholderWithDoubleClickPrompt
+							? UNSAFE_expValNoExposure('cc_comments_media_viewer_sidebar', 'isEnabled', false) &&
+								fg('cc_comments_inset_media_viewer') &&
+								!isVideo(mediaNode?.firstChild?.attrs.__fileMimeType)
+								? captionMessages.placeholderWithClickAgainPrompt
+								: captionMessages.placeholderWithDoubleClickPrompt
 							: captionMessages.placeholder
 					}
 				/>

@@ -16,6 +16,7 @@ import type {
 } from '@atlaskit/editor-common/types/quick-insert';
 import type { TypeAheadHandler } from '@atlaskit/editor-common/types/type-ahead';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics/analyticsPluginType';
+import type { BlockCollapsePlugin } from '@atlaskit/editor-plugin-block-collapse/blockCollapsePluginType';
 import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity/connectivityPluginType';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode/editorViewmodePluginType';
 import type { MetricsPlugin } from '@atlaskit/editor-plugin-metrics/metrics-plugin-type';
@@ -87,6 +88,7 @@ export type QuickInsertPlugin = NextEditorPlugin<
 			OptionalPlugin<AnalyticsPlugin>,
 			OptionalPlugin<UiControlRegistryPlugin>,
 			OptionalPlugin<EditorViewModePlugin>,
+			OptionalPlugin<BlockCollapsePlugin>,
 		];
 		pluginConfiguration: QuickInsertPluginOptions | undefined;
 		sharedState: QuickInsertSharedState | null;

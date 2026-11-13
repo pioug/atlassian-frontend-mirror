@@ -58,6 +58,18 @@ const openMediaViewerFocusStyles = css({
 	},
 });
 
+const openMediaViewerInsetFocusStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'span:focus-within + &::after': {
+		content: '""',
+		position: 'absolute',
+		inset: 0,
+		borderRadius: 'inherit',
+		boxShadow: `inset 0 0 0 ${token('border.width.focused')} ${token('color.border.focused')}`,
+		pointerEvents: 'none',
+	},
+});
+
 const backgroundStyle = css({
 	backgroundColor: token('elevation.surface.sunken'),
 });
@@ -189,7 +201,9 @@ export const Wrapper: {
 			}
 			css={[
 				wrapperStyles.default,
-				fg('platform_media_card_focus_indicator_fix') && openMediaViewerFocusStyles,
+				fg('platform_media_card_focus_indicator_inset_fix')
+					? openMediaViewerInsetFocusStyles
+					: openMediaViewerFocusStyles,
 				cursorStyle,
 				displayBackground && backgroundStyle,
 				wrapperShadowKey && shadowStyleMap[wrapperShadowKey],

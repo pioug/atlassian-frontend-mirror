@@ -6,6 +6,7 @@ import Button from '@atlaskit/button/default/button';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { showDiffPlugin } from '@atlaskit/editor-plugin-show-diff/show-diff-plugin';
+import type { ColorScheme } from '@atlaskit/editor-plugin-show-diff/show-diff-plugin-type';
 import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import { annotationPlugin } from '@atlaskit/editor-plugins/annotation';
 import type { AnnotationProviders } from '@atlaskit/editor-plugins/annotation';
@@ -45,8 +46,6 @@ import { textFormattingPlugin } from '@atlaskit/editor-plugins/text-formatting';
 import { typeAheadPlugin } from '@atlaskit/editor-plugins/type-ahead';
 import { unsupportedContentPlugin } from '@atlaskit/editor-plugins/unsupported-content';
 import { widthPlugin } from '@atlaskit/editor-plugins/width';
-
-import type { ColorScheme } from '../src/showDiffPluginType';
 
 const step1 = {
 	userId: 'ari:cloud:identity::user/123',

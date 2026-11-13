@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 8.5.0
+
+### Minor Changes
+
+- [`5509509cbd91f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5509509cbd91f) -
+  Add optional customData to traceUFOPress, attaching metadata only to newly sampled interactions
+  behind platform_ufo_press_custom_data.
+
 ## 8.4.2
 
 ### Patch Changes

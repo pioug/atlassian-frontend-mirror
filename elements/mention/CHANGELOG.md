@@ -1,5 +1,23 @@
 # @atlaskit/mention
 
+## 30.10.0
+
+### Minor Changes
+
+- [`af35384dea82b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/af35384dea82b) -
+  Use disabled mention colors for Rovo chips in the editor when
+  `platform_editor_mention_rovo_special_visual` is enabled.
+
+  Share disabled mention state change notifications between Confluence comments and Rovo Chat.
+
+  Share mention-ID snapshot comparison and tracking between Confluence comments and Rovo Chat
+  through the new `@atlaskit/mention/mention-id-change-tracker` utility. Each surface retains its
+  own selection rules.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 30.9.2
 
 ### Patch Changes

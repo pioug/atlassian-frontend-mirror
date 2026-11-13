@@ -18,6 +18,7 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNode, findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { QuickInsertPlugin } from '../quickInsertPluginType';
 
@@ -94,7 +95,20 @@ const getNextEmptyParagraphPosition = (tr: Transaction, start: number): number |
  * re-reads `view.state` after a dispatch. The empty paragraph reuse always applies because this
  * path only runs with `platform_editor_block_control_inp` enabled.
  */
-const prepareCursor = (tr: Transaction, start: number): void => {
+const prepareCursor = (
+	api: ExtractInjectionAPI<QuickInsertPlugin>,
+	tr: Transaction,
+	start: number,
+): void => {
+	if (
+		isExperimentEnabled('platform_editor_collapsible_headings') &&
+		api.blockCollapse?.sharedState.currentState()?.collapsedHeadingPositions.has(start)
+	) {
+		api.blockCollapse?.commands.expandHeading(start)({ tr });
+		createNewLine(tr, start);
+		return;
+	}
+
 	const isSelectionInsideNode = isSelectionInNode(tr, start);
 	const shouldCreateNewLine = !isSelectionInsideNode || isNonEditableBlock(tr, start);
 	const reusableParagraphPosition = shouldCreateNewLine
@@ -176,7 +190,7 @@ export const openQuickInsertInSingleTransaction = (
 	}
 
 	api.core.actions.execute(({ tr }) => {
-		prepareCursor(tr, start);
+		prepareCursor(api, tr, start);
 
 		// Opening the typeahead over a text range or inline node selection deletes the selected
 		// content, so make sure it always opens at a collapsed cursor.

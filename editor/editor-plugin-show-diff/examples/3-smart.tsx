@@ -93,11 +93,8 @@ import type {
 //   grep -rho "fg('[a-z_0-9]*')" ../src | sort -u
 //
 // - `platform_editor_ai_smart_diff` ............ the `smart` diff type
-// - `platform_editor_ai_show_diff_patch_1` ..... diff correctness patch
 //
-setBooleanFeatureFlagResolver((flagKey) =>
-	['platform_editor_ai_smart_diff', 'platform_editor_ai_show_diff_patch_1'].includes(flagKey),
-);
+setBooleanFeatureFlagResolver((flagKey) => ['platform_editor_ai_smart_diff'].includes(flagKey));
 
 UNSAFE_overrideExperiment('platform_editor_attributed_version_history', { isEnabled: false });
 

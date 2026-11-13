@@ -1,11 +1,11 @@
 import React from 'react';
 
+import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
+import { LOG_LEVEL } from '@atlaskit/analytics-listeners/logger';
+import { FabricChannel } from '@atlaskit/analytics-listeners/types';
 import Button from '@atlaskit/button/default/button';
 import { token } from '@atlaskit/tokens';
 
-import FabricAnalyticsListeners from '../src/FabricAnalyticsListeners';
-import { LOG_LEVEL } from '../src/helpers/logger';
-import { FabricChannel } from '../src/types';
 import {
 	createAnalyticsWebClientMock,
 	createComponentWithAnalytics,

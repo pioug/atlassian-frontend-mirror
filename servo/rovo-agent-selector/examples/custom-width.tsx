@@ -2,10 +2,12 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 import { graphql, RelayEnvironmentProvider, useLazyLoadQuery } from 'react-relay';
-import { createMockEnvironment, MockPayloadGenerator } from 'relay-test-utils';
+import { MockPayloadGenerator } from 'relay-test-utils';
 
 import { cssMap } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled/box';
+
+import { createAtlassianMockRelayEnvironment } from '@atlassian/relay-test-utils/mock-environment';
 
 import { RovoAgentSelector } from '../src';
 import { generateMockAgentEdges } from '../src/common/utils/generate-mock-agent-edges';
@@ -43,7 +45,7 @@ const TestRenderer = () => {
 };
 
 export default function CustomWidth(): React.JSX.Element {
-	const environment = createMockEnvironment();
+	const environment = createAtlassianMockRelayEnvironment();
 
 	environment.mock.queueOperationResolver((operation) =>
 		MockPayloadGenerator.generate(operation, {

@@ -31,6 +31,11 @@ const containerStyles = css({
 	},
 });
 
+// Keeps a span container laid out like the div it replaces.
+const blockContainerStyles = css({
+	display: 'block',
+});
+
 const showLabelStyles = css({
 	opacity: 1,
 });
@@ -154,6 +159,10 @@ export const ExtensionLabel = ({
 	pluginInjectionApi: _pluginInjectionApi,
 }: ExtensionLabelProps): jsx.JSX.Element => {
 	const isInlineExtension = extensionName === 'inlineExtension';
+	// Inside a paragraph, a div container would close the paragraph in server-rendered HTML.
+	const useSpanElements =
+		isInlineExtension && isExperimentEnabled('platform_editor_inline_extension_spans');
+	const ContainerElement = useSpanElements ? 'span' : 'div';
 	const showDefaultBodiedStyles = isBodiedMacro;
 
 	const containerClassNames = classnames({
@@ -183,13 +192,14 @@ export const ExtensionLabel = ({
 
 	return (
 		// eslint-disable-next-line @atlassian/a11y/no-static-element-interactions, @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-element-not-keyboard-focusable
-		<div
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			css={containerStyles}
+		<ContainerElement
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlassian/perf-linting/no-unstable-inline-props -- ContainerElement is a 'span' or 'div' tag, not a component
+			css={[containerStyles, useSpanElements && blockContainerStyles]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={containerClassNames}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={customContainerStyles}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- ContainerElement is a 'span' or 'div' tag, not a component
 			onMouseOver={() => {
 				setIsNodeHovered?.(true);
 			}}
@@ -199,6 +209,7 @@ export const ExtensionLabel = ({
 			onFocus={
 				expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true) ? () => {} : undefined
 			}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- ContainerElement is a 'span' or 'div' tag, not a component
 			onMouseLeave={() => {
 				setIsNodeHovered?.(false);
 			}}
@@ -248,7 +259,7 @@ export const ExtensionLabel = ({
 				</Tooltip>
 			)}
 			{/* This is needed since this creates the gap between the macro and button, also provides a seamless transition when mousing over the gap. */}
-			<Box xcss={spacerStyles} />
-		</div>
+			<Box as={useSpanElements ? 'span' : 'div'} xcss={spacerStyles} />
+		</ContainerElement>
 	);
 };

@@ -23,8 +23,8 @@ const documentation: StructuredContentSource = {
 				'A container component that mounts a set of pre-configured analytics listeners for common Atlassian channels (elements, editor, navigation, etc.).',
 			status: 'general-availability',
 			import: {
-				name: 'default',
-				package: '@atlaskit/analytics-listeners',
+				name: 'FabricAnalyticsListeners',
+				package: '@atlaskit/analytics-listeners/FabricAnalyticsListeners',
 				type: 'default',
 				packagePath,
 				packageJson,

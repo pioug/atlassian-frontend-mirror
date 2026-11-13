@@ -9,9 +9,9 @@ import { type LifecycleAction, type LinkDetails } from '../types';
 import { processAttributesFromBaseEvent } from './process-attributes-from-base-event';
 
 const DEFAULT_ATTRIBUTES_MAP: {
-	created: LinkCreatedAttributesType;
-	deleted: LinkDeletedAttributesType;
-	updated: LinkUpdatedAttributesType;
+	created: Required<LinkCreatedAttributesType>;
+	deleted: Required<LinkDeletedAttributesType>;
+	updated: Required<LinkUpdatedAttributesType>;
 } = {
 	created: {
 		sourceEvent: null,

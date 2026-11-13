@@ -30,6 +30,7 @@ import {
 	findSelectedNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { clearEditingContext, updateState } from '../editor-commands/commands';
 import type {
@@ -206,6 +207,9 @@ export const createPlugin = (
 	intl?: IntlShape,
 ): SafePlugin<ExtensionState> => {
 	const state = createPluginState(dispatch, {
+		...(isExperimentEnabled('cwr_remix_animate_stream_only') && {
+			shouldAnimateInsertedContent: false,
+		}),
 		showEditButton: false,
 		showCopyButton: true,
 		showContextPanel: false,
@@ -215,6 +219,9 @@ export const createPlugin = (
 		appearance: options.appearance,
 		getExtensionHeight: options.getExtensionHeight,
 		allowAIGeneratedContentMotion: options.allowAIGeneratedContentMotion,
+		shouldAnimateGeneratedContent: () =>
+			pluginInjectionApi?.extension?.sharedState.currentState()?.shouldAnimateInsertedContent ??
+			false,
 	};
 
 	const macroInteractionDesignFeatureFlags = {

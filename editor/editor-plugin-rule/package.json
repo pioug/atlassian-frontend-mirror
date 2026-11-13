@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-rule",
-	"version": "30.0.3",
+	"version": "30.1.0",
 	"description": "Rule plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -34,6 +34,7 @@
 		"@atlaskit/editor-plugin-ui-control-registry": "workspace:^",
 		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/editor-shared-styles": "workspace:^",
+		"@atlaskit/editor-toolbar": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",

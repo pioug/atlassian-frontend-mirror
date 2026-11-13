@@ -3,12 +3,10 @@ import React from 'react';
 import { IntlProvider } from 'react-intl';
 
 import Button from '@atlaskit/button/default/button';
+import { DeleteUserContentPreviewScreen } from '@atlaskit/focused-task-close-account/delete-user-content-preview-screen';
+import { DeleteUserOverviewScreen } from '@atlaskit/focused-task-close-account/delete-user-overview-screen';
+import { FocusedTaskCloseAccount } from '@atlaskit/focused-task-close-account/focused-task-close-account';
 
-import {
-	FocusedTaskCloseAccount,
-	DeleteUserOverviewScreen,
-	DeleteUserContentPreviewScreen,
-} from '../src';
 import accessibleSites from '../src/mocks/accessibleSites';
 import { catherineHirons } from '../src/mocks/users';
 

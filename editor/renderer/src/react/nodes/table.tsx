@@ -2,8 +2,11 @@
 
 import React from 'react';
 
+import { IntlContext } from 'react-intl';
+
 import type { UrlType } from '@atlaskit/adf-schema/block-card';
 import type { Layout as TableLayout } from '@atlaskit/adf-schema/tableNodes';
+import { messages } from '@atlaskit/editor-common/messages/table';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
 import type { OverflowShadowProps } from '@atlaskit/editor-common/OverflowShadow';
 import overflowShadow from '@atlaskit/editor-common/OverflowShadow';
@@ -302,6 +305,9 @@ export class TableContainer extends React.Component<
 	private resizeObserver: ResizeObserver | null = null;
 
 	private applyResizerChange: ResizeObserverCallback = (entries) => {
+		if (this.props.isPerformanceModeActive) {
+			return;
+		}
 		let wrapperWidth = this.state.wrapperWidth;
 		let headerRowHeight = this.state.headerRowHeight;
 
@@ -371,39 +377,9 @@ export class TableContainer extends React.Component<
 		return Boolean(this.props.isInsideOfTable || this.isInsideTableCell());
 	}
 
-	/**
-	 * For tables inside nested renderers (e.g. Include Page macro), the parent
-	 * renderer's CSS override forces width:100%!important and left:0!important
-	 * which overrides the inline styles set by this component. Using
-	 * style.setProperty with 'important' priority on inline styles beats
-	 * stylesheet !important rules per the CSS cascade.
-	 *
-	 * Tables that are nested inside another table need to remain constrained by
-	 * their table-cell context. Do not promote their width to inline !important,
-	 * otherwise nested tables rendered through macros such as Excerpt Include can
-	 * overflow and overlap adjacent cells.
-	 *
-	 * Top-level tables in nested renderers still preserve their saved width, but
-	 * are capped to their containing block so wide tables do not escape constrained
-	 * macro bodies such as Excerpt Include panels.
-	 *
-	 * Uses lastComputedStyle (populated during render) rather than reading from
-	 * element.style, because React may remove properties from the DOM when their
-	 * values transition to undefined between renders.
-	 *
-	 * A NON-resized table inside a nested renderer (e.g. an Excerpt macro body)
-	 * takes a default layout cap (760px/1800px, or a `cqw` length for full-page
-	 * appearances) from the outer renderer's width context. That value does not
-	 * match the macro's own box, so promoting it to inline `!important` makes
-	 * the table collapse. Such tables have no author-chosen size to preserve, so
-	 * we re-assert the parent stylesheet's intent (fill the box:
-	 * `width: 100%; left: 0`) with inline `!important`.
-	 *
-	 * Explicitly resized tables (`tableNode.attrs.width` set) are excluded and keep
-	 * the original PGXT-10226 behavior: their author-chosen width/left is promoted
-	 * verbatim so the Include Page macro does not stretch or indent them. The
-	 * table-cell short-circuit (PGXT-10294) above also still applies.
-	 */
+	// Preserve saved widths in nested renderers while keeping tables within their macro bounds.
+	// Unresized tables fill the macro; tables inside table cells keep their cell constraints.
+	// Use lastComputedStyle because React can remove inline styles during rerenders.
 	private applyNestedRendererTableFix(): void {
 		if (!this.containerRef) {
 			return;
@@ -476,12 +452,8 @@ export class TableContainer extends React.Component<
 	 * @example
 	 */
 	componentDidMount(): void {
-		this.resizeObserver = new ResizeObserver(this.applyResizerChange);
-		if (this.wrapperRef.current) {
-			this.resizeObserver.observe(this.wrapperRef.current);
-		}
-		if (this.stickyHeaderRef.current) {
-			this.resizeObserver.observe(this.stickyHeaderRef.current);
+		if (!this.props.isPerformanceModeActive) {
+			this.observeDimensions();
 		}
 
 		if (this.props.stickyHeaders) {
@@ -489,7 +461,6 @@ export class TableContainer extends React.Component<
 				this.tableRef.current,
 				this.props.stickyHeaders?.defaultScrollRootId_DO_NOT_USE,
 			);
-			// Ignored via go/ees005
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			this.overflowParent.addEventListener('scroll', this.onScroll);
 		}
@@ -501,6 +472,26 @@ export class TableContainer extends React.Component<
 		this.applyNestedRendererTableFix();
 	}
 
+	private observeDimensions(): void {
+		this.resizeObserver = new ResizeObserver(this.applyResizerChange);
+		if (this.wrapperRef.current) {
+			this.resizeObserver.observe(this.wrapperRef.current);
+		}
+		if (this.stickyHeaderRef.current) {
+			this.resizeObserver.observe(this.stickyHeaderRef.current);
+		}
+	}
+
+	static getDerivedStateFromProps(
+		props: TableProps,
+		state: TableState,
+	): Partial<TableState> | null {
+		if (props.isPerformanceModeActive && state.stickyMode !== 'none') {
+			return { stickyMode: 'none' };
+		}
+		return null;
+	}
+
 	/**
 	 * Updates sticky header wiring and scroll synchronization after prop or state changes.
 	 *
@@ -509,12 +500,28 @@ export class TableContainer extends React.Component<
 	 * @example
 	 */
 	componentDidUpdate(prevProps: TableProps, prevState: TableState): void {
+		if (this.props.isPerformanceModeActive !== prevProps.isPerformanceModeActive) {
+			if (this.props.isPerformanceModeActive) {
+				this.resizeObserver?.disconnect();
+				this.resizeObserver = null;
+				if (this.nextFrame) {
+					cancelAnimationFrame(this.nextFrame);
+					this.nextFrame = undefined;
+				}
+			} else if (prevProps.isPerformanceModeActive) {
+				this.observeDimensions();
+			}
+		}
 		// toggling sticky headers visiblity
 		if (this.props.stickyHeaders && !this.overflowParent) {
 			this.overflowParent = OverflowParent.fromElement(
 				this.tableRef.current,
 				this.props.stickyHeaders?.defaultScrollRootId_DO_NOT_USE,
 			);
+			if (prevProps.isPerformanceModeActive) {
+				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+				this.overflowParent.addEventListener('scroll', this.onScroll);
+			}
 		} else if (!this.props.stickyHeaders && this.overflowParent) {
 			// Ignored via go/ees005
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
@@ -564,6 +571,9 @@ export class TableContainer extends React.Component<
 	};
 
 	updateSticky = (): void => {
+		if (this.props.isPerformanceModeActive) {
+			return;
+		}
 		const tableElem = this.tableRef.current;
 		const refElem = this.stickyHeaderRef.current;
 		if (!tableElem || !refElem) {
@@ -598,6 +608,12 @@ export class TableContainer extends React.Component<
 	};
 
 	onWrapperScrolled = (): void => {
+		if (this.props.isPerformanceModeActive) {
+			if (this.wrapperRef.current && this.stickyScrollbarRef.current) {
+				this.stickyScrollbarRef.current.scrollLeft = this.wrapperRef.current.scrollLeft;
+			}
+			return;
+		}
 		if (!this.wrapperRef.current || !this.stickyWrapperRef.current) {
 			return;
 		}
@@ -900,7 +916,15 @@ export class TableContainer extends React.Component<
 						data-table-local-id={tableNode?.attrs.localId}
 						data-table-width={tableNode?.attrs.width}
 						data-vc="table-node-wrapper"
-						onScroll={this.props.stickyHeaders && this.onWrapperScrolled}
+						tabIndex={this.props.isPerformanceModeActive ? 0 : undefined}
+						role={this.props.isPerformanceModeActive ? 'region' : undefined}
+						aria-label={
+							this.props.isPerformanceModeActive ? this.props.scrollRegionLabel : undefined
+						}
+						onScroll={
+							(this.props.isPerformanceModeActive || this.props.stickyHeaders) &&
+							this.onWrapperScrolled
+						}
 					>
 						<Table
 							innerRef={this.tableRef}
@@ -1162,6 +1186,8 @@ export class TableProcessorWithContainerStyles extends React.Component<
 			isNumberColumnEnabled,
 			isPresentational,
 			layout,
+			isPerformanceModeActive,
+			scrollRegionLabel,
 			rendererAppearance,
 			renderWidth,
 			shadowClassNames,
@@ -1207,6 +1233,8 @@ export class TableProcessorWithContainerStyles extends React.Component<
 				isInsideOfTable={isInsideOfTable}
 				isNumberColumnEnabled={isNumberColumnEnabled}
 				isPresentational={isPresentational}
+				isPerformanceModeActive={isPerformanceModeActive}
+				scrollRegionLabel={scrollRegionLabel}
 				layout={layout}
 				rendererAppearance={rendererAppearance}
 				renderWidth={renderWidth}
@@ -1287,8 +1315,12 @@ const TableWithWidth = (
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	props: React.PropsWithChildren<any>,
 ) => {
-	const { isTopLevelRenderer } = useRendererContext();
+	const { isTopLevelRenderer, isPerformanceModeActive = false } = useRendererContext();
+	const intl = React.useContext(IntlContext);
 	const isInsideOfNestedRenderer = isTopLevelRenderer === false;
+	const scrollRegionLabel = isPerformanceModeActive
+		? (intl?.formatMessage(messages.tableScrollRegion) ?? messages.tableScrollRegion.defaultMessage)
+		: undefined;
 
 	const colWidthsSum =
 		// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
@@ -1300,6 +1332,10 @@ const TableWithWidth = (
 				// Ignored via go/ees005
 				// eslint-disable-next-line react/jsx-props-no-spreading
 				{...props}
+				isPerformanceModeActive={isPerformanceModeActive}
+				scrollRegionLabel={scrollRegionLabel}
+				stickyHeaders={isPerformanceModeActive ? undefined : props.stickyHeaders}
+				disableShadowTracking={isPerformanceModeActive}
 				isInsideOfNestedRenderer={isInsideOfNestedRenderer}
 			/>
 		);
@@ -1309,6 +1345,9 @@ const TableWithWidth = (
 			// Ignored via go/ees005
 			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...props}
+			isPerformanceModeActive={isPerformanceModeActive}
+			scrollRegionLabel={scrollRegionLabel}
+			stickyHeaders={isPerformanceModeActive ? undefined : props.stickyHeaders}
 			isInsideOfNestedRenderer={isInsideOfNestedRenderer}
 		/>
 	);

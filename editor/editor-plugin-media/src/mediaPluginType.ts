@@ -116,6 +116,8 @@ export type MediaNextEditorPluginType = NextEditorPlugin<
 			 * or undo/redo history.
 			 */
 			setAIGenerating: (mediaId: string) => EditorCommand;
+			/** Controls entrance motion for node views created while enabled. */
+			setInsertAnimationEnabled: (enabled: boolean) => EditorCommand;
 			showMediaViewer: (media: MediaADFAttrs) => EditorCommand;
 			trackMediaPaste: (attrs: MediaADFAttrs) => EditorCommand;
 		};

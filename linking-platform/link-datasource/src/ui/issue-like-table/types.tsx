@@ -53,6 +53,10 @@ export interface IssueLikeDataTableViewProps {
 	 */
 	extensionKey?: string | null;
 	hasNextPage: boolean;
+	/**
+	 * Enables the column reorder UI in the column picker
+	 */
+	isColumnReorderEnabled?: boolean;
 	itemIds: string[];
 	items: DatasourceDataResponseItem[];
 	onColumnResize?: (key: string, width: number) => void;

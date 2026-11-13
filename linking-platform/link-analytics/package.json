@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-analytics",
-	"version": "13.0.1",
+	"version": "13.0.2",
 	"description": "Contains analytics and utils to assist in instrumenting Linking Platform components.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -59,6 +59,7 @@
 		"@atlaskit/popup": "workspace:^",
 		"@atlaskit/smart-card": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
+		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@atlassian/workbench": "workspace:*",
 		"@testing-library/dom": "root:*",

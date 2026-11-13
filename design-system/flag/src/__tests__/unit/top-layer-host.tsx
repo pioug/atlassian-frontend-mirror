@@ -31,6 +31,13 @@ function getHost(): HTMLElement | null {
 	return document.querySelector<HTMLElement>('[popover]');
 }
 
+function getOpenHosts(): HTMLElement[] {
+	// eslint-disable-next-line testing-library/no-node-access -- hosts have no role
+	return Array.from(document.querySelectorAll<HTMLElement>('[popover]')).filter((host) =>
+		host.matches(':popover-open'),
+	);
+}
+
 describe('FlagGroup host', () => {
 	beforeEach(() => {
 		jest.useFakeTimers();
@@ -165,16 +172,113 @@ describe('FlagGroup host', () => {
 			const trigger = screen.getByRole('button', { name: 'show' });
 			fireEvent.click(trigger);
 			fireEvent.click(trigger);
+			expect(getOpenHosts()).toHaveLength(2);
 
 			act(() => {
 				dismissLastFlag?.();
 			});
+
+			// The exiting flag keeps its own host open.
+			expect(getOpenHosts()).toHaveLength(2);
+
 			act(() => {
 				jest.runAllTimers();
 			});
 
 			expect(screen.getAllByTestId('flag')).toHaveLength(1);
-			expect(getHost()?.matches(':popover-open')).toBe(true);
+			expect(getOpenHosts()).toHaveLength(1);
+		});
+
+		it('opens one host for each flag, with the group label and id on the newest one', () => {
+			passGate('platform-dst-top-layer');
+
+			render(
+				<FlagGroup id="flag-group" label="Flags">
+					<Flag id="b" icon={<Box />} title="Newest" testId="b" />
+					<Flag id="a" icon={<Box />} title="Oldest" testId="a" />
+				</FlagGroup>,
+			);
+
+			// eslint-disable-next-line testing-library/no-node-access -- hosts have no role
+			const hosts = Array.from(document.querySelectorAll<HTMLElement>('[popover]'));
+			expect(hosts).toHaveLength(2);
+			expect(hosts[0]).toContainElement(screen.getByTestId('b'));
+			expect(hosts[1]).toContainElement(screen.getByTestId('a'));
+			expect(hosts.every((host) => host.matches(':popover-open'))).toBe(true);
+			// eslint-disable-next-line testing-library/no-node-access -- the group container has no role
+			expect(hosts[0]).toContainElement(document.getElementById('flag-group'));
+			expect(screen.getAllByRole('heading', { name: 'Flags' })).toHaveLength(1);
+		});
+
+		it('moves the group label and id to the next host when the first flag exits', () => {
+			passGate('platform-dst-top-layer');
+			function Group({ flagIds }: { flagIds: string[] }) {
+				return (
+					<FlagGroup id="flag-group" label="Flags">
+						{flagIds.map((flagId) => (
+							<Flag key={flagId} id={flagId} icon={<Box />} title={flagId} testId={flagId} />
+						))}
+					</FlagGroup>
+				);
+			}
+			const { rerender } = render(<Group flagIds={['b', 'a']} />);
+
+			rerender(<Group flagIds={['a']} />);
+			act(() => {
+				jest.runAllTimers();
+			});
+
+			expect(screen.queryByTestId('b')).not.toBeInTheDocument();
+			expect(getOpenHosts()).toHaveLength(1);
+			// eslint-disable-next-line testing-library/no-node-access -- the group container has no role
+			const group = document.getElementById('flag-group');
+			expect(group).toContainElement(screen.getByTestId('a'));
+			expect(screen.getAllByRole('heading', { name: 'Flags' })).toHaveLength(1);
+		});
+
+		it('animates in a flag that shows after the group mounts, but not a flag present at mount', () => {
+			passGate('platform-dst-top-layer');
+			passGate('platform-dst-motion-uplift');
+			function Group({ flagIds }: { flagIds: string[] }) {
+				return (
+					<FlagGroup>
+						{flagIds.map((flagId) => (
+							<Flag key={flagId} id={flagId} icon={<Box />} title={flagId} testId={flagId} />
+						))}
+					</FlagGroup>
+				);
+			}
+			function isEntering({ testId }: { testId: string }): boolean {
+				// eslint-disable-next-line testing-library/no-node-access -- `Motion` sets the animation on its wrapper
+				return Boolean(screen.getByTestId(testId).closest('[style*="animation"]'));
+			}
+			const { rerender } = render(<Group flagIds={['a']} />);
+			expect(isEntering({ testId: 'a' })).toBe(false);
+
+			rerender(<Group flagIds={['b', 'a']} />);
+
+			expect(isEntering({ testId: 'b' })).toBe(true);
+			expect(isEntering({ testId: 'a' })).toBe(false);
+		});
+
+		it('dismisses the first flag with Escape', () => {
+			passGate('platform-dst-top-layer');
+			passGate('platform_dst_flag_keyboard_dismiss');
+			const onDismissed = jest.fn();
+			render(
+				<FlagGroup onDismissed={onDismissed}>
+					<Flag id="b" icon={<Box />} title="Newest" testId="b" />
+					<Flag id="a" icon={<Box />} title="Oldest" testId="a" />
+				</FlagGroup>,
+			);
+
+			fireEvent.keyDown(document, { key: 'Escape' });
+			act(() => {
+				jest.runAllTimers();
+			});
+
+			expect(onDismissed).toHaveBeenCalledTimes(1);
+			expect(onDismissed).toHaveBeenCalledWith('b', expect.anything());
 		});
 
 		it('opens the host for flags that are present when the group mounts', () => {

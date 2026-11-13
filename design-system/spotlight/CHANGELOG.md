@@ -1,5 +1,20 @@
 # @atlaskit/spotlight
 
+## 4.2.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.2.15
+
+### Patch Changes
+
+- [`da6a7e3eff7e8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/da6a7e3eff7e8) -
+  Make top-layer Spotlight positioning permanent, remove the retired Popper implementation, and
+  preserve initial focus when motion is enabled. Update downstream tests and visual baselines for
+  top-layer spotlights.
+
 ## 4.2.14
 
 ### Patch Changes

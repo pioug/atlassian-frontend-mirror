@@ -4,9 +4,7 @@ import {
 	VrAnchorFloorCramped,
 	VrAnchorFloorRoomy,
 	VrFitFloorCrampedDefault,
-	VrFitFloorCrampedMinSizeZero,
 	VrFitFloorRoomyDefault,
-	VrFitFloorRoomyMinSizeZero,
 	VrFitFloorShortViewport,
 	VrJsFallbackFitFloorModestCell,
 	VrJsFallbackFitFloorRoomy,
@@ -16,25 +14,15 @@ const opts = { drawsOutsideBounds: true } as const;
 
 // The floor's former COST, now removed where `calc-size()` is supported. VR runs
 // Chromium, where the default floor is never more than the content, so this hugs
-// its 56px content like the `minSize: 0` control below. Safari and Firefox still
-// stretch it to the 150px floor; `fit-available-space.spec.tsx` pins that.
+// its 56px content. Safari and Firefox still stretch it to the 150px floor;
+// `fit-available-space.spec.tsx` pins that.
 snapshot(VrFitFloorRoomyDefault, { ...opts, description: 'fit-floor-roomy-default' });
-
-// The same fixture with `placement.minSize: 0` as the ONLY difference. In VR
-// (Chromium) the two snapshots now match apart from the label, because the
-// content-sized floor asks for no more than the content. Where `calc-size()` is
-// not supported, the height difference between them is the floor and nothing else.
-snapshot(VrFitFloorRoomyMinSizeZero, { ...opts, description: 'fit-floor-roomy-min-size-zero' });
 
 // The floor's BENEFIT: only 40px of room below the anchor, so the floored margin
 // box overflows the cell and the popover moves above it at full size.
 snapshot(VrFitFloorCrampedDefault, { ...opts, description: 'fit-floor-cramped-default' });
 
-// The escape hatch in the same cramped cell: with no floor nothing moves the
-// clamped popover, so it letterboxes below the anchor.
-snapshot(VrFitFloorCrampedMinSizeZero, { ...opts, description: 'fit-floor-cramped-min-size-zero' });
-
-// The JavaScript fallback twins of the two fixtures above, which had none: the
+// The JavaScript fallback twins of the roomy fixture above, which had none: the
 // floor is CSS-path-only, so `js-fallback-fit-floor-roomy` hugs the same 56px
 // content that `fit-floor-roomy-default` stretches to 150px wherever `calc-size()`
 // is not supported. Read them as a pair.

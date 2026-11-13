@@ -12,14 +12,15 @@ import UseMotionCustomKeyframe from '../../examples/constellation/use-motion-cus
 
 `useMotion` returns the current motion `state`, and you define the CSS for each state. Because the
 animation styling is yours, you apply motion tokens directly in your own `cssMap` styles rather than
-passing them to a component.
+passing them to a component. Keep the hook owner mounted and call `reanimate(Reanimate.enter)` or
+`reanimate(Reanimate.exit)` when application state changes.
 
 ## Observe the state machine
 
 This example shows the state returned for each animated element. `StaggeredEntrance` holds each
 block in `init` until its delay ends, then `useMotion` moves it through `entering` to `visible`.
-When the blocks animate out, `ExitingPersistence` keeps them mounted in `exiting` until the
-animation finishes.
+When the blocks animate out, they remain mounted while `useMotion` moves them through `exiting` to
+`hidden`.
 
 Use the state readout to see when each style is applied and how the lifecycle coordinates with
 mounting and unmounting.

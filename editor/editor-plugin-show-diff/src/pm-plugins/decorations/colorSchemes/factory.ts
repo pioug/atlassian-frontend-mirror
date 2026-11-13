@@ -253,14 +253,6 @@ export function buildInsertStyleExtended(colors: DiffColorScheme): string {
 	});
 }
 
-/** Extended insert style for content within a block node (border-bottom only, no background). */
-export function buildInsertStyleInBlockExtended(colors: DiffColorScheme): string {
-	return convertToInlineCss({
-		borderBottom: `2px solid ${insertedInlineBorderColor(colors)}`,
-		padding: `1px 0 2px`,
-	});
-}
-
 /** Active state of the extended insert style. */
 export function buildInsertStyleExtendedActive(colors: DiffColorScheme): string {
 	const brand = getBrand(colors.insertColor);

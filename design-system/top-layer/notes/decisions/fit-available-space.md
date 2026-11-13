@@ -24,7 +24,10 @@ content keeps its own size and still flips. Case B is solved there; Safari and F
 Amended 2026-11-12: in Chrome the content-sized floor has no 150px term. It is the content's own
 size up to the viewport clamp, so a popover keeps its size whenever some side can hold it, and only
 content too tall for either side is capped, on the roomier side. See
-[Update (2026-11-12)](#update-2026-11-12-the-content-sized-floor-has-no-150px-term).
+[Update (2026-11-12)](#update-2026-11-12-the-content-sized-floor-has-no-150px-term). Amended again
+on 2026-11-12: `placement.minSize` is removed. Nothing used it, and the placement axis floor is now
+the anchor floor or the default floor, never a length the consumer writes. See
+[Update (2026-11-12, later)](#update-2026-11-12-later-placementminsize-is-removed).
 
 Fitting constrains an anchored popover to the space between its anchor and the viewport edge, so
 oversized content scrolls inside the popover instead of growing past the viewport and putting the
@@ -36,7 +39,7 @@ It is **one hook call**, a per-axis size value, and no component prop:
 useAnchoredPopover({
 	anchorRef: triggerRef,
 	popoverRef,
-	placement, // required, and carries `minSize`
+	placement, // required
 	isOpen,
 	inlineSize: 'max-available', // 'content' | 'match-anchor' | 'min-anchor' | 'max-available'
 	blockSize: 'max-available', // both default to 'content'
@@ -59,9 +62,7 @@ axis `A`, cross axis `C`, edge `E` and gap `G`:
 | `max-{C}-size`                                  | `calc(100d{vw\|vh} - 2 * 5px)` — the viewport, never the cell                                                                                             | **always**                                                                                     |
 | `inline-size`                                   | `max-content` — the natural width, a definite size the caps beat                                                                                          | inline is `'content'` or `'max-available'`, on the CSS path, unless `shouldPreserveInlineSize` |
 | `{axis}-size`                                   | `anchor-size(self-{axis})`                                                                                                                                | that axis is `'match-anchor'`                                                                  |
-| `min-{A}-size`                                  | `max({minSize}, <anchor floor>)`                                                                                                                          | `minSize` was set AND `A` is anchor-rel. †                                                     |
-| `min-{A}-size`                                  | `placement.minSize`, **never clamped**                                                                                                                    | `minSize` was set — including `0`                                                              |
-| `min-{A}-size`                                  | `<anchor floor>`                                                                                                                                          | else `A` is anchor-relative †                                                                  |
+| `min-{A}-size`                                  | `<anchor floor>`                                                                                                                                          | `A` is anchor-relative †                                                                       |
 | `min-{A}-size`                                  | `var(--ds-popover-content-sized-flip-floor, var(--ds-popover-flip-floor))` — the default floor, in one of two forms ‡                                     | else anything is fitting, on the CSS path                                                      |
 | `--ds-popover-flip-floor`                       | `min(150px, max(0px, calc((100d{vw\|vh} - anchor-size(self-{A})) / 2 - {G} - 5px)))` — clamped against the VIEWPORT, never the cell                       | with the row above                                                                             |
 | `min-{C}-size`                                  | `min(anchor-size(self-{C}), <viewport cap>)`, **clamped**                                                                                                 | `C` is `'min-anchor'`                                                                          |
@@ -82,15 +83,12 @@ which is the floor this table listed before 2026-11-02, unchanged. See
 [Update (2026-11-02)](#update-2026-11-02-the-default-floor-hugs-its-content-where-calc-size-is-supported)
 and [Update (2026-11-12)](#update-2026-11-12-the-content-sized-floor-has-no-150px-term).
 
-At most one `min-{A}-size` declaration is written, and the rows are read top down. The two EXPLICIT
-minimums — `placement.minSize` and the anchor floor — **compose** as `max()`, because both were
-asked for and `max()` is the operator for "satisfy both". The `150px` default is the only
-alternative: it never composes with either, because nobody asked for it. A knock-on worth stating:
-`max(0px, anchor-size(…))` is the anchor size, so `minSize: 0` removes the flip floor but not an
-anchor floor. † `'min-anchor'` takes the anchor floor whether or not anything is fitting;
-`'match-anchor'` takes it only where there is a flip for it to drive, because otherwise there is
-nothing to flip out of and the cap already beats its definite `{axis}-size`, so a floor would buy
-nothing.
+At most one `min-{A}-size` declaration is written, and the rows are read top down. The anchor floor
+wins, because the consumer asked for it. The `150px` default is the alternative: it never composes
+with the anchor floor, because nobody asked for it. † `'min-anchor'` takes the anchor floor whether
+or not anything is fitting; `'match-anchor'` takes it only where there is a flip for it to drive,
+because otherwise there is nothing to flip out of and the cap already beats its definite
+`{axis}-size`, so a floor would buy nothing.
 
 `<anchor floor>` is the one term whose clamping depends on whether there is a cell for it to
 overflow:
@@ -100,11 +98,7 @@ overflow:
 | `anchor-size(self-{A})`             | anything is fitting, on the CSS path   | it must exceed the CELL cap to drive the flip       |
 | `min(anchor-size(self-{A}), <cap>)` | nothing is fitting, or the JS fallback | no cell cap exists — `max-{A}-size` is the backstop |
 
-Only the anchor term is clamped, never the composition around it:
-`max({minSize}, min(anchor, <cap>))` rather than `min(max({minSize}, anchor), <cap>)`.
-`placement.minSize` is a literal length the consumer wrote and it already overhangs the backstop on
-an axis with no anchor floor, so clamping it only when the axis happens to be anchor-relative would
-make one input behave two ways. See
+See
 [The unfitted anchor floor is clamped](#the-unfitted-anchor-floor-is-clamped-the-fitting-one-is-not).
 
 `viewportPadding = 5px` and the default gap are carried over from legacy `@atlaskit/popper`, so a
@@ -136,18 +130,16 @@ whenever the two differ. A wrong pairing is invisible in a horizontal writing mo
   so `'max-available'` on one axis caps that axis and says nothing about the other.
 - **Rule 2 — fitting ANYTHING floors the placement axis, on the CSS path.** `min-{A}-size` turns on
   whenever either axis asked to fit, whatever value `A` itself was given, because flipping is a
-  whole-popover outcome. Its value composes the two explicit minimums — `placement.minSize` and the
-  anchor size when `A` is anchor-relative — as `max()`, uses whichever applies alone, and falls back
-  to `FALLBACK_MINIMUM_MAIN_AXIS_SIZE` (150px, clamped against the viewport so the roomier cell can
-  always hold it — see [Update (2026-09-04)](#update-2026-09-04-three-corrections-from-review)) only
-  when neither does. Where `calc-size()` is supported that default is also never more than the
-  content, so it never pads; see
+  whole-popover outcome. Its value is the anchor size when `A` is anchor-relative, and otherwise
+  `FALLBACK_MINIMUM_MAIN_AXIS_SIZE` (150px, clamped against the viewport so the roomier cell can
+  always hold it — see [Update (2026-09-04)](#update-2026-09-04-three-corrections-from-review)).
+  Where `calc-size()` is supported that default is also never more than the content, so it never
+  pads; see
   [Update (2026-11-02)](#update-2026-11-02-the-default-floor-hugs-its-content-where-calc-size-is-supported).
-  An explicit `minSize` always beats that default, **including `minSize: 0`** — the "cap me but do
-  not move me" escape hatch, which works on any axis with no anchor floor. `resolvePlacement` leaves
-  `minSize` `undefined` rather than defaulting it, precisely so `0` stays distinguishable from
-  unset. The rule is CSS-path-only because a floor is a flip driver and the JS fallback has no cell
-  to overflow; `minSize` still applies there, see
+  A consumer cannot turn the floor off: the "cap me but do not move me" escape hatch,
+  `placement.minSize: 0`, was removed on 2026-11-12, unused; see
+  [Update (2026-11-12, later)](#update-2026-11-12-later-placementminsize-is-removed). The rule is
+  CSS-path-only because a floor is a flip driver and the JS fallback has no cell to overflow; see
   [The JavaScript fallback](#the-javascript-fallback). Why the floor exists at all:
   [the cap alone suppresses `position-try-fallbacks`](#the-cap-alone-suppresses-position-try-fallbacks);
   why the cap is per-axis and this is not:
@@ -288,6 +280,9 @@ size the consumer explicitly asked for — a 40px icon trigger with
 the flip perfectly well on its own — 40px + 8px gap + 5px padding is a 53px margin box, so any cell
 narrower than 53px overflows and the fallback chain runs.
 
+> `placement.minSize` was removed on 2026-11-12, so this paragraph and the next are history. See
+> [Update (2026-11-12, later)](#update-2026-11-12-later-placementminsize-is-removed).
+
 `placement.minSize` is the other explicit request, so it does NOT replace the anchor floor: the two
 compose as `max(minSize, anchor-size(self-{A}))`. Amended 2026-08-25, after a first pass made the
 whole chain first-wins. `<DropdownMenu shouldFitContainer>` maps to `inlineSize: 'min-anchor'`,
@@ -367,7 +362,9 @@ as "clamped to the viewport cap but not to the cell cap", because the second for
 reader finishes collapsing into `min(floor, cap)` against whichever cap the axis actually has — and
 that one IS the flip suppression. It has been written the wrong way round here before.
 
-`placement.minSize` stays **outside** the clamp: `max(minSize, min(anchor, cap))`, not
+Until 2026-11-12 (see
+[Update (2026-11-12, later)](#update-2026-11-12-later-placementminsize-is-removed)),
+`placement.minSize` stayed **outside** the clamp: `max(minSize, min(anchor, cap))`, not
 `min(max(minSize, anchor), cap)`. A literal length the consumer wrote already overhangs the backstop
 on an axis with no anchor floor (`min-{A}-size: placement.minSize` is emitted unclamped), so
 clamping it only when an unrelated axis value happens to be `'min-anchor'` would make one input
@@ -572,8 +569,7 @@ bugs the per-axis split fixed — and here it is actively harmful. `computeFallb
 side from the popover's MEASURED size, so a floor only inflates the measurement it reads: 40px of
 content with 90px of room below it fits, and did before this recipe existed, but a
 `min-block-size: 150px` makes neither side "fit", flips it to the roomier one, and in a short
-viewport the off-screen clamp then drags it back down over its own trigger. `placement.minSize`
-still applies on both paths — that one is a consumer request rather than a flip driver.
+viewport the off-screen clamp then drags it back down over its own trigger.
 
 Which leaves fitting emitting the same declarations as not fitting here, because the viewport
 backstop is unconditional. That is why the opt-in control pair in `fit-available-space.spec.tsx`
@@ -686,8 +682,9 @@ invariant rather than a knob.
   [../follow-ups/custom-popup-component-contract.md](../follow-ups/custom-popup-component-contract.md).
 - **The floor now drives flips for consumers that asked not to flip.** `shouldFlip={false}` is
   already a documented no-op on the top-layer path, so a fitting consumer that set it gets the
-  fallback chain regardless — and Rule 2 makes the chain fire more often. `placement.minSize: 0` is
-  the expressible answer, and did not exist before.
+  fallback chain regardless — and Rule 2 makes the chain fire more often. `placement.minSize: 0` was
+  the expressible answer until it was removed, unused, on 2026-11-12; see
+  [Update (2026-11-12, later)](#update-2026-11-12-later-placementminsize-is-removed).
 
 - **A small anchor-relative popover is no longer padded out to 150px.** The floor on an
   anchor-relative placement axis is now the anchor's size alone, so a 40px icon trigger with
@@ -710,29 +707,26 @@ overriding an explicit request.
 - `__tests__/playwright/anchored-popover-size.spec.tsx` — 22 tests over the merged recipe (66 runs
   across the three engines), driving `examples/161-testing-popover-anchored-size.tsx`: Rule 1 in
   both directions plus its negative case, the Rule 2 threshold pinned to within 7px either side
-  (cell 170 stays, cell 156 moves), `minSize: 0` staying put at exactly `cell - 8 - 5`, the viewport
-  backstop on a 600px trigger in a 400px viewport, `match-anchor` vs `min-anchor` on the block axis,
-  the inline-placement-axis flip for both `right-start` (the ADS side-nav flyout) and `left-start`
-  (the people-and-teams hierarchy pickers), and `forceFallbackPositioning`. Passes on all three
-  engines. Geometry, not declarations. The 2026-08-25 split added seven: a small `match-anchor` axis
-  rendering at the anchor's size rather than 150px, the anchor floor's own flip threshold pinned 7px
-  either side of 53 (`min-anchor`, not `match-anchor` — a definite `{axis}-size` overflows a small
-  cell on its own, so that variant would pass with no floor at all), the per-axis cap as a matched
-  pair differing only in `blockSize: 'content'` vs `'match-anchor'` (both with `minSize: 0`, because
-  at the default floor the min beats the max and the two caps are indistinguishable — which is how
-  the whole-popover cap survived unnoticed), and `minSize` COMPOSING with the anchor floor — a
-  matched pair on a 120px anchor with `minSize: 40` (the anchor wins, 120px) and `minSize: 200`
-  (`minSize` wins, 200px), so `max()` itself is under test rather than one lucky number. Under the
-  first-wins mutation the `minSize: 40` case reads 40px against a measured 120px anchor and fails on
-  all three engines. The clamp added two more, a matched pair differing only in `blockSize`: an
-  800px trigger in a 700px viewport on an INLINE placement axis with `inlineSize: 'min-anchor'`,
-  unfitted (the popover comes out at the 690px backstop and NARROWER than its trigger) and fitting
-  (it stays at the anchor's full 800px). Each is the other's mutation guard: reverting the clamp
-  fails the first at `800 <= 691`, and dropping its `isFitting` guard fails the second at
-  `|690 - 800| <= 1`, both on all three engines. There is deliberately no `expectOnScreen` in that
-  pair — with an anchor wider than the viewport less the padding, neither cell beside it can hold
-  the popover at any size, so the contract under test is the popover's inline EXTENT rather than its
-  position.
+  (cell 170 stays, cell 156 moves), the viewport backstop on a 600px trigger in a 400px viewport,
+  `match-anchor` vs `min-anchor` on the block axis, the inline-placement-axis flip for both
+  `right-start` (the ADS side-nav flyout) and `left-start` (the people-and-teams hierarchy pickers),
+  and `forceFallbackPositioning`. Passes on all three engines. Geometry, not declarations. The
+  2026-08-25 split added seven: a small `match-anchor` axis rendering at the anchor's size rather
+  than 150px, the anchor floor's own flip threshold pinned 7px either side of 53 (`min-anchor`, not
+  `match-anchor` — a definite `{axis}-size` overflows a small cell on its own, so that variant would
+  pass with no floor at all), the per-axis cap as a matched pair differing in `blockSize: 'content'`
+  vs `'match-anchor'` (the `'content'` case opens into the roomier cell, so the floor fits and the
+  cap sets the height; on the smaller cell the floor would beat the cap and hide it, which is how
+  the whole-popover cap survived unnoticed). The clamp added two more, a matched pair differing only
+  in `blockSize`: an 800px trigger in a 700px viewport on an INLINE placement axis with
+  `inlineSize: 'min-anchor'`, unfitted (the popover comes out at the 690px backstop and NARROWER
+  than its trigger) and fitting (it stays at the anchor's full 800px). Each is the other's mutation
+  guard: reverting the clamp fails the first at `800 <= 691`, and dropping its `isFitting` guard
+  fails the second at `|690 - 800| <= 1`, both on all three engines. There is deliberately no
+  `expectOnScreen` in that pair — with an anchor wider than the viewport less the padding, neither
+  cell beside it can hold the popover at any size, so the contract under test is the popover's
+  inline EXTENT rather than its position. The three `minSize` tests were removed on 2026-11-12; see
+  [Update (2026-11-12, later)](#update-2026-11-12-later-placementminsize-is-removed).
 - `__tests__/playwright/fit-available-space.spec.tsx` — cases A–D plus the inline axis, an uncapped
   control, the scrolling surface (which doubles as the WebKit flex-collapse pin), and the two
   closed-state ghost checks. Expectations are derived from the measured trigger, so the recipe
@@ -743,33 +737,30 @@ overriding an explicit request.
   follows the `focus-interaction-scenarios.tsx` convention. Its flip threshold is now
   `marginBoxAround({ size })` rather than a hard-coded 163, because the threshold moves with
   whichever floor Rule 2 picked.
-- `src/internal/__tests__/anchored-popover-size.test.tsx` — 39 tests: the truth table without a
-  browser. Axis mapping, cap spellings, the cross-axis `min()` clamp, every branch of the floor's
-  chain (the `max()` composition on both a `'min-anchor'` and a fitting `'match-anchor'` placement
-  axis, each minimum alone, and the 150px default), Rule 1's fill-only behaviour and the per-axis
-  cap that reads it, and `minSize: 0` on both a fitting and an anchor-relative axis — where it
-  zeroes the floor in the first case and leaves the anchor floor standing in the second. The
-  placement-axis clamp is pinned from four sides: unfitted (clamped), fitting (not clamped),
-  composed with a `minSize` (`max(40px, min(anchor, cap))`, so the nesting itself is pinned), and on
-  the JavaScript fallback with a measured length. A fifth case asserts BOTH axes of an unfitted
-  `'min-anchor'` popover at once, because the two clamps come from different code paths and a
-  `dvw`/`dvh` swap in either is invisible while only one axis is asserted. jsdom has no layout or
-  cascade, so it stops at the declaration boundary on purpose. Since 2026-11-02 it also pins the
-  default floor's switch: `--ds-popover-flip-floor` carries the floor unchanged, `min-{A}-size`
-  reads the content-sized floor first, an explicit floor never takes the switch, and the JavaScript
-  fallback writes neither form.
+- `src/internal/__tests__/anchored-popover-size.test.tsx` — the truth table without a browser. Axis
+  mapping, cap spellings, the cross-axis `min()` clamp, every branch of the floor's chain (the
+  anchor floor on both a `'min-anchor'` and a fitting `'match-anchor'` placement axis, and the 150px
+  default), and Rule 1's fill-only behaviour and the per-axis cap that reads it. The placement-axis
+  clamp is pinned from three sides: unfitted (clamped), fitting (not clamped), and on the JavaScript
+  fallback with a measured length. A fourth case asserts BOTH axes of an unfitted `'min-anchor'`
+  popover at once, because the two clamps come from different code paths and a `dvw`/`dvh` swap in
+  either is invisible while only one axis is asserted. jsdom has no layout or cascade, so it stops
+  at the declaration boundary on purpose. Since 2026-11-02 it also pins the default floor's switch:
+  `--ds-popover-flip-floor` carries the floor unchanged, `min-{A}-size` reads the content-sized
+  floor first, an anchor floor never takes the switch, and the JavaScript fallback writes neither
+  form.
 - `__tests__/unit/content-sized-flip-floor.test.tsx` — the stylesheet half of the switch. It reads
   the `@supports` rule Compiled injects for `Popover` and resolves the `var()` chain by hand, once
   with the rule applied (the content-sized floor) and once without (the plain floor, unchanged), and
   pins the child reset that stops the value being inherited.
-- `__tests__/vr-tests/popover-fit-floor.vr.tsx` — a 2x2 of
-  `{roomy, cramped} x {default floor, minSize: 0}`, so the two columns differ only in `minSize`. The
-  cost of Rule 2 (a surface stretched to 150px with empty space below) and its benefit (flipped
-  above at full height instead of a ~27px letterbox) are both visible in one sheet. Two more
-  fixtures, `fit-floor-anchor-{roomy,cramped}`, photograph the anchor floor: an 80px trigger with an
-  80px popover beside it, which is the half of the 2026-08-25 change a number cannot review. All six
-  are photographed on `desktop-chromium` only, because every existing VR baseline in this package
-  uses the single default variant; cross-engine coverage of the same behaviours comes from
+- `__tests__/vr-tests/popover-fit-floor.vr.tsx` — a roomy and a cramped cell at the default floor.
+  The cost of Rule 2 (a surface stretched to 150px with empty space below, where `calc-size()` is
+  not supported) and its benefit (flipped above at full height) are both visible in one sheet. Until
+  2026-11-12 a `minSize: 0` column sat beside them as the control. Two more fixtures,
+  `fit-floor-anchor-{roomy,cramped}`, photograph the anchor floor: an 80px trigger with an 80px
+  popover beside it, which is the half of the 2026-08-25 change a number cannot review. All four are
+  photographed on `desktop-chromium` only, because every existing VR baseline in this package uses
+  the single default variant; cross-engine coverage of the same behaviours comes from
   `anchored-popover-size.spec.tsx` above, which runs all three engines.
 
   Two JavaScript-fallback twins sit alongside, `js-fallback-fit-floor-{roomy,modest-cell}`: the
@@ -844,7 +835,7 @@ content is shorter than the floor has its surface stretched to 150px, where bloc
 transparent host below it. Arguably the better rendering — the surface fills the box it was floored
 to — but it is a real difference. Now covered: `__tests__/vr-tests/popover-fit-floor.vr.tsx`'s
 `fit-floor-roomy-default` baseline is exactly this case, next to the `minSize: 0` control that hugs
-its 56px content.
+its 56px content (removed on 2026-11-12 with `placement.minSize`).
 
 Since 2026-11-02 this is true only where `calc-size()` is not supported. VR runs Chromium, where the
 floor is never more than the content, so `fit-floor-roomy-default` now hugs its 56px content like
@@ -1062,11 +1053,12 @@ consumer that does not ask it to fit, with why it was left.
   anchor and re-runs the size half only, which is cheaper now that sizing lives in the same effect
   as `update()`, but not free. Weigh it against the fallback being best-effort: with no cell cap
   either, anchor-relative sizing there is already the weaker contract.
-- **`placement.minSize: 0` cannot stop the flip on a fitting anchor-relative placement axis.** On an
-  axis that is `'min-anchor'` or `'match-anchor'` while something is fitting, `minSize: 0` composes
-  as `max(0px, anchor)`, which IS the anchor floor, so the flip stands. See
+- **Nothing can stop the flip of a fitting popover.** Before 2026-11-12, `placement.minSize: 0`
+  could, but not on a fitting anchor-relative placement axis, where it composed as
+  `max(0px, anchor)`, which IS the anchor floor. It is now removed, so no axis can opt out. See
+  [Update (2026-11-12, later)](#update-2026-11-12-later-placementminsize-is-removed), and
   [width-from-anchor-floors.md](./width-from-anchor-floors.md) → _Update (2026-08-25, later)_ for
-  why clamping it there is not the answer either.
+  why clamping the anchor floor is not the answer either.
 - **`<Popup xcss>` with a `width` AND padding renders 32px wider on the top-layer path** (280px
   legacy, 312px top-layer), because `xcss` lands on a content-box child of `PopoverSurface` rather
   than on a border-box container. Found by the flag pair in `popup`'s `popup-top-layer.vr.tsx`,
@@ -1321,6 +1313,54 @@ not fit below, so the popup moves above, the roomier side, capped at about 486px
 versions do not move. Nothing else moves: the top-layer fit-floor, fit-alignment and fit-scroll
 baselines, and the flag-on fitting baselines of Popper, `react-select` and `DatePicker`, are as they
 were on the 2026-11-11 D12 run.
+
+## Update (2026-11-12, later): `placement.minSize` is removed
+
+`placement.minSize` set the placement-axis floor. Nothing used it: no wrapper (Popup, Popper,
+DropdownMenu, Select, Tooltip) and no product passed it. Only this package's tests, examples and
+notes did.
+
+### Why remove it, and not move it
+
+- It is a sizing rule in a placement type. The other `placement` fields say where the popover goes.
+  `minSize` set when the popover flips.
+- `TPlacementOptions` is shared. `Popover`'s `placement` prop (animation direction only) and
+  `fromLegacyPlacement` use it too, so `<Popover placement={{ minSize: 0 }}>` type-checked and did
+  nothing.
+- The logical axis it acted on changed with `placement.axis`. `inlineSize` and `blockSize` always
+  name the same axis.
+- It was a flip threshold, not a minimum size: `0` meant "never flip".
+- Since 2026-11-02 the default floor follows the content where `calc-size()` is supported, so the
+  main reason to tune it, short content padded to 150px, is gone in Chrome.
+
+### What is lost
+
+- "Cap me but do not move me". On the CSS path a fitting popover now always has a flip floor: the
+  anchor floor or the default floor.
+- In Safari and Firefox, `minSize: 0` was the only way to stop the 150px floor stretching short
+  content.
+- The deferred `shouldFlip={false}` question in [migration-roadmap.md](./migration-roadmap.md) loses
+  its proposed answer.
+
+If a consumer needs one of these, add a sizing option next to `inlineSize` and `blockSize`, not a
+`placement` field.
+
+### What changed
+
+- `TPlacementOptions` and `TPlacement` have no `minSize`. A caller that passes it gets a type error,
+  so `@atlaskit/top-layer` takes a major. No caller in the repository passes it, so nothing renders
+  differently.
+- `getPlacementAxisFloor` returns the anchor floor, else the default floor, else no floor. The floor
+  kind `'explicit'` is now `'anchor'`, its only source.
+- Unit tests: the `minSize` cases in `anchored-popover-size.test.tsx` and
+  `use-anchored-popover.test.tsx` are gone.
+- Playwright: the `minSize: 0` test and the two `minSize` composition tests in
+  `anchored-popover-size.spec.tsx` are gone. The per-axis cap pair used `minSize: 0` so that the
+  floor did not hide the cell cap. Its `'content'` case now opens into the roomier cell, where the
+  default floor fits and the cap sets the height. Its `'match-anchor'` case keeps its geometry:
+  there `max(0px, anchor)` was already the anchor, so nothing changes.
+- VR: the two `minSize: 0` fixtures in `popover-fit-floor.vr.tsx` and their baselines are gone. No
+  other fixture passed `minSize`, so no other baseline moves.
 
 ## Related
 

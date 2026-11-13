@@ -1,5 +1,22 @@
 # @atlaskit/editor-toolbar
 
+## 2.11.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.11.0
+
+### Minor Changes
+
+- [`85d826388ed61`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/85d826388ed61) -
+  [EDITOR-8341] export icon for FieldText from editor-toolbar package
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.10.8
 
 ### Patch Changes

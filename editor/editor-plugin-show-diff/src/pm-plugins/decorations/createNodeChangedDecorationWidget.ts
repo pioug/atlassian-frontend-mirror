@@ -156,9 +156,7 @@ const createTableCellContentWidgets = ({
 		// This helper only runs for added content, so use the "changed" testid — not
 		// "deleted", which page models match as removed content.
 		dom.setAttribute('data-testid', 'show-diff-changed-decoration');
-		if (fg('platform_editor_ai_show_diff_patch_1')) {
-			dom.style.setProperty('scroll-margin-top', scrollMarginTopValue);
-		}
+		dom.style.setProperty('scroll-margin-top', scrollMarginTopValue);
 
 		// Skip findSafeInsertPos: it walks forward to a schema-valid cell-insert point
 		// and pushes the widget into the next cell. `targetPos` is the correct spot.
@@ -432,7 +430,6 @@ export const createNodeChangedDecorationWidget = ({
 	const replacementNode = newDoc.nodeAt(change.fromB);
 	const firstReplacedNode = slice.content.firstChild;
 	const lastReplacedNode = slice.content.lastChild;
-	const showDiffPatch1 = fg('platform_editor_ai_show_diff_patch_1');
 	// Whether the slice's outermost textblocks still hold all of their original content.
 	//
 	// `openStart`/`openEnd` say whether the cut landed inside a block, but not whether it took
@@ -470,7 +467,6 @@ export const createNodeChangedDecorationWidget = ({
 		const isLast = lastReplacedNode === node;
 		const isOpenAtSliceBoundary = (isFirst && slice.openStart > 0) || (isLast && slice.openEnd > 0);
 		const shouldPreserveCompleteMultiInlineBlock =
-			showDiffPatch1 &&
 			node.isBlock &&
 			node.type.inlineContent &&
 			node.content.childCount > 1 &&
@@ -681,9 +677,7 @@ export const createNodeChangedDecorationWidget = ({
 	}
 
 	dom.setAttribute('data-testid', 'show-diff-deleted-decoration');
-	if (fg('platform_editor_ai_show_diff_patch_1')) {
-		dom.style.setProperty('scroll-margin-top', scrollMarginTopValue);
-	}
+	dom.style.setProperty('scroll-margin-top', scrollMarginTopValue);
 
 	// A block node serialized into the widget is the widget's first child, and the editor's
 	// first-child reset is written against the parent element rather than the document position — so
@@ -885,9 +879,7 @@ export const createNodeChangedDecorationWidget = ({
 			defaultSpacer.dataset.testid = 'show-diff-default-margin-spacer';
 			defaultSpacer.style.display = 'block';
 			defaultSpacer.style.marginTop = token('space.100');
-			if (fg('platform_editor_ai_show_diff_patch_1')) {
-				defaultSpacer.style.setProperty('scroll-margin-top', scrollMarginTopValue);
-			}
+			defaultSpacer.style.setProperty('scroll-margin-top', scrollMarginTopValue);
 
 			decorations.push(
 				Decoration.widget(

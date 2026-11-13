@@ -208,6 +208,9 @@
 			"path": "../../async/react-entrypoint/tsconfig.app.json"
 		},
 		{
+			"path": "../../relay/relay-test-utils/tsconfig.app.json"
+		},
+		{
 			"path": "../../search/search-dialog/tsconfig.app.json"
 		},
 		{

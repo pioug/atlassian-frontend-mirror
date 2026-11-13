@@ -11,6 +11,7 @@ import { css, jsx } from '@compiled/react';
 import { getConfig, setUFOConfig } from '@atlaskit/react-ufo/config';
 import UFOLoadHold from '@atlaskit/react-ufo/load-hold';
 import traceUFOInteraction from '@atlaskit/react-ufo/trace-interaction';
+import traceUFOPress from '@atlaskit/react-ufo/trace-press';
 import UFOSegment from '@atlaskit/react-ufo/ufo-segment';
 
 const mainStyles = css({
@@ -42,7 +43,9 @@ const buttonStyle = css({
 const SectionContentOne = () => {
 	const [showHold, setShowHold] = useState(false);
 	const handleClick = useCallback((event: ReactMouseEvent<HTMLButtonElement>) => {
-		traceUFOInteraction('test-click', event.nativeEvent);
+		traceUFOPress('test-click', event.timeStamp, {
+			customData: { source: 'example-button' },
+		});
 		setShowHold(true);
 		setTimeout(() => {
 			setShowHold(false);

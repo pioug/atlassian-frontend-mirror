@@ -12,7 +12,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'RovoAgentSelector',
-				package: '@atlaskit/rovo-agent-selector',
+				package: '@atlaskit/rovo-agent-selector/rovo-agent-selector',
 				type: 'named',
 				packagePath,
 				packageJson,

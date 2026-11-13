@@ -6,6 +6,7 @@
 		"**/docs/**/*",
 		"**/__tests__/**/*",
 		"**/vr-tests/**/*",
+		"**/__perf__/**/*",
 		"**/*.test.*",
 		"**/test.*",
 		"**/test-*",
@@ -17,6 +18,9 @@
 		"**/examples/**/*.tsx",
 		"**/storybook/**/*",
 		"**/constellation/**/*",
+		"../src/**/*.stories.*",
+		"../src/**/stories/*",
+		"../src/**/stories/**/*",
 		".storybook/*",
 		"./__fixtures__/**/*",
 		"./__generated__/**/*",
@@ -24,13 +28,21 @@
 		"./__mocks__/**/*",
 		"**/mock.*",
 		"**/codemods/**/*.ts",
-		"**/codemods/**/*.tsx"
+		"**/codemods/**/*.tsx",
+		"**/stories.ts",
+		"**/stories.tsx",
+		"**/stories/*.ts",
+		"**/stories/*.tsx",
+		"**/stories/**/*.ts",
+		"**/stories/**/*.tsx",
+		"./scripts/atlas/**/*.tsx"
 	],
-	"exclude": [],
+	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
+		"disableReferencedProjectLoad": true,
+		"disableSolutionSearching": true,
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__ads-cli/app",
-		"isolatedDeclarations": true
+		"outDir": "../../../tsDist/@atlaskit__ads-cli/app"
 	},
 	"references": [
 		{

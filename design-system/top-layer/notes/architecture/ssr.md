@@ -112,6 +112,20 @@ primitives.
 
 ---
 
+## Flag group SSR flow (`@atlaskit/flag`, flag on)
+
+The top-layer `FlagGroup` renders nothing on the server, as on the legacy path. `DialogAwarePortal`
+renders nothing on the server and while the client hydrates, so hydration has nothing to match. It
+picks its place after hydration. Then the hosts render (inside an open `Dialog`, or in place), and
+the `Popover` layout effect calls `showPopover()`. See `architecture/dialog.md`.
+
+- The SSR `useLayoutEffect` warnings that came from the platform test helper (`ssr/src/emotion.tsx`
+  sets `window = {}`) are a helper problem, not a `FlagGroup` one.
+
+See `migrations/flag-migration.md` ("Server rendering").
+
+---
+
 ## Legacy modal SSR flow (`@atlaskit/modal-dialog`, flag off)
 
 ### What server-side render produces

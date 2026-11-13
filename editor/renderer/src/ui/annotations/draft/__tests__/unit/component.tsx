@@ -55,6 +55,9 @@ describe('Annotations: draft/component', () => {
 						selectionDraftRange: null,
 						hoverDraftRange: null,
 						hoverDraftDocumentPosition: null,
+						draftIntentSource: null,
+						selectionDraftTarget: null,
+						hoverDraftTarget: null,
 						selectionDraftDocumentPosition: draftSelection,
 					}}
 				>
@@ -211,6 +214,9 @@ describe('Annotations: draft/component with plainTextFastPath', () => {
 				selectionDraftRange: null,
 				hoverDraftRange: null,
 				hoverDraftDocumentPosition: null,
+				draftIntentSource: null,
+				selectionDraftTarget: null,
+				hoverDraftTarget: null,
 				selectionDraftDocumentPosition: draftSelection,
 			}}
 		>

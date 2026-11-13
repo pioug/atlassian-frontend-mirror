@@ -11,8 +11,8 @@ const documentation: StructuredContentSource = {
 			},
 			import: {
 				name: 'ProgressIndicator',
-				package: '@atlaskit/progress-indicator',
-				type: 'named',
+				package: '@atlaskit/progress-indicator/progress-dots',
+				type: 'default',
 				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},

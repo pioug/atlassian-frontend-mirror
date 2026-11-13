@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-card
 
+## 36.0.25
+
+### Patch Changes
+
+- [`ed5878d6a9c69`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ed5878d6a9c69) -
+  Clean up experiment `platform_editor_inline_card_dispatch_guard`
+- Updated dependencies
+
 ## 36.0.24
 
 ### Patch Changes

@@ -5,6 +5,7 @@ import { from } from 'rxjs/observable/from';
 
 import type { JQLClause } from '@atlaskit/jql-autocomplete/jql-autocomplete/types';
 import type { AutocompleteOptions } from '@atlaskit/jql-editor-common/autocomplete/types';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 
 import {
 	accountJqlField,
@@ -25,7 +26,7 @@ import {
 import { type JQLFieldResponse } from '../../common/types';
 import { normalize } from '../../utils/normalize';
 import { getFieldType } from './getFieldType';
-import useOnFields, { MAX_VISIBLE_OPTIONS } from './index';
+import useOnFields, { EXPANDED_MAX_VISIBLE_OPTIONS, MAX_VISIBLE_OPTIONS } from './index';
 
 const mockJqlSearchableFields: JQLFieldResponse[] = [
 	accountJqlField,
@@ -174,6 +175,28 @@ describe('onFields', () => {
 			// Exclude all fields which exceed MAX_VISIBLE_OPTIONS
 			const expectedFields = mapToAutocompleteOptions(moreThanMaxJqlFields).slice(0, -extraFields);
 			expect(fields).toEqual(expectedFields);
+		};
+
+		render(
+			<OnFieldsConsumer
+				jqlSearchableFields={moreThanMaxJqlFields}
+				onAssert={assertFields}
+				done={done}
+			/>,
+		);
+	});
+
+	it(`returns a maximum of ${EXPANDED_MAX_VISIBLE_OPTIONS} fields when filter_refinement_butter_thanksgiving_drop is enabled`, (done) => {
+		mockExpEnabled('filter_refinement_butter_thanksgiving_drop');
+		const extraFields = 1;
+		const moreThanMaxJqlFields: JQLFieldResponse[] = Array.from(
+			{ length: EXPANDED_MAX_VISIBLE_OPTIONS + extraFields },
+			() => statusJqlField,
+		);
+
+		const assertFields = (fields: AutocompleteOptions) => {
+			expect(fields).toHaveLength(EXPANDED_MAX_VISIBLE_OPTIONS);
+			expect(fields).toEqual(mapToAutocompleteOptions(moreThanMaxJqlFields).slice(0, -extraFields));
 		};
 
 		render(

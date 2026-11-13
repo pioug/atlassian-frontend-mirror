@@ -127,6 +127,9 @@
 			"path": "../structured-docs-types/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/testing-library/tsconfig.app.json"
+		},
+		{
 			"path": "../../ap/workbench/tsconfig.app.json"
 		}
 	]

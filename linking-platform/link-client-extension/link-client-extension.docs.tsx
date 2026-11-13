@@ -18,7 +18,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'useSmartLinkClientExtension',
-				package: '@atlaskit/link-client-extension',
+				package: '@atlaskit/link-client-extension/use-smart-link-client-extension',
 				type: 'named',
 				packagePath,
 				packageJson,
@@ -44,7 +44,7 @@ const documentation: StructuredContentSource = {
 			status: 'general-availability',
 			import: {
 				name: 'useDatasourceClientExtension',
-				package: '@atlaskit/link-client-extension',
+				package: '@atlaskit/link-client-extension/use-data-source-client-extension',
 				type: 'named',
 				packagePath,
 				packageJson,

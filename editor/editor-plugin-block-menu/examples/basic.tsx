@@ -1,6 +1,7 @@
 import React from 'react';
 
-import type { RegisterBlockMenuComponent } from '../src/blockMenuPluginType';
+import type { RegisterBlockMenuComponent } from '@atlaskit/editor-plugin-block-menu/blockMenuPluginType';
+
 import { createBlockMenuRegistry } from '../src/editor-actions';
 import { BlockMenuRenderer } from '../src/ui/block-menu-renderer/BlockMenuRenderer';
 import { BLOCK_MENU_FALLBACKS } from '../src/ui/block-menu-renderer/fallbacks';

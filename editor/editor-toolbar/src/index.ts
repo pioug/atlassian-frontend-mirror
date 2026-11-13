@@ -38,6 +38,7 @@ export { AppsIcon } from './ui/icons/AppsIcon';
 export { BoldIcon } from './ui/icons/BoldIcon';
 export { CommentIcon } from './ui/icons/CommentIcon';
 export { DefineIcon } from './ui/icons/DefineIcon';
+export { FieldTextIcon } from './ui/icons/FieldTextIcon';
 export { HeadingFiveIcon } from './ui/icons/HeadingFiveIcon';
 export { HeadingFourIcon } from './ui/icons/HeadingFourIcon';
 export { HeadingOneIcon } from './ui/icons/HeadingOneIcon';

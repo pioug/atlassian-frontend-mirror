@@ -24,6 +24,7 @@ import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles/constan
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut/main';
 import ButtonItem from '@atlaskit/menu/button-item';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
@@ -135,6 +136,15 @@ const selectedStyle = css`
 	box-shadow: inset 2px 0px 0px ${token('color.border.focused')};
 `;
 
+const selectedCustomItemStyle = css({
+	backgroundColor: token('color.background.neutral.subtle.hovered'),
+	boxShadow: `inset 2px 0px 0px ${token('color.border.selected')}`,
+	// Arrow-key navigation focuses the selected option; keep its selection indicator.
+	'&:focus': {
+		boxShadow: `inset 2px 0px 0px ${token('color.border.selected')}`,
+	},
+});
+
 const disabledStyle = css({
 	color: token('color.text.disabled'),
 });
@@ -197,7 +207,9 @@ const CustomItemComponentWrapper = React.memo((props: CustomItemComponentWrapper
 	const listItemClasses = useMemo(() => {
 		return [
 			customRenderItemDivStyle,
-			isSelected && !itemIsDisabled && selectedStyle,
+			fg('platform-dst-tokens-finesse')
+				? isSelected && !itemIsDisabled && selectedCustomItemStyle
+				: isSelected && !itemIsDisabled && selectedStyle,
 			itemIsDisabled && disabledStyle,
 		];
 	}, [isSelected, itemIsDisabled]);

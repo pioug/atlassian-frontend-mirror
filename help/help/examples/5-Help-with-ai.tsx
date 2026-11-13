@@ -6,19 +6,20 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/default/button';
 import Field from '@atlaskit/form/field';
 import { HelperMessage } from '@atlaskit/form/helper-message';
+import type { ArticleItem, ArticleFeedback } from '@atlaskit/help/Article';
+import Help from '@atlaskit/help/Help';
+import { ARTICLE_TYPE } from '@atlaskit/help/model/Help';
+import type { articleId, HistoryItem } from '@atlaskit/help/model/Help';
+import { RelatedArticles } from '@atlaskit/help/RelatedArticles';
+import { DividerLine } from '@atlaskit/help/styled';
+import type { WHATS_NEW_ITEM_TYPES } from '@atlaskit/help/WhatsNew';
+import type { WhatsNewArticle } from '@atlaskit/help/WhatsNew';
 import ShipIcon from '@atlaskit/icon/core/release';
 import type { NotificationLogProvider } from '@atlaskit/notification-log-client/types';
 import Page from '@atlaskit/page/page';
 import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 
-import Help, {
-	RelatedArticles,
-	ARTICLE_TYPE,
-	DividerLine,
-	type WHATS_NEW_ITEM_TYPES,
-} from '../src';
-import type { ArticleItem, ArticleFeedback, articleId, WhatsNewArticle, HistoryItem } from '../src';
 import { useAlgolia } from './utils/services/algolia';
 import { useContentPlatformApi } from './utils/services/cpapi';
 import type { FilterConfiguration } from './utils/services/cpapi';

@@ -15,12 +15,13 @@ import type { PositionArea } from '../../types';
  */
 export const usePositionArea = (
 	ref: React.RefObject<HTMLElement>,
+	isOpen: boolean = true,
 ): PositionArea | 'none' | undefined => {
 	const [positionArea, setPositionArea] = useState<PositionArea | 'none' | undefined>(undefined);
 
 	useEffect(() => {
 		const el = ref.current;
-		if (!el) {
+		if (!isOpen || !el) {
 			return;
 		}
 
@@ -71,7 +72,7 @@ export const usePositionArea = (
 			unbindResize();
 			unbindScroll();
 		};
-	}, [ref]);
+	}, [ref, isOpen]);
 
 	return positionArea;
 };

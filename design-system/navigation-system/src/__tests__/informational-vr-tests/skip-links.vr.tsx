@@ -12,6 +12,7 @@ snapshotInformational(CompositionVR, {
 	],
 	featureFlags: {
 		platform_dst_nav4_skip_link_a11y_1: true,
+		platform_dst_nav4_skip_link_menu_placeholder: true,
 	},
 	async prepare(page) {
 		await page.getByRole('button', { name: 'Skip to' }).focus();
@@ -28,6 +29,7 @@ snapshotInformational(CompositionVR, {
 	],
 	featureFlags: {
 		platform_dst_nav4_skip_link_a11y_1: true,
+		platform_dst_nav4_skip_link_menu_placeholder: true,
 	},
 	async prepare(page) {
 		await page.getByRole('button', { name: 'Skip to' }).focus();

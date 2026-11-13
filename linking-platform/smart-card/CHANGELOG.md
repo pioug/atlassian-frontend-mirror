@@ -1,5 +1,20 @@
 # @atlaskit/smart-card
 
+## 46.14.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.14.3
+
+### Patch Changes
+
+- [`68e34ed4b53ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/68e34ed4b53ae) -
+  Add light and dark Rovo snapshot illustrations and updated heading and body to the One Click Chat
+  spotlight behind platform_sl_one_click_chat_spotlight_v2_fg.
+- Updated dependencies
+
 ## 46.14.2
 
 ### Patch Changes

@@ -3,7 +3,7 @@
  *
  * Structured content utilities from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::248b555affacc1f7e90612759f48ba5e>>
+ * @codegen <<SignedSource::89ae38c2ea61775c59f673010b2013ea>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -1795,9 +1795,9 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		value: '1248px',
 	},
 	{
-		name: 'FetchStudioDefaultSpaceId',
+		name: 'fetchStudioDefaultSpaceId',
 		description:
-			'Public utility `FetchStudioDefaultSpaceId` exported by `@atlassian/agent-studio-triggers/fetch-studio-default-space-id`.',
+			'Public utility `fetchStudioDefaultSpaceId` exported by `@atlassian/agent-studio-triggers/fetch-studio-default-space-id`.',
 		status: 'general-availability',
 		usageGuidelines: [
 			'Import from this explicit public entrypoint rather than a source-internal path.',
@@ -1884,9 +1884,9 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		kind: 'function',
 	},
 	{
-		name: 'ValidateJiraAdminAgentAction',
+		name: 'validateJiraAdminAgentAction',
 		description:
-			'Public utility `ValidateJiraAdminAgentAction` exported by `@atlassian/ai-mate-jira-admin-agent-api/validateJiraAdminAgentAction`.',
+			'Public utility `validateJiraAdminAgentAction` exported by `@atlassian/ai-mate-jira-admin-agent-api/validateJiraAdminAgentAction`.',
 		status: 'general-availability',
 		usageGuidelines: [
 			'Import from this explicit public entrypoint rather than a source-internal path.',
@@ -6374,9 +6374,9 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		kind: 'function',
 	},
 	{
-		name: 'GenerateThemeBranding',
+		name: 'generateThemeBranding',
 		description:
-			'Public utility `GenerateThemeBranding` exported by `@atlassian/csm-colour-theme-generator/generate-theme-branding`.',
+			'Public utility `generateThemeBranding` exported by `@atlassian/csm-colour-theme-generator/generate-theme-branding`.',
 		status: 'general-availability',
 		usageGuidelines: [
 			'Import from this explicit public entrypoint rather than a source-internal path.',
@@ -6618,9 +6618,9 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		definition: "'PORTAL' | 'HELP_CENTER'",
 	},
 	{
-		name: 'GenerateThemeBranding',
+		name: 'generateThemeBranding',
 		description:
-			'Public utility `GenerateThemeBranding` exported by `@atlassian/csm-widget-ui-components/generate-theme-branding`.',
+			'Public utility `generateThemeBranding` exported by `@atlassian/csm-widget-ui-components/generate-theme-branding`.',
 		status: 'general-availability',
 		usageGuidelines: [
 			'Import from this explicit public entrypoint rather than a source-internal path.',
@@ -6956,7 +6956,7 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		examples: [],
 		kind: 'type',
 		definition:
-			'{ site: string; siteId: string; cloudId?: string; widgetId: string; authenticate?: (() => Promise<{ accessToken: string } | { access_token: string } | null | undefined>) | null; userId?: string; conversationContext?: Record<string, unknown>; locale?: string }',
+			'{ site: string; siteId: string; cloudId?: string; widgetId: string; authenticate?: (() => Promise<{ accessToken: string | null | undefined } | { access_token: string | null | undefined } | null | undefined>) | null; userId?: string; conversationContext?: Record<string, unknown>; locale?: string }',
 	},
 	{
 		name: 'createRovoDevQuickInsertProvider',
@@ -13015,6 +13015,19 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		kind: 'type',
 	},
 	{
+		name: 'AgentProfileVersionType',
+		description:
+			'String alias exported by `@atlassian/studio-agent-profile/agent-profile-entrypoint`; it is a type, not a renderable component.',
+		status: 'general-availability',
+		usageGuidelines: ['Import with `import type` when annotating version-type values.'],
+		keywords: ['studio', 'rovo', 'agent', 'version'],
+		category: 'studio',
+		package: '@atlassian/studio-agent-profile',
+		examples: [],
+		kind: 'type',
+		definition: 'string',
+	},
+	{
 		name: 'AgentProfileWebSearchToggleSlotProps',
 		description:
 			'Public utility `AgentProfileWebSearchToggleSlotProps` exported by `@atlassian/studio-agent-profile/agent-profile-components`.',
@@ -13283,6 +13296,19 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		package: '@atlassian/studio-agent-profile',
 		examples: [],
 		kind: 'type',
+	},
+	{
+		name: 'ProfileCoverStyle',
+		description:
+			'Union of supported profile cover styles, used by the `coverStyle` prop on `ProfileCover`.',
+		status: 'general-availability',
+		usageGuidelines: ['Import with `import type` when annotating the `coverStyle` prop.'],
+		keywords: ['studio', 'rovo', 'agent', 'profile', 'cover'],
+		category: 'studio',
+		package: '@atlassian/studio-agent-profile',
+		examples: [],
+		kind: 'type',
+		definition: "'grid' | 'gradient'",
 	},
 	{
 		name: 'ProfileDescriptionProps',

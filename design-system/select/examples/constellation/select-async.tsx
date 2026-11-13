@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Label } from '@atlaskit/form/label/default';
-import Select from '@atlaskit/select/default';
+import AsyncSelect from '@atlaskit/select/async-select';
 import { type OptionsType } from '@atlaskit/select/types';
 
 import { cities } from '../common/data';
@@ -20,7 +20,7 @@ const WithPromises = () => {
 	return (
 		<>
 			<Label htmlFor="async-select-example">What city do you live in?</Label>
-			<Select
+			<AsyncSelect
 				inputId="async-select-example"
 				cacheOptions
 				defaultOptions

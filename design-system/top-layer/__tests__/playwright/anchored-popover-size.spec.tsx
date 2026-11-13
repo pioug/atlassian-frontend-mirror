@@ -46,11 +46,6 @@ type TFixtureParams = {
 	align?: 'start' | 'center' | 'end';
 	inlineSize?: 'content' | 'match-anchor' | 'min-anchor' | 'max-available';
 	blockSize?: 'content' | 'match-anchor' | 'min-anchor' | 'max-available';
-	/**
-	 * `placement.minSize`. Omitted lets the default flip floor apply; `0` is the
-	 * opt-out.
-	 */
-	minSize?: number;
 	triggerBlockStart?: number;
 	triggerInlineStart?: number;
 	triggerBlockSize?: number;
@@ -378,52 +373,6 @@ FLIP_THRESHOLD_CASES.forEach(({ name, cell, expectFlip, expectFlipWithContentSiz
 	});
 });
 
-test('minSize: 0 caps the popover in place instead of moving it', async ({
-	page,
-	skipAxeCheck,
-}) => {
-	skipAxeCheck();
-
-	// `minSize: 0` wins over rule 2's default, and with no floor the clamped
-	// popover never overflows its cell. Same geometry as the flipping case above,
-	// so `minSize` is the only difference.
-	await openFixture({
-		page,
-		params: {
-			blockSize: 'max-available',
-			minSize: 0,
-			triggerBlockStart: 320,
-			triggerInlineStart: 160,
-			contentBlockSize: 300,
-			contentInlineSize: 100,
-		},
-	});
-
-	await expectGeometry({
-		page,
-		assert: (geometry) => {
-			const { trigger, host, viewport, isCssAnchorPositioning } = geometry;
-			expectOnScreen(geometry);
-
-			if (!isCssAnchorPositioning) {
-				expect(host.height).toBeLessThanOrEqual(
-					viewportCap({ extent: viewport.height }) + TOLERANCE,
-				);
-				return;
-			}
-
-			const cellBelow = viewport.height - (trigger.y + trigger.height);
-			// With the default floor this cell is too small and the popover flips.
-			expect(MINIMUM_MARGIN_BOX).toBeGreaterThan(cellBelow);
-
-			expect(host.y).toBeGreaterThanOrEqual(trigger.y + trigger.height - TOLERANCE);
-			const expected = expectedFittedSize({ cell: cellBelow, content: 300, floor: 0 });
-			expect(Math.abs(host.height - expected)).toBeLessThanOrEqual(TOLERANCE);
-			expect(host.height).toBeLessThan(FALLBACK_MINIMUM_MAIN_AXIS_SIZE);
-		},
-	});
-});
-
 /**
  * The floor is the ANCHOR's size when the placement axis is anchor-relative, not
  * 150px. Do not reintroduce `max(150px, anchor-size(…))`: the 150px term only won
@@ -551,25 +500,23 @@ ANCHOR_FLIP_THRESHOLD_CASES.forEach(({ name, cell, expectFlip }) => {
 });
 
 /**
- * The cap is per-axis, and the mirror decides which axis gets the cell. The two
- * tests below are the same fixture with ONE parameter changed, and in both the
- * inline axis asks to fit and is the CROSS axis of a block placement:
+ * The cap is per-axis, and the mirror decides which axis gets the cell. In both
+ * tests below the inline axis asks to fit and is the CROSS axis of a block
+ * placement, and the trigger and content are the same:
  *
  * - `blockSize: 'content'`: rule 1 fills it, so the block axis takes the CELL cap
  *   and letterboxes in place.
  * - `blockSize: 'match-anchor'`: rule 1 skips an explicit value, so it keeps only
  *   the viewport backstop, exceeds the cell, and moves instead.
  *
- * `minSize: 0` in both, because a floor beats a max: at the default floor both
- * cases come out at 150px and the two caps are indistinguishable.
+ * The trigger is in a different place in each. A fitting popover always has a
+ * flip floor, and on the smaller of the two cells that floor makes tall content
+ * move. So the `'content'` case opens into the roomier cell, which holds the
+ * floor, and the cap alone sets the height.
  */
 const PER_AXIS_CAP_PARAMS = {
 	inlineSize: 'max-available',
-	minSize: 0,
-	// 120px tall, so the anchor's block size is clear of both the 80px cell below
-	// it and the 67px that cell's cap would allow.
 	triggerBlockSize: 120,
-	triggerBlockStart: 200,
 	triggerInlineStart: 300,
 	triggerInlineSize: 80,
 	// Taller than the anchor, so a height equal to the anchor is not the content.
@@ -586,13 +533,15 @@ test('the mirror fills a content block axis, which then takes the CELL cap and s
 	await openFixture({
 		page,
 		viewport: WIDE_VIEWPORT,
-		params: { ...PER_AXIS_CAP_PARAMS, blockSize: 'content' },
+		// A 240px cell below and a 40px cell above, so the cell below is the roomier
+		// one and holds the default floor.
+		params: { ...PER_AXIS_CAP_PARAMS, triggerBlockStart: 40, blockSize: 'content' },
 	});
 
 	await expectGeometry({
 		page,
 		assert: (geometry) => {
-			const { trigger, host, viewport, isCssAnchorPositioning } = geometry;
+			const { trigger, host, viewport, isCssAnchorPositioning, isContentSizedFloor } = geometry;
 			expectOnScreen(geometry);
 
 			if (!isCssAnchorPositioning) {
@@ -604,11 +553,25 @@ test('the mirror fills a content block axis, which then takes the CELL cap and s
 			}
 
 			const cellBelow = viewport.height - (trigger.y + trigger.height);
+			const floor = defaultFloorFor({
+				content: PER_AXIS_CAP_PARAMS.contentBlockSize,
+				isContentSizedFloor,
+				viewportExtent: viewport.height,
+				anchorExtent: trigger.height,
+			});
+			// Restated from the geometry: the floor fits the cell, so it does not move
+			// the popover, and the cap is what sets the height.
+			expect(marginBoxAround({ size: floor })).toBeLessThanOrEqual(cellBelow);
+
 			// Capped to the cell, not the viewport: a viewport cap would let the 300px
 			// content run past the bottom of the screen.
-			const expected = expectedFittedSize({ cell: cellBelow, content: 300, floor: 0 });
+			const expected = expectedFittedSize({
+				cell: cellBelow,
+				content: PER_AXIS_CAP_PARAMS.contentBlockSize,
+				floor,
+			});
 			expect(Math.abs(host.height - expected)).toBeLessThanOrEqual(TOLERANCE);
-			expect(host.height).toBeLessThan(viewportCap({ extent: viewport.height }));
+			expect(host.height).toBeLessThan(PER_AXIS_CAP_PARAMS.contentBlockSize - TOLERANCE);
 
 			// A clamped popover's margin box is exactly its cell, so nothing moves it.
 			expect(host.y).toBeGreaterThanOrEqual(trigger.y + trigger.height - TOLERANCE);
@@ -625,7 +588,9 @@ test('an explicit match-anchor block axis keeps the viewport backstop, so it ove
 	await openFixture({
 		page,
 		viewport: WIDE_VIEWPORT,
-		params: { ...PER_AXIS_CAP_PARAMS, blockSize: 'match-anchor' },
+		// An 80px cell below and a 200px cell above. The 120px anchor is taller than
+		// both the cell below and the 67px that its cap would allow.
+		params: { ...PER_AXIS_CAP_PARAMS, triggerBlockStart: 200, blockSize: 'match-anchor' },
 	});
 
 	await expectGeometry({
@@ -646,83 +611,6 @@ test('an explicit match-anchor block axis keeps the viewport backstop, so it ove
 			expect(marginBoxAround({ size: host.height })).toBeGreaterThan(cellBelow);
 			expect(host.y + host.height).toBeLessThanOrEqual(trigger.y + TOLERANCE);
 		},
-	});
-});
-
-/**
- * `placement.minSize` COMPOSES with the anchor floor through `max()`, not
- * first-wins. The two cases put `minSize` either side of the 120px anchor, so the
- * operator is under test rather than one lucky number. First-wins returned 40px,
- * which was a `<DropdownMenu shouldFitContainer minSize={40}>` on a wide trigger
- * silently dropping its "at least as wide as the trigger" contract.
- *
- * Four outcomes are distinguishable: 20px content, 40px, 120px anchor, 200px
- * `minSize`. Nothing is fitting, so the floor is the sole author of the height.
- */
-const MIN_SIZE_COMPOSITION_CASES = [
-	{
-		name: 'a minSize UNDER the anchor floor leaves the anchor floor standing',
-		minSize: 40,
-		expectAnchorWins: true,
-	},
-	{
-		name: 'a minSize OVER the anchor floor wins the max()',
-		minSize: 200,
-		expectAnchorWins: false,
-	},
-] as const;
-
-/**
- * Smaller than every candidate floor, so no result can be the content's height.
- */
-const COMPOSITION_CONTENT_BLOCK_SIZE = 20;
-
-MIN_SIZE_COMPOSITION_CASES.forEach(({ name, minSize, expectAnchorWins }) => {
-	test(`minSize composes with the anchor floor: ${name}`, async ({ page, skipAxeCheck }) => {
-		skipAxeCheck();
-
-		await openFixture({
-			page,
-			viewport: WIDE_VIEWPORT,
-			params: {
-				blockSize: 'min-anchor',
-				minSize,
-				// High enough that the 240px cell below holds the tallest case, so
-				// the height is a floor rather than a cell.
-				triggerBlockStart: 40,
-				triggerBlockSize: 120,
-				triggerInlineStart: 300,
-				triggerInlineSize: 80,
-				contentBlockSize: COMPOSITION_CONTENT_BLOCK_SIZE,
-				contentInlineSize: 100,
-			},
-		});
-
-		await expectGeometry({
-			page,
-			assert: (geometry) => {
-				const { trigger, host } = geometry;
-				expectOnScreen(geometry);
-
-				const composed = Math.max(minSize, trigger.height);
-				expect(Math.abs(host.height - composed)).toBeLessThanOrEqual(TOLERANCE);
-
-				// Restate which term won, so a failure names the semantics.
-				expect(trigger.height > minSize).toBe(expectAnchorWins);
-				if (expectAnchorWins) {
-					// The assertion that fails under the old first-wins chain.
-					expect(host.height).toBeGreaterThan(minSize + TOLERANCE);
-				} else {
-					expect(host.height).toBeGreaterThan(trigger.height + TOLERANCE);
-				}
-
-				// Neither answer is the content, so a floor is the author of the height.
-				expect(host.height).toBeGreaterThan(COMPOSITION_CONTENT_BLOCK_SIZE + TOLERANCE);
-
-				// There is room below for the whole margin box, so nothing moved it.
-				expect(host.y).toBeGreaterThanOrEqual(trigger.y + trigger.height - TOLERANCE);
-			},
-		});
 	});
 });
 

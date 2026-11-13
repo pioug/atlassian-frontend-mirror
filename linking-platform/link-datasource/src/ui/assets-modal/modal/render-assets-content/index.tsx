@@ -150,6 +150,7 @@ export const RenderAssetsContent = (props: RenderAssetsContentProps): JSX.Elemen
 					onNextPage={onNextPage}
 					onLoadDatasourceDetails={loadDatasourceDetails}
 					onVisibleColumnKeysChange={onVisibleColumnKeysChange}
+					isColumnReorderEnabled={fg('astral_assets_macro_table_ui_coloumn_reorder')}
 				/>
 			</div>
 		),

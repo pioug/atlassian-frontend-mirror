@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* oxlint-disable eslint-core-js/global-require -- Existing file-level ESLint disable uses original core rule IDs; Oxlint JS plugins report namespaced IDs. */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable import/no-dynamic-require */
 /* eslint-disable no-console */

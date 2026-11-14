@@ -1,7 +1,15 @@
 import type * as ESTree from 'eslint-codemod-utils';
-import { type Node as SelectorNode } from 'postcss-selector-parser';
 
 type Range = [number, number];
+
+/**
+ * Structural stand-in for postcss-selector-parser's Node. Avoid importing that
+ * Node type — under TSRS it expands into an infinite Container/Diff cycle.
+ */
+type SelectorNodeWithValue = {
+	sourceIndex: number;
+	value: string;
+};
 
 export function getRangeFromNode({
 	node,
@@ -10,7 +18,7 @@ export function getRangeFromNode({
 	/**
 	 * The selector AST node to get the range of.
 	 */
-	node: SelectorNode & { value: string };
+	node: SelectorNodeWithValue;
 	/**
 	 * The source ESTree node whose value was parsed to obtain the selector AST.
 	 *

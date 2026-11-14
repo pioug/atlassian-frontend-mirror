@@ -367,7 +367,7 @@ const TimePicker: React.ForwardRefExoticComponent<
 
 		const isInputMotionEnabled = fg('platform-dst-motion-uplift-input');
 
-		const mergedStyles = mergeStyles<OptionType, boolean, GroupType<OptionType>>(selectStyles, {
+		const mergedStyles = mergeStyles<OptionType, false, GroupType<OptionType>>(selectStyles, {
 			control: (base) => ({
 				...base,
 				...(isInputMotionEnabled && !isDisabled

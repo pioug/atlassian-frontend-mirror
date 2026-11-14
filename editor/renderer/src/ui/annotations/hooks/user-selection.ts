@@ -1,5 +1,6 @@
 import { useEffect, useRef, useCallback } from 'react';
 
+import { expVal } from '@atlaskit/platform-feature-experiments/exp-val';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { useAnnotationManagerDispatch } from '../contexts/AnnotationManagerContext';
@@ -26,6 +27,12 @@ export const useUserSelectionRange = (
 	const { annotationManager } = useAnnotationManagerDispatch();
 	const lastRangeRef = useRef<Range | null>(null);
 	const isAnnotationManagerEnabled = !!annotationManager;
+
+	useEffect(() => {
+		if (!range && expVal('confluence_comments_nudge_selection_readiness', 'isEnabled', false)) {
+			lastRangeRef.current = null;
+		}
+	}, [range]);
 
 	const onSelectionChange = useCallback(
 		(_event: Event) => {

@@ -1,5 +1,5 @@
 import type { Property } from 'estree';
-import { isNesting, isPseudo, type Selector } from 'postcss-selector-parser';
+import { isNesting, isPseudo } from 'postcss-selector-parser';
 
 import { importSources } from '@atlaskit/eslint-utils/schema';
 
@@ -47,14 +47,16 @@ const getCssSelector = (rawKey: Property['key']): string | null => {
 	return null;
 };
 
-function isAllowedSelector(selector: Selector): boolean {
+function isAllowedSelector(selector: { nodes: unknown[] }): boolean {
 	const [head, ...tail] = selector.nodes;
 
 	// The first node must be a nesting selector (`&`) or pseudo-selector.
-	const isHeadAllowed = isNesting(head) || isPseudo(head);
+	const isHeadAllowed =
+		isNesting(head as Parameters<typeof isNesting>[0]) ||
+		isPseudo(head as Parameters<typeof isPseudo>[0]);
 
 	// All remaining nodes must be pseudo selectors.
-	const isTailAllowed = tail.every(isPseudo);
+	const isTailAllowed = tail.every((node) => isPseudo(node as Parameters<typeof isPseudo>[0]));
 
 	return isHeadAllowed && isTailAllowed;
 }

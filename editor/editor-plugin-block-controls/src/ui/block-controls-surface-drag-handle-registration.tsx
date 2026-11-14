@@ -20,8 +20,8 @@ export const getBlockControlsSurfaceDragHandleComponents = ({
 		component: ({ surfaceContext }) => (
 			<BlockControlsSurfaceDragHandle api={api} surfaceContext={surfaceContext} />
 		),
-		isHidden: ({ surfaceContext } = {}) => {
-			const context = surfaceContext?.get(BLOCK_CONTROL_UI_CONTEXT);
+		isHidden: (ctx) => {
+			const context = ctx?.surfaceContext?.get(BLOCK_CONTROL_UI_CONTEXT);
 			return (
 				api?.editorViewMode?.sharedState.currentState()?.mode === 'view' ||
 				!context?.activeNode ||

@@ -18,14 +18,17 @@ const loadingStyles = css({
 export type LoadingProps = {
 	dimensions: MediaSvgProps['dimensions'];
 };
-export const Loading = ({ dimensions: { width, height } = {} }: LoadingProps): JSX.Element => (
-	<span
-		data-testid={'media-svg-loading'}
-		role="status"
-		css={loadingStyles}
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-		style={{ width, height }}
-	>
-		<Spinner />
-	</span>
-);
+export const Loading = ({ dimensions }: LoadingProps): JSX.Element => {
+	const { width, height } = dimensions ?? {};
+	return (
+		<span
+			data-testid={'media-svg-loading'}
+			role="status"
+			css={loadingStyles}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+			style={{ width, height }}
+		>
+			<Spinner />
+		</span>
+	);
+};

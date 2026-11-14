@@ -140,7 +140,7 @@ const DatePicker: React.ForwardRefExoticComponent<
 		onFocus = (_event: React.FocusEvent<HTMLInputElement>) => {},
 		/* eslint-enable @repo/internal/react/use-noop */
 		selectProps = {},
-		shouldShowCalendarButton,
+		shouldShowCalendarButton = fg('platform-dst-calendar-button-default'),
 		spacing = 'default' as Spacing,
 		locale: propLocale = 'en-US',
 		value: propValue,

@@ -3,7 +3,7 @@
  *
  * Structured content utilities from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::89ae38c2ea61775c59f673010b2013ea>>
+ * @codegen <<SignedSource::8681804a8b982f59597ba638f8c6d2bf>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -6787,15 +6787,16 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 	},
 	{
 		name: 'CSMEmbed',
-		description: 'Deprecated compatibility alias for the internal CSMInlineWidget controller.',
+		description: 'Internal controller returned by the legacy embeddableWidget API.',
 		status: 'general-availability',
-		usageGuidelines: ['Prefer CSMInlineWidget for legacy instance types.'],
+		usageGuidelines: ['Use only with the legacy embeddableWidget API.'],
 		keywords: ['rovo', 'csm', 'embedded widget', 'deprecated'],
 		category: 'rovo',
 		package: '@atlassian/customer-service-management-widget-sdk-types',
 		examples: [],
 		kind: 'type',
-		definition: 'CSMInlineWidget',
+		definition:
+			'{ createNewConversation: (params?: CreateNewConversationParams) => void; getCurrentConversation: () => Promise<Conversation | null>; on(event: string, cb: (...args: any[]) => void): void; getConversation(options: { conversationId: string }): Promise<Conversation | null> }',
 	},
 	{
 		name: 'CSMError',
@@ -6826,18 +6827,17 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 	},
 	{
 		name: 'CSMInlineWidget',
-		description: 'Internal controller returned by the legacy embeddableWidget API.',
+		description: 'Public handle returned immediately by inlineWidget.',
 		status: 'general-availability',
 		usageGuidelines: [
-			'Use only with the legacy embeddableWidget API; inlineWidget exposes no instance methods.',
+			'Call destroy to permanently remove this inline widget, including during initialization.',
 		],
 		keywords: ['rovo', 'csm', 'embedded widget', 'controller'],
 		category: 'rovo',
 		package: '@atlassian/customer-service-management-widget-sdk-types',
 		examples: [],
 		kind: 'type',
-		definition:
-			'{ createNewConversation: (params?: CreateNewConversationParams) => void; getCurrentConversation: () => Promise<Conversation | null>; on(event: string, cb: (...args: any[]) => void): void; getConversation(options: { conversationId: string }): Promise<Conversation | null> }',
+		definition: '{ destroy(): void }',
 	},
 	{
 		name: 'CSMSDK',
@@ -6847,7 +6847,7 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		usageGuidelines: [
 			'Use widget for the supported floating experience.',
 			'Use inlineWidget to create an inline widget; embeddableWidget remains as a deprecated method for existing integrations.',
-			'inlineWidget returns void and exposes no instance methods, userId, or debug callback.',
+			'inlineWidget returns a CSMInlineWidget handle exposing destroy; it does not expose userId or a debug callback.',
 			'Each inline load starts a new conversation without reading or changing legacy saved conversations.',
 		],
 		keywords: ['rovo', 'csm', 'sdk', 'widget'],
@@ -6856,7 +6856,7 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		examples: [],
 		kind: 'type',
 		definition:
-			'{ (...args: SDKCommandArgs): void; widget: (config: FloatingWidgetConfig) => Promise<CSMError | void>; inlineWidget: (config: InlineWidgetConfig) => void; embeddableWidget: (target: HTMLElement, config: WidgetConfig, options?: { debug?: (message: string) => void }) => Promise<CSMInlineWidget | CSMError> }',
+			'{ (...args: SDKCommandArgs): void; widget: (config: FloatingWidgetConfig) => Promise<CSMError | void>; inlineWidget: (config: InlineWidgetConfig) => CSMInlineWidget; embeddableWidget: (target: HTMLElement, config: WidgetConfig, options?: { debug?: (message: string) => void }) => Promise<CSMEmbed | CSMError> }',
 	},
 	{
 		name: 'CSMSDKQueue',

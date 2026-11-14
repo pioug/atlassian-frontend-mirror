@@ -1,5 +1,13 @@
 # @atlaskit/media-card
 
+## 82.3.6
+
+### Patch Changes
+
+- [`49e9b34e717e4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/49e9b34e717e4) -
+  Use an inset focus ring behind platform_media_card_focus_indicator_inset_fix so clipped Media
+  Cards keep a visible keyboard focus indicator.
+
 ## 82.3.5
 
 ### Patch Changes

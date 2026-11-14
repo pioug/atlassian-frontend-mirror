@@ -34,9 +34,14 @@
 		"**/stories/*.ts",
 		"**/stories/*.tsx",
 		"**/stories/**/*.ts",
-		"**/stories/**/*.tsx"
+		"**/stories/**/*.tsx",
+		"./src/**/*.json"
 	],
-	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
+	"exclude": [
+		"./dist/**/*",
+		"./build/**/*",
+		"./node_modules/**/*"
+	],
 	"compilerOptions": {
 		"disableReferencedProjectLoad": true,
 		"disableSolutionSearching": true,

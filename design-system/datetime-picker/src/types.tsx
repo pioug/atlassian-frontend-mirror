@@ -236,7 +236,7 @@ export interface DatePickerBaseProps extends WithAnalyticsEventsProps, PickerSel
 	 * `inputLabel`, or `inputLabelId` props, along with the `openCalendarLabel`
 	 * prop.
 	 *
-	 * @default false
+	 * @default Controlled by the `platform-dst-calendar-button-default` feature flag.
 	 */
 	shouldShowCalendarButton?: boolean;
 	/**

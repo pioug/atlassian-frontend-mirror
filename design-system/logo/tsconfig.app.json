@@ -32,7 +32,8 @@
 		"**/stories/**/*.ts",
 		"**/stories/**/*.tsx",
 		"./build/*.tsx",
-		"./build/generators/*.tsx"
+		"./build/generators/*.tsx",
+		"./package.json"
 	],
 	"exclude": [],
 	"compilerOptions": {

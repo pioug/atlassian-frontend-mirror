@@ -3,6 +3,8 @@ import React from 'react';
 import { screen, render, fireEvent, act, waitFor, renderHook } from '@testing-library/react';
 
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 
 import { AnnotationRangeProvider } from '../../../contexts/AnnotationRangeContext';
 import type { Position } from '../../../types';
@@ -199,6 +201,33 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 				expect(result.current).toEqual(['selection', myFakeValidRange, null, expect.any(Function)]);
 			});
 		});
+
+		it.each([true, false])(
+			'republishes a cleared identical selection only with readiness enabled: %s',
+			(enabled) => {
+				if (enabled) {
+					mockExpEnabled('confluence_comments_nudge_selection_readiness');
+				} else {
+					mockExpDisabled('confluence_comments_nudge_selection_readiness');
+				}
+				const text = document.createTextNode('Repeated selection');
+				rendererDOM.appendChild(text);
+				myFakeValidRange.selectNodeContents(rendererDOM);
+				const { result } = renderHook(() => useUserSelectionRange({ rendererRef: fakeRef }), {
+					wrapper,
+				});
+				dispatchSelectionChange();
+				expect(result.current[1]).not.toBeNull();
+				act(() => result.current[3]());
+				expect(result.current[1]).toBeNull();
+				dispatchSelectionChange();
+				if (enabled) {
+					expect(result.current[1]).not.toBeNull();
+				} else {
+					expect(result.current[1]).toBeNull();
+				}
+			},
+		);
 
 		describe('triple click', () => {
 			const setupRenderer = () => {

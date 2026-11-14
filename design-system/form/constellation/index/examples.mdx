@@ -15,6 +15,7 @@ import FormSelect from '../../examples/constellation/form-select.tsx';
 import FormCheckboxField from '../../examples/constellation/form-checkbox-field.tsx';
 import FormFieldset from '../../examples/constellation/form-fieldset.tsx';
 import FormModalDialog from '../../examples/constellation/form-modal.tsx';
+import FormDangerousAction from '../../examples/constellation/form-dangerous-action.tsx';
 import FormRangeField from '../../examples/constellation/form-range-field.tsx';
 import FormLayout from '../../examples/constellation/form-layout.tsx';
 import FormMessageLabelsI18n from '../../examples/constellation/form-message-labels-i18n.tsx';
@@ -406,6 +407,18 @@ secondary button.
 
 <Example
 	Component={FormModalDialog}
+	packageName="@atlaskit/form"
+	featureFlagSwitchers={['motionInput']}
+/>
+
+### Dangerous actions
+
+For a destructive action, use a confirmation dialog that clearly explains the consequence and
+requires an explicit final confirmation. Keep the Cancel and primary action buttons enabled; on
+submit, show validation feedback when confirmation is missing.
+
+<Example
+	Component={FormDangerousAction}
 	packageName="@atlaskit/form"
 	featureFlagSwitchers={['motionInput']}
 />

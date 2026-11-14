@@ -1,5 +1,15 @@
 # @atlaskit/datetime-picker
 
+## 19.5.0
+
+### Minor Changes
+
+- [`af3af90c9bb80`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/af3af90c9bb80) -
+  [ux] Add `platform-dst-calendar-button-default`, which shows the calendar button by default when
+  enabled. The included codemod preserves existing behavior for statically analyzable prop shapes.
+  Calls with an unknown JSX spread or non-object `datePickerProps` need manual review to retain the
+  legacy hidden-button behavior.
+
 ## 19.4.5
 
 ### Patch Changes

@@ -3,7 +3,7 @@
  *
  * Structured content components from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::794c4f7233aa76bc963c500c777994ed>>
+ * @codegen <<SignedSource::dede4f54e1286680f7f975b10ae6ee20>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -7150,7 +7150,8 @@ export const components: ComponentMcpPayload[] = [
 			{
 				name: 'as',
 				type: 'T | undefined',
-				description: 'The DOM element to render as the Focusable element.',
+				description:
+					'The DOM element to render as the Focusable element.\nExplicit `as` values exclude native anchors and buttons. Use Anchor for links and Pressable\nfor buttons. Supported values are intrinsic element tags, not arbitrary React components.',
 				defaultValue: "'button'",
 			},
 			{

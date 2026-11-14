@@ -22,8 +22,8 @@ export const getBlockControlQuickInsertComponents = ({
 		key: 'block-controls-quick-insert',
 		type: 'button',
 		parents: [{ ...BLOCK_CONTROLS_LEFT_GROUP, rank: 100 }],
-		isHidden: ({ surfaceContext } = {}) => {
-			const context = surfaceContext?.get(BLOCK_CONTROL_UI_CONTEXT);
+		isHidden: (ctx) => {
+			const context = ctx?.surfaceContext?.get(BLOCK_CONTROL_UI_CONTEXT);
 			return (
 				api?.editorViewMode?.sharedState.currentState()?.mode === 'view' ||
 				!context?.activeNode ||

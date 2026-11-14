@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 7.13.3
+
+### Patch Changes
+
+- [`214ee2dfe58d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/214ee2dfe58d3) -
+  Column picker shows a drag handle on selected options and a dashed separator between selected and
+  unselected options behind the astral_assets_macro_table_ui_coloumn_reorder feature gate
+
 ## 7.13.2
 
 ### Patch Changes

@@ -128,8 +128,8 @@ function ContentComponent({
 	);
 }
 
-export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
-	config: {
+export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({ config: options = {}, api }) => {
+	const {
 		allowNestedTasks,
 		consumeTabs,
 		useLongPressSelection,
@@ -140,9 +140,7 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 		taskDecisionProvider,
 		taskPlaceholder,
 		allowBlockTaskItem,
-	} = {},
-	api,
-}) => {
+	} = options;
 	const getIdentifierProvider = () =>
 		api?.contextIdentifier?.sharedState.currentState()?.contextIdentifierProvider;
 	let previousTaskAndDecisionProvider: TaskDecisionProvider | undefined;
@@ -180,7 +178,8 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 					TRANSFORM_STRUCTURE_TASK_LIST_MENU_ITEM.key
 				],
 			},
-			component: ({ isSuggested }: BlockMenuItemComponentProps = {}) => {
+			component: (props: BlockMenuItemComponentProps = {}) => {
+				const { isSuggested } = props;
 				return <TaskListBlockMenuItem api={api} isSuggested={isSuggested} />;
 			},
 			isHidden: () =>
@@ -196,7 +195,8 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({
 					TRANSFORM_STRUCTURE_DECISION_MENU_ITEM.key
 				],
 			},
-			component: ({ isSuggested }: BlockMenuItemComponentProps = {}) => {
+			component: (props: BlockMenuItemComponentProps = {}) => {
+				const { isSuggested } = props;
 				return <DecisionListBlockMenuItem api={api} isSuggested={isSuggested} />;
 			},
 			isHidden: () =>

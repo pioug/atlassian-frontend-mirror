@@ -4,7 +4,25 @@ import cssSelectorParser from 'postcss-selector-parser';
 import { getSourceCode } from '@atlaskit/eslint-utils/context-compat';
 
 const cssSelectorProcessor: ReturnType<typeof cssSelectorParser> = cssSelectorParser();
-type ParsedSelector = ReturnType<typeof cssSelectorProcessor.astSync>;
+
+/**
+ * Structural stand-in for postcss-selector-parser's Root AST. Avoid returning the
+ * library's Selector/Container types — under TSRS they expand into an infinite cycle.
+ */
+export type ParsedSelector = {
+	nodes: Array<{
+		nodes: unknown[];
+		first: {
+			type: string;
+			sourceIndex: number;
+			value: string;
+			prev: () => unknown;
+			next: () => unknown;
+		};
+		walk: (callback: (node: unknown) => false | undefined) => void;
+	}>;
+};
+
 const selectorCache = new WeakMap<object, Map<string, ParsedSelector>>();
 
 /**
@@ -23,7 +41,7 @@ export function parseSelector(context: Rule.RuleContext, selectorText: string): 
 		return cachedSelector;
 	}
 
-	const selector = cssSelectorProcessor.astSync(selectorText);
+	const selector = cssSelectorProcessor.astSync(selectorText) as unknown as ParsedSelector;
 	sourceFileCache.set(selectorText, selector);
 	return selector;
 }

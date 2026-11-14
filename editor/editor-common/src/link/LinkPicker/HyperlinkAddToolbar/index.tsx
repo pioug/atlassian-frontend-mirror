@@ -61,11 +61,7 @@ const onSubmitInterface =
 	};
 
 export function HyperlinkAddToolbar({
-	linkPickerOptions: {
-		popupWidth: _popupWidth,
-		popupHeight: _popupHeight,
-		...linkPickerOptions
-	} = {},
+	linkPickerOptions: linkPickerOptionsProp = {},
 	onSubmit,
 	displayText,
 	displayUrl,
@@ -83,6 +79,11 @@ export function HyperlinkAddToolbar({
 	timesViewed,
 	isOffline,
 }: HyperlinkAddToolbarProps): React.JSX.Element {
+	const {
+		popupWidth: _popupWidth,
+		popupHeight: _popupHeight,
+		...linkPickerOptions
+	} = linkPickerOptionsProp;
 	const memoizedOnSubmitWithInterface = useMemo(() => onSubmitInterface(onSubmit), [onSubmit]);
 
 	const memoizedRenderNode = useCallback<(providers: Providers) => JSX.Element | null>(

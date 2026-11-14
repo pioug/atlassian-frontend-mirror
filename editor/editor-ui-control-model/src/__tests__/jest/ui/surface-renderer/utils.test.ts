@@ -365,9 +365,7 @@ describe('willComponentRender', () => {
 	it('passes immutable surface context through recursive visibility checks', () => {
 		const token = Symbol('visible') as ContextToken<boolean>;
 		const surfaceContext = createSurfaceContext(token, true);
-		const childIsHidden = jest.fn(
-			({ surfaceContext: receivedContext } = {}) => receivedContext?.get(token) !== true,
-		);
+		const childIsHidden = jest.fn((ctx) => ctx?.surfaceContext?.get(token) !== true);
 		const section: RegisterComponent = {
 			key: 'section',
 			type: 'section',

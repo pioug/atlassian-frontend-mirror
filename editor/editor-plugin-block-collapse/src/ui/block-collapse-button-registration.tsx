@@ -97,7 +97,8 @@ export const getBlockCollapseButtonComponents = ({
 		key: 'block-controls-collapse-heading',
 		type: 'button',
 		parents: [{ ...BLOCK_CONTROLS_LEFT_GROUP, rank: 300 }],
-		isHidden: ({ surfaceContext } = {}) => {
+		isHidden: (ctx) => {
+			const surfaceContext = ctx?.surfaceContext;
 			const context = surfaceContext?.get(BLOCK_CONTROL_UI_CONTEXT);
 			// Case 1: Hide the control unless it targets a top-level heading.
 			if (context?.targetNode.type.name !== 'heading' || context.targetNode.parentType !== 'doc') {

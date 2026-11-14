@@ -1,5 +1,14 @@
 # @atlaskit/renderer
 
+## 153.6.1
+
+### Patch Changes
+
+- [`b2fdfdb1b3d0f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2fdfdb1b3d0f) -
+  Reset annotation selection deduplication after the active selection clears behind the
+  `confluence_comments_nudge_selection_readiness` experiment (isEnabled: false), allowing the same
+  text to be selected again for inline comment creation.
+
 ## 153.6.0
 
 ### Minor Changes

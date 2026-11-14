@@ -1,21 +1,32 @@
 import type { Rule } from 'eslint';
 import type * as ESTree from 'eslint-codemod-utils';
-import {
-	isNesting,
-	isPseudo,
-	type Nesting,
-	type Pseudo,
-	type Selector,
-} from 'postcss-selector-parser';
+import { isNesting, isPseudo } from 'postcss-selector-parser';
 
 import { allowedPseudos } from './constants';
 import { getSourceLocationFromRange } from './get-source-location-from-range';
 import { getRangeFromNode } from './source-position-utils';
 
+/**
+ * Structural stand-ins for postcss-selector-parser types. Importing Selector /
+ * Pseudo / Nesting under TSRS expands into an infinite Container/Diff cycle.
+ */
+type SelectorNodeLike = {
+	type: string;
+	sourceIndex: number;
+	value: string;
+	prev: () => unknown;
+	next: () => unknown;
+};
+
+type SelectorLike = {
+	first: SelectorNodeLike;
+	walk: (callback: (node: unknown) => false | undefined) => void;
+};
+
 type CheckArgs = {
 	context: Rule.RuleContext;
 	sourceNode: ESTree.Node;
-	selector: Selector;
+	selector: SelectorLike;
 	config: { shouldAlwaysInsertNestingSelectorForAmbiguousPseudos: boolean };
 	isXcssCall: boolean;
 };
@@ -23,13 +34,13 @@ type CheckArgs = {
 export function lintSelector(args: CheckArgs): void {
 	checkNoAmbiguousPseudos(args);
 
-	const pseudos: Pseudo[] = [];
-	const nestings: Nesting[] = [];
+	const pseudos: SelectorNodeLike[] = [];
+	const nestings: SelectorNodeLike[] = [];
 	args.selector.walk((node) => {
-		if (isPseudo(node)) {
-			pseudos.push(node);
-		} else if (isNesting(node)) {
-			nestings.push(node);
+		if (isPseudo(node as Parameters<typeof isPseudo>[0])) {
+			pseudos.push(node as SelectorNodeLike);
+		} else if (isNesting(node as Parameters<typeof isNesting>[0])) {
+			nestings.push(node as SelectorNodeLike);
 		}
 	});
 
@@ -89,7 +100,10 @@ function checkNoAmbiguousPseudos({ context, sourceNode, selector, config, isXcss
 	}
 }
 
-function checkNoRestrictedPseudos({ context, sourceNode }: CheckArgs, pseudos: readonly Pseudo[]) {
+function checkNoRestrictedPseudos(
+	{ context, sourceNode }: CheckArgs,
+	pseudos: readonly SelectorNodeLike[],
+) {
 	for (const pseudo of pseudos) {
 		if (allowedPseudos.has(pseudo.value) || isInAllowedPseudoChain(pseudo)) {
 			continue;
@@ -125,13 +139,21 @@ function checkNoRestrictedPseudos({ context, sourceNode }: CheckArgs, pseudos: r
  * all allowed on their own, so a pseudo is also allowed when a run of adjacent pseudos containing
  * it matches an allowlisted chain.
  */
-function isInAllowedPseudoChain(pseudo: Pseudo): boolean {
-	const chain: Pseudo[] = [pseudo];
-	for (let node = pseudo.prev(); isPseudo(node); node = node.prev()) {
-		chain.unshift(node);
+function isInAllowedPseudoChain(pseudo: SelectorNodeLike): boolean {
+	const chain: SelectorNodeLike[] = [pseudo];
+	for (
+		let node = pseudo.prev();
+		isPseudo(node as Parameters<typeof isPseudo>[0]);
+		node = (node as SelectorNodeLike).prev()
+	) {
+		chain.unshift(node as SelectorNodeLike);
 	}
-	for (let node = pseudo.next(); isPseudo(node); node = node.next()) {
-		chain.push(node);
+	for (
+		let node = pseudo.next();
+		isPseudo(node as Parameters<typeof isPseudo>[0]);
+		node = (node as SelectorNodeLike).next()
+	) {
+		chain.push(node as SelectorNodeLike);
 	}
 	const index = chain.indexOf(pseudo);
 	for (let start = 0; start <= index; start++) {
@@ -155,7 +177,7 @@ function isInAllowedPseudoChain(pseudo: Pseudo): boolean {
  */
 function checkNoLegacyPseudoElementSyntax(
 	{ context, sourceNode }: CheckArgs,
-	pseudos: readonly Pseudo[],
+	pseudos: readonly SelectorNodeLike[],
 ) {
 	for (const pseudo of pseudos) {
 		if (legacyPseudoElements.has(pseudo.value)) {
@@ -175,13 +197,13 @@ function checkNoLegacyPseudoElementSyntax(
 
 function checkNoIncreasedSpecificity(
 	{ context, sourceNode }: CheckArgs,
-	nestings: readonly Nesting[],
+	nestings: readonly SelectorNodeLike[],
 ) {
 	for (const nesting of nestings) {
 		/**
 		 * If it's not the start of a chain, then it's already been reported.
 		 */
-		if (isNesting(nesting.prev())) {
+		if (isNesting(nesting.prev() as Parameters<typeof isNesting>[0])) {
 			continue;
 		}
 
@@ -191,14 +213,14 @@ function checkNoIncreasedSpecificity(
 		 * If it is followed by something other than another nesting selector,
 		 * then it isn't just there to increase specificity — it is actually necessary.
 		 */
-		if (next && !isNesting(next)) {
+		if (next && !isNesting(next as Parameters<typeof isNesting>[0])) {
 			continue;
 		}
 
 		let lastNesting = nesting;
-		while (isNesting(next)) {
-			lastNesting = next;
-			next = next.next();
+		while (isNesting(next as Parameters<typeof isNesting>[0])) {
+			lastNesting = next as SelectorNodeLike;
+			next = lastNesting.next();
 		}
 
 		const [start] = getRangeFromNode({ node: nesting, sourceNode });

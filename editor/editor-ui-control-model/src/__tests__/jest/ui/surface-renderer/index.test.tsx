@@ -370,10 +370,7 @@ describe('SurfaceRenderer', () => {
 			const componentProps = jest.fn((_props: Record<string, unknown>) => (
 				<div data-testid="context-item" />
 			));
-			const isHidden = jest.fn(
-				({ surfaceContext: receivedContext } = {}) =>
-					receivedContext?.get(token) !== 'surface value',
-			);
+			const isHidden = jest.fn((ctx) => ctx?.surfaceContext?.get(token) !== 'surface value');
 			const surface = createMenuSurface();
 			const components: RegisterComponent[] = [
 				surface,

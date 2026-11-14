@@ -14,7 +14,7 @@ export default function TestingTopLayerFocus(): React.ReactNode {
 		<Box padding="space.200">
 			<Stack space="space.100">
 				<Label htmlFor="date-picker">Date</Label>
-				<DatePicker testId="date-picker" id="date-picker" />
+				<DatePicker testId="date-picker" id="date-picker" shouldShowCalendarButton={false} />
 			</Stack>
 		</Box>
 	);

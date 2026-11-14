@@ -77,7 +77,7 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
 		} = props;
 
 		const internalSelectRef = useRef<BaseSelect | null>(null);
-		const consumerMenu: MenuComponent | undefined = components?.Menu;
+		const consumerMenu: MenuComponent | undefined = components?.Menu as MenuComponent | undefined;
 		// Inline mode keeps a consumer `Menu`, as popup mode does. Not gated: a callsite can pick
 		// inline mode with a gate client other than this package's, so both Select paths must
 		// keep it. Memoised on the Menu alone, so a new `components` object does not remount it.

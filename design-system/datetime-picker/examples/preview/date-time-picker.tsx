@@ -22,7 +22,10 @@ export default function Preview(): React.JSX.Element {
 			<Box testId="component-preview" xcss={styles.subject}>
 				<DateTimePicker
 					defaultValue="2026-06-14T09:30:00+10:00"
-					datePickerProps={{ label: 'Date' }}
+					datePickerProps={{
+						label: 'Date',
+						shouldShowCalendarButton: false,
+					}}
 					timePickerProps={{ label: 'Time' }}
 				/>
 			</Box>

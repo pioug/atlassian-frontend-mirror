@@ -28,8 +28,8 @@ import { defaultValue } from './default-value';
 // Only render at the doc-level root target, same predicate the real quick-insert contributor
 // uses. This keeps the button next to "+" at the top-level block even while a nested descendant
 // (e.g. inside a layout column or blockquote) is the one actually hovered.
-const isHiddenUnlessRootNode: RegisterButton['isHidden'] = ({ surfaceContext } = {}) => {
-	const context = surfaceContext?.get(BLOCK_CONTROL_UI_CONTEXT);
+const isHiddenUnlessRootNode: RegisterButton['isHidden'] = (ctx) => {
+	const context = ctx?.surfaceContext?.get(BLOCK_CONTROL_UI_CONTEXT);
 	return (
 		!context?.activeNode ||
 		context.targetNode.pos !== context.rootNode.pos ||
@@ -84,8 +84,8 @@ const exampleRightLongTextButton: RegisterButton = {
 			spacing="compact"
 		/>
 	),
-	isHidden: ({ surfaceContext } = {}) => {
-		const context = surfaceContext?.get(BLOCK_CONTROL_UI_CONTEXT);
+	isHidden: (ctx) => {
+		const context = ctx?.surfaceContext?.get(BLOCK_CONTROL_UI_CONTEXT);
 		return (
 			!context ||
 			context.targetNode.node.textContent.length < MIN_TEXT_LENGTH_FOR_LONG_TEXT_BUTTON ||

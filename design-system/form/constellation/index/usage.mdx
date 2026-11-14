@@ -72,6 +72,10 @@ Components that can be used within a form include
 - Never disable a submit button, even if all of the required fields aren't filled in. Instead,
   describe what needs to be done with clear instructions and
   [validation and error messages](#validation-and-error-messages).
+- For destructive actions, use a confirmation dialog that explains the consequence and requires an
+  explicit final confirmation, such as a checkbox or typed phrase. Keep the Cancel and primary
+  action buttons enabled, and show validation feedback if confirmation is missing. See the
+  [dangerous action confirmation example](/components/form/examples#dangerous-actions).
 - Use
   [standard HTML autofill tokens](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofilling-form-controls:-the-autocomplete-attribute)
   to reduce typing and user error by letting the browser suggest previously saved information.

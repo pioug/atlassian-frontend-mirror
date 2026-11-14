@@ -7,11 +7,16 @@ import { flushPopoverExit } from '@atlaskit/top-layer/testing/flush-popover-exit
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import DatePicker from '../../date-picker';
+import DateTimePicker from '../../date-time-picker';
 
 const topLayerStates = [false, true] as const;
 
 const setTopLayer = (enabled: boolean) => {
 	(enabled ? passGate : failGate)('platform-dst-top-layer');
+};
+
+const setCalendarButtonDefault = (enabled: boolean) => {
+	(enabled ? passGate : failGate)('platform-dst-calendar-button-default');
 };
 
 describe.each(topLayerStates)('public picker behaviour (top layer: %s)', (topLayerEnabled) => {
@@ -504,6 +509,73 @@ describe('top-layer focus when the calendar closes', () => {
 		act(() => input.focus());
 
 		expect(screen.getByRole('grid')).toBeVisible();
+	});
+});
+
+describe.each(topLayerStates)('calendar button default (top layer: %s)', (topLayerEnabled) => {
+	beforeEach(() => {
+		setTopLayer(topLayerEnabled);
+	});
+
+	it.each([false, true])(
+		'matches the calendar button default to the feature gate: %s',
+		(enabled) => {
+			setCalendarButtonDefault(enabled);
+			render(<DatePicker label="Appointment date" testId="date" />);
+
+			const calendarButton = screen.queryByTestId('date--open-calendar-button');
+			if (enabled) {
+				expect(calendarButton).toBeVisible();
+			} else {
+				expect(calendarButton).not.toBeInTheDocument();
+			}
+		},
+	);
+
+	it.each([false, true])(
+		'applies the feature-gated calendar button default to DateTimePicker: %s',
+		(enabled) => {
+			setCalendarButtonDefault(enabled);
+			render(
+				<DateTimePicker
+					datePickerProps={{ label: 'Appointment date', testId: 'date' }}
+					timePickerProps={{ label: 'Appointment time' }}
+				/>,
+			);
+
+			const calendarButton = screen.queryByTestId('date--open-calendar-button');
+			if (enabled) {
+				expect(calendarButton).toBeVisible();
+			} else {
+				expect(calendarButton).not.toBeInTheDocument();
+			}
+		},
+	);
+
+	it('preserves explicit hidden calendar buttons when the feature gate is enabled', () => {
+		setCalendarButtonDefault(true);
+		render(
+			<>
+				<DatePicker label="Default appointment date" testId="default-date" />
+				<DatePicker
+					label="Standalone appointment date"
+					shouldShowCalendarButton={false}
+					testId="standalone-date"
+				/>
+				<DateTimePicker
+					datePickerProps={{
+						label: 'Date and time appointment date',
+						shouldShowCalendarButton: false,
+						testId: 'date-time-date',
+					}}
+					timePickerProps={{ label: 'Appointment time' }}
+				/>
+			</>,
+		);
+
+		expect(screen.getByTestId('default-date--open-calendar-button')).toBeVisible();
+		expect(screen.queryByTestId('standalone-date--open-calendar-button')).not.toBeInTheDocument();
+		expect(screen.queryByTestId('date-time-date--open-calendar-button')).not.toBeInTheDocument();
 	});
 });
 

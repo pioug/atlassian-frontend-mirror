@@ -15,7 +15,6 @@ import { APIError } from '@atlaskit/linking-common/api-error';
 import type { CardState } from '@atlaskit/linking-common/store';
 import type { MetadataStatus } from '@atlaskit/linking-common/types';
 import { getStatus } from '@atlaskit/linking-common/utils/get-status';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { SmartLinkStatus } from '../../../constants';
 import { getUnauthorizedJsonLd } from '../../../utils/get-unauthorized-json-ld';
@@ -121,8 +120,7 @@ const useResponse = (): {
 			 * - Explicit reload: allow `pending` even after full metadata, because the caller is
 			 *   intentionally replacing the existing data.
 			 */
-			const shouldUseProvidedMetadataStatus =
-				getStatus(response) === 'resolved' && fg('platform_smartlink_inline_resolve_optimization');
+			const shouldUseProvidedMetadataStatus = getStatus(response) === 'resolved';
 			const shouldPreserveResolvedMetadata =
 				shouldUseProvidedMetadataStatus &&
 				metadataStatus === 'pending' &&

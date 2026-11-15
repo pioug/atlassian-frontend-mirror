@@ -6,7 +6,6 @@ import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-cont
 import { APIError } from '@atlaskit/linking-common/api-error';
 import type { CardState } from '@atlaskit/linking-common/store';
 import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { renderHook } from '@atlassian/testing-library/render-hook';
 
 import { mocks } from '../../../../utils/mocks';
@@ -83,10 +82,8 @@ describe('useResponse', () => {
 			);
 		});
 
-		describe('platform_smartlink_inline_resolve_optimization is on should use provided metadata status on link success', () => {
+		describe('provided metadata status on link success', () => {
 			it('should use provided metadata status on link success', () => {
-				passGate('platform_smartlink_inline_resolve_optimization');
-
 				const { handleResolvedLinkResponse } = renderHook(() => useResponse()).current;
 				handleResolvedLinkResponse(url, mocks.success, false, false, 'pending');
 
@@ -100,8 +97,6 @@ describe('useResponse', () => {
 			});
 
 			it('should preserve resolved metadata when an inline response settles after block metadata', () => {
-				passGate('platform_smartlink_inline_resolve_optimization');
-
 				mockState({
 					status: 'resolved',
 					details: mocks.success,
@@ -121,8 +116,6 @@ describe('useResponse', () => {
 			});
 
 			it('should allow an explicit reload to mark resolved metadata as pending', () => {
-				passGate('platform_smartlink_inline_resolve_optimization');
-
 				mockState({
 					status: 'resolved',
 					details: mocks.success,
@@ -137,23 +130,6 @@ describe('useResponse', () => {
 						type: 'metadata',
 						url: 'https://some/url',
 						metadataStatus: 'pending',
-					}),
-				);
-			});
-		});
-
-		describe('platform_smartlink_inline_resolve_optimization is off should ignore provided metadata status on link success', () => {
-			it('should ignore provided metadata status on link success', () => {
-				failGate('platform_smartlink_inline_resolve_optimization');
-
-				const { handleResolvedLinkResponse } = renderHook(() => useResponse()).current;
-				handleResolvedLinkResponse(url, mocks.success, false, false, 'pending');
-
-				expect(mockContext.store.dispatch).toHaveBeenCalledWith(
-					expect.objectContaining({
-						type: 'metadata',
-						url: 'https://some/url',
-						metadataStatus: 'resolved',
 					}),
 				);
 			});

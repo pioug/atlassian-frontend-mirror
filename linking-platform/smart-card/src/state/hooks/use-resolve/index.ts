@@ -4,7 +4,6 @@ import { isEntityPresent } from '@atlaskit/link-extractors/is-entity-present';
 import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
 import type { CardState } from '@atlaskit/linking-common/store';
 import type { CardAppearance } from '@atlaskit/linking-common/types';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { SmartLinkStatus } from '../../../constants';
 import { addMetadataToExperience } from '../../analytics/addMetadataToExperience';
@@ -30,10 +29,7 @@ const useResolve = (): ((params: ResolveUrlParams) => Promise<void>) => {
 	return useCallback(
 		async (params: ResolveUrlParams) => {
 			const { url, isReloading = false, isMetadataRequest = false, id = '', appearance } = params;
-			const isInlineResolveOptimizationEnabled = fg(
-				'platform_smartlink_inline_resolve_optimization',
-			);
-			const isOptimizedBlockRequest = appearance === 'block' && isInlineResolveOptimizationEnabled;
+			const isOptimizedBlockRequest = appearance === 'block';
 
 			const { details, metadataStatus: currentMetadataStatus } =
 				getState()[url] ||
@@ -51,13 +47,9 @@ const useResolve = (): ((params: ResolveUrlParams) => Promise<void>) => {
 				// block cache. Preserve the existing replacement decision so a cached full response
 				// still replaces any reduced inline data already in the store.
 				const shouldReplaceExistingData = isReloading || needsOptimizedBlockData;
-				const shouldForceFetch = isInlineResolveOptimizationEnabled
-					? isReloading
-					: shouldReplaceExistingData;
+				const shouldForceFetch = isReloading;
 				const metadataStatus =
-					appearance === 'inline' && !isMetadataRequest && isInlineResolveOptimizationEnabled
-						? 'pending'
-						: undefined;
+					appearance === 'inline' && !isMetadataRequest ? 'pending' : undefined;
 
 				return connections.client
 					.fetchData(url, shouldForceFetch, appearance)

@@ -330,19 +330,13 @@ export class EditorCardProvider
 	}
 
 	override nodeDataKey(node: CardNode): string {
-		if (!fg('platform_smartlink_inline_resolve_optimization')) {
-			return node.attrs.url;
-		}
-
 		return `${node.attrs.url}|${getAppearanceForNode(node)}`;
 	}
 
 	override fetchNodesData(nodes: CardNode[]): Promise<JsonLd.Response[]> {
 		const promises = nodes.map((node) => {
 			const url = node.attrs.url;
-			const appearance = fg('platform_smartlink_inline_resolve_optimization')
-				? getAppearanceForNode(node)
-				: undefined;
+			const appearance = getAppearanceForNode(node);
 
 			return this.cardClient.fetchData(url, false, appearance);
 		});

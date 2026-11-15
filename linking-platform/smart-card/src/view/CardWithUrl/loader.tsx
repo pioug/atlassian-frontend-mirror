@@ -131,9 +131,8 @@ export function CardWithURLRenderer(props: CardProps): React.JSX.Element {
 
 	// FlexibleCards always need full ORS data regardless of appearance prop,
 	// because they render custom blocks (TitleBlock etc.) requiring complete response.
-	// Override appearance to 'block' for all FlexibleCards when FG is enabled.
-	const effectiveAppearance =
-		isFlexibleUi && fg('platform_smartlink_inline_resolve_optimization') ? 'block' : appearance;
+	// Override appearance to 'block' for all FlexibleCards.
+	const effectiveAppearance = isFlexibleUi ? 'block' : appearance;
 
 	const cardWithUrlProps: CardWithUrlContentProps = {
 		id,

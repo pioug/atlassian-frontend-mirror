@@ -126,18 +126,8 @@ export const useSmartCardActions = (
 		[dispatch, url],
 	);
 
-	// Original resolve function — signature kept intact for maximum safety when FG is off.
-	const resolve = useCallback(
-		async (
-			resourceUrl: string = url,
-			isReloading: boolean = false,
-			isMetadataRequest: boolean = false,
-		) => resolveUrl({ url: resourceUrl, isReloading, isMetadataRequest, id }),
-		[id, resolveUrl, url],
-	);
-
-	// New resolve function accepting ResolveUrlParams (minus 'id' which is closed over).
-	// Used when FG is enabled to pass appearance to ORS.
+	// Resolve function accepting ResolveUrlParams (minus 'id' which is closed over).
+	// Passes appearance to ORS so it can optimize the response payload.
 	const resolveNew = useCallback(
 		async (params: Partial<Omit<ResolveUrlParams, 'id'>> = {}) => {
 			const {
@@ -167,35 +157,24 @@ export const useSmartCardActions = (
 				// mounts while registration is in-flight. This matches pre-PR behaviour.
 				setMetadataStatus('pending');
 			}
-			if (fg('platform_smartlink_inline_resolve_optimization')) {
-				return resolveNew({ url, appearance });
-			}
-			return resolve(url);
+			return resolveNew({ url, appearance });
 		},
-		[getSmartLinkState, resolve, resolveNew, dispatch, url, setMetadataStatus],
+		[getSmartLinkState, resolveNew, dispatch, url, setMetadataStatus],
 	);
 
 	const reload = useCallback(
 		(appearance?: CardAppearance) => {
 			const { details } = getSmartLinkState();
 			const definitionId = getDefinitionId(details);
-			if (fg('platform_smartlink_inline_resolve_optimization')) {
-				if (definitionId) {
-					getByDefinitionId(definitionId, getState()).map((reloadUrl) =>
-						resolveNew({ url: reloadUrl, isReloading: true, appearance }),
-					);
-				} else {
-					resolveNew({ url, isReloading: true, appearance });
-				}
+			if (definitionId) {
+				getByDefinitionId(definitionId, getState()).map((reloadUrl) =>
+					resolveNew({ url: reloadUrl, isReloading: true, appearance }),
+				);
 			} else {
-				if (definitionId) {
-					getByDefinitionId(definitionId, getState()).map((reloadUrl) => resolve(reloadUrl, true));
-				} else {
-					resolve(url, true);
-				}
+				resolveNew({ url, isReloading: true, appearance });
 			}
 		},
-		[getSmartLinkState, url, getState, resolve, resolveNew],
+		[getSmartLinkState, url, getState, resolveNew],
 	);
 
 	/**
@@ -207,19 +186,14 @@ export const useSmartCardActions = (
 	 */
 	const loadMetadata = useCallback(() => {
 		const { metadataStatus } = getSmartLinkState();
-		const needsBlockData =
-			metadataStatus === undefined ||
-			(metadataStatus === 'pending' && fg('platform_smartlink_inline_resolve_optimization'));
+		const needsBlockData = metadataStatus === undefined || metadataStatus === 'pending';
 
 		if (needsBlockData) {
 			setMetadataStatus('pending');
-			if (fg('platform_smartlink_inline_resolve_optimization')) {
-				// Always request 'block' appearance for hover card metadata to get full data
-				return resolveNew({ url, isMetadataRequest: true, appearance: 'block' });
-			}
-			return resolve(url, false, true);
+			// Always request 'block' appearance for hover card metadata to get full data
+			return resolveNew({ url, isMetadataRequest: true, appearance: 'block' });
 		}
-	}, [getSmartLinkState, resolve, resolveNew, setMetadataStatus, url]);
+	}, [getSmartLinkState, resolveNew, setMetadataStatus, url]);
 
 	const authorize = useCallback(
 		(appearance: CardInnerAppearance) => {

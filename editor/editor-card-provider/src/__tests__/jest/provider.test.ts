@@ -185,7 +185,7 @@ describe('EditorCardProvider', () => {
 			setItemSpy.mockReturnValue(mockCardData);
 
 			provider.getData(node, callback);
-			expect(setItemSpy).toHaveBeenCalledWith('https://atlassian.com');
+			expect(setItemSpy).toHaveBeenCalledWith('https://atlassian.com|inline');
 			expect(callback).toHaveBeenCalledTimes(1);
 			expect(callback).toHaveBeenCalledWith({ data: mockCardData });
 			setItemSpy.mockRestore();
@@ -239,7 +239,7 @@ describe('EditorCardProvider', () => {
 			expect(getDataAsyncSpy).toHaveBeenCalledTimes(1);
 			expect(getDataAsyncSpy).toHaveBeenCalledWith(node, expect.any(Function));
 			expect(setItemSpy).toHaveBeenCalledTimes(1);
-			expect(setItemSpy).toHaveBeenCalledWith('https://atlassian.com', mockCardData);
+			expect(setItemSpy).toHaveBeenCalledWith('https://atlassian.com|inline', mockCardData);
 			// one call from async branch (no cache)
 			expect(callback).toHaveBeenCalledTimes(1);
 			expect(callback).toHaveBeenCalledWith({ data: mockCardData });
@@ -304,7 +304,7 @@ describe('EditorCardProvider', () => {
 			expect(getDataAsyncSpy).toHaveBeenCalledTimes(1);
 			expect(getDataAsyncSpy).toHaveBeenCalledWith(node, expect.any(Function));
 			expect(setItemSpy).toHaveBeenCalledTimes(1);
-			expect(setItemSpy).toHaveBeenCalledWith('https://atlassian.com', fresh);
+			expect(setItemSpy).toHaveBeenCalledWith('https://atlassian.com|inline', fresh);
 			expect(callback).toHaveBeenCalledTimes(2);
 			expect(callback).toHaveBeenNthCalledWith(1, { data: cached });
 			expect(callback).toHaveBeenNthCalledWith(2, { data: fresh });
@@ -356,7 +356,7 @@ describe('EditorCardProvider', () => {
 			const { callback, setItemSpy } = setupCacheScenario(asyncResponse, cachedResponse);
 
 			expect(setItemSpy).toHaveBeenCalledTimes(1);
-			expect(setItemSpy).toHaveBeenCalledWith(cacheTestUrl, asyncResponse);
+			expect(setItemSpy).toHaveBeenCalledWith(`${cacheTestUrl}|inline`, asyncResponse);
 			expect(callback).toHaveBeenCalledTimes(2);
 			expect(callback).toHaveBeenNthCalledWith(1, { data: cachedResponse });
 			expect(callback).toHaveBeenNthCalledWith(2, { data: asyncResponse });
@@ -371,7 +371,7 @@ describe('EditorCardProvider', () => {
 			const { callback, setItemSpy } = setupCacheScenario(asyncResponse, cachedResponse);
 
 			expect(setItemSpy).toHaveBeenCalledTimes(1);
-			expect(setItemSpy).toHaveBeenCalledWith(cacheTestUrl, asyncResponse);
+			expect(setItemSpy).toHaveBeenCalledWith(`${cacheTestUrl}|inline`, asyncResponse);
 			expect(callback).toHaveBeenCalledTimes(1);
 			expect(callback).toHaveBeenCalledWith({ data: asyncResponse });
 		});
@@ -418,21 +418,7 @@ describe('EditorCardProvider', () => {
 	});
 
 	describe('nodeDataKey', () => {
-		it('should return the url from the node attributes when inline resolve optimization is off', () => {
-			const url = 'https://atlassian.com/test';
-			const node: InlineCardAdf = {
-				type: 'inlineCard',
-				attrs: { url },
-			};
-
-			expect(provider.nodeDataKey(node)).toBe(url);
-		});
-
-		it('should include card appearance when inline resolve optimization is on', () => {
-			setBooleanFeatureFlagResolver(
-				(flag) => flag === 'platform_smartlink_inline_resolve_optimization',
-			);
-
+		it('should include card appearance', () => {
 			const url = 'https://atlassian.com/test';
 			const inlineNode: InlineCardAdf = {
 				type: 'inlineCard',
@@ -454,36 +440,7 @@ describe('EditorCardProvider', () => {
 	});
 
 	describe('fetchNodesData', () => {
-		it('should call cardClient.fetchData without appearance when inline resolve optimization is off', async () => {
-			const nodes: (InlineCardAdf | BlockCardAdf | EmbedCardAdf)[] = [
-				{ type: 'inlineCard', attrs: { url: 'https://url1.com' } },
-				{ type: 'blockCard', attrs: { url: 'https://url2.com' } },
-			];
-			const mockResponses = [
-				{ data: { url: 'https://url1.com' } },
-				{ data: { url: 'https://url2.com' } },
-			];
-
-			jest
-				.spyOn(CardClient.prototype, 'fetchData')
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				.mockResolvedValueOnce(mockResponses[0] as any)
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				.mockResolvedValueOnce(mockResponses[1] as any);
-
-			const results = await provider.fetchNodesData(nodes);
-
-			expect(mockCardClient.fetchData).toHaveBeenCalledTimes(2);
-			expect(mockCardClient.fetchData).toHaveBeenCalledWith('https://url1.com', false, undefined);
-			expect(mockCardClient.fetchData).toHaveBeenCalledWith('https://url2.com', false, undefined);
-			expect(results).toEqual(mockResponses);
-		});
-
-		it('should call cardClient.fetchData with appearance when inline resolve optimization is on', async () => {
-			setBooleanFeatureFlagResolver(
-				(flag) => flag === 'platform_smartlink_inline_resolve_optimization',
-			);
-
+		it('should call cardClient.fetchData with appearance', async () => {
 			const nodes: (InlineCardAdf | BlockCardAdf | EmbedCardAdf)[] = [
 				{ type: 'inlineCard', attrs: { url: 'https://url1.com' } },
 				{ type: 'blockCard', attrs: { url: 'https://url2.com' } },
@@ -518,10 +475,6 @@ describe('EditorCardProvider', () => {
 	});
 
 	it('should allow to pass custom CardClient', async () => {
-		setBooleanFeatureFlagResolver(
-			(flag) => flag === 'platform_smartlink_inline_resolve_optimization',
-		);
-
 		const customCardClient = new CardClient();
 		jest.spyOn(customCardClient, 'fetchData').mockResolvedValue({
 			data: {

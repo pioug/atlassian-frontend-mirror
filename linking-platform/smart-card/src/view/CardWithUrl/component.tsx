@@ -89,7 +89,7 @@ function Component({
 
 	// Get state, actions for this card.
 	// appearance is pre-resolved by the caller (loader.tsx for Card, ssr.tsx for CardSSR):
-	// FlexibleCards are always passed appearance='block' when FG is on, so component.tsx
+	// FlexibleCards are always passed appearance='block', so component.tsx
 	// simply consumes whatever appearance it receives.
 	const { state, actions, config, renderers, error, isPreviewPanelAvailable, openPreviewPanel } =
 		useSmartLink(id, url, appearance);
@@ -339,11 +339,7 @@ function Component({
 			return;
 		}
 
-		if (
-			prevAppearance.current === 'inline' &&
-			appearance !== 'inline' &&
-			fg('platform_smartlink_inline_resolve_optimization')
-		) {
+		if (prevAppearance.current === 'inline' && appearance !== 'inline') {
 			reload(appearance);
 		}
 		prevAppearance.current = appearance;

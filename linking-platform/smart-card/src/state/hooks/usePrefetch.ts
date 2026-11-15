@@ -3,7 +3,6 @@ import { useCallback } from 'react';
 import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
 import { ACTION_UPDATE_METADATA_STATUS, cardAction } from '@atlaskit/linking-common/actions';
 import type { CardAppearance } from '@atlaskit/linking-common/types';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 export function usePrefetch(url: string, appearance?: CardAppearance): () => Promise<void> {
 	const { store, prefetchStore, connections } = useSmartLinkContext();
@@ -43,17 +42,15 @@ export function usePrefetch(url: string, appearance?: CardAppearance): () => Pro
 				// a Smart Link, rather than rendering a loading spinner -> immediate Smart Link.
 				if (response) {
 					dispatch({ type: 'resolved', url, payload: response });
-					// Put the metadata status: 'pending' for inline appearance when FG is on, so HoverCard
-					// can upgrade to full block data. Otherwise 'resolved' preserves existing behaviour.
+					// Put the metadata status: 'pending' for inline appearance, so HoverCard
+					// can upgrade to full block data. Otherwise 'resolved'.
 					dispatch(
 						cardAction(
 							ACTION_UPDATE_METADATA_STATUS,
 							{ url },
 							undefined,
 							undefined,
-							appearance === 'inline' && fg('platform_smartlink_inline_resolve_optimization')
-								? 'pending'
-								: 'resolved',
+							appearance === 'inline' ? 'pending' : 'resolved',
 						),
 					);
 				}

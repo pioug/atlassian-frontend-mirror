@@ -3,7 +3,7 @@
  *
  * Structured content components from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::dede4f54e1286680f7f975b10ae6ee20>>
+ * @codegen <<SignedSource::0dfda0b0a3dbad958f168f6320f9ce06>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -2412,7 +2412,7 @@ export const components: ComponentMcpPayload[] = [
 				type: 'boolean | undefined',
 				description:
 					'Provides a functional calendar button that opens the calendar picker that\nlives on the right side of the date picker.\n\nThe accessible name for this button is caculated using either the `label`,\n`inputLabel`, or `inputLabelId` props, along with the `openCalendarLabel`\nprop.',
-				defaultValue: 'false',
+				defaultValue: 'Controlled by the `platform-dst-calendar-button-default` feature flag.',
 			},
 			{
 				name: 'spacing',

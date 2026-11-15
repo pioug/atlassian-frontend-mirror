@@ -5,7 +5,6 @@ import { v4 as uuid } from 'uuid';
 
 import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { CardProps } from './types';
 import { context } from './utils/analytics/analytics';
@@ -33,12 +32,9 @@ export const CardSSR = (props: CardSSRProps): React.JSX.Element => {
 	const [id] = useState(() => props.id ?? uuid());
 	// FlexibleCards always need full ORS data regardless of appearance prop,
 	// because they render custom blocks (TitleBlock etc.) requiring a complete response.
-	// Override appearance to 'block' for FlexibleCards when FG is enabled.
+	// Override appearance to 'block' for FlexibleCards.
 	const isFlexibleCard = isFlexibleUiCard(props.children, props.ui);
-	const effectiveAppearance =
-		isFlexibleCard && fg('platform_smartlink_inline_resolve_optimization')
-			? 'block'
-			: props.appearance;
+	const effectiveAppearance = isFlexibleCard ? 'block' : props.appearance;
 	const propsWithId = { ...props, id, appearance: effectiveAppearance };
 
 	return (

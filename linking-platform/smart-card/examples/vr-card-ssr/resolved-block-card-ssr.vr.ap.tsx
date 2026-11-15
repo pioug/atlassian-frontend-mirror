@@ -10,7 +10,10 @@ import { cardState, url } from '../utils/smart-card-ssr-state';
 
 const storeOptions: CardProviderStoreOpts = {
 	initialState: {
-		[url]: cardState,
+		[url]: {
+			...cardState,
+			metadataStatus: 'resolved',
+		},
 	},
 };
 

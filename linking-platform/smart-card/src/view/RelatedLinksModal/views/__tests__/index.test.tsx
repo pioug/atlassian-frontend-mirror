@@ -127,8 +127,16 @@ describe('RelatedLinksModal views', () => {
 
 		it('fires events with right context', async () => {
 			renderRelatedLinksResolvedView(['incoming-link1'], ['outgoing-link1'], {
-				'incoming-link1': { status: 'resolved', details: mockSuccessResponse.body },
-				'outgoing-link1': { status: 'resolved', details: mockSuccessResponse.body },
+				'incoming-link1': {
+					status: 'resolved',
+					metadataStatus: 'resolved',
+					details: mockSuccessResponse.body,
+				},
+				'outgoing-link1': {
+					status: 'resolved',
+					metadataStatus: 'resolved',
+					details: mockSuccessResponse.body,
+				},
 			});
 
 			const [incomingLink, outgoingLink] = await screen.findAllByTestId('smart-element-link');

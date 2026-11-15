@@ -8,7 +8,6 @@ import type { ErrorType } from '@atlaskit/linking-common/api/errors';
 import { InvalidUrlError } from '@atlaskit/linking-common/invalid-url-error';
 import { NetworkError } from '@atlaskit/linking-common/network-error';
 import { flushPromises } from '@atlaskit/media-test-helpers/flushPromises';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import SmartCardClient, { urlResponsePromiseCache } from '..';
 import { isSuccessfulResponse } from '../types/isSuccessfulResponse';
@@ -475,10 +474,8 @@ describe('Smart Card: Client', () => {
 			expect(response).toBe(mocks.success);
 		});
 
-		describe('platform_smartlink_inline_resolve_optimization is on', () => {
+		describe('inline resolve optimization', () => {
 			it('should pass appearance to request body when appearance is provided', async () => {
-				passGate('platform_smartlink_inline_resolve_optimization');
-
 				mockRequest.mockImplementationOnce(async () => [successfulResponse]);
 				const client = new SmartCardClient();
 				const resourceUrl = 'https://i.love.cheese';
@@ -500,8 +497,6 @@ describe('Smart Card: Client', () => {
 			});
 
 			it('should pass block appearance for hover card metadata', async () => {
-				passGate('platform_smartlink_inline_resolve_optimization');
-
 				mockRequest.mockImplementationOnce(async () => [successfulResponse]);
 				const client = new SmartCardClient();
 				const resourceUrl = 'https://i.love.cheese';
@@ -523,8 +518,6 @@ describe('Smart Card: Client', () => {
 			});
 
 			it('should use different cache keys for different appearances', async () => {
-				passGate('platform_smartlink_inline_resolve_optimization');
-
 				mockRequest.mockImplementation(async () => [successfulResponse]);
 				const client = new SmartCardClient();
 				const resourceUrl = 'https://i.love.cheese';
@@ -543,38 +536,8 @@ describe('Smart Card: Client', () => {
 			});
 		});
 
-		describe('platform_smartlink_inline_resolve_optimization is off', () => {
-			it('should preserve legacy caching and payloads when appearance is provided', async () => {
-				failGate('platform_smartlink_inline_resolve_optimization');
-
-				mockRequest.mockImplementationOnce(async () => [successfulResponse]);
-				const client = new SmartCardClient();
-				const resourceUrl = 'https://i.love.cheese/legacy-appearance';
-
-				const inlineResponse = await client.fetchData(resourceUrl, false, 'inline');
-				const blockResponse = await client.fetchData(resourceUrl, false, 'block');
-
-				expect(mockRequest).toHaveBeenCalledTimes(1);
-				expect(mockRequest).toHaveBeenCalledWith(
-					'post',
-					expectedDefaultResolveBatchUrl,
-					[
-						{
-							resourceUrl,
-							ignoreCachedValue: undefined,
-						},
-					],
-					expect.anything(),
-				);
-				expect(inlineResponse).toBe(mocks.success);
-				expect(blockResponse).toBe(mocks.success);
-			});
-		});
-
-		describe('when platform_smartlink_inline_resolve_optimization is enabled', () => {
-			beforeEach(() => {
-				passGate('platform_smartlink_inline_resolve_optimization');
-			});
+		describe('inline resolve optimization batching', () => {
+			beforeEach(() => {});
 
 			it.each([
 				['inline before block', ['inline', 'block'] as const],
@@ -631,45 +594,7 @@ describe('Smart Card: Client', () => {
 			);
 		});
 
-		describe('when platform_smartlink_inline_resolve_optimization is disabled', () => {
-			beforeEach(() => {
-				failGate('platform_smartlink_inline_resolve_optimization');
-			});
-
-			it.each([
-				['inline before block', ['inline', 'block'] as const],
-				['block before inline', ['block', 'inline'] as const],
-			])('should preserve legacy URL-only caching when batching %s', async (_name, order) => {
-				mockRequest.mockImplementationOnce(async () => [successfulResponse]);
-				const client = new SmartCardClient();
-				const resourceUrl = 'https://i.love.cheese/concurrent-legacy';
-
-				const responses = await Promise.all(
-					order.map((appearance) => client.fetchData(resourceUrl, false, appearance)),
-				);
-				const responsesByAppearance = Object.fromEntries(
-					order.map((appearance, index) => [appearance, responses[index]]),
-				);
-
-				expect(mockRequest).toHaveBeenCalledTimes(1);
-				expect(mockRequest).toHaveBeenCalledWith(
-					'post',
-					expectedDefaultResolveBatchUrl,
-					[
-						{
-							resourceUrl,
-							ignoreCachedValue: undefined,
-						},
-					],
-					expect.anything(),
-				);
-				expect(responsesByAppearance.inline).toBe(mocks.success);
-				expect(responsesByAppearance.block).toBe(mocks.success);
-			});
-		});
-
 		it('should reuse an optimized block request that is already in progress', async () => {
-			passGate('platform_smartlink_inline_resolve_optimization');
 			let resolveRequest: (responses: SuccessResponse[]) => void = () => {};
 			let markRequestStarted: () => void = () => {};
 			const requestStarted = new Promise<void>((resolve) => {
@@ -697,7 +622,6 @@ describe('Smart Card: Client', () => {
 		});
 
 		it('should not reuse a non-forced optimized block request for a forced request', async () => {
-			passGate('platform_smartlink_inline_resolve_optimization');
 			mockRequest.mockImplementationOnce(async (_method, _url, resources) =>
 				resources.map(() => successfulResponse),
 			);

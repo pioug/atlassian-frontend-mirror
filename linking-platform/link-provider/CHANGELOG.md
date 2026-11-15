@@ -1,5 +1,14 @@
 # @atlaskit/link-provider
 
+## 6.1.1
+
+### Patch Changes
+
+- [`e95eb679b4cb2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e95eb679b4cb2) -
+  Cleanup `feature_gate` `platform_smartlink_inline_resolve_optimization`. Inline smart links now
+  always pass their appearance to ORS for optimized resolution, and hover cards upgrade to full
+  block data.
+
 ## 6.1.0
 
 ### Minor Changes

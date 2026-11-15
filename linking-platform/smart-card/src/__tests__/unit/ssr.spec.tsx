@@ -360,14 +360,7 @@ describe('<CardSSR />', () => {
 				expect(failUfoExperienceMock).not.toHaveBeenCalled();
 			});
 
-			describe.each([
-				['disabled', failGate],
-				['enabled', passGate],
-			])('with platform_smartlink_inline_resolve_optimization %s', (_, setInlineResolveGate) => {
-				beforeEach(() => {
-					setInlineResolveGate('platform_smartlink_inline_resolve_optimization');
-				});
-
+			describe('flexible card', () => {
 				it('should fire renderFailed event with flexible display for flexible card', async () => {
 					const { mockAnalyticsClient } = setup({
 						id: 'some-id',

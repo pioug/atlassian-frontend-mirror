@@ -90,6 +90,7 @@ describe('providers > editor', () => {
 				body: JSON.stringify([
 					{
 						resourceUrl: url,
+						appearance: 'inline',
 					},
 				]),
 				method: 'post',
@@ -117,6 +118,7 @@ describe('providers > editor', () => {
 				body: JSON.stringify([
 					{
 						resourceUrl: url,
+						appearance: 'inline',
 					},
 				]),
 				method: 'post',

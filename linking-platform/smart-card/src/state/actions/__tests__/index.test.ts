@@ -10,7 +10,7 @@ import { APIError, type APIErrorKind } from '@atlaskit/linking-common/api-error'
 import type { CardState } from '@atlaskit/linking-common/store';
 import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 import { auth } from '@atlaskit/outbound-auth-flow-client/auth';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { renderHook } from '@atlassian/testing-library/render-hook';
 
 import { mocks } from '../../../utils/mocks';
@@ -72,10 +72,8 @@ describe('Smart Card: Actions', () => {
 			});
 		});
 
-		describe('platform_smartlink_inline_resolve_optimization is on when FG is on, register passes appearance to fetchData', () => {
+		describe('register passes appearance to fetchData', () => {
 			it('passes appearance parameter to fetchData when provided', async () => {
-				passGate('platform_smartlink_inline_resolve_optimization');
-
 				mockFetchData(Promise.resolve(mocks.success));
 
 				const result = renderHook(() => {
@@ -87,8 +85,6 @@ describe('Smart Card: Actions', () => {
 			});
 
 			it('requests appearance-specific block data without bypassing the ORS cache', async () => {
-				passGate('platform_smartlink_inline_resolve_optimization');
-
 				mockFetchData(Promise.resolve(mocks.success));
 
 				const result = renderHook(() => {
@@ -349,10 +345,8 @@ describe('Smart Card: Actions', () => {
 			expect(mockContext.connections.client.fetchData).not.toHaveBeenCalled();
 		});
 
-		describe('platform_smartlink_inline_resolve_optimization is on when FG is on, loadMetadata uses resolveNew with block appearance', () => {
+		describe('loadMetadata uses block appearance', () => {
 			it('dispatches refreshed metadata state for a success response', async () => {
-				passGate('platform_smartlink_inline_resolve_optimization');
-
 				mockFetchData(Promise.resolve(mocks.success));
 
 				const result = renderHook(() => {
@@ -393,8 +387,6 @@ describe('Smart Card: Actions', () => {
 			it.each(errorKinds)(
 				'dispatches error metadata state if response is a %s error',
 				async (errorKind) => {
-					passGate('platform_smartlink_inline_resolve_optimization');
-
 					const mockError = new APIError(errorKind, url, 'error-message');
 					mockFetchData(Promise.reject(mockError));
 
@@ -437,8 +429,6 @@ describe('Smart Card: Actions', () => {
 			it.each(responseKinds)(
 				'dispatches error metadata state if response is a %s response',
 				async (name, responseKind) => {
-					passGate('platform_smartlink_inline_resolve_optimization');
-
 					mockFetchData(Promise.resolve(responseKind));
 
 					const result = renderHook(() => {
@@ -473,8 +463,6 @@ describe('Smart Card: Actions', () => {
 			);
 
 			it('dispatches error metadata status if response is undefined', async () => {
-				passGate('platform_smartlink_inline_resolve_optimization');
-
 				mockFetchData(Promise.resolve(undefined));
 
 				const result = renderHook(() => {
@@ -504,8 +492,6 @@ describe('Smart Card: Actions', () => {
 			});
 
 			it('fetches with block appearance when metadataStatus is pending', async () => {
-				passGate('platform_smartlink_inline_resolve_optimization');
-
 				mockState({
 					status: 'resolved',
 					details: mocks.success,
@@ -521,27 +507,6 @@ describe('Smart Card: Actions', () => {
 				await expect(promise).resolves.toBeUndefined();
 
 				expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, 'block');
-			});
-		});
-
-		describe('platform_smartlink_inline_resolve_optimization is off when FG is off, loadMetadata uses original resolve without appearance', () => {
-			it('does not pass appearance when FG is off', async () => {
-				failGate('platform_smartlink_inline_resolve_optimization');
-
-				mockFetchData(Promise.resolve(mocks.success));
-
-				const result = renderHook(() => {
-					return useSmartCardActions(id, url);
-				});
-
-				const promise = result.current.loadMetadata();
-				await expect(promise).resolves.toBeUndefined();
-
-				expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(
-					url,
-					false,
-					undefined,
-				);
 			});
 		});
 	});

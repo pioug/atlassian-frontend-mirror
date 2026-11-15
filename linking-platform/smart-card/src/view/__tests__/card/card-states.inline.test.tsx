@@ -225,7 +225,7 @@ describe('smart-card: card states, inline', () => {
 				expect(mockFetch).toHaveBeenCalledTimes(2);
 			});
 
-			it('should not fetch again when appearance changes', async () => {
+			it('should fetch full metadata when appearance changes from inline to block', async () => {
 				const { rerender } = render(
 					<IntlProvider locale="en">
 						<Provider client={mockClient}>
@@ -245,7 +245,7 @@ describe('smart-card: card states, inline', () => {
 					</IntlProvider>,
 				);
 				await screen.findByText('I love cheese');
-				expect(mockFetch).toHaveBeenCalledTimes(1);
+				await waitForElement(() => expect(mockFetch).toHaveBeenCalledTimes(2));
 			});
 
 			it('should call onResolve if provided', async () => {

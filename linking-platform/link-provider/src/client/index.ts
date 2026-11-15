@@ -18,7 +18,6 @@ import type {
 	CardAppearance,
 } from '@atlaskit/linking-common/types';
 import { getStatus } from '@atlaskit/linking-common/utils/get-status';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { type CardClient as CardClientInterface } from './types';
 import { isErrorResponse } from './types/isErrorResponse';
@@ -225,13 +224,10 @@ export default class CardClient implements CardClientInterface {
 		urls: ReadonlyArray<ResourcePayload<'URL'>>,
 	): Promise<BatchResponse> => {
 		return this.postBatchResolveNew(urls, 'URL', (resource) => {
-			// Appearance is only added to the payload when the inline resolve optimization gate is on.
+			// Appearance is only added to the payload when provided by the caller.
 			// Preserve differently shaped requests for the same URL so a reduced inline response cannot
 			// be returned to a block request from the same batch.
-			if (
-				resource.appearance !== undefined &&
-				fg('platform_smartlink_inline_resolve_optimization')
-			) {
+			if (resource.appearance !== undefined) {
 				return JSON.stringify([
 					resource.resourceUrl,
 					resource.appearance,
@@ -375,7 +371,7 @@ export default class CardClient implements CardClientInterface {
 	private async resolveUrl(url: string, force: boolean = false, appearance?: CardAppearance) {
 		const hostname = this.getHostName(url);
 
-		if (appearance !== undefined && fg('platform_smartlink_inline_resolve_optimization')) {
+		if (appearance !== undefined) {
 			return this.resolveUrlWithInlineOptimization(url, hostname, force, appearance);
 		}
 

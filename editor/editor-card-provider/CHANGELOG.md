@@ -1,5 +1,15 @@
 # @atlaskit/editor-card-provider
 
+## 8.2.22
+
+### Patch Changes
+
+- [`e95eb679b4cb2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e95eb679b4cb2) -
+  Cleanup `feature_gate` `platform_smartlink_inline_resolve_optimization`. Inline smart links now
+  always pass their appearance to ORS for optimized resolution, and hover cards upgrade to full
+  block data.
+- Updated dependencies
+
 ## 8.2.21
 
 ### Patch Changes

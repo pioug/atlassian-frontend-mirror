@@ -7,7 +7,6 @@ import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-cont
 import { APIError } from '@atlaskit/linking-common/api-error';
 import type { CardState } from '@atlaskit/linking-common/store';
 import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { renderHook } from '@atlassian/testing-library/render-hook';
 
 import { mocks } from '../../../../utils/mocks';
@@ -160,7 +159,6 @@ describe('useResolve', () => {
 	});
 
 	it('should request appearance-specific block metadata without bypassing the ORS cache', async () => {
-		passGate('platform_smartlink_inline_resolve_optimization');
 		mockFetchData(Promise.resolve(mocks.success));
 		mockState({
 			status: 'resolved',
@@ -188,7 +186,6 @@ describe('useResolve', () => {
 	});
 
 	it('should request initial optimized block data without bypassing the ORS cache', async () => {
-		passGate('platform_smartlink_inline_resolve_optimization');
 		mockFetchData(Promise.resolve(mocks.success));
 		mockState({
 			status: 'resolved',
@@ -213,7 +210,6 @@ describe('useResolve', () => {
 	});
 
 	it('should reuse optimized block data when full metadata is already resolved', async () => {
-		passGate('platform_smartlink_inline_resolve_optimization');
 		mockState({
 			status: 'resolved',
 			details: mocks.success,
@@ -229,36 +225,8 @@ describe('useResolve', () => {
 		expect(mockContext.connections.client.fetchData).not.toHaveBeenCalled();
 	});
 
-	it('should not force initial block requests when inline optimization is disabled', async () => {
-		failGate('platform_smartlink_inline_resolve_optimization');
-		mockFetchData(Promise.resolve(mocks.success));
-		mockState({
-			status: 'pending',
-			details: undefined,
-		});
-
-		const resolve = renderHook(() => useResolve()).current;
-		await resolve({
-			url,
-			isReloading: false,
-			isMetadataRequest: false,
-			id,
-			appearance: 'block',
-		});
-
-		expect(mockContext.connections.client.fetchData).toHaveBeenCalledWith(url, false, 'block');
-		expect(mockContext.store.dispatch).toHaveBeenCalledWith(
-			expect.objectContaining({
-				type: 'resolved',
-				ignoreStatusCheck: false,
-			}),
-		);
-	});
-
-	describe('platform_smartlink_inline_resolve_optimization is on sets metadata pending for optimized inline responses', () => {
+	describe('sets metadata pending for optimized inline responses', () => {
 		it('should leave metadata pending when inline optimized data resolves', async () => {
-			passGate('platform_smartlink_inline_resolve_optimization');
-
 			mockFetchData(Promise.resolve(mocks.success));
 			mockState({
 				status: 'pending',

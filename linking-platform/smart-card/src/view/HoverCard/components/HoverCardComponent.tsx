@@ -164,9 +164,7 @@ export const HoverCardComponent = ({
 		const isLinkUnresolved =
 			linkState.status === 'pending' ||
 			!linkState.metadataStatus ||
-			(linkState.status === 'resolved' &&
-				linkState.metadataStatus === 'pending' &&
-				fg('platform_smartlink_inline_resolve_optimization'));
+			(linkState.status === 'resolved' && linkState.metadataStatus === 'pending');
 
 		if (!resolveTimeOutId.current && isLinkUnresolved) {
 			resolveTimeOutId.current = setTimeout(() => {

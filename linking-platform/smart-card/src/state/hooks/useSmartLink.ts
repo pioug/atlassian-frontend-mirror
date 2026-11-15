@@ -66,9 +66,7 @@ export function useSmartLink(
 	const [error, setError] = useState<Error | null>(null);
 	// Register the current card with appearance hint for optimized ORS response.
 	const register = () => {
-		actions
-			.register(fg('platform_smartlink_inline_resolve_optimization') ? appearance : undefined)
-			.catch((err) => setError(err));
+		actions.register(appearance).catch((err) => setError(err));
 	};
 	// AFP-2511 TODO: Fix automatic suppressions below
 	// eslint-disable-next-line react-hooks/exhaustive-deps

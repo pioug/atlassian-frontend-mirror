@@ -1,4 +1,3 @@
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { renderHook } from '@atlassian/testing-library/render-hook';
 
 import { mocks } from '../../../utils/mocks';
@@ -177,10 +176,8 @@ describe('usePrefetch', () => {
 		expect(mockConnections.client.prefetchData).toHaveBeenCalledWith(mockUrl, 'block');
 	});
 
-	describe('platform_smartlink_inline_resolve_optimization is on when FG is on, inline prefetch dispatches metadataStatus pending', () => {
-		it('dispatches metadataStatus pending for inline appearance when FG is on', async () => {
-			passGate('platform_smartlink_inline_resolve_optimization');
-
+	describe('inline prefetch dispatches metadataStatus pending', () => {
+		it('dispatches metadataStatus pending for inline appearance', async () => {
 			const result = renderHook(() => usePrefetch(mockUrl, 'inline'));
 			const prefetcher = result.current;
 			await prefetcher();
@@ -195,7 +192,7 @@ describe('usePrefetch', () => {
 		});
 	});
 
-	it('dispatches metadataStatus resolved for block appearance regardless of FG', async () => {
+	it('dispatches metadataStatus resolved for block appearance', async () => {
 		const result = renderHook(() => usePrefetch(mockUrl, 'block'));
 		const prefetcher = result.current;
 		await prefetcher();
@@ -207,23 +204,5 @@ describe('usePrefetch', () => {
 				metadataStatus: 'resolved',
 			}),
 		);
-	});
-
-	describe('platform_smartlink_inline_resolve_optimization is off when FG is off, inline prefetch dispatches metadataStatus resolved', () => {
-		it('dispatches metadataStatus resolved for inline appearance when FG is off', async () => {
-			failGate('platform_smartlink_inline_resolve_optimization');
-
-			const result = renderHook(() => usePrefetch(mockUrl, 'inline'));
-			const prefetcher = result.current;
-			await prefetcher();
-
-			expect(mockStore.dispatch).toHaveBeenCalledWith(
-				expect.objectContaining({
-					url: mockUrl,
-					type: 'metadata',
-					metadataStatus: 'resolved',
-				}),
-			);
-		});
 	});
 });

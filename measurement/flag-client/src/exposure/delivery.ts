@@ -9,3 +9,5 @@
 export { createExposureEnvironment } from './environment';
 export { createExposureLogger } from './logger';
 export { mapExposureRecord } from './mapper';
+
+export { initializeExposureHash } from './digest';

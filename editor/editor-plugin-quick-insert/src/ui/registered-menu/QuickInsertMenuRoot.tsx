@@ -32,6 +32,7 @@ import { TypeAheadQuickInsertMenu } from './TypeAheadQuickInsertMenu';
 import { useQuickInsertSearchAnalytics } from './useQuickInsertSearchAnalytics';
 
 const DEFAULT_MENU_MAX_HEIGHT = 480;
+const ARIA_CONTROL_IDS = /\S+/gu;
 
 type Props = {
 	emptyStateHandler?: EmptyStateHandler;
@@ -183,10 +184,27 @@ const QuickInsertMenuRoot = ({
 		},
 		[listEvents.selectNext, listEvents.selectPrevious, selectActiveItem],
 	);
-	const containsTarget = useCallback(
-		(target: Node) => Boolean(menuRef.current?.contains(target)),
-		[],
-	);
+	const containsTarget = useCallback((target: Node) => {
+		const menuElement = menuRef.current;
+		if (menuElement?.contains(target)) {
+			return true;
+		}
+		if (!menuElement) {
+			return false;
+		}
+		// Portalled popups sit outside the menu DOM but still belong to their menu items.
+		// Keep the menu open when focus moves into a popup linked through aria-controls.
+		for (const trigger of menuElement.querySelectorAll('[aria-controls]')) {
+			const controls = trigger.getAttribute('aria-controls');
+			// aria-controls can reference multiple whitespace-separated IDs.
+			for (const match of controls?.matchAll(ARIA_CONTROL_IDS) ?? []) {
+				if (menuElement.ownerDocument.getElementById(match[0])?.contains(target)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}, []);
 	const interaction = useMemo<RegisteredMenuInteraction>(
 		() => ({
 			activeDescendantId: isActiveItemMounted ? activeItemId : undefined,

@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { useId, useMemo } from 'react';
+import React, { useCallback, useId, useMemo } from 'react';
 
 import { css } from '@compiled/react';
 
@@ -120,9 +120,12 @@ const pinnedIconColorResetStyles = css({
  */
 export const ElementBrowserQuickInsertMenuItem = ({
 	ariaLabel,
+	'aria-controls': ariaControls,
+	itemRef,
 	description,
 	iconBefore,
 	isDisabled = false,
+	onBeforeSelect,
 	lozenge,
 	onSelect,
 	preview,
@@ -134,7 +137,17 @@ export const ElementBrowserQuickInsertMenuItem = ({
 	const { item } = useQuickInsertContext();
 	const { id, isSelected } = item ?? { id: undefined, isSelected: false };
 	const itemDescription = description ?? item?.description;
-	const handleClick = useQuickInsertMenuItemSelection(onSelect);
+	const handleClick = useQuickInsertMenuItemSelection(onSelect, onBeforeSelect);
+	const setItemElement = useCallback(
+		(element: HTMLElement | null) => {
+			if (typeof itemRef === 'function') {
+				itemRef(element);
+			} else if (itemRef) {
+				Object.assign(itemRef, { current: element });
+			}
+		},
+		[itemRef],
+	);
 	const descriptionId = useId();
 	const resolvedPreview = useMemo<QuickInsertPreview>(
 		() => preview ?? (previewImageUrls ? { image: previewImageUrls } : {}),
@@ -147,6 +160,8 @@ export const ElementBrowserQuickInsertMenuItem = ({
 
 	return (
 		<Pressable
+			ref={setItemElement}
+			aria-controls={ariaControls}
 			aria-describedby={hasDescription ? descriptionId : undefined}
 			aria-label={ariaLabel ?? title}
 			aria-selected={isSelected}

@@ -636,8 +636,8 @@ can leave).
 **Non-negotiable outcome:**
 
 - ✅ On dismiss (Escape, click outside, explicit close), focus returns to the trigger element
-- ✅ If the trigger no longer exists (e.g., deleted item), consumer provides a `returnFocusRef` for
-  alternative target
+- ✅ If the trigger no longer exists (e.g., deleted item), the consumer moves focus to the next
+  place in the action's handler. Only the app knows what replaced the item.
 - ✅ Focus return works correctly for nested layers — each layer returns to its own trigger
 
 **How the migration solves it:**
@@ -649,8 +649,11 @@ can leave).
   the `Popup` compound need zero manual focus code.
 - **Standalone `Popover` consumers** benefit from the browser's native restoration automatically —
   no custom hook or manual wiring needed.
-- `returnFocusRef` **prop** can be supported at the component level for the rare "trigger no longer
-  exists" case (e.g., a deleted item) where custom focus handling is needed.
+- **No `returnFocusRef` prop on the top-layer path** (decision 9 Nov 2026). `DropdownMenu` and
+  `DropdownItem` `returnFocusRef` are no-ops there. For the rare "trigger no longer exists" case
+  (e.g., a deleted item), the consumer moves focus in the action's handler, or the new element uses
+  `autoFocus`. Focus that has left the layer is not moved back. See
+  `migrations/dropdown-menu-migration.md`.
 - **Entry points:** `@atlaskit/top-layer/popup` (automatic native restoration),
   `@atlaskit/top-layer/popover` (automatic native restoration).
 
@@ -659,23 +662,23 @@ can leave).
 
 **Success measure:**
 
-| Milestone | Target                                                                     | Verification                                                         |
-| --------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| 0.5       | Native `popover="auto"` and `<dialog>` handle focus return for safe layers | Automated: assert `document.activeElement === trigger` after close   |
-| 0.7       | Nested focus return works (3+ levels deep) via native browser behavior     | Test: open 3 nested layers → Escape 3× → verify focus at each level  |
-| 1.0       | `returnFocusRef` supported at component level for "trigger deleted" case   | API audit: prop available on all components; documented with example |
+| Milestone | Target                                                                     | Verification                                                        |
+| --------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| 0.5       | Native `popover="auto"` and `<dialog>` handle focus return for safe layers | Automated: assert `document.activeElement === trigger` after close  |
+| 0.7       | Nested focus return works (3+ levels deep) via native browser behavior     | Test: open 3 nested layers → Escape 3× → verify focus at each level |
+| 1.0       | "Trigger deleted" case documented: the action's handler moves focus        | Docs audit: pattern documented with example                         |
 
 ---
 
 ### Non-Negotiable Requirements Summary
 
-| #   | Requirement                                 | Source       | WCAG                                                                                                                                                                                                                | Solved By                                                                                                              | Milestone |
-| --- | ------------------------------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | --------- |
-| 1   | DOM order matches visual order (no portals) | Gerard Cohen | [1.3.2](https://www.w3.org/WAI/WCAG22/Understanding/meaningful-sequence.html)                                                                                                                                       | Top layer (`popover`, `<dialog>`) replaces `@atlaskit/portal`                                                          | 0.5–1.0   |
-| 2   | Focus behavior follows role semantics       | Gerard Cohen | [2.4.3](https://www.w3.org/WAI/WCAG22/Understanding/focus-order.html), [2.1.1](https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html)                                                                           | Native `<dialog>` + `popover="auto"` focus behavior; `useArrowNavigation` for menus                                    | 0.5–1.0   |
-| 3   | Background inert when modal is open         | Gerard Cohen | [2.4.3](https://www.w3.org/WAI/WCAG22/Understanding/focus-order.html), [1.3.2](https://www.w3.org/WAI/WCAG22/Understanding/meaningful-sequence.html)                                                                | `<dialog>.showModal()` native inertness                                                                                | 0.7       |
-| 4   | Escape always dismisses — no exceptions     | Gerard Cohen | [1.4.13](https://www.w3.org/WAI/WCAG22/Understanding/content-on-hover-or-focus.html), [ARIA APG](https://www.w3.org/WAI/ARIA/apg/) (and [2.1.2](https://www.w3.org/WAI/WCAG22/Understanding/no-keyboard-trap.html)) | `popover="auto"` native light dismiss; deprecate `shouldCloseOnEscapePress`                                            | 0.5–1.0   |
-| 5   | Focus returns to trigger on dismiss         | Gerard Cohen | [2.4.3](https://www.w3.org/WAI/WCAG22/Understanding/focus-order.html)                                                                                                                                               | Browser's native focus restoration (Popover API); `returnFocusRef` at component level for "trigger deleted" edge cases | 0.5–1.0   |
+| #   | Requirement                                 | Source       | WCAG                                                                                                                                                                                                                | Solved By                                                                                                           | Milestone |
+| --- | ------------------------------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------- | --------- |
+| 1   | DOM order matches visual order (no portals) | Gerard Cohen | [1.3.2](https://www.w3.org/WAI/WCAG22/Understanding/meaningful-sequence.html)                                                                                                                                       | Top layer (`popover`, `<dialog>`) replaces `@atlaskit/portal`                                                       | 0.5–1.0   |
+| 2   | Focus behavior follows role semantics       | Gerard Cohen | [2.4.3](https://www.w3.org/WAI/WCAG22/Understanding/focus-order.html), [2.1.1](https://www.w3.org/WAI/WCAG22/Understanding/keyboard.html)                                                                           | Native `<dialog>` + `popover="auto"` focus behavior; `useArrowNavigation` for menus                                 | 0.5–1.0   |
+| 3   | Background inert when modal is open         | Gerard Cohen | [2.4.3](https://www.w3.org/WAI/WCAG22/Understanding/focus-order.html), [1.3.2](https://www.w3.org/WAI/WCAG22/Understanding/meaningful-sequence.html)                                                                | `<dialog>.showModal()` native inertness                                                                             | 0.7       |
+| 4   | Escape always dismisses — no exceptions     | Gerard Cohen | [1.4.13](https://www.w3.org/WAI/WCAG22/Understanding/content-on-hover-or-focus.html), [ARIA APG](https://www.w3.org/WAI/ARIA/apg/) (and [2.1.2](https://www.w3.org/WAI/WCAG22/Understanding/no-keyboard-trap.html)) | `popover="auto"` native light dismiss; deprecate `shouldCloseOnEscapePress`                                         | 0.5–1.0   |
+| 5   | Focus returns to trigger on dismiss         | Gerard Cohen | [2.4.3](https://www.w3.org/WAI/WCAG22/Understanding/focus-order.html)                                                                                                                                               | Browser's native focus restoration (Popover API); the action's handler moves focus for "trigger deleted" edge cases | 0.5–1.0   |
 
 Requirement 4 has one documented exception: a modal `Dialog` consumer may refuse Escape. The user
 can still Tab to the dialog's controls, so it is not a keyboard trap (see

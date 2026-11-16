@@ -195,23 +195,25 @@ const client = new FlagClient({
 		endpoint: 'https://xp.atlassian.com/ft/v1/logs', // default; or a same-origin path
 		batchSize: 100, // default: exposures that trigger an immediate delivery
 		flushIntervalMs: 10_000, // default: how long a queued exposure waits
+		dedupeMaxKeys: 5_000, // default: maximum retained LRU entries
+		dedupeWindowMs: 600_000, // default: admission window, not cache-entry expiry
 	},
 });
 ```
 
-An option that fails its type, such as `batchSize: 0`, `endpoint: 'relative/path'`, or an `endpoint`
-URL with a username or password, is ignored: its default applies and the client writes one
-`console.warn` naming the option, never its value. Construction never throws. A disabled client does
-not check `endpoint`, `batchSize`, or `flushIntervalMs` at all, so passing one configuration to both
-browser and SSR clients is quiet.
+An option that fails its type, such as `batchSize: 0`, `dedupeMaxKeys: 0`,
+`endpoint: 'relative/path'`, or an `endpoint` URL with a username or password, is ignored: its
+default applies and the client writes one `console.warn` naming the option, never its value.
+Construction never throws. A disabled client does not validate delivery or deduplication options, so
+passing one configuration to both browser and SSR clients is quiet.
 
 ### What an exposure carries
 
 - `service.name` and `feature_flag.set.id` come from `targetApp`. `deployment.environment_type` and
   `deployment.environment.name` come from `environmentType`, and `service.version` from
   `serviceVersion`.
-- The Instrumentation Scope name and `atl.feature_flag.sdk.type` are `@atlaskit/flag-client`, and the
-  scope version is this package's version.
+- The Instrumentation Scope name and `atl.feature_flag.sdk.type` are `@atlaskit/flag-client`, and
+  the scope version is this package's version.
 - Identifiers and attributes come from the held payload's `requestContext`. While the client holds
   no payload, they come from the current user, which after a failed `initialize` is the user passed
   to it. Details `identifierValue` always comes from the current user.
@@ -219,10 +221,10 @@ browser and SSR clients is quiet.
   initialized payload, including for `flag_not_found` and `type_mismatch`, and `fallback` for a read
   made before a successful `initialize`, even when `logExposure` replays it later.
 - Error reasons (`not_initialized`, `flag_not_found`, `type_mismatch`, `general_error`, and
-  `invalid_context`) carry no variant or rule, and their error message starts with `FFP evaluation
-  failed: <reason>`. `general_error` and `invalid_context` use the payload's `errorMessage` instead
-  when it is nonempty. A `not_initialized` message ends with the cause, such as `(no initialize
-  attempt completed)` or the most recent failure reason.
+  `invalid_context`) carry no variant or rule, and their error message starts with
+  `FFP evaluation failed: <reason>`. `general_error` and `invalid_context` use the payload's
+  `errorMessage` instead when it is nonempty. A `not_initialized` message ends with the cause, such
+  as `(no initialize attempt completed)` or the most recent failure reason.
 - `type_mismatch` keeps the payload flag's version and target apps.
 - A holdout allocation becomes the `atl.feature_flag.holdout_allocation.*` attributes only when its
   `holdoutKey`, `identifierType`, and `allocationReason` are strings, with `holdout_rule_id` only
@@ -248,9 +250,15 @@ never throws and does nothing when exposure logging is disabled.
 
 ### Deduplication, delivery, and persistence
 
-- An exposure with the same flag key, variation, rule, match reason, and identifiers as one queued
-  in the last ten minutes is discarded. Manual and automatic exposures share these windows. A
-  successful `replace` ends them all.
+- Exposures are deduplicated per client using the captured flag result and assignment metadata,
+  including the randomization identifier, holdouts, and A/A `stableSplitOutcome`.
+- A matching exposure is suppressed for `dedupeWindowMs` (10 minutes by default). Duplicate reads
+  do not extend the window. The cache holds up to `dedupeMaxKeys` (5,000 by default), evicting the
+  least recently used key when full; entries do not expire automatically.
+- Eligible ordinary exposure records include a deduplication key. Records also include a best-effort
+  `atl.feature_flag.sdk.dedupe.item.count`. If WASM hashing is unavailable, a JavaScript XXH3
+  fallback produces the same `ffp-exp-v1:` keys. Counts can be lost when entries are evicted
+  or cleared.
 - One request is in flight at a time, sent with `credentials: 'omit'`. Network errors, requests not
   settled within 30 seconds, `429`, and `5xx` statuses are retried after 1 second and then 2
   seconds. Any other non-`2xx` status drops the batch.
@@ -260,11 +268,10 @@ never throws and does nothing when exposure logging is disabled.
   failures never drop exposures, but from the first retryable failure until a delivery gets any
   other outcome, the client keeps only the 1,000 most recent exposures in memory.
 - When the page is hidden, undelivered exposures are saved to `localStorage` under keys starting
-  `@atlaskit/flag-client:exposures:`, and so is each exposure queued while it stays hidden. The
-  next client constructed on the same origin delivers them to its own `endpoint`, whichever
-  endpoint the client that saved them was configured with. It sends them as soon as it takes them,
-  rather than after `flushIntervalMs`, unless its circuit breaker holds them back. Storage errors
-  never throw.
+  `@atlaskit/flag-client:exposures:`, and so is each exposure queued while it stays hidden. The next
+  client constructed on the same origin delivers them to its own `endpoint`, whichever endpoint the
+  client that saved them was configured with. It sends them as soon as it takes them, rather than
+  after `flushIntervalMs`, unless its circuit breaker holds them back. Storage errors never throw.
 - Every client on an origin shares a `localStorage` budget of 131,072 UTF-16 code units (256 KiB),
   keys included, and saves only its most recent exposures that fit. The others stay in memory. There
   is no separate limit on how many exposures are saved; the budget alone decides.
@@ -281,7 +288,13 @@ Telemetry avoids CORS entirely, as GASv3 does:
 
 ```ts
 // Delivers to https://<product host>/gateway/api/ft/v1/logs
-exposureLogging: { endpoint: '/gateway/api/ft/v1/logs' }
+const client = new FlagClient({
+	targetApp: 'my-app',
+	environmentType: 'prod',
+	exposureLogging: {
+		endpoint: '/gateway/api/ft/v1/logs',
+	},
+});
 ```
 
 The path above is illustrative; use the route your product actually serves. A path is ignored with a

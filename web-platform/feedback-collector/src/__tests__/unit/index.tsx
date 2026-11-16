@@ -1083,6 +1083,44 @@ We have some formatting here
 		});
 	});
 
+	describe('width', () => {
+		const dialogWidth = () =>
+			screen
+				.getByTestId('feedbackCollectorModalDialog')
+				.style.getPropertyValue('--modal-dialog-width');
+
+		it('should keep the default modal width when FeedbackForm has no width', () => {
+			render(<FeedbackForm locale={'en'} onClose={() => {}} onSubmit={async () => {}} />);
+
+			expect(dialogWidth()).toBe('600px');
+		});
+
+		it.each([
+			['small', '400px'],
+			['medium', '600px'],
+			['large', '800px'],
+			['x-large', '968px'],
+		] as const)('should render FeedbackForm at the %s width', (width, expected) => {
+			render(
+				<FeedbackForm locale={'en'} onClose={() => {}} onSubmit={async () => {}} width={width} />,
+			);
+
+			expect(dialogWidth()).toBe(expected);
+		});
+
+		it('should keep the default modal width when FeedbackCollector has no width', () => {
+			renderFeedbackCollector();
+
+			expect(dialogWidth()).toBe('600px');
+		});
+
+		it('should pass the width from FeedbackCollector to the modal', () => {
+			renderFeedbackCollector({ width: 'large' });
+
+			expect(dialogWidth()).toBe('800px');
+		});
+	});
+
 	describe('onCancel callback', () => {
 		describe('FeedbackForm', () => {
 			it('should call onClose when cancel button is clicked and onCancel is not provided', () => {

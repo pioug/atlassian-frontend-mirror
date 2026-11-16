@@ -1,4 +1,12 @@
-import React, { useCallback, useEffect, useId, useRef, useState, type ComponentProps } from 'react';
+import React, {
+	useCallback,
+	useEffect,
+	useId,
+	useLayoutEffect,
+	useRef,
+	useState,
+	type ComponentProps,
+} from 'react';
 
 import { bind } from 'bind-event-listener';
 
@@ -60,6 +68,24 @@ const styles = cssMap({
 });
 const stopPropagation = (event: React.SyntheticEvent) => event.stopPropagation();
 
+const focusReturnTarget = (
+	preferredTarget: HTMLElement | null,
+	fallbackTarget: HTMLElement | null,
+): void => {
+	const isUsableTarget = (target: HTMLElement | null): target is HTMLElement =>
+		Boolean(
+			target?.isConnected &&
+			target !== target.ownerDocument.body &&
+			target !== target.ownerDocument.documentElement,
+		);
+	const target = isUsableTarget(preferredTarget)
+		? preferredTarget
+		: isUsableTarget(fallbackTarget)
+			? fallbackTarget
+			: null;
+	target?.focus();
+};
+
 /** Editor owns popup behavior; products supply content through getAICreditStatus. */
 const CreditPopup = ({
 	guard: { feedback, close },
@@ -71,15 +97,59 @@ const CreditPopup = ({
 	const id = useId();
 	const [contentElement, setContentElement] = useState<HTMLDivElement | null>(null);
 	const [triggerElement, setTriggerElement] = useState<HTMLElement | null>(null);
+	// Menu search and editor inputs can keep focus when feedback opens.
+	// Remember that element so Escape returns focus there instead of to the trigger.
 	const returnFocus = useRef<HTMLElement | null>(null);
-	const wasOpen = useRef(false);
+	const isOpen = useRef(feedback !== null);
+	isOpen.current = feedback !== null;
+	const restoreFocusAfterClose = useRef(false);
 	useEffect(() => {
-		if (feedback && !wasOpen.current) {
-			const active = triggerElement?.ownerDocument.activeElement;
-			returnFocus.current = active instanceof HTMLElement ? active : null;
+		if (!triggerElement) {
+			return;
 		}
-		wasOpen.current = feedback !== null;
-	}, [feedback, triggerElement]);
+		const ownerDocument = triggerElement.ownerDocument;
+		const rememberFocus = (target: EventTarget | null) => {
+			if (
+				!isOpen.current &&
+				!restoreFocusAfterClose.current &&
+				target instanceof HTMLElement &&
+				target !== ownerDocument.body &&
+				target !== ownerDocument.documentElement
+			) {
+				returnFocus.current = target;
+			}
+		};
+		rememberFocus(ownerDocument.activeElement);
+		return bind(ownerDocument, {
+			type: 'focusin',
+			options: { capture: true },
+			listener: (event) => rememberFocus(event.target),
+		});
+	}, [triggerElement]);
+	useEffect(() => {
+		if (feedback || contentElement || !restoreFocusAfterClose.current) {
+			return;
+		}
+		restoreFocusAfterClose.current = false;
+		const previousFocus = returnFocus.current?.isConnected ? returnFocus.current : triggerElement;
+		focusReturnTarget(previousFocus, triggerElement);
+	}, [feedback, contentElement, triggerElement]);
+	useLayoutEffect(() => {
+		if (!feedback || !contentElement) return;
+		const ownerDocument = contentElement.ownerDocument;
+		return bind(ownerDocument, {
+			type: 'keydown',
+			options: { capture: true },
+			listener: (event) => {
+				if (event.key !== 'Escape') return;
+				// The popup can leave focus in the editor, whose Escape handler cancels its draft.
+				event.preventDefault();
+				event.stopPropagation();
+				restoreFocusAfterClose.current = true;
+				close();
+			},
+		});
+	}, [feedback, contentElement, close]);
 	useEffect(() => {
 		if (!feedback || !contentElement || !isNestedMenu) {
 			return;
@@ -100,13 +170,11 @@ const CreditPopup = ({
 			event.stopPropagation();
 			if (event.key === 'Escape') {
 				event.preventDefault();
+				restoreFocusAfterClose.current = true;
 				close();
-				if (isNestedMenu) {
-					returnFocus.current?.focus();
-				}
 			}
 		},
-		[close, isNestedMenu],
+		[close],
 	);
 	const content = useCallback(
 		() => (
@@ -142,9 +210,12 @@ const CreditPopup = ({
 			placement={placement}
 			shouldFitViewport
 			shouldRenderToParent={shouldRenderToParent ?? false}
-			zIndex={isNestedMenu ? akEditorFloatingDialogZIndex : undefined}
+			// Credit feedback must share the modal layer when opened from a modal editor surface.
+			zIndex={akEditorFloatingDialogZIndex}
 			strategy={isNestedMenu ? 'fixed' : undefined}
-			shouldReturnFocus={!isNestedMenu}
+			// Our Escape handler restores focus after the popup unmounts.
+			// Disable automatic restoration so outside clicks keep focus on their target.
+			shouldReturnFocus={false}
 			shouldUseCaptureOnOutsideClick
 			content={content}
 			trigger={trigger}

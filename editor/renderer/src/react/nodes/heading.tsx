@@ -67,18 +67,23 @@ const wrapperStyles = css({
 });
 
 const collapsibleHeadingWrapperStyles = css({
-	// Include the chevron gutter in the wrapper's hit area while keeping heading text aligned with
-	// non-collapsible renderer content. This prevents the hover control disappearing while the
-	// pointer crosses from the heading to the button.
-	marginInlineStart: token('space.negative.400'),
-	paddingInlineStart: token('space.400'),
 	position: 'relative',
+	// Keep the toggle gutter hoverable without including it in the wrapper's block highlight.
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- A transparent pseudo-element preserves the hover area outside the heading's bounds.
+	'&::before': {
+		content: '""',
+		position: 'absolute',
+		insetBlockStart: 0,
+		insetBlockEnd: 0,
+		insetInlineStart: token('space.negative.400'),
+		width: token('space.400'),
+	},
 });
 
 const collapsibleHeadingButtonStyles = css({
 	position: 'absolute',
 	insetBlockStart: 0,
-	insetInlineStart: 0,
+	insetInlineStart: token('space.negative.400'),
 	zIndex: 1,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- The IconButton API does not expose a styling hook for its SVG.
 	'& svg': {

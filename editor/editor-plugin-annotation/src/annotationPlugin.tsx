@@ -10,6 +10,7 @@ import {
 	useSharedPluginStateWithSelector,
 } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
@@ -23,6 +24,7 @@ import {
 	showInlineCommentForBlockNode,
 } from './editor-commands';
 import { annotationWithToDOMFix } from './nodeviews/annotationMark';
+import { annotationDecorationsPlugin } from './pm-plugins/annotation-decorations';
 import { inlineCommentPlugin } from './pm-plugins/inline-comment';
 import { keymapPlugin } from './pm-plugins/keymap';
 import {
@@ -136,6 +138,8 @@ export const annotationPlugin: AnnotationPlugin = ({ config: annotationProviders
 			const pluginState = getPluginState(editorState) || undefined;
 			const clonedPluginState = Object.assign({}, pluginState);
 			delete clonedPluginState?.featureFlagsPluginState;
+			// Internal bookkeeping, and shared state is deep-compared on every transaction
+			delete clonedPluginState?.annotationIdCounts;
 			return {
 				...clonedPluginState,
 				annotationManager: annotationProviders?.annotationManager,
@@ -157,6 +161,21 @@ export const annotationPlugin: AnnotationPlugin = ({ config: annotationProviders
 							annotationManager: annotationProviders.annotationManager,
 							api,
 						});
+					}
+
+					return;
+				},
+			},
+			{
+				// Must stay directly after `annotation`, which it reads state from and inherits
+				// decoration order from
+				name: 'annotationDecorations',
+				plugin: () => {
+					if (
+						annotationProviders &&
+						isExperimentEnabled('cc_editor_annotation_decoration_improv')
+					) {
+						return annotationDecorationsPlugin(annotationProviders.inlineComment);
 					}
 
 					return;

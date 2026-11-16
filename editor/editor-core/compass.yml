@@ -15,9 +15,6 @@ links:
   - name: ''
     type: REPOSITORY
     url: https://bitbucket.org/atlassian/atlassian-frontend/src/master/packages/editor/editor-core/
-  - name: '#team-cc-editor-services'
-    type: CHAT_CHANNEL
-    url: https://atlassian.slack.com/app_redirect?channel=team-cc-editor-services
   - name: ''
     type: ON_CALL
     url: https://atlassian.app.opsgenie.com/settings/schedule/detail/b2599bc4-2eec-4364-963c-a52b0fea279b

@@ -44,7 +44,6 @@ import { AllSelection, PluginKey, TextSelection } from '@atlaskit/editor-prosemi
 import { findDomRefAtPos, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type {
 	ConfigWithNodeInfo,
@@ -354,17 +353,13 @@ export function ContentComponent({
 			'userIntent',
 		]);
 
-	const { configWithNodeInfo: configWithNodeInfoFromHook, floatingToolbarData } =
-		floatingToolbarState ?? {};
+	const { floatingToolbarData } = floatingToolbarState ?? {};
 
-	let configWithNodeInfo = configWithNodeInfoFromHook;
-	if (fg('platform_editor_ai_remix_toolbar')) {
-		// Read configWithNodeInfo live because the hook snapshot can lag behind the
-		// current editor selection and keep the floating toolbar rendered stale.
-		// for example, trigger remix on panel will not hide the floating toolbar
-		configWithNodeInfo =
-			pluginInjectionApi?.floatingToolbar?.sharedState.currentState()?.configWithNodeInfo;
-	}
+	// Read configWithNodeInfo live because the hook snapshot can lag behind the
+	// current editor selection and keep the floating toolbar rendered stale.
+	// for example, trigger remix on panel will not hide the floating toolbar
+	const configWithNodeInfo =
+		pluginInjectionApi?.floatingToolbar?.sharedState.currentState()?.configWithNodeInfo;
 
 	// Subscribe to an external store for rerenders. Used by editor-plugin-card for card registration via editor actions
 	useToolbarExternalStore(configWithNodeInfo?.config?.externalStore);

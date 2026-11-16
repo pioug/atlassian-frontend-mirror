@@ -43,7 +43,17 @@ export const bodiedRule: ADFNode<[string, 'root_only'], ADFCommonNodeSpec> = adf
 	.define({
 		stage0: true,
 		attrs: bodiedRuleAttributes,
-		content: [$range(1, 1, $or(paragraph.use('with_no_marks'), heading.use('with_no_marks')))],
+		content: [
+			$range(
+				1,
+				1,
+				$or(
+					paragraph.use('with_no_marks'),
+					paragraph.use('with_font_size'),
+					heading.use('with_no_marks'),
+				),
+			),
+		],
 		marks: [unsupportedMark, unsupportedNodeAttribute],
 	})
 	// this variant is used to support breakout resizing for bodiedRule nodes at the document root

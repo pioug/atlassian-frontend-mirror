@@ -55,29 +55,13 @@ snapshot(FlexibleUiComposition, {
 
 // Blocks
 snapshot(FlexibleUiBlock, {
-	ignoredErrors: [
-		{
-			pattern: /Can't perform a React state update on a component that hasn't mounted yet/,
-			ignoredBecause: 'react-loadable causing uncaught error to be thrown',
-			jiraIssueId: 'EDM-10562',
-		},
-	],
 	featureFlags: {
-		platform_sl_replace_react_loadable: true,
 		'platform-component-visual-refresh': true,
 	},
 	waitForReactLazy: true,
 });
 snapshot(FlexibleUiBlockTitle, {
-	ignoredErrors: [
-		{
-			pattern: /Can't perform a React state update on a component that hasn't mounted yet/,
-			ignoredBecause: 'react-loadable causing uncaught error to be thrown',
-			jiraIssueId: 'EDM-10562',
-		},
-	],
 	featureFlags: {
-		platform_sl_replace_react_loadable: true,
 		'platform-component-visual-refresh': true,
 	},
 	waitForReactLazy: true,
@@ -92,15 +76,7 @@ snapshot(FlexibleUiBlockTitle, {
 			state: 'hovered',
 		},
 	],
-	ignoredErrors: [
-		{
-			pattern: /Can't perform a React state update on a component that hasn't mounted yet/,
-			ignoredBecause: 'react-loadable causing uncaught error to be thrown',
-			jiraIssueId: 'EDM-10562',
-		},
-	],
 	featureFlags: {
-		platform_sl_replace_react_loadable: true,
 		'platform-component-visual-refresh': true,
 	},
 	waitForReactLazy: true,
@@ -115,29 +91,13 @@ snapshot(FlexibleUiBlockTitle, {
 			state: 'hovered',
 		},
 	],
-	ignoredErrors: [
-		{
-			pattern: /Can't perform a React state update on a component that hasn't mounted yet/,
-			ignoredBecause: 'react-loadable causing uncaught error to be thrown',
-			jiraIssueId: 'EDM-10562',
-		},
-	],
 	featureFlags: {
-		platform_sl_replace_react_loadable: true,
 		'platform-component-visual-refresh': true,
 	},
 	waitForReactLazy: true,
 });
 snapshot(FlexibleUiBlockMetadata, {
-	ignoredErrors: [
-		{
-			pattern: /Can't perform a React state update on a component that hasn't mounted yet/,
-			ignoredBecause: 'react-loadable causing uncaught error to be thrown',
-			jiraIssueId: 'EDM-10562',
-		},
-	],
 	featureFlags: {
-		platform_sl_replace_react_loadable: true,
 		'platform-component-visual-refresh': true,
 	},
 	waitForReactLazy: true,
@@ -217,13 +177,6 @@ snapshot(FlexibleUiElementLozenge, {
 // NAVX-5074: To be investigated - test failed in pipeline (passed locally)
 snapshot.skip(FlexibleUiElementBadge, {
 	drawsOutsideBounds: true,
-	ignoredErrors: [
-		{
-			pattern: /Can't perform a React state update on a component that hasn't mounted yet/,
-			ignoredBecause: 'react-loadable causing uncaught error to be thrown',
-			jiraIssueId: 'EDM-10562',
-		},
-	],
 	featureFlags: {
 		'platform-component-visual-refresh': true,
 	},

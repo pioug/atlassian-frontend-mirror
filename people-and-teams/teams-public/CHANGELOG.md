@@ -1,5 +1,15 @@
 # @atlaskit/teams-public
 
+## 3.12.1
+
+### Patch Changes
+
+- [`1058a2a1e64ac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1058a2a1e64ac) -
+  Cleanup `feature_gate` `teams_a11y_20261019`. The team profile header, tabs and projects grid now
+  always reflow on narrow viewports, the goal and user card menus render next to their triggers for
+  reading order, the add team link button always uses its translated label, and the team links "Show
+  more"/"Show less" button always has a descriptive accessible name.
+
 ## 3.12.0
 
 ### Minor Changes

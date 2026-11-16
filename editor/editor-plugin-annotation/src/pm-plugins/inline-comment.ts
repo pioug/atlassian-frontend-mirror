@@ -30,6 +30,8 @@ import {
 import { resetUserIntent, setUserIntent } from '../editor-commands/utils';
 import { getAnnotationViewClassname, getBlockAnnotationViewClassname } from '../nodeviews';
 import type { InlineCommentAnnotationProvider } from '../types';
+import type { AnnotationIdCounts } from './annotation-id-counts';
+import { createAnnotationIdCounts } from './annotation-id-counts';
 import {
 	allowAnnotation,
 	applyDraft,
@@ -105,8 +107,10 @@ const initialState = (
 	disallowOnWhitespace: boolean = false,
 	featureFlagsPluginState?: FeatureFlags,
 	isAnnotationManagerEnabled: boolean = false,
+	annotationIdCounts?: AnnotationIdCounts,
 ): InlineCommentPluginState => {
 	return {
+		annotationIdCounts,
 		annotationsLoaded: false,
 		annotations: {},
 		selectedAnnotations: [],
@@ -128,6 +132,115 @@ const initialState = (
 
 const hideToolbar = (state: EditorState, dispatch: CommandDispatch) => () => {
 	updateMouseState({ isSelecting: true })(state, dispatch);
+};
+
+/** Control cohort of `cc_editor_annotation_decoration_improv`, and the oracle its tests match. */
+export const getAnnotationDecorationsForState = (
+	state: EditorState,
+	supportedBlockNodes: string[] | undefined,
+	isBlockNodeSupported: InlineCommentAnnotationProvider['isBlockNodeSupported'],
+): Decoration[] => {
+	const {
+		annotations,
+		selectedAnnotations,
+		isVisible,
+		isInlineCommentViewClosed,
+		hoveredAnnotations,
+	} = getPluginState(state) || {};
+
+	const focusDecorations: Decoration[] = [];
+
+	state.doc.descendants((node: PMNode, pos: number) => {
+		// Do not render saved chart marks as text highlights when annotation support is off.
+		if (shouldHideRemixAnnotation(node)) {
+			return false;
+		}
+		// Inline comment on mediaInline is not supported as part of comments on media project
+		// Thus, we skip the decoration for mediaInline node
+		if (node.type.name === 'mediaInline') {
+			return false;
+		}
+		const isSupportedBlock =
+			node.isBlock && isSupportedBlockNode(node, supportedBlockNodes, isBlockNodeSupported);
+
+		node.marks
+			.filter((mark) => mark.type === state.schema.marks.annotation)
+			.forEach((mark) => {
+				if (isVisible) {
+					const isUnresolved = !!annotations && annotations[mark.attrs.id] === false;
+					const isSelected =
+						!isInlineCommentViewClosed &&
+						!!selectedAnnotations?.some(
+							(selectedAnnotation) => selectedAnnotation.id === mark.attrs.id,
+						);
+
+					const isHovered =
+						!isInlineCommentViewClosed &&
+						!!hoveredAnnotations?.some(
+							(hoveredAnnotation) => hoveredAnnotation.id === mark.attrs.id,
+						);
+
+					if (isSupportedBlock) {
+						focusDecorations.push(
+							Decoration.node(
+								pos,
+								pos + node.nodeSize,
+								{
+									class: `${getBlockAnnotationViewClassname(
+										isUnresolved,
+										isSelected,
+									)} ${isUnresolved}`,
+								},
+								{ key: decorationKey.block },
+							),
+						);
+					} else {
+						if (fg('editor_inline_comments_on_inline_nodes')) {
+							if (node.isText) {
+								focusDecorations.push(
+									Decoration.inline(pos, pos + node.nodeSize, {
+										class: `${getAnnotationViewClassname(
+											isUnresolved,
+											isSelected,
+											isHovered,
+										)} ${isUnresolved}`,
+										nodeName: 'span',
+									}),
+								);
+							} else {
+								focusDecorations.push(
+									Decoration.node(
+										pos,
+										pos + node.nodeSize,
+										{
+											class: `${getAnnotationViewClassname(
+												isUnresolved,
+												isSelected,
+												isHovered,
+											)} ${isUnresolved}`,
+										},
+										{ key: decorationKey.block },
+									),
+								);
+							}
+						} else {
+							focusDecorations.push(
+								Decoration.inline(pos, pos + node.nodeSize, {
+									class: `${getAnnotationViewClassname(
+										isUnresolved,
+										isSelected,
+										isHovered,
+									)} ${isUnresolved}`,
+									nodeName: 'span',
+								}),
+							);
+						}
+					}
+				}
+			});
+	});
+
+	return focusDecorations;
 };
 
 // Subscribe to updates from consumer
@@ -176,11 +289,20 @@ export const inlineCommentPlugin = (
 ): SafePlugin<InlineCommentPluginState> => {
 	const { provider, featureFlagsPluginState, annotationManager } = options;
 
+	const isIncrementalAnnotationDecorations = isExperimentEnabled(
+		'cc_editor_annotation_decoration_improv',
+	);
+
 	return new SafePlugin({
 		key: inlineCommentPluginKey,
-		state: createPluginState(
-			options.dispatch,
-			initialState(provider.disallowOnWhitespace, featureFlagsPluginState, !!annotationManager),
+		state: createPluginState(options.dispatch, (state: EditorState) =>
+			initialState(
+				provider.disallowOnWhitespace,
+				featureFlagsPluginState,
+				!!annotationManager,
+				// Seeded counts are what switch the document-change handler onto the incremental path
+				isIncrementalAnnotationDecorations ? createAnnotationIdCounts(state.doc) : undefined,
+			),
 		),
 
 		view(editorView: EditorView) {
@@ -546,116 +668,25 @@ export const inlineCommentPlugin = (
 				},
 			},
 			decorations(state: EditorState) {
-				// highlight comments, depending on state
-				const {
-					draftDecorationSet,
-					annotations,
-					selectedAnnotations,
-					isVisible,
-					isInlineCommentViewClosed,
-					hoveredAnnotations,
-				} = getPluginState(state) || {};
+				const { draftDecorationSet } = getPluginState(state) || {};
+				const decorations = draftDecorationSet ?? DecorationSet.empty;
 
-				let decorations = draftDecorationSet ?? DecorationSet.empty;
-				const focusDecorations: Decoration[] = [];
+				// Highlights come from the `annotationDecorations` plugin on this path
+				if (isIncrementalAnnotationDecorations) {
+					return decorations;
+				}
 
 				// TODO: EDITOR-760 - This needs to be optimised, it's not a good idea to scan the entire document
 				// everytime we need to update the decorations. This handler will be called alot. We should be caching
 				// the decorations in plugin state and only updating them when required.
-				state.doc.descendants((node: PMNode, pos: number) => {
-					// Do not render saved chart marks as text highlights when annotation support is off.
-					if (shouldHideRemixAnnotation(node)) {
-						return false;
-					}
-					// Inline comment on mediaInline is not supported as part of comments on media project
-					// Thus, we skip the decoration for mediaInline node
-					if (node.type.name === 'mediaInline') {
-						return false;
-					}
-					const isSupportedBlock =
-						node.isBlock &&
-						isSupportedBlockNode(node, provider.supportedBlockNodes, provider.isBlockNodeSupported);
-
-					node.marks
-						.filter((mark) => mark.type === state.schema.marks.annotation)
-						.forEach((mark) => {
-							if (isVisible) {
-								const isUnresolved = !!annotations && annotations[mark.attrs.id] === false;
-								const isSelected =
-									!isInlineCommentViewClosed &&
-									!!selectedAnnotations?.some(
-										(selectedAnnotation) => selectedAnnotation.id === mark.attrs.id,
-									);
-
-								const isHovered =
-									!isInlineCommentViewClosed &&
-									!!hoveredAnnotations?.some(
-										(hoveredAnnotation) => hoveredAnnotation.id === mark.attrs.id,
-									);
-
-								if (isSupportedBlock) {
-									focusDecorations.push(
-										Decoration.node(
-											pos,
-											pos + node.nodeSize,
-											{
-												class: `${getBlockAnnotationViewClassname(
-													isUnresolved,
-													isSelected,
-												)} ${isUnresolved}`,
-											},
-											{ key: decorationKey.block },
-										),
-									);
-								} else {
-									if (fg('editor_inline_comments_on_inline_nodes')) {
-										if (node.isText) {
-											focusDecorations.push(
-												Decoration.inline(pos, pos + node.nodeSize, {
-													class: `${getAnnotationViewClassname(
-														isUnresolved,
-														isSelected,
-														isHovered,
-													)} ${isUnresolved}`,
-													nodeName: 'span',
-												}),
-											);
-										} else {
-											focusDecorations.push(
-												Decoration.node(
-													pos,
-													pos + node.nodeSize,
-													{
-														class: `${getAnnotationViewClassname(
-															isUnresolved,
-															isSelected,
-															isHovered,
-														)} ${isUnresolved}`,
-													},
-													{ key: decorationKey.block },
-												),
-											);
-										}
-									} else {
-										focusDecorations.push(
-											Decoration.inline(pos, pos + node.nodeSize, {
-												class: `${getAnnotationViewClassname(
-													isUnresolved,
-													isSelected,
-													isHovered,
-												)} ${isUnresolved}`,
-												nodeName: 'span',
-											}),
-										);
-									}
-								}
-							}
-						});
-				});
-
-				decorations = decorations.add(state.doc, focusDecorations);
-
-				return decorations;
+				return decorations.add(
+					state.doc,
+					getAnnotationDecorationsForState(
+						state,
+						provider.supportedBlockNodes,
+						provider.isBlockNodeSupported,
+					),
+				);
 			},
 		},
 	});

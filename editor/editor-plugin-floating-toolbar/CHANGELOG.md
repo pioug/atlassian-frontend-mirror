@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 33.0.1
+
+### Patch Changes
+
+- [`7c695374786dc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7c695374786dc) -
+  Ship the enabled path while cleaning up platform_editor_ai_remix_toolbar in Editor packages.
+- Updated dependencies
+
+## 33.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 32.0.20
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 32.0.19
 
 ### Patch Changes

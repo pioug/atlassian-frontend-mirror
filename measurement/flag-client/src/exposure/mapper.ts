@@ -1,6 +1,12 @@
 /** Pure mapping from one read to one exposure record. Not part of the public API. */
-import { CLIENT_FALLBACK_REASONS, type ClientFallbackReason } from '../evaluation';
-import type { ClientVersion, EvaluationDetails, FlagResult, RequestContext } from '../types';
+import type { ClientFallbackReason } from '../evaluation';
+import type {
+	ClientVersion,
+	EvaluationDetails,
+	FlagResult,
+	HoldoutAllocationMetadata,
+	RequestContext,
+} from '../types';
 import type { FFPUser } from '../user-normalization';
 import { PACKAGE_VERSION } from '../version';
 import {
@@ -21,6 +27,7 @@ import {
 	type OtlpAnyValue,
 	type OtlpKeyValue,
 } from './otlp';
+import { ERROR_REASONS } from './reasons';
 
 export interface ExposureMappingInput {
 	readonly details: EvaluationDetails<unknown>;
@@ -46,13 +53,6 @@ export interface ExposureMappingInput {
 /** Typed so a respelling in `CLIENT_FALLBACK_REASONS` fails to compile here. */
 const NOT_INITIALIZED: ClientFallbackReason = 'not_initialized';
 
-/** Match reasons that report an evaluation failure rather than a served variation. */
-const ERROR_REASONS: ReadonlySet<string> = new Set([
-	...CLIENT_FALLBACK_REASONS,
-	'general_error',
-	'invalid_context',
-]);
-
 /** Error reasons whose payload `errorMessage` is preferred over the fixed client-owned text. */
 const PAYLOAD_MESSAGE_ERROR_REASONS: ReadonlySet<string> = new Set([
 	'general_error',
@@ -63,7 +63,7 @@ const PAYLOAD_MESSAGE_ERROR_REASONS: ReadonlySet<string> = new Set([
  * Map one read to its exposure record.
  *
  * The source names the payload origin: `bootstrap` whenever the client holds an initialized payload,
- * and `fallback` otherwise. Error reasons omit variant and rule attribution. Unavailable values are
+ * and `fallback` otherwise. Error reasons omit actual variant and rule attribution; captured assignment diagnostics remain available. Unavailable values are
  * omitted rather than synthesized, except the schema-reserved `default` rule ID for a variation
  * without a rule. The flag value is never included.
  */
@@ -112,26 +112,22 @@ export function mapExposureRecord(input: ExposureMappingInput): ExposureRecord {
 		}
 	}
 
-	// Ingestion drops the whole record for an incomplete group, so only a complete one is mapped.
-	// Caller-built details may omit the member, so an absent allocation is skipped like `null`.
-	const holdout = metadata.holdoutAllocation;
-	if (
-		typeof holdout?.holdoutKey === 'string' &&
-		typeof holdout.identifierType === 'string' &&
-		typeof holdout.allocationReason === 'string'
-	) {
-		add('atl.feature_flag.holdout_allocation.holdout_key', stringValue(holdout.holdoutKey));
-		if (typeof holdout.holdoutRuleId === 'string') {
-			add(
-				'atl.feature_flag.holdout_allocation.holdout_rule_id',
-				stringValue(holdout.holdoutRuleId),
-			);
+	// Preserve available assignment strings; deferred delivery adds the browser wire digest.
+	for (const [name, value] of [
+		['randomization_identifier_value', metadata.randomizationIdentifierValue],
+		['randomization_identifier_name', metadata.randomizationIdentifierName],
+	] as const) {
+		if (typeof value === 'string') add(`atl.feature_flag.${name}`, stringValue(value));
+	}
+	addHoldoutAllocation(metadata.holdoutAllocation, 'atl.feature_flag.holdout_allocation.', add);
+	const outcome = metadata.stableSplitOutcome;
+	if (typeof outcome?.matchReason === 'string') {
+		const prefix = 'atl.feature_flag.stable_split_outcome.';
+		add(`${prefix}match_reason`, stringValue(outcome.matchReason));
+		if (typeof outcome.variationId === 'string') {
+			add(`${prefix}variation_id`, stringValue(outcome.variationId));
 		}
-		add('atl.feature_flag.holdout_allocation.identifier_type', stringValue(holdout.identifierType));
-		add(
-			'atl.feature_flag.holdout_allocation.allocation_reason',
-			stringValue(holdout.allocationReason),
-		);
+		addHoldoutAllocation(outcome.holdoutAllocation, `${prefix}holdout_allocation.`, add);
 	}
 
 	const targetApps = (flagResult?.metadata.targetApps ?? []).filter(isNonEmptyString);
@@ -171,6 +167,27 @@ export function mapExposureRecord(input: ExposureMappingInput): ExposureRecord {
 			attributes,
 		},
 	};
+}
+
+/** Map complete actual or hypothetical holdouts; incomplete groups cannot be exported to StreamHub. */
+function addHoldoutAllocation(
+	holdout: HoldoutAllocationMetadata | null | undefined,
+	prefix: string,
+	add: (key: string, value: OtlpAnyValue) => void,
+): void {
+	if (
+		typeof holdout?.holdoutKey !== 'string' ||
+		typeof holdout.identifierType !== 'string' ||
+		typeof holdout.allocationReason !== 'string'
+	) {
+		return;
+	}
+	add(`${prefix}holdout_key`, stringValue(holdout.holdoutKey));
+	if (typeof holdout.holdoutRuleId === 'string') {
+		add(`${prefix}holdout_rule_id`, stringValue(holdout.holdoutRuleId));
+	}
+	add(`${prefix}identifier_type`, stringValue(holdout.identifierType));
+	add(`${prefix}allocation_reason`, stringValue(holdout.allocationReason));
 }
 
 /**

@@ -4,6 +4,7 @@ import type {
 	BulkEvaluationResult,
 	EvaluationDetails,
 	EvaluationMetadata,
+	ExposureAssignmentMetadata,
 	FlagResult,
 	FlagReturnType,
 	SegmentEvaluationMetadata,
@@ -135,6 +136,7 @@ function fallbackDetails<T>(
 		ruleId: null,
 		holdoutAllocation: null,
 		segments: NO_SEGMENTS,
+		...assignmentMetadataFromResult(flagResult),
 	};
 	return { details: { value, metadata }, flagResult };
 }
@@ -162,6 +164,26 @@ function metadataFromResult(
 		ruleId: result.metadata.ruleId ?? null,
 		holdoutAllocation: result.metadata.holdoutAllocation ?? null,
 		segments: result.metadata.segments ?? NO_SEGMENTS,
+		...assignmentMetadataFromResult(result),
+	};
+}
+
+/** Preserve supplied assignment facts without deriving missing values or exposing other extensions. */
+function assignmentMetadataFromResult(result: FlagResult | null): ExposureAssignmentMetadata {
+	const metadata = result?.metadata;
+	return {
+		...(metadata?.randomizationIdentifierValue !== undefined && {
+			randomizationIdentifierValue: metadata.randomizationIdentifierValue,
+		}),
+		...(metadata?.randomizationIdentifierName !== undefined && {
+			randomizationIdentifierName: metadata.randomizationIdentifierName,
+		}),
+		...(metadata?.dedupeKey !== undefined && {
+			dedupeKey: metadata.dedupeKey,
+		}),
+		...(metadata?.stableSplitOutcome !== undefined && {
+			stableSplitOutcome: metadata.stableSplitOutcome,
+		}),
 	};
 }
 

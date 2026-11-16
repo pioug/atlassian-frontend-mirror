@@ -1,24 +1,15 @@
 import { createElement } from 'react';
 
-import memoizeOne from 'memoize-one';
-import type { IntlShape } from 'react-intl';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 import { v4 as uuid } from 'uuid';
 
 import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
-import { expandSelectionBounds } from '@atlaskit/editor-common/selection';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
-import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
-import { getBaseNodeTypeName } from '@atlaskit/editor-common/utils/node-type-utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
-import type { ActiveNode, BlockControlsPlugin } from '../blockControlsPluginType';
 import { nodeMargins } from '../ui/consts';
 import {
 	DropTarget,
@@ -28,42 +19,8 @@ import {
 import type { DropTargetProps } from '../ui/drop-target';
 import { DropTargetLayout, DropTargetLayoutNativeAnchorSupport } from '../ui/drop-target-layout';
 import type { DropTargetLayoutProps } from '../ui/drop-target-layout';
-import { NESTED_DEPTH, TYPE_DROP_TARGET_DEC } from './decorations-common';
+import { TYPE_DROP_TARGET_DEC } from './decorations-common';
 import type { AnchorRectCache } from './utils/anchor-utils';
-import { maxLayoutColumnSupported } from './utils/consts';
-import { canMoveNodeToIndex, canMoveSliceToIndex, isInSameLayout } from './utils/validation';
-
-const IGNORE_NODES = [
-	'tableCell',
-	'tableHeader',
-	'tableRow',
-	'layoutColumn',
-	'listItem',
-	'caption',
-];
-
-const PARENT_WITH_END_DROP_TARGET = [
-	'tableCell',
-	'tableHeader',
-	'panel',
-	'layoutColumn',
-	'expand',
-	'nestedExpand',
-	'bodiedExtension',
-];
-const DISABLE_CHILD_DROP_TARGET = ['orderedList', 'bulletList'];
-
-const getParentTypesWithEndDropTarget = memoizeOne(() => [
-	...PARENT_WITH_END_DROP_TARGET,
-	...(expValEquals('confluence_native_tabs_experiment', 'isEnabled', true)
-		? ['multiBodiedExtension']
-		: []),
-	'bodiedSyncBlock',
-]);
-
-const shouldDescend = (node: PMNode) => {
-	return !['mediaSingle', 'paragraph', 'heading'].includes(node.type.name);
-};
 
 const getNodeMargins = (node?: PMNode) => {
 	if (!node) {
@@ -231,207 +188,4 @@ export const createLayoutDropTargetDecoration = (
 			},
 		},
 	);
-};
-
-export const dropTargetDecorations = (
-	newState: EditorState,
-	api: ExtractInjectionAPI<BlockControlsPlugin>,
-	formatMessage: IntlShape['formatMessage'],
-	nodeViewPortalProviderAPI: PortalProviderAPI,
-	activeNode?: ActiveNode,
-	anchorRectCache?: AnchorRectCache,
-	from?: number,
-	to?: number,
-): Decoration[] => {
-	const decs: Decoration[] = [];
-	const POS_END_OF_DOC = newState.doc.nodeSize - 2;
-	const docFrom = from === undefined || from < 0 ? 0 : from;
-	const docTo = to === undefined || to > POS_END_OF_DOC ? POS_END_OF_DOC : to;
-	const activeNodePos = activeNode?.pos;
-	const $activeNodePos = typeof activeNodePos === 'number' && newState.doc.resolve(activeNodePos);
-	const activePMNode = $activeNodePos && $activeNodePos.nodeAfter;
-
-	anchorRectCache?.clear();
-
-	const prevNodeStack: PMNode[] = [];
-
-	const popNodeStack = (depth: number) => {
-		let result;
-		const toDepth = Math.max(depth, 0);
-		while (prevNodeStack.length > toDepth) {
-			result = prevNodeStack.pop();
-		}
-		return result;
-	};
-
-	const pushNodeStack = (node: PMNode, depth: number) => {
-		popNodeStack(depth);
-		prevNodeStack.push(node);
-	};
-
-	const isAdvancedLayoutsPreRelease2 = editorExperiment('advanced_layouts', true);
-
-	// For deciding to show drop targets or not when multiple nodes are selected
-	const selection = newState.selection;
-	const { $anchor: expandedAnchor, $head: expandedHead } = expandSelectionBounds(
-		selection.$anchor,
-		selection.$head,
-	);
-	const selectionFrom = Math.min(expandedAnchor.pos, expandedHead.pos);
-	const selectionTo = Math.max(expandedAnchor.pos, expandedHead.pos);
-	const handleInsideSelection =
-		activeNodePos !== undefined && activeNodePos >= selectionFrom && activeNodePos <= selectionTo;
-
-	const parentTypesWithEndDropTarget = getParentTypesWithEndDropTarget();
-
-	newState.doc.nodesBetween(docFrom, docTo, (node, pos, parent, index) => {
-		let depth = 0;
-		// drop target deco at the end position
-		let endPos;
-		const $pos = newState.doc.resolve(pos);
-		const isSameLayout = $activeNodePos && isInSameLayout($activeNodePos, $pos);
-		depth = $pos.depth;
-
-		if (isAdvancedLayoutsPreRelease2) {
-			if (activeNode?.pos === pos && activeNode.nodeType !== 'layoutColumn') {
-				return false;
-			}
-
-			if (
-				node.type.name === 'layoutColumn' &&
-				parent?.type.name === 'layoutSection' &&
-				index !== 0 && // Not the first node
-				(parent?.childCount < maxLayoutColumnSupported() || isSameLayout)
-			) {
-				// Add drop target for layout columns
-				decs.push(
-					createLayoutDropTargetDecoration(
-						pos,
-						{
-							api,
-							parent,
-							formatMessage,
-						},
-						nodeViewPortalProviderAPI,
-						anchorRectCache,
-					),
-				);
-			}
-		}
-
-		if (node.isInline || !parent || DISABLE_CHILD_DROP_TARGET.includes(parent.type.name)) {
-			pushNodeStack(node, depth);
-			return false;
-		}
-		if (IGNORE_NODES.includes(node.type.name)) {
-			pushNodeStack(node, depth);
-			return shouldDescend(node); //skip over, don't consider it a valid depth
-		}
-
-		// validate all the nodes in the selection instead of just the handle node
-		const selectionSlice = newState.doc.slice(selectionFrom, selectionTo, false);
-		const selectionSliceChildCount = selectionSlice.content.childCount;
-		let canDropSingleNode: boolean = true;
-		let canDropMultipleNodes: boolean = true;
-
-		// when there is only one node in the slice, use the same logic as when multi select is not on
-		if (selectionSliceChildCount > 1 && handleInsideSelection) {
-			canDropMultipleNodes = canMoveSliceToIndex(
-				selectionSlice,
-				selectionFrom,
-				selectionTo,
-				parent,
-				index,
-				$pos,
-			);
-		} else {
-			canDropSingleNode = !!(
-				activePMNode && canMoveNodeToIndex(parent, index, activePMNode, $pos, node)
-			);
-		}
-
-		if (!canDropMultipleNodes || !canDropSingleNode) {
-			pushNodeStack(node, depth);
-			return false; //not valid pos, so nested not valid either
-		}
-
-		const parentTypeName = expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
-			? getBaseNodeTypeName(parent.type)
-			: parent.type.name;
-		if (
-			parent.lastChild === node &&
-			!isEmptyParagraph(node) &&
-			parentTypesWithEndDropTarget.includes(parentTypeName)
-		) {
-			endPos = pos + node.nodeSize;
-		}
-
-		const previousNode = popNodeStack(depth); // created scoped variable
-
-		// only table and layout need to render full height drop target
-		const isInSupportedContainer = ['tableCell', 'tableHeader', 'layoutColumn'].includes(
-			parent?.type.name || '',
-		);
-
-		const shouldShowFullHeight =
-			isInSupportedContainer && parent?.lastChild === node && isEmptyParagraph(node);
-
-		decs.push(
-			createDropTargetDecoration(
-				pos,
-				{
-					api,
-					prevNode: previousNode,
-					nextNode: node,
-					parentNode: parent || undefined,
-					formatMessage,
-					dropTargetStyle: shouldShowFullHeight ? 'remainingHeight' : 'default',
-				},
-				nodeViewPortalProviderAPI,
-				-1,
-				anchorRectCache,
-				isSameLayout,
-			),
-		);
-
-		if (endPos !== undefined) {
-			decs.push(
-				createDropTargetDecoration(
-					endPos,
-					{
-						api,
-						prevNode: node,
-						parentNode: parent || undefined,
-						formatMessage,
-						dropTargetStyle: 'remainingHeight',
-					},
-					nodeViewPortalProviderAPI,
-					-1,
-					anchorRectCache,
-				),
-			);
-		}
-
-		pushNodeStack(node, depth);
-		return depth < NESTED_DEPTH && shouldDescend(node);
-	});
-
-	if (docTo === POS_END_OF_DOC) {
-		decs.push(
-			createDropTargetDecoration(
-				POS_END_OF_DOC,
-				{
-					api,
-					formatMessage,
-					prevNode: newState.doc.lastChild || undefined,
-					parentNode: newState.doc,
-				},
-				nodeViewPortalProviderAPI,
-				undefined,
-				anchorRectCache,
-			),
-		);
-	}
-
-	return decs;
 };

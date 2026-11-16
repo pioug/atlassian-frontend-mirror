@@ -2,6 +2,7 @@ import { Buffer } from 'buffer';
 
 import React, { Component } from 'react';
 
+import type { WidthNames } from '@atlaskit/modal-dialog/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { type FormFields, type SelectOptionDetails, type SelectValue } from '../types';
@@ -9,7 +10,7 @@ import { isApiGatewayUrl } from '../utils/is-api-gateway-url';
 import truncate from '../utils/Truncate';
 import FeedbackForm, { type OptionType } from './FeedbackForm';
 
-type FieldValueType = string | Object | Object[];
+type FieldValueType = string | object | object[];
 
 export type FieldType = {
 	id: string;
@@ -137,6 +138,8 @@ export interface Props {
 	disableSubmitButton?: boolean;
 	/** Optional to show or hide the required fields summary */
 	showRequiredFieldsSummary?: boolean;
+	/** Width of the feedback dialog, as one of the modal dialog's named sizes. Defaults to `medium` (600px) */
+	width?: WidthNames;
 }
 
 const MAX_SUMMARY_LENGTH_CHARS = 100;
@@ -599,6 +602,7 @@ export default class FeedbackCollector extends Component<Props> {
 					canBeContactedLink: this.props.canBeContactedLink,
 				})}
 				showRequiredFieldsSummary={this.props.showRequiredFieldsSummary}
+				width={this.props.width}
 			/>
 		);
 	}

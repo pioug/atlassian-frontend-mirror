@@ -1,5 +1,14 @@
 # @atlaskit/dropdown-menu
 
+## 21.3.3
+
+### Patch Changes
+
+- [`2c0be8a7e39cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c0be8a7e39cf) -
+  Behind `platform-dst-top-layer`, DropdownMenu passes the close event to `onOpenChange`.
+  `returnFocusRef` on `DropdownMenu` and `DropdownItem` is deprecated. Behind the gate it is a
+  no-op: focus returns to the element that had focus when the menu opened.
+
 ## 21.3.2
 
 ### Patch Changes

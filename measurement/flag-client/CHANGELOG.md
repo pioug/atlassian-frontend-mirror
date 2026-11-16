@@ -1,5 +1,16 @@
 # @atlaskit/flag-client
 
+## 1.2.0
+
+### Minor Changes
+
+- [`eb6613dcc0709`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb6613dcc0709) - -
+  Include captured randomization identifiers, A/A stable-split outcomes, and generated deduplication
+  keys in exposure events.
+  - Deduplicate exposures using a configurable per-client LRU cache and time window, and report
+    best-effort deduplication counts. Preserve the same keys with a JavaScript XXH3 fallback when
+    WASM is unavailable.
+
 ## 1.1.0
 
 ### Minor Changes

@@ -14,7 +14,7 @@ import ReactEditorViewContext from '@atlaskit/editor-common/ui-react/ReactEditor
 import StrokeWeightLargeIcon from '@atlaskit/icon/core/stroke-weight-large';
 import StrokeWeightMediumIcon from '@atlaskit/icon/core/stroke-weight-medium';
 import StrokeWeightSmallIcon from '@atlaskit/icon/core/stroke-weight-small';
-import type { IconProps } from '@atlaskit/icon/types';
+import type { NewCoreIconProps } from '@atlaskit/icon/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Text } from '@atlaskit/primitives/compiled/text';
@@ -72,16 +72,25 @@ const dividerOptionsButtonStylesOld = css({
 	overflow: 'hidden',
 });
 
-const SmallWeightIcon = (iconProps: IconProps) => (
-	<StrokeWeightSmallIcon color={token('color.icon.subtle')} label={iconProps.label} />
+const SmallWeightIcon = (iconProps: NewCoreIconProps) => (
+	<StrokeWeightSmallIcon
+		color={iconProps.color ?? token('color.icon.subtle')}
+		label={iconProps.label}
+	/>
 );
 
-const MediumWeightIcon = (iconProps: IconProps) => (
-	<StrokeWeightMediumIcon color={token('color.icon.subtle')} label={iconProps.label} />
+const MediumWeightIcon = (iconProps: NewCoreIconProps) => (
+	<StrokeWeightMediumIcon
+		color={iconProps.color ?? token('color.icon.subtle')}
+		label={iconProps.label}
+	/>
 );
 
-const LargeWeightIcon = (iconProps: IconProps) => (
-	<StrokeWeightLargeIcon color={token('color.icon.subtle')} label={iconProps.label} />
+const LargeWeightIcon = (iconProps: NewCoreIconProps) => (
+	<StrokeWeightLargeIcon
+		color={iconProps.color ?? token('color.icon.subtle')}
+		label={iconProps.label}
+	/>
 );
 
 const weightOptions = [
@@ -106,7 +115,7 @@ const styleOptionRows = [
 
 type DividerOptionButtonProps<Value extends DividerWeight | DividerStyle> = {
 	autoFocus?: boolean;
-	icon: React.ComponentType<IconProps>;
+	icon: React.ComponentType<NewCoreIconProps>;
 	isSelected: boolean;
 	label: string;
 	onKeyDownCapture?: React.KeyboardEventHandler;
@@ -116,7 +125,7 @@ type DividerOptionButtonProps<Value extends DividerWeight | DividerStyle> = {
 
 const DividerOptionButton = <Value extends DividerWeight | DividerStyle>({
 	autoFocus,
-	icon,
+	icon: Icon,
 	isSelected,
 	label,
 	onKeyDownCapture,
@@ -124,6 +133,12 @@ const DividerOptionButton = <Value extends DividerWeight | DividerStyle>({
 	value,
 }: DividerOptionButtonProps<Value>): React.JSX.Element => {
 	const handleClick = useCallback(() => onSelect?.(value), [onSelect, value]);
+	const renderIcon = useCallback(
+		(iconProps: NewCoreIconProps) => (
+			<Icon label={iconProps.label} color={isSelected ? token('color.icon.selected') : undefined} />
+		),
+		[Icon, isSelected],
+	);
 	return (
 		<div
 			css={[
@@ -134,7 +149,7 @@ const DividerOptionButton = <Value extends DividerWeight | DividerStyle>({
 		>
 			<IconButton
 				autoFocus={autoFocus}
-				icon={icon}
+				icon={renderIcon}
 				isSelected={isSelected}
 				label={label}
 				onClick={handleClick}

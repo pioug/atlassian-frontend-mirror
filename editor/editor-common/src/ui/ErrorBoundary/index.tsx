@@ -11,23 +11,19 @@ interface ErrorBoundaryProps {
 	component: ErrorCrashPayload['actionSubject'];
 	componentId?: ErrorCrashPayload['actionSubjectId'];
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
-	fallbackComponent?: React.ReactNode;
+	fallbackComponent?: React.ReactNode | ((error: Error) => React.ReactNode);
 }
 
 interface ErrorBoundaryState {
-	errorCaptured: boolean;
+	error: Error | null;
 }
 // Ignored via go/ees005
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
-	state = { errorCaptured: false };
+	state: ErrorBoundaryState = { error: null };
 
 	hasFallback(): boolean {
 		return typeof this.props.fallbackComponent !== 'undefined';
-	}
-
-	shouldRecover(): boolean {
-		return this.hasFallback() && this.state.errorCaptured;
 	}
 
 	componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
@@ -47,13 +43,17 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
 		logException(error, { location: 'editor-common' });
 
 		if (this.hasFallback()) {
-			this.setState({ errorCaptured: true });
+			this.setState({ error });
 		}
 	}
 
 	render(): React.ReactNode {
-		if (this.shouldRecover()) {
-			return this.props.fallbackComponent;
+		const { error } = this.state;
+		if (error) {
+			const { fallbackComponent } = this.props;
+			return typeof fallbackComponent === 'function'
+				? fallbackComponent(error)
+				: (fallbackComponent ?? null);
 		}
 		return this.props.children;
 	}

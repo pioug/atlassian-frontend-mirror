@@ -409,12 +409,12 @@ export const TeamContainers = ({
 							appearance="subtle"
 							spacing="compact"
 							onClick={handleShowMore}
-							{...(fg('teams_a11y_20261019') && {
-								// Provide descriptive accessible name for screen readers
-								'aria-label': showMore
+							// Provide descriptive accessible name for screen readers
+							aria-label={
+								showMore
 									? intl.formatMessage(messages.showLessAriaLabel)
-									: intl.formatMessage(messages.showMoreAriaLabel),
-							})}
+									: intl.formatMessage(messages.showMoreAriaLabel)
+							}
 						>
 							{showMore ? (
 								<FormattedMessage {...messages.showLess} />

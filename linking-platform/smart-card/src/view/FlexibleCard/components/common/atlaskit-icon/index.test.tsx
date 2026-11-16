@@ -27,9 +27,6 @@ const mockBlogIcon = jest.fn(({ testId }: { testId?: string }) => <span data-tes
 const mockLiveDocumentIcon = jest.fn(({ testId }: { testId?: string }) => (
 	<span data-testid={testId} />
 ));
-jest.mock('react-loadable', () =>
-	jest.fn(() => ({ testId }: { testId?: string }) => <span data-testid={testId} />),
-);
 
 jest.mock('../../../../../common/ui/icons/page-icon', () => {
 	mockDocumentIconModuleLoaded();
@@ -128,7 +125,6 @@ describe('AtlaskitIcon', () => {
 	});
 
 	it('passes an empty label to ConfluenceIcon and JiraIcon', () => {
-		failGate('platform_sl_replace_react_loadable');
 		render(
 			<>
 				<AtlaskitIcon icon={IconType.Confluence} testId="confluence-icon" />
@@ -146,14 +142,7 @@ describe('AtlaskitIcon', () => {
 		);
 	});
 
-	describe.each([
-		['on', passGate],
-		['off', failGate],
-	])('priority icons when platform_sl_replace_react_loadable is %s', (_, setGate) => {
-		beforeEach(() => {
-			setGate('platform_sl_replace_react_loadable');
-		});
-
+	describe('priority icons', () => {
 		it('renders priority icon directly at medium size without IconTile wrapper', async () => {
 			render(
 				<AtlaskitIcon
@@ -184,8 +173,7 @@ describe('AtlaskitIcon', () => {
 	});
 
 	describe('lazy loading', () => {
-		it('uses the cached React.lazy icon when platform_sl_replace_react_loadable is on', async () => {
-			passGate('platform_sl_replace_react_loadable');
+		it('uses the cached React.lazy icon', async () => {
 			mockGetLazyIconComponent.mockClear();
 
 			render(
@@ -201,26 +189,7 @@ describe('AtlaskitIcon', () => {
 			expect(mockGetLazyIconComponent).toHaveBeenCalledTimes(1);
 		});
 
-		it('does not use the React.lazy icon when platform_sl_replace_react_loadable is off', () => {
-			failGate('platform_sl_replace_react_loadable');
-			mockGetLazyIconComponent.mockClear();
-
-			render(
-				<AtlaskitIcon
-					icon={IconType.PriorityHigh}
-					testId="priority-high-icon"
-					label="Priority: High"
-					size={SmartLinkSize.Medium}
-				/>,
-			);
-
-			expect(screen.getByTestId('priority-high-icon')).toBeInTheDocument();
-			expect(mockGetLazyIconComponent).not.toHaveBeenCalled();
-		});
-
 		it('keeps rendering the IconTile while the lazy icon inside it loads', () => {
-			passGate('platform_sl_replace_react_loadable');
-
 			render(<AtlaskitIcon icon={IconType.Comment} label="comment" size={SmartLinkSize.Large} />);
 
 			expect(screen.getByTestId('icon-tile')).toBeInTheDocument();
@@ -229,7 +198,6 @@ describe('AtlaskitIcon', () => {
 
 	it('uses a non-bold gray tile for badge icons at large size when platform_lp_non_bold_large_sl_icon is on', () => {
 		passGate('platform_lp_non_bold_large_sl_icon');
-		failGate('platform_sl_replace_react_loadable');
 
 		render(<AtlaskitIcon icon={IconType.Comment} label="comment" size={SmartLinkSize.Large} />);
 
@@ -238,7 +206,6 @@ describe('AtlaskitIcon', () => {
 
 	it('keeps the bold gray tile for badge icons at large size when platform_lp_non_bold_large_sl_icon is off', () => {
 		failGate('platform_lp_non_bold_large_sl_icon');
-		failGate('platform_sl_replace_react_loadable');
 
 		render(<AtlaskitIcon icon={IconType.Comment} label="comment" size={SmartLinkSize.Large} />);
 

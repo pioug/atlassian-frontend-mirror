@@ -1,5 +1,34 @@
 # @atlaskit/editor-core
 
+## 243.1.0
+
+### Minor Changes
+
+- [`4112058474271`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4112058474271) -
+  Behind the platform_editor_inline_node_selection_style experiment, show a selection tint instead
+  of the native text highlight on inline cards, mentions, statuses, dates and emojis inside a range
+  selection
+
+### Patch Changes
+
+- Updated dependencies
+
+## 243.0.0
+
+### Patch Changes
+
+- [`c1ec527d3ad2f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c1ec527d3ad2f) -
+  Use React.lazy with explicit loading and error boundaries for extension Quick Insert icons and
+  Element Browser when platform_editor_loosely_lazy_migration is enabled. Keep react-loadable when
+  the experiment is disabled.
+- Updated dependencies
+
+## 242.3.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 242.3.5
 
 ### Patch Changes

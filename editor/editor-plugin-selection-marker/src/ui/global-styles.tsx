@@ -6,6 +6,7 @@
 import { css, Global, jsx } from '@emotion/react';
 
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 /**
  * Unset the selection background color as we are using our own
@@ -32,6 +33,19 @@ const markerSelectionStyles = css({
 	},
 });
 
+/**
+ * Hides the native highlight wherever the marker paints the selection, including inside inline
+ * atom node views. The native selection is not restored while the editor is blurred, so any part
+ * of it left on marker content would otherwise show through.
+ */
+const markerAndDescendantSelectionStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-nested-selectors -- ProseMirror owns the decoration DOM; React cannot style its selection pseudo-element directly.
+	'.ProseMirror:not([contenteditable="false"]) [data-selection-marker]::selection, .ProseMirror:not([contenteditable="false"]) [data-selection-marker] ::selection':
+		{
+			background: 'transparent',
+		},
+});
+
 const hideSelectionStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror  *.danger::selection': {
@@ -39,10 +53,17 @@ const hideSelectionStyles = css({
 	},
 });
 
-export const GlobalStylesWrapper = (): jsx.JSX.Element => {
-	const selectionStyles = isExperimentEnabled('platform_editor_improve_inp_batch_3')
+const getSelectionStyles = () => {
+	if (fg('platform_editor_selection_marker_blur_fix')) {
+		return markerAndDescendantSelectionStyles;
+	}
+	return isExperimentEnabled('platform_editor_improve_inp_batch_3')
 		? markerSelectionStyles
 		: globalStyles;
+};
+
+export const GlobalStylesWrapper = (): jsx.JSX.Element => {
+	const selectionStyles = getSelectionStyles();
 
 	return (
 		<Global

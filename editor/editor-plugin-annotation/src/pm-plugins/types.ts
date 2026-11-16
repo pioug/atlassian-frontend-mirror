@@ -13,6 +13,7 @@ import type {
 	InlineCommentAnnotationProvider,
 	TargetType,
 } from '../types';
+import type { AnnotationIdCounts } from './annotation-id-counts';
 
 export enum ACTIONS {
 	UPDATE_INLINE_COMMENT_STATE,
@@ -113,6 +114,10 @@ export type InlineCommentAction =
 	  };
 
 export type InlineCommentPluginState = {
+	/**
+	 * This is a per-id count of annotation marks in the document.
+	 */
+	annotationIdCounts?: AnnotationIdCounts;
 	/**
 	 * The resolved state of the annotations.
 	 *

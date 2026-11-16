@@ -1,7 +1,5 @@
 import React, { type ComponentType } from 'react';
 
-import Loadable from 'react-loadable';
-
 import IconTile from '@atlaskit/icon/icon-tile';
 import type { IconTileProps } from '@atlaskit/icon/types';
 import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
@@ -16,29 +14,12 @@ import { isIconSizeLarge } from '../../../../../utils/is-icon-size-large';
 import { getLazyIconComponent } from '../../../../../utils/lazy-component';
 import { type AtlaskitIconProps } from './types';
 
-const getIconImportFn = (icon: IconType, size: SmartLinkSize): (() => Promise<any>) | undefined => {
-	const item = getLazyIcons()[icon];
-	if (isIconSizeLarge(size) && item?.large) {
-		return item.large;
-	}
-	return item?.default;
-};
-
-// Only used when platform_sl_replace_react_loadable is on. Kept separate from getIconImportFn so
-// the gate-off path is unchanged.
 const getLazyIcon = (icon: IconType, size: SmartLinkSize): ComponentType<any> | undefined => {
 	const item = getLazyIcons()[icon];
 	if (isIconSizeLarge(size) && item?.large) {
 		return getLazyIconComponent(`${icon}:large`, item.large);
 	}
 	return item?.default ? getLazyIconComponent(`${icon}:default`, item.default) : undefined;
-};
-
-const importIcon = (importFn: () => Promise<any>): any => {
-	return Loadable({
-		loader: () => importFn().then((module) => module.default),
-		loading: () => null,
-	}) as any; // Because we're using dynamic loading here, TS will not be able to infer the type.
 };
 
 const getBlogIcon = () => require('../../../../../common/ui/icons/blog-icon').default;
@@ -122,19 +103,9 @@ const AtlaskitIcon = ({
 		}
 	}
 
-	let ImportedIcon: any;
-	if (fg('platform_sl_replace_react_loadable')) {
-		ImportedIcon = getLazyIcon(icon, size);
-		if (!ImportedIcon) {
-			return null;
-		}
-	} else {
-		const importFn = getIconImportFn(icon, size);
-		if (!importFn) {
-			return null;
-		}
-
-		ImportedIcon = importIcon(importFn);
+	const ImportedIcon: any = getLazyIcon(icon, size);
+	if (!ImportedIcon) {
+		return null;
 	}
 
 	if (isCoreIcon(icon)) {

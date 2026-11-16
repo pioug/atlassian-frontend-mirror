@@ -1,5 +1,19 @@
 # @atlaskit/adf-schema
 
+## 57.7.44
+
+### Patch Changes
+
+- [`aab32042c5630`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aab32042c5630) -
+  [EDITOR-8341] allow fontSize small-text paragraph inside the existing stage-0 bodiedRule schema.
+- Updated dependencies
+
+## 57.7.43
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 57.7.42
 
 ### Patch Changes

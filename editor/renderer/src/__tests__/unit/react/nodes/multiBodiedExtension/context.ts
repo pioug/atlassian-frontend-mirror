@@ -2,6 +2,7 @@ import React from 'react';
 
 import { renderHook, waitFor } from '@testing-library/react';
 
+import { ACTION_SUBJECT } from '@atlaskit/editor-common/analytics/types/enums';
 import {
 	getExtensionModuleNodePrivateProps,
 	getNodeRenderer,
@@ -87,9 +88,10 @@ describe('useMultiBodiedExtensionContext', () => {
 	});
 
 	it('should return correct context when all dependencies are resolved', async () => {
+		const provider = {};
 		const mockPrivateProps = { __allowBodiedOverride: true };
 		const mockNodeRenderer = jest.fn();
-		(useProvider as jest.Mock).mockReturnValue(Promise.resolve({}));
+		(useProvider as jest.Mock).mockReturnValue(Promise.resolve(provider));
 		(getExtensionModuleNodePrivateProps as jest.Mock).mockReturnValue(
 			Promise.resolve(mockPrivateProps),
 		);
@@ -106,6 +108,12 @@ describe('useMultiBodiedExtensionContext', () => {
 				privateProps: mockPrivateProps,
 			});
 		});
+		expect(getNodeRenderer).toHaveBeenCalledWith(
+			provider,
+			extensionType,
+			extensionKey,
+			ACTION_SUBJECT.RENDERER,
+		);
 	});
 
 	it('should return extension handler renderer before resolving provider renderer when the native tabs gate is on', () => {

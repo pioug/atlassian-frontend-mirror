@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "46.14.5",
+	"version": "46.15.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -108,7 +108,6 @@
 		"markdown-to-jsx": "root:*",
 		"react-error-boundary": "root:*",
 		"react-lazily-render": "root:*",
-		"react-loadable": "root:*",
 		"react-magnetic-di": "root:*",
 		"react-render-image": "root:*",
 		"use-sync-external-store": "root:*",
@@ -151,7 +150,6 @@
 		"@types/facepaint": "root:*",
 		"@types/lorem-ipsum": "root:*",
 		"@types/react": "root:*",
-		"@types/react-loadable": "root:*",
 		"@types/use-sync-external-store": "root:*",
 		"abortcontroller-polyfill": "root:*",
 		"brace": "root:*",

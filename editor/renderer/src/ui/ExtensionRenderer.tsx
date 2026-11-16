@@ -11,6 +11,7 @@ import { css, jsx } from '@emotion/react';
 import memoizeOne from 'memoize-one';
 
 import type { Layout as ExtensionLayout } from '@atlaskit/adf-schema/extensions';
+import { ACTION_SUBJECT } from '@atlaskit/editor-common/analytics/types/enums';
 import type {
 	ExtensionHandlers,
 	ExtensionParams,
@@ -166,7 +167,12 @@ export default function ExtensionRenderer(props: Props): jsx.JSX.Element {
 				}
 
 				if (!result && extensionProvider) {
-					const NodeRenderer = localGetNodeRenderer(extensionProvider, extensionType, extensionKey);
+					const NodeRenderer = localGetNodeRenderer(
+						extensionProvider,
+						extensionType,
+						extensionKey,
+						ACTION_SUBJECT.RENDERER,
+					);
 					if (node.type === 'multiBodiedExtension') {
 						result = <NodeRenderer node={node} actions={actions} />;
 					} else if (node.type === 'inlineExtension') {

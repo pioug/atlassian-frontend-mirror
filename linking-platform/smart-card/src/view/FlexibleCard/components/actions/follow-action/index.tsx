@@ -3,34 +3,17 @@ import React, { lazy, type ComponentType } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { ActionName } from '../../../../../constants';
 import { messages } from '../../../../../messages';
 import { useFlexibleUiContext } from '../../../../../state/flexible-ui-context/useFlexibleUiContext';
 import { renderNothingOnLoadError, withSuspense } from '../../../../../utils/lazy-component';
-import { importIcon } from '../../importIcon';
 import ServerAction from '../action/server-action';
 import { type FollowActionProps } from './types';
 import { getFollowActionErrorMessage } from './utils';
 
-const importIconMapper: {
-	[key: string]: (() => Promise<any>) | undefined;
-} = {
-	goal: () =>
-		import(/* webpackChunkName: "glyphGoal" */ './goal-icon').then(({ GoalIcon }) => ({
-			default: GoalIcon,
-		})),
-	projects: () =>
-		import(/* webpackChunkName: "glyphProjects" */ './projects-icon').then(({ ProjectsIcon }) => ({
-			default: ProjectsIcon,
-		})),
-};
-
 // Inline module-scope lazy() calls so product SSR tooling can preload them before hydration.
-const lazyIconMapper: {
-	[key: string]: ComponentType<any> | undefined;
-} = {
+const lazyIconMapper: Record<'goal' | 'projects', ComponentType<any>> = {
 	goal: withSuspense(
 		lazy(() =>
 			import(/* webpackChunkName: "glyphGoal" */ './goal-icon')
@@ -47,17 +30,6 @@ const lazyIconMapper: {
 		),
 		'lazy(ProjectsIcon)',
 	),
-};
-
-const getIcon = (stackIconType: string) => {
-	if (fg('platform_sl_replace_react_loadable')) {
-		return lazyIconMapper[stackIconType] ?? null;
-	}
-	const importFn = importIconMapper[stackIconType];
-	if (!importFn) {
-		return null;
-	}
-	return importIcon(importFn);
 };
 
 const FollowAction = (props: FollowActionProps): React.JSX.Element | null => {
@@ -97,7 +69,7 @@ const FollowAction = (props: FollowActionProps): React.JSX.Element | null => {
 	const tooltipMessage = isStackItem ? stackTooltipMessage : message;
 
 	const stackIconType = isProject ? 'projects' : 'goal';
-	const ImportedIcon = getIcon(stackIconType);
+	const ImportedIcon = lazyIconMapper[stackIconType];
 	const followIcon = (
 		<ImportedIcon label="" testId={`smart-action-follow-action-${stackIconType}-icon`} />
 	);

@@ -14,9 +14,7 @@ import {
 	type InitializationStatus,
 } from './exposure/attribution';
 import { createExposureClock, type ExposureClock } from './exposure/clock';
-import { exposureIdentifiersKey, exposureIdentityKey } from './exposure/deduplication';
 import { loadExposureDelivery, type ExposureDelivery } from './exposure/delivery-loader';
-import { attributionIdentifiers } from './exposure/identifiers';
 import type { ExposureDeliveryOptions } from './exposure/logger';
 import type { ExposureMappingInput } from './exposure/mapper';
 import { resolveExposureLogging } from './exposure/options';
@@ -118,7 +116,8 @@ const REPLACEMENT_FAILURE_TIPS: Readonly<Record<ReplaceFailure['reason'], string
 };
 
 const EXPOSURE_OPTION_TIP =
-	'See ExposureLoggingOptions: enabled is a boolean, endpoint an absolute HTTP(S) URL, batchSize a positive integer, and flushIntervalMs a positive finite number.';
+	'See ExposureLoggingOptions: enabled is a boolean, endpoint an absolute HTTP(S) URL, ' +
+	'batchSize and dedupeMaxKeys positive integers, and flushIntervalMs and dedupeWindowMs positive finite numbers.';
 
 const USER_NORMALIZATION_TIP =
 	'Pass identifier values as strings and attribute values as strings, booleans, or finite numbers.';
@@ -144,12 +143,6 @@ export class FlagClient {
 	 * reproduces its read's attribution. Shallow copies of details share the metadata object.
 	 */
 	private readonly exposureContexts = new WeakMap<object, ExposureContext>();
-
-	/**
-	 * The identifier part of the last deduplication identity and the request context or user it was
-	 * built from. Both are replaced, never mutated, on `initialize` and `replace`.
-	 */
-	private cachedIdentifiersKey: { readonly source: object; readonly key: string } | null = null;
 
 	private readonly retained: RetainedState;
 
@@ -251,6 +244,15 @@ export class FlagClient {
 		return buffer;
 	}
 
+	/** Release dedupe entries, preserving queued exposures and their captured counts. Never throws. */
+	clearExposureDeduplicationCache(): void {
+		try {
+			this.exposureSink.clearExposureDeduplicationCache();
+		} catch {
+			// Exposure telemetry must never affect flag reads or the caller.
+		}
+	}
+
 	/**
 	 * Initialize the client once from a synchronous payload provider.
 	 *
@@ -304,7 +306,7 @@ export class FlagClient {
 
 		this.initialized = { payload: acquisition.payload };
 		this.currentUser = replacementUser;
-		this.exposureSink.endDeduplicationWindows();
+		this.exposureSink.clearExposureDeduplicationCache();
 		return { replaced: true };
 	}
 
@@ -426,32 +428,13 @@ export class FlagClient {
 	): void {
 		const clock = this.exposureClock;
 		if (clock === null) return;
-		const { flagKey, variationId, ruleId, matchReason } = details.metadata;
-		const identityKey = exposureIdentityKey({
-			flagKey,
-			variationId,
-			ruleId,
-			matchReason,
-			identifiersKey: this.identifiersKey(context),
-		});
-		this.exposureSink.log(identityKey, {
+		this.exposureSink.log({
 			...context,
 			details,
 			identity: this.exposureIdentity,
 			manual,
 			epochMillis: clock.now(),
 		});
-	}
-
-	/** The identifier part of the deduplication identity, recomputed only when its source changes. */
-	private identifiersKey(context: ExposureContext): string {
-		const source = context.requestContext ?? context.user;
-		let cached = this.cachedIdentifiersKey;
-		if (cached?.source !== source) {
-			cached = { source, key: exposureIdentifiersKey(attributionIdentifiers(context)) };
-			this.cachedIdentifiersKey = cached;
-		}
-		return cached.key;
 	}
 
 	/** The exposure inputs current state supplies for a read of a flag with this payload result. */

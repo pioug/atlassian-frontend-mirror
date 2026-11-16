@@ -62,6 +62,11 @@ notes/architecture/focus.md). For `returnFocusRef`, the consumer should redirect
 special top-layer API is needed — the consumer owns the focus redirect. **Action:** Wire in
 `@atlaskit/modal-dialog`.
 
+**Update (9 Nov 2026):** `DropdownMenu` and `DropdownItem` `returnFocusRef` are no-ops on the
+top-layer path. The platform returns focus to the element that had focus when the menu opened. An
+action that needs focus somewhere new moves it in its own handler. See
+`migrations/dropdown-menu-migration.md`.
+
 #### 7. `ensurePresetStyles` no cleanup — Superseded
 
 **Original decision:** The append-only `<style>` injection and module-scoped `Set` were accepted

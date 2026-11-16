@@ -505,7 +505,7 @@ describe('TeamContainers', () => {
 		await expect(container).toBeAccessible();
 	});
 
-	describe('show more/less aria-label (teams_a11y_20261019)', () => {
+	describe('show more/less aria-label', () => {
 		const teamContainers = Array.from({ length: 5 }, (_, index) => ({
 			id: index.toString(),
 			type: 'ConfluenceSpace',
@@ -520,24 +520,14 @@ describe('TeamContainers', () => {
 			});
 		});
 
-		it('should NOT add aria-label to show more button when gate is off', () => {
-			mockFg.mockImplementation(() => false);
-			renderTeamContainers(teamId);
-
-			const btn = screen.getByText('Show more').closest('button');
-			expect(btn).not.toHaveAttribute('aria-label');
-		});
-
-		it('should add descriptive aria-label to show more button when gate is on', () => {
-			mockFg.mockImplementation((gate: string) => gate === 'teams_a11y_20261019');
+		it('should add descriptive aria-label to show more button', () => {
 			renderTeamContainers(teamId);
 
 			const btn = screen.getByText('Show more').closest('button');
 			expect(btn).toHaveAttribute('aria-label', 'Show more team links');
 		});
 
-		it('should add descriptive aria-label to show less button when gate is on', async () => {
-			mockFg.mockImplementation((gate: string) => gate === 'teams_a11y_20261019');
+		it('should add descriptive aria-label to show less button', async () => {
 			renderTeamContainers(teamId);
 
 			screen.getByText('Show more').closest('button')!.click();

@@ -7,6 +7,7 @@ import { bodiedRule as bodiedRuleValidatorSpec } from '../../../../validator-sch
 
 const schema = createSchema({
 	nodes: ['doc', 'paragraph', 'heading', 'text', 'bodiedRule'],
+	marks: ['fontSize'],
 });
 const packageName = process.env.npm_package_name as string;
 
@@ -21,6 +22,7 @@ describe(`${packageName}/schema bodiedRule node`, () => {
 				weight: { default: null },
 			},
 			content: '(paragraph | heading){1,1}',
+			marks: 'fontSize unsupportedMark unsupportedNodeAttribute',
 			group: 'block',
 			parseDOM: [{ tag: 'div[data-node-type="bodied-rule"]', getAttrs: expect.any(Function) }],
 			toDOM: expect.any(Function),
@@ -54,7 +56,7 @@ describe(`${packageName}/schema bodiedRule node`, () => {
 	it('supports breakout in the root-only Stage-0 spec', () => {
 		expect(bodiedRuleRootOnlyStage0).toStrictEqual({
 			...bodiedRule,
-			marks: 'breakout unsupportedMark unsupportedNodeAttribute',
+			marks: 'breakout fontSize unsupportedMark unsupportedNodeAttribute',
 		});
 	});
 
@@ -69,7 +71,7 @@ describe(`${packageName}/schema bodiedRule node`, () => {
 
 	it('requires exactly one content child in the validator spec', () => {
 		expect(bodiedRuleValidatorSpec.props.content).toEqual({
-			items: [['paragraph_with_no_marks', 'heading_with_no_marks']],
+			items: [['paragraph_with_no_marks', 'paragraph_with_font_size', 'heading_with_no_marks']],
 			maxItems: 1,
 			minItems: 1,
 			type: 'array',
@@ -92,6 +94,29 @@ describe(`${packageName}/schema bodiedRule node`, () => {
 		const parsedNode = fromHTML(html, schema).firstChild!;
 
 		expect(parsedNode.toJSON()).toEqual(node.toJSON());
+	});
+
+	it('accepts and round-trips small text paragraphs', () => {
+		const paragraph = schema.nodes.paragraph.create({}, schema.text('Small label'), [
+			schema.marks.fontSize.create({ fontSize: 'small' }),
+		]);
+		const node = schema.nodes.bodiedRule.createChecked({ localId: 'rule-id' }, paragraph);
+		const parsedNode = fromHTML(toHTML(node, schema), schema).firstChild!;
+		expect(parsedNode.toJSON()).toEqual(node.toJSON());
+	});
+
+	it('allows small text in the root-only ProseMirror spec', () => {
+		const rootSchema = createSchema({
+			nodes: ['doc', 'paragraph', 'heading', 'text'],
+			marks: ['fontSize', 'breakout'],
+			customNodeSpecs: { bodiedRule: bodiedRuleRootOnlyStage0 },
+		});
+		const paragraph = rootSchema.nodes.paragraph.create({}, rootSchema.text('Small label'), [
+			rootSchema.marks.fontSize.create({ fontSize: 'small' }),
+		]);
+		expect(() =>
+			rootSchema.nodes.bodiedRule.createChecked({ localId: 'rule-id' }, paragraph),
+		).not.toThrow();
 	});
 
 	it('generates a localId when parsing HTML without it', () => {

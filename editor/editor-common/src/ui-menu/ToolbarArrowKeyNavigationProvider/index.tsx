@@ -10,6 +10,7 @@ import { css, jsx } from '@emotion/react';
 import type { IntlShape } from 'react-intl/src/types';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { ELEMENT_BROWSER_ID } from '../../element-browser';
 import { fullPageMessages } from '../../messages';
@@ -163,6 +164,17 @@ export const ToolbarArrowKeyNavigationProvider = ({
 				!targetElement.closest(`${childComponentSelector}`)
 			) {
 				return;
+			}
+
+			// On the top layer, a menu or popup opened from the toolbar renders inside the toolbar, and
+			// it owns its keys: the arrow keys, Tab, and Escape (which closes it and returns focus to its
+			// opener). So the toolbar ignores keys from a layer inside it. A layer around the toolbar
+			// (for example a floating toolbar's popup) does not count.
+			if (fg('platform-dst-top-layer') && targetElement instanceof Element) {
+				const layer = targetElement.closest('[popover], dialog');
+				if (layer && wrapperRef.current?.contains(layer)) {
+					return;
+				}
 			}
 
 			if (

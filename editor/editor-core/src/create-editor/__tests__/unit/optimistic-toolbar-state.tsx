@@ -107,12 +107,12 @@ const createProps = ({
 
 describe('optimistic toolbar state before EditorView mounts', () => {
 	beforeEach(() => {
-		setupEditorExperiments('test', { platform_editor_controls: 'variant1' });
+		setupEditorExperiments('test', {});
 	});
 
 	afterEach(() => {
 		jest.restoreAllMocks();
-		setupEditorExperiments('test', { platform_editor_controls: 'variant1' });
+		setupEditorExperiments('test', {});
 	});
 
 	describe.each([false, true])('SSR = %s', (ssr) => {
@@ -124,7 +124,6 @@ describe('optimistic toolbar state before EditorView mounts', () => {
 
 		const renderEditor = (options: Options, enabled = true, platformEnabled = enabled) => {
 			setupEditorExperiments('test', {
-				platform_editor_controls: 'variant1',
 				platform_editor_ssr_toolbar_optimistic: enabled,
 			});
 			if (platformEnabled) {

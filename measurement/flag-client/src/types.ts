@@ -2,6 +2,7 @@ export type FlagContextValue = string | number | boolean;
 
 export type FlagReturnType = 'BOOLEAN' | 'STRING' | 'NUMBER' | 'JSON';
 
+/** Producer match reasons are open-ended strings. */
 export type MatchReason = string;
 
 /**
@@ -30,7 +31,27 @@ export interface SegmentEvaluationMetadata {
 	readonly reason?: unknown;
 }
 
-export interface EvaluationMetadata {
+/** Counterfactual assignment for an A/A test; separate from its actual assignment. */
+export interface StableSplitOutcomeMetadata {
+	readonly matchReason: MatchReason;
+	/** Absent or null when the counterfactual variation is indeterminate. */
+	readonly variationId?: string | null;
+	readonly holdoutAllocation?: HoldoutAllocationMetadata | null;
+}
+
+/** Supplied assignment facts forwarded without client-side calculation. */
+export interface ExposureAssignmentMetadata {
+	/** Original selected randomization identifier value. */
+	readonly randomizationIdentifierValue?: string | null;
+	/** Name of the selected randomization identifier type. */
+	readonly randomizationIdentifierName?: string | null;
+	/** Producer-supplied key retained on result metadata; browser exposure keys are derived locally. */
+	readonly dedupeKey?: string | null;
+	/** Counterfactual metadata for an A/A test only. */
+	readonly stableSplitOutcome?: StableSplitOutcomeMetadata | null;
+}
+
+export interface EvaluationMetadata extends ExposureAssignmentMetadata {
 	readonly flagKey: string;
 	readonly identifierType: string | null;
 	/** Resolved from the client's current user, never from the payload request context. */
@@ -61,7 +82,7 @@ export interface RequestContext {
 	readonly attributes?: Readonly<Record<string, FlagContextValue>>;
 }
 
-export interface BulkEvaluationMetadata {
+export interface BulkEvaluationMetadata extends ExposureAssignmentMetadata {
 	readonly identifierType?: string | null;
 	readonly matchReason: MatchReason;
 	readonly variationId?: string | null;
@@ -167,8 +188,7 @@ export interface FlagClientOptions {
 
 /**
  * Exposure telemetry options. An option that fails its type is ignored with a console warning, so
- * its default applies. A disabled client does not check `endpoint`, `batchSize`, or
- * `flushIntervalMs`.
+ * its default applies. A disabled client does not check delivery or deduplication options.
  */
 export interface ExposureLoggingOptions {
 	/** Whether exposures are recorded and delivered. Defaults to whether a global `window` exists. */
@@ -183,6 +203,10 @@ export interface ExposureLoggingOptions {
 	readonly batchSize?: number;
 	/** Milliseconds a queued exposure waits before delivery. Positive and finite; defaults to `10000`. */
 	readonly flushIntervalMs?: number;
+	/** Maximum selected-unit keys retained in this client's LRU. Positive integer; defaults to `5000`. */
+	readonly dedupeMaxKeys?: number;
+	/** Non-sliding admission window in milliseconds; entries do not expire. Positive and finite; defaults to `600000`. */
+	readonly dedupeWindowMs?: number;
 }
 
 /** Per-read options for typed value and details reads. */

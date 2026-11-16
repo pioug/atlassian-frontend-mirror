@@ -481,11 +481,7 @@ class CodeBlockAdvancedNodeView implements NodeView {
 			return false;
 		}
 
-		if (
-			e instanceof DragEvent &&
-			e.type === 'dragenter' &&
-			expValEqualsNoExposure('platform_editor_block_controls_perf_optimization', 'isEnabled', true)
-		) {
+		if (e instanceof DragEvent && e.type === 'dragenter') {
 			return false; // Allow dragenter to propagate so that the editor can handle it
 		}
 

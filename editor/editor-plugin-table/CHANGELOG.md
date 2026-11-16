@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-table
 
+## 43.0.1
+
+### Patch Changes
+
+- [`9181780380b3a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9181780380b3a) -
+  Remove INSM instrumentation and the `@atlaskit/insm` dependency
+- Updated dependencies
+
+## 43.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 42.4.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 42.4.5
 
 ### Patch Changes

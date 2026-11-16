@@ -94,7 +94,10 @@ describe('AvatarImage', () => {
 
 	describe('UNSAFE_isUpdatedGeometry', () => {
 		type SupportedSizeCase = {
-			size: Extract<SizeType, 'xxsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge'>;
+			size: Extract<
+				SizeType,
+				'xxsmall' | 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge'
+			>;
 			width: number;
 			height: number;
 		};
@@ -103,6 +106,7 @@ describe('AvatarImage', () => {
 		// source of truth for these values).
 		const supportedSizes: SupportedSizeCase[] = [
 			{ size: 'xxsmall', width: 15.4, height: 17.17 },
+			{ size: 'xsmall', width: 15.4, height: 17.17 },
 			{ size: 'small', width: 23.11, height: 25.76 },
 			{ size: 'medium', width: 30.81, height: 34.34 },
 			{ size: 'large', width: 38.51, height: 42.93 },

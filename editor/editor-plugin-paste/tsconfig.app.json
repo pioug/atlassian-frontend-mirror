@@ -101,9 +101,6 @@
 			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{
-			"path": "../insm/tsconfig.app.json"
-		},
-		{
 			"path": "../../linking-platform/linking-common/tsconfig.app.json"
 		},
 		{

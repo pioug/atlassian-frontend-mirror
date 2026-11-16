@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-paste
 
+## 32.0.1
+
+### Patch Changes
+
+- [`9181780380b3a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9181780380b3a) -
+  Remove INSM instrumentation and the `@atlaskit/insm` dependency
+- Updated dependencies
+
+## 32.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 31.2.7
+
+### Patch Changes
+
+- [`373e928c9ec0c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/373e928c9ec0c) -
+  Clean up feature gate `platform_editor_link_paste_select_all`
+- Updated dependencies
+
 ## 31.2.6
 
 ### Patch Changes

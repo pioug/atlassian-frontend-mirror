@@ -107,13 +107,10 @@ test.describe('Dropdown menu: top-layer focus contract', () => {
 		await expect(page.getByTestId('dropdown-default-open-item-1')).toBeFocused();
 	});
 
-	// WCAG 2.4.3 Focus Order. `returnFocusRef` lets a consumer redirect
-	// Escape-restoration to a different element than the trigger. The
-	// dropdown's focus-restoration code runs after the browser's native
-	// trigger restoration, so the consumer-supplied target must win.
-	test('focus restoration: `returnFocusRef` redirects Escape focus to a sibling element', async ({
-		page,
-	}) => {
+	// WCAG 2.4.3 Focus Order. `returnFocusRef` is a no-op on the top-layer
+	// path: the platform returns focus to the trigger. Every close is in
+	// `src/__tests__/playwright/ff-testing/platform-dst-top-layer/dropdown-menu.spec.tsx`.
+	test('focus restoration: `returnFocusRef` does not redirect Escape focus', async ({ page }) => {
 		await page.visitExample<typeof import('../../examples/testing-top-layer-focus.tsx')>(
 			'design-system',
 			'dropdown-menu',
@@ -129,9 +126,10 @@ test.describe('Dropdown menu: top-layer focus contract', () => {
 
 		await page.keyboard.press('Escape');
 
-		// Focus must land on the consumer-supplied target, not on the
-		// trigger that opened the menu.
-		await expect(page.getByTestId('dropdown-return-focus-ref-target')).toBeFocused();
+		// Wait for the close to finish, so an animation-frame redirect would have run.
+		await expect(page.getByTestId('dropdown-return-focus-ref-item-1')).toBeHidden();
+		await expect(trigger).toBeFocused();
+		await expect(page.getByTestId('dropdown-return-focus-ref-target')).not.toBeFocused();
 	});
 
 	// WCAG 2.4.3 Focus Order + WAI-ARIA APG Menu Button pattern. The

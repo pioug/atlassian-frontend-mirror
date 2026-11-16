@@ -16,6 +16,7 @@ import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+import type { WidthNames } from '@atlaskit/modal-dialog/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import SectionMessage from '@atlaskit/section-message/message';
 import Select from '@atlaskit/select/default';
@@ -87,6 +88,8 @@ interface Props {
 	disableSubmitButton?: boolean;
 	/** Optional to show or hide the required fields summary */
 	showRequiredFieldsSummary?: boolean;
+	/** Width of the feedback dialog, as one of the modal dialog's named sizes. Defaults to `medium` (600px) */
+	width?: WidthNames;
 }
 
 export interface OptionType {
@@ -135,6 +138,7 @@ const FeedbackForm = ({
 	dialogRef,
 	disableSubmitButton,
 	showRequiredFieldsSummary = true,
+	width,
 }: Props) => {
 	const [canBeContacted, setCanBeContacted] = useState<FormFields['canBeContacted']>(false);
 	const [description, setDescription] = useState<FormFields['description']>('');
@@ -266,6 +270,7 @@ const FeedbackForm = ({
 			testId="feedbackCollectorModalDialog"
 			shouldReturnFocus={shouldReturnFocusRef}
 			shouldScrollInViewport
+			width={width}
 		>
 			{
 				<Form

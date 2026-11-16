@@ -3,8 +3,9 @@ import type { NodeSpec } from '@atlaskit/editor-prosemirror/model';
 import { bodiedRuleStage0 as bodiedRuleFactory } from '../../next-schema/generated/nodeTypes';
 import { uuid } from '../../utils/uuid';
 import type { BreakoutMarkDefinition } from '../marks';
+import type { FontSizeMarkDefinition } from '../marks/font-size';
 import type { HeadingDefinition } from './heading';
-import type { ParagraphDefinition } from './paragraph';
+import type { ParagraphBaseDefinition, ParagraphDefinition } from './paragraph';
 import type { MarksObject } from './types/mark';
 
 export type BodiedRuleAlignment = 'start' | 'center' | 'end';
@@ -29,7 +30,11 @@ export interface BodiedRuleDefinition {
 	 // eslint-disable-next-line eslint-plugin-jsdoc/check-tag-names
 	 * @maxItems 1
 	 */
-	content: Array<HeadingDefinition | ParagraphDefinition>;
+	content: Array<
+		| HeadingDefinition
+		| ParagraphDefinition
+		| (ParagraphBaseDefinition & MarksObject<FontSizeMarkDefinition>)
+	>;
 	type: 'bodiedRule';
 }
 
@@ -74,5 +79,5 @@ export const bodiedRule: NodeSpec = bodiedRuleFactory({
 
 export const bodiedRuleRootOnlyStage0: NodeSpec = {
 	...bodiedRule,
-	marks: 'breakout unsupportedMark unsupportedNodeAttribute',
+	marks: 'breakout fontSize unsupportedMark unsupportedNodeAttribute',
 };

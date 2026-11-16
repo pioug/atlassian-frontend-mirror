@@ -35,7 +35,7 @@ describe('NOOP_EXPOSURE_LOGGER', () => {
 		const produce = jest.fn(() => exposure('flag-a'));
 
 		NOOP_EXPOSURE_LOGGER.log('flag-a', produce);
-		NOOP_EXPOSURE_LOGGER.endDeduplicationWindows();
+		NOOP_EXPOSURE_LOGGER.clearExposureDeduplicationCache();
 
 		expect(produce).not.toHaveBeenCalled();
 	});
@@ -60,7 +60,7 @@ describe('createExposureLogger', () => {
 		expect(produce).toHaveBeenCalledTimes(1);
 	});
 
-	it('contains a failing producer and keeps its identity unsuppressed', () => {
+	it('contains a failing producer and retains its admitted identity', () => {
 		const { logger } = setup();
 		const produce = jest
 			.fn<ReturnType<typeof exposure>, []>()
@@ -72,7 +72,7 @@ describe('createExposureLogger', () => {
 		expect(() => logger.log('identity', produce)).not.toThrow();
 		logger.log('identity', produce);
 
-		expect(produce).toHaveBeenCalledTimes(2);
+		expect(produce).toHaveBeenCalledTimes(1);
 	});
 
 	it('queues the same identity again after the windows end', () => {
@@ -80,7 +80,7 @@ describe('createExposureLogger', () => {
 		const produce = jest.fn(() => exposure('flag-a'));
 
 		logger.log('identity', produce);
-		logger.endDeduplicationWindows();
+		logger.clearExposureDeduplicationCache();
 		logger.log('identity', produce);
 
 		expect(produce).toHaveBeenCalledTimes(2);

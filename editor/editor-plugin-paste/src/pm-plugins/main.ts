@@ -43,7 +43,6 @@ import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/stat
 import { contains, hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { handlePaste as handlePasteTable } from '@atlaskit/editor-tables/utils/handle-paste';
-import { insm } from '@atlaskit/insm/api';
 import { extractClientIdsFromHtml } from '@atlaskit/media-common/clientIdCache';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { dynamicConfigBooleanValue } from '@atlaskit/tmp-editor-statsig/dynamic-config-boolean-value';
@@ -241,9 +240,6 @@ export function createPlugin(
 				// note
 				paste: (view: EditorView, event: ClipboardEvent) => {
 					mostRecentPasteEvent = event as ClipboardEvent;
-					if (event.clipboardData) {
-						insm.startHeavyTask('paste');
-					}
 					return false;
 				},
 			},
@@ -293,7 +289,6 @@ export function createPlugin(
 				// Bail if copied content has files
 				if (isPastedFile) {
 					if (!html) {
-						insm.endHeavyTask('paste');
 						/**
 						 * Microsoft Office, Number, Pages, etc. adds an image to clipboard
 						 * with other mime-types so we don't let the event reach media.
@@ -312,7 +307,6 @@ export function createPlugin(
 					 * is skipped and handled in handleRichText
 					 */
 					if (htmlContainsSingleFile(html) && !isInsideBlockQuote(view.state)) {
-						insm.endHeavyTask('paste');
 						return true;
 					}
 
@@ -340,7 +334,6 @@ export function createPlugin(
 					if (payload) {
 						dispatchAnalyticsEvent(payload);
 					}
-					insm.endHeavyTask('paste');
 				});
 				const getLastReplaceStepSlice = (tr: Transaction) => {
 					let slice;

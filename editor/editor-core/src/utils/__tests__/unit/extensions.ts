@@ -1,3 +1,5 @@
+import React from 'react';
+
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import DefaultExtensionProvider from '@atlaskit/editor-common/extensions/default-extension-provider';
@@ -13,6 +15,8 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { createFakeExtensionManifest } from '@atlaskit/editor-test-helpers/extensions';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+import { render } from '@atlassian/testing-library/render';
+import { screen } from '@atlassian/testing-library/screen';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 
 import type EditorActions from '../../../actions';
@@ -48,6 +52,35 @@ describe('#extensionProviderToQuickInsertProvider', () => {
 	let dummyExtensionProvider: ExtensionProvider;
 	beforeEach(() => {
 		dummyExtensionProvider = setup();
+	});
+
+	it.each([false, true])('renders an ES-module extension icon, enabled=%s', async (enabled) => {
+		(enabled ? mockExpEnabled : mockExpDisabled)('platform_editor_loosely_lazy_migration');
+		const Icon = () => React.createElement('span', null, 'Extension icon');
+		const provider = new DefaultExtensionProvider([
+			replaceCustomQuickInsertModules(
+				createFakeExtensionManifest({
+					title: 'Icon extension',
+					type: 'com.atlassian.test',
+					extensionKey: 'icon-extension',
+				}),
+				{
+					key: 'icon-item',
+					action: jest.fn(),
+					icon: () => Promise.resolve({ __esModule: true, default: Icon }),
+				},
+			),
+		]);
+		const quickInsertProvider = await extensionProviderToQuickInsertProvider(
+			provider,
+			{} as EditorActions,
+			{ current: undefined },
+		);
+		const items = await quickInsertProvider.getItems();
+
+		render(React.createElement(React.Fragment, null, items[0].icon?.()));
+
+		expect(await screen.findByText('Extension icon')).toBeVisible();
 	});
 
 	describe('slash command representations', () => {

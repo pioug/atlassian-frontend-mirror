@@ -13,6 +13,7 @@ import {
 	KEY_UP,
 } from '@atlaskit/ds-lib/keycodes';
 import { flushPopoverExit } from '@atlaskit/top-layer/testing/flush-popover-exit';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import DropdownItem from '../../dropdown-item';
 import DropdownItemGroup from '../../dropdown-item-group';
@@ -174,7 +175,29 @@ describe('dropdown menu keyboard navigation', () => {
 			expect(firstMenuItem).toHaveFocus();
 		});
 
-		it('should focus the content wrapper when clicked with a mouse', () => {
+		it('should focus the first element when opened with a mouse', () => {
+			passGate('platform-dst-top-layer');
+			render(
+				<DropdownMenu trigger={triggerText} testId={testId}>
+					<DropdownItemGroup>
+						{items.map((text) => (
+							<DropdownItem>{text}</DropdownItem>
+						))}
+					</DropdownItemGroup>
+				</DropdownMenu>,
+			);
+
+			openDropdownWithClick(screen.getByTestId(`${testId}--trigger`));
+
+			// A `role="menu"` focuses its first item on every open, pointer or keyboard.
+			const firstMenuItem = screen.getAllByRole('menuitem')[0];
+			expect(firstMenuItem).toHaveAccessibleName(items[0]);
+			expect(firstMenuItem).toHaveFocus();
+		});
+
+		it('should focus the content wrapper when clicked with a mouse (legacy)', () => {
+			// Legacy: a mouse open focuses the menu wrapper. The top-layer path focuses the first item.
+			failGate('platform-dst-top-layer');
 			render(
 				<DropdownMenu trigger={triggerText} testId={testId}>
 					<DropdownItemGroup>
@@ -194,6 +217,7 @@ describe('dropdown menu keyboard navigation', () => {
 		});
 
 		it('should focus the next element on pressing the DOWN arrow', async () => {
+			passGate('platform-dst-top-layer');
 			render(
 				<DropdownMenu trigger={triggerText} testId={testId}>
 					<DropdownItemGroup>
@@ -204,12 +228,39 @@ describe('dropdown menu keyboard navigation', () => {
 				</DropdownMenu>,
 			);
 			openDropdownWithClick(screen.getByTestId(`${testId}--trigger`));
+			expect(screen.getAllByRole('menuitem')[0]).toHaveFocus();
+
+			await pressKey(KEY_DOWN);
 			stepFrame();
 
-			// Start from an explicit position rather than relying on the initial focus of a mouse open.
-			const firstMenuItem = screen.getAllByRole('menuitem')[0];
-			act(() => firstMenuItem.focus());
-			await pressKey(KEY_DOWN);
+			const secondMenuItem = screen.getAllByRole('menuitem')[1];
+			expect(secondMenuItem).toHaveAccessibleName(items[1]);
+			expect(secondMenuItem).toHaveFocus();
+		});
+
+		it('should focus the next element on pressing the DOWN arrow (legacy)', () => {
+			// Legacy: a mouse open focuses the menu wrapper, so the first DOWN focuses the first item.
+			failGate('platform-dst-top-layer');
+			render(
+				<DropdownMenu trigger={triggerText} testId={testId}>
+					<DropdownItemGroup>
+						{items.map((text) => (
+							<DropdownItem>{text}</DropdownItem>
+						))}
+					</DropdownItemGroup>
+				</DropdownMenu>,
+			);
+			openDropdownWithClick(screen.getByTestId(`${testId}--trigger`));
+
+			fireEvent.keyDown(screen.getByTestId(`${testId}--trigger`), {
+				key: KEY_DOWN,
+				code: KEY_DOWN,
+			});
+
+			fireEvent.keyDown(screen.getByTestId(`${testId}--trigger`), {
+				key: KEY_DOWN,
+				code: KEY_DOWN,
+			});
 
 			stepFrame();
 
@@ -300,6 +351,7 @@ describe('dropdown menu keyboard navigation', () => {
 	});
 
 	it('should skip over disabled items while keyboard navigating', async () => {
+		passGate('platform-dst-top-layer');
 		const second = 'Second';
 		const fourth = 'Fourth';
 		const secondLast = 'Second Last';
@@ -317,13 +369,14 @@ describe('dropdown menu keyboard navigation', () => {
 			</DropdownMenu>,
 		);
 		openDropdownWithClick(screen.getByTestId(`${testId}--trigger`));
-		stepFrame();
 
+		// The first item that is not disabled takes focus on open.
 		const allMenuItems = screen.getAllByRole('menuitem');
-		// Start from an explicit position rather than relying on the initial focus of a mouse open.
-		act(() => allMenuItems[1].focus());
-		await pressKey(KEY_DOWN);
+		const secondMenuItem = allMenuItems[1];
+		expect(secondMenuItem).toHaveAccessibleName(second);
+		expect(secondMenuItem).toHaveFocus();
 
+		await pressKey(KEY_DOWN);
 		stepFrame();
 
 		const fourthMenuItem = allMenuItems[3];
@@ -333,8 +386,6 @@ describe('dropdown menu keyboard navigation', () => {
 		await pressKey(KEY_UP);
 		stepFrame();
 
-		const secondMenuItem = allMenuItems[1];
-		expect(secondMenuItem).toHaveAccessibleName(second);
 		expect(secondMenuItem).toHaveFocus();
 
 		await pressKey(KEY_END);
@@ -345,6 +396,73 @@ describe('dropdown menu keyboard navigation', () => {
 		expect(secondLastMenuItem).toHaveFocus();
 
 		await pressKey(KEY_HOME);
+		stepFrame();
+
+		expect(secondMenuItem).toHaveFocus();
+	});
+
+	it('should skip over disabled items while keyboard navigating (legacy)', () => {
+		// Legacy: a mouse open focuses the menu wrapper, so the first DOWN focuses the first item.
+		failGate('platform-dst-top-layer');
+		const second = 'Second';
+		const fourth = 'Fourth';
+		const secondLast = 'Second Last';
+
+		render(
+			<DropdownMenu trigger={triggerText} testId={testId}>
+				<DropdownItemGroup>
+					<DropdownItem isDisabled>First</DropdownItem>
+					<DropdownItem>{second}</DropdownItem>
+					<DropdownItem isDisabled={true}>Third</DropdownItem>
+					<DropdownItem>{fourth}</DropdownItem>
+					<DropdownItem>{secondLast}</DropdownItem>
+					<DropdownItem isDisabled>Last</DropdownItem>
+				</DropdownItemGroup>
+			</DropdownMenu>,
+		);
+		openDropdownWithClick(screen.getByTestId(`${testId}--trigger`));
+
+		fireEvent.keyDown(screen.getByTestId(`${testId}--trigger`), {
+			key: KEY_DOWN,
+			code: KEY_DOWN,
+		});
+
+		fireEvent.keyDown(screen.getByTestId(`${testId}--trigger`), {
+			key: KEY_DOWN,
+			code: KEY_DOWN,
+		});
+
+		stepFrame();
+
+		const allMenuItems = screen.getAllByRole('menuitem');
+		const fourthMenuItem = allMenuItems[3];
+		expect(fourthMenuItem).toHaveAccessibleName(fourth);
+		expect(fourthMenuItem).toHaveFocus();
+
+		fireEvent.keyDown(screen.getByTestId(`${testId}--trigger`), {
+			key: KEY_UP,
+			code: KEY_UP,
+		});
+		stepFrame();
+
+		const secondMenuItem = allMenuItems[1];
+		expect(secondMenuItem).toHaveAccessibleName(second);
+		expect(secondMenuItem).toHaveFocus();
+
+		fireEvent.keyDown(screen.getByTestId(`${testId}--trigger`), {
+			key: KEY_END,
+			code: KEY_END,
+		});
+		stepFrame();
+
+		const secondLastMenuItem = allMenuItems.slice(-2)[0];
+		expect(secondLastMenuItem).toHaveAccessibleName(secondLast);
+		expect(secondLastMenuItem).toHaveFocus();
+
+		fireEvent.keyDown(screen.getByTestId(`${testId}--trigger`), {
+			key: KEY_HOME,
+			code: KEY_HOME,
+		});
 		stepFrame();
 
 		expect(secondMenuItem).toHaveFocus();
@@ -642,6 +760,9 @@ describe('dropdown menu keyboard navigation', () => {
 
 	describe('shouldPreventEscapePropagation', () => {
 		it('should close the dropdown and call stopPropagation when Escape is pressed and shouldPreventEscapePropagation is true', () => {
+			// Legacy only. On the top-layer path the prop does nothing: one Escape closes one layer, so
+			// the menu closes and its parent stays open (see the playwright spec).
+			failGate('platform-dst-top-layer');
 			const mockOnOpenChange = jest.fn();
 
 			render(

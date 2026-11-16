@@ -726,3 +726,230 @@ test.describe('DropdownMenu top-layer — Nested keyboard navigation', () => {
 	// preventing 3+ levels from being open simultaneously. The 2-level nesting
 	// tests above cover the ArrowLeft behavior adequately.
 });
+
+/**
+ * Where focus goes when a menu closes. The platform returns focus, and `returnFocusRef` is a
+ * no-op on the top-layer path. Each case runs on a menu without the prop and on the same menu with
+ * the prop (on the menu, its nested menu and its "Open modal" item), and both must give the same
+ * result.
+ */
+const focusReturnMenus = [
+	{ title: 'without returnFocusRef', menu: 'menu' },
+	{ title: 'with returnFocusRef (a no-op)', menu: 'menu-with-ref' },
+];
+
+for (const { title, menu } of focusReturnMenus) {
+	test.describe(`DropdownMenu top-layer: focus return on close, ${title}`, () => {
+		const getTrigger = (page: Page) => page.getByTestId(`${menu}--trigger`);
+		const getContent = (page: Page) => page.getByTestId(`${menu}--content`);
+		const getItem = (page: Page, name: string) =>
+			getContent(page).getByRole('menuitem', { name, exact: true });
+		const getReturnFocusTarget = (page: Page) => page.getByTestId('return-focus-target');
+
+		async function openWithKeyboard(page: Page) {
+			await getTrigger(page).focus();
+			await page.keyboard.press('Enter');
+			await expect(getItem(page, 'Move')).toBeFocused();
+		}
+
+		async function openNestedWithKeyboard(page: Page) {
+			await openWithKeyboard(page);
+			await page.keyboard.press('ArrowDown');
+			await expect(getItem(page, 'More')).toBeFocused();
+			await page.keyboard.press('ArrowRight');
+			await expect(getItem(page, 'Nested item')).toBeFocused();
+		}
+
+		test.beforeEach(async ({ page }) => {
+			await page.visitExample<typeof import('../../../../../examples/96-testing-focus-return.tsx')>(
+				'design-system',
+				'dropdown-menu',
+				'testing-focus-return',
+				{ featureFlag },
+			);
+		});
+
+		test('Escape returns focus to the trigger', async ({ page }) => {
+			await openWithKeyboard(page);
+
+			await page.keyboard.press('Escape');
+
+			await expect(getContent(page)).toBeHidden();
+			await expect(getTrigger(page)).toBeFocused();
+		});
+
+		test('an item picked with the keyboard returns focus to the trigger', async ({ page }) => {
+			await openWithKeyboard(page);
+
+			await page.keyboard.press('Enter');
+
+			await expect(getContent(page)).toBeHidden();
+			await expect(getTrigger(page)).toBeFocused();
+		});
+
+		test('an item picked with the mouse returns focus to the trigger', async ({
+			page,
+			browserName,
+		}) => {
+			// WebKit does not focus a button on click. The press on the item moves focus to the body
+			// before the click closes the menu, so focus is not in the menu at the close, and nothing
+			// returns it.
+			test.fixme(browserName === 'webkit', 'WebKit: the press on an item moves focus to the body');
+
+			await getTrigger(page).click();
+			await expect(getItem(page, 'Move')).toBeFocused();
+
+			await getItem(page, 'Move').click();
+
+			await expect(getContent(page)).toBeHidden();
+			await expect(getTrigger(page)).toBeFocused();
+		});
+
+		test('Tab closes the menu and moves focus to the element after the trigger', async ({
+			page,
+		}) => {
+			await openWithKeyboard(page);
+
+			await page.keyboard.press('Tab');
+
+			await expect(getContent(page)).toBeHidden();
+			await expect(page.getByTestId(`${menu}-after`)).toBeFocused();
+		});
+
+		test('Shift+Tab closes the menu and moves focus to the element before the trigger', async ({
+			page,
+		}) => {
+			await openWithKeyboard(page);
+
+			await page.keyboard.press('Shift+Tab');
+
+			await expect(getContent(page)).toBeHidden();
+			await expect(page.getByTestId(`${menu}-before`)).toBeFocused();
+		});
+
+		test('a press on a button outside the menu leaves focus on that button', async ({ page }) => {
+			await openWithKeyboard(page);
+
+			await page.getByTestId('outside-button').click();
+
+			await expect(getContent(page)).toBeHidden();
+			await expect(page.getByTestId('outside-button')).toBeFocused();
+		});
+
+		test('a press on an input outside the menu leaves focus on that input', async ({ page }) => {
+			await openWithKeyboard(page);
+
+			await page.getByTestId('outside-input').click();
+
+			await expect(getContent(page)).toBeHidden();
+			await expect(page.getByTestId('outside-input')).toBeFocused();
+		});
+
+		test('a press on text outside the menu does not move focus to the trigger', async ({
+			page,
+		}) => {
+			await openWithKeyboard(page);
+
+			await page.getByTestId('outside-text').click();
+
+			await expect(getContent(page)).toBeHidden();
+			await expect(getTrigger(page)).not.toBeFocused();
+			await expect(getReturnFocusTarget(page)).not.toBeFocused();
+		});
+
+		test('ArrowLeft in the nested menu returns focus to its trigger item', async ({ page }) => {
+			await openNestedWithKeyboard(page);
+
+			await page.keyboard.press('ArrowLeft');
+
+			await expect(getItem(page, 'Nested item')).toBeHidden();
+			await expect(getItem(page, 'More')).toBeFocused();
+		});
+
+		test('Escape in the nested menu returns focus to its trigger item', async ({ page }) => {
+			await openNestedWithKeyboard(page);
+
+			await page.keyboard.press('Escape');
+
+			await expect(getItem(page, 'Nested item')).toBeHidden();
+			await expect(getItem(page, 'More')).toBeFocused();
+		});
+
+		test('an item picked in the nested menu with the keyboard closes every menu and returns focus to the trigger', async ({
+			page,
+		}) => {
+			await openNestedWithKeyboard(page);
+
+			await page.keyboard.press('Enter');
+
+			// Activating an item closes the menu tree (WAI-ARIA APG). Only Escape and Left arrow go
+			// back one level.
+			await expect(getItem(page, 'Nested item')).toBeHidden();
+			await expect(getContent(page)).toBeHidden();
+			await expect(getTrigger(page)).toBeFocused();
+		});
+
+		test('an item picked in the nested menu with the mouse closes every menu and returns focus to the trigger', async ({
+			page,
+			browserName,
+		}) => {
+			// The same WebKit gap as for an item picked with the mouse in the root menu.
+			test.fixme(browserName === 'webkit', 'WebKit: the press on an item moves focus to the body');
+
+			await getTrigger(page).click();
+			await getItem(page, 'More').click();
+			await expect(getItem(page, 'Nested item')).toBeVisible();
+
+			await getItem(page, 'Nested item').click();
+
+			await expect(getItem(page, 'Nested item')).toBeHidden();
+			await expect(getContent(page)).toBeHidden();
+			await expect(getTrigger(page)).toBeFocused();
+		});
+
+		test('a checkbox item in the nested menu keeps every menu open and keeps focus', async ({
+			page,
+		}) => {
+			await openNestedWithKeyboard(page);
+			await page.keyboard.press('ArrowDown');
+			const checkbox = getContent(page).getByRole('menuitemcheckbox', { name: 'Nested option' });
+			await expect(checkbox).toBeFocused();
+
+			await page.keyboard.press('Enter');
+
+			await expect(checkbox).toHaveAttribute('aria-checked', 'true');
+			await expect(getItem(page, 'Nested item')).toBeVisible();
+			await expect(getContent(page)).toBeVisible();
+			await expect(checkbox).toBeFocused();
+		});
+
+		test('closing a modal that an item opened returns focus to the trigger', async ({
+			page,
+			browserName,
+		}) => {
+			// WebKit leaves focus on the body after the modal closes, with or without
+			// `returnFocusRef`. It passes on the top-layer decisions branch (#529607), where the
+			// wrapper returns focus to the trigger before the modal records its opener; that change
+			// is not on master yet.
+			test.fixme(
+				browserName === 'webkit',
+				'WebKit: focus falls to the body after the modal closes',
+			);
+
+			await openWithKeyboard(page);
+			await page.keyboard.press('End');
+			await expect(getItem(page, 'Open modal')).toBeFocused();
+
+			await page.keyboard.press('Enter');
+
+			const modal = page.getByTestId(`${menu}-modal`);
+			await expect(modal).toBeVisible();
+			await expect(getContent(page)).toBeHidden();
+
+			await page.keyboard.press('Escape');
+
+			await expect(modal).toBeHidden();
+			await expect(getTrigger(page)).toBeFocused();
+		});
+	});
+}

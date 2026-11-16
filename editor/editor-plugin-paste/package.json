@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-paste",
-	"version": "31.2.6",
+	"version": "32.0.1",
 	"description": "Paste plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -42,7 +42,6 @@
 		"@atlaskit/editor-tables": "workspace:^",
 		"@atlaskit/flag": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
-		"@atlaskit/insm": "workspace:^",
 		"@atlaskit/linking-common": "workspace:^",
 		"@atlaskit/media-client": "workspace:^",
 		"@atlaskit/media-common": "workspace:^",
@@ -72,9 +71,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_sharepoint_url_smart_card_jira": {
-			"type": "boolean"
-		},
-		"platform_editor_link_paste_select_all": {
 			"type": "boolean"
 		},
 		"platform_media_cross_client_copy_with_auth": {

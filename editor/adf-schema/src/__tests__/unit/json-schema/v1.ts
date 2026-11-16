@@ -18,6 +18,48 @@ describe(`${packageName} json-schema v1`, () => {
 	const validateFull = ajv.compile(v1SchemaFull);
 	const validateStage0 = ajv.compile(v1SchemaStage0);
 
+	describe('bodiedRule paragraph formatting', () => {
+		const document = (marks?: unknown[]) => ({
+			version: 1,
+			type: 'doc',
+			content: [
+				{
+					type: 'bodiedRule',
+					attrs: { localId: 'rule-id' },
+					content: [
+						{
+							type: 'paragraph',
+							...(marks ? { marks } : {}),
+							content: [{ type: 'text', text: 'Label' }],
+						},
+					],
+				},
+			],
+		});
+
+		it('accepts ordinary paragraphs in stage-0', () => {
+			expect(validateStage0(document())).toBe(true);
+		});
+
+		it('accepts small text paragraphs in stage-0', () => {
+			expect(validateStage0(document([{ type: 'fontSize', attrs: { fontSize: 'small' } }]))).toBe(
+				true,
+			);
+		});
+
+		it('still rejects bodiedRule in the full schema', () => {
+			expect(validateFull(document([{ type: 'fontSize', attrs: { fontSize: 'small' } }]))).toBe(
+				false,
+			);
+		});
+
+		it('does not enable other paragraph marks', () => {
+			expect(validateStage0(document([{ type: 'alignment', attrs: { align: 'center' } }]))).toBe(
+				false,
+			);
+		});
+	});
+
 	// A table nested inside a panel (panel_c1) is only allowed at the document root, inside a layout
 	// column, or inside a synced block (bodiedSyncBlock). It must be rejected everywhere else, and
 	// only in the stage-0 schema.

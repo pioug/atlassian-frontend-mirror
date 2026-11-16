@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-rule
 
+## 31.0.1
+
+### Patch Changes
+
+- [`2b11c43541279`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2b11c43541279) -
+  [ux] [EDITOR-10136] show selected icons for divider weight and style options behind
+  `platform_editor_lovability_dividers`
+- Updated dependencies
+
+## 31.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 30.1.0
 
 ### Minor Changes

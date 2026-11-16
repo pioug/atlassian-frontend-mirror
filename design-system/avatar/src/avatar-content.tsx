@@ -301,6 +301,7 @@ const widthHeightMap = cssMap({
 // The sole source of truth for the updated hexagon width/height geometry (per size).
 const updatedHexagonDimensionMap = cssMap({
 	xxsmall: { width: '15.4px', height: '17.17px' },
+	xsmall: { width: '15.4px', height: '17.17px' },
 	small: { width: '23.11px', height: '25.76px' },
 	medium: { width: '30.81px', height: '34.34px' },
 	large: { width: '38.51px', height: '42.93px' },
@@ -376,7 +377,7 @@ export const AvatarContent: React.ForwardRefExoticComponent<
 				widthHeightMap[size],
 				UNSAFE_isUpdatedGeometry &&
 					updatedHexagonDimensionMap[
-						size as 'xxsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge'
+						size as 'xxsmall' | 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge'
 					],
 				(hasHexagonInnerBorder || stackIndex !== undefined) && styles.positionRelative,
 				isInteractive && !isDisabled && unboundStyles.interactive,

@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-selection
 
+## 31.1.0
+
+### Minor Changes
+
+- [`4112058474271`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4112058474271) -
+  Behind the platform_editor_inline_node_selection_style experiment, show a selection tint instead
+  of the native text highlight on inline cards, mentions, statuses, dates and emojis inside a range
+  selection
+
+## 31.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.0.21
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 30.0.20
 
 ### Patch Changes

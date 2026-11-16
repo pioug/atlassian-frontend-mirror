@@ -23,8 +23,8 @@ import { Stack } from '@atlaskit/primitives/compiled/stack';
  *   activated.
  *
  * - `dropdown-return-focus-ref`: `returnFocusRef` points at a sibling
- *   button rendered outside the dropdown. After the menu closes, focus
- *   must move to that sibling instead of returning to the trigger.
+ *   button rendered outside the dropdown. The prop is a no-op on the
+ *   top-layer path, so after the menu closes, focus returns to the trigger.
  *
  * - `dropdown-default-open`: `defaultOpen` mounts the menu in the open
  *   state. Per its docstring this auto-shifts focus to the first menu

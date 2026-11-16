@@ -55,7 +55,7 @@ import {
 	findHandleDec,
 	TYPE_ACTIVE_HANDLE_DEC,
 } from './decorations-drag-handle';
-import { dropTargetDecorations, findDropTargetDecs } from './decorations-drop-target';
+import { findDropTargetDecs } from './decorations-drop-target';
 import { getActiveDropTargetDecorations } from './decorations-drop-target-active';
 import {
 	createActiveQuickInsertNodeDecoration,
@@ -448,10 +448,7 @@ export const apply = (
 	multiSelectDnD = meta?.multiSelectDnD ?? multiSelectDnD;
 
 	if (multiSelectDnD) {
-		if (
-			(meta?.isDragging ?? isDragging) &&
-			expValEquals('platform_editor_block_controls_perf_optimization', 'isEnabled', true)
-		) {
+		if (meta?.isDragging ?? isDragging) {
 			// When dragging, we want to keep the multiSelectDnD object unless both document and selection
 			// has changed, in which case we want to reset it.
 			const shouldResetMultiSelectDnD = tr.docChanged && tr.selectionSet && tr.selection.empty;
@@ -948,46 +945,33 @@ export const apply = (
 		: undefined;
 
 	if (api) {
-		if (expValEquals('platform_editor_block_controls_perf_optimization', 'isEnabled', true)) {
-			// If page is updated while dragging (likely by remote updates), we simply remove the drop targets
-			// and add them back when the user interacts with the editor again
-			if (isDropTargetsMissing) {
-				const oldDropTargetDecs = findDropTargetDecs(decorations);
-				decorations = decorations.remove(oldDropTargetDecs);
-			}
+		// If page is updated while dragging (likely by remote updates), we simply remove the drop targets
+		// and add them back when the user interacts with the editor again
+		if (isDropTargetsMissing) {
+			const oldDropTargetDecs = findDropTargetDecs(decorations);
+			decorations = decorations.remove(oldDropTargetDecs);
+		}
 
-			if (meta?.activeDropTargetNode) {
-				currentActiveDropTargetNode = meta?.activeDropTargetNode as ActiveDropTargetNode;
-				const oldDropTargetDecs = findDropTargetDecs(decorations);
+		if (meta?.activeDropTargetNode) {
+			currentActiveDropTargetNode = meta?.activeDropTargetNode as ActiveDropTargetNode;
+			const oldDropTargetDecs = findDropTargetDecs(decorations);
 
-				const { decsToAdd, decsToRemove } = getActiveDropTargetDecorations(
-					meta.activeDropTargetNode,
-					newState,
-					api,
-					oldDropTargetDecs,
-					formatMessage,
-					nodeViewPortalProviderAPI,
-					latestActiveNode,
-					anchorRectCache,
-				);
-
-				decorations = decorations.remove(decsToRemove);
-
-				if (decsToAdd.length > 0) {
-					decorations = decorations.add(newState.doc, decsToAdd);
-				}
-			}
-		} else if (meta?.isDragging || isDropTargetsMissing) {
-			// Add drop targets when dragging starts or some are missing
-			const decs = dropTargetDecorations(
+			const { decsToAdd, decsToRemove } = getActiveDropTargetDecorations(
+				meta.activeDropTargetNode,
 				newState,
 				api,
+				oldDropTargetDecs,
 				formatMessage,
 				nodeViewPortalProviderAPI,
 				latestActiveNode,
 				anchorRectCache,
 			);
-			decorations = decorations.add(newState.doc, decs);
+
+			decorations = decorations.remove(decsToRemove);
+
+			if (decsToAdd.length > 0) {
+				decorations = decorations.add(newState.doc, decsToAdd);
+			}
 		}
 	}
 
@@ -1301,10 +1285,7 @@ export const createPlugin = (
 						return;
 					}
 
-					if (
-						isHTMLElement(event.target) &&
-						expValEquals('platform_editor_block_controls_perf_optimization', 'isEnabled', true)
-					) {
+					if (isHTMLElement(event.target)) {
 						const targetElement = event.target.closest('[data-prosemirror-node-name]');
 						if (targetElement) {
 							const nodeTypeName = targetElement?.getAttribute('data-prosemirror-node-name');
@@ -1330,20 +1311,6 @@ export const createPlugin = (
 								);
 							}
 						}
-					} else if (isAdvancedLayoutEnabled) {
-						if (isHTMLElement(event.target)) {
-							const closestParentElement = event.target.closest(
-								'[data-drag-handler-anchor-depth="0"]',
-							);
-
-							if (closestParentElement) {
-								const currentAnchor = closestParentElement.getAttribute(getAnchorAttrName());
-
-								if (currentAnchor) {
-									defaultActiveAnchorTracker.emit(currentAnchor);
-								}
-							}
-						}
 					}
 				},
 				dragstart(view: EditorView) {
@@ -1355,9 +1322,7 @@ export const createPlugin = (
 						defaultActiveAnchorTracker.reset();
 					}
 
-					if (expValEquals('platform_editor_block_controls_perf_optimization', 'isEnabled', true)) {
-						anchorRectCache?.clear();
-					}
+					anchorRectCache?.clear();
 
 					anchorRectCache?.setEditorView(view);
 					view.dispatch(

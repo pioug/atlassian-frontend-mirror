@@ -3,6 +3,7 @@ import React, { useCallback } from 'react';
 import type { OnOpenChangeArgs } from '@atlaskit/dropdown-menu/types';
 import type { ToolbarUIContextType } from '@atlaskit/editor-toolbar/ui-context';
 import { ToolbarUIProvider } from '@atlaskit/editor-toolbar/ui-context';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { ExtractInjectionAPI, NextEditorPlugin } from '../types';
 
@@ -33,6 +34,24 @@ export const EditorToolbarUIProvider = ({
 }: Props): React.JSX.Element => {
 	const onDropdownOpenChanged = useCallback(
 		({ isOpen, event }: OnOpenChangeArgs) => {
+			if (!isOpen && fg('platform-dst-top-layer')) {
+				// Escape, Tab and an outside press have no target, and the editor does not take focus.
+				// The browser moves focus on Escape and Tab. On an outside press, focus goes where the
+				// user pressed, for example the editor. After a toolbar action (an item pick, a trigger
+				// click, a close from code), the editor takes focus back.
+				if (event === null || event.target instanceof Element) {
+					// After the design system's focus return as the menu hides.
+					setTimeout(
+						() =>
+							requestAnimationFrame(() => {
+								api?.core.actions.focus({ scrollIntoView: false });
+							}),
+						1,
+					);
+				}
+				return;
+			}
+
 			if (!isOpen) {
 				// Only refocus the editor when the dropdown closes via mouse or programmatic close.
 				// When closed via keyboard Escape, keep focus on the trigger for better keyboard UX.

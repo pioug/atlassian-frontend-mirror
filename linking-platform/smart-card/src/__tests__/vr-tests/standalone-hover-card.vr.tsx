@@ -10,17 +10,7 @@ import HoverCard from '../../../examples/vr-hover-card-standalone/vr-hover-card-
 import HoverCardWithPreview from '../../../examples/vr-hover-card-standalone/vr-hover-card-with-image-preview.vr.ap';
 
 snapshot(HoverCard, {
-	featureFlags: {
-		platform_sl_replace_react_loadable: true,
-	},
 	description: 'standalone hover card default',
-	ignoredErrors: [
-		{
-			pattern: /LoadableComponent uses the legacy contextTypes API/,
-			ignoredBecause: 'react-loadable causing uncaught error to be thrown',
-			jiraIssueId: 'NAVX-3277',
-		},
-	],
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
 	waitForReactLazy: true,
@@ -35,33 +25,13 @@ snapshot(HoverCardWithPreview, {
 
 snapshot(HoverCardForSlackMessage, {
 	description: 'standalone hover card for Slack message',
-	ignoredErrors: [
-		{
-			pattern: /LoadableComponent uses the legacy contextTypes API/,
-			ignoredBecause: 'react-loadable causing uncaught error to be thrown',
-			jiraIssueId: 'NAVX-3277',
-		},
-	],
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
-	featureFlags: {
-		platform_sl_replace_react_loadable: true,
-	},
 	waitForReactLazy: true,
 });
 
 snapshot(HoverCardConfluence, {
-	featureFlags: {
-		platform_sl_replace_react_loadable: true,
-	},
 	description: 'standalone hover card for Confluence',
-	ignoredErrors: [
-		{
-			pattern: /LoadableComponent uses the legacy contextTypes API/,
-			ignoredBecause: 'react-loadable causing uncaught error to be thrown',
-			jiraIssueId: 'NAVX-3277',
-		},
-	],
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
 	waitForReactLazy: true,

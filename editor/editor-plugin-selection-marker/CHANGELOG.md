@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-selection-marker
 
+## 31.1.0
+
+### Minor Changes
+
+- [`ee48465575273`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee48465575273) -
+  Behind platform_editor_selection_marker_blur_fix: hide the native highlight on blurred selection
+  marker content with a valid ::selection rule, and mark inline nodes such as status and mention in
+  a blurred range selection.
+
+## 31.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 30.1.0
 
 ### Minor Changes

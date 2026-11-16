@@ -56,7 +56,8 @@ const INT32_END = BigInt(1) << BigInt(31);
 
 /** An undelivered exposure with its failed delivery attempts so far. */
 export interface QueuedExposure {
-	readonly record: QueuedRecord;
+	/** Sanitized record; delivery may add its frozen dedupe item count. */
+	record: QueuedRecord;
 	attempts: number;
 }
 

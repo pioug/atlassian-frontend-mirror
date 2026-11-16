@@ -1,5 +1,19 @@
 # @atlaskit/editor-toolbar
 
+## 2.11.3
+
+### Patch Changes
+
+- [`efaeacf8314f6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/efaeacf8314f6) -
+  Clean up feature gate `platform_editor_fix_text_styles_width`.
+- Updated dependencies
+
+## 2.11.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.11.1
 
 ### Patch Changes

@@ -465,9 +465,11 @@ elsewhere or return focus to the trigger after click-outside dismissal.
 
 ### When custom focus handling IS needed
 
-The only case where custom focus code is appropriate is when a consumer needs to redirect focus to a
-**different element** than the trigger on close. For example, `dropdown-menu`'s `returnFocusRef`
-prop focuses a different element after the menu closes.
+The only case where custom focus code is appropriate is when an action needs focus on a **different
+element** than the trigger, for example because the action removes the trigger. The consumer moves
+focus in the action's handler, or the new element uses `autoFocus`. Focus that has left the layer is
+not moved back. `dropdown-menu`'s `returnFocusRef` is a no-op on this path
+(`migrations/dropdown-menu-migration.md`).
 
 Native restoration and the internal fallback finish before `onClose` is called. Consumers can focus
 their chosen destination synchronously in `onClose`. No delay, such as `requestAnimationFrame`, is

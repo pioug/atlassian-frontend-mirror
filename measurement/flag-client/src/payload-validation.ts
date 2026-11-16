@@ -103,11 +103,27 @@ function isValidBulkEvaluationMetadata(value: unknown): value is BulkEvaluationM
 		isOptionalStringOrNull(value.identifierType) &&
 		isOptionalStringOrNull(value.variationId) &&
 		isOptionalStringOrNull(value.ruleId) &&
+		isOptionalStringOrNull(value.randomizationIdentifierValue) &&
+		isOptionalStringOrNull(value.randomizationIdentifierName) &&
+		isOptionalStringOrNull(value.dedupeKey) &&
+		isValidOptionalStableSplitOutcome(value.stableSplitOutcome) &&
 		isOptionalRecordOrNull(value.holdoutAllocation) &&
 		isOptionalArrayOf(value.segments, isRecord) &&
 		isOptionalArrayOf(value.targetApps, isString) &&
 		isOptionalString(value.flagVersion) &&
 		isOptionalString(value.errorMessage)
+	);
+}
+
+/** Validate the counterfactual envelope while retaining the existing open holdout member contract. */
+function isValidOptionalStableSplitOutcome(value: unknown): boolean {
+	return (
+		value === undefined ||
+		value === null ||
+		(isRecord(value) &&
+			typeof value.matchReason === 'string' &&
+			isOptionalStringOrNull(value.variationId) &&
+			isOptionalRecordOrNull(value.holdoutAllocation))
 	);
 }
 

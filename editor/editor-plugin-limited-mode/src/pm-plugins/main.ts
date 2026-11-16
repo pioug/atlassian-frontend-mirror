@@ -224,9 +224,7 @@ export const createPlugin = (
 				//
 				// Known gap: operations that are expensive but barely change document size — table
 				// resize, drag-and-drop moves (delete + insert nets to ~0), type-ahead — are not
-				// suppressed. `@atlaskit/insm` already tracks exactly these via `startHeavyTask`, but its
-				// public facade does not expose `runningHeavyTasks`, so there is no way to read them from
-				// here today. Closing that gap needs an accessor on the insm package.
+				// suppressed.
 				if (tr.docChanged) {
 					detector?.noteDocumentChange({
 						nodeSizeDelta: tr.doc.nodeSize - oldState.doc.nodeSize,

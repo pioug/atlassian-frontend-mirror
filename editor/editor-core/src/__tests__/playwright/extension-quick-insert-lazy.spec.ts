@@ -15,7 +15,7 @@ test.use({
 });
 
 const loaderImplementations = [
-	{ implementation: 'react-loosely-lazy', useLooselyLazy: true },
+	{ implementation: 'React.lazy', useLooselyLazy: true },
 	{ implementation: 'react-loadable (legacy)', useLooselyLazy: false },
 ];
 

@@ -514,7 +514,10 @@ describe('Avatar', () => {
 
 	describe('UNSAFE_isUpdatedGeometry', () => {
 		type SupportedSizeCase = {
-			size: Extract<SizeType, 'xxsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge'>;
+			size: Extract<
+				SizeType,
+				'xxsmall' | 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge'
+			>;
 			width: number;
 			height: number;
 		};
@@ -526,6 +529,7 @@ describe('Avatar', () => {
 		// source of truth for these values).
 		const supportedSizes: SupportedSizeCase[] = [
 			{ size: 'xxsmall' as const, width: 15.4, height: 17.17 },
+			{ size: 'xsmall' as const, width: 15.4, height: 17.17 },
 			{ size: 'small' as const, width: 23.11, height: 25.76 },
 			{ size: 'medium' as const, width: 30.81, height: 34.34 },
 			{ size: 'large' as const, width: 38.51, height: 42.93 },
@@ -538,6 +542,7 @@ describe('Avatar', () => {
 		// margin is derived from the legacy size, not the updated hexagon's own width.
 		const legacySizeBySize: Record<SupportedSizeCase['size'], number> = {
 			xxsmall: 16,
+			xsmall: 16,
 			small: 24,
 			medium: 32,
 			large: 40,
@@ -834,8 +839,6 @@ describe('Avatar', () => {
 		});
 
 		it('should keep legacy xsmall rendering at 16px until the major behavior ships', () => {
-			failGate('platform_design-system-team_avatar-remove-xsmall');
-
 			render(<Avatar name="legacy xsmall" size="xsmall" testId="legacy-xsmall" />);
 
 			const inner = screen.getByTestId('legacy-xsmall--inner');

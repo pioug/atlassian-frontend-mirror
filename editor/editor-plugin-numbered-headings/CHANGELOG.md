@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-numbered-headings
 
+## 5.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.1.2
 
 ### Patch Changes

@@ -501,6 +501,8 @@ describe('FlagClient public types', () => {
 				readonly endpoint?: string;
 				readonly batchSize?: number;
 				readonly flushIntervalMs?: number;
+				readonly dedupeMaxKeys?: number;
+				readonly dedupeWindowMs?: number;
 			}
 		>();
 		assertTypeEqual<

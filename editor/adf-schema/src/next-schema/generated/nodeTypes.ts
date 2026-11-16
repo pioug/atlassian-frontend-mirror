@@ -332,7 +332,11 @@ export const bodiedExtensionWithMarks: PMNodeSpecFactoryInstance<BodiedExtension
 
 export interface BodiedRuleRootOnlyStage0Definition {
   type: 'bodiedRule';
-  content: Array<HeadingWithNoMarksDefinition | ParagraphWithNoMarksDefinition>;
+  content: Array<
+    | HeadingWithNoMarksDefinition
+    | ParagraphWithFontSizeDefinition
+    | ParagraphWithNoMarksDefinition
+  >;
   marks: Array<
     BreakoutMark | UnsupportedMarkMark | UnsupportedNodeAttributeMark
   >;
@@ -351,6 +355,7 @@ export type BodiedRuleRootOnlyStage0Node = PMNode &
 export const bodiedRuleRootOnlyStage0: PMNodeSpecFactoryInstance<BodiedRuleRootOnlyStage0Node> =
   createPMNodeSpecFactory<BodiedRuleRootOnlyStage0Node>({
     content: '(paragraph | heading){1,1}',
+    marks: 'fontSize unsupportedMark unsupportedNodeAttribute',
     attrs: {
       localId: { default: '' },
       alignment: { default: null },
@@ -362,7 +367,11 @@ export const bodiedRuleRootOnlyStage0: PMNodeSpecFactoryInstance<BodiedRuleRootO
 
 export interface BodiedRuleStage0Definition {
   type: 'bodiedRule';
-  content: Array<HeadingWithNoMarksDefinition | ParagraphWithNoMarksDefinition>;
+  content: Array<
+    | HeadingWithNoMarksDefinition
+    | ParagraphWithFontSizeDefinition
+    | ParagraphWithNoMarksDefinition
+  >;
   marks: Array<UnsupportedMarkMark | UnsupportedNodeAttributeMark>;
   attrs: {
     localId: string;
@@ -378,6 +387,7 @@ export type BodiedRuleStage0Node = PMNode & BodiedRuleStage0Definition;
 export const bodiedRuleStage0: PMNodeSpecFactoryInstance<BodiedRuleStage0Node> =
   createPMNodeSpecFactory<BodiedRuleStage0Node>({
     content: '(paragraph | heading){1,1}',
+    marks: 'fontSize unsupportedMark unsupportedNodeAttribute',
     group: 'block',
     attrs: {
       localId: { default: '' },

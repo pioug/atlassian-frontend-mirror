@@ -663,11 +663,7 @@ export const GlobalStylesWrapper = ({
 		}),
 	);
 	const sparseSurfacesEnabled = isExperimentEnabled('platform_editor_block_control_migration');
-	const isDragging =
-		sparseSurfacesEnabled ||
-		expValEquals('platform_editor_block_controls_perf_optimization', 'isEnabled', true)
-			? isDraggingFromState
-			: false;
+	const isDragging = isDraggingFromState;
 
 	const shouldRenderAnchors =
 		isCSSAnchorSupported() &&

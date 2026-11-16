@@ -1,5 +1,33 @@
 # @atlaskit/editor-plugin-annotation
 
+## 31.0.1
+
+### Patch Changes
+
+- [`959d1ea1cb61e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/959d1ea1cb61e) -
+  Maintain the inline comment highlight decorations incrementally instead of walking the whole
+  document on every state update, behind the new `cc_editor_annotation_decoration_improv`
+  experiment.
+
+  A new `annotationDecorations` ProseMirror plugin maps the decoration set through each transaction
+  and recomputes only the top-level blocks the transaction touched, or only the blocks containing
+  the annotations whose selected, hovered or resolved state changed. The same experiment also
+  replaces the full document walk the document-change handler used to run to collect the annotation
+  ids present in the document with an incrementally maintained per-id count. Rendered output is
+  identical to the existing path.
+
+## 31.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.0.18
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 30.0.17
 
 ### Patch Changes

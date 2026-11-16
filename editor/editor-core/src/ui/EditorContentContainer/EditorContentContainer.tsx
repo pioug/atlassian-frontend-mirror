@@ -204,6 +204,45 @@ const boxShadowSelectionStyles = css({
 	borderColor: 'transparent',
 });
 
+/**
+ * The inline node selection tint. A fixed token rather than the system `Highlight` colour, which is a
+ * saturated blue in some browsers and platforms that text cannot be read on, and rather than a
+ * `selected` token, which is neutral in the refreshed (finesse) theme.
+ */
+const inlineNodeSelectionTint = token('color.background.accent.blue.subtler');
+
+/**
+ * A background only, with no overlay, so it paints correctly on every line fragment when the node
+ * wraps across lines.
+ */
+const inlineNodeRangeSelectionStyles = css({
+	backgroundColor: inlineNodeSelectionTint,
+});
+
+/**
+ * Tints a node that has its own meaningful background colour (status, date) with a background-image
+ * layer, which paints above the node's background colour and below its text, so the colour stays
+ * recognisable while selected. The token is written inline because Compiled can only evaluate it
+ * statically there.
+ */
+const inlineNodeUnderlaySelectionStyles = css({
+	backgroundImage: `linear-gradient(color-mix(in srgb, ${token('color.background.accent.blue.subtler')} 60%, transparent), color-mix(in srgb, ${token('color.background.accent.blue.subtler')} 60%, transparent))`,
+});
+
+/** The link colour on the tint at 4.5:1 contrast, which `color.link` does not reach in light mode. */
+const inlineCardTintedTextStyles = css({
+	color: token('color.link.pressed'),
+});
+
+/**
+ * Smart cards transition every property for 0.1s, which fades the tint in and out behind the
+ * selection as it moves. Background colour changes apply at once; other transitions are kept.
+ */
+const inlineCardInstantBackgroundStyles = css({
+	transitionProperty: 'all, background-color',
+	transitionDuration: '0.1s, 0s',
+});
+
 const dangerBorderStyles = css({
 	boxShadow: `0 0 0 1px ${token('color.border.danger')}`,
 });
@@ -6337,6 +6376,62 @@ const editorContentStyles = cssMapScoped({
 			padding: 0,
 		},
 	},
+	// ak-editor-inline-node-in-range-selection is set by the selection plugin (inline-node-range-selection)
+	inlineCardSelectionStyles: {
+		'.inlineCardView-content-wrap .loader-wrapper > a': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+			...inlineCardInstantBackgroundStyles,
+		},
+		'.inlineCardView-content-wrap.ak-editor-inline-node-in-range-selection:where(.ProseMirror-focused *):not(.search-match-block):not(.danger) .loader-wrapper > a':
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...hideNativeBrowserTextSelectionStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...inlineNodeRangeSelectionStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...inlineCardTintedTextStyles,
+			},
+	},
+	mentionInlineNodeSelectionStyles: {
+		'.mentionView-content-wrap.ak-editor-inline-node-in-range-selection:where(.ProseMirror-focused *):not(.search-match-block):not(.danger) > .editor-mention-primitive':
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...hideNativeBrowserTextSelectionStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...inlineNodeRangeSelectionStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...mentionsSelectedColor,
+			},
+	},
+	statusInlineNodeSelectionStyles: {
+		'.statusView-content-wrap.ak-editor-inline-node-in-range-selection:where(.ProseMirror-focused *):not(.search-match-block):not(.danger) .status-lozenge-span > span':
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...hideNativeBrowserTextSelectionStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...inlineNodeUnderlaySelectionStyles,
+			},
+	},
+	dateInlineNodeSelectionStyles: {
+		'.dateView-content-wrap.ak-editor-inline-node-in-range-selection:where(.ProseMirror-focused *):not(.search-match-block):not(.danger) .date-lozenger-container > span':
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...hideNativeBrowserTextSelectionStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...inlineNodeUnderlaySelectionStyles,
+			},
+	},
+	emojiInlineNodeSelectionStyles: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'[data-emoji-id].ak-editor-inline-node-in-range-selection:where(.ProseMirror-focused *):not(.search-match-block):not(.danger) :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image)':
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...hideNativeBrowserTextSelectionStyles,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
+				...inlineNodeRangeSelectionStyles,
+				borderRadius: token('radius.xsmall'),
+			},
+	},
 	smartCardStylesWithSearchMatchAndPreviewPanelResponsiveness: {
 		// Shared class names are inlined here because CSS selectors must be static.
 		// SmartCardSharedCssClassName.EMBED_CARD_CONTAINER = 'embedCardView-content-wrap'
@@ -8784,6 +8879,16 @@ const EditorContentContainer: React.ForwardRefExoticComponent<
 				fg('platform_editor_ai_show_diff_patch_2') && editorContentStyles.deletedStatusStrikeStyles,
 				editorContentStyles.annotationStyles,
 				editorContentStyles.smartCardStylesWithSearchMatchAndBlockMenuDangerStyles,
+				isExperimentEnabled('platform_editor_inline_node_selection_style') &&
+					editorContentStyles.inlineCardSelectionStyles,
+				isExperimentEnabled('platform_editor_inline_node_selection_style') &&
+					editorContentStyles.mentionInlineNodeSelectionStyles,
+				isExperimentEnabled('platform_editor_inline_node_selection_style') &&
+					editorContentStyles.statusInlineNodeSelectionStyles,
+				isExperimentEnabled('platform_editor_inline_node_selection_style') &&
+					editorContentStyles.dateInlineNodeSelectionStyles,
+				isExperimentEnabled('platform_editor_inline_node_selection_style') &&
+					editorContentStyles.emojiInlineNodeSelectionStyles,
 				editorExperiment('platform_editor_preview_panel_responsiveness', true) &&
 					editorContentStyles.smartCardStylesWithSearchMatchAndPreviewPanelResponsiveness,
 				editorContentStyles.editorControlsSmartCardStyles,

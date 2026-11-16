@@ -1,5 +1,29 @@
 # @atlaskit/editor-statsig-tmp
 
+## 264.0.2
+
+### Patch Changes
+
+- [`10787fc097f6f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/10787fc097f6f) -
+  Default `platform_editor_controls` to `variant1`, so tests and apps without an initialised Statsig
+  client get the shipped editor controls experience.
+
+## 264.0.1
+
+### Patch Changes
+
+- [`9181780380b3a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9181780380b3a) -
+  Remove INSM instrumentation and the `@atlaskit/insm` dependency
+
+## 264.0.0
+
+### Major Changes
+
+- [`e2b5df4f05fe3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e2b5df4f05fe3) -
+  Cleanup experiment `platform_editor_block_controls_perf_optimization`. Shipped experiment removed:
+  type definition from `EditorExperimentsConfig`, config definition from `editorExperimentsConfig`,
+  and test override from `testBooleanOverrides`. Also removed from confluence cleanup artifacts CSV.
+
 ## 263.0.0
 
 ### Major Changes

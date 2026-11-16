@@ -6,7 +6,6 @@
 import React, { lazy } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
-import Loadable from 'react-loadable';
 
 import LinkGlyph from '@atlaskit/icon/core/link';
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
@@ -30,15 +29,6 @@ import { Frame } from '../components/Frame';
 import { ImageIcon } from '../components/ImageIcon';
 import { type ContextViewModel, type FrameStyle } from '../types';
 import { useEmbedResolvePostMessageListener } from '../useEmbedResolvePostMessageListener';
-
-const EmbedRovoActionsFooter = Loadable({
-	loader: () =>
-		import(
-			/* webpackChunkName: "smart-card-embed-rovo-actions-footer" */ '../components/rovo-actions-footer'
-		).then((module) => module.default),
-	loading: () => null,
-});
-EmbedRovoActionsFooter.displayName = 'lazy(EmbedRovoActionsFooter)';
 
 // Inline module-scope lazy() so product SSR tooling can preload it before hydration.
 const LazyEmbedRovoActionsFooter = withSuspense(
@@ -121,19 +111,11 @@ const EmbedFrameWithRovoFooter = ({
 	const footer = React.useMemo(
 		() =>
 			rovoActionData && prompts.length > 0 ? (
-				fg('platform_sl_replace_react_loadable') ? (
-					<LazyEmbedRovoActionsFooter
-						actionData={rovoActionData}
-						prompts={prompts}
-						testId={`${testId}-rovo-actions-footer`}
-					/>
-				) : (
-					<EmbedRovoActionsFooter
-						actionData={rovoActionData}
-						prompts={prompts}
-						testId={`${testId}-rovo-actions-footer`}
-					/>
-				)
+				<LazyEmbedRovoActionsFooter
+					actionData={rovoActionData}
+					prompts={prompts}
+					testId={`${testId}-rovo-actions-footer`}
+				/>
 			) : undefined,
 		[prompts, rovoActionData, testId],
 	);

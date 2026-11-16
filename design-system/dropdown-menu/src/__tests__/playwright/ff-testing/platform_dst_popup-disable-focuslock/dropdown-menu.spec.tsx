@@ -2,6 +2,10 @@
 
 import { expect, test } from '@af/integration-testing';
 
+// `platform_dst_popup-disable-focuslock` only changes the legacy popup, so this spec runs on the
+// legacy path. The top-layer behaviour is in ff-testing/platform-dst-top-layer.
+const featureFlag = 'platform_dst_popup-disable-focuslock,platform-dst-top-layer=false';
+
 const trigger = '[data-testid="lite-mode-ddm--trigger"]';
 const dropdownMenu = '[data-testid="lite-mode-ddm--content"]';
 
@@ -11,7 +15,7 @@ test('Verify that Dropdown Menu is able to open', async ({ page }) => {
 		'dropdown-menu',
 		'testing-ddm-default',
 		{
-			featureFlag: 'platform_dst_popup-disable-focuslock',
+			featureFlag,
 		},
 	);
 	await page.locator(trigger).first().click();
@@ -24,7 +28,7 @@ test('Verify that Dropdown Menu is able to open - stateless', async ({ page }) =
 		'dropdown-menu',
 		'testing-ddm-stateless',
 		{
-			featureFlag: 'platform_dst_popup-disable-focuslock',
+			featureFlag,
 		},
 	);
 	await page.locator(trigger).first().click();
@@ -45,8 +49,7 @@ test.describe('Keyboard navigation', () => {
 		await page.visitExample<
 			typeof import('../../../../../examples/92-testing-keyboard-navigation.tsx')
 		>('design-system', 'dropdown-menu', 'testing-keyboard-navigation', {
-			// Legacy Tab exit; the top-layer behaviour is in ff-testing/platform-dst-top-layer.
-			featureFlag: 'platform_dst_popup-disable-focuslock,platform-dst-top-layer=false',
+			featureFlag,
 		});
 
 		await page.getByTestId(triggerTestId).press('Enter');
@@ -63,8 +66,7 @@ test.describe('Keyboard navigation', () => {
 		await page.visitExample<
 			typeof import('../../../../../examples/92-testing-keyboard-navigation.tsx')
 		>('design-system', 'dropdown-menu', 'testing-keyboard-navigation', {
-			// Legacy Shift+Tab exit; the top-layer behaviour is in ff-testing/platform-dst-top-layer.
-			featureFlag: 'platform_dst_popup-disable-focuslock,platform-dst-top-layer=false',
+			featureFlag,
 		});
 
 		await page.getByTestId(triggerTestId).press('Enter');
@@ -80,7 +82,7 @@ test.describe('Keyboard navigation', () => {
 		await page.visitExample<
 			typeof import('../../../../../examples/92-testing-keyboard-navigation.tsx')
 		>('design-system', 'dropdown-menu', 'testing-keyboard-navigation', {
-			featureFlag: 'platform_dst_popup-disable-focuslock',
+			featureFlag,
 		});
 
 		await page.getByTestId(triggerTestId).press('Enter');
@@ -110,8 +112,7 @@ test.describe('Nested keyboard navigation', () => {
 		await page.visitExample<
 			typeof import('../../../../../examples/91-testing-nested-keyboard-navigation.tsx')
 		>('design-system', 'dropdown-menu', 'testing-nested-keyboard-navigation', {
-			// Legacy example; the top-layer twin is 93-testing-nested-keyboard-navigation-top-layer.
-			featureFlag: 'platform_dst_popup-disable-focuslock,platform-dst-top-layer=false',
+			featureFlag,
 		});
 
 		// Should open a nested dropdown level 0

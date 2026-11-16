@@ -1,5 +1,25 @@
 # @atlaskit/smart-card
 
+## 46.15.0
+
+### Minor Changes
+
+- [`e7c39cfa5da6c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e7c39cfa5da6c) -
+  Cleanup `feature_gate` `platform_sl_replace_react_loadable`. Smart card icons, follow action icons
+  and the embed Rovo actions footer now always load via `React.lazy` instead of `react-loadable`.
+  Remove the unused `react-loadable` and `@types/react-loadable` dependencies from
+  `@atlaskit/smart-card`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.14.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 46.14.5
 
 ### Patch Changes

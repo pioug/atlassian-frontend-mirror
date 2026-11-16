@@ -80,6 +80,9 @@
 			"path": "../../platform/feature-experiments/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/section-message/tsconfig.app.json"
 		},
 		{

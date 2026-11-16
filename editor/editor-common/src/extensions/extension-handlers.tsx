@@ -8,6 +8,8 @@ import { lazy, LazySuspense } from 'react-loosely-lazy';
 
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
+import type { ACTION_SUBJECT } from '../analytics/types/enums';
+import { ErrorBoundary } from '../ui/ErrorBoundary';
 import { getExtensionKeyAndNodeKey, resolveImport } from './manifest-helpers';
 import { messages } from './messages';
 import { resolveImportSync } from './resolveImportSync';
@@ -142,32 +144,6 @@ type NodeRendererProps = {
 	showUnknownMacroPlaceholder?: boolean;
 };
 
-// eslint-disable-next-line @repo/internal/react/no-class-components -- error boundaries require a class component
-class ExtensionRendererErrorBoundary extends React.Component<
-	{
-		children: React.ReactNode;
-		fallbackProps: NodeRendererProps;
-	},
-	{ error?: Error }
-> {
-	state: { error?: Error } = {};
-
-	static getDerivedStateFromError(error: Error): { error: Error } {
-		return { error };
-	}
-
-	componentDidCatch(error: Error): void {
-		// eslint-disable-next-line no-console
-		console.error('Error rendering extension', error);
-	}
-
-	render(): React.ReactNode {
-		return this.state.error
-			? renderExtensionLoadingError(this.state.error, this.props.fallbackProps)
-			: this.props.children;
-	}
-}
-
 const noop = (): void => {};
 
 function renderExtensionLoadingError(error: Error, props: NodeRendererProps): React.JSX.Element {
@@ -216,6 +192,7 @@ export function getNodeRenderer<T extends Parameters>(
 	extensionProvider: ExtensionProvider,
 	extensionType: ExtensionType,
 	extensionKey: ExtensionKey,
+	errorActionSubject: ACTION_SUBJECT.EDITOR | ACTION_SUBJECT.RENDERER,
 ): React.ComponentType<{
 	actions?: MultiBodiedExtensionActions;
 	isSelected?: boolean;
@@ -280,18 +257,22 @@ export function getNodeRenderer<T extends Parameters>(
 	const LoadableNodeRenderer = getNodeRenderer;
 
 	const NodeRenderer = (props: NodeRendererProps): React.JSX.Element => {
+		const errorFallback = React.useCallback(
+			(error: Error) => renderExtensionLoadingError(error, props),
+			[props],
+		);
 		if (!isExperimentEnabled('platform_editor_loosely_lazy_migration')) {
 			// eslint-disable-next-line react/jsx-props-no-spreading
 			return <LoadableNodeRenderer {...props} />;
 		}
 
 		return (
-			<ExtensionRendererErrorBoundary fallbackProps={props}>
+			<ErrorBoundary component={errorActionSubject} fallbackComponent={errorFallback}>
 				<LazySuspense fallback={props.loadingFallback ?? null}>
 					{/* eslint-disable-next-line react/jsx-props-no-spreading */}
 					<LazyNodeRenderer {...props} />
 				</LazySuspense>
-			</ExtensionRendererErrorBoundary>
+			</ErrorBoundary>
 		);
 	};
 

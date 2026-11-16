@@ -1,5 +1,13 @@
 # @atlaskit/avatar
 
+## 30.1.1
+
+### Patch Changes
+
+- [`beb27d3a56630`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/beb27d3a56630) -
+  Cleanup feature gate `platform_design-system-team_avatar-remove-xsmall`, preserving the existing
+  16px `xsmall` and 20px `UNSAFE_xsmall` behavior.
+
 ## 30.1.0
 
 ### Minor Changes

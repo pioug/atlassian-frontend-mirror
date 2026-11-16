@@ -475,7 +475,7 @@ export const aiSuggestionsMessages: {
 		id: 'fabric.editor.ai.suggestions.suggestEditsPromptPrefix.non-final',
 		defaultMessage: 'Review my content with ',
 		description:
-			'Localised text that precedes the suggest-edits skill tag in the prompt sent to the AI service. The trailing space is intentional — it separates this text from the skill tag that follows. Localise it in a way where the prompt ends with the skill tag. (With the skill tag it will look like e.g. "Review my content with /suggest-edits")',
+			'Localised text that precedes the add-suggestions-to-content skill tag in the prompt sent to the AI service. The trailing space is intentional — it separates this text from the skill tag that follows. Localise it in a way where the prompt ends with the skill tag. (With the skill tag it will look like e.g. "Review my content with /add-suggestions-to-content")',
 	},
 	contentReviewAgentPrompt: {
 		id: 'fabric.editor.ai.suggestions.contentReviewAgentPrompt.non-final',

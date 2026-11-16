@@ -5,18 +5,20 @@ import { useQuickInsertContext } from './useQuickInsertContext';
 
 export const useQuickInsertMenuItemSelection = (
 	onSelect: QuickInsertMenuItemProps['onSelect'],
+	onBeforeSelect?: QuickInsertMenuItemProps['onBeforeSelect'],
 ): (() => void) => {
 	const { editorView, select } = useQuickInsertContext();
 
-	return useCallback(
-		() =>
-			select((selectionContext) =>
-				onSelect({
-					editorView,
-					insert: selectionContext.insert,
-					source: selectionContext.source,
-				}),
-			),
-		[editorView, onSelect, select],
-	);
+	return useCallback(() => {
+		if (onBeforeSelect?.() === false) {
+			return;
+		}
+		select((selectionContext) =>
+			onSelect({
+				editorView,
+				insert: selectionContext.insert,
+				source: selectionContext.source,
+			}),
+		);
+	}, [editorView, onBeforeSelect, onSelect, select]);
 };

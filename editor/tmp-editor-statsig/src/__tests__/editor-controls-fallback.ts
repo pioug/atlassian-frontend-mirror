@@ -69,12 +69,12 @@ describe('platform_editor_controls fallback', () => {
 			expect(isControl()).toBe(true);
 		});
 
-		test('returns the default (control) without reading the kill switch when the client is not initialised', () => {
+		test('returns the default (variant1) without reading the kill switch when the client is not initialised', () => {
 			mockInitializeCompleted.mockReturnValue(false);
-			mockCheckGate.mockReturnValue(false);
+			mockCheckGate.mockReturnValue(true);
 
-			expect(isVariant1()).toBe(false);
-			expect(isControl()).toBe(true);
+			expect(isVariant1()).toBe(true);
+			expect(isControl()).toBe(false);
 			expect(mockCheckGate).not.toHaveBeenCalled();
 		});
 	});
@@ -83,7 +83,7 @@ describe('platform_editor_controls fallback', () => {
 		setupEditorExperiments('test', {}, {}, { disableTestOverrides: true });
 		mockCheckGate.mockReturnValue(true);
 
-		expect(isControl()).toBe(true);
+		expect(isVariant1()).toBe(true);
 		expect(mockCheckGate).not.toHaveBeenCalled();
 	});
 

@@ -8,7 +8,7 @@ import { cssMap, jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
 
 import Button from '@atlaskit/button/default/button';
-import { KEY_DOWN } from '@atlaskit/ds-lib/keycodes';
+import { KEY_DOWN, KEY_LEFT, KEY_TAB } from '@atlaskit/ds-lib/keycodes';
 import noop from '@atlaskit/ds-lib/noop';
 import useControlledState from '@atlaskit/ds-lib/use-controlled';
 import useFocus from '@atlaskit/ds-lib/use-focus-event';
@@ -22,7 +22,9 @@ import { isAtCurrentMenuLevel } from '@atlaskit/top-layer/is-at-current-menu-lev
 import type { TLegacyPlacement } from '@atlaskit/top-layer/legacy-placements';
 import { fromLegacyPlacement } from '@atlaskit/top-layer/placement-map/index';
 import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
+import { createPopoverCloseEvent } from '@atlaskit/top-layer/popover/create-close-event';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
+import type { TPopoverCloseReason } from '@atlaskit/top-layer/popover/types';
 import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 import { useArrowNavigation } from '@atlaskit/top-layer/use-arrow-navigation/use-arrow-navigation';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
@@ -77,14 +79,29 @@ const semanticStyles = cssMap({
  */
 type TriggerEvent = React.MouseEvent<Element> | React.KeyboardEvent<Element> | KeyboardEvent;
 
-function getRootMenuPopover({ menu }: { menu: HTMLElement }): HTMLElement {
+/**
+ * The menu and its parent menus, innermost first. The last one is the root menu.
+ */
+function getMenuStack({ menu }: { menu: HTMLElement }): HTMLElement[] {
 	const parentMenu = menu.parentElement?.closest<HTMLElement>('[popover][role="menu"]');
 	if (!parentMenu) {
-		return menu;
+		return [menu];
 	}
 
-	return getRootMenuPopover({ menu: parentMenu });
+	return [menu, ...getMenuStack({ menu: parentMenu })];
 }
+
+/**
+ * Menus that Tab is closing. Tab hides the root popover natively, so `Popover` reports each menu
+ * in the stack as a light dismiss. This set lets each of them pass a Tab key event to
+ * `onOpenChange`, as the legacy path does.
+ */
+const menusClosedByTab = new WeakSet<HTMLElement>();
+
+/**
+ * A submenu trigger: `aria-haspopup` `menu` or `true`.
+ */
+const submenuTriggerSelector = '[aria-haspopup="menu"], [aria-haspopup="true"]';
 
 /**
  * Loading indicator for the dropdown menu.
@@ -132,7 +149,6 @@ function DropdownMenuTopLayer({
 	onOpenChange = noop,
 	placement = 'bottom-start',
 	shouldFitContainer = false,
-	returnFocusRef,
 	spacing,
 	statusLabel,
 	testId,
@@ -181,25 +197,48 @@ function DropdownMenuTopLayer({
 		inlineSize: shouldFitContainer ? 'min-anchor' : 'content',
 	});
 
-	// Close handling.
-	// Focus restoration is handled natively by the Popover API:
-	//   - Escape: browser restores focus to the trigger automatically
-	//   - Click-outside: browser does NOT restore (correct behavior)
-	//
-	// The only custom focus handling needed is `returnFocusRef`: when provided,
-	// we redirect focus to a different element than the trigger. We do this
-	// in the onClose callback via rAF, which runs after the browser's native
-	// restoration, effectively overriding it.
-	const handleOnClose = useCallback(() => {
-		if (returnFocusRef) {
-			requestAnimationFrame(() => {
-				returnFocusRef.current?.focus();
-			});
-		}
+	// Close handling. Escape, Tab, Left arrow, an outside press and an item select
+	// close through here; the trigger toggle closes in `handleTriggerClicked`.
+	// The platform returns focus, so there is no focus code here:
+	//   - Escape, Tab or a close from state: the browser returns focus to the
+	//     element that had focus when the menu opened (usually the trigger)
+	//   - Outside press: no focus return; focus stays where the user pressed
+	// `returnFocusRef` is a no-op on this path.
+	const closeMenu = useCallback(
+		({ event }: { event: Event | null }) => {
+			setLocalIsOpen(false);
+			onOpenChange({ isOpen: false, event });
+		},
+		[onOpenChange, setLocalIsOpen],
+	);
 
-		setLocalIsOpen(false);
-		onOpenChange({ isOpen: false, event: null });
-	}, [onOpenChange, returnFocusRef, setLocalIsOpen]);
+	// Bridges the Popover close reason to the legacy `onOpenChange` event: a
+	// `KeyboardEvent` for Escape and Tab, a `MouseEvent` for an outside press, and
+	// `null` for a programmatic close (as `OnOpenChangeArgs` documents).
+	const handleOnClose = useCallback(
+		({ reason }: { reason: TPopoverCloseReason }) => {
+			const menu = popoverRef.current;
+			if (menu && menusClosedByTab.delete(menu)) {
+				closeMenu({ event: new KeyboardEvent('keydown', { key: KEY_TAB, bubbles: true }) });
+				return;
+			}
+
+			closeMenu({ event: reason === 'programmatic' ? null : createPopoverCloseEvent({ reason }) });
+		},
+		[closeMenu],
+	);
+
+	// A Tab mark is only for the close that Tab started. Drop a stale one when the menu opens, so a
+	// later Escape is not reported as Tab.
+	useEffect(() => {
+		if (isLocalOpen && popoverRef.current) {
+			menusClosedByTab.delete(popoverRef.current);
+		}
+	}, [isLocalOpen]);
+
+	const handleNestedClose = useCallback(() => {
+		closeMenu({ event: new KeyboardEvent('keydown', { key: KEY_LEFT, bubbles: true }) });
+	}, [closeMenu]);
 
 	// Trigger click handling.
 	const handleTriggerClicked = useCallback(
@@ -242,7 +281,7 @@ function DropdownMenuTopLayer({
 	}, [isFocused, isLocalOpen, handleTriggerClicked]);
 
 	const handleNestedOpen = useCallback(({ trigger }: { trigger: HTMLElement }) => {
-		if (!trigger.matches('[aria-haspopup="menu"], [aria-haspopup="true"]')) {
+		if (!trigger.matches(submenuTriggerSelector)) {
 			return;
 		}
 		trigger.click();
@@ -254,23 +293,29 @@ function DropdownMenuTopLayer({
 			return;
 		}
 
+		const menuStack = getMenuStack({ menu: currentMenu });
+		menuStack.forEach((menu) => menusClosedByTab.add(menu));
+
 		// Hiding the root native popover synchronously closes its descendant popovers and restores
 		// focus to the root trigger. The browser can then perform the Tab default action from there.
-		getRootMenuPopover({ menu: currentMenu }).hidePopover();
+		menuStack[menuStack.length - 1]?.hidePopover();
 	}, []);
 
 	useArrowNavigation({
 		containerRef: popoverRef,
 		onClose: handleTabClose,
 		onNestedOpen: handleNestedOpen,
-		onNestedClose: handleOnClose,
+		onNestedClose: handleNestedClose,
 		isEnabled: isLocalOpen,
 		filter: isAtCurrentMenuLevel,
 	});
 
-	// Close on menu item click.
-	// Close when a regular menuitem is clicked, but not checkboxes/radios
-	// and not nested submenu triggers.
+	// Close on menu item click, as the WAI-ARIA APG menu pattern describes: activating an item
+	// closes the menu. Checkbox and radio items, and submenu triggers, keep it open. Any other
+	// item closes it, also an item that opens a popup (the popup must open outside the menu, or
+	// in a modal). A click on an item of a nested menu also bubbles here, so every menu in the
+	// stack closes and focus returns to the root trigger (only Escape and Left arrow go back one
+	// level).
 	const handleMenuClick = useCallback(
 		(e: React.MouseEvent | React.KeyboardEvent) => {
 			if (!(e.target instanceof Element)) {
@@ -285,15 +330,11 @@ function DropdownMenuTopLayer({
 			const isCheckboxOrRadio =
 				menuItem.getAttribute('role') === 'menuitemcheckbox' ||
 				menuItem.getAttribute('role') === 'menuitemradio';
-			// Only menu/true popup values identify submenus.
-			// The nested dropdown will handle its own open/close.
-			const isNestedTrigger = menuItem.matches('[aria-haspopup="menu"], [aria-haspopup="true"]');
-			if (!isCheckboxOrRadio && !isNestedTrigger) {
-				setLocalIsOpen(false);
-				onOpenChange({ isOpen: false, event: e.nativeEvent });
+			if (!isCheckboxOrRadio && !menuItem.matches(submenuTriggerSelector)) {
+				closeMenu({ event: e.nativeEvent });
 			}
 		},
-		[setLocalIsOpen, onOpenChange],
+		[closeMenu],
 	);
 
 	const ariaAttributes = getAriaForTrigger({

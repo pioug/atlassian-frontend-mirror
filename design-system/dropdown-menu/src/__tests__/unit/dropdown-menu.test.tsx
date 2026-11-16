@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
-import { act, fireEvent, render, screen, waitFor, within } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import Button from '@atlaskit/button/standard-button';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
@@ -95,6 +96,7 @@ describe('dropdown menu', () => {
 		});
 
 		it('should return focus to the trigger after closing the menu if it is called via MouseEvent click', async () => {
+			passGate('platform-dst-top-layer');
 			render(
 				createDropdown({
 					children: (
@@ -109,8 +111,30 @@ describe('dropdown menu', () => {
 
 			const trigger = screen.getByRole('button');
 
-			// A mouse press focuses the trigger before the click. `fireEvent.click` does not.
-			act(() => trigger.focus());
+			// A full pointer click focuses the trigger, as in a browser. The menu returns focus to it.
+			await userEvent.click(trigger);
+			await userEvent.click(screen.getAllByRole('menuitem', { name: 'Clone' })[0]);
+
+			await waitFor(() => expect(trigger).toHaveFocus());
+		});
+
+		it('should return focus to the trigger after closing the menu if it is called via MouseEvent click (legacy)', () => {
+			// Legacy: the menu focuses the trigger itself on a mouse open, so a bare click event is enough.
+			failGate('platform-dst-top-layer');
+			render(
+				createDropdown({
+					children: (
+						<DropdownItemGroup>
+							{items.map((text) => (
+								<DropdownItem key={text}>{text}</DropdownItem>
+							))}
+						</DropdownItemGroup>
+					),
+				}),
+			);
+
+			const trigger = screen.getByRole('button');
+
 			// Simulating MouseEvent click
 			fireEvent.click(trigger, {
 				clientX: 1,
@@ -119,7 +143,7 @@ describe('dropdown menu', () => {
 			});
 			fireEvent.click(screen.getAllByRole('menuitem', { name: 'Clone' })[0]);
 
-			await waitFor(() => expect(trigger).toHaveFocus());
+			expect(trigger).toHaveFocus();
 		});
 
 		it('should render aria-label via label prop', () => {

@@ -5,6 +5,7 @@
 import { FlagClient } from '../client';
 import { setExposureClockFactory } from '../exposure/clock';
 import { setExposureDelivery } from '../exposure/delivery-loader';
+import { initializeExposureHash } from '../exposure/digest';
 import { createExposureEnvironment, setExposureEnvironmentFactory } from '../exposure/environment';
 import { createExposureLogger } from '../exposure/logger';
 import { mapExposureRecord } from '../exposure/mapper';
@@ -12,6 +13,7 @@ import type {
 	BulkEvaluationPayload,
 	EvaluationDetails,
 	ExposureLoggingOptions,
+	ExposureAssignmentMetadata,
 	FlagClientOptions,
 } from '../types';
 import {
@@ -135,7 +137,12 @@ function attributedPayload(version: string, accountId: string): BulkEvaluationPa
 	return {
 		flags: {
 			'flag-a': result({
-				metadata: { ...result().metadata, flagVersion: version, targetApps: ['jira-frontend'] },
+				metadata: {
+					...result().metadata,
+					randomizationIdentifierName: 'AtlassianAccountId',
+					flagVersion: version,
+					targetApps: ['jira-frontend'],
+				},
 			}),
 		},
 		requestContext: {
@@ -933,3 +940,212 @@ describe('exposure storage', () => {
 		expect(getItem).not.toHaveBeenCalled();
 	});
 });
+
+describe('optional assignment metadata forwarding', () => {
+	function assignment(label: string): ExposureAssignmentMetadata {
+		return {
+			randomizationIdentifierValue: `account:${label}|🧪`,
+			randomizationIdentifierName: 'custom-id',
+			dedupeKey: `opaque:${label}`,
+			stableSplitOutcome: {
+				matchReason: 'holdout_match',
+				variationId: `hypothetical-${label}`,
+				holdoutAllocation: {
+					holdoutKey: 'hypothetical-holdout',
+					identifierType: 'hypothetical-id',
+					allocationReason: 'holdout_withheld',
+				},
+			},
+		};
+	}
+
+	function payload(label: string, overrides: Record<string, unknown> = {}): BulkEvaluationPayload {
+		return {
+			...PAYLOAD,
+			flags: {
+				'flag-a': result({
+					metadata: {
+						...result().metadata,
+						...assignment(label),
+						holdoutAllocation: {
+							holdoutKey: 'actual-holdout',
+							identifierType: 'actual-id',
+							allocationReason: 'holdout_not_withheld',
+						},
+					},
+					...overrides,
+				}),
+			},
+		};
+	}
+
+	function forwarded(exposure: DeliveredExposure | undefined): Record<string, AttributeValue> {
+		return Object.fromEntries(
+			Object.entries(exposure?.attributes ?? {}).filter(
+				([key]) =>
+					key.startsWith('atl.feature_flag.randomization_') ||
+					key.startsWith('atl.feature_flag.stable_split_outcome.'),
+			),
+		);
+	}
+
+	function expected(label: string): Record<string, AttributeValue> {
+		return {
+			'atl.feature_flag.randomization_identifier_value': `account:${label}|🧪`,
+			'atl.feature_flag.randomization_identifier_name': 'custom-id',
+			'atl.feature_flag.stable_split_outcome.match_reason': 'holdout_match',
+			'atl.feature_flag.stable_split_outcome.variation_id': `hypothetical-${label}`,
+			'atl.feature_flag.stable_split_outcome.holdout_allocation.holdout_key':
+				'hypothetical-holdout',
+			'atl.feature_flag.stable_split_outcome.holdout_allocation.identifier_type': 'hypothetical-id',
+			'atl.feature_flag.stable_split_outcome.holdout_allocation.allocation_reason':
+				'holdout_withheld',
+		};
+	}
+
+	it.each([
+		['value-bearing', {}],
+		['code-default', { useCodeDefault: true }],
+		['type-mismatch', { returnType: 'STRING', value: 'unexpected' }],
+	] as const)('forwards supplied values on a %s automatic exposure', async (name, overrides) => {
+		const client = initializedWithPayload(payload('original', overrides));
+		const details = client.getBooleanDetails('flag-a', false);
+		expect(details.metadata).toMatchObject(assignment('original'));
+		expect(Object.isFrozen(details.metadata.stableSplitOutcome)).toBe(true);
+		const [exposure] = await deliverAll();
+		expect(forwarded(exposure)).toEqual(expected('original'));
+		if (name !== 'type-mismatch') {
+			expect(exposure?.attributes['atl.feature_flag.holdout_allocation.holdout_key']).toBe(
+				'actual-holdout',
+			);
+		}
+	});
+
+	it('keeps supplied assignment values for a delayed manual exposure after replacement', async () => {
+		const client = initializedWithPayload(payload('original'));
+		const details = client.getBooleanDetails('flag-a', false, { disableExposureLogging: true });
+		expect(client.replace(() => payload('replacement'), testUser()).replaced).toBe(true);
+		client.logExposure(details);
+		const [exposure] = await deliverAll();
+		expect(forwarded(exposure)).toEqual(expected('original'));
+		expect(exposure?.attributes['atl.feature_flag.exposure.manual']).toBe(true);
+	});
+
+	it.each([undefined, null])(
+		'omits unavailable values without calculating them: %s',
+		async (value) => {
+			const source = payload('unused');
+			const client = initializedWithPayload({
+				...source,
+				flags: {
+					'flag-a': result({
+						metadata: {
+							...result().metadata,
+							randomizationIdentifierValue: value,
+							randomizationIdentifierName: value,
+							dedupeKey: value,
+							stableSplitOutcome: value,
+						},
+					}),
+				},
+			});
+			const details = client.getBooleanDetails('flag-a', false);
+			if (value === null) expect(details.metadata.stableSplitOutcome).toBeNull();
+			else expect(details.metadata).not.toHaveProperty('stableSplitOutcome');
+			const [exposure] = await deliverAll();
+			expect(forwarded(exposure)).toEqual({});
+		},
+	);
+
+	it('preserves an indeterminate counterfactual without borrowing the actual variation', async () => {
+		const client = initializedWithPayload(
+			payload('unused', {
+				metadata: {
+					...result().metadata,
+					stableSplitOutcome: { matchReason: 'general_error', variationId: null },
+				},
+			}),
+		);
+		client.getBooleanDetails('flag-a', false);
+		const [exposure] = await deliverAll();
+		expect(exposure?.attributes['feature_flag.result.variant']).toBe('variation-on');
+		expect(forwarded(exposure)).toEqual({
+			'atl.feature_flag.stable_split_outcome.match_reason': 'general_error',
+		});
+	});
+
+	it.each([
+		{ holdoutKey: 'partial' },
+		{ holdoutKey: 7, identifierType: 'account', allocationReason: 'holdout_withheld' },
+	])(
+		'preserves empty strings and omits malformed hypothetical holdouts: %j',
+		async (holdoutAllocation) => {
+			const client = initializedWithPayload(
+				payload('unused', {
+					metadata: {
+						...result().metadata,
+						randomizationIdentifierValue: '',
+						randomizationIdentifierName: '',
+						dedupeKey: '',
+						stableSplitOutcome: {
+							matchReason: '',
+							variationId: '',
+							holdoutAllocation,
+						},
+					},
+				}),
+			);
+			client.getBooleanDetails('flag-a', false);
+			const [exposure] = await deliverAll();
+			expect(forwarded(exposure)).toEqual({
+				'atl.feature_flag.randomization_identifier_value': '',
+				'atl.feature_flag.randomization_identifier_name': '',
+				'atl.feature_flag.stable_split_outcome.match_reason': '',
+				'atl.feature_flag.stable_split_outcome.variation_id': '',
+			});
+		},
+	);
+
+	it('ignores supplied keys while distinguishing captured counterfactual outcomes', async () => {
+		const client = initializedWithPayload(payload('first'));
+		const details = client.getBooleanDetails('flag-a', false, { disableExposureLogging: true });
+		client.logExposure(details);
+		client.logExposure({
+			...details,
+			metadata: { ...details.metadata, dedupeKey: 'different-supplied-key' },
+		});
+		client.logExposure({ ...details, metadata: { ...details.metadata, ...assignment('second') } });
+		const exposures = await deliverAll();
+		expect(exposures).toHaveLength(2);
+		expect(forwarded(exposures[0])).toEqual(expected('first'));
+		expect(forwarded(exposures[1])).toEqual(expected('second'));
+		expect(exposures[0]?.attributes['atl.feature_flag.deduplication_key']).toMatch(
+			/^ffp-exp-v1:[0-9a-f]{16}$/,
+		);
+		expect(exposures[1]?.attributes['atl.feature_flag.deduplication_key']).not.toBe(
+			exposures[0]?.attributes['atl.feature_flag.deduplication_key'],
+		);
+	});
+
+	it.each([
+		{ randomizationIdentifierValue: 7 },
+		{ randomizationIdentifierName: false },
+		{ dedupeKey: 7 },
+		{ stableSplitOutcome: {} },
+		{ stableSplitOutcome: { matchReason: 7 } },
+		{ stableSplitOutcome: { matchReason: 'rule_match', variationId: 7 } },
+		{ stableSplitOutcome: { matchReason: 'rule_match', holdoutAllocation: [] } },
+	])('rejects malformed recognized fields and keeps the accepted payload: %j', (invalid) => {
+		const client = initializedWithPayload(payload('original'));
+		const replacement = payload('replacement', { metadata: { ...result().metadata, ...invalid } });
+		expect(client.replace(() => replacement, testUser())).toMatchObject({
+			replaced: false,
+			reason: 'invalid_payload_shape',
+		});
+		expect(
+			client.getBooleanDetails('flag-a', false, { disableExposureLogging: true }).metadata,
+		).toMatchObject(assignment('original'));
+	});
+});
+
+beforeAll(async () => initializeExposureHash());

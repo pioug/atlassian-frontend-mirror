@@ -22,12 +22,16 @@ export type OnSelectContext = {
 };
 
 export type QuickInsertMenuItemProps = {
+	'aria-controls'?: string;
 	ariaLabel?: string;
 	description?: string;
 	iconBefore?: React.ReactNode;
 	isDisabled?: boolean;
+	itemRef?: React.Ref<HTMLElement>;
 	/** Shown after the title in the menu row only, not in the preview. */
 	lozenge?: React.ReactNode;
+	/** Return false to keep the registered menu open without selecting this item. */
+	onBeforeSelect?: () => boolean;
 	onSelect: (context: OnSelectContext) => Transaction | false | void;
 	/** Structured preview content for the selected item. */
 	preview?: QuickInsertPreview;
@@ -48,9 +52,12 @@ export type QuickInsertMenuItemProps = {
 
 export const QuickInsertMenuItem = ({
 	ariaLabel,
+	'aria-controls': ariaControls,
+	itemRef,
 	description,
 	iconBefore,
 	isDisabled,
+	onBeforeSelect,
 	lozenge,
 	onSelect,
 	preview,
@@ -69,9 +76,12 @@ export const QuickInsertMenuItem = ({
 	return surface === 'element-browser' ? (
 		<ElementBrowserQuickInsertMenuItem
 			ariaLabel={ariaLabel}
+			aria-controls={ariaControls}
+			itemRef={itemRef}
 			description={description}
 			iconBefore={iconBefore}
 			isDisabled={isDisabled}
+			onBeforeSelect={onBeforeSelect}
 			lozenge={lozenge}
 			onSelect={onSelect}
 			preview={preview}
@@ -83,9 +93,12 @@ export const QuickInsertMenuItem = ({
 	) : (
 		<CompactQuickInsertMenuItem
 			ariaLabel={ariaLabel}
+			aria-controls={ariaControls}
+			itemRef={itemRef}
 			description={description}
 			iconBefore={iconBefore}
 			isDisabled={isDisabled}
+			onBeforeSelect={onBeforeSelect}
 			lozenge={lozenge}
 			onSelect={onSelect}
 			preview={preview}

@@ -1,5 +1,7 @@
 import { expect } from '@af/editor-libra/matchers';
 import { editorMockCollaborativeTestCase as test } from '@af/editor-libra/mock-collab-test-case';
+import { EditorPopupModel } from '@af/editor-libra/page-models/editor-popup-model';
+import { EditorTableSelectorModel } from '@af/editor-libra/page-models/editor-table-selector-model';
 import { EditorTelepointerModel } from '@af/editor-libra/page-models/editor-telepointer-model';
 import { fixTest } from '@af/integration-testing';
 import { BROWSERS } from '@af/integration-testing/config/constants';
@@ -38,6 +40,11 @@ test.describe('collab', () => {
 	test('rich text collab should work', async ({ firstEditor, secondEditor, thirdEditor, page }) => {
 		await firstEditor.focus();
 		await firstEditor.typeAhead.searchAndInsert('table');
+
+		// The editor controls toolbar shows a table size picker instead of inserting immediately
+		const tableSelector = EditorTableSelectorModel.from(EditorPopupModel.from(firstEditor));
+		await tableSelector.toBeVisible();
+		await tableSelector.insertTableFromSelector(3, 3);
 
 		await expect(secondEditor).toMatchDocument(
 			doc(

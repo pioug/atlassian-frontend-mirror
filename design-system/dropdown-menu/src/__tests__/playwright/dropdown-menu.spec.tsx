@@ -47,6 +47,8 @@ test.describe('Keyboard navigation', () => {
 			'dropdown-menu',
 			'testing-keyboard-navigation',
 			{
+				// Legacy Tab exit. The top-layer behaviour is in ff-testing/platform-dst-top-layer.
+				featureFlag: 'platform-dst-top-layer=false',
 				'react-18-mode': 'modern',
 			},
 		);
@@ -141,6 +143,9 @@ test.describe('Nested keyboard navigation', () => {
 		await page.visitExample<
 			typeof import('../../../examples/91-testing-nested-keyboard-navigation.tsx')
 		>('design-system', 'dropdown-menu', 'testing-nested-keyboard-navigation', {
+			// Legacy: Shift+Tab closes one level. On the top-layer path it closes the whole stack,
+			// as ff-testing/platform-dst-top-layer asserts with 93-testing-nested-keyboard-navigation-top-layer.
+			featureFlag: 'platform-dst-top-layer=false',
 			'react-18-mode': 'modern',
 		});
 
@@ -224,18 +229,22 @@ test.describe('Nested keyboard navigation', () => {
 	});
 });
 
+// Legacy behaviour. On the top-layer path `returnFocusRef` is a no-op: see the focus return tests in
+// ff-testing/platform-dst-top-layer.
 test.describe('returnFocusRef', () => {
 	const triggerTestId = 'dropdown--trigger';
 	const contentTestId = 'dropdown--content';
 	const focusedElementId = 'checkbox2';
 	const anotherInteractiveElementId = 'checkbox3';
-	const outsideDropdown = 'examples'; // container id
+	// The example container. The AP bundler renders examples into `#root`.
+	const outsideDropdown = process.env.INTEGRATION_BUNDLER === 'ap' ? '#root' : '#examples';
 
 	test.describe('when rendered in parent', () => {
 		test.beforeEach(async ({ page }) => {
 			await page.visitExample<
 				typeof import('../../../examples/90-testing-return-focus-ref-rendered-in-parent.tsx')
 			>('design-system', 'dropdown-menu', 'testing-return-focus-ref-rendered-in-parent', {
+				featureFlag: 'platform-dst-top-layer=false',
 				'react-18-mode': 'modern',
 			});
 		});
@@ -314,7 +323,7 @@ test.describe('returnFocusRef', () => {
 			await page.getByTestId(triggerTestId).press('Enter');
 			await expect(page.getByTestId(contentTestId)).toBeVisible();
 
-			await page.locator(`#${outsideDropdown}`).click();
+			await page.locator(outsideDropdown).first().click();
 			await expect(page.getByTestId(contentTestId)).toBeHidden();
 			await expect(page.locator(`#${focusedElementId}`)).toBeFocused();
 		});
@@ -324,7 +333,9 @@ test.describe('returnFocusRef', () => {
 		test.beforeEach(async ({ page }) => {
 			await page.visitExample<
 				typeof import('../../../examples/90-testing-return-focus-ref-rendered-in-portal.tsx')
-			>('design-system', 'dropdown-menu', 'testing-return-focus-ref-rendered-in-portal');
+			>('design-system', 'dropdown-menu', 'testing-return-focus-ref-rendered-in-portal', {
+				featureFlag: 'platform-dst-top-layer=false',
+			});
 		});
 
 		test('Dropdown menu should close on Esc press and focus on the element specified by returnFocusRef', async ({
@@ -379,7 +390,7 @@ test.describe('returnFocusRef', () => {
 			await page.getByTestId(triggerTestId).press('Enter');
 			await expect(page.getByTestId(contentTestId)).toBeVisible();
 
-			await page.locator(`#${outsideDropdown}`).click();
+			await page.locator(outsideDropdown).first().click();
 			await expect(page.getByTestId(contentTestId)).toBeHidden();
 			await expect(page.locator(`#${focusedElementId}`)).toBeFocused();
 		});
@@ -391,7 +402,63 @@ test.describe('Returns focus to trigger', () => {
 		test.beforeEach(async ({ page }) => {
 			await page.visitExample<
 				typeof import('../../../examples/30-dropdown-trigger-focus-click-outside.tsx')
-			>('design-system', 'dropdown-menu', 'dropdown-trigger-focus-click-outside');
+			>('design-system', 'dropdown-menu', 'dropdown-trigger-focus-click-outside', {
+				featureFlag: 'platform-dst-top-layer',
+			});
+		});
+
+		// A `role="menu"` focuses its first item on every open, pointer or keyboard.
+		test('should not return focus to trigger when clicking on another button', async ({ page }) => {
+			const trigger = page.getByTestId('dropdown--trigger');
+			await trigger.click();
+
+			const menu = page.getByTestId('dropdown--content');
+			await expect(menu).toBeVisible();
+			await expect(page.getByRole('menuitem', { name: 'Edit' })).toBeFocused();
+
+			const button = page.getByTestId('button-for-focus');
+			await button.click();
+			await expect(menu).toBeHidden();
+			await expect(button).toBeFocused();
+		});
+
+		test('should not return focus to trigger when clicking on another input', async ({ page }) => {
+			const trigger = page.getByTestId('dropdown--trigger');
+			await trigger.click();
+
+			const menu = page.getByTestId('dropdown--content');
+			await expect(menu).toBeVisible();
+			await expect(page.getByRole('menuitem', { name: 'Edit' })).toBeFocused();
+
+			const input = page.getByTestId('input-for-focus');
+			await input.click();
+			await expect(menu).toBeHidden();
+			await expect(input).toBeFocused();
+		});
+
+		// Native light dismiss does not return focus, so the press on the body keeps it.
+		test('should not return focus to trigger when clicking on body', async ({ page }) => {
+			const trigger = page.getByTestId('dropdown--trigger');
+			await trigger.click();
+
+			const menu = page.getByTestId('dropdown--content');
+			await expect(menu).toBeVisible();
+			await expect(page.getByRole('menuitem', { name: 'Edit' })).toBeFocused();
+
+			await page.locator('body').click();
+			await expect(menu).toBeHidden();
+			await expect(trigger).not.toBeFocused();
+		});
+	});
+
+	test.describe('Dropdown focus when clicking outside (legacy)', () => {
+		test.beforeEach(async ({ page }) => {
+			await page.visitExample<
+				typeof import('../../../examples/30-dropdown-trigger-focus-click-outside.tsx')
+			>('design-system', 'dropdown-menu', 'dropdown-trigger-focus-click-outside', {
+				// Legacy: a pointer open keeps focus on the trigger, and a press on the body returns it.
+				featureFlag: 'platform-dst-top-layer=false',
+			});
 		});
 
 		test('should not return focus to trigger when clicking on another button', async ({ page }) => {

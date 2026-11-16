@@ -2,7 +2,6 @@ import { InsertTypeAheadStages, InsertTypeAheadStep } from '@atlaskit/adf-schema
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { insm } from '@atlaskit/insm/api';
 
 import type {
 	CreateTypeAheadDecorations,
@@ -116,7 +115,6 @@ export const createReducer = ({
 			inputMethod,
 			reopenQuery,
 		});
-		insm.session?.startFeature('typeaheadOpen');
 		return {
 			...currentPluginState,
 			stats,
@@ -135,7 +133,6 @@ export const createReducer = ({
 
 	const closeMenu = (currentPluginState: TypeAheadPluginState): TypeAheadPluginState => {
 		removeDecorations(currentPluginState.decorationSet);
-		insm.session?.endFeature('typeaheadOpen');
 		return {
 			...currentPluginState,
 			inputMethod: null,

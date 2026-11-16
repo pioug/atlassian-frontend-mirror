@@ -9,7 +9,6 @@ import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { getSelectedCellInfo } from '@atlaskit/editor-tables/utils';
 import { getCellsInRow } from '@atlaskit/editor-tables/utils/get-cells-in-row';
-import { insm } from '@atlaskit/insm/api';
 import { autoScrollForElements } from '@atlaskit/pragmatic-drag-and-drop-auto-scroll/element';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
@@ -57,7 +56,6 @@ const destroyFn = (
 						return type === 'table-row';
 					},
 					onDragStart() {
-						insm.session?.startFeature('tableDragAndDrop');
 						// auto scroller doesn't work when scroll-behavior: smooth is set, this monitor temporarily removes it via inline styles
 						// Ignored via go/ees005
 						// eslint-disable-next-line @atlaskit/editor/no-as-casting
@@ -67,7 +65,6 @@ const destroyFn = (
 						);
 					},
 					onDrop() {
-						insm.session?.endFeature('tableDragAndDrop');
 						// 'null' will remove the inline style
 						// Ignored via go/ees005
 						// eslint-disable-next-line @atlaskit/editor/no-as-casting
@@ -103,8 +100,6 @@ const destroyFn = (
 				return localId === tableNode?.attrs.localId;
 			},
 			onDragStart: () => {
-				insm.session?.startFeature('tableDragAndDrop');
-
 				if (expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)) {
 					api?.core.actions.execute(({ tr }) => {
 						closeActiveTableMenu(api, { skipUserIntent: true })({ tr });
@@ -176,7 +171,6 @@ const destroyFn = (
 				if (!data) {
 					// If we're able to determine the source type of the dropped element then we should report to analytics that
 					// the drop event was cancelled. Otherwise we will cancel silently.
-					insm.session?.endFeature('tableDragAndDrop');
 					if (
 						event?.source?.data?.type === 'table-row' ||
 						event?.source?.data?.type === 'table-column'
@@ -224,7 +218,6 @@ const destroyFn = (
 						TABLE_STATUS.INVALID,
 						tr,
 					)(editorView.state, editorView.dispatch);
-					insm.session?.endFeature('tableDragAndDrop');
 					return;
 				}
 
@@ -279,8 +272,6 @@ const destroyFn = (
 					}
 
 					editorView.focus();
-
-					insm.session?.endFeature('tableDragAndDrop');
 				});
 			},
 		}),

@@ -16,9 +16,9 @@ const combinations = [false, true].flatMap((segments): readonly [boolean, boolea
 	),
 );
 
-describe('revised server metadata remains an ignored bulk extension', (): void => {
+describe('server assignment metadata is preserved independently of actual allocations', (): void => {
 	it.each(combinations)(
-		'accepts segments=%s actual=%s counterfactual=%s, returns the holdout allocation, and ignores the stable split outcome',
+		'accepts segments=%s actual=%s counterfactual=%s, returns actual and counterfactual allocations',
 		(segments, actual, hypothetical): void => {
 			const holdout = {
 				holdoutKey: 'holdout',
@@ -71,9 +71,10 @@ describe('revised server metadata remains an ignored bulk extension', (): void =
 				ruleId: 'selected',
 				holdoutAllocation: actual ? holdout : null,
 				segments: segments ? [segment] : [],
+				stableSplitOutcome: serverMetadata.stableSplitOutcome,
 			});
 			expect(details.metadata).not.toHaveProperty('holdoutAllocations');
-			expect(details.metadata).not.toHaveProperty('stableSplitOutcome');
+			expect(Object.isFrozen(details.metadata.stableSplitOutcome)).toBe(true);
 		},
 	);
 });

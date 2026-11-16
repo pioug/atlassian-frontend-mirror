@@ -13,6 +13,7 @@ import {
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
+import { getAnnotationIdsFromCounts, updateAnnotationIdCounts } from './annotation-id-counts';
 import reducer from './reducer';
 import type { InlineCommentPluginState, InlineCommentMap, InlineCommentAction } from './types';
 import {
@@ -23,6 +24,18 @@ import {
 	isBlockNodeAnnotationsSelected,
 	isSelectedAnnotationsChanged,
 } from './utils';
+
+const collectAnnotationIdsFromDocument = (doc: PMNode): Set<string> => {
+	const annotationIds = new Set<string>();
+	doc.descendants((node: PMNode) => {
+		node.marks.forEach((mark: Mark) => {
+			if (mark.type.name === 'annotation') {
+				annotationIds.add(mark.attrs.id);
+			}
+		});
+	});
+	return annotationIds;
+};
 
 /**
  * Creates a document-sync handler with a deleted annotations cache in its closure.
@@ -59,19 +72,16 @@ const createHandleDocChanged = () => {
 				)
 			: [];
 
-		// Collect annotation IDs currently in the document
-		const annotationIdsInDocument = currentDiscovery
-			? new Set([...currentDiscovery.rootAnnotationIds, ...currentDiscovery.nestedAnnotationIds])
-			: new Set<string>();
-		if (!currentDiscovery) {
-			tr.doc.descendants((node: PMNode) => {
-				node.marks.forEach((mark: Mark) => {
-					if (mark.type.name === 'annotation') {
-						annotationIdsInDocument.add(mark.attrs.id);
-					}
-				});
-			});
-		}
+		// Legacy-content discovery needs nested IDs, so it keeps the full walk
+		const annotationIdsInDocument =
+			!currentDiscovery && prevPluginState.annotationIdCounts
+				? getAnnotationIdsFromCounts(prevPluginState.annotationIdCounts)
+				: currentDiscovery
+					? new Set([
+							...currentDiscovery.rootAnnotationIds,
+							...currentDiscovery.nestedAnnotationIds,
+						])
+					: collectAnnotationIdsFromDocument(tr.doc);
 
 		const annotationIdsInState = Object.keys(prevPluginState.annotations);
 
@@ -277,6 +287,13 @@ const createAnnotationPluginFactory = (
 				mappedBookmark;
 			let hasMappedDecorations = false;
 
+			// Maintained here because `mapping` runs before `onDocChanged`. `undefined` means the
+			// experiment is off and `onDocChanged` falls back to a full walk.
+			const annotationIdCounts =
+				pluginState.annotationIdCounts && tr.docChanged
+					? updateAnnotationIdCounts(pluginState.annotationIdCounts, tr)
+					: pluginState.annotationIdCounts;
+
 			if (draftDecorationSet) {
 				mappedDecorationSet = draftDecorationSet.map(tr.mapping, tr.doc);
 			}
@@ -292,6 +309,7 @@ const createAnnotationPluginFactory = (
 			if (!hasMappedDecorations && shouldClearBookMarkCheck(tr, editorState, bookmark)) {
 				return {
 					...pluginState,
+					annotationIdCounts,
 					draftDecorationSet: mappedDecorationSet,
 					bookmark: undefined,
 				};
@@ -302,12 +320,17 @@ const createAnnotationPluginFactory = (
 			}
 
 			// return same pluginState if mappings did not change
-			if (mappedBookmark === bookmark && mappedDecorationSet === draftDecorationSet) {
+			if (
+				mappedBookmark === bookmark &&
+				mappedDecorationSet === draftDecorationSet &&
+				annotationIdCounts === pluginState.annotationIdCounts
+			) {
 				return pluginState;
 			}
 
 			return {
 				...pluginState,
+				annotationIdCounts,
 				draftDecorationSet: mappedDecorationSet,
 				bookmark: mappedBookmark,
 			};

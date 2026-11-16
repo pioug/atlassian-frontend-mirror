@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-block-collapse
 
+## 17.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.1.2
 
 ### Patch Changes

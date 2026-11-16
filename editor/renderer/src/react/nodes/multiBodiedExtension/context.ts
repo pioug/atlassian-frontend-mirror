@@ -2,6 +2,7 @@ import React from 'react';
 
 import memoizeOne from 'memoize-one';
 
+import { ACTION_SUBJECT } from '@atlaskit/editor-common/analytics/types/enums';
 import type {
 	ExtensionHandler,
 	ExtensionHandlers,
@@ -97,7 +98,7 @@ export const useMultiBodiedExtensionContext = ({
 		if (!provider) {
 			return null;
 		}
-		return localGetNodeRenderer(provider, extensionType, extensionKey);
+		return localGetNodeRenderer(provider, extensionType, extensionKey, ACTION_SUBJECT.RENDERER);
 	}, [provider, extensionType, extensionKey, localGetNodeRenderer]);
 
 	React.useEffect(() => {

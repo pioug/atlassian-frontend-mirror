@@ -245,6 +245,10 @@ interface InternalDropdownMenuProps<TriggerElement extends HTMLElement = any> {
 	label?: string;
 	/**
 	 * If ref is passed, focus returns to that specific ref element after dropdown dismissed.
+	 *
+	 * @private
+	 * @deprecated No-op when `platform-dst-top-layer` is enabled — focus returns to the element
+	 * that had focus when the menu opened.
 	 */
 	returnFocusRef?: RefObject<HTMLElement>;
 
@@ -402,6 +406,9 @@ export interface DropdownItemProps {
 
 	/**
 	 * If ref is passed, focus returns to that specific ref element after dropdown item clicked.
+	 *
+	 * @private
+	 * @deprecated No-op when `platform-dst-top-layer` is enabled — the platform returns focus.
 	 */
 	returnFocusRef?: RefObject<HTMLElement>;
 

@@ -1,6 +1,7 @@
-import React, { forwardRef, type Ref } from 'react';
+import React, { forwardRef, type Ref, useRef } from 'react';
 
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import AppProvider from '@atlaskit/app-provider/app-provider';
 import type { RouterLinkComponentProps } from '@atlaskit/app-provider/router-link-provider';
@@ -98,6 +99,46 @@ describe('DropdownMenu Item', () => {
 					expect(screen.getByTestId('item')).toHaveAttribute('aria-current', 'true');
 					expect(screen.getByTestId('item')).toHaveAttribute('aria-haspopup', 'true');
 				});
+			});
+		});
+
+		describe('returnFocusRef', () => {
+			const ItemWithReturnFocusRef = ({ onClick }: { onClick: () => void }) => {
+				const returnFocusRef = useRef<HTMLButtonElement>(null);
+				return (
+					<>
+						<DropdownItem returnFocusRef={returnFocusRef} onClick={onClick}>
+							Open modal
+						</DropdownItem>
+						<button type="button" ref={returnFocusRef}>
+							Focus target
+						</button>
+					</>
+				);
+			};
+
+			it('focuses the ref when the top-layer gate is off', async () => {
+				failGate('platform-dst-top-layer');
+				const onClick = jest.fn();
+				render(<ItemWithReturnFocusRef onClick={onClick} />);
+				const item = screen.getByRole('menuitem', { name: 'Open modal' });
+
+				await userEvent.click(item);
+
+				expect(onClick).toHaveBeenCalledTimes(1);
+				expect(screen.getByRole('button', { name: 'Focus target' })).toHaveFocus();
+			});
+
+			it('does not move focus when the top-layer gate is on', async () => {
+				passGate('platform-dst-top-layer');
+				const onClick = jest.fn();
+				render(<ItemWithReturnFocusRef onClick={onClick} />);
+				const item = screen.getByRole('menuitem', { name: 'Open modal' });
+
+				await userEvent.click(item);
+
+				expect(onClick).toHaveBeenCalledTimes(1);
+				expect(item).toHaveFocus();
 			});
 		});
 

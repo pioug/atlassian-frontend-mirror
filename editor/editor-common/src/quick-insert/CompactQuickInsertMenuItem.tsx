@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { useId, useMemo, useState } from 'react';
+import React, { useCallback, useId, useMemo, useState } from 'react';
 
 import { css } from '@compiled/react';
 
@@ -124,11 +124,14 @@ const disabledItemStyles = xcss({
 
 export const CompactQuickInsertMenuItem = ({
 	ariaLabel,
+	'aria-controls': ariaControls,
 	description,
 	iconBefore,
+	itemRef,
 	isDisabled,
 	lozenge,
 	onSelect,
+	onBeforeSelect,
 	preview,
 	previewIcon,
 	previewImageUrls,
@@ -147,8 +150,19 @@ export const CompactQuickInsertMenuItem = ({
 	};
 	const resolvedDescription = description ?? item?.description;
 	const previewId = useId();
-	const handleClick = useQuickInsertMenuItemSelection(onSelect);
+	const handleClick = useQuickInsertMenuItemSelection(onSelect, onBeforeSelect);
 	const [referenceElement, setReferenceElement] = useState<HTMLElement | null>(null);
+	const setItemElement = useCallback(
+		(element: HTMLElement | null) => {
+			setReferenceElement(element);
+			if (typeof itemRef === 'function') {
+				itemRef(element);
+			} else if (itemRef) {
+				Object.assign(itemRef, { current: element });
+			}
+		},
+		[itemRef],
+	);
 	const resolvedPreview = useMemo<QuickInsertPreview>(
 		() => preview ?? (previewImageUrls ? { image: previewImageUrls } : {}),
 		[preview, previewImageUrls],
@@ -171,8 +185,9 @@ export const CompactQuickInsertMenuItem = ({
 	return (
 		<React.Fragment>
 			<Pressable
-				ref={setReferenceElement}
+				ref={setItemElement}
 				aria-label={ariaLabel}
+				aria-controls={ariaControls}
 				aria-describedby={shouldRenderPreview && hasAccessiblePreview ? previewId : undefined}
 				aria-selected={isSelected}
 				id={id}

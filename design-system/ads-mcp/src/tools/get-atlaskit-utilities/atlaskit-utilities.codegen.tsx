@@ -3,7 +3,7 @@
  *
  * Structured content utilities from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::8681804a8b982f59597ba638f8c6d2bf>>
+ * @codegen <<SignedSource::fa20f7a9355d144655a3e1da513c2b9b>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -616,19 +616,6 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		type: 'Storage',
 		value:
 			'{ length: 0; getItem(id); setItem(id, val); removeItem(id); clear(); key(index) } — backed by an in-memory `_data` record.',
-	},
-	{
-		name: 'init',
-		description: 'INSM tooling measures user-perceived interactivity of a page',
-		status: 'general-availability',
-		usageGuidelines: [],
-		accessibilityGuidelines: [],
-		keywords: ['editor', 'insm', 'atlaskit'],
-		category: 'editor',
-		package: '@atlaskit/insm',
-		examples: [],
-		kind: 'function',
-		signature: 'init(options: INSMOptions): void',
 	},
 	{
 		name: 'BaseUrls',

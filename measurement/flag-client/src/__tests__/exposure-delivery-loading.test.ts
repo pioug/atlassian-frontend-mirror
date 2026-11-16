@@ -5,9 +5,11 @@
 import { FlagClient } from '../client';
 import { setExposureClockFactory } from '../exposure/clock';
 import { setExposureDelivery, type ExposureDelivery } from '../exposure/delivery-loader';
+import { initializeExposureHash } from '../exposure/digest';
 import { createExposureEnvironment, setExposureEnvironmentFactory } from '../exposure/environment';
 import { createExposureLogger } from '../exposure/logger';
-import { mapExposureRecord } from '../exposure/mapper';
+import { mapExposureRecord, type ExposureMappingInput } from '../exposure/mapper';
+import type { ExportLogsServiceRequest, OtlpLogRecord } from '../exposure/otlp';
 import { MAX_BUFFERED_EXPOSURES } from '../exposure/sink';
 import type { BulkEvaluationPayload, ExposureLoggingOptions } from '../types';
 import {
@@ -16,6 +18,7 @@ import {
 	settle,
 	type FakeRequest,
 } from './_utils/exposure-fakes';
+import { plainAttributes } from './_utils/exposure-test-helper';
 import { result, testUser, TEST_CLIENT_OPTIONS } from './_utils/test-payload-helper';
 
 const DELIVERY: ExposureDelivery = {
@@ -49,7 +52,10 @@ afterEach(() => {
 });
 
 /** Hold the delivery subsystem back, so a test decides when loading completes. */
-function deferDelivery(): { resolve: () => void; reject: (error: unknown) => void } {
+function deferDelivery(delivery: ExposureDelivery = DELIVERY): {
+	resolve: () => void;
+	reject: (error: unknown) => void;
+} {
 	let resolveDelivery!: (delivery: ExposureDelivery) => void;
 	let rejectDelivery!: (error: unknown) => void;
 	setExposureDelivery(
@@ -58,7 +64,7 @@ function deferDelivery(): { resolve: () => void; reject: (error: unknown) => voi
 			rejectDelivery = reject;
 		}),
 	);
-	return { resolve: () => resolveDelivery(DELIVERY), reject: rejectDelivery };
+	return { resolve: () => resolveDelivery(delivery), reject: rejectDelivery };
 }
 
 function initializedWith(
@@ -104,6 +110,204 @@ function deliveredTimestamps(): string[] {
 }
 
 describe('on-demand exposure delivery loading', () => {
+	it('suppresses pre-initialization diagnostics and preserves Alice/Bob counts across replacement', async () => {
+		setExposureDelivery(DELIVERY);
+		const client = new FlagClient({
+			...TEST_CLIENT_OPTIONS,
+			exposureLogging: { enabled: true, batchSize: 100, flushIntervalMs: 1000 },
+		});
+		for (let i = 0; i < 1000; i++) client.getBooleanValue('flag-a', false);
+		const payload = (id: string) => ({
+			...PAYLOAD,
+			requestContext: { identifiers: { AtlassianAccountId: id } },
+		});
+		client.initialize(() => payload('alice'), testUser());
+		for (let i = 0; i < 1000; i++) client.getBooleanValue('missing', false);
+		client.replace(() => payload('bob'), testUser());
+		client.getBooleanValue('missing', false);
+		client.getBooleanValue('missing', false);
+		environment.advance(1000);
+		await settle();
+		const body = JSON.parse(environment.requests[0].init.body) as ExportLogsServiceRequest;
+		const attrs = body.resourceLogs.flatMap((resource) =>
+			resource.scopeLogs.flatMap((scope) =>
+				(scope.logRecords as OtlpLogRecord[]).map((record) => plainAttributes(record.attributes)),
+			),
+		);
+		expect(attrs).toHaveLength(3);
+		expect(attrs.map((record) => record['atl.feature_flag.sdk.dedupe.item.count'])).toEqual([
+			1000, 1000, 2,
+		]);
+		expect(attrs.map((record) => record['atl.identifiers.AtlassianAccountId'])).toEqual([
+			undefined,
+			'alice',
+			'bob',
+		]);
+		expect(
+			attrs.every((record) =>
+				/^ffp-exp-v1:/.test(String(record['atl.feature_flag.deduplication_key'])),
+			),
+		).toBe(true);
+	});
+	it('does not invoke JSON getters or normalize unsupported buffered defaults into hashable values', async () => {
+		const loading = deferDelivery();
+		const client = new FlagClient({
+			...TEST_CLIENT_OPTIONS,
+			exposureLogging: { enabled: true, batchSize: 1 },
+		});
+		expect(
+			client.initialize(
+				() => ({
+					...PAYLOAD,
+					flags: { 'flag-a': result({ returnType: 'JSON', useCodeDefault: true }) },
+				}),
+				testUser(),
+			).initialized,
+		).toBe(true);
+		const getter = jest.fn(() => 1);
+		const value = Object.defineProperty({}, 'version', { enumerable: true, get: getter });
+		client.getObjectValue('flag-a', value);
+		expect(getter).not.toHaveBeenCalled();
+		loading.resolve();
+		expect(await deliverAll()).toEqual(['flag-a']);
+		expect(getter).not.toHaveBeenCalled();
+		const body = JSON.parse(environment.requests[0].init.body) as ExportLogsServiceRequest;
+		const record = body.resourceLogs[0].scopeLogs[0].logRecords[0] as OtlpLogRecord;
+		expect(plainAttributes(record.attributes)).not.toHaveProperty(
+			'atl.feature_flag.deduplication_key',
+		);
+	});
+	it('hashes caller-owned JSON defaults as observed at each buffered read', async () => {
+		const captured: ExposureMappingInput[] = [];
+		const loading = deferDelivery({
+			...DELIVERY,
+			mapExposureRecord: (input) => {
+				captured.push(input);
+				return mapExposureRecord(input);
+			},
+		});
+		const client = new FlagClient({
+			...TEST_CLIENT_OPTIONS,
+			exposureLogging: { enabled: true, batchSize: 1 },
+		});
+		expect(
+			client.initialize(
+				() => ({
+					...PAYLOAD,
+					flags: { 'flag-a': result({ returnType: 'JSON', useCodeDefault: true }) },
+				}),
+				testUser(),
+			).initialized,
+		).toBe(true);
+		const value = { nested: { version: 1 } };
+		client.getObjectValue('flag-a', value);
+		value.nested.version = 2;
+		client.getObjectValue('flag-a', value);
+		value.nested.version = 3;
+		loading.resolve();
+		expect(await deliverAll()).toEqual(['flag-a', 'flag-a']);
+		const keys = environment.requests.flatMap((request) => {
+			const body = JSON.parse(request.init.body) as ExportLogsServiceRequest;
+			return body.resourceLogs.flatMap((resource) =>
+				resource.scopeLogs.flatMap((scope) =>
+					(scope.logRecords as OtlpLogRecord[]).map(
+						(record) => plainAttributes(record.attributes)['atl.feature_flag.deduplication_key'],
+					),
+				),
+			);
+		});
+		expect(keys[0]).not.toBe(keys[1]);
+		expect(captured.map((input) => input.details.value)).toEqual([
+			{ nested: { version: 1 } },
+			{ nested: { version: 2 } },
+		]);
+		expect(value.nested.version).toBe(3);
+		expect(Object.isFrozen(value.nested)).toBe(false);
+	});
+
+	it('captures nested supplied counterfactual metadata before delayed manual replay', async () => {
+		const captured: ExposureMappingInput[] = [];
+		const loading = deferDelivery({
+			...DELIVERY,
+			mapExposureRecord: (input) => {
+				captured.push(input);
+				return mapExposureRecord(input);
+			},
+		});
+		const client = initializedWith();
+		const details = client.getBooleanDetails('flag-a', false, { disableExposureLogging: true });
+		const supplied = {
+			...details,
+			metadata: {
+				...details.metadata,
+				stableSplitOutcome: {
+					variationId: 'control',
+					matchReason: 'ss_holdout_withheld',
+					holdoutAllocation: {
+						holdoutKey: 'holdout-a',
+						identifierType: 'AtlassianAccountId',
+						allocationReason: 'withheld',
+					},
+				},
+			},
+		};
+		client.logExposure(supplied);
+		supplied.metadata.stableSplitOutcome.holdoutAllocation.holdoutKey = 'holdout-b';
+		client.logExposure(supplied);
+		loading.resolve();
+		expect(await deliverAll()).toEqual(['flag-a', 'flag-a']);
+		expect(
+			captured.map(
+				(input) => input.details.metadata.stableSplitOutcome?.holdoutAllocation?.holdoutKey,
+			),
+		).toEqual(['holdout-a', 'holdout-b']);
+	});
+	it.each([false, true])(
+		'preserves separate queued counts across replacement while loading is pending: %s',
+		async (pending) => {
+			const loading = pending ? deferDelivery() : null;
+			if (!pending) setExposureDelivery(DELIVERY);
+			const client = initializedWith();
+			for (let i = 0; i < 3; i++) client.getBooleanValue('flag-a', false);
+			expect(client.replace(() => PAYLOAD, testUser())).toEqual({ replaced: true });
+			for (let i = 0; i < 2; i++) client.getBooleanValue('flag-a', false);
+			loading?.resolve();
+			expect(await deliverAll()).toEqual(['flag-a', 'flag-a']);
+			const counts = environment.requests.flatMap((request) => {
+				const body = JSON.parse(request.init.body) as ExportLogsServiceRequest;
+				return body.resourceLogs.flatMap((resource) =>
+					resource.scopeLogs.flatMap((scope) =>
+						(scope.logRecords as OtlpLogRecord[]).map(
+							(record) =>
+								plainAttributes(record.attributes)['atl.feature_flag.sdk.dedupe.item.count'],
+						),
+					),
+				);
+			});
+			expect(counts).toEqual([3, 2]);
+		},
+	);
+	it.each([false, true])(
+		'clears admission without dropping exposures when loading is pending: %s',
+		async (pending) => {
+			const loading = pending ? deferDelivery() : null;
+			if (!pending) setExposureDelivery(DELIVERY);
+			const client = initializedWith();
+			client.getBooleanValue('flag-a', false);
+			client.getBooleanValue('flag-a', false);
+			client.clearExposureDeduplicationCache();
+			client.getBooleanValue('flag-a', false);
+			loading?.resolve();
+			expect(await deliverAll()).toEqual(['flag-a', 'flag-a']);
+		},
+	);
+
+	it('allows clearing a disabled client without starting delivery', () => {
+		const client = initializedWith({ enabled: false });
+		expect(() => client.clearExposureDeduplicationCache()).not.toThrow();
+		expect(environment.listeners).toHaveLength(0);
+		expect(environment.pendingTimers).toBe(0);
+	});
 	it('delivers exposures that were read before the subsystem loaded', async () => {
 		const loading = deferDelivery();
 		const client = initializedWith();
@@ -232,3 +436,5 @@ describe('on-demand exposure delivery loading', () => {
 		expect(keys[0]).toBe('flag-1');
 	});
 });
+
+beforeAll(async () => initializeExposureHash());

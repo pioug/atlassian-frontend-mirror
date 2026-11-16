@@ -1,4 +1,7 @@
-import { EditorExtensionFloatingToolbarModel } from '@af/editor-libra/page-models/editor-extension-model';
+import {
+	EditorExtensionFloatingToolbarModel,
+	EditorExtensionModel,
+} from '@af/editor-libra/page-models/editor-extension-model';
 import { EditorNodeContainerModel } from '@af/editor-libra/page-models/editor-node-container-model';
 import { EditorPageModel } from '@af/editor-libra/page-models/editor-page-model';
 import { snapshotInformational } from '@af/visual-regression';
@@ -78,7 +81,7 @@ snapshotInformational(BlockExtensionWithSmartLink, {
 
 snapshotInformational(BlockExtensionWithSmartLink, {
 	description: 'Block extension label showing on top of smart link after width change',
-	// width is changed with the layout buttons, which the breakout resizer replaces
+	// width is changed with the toolbar width dropdown, which the breakout resizer replaces
 	featureFlags: {
 		platform_editor_lovability_resize_extensions: false,
 	},
@@ -91,8 +94,9 @@ snapshotInformational(BlockExtensionWithSmartLink, {
 		await nodes.extension.click();
 		const toolbarModel = EditorExtensionFloatingToolbarModel.from(editor);
 		await toolbarModel.waitForStable();
-		await toolbarModel.fullWidth();
-		await toolbarModel.waitForTooltip();
+		const layoutModel = await EditorExtensionModel.from(nodes.extension).layout(editor);
+		await layoutModel.newControlsToFullWidth();
+		await editor.waitForEditorStable();
 	},
 	mockUTCDate: false,
 });
@@ -253,7 +257,7 @@ snapshotInformational(BodiedExtensionWithSmartLink, {
 
 snapshotInformational(BodiedExtensionWithSmartLink, {
 	description: 'Bodied extension label showing on top of smart link after width change',
-	// width is changed with the layout buttons, which the breakout resizer replaces
+	// width is changed with the toolbar width dropdown, which the breakout resizer replaces
 	featureFlags: {
 		platform_editor_lovability_resize_extensions: false,
 	},
@@ -266,8 +270,9 @@ snapshotInformational(BodiedExtensionWithSmartLink, {
 		await nodes.bodiedExtension.click();
 		const toolbarModel = EditorExtensionFloatingToolbarModel.from(editor);
 		await toolbarModel.waitForStable();
-		await toolbarModel.fullWidth();
-		await toolbarModel.waitForTooltip();
+		const layoutModel = await EditorExtensionModel.from(nodes.bodiedExtension).layout(editor);
+		await layoutModel.newControlsToFullWidth();
+		await editor.waitForEditorStable();
 	},
 	mockUTCDate: false,
 });

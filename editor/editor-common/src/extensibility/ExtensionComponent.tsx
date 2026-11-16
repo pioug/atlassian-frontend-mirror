@@ -10,6 +10,7 @@ import { type Selection, NodeSelection } from '@atlaskit/editor-prosemirror/stat
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
+import { ACTION_SUBJECT } from '../analytics/types/enums';
 import type { EventDispatcher } from '../event-dispatcher';
 import {
 	getExtensionModuleNode,
@@ -486,7 +487,12 @@ class ExtensionComponentInner extends Component<PropsInner, State> {
 		if (!result) {
 			const extensionHandlerFromProvider =
 				this.props.extensionProvider &&
-				this.getNodeRenderer(this.props.extensionProvider, extensionType, extensionKey);
+				this.getNodeRenderer(
+					this.props.extensionProvider,
+					extensionType,
+					extensionKey,
+					ACTION_SUBJECT.EDITOR,
+				);
 
 			if (extensionHandlerFromProvider) {
 				const NodeRenderer =

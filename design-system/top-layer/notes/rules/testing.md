@@ -273,12 +273,12 @@ test('rapid toggle does not leave ghost popovers', async ({ page }) => {
 The accessibility tests cover WCAG focus requirements. These additional tests catch UX-level focus
 bugs.
 
-| Test                                                                      | What it catches                                              |
-| ------------------------------------------------------------------------- | ------------------------------------------------------------ |
-| Focus return does not re-trigger the popover (no circular open loop)      | `focus` event on trigger reopening the popover after dismiss |
-| Focus moves correctly through Tab order when popover is in DOM but hidden | Hidden popover still receiving tab focus                     |
-| `returnFocusRef` receives focus when the original trigger is removed      | Focus falling to `<body>` when trigger unmounts              |
-| Tab through form fields inside a popup works normally                     | Focus trap too aggressive, stealing focus from form elements |
+| Test                                                                       | What it catches                                              |
+| -------------------------------------------------------------------------- | ------------------------------------------------------------ |
+| Focus return does not re-trigger the popover (no circular open loop)       | `focus` event on trigger reopening the popover after dismiss |
+| Focus moves correctly through Tab order when popover is in DOM but hidden  | Hidden popover still receiving tab focus                     |
+| Focus goes where the action's handler moves it when the trigger is removed | Focus falling to `<body>` when trigger unmounts              |
+| Tab through form fields inside a popup works normally                      | Focus trap too aggressive, stealing focus from form elements |
 
 **Circular open loop example:**
 

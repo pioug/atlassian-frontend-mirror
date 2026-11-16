@@ -1,9 +1,5 @@
 import React from 'react';
 
-import Loadable from 'react-loadable';
-
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-
 import extractFileFormatIcon from '../extractors/flexible/icon/extract-file-formatIcon';
 import { getLazyIcons } from './get-lazy-icons';
 import { getLazyIconComponent } from './lazy-component';
@@ -41,20 +37,12 @@ export const getIconForFileType = (
 		return;
 	}
 
-	if (fg('platform_sl_replace_react_loadable')) {
-		const iconType = extractFileFormatIcon(fileMimeType.toLowerCase())?.icon;
-		if (iconType) {
-			const LazyIcon = getLazyIconComponent(`${iconType}:default`, importCb);
-			const lazyLabel = (showIconLabel ?? true) ? icon[1] || '' : '';
-			return (<LazyIcon testId="document-file-format-icon" label={lazyLabel} />) as React.ReactNode;
-		}
+	const iconType = extractFileFormatIcon(fileMimeType.toLowerCase())?.icon;
+	if (!iconType) {
+		return;
 	}
 
-	const Icon = Loadable({
-		loader: () => importCb().then((module) => module.default),
-		loading: () => null,
-	}) as any; // because we're using dynamic loading here, TS will not be able to infer the type
-
+	const LazyIcon = getLazyIconComponent(`${iconType}:default`, importCb);
 	const label = (showIconLabel ?? true) ? icon[1] || '' : '';
-	return (<Icon testId="document-file-format-icon" label={label} />) as React.ReactNode;
+	return (<LazyIcon testId="document-file-format-icon" label={label} />) as React.ReactNode;
 };

@@ -4,6 +4,8 @@ import type { ExposureDeliveryOptions } from './logger';
 export const DEFAULT_EXPOSURE_ENDPOINT = 'https://xp.atlassian.com/ft/v1/logs';
 export const DEFAULT_BATCH_SIZE = 100;
 export const DEFAULT_FLUSH_INTERVAL_MS = 10_000;
+export const DEFAULT_DEDUPE_MAX_KEYS = 5_000;
+export const DEFAULT_DEDUPE_WINDOW_MS = 600_000;
 
 /** The exposure logging options a client runs with, plus the names of any it ignored. */
 export interface ResolvedExposureLogging {
@@ -64,11 +66,15 @@ export function resolveExposureLogging(
 				),
 				batchSize: pick('batchSize', asPositiveInteger, DEFAULT_BATCH_SIZE),
 				flushIntervalMs: pick('flushIntervalMs', asPositiveFiniteNumber, DEFAULT_FLUSH_INTERVAL_MS),
+				dedupeMaxKeys: pick('dedupeMaxKeys', asPositiveInteger, DEFAULT_DEDUPE_MAX_KEYS),
+				dedupeWindowMs: pick('dedupeWindowMs', asPositiveFiniteNumber, DEFAULT_DEDUPE_WINDOW_MS),
 			}
 		: {
 				endpoint: DEFAULT_EXPOSURE_ENDPOINT,
 				batchSize: DEFAULT_BATCH_SIZE,
 				flushIntervalMs: DEFAULT_FLUSH_INTERVAL_MS,
+				dedupeMaxKeys: DEFAULT_DEDUPE_MAX_KEYS,
+				dedupeWindowMs: DEFAULT_DEDUPE_WINDOW_MS,
 			};
 	return { enabled, delivery, unsupported };
 }

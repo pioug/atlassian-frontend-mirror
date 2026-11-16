@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { type Stub } from 'raf-stub';
 
 import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
@@ -642,7 +644,7 @@ describe('onOpenChange callback — event parameter', () => {
 		);
 	});
 
-	it('passes null event when closed via onClose (Popover dismiss)', async () => {
+	it('passes a Tab keyboard event when Tab closes the menu', async () => {
 		passGate('platform-dst-top-layer');
 
 		const onOpenChange = jest.fn();
@@ -667,10 +669,296 @@ describe('onOpenChange callback — event parameter', () => {
 		fireEvent.keyDown(menuItems[0], { key: 'Tab', code: 'Tab' });
 
 		await waitFor(() => {
-			expect(onOpenChange).toHaveBeenCalledWith(
-				expect.objectContaining({ isOpen: false, event: null }),
-			);
+			expect(onOpenChange).toHaveBeenCalledWith({
+				isOpen: false,
+				event: expect.objectContaining({ type: 'keydown', key: 'Tab' }),
+			});
 		});
+	});
+
+	it('passes a Tab keyboard event to every menu that Tab closes, and Escape after a reopen', async () => {
+		passGate('platform-dst-top-layer');
+
+		const onOpenChange = jest.fn();
+		const onNestedOpenChange = jest.fn();
+
+		render(
+			<DropdownMenu trigger={triggerText} testId={testId} onOpenChange={onOpenChange}>
+				<DropdownItemGroup>
+					<DropdownMenu
+						testId="nested"
+						onOpenChange={onNestedOpenChange}
+						trigger={({ triggerRef, ...triggerProps }) => (
+							<DropdownItem {...triggerProps} ref={triggerRef}>
+								More
+							</DropdownItem>
+						)}
+					>
+						<DropdownItemGroup>
+							<DropdownItem>Nested item</DropdownItem>
+						</DropdownItemGroup>
+					</DropdownMenu>
+				</DropdownItemGroup>
+			</DropdownMenu>,
+		);
+
+		await userEvent.click(screen.getByTestId(`${testId}--trigger`));
+		await userEvent.click(screen.getByRole('menuitem', { name: 'More' }));
+		const nestedItem = screen.getByRole('menuitem', { name: 'Nested item' });
+		expect(nestedItem).toHaveFocus();
+		onOpenChange.mockClear();
+		onNestedOpenChange.mockClear();
+
+		fireEvent.keyDown(nestedItem, { key: 'Tab', code: 'Tab' });
+
+		await waitFor(() => {
+			expect(onOpenChange).toHaveBeenCalledWith({
+				isOpen: false,
+				event: expect.objectContaining({ type: 'keydown', key: 'Tab' }),
+			});
+		});
+		expect(onNestedOpenChange).toHaveBeenCalledWith({
+			isOpen: false,
+			event: expect.objectContaining({ type: 'keydown', key: 'Tab' }),
+		});
+
+		await userEvent.click(screen.getByTestId(`${testId}--trigger`));
+		expect(screen.getByRole('menuitem', { name: 'More' })).toHaveFocus();
+		onOpenChange.mockClear();
+
+		await userEvent.keyboard('{Escape}');
+
+		await waitFor(() => {
+			expect(onOpenChange).toHaveBeenCalledWith({
+				isOpen: false,
+				event: expect.objectContaining({ type: 'keydown', key: 'Escape' }),
+			});
+		});
+	});
+
+	it('passes an Escape keyboard event when Escape closes the menu', async () => {
+		passGate('platform-dst-top-layer');
+
+		const onOpenChange = jest.fn();
+
+		render(
+			<DropdownMenu trigger={triggerText} testId={testId} onOpenChange={onOpenChange}>
+				<DropdownItemGroup>
+					<DropdownItem>Move</DropdownItem>
+				</DropdownItemGroup>
+			</DropdownMenu>,
+		);
+
+		await userEvent.click(screen.getByTestId(`${testId}--trigger`));
+		expect(screen.getByRole('menuitem', { name: 'Move' })).toHaveFocus();
+		onOpenChange.mockClear();
+
+		await userEvent.keyboard('{Escape}');
+
+		await waitFor(() => {
+			expect(onOpenChange).toHaveBeenCalledWith({
+				isOpen: false,
+				event: expect.any(KeyboardEvent),
+			});
+		});
+		expect(onOpenChange.mock.calls[0][0].event).toHaveProperty('key', 'Escape');
+	});
+
+	it('passes a mouse event when an outside press closes the menu', async () => {
+		passGate('platform-dst-top-layer');
+
+		const onOpenChange = jest.fn();
+
+		render(
+			<>
+				<button type="button">Outside</button>
+				<DropdownMenu trigger={triggerText} testId={testId} onOpenChange={onOpenChange}>
+					<DropdownItemGroup>
+						<DropdownItem>Move</DropdownItem>
+					</DropdownItemGroup>
+				</DropdownMenu>
+			</>,
+		);
+
+		await userEvent.click(screen.getByTestId(`${testId}--trigger`));
+		onOpenChange.mockClear();
+
+		await userEvent.click(screen.getByRole('button', { name: 'Outside' }));
+
+		await waitFor(() => {
+			expect(onOpenChange).toHaveBeenCalledWith({
+				isOpen: false,
+				event: expect.any(MouseEvent),
+			});
+		});
+	});
+
+	it('passes a Left arrow keyboard event when Left arrow closes a nested menu', async () => {
+		passGate('platform-dst-top-layer');
+
+		const onNestedOpenChange = jest.fn();
+
+		render(
+			<DropdownMenu trigger={triggerText} testId={testId}>
+				<DropdownItemGroup>
+					<DropdownMenu
+						testId="nested"
+						onOpenChange={onNestedOpenChange}
+						trigger={({ triggerRef, ...triggerProps }) => (
+							<DropdownItem {...triggerProps} ref={triggerRef}>
+								More
+							</DropdownItem>
+						)}
+					>
+						<DropdownItemGroup>
+							<DropdownItem>Nested item</DropdownItem>
+						</DropdownItemGroup>
+					</DropdownMenu>
+				</DropdownItemGroup>
+			</DropdownMenu>,
+		);
+
+		await userEvent.click(screen.getByTestId(`${testId}--trigger`));
+		await userEvent.click(screen.getByRole('menuitem', { name: 'More' }));
+		expect(screen.getByRole('menuitem', { name: 'Nested item' })).toHaveFocus();
+		onNestedOpenChange.mockClear();
+
+		await userEvent.keyboard('{ArrowLeft}');
+
+		expect(onNestedOpenChange).toHaveBeenCalledWith({
+			isOpen: false,
+			event: expect.objectContaining({ type: 'keydown', key: 'ArrowLeft' }),
+		});
+	});
+});
+
+describe('DropdownMenu top-layer: closing', () => {
+	beforeEach(() => {
+		passGate('platform-dst-top-layer');
+	});
+
+	const ReturnFocusExample = () => {
+		const returnFocusRef = useRef<HTMLButtonElement>(null);
+		return (
+			<>
+				<DropdownMenu trigger={triggerText} testId={testId} returnFocusRef={returnFocusRef}>
+					<DropdownItemGroup>
+						<DropdownItem>Move</DropdownItem>
+					</DropdownItemGroup>
+				</DropdownMenu>
+				<button type="button" ref={returnFocusRef}>
+					Focus target
+				</button>
+			</>
+		);
+	};
+
+	// Master's top-layer path never focused the ref on item select either, so this pins the
+	// behaviour; the Escape test below shows the change.
+	it('ignores returnFocusRef: focus returns to the trigger when a menu item is selected', async () => {
+		render(<ReturnFocusExample />);
+
+		await userEvent.click(screen.getByTestId(`${testId}--trigger`));
+		await userEvent.click(screen.getByRole('menuitem', { name: 'Move' }));
+		expect(screen.getByTestId(`${testId}--trigger`)).toHaveAttribute('aria-expanded', 'false');
+
+		// Legacy focused `returnFocusRef` in an animation frame. Flush it to show nothing does now.
+		act(() => {
+			(window.requestAnimationFrame as unknown as Stub).flush();
+		});
+
+		expect(screen.getByTestId(`${testId}--trigger`)).toHaveFocus();
+	});
+
+	it('ignores returnFocusRef: focus returns to the trigger on Escape', async () => {
+		render(<ReturnFocusExample />);
+
+		await userEvent.click(screen.getByTestId(`${testId}--trigger`));
+		expect(screen.getByRole('menuitem', { name: 'Move' })).toHaveFocus();
+		await userEvent.keyboard('{Escape}');
+		expect(screen.getByTestId(`${testId}--trigger`)).toHaveAttribute('aria-expanded', 'false');
+
+		act(() => {
+			(window.requestAnimationFrame as unknown as Stub).flush();
+		});
+
+		expect(screen.getByTestId(`${testId}--trigger`)).toHaveFocus();
+	});
+
+	it('closes every menu when an item of a nested menu is clicked', async () => {
+		const onOpenChange = jest.fn();
+		const onNestedOpenChange = jest.fn();
+
+		render(
+			<DropdownMenu trigger={triggerText} testId={testId} onOpenChange={onOpenChange}>
+				<DropdownItemGroup>
+					<DropdownMenu
+						testId="nested"
+						onOpenChange={onNestedOpenChange}
+						trigger={({ triggerRef, ...triggerProps }) => (
+							<DropdownItem {...triggerProps} ref={triggerRef}>
+								More
+							</DropdownItem>
+						)}
+					>
+						<DropdownItemGroup>
+							<DropdownItem>Nested item</DropdownItem>
+						</DropdownItemGroup>
+					</DropdownMenu>
+				</DropdownItemGroup>
+			</DropdownMenu>,
+		);
+
+		await userEvent.click(screen.getByTestId(`${testId}--trigger`));
+		await userEvent.click(screen.getByRole('menuitem', { name: 'More' }));
+		onOpenChange.mockClear();
+
+		await userEvent.click(screen.getByRole('menuitem', { name: 'Nested item' }));
+
+		expect(onNestedOpenChange).toHaveBeenLastCalledWith(
+			expect.objectContaining({ isOpen: false, event: expect.objectContaining({ type: 'click' }) }),
+		);
+		expect(onOpenChange).toHaveBeenLastCalledWith(
+			expect.objectContaining({ isOpen: false, event: expect.objectContaining({ type: 'click' }) }),
+		);
+		expect(screen.getByTestId(`${testId}--trigger`)).toHaveAttribute('aria-expanded', 'false');
+	});
+
+	it('keeps every menu open when a checkbox item of a nested menu is clicked', async () => {
+		const onOpenChange = jest.fn();
+		const onNestedOpenChange = jest.fn();
+
+		render(
+			<DropdownMenu trigger={triggerText} testId={testId} onOpenChange={onOpenChange}>
+				<DropdownItemGroup>
+					<DropdownMenu
+						testId="nested"
+						onOpenChange={onNestedOpenChange}
+						trigger={({ triggerRef, ...triggerProps }) => (
+							<DropdownItem {...triggerProps} ref={triggerRef}>
+								More
+							</DropdownItem>
+						)}
+					>
+						<DropdownItemCheckboxGroup id="nested-options">
+							<DropdownItemCheckbox id="nested-checkbox">Nested checkbox</DropdownItemCheckbox>
+						</DropdownItemCheckboxGroup>
+					</DropdownMenu>
+				</DropdownItemGroup>
+			</DropdownMenu>,
+		);
+
+		await userEvent.click(screen.getByTestId(`${testId}--trigger`));
+		await userEvent.click(screen.getByRole('menuitem', { name: 'More' }));
+		onOpenChange.mockClear();
+		onNestedOpenChange.mockClear();
+
+		await userEvent.click(screen.getByRole('menuitemcheckbox', { name: 'Nested checkbox' }));
+
+		expect(onNestedOpenChange).not.toHaveBeenCalled();
+		expect(onOpenChange).not.toHaveBeenCalled();
+		expect(screen.getByTestId('nested--trigger')).toHaveAttribute('aria-expanded', 'true');
+		expect(screen.getByTestId(`${testId}--trigger`)).toHaveAttribute('aria-expanded', 'true');
 	});
 });
 

@@ -6,6 +6,7 @@ import RelatedLinksResolvedView from '../../../examples/vr-related-links-modal/v
 import RelatedLinksModalResolvingView from '../../../examples/vr-related-links-modal/vr-related-links-modal-resolving-view.vr.ap';
 import RelatedLinksModalUnavailableView from '../../../examples/vr-related-links-modal/vr-related-links-modal-unavailable-view.vr.ap';
 import RelatedLinksModal from '../../../examples/vr-related-links-modal/vr-related-links-modal.vr.ap';
+import bitbucketFavicon from './bitbucket-favicon.svg';
 
 snapshot(RelatedLinksModal, {
 	description: 'empty',
@@ -29,6 +30,14 @@ snapshot(RelatedLinksModal, {
 
 snapshot(RelatedLinksResolvedView, {
 	description: 'resolved',
+	// Keep the Bitbucket favicon independent of the live CDN and its versioned asset path.
+	mockRequests: [
+		{
+			urlPattern:
+				/^https:\/\/bbc-core-bifrost\.[^/]+\/assets\/[^/]+\/img\/logos\/bitbucket\/android-chrome-192x192\.png$/,
+			asset: bitbucketFavicon,
+		},
+	],
 	states: [
 		{
 			state: 'focused',

@@ -58,7 +58,9 @@ export const DropdownItem: React.ForwardRefExoticComponent<
 
 		const handleItemClick = useCallback(
 			(event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => {
-				if (returnFocusRef?.current) {
+				// No-op on the top-layer path: the platform returns focus. A modal that the item
+				// opens returns focus to the menu trigger.
+				if (!fg('platform-dst-top-layer') && returnFocusRef?.current) {
 					returnFocusRef.current.focus();
 				}
 				if (onClick) {

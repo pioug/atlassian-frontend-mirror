@@ -1,5 +1,30 @@
 # @atlaskit/renderer
 
+## 154.0.1
+
+### Patch Changes
+
+- [`4f2d98a87fdc0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4f2d98a87fdc0) -
+  Keep Remix heading highlights out of the collapse-toggle gutter behind
+  platform_editor_collapsible_headings.
+- Updated dependencies
+
+## 154.0.0
+
+### Patch Changes
+
+- [`c1ec527d3ad2f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c1ec527d3ad2f) -
+  Require the fourth errorActionSubject argument in getNodeRenderer. Pass ACTION_SUBJECT.EDITOR for
+  Editor callers or ACTION_SUBJECT.RENDERER for Renderer callers. Support Renderer attribution in
+  the shared error boundary under platform_editor_loosely_lazy_migration.
+- Updated dependencies
+
+## 153.6.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 153.6.1
 
 ### Patch Changes

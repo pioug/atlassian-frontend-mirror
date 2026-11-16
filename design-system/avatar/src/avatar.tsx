@@ -21,7 +21,6 @@ import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
 import { css, jsx } from '@atlaskit/css';
 import { useId } from '@atlaskit/ds-lib/use-id';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import type { TriggerAriaProps } from '@atlaskit/popup/types';
 
 import { AvatarContent } from './avatar-content';
@@ -53,15 +52,13 @@ const containerStyles = css({
 
 const updatedHexagonNegativeMarginMap = unboundCssMap({
 	xxsmall: { marginBlockEnd: '-0.585px', marginBlockStart: '-0.585px' },
+	xsmall: { marginBlockEnd: '-0.585px', marginBlockStart: '-0.585px' },
 	small: { marginBlockEnd: '-0.88px', marginBlockStart: '-0.88px' },
 	medium: { marginBlockEnd: '-1.17px', marginBlockStart: '-1.17px' },
 	large: { marginBlockEnd: '-1.465px', marginBlockStart: '-1.465px' },
 	xlarge: { marginBlockEnd: '-3.52px', marginBlockStart: '-3.52px' },
 	xxlarge: { marginBlockEnd: '-4.695px', marginBlockStart: '-4.695px' },
 });
-
-const normalizeAvatarSize = (size: SizeType): SizeType =>
-	size === 'xsmall' && !fg('platform_design-system-team_avatar-remove-xsmall') ? 'xxsmall' : size;
 
 /**
  * Popup trigger ARIA attributes are optional. Use `aria-controls` to identify
@@ -256,7 +253,7 @@ const Avatar = forwardRef<HTMLElement, AvatarProps>(
 	) => {
 		const { createAnalyticsEvent } = useAnalyticsEvents();
 		const context = useAvatarContext();
-		const size = normalizeAvatarSize(sizeProp || context?.size || 'medium');
+		const size = sizeProp || context?.size || 'medium';
 		const isUpdatedHexagonGeometry =
 			appearance === 'hexagon' && Boolean(UNSAFE_isUpdatedGeometry) && size !== 'UNSAFE_xsmall';
 		const customPresenceNode = isValidElement(presence) ? presence : null;
@@ -351,7 +348,7 @@ const Avatar = forwardRef<HTMLElement, AvatarProps>(
 						containerStyles,
 						isUpdatedHexagonGeometry &&
 							updatedHexagonNegativeMarginMap[
-								size as 'xxsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge'
+								size as 'xxsmall' | 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge'
 							],
 					]}
 					style={{ zIndex: stackIndex } as CSSProperties}

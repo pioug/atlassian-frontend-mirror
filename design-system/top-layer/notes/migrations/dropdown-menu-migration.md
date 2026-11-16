@@ -106,25 +106,74 @@ instead to preserve the keyboard-vs-mouse detection logic for auto-focus behavio
 
 ### Focus management
 
-**Auto-focus:** When opened via keyboard (or `autoFocus={true}`), the first non-disabled menu item
-is focused synchronously by `useInitialFocus` on the `closed → entering` phase transition (the
-instant the host element mounts and `showPopover()` has run). See `notes/architecture/focus.md` for
+**Auto-focus:** On every open, pointer or keyboard, the first non-disabled menu item is focused
+synchronously by `useInitialFocus` on the `closed → entering` phase transition (the instant the host
+element mounts and `showPopover()` has run). Focus follows the role (decision 11 (b) in
+`flag-on-all-tests/REPORT.md`, `decisions/role-and-focus.md`), so `autoFocus` changes nothing on
+this path. Legacy focused the menu wrapper on a pointer open. See `notes/architecture/focus.md` for
 the timing rationale.
 
-**Arrow navigation:** `useArrowNavigation` binds on the menu container (`menuRef`). ArrowDown/Up
-cycle through focusable items, Home/End jump to first/last, Tab triggers close.
+**Arrow navigation:** `useArrowNavigation` binds on the menu popover, where focus is, so tests send
+keys to the focused item. ArrowDown on the trigger opens a closed menu; it does nothing while the
+menu is open. Initial focus happens only on the open. Items that mount after the open (an entry
+point, or `isLoading` content) do not get focus from the menu: the entry point code handles deferred
+focus. ArrowDown/Up cycle through focusable items, Home/End jump to first/last, Tab triggers close.
 
-**Focus return on close:** The `onClose({ reason })` callback from Popover determines focus
-behavior:
+**Focus return on close:** The platform returns focus. DropdownMenu has no focus code for a close.
 
-- `reason: 'escape'` → focus returns to the trigger element (or `returnFocusRef` if provided).
-- `reason: 'light-dismiss'` → no focus return (browser already moved focus to the clicked element).
-- `returnFocusRef` always takes priority when provided.
+- Escape, Tab, Left arrow and item select → the browser returns focus to the element that had focus
+  when the menu opened (usually the trigger). Tab and Shift+Tab then move on from the trigger.
+- Outside press (`reason: 'light-dismiss'`) → no focus return. Focus stays where the user pressed. A
+  press on text leaves focus on the body. Legacy moved it back to the trigger.
+- Nested menu → Escape and Left arrow close only the nested menu, and focus returns to its trigger
+  item in the parent menu. An item select closes every menu, and focus returns to the root trigger.
+  A checkbox or radio item keeps every menu open.
+- Item that opens a modal → the menu closes in the same commit, so focus is back on the trigger when
+  the modal opens. The modal returns focus to the trigger when it closes (not yet in WebKit; see
+  Known gaps).
+- `returnFocusRef` (on `DropdownMenu` and on `DropdownItem`) is a no-op (decision 9 Nov 2026). Of
+  the 40 product callsites on master, most pointed it at the trigger, which the platform already
+  does. The others used it to stop focus return, or to work around the redirect's own problems: it
+  took focus from the element the user pressed, and it raced modals that items opened. The legacy
+  path still honours it, so callsites keep it until the gate is cleaned up.
+- When an action needs focus somewhere new (for example the action removes the trigger), the
+  consumer moves focus in the action's handler, or the new element uses `autoFocus`. The platform
+  does not move back focus that has left the menu.
+- Tests: "focus return on close" in
+  `dropdown-menu/src/__tests__/playwright/ff-testing/platform-dst-top-layer/dropdown-menu.spec.tsx`
+  runs each close on a menu without the prop and on the same menu with the prop.
+
+**`onOpenChange` event on close:** `onClose({ reason })` is bridged to the legacy event with
+`createPopoverCloseEvent`: a `KeyboardEvent` for Escape, a `MouseEvent` for an outside press, and
+`null` for a programmatic close (`requestClosePopovers()`). Tab hides the root popover natively, so
+`Popover` reports each menu in the stack as a light dismiss. DropdownMenu marks the stack before the
+hide, so each menu passes a Tab `KeyboardEvent` instead. Left arrow passes a Left arrow
+`KeyboardEvent`. Item select passes the click event. The other events are synthetic, so they have no
+`target`, and a Shift+Tab close has no `shiftKey`.
 
 ### Close-on-click
 
 Regular `menuitem` clicks close the menu. `menuitemcheckbox` and `menuitemradio` clicks do not (to
 allow multi-selection). Detection uses `role` attribute queries on the click target.
+
+- **Nested menus:** a click on an item of a nested menu bubbles to every parent `MenuGroup`, so
+  every menu in the stack closes, and focus returns to the root trigger. This follows the WAI-ARIA
+  APG menu pattern: activating an item "closes the menu", and only Escape and Left arrow go back one
+  level. The legacy path closed only the nested menu and kept the parent open (9 Nov 2026 decision:
+  follow the APG). A checkbox or radio item, or a submenu trigger, keeps every menu open.
+- **No `role="menu"` inside the content:** the menu content already has `role="menu"`. A product
+  element with `role="menu"` inside it (for example a `<div role="menu">` around some items) is a
+  nested menu with no parent item, which is invalid ARIA, and arrow navigation treats it as a nested
+  menu level, so it skips its items. Use `DropdownItemGroup` (`role="group"`), or no role. The
+  product callsites that did this drop the role behind `platform-dst-top-layer`.
+- **Items that open a popup:** only a submenu trigger (`aria-haspopup` `menu` or `true`) keeps the
+  menu open. Any other item closes the menu, as the WAI-ARIA APG menu pattern describes (10 Nov 2026
+  decision: standard menu mechanics). This includes the trigger of a `Popup role="dialog"` in the
+  menu (`aria-haspopup="dialog"` and `aria-expanded`): its popup renders inside the menu, so it
+  closes with the menu. A `dialog` inside a `menu` is also invalid ARIA (a `menu` owns only menu
+  items, groups and separators). Open the popup in a modal, or outside the menu. Legacy kept the
+  menu open for `menu` and `true`, and legacy `Popup` emitted `aria-haspopup="true"` for most roles,
+  so popup items kept the legacy menu open.
 
 ### Placement mapping
 
@@ -200,21 +249,22 @@ when space is tight — matching legacy behavior.
 | 2.4.11 Focus Not Obscured | ✓    | `dropdown-menu.spec.tsx` — top-layer content not obscured                                          |
 | 3.2.1 On Focus            | ✓    | `dropdown-menu.spec.tsx` — focus return to trigger does not re-open menu                           |
 
-> **Note:** All 10 browser tests in
-> `dropdown-menu/src/__tests__/playwright/ff-testing/platform-dst-top-layer/dropdown-menu.spec.tsx`
-> are passing.
+> **Note:** The browser tests for these criteria are in
+> `dropdown-menu/src/__tests__/playwright/ff-testing/platform-dst-top-layer/dropdown-menu.spec.tsx`.
 
 ---
 
 ## Known gaps
 
-| Gap                            | Impact                                                                                                                                                                                                                                                                            |
-| ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Nested dropdown menus          | Not yet tested in top-layer path — native `popover="auto"` nesting should handle stacking, but the nested trigger detection logic from legacy `handleOnClose` is not replicated                                                                                                   |
-| `shouldFitContainer`           | Supported — uses a `useEffect` to measure the trigger width and apply `minWidth` to the popover and menu content                                                                                                                                                                  |
-| Integration/Playwright tests   | 10 browser tests passing in `dropdown-menu.spec.tsx`                                                                                                                                                                                                                              |
-| Screen reader testing          | JAWS/NVDA/VoiceOver matrix not conducted                                                                                                                                                                                                                                          |
-| `onOpenChange` event parameter | Top-layer path passes `null` for the event on close (native Popover API doesn't expose the original DOM event in `onClose`). Decision (2026-03-17 audit): Accepted — the `OnOpenChangeArgs.event` type already allows `null` and the JSDoc documents this case. No change needed. |
+| Gap                                | Impact                                                                                                                                                                                                                                                        |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Nested dropdown menus              | Covered in the top-layer unit and Playwright specs. A nested leaf click closes every menu (see Close-on-click).                                                                                                                                               |
+| `shouldFitContainer`               | Supported — uses a `useEffect` to measure the trigger width and apply `minWidth` to the popover and menu content                                                                                                                                              |
+| Integration/Playwright tests       | `ff-testing/platform-dst-top-layer/dropdown-menu.spec.tsx`, including "focus return on close" (each close with and without `returnFocusRef`).                                                                                                                 |
+| Screen reader testing              | JAWS/NVDA/VoiceOver matrix not conducted                                                                                                                                                                                                                      |
+| WebKit: item picked with the mouse | WebKit does not focus a button on click. The press on the item moves focus to the body before the menu closes, so nothing returns it. `fixme` in WebKit in the spec.                                                                                          |
+| WebKit: modal opened from an item  | After the modal closes, focus is on the body, not the trigger. `fixme` in WebKit in the spec. It passes on the top-layer decisions branch (#529607), where the wrapper returns focus to the trigger before the modal opens; that change is not on master yet. |
+| `onOpenChange` event parameter     | Fixed in slice D8 (#535103): the close reason is bridged to a synthetic event (see Focus management). The 2026-03-17 audit had accepted `null`, but consumers such as editor-common check `event instanceof KeyboardEvent` after Escape.                      |
 
 ---
 

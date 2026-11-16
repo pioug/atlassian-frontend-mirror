@@ -39,6 +39,8 @@ export interface PageLifecycleListener {
 
 export interface ExposureEnvironment {
 	now(): number;
+	/** Monotonic elapsed time for dedupe windows when the host exposes it. */
+	elapsedNow?(): number;
 	setTimeout(callback: () => void, delayMs: number): unknown;
 	clearTimeout(handle: unknown): void;
 	/** Run a callback once the current task's synchronous work is done, before the next task. */
@@ -63,8 +65,11 @@ export interface ExposureEnvironment {
 /** The environment backed by the host's globals. */
 export function defaultExposureEnvironment(): ExposureEnvironment {
 	const hostFetch = typeof globalThis.fetch === 'function' ? globalThis.fetch : undefined;
+	const hostPerformance = globalThis.performance;
 	return {
 		now: () => Date.now(),
+		elapsedNow:
+			typeof hostPerformance?.now === 'function' ? () => hostPerformance.now() : undefined,
 		setTimeout: (callback, delayMs) => {
 			const handle = globalThis.setTimeout(callback, delayMs);
 			// Outside a browser, a pending delivery must not keep the process alive.

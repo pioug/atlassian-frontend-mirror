@@ -729,9 +729,7 @@ export function handlePasteLinkOnSelectedText(slice: Slice): Command {
 		}
 
 		// derive a linkable range if possible for Select‑All over a single textblock
-		const selectAllRange = fg('platform_editor_link_paste_select_all')
-			? resolveSingleTextblockRangeIfAllSelected(state)
-			: null;
+		const selectAllRange = resolveSingleTextblockRangeIfAllSelected(state);
 
 		const rangeFrom = selectAllRange?.from ?? from;
 		const rangeTo = selectAllRange?.to ?? to;

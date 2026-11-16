@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 31.0.1
+
+### Patch Changes
+
+- [`381ba99e12072`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/381ba99e12072) -
+  Add selection-preflight, item-ref, and popup relationship props to the exported
+  QuickInsertMenuItem. Forward Jira's optional cached credit-status callback for
+  jira_ai_ubp_enforcement_messaging and block depleted Ask Rovo slash-menu selection before the host
+  closes the menu. Keep Escape dismissal of blocked feedback inside the popup, preserve the editor
+  draft, and restore focus to the control that had focus before the popup opened after popup content
+  exits. Keep owned credit popups inside the registered menu focus boundary. Keep credit feedback
+  above the containing modal. Guard Remix in the More Rovo options menu with the same cached
+  callback, keeping blocked feedback mounted and preserving the original action when credits are
+  available.
+- Updated dependencies
+
+## 31.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 30.1.0
 
 ### Minor Changes

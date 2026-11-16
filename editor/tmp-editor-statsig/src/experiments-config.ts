@@ -120,14 +120,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-09-30
-	cc_editor_insm_outlier_events: {
-		defaultValue: 'control' | 'test';
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: (value: unknown) => value is 'control' | 'test';
-		values: ('control' | 'test')[];
-	};
 	// Added 2026-03-25
 	'editor_a11y__enghealth-46814_fy26': {
 		defaultValue: boolean;
@@ -234,13 +226,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: (value: unknown) => value is 'control' | 'test';
 		values: ('control' | 'test')[];
-	};
-	// Added 2025-06-05
-	platform_editor_block_controls_perf_optimization: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
 	};
 	// Added 2025-02-10
 	platform_editor_controls: {
@@ -786,15 +771,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-09-30
-	cc_editor_insm_outlier_events: createMultivariateExperiment({
-		productKeys: {
-			confluence: 'cc_editor_insm_outlier_events',
-		},
-		param: 'cohort',
-		values: ['control', 'test'],
-		defaultValue: 'control',
-	}),
 	// Added 2024-08-08
 	'example-boolean': createBooleanExperiment({
 		productKeys: {
@@ -903,7 +879,7 @@ export const editorExperimentsConfig: {
 		},
 		param: 'cohort',
 		values: ['control', 'variant1'],
-		defaultValue: 'control',
+		defaultValue: 'variant1',
 	}),
 	// Added 2026-07-21
 	confluence_cwr_3p_connection_suggested_prompts: createMultivariateExperiment({
@@ -953,14 +929,6 @@ export const editorExperimentsConfig: {
 	platform_editor_debounce_portal_provider: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_debounce_portal_provider',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-06-05
-	platform_editor_block_controls_perf_optimization: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_block_controls_perf_optimization',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

@@ -1,5 +1,65 @@
 # @atlaskit/editor-common
 
+## 135.1.0
+
+### Minor Changes
+
+- [`381ba99e12072`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/381ba99e12072) -
+  Add selection-preflight, item-ref, and popup relationship props to the exported
+  QuickInsertMenuItem. Forward Jira's optional cached credit-status callback for
+  jira_ai_ubp_enforcement_messaging and block depleted Ask Rovo slash-menu selection before the host
+  closes the menu. Keep Escape dismissal of blocked feedback inside the popup, preserve the editor
+  draft, and restore focus to the control that had focus before the popup opened after popup content
+  exits. Keep owned credit popups inside the registered menu focus boundary. Keep credit feedback
+  above the containing modal. Guard Remix in the More Rovo options menu with the same cached
+  callback, keeping blocked feedback mounted and preserving the original action when credits are
+  available.
+
+### Patch Changes
+
+- [`627dd84c1342a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/627dd84c1342a) -
+  Correct the review prompt localisation guidance to reference the current
+  add-suggestions-to-content skill.
+- Updated dependencies
+
+## 135.0.0
+
+### Major Changes
+
+- [`c1ec527d3ad2f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c1ec527d3ad2f) -
+  Require the fourth errorActionSubject argument in getNodeRenderer. Pass ACTION_SUBJECT.EDITOR for
+  Editor callers or ACTION_SUBJECT.RENDERER for Renderer callers. Support Renderer attribution in
+  the shared error boundary under platform_editor_loosely_lazy_migration.
+
+### Minor Changes
+
+- [`ba744a2a50a5b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ba744a2a50a5b) -
+  Add `createHeadingNumberer` at
+  `@atlaskit/editor-common/numbered-headings/create-heading-numberer`, which numbers headings one at
+  a time in document order. `getHeadingNumbers` now uses it and returns the same numbers.
+- [`c1ec527d3ad2f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c1ec527d3ad2f) -
+  Allow error boundary fallbacks to receive the caught error.
+
+### Patch Changes
+
+- [`2c0be8a7e39cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c0be8a7e39cf) -
+  Behind `platform-dst-top-layer`, the editor toolbar takes focus back only after a toolbar action
+  (an item pick, a trigger click or a close from code). On Escape and Tab, the browser moves focus.
+  On an outside press, focus goes where the user pressed, for example the editor. The toolbar's
+  keyboard navigation also ignores keys from a menu or popup inside the toolbar, so Escape closes
+  the menu and the arrow keys move inside it.
+- [`c1ec527d3ad2f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c1ec527d3ad2f) -
+  Use React.lazy with explicit loading and error boundaries for extension Quick Insert icons and
+  Element Browser when platform_editor_loosely_lazy_migration is enabled. Keep react-loadable when
+  the experiment is disabled.
+- Updated dependencies
+
+## 134.20.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 134.20.0
 
 ### Minor Changes

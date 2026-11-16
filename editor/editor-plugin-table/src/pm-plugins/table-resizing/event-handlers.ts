@@ -16,7 +16,6 @@ import type { GetEditorFeatureFlags } from '@atlaskit/editor-common/types/featur
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils/get-selection-rect';
-import { insm } from '@atlaskit/insm/api';
 
 import type { PluginInjectionAPI } from '../../types';
 import { stopKeyboardColumnResizing } from '../commands/column-resize';
@@ -66,8 +65,6 @@ export const handleMouseDown = (
 	}
 	const { isKeyboardResize } = getTablePluginState(state);
 	event.preventDefault();
-
-	insm.session?.startFeature('tableColumnResize');
 
 	const tr = view.state.tr;
 	tr.setMeta(META_KEYS.OVERFLOW_TRIGGER, {
@@ -171,12 +168,10 @@ export const handleMouseDown = (
 		const { dragging, resizeHandlePos } = getPluginState(state);
 		const { isTableHovered } = getTablePluginState(state);
 		if (resizeHandlePos === null) {
-			insm.session?.endFeature('tableColumnResize');
 			return stopResizing()(state, dispatch);
 		}
 
 		if (!pointsAtCell(state.doc.resolve(resizeHandlePos))) {
-			insm.session?.endFeature('tableColumnResize');
 			return;
 		}
 		// resizeHandlePos could be remapped via a collab change.
@@ -189,7 +184,6 @@ export const handleMouseDown = (
 
 		// If we let go in the same place we started, don't need to do anything.
 		if (dragging && clientX === dragging.startX) {
-			insm.session?.endFeature('tableColumnResize');
 			if (isKeyboardResize || !isTableHovered) {
 				/** if column resize had started via keyboard but continued by mouse
 				 *  or mouse pointer leaves the table but mouse button still pressed
@@ -283,7 +277,6 @@ export const handleMouseDown = (
 				})(tr);
 			}
 
-			insm.session?.endFeature('tableColumnResize');
 			if (isKeyboardResize || !isTableHovered) {
 				/** if column resize had started via keyboard but continued by mouse
 				 *  or mouse pointer leaves the table but mouse button still pressed

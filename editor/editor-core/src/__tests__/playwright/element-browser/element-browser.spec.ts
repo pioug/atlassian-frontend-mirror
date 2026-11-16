@@ -35,6 +35,7 @@ test.describe('ElementBrowser', () => {
 		const insertMenuModel = EditorInsertMenuModel.from(editor);
 		const elementBrowserModel = EditorModalElementBrowserModel.from(editor);
 
+		await toolbar.pinToTop();
 		await insertMenuModel.insertMenu.press('Enter');
 		await expect(toolbar.droplistContentMenuPopup).toBeVisible();
 		await expect(elementBrowserModel.searchInput).toBeFocused();

@@ -2,14 +2,22 @@
  * Exposure deduplication, batching, delivery, retry, and page-lifecycle persistence. Not part of the
  * public API.
  */
-import { ExposureDeduplicator } from './deduplication';
+import { ExposureDeduplicator, serializeExposureIdentity } from './deduplication';
+import {
+	BROWSER_EXPOSURE_KEY_PREFIX,
+	exposureDigest,
+	localExposureDigest,
+	type ExposureHasher,
+} from './digest';
 import {
 	defaultExposureEnvironment,
 	type ExposureEnvironment,
 	type ExposureResponse,
 	type ExposureStorage,
 } from './environment';
-import { encodeExportLogsRequest, type ExposureRecord } from './otlp';
+import type { ExposureMappingInput } from './mapper';
+import { DEFAULT_DEDUPE_MAX_KEYS, DEFAULT_DEDUPE_WINDOW_MS } from './options';
+import { encodeExportLogsRequest, type ExposureRecord, type OtlpLogRecord } from './otlp';
 import {
 	DELIVERY_MARKER_FRESH_MS,
 	DELIVERY_MARKER_KEY,
@@ -43,30 +51,34 @@ export interface ExposureDeliveryOptions {
 	readonly endpoint: string;
 	readonly batchSize: number;
 	readonly flushIntervalMs: number;
+	readonly dedupeMaxKeys?: number;
+	readonly dedupeWindowMs?: number;
 }
 
 export interface ExposureLogger {
 	/**
-	 * Queue an exposure unless its identity is within a deduplication window. `produce` runs only
-	 * when the exposure is queued.
+	 * Hash the captured identity for admission, then map a sanitized record synchronously.
 	 */
+	log(input: ExposureMappingInput, produce: () => ExposureRecord): void;
+	/** Compatibility overload for internal logger tests that exercise admission in isolation. */
 	log(identityKey: string, produce: () => ExposureRecord): void;
-	/** End every deduplication window, as a successful replacement requires. */
-	endDeduplicationWindows(): void;
+	/** Freeze queued counts before explicitly releasing all retained dedupe entries. */
+	clearExposureDeduplicationCache(): void;
 }
 
 /** The logger of a disabled client. It never touches network, storage, timers, or listeners. */
 export const NOOP_EXPOSURE_LOGGER: ExposureLogger = Object.freeze({
 	log: () => undefined,
-	endDeduplicationWindows: () => undefined,
+	clearExposureDeduplicationCache: () => undefined,
 });
 
 /** Create an enabled logger. Construction reclaims exposures persisted by earlier pages. */
 export function createExposureLogger(
 	options: ExposureDeliveryOptions,
 	environment: ExposureEnvironment = defaultExposureEnvironment(),
+	hash: ExposureHasher = exposureDigest,
 ): ExposureLogger {
-	return new DeliveringExposureLogger(options, environment);
+	return new DeliveringExposureLogger(options, environment, hash);
 }
 
 type DeliveryOutcome = 'delivered' | 'retryable' | 'terminal';
@@ -86,9 +98,16 @@ function discardBody(response: ExposureResponse): void {
 }
 
 class DeliveringExposureLogger implements ExposureLogger {
-	private readonly deduplicator = new ExposureDeduplicator();
+	private readonly deduplicator: ExposureDeduplicator;
 	private readonly storageKey: string;
 	private queue: QueuedExposure[] = [];
+	/** Only fixed-size keys are retained; counts remain bounded by the dedupe cache. */
+	private readonly queuedMetadata = new WeakMap<
+		QueuedExposure,
+		{ readonly key: string | null; finalized: boolean }
+	>();
+	private readonly hash: ExposureHasher;
+	private portableHashFailed = false;
 	/** When each exposure was queued or taken; a retry puts entries back ahead of newer ones. */
 	private readonly queuedOrder = new WeakMap<QueuedExposure, number>();
 	private nextQueuedOrder = 0;
@@ -111,13 +130,25 @@ class DeliveringExposureLogger implements ExposureLogger {
 	private persisted: ReadonlySet<QueuedExposure> | null = null;
 	private readonly options: ExposureDeliveryOptions;
 	private readonly environment: ExposureEnvironment;
+	/** One clock domain for this logger's lifetime. */
+	private readonly deduplicationClock: () => number;
 	/** Whether the page is hidden, so each exposure queued now is persisted when it is queued. */
 	private hidden = false;
 	private persistQueued = false;
 
-	constructor(options: ExposureDeliveryOptions, environment: ExposureEnvironment) {
+	constructor(
+		options: ExposureDeliveryOptions,
+		environment: ExposureEnvironment,
+		hash: ExposureHasher,
+	) {
+		this.hash = hash;
 		this.options = options;
 		this.environment = environment;
+		this.deduplicationClock = (environment.elapsedNow ?? environment.now).bind(environment);
+		this.deduplicator = new ExposureDeduplicator(
+			options.dedupeMaxKeys ?? DEFAULT_DEDUPE_MAX_KEYS,
+			options.dedupeWindowMs ?? DEFAULT_DEDUPE_WINDOW_MS,
+		);
 		this.storageKey = `${STORAGE_KEY_PREFIX}${environment.newInstanceId()}`;
 		// A take found by either callback cancels any retry, so exposures it was holding back are
 		// scheduled. Registration comes before the reclaim, so a registration that throws leaves other
@@ -144,17 +175,53 @@ class DeliveringExposureLogger implements ExposureLogger {
 		this.deliver();
 	}
 
-	log(identityKey: string, produce: () => ExposureRecord): void {
-		if (!this.deduplicator.admit(identityKey, this.environment.now())) return;
+	log(inputOrIdentityKey: ExposureMappingInput | string, produce: () => ExposureRecord): void {
+		const legacyIdentity = typeof inputOrIdentityKey === 'string';
+		const identity = legacyIdentity
+			? inputOrIdentityKey
+			: serializeExposureIdentity(inputOrIdentityKey);
+		let key: string | null = legacyIdentity ? identity : null;
+		if (!legacyIdentity && identity !== null) {
+			if (!this.portableHashFailed) {
+				try {
+					key = this.hash(identity) ?? null;
+				} catch {
+					// Keep a local admission path when the portable hasher fails.
+				}
+				if (key === null) this.portableHashFailed = true;
+			}
+			if (this.portableHashFailed) key = localExposureDigest(identity) ?? null;
+		}
+		// Neither digest is available: do not turn a hashing failure into unlimited telemetry.
+		if (!legacyIdentity && identity !== null && key === null) return;
+		if (key !== null && !this.deduplicator.admit(key, this.deduplicationTime())) return;
 		let record: ExposureRecord;
 		try {
 			record = produce();
 		} catch {
-			// Nothing was queued, so the identity must not stay suppressed, and the failure stays here.
-			this.deduplicator.forget(identityKey);
+			// Mapping failure does not roll back the admitted attempt.
 			return;
 		}
-		this.queue.push(this.track({ record, attempts: 0 }));
+		const entry = this.track({ record, attempts: 0 });
+		if (!legacyIdentity) this.queuedMetadata.set(entry, { key, finalized: false });
+		if (!legacyIdentity) {
+			const logRecord = entry.record.logRecord as OtlpLogRecord;
+			const wireKey = key?.startsWith(BROWSER_EXPOSURE_KEY_PREFIX) ? key : null;
+			entry.record = {
+				...entry.record,
+				logRecord: {
+					...logRecord,
+					attributes: [
+						...logRecord.attributes,
+						...(wireKey === null
+							? []
+							: [{ key: 'atl.feature_flag.deduplication_key', value: { stringValue: wireKey } }]),
+						{ key: 'atl.feature_flag.sdk.dedupe.item.count', value: { intValue: '1' } },
+					],
+				},
+			};
+		}
+		this.queue.push(entry);
 		this.trim();
 		// A hidden page can be discarded without another hidden signal, so persist the exposure before
 		// this task ends. A page is never frozen or discarded mid-task, so one write covers the task.
@@ -171,7 +238,18 @@ class DeliveringExposureLogger implements ExposureLogger {
 		this.scheduleAfterLog();
 	}
 
-	endDeduplicationWindows(): void {
+	private deduplicationTime(): number {
+		try {
+			const now = this.deduplicationClock();
+			return Number.isFinite(now) ? now : NaN;
+		} catch {
+			return NaN;
+		}
+	}
+
+	clearExposureDeduplicationCache(): void {
+		// In-flight records already have frozen counts. Preserve unsent records before clearing.
+		this.finalizeItemCounts(this.queue);
 		this.deduplicator.clear();
 	}
 
@@ -246,9 +324,14 @@ class DeliveringExposureLogger implements ExposureLogger {
 		const fetch = this.environment.fetch;
 		// Without `fetch`, retrying could never succeed, so an explicitly enabled client stops here.
 		if (fetch === undefined) return 'terminal';
+		this.finalizeItemCounts(batch);
+		// Persistence synchronization may discover that another logger took these entries.
+		const owned = new Set(this.inFlight ?? []);
+		const sendable = batch.filter((entry) => owned.has(entry));
+		if (sendable.length === 0) return 'terminal';
 		let body: string;
 		try {
-			body = JSON.stringify(encodeExportLogsRequest(batch.map((entry) => entry.record)));
+			body = JSON.stringify(encodeExportLogsRequest(sendable.map((entry) => entry.record)));
 		} catch {
 			// A batch that cannot be encoded can never be sent, so it is discarded like a terminal status.
 			return 'terminal';
@@ -284,6 +367,31 @@ class DeliveringExposureLogger implements ExposureLogger {
 		} finally {
 			this.environment.clearTimeout(timer);
 		}
+	}
+
+	/** Drain once before first serialization; retries retain the original exported count. */
+	private finalizeItemCounts(batch: readonly QueuedExposure[]): void {
+		for (const entry of batch) {
+			const metadata = this.queuedMetadata.get(entry);
+			// Reclaimed records retain their writer's schema and any already frozen count.
+			if (metadata === undefined || metadata.finalized) continue;
+			const logRecord = entry.record.logRecord as OtlpLogRecord;
+			const count = metadata?.key == null ? 1 : this.deduplicator.drainItemCount(metadata.key);
+			entry.record = {
+				...entry.record,
+				logRecord: {
+					...logRecord,
+					attributes: [
+						...logRecord.attributes.filter(
+							(attribute) => attribute.key !== 'atl.feature_flag.sdk.dedupe.item.count',
+						),
+						{ key: 'atl.feature_flag.sdk.dedupe.item.count', value: { intValue: String(count) } },
+					],
+				},
+			};
+			if (metadata !== undefined) metadata.finalized = true;
+		}
+		this.syncPersisted();
 	}
 
 	/** Settle the in-flight batch, less any entries another instance took while it was in flight. */
@@ -369,7 +477,10 @@ class DeliveringExposureLogger implements ExposureLogger {
 		if (!this.isFailing() || this.queue.length <= MAX_QUEUED_WHILE_FAILING) return false;
 		const orders = this.queue.map(this.order).sort((a, b) => b - a);
 		const oldestKept = orders[MAX_QUEUED_WHILE_FAILING - 1] ?? 0;
-		this.queue = this.queue.filter((entry) => this.order(entry) >= oldestKept);
+		this.queue = this.queue.filter((entry) => {
+			if (this.order(entry) >= oldestKept) return true;
+			return false;
+		});
 		return true;
 	}
 
@@ -437,7 +548,10 @@ class DeliveringExposureLogger implements ExposureLogger {
 			return false;
 		}
 		if (present) return false;
-		const isOwned = (entry: QueuedExposure): boolean => !persisted.has(entry);
+		const isOwned = (entry: QueuedExposure): boolean => {
+			if (!persisted.has(entry)) return true;
+			return false;
+		};
 		this.queue = this.queue.filter(isOwned);
 		if (this.inFlight !== null) this.inFlight = this.inFlight.filter(isOwned);
 		this.persisted = null;

@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 31.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.0.19
+
+### Patch Changes
+
+- [`e2b5df4f05fe3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e2b5df4f05fe3) -
+  Cleanup experiment `platform_editor_block_controls_perf_optimization`. The experiment shipped with
+  `isEnabled: true` to all tenants. Test overrides and config definitions removed from
+  `tmp-editor-statsig`. No behaviour change.
+- Updated dependencies
+
 ## 30.0.18
 
 ### Patch Changes

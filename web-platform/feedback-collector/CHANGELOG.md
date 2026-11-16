@@ -1,5 +1,14 @@
 # @atlaskit/feedback-collector
 
+## 16.18.0
+
+### Minor Changes
+
+- [`02f6d024ef4fa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/02f6d024ef4fa) -
+  Add an optional `width` prop to `FeedbackCollector` and `FeedbackForm`. It accepts the named sizes
+  of `@atlaskit/modal-dialog` (`small`, `medium`, `large` or `x-large`) and is passed to the modal
+  dialog. When it is not set the dialog keeps its current default width.
+
 ## 16.17.0
 
 ### Minor Changes

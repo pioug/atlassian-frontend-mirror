@@ -2,7 +2,6 @@ import '@atlaskit/link-test-helpers/jest';
 import React from 'react';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { render } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
@@ -47,12 +46,8 @@ describe('FollowAction', () => {
 		});
 	});
 
-	describe.each([
-		['on', passGate],
-		['off', failGate],
-	])('stack item icon when platform_sl_replace_react_loadable is %s', (_, setGate) => {
+	describe('stack item icon', () => {
 		it('renders the lazily loaded follow icon', async () => {
-			setGate('platform_sl_replace_react_loadable');
 			setup({ as: 'stack-item' });
 
 			expect(

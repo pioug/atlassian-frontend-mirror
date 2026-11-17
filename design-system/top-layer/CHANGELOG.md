@@ -1,5 +1,26 @@
 # @atlaskit/top-layer
 
+## 8.1.0
+
+### Minor Changes
+
+- [`6594fc2cf92b4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6594fc2cf92b4) -
+  `Popover` and `Dialog` now show before their content's effects run, so content `autoFocus` and
+  `focus()` calls work, and `applyInitialFocus` keeps focus that is already inside, also over an
+  `initialFocusRef` target.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.0.1
+
+### Patch Changes
+
+- [`9091431abbf3e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9091431abbf3e) -
+  On the top layer, Tab in a dialog now moves through open nested menus and popups, unless they are
+  dialogs themselves.
+
 ## 8.0.0
 
 ### Major Changes

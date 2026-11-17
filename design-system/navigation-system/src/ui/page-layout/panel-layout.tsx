@@ -54,7 +54,8 @@ export type PanelLayoutProps = {
 	panelWidth?: number;
 	/**
 	 * Initial preferred width in pixels; subsequent changes are ignored.
-	 * Defaults to 365, or 400 with chat layout enabled.
+	 * Defaults to 365, or 400 with chat layout enabled (500 at XL and above).
+	 * An explicit value also supplies the compact and XL defaults unless separately overridden.
 	 * After a user resize, one preferred width is retained across inline and overlay modes.
 	 * Available space can constrain the rendered width without overwriting that preference.
 	 */
@@ -64,6 +65,12 @@ export type PanelLayoutProps = {
 	 * Used only until a controlled width or user resize supplies a preference.
 	 */
 	compactDefaultPanelWidth?: number;
+	/**
+	 * Default at XL viewports (110.5rem / 1768px and above), with chat layout enabled.
+	 * Defaults to 500, or an explicitly supplied defaultPanelWidth.
+	 * Captured on mount; controlled and user-resized widths take precedence.
+	 */
+	xlDefaultPanelWidth?: number;
 	/**
 	 * Minimum width in pixels. Defaults to 320. With chat layout enabled, overlays retain this minimum.
 	 */
@@ -96,6 +103,7 @@ function CoordinatedPanelLayout({
 	panelWidth,
 	defaultPanelWidth,
 	compactDefaultPanelWidth,
+	xlDefaultPanelWidth,
 	panelMinWidth: suppliedMinWidth,
 	panelMaxWidth,
 	onPanelWidthChange,
@@ -134,6 +142,11 @@ function CoordinatedPanelLayout({
 				? defaults.compactPanelWidth
 				: (panelWidth ?? defaults.compactPanelWidth)),
 	);
+	const [xlWidth] = useState(
+		fg('platform-dst-chat-panel-layout')
+			? (xlDefaultPanelWidth ?? defaultPanelWidth ?? 500)
+			: defaultWidth,
+	);
 	// Use the controlled request before measurement too, without changing the mount-time default.
 	const fallbackWidth = Math.max(
 		panelMinWidth,
@@ -147,6 +160,7 @@ function CoordinatedPanelLayout({
 				requestedWidth: panelWidth,
 				defaultWidth,
 				compactDefaultWidth: compactWidth,
+				xlDefaultWidth: xlWidth,
 				minWidth: panelMinWidth,
 				maxWidth: panelMaxWidth,
 			},
@@ -192,6 +206,11 @@ function CoordinatedPanelLayout({
 			isPanelOpen={isPanelOpen}
 			panelWidth={state?.width ?? fallbackWidth}
 			defaultPanelWidth={defaultWidth}
+			xlDefaultPanelWidth={xlWidth}
+			xlPanelWidth={Math.max(
+				panelMinWidth,
+				Math.min(panelWidth ?? xlWidth, panelMaxWidth ?? Infinity),
+			)}
 			compactDefaultPanelWidth={compactWidth}
 			compactPanelWidth={Math.max(
 				panelMinWidth,
@@ -200,7 +219,7 @@ function CoordinatedPanelLayout({
 			panelMinWidth={panelMinWidth}
 			mode={state?.mode}
 			layoutRef={layoutRef}
-			shouldClipOverflow={isMotionEnabled}
+			isMotionEnabled={isMotionEnabled}
 			testId={testId}
 			panel={isMotionEnabled ? <ExitingPersistence>{surface}</ExitingPersistence> : surface}
 		>
@@ -234,6 +253,7 @@ export function PanelLayout(props: PanelLayoutProps): JSX.Element {
 			panelWidth={props.panelWidth}
 			defaultPanelWidth={props.defaultPanelWidth}
 			compactDefaultPanelWidth={props.compactDefaultPanelWidth}
+			xlDefaultPanelWidth={props.xlDefaultPanelWidth}
 			panelMinWidth={props.panelMinWidth}
 			panelMaxWidth={props.panelMaxWidth}
 			onPanelWidthChange={props.onPanelWidthChange}

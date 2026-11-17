@@ -20,7 +20,6 @@ import {
 	isSelectionTableNestedInTable,
 } from '@atlaskit/editor-common/nesting';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
-import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type { Command, CommandDispatch } from '@atlaskit/editor-common/types/command';
 import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types/editor-container-width';
 import type {
@@ -33,9 +32,6 @@ import type {
 	Icon,
 	typeOption,
 } from '@atlaskit/editor-common/types/floating-toolbar';
-import { cellBackgroundColorPaletteNew } from '@atlaskit/editor-common/ui-color';
-import cellBackgroundColorPalette from '@atlaskit/editor-common/ui-color/ColorPalette/cellBackgroundColorPalette';
-import { DEFAULT_BORDER_COLOR } from '@atlaskit/editor-common/ui-color/ColorPalette/Palettes/common';
 import { getNodeName } from '@atlaskit/editor-common/utils';
 import { closestElement } from '@atlaskit/editor-common/utils/dom';
 import { getChildrenInfo, isReferencedSource } from '@atlaskit/editor-common/utils/referentiality';
@@ -59,7 +55,6 @@ import DeleteIcon from '@atlaskit/icon/core/delete';
 import ShrinkHorizontalIcon from '@atlaskit/icon/core/shrink-horizontal';
 import TableColumnsDistributeIcon from '@atlaskit/icon/core/table-columns-distribute';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {
@@ -79,7 +74,6 @@ import {
 	insertColumnWithAnalytics,
 	insertRowWithAnalytics,
 	mergeCellsWithAnalytics,
-	setColorWithAnalytics,
 	setTableAlignmentWithAnalytics,
 	sortColumnWithAnalytics,
 	splitCellWithAnalytics,
@@ -112,7 +106,6 @@ import type {
 	ToolbarMenuState,
 } from '../types';
 import { TableCssClassName } from '../types';
-import { colorPaletteColumns, colorPalletteColumns } from './consts';
 import { FloatingAlignmentButtons } from './FloatingAlignmentButtons/FloatingAlignmentButtons';
 
 export const getToolbarMenuConfig = (
@@ -551,31 +544,27 @@ export const getToolbarConfig =
 		const isTableScalingEnabled = options?.isTableScalingEnabled || false;
 		const nodeType = state.schema.nodes.table;
 		const toolbarTitle = 'Table floating controls';
-		const areAnyNewToolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(api?.toolbar));
 
-		if (editorExperiment('platform_editor_controls', 'variant1')) {
-			const {
-				isDragMenuOpen: isDragHandleMenuOpened = false,
-				isDragging: isTableRowOrColumnDragged = false,
-			} = getDragDropPluginState(state);
+		const {
+			isDragMenuOpen: isDragHandleMenuOpened = false,
+			isDragging: isTableRowOrColumnDragged = false,
+		} = getDragDropPluginState(state);
 
-			const isTableOrColumnResizing = !!(resizeState?.dragging || tableWidthState?.resizing);
-			const isTableMenuOpened = pluginState.isContextualMenuOpen || isDragHandleMenuOpened;
-			const isTableState =
-				isTableRowOrColumnDragged || isTableOrColumnResizing || isTableMenuOpened;
-			const isViewMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
+		const isTableOrColumnResizing = !!(resizeState?.dragging || tableWidthState?.resizing);
+		const isTableMenuOpened = pluginState.isContextualMenuOpen || isDragHandleMenuOpened;
+		const isTableState = isTableRowOrColumnDragged || isTableOrColumnResizing || isTableMenuOpened;
+		const isViewMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
 
-			// Note: when focus is in codeblocks, pluginState.editorHasFocus is false, so the codeblocks toolbar
-			// won't be suppressed.
-			const shouldSuppressAllToolbars = isTableState && pluginState.editorHasFocus && !isViewMode;
+		// Note: when focus is in codeblocks, pluginState.editorHasFocus is false, so the codeblocks toolbar
+		// won't be suppressed.
+		const shouldSuppressAllToolbars = isTableState && pluginState.editorHasFocus && !isViewMode;
 
-			if (shouldSuppressAllToolbars) {
-				return {
-					title: toolbarTitle,
-					items: [],
-					nodeType,
-				};
-			}
+		if (shouldSuppressAllToolbars) {
+			return {
+				title: toolbarTitle,
+				items: [],
+				nodeType,
+			};
 		}
 
 		// We don't want to show floating toolbar while resizing the table
@@ -614,7 +603,6 @@ export const getToolbarConfig =
 							getEditorContainerWidth,
 							editorView,
 							shouldUseIncreasedScalingPercent,
-							areAnyNewToolbarFlagsEnabled,
 							options?.fullWidthEnabled,
 							options?.isCommentEditor,
 						)
@@ -634,10 +622,6 @@ export const getToolbarConfig =
 				options?.isCommentEditor,
 				isLimitedModeEnabled,
 			);
-
-			const colorPicker = !areAnyNewToolbarFlagsEnabled
-				? getColorPicker(state, menu, intl, editorAnalyticsAPI, getEditorView)
-				: [];
 
 			const fitToContentButton: Array<FloatingToolbarItem<Command>> =
 				isContentModeSupported({
@@ -684,38 +668,6 @@ export const getToolbarConfig =
 				});
 			}
 
-			const deleteButton = {
-				id: 'editor.table.delete',
-				type: 'button' as const,
-				appearance: 'danger',
-				icon: DeleteIcon,
-				onClick: deleteTableWithAnalytics(editorAnalyticsAPI),
-				disabled: !!resizeState && !!resizeState.dragging,
-				onMouseEnter: hoverTable(true),
-				onFocus: hoverTable(true),
-				onBlur: clearHoverSelection(),
-				onMouseLeave: clearHoverSelection(),
-				title: intl.formatMessage(commonMessages.remove),
-				focusEditoronEnter: true,
-				confirmDialog,
-			};
-
-			const copyButton = {
-				type: 'copy-button',
-				supportsViewMode: true,
-				items: [
-					{
-						state,
-						formatMessage: intl.formatMessage,
-						nodeType,
-						onMouseEnter: hoverTable(false, true),
-						onMouseLeave: clearHoverSelection(),
-						onFocus: hoverTable(false, true),
-						onBlur: clearHoverSelection(),
-					},
-				],
-			};
-
 			const isNestedTable =
 				isNestedTablesSupported(state.schema) && isSelectionTableNestedInTable(state);
 
@@ -742,109 +694,78 @@ export const getToolbarConfig =
 				zIndex: akEditorFloatingPanelZIndex + 1, // Place the context menu slightly above the others
 				items: [
 					menu,
-					...(!areAnyNewToolbarFlagsEnabled ? [separator(menu.hidden)] : []),
 					...alignmentMenu,
-					...(!areAnyNewToolbarFlagsEnabled ? [separator(alignmentMenu.length === 0)] : []),
 					...columnSettingsItems,
 					...fitToContentButton,
-					...colorPicker,
-					...((!areAnyNewToolbarFlagsEnabled
-						? ([
-								{
-									type: 'extensions-placeholder',
-									separator: 'end',
-								},
-								copyButton,
-								{ type: 'separator' },
-								deleteButton,
-							] as Array<FloatingToolbarItem<Command>>)
-						: [
-								areAnyNewToolbarFlagsEnabled && { type: 'separator', fullHeight: true },
-								{
-									type: 'overflow-dropdown',
-									testId: overflowDropdownTestId,
-									dropdownWidth: 220,
-									options: [
-										{
-											type: 'custom',
-											fallback: [],
-											render: (editorView, dropdownOptions) => {
-												if (!editorView) {
-													return null;
-												}
+					{ type: 'separator', fullHeight: true },
+					{
+						type: 'overflow-dropdown',
+						testId: overflowDropdownTestId,
+						dropdownWidth: 220,
+						options: [
+							{
+								type: 'custom',
+								fallback: [],
+								render: (editorView, dropdownOptions) => {
+									if (!editorView) {
+										return null;
+									}
 
-												if (!extensionApi || !extensionState?.extensionProvider) {
-													return null;
-												}
+									if (!extensionApi || !extensionState?.extensionProvider) {
+										return null;
+									}
 
+									return (
+										<DropdownMenuExtensionItems
+											node={tableObject.node}
+											editorView={editorView}
+											// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+											extension={{
+												extensionProvider: extensionState?.extensionProvider
+													? Promise.resolve(extensionState.extensionProvider)
+													: undefined,
+												extensionApi: extensionApi,
+											}}
+											dropdownOptions={dropdownOptions}
+											// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+											disabled={(key: string) => {
 												return (
-													<DropdownMenuExtensionItems
-														node={tableObject.node}
-														editorView={editorView}
-														// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-														extension={{
-															extensionProvider: extensionState?.extensionProvider
-																? Promise.resolve(extensionState.extensionProvider)
-																: undefined,
-															extensionApi: extensionApi,
-														}}
-														dropdownOptions={dropdownOptions}
-														// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-														disabled={(key: string) => {
-															return (
-																isNestedTable &&
-																['referentiality:connections', 'chart:insert-chart'].includes(key)
-															);
-														}}
-														areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
-													/>
+													isNestedTable &&
+													['referentiality:connections', 'chart:insert-chart'].includes(key)
 												);
-											},
-										},
-										...(extensionApi &&
-										extensionState?.extensionProvider &&
-										!areAnyNewToolbarFlagsEnabled
-											? [{ type: 'separator' }]
-											: []),
-										{
-											title: intl.formatMessage(commonMessages.copyToClipboard),
-											onClick: () => {
-												api?.core?.actions.execute(
-													// @ts-ignore
-													api?.floatingToolbar?.commands.copyNode(
-														nodeType,
-														INPUT_METHOD.FLOATING_TB,
-													),
-												);
-												return true;
-											},
-											icon: <CopyIcon label={intl.formatMessage(commonMessages.copyToClipboard)} />,
-											...hoverTableProps(false, true),
-										},
-										{
-											title: intl.formatMessage(commonMessages.delete),
-											onClick: deleteTableWithAnalytics(editorAnalyticsAPI),
-											icon: <DeleteIcon label={intl.formatMessage(commonMessages.delete)} />,
-											...hoverTableProps(true),
-											confirmDialog,
-										},
-									],
+											}}
+										/>
+									);
 								},
-							]) as Array<FloatingToolbarItem<Command>>),
-				],
+							},
+							{
+								title: intl.formatMessage(commonMessages.copyToClipboard),
+								onClick: () => {
+									api?.core?.actions.execute(
+										// @ts-ignore
+										api?.floatingToolbar?.commands.copyNode(nodeType, INPUT_METHOD.FLOATING_TB),
+									);
+									return true;
+								},
+								icon: <CopyIcon label={intl.formatMessage(commonMessages.copyToClipboard)} />,
+								...hoverTableProps(false, true),
+							},
+							{
+								title: intl.formatMessage(commonMessages.delete),
+								onClick: deleteTableWithAnalytics(editorAnalyticsAPI),
+								icon: <DeleteIcon label={intl.formatMessage(commonMessages.delete)} />,
+								...hoverTableProps(true),
+								confirmDialog,
+							},
+						],
+					},
+				] as Array<FloatingToolbarItem<Command>>,
 				scrollable: true,
 			};
 		}
 
 		return;
 	};
-
-const separator = (hidden?: boolean): FloatingToolbarItem<Command> => {
-	return {
-		type: 'separator',
-		hidden: hidden,
-	};
-};
 
 const getDistributeConfig =
 	(
@@ -921,65 +842,7 @@ const getColumnSettingItems = (
 		});
 	}
 
-	if (items.length !== 0 && !areToolbarFlagsEnabled(Boolean(api?.toolbar))) {
-		items.push({
-			type: 'separator',
-		});
-	}
-
 	return items;
-};
-
-const getColorPicker = (
-	state: EditorState,
-	menu: FloatingToolbarItem<Command>,
-	{ formatMessage }: ToolbarMenuContext,
-	editorAnalyticsAPI: EditorAnalyticsAPI | null | undefined,
-	getEditorView: () => EditorView | null,
-): Array<FloatingToolbarItem<Command>> => {
-	const { targetCellPosition, pluginConfig } = getPluginState(state);
-	if (!pluginConfig.allowBackgroundColor) {
-		return [];
-	}
-	const node = targetCellPosition ? state.doc.nodeAt(targetCellPosition) : undefined;
-	const currentBackground = node?.attrs?.background || '#ffffff';
-	const isMoreColorsEnabled = expValEquals(
-		'platform_editor_lovability_text_bg_color',
-		'isEnabled',
-		true,
-	);
-	const activePalette = isMoreColorsEnabled
-		? cellBackgroundColorPaletteNew
-		: cellBackgroundColorPalette;
-	const defaultPalette = activePalette.find((item) => item.value === currentBackground) || {
-		// eslint-disable-next-line @atlassian/i18n/no-literal-string-in-object
-		label: 'Custom',
-		value: currentBackground,
-		border: DEFAULT_BORDER_COLOR,
-	};
-
-	return [
-		{
-			id: 'editor.table.colorPicker',
-			title: formatMessage(messages.cellBackground),
-			type: 'select',
-			isAriaExpanded: true,
-			selectType: 'color',
-			cols: isMoreColorsEnabled ? colorPaletteColumns : colorPalletteColumns,
-			defaultValue: defaultPalette,
-			options: activePalette,
-			returnEscToButton: true,
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			onChange: (option: any) =>
-				setColorWithAnalytics(editorAnalyticsAPI)(
-					INPUT_METHOD.FLOATING_TB,
-					option.value,
-					getEditorView(),
-				),
-		},
-		separator(menu.hidden),
-	];
 };
 
 const clickWithCheckboxHandler =
@@ -1032,7 +895,6 @@ const getAlignmentOptionsConfig = (
 	getEditorContainerWidth: GetEditorContainerWidth,
 	editorView: EditorView | null,
 	shouldUseIncreasedScalingPercent: boolean,
-	areAnyNewToolbarFlagsEnabled: boolean,
 	isFullWidthEditor?: boolean,
 	isCommentEditor?: boolean,
 ): Array<FloatingToolbarDropdown<Command>> => {
@@ -1111,7 +973,6 @@ const getAlignmentOptionsConfig = (
 					// Ignored via go/ees005
 					// eslint-disable-next-line react/jsx-props-no-spreading
 					{...props}
-					areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 				/>
 			);
 		},

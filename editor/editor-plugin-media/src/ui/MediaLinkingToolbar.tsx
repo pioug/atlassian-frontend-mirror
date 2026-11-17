@@ -33,7 +33,6 @@ import EditorUnlinkIcon from '@atlaskit/icon/core/link-broken';
 import { token } from '@atlaskit/tokens';
 
 type Props = {
-	areAnyNewToolbarFlagsEnabled: boolean;
 	displayUrl?: string;
 	editing: boolean;
 	intl: IntlShape;
@@ -186,7 +185,6 @@ class LinkAddToolbar extends React.PureComponent<Props & WrappedComponentProps> 
 										);
 									}
 								}}
-								areAnyNewToolbarFlagsEnabled={this.props.areAnyNewToolbarFlagsEnabled}
 							/>
 						</span>
 						<PanelTextInput
@@ -217,7 +215,7 @@ class LinkAddToolbar extends React.PureComponent<Props & WrappedComponentProps> 
 						</label>
 						{normalizeUrl(displayUrl) && (
 							<Fragment>
-								<Separator areAnyNewToolbarFlagsEnabled={this.props.areAnyNewToolbarFlagsEnabled} />
+								<Separator />
 								<Button
 									title={formatUnlinkText}
 									icon={<EditorUnlinkIcon label={formatUnlinkText} />}
@@ -230,7 +228,6 @@ class LinkAddToolbar extends React.PureComponent<Props & WrappedComponentProps> 
 											this.handleUnlink(true);
 										}
 									}}
-									areAnyNewToolbarFlagsEnabled={this.props.areAnyNewToolbarFlagsEnabled}
 								/>
 							</Fragment>
 						)}

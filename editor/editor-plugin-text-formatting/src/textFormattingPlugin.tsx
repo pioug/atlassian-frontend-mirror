@@ -9,7 +9,6 @@ import { underline } from '@atlaskit/adf-schema/underline';
 import type { Command } from '@atlaskit/editor-common/types/command';
 import type { FloatingToolbarCustom } from '@atlaskit/editor-common/types/floating-toolbar';
 import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types/toolbar';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import {
 	toggleCodeWithAnalytics,
@@ -148,10 +147,7 @@ export const textFormattingPlugin: TextFormattingPlugin = ({ config: options, ap
 						const toolbarDocking =
 							api?.userPreferences?.sharedState.currentState()?.preferences?.toolbarDockingPosition;
 
-						if (
-							toolbarDocking === 'none' &&
-							editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
-						) {
+						if (toolbarDocking === 'none') {
 							const toolbarCustom: FloatingToolbarCustom<Command> = {
 								type: 'custom',
 								render: (view) => {

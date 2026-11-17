@@ -21,7 +21,6 @@ import { canLinkBeCreatedInRange } from '@atlaskit/editor-common/utils';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import LinkIcon from '@atlaskit/icon/core/link';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import {
 	hideLinkToolbarSetMeta,
@@ -216,10 +215,7 @@ export const hyperlinkPlugin: HyperlinkPlugin = ({ config: options = {}, api }) 
 					const toolbarDocking =
 						api?.userPreferences?.sharedState.currentState()?.preferences.toolbarDockingPosition;
 
-					if (
-						toolbarDocking === 'none' &&
-						editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
-					) {
+					if (toolbarDocking === 'none') {
 						const toolbarButton = () => {
 							const { from, to } = state.selection;
 							const isEnabled = canLinkBeCreatedInRange(from, to)(state);
@@ -253,11 +249,7 @@ export const hyperlinkPlugin: HyperlinkPlugin = ({ config: options = {}, api }) 
 			}),
 
 			...(!isToolbarAIFCEnabled && {
-				primaryToolbarComponent:
-					!api?.primaryToolbar &&
-					editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
-						? primaryToolbarComponent
-						: undefined,
+				primaryToolbarComponent: !api?.primaryToolbar ? primaryToolbarComponent : undefined,
 			}),
 		},
 	};

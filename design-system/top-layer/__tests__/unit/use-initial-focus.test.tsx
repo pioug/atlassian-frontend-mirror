@@ -3,7 +3,7 @@ import React from 'react';
 import { bind } from 'bind-event-listener';
 
 import { screen } from '@atlassian/testing-library/screen';
-import { render } from '@atlassian/testing-library/testing-library/react';
+import { act, render } from '@atlassian/testing-library/testing-library/react';
 
 import { Popover } from '../../src/popover/popover';
 
@@ -667,11 +667,12 @@ describe('useInitialFocus (via Popover)', () => {
 		expect(screen.getByTestId('dialog-button')).not.toHaveFocus();
 	});
 
-	it('still moves focus into a dialog popup that contains a focused combobox', () => {
+	it('keeps focus that the content moved to a combobox inside the dialog popup', () => {
 		// The combobox and its listbox are both inside the dialog, so the
 		// combobox does not control the dialog. The content focuses the
-		// combobox in its own layout effect, which runs before Popover's (as
-		// react-select's `autoFocus` does in `componentDidMount`).
+		// combobox in its own layout effect (as react-select's `autoFocus` does
+		// in `componentDidMount`). The popover has shown by then, so the call
+		// works, and initial focus leaves it there.
 		function InnerCombobox() {
 			const ref = React.useRef<HTMLInputElement>(null);
 			React.useLayoutEffect(() => {
@@ -710,7 +711,7 @@ describe('useInitialFocus (via Popover)', () => {
 
 		rerender(<TestDialogWithCombobox isOpen={true} />);
 
-		expect(screen.getByTestId('first-button')).toHaveFocus();
+		expect(screen.getByTestId('inner-input')).toHaveFocus();
 	});
 
 	it('re-focuses the first menu item on exiting → entering reopen (Escape-then-reopen flow)', () => {
@@ -794,12 +795,12 @@ describe('initialFocusRef (via Popover)', () => {
 		);
 	}
 
-	it('focuses the target instead of the [autofocus] element for a dialog', () => {
+	it('focuses the [autofocus] element over the target, as the browser step does', () => {
 		const { rerender } = render(<TestDialogWithTarget isOpen={false} />);
 
 		rerender(<TestDialogWithTarget isOpen={true} />);
 
-		expect(screen.getByTestId('target-button')).toHaveFocus();
+		expect(screen.getByTestId('autofocus-button')).toHaveFocus();
 	});
 
 	function getFocusedTestIdsDuring(action: () => void): Array<string | null> {
@@ -830,16 +831,34 @@ describe('initialFocusRef (via Popover)', () => {
 		expect(focusedTestIds).toEqual(['target-button']);
 	});
 
-	it('moves focus to the target after the native popover autofocus step', () => {
-		// `showPopover()` focuses the first `[autofocus]` element itself (the popover
-		// focusing steps), before any effect runs. The target then takes focus.
+	it('moves focus once, to an [autofocus] element that a ref callback marked', () => {
+		// The popover shows before the content's ref callbacks run, so the browser's `[autofocus]`
+		// step does not see the attribute. The popover runs that step once the content has
+		// committed, and initial focus then leaves focus inside.
 		const { rerender } = render(<TestDialogWithTarget isOpen={false} />);
 
 		const focusedTestIds = getFocusedTestIdsDuring(() => {
 			rerender(<TestDialogWithTarget isOpen={true} />);
 		});
 
-		expect(focusedTestIds).toEqual(['autofocus-button', 'target-button']);
+		expect(focusedTestIds).toEqual(['autofocus-button']);
+	});
+
+	it('keeps the focus of the browser [autofocus] step over the target on a reopen during the exit', async () => {
+		// The host stays mounted during the exit, so the attribute is there when the popover shows
+		// again. The browser focuses that element, and initial focus leaves focus inside.
+		const { rerender } = render(<TestDialogWithTarget isOpen={false} isAnimated={true} />);
+		rerender(<TestDialogWithTarget isOpen={true} isAnimated={true} />);
+		screen.getByTestId('autofocus-button').blur();
+		rerender(<TestDialogWithTarget isOpen={false} isAnimated={true} />);
+
+		rerender(<TestDialogWithTarget isOpen={true} isAnimated={true} />);
+
+		expect(screen.getByTestId('autofocus-button')).toHaveFocus();
+		// Let the animated entry settle inside `act`.
+		await act(async () => {
+			await new Promise((resolve) => setTimeout(resolve, 0));
+		});
 	});
 
 	it('focuses the role default when the ref holds no element', () => {
@@ -995,35 +1014,37 @@ describe('initialFocusRef (via Popover)', () => {
 	});
 
 	it('does not re-focus the target on later renders in the same open cycle', () => {
-		const { rerender } = render(<TestDialogWithTarget isOpen={false} />);
+		const { rerender } = render(<TestDialogWithTarget isOpen={false} hasNativeDefault={false} />);
 
-		rerender(<TestDialogWithTarget isOpen={true} />);
+		rerender(<TestDialogWithTarget isOpen={true} hasNativeDefault={false} />);
 		expect(screen.getByTestId('target-button')).toHaveFocus();
 
 		const first = screen.getByTestId('first-button');
 		first.focus();
 
-		rerender(<TestDialogWithTarget isOpen={true} />);
+		rerender(<TestDialogWithTarget isOpen={true} hasNativeDefault={false} />);
 
 		expect(first).toHaveFocus();
 	});
 
 	it('focuses the target again on each open', () => {
-		const { rerender } = render(<TestDialogWithTarget isOpen={false} />);
+		const { rerender } = render(<TestDialogWithTarget isOpen={false} hasNativeDefault={false} />);
 
-		rerender(<TestDialogWithTarget isOpen={true} />);
+		rerender(<TestDialogWithTarget isOpen={true} hasNativeDefault={false} />);
 		expect(screen.getByTestId('target-button')).toHaveFocus();
 
-		rerender(<TestDialogWithTarget isOpen={false} />);
-		rerender(<TestDialogWithTarget isOpen={true} />);
+		rerender(<TestDialogWithTarget isOpen={false} hasNativeDefault={false} />);
+		rerender(<TestDialogWithTarget isOpen={true} hasNativeDefault={false} />);
 
 		expect(screen.getByTestId('target-button')).toHaveFocus();
 	});
 
 	it('focuses the target again on exiting → entering reopen', () => {
-		const { rerender } = render(<TestDialogWithTarget isOpen={false} isAnimated={true} />);
+		const { rerender } = render(
+			<TestDialogWithTarget isOpen={false} isAnimated={true} hasNativeDefault={false} />,
+		);
 
-		rerender(<TestDialogWithTarget isOpen={true} isAnimated={true} />);
+		rerender(<TestDialogWithTarget isOpen={true} isAnimated={true} hasNativeDefault={false} />);
 		const target = screen.getByTestId('target-button');
 		expect(target).toHaveFocus();
 
@@ -1031,8 +1052,8 @@ describe('initialFocusRef (via Popover)', () => {
 		target.blur();
 
 		// The exit animation has not settled, so the host stays mounted.
-		rerender(<TestDialogWithTarget isOpen={false} isAnimated={true} />);
-		rerender(<TestDialogWithTarget isOpen={true} isAnimated={true} />);
+		rerender(<TestDialogWithTarget isOpen={false} isAnimated={true} hasNativeDefault={false} />);
+		rerender(<TestDialogWithTarget isOpen={true} isAnimated={true} hasNativeDefault={false} />);
 
 		expect(screen.getByTestId('target-button')).toHaveFocus();
 	});
@@ -1156,5 +1177,99 @@ describe('initial focus timing (via Popover)', () => {
 		rerender(<TestDialogWithEffectTarget isOpen={true} effectType="passive" />);
 
 		expect(screen.getByTestId('first-button')).toHaveFocus();
+	});
+});
+
+describe('`[autofocus]` in a dialog (via Popover)', () => {
+	// The native attribute, not the JSX `autoFocus` prop, as ADS inputs set it.
+	function setAutofocusAttribute(node: HTMLElement | null) {
+		node?.setAttribute('autofocus', '');
+	}
+
+	function setInertAttribute(node: HTMLElement | null) {
+		node?.setAttribute('inert', '');
+	}
+
+	function TestDialogWithAutofocus({
+		isOpen,
+		children,
+	}: {
+		isOpen: boolean;
+		children: React.ReactNode;
+	}) {
+		return (
+			<Popover isOpen={isOpen} role="dialog" label="dialog-with-autofocus">
+				<div>
+					<button type="button" data-testid="first-button">
+						First
+					</button>
+					{children}
+				</div>
+			</Popover>
+		);
+	}
+
+	function renderOpened({ children }: { children: React.ReactNode }) {
+		const { rerender } = render(
+			<TestDialogWithAutofocus isOpen={false}>{children}</TestDialogWithAutofocus>,
+		);
+		rerender(<TestDialogWithAutofocus isOpen>{children}</TestDialogWithAutofocus>);
+	}
+
+	it('skips a disabled `[autofocus]` element and focuses the first focusable element', () => {
+		renderOpened({
+			children: <input aria-label="Disabled field" disabled ref={setAutofocusAttribute} />,
+		});
+
+		expect(screen.getByTestId('first-button')).toHaveFocus();
+	});
+
+	it('skips an `[autofocus]` element in an inert subtree', () => {
+		renderOpened({
+			children: (
+				<div ref={setInertAttribute}>
+					<input aria-label="Inert field" ref={setAutofocusAttribute} />
+				</div>
+			),
+		});
+
+		expect(screen.getByTestId('first-button')).toHaveFocus();
+	});
+
+	it('focuses the first `[autofocus]` element that can take focus', () => {
+		renderOpened({
+			children: (
+				<>
+					<input aria-label="Disabled field" disabled ref={setAutofocusAttribute} />
+					<input aria-label="Enabled field" ref={setAutofocusAttribute} />
+				</>
+			),
+		});
+
+		expect(screen.getByRole('textbox', { name: 'Enabled field' })).toHaveFocus();
+	});
+
+	it('focuses an `[autofocus]` element that Tab skips (`tabindex="-1"`)', () => {
+		renderOpened({
+			children: (
+				<div tabIndex={-1} data-testid="summary" ref={setAutofocusAttribute}>
+					Summary
+				</div>
+			),
+		});
+
+		expect(screen.getByTestId('summary')).toHaveFocus();
+	});
+
+	it('focuses an `[autofocus]` element with `aria-disabled="true"`', () => {
+		renderOpened({
+			children: (
+				<button type="button" aria-disabled="true" ref={setAutofocusAttribute}>
+					Save
+				</button>
+			),
+		});
+
+		expect(screen.getByRole('button', { name: 'Save' })).toHaveFocus();
 	});
 });

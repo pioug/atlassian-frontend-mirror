@@ -1,6 +1,5 @@
 import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types/toolbar';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { ComponentRegistry, ToolbarElementConfig } from '../primaryToolbarPluginType';
 
@@ -16,18 +15,12 @@ export const getToolbarComponents = ({
 	contextualFormattingEnabled,
 }: GetToolbarComponentsOptions): ToolbarUIComponentFactory[] => {
 	let configuration: ToolbarElementConfig[];
-	if (
-		contextualFormattingEnabled &&
-		editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
-	) {
-		configuration = toolbarConfigurationV2(true);
+	if (contextualFormattingEnabled) {
+		configuration = toolbarConfigurationV2;
+	} else if (componentRegistry.has('trackChanges')) {
+		configuration = toolbarConfigurationV3;
 	} else {
-		const shouldShowFindGroup = !!contextualFormattingEnabled;
-		if (componentRegistry.has('trackChanges')) {
-			configuration = toolbarConfigurationV3(shouldShowFindGroup);
-		} else {
-			configuration = toolbarConfiguration(shouldShowFindGroup);
-		}
+		configuration = toolbarConfiguration;
 	}
 
 	return configuration
@@ -158,9 +151,6 @@ const others: ToolbarElementConfig[] = [
 		name: 'avatarGroup',
 	},
 	{
-		name: 'findReplace',
-	},
-	{
 		// TODO: ED-26962 - Should likely be split into three: spelling & grammar, separator, and AI trigger
 		name: 'aiExperience',
 	},
@@ -168,28 +158,7 @@ const others: ToolbarElementConfig[] = [
 		name: 'loom',
 	},
 ];
-const othersGroupNoFind: ToolbarElementConfig[] = [
-	{
-		name: 'beforePrimaryToolbar',
-	},
-	{
-		name: 'avatarGroup',
-	},
-	{
-		// TODO: ED-26962 - Should likely be split into three: spelling & grammar, separator, and AI trigger
-		name: 'aiExperience',
-	},
-	{
-		name: 'loom',
-	},
-];
-const findGroup: ToolbarElementConfig[] = [
-	{
-		name: 'findReplace',
-	},
-];
-
-const toolbarConfigurationV3 = (shouldShowFindGroup: boolean): ToolbarElementConfig[] => [
+const toolbarConfigurationV3: ToolbarElementConfig[] = [
 	...spellCheckGroup,
 	...blockTypeGroup,
 	...textFormattingGroup,
@@ -197,11 +166,11 @@ const toolbarConfigurationV3 = (shouldShowFindGroup: boolean): ToolbarElementCon
 	...textColorGroup,
 	...listFormattingGroup,
 	...insertBlockGroup,
-	...(shouldShowFindGroup ? others : othersGroupNoFind),
+	...others,
 	...trackChangesGroup,
 ];
 
-const toolbarConfiguration = (shouldShowFindGroup: boolean): ToolbarElementConfig[] => [
+const toolbarConfiguration: ToolbarElementConfig[] = [
 	...undoRedoGroup,
 	...spellCheckGroup,
 	...blockTypeGroup,
@@ -210,7 +179,7 @@ const toolbarConfiguration = (shouldShowFindGroup: boolean): ToolbarElementConfi
 	...textColorGroup,
 	...listFormattingGroup,
 	...insertBlockGroup,
-	...(shouldShowFindGroup ? others : othersGroupNoFind),
+	...others,
 ];
 
 const pinToolbar: ToolbarElementConfig[] = [
@@ -219,17 +188,14 @@ const pinToolbar: ToolbarElementConfig[] = [
 	},
 ];
 
-const toolbarConfigurationV2 = (
-	shouldShowInsertBlock: boolean,
-	shouldShowFindGroup = false,
-): ToolbarElementConfig[] => [
+const toolbarConfigurationV2: ToolbarElementConfig[] = [
 	...blockTypeGroup,
 	...textFormattingGroup,
 	...textColorGroup,
 	...alignmentGroup,
 	...listFormattingGroup,
 	...hyperlinkGroup,
-	...(shouldShowInsertBlock ? insertBlockGroup : []),
+	...insertBlockGroup,
 	{
 		name: 'selectionExtension',
 	},
@@ -237,5 +203,4 @@ const toolbarConfigurationV2 = (
 	{
 		name: 'beforePrimaryToolbar',
 	},
-	...(shouldShowFindGroup ? findGroup : []),
 ];

@@ -6,23 +6,18 @@ import { toolbarMessages } from '@atlaskit/editor-common/messages/toolbar';
 import { DropdownMenuWithKeyboardNavigation as DropdownMenu } from '@atlaskit/editor-common/ui-menu/DropdownMenu';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles/constants';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { DropdownToolbarButton } from './dropdown-toolbar-button';
 import { useMenuState } from './hooks/menu-state';
-import { MoreButton } from './more-button';
 import type { MenuIconItem, ToolbarType } from './types';
 
 type DropdownMenuProps = {
 	editorView: EditorView;
-	hasFormattingActive: boolean;
-	hasMoreButton: boolean;
 	isDisabled?: boolean;
 	isReducedSpacing: boolean;
 	items: {
 		items: MenuIconItem[];
 	}[];
-	moreButtonLabel: string;
 	popupsBoundariesElement?: HTMLElement;
 	popupsMountPoint?: HTMLElement;
 	popupsScrollableElement?: HTMLElement;
@@ -32,14 +27,11 @@ type DropdownMenuProps = {
 export const FormattingTextDropdownMenu: React.MemoExoticComponent<
 	({
 		editorView,
-		moreButtonLabel,
 		isReducedSpacing,
 		items,
-		hasFormattingActive,
 		popupsBoundariesElement,
 		popupsMountPoint,
 		popupsScrollableElement,
-		hasMoreButton,
 		intl,
 		toolbarType,
 		isDisabled,
@@ -47,14 +39,11 @@ export const FormattingTextDropdownMenu: React.MemoExoticComponent<
 > = React.memo(
 	({
 		editorView,
-		moreButtonLabel,
 		isReducedSpacing,
 		items,
-		hasFormattingActive,
 		popupsBoundariesElement,
 		popupsMountPoint,
 		popupsScrollableElement,
-		hasMoreButton,
 		intl,
 		toolbarType,
 		isDisabled,
@@ -74,9 +63,7 @@ export const FormattingTextDropdownMenu: React.MemoExoticComponent<
 		);
 
 		const activeItem = items[0].items.find((item) => item.isActive);
-		const defaultIcon = editorExperiment('platform_editor_controls', 'variant1')
-			? items[0].items[0]?.elemBefore
-			: undefined;
+		const defaultIcon = items[0].items[0]?.elemBefore;
 		const defaultIconName = items[0].items[0]?.value.name;
 		const iconBefore = activeItem ? activeItem?.elemBefore : defaultIcon;
 		const activeIconName = activeItem?.value.name || defaultIconName;
@@ -92,7 +79,7 @@ export const FormattingTextDropdownMenu: React.MemoExoticComponent<
 				items={items}
 				zIndex={akEditorMenuZIndex}
 				fitHeight={188}
-				fitWidth={editorExperiment('platform_editor_controls', 'control') ? 136 : 230}
+				fitWidth={230}
 				shouldUseDefaultRole
 				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 				section={{ hasSeparator: true }}
@@ -104,53 +91,30 @@ export const FormattingTextDropdownMenu: React.MemoExoticComponent<
 					return isOpenedByKeyboard;
 				}}
 			>
-				{hasMoreButton ? (
-					<MoreButton
-						isSelected={isMenuOpen || hasFormattingActive}
-						label={moreButtonLabel}
-						isReducedSpacing={isReducedSpacing}
-						isDisabled={false}
-						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-						onClick={() => {
+				<DropdownToolbarButton
+					isReducedSpacing={isReducedSpacing}
+					isDisabled={Boolean(isDisabled)}
+					isSelected={isMenuOpen}
+					label={intl.formatMessage(toolbarMessages.textFormat)}
+					aria-expanded={isMenuOpen}
+					aria-haspopup
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+					onClick={() => {
+						toggleMenu();
+						setIsOpenedByKeyboard(false);
+					}}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+					onKeyDown={(event: React.KeyboardEvent) => {
+						if (event.key === 'Enter' || event.key === ' ') {
+							event.preventDefault();
 							toggleMenu();
-							setIsOpenedByKeyboard(false);
-						}}
-						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-						onKeyDown={(event: React.KeyboardEvent) => {
-							if (event.key === 'Enter' || event.key === ' ') {
-								event.preventDefault();
-								toggleMenu();
-								setIsOpenedByKeyboard(true);
-							}
-						}}
-						aria-expanded={isMenuOpen}
-					/>
-				) : (
-					<DropdownToolbarButton
-						isReducedSpacing={isReducedSpacing}
-						isDisabled={Boolean(isDisabled)}
-						isSelected={isMenuOpen}
-						label={intl.formatMessage(toolbarMessages.textFormat)}
-						aria-expanded={isMenuOpen}
-						aria-haspopup
-						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-						onClick={() => {
-							toggleMenu();
-							setIsOpenedByKeyboard(false);
-						}}
-						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-						onKeyDown={(event: React.KeyboardEvent) => {
-							if (event.key === 'Enter' || event.key === ' ') {
-								event.preventDefault();
-								toggleMenu();
-								setIsOpenedByKeyboard(true);
-							}
-						}}
-						toolbarType={toolbarType}
-						iconBefore={iconBefore}
-						activeIconName={activeIconName}
-					/>
-				)}
+							setIsOpenedByKeyboard(true);
+						}
+					}}
+					toolbarType={toolbarType}
+					iconBefore={iconBefore}
+					activeIconName={activeIconName}
+				/>
 			</DropdownMenu>
 		);
 	},

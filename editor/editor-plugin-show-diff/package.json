@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-show-diff",
-	"version": "31.0.0",
+	"version": "33.0.1",
 	"description": "ShowDiff plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -58,6 +58,7 @@
 		"@atlaskit/adf-utils": "workspace:^",
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/css": "workspace:^",
+		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/dropdown-menu": "workspace:^",
 		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/editor-core": "workspace:^",
@@ -73,6 +74,7 @@
 		"@atlassian/editor-ai-injected-editors": "workspace:^",
 		"@atlassian/editor-plugin-ai": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
+		"@atlassian/workbench": "workspace:^",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0",
 		"react-intl": "root:*"

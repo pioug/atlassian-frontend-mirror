@@ -8,7 +8,6 @@ import {
 } from '@atlaskit/editor-common/code-block';
 import commonMessages from '@atlaskit/editor-common/messages';
 import { codeBlockButtonMessages } from '@atlaskit/editor-common/messages/codeBlockButton';
-import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type { Command } from '@atlaskit/editor-common/types/command';
 import type {
 	FloatingToolbarButton,
@@ -216,7 +215,6 @@ export const getToolbarConfig = (
 			filterOption: languageListFilter,
 		};
 
-		const areAnyNewToolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(api?.toolbar));
 		const isQ4LovabilityEnabled = expValEquals(
 			'platform_editor_code_block_q4_lovability',
 			'isEnabled',
@@ -250,7 +248,6 @@ export const getToolbarConfig = (
 							filterOption={languageListFilter}
 							formatMessage={formatMessage}
 							languagePickerOptions={languagePickerOptions}
-							triggerSpacing={!areAnyNewToolbarFlagsEnabled ? 'compact' : 'default'}
 						/>
 					);
 				},
@@ -293,59 +290,41 @@ export const getToolbarConfig = (
 				] as const);
 
 		let copyAndDeleteButtonMenuItems: FloatingToolbarItem<Command>[] = [];
-		if (areAnyNewToolbarFlagsEnabled) {
-			const overflowMenuOptions: FloatingToolbarOverflowDropdownOptions<Command> = [
-				{
-					title: formatMessage(commonMessages.delete),
-					icon: DeleteIcon({ label: '' }),
-					onMouseEnter: hoverDecoration?.(nodeType, true),
-					onMouseLeave: hoverDecoration?.(nodeType, false),
-					onFocus: hoverDecoration?.(nodeType, true),
-					onBlur: hoverDecoration?.(nodeType, false),
-					onClick: removeCodeBlockWithAnalytics(editorAnalyticsAPI),
-				},
-			];
-
-			if (allowCopyToClipboard) {
-				overflowMenuOptions.unshift({
-					title: formatMessage(codeBlockButtonMessages.copyCodeSnippetToClipboard),
-					onClick: copyContentToClipboardWithAnalytics(editorAnalyticsAPI),
-					icon: CopyIcon({ label: '' }),
-					onMouseEnter: provideVisualFeedbackForCopyButton,
-					onMouseLeave: resetCopiedState,
-					onFocus: provideVisualFeedbackForCopyButton,
-					onBlur: removeVisualFeedbackForCopyButton,
-					disabled: codeBlockState.isNodeSelected,
-				});
-			}
-
-			copyAndDeleteButtonMenuItems = isViewMode
-				? [...copyToClipboardItems]
-				: [
-						{ type: 'separator', fullHeight: true },
-						{
-							type: 'overflow-dropdown',
-							testId: 'code-block-overflow-dropdown-trigger',
-							options: overflowMenuOptions,
-						},
-					];
-		} else {
-			const deleteButton: FloatingToolbarButton<Command> = {
-				id: 'editor.codeBlock.delete',
-				type: 'button',
-				appearance: 'danger',
-				icon: DeleteIcon,
-				iconFallback: DeleteIcon,
+		const overflowMenuOptions: FloatingToolbarOverflowDropdownOptions<Command> = [
+			{
+				title: formatMessage(commonMessages.delete),
+				icon: DeleteIcon({ label: '' }),
 				onMouseEnter: hoverDecoration?.(nodeType, true),
 				onMouseLeave: hoverDecoration?.(nodeType, false),
 				onFocus: hoverDecoration?.(nodeType, true),
 				onBlur: hoverDecoration?.(nodeType, false),
 				onClick: removeCodeBlockWithAnalytics(editorAnalyticsAPI),
-				title: formatMessage(commonMessages.remove),
-				tabIndex: null,
-			};
-			copyAndDeleteButtonMenuItems = [separator, ...copyToClipboardItems, deleteButton];
+			},
+		];
+
+		if (allowCopyToClipboard) {
+			overflowMenuOptions.unshift({
+				title: formatMessage(codeBlockButtonMessages.copyCodeSnippetToClipboard),
+				onClick: copyContentToClipboardWithAnalytics(editorAnalyticsAPI),
+				icon: CopyIcon({ label: '' }),
+				onMouseEnter: provideVisualFeedbackForCopyButton,
+				onMouseLeave: resetCopiedState,
+				onFocus: provideVisualFeedbackForCopyButton,
+				onBlur: removeVisualFeedbackForCopyButton,
+				disabled: codeBlockState.isNodeSelected,
+			});
 		}
+
+		copyAndDeleteButtonMenuItems = isViewMode
+			? [...copyToClipboardItems]
+			: [
+					{ type: 'separator', fullHeight: true },
+					{
+						type: 'overflow-dropdown',
+						testId: 'code-block-overflow-dropdown-trigger',
+						options: overflowMenuOptions,
+					},
+				];
 
 		const codeBlockWrapButtonTitle = expValEqualsNoExposure(
 			'platform_editor_code_block_q4_lovability',
@@ -420,7 +399,6 @@ export const getToolbarConfig = (
 			nodeType,
 			items: [
 				languagePicker ?? languageSelect,
-				...(areAnyNewToolbarFlagsEnabled ? [] : [separator]),
 				codeBlockWrapButton,
 				...(isQ4LovabilityEnabled
 					? [codeBlockLineNumbersButton, ...(formatCodeProvider ? [formatCodeButton] : [])]

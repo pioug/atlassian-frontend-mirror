@@ -38,7 +38,8 @@
 	"compilerOptions": {
 		"outDir": "../../../tsDist/@atlaskit__dependency-version-analytics/app",
 		"composite": true,
-		"isolatedDeclarations": true
+		"isolatedDeclarations": true,
+		"noUncheckedIndexedAccess": true
 	},
 	"references": []
 }

@@ -14,7 +14,6 @@ import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
 import { getNodeIdProvider } from '@atlaskit/editor-common/node-anchor-provider';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { DRAG_HANDLE_SELECTOR } from '@atlaskit/editor-common/styles/drag-handle';
-import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { EDIT_AREA_ID } from '@atlaskit/editor-common/ui-toolbar';
 import { isEmptyDocument } from '@atlaskit/editor-common/utils';
@@ -201,10 +200,6 @@ const initialState: PluginState = {
 	isSelectedViaDragHandle: false,
 };
 
-export interface FlagType {
-	toolbarFlagsEnabled: boolean;
-}
-
 export const getDecorations = (state: EditorState): DecorationSet | undefined =>
 	key.getState(state)?.decorations;
 
@@ -232,7 +227,6 @@ export const apply = (
 	tr: ReadonlyTransaction,
 	currentState: PluginState,
 	newState: EditorState,
-	flags: FlagType,
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 	nodeDecorationRegistry: NodeDecorationFactory[],
 	rightSideControlsEnabled = false,
@@ -263,7 +257,7 @@ export const apply = (
 		lastDragCancelled,
 	} = currentState;
 	let isActiveNodeDeleted = false;
-	const { from, to, numReplaceSteps, isAllText, isReplacedWithSameSize } = getTrMetadata(tr, flags);
+	const { from, to, numReplaceSteps, isAllText, isReplacedWithSameSize } = getTrMetadata(tr);
 	const meta = tr.getMeta(key);
 
 	if (isExperimentEnabled('platform_editor_dynamic_limited_mode')) {
@@ -370,69 +364,57 @@ export const apply = (
 			decorations = decorations.map(tr.mapping, tr.doc);
 		}
 
-		// platform_editor_controls note: enables quick insert
+		// enables quick insert
 		// don't remap activeNode if it's being dragged
-		if (!flags.toolbarFlagsEnabled) {
-			if (activeNode) {
-				const mappedPos = tr.mapping.mapResult(activeNode.pos);
+		if (activeNode && meta?.isDragging !== true) {
+			let mappedPos;
+			const browser = getBrowserInfo();
+			// In safari,
+			// sometimes the drag handle for the layout disppears after you click on the handle for a few times
+			// Which caused the drag handle onClick event not firing, then block menu wouldn't be opened
+			// This is caused by the mappedPos.deletedAfter sometimes returning true in webkit browsers even though the active node still exists
+			// This is likely a prosemirror and safari integration bug, but to unblock the issue, we are going to use mappedPos.deleted in safari for now
+			if (browser.webkit) {
+				mappedPos = tr.mapping.mapResult(activeNode.pos);
 				isActiveNodeDeleted = mappedPos.deleted;
-				activeNode = {
-					pos: mappedPos.pos,
-					anchorName: activeNode.anchorName,
-					nodeType: activeNode.nodeType,
-				};
+			} else {
+				mappedPos = tr.mapping.mapResult(activeNode.pos, -1);
+				isActiveNodeDeleted = mappedPos.deletedAfter;
 			}
-		} else {
-			if (activeNode && meta?.isDragging !== true) {
-				let mappedPos;
-				const browser = getBrowserInfo();
-				// In safari, when platform_editor_controls is on,
-				// sometimes the drag handle for the layout disppears after you click on the handle for a few times
-				// Which caused the drag handle onClick event not firing, then block menu wouldn't be opened
-				// This is caused by the mappedPos.deletedAfter sometimes returning true in webkit browsers even though the active node still exists
-				// This is likely a prosemirror and safari integration bug, but to unblock the issue, we are going to use mappedPos.deleted in safari for now
-				if (browser.webkit) {
-					mappedPos = tr.mapping.mapResult(activeNode.pos);
-					isActiveNodeDeleted = mappedPos.deleted;
-				} else {
-					mappedPos = tr.mapping.mapResult(activeNode.pos, -1);
-					isActiveNodeDeleted = mappedPos.deletedAfter;
-				}
-				// for editor controls, remap the rootPos as well
-				let mappedRootPos;
-				if (activeNode.rootPos !== undefined) {
-					mappedRootPos = tr.mapping.mapResult(activeNode.rootPos, -1);
-				}
-
-				let mappedNodeType = activeNode.nodeType;
-				let mappedRootNodeType = activeNode.rootNodeType;
-				// Sparse mode does not redraw the old decorations. A block-type transaction may report
-				// a text range that excludes the active block position, so always refresh the already
-				// active node and root from the new document (for example, paragraph → heading-1).
-				if (isExperimentEnabled('platform_editor_block_control_migration')) {
-					const mappedNode = newState.doc.nodeAt(mappedPos.pos);
-					if (mappedNode?.isBlock) {
-						mappedNodeType = getNodeTypeWithLevel(mappedNode);
-					}
-					const mappedRootNode = mappedRootPos
-						? mappedRootPos.pos === mappedPos.pos && mappedNode
-							? mappedNode
-							: newState.doc.nodeAt(mappedRootPos.pos)
-						: undefined;
-					if (mappedRootNode?.isBlock) {
-						mappedRootNodeType = getNodeTypeWithLevel(mappedRootNode);
-					}
-				}
-
-				activeNode = {
-					pos: mappedPos.pos,
-					anchorName: activeNode.anchorName,
-					nodeType: mappedNodeType,
-					rootPos: mappedRootPos?.pos ?? activeNode.rootPos,
-					rootAnchorName: activeNode.rootAnchorName,
-					rootNodeType: mappedRootNodeType,
-				};
+			// for editor controls, remap the rootPos as well
+			let mappedRootPos;
+			if (activeNode.rootPos !== undefined) {
+				mappedRootPos = tr.mapping.mapResult(activeNode.rootPos, -1);
 			}
+
+			let mappedNodeType = activeNode.nodeType;
+			let mappedRootNodeType = activeNode.rootNodeType;
+			// Sparse mode does not redraw the old decorations. A block-type transaction may report
+			// a text range that excludes the active block position, so always refresh the already
+			// active node and root from the new document (for example, paragraph → heading-1).
+			if (isExperimentEnabled('platform_editor_block_control_migration')) {
+				const mappedNode = newState.doc.nodeAt(mappedPos.pos);
+				if (mappedNode?.isBlock) {
+					mappedNodeType = getNodeTypeWithLevel(mappedNode);
+				}
+				const mappedRootNode = mappedRootPos
+					? mappedRootPos.pos === mappedPos.pos && mappedNode
+						? mappedNode
+						: newState.doc.nodeAt(mappedRootPos.pos)
+					: undefined;
+				if (mappedRootNode?.isBlock) {
+					mappedRootNodeType = getNodeTypeWithLevel(mappedRootNode);
+				}
+			}
+
+			activeNode = {
+				pos: mappedPos.pos,
+				anchorName: activeNode.anchorName,
+				nodeType: mappedNodeType,
+				rootPos: mappedRootPos?.pos ?? activeNode.rootPos,
+				rootAnchorName: activeNode.rootAnchorName,
+				rootNodeType: mappedRootNodeType,
+			};
 		}
 
 		if (multiSelectDnD) {
@@ -491,54 +473,32 @@ export const apply = (
 		);
 		decorations = decorations.add(newState.doc, newNodeDecs);
 
-		// platform_editor_controls note: enables quick insert
-		if (!flags.toolbarFlagsEnabled) {
-			if (latestActiveNode && !isActiveNodeDeleted) {
-				// Find the newly minted node decs that touch the active node
-				const findNewNodeDecs = findNodeDecs(newState, decorations, latestActiveNode.pos - 1, to);
+		// enables quick insert
+		if (latestActiveNode && (!isActiveNodeDeleted || isReplacedWithSameSize)) {
+			const nodeDecAtActivePos = getDecorationAtPos(
+				newState,
+				decorations,
+				latestActiveNode.pos,
+				to,
+			);
+			const rootNodeDecAtActivePos =
+				latestActiveNode.rootPos !== undefined
+					? getDecorationAtPos(newState, decorations, latestActiveNode.rootPos, to)
+					: undefined;
 
-				// Find the specific dec that the active node corresponds to
-				const nodeDecsAtActivePos = findNewNodeDecs.filter(
-					(dec: Decoration) => dec?.from === latestActiveNode.pos,
-				);
-
-				// If multiple decorations at the active node pos, we want the last one
-				const nodeDecAtActivePos = nodeDecsAtActivePos.pop();
-
-				// Update the active node anchor-name and type for accurate positioning
-				if (nodeDecAtActivePos) {
-					isActiveNodeModified = true;
-					latestActiveNode.anchorName = nodeDecAtActivePos.spec.anchorName;
-					latestActiveNode.nodeType = nodeDecAtActivePos.spec.nodeType;
-				}
+			if (nodeDecAtActivePos || rootNodeDecAtActivePos) {
+				isActiveNodeModified = true;
 			}
-		} else {
-			if (latestActiveNode && (!isActiveNodeDeleted || isReplacedWithSameSize)) {
-				const nodeDecAtActivePos = getDecorationAtPos(
-					newState,
-					decorations,
-					latestActiveNode.pos,
-					to,
-				);
-				const rootNodeDecAtActivePos =
-					latestActiveNode.rootPos !== undefined
-						? getDecorationAtPos(newState, decorations, latestActiveNode.rootPos, to)
-						: undefined;
 
-				if (nodeDecAtActivePos || rootNodeDecAtActivePos) {
-					isActiveNodeModified = true;
-				}
+			// Update the active node anchor-name and type for accurate positioning
+			if (nodeDecAtActivePos) {
+				latestActiveNode.anchorName = nodeDecAtActivePos.spec.anchorName;
+				latestActiveNode.nodeType = nodeDecAtActivePos.spec.nodeType;
+			}
 
-				// Update the active node anchor-name and type for accurate positioning
-				if (nodeDecAtActivePos) {
-					latestActiveNode.anchorName = nodeDecAtActivePos.spec.anchorName;
-					latestActiveNode.nodeType = nodeDecAtActivePos.spec.nodeType;
-				}
-
-				if (rootNodeDecAtActivePos) {
-					latestActiveNode.rootAnchorName = rootNodeDecAtActivePos.spec.anchorName;
-					latestActiveNode.rootNodeType = rootNodeDecAtActivePos.spec.nodeType;
-				}
+			if (rootNodeDecAtActivePos) {
+				latestActiveNode.rootAnchorName = rootNodeDecAtActivePos.spec.anchorName;
+				latestActiveNode.rootNodeType = rootNodeDecAtActivePos.spec.nodeType;
 			}
 		}
 	}
@@ -578,11 +538,9 @@ export const apply = (
 		? isResizerResizing || (isActiveNodeDeleted && !isReplacedWithSameSize) || meta?.nodeMoved
 		: true;
 
-	// platform_editor_controls note: enables quick insert
-	if (flags.toolbarFlagsEnabled) {
-		// Remove handle dec when editor is blurred
-		shouldRemoveHandle = shouldRemoveHandle || meta?.editorBlurred;
-	}
+	// enables quick insert
+	// Remove handle dec when editor is blurred
+	shouldRemoveHandle = shouldRemoveHandle || meta?.editorBlurred;
 
 	// In view mode with right-side controls, remove any lingering drag handle decorations
 	// (they may carry over from edit mode). Only remove drag handles specifically, not
@@ -631,34 +589,32 @@ export const apply = (
 		// nodeDecorationRegistry cleanup (e.g. the legacy Remix button) is independent of the legacy
 		// quick-insert button, so this must not be gated by quickInsertButtonEnabled — otherwise a
 		// stale decoration is left behind whenever platform_editor_block_control_migration is on.
-		if (flags.toolbarFlagsEnabled) {
-			// platform_editor_controls note: enables quick insert
-			if (quickInsertButtonEnabled) {
-				const oldQuickInsertButton = findQuickInsertInsertButtonDecoration(
-					decorations,
-					activeNode?.rootPos,
-					activeNode?.rootPos,
-				);
-				decorations = decorations.remove(oldQuickInsertButton);
-			}
+		// enables quick insert
+		if (quickInsertButtonEnabled) {
+			const oldQuickInsertButton = findQuickInsertInsertButtonDecoration(
+				decorations,
+				activeNode?.rootPos,
+				activeNode?.rootPos,
+			);
+			decorations = decorations.remove(oldQuickInsertButton);
+		}
+		for (const factory of nodeDecorationRegistry) {
+			const old = decorations.find(
+				activeNode?.rootPos,
+				activeNode?.rootPos,
+				(spec) => spec.type === factory.type,
+			);
+			decorations = decorations.remove(old);
+		}
+		if (rightSideControlsEnabled && isViewMode) {
 			for (const factory of nodeDecorationRegistry) {
-				const old = decorations.find(
-					activeNode?.rootPos,
-					activeNode?.rootPos,
-					(spec) => spec.type === factory.type,
-				);
-				decorations = decorations.remove(old);
-			}
-			if (rightSideControlsEnabled && isViewMode) {
-				for (const factory of nodeDecorationRegistry) {
-					if (factory.showInViewMode) {
-						const old = decorations.find(
-							activeNode?.rootPos,
-							activeNode?.rootPos,
-							(spec) => spec.type === factory.type,
-						);
-						decorations = decorations.remove(old);
-					}
+				if (factory.showInViewMode) {
+					const old = decorations.find(
+						activeNode?.rootPos,
+						activeNode?.rootPos,
+						(spec) => spec.type === factory.type,
+					);
+					decorations = decorations.remove(old);
 				}
 			}
 		}
@@ -776,8 +732,6 @@ export const apply = (
 			shouldRecreateQuickInsertButton &&
 			latestActiveNode?.rootPos !== undefined &&
 			(quickInsertButtonEnabled || nodeDecorationRegistry.length > 0) &&
-			// platform_editor_controls note: enables quick insert
-			flags.toolbarFlagsEnabled &&
 			(!rightSideControlsEnabled || !isViewMode)
 		) {
 			if (quickInsertButtonEnabled) {
@@ -876,7 +830,7 @@ export const apply = (
 		const rootPos = latestActiveNode?.rootPos;
 		// rootPos is computed using the same logic as the floating insert menu, so it always points to a top-level (doc child) block when defined.
 		const isDocLevel = rootPos !== undefined && !isNaN(rootPos);
-		if (isViewMode && isDocLevel && flags.toolbarFlagsEnabled && rightSideControlsEnabled) {
+		if (isViewMode && isDocLevel && rightSideControlsEnabled) {
 			for (const factory of nodeDecorationRegistry) {
 				if (factory.showInViewMode) {
 					if (!latestActiveNode || latestActiveNode.rootPos === undefined) {
@@ -995,33 +949,22 @@ export const apply = (
 		}
 	}
 
-	let newActiveNode;
-	// platform_editor_controls note: enables quick insert
-	if (flags.toolbarFlagsEnabled) {
-		// remove isEmptyDoc check and let decorations render and determine their own visibility
-		// In view mode with right-side controls we render node decorations (right-edge button), not the
-		// handle - so findHandleDec is always empty. Don't clear activeNode in that case.
-		const hasHandleOrViewModeControls =
-			isExperimentEnabled('platform_editor_block_control_migration') ||
-			(isViewMode && rightSideControlsEnabled) ||
-			findHandleDec(decorations, latestActiveNode?.pos, latestActiveNode?.pos).length > 0;
-		// Keep the registry surface mounted while its Block Menu owns focus.
-		const keepActiveNodeForOpenBlockMenu =
-			isExperimentEnabled('platform_editor_block_control_migration') && isMenuOpen;
-		newActiveNode =
-			(meta?.editorBlurred && !keepActiveNodeForOpenBlockMenu) ||
-			(!meta?.activeNode && !hasHandleOrViewModeControls)
-				? null
-				: latestActiveNode;
-	} else {
-		newActiveNode =
-			isEmptyDoc ||
-			(!meta?.activeNode &&
-				!isExperimentEnabled('platform_editor_block_control_migration') &&
-				findHandleDec(decorations, latestActiveNode?.pos, latestActiveNode?.pos).length === 0)
-				? null
-				: latestActiveNode;
-	}
+	// enables quick insert
+	// remove isEmptyDoc check and let decorations render and determine their own visibility
+	// In view mode with right-side controls we render node decorations (right-edge button), not the
+	// handle - so findHandleDec is always empty. Don't clear activeNode in that case.
+	const hasHandleOrViewModeControls =
+		isExperimentEnabled('platform_editor_block_control_migration') ||
+		(isViewMode && rightSideControlsEnabled) ||
+		findHandleDec(decorations, latestActiveNode?.pos, latestActiveNode?.pos).length > 0;
+	// Keep the registry surface mounted while its Block Menu owns focus.
+	const keepActiveNodeForOpenBlockMenu =
+		isExperimentEnabled('platform_editor_block_control_migration') && isMenuOpen;
+	const newActiveNode =
+		(meta?.editorBlurred && !keepActiveNodeForOpenBlockMenu) ||
+		(!meta?.activeNode && !hasHandleOrViewModeControls)
+			? null
+			: latestActiveNode;
 
 	let nextMenuTriggerByNode = meta?.toggleMenu?.triggerByNode || menuTriggerByNode;
 	if (
@@ -1049,14 +992,10 @@ export const apply = (
 				: isMenuOpen;
 	}
 
-	if (flags.toolbarFlagsEnabled) {
-		isSelectedViaDragHandle =
-			meta?.isSelectedViaDragHandle !== undefined
-				? meta?.isSelectedViaDragHandle
-				: isSelectedViaDragHandle;
-	} else {
-		isSelectedViaDragHandle = false;
-	}
+	isSelectedViaDragHandle =
+		meta?.isSelectedViaDragHandle !== undefined
+			? meta?.isSelectedViaDragHandle
+			: isSelectedViaDragHandle;
 
 	return {
 		decorations,
@@ -1103,10 +1042,6 @@ export const createPlugin = (
 ): SafePlugin<PluginState> => {
 	const { formatMessage } = getIntl();
 	const isAdvancedLayoutEnabled = editorExperiment('advanced_layouts', true, { exposure: true });
-	const toolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(api?.toolbar));
-	const flags: FlagType = {
-		toolbarFlagsEnabled,
-	};
 
 	let anchorRectCache: AnchorRectCache | undefined;
 
@@ -1175,7 +1110,6 @@ export const createPlugin = (
 					tr,
 					currentState,
 					newState,
-					flags,
 					nodeViewPortalProviderAPI,
 					nodeDecorationRegistry,
 					rightSideControlsEnabled,
@@ -1351,9 +1285,7 @@ export const createPlugin = (
 						return;
 					}
 
-					return editorExperiment('platform_editor_controls', 'variant1')
-						? handleMouseDown(api)(view, event)
-						: undefined;
+					return handleMouseDown(api)(view, event);
 				},
 				keydown(view: EditorView, event: KeyboardEvent) {
 					if (api?.limitedMode?.sharedState.currentState()?.enabled) {
@@ -1368,11 +1300,7 @@ export const createPlugin = (
 						}
 					}
 
-					if (
-						(event.key === 'Enter' || event.key === ' ') &&
-						event.target instanceof HTMLElement &&
-						editorExperiment('platform_editor_controls', 'variant1')
-					) {
+					if ((event.key === 'Enter' || event.key === ' ') && event.target instanceof HTMLElement) {
 						const isDragHandle = event.target.closest(DRAG_HANDLE_SELECTOR) !== null;
 						api?.core.actions.execute(
 							api?.blockControls.commands.setSelectedViaDragHandle(isDragHandle),
@@ -1380,11 +1308,10 @@ export const createPlugin = (
 					}
 
 					if (
-						(event.key === 'ArrowLeft' ||
-							event.key === 'ArrowRight' ||
-							event.key === 'ArrowDown' ||
-							event.key === 'ArrowUp') &&
-						editorExperiment('platform_editor_controls', 'variant1')
+						event.key === 'ArrowLeft' ||
+						event.key === 'ArrowRight' ||
+						event.key === 'ArrowDown' ||
+						event.key === 'ArrowUp'
 					) {
 						const isBlockMenuOpen = api?.blockControls.sharedState.currentState()?.isMenuOpen;
 						// when block menu is just open, and we press arrow keys, we want to use the arrow keys to navigate the block menu
@@ -1405,42 +1332,40 @@ export const createPlugin = (
 					if (api?.limitedMode?.sharedState.currentState()?.enabled) {
 						return;
 					}
-					if (editorExperiment('platform_editor_controls', 'variant1')) {
-						// Focus moving into the registry surface remains inside the editor experience.
-						const isChildOfSurface =
-							isExperimentEnabled('platform_editor_block_control_migration') &&
-							event.relatedTarget instanceof HTMLElement &&
-							event.relatedTarget.closest(BLOCK_CONTROLS_SURFACE_SELECTOR) !== null;
-						const shouldPreserveRemixInlineDropdownFocus =
-							event.relatedTarget instanceof HTMLElement &&
-							event.relatedTarget.closest('[data-editor-remix-inline-dropdown-preserve-focus]') !==
-								null;
-						const isChildOfEditor =
-							event.relatedTarget instanceof HTMLElement &&
-							event.relatedTarget.closest(`#${EDIT_AREA_ID}`) !== null;
+					// Focus moving into the registry surface remains inside the editor experience.
+					const isChildOfSurface =
+						isExperimentEnabled('platform_editor_block_control_migration') &&
+						event.relatedTarget instanceof HTMLElement &&
+						event.relatedTarget.closest(BLOCK_CONTROLS_SURFACE_SELECTOR) !== null;
+					const shouldPreserveRemixInlineDropdownFocus =
+						event.relatedTarget instanceof HTMLElement &&
+						event.relatedTarget.closest('[data-editor-remix-inline-dropdown-preserve-focus]') !==
+							null;
+					const isChildOfEditor =
+						event.relatedTarget instanceof HTMLElement &&
+						event.relatedTarget.closest(`#${EDIT_AREA_ID}`) !== null;
 
-						// don't do anything if the event relatedTarget (the element receiving focus) is a child of the editor
-						// or if the editor has focus
-						if (
-							isChildOfEditor ||
-							isChildOfSurface ||
-							shouldPreserveRemixInlineDropdownFocus ||
-							view.hasFocus()
-						) {
-							return false;
-						}
-
-						api?.core?.actions.execute(({ tr }: { tr: Transaction }) => {
-							const currMeta = tr.getMeta(key);
-
-							tr.setMeta(key, {
-								...currMeta,
-								editorBlurred: true,
-							});
-							return tr;
-						});
+					// don't do anything if the event relatedTarget (the element receiving focus) is a child of the editor
+					// or if the editor has focus
+					if (
+						isChildOfEditor ||
+						isChildOfSurface ||
+						shouldPreserveRemixInlineDropdownFocus ||
+						view.hasFocus()
+					) {
 						return false;
 					}
+
+					api?.core?.actions.execute(({ tr }: { tr: Transaction }) => {
+						const currMeta = tr.getMeta(key);
+
+						tr.setMeta(key, {
+							...currMeta,
+							editorBlurred: true,
+						});
+						return tr;
+					});
+					return false;
 				},
 			},
 		},

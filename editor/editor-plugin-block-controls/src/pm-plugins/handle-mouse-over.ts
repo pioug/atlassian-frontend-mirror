@@ -1,7 +1,6 @@
 import memoizeOne from 'memoize-one';
 
 import { isMultiBlockSelection } from '@atlaskit/editor-common/selection/utils';
-import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
@@ -157,7 +156,6 @@ export const handleMouseOver = (
 	};
 	const editorViewMode = api?.editorViewMode?.sharedState.currentState()?.mode;
 	const isViewMode = editorViewMode === 'view';
-	const toolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(api?.toolbar));
 
 	// EDITOR-7926: bail out while a diff is on screen (or a suggestion card is open) so hovering
 	// doesn't dispatch showDragHandleAt and cause the drag handle to jitter over the diff.
@@ -343,24 +341,20 @@ export const handleMouseOver = (
 
 		let rootAnchorName;
 		let rootNodeType;
-		let rootPos;
-
-		// platform_editor_controls note: enables quick insert
-		if (toolbarFlagsEnabled) {
-			rootPos = view.state.doc.resolve(pos).before(1);
-			if (targetPos !== rootPos) {
-				const rootDOM = view.nodeDOM(rootPos);
-				if (rootDOM instanceof HTMLElement) {
-					rootAnchorName =
-						rootDOM.getAttribute(getAnchorAttrName()) ??
-						rootDOM.getAttribute(NODE_ANCHOR_ATTR_NAME) ??
-						undefined;
-					rootNodeType = isNativeAnchorSupported
-						? getTypeNameFromDom(rootDOM)
-						: // Fallback: breakout mark wrappers have no data-drag-handler-node-type;
-							// use data-prosemirror-node-name instead.
-							(rootDOM.getAttribute('data-drag-handler-node-type') ?? getTypeNameFromDom(rootDOM));
-				}
+		// enables quick insert
+		const rootPos = view.state.doc.resolve(pos).before(1);
+		if (targetPos !== rootPos) {
+			const rootDOM = view.nodeDOM(rootPos);
+			if (rootDOM instanceof HTMLElement) {
+				rootAnchorName =
+					rootDOM.getAttribute(getAnchorAttrName()) ??
+					rootDOM.getAttribute(NODE_ANCHOR_ATTR_NAME) ??
+					undefined;
+				rootNodeType = isNativeAnchorSupported
+					? getTypeNameFromDom(rootDOM)
+					: // Fallback: breakout mark wrappers have no data-drag-handler-node-type;
+						// use data-prosemirror-node-name instead.
+						(rootDOM.getAttribute('data-drag-handler-node-type') ?? getTypeNameFromDom(rootDOM));
 			}
 		}
 
@@ -371,33 +365,27 @@ export const handleMouseOver = (
 				getTypeNameFromDom(rootElement));
 
 		if (nodeType) {
-			// platform_editor_controls note: enables quick insert
-			if (toolbarFlagsEnabled) {
-				const preservedSelection = selectionPreservationPluginKey.getState(
-					view.state,
-				)?.preservedSelection;
-				const selection = preservedSelection || view.state.selection;
-				const isMultipleSelected = selection && isMultiBlockSelection(selection);
+			// enables quick insert
+			const preservedSelection = selectionPreservationPluginKey.getState(
+				view.state,
+			)?.preservedSelection;
+			const selection = preservedSelection || view.state.selection;
+			const isMultipleSelected = selection && isMultiBlockSelection(selection);
 
-				// Only execute when selection is not a multi-selection, block menu is open, and menu is opened via keyboard
-				// as when it is a multi-selection, the showDragHandleAt command interfere with selection
-				// sometimes makes the multi-selection not continous after block menu is opened with keyboard
-				if (!(isMultipleSelected && isMenuOpen && blockMenuOptions?.openedViaKeyboard)) {
-					api?.core?.actions.execute(
-						api?.blockControls?.commands.showDragHandleAt(
-							targetPos,
-							anchorName,
-							nodeType,
-							undefined,
-							rootPos ?? targetPos,
-							rootAnchorName ?? anchorName,
-							rootNodeType ?? nodeType,
-						),
-					);
-				}
-			} else {
+			// Only execute when selection is not a multi-selection, block menu is open, and menu is opened via keyboard
+			// as when it is a multi-selection, the showDragHandleAt command interfere with selection
+			// sometimes makes the multi-selection not continous after block menu is opened with keyboard
+			if (!(isMultipleSelected && isMenuOpen && blockMenuOptions?.openedViaKeyboard)) {
 				api?.core?.actions.execute(
-					api?.blockControls?.commands.showDragHandleAt(targetPos, anchorName, nodeType),
+					api?.blockControls?.commands.showDragHandleAt(
+						targetPos,
+						anchorName,
+						nodeType,
+						undefined,
+						rootPos,
+						rootAnchorName ?? anchorName,
+						rootNodeType ?? nodeType,
+					),
 				);
 			}
 

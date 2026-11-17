@@ -28,6 +28,8 @@
 		"@babel/runtime": "root:*"
 	},
 	"devDependencies": {
+		"@atlaskit/docs": "workspace:^",
+		"@atlaskit/notification-indicator": "workspace:^",
 		"@atlassian/workbench": "workspace:^",
 		"fetch-mock": "root:*",
 		"react": "root:*"

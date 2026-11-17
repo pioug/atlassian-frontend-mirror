@@ -1,5 +1,12 @@
 # @atlaskit/flag-client
 
+## 1.2.1
+
+### Patch Changes
+
+- [`de6d018fc8954`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/de6d018fc8954) -
+  Fix exposure randomization identifier lookup from captured bootstrap context.
+
 ## 1.2.0
 
 ### Minor Changes

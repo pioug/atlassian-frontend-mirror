@@ -1,6 +1,4 @@
-import React, { useCallback, useLayoutEffect, useMemo, useReducer, useState } from 'react';
-
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import React, { useCallback, useLayoutEffect, useReducer } from 'react';
 
 import type { PortalManager } from './PortalManager';
 
@@ -8,23 +6,6 @@ type PortalBucketProps = {
 	id: number;
 	portalManager: PortalManager;
 };
-
-function LegacyPortalBucket({ id, portalManager }: PortalBucketProps): React.JSX.Element {
-	// State to hold the current portals for this bucket
-	const [portals, setPortals] = useState({});
-	// Effect to register/unregister this bucket with the portal manager on mount/unmount
-	useLayoutEffect(() => {
-		portalManager.registerBucket(id, setPortals);
-		return () => {
-			portalManager.unregisterBucket(id);
-		};
-	}, [id, portalManager]);
-	// Memoize the portal elements to avoid unnecessary re-renders
-	const portalElements = useMemo(() => Object.values(portals), [portals]);
-	// Render the current portal elements
-	// @ts-ignore - TS2322 TypeScript 5.9.2 upgrade
-	return <>{portalElements}</>;
-}
 
 /**
  * Portals stay in the manager; state is only a render tick. React keeps
@@ -55,9 +36,5 @@ function TickPortalBucket({ id, portalManager }: PortalBucketProps): React.JSX.E
  * @returns {React.ReactElement} The React element(s) that are currently registered to this portal bucket.
  */
 export function PortalBucket({ id, portalManager }: PortalBucketProps): React.JSX.Element {
-	return isExperimentEnabled('platform_editor_reduce_memory_leaks') ? (
-		<TickPortalBucket id={id} portalManager={portalManager} />
-	) : (
-		<LegacyPortalBucket id={id} portalManager={portalManager} />
-	);
+	return <TickPortalBucket id={id} portalManager={portalManager} />;
 }

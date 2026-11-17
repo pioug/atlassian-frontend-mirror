@@ -266,6 +266,7 @@ export default (
 			} else {
 				const types = type.typeArguments;
 				node.push(
+					// @ts-expect-error - TS2345 - Argument of type 'Type | undefined' is not assignable to parameter of type 'Type'.
 					types.length === 1 && isAnyType(types[0]) // Array<any>
 						? []
 						: types.map((t) => getSchemaNodeFromType(t)).filter(isDefined),

@@ -53,6 +53,8 @@
 		"lodash": "root:*"
 	},
 	"devDependencies": {
+		"@atlaskit/docs": "workspace:^",
+		"@atlaskit/util-data-test": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@atlassian/ts-loader": "workspace:^",
 		"@atlassian/workbench": "workspace:*",

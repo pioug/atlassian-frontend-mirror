@@ -263,7 +263,8 @@ describe('top-layer focus when the calendar closes', () => {
 			await user.keyboard('{ArrowDown}');
 			await user.keyboard('{ArrowRight}');
 			expect(screen.getByRole('button', { name: /9, Saturday June 2018/ })).toHaveFocus();
-			expect(control).not.toHaveClass('date__control--is-focused');
+			// The input and the calendar are one field.
+			expect(control).toHaveClass('date__control--is-focused');
 			onFocus.mockClear();
 			await user.keyboard(closeAction === 'Escape' ? '{Escape}' : ' ');
 
@@ -274,9 +275,8 @@ describe('top-layer focus when the calendar closes', () => {
 			}
 			expect(input).toHaveFocus();
 			expect(screen.queryByRole('grid')).not.toBeInTheDocument();
-			// React sees the return: Select shows its focused state and calls `onFocus`.
 			expect(control).toHaveClass('date__control--is-focused');
-			expect(onFocus).toHaveBeenCalledTimes(1);
+			expect(onFocus).not.toHaveBeenCalled();
 		},
 	);
 
@@ -438,9 +438,8 @@ describe('top-layer focus when the calendar closes', () => {
 		expect(screen.getByRole('grid')).toBeVisible();
 	});
 
-	// The calendar opened with nothing focused, so Select has no element to return focus to.
 	it.each(['Tab', 'programmatic focus'])(
-		'opens the calendar on a later %s after focus was lost with the calendar',
+		'returns focus to the input after a pick when the calendar opened with nothing focused, and opens on a later %s',
 		async (focusAction) => {
 			const user = userEvent.setup();
 			render(
@@ -458,9 +457,10 @@ describe('top-layer focus when the calendar closes', () => {
 			await user.keyboard('{ArrowDown}');
 			await user.keyboard('{ArrowRight}');
 			await user.keyboard(' ');
-			expect(screen.queryByRole('grid')).not.toBeInTheDocument();
-			expect(document.body).toHaveFocus();
+			await waitFor(() => expect(screen.queryByRole('grid')).not.toBeInTheDocument());
+			expect(input).toHaveFocus();
 
+			act(() => input.blur());
 			if (focusAction === 'Tab') {
 				await user.tab();
 			} else {

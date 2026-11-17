@@ -27,7 +27,6 @@ import type {
 } from '@atlaskit/editor-common/link/types';
 import { linkMessages } from '@atlaskit/editor-common/messages/link';
 import { linkToolbarMessages as linkToolbarCommonMessages } from '@atlaskit/editor-common/messages/link-toolbar';
-import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type { Command, CommandDispatch } from '@atlaskit/editor-common/types/command';
 import type {
 	AlignType,
@@ -49,7 +48,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import EditIcon from '@atlaskit/icon/core/edit';
 import LinkBrokenIcon from '@atlaskit/icon/core/link-broken';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import {
 	editInsertedLink,
@@ -189,8 +187,7 @@ export const getToolbarConfig =
 		if (
 			state.selection instanceof TextSelection &&
 			state.selection.to !== state.selection.from &&
-			activeLinkMark?.type === 'EDIT' &&
-			editorExperiment('platform_editor_controls', 'variant1')
+			activeLinkMark?.type === 'EDIT'
 		) {
 			return;
 		}
@@ -220,8 +217,7 @@ export const getToolbarConfig =
 				// So instead we want to use the activeLinkMark.pos which has been calculated as the position before the click so that would be the link node
 				getDomRef:
 					activeLinkMark &&
-					(activeLinkMark.type === 'EDIT_INSERTED' || activeLinkMark.type === 'EDIT') &&
-					editorExperiment('platform_editor_controls', 'variant1')
+					(activeLinkMark.type === 'EDIT_INSERTED' || activeLinkMark.type === 'EDIT')
 						? (view: EditorView) => {
 								const domRef = findDomRefAtPos(activeLinkMark.pos, view.domAtPos.bind(view));
 								return domRef instanceof HTMLElement ? domRef : undefined;
@@ -249,17 +245,13 @@ export const getToolbarConfig =
 						metadata.title = activeLinkMark.node.text;
 					}
 
-					const areAnyNewToolbarFlagsEnabled = areToolbarFlagsEnabled(
-						Boolean(pluginInjectionApi?.toolbar),
-					);
-
 					const cardActions = pluginInjectionApi?.card?.actions;
 					const startingToolbarItems = cardActions?.getStartingToolbarItems(
 						intl,
 						link,
 						editInsertedLink(editorAnalyticsApi),
 						metadata,
-						areAnyNewToolbarFlagsEnabled ? state : undefined,
+						state,
 					) ?? [
 						{
 							id: 'editor.link.edit',
@@ -267,9 +259,9 @@ export const getToolbarConfig =
 							type: 'button',
 							onClick: editInsertedLink(editorAnalyticsApi),
 							title: editLink,
-							showTitle: areAnyNewToolbarFlagsEnabled ? false : true,
+							showTitle: false,
 							metadata: metadata,
-							icon: areAnyNewToolbarFlagsEnabled ? EditIcon : undefined,
+							icon: EditIcon,
 						},
 						{
 							type: 'separator',
@@ -305,24 +297,13 @@ export const getToolbarConfig =
 
 					const items: Array<FloatingToolbarItem<Command>> = [
 						...startingToolbarItems,
-						...((areAnyNewToolbarFlagsEnabled
-							? [
-									unlinkButton,
-									{
-										type: 'separator',
-										fullHeight: true,
-									},
-									openLinkButton,
-									{ type: 'separator', fullHeight: true },
-								]
-							: [
-									openLinkButton,
-									{
-										type: 'separator',
-									},
-									unlinkButton,
-									{ type: 'separator' },
-								]) as Array<FloatingToolbarItem<Command>>),
+						unlinkButton,
+						{
+							type: 'separator',
+							fullHeight: true,
+						},
+						openLinkButton,
+						{ type: 'separator', fullHeight: true },
 
 						{
 							type: 'copy-button',

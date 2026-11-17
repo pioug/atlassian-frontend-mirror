@@ -115,6 +115,39 @@ function isTouchCapable(): boolean {
 	}
 }
 
+const optionNavigationKeys = new Set(['ArrowUp', 'ArrowDown', 'Home', 'End', 'PageUp', 'PageDown']);
+
+const inputTypesWithoutNavigationKeys = new Set([
+	'button',
+	'checkbox',
+	'color',
+	'file',
+	'hidden',
+	'image',
+	'reset',
+	'submit',
+]);
+
+/**
+ * Whether `element` uses the navigation keys itself (a text field, `<select>`, radio, range).
+ */
+function isEditableElement(element: Element): boolean {
+	// `localName`, not `instanceof`: the element can be from another window.
+	switch (element.localName) {
+		case 'input':
+			return !inputTypesWithoutNavigationKeys.has((element as HTMLInputElement).type);
+		case 'textarea':
+		case 'select':
+			return true;
+		default:
+			return (element as HTMLElement).isContentEditable === true;
+	}
+}
+
+function getClosestLayer(element: Element): Element | null {
+	return element.closest('[popover], dialog');
+}
+
 /**
  * Filters out unsupported selectors (e.g., pseudo-classes, complex selectors) from a styles object.
  * @param styles - The styles object to filter.
@@ -470,6 +503,9 @@ export interface SelectProps<Option, IsMulti extends boolean, Group extends Grou
 	noOptionsMessage: (obj: { inputValue: string }) => ReactNode;
 	/**
 	 * Handle blur events on the control
+	 *
+	 * On the top layer, focus moving into the menu is not a blur. When focus leaves from the menu,
+	 * the event is from the menu element.
 	 */
 	onBlur?: FocusEventHandler<HTMLInputElement>;
 	/**
@@ -478,6 +514,8 @@ export interface SelectProps<Option, IsMulti extends boolean, Group extends Grou
 	onChange: (newValue: OnChangeValue<Option, IsMulti>, actionMeta: ActionMeta<Option>) => void;
 	/**
 	 * Handle focus events on the control
+	 *
+	 * On the top layer, focus coming back from the menu does not call this again.
 	 */
 	onFocus?: FocusEventHandler<HTMLInputElement>;
 	/**
@@ -611,6 +649,14 @@ export interface SelectProps<Option, IsMulti extends boolean, Group extends Grou
 	// temp fix to support unofficial props.
 	[key: string]: any;
 	UNSAFE_is_experimental_generic?: boolean;
+	/**
+	 * A11Y-44075: opt-in variant of the experimental generic menu that keeps the generic layout
+	 * (so option rows can host interactive content) but exposes proper listbox semantics -
+	 * `role="listbox"` on the menu with `aria-activedescendant`, `role="option"` with `aria-selected`
+	 * on each row, and `aria-haspopup="listbox"` on the combobox - instead of the dialog/list/listitem
+	 * roles. Behaves like `UNSAFE_is_experimental_generic` in every other respect.
+	 */
+	UNSAFE_is_experimental_listbox?: boolean;
 }
 
 const elemBeforeCSS = css({
@@ -671,6 +717,7 @@ export const defaultProps: Omit<
 	tabIndex: 0,
 	tabSelectsValue: true,
 	UNSAFE_is_experimental_generic: false,
+	UNSAFE_is_experimental_listbox: false,
 };
 
 interface State<Option, IsMulti extends boolean, Group extends GroupBase<Option>> {
@@ -1048,6 +1095,11 @@ export default class Select<
 	getInputRef: RefCallback<HTMLInputElement> = (ref) => {
 		this.inputRef = ref;
 	};
+	// The top-layer menu wrapper. `null` when the gate is off.
+	menuPortalRef: HTMLDivElement | null = null;
+	getMenuPortalRef: RefCallback<HTMLDivElement> = (ref) => {
+		this.menuPortalRef = ref;
+	};
 
 	// Lifecycle
 	// ------------------------------
@@ -1253,6 +1305,16 @@ export default class Select<
 			this.focusInput();
 		}
 
+		if (
+			fg('platform-dst-top-layer') &&
+			isFocused &&
+			// The menu closed, or finished closing.
+			((prevProps.menuIsOpen && !menuIsOpen) ||
+				(prevState.isMenuClosing && !this.state.isMenuClosing))
+		) {
+			this.onMenuCloseWhileFocused();
+		}
+
 		if (isFocused && isDisabled && !prevProps.isDisabled) {
 			// ensure select state gets blurred in case Select is programmatically disabled while focused
 			this.setState({ isFocused: false }, this.onMenuClose);
@@ -1321,12 +1383,103 @@ export default class Select<
 		if (!this.inputRef) {
 			return;
 		}
+		if (fg('platform-dst-top-layer')) {
+			// Focus can be in the menu.
+			const focusedElement = this.getFocusedElement();
+			if (focusedElement && this.isInMenuPortal(focusedElement)) {
+				(focusedElement as HTMLElement).blur();
+				return;
+			}
+		}
 		this.inputRef.blur();
 	}
 
 	// aliased for consumers
 	focus: () => void = this.focusInput;
 	blur: () => void = this.blurInput;
+
+	private isInMenuPortal(node: Node | null): boolean {
+		return this.menuPortalRef !== null && this.menuPortalRef.contains(node);
+	}
+
+	// The input's root `activeElement`, so focus in a shadow root works.
+	private getFocusedElement(): Element | null {
+		const root = this.inputRef?.getRootNode();
+		return root && 'activeElement' in root ? (root as Document | ShadowRoot).activeElement : null;
+	}
+
+	private isOwnListboxOrOption(element: Element): boolean {
+		const menuList = this.menuListRef;
+		return (
+			menuList !== null &&
+			(element === menuList ||
+				(element.getAttribute('role') === 'option' && menuList.contains(element)))
+		);
+	}
+
+	private isReturningFocusToInput = false;
+
+	// Focus the input without it counting as a new focus.
+	private returnFocusToInput(input: HTMLInputElement): void {
+		this.isReturningFocusToInput = true;
+		try {
+			input.focus();
+		} finally {
+			this.isReturningFocusToInput = false;
+		}
+	}
+
+	// Top layer: keep focus in the field after the menu closes with focus in it.
+	private onMenuCloseWhileFocused(): void {
+		const input = this.inputRef;
+		if (!input) {
+			return;
+		}
+		const focusedElement = this.getFocusedElement();
+		if (focusedElement === input) {
+			return;
+		}
+		// Still in the closing menu: its popover returns focus, or `onMenuPortalBlur` does.
+		if (focusedElement && this.isInMenuPortal(focusedElement)) {
+			return;
+		}
+		const { activeElement, body, defaultView } = input.ownerDocument;
+		if (activeElement === null || activeElement === body) {
+			this.returnFocusToInput(input);
+			return;
+		}
+		if (!defaultView) {
+			return;
+		}
+		// Focus left the field with no blur event (for example the focused content was removed).
+		input.dispatchEvent(
+			new defaultView.FocusEvent('focusout', {
+				bubbles: true,
+				relatedTarget: focusedElement ?? activeElement,
+			}),
+		);
+	}
+
+	// Keys on menu content belong to the content, except navigation keys and Escape it did not use.
+	private handlesKeyFromMenuContent(
+		event: React.KeyboardEvent<HTMLDivElement>,
+		menuPortal: HTMLElement,
+	): boolean {
+		const { key } = event;
+		const target = event.target as Element;
+		const isNavigationKey = optionNavigationKeys.has(key);
+		if (
+			(!isNavigationKey && key !== 'Escape') ||
+			event.defaultPrevented ||
+			isEditableElement(target) ||
+			// A nested layer owns its keys.
+			getClosestLayer(target) !== getClosestLayer(menuPortal)
+		) {
+			return false;
+		}
+		// With no options, leave navigation keys to the content (for example a calendar).
+		return !isNavigationKey || this.getFocusableOptions().length > 0;
+	}
 
 	openMenu(focusOption: 'first' | 'last'): void {
 		const { selectValue, isFocused, isMenuClosing } = this.state;
@@ -1964,7 +2117,9 @@ export default class Select<
 			this.controlRef &&
 			!this.controlRef.contains(event.target as Node) &&
 			this.menuListRef &&
-			!this.menuListRef.contains(event.target as Node)
+			!this.menuListRef.contains(event.target as Node) &&
+			// Top layer: a tap on menu content is inside the field.
+			!(fg('platform-dst-top-layer') && this.isInMenuPortal(event.target as Node))
 		) {
 			this.blurInput();
 		}
@@ -2008,6 +2163,14 @@ export default class Select<
 		}
 	};
 	onInputFocus: FocusEventHandler<HTMLInputElement> = (event) => {
+		// Top layer: focus back from the menu is not a new focus.
+		if (
+			fg('platform-dst-top-layer') &&
+			(this.isReturningFocusToInput ||
+				(this.state.isFocused && this.isInMenuPortal(event.relatedTarget)))
+		) {
+			return;
+		}
 		if (this.props.onFocus) {
 			this.props.onFocus(event);
 		}
@@ -2024,13 +2187,38 @@ export default class Select<
 		this.openAfterFocus = false;
 	};
 	onInputBlur: FocusEventHandler<HTMLInputElement> = (event) => {
-		const { inputValue: prevInputValue } = this.props;
 		if (this.menuListRef && this.menuListRef.contains(document.activeElement)) {
 			this.inputRef!.focus();
 			return;
 		}
+		// Top layer: the input and its menu are one field.
+		if (fg('platform-dst-top-layer') && this.isInMenuPortal(event.relatedTarget)) {
+			return;
+		}
+		this.blurField(event);
+	};
+	// Top layer: blur the field when focus leaves the menu and the input.
+	onMenuPortalBlur: FocusEventHandler<HTMLDivElement> = (event) => {
+		const { relatedTarget } = event;
+		if (
+			!this.state.isFocused ||
+			relatedTarget === this.inputRef ||
+			this.isInMenuPortal(relatedTarget)
+		) {
+			return;
+		}
+		// Focus fell to `<body>` as the menu hid.
+		if (relatedTarget === null && !this.props.menuIsOpen && this.inputRef) {
+			this.returnFocusToInput(this.inputRef);
+			return;
+		}
+		this.blurField(event);
+	};
+	private blurField(event: React.FocusEvent<HTMLElement>): void {
+		const { inputValue: prevInputValue } = this.props;
 		if (this.props.onBlur) {
-			this.props.onBlur(event);
+			// On the top layer the event can be from the menu.
+			this.props.onBlur(event as React.FocusEvent<HTMLInputElement>);
 		}
 		this.onInputChange('', { action: 'input-blur', prevInputValue });
 		if (fg('platform_dst_select_menu_close_on_blur')) {
@@ -2044,7 +2232,7 @@ export default class Select<
 			focusedValue: null,
 			isFocused: false,
 		});
-	};
+	}
 	onOptionHover = (focusedOption: Option): void => {
 		if (this.blockOptionHover || this.state.focusedOption === focusedOption) {
 			return;
@@ -2097,6 +2285,22 @@ export default class Select<
 			onKeyDown(event);
 			if (event.defaultPrevented) {
 				return;
+			}
+		}
+
+		const menuPortal = this.menuPortalRef;
+		if (
+			fg('platform-dst-top-layer') &&
+			menuPortal !== null &&
+			menuPortal.contains(event.target as Node) &&
+			!this.isOwnListboxOrOption(event.target as Element)
+		) {
+			if (!this.handlesKeyFromMenuContent(event, menuPortal)) {
+				return;
+			}
+			if (optionNavigationKeys.has(event.key)) {
+				// Move focus to the input, so `aria-activedescendant` announces the option.
+				this.focusInput();
 			}
 		}
 
@@ -2300,17 +2504,21 @@ export default class Select<
 			'aria-errormessage': this.props['aria-errormessage'],
 			'aria-expanded': menuIsOpen,
 			// TODO: aria-haspopup is implied as listbox with role="combobox" and was deprecated for aria 1.2, we still might need to keep it for back compat
-			'aria-haspopup': this.props['UNSAFE_is_experimental_generic']
-				? ('dialog' as AriaAttributes['aria-haspopup'])
-				: ('listbox' as AriaAttributes['aria-haspopup']),
+			'aria-haspopup':
+				this.props['UNSAFE_is_experimental_generic'] &&
+				!this.props['UNSAFE_is_experimental_listbox']
+					? ('dialog' as AriaAttributes['aria-haspopup'])
+					: ('listbox' as AriaAttributes['aria-haspopup']),
 			'aria-invalid': this.props['aria-invalid'] || isInvalid,
 			'aria-label': this.props['aria-label'] || label,
 			'aria-labelledby': this.props['aria-labelledby'] || labelId,
 			'aria-required': required || isRequired,
 			role: 'combobox',
-			'aria-activedescendant': this.props['UNSAFE_is_experimental_generic']
-				? undefined
-				: this.state.focusedOptionId || this.state.focusedValueId || undefined,
+			'aria-activedescendant':
+				this.props['UNSAFE_is_experimental_generic'] &&
+				!this.props['UNSAFE_is_experimental_listbox']
+					? undefined
+					: this.state.focusedOptionId || this.state.focusedValueId || undefined,
 			...(menuIsOpen && {
 				'aria-controls': this.getElementId('listbox'),
 			}),
@@ -2645,8 +2853,16 @@ export default class Select<
 				onClick: onSelect,
 				onMouseMove: onHover,
 				onMouseOver: onHover,
-				role: this.props['UNSAFE_is_experimental_generic'] ? 'listitem' : 'option',
-				'aria-selected': this.props['UNSAFE_is_experimental_generic'] ? undefined : isSelected,
+				role:
+					this.props['UNSAFE_is_experimental_generic'] &&
+					!this.props['UNSAFE_is_experimental_listbox']
+						? 'listitem'
+						: 'option',
+				'aria-selected':
+					this.props['UNSAFE_is_experimental_generic'] &&
+					!this.props['UNSAFE_is_experimental_listbox']
+						? undefined
+						: isSelected,
 				// We don't want aria-disabled if it's false. It's just noisy.
 				'aria-disabled': !isDisabled ? undefined : isDisabled,
 				'aria-describedby': headingId,
@@ -2731,7 +2947,7 @@ export default class Select<
 					{...commonProps}
 					innerProps={{
 						...(this.props['UNSAFE_is_experimental_generic'] && {
-							role: 'listitem',
+							role: this.props['UNSAFE_is_experimental_listbox'] ? 'option' : 'listitem',
 						}),
 						...(testId && {
 							'data-testid': `${testId}-select--no-options`,
@@ -2783,12 +2999,23 @@ export default class Select<
 										scrollTargetRef(instance);
 									}}
 									innerProps={{
-										role: this.props['UNSAFE_is_experimental_generic'] ? 'dialog' : 'listbox',
+										role:
+											this.props['UNSAFE_is_experimental_generic'] &&
+											!this.props['UNSAFE_is_experimental_listbox']
+												? 'dialog'
+												: 'listbox',
 										...(this.props['UNSAFE_is_experimental_generic'] && {
 											'aria-labelledby': this.inputRef?.id || this.getElementId('input'),
 										}),
+										// On the listbox variant the menu is the listbox itself, so point it at the
+										// active option for assistive tech (A11Y-44075).
+										...(this.props['UNSAFE_is_experimental_listbox'] && {
+											'aria-activedescendant': this.state.focusedOptionId || undefined,
+										}),
 										'aria-multiselectable':
-											!commonProps.isMulti || this.props['UNSAFE_is_experimental_generic']
+											!commonProps.isMulti ||
+											(this.props['UNSAFE_is_experimental_generic'] &&
+												!this.props['UNSAFE_is_experimental_listbox'])
 												? undefined
 												: commonProps.isMulti,
 										id: this.getElementId('listbox'),
@@ -2797,7 +3024,8 @@ export default class Select<
 										}),
 										// add aditional label on listbox for safari to announce first option
 										...(isSafari() &&
-											!this.props['UNSAFE_is_experimental_generic'] && {
+											(!this.props['UNSAFE_is_experimental_generic'] ||
+												this.props['UNSAFE_is_experimental_listbox']) && {
 												'aria-describedby': this.inputRef?.id || this.getElementId('input'),
 											}),
 									}}
@@ -2805,7 +3033,8 @@ export default class Select<
 									maxHeight={maxHeight}
 									focusedOption={focusedOption}
 								>
-									{this.props['UNSAFE_is_experimental_generic'] ? (
+									{this.props['UNSAFE_is_experimental_generic'] &&
+									!this.props['UNSAFE_is_experimental_listbox'] ? (
 										<div role="list">{menuUI}</div>
 									) : (
 										menuUI
@@ -2835,6 +3064,9 @@ export default class Select<
 				appendTo={menuPortalTarget}
 				additionalInsideElementRefs={additionalInsideElementRefs}
 				controlElement={this.controlRef}
+				{...(fg('platform-dst-top-layer') && {
+					innerProps: { ref: this.getMenuPortalRef, onBlur: this.onMenuPortalBlur },
+				})}
 				menuPlacement={menuPlacement}
 				menuPosition={menuPosition}
 			>

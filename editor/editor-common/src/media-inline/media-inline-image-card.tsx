@@ -22,7 +22,6 @@ import type { FileState } from '@atlaskit/media-client/media-state';
 import MediaViewer from '@atlaskit/media-viewer/media-viewer-loader';
 import type { MediaViewerExtensions } from '@atlaskit/media-viewer/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { messages } from '../messages/media-inline-card';
 import { referenceHeights } from './constants';
@@ -249,7 +248,7 @@ export const MediaInlineImageCardInternal = ({
 			// In edit mode (node content wrapper has contenteditable set to true), link redirection is disabled by default
 			// We need to call "stopPropagation" here in order to prevent in editor view mode, the browser from navigating to
 			// another URL if the media node is wrapped in a link mark.
-			if (isViewOnly && editorExperiment('platform_editor_controls', 'variant1')) {
+			if (isViewOnly) {
 				e.preventDefault();
 			}
 		},

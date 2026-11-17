@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/navigation-system",
-	"version": "11.7.8",
+	"version": "11.8.1",
 	"description": "The latest navigation system for Atlassian apps.",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"license": "Apache-2.0",
@@ -171,6 +171,7 @@
 		"@atlassian/universal-create": "workspace:^",
 		"@atlassian/workbench": "workspace:^",
 		"@axe-core/playwright": "root:*",
+		"@testing-library/react": "root:*",
 		"raf-stub": "root:*",
 		"react": "root:*",
 		"react-dom": "root:*",
@@ -207,6 +208,9 @@
 		"platform-dst-motion-uplift-panel": {
 			"type": "boolean",
 			"referenceOnly": true
+		},
+		"platform-dst-motion-uplift-panel-content": {
+			"type": "boolean"
 		},
 		"platform_dst_ads_appswitcher_improvements": {
 			"type": "boolean",

@@ -1241,7 +1241,7 @@ describe('DatePicker', () => {
 
 describe.each([false, true])('Select blur-close experiment %s', (blurCloseEnabled) => {
 	beforeEach(() => {
-		passGate('platform-dst-top-layer');
+		failGate('platform-dst-top-layer');
 		(blurCloseEnabled ? passGate : failGate)('platform_dst_select_menu_close_on_blur');
 	});
 
@@ -1254,6 +1254,28 @@ describe.each([false, true])('Select blur-close experiment %s', (blurCloseEnable
 		await user.tab();
 		expect(screen.getByTestId(`${testId}--calendar--previous-year`)).toHaveFocus();
 		onMenuClose.mockClear();
+
+		await user.keyboard('{Escape}');
+
+		expect(onMenuClose).toHaveBeenCalledTimes(1);
+	});
+});
+
+// Top layer: Tab into the calendar is not a blur.
+describe('Select menu close on the top-layer path', () => {
+	beforeEach(() => {
+		passGate('platform-dst-top-layer');
+	});
+
+	it('calls onMenuClose once when Escape closes a calendar-focused menu', async () => {
+		const user = userEvent.setup();
+		const onMenuClose = jest.fn();
+		render(createDatePicker({ selectProps: { onMenuClose } }));
+
+		await user.tab();
+		await user.tab();
+		expect(screen.getByTestId(`${testId}--calendar--previous-year`)).toHaveFocus();
+		expect(onMenuClose).not.toHaveBeenCalled();
 
 		await user.keyboard('{Escape}');
 

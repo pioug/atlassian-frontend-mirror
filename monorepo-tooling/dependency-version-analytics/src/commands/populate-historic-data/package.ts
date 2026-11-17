@@ -28,6 +28,7 @@ const createAnalyticsEvents = (
 				return null;
 			}
 			const previousVersion =
+				// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 				sortedPackageVersionHistory[i - 1] && sortedPackageVersionHistory[i - 1][0];
 			return createUpgradeEvent(
 				packageName,

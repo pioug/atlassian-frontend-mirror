@@ -1,5 +1,12 @@
 # @atlaskit/smart-common
 
+## 3.2.0
+
+### Minor Changes
+
+- [`c6525df2a3222`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c6525df2a3222) -
+  Expose the full recommendations response while preserving the existing array API.
+
 ## 3.1.0
 
 ### Minor Changes

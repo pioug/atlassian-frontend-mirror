@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
+import { layoutAreaStateContexts } from './layout-area-state-contexts';
 import { gridRootChatFitId, gridRootId } from './root';
 
 /**
@@ -13,7 +14,14 @@ export function LayoutOverlayClearance({
 }: {
 	panelMinWidth: number;
 	mainMinWidth: number;
-}): JSX.Element {
+}): JSX.Element | null {
+	const sideNavSizing = useContext(layoutAreaStateContexts['side-nav']);
+	const chatSizing = useContext(layoutAreaStateContexts['chat-panel']);
+	// A newly opened local panel can be unmeasured for one render after its siblings have
+	// joined the resize coordinator. Its CSS fallback must not overwrite their managed widths.
+	if (sideNavSizing || chatSizing) {
+		return null;
+	}
 	const navMin = 'var(--n_clearanceNavMin, 0px)';
 	const navTarget = 'var(--n_clearanceNavTarget, 0px)';
 	const chatMinimum = 'var(--n_clearanceChatMin, 0px)';

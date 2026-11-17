@@ -41,9 +41,7 @@ export function serializeExposureIdentity(input: ExposureMappingInput): string |
 		const metadata = details.metadata;
 		const flagKey = metadata.flagKey;
 		const matchReason = metadata.matchReason;
-		const randomizationIdentifier = nullableIdentifierName(
-			metadata.randomizationIdentifierName ?? flagResult?.metadata.randomizationIdentifierName,
-		);
+		const randomizationIdentifier = nullableIdentifierName(flagResult?.metadata.identifierType);
 		if (
 			!isNonEmptyString(flagKey) ||
 			!isNonEmptyString(matchReason) ||

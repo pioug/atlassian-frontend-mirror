@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-user-preferences",
-	"version": "29.0.0",
+	"version": "31.0.0",
 	"description": "UserPreferences plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -32,7 +32,6 @@
 	"dependencies": {
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
 		"@atlaskit/editor-prosemirror": "workspace:^",
-		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@babel/runtime": "root:*",
 		"bind-event-listener": "root:*"
 	},
@@ -41,7 +40,10 @@
 		"react": "^18.2.0 || ^19.2.0"
 	},
 	"devDependencies": {
+		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/editor-common": "workspace:^",
+		"@atlaskit/editor-plugins": "workspace:^",
+		"@atlaskit/editor-test-helpers": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@atlassian/workbench": "workspace:*",
 		"react": "^19.2.0"

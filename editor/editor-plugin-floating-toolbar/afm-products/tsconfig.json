@@ -59,7 +59,13 @@
 			"path": "../../editor-plugin-extension/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-feature-flags/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-interaction/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-toolbar/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../editor-plugin-user-intent/afm-products/tsconfig.json"

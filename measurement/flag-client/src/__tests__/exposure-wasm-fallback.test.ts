@@ -113,7 +113,7 @@ it('uses the same bounded LRU and preserves queued counts when clearing fallback
 		environment,
 	);
 	const attempt = (id: string) => {
-		const input = resultInput(flagResult({ randomizationIdentifierName: 'TenantId' }), {
+		const input = resultInput(flagResult({ identifierType: 'TenantId' }), {
 			requestContext: { identifiers: { TenantId: id }, attributes: {} },
 		});
 		logger.log(input, () => mapExposureRecord(input));
@@ -142,7 +142,7 @@ it('preserves the fallback wire key across persistence and ownership transfer', 
 	const first = new FakeExposureEnvironment(storage, 'first');
 	const options = { endpoint: '/logs', batchSize: 100, flushIntervalMs: 100 };
 	const logger = createExposureLogger(options, first);
-	const input = resultInput(flagResult({ randomizationIdentifierName: 'TenantId' }), {
+	const input = resultInput(flagResult({ identifierType: 'TenantId' }), {
 		requestContext: { identifiers: { TenantId: 'alice' }, attributes: {} },
 	});
 	logger.log(input, () => mapExposureRecord(input));

@@ -52,9 +52,7 @@ test.describe('Spotlight: top-layer focus contract', () => {
 		await expect(trigger).toBeFocused();
 	});
 
-	test('initial focus: native [autofocus] element wins over the first focusable element', async ({
-		page,
-	}) => {
+	test('initial focus: content `autoFocus` wins over the dismiss control', async ({ page }) => {
 		await page.visitExample<typeof import('../../examples/testing-initial-focus-matrix.tsx')>(
 			'design-system',
 			'spotlight',

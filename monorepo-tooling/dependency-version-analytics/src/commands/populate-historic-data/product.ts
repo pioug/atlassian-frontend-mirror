@@ -85,19 +85,23 @@ const getEventsFromHistory = async (
 		let item = packageChangesLog.all[i];
 
 		if (allPackageChanges.length > 0) {
+			// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 			dependencies = allPackageChanges[allPackageChanges.length - 1].deps;
 		}
 		const newDependencies = await dependencyStore.update({
+			// @ts-expect-error - TS2322 - Type '(DefaultLogFields & ListLogLine) | undefined' is not assignable to type 'DefaultLogFields & ListLogLine'.
 			item,
 			subWorkDir: directoryOptions.subWorkDir,
 		});
 
 		const packageChange = {
+			// @ts-expect-error - TS18048 - 'item' is possibly 'undefined'.
 			date: new Date(item.date).toISOString(),
 			deps: newDependencies,
 		};
 		const upgradeEvents = getUpgradeEventsFromPkgChange(dependencies, newDependencies, {
 			date: packageChange.date,
+			// @ts-expect-error - TS18048 - 'item' is possibly 'undefined'.
 			commitHash: item.hash,
 		});
 

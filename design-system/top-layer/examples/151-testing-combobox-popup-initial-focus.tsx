@@ -24,8 +24,8 @@ import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
  *   plain text input, or a checkbox outside the dialog, or opened by a plain
  *   button → focus stays on a text-like controller, otherwise moves into the
  *   dialog
- * - `role="dialog"` that contains its own focused combobox → focus moves into
- *   the dialog
+ * - `role="dialog"` that contains a combobox that focuses itself on mount → the
+ *   combobox keeps focus (the content's own focus wins over initial focus)
  */
 function ComboboxMenuPopup() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -288,9 +288,9 @@ function DialogPopup({
 	);
 }
 
-// Focuses itself on mount, in a layout effect, so it is the active element when
-// the dialog's initial focus runs (also a layout effect, after this one). This
-// is what react-select's `autoFocus` does, in `componentDidMount`.
+// Focuses itself on mount, in a layout effect, as react-select's `autoFocus`
+// does in `componentDidMount`. The dialog shows before this runs, so the
+// input keeps focus, and the dialog's initial focus does nothing.
 function InnerCombobox() {
 	const inputRef = useRef<HTMLInputElement>(null);
 	const listboxId = usePopoverId();

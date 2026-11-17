@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/panel",
-	"version": "2.15.0",
+	"version": "2.16.0",
 	"description": "A React component rendering a collapsible panel",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -46,6 +46,7 @@
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
+		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/page": "workspace:^",
 		"@atlassian/workbench": "workspace:^",
 		"@testing-library/react": "root:*",

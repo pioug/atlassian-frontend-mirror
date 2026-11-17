@@ -30,9 +30,13 @@
 		"@babel/runtime": "root:*"
 	},
 	"devDependencies": {
+		"@af/editor-examples-helpers": "workspace:^",
 		"@atlaskit/activity": "root:*",
+		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/editor-core": "workspace:^",
+		"@atlaskit/editor-synced-block-provider": "workspace:^",
+		"@atlaskit/editor-synced-block-renderer": "workspace:^",
 		"@atlaskit/editor-test-helpers": "workspace:^",
 		"@atlaskit/mention": "workspace:^",
 		"@atlaskit/renderer": "workspace:^",

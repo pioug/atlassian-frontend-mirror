@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-width",
-	"version": "32.0.0",
+	"version": "34.0.0",
 	"description": "Width plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -35,6 +35,7 @@
 		"react": "^18.2.0 || ^19.2.0"
 	},
 	"devDependencies": {
+		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/editor-common": "workspace:^",
 		"react": "^19.2.0"
 	}

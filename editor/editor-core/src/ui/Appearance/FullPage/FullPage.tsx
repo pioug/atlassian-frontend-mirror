@@ -12,7 +12,6 @@ import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugins/primary-tool
 import type { SelectionToolbarPlugin } from '@atlaskit/editor-plugins/selection-toolbar';
 import type { ToolbarPlugin } from '@atlaskit/editor-plugins/toolbar';
 import { FULL_PAGE_EDITOR_TOOLBAR_HEIGHT } from '@atlaskit/editor-shared-styles/constants';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { EditorAppearanceComponentProps } from '../../../types/editor-appearance-component';
@@ -148,14 +147,12 @@ export const FullPageEditor = (props: ComponentProps): React.JSX.Element => {
 
 	const { customPrimaryToolbarComponents } = props;
 
-	if (editorExperiment('platform_editor_controls', 'variant1', { exposure: true })) {
-		// need to check if the toolbarDockingPosition is set to 'none' or 'top'
-		if (toolbarDockingPosition === 'none' && !forcePrimaryToolbarPinned) {
-			primaryToolbarComponents = [];
+	// need to check if the toolbarDockingPosition is set to 'none' or 'top'
+	if (toolbarDockingPosition === 'none' && !forcePrimaryToolbarPinned) {
+		primaryToolbarComponents = [];
 
-			if (!hasCustomComponents(customPrimaryToolbarComponents)) {
-				isEditorToolbarHidden = true;
-			}
+		if (!hasCustomComponents(customPrimaryToolbarComponents)) {
+			isEditorToolbarHidden = true;
 		}
 	}
 
@@ -211,7 +208,6 @@ export const FullPageEditor = (props: ComponentProps): React.JSX.Element => {
 						) : (
 							<FullPageToolbar
 								appearance={props.appearance}
-								editorAPI={editorAPI}
 								beforeIcon={props.primaryToolbarIconBefore}
 								collabEdit={props.collabEdit}
 								containerElement={scrollContentContainerRef.current?.scrollContainer ?? null}

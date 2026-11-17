@@ -14,12 +14,12 @@ import { cssMap, jsx, keyframes } from '@compiled/react';
 
 import type ContainerAtRule from '@atlaskit/css/at-rules/container';
 import type MediaAboveMd from '@atlaskit/css/at-rules/media-above-md';
+import type MediaAboveXl from '@atlaskit/css/at-rules/media-above-xl';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import type { mainMinimumWidthVar } from './constants';
 import type { LayoutAreaMode } from './layout-area-sizing-context';
-import { LayoutOverlayClearance } from './layout-overlay-clearance';
 import { MainMinWidthContext } from './main-min-width-context';
 
 // The grid uses runtime CSS variables and container sizing outside @atlaskit/css's bounded values.
@@ -27,26 +27,24 @@ const localPanelTrackWidthVar = '--p_lclPnlTrackW';
 const localPanelResizingVar = '--p_lclPnlRsz';
 const localPanelMinWidthVar = '--p_lclPnlMinW';
 
-// Holds the single-column (closed) grid while the entering panel overlays `main`. With `backwards` fill
-// the `from` frame applies for the animation delay, then the real inline grid takes over. An animation
-// (rather than a transition) only starts when the class is added, so live resizing is never delayed.
-const holdClosedGrid = keyframes({
+// One CSS animation holds both the grid and its surface placement until the layout snap.
+// Identical keyframes keep the layout static; normal styles take over at 60ms.
+const holdPanelTrack = keyframes({
 	from: {
-		gridTemplateAreas: `'main'`,
+		gridTemplateAreas: "'main'",
 		gridTemplateColumns: 'minmax(0, 1fr)',
 		gridTemplateRows: '1fr',
+		'--p_lclPnlEnterArea': 'main',
+	},
+	to: {
+		gridTemplateAreas: "'main'",
+		gridTemplateColumns: 'minmax(0, 1fr)',
+		gridTemplateRows: '1fr',
+		'--p_lclPnlEnterArea': 'main',
 	},
 });
 
 const styles = cssMap({
-	panelEntering: {
-		'@media (prefers-reduced-motion: no-preference)': {
-			animationName: holdClosedGrid,
-			animationDuration: token('motion.duration.instant'),
-			animationDelay: token('motion.duration.short'),
-			animationFillMode: 'backwards',
-		},
-	},
 	container: {
 		containerName: 'local-panel-layout',
 		containerType: 'inline-size',
@@ -72,17 +70,26 @@ const styles = cssMap({
 	},
 	panelUplift: {
 		overflow: 'hidden',
+		// Cover the reserved track as the surface settles after the main-content snap.
+		backgroundColor: token('elevation.surface'),
 	},
 	unmeasured: {
 		// Keep quoted grid syntax in Compiled CSS: React 18 escapes quotes in server-rendered style text.
 		'--p_lclPnlSsrInlineAreas': `'main panel'`,
 		gridTemplateAreas: `var(--p_lclPnlSsrAreas, 'main')`,
 		gridTemplateColumns: 'var(--p_lclPnlSsrColumns, minmax(0, 1fr))',
+	},
+	unmeasuredWidths: {
+		// Retain responsive defaults while closed so exit motion uses the same geometry as SSR.
 		'--p_lclPnlSsrPreferredW': 'var(--p_lclPnlCompactW)',
 		'--p_lclPnlSsrDefaultW': 'var(--p_lclPnlCompactDefaultW)',
 		['@media (min-width: 64rem)' satisfies MediaAboveMd]: {
 			'--p_lclPnlSsrPreferredW': 'var(--p_lclPnlTrackW)',
 			'--p_lclPnlSsrDefaultW': 'var(--p_lclPnlDefaultW)',
+		},
+		['@media (min-width: 110.5rem)' satisfies MediaAboveXl]: {
+			'--p_lclPnlSsrPreferredW': 'var(--p_lclPnlXlW)',
+			'--p_lclPnlSsrDefaultW': 'var(--p_lclPnlXlDefaultW)',
 		},
 	},
 	managedInline: {
@@ -103,6 +110,13 @@ const styles = cssMap({
 			gridTemplateAreas: `'main'`,
 			gridTemplateColumns: 'minmax(0, 1fr)',
 			gridTemplateRows: '1fr',
+		},
+	},
+	entering: {
+		'@media (prefers-reduced-motion: no-preference)': {
+			// Snap once at 30% of the 200ms entrance, without interpolating the page width.
+			animationName: holdPanelTrack,
+			animationDuration: `calc(${token('motion.duration.medium')} * 0.3)`,
 		},
 	},
 	panelClosed: {
@@ -134,6 +148,8 @@ type PanelLayoutShellProps = {
 	 */
 	panelWidth: number;
 	compactPanelWidth: number;
+	xlPanelWidth: number;
+	xlDefaultPanelWidth: number;
 	/**
 	 * Mount-time defaults determine the overlay cap independently of saved widths.
 	 */
@@ -152,9 +168,9 @@ type PanelLayoutShellProps = {
 	 */
 	layoutRef?: MutableRefObject<HTMLDivElement | null>;
 	/**
-	 * Clips the layout during panel motion.
+	 * Enables coordinated panel motion and clips the sliding surface.
 	 */
-	shouldClipOverflow?: boolean;
+	isMotionEnabled?: boolean;
 	testId?: string;
 };
 
@@ -167,12 +183,14 @@ export function PanelLayoutShell({
 	isPanelOpen,
 	panelWidth,
 	compactPanelWidth,
+	xlPanelWidth,
+	xlDefaultPanelWidth,
 	defaultPanelWidth,
 	compactDefaultPanelWidth,
 	panelMinWidth = 320,
 	mode,
 	layoutRef,
-	shouldClipOverflow = false,
+	isMotionEnabled = false,
 	testId,
 }: PanelLayoutShellProps): JSX.Element {
 	const mainMinWidth = useContext(MainMinWidthContext);
@@ -184,8 +202,12 @@ export function PanelLayoutShell({
 		`@container local-panel-layout (min-width: ${mainMinWidth + panelMinWidth}px)` satisfies ContainerAtRule;
 	return (
 		<div css={styles.container}>
-			{mode === undefined && isPanelOpen && fg('platform-dst-chat-panel-layout') && (
-				<LayoutOverlayClearance panelMinWidth={panelMinWidth} mainMinWidth={mainMinWidth} />
+			{mode === undefined && isMotionEnabled && fg('platform-dst-chat-panel-layout') && (
+				// Keep the inline motion cap available during exit, after the open-only track rule is removed.
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles -- Instance-scoped query matches the SSR inline allocation, including caller-defined minimums.
+				<style>{`${inlineQuery} {
+					#${id} { --p_lclPnlMotionMaxW: calc(100cqw - ${mainMinWidth}px); }
+				}`}</style>
 			)}
 			{mode === undefined && isPanelOpen && (
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles -- Instance-scoped SSR query supports caller-defined minimums; CSS variables are not allowed in query conditions.
@@ -205,19 +227,13 @@ export function PanelLayoutShell({
 				id={id}
 				css={[
 					styles.layout,
+					mode === undefined && styles.unmeasuredWidths,
 					mode === undefined && isPanelOpen && styles.unmeasured,
-					shouldClipOverflow && styles.panelUplift,
+					isMotionEnabled && styles.panelUplift,
 					mode === 'inline' && styles.managedInline,
-					// Added from the first open render (including before the first measurement, when `mode` is
-					// undefined and the SSR query would already reserve the track), and kept across the
-					// undefined -> 'inline' handoff so the animation doesn't restart. Closing removes it,
-					// so re-opening replays it.
-					shouldClipOverflow &&
-						isPanelOpen &&
-						(mode === undefined || mode === 'inline') &&
-						styles.panelEntering,
 					mode === 'overlay' && styles.managedOverlay,
 					!isPanelOpen && styles.panelClosed,
+					isPanelOpen && isMotionEnabled && styles.entering,
 				]}
 				data-testid={testId}
 				ref={layoutRef}
@@ -229,6 +245,8 @@ export function PanelLayoutShell({
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-unsafe-values
 						[localPanelMinWidthVar]: `${panelMinWidth}px`,
 						'--p_lclPnlCompactW': `${compactPanelWidth}px`,
+						'--p_lclPnlXlW': `${xlPanelWidth}px`,
+						'--p_lclPnlXlDefaultW': `${xlDefaultPanelWidth}px`,
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-unsafe-values
 						'--p_lclPnlDefaultW': `${defaultPanelWidth}px`,
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-unsafe-values

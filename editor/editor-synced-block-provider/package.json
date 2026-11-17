@@ -49,6 +49,7 @@
 		"@atlaskit/adf-utils": "workspace:^",
 		"@atlaskit/browser-apis": "workspace:^",
 		"@atlaskit/editor-json-transformer": "workspace:^",
+		"@atlaskit/editor-plugin-editor-viewmode": "workspace:^",
 		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/emoji": "workspace:^",
 		"@atlaskit/mention": "workspace:^",
@@ -72,7 +73,7 @@
 		"react-dom": "^19.2.0"
 	},
 	"name": "@atlaskit/editor-synced-block-provider",
-	"version": "27.0.0",
+	"version": "29.0.0",
 	"description": "Synced Block Provider for @atlaskit/editor-plugin-synced-block",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

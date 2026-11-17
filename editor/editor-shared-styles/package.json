@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-shared-styles",
-	"version": "5.1.6",
+	"version": "5.2.0",
 	"description": "Style values used in the editor/renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -43,7 +43,6 @@
 		"@atlaskit/agent-color": "workspace:^",
 		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
-		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
 		"@emotion/react": "root:*"

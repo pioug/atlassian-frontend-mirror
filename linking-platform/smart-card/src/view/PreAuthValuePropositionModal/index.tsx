@@ -2,34 +2,32 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { lazy, Suspense, useEffect } from 'react';
 
+import { ErrorBoundary } from 'react-error-boundary';
 import { defineMessages, FormattedMessage } from 'react-intl';
 
 import Button from '@atlaskit/button/default/button';
 import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
-import { extractSmartLinkProvider } from '@atlaskit/link-extractors/extract-smart-link-provider';
+import { ChoreographedContent } from '@atlaskit/link-provider/choreographed-content';
 import ModalBody from '@atlaskit/modal-dialog/modal-body';
 import Modal from '@atlaskit/modal-dialog/modal-dialog';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
-import type { KeyboardOrMouseEvent } from '@atlaskit/modal-dialog/types';
-import { expVal } from '@atlaskit/platform-feature-experiments/exp-val';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
-import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import { messages as smartCardMessages } from '../../messages';
-import { getExtensionKey, getServices } from '../../state/helpers';
-import useSocialProof from '../../state/hooks/use-social-proof';
-import { useSmartLink } from '../../state/hooks/useSmartLink';
-import { preAuthValuePropositionModalService } from '../../state/services/pre-auth-value-proposition-modal';
 import { SmartLinkAnalyticsContext } from '../../utils/analytics/SmartLinkAnalyticsContext';
 import ImageIcon from '../common/image-icon';
+import {
+	SMART_LINK_MODAL_ID,
+	usePreAuthValuePropositionModal,
+} from './use-pre-auth-value-proposition-modal';
 
 const IllustrationPane = lazy(
 	() =>
@@ -39,9 +37,6 @@ const IllustrationPane = lazy(
 );
 
 const SOCIAL_PROOF_TEAM_PREVIEW_THRESHOLD = 30;
-const SMART_LINK_MODAL_ID = 'pre-auth-value-proposition-modal';
-
-type PreAuthModalVariant = 'modal_text_only' | 'modal_with_image';
 
 const messages = defineMessages({
 	close: {
@@ -133,9 +128,6 @@ const styles = cssMap({
 
 const bold = (chunks: React.ReactNode): JSX.Element => <Text as="strong">{chunks}</Text>;
 
-const getModalCloseMethod = (event: KeyboardOrMouseEvent): 'escape' | 'overlay' =>
-	'key' in event && event.key === 'Escape' ? 'escape' : 'overlay';
-
 type ModalCopyProps = {
 	connectedPct?: number;
 	isSocialProofAvailable: boolean;
@@ -226,35 +218,24 @@ const ModalCopy = ({
 	);
 };
 
-export type PreAuthValuePropositionModalProps = {
-	onFinished: () => void;
-	/** Called when the modal becomes visible, and with false on close or unmount. */
-	onOpenChange?: (isOpen: boolean) => void;
-	url: string;
-};
-
-const PreAuthValuePropositionModalContent = ({
-	onFinished,
+/** Mounted only while the existing choreographer grants permission. */
+const ModalContent = ({
+	provider,
+	variant,
+	connectedPct,
+	isSocialProofAvailable,
+	onClose,
+	onCloseButton,
+	onConnect,
+	onOpenComplete,
 	onOpenChange,
-	url,
-}: PreAuthValuePropositionModalProps): JSX.Element | null => {
-	const { actions, config, state } = useSmartLink(SMART_LINK_MODAL_ID, url, 'inline');
-	const { fireEvent } = useAnalyticsEvents();
-	const [isOpen, setIsOpen] = useState(false);
-	const [visibleVariant, setVisibleVariant] = useState<PreAuthModalVariant>('modal_text_only');
-	const modalOpenTimeRef = useRef<number>(Date.now());
-	const provider = useMemo(() => extractSmartLinkProvider(state.details), [state.details]);
-	const providerName = provider?.text;
-	const isVisible = isOpen && Boolean(providerName);
-
+}: ReturnType<typeof usePreAuthValuePropositionModal>['modal'] &
+	Pick<PreAuthValuePropositionModalProps, 'onOpenChange'>): JSX.Element | null => {
 	useEffect(() => {
-		if (!isVisible) {
-			return;
-		}
-
 		onOpenChange?.(true);
 		return () => onOpenChange?.(false);
-	}, [isVisible, onOpenChange]);
+	}, [onOpenChange]);
+	const providerName = provider?.text;
 	const providerIconUrl = typeof provider?.icon === 'string' ? provider.icon : undefined;
 	const renderProviderIcon = (size: number, testId?: string, label?: string): React.ReactNode => {
 		if (providerIconUrl) {
@@ -278,98 +259,23 @@ const PreAuthValuePropositionModalContent = ({
 		'pre-auth-value-proposition-modal-provider-icon',
 		provider?.iconLabel ?? providerName,
 	);
-	const services = getServices(state.details);
-	const extensionKey = getExtensionKey(state.details);
-	const { connectedPct, isEnabled: isSocialProofAvailable } = useSocialProof(extensionKey, true);
-
-	const hasSupportedAuthorization = config?.authFlow !== 'disabled' && services.length > 0;
-	const isBaseEligible =
-		state.status === 'unauthorized' &&
-		Boolean(providerName) &&
-		Boolean(extensionKey) &&
-		hasSupportedAuthorization;
-	useEffect(() => {
-		if (state.status === 'pending' || state.status === 'resolving') {
-			return;
-		}
-
-		if (
-			!isBaseEligible ||
-			!extensionKey ||
-			preAuthValuePropositionModalService.hasReachedShowLimit(extensionKey)
-		) {
-			onFinished();
-			return;
-		}
-
-		const experimentVariant = expVal('platform_sl_3p_preauth_value_modal', 'variant', 'control');
-
-		if (experimentVariant === 'modal_text_only' || experimentVariant === 'modal_with_image') {
-			preAuthValuePropositionModalService.recordShow(extensionKey);
-			setVisibleVariant(experimentVariant);
-			setIsOpen(true);
-			return;
-		}
-
-		onFinished();
-	}, [extensionKey, isBaseEligible, onFinished, state.status]);
-
-	const dismissModal = useCallback(
-		(closeMethod: 'button' | 'escape' | 'overlay') => {
-			fireEvent('ui.modal.closed.preAuthValueProposition', {
-				closeMethod,
-				dwellTime: Date.now() - modalOpenTimeRef.current,
-			});
-			setIsOpen(false);
-			onFinished();
-		},
-		[fireEvent, onFinished],
-	);
-
-	const handleCloseButton = useCallback(() => {
-		dismissModal('button');
-	}, [dismissModal]);
-
-	const handleModalClose = useCallback(
-		(event: KeyboardOrMouseEvent) => {
-			dismissModal(getModalCloseMethod(event));
-		},
-		[dismissModal],
-	);
-
-	const handleOpenComplete = useCallback(() => {
-		modalOpenTimeRef.current = Date.now();
-		fireEvent('ui.modal.opened.preAuthValueProposition', {});
-	}, [fireEvent]);
-
-	const connectAccount = useCallback(() => {
-		fireEvent('track.applicationAccount.authStarted', {});
-		setIsOpen(false);
-		actions.authorize('inline');
-		onFinished();
-	}, [actions, fireEvent, onFinished]);
-
-	if (!isOpen || !providerName) {
-		return null;
-	}
-
 	const modalCopy = (
 		<ModalCopy
 			connectedPct={connectedPct}
 			isSocialProofAvailable={isSocialProofAvailable}
-			onClose={handleCloseButton}
-			onConnect={connectAccount}
+			onClose={onCloseButton}
+			onConnect={onConnect}
 			providerIcon={providerIcon}
-			providerName={providerName}
+			providerName={providerName ?? ''}
 		/>
 	);
-	const showIllustration = visibleVariant === 'modal_with_image';
+	const showIllustration = variant === 'modal_with_image';
 
-	return (
+	const modal = providerName ? (
 		<ModalTransition>
 			<Modal
-				onClose={handleModalClose}
-				onOpenComplete={handleOpenComplete}
+				onClose={onClose}
+				onOpenComplete={onOpenComplete}
 				testId="pre-auth-value-proposition-modal"
 				width={showIllustration ? 800 : 400}
 			>
@@ -385,24 +291,51 @@ const PreAuthValuePropositionModalContent = ({
 				)}
 			</Modal>
 		</ModalTransition>
+	) : null;
+
+	return modal;
+};
+
+export type PreAuthValuePropositionModalProps = {
+	onFinished: () => void;
+	/** Called when the modal becomes visible, and with false on close or unmount. */
+	onOpenChange?: (isOpen: boolean) => void;
+	url: string;
+};
+
+const PreAuthValuePropositionModalContent = ({
+	onOpenChange,
+	...options
+}: PreAuthValuePropositionModalProps): JSX.Element => {
+	const { isActive, isEligible, onUnavailable, shouldClaim, modal } =
+		usePreAuthValuePropositionModal(options);
+	return (
+		<ChoreographedContent
+			messageId="smart-link-pre-auth-value-proposition-modal"
+			isActive={isActive}
+			onUnavailable={onUnavailable}
+			shouldClaim={shouldClaim}
+		>
+			{({ hasPermission }) =>
+				hasPermission && isEligible ? (
+					<ErrorBoundary fallback={null} onError={onUnavailable}>
+						<ModalContent {...modal} onOpenChange={onOpenChange} />
+					</ErrorBoundary>
+				) : null
+			}
+		</ChoreographedContent>
 	);
 };
 
-export const PreAuthValuePropositionModal = ({
-	onFinished,
-	onOpenChange,
-	url,
-}: PreAuthValuePropositionModalProps): JSX.Element => (
+export const PreAuthValuePropositionModal = (
+	props: PreAuthValuePropositionModalProps,
+): JSX.Element => (
 	<SmartLinkAnalyticsContext
 		display="inline"
 		id={SMART_LINK_MODAL_ID}
 		source="preAuthValuePropositionModal"
-		url={url}
+		url={props.url}
 	>
-		<PreAuthValuePropositionModalContent
-			onFinished={onFinished}
-			onOpenChange={onOpenChange}
-			url={url}
-		/>
+		<PreAuthValuePropositionModalContent {...props} />
 	</SmartLinkAnalyticsContext>
 );

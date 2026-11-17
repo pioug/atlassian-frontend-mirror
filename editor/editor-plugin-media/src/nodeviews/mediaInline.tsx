@@ -53,10 +53,8 @@ export interface MediaInlineProps {
 	handleMediaNodeUnmount: (node: PMNode) => void;
 	identifier: FileIdentifier;
 	isSelected: boolean;
-	mediaClientConfig: MediaClientConfig;
 	mediaProvider: Promise<MediaProvider>;
 	node: PMNode;
-	selectedMediaContainerNode: () => PMNode | undefined;
 	view: EditorView;
 }
 
@@ -186,15 +184,7 @@ export const MediaInline = (props: MediaInlineProps): jsx.JSX.Element => {
 	}
 
 	return (
-		<MediaViewerContainer
-			mediaNode={props.node}
-			selectedMediaContainerNode={props.selectedMediaContainerNode}
-			mediaClientConfig={props.mediaClientConfig}
-			isEditorViewMode={props.editorViewMode}
-			isSelected={props.isSelected}
-			isInline={true}
-			fallbackMediaNameFetcher={props.fallbackMediaNameFetcher}
-		>
+		<MediaViewerContainer isEditorViewMode={props.editorViewMode} isInline>
 			<MediaInlineCard
 				isSelected={props.isSelected}
 				identifier={identifier}
@@ -212,8 +202,6 @@ type MediaInlineSharedStateProps = Omit<
 	| 'handleMediaNodeMount'
 	| 'handleMediaNodeUnmount'
 	| 'addPendingTask'
-	| 'selectedMediaContainerNode'
-	| 'mediaClientConfig'
 > & {
 	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
 };
@@ -231,7 +219,6 @@ const selector = (
 		handleMediaNodeUnmount: states.mediaState?.handleMediaNodeUnmount,
 		allowInlineImages: states.mediaState?.allowInlineImages,
 		addPendingTask: states.mediaState?.addPendingTask,
-		selectedMediaContainerNode: states.mediaState?.selectedMediaContainerNode,
 		mediaClientConfig: states.mediaState?.mediaClientConfig,
 	};
 };
@@ -252,7 +239,6 @@ const MediaInlineSharedState = ({
 		handleMediaNodeMount,
 		handleMediaNodeUnmount,
 		addPendingTask,
-		selectedMediaContainerNode,
 		mediaClientConfig,
 		viewMode,
 	} = useSharedPluginStateWithSelector(api, ['editorViewMode', 'media'], selector);
@@ -265,7 +251,6 @@ const MediaInlineSharedState = ({
 		!handleMediaNodeMount ||
 		!handleMediaNodeUnmount ||
 		!addPendingTask ||
-		!selectedMediaContainerNode ||
 		!mediaClientConfig ||
 		!newMediaProvider
 	) {
@@ -280,8 +265,6 @@ const MediaInlineSharedState = ({
 			handleMediaNodeUnmount={handleMediaNodeUnmount}
 			allowInlineImages={allowInlineImages}
 			addPendingTask={addPendingTask}
-			selectedMediaContainerNode={selectedMediaContainerNode}
-			mediaClientConfig={mediaClientConfig}
 			node={node}
 			isSelected={isSelected}
 			view={view}

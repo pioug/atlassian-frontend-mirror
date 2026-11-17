@@ -2,37 +2,13 @@ import type { Node, Fragment, Mark } from '@atlaskit/editor-prosemirror/model';
 import type {
 	EditorState,
 	ReadonlyTransaction,
-	TextSelection,
 	Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 
 import { getStepRange } from './getStepRange';
-import { hasDocAsParent } from './hasDocAsParent';
 type ChangedFn = (node: Node, pos: number, parent: Node | null, index: number) => boolean | void;
 
-export function bracketTyped(state: EditorState): boolean {
-	const { selection } = state;
-	const { $cursor, $anchor } = selection as TextSelection;
-
-	if (!$cursor) {
-		return false;
-	}
-	const node = $cursor.nodeBefore;
-
-	if (!node) {
-		return false;
-	}
-
-	if (node.type.name === 'text' && node.text === '{') {
-		const paragraphNode = $anchor.node();
-		return paragraphNode.marks.length === 0 && hasDocAsParent($anchor);
-	}
-
-	return false;
-}
-
-// eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
 export function nodesBetweenChanged(
 	tr: Transaction | ReadonlyTransaction,
 	f: ChangedFn,

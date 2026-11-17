@@ -141,6 +141,37 @@ describe('getAutocompleteAnalyticsAttributes', () => {
 			optionIndex: 1,
 		});
 
+	it.each([
+		{ areRichInlineNodesEnabled: true, nodeType: 'focusArea' },
+		{ areRichInlineNodesEnabled: false, nodeType: 'text' },
+	])(
+		'reports a focus area selection as $nodeType when rich inline nodes are $areRichInlineNodesEnabled',
+		({ areRichInlineNodesEnabled, nodeType }) => {
+			const option = createOption({
+				name: 'Test focus area',
+				value: '"ari:cloud:mercury:test-tenant:focus-area/workspace/test-workspace/test-focus-area"',
+				valueType: 'focusArea',
+			});
+
+			expect(
+				getAutocompleteAnalyticsAttributes({
+					areRichInlineNodesEnabled,
+					keyboard: false,
+					numberOfOptions: 1,
+					option,
+					optionIndex: 0,
+				}),
+			).toEqual({
+				keyboard: false,
+				nodeType,
+				numberOfOptions: 1,
+				optionIndex: 0,
+				optionType: 'value',
+				queryLength: 0,
+			});
+		},
+	);
+
 	it('includes optionFunctionName when the option belongs to a known function', () => {
 		expect(
 			attributesFor(

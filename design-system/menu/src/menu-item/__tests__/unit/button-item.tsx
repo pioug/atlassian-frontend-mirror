@@ -143,4 +143,12 @@ describe('<ButtonItem />', () => {
 
 		expect(screen.getByRole('button')).toHaveAttribute('aria-current', 'true');
 	});
+
+	it('should not set a focus text colour, so a consumer colour still applies on focus', () => {
+		render(<ButtonItem testId="target">Hello world</ButtonItem>);
+
+		expect(screen.getByTestId('target')).not.toHaveCompiledCss('color', 'currentColor', {
+			target: ':focus',
+		});
+	});
 });

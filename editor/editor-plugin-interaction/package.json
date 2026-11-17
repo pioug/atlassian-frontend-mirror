@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-interaction",
-	"version": "45.0.0",
+	"version": "47.0.0",
 	"description": "Interaction plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,6 +36,7 @@
 	},
 	"platform-feature-flags": {},
 	"devDependencies": {
+		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"react": "^19.2.0",

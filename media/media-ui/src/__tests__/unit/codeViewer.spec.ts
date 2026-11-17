@@ -1,5 +1,3 @@
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-
 import { getExtension } from '../../getExtension';
 import { getLanguageType } from '../../getLanguageType';
 import { isCodeViewerItem } from '../../isCodeViewerItem';
@@ -128,28 +126,8 @@ describe(getExtension, () => {
 
 describe('git format-patch previews', () => {
 	// Sniffing labels the same patch bytes as several textual types, sometimes with a
-	// charset parameter. Without the gate those types go to document preview, which fails.
-	test.each([
-		['0001-fix.patch', 'text/x-diff'],
-		['0001-fix.patch', 'text/x-patch'],
-		['0001-fix.diff', 'application/x-patch'],
-		['0001-fix.patch', 'application/mbox'],
-		['0001-fix.patch', 'message/rfc822'],
-		['0001-fix.diff', 'message/rfc822'],
-		['0001-FIX.PATCH', 'application/mbox'],
-		['0001-fix.patch', 'text/x-diff; charset=utf-8'],
-		['0001-fix.patch', 'text/x-diff ; charset=utf-8'],
-		['0001-fix.patch', 'Text/Plain; charset=utf-8'],
-		['notes', 'text/plain; charset=utf-8'],
-		['changes', 'text/x-diff'],
-	])('does not preview %s (%s) when the gate is off', (filename, mimetype) => {
-		failGate('platform_media_patch_text_preview');
-
-		expect(getLanguageType(filename, mimetype)).toBeNull();
-		expect(isCodeViewerItem(filename, mimetype ?? 'unknown')).toBe(false);
-	});
-
-	test('previews a .patch file already labelled text/plain without reading the gate', () => {
+	// charset parameter. Those types preview as text so document preview does not fail.
+	test('previews a .patch file already labelled text/plain', () => {
 		expect(getLanguageType('0001-fix.patch', 'text/plain')).toBe('text');
 		expect(isCodeViewerItem('0001-fix.patch', 'text/plain')).toBe(true);
 	});
@@ -176,22 +154,18 @@ describe('git format-patch previews', () => {
 		['0001-fix.patch', 'Text/Plain; charset=utf-8'],
 		['notes', 'text/plain; charset=utf-8'],
 		['changes', 'text/x-diff'],
-	])('previews %s (%s) as text when the gate is on', (filename, mimetype) => {
-		passGate('platform_media_patch_text_preview');
-
+	])('previews %s (%s) as text', (filename, mimetype) => {
 		expect(getLanguageType(filename, mimetype)).toBe('text');
 		expect(isCodeViewerItem(filename, mimetype ?? 'unknown')).toBe(true);
 	});
 
-	test('does not preview email or mailbox files when the gate is on', () => {
-		passGate('platform_media_patch_text_preview');
-
+	test('does not preview email or mailbox files as text', () => {
 		expect(getLanguageType('mail.eml', 'message/rfc822')).toBeNull();
 		expect(isCodeViewerItem('mail.eml', 'message/rfc822')).toBe(false);
 		expect(getLanguageType('inbox.mbox', 'application/mbox')).toBeNull();
 		expect(isCodeViewerItem('inbox.mbox', 'application/mbox')).toBe(false);
 		expect(getLanguageType('changes', 'message/rfc822')).toBeNull();
-		// A patch name is what reads the gate. Mail types on other names must not.
+		// Mail types preview as text only when the name is a patch or diff.
 		expect(getLanguageType('0001-fix.patch', 'text/x-diff')).toBe('text');
 	});
 });

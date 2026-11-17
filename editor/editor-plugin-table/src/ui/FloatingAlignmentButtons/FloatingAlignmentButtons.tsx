@@ -21,14 +21,12 @@ const containerStyles = xcss({
 
 type Props = {
 	alignmentButtons: FloatingToolbarItem<Command>[];
-	areAnyNewToolbarFlagsEnabled: boolean;
 	dispatchCommand: (command: Command) => void;
 };
 
 export const FloatingAlignmentButtons = ({
 	alignmentButtons,
 	dispatchCommand,
-	areAnyNewToolbarFlagsEnabled,
 }: Props): jsx.JSX.Element => {
 	return (
 		<Box xcss={containerStyles}>
@@ -41,7 +39,6 @@ export const FloatingAlignmentButtons = ({
 									// Ignored via go/ees005
 									// eslint-disable-next-line react/no-array-index-key
 									key={idx}
-									areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 								/>
 							);
 						case 'button':
@@ -61,7 +58,6 @@ export const FloatingAlignmentButtons = ({
 									onClick={() => {
 										dispatchCommand(item.onClick);
 									}}
-									areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 								/>
 							);
 					}

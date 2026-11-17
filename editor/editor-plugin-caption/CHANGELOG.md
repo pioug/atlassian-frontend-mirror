@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-caption
 
+## 33.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 32.0.0
+
+### Patch Changes
+
+- [`b2444e74978c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2444e74978c4) -
+  Make the shipped editor memory-leak reductions permanent and remove the experiment checks.
+- Updated dependencies
+
 ## 31.0.0
 
 ### Patch Changes

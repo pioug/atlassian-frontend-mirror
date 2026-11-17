@@ -1,5 +1,13 @@
 # @atlaskit/modal-dialog
 
+## 17.2.6
+
+### Patch Changes
+
+- [`6594fc2cf92b4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6594fc2cf92b4) -
+  On the top-layer path, `ModalDialog` now forwards its `ref` to the native `<dialog>`.
+- Updated dependencies
+
 ## 17.2.5
 
 ### Patch Changes

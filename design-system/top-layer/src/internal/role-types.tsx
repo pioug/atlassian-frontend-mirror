@@ -64,3 +64,8 @@ type TAccessibleNameOptional = {
 export type TAriaRoleRequired =
 	| ({ role: TRoleRequiringAccessibleName } & TAccessibleNameRequired)
 	| ({ role: TRoleWithImplicitName } & TAccessibleNameOptional);
+
+/**
+ * A layer's role: any role a `Popover` accepts.
+ */
+export type TLayerRole = TAriaRoleRequired['role'];

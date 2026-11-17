@@ -98,9 +98,7 @@ const getStickyNodes = memoizeOne(() => [
 ]);
 
 export const shouldBeSticky = (nodeType: string): boolean => {
-	return (
-		editorExperiment('platform_editor_controls', 'variant1') && getStickyNodes().includes(nodeType)
-	);
+	return getStickyNodes().includes(nodeType);
 };
 
 export const getControlBottomCSSValue = (
@@ -144,10 +142,5 @@ export const getControlHeightCSSValue = (
 };
 
 export const shouldMaskNodeControls = (nodeType: string, isTopLevelNode: boolean): boolean => {
-	return (
-		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-		isTopLevelNode &&
-		['table'].includes(nodeType) &&
-		editorExperiment('platform_editor_controls', 'variant1')
-	);
+	return isTopLevelNode && ['table'].includes(nodeType);
 };

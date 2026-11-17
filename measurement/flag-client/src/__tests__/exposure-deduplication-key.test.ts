@@ -15,13 +15,30 @@ import { FakeExposureEnvironment, settle } from './_utils/exposure-fakes';
 import { flagResult, plainAttributes, resultInput, user } from './_utils/exposure-test-helper';
 
 function input(overrides: Partial<ExposureMappingInput> = {}): ExposureMappingInput {
-	return resultInput(flagResult({ randomizationIdentifierName: 'TenantId' }), {
+	return resultInput(flagResult({ identifierType: 'TenantId' }), {
 		requestContext: { identifiers: { TenantId: 'tenant-7' }, attributes: {} },
 		...overrides,
 	});
 }
 
 describe('browser exposure deduplication keys', () => {
+	it('uses the producer identifierType and captured value in the dedupe identity', () => {
+		const source = flagResult({ identifierType: 'TenantId' });
+		const first = resultInput(source, {
+			requestContext: { identifiers: { TenantId: 'alice' }, attributes: {} },
+		});
+		const second = {
+			...first,
+			requestContext: { identifiers: { TenantId: 'bob' }, attributes: {} },
+		};
+		const serialized = serializeExposureIdentity(first);
+		expect(JSON.parse(serialized!)).toMatchObject({
+			randomizationIdentifier: 'TenantId',
+			randomizationIdentifierValue: 'alice',
+		});
+		expect(serializeExposureIdentity(second)).not.toBe(serialized);
+	});
+
 	it('captures a stable sorted identity for complete selected-unit context', () => {
 		// Exact stable serialization is the shared local-admission and wire-digest input.
 		expect(serializeExposureIdentity(input())).toBe(
@@ -45,7 +62,7 @@ describe('browser exposure deduplication keys', () => {
 
 	it('normalizes absent and empty selected identifier names to null', () => {
 		const missing = resultInput(flagResult(), { requestContext: input().requestContext });
-		const empty = resultInput(flagResult({ randomizationIdentifierName: '' }), {
+		const empty = resultInput(flagResult({ identifierType: '' }), {
 			requestContext: input().requestContext,
 		});
 		const key = serializeExposureIdentity(missing);
@@ -74,7 +91,7 @@ describe('browser exposure deduplication keys', () => {
 				allocationReason: 'allocated',
 			};
 			const source = flagResult({
-				randomizationIdentifierName: 'TenantId',
+				identifierType: 'TenantId',
 				...(kind === 'actual'
 					? { holdoutAllocation: holdout }
 					: {
@@ -124,7 +141,7 @@ describe('browser exposure deduplication keys', () => {
 
 	it('preserves known identifier names when values are unknown', () => {
 		const tenant = input({ requestContext: undefined });
-		const account = resultInput(flagResult({ randomizationIdentifierName: 'AccountId' }));
+		const account = resultInput(flagResult({ identifierType: 'AccountId' }));
 		expect(serializeExposureIdentity(tenant)).not.toBe(serializeExposureIdentity(account));
 	});
 
@@ -136,7 +153,7 @@ describe('browser exposure deduplication keys', () => {
 
 	it('encodes an unavailable actual-holdout identifier value as null', () => {
 		const result = flagResult({
-			randomizationIdentifierName: 'TenantId',
+			identifierType: 'TenantId',
 			holdoutAllocation: {
 				holdoutKey: 'holdout-a',
 				holdoutRuleId: 'holdout-rule',
@@ -157,7 +174,7 @@ describe('browser exposure deduplication keys', () => {
 
 	it('encodes an unavailable actual-holdout identifier name as null', () => {
 		const result = flagResult({
-			randomizationIdentifierName: 'TenantId',
+			identifierType: 'TenantId',
 			holdoutAllocation: {
 				holdoutKey: 'holdout-a',
 				allocationReason: 'allocated',
@@ -170,7 +187,7 @@ describe('browser exposure deduplication keys', () => {
 
 	it('continues to bypass malformed non-identity holdout metadata', () => {
 		const result = flagResult({
-			randomizationIdentifierName: 'TenantId',
+			identifierType: 'TenantId',
 			holdoutAllocation: { holdoutKey: 7, allocationReason: 'allocated' },
 		});
 		expect(serializeExposureIdentity(resultInput(result))).toBeNull();
@@ -178,7 +195,7 @@ describe('browser exposure deduplication keys', () => {
 
 	it('normalizes a reserved per-request holdout identifier value to null', () => {
 		const result = flagResult({
-			randomizationIdentifierName: 'TenantId',
+			identifierType: 'TenantId',
 			holdoutAllocation: {
 				holdoutKey: 'holdout-a',
 				identifierType: 'randomizationId',
@@ -230,7 +247,7 @@ describe('browser exposure deduplication keys', () => {
 	});
 
 	it('normalizes the reserved per-request identifier value without reading it', () => {
-		const result = flagResult({ randomizationIdentifierName: 'randomizationId' });
+		const result = flagResult({ identifierType: 'randomizationId' });
 		const identifiers = Object.defineProperty({}, 'randomizationId', {
 			get: () => {
 				throw new Error('reserved value must not be read');
@@ -262,7 +279,7 @@ describe('browser exposure deduplication keys', () => {
 	});
 
 	it('keeps reserved identifier matching case-sensitive and retains other unit values', () => {
-		const result = flagResult({ randomizationIdentifierName: 'RandomizationId' });
+		const result = flagResult({ identifierType: 'RandomizationId' });
 		const first = resultInput(result, {
 			requestContext: { identifiers: { RandomizationId: 'a' }, attributes: {} },
 		});
@@ -276,7 +293,7 @@ describe('browser exposure deduplication keys', () => {
 	it('includes a captured counterfactual and preserves indeterminate reasons with null variation', () => {
 		const absent = input();
 		const source = flagResult({
-			randomizationIdentifierName: 'TenantId',
+			identifierType: 'TenantId',
 			stableSplitOutcome: { matchReason: 'general_error' },
 		});
 		const attempt = resultInput(source, { requestContext: absent.requestContext });
@@ -306,10 +323,9 @@ describe('browser exposure deduplication keys', () => {
 		'distinguishes counterfactual allocation %j under the same served result',
 		(stableSplitOutcome) => {
 			const baseline = input();
-			const attempt = resultInput(
-				flagResult({ randomizationIdentifierName: 'TenantId', stableSplitOutcome }),
-				{ requestContext: baseline.requestContext },
-			);
+			const attempt = resultInput(flagResult({ identifierType: 'TenantId', stableSplitOutcome }), {
+				requestContext: baseline.requestContext,
+			});
 			expect(serializeExposureIdentity(attempt)).not.toBe(serializeExposureIdentity(baseline));
 			const detailsOverride = {
 				...baseline,
@@ -324,7 +340,7 @@ describe('browser exposure deduplication keys', () => {
 
 	it('distinguishes counterfactual variation/reason changes and supports explicit absence overrides', () => {
 		const result = flagResult({
-			randomizationIdentifierName: 'TenantId',
+			identifierType: 'TenantId',
 			stableSplitOutcome: { variationId: 'control', matchReason: 'ss_cohort_match' },
 		});
 		const original = resultInput(result, { requestContext: input().requestContext });
@@ -364,7 +380,7 @@ describe('browser exposure deduplication keys', () => {
 
 	it('includes the hypothetical holdout own original unit without substituting actual allocation', () => {
 		const result = flagResult({
-			randomizationIdentifierName: 'TenantId',
+			identifierType: 'TenantId',
 			stableSplitOutcome: {
 				variationId: 'control',
 				matchReason: 'ss_holdout_withheld',
@@ -410,7 +426,7 @@ describe('browser exposure deduplication keys', () => {
 
 	it('normalizes hypothetical holdout randomizationId without reading the generated value', () => {
 		const result = flagResult({
-			randomizationIdentifierName: 'TenantId',
+			identifierType: 'TenantId',
 			stableSplitOutcome: {
 				matchReason: 'general_error',
 				holdoutAllocation: {
@@ -433,7 +449,7 @@ describe('browser exposure deduplication keys', () => {
 
 	it('normalizes unknown hypothetical units without substituting current user identities', () => {
 		const result = flagResult({
-			randomizationIdentifierName: 'TenantId',
+			identifierType: 'TenantId',
 			stableSplitOutcome: {
 				matchReason: 'ss_holdout_withheld',
 				holdoutAllocation: { holdoutKey: 'holdout-a', allocationReason: 'withheld' },
@@ -449,7 +465,7 @@ describe('browser exposure deduplication keys', () => {
 
 	it('bypasses malformed counterfactual metadata rather than omitting identity components', () => {
 		const result = flagResult({
-			randomizationIdentifierName: 'TenantId',
+			identifierType: 'TenantId',
 			stableSplitOutcome: { matchReason: '' },
 		});
 		expect(serializeExposureIdentity(resultInput(result))).toBeNull();
@@ -506,7 +522,7 @@ describe('browser exposure deduplication keys', () => {
 			expect(
 				client.replace(
 					() => ({
-						flags: { 'flag-a': flagResult({ randomizationIdentifierName: 'TenantId' }) },
+						flags: { 'flag-a': flagResult({ identifierType: 'TenantId' }) },
 						requestContext: { identifiers: { TenantId: 'tenant-new' } },
 					}),
 					{ identifiers: { TenantId: 'tenant-new' } },

@@ -1,5 +1,50 @@
 # @atlassian/navigation-system
 
+## 11.8.1
+
+### Patch Changes
+
+- [`2bc99f7ee7d7c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2bc99f7ee7d7c) -
+  Refine panel and side-nav motion with a 200ms ExpoOut entrance, 200ms QuartOut exit, a 60ms
+  entrance layout snap and immediate exit layout snap. Preserve reduced motion and RTL behavior
+  behind platform-dst-motion-uplift-panel and platform-dst-motion-uplift-sidenav.
+
+  Add motion.panel.content.open for the complete opening fade: 100ms delay and 150ms ExpoOut. Let
+  the 150ms fade finish independently of the panel slide, while preserving the existing
+  content-replacement animation. Release the side-nav grid track immediately on collapse. Keep the
+  local panel layout snap in component-owned CSS, using 30% of motion.duration.medium instead of a
+  JavaScript timer or a separate layout animation token.
+
+  Add `motion.easing.out.expo` and `motion.easing.out.quart` easing tokens.
+
+  Keep mobile side-nav motion below the desktop breakpoint so stylesheet load order cannot leave an
+  expanded desktop sidebar over main content.
+
+  Keep fallback local-panel sizing from overriding siblings already managed by the resize
+  coordinator, preventing an open chat panel from briefly collapsing when the local panel opens.
+
+- Updated dependencies
+
+## 11.8.0
+
+### Minor Changes
+
+- [`fe869b1ecb8e1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fe869b1ecb8e1) -
+  Add an XL local-panel default of 500px at 1768px and above with chat layout enabled, and an
+  xlDefaultPanelWidth override that preserves controlled and saved widths.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.7.9
+
+### Patch Changes
+
+- [`7b64c4a16f148`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7b64c4a16f148) -
+  Prevent controlled PanelLayout widths from briefly reverting to an obsolete width when a resize
+  completes. Preserve consumer overrides and existing caller feature gates.
+
 ## 11.7.8
 
 ### Patch Changes

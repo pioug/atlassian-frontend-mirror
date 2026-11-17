@@ -32,6 +32,9 @@
 			"path": "../../editor-json-transformer/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-editor-viewmode/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-prosemirror/afm-products/tsconfig.json"
 		},
 		{

@@ -3,13 +3,11 @@ import React from 'react';
 import type { IntlShape } from 'react-intl';
 
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
-import { addAltText, ToolTipContent } from '@atlaskit/editor-common/keymaps';
 import { RECENT_SEARCH_WIDTH_IN_PX as CONTAINER_WIDTH_IN_PX } from '@atlaskit/editor-common/link-search-constants';
 import { altTextMessages as messages } from '@atlaskit/editor-common/media/altText';
 import { ClassNames } from '@atlaskit/editor-common/styles/media';
 import type { Command } from '@atlaskit/editor-common/types/command';
 import type {
-	FloatingToolbarButton,
 	FloatingToolbarConfig,
 	FloatingToolbarCustom,
 	FloatingToolbarOverflowDropdownOptions,
@@ -28,25 +26,6 @@ import type { MediaToolbarBaseConfig } from '../../types';
 import { getNodeType } from './commands';
 
 const testId = 'alt-text-edit-button';
-
-export const altTextButton = (
-	intl: IntlShape,
-	state: EditorState,
-	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
-): FloatingToolbarButton<Command> => {
-	const mediaNode = getMediaSingleOrInlineNodeFromSelection(state);
-	const message = mediaNode && mediaNode.attrs.alt ? messages.editAltText : messages.altText;
-	const title = intl.formatMessage(message);
-	return {
-		title,
-		id: 'editor.media.altText',
-		type: 'button',
-		onClick: openMediaAltTextMenu(editorAnalyticsAPI),
-		showTitle: true,
-		testId,
-		tooltipContent: <ToolTipContent description={title} keymap={addAltText} />,
-	};
-};
 
 const altTextEditComponent = (options?: AltTextToolbarOptions): FloatingToolbarCustom<Command> => {
 	return {
@@ -71,10 +50,9 @@ const altTextEditComponent = (options?: AltTextToolbarOptions): FloatingToolbarC
 					state: { tr },
 					dispatch,
 				} = view;
-				const elementSelector =
-					options?.triggerButtonSelector && options?.areAnyNewToolbarFlagsEnabled
-						? options.triggerButtonSelector
-						: `[data-testid="${testId}"]`;
+				const elementSelector = options?.triggerButtonSelector
+					? options.triggerButtonSelector
+					: `[data-testid="${testId}"]`;
 
 				const newTr = options?.forceFocusSelector?.(elementSelector)(tr);
 				if (newTr) {
@@ -94,7 +72,6 @@ const altTextEditComponent = (options?: AltTextToolbarOptions): FloatingToolbarC
 					altTextValidator={options && options.altTextValidator}
 					onEscape={setFocus}
 					onEnter={setFocus}
-					areAnyNewToolbarFlagsEnabled={options?.areAnyNewToolbarFlagsEnabled}
 				/>
 			);
 		},
@@ -103,7 +80,6 @@ const altTextEditComponent = (options?: AltTextToolbarOptions): FloatingToolbarC
 
 interface AltTextToolbarOptions {
 	altTextValidator?: (value: string) => string[];
-	areAnyNewToolbarFlagsEnabled?: boolean;
 	forceFocusSelector?: ForceFocusSelector;
 	triggerButtonSelector?: string;
 }

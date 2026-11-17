@@ -35,6 +35,9 @@ const gridStyles = cssMap({
 	templateColumns: {
 		gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
 	},
+	templateColumnsReflow: {
+		gridTemplateColumns: 'repeat(auto-fill, minmax(min(300px, 100%), 1fr))',
+	},
 });
 
 export const ICON_BACKGROUND: 'var(--ds-icon-inverse)' = token('color.icon.inverse');
@@ -321,7 +324,11 @@ export const TeamContainers = ({
 					const GridComponent = components?.Grid || Grid;
 					return (
 						<GridComponent
-							xcss={gridStyles.templateColumns}
+							xcss={
+								fg('teams_a11y_20261102')
+									? gridStyles.templateColumnsReflow
+									: gridStyles.templateColumns
+							}
 							gap={isDisplayedOnProfileCard ? 'space.0' : 'space.100'}
 							role="list"
 						>

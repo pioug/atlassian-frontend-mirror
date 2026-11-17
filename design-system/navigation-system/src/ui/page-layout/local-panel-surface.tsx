@@ -15,7 +15,6 @@ import {
 
 import { cssMap, jsx } from '@compiled/react';
 
-import type MediaAboveMd from '@atlaskit/css/at-rules/media-above-md';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import { useLayoutEffect } from '@atlaskit/ds-lib/use-layout-effect';
 import useStableRef from '@atlaskit/ds-lib/use-stable-ref';
@@ -27,17 +26,19 @@ import { token } from '@atlaskit/tokens';
 import { type contentHeightWhenFixed, localPanelWidthVar } from './constants';
 import { DangerouslyHoistSlotSizes } from './hoist-slot-sizes-context';
 import type { LayoutAreaMode, LayoutAreaState } from './layout-area-sizing-context';
+import { LayoutOverlayClearance } from './layout-overlay-clearance';
+import { MainMinWidthContext } from './main-min-width-context';
 import type { PanelResizeEnd } from './panel-layout';
 import { PanelSplitter } from './panel-splitter/panel-splitter';
 import { PanelSplitterProvider } from './panel-splitter/provider';
 import type { ResizeBounds } from './panel-splitter/types';
+import { usePanelContentEnter } from './use-panel-content-enter';
 
 const localPanelVar = '--p_lclPnlW';
 const panelSplitterResizingVar = '--p_lclPnlRsz';
 const localPanelSplitterId = Symbol('LocalPanel PanelSplitter');
 
 // Compiled preserves the existing container-relative widths and discrete motion styles.
-/* eslint-disable @compiled/shorthand-property-sorting -- Content motion overrides only the animation delay. */
 const styles = cssMap({
 	panelWrapper: {
 		position: 'sticky',
@@ -66,7 +67,7 @@ const styles = cssMap({
 		width: `min(90%, var(${panelSplitterResizingVar}, var(${localPanelVar})))`,
 	},
 	managedInline: {
-		gridArea: 'panel',
+		gridArea: 'var(--p_lclPnlEnterArea, panel)',
 		backgroundColor: token('elevation.surface'),
 		insetBlockStart: '0px',
 		width: `var(${panelSplitterResizingVar}, var(${localPanelVar}))`,
@@ -77,7 +78,7 @@ const styles = cssMap({
 	},
 	unmeasured: {
 		// The shell's local container query keeps the surface and reserved track in sync during SSR.
-		gridArea: 'var(--p_lclPnlSsrArea, main)',
+		gridArea: 'var(--p_lclPnlEnterArea, var(--p_lclPnlSsrArea, main))',
 		width: 'var(--p_lclPnlSsrWidth, min(90%, var(--p_lclPnlSsrPreferredW)))',
 		backgroundColor: `var(--p_lclPnlSsrBackground, ${token('elevation.surface.overlay')})`,
 		boxShadow: `var(--p_lclPnlSsrShadow, ${token('elevation.shadow.overlay')})`,
@@ -110,35 +111,23 @@ const styles = cssMap({
 			"[dir='rtl'] &": {
 				animation: token('motion.panel.enter.left'),
 			},
-			// The shell holds its single-column grid for `motion.duration.short`, so overlay `main` for that
-			// long, then snap into the panel track. The end-aligned panel sits at the same inline position
-			// in both areas, so nothing visibly jumps.
-			transitionProperty: 'grid-area',
-			transitionDuration: token('motion.duration.instant'),
-			transitionDelay: token('motion.duration.short'),
-			transitionBehavior: 'allow-discrete',
-			'@starting-style': {
-				gridArea: 'main',
-			},
 			// Percentage widths (used before the first measurement) resolve against the grid area, which is
 			// the full-width `main` area. Pin the width so the panel keeps its own width while overlaying.
 			width: 'var(--p_lclPnlRsz, var(--p_lclPnlW))',
 		},
 	},
 	motionUnmeasured: {
-		// Viewport-aware preferred width, derived here because the shell only defines
-		// `--p_lclPnlSsrPreferredW` while it is open and unmeasured (not during exit).
-		'--p_lclPnlMotionW': 'var(--p_lclPnlCompactW)',
-		['@media (min-width: 64rem)' satisfies MediaAboveMd]: {
-			'--p_lclPnlMotionW': 'var(--p_lclPnlTrackW)',
-		},
 		'@media (prefers-reduced-motion: no-preference)': {
-			// Without managed sizing `localPanelVar` is the full default width, so pin the viewport-aware
-			// preferred width instead; otherwise the panel animates at the wrong width and then snaps.
-			// Cap at 90% of the layout container, matching the settled overlay width. `cqw` is used rather than
-			// `%` because a percentage resolves against the grid area, which changes from `main` to the panel
-			// track when the shell snaps, and would resize the panel.
-			width: 'min(90cqw, var(--p_lclPnlMotionW))',
+			// Use the shell's responsive default during entry and exit. Container units keep the width
+			// stable as the surface moves between the full-width Main area and its reserved panel track.
+			width: 'min(90cqw, var(--p_lclPnlSsrPreferredW))',
+		},
+	},
+	refinedMotionUnmeasured: {
+		'@media (prefers-reduced-motion: no-preference)': {
+			// Match the settled inline allocation, or the refined overlay's minimum/default/clearance cap.
+			width:
+				'max(var(--p_lclPnlMinW), min(var(--p_lclPnlSsrPreferredW), var(--p_lclPnlMotionMaxW, min(100cqw, var(--n_localPanelOverlayMax, 100cqw), max(var(--p_lclPnlSsrDefaultW), 90cqw)))))',
 		},
 	},
 	exiting: {
@@ -158,16 +147,16 @@ const styles = cssMap({
 	contentEntering: {
 		animation: token('motion.panel.content.enter'),
 	},
+	contentEnteringOnOpen: {
+		'@media (prefers-reduced-motion: no-preference)': {
+			animation: token('motion.panel.content.open'),
+		},
+	},
 	contentExiting: {
 		animation: token('motion.panel.content.exit'),
 	},
 	contentChangeContainer: { height: '100%' },
 });
-
-const contentEnteringDelayStyles = cssMap({
-	root: { animationDelay: token('motion.duration.xshort') },
-});
-/* eslint-enable @compiled/shorthand-property-sorting */
 
 const PanelContentMotion = ({ children }: { children: React.ReactNode }): JSX.Element => {
 	const { state, ref } = useMotion<HTMLDivElement>();
@@ -228,6 +217,7 @@ export function LocalPanelSurface({
 	onWidthChange,
 	onResizeEnd,
 }: LocalPanelSurfaceProps): JSX.Element {
+	const mainMinWidth = useContext(MainMinWidthContext);
 	const ref = useRef<HTMLDivElement | null>(null);
 	const dangerouslyHoistSlotSizes = useContext(DangerouslyHoistSlotSizes);
 	useLayoutEffect(() => {
@@ -261,6 +251,7 @@ export function LocalPanelSurface({
 		}
 	}, [contentKey]);
 	const { state, ref: motionRef } = useMotion<HTMLElement>();
+	const shouldAnimateContentEnter = usePanelContentEnter(state);
 	const isMotionUpliftEnabled = fg('platform-dst-motion-uplift-panel');
 	const isContentMotionEnabled = fg('platform-dst-motion-uplift-panel-content');
 	const mergedRef = useMemo(
@@ -317,12 +308,6 @@ export function LocalPanelSurface({
 		<section
 			aria-label={label}
 			css={[
-				isMotionUpliftEnabled && state === 'entering' && styles.entering,
-				isMotionUpliftEnabled && state === 'exiting' && styles.exiting,
-				isMotionUpliftEnabled &&
-					(state === 'entering' || state === 'exiting') &&
-					!managedSizing &&
-					styles.motionUnmeasured,
 				styles.panelWrapper,
 				styles.border,
 				!managedSizing && styles.unmeasured,
@@ -330,6 +315,17 @@ export function LocalPanelSurface({
 				managedSizing?.mode === 'inline' && styles.managedInline,
 				managedSizing?.mode === 'overlay' && styles.managedOverlay,
 				managedSizing?.mode === 'inline' && styles.managedInlineBorder,
+				isMotionUpliftEnabled && state === 'entering' && styles.entering,
+				isMotionUpliftEnabled && state === 'exiting' && styles.exiting,
+				isMotionUpliftEnabled &&
+					(state === 'entering' || state === 'exiting') &&
+					!managedSizing &&
+					styles.motionUnmeasured,
+				isMotionUpliftEnabled &&
+					(state === 'entering' || state === 'exiting') &&
+					!managedSizing &&
+					fg('platform-dst-chat-panel-layout') &&
+					styles.refinedMotionUnmeasured,
 			]}
 			data-testid={testId}
 			data-layout-with-panel-slot=""
@@ -341,6 +337,10 @@ export function LocalPanelSurface({
 			}
 			ref={mergedRef}
 		>
+			{!managedSizing && fg('platform-dst-chat-panel-layout') && (
+				// Keep sibling allocation stable until the exiting surface actually unmounts.
+				<LayoutOverlayClearance panelMinWidth={minWidth} mainMinWidth={mainMinWidth} />
+			)}
 			<PanelSplitterProvider
 				panelId={localPanelSplitterId}
 				panelRef={ref}
@@ -364,8 +364,8 @@ export function LocalPanelSurface({
 					data-testid={testId && `${testId}--scroll-container`}
 					css={[
 						styles.panelScrollContainer,
-						state === 'entering' && styles.contentEntering,
-						isMotionUpliftEnabled && state === 'entering' && contentEnteringDelayStyles.root,
+						!isMotionUpliftEnabled && state === 'entering' && styles.contentEntering,
+						isMotionUpliftEnabled && shouldAnimateContentEnter && styles.contentEnteringOnOpen,
 						state === 'exiting' && styles.contentExiting,
 					]}
 				>

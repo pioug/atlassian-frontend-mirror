@@ -112,15 +112,23 @@ const getInsertMediaInlineAnalytics = (
 	};
 };
 
+export type FailToInsertDiagnostics = {
+	allowMediaInlineImages?: boolean;
+	mediaInlineFlag?: boolean;
+	schemaHasMediaInline?: boolean;
+};
+
 export const getFailToInsertAnalytics = (
 	mediaState: MediaState,
 	actionSubjectId:
+		| ACTION_SUBJECT_ID.MEDIA
 		| ACTION_SUBJECT_ID.MEDIA_INLINE
 		| ACTION_SUBJECT_ID.MEDIA_GROUP
 		| ACTION_SUBJECT_ID.MEDIA_SINGLE,
 	inputMethod?: InputMethodInsertMedia,
 	insertMediaVia?: InsertMediaVia,
 	reason?: string,
+	diagnostics?: FailToInsertDiagnostics,
 ): InsertEventPayload => {
 	const media = mediaState.fileMimeType || 'unknown';
 	return {
@@ -132,6 +140,7 @@ export const getFailToInsertAnalytics = (
 			fileExtension: media,
 			insertMediaVia,
 			reason,
+			...diagnostics,
 		},
 		eventType: EVENT_TYPE.OPERATIONAL,
 	};

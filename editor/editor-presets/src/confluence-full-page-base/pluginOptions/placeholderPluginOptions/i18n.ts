@@ -2,11 +2,6 @@
 import { defineMessages } from 'react-intl';
 
 export const i18n: {
-	easyMentionsPlaceholder: {
-		id: string;
-		defaultMessage: string;
-		description: string;
-	};
 	aiPlaceholder: {
 		id: string;
 		defaultMessage: string;
@@ -33,11 +28,6 @@ export const i18n: {
 		description: string;
 	};
 } = defineMessages({
-	easyMentionsPlaceholder: {
-		id: 'editor-presets-confluence.placeholder.easy-mentions-placeholder',
-		defaultMessage: 'Type / for all elements or @ to mention someone.',
-		description: 'The placeholder for the editor to help discover the slash and mention commands',
-	},
 	aiPlaceholder: {
 		id: 'editor-presets-confluence.placeholder.ai-placeholder',
 		defaultMessage:

@@ -13,6 +13,7 @@ import ScrollLock, { TouchScrollable } from 'react-scrolllock';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import Blanket from '@atlaskit/blanket/blanket';
 import { cssMap } from '@atlaskit/css';
+import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import noop from '@atlaskit/ds-lib/noop';
 import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
 import { useId } from '@atlaskit/ds-lib/use-id';
@@ -350,7 +351,10 @@ function getDismissedBy({
  * Every hook here runs unconditionally: this component only mounts on the
  * top-layer path, so it never shares a hook sequence with the legacy path.
  */
-function ModalWrapperTopLayer(props: InternalModalWrapperProps): React.ReactNode {
+function ModalWrapperTopLayer({
+	forwardedRef,
+	...props
+}: InternalModalWrapperProps & { forwardedRef: React.Ref<HTMLElement> }): React.ReactNode {
 	const {
 		autoFocus,
 		UNSAFE__disableInitialAutoFocus,
@@ -495,7 +499,9 @@ function ModalWrapperTopLayer(props: InternalModalWrapperProps): React.ReactNode
 
 	return (
 		<Dialog
-			ref={dialogRef}
+			// The consumer `ref` gets the native <dialog>. Like the legacy `section`, it has the dialog
+			// role, the accessible name and the test id, and it contains all the content.
+			ref={mergeRefs<HTMLElement>([dialogRef, forwardedRef])}
 			onClose={onDialogAsk}
 			dismissedBy={getDismissedBy({ shouldCloseOnEscapePress, shouldCloseOnOverlayClick })}
 			onExitFinish={handleDialogExitFinish}
@@ -737,13 +743,7 @@ const InternalModalWrapper: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<InternalModalWrapperProps> & React.RefAttributes<HTMLElement>
 > = forwardRef((props: InternalModalWrapperProps, ref: React.Ref<HTMLElement>) => {
 	if (fg('platform-dst-top-layer')) {
-		// TODO: the top-layer path does not forward the external `ref` (parity
-		// with the pre-refactor behavior, where the top-layer branch never
-		// consumed it). The public type still advertises `RefAttributes`, so a
-		// consumer ref silently no-ops here. Follow up by forwarding `ref` to a
-		// sensible element (for example the content `div`) once ref parity is
-		// intentionally desired.
-		return <ModalWrapperTopLayer {...props} />;
+		return <ModalWrapperTopLayer {...props} forwardedRef={ref} />;
 	}
 
 	return <ModalWrapperLegacy ref={ref} {...props} />;

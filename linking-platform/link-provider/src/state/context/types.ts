@@ -74,6 +74,8 @@ export type SmartLinkChoreographerProps = {
 	isActive: boolean;
 	messageId: string;
 	onUnavailable: () => void;
+	/** Recheck eligibility and assignment at slot offer; false or a throw declines. */
+	shouldClaim?: () => boolean;
 };
 
 export type CardProviderProps = {

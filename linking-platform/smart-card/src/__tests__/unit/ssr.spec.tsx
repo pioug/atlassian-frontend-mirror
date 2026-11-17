@@ -1,10 +1,13 @@
 import '@atlaskit/link-test-helpers/jest';
 import React from 'react';
 
+import { ErrorBoundary } from 'react-error-boundary';
+
 import FabricAnalyticsListeners from '@atlaskit/analytics-listeners/FabricAnalyticsListeners';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import Client from '@atlaskit/link-provider/client';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
+import { APIError } from '@atlaskit/linking-common/api-error';
 import { cardState, url } from '@atlaskit/media-test-helpers/smart-card-state';
 import { getActiveInteraction } from '@atlaskit/react-ufo/interaction-metrics';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
@@ -180,6 +183,64 @@ describe('<CardSSR />', () => {
 			throw createError(name);
 		};
 
+		describe.each([
+			['enabled', passGate],
+			['disabled', failGate],
+		])('error containment when gate is %s', (_, setGate) => {
+			it.each(['Error', 'ChunkLoadError', 'APIError'])(
+				'should keep %s in the card boundary without notifying a throwing consumer',
+				async (name) => {
+					setGate(gate);
+					const onError = jest.fn(({ err }: { err?: Error }) => {
+						throw err;
+					});
+					setup({ onResolve: throwErrorOnResolve(name), onError });
+
+					const fallback = await screen.findByTestId('lazy-render-placeholder');
+					expect(fallback).toBeVisible();
+					expect(fallback).toHaveAttribute('href', url);
+					expect(onError).not.toHaveBeenCalled();
+				},
+			);
+
+			it('should contain a fatal resolver rejection without reaching the parent boundary', async () => {
+				setGate(gate);
+				const error = new APIError('fatal', url, 'Unsupported URL');
+				class RejectingClient extends Client {
+					async fetchData(): Promise<never> {
+						throw error;
+					}
+				}
+				const onError = jest.fn(({ err }: { err?: Error }) => {
+					if (err) {
+						throw err;
+					}
+				});
+				const onParentError = jest.fn();
+
+				render(
+					<ErrorBoundary fallback={<span>Parent fallback</span>} onError={onParentError}>
+						<Provider client={new RejectingClient('stg')}>
+							<span>Surrounding content</span>
+							<CardSSR {...cardProps} onError={onError} />
+						</Provider>
+					</ErrorBoundary>,
+				);
+
+				const fallback = await screen.findByTestId('lazy-render-placeholder');
+				expect(fallback).toBeVisible();
+				expect(fallback).toHaveAttribute('href', url);
+				expect(screen.getByText('Surrounding content')).toBeVisible();
+				expect(screen.queryByText('Parent fallback')).not.toBeInTheDocument();
+				expect(onParentError).not.toHaveBeenCalled();
+				// Preserve the existing state notification, but do not forward the caught error.
+				expect(onError).toHaveBeenCalledWith({ status: 'errored', url });
+				expect(onError).not.toHaveBeenCalledWith(
+					expect.objectContaining({ err: expect.anything() }),
+				);
+			});
+		});
+
 		describe('when gate is enabled', () => {
 			beforeEach(() => {
 				passGate(gate);
@@ -223,7 +284,7 @@ describe('<CardSSR />', () => {
 				);
 			});
 
-			it('should fire renderFailed event, fail experiences and call onError on unexpected error', async () => {
+			it('should fire renderFailed event and fail experiences without calling onError on unexpected error', async () => {
 				const onError = jest.fn();
 				const { mockAnalyticsClient } = setup({
 					id: 'some-id',
@@ -232,13 +293,7 @@ describe('<CardSSR />', () => {
 				});
 
 				expect(await screen.findByTestId('lazy-render-placeholder')).toBeVisible();
-				await waitFor(() =>
-					expect(onError).toHaveBeenCalledWith({
-						status: 'errored',
-						url,
-						err: expect.objectContaining({ message: 'unexpected error' }),
-					}),
-				);
+				expect(onError).not.toHaveBeenCalled();
 				expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
 					expect.objectContaining({
 						action: 'renderFailed',
@@ -265,7 +320,7 @@ describe('<CardSSR />', () => {
 				expect(startUfoExperienceMock).not.toHaveBeenCalled();
 			});
 
-			it('should fire chunkLoadFailed event and call onError on ChunkLoadError', async () => {
+			it('should fire chunkLoadFailed event without calling onError on ChunkLoadError', async () => {
 				const onError = jest.fn();
 				const { mockAnalyticsClient } = setup({
 					id: 'some-id',
@@ -287,11 +342,8 @@ describe('<CardSSR />', () => {
 						}),
 					),
 				);
-				expect(onError).toHaveBeenCalledWith({
-					status: 'errored',
-					url,
-					err: expect.objectContaining({ name: 'ChunkLoadError' }),
-				});
+				expect(await screen.findByTestId('lazy-render-placeholder')).toBeVisible();
+				expect(onError).not.toHaveBeenCalled();
 				expect(mockAnalyticsClient.sendUIEvent).not.toHaveBeenCalledWith(
 					expect.objectContaining({ action: 'renderFailed' }),
 				);
@@ -336,7 +388,7 @@ describe('<CardSSR />', () => {
 				);
 			});
 
-			it('should only call onError on APIError', async () => {
+			it('should render fallback without failure events or calling onError on APIError', async () => {
 				const onError = jest.fn();
 				const { mockAnalyticsClient } = setup({
 					id: 'some-id',
@@ -344,13 +396,8 @@ describe('<CardSSR />', () => {
 					onError,
 				});
 
-				await waitFor(() =>
-					expect(onError).toHaveBeenCalledWith({
-						status: 'errored',
-						url,
-						err: expect.objectContaining({ name: 'APIError' }),
-					}),
-				);
+				expect(await screen.findByTestId('lazy-render-placeholder')).toBeVisible();
+				expect(onError).not.toHaveBeenCalled();
 				expect(mockAnalyticsClient.sendUIEvent).not.toHaveBeenCalledWith(
 					expect.objectContaining({ action: 'renderFailed' }),
 				);

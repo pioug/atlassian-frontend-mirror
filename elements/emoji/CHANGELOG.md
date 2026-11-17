@@ -1,5 +1,18 @@
 # @atlaskit/emoji
 
+## 73.6.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 73.6.11
+
+### Patch Changes
+
+- [`d4efef85d567c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d4efef85d567c) -
+  Remove redundant aria-label on category selector images
+
 ## 73.6.10
 
 ### Patch Changes

@@ -4,8 +4,8 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils/analytics';
 
 import { messages } from '../../common/utils/get-container-properties';
@@ -15,8 +15,6 @@ import { useTeamContainers } from '../../controllers/hooks/use-team-containers/u
 import { useTeamLinksAndContainers } from '../../controllers/hooks/use-team-links-and-containers';
 import { TeamContainers } from './main';
 import type { TeamContainersComponent } from './types';
-
-jest.mock('@atlaskit/platform-feature-flags/fg');
 
 jest.mock('../../common/utils/spaceInviteScheduler', () => ({
 	spaceInviteScheduler: {
@@ -45,8 +43,6 @@ jest.mock('../../controllers/hooks/use-team-links-and-containers', () => ({
 // be fixed in a timely manner or result in escalation. Once all violations have been fixed, you can remove
 // the next line and associated import. For more information, see go/afm-a11y-tooling:jest
 skipAutoA11yFile();
-
-const mockFg = fg as jest.Mock;
 
 const renderWithIntl = (node: React.ReactNode) => {
 	return render(<IntlProvider locale="en">{node}</IntlProvider>);
@@ -116,9 +112,7 @@ describe('TeamContainers', () => {
 	};
 
 	beforeEach(() => {
-		mockFg.mockImplementation(() => {
-			return false;
-		});
+		failGate('migrate-product-permissions');
 		(useTeamContainers as jest.Mock).mockReturnValue({});
 
 		(useProductPermissions as jest.Mock).mockReturnValue({
@@ -546,7 +540,6 @@ describe('TeamContainers', () => {
 		}));
 
 		it('should move focus to first new item when Show more is clicked', async () => {
-			mockFg.mockImplementation(() => false);
 			(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
 				teamLinks: teamContainers,
 			});
@@ -710,5 +703,31 @@ describe('TeamLinks', () => {
 
 		const listItems = container.querySelectorAll('[role="listitem"]');
 		expect(listItems.length).toBeGreaterThan(0);
+	});
+
+	it('keeps the 300px card column minimum in wide containers and caps it at the container width in narrow ones when teams_a11y_20261102 is on', () => {
+		passGate('teams_a11y_20261102');
+		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+			teamLinks: [JiraProject, ConfluenceSpace],
+		});
+
+		renderTeamContainers(teamId);
+
+		expect(screen.getByRole('list')).toHaveCompiledCss({
+			gridTemplateColumns: 'repeat(auto-fill,minmax(min(300px,100%),1fr))',
+		});
+	});
+
+	it('keeps the fixed 300px minimum card column width when teams_a11y_20261102 is off', () => {
+		failGate('teams_a11y_20261102');
+		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+			teamLinks: [JiraProject, ConfluenceSpace],
+		});
+
+		renderTeamContainers(teamId);
+
+		expect(screen.getByRole('list')).toHaveCompiledCss({
+			gridTemplateColumns: 'repeat(auto-fill,minmax(300px,1fr))',
+		});
 	});
 });

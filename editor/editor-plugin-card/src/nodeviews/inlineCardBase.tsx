@@ -10,7 +10,6 @@ import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-e
 import { Card as SmartCard } from '@atlaskit/smart-card/card/lazy';
 import type { OnClickCallback } from '@atlaskit/smart-card/card/types';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { registerCard, removeCard } from '../pm-plugins/actions';
 import { visitCardLinkAnalytics } from '../ui/toolbar';
@@ -59,10 +58,8 @@ export const InlineCard: React.MemoExoticComponent<
 
 		useEffect(() => {
 			return () => {
-				if (isExperimentEnabled('platform_editor_reduce_memory_leaks')) {
-					pendingRegisterCard.current?.cancel();
-					pendingRegisterCard.current = null;
-				}
+				pendingRegisterCard.current?.cancel();
+				pendingRegisterCard.current = null;
 			};
 		}, []);
 
@@ -146,9 +143,9 @@ export const InlineCard: React.MemoExoticComponent<
 						view.dispatch(tr);
 					}
 				});
-				if (isExperimentEnabled('platform_editor_reduce_memory_leaks')) {
-					pendingRegisterCard.current = scheduleRegisterCard;
-				}
+
+				pendingRegisterCard.current = scheduleRegisterCard;
+
 				scheduleRegisterCard();
 			},
 			[
@@ -191,10 +188,6 @@ export const InlineCard: React.MemoExoticComponent<
 			[propsOnClick, url, view, pluginInjectionApi],
 		);
 
-		const onClick = editorExperiment('platform_editor_controls', 'variant1')
-			? handleOnClick
-			: propsOnClick;
-
 		const card = useMemo(() => {
 			if ((isPageSSRed || cardState) && url) {
 				return (
@@ -202,7 +195,7 @@ export const InlineCard: React.MemoExoticComponent<
 						key={url}
 						url={url}
 						appearance="inline"
-						onClick={onClick}
+						onClick={handleOnClick}
 						container={scrollContainer}
 						onResolve={onResolve}
 						onError={onError}
@@ -222,7 +215,7 @@ export const InlineCard: React.MemoExoticComponent<
 					key={url}
 					url={url ?? data.url}
 					appearance="inline"
-					onClick={onClick}
+					onClick={handleOnClick}
 					container={scrollContainer}
 					onResolve={onResolve}
 					onError={onError}
@@ -237,7 +230,7 @@ export const InlineCard: React.MemoExoticComponent<
 		}, [
 			url,
 			data,
-			onClick,
+			handleOnClick,
 			scrollContainer,
 			onResolve,
 			onError,

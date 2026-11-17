@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9d31d018194500c2659cf961eb606c1c>>
+ * @codegen <<SignedSource::51e12d8765fc794a708710af9b1684ac>>
  * @codegenCommand yarn build tokens
  */
 
@@ -95,6 +95,26 @@ const tokens: Token[] = [
     ]
   },
   {
+    "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+    "attributes": {
+      "group": "motionEasing"
+    },
+    "filePath": "schema/palettes/motion-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+      "attributes": {
+        "group": "motionEasing"
+      }
+    },
+    "name": "motion.curve.EaseExpoOut",
+    "path": [
+      "motion",
+      "curve",
+      "EaseExpoOut"
+    ]
+  },
+  {
     "value": "cubic-bezier(0.6, 0, 0.8, 0.6)",
     "attributes": {
       "group": "motionEasing"
@@ -132,6 +152,26 @@ const tokens: Token[] = [
       "motion",
       "curve",
       "EasePracticalOut"
+    ]
+  },
+  {
+    "value": "cubic-bezier(0.25, 1, 0.5, 1)",
+    "attributes": {
+      "group": "motionEasing"
+    },
+    "filePath": "schema/palettes/motion-palette.tsx",
+    "isSource": true,
+    "original": {
+      "value": "cubic-bezier(0.25, 1, 0.5, 1)",
+      "attributes": {
+        "group": "motionEasing"
+      }
+    },
+    "name": "motion.curve.EaseQuartOut",
+    "path": [
+      "motion",
+      "curve",
+      "EaseQuartOut"
     ]
   },
   {

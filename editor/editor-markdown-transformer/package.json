@@ -35,8 +35,10 @@
 		"markdown-it-table": "root:*"
 	},
 	"devDependencies": {
+		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/editor-json-transformer": "workspace:^",
 		"@atlaskit/editor-test-helpers": "workspace:^",
+		"@atlaskit/util-data-test": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@atlassian/workbench": "workspace:*",
 		"@emotion/react": "root:*",

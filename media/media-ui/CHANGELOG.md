@@ -1,5 +1,13 @@
 # @atlaskit/media-ui
 
+## 31.10.1
+
+### Patch Changes
+
+- [`1eca830784ac9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1eca830784ac9) -
+  Cleanup `feature_gate` `platform_media_patch_text_preview`. Patch and diff files with textual MIME
+  types now always preview as text in the media code viewer.
+
 ## 31.10.0
 
 ### Minor Changes

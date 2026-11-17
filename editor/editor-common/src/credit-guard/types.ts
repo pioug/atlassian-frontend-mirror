@@ -2,17 +2,25 @@ import type { ReactNode } from 'react';
 
 export type EditorAICreditFeatureName =
 	| 'blockMenu-askRovo'
+	| 'blockMenu-remix'
 	| 'selectionToolbar-askRovo'
 	| 'selectionToolbar-remix'
 	| 'commentEditor-askRovo'
 	| 'quickInsert-askRovo'
+	| 'quickInsert-skill'
 	| 'elementBrowser-askRovo'
+	| 'elementBrowser-skill'
 	| 'panelFloatingToolbar-remix'
 	| 'primaryToolbar-write'
 	| 'mediaFloatingToolbar-editImage'
 	| 'tableFloatingToolbar-remix'
 	| 'smartLinkFloatingToolbar-askRovo'
 	| 'codeBlockFloatingToolbar-remix'
+	| 'expandFloatingToolbar-remix'
+	| 'layoutFloatingToolbar-remix'
+	| 'nativeTabsFloatingToolbar-remix'
+	| 'nativeEmbedFloatingToolbar-remix'
+	| 'nativeEmbedFloatingToolbar-askRovo'
 	| 'imageGenerationMediaInsert'
 	| 'blockControls-remix';
 

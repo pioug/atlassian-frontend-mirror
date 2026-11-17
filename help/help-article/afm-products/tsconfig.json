@@ -23,6 +23,9 @@
 	],
 	"references": [
 		{
+			"path": "../../../editor/adf-schema/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/css-reset/afm-products/tsconfig.json"
 		},
 		{

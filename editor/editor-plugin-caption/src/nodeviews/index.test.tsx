@@ -212,8 +212,7 @@ describe('CaptionNodeView: destroy', () => {
 	} as EditorView;
 	const getPos = jest.fn();
 
-	it('removes the node view portal when the experiment is enabled', () => {
-		mockExpEnabled('platform_editor_reduce_memory_leaks');
+	it('removes the node view portal', () => {
 		const removeSpy = jest.fn();
 		const portalProviderAPI = {
 			render(component: () => React.ReactElement | number | string | null) {
@@ -225,20 +224,5 @@ describe('CaptionNodeView: destroy', () => {
 		captionNodeView(portalProviderAPI, eventDispatcher, undefined)(node, view, getPos).destroy();
 
 		expect(removeSpy).toHaveBeenCalledTimes(1);
-	});
-
-	it('keeps prior behaviour and skips the portal removal when the experiment is disabled', () => {
-		mockExpDisabled('platform_editor_reduce_memory_leaks');
-		const removeSpy = jest.fn();
-		const portalProviderAPI = {
-			render(component: () => React.ReactElement | number | string | null) {
-				component();
-			},
-			remove: removeSpy,
-		} as unknown as PortalProviderAPI;
-
-		captionNodeView(portalProviderAPI, eventDispatcher, undefined)(node, view, getPos).destroy();
-
-		expect(removeSpy).not.toHaveBeenCalled();
 	});
 });

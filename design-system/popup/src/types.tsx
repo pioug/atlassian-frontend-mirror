@@ -79,12 +79,12 @@ export interface DialogContentProps extends ContentProps {
 	 * have a fixed focus rule (a menu focuses its first item), and a popup with no role
 	 * must not take focus.
 	 *
-	 * The specified element needs to be available in the DOM as soon as the popup is opened, otherwise it
-	 * will not be focused upon. This means it will not work for content that renders into the popup content
-	 * after it has already opened (e.g. async or lazy loaded content).
-	 *
-	 * Pass it as the element's `ref`, or call it in a layout effect. With
-	 * `platform-dst-top-layer` on, a call from a `useEffect` is too late.
+	 * The popup moves focus only as it opens, so the element must be in the DOM then. Pass it as
+	 * the element's `ref`, or call it in a layout effect. With `platform-dst-top-layer` on, a
+	 * target set later (a call from a `useEffect`, or content that renders after the open, such as
+	 * async or lazy loaded content) does not take focus. Content that needs focus later opts out
+	 * with `UNSAFE__disableInitialAutoFocus` and moves focus itself. With the gate on, content that
+	 * moves focus as it mounts (for example React `autoFocus`) keeps it, and the target is not used.
 	 */
 	setInitialFocusRef: Dispatch<SetStateAction<HTMLElement | null>>;
 }

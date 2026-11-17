@@ -40,6 +40,7 @@ import { isGroup } from './isGroup';
 import { isTeam } from './isTeam';
 import { scrollToValue } from './scrollToValue';
 import { SizeableAvatar } from './SizeableAvatar';
+import { VALUE_CONTAINER_ATTRIBUTE } from './valueContainerAttribute';
 
 const groupTagContainerOld = xcss({
 	paddingLeft: 'space.025',
@@ -98,10 +99,19 @@ export class MultiValue extends React.Component<Props> {
 			this.containerRef.current.parentElement &&
 			this.containerRef.current.parentElement.parentElement
 		) {
-			scrollToValue(
-				this.containerRef.current,
-				this.containerRef.current.parentElement.parentElement,
-			);
+			if (fg('platform-user-picker-a11y-30826-value-list')) {
+				const scrollContainer = this.containerRef.current.closest<HTMLElement>(
+					`[${VALUE_CONTAINER_ATTRIBUTE}]`,
+				);
+				if (scrollContainer) {
+					scrollToValue(this.containerRef.current, scrollContainer);
+				}
+			} else {
+				scrollToValue(
+					this.containerRef.current,
+					this.containerRef.current.parentElement.parentElement,
+				);
+			}
 		}
 	}
 

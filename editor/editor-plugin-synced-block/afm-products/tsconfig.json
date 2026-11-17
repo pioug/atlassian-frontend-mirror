@@ -92,6 +92,12 @@
 			"path": "../../editor-toolbar/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../editor-toolbar-model/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-ui-control-model/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/flag/afm-products/tsconfig.json"
 		},
 		{

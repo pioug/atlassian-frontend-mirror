@@ -10,7 +10,6 @@ import {
 	ANCHOR_VARIABLE_NAME,
 	isCSSAnchorSupported,
 } from '@atlaskit/editor-common/styles/native-anchor';
-import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace/whitespace';
@@ -51,15 +50,9 @@ const dragHandlerAnchorSelectorNext = `[${NODE_ANCHOR_ATTR_NAME}]:not([data-pros
  */
 const dragHandlerAnchorSelectorWithTaskExclusion = `[${NODE_ANCHOR_ATTR_NAME}]:not([data-prosemirror-node-name="tableRow"], [data-prosemirror-node-name="tableCell"],  [data-prosemirror-node-name="tableHeader"], [data-prosemirror-node-name="media"], [data-prosemirror-node-inline="true"], [data-prosemirror-node-name="taskList"] [${NODE_ANCHOR_ATTR_NAME}])`;
 
-const gutterPaddingWidth = () =>
-	editorExperiment('platform_editor_controls', 'variant1')
-		? `${akEditorGutterPaddingDynamic()}px`
-		: '100%';
+const gutterPaddingWidth = () => `${akEditorGutterPaddingDynamic()}px`;
 
-const gutterPaddingLeft = () =>
-	editorExperiment('platform_editor_controls', 'variant1')
-		? `-${akEditorGutterPaddingDynamic()}px`
-		: '-100px';
+const gutterPaddingLeft = () => `-${akEditorGutterPaddingDynamic()}px`;
 
 const extendedHoverZone = () =>
 	css({
@@ -293,22 +286,10 @@ const extendedDragZoneNext = css({
 	},
 });
 
-const paragraphWithTrailingBreakAsOnlyChild =
-	'+ :is(p, h1, h2, h3, h4, h5, h6) > .ProseMirror-trailingBreak:only-child';
-const indentatedParagraphWithTrailingBreakAsOnlyChild =
-	'+ div.fabric-editor-indentation-mark > :is(p, h1, h2, h3, h4, h5, h6) > .ProseMirror-trailingBreak:only-child';
-const paragraphWithPlaceholder = '+ p > .placeholder-decoration';
 const dragHandleContainer = '.ProseMirror-widget[data-blocks-drag-handle-container="true"]';
-const dragHandleSelector = 'button[data-testid="block-ctrl-drag-handle"]';
 const dropTargetContainer = '.ProseMirror-widget[data-blocks-drop-target-container="true"]';
 const dividerBodiedInCustomPanelWithNoIconSelector =
 	'[data-panel-type].ak-editor-panel__no-icon .ProseMirror-widget:first-child + .ProseMirror-widget:nth-child(2) + hr, [data-panel-type] hr:first-child';
-const withInlineNodeStyleSelectors = [
-	`${dragHandleContainer}:has(${paragraphWithTrailingBreakAsOnlyChild}) ${dragHandleSelector}`,
-	`${dragHandleContainer}:has(${indentatedParagraphWithTrailingBreakAsOnlyChild}) ${dragHandleSelector}`,
-	`${dragHandleContainer}:has(${paragraphWithPlaceholder}) ${dragHandleSelector}`,
-].join(', ');
-
 const withFormatInLayoutStyleFixSelectors = [
 	`${dragHandleContainer}:first-child + .fabric-editor-indentation-mark > p:first-child`,
 	`${dragHandleContainer}:first-child + .fabric-editor-alignment > p:first-child`,
@@ -322,18 +303,6 @@ const withFormatInLayoutStyleFixSelectors = [
 	`${dragHandleContainer}:first-child + .fabric-editor-indentation-mark > :is(h1, h2, h3, h4, h5, h6):first-child`,
 	`${dragHandleContainer}:first-child + .fabric-editor-font-size > :is(h1, h2, h3, h4, h5, h6):first-child`,
 ].join(', ');
-
-/**
- * Please do not change change transform to display:none, or visibility:hidden
- * Otherwise it might break composition input for Chrome
- * https://product-fabric.atlassian.net/browse/ED-24136
- */
-const withInlineNodeStyle = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
-	[withInlineNodeStyleSelectors]: {
-		transform: 'scale(0)',
-	},
-});
 
 const legacyBreakoutWideLayoutStyle = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
@@ -671,8 +640,6 @@ export const GlobalStylesWrapper = ({
 
 	const sparseSurfaceAnchorsEnabled = Boolean(isCSSAnchorSupported()) && sparseSurfacesEnabled;
 
-	const toolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(api?.toolbar));
-
 	return (
 		<Global
 			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
@@ -698,8 +665,6 @@ export const GlobalStylesWrapper = ({
 						? extendHoverZoneReducedNext
 						: extendHoverZoneReduced
 					: undefined,
-				// platform_editor_controls note: this allows drag handles to render on empty lines
-				toolbarFlagsEnabled ? undefined : withInlineNodeStyle,
 				withDeleteLinesStyleFix,
 				withMediaSingleStyleFix,
 				legacyBreakoutWideLayoutStyle,

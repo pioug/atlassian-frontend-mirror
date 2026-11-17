@@ -42,7 +42,6 @@ const disallowedWrapperStyle = css({
 });
 
 export interface ButtonOptionProps {
-	areAnyNewToolbarFlagsEnabled: boolean;
 	disabled: boolean;
 	icon: (props: NewCoreIconProps) => JSX.Element;
 	onClick: () => void;
@@ -61,35 +60,23 @@ export const LinkToolbarButtonGroup = ({
 }: LinkToolbarButtonGroupProps): jsx.JSX.Element => {
 	return (
 		<ButtonGroup>
-			{options.map(
-				({
-					onClick,
-					selected,
-					disabled,
-					testId,
-					tooltipContent,
-					title,
-					icon,
-					areAnyNewToolbarFlagsEnabled,
-				}) => {
-					const ButtonIcon = icon as (props: NewCoreIconProps) => JSX.Element;
-					return (
-						<DisallowedWrapper key={testId} disabled={disabled}>
-							<Button
-								css={disabled ? buttonStyleNoneEvent : buttonStyle}
-								title={title}
-								icon={<ButtonIcon label={title} spacing="spacious" />}
-								selected={selected}
-								onClick={onClick}
-								testId={testId}
-								disabled={disabled}
-								tooltipContent={tooltipContent}
-								areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
-							/>
-						</DisallowedWrapper>
-					);
-				},
-			)}
+			{options.map(({ onClick, selected, disabled, testId, tooltipContent, title, icon }) => {
+				const ButtonIcon = icon as (props: NewCoreIconProps) => JSX.Element;
+				return (
+					<DisallowedWrapper key={testId} disabled={disabled}>
+						<Button
+							css={disabled ? buttonStyleNoneEvent : buttonStyle}
+							title={title}
+							icon={<ButtonIcon label={title} spacing="spacious" />}
+							selected={selected}
+							onClick={onClick}
+							testId={testId}
+							disabled={disabled}
+							tooltipContent={tooltipContent}
+						/>
+					</DisallowedWrapper>
+				);
+			})}
 		</ButtonGroup>
 	);
 };

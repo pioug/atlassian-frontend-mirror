@@ -1,12 +1,17 @@
 import React from 'react';
 
+import type { IntlShape } from 'react-intl';
+
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import { ACTION, INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import { appearancePropsMap } from '@atlaskit/editor-common/card';
 import { getDropdownOption } from '@atlaskit/editor-common/card/link-toolbar-dropdown-options';
 import type { OptionConfig } from '@atlaskit/editor-common/card/types';
 import { commandWithMetadata } from '@atlaskit/editor-common/card/utils';
+import nodeNames from '@atlaskit/editor-common/messages';
 import { messages } from '@atlaskit/editor-common/messages/card';
 import { linkToolbarMessages } from '@atlaskit/editor-common/messages/link-toolbar';
+import type { CardAppearance } from '@atlaskit/editor-common/provider-factory/card-provider';
 import type { Command } from '@atlaskit/editor-common/types/command';
 import type {
 	DropdownOptions,
@@ -15,18 +20,68 @@ import type {
 } from '@atlaskit/editor-common/types/floating-toolbar';
 import { isSupportedInParent } from '@atlaskit/editor-common/utils';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { useSmartCardContext } from '@atlaskit/link-provider/use-smart-card-context';
 import ButtonItem from '@atlaskit/menu/button-item';
 import LinkItem from '@atlaskit/menu/link-item';
 import MenuGroup from '@atlaskit/menu/menu-group';
 import Section from '@atlaskit/menu/section';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
 import { changeSelectedCardToLink, setSelectedCardAppearance } from '../pm-plugins/doc';
+import { pluginKey } from '../pm-plugins/plugin-key';
+import type { CardPluginState } from '../types';
 import { DatasourceDropdownOption, datasourceDisplayInformation } from './DatasourceDropdownOption';
-import { getUnavailableMessage } from './LinkToolbarAppearance';
-import type { LinkToolbarAppearanceProps } from './LinkToolbarAppearance';
+
+export interface LinkToolbarAppearanceProps {
+	allowBlockCards?: boolean;
+	allowEmbeds?: boolean;
+	currentAppearance?: CardAppearance;
+	editorAnalyticsApi: EditorAnalyticsAPI | undefined;
+	editorState: EditorState;
+	editorView?: EditorView;
+	intl: IntlShape;
+	isDatasourceView?: boolean;
+	showUpgradeDiscoverability?: boolean;
+	url?: string;
+}
+
+export const getUnavailableMessage = (state: EditorState, intl: IntlShape): string => {
+	try {
+		const parentNode = state.selection.$from.node(1);
+		const parentName = intl.formatMessage(
+			nodeNames[parentNode.type.name as keyof typeof nodeNames],
+		);
+		const tooltip = intl.formatMessage(messages.displayOptionUnavailableInParentNode, {
+			node: parentName,
+		});
+		return tooltip;
+	} catch (e) {
+		// eslint-disable-line no-unused-vars
+		return intl.formatMessage(messages.displayOptionUnavailableInParentNode, {
+			node: intl.formatMessage(nodeNames.defaultBlockNode),
+		});
+	}
+};
+
+/**
+ * Whether the node a registered embed transformer (for example native embeds) would insert for the
+ * selected card is allowed in its parent. That node can be allowed where `embedCard` is not.
+ */
+export const isTransformedEmbedSupportedInParent = (
+	editorState: EditorState,
+	currentAppearance?: CardAppearance,
+): boolean => {
+	const cardState = pluginKey.getState(editorState) as CardPluginState | undefined;
+	const transformedNode =
+		cardState?.embedCardTransformers?.getEmbedCardTransformNode?.(editorState);
+	return transformedNode
+		? isSupportedInParent(editorState, Fragment.from(transformedNode), currentAppearance)
+		: false;
+};
 
 type Props = LinkToolbarAppearanceProps & {
 	allowDatasource?: boolean;
@@ -61,6 +116,8 @@ export const LinkAppearanceMenu = ({
 		}
 	}
 
+	const showUnsupportedOptionsDisabled = fg('platform_editor_link_appearance_disabled_options');
+
 	const isBlockCardLinkSupportedInParent = allowBlockCards
 		? isSupportedInParent(
 				editorState,
@@ -74,7 +131,9 @@ export const LinkAppearanceMenu = ({
 				editorState,
 				Fragment.from(editorState.schema.nodes.embedCard.createChecked({})),
 				currentAppearance,
-			)
+			) ||
+			(showUnsupportedOptionsDisabled &&
+				isTransformedEmbedSupportedInParent(editorState, currentAppearance))
 		: false;
 
 	const embedOption = allowEmbeds &&
@@ -153,8 +212,7 @@ export const LinkAppearanceMenu = ({
 		Icon = settingsConfig.icon;
 	}
 
-	// TODO: ED-26961 - packages/editor/editor-plugin-card/src/ui/LinkToolbarAppearance.tsx supports change boarding via pulse
-	// this implementation doesn't
+	// TODO: ED-26961 - this implementation does not support change boarding via pulse
 	return (
 		<MenuGroup>
 			<Section>
@@ -166,14 +224,14 @@ export const LinkAppearanceMenu = ({
 							// eslint-disable-next-line @atlassian/perf-linting/detect-unnecessary-rerenders, @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							onClick={() => option.onClick()}
 							isSelected={option.selected}
-							isDisabled={option.disabled}
+							isDisabled={showUnsupportedOptionsDisabled && option.disabled}
 							description={option.description}
 							shouldDescriptionWrap={true}
 						>
 							{option.title}
 						</ButtonItem>
 					);
-					return option.tooltip ? (
+					return showUnsupportedOptionsDisabled && option.tooltip ? (
 						<Tooltip key={option.title} content={option.tooltip}>
 							{item}
 						</Tooltip>
@@ -217,7 +275,6 @@ export const getLinkAppearanceDropdown = ({
 	showUpgradeDiscoverability = true,
 	isDatasourceView,
 	settingsConfig,
-	areAnyNewToolbarFlagsEnabled,
 }: LinkToolbarAppearanceProps & {
 	allowDatasource?: boolean;
 	settingsConfig: FloatingToolbarItem<Command>;
@@ -238,7 +295,6 @@ export const getLinkAppearanceDropdown = ({
 					allowDatasource={allowDatasource}
 					dispatchCommand={props.dispatchCommand}
 					settingsConfig={settingsConfig}
-					areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 				/>
 			);
 		},

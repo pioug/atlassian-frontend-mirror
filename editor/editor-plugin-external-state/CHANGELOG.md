@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-external-state
 
+## 3.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.0.0
 
 ### Patch Changes

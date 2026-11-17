@@ -26,7 +26,6 @@ import { escape, ToolTipContent } from '@atlaskit/editor-common/keymaps';
 import { RECENT_SEARCH_WIDTH_IN_PX as CONTAINER_WIDTH_IN_PX } from '@atlaskit/editor-common/link-search-constants';
 import { altTextMessages as messages } from '@atlaskit/editor-common/media/altText';
 import PanelTextInput from '@atlaskit/editor-common/PanelTextInput';
-import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import { ErrorMessage } from '@atlaskit/editor-common/ui-messages';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles/constants';
@@ -89,7 +88,6 @@ const clearTextStyles = css({
 
 type Props = {
 	altTextValidator?: (value: string) => string[];
-	areAnyNewToolbarFlagsEnabled?: boolean;
 	mediaType: 'file' | 'image' | 'external';
 	nodeType: 'mediaSingle' | 'mediaInline';
 	onEnter?: () => void;
@@ -172,11 +170,6 @@ export class AltTextEditComponent extends React.Component<Props, AltTextEditComp
 		});
 		const hasErrors = !!errorsList.length;
 
-		const onSubmit =
-			(this.props.areAnyNewToolbarFlagsEnabled ?? areToolbarFlagsEnabled())
-				? this.closeMediaAltTextMenuAndSetFocus
-				: this.closeMediaAltTextMenu;
-
 		return (
 			<div css={containerStyles}>
 				<section css={inputWrapperStyles}>
@@ -186,9 +179,6 @@ export class AltTextEditComponent extends React.Component<Props, AltTextEditComp
 							icon={<ChevronLeftLargeIcon label={formatMessage(messages.back)} size="small" />}
 							tooltipContent={backButtonMessageComponent}
 							onClick={this.closeMediaAltTextMenu}
-							areAnyNewToolbarFlagsEnabled={
-								this.props.areAnyNewToolbarFlagsEnabled ?? areToolbarFlagsEnabled()
-							}
 						/>
 					</div>
 					<PanelTextInput
@@ -200,7 +190,7 @@ export class AltTextEditComponent extends React.Component<Props, AltTextEditComp
 						onCancel={this.dispatchCancelEvent}
 						onChange={this.handleOnChange}
 						onBlur={this.handleOnBlur}
-						onSubmit={onSubmit}
+						onSubmit={this.closeMediaAltTextMenuAndSetFocus}
 						maxLength={MAX_ALT_TEXT_LENGTH}
 						ariaRequired={true}
 						ariaInvalid={hasErrors}
@@ -218,9 +208,6 @@ export class AltTextEditComponent extends React.Component<Props, AltTextEditComp
 								}
 								tooltipContent={formatMessage(messages.clear)}
 								onClick={this.handleClearText}
-								areAnyNewToolbarFlagsEnabled={
-									this.props.areAnyNewToolbarFlagsEnabled ?? areToolbarFlagsEnabled()
-								}
 							/>
 						</div>
 					)}
@@ -309,11 +296,7 @@ export class AltTextEditComponent extends React.Component<Props, AltTextEditComp
 	private handleOnBlur = (e: FocusEvent) => {
 		// prevent other selection transaction gets triggered
 		e.stopPropagation();
-		if (this.props.areAnyNewToolbarFlagsEnabled ?? areToolbarFlagsEnabled()) {
-			this.closeMediaAltTextMenuAndSetFocus();
-		} else {
-			this.closeMediaAltTextMenu();
-		}
+		this.closeMediaAltTextMenuAndSetFocus();
 	};
 
 	private handleClearText = () => {

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "135.1.0",
+	"version": "137.1.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -175,7 +175,6 @@
 		"./table/get-sticky-header-height": "./src/table/getStickyHeaderHeight.ts",
 		"./table-cell-background-for-compiled": "./src/styles/shared/table-cell-background-for-compiled.ts",
 		"./toolbar": "./src/toolbar/index.ts",
-		"./toolbar-flag-check": "./src/toolbar-flag-check.ts",
 		"./transaction-agent-attribution": "./src/transaction-agent-attribution.ts",
 		"./transforms": "./src/transforms/index.ts",
 		"./type-ahead": "./src/type-ahead/index.ts",
@@ -775,6 +774,7 @@
 		"@atlaskit/link": "workspace:^",
 		"@atlaskit/link-datasource": "workspace:^",
 		"@atlaskit/link-picker": "workspace:^",
+		"@atlaskit/linking-common": "workspace:^",
 		"@atlaskit/logo": "workspace:^",
 		"@atlaskit/media-card": "workspace:^",
 		"@atlaskit/media-client": "workspace:^",

@@ -1,5 +1,35 @@
 # @atlaskit/editor-plugin-breakout
 
+## 33.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 32.0.0
+
+### Patch Changes
+
+- [`4078a42a6699b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4078a42a6699b) -
+  Tint the page load scan that adds missing breakout marks as a dirty transaction, so it isn't
+  tracked as a local organic change. Before this, opening a live doc with a resizable node that had
+  no breakout mark autosaved a new version authored by the viewer. The scan only runs when
+  `platform_editor_lovability_resize_extensions`, `platform_editor_add_breakout_marks_on_page_load`
+  or `platform_editor_lovability_resize_dividers_panels` is enabled.
+- Updated dependencies
+
+## 31.1.0
+
+### Minor Changes
+
+- [`c13b574ab38d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c13b574ab38d2) -
+  Declare the workspace dependencies used by package source and emitted types so isolated
+  installations can resolve them.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 31.0.0
 
 ### Patch Changes

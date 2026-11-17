@@ -15,7 +15,6 @@ import { alignCenter, alignLeft, alignRight, tooltip } from '@atlaskit/editor-co
 import { Shortcut } from '@atlaskit/editor-common/Shortcut';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { ArrowKeyNavigationType } from '@atlaskit/editor-common/ui-menu/ArrowKeyNavigationProvider/types';
-import { DropdownContainer as Dropdown } from '@atlaskit/editor-common/ui-menu/DropdownContainer';
 import { DropdownMenuWithKeyboardNavigation as DropdownMenu } from '@atlaskit/editor-common/ui-menu/DropdownMenu';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu/DropdownMenu/types';
 import ToolbarButton from '@atlaskit/editor-common/ui-menu/ToolbarButton';
@@ -26,12 +25,9 @@ import { ToolbarSeparator } from '@atlaskit/editor-common/ui-toolbar/Separator';
 import AlignTextCenterIcon from '@atlaskit/icon/core/align-text-center';
 import AlignTextLeftIcon from '@atlaskit/icon/core/align-text-left';
 import AlignTextRightIcon from '@atlaskit/icon/core/align-text-right';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { AlignmentPlugin } from '../../alignmentPluginType';
-import { ToolbarType } from '../../pm-plugins/types';
 import type { AlignmentState } from '../../pm-plugins/types';
-import Alignment from '../Alignment';
 
 interface State {
 	isOpen: boolean;
@@ -46,13 +42,11 @@ export interface Props {
 	popupsBoundariesElement?: HTMLElement;
 	popupsMountPoint?: HTMLElement;
 	popupsScrollableElement?: HTMLElement;
-	toolbarType: ToolbarType;
 }
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 class AlignmentToolbar extends React.Component<Props & WrappedComponentProps, State> {
 	static displayName = 'AlignmentToolbar';
-	private toolbarItemRef = React.createRef<HTMLElement>();
 
 	state: State = {
 		isOpen: false,
@@ -80,12 +74,6 @@ class AlignmentToolbar extends React.Component<Props & WrappedComponentProps, St
 		};
 
 		const ariaLabel = `${title}, ${alignmentLabelMap[alignment] ?? ''}`;
-
-		const reducedSpacing = editorExperiment('platform_editor_controls', 'variant1', {
-			exposure: true,
-		})
-			? 'compact'
-			: 'none';
 
 		const items = [
 			{
@@ -116,110 +104,43 @@ class AlignmentToolbar extends React.Component<Props & WrappedComponentProps, St
 
 		return (
 			<ToolbarDropdownWrapper>
-				{editorExperiment('platform_editor_controls', 'variant1') ? (
-					<DropdownMenu
-						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-						arrowKeyNavigationProviderOptions={{
-							type: ArrowKeyNavigationType.MENU,
-						}}
-						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-						items={[{ items }]}
-						isOpen={isOpen}
-						onItemActivated={this.handleOnItemActivated}
-						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-						onOpenChange={(attrs: OpenChangedEvent) => this.setState({ isOpen: attrs?.isOpen })}
-						mountTo={popupsMountPoint}
-						boundariesElement={popupsBoundariesElement}
-						scrollableElement={popupsScrollableElement}
-						fitWidth={200}
-					>
-						<ToolbarButton
-							spacing={isReducedSpacing ? reducedSpacing : 'default'}
-							disabled={disabled}
-							selected={isOpen}
-							title={title}
-							aria-label={ariaLabel}
-							aria-expanded={isOpen}
-							aria-haspopup
-							onClick={this.toggleOpen}
-							onKeyDown={this.toggleOpenByKeyboard}
-							iconBefore={
-								<ToolbarDropdownTriggerWrapper>
-									<AlignmentIconMap alignment={alignment} />
-									<ToolbarExpandIcon />
-								</ToolbarDropdownTriggerWrapper>
-							}
-						/>
-					</DropdownMenu>
-				) : (
-					<Dropdown
-						mountTo={popupsMountPoint}
-						boundariesElement={popupsBoundariesElement}
-						scrollableElement={popupsScrollableElement}
-						isOpen={isOpen}
-						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-						handleClickOutside={(event: MouseEvent) => {
-							if (event instanceof MouseEvent) {
-								this.hide({ isOpen: false, event });
-							}
-						}}
-						handleEscapeKeydown={this.hideOnEscape}
-						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-						arrowKeyNavigationProviderOptions={{
-							type: ArrowKeyNavigationType.MENU,
-						}}
-						fitWidth={112}
-						fitHeight={80}
-						closeOnTab={true}
-						trigger={
-							<ToolbarButton
-								spacing={isReducedSpacing ? reducedSpacing : 'default'}
-								disabled={disabled}
-								selected={isOpen}
-								title={title}
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/no-unsafe-style-overrides -- Ignored via go/DSP-18766
-								className="align-btn"
-								aria-label={ariaLabel}
-								aria-expanded={isOpen}
-								aria-haspopup
-								onClick={this.toggleOpen}
-								onKeyDown={this.toggleOpenByKeyboard}
-								iconBefore={
-									<ToolbarDropdownTriggerWrapper>
-										<AlignmentIconMap alignment={alignment} />
-										<ToolbarExpandIcon />
-									</ToolbarDropdownTriggerWrapper>
-								}
-								ref={this.toolbarItemRef}
-							/>
+				<DropdownMenu
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+					arrowKeyNavigationProviderOptions={{
+						type: ArrowKeyNavigationType.MENU,
+					}}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+					items={[{ items }]}
+					isOpen={isOpen}
+					onItemActivated={this.handleOnItemActivated}
+					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+					onOpenChange={(attrs: OpenChangedEvent) => this.setState({ isOpen: attrs?.isOpen })}
+					mountTo={popupsMountPoint}
+					boundariesElement={popupsBoundariesElement}
+					scrollableElement={popupsScrollableElement}
+					fitWidth={200}
+				>
+					<ToolbarButton
+						spacing={isReducedSpacing ? 'compact' : 'default'}
+						disabled={disabled}
+						selected={isOpen}
+						title={title}
+						aria-label={ariaLabel}
+						aria-expanded={isOpen}
+						aria-haspopup
+						onClick={this.toggleOpen}
+						onKeyDown={this.toggleOpenByKeyboard}
+						iconBefore={
+							<ToolbarDropdownTriggerWrapper>
+								<AlignmentIconMap alignment={alignment} />
+								<ToolbarExpandIcon />
+							</ToolbarDropdownTriggerWrapper>
 						}
-					>
-						<Alignment
-							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-							onClick={(align) => this.changeAlignment(align, false)}
-							selectedAlignment={alignment}
-						/>
-					</Dropdown>
-				)}
+					/>
+				</DropdownMenu>
 				{!api?.primaryToolbar && <ToolbarSeparator />}
 			</ToolbarDropdownWrapper>
 		);
-	}
-
-	componentDidUpdate(_prevProps: Props) {
-		if (this.props.toolbarType !== ToolbarType.FLOATING && this.state.isOpen) {
-			// by triggering the keyboard event with a setTimeout, we ensure that the tooltip
-			// associated with the alignment button doesn't render until the next render cycle
-			// where the popup will be correctly positioned and the relative position of the tooltip
-			// will not overlap with the button.
-			setTimeout(() => {
-				const keyboardEvent = new KeyboardEvent('keydown', {
-					bubbles: true,
-					key: 'ArrowDown',
-				});
-				this.toolbarItemRef.current?.dispatchEvent(keyboardEvent);
-			}, 0);
-		}
 	}
 
 	private changeAlignment = (align: AlignmentState, togglePopup: boolean) => {
@@ -248,20 +169,6 @@ class AlignmentToolbar extends React.Component<Props & WrappedComponentProps, St
 		item: MenuItem;
 		shouldCloseMenu: boolean;
 	}) => this.changeAlignment(item.value.name as AlignmentState, shouldCloseMenu);
-
-	private hide = (attrs?: OpenChangedEvent) => {
-		if (this.state.isOpen) {
-			this.setState({ isOpen: false });
-			if (attrs?.event instanceof KeyboardEvent && attrs.event.key === 'Escape') {
-				this.toolbarItemRef?.current?.focus();
-			}
-		}
-	};
-
-	private hideOnEscape = () => {
-		this.hide();
-		this.toolbarItemRef?.current?.focus();
-	};
 }
 
 // eslint-disable-next-line @typescript-eslint/no-restricted-types

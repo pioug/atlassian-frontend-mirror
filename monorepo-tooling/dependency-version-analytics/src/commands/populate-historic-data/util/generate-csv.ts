@@ -16,17 +16,21 @@ export const generateCSV = (packageChanges: PackageChange[]): string => {
 				depColumnIndex = csvData.push([name]) - 1;
 			}
 
+			// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 			csvData[depColumnIndex][currentRow] = version;
 		});
 	});
 
 	for (let i = 0; i < csvData.length; i++) {
 		for (let j = 0; j < csvData.length; j++) {
+			// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 			if (typeof csvData[i][j] !== 'string') {
+				// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 				csvData[i][j] = '';
 			}
 		}
 
+		// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 		if (i !== 0 && csvData[0].length < csvData[i].length) {
 		}
 	}

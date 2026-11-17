@@ -5,42 +5,23 @@ import { bind } from 'bind-event-listener';
 import { getFirstFocusable } from '../focus/get-first-focusable';
 import { getLastFocusable } from '../focus/get-last-focusable';
 import { getNextFocusable } from '../focus/get-next-focusable';
+import { isFocusOwningLayer } from '../focus/is-focus-owning-layer';
 import { isNestedLayerFocused } from '../focus/is-nested-layer-focused';
+import { roleRequiresFocusWrap } from '../focus/role-requires-focus-wrap';
+import { type TLayerRole } from './role-types';
 import { type TPhase } from './use-animated-visibility';
 
 /**
- * Returns `true` for the roles that wrap Tab focus, per the WAI-ARIA APG:
- *
- * - `dialog`: https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/
- * - `alertdialog`: same keyboard pattern as `dialog`
- *
- * `menu` is not included. A menu is a composite widget
- * (https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/#kbd_general_within):
- * arrow keys move focus inside it, and Tab moves focus out of it.
- *
- * Menu keyboard behavior (arrow keys, Home and End, type-ahead, Enter and
- * Space) changes with orientation, nesting, item type and control pattern
- * (menu button or menubar), so this hook cannot do it for all menus. The
- * consumer (for example `dropdown-menu`) owns it.
- *
- * See `notes/decisions/menu-keyboard.md`.
- */
-function roleRequiresFocusWrap({ role }: { role: string | undefined }): boolean {
-	return role === 'dialog' || role === 'alertdialog';
-}
-
-/**
  * Wraps Tab and Shift+Tab focus inside the element when its role requires it
- * (`dialog`, `alertdialog`).
+ * (`dialog`, `alertdialog`): A → B → C → A, with no stop on `<body>`.
  *
- * While the element is visible, the hook intercepts Tab and Shift+Tab (with
- * `preventDefault`) and moves focus to the next or previous focusable element
- * in the element. Focus wraps around at both ends.
+ * Nested layers follow the role rule (see `getFocusables`). The hook steps aside
+ * while focus is in a nested layer that wraps its own Tab.
  *
- * The hook only handles Tab. It does not change Escape or light dismiss.
+ * The listener runs in the capture phase, so a Tab listener inside the element
+ * sees the new `document.activeElement`. Use `event.target` there.
  *
- * Always call this hook unconditionally. It attaches the listener only while
- * the phase is not `'closed'` and the role requires focus wrapping.
+ * Always call this hook unconditionally. See `notes/decisions/role-and-focus.md`.
  */
 export function useFocusWrap({
 	elementRef,
@@ -48,7 +29,7 @@ export function useFocusWrap({
 	phase,
 }: {
 	elementRef: RefObject<HTMLElement | null>;
-	role: string | undefined;
+	role: TLayerRole | undefined;
 	/**
 	 * Current visibility phase. The Tab listener is attached in every phase
 	 * except `'closed'`, so it stays attached during the exit animation.
@@ -69,8 +50,13 @@ export function useFocusWrap({
 					return;
 				}
 
-				// While focus is in a nested layer, that layer handles Tab.
-				if (isNestedLayerFocused({ container: element })) {
+				// A nested dialog wraps its own Tab.
+				if (
+					isNestedLayerFocused({
+						container: element,
+						layerFilter: (layer) => isFocusOwningLayer({ layer }),
+					})
+				) {
 					return;
 				}
 

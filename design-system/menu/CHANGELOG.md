@@ -1,5 +1,13 @@
 # @atlaskit/menu
 
+## 11.0.7
+
+### Patch Changes
+
+- [`f250825be55c3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f250825be55c3) -
+  Keep menu item text colour on focus, so host page styles such as a global `a:focus { color }` rule
+  no longer turn focused link items blue.
+
 ## 11.0.6
 
 ### Patch Changes

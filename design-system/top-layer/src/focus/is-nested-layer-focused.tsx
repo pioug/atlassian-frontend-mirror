@@ -1,21 +1,23 @@
-import { getClosestLayer } from './get-closest-layer';
+import { getNestedLayers } from './get-nested-layers';
 
 /**
  * Returns `true` when the focused element is in a nested layer: a `[popover]`
- * or `<dialog>` inside `container`.
+ * or `<dialog>` inside `container`. `layerFilter` limits which layers count.
  */
-export function isNestedLayerFocused({ container }: { container: HTMLElement }): boolean {
+export function isNestedLayerFocused({
+	container,
+	layerFilter,
+}: {
+	container: HTMLElement;
+	layerFilter?: (layer: Element) => boolean;
+}): boolean {
 	const focusedElement = container.ownerDocument.activeElement;
 
 	if (!(focusedElement instanceof HTMLElement)) {
 		return false;
 	}
 
-	// Cannot be in a nested layer if it is not in the container
-	if (!container.contains(focusedElement)) {
-		return false;
-	}
-
-	// If not in the same layer, must be in a nested layer
-	return getClosestLayer({ element: focusedElement }) !== getClosestLayer({ element: container });
+	return getNestedLayers({ container }).some(
+		(layer) => layer.contains(focusedElement) && (!layerFilter || layerFilter(layer)),
+	);
 }

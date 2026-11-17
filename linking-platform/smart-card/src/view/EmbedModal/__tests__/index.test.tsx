@@ -383,6 +383,28 @@ describe('EmbedModal', () => {
 			window.removeEventListener('keydown', handleUnderlyingLayerKeyDown);
 		});
 
+		it('lets the top-layer modal take Escape itself when platform_sl_embed_modal_escape_isolation is enabled', async () => {
+			passGate('platform-dst-top-layer');
+			passGate('platform_sl_embed_modal_escape_isolation');
+			const onClose = jest.fn();
+			renderEmbedModal({ onClose });
+			await screen.findByTestId(testId);
+			// Added after the modal mounts, so it runs after the modal's own `window` keydown listener.
+			const onEscapeAfterModal = jest.fn();
+			const handleKeyDownAfterModal = (event: KeyboardEvent) => {
+				if (event.key === 'Escape') {
+					onEscapeAfterModal({ isClaimed: event.defaultPrevented });
+				}
+			};
+			window.addEventListener('keydown', handleKeyDownAfterModal);
+
+			await user.keyboard('{Escape}');
+			window.removeEventListener('keydown', handleKeyDownAfterModal);
+
+			expect(onEscapeAfterModal).toHaveBeenCalledWith({ isClaimed: true });
+			expect(onClose).toHaveBeenCalledTimes(1);
+		});
+
 		it('closes only the modal and not the layer underneath when platform_sl_embed_modal_escape_isolation is enabled', async () => {
 			passGate('platform_sl_embed_modal_escape_isolation');
 			const onClose = jest.fn();

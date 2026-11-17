@@ -72,6 +72,12 @@ Architectural decisions, design rationale, and decision logs.
 - **[role-and-focus.md](./decisions/role-and-focus.md)** — Decision: role and focus are a package
   deal. The role alone decides initial focus; Popup's `autoFocus` has no effect on the top-layer
   path. The combobox exception, and the plan to remove `autoFocus`
+- **[react-autofocus-and-focus-on-open.md](./decisions/react-autofocus-and-focus-on-open.md)**:
+  Decision: a layer shows early, in a layout effect in `FirstSibling`, before React runs the
+  `autoFocus` logic and layout effects in `children`. So the React `autoFocus` prop and a content
+  `focus()` call work, and initial focus does nothing when focus is already inside. Layers move
+  focus only on the open; content that needs focus later uses the wrapper's opt-out (Popup
+  `UNSAFE__disableInitialAutoFocus`) and moves focus itself. What the legacy path did differently
 - **[aria-controls-trigger-contract.md](./decisions/aria-controls-trigger-contract.md)** — Decision:
   `getAriaForTrigger` always emits stable `aria-controls`
 - **[popover-trigger-hook.md](./decisions/popover-trigger-hook.md)** — Decision: defer
@@ -223,7 +229,7 @@ actually happened.
 - **[follow-ups/consumer-cleanup-after-gap-fixes.md](./follow-ups/consumer-cleanup-after-gap-fixes.md)**
   — TODO: second sweep pass for consumer code the gap fixes made redundant, and small related items
 - **[follow-ups/modal-dialog-ref-forwarding.md](./follow-ups/modal-dialog-ref-forwarding.md)** —
-  TODO: ModalDialog does not forward ref on the top-layer path
+  Done: ModalDialog forwards its ref to the native `<dialog>` on the top-layer path
 - **[follow-ups/popup-mode-prop.md](./follow-ups/popup-mode-prop.md)** — TODO: decide whether to
   deprecate Popup mode now that wrappers ask first
 - **[follow-ups/tree-grid-initial-focus.md](./follow-ups/tree-grid-initial-focus.md)** —

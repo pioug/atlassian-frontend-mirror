@@ -230,6 +230,70 @@ describe('<LinkItem />', () => {
 		expect(screen.getByTestId('target')).toHaveAttribute('aria-current', 'page');
 	});
 
+	describe('focus text colour', () => {
+		it('should keep the text colour on focus', () => {
+			render(
+				<LinkItem href="http://www.atlassian.com" testId="target">
+					Atlassian
+				</LinkItem>,
+			);
+
+			expect(screen.getByTestId('target')).toHaveCompiledCss('color', 'currentColor', {
+				target: ':focus',
+			});
+		});
+
+		it('should keep the selected text colour on focus', () => {
+			render(
+				<LinkItem href="http://www.atlassian.com" isSelected testId="target">
+					Atlassian
+				</LinkItem>,
+			);
+
+			expect(screen.getByTestId('target')).toHaveCompiledCss(
+				'color',
+				'var(--ds-text-selected,#1868db)',
+				{ target: ':focus' },
+			);
+		});
+
+		it('should keep the text colour on focus for router links', () => {
+			render(
+				<AppProvider routerLinkComponent={MyRouterLinkComponent}>
+					<LinkItem href="/home" testId="target">
+						Home
+					</LinkItem>
+				</AppProvider>,
+			);
+
+			expect(screen.getByTestId('target')).toHaveAttribute('data-is-router-link', 'true');
+			expect(screen.getByTestId('target')).toHaveCompiledCss('color', 'currentColor', {
+				target: ':focus',
+			});
+		});
+
+		it("should let a consumer's own focus colour win", () => {
+			const consumerStyles = css({
+				'&:focus': {
+					color: 'red',
+				},
+			});
+
+			render(
+				<LinkItem href="http://www.atlassian.com" css={consumerStyles} testId="target">
+					Atlassian
+				</LinkItem>,
+			);
+
+			expect(screen.getByTestId('target')).toHaveCompiledCss('color', 'red', {
+				target: ':focus',
+			});
+			expect(screen.getByTestId('target')).not.toHaveCompiledCss('color', 'currentColor', {
+				target: ':focus',
+			});
+		});
+	});
+
 	describe('should conditionally render router links or standard <a> anchors', () => {
 		describe('when link items are used outside an AppProvider', () => {
 			it('should render a standard <a> anchor for internal links', () => {

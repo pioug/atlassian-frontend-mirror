@@ -1,5 +1,34 @@
 # @atlaskit/editor-plugin-user-preferences
 
+## 31.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.0.0
+
+### Minor Changes
+
+- [`f039487b0e531`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f039487b0e531) -
+  Remove the unused `@atlaskit/tmp-editor-statsig` dependency left over from the
+  `platform_editor_controls` experiment cleanup. Remove the dead toolbar code that the cleanup left
+  behind: unused component props, the text formatting More button, and primary toolbar find group
+  configuration that never rendered.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 29.0.1
+
+### Patch Changes
+
+- [`58e5092700759`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/58e5092700759) -
+  Remove the `control` branches of experiment `platform_editor_controls`; the editor controls
+  (`variant1`) experience is now permanent.
+- Updated dependencies
+
 ## 29.0.0
 
 ### Patch Changes

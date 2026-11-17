@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-media",
-	"version": "33.0.0",
+	"version": "35.0.1",
 	"description": "Media plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -37,9 +37,11 @@
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
 		"@atlaskit/editor-plugin-annotation": "workspace:^",
 		"@atlaskit/editor-plugin-connectivity": "workspace:^",
+		"@atlaskit/editor-plugin-context-identifier": "workspace:^",
 		"@atlaskit/editor-plugin-decorations": "workspace:^",
 		"@atlaskit/editor-plugin-editor-disabled": "workspace:^",
 		"@atlaskit/editor-plugin-editor-viewmode": "workspace:^",
+		"@atlaskit/editor-plugin-feature-flags": "workspace:^",
 		"@atlaskit/editor-plugin-floating-toolbar": "workspace:^",
 		"@atlaskit/editor-plugin-focus": "workspace:^",
 		"@atlaskit/editor-plugin-grid": "workspace:^",
@@ -129,6 +131,7 @@
 		}
 	},
 	"devDependencies": {
+		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/media-core": "workspace:^",
 		"react": "^19.2.0",

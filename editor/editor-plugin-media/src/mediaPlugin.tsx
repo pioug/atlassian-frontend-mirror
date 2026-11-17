@@ -11,7 +11,6 @@ import { IconImages } from '@atlaskit/editor-common/assets';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory/media-provider';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { PMPlugin, PMPluginFactoryParams } from '@atlaskit/editor-common/types/plugin-factory';
@@ -400,7 +399,6 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 				options &&
 				options.allowAdvancedToolBarOptions &&
 				options.allowResizing &&
-				areToolbarFlagsEnabled(Boolean(api?.toolbar)) &&
 				options.allowPixelResizing
 			) {
 				pmPlugins.push({

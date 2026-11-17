@@ -1,5 +1,4 @@
 import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { TEST_INTERACTIVE_HREF_LINK } from '../__mocks__/linkingPlatformJsonldMocks';
 import { extractEntityIcon } from '../extract-entity-icon';
@@ -278,8 +277,6 @@ describe('entity data', () => {
 
 	describe('extractSmartLinkProvider()', () => {
 		it('should return entityProvider when response is an entity and meta.generator is present', () => {
-			failGate('platform_lp_use_generator_icon_for_provider');
-
 			const response = {
 				meta: {
 					generator: {
@@ -366,27 +363,13 @@ describe('entity data', () => {
 			},
 		} as unknown as SmartLinkResponse;
 
-		it('should use generator icon URL and label for document entity providers when the gate is on', () => {
-			passGate('platform_lp_use_generator_icon_for_provider');
-
+		it('should use generator icon URL and label for document entity providers', () => {
 			expect(extractSmartLinkProvider(documentEntityResponse)).toEqual({
 				text: 'Google Drive',
 				id: 'google-drive',
 				icon: 'https://provider-icon.com/icon.png',
 				image: 'https://provider-icon.com/icon.png',
 				iconLabel: 'Google Drive',
-			});
-		});
-
-		it('should keep using entity icon URL and label for document entity providers when the gate is off', () => {
-			failGate('platform_lp_use_generator_icon_for_provider');
-
-			expect(extractSmartLinkProvider(documentEntityResponse)).toEqual({
-				text: 'Google Drive',
-				id: 'google-drive',
-				icon: 'https://entity-icon.com/icon.png',
-				image: 'https://entity-icon.com/icon.png',
-				iconLabel: 'document',
 			});
 		});
 	});

@@ -17,7 +17,6 @@ interface PrimaryToolbarComponentProps {
 	disabled: boolean;
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 	editorView: EditorView;
-	isReducedSpacing: boolean;
 	popupsBoundariesElement?: HTMLElement;
 	popupsMountPoint?: HTMLElement;
 	popupsScrollableElement?: HTMLElement;
@@ -36,7 +35,6 @@ const selector = (
 
 export const PrimaryToolbarComponent = ({
 	api,
-	isReducedSpacing,
 	editorView,
 	popupsMountPoint,
 	popupsScrollableElement,
@@ -58,7 +56,6 @@ export const PrimaryToolbarComponent = ({
 		<ToolbarTextColor
 			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			pluginState={{ color, defaultColor, palette, disabled: textColorDisabled }}
-			isReducedSpacing={isReducedSpacing}
 			editorView={editorView}
 			popupsMountPoint={popupsMountPoint}
 			popupsBoundariesElement={popupsBoundariesElement}

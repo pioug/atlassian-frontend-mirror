@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::fdd6830c83f8174fde4dd0866da5127e>>
+ * @codegen <<SignedSource::62754edbed4f29c0fb8bb93895b97253>>
  * @codegenCommand yarn build tokens
  */
 
@@ -452,6 +452,28 @@ var tokens = [{
   "attributes": {
     "group": "motionEasing",
     "state": "active",
+    "introduced": "20.12.0",
+    "description": "Use for floating controls following a panel entrance, with fast acceleration and a soft landing."
+  },
+  "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+  "filePath": "schema/themes/atlassian-motion/motion-easing.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "motionEasing",
+      "state": "active",
+      "introduced": "20.12.0",
+      "description": "Use for floating controls following a panel entrance, with fast acceleration and a soft landing."
+    },
+    "value": "EaseExpoOut"
+  },
+  "name": "motion.easing.out.expo",
+  "path": ["motion", "easing", "out", "expo"],
+  "cleanName": "motion.easing.out.expo"
+}, {
+  "attributes": {
+    "group": "motionEasing",
+    "state": "active",
     "introduced": "11.5.0",
     "description": "A practical, everyday enter curve. Less dramatic than the bold variant, good for subtle transitions like content swaps, tab changes, and list reordering."
   },
@@ -470,6 +492,28 @@ var tokens = [{
   "name": "motion.easing.out.practical",
   "path": ["motion", "easing", "out", "practical"],
   "cleanName": "motion.easing.out.practical"
+}, {
+  "attributes": {
+    "group": "motionEasing",
+    "state": "active",
+    "introduced": "20.12.0",
+    "description": "Use for floating controls following a panel exit, moving immediately and easing to rest."
+  },
+  "value": "cubic-bezier(0.25, 1, 0.5, 1)",
+  "filePath": "schema/themes/atlassian-motion/motion-easing.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "motionEasing",
+      "state": "active",
+      "introduced": "20.12.0",
+      "description": "Use for floating controls following a panel exit, moving immediately and easing to rest."
+    },
+    "value": "EaseQuartOut"
+  },
+  "name": "motion.easing.out.quart",
+  "path": ["motion", "easing", "out", "quart"],
+  "cleanName": "motion.easing.out.quart"
 }, {
   "attributes": {
     "group": "motionEasing",
@@ -1573,7 +1617,7 @@ var tokens = [{
     "group": "motion",
     "state": "active",
     "introduced": "16.6.0",
-    "description": "Use for panel content enter."
+    "description": "Use to fade in replacement content within an open panel, without an opening delay. For content appearing when the panel opens, use motion.panel.content.open."
   },
   "value": {
     "duration": 150,
@@ -1588,7 +1632,7 @@ var tokens = [{
       "group": "motion",
       "state": "active",
       "introduced": "16.6.0",
-      "description": "Use for panel content enter."
+      "description": "Use to fade in replacement content within an open panel, without an opening delay. For content appearing when the panel opens, use motion.panel.content.open."
     },
     "value": {
       "duration": "Duration150",
@@ -1605,7 +1649,7 @@ var tokens = [{
     "group": "motion",
     "state": "active",
     "introduced": "16.6.0",
-    "description": "Use for panel content exit."
+    "description": "Use to fade out panel content before it is replaced or as the panel closes. This animates the content; use motion.panel.exit to animate the panel surface."
   },
   "value": {
     "duration": 50,
@@ -1620,7 +1664,7 @@ var tokens = [{
       "group": "motion",
       "state": "active",
       "introduced": "16.6.0",
-      "description": "Use for panel content exit."
+      "description": "Use to fade out panel content before it is replaced or as the panel closes. This animates the content; use motion.panel.exit to animate the panel surface."
     },
     "value": {
       "duration": "Duration050",
@@ -1636,12 +1680,46 @@ var tokens = [{
   "attributes": {
     "group": "motion",
     "state": "active",
+    "introduced": "20.12.0",
+    "description": "Use to fade in content when a panel opens. Includes a delay to coordinate with the panel entrance animation. For replacement content in an open panel, use motion.panel.content.enter."
+  },
+  "value": {
+    "duration": 150,
+    "curve": "cubic-bezier(0.16, 1, 0.3, 1)",
+    "keyframes": ["FadeIn0to100"],
+    "delay": 100,
+    "fill": "backwards"
+  },
+  "filePath": "schema/themes/atlassian-motion/motion.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "motion",
+      "state": "active",
+      "introduced": "20.12.0",
+      "description": "Use to fade in content when a panel opens. Includes a delay to coordinate with the panel entrance animation. For replacement content in an open panel, use motion.panel.content.enter."
+    },
+    "value": {
+      "duration": "Duration150",
+      "curve": "EaseExpoOut",
+      "keyframes": ["FadeIn0to100"],
+      "delay": "Duration100",
+      "fill": "AnimationFillModeBackwards"
+    }
+  },
+  "name": "motion.panel.content.open",
+  "path": ["motion", "panel", "content", "open"],
+  "cleanName": "motion.panel.content.open"
+}, {
+  "attributes": {
+    "group": "motion",
+    "state": "active",
     "introduced": "15.5.0",
     "description": "Use for panel enter transitions."
   },
   "value": {
-    "duration": 250,
-    "curve": "cubic-bezier(0, 0.4, 0, 1)",
+    "duration": 200,
+    "curve": "cubic-bezier(0.16, 1, 0.3, 1)",
     "keyframes": ["SlideIn100PercentRight"],
     "fill": "backwards"
   },
@@ -1655,8 +1733,8 @@ var tokens = [{
       "description": "Use for panel enter transitions."
     },
     "value": {
-      "duration": "Duration250",
-      "curve": "EaseBoldOut",
+      "duration": "Duration200",
+      "curve": "EaseExpoOut",
       "keyframes": ["SlideIn100PercentRight"],
       "fill": "AnimationFillModeBackwards"
     }
@@ -1672,8 +1750,8 @@ var tokens = [{
     "description": "Use for panel enter from the left."
   },
   "value": {
-    "duration": 250,
-    "curve": "cubic-bezier(0, 0.4, 0, 1)",
+    "duration": 200,
+    "curve": "cubic-bezier(0.16, 1, 0.3, 1)",
     "keyframes": ["SlideIn100PercentLeft"],
     "fill": "backwards"
   },
@@ -1687,8 +1765,8 @@ var tokens = [{
       "description": "Use for panel enter from the left."
     },
     "value": {
-      "duration": "Duration250",
-      "curve": "EaseBoldOut",
+      "duration": "Duration200",
+      "curve": "EaseExpoOut",
       "keyframes": ["SlideIn100PercentLeft"],
       "fill": "AnimationFillModeBackwards"
     }
@@ -1704,8 +1782,8 @@ var tokens = [{
     "description": "Use for panel enter from the right."
   },
   "value": {
-    "duration": 250,
-    "curve": "cubic-bezier(0, 0.4, 0, 1)",
+    "duration": 200,
+    "curve": "cubic-bezier(0.16, 1, 0.3, 1)",
     "keyframes": ["SlideIn100PercentRight"],
     "fill": "backwards"
   },
@@ -1719,8 +1797,8 @@ var tokens = [{
       "description": "Use for panel enter from the right."
     },
     "value": {
-      "duration": "Duration250",
-      "curve": "EaseBoldOut",
+      "duration": "Duration200",
+      "curve": "EaseExpoOut",
       "keyframes": ["SlideIn100PercentRight"],
       "fill": "AnimationFillModeBackwards"
     }
@@ -1737,7 +1815,7 @@ var tokens = [{
   },
   "value": {
     "duration": 200,
-    "curve": "cubic-bezier(0, 0.4, 0, 1)",
+    "curve": "cubic-bezier(0.25, 1, 0.5, 1)",
     "keyframes": ["SlideOut100PercentRight"],
     "fill": "forwards"
   },
@@ -1752,7 +1830,7 @@ var tokens = [{
     },
     "value": {
       "duration": "Duration200",
-      "curve": "EaseBoldOut",
+      "curve": "EaseQuartOut",
       "keyframes": ["SlideOut100PercentRight"],
       "fill": "AnimationFillModeForwards"
     }
@@ -1769,7 +1847,7 @@ var tokens = [{
   },
   "value": {
     "duration": 200,
-    "curve": "cubic-bezier(0, 0.4, 0, 1)",
+    "curve": "cubic-bezier(0.25, 1, 0.5, 1)",
     "keyframes": ["SlideOut100PercentLeft"],
     "fill": "forwards"
   },
@@ -1784,7 +1862,7 @@ var tokens = [{
     },
     "value": {
       "duration": "Duration200",
-      "curve": "EaseBoldOut",
+      "curve": "EaseQuartOut",
       "keyframes": ["SlideOut100PercentLeft"],
       "fill": "AnimationFillModeForwards"
     }
@@ -1801,7 +1879,7 @@ var tokens = [{
   },
   "value": {
     "duration": 200,
-    "curve": "cubic-bezier(0, 0.4, 0, 1)",
+    "curve": "cubic-bezier(0.25, 1, 0.5, 1)",
     "keyframes": ["SlideOut100PercentRight"],
     "fill": "forwards"
   },
@@ -1816,7 +1894,7 @@ var tokens = [{
     },
     "value": {
       "duration": "Duration200",
-      "curve": "EaseBoldOut",
+      "curve": "EaseQuartOut",
       "keyframes": ["SlideOut100PercentRight"],
       "fill": "AnimationFillModeForwards"
     }
@@ -2088,8 +2166,8 @@ var tokens = [{
     "description": "Use for side nav enter from the left."
   },
   "value": {
-    "duration": 250,
-    "curve": "cubic-bezier(0, 0.4, 0, 1)",
+    "duration": 200,
+    "curve": "cubic-bezier(0.16, 1, 0.3, 1)",
     "keyframes": ["SlideIn100PercentLeft"],
     "fill": "backwards"
   },
@@ -2103,8 +2181,8 @@ var tokens = [{
       "description": "Use for side nav enter from the left."
     },
     "value": {
-      "duration": "Duration250",
-      "curve": "EaseBoldOut",
+      "duration": "Duration200",
+      "curve": "EaseExpoOut",
       "keyframes": ["SlideIn100PercentLeft"],
       "fill": "AnimationFillModeBackwards"
     }
@@ -2120,8 +2198,8 @@ var tokens = [{
     "description": "Use for side nav enter from the right."
   },
   "value": {
-    "duration": 250,
-    "curve": "cubic-bezier(0, 0.4, 0, 1)",
+    "duration": 200,
+    "curve": "cubic-bezier(0.16, 1, 0.3, 1)",
     "keyframes": ["SlideIn100PercentRight"],
     "fill": "backwards"
   },
@@ -2135,8 +2213,8 @@ var tokens = [{
       "description": "Use for side nav enter from the right."
     },
     "value": {
-      "duration": "Duration250",
-      "curve": "EaseBoldOut",
+      "duration": "Duration200",
+      "curve": "EaseExpoOut",
       "keyframes": ["SlideIn100PercentRight"],
       "fill": "AnimationFillModeBackwards"
     }
@@ -2153,7 +2231,7 @@ var tokens = [{
   },
   "value": {
     "duration": 200,
-    "curve": "cubic-bezier(0, 0.4, 0, 1)",
+    "curve": "cubic-bezier(0.25, 1, 0.5, 1)",
     "keyframes": ["SlideOut100PercentLeft"],
     "fill": "forwards"
   },
@@ -2168,7 +2246,7 @@ var tokens = [{
     },
     "value": {
       "duration": "Duration200",
-      "curve": "EaseBoldOut",
+      "curve": "EaseQuartOut",
       "keyframes": ["SlideOut100PercentLeft"],
       "fill": "AnimationFillModeForwards"
     }
@@ -2185,7 +2263,7 @@ var tokens = [{
   },
   "value": {
     "duration": 200,
-    "curve": "cubic-bezier(0, 0.4, 0, 1)",
+    "curve": "cubic-bezier(0.25, 1, 0.5, 1)",
     "keyframes": ["SlideOut100PercentRight"],
     "fill": "forwards"
   },
@@ -2200,7 +2278,7 @@ var tokens = [{
     },
     "value": {
       "duration": "Duration200",
-      "curve": "EaseBoldOut",
+      "curve": "EaseQuartOut",
       "keyframes": ["SlideOut100PercentRight"],
       "fill": "AnimationFillModeForwards"
     }

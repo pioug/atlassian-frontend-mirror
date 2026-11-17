@@ -1,5 +1,13 @@
 # @atlaskit/link-extractors
 
+## 5.0.3
+
+### Patch Changes
+
+- [`b1dec19499f60`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b1dec19499f60) -
+  Cleanup feature gate platform_lp_use_generator_icon_for_provider, retaining generator provider
+  icons and separate entity icons.
+
 ## 5.0.2
 
 ### Patch Changes

@@ -1,0 +1,984 @@
+{
+	"$schema": "https://json-schema.org/draft/2019-09/schema",
+	"$comment": "Generated from @atlaskit/a2ui-catalog by `yarn workspace @atlaskit/a2ui-catalog codegen:catalog-json`. Do not edit by hand.",
+	"title": "Atlassian Design System A2UI catalog",
+	"description": "A2UI v0.9 components rendered with the Atlassian Design System: text, layout, cards, inputs, and forms.",
+	"catalogId": "com.atlassian.ads/v0_9",
+	"instructions": "Send A2UI v0.9 messages, each with \"version\": \"v0.9\". Start with createSurface using this catalogId, then send updateComponents with a flat list of components. Each component needs a unique id and a component name from this catalog; reference children by id. Exactly one component must have the id \"root\". Use data bindings ({ \"path\": \"/json/pointer\" }) for values the user can change, and send updateDataModel to set initial values.",
+	"components": {
+		"Button": {
+			"allOf": [
+				{ "$ref": "#/$defs/ComponentCommon" },
+				{
+					"properties": {
+						"component": { "const": "Button" },
+						"child": {
+							"type": "string",
+							"description": "ID of the child component rendered as the button label (typically a `Text`)."
+						},
+						"action": {
+							"anyOf": [
+								{
+									"type": "object",
+									"properties": {
+										"event": {
+											"type": "object",
+											"properties": {
+												"name": { "type": "string" },
+												"context": { "type": "object", "additionalProperties": {} }
+											},
+											"required": ["name"],
+											"additionalProperties": false
+										}
+									},
+									"required": ["event"],
+									"additionalProperties": false
+								},
+								{
+									"type": "object",
+									"properties": {
+										"functionCall": {
+											"type": "object",
+											"properties": {
+												"call": { "type": "string" },
+												"args": { "type": "object", "additionalProperties": {} },
+												"returnType": { "type": "string" }
+											},
+											"required": ["call", "args"],
+											"additionalProperties": false
+										}
+									},
+									"required": ["functionCall"],
+									"additionalProperties": false
+								}
+							],
+							"description": "Action payload dispatched when the component is interacted with."
+						},
+						"variant": {
+							"type": "string",
+							"enum": ["default", "danger", "primary", "subtle", "warning", "discovery"],
+							"description": "ADS Button appearance — mirrors `@atlaskit/button/new` `ButtonAppearance`."
+						},
+						"disabled": { "type": "boolean" },
+						"loading": { "type": "boolean" }
+					},
+					"required": ["component", "child", "action"]
+				}
+			]
+		},
+		"Text": {
+			"allOf": [
+				{ "$ref": "#/$defs/ComponentCommon" },
+				{
+					"properties": {
+						"component": { "const": "Text" },
+						"text": {
+							"anyOf": [
+								{ "type": "string" },
+								{
+									"type": "object",
+									"properties": { "path": { "type": "string" } },
+									"required": ["path"],
+									"additionalProperties": false
+								}
+							],
+							"description": "Text content: a literal string OR a `{ path }` data-model binding."
+						},
+						"variant": {
+							"type": "string",
+							"enum": ["h1", "h2", "h3", "h4", "h5", "body", "caption"],
+							"description": "Style hint that selects between Heading and Text rendering. Defaults to `body` when omitted."
+						}
+					},
+					"required": ["component", "text"]
+				}
+			]
+		},
+		"Row": {
+			"allOf": [
+				{ "$ref": "#/$defs/ComponentCommon" },
+				{
+					"properties": {
+						"component": { "const": "Row" },
+						"children": {
+							"type": "array",
+							"items": { "type": "string" },
+							"description": "Child component IDs to render in a horizontal stack."
+						},
+						"gap": {
+							"type": "integer",
+							"minimum": 0,
+							"description": "Spacing between children in px (mapped to nearest ADS space token)."
+						},
+						"justify": {
+							"type": "string",
+							"enum": [
+								"start",
+								"center",
+								"end",
+								"spaceBetween",
+								"spaceAround",
+								"spaceEvenly",
+								"stretch"
+							],
+							"description": "Main-axis (horizontal) arrangement of children. Defaults to `start`. `spaceBetween` pushes items to the edges."
+						},
+						"align": {
+							"type": "string",
+							"enum": ["start", "center", "end", "stretch"],
+							"description": "Cross-axis (vertical) alignment of children. Defaults to `stretch` (CSS `align-items`)."
+						},
+						"wrap": {
+							"type": "boolean",
+							"description": "If true, children wrap onto multiple lines when they overflow. Defaults to false."
+						}
+					},
+					"required": ["component", "children"]
+				}
+			]
+		},
+		"Column": {
+			"allOf": [
+				{ "$ref": "#/$defs/ComponentCommon" },
+				{
+					"properties": {
+						"component": { "const": "Column" },
+						"children": {
+							"type": "array",
+							"items": { "type": "string" },
+							"description": "Child component IDs to render in a vertical stack."
+						},
+						"gap": {
+							"type": "integer",
+							"minimum": 0,
+							"description": "Spacing between children in px (mapped to nearest ADS space token)."
+						},
+						"justify": {
+							"type": "string",
+							"enum": [
+								"start",
+								"center",
+								"end",
+								"spaceBetween",
+								"spaceAround",
+								"spaceEvenly",
+								"stretch"
+							],
+							"description": "Main-axis (vertical) arrangement of children. Defaults to `start`. Use `spaceBetween` for header/footer layouts."
+						},
+						"align": {
+							"type": "string",
+							"enum": ["start", "center", "end", "stretch"],
+							"description": "Cross-axis (horizontal) alignment of children. Defaults to `stretch` (CSS `align-items`)."
+						},
+						"wrap": {
+							"type": "boolean",
+							"description": "If true, children wrap onto multiple columns when they overflow vertically. Defaults to false. Rarely useful for Column."
+						}
+					},
+					"required": ["component", "children"]
+				}
+			]
+		},
+		"CheckBox": {
+			"allOf": [
+				{ "$ref": "#/$defs/ComponentCommon" },
+				{
+					"properties": {
+						"component": { "const": "CheckBox" },
+						"value": {
+							"anyOf": [
+								{ "type": "boolean" },
+								{ "type": "array", "items": { "type": "string" } },
+								{
+									"type": "object",
+									"properties": { "path": { "type": "string" } },
+									"required": ["path"],
+									"additionalProperties": false
+								}
+							],
+							"description": "Current state. In single mode this is a `boolean` (or `{ path }` two-way binding). In group mode (`group` provided) this is a `string[]` of picked values."
+						},
+						"label": {
+							"anyOf": [
+								{ "type": "string" },
+								{
+									"type": "object",
+									"properties": { "path": { "type": "string" } },
+									"required": ["path"],
+									"additionalProperties": false
+								}
+							],
+							"description": "Visible label next to the checkbox (single mode) or above the group."
+						},
+						"disabled": {
+							"anyOf": [
+								{ "type": "boolean" },
+								{
+									"type": "object",
+									"properties": { "path": { "type": "string" } },
+									"required": ["path"],
+									"additionalProperties": false
+								}
+							],
+							"description": "A literal boolean OR a `{ path }` JSON-pointer binding into the surface data model."
+						},
+						"indeterminate": {
+							"$ref": "#/components/CheckBox/allOf/1/properties/disabled",
+							"description": "Shows the indeterminate (mixed) state. Single mode only."
+						},
+						"invalid": {
+							"$ref": "#/components/CheckBox/allOf/1/properties/disabled",
+							"description": "A literal boolean OR a `{ path }` JSON-pointer binding into the surface data model."
+						},
+						"helpText": {
+							"anyOf": [
+								{ "type": "string" },
+								{
+									"type": "object",
+									"properties": { "path": { "type": "string" } },
+									"required": ["path"],
+									"additionalProperties": false
+								}
+							],
+							"description": "Muted helper text rendered below the checkbox / group. Spec: DSP-25086."
+						},
+						"group": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"label": {
+										"anyOf": [
+											{ "type": "string" },
+											{
+												"type": "object",
+												"properties": { "path": { "type": "string" } },
+												"required": ["path"],
+												"additionalProperties": false
+											}
+										]
+									},
+									"value": {
+										"type": "string",
+										"description": "Stable identifier persisted to the data model."
+									}
+								},
+								"required": ["label", "value"],
+								"additionalProperties": false
+							},
+							"description": "If provided, renders a checkbox group (one Checkbox per option). `value` must be a `string[]` of picked option values in this mode. Matches DSP-25086 `group` prop name."
+						},
+						"onChange": {
+							"anyOf": [
+								{
+									"type": "object",
+									"properties": {
+										"event": {
+											"type": "object",
+											"properties": {
+												"name": { "type": "string" },
+												"context": { "type": "object", "additionalProperties": {} }
+											},
+											"required": ["name"],
+											"additionalProperties": false
+										}
+									},
+									"required": ["event"],
+									"additionalProperties": false
+								},
+								{
+									"type": "object",
+									"properties": {
+										"functionCall": {
+											"type": "object",
+											"properties": {
+												"call": { "type": "string" },
+												"args": { "type": "object", "additionalProperties": {} },
+												"returnType": { "type": "string" }
+											},
+											"required": ["call", "args"],
+											"additionalProperties": false
+										}
+									},
+									"required": ["functionCall"],
+									"additionalProperties": false
+								}
+							],
+							"description": "Optional action dispatched after the data write completes."
+						}
+					},
+					"required": ["component", "value"]
+				}
+			]
+		},
+		"Card": {
+			"allOf": [
+				{ "$ref": "#/$defs/ComponentCommon" },
+				{
+					"properties": {
+						"component": { "const": "Card" },
+						"children": {
+							"type": "array",
+							"items": { "type": "string" },
+							"description": "IDs of the Card slot children (typically a `CardMedia` and/or a `CardContent`). Compose the ADS Card structure with the Card* family components."
+						},
+						"appearance": {
+							"type": "string",
+							"enum": ["flat", "raised"],
+							"description": "ADS Card appearance. Defaults to `flat` in `@atlassian/card`."
+						},
+						"spacing": {
+							"type": "string",
+							"enum": ["comfy", "compact"],
+							"description": "ADS Card density. Defaults to the comfy Card variant."
+						},
+						"isSelected": {
+							"anyOf": [
+								{ "type": "boolean" },
+								{
+									"type": "object",
+									"properties": { "path": { "type": "string" } },
+									"required": ["path"],
+									"additionalProperties": false
+								}
+							],
+							"description": "If true, renders the Card selected state. For clickable Cards this maps to `aria-pressed`; for static Cards it maps to ADS selected styling."
+						},
+						"isDisabled": {
+							"$ref": "#/components/Card/allOf/1/properties/isSelected",
+							"description": "If true, renders the Card disabled state and suppresses `onClick` dispatch."
+						},
+						"onClick": {
+							"anyOf": [
+								{
+									"type": "object",
+									"properties": {
+										"event": {
+											"type": "object",
+											"properties": {
+												"name": { "type": "string" },
+												"context": { "type": "object", "additionalProperties": {} }
+											},
+											"required": ["name"],
+											"additionalProperties": false
+										}
+									},
+									"required": ["event"],
+									"additionalProperties": false
+								},
+								{
+									"type": "object",
+									"properties": {
+										"functionCall": {
+											"type": "object",
+											"properties": {
+												"call": { "type": "string" },
+												"args": { "type": "object", "additionalProperties": {} },
+												"returnType": { "type": "string" }
+											},
+											"required": ["call", "args"],
+											"additionalProperties": false
+										}
+									},
+									"required": ["functionCall"],
+									"additionalProperties": false
+								}
+							],
+							"description": "Optional action dispatched when the Card is clicked."
+						}
+					},
+					"required": ["component", "children"]
+				}
+			]
+		},
+		"CardMedia": {
+			"allOf": [
+				{ "$ref": "#/$defs/ComponentCommon" },
+				{
+					"properties": {
+						"component": { "const": "CardMedia" },
+						"child": {
+							"type": "string",
+							"description": "ID of the media child to render inside the Card media slot."
+						},
+						"position": {
+							"type": "string",
+							"enum": ["top", "bottom"],
+							"description": "Media placement relative to the Card content. Defaults to `top`."
+						}
+					},
+					"required": ["component", "child"]
+				}
+			]
+		},
+		"CardContent": {
+			"allOf": [
+				{ "$ref": "#/$defs/ComponentCommon" },
+				{
+					"properties": {
+						"component": { "const": "CardContent" },
+						"children": {
+							"type": "array",
+							"items": { "type": "string" },
+							"description": "IDs of the content children (an optional `CardLeading` and a `CardPrimaryContent`)."
+						}
+					},
+					"required": ["component", "children"]
+				}
+			]
+		},
+		"CardLeading": {
+			"allOf": [
+				{ "$ref": "#/$defs/ComponentCommon" },
+				{
+					"properties": {
+						"component": { "const": "CardLeading" },
+						"child": {
+							"type": "string",
+							"description": "ID of the leading visual child (e.g. an avatar/icon)."
+						}
+					},
+					"required": ["component", "child"]
+				}
+			]
+		},
+		"CardPrimaryContent": {
+			"allOf": [
+				{ "$ref": "#/$defs/ComponentCommon" },
+				{
+					"properties": {
+						"component": { "const": "CardPrimaryContent" },
+						"children": {
+							"type": "array",
+							"items": { "type": "string" },
+							"description": "IDs of the primary content children (`CardHeader`, `CardBody`, `CardFooter`)."
+						}
+					},
+					"required": ["component", "children"]
+				}
+			]
+		},
+		"CardHeader": {
+			"allOf": [
+				{ "$ref": "#/$defs/ComponentCommon" },
+				{
+					"properties": {
+						"component": { "const": "CardHeader" },
+						"children": {
+							"type": "array",
+							"items": { "type": "string" },
+							"description": "IDs of the header children (typically a `CardTitle` and optional `CardDescription`)."
+						},
+						"leading": {
+							"type": "string",
+							"description": "Optional ID of a leading visual (e.g. an avatar) rendered inside the header."
+						}
+					},
+					"required": ["component", "children"]
+				}
+			]
+		},
+		"CardTitle": {
+			"allOf": [
+				{ "$ref": "#/$defs/ComponentCommon" },
+				{
+					"properties": {
+						"component": { "const": "CardTitle" },
+						"text": { "type": "string", "description": "The Card title text." },
+						"as": {
+							"type": "string",
+							"enum": ["h1", "h2", "h3", "h4", "h5", "h6", "span"],
+							"description": "Semantic element for the title. Omit to let ADS infer the heading level; use `span` for non-heading title text."
+						}
+					},
+					"required": ["component", "text"]
+				}
+			]
+		},
+		"CardDescription": {
+			"allOf": [
+				{ "$ref": "#/$defs/ComponentCommon" },
+				{
+					"properties": {
+						"component": { "const": "CardDescription" },
+						"text": { "type": "string", "description": "The Card description text." }
+					},
+					"required": ["component", "text"]
+				}
+			]
+		},
+		"CardBody": {
+			"allOf": [
+				{ "$ref": "#/$defs/ComponentCommon" },
+				{
+					"properties": {
+						"component": { "const": "CardBody" },
+						"child": { "type": "string", "description": "ID of the Card body child." }
+					},
+					"required": ["component", "child"]
+				}
+			]
+		},
+		"CardFooter": {
+			"allOf": [
+				{ "$ref": "#/$defs/ComponentCommon" },
+				{
+					"properties": {
+						"component": { "const": "CardFooter" },
+						"child": { "type": "string", "description": "ID of the Card footer child." }
+					},
+					"required": ["component", "child"]
+				}
+			]
+		},
+		"TextField": {
+			"allOf": [
+				{ "$ref": "#/$defs/ComponentCommon" },
+				{
+					"properties": {
+						"component": { "const": "TextField" },
+						"label": {
+							"anyOf": [
+								{ "type": "string" },
+								{
+									"type": "object",
+									"properties": { "path": { "type": "string" } },
+									"required": ["path"],
+									"additionalProperties": false
+								}
+							],
+							"description": "Visible label for the input field. Omit (or set to empty string) when wrapping the field in a parent `Field` that already provides a label — empty/omitted labels do NOT render an empty `<Label>` element."
+						},
+						"value": {
+							"$ref": "#/components/TextField/allOf/1/properties/label",
+							"description": "A literal string OR a `{ path }` JSON-pointer binding into the surface data model."
+						},
+						"variant": {
+							"type": "string",
+							"enum": ["shortText", "longText", "number", "obscured"],
+							"description": "Input variant. Defaults to `shortText`. `longText` renders as a textarea; `obscured` is a password input."
+						},
+						"placeholder": {
+							"$ref": "#/components/TextField/allOf/1/properties/label",
+							"description": "A literal string OR a `{ path }` JSON-pointer binding into the surface data model."
+						},
+						"disabled": {
+							"anyOf": [
+								{ "type": "boolean" },
+								{
+									"type": "object",
+									"properties": { "path": { "type": "string" } },
+									"required": ["path"],
+									"additionalProperties": false
+								}
+							],
+							"description": "A literal boolean OR a `{ path }` JSON-pointer binding into the surface data model."
+						},
+						"invalid": {
+							"$ref": "#/components/TextField/allOf/1/properties/disabled",
+							"description": "A literal boolean OR a `{ path }` JSON-pointer binding into the surface data model."
+						},
+						"helpText": {
+							"$ref": "#/components/TextField/allOf/1/properties/label",
+							"description": "Muted helper text rendered below the field. Hidden when `errorMessage` is shown."
+						},
+						"errorMessage": {
+							"$ref": "#/components/TextField/allOf/1/properties/label",
+							"description": "Error text rendered below the field in danger color. When present, the field is also visually marked invalid."
+						},
+						"onChange": {
+							"anyOf": [
+								{
+									"type": "object",
+									"properties": {
+										"event": {
+											"type": "object",
+											"properties": {
+												"name": { "type": "string" },
+												"context": { "type": "object", "additionalProperties": {} }
+											},
+											"required": ["name"],
+											"additionalProperties": false
+										}
+									},
+									"required": ["event"],
+									"additionalProperties": false
+								},
+								{
+									"type": "object",
+									"properties": {
+										"functionCall": {
+											"type": "object",
+											"properties": {
+												"call": { "type": "string" },
+												"args": { "type": "object", "additionalProperties": {} },
+												"returnType": { "type": "string" }
+											},
+											"required": ["call", "args"],
+											"additionalProperties": false
+										}
+									},
+									"required": ["functionCall"],
+									"additionalProperties": false
+								}
+							],
+							"description": "Optional action dispatched after the data write completes."
+						}
+					},
+					"required": ["component"]
+				}
+			]
+		},
+		"MultipleChoice": {
+			"allOf": [
+				{ "$ref": "#/$defs/ComponentCommon" },
+				{
+					"properties": {
+						"component": { "const": "MultipleChoice" },
+						"options": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"label": {
+										"anyOf": [
+											{ "type": "string" },
+											{
+												"type": "object",
+												"properties": { "path": { "type": "string" } },
+												"required": ["path"],
+												"additionalProperties": false
+											}
+										],
+										"description": "A literal string OR a `{ path }` JSON-pointer binding into the surface data model."
+									},
+									"value": {
+										"type": "string",
+										"description": "Stable identifier persisted to the data model."
+									}
+								},
+								"required": ["label", "value"],
+								"additionalProperties": false
+							},
+							"description": "Available options."
+						},
+						"value": {
+							"anyOf": [
+								{ "type": "array", "items": { "type": "string" } },
+								{
+									"type": "object",
+									"properties": { "path": { "type": "string" } },
+									"required": ["path"],
+									"additionalProperties": false
+								}
+							],
+							"description": "Selected values. Always modelled as a string array so single- and multi-select share one wire shape. Written by the adapter when the user makes a selection (in both `style: select` and `style: action` modes — selection IS persisted in both). To know which option was just selected, agents either read this binding or encode per-option context into the `onChange` action JSON (see `onChange` description)."
+						},
+						"label": {
+							"$ref": "#/components/MultipleChoice/allOf/1/properties/options/items/properties/label",
+							"description": "Visible group label."
+						},
+						"multiple": {
+							"type": "boolean",
+							"description": "If true, allow multiple selections (renders as AK Select with `isMulti`). Defaults to `false`. Ignored when `style: action` (action menus only fire one option at a time)."
+						},
+						"style": {
+							"type": "string",
+							"enum": ["select", "action"],
+							"description": "Render style. `select` (default) renders as `@atlaskit/select`. `action` renders as `@atlaskit/dropdown-menu` — a menu of actions where picking an item writes the value to `value`'s binding AND fires `onChange`. Use `action` when you want a button-triggered menu UI; use `select` for the standard combobox."
+						},
+						"placeholder": {
+							"$ref": "#/components/MultipleChoice/allOf/1/properties/options/items/properties/label",
+							"description": "A literal string OR a `{ path }` JSON-pointer binding into the surface data model."
+						},
+						"disabled": {
+							"anyOf": [
+								{ "type": "boolean" },
+								{
+									"type": "object",
+									"properties": { "path": { "type": "string" } },
+									"required": ["path"],
+									"additionalProperties": false
+								}
+							],
+							"description": "A literal boolean OR a `{ path }` JSON-pointer binding into the surface data model."
+						},
+						"invalid": {
+							"$ref": "#/components/MultipleChoice/allOf/1/properties/disabled",
+							"description": "A literal boolean OR a `{ path }` JSON-pointer binding into the surface data model."
+						},
+						"filterable": {
+							"type": "boolean",
+							"description": "Show a typeahead filter. Defaults to true for AK Select. Ignored for action style."
+						},
+						"onChange": {
+							"anyOf": [
+								{
+									"type": "object",
+									"properties": {
+										"event": {
+											"type": "object",
+											"properties": {
+												"name": { "type": "string" },
+												"context": { "type": "object", "additionalProperties": {} }
+											},
+											"required": ["name"],
+											"additionalProperties": false
+										}
+									},
+									"required": ["event"],
+									"additionalProperties": false
+								},
+								{
+									"type": "object",
+									"properties": {
+										"functionCall": {
+											"type": "object",
+											"properties": {
+												"call": { "type": "string" },
+												"args": { "type": "object", "additionalProperties": {} },
+												"returnType": { "type": "string" }
+											},
+											"required": ["call", "args"],
+											"additionalProperties": false
+										}
+									},
+									"required": ["functionCall"],
+									"additionalProperties": false
+								}
+							],
+							"description": "Action dispatched after the picked value is written to the bound `value` path. The runtime always invokes onChange with zero arguments (per the upstream @a2ui binder contract); to know WHICH option was picked, the agent either reads the binding directly or encodes per-option context into the action JSON, e.g. `onChange: { event: { name: 'picked', context: { from: 'fruit-menu' } } }` — then inspects `context` in the surface's `onAction` callback. There is no way to receive the option value as a function argument; that is a fundamental constraint of how Actions cross the JSON wire."
+						}
+					},
+					"required": ["component", "options", "value"]
+				}
+			]
+		},
+		"Form": {
+			"allOf": [
+				{ "$ref": "#/$defs/ComponentCommon" },
+				{
+					"properties": {
+						"component": { "const": "Form" },
+						"children": {
+							"type": "array",
+							"items": { "type": "string" },
+							"description": "Child component IDs rendered vertically as form rows."
+						},
+						"label": {
+							"anyOf": [
+								{ "type": "string" },
+								{
+									"type": "object",
+									"properties": { "path": { "type": "string" } },
+									"required": ["path"],
+									"additionalProperties": false
+								}
+							],
+							"description": "Accessible label for the form region (`aria-label`). Not visually rendered — use `FormHeader.title` for that."
+						}
+					},
+					"required": ["component", "children"]
+				}
+			]
+		},
+		"Field": {
+			"allOf": [
+				{ "$ref": "#/$defs/ComponentCommon" },
+				{
+					"properties": {
+						"component": { "const": "Field" },
+						"child": {
+							"type": "string",
+							"description": "ID of the input component to wrap (TextField, CheckBox, MultipleChoice, etc.)."
+						},
+						"label": {
+							"anyOf": [
+								{ "type": "string" },
+								{
+									"type": "object",
+									"properties": { "path": { "type": "string" } },
+									"required": ["path"],
+									"additionalProperties": false
+								}
+							],
+							"description": "Label text rendered above the wrapped control."
+						},
+						"helpText": {
+							"$ref": "#/components/Field/allOf/1/properties/label",
+							"description": "Muted helper text rendered below the control. Hidden when `errorMessage` is shown."
+						},
+						"errorMessage": {
+							"$ref": "#/components/Field/allOf/1/properties/label",
+							"description": "Danger-tinted text rendered below the control. Takes precedence over `helpText` and `validMessage`."
+						},
+						"validMessage": {
+							"$ref": "#/components/Field/allOf/1/properties/label",
+							"description": "Success-tinted text rendered below the control. Hidden when `errorMessage` is shown."
+						},
+						"required": {
+							"type": "boolean",
+							"description": "If true, renders a red asterisk after the label. Does not enforce validation."
+						}
+					},
+					"required": ["component", "child"]
+				}
+			]
+		},
+		"FormSection": {
+			"allOf": [
+				{ "$ref": "#/$defs/ComponentCommon" },
+				{
+					"properties": {
+						"component": { "const": "FormSection" },
+						"children": {
+							"type": "array",
+							"items": { "type": "string" },
+							"description": "Child component IDs grouped under the section title."
+						},
+						"title": {
+							"anyOf": [
+								{ "type": "string" },
+								{
+									"type": "object",
+									"properties": { "path": { "type": "string" } },
+									"required": ["path"],
+									"additionalProperties": false
+								}
+							],
+							"description": "Section heading (AK Heading `size=\"medium\"`)."
+						},
+						"description": {
+							"$ref": "#/components/FormSection/allOf/1/properties/title",
+							"description": "Supporting copy rendered between title and fields."
+						}
+					},
+					"required": ["component", "children"]
+				}
+			]
+		},
+		"FormHeader": {
+			"allOf": [
+				{ "$ref": "#/$defs/ComponentCommon" },
+				{
+					"properties": {
+						"component": { "const": "FormHeader" },
+						"title": {
+							"anyOf": [
+								{ "type": "string" },
+								{
+									"type": "object",
+									"properties": { "path": { "type": "string" } },
+									"required": ["path"],
+									"additionalProperties": false
+								}
+							],
+							"description": "Form heading (AK Heading `size=\"large\"`)."
+						},
+						"description": {
+							"$ref": "#/components/FormHeader/allOf/1/properties/title",
+							"description": "Supporting copy under the title."
+						},
+						"children": {
+							"type": "array",
+							"items": { "type": "string" },
+							"description": "Optional extra components rendered below the description."
+						}
+					},
+					"required": ["component"]
+				}
+			]
+		},
+		"FormFooter": {
+			"allOf": [
+				{ "$ref": "#/$defs/ComponentCommon" },
+				{
+					"properties": {
+						"component": { "const": "FormFooter" },
+						"children": {
+							"type": "array",
+							"items": { "type": "string" },
+							"description": "Footer content IDs (typically Buttons)."
+						},
+						"align": {
+							"type": "string",
+							"enum": ["start", "end"],
+							"description": "Horizontal alignment of footer children. Defaults to `end` (matches AK FormFooter)."
+						}
+					},
+					"required": ["component", "children"]
+				}
+			]
+		}
+	},
+	"$defs": {
+		"AccessibilityAttributes": {
+			"type": "object",
+			"properties": {
+				"label": {
+					"$ref": "#/$defs/DynamicString",
+					"description": "A short string used by assistive technologies to convey the purpose of an element."
+				},
+				"description": {
+					"$ref": "#/$defs/DynamicString",
+					"description": "Additional information provided by assistive technologies about an element."
+				}
+			},
+			"additionalProperties": false,
+			"description": "Attributes to enhance accessibility."
+		},
+		"ComponentCommon": {
+			"type": "object",
+			"description": "Properties shared by every A2UI component.",
+			"properties": {
+				"id": { "$ref": "#/$defs/ComponentId" },
+				"accessibility": { "$ref": "#/$defs/AccessibilityAttributes" }
+			},
+			"required": ["id"]
+		},
+		"ComponentId": { "type": "string", "description": "The unique identifier for a component." },
+		"DataBinding": {
+			"type": "object",
+			"properties": {
+				"path": {
+					"type": "string",
+					"description": "A JSON Pointer path to a value in the data model."
+				}
+			},
+			"required": ["path"],
+			"additionalProperties": false,
+			"description": "A JSON Pointer path to a value in the data model."
+		},
+		"DynamicString": {
+			"anyOf": [
+				{ "type": "string" },
+				{
+					"$ref": "#/$defs/DataBinding",
+					"description": "A JSON Pointer path to a value in the data model."
+				},
+				{ "$ref": "#/$defs/FunctionCall", "description": "Invokes a named function on the client." }
+			],
+			"description": "Represents a string"
+		},
+		"FunctionCall": {
+			"type": "object",
+			"properties": {
+				"call": { "type": "string", "description": "The name of the function to call." },
+				"args": {
+					"type": "object",
+					"additionalProperties": {},
+					"description": "Arguments passed to the function."
+				},
+				"returnType": {
+					"type": "string",
+					"enum": ["string", "number", "boolean", "array", "object", "any", "void"],
+					"default": "boolean"
+				}
+			},
+			"required": ["call", "args"],
+			"additionalProperties": false,
+			"description": "Invokes a named function on the client."
+		}
+	}
+}

@@ -1,5 +1,44 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 35.0.0
+
+### Patch Changes
+
+- [`cabf3c7e59b8d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cabf3c7e59b8d) -
+  Remove internal uses of the always-true `areToolbarFlagsEnabled` helper and delete legacy toolbar
+  code that only rendered when it returned false (`ScrollButtons`, `LinkToolbarAppearance`,
+  `HyperlinkToolbarAppearance` and the media `LayoutGroup`).
+- Updated dependencies
+
+## 34.0.0
+
+### Minor Changes
+
+- [`f039487b0e531`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f039487b0e531) -
+  Remove the unused `@atlaskit/tmp-editor-statsig` dependency left over from the
+  `platform_editor_controls` experiment cleanup. Remove the dead toolbar code that the cleanup left
+  behind: unused component props, the text formatting More button, and primary toolbar find group
+  configuration that never rendered.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 33.1.0
+
+### Minor Changes
+
+- [`c13b574ab38d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c13b574ab38d2) -
+  Declare the workspace dependencies used by package source and emitted types so isolated
+  installations can resolve them.
+
+### Patch Changes
+
+- [`84f221954c9fb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/84f221954c9fb) -
+  Remove the `control` branches of experiment `platform_editor_controls`; the editor controls
+  (`variant1`) experience is now permanent.
+- Updated dependencies
+
 ## 33.0.0
 
 ### Patch Changes

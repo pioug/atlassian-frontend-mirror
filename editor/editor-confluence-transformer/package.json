@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-confluence-transformer",
-	"version": "38.0.0",
+	"version": "40.0.0",
 	"description": "Editor Confluence Transformer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -48,6 +48,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/button": "workspace:^",
+		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/editor-core": "workspace:^",
 		"@atlaskit/editor-json-transformer": "workspace:^",

@@ -1,5 +1,15 @@
 # @atlaskit/tooltip
 
+## 24.4.7
+
+### Patch Changes
+
+- [`a02ba9aef2c0e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a02ba9aef2c0e) -
+  Keep tooltips with hasNewContentOnTriggerClick open when Chrome dismisses native popovers
+  immediately before click, behind platform-dst-tooltip-click-recovery on the native
+  platform-dst-top-layer-tooltip path.
+- Updated dependencies
+
 ## 24.4.6
 
 ### Patch Changes

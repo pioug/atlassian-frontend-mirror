@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-code-block-advanced",
-	"version": "31.0.0",
+	"version": "33.0.0",
 	"description": "CodeBlockAdvanced plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -29,6 +29,7 @@
 		"@atlaskit/code": "workspace:^",
 		"@atlaskit/editor-plugin-analytics": "workspace:^",
 		"@atlaskit/editor-plugin-code-block": "workspace:^",
+		"@atlaskit/editor-plugin-content-format": "workspace:^",
 		"@atlaskit/editor-plugin-editor-disabled": "workspace:^",
 		"@atlaskit/editor-plugin-find-replace": "workspace:^",
 		"@atlaskit/editor-plugin-selection": "workspace:^",
@@ -72,6 +73,7 @@
 		}
 	},
 	"devDependencies": {
+		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/editor-common": "workspace:^",
 		"react": "^19.2.0",
 		"react-intl": "root:*"

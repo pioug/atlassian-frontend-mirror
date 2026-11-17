@@ -317,12 +317,11 @@ export const createPlugin =
 								 * other tasks as per common implementations of the JavaScript event loop in browsers.
 								 */
 								const invoke = rafSchedule(() => {
-									if (isExperimentEnabled('platform_editor_reduce_memory_leaks')) {
-										const index = rafCancellationCallbacks.indexOf(invoke.cancel);
-										if (index !== -1) {
-											rafCancellationCallbacks.splice(index, 1);
-										}
+									const index = rafCancellationCallbacks.indexOf(invoke.cancel);
+									if (index !== -1) {
+										rafCancellationCallbacks.splice(index, 1);
 									}
+
 									resolveWithProvider(
 										view,
 										provider,

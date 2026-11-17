@@ -30,7 +30,6 @@ export interface DropdownMenuOptions {
 }
 
 type OverflowExtensionPlaceholderProps = {
-	areAnyNewToolbarFlagsEnabled: boolean;
 	disabled?: (key: string) => boolean;
 	dropdownOptions?: DropdownMenuOptions;
 	editorView: EditorView;
@@ -174,8 +173,7 @@ const DropdownMenuExtensionItem = ({
 export const DropdownMenuExtensionItems = (
 	props: OverflowExtensionPlaceholderProps,
 ): React.JSX.Element | null => {
-	const { node, editorView, extension, disabled, dropdownOptions, areAnyNewToolbarFlagsEnabled } =
-		props;
+	const { node, editorView, extension, disabled, dropdownOptions } = props;
 
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -221,7 +219,7 @@ export const DropdownMenuExtensionItems = (
 					/>
 				);
 			})}
-			{areAnyNewToolbarFlagsEnabled && <DropdownSeparator />}
+			<DropdownSeparator />
 		</>
 	);
 };

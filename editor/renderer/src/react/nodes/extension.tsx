@@ -181,6 +181,43 @@ const FireExtensionAsInlineAnalytics = ({
 	return null;
 };
 
+/**
+ * Uses the same effect-based reporting as FireExtensionAsInlineAnalytics and a per-mount
+ * guard like Confluence's InlineImage macro. Remounts count as new render occurrences.
+ */
+const FireInlineBodiedMacroAnalytics = ({
+	fireAnalyticsEvent,
+	node,
+	isInline,
+	renderType,
+}: FireExtensionAsInlineAnalyticsProps & {
+	isInline: boolean;
+	renderType: 'UIKit' | 'CustomUI';
+}) => {
+	const hasFired = useRef(false);
+	useEffect(() => {
+		if (hasFired.current) {
+			return;
+		}
+		hasFired.current = true;
+		fireAnalyticsEvent({
+			action: ACTION.RENDERED,
+			actionSubject: ACTION_SUBJECT.EXTENSION,
+			actionSubjectId: ACTION_SUBJECT_ID.EXTENSION_BODIED,
+			eventType: EVENT_TYPE.OPERATIONAL,
+			attributes: {
+				metric: 'inlineBodiedPresentation',
+				declaredLayout: 'inline-bodied',
+				renderType,
+				presentation: isInline ? 'inline' : 'block',
+				extensionKey: node.extensionKey,
+				extensionType: node.extensionType,
+			},
+		});
+	}, [fireAnalyticsEvent, node, isInline, renderType]);
+	return null;
+};
+
 export const renderExtension = (
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -323,6 +360,21 @@ export const renderExtension = (
 				css={[!isInsideOfInlineExtension && containerStyle]}
 			>
 				{asInlineAnalytics}
+				{fg('platform_inline_bodied_macro_usage_metrics') &&
+					node?.type === 'bodiedExtension' &&
+					fireAnalyticsEvent &&
+					(hasForgeInlineBodiedMarker || isInlineBodiedLayoutEnabled) && (
+						<FireInlineBodiedMacroAnalytics
+							fireAnalyticsEvent={fireAnalyticsEvent}
+							node={node}
+							isInline={Boolean(isInline)}
+							renderType={
+								hasForgeInlineBodiedMarker || node.parameters?.render === 'native'
+									? 'UIKit'
+									: 'CustomUI'
+							}
+						/>
+					)}
 				{content}
 			</div>
 		</div>

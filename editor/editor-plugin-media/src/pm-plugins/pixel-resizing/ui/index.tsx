@@ -14,7 +14,6 @@ import {
 	DEFAULT_IMAGE_WIDTH,
 } from '@atlaskit/editor-common/media-single/constants';
 import { pixelEntryMessages as messages } from '@atlaskit/editor-common/media/pixelEntry';
-import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations/main';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
@@ -116,7 +115,6 @@ export const PixelEntry = ({
 	const pixelWidth = hasPixelType ? mediaSingleWidth : pixelWidthFromElement;
 
 	const forceFocusSelector = pluginInjectionApi?.floatingToolbar?.actions?.forceFocusSelector;
-	const areAnyNewToolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(pluginInjectionApi?.toolbar));
 
 	return (
 		<PixelEntryComponent
@@ -133,13 +131,6 @@ export const PixelEntry = ({
 					hoverDecoration?.(mediaSingle, true, 'warning')(editorView.state, dispatch, editorView);
 				} else {
 					hoverDecoration?.(mediaSingle, false)(editorView.state, dispatch, editorView);
-				}
-			}}
-			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-			onSubmit={({ width, validation }) => {
-				const tr = updateNodeWithTr(width, validation);
-				if (tr) {
-					dispatch(tr);
 				}
 			}}
 			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
@@ -172,7 +163,6 @@ export const PixelEntry = ({
 			}}
 			isViewMode={pluginState.isResizing}
 			triggerButtonSelector={triggerButtonSelector}
-			areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 		/>
 	);
 };

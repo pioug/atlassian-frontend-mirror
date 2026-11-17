@@ -9,6 +9,7 @@ import { currentSiteCloudIdService } from '../../src/state/services/current-site
 import { personalizationConstants } from '../../src/state/services/personalization/constants';
 import { preAuthValuePropositionModalService } from '../../src/state/services/pre-auth-value-proposition-modal';
 import { PreAuthValuePropositionModal } from '../../src/view/PreAuthValuePropositionModal';
+import ExampleChoreographer from '../utils/pre-auth-modal-choreographer';
 import useVrExperimentGateConfig from '../utils/use-vr-experiment-gate-config';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 // Preload the illustration chunk so the image variant does not flash an empty pane.
@@ -98,6 +99,7 @@ const createPreAuthValuePropositionModalVr = (
 				}}
 			>
 				<SmartCardProvider
+					choreographer={ExampleChoreographer}
 					client={useLongProviderName ? new LongProviderNameUnAuthClient() : new UnAuthClient()}
 				>
 					<PreAuthValuePropositionModal onFinished={() => {}} url={EXAMPLE_URL} />

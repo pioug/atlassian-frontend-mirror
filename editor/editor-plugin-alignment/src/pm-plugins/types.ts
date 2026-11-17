@@ -4,8 +4,3 @@ export type AlignmentPluginState = {
 	align: AlignmentState;
 	isEnabled?: boolean;
 };
-
-export enum ToolbarType {
-	PRIMARY = 'primaryToolbar',
-	FLOATING = 'floatingToolbar',
-}

@@ -73,7 +73,11 @@ import {
 	removeMediaNode,
 	splitMediaGroup,
 } from '../pm-plugins/utils/media-common';
-import { insertMediaGroupNode, insertMediaInlineNode } from '../pm-plugins/utils/media-files';
+import {
+	getFailToInsertAnalytics,
+	insertMediaGroupNode,
+	insertMediaInlineNode,
+} from '../pm-plugins/utils/media-files';
 import { getMediaNodeInsertionType } from '../pm-plugins/utils/media-inline';
 import { insertMediaSingleNode, isVideo } from '../pm-plugins/utils/media-single';
 import { isRemixGeneratedMedia } from '../pm-plugins/utils/remix-media';
@@ -718,9 +722,42 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 			return;
 		}
 
-		switch (
-			getMediaNodeInsertionType(state, this.mediaOptions, mediaStateWithContext.fileMimeType)
-		) {
+		let insertionType: ReturnType<typeof getMediaNodeInsertionType>;
+		try {
+			insertionType = getMediaNodeInsertionType(
+				state,
+				this.mediaOptions,
+				mediaStateWithContext.fileMimeType,
+			);
+		} catch (error) {
+			// Observability only: report that we could not decide how to insert the media, then rethrow
+			// so behaviour is unchanged. The diagnostics make a flag/schema mismatch (`mediaInline` flag
+			// on but no `mediaInline` node in the schema) directly queryable.
+			const schemaHasMediaInline = !!state.schema.nodes.mediaInline;
+			const mediaInlineFlag = !!getMediaFeatureFlag('mediaInline', this.mediaOptions?.featureFlags);
+			const reason = 'insertion-type-failed';
+			editorAnalyticsAPI?.fireAnalyticsEvent(
+				getFailToInsertAnalytics(
+					mediaStateWithContext,
+					ACTION_SUBJECT_ID.MEDIA,
+					this.getInputMethod(pickerType),
+					insertMediaVia,
+					reason,
+					{
+						schemaHasMediaInline,
+						mediaInlineFlag,
+						allowMediaInlineImages: !!this.mediaOptions?.allowMediaInlineImages,
+					},
+				),
+			);
+			this.errorReporter.captureException(
+				error instanceof Error ? error : new Error(String(error)),
+				{ reason: 'insertion-type-failed', schemaHasMediaInline: String(schemaHasMediaInline) },
+			);
+			throw error;
+		}
+
+		switch (insertionType) {
 			case 'inline':
 				insertMediaInlineNode(editorAnalyticsAPI)(
 					this.view,

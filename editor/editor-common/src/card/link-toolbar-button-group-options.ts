@@ -7,7 +7,6 @@ import type { OptionConfig } from './types';
 
 export const getButtonGroupOption = (
 	intl: IntlShape,
-	areAnyNewToolbarFlagsEnabled: boolean,
 	dispatchCommand: (command: Command) => void,
 	{ disabled, onClick, selected, appearance, testId, tooltip }: OptionConfig,
 ): ButtonOptionProps => {
@@ -21,7 +20,6 @@ export const getButtonGroupOption = (
 		tooltipContent: tooltip || null,
 		testId,
 		selected,
-		areAnyNewToolbarFlagsEnabled: areAnyNewToolbarFlagsEnabled,
 	};
 };
 // eslint-disable-next-line @atlaskit/editor/no-re-export

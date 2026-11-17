@@ -16,9 +16,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import PanelRightIcon from '@atlaskit/icon/core/panel-right';
 import { extractSmartLinkEmbed } from '@atlaskit/link-extractors/extract-smart-link-embed';
 import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
-import { Box } from '@atlaskit/primitives/compiled/box';
 import { Flex } from '@atlaskit/primitives/compiled/flex';
-import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { getObjectAri, getObjectIconUrl, getObjectName } from '@atlaskit/smart-card';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
@@ -26,7 +24,6 @@ import { getResolvedAttributesFromStore } from '../../pm-plugins/utils';
 import { appearanceForLink } from '../analytics/utils';
 
 type OpenPreviewPanelToolbarButtonProps = {
-	areAnyNewToolbarFlagsEnabled: boolean;
 	editorAnalyticsApi?: EditorAnalyticsAPI;
 	editorView?: EditorView;
 	intl: IntlShape;
@@ -36,7 +33,6 @@ type OpenPreviewPanelToolbarButtonProps = {
 export const OpenPreviewPanelToolbarButton = ({
 	node,
 	intl,
-	areAnyNewToolbarFlagsEnabled,
 	editorAnalyticsApi,
 	editorView,
 }: OpenPreviewPanelToolbarButtonProps): React.JSX.Element | null => {
@@ -79,17 +75,7 @@ export const OpenPreviewPanelToolbarButton = ({
 
 		const title = intl.formatMessage(linkMessages.openPreviewPanel);
 
-		const icon = areAnyNewToolbarFlagsEnabled ? (
-			<PanelRightIcon label="" spacing="spacious" />
-		) : (
-			// This is a hack required for Jira until areToolbarFlagsEnabled are enabled to ensure the icon has padding
-			// Padding is removed when areToolbarFlagsEnabled for a button with icon only in platform/packages/editor/editor-common/src/ui/FloatingToolbar/Button.tsx
-			<Inline as="span" space="space.050" alignBlock="center">
-				<Box as="span" aria-hidden role="presentation" />
-				<PanelRightIcon label="" spacing="spacious" />
-				<Box as="span" aria-hidden role="presentation" />
-			</Inline>
-		);
+		const icon = <PanelRightIcon label="" spacing="spacious" />;
 
 		if (openPreviewPanel && isPanelAvailable) {
 			return (
@@ -99,7 +85,6 @@ export const OpenPreviewPanelToolbarButton = ({
 						onClick={handleOpenGlancePanelClick}
 						icon={icon}
 						title={title}
-						areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 					/>
 				</Flex>
 			);

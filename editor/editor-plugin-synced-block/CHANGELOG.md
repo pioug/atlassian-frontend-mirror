@@ -1,5 +1,39 @@
 # @atlaskit/editor-plugin-synced-block
 
+## 31.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 31.0.0
+
+### Patch Changes
+
+- [`cabf3c7e59b8d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cabf3c7e59b8d) -
+  Remove internal uses of the always-true `areToolbarFlagsEnabled` helper and delete legacy toolbar
+  code that only rendered when it returned false (`ScrollButtons`, `LinkToolbarAppearance`,
+  `HyperlinkToolbarAppearance` and the media `LayoutGroup`).
+- Updated dependencies
+
+## 30.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 29.1.0
+
+### Minor Changes
+
+- [`c13b574ab38d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c13b574ab38d2) -
+  Declare the workspace dependencies used by package source and emitted types so isolated
+  installations can resolve them.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 29.0.0
 
 ### Patch Changes

@@ -88,6 +88,7 @@ describe('git', () => {
 				':(glob)**/package.json',
 			]);
 
+			// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 			expect(changes.all[0].diff).toEqual(
 				expect.objectContaining({
 					files: [

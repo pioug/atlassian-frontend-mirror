@@ -1,5 +1,20 @@
 # @atlaskit/avatar-group
 
+## 14.4.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.4.12
+
+### Patch Changes
+
+- [`9091431abbf3e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9091431abbf3e) -
+  On the top layer, Tab in the overflow menu inside a modal now closes the menu and moves focus to
+  the next element.
+- Updated dependencies
+
 ## 14.4.11
 
 ### Patch Changes

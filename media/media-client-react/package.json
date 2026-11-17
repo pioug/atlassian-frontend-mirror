@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-client-react",
-	"version": "7.0.1",
+	"version": "7.1.0",
 	"description": "🖼️ Media Client for React",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -49,6 +49,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/media-client": "workspace:^",
+		"@atlaskit/media-common": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/platform-feature-flags-react": "workspace:^",
 		"@atlaskit/react-compiler-gating": "workspace:^",

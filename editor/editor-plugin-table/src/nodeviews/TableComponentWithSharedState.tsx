@@ -11,7 +11,6 @@ import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { findTable } from '@atlaskit/editor-tables';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type tablePlugin from '../tablePlugin';
 import type { PluginInjectionAPI, TableSharedStateInternal } from '../types';
@@ -111,9 +110,7 @@ export const TableComponentWithSharedState = ({
 			// mediaState
 			isFullscreen: states.mediaState?.isFullscreen,
 			// selectionState
-			selection: isExperimentEnabled('platform_editor_reduce_memory_leaks')
-				? getSelectionWithinTable(states.selectionState?.selection, getNode())
-				: states.selectionState?.selection,
+			selection: getSelectionWithinTable(states.selectionState?.selection, getNode()),
 			// editorViewModeState
 			mode: states.editorViewModeState?.mode,
 			// widthState

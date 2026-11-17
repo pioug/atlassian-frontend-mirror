@@ -12,7 +12,6 @@ import { bind } from 'bind-event-listener';
 
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles/constants';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
 
 import { withReactEditorViewOuterListeners as withOuterListeners } from '../../ui-react';
@@ -238,9 +237,7 @@ export const TableSelectorPopup = (props: TableSelectorPopupProps): jsx.JSX.Elem
 					};
 				});
 
-				if (editorExperiment('platform_editor_controls', 'variant1')) {
-					event.preventDefault();
-				}
+				event.preventDefault();
 			}
 			if (event.key === 'ArrowRight') {
 				enableKeyboardMode();
@@ -294,9 +291,7 @@ export const TableSelectorPopup = (props: TableSelectorPopupProps): jsx.JSX.Elem
 					};
 				});
 
-				if (editorExperiment('platform_editor_controls', 'variant1')) {
-					event.preventDefault();
-				}
+				event.preventDefault();
 			}
 		},
 		[enableKeyboardMode, setSize],

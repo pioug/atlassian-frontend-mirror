@@ -40,7 +40,6 @@ import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-e
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-namespace
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
 
 import type { OnInsert } from '../ElementBrowser/types';
@@ -85,36 +84,35 @@ export const tableButtonWrapper = ({
 }: {
 	isButtonDisabled: boolean | undefined;
 	isTableSelectorOpen: boolean;
-}): SerializedStyles =>
-	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation due to mixins
-	css`
-		display: flex;
-		${!isTableSelectorOpen && !isButtonDisabled && getHoverStyles('.table-selector-toolbar-btn')}
-		${!isTableSelectorOpen && !isButtonDisabled && getHoverStyles('.table-toolbar-btn')}
+}): SerializedStyles => // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation due to mixins
+css`
+	display: flex;
+	${!isTableSelectorOpen && !isButtonDisabled && getHoverStyles('.table-selector-toolbar-btn')}
+	${!isTableSelectorOpen && !isButtonDisabled && getHoverStyles('.table-toolbar-btn')}
 
-  .table-toolbar-btn {
-			border-top-right-radius: ${token('radius.large', '0px')};
-			border-bottom-right-radius: ${token('radius.large', '0px')};
-			margin-right: ${token('space.025')};
-			padding: ${token('space.0')};
-			& > span {
-				min-width: 16px;
-				margin: ${token('space.0')};
-			}
+	.table-toolbar-btn {
+		border-top-right-radius: ${token('radius.large', '0px')};
+		border-bottom-right-radius: ${token('radius.large', '0px')};
+		margin-right: ${token('space.025')};
+		padding: ${token('space.0')};
+		& > span {
+			min-width: 16px;
+			margin: ${token('space.0')};
 		}
-		.table-selector-toolbar-btn {
-			padding: ${token('space.0')};
-			& > span {
-				margin: ${token('space.0')};
-				width: 16px !important;
-				display: flex;
-				justify-content: center;
-			}
+	}
+	.table-selector-toolbar-btn {
+		padding: ${token('space.0')};
+		& > span {
+			margin: ${token('space.0')};
+			width: 16px !important;
+			display: flex;
+			justify-content: center;
+		}
 
-			border-top-left-radius: ${token('radius.large', '0px')} !important;
-			border-bottom-left-radius: ${token('radius.large', '0px')} !important;
-		}
-	`;
+		border-top-left-radius: ${token('radius.large', '0px')} !important;
+		border-bottom-left-radius: ${token('radius.large', '0px')} !important;
+	}
+`;
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedComponentProps, State> {
@@ -582,7 +580,7 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 					/>
 				</span>
 				{((!this.props.pluginInjectionApi?.primaryToolbar && this.props.showSeparator) ||
-					(isFullPageAppearance && editorExperiment('platform_editor_controls', 'variant1'))) && (
+					isFullPageAppearance) && (
 					/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 					<span css={separatorStyles} />

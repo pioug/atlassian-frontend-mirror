@@ -7,7 +7,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { AlignmentPlugin } from '../alignmentPluginType';
 import { changeAlignment } from '../editor-commands';
-import { ToolbarType } from '../pm-plugins/types';
 import type { AlignmentState } from '../pm-plugins/types';
 import ToolbarAlignment from './ToolbarAlignment';
 
@@ -53,7 +52,6 @@ export function PrimaryToolbarComponent({
 			popupsBoundariesElement={popupsBoundariesElement}
 			popupsScrollableElement={popupsScrollableElement}
 			api={api}
-			toolbarType={ToolbarType.PRIMARY}
 		/>
 	);
 }

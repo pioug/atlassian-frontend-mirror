@@ -451,6 +451,18 @@ const baseDurationTokens = {
 } as const;
 
 const baseBezierCurveTokens = {
+	EaseExpoOut: {
+		value: 'cubic-bezier(0.16, 1, 0.3, 1)',
+		attributes: {
+			group: 'motionEasing',
+		},
+	},
+	EaseQuartOut: {
+		value: 'cubic-bezier(0.25, 1, 0.5, 1)',
+		attributes: {
+			group: 'motionEasing',
+		},
+	},
 	EasePracticalOut: {
 		value: 'cubic-bezier(0.4, 1, 0.6, 1)',
 		attributes: {

@@ -3,16 +3,7 @@ import React from 'react';
 import type { IntlShape } from 'react-intl';
 
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
-import {
-	ACTION,
-	ACTION_SUBJECT,
-	ACTION_SUBJECT_ID,
-	EVENT_TYPE,
-} from '@atlaskit/editor-common/analytics/types/enums';
-import commonMessages from '@atlaskit/editor-common/messages';
 import { messages as cardMessages } from '@atlaskit/editor-common/messages/card';
-import { toolbarMessages as mediaAndEmbedToolbarMessages } from '@atlaskit/editor-common/messages/media-and-embed-toolbar';
-import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type { Command } from '@atlaskit/editor-common/types/command';
 import type {
 	DropdownOptionT,
@@ -24,18 +15,14 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-edi
 import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations/main';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
-import DeleteIcon from '@atlaskit/icon/core/delete';
 import DownloadIcon from '@atlaskit/icon/core/download';
 import GrowDiagonalIcon from '@atlaskit/icon/core/grow-diagonal';
-import ImageFullscreenIcon from '@atlaskit/icon/core/image-fullscreen';
 import ImageInlineIcon from '@atlaskit/icon/core/image-inline';
-import MaximizeIcon from '@atlaskit/icon/core/maximize';
 import SmartLinkCardIcon from '@atlaskit/icon/core/smart-link-card';
 import { messages } from '@atlaskit/media-ui/messages';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
-import { showLinkingToolbar } from '../../pm-plugins/commands/linking';
 import { getMediaLinkingState } from '../../pm-plugins/linking';
 import type { MediaLinkingState } from '../../pm-plugins/linking/types';
 import type { MediaPluginState } from '../../pm-plugins/types';
@@ -43,18 +30,10 @@ import { currentMediaOrInlineNodeBorderMark } from '../../pm-plugins/utils/curre
 import { isImage } from '../../pm-plugins/utils/is-type';
 import type { MediaFloatingToolbarOptions } from '../../types';
 import ImageBorderItem from '../../ui/ImageBorder';
-import { altTextButton } from './alt-text';
-import {
-	changeInlineToMediaCard,
-	changeMediaInlineToMediaSingle,
-	removeInlineCardWithAnalytics,
-	setBorderMark,
-	toggleBorderMark,
-} from './commands';
+import { changeInlineToMediaCard, setBorderMark, toggleBorderMark } from './commands';
 import { shouldShowImageBorder } from './imageBorder';
 import { handleShowMediaViewer } from './index';
 import { getOpenLinkToolbarButtonOption, shouldShowMediaLinkToolbar } from './linking';
-import { LinkToolbarAppearance } from './linking-toolbar-appearance';
 import {
 	downloadMedia,
 	getIsDownloadDisabledByDataSecurityPolicy,
@@ -72,7 +51,6 @@ export const generateMediaInlineFloatingToolbar = (
 	const editorAnalyticsAPI = pluginInjectionApi?.analytics?.actions as EditorAnalyticsAPI;
 	const forceFocusSelector = pluginInjectionApi?.floatingToolbar?.actions?.forceFocusSelector;
 
-	const { mediaInline } = state.schema.nodes;
 	const mediaType = state.selection instanceof NodeSelection && state.selection.node.attrs.type;
 	const mediaLinkingState: MediaLinkingState = getMediaLinkingState(state);
 
@@ -81,8 +59,6 @@ export const generateMediaInlineFloatingToolbar = (
 			state,
 			intl,
 			mediaPluginState,
-			hoverDecoration,
-			editorAnalyticsAPI,
 			pluginInjectionApi,
 			mediaLinkingState,
 			options,
@@ -91,20 +67,18 @@ export const generateMediaInlineFloatingToolbar = (
 
 	const items: FloatingToolbarItem<Command>[] = [];
 
-	const areAnyNewToolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(pluginInjectionApi?.toolbar));
-	const mauiToolbarSeparatorsUpdateEnabled =
-		fg('cc-maui-toolbar-separators-update-jira') && areAnyNewToolbarFlagsEnabled;
+	const mauiToolbarSeparatorsUpdateEnabled = fg('cc-maui-toolbar-separators-update-jira');
 
 	const preview: FloatingToolbarButton<Command> = {
 		id: 'editor.media.viewer',
 		testId: 'file-preview-toolbar-button',
 		type: 'button',
-		icon: areAnyNewToolbarFlagsEnabled ? GrowDiagonalIcon : MaximizeIcon,
+		icon: GrowDiagonalIcon,
 		title: intl.formatMessage(messages.expand),
 		onClick: () => {
 			return handleShowMediaViewer({ mediaPluginState, api: pluginInjectionApi }) ?? false;
 		},
-		...(areAnyNewToolbarFlagsEnabled && { supportsViewMode: true }),
+		supportsViewMode: true,
 	};
 
 	const disableDownloadButton = getIsDownloadDisabledByDataSecurityPolicy(mediaPluginState);
@@ -119,109 +93,47 @@ export const generateMediaInlineFloatingToolbar = (
 		},
 		disabled: disableDownloadButton,
 		title: intl.formatMessage(messages.download),
-		...(areAnyNewToolbarFlagsEnabled && { supportsViewMode: true }),
+		supportsViewMode: true,
 	};
 
-	if (!areAnyNewToolbarFlagsEnabled) {
-		items.push(
-			{
-				id: 'editor.media.view.switcher.inline',
-				type: 'button',
-				icon: ImageInlineIcon,
-				selected: true,
-				disabled: false,
-				focusEditoronEnter: true,
-				onClick: () => true,
-				title: intl.formatMessage(cardMessages.inlineTitle),
-				testId: 'inline-appearance',
-				className: 'inline-appearance', // a11y. uses to force focus on item
-			},
-			{
-				id: 'editor.media.view.switcher.thumbnail',
-				type: 'button',
-				icon: SmartLinkCardIcon,
-				selected: false,
-				disabled: false,
-				focusEditoronEnter: true,
-				onClick: changeInlineToMediaCard(editorAnalyticsAPI, forceFocusSelector),
-				title: intl.formatMessage(cardMessages.blockTitle),
-				testId: 'thumbnail-appearance',
-				className: 'thumbnail-appearance', // a11y. uses to force focus on item
-			},
-			{
-				type: 'separator',
-			},
-			preview,
-			{ type: 'separator' },
-			download,
-			{ type: 'separator' },
-			{
-				type: 'copy-button',
-				supportsViewMode: true,
-				items: [
-					{
-						state,
-						formatMessage: intl.formatMessage,
-						nodeType: mediaInline,
-					},
-				],
-			},
-			{ type: 'separator' },
-			{
-				id: 'editor.media.delete',
-				type: 'button',
-				appearance: 'danger',
-				focusEditoronEnter: true,
-				icon: DeleteIcon,
-				onMouseEnter: hoverDecoration?.(mediaInline, true),
-				onMouseLeave: hoverDecoration?.(mediaInline, false),
-				onFocus: hoverDecoration?.(mediaInline, true),
-				onBlur: hoverDecoration?.(mediaInline, false),
-				title: intl.formatMessage(commonMessages.remove),
-				onClick: removeInlineCardWithAnalytics(editorAnalyticsAPI),
-				testId: 'media-toolbar-remove-button',
-			},
-		);
-	} else {
-		const options: DropdownOptionT<Command>[] = [
-			{
-				id: 'editor.media.view.switcher.inline',
-				title: intl.formatMessage(cardMessages.inlineTitle),
-				onClick: () => true,
-				selected: true,
-				icon: <ImageInlineIcon label="" spacing="spacious" />,
-			},
-			{
-				id: 'editor.media.view.switcher.thumbnail',
-				title: intl.formatMessage(cardMessages.blockTitle),
-				onClick: changeInlineToMediaCard(editorAnalyticsAPI, forceFocusSelector),
-				icon: <SmartLinkCardIcon label="" spacing="spacious" />,
-			},
-		];
-		const switcherDropdown: FloatingToolbarDropdown<Command> = {
-			title: intl.formatMessage(messages.fileDisplayOptions),
-			id: 'media-group-inline-switcher-toolbar-item',
-			testId: 'media-group-inline-switcher-dropdown',
-			type: 'dropdown',
-			options,
-			icon: () => <ImageInlineIcon label="" spacing="spacious" />,
-		};
+	const switcherOptions: DropdownOptionT<Command>[] = [
+		{
+			id: 'editor.media.view.switcher.inline',
+			title: intl.formatMessage(cardMessages.inlineTitle),
+			onClick: () => true,
+			selected: true,
+			icon: <ImageInlineIcon label="" spacing="spacious" />,
+		},
+		{
+			id: 'editor.media.view.switcher.thumbnail',
+			title: intl.formatMessage(cardMessages.blockTitle),
+			onClick: changeInlineToMediaCard(editorAnalyticsAPI, forceFocusSelector),
+			icon: <SmartLinkCardIcon label="" spacing="spacious" />,
+		},
+	];
+	const switcherDropdown: FloatingToolbarDropdown<Command> = {
+		title: intl.formatMessage(messages.fileDisplayOptions),
+		id: 'media-group-inline-switcher-toolbar-item',
+		testId: 'media-group-inline-switcher-dropdown',
+		type: 'dropdown',
+		options: switcherOptions,
+		icon: () => <ImageInlineIcon label="" spacing="spacious" />,
+	};
 
-		items.push(
-			switcherDropdown,
-			...(mauiToolbarSeparatorsUpdateEnabled
-				? []
-				: [{ type: 'separator', fullHeight: true } as const]),
-			download,
-			...(mauiToolbarSeparatorsUpdateEnabled
-				? []
-				: [{ type: 'separator', supportsViewMode: true } as const]),
-			preview,
-			...(mauiToolbarSeparatorsUpdateEnabled
-				? []
-				: [{ type: 'separator', fullHeight: true } as const]),
-		);
-	}
+	items.push(
+		switcherDropdown,
+		...(mauiToolbarSeparatorsUpdateEnabled
+			? []
+			: [{ type: 'separator', fullHeight: true } as const]),
+		download,
+		...(mauiToolbarSeparatorsUpdateEnabled
+			? []
+			: [{ type: 'separator', supportsViewMode: true } as const]),
+		preview,
+		...(mauiToolbarSeparatorsUpdateEnabled
+			? []
+			: [{ type: 'separator', fullHeight: true } as const]),
+	);
 
 	return items;
 };
@@ -230,24 +142,15 @@ const getMediaInlineImageToolbar = (
 	state: EditorState,
 	intl: IntlShape,
 	mediaPluginState: MediaPluginState,
-	hoverDecoration: HoverDecorationHandler | undefined,
-	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 	pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
 	mediaLinkingState: MediaLinkingState,
 	options: MediaFloatingToolbarOptions = {},
 ): FloatingToolbarItem<Command>[] => {
 	const { mediaInline } = state.schema.nodes;
-	const mediaInlineImageTitle = intl.formatMessage(
-		mediaAndEmbedToolbarMessages.changeToMediaInlineImage,
-	);
-	const mediaSingleTitle = intl.formatMessage(mediaAndEmbedToolbarMessages.changeToMediaSingle);
-	const widthPluginState = pluginInjectionApi?.width?.sharedState.currentState();
 	const inlineImageItems: FloatingToolbarItem<Command>[] = [];
-	const isEditorControlsEnabled = areToolbarFlagsEnabled(Boolean(pluginInjectionApi?.toolbar));
-	const { isViewOnly, allowAltTextOnImages, allowLinking, allowImagePreview } = options;
+	const { isViewOnly, allowLinking, allowImagePreview } = options;
 
-	const mauiToolbarSeparatorsUpdateEnabled =
-		fg('cc-maui-toolbar-separators-update-jira') && isEditorControlsEnabled;
+	const mauiToolbarSeparatorsUpdateEnabled = fg('cc-maui-toolbar-separators-update-jira');
 
 	if (shouldShowImageBorder(state)) {
 		inlineImageItems.push({
@@ -275,9 +178,6 @@ const getMediaInlineImageToolbar = (
 				);
 			},
 		});
-		if (!isEditorControlsEnabled) {
-			inlineImageItems.push({ type: 'separator' });
-		}
 	}
 
 	const download: FloatingToolbarButton<Command> = {
@@ -292,108 +192,26 @@ const getMediaInlineImageToolbar = (
 		supportsViewMode: true,
 	};
 
-	// For Editor Controls: show options to convert from 'Inline' to 'Original size' via dropdown
-	if (!isEditorControlsEnabled) {
+	const switchFromInlineToBlock = getMediaSingleAndMediaInlineSwitcherDropdown(
+		'inline',
+		intl,
+		pluginInjectionApi,
+	);
+
+	inlineImageItems.push(
+		switchFromInlineToBlock,
+		...(mauiToolbarSeparatorsUpdateEnabled
+			? []
+			: [{ type: 'separator', fullHeight: true } as const]),
+	);
+
+	if (isViewOnly) {
 		inlineImageItems.push(
-			{
-				id: 'editor.media.convert.mediainline',
-				type: 'button',
-				title: mediaInlineImageTitle,
-				icon: () => (
-					<ImageInlineIcon color="currentColor" spacing="spacious" label={mediaInlineImageTitle} />
-				),
-				onClick: () => {
-					return true;
-				},
-				selected: true,
-			},
-			{
-				id: 'editor.media.convert.mediasingle',
-				type: 'button',
-				title: mediaSingleTitle,
-				icon: () => (
-					<ImageFullscreenIcon color="currentColor" spacing="spacious" label={mediaSingleTitle} />
-				),
-				onClick: changeMediaInlineToMediaSingle(
-					editorAnalyticsAPI,
-					widthPluginState,
-					options?.allowPixelResizing,
-				),
-			},
-			{ type: 'separator' },
-			{
-				type: 'custom',
-				fallback: [],
-				render: (editorView, idx) => {
-					if (editorView?.state) {
-						const editLink = () => {
-							if (editorView) {
-								const { state, dispatch } = editorView;
-								showLinkingToolbar(state, dispatch);
-							}
-						};
-
-						const openLink = () => {
-							if (editorView) {
-								const {
-									state: { tr },
-									dispatch,
-								} = editorView;
-								pluginInjectionApi?.analytics?.actions.attachAnalyticsEvent({
-									eventType: EVENT_TYPE.TRACK,
-									action: ACTION.VISITED,
-									actionSubject: ACTION_SUBJECT.MEDIA,
-									actionSubjectId: ACTION_SUBJECT_ID.LINK,
-								})(tr);
-								dispatch(tr);
-								return true;
-							}
-						};
-
-						return (
-							<LinkToolbarAppearance
-								key={idx}
-								editorState={editorView.state}
-								intl={intl}
-								mediaLinkingState={mediaLinkingState}
-								onAddLink={editLink}
-								onEditLink={editLink}
-								onOpenLink={openLink}
-								isInlineNode
-								isViewOnly={options.isViewOnly}
-								areAnyNewToolbarFlagsEnabled={areToolbarFlagsEnabled(
-									Boolean(pluginInjectionApi?.toolbar),
-								)}
-							/>
-						);
-					}
-					return null;
-				},
-				supportsViewMode: true,
-			},
-		);
-	} else {
-		const switchFromInlineToBlock = getMediaSingleAndMediaInlineSwitcherDropdown(
-			'inline',
-			intl,
-			pluginInjectionApi,
-		);
-
-		inlineImageItems.push(
-			switchFromInlineToBlock,
+			download,
 			...(mauiToolbarSeparatorsUpdateEnabled
 				? []
-				: [{ type: 'separator', fullHeight: true } as const]),
+				: [{ type: 'separator', supportsViewMode: true } as const]),
 		);
-
-		if (isViewOnly) {
-			inlineImageItems.push(
-				download,
-				...(mauiToolbarSeparatorsUpdateEnabled
-					? []
-					: [{ type: 'separator', supportsViewMode: true } as const]),
-			);
-		}
 	}
 
 	//Image Preview
@@ -403,7 +221,7 @@ const getMediaInlineImageToolbar = (
 				id: 'editor.media.viewer',
 				testId: 'file-preview-toolbar-button',
 				type: 'button',
-				icon: isEditorControlsEnabled ? GrowDiagonalIcon : MaximizeIcon,
+				icon: GrowDiagonalIcon,
 				title: intl.formatMessage(messages.expand),
 				onClick: () => {
 					return handleShowMediaViewer({ mediaPluginState, api: pluginInjectionApi }) ?? false;
@@ -421,8 +239,7 @@ const getMediaInlineImageToolbar = (
 		allowLinking &&
 		shouldShowMediaLinkToolbar(state) &&
 		mediaLinkingState &&
-		mediaLinkingState.editable &&
-		isEditorControlsEnabled
+		mediaLinkingState.editable
 	) {
 		inlineImageItems.push(
 			getOpenLinkToolbarButtonOption(intl, mediaLinkingState, pluginInjectionApi),
@@ -432,17 +249,7 @@ const getMediaInlineImageToolbar = (
 		);
 	}
 
-	if (isViewOnly && !isEditorControlsEnabled) {
-		inlineImageItems.push(download, { type: 'separator', supportsViewMode: true });
-	}
-
-	if (allowAltTextOnImages && !isEditorControlsEnabled) {
-		inlineImageItems.push(altTextButton(intl, state, pluginInjectionApi?.analytics?.actions), {
-			type: 'separator',
-		});
-	}
-
-	if (isViewOnly || !isEditorControlsEnabled) {
+	if (isViewOnly) {
 		inlineImageItems.push({
 			type: 'copy-button',
 			supportsViewMode: true,
@@ -453,24 +260,6 @@ const getMediaInlineImageToolbar = (
 					nodeType: mediaInline,
 				},
 			],
-		});
-	}
-
-	if (!isEditorControlsEnabled) {
-		inlineImageItems.push({ type: 'separator' });
-		inlineImageItems.push({
-			id: 'editor.media.delete',
-			type: 'button',
-			appearance: 'danger',
-			focusEditoronEnter: true,
-			icon: DeleteIcon,
-			onMouseEnter: hoverDecoration?.(mediaInline, true),
-			onMouseLeave: hoverDecoration?.(mediaInline, false),
-			onFocus: hoverDecoration?.(mediaInline, true),
-			onBlur: hoverDecoration?.(mediaInline, false),
-			title: intl.formatMessage(commonMessages.remove),
-			onClick: removeInlineCardWithAnalytics(editorAnalyticsAPI),
-			testId: 'media-toolbar-remove-button',
 		});
 	}
 

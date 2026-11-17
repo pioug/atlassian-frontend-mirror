@@ -3,7 +3,7 @@
  *
  * Strict design token based typedef representing a subset of safe CSS properties.
  *
- * @codegen <<SignedSource::6fcaccef83ebb54359b32999f495545a>>
+ * @codegen <<SignedSource::03fbd0c3dfb435134a9515d9cd459bd4>>
  * @codegenCommand yarn build tokens
  */
 export type BackgroundColorHovered =
@@ -514,7 +514,9 @@ export type MotionDuration =
 export type MotionEasing =
 	| 'var(--ds-easing-in-practical)'
 	| 'var(--ds-easing-inout-bold)'
+	| 'var(--ds-easing-out-expo)'
 	| 'var(--ds-easing-out-practical)'
+	| 'var(--ds-easing-out-quart)'
 	| 'var(--ds-easing-out-bold)'
 	| 'var(--ds-easing-spring)';
 export type MotionKeyframes =
@@ -561,6 +563,7 @@ export type Motion =
 	| 'var(--ds-modal-exit)'
 	| 'var(--ds-panel-content-enter)'
 	| 'var(--ds-panel-content-exit)'
+	| 'var(--ds-panel-content-open)'
 	| 'var(--ds-panel-enter)'
 	| 'var(--ds-panel-enter-left)'
 	| 'var(--ds-panel-enter-right)'

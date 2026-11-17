@@ -27,6 +27,7 @@ type LayoutDimensions = {
 	layoutWidth: number;
 	isChatPanelOverlay: boolean;
 	isSideNavOverlay: boolean;
+	isXlViewport: boolean;
 };
 
 function useStableAreaState(state: LayoutAreaState | undefined): LayoutAreaState | undefined {
@@ -45,9 +46,11 @@ export function LayoutAreaSizingRuntime({
 	layoutRef,
 	onReady,
 	onUpdate,
+	viewportWidthAtLoad,
 }: {
 	children?: ReactNode;
 	layoutRef?: React.RefObject<HTMLDivElement | null>;
+	viewportWidthAtLoad?: number;
 	onReady?: (actions: LayoutAreaSizingContextValue | null) => void;
 	onUpdate?: (states: Partial<Record<LayoutArea, LayoutAreaState>>) => void;
 }): JSX.Element {
@@ -58,7 +61,12 @@ export function LayoutAreaSizingRuntime({
 	const [resizeSession, setResizeSession] = useState<ResizeSession | null>(null);
 	const areaStatesRef = React.useRef<Partial<Record<LayoutArea, LayoutAreaAllocation>>>({});
 	const configsRef = React.useRef<Partial<Record<LayoutArea, LayoutAreaConfig>>>({});
-	const [hasInteraction, setHasInteraction] = useState(false);
+	// A viewport change while the chunk loads is already a layout event. Reallocate
+	// instead of adopting CSS geometry from the preceding breakpoint (which WebKit
+	// can still report during that handoff).
+	const [hasInteraction, setHasInteraction] = useState(
+		viewportWidthAtLoad !== undefined && viewportWidthAtLoad !== window.innerWidth,
+	);
 	const adoptedConstraints = React.useRef<{
 		occupiedWidth: number;
 		mainMinWidth: LayoutWidthBound;
@@ -93,6 +101,7 @@ export function LayoutAreaSizingRuntime({
 		// Match the actual rem-based grid breakpoint, including browser font settings.
 		const inlineChatQuery = window.matchMedia('(min-width: 40rem)');
 		const inlineSideNavQuery = window.matchMedia('(min-width: 64rem)');
+		const xlQuery = window.matchMedia('(min-width: 110.5rem)');
 		const updateDimensions = (contentWidth?: number) => {
 			const style = root && contentWidth === undefined ? getComputedStyle(root) : null;
 			const computedWidth = Number.parseFloat(style?.width ?? '');
@@ -118,12 +127,14 @@ export function LayoutAreaSizingRuntime({
 				layoutWidth,
 				isChatPanelOverlay: !inlineChatQuery.matches,
 				isSideNavOverlay: !inlineSideNavQuery.matches,
+				isXlViewport: xlQuery.matches,
 			};
 			if (
 				previous?.viewportWidth === next.viewportWidth &&
 				previous.layoutWidth === next.layoutWidth &&
 				previous.isChatPanelOverlay === next.isChatPanelOverlay &&
-				previous.isSideNavOverlay === next.isSideNavOverlay
+				previous.isSideNavOverlay === next.isSideNavOverlay &&
+				previous.isXlViewport === next.isXlViewport
 			) {
 				return;
 			}
@@ -153,7 +164,12 @@ export function LayoutAreaSizingRuntime({
 			type: 'change',
 			listener: () => updateDimensions(),
 		});
+		const unbindXlQuery = bind(xlQuery, {
+			type: 'change',
+			listener: () => updateDimensions(),
+		});
 		return () => {
+			unbindXlQuery();
 			observer.disconnect();
 			unbindResize();
 			unbindQuery();
@@ -171,7 +187,8 @@ export function LayoutAreaSizingRuntime({
 				previous.minWidth !== config.minWidth ||
 				previous.maxWidth !== config.maxWidth ||
 				previous.defaultWidth !== config.defaultWidth ||
-				previous.compactDefaultWidth !== config.compactDefaultWidth)
+				previous.compactDefaultWidth !== config.compactDefaultWidth ||
+				previous.xlDefaultWidth !== config.xlDefaultWidth)
 		) {
 			setHasInteraction(true);
 		}
@@ -186,6 +203,7 @@ export function LayoutAreaSizingRuntime({
 				previous.maxWidth === config.maxWidth &&
 				previous.defaultWidth === config.defaultWidth &&
 				previous.compactDefaultWidth === config.compactDefaultWidth &&
+				previous.xlDefaultWidth === config.xlDefaultWidth &&
 				(previous.requestedWidth === config.requestedWidth ||
 					(current?.area === area && current.completedWidth === config.requestedWidth) ||
 					(area === 'side-nav' && !config.isOpen && current?.area !== 'side-nav'))
@@ -482,8 +500,22 @@ export function LayoutAreaSizingRuntime({
 		if (!adoptedConstraints.current && (sideNavState || panelState || chatPanelState)) {
 			adoptedConstraints.current = { occupiedWidth, mainMinWidth };
 		}
+		// A controlled panel can acknowledge a resize in this same commit. Its
+		// registration queues the new allocation before this effect runs; avoid
+		// publishing an allocation calculated from the previous requested width.
+		if (configsRef.current.panel?.requestedWidth !== areas.panel?.requestedWidth) {
+			return;
+		}
 		onUpdate?.({ 'side-nav': sideNavState, panel: panelState, 'chat-panel': chatPanelState });
-	}, [onUpdate, sideNavState, panelState, chatPanelState, occupiedWidth, mainMinWidth]);
+	}, [
+		onUpdate,
+		sideNavState,
+		panelState,
+		chatPanelState,
+		occupiedWidth,
+		mainMinWidth,
+		areas.panel?.requestedWidth,
+	]);
 
 	return (
 		<LayoutAreaSizingContext.Provider value={value}>

@@ -46,6 +46,7 @@
 		"@af/integration-testing": "workspace:^",
 		"@af/suppress-react-warnings": "workspace:^",
 		"@af/visual-regression": "workspace:^",
+		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/relay-test-utils": "workspace:^",
@@ -57,7 +58,7 @@
 		"relay-test-utils": "root:*"
 	},
 	"name": "@atlaskit/rovo-agent-selector",
-	"version": "3.3.0",
+	"version": "3.3.1",
 	"description": "rovo agent selector",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

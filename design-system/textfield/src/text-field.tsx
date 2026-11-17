@@ -237,30 +237,10 @@ const inputDisabledStyle = css({
 	},
 });
 
-const inputCompactStyle = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-nested-styles
-	'&[data-compact]': {
-		paddingBlockEnd: token('space.050'),
-		paddingBlockStart: token('space.050'),
-		paddingInlineEnd: token('space.075'),
-		paddingInlineStart: token('space.075'),
-	},
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-	'@media (pointer: coarse) and (max-width: 30rem)': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-nested-styles
-		'&[data-compact]': {
-			paddingBlockEnd: token('space.025'),
-			paddingBlockStart: token('space.025'),
-			paddingInlineEnd: token('space.075'),
-			paddingInlineStart: token('space.075'),
-		},
-	},
-});
-
 const inputMonospacedStyle = css({
 	fontFamily: token('font.family.code'),
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-	// Must reapply font family here, otherwise it gets overridden by font.body.large in inputStyle's media query
+	// Must reapply font family here, otherwise it gets overridden by font.body.large in atomicInputStyle's media query
 	'@media (pointer: coarse) and (max-width: 30rem)': {
 		fontFamily: token('font.family.code'),
 	},
@@ -270,49 +250,6 @@ const inputMonospacedStyle = css({
 // To prevent this zoom behaviour on touch devices with small viewports, the textfield uses font.body (default),
 // and font.body.large (16px) for touch devices (pointer: coarse) with screens narrower than 30rem.
 // @see: https://medium.com/@rares.popescu/2-ways-to-avoid-the-automatic-zoom-in-on-input-fields-8a71479e542e
-
-const inputStyle = css({
-	boxSizing: 'border-box',
-	width: '100%',
-	minWidth: '0',
-	backgroundColor: 'transparent',
-	border: 0,
-	color: 'inherit',
-	cursor: 'inherit',
-	font: token('font.body'),
-	outline: 'none',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-	'&:not([data-compact])': {
-		paddingBlockEnd: token('space.100'),
-		paddingBlockStart: token('space.100'),
-		paddingInlineEnd: token('space.075'),
-		paddingInlineStart: token('space.075'),
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-	'&::-ms-clear': {
-		display: 'none',
-	},
-	'&:invalid': {
-		boxShadow: 'none',
-	},
-	'&:placeholder-shown': {
-		textOverflow: 'ellipsis',
-	},
-	'&::placeholder': {
-		color: token('color.text.subtlest'),
-	},
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-	'@media (pointer: coarse) and (max-width: 30rem)': {
-		font: token('font.body.large'),
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'&:not([data-compact])': {
-			paddingBlockEnd: token('space.075'),
-			paddingBlockStart: token('space.075'),
-			paddingInlineEnd: token('space.075'),
-			paddingInlineStart: token('space.075'),
-		},
-	},
-});
 
 const atomicInputStyle = css({
 	boxSizing: 'border-box',
@@ -530,22 +467,16 @@ const Textfield: React.ForwardRefExoticComponent<
 				aria-invalid={isInvalid ? isInvalid : undefined}
 				// TODO: When removing legacy theming fix this.
 				css={[
-					fg('platform-textfield-atomic-styles') ? atomicInputStyle : inputStyle,
+					atomicInputStyle,
 					fg('platform-dst-tokens-finesse') && finessePlaceholderStyle,
 					isMonospaced && inputMonospacedStyle,
-					!fg('platform-textfield-atomic-styles') && isCompact && inputCompactStyle,
-					fg('platform-textfield-atomic-styles') &&
-						atomicInputSpacing[isCompact ? 'compact' : 'default'],
+					atomicInputSpacing[isCompact ? 'compact' : 'default'],
 					isDisabled && inputDisabledStyle,
 					isDisabled && inputMediaDisabled,
+					fg('platform-semantic-spacing') && semanticAtomicInputStyle.root,
 					fg('platform-semantic-spacing') &&
-						fg('platform-textfield-atomic-styles') &&
-						semanticAtomicInputStyle.root,
-					fg('platform-semantic-spacing') &&
-						fg('platform-textfield-atomic-styles') &&
 						semanticAtomicInputSpacing[isCompact ? 'compact' : 'default'],
 				]}
-				data-compact={isCompact && !fg('platform-textfield-atomic-styles') ? isCompact : undefined}
 				data-ds--text-field--input
 				data-monospaced={isMonospaced ? isMonospaced : undefined}
 				data-testid={testId}

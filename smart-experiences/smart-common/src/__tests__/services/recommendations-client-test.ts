@@ -1,6 +1,7 @@
 import fetchMock from 'fetch-mock/cjs/client';
 
 import fetchUserRecommendations from '../../services/recommendations-client';
+import fetchUserRecommendationsResponse from '../../services/recommendations-client/response';
 import { TeamSearchField, type UserSearchQuery, type UserSearchRequest } from '../../types';
 
 const URS_URL = '/gateway/api/v1/recommendations';
@@ -91,6 +92,20 @@ describe('default-value-hydration-client', () => {
 	afterEach(() => {
 		jest.clearAllMocks();
 		fetchMock.restore();
+	});
+
+	it('exposes the detailed response while preserving the existing array API', async () => {
+		const response = { recommendedUsers: [], errors: [{ message: 'teams unavailable' }] };
+		fetchMock.post(URS_URL, { status: 200, body: response });
+		expect(await fetchUserRecommendationsResponse(exampleRequest)).toEqual(response);
+		expect(await fetchUserRecommendations(exampleRequest)).toEqual([]);
+	});
+
+	it('rejects a failed detailed request', async () => {
+		fetchMock.post(URS_URL, 504);
+		await expect(fetchUserRecommendationsResponse(exampleRequest)).rejects.toThrow(
+			'error calling smart service, statusCode=504',
+		);
 	});
 
 	it('should reject promise on network error', async () => {

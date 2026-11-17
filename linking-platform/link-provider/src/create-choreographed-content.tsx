@@ -19,16 +19,19 @@ function useChoreographedContent({
 	messageId,
 	isActive,
 	onUnavailable,
+	shouldClaim,
 }: SmartLinkChoreographerProps): Choreography {
 	const instanceId = useId();
 	const request = useRef<object | null>(null);
 	const granted = useRef<object | null>(null);
 	const pending = useRef(Promise.resolve());
 	const unavailable = useRef(onUnavailable);
+	const claim = useRef(shouldClaim);
 	const [hasPermission, setPermission] = useState(false);
 	useLayoutEffect(() => {
 		unavailable.current = onUnavailable;
-	}, [onUnavailable]);
+		claim.current = shouldClaim;
+	}, [onUnavailable, shouldClaim]);
 	useLayoutEffect(
 		() => () => {
 			request.current = null;
@@ -40,6 +43,11 @@ function useChoreographedContent({
 			start: (attempt: unknown) => {
 				// A delayed offer must not revive a cancelled or replaced request.
 				if (!attempt || attempt !== request.current) return false;
+				try {
+					if (claim.current && !claim.current()) return false;
+				} catch {
+					return false;
+				}
 				granted.current = request.current;
 				setPermission(true);
 				return true;

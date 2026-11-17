@@ -3,8 +3,10 @@
 import { expect, test } from '@af/integration-testing';
 
 /**
- * `getFocusables` must filter nested top-layer descendants out of the
- * outer popover's Tab cycle. The nested popover owns its own focus scope.
+ * `getFocusables` must filter a nested `role="dialog"` layer out of the
+ * outer popover's Tab cycle. The nested dialog owns its focus, so it has its
+ * own focus scope. (Open nested layers with other roles, such as menus, are
+ * part of the outer Tab cycle. See notes/decisions/role-and-focus.md.)
  *
  * Steps:
  *   1. Open the outer dialog.

@@ -127,6 +127,33 @@ describe('hasNewContentOnTriggerClick (top-layer)', () => {
 		expect(screen.getByTestId('tooltip')).toHaveTextContent('Copied!');
 	});
 
+	it.each([true, false])(
+		'handles light dismiss before click (recovery gate: %s)',
+		async (enabled) => {
+			enabled
+				? passGate('platform-dst-tooltip-click-recovery')
+				: failGate('platform-dst-tooltip-click-recovery');
+			const user = createUser();
+			render(<CopyButton hasNewContentOnTriggerClick />);
+
+			await user.hover(screen.getByTestId('trigger'));
+			runAllTimers();
+
+			act(() => {
+				screen.getByTestId('tooltip--popover').hidePopover();
+			});
+			fireEvent.click(screen.getByTestId('trigger'));
+			runAllTimers();
+
+			if (enabled) {
+				expect(screen.getByTestId('tooltip')).toHaveTextContent('Copied!');
+				expect(screen.getByTestId('tooltip--popover')).toHaveAttribute('data-popover-open');
+			} else {
+				expect(screen.queryByTestId('tooltip')).not.toBeInTheDocument();
+			}
+		},
+	);
+
 	it('should still close when the pointer leaves the trigger', async () => {
 		const user = createUser();
 		render(<CopyButton hasNewContentOnTriggerClick />);

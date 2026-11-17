@@ -1,5 +1,13 @@
 # @atlaskit/embedded-confluence
 
+## 6.4.4
+
+### Patch Changes
+
+- [`b034551580917`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b034551580917) -
+  Replace the vulnerable URI decoder in the Embedded Confluence bundle and all published page entry
+  points.
+
 ## 6.4.3
 
 ## 6.4.2

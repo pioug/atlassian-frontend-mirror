@@ -1,7 +1,8 @@
 import { useCallback, useLayoutEffect, useState } from 'react';
 
 import { checkAICreditStatus } from './checkAICreditStatus';
-import type { AICreditCheck, AICreditStatus, GetAICreditStatus } from './types';
+import type { AICreditStatusReader } from './checkAICreditStatus';
+import type { AICreditCheck, AICreditStatus } from './types';
 
 type CreditStatus = AICreditStatus;
 export type BlockedCreditStatus = Extract<CreditStatus, { isBlocked: true }>;
@@ -15,18 +16,18 @@ export type AICreditGuard = {
 
 /** Shares advisory checks and feedback state without owning action execution or selection. */
 export const useAICreditGuard = (
-	getAICreditStatus: GetAICreditStatus,
+	getAICreditStatus?: AICreditStatusReader,
 	isActive = true,
 ): AICreditGuard => {
 	const [feedback, setFeedback] = useState<BlockedCreditStatus | null>(null);
 	const [isBlocked, setIsBlocked] = useState(false);
 	const close = useCallback(() => setFeedback(null), []);
 	useLayoutEffect(() => {
-		if (!isActive) {
+		if (!isActive || getAICreditStatus === undefined) {
 			close();
 			setIsBlocked(false);
 		}
-	}, [isActive, close]);
+	}, [getAICreditStatus, isActive, close]);
 	const check = useCallback(
 		(
 			creditCheck: AICreditCheck,

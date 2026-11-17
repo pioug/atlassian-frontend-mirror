@@ -3,7 +3,7 @@
  *
  * Metadata for generation of `@atlaskit/ads-mcp` and https://atlassian.design/llms-tokens.txt.
  *
- * @codegen <<SignedSource::c42084a2a6187c09cd21e4f3c61b08f4>>
+ * @codegen <<SignedSource::9ef4bd71405b809ffba2d3fbef492e5d>>
  * @codegenCommand yarn build tokens
  */
 export interface Token {
@@ -149,11 +149,27 @@ export const tokens: Token[] = [
 		usageGuidelines: { usage: '', cssProperties: [] },
 	},
 	{
+		name: 'motion.easing.out.expo',
+		path: ['motion', 'easing', 'out', 'expo'],
+		description:
+			'Use for floating controls following a panel entrance, with fast acceleration and a soft landing.',
+		exampleValue: 'cubic-bezier(0.16, 1, 0.3, 1)',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
 		name: 'motion.easing.out.practical',
 		path: ['motion', 'easing', 'out', 'practical'],
 		description:
 			'A practical, everyday enter curve. Less dramatic than the bold variant, good for subtle transitions like content swaps, tab changes, and list reordering.',
 		exampleValue: 'cubic-bezier(0.4, 1, 0.6, 1)',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.easing.out.quart',
+		path: ['motion', 'easing', 'out', 'quart'],
+		description:
+			'Use for floating controls following a panel exit, moving immediately and easing to rest.',
+		exampleValue: 'cubic-bezier(0.25, 1, 0.5, 1)',
 		usageGuidelines: { usage: '', cssProperties: [] },
 	},
 	{
@@ -426,57 +442,67 @@ export const tokens: Token[] = [
 	{
 		name: 'motion.panel.content.enter',
 		path: ['motion', 'panel', 'content', 'enter'],
-		description: 'Use for panel content enter.',
+		description:
+			'Use to fade in replacement content within an open panel, without an opening delay. For content appearing when the panel opens, use motion.panel.content.open.',
 		exampleValue: '150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100 backwards',
 		usageGuidelines: { usage: '', cssProperties: [] },
 	},
 	{
 		name: 'motion.panel.content.exit',
 		path: ['motion', 'panel', 'content', 'exit'],
-		description: 'Use for panel content exit.',
+		description:
+			'Use to fade out panel content before it is replaced or as the panel closes. This animates the content; use motion.panel.exit to animate the panel surface.',
 		exampleValue: '50ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
+		usageGuidelines: { usage: '', cssProperties: [] },
+	},
+	{
+		name: 'motion.panel.content.open',
+		path: ['motion', 'panel', 'content', 'open'],
+		description:
+			'Use to fade in content when a panel opens. Includes a delay to coordinate with the panel entrance animation. For replacement content in an open panel, use motion.panel.content.enter.',
+		exampleValue: '150ms cubic-bezier(0.16, 1, 0.3, 1) FadeIn0to100 100ms backwards',
 		usageGuidelines: { usage: '', cssProperties: [] },
 	},
 	{
 		name: 'motion.panel.enter',
 		path: ['motion', 'panel', 'enter', '[default]'],
 		description: 'Use for panel enter transitions.',
-		exampleValue: '250ms cubic-bezier(0, 0.4, 0, 1) SlideIn100PercentRight backwards',
+		exampleValue: '200ms cubic-bezier(0.16, 1, 0.3, 1) SlideIn100PercentRight backwards',
 		usageGuidelines: { usage: '', cssProperties: [] },
 	},
 	{
 		name: 'motion.panel.enter.left',
 		path: ['motion', 'panel', 'enter', 'left'],
 		description: 'Use for panel enter from the left.',
-		exampleValue: '250ms cubic-bezier(0, 0.4, 0, 1) SlideIn100PercentLeft backwards',
+		exampleValue: '200ms cubic-bezier(0.16, 1, 0.3, 1) SlideIn100PercentLeft backwards',
 		usageGuidelines: { usage: '', cssProperties: [] },
 	},
 	{
 		name: 'motion.panel.enter.right',
 		path: ['motion', 'panel', 'enter', 'right'],
 		description: 'Use for panel enter from the right.',
-		exampleValue: '250ms cubic-bezier(0, 0.4, 0, 1) SlideIn100PercentRight backwards',
+		exampleValue: '200ms cubic-bezier(0.16, 1, 0.3, 1) SlideIn100PercentRight backwards',
 		usageGuidelines: { usage: '', cssProperties: [] },
 	},
 	{
 		name: 'motion.panel.exit',
 		path: ['motion', 'panel', 'exit', '[default]'],
 		description: 'Use for panel exit transitions.',
-		exampleValue: '200ms cubic-bezier(0, 0.4, 0, 1) SlideOut100PercentRight forwards',
+		exampleValue: '200ms cubic-bezier(0.25, 1, 0.5, 1) SlideOut100PercentRight forwards',
 		usageGuidelines: { usage: '', cssProperties: [] },
 	},
 	{
 		name: 'motion.panel.exit.left',
 		path: ['motion', 'panel', 'exit', 'left'],
 		description: 'Use for panel exit towards the left.',
-		exampleValue: '200ms cubic-bezier(0, 0.4, 0, 1) SlideOut100PercentLeft forwards',
+		exampleValue: '200ms cubic-bezier(0.25, 1, 0.5, 1) SlideOut100PercentLeft forwards',
 		usageGuidelines: { usage: '', cssProperties: [] },
 	},
 	{
 		name: 'motion.panel.exit.right',
 		path: ['motion', 'panel', 'exit', 'right'],
 		description: 'Use for panel exit towards the right.',
-		exampleValue: '200ms cubic-bezier(0, 0.4, 0, 1) SlideOut100PercentRight forwards',
+		exampleValue: '200ms cubic-bezier(0.25, 1, 0.5, 1) SlideOut100PercentRight forwards',
 		usageGuidelines: { usage: '', cssProperties: [] },
 	},
 	{
@@ -548,28 +574,28 @@ export const tokens: Token[] = [
 		name: 'motion.sidenav.enter.left',
 		path: ['motion', 'sidenav', 'enter', 'left'],
 		description: 'Use for side nav enter from the left.',
-		exampleValue: '250ms cubic-bezier(0, 0.4, 0, 1) SlideIn100PercentLeft backwards',
+		exampleValue: '200ms cubic-bezier(0.16, 1, 0.3, 1) SlideIn100PercentLeft backwards',
 		usageGuidelines: { usage: '', cssProperties: [] },
 	},
 	{
 		name: 'motion.sidenav.enter.right',
 		path: ['motion', 'sidenav', 'enter', 'right'],
 		description: 'Use for side nav enter from the right.',
-		exampleValue: '250ms cubic-bezier(0, 0.4, 0, 1) SlideIn100PercentRight backwards',
+		exampleValue: '200ms cubic-bezier(0.16, 1, 0.3, 1) SlideIn100PercentRight backwards',
 		usageGuidelines: { usage: '', cssProperties: [] },
 	},
 	{
 		name: 'motion.sidenav.exit.left',
 		path: ['motion', 'sidenav', 'exit', 'left'],
 		description: 'Use for side nav exit towards the left.',
-		exampleValue: '200ms cubic-bezier(0, 0.4, 0, 1) SlideOut100PercentLeft forwards',
+		exampleValue: '200ms cubic-bezier(0.25, 1, 0.5, 1) SlideOut100PercentLeft forwards',
 		usageGuidelines: { usage: '', cssProperties: [] },
 	},
 	{
 		name: 'motion.sidenav.exit.right',
 		path: ['motion', 'sidenav', 'exit', 'right'],
 		description: 'Use for side nav exit towards the right.',
-		exampleValue: '200ms cubic-bezier(0, 0.4, 0, 1) SlideOut100PercentRight forwards',
+		exampleValue: '200ms cubic-bezier(0.25, 1, 0.5, 1) SlideOut100PercentRight forwards',
 		usageGuidelines: { usage: '', cssProperties: [] },
 	},
 	{

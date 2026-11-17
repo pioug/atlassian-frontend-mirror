@@ -13,6 +13,7 @@ export type LayoutAreaConfig = {
 	requestedWidth?: number;
 	defaultWidth: number;
 	compactDefaultWidth?: number;
+	xlDefaultWidth?: number;
 	minWidth: LayoutWidthBound;
 	maxWidth?: LayoutWidthBound;
 	isOpen: boolean;

@@ -7,7 +7,6 @@ import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import { useSmartLinkDestinationUrl } from '@atlaskit/smart-card/hook/use-smart-link-destination-url';
 
 type OpenLinkToolbarButtonProps = {
-	areAnyNewToolbarFlagsEnabled: boolean;
 	editorView: EditorView;
 	onClick: Command;
 	title: string;
@@ -23,7 +22,6 @@ type OpenLinkToolbarButtonProps = {
  */
 export const OpenLinkToolbarButton = ({
 	url,
-	areAnyNewToolbarFlagsEnabled,
 	editorView,
 	onClick,
 	title,
@@ -43,7 +41,6 @@ export const OpenLinkToolbarButton = ({
 			href={destinationUrl}
 			target="_blank"
 			onClick={handleClick}
-			areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 		/>
 	);
 };

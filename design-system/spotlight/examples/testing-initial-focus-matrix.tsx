@@ -28,20 +28,15 @@ import { SpotlightPrimaryAction } from '@atlaskit/spotlight/primary-action';
  *   move to the first focusable element inside the spotlight (the dismiss
  *   control in the header).
  *
- * - `autofocus-spotlight`: an interior `<input>` carries the native HTML
- *   `autofocus` attribute. Focus must land on that input.
+ * - `autofocus-spotlight`: an interior `<input>` has React `autoFocus`. The
+ *   spotlight shows before its content effects run, so the `focus()` calls
+ *   work. The dismiss control also has `autoFocus` (its default), but the
+ *   input comes later in the tree, so it focuses last and keeps focus.
  */
 export default function TestingInitialFocusMatrix(): React.ReactNode {
 	const [variant, setVariant] = useState<'none' | 'default' | 'autofocus'>('none');
 
 	const dismiss = useCallback(() => setVariant('none'), []);
-
-	const setNativeAutofocus = useCallback((node: HTMLInputElement | null) => {
-		if (node === null) {
-			return;
-		}
-		node.setAttribute('autofocus', '');
-	}, []);
 
 	return (
 		<Box padding="space.200">
@@ -78,7 +73,7 @@ export default function TestingInitialFocusMatrix(): React.ReactNode {
 										<input
 											id="autofocus-spotlight-input"
 											data-testid="autofocus-spotlight-input"
-											ref={setNativeAutofocus}
+											autoFocus
 											type="text"
 										/>
 									</>

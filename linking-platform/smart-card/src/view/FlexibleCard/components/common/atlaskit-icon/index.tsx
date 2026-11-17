@@ -4,7 +4,6 @@ import IconTile from '@atlaskit/icon/icon-tile';
 import type { IconTileProps } from '@atlaskit/icon/types';
 import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
 import { JiraIcon } from '@atlaskit/logo/jira-icon';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { transformSmartLinkSizeToIconTileSize } from '../../../../../common/ui/icons/transform-smart-link-size-to-icon-tile-size';
@@ -123,14 +122,8 @@ const AtlaskitIcon = ({
 					return <ImportedIcon label={label} testId={testId} color={color} />;
 				}
 
-				let appearance: IconTileProps['appearance'];
-				if (icon === IconType.Error || icon === IconType.Forbidden) {
-					appearance = 'redBold';
-				} else if (fg('platform_lp_non_bold_large_sl_icon')) {
-					appearance = 'gray';
-				} else {
-					appearance = 'grayBold';
-				}
+				const appearance: IconTileProps['appearance'] =
+					icon === IconType.Error || icon === IconType.Forbidden ? 'redBold' : 'gray';
 
 				const iconTileSize = transformSmartLinkSizeToIconTileSize(size);
 				if (iconTileSize) {

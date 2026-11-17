@@ -19,7 +19,6 @@ const customSizeAndPadding = {
 export interface Props {
 	appearance?: ButtonAppearance;
 	areaControls?: string;
-	areAnyNewToolbarFlagsEnabled: boolean;
 	ariaHasPopup?: boolean | 'dialog' | 'menu' | 'listbox' | 'tree' | 'grid' | undefined;
 	ariaLabel?: string;
 	children?: React.ReactNode;
@@ -94,7 +93,6 @@ const FloatingToolbarButton = (
 		isRadioButton,
 		isLoading,
 		pulse,
-		areAnyNewToolbarFlagsEnabled,
 	}: Props,
 	forwardedRef?: Ref<HTMLElement>,
 ): React.JSX.Element => {
@@ -177,7 +175,7 @@ const FloatingToolbarButton = (
 											state: themeProps.state,
 											mode: themeProps.mode,
 										})),
-									...(areAnyNewToolbarFlagsEnabled ? customSizeAndPadding : {}),
+									...customSizeAndPadding,
 								},
 								...rest,
 							};
@@ -189,7 +187,7 @@ const FloatingToolbarButton = (
 						role={isRadioButton ? 'radio' : undefined}
 						aria-expanded={ariaHasPopup ? selected : undefined}
 						aria-controls={ariaHasPopup ? areaControls : undefined}
-						spacing={areAnyNewToolbarFlagsEnabled ? 'default' : 'compact'}
+						spacing="default"
 						href={href}
 						target={target}
 						appearance={appearance}

@@ -34,13 +34,11 @@ export function PrimaryToolbarComponent({
 		blockTypesDisabled,
 		availableBlockTypes,
 		availableBlockTypesInDropdown,
-		formattingIsPresent,
 	} = useSharedPluginStateWithSelector(api, ['blockType'], (states) => ({
 		currentBlockType: states.blockTypeState?.currentBlockType,
 		blockTypesDisabled: states.blockTypeState?.blockTypesDisabled,
 		availableBlockTypes: states.blockTypeState?.availableBlockTypes,
 		availableBlockTypesInDropdown: states.blockTypeState?.availableBlockTypesInDropdown,
-		formattingIsPresent: states.blockTypeState?.formattingIsPresent,
 	}));
 
 	const boundSetBlockType = (name: TextBlockTypes, fromBlockQuote?: boolean) =>
@@ -63,7 +61,6 @@ export function PrimaryToolbarComponent({
 			blockTypesDisabled={blockTypesDisabled}
 			availableBlockTypes={availableBlockTypes}
 			availableBlockTypesInDropdown={availableBlockTypesInDropdown}
-			formattingIsPresent={formattingIsPresent}
 			popupsMountPoint={popupsMountPoint}
 			popupsBoundariesElement={popupsBoundariesElement}
 			popupsScrollableElement={popupsScrollableElement}

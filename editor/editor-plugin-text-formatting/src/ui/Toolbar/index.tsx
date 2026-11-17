@@ -23,18 +23,13 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-edi
 import type { TextFormattingState } from '@atlaskit/editor-common/types/text-formatting';
 import usePreviousState from '@atlaskit/editor-common/usePreviousState';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { compareItemsArrays, isArrayContainsContent } from '../../editor-commands/utils';
 import type { TextFormattingPlugin } from '../../textFormattingPluginType';
 import { FormattingTextDropdownMenu } from './dropdown-menu';
 import { useClearIcon } from './hooks/clear-formatting-icon';
-import { useFormattingIcons, useHasFormattingActived } from './hooks/formatting-icons';
-import {
-	useResponsiveIconTypeMenu,
-	useResponsiveToolbarButtons,
-} from './hooks/responsive-toolbar-buttons';
-import { MoreButton } from './more-button';
+import { useFormattingIcons } from './hooks/formatting-icons';
+import { useResponsiveToolbarButtons } from './hooks/responsive-toolbar-buttons';
 import { SingleToolbarButtons } from './single-toolbar-buttons';
 import type { MenuIconItem, ToolbarType } from './types';
 
@@ -85,15 +80,6 @@ const ToolbarFormatting = ({
 		intl,
 		editorAnalyticsAPI,
 		toolbarType,
-	});
-
-	const menuIconTypeList = useResponsiveIconTypeMenu({
-		toolbarSize,
-		responsivenessEnabled: shouldUseResponsiveToolbar,
-	});
-	const hasFormattingActive = useHasFormattingActived({
-		iconTypeList: menuIconTypeList,
-		textFormattingState,
 	});
 
 	const { dropdownItems, singleItems } = useResponsiveToolbarButtons({
@@ -164,8 +150,6 @@ const ToolbarFormatting = ({
 		return [{ items: dropdownItems }, { items: [clearIcon] }];
 	}, [clearIcon, dropdownItems]);
 
-	const moreFormattingButtonLabel = intl.formatMessage(toolbarMessages.moreFormatting);
-
 	const labelTextFormat = intl.formatMessage(toolbarMessages.textFormatting);
 
 	useEffect(() => {
@@ -201,35 +185,17 @@ const ToolbarFormatting = ({
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage
 					css={wrapperStyle}
 				>
-					{isToolbarDisabled && !editorExperiment('platform_editor_controls', 'variant1') ? (
-						<div>
-							<MoreButton
-								label={moreFormattingButtonLabel}
-								isReducedSpacing={isReducedSpacing}
-								isDisabled={true}
-								isSelected={false}
-								aria-expanded={undefined}
-								aria-pressed={undefined}
-							/>
-						</div>
-					) : (
-						<FormattingTextDropdownMenu
-							popupsMountPoint={popupsMountPoint}
-							popupsBoundariesElement={popupsBoundariesElement}
-							popupsScrollableElement={popupsScrollableElement}
-							editorView={editorView}
-							isReducedSpacing={isReducedSpacing}
-							moreButtonLabel={moreFormattingButtonLabel}
-							hasFormattingActive={hasFormattingActive}
-							hasMoreButton={!editorExperiment('platform_editor_controls', 'variant1')}
-							items={items}
-							intl={intl}
-							toolbarType={toolbarType}
-							isDisabled={
-								editorExperiment('platform_editor_controls', 'variant1') ? isToolbarDisabled : false
-							}
-						/>
-					)}
+					<FormattingTextDropdownMenu
+						popupsMountPoint={popupsMountPoint}
+						popupsBoundariesElement={popupsBoundariesElement}
+						popupsScrollableElement={popupsScrollableElement}
+						editorView={editorView}
+						isReducedSpacing={isReducedSpacing}
+						items={items}
+						intl={intl}
+						toolbarType={toolbarType}
+						isDisabled={isToolbarDisabled}
+					/>
 				</span>
 			</div>
 			{!api?.primaryToolbar && (

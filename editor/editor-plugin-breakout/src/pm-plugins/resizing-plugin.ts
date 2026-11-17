@@ -1,5 +1,6 @@
 import type { IntlShape } from 'react-intl';
 
+import { tintDirtyTransaction } from '@atlaskit/editor-common/collab';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
 import { isNativeEmbedExtension } from '@atlaskit/editor-common/extensibility/native-embed';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
@@ -322,6 +323,9 @@ export const createResizingPlugin = (
 				});
 
 				if (hasDocChanged) {
+					// Tint as dirty: this load-time repair isn't a user edit, and tracking it as a local
+					// organic change makes hosts autosave, e.g. a live doc gets a new version from a viewer.
+					tintDirtyTransaction(newTr);
 					editorView.dispatch(newTr.setMeta('addToHistory', false));
 				}
 			};

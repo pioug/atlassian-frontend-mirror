@@ -1,5 +1,23 @@
 # @atlaskit/editor-shared-styles
 
+## 5.2.0
+
+### Minor Changes
+
+- [`f039487b0e531`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f039487b0e531) -
+  Remove the unused `@atlaskit/tmp-editor-statsig` dependency left over from the
+  `platform_editor_controls` experiment cleanup. Remove the dead toolbar code that the cleanup left
+  behind: unused component props, the text formatting More button, and primary toolbar find group
+  configuration that never rendered.
+
+## 5.1.7
+
+### Patch Changes
+
+- [`dc4bf5ef54cd1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dc4bf5ef54cd1) -
+  Remove the `control` branches of experiment `platform_editor_controls`; the editor controls
+  (`variant1`) experience is now permanent.
+
 ## 5.1.6
 
 ### Patch Changes

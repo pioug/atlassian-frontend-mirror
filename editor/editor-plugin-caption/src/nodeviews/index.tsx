@@ -18,7 +18,6 @@ import type { getPosHandler, getPosHandlerNode } from '@atlaskit/editor-common/t
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { CaptionPlugin } from '../captionPluginType';
 
@@ -127,9 +126,7 @@ export class CaptionNodeView extends SelectionBasedNodeView {
 	}
 
 	destroy(): void {
-		if (isExperimentEnabled('platform_editor_reduce_memory_leaks')) {
-			super.destroy();
-		}
+		super.destroy();
 
 		if (this.cleanupEditorDisabledListener) {
 			this.cleanupEditorDisabledListener();

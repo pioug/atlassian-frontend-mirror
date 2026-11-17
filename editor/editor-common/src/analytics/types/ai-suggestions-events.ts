@@ -3,6 +3,8 @@ import type { OperationalAEP, TrackAEP } from './utils';
 
 export enum AiSuggestionsEntryPointValue {
 	PRIMARY_TOOLBAR = 'primaryToolbar',
+	/** Content Reviewer quick action in the Rovo Chat editor empty state. */
+	ROVO_CHAT = 'rovoChat',
 	/**
 	 * @private
 	 * @deprecated Legacy entry point retained for backwards compatibility.

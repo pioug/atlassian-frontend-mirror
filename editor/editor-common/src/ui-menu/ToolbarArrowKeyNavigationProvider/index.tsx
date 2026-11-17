@@ -395,7 +395,6 @@ function getFilteredFocusableElements(rootNode: HTMLElement | null): Array<HTMLE
 			!elm.closest('[data-emoji-picker-container="true"]') &&
 			!elm.closest('[data-test-id="color-picker-menu"]') &&
 			!elm.closest('[data-keyboard-navigation-independent]') &&
-			!elm.closest('.scroll-buttons') &&
 			!isHiddenOrDisabled
 		);
 	});

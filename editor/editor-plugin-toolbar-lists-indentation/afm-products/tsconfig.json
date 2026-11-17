@@ -56,6 +56,9 @@
 			"path": "../../editor-plugin-toolbar/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-user-preferences/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-prosemirror/afm-products/tsconfig.json"
 		},
 		{
@@ -72,9 +75,6 @@
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
-		},
-		{
-			"path": "../../tmp-editor-statsig/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/tokens/afm-products/tsconfig.json"

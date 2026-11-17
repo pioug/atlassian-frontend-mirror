@@ -242,7 +242,7 @@ export { gridTypeForLayout } from './grid';
  *
  * Use `@atlaskit/editor-common/utils/document` entry-point instead.
  */
-export { nodesBetweenChanged, bracketTyped, getChangedNodes } from './document';
+export { nodesBetweenChanged, getChangedNodes } from './document';
 export { getStepRange } from './getStepRange';
 export { hasDocAsParent } from './hasDocAsParent';
 export { hasVisibleContent } from './hasVisibleContent';

@@ -325,12 +325,22 @@ const motion: AttributeSchema<MotionTokenSchema<MotionPaletteToken>> = {
 				},
 			},
 			content: {
+				open: {
+					attributes: {
+						group: 'motion',
+						state: 'active',
+						introduced: '20.12.0',
+						description:
+							'Use to fade in content when a panel opens. Includes a delay to coordinate with the panel entrance animation. For replacement content in an open panel, use motion.panel.content.enter.',
+					},
+				},
 				enter: {
 					attributes: {
 						group: 'motion',
 						state: 'active',
 						introduced: '16.6.0',
-						description: 'Use for panel content enter.',
+						description:
+							'Use to fade in replacement content within an open panel, without an opening delay. For content appearing when the panel opens, use motion.panel.content.open.',
 					},
 				},
 				exit: {
@@ -338,7 +348,8 @@ const motion: AttributeSchema<MotionTokenSchema<MotionPaletteToken>> = {
 						group: 'motion',
 						state: 'active',
 						introduced: '16.6.0',
-						description: 'Use for panel content exit.',
+						description:
+							'Use to fade out panel content before it is replaced or as the panel closes. This animates the content; use motion.panel.exit to animate the panel surface.',
 					},
 				},
 			},

@@ -164,6 +164,12 @@ const EmbedModal = ({
 		if (!isOpen || !fg('platform_sl_embed_modal_escape_isolation')) {
 			return;
 		}
+		// On the top-layer path, the modal's `Dialog` owns Escape: it takes an Escape only while it is
+		// the layer in front, and it stops the browser's close request. This handler would stop the
+		// Escape before `Dialog` sees it.
+		if (fg('platform-dst-top-layer')) {
+			return;
+		}
 		const isInsideDialog = (node: EventTarget | null) =>
 			node instanceof Node && Boolean(dialogRef.current?.contains(node));
 

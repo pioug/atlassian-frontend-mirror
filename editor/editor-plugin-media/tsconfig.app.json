@@ -128,9 +128,6 @@
 			"path": "../editor-tables/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/form/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{

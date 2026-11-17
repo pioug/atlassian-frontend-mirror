@@ -17,7 +17,6 @@ import {
 	calculateToolbarPositionTrackHead,
 } from '@atlaskit/editor-common/utils/calculate-toolbar-position';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { toggleToolbar, updateToolbarDocking } from './pm-plugins/commands';
 import { getSelectionNodeTypes } from './pm-plugins/get-selection-node-types';
@@ -39,7 +38,7 @@ const getToolbarDocking = (
 	contextualFormattingEnabled: boolean | undefined,
 	userPreferencesProvider: UserPreferencesProvider | undefined,
 ): ToolbarDocking => {
-	if (contextualFormattingEnabled && editorExperiment('platform_editor_controls', 'variant1')) {
+	if (contextualFormattingEnabled) {
 		return userPreferencesProvider?.getPreference('toolbarDockingInitialPosition') ?? 'none';
 	}
 	return 'top';
@@ -49,7 +48,7 @@ const getToolbarDockingV2 = (
 	contextualFormattingEnabled: boolean | undefined,
 	dockingPreference: ToolbarDocking | undefined,
 ) => {
-	if (contextualFormattingEnabled && editorExperiment('platform_editor_controls', 'variant1')) {
+	if (contextualFormattingEnabled) {
 		return dockingPreference ?? 'none';
 	}
 	return 'top';
@@ -70,16 +69,14 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 			api?.toolbar?.actions.registerComponents(getToolbarComponents(api, true, disablePin));
 		}
 	} else {
-		if (editorExperiment('platform_editor_controls', 'variant1', { exposure: true })) {
-			primaryToolbarComponent = ({ disabled }) => {
-				return <PrimaryToolbarComponent api={api} disabled={disabled} />;
-			};
+		primaryToolbarComponent = ({ disabled }) => {
+			return <PrimaryToolbarComponent api={api} disabled={disabled} />;
+		};
 
-			api?.primaryToolbar?.actions.registerComponent({
-				name: 'pinToolbar',
-				component: primaryToolbarComponent,
-			});
-		}
+		api?.primaryToolbar?.actions.registerComponent({
+			name: 'pinToolbar',
+			component: primaryToolbarComponent,
+		});
 	}
 
 	let previousToolbarDocking: ToolbarDocking | null =
@@ -310,26 +307,21 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 						const { selectionStable, hide, toolbarDocking, isBlockMenuOpen } =
 							selectionToolbarPluginKey.getState(state) as SelectionToolbarPluginState;
 
+						// $anchorCell is only available in CellSelection, this check is to
+						// avoid importing CellSelection from @atlaskit/editor-tables
 						const isCellSelection = '$anchorCell' in state.selection;
-						const isEditorControlsEnabled = editorExperiment(
-							'platform_editor_controls',
-							'variant1',
-						);
 						if (
 							state.selection.empty ||
 							!selectionStable ||
 							hide ||
-							state.selection instanceof NodeSelection ||
-							// $anchorCell is only available in CellSelection, this check is to
-							// avoid importing CellSelection from @atlaskit/editor-tables
-							(isCellSelection && !isEditorControlsEnabled) // for Editor Controls we want to show the toolbar on CellSelection
+							state.selection instanceof NodeSelection
 						) {
 							// If there is no active selection, or the selection is not stable, or the selection is a node selection,
 							// do not show the toolbar.
 							return;
 						}
 
-						if (isCellSelection && isEditorControlsEnabled) {
+						if (isCellSelection) {
 							const isSelectedViaDragHandle =
 								api?.blockControls?.sharedState.currentState()?.isSelectedViaDragHandle;
 							if (isSelectedViaDragHandle) {
@@ -337,7 +329,7 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 							}
 						}
 
-						if (isBlockMenuOpen && isEditorControlsEnabled) {
+						if (isBlockMenuOpen) {
 							// If the block menu is open, do not show the selection toolbar.
 							return;
 						}
@@ -370,20 +362,14 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 								items.push(...resolved[i].items);
 							}
 
-							if (editorExperiment('platform_editor_controls', 'variant1')) {
-								if (resolved[i] && resolved[i + 1]) {
-									if (resolved[i + 1]?.pluginName === 'annotation') {
-										items.push({ type: 'separator', fullHeight: true });
-									}
-								}
-							} else {
-								if (i !== resolved.length - 1) {
-									items.push({ type: 'separator' });
+							if (resolved[i] && resolved[i + 1]) {
+								if (resolved[i + 1]?.pluginName === 'annotation') {
+									items.push({ type: 'separator', fullHeight: true });
 								}
 							}
 						}
 
-						if (items.length > 0 && contextualFormattingEnabled && isEditorControlsEnabled) {
+						if (items.length > 0 && contextualFormattingEnabled) {
 							const toolbarDockingPref = api?.userPreferences
 								? api?.userPreferences?.sharedState.currentState()?.preferences
 										?.toolbarDockingPosition
@@ -397,7 +383,7 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 						let onPositionCalculated;
 						const toolbarTitle = 'Selection toolbar';
 
-						if (isCellSelection && isEditorControlsEnabled) {
+						if (isCellSelection) {
 							onPositionCalculated = calculateToolbarPositionOnCellSelection(toolbarTitle);
 						} else {
 							const calcToolbarPosition = config.preferenceToolbarAboveSelection
@@ -413,17 +399,13 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = ({ api, config }) 
 							title: 'Selection toolbar',
 							nodeType: nodeType,
 							items: items,
-							...(isEditorControlsEnabled && { scrollable: true }),
+							scrollable: true,
 							onPositionCalculated,
 						};
 					},
 				},
 
-		primaryToolbarComponent:
-			!api?.primaryToolbar &&
-			editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
-				? primaryToolbarComponent
-				: undefined,
+		primaryToolbarComponent: !api?.primaryToolbar ? primaryToolbarComponent : undefined,
 	};
 };
 

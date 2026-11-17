@@ -267,24 +267,24 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 			enter: {
 				'[default]': {
 					value: {
-						duration: 'Duration250',
-						curve: 'EaseBoldOut',
+						duration: 'Duration200',
+						curve: 'EaseExpoOut',
 						keyframes: ['SlideIn100PercentRight'],
 						fill: 'AnimationFillModeBackwards',
 					},
 				},
 				left: {
 					value: {
-						duration: 'Duration250',
-						curve: 'EaseBoldOut',
+						duration: 'Duration200',
+						curve: 'EaseExpoOut',
 						keyframes: ['SlideIn100PercentLeft'],
 						fill: 'AnimationFillModeBackwards',
 					},
 				},
 				right: {
 					value: {
-						duration: 'Duration250',
-						curve: 'EaseBoldOut',
+						duration: 'Duration200',
+						curve: 'EaseExpoOut',
 						keyframes: ['SlideIn100PercentRight'],
 						fill: 'AnimationFillModeBackwards',
 					},
@@ -294,7 +294,7 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 				'[default]': {
 					value: {
 						duration: 'Duration200',
-						curve: 'EaseBoldOut',
+						curve: 'EaseQuartOut',
 						keyframes: ['SlideOut100PercentRight'],
 						fill: 'AnimationFillModeForwards',
 					},
@@ -302,7 +302,7 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 				left: {
 					value: {
 						duration: 'Duration200',
-						curve: 'EaseBoldOut',
+						curve: 'EaseQuartOut',
 						keyframes: ['SlideOut100PercentLeft'],
 						fill: 'AnimationFillModeForwards',
 					},
@@ -310,13 +310,22 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 				right: {
 					value: {
 						duration: 'Duration200',
-						curve: 'EaseBoldOut',
+						curve: 'EaseQuartOut',
 						keyframes: ['SlideOut100PercentRight'],
 						fill: 'AnimationFillModeForwards',
 					},
 				},
 			},
 			content: {
+				open: {
+					value: {
+						duration: 'Duration150',
+						curve: 'EaseExpoOut',
+						keyframes: ['FadeIn0to100'],
+						delay: 'Duration100',
+						fill: 'AnimationFillModeBackwards',
+					},
+				},
 				enter: {
 					value: {
 						duration: 'Duration150',
@@ -339,16 +348,16 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 			enter: {
 				left: {
 					value: {
-						duration: 'Duration250',
-						curve: 'EaseBoldOut',
+						duration: 'Duration200',
+						curve: 'EaseExpoOut',
 						keyframes: ['SlideIn100PercentLeft'],
 						fill: 'AnimationFillModeBackwards',
 					},
 				},
 				right: {
 					value: {
-						duration: 'Duration250',
-						curve: 'EaseBoldOut',
+						duration: 'Duration200',
+						curve: 'EaseExpoOut',
 						keyframes: ['SlideIn100PercentRight'],
 						fill: 'AnimationFillModeBackwards',
 					},
@@ -358,7 +367,7 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 				left: {
 					value: {
 						duration: 'Duration200',
-						curve: 'EaseBoldOut',
+						curve: 'EaseQuartOut',
 						keyframes: ['SlideOut100PercentLeft'],
 						fill: 'AnimationFillModeForwards',
 					},
@@ -366,7 +375,7 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 				right: {
 					value: {
 						duration: 'Duration200',
-						curve: 'EaseBoldOut',
+						curve: 'EaseQuartOut',
 						keyframes: ['SlideOut100PercentRight'],
 						fill: 'AnimationFillModeForwards',
 					},

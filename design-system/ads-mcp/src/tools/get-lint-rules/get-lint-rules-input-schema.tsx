@@ -2,13 +2,14 @@
 
 import { z } from 'zod';
 
+import { searchTermsSchema, type SearchTermsSchema } from '../../helpers/search-terms-schema';
+
 export const getLintRulesInputSchema: z.ZodObject<{
-	terms: z.ZodOptional<z.ZodDefault<z.ZodArray<z.ZodString, 'many'>>>;
+	terms: z.ZodOptional<z.ZodDefault<SearchTermsSchema>>;
 	limit: z.ZodOptional<z.ZodDefault<z.ZodNumber>>;
 	exactName: z.ZodOptional<z.ZodDefault<z.ZodBoolean>>;
 }> = z.object({
-	terms: z
-		.array(z.string())
+	terms: searchTermsSchema
 		.default([])
 		.describe(
 			'Search terms matched against rule name, description, and docs body (fuzzy unless \`exactName\` is true). Example: `["icon-label", "xcss", "design token"]`. Omit or empty: return **all** rules as JSON.',

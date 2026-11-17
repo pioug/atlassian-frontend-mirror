@@ -55,22 +55,17 @@ export type InteractionGroupSnapshot = {
 	totalCount: number;
 };
 
-/**
- * One session-to-date snapshot. Consumers take the highest `seq` per
- * `interactivitySessionId` and then sum bucket counts across sessions.
- */
-export type InteractivitySnapshot = {
+/** What the collector measured. */
+export type CollectedSnapshot = {
 	activeMs: number;
 	/** The three editor groups as one; a percentile of the union cannot be derived from theirs. */
 	editor: InteractionGroupSnapshot;
-	editorDomSize?: number;
 	/** Interactions inside the editor that are neither typing nor pointing. */
 	editorOther: InteractionGroupSnapshot;
 	editorPointer: InteractionGroupSnapshot;
 	editorTyping: InteractionGroupSnapshot;
 	hiddenMs: number;
 	interactivitySessionId: string;
-	nodeSize?: number;
 	objectId?: string;
 	/** Every interaction on the page, the editor groups included. */
 	page: InteractionGroupSnapshot;
@@ -79,4 +74,13 @@ export type InteractivitySnapshot = {
 	seq: number;
 	/** Fixed for the whole session: a mode change closes it and opens the next. */
 	sessionMode?: SessionMode;
+};
+
+/**
+ * One session-to-date snapshot. Consumers take the highest `seq` per
+ * `interactivitySessionId` and then sum bucket counts across sessions.
+ */
+export type InteractivitySnapshot = CollectedSnapshot & {
+	editorDomSize?: number;
+	nodeSize?: number;
 };

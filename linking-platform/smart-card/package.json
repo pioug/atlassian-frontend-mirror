@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "46.15.0",
+	"version": "46.18.2",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -38,6 +38,7 @@
 		"ak-postbuild": "ls -d dist/* | xargs -n 1 copyfiles -u 1 -V 'src/**/*.{svg,png}'"
 	},
 	"dependencies": {
+		"@atlaskit/adf-schema": "workspace:^",
 		"@atlaskit/adf-utils": "workspace:^",
 		"@atlaskit/afm-i18n-platform-linking-platform-smart-card": "root:*",
 		"@atlaskit/analytics-cross-product": "workspace:^",
@@ -141,9 +142,11 @@
 		"@atlassian/experiment-test-utils": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/gemini": "workspace:^",
+		"@atlassian/ipm-choreographer": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
 		"@atlassian/workbench": "workspace:*",
+		"@atlassiansox/analytics-web-client": "workspace:^",
 		"@testing-library/dom": "root:*",
 		"@testing-library/jest-dom": "root:*",
 		"@testing-library/react": "root:*",

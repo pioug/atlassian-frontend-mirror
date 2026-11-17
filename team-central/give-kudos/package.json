@@ -72,6 +72,7 @@
 	},
 	"devDependencies": {
 		"@af/integration-testing": "workspace:^",
+		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/flag": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",

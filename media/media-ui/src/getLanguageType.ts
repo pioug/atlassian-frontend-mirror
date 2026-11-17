@@ -1,5 +1,4 @@
 import type { SupportedLanguages } from '@atlaskit/code/constants';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { getExtension } from './getExtension';
 
@@ -168,10 +167,9 @@ export function getLanguageType(name: string, mimetype?: string): SupportedLangu
 				const base = mimeTypeBase(mimetype);
 				const isPatchExt = ['patch', 'diff'].includes(ext.toLowerCase());
 				if (
-					(base === 'text/plain' ||
-						TEXTUAL_PATCH_MIME_TYPES.has(base) ||
-						(isPatchExt && PATCH_ONLY_MIME_TYPES.has(base))) &&
-					fg('platform_media_patch_text_preview')
+					base === 'text/plain' ||
+					TEXTUAL_PATCH_MIME_TYPES.has(base) ||
+					(isPatchExt && PATCH_ONLY_MIME_TYPES.has(base))
 				) {
 					return 'text';
 				}

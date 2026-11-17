@@ -1,10 +1,8 @@
 import type { DocNode } from '@atlaskit/adf-schema/doc';
 import { hasDocAsParent, isEmptyDocument, isEmptyParagraph } from '@atlaskit/editor-common/utils';
-import { bracketTyped } from '@atlaskit/editor-common/utils/document';
 import { getBaseNodeTypeName } from '@atlaskit/editor-common/utils/node-type-utils';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { pluginKey } from '../placeholderPlugin';
@@ -83,7 +81,6 @@ export function createPlaceHolderStateFrom({
 	isTypeAheadOpen,
 	defaultPlaceholderText,
 	intl,
-	bracketPlaceholderText,
 	emptyLinePlaceholder,
 	placeholderADF,
 	placeholderPrompts,
@@ -166,7 +163,7 @@ export function createPlaceHolderStateFrom({
 		}
 	}
 
-	if (isEditorFocused && editorExperiment('platform_editor_controls', 'variant1')) {
+	if (isEditorFocused) {
 		const { $from, $to } = editorState.selection;
 
 		if ($from.pos !== $to.pos) {
@@ -241,19 +238,6 @@ export function createPlaceHolderStateFrom({
 		return emptyPlaceholder({
 			placeholderText: defaultPlaceholderText,
 			placeholderPrompts,
-			userHadTyped,
-		});
-	}
-
-	if (bracketPlaceholderText && bracketTyped(editorState) && isEditorFocused) {
-		const { $from } = editorState.selection;
-		// Space is to account for positioning of the bracket
-		const bracketHint = '  ' + bracketPlaceholderText;
-		return setPlaceHolderState({
-			placeholderText: bracketHint,
-			pos: $from.pos - 1,
-			placeholderPrompts,
-			typedAndDeleted,
 			userHadTyped,
 		});
 	}

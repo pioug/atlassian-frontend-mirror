@@ -528,6 +528,38 @@ describe('ModalDialog top-layer rendering', () => {
 		expect(onCloseComplete).not.toHaveBeenCalled();
 	});
 
+	it('should forward a ref object to the native <dialog> element', () => {
+		passGate('platform-dst-top-layer');
+		const ref = React.createRef<HTMLElement>();
+
+		render(
+			<ModalDialog ref={ref} testId="modal" onClose={noop}>
+				<ModalBody>Content</ModalBody>
+			</ModalDialog>,
+		);
+
+		const dialog = screen.getByTestId('modal');
+		expect(dialog.tagName).toBe('DIALOG');
+		expect(ref.current).toBe(dialog);
+	});
+
+	it('should forward a callback ref to the native <dialog> element, and clear it on unmount', () => {
+		passGate('platform-dst-top-layer');
+		const callbackRef = jest.fn();
+
+		const { unmount } = render(
+			<ModalDialog ref={callbackRef} testId="modal" onClose={noop}>
+				<ModalBody>Content</ModalBody>
+			</ModalDialog>,
+		);
+
+		expect(callbackRef).toHaveBeenLastCalledWith(screen.getByTestId('modal'));
+
+		unmount();
+
+		expect(callbackRef).toHaveBeenLastCalledWith(null);
+	});
+
 	describe('open modal layer', () => {
 		it('should keep counting as an open modal when the dialog closes without Dialog asking', async () => {
 			passGate('platform-dst-top-layer');

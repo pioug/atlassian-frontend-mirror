@@ -261,7 +261,7 @@ const CategorySelector = (props: Props): JSX.Element => {
 								onKeyDown={handleKeyDown}
 								role="tab"
 							>
-								<Icon label={categoryName} />
+								<Icon label={fg('platform_ally_emoji_fixes_various') ? '' : categoryName} />
 							</Pressable>
 						</Tooltip>
 					);

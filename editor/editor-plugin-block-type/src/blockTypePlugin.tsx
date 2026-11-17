@@ -31,7 +31,6 @@ import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types/to
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { BlockTypePlugin } from './blockTypePluginType';
 import type { TextBlockTypes } from './pm-plugins/block-types';
@@ -289,10 +288,7 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 					const toolbarDocking =
 						api?.userPreferences?.sharedState.currentState()?.preferences?.toolbarDockingPosition;
 
-					if (
-						toolbarDocking === 'none' &&
-						editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
-					) {
+					if (toolbarDocking === 'none') {
 						const toolbarCustom: FloatingToolbarCustom<Command> = {
 							type: 'custom',
 							render: (view, _idx, _dispatchAnalyticsEvent) => {

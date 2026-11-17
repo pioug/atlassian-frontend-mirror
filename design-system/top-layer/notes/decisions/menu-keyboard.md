@@ -44,6 +44,11 @@ menu component (not the overlay) is responsible for:
 Tab/Shift+Tab move focus **out** of the menu entirely — they do not navigate between items. This is
 already handled correctly by `useFocusWrap` excluding `menu` from focus wrapping.
 
+Inside a dialog, an open menu is part of the dialog's Tab order (a menu does not own its focus, see
+[`role-and-focus.md`](./role-and-focus.md#nested-layers-and-tab-does-the-layer-own-its-focus)). So
+`useArrowNavigation` closes the menu on Tab before the dialog's focus wrap handles the key. Focus
+returns to the trigger, and Tab moves on from there to the next element of the dialog.
+
 ### 3. All major design systems separate these concerns
 
 Radix, React Aria, Headless UI, and Chakra all implement menu keyboard behavior at the **menu

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-loom",
-	"version": "33.0.0",
+	"version": "35.0.0",
 	"description": "Loom plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -43,6 +43,7 @@
 		"@atlaskit/editor-plugin-width": "workspace:^",
 		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/editor-toolbar": "workspace:^",
+		"@atlaskit/editor-toolbar-model": "workspace:^",
 		"@atlaskit/editor-ui-control-model": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/platform-feature-experiments": "workspace:^",
@@ -59,6 +60,7 @@
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
+		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/editor-core": "workspace:^",
 		"@atlaskit/editor-plugin-type-ahead": "workspace:^",
@@ -66,6 +68,7 @@
 		"@atlaskit/popup": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
 		"@atlaskit/spinner": "workspace:^",
+		"@atlassian/workbench": "workspace:^",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0",
 		"react-intl": "root:*"

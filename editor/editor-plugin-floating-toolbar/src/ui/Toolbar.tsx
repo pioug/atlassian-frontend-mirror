@@ -22,7 +22,6 @@ import Button from '@atlaskit/editor-common/FloatingToolbar/Button';
 import Separator from '@atlaskit/editor-common/FloatingToolbar/Separator';
 import commonMessages from '@atlaskit/editor-common/messages';
 import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
-import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type { SelectOption } from '@atlaskit/editor-common/types/floating-toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { backgroundPaletteTooltipMessages } from '@atlaskit/editor-common/ui-color/ColorPalette/paletteMessagesTokenModeNames';
@@ -44,7 +43,6 @@ import { EmojiPickerButton } from './EmojiPickerButton';
 import { ExtensionsPlaceholder } from './ExtensionsPlaceholder';
 import { Input } from './Input';
 import { ScrollButton } from './ScrollButton';
-import { ScrollButtons } from './ScrollButtons';
 import Select from './Select';
 
 export interface Props {
@@ -73,7 +71,7 @@ export interface Props {
 type GroupedItems = (Item | Item[])[];
 
 // eslint-disable-next-line jsdoc/require-jsdoc
-export function groupItems(items: Item[], areAnyNewToolbarFlagsEnabled: boolean): GroupedItems {
+export function groupItems(items: Item[]): GroupedItems {
 	const groupItems = items.reduce(
 		(
 			accumulator: {
@@ -106,7 +104,7 @@ export function groupItems(items: Item[], areAnyNewToolbarFlagsEnabled: boolean)
 				} else {
 					finalOutput.push(item);
 				}
-			} else if (item.type === 'separator' && areAnyNewToolbarFlagsEnabled) {
+			} else if (item.type === 'separator') {
 				const isLeadingSeparator = i === 0;
 				const isTrailingSeparator = i === items.length - 1;
 				const isDuplicateSeparator = items[i - 1]?.type === 'separator';
@@ -160,8 +158,6 @@ const ToolbarItems = React.memo(
 				editorView?.dom.closest('.ak-editor-content-area') ||
 				undefined
 			: popupsMountPoint;
-
-		const areAnyNewToolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(api?.toolbar));
 
 		const renderItem = (item: Item, idx: number) => {
 			switch (item.type) {
@@ -234,7 +230,6 @@ const ToolbarItems = React.memo(
 							ariaLabel={item?.ariaLabel}
 							pulse={item.pulse}
 							interactionName={item.interactionName}
-							areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 						>
 							{item.showTitle && item.title}
 						</Button>
@@ -285,7 +280,7 @@ const ToolbarItems = React.memo(
 
 					return (
 						<Dropdown
-							alignX={areAnyNewToolbarFlagsEnabled ? 'right' : undefined}
+							alignX="right"
 							key={idx}
 							title={intl.formatMessage(commonMessages.viewMore)}
 							icon={<ShowMoreHorizontalIcon label="" spacing="spacious" />}
@@ -305,7 +300,6 @@ const ToolbarItems = React.memo(
 							dropdownListId={item?.id && `${item.id}-dropdownList`}
 							alignDropdownWithToolbar={items.length === 1}
 							onClick={item.onClick}
-							areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 						/>
 					);
 
@@ -339,7 +333,6 @@ const ToolbarItems = React.memo(
 							onClick={item.onClick}
 							pulse={item.pulse}
 							shouldFitContainer={item.shouldFitContainer}
-							areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 						/>
 					);
 
@@ -439,29 +432,16 @@ const ToolbarItems = React.memo(
 							popupsScrollableElement={popupsScrollableElement}
 							alignDropdownWithToolbar={items.length === 1}
 							scrollable={scrollable}
-							areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 						/>
 					);
 				case 'separator':
-					if (areAnyNewToolbarFlagsEnabled) {
-						return item.fullHeight ? (
-							<Separator key={idx} fullHeight={true} areAnyNewToolbarFlagsEnabled={true} />
-						) : null;
-					}
-					return (
-						<Separator
-							key={idx}
-							fullHeight={item.fullHeight}
-							areAnyNewToolbarFlagsEnabled={false}
-						/>
-					);
+					return item.fullHeight ? <Separator key={idx} fullHeight={true} /> : null;
 			}
 		};
 
 		const groupedItems = groupItems(
 			// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
 			items.filter((item) => !item.hidden),
-			areAnyNewToolbarFlagsEnabled,
 		);
 
 		return (
@@ -475,7 +455,7 @@ const ToolbarItems = React.memo(
 								// Ignored via go/ees005
 								// eslint-disable-next-line react/no-array-index-key
 								key={index}
-								css={areAnyNewToolbarFlagsEnabled ? buttonGroupStylesNew : buttonGroupStyles}
+								css={buttonGroupStyles}
 								role="radiogroup"
 								aria-label={groupLabel ?? undefined}
 								data-testid="editor-floating-toolbar-grouped-buttons"
@@ -516,11 +496,6 @@ const ToolbarItems = React.memo(
 
 const buttonGroupStyles = css({
 	display: 'flex',
-	gap: token('space.050'),
-});
-
-const buttonGroupStylesNew = css({
-	display: 'flex',
 	gap: token('space.075'),
 });
 
@@ -537,7 +512,6 @@ const toolbarContainerBase = css({
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const toolbarContainer = (
-	areAnyNewToolbarFlagsEnabled: boolean,
 	scrollable?: boolean,
 	hasSelect?: boolean,
 	firstElementIsSelect?: boolean,
@@ -575,38 +549,21 @@ const toolbarContainer = (
 							overflow: 'hidden',
 						},
 					)
-				: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-					areAnyNewToolbarFlagsEnabled
-					? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-						css(
-							{
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-								padding: `${token('space.0')} 4px ${token('space.0')} 4px`,
-							},
+				: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+					css(
+						{
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-							firstElementIsSelect &&
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-								css({
-									paddingLeft: token('space.050'),
-								}),
-						)
-					: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-						css(
-							{
-								padding: `${token('space.050')} ${token('space.100')}`,
-							},
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-							firstElementIsSelect &&
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-								css({
-									paddingLeft: token('space.050'),
-								}),
-						),
+							padding: `${token('space.0')} 4px ${token('space.0')} 4px`,
+						},
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+						firstElementIsSelect &&
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+							css({
+								paddingLeft: token('space.050'),
+							}),
+					),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-		areAnyNewToolbarFlagsEnabled
-			? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-				css({ minHeight: token('space.500') })
-			: undefined,
+		css({ minHeight: token('space.500') }),
 	);
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
@@ -614,9 +571,7 @@ const toolbarOverflow = ({
 	scrollable,
 	scrollDisabled,
 	firstElementIsSelect,
-	areAnyNewToolbarFlagsEnabled,
 }: {
-	areAnyNewToolbarFlagsEnabled: boolean;
 	firstElementIsSelect?: boolean;
 	scrollable?: boolean;
 	scrollDisabled?: boolean;
@@ -636,7 +591,7 @@ const toolbarOverflow = ({
 							css({
 								overflowX: 'auto',
 								overflowY: 'hidden',
-								// When scrollable is true, ScrollButtons will be shown, hence we want to hide show default horizontal scrollbar
+								// When scrollable is true, ScrollButton will be shown, hence we want to hide show default horizontal scrollbar
 								scrollbarWidth: 'none',
 							}),
 					{
@@ -662,26 +617,23 @@ const toolbarOverflow = ({
 						},
 					},
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-					areAnyNewToolbarFlagsEnabled
-						? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-							css({
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-								padding: `${token('space.0')} 4px ${token('space.600')} 4px`,
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-								'> div': {
-									minHeight: token('space.500'),
-									gap: token('space.075'),
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-									'> div:first-child': {
-										marginLeft: 0,
-									},
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-									'> div:nth-last-child(1 of :not(:where([popover], dialog)))': {
-										marginRight: 0,
-									},
-								},
-							})
-						: undefined,
+					css({
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+						padding: `${token('space.0')} 4px ${token('space.600')} 4px`,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+						'> div': {
+							minHeight: token('space.500'),
+							gap: token('space.075'),
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+							'> div:first-child': {
+								marginLeft: 0,
+							},
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+							'> div:nth-last-child(1 of :not(:where([popover], dialog)))': {
+								marginRight: 0,
+							},
+						},
+					}),
 				)
 			: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				css({ display: 'flex' }),
@@ -797,8 +749,6 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 
 	render() {
 		const { items, className, node, intl, scrollable, mediaAssistiveMessage } = this.props;
-		const areAnyNewToolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(this.props.api?.toolbar));
-
 		if (!items || !items.length) {
 			return null;
 		}
@@ -822,7 +772,6 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 						css={() => [
 							toolbarContainerBase,
 							toolbarContainer(
-								areAnyNewToolbarFlagsEnabled,
 								scrollable,
 								hasSelect !== undefined,
 								firstElementIsSelect,
@@ -834,7 +783,7 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 						data-testid="editor-floating-toolbar"
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 						className={className}
-						onMouseDown={areAnyNewToolbarFlagsEnabled ? this.captureMouseEvent : undefined}
+						onMouseDown={this.captureMouseEvent}
 					>
 						<Announcer
 							text={
@@ -846,7 +795,7 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 							}
 							delay={250}
 						/>
-						{scrollable && areAnyNewToolbarFlagsEnabled && (
+						{scrollable && (
 							<ScrollButton
 								intl={intl}
 								scrollContainerRef={this.scrollContainerRef}
@@ -860,7 +809,6 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 							ref={this.scrollContainerRef}
 							// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 							css={toolbarOverflow({
-								areAnyNewToolbarFlagsEnabled,
 								scrollable,
 								scrollDisabled: this.state.scrollDisabled,
 								firstElementIsSelect,
@@ -875,24 +823,15 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 								mounted={this.state.mounted}
 							/>
 						</div>
-						{scrollable &&
-							(areAnyNewToolbarFlagsEnabled ? (
-								<ScrollButton
-									intl={intl}
-									scrollContainerRef={this.scrollContainerRef}
-									node={node}
-									disabled={this.state.scrollDisabled}
-									side="right"
-								/>
-							) : (
-								<ScrollButtons
-									intl={intl}
-									scrollContainerRef={this.scrollContainerRef}
-									node={node}
-									disabled={this.state.scrollDisabled}
-									areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
-								/>
-							))}
+						{scrollable && (
+							<ScrollButton
+								intl={intl}
+								scrollContainerRef={this.scrollContainerRef}
+								node={node}
+								disabled={this.state.scrollDisabled}
+								side="right"
+							/>
+						)}
 					</div>
 					<div ref={this.mountRef}></div>
 				</ToolbarArrowKeyNavigationProvider>

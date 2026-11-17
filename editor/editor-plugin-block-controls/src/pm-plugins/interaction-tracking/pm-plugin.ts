@@ -9,7 +9,6 @@ import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemir
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { BlockControlsPlugin } from '../../blockControlsPluginType';
 import { RIGHT_MARGIN_ROVO_GAP_PX } from './constants';
@@ -131,15 +130,7 @@ export const createInteractionTrackingPlugin = (
 		key: interactionTrackingPluginKey,
 		state: {
 			init() {
-				const state: InteractionTrackingPluginState = {
-					isEditing: false,
-				};
-
-				if (editorExperiment('platform_editor_controls', 'variant1')) {
-					state.isMouseOut = false;
-				}
-
-				return state;
+				return { isEditing: false, isMouseOut: false };
 			},
 
 			apply(
@@ -188,154 +179,148 @@ export const createInteractionTrackingPlugin = (
 			},
 		},
 
-		view: editorExperiment('platform_editor_controls', 'variant1')
-			? (view: EditorView) => {
-					const editorContentArea = view.dom.closest('.ak-editor-content-area');
-					let unbindMouseEnter: UnbindFn;
-					let unbindMouseLeave: UnbindFn;
-					let unbindDocumentMouseMove: UnbindFn | undefined;
-					let mouseLeaveTimeoutId: ReturnType<typeof setTimeout> | null = null;
-					let lastMousePosition = { x: 0, y: 0 };
+		view: (view: EditorView) => {
+			const editorContentArea = view.dom.closest('.ak-editor-content-area');
+			let unbindMouseEnter: UnbindFn;
+			let unbindMouseLeave: UnbindFn;
+			let unbindDocumentMouseMove: UnbindFn | undefined;
+			let mouseLeaveTimeoutId: ReturnType<typeof setTimeout> | null = null;
+			let lastMousePosition = { x: 0, y: 0 };
 
-					const scheduleMouseLeave = (event: MouseEvent) => {
-						if (mouseLeaveTimeoutId) {
-							clearTimeout(mouseLeaveTimeoutId);
-							mouseLeaveTimeoutId = null;
-						}
+			const scheduleMouseLeave = (event: MouseEvent) => {
+				if (mouseLeaveTimeoutId) {
+					clearTimeout(mouseLeaveTimeoutId);
+					mouseLeaveTimeoutId = null;
+				}
 
-						// Preserve the existing hover targets for the control cohort.
+				// Preserve the existing hover targets for the control cohort.
+				if (
+					rightSideControlsEnabled &&
+					(isMovingToBlockControlsArea(event.relatedTarget) ||
+						isOverActiveClickArea(event.relatedTarget, event.clientX))
+				) {
+					return;
+				}
+				if (
+					rightSideControlsEnabled &&
+					isExperimentEnabled('cc_maui_remix_button_hover_corridor') &&
+					isOverTreatmentClickArea(event.relatedTarget, editorContentArea, event.clientX)
+				) {
+					return;
+				}
+
+				mouseLeaveTimeoutId = setTimeout(() => {
+					mouseLeaveTimeoutId = null;
+					// Re-check the control cohort's existing hover targets after the debounce.
+					if (rightSideControlsEnabled && typeof document !== 'undefined') {
+						const el = document.elementFromPoint(lastMousePosition.x, lastMousePosition.y);
 						if (
-							rightSideControlsEnabled &&
-							(isMovingToBlockControlsArea(event.relatedTarget) ||
-								isOverActiveClickArea(event.relatedTarget, event.clientX))
+							el &&
+							(isMovingToBlockControlsArea(el) || isOverActiveClickArea(el, lastMousePosition.x))
 						) {
 							return;
 						}
 						if (
-							rightSideControlsEnabled &&
+							el &&
 							isExperimentEnabled('cc_maui_remix_button_hover_corridor') &&
-							isOverTreatmentClickArea(event.relatedTarget, editorContentArea, event.clientX)
+							isOverTreatmentClickArea(el, editorContentArea, lastMousePosition.x)
 						) {
 							return;
 						}
+					}
+					handleMouseLeave(view, rightSideControlsEnabled);
+				}, MOUSE_LEAVE_DEBOUNCE_MS);
+			};
 
-						mouseLeaveTimeoutId = setTimeout(() => {
-							mouseLeaveTimeoutId = null;
-							// Re-check the control cohort's existing hover targets after the debounce.
-							if (rightSideControlsEnabled && typeof document !== 'undefined') {
-								const el = document.elementFromPoint(lastMousePosition.x, lastMousePosition.y);
-								if (
-									el &&
-									(isMovingToBlockControlsArea(el) ||
-										isOverActiveClickArea(el, lastMousePosition.x))
-								) {
-									return;
-								}
-								if (
-									el &&
-									isExperimentEnabled('cc_maui_remix_button_hover_corridor') &&
-									isOverTreatmentClickArea(el, editorContentArea, lastMousePosition.x)
-								) {
-									return;
-								}
-							}
-							handleMouseLeave(view, rightSideControlsEnabled);
-						}, MOUSE_LEAVE_DEBOUNCE_MS);
-					};
+			const cancelScheduledMouseLeave = () => {
+				if (mouseLeaveTimeoutId) {
+					clearTimeout(mouseLeaveTimeoutId);
+					mouseLeaveTimeoutId = null;
+				}
+			};
 
-					const cancelScheduledMouseLeave = () => {
-						if (mouseLeaveTimeoutId) {
-							clearTimeout(mouseLeaveTimeoutId);
-							mouseLeaveTimeoutId = null;
-						}
-					};
+			const handleDocumentMouseMove = (event: MouseEvent) => {
+				lastMousePosition = { x: event.clientX, y: event.clientY };
+				// Catches block controls in portals that handleDOMEvents.mousemove misses.
+				const isOverKnownHoverTarget =
+					editorContentArea?.contains(event.target as Node) ||
+					isMovingToBlockControlsArea(event.target);
+				const overClickArea =
+					event.target instanceof Element && !!event.target.closest(CLICK_AREA_SELECTOR);
+				if (isOverKnownHoverTarget || overClickArea) {
+					handleMouseMove(view, event, rightSideControlsEnabled, api);
+				}
+			};
 
-					const handleDocumentMouseMove = (event: MouseEvent) => {
-						lastMousePosition = { x: event.clientX, y: event.clientY };
-						// Catches block controls in portals that handleDOMEvents.mousemove misses.
-						const isOverKnownHoverTarget =
-							editorContentArea?.contains(event.target as Node) ||
-							isMovingToBlockControlsArea(event.target);
-						const overClickArea =
-							event.target instanceof Element && !!event.target.closest(CLICK_AREA_SELECTOR);
-						if (isOverKnownHoverTarget || overClickArea) {
-							handleMouseMove(view, event, rightSideControlsEnabled, api);
-						}
-					};
+			const handleTreatmentDocumentMouseMove = (event: MouseEvent) => {
+				if (isBlockControlsSuppressionTarget(event.target)) {
+					lastMousePosition = { x: event.clientX, y: event.clientY };
+					cancelScheduledMouseLeave();
+					if (!interactionTrackingPluginKey.getState(view.state)?.isMouseOut) {
+						handleMouseLeave(view, rightSideControlsEnabled);
+					}
+					return;
+				}
+				handleDocumentMouseMove(event);
+			};
 
-					const handleTreatmentDocumentMouseMove = (event: MouseEvent) => {
-						if (isBlockControlsSuppressionTarget(event.target)) {
-							lastMousePosition = { x: event.clientX, y: event.clientY };
-							cancelScheduledMouseLeave();
-							if (!interactionTrackingPluginKey.getState(view.state)?.isMouseOut) {
-								handleMouseLeave(view, rightSideControlsEnabled);
-							}
-							return;
-						}
-						handleDocumentMouseMove(event);
-					};
-
-					if (editorContentArea) {
-						if (rightSideControlsEnabled && typeof document !== 'undefined') {
-							// RemixButtonDecoration fires exposure when the control is visible; this
-							// mount-time split only selects the appropriate interaction listener.
-							if (
-								UNSAFE_expValNoExposure(
-									'cc_maui_remix_button_hover_corridor',
-									'isEnabled',
-									false,
-								) === true
-							) {
-								unbindDocumentMouseMove = bind(document, {
-									type: 'mousemove',
-									listener: handleTreatmentDocumentMouseMove,
-									options: { passive: true },
-								});
-							} else {
-								unbindDocumentMouseMove = bind(document, {
-									type: 'mousemove',
-									listener: handleDocumentMouseMove,
-									options: { passive: true },
-								});
-							}
-						}
-
-						unbindMouseEnter = bind(editorContentArea, {
-							type: 'mouseenter',
-							listener: () => {
-								if (rightSideControlsEnabled) {
-									cancelScheduledMouseLeave();
-								}
-								handleMouseEnter(view);
-							},
+			if (editorContentArea) {
+				if (rightSideControlsEnabled && typeof document !== 'undefined') {
+					// RemixButtonDecoration fires exposure when the control is visible; this
+					// mount-time split only selects the appropriate interaction listener.
+					if (
+						UNSAFE_expValNoExposure('cc_maui_remix_button_hover_corridor', 'isEnabled', false) ===
+						true
+					) {
+						unbindDocumentMouseMove = bind(document, {
+							type: 'mousemove',
+							listener: handleTreatmentDocumentMouseMove,
+							options: { passive: true },
 						});
-
-						unbindMouseLeave = bind(editorContentArea, {
-							type: 'mouseleave',
-							listener: (event: Event) => {
-								const e = event as MouseEvent;
-								lastMousePosition = { x: e.clientX, y: e.clientY };
-								if (rightSideControlsEnabled) {
-									scheduleMouseLeave(e);
-								} else {
-									handleMouseLeave(view, false);
-								}
-							},
+					} else {
+						unbindDocumentMouseMove = bind(document, {
+							type: 'mousemove',
+							listener: handleDocumentMouseMove,
+							options: { passive: true },
 						});
 					}
-
-					return {
-						destroy: () => {
-							if (rightSideControlsEnabled) {
-								cancelScheduledMouseLeave();
-								unbindDocumentMouseMove?.();
-							}
-							unbindMouseEnter?.();
-							unbindMouseLeave?.();
-						},
-					};
 				}
-			: undefined,
+
+				unbindMouseEnter = bind(editorContentArea, {
+					type: 'mouseenter',
+					listener: () => {
+						if (rightSideControlsEnabled) {
+							cancelScheduledMouseLeave();
+						}
+						handleMouseEnter(view);
+					},
+				});
+
+				unbindMouseLeave = bind(editorContentArea, {
+					type: 'mouseleave',
+					listener: (event: Event) => {
+						const e = event as MouseEvent;
+						lastMousePosition = { x: e.clientX, y: e.clientY };
+						if (rightSideControlsEnabled) {
+							scheduleMouseLeave(e);
+						} else {
+							handleMouseLeave(view, false);
+						}
+					},
+				});
+			}
+
+			return {
+				destroy: () => {
+					if (rightSideControlsEnabled) {
+						cancelScheduledMouseLeave();
+						unbindDocumentMouseMove?.();
+					}
+					unbindMouseEnter?.();
+					unbindMouseLeave?.();
+				},
+			};
+		},
 	});
 };
 

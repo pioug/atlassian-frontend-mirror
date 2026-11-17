@@ -5,7 +5,6 @@ import type { IntlShape } from 'react-intl';
 
 import type { ExternalMediaAttributes, MediaADFAttrs } from '@atlaskit/adf-schema/media';
 import type { Layout as RichMediaLayout } from '@atlaskit/adf-schema/rich-media-common';
-import type { LayoutIcon } from '@atlaskit/editor-common/card/MediaAndEmbedsToolbar';
 import { wrappedLayouts } from '@atlaskit/editor-common/media-single/constants';
 import { toolbarMessages as mediaAndEmbedToolbarMessages } from '@atlaskit/editor-common/messages/media-and-embed-toolbar';
 import type { Command } from '@atlaskit/editor-common/types/command';
@@ -15,7 +14,6 @@ import type {
 	DropdownOptionT,
 } from '@atlaskit/editor-common/types/floating-toolbar';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
-import { nonWrappedLayouts } from '@atlaskit/editor-common/utils';
 import type { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import {
@@ -199,17 +197,6 @@ export const getMaxToolbarWidth = (): number => {
 		maxToolbarFitWidth = toolbarWidth;
 	}
 	return maxToolbarFitWidth;
-};
-
-export const getSelectedLayoutIcon = (
-	layoutIcons: LayoutIcon[],
-	selectedNode: ProseMirrorNode,
-): LayoutIcon | undefined => {
-	const selectedLayout = selectedNode.attrs.layout;
-	return layoutIcons.find(
-		(icon) =>
-			icon.value === (nonWrappedLayouts.includes(selectedLayout) ? 'center' : selectedLayout),
-	);
 };
 
 /**

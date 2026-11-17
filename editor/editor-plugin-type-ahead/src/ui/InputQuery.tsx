@@ -18,7 +18,6 @@ import { typeAheadListMessages } from '@atlaskit/editor-common/type-ahead/messag
 import type { TypeAheadItem } from '@atlaskit/editor-common/types/type-ahead';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { blockNodesVerticalMargin } from '@atlaskit/editor-shared-styles/constants';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -198,7 +197,6 @@ export const InputQuery: React.MemoExoticComponent<
 		const ref = useRef<HTMLSpanElement>(document.createElement('span'));
 		const inputRef = useRef<HTMLInputElement | null>(null);
 		const [query, setQuery] = useState<string | null>(null);
-		const isEditorControlsEnabled = editorExperiment('platform_editor_controls', 'variant1');
 		const cleanedInputContent = useCallback(() => {
 			const raw = ref.current?.textContent || '';
 			return raw;
@@ -232,7 +230,7 @@ export const InputQuery: React.MemoExoticComponent<
 							cancel({
 								forceFocusOnEditor: true,
 								text: ' ',
-								addPrefixTrigger: isEditorControlsEnabled ? !removePrefixTriggerOnCancel : true,
+								addPrefixTrigger: !removePrefixTriggerOnCancel,
 								setSelectionAt: CloseSelectionOptions.AFTER_TEXT_INSERTED,
 							});
 							stopDefault = true;
@@ -245,7 +243,7 @@ export const InputQuery: React.MemoExoticComponent<
 						cancel({
 							text,
 							forceFocusOnEditor: true,
-							addPrefixTrigger: isEditorControlsEnabled ? !removePrefixTriggerOnCancel : true,
+							addPrefixTrigger: !removePrefixTriggerOnCancel,
 							setSelectionAt: CloseSelectionOptions.AFTER_TEXT_INSERTED,
 						});
 						stopDefault = true;
@@ -329,7 +327,6 @@ export const InputQuery: React.MemoExoticComponent<
 				cancel,
 				cleanedInputContent,
 				editorView.state,
-				isEditorControlsEnabled,
 			],
 		);
 
@@ -383,7 +380,7 @@ export const InputQuery: React.MemoExoticComponent<
 
 					cancel({
 						forceFocusOnEditor: true,
-						addPrefixTrigger: isEditorControlsEnabled ? !removePrefixTriggerOnCancel : true,
+						addPrefixTrigger: !removePrefixTriggerOnCancel,
 						text: cleanedInputContent(),
 						setSelectionAt: isMovingRight
 							? CloseSelectionOptions.AFTER_TEXT_INSERTED
@@ -444,7 +441,7 @@ export const InputQuery: React.MemoExoticComponent<
 				}
 
 				cancel({
-					addPrefixTrigger: isEditorControlsEnabled ? !removePrefixTriggerOnCancel : true,
+					addPrefixTrigger: !removePrefixTriggerOnCancel,
 					text: cleanedInputContent(),
 					setSelectionAt: CloseSelectionOptions.BEFORE_TEXT_INSERTED,
 					forceFocusOnEditor: false,
@@ -564,7 +561,6 @@ export const InputQuery: React.MemoExoticComponent<
 			cancel,
 			checkKeyEvent,
 			editorView.state,
-			isEditorControlsEnabled,
 			shouldKeepOpenOnRegisteredMenu,
 			menuInteraction,
 		]);

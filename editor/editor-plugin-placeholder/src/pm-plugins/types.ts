@@ -18,7 +18,6 @@ export interface PlaceHolderState {
 }
 
 export type CreatePlaceholderStateProps = {
-	bracketPlaceholderText?: string;
 	defaultPlaceholderText: string | undefined;
 	editorState: EditorState;
 	emptyLinePlaceholder?: string;

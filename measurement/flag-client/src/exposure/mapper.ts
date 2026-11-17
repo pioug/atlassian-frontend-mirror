@@ -112,10 +112,18 @@ export function mapExposureRecord(input: ExposureMappingInput): ExposureRecord {
 		}
 	}
 
-	// Preserve available assignment strings; deferred delivery adds the browser wire digest.
+	// Resolve the selected unit from the captured evaluation, never a newer/current user's identity.
+	const identifierName = flagResult?.metadata.identifierType;
+	const identifiers = input.requestContext?.identifiers;
+	const identifierValue =
+		typeof identifierName === 'string' &&
+		identifiers !== undefined &&
+		Object.prototype.hasOwnProperty.call(identifiers, identifierName)
+			? identifiers[identifierName]
+			: undefined;
 	for (const [name, value] of [
-		['randomization_identifier_value', metadata.randomizationIdentifierValue],
-		['randomization_identifier_name', metadata.randomizationIdentifierName],
+		['randomization_identifier_value', identifierValue],
+		['randomization_identifier_name', identifierName],
 	] as const) {
 		if (typeof value === 'string') add(`atl.feature_flag.${name}`, stringValue(value));
 	}

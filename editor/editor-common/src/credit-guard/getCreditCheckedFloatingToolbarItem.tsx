@@ -9,7 +9,6 @@ import {
 
 /** Wraps a floating toolbar button so it is credit checked, keeping its own appearance and handlers. */
 export const getCreditCheckedFloatingToolbarItem = ({
-	areAnyNewToolbarFlagsEnabled,
 	button,
 	creditCheck,
 	getAICreditStatus,
@@ -19,7 +18,6 @@ export const getCreditCheckedFloatingToolbarItem = ({
 	render: (view, idx) => (
 		<CreditCheckedFloatingToolbarButton
 			key={idx}
-			areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 			button={button}
 			creditCheck={creditCheck}
 			getAICreditStatus={getAICreditStatus}

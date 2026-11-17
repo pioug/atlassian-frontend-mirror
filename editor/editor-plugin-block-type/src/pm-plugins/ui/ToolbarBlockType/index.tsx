@@ -9,8 +9,7 @@ import { jsx } from '@emotion/react';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
-import { clearFormatting, findKeymapByDescription, tooltip } from '@atlaskit/editor-common/keymaps';
-import { toolbarMessages } from '@atlaskit/editor-common/messages/toolbar';
+import { findKeymapByDescription, tooltip } from '@atlaskit/editor-common/keymaps';
 import { separatorStyles, wrapperStyle } from '@atlaskit/editor-common/styles/plugins';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { DropdownMenuWithKeyboardNavigation as DropdownMenu } from '@atlaskit/editor-common/ui-menu/DropdownMenu';
@@ -22,13 +21,11 @@ import TextIcon from '@atlaskit/icon/core/text';
 import { Box } from '@atlaskit/primitives/box';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { xcss } from '@atlaskit/primitives/xcss/xcss';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import type { ThemeState } from '@atlaskit/tokens/theme-config';
 import { ThemeMutationObserver } from '@atlaskit/tokens/theme-mutation-observer';
 
 import type { BlockTypePlugin } from '../../../blockTypePluginType';
 import type { TextBlockTypes } from '../../block-types';
-import { NORMAL_TEXT } from '../../block-types';
 import type { BlockType } from '../../types';
 import { BlockTypeButton } from './blocktype-button';
 import {
@@ -54,7 +51,6 @@ export interface Props {
 	clearFormatting: () => void;
 	currentBlockType?: BlockType;
 	editorView?: EditorView;
-	formattingIsPresent?: boolean;
 	isDisabled?: boolean;
 	isReducedSpacing?: boolean;
 	isSmall?: boolean;
@@ -122,7 +118,6 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 			currentBlockType,
 			blockTypesDisabled,
 			availableBlockTypes = [],
-			availableBlockTypesInDropdown = [],
 			shouldUseDefaultRole,
 			intl: { formatMessage },
 			api,
@@ -136,10 +131,6 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 			return null;
 		}
 
-		const blockTypeTitles = availableBlockTypesInDropdown
-			.filter((blockType) => blockType.name === currentBlockType?.name)
-			.map((blockType) => blockType.title);
-
 		const defaultIcon = <TextIcon label="" />;
 		const currentIcon = currentBlockType?.icon;
 
@@ -152,7 +143,6 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 					isReducedSpacing={isReducedSpacing}
 					selected={active}
 					disabled={false}
-					title={blockTypeTitles[0]}
 					onClick={this.handleTriggerClick}
 					onKeyDown={this.handleTriggerByKeyboard}
 					formatMessage={formatMessage}
@@ -213,7 +203,6 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 					isReducedSpacing={isReducedSpacing}
 					selected={active}
 					disabled={true}
-					title={blockTypeTitles[0]}
 					onClick={this.handleTriggerClick}
 					onKeyDown={this.handleTriggerByKeyboard}
 					formatMessage={formatMessage}
@@ -253,7 +242,6 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 			intl: { formatMessage },
 			currentBlockType,
 			availableBlockTypesInDropdown,
-			formattingIsPresent,
 		} = this.props;
 
 		const items: MenuItem[] = (availableBlockTypesInDropdown ?? []).map((blockType, index) => {
@@ -284,7 +272,7 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 				value: blockType,
 				'aria-label': tooltip(keyMap, formatMessage(blockType.title)),
 				key: `${blockType.name}-${index}`,
-				elemBefore: editorExperiment('platform_editor_controls', 'variant1') ? icon : undefined,
+				elemBefore: icon,
 				elemAfter: (
 					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					<div css={[keyboardShortcut, isActive && keyboardShortcutSelect]}>{tooltip(keyMap)}</div>
@@ -294,41 +282,6 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 
 			return item;
 		});
-
-		if (
-			(availableBlockTypesInDropdown ?? [])
-				.map((blockType) => blockType.name)
-				.includes('blockquote') &&
-			editorExperiment('platform_editor_controls', 'control')
-		) {
-			const clearFormattingItem: MenuItem = {
-				content: (
-					<div>
-						{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
-						<p>{toolbarMessages.clearFormatting.defaultMessage}</p>
-					</div>
-				),
-				value: {
-					name: 'clearFormatting',
-				},
-				'aria-label': tooltip(clearFormatting, toolbarMessages.clearFormatting.defaultMessage),
-				key: 'clear-formatting',
-				elemAfter: (
-					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-					<div css={[keyboardShortcut]}>{tooltip(clearFormatting)}</div>
-				),
-				isActive: false,
-				isDisabled: currentBlockType === NORMAL_TEXT && !formattingIsPresent,
-			};
-			return [
-				{
-					items,
-				},
-				{
-					items: [clearFormattingItem],
-				},
-			];
-		}
 
 		return [
 			{

@@ -23,7 +23,6 @@ import type { Position } from '@atlaskit/editor-common/Popup/utils';
 import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory/with-providers';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type { Command } from '@atlaskit/editor-common/types/command';
 import type {
 	FloatingToolbarButton,
@@ -442,62 +441,60 @@ export function ContentComponent({
 		);
 	}
 
-	if (areToolbarFlagsEnabled(Boolean(pluginInjectionApi?.toolbar))) {
-		// Consolidate floating toolbar items
-		const toolbarItemsArray = Array.isArray(items) ? items : items?.(node);
+	// Consolidate floating toolbar items
+	const toolbarItemsArray = Array.isArray(items) ? items : items?.(node);
+	// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
+	const overflowDropdownItems = toolbarItemsArray.filter(
+		(item) => item.type === 'overflow-dropdown',
+	) as FloatingToolbarOverflowDropdown<Command>[];
+
+	if (overflowDropdownItems.length > 1) {
+		const consolidatedOverflowDropdown = consolidateOverflowDropdownItems(overflowDropdownItems);
 		// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
-		const overflowDropdownItems = toolbarItemsArray.filter(
-			(item) => item.type === 'overflow-dropdown',
-		) as FloatingToolbarOverflowDropdown<Command>[];
+		const otherItems = toolbarItemsArray.filter((item) => item.type !== 'overflow-dropdown');
 
-		if (overflowDropdownItems.length > 1) {
-			const consolidatedOverflowDropdown = consolidateOverflowDropdownItems(overflowDropdownItems);
-			// eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed)
-			const otherItems = toolbarItemsArray.filter((item) => item.type !== 'overflow-dropdown');
-
-			if (otherItems.length > 0) {
-				// remove the last separators
-				while (otherItems.at(-1)?.type === 'separator') {
-					otherItems.pop();
-				}
+		if (otherItems.length > 0) {
+			// remove the last separators
+			while (otherItems.at(-1)?.type === 'separator') {
+				otherItems.pop();
 			}
-
-			items = [
-				...otherItems,
-				{ type: 'separator', fullHeight: true, supportsViewMode: true },
-				consolidatedOverflowDropdown,
-			];
 		}
 
-		// Apply analytics to dropdown
-		if (overflowDropdownItems.length > 0 && dispatchAnalyticsEvent) {
-			const currentItems = Array.isArray(items) ? items : items?.(node);
-			const updatedItems = currentItems.map((item) => {
-				if (item.type !== 'overflow-dropdown') {
-					return item;
-				}
-				const originalOnClick = item.onClick;
-				return {
-					...item,
-					onClick: () => {
-						const editorContentMode =
-							pluginInjectionApi?.editorViewMode?.sharedState.currentState()?.mode;
-						dispatchAnalyticsEvent({
-							action: ACTION.CLICKED,
-							actionSubject: ACTION_SUBJECT.BUTTON,
-							actionSubjectId: ACTION_SUBJECT_ID.FLOATING_TOOLBAR_OVERFLOW,
-							eventType: EVENT_TYPE.UI,
-							attributes: {
-								editorContentMode,
-							},
-						});
-						// Call original onClick if it exists
-						originalOnClick?.();
-					},
-				};
-			});
-			items = updatedItems;
-		}
+		items = [
+			...otherItems,
+			{ type: 'separator', fullHeight: true, supportsViewMode: true },
+			consolidatedOverflowDropdown,
+		];
+	}
+
+	// Apply analytics to dropdown
+	if (overflowDropdownItems.length > 0 && dispatchAnalyticsEvent) {
+		const currentItems = Array.isArray(items) ? items : items?.(node);
+		const updatedItems = currentItems.map((item) => {
+			if (item.type !== 'overflow-dropdown') {
+				return item;
+			}
+			const originalOnClick = item.onClick;
+			return {
+				...item,
+				onClick: () => {
+					const editorContentMode =
+						pluginInjectionApi?.editorViewMode?.sharedState.currentState()?.mode;
+					dispatchAnalyticsEvent({
+						action: ACTION.CLICKED,
+						actionSubject: ACTION_SUBJECT.BUTTON,
+						actionSubjectId: ACTION_SUBJECT_ID.FLOATING_TOOLBAR_OVERFLOW,
+						eventType: EVENT_TYPE.UI,
+						attributes: {
+							editorContentMode,
+						},
+					});
+					// Call original onClick if it exists
+					originalOnClick?.();
+				},
+			};
+		});
+		items = updatedItems;
 	}
 
 	let customPositionCalculation;

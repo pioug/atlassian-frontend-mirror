@@ -4,7 +4,6 @@ import { textColor } from '@atlaskit/adf-schema/text-color';
 import type { Command } from '@atlaskit/editor-common/types/command';
 import type { FloatingToolbarCustom } from '@atlaskit/editor-common/types/floating-toolbar';
 import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types/toolbar';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { changeColor as changeColorCommand } from './editor-commands/change-color';
 import { setPalette } from './editor-commands/palette';
@@ -44,7 +43,6 @@ export const textColorPlugin: TextColorPlugin = ({ config: textColorConfig, api 
 		popupsMountPoint,
 		popupsBoundariesElement,
 		popupsScrollableElement,
-		isToolbarReducedSpacing,
 		dispatchAnalyticsEvent,
 		disabled,
 	}) => {
@@ -54,7 +52,6 @@ export const textColorPlugin: TextColorPlugin = ({ config: textColorConfig, api 
 
 		return (
 			<PrimaryToolbarComponent
-				isReducedSpacing={isToolbarReducedSpacing}
 				editorView={editorView}
 				popupsMountPoint={popupsMountPoint}
 				popupsBoundariesElement={popupsBoundariesElement}
@@ -135,10 +132,7 @@ export const textColorPlugin: TextColorPlugin = ({ config: textColorConfig, api 
 						const toolbarDocking =
 							api?.userPreferences?.sharedState?.currentState()?.preferences.toolbarDockingPosition;
 
-						if (
-							toolbarDocking === 'none' &&
-							editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
-						) {
+						if (toolbarDocking === 'none') {
 							const toolbarCustom: FloatingToolbarCustom<Command> = {
 								type: 'custom',
 								render: (view, _idx, dispatchAnalyticsEvent) => {

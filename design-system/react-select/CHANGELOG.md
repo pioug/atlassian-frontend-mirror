@@ -1,5 +1,14 @@
 # @atlaskit/react-select
 
+## 4.12.15
+
+### Patch Changes
+
+- [`9091431abbf3e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9091431abbf3e) -
+  On the top layer, the input and its menu are now one field for focus, so Tab can reach content in
+  the menu without closing it.
+- Updated dependencies
+
 ## 4.12.14
 
 ### Patch Changes

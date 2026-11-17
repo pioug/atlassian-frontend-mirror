@@ -10,6 +10,7 @@ import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-f
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { RendererCssClassName } from '../../../../consts';
 import ReactSerializer from '../../../../react';
@@ -50,6 +51,128 @@ describe('Renderer - React/Nodes/Extension Inlined', () => {
 	};
 
 	const serializer = new ReactSerializer({});
+
+	describe('inline-bodied macro render analytics', () => {
+		const gate = 'platform_inline_bodied_macro_usage_metrics';
+		const fireAnalyticsEvent = jest.fn();
+		const macro = (overrides: Partial<React.ComponentProps<typeof BodiedExtension>> = {}) => (
+			<BodiedExtension
+				providers={providerFactory}
+				serializer={serializer}
+				rendererContext={rendererContext}
+				extensionType="com.atlassian.ecosystem"
+				extensionKey="app/env/static/macro"
+				parameters={{ layout: 'inline-bodied', guestParams: { secret: 'private config' } }}
+				startPos={1}
+				getContent={() => [
+					{ type: 'paragraph', content: [{ type: 'text', text: 'private body' }] },
+				]}
+				shouldDisplayExtensionAsInline={() => true}
+				fireAnalyticsEvent={fireAnalyticsEvent}
+				{...overrides}
+			>
+				<span>Macro</span>
+			</BodiedExtension>
+		);
+		const usageEvents = () =>
+			fireAnalyticsEvent.mock.calls
+				.map(([event]) => event)
+				.filter((event) => event.attributes?.metric === 'inlineBodiedPresentation');
+
+		beforeEach(() => fireAnalyticsEvent.mockClear());
+
+		it('reports Custom UI usage through existing renderer analytics without body or config', () => {
+			passGate(gate);
+			render(macro());
+			expect(usageEvents()).toEqual([
+				{
+					action: 'rendered',
+					actionSubject: 'extension',
+					actionSubjectId: 'bodiedExtension',
+					eventType: 'operational',
+					attributes: {
+						metric: 'inlineBodiedPresentation',
+						declaredLayout: 'inline-bodied',
+						renderType: 'CustomUI',
+						presentation: 'inline',
+						extensionKey: 'app/env/static/macro',
+						extensionType: 'com.atlassian.ecosystem',
+					},
+				},
+			]);
+		});
+
+		it.each([
+			{
+				name: 'nested placement',
+				path: [{ type: { name: 'layoutColumn' } } as unknown as PMNode],
+				inline: true,
+			},
+			{ name: 'unsafe body', path: [], inline: false },
+		])('counts block presentation caused by $name', ({ path, inline }) => {
+			passGate(gate);
+			render(macro({ path, shouldDisplayExtensionAsInline: () => inline }));
+			expect(usageEvents()).toHaveLength(1);
+			expect(usageEvents()[0].attributes.presentation).toBe('block');
+		});
+
+		it.each([
+			{ guestParams: { atlassianForgeInlineBodied: 'true', atlassianMacroOutputType: 'INLINE' } },
+			{ layout: 'inline-bodied', render: 'native' },
+		])('identifies UI Kit from saved parameters: %j', (parameters) => {
+			passGate(gate);
+			render(macro({ parameters }));
+			expect(usageEvents()).toHaveLength(1);
+			expect(usageEvents()[0].attributes.renderType).toBe('UIKit');
+		});
+
+		it.each([
+			{ parameters: { layout: 'bodied' } },
+			{ parameters: { guestParams: { atlassianMacroOutputType: 'INLINE' } } },
+			{ extensionType: 'com.atlassian.confluence.macro.core' },
+		])(
+			'does not classify ordinary or legacy macros as Forge inline-bodied declarations: %j',
+			(overrides) => {
+				passGate(gate);
+				render(macro(overrides));
+				expect(usageEvents()).toHaveLength(0);
+			},
+		);
+
+		it('preserves the existing inline event when the new gate is off', () => {
+			failGate(gate);
+			render(macro());
+			expect(usageEvents()).toHaveLength(0);
+			expect(fireAnalyticsEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					actionSubject: 'extensionAsInline',
+					attributes: {
+						extensionKey: 'app/env/static/macro',
+						extensionType: 'com.atlassian.ecosystem',
+					},
+				}),
+			);
+		});
+
+		it('suppresses Strict Mode effects and rerenders, including a changed analytics callback', () => {
+			passGate(gate);
+			const { rerender } = render(<React.StrictMode>{macro()}</React.StrictMode>);
+			rerender(
+				<React.StrictMode>
+					{macro({ fireAnalyticsEvent: (event) => fireAnalyticsEvent(event) })}
+				</React.StrictMode>,
+			);
+			expect(usageEvents()).toHaveLength(1);
+		});
+
+		it('counts a remounted macro as a new render occurrence', () => {
+			passGate(gate);
+			const first = render(macro());
+			first.unmount();
+			render(macro());
+			expect(usageEvents()).toHaveLength(2);
+		});
+	});
 
 	describe('Custom UI inline-bodied wrappers', () => {
 		const renderCustomUI = (nested: boolean, inline: boolean) =>

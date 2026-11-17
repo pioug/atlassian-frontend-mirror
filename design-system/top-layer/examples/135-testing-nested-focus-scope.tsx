@@ -6,10 +6,10 @@ import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 /**
- * Outer dialog with a nested manual-mode popover inside its content.
- * Used to verify that the outer's `getFocusables` does NOT return the
- * inner's focusables - the inner button stays in the inner scope even
- * when the inner popover is open.
+ * Outer dialog with a nested manual-mode `role="dialog"` popover inside its
+ * content. Used to verify that the outer's `getFocusables` does NOT return the
+ * inner's focusables - the inner dialog owns its focus, so the inner button
+ * stays in the inner scope even when the inner popover is open.
  *
  * Both the outer and inner use `useToggledPopover`. The inner passes
  * `mode: 'manual'` so the hook returns a popover wiring shape without

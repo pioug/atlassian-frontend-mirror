@@ -1,0 +1,46 @@
+configVersion: 1
+name: '@atlassian/a2ui-catalog'
+ownerId: ari:cloud:teams::team/814283d6-8695-4329-b2f8-d78b2645722f # Design System Team (ADS)
+labels:
+  - platform-code
+  - platform-afm
+typeId: OTHER
+fields:
+  tier: 4
+  lifecycle: Active
+  isMonorepoProject: true
+links:
+  - name: Root Repository
+    type: REPOSITORY
+    url: https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master
+  - name: Slack Channel
+    type: CHAT_CHANNEL
+    url: https://atlassian.enterprise.slack.com/archives/CFJ9DU39U # #help-design-system
+  - name: A2UI Catalog
+    type: REPOSITORY
+    url: https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/design-system-experimentation/a2ui-catalog
+customFields:
+  - name: Department
+    type: text
+    value: Eng - Design System Fundamentals
+  - name: Technical Owner
+    type: user
+    value: ari:cloud:identity::user/557058:86a9b692-7997-49cb-9984-080801b1de91 # Jared Crowe
+  - name: Reviewer Team
+    type: text
+    value: ari:cloud:teams::team/be19136e-6275-419f-be0c-fcee844b8684 # Design System Engineers
+  - name: Required Reviewers Opt In
+    type: boolean
+    value: true
+  - name: Reviewer Selection Mechanism
+    type: text
+    value: random(3)
+  - name: Required Reviewer Approvals
+    type: number
+    value: 1
+  - name: Trusted Committers
+    type: text
+    value: ari:cloud:teams::team/814283d6-8695-4329-b2f8-d78b2645722f # Design System Team (ADS)
+  - name: Trusted Reviewer Teams
+    type: text
+    value: ari:cloud:teams::team/42f4416b-e028-4daa-b2a5-afe213ac75e1 # Design System Designers

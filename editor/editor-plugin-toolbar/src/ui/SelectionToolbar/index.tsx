@@ -23,7 +23,6 @@ import type { RegisterToolbar, RegisterComponent } from '@atlaskit/editor-toolba
 import { ToolbarButtonGroup } from '@atlaskit/editor-toolbar/toolbar-button-group';
 import { ToolbarDropdownItemSection } from '@atlaskit/editor-toolbar/toolbar-dropdown-item-section';
 import { ToolbarSection } from '@atlaskit/editor-toolbar/toolbar-section';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { ToolbarPlugin } from '../../toolbarPluginType';
 import { SELECTION_TOOLBAR_LABEL } from '../consts';
@@ -69,12 +68,8 @@ const useOnPositionCalculated = (editorView: EditorView) => {
 	const onPositionCalculated = useCallback(
 		(position: Position) => {
 			try {
-				// Show special position on cell selection only when editor controls experiment is enabled
-				const isEditorControlsEnabled = editorExperiment('platform_editor_controls', 'variant1', {
-					exposure: true,
-				});
 				const isCellSelection = '$anchorCell' in editorView.state.selection;
-				if (isCellSelection && isEditorControlsEnabled) {
+				if (isCellSelection) {
 					return calculateToolbarPositionOnCellSelection(SELECTION_TOOLBAR_LABEL)(
 						editorView,
 						position,

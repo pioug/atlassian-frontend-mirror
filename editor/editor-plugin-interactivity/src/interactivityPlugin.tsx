@@ -24,7 +24,18 @@ export const interactivityPlugin: InteractivityPlugin = ({ api }) => ({
 		useEffect(() => {
 			try {
 				const collector = new InteractivityCollector({
-					emit: (snapshot) => fireInteractivityEvent(api?.analytics?.actions, snapshot),
+					emit: (snapshot) =>
+						fireInteractivityEvent(api?.analytics?.actions, {
+							...snapshot,
+							// A destroyed view still answers, with the document it was destroyed with, so
+							// both report nothing rather than a size the editor no longer has.
+							nodeSize: editorView.isDestroyed ? undefined : editorView.state.doc.nodeSize,
+							// `getElementsByTagName` counts descendants in the browser engine, so this
+							// cannot overflow the stack on very large documents.
+							editorDomSize: editorView.isDestroyed
+								? undefined
+								: editorView.dom.getElementsByTagName('*').length,
+						}),
 					getObjectId: () =>
 						api?.contextIdentifier?.sharedState.currentState()?.contextIdentifierProvider?.objectId,
 					getSessionMode: () => {
@@ -34,13 +45,6 @@ export const interactivityPlugin: InteractivityPlugin = ({ api }) => ({
 						}
 						return mode === 'view' ? 'reading' : 'editing';
 					},
-					// A destroyed view still answers, with the document it was destroyed with, so
-					// both report nothing rather than a size the editor no longer has.
-					getNodeSize: () => (editorView.isDestroyed ? undefined : editorView.state.doc.nodeSize),
-					// `getElementsByTagName` counts descendants in the browser engine, so this
-					// cannot overflow the stack on very large documents.
-					getEditorDomSize: () =>
-						editorView.isDestroyed ? undefined : editorView.dom.getElementsByTagName('*').length,
 				});
 
 				// Effects run in declaration order, so the one below always finds it.

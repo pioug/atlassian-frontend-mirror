@@ -31,5 +31,8 @@
 		"./auth": "./src/auth.ts",
 		"./error": "./src/error.ts",
 		"./types": "./src/types.ts"
+	},
+	"devDependencies": {
+		"@atlaskit/docs": "workspace:^"
 	}
 }

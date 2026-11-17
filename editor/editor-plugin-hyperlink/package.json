@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-hyperlink",
-	"version": "33.0.0",
+	"version": "35.0.0",
 	"description": "Hyperlink plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -38,6 +38,7 @@
 		"@atlaskit/editor-plugin-toolbar": "workspace:^",
 		"@atlaskit/editor-plugin-ui-control-registry": "workspace:^",
 		"@atlaskit/editor-plugin-user-intent": "workspace:^",
+		"@atlaskit/editor-plugin-user-preferences": "workspace:^",
 		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/editor-toolbar": "workspace:^",
 		"@atlaskit/editor-toolbar-model": "workspace:^",
@@ -45,7 +46,6 @@
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/prosemirror-input-rules": "workspace:^",
-		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@babel/runtime": "root:*",
 		"uuid": "root:*"
 	},
@@ -56,6 +56,7 @@
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
+		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/editor-common": "workspace:^",
 		"react": "^19.2.0",
 		"react-dom": "^19.2.0",

@@ -64,22 +64,24 @@ export default function PanelLayoutSsrExample(): JSX.Element {
 	return <SsrLayoutFixture layout={layout} />;
 }
 
-export function AllOpenPanelLayoutSsrExample(): JSX.Element {
+function AllOpenLayout(): JSX.Element {
+	const [isPanelOpen, setIsPanelOpen] = useState(true);
 	return (
-		<SsrLayoutFixture
-			layout={
-				<Root>
-					<SideNav testId="ssr-side-nav">Navigation</SideNav>
-					<Main>
-						<PanelLayout isPanelOpen panel="Preview content" testId="ssr-layout">
-							Main content
-						</PanelLayout>
-					</Main>
-					<ChatPanel testId="ssr-chat" onClose={() => undefined}>
-						Chat content
-					</ChatPanel>
-				</Root>
-			}
-		/>
+		<Root>
+			<SideNav testId="ssr-side-nav">Navigation</SideNav>
+			<Main>
+				<PanelLayout isPanelOpen={isPanelOpen} panel="Preview content" testId="ssr-layout">
+					<Button onClick={() => setIsPanelOpen((isOpen) => !isOpen)}>Toggle local panel</Button>
+					Main content
+				</PanelLayout>
+			</Main>
+			<ChatPanel testId="ssr-chat" onClose={() => undefined}>
+				Chat content
+			</ChatPanel>
+		</Root>
 	);
+}
+
+export function AllOpenPanelLayoutSsrExample(): JSX.Element {
+	return <SsrLayoutFixture layout={<AllOpenLayout />} />;
 }

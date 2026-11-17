@@ -1,5 +1,39 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 33.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 33.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 32.0.0
+
+### Major Changes
+
+- [`f039487b0e531`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f039487b0e531) -
+  Remove the `registerToolbarButton` action from the find and replace plugin. It had no callers.
+  Render the find and replace button through the primary toolbar or the `toolbar` plugin instead.
+  Also remove the unused `@atlaskit/tmp-editor-statsig` dependency.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 31.0.1
+
+### Patch Changes
+
+- [`58e5092700759`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/58e5092700759) -
+  Remove the `control` branches of experiment `platform_editor_controls`; the editor controls
+  (`variant1`) experience is now permanent.
+- Updated dependencies
+
 ## 31.0.0
 
 ### Patch Changes

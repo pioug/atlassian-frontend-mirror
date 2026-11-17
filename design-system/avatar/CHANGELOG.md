@@ -1,5 +1,50 @@
 # @atlaskit/avatar
 
+## 31.0.0
+
+### Major Changes
+
+- [`6ca5be925b0c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6ca5be925b0c4) -
+  Remove the obsolete `BORDER_WIDTH` named export from both `@atlaskit/avatar` and
+  `@atlaskit/avatar/constants/default`. The current numeric value is `2`, and Avatar no longer uses
+  it internally. The constants subpath and its `ACTIVE_SCALE_FACTOR` export remain available.
+
+  Keep this legacy geometry value private to the code that still needs it:
+
+  ```diff
+  -import { BORDER_WIDTH } from '@atlaskit/avatar';
+  +const BORDER_WIDTH = 2;
+  ```
+
+  The same replacement applies to the subpath form:
+
+  ```diff
+  -import { BORDER_WIDTH } from '@atlaskit/avatar/constants/default';
+  +const BORDER_WIDTH = 2;
+  ```
+
+  Place the local constant after the remaining imports. Preserve existing numeric calculations and
+  pixel units. For a consumer that already names its ring width, the complete value replacement is:
+
+  ```diff
+  -const AVATAR_RING_WIDTH = BORDER_WIDTH;
+  +const AVATAR_RING_WIDTH = 2;
+  ```
+
+  No replacement package import is required. Other Avatar APIs and component behavior are unchanged.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.1.2
+
+### Patch Changes
+
+- [`cb5f4bd9689f9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cb5f4bd9689f9) -
+  Reduce the opt-in hexagon inner border from 1.5px to the standard border width (1px at the default
+  font size), behind platform-dst-avatar-updated-geometry.
+
 ## 30.1.1
 
 ### Patch Changes

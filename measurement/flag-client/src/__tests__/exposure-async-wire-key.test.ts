@@ -11,7 +11,7 @@ import { flagResult, plainAttributes, resultInput } from './_utils/exposure-test
 beforeAll(async () => initializeExposureHash());
 
 function input(): ExposureMappingInput {
-	return resultInput(flagResult({ randomizationIdentifierName: 'TenantId' }), {
+	return resultInput(flagResult({ identifierType: 'TenantId' }), {
 		requestContext: { identifiers: { TenantId: 'tenant-7' }, attributes: {} },
 	});
 }

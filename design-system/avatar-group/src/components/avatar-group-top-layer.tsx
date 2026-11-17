@@ -107,10 +107,16 @@ export function MoreDropdownTopLayer({
 		isOpen,
 	});
 
+	// Tab: hide at once, so the focus wrap of a dialog around the menu moves focus on from the trigger.
+	const handleTabClose = useCallback(() => {
+		popoverRef.current?.hidePopover();
+		onClose();
+	}, [onClose]);
+
 	// Arrow key navigation inside the open menu
 	useArrowNavigation({
 		containerRef: menuRef,
-		onClose,
+		onClose: handleTabClose,
 		isEnabled: isOpen,
 	});
 

@@ -2,6 +2,7 @@ import { expect, type Locator, test } from '@af/integration-testing';
 
 for (const coordinated of [false, true]) {
 	for (const [viewportWidth, rootWidth] of [
+		[1768, 1768],
 		[1600, 1600],
 		[1600, 700],
 		[1200, 1200],
@@ -100,6 +101,10 @@ for (const [width, navWidth, chatWidth, panelWidth, area, gap] of [
 	[1040, 288, 400, 320, 'main', 32],
 	[1200, 240, 320, 320, 'panel', 320],
 	[1280, 320, 320, 320, 'panel', 320],
+	[1767, 320, 400, 400, 'panel', 647],
+	[1768, 320, 400, 500, 'panel', 548],
+	[1769, 320, 400, 500, 'panel', 549],
+	[1984, 320, 400, 500, 'panel', 764],
 ] as const) {
 	test(`all-open SSR keeps its geometry through hydration at ${width}px`, async ({ page }) => {
 		await page.setViewportSize({ width, height: 900 });
@@ -130,5 +135,84 @@ for (const [width, navWidth, chatWidth, panelWidth, area, gap] of [
 		await assertGeometry();
 		await page.getByRole('slider', { name: 'Resize panel', exact: true }).focus();
 		await assertGeometry();
+	});
+}
+
+test('local default follows XL viewport changes before and after sizing activates', async ({
+	page,
+}) => {
+	await page.setViewportSize({ width: 1767, height: 900 });
+	await page.visitExample<typeof import('../../../examples/panel-layout-all-open-ssr')>(
+		'design-system',
+		'navigation-system',
+		'panel-layout-all-open-ssr',
+		{ featureFlag: 'platform-dst-chat-panel-layout' },
+	);
+	const panel = page.getByRole('region', { name: 'Panel', exact: true });
+	const chat = page.getByTestId('ssr-chat');
+	await expect.poll(async () => (await panel.boundingBox())?.width).toBe(400);
+	await page.setViewportSize({ width: 1768, height: 900 });
+	await expect.poll(async () => (await panel.boundingBox())?.width).toBe(500);
+	await page.getByRole('button', { name: 'Hydrate layout' }).click();
+	await page.getByRole('slider', { name: 'Resize panel', exact: true }).focus();
+	// Resize immediately: the lazy sizing chunk may still be loading.
+	for (const [width, expected] of [
+		[1767, 400],
+		[1768, 500],
+		[1984, 500],
+	]) {
+		await page.setViewportSize({ width, height: 900 });
+		await expect.poll(async () => (await panel.boundingBox())?.width).toBe(expected);
+		await expect.poll(async () => (await chat.boundingBox())?.width).toBe(400);
+	}
+});
+
+for (const [width, expected, hostWidth, rootWidth] of [
+	[1767, 400],
+	[1768, 500],
+	[1768, 400, 720],
+	[1768, 500, 500],
+	[1768, 320, 0, 1280],
+]) {
+	test(`unmeasured panel motion retains its viewport default at ${width}px in ${hostWidth || 'full'} host and ${rootWidth || 'full'} Root`, async ({
+		page,
+	}) => {
+		await page.setViewportSize({ width, height: 900 });
+		await page.emulateMedia({ reducedMotion: 'no-preference' });
+		await page.visitExample<typeof import('../../../examples/panel-layout-all-open-ssr')>(
+			'design-system',
+			'navigation-system',
+			'panel-layout-all-open-ssr',
+			{
+				featureFlag: ['platform-dst-chat-panel-layout', 'platform-dst-motion-uplift-panel'].join(
+					',',
+				),
+			},
+		);
+		// Hold entry/exit long enough to measure the animation width, not only the settled frame.
+		await page.addStyleTag({
+			content: `[data-layout-with-panel-slot] { animation-duration: 2s !important; }
+				${hostWidth ? `div:has(> [data-testid="ssr-layout"]) { width: ${hostWidth}px; }` : ''}
+				${rootWidth ? `[data-layout-width-container] { width: ${rootWidth}px; }` : ''}`,
+		});
+		const panel = page.getByRole('region', { name: 'Panel', exact: true });
+		await expect.poll(async () => (await panel.boundingBox())?.width).toBe(expected);
+		await page.getByRole('button', { name: 'Hydrate layout' }).click();
+		await expect.poll(async () => (await panel.boundingBox())?.width).toBe(expected);
+		await expect(panel).toHaveCSS('animation-name', 'none');
+		// The fixture control can be covered by a full-width overlay.
+		await page.getByRole('button', { name: 'Toggle local panel' }).dispatchEvent('click');
+		await expect(panel).not.toHaveCSS('animation-name', 'none');
+		expect((await panel.boundingBox())?.width).toBeCloseTo(expected, 2);
+		await expect(panel).toHaveCount(0);
+		await expect
+			.poll(async () => (await page.getByTestId('ssr-chat').boundingBox())?.width)
+			.toBe(400);
+		// The fixture control can be covered by a full-width overlay.
+		await page.getByRole('button', { name: 'Toggle local panel' }).dispatchEvent('click');
+		await expect(panel).not.toHaveCSS('animation-name', 'none');
+		expect((await panel.boundingBox())?.width).toBeCloseTo(expected, 2);
+		await expect(panel).toHaveCSS('animation-name', 'none');
+		await expect.poll(async () => (await panel.boundingBox())?.width).toBe(expected);
 	});
 }

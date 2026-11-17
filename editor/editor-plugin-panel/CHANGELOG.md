@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-panel
 
+## 35.0.0
+
+### Patch Changes
+
+- [`cabf3c7e59b8d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cabf3c7e59b8d) -
+  Remove internal uses of the always-true `areToolbarFlagsEnabled` helper and delete legacy toolbar
+  code that only rendered when it returned false (`ScrollButtons`, `LinkToolbarAppearance`,
+  `HyperlinkToolbarAppearance` and the media `LayoutGroup`).
+- Updated dependencies
+
+## 34.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 33.0.0
 
 ### Patch Changes

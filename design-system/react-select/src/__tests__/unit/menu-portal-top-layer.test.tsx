@@ -502,14 +502,14 @@ describe('MenuPortalTopLayer - focus when the menu closes (flag ON)', () => {
 		expect(screen.getByRole('button', { name: 'Opener' })).toHaveFocus();
 	});
 
-	it('returns focus to the input so that Select and its onFocus see it', async () => {
+	it('returns focus to the input, and the Select keeps focus throughout', async () => {
 		const onFocus = jest.fn();
 		const { rerender } = render(getUi({ menuIsOpen: false, onFocus }));
 		const input = screen.getByTestId(`${TEST_ID}-select--input`);
 		focusElement(input);
 		rerender(getUi({ menuIsOpen: true, onFocus }));
 		focusButton('Inside menu');
-		expect(screen.getByTestId(`${TEST_ID}-select--control`)).not.toHaveClass(
+		expect(screen.getByTestId(`${TEST_ID}-select--control`)).toHaveClass(
 			'test__control--is-focused',
 		);
 		onFocus.mockClear();
@@ -518,7 +518,7 @@ describe('MenuPortalTopLayer - focus when the menu closes (flag ON)', () => {
 		await flushPopoverExit();
 
 		expect(input).toHaveFocus();
-		expect(onFocus).toHaveBeenCalledTimes(1);
+		expect(onFocus).not.toHaveBeenCalled();
 		expect(screen.getByTestId(`${TEST_ID}-select--control`)).toHaveClass(
 			'test__control--is-focused',
 		);
@@ -837,7 +837,7 @@ describe('MenuPortalTopLayer - focus when the menu closes (flag ON)', () => {
 			await closeFromInsideMenu();
 
 			expect(input).toHaveFocus();
-			expect(onFocus).toHaveBeenCalledTimes(1);
+			expect(onFocus).not.toHaveBeenCalled();
 			expect(
 				screen.queryByRole('button', { name: 'Close menu', hidden: true }),
 			).not.toBeInTheDocument();

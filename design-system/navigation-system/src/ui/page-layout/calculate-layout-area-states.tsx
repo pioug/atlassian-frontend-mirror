@@ -22,10 +22,24 @@ function clampTargetWidth({
 	return Math.max(min, Math.min(target, max));
 }
 
-function getTargetWidth(area: StoredLayoutArea, isSideNavOverlay: boolean): number {
-	const defaultWidth = isSideNavOverlay
+function getDefaultWidth(
+	area: StoredLayoutArea,
+	isCompact: boolean,
+	isXlViewport: boolean,
+): number {
+	return isCompact
 		? (area.compactDefaultWidth ?? area.defaultWidth)
-		: area.defaultWidth;
+		: isXlViewport
+			? (area.xlDefaultWidth ?? area.defaultWidth)
+			: area.defaultWidth;
+}
+
+function getTargetWidth(
+	area: StoredLayoutArea,
+	isSideNavOverlay: boolean,
+	isXlViewport: boolean,
+): number {
+	const defaultWidth = getDefaultWidth(area, isSideNavOverlay, isXlViewport);
 
 	return area.liveResize?.mode === 'inline'
 		? area.liveResize.width
@@ -35,11 +49,10 @@ function getTargetWidth(area: StoredLayoutArea, isSideNavOverlay: boolean): numb
 function getOverlayTargetWidth(
 	area: StoredLayoutArea,
 	isSideNavOverlay: boolean,
+	isXlViewport: boolean,
 	areaName: LayoutArea,
 ): number {
-	const defaultWidth = isSideNavOverlay
-		? (area.compactDefaultWidth ?? area.defaultWidth)
-		: area.defaultWidth;
+	const defaultWidth = getDefaultWidth(area, isSideNavOverlay, isXlViewport);
 
 	return area.liveResize?.mode === 'overlay'
 		? area.liveResize.width
@@ -53,6 +66,7 @@ export function calculateLayoutAreaStates({
 	layoutWidth = viewportWidth,
 	isChatPanelOverlay,
 	isSideNavOverlay,
+	isXlViewport = false,
 	occupiedWidth = 0,
 	mainMinWidth: mainMinWidthBound,
 	areas,
@@ -72,6 +86,10 @@ export function calculateLayoutAreaStates({
 	 * Whether the viewport is below Root and SideNav's 64rem desktop breakpoint.
 	 */
 	isSideNavOverlay: boolean;
+	/**
+	 * Whether the viewport matches the 110.5rem XL breakpoint.
+	 */
+	isXlViewport?: boolean;
 	occupiedWidth?: number;
 	mainMinWidth: LayoutWidthBound;
 	areas: Partial<Record<LayoutArea, StoredLayoutArea>>;
@@ -110,7 +128,7 @@ export function calculateLayoutAreaStates({
 		resizingArea &&
 		!isSideNavOverlay &&
 		clampTargetWidth({
-			target: getTargetWidth(resizingArea, isSideNavOverlay),
+			target: getTargetWidth(resizingArea, isSideNavOverlay, isXlViewport),
 			min: resolveLayoutWidth(resizingArea.minWidth, viewportWidth),
 			max:
 				resizingArea.maxWidth !== undefined
@@ -211,8 +229,8 @@ export function calculateLayoutAreaStates({
 			resizeSession && areaName !== resizeSession.area
 				? shouldCollapseSideNav && resizeSession.area === 'chat-panel'
 					? min
-					: (baselineWidth ?? getTargetWidth(area, isSideNavOverlay))
-				: getTargetWidth(area, isSideNavOverlay);
+					: (baselineWidth ?? getTargetWidth(area, isSideNavOverlay, isXlViewport))
+				: getTargetWidth(area, isSideNavOverlay, isXlViewport);
 		const target = clampTargetWidth({
 			target: requestedTarget,
 			min,
@@ -280,13 +298,11 @@ export function calculateLayoutAreaStates({
 		const desiredPanelWidth = Math.max(
 			panelMinWidth,
 			Math.min(
-				getOverlayTargetWidth(panel, isSideNavOverlay, 'panel'),
+				getOverlayTargetWidth(panel, isSideNavOverlay, isXlViewport, 'panel'),
 				panel.maxWidth === undefined ? Infinity : resolveLayoutWidth(panel.maxWidth, viewportWidth),
 			),
 		);
-		const overlayDefault = isSideNavOverlay
-			? (panel.compactDefaultWidth ?? panel.defaultWidth)
-			: panel.defaultWidth;
+		const overlayDefault = getDefaultWidth(panel, isSideNavOverlay, isXlViewport);
 		const reservedMainWidth = isPanelResize
 			? Math.max(
 					effectiveMainMinWidth,
@@ -371,9 +387,7 @@ export function calculateLayoutAreaStates({
 		// Chat covers Root; SideNav and the local panel overlay Main's grid track.
 		// Occupied tracks and inline chat are not part of that covered region.
 		const layoutMax = (areaName === 'chat-panel' ? layoutWidth : mainAreaWidth) * 0.9;
-		const defaultWidth = isSideNavOverlay
-			? (area.compactDefaultWidth ?? area.defaultWidth)
-			: area.defaultWidth;
+		const defaultWidth = getDefaultWidth(area, isSideNavOverlay, isXlViewport);
 		const overlayMax =
 			isRefinedLayout && areaName === 'panel'
 				? hasPanelClearance
@@ -396,7 +410,7 @@ export function calculateLayoutAreaStates({
 			isRefinedLayout && (areaName === 'panel' || areaName === 'chat-panel')
 				? min
 				: Math.min(min, max);
-		const target = getOverlayTargetWidth(area, isSideNavOverlay, areaName);
+		const target = getOverlayTargetWidth(area, isSideNavOverlay, isXlViewport, areaName);
 		const width = clampTargetWidth({
 			target,
 			min: effectiveMin,

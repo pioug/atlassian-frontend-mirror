@@ -30,7 +30,7 @@ it('stays on the local fallback after a runtime WASM error without retrying init
 			{ endpoint: '/logs', batchSize: 100, flushIntervalMs: 100 },
 			environment,
 		);
-		const input = resultInput(flagResult({ randomizationIdentifierName: 'TenantId' }), {
+		const input = resultInput(flagResult({ identifierType: 'TenantId' }), {
 			requestContext: { identifiers: { TenantId: 'alice' }, attributes: {} },
 		});
 		const log = () => logger.log(input, () => mapExposureRecord(input));

@@ -13,13 +13,30 @@ import {
 	useContext,
 } from 'react';
 
-import { jsx } from '@compiled/react';
+import { cssMap, jsx } from '@compiled/react';
 
 import { useRouterLink } from '@atlaskit/app-provider/use-router-link';
 import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';
+import { token } from '@atlaskit/tokens';
 
 import MenuItemPrimitive from '../internal/components/menu-item-primitive';
 import type { LinkItemProps } from '../types';
+
+// Pins the text colour on focus so host page styles, such as a global `a:focus { color }` rule,
+// cannot override it. The menu item primitive already does this for the other link states.
+// These classes come before the primitive's `className`, so a consumer's own `:focus` colour wins.
+const focusStyles = cssMap({
+	unselected: {
+		'&:focus': {
+			color: 'currentColor',
+		},
+	},
+	selected: {
+		'&:focus': {
+			color: token('color.text.selected'),
+		},
+	},
+});
 
 const IS_EXTERNAL_LINK_REGEX = /^(?:(http|https):\/\/)/;
 const IS_NON_HTTP_BASED = /^(((mailto|tel|sms):)|(#))/;
@@ -121,6 +138,10 @@ const LinkItem: import('react').MemoExoticComponent<
 						data-is-router-link={testId ? (isRouterLink ? 'true' : 'false') : undefined}
 						data-vc="link-item"
 						{...rest}
+						css={[
+							!isDisabled && !isSelected && focusStyles.unselected,
+							!isDisabled && isSelected && focusStyles.selected,
+						]}
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 						className={className}
 						// @ts-expect-error

@@ -1,5 +1,3 @@
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
-
 import type { MetricsPlugin } from './metricsPluginType';
 import { createPlugin, initialPluginState, metricsKey } from './pm-plugins/main';
 import { getAnalyticsPayload } from './pm-plugins/utils/analytics';
@@ -47,11 +45,8 @@ export const metricsPlugin: MetricsPlugin = ({ config, api }) => ({
 				}
 
 				if (pluginState && pluginState.totalActionCount > 0 && pluginState.activeSessionTime > 0) {
-					let toolbarDocking;
-					if (editorExperiment('platform_editor_controls', 'variant1')) {
-						toolbarDocking =
-							api?.userPreferences?.sharedState.currentState()?.preferences?.toolbarDockingPosition;
-					}
+					const toolbarDocking =
+						api?.userPreferences?.sharedState.currentState()?.preferences?.toolbarDockingPosition;
 
 					const payloadToSend = getAnalyticsPayload({
 						currentContent: tr.doc.content,

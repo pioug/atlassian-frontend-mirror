@@ -7,8 +7,7 @@ import type { ReactElement } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
-import type { MessageDescriptor, WrappedComponentProps } from 'react-intl';
-import { FormattedMessage } from 'react-intl';
+import type { WrappedComponentProps } from 'react-intl';
 
 import { toolbarMessages } from '@atlaskit/editor-common/messages/toolbar';
 import { expandIconContainerStyle } from '@atlaskit/editor-common/styles/expand';
@@ -16,26 +15,8 @@ import { wrapperStyle } from '@atlaskit/editor-common/styles/plugins';
 import ToolbarButton from '@atlaskit/editor-common/ui-menu/ToolbarButton';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import TextIcon from '@atlaskit/icon/core/text';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { Box } from '@atlaskit/primitives/box';
-// eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
-import { xcss } from '@atlaskit/primitives/xcss/xcss';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
-import { token } from '@atlaskit/tokens';
 
-import { NORMAL_TEXT } from '../../block-types';
 import { wrapperSmallStyle } from './styled';
-
-const buttonContentStyle = xcss({
-	minWidth: `calc(80px + 2*${token('space.075')})`,
-	overflow: 'hidden',
-	padding: 'space.075',
-});
-
-const buttonContentReducedSpacingStyle = xcss({
-	padding: 'space.100',
-	minWidth: `calc(80px + 2*${token('space.100')})`,
-});
 
 export interface BlockTypeButtonProps {
 	'aria-expanded': React.AriaAttributes['aria-expanded'];
@@ -50,7 +31,6 @@ export interface BlockTypeButtonProps {
 	// eslint-disable-next-line @typescript-eslint/method-signature-style -- ignored via go/ees013 (to be fixed)
 	onKeyDown(e: React.KeyboardEvent): void;
 	selected: boolean;
-	title: MessageDescriptor;
 }
 
 export const BlockTypeButton = (props: BlockTypeButtonProps): jsx.JSX.Element => {
@@ -61,19 +41,11 @@ export const BlockTypeButton = (props: BlockTypeButtonProps): jsx.JSX.Element =>
 
 	const toolipTextStyles = props.formatMessage(toolbarMessages.textStylesTooltip);
 
-	const icon =
-		editorExperiment('platform_editor_controls', 'variant1') && props.blockTypeIcon ? (
-			props.blockTypeIcon
-		) : (
-			<TextIcon label={labelTextStyles} spacing="spacious" color="currentColor" />
-		);
-
-	const chevronIconSpacing = editorExperiment('platform_editor_controls', 'variant1')
-		? 'spacious'
-		: 'none';
-
-	const shouldUseIconAsButton =
-		props.isSmall || editorExperiment('platform_editor_controls', 'variant1');
+	const icon = props.blockTypeIcon ? (
+		props.blockTypeIcon
+	) : (
+		<TextIcon label={labelTextStyles} spacing="spacious" color="currentColor" />
+	);
 
 	return (
 		<ToolbarButton
@@ -94,37 +66,15 @@ export const BlockTypeButton = (props: BlockTypeButtonProps): jsx.JSX.Element =>
 					css={[wrapperStyle, props.isSmall && wrapperSmallStyle]}
 					data-testid="toolbar-block-type-text-styles-icon"
 				>
-					{
-						<React.Fragment>
-							{shouldUseIconAsButton && icon}
-							<span
-								// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-								css={expandIconContainerStyle}
-							>
-								<ChevronDownIcon
-									spacing={chevronIconSpacing}
-									label=""
-									color="currentColor"
-									size="small"
-								/>
-							</span>
-						</React.Fragment>
-					}
+					{icon}
+					<span
+						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+						css={expandIconContainerStyle}
+					>
+						<ChevronDownIcon spacing="spacious" label="" color="currentColor" size="small" />
+					</span>
 				</span>
 			}
-		>
-			{!shouldUseIconAsButton && (
-				<Box
-					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-					xcss={[buttonContentStyle, props.isReducedSpacing && buttonContentReducedSpacingStyle]}
-				>
-					<FormattedMessage
-						// Ignored via go/ees005
-						// eslint-disable-next-line react/jsx-props-no-spreading
-						{...(props.title || NORMAL_TEXT.title)}
-					/>
-				</Box>
-			)}
-		</ToolbarButton>
+		/>
 	);
 };

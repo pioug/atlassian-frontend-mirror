@@ -1,7 +1,6 @@
 import { getNodeSelectionForPos, selectNodeAtPos } from '@atlaskit/editor-common/node-selection';
 import { Side } from '@atlaskit/editor-common/selection';
 import { GapCursorSelection } from '@atlaskit/editor-common/selection/gap-cursor/selection';
-import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
@@ -99,11 +98,7 @@ export const selectNode = (
 	return tr;
 };
 
-export const setCursorPositionAtMovedNode = (
-	tr: Transaction,
-	start: number,
-	api?: ExtractInjectionAPI<BlockControlsPlugin>,
-): Transaction => {
+export const setCursorPositionAtMovedNode = (tr: Transaction, start: number): Transaction => {
 	const node = tr.doc.nodeAt(start);
 	const isNodeSelection = node && NodeSelection.isSelectable(node);
 
@@ -118,11 +113,7 @@ export const setCursorPositionAtMovedNode = (
 	}
 
 	// this is a fix for empty paragraph selection - can safely use start position as the paragraph is empty
-	if (
-		node?.type.name === 'paragraph' &&
-		node?.childCount === 0 &&
-		areToolbarFlagsEnabled(Boolean(api?.toolbar))
-	) {
+	if (node?.type.name === 'paragraph' && node?.childCount === 0) {
 		const selection = new TextSelection(tr.doc.resolve(start));
 		tr.setSelection(selection);
 		return tr;

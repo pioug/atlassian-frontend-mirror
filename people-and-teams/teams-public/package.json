@@ -104,6 +104,7 @@
 	"devDependencies": {
 		"@af/integration-testing": "workspace:^",
 		"@af/visual-regression": "workspace:^",
+		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/ssr": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
@@ -118,7 +119,7 @@
 		"react-intl": "root:*"
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "3.12.1",
+	"version": "3.12.3",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -132,6 +133,10 @@
 	"platform-feature-flags": {
 		"migrate-product-permissions": {
 			"type": "boolean"
+		},
+		"teams_a11y_20261102": {
+			"type": "boolean",
+			"referenceOnly": true
 		}
 	}
 }

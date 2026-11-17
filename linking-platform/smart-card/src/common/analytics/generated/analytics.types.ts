@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::7fd705fd40f738dda4aca53c5070ac66>>
+ * @codegen <<SignedSource::bcb840e9445405411cf34af7d9171bf7>>
  * @codegenCommand afm workspace @atlassian/analytics-tooling analytics:codegen smart-card
  */
 export type PackageMetaDataContextType = {
@@ -167,7 +167,7 @@ export type ModalClosedRelatedLinksAttributesType = {
 };
 export type ModalOpenedPreAuthValuePropositionAttributesType = {};
 export type ModalClosedPreAuthValuePropositionAttributesType = {
-	closeMethod: 'button' | 'escape' | 'overlay';
+	closeMethod: 'button' | 'escape' | 'overlay' | 'coordinator';
 	dwellTime: number;
 };
 export type RelatedLinksSuccessAttributesType = {

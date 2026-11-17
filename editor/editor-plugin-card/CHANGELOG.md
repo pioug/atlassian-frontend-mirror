@@ -1,5 +1,52 @@
 # @atlaskit/editor-plugin-card
 
+## 39.0.1
+
+### Patch Changes
+
+- [`564ce3988c6da`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/564ce3988c6da) -
+  Behind the `platform_editor_phantom_edit_fix` experiment, tint two automatic document changes as
+  dirty transactions, so collab-edit doesn't track them as local organic changes:
+
+  - a datasource table saving its default columns when it has none saved
+  - a smart link falling back to a plain link after a fatal resolve error
+
+  Before this, opening a live doc where one of these ran autosaved a new version authored by the
+  viewer, and the doc's owner was notified that the viewer had edited it.
+
+- Updated dependencies
+
+## 39.0.0
+
+### Patch Changes
+
+- [`895e65e4d77e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/895e65e4d77e5) -
+  Gate the disabled Card and Embed options in the link appearance dropdown behind
+  platform_editor_link_appearance_disabled_options. With the gate on, Embed is enabled when a
+  registered embed transformer's node is allowed in the parent
+- [`cabf3c7e59b8d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cabf3c7e59b8d) -
+  Remove internal uses of the always-true `areToolbarFlagsEnabled` helper and delete legacy toolbar
+  code that only rendered when it returned false (`ScrollButtons`, `LinkToolbarAppearance`,
+  `HyperlinkToolbarAppearance` and the media `LayoutGroup`).
+- Updated dependencies
+
+## 38.0.0
+
+### Patch Changes
+
+- [`b2444e74978c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2444e74978c4) -
+  Make the shipped editor memory-leak reductions permanent and remove the experiment checks.
+- Updated dependencies
+
+## 37.0.1
+
+### Patch Changes
+
+- [`84f221954c9fb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/84f221954c9fb) -
+  Remove the `control` branches of experiment `platform_editor_controls`; the editor controls
+  (`variant1`) experience is now permanent.
+- Updated dependencies
+
 ## 37.0.0
 
 ### Patch Changes

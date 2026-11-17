@@ -55,7 +55,6 @@ export interface Props {
 	// A prop to align the dropdown with the floating toolbar instead of the toolbar item
 	alignDropdownWithToolbar?: boolean;
 	alignX?: 'left' | 'right' | 'center';
-	areAnyNewToolbarFlagsEnabled: boolean;
 	boundariesElement?: HTMLElement;
 	buttonTestId?: string;
 	disabled?: boolean;
@@ -124,7 +123,6 @@ export default class Dropdown extends Component<Props, State> {
 			pulse,
 			shouldFitContainer,
 			alignX,
-			areAnyNewToolbarFlagsEnabled,
 		} = this.props;
 
 		let trigger;
@@ -140,10 +138,9 @@ export default class Dropdown extends Component<Props, State> {
 					selected={isOpen}
 					disabled={disabled}
 					tooltipContent={tooltip}
-					ariaHasPopup={areAnyNewToolbarFlagsEnabled ? true : undefined}
+					ariaHasPopup
 					onMount={onMount}
 					pulse={pulse}
-					areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 				/>
 			);
 		} else {
@@ -170,7 +167,6 @@ export default class Dropdown extends Component<Props, State> {
 					areaControls={dropdownListId}
 					onMount={onMount}
 					pulse={pulse}
-					areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 				>
 					{title}
 				</Button>
@@ -242,7 +238,7 @@ export default class Dropdown extends Component<Props, State> {
 	private renderArrayOptions = (
 		options: Array<DropdownOptionT<Function>> | FloatingToolbarOverflowDropdownOptions<Function>,
 	) => {
-		const { showSelected, dispatchCommand, editorView, areAnyNewToolbarFlagsEnabled } = this.props;
+		const { showSelected, dispatchCommand, editorView } = this.props;
 		return (
 			<DropdownMenu
 				hide={this.hide}
@@ -250,7 +246,6 @@ export default class Dropdown extends Component<Props, State> {
 				items={options}
 				showSelected={showSelected}
 				editorView={editorView}
-				areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 			/>
 		);
 	};

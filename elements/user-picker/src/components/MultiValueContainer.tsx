@@ -16,6 +16,8 @@ import { token } from '@atlaskit/tokens';
 import { type Option, type User } from '../types';
 import { messages } from './i18n';
 import { isChildInput } from './isChildInput';
+import { SelectedValueList } from './SelectedValueList';
+import { VALUE_CONTAINER_ATTRIBUTE } from './valueContainerAttribute';
 import ValueContainerWrapper from './ValueContainerWrapper';
 
 export type State = {
@@ -31,6 +33,7 @@ type Props = MultiValueProps<Option<User>[], true> & {
 
 type ValueContainerInnerProps = {
 	ref: React.RefObject<HTMLDivElement>;
+	[VALUE_CONTAINER_ATTRIBUTE]?: boolean;
 };
 
 const valueContainerStyles = cssMap({
@@ -95,7 +98,12 @@ export class MultiValueContainer extends React.PureComponent<Props, State> {
 			valueSize: 0,
 			previousValueSize: 0,
 		};
-		this.valueContainerInnerProps = { ref: React.createRef() };
+		this.valueContainerInnerProps = {
+			ref: React.createRef(),
+			...(fg('platform-user-picker-a11y-30826-value-list')
+				? { [VALUE_CONTAINER_ATTRIBUTE]: true }
+				: {}),
+		};
 	}
 
 	componentDidUpdate(): void {
@@ -137,6 +145,9 @@ export class MultiValueContainer extends React.PureComponent<Props, State> {
 	};
 
 	private addPlaceholder = (placeholder: string): React.ReactElement => {
+		if (fg('platform-user-picker-a11y-30826-value-list')) {
+			return this.renderChildrenWithList(placeholder);
+		}
 		const children = React.Children.map(this.props.children, (child) =>
 			isChildInput(child as React.ReactChild) && this.showPlaceholder()
 				? React.cloneElement(child as React.ReactElement, { placeholder })
@@ -145,12 +156,41 @@ export class MultiValueContainer extends React.PureComponent<Props, State> {
 		return <Fragment>{children}</Fragment>;
 	};
 
+	private renderChildrenWithList = (placeholder?: string): React.ReactElement => {
+		// Select supplies the values/placeholder and input as separate child slots.
+		// Keep the input in a stable keyed slot when values are added or removed.
+		const [values, input] = Array.isArray(this.props.children)
+			? this.props.children
+			: [this.props.children, null];
+		const inputWithPlaceholder =
+			React.isValidElement(input) && placeholder !== undefined && this.showPlaceholder()
+				? React.cloneElement(input as React.ReactElement, { placeholder })
+				: input;
+
+		return (
+			<Fragment>
+				<SelectedValueList
+					key="values"
+					hasValue={
+						this.props.hasValue && this.props.selectProps.controlShouldRenderValue !== false
+					}
+				>
+					{values}
+				</SelectedValueList>
+				<Fragment key="input">{inputWithPlaceholder}</Fragment>
+			</Fragment>
+		);
+	};
+
 	private renderChildren = () => {
 		const {
 			selectProps: { addMoreMessage, isDisabled },
 		} = this.props;
 		// Do not render "Add more..." message if picker is disabled
 		if (isDisabled) {
+			if (fg('platform-user-picker-a11y-30826-value-list')) {
+				return this.renderChildrenWithList();
+			}
 			return this.props.children;
 		}
 		if (addMoreMessage === undefined) {

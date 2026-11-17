@@ -38,7 +38,8 @@
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__json-schema-generator/app",
-		"isolatedDeclarations": true
+		"isolatedDeclarations": true,
+		"noUncheckedIndexedAccess": true
 	},
 	"references": []
 }

@@ -3,8 +3,8 @@ import type { TFocusableFilter } from './types';
 
 /**
  * Returns the focusable element after (`'forwards'`) or before
- * (`'backwards'`) the focused element in `container`. Wraps around at both
- * ends.
+ * (`'backwards'`) the focused element in `container`, in Tab order. Wraps
+ * around at both ends. See `getFocusables` for how nested layers count.
  *
  * The focused element does not need to be tabbable. For example, it can have
  * `tabindex="-1"` and have taken focus from a click or from script. Navigation

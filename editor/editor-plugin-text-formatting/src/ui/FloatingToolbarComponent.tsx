@@ -15,7 +15,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-edi
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { NamedPluginStatesFromInjectionAPI } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { TextFormattingPlugin } from '../textFormattingPluginType';
 import { ToolbarButtonsStrong } from './Toolbar/constants';
@@ -35,11 +34,8 @@ type FloatingToolbarComponentProps = {
 
 const FloatingToolbarSettings = {
 	disabled: false,
-	isReducedSpacing: true,
 	shouldUseResponsiveToolbar: false,
 	toolbarSize: ToolbarSize.S,
-	hasMoreButton: false,
-	moreButtonLabel: '',
 	toolbarType: ToolbarType.FLOATING,
 };
 
@@ -125,14 +121,7 @@ const FloatingToolbarTextFormat = ({
 						items: MenuIconItem[];
 					}[]
 				}
-				isReducedSpacing={
-					editorExperiment('platform_editor_controls', 'variant1')
-						? false
-						: FloatingToolbarSettings.isReducedSpacing
-				}
-				moreButtonLabel={FloatingToolbarSettings.moreButtonLabel}
-				hasFormattingActive={FloatingToolbarSettings.hasMoreButton}
-				hasMoreButton={FloatingToolbarSettings.hasMoreButton}
+				isReducedSpacing={false}
 				intl={intl}
 				toolbarType={FloatingToolbarSettings.toolbarType}
 			/>

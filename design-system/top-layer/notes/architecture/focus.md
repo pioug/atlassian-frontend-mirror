@@ -49,28 +49,49 @@ background content.
 
 ### Nested top-layer scopes
 
-When a `role="dialog"` popover (or `<dialog>`) contains another `role="dialog"` top-layer descendant
-(for example, a date-picker calendar opened inside a popup), both layers attach a `useFocusWrap`
-listener. The capture-phase listener on the outer layer fires first.
+A dialog can hold other layers: a menu or a listbox popup, a date-picker calendar, or another
+dialog. One rule decides how a nested layer (a `[popover]` or `<dialog>` inside the container) takes
+part in the outer focus wrap: **does it own its focus?** It does when it is a `<dialog>` or has
+`role="dialog"` / `"alertdialog"` (`isFocusOwningLayer`, the same roles that turn on
+`useFocusWrap`). See
+[`../decisions/role-and-focus.md`](../decisions/role-and-focus.md#nested-layers-and-tab-does-the-layer-own-its-focus).
 
-If the outer layer naively handled Tab while focus was inside the inner layer, it would call
-`preventDefault()` and remap focus to one of its own focusables — ejecting focus from the inner
-layer and triggering its blur handlers (which typically close the inner layer).
+Both layers of a nested dialog attach a `useFocusWrap` listener, and the capture-phase listener on
+the outer layer fires first. If the outer layer handled Tab while focus was inside the inner dialog,
+it would call `preventDefault()` and move focus to one of its own focusables, ejecting focus from
+the inner dialog and triggering its blur handlers (which typically close it).
 
-To avoid this, `useFocusWrap` calls `isNestedLayerFocused({ container })` before intercepting Tab.
-The helper returns `true` when `document.activeElement` is a descendant of the container but lives
-in a different nested top-layer scope (a `[popover]` or `<dialog>` element). When that is the case,
-the outer hook returns early and lets the inner hook take over.
+So `useFocusWrap` calls `isNestedLayerFocused` (focus-owning layers only) before it intercepts Tab.
+The helper returns `true` when `document.activeElement` is inside the container and some layer
+between it and the container owns its focus. Then the outer hook returns early and the inner hook
+takes over.
 
-The contract this preserves:
+The contract:
 
-- **Inside our own layer** → handle Tab normally (cycle).
-- **Inside a nested layer below us** → skip; the inner hook handles it.
+- **Inside our own layer, or in a nested layer that does not own its focus** (an open menu or
+  listbox popup) → handle Tab normally (cycle). `getFocusables` includes the elements of open nested
+  layers that do not own their focus, in DOM order, so Tab enters, moves through and leaves them.
+- **Inside a nested layer that owns its focus** → skip; the inner hook handles it. Its elements are
+  not in our Tab order, at any depth.
 - **Outside our layer** (body, a sibling layer, or no active element) → handle Tab to reclaim focus
-  into our scope.
+  into our scope when the keydown reaches us.
 
 The "reclaim from loose focus" branch matters for the `<Dialog>` modal case: if the user clicks
-outside and presses Tab, focus should snap back into the modal rather than wander the page.
+outside and presses Tab, focus should snap back into the modal rather than wander the page. With
+focus on `<body>`, the keydown does not reach the dialog, and the browser enters the modal dialog
+itself, because the page outside it is inert.
+
+Two consequences:
+
+- The listener moves focus in the capture phase. A listener inside the dialog that reads
+  `document.activeElement` for a Tab keydown sees the new focus target, so it must read
+  `event.target` for the element that had focus.
+- `useArrowNavigation` closes its menu on Tab in the capture phase on the document, before the
+  dialog's listener. Focus returns to the trigger, and the dialog moves on from there. Arrow keys
+  keep to the menu's own layer (`isInContainerLayer`).
+
+Two edges follow the browser's own Tab order: focus inside an `<iframe>` (its keydown does not reach
+us), and a nested product-built `role="dialog"` layer that does not wrap focus itself.
 
 ### TODO: empty layers
 
@@ -136,43 +157,74 @@ We can't replace the hook with static `autofocus` attributes because:
 - **Consumer `autofocus` must still work.** If a consumer places `autofocus` on a specific element,
   that should win — the hook checks for `[autofocus]` first, then falls back.
 
-### React 18 `autoFocus` caveat
+### React `autoFocus`: the layer shows before its content effects
 
-React 18's `autoFocus` JSX prop does **not** set the HTML `autofocus` attribute or the DOM
-`.autofocus` property. It only calls `.focus()` imperatively during the commit phase, which silently
-fails on hidden popover content (the popover hasn't been shown yet at commit time).
+Terms:
 
-**Consumers who want autofocus inside a popover must set the native attribute themselves**, for
-example via a ref callback:
+- **Show:** the native `showPopover()` or `showModal()` call. Before it, the layer and its content
+  are in the DOM but not rendered, and the browser ignores a `focus()` call on them.
+- **Content effects:** what React runs for new content in the same commit, once it is in the DOM:
+  `autoFocus` (React calls `.focus()`, as the JSX prop does not set the HTML `autofocus` attribute
+  on the client), ref callbacks, `useLayoutEffect` and `componentDidMount`. React runs them
+  child-first, siblings in order. `useEffect` runs later, after paint.
 
+**Before:** the layer showed in its own layout effect. React runs the `autoFocus` logic of an
+element before the `useLayoutEffect` of the component that renders it, so the layer showed after its
+content effects. A content `autoFocus` or `focus()` call landed on a hidden layer and did nothing.
+
+**Now:** we call `.showPopover()` and `.showModal()` early, in a layout effect in `FirstSibling`, so
+that we play nicely with the timing of React's built-in `autoFocus` behaviour. `Popover` and
+`Dialog` render `FirstSibling`, an internal component that renders nothing, before `children`
+(`internal/sync-native-open/use-sync-native-open.tsx`):
+
+- React runs its `autoFocus` logic in the same tree walk as `useLayoutEffect`. React runs the
+  `autoFocus` logic of an element _before_ the `useLayoutEffect` of the component that renders it.
+- The `useLayoutEffect` in `FirstSibling` always runs before the effects of its later siblings
+  (`children`), no matter how deep they are. This is React's commit order.
+- So the layer shows before React runs its own `autoFocus` code on `children`, and the React
+  `autoFocus` prop on JSX in `children` works.
+
+<!-- prettier-ignore -->
 ```tsx
-const autofocusRef = useCallback((node: HTMLButtonElement | null) => {
-	if (node) {
-		node.setAttribute('autofocus', '');
-	}
-}, []);
-
-<button ref={autofocusRef}>Focused on open</button>;
+<div popover>              // 5. host layout effect: initial focus
+  <FirstSibling />         // 1. showPopover()
+  <Card>                   // 4. Card's layout effects
+    <Body>                 // 3. Body's layout effects
+      <input autoFocus />  // 2. focus() works: the layer is visible
+    </Body>
+  </Card>
+</div>
 ```
 
-React 19 client rendering does not set the attribute either: `react-dom` 19.2 skips `autoFocus` when
-it sets DOM properties, and calls `.focus()` during the commit, as React 18 does. (Its server
-renderer does emit `autofocus` in the HTML.) So this workaround is needed for React 18 and React 19.
+In one commit, when a layer mounts open:
 
-For `Dialog` (which uses `showModal()`), the same ref callback pattern applies — the browser's
-dialog focusing steps look for the HTML `autofocus` attribute.
+1. `FirstSibling` shows the layer.
+2. The content effects run. A `focus()` call works, and a measurement sees real sizes.
+3. The layer's own layout effect takes initial focus, unless focus is already inside.
+4. Paint, then `useEffect`.
 
-The native attribute only works for an element that is in the dialog when `showModal()` runs. For
-content that mounts later, in an open dialog, React's `autoFocus` works, so keep both. Entry-point
-modals (`ModalTrigger` from `@atlassian/entry-points`) also move focus with `FocusInsideOnLoad`
-after the entry point loads: to the `autoFocus` ref, else to the first focusable element. That
-overrides both the attribute and React's `autoFocus`. With `platform-dst-top-layer` on, the
-top-layer `ModalDialog` does not forward its `ref`, so `FocusInsideOnLoad` finds no modal and does
-nothing.
+So React `autoFocus` (ADS components and raw elements) and `focus()` in a ref callback, a layout
+effect or `componentDidMount` work, as on the legacy path. `FirstSibling` finds the host by its `id`
+in the document. If it cannot (for example in a shadow root, which we do not support), the layer
+shows in step 3, as before, and content `autoFocus` does not work. See
+[`../decisions/react-autofocus-and-focus-on-open.md`](../decisions/react-autofocus-and-focus-on-open.md).
 
-The same caveat breaks JSX `autoFocus` inside `ModalDialog` content with `platform-dst-top-layer`
-on. See [`../follow-ups/dialog-react-autofocus.md`](../follow-ups/dialog-react-autofocus.md) for the
-affected consumers and the options for a general fix.
+Entry-point triggers (`PopupTrigger` and `ModalTrigger` from `@atlassian/entry-points`) also move
+focus with `FocusInsideOnLoad` after the entry point loads. With `platform_dst-automated_focus` on,
+they use `applyInitialFocus`, so focus that the loaded content took (React `autoFocus`) stays. A
+`setInitialFocusRef` target or a modal `autoFocus` ref target still comes first. When the module
+loads before the content (the content still waits for its query), `PopupTrigger`'s loading element
+still has focus. That focus is the trigger's, so it moves it to the container first. `ModalTrigger`
+does not move focus into a `<dialog>` that closed before the content was ready. With the gate off,
+they move focus to the first focusable element or the container, so content `autoFocus` loses. The
+modal `FocusInsideOnLoad` finds the modal through the `ModalDialog` `ref`. On the top-layer path,
+`ModalDialog` forwards its `ref` to the native `<dialog>` (see
+[`../follow-ups/modal-dialog-ref-forwarding.md`](../follow-ups/modal-dialog-ref-forwarding.md)).
+Browser tests: `focus-inside-on-load.spec.tsx` in
+`entry-points/src/popup-trigger/__tests__/playwright/` and in
+`entry-points/src/modal-trigger/__tests__/playwright/`. Layers move focus only on the open: content
+that needs focus later moves it itself (see
+[`../decisions/react-autofocus-and-focus-on-open.md`](../decisions/react-autofocus-and-focus-on-open.md)).
 
 ### Decisions
 
@@ -225,8 +277,14 @@ affected consumers and the options for a general fix.
   hypothetical future caller — current consumers (`react-select`, `TimePicker`, `DatePicker`) all
   work correctly under the role-specific placement.
 
-- Fires each time the popover shows. `useInitialFocus` returns `takeInitialFocus`, and `Popover`
-  calls it in its show, right after `showPopover()`. The show effect runs:
+- Fires each time the popover shows, once its content effects have run. `useInitialFocus` returns
+  `setInitialFocus`. The popover shows from `FirstSibling`, before the content effects, and
+  `Popover`'s own layout effect calls `setInitialFocus` after them. It does nothing when focus is
+  already inside the popover (the content, or the browser's `[autofocus]` step, moved it there).
+  Focus on the popover element itself does not count. All the initial focus rules are in one
+  function, `setInitialFocus` (`src/internal/set-initial-focus.tsx`). `Popover` and the exported
+  `applyInitialFocus` both use it, so a wrapper that sets focus later (for example after an entry
+  point loads) follows the same rules. The show effect runs:
   - When `isOpen` turns `true`: `closed → entering` (animated), `closed → open` (not animated), and
     a reopen during the exit, `exiting → entering`. When a user dismisses the popup (Escape, close
     button, light dismiss) the browser natively restores focus to the trigger as part of
@@ -235,9 +293,10 @@ affected consumers and the options for a general fix.
     focus there, the popup would be visible again with focus stranded on the trigger, a keyboard
     usability gap for menu / dialog / listbox roles.
   - When React creates the effect again while the popover stays open: strict mode, a Suspense or
-    Activity hide and reveal, and Fast Refresh. The popover hides and shows again, so it takes
-    initial focus as on an open. A `Dialog` does the same natively: `showModal()` moves focus on
-    every show. So nested layers that show again end with focus in the innermost one.
+    Activity hide and reveal, and Fast Refresh. The popover hides and shows again. It puts focus
+    back where it was when it hid, if that element can still take focus, else it takes initial focus
+    as on an open. A `Dialog` does the same (`showModal()` moves focus, then the layer puts it
+    back). So nested layers that show again end with focus in the innermost one.
   - Other renders (`entering → open`, a new `role` or `initialFocusRef`) do not run the show effect,
     so they do not move focus.
 - Focus moves the instant the host element first becomes visible — not after the entry transition
@@ -245,38 +304,45 @@ affected consumers and the options for a general fix.
   `transitionend`-gated focus call (~150ms late on a typical entry animation) is a focus-stealing
   hazard: subsequent user input (e.g. an arrow-left to back out of a nested submenu) can land before
   the deferred `focus()` fires, snapping focus back to a now-stale element.
-- Synchronous inside the show layout effect, with no `requestAnimationFrame` wrapper. It runs right
-  after `showPopover()`, so the host is in the top layer. A popover that waits for a parent layer
-  that opens in the same commit shows, and takes focus, after that parent shows (`layerShowOrder` in
+- Synchronous inside the show layout effect, with no `requestAnimationFrame` wrapper. The host is
+  already in the top layer. A popover inside a parent layer that opens in the same commit waits
+  until that parent has shown and taken its initial focus (`layerShowOrder` in
   `internal/layer-show.tsx`), so the innermost layer ends with focus (see
   [layer-show-order.md](./layer-show-order.md)). Focus lands in the same task as the open, before
   the browser paints, so the first frame already shows focus where it belongs and the content's own
   `useEffect`s see it there.
-- **Content that moves focus itself.** Content that calls `.focus()` in its own layout effect (or a
-  class `componentDidMount`, as `react-select`'s `autoFocus` does) runs before initial focus, as
-  before. Content that calls `.focus()` in a `useEffect` now runs after it, so its focus wins and
-  listeners see two focus moves. Before the move to a layout effect, initial focus ran after it and
-  overrode it. To choose the target, use `initialFocusRef` (`setInitialFocusRef` in
-  `@atlaskit/popup`) instead.
+- **Content that moves focus itself.** Content that calls `.focus()` in its content effects (React
+  `autoFocus`, a ref callback, a layout effect, or a class `componentDidMount`, as `react-select`'s
+  `autoFocus` does) runs after the show and before initial focus, so its focus wins and initial
+  focus does nothing. Content that calls `.focus()` in a `useEffect` runs after initial focus, so
+  its focus wins and listeners see two focus moves. To choose the target without moving focus
+  yourself, use `initialFocusRef` (`setInitialFocusRef` in `@atlaskit/popup`).
 - Only used in `Popover`, not `Dialog`.
 
-#### Known limitation: programmatic reopen with consumer-managed focus
+#### Programmatic reopen during the exit
 
-There is a rare programmatic path where a consumer flips `isOpen` false → true mid-exit without any
-user-initiated close gesture, and had previously moved focus to a non-default target inside the
-popup. In that case the `exiting → entering` branch will re-focus the role-appropriate default (e.g.
-first menu item) rather than preserving the consumer-chosen target. This matches the documented
-`closed → entering` behavior and is considered acceptable: the alternative (a
-`document.activeElement` heuristic) is unreliable across shadow DOM, iframes, and mid-restoration
-timing races, and a more correct phase-machine `exitCommitted` design adds significant surface area
-for a scenario that has not been observed in practice. Consumers that need to preserve focus across
-a programmatic reopen should manage focus themselves after the popup opens.
+A consumer can flip `isOpen` false → true during the exit without a user close gesture:
+
+- **In the same task, before a paint:** browsers differ, and the result is not consistent. In
+  Chromium and Firefox an `auto` popover returns focus to the trigger on the close, so the reopen
+  takes initial focus. In WebKit, and for a `manual` popover in every browser, focus is still
+  inside, so it stays on the element that had it. Either way focus is inside the open popup. We
+  accept this for an edge case (user, 17 Nov 2026).
+- **Later in the exit (after a paint):** every browser has already moved focus out of the closed
+  popover (to the trigger, or to `body`), so the role default takes focus, as on
+  `closed → entering`. To choose another target, use `initialFocusRef`.
+
+We checked both cases in Chromium, Firefox and WebKit (17 Nov 2026). Before, focus that the close
+left inside did not count, so the same-task reopen took initial focus in every browser. We removed
+that exception to keep the rule simple: focus already inside stays.
 
 #### `initialFocusRef`
 
 `Popover` takes an optional `initialFocusRef`. `getInitialFocusTarget` uses it as the first choice
-in each role branch that moves focus. For a dialog the order is: the `initialFocusRef` target, then
-the first `[autofocus]` element, then the first focusable element.
+in each role branch that moves focus. For a dialog, `getInitialFocusTarget` picks the
+`initialFocusRef` target, then the first `[autofocus]` element, then the first focusable element. It
+runs only when focus is not already inside, so an `[autofocus]` element that the browser or the
+layer already focused wins (see below).
 
 - **Roles:** only `dialog`, `alertdialog`, `menu` and `listbox` use it. The types accept it only for
   those roles (`TRoleWithInitialFocus`), and the runtime ignores it for other roles and for no role.
@@ -289,14 +355,19 @@ the first `[autofocus]` element, then the first focusable element.
 - **Popup:** `@atlaskit/popup` passes its `setInitialFocusRef` target only for roles that move
   focus. `useRoleProps` (`popup/src/internal/top-layer-bridge.tsx`) puts `initialFocusRef` only on
   those role variants, so the types hold the whole way down.
-- **Timing:** read in the same layout effect as the role default, so our code moves focus once. Set
-  the target in a ref callback (for example as the `ref` of an element in `children`) or in the
-  content's own layout effect, which runs first. A target set in the content's `useEffect` is too
-  late, and the role default takes focus. Content that mounts later does not get focus.
-- **Native autofocus runs first:** `showPopover()` runs the popover focusing steps, so an
-  `[autofocus]` element takes focus before the effect. The target then takes focus, so listeners see
-  two focus moves. The jsdom polyfill does the same.
-- **Reopen mid-exit:** the content stays mounted, so the target takes focus again.
+- **Timing:** read after the content effects have run, with the role default, so our code moves
+  focus once. Set the target in a ref callback (for example as the `ref` of an element in
+  `children`) or in the content's own layout effect, which runs first. A target set in the content's
+  `useEffect` is too late, and the role default takes focus. Content that mounts later does not get
+  focus: layers move focus only on the open. Content that needs focus later uses Popup
+  `UNSAFE__disableInitialAutoFocus` and moves focus itself (see
+  [`../decisions/react-autofocus-and-focus-on-open.md`](../decisions/react-autofocus-and-focus-on-open.md)).
+- **Focus already inside wins:** the target applies only when the content has not moved focus into
+  the popover. An `[autofocus]` element wins too: the browser's popover focusing steps focus one
+  that is in the DOM at the show, and the popover focuses one that a content effect marked (a ref
+  callback) once the content effects have run. Before, the target won and focus moved twice.
+- **Reopen mid-exit:** the content stays mounted, so the target takes focus again, unless focus is
+  still inside (see "Programmatic reopen during the exit" above).
 
 It replaced an effect in `@atlaskit/popup` that ran after `Popover`'s initial focus and focused the
 target a second time. Listeners saw two focus moves, and the effect keyed on `isOpen`, not on the

@@ -338,8 +338,8 @@ events:
         <<: [*PackageMetaDataContext, *CommonContext]
         closeMethod:
           required: true
-          type: ['button', 'escape', 'overlay']
-          description: How the user dismissed the modal.
+          type: ['button', 'escape', 'overlay', 'coordinator']
+          description: How the modal closed. Coordinator withdrawal is not a user dismissal.
         dwellTime:
           required: true
           type: number

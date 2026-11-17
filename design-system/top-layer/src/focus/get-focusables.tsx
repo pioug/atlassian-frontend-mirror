@@ -1,4 +1,8 @@
-import { getClosestLayer } from './get-closest-layer';
+import { isNativeElementOpen } from '../internal/is-native-element-open';
+import { canTakeFocus } from './can-take-focus';
+import { focusableElementSelectors } from './focusable-element-selectors';
+import { getNestedLayers } from './get-nested-layers';
+import { isFocusOwningLayer } from './is-focus-owning-layer';
 import type { TFocusableFilter } from './types';
 
 const focusableExclusions = [
@@ -9,50 +13,18 @@ const focusableExclusions = [
 ];
 const exclusionSelector = focusableExclusions.map((selector) => `:not(${selector})`).join('');
 
-const focusableSelector = [
-	'a[href]',
-	'area[href]',
-	'input:not([type="hidden"])',
-	'select',
-	'textarea',
-	'button',
-	'iframe',
-	'audio[controls]',
-	'video[controls]',
-	'[contenteditable]:not([contenteditable="false"])',
-	'[tabindex]',
-]
+const focusableSelector = focusableElementSelectors
 	.map((selector) => `${selector}${exclusionSelector}`)
 	.join(',');
 
-function isVisible({ element }: { element: HTMLElement }): boolean {
-	// Visibility filtering must not break focus navigation when the API is unsupported.
-	if (typeof element.checkVisibility !== 'function') {
-		return true;
-	}
-
-	try {
-		// Exclude elements hidden by display, content-visibility or visibility because
-		// they cannot receive focus. Offscreen, occluded and opacity-zero elements can
-		// receive focus, so they intentionally remain included.
-		return element.checkVisibility({ checkVisibilityCSS: true });
-	} catch {
-		return true;
-	}
-}
-
 /**
- * Returns the focusable elements in `container`, in DOM order. It excludes:
+ * Returns the focusable elements in `container`, in Tab order (DOM order). It
+ * excludes elements that Tab skips (`tabindex="-1"`), disabled, hidden and
+ * `inert` elements, and elements that `filter` rejects.
  *
- * - Elements with `tabindex="-1"`. Script can focus them, but Tab skips them.
- * - Disabled elements, and elements with `aria-disabled="true"` or
- *   `aria-hidden="true"`.
- * - Elements in an `[inert]` subtree.
- * - Elements hidden by `display`, `visibility` or `content-visibility`.
- * - Elements in a nested layer (a `[popover]` or `<dialog>` inside
- *   `container`). The nested layer manages focus for them. `container` itself
- *   can be a layer.
- * - Elements that `filter` rejects.
+ * Nested layers (`[popover]` or `<dialog>` inside `container`) follow the role
+ * rule: an open layer is in the Tab order unless it owns its focus (see
+ * `isFocusOwningLayer`). Closed layers are left out.
  */
 export function getFocusables({
 	container,
@@ -61,20 +33,24 @@ export function getFocusables({
 	container: HTMLElement;
 	filter?: TFocusableFilter;
 }): HTMLElement[] {
-	const containerLayer = getClosestLayer({ element: container });
+	// Layers whose content is not in this Tab order: they wrap their own Tab, or are closed.
+	const excludedLayers = getNestedLayers({ container }).filter(
+		(layer) =>
+			isFocusOwningLayer({ layer }) ||
+			!(layer instanceof HTMLElement && isNativeElementOpen({ element: layer })),
+	);
 
 	return Array.from(container.querySelectorAll(focusableSelector)).filter(
 		(element): element is HTMLElement => {
 			if (!(element instanceof HTMLElement)) {
 				return false;
 			}
-			if (getClosestLayer({ element }) !== containerLayer) {
+			const isInExcludedLayer = excludedLayers.some((layer) => layer.contains(element));
+			if (isInExcludedLayer) {
 				return false;
 			}
-			if (element.closest('[inert]')) {
-				return false;
-			}
-			if (!isVisible({ element })) {
+			// Disabled, inert and hidden elements cannot take focus.
+			if (!canTakeFocus({ element })) {
 				return false;
 			}
 			return !filter || filter(element, container);

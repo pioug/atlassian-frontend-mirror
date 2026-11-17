@@ -4,7 +4,6 @@ import { alignment } from '@atlaskit/adf-schema/alignment';
 import type { Command } from '@atlaskit/editor-common/types/command';
 import type { FloatingToolbarCustom } from '@atlaskit/editor-common/types/floating-toolbar';
 import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types/toolbar';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { AlignmentPlugin } from './alignmentPluginType';
 import { keymapPlugin } from './pm-plugins/keymap';
@@ -95,10 +94,7 @@ export const alignmentPlugin: AlignmentPlugin = ({ api }) => {
 						const toolbarDocking =
 							api?.userPreferences?.sharedState.currentState()?.preferences?.toolbarDockingPosition;
 
-						if (
-							toolbarDocking === 'none' &&
-							editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
-						) {
+						if (toolbarDocking === 'none') {
 							const toolbarCustom: FloatingToolbarCustom<Command> = {
 								type: 'custom',
 								render: (view) => {

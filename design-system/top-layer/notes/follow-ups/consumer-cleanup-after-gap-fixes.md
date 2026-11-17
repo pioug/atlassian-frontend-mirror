@@ -5,7 +5,7 @@ focus target, G3 focus lost on unmount, G4 opener gone, G5/G6 keys from nested l
 close) make more consumer code redundant on the top-layer path. Each gap's decision note lists the
 consumers its author found:
 
-- [../decisions/react-autofocus-and-late-initial-focus.md](../decisions/react-autofocus-and-late-initial-focus.md)
+- [../decisions/react-autofocus-and-focus-on-open.md](../decisions/react-autofocus-and-focus-on-open.md)
   (G1, G2)
 - [../decisions/focus-loss-recovery.md](../decisions/focus-loss-recovery.md) (G3)
 - [../decisions/focus-return-when-opener-is-gone.md](../decisions/focus-return-when-opener-is-gone.md)

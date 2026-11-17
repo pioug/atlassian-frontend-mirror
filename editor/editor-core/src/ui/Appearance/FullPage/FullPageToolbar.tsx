@@ -12,10 +12,7 @@ import { messages } from '@atlaskit/editor-common/messages/full-page';
 import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import type { EditorAppearance } from '@atlaskit/editor-common/types/editor-appearance';
 import type { FeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
-import type {
-	OptionalPlugin,
-	PublicPluginAPI,
-} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { OptionalPlugin } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types/toolbar';
 import { ToolbarArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu/ToolbarArrowKeyNavigationProvider';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugins/analytics';
@@ -23,9 +20,7 @@ import type { AvatarGroupPlugin } from '@atlaskit/editor-plugins/avatar-group';
 import type { BeforePrimaryToolbarPlugin } from '@atlaskit/editor-plugins/before-primary-toolbar';
 import type { CollabEditPlugin } from '@atlaskit/editor-plugins/collab-edit';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugins/feature-flags';
-import type { FindReplacePlugin } from '@atlaskit/editor-plugins/find-replace';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { EditorActions } from '../../../index';
 import type { PrimaryToolbarComponents } from '../../../types/editor-props';
@@ -46,7 +41,6 @@ import {
 
 export type ToolbarEditorPlugins = [
 	OptionalPlugin<AnalyticsPlugin>,
-	OptionalPlugin<FindReplacePlugin>,
 	OptionalPlugin<FeatureFlagsPlugin>,
 	OptionalPlugin<CollabEditPlugin>,
 	OptionalPlugin<AvatarGroupPlugin>,
@@ -62,7 +56,6 @@ export interface FullPageToolbarProps {
 	disabled: boolean;
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 	editorActions?: EditorActions;
-	editorAPI: PublicPluginAPI<ToolbarEditorPlugins> | undefined;
 	editorDOMElement: JSX.Element;
 	editorView: EditorView;
 	eventDispatcher: EventDispatcher;
@@ -80,12 +73,10 @@ export const EditorToolbar: React.MemoExoticComponent<
 	(props: FullPageToolbarProps & WrappedComponentProps) => React.JSX.Element
 > = React.memo((props: FullPageToolbarProps & WrappedComponentProps): React.JSX.Element => {
 	const [shouldSplitToolbar, setShouldSplitToolbar] = useState(false);
-	const { editorAPI } = props;
 
 	// When primary toolbar components is undefined, do not show two line editor toolbar
-	const twoLineEditorToolbar = editorExperiment('platform_editor_controls', 'variant1')
-		? !!props.customPrimaryToolbarComponents && props.primaryToolbarComponents?.length !== 0
-		: !!props.customPrimaryToolbarComponents;
+	const twoLineEditorToolbar =
+		!!props.customPrimaryToolbarComponents && props.primaryToolbarComponents?.length !== 0;
 
 	// When a toolbar portal context is provided, render the  toolbar inside a portal.
 	// Otherwise fall back to a fragment just to avoid forking rendering logic.
@@ -124,18 +115,6 @@ export const EditorToolbar: React.MemoExoticComponent<
 					beforePrimaryToolbarComponents={props.customPrimaryToolbarComponents?.before}
 				/>
 			) : null}
-			{!editorExperiment('platform_editor_controls', 'variant1') &&
-			editorAPI?.findReplace &&
-			twoLineEditorToolbar
-				? editorAPI?.findReplace.actions.registerToolbarButton({
-						popupsBoundariesElement: props.popupsBoundariesElement,
-						popupsMountPoint: popupsMountPoint,
-						popupsScrollableElement: props.popupsScrollableElement,
-						editorView: props.editorView,
-						containerElement: props.containerElement,
-						dispatchAnalyticsEvent: props.dispatchAnalyticsEvent,
-					})
-				: null}
 			{!!props.customPrimaryToolbarComponents && 'after' in props.customPrimaryToolbarComponents
 				? props.customPrimaryToolbarComponents.after
 				: props.customPrimaryToolbarComponents}

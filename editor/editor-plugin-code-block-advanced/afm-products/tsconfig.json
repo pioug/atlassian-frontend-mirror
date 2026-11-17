@@ -35,6 +35,9 @@
 			"path": "../../editor-plugin-code-block/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-content-format/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-editor-disabled/afm-products/tsconfig.json"
 		},
 		{

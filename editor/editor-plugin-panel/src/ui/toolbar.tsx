@@ -16,7 +16,6 @@ import commonMessages from '@atlaskit/editor-common/messages';
 import { panelMessages as messages } from '@atlaskit/editor-common/messages/panel';
 import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import { getPanelTypeBackgroundNoTokens } from '@atlaskit/editor-common/styles/panel';
-import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type { Command } from '@atlaskit/editor-common/types/command';
 import type {
 	FloatingToolbarButton,
@@ -39,13 +38,8 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorSelectedNodeClassName } from '@atlaskit/editor-shared-styles/constants';
 import type { EmojiId } from '@atlaskit/emoji/types';
 import CopyIcon from '@atlaskit/icon/core/copy';
-import CrossCircleIcon from '@atlaskit/icon/core/cross-circle';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import EmojiRemoveIcon from '@atlaskit/icon/core/emoji-remove';
-import StatusDiscoveryIcon from '@atlaskit/icon/core/status-discovery';
-import InformationIcon from '@atlaskit/icon/core/status-information';
-import SuccessIcon from '@atlaskit/icon/core/status-success';
-import WarningIcon from '@atlaskit/icon/core/status-warning';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { changePanelType, removePanel } from '../editor-actions/actions';
@@ -82,61 +76,11 @@ export const getToolbarItems = (
 	state?: EditorState,
 	api?: ExtractInjectionAPI<PanelPlugin>,
 ): FloatingToolbarItem<Command>[] => {
-	const areAllNewToolbarFlagsDisabled = !areToolbarFlagsEnabled(Boolean(api?.toolbar));
-
 	// TODO: ED-14403 - investigate why these titles are not getting translated for the tooltips
-	const items: FloatingToolbarItem<Command>[] = areAllNewToolbarFlagsDisabled
-		? [
-				{
-					id: 'editor.panel.info',
-					type: 'button',
-					icon: InformationIcon,
-					onClick: changePanelType(editorAnalyticsAPI)(PanelType.INFO),
-					selected: activePanelType === PanelType.INFO,
-					title: formatMessage(messages.info),
-					tabIndex: null,
-				},
-				{
-					id: 'editor.panel.note',
-					type: 'button',
-					icon: StatusDiscoveryIcon,
-					onClick: changePanelType(editorAnalyticsAPI)(PanelType.NOTE),
-					selected: activePanelType === PanelType.NOTE,
-					title: formatMessage(messages.note),
-					tabIndex: null,
-				},
-				{
-					id: 'editor.panel.success',
-					type: 'button',
-					icon: SuccessIcon,
-					onClick: changePanelType(editorAnalyticsAPI)(PanelType.SUCCESS),
-					selected: activePanelType === PanelType.SUCCESS,
-					title: formatMessage(messages.success),
-					tabIndex: null,
-				},
-				{
-					id: 'editor.panel.warning',
-					type: 'button',
-					icon: WarningIcon,
-					onClick: changePanelType(editorAnalyticsAPI)(PanelType.WARNING),
-					selected: activePanelType === PanelType.WARNING,
-					title: formatMessage(messages.warning),
-					tabIndex: null,
-				},
-				{
-					id: 'editor.panel.error',
-					type: 'button',
-					icon: CrossCircleIcon,
-					onClick: changePanelType(editorAnalyticsAPI)(PanelType.ERROR),
-					selected: activePanelType === PanelType.ERROR,
-					title: formatMessage(messages.error),
-					tabIndex: null,
-				},
-			]
-		: [
-				panelTypeDropdown({ activePanelType, editorAnalyticsAPI, formatMessage }),
-				...(Boolean(api?.toolbar) ? [] : [{ type: 'separator' } as FloatingToolbarItem<Command>]),
-			];
+	const items: FloatingToolbarItem<Command>[] = [
+		panelTypeDropdown({ activePanelType, editorAnalyticsAPI, formatMessage }),
+		...(Boolean(api?.toolbar) ? [] : [{ type: 'separator' } as FloatingToolbarItem<Command>]),
+	];
 
 	if (isCustomPanelEnabled) {
 		const changeColor =
@@ -324,76 +268,44 @@ export const getToolbarItems = (
 		}
 	}
 
-	if (areAllNewToolbarFlagsDisabled) {
-		if (state) {
-			items.push({
-				type: 'separator',
-			});
-			items.push({
-				type: 'copy-button',
-				items: [{ state, formatMessage, nodeType: panelNodeType }],
-			});
-		}
+	const hoverDecorationProps = (nodeType: NodeType | NodeType[], className?: string) => ({
+		onMouseEnter: hoverDecoration?.(nodeType, true, className),
+		onMouseLeave: hoverDecoration?.(nodeType, false, className),
+		onFocus: hoverDecoration?.(nodeType, true, className),
+		onBlur: hoverDecoration?.(nodeType, false, className),
+	});
+	// testId is required to show focus on trigger button on ESC key press
+	// see hideOnEsc in platform/packages/editor/editor-plugin-floating-toolbar/src/ui/Dropdown.tsx
+	const testId = 'panel-overflow-dropdown-trigger';
 
-		items.push(
-			{
-				type: 'separator',
-			},
-			{
-				id: 'editor.panel.delete',
-				type: 'button',
-				appearance: 'danger',
-				focusEditoronEnter: true,
-				icon: () => <DeleteIcon spacing={'spacious'} label={''} />,
-				onClick: removePanel(editorAnalyticsAPI),
-				onMouseEnter: hoverDecoration?.(panelNodeType, true),
-				onMouseLeave: hoverDecoration?.(panelNodeType, false),
-				onFocus: hoverDecoration?.(panelNodeType, true),
-				onBlur: hoverDecoration?.(panelNodeType, false),
-				title: formatMessage(commonMessages.remove),
-				tabIndex: null,
-			},
-		);
-	} else {
-		const hoverDecorationProps = (nodeType: NodeType | NodeType[], className?: string) => ({
-			onMouseEnter: hoverDecoration?.(nodeType, true, className),
-			onMouseLeave: hoverDecoration?.(nodeType, false, className),
-			onFocus: hoverDecoration?.(nodeType, true, className),
-			onBlur: hoverDecoration?.(nodeType, false, className),
-		});
-		// testId is required to show focus on trigger button on ESC key press
-		// see hideOnEsc in platform/packages/editor/editor-plugin-floating-toolbar/src/ui/Dropdown.tsx
-		const testId = 'panel-overflow-dropdown-trigger';
-
-		const overflowMenuConfig: FloatingToolbarItem<Command>[] = [
-			{ type: 'separator', fullHeight: true },
-			{
-				type: 'overflow-dropdown',
-				testId,
-				options: [
-					{
-						title: formatMessage(commonMessages.copyToClipboard),
-						onClick: () => {
-							api?.core?.actions.execute(
-								// @ts-ignore
-								api?.floatingToolbar?.commands.copyNode(panelNodeType, INPUT_METHOD.FLOATING_TB),
-							);
-							return true;
-						},
-						icon: <CopyIcon label="" />,
-						...hoverDecorationProps(panelNodeType, akEditorSelectedNodeClassName),
+	const overflowMenuConfig: FloatingToolbarItem<Command>[] = [
+		{ type: 'separator', fullHeight: true },
+		{
+			type: 'overflow-dropdown',
+			testId,
+			options: [
+				{
+					title: formatMessage(commonMessages.copyToClipboard),
+					onClick: () => {
+						api?.core?.actions.execute(
+							// @ts-ignore
+							api?.floatingToolbar?.commands.copyNode(panelNodeType, INPUT_METHOD.FLOATING_TB),
+						);
+						return true;
 					},
-					{
-						title: formatMessage(commonMessages.delete),
-						onClick: removePanel(editorAnalyticsAPI),
-						icon: <DeleteIcon label="" />,
-						...hoverDecorationProps(panelNodeType),
-					},
-				],
-			},
-		];
-		items.push(...overflowMenuConfig);
-	}
+					icon: <CopyIcon label="" />,
+					...hoverDecorationProps(panelNodeType, akEditorSelectedNodeClassName),
+				},
+				{
+					title: formatMessage(commonMessages.delete),
+					onClick: removePanel(editorAnalyticsAPI),
+					icon: <DeleteIcon label="" />,
+					...hoverDecorationProps(panelNodeType),
+				},
+			],
+		},
+	];
+	items.push(...overflowMenuConfig);
 
 	return items;
 };
@@ -430,7 +342,7 @@ export const getToolbarConfig = (
 			options.allowCustomPanel ? panelColor : undefined,
 			options.allowCustomPanel ? panelIcon || isStandardPanel(panelType) : undefined,
 			state,
-			areToolbarFlagsEnabled(Boolean(api?.toolbar)) ? api : undefined,
+			api,
 		);
 
 		const getDomRef = (editorView: EditorView) => {

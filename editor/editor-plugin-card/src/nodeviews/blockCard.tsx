@@ -90,17 +90,16 @@ export class BlockCardComponent extends React.PureComponent<
 				);
 			}
 		});
-		if (isExperimentEnabled('platform_editor_reduce_memory_leaks')) {
-			this.pendingRegisterCard = scheduleRegisterCard;
-		}
+
+		this.pendingRegisterCard = scheduleRegisterCard;
+
 		scheduleRegisterCard();
 	};
 
 	componentWillUnmount(): void {
-		if (isExperimentEnabled('platform_editor_reduce_memory_leaks')) {
-			this.pendingRegisterCard?.cancel();
-			this.pendingRegisterCard = undefined;
-		}
+		this.pendingRegisterCard?.cancel();
+		this.pendingRegisterCard = undefined;
+
 		this.removeCard();
 	}
 

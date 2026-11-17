@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-emoji
 
+## 34.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 33.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 32.0.1
+
+### Patch Changes
+
+- [`58e5092700759`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/58e5092700759) -
+  Remove the `control` branches of experiment `platform_editor_controls`; the editor controls
+  (`variant1`) experience is now permanent.
+- Updated dependencies
+
 ## 32.0.0
 
 ### Patch Changes

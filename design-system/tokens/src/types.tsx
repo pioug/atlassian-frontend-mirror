@@ -1492,6 +1492,7 @@ export interface MotionTokenSchema<BaseToken> {
 				right: MotionToken<BaseToken>;
 			};
 			content: {
+				open: MotionToken<BaseToken>;
 				enter: MotionToken<BaseToken>;
 				exit: MotionToken<BaseToken>;
 			};
@@ -1545,6 +1546,8 @@ export interface MotionEasingTokenSchema<BaseToken> {
 	motion: {
 		easing: {
 			out: {
+				expo: MotionEasingToken<BaseToken>;
+				quart: MotionEasingToken<BaseToken>;
 				bold: MotionEasingToken<BaseToken>;
 				practical: MotionEasingToken<BaseToken>;
 			};

@@ -47,7 +47,7 @@ export const placeholderPlugin: PlaceholderPlugin = ({ config: options, api }) =
 						createPlugin(
 							getIntl(),
 							options && options.placeholder,
-							options && options.placeholderBracketHint,
+							Boolean(options?.placeholderBracketHint),
 							options && options.emptyLinePlaceholder,
 							options && options.placeholderPrompts,
 							options?.withEmptyParagraph,

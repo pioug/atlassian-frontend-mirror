@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-node-context
 
+## 18.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.0.0
 
 ### Patch Changes

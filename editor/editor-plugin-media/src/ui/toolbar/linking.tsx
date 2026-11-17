@@ -16,7 +16,6 @@ import {
 import { linkMessages } from '@atlaskit/editor-common/messages/link';
 import { linkToolbarMessages } from '@atlaskit/editor-common/messages/link-toolbar';
 import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
-import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type { Command } from '@atlaskit/editor-common/types/command';
 import type {
 	FloatingToolbarConfig,
@@ -44,7 +43,6 @@ import {
 import type { MediaToolbarBaseConfig } from '../../types';
 import MediaLinkingToolbar from '../../ui/MediaLinkingToolbar';
 
-const FORCE_FOCUS_SELECTOR = '[data-testid="add-link-button"],[data-testid="edit-link-button"]';
 const FORCE_FOCUS_SELECTOR_EDITOR_CONTROLS = '[data-testid="media-overflow-dropdown-trigger"]';
 
 export function shouldShowMediaLinkToolbar(editorState: EditorState): boolean {
@@ -96,7 +94,7 @@ export const getLinkingToolbar = (
 							}
 
 							const setFocusOnFloatingToolbar = (setFocus?: boolean) => {
-								if (setFocus && areToolbarFlagsEnabled(Boolean(pluginInjectionApi?.toolbar))) {
+								if (setFocus) {
 									const {
 										state: { tr },
 										dispatch,
@@ -142,10 +140,9 @@ export const getLinkingToolbar = (
 											state: { tr },
 											dispatch,
 										} = view;
-										const selector = areToolbarFlagsEnabled(Boolean(pluginInjectionApi?.toolbar))
-											? FORCE_FOCUS_SELECTOR_EDITOR_CONTROLS
-											: FORCE_FOCUS_SELECTOR;
-										pluginInjectionApi?.floatingToolbar?.actions?.forceFocusSelector(selector)(tr);
+										pluginInjectionApi?.floatingToolbar?.actions?.forceFocusSelector(
+											FORCE_FOCUS_SELECTOR_EDITOR_CONTROLS,
+										)(tr);
 										dispatch(tr);
 									}}
 									// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
@@ -162,9 +159,6 @@ export const getLinkingToolbar = (
 									onBlur={() => {
 										hideLinkingToolbar(view.state, view.dispatch, view);
 									}}
-									areAnyNewToolbarFlagsEnabled={areToolbarFlagsEnabled(
-										Boolean(pluginInjectionApi?.toolbar),
-									)}
 								/>
 							);
 						},

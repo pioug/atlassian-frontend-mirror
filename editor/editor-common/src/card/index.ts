@@ -27,6 +27,7 @@ export type {
 	EmbedCardTransformCommandOptions,
 	CreateEmbedCardTransformCommand,
 	EmbedCardTransformers,
+	GetEmbedCardTransformNode,
 } from './types';
 export { LinkToolbarButtonGroup } from './LinkToolbarButtonGroup';
 export { appearancePropsMap } from './appearancePropsMap';

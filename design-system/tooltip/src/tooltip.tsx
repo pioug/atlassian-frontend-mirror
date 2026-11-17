@@ -874,17 +874,9 @@ function TopLayerTooltipPopup({
 		};
 	}, [ignoreTooltipPointerEvents]);
 
-	// `shouldStayOpenOnTriggerClick`: a press on the trigger light-dismisses the hint
-	// popover, and the browser gives no way to cancel that. The dismiss runs
-	// before the `pointerup` is dispatched, so show the popover again from the
-	// trigger's `pointerup`. It is the same task, so no closed frame is painted,
-	// the entry transition does not restart, and the `toggle` events coalesce
-	// to open -> open, so `onClose` is not called. `mouseup` covers
-	// environments that dismiss on `mouseup` too, such as the test polyfill.
-	// `showPopover()` does nothing when the popover is already open. A layout
-	// effect, so the listener is gone in the same commit that closes the
-	// popover: a passive cleanup runs later, and a `pointerup` in that gap would
-	// re-open a closing tooltip.
+	// Native light dismiss can run before pointerup or, in Chrome 157, before click.
+	// Re-show at both boundaries (and mouseup for the test polyfill). Layout cleanup
+	// prevents a later activation from reopening a closing tooltip.
 	useLayoutEffect(() => {
 		const trigger = targetRef.current;
 		if (!shouldStayOpenOnTriggerClick || !isOpen || !trigger) {
@@ -895,6 +887,13 @@ function TopLayerTooltipPopup({
 				popoverRef.current?.showPopover();
 			} catch {}
 		};
+		if (fg('platform-dst-tooltip-click-recovery')) {
+			return bindAll(trigger, [
+				{ type: 'pointerup', listener: reshow },
+				{ type: 'mouseup', listener: reshow },
+				{ type: 'click', listener: reshow },
+			]);
+		}
 		return bindAll(trigger, [
 			{ type: 'pointerup', listener: reshow },
 			{ type: 'mouseup', listener: reshow },

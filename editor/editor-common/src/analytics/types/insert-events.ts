@@ -380,12 +380,31 @@ type InsertPlaceholderTextAEP = InsertAEP<
 type FailedToInsertMediaPayload = OperationalAEP<
 	ACTION.FAILED_TO_INSERT,
 	ACTION_SUBJECT.DOCUMENT,
-	ACTION_SUBJECT_ID.MEDIA_INLINE | ACTION_SUBJECT_ID.MEDIA_SINGLE | ACTION_SUBJECT_ID.MEDIA_GROUP,
+	| ACTION_SUBJECT_ID.MEDIA
+	| ACTION_SUBJECT_ID.MEDIA_INLINE
+	| ACTION_SUBJECT_ID.MEDIA_SINGLE
+	| ACTION_SUBJECT_ID.MEDIA_GROUP,
 	{
+		/**
+		 * Whether `allowMediaInlineImages` was set. Only populated when the insertion type could not
+		 * be determined (`actionSubjectId` is `media`).
+		 */
+		allowMediaInlineImages?: boolean;
 		fileExtension?: string;
 		inputMethod?: InputMethodInsertMedia;
 		insertMediaVia?: InsertMediaVia;
+		/**
+		 * Value of the `mediaInline` media feature flag. Together with `schemaHasMediaInline` this
+		 * identifies a flag/schema mismatch. Only populated when the insertion type could not be
+		 * determined.
+		 */
+		mediaInlineFlag?: boolean;
 		reason?: string;
+		/**
+		 * Whether the editor schema contains the `mediaInline` node. Only populated when the
+		 * insertion type could not be determined.
+		 */
+		schemaHasMediaInline?: boolean;
 	}
 >;
 

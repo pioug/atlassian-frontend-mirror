@@ -18,7 +18,7 @@ import { expect, type Page, test } from '@af/integration-testing';
  * See: `platform/packages/design-system/top-layer/notes/decisions/tooltip-stay-open-on-trigger-click.md`.
  */
 
-const featureFlag = 'platform-dst-top-layer-tooltip';
+const featureFlag = 'platform-dst-top-layer-tooltip platform-dst-tooltip-click-recovery';
 
 async function visit(page: Page) {
 	await page.visitExample<typeof import('../../examples/testing-stay-open-on-trigger-click.tsx')>(

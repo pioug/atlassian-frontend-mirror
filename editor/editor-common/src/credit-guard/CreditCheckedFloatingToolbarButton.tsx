@@ -21,7 +21,6 @@ export type CreditCheckableFloatingToolbarButton = Omit<
 > & { [Prop in UnsupportedButtonProps]?: never };
 
 export type CreditCheckedFloatingToolbarButtonProps = {
-	areAnyNewToolbarFlagsEnabled: boolean;
 	button: CreditCheckableFloatingToolbarButton;
 	creditCheck: AICreditCheck;
 	getAICreditStatus: GetAICreditStatus;
@@ -33,7 +32,6 @@ export type CreditCheckedFloatingToolbarButtonProps = {
  * product's credits popup to itself when credits are blocked. Matches the floating toolbar's own buttons.
  */
 export const CreditCheckedFloatingToolbarButton = ({
-	areAnyNewToolbarFlagsEnabled,
 	button,
 	creditCheck,
 	getAICreditStatus,
@@ -113,13 +111,12 @@ export const CreditCheckedFloatingToolbarButton = ({
 					pulse={button.pulse}
 					testId={button.testId}
 					interactionName={button.interactionName}
-					areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 				>
 					{showTitle && title}
 				</FloatingToolbarButtonComponent>
 			);
 		},
-		[areAnyNewToolbarFlagsEnabled, button, runCommand],
+		[button, runCommand],
 	);
 
 	return (

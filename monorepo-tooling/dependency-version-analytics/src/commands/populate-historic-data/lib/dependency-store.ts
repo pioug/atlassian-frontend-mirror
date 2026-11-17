@@ -230,6 +230,7 @@ export class DependencyStore {
 
 		for (const depName of Object.keys(prevWorkspaceDeps)) {
 			if (!workspaceDeps[depName]) {
+				// @ts-expect-error - TS2345 - Argument of type 'DepInfo | undefined' is not assignable to parameter of type 'DepInfo'.
 				this.removeDependency(workspacePath, depName, prevWorkspaceDeps[depName]);
 			}
 		}
@@ -249,6 +250,7 @@ export class DependencyStore {
 			debug(`Adding new dep ${depName}`);
 			this.dependencies[depName] = [];
 		}
+		// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 		const prevEntry = this.workspaces[workspacePath][depName];
 		const existingEntry = this.dependencies[depName].find(
 			(entry) => entry.version === version && entry.type === type,
@@ -265,6 +267,7 @@ export class DependencyStore {
 
 		if (existingEntry) {
 			existingEntry.workspaces.add(workspacePath);
+			// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 			this.workspaces[workspacePath][depName] = existingEntry;
 		} else {
 			debug(`Adding new dependency version ${depName}@${version} (${type})`);
@@ -274,6 +277,7 @@ export class DependencyStore {
 				workspaces: new Set([workspacePath]),
 			};
 			this.dependencies[depName].push(newEntry);
+			// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 			this.workspaces[workspacePath][depName] = newEntry;
 		}
 	}
@@ -287,6 +291,7 @@ export class DependencyStore {
 			debug(
 				`No more workspaces depend on ${depName}@${depEntry.version} as a ${depEntry.type}, deleting`,
 			);
+			// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 			this.dependencies[depName] = this.dependencies[depName].filter((entry) => entry !== depEntry);
 		}
 	}
@@ -321,6 +326,7 @@ export class DependencyStore {
 
 				if (isPackageSupported) {
 					supportedDependencies[packageName] = {
+						// @ts-expect-error - TS2322 - Type 'string | undefined' is not assignable to type 'string'.
 						version: DependencyStore.transformDepVersion(packageVersion),
 						type: dependencyType,
 					};

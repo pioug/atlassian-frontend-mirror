@@ -22,6 +22,7 @@ import type {
 	EmbedCardNodeTransformer,
 	EmbedCardTransformAttrs,
 } from '@atlaskit/editor-common/card/types';
+import { tintDirtyTransaction } from '@atlaskit/editor-common/collab';
 import { getActiveLinkMark } from '@atlaskit/editor-common/link/utils';
 import { processRawValue } from '@atlaskit/editor-common/process-raw-value';
 import type { CardAppearance } from '@atlaskit/editor-common/provider-factory/card-provider';
@@ -49,9 +50,9 @@ import type {
 	DatasourceAdfView,
 	InlineCardAdf,
 } from '@atlaskit/linking-common/types';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { closeHistory } from '@atlaskit/prosemirror-history/closeHistory';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { CardPluginState, Request } from '../types';
 import {
@@ -491,21 +492,12 @@ export const convertHyperlinkToSmartCard = (
 		shouldReplaceLink: true,
 	});
 
-	if (editorExperiment('platform_editor_controls', 'variant1')) {
-		const activeLinkMark = getActiveLinkMark(state);
-		if (activeLinkMark) {
-			const linkMark = activeLinkMark.node.marks.find((mark) => mark.type === link);
-			if (linkMark) {
-				requests.push(createRequest(linkMark, activeLinkMark.pos));
-			}
+	const activeLinkMark = getActiveLinkMark(state);
+	if (activeLinkMark) {
+		const linkMark = activeLinkMark.node.marks.find((mark) => mark.type === link);
+		if (linkMark) {
+			requests.push(createRequest(linkMark, activeLinkMark.pos));
 		}
-	} else {
-		state.tr.doc.nodesBetween(state.selection.from, state.selection.to, (node, pos) => {
-			const linkMark = node.marks.find((mark) => mark.type === link);
-			if (linkMark) {
-				requests.push(createRequest(linkMark, pos));
-			}
-		});
 	}
 
 	addLinkMetadata(state.selection, state.tr, {
@@ -586,6 +578,11 @@ export const changeSelectedCardToLinkFallback =
 		}
 
 		if (dispatch) {
+			if (isExperimentEnabled('platform_editor_phantom_edit_fix')) {
+				// Tint as dirty: falling back to a link after a resolve error isn't a user edit. Hosts
+				// autosave local organic changes, so a viewer would create a new version of a live doc.
+				tintDirtyTransaction(tr);
+			}
 			dispatch(tr.setMeta('addToHistory', false));
 		}
 

@@ -9,7 +9,6 @@ import {
 	BLOCK_CONTROLS_RIGHT_SURFACE,
 } from '@atlaskit/editor-common/block-controls/surface-keys';
 import { expandSelectionBounds } from '@atlaskit/editor-common/selection';
-import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type { DIRECTION } from '@atlaskit/editor-common/types/block-controls';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { PMPlugin } from '@atlaskit/editor-common/types/plugin-factory';
@@ -19,7 +18,6 @@ import type { Mapping } from '@atlaskit/editor-prosemirror/transform';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type {
 	BlockControlsPlugin,
@@ -180,24 +178,22 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api, config }) => {
 				});
 			}
 
-			if (editorExperiment('platform_editor_controls', 'variant1')) {
-				pmPlugins.push({
-					name: 'blockControlsInteractionTrackingPlugin',
-					plugin: () => createInteractionTrackingPlugin(rightSideControlsEnabled, api),
-				});
-			}
+			pmPlugins.push({
+				name: 'blockControlsInteractionTrackingPlugin',
+				plugin: () => createInteractionTrackingPlugin(rightSideControlsEnabled, api),
+			});
 
 			pmPlugins.push({
 				name: 'blockControlsSelectionPreservationPlugin',
 				plugin: createSelectionPreservationPlugin(api),
 			});
 
-			// platform_editor_controls note: quick insert rendering fixes
+			// quick insert rendering fixes
 			//
 			// Not registered under the registry migration: the decoration puts an inline
 			// `margin-top: 0` on the first document node, which fights features that render their own
 			// content above it — a leading show-diff widget is left flush against the node below.
-			if (areToolbarFlagsEnabled(Boolean(api?.toolbar)) && !registryBlockControlsEnabled) {
+			if (!registryBlockControlsEnabled) {
 				pmPlugins.push({
 					name: 'firstNodeDec',
 					plugin: firstNodeDecPlugin,
@@ -501,14 +497,12 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api, config }) => {
 				sharedState.surfaceActiveNodes = surfaces?.activeNodesByPosition;
 			}
 
-			if (editorExperiment('platform_editor_controls', 'variant1')) {
-				sharedState.isMouseOut =
-					interactionTrackingPluginKey.getState(editorState)?.isMouseOut ?? false;
-				sharedState.rightSideControlsEnabled = rightSideControlsEnabled;
-				sharedState.hoverSide = rightSideControlsEnabled
-					? interactionTrackingPluginKey.getState(editorState)?.hoverSide
-					: undefined;
-			}
+			sharedState.isMouseOut =
+				interactionTrackingPluginKey.getState(editorState)?.isMouseOut ?? false;
+			sharedState.rightSideControlsEnabled = rightSideControlsEnabled;
+			sharedState.hoverSide = rightSideControlsEnabled
+				? interactionTrackingPluginKey.getState(editorState)?.hoverSide
+				: undefined;
 
 			sharedState.preservedSelection =
 				selectionPreservationPluginKey.getState(editorState)?.preservedSelection;

@@ -224,7 +224,7 @@ const hexagonBorderFixStyles = unboundCssMap({
 // The surrounding hexagon `clip-path` on the avatar then clips the outer edge of the ring.
 const hexagonInnerBorderStyles = unboundCssMap({
 	root: {
-		'--avatar-inner-border-width': '1.5px',
+		'--avatar-inner-border-width': token('border.width'),
 		// Option 3a: https://hello.atlassian.net/wiki/spaces/DST/pages/8105858255
 		// There is no semantic token for these palette values yet, so the raw values are used directly.
 		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage -- Neutral200A, no semantic token exists

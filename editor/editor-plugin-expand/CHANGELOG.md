@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-expand
 
+## 34.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 33.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 32.1.0
+
+### Minor Changes
+
+- [`c13b574ab38d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c13b574ab38d2) -
+  Declare the workspace dependencies used by package source and emitted types so isolated
+  installations can resolve them.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 32.0.0
 
 ### Patch Changes

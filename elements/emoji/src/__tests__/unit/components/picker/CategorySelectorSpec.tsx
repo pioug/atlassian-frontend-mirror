@@ -32,6 +32,25 @@ describe('<CategorySelector />', () => {
 		jest.restoreAllMocks();
 	});
 
+	it('does not label category icons when the accessibility gate is enabled', async () => {
+		passGate('platform_ally_emoji_fixes_various');
+		await setupComponent();
+
+		screen.getAllByRole('tab').forEach((tab) => {
+			expect(tab).toHaveAttribute('aria-label');
+			expect(tab.querySelectorAll('[aria-label]')).toHaveLength(0);
+		});
+	});
+
+	it('labels category icons when the accessibility gate is disabled', async () => {
+		failGate('platform_ally_emoji_fixes_various');
+		await setupComponent();
+
+		screen.getAllByRole('tab').forEach((tab) => {
+			expect(tab.querySelectorAll('[aria-label]').length).toBeGreaterThan(0);
+		});
+	});
+
 	it('insets the category focus outline when the accessibility gate is enabled', async () => {
 		passGate('platform_ally_emoji_fixes_various');
 		await setupComponent();

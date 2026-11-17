@@ -3,7 +3,6 @@ import React from 'react';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { updateSelectedIndex } from '../pm-plugins/commands/update-selected-index';
 import type { CloseSelectionOptions } from '../pm-plugins/constants';
@@ -110,10 +109,7 @@ export const TypeAheadMenu: React.MemoExoticComponent<
 
 		// @ts-ignore
 		const openElementBrowserModal = triggerHandler?.openElementBrowserModal;
-		let showMoreOptionsButton = false;
-		if (editorExperiment('platform_editor_controls', 'variant1')) {
-			showMoreOptionsButton = !!triggerHandler?.getMoreOptionsButtonConfig;
-		}
+		const showMoreOptionsButton = !!triggerHandler?.getMoreOptionsButtonConfig;
 
 		if (
 			!isOpen ||

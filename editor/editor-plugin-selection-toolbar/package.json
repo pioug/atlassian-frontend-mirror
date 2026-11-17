@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-selection-toolbar",
-	"version": "32.0.0",
+	"version": "34.0.0",
 	"description": "@atlaskit/editor-plugin-selection-toolbar for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -46,7 +46,6 @@
 		"@atlaskit/editor-toolbar-model": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/platform-feature-experiments": "workspace:^",
-		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*",
 		"bind-event-listener": "root:*"
@@ -58,7 +57,9 @@
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
+		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/editor-common": "workspace:^",
+		"@atlaskit/editor-plugins": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",
 		"@atlassian/workbench": "workspace:*",
 		"react": "^19.2.0",

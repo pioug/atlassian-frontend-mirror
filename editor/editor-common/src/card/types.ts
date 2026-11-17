@@ -133,9 +133,16 @@ export type CreateEmbedCardTransformCommand = (
 	options?: EmbedCardTransformCommandOptions,
 ) => Command;
 
+/**
+ * Returns the node that `createEmbedCardTransformCommand` would insert for the current selection,
+ * or undefined when the transform does not apply. Must not change the document.
+ */
+export type GetEmbedCardTransformNode = (state: EditorState) => Node | undefined;
+
 export interface EmbedCardTransformers {
 	createEmbedCardTransformCommand: CreateEmbedCardTransformCommand;
 	embedCardNodeTransformer: EmbedCardNodeTransformer;
+	getEmbedCardTransformNode?: GetEmbedCardTransformNode;
 }
 
 /** Resolved card metadata and its live node-view position getter. */

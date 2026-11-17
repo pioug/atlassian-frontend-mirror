@@ -1,0 +1,70 @@
+{
+	"name": "@atlaskit/a2ui-catalog",
+	"version": "2.0.0",
+	"description": "A2UI v0.9 catalog — Atlassian custom catalog (component APIs and Zod schemas) for the A2UI v0.9 protocol",
+	"author": "Atlassian Pty Ltd",
+	"atlassian": {
+		"team": "Design System Team",
+		"website": {
+			"tags": [
+				"platform-labs"
+			],
+			"category": "Libraries",
+			"name": "A2UI catalog",
+			"ignorePropTypes": true
+		}
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
+	"sideEffects": false,
+	"exports": {
+		"./v0_9/apis": "./src/entry-points/v0_9-apis.tsx",
+		"./v0_9/schemas": "./src/entry-points/v0_9-schemas.tsx",
+		"./v0_9/types": "./src/entry-points/v0_9-types.tsx",
+		"./v0_9/catalog-id": "./src/entry-points/v0_9-catalog-id.tsx",
+		"./v0_9/catalog-component-apis": "./src/entry-points/v0_9-catalog-component-apis.tsx",
+		"./agentic-jira-v0_9/apis": "./src/entry-points/agentic-jira-v0_9-apis.tsx",
+		"./agentic-jira-v0_9/schemas": "./src/entry-points/agentic-jira-v0_9-schemas.tsx",
+		"./agentic-jira-v0_9/types": "./src/entry-points/agentic-jira-v0_9-types.tsx",
+		"./agentic-jira-v0_9/catalog-id": "./src/entry-points/agentic-jira-v0_9-catalog-id.tsx",
+		"./agentic-jira-v0_9/catalog-component-apis": "./src/entry-points/agentic-jira-v0_9-catalog-component-apis.tsx",
+		"./catalog-json": "./src/entry-points/catalog-json.tsx",
+		"./catalogs/ads-v0_9/catalog.json": "./catalogs/ads-v0_9/catalog.json",
+		"./catalogs/agentic-jira-v0_9-v1/catalog.json": "./catalogs/agentic-jira-v0_9-v1/catalog.json"
+	},
+	"scripts": {
+		"codegen:catalog-json": "tsx ./scripts/generate-catalog-json.ts"
+	},
+	"dependencies": {
+		"@a2ui/web_core": "root:*",
+		"@babel/runtime": "root:*",
+		"zod": "root:*",
+		"zod-to-json-schema": "root:*"
+	},
+	"devDependencies": {
+		"@atlaskit/button": "workspace:^",
+		"@atlaskit/code": "workspace:^",
+		"@atlaskit/css": "workspace:^",
+		"@atlaskit/docs": "workspace:^",
+		"@atlaskit/heading": "workspace:^",
+		"@atlaskit/primitives": "workspace:^",
+		"@atlaskit/tabs": "workspace:^",
+		"@atlaskit/tokens": "workspace:^",
+		"@atlassian/testing-library": "workspace:^",
+		"prettier": "root:*",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0",
+		"tsx": "root:*"
+	},
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/",
+		"access": "public"
+	},
+	"files": [
+		"dist",
+		"catalogs",
+		"v0_9",
+		"agentic-jira-v0_9",
+		"catalog-json"
+	]
+}

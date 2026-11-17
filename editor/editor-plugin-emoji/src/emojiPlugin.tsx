@@ -33,7 +33,6 @@ import type { EmojiDescription, EmojiProvider } from '@atlaskit/emoji/types';
 import { SearchSort } from '@atlaskit/emoji/types';
 import CommentIcon from '@atlaskit/icon/core/comment';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { createEmojiFragment, insertEmoji } from './editor-commands/insert-emoji';
 import type { EmojiPlugin, EmojiPluginOptions, EmojiPluginState } from './emojiPluginType';
@@ -221,17 +220,7 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 		},
 	};
 	const selectEmojiFromQuickInsert = (insert: InsertContentCallback) => {
-		if (editorExperiment('platform_editor_controls', 'variant1', { exposure: true })) {
-			return setInlineEmojiPopupOpen(true)(insert(''));
-		}
-
-		const tr = insert(undefined);
-		api?.typeAhead?.actions.openAtTransaction({
-			triggerHandler: typeAhead,
-			inputMethod: INPUT_METHOD.QUICK_INSERT,
-		})(tr);
-
-		return tr;
+		return setInlineEmojiPopupOpen(true)(insert(''));
 	};
 
 	const isRegisteredSlashCommandEnabled = isExperimentEnabled('platform_editor_slash_command');
@@ -330,7 +319,7 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 			popupsMountPoint,
 			popupsScrollableElement,
 		}) {
-			if (!api || editorExperiment('platform_editor_controls', 'control') || !editorView) {
+			if (!api || !editorView) {
 				return null;
 			}
 

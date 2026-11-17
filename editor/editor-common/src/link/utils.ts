@@ -1,7 +1,6 @@
 import { getUrlForDomainInContext } from '@atlaskit/atlassian-context/get-url-for-domain-in-context';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { linkPreferencesPath } from './constants';
 
@@ -55,20 +54,14 @@ export const getActiveLinkMark = (
 		return node && node.isText ? { node, pos } : undefined;
 	}
 
-	if (
-		isEmptySelectionBeforeLink(state) &&
-		editorExperiment('platform_editor_controls', 'variant1')
-	) {
+	if (isEmptySelectionBeforeLink(state)) {
 		// if user clicks right before the link, we want to show the toolbar for the link
 		// but only if the link is a single character
 		const node = state.doc.nodeAt($from.pos);
 		return node && node.isText && node.nodeSize === 1 ? { node, pos: $from.pos } : undefined;
 	}
 
-	if (
-		isEmptySelectionAfterLink(state) &&
-		editorExperiment('platform_editor_controls', 'variant1')
-	) {
+	if (isEmptySelectionAfterLink(state)) {
 		// if user clicks right after the link, we want to show the toolbar for the link
 		// but only if the link is a single character
 		// and we return the position of the link

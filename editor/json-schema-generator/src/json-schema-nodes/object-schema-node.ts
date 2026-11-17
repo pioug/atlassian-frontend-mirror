@@ -31,6 +31,7 @@ export default class ObjectSchemaNode extends SchemaNodeWithValidators<ObjectVal
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		return Object.keys(this.properties).reduce((obj: any, key: string) => {
+			// @ts-expect-error - TS2339 - Property 'required' does not exist on type '{ required?: boolean | undefined; value: SchemaNode; } | undefined'.
 			const { value, required } = this.properties[key];
 			obj.properties = obj.properties || {};
 			obj.properties[key] = value.toJSON();
@@ -48,6 +49,7 @@ export default class ObjectSchemaNode extends SchemaNodeWithValidators<ObjectVal
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const spec = Object.keys(this.properties).reduce((obj: any, key: string) => {
+			// @ts-expect-error - TS2339 - Property 'required' does not exist on type '{ required?: boolean | undefined; value: SchemaNode; } | undefined'.
 			const { value, required } = this.properties[key];
 			obj.props = obj.props || {};
 			// Ignored via go/ees005

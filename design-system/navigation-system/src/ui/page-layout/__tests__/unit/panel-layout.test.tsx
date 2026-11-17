@@ -17,6 +17,8 @@ jest.mock('../../layout-area-sizing-provider', () => ({
 		.LayoutAreaSizingRuntime,
 }));
 
+const originalMatchMedia = window.matchMedia;
+
 beforeEach(() => {
 	failGate('platform-dst-motion-uplift-panel');
 	jest.spyOn(HTMLElement.prototype, 'clientWidth', 'get').mockReturnValue(1200);
@@ -29,10 +31,11 @@ beforeEach(() => {
 		}
 		return style;
 	});
-	const matchMedia = window.matchMedia;
-	jest
-		.spyOn(window, 'matchMedia')
-		.mockImplementation((query) => ({ ...matchMedia(query), matches: true }));
+	const matchMedia = originalMatchMedia;
+	jest.spyOn(window, 'matchMedia').mockImplementation((query) => ({
+		...matchMedia(query),
+		matches: query !== '(min-width: 110.5rem)',
+	}));
 });
 
 afterEach(() => {
@@ -47,6 +50,9 @@ function Host(props: Partial<PanelLayoutProps>): JSX.Element {
 					isPanelOpen={props.isPanelOpen ?? true}
 					panel={props.panel ?? 'Caller content'}
 					panelWidth={props.panelWidth}
+					defaultPanelWidth={props.defaultPanelWidth}
+					compactDefaultPanelWidth={props.compactDefaultPanelWidth}
+					xlDefaultPanelWidth={props.xlDefaultPanelWidth}
 					panelMinWidth={props.panelMinWidth}
 					panelMaxWidth={props.panelMaxWidth}
 					onPanelWidthChange={props.onPanelWidthChange}
@@ -257,3 +263,65 @@ it.each([false, true])(
 		expect(onResizeEnd).toHaveBeenCalledTimes(2);
 	},
 );
+
+it.each([
+	{ props: {}, xl: 500, desktop: 400 },
+	{ props: { defaultPanelWidth: 440 }, xl: 440, desktop: 440 },
+	{ props: { xlDefaultPanelWidth: 560 }, xl: 560, desktop: 400 },
+	{ props: { defaultPanelWidth: 440, xlDefaultPanelWidth: 560 }, xl: 560, desktop: 440 },
+	{ props: { panelWidth: 460, xlDefaultPanelWidth: 560 }, xl: 460, desktop: 460 },
+	{ props: { panelMaxWidth: 450 }, xl: 450, desktop: 400 },
+])('uses XL defaults without replacing preferences: $props', ({ props, xl, desktop }) => {
+	passGate('platform-dst-chat-panel-layout');
+	let isXl = true;
+	const matchMedia = originalMatchMedia;
+	jest.spyOn(window, 'matchMedia').mockImplementation((query) => ({
+		...matchMedia(query),
+		get matches() {
+			return query === '(min-width: 110.5rem)' ? isXl : true;
+		},
+	}));
+	const { rerender } = render(<Host {...props} />);
+	const width = () =>
+		screen.getByTestId('layout--panel-slot').style.getPropertyValue('--p_lclPnlW');
+	expect(width()).toBe(`${xl}px`);
+	isXl = false;
+	fireEvent.resize(window);
+	expect(width()).toBe(`${desktop}px`);
+	isXl = true;
+	fireEvent.resize(window);
+	expect(width()).toBe(`${xl}px`);
+	rerender(<Host {...props} xlDefaultPanelWidth={700} />);
+	expect(width()).toBe(`${xl}px`);
+});
+
+it('keeps a user preference across the XL breakpoint and close/reopen', () => {
+	passGate('platform-dst-chat-panel-layout');
+	let isXl = false;
+	const matchMedia = originalMatchMedia;
+	jest.spyOn(window, 'matchMedia').mockImplementation((query) => ({
+		...matchMedia(query),
+		get matches() {
+			return query === '(min-width: 110.5rem)' ? isXl : true;
+		},
+	}));
+	const { rerender } = render(<Host />);
+	const slider = screen.getByRole('slider', { name: 'Resize panel', hidden: true });
+	fireEvent.focus(slider);
+	fireEvent.change(slider, { target: { value: '470' } });
+	isXl = true;
+	fireEvent.resize(window);
+	rerender(<Host isPanelOpen={false} />);
+	rerender(<Host />);
+	expect(screen.getByTestId('layout--panel-slot')).toHaveStyle({ '--p_lclPnlW': '470px' });
+});
+
+it('ignores XL overrides with chat layout disabled', () => {
+	failGate('platform-dst-chat-panel-layout');
+	const matchMedia = originalMatchMedia;
+	jest
+		.spyOn(window, 'matchMedia')
+		.mockImplementation((query) => ({ ...matchMedia(query), matches: true }));
+	render(<Host xlDefaultPanelWidth={700} />);
+	expect(screen.getByTestId('layout--panel-slot')).toHaveStyle({ '--p_lclPnlW': '365px' });
+});

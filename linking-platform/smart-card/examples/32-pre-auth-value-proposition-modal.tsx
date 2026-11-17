@@ -14,6 +14,7 @@ import { personalizationConstants } from '../src/state/services/personalization/
 import { preAuthValuePropositionModalService } from '../src/state/services/pre-auth-value-proposition-modal';
 import { PreAuthValuePropositionModal } from '../src/view/PreAuthValuePropositionModal';
 import ExampleContainer from './utils/example-container';
+import ExampleChoreographer from './utils/pre-auth-modal-choreographer';
 
 type ModalVariant = 'modal_text_only' | 'modal_with_image';
 
@@ -78,6 +79,7 @@ const VariantButtonsExample = (): React.JSX.Element => {
 
 	return (
 		<SmartCardProvider
+			choreographer={ExampleChoreographer}
 			// Both mocks use the same URL; remount to discard the other provider name's cached response.
 			key={useLongProviderName ? 'long-provider-name' : 'normal-provider-name'}
 			client={useLongProviderName ? longProviderNameClient : client}

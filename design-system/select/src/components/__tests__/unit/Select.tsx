@@ -798,6 +798,38 @@ it('UNSAFE_is_experimental_generic should pass down and replace semantics', asyn
 	expect(within(list).queryAllByRole('option')).toHaveLength(0);
 });
 
+it('UNSAFE_is_experimental_listbox keeps the generic layout but exposes listbox semantics', () => {
+	const testId = 'select';
+
+	render(
+		<AtlaskitSelect
+			menuIsOpen
+			options={OPTIONS}
+			testId={testId}
+			UNSAFE_is_experimental_generic
+			UNSAFE_is_experimental_listbox
+		/>,
+	);
+
+	// Combobox input advertises a listbox popup, not a dialog.
+	const input = screen.getByTestId(`${testId}-select--input`);
+	expect(input).toHaveAttribute('aria-haspopup', 'listbox');
+
+	// The menu is the listbox itself (no nested role="list" wrapper).
+	const listbox = screen.getByTestId(`${testId}-select--listbox`);
+	expect(listbox).toHaveAttribute('role', 'listbox');
+	expect(within(listbox).queryByRole('list')).not.toBeInTheDocument();
+
+	// Rows are options with aria-selected rather than listitems.
+	const options = within(listbox).getAllByRole('option');
+	expect(options).toHaveLength(OPTIONS.length);
+	options.forEach((option) => {
+		expect(option).toHaveAttribute('aria-selected');
+		expect(option).toHaveAttribute('id');
+	});
+	expect(within(listbox).queryAllByRole('listitem')).toHaveLength(0);
+});
+
 describe('Select dropdown indicator voice-control accessibility', () => {
 	describe('when the voice-control accessible dropdown gate is enabled', () => {
 		it('renders a button with tabIndex=-1 and an aria-label so voice control can target it', () => {

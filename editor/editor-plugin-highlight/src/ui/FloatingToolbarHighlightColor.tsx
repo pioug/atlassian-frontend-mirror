@@ -40,7 +40,6 @@ import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette/
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import HighlightIcon from '@atlaskit/icon/core/highlight';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { setPalette } from '../editor-commands/palette';
 import type { HighlightPlugin } from '../highlightPluginType';
@@ -123,9 +122,7 @@ const FloatingToolbarHighlightColor = ({
 	const activeColorToken =
 		activeColor === null ? null : hexToEditorTextBackgroundPaletteColor(activeColor);
 
-	const title = editorExperiment('platform_editor_controls', 'variant1')
-		? tooltip(toggleHighlightPalette, toolbarButtonLabel)
-		: toolbarButtonLabel;
+	const title = tooltip(toggleHighlightPalette, toolbarButtonLabel);
 
 	return (
 		<PaletteDropdown
@@ -136,7 +133,7 @@ const FloatingToolbarHighlightColor = ({
 					// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides, @atlaskit/ui-styling-standard/no-imported-style-values
 					css={disableBlueBorderStyles}
 					buttonId={TOOLBAR_BUTTON.BACKGROUND_COLOR}
-					spacing={editorExperiment('platform_editor_controls', 'variant1') ? 'default' : 'compact'}
+					spacing="default"
 					disabled={disabled}
 					selected={isDropdownOpen}
 					aria-label={title}
@@ -163,10 +160,7 @@ const FloatingToolbarHighlightColor = ({
 							}
 						</div>
 					}
-				>
-					{editorExperiment('platform_editor_controls', 'control') &&
-						formatMessage(messages.highlightFloatingToolbar)}
-				</ToolbarButton>
+				/>
 			}
 			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			onColorChange={(color) => handleColorChange({ color, inputMethod: INPUT_METHOD.FLOATING_TB })}

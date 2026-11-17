@@ -1,5 +1,19 @@
 # @atlaskit/textfield
 
+## 11.0.0
+
+### Major Changes
+
+- [`b2b0140c38def`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2b0140c38def) -
+  Remove the `platform-textfield-atomic-styles` feature gate and retain atomic input styling. The
+  `data-compact` attribute is no longer rendered on the input element. Update any CSS selectors or
+  tests that rely on this attribute to use an application-owned attribute or selector instead;
+  continue using the `isCompact` prop to control compact spacing.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.3.1
 
 ### Patch Changes

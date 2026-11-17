@@ -16,7 +16,6 @@ import type { Identifier } from '@atlaskit/media-client/identifier';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { Filmstrip } from '@atlaskit/media-filmstrip/filmstrip';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { stateKey as mediaStateKey } from '../pm-plugins/plugin-key';
 import type { MediaOptions } from '../types';
@@ -186,7 +185,6 @@ type MediaGroupProps = {
 	anchorPos: number; // This value is required so that shouldComponentUpdate can calculate correctly
 	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
 	disabled?: boolean;
-	editorViewMode?: boolean;
 	forwardRef?: (ref: HTMLElement) => void;
 	getPos: () => number | undefined;
 	headPos: number; // This value is required so that shouldComponentUpdate can calculate correctly
@@ -207,7 +205,6 @@ export const MediaGroupNext: React.FC<
 			anchorPos: number; // This value is required so that shouldComponentUpdate can calculate correctly
 			contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
 			disabled?: boolean;
-			editorViewMode?: boolean;
 			forwardRef?: (ref: HTMLElement) => void;
 			getPos: () => number | undefined;
 			headPos: number; // This value is required so that shouldComponentUpdate can calculate correctly
@@ -227,7 +224,6 @@ export const MediaGroupNext: React.FC<
 			anchorPos: number; // This value is required so that shouldComponentUpdate can calculate correctly
 			contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
 			disabled?: boolean;
-			editorViewMode?: boolean;
 			forwardRef?: (ref: HTMLElement) => void;
 			getPos: () => number | undefined;
 			headPos: number; // This value is required so that shouldComponentUpdate can calculate correctly
@@ -253,7 +249,6 @@ export const MediaGroupNext: React.FC<
 			headPos,
 			view,
 			disabled,
-			editorViewMode,
 			mediaProvider,
 			contextIdentifierProvider,
 			isCopyPasteEnabled,
@@ -388,9 +383,6 @@ export const MediaGroupNext: React.FC<
 				items={items}
 				mediaClientConfig={viewMediaClientConfig}
 				featureFlags={featureFlags}
-				shouldOpenMediaViewer={
-					editorViewMode && editorExperiment('platform_editor_controls', 'control')
-				}
 				fallbackMediaNameFetcher={fallbackMediaNameFetcher}
 			/>
 		);

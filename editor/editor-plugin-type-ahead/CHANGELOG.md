@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 34.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 33.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 32.1.0
+
+### Minor Changes
+
+- [`c13b574ab38d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c13b574ab38d2) -
+  Declare the workspace dependencies used by package source and emitted types so isolated
+  installations can resolve them.
+
+### Patch Changes
+
+- [`58e5092700759`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/58e5092700759) -
+  Remove the `control` branches of experiment `platform_editor_controls`; the editor controls
+  (`variant1`) experience is now permanent.
+- Updated dependencies
+
 ## 32.0.1
 
 ### Patch Changes

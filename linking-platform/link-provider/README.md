@@ -52,3 +52,7 @@ hides the UI. Closing the opportunity or unmounting releases the claim.
 This only coordinates participating in-app messages. The experiment still owns feature gates,
 assignment, audience checks, impressions, dismissal history, and analytics. No portal message or
 headless API is required.
+
+Pass `shouldClaim` to `ChoreographedContent` when eligibility or experiment assignment must be
+checked at slot offer. Returning false or throwing declines the offer. It is not called for blocked
+or canceled attempts. The current predicate is used without restarting a pending request.

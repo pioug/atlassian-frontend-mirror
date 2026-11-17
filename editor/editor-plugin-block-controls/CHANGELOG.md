@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 34.0.0
+
+### Patch Changes
+
+- [`cabf3c7e59b8d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cabf3c7e59b8d) -
+  Remove internal uses of the always-true `areToolbarFlagsEnabled` helper and delete legacy toolbar
+  code that only rendered when it returned false (`ScrollButtons`, `LinkToolbarAppearance`,
+  `HyperlinkToolbarAppearance` and the media `LayoutGroup`).
+- Updated dependencies
+
+## 33.0.0
+
+### Patch Changes
+
+- [`b2444e74978c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2444e74978c4) -
+  Make the shipped editor memory-leak reductions permanent and remove the experiment checks.
+- Updated dependencies
+
+## 32.0.1
+
+### Patch Changes
+
+- [`5d72d64c680a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5d72d64c680a0) -
+  Remove the `control` branches of experiment `platform_editor_controls`; the editor controls
+  (`variant1`) experience is now permanent.
+- Updated dependencies
+
 ## 32.0.0
 
 ### Patch Changes

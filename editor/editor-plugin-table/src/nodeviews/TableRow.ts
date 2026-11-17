@@ -243,10 +243,6 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 		if (this.isStickyHeaderEnabled) {
 			this.unsubscribe();
 
-			if (!isExperimentEnabled('platform_editor_reduce_memory_leaks')) {
-				this.nodeVisibilityObserverCleanupFn && this.nodeVisibilityObserverCleanupFn();
-			}
-
 			const tree = getTree(this.dom);
 			if (tree) {
 				this.makeRowHeaderNotSticky(tree.table, true);
@@ -255,10 +251,8 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 			this.emitOff(true);
 		}
 
-		if (isExperimentEnabled('platform_editor_reduce_memory_leaks')) {
-			this.nodeVisibilityObserverCleanupFn?.();
-			this.nodeVisibilityObserverCleanupFn = undefined;
-		}
+		this.nodeVisibilityObserverCleanupFn?.();
+		this.nodeVisibilityObserverCleanupFn = undefined;
 
 		if (isExperimentEnabled('platform_editor_dynamic_limited_mode')) {
 			this.limitedModeUnsubscribe?.();
@@ -338,23 +332,14 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 			this.topPosEditorElement = getTop(this.editorScrollableElement);
 		}
 
-		if (isExperimentEnabled('platform_editor_reduce_memory_leaks')) {
-			this.eventDispatcher.on('widthPlugin', this.onWidthPluginEvent);
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			this.eventDispatcher.on((tablePluginKey as any).key, this.onTablePluginEvent);
-		} else {
-			this.eventDispatcher.on('widthPlugin', this.updateStickyHeaderWidth.bind(this));
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			this.eventDispatcher.on((tablePluginKey as any).key, this.onTablePluginState.bind(this));
-		}
+		this.eventDispatcher.on('widthPlugin', this.onWidthPluginEvent);
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		this.eventDispatcher.on((tablePluginKey as any).key, this.onTablePluginEvent);
 
 		this.listening = true;
 
-		const scrollHandler = isExperimentEnabled('platform_editor_reduce_memory_leaks')
-			? this.headerRowMouseScroll
-			: this.headerRowMouseScroll.bind(this);
+		const scrollHandler = this.headerRowMouseScroll;
 
 		// Ignored via go/ees005
 		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
@@ -386,19 +371,12 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 			this.resizeObserver.disconnect();
 		}
 
-		if (isExperimentEnabled('platform_editor_reduce_memory_leaks')) {
-			this.eventDispatcher.off('widthPlugin', this.onWidthPluginEvent);
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			this.eventDispatcher.off((tablePluginKey as any).key, this.onTablePluginEvent);
-			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
-			this.editorScrollableElement?.removeEventListener('scrollend', this.onScrollEnd);
-		} else {
-			this.eventDispatcher.off('widthPlugin', this.updateStickyHeaderWidth);
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			this.eventDispatcher.off((tablePluginKey as any).key, this.onTablePluginState);
-		}
+		this.eventDispatcher.off('widthPlugin', this.onWidthPluginEvent);
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		this.eventDispatcher.off((tablePluginKey as any).key, this.onTablePluginEvent);
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
+		this.editorScrollableElement?.removeEventListener('scrollend', this.onScrollEnd);
 
 		this.listening = false;
 
@@ -811,13 +789,10 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 			 */
 			// Ignored via go/ees005
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
-			this.editorScrollableElement?.addEventListener(
-				'scrollend',
-				isExperimentEnabled('platform_editor_reduce_memory_leaks')
-					? this.onScrollEnd
-					: this.refireIntersectionObservers,
-				{ passive: true, once: true },
-			);
+			this.editorScrollableElement?.addEventListener('scrollend', this.onScrollEnd, {
+				passive: true,
+				once: true,
+			});
 
 			const fastScrollThresholdMs = 500;
 			setTimeout(() => {

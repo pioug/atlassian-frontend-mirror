@@ -90,9 +90,7 @@ export const InlineCardWithAwareness: React.MemoExoticComponent<
 		const setIsInsertedRef = useRef<((value: boolean) => void) | undefined>(setIsInserted);
 		useEffect(() => {
 			return () => {
-				if (isExperimentEnabled('platform_editor_reduce_memory_leaks')) {
-					setIsInsertedRef.current = undefined;
-				}
+				setIsInsertedRef.current = undefined;
 			};
 		}, []);
 		const [isResolvedViewRendered, setIsResolvedViewRendered] = useState(false);
@@ -103,9 +101,7 @@ export const InlineCardWithAwareness: React.MemoExoticComponent<
 		const onResolve = useCallback((tr: Transaction | undefined, title?: string): void => {
 			if (tr) {
 				const metadata = tr.getMeta(pluginKey);
-				const removeOverlay = isExperimentEnabled('platform_editor_reduce_memory_leaks')
-					? createRemoveOverlay(setIsInsertedRef)
-					: () => setIsInserted(false);
+				const removeOverlay = createRemoveOverlay(setIsInsertedRef);
 				if (metadata && metadata.type === 'REGISTER') {
 					registerRemoveOverlay(removeOverlay, metadata.info)(tr);
 				} else {

@@ -13,8 +13,6 @@ import { jsx, css } from '@emotion/react';
 import Button from '@atlaskit/button/button';
 import IconButton from '@atlaskit/button/icon/button';
 import { pixelEntryMessages as messages } from '@atlaskit/editor-common/media/pixelEntry';
-import Field from '@atlaskit/form/field';
-import Form from '@atlaskit/form/form';
 import CrossIcon from '@atlaskit/icon/core/cross';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives, @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box } from '@atlaskit/primitives/box';
@@ -33,14 +31,6 @@ import {
 	PIXEL_VIEW_MODE_TOOLBAR_WIDTH,
 	PIXELENTRY_MIGRATION_BUTTON_TESTID,
 } from './constants';
-import {
-	pixelEntryForm,
-	pixelEntryHiddenSubmit,
-	pixelSizingHeightInput,
-	pixelSizingInput,
-	pixelSizingWidthInput,
-	pixelSizingWrapper,
-} from './styles';
 import type {
 	PixelEntryComponentNextProps,
 	PixelEntryFormValues,
@@ -48,16 +38,10 @@ import type {
 	PixelEntryValidation,
 } from './types';
 
-const pixelSizingLabel = xcss({
-	gridArea: 'label',
-	lineHeight: token('space.300'),
-});
-
 export const PixelEntryComponent = ({
 	width,
 	mediaWidth,
 	mediaHeight,
-	onSubmit,
 	minWidth,
 	maxWidth,
 	onChange,
@@ -66,7 +50,6 @@ export const PixelEntryComponent = ({
 	onMigrate,
 	onCloseAndSave,
 	isViewMode,
-	areAnyNewToolbarFlagsEnabled,
 }: PixelEntryProps): jsx.JSX.Element => {
 	const ratioWidth = useMemo(() => {
 		return mediaHeight / mediaWidth;
@@ -85,39 +68,7 @@ export const PixelEntryComponent = ({
 		setComputedHeight(Math.round(ratioWidth * width));
 	}, [width, ratioWidth]);
 
-	// Handle submit when user presses enter in form
-	const handleOnSubmit = (data: PixelEntryFormValues) => {
-		if (data.inputWidth === '' || data.inputHeight === '') {
-			return;
-		}
-
-		if (onSubmit) {
-			let widthToBeSumitted = data.inputWidth;
-			let validation: PixelEntryValidation = 'valid';
-
-			if (data.inputWidth < minWidth) {
-				widthToBeSumitted = minWidth;
-				validation = 'less-than-min';
-			}
-
-			if (data.inputWidth > maxWidth) {
-				widthToBeSumitted = maxWidth;
-				validation = 'greater-than-max';
-			}
-
-			// If user keeps submitting an invalid input, node width attribute will be updated with the same value
-			// and won't upadte the state in useEffect (since width is the same)
-			// Thus, we set the state here to always display the correct dimension
-			if (validation !== 'valid') {
-				setComputedWidth(widthToBeSumitted);
-				setComputedHeight(Math.round(ratioWidth * widthToBeSumitted));
-			}
-
-			onSubmit({ width: widthToBeSumitted, validation });
-		}
-	};
-
-	// Handle submit when user presses enter or click close button in PixelEntryComponentNext
+	// Handle submit when user presses enter or click close button
 	const handleCloseAndSave = useCallback(
 		(data: PixelEntryFormValues, setFocus?: boolean) => {
 			if (data.inputWidth === '' || data.inputHeight === '') {
@@ -198,91 +149,16 @@ export const PixelEntryComponent = ({
 		);
 	}
 
-	if (areAnyNewToolbarFlagsEnabled) {
-		return (
-			<PixelEntryComponentNext
-				maxWidth={maxWidth}
-				formatMessage={formatMessage}
-				handleFieldChange={handleOnChange}
-				computedWidth={computedWidth}
-				computedHeight={computedHeight}
-				handleCloseAndSave={handleCloseAndSave}
-				isViewMode={isViewMode}
-			/>
-		);
-	}
-
 	return (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-		<div css={pixelEntryForm}>
-			<Form<PixelEntryFormValues> onSubmit={handleOnSubmit}>
-				{({ formProps }) => {
-					return (
-						// Ignored via go/ees005
-						// eslint-disable-next-line react/jsx-props-no-spreading
-						<form {...formProps}>
-							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-							<div css={pixelSizingWrapper}>
-								<Field key="inputWidth" name="inputWidth" defaultValue={computedWidth}>
-									{({ fieldProps }) => (
-										<Tooltip
-											hideTooltipOnMouseDown
-											content={formatMessage(messages.inputWidthTooltip, {
-												maxWidth,
-											})}
-											position="top"
-										>
-											<Textfield
-												// Ignored via go/ees005
-												// eslint-disable-next-line react/jsx-props-no-spreading
-												{...fieldProps}
-												// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/no-unsafe-style-overrides, @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-												css={[pixelSizingWidthInput, pixelSizingInput]}
-												appearance="none"
-												isCompact
-												onChange={handleOnChange('inputWidth')}
-												pattern="\d*"
-												aria-label={formatMessage(messages.inputWidthAriaLabel, { maxWidth })}
-											/>
-										</Tooltip>
-									)}
-								</Field>
-								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-								<Box as="span" xcss={pixelSizingLabel}>
-									×
-								</Box>
-								<Field key="inputHeight" name="inputHeight" defaultValue={computedHeight}>
-									{({ fieldProps }) => (
-										<Tooltip
-											hideTooltipOnMouseDown
-											content={formatMessage(messages.inputHeightTooltip)}
-											position="top"
-										>
-											<Textfield
-												// Ignored via go/ees005
-												// eslint-disable-next-line react/jsx-props-no-spreading
-												{...fieldProps}
-												// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/no-unsafe-style-overrides, @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-												css={[pixelSizingHeightInput, pixelSizingInput]}
-												appearance="none"
-												isCompact
-												onChange={handleOnChange('inputHeight')}
-												pattern="\d*"
-												aria-label={formatMessage(messages.inputHeightAriaLabel)}
-											/>
-										</Tooltip>
-									)}
-								</Field>
-								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/no-unsafe-style-overrides -- Ignored via go/DSP-18766 */}
-								<Button css={pixelEntryHiddenSubmit} type="submit">
-									{formatMessage(messages.submitButtonText)}
-								</Button>
-							</div>
-						</form>
-					);
-				}}
-			</Form>
-		</div>
+		<PixelEntryComponentNext
+			maxWidth={maxWidth}
+			formatMessage={formatMessage}
+			handleFieldChange={handleOnChange}
+			computedWidth={computedWidth}
+			computedHeight={computedHeight}
+			handleCloseAndSave={handleCloseAndSave}
+			isViewMode={isViewMode}
+		/>
 	);
 };
 

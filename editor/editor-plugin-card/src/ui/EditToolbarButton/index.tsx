@@ -9,7 +9,6 @@ import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl';
 
 import Button from '@atlaskit/editor-common/FloatingToolbar/Button';
-import Separator from '@atlaskit/editor-common/FloatingToolbar/Separator';
 import { messages } from '@atlaskit/editor-common/messages/card';
 import { linkToolbarMessages } from '@atlaskit/editor-common/messages/link-toolbar';
 import { ArrowKeyNavigationType } from '@atlaskit/editor-common/ui-menu/ArrowKeyNavigationProvider/types';
@@ -19,7 +18,6 @@ import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-cont
 import type { DatasourceAdf } from '@atlaskit/linking-common/types';
 import ButtonItem from '@atlaskit/menu/button-item';
 import { Flex } from '@atlaskit/primitives/compiled/flex';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
 
 import { focusEditorView, isDatasourceConfigEditable } from '../../pm-plugins/utils';
@@ -48,7 +46,6 @@ const EditToolbarButtonWithCardContext = (props: EditDatasourceToolbarButtonProp
 		intl,
 		onLinkEditClick,
 		url,
-		areAnyNewToolbarFlagsEnabled,
 	} = props;
 	const { extensionKey, ...response } = useFetchDatasourceInfo({
 		isRegularCardNode: true,
@@ -106,20 +103,13 @@ const EditToolbarButtonWithCardContext = (props: EditDatasourceToolbarButtonProp
 		case 'edit-link': {
 			return (
 				<Flex gap="space.050">
-					<Button
-						testId="edit-link"
-						onClick={onEditLink}
-						areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
-					>
+					<Button testId="edit-link" onClick={onEditLink}>
 						<FormattedMessage
 							// Ignored via go/ees005
 							// eslint-disable-next-line react/jsx-props-no-spreading
 							{...linkToolbarMessages.editLink}
 						/>
 					</Button>
-					{!editorExperiment('platform_editor_controls', 'variant1') && (
-						<Separator areAnyNewToolbarFlagsEnabled={false} />
-					)}
 				</Flex>
 			);
 		}
@@ -130,7 +120,6 @@ const EditToolbarButtonWithCardContext = (props: EditDatasourceToolbarButtonProp
 						testId="edit-datasource"
 						tooltipContent={intl.formatMessage(linkToolbarMessages.editDatasourceStandaloneTooltip)}
 						onClick={onEditDatasource}
-						areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 					>
 						<FormattedMessage
 							// Ignored via go/ees005
@@ -138,9 +127,6 @@ const EditToolbarButtonWithCardContext = (props: EditDatasourceToolbarButtonProp
 							{...linkToolbarMessages.editDatasourceStandalone}
 						/>
 					</Button>
-					{!editorExperiment('platform_editor_controls', 'variant1') && (
-						<Separator areAnyNewToolbarFlagsEnabled={false} />
-					)}
 				</Flex>
 			);
 		}
@@ -161,7 +147,6 @@ const EditToolbarButtonWithCardContext = (props: EditDatasourceToolbarButtonProp
 						selected={isOpen}
 						disabled={false}
 						ariaHasPopup
-						areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 					>
 						<FormattedMessage
 							// Ignored via go/ees005
@@ -169,9 +154,6 @@ const EditToolbarButtonWithCardContext = (props: EditDatasourceToolbarButtonProp
 							{...messages.editDropdownTriggerTitle}
 						/>
 					</Button>
-					{!editorExperiment('platform_editor_controls', 'variant1') && (
-						<Separator areAnyNewToolbarFlagsEnabled={false} />
-					)}
 				</Flex>
 			);
 
@@ -227,7 +209,6 @@ const EditToolbarButtonWithUrl = (props: EditDatasourceToolbarButtonWithUrlProps
 		intl,
 		onLinkEditClick,
 		url,
-		areAnyNewToolbarFlagsEnabled,
 	} = props;
 	const { extensionKey, datasourceId: datasourceIdFromUrl } = useFetchDatasourceInfo({
 		isRegularCardNode: true,
@@ -258,7 +239,6 @@ const EditToolbarButtonWithUrl = (props: EditDatasourceToolbarButtonWithUrlProps
 			extensionKey={extensionKey}
 			onLinkEditClick={onLinkEditClick}
 			intl={intl}
-			areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 		/>
 	);
 };
@@ -274,7 +254,6 @@ const EditToolbarButtonWithDatasourceId = (
 		onLinkEditClick,
 		datasourceId,
 		node,
-		areAnyNewToolbarFlagsEnabled,
 	} = props;
 	const fetchData = useMemo(() => {
 		try {
@@ -311,7 +290,6 @@ const EditToolbarButtonWithDatasourceId = (
 			extensionKey={extensionKey}
 			onLinkEditClick={onLinkEditClick}
 			intl={intl}
-			areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 		/>
 	);
 };
@@ -325,7 +303,6 @@ export const EditToolbarButton = (props: EditDatasourceToolbarButtonProps): jsx.
 		intl,
 		onLinkEditClick,
 		url,
-		areAnyNewToolbarFlagsEnabled,
 	} = props;
 	const cardContext = useSmartLinkContext();
 
@@ -340,7 +317,6 @@ export const EditToolbarButton = (props: EditDatasourceToolbarButtonProps): jsx.
 				cardContext={cardContext}
 				onLinkEditClick={onLinkEditClick}
 				currentAppearance={currentAppearance}
-				areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 			/>
 		);
 	}
@@ -354,7 +330,6 @@ export const EditToolbarButton = (props: EditDatasourceToolbarButtonProps): jsx.
 				editorView={editorView}
 				onLinkEditClick={onLinkEditClick}
 				currentAppearance={currentAppearance}
-				areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 			/>
 		);
 	}
@@ -369,7 +344,6 @@ export const EditToolbarButton = (props: EditDatasourceToolbarButtonProps): jsx.
 			cardContext={cardContext}
 			onLinkEditClick={onLinkEditClick}
 			currentAppearance={currentAppearance}
-			areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 		/>
 	);
 };

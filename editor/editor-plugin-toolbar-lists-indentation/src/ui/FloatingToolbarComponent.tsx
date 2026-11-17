@@ -5,7 +5,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-edi
 import { usePluginStateEffect } from '@atlaskit/editor-common/use-plugin-state-effect';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import {
 	getIndentationButtonsState,
@@ -25,8 +24,6 @@ type FloatingToolbarComponentProps = {
 
 const FloatingToolbarSettings = {
 	disabled: false,
-	isToolbarReducedSpacing: true,
-	isSmall: true,
 };
 
 export function FloatingToolbarComponent({
@@ -99,12 +96,7 @@ export function FloatingToolbarComponent({
 	return (
 		<ToolbarListsIndentation
 			featureFlags={featureFlags}
-			isSmall={FloatingToolbarSettings.isSmall}
-			isReducedSpacing={
-				editorExperiment('platform_editor_controls', 'variant1')
-					? false
-					: FloatingToolbarSettings.isToolbarReducedSpacing
-			}
+			isReducedSpacing={false}
 			disabled={FloatingToolbarSettings.disabled}
 			editorView={editorView}
 			bulletListActive={bulletListActive}

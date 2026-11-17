@@ -1,8 +1,6 @@
 import type { Extension } from '@codemirror/state';
 import { EditorView as CodeMirror } from '@codemirror/view';
 
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
-
 /**
  * Keeps 'first-node-in-document' class if it was added to a codeBlock by
  * platform/packages/editor/editor-plugin-block-controls/src/pm-plugins/first-node-dec-plugin.ts
@@ -12,11 +10,7 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment
  * @example
  */
 export const firstCodeBlockInDocument = (getPos: () => number | undefined): Extension => {
-	if (editorExperiment('platform_editor_controls', 'variant1')) {
-		return CodeMirror.editorAttributes.of({
-			class: getPos?.() === 0 ? 'first-node-in-document' : '',
-		});
-	} else {
-		return [];
-	}
+	return CodeMirror.editorAttributes.of({
+		class: getPos?.() === 0 ? 'first-node-in-document' : '',
+	});
 };

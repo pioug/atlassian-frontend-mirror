@@ -23,7 +23,6 @@ import { Box } from '@atlaskit/primitives/box';
 import { Inline } from '@atlaskit/primitives/inline';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { xcss } from '@atlaskit/primitives/xcss/xcss';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
@@ -338,9 +337,7 @@ const ColorPickerButton = (props: Props) => {
 						ref={buttonRef}
 						aria-label={title}
 						aria-expanded={props.isAriaExpanded ? isPopupOpen : undefined}
-						spacing={
-							editorExperiment('platform_editor_controls', 'variant1') ? 'default' : 'compact'
-						}
+						spacing="default"
 						onClick={togglePopup}
 						onKeyDown={onKeyDown}
 						data-selected-color={props.currentColor}

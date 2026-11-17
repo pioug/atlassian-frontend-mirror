@@ -76,11 +76,6 @@ export const toolbarMessages: {
 		description: string;
 		id: string;
 	};
-	layoutPlaceholder: {
-		defaultMessage: string;
-		description: string;
-		id: string;
-	};
 	leftSidebar: {
 		defaultMessage: string;
 		description: string;
@@ -217,12 +212,6 @@ export const toolbarMessages: {
 		id: 'fabric.editor.floatingToolbar.floatingToolbarRadioGroupAriaLabel',
 		defaultMessage: 'Layout options',
 		description: "a floating toolbar radiogroup's aria label",
-	},
-	layoutPlaceholder: {
-		id: 'fabric.editor.layout.placeholder',
-		defaultMessage: 'Add content',
-		description:
-			'Placeholder text shown inside an empty layout column, prompting the user to add content.',
 	},
 	controlslayoutPlaceholder: {
 		id: 'fabric.editor.layout.controls.placeholder',

@@ -20,7 +20,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-edi
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import CommentIcon from '@atlaskit/icon/core/comment';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import type { MediaPluginOptions } from '../../types';
@@ -89,8 +88,8 @@ export const commentButton = (
 		type: 'button',
 		testId: 'add-comment-media-button',
 		icon: CommentIcon,
-		title: editorExperiment('platform_editor_controls', 'control') ? title : buttonLabel,
-		showTitle: editorExperiment('platform_editor_controls', 'control') ? undefined : true,
+		title: buttonLabel,
+		showTitle: true,
 		onClick: onClickHandler,
 		tooltipContent: <ToolTipContent description={title} />,
 		supportsViewMode: true,

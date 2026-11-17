@@ -43,7 +43,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles/constants';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import TextStyleIcon from '@atlaskit/icon/core/text-style';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -51,7 +50,7 @@ import { changeColor as changeColorWithAnalytics } from '../../pm-plugins/comman
 import type { TextColorPluginState } from '../../pm-plugins/main';
 import { getInputMethod } from '../../pm-plugins/utils/inputType';
 import type { TextColorPlugin } from '../../textColorPluginType';
-import { ToolbarType } from '../../types';
+import type { ToolbarType } from '../../types';
 
 export interface State {
 	isOpen: boolean;
@@ -62,7 +61,6 @@ export interface Props {
 	disabled?: boolean;
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 	editorView: EditorView;
-	isReducedSpacing?: boolean;
 	pluginInjectionApi: ExtractInjectionAPI<TextColorPlugin> | undefined;
 	pluginState: TextColorPluginState;
 	popupsBoundariesElement?: HTMLElement;
@@ -101,7 +99,6 @@ export class ToolbarTextColor extends React.Component<Props & WrappedComponentPr
 			popupsMountPoint,
 			popupsBoundariesElement,
 			popupsScrollableElement,
-			isReducedSpacing,
 			pluginState,
 			intl: { formatMessage },
 			disabled,
@@ -145,8 +142,6 @@ export class ToolbarTextColor extends React.Component<Props & WrappedComponentPr
 			colorPickerColumns,
 		);
 
-		const reducedSpacing = this.props.toolbarType === ToolbarType.FLOATING ? 'compact' : 'none';
-
 		return (
 			<span
 				css={
@@ -175,11 +170,7 @@ export class ToolbarTextColor extends React.Component<Props & WrappedComponentPr
 					trigger={
 						<ToolbarButton
 							buttonId={TOOLBAR_BUTTON.TEXT_COLOR}
-							spacing={
-								!isReducedSpacing || editorExperiment('platform_editor_controls', 'variant1')
-									? 'default'
-									: reducedSpacing
-							}
+							spacing="default"
 							disabled={disabled || pluginState.disabled}
 							selected={isOpen}
 							aria-label={labelTextColor}

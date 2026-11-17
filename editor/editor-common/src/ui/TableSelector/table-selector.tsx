@@ -11,7 +11,6 @@ import { injectIntl } from 'react-intl';
 import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 
 import { Stack } from '@atlaskit/primitives/compiled/stack';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
 
 import { toolbarInsertBlockMessages as messages } from '../../messages';
@@ -83,9 +82,7 @@ const TableSelectorButton = ({
 		if (btnRef.current) {
 			if (isFocused) {
 				btnRef.current.focus({
-					preventScroll: editorExperiment('platform_editor_controls', 'variant1')
-						? true
-						: undefined,
+					preventScroll: true,
 				});
 			} else {
 				btnRef.current.blur();

@@ -9,13 +9,11 @@ import {
 	toolbarMessages as layoutMessages,
 	toolbarMessages,
 } from '@atlaskit/editor-common/messages/layout';
-import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type { Command, CommandDispatch } from '@atlaskit/editor-common/types/command';
 import type {
 	DropdownOptions,
 	FloatingToolbarButton,
 	FloatingToolbarConfig,
-	FloatingToolbarCopyButton,
 	FloatingToolbarItem,
 	FloatingToolbarSeparator,
 	Icon,
@@ -166,13 +164,6 @@ export const layoutToolbarTitle = 'Layout floating controls';
 const iconPlaceholder = <LayoutTwoColumnsIcon label="" />; // TODO: ED-25466 - Replace with proper icon
 
 const getLayoutColumnsIcons = (colCount: number) => {
-	if (
-		!editorExperiment('single_column_layouts', true) &&
-		!editorExperiment('platform_editor_controls', 'variant1')
-	) {
-		return undefined;
-	}
-
 	switch (colCount) {
 		case 1:
 			return <LayoutOneColumnIcon label="" />;
@@ -326,7 +317,6 @@ export const buildToolbar = (
 	const { hoverDecoration } = api?.decorations?.actions ?? {};
 	const editorAnalyticsAPI = api?.analytics?.actions;
 	const node = state.doc.nodeAt(pos);
-	const toolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(api?.toolbar));
 
 	if (node) {
 		const currentLayout = getPresetLayout(node);
@@ -351,17 +341,6 @@ export const buildToolbar = (
 			onFocus: hoverDecoration?.(nodeType, true),
 			onBlur: hoverDecoration?.(nodeType, false),
 			tabIndex: null,
-		};
-
-		const copyButton: FloatingToolbarCopyButton = {
-			type: 'copy-button',
-			items: [
-				{
-					state,
-					formatMessage: intl.formatMessage,
-					nodeType,
-				},
-			],
 		};
 
 		const layoutTypes = allowSingleColumnLayout ? LAYOUT_TYPES_WITH_SINGLE_COL : LAYOUT_TYPES;
@@ -430,9 +409,8 @@ export const buildToolbar = (
 								: []),
 						]),
 
-				...(toolbarFlagsEnabled
-					? [fullHeightSeparator, overflowMenu]
-					: [separator, copyButton, separator, deleteButton]),
+				fullHeightSeparator,
+				overflowMenu,
 			],
 			scrollable: true,
 		};

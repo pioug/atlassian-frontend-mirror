@@ -56,7 +56,6 @@ import TableRowDeleteIcon from '@atlaskit/icon/core/table-row-delete';
 import { Box } from '@atlaskit/primitives/box';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { xcss } from '@atlaskit/primitives/xcss/xcss';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {
@@ -619,9 +618,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 		items[0].items.push(...mergeSplitCellItems);
 		items[1].items.push(insertColumnItem);
 		items[1].items.push(insertRowItem);
-		if (editorExperiment('platform_editor_controls', 'variant1')) {
-			items[1].items.push(this.newDistributeColumnsItem());
-		}
+		items[1].items.push(this.newDistributeColumnsItem());
 		items[1].items.push(clearCellsItem);
 		items[1].items.push(deleteColumnItem);
 		items[1].items.push(deleteRowItem);

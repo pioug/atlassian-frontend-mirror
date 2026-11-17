@@ -24,12 +24,12 @@ export type ValidationResult<T> =
  *
  * @param schema - The Zod schema to validate against
  * @param args - The arguments to validate
- * @returns { success: true; data: T } if validation succeeds, { success: false; error: ValidationErrorResult } if validation fails
+ * @returns { success: true; data: Output } if validation succeeds, { success: false; error: ValidationErrorResult } if validation fails
  */
-export function validateToolArguments<T>(
-	schema: z.ZodSchema<T>,
+export function validateToolArguments<Output, Input>(
+	schema: z.ZodType<Output, z.ZodTypeDef, Input>,
 	args: unknown,
-): ValidationResult<T> {
+): ValidationResult<Output> {
 	const result = schema.safeParse(args);
 
 	if (result.success) {

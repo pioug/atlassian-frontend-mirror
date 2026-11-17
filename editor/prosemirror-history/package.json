@@ -30,6 +30,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/adf-schema": "workspace:^",
+		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/editor-test-helpers": "workspace:^",
 		"react-dom": "^19.2.0"

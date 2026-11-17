@@ -25,6 +25,7 @@ export const generateLogsWithFiles = (list: { hash: string; files: string[] }[])
 	return {
 		all: rawLogs,
 		total: rawLogs.length,
+		// @ts-expect-error - TS2322 - Type 'DefaultLogFields | undefined' is not assignable to type '(DefaultLogFields & ListLogLine) | null'.
 		latest: rawLogs[rawLogs.length - 1],
 	};
 };

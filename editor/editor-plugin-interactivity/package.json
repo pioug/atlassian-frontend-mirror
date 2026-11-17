@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-interactivity",
-	"version": "16.0.0",
+	"version": "18.0.0",
 	"description": "Interactivity plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -35,6 +35,7 @@
 		"react": "^18.2.0 || ^19.2.0"
 	},
 	"devDependencies": {
+		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/editor-common": "workspace:^",
 		"react": "^19.2.0",
 		"typescript": "root:*"

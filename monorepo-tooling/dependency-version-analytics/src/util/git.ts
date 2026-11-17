@@ -139,6 +139,7 @@ export async function getFiles(
 		'--',
 		`:(glob)${glob}`,
 	]);
+	// @ts-expect-error - TS2322 - Type '(string | undefined)[]' is not assignable to type 'string[]'.
 	return result
 		.split('\n')
 		.filter((line) => line !== '')

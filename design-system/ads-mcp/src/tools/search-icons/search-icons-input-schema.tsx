@@ -2,9 +2,11 @@
 
 import { z } from 'zod';
 
+import { searchTermsSchema, type SearchTermsSchema } from '../../helpers/search-terms-schema';
+
 export const searchIconsInputSchema: z.ZodObject<
 	{
-		terms: z.ZodArray<z.ZodString, 'many'>;
+		terms: SearchTermsSchema;
 		limit: z.ZodOptional<z.ZodDefault<z.ZodNumber>>;
 	},
 	'strip',
@@ -14,14 +16,12 @@ export const searchIconsInputSchema: z.ZodObject<
 		limit?: number | undefined;
 	},
 	{
-		terms: string[];
+		terms: string | string[];
 		limit?: number | undefined;
 	}
 > = z.object({
-	terms: z
-		.array(z.string())
-		.describe(
-			'Required: one or more terms; fuzzy match on icon **componentName**, **iconName**, **keywords**, **categorization**, **type**, and **usage**. Example: `["search", "folder", "user"]`.',
-		),
+	terms: searchTermsSchema.describe(
+		'Required: one or more terms; fuzzy match on icon **componentName**, **iconName**, **keywords**, **categorization**, **type**, and **usage**. Example: `["search", "folder", "user"]`.',
+	),
 	limit: z.number().default(2).describe('Max matches **per term** (default 2).').optional(),
 });

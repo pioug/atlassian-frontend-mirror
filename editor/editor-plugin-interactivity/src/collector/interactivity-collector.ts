@@ -1,7 +1,7 @@
 import { getDocument } from '@atlaskit/browser-apis';
 
 import type {
-	InteractivitySnapshot,
+	CollectedSnapshot,
 	SessionMode,
 	SnapshotReason,
 } from '../analytics/interactivity-snapshot';
@@ -14,11 +14,8 @@ import { LifecycleObserver } from './lifecycle-observer';
 import { SnapshotScheduler } from './snapshot-scheduler';
 
 export type InteractivityCollectorOptions = {
-	emit: (snapshot: InteractivitySnapshot) => void;
-	/** Elements inside the editor's content DOM. Read at snapshot time. */
-	getEditorDomSize: () => number | undefined;
-	/** Size of the ProseMirror document. Read at snapshot time. */
-	getNodeSize: () => number | undefined;
+	/** Called as the snapshot is taken, so what the owner reads then is of the same moment. */
+	emit: (snapshot: CollectedSnapshot) => void;
 	getObjectId: () => string | undefined;
 	getSessionMode: () => SessionMode | undefined;
 };
@@ -36,8 +33,6 @@ export type InteractivityCollectorOptions = {
  */
 export class InteractivityCollector {
 	private readonly emit: InteractivityCollectorOptions['emit'];
-	private readonly getEditorDomSize: InteractivityCollectorOptions['getEditorDomSize'];
-	private readonly getNodeSize: InteractivityCollectorOptions['getNodeSize'];
 	private readonly getObjectId: InteractivityCollectorOptions['getObjectId'];
 	private readonly getSessionMode: InteractivityCollectorOptions['getSessionMode'];
 
@@ -53,8 +48,6 @@ export class InteractivityCollector {
 
 	constructor(options: InteractivityCollectorOptions) {
 		this.emit = options.emit;
-		this.getEditorDomSize = options.getEditorDomSize;
-		this.getNodeSize = options.getNodeSize;
 		this.getObjectId = options.getObjectId;
 		this.getSessionMode = options.getSessionMode;
 
@@ -318,8 +311,6 @@ export class InteractivityCollector {
 			sessionMode: session.mode,
 			activeMs: Math.round(Math.max(0, now - session.startedAt - hiddenMs)),
 			hiddenMs: Math.round(hiddenMs),
-			nodeSize: this.getNodeSize(),
-			editorDomSize: this.getEditorDomSize(),
 			// Only `page` is told its total; each editor group has counted its own.
 			page: session.page.snapshot(pageTotalCount),
 			editor: session.editor.snapshot(),

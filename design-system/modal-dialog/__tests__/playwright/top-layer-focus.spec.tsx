@@ -1,4 +1,4 @@
-import { expect, test } from '@af/integration-testing';
+import { expect, type Page, test } from '@af/integration-testing';
 
 /**
  * Modal dialog: focus contract on the top-layer code path.
@@ -123,5 +123,102 @@ test.describe('Modal dialog: top-layer focus contract', () => {
 		await expect(page.getByTestId('default-modal-primary')).toBeFocused();
 		await page.keyboard.press('Tab');
 		await expect(page.getByTestId('default-modal--close-button')).toBeFocused();
+	});
+});
+
+async function visitMatrix({ page }: { page: Page }) {
+	await page.visitExample<typeof import('../../examples/98-testing-initial-focus-matrix.tsx')>(
+		'design-system',
+		'modal-dialog',
+		'testing-initial-focus-matrix',
+		{ featureFlag },
+	);
+}
+
+// Waits two frames, so work that runs after a paint (effects, animation frames) has run.
+async function waitForFrames({ page }: { page: Page }) {
+	await page.evaluate(
+		() =>
+			new Promise((resolve) => {
+				requestAnimationFrame(() => requestAnimationFrame(resolve));
+			}),
+	);
+}
+
+/**
+ * `showModal()` runs before the content effects (`autoFocus`, ref callbacks, layout effects), so a
+ * content `focus()` call works. The modal moves focus only as it opens. See `@atlaskit/top-layer`
+ * `notes/decisions/react-autofocus-and-focus-on-open.md`.
+ */
+test.describe('Modal dialog: top-layer focus timing', () => {
+	test('several `autoFocus` fields: the last one keeps focus, as on the legacy path', async ({
+		page,
+	}) => {
+		await visitMatrix({ page });
+
+		await page.getByTestId('several-autofocus-modal-trigger').click();
+
+		await expect(page.getByTestId('several-autofocus-second')).toBeFocused();
+	});
+
+	test('a field with `autoFocus` that mounts after the open takes focus', async ({ page }) => {
+		await visitMatrix({ page });
+		await page.getByTestId('late-autofocus-field-modal-trigger').click();
+		await expect(page.getByTestId('late-autofocus-field-modal')).toBeVisible();
+
+		await page.getByTestId('late-autofocus-field-load').press('Enter');
+
+		await expect(page.getByTestId('late-autofocus-field')).toBeFocused();
+	});
+
+	test('an `autoFocus` ref wins over a field with `autoFocus`, as on the legacy path', async ({
+		page,
+	}) => {
+		await visitMatrix({ page });
+
+		await page.getByTestId('auto-focus-ref-over-field-modal-trigger').click();
+
+		await expect(page.getByTestId('auto-focus-ref-over-field-target')).toBeFocused();
+	});
+
+	test('an element that a ref callback hands to the `autoFocus` ref takes focus', async ({
+		page,
+	}) => {
+		await visitMatrix({ page });
+
+		await page.getByTestId('ref-callback-auto-focus-ref-modal-trigger').click();
+
+		await expect(page.getByTestId('ref-callback-auto-focus-ref-input')).toBeFocused();
+	});
+
+	test('content that mounts after the open does not take focus from the `<dialog>`', async ({
+		page,
+	}) => {
+		await visitMatrix({ page });
+		const dialog = page.getByRole('dialog', { name: 'Late content' });
+
+		await page.getByTestId('late-content-modal-trigger').click();
+		await expect(dialog).toBeFocused();
+
+		await expect(page.getByTestId('late-content-modal-action')).toBeVisible();
+		await waitForFrames({ page });
+
+		await expect(dialog).toBeFocused();
+	});
+
+	test('an `autoFocus` ref target that mounts after the open does not take focus', async ({
+		page,
+	}) => {
+		await visitMatrix({ page });
+		const dialog = page.getByRole('dialog', { name: 'Late autoFocus ref' });
+
+		await page.getByTestId('late-auto-focus-ref-modal-trigger').click();
+		await expect(dialog).toBeFocused();
+
+		await expect(page.getByTestId('late-auto-focus-ref-target')).toBeVisible();
+		await waitForFrames({ page });
+
+		await expect(page.getByTestId('late-auto-focus-ref-target')).not.toBeFocused();
+		await expect(dialog).toBeFocused();
 	});
 });

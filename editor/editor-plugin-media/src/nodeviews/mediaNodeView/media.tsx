@@ -13,7 +13,6 @@ import {
 	createRenderedResultTracker,
 	type RenderedResultTracker,
 } from '@atlaskit/editor-common/rendered-result-tracker';
-import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { setNodeSelection, setTextSelection } from '@atlaskit/editor-common/utils';
 import type { ImageLoaderProps } from '@atlaskit/editor-common/utils/imageLoader';
@@ -37,7 +36,6 @@ import {
 } from '@atlaskit/media-viewer/preload';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import { stateKey as mediaStateKey } from '../../pm-plugins/plugin-key';
@@ -325,10 +323,7 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 		// In edit mode (node content wrapper has contenteditable set to true), link redirection is disabled by default
 		// We need to call "stopPropagation" here in order to prevent in editor view mode, the browser from navigating to
 		// another URL if the media node is wrapped in a link mark.
-		if (
-			this.props.isViewOnly &&
-			areToolbarFlagsEnabled(Boolean(this.props.pluginInjectionApi?.toolbar))
-		) {
+		if (this.props.isViewOnly) {
 			event.preventDefault();
 		}
 	};
@@ -338,14 +333,6 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 
 		if (typeof propPos !== 'number') {
 			return;
-		}
-
-		// NOTE: This does not prevent the link navigation in the editor view mode, .preventDefault is needed (see selectMediaSingleFromCard)
-		// Hence it should be removed
-		// We need to call "stopPropagation" here in order to prevent the browser from navigating to
-		// another URL if the media node is wrapped in a link mark.
-		if (editorExperiment('platform_editor_controls', 'control')) {
-			event.stopPropagation();
 		}
 
 		const { state } = this.props.view;

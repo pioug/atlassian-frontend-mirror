@@ -1,6 +1,5 @@
 import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import * as utils from '../../../view/EmbedModal/utils';
 import { TEST_RESPONSE_WITH_PREVIEW, TEST_URL } from '../../common/__mocks__/jsonld';
@@ -40,8 +39,7 @@ describe.each(['control', 'test'] as const)('preview modal icon in the %s cohort
 		setupEditorExperiments('test');
 	});
 
-	it('uses the entity icon and label when the provider icon gate is on', async () => {
-		passGate('platform_lp_use_generator_icon_for_provider');
+	it('uses the entity icon and label', async () => {
 		const openEmbedModal = jest.spyOn(utils, 'openEmbedModal').mockResolvedValue(undefined);
 		const action = extractInvokePreviewAction({ response });
 
@@ -58,21 +56,7 @@ describe.each(['control', 'test'] as const)('preview modal icon in the %s cohort
 		);
 	});
 
-	it('retains the JSON-LD icon when the provider icon gate is off', async () => {
-		failGate('platform_lp_use_generator_icon_for_provider');
-		const openEmbedModal = jest.spyOn(utils, 'openEmbedModal').mockResolvedValue(undefined);
-		const action = extractInvokePreviewAction({ response });
-
-		expect(action).toBeDefined();
-		await action?.invokeAction.actionFn();
-
-		expect(openEmbedModal).toHaveBeenCalledWith(
-			expect.objectContaining({ linkIcon: expect.objectContaining({ url: TEST_URL }) }),
-		);
-	});
-
 	it('falls back to the JSON-LD icon when the entity has no icon', async () => {
-		passGate('platform_lp_use_generator_icon_for_provider');
 		const openEmbedModal = jest.spyOn(utils, 'openEmbedModal').mockResolvedValue(undefined);
 		const responseWithoutEntityIcon: SmartLinkResponse = {
 			...response,
@@ -89,7 +73,6 @@ describe.each(['control', 'test'] as const)('preview modal icon in the %s cohort
 	});
 
 	it('retains the icon for JSON-LD-only links when the gate is on', async () => {
-		passGate('platform_lp_use_generator_icon_for_provider');
 		const openEmbedModal = jest.spyOn(utils, 'openEmbedModal').mockResolvedValue(undefined);
 		const action = extractInvokePreviewAction({ response: TEST_RESPONSE_WITH_PREVIEW });
 

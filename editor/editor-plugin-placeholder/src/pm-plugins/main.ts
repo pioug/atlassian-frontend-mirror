@@ -20,7 +20,7 @@ import {
 export default function createPlugin(
 	intl: IntlShape,
 	defaultPlaceholderText?: string,
-	bracketPlaceholderText?: string,
+	hasPlaceholderBracketHint?: boolean,
 	emptyLinePlaceholder?: string,
 	placeholderPrompts?: string[],
 	withEmptyParagraph?: boolean,
@@ -33,7 +33,7 @@ export default function createPlugin(
 	if (
 		!defaultPlaceholderText &&
 		!placeholderPrompts &&
-		!bracketPlaceholderText &&
+		!hasPlaceholderBracketHint &&
 		!placeholderADF
 	) {
 		return;
@@ -56,7 +56,6 @@ export default function createPlugin(
 					editorState: state,
 					isTypeAheadOpen: api?.typeAhead?.actions.isOpen,
 					defaultPlaceholderText,
-					bracketPlaceholderText,
 					emptyLinePlaceholder,
 					placeholderADF,
 					placeholderPrompts,
@@ -104,7 +103,6 @@ export default function createPlugin(
 						: (meta?.placeholderText ??
 							placeholderState?.placeholderText ??
 							defaultPlaceholderText),
-					bracketPlaceholderText,
 					emptyLinePlaceholder,
 					placeholderADF,
 					placeholderPrompts:

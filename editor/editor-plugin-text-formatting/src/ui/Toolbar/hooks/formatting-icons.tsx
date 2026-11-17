@@ -38,7 +38,6 @@ import BoldIcon from '@atlaskit/icon/core/text-bold';
 import ItalicIcon from '@atlaskit/icon/core/text-italic';
 import TextStrikethroughIcon from '@atlaskit/icon/core/text-strikethrough';
 import UnderlineIcon from '@atlaskit/icon/core/text-underline';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import {
 	toggleCodeWithAnalytics,
@@ -184,7 +183,7 @@ const getIcon = ({
 		tooltipElement: tooltipKeymap ? (
 			<ToolTipContent description={content} keymap={tooltipKeymap} />
 		) : undefined,
-		elemBefore: editorExperiment('platform_editor_controls', 'variant1') ? iconBefore : undefined,
+		elemBefore: iconBefore,
 		elemAfter: tooltipKeymap ? (
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<div css={shortcutStyle}>{tooltip(tooltipKeymap)}</div>
@@ -326,22 +325,4 @@ export const useFormattingIcons = ({
 	);
 
 	return result;
-};
-
-type Props = {
-	iconTypeList: IconTypes[];
-	textFormattingState: TextFormattingState | undefined;
-};
-export const useHasFormattingActived = ({ iconTypeList, textFormattingState }: Props): boolean => {
-	const hasActiveFormatting = useMemo(() => {
-		if (!textFormattingState?.isInitialised) {
-			return false;
-		}
-
-		return iconTypeList.some(
-			(iconType) => textFormattingState[`${iconType}Active` as keyof TextFormattingState],
-		);
-	}, [textFormattingState, iconTypeList]);
-
-	return hasActiveFormatting;
 };

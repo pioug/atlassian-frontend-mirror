@@ -120,7 +120,7 @@ test.describe('Popover - combobox-controlled popup initial focus', () => {
 		await expect(page.getByTestId('button-dialog-first-button')).toBeFocused();
 	});
 
-	test('role="dialog" that contains its own combobox: focus moves into the dialog', async ({
+	test('role="dialog" that contains its own combobox: the combobox keeps the focus it took', async ({
 		page,
 	}) => {
 		await page.visitExample<
@@ -129,9 +129,10 @@ test.describe('Popover - combobox-controlled popup initial focus', () => {
 
 		await page.getByTestId('dialog-own-combobox-trigger').click();
 
-		// The inner combobox focuses itself on mount, but it controls its own
-		// listbox, not the dialog. The dialog still moves focus to its first
-		// focusable element.
-		await expect(page.getByTestId('dialog-own-combobox-first-button')).toBeFocused();
+		// The inner combobox focuses itself in a layout effect, as react-select's
+		// `autoFocus` does. The dialog shows before its content effects run, so
+		// that `focus()` works, and the dialog's initial focus does nothing
+		// because focus is already inside.
+		await expect(page.getByTestId('dialog-own-combobox-input')).toBeFocused();
 	});
 });

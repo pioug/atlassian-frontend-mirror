@@ -962,8 +962,11 @@ of the native behavior (A → B → C → body → A).
   `getNextFocusable({ container, direction: 'backwards' })`
 - Uses the current element's DOM position to find the next or previous destination when focus is not
   in the tabbable list
-- Only active for `role="dialog"` (we intentionally do not support `alertdialog`) for focus
-  wrapping.
+- Nested layers: steps aside when focus is in a nested layer that owns its focus (a `<dialog>`, or
+  `role="dialog"` / `"alertdialog"`), and includes open nested layers with other roles (menus,
+  listbox popups) in its Tab order. See `notes/decisions/role-and-focus.md`.
+- Active for `role="dialog"` and `role="alertdialog"` (`roleRequiresFocusWrap`), and always for
+  `Dialog`.
 
 **Why override native `<dialog>` wrapping:** Native `showModal()` wraps through `<body>` at the
 boundary per the HTML spec. The APG Dialog Pattern requires direct wrapping. This override aligns
@@ -1020,6 +1023,12 @@ away from it, but it is never included as a destination.
 - `getNextFocusable({ container, direction, filter? })` → next/previous with wrapping
 
 All accept an optional `TFocusableFilter` callback for further restriction.
+
+**Nested layers:** the order is the Tab order. Elements in a nested layer that owns its focus (a
+`<dialog>`, or `role="dialog"` / `"alertdialog"`) or in a closed nested layer are excluded. Elements
+of other open nested layers (menus, listbox popups) are included in DOM order. To keep to the
+container's own layer (arrow keys within one menu level), pass a filter that rejects elements in
+nested layers (`isInContainerLayer` inside this package).
 
 ---
 

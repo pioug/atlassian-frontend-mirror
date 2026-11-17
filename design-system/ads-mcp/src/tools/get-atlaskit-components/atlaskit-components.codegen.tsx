@@ -3,7 +3,7 @@
  *
  * Structured content components from *.docs.tsx files outside of design-system
  *
- * @codegen <<SignedSource::8c684c159df529a43caa4270f265f69d>>
+ * @codegen <<SignedSource::b874dd1321b4a7fb8ee0c830865cfeaf>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -2107,14 +2107,14 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'canBeContactedAgreeValue',
-				type: 'string | Object | Object[]',
+				type: 'string | object | object[]',
 				description:
 					'Override the agree value for the "can be contacted" custom field in your widget service',
 				isRequired: true,
 			},
 			{
 				name: 'canBeContactedDeclineValue',
-				type: 'string | Object | Object[]',
+				type: 'string | object | object[]',
 				description:
 					'Override the decline value for the "can be contacted" custom field in your widget service',
 				isRequired: true,
@@ -2148,7 +2148,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'customerNameDefaultValue',
-				type: 'string | Object | Object[]',
+				type: 'string | object | object[]',
 				description:
 					'Override the default value for the "customer name" custom field in your widget service',
 				isRequired: true,
@@ -2183,7 +2183,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'descriptionDefaultValue',
-				type: 'string | Object | Object[]',
+				type: 'string | object | object[]',
 				description:
 					'Override the default value for the "description" custom field in your widget service',
 				isRequired: true,
@@ -2222,14 +2222,14 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'enrollInResearchAgreeValue',
-				type: 'string | Object | Object[]',
+				type: 'string | object | object[]',
 				description:
 					'Override the agree value for the "enroll in research" custom field in your widget service',
 				isRequired: true,
 			},
 			{
 				name: 'enrollInResearchDeclineValue',
-				type: 'string | Object | Object[]',
+				type: 'string | object | object[]',
 				description:
 					'Override the decline value for the "enroll in research" custom field in your widget service',
 				isRequired: true,
@@ -2332,7 +2332,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'summaryDefaultValue',
-				type: 'string | Object | Object[]',
+				type: 'string | object | object[]',
 				description:
 					'Override the default value for the "summary" custom field in your widget service',
 				isRequired: true,
@@ -2364,21 +2364,21 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'typeBugDefaultValue',
-				type: 'string | Object | Object[]',
+				type: 'string | object | object[]',
 				description:
 					'Override the default value for the "Bug" type of response in your widget service',
 				isRequired: true,
 			},
 			{
 				name: 'typeCommentDefaultValue',
-				type: 'string | Object | Object[]',
+				type: 'string | object | object[]',
 				description:
 					'Override the default value for the "Comment" type of response in your widget service',
 				isRequired: true,
 			},
 			{
 				name: 'typeEmptyDefaultValue',
-				type: 'string | Object | Object[]',
+				type: 'string | object | object[]',
 				description:
 					'Override the default value for the "Empty" type of response in your widget service',
 				isRequired: true,
@@ -2391,14 +2391,14 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'typeQuestionDefaultValue',
-				type: 'string | Object | Object[]',
+				type: 'string | object | object[]',
 				description:
 					'Override the default value for the "Question" type of response in your widget service',
 				isRequired: true,
 			},
 			{
 				name: 'typeSuggestionDefaultValue',
-				type: 'string | Object | Object[]',
+				type: 'string | object | object[]',
 				description:
 					'Override the default value for the "Suggestion" type of response in your widget service',
 				isRequired: true,
@@ -2408,6 +2408,12 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				type: 'string | undefined',
 				description:
 					'Override the URL for all HTTPS calls, only needed if service is not behind stargate (like the Atlaskit frontend itself)',
+			},
+			{
+				name: 'width',
+				type: 'WidthNames | undefined',
+				description:
+					"Width of the feedback dialog, as one of the modal dialog's named sizes. Defaults to `medium` (600px)",
 			},
 		],
 	},
@@ -3702,7 +3708,8 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			{
 				name: 'onBlur',
 				type: 'React.FocusEventHandler<HTMLInputElement> | undefined',
-				description: 'Handle blur events on the control',
+				description:
+					'Handle blur events on the control\n\nOn the top layer, focus moving into the menu is not a blur. When focus leaves from the menu,\nthe event is from the menu element.',
 			},
 			{
 				name: 'onChange',
@@ -3716,7 +3723,8 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			{
 				name: 'onFocus',
 				type: 'React.FocusEventHandler<HTMLInputElement> | undefined',
-				description: 'Handle focus events on the control',
+				description:
+					'Handle focus events on the control\n\nOn the top layer, focus coming back from the menu does not call this again.',
 			},
 			{
 				name: 'onInputChange',
@@ -12045,7 +12053,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['smart-card', 'authorization', 'modal', 'pre-auth'],
 		category: 'linking',
 		examples: [
-			"import { IntlProvider } from 'react-intl';\nimport { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';\nimport { PreAuthValuePropositionModal } from '@atlaskit/smart-card/pre-auth-value-proposition-modal';\ntype Props = {\n\tclient: React.ComponentProps<typeof SmartCardProvider>['client'];\n\t/** The host passes true only when its feature configuration enables the modal variant. */\n\tisVariantEnabled: boolean;\n\t/** The host decides whether this unauthorized resource is eligible for the prompt. */\n\tisEligible: boolean;\n};\n/** Host integration example: the resolver must return an eligible unauthorized provider response. */\nexport default function PreAuthModalExample({\n\tclient,\n\tisVariantEnabled,\n\tisEligible,\n}: Props): React.JSX.Element | null {\n\tif (!isVariantEnabled || !isEligible) return null;\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<SmartCardProvider client={client}>\n\t\t\t\t<PreAuthValuePropositionModal\n\t\t\t\t\turl=\"https://drive.google.com/file/d/example\"\n\t\t\t\t\tonFinished={() => {\n\t\t\t\t\t\t/* Return control to the host flow. */\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t</SmartCardProvider>\n\t\t</IntlProvider>\n\t);\n}",
+			"import { IntlProvider } from 'react-intl';\nimport { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';\nimport { PreAuthValuePropositionModal } from '@atlaskit/smart-card/pre-auth-value-proposition-modal';\ntype Props = {\n\t/** The product's existing choreographer adapter. */\n\tchoreographer: NonNullable<React.ComponentProps<typeof SmartCardProvider>['choreographer']>;\n\tclient: React.ComponentProps<typeof SmartCardProvider>['client'];\n\t/** The host decides whether this unauthorized resource is eligible for the prompt. */\n\tisEligible: boolean;\n\t/** The host passes true only when its feature configuration enables the modal variant. */\n\tisVariantEnabled: boolean;\n};\n/** Host integration example: the resolver must return an eligible unauthorized provider response. */\nexport default function PreAuthModalExample({\n\tclient,\n\tchoreographer,\n\tisVariantEnabled,\n\tisEligible,\n}: Props): React.JSX.Element | null {\n\tif (!isVariantEnabled || !isEligible) {\n\t\treturn null;\n\t}\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<SmartCardProvider client={client} choreographer={choreographer}>\n\t\t\t\t<PreAuthValuePropositionModal\n\t\t\t\t\turl=\"https://drive.google.com/file/d/example\"\n\t\t\t\t\tonFinished={() => {\n\t\t\t\t\t\t/* Return control to the host flow. */\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t</SmartCardProvider>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -14502,9 +14510,9 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['a2ui', 'renderer', 'rovo', 'agent', 'generative-ui', 'message-stream', 'v0.9'],
 		category: 'ai',
 		examples: [
-			"/**\n * Minimal copyable example of a Rovo A2UI v0.9 message stream.\n * The host receives the action and decides what product work it authorizes.\n */\nimport React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { ADS_CATALOG_ID } from '@atlassian/a2ui-catalog/v0_9/catalog-id';\nimport {\n\tA2uiSurfaceAdapterRovo,\n\ttype A2uiSurfaceAdapterRovoMessage,\n} from '@atlassian/a2ui-renderer-next/v0_9/a2ui-surface-adapter-rovo';\nimport CenteredLayout from './_shared/centered-layout';\nconst messages: A2uiSurfaceAdapterRovoMessage[] = [\n\t{\n\t\tcreateSurface: {\n\t\t\tsurfaceId: 'access-request',\n\t\t\tcatalogId: ADS_CATALOG_ID,\n\t\t},\n\t},\n\t{\n\t\tupdateComponents: {\n\t\t\tsurfaceId: 'access-request',\n\t\t\tcomponents: [\n\t\t\t\t{ id: 'root', component: 'Column', children: ['intro', 'request'] },\n\t\t\t\t{\n\t\t\t\t\tid: 'intro',\n\t\t\t\t\tcomponent: 'Text',\n\t\t\t\t\ttext: 'Request access to the Platform project.',\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\tid: 'request',\n\t\t\t\t\tcomponent: 'Button',\n\t\t\t\t\tchild: 'request-label',\n\t\t\t\t\tvariant: 'primary',\n\t\t\t\t\taction: {\n\t\t\t\t\t\tevent: {\n\t\t\t\t\t\t\tname: 'request_project_access',\n\t\t\t\t\t\t\tcontext: { projectKey: 'PLATFORM' },\n\t\t\t\t\t\t},\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t\t{ id: 'request-label', component: 'Text', text: 'Request project access' },\n\t\t\t],\n\t\t},\n\t},\n];\nexport default function V09RovoBasicExample(): React.JSX.Element {\n\tconst [actionSummary, setActionSummary] = useState(\n\t\t'Activate the request button to see the event returned to the host.',\n\t);\n\treturn (\n\t\t<CenteredLayout>\n\t\t\t<IntlProvider locale=\"en\">\n\t\t\t\t<div>\n\t\t\t\t\t<A2uiSurfaceAdapterRovo\n\t\t\t\t\t\tmessages={messages}\n\t\t\t\t\t\tonAction={(action) => {\n\t\t\t\t\t\t\t// Demo only: a product host validates and authorizes before acting.\n\t\t\t\t\t\t\tsetActionSummary(\n\t\t\t\t\t\t\t\taction.name === 'request_project_access'\n\t\t\t\t\t\t\t\t\t? 'The host received a project access request.'\n\t\t\t\t\t\t\t\t\t: 'The host received an action.',\n\t\t\t\t\t\t\t);\n\t\t\t\t\t\t}}\n\t\t\t\t\t/>\n\t\t\t\t\t<div role=\"status\">{actionSummary}</div>\n\t\t\t\t</div>\n\t\t\t</IntlProvider>\n\t\t</CenteredLayout>\n\t);\n}",
-			"/**\n * Demonstrates a host app appending a response to the Rovo wire-message list.\n * The response deletes the submitted surface and creates a result surface.\n */\nimport React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { ADS_CATALOG_ID } from '@atlassian/a2ui-catalog/v0_9/catalog-id';\nimport {\n\tA2uiSurfaceAdapterRovo,\n\ttype A2uiSurfaceAdapterRovoMessage,\n} from '@atlassian/a2ui-renderer-next/v0_9/a2ui-surface-adapter-rovo';\nimport CenteredLayout from './_shared/centered-layout';\nconst initialMessages: A2uiSurfaceAdapterRovoMessage[] = [\n\t{ createSurface: { surfaceId: 'access-request', catalogId: ADS_CATALOG_ID } },\n\t{\n\t\tupdateComponents: {\n\t\t\tsurfaceId: 'access-request',\n\t\t\tcomponents: [\n\t\t\t\t{ id: 'root', component: 'Column', children: ['prompt', 'submit'] },\n\t\t\t\t{ id: 'prompt', component: 'Text', text: 'Request access to project PLATFORM?' },\n\t\t\t\t{\n\t\t\t\t\tid: 'submit',\n\t\t\t\t\tcomponent: 'Button',\n\t\t\t\t\tchild: 'submit-label',\n\t\t\t\t\tvariant: 'primary',\n\t\t\t\t\taction: {\n\t\t\t\t\t\tevent: {\n\t\t\t\t\t\t\tname: 'request_project_access',\n\t\t\t\t\t\t\tcontext: { projectKey: 'PLATFORM' },\n\t\t\t\t\t\t},\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t\t{ id: 'submit-label', component: 'Text', text: 'Request access' },\n\t\t\t],\n\t\t},\n\t},\n];\nconst responseMessages: A2uiSurfaceAdapterRovoMessage[] = [\n\t{ deleteSurface: { surfaceId: 'access-request' } },\n\t{ createSurface: { surfaceId: 'access-request-result', catalogId: ADS_CATALOG_ID } },\n\t{\n\t\tupdateComponents: {\n\t\t\tsurfaceId: 'access-request-result',\n\t\t\tcomponents: [\n\t\t\t\t{\n\t\t\t\t\tid: 'root',\n\t\t\t\t\tcomponent: 'Text',\n\t\t\t\t\ttext: 'The host received the request for project PLATFORM.',\n\t\t\t\t},\n\t\t\t],\n\t\t},\n\t},\n];\nexport default function V09RovoActionResponseExample(): React.JSX.Element {\n\tconst [messages, setMessages] = useState(initialMessages);\n\tconst [hasResponded, setHasResponded] = useState(false);\n\treturn (\n\t\t<CenteredLayout>\n\t\t\t<IntlProvider locale=\"en\">\n\t\t\t\t<A2uiSurfaceAdapterRovo\n\t\t\t\t\tmessages={messages}\n\t\t\t\t\tonAction={(action) => {\n\t\t\t\t\t\tif (action.name !== 'request_project_access' || hasResponded) {\n\t\t\t\t\t\t\treturn;\n\t\t\t\t\t\t}\n\t\t\t\t\t\t// This demo simulates a response. A product should validate the\n\t\t\t\t\t\t// action, authorize it, call its service, and append that result.\n\t\t\t\t\t\tsetHasResponded(true);\n\t\t\t\t\t\tsetMessages((current) => [...current, ...responseMessages]);\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t</IntlProvider>\n\t\t</CenteredLayout>\n\t);\n}",
-			"/**\n * v0.9 surface-level `isDisabled` playground — a two-turn chat transcript.\n *\n * Distinct from the per-component `disabled` toggles in the other playgrounds:\n * those author `disabled` into the component tree (the agent's choice), while\n * this one is a host-side override on the whole surface. The older turn is\n * passed `isDisabled`, so every interactive component inside it renders\n * disabled and dispatches nothing, while staying visible and readable. The\n * current turn is untouched. Toggle the control to see the difference, and\n * watch \"Last action\" to confirm the older surface dispatches nothing.\n *\n * See LDR: https://hello.atlassian.net/wiki/x/ZcATwgE\n */\nimport React, { useMemo, useState } from 'react';\nimport { Checkbox } from '@atlaskit/checkbox/checkbox';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { AGENTIC_JIRA_CATALOG_ID } from '@atlassian/a2ui-catalog/agentic-jira-v0_9/catalog-id';\nimport { ADS_CATALOG_ID } from '@atlassian/a2ui-catalog/v0_9/catalog-id';\nimport {\n\tA2uiSurfaceAdapterRovo,\n\ttype A2uiSurfaceAdapterRovoMessage,\n} from '@atlassian/a2ui-renderer-next/v0_9/a2ui-surface-adapter-rovo';\nimport { getDefaultRovoCatalogs } from '@atlassian/a2ui-renderer-next/v0_9/default-catalogs';\nimport CenteredLayout from './_shared/centered-layout';\nconst TOOLS = [\n\t{\n\t\tid: 'tool-1',\n\t\tname: 'create_pull_request',\n\t\tdescription: 'Open a PR against master with the generated changes',\n\t},\n\t{ id: 'tool-2', name: 'run_pipeline', description: 'Trigger the default CI pipeline' },\n];\n/** Turn 1 — a tool-approval surface the agent has since moved past. */\nconst previousTurnMessages: A2uiSurfaceAdapterRovoMessage[] = [\n\t{ createSurface: { surfaceId: 'turn-1', catalogId: AGENTIC_JIRA_CATALOG_ID } },\n\t{\n\t\tupdateComponents: {\n\t\t\tsurfaceId: 'turn-1',\n\t\t\tcomponents: [\n\t\t\t\t{\n\t\t\t\t\tid: 'root',\n\t\t\t\t\tcomponent: 'ToolApproval',\n\t\t\t\t\ttools: TOOLS,\n\t\t\t\t\tvalue: { path: '/approval/decisions' },\n\t\t\t\t\tonDecide: { event: { name: 'turn_1_tool_decided', context: {} } },\n\t\t\t\t\tonSubmit: { event: { name: 'turn_1_tools_decided', context: {} } },\n\t\t\t\t},\n\t\t\t],\n\t\t},\n\t},\n\t{\n\t\tupdateDataModel: {\n\t\t\tsurfaceId: 'turn-1',\n\t\t\tpath: '/',\n\t\t\tvalue: { approval: { decisions: {} } },\n\t\t},\n\t},\n];\n/** Turn 2 — the live surface the agent is waiting on. */\nconst currentTurnMessages: A2uiSurfaceAdapterRovoMessage[] = [\n\t{ createSurface: { surfaceId: 'turn-2', catalogId: ADS_CATALOG_ID } },\n\t{\n\t\tupdateComponents: {\n\t\t\tsurfaceId: 'turn-2',\n\t\t\tcomponents: [\n\t\t\t\t{ id: 'root', component: 'Column', children: ['branch', 'squash', 'submit'], gap: 12 },\n\t\t\t\t{\n\t\t\t\t\tid: 'branch',\n\t\t\t\t\tcomponent: 'TextField',\n\t\t\t\t\tlabel: 'Branch name',\n\t\t\t\t\tvalue: { path: '/form/branch' },\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\tid: 'squash',\n\t\t\t\t\tcomponent: 'CheckBox',\n\t\t\t\t\tlabel: 'Squash commits',\n\t\t\t\t\tvalue: { path: '/form/squash' },\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\tid: 'submit',\n\t\t\t\t\tcomponent: 'Button',\n\t\t\t\t\tchild: 'submit-text',\n\t\t\t\t\tvariant: 'primary',\n\t\t\t\t\taction: {\n\t\t\t\t\t\tevent: {\n\t\t\t\t\t\t\tname: 'turn_2_submit',\n\t\t\t\t\t\t\tcontext: { branch: { path: '/form/branch' } },\n\t\t\t\t\t\t},\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t\t{ id: 'submit-text', component: 'Text', text: 'Create branch' },\n\t\t\t],\n\t\t},\n\t},\n\t{\n\t\tupdateDataModel: {\n\t\t\tsurfaceId: 'turn-2',\n\t\t\tpath: '/',\n\t\t\tvalue: { form: { branch: 'feat/a2ui', squash: false } },\n\t\t},\n\t},\n];\ntype LastAction = { name: string; context: Record<string, unknown> } | null;\nexport default function V09SurfaceDisabledPlaygroundExample(): React.JSX.Element {\n\tconst [disablePreviousTurns, setDisablePreviousTurns] = useState(true);\n\tconst [lastAction, setLastAction] = useState<LastAction>(null);\n\tconst catalogs = useMemo(() => getDefaultRovoCatalogs(), []);\n\tconst onAction = (a: unknown) => {\n\t\tconst action = a as { name: string; context: Record<string, unknown> };\n\t\tsetLastAction(action);\n\t};\n\treturn (\n\t\t<CenteredLayout>\n\t\t\t<Stack space=\"space.200\">\n\t\t\t\t<Inline space=\"space.150\" alignBlock=\"center\">\n\t\t\t\t\t<Checkbox\n\t\t\t\t\t\tisChecked={disablePreviousTurns}\n\t\t\t\t\t\tonChange={(e) => setDisablePreviousTurns(e.currentTarget.checked)}\n\t\t\t\t\t\tlabel=\"Disable surfaces that are no longer in the current turn\"\n\t\t\t\t\t/>\n\t\t\t\t</Inline>\n\t\t\t\t<Stack space=\"space.050\">\n\t\t\t\t\t<Text weight=\"bold\">Turn 1 — previous turn</Text>\n\t\t\t\t\t<Box padding=\"space.200\" backgroundColor=\"elevation.surface.sunken\">\n\t\t\t\t\t\t<A2uiSurfaceAdapterRovo\n\t\t\t\t\t\t\tmessages={previousTurnMessages}\n\t\t\t\t\t\t\tcatalogs={catalogs}\n\t\t\t\t\t\t\tisDisabled={disablePreviousTurns}\n\t\t\t\t\t\t\tonAction={onAction}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space=\"space.050\">\n\t\t\t\t\t<Text weight=\"bold\">Turn 2 — current turn</Text>\n\t\t\t\t\t<Box padding=\"space.200\" backgroundColor=\"elevation.surface.sunken\">\n\t\t\t\t\t\t<A2uiSurfaceAdapterRovo\n\t\t\t\t\t\t\tmessages={currentTurnMessages}\n\t\t\t\t\t\t\tcatalogs={catalogs}\n\t\t\t\t\t\t\tonAction={onAction}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Text>\n\t\t\t\t\tLast action:{' '}\n\t\t\t\t\t{lastAction\n\t\t\t\t\t\t? `${lastAction.name} → ${JSON.stringify(lastAction.context)}`\n\t\t\t\t\t\t: '— try both surfaces; only the current turn should ever dispatch —'}\n\t\t\t\t</Text>\n\t\t\t</Stack>\n\t\t</CenteredLayout>\n\t);\n}",
+			"/**\n * Minimal copyable example of a Rovo A2UI v0.9 message stream.\n * The host receives the action and decides what product work it authorizes.\n */\nimport React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { ADS_CATALOG_ID } from '@atlaskit/a2ui-catalog/v0_9/catalog-id';\nimport {\n\tA2uiSurfaceAdapterRovo,\n\ttype A2uiSurfaceAdapterRovoMessage,\n} from '@atlassian/a2ui-renderer-next/v0_9/a2ui-surface-adapter-rovo';\nimport CenteredLayout from './_shared/centered-layout';\nconst messages: A2uiSurfaceAdapterRovoMessage[] = [\n\t{\n\t\tcreateSurface: {\n\t\t\tsurfaceId: 'access-request',\n\t\t\tcatalogId: ADS_CATALOG_ID,\n\t\t},\n\t},\n\t{\n\t\tupdateComponents: {\n\t\t\tsurfaceId: 'access-request',\n\t\t\tcomponents: [\n\t\t\t\t{ id: 'root', component: 'Column', children: ['intro', 'request'] },\n\t\t\t\t{\n\t\t\t\t\tid: 'intro',\n\t\t\t\t\tcomponent: 'Text',\n\t\t\t\t\ttext: 'Request access to the Platform project.',\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\tid: 'request',\n\t\t\t\t\tcomponent: 'Button',\n\t\t\t\t\tchild: 'request-label',\n\t\t\t\t\tvariant: 'primary',\n\t\t\t\t\taction: {\n\t\t\t\t\t\tevent: {\n\t\t\t\t\t\t\tname: 'request_project_access',\n\t\t\t\t\t\t\tcontext: { projectKey: 'PLATFORM' },\n\t\t\t\t\t\t},\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t\t{ id: 'request-label', component: 'Text', text: 'Request project access' },\n\t\t\t],\n\t\t},\n\t},\n];\nexport default function V09RovoBasicExample(): React.JSX.Element {\n\tconst [actionSummary, setActionSummary] = useState(\n\t\t'Activate the request button to see the event returned to the host.',\n\t);\n\treturn (\n\t\t<CenteredLayout>\n\t\t\t<IntlProvider locale=\"en\">\n\t\t\t\t<div>\n\t\t\t\t\t<A2uiSurfaceAdapterRovo\n\t\t\t\t\t\tmessages={messages}\n\t\t\t\t\t\tonAction={(action) => {\n\t\t\t\t\t\t\t// Demo only: a product host validates and authorizes before acting.\n\t\t\t\t\t\t\tsetActionSummary(\n\t\t\t\t\t\t\t\taction.name === 'request_project_access'\n\t\t\t\t\t\t\t\t\t? 'The host received a project access request.'\n\t\t\t\t\t\t\t\t\t: 'The host received an action.',\n\t\t\t\t\t\t\t);\n\t\t\t\t\t\t}}\n\t\t\t\t\t/>\n\t\t\t\t\t<div role=\"status\">{actionSummary}</div>\n\t\t\t\t</div>\n\t\t\t</IntlProvider>\n\t\t</CenteredLayout>\n\t);\n}",
+			"/**\n * Demonstrates a host app appending a response to the Rovo wire-message list.\n * The response deletes the submitted surface and creates a result surface.\n */\nimport React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { ADS_CATALOG_ID } from '@atlaskit/a2ui-catalog/v0_9/catalog-id';\nimport {\n\tA2uiSurfaceAdapterRovo,\n\ttype A2uiSurfaceAdapterRovoMessage,\n} from '@atlassian/a2ui-renderer-next/v0_9/a2ui-surface-adapter-rovo';\nimport CenteredLayout from './_shared/centered-layout';\nconst initialMessages: A2uiSurfaceAdapterRovoMessage[] = [\n\t{ createSurface: { surfaceId: 'access-request', catalogId: ADS_CATALOG_ID } },\n\t{\n\t\tupdateComponents: {\n\t\t\tsurfaceId: 'access-request',\n\t\t\tcomponents: [\n\t\t\t\t{ id: 'root', component: 'Column', children: ['prompt', 'submit'] },\n\t\t\t\t{ id: 'prompt', component: 'Text', text: 'Request access to project PLATFORM?' },\n\t\t\t\t{\n\t\t\t\t\tid: 'submit',\n\t\t\t\t\tcomponent: 'Button',\n\t\t\t\t\tchild: 'submit-label',\n\t\t\t\t\tvariant: 'primary',\n\t\t\t\t\taction: {\n\t\t\t\t\t\tevent: {\n\t\t\t\t\t\t\tname: 'request_project_access',\n\t\t\t\t\t\t\tcontext: { projectKey: 'PLATFORM' },\n\t\t\t\t\t\t},\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t\t{ id: 'submit-label', component: 'Text', text: 'Request access' },\n\t\t\t],\n\t\t},\n\t},\n];\nconst responseMessages: A2uiSurfaceAdapterRovoMessage[] = [\n\t{ deleteSurface: { surfaceId: 'access-request' } },\n\t{ createSurface: { surfaceId: 'access-request-result', catalogId: ADS_CATALOG_ID } },\n\t{\n\t\tupdateComponents: {\n\t\t\tsurfaceId: 'access-request-result',\n\t\t\tcomponents: [\n\t\t\t\t{\n\t\t\t\t\tid: 'root',\n\t\t\t\t\tcomponent: 'Text',\n\t\t\t\t\ttext: 'The host received the request for project PLATFORM.',\n\t\t\t\t},\n\t\t\t],\n\t\t},\n\t},\n];\nexport default function V09RovoActionResponseExample(): React.JSX.Element {\n\tconst [messages, setMessages] = useState(initialMessages);\n\tconst [hasResponded, setHasResponded] = useState(false);\n\treturn (\n\t\t<CenteredLayout>\n\t\t\t<IntlProvider locale=\"en\">\n\t\t\t\t<A2uiSurfaceAdapterRovo\n\t\t\t\t\tmessages={messages}\n\t\t\t\t\tonAction={(action) => {\n\t\t\t\t\t\tif (action.name !== 'request_project_access' || hasResponded) {\n\t\t\t\t\t\t\treturn;\n\t\t\t\t\t\t}\n\t\t\t\t\t\t// This demo simulates a response. A product should validate the\n\t\t\t\t\t\t// action, authorize it, call its service, and append that result.\n\t\t\t\t\t\tsetHasResponded(true);\n\t\t\t\t\t\tsetMessages((current) => [...current, ...responseMessages]);\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t</IntlProvider>\n\t\t</CenteredLayout>\n\t);\n}",
+			"/**\n * v0.9 surface-level `isDisabled` playground — a two-turn chat transcript.\n *\n * Distinct from the per-component `disabled` toggles in the other playgrounds:\n * those author `disabled` into the component tree (the agent's choice), while\n * this one is a host-side override on the whole surface. The older turn is\n * passed `isDisabled`, so every interactive component inside it renders\n * disabled and dispatches nothing, while staying visible and readable. The\n * current turn is untouched. Toggle the control to see the difference, and\n * watch \"Last action\" to confirm the older surface dispatches nothing.\n *\n * See LDR: https://hello.atlassian.net/wiki/x/ZcATwgE\n */\nimport React, { useMemo, useState } from 'react';\nimport { Checkbox } from '@atlaskit/checkbox/checkbox';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { AGENTIC_JIRA_CATALOG_ID } from '@atlaskit/a2ui-catalog/agentic-jira-v0_9/catalog-id';\nimport { ADS_CATALOG_ID } from '@atlaskit/a2ui-catalog/v0_9/catalog-id';\nimport {\n\tA2uiSurfaceAdapterRovo,\n\ttype A2uiSurfaceAdapterRovoMessage,\n} from '@atlassian/a2ui-renderer-next/v0_9/a2ui-surface-adapter-rovo';\nimport { getDefaultRovoCatalogs } from '@atlassian/a2ui-renderer-next/v0_9/default-catalogs';\nimport CenteredLayout from './_shared/centered-layout';\nconst TOOLS = [\n\t{\n\t\tid: 'tool-1',\n\t\tname: 'create_pull_request',\n\t\tdescription: 'Open a PR against master with the generated changes',\n\t},\n\t{ id: 'tool-2', name: 'run_pipeline', description: 'Trigger the default CI pipeline' },\n];\n/** Turn 1 — a tool-approval surface the agent has since moved past. */\nconst previousTurnMessages: A2uiSurfaceAdapterRovoMessage[] = [\n\t{ createSurface: { surfaceId: 'turn-1', catalogId: AGENTIC_JIRA_CATALOG_ID } },\n\t{\n\t\tupdateComponents: {\n\t\t\tsurfaceId: 'turn-1',\n\t\t\tcomponents: [\n\t\t\t\t{\n\t\t\t\t\tid: 'root',\n\t\t\t\t\tcomponent: 'ToolApproval',\n\t\t\t\t\ttools: TOOLS,\n\t\t\t\t\tvalue: { path: '/approval/decisions' },\n\t\t\t\t\tonDecide: { event: { name: 'turn_1_tool_decided', context: {} } },\n\t\t\t\t\tonSubmit: { event: { name: 'turn_1_tools_decided', context: {} } },\n\t\t\t\t},\n\t\t\t],\n\t\t},\n\t},\n\t{\n\t\tupdateDataModel: {\n\t\t\tsurfaceId: 'turn-1',\n\t\t\tpath: '/',\n\t\t\tvalue: { approval: { decisions: {} } },\n\t\t},\n\t},\n];\n/** Turn 2 — the live surface the agent is waiting on. */\nconst currentTurnMessages: A2uiSurfaceAdapterRovoMessage[] = [\n\t{ createSurface: { surfaceId: 'turn-2', catalogId: ADS_CATALOG_ID } },\n\t{\n\t\tupdateComponents: {\n\t\t\tsurfaceId: 'turn-2',\n\t\t\tcomponents: [\n\t\t\t\t{ id: 'root', component: 'Column', children: ['branch', 'squash', 'submit'], gap: 12 },\n\t\t\t\t{\n\t\t\t\t\tid: 'branch',\n\t\t\t\t\tcomponent: 'TextField',\n\t\t\t\t\tlabel: 'Branch name',\n\t\t\t\t\tvalue: { path: '/form/branch' },\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\tid: 'squash',\n\t\t\t\t\tcomponent: 'CheckBox',\n\t\t\t\t\tlabel: 'Squash commits',\n\t\t\t\t\tvalue: { path: '/form/squash' },\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\tid: 'submit',\n\t\t\t\t\tcomponent: 'Button',\n\t\t\t\t\tchild: 'submit-text',\n\t\t\t\t\tvariant: 'primary',\n\t\t\t\t\taction: {\n\t\t\t\t\t\tevent: {\n\t\t\t\t\t\t\tname: 'turn_2_submit',\n\t\t\t\t\t\t\tcontext: { branch: { path: '/form/branch' } },\n\t\t\t\t\t\t},\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t\t{ id: 'submit-text', component: 'Text', text: 'Create branch' },\n\t\t\t],\n\t\t},\n\t},\n\t{\n\t\tupdateDataModel: {\n\t\t\tsurfaceId: 'turn-2',\n\t\t\tpath: '/',\n\t\t\tvalue: { form: { branch: 'feat/a2ui', squash: false } },\n\t\t},\n\t},\n];\ntype LastAction = { context: Record<string, unknown>; name: string; } | null;\nexport default function V09SurfaceDisabledPlaygroundExample(): React.JSX.Element {\n\tconst [disablePreviousTurns, setDisablePreviousTurns] = useState(true);\n\tconst [lastAction, setLastAction] = useState<LastAction>(null);\n\tconst catalogs = useMemo(() => getDefaultRovoCatalogs(), []);\n\tconst onAction = (a: unknown) => {\n\t\tconst action = a as { context: Record<string, unknown>; name: string; };\n\t\tsetLastAction(action);\n\t};\n\treturn (\n\t\t<CenteredLayout>\n\t\t\t<Stack space=\"space.200\">\n\t\t\t\t<Inline space=\"space.150\" alignBlock=\"center\">\n\t\t\t\t\t<Checkbox\n\t\t\t\t\t\tisChecked={disablePreviousTurns}\n\t\t\t\t\t\tonChange={(e) => setDisablePreviousTurns(e.currentTarget.checked)}\n\t\t\t\t\t\tlabel=\"Disable surfaces that are no longer in the current turn\"\n\t\t\t\t\t/>\n\t\t\t\t</Inline>\n\t\t\t\t<Stack space=\"space.050\">\n\t\t\t\t\t<Text weight=\"bold\">Turn 1 — previous turn</Text>\n\t\t\t\t\t<Box padding=\"space.200\" backgroundColor=\"elevation.surface.sunken\">\n\t\t\t\t\t\t<A2uiSurfaceAdapterRovo\n\t\t\t\t\t\t\tmessages={previousTurnMessages}\n\t\t\t\t\t\t\tcatalogs={catalogs}\n\t\t\t\t\t\t\tisDisabled={disablePreviousTurns}\n\t\t\t\t\t\t\tonAction={onAction}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space=\"space.050\">\n\t\t\t\t\t<Text weight=\"bold\">Turn 2 — current turn</Text>\n\t\t\t\t\t<Box padding=\"space.200\" backgroundColor=\"elevation.surface.sunken\">\n\t\t\t\t\t\t<A2uiSurfaceAdapterRovo\n\t\t\t\t\t\t\tmessages={currentTurnMessages}\n\t\t\t\t\t\t\tcatalogs={catalogs}\n\t\t\t\t\t\t\tonAction={onAction}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Text>\n\t\t\t\t\tLast action:{' '}\n\t\t\t\t\t{lastAction\n\t\t\t\t\t\t? `${lastAction.name} → ${JSON.stringify(lastAction.context)}`\n\t\t\t\t\t\t: '— try both surfaces; only the current turn should ever dispatch —'}\n\t\t\t\t</Text>\n\t\t\t</Stack>\n\t\t</CenteredLayout>\n\t);\n}",
 		],
 		props: [
 			{
@@ -26346,7 +26354,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'header', 'display mode'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { type RovoChatOpenMode } from '@atlaskit/rovo-triggers/params-types';\nimport { ChatHeaderSwitchModeMenu } from '@atlassian/conversation-assistant-ui-components/ui/ChatHeaderSwitchModeMenu';\nexport default function ChatHeaderSwitchModeExample(): React.JSX.Element {\n\tconst [mode, setMode] = useState<RovoChatOpenMode>('sidebar');\n\tconst [isMenuOpen, setIsMenuOpen] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<ChatHeaderSwitchModeMenu\n\t\t\t\t\tmode={mode}\n\t\t\t\t\tisSwitchModeDropdownOpen={isMenuOpen}\n\t\t\t\t\tsetIsSwitchModeDropdownOpen={setIsMenuOpen}\n\t\t\t\t\tonModeChange={({ requested }) => setMode(requested)}\n\t\t\t\t\tonFullscreenClick={() => setMode('mini-modal')}\n\t\t\t\t/>\n\t\t\t\t<Text>Rovo Chat is open in {mode} mode.</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { type RovoChatOpenMode } from '@atlaskit/rovo-triggers/params-types';\nimport { ChatHeaderSwitchModeMenu } from '@atlassian/conversation-assistant-ui-components/ui/ChatHeaderSwitchModeMenu';\nexport default function ChatHeaderSwitchModeExample(): React.JSX.Element {\n\tconst [mode, setMode] = useState<RovoChatOpenMode | 'fullscreen'>('sidebar');\n\tconst [isMenuOpen, setIsMenuOpen] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<ChatHeaderSwitchModeMenu\n\t\t\t\t\tmode={mode}\n\t\t\t\t\tshowLargeModalOption\n\t\t\t\t\tisLargeModalAvailable\n\t\t\t\t\tonLargeModalModeChange={() => setMode('fullscreen')}\n\t\t\t\t\tisSwitchModeDropdownOpen={isMenuOpen}\n\t\t\t\t\tsetIsSwitchModeDropdownOpen={setIsMenuOpen}\n\t\t\t\t\tonModeChange={({ requested }) => setMode(requested)}\n\t\t\t\t\tonFullscreenClick={() => setMode('mini-modal')}\n\t\t\t\t/>\n\t\t\t\t<Text>Rovo Chat is open in {mode} mode.</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -26359,18 +26367,33 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				defaultValue: 'false',
 			},
 			{
+				name: 'isLargeModalAvailable',
+				type: 'boolean | undefined',
+				description:
+					'Hosts opt in after supporting the in-page modal and applying their rollout gate.',
+				defaultValue: 'false',
+			},
+			{
 				name: 'isSwitchModeDropdownOpen',
 				type: 'boolean',
 				isRequired: true,
 			},
 			{
 				name: 'mode',
-				type: 'RovoChatOpenMode | undefined',
+				type: 'RovoChatOpenMode | "fullscreen" | undefined',
+				description:
+					'Display state only; does not extend the modes accepted by Rovo trigger events.',
 				defaultValue: '"sidebar"',
 			},
 			{
 				name: 'onFullscreenClick',
 				type: '(() => void) | undefined',
+			},
+			{
+				name: 'onLargeModalModeChange',
+				type: '(() => void) | undefined',
+				description:
+					'Opens the in-page modal; onFullscreenClick continues to open the separate page.',
 			},
 			{
 				name: 'onModeChange',
@@ -26380,6 +26403,13 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				name: 'setIsSwitchModeDropdownOpen',
 				type: '(isOpen: boolean) => void',
 				isRequired: true,
+			},
+			{
+				name: 'showLargeModalOption',
+				type: 'boolean | undefined',
+				description:
+					'Show the in-page Full screen option, disabled until a host connects the modal.',
+				defaultValue: 'false',
 			},
 		],
 	},
@@ -29276,7 +29306,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'a2ui', 'message'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { ADS_CATALOG_ID } from '@atlassian/a2ui-catalog/v0_9/catalog-id';\nimport type { A2uiSurfaceAdapterRovoMessage } from '@atlassian/a2ui-renderer-next/v0_9/a2ui-surface-adapter-rovo';\nimport { A2uiSurfaceEntryPointRenderer } from '@atlassian/conversation-assistant/ui/chat-history/A2uiSurfaceEntryPointRenderer';\nconst messages: A2uiSurfaceAdapterRovoMessage[] = [\n\t{ createSurface: { surfaceId: 'project-access', catalogId: ADS_CATALOG_ID } },\n\t{\n\t\tupdateComponents: {\n\t\t\tsurfaceId: 'project-access',\n\t\t\tcomponents: [\n\t\t\t\t{ id: 'root', component: 'Column', children: ['heading', 'details', 'request'] },\n\t\t\t\t{ id: 'heading', component: 'Text', text: 'Project access request' },\n\t\t\t\t{\n\t\t\t\t\tid: 'details',\n\t\t\t\t\tcomponent: 'Text',\n\t\t\t\t\ttext: 'Ask your project admin to add you to the workspace.',\n\t\t\t\t},\n\t\t\t\t{ id: 'request', component: 'Button', child: 'request-label', variant: 'primary' },\n\t\t\t\t{ id: 'request-label', component: 'Text', text: 'Request access' },\n\t\t\t],\n\t\t},\n\t},\n];\nexport default function A2uiSurfaceEntryPointExample(): React.JSX.Element {\n\tconst [actionMessage, setActionMessage] = useState('');\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.100\">\n\t\t\t\t<Box>\n\t\t\t\t\t<A2uiSurfaceEntryPointRenderer\n\t\t\t\t\t\tmessages={messages}\n\t\t\t\t\t\tonAction={() => setActionMessage('Request access selected in this example.')}\n\t\t\t\t\t\tanalyticsProduct=\"confluence\"\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t\t<p role=\"status\">{actionMessage}</p>\n\t\t\t\t<Text color=\"color.text.subtle\" size=\"small\">\n\t\t\t\t\tThe surface uses the ADS catalog; action handling remains with the host.\n\t\t\t\t</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { ADS_CATALOG_ID } from '@atlaskit/a2ui-catalog/v0_9/catalog-id';\nimport type { A2uiSurfaceAdapterRovoMessage } from '@atlassian/a2ui-renderer-next/v0_9/a2ui-surface-adapter-rovo';\nimport { A2uiSurfaceEntryPointRenderer } from '@atlassian/conversation-assistant/ui/chat-history/A2uiSurfaceEntryPointRenderer';\nconst messages: A2uiSurfaceAdapterRovoMessage[] = [\n\t{ createSurface: { surfaceId: 'project-access', catalogId: ADS_CATALOG_ID } },\n\t{\n\t\tupdateComponents: {\n\t\t\tsurfaceId: 'project-access',\n\t\t\tcomponents: [\n\t\t\t\t{ id: 'root', component: 'Column', children: ['heading', 'details', 'request'] },\n\t\t\t\t{ id: 'heading', component: 'Text', text: 'Project access request' },\n\t\t\t\t{\n\t\t\t\t\tid: 'details',\n\t\t\t\t\tcomponent: 'Text',\n\t\t\t\t\ttext: 'Ask your project admin to add you to the workspace.',\n\t\t\t\t},\n\t\t\t\t{ id: 'request', component: 'Button', child: 'request-label', variant: 'primary' },\n\t\t\t\t{ id: 'request-label', component: 'Text', text: 'Request access' },\n\t\t\t],\n\t\t},\n\t},\n];\nexport default function A2uiSurfaceEntryPointExample(): React.JSX.Element {\n\tconst [actionMessage, setActionMessage] = useState('');\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.100\">\n\t\t\t\t<Box>\n\t\t\t\t\t<A2uiSurfaceEntryPointRenderer\n\t\t\t\t\t\tmessages={messages}\n\t\t\t\t\t\tonAction={() => setActionMessage('Request access selected in this example.')}\n\t\t\t\t\t\tanalyticsProduct=\"confluence\"\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t\t<p role=\"status\">{actionMessage}</p>\n\t\t\t\t<Text color=\"color.text.subtle\" size=\"small\">\n\t\t\t\t\tThe surface uses the ADS catalog; action handling remains with the host.\n\t\t\t\t</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -30043,6 +30073,14 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 					'Optional host action run before the staging-area modal closes for "Start blank instead".\nIf the callback rejects, the modal remains open.',
 			},
 			{
+				name: 'onSuggestedPromptSelected',
+				type: '((id: string | undefined) => void) | undefined',
+			},
+			{
+				name: 'onViewed',
+				type: '(() => void) | undefined',
+			},
+			{
 				name: 'openChatMode',
 				type: 'RovoChatOpenMode | undefined',
 				description:
@@ -30058,7 +30096,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'primaryPrompts',
-				type: 'SuggestedPromptTile[] | undefined',
+				type: 'SmartCreateSuggestedPrompt[] | undefined',
 			},
 			{
 				name: 'primaryPromptsError',
@@ -30085,7 +30123,11 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'secondaryPrompts',
-				type: 'SuggestedPromptTile[] | undefined',
+				type: 'SmartCreateSuggestedPrompt[] | undefined',
+			},
+			{
+				name: 'sharedFeaturesInstrumentationId',
+				type: 'string | undefined',
 			},
 			{
 				name: 'shouldOpenChatAfterFinalize',
@@ -30502,6 +30544,12 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 					'CSM Anonymous Auth provider to be used to provide anonymous access to the widget.\n\nNote: when constructed via the widget installer, this provider is only\nsupplied for end users the convo-ai backend has confirmed to be\ngenuinely anonymous (see `WidgetAccessResponse.isUserAnonymous`).\nVerified-logged-in end users receive a `SessionAuthProvider`\nupstream so this field is left undefined for them.',
 			},
 			{
+				name: 'autoSelectConversation',
+				type: 'boolean | undefined',
+				description:
+					'Overrides automatic conversation selection when csm_widget_auto_select_latest_conversation is enabled.\nWhen omitted, selects the latest conversation. With the gate disabled, retains legacy behavior.\nSet to false to start without selecting a previous conversation.\nAn explicit restoreConversationId takes precedence, even when this is false.',
+			},
+			{
 				name: 'config',
 				type: '{ widgetId: string; gatewayOrigin?: string | undefined; assistanceServiceConfig?: { baseUrl?: string | undefined; credentials?: RequestCredentials | undefined; headers?: Record<...> | undefined; } | undefined; siteId: string; product: string; experienceId?: string | undefined; conversationContext?: Record<...> | und...',
 				description: 'Provides credentials and other settings',
@@ -30559,7 +30607,8 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			{
 				name: 'restoreConversationId',
 				type: 'string | undefined',
-				description: 'UUID of the conversation to attempt to restore.',
+				description:
+					'UUID of the conversation to attempt to restore.\nWhen csm_widget_auto_select_latest_conversation is enabled, fetches the list first\nto preserve channel status, even when autoSelectConversation is false.',
 			},
 			{
 				name: 'sessionId',
@@ -31434,7 +31483,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['@atlassian/discovery', 'Discovery', 'Assets Discovery', 'scan job', 'dashboard'],
 		category: 'components',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { RelayEnvironmentProvider } from 'react-relay';\nimport { createMockEnvironment, MockPayloadGenerator } from 'relay-test-utils';\nimport Button from '@atlaskit/button/default/button';\nimport Discovery from '@atlassian/discovery/ui/discovery/scan-job-setup';\n// The example answers every setup query and mutation with generated data.\nconst environment = createMockEnvironment();\nenvironment.mock.queueOperationResolver((operation) => MockPayloadGenerator.generate(operation));\nexport default function Basic(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(false);\n\treturn (\n\t\t<RelayEnvironmentProvider environment={environment}>\n\t\t\t<IntlProvider locale=\"en\">\n\t\t\t\t<Button appearance=\"primary\" onClick={() => setIsOpen(true)}>\n\t\t\t\t\tOpen scan job setup\n\t\t\t\t</Button>\n\t\t\t\t<Discovery cloudId=\"example-cloud-id\" isOpen={isOpen} onClose={() => setIsOpen(false)} />\n\t\t\t</IntlProvider>\n\t\t</RelayEnvironmentProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { RelayEnvironmentProvider } from 'react-relay';\nimport { MockPayloadGenerator } from 'relay-test-utils';\nimport { createAtlassianMockRelayEnvironment } from '@atlassian/relay-test-utils/mock-environment';\nimport Button from '@atlaskit/button/default/button';\nimport Discovery from '@atlassian/discovery/ui/discovery/scan-job-setup';\n// The example answers every setup query and mutation with generated data.\nconst environment = createAtlassianMockRelayEnvironment();\nenvironment.mock.queueOperationResolver((operation) => MockPayloadGenerator.generate(operation));\nexport default function Basic(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(false);\n\treturn (\n\t\t<RelayEnvironmentProvider environment={environment}>\n\t\t\t<IntlProvider locale=\"en\">\n\t\t\t\t<Button appearance=\"primary\" onClick={() => setIsOpen(true)}>\n\t\t\t\t\tOpen scan job setup\n\t\t\t\t</Button>\n\t\t\t\t<Discovery cloudId=\"example-cloud-id\" isOpen={isOpen} onClose={() => setIsOpen(false)} />\n\t\t\t</IntlProvider>\n\t\t</RelayEnvironmentProvider>\n\t);\n}",
 			"import React, { useEffect, useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { loadEntryPoint, RelayEnvironmentProvider, useRelayEnvironment } from 'react-relay';\nimport type { OperationDescriptor } from 'relay-runtime';\nimport { MockPayloadGenerator } from 'relay-test-utils';\nimport { createAtlassianMockRelayEnvironment } from '@atlassian/relay-test-utils/mock-environment';\nimport Heading from '@atlaskit/heading/heading';\nimport { Anchor } from '@atlaskit/primitives/compiled/anchor';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport SectionMessage from '@atlaskit/section-message/message';\nimport { AtlBrowserStorageLocal } from '@atlassian/browser-storage-controls/web-storage-service';\nimport { recordsEntryPoint } from '@atlassian/discovery/records-entrypoint';\nimport DiscoveryPage from '@atlassian/discovery/ui/discovery';\nimport { CredentialsPage } from '@atlassian/discovery/ui/discovery/credentials';\nimport { LogsPage } from '@atlassian/discovery/ui/discovery/logs';\nimport { RecordsPage } from '@atlassian/discovery/ui/discovery/records';\nimport { ScanJobsPage } from '@atlassian/discovery/ui/discovery/scan-jobs';\nimport { SystemsPage } from '@atlassian/discovery/ui/discovery/systems';\nimport { EXAMPLE_OVERVIEW } from './fixtures/overview';\nimport { ExampleOverviewPage } from './fixtures/overview-page';\nimport { EXAMPLE_LAST_DAY } from './fixtures/records-summary';\nconst links = {\n\toverview: { href: '#discovery/overview', label: 'Overview' },\n\trecords: { href: '#discovery/records', label: 'Records' },\n\t'scan-jobs': { href: '#discovery/scan-jobs', label: 'Scan jobs' },\n\tsystems: { href: '#discovery/systems', label: 'Systems' },\n\tcredentials: { href: '#discovery/credentials', label: 'Credentials' },\n\tlogs: { href: '#discovery/logs', label: 'Logs' },\n};\ntype DiscoverySection = keyof typeof links;\nconst exampleCloudId = 'example-cloud-id';\ntype ExampleScanJob = {\n\tid: string;\n\tisDraft: boolean;\n\tname: string;\n\towner: { accountId: string; displayName: string | null };\n\tprovider: string;\n\tschedules: { cronExpression: string; id: string }[];\n\tstatus: string;\n\tupdatedAt: string;\n};\nconst exampleScanJobs: ExampleScanJob[] = [\n\t{\n\t\tid: 'example-job-1',\n\t\tname: 'Head office network',\n\t\tstatus: 'CONFIGURED',\n\t\tisDraft: false,\n\t\tprovider: 'ATLASSIAN',\n\t\tupdatedAt: '2026-09-30T09:15:00.000Z',\n\t\towner: { accountId: 'example-account-1', displayName: 'Alana Grant' },\n\t\tschedules: [\n\t\t\t{ id: 'example-schedule-1', cronExpression: '0 2 * * *' },\n\t\t\t{ id: 'example-schedule-2', cronExpression: '0 14 * * 6' },\n\t\t],\n\t},\n\t{\n\t\tid: 'example-job-2',\n\t\tname: 'Data centre sweep',\n\t\tstatus: 'DRAFT_3',\n\t\tisDraft: true,\n\t\tprovider: 'ADVANCED',\n\t\tupdatedAt: '2026-10-01T16:40:00.000Z',\n\t\towner: { accountId: 'example-account-2', displayName: null },\n\t\tschedules: [],\n\t},\n];\n// Mutations wait briefly so the preview shows the in-flight state (Next, Back and Save disabled).\nconst exampleSaveDelayMs = 800;\n// Naming a scan job with one of these phrases makes \"create\" fail with that backend error.\nconst exampleCreateErrors = [\n\t{\n\t\tphrase: 'not enabled',\n\t\terrorType: 'provider_not_enabled',\n\t\tmessage: 'This Method isn’t turned on for your site. Choose another Method.',\n\t},\n\t{\n\t\tphrase: 'unavailable',\n\t\terrorType: 'provider_unavailable',\n\t\tmessage: 'This Method is unavailable right now. Try again later.',\n\t},\n];\nconst success = { success: true, errors: null };\ntype ExampleCollector = {\n\tagentVersion: string | null;\n\tid: string;\n\tlastReported: string | null;\n\tname: string;\n\tnetworkScanEnabled: boolean | null;\n\tstatus: 'REGISTERED' | 'UNLINKED';\n};\nfunction exampleCollector(\n\toverrides: Partial<ExampleCollector> & Pick<ExampleCollector, 'id' | 'name'>,\n): ExampleCollector {\n\treturn {\n\t\tagentVersion: '2.4.0',\n\t\tlastReported: '2026-10-01T09:30:00.000Z',\n\t\tnetworkScanEnabled: true,\n\t\tstatus: 'REGISTERED',\n\t\t...overrides,\n\t};\n}\n// Each Method's Systems, in pages of the backend's size. The Standard Method has two pages, an\n// unlinked System that the step hides, and Systems with network scan off or never reported.\nconst exampleSystemPages: Record<string, ExampleCollector[][]> = {\n\tATLASSIAN: [\n\t\t[\n\t\t\texampleCollector({ id: 'example-collector-1', name: 'Sydney office agent' }),\n\t\t\texampleCollector({\n\t\t\t\tid: 'example-collector-2',\n\t\t\t\tname: 'Perth office agent',\n\t\t\t\tnetworkScanEnabled: null,\n\t\t\t}),\n\t\t\texampleCollector({ id: 'example-collector-3', name: 'Retired agent', status: 'UNLINKED' }),\n\t\t],\n\t\t[\n\t\t\texampleCollector({\n\t\t\t\tid: 'example-collector-4',\n\t\t\t\tname: 'New lab agent',\n\t\t\t\tagentVersion: null,\n\t\t\t\tlastReported: null,\n\t\t\t\tnetworkScanEnabled: false,\n\t\t\t}),\n\t\t],\n\t],\n\tADVANCED: [[exampleCollector({ id: 'example-collector-5', name: 'Data centre agent' })]],\n};\nfunction createExampleEnvironment() {\n\tconst environment = createAtlassianMockRelayEnvironment();\n\t// An in-memory backend, so a Draft created in the setup modal shows in the list after closing.\n\tlet scanJobs: ExampleScanJob[] = [...exampleScanJobs];\n\tlet nextJobNumber = 1;\n\tfunction systemsPage({ provider, after }: { after: string | null; provider: string }) {\n\t\tconst pages = exampleSystemPages[provider] ?? [[]];\n\t\tconst index = after ? Number(after) : 0;\n\t\tconst hasNextPage = index + 1 < pages.length;\n\t\treturn {\n\t\t\tnodes: pages[index] ?? [],\n\t\t\tpageInfo: { endCursor: hasNextPage ? String(index + 1) : null, hasNextPage },\n\t\t};\n\t}\n\tfunction createScanJob({ name, provider }: { name: string; provider: string }) {\n\t\tconst createError = exampleCreateErrors.find(({ phrase }) =>\n\t\t\tname.toLowerCase().includes(phrase),\n\t\t);\n\t\tif (createError) {\n\t\t\treturn {\n\t\t\t\tsuccess: false,\n\t\t\t\terrors: [\n\t\t\t\t\t{ message: createError.message, extensions: { errorType: createError.errorType } },\n\t\t\t\t],\n\t\t\t\tdiscoveryJob: null,\n\t\t\t};\n\t\t}\n\t\tconst job: ExampleScanJob = {\n\t\t\tid: `example-new-job-${nextJobNumber++}`,\n\t\t\tname,\n\t\t\tstatus: 'DRAFT_1',\n\t\t\tisDraft: true,\n\t\t\tprovider,\n\t\t\tupdatedAt: new Date().toISOString(),\n\t\t\towner: { accountId: 'example-account-1', displayName: 'Alana Grant' },\n\t\t\tschedules: [],\n\t\t};\n\t\tscanJobs = [job, ...scanJobs];\n\t\treturn { ...success, discoveryJob: { id: job.id } };\n\t}\n\tfunction payloadFor(operation: OperationDescriptor) {\n\t\tconst { variables } = operation.request;\n\t\tswitch (operation.request.node.operation.name) {\n\t\t\tcase 'useScanJobBackendCreateMutation':\n\t\t\t\treturn MockPayloadGenerator.generate(operation, {\n\t\t\t\t\tDiscoveryJobPayload: () => createScanJob(variables.input),\n\t\t\t\t});\n\t\t\tcase 'useScanJobBackendUpdateDetailsMutation':\n\t\t\t\tscanJobs = scanJobs.map((job) =>\n\t\t\t\t\tjob.id === variables.id ? { ...job, name: variables.input.name } : job,\n\t\t\t\t);\n\t\t\t\treturn MockPayloadGenerator.generate(operation, { DiscoveryJobPayload: () => success });\n\t\t\tcase 'useScanJobBackendDeleteMutation':\n\t\t\t\tscanJobs = scanJobs.filter((job) => job.id !== variables.id);\n\t\t\t\treturn MockPayloadGenerator.generate(operation, {\n\t\t\t\t\tDiscoveryJobDeletePayload: () => success,\n\t\t\t\t});\n\t\t\tcase 'useScanJobBackendAddSystemsMutation':\n\t\t\tcase 'useScanJobBackendRemoveSystemsMutation':\n\t\t\t\treturn MockPayloadGenerator.generate(operation, { DiscoveryJobPayload: () => success });\n\t\t\tcase 'recordsSummaryQuery':\n\t\t\t\treturn {\n\t\t\t\t\tdata: {\n\t\t\t\t\t\tdiscovery_overview: {\n\t\t\t\t\t\t\tsummary: EXAMPLE_OVERVIEW.summary,\n\t\t\t\t\t\t\tdiscoveredInPeriod: EXAMPLE_LAST_DAY,\n\t\t\t\t\t\t},\n\t\t\t\t\t},\n\t\t\t\t};\n\t\t\tcase 'useScanJobBackendSystemsQuery':\n\t\t\t\treturn {\n\t\t\t\t\tdata: {\n\t\t\t\t\t\tdiscovery_collectors: systemsPage({\n\t\t\t\t\t\t\tafter: variables.after,\n\t\t\t\t\t\t\tprovider: variables.provider,\n\t\t\t\t\t\t}),\n\t\t\t\t\t},\n\t\t\t\t};\n\t\t\tdefault:\n\t\t\t\treturn MockPayloadGenerator.generate(operation, {\n\t\t\t\t\tDiscoveryJobConnection: () => ({\n\t\t\t\t\t\tnodes: scanJobs,\n\t\t\t\t\t\tpageInfo: { endCursor: null, hasNextPage: false },\n\t\t\t\t\t}),\n\t\t\t\t});\n\t\t}\n\t}\n\t// The mock environment drops a resolver once it answers, so queue the next one each time.\n\t// Queries answer at once. Mutations stay pending for a moment, then resolve; returning null\n\t// keeps this resolver queued.\n\tfunction queueResolver() {\n\t\tenvironment.mock.queueOperationResolver((operation) => {\n\t\t\tif (operation.request.node.params.operationKind !== 'mutation') {\n\t\t\t\tqueueResolver();\n\t\t\t\treturn payloadFor(operation);\n\t\t\t}\n\t\t\tsetTimeout(() => {\n\t\t\t\tif (environment.mock.getAllOperations().includes(operation)) {\n\t\t\t\t\tenvironment.mock.resolve(operation, payloadFor(operation));\n\t\t\t\t}\n\t\t\t}, exampleSaveDelayMs);\n\t\t\treturn null;\n\t\t});\n\t}\n\tqueueResolver();\n\treturn environment;\n}\nfunction ExampleScanJobsPage(): React.JSX.Element {\n\treturn (\n\t\t<>\n\t\t\t<Box paddingInline=\"space.300\" paddingBlockEnd=\"space.200\">\n\t\t\t\t<SectionMessage appearance=\"information\" title=\"Preview backend\">\n\t\t\t\t\t<Text as=\"p\">\n\t\t\t\t\t\tCreate a scan job and press Next on Choose method to create a Draft. Go back and rename\n\t\t\t\t\t\tit to update it, or close the setup modal to save or delete it.\n\t\t\t\t\t</Text>\n\t\t\t\t\t<Text as=\"p\">\n\t\t\t\t\t\tInclude “unavailable” or “not enabled” in the name to see the backend’s Method errors.\n\t\t\t\t\t</Text>\n\t\t\t\t\t<Text as=\"p\">\n\t\t\t\t\t\tSystems load from the backend for the chosen Method. Standard has two pages of Systems\n\t\t\t\t\t\tand hides an unlinked one. Next on Systems adds newly selected Systems to the Draft and\n\t\t\t\t\t\tremoves deselected ones.\n\t\t\t\t\t</Text>\n\t\t\t\t</SectionMessage>\n\t\t\t</Box>\n\t\t\t<ScanJobsPage cloudId={exampleCloudId} />\n\t\t</>\n\t);\n}\nfunction ExampleRecordsPage(): React.JSX.Element {\n\tconst environment = useRelayEnvironment();\n\tconst [recordsEntryPointReference] = useState(() =>\n\t\tloadEntryPoint({ getEnvironment: () => environment }, recordsEntryPoint, {\n\t\t\tcloudId: exampleCloudId,\n\t\t}),\n\t);\n\treturn <RecordsPage recordsEntryPoint={recordsEntryPointReference} />;\n}\nconst sections: Record<DiscoverySection, React.ComponentType> = {\n\toverview: ExampleOverviewPage,\n\trecords: ExampleRecordsPage,\n\t'scan-jobs': ExampleScanJobsPage,\n\tsystems: SystemsPage,\n\tcredentials: CredentialsPage,\n\tlogs: LogsPage,\n};\nfunction sectionFromHash(): DiscoverySection {\n\treturn (\n\t\t(Object.keys(links) as DiscoverySection[]).find(\n\t\t\t(section) => links[section].href === window.location.hash,\n\t\t) ?? 'overview'\n\t);\n}\nexport default function WholeDiscovery(): React.JSX.Element {\n\tconst [activeSection, setActiveSection] = useState<DiscoverySection>('overview');\n\tconst [isProvisioned, setIsProvisioned] = useState(false);\n\tuseEffect(() => {\n\t\t// The shell shows GettingStartedScreen for an unprovisioned tenant. Seed only the\n\t\t// preview's host state before mounting it, then restore the viewer's previous value.\n\t\tconst storageKey = 'discovery-platform-state';\n\t\tconst previousState = AtlBrowserStorageLocal.getItem(storageKey);\n\t\tlet cancelled = false;\n\t\tvoid (async () => {\n\t\t\tlet parsedState: Record<string, unknown> = {};\n\t\t\ttry {\n\t\t\t\tparsedState = previousState ? JSON.parse(previousState) : {};\n\t\t\t} catch {\n\t\t\t\t// An invalid previous value is replaced for this preview and removed on cleanup.\n\t\t\t}\n\t\t\tawait AtlBrowserStorageLocal.setItem(\n\t\t\t\tstorageKey,\n\t\t\t\tJSON.stringify({ ...parsedState, provisionStatus: 'PROVISIONED' }),\n\t\t\t);\n\t\t\tif (!cancelled) {\n\t\t\t\tsetIsProvisioned(true);\n\t\t\t}\n\t\t})();\n\t\treturn () => {\n\t\t\tcancelled = true;\n\t\t\tif (previousState === null) {\n\t\t\t\tAtlBrowserStorageLocal.removeItem(storageKey);\n\t\t\t} else {\n\t\t\t\tvoid AtlBrowserStorageLocal.setItem(storageKey, previousState);\n\t\t\t}\n\t\t};\n\t}, []);\n\tconst [environment] = useState(createExampleEnvironment);\n\tuseEffect(() => {\n\t\tconst syncSection = () => setActiveSection(sectionFromHash());\n\t\tsyncSection();\n\t\twindow.addEventListener('hashchange', syncSection);\n\t\treturn () => window.removeEventListener('hashchange', syncSection);\n\t}, []);\n\tconst SectionPage = sections[activeSection];\n\tif (!isProvisioned) {\n\t\treturn <div aria-live=\"polite\">Preparing Discovery preview…</div>;\n\t}\n\treturn (\n\t\t<RelayEnvironmentProvider environment={environment}>\n\t\t\t<IntlProvider locale=\"en\">\n\t\t\t\t<DiscoveryPage>\n\t\t\t\t\t<>\n\t\t\t\t\t\t<Box padding=\"space.300\">\n\t\t\t\t\t\t\t<Heading as=\"h1\" size=\"large\">\n\t\t\t\t\t\t\t\tDiscovery\n\t\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t\t{/* Preview links only. Jira supplies the production horizontal navigation. */}\n\t\t\t\t\t\t\t<Box as=\"nav\" aria-label=\"Discovery sections\">\n\t\t\t\t\t\t\t\t<Inline space=\"space.200\" shouldWrap>\n\t\t\t\t\t\t\t\t\t{(Object.keys(links) as DiscoverySection[]).map((section) => (\n\t\t\t\t\t\t\t\t\t\t<Anchor\n\t\t\t\t\t\t\t\t\t\t\tkey={section}\n\t\t\t\t\t\t\t\t\t\t\thref={links[section].href}\n\t\t\t\t\t\t\t\t\t\t\taria-current={section === activeSection ? 'page' : undefined}\n\t\t\t\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t\t\t\t{links[section].label}\n\t\t\t\t\t\t\t\t\t\t</Anchor>\n\t\t\t\t\t\t\t\t\t))}\n\t\t\t\t\t\t\t\t</Inline>\n\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t<SectionPage />\n\t\t\t\t\t</>\n\t\t\t\t</DiscoveryPage>\n\t\t\t</IntlProvider>\n\t\t</RelayEnvironmentProvider>\n\t);\n}",
 		],
 		props: [
@@ -39973,6 +40022,24 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				description:
 					'Optional initial state for the panel system.\n\n`initialState.panelWidth` can seed the provider width during SSR. `LayoutWithPanel` mirrors\nits requested width into provider state after mounting. CSS may constrain the visible width\nwithout changing the requested value.',
 			},
+			{
+				name: 'onBeforePanelTransition',
+				type: 'OnBeforePanelTransition | undefined',
+				description:
+					"Runs synchronously before an open or close action is accepted for rendering:\nopening a panel, replacing it (including an open that reuses the active instance ID), and\nclosing it. Every source of change goes through it: `openPanel`/`closePanel`, `Trigger`, close\ncontrols, `useCloseCurrentPanel`, and `LayoutWithPanel` closing on unmount. Hosts can therefore\ntreat it as the single interception point.\n\n- Return `false` to cancel the transition and leave the state unchanged.\n- A close for a panel that is no longer active is ignored before this runs.\n- Open/close actions called from inside the callback are queued. They run in order after the\n  current callback returns and its action is accepted or vetoed, before React commits.\n- Keep the callback synchronous. To wait on an asynchronous check, cancel the transition, wait,\n  confirm the panel is still active, and then call the action again.\n\nIntended for hosts that bridge an older panel API and must run its callbacks, in their original\norder, before the transition commits. Prefer a stable callback: an updated callback is applied\nafter the provider's next effect.",
+			},
+			{
+				name: 'onPanelClose',
+				type: '((panel: AllPanels<Record<string, any>>) => void) | undefined',
+				description:
+					"Called after an active panel is closed or replaced, before the replacement's open callbacks.\nReceives the outgoing descriptor. Stale closes and provider unmount do not emit events.",
+			},
+			{
+				name: 'onPanelOpen',
+				type: '((panel: AllPanels<Record<string, any>>) => void) | undefined',
+				description:
+					'Called after each manager open commits, including replacements with the same instance ID.\nReceives the opened descriptor. Initial state does not emit an open event.',
+			},
 		],
 	},
 	{
@@ -40791,6 +40858,12 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				description: 'Context published before and mirrored into the initial `chat-new` event.',
 			},
 			{
+				name: 'onAgentPublished',
+				type: '((agent: PublishedAgent) => void | Promise<void>) | undefined',
+				description:
+					"Handles follow-up selection or invocation after smart-creation publication\nand canvas cleanup, replacing the modal's default invocation or chat handoff.",
+			},
+			{
 				name: 'onBackButtonClick',
 				type: '(() => void) | undefined',
 				description:
@@ -40903,6 +40976,12 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				name: 'messageContext',
 				type: 'MessageContext | undefined',
 				description: 'Context published before and mirrored into the initial `chat-new` event.',
+			},
+			{
+				name: 'onAgentPublished',
+				type: '((agent: PublishedAgent) => void | Promise<void>) | undefined',
+				description:
+					"Handles follow-up selection or invocation after smart-creation publication\nand canvas cleanup, replacing the modal's default invocation or chat handoff.",
 			},
 			{
 				name: 'onBackButtonClick',
@@ -43778,6 +43857,10 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				type: '() => void',
 				isRequired: true,
 			},
+			{
+				name: 'triggerContext',
+				type: 'ResponsePersonalizationCardTriggerContext | undefined',
+			},
 		],
 	},
 	{
@@ -44768,7 +44851,8 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			{
 				name: 'onBlur',
 				type: 'React.FocusEventHandler<HTMLInputElement> | undefined',
-				description: 'Handle blur events on the control',
+				description:
+					'Handle blur events on the control\n\nOn the top layer, focus moving into the menu is not a blur. When focus leaves from the menu,\nthe event is from the menu element.',
 			},
 			{
 				name: 'onChange',
@@ -44782,7 +44866,8 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			{
 				name: 'onFocus',
 				type: 'React.FocusEventHandler<HTMLInputElement> | undefined',
-				description: 'Handle focus events on the control',
+				description:
+					'Handle focus events on the control\n\nOn the top layer, focus coming back from the menu does not call this again.',
 			},
 			{
 				name: 'onInputChange',
@@ -45134,7 +45219,8 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			{
 				name: 'onBlur',
 				type: 'React.FocusEventHandler<HTMLInputElement> | undefined',
-				description: 'Handle blur events on the control',
+				description:
+					'Handle blur events on the control\n\nOn the top layer, focus moving into the menu is not a blur. When focus leaves from the menu,\nthe event is from the menu element.',
 			},
 			{
 				name: 'onChange',
@@ -45160,7 +45246,8 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			{
 				name: 'onFocus',
 				type: 'React.FocusEventHandler<HTMLInputElement> | undefined',
-				description: 'Handle focus events on the control',
+				description:
+					'Handle focus events on the control\n\nOn the top layer, focus coming back from the menu does not call this again.',
 			},
 			{
 				name: 'onInputChange',
@@ -46060,7 +46147,8 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			{
 				name: 'onBlur',
 				type: 'React.FocusEventHandler<HTMLInputElement> | undefined',
-				description: 'Handle blur events on the control',
+				description:
+					'Handle blur events on the control\n\nOn the top layer, focus moving into the menu is not a blur. When focus leaves from the menu,\nthe event is from the menu element.',
 			},
 			{
 				name: 'onChange',
@@ -46074,7 +46162,8 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			{
 				name: 'onFocus',
 				type: 'React.FocusEventHandler<HTMLInputElement> | undefined',
-				description: 'Handle focus events on the control',
+				description:
+					'Handle focus events on the control\n\nOn the top layer, focus coming back from the menu does not call this again.',
 			},
 			{
 				name: 'onInputChange',
@@ -46414,7 +46503,8 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			{
 				name: 'onBlur',
 				type: 'React.FocusEventHandler<HTMLInputElement> | undefined',
-				description: 'Handle blur events on the control',
+				description:
+					'Handle blur events on the control\n\nOn the top layer, focus moving into the menu is not a blur. When focus leaves from the menu,\nthe event is from the menu element.',
 			},
 			{
 				name: 'onChange',
@@ -46428,7 +46518,8 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			{
 				name: 'onFocus',
 				type: 'React.FocusEventHandler<HTMLInputElement> | undefined',
-				description: 'Handle focus events on the control',
+				description:
+					'Handle focus events on the control\n\nOn the top layer, focus coming back from the menu does not call this again.',
 			},
 			{
 				name: 'onInputChange',
@@ -46933,7 +47024,8 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			{
 				name: 'onBlur',
 				type: 'React.FocusEventHandler<HTMLInputElement> | undefined',
-				description: 'Handle blur events on the control',
+				description:
+					'Handle blur events on the control\n\nOn the top layer, focus moving into the menu is not a blur. When focus leaves from the menu,\nthe event is from the menu element.',
 			},
 			{
 				name: 'onChange',
@@ -46947,7 +47039,8 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			{
 				name: 'onFocus',
 				type: 'React.FocusEventHandler<HTMLInputElement> | undefined',
-				description: 'Handle focus events on the control',
+				description:
+					'Handle focus events on the control\n\nOn the top layer, focus coming back from the menu does not call this again.',
 			},
 			{
 				name: 'onInputChange',
@@ -52929,7 +53022,12 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		examples: [
 			"import { IntlProvider } from 'react-intl';\nimport SelfServeAgentReporting from '@atlassian/self-serve-agent-reporting/ui/self-serve-agent-reporting';\nexport default function Basic(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<SelfServeAgentReporting />\n\t\t</IntlProvider>\n\t);\n}",
 		],
-		props: [],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
+			},
+		],
 	},
 	{
 		name: 'SelfServeAgentSkills',
@@ -55349,7 +55447,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['studio', 'browse', 'credits'],
 		category: 'rovo',
 		examples: [
-			"import React, { useEffect, useState } from 'react';\nimport { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { CreditsProvider } from '@atlassian/rovo-credits/credits-provider';\nimport { AgentCard } from '@atlassian/studio-browse-kit/agent-card';\nimport { AgentCardCreditsWrapper } from '@atlassian/studio-browse-kit/agent-card-credits-wrapper';\nimport { ExampleFrame, ExampleAgentCover, agents } from '../examples-utils/support';\nimport { installCreditsPopupMock } from './mocks/credits-popup';\nconst GATES = { rovo_credits_degradation_ui: true };\nconst styles = cssMap({\n\tcard: { width: '280px', maxWidth: '100%' },\n});\nexport function AgentCardWithCreditsPopupPreview(): React.JSX.Element {\n\tconst [ready, setReady] = useState(false);\n\tuseEffect(() => {\n\t\tconst cleanup = installCreditsPopupMock();\n\t\tsetReady(true);\n\t\treturn cleanup;\n\t}, []);\n\treturn (\n\t\t<ExampleFrame gateOverrides={GATES}>\n\t\t\t{ready ? (\n\t\t\t\t<CreditsProvider product=\"atlassian-studio\" cloudId=\"agent-card-credits-popup-example\">\n\t\t\t\t\t<Box xcss={styles.card}>\n\t\t\t\t\t\t<AgentCard\n\t\t\t\t\t\t\tagent={agents[0]}\n\t\t\t\t\t\t\tonClick={() => {}}\n\t\t\t\t\t\t\tslots={{ cover: ExampleAgentCover, wrapper: AgentCardCreditsWrapper, footer: null }}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Box>\n\t\t\t\t</CreditsProvider>\n\t\t\t) : null}\n\t\t</ExampleFrame>\n\t);\n}\nexport default AgentCardWithCreditsPopupPreview;",
+			"import React, { useEffect, useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { cssMap } from '@atlaskit/css';\nimport ModalBody from '@atlaskit/modal-dialog/modal-body';\nimport ModalDialog from '@atlaskit/modal-dialog/modal-dialog';\nimport ModalHeader from '@atlaskit/modal-dialog/modal-header';\nimport ModalTitle from '@atlaskit/modal-dialog/modal-title';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { token } from '@atlaskit/tokens';\nimport { CreditsProvider } from '@atlassian/rovo-credits/credits-provider';\nimport { AgentCardCreditsWrapper } from '@atlassian/studio-browse-kit/agent-card-credits-wrapper';\nimport { AgentCardRelay } from '@atlassian/studio-browse-kit/agent-card-relay';\nimport {\n\tCLOUD_ID,\n\tConnectedExample,\n\tExampleFrame,\n\tExampleAgentCover,\n\tagents,\n} from '../examples-utils/support';\nimport { installCreditsPopupMock } from './mocks/credits-popup';\nconst GATES = { rovo_credits_degradation_ui: true };\nconst previewAgents = [\n\t...agents,\n\t...Array.from({ length: 8 }, (_, index) => {\n\t\tconst agent = agents[index % agents.length];\n\t\treturn {\n\t\t\t...agent,\n\t\t\tid: `ari:cloud:rovo::agent/activation/${CLOUD_ID}/00000000-0000-4000-8000-${String(index + 1).padStart(12, '0')}`,\n\t\t\tname: `${agent.name} ${Math.floor(index / agents.length) + 2}`,\n\t\t};\n\t}),\n];\nconst styles = cssMap({\n\tcards: {\n\t\tdisplay: 'grid',\n\t\tgridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',\n\t\tgap: token('space.200'),\n\t},\n});\nexport function AgentCardWithCreditsPopupPreview(): React.JSX.Element {\n\tconst [ready, setReady] = useState(false);\n\tconst [isOpen, setIsOpen] = useState(true);\n\tuseEffect(() => {\n\t\tconst cleanup = installCreditsPopupMock();\n\t\tsetReady(true);\n\t\treturn cleanup;\n\t}, []);\n\treturn (\n\t\t<ExampleFrame gateOverrides={GATES}>\n\t\t\t<Button onClick={() => setIsOpen(true)}>Browse agents</Button>\n\t\t\t{ready ? (\n\t\t\t\t<CreditsProvider product=\"atlassian-studio\" cloudId={CLOUD_ID}>\n\t\t\t\t\t{isOpen && (\n\t\t\t\t\t\t<ModalDialog width=\"large\" height={600} onClose={() => setIsOpen(false)}>\n\t\t\t\t\t\t\t<ModalHeader hasCloseButton>\n\t\t\t\t\t\t\t\t<ModalTitle>Browse agents</ModalTitle>\n\t\t\t\t\t\t\t</ModalHeader>\n\t\t\t\t\t\t\t<ModalBody>\n\t\t\t\t\t\t\t\t<ConnectedExample agentData={previewAgents}>\n\t\t\t\t\t\t\t\t\t{({ agentRefs }) => (\n\t\t\t\t\t\t\t\t\t\t<Box xcss={styles.cards}>\n\t\t\t\t\t\t\t\t\t\t\t{agentRefs.map((agentRef) => (\n\t\t\t\t\t\t\t\t\t\t\t\t<AgentCardRelay\n\t\t\t\t\t\t\t\t\t\t\t\t\tkey={agentRef.id}\n\t\t\t\t\t\t\t\t\t\t\t\t\tagentRef={agentRef}\n\t\t\t\t\t\t\t\t\t\t\t\t\tcloudId={CLOUD_ID}\n\t\t\t\t\t\t\t\t\t\t\t\t\tonClick={() => {}}\n\t\t\t\t\t\t\t\t\t\t\t\t\tonChat={() => {}}\n\t\t\t\t\t\t\t\t\t\t\t\t\tslots={{ cover: ExampleAgentCover, wrapper: AgentCardCreditsWrapper }}\n\t\t\t\t\t\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t\t\t\t\t\t))}\n\t\t\t\t\t\t\t\t\t\t</Box>\n\t\t\t\t\t\t\t\t\t)}\n\t\t\t\t\t\t\t\t</ConnectedExample>\n\t\t\t\t\t\t\t</ModalBody>\n\t\t\t\t\t\t</ModalDialog>\n\t\t\t\t\t)}\n\t\t\t\t</CreditsProvider>\n\t\t\t) : null}\n\t\t</ExampleFrame>\n\t);\n}\nexport default AgentCardWithCreditsPopupPreview;",
 		],
 		props: [
 			{
@@ -55568,7 +55666,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			{
 				name: 'columns',
 				type: 'GridColumns | undefined',
-				defaultValue: "expVal('jira_browse_agent_modal_update', 'isEnabled', false) ? 4 : 3",
+				defaultValue: 'isBrowseUpliftEnabled() ? 4 : 3',
 			},
 			{
 				name: 'emptyState',
@@ -55843,7 +55941,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			{
 				name: 'columns',
 				type: 'GridColumns | undefined',
-				defaultValue: "expVal('jira_browse_agent_modal_update', 'isEnabled', false) ? 4 : 3",
+				defaultValue: 'isBrowseUpliftEnabled() ? 4 : 3',
 			},
 			{
 				name: 'emptyState',

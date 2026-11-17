@@ -5,7 +5,6 @@ import type { Command } from '@atlaskit/editor-common/types/command';
 import type { FloatingToolbarCustom } from '@atlaskit/editor-common/types/floating-toolbar';
 import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types/toolbar';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { changeColor } from './editor-commands/change-color';
@@ -111,10 +110,7 @@ export const highlightPlugin: HighlightPlugin = ({ api }) => {
 						const toolbarDocking =
 							api?.userPreferences?.sharedState.currentState()?.preferences?.toolbarDockingPosition;
 
-						if (
-							toolbarDocking === 'none' &&
-							editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
-						) {
+						if (toolbarDocking === 'none') {
 							const toolbarCustom: FloatingToolbarCustom<Command> = {
 								type: 'custom',
 								render: (view, _idx, dispatchAnalyticsEvent) => (
@@ -127,7 +123,7 @@ export const highlightPlugin: HighlightPlugin = ({ api }) => {
 								fallback: [],
 							};
 
-							const rank = editorExperiment('platform_editor_controls', 'variant1') ? 5 : -9;
+							const rank = 5;
 
 							return {
 								rank,

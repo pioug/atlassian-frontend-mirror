@@ -1,5 +1,19 @@
 # @atlaskit/ads-cli
 
+## 0.12.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.12.1
+
+### Patch Changes
+
+- [`537770ebfc5a1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/537770ebfc5a1) -
+  Automatically patch release ADS CLI when ADS MCP changes, keeping the bundled Atlas CLI content
+  current and including content updates missed by earlier releases.
+
 ## 0.12.0
 
 ### Minor Changes

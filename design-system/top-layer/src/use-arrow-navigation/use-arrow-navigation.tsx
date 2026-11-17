@@ -15,6 +15,7 @@ import {
 import { getFirstFocusable } from '../focus/get-first-focusable';
 import { getLastFocusable } from '../focus/get-last-focusable';
 import { getNextFocusable } from '../focus/get-next-focusable';
+import { isInContainerLayer } from '../focus/is-in-container-layer';
 import { isNestedLayerFocused } from '../focus/is-nested-layer-focused';
 import { type TFocusableFilter } from '../focus/types';
 
@@ -47,7 +48,8 @@ export type TUseArrowNavigationArgs = {
 	onNestedClose?: () => void;
 
 	/**
-	 * Called on `Tab` and `Shift+Tab`. Close the menu in response.
+	 * Called on `Tab` and `Shift+Tab`, before a dialog's focus wrap. Close the
+	 * menu at once (`hidePopover()`), so focus moves on from the trigger.
 	 */
 	onClose: () => void;
 
@@ -161,36 +163,35 @@ export function useArrowNavigation({
 				return;
 			}
 
+			// Arrow keys stay in this menu level. Tab still reaches nested layers.
+			const arrowKeyFilter: TFocusableFilter = (element, menu) =>
+				isInContainerLayer(element, menu) && (!filter || filter(element, menu));
+
 			if (event.key === KEY_DOWN) {
 				// Prevent page scroll while navigating menu items.
 				event.preventDefault();
-				getNextFocusable({ container, direction: 'forwards', filter })?.focus();
+				getNextFocusable({ container, direction: 'forwards', filter: arrowKeyFilter })?.focus();
 				return;
 			}
 
 			if (event.key === KEY_UP) {
 				// Prevent page scroll while navigating menu items.
 				event.preventDefault();
-				getNextFocusable({ container, direction: 'backwards', filter })?.focus();
+				getNextFocusable({ container, direction: 'backwards', filter: arrowKeyFilter })?.focus();
 				return;
 			}
 
 			if (event.key === KEY_HOME) {
 				// Prevent browser default (e.g. scrolling to top of page).
 				event.preventDefault();
-				getFirstFocusable({ container, filter })?.focus();
+				getFirstFocusable({ container, filter: arrowKeyFilter })?.focus();
 				return;
 			}
 
 			if (event.key === KEY_END) {
 				// Prevent browser default (e.g. scrolling to bottom of page).
 				event.preventDefault();
-				getLastFocusable({ container, filter })?.focus();
-				return;
-			}
-
-			if (event.key === KEY_TAB) {
-				onClose();
+				getLastFocusable({ container, filter: arrowKeyFilter })?.focus();
 				return;
 			}
 
@@ -221,7 +222,25 @@ export function useArrowNavigation({
 				return;
 			}
 		},
-		[containerRef, onClose, onNestedOpen, onNestedClose, filter],
+		[containerRef, onNestedOpen, onNestedClose, filter],
+	);
+
+	const handleTabKeyDown = useCallback(
+		(event: KeyboardEvent) => {
+			if (event.key !== KEY_TAB) {
+				return;
+			}
+			const container = containerRef.current;
+			if (!container || !event.composedPath().includes(container)) {
+				return;
+			}
+			const focusedElement = container.ownerDocument.activeElement;
+			if (!isFocusedElementAtThisLevel({ focusedElement, container, filter })) {
+				return;
+			}
+			onClose();
+		},
+		[containerRef, onClose, filter],
 	);
 
 	useEffect(() => {
@@ -230,9 +249,20 @@ export function useArrowNavigation({
 			return;
 		}
 
-		return bind(container, {
+		const unbindKeys = bind(container, {
 			type: 'keydown',
 			listener: handleKeyDown,
 		});
-	}, [containerRef, handleKeyDown, isEnabled]);
+		// Capture on the document: close before a dialog's focus wrap moves focus.
+		const unbindTab = bind(container.ownerDocument, {
+			type: 'keydown',
+			listener: handleTabKeyDown,
+			options: { capture: true },
+		});
+
+		return () => {
+			unbindKeys();
+			unbindTab();
+		};
+	}, [containerRef, handleKeyDown, handleTabKeyDown, isEnabled]);
 }

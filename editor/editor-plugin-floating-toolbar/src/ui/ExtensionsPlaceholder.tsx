@@ -27,7 +27,6 @@ import Dropdown from './Dropdown';
 interface Props {
 	alignDropdownWithToolbar?: boolean;
 	applyChangeToContextPanel: ApplyChangeHandler | undefined;
-	areAnyNewToolbarFlagsEnabled: boolean;
 	dispatchCommand?: (command: Function) => void;
 	editorView: EditorView;
 	extensionApi: ExtensionAPI | undefined;
@@ -44,7 +43,6 @@ interface Props {
 
 type ExtensionButtonProps = {
 	applyChangeToContextPanel: ApplyChangeHandler | undefined;
-	areAnyNewToolbarFlagsEnabled: boolean;
 	editorView: EditorView;
 	extensionApi: ExtensionAPI | undefined;
 	item: ExtensionToolbarButton;
@@ -106,7 +104,7 @@ const ExtensionIcon = ({ icon, label }: ExtensionIconProps) => {
 };
 
 const ExtensionButton = (props: ExtensionButtonProps) => {
-	const { item, node, extensionApi, areAnyNewToolbarFlagsEnabled } = props;
+	const { item, node, extensionApi } = props;
 
 	const onClick = () => {
 		if (typeof item.action !== 'function') {
@@ -144,7 +142,6 @@ const ExtensionButton = (props: ExtensionButtonProps) => {
 			tooltipContent={item.tooltip}
 			tooltipStyle={item.tooltipStyle}
 			disabled={item.disabled}
-			areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 		>
 			{item.label}
 		</Button>
@@ -166,7 +163,6 @@ export const ExtensionsPlaceholder = (props: Props): React.JSX.Element | null =>
 		popupsBoundariesElement,
 		popupsScrollableElement,
 		alignDropdownWithToolbar,
-		areAnyNewToolbarFlagsEnabled,
 	} = props;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -200,7 +196,7 @@ export const ExtensionsPlaceholder = (props: Props): React.JSX.Element | null =>
 	// but count fragment as 1 child, so here we create the children manually.
 	const children: JSX.Element[] = [];
 	if (separator && ['start', 'both'].includes(separator)) {
-		children.push(<Separator areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled} />);
+		children.push(<Separator />);
 	}
 
 	const isNestedTable =
@@ -243,7 +239,6 @@ export const ExtensionsPlaceholder = (props: Props): React.JSX.Element | null =>
 					onMount={item.onMount}
 					onClick={item.onClick}
 					pulse={item.pulse}
-					areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 				/>,
 			);
 		} else {
@@ -254,17 +249,16 @@ export const ExtensionsPlaceholder = (props: Props): React.JSX.Element | null =>
 					editorView={editorView}
 					applyChangeToContextPanel={applyChangeToContextPanel}
 					extensionApi={extensionApi}
-					areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 				/>,
 			);
 		}
 
 		if (index < extensionItems.length - 1) {
-			children.push(<Separator areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled} />);
+			children.push(<Separator />);
 		}
 	});
 	if (separator && ['end', 'both'].includes(separator)) {
-		children.push(<Separator areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled} />);
+		children.push(<Separator />);
 	}
 
 	// eslint-disable-next-line react/no-children-prop

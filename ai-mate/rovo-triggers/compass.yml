@@ -15,6 +15,9 @@ labels:
   - platform-code
   - platform-afm
 customFields:
+  - name: Reviewer Team
+    type: text
+    value: ari:cloud:identity::team/609b9743-92e3-42d5-b6e9-2f27c6e597ef # Rovo Chat FE Developers
   - name: Department
     type: text
     value: Eng - Rovo Chat

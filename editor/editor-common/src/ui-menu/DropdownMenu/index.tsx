@@ -16,7 +16,6 @@ import MenuGroup from '@atlaskit/menu/menu-group';
 import Section from '@atlaskit/menu/section';
 import type { CustomItemComponentProps } from '@atlaskit/menu/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 import type { PositionType } from '@atlaskit/tooltip/types';
@@ -46,44 +45,22 @@ const focusedMenuItemStyle = css({
 
 const buttonStyles = (isActive?: boolean, submenuActive?: boolean) => {
 	if (isActive) {
-		if (editorExperiment('platform_editor_controls', 'variant1')) {
-			/**
-			 * Hack for item to imitate old dropdown-menu selected styles
-			 */
-			// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
-			return css`
-				position: relative;
-				&::before {
-					display: block;
-					height: 100%;
-					width: 2px;
-					position: absolute;
-					left: 0;
-					top: 0;
-					background: ${token('color.border.selected')};
-					content: '';
-				}
-				> span,
-				> span:hover,
-				> span:active {
-					background: ${token('color.background.selected')};
-					color: ${token('color.text.selected')};
-				}
-				:focus > span[aria-disabled='false'] {
-					${focusedMenuItemStyle};
-				}
-				:focus-visible,
-				:focus-visible > span[aria-disabled='false'] {
-					outline: none;
-				}
-			`;
-		}
-
 		/**
 		 * Hack for item to imitate old dropdown-menu selected styles
 		 */
 		// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
 		return css`
+			position: relative;
+			&::before {
+				display: block;
+				height: 100%;
+				width: 2px;
+				position: absolute;
+				left: 0;
+				top: 0;
+				background: ${token('color.border.selected')};
+				content: '';
+			}
 			> span,
 			> span:hover,
 			> span:active {
@@ -105,11 +82,13 @@ const buttonStyles = (isActive?: boolean, submenuActive?: boolean) => {
 				color: ${token('color.text')};
 				background-color: ${token('color.background.neutral.subtle.hovered')};
 			}
-			${!submenuActive &&
-			`
+			${
+				!submenuActive &&
+				`
 					> span:active[aria-disabled='false'] {
 						background-color: ${token('color.background.neutral.subtle.pressed')};
-					}`}
+					}`
+			}
 			> span[aria-disabled='true'] {
 				color: ${token('color.text.disabled')};
 			}

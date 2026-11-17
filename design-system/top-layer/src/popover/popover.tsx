@@ -14,13 +14,13 @@ import { token } from '@atlaskit/tokens';
 
 import { requestCloseEventName } from '../internal/closable-popover-contract';
 import { isNativeElementOpen } from '../internal/is-native-element-open';
-import { layerShowOrder } from '../internal/layer-show';
 import {
 	resolvePlacement,
 	type TPlacementAxis,
 	type TPlacementEdge,
 } from '../internal/resolve-placement';
 import type { TBoostedSurfaceResetCheck } from '../internal/surface-reset';
+import { useSyncNativeOpen } from '../internal/sync-native-open/use-sync-native-open';
 import { useAnimatedVisibility } from '../internal/use-animated-visibility';
 import { useFocusWrap } from '../internal/use-focus-wrap';
 import { useInitialFocus } from '../internal/use-initial-focus';
@@ -457,146 +457,130 @@ export const Popover: React.ForwardRefExoticComponent<
 	// animated-exit window (WCAG 2.4.3 guard). See notes/architecture/focus.md.
 	useFocusWrap({ elementRef: ownRef, role, phase });
 
-	// Bind via `useLayoutEffect`, and BEFORE the show/hide layout effect
-	// below, so listeners are attached when `showPopover()` synchronously
-	// dispatches `beforetoggle`. A regular `useEffect` would miss that
-	// first dispatch, dropping the `focusRestorationTargetRef` snapshot
-	// and breaking nested-popover focus restoration on close. React runs
-	// layout effects in source order on the same commit.
-	useLayoutEffect(() => {
-		const element = ownRef.current;
-		if (!element) {
-			return;
-		}
-
-		/**
-		 * Record an Escape `keydown` for `beforetoggle` to check. On the document, not the popover:
-		 * the browser closes the topmost popover on Escape wherever focus is, for example on the
-		 * trigger. It closes it before the `keyup`, so forget the record on `keyup`. Then an Escape
-		 * that closed another layer, or that a listener prevented, cannot tag a later close of this
-		 * one.
-		 */
-		const unbindEscape = bindAll(
-			element.ownerDocument,
-			[
-				{
-					type: 'keydown',
-					listener: (event: KeyboardEvent) => {
-						// Only an Escape while this popover is open can close it.
-						if (event.key !== 'Escape' || !isNativeElementOpen({ element })) {
-							return;
-						}
-						escapeKeydownRef.current = event;
+	// Binds before the first show: `showPopover()` dispatches `beforetoggle` synchronously, and its
+	// listener snapshots the focus restoration target and advances the visibility lifecycle.
+	const bindListeners = useCallback(
+		({ element }: { element: HTMLElement }): (() => void) => {
+			/**
+			 * Record an Escape `keydown` for `beforetoggle` to check. On the document, not the popover:
+			 * the browser closes the topmost popover on Escape wherever focus is, for example on the
+			 * trigger. It closes it before the `keyup`, so forget the record on `keyup`. Then an Escape
+			 * that closed another layer, or that a listener prevented, cannot tag a later close of this
+			 * one.
+			 */
+			const unbindEscape = bindAll(
+				element.ownerDocument,
+				[
+					{
+						type: 'keydown',
+						listener: (event: KeyboardEvent) => {
+							// Only an Escape while this popover is open can close it.
+							if (event.key !== 'Escape' || !isNativeElementOpen({ element })) {
+								return;
+							}
+							escapeKeydownRef.current = event;
+						},
 					},
-				},
-				{
-					type: 'keyup',
-					listener: (event: KeyboardEvent) => {
-						if (event.key === 'Escape') {
-							escapeKeydownRef.current = null;
-						}
+					{
+						type: 'keyup',
+						listener: (event: KeyboardEvent) => {
+							if (event.key === 'Escape') {
+								escapeKeydownRef.current = null;
+							}
+						},
 					},
+				],
+				{ capture: true },
+			);
+			// The `keyup` does not come here when focus leaves the window, so forget the record then too.
+			const unbindBlur = bind(element.ownerDocument.defaultView ?? window, {
+				type: 'blur',
+				listener: () => {
+					escapeKeydownRef.current = null;
 				},
-			],
-			{ capture: true },
-		);
-		// The `keyup` does not come here when focus leaves the window, so forget the record then too.
-		const unbindBlur = bind(element.ownerDocument.defaultView ?? window, {
-			type: 'blur',
-			listener: () => {
-				escapeKeydownRef.current = null;
-			},
-		});
-		const unbindToggle = bind(element, {
-			type: 'toggle',
-			listener: (event: ToggleEvent) => {
-				if (event.newState === 'closed') {
-					handleToggleClosed(event);
-				}
-				onToggle(event);
-			},
-		});
-		// Snapshot the active element before `useInitialFocus` moves it,
-		// then advance the shared visibility lifecycle.
-		const unbindBeforeToggle = bind(element, {
-			type: 'beforetoggle',
-			listener: (event: ToggleEvent) => {
-				handleBeforeToggle(event);
-				onBeforeToggle(event);
-			},
-		});
+			});
+			const unbindToggle = bind(element, {
+				type: 'toggle',
+				listener: (event: ToggleEvent) => {
+					if (event.newState === 'closed') {
+						handleToggleClosed(event);
+					}
+					onToggle(event);
+				},
+			});
+			// Snapshot the active element before `useInitialFocus` moves it,
+			// then advance the shared visibility lifecycle.
+			const unbindBeforeToggle = bind(element, {
+				type: 'beforetoggle',
+				listener: (event: ToggleEvent) => {
+					handleBeforeToggle(event);
+					onBeforeToggle(event);
+				},
+			});
 
-		// `requestClosePopovers()` asks the consumer to close. Nothing is
-		// hidden here, so a consumer that keeps `isOpen` stays in sync.
-		const unbindRequestClose = bind(element, {
-			type: requestCloseEventName,
-			listener: () => {
-				onCloseRef.current?.({ reason: 'programmatic' });
-			},
-		});
+			// `requestClosePopovers()` asks the consumer to close. Nothing is
+			// hidden here, so a consumer that keeps `isOpen` stays in sync.
+			const unbindRequestClose = bind(element, {
+				type: requestCloseEventName,
+				listener: () => {
+					onCloseRef.current?.({ reason: 'programmatic' });
+				},
+			});
 
-		return () => {
-			unbindEscape();
-			unbindBlur();
-			unbindToggle();
-			unbindBeforeToggle();
-			unbindRequestClose();
-		};
-	}, [handleBeforeToggle, handleToggleClosed, isMounted, onBeforeToggle, onToggle]);
+			return () => {
+				unbindEscape();
+				unbindBlur();
+				unbindToggle();
+				unbindBeforeToggle();
+				unbindRequestClose();
+			};
+		},
+		[handleBeforeToggle, handleToggleClosed, onBeforeToggle, onToggle],
+	);
 
 	/**
-	 * Initial focus (role-dependent). The show below calls it right after `showPopover()` (a hidden
-	 * popover cannot take focus), also when this popover waits for a parent layer (see
-	 * `layer-show.tsx`). So a popover's own focus lands before the popovers inside it show and take
-	 * focus, in the same task as the open, before the browser paints.
+	 * Initial focus (role-dependent). It runs once the popover has shown and its content effects have
+	 * run, and does nothing when focus is already inside. Also when this popover waits for a parent
+	 * layer (see `layer-show.tsx`).
 	 */
-	const takeInitialFocus = useInitialFocus({
+	const setInitialFocus = useInitialFocus({
 		elementRef: ownRef,
 		isEnabled: !UNSAFE__disableInitialAutoFocus,
 		initialFocusRef,
 		role,
 	});
 
-	// Show/hide based on isOpen. `showPopover`/`hidePopover` are no-ops when
-	// already in the target state. Try/catch guards `InvalidStateError` on
-	// disconnected elements (StrictMode/concurrent/unmount edge cases).
-	useLayoutEffect(() => {
-		const element = ownRef.current;
-		if (!element) {
-			return;
-		}
+	const show = useCallback(({ element }: { element: HTMLElement }): void => {
+		// Clear a stale `escape` from a prior cycle: an interrupted close may not reach
+		// `handleToggleClosed` to reset it.
+		closeReasonRef.current = 'light-dismiss';
+		escapeKeydownRef.current = null;
+		// Guards `InvalidStateError` on a disconnected element.
+		try {
+			element.showPopover();
+		} catch {}
+	}, []);
 
-		if (isOpen) {
-			// Clear stale 'escape' from a prior cycle: the ref outlives
-			// the host element, and interrupted close lifecycles may not reach
-			// `handleToggleClosed` to reset it.
-			closeReasonRef.current = 'light-dismiss';
-			escapeKeydownRef.current = null;
-			// Shows after a parent layer that opens in the same commit. A defensive fix for React's effect
-			// order, not support for the pattern (see `layer-show.tsx`).
-			const cancelShow = layerShowOrder.queueOrShow({
-				element,
-				show() {
-					try {
-						element.showPopover();
-					} catch {}
-					takeInitialFocus();
-				},
-			});
-			return () => {
-				cancelShow();
-				closeReasonRef.current = 'programmatic';
-				try {
-					element.hidePopover();
-				} catch {}
-			};
-		}
-
+	const hide = useCallback(({ element }: { element: HTMLElement }): void => {
 		closeReasonRef.current = 'programmatic';
 		try {
 			element.hidePopover();
 		} catch {}
-	}, [isOpen, takeInitialFocus]);
+	}, []);
+
+	// Show or hide the popover to match `isOpen`. It shows early, in a layout effect in
+	// `FirstSibling`, so the React `autoFocus` prop on JSX in `children` works (see
+	// `useSyncNativeOpen`).
+	const { firstSibling } = useSyncNativeOpen({
+		elementRef: ownRef,
+		hostId: popoverId,
+		isOpen,
+		isMounted,
+		bindListeners,
+		show,
+		hide,
+		onInitialFocusNeeded: setInitialFocus,
+	});
 
 	// Unmount the host once exit completes so it does not leave an empty
 	// `role`/`popover` element in the accessibility tree. The element
@@ -635,6 +619,8 @@ export const Popover: React.ForwardRefExoticComponent<
 				shouldAnimate && phase === 'exiting' && exitingAnimationXcss,
 			)}
 		>
+			{/* Before `children`: it shows the layer before any `autoFocus` or layout effect in them. */}
+			{firstSibling}
 			{children}
 		</div>
 	);

@@ -30,6 +30,7 @@ export function useLayoutAreaSizing({
 		requestedWidth,
 		defaultWidth,
 		compactDefaultWidth,
+		xlDefaultWidth,
 		minWidth,
 		maxWidth,
 		isOpen,
@@ -55,6 +56,7 @@ export function useLayoutAreaSizing({
 			requestedWidth,
 			defaultWidth,
 			compactDefaultWidth,
+			xlDefaultWidth,
 			minWidth,
 			maxWidth,
 			isOpen,
@@ -63,6 +65,7 @@ export function useLayoutAreaSizing({
 	}, [
 		area,
 		compactDefaultWidth,
+		xlDefaultWidth,
 		defaultWidth,
 		isOpen,
 		maxWidth,

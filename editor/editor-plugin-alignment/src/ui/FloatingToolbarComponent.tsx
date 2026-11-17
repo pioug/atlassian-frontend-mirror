@@ -4,12 +4,10 @@ import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { AlignmentPlugin } from '../alignmentPluginType';
 import { changeAlignment } from '../editor-commands';
 import type { AlignmentState } from '../pm-plugins/types';
-import { ToolbarType } from '../pm-plugins/types';
 import ToolbarAlignment from './ToolbarAlignment';
 
 interface FloatingToolbarComponentProps {
@@ -19,7 +17,6 @@ interface FloatingToolbarComponentProps {
 
 const FloatingToolbarSettings = {
 	disabled: false,
-	isToolbarReducedSpacing: true,
 };
 
 export function FloatingToolbarComponent({
@@ -46,14 +43,9 @@ export function FloatingToolbarComponent({
 	return (
 		<ToolbarAlignment
 			align={align}
-			isReducedSpacing={
-				editorExperiment('platform_editor_controls', 'variant1')
-					? false
-					: FloatingToolbarSettings.isToolbarReducedSpacing
-			}
+			isReducedSpacing={false}
 			changeAlignment={changeAlignmentCallback}
 			disabled={FloatingToolbarSettings.disabled || !isEnabled}
-			toolbarType={ToolbarType.FLOATING}
 			api={api}
 		/>
 	);

@@ -34,6 +34,7 @@
 		"@af/editor-examples-helpers": "workspace:^",
 		"@atlaskit/activity": "root:*",
 		"@atlaskit/adf-schema": "workspace:^",
+		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/editor-core": "workspace:^",
 		"@atlaskit/editor-plugin-synced-block": "workspace:^",
 		"@atlaskit/editor-synced-block-provider": "workspace:^",

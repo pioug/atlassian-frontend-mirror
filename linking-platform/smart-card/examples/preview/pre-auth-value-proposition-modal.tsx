@@ -10,6 +10,7 @@ import { PreAuthValuePropositionModal } from '@atlaskit/smart-card/pre-auth-valu
 import { token } from '@atlaskit/tokens';
 
 import { preAuthValuePropositionModalService } from '../../src/state/services/pre-auth-value-proposition-modal';
+import ExampleChoreographer from '../utils/pre-auth-modal-choreographer';
 import useVrExperimentGateConfig from '../utils/use-vr-experiment-gate-config';
 const URL = 'https://drive.google.com/file/d/example';
 const styles = cssMap({
@@ -31,12 +32,14 @@ export default function Preview(): React.JSX.Element | null {
 	React.useEffect(() => {
 		preAuthValuePropositionModalService.reset();
 	}, []);
-	if (!revision) return null;
+	if (!revision) {
+		return null;
+	}
 	return (
 		<Box testId="component-preview" xcss={styles.container}>
 			<p aria-hidden="true">Provider connection prompt</p>
 			<IntlProvider locale="en">
-				<SmartCardProvider client={new UnAuthClient()}>
+				<SmartCardProvider client={new UnAuthClient()} choreographer={ExampleChoreographer}>
 					<PreAuthValuePropositionModal url={URL} onFinished={() => undefined} />
 				</SmartCardProvider>
 			</IntlProvider>

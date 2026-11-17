@@ -5,7 +5,6 @@ import { createADFFromHTML } from '@atlaskit/editor-common/utils/create-adf-from
 import type { ViewMode } from '@atlaskit/editor-plugin-editor-viewmode/editorViewmodePluginType';
 import type { PlaceholderPluginOptions } from '@atlaskit/editor-plugin-placeholder/placeholder-plugin-type';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { i18n } from './i18n';
 
@@ -40,11 +39,7 @@ export function placeholderPluginOptions({ intl, options }: Props): PlaceholderP
 			return intl.formatMessage(i18n.editorEmptyDocumentPlaceholderAI);
 		}
 
-		if (editorExperiment('platform_editor_controls', 'variant1')) {
-			return intl.formatMessage(i18n.defaultPlaceholder);
-		}
-
-		return intl.formatMessage(i18n.easyMentionsPlaceholder);
+		return intl.formatMessage(i18n.defaultPlaceholder);
 		// END SECTION
 	})();
 

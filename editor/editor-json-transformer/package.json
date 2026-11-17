@@ -44,6 +44,7 @@
 		"lodash": "root:*"
 	},
 	"devDependencies": {
+		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/editor-core": "workspace:^",
 		"@atlaskit/editor-plugin-grid": "workspace:^",

@@ -121,6 +121,14 @@ Use `defaultPanelWidth` for an initial width, or pair `panelWidth` with `onPanel
 control it. Available space can constrain the rendered width. Use `onResizeEnd` for persistence or
 analytics after a completed resize, and provide localized `panelLabel` and `resizeLabel` values.
 
+With chat layout enabled, the local panel defaults to 320px below 64rem (1024px), 400px below
+110.5rem (1768px), and 500px at 110.5rem and above. These are viewport breakpoints; available layout
+space can still compress the panel. Chat retains its 400px desktop default. Use
+`compactDefaultPanelWidth` or `xlDefaultPanelWidth` to override a breakpoint's default. An explicit
+`defaultPanelWidth` supplies all breakpoint defaults unless separately overridden. Defaults are
+captured on mount; controlled and user-resized widths take precedence. `LayoutWithPanel` also
+accepts `xlDefaultPanelWidth`, with saved provider widths taking precedence.
+
 `PanelLayout` contains the layout and resizing responsibilities extracted from
 `@atlassian/panel-system`. That package's `LayoutWithPanel` remains an adapter that connects panel
 state and routed content to `PanelLayout`.

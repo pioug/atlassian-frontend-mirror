@@ -9,6 +9,11 @@
 `TopLayerTooltipPopup` in `platform/packages/design-system/tooltip/src/tooltip.tsx`. A first
 prototype used `mode="manual"`; this design replaced it.
 
+**Updated 2026-11-17:** Chrome 157 dismisses after `mouseup`, immediately before `click`. Behind
+`platform-dst-tooltip-click-recovery`, recovery now also listens for `click`, preserving the hint
+popover and its native dismissal. The event-order description below records the earlier browser
+behavior.
+
 ## Problem
 
 On the top-layer path the tooltip is `Popover mode="hint"`. A press on the trigger light-dismisses

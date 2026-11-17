@@ -400,6 +400,11 @@ export const aiSuggestionsMessages: {
 		description: string;
 		id: string;
 	};
+	thinkingKeepEditing: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	thinkingMayTakeAFewMinutes: {
 		defaultMessage: string;
 		description: string;
@@ -811,6 +816,12 @@ export const aiSuggestionsMessages: {
 		id: 'fabric.editor.ai.suggestions.thinking.mayTakeAFewMinutes.non-final',
 		defaultMessage: 'This may take a few minutes',
 		description: 'Loading message setting expectations that the AI review may take a few minutes',
+	},
+	thinkingKeepEditing: {
+		id: 'fabric.editor.ai.suggestions.thinking.keepEditing.non-final',
+		defaultMessage: 'Feel free to keep editing, suggestions are on the way',
+		description:
+			'Loading message on the AI suggestions thinking bar telling the user the review is running and they can keep editing while suggestions are generated',
 	},
 	thinkingReviewingConsistency: {
 		id: 'fabric.editor.ai.suggestions.thinking.reviewingConsistency.non-final',

@@ -1,5 +1,74 @@
 # @atlaskit/smart-card
 
+## 46.18.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.18.1
+
+### Patch Changes
+
+- [`a4ae7ed763922`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4ae7ed763922) -
+  Cleanup `feature_gate` `platform_lp_non_bold_large_sl_icon`. Large Smart Link icon tiles now
+  always use the non-bold appearance.
+- [`6594fc2cf92b4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6594fc2cf92b4) -
+  On the top-layer path, `EmbedModal` lets its modal handle Escape.
+- [`eb77966ab2676`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb77966ab2676) -
+  Restrict the pre-auth value proposition modal to Google Drive, SharePoint, OneDrive, Slack and
+  GitHub under platform_sl_3p_preauth_value_modal_killswitch.
+- Updated dependencies
+
+## 46.18.0
+
+### Minor Changes
+
+- [`01ffb8c2ec30f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/01ffb8c2ec30f) -
+  Update i18n NPM package versions for linking-platform,smart-experiences (Group 15)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.17.0
+
+### Minor Changes
+
+- [`c13b574ab38d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c13b574ab38d2) -
+  Declare the workspace dependencies used by package source and emitted types so isolated
+  installations can resolve them.
+
+### Patch Changes
+
+- [`930e07f6f6e2a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/930e07f6f6e2a) -
+  Preserve CardSSR error containment behind platform_smartlink_cardssr_missing_events while
+  retaining missing analytics and UFO events. Do not forward caught boundary errors to consumer
+  onError callbacks. Keep best-effort analytics and UFO diagnostics exception-safe so their own
+  failures cannot escape the card boundary, and skip diagnostic context extraction for resolver API
+  errors.
+- [`b1dec19499f60`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b1dec19499f60) -
+  Cleanup feature gate platform_lp_use_generator_icon_for_provider, retaining generator provider
+  icons and separate entity icons.
+- Updated dependencies
+
+## 46.16.0
+
+### Minor Changes
+
+- [`b246dad7a0032`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b246dad7a0032) -
+  Update i18n NPM package versions for linking-platform,smart-experiences (Group 15)
+
+### Patch Changes
+
+- [`79bf848b02b91`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/79bf848b02b91) -
+  Use the existing Smart Card choreographer integration for the pre-auth value modal under
+  platform_sl_3p_preauth_value_modal_killswitch. Add an optional slot-offer predicate to recheck
+  eligibility, frequency caps and experiment assignment before claiming permission. Keep the
+  existing modal API and editor toolbar integration, and count early user interactions toward the
+  frequency cap.
+- Updated dependencies
+
 ## 46.15.0
 
 ### Minor Changes

@@ -1163,3 +1163,27 @@ it('preserves the gate-off overlay cap', () => {
 	failGate('platform-dst-chat-panel-layout');
 	expect(calculate(320).panel).toMatchObject({ width: 288, minWidth: 288 });
 });
+
+describe('XL viewport allocation', () => {
+	it.each([
+		{ layoutWidth: 1984, mainMinWidth: 320, expected: 500, mode: 'inline' },
+		{ layoutWidth: 1400, mainMinWidth: 320, expected: 360, mode: 'inline' },
+		{ layoutWidth: 1400, mainMinWidth: 800, expected: 500, mode: 'overlay' },
+	])(
+		'fits the XL default to the available layout: $layoutWidth, main $mainMinWidth',
+		({ layoutWidth, mainMinWidth, expected, mode }) => {
+			passGate('platform-dst-chat-panel-layout');
+			const states = calculateLayoutAreaStates({
+				viewportWidth: 1984,
+				layoutWidth,
+				mainMinWidth,
+				isChatPanelOverlay: false,
+				isSideNavOverlay: false,
+				isXlViewport: true,
+				areas: { ...openAreas, panel: { ...openAreas.panel, xlDefaultWidth: 500 } },
+			});
+			expect(states.panel).toMatchObject({ width: expected, mode });
+			expect(states['chat-panel']?.width).toBe(mainMinWidth === 800 ? 320 : 400);
+		},
+	);
+});

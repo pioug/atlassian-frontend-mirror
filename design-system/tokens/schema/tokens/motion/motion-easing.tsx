@@ -5,6 +5,24 @@ const easing: AttributeSchema<MotionEasingTokenSchema<BaseEasingToken>> = {
 	motion: {
 		easing: {
 			out: {
+				expo: {
+					attributes: {
+						group: 'motionEasing',
+						state: 'active',
+						introduced: '20.12.0',
+						description:
+							'Use for floating controls following a panel entrance, with fast acceleration and a soft landing.',
+					},
+				},
+				quart: {
+					attributes: {
+						group: 'motionEasing',
+						state: 'active',
+						introduced: '20.12.0',
+						description:
+							'Use for floating controls following a panel exit, moving immediately and easing to rest.',
+					},
+				},
 				bold: {
 					attributes: {
 						group: 'motionEasing',

@@ -7,14 +7,15 @@ import { flushSync } from 'react-dom';
 
 import { cssMap, cx, jsx } from '@compiled/react';
 import { bindAll } from 'bind-event-listener';
+import invariant from 'tiny-invariant';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import { useLayoutEffect } from '@atlaskit/ds-lib/use-layout-effect';
 import { token } from '@atlaskit/tokens';
 
 import { isNativeElementOpen } from '../internal/is-native-element-open';
-import { layerShowOrder } from '../internal/layer-show';
 import type { TBoostedSurfaceResetCheck } from '../internal/surface-reset';
+import { useSyncNativeOpen } from '../internal/sync-native-open/use-sync-native-open';
 import { useAnimatedVisibility } from '../internal/use-animated-visibility';
 import { useFocusWrap } from '../internal/use-focus-wrap';
 import { type TDialogDismissedBy, type TDialogProps } from './types';
@@ -185,6 +186,11 @@ function reopenAfterUnaskedClose({ dialog }: { dialog: HTMLDialogElement }): boo
 	return dialog.open;
 }
 
+function getDialogHost({ element }: { element: HTMLElement }): HTMLDialogElement {
+	invariant(element instanceof HTMLDialogElement, 'The Dialog host is a <dialog>');
+	return element;
+}
+
 /**
  * Low-level `<dialog>` primitive. It has no visual opinions: no width, height, background,
  * border-radius or layout. Consumers provide their own styling.
@@ -267,42 +273,36 @@ export const Dialog: React.ForwardRefExoticComponent<
 		onExitFinish,
 	});
 
-	// Bind the lifecycle listeners before the `isOpen` effect below calls `showModal()` or
-	// `close()`: `beforetoggle` fires synchronously during those calls.
-	useLayoutEffect(() => {
-		if (!isMounted) {
-			return;
-		}
-
-		const dialog = ownRef.current;
-		if (!dialog) {
-			return;
-		}
-
-		return bindAll(dialog, [
-			{ type: 'beforetoggle', listener: onBeforeToggle },
-			{
-				type: 'toggle',
-				listener(event) {
-					// The consumer unmounted the dialog in `onClose`. Do not schedule
-					// `onExitFinish` after unmount.
-					if (!dialog.isConnected) {
-						return;
-					}
-					// Safety net: something closed the native dialog while `isOpen` is `true`, so
-					// show it again. Runs before `onToggle`, so the exit never settles.
-					if (
-						event.newState === 'closed' &&
-						isOpenRef.current &&
-						reopenAfterUnaskedClose({ dialog })
-					) {
-						return;
-					}
-					onToggle(event);
+	// Binds before the first show: `beforetoggle` fires synchronously during `showModal()`.
+	const bindListeners = useCallback(
+		({ element }: { element: HTMLElement }): (() => void) => {
+			const dialog = getDialogHost({ element });
+			return bindAll(dialog, [
+				{ type: 'beforetoggle', listener: onBeforeToggle },
+				{
+					type: 'toggle',
+					listener(event) {
+						// The consumer unmounted the dialog in `onClose`. Do not schedule
+						// `onExitFinish` after unmount.
+						if (!dialog.isConnected) {
+							return;
+						}
+						// Safety net: something closed the native dialog while `isOpen` is `true`, so
+						// show it again. Runs before `onToggle`, so the exit never settles.
+						if (
+							event.newState === 'closed' &&
+							isOpenRef.current &&
+							reopenAfterUnaskedClose({ dialog })
+						) {
+							return;
+						}
+						onToggle(event);
+					},
 				},
-			},
-		]);
-	}, [isMounted, onBeforeToggle, onToggle]);
+			]);
+		},
+		[onBeforeToggle, onToggle],
+	);
 
 	// Native `<dialog>.showModal()` traps focus but wraps through `<body>` at the boundary
 	// (A → B → C → body → A). `useFocusWrap` handles Tab and wraps directly (A → B → C → A), as in
@@ -310,36 +310,32 @@ export const Dialog: React.ForwardRefExoticComponent<
 	// Order regression guard).
 	useFocusWrap({ elementRef: ownRef, role: 'dialog', phase });
 
-	// Show or close the native dialog to match `isOpen`.
-	useLayoutEffect(() => {
-		const dialog = ownRef.current;
-		if (!dialog) {
-			return;
+	const show = useCallback(({ element }: { element: HTMLElement }): void => {
+		const dialog = getDialogHost({ element });
+		if (!dialog.open) {
+			dialog.showModal();
 		}
+	}, []);
 
-		if (isOpen) {
-			// Shows after a parent layer that opens in the same commit. A defensive fix for React's effect
-			// order, not support for the pattern (see `layer-show.tsx`).
-			const cancelShow = layerShowOrder.queueOrShow({
-				element: dialog,
-				show() {
-					if (!dialog.open) {
-						dialog.showModal();
-					}
-				},
-			});
-			return () => {
-				cancelShow();
-				if (dialog.open) {
-					dialog.close();
-				}
-			};
-		}
-
+	const hide = useCallback(({ element }: { element: HTMLElement }): void => {
+		const dialog = getDialogHost({ element });
 		if (dialog.open) {
 			dialog.close();
 		}
-	}, [isOpen]);
+	}, []);
+
+	// Show or close the native dialog to match `isOpen`. It shows early, in a layout effect in
+	// `FirstSibling`, so the React `autoFocus` prop on JSX in `children` works (see
+	// `useSyncNativeOpen`).
+	const { firstSibling } = useSyncNativeOpen({
+		elementRef: ownRef,
+		hostId: dialogId,
+		isOpen,
+		isMounted,
+		bindListeners,
+		show,
+		hide,
+	});
 
 	// Standard path: Escape.
 	const handleEscape = useCallback(() => {
@@ -412,6 +408,8 @@ export const Dialog: React.ForwardRefExoticComponent<
 				shouldAnimate && phase === 'exiting' && exitingAnimationXcss,
 			)}
 		>
+			{/* Before `children`: it shows the layer before any `autoFocus` or layout effect in them. */}
+			{firstSibling}
 			{children}
 		</dialog>
 	);

@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-placeholder
 
+## 33.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 32.0.0
+
+### Patch Changes
+
+- [`f039487b0e531`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f039487b0e531) -
+  Remove internal code that the `platform_editor_controls` experiment cleanup left unused: unused
+  component props, an unused view mode subscription in media groups, unused placeholder messages,
+  and the internal bracket placeholder text.
+- Updated dependencies
+
+## 31.0.1
+
+### Patch Changes
+
+- [`58e5092700759`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/58e5092700759) -
+  Remove the `control` branches of experiment `platform_editor_controls`; the editor controls
+  (`variant1`) experience is now permanent.
+- Updated dependencies
+
 ## 31.0.0
 
 ### Patch Changes

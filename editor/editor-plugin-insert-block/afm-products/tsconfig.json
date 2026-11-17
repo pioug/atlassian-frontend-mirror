@@ -41,6 +41,9 @@
 			"path": "../../editor-plugin-connectivity/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-context-panel/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-date/afm-products/tsconfig.json"
 		},
 		{
@@ -144,9 +147,6 @@
 		},
 		{
 			"path": "../../../design-system/textfield/afm-products/tsconfig.json"
-		},
-		{
-			"path": "../../tmp-editor-statsig/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/tokens/afm-products/tsconfig.json"

@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 33.0.1
+
+### Patch Changes
+
+- [`39dd6362bbf56`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/39dd6362bbf56) -
+  Keep the existing 2px contributor-avatar ring width private to Show Diff instead of importing
+  Avatar's obsolete border-width constant. Avatar sizes, shape rendering, colors, event handlers and
+  layout remain unchanged.
+- Updated dependencies
+
+## 33.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 32.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 31.0.0
 
 ### Patch Changes

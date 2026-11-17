@@ -42,6 +42,7 @@ import type { ResizeBound, ResizeBounds } from './panel-splitter/types';
 import { useSideNavRef } from './side-nav/use-side-nav-ref';
 import type { CommonSlotProps } from './types';
 import { useLayoutId } from './use-layout-id';
+import { usePanelContentEnter } from './use-panel-content-enter';
 import { useResizingWidthCssVarOnRootElement } from './use-resizing-width-css-var-on-root-element';
 import { useSafeDefaultWidth } from './use-safe-default-width';
 
@@ -141,7 +142,7 @@ const styles = cssMap({
 			},
 			transitionProperty: 'position',
 			transitionDuration: token('motion.duration.instant'),
-			transitionDelay: '24ms', // Snaps main content when 60% of the panel has entered
+			transitionDelay: '60ms', // Snap at 30% of the 200ms entrance.
 			transitionBehavior: 'allow-discrete',
 			'@starting-style': {
 				position: 'fixed',
@@ -155,15 +156,16 @@ const styles = cssMap({
 			"[dir='rtl'] &": {
 				animation: token('motion.panel.exit.left'),
 			},
-			transitionProperty: 'position',
-			transitionDuration: token('motion.duration.instant'),
-			transitionDelay: '19ms', // Snaps main content when 60% of the panel has exited
-			transitionBehavior: 'allow-discrete',
 			position: 'fixed',
 		},
 	},
 	contentEntering: {
 		animation: token('motion.panel.content.enter'),
+	},
+	contentEnteringOnOpen: {
+		'@media (prefers-reduced-motion: no-preference)': {
+			animation: token('motion.panel.content.open'),
+		},
 	},
 	contentExiting: {
 		animation: token('motion.panel.content.exit'),
@@ -291,6 +293,7 @@ export function Panel({
 		},
 		initialState: defaultWidth === 0 ? 'hidden' : undefined,
 	});
+	const shouldAnimateContentEnter = usePanelContentEnter(state);
 
 	/**
 	 * Don't show the skip link if the slot has 0 width.
@@ -449,7 +452,7 @@ export function Panel({
 				<div
 					css={[
 						styles.scrollContainer,
-						isMotionUpliftEnabled && state === 'entering' && styles.contentEntering,
+						isMotionUpliftEnabled && shouldAnimateContentEnter && styles.contentEnteringOnOpen,
 						isMotionUpliftEnabled && state === 'exiting' && styles.contentExiting,
 					]}
 				>

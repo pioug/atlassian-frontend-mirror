@@ -10,7 +10,6 @@ import { useIntl } from 'react-intl';
 
 import { toolbarMessages as messages } from '@atlaskit/editor-common/messages/layout';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
 
 const PLACEHOLDER_SELECTOR =
@@ -30,43 +29,23 @@ const layoutColumnDangerPreviewStyle = css({
 });
 
 const getPlaceholderStyle = (message: string) => {
-	if (editorExperiment('platform_editor_controls', 'variant1')) {
-		const placeholderSelector = isExperimentEnabled('platform_editor_improve_inp_batch_2')
-			? PLACEHOLDER_SELECTOR_NEXT
-			: PLACEHOLDER_SELECTOR;
-
-		return css({
-			// when paragraph is the only child, and it only has a trailingBreak.
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			[placeholderSelector]: {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-				'&::before': {
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-					content: `"${message}"`,
-					position: 'absolute',
-					color: token('color.text.subtlest'),
-					pointerEvents: 'none',
-				},
-			},
-		});
-	}
+	const placeholderSelector = isExperimentEnabled('platform_editor_improve_inp_batch_2')
+		? PLACEHOLDER_SELECTOR_NEXT
+		: PLACEHOLDER_SELECTOR;
 
 	return css({
 		// when paragraph is the only child, and it only has a trailingBreak.
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-		'.ProseMirror .layoutSectionView-content-wrap.selected [data-layout-column] > [data-layout-content] > p:only-child:has(.ProseMirror-trailingBreak:only-child)':
-			{
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-				'&::before': {
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-					content: `"${message}"`,
-					position: 'absolute',
-					color: token('color.text.disabled'),
-					font: token('font.body'),
-					marginTop: token('space.050'),
-					pointerEvents: 'none',
-				},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		[placeholderSelector]: {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
+			'&::before': {
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				content: `"${message}"`,
+				position: 'absolute',
+				color: token('color.text.subtlest'),
+				pointerEvents: 'none',
 			},
+		},
 	});
 };
 
@@ -74,9 +53,7 @@ export const GlobalStylesWrapper = (): jsx.JSX.Element => {
 	const { formatMessage } = useIntl();
 
 	const placeholderStyle = useMemo(() => {
-		const placeholderText = editorExperiment('platform_editor_controls', 'variant1')
-			? messages.controlslayoutPlaceholder
-			: messages.layoutPlaceholder;
+		const placeholderText = messages.controlslayoutPlaceholder;
 		return getPlaceholderStyle(formatMessage(placeholderText));
 	}, [formatMessage]);
 

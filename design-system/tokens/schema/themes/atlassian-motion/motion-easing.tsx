@@ -9,6 +9,8 @@ const motion: ValueSchema<MotionEasingTokenSchema<BaseEasingToken>> = {
 	motion: {
 		easing: {
 			out: {
+				expo: { value: 'EaseExpoOut' },
+				quart: { value: 'EaseQuartOut' },
 				bold: { value: 'EaseBoldOut' },
 				practical: { value: 'EasePracticalOut' },
 			},

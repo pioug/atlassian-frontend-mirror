@@ -1,5 +1,23 @@
 # @atlaskit/smart-hooks
 
+## 2.18.0
+
+### Minor Changes
+
+- [`01ffb8c2ec30f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/01ffb8c2ec30f) -
+  Update i18n NPM package versions for linking-platform,smart-experiences (Group 15)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.17.0
+
+### Minor Changes
+
+- [`b246dad7a0032`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b246dad7a0032) -
+  Update i18n NPM package versions for linking-platform,smart-experiences (Group 15)
+
 ## 2.16.0
 
 ### Minor Changes

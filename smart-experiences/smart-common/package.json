@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-common",
-	"version": "3.1.0",
+	"version": "3.2.0",
 	"description": "Smarts common lib",
 	"license": "Apache-2.0",
 	"publishConfig": {
@@ -32,6 +32,7 @@
 		"react": "^18.2.0"
 	},
 	"devDependencies": {
+		"@atlaskit/docs": "workspace:^",
 		"fetch-mock": "root:*",
 		"react": "root:*",
 		"react-dom": "root:*"
@@ -40,6 +41,7 @@
 		".": "./src/index.ts",
 		"./config": "./src/entry-points/config.ts",
 		"./recommendations-client": "./src/entry-points/recommendations-client.ts",
-		"./types": "./src/entry-points/types.ts"
+		"./types": "./src/entry-points/types.ts",
+		"./recommendations-response": "./src/entry-points/recommendations-response.ts"
 	}
 }

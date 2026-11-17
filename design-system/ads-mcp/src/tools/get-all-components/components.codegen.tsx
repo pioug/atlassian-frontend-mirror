@@ -3,7 +3,7 @@
  *
  * Structured content components from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::0dfda0b0a3dbad958f168f6320f9ce06>>
+ * @codegen <<SignedSource::174685ee28cdfe6acf7017c610e6eef6>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -2843,12 +2843,6 @@ export const components: ComponentMcpPayload[] = [
 					'The relationship of the linked URL as space-separated link types.\nGenerally you\'ll want to set this to "noopener noreferrer" when `target` is "_blank".',
 			},
 			{
-				name: 'returnFocusRef',
-				type: 'RefObject<HTMLElement> | undefined',
-				description:
-					'If ref is passed, focus returns to that specific ref element after dropdown item clicked.',
-			},
-			{
 				name: 'role',
 				type: 'string | undefined',
 				description:
@@ -3351,12 +3345,6 @@ export const components: ComponentMcpPayload[] = [
 				name: 'placement',
 				type: 'Placement | undefined',
 				description: 'Position of the menu.',
-			},
-			{
-				name: 'returnFocusRef',
-				type: 'React.RefObject<HTMLElement> | undefined',
-				description:
-					'If ref is passed, focus returns to that specific ref element after dropdown dismissed.',
 			},
 			{
 				name: 'shouldFitContainer',
@@ -8548,7 +8536,8 @@ export const components: ComponentMcpPayload[] = [
 			{
 				name: 'onBlur',
 				type: 'React.FocusEventHandler<HTMLInputElement> | undefined',
-				description: 'Handle blur events on the control',
+				description:
+					'Handle blur events on the control\n\nOn the top layer, focus moving into the menu is not a blur. When focus leaves from the menu,\nthe event is from the menu element.',
 			},
 			{
 				name: 'onChange',
@@ -8568,7 +8557,8 @@ export const components: ComponentMcpPayload[] = [
 			{
 				name: 'onFocus',
 				type: 'React.FocusEventHandler<HTMLInputElement> | undefined',
-				description: 'Handle focus events on the control',
+				description:
+					'Handle focus events on the control\n\nOn the top layer, focus coming back from the menu does not call this again.',
 			},
 			{
 				name: 'onInputChange',
@@ -8890,7 +8880,8 @@ export const components: ComponentMcpPayload[] = [
 			{
 				name: 'onBlur',
 				type: 'React.FocusEventHandler<HTMLInputElement> | undefined',
-				description: 'Handle blur events on the control',
+				description:
+					'Handle blur events on the control\n\nOn the top layer, focus moving into the menu is not a blur. When focus leaves from the menu,\nthe event is from the menu element.',
 			},
 			{
 				name: 'onChange',
@@ -8904,7 +8895,8 @@ export const components: ComponentMcpPayload[] = [
 			{
 				name: 'onFocus',
 				type: 'React.FocusEventHandler<HTMLInputElement> | undefined',
-				description: 'Handle focus events on the control',
+				description:
+					'Handle focus events on the control\n\nOn the top layer, focus coming back from the menu does not call this again.',
 			},
 			{
 				name: 'onInputChange',
@@ -9228,7 +9220,8 @@ export const components: ComponentMcpPayload[] = [
 			{
 				name: 'onBlur',
 				type: 'React.FocusEventHandler<HTMLInputElement> | undefined',
-				description: 'Handle blur events on the control',
+				description:
+					'Handle blur events on the control\n\nOn the top layer, focus moving into the menu is not a blur. When focus leaves from the menu,\nthe event is from the menu element.',
 			},
 			{
 				name: 'onChange',
@@ -9242,7 +9235,8 @@ export const components: ComponentMcpPayload[] = [
 			{
 				name: 'onFocus',
 				type: 'React.FocusEventHandler<HTMLInputElement> | undefined',
-				description: 'Handle focus events on the control',
+				description:
+					'Handle focus events on the control\n\nOn the top layer, focus coming back from the menu does not call this again.',
 			},
 			{
 				name: 'onInputChange',
@@ -9617,7 +9611,8 @@ export const components: ComponentMcpPayload[] = [
 			{
 				name: 'onBlur',
 				type: 'React.FocusEventHandler<HTMLInputElement> | undefined',
-				description: 'Handle blur events on the control',
+				description:
+					'Handle blur events on the control\n\nOn the top layer, focus moving into the menu is not a blur. When focus leaves from the menu,\nthe event is from the menu element.',
 			},
 			{
 				name: 'onChange',
@@ -9637,7 +9632,8 @@ export const components: ComponentMcpPayload[] = [
 			{
 				name: 'onFocus',
 				type: 'React.FocusEventHandler<HTMLInputElement> | undefined',
-				description: 'Handle focus events on the control',
+				description:
+					'Handle focus events on the control\n\nOn the top layer, focus coming back from the menu does not call this again.',
 			},
 			{
 				name: 'onInputChange',
@@ -10034,7 +10030,8 @@ export const components: ComponentMcpPayload[] = [
 			{
 				name: 'onBlur',
 				type: 'React.FocusEventHandler<HTMLInputElement> | undefined',
-				description: 'Handle blur events on the control',
+				description:
+					'Handle blur events on the control\n\nOn the top layer, focus moving into the menu is not a blur. When focus leaves from the menu,\nthe event is from the menu element.',
 			},
 			{
 				name: 'onChange',
@@ -10054,7 +10051,8 @@ export const components: ComponentMcpPayload[] = [
 			{
 				name: 'onFocus',
 				type: 'React.FocusEventHandler<HTMLInputElement> | undefined',
-				description: 'Handle focus events on the control',
+				description:
+					'Handle focus events on the control\n\nOn the top layer, focus coming back from the menu does not call this again.',
 			},
 			{
 				name: 'onInputChange',
@@ -10403,7 +10401,8 @@ export const components: ComponentMcpPayload[] = [
 			{
 				name: 'onBlur',
 				type: 'FocusEventHandler<HTMLInputElement> | undefined',
-				description: 'Handle blur events on the control',
+				description:
+					'Handle blur events on the control\n\nOn the top layer, focus moving into the menu is not a blur. When focus leaves from the menu,\nthe event is from the menu element.',
 			},
 			{
 				name: 'onChange',
@@ -10413,7 +10412,8 @@ export const components: ComponentMcpPayload[] = [
 			{
 				name: 'onFocus',
 				type: 'FocusEventHandler<HTMLInputElement> | undefined',
-				description: 'Handle focus events on the control',
+				description:
+					'Handle focus events on the control\n\nOn the top layer, focus coming back from the menu does not call this again.',
 			},
 			{
 				name: 'onInputChange',
@@ -10764,7 +10764,8 @@ export const components: ComponentMcpPayload[] = [
 			{
 				name: 'onBlur',
 				type: 'FocusEventHandler<HTMLInputElement> | undefined',
-				description: 'Handle blur events on the control',
+				description:
+					'Handle blur events on the control\n\nOn the top layer, focus moving into the menu is not a blur. When focus leaves from the menu,\nthe event is from the menu element.',
 			},
 			{
 				name: 'onChange',
@@ -10778,7 +10779,8 @@ export const components: ComponentMcpPayload[] = [
 			{
 				name: 'onFocus',
 				type: 'FocusEventHandler<HTMLInputElement> | undefined',
-				description: 'Handle focus events on the control',
+				description:
+					'Handle focus events on the control\n\nOn the top layer, focus coming back from the menu does not call this again.',
 			},
 			{
 				name: 'onInputChange',

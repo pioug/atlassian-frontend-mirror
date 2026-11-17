@@ -1,22 +1,37 @@
 import React, { useEffect, useRef, useState } from 'react';
 
+import type { IntlShape } from 'react-intl';
+
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import { appearancePropsMap } from '@atlaskit/editor-common/card';
+import type { CardOptions } from '@atlaskit/editor-common/card/cardOptions';
 import Button from '@atlaskit/editor-common/FloatingToolbar/Button';
-import Separator from '@atlaskit/editor-common/FloatingToolbar/Separator';
 import type { CardProvider } from '@atlaskit/editor-common/provider-factory/card-provider';
-import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type { Command } from '@atlaskit/editor-common/types/command';
 import type {
 	FloatingToolbarCustom,
 	FloatingToolbarItem,
 } from '@atlaskit/editor-common/types/floating-toolbar';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { ArrowKeyNavigationType } from '@atlaskit/editor-common/ui-menu/ArrowKeyNavigationProvider/types';
 import { DropdownContainer as UiDropdown } from '@atlaskit/editor-common/ui-menu/DropdownContainer';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import { Flex } from '@atlaskit/primitives/compiled/flex';
 
-import type { HyperlinkToolbarAppearanceProps } from './HyperlinkToolbarAppearance';
+import type { CardPlugin } from '../cardPluginType';
 import { LinkAppearanceMenu } from './LinkToolbarAppearanceDropdown';
+
+export interface HyperlinkToolbarAppearanceProps {
+	cardOptions?: CardOptions;
+	editorAnalyticsApi: EditorAnalyticsAPI | undefined;
+	editorPluginApi: ExtractInjectionAPI<CardPlugin> | undefined;
+	editorState: EditorState;
+	editorView?: EditorView;
+	intl: IntlShape;
+	url: string;
+}
 
 const CustomHyperlinkDropdown = (
 	props: Omit<HyperlinkToolbarAppearanceProps, 'editorState'> & {
@@ -29,9 +44,6 @@ const CustomHyperlinkDropdown = (
 	const [isOpen, setIsOpen] = useState(false);
 	const cardProvider = useRef<CardProvider | undefined>(undefined);
 	const containerRef = useRef<HTMLElement | undefined>(undefined);
-	const areAnyNewToolbarFlagsEnabled = areToolbarFlagsEnabled(
-		Boolean(props.editorPluginApi?.toolbar),
-	);
 
 	const {
 		url,
@@ -119,7 +131,6 @@ const CustomHyperlinkDropdown = (
 			onClick={toggleOpen}
 			icon={currentAppearanceDisplayInformation.icon({ label: '' })}
 			iconAfter={<ChevronDownIcon label="" spacing="compact" size="small" />}
-			areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 		>
 			{title}
 		</Button>
@@ -153,16 +164,8 @@ const CustomHyperlinkDropdown = (
 					allowDatasource={allowDatasource}
 					dispatchCommand={dispatchCommand}
 					settingsConfig={settingsConfig}
-					areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 				/>
 			</UiDropdown>
-			{!areToolbarFlagsEnabled(Boolean(props.editorPluginApi?.toolbar)) && (
-				<Separator
-					areAnyNewToolbarFlagsEnabled={areToolbarFlagsEnabled(
-						Boolean(props.editorPluginApi?.toolbar),
-					)}
-				/>
-			)}
 		</Flex>
 	);
 };

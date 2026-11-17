@@ -1,5 +1,24 @@
 # @atlaskit/user-picker
 
+## 14.8.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 14.8.3
+
+### Patch Changes
+
+- [`be96129fdc3f4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be96129fdc3f4) -
+  Behind `platform-user-picker-a11y-30826-value-list`, expose selected user-picker values as a
+  single unordered list with one list item per value, including custom value renderers. Keep the
+  combobox outside the list and preserve its focus when the selection becomes empty or nonempty.
+  List wrappers use `display: contents` to preserve layout and existing value animations. Keep the
+  implementation within user-picker; the flag-off path retains its existing markup. Addresses
+  A11Y-30826.
+- Updated dependencies
+
 ## 14.8.2
 
 ### Patch Changes

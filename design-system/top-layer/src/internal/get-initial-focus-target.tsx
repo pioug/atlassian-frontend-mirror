@@ -1,5 +1,6 @@
 import type { RefObject } from 'react';
 
+import { canTakeFocus } from '../focus/can-take-focus';
 import { getFirstFocusable } from '../focus/get-first-focusable';
 
 /**
@@ -7,17 +8,19 @@ import { getFirstFocusable } from '../focus/get-first-focusable';
  * based on its ARIA role.
  *
  * Focus rules by role (per WAI-ARIA APG):
- * - `dialog` / `alertdialog`: first element with `[autofocus]`, or first focusable element
+ * - `dialog` / `alertdialog`: first `[autofocus]` element that can take focus, or first focusable
+ *   element
  * - `menu`: first menu item (`[role="menuitem|menuitemcheckbox|menuitemradio"]`)
  * - `listbox`: first selected option (`[aria-selected="true"]`), or first option (`[role="option"]`)
  * - `tooltip`: no focus movement (tooltips are informational)
  * - no role / other roles: no focus movement
  *
- * Note: React 18's `autoFocus` JSX prop does NOT set the HTML `autofocus`
- * attribute - it only calls `.focus()` imperatively during commit, which
- * has no effect on hidden popover content. Consumers must set the native
- * attribute via a ref callback (e.g. `node.setAttribute('autofocus', '')`).
- * React 19+ reflects the JSX prop as the HTML attribute automatically.
+ * Note: React's `autoFocus` JSX prop (18 and 19) does not set the HTML
+ * `autofocus` attribute on the client. It calls `.focus()` in the commit, with
+ * the other content effects. The layer shows before its content effects, so
+ * that call works, and initial focus then does nothing (focus is already
+ * inside). An `autofocus` attribute set by hand is still picked here. See
+ * `notes/decisions/react-autofocus-and-focus-on-open.md`.
  *
  * Combobox pattern exception: if the popup is controlled by a focused
  * combobox-like trigger (its `aria-controls` references this popup),
@@ -162,10 +165,14 @@ export function getInitialFocusTarget({
 		if (overrideTarget) {
 			return overrideTarget;
 		}
-		// Prefer element with the native HTML autofocus attribute.
-		const autofocusEl = container.querySelector<HTMLElement>('[autofocus]');
-		if (autofocusEl) {
-			return autofocusEl;
+		// Prefer the first element with the native HTML autofocus attribute that can take focus, as
+		// the browser's autofocus delegate does. A disabled or hidden one is skipped, so it cannot
+		// leave focus where it was. It does not need to be in the Tab order.
+		const autofocusElement = Array.from(
+			container.querySelectorAll<HTMLElement>('[autofocus]'),
+		).find((element) => canTakeFocus({ element }));
+		if (autofocusElement) {
+			return autofocusElement;
 		}
 		// Fall back to first focusable element
 		return getFirstFocusable({ container });
@@ -246,7 +253,7 @@ export function getInitialFocusTarget({
  * Role is taken from the typed `role` prop - this is the consumer's contract
  * and is not subject to drift from a directly-mutated DOM attribute.
  *
- * `useInitialFocus` returns `takeInitialFocus`. `Popover` calls it in its
+ * `useInitialFocus` returns `setInitialFocus`. `Popover` calls it in its
  * show, right after `showPopover()`, so focus moves each time the popover
  * shows:
  *
@@ -269,13 +276,9 @@ export function getInitialFocusTarget({
  * there, the popup would be visible again with focus stranded on the trigger,
  * a keyboard usability gap for menu/dialog/listbox roles.
  *
- * Note: there is a rare programmatic path where a consumer flips `isOpen`
- * false → true without any user-initiated close gesture and had moved focus
- * to a non-default target inside the popup. In that scenario this hook
- * re-focuses the role-appropriate default (e.g. first menu item) rather
- * than preserving the consumer-chosen target. This matches the documented
- * `closed → entering` behavior and is considered acceptable given how
- * abstract the scenario is. See `notes/architecture/focus.md`.
+ * Edge case: a close and a reopen in the same task, before a paint, can find
+ * focus still inside the popup. Focus then stays where it was, and browsers
+ * differ (see `set-initial-focus.tsx`).
  *
  * Focus lands in the same task as the open, before the browser paints. A
  * popover that waits for a parent layer takes focus after that parent shows

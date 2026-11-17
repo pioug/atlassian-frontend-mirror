@@ -15,7 +15,7 @@ export { AvatarContext } from './avatar-context';
 export type { AvatarContextProps } from './avatar-context';
 export { useAvatarContext } from './use-avatar-context';
 
-export { BORDER_WIDTH, ACTIVE_SCALE_FACTOR } from './constants';
+export { ACTIVE_SCALE_FACTOR } from './constants';
 export { AVATAR_SIZES } from './avatar-sizes';
 export { AVATAR_RADIUS } from './avatar-radius';
 

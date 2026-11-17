@@ -130,6 +130,7 @@
 		"react": "^18.2.0 || ^19.2.0"
 	},
 	"devDependencies": {
+		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/feature-gate-js-client": "workspace:^",
 		"@atlassian/codegen": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",

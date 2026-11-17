@@ -5,7 +5,6 @@ import { ZERO_WIDTH_SPACE } from '@atlaskit/editor-common/whitespace/whitespace'
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
 
 import { cycleThroughPlaceholderPrompts } from './animation';
@@ -110,7 +109,7 @@ export function createPlaceholderDecoration(
 
 	// only truncate text for nested nodes, otherwise applying 'overflow: hidden;' to top level nodes
 	// creates issues with quick insert button
-	if (isTargetNested && editorExperiment('platform_editor_controls', 'variant1')) {
+	if (isTargetNested) {
 		placeholderDecoration.classList.add('placeholder-decoration-hide-overflow');
 	}
 

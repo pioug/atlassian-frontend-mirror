@@ -18,9 +18,7 @@ import {
 } from '@atlaskit/editor-common/analytics/types/enums';
 import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics/types/events';
 import type { CardOptions } from '@atlaskit/editor-common/card/cardOptions';
-import buildLayoutButtons, {
-	buildLayoutDropdown,
-} from '@atlaskit/editor-common/card/MediaAndEmbedsToolbar';
+import { buildLayoutDropdown } from '@atlaskit/editor-common/card/MediaAndEmbedsToolbar';
 import { commandWithMetadata } from '@atlaskit/editor-common/card/utils';
 import { isOfflineMode } from '@atlaskit/editor-common/connectivity/isOfflineMode';
 import { getLinkPreferencesURLFromENV } from '@atlaskit/editor-common/link/utils';
@@ -32,7 +30,6 @@ import { linkToolbarMessages } from '@atlaskit/editor-common/messages/link-toolb
 import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import { richMediaClassName } from '@atlaskit/editor-common/styles/media-single';
 import { FLOATING_TOOLBAR_LINKPICKER_CLASSNAME } from '@atlaskit/editor-common/styles/smartCard';
-import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type { Command } from '@atlaskit/editor-common/types/command';
 import type {
 	FloatingToolbarHandler,
@@ -73,16 +70,13 @@ import {
 	titleUrlPairFromNode,
 } from '../pm-plugins/utils';
 import type { CardPluginOptions, CardPluginState, ToolbarResolvedAttributes } from '../types';
-import { DatasourceAppearanceButton } from './DatasourceAppearanceButton';
 import {
 	buildEditLinkToolbar,
 	editLinkToolbarConfig,
 	getEditLinkCallback,
 } from './EditLinkToolbar';
 import { EditToolbarButton } from './EditToolbarButton';
-import { HyperlinkToolbarAppearance } from './HyperlinkToolbarAppearance';
 import { getCustomHyperlinkAppearanceDropdown } from './HyperlinkToolbarAppearanceDropdown';
-import { LinkToolbarAppearance } from './LinkToolbarAppearance';
 import { getLinkAppearanceDropdown } from './LinkToolbarAppearanceDropdown';
 import { OpenLinkToolbarButton } from './OpenLinkToolbarButton';
 import { OpenPreviewPanelToolbarButton } from './OpenPreviewButton';
@@ -359,23 +353,8 @@ const buildAlignmentOptions = (
 	widthPluginDependencyApi: PluginDependenciesAPI<WidthPlugin> | undefined,
 	analyticsApi: EditorAnalyticsAPI | undefined,
 	cardOptions?: CardOptions,
-	areAnyNewToolbarFlagsEnabled?: boolean,
 ): FloatingToolbarItem<Command>[] => {
-	if (areAnyNewToolbarFlagsEnabled) {
-		return buildLayoutDropdown(
-			state,
-			intl,
-			state.schema.nodes.embedCard,
-			widthPluginDependencyApi,
-			analyticsApi,
-			true,
-			true,
-			cardOptions?.allowWrapping,
-			cardOptions?.allowAlignment,
-		);
-	}
-
-	return buildLayoutButtons(
+	return buildLayoutDropdown(
 		state,
 		intl,
 		state.schema.nodes.embedCard,
@@ -443,10 +422,6 @@ const generateToolbarItems =
 				title: title,
 			};
 		}
-
-		const areAllNewToolbarFlagsDisabled = !areToolbarFlagsEnabled(
-			Boolean(pluginInjectionApi?.toolbar),
-		);
 
 		const currentAppearance = appearanceForNodeType(node.type);
 		const { hoverDecoration } = pluginInjectionApi?.decorations?.actions ?? {};
@@ -521,39 +496,6 @@ const generateToolbarItems =
 		} else {
 			const { inlineCard } = state.schema.nodes;
 
-			const editItems: Array<FloatingToolbarItem<Command>> = cardOptions.allowDatasource
-				? [
-						{
-							type: 'custom',
-							fallback: [],
-							render: (editorView) => (
-								<EditToolbarButton
-									key="edit-toolbar-item"
-									url={url}
-									intl={intl}
-									editorAnalyticsApi={editorAnalyticsApi}
-									editorView={editorView}
-									onLinkEditClick={getEditLinkCallback(editorAnalyticsApi, true)}
-									currentAppearance={currentAppearance}
-									areAnyNewToolbarFlagsEnabled={!areAllNewToolbarFlagsDisabled}
-								/>
-							),
-						},
-					]
-				: [
-						{
-							id: 'editor.link.edit',
-							type: 'button',
-							selected: false,
-							metadata: metadata,
-							title: intl.formatMessage(linkToolbarMessages.editLink),
-							showTitle: true,
-							testId: 'link-toolbar-edit-link-button',
-							onClick: getEditLinkCallback(editorAnalyticsApi, true),
-						},
-						{ type: 'separator' },
-					];
-
 			const commentItems: Array<FloatingToolbarItem<Command>> = isCommentEnabled
 				? [
 						{
@@ -563,7 +505,7 @@ const generateToolbarItems =
 							testId: 'inline-card-toolbar-comment-button',
 							iconFallback: CommentIcon,
 							title: intl.formatMessage(annotationMessages.createComment),
-							showTitle: editorExperiment('platform_editor_controls', 'control') ? undefined : true,
+							showTitle: true,
 							onClick: onCommentButtonClick,
 							disabled: isOfflineMode(
 								pluginInjectionApi?.connectivity?.sharedState?.currentState()?.mode,
@@ -589,7 +531,6 @@ const generateToolbarItems =
 									editorView={editorView}
 									onLinkEditClick={getEditLinkCallback(editorAnalyticsApi, true)}
 									currentAppearance={currentAppearance}
-									areAnyNewToolbarFlagsEnabled={!areAllNewToolbarFlagsDisabled}
 								/>
 							),
 						},
@@ -616,7 +557,6 @@ const generateToolbarItems =
 							node={node}
 							intl={intl}
 							editorAnalyticsApi={editorAnalyticsApi}
-							areAnyNewToolbarFlagsEnabled={!areAllNewToolbarFlagsDisabled}
 						/>
 					),
 				},
@@ -656,75 +596,29 @@ const generateToolbarItems =
 								openLinkInputMethod,
 								resolvedToolbarAttributes,
 							)}
-							areAnyNewToolbarFlagsEnabled={!areAllNewToolbarFlagsDisabled}
 						/>
 					) : null,
 			};
 
-			const toolbarItems: Array<FloatingToolbarItem<Command>> = areAllNewToolbarFlagsDisabled
-				? [
-						...editItems,
-						...commentItems,
-						...openPreviewPanelItems,
-						openLinkToolbarItem,
-						{ type: 'separator' },
-						...getUnlinkButtonGroup(
-							state,
-							intl,
-							node,
-							inlineCard,
-							editorAnalyticsApi,
-							!areAllNewToolbarFlagsDisabled,
-							pluginInjectionApi,
-						),
-						{
-							type: 'copy-button',
-							items: [
-								{
-									state,
-									formatMessage: intl.formatMessage,
-									nodeType: node.type,
-								},
-							],
-						},
-						{ type: 'separator' },
-						getSettingsButton(intl, editorAnalyticsApi, cardOptions.userPreferencesLink),
-						{ type: 'separator' },
-						{
-							id: 'editor.link.delete',
-							focusEditoronEnter: true,
-							type: 'button',
-							appearance: 'danger',
-							icon: DeleteIcon,
-							iconFallback: DeleteIcon,
-							onMouseEnter: hoverDecoration?.(node.type, true),
-							onMouseLeave: hoverDecoration?.(node.type, false),
-							onFocus: hoverDecoration?.(node.type, true),
-							onBlur: hoverDecoration?.(node.type, false),
-							title: intl.formatMessage(commonMessages.remove),
-							onClick: withToolbarMetadata(removeCard(editorAnalyticsApi)),
-						},
-					]
-				: [
-						...editButtonItems,
-						...([
-							...getUnlinkButtonGroup(
-								state,
-								intl,
-								node,
-								inlineCard,
-								editorAnalyticsApi,
-								!areAllNewToolbarFlagsDisabled,
-								pluginInjectionApi,
-							),
-							{ type: 'separator', fullHeight: true },
-						] as FloatingToolbarItem<Command>[]),
-						...openPreviewPanelItems,
-						openLinkToolbarItem,
-						...(commentItems.length > 1
-							? [{ type: 'separator', fullHeight: true } as const, commentItems[0]]
-							: commentItems),
-					];
+			const toolbarItems: Array<FloatingToolbarItem<Command>> = [
+				...editButtonItems,
+				...([
+					...getUnlinkButtonGroup(
+						state,
+						intl,
+						node,
+						inlineCard,
+						editorAnalyticsApi,
+						pluginInjectionApi,
+					),
+					{ type: 'separator', fullHeight: true },
+				] as FloatingToolbarItem<Command>[]),
+				...openPreviewPanelItems,
+				openLinkToolbarItem,
+				...(commentItems.length > 1
+					? [{ type: 'separator', fullHeight: true } as const, commentItems[0]]
+					: commentItems),
+			];
 
 			if (currentAppearance === 'embed') {
 				const alignmentOptions = buildAlignmentOptions(
@@ -733,130 +627,76 @@ const generateToolbarItems =
 					pluginInjectionApi?.width,
 					pluginInjectionApi?.analytics?.actions,
 					cardOptions,
-					!areAllNewToolbarFlagsDisabled,
 				);
-				if (alignmentOptions.length && areAllNewToolbarFlagsDisabled) {
-					alignmentOptions.push({
-						type: 'separator',
-					});
-				}
 				toolbarItems.unshift(...alignmentOptions);
 			}
 
-			const { allowBlockCards, allowEmbeds, allowDatasource, showUpgradeDiscoverability } =
-				cardOptions;
+			const { allowBlockCards, allowEmbeds, showUpgradeDiscoverability } = cardOptions;
 			// This code will be executed only for appearances such as "inline", "block" & "embed"
 			// For url appearance, please see HyperlinkToolbarAppearanceProps
 			if (currentAppearance) {
-				const showDatasourceAppearance = allowDatasource && url;
-
 				toolbarItems.unshift(
 					...getToolbarViewedItem(url, currentAppearance),
-					areAllNewToolbarFlagsDisabled
-						? {
-								type: 'custom',
-								fallback: [],
-								render: (editorView) => (
-									<LinkToolbarAppearance
-										key="link-appearance"
-										url={url}
-										intl={intl}
-										currentAppearance={currentAppearance}
-										editorView={editorView}
-										editorState={state}
-										allowEmbeds={allowEmbeds}
-										allowBlockCards={allowBlockCards}
-										editorAnalyticsApi={editorAnalyticsApi}
-										showUpgradeDiscoverability={showUpgradeDiscoverability}
-										areAnyNewToolbarFlagsEnabled={false}
-									/>
-								),
-							}
-						: getLinkAppearanceDropdown({
-								url,
-								intl,
-								currentAppearance,
-								editorState: state,
-								allowEmbeds,
-								allowBlockCards: allowBlockCards,
-								editorAnalyticsApi,
-								allowDatasource: cardOptions.allowDatasource,
-								showUpgradeDiscoverability: showUpgradeDiscoverability,
-								settingsConfig: getSettingsButton(
-									intl,
-									editorAnalyticsApi,
-									cardOptions.userPreferencesLink,
-								),
-								isDatasourceView: isDatasource,
-								areAnyNewToolbarFlagsEnabled: !areAllNewToolbarFlagsDisabled,
-							}),
-					...(showDatasourceAppearance && areAllNewToolbarFlagsDisabled
-						? [
-								{
-									type: 'custom',
-									fallback: [],
-									render: (editorView) => (
-										<DatasourceAppearanceButton
-											intl={intl}
-											editorAnalyticsApi={editorAnalyticsApi}
-											url={url}
-											editorView={editorView}
-											editorState={state}
-											inputMethod={INPUT_METHOD.FLOATING_TB}
-											areAnyNewToolbarFlagsEnabled={!areAllNewToolbarFlagsDisabled}
-										/>
-									),
-								} satisfies FloatingToolbarItem<never>,
-							]
-						: []),
-					...(!areAllNewToolbarFlagsDisabled
-						? []
-						: [{ type: 'separator' } as FloatingToolbarItem<Command>]),
+					getLinkAppearanceDropdown({
+						url,
+						intl,
+						currentAppearance,
+						editorState: state,
+						allowEmbeds,
+						allowBlockCards: allowBlockCards,
+						editorAnalyticsApi,
+						allowDatasource: cardOptions.allowDatasource,
+						showUpgradeDiscoverability: showUpgradeDiscoverability,
+						settingsConfig: getSettingsButton(
+							intl,
+							editorAnalyticsApi,
+							cardOptions.userPreferencesLink,
+						),
+						isDatasourceView: isDatasource,
+					}),
 				);
 			}
 
-			if (!areAllNewToolbarFlagsDisabled) {
-				const hoverDecorationProps = (nodeType: NodeType | NodeType[], className?: string) => ({
-					onMouseEnter: hoverDecoration?.(nodeType, true, className),
-					onMouseLeave: hoverDecoration?.(nodeType, false, className),
-					onFocus: hoverDecoration?.(nodeType, true, className),
-					onBlur: hoverDecoration?.(nodeType, false, className),
-				});
-				// testId is required to show focus on trigger button on ESC key press
-				// see hideOnEsc in platform/packages/editor/editor-plugin-floating-toolbar/src/ui/Dropdown.tsx
-				const testId = 'card-overflow-dropdown-trigger';
+			const hoverDecorationProps = (nodeType: NodeType | NodeType[], className?: string) => ({
+				onMouseEnter: hoverDecoration?.(nodeType, true, className),
+				onMouseLeave: hoverDecoration?.(nodeType, false, className),
+				onFocus: hoverDecoration?.(nodeType, true, className),
+				onBlur: hoverDecoration?.(nodeType, false, className),
+			});
+			// testId is required to show focus on trigger button on ESC key press
+			// see hideOnEsc in platform/packages/editor/editor-plugin-floating-toolbar/src/ui/Dropdown.tsx
+			const testId = 'card-overflow-dropdown-trigger';
 
-				const overflowMenuConfig: FloatingToolbarItem<Command>[] = [
-					{ type: 'separator', fullHeight: true },
-					{
-						type: 'overflow-dropdown',
-						testId,
-						options: [
-							{
-								title: intl.formatMessage(commonMessages.copyToClipboard),
-								onClick: () => {
-									pluginInjectionApi?.core?.actions.execute(
-										pluginInjectionApi?.floatingToolbar?.commands.copyNode(
-											node.type,
-											INPUT_METHOD.FLOATING_TB,
-										),
-									);
-									return true;
-								},
-								icon: <CopyIcon label={intl.formatMessage(commonMessages.copyToClipboard)} />,
-								...hoverDecorationProps(node.type, akEditorSelectedNodeClassName),
+			const overflowMenuConfig: FloatingToolbarItem<Command>[] = [
+				{ type: 'separator', fullHeight: true },
+				{
+					type: 'overflow-dropdown',
+					testId,
+					options: [
+						{
+							title: intl.formatMessage(commonMessages.copyToClipboard),
+							onClick: () => {
+								pluginInjectionApi?.core?.actions.execute(
+									pluginInjectionApi?.floatingToolbar?.commands.copyNode(
+										node.type,
+										INPUT_METHOD.FLOATING_TB,
+									),
+								);
+								return true;
 							},
-							{
-								title: intl.formatMessage(commonMessages.delete),
-								onClick: withToolbarMetadata(removeCard(editorAnalyticsApi)),
-								icon: <DeleteIcon label={intl.formatMessage(commonMessages.delete)} />,
-								...hoverDecorationProps(node.type),
-							},
-						],
-					},
-				];
-				toolbarItems.push(...overflowMenuConfig);
-			}
+							icon: <CopyIcon label={intl.formatMessage(commonMessages.copyToClipboard)} />,
+							...hoverDecorationProps(node.type, akEditorSelectedNodeClassName),
+						},
+						{
+							title: intl.formatMessage(commonMessages.delete),
+							onClick: withToolbarMetadata(removeCard(editorAnalyticsApi)),
+							icon: <DeleteIcon label={intl.formatMessage(commonMessages.delete)} />,
+							...hoverDecorationProps(node.type),
+						},
+					],
+				},
+			];
+			toolbarItems.push(...overflowMenuConfig);
 
 			return toolbarItems;
 		}
@@ -868,7 +708,6 @@ const getUnlinkButtonGroup = (
 	node: Node,
 	inlineCard: NodeType,
 	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
-	areAnyNewToolbarFlagsEnabled?: boolean,
 	pluginInjectionApi?: ExtractInjectionAPI<typeof cardPlugin>,
 ) => {
 	return node.type === inlineCard
@@ -884,7 +723,6 @@ const getUnlinkButtonGroup = (
 						unlinkCard(node, state, editorAnalyticsApi, pluginInjectionApi),
 					),
 				},
-				...(areAnyNewToolbarFlagsEnabled ? [] : [{ type: 'separator' }]),
 			] as Array<FloatingToolbarItem<Command>>)
 		: [];
 };
@@ -920,9 +758,6 @@ const getDatasourceButtonGroup = (
 ): FloatingToolbarItem<Command>[] => {
 	const toolbarItems: Array<FloatingToolbarItem<Command>> = [];
 	toolbarItems.push(...getToolbarViewedItem(node?.attrs?.url, currentAppearance ?? 'url'));
-	const areAllNewToolbarFlagsDisabled = !areToolbarFlagsEnabled(
-		Boolean(pluginInjectionApi?.toolbar),
-	);
 
 	const canShowAppearanceSwitch = () => {
 		// we do not show smart-link or the datasource icons when the node does not have a url to resolve
@@ -937,72 +772,27 @@ const getDatasourceButtonGroup = (
 
 		const { url } = metadata;
 
-		if (areAllNewToolbarFlagsDisabled) {
-			toolbarItems.push(
-				{
-					type: 'custom',
-					fallback: [],
-					render: (editorView) => {
-						return (
-							<LinkToolbarAppearance
-								key="link-appearance"
-								url={url}
-								intl={intl}
-								currentAppearance={currentAppearance}
-								editorView={editorView}
-								editorState={state}
-								allowEmbeds={allowEmbeds}
-								allowBlockCards={allowBlockCards}
-								editorAnalyticsApi={editorAnalyticsApi}
-								showUpgradeDiscoverability={showUpgradeDiscoverability}
-								isDatasourceView
-								areAnyNewToolbarFlagsEnabled={false}
-							/>
-						);
-					},
-				},
-				{
-					type: 'custom',
-					fallback: [],
-					render: (editorView) => (
-						<DatasourceAppearanceButton
-							intl={intl}
-							editorAnalyticsApi={editorAnalyticsApi}
-							url={url}
-							editorView={editorView}
-							editorState={state}
-							selected={true}
-							inputMethod={INPUT_METHOD.FLOATING_TB}
-							areAnyNewToolbarFlagsEnabled={!areAllNewToolbarFlagsDisabled}
-						/>
-					),
-				} satisfies FloatingToolbarItem<never>,
-				{ type: 'separator' },
-			);
-		} else {
-			toolbarItems.push(
-				getLinkAppearanceDropdown({
-					url,
+		toolbarItems.push(
+			getLinkAppearanceDropdown({
+				url,
+				intl,
+				currentAppearance,
+				editorState: state,
+				allowEmbeds,
+				allowBlockCards: allowBlockCards,
+				editorAnalyticsApi,
+				allowDatasource: cardOptions.allowDatasource,
+				showUpgradeDiscoverability: showUpgradeDiscoverability,
+				settingsConfig: getSettingsButton(
 					intl,
-					currentAppearance,
-					editorState: state,
-					allowEmbeds,
-					allowBlockCards: allowBlockCards,
 					editorAnalyticsApi,
-					allowDatasource: cardOptions.allowDatasource,
-					showUpgradeDiscoverability: showUpgradeDiscoverability,
-					settingsConfig: getSettingsButton(
-						intl,
-						editorAnalyticsApi,
-						cardOptions.userPreferencesLink,
-					),
-					isDatasourceView: true,
-					areAnyNewToolbarFlagsEnabled: !areAllNewToolbarFlagsDisabled,
-				}),
+					cardOptions.userPreferencesLink,
+				),
+				isDatasourceView: true,
+			}),
 
-				{ type: 'separator' },
-			);
-		}
+			{ type: 'separator' },
+		);
 	}
 
 	const openLinkInputMethod = INPUT_METHOD.FLOATING_TB;
@@ -1022,7 +812,6 @@ const getDatasourceButtonGroup = (
 				editorView={editorView}
 				onLinkEditClick={getEditLinkCallback(editorAnalyticsApi, false)}
 				currentAppearance="datasource"
-				areAnyNewToolbarFlagsEnabled={!areAllNewToolbarFlagsDisabled}
 			/>
 		),
 	});
@@ -1058,116 +847,68 @@ const getDatasourceButtonGroup = (
 							openLinkInputMethod,
 							pluginState?.resolvedToolbarAttributesByUrl[node.attrs.url] ?? {},
 						)}
-						areAnyNewToolbarFlagsEnabled={!areAllNewToolbarFlagsDisabled}
 					/>
 				) : null,
 		});
-		if (areAllNewToolbarFlagsDisabled) {
-			toolbarItems.push({ type: 'separator' });
-		}
 	}
 
-	if (areAllNewToolbarFlagsDisabled) {
-		toolbarItems.push(
-			{
-				type: 'copy-button',
-				supportsViewMode: true,
-				items: [
-					{
-						state,
-						formatMessage: intl.formatMessage,
-						nodeType: node.type,
-					},
-				],
-			},
-			{ type: 'separator' },
-			getSettingsButton(intl, editorAnalyticsApi, cardOptions?.userPreferencesLink),
-			{ type: 'separator' },
-			{
-				id: 'editor.link.delete',
-				focusEditoronEnter: true,
-				type: 'button',
-				appearance: 'danger',
-				icon: DeleteIcon,
-				iconFallback: DeleteIcon,
-				onMouseEnter: hoverDecoration?.(node.type, true),
-				onMouseLeave: hoverDecoration?.(node.type, false),
-				onFocus: hoverDecoration?.(node.type, true),
-				onBlur: hoverDecoration?.(node.type, false),
-				title: intl.formatMessage(commonMessages.remove),
-				onClick: withToolbarMetadata(removeCard(editorAnalyticsApi)),
-			},
+	// testId is required to show focus on trigger button on ESC key press
+	// see hideOnEsc in platform/packages/editor/editor-plugin-floating-toolbar/src/ui/Dropdown.tsx
+	const testId = 'datasource-overflow-dropdown-trigger';
+
+	// When canShowAppearanceSwitch is true, the link appearance dropdown shows, which includes a link preference button
+	// So only add the link appearance button when canShowAppearanceSwitch is false
+	if (!canShowAppearanceSwitch()) {
+		const linkPreferenceButton = getSettingsButton(
+			intl,
+			editorAnalyticsApi,
+			cardOptions?.userPreferencesLink,
 		);
+		toolbarItems.push({ type: 'separator', fullHeight: true }, linkPreferenceButton, {
+			type: 'separator',
+			fullHeight: true,
+		});
 	} else {
-		// testId is required to show focus on trigger button on ESC key press
-		// see hideOnEsc in platform/packages/editor/editor-plugin-floating-toolbar/src/ui/Dropdown.tsx
-		const testId = 'datasource-overflow-dropdown-trigger';
-
-		// When canShowAppearanceSwitch is true, and platform_editor_controls is on, the link appearance dropdown shows, which includes a link preference button
-		// So only add the link appearance button when canShowAppearanceSwitch is false
-		if (!canShowAppearanceSwitch()) {
-			const linkPreferenceButton = getSettingsButton(
-				intl,
-				editorAnalyticsApi,
-				cardOptions?.userPreferencesLink,
-			);
-			toolbarItems.push({ type: 'separator', fullHeight: true }, linkPreferenceButton, {
-				type: 'separator',
-				fullHeight: true,
-			});
-		} else {
-			toolbarItems.push({ type: 'separator', fullHeight: true });
-		}
-
-		const overflowMenuConfig: FloatingToolbarItem<Command>[] = [
-			{
-				type: 'overflow-dropdown',
-				testId,
-				options: [
-					{
-						title: intl.formatMessage(commonMessages.copyToClipboard),
-						onClick: () => {
-							pluginInjectionApi?.core?.actions.execute(
-								pluginInjectionApi?.floatingToolbar?.commands.copyNode(
-									node.type,
-									INPUT_METHOD.FLOATING_TB,
-								),
-							);
-							return true;
-						},
-						onMouseEnter: hoverDecoration?.(node.type, true, akEditorSelectedNodeClassName),
-						onMouseLeave: hoverDecoration?.(node.type, false, akEditorSelectedNodeClassName),
-						onFocus: hoverDecoration?.(node.type, true, akEditorSelectedNodeClassName),
-						onBlur: hoverDecoration?.(node.type, false, akEditorSelectedNodeClassName),
-						icon: <CopyIcon label={intl.formatMessage(commonMessages.copyToClipboard)} />,
-					},
-					{
-						title: intl.formatMessage(commonMessages.delete),
-						onClick: withToolbarMetadata(removeCard(editorAnalyticsApi)),
-						onMouseEnter: hoverDecoration?.(node.type, true),
-						onMouseLeave: hoverDecoration?.(node.type, false),
-						onFocus: hoverDecoration?.(node.type, true),
-						onBlur: hoverDecoration?.(node.type, false),
-						icon: <DeleteIcon label={intl.formatMessage(commonMessages.delete)} />,
-					},
-				],
-			},
-		];
-		toolbarItems.push(...overflowMenuConfig);
+		toolbarItems.push({ type: 'separator', fullHeight: true });
 	}
+
+	const overflowMenuConfig: FloatingToolbarItem<Command>[] = [
+		{
+			type: 'overflow-dropdown',
+			testId,
+			options: [
+				{
+					title: intl.formatMessage(commonMessages.copyToClipboard),
+					onClick: () => {
+						pluginInjectionApi?.core?.actions.execute(
+							pluginInjectionApi?.floatingToolbar?.commands.copyNode(
+								node.type,
+								INPUT_METHOD.FLOATING_TB,
+							),
+						);
+						return true;
+					},
+					onMouseEnter: hoverDecoration?.(node.type, true, akEditorSelectedNodeClassName),
+					onMouseLeave: hoverDecoration?.(node.type, false, akEditorSelectedNodeClassName),
+					onFocus: hoverDecoration?.(node.type, true, akEditorSelectedNodeClassName),
+					onBlur: hoverDecoration?.(node.type, false, akEditorSelectedNodeClassName),
+					icon: <CopyIcon label={intl.formatMessage(commonMessages.copyToClipboard)} />,
+				},
+				{
+					title: intl.formatMessage(commonMessages.delete),
+					onClick: withToolbarMetadata(removeCard(editorAnalyticsApi)),
+					onMouseEnter: hoverDecoration?.(node.type, true),
+					onMouseLeave: hoverDecoration?.(node.type, false),
+					onFocus: hoverDecoration?.(node.type, true),
+					onBlur: hoverDecoration?.(node.type, false),
+					icon: <DeleteIcon label={intl.formatMessage(commonMessages.delete)} />,
+				},
+			],
+		},
+	];
+	toolbarItems.push(...overflowMenuConfig);
 
 	return toolbarItems;
-};
-
-export const shouldRenderToolbarPulse = (
-	embedEnabled: boolean,
-	appearance: string,
-	status: string,
-	isDiscoverabilityEnabled: boolean,
-): boolean => {
-	return (
-		embedEnabled && appearance === 'inline' && status === 'resolved' && isDiscoverabilityEnabled
-	);
 };
 
 export const getStartingToolbarItems = (
@@ -1181,8 +922,6 @@ export const getStartingToolbarItems = (
 		metadata: { title: string; url: string },
 		_state?: EditorState,
 	): FloatingToolbarItem<Command>[] => {
-		const areAllNewToolbarFlagsDisabled = !areToolbarFlagsEnabled(Boolean(api?.toolbar));
-
 		const editLinkItem: FloatingToolbarItem<Command>[] = options.allowDatasource
 			? [
 					{
@@ -1201,7 +940,6 @@ export const getStartingToolbarItems = (
 									editorView={editorView}
 									onLinkEditClick={onEditLink}
 									currentAppearance="url"
-									areAnyNewToolbarFlagsEnabled={!areAllNewToolbarFlagsDisabled}
 								/>
 							);
 						},
@@ -1214,50 +952,31 @@ export const getStartingToolbarItems = (
 						type: 'button',
 						onClick: onEditLink,
 						title: intl.formatMessage(linkToolbarMessages.editLink),
-						showTitle: editorExperiment('platform_editor_controls', 'variant1') ? false : true,
+						showTitle: false,
 						metadata: metadata,
-						icon: editorExperiment('platform_editor_controls', 'variant1') ? EditIcon : undefined,
+						icon: EditIcon,
 					},
 					{
 						type: 'separator',
 					},
 				];
 
-		if (!areAllNewToolbarFlagsDisabled) {
-			const hyperlinkAppearance = [
-				getCustomHyperlinkAppearanceDropdown({
-					url: link,
+		const hyperlinkAppearance = [
+			getCustomHyperlinkAppearanceDropdown({
+				url: link,
+				intl,
+				editorAnalyticsApi: api?.analytics?.actions,
+				allowDatasource: options.allowDatasource,
+				editorPluginApi: api,
+				cardOptions: options,
+				settingsConfig: getSettingsButton(
 					intl,
-					editorAnalyticsApi: api?.analytics?.actions,
-					allowDatasource: options.allowDatasource,
-					editorPluginApi: api,
-					cardOptions: options,
-					settingsConfig: getSettingsButton(
-						intl,
-						api?.analytics?.actions,
-						options.userPreferencesLink,
-					),
-					isDatasourceView: false,
-				}),
-			];
-
-			return [
-				{
-					type: 'custom',
-					fallback: [],
-					render: (editorView) => (
-						<ToolbarViewedEvent
-							key="edit.link.menu.viewed"
-							url={link}
-							display="url"
-							editorView={editorView}
-						/>
-					),
-				},
-				...hyperlinkAppearance,
-				...editLinkItem,
-			];
-		}
+					api?.analytics?.actions,
+					options.userPreferencesLink,
+				),
+				isDatasourceView: false,
+			}),
+		];
 
 		return [
 			{
@@ -1272,49 +991,12 @@ export const getStartingToolbarItems = (
 					/>
 				),
 			},
-			{
-				type: 'custom',
-				fallback: [],
-				render: (editorView) => {
-					if (!editorView) {
-						return null;
-					}
-					return (
-						<HyperlinkToolbarAppearance
-							key="link-appearance"
-							url={link}
-							intl={intl}
-							editorView={editorView}
-							editorState={editorView.state}
-							cardOptions={options}
-							editorAnalyticsApi={api?.analytics?.actions}
-							editorPluginApi={api}
-						/>
-					);
-				},
-			},
-
+			...hyperlinkAppearance,
 			...editLinkItem,
 		];
 	};
 };
 
 export const getEndingToolbarItems =
-	(options: CardPluginOptions, api?: ExtractInjectionAPI<typeof cardPlugin> | undefined) =>
-	(intl: IntlShape, _link: string): FloatingToolbarItem<Command>[] => {
-		/**
-		 * Require either provider to be supplied (controls link preferences)
-		 * Or explicit user preferences config in order to enable button
-		 */
-		if (
-			(options.provider || options.userPreferencesLink) &&
-			!areToolbarFlagsEnabled(Boolean(api?.toolbar))
-		) {
-			return [
-				{ type: 'separator' },
-				getSettingsButton(intl, api?.analytics?.actions, options.userPreferencesLink),
-			];
-		}
-
-		return [];
-	};
+	(_options: CardPluginOptions, _api?: ExtractInjectionAPI<typeof cardPlugin> | undefined) =>
+	(_intl: IntlShape, _link: string): FloatingToolbarItem<Command>[] => [];

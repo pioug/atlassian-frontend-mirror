@@ -81,6 +81,9 @@
 			"path": "../../editor-toolbar-model/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../editor-ui-control-model/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../elements/emoji/afm-products/tsconfig.json"
 		},
 		{

@@ -9,7 +9,6 @@ import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl';
 
 import Button from '@atlaskit/editor-common/FloatingToolbar/Button';
-import Separator from '@atlaskit/editor-common/FloatingToolbar/Separator';
 import { messages } from '@atlaskit/editor-common/messages/card';
 import { linkToolbarMessages } from '@atlaskit/editor-common/messages/link-toolbar';
 import { ArrowKeyNavigationType } from '@atlaskit/editor-common/ui-menu/ArrowKeyNavigationProvider/types';
@@ -43,7 +42,6 @@ const EditToolbarButtonPresentation = ({
 	extensionKey,
 	onLinkEditClick,
 	intl,
-	areAnyNewToolbarFlagsEnabled,
 }: EditToolbarPresentationProps): jsx.JSX.Element | null => {
 	const [isOpen, setIsOpen] = useState(false);
 	const containerRef = useRef();
@@ -71,11 +69,7 @@ const EditToolbarButtonPresentation = ({
 		}
 	}, [currentAppearance, datasourceId, editorAnalyticsApi, editorView, extensionKey]);
 
-	const icon = areAnyNewToolbarFlagsEnabled ? <EditIcon label="" /> : undefined;
-
-	const tooltipContent = areAnyNewToolbarFlagsEnabled
-		? intl.formatMessage(linkToolbarMessages.editLink)
-		: undefined;
+	const editLinkLabel = intl.formatMessage(linkToolbarMessages.editLink);
 
 	switch (editVariant) {
 		case 'edit-link': {
@@ -84,24 +78,10 @@ const EditToolbarButtonPresentation = ({
 					<Button
 						testId="edit-link"
 						onClick={onEditLink}
-						icon={icon}
-						ariaLabel={
-							areAnyNewToolbarFlagsEnabled
-								? intl.formatMessage(linkToolbarMessages.editLink)
-								: undefined
-						}
-						tooltipContent={tooltipContent}
-						areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
-					>
-						{!areAnyNewToolbarFlagsEnabled && (
-							<FormattedMessage
-								// Ignored via go/ees005
-								// eslint-disable-next-line react/jsx-props-no-spreading
-								{...linkToolbarMessages.editLink}
-							/>
-						)}
-					</Button>
-					{!areAnyNewToolbarFlagsEnabled && <Separator areAnyNewToolbarFlagsEnabled={false} />}
+						icon={<EditIcon label="" />}
+						ariaLabel={editLinkLabel}
+						tooltipContent={editLinkLabel}
+					/>
 				</Flex>
 			);
 		}
@@ -112,7 +92,6 @@ const EditToolbarButtonPresentation = ({
 						testId="edit-datasource"
 						tooltipContent={intl.formatMessage(linkToolbarMessages.editDatasourceStandaloneTooltip)}
 						onClick={onEditDatasource}
-						areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 					>
 						<FormattedMessage
 							// Ignored via go/ees005
@@ -120,8 +99,6 @@ const EditToolbarButtonPresentation = ({
 							{...linkToolbarMessages.editDatasourceStandalone}
 						/>
 					</Button>
-
-					{!areAnyNewToolbarFlagsEnabled && <Separator areAnyNewToolbarFlagsEnabled={false} />}
 				</Flex>
 			);
 		}
@@ -142,7 +119,6 @@ const EditToolbarButtonPresentation = ({
 						selected={isOpen}
 						disabled={false}
 						ariaHasPopup
-						areAnyNewToolbarFlagsEnabled={areAnyNewToolbarFlagsEnabled}
 					>
 						<FormattedMessage
 							// Ignored via go/ees005
@@ -150,8 +126,6 @@ const EditToolbarButtonPresentation = ({
 							{...messages.editDropdownTriggerTitle}
 						/>
 					</Button>
-
-					{!areAnyNewToolbarFlagsEnabled && <Separator areAnyNewToolbarFlagsEnabled={false} />}
 				</Flex>
 			);
 

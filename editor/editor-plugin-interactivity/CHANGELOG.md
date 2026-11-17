@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-interactivity
 
+## 18.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 17.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 16.0.1
+
+### Patch Changes
+
+- [`62e746bdc0112`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/62e746bdc0112) -
+  The plugin adds the document sizes to the interactivity snapshot instead of the collector.
+- Updated dependencies
+
 ## 16.0.0
 
 ### Patch Changes

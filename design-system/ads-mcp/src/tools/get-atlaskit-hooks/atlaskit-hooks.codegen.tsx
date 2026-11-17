@@ -3,7 +3,7 @@
  *
  * Structured content hooks from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::70b33ac14924cd95daf60fdf0f0d61cc>>
+ * @codegen <<SignedSource::718b97f68d1509c179c232447e56441b>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -641,6 +641,36 @@ export const atlaskitHooks: HookMcpPayload[] = [
 		],
 		keywords: ['rovo', 'chat', 'chat mode', 'actions hook'],
 		category: 'rovo',
+		package: '@atlassian/conversation-assistant-chat-prompt-input',
+		examples: [],
+	},
+	{
+		name: 'useComposerSmartLinkResolutions',
+		description:
+			'Observes Smart Link access status and provider identity for an ordered list of URLs. Optionally resolves URLs missing from the provider store using its cached client. Returns pending status without a Smart Card provider.',
+		status: 'general-availability',
+		usageGuidelines: [
+			'Use the same resolution state for starter authentication decisions and composer connection prompts. Pass an empty URL list and disable missing-link resolution when the owning feature is inactive.',
+		],
+		keywords: ['rovo', 'chat', 'smart links', 'authentication', 'hook'],
+		category: 'rovo',
+		parameters: [
+			{
+				name: 'urls',
+				type: 'readonly string[]',
+				description: 'URLs in the desired result order.',
+			},
+			{
+				name: 'resolveMissing',
+				type: 'boolean',
+				isOptional: true,
+				defaultValue: 'false',
+				description: 'Resolve URLs that are absent from the shared Smart Link store.',
+			},
+		],
+		returns: {
+			type: 'readonly ComposerSmartLinkResolution[]',
+		},
 		package: '@atlassian/conversation-assistant-chat-prompt-input',
 		examples: [],
 	},

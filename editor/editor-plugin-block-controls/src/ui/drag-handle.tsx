@@ -12,7 +12,6 @@ import {
 	type DragEvent,
 	type KeyboardEvent,
 	type MouseEvent,
-	type ReactNode,
 } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
@@ -28,15 +27,7 @@ import {
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics/types/enums';
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
-import {
-	dragToMoveDown,
-	dragToMoveLeft,
-	dragToMoveRight,
-	dragToMoveUp,
-	getAriaKeyshortcuts,
-	TooltipContentWithMultipleShortcuts,
-	type Keymap,
-} from '@atlaskit/editor-common/keymaps';
+import { TooltipContentWithMultipleShortcuts } from '@atlaskit/editor-common/keymaps';
 import { messages as blockControlsMessages } from '@atlaskit/editor-common/messages/block-controls';
 import { DRAG_HANDLE_WIDTH } from '@atlaskit/editor-common/styles/drag-handle';
 import { tableControlsSpacing } from '@atlaskit/editor-common/styles/table';
@@ -47,7 +38,6 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
-	akEditorFullPageNarrowBreakout,
 	akEditorTableToolbarSize,
 	relativeSizeToBaseFontSize,
 } from '@atlaskit/editor-shared-styles/constants';
@@ -156,11 +146,6 @@ const buttonWrapperStylesPatch = css({
 		},
 });
 
-// update color to match quick insert button for new editor controls
-const dragHandleColor = css({
-	color: token('color.icon.subtle'),
-});
-
 const dragHandleButtonStyles = css({
 	display: 'flex',
 	boxSizing: 'border-box',
@@ -175,8 +160,7 @@ const dragHandleButtonStyles = css({
 	background: 'transparent',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	borderRadius: DRAG_HANDLE_BORDER_RADIUS,
-	// when platform_editor_controls is enabled, the drag handle color is overridden. Update color here when experiment is cleaned up.
-	color: token('color.icon'),
+	color: token('color.icon.subtle'),
 	cursor: 'grab',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	zIndex: DRAG_HANDLE_ZINDEX,
@@ -207,62 +191,6 @@ const dragHandleButtonScaledStyles = css({
 	height: relativeSizeToBaseFontSize(DRAG_HANDLE_HEIGHT),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
 	width: relativeSizeToBaseFontSize(DRAG_HANDLE_WIDTH),
-});
-
-const dragHandleButtonSmallScreenStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-container-queries, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-	[`@container editor-area (max-width: ${akEditorFullPageNarrowBreakout}px)`]: {
-		opacity: 0,
-		visibility: 'hidden',
-	},
-});
-
-const dragHandleButtonStylesOld = css({
-	position: 'absolute',
-	paddingTop: `${token('space.025')}`,
-	paddingBottom: `${token('space.025')}`,
-	paddingLeft: '0',
-	paddingRight: '0',
-	boxSizing: 'border-box',
-	display: 'flex',
-	flexDirection: 'column',
-	justifyContent: 'center',
-	alignItems: 'center',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	height: DRAG_HANDLE_HEIGHT,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	width: DRAG_HANDLE_WIDTH,
-	border: 'none',
-	background: 'transparent',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	borderRadius: DRAG_HANDLE_BORDER_RADIUS,
-	// when platform_editor_controls is enabled, the drag handle color is overridden. Update color here when experiment is cleaned up.
-	color: token('color.icon'),
-	cursor: 'grab',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	zIndex: DRAG_HANDLE_ZINDEX,
-	outline: 'none',
-
-	'&:hover': {
-		backgroundColor: token('color.background.neutral.subtle.hovered'),
-	},
-
-	'&:active': {
-		backgroundColor: token('color.background.neutral.subtle.pressed'),
-	},
-
-	'&:focus': {
-		outline: `${token('border.width.focused')} solid ${token('color.border.focused')}`,
-	},
-
-	'&:disabled': {
-		color: token('color.icon.disabled'),
-		backgroundColor: 'transparent',
-	},
-
-	'&:hover:disabled': {
-		backgroundColor: token('color.background.disabled'),
-	},
 });
 
 const focusedStyles = css({
@@ -861,9 +789,7 @@ export const DragHandle = ({
 			CSS.supports('top', `anchor(${anchorName} start)`) &&
 			CSS.supports('left', `anchor(${anchorName} start)`);
 
-		const safeAnchorName = editorExperiment('platform_editor_controls', 'variant1')
-			? refreshAnchorName({ getPos, view, anchorName })
-			: anchorName;
+		const safeAnchorName = refreshAnchorName({ getPos, view, anchorName });
 		const dom: HTMLElement | null = view.dom.querySelector(
 			`[${getAnchorAttrName()}="${safeAnchorName}"]`,
 		);
@@ -923,15 +849,13 @@ export const DragHandle = ({
 				edge: 'right',
 				safeAnchorName,
 			});
-			const bottom = editorExperiment('platform_editor_controls', 'variant1')
-				? getControlBottomCSSValue(
-						safeAnchorName,
-						isSticky,
-						isTopLevelNodeValue,
-						isLayoutColumn,
-						ACTIVE_DRAG_HANDLE_FALLBACK_ANCHOR_NAME,
-					)
-				: {};
+			const bottom = getControlBottomCSSValue(
+				safeAnchorName,
+				isSticky,
+				isTopLevelNodeValue,
+				isLayoutColumn,
+				ACTIVE_DRAG_HANDLE_FALLBACK_ANCHOR_NAME,
+			);
 
 			return {
 				left: isEdgeCase
@@ -952,15 +876,13 @@ export const DragHandle = ({
 			};
 		}
 
-		const height = editorExperiment('platform_editor_controls', 'variant1')
-			? getControlHeightCSSValue(
-					getNodeHeight(dom, safeAnchorName, anchorRectCache) || 0,
-					isSticky,
-					isTopLevelNodeValue,
-					`${DRAG_HANDLE_HEIGHT}`,
-					isLayoutColumn,
-				)
-			: {};
+		const height = getControlHeightCSSValue(
+			getNodeHeight(dom, safeAnchorName, anchorRectCache) || 0,
+			isSticky,
+			isTopLevelNodeValue,
+			`${DRAG_HANDLE_HEIGHT}`,
+			isLayoutColumn,
+		);
 		return {
 			left: isEdgeCase
 				? `calc(${dom?.offsetLeft || 0}px + ${getLeftPosition(dom, nodeType, innerContainer, isMacroInteractionUpdates, parentNodeType)})`
@@ -1139,107 +1061,13 @@ export const DragHandle = ({
 		br: ' ',
 	});
 
-	let helpDescriptors: Array<{ description?: string | ReactNode; keymap?: Keymap }> =
-		isTopLevelNodeValue
-			? [
-					{
-						description: dragHandleMessage,
-					},
-					{
-						description: formatMessage(blockControlsMessages.moveUp),
-						keymap: dragToMoveUp,
-					},
-					{
-						description: formatMessage(blockControlsMessages.moveDown),
-						keymap: dragToMoveDown,
-					},
-					{
-						description: formatMessage(blockControlsMessages.moveLeft),
-						keymap: dragToMoveLeft,
-					},
-					{
-						description: formatMessage(blockControlsMessages.moveRight),
-						keymap: dragToMoveRight,
-					},
-				]
-			: [
-					{
-						description: dragHandleMessage,
-					},
-					{
-						description: formatMessage(blockControlsMessages.moveUp),
-						keymap: dragToMoveUp,
-					},
-					{
-						description: formatMessage(blockControlsMessages.moveDown),
-						keymap: dragToMoveDown,
-					},
-				];
+	const helpDescriptors = [
+		{
+			description: dragHandleMessage,
+		},
+	];
 
-	let isParentNodeOfTypeLayout;
-
-	if (!isTopLevelNodeValue) {
-		const pos = getPos();
-		if (typeof pos === 'number') {
-			const $pos = view.state.doc.resolve(pos);
-			isParentNodeOfTypeLayout = $pos?.parent?.type.name === 'layoutColumn';
-		}
-
-		if (isParentNodeOfTypeLayout) {
-			helpDescriptors = [
-				...helpDescriptors,
-				{
-					description: formatMessage(blockControlsMessages.moveLeft),
-					keymap: dragToMoveLeft,
-				},
-				{
-					description: formatMessage(blockControlsMessages.moveRight),
-					keymap: dragToMoveRight,
-				},
-			];
-		}
-	}
-
-	// When advanced layout is on, layout column drag handle show only show 'Drag to move', no shortcuts
-	if (editorExperiment('advanced_layouts', true) && nodeType === 'layoutColumn') {
-		helpDescriptors = [
-			{
-				description: formatMessage(blockControlsMessages.dragToRearrange),
-			},
-			{
-				description: formatMessage(blockControlsMessages.moveUp),
-				keymap: dragToMoveUp,
-			},
-			{
-				description: formatMessage(blockControlsMessages.moveDown),
-				keymap: dragToMoveDown,
-			},
-			{
-				description: formatMessage(blockControlsMessages.moveLeft),
-				keymap: dragToMoveLeft,
-			},
-			{
-				description: formatMessage(blockControlsMessages.moveRight),
-				keymap: dragToMoveRight,
-			},
-		];
-	}
-
-	if (editorExperiment('platform_editor_controls', 'variant1')) {
-		helpDescriptors = [
-			{
-				description: dragHandleMessage,
-			},
-		];
-	}
-
-	const message = helpDescriptors
-		.map((descriptor) => {
-			return descriptor.keymap
-				? [descriptor.description, getAriaKeyshortcuts(descriptor.keymap)]
-				: [descriptor.description];
-		})
-		.join('. ');
+	const message = helpDescriptors.map((descriptor) => [descriptor.description]).join('. ');
 
 	const handleOnDrop = (event: MouseEvent<HTMLButtonElement>) => {
 		event.stopPropagation();
@@ -1254,10 +1082,7 @@ export const DragHandle = ({
 		<button
 			type="button"
 			css={[
-				editorExperiment('platform_editor_controls', 'variant1')
-					? dragHandleButtonStyles
-					: dragHandleButtonStylesOld,
-				editorExperiment('platform_editor_controls', 'variant1') && dragHandleColor,
+				dragHandleButtonStyles,
 				// ED-26266: Fixed the drag handle highlight when selecting multiple line in Firefox
 				// See https://product-fabric.atlassian.net/browse/ED-26266
 				browser.gecko && dragHandleMultiLineSelectionFixFirefox,
@@ -1265,16 +1090,11 @@ export const DragHandle = ({
 					isLayoutColumn &&
 					layoutColumnDragHandleStyles,
 				dragHandleSelected && hasHadInteraction && selectedStyles,
-				editorExperiment('platform_editor_preview_panel_responsiveness', true) &&
-					editorExperiment('platform_editor_controls', 'control') &&
-					dragHandleButtonSmallScreenStyles,
 				isFocused && keyboardFocusedDragHandleStyles,
 				focusedStyles,
 				dragHandleButtonScaledStyles,
 			]}
 			ref={buttonRef}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			style={!editorExperiment('platform_editor_controls', 'variant1') ? positionStylesOld : {}}
 			onMouseDown={
 				expValEqualsNoExposure('platform_editor_selection_toolbar_block_handle', 'isEnabled', true)
 					? handleMouseDown
@@ -1322,7 +1142,12 @@ export const DragHandle = ({
 		</button>
 	);
 
-	const stickyWithTooltip = () => (
+	const tooltipContent =
+		isLayoutColumn && currentUserIntent === 'layoutColumnMenuPopupOpen' ? null : (
+			<TooltipContentWithMultipleShortcuts helpDescriptors={helpDescriptors} />
+		);
+
+	return (
 		<Box
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={positionStylesOld}
@@ -1363,28 +1188,6 @@ export const DragHandle = ({
 			</span>
 		</Box>
 	);
-
-	const buttonWithTooltip = () => (
-		<Tooltip
-			content={tooltipContent}
-			ignoreTooltipPointerEvents={true}
-			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-			onShow={() => {
-				api?.accessibilityUtils?.actions.ariaNotify(message, { priority: 'important' });
-			}}
-		>
-			{renderButton()}
-		</Tooltip>
-	);
-
-	const tooltipContent =
-		isLayoutColumn && currentUserIntent === 'layoutColumnMenuPopupOpen' ? null : (
-			<TooltipContentWithMultipleShortcuts helpDescriptors={helpDescriptors} />
-		);
-
-	return editorExperiment('platform_editor_controls', 'variant1')
-		? stickyWithTooltip()
-		: buttonWithTooltip();
 };
 
 export const DragHandleWithVisibility = ({

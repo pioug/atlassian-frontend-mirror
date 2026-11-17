@@ -1,5 +1,3 @@
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-
 import type {
 	CardPluginAction,
 	CardPluginState,
@@ -54,11 +52,7 @@ const register = (state: CardPluginState, action: Register) => {
 
 const removeCard = (state: CardPluginState, action: RemoveCard) => {
 	const cards = state.cards.filter((card) => card.id !== action.info.id);
-	if (
-		isExperimentEnabled('platform_editor_reduce_memory_leaks') &&
-		state.removeOverlayCardId !== undefined &&
-		state.removeOverlayCardId === action.info.id
-	) {
+	if (state.removeOverlayCardId !== undefined && state.removeOverlayCardId === action.info.id) {
 		return { ...state, cards, removeOverlay: undefined, removeOverlayCardId: undefined };
 	}
 	return { ...state, cards };
@@ -131,17 +125,11 @@ const hideDatasourceModal = (state: CardPluginState) => {
 };
 
 const clearOverlayCandidate = (state: CardPluginState) => {
-	if (isExperimentEnabled('platform_editor_reduce_memory_leaks')) {
-		return {
-			...state,
-			overlayCandidatePosition: undefined,
-			removeOverlay: undefined,
-			removeOverlayCardId: undefined,
-		};
-	}
 	return {
 		...state,
 		overlayCandidatePosition: undefined,
+		removeOverlay: undefined,
+		removeOverlayCardId: undefined,
 	};
 };
 
@@ -155,9 +143,7 @@ const registerRemoveOverlayOnInsertedLink = (
 			? state.cards.filter((card) => card.pos !== action.info?.pos).concat(action.info)
 			: state.cards,
 		removeOverlay: action.callback,
-		...(isExperimentEnabled('platform_editor_reduce_memory_leaks')
-			? { removeOverlayCardId: action.info?.id }
-			: {}),
+		removeOverlayCardId: action.info?.id,
 	};
 };
 

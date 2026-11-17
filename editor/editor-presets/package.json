@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-presets",
-	"version": "25.0.0",
+	"version": "27.0.0",
 	"license": "Apache-2.0",
 	"description": "Public editor presets for Atlassian Editor containing base configurations for Confluence and other products",
 	"publishConfig": {
@@ -118,9 +118,13 @@
 		"@atlaskit/editor-plugin-user-intent": "workspace:^",
 		"@atlaskit/editor-plugin-user-preferences": "workspace:^",
 		"@atlaskit/editor-plugin-width": "workspace:^",
+		"@atlaskit/editor-synced-block-provider": "workspace:^",
 		"@atlaskit/emoji": "workspace:^",
+		"@atlaskit/link-provider": "workspace:^",
+		"@atlaskit/mention": "workspace:^",
 		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
+		"@atlaskit/task-decision": "workspace:^",
 		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlassian/editor-plugin-agent-managed-extension": "workspace:^",
 		"@babel/runtime": "root:*"

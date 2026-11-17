@@ -1,14 +1,17 @@
 # Follow-up: React `autoFocus` inside a top layer `Dialog` does nothing
 
-**Status:** TODO. Five fields in four Jira consumers are fixed behind `platform-dst-top-layer` in
-this branch. The general fix is open.
+**Status:** Done (2026-11-16). `Dialog` shows before its content effects run (`autoFocus`, ref
+callbacks, layout effects), so a content `focus()` call lands on the open dialog. This covers ADS
+inputs, raw elements and imperative `focus()` calls. See
+[`../decisions/react-autofocus-and-focus-on-open.md`](../decisions/react-autofocus-and-focus-on-open.md).
+The consumer workarounds below can go.
 
 ## Context
 
 `Dialog` (and so `ModalDialog` with `platform-dst-top-layer` on) opens the `<dialog>` with
 `showModal()` in a layout effect. The browser then runs the dialog focusing steps: it focuses the
 first descendant with the HTML `autofocus` attribute, else the first focusable descendant. See
-[`../architecture/focus.md`](../architecture/focus.md#react-18-autofocus-caveat).
+[`../architecture/focus.md`](../architecture/focus.md#react-autofocus-the-layer-shows-before-its-content-effects).
 
 ## The problem
 
@@ -65,12 +68,14 @@ Tests that mount the field after the modal opened cover both (`AddNewWorkflowPan
 `CreateIssueTypeModalWrapper.test.tsx`).
 
 Entry-point modals (`ModalTrigger` from `@atlassian/entry-points`) also run `FocusInsideOnLoad`
-after the entry point loads. It focuses the `autoFocus` ref of the modal, else the first focusable
-element, so it overrides both the native attribute and React's `autoFocus`. With the gate off, the
-header close button comes first in `AddIssueTypeForm`, so focus most likely moves there (not
-verified in the product). With the gate on, the top-layer `ModalDialog` does not forward its `ref`
-(a TODO in `modal-wrapper.tsx`), so `FocusInsideOnLoad` finds no modal and does nothing, and
-`autoFocus` keeps focus on the select.
+after the entry point loads. It focuses the `autoFocus` ref of the modal. Else, with
+`platform_dst-automated_focus` on, it keeps focus that the content took (`applyInitialFocus`), so
+React's `autoFocus` wins. With `platform_dst-automated_focus` off, it focuses the first focusable
+element, so it overrides both the native attribute and React's `autoFocus`. In that case, with
+`platform-dst-top-layer` off, the header close button comes first in `AddIssueTypeForm`, so focus
+most likely moves there (not verified in the product). With `platform-dst-top-layer` on, the same
+rules apply: the top-layer `ModalDialog` forwards its `ref` to the native `<dialog>`, so
+`FocusInsideOnLoad` finds the modal.
 
 Other consumers can have the same problem. A search for `autoFocus` inside `ModalDialog` content
 finds more.
@@ -90,6 +95,7 @@ finds more.
 ## To explore
 
 - Should `FocusInsideOnLoad` prefer an `[autofocus]` element before the first focusable element, as
-  the dialog focusing steps do? It needs the top-layer `ModalDialog` to forward its `ref` first.
+  the dialog focusing steps do? With `platform_dst-automated_focus` on, it does: `applyInitialFocus`
+  picks the first `[autofocus]` element. With the gate off, it does not.
 - How many Jira and Confluence consumers use JSX `autoFocus` inside `ModalDialog` content?
 - Can a lint rule find JSX `autoFocus` inside `ModalDialog` content?

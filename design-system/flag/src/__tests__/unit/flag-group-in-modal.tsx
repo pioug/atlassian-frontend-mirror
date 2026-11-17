@@ -13,6 +13,7 @@ import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gat
 import { screen } from '@atlassian/testing-library/screen';
 import { act, render, waitFor } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
+import { within } from '@atlassian/testing-library/within';
 
 import { FlagsProvider } from '../../flags-provider';
 import { useFlags } from '../../use-flags';
@@ -193,6 +194,34 @@ describe('FlagGroup with an open modal', () => {
 			await user.keyboard('{Escape}');
 
 			expect(onClose).toHaveBeenCalledTimes(1);
+		});
+
+		it('puts the flag in the modal Tab order, after the last element of the modal, and wraps', async () => {
+			const user = userEvent.setup();
+			render(
+				<ModalPage isOpen>
+					<ShowFlagButton />
+					<button type="button">Last in modal</button>
+				</ModalPage>,
+			);
+			await user.click(screen.getByRole('button', { name: 'Show flag' }));
+			const flagButtons = within(screen.getByRole('alert')).getAllByRole('button');
+			const firstInModal = screen.getByRole('button', { name: 'Close Modal' });
+			act(() => {
+				screen.getByRole('button', { name: 'Last in modal' }).focus();
+			});
+
+			await user.tab();
+			expect(flagButtons[0]).toHaveFocus();
+
+			act(() => {
+				flagButtons[flagButtons.length - 1].focus();
+			});
+			await user.tab();
+			expect(firstInModal).toHaveFocus();
+
+			await user.tab({ shift: true });
+			expect(flagButtons[flagButtons.length - 1]).toHaveFocus();
 		});
 
 		it('stays in place when a modal dialog opens after it', async () => {

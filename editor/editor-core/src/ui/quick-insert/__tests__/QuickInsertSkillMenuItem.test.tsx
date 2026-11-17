@@ -4,6 +4,7 @@ import { act } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import type { GetAICreditStatus } from '@atlaskit/editor-common/credit-guard/types';
 import type { MenuItem } from '@atlaskit/editor-common/extensions/types/utils';
 import { useQuickInsertContext } from '@atlaskit/editor-common/quick-insert/use-quick-insert-context';
 import { createRegisteredMenuSurfaceContext } from '@atlaskit/editor-common/registered-menu/surface-context';
@@ -53,7 +54,7 @@ describe('QuickInsertSkillMenuItem', () => {
 	}: {
 		isOffline?: boolean;
 		isSelected?: boolean;
-		surface?: 'typeahead' | 'element-browser';
+		surface?: 'typeahead' | 'toolbar' | 'element-browser';
 	} = {}) => {
 		jest.mocked(useQuickInsertContext).mockReturnValue({
 			editorView: { state: {} },
@@ -88,6 +89,10 @@ describe('QuickInsertSkillMenuItem', () => {
 		preview: { attribution: { name: 'Jira' } },
 		title: 'Research',
 		...overrides,
+	});
+
+	const createApiRef = (getAICreditStatus?: GetAICreditStatus) => ({
+		current: getAICreditStatus ? { aiExperience: { actions: { getAICreditStatus } } } : undefined,
 	});
 
 	beforeEach(() => {
@@ -196,6 +201,220 @@ describe('QuickInsertSkillMenuItem', () => {
 			expect.objectContaining({ source: INPUT_METHOD.QUICK_INSERT }),
 		);
 		expect(onInsert).toHaveBeenCalledTimes(1);
+	});
+
+	it.each([
+		{ surface: 'toolbar' as const, featureName: 'quickInsert-skill' },
+		{ surface: 'element-browser' as const, featureName: 'elementBrowser-skill' },
+	])(
+		'checks credits on the $surface surface before selecting',
+		async ({ surface, featureName }) => {
+			setQuickInsertContext({ isSelected: true, surface });
+			const getAICreditStatus: GetAICreditStatus = jest.fn(() => ({
+				isBlocked: true,
+				renderCustomContent: () => <div>Credits are unavailable</div>,
+			}));
+			const item = createItem();
+
+			await renderAndFlushIcons(
+				<IntlProvider locale="en">
+					<div aria-label="Quick insert" role="listbox">
+						<QuickInsertSkillMenuItem
+							apiRef={createApiRef(getAICreditStatus) as never}
+							editorActions={{} as never}
+							item={item}
+						/>
+					</div>
+				</IntlProvider>,
+			);
+
+			const option = screen.getByRole('option', { name: item.title });
+			if (surface === 'toolbar') {
+				expect(screen.getByTestId('quick-insert-preview-panel')).toBeInTheDocument();
+			}
+			fireEvent.click(option);
+
+			expect(getAICreditStatus).toHaveBeenCalledWith({ featureName });
+			expect(executeExtensionQuickInsertItem).not.toHaveBeenCalled();
+			expect(screen.getByRole('dialog')).toHaveTextContent('Credits are unavailable');
+			expect(option).toHaveAttribute('id', 'skill');
+			expect(screen.queryByTestId('quick-insert-preview-panel')).not.toBeInTheDocument();
+		},
+	);
+
+	it('shows blocked feedback when an unselected skill is clicked', async () => {
+		const getAICreditStatus: GetAICreditStatus = jest.fn(() => ({
+			isBlocked: true,
+			renderCustomContent: () => <div>Credits are unavailable</div>,
+		}));
+		const item = createItem();
+
+		await renderAndFlushIcons(
+			<div aria-label="Quick insert" role="listbox">
+				<QuickInsertSkillMenuItem
+					apiRef={createApiRef(getAICreditStatus) as never}
+					editorActions={{} as never}
+					item={item}
+				/>
+			</div>,
+		);
+
+		fireEvent.click(screen.getByRole('option', { name: item.title }));
+
+		expect(getAICreditStatus).toHaveBeenCalledWith({ featureName: 'quickInsert-skill' });
+		expect(executeExtensionQuickInsertItem).not.toHaveBeenCalled();
+		expect(screen.getByRole('dialog')).toHaveTextContent('Credits are unavailable');
+	});
+
+	it('uses the AI credit action when it becomes available after the item renders', async () => {
+		const getAICreditStatus: GetAICreditStatus = jest.fn(() => ({
+			isBlocked: true,
+			renderCustomContent: () => <div>Credits are unavailable</div>,
+		}));
+		const item = createItem();
+		const apiRef = createApiRef();
+
+		await renderAndFlushIcons(
+			<div aria-label="Quick insert" role="listbox">
+				<QuickInsertSkillMenuItem
+					apiRef={apiRef as never}
+					editorActions={{} as never}
+					item={item}
+				/>
+			</div>,
+		);
+
+		apiRef.current = { aiExperience: { actions: { getAICreditStatus } } };
+		fireEvent.click(screen.getByRole('option', { name: item.title }));
+
+		expect(getAICreditStatus).toHaveBeenCalledWith({ featureName: 'quickInsert-skill' });
+		expect(screen.getByRole('dialog')).toHaveTextContent('Credits are unavailable');
+	});
+
+	it('closes credit feedback when selection moves to another skill', async () => {
+		setQuickInsertContext({ isSelected: true });
+		const getAICreditStatus: GetAICreditStatus = jest.fn(() => ({
+			isBlocked: true,
+			renderCustomContent: () => <div>Credits are unavailable</div>,
+		}));
+		const item = createItem();
+		const apiRef = createApiRef(getAICreditStatus);
+		const { rerender } = await renderAndFlushIcons(
+			<IntlProvider locale="en">
+				<div aria-label="Quick insert" role="listbox">
+					<QuickInsertSkillMenuItem
+						apiRef={apiRef as never}
+						editorActions={{} as never}
+						item={item}
+					/>
+				</div>
+			</IntlProvider>,
+		);
+
+		fireEvent.click(screen.getByRole('option', { name: item.title }));
+		expect(screen.getByRole('dialog')).toHaveTextContent('Credits are unavailable');
+
+		setQuickInsertContext({ isSelected: false });
+		await act(async () => {
+			rerender(
+				<IntlProvider locale="en">
+					<div aria-label="Quick insert" role="listbox">
+						<QuickInsertSkillMenuItem
+							apiRef={apiRef as never}
+							editorActions={{} as never}
+							item={item}
+						/>
+					</div>
+				</IntlProvider>,
+			);
+			await Promise.resolve();
+		});
+
+		expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+	});
+
+	it('executes when the product credit check allows the skill', async () => {
+		jest.mocked(executeExtensionQuickInsertItem).mockReturnValue({} as never);
+		const getAICreditStatus: GetAICreditStatus = jest.fn(() => ({ isBlocked: false }));
+		const item = createItem();
+		const onInsert = jest.fn();
+
+		await renderAndFlushIcons(
+			<IntlProvider locale="en">
+				<div aria-label="Quick insert" role="listbox">
+					<QuickInsertSkillMenuItem
+						apiRef={createApiRef(getAICreditStatus) as never}
+						editorActions={{} as never}
+						item={item}
+						onInsert={onInsert}
+					/>
+				</div>
+			</IntlProvider>,
+		);
+
+		fireEvent.click(screen.getByRole('option', { name: item.title }));
+
+		expect(getAICreditStatus).toHaveBeenCalledWith({ featureName: 'quickInsert-skill' });
+		expect(executeExtensionQuickInsertItem).toHaveBeenCalledWith(expect.objectContaining({ item }));
+		expect(onInsert).toHaveBeenCalledTimes(1);
+	});
+
+	it('rechecks blocked skills and executes when credits recover', async () => {
+		jest.mocked(executeExtensionQuickInsertItem).mockReturnValue({} as never);
+		const getAICreditStatus: GetAICreditStatus = jest
+			.fn()
+			.mockReturnValueOnce({
+				isBlocked: true,
+				renderCustomContent: () => <div>Credits are unavailable</div>,
+			})
+			.mockReturnValue({ isBlocked: false });
+		const item = createItem();
+		const onInsert = jest.fn();
+
+		await renderAndFlushIcons(
+			<IntlProvider locale="en">
+				<div aria-label="Quick insert" role="listbox">
+					<QuickInsertSkillMenuItem
+						apiRef={createApiRef(getAICreditStatus) as never}
+						editorActions={{} as never}
+						item={item}
+						onInsert={onInsert}
+					/>
+				</div>
+			</IntlProvider>,
+		);
+
+		const option = screen.getByRole('option', { name: item.title });
+		fireEvent.click(option);
+		expect(screen.getByRole('dialog')).toHaveTextContent('Credits are unavailable');
+		fireEvent.click(option);
+
+		expect(getAICreditStatus).toHaveBeenCalledTimes(2);
+		expect(executeExtensionQuickInsertItem).toHaveBeenCalledWith(expect.objectContaining({ item }));
+		expect(onInsert).toHaveBeenCalledTimes(1);
+	});
+
+	it('fails open when the product credit check returns a legacy promise', async () => {
+		jest.mocked(executeExtensionQuickInsertItem).mockReturnValue({} as never);
+		const getAICreditStatus: GetAICreditStatus = jest.fn(() =>
+			Promise.resolve({ isBlocked: true, renderCustomContent: () => null }),
+		);
+		const item = createItem();
+
+		await renderAndFlushIcons(
+			<div aria-label="Quick insert" role="listbox">
+				<QuickInsertSkillMenuItem
+					apiRef={createApiRef(getAICreditStatus) as never}
+					editorActions={{} as never}
+					item={item}
+				/>
+			</div>,
+		);
+
+		fireEvent.click(screen.getByRole('option', { name: item.title }));
+
+		expect(executeExtensionQuickInsertItem).toHaveBeenCalledWith(expect.objectContaining({ item }));
+		expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
 	});
 
 	it('renders and executes a Skill from the Element Browser card', async () => {

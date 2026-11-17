@@ -296,7 +296,7 @@ const styles = cssMap({
  * with `@starting-style` used by `styles`.
  *
  * ⚠️ The `transition-duration` values below need to stay in sync with the duration baked into the tokens
- * (`motion.sidenav.enter.*` is 250ms, `motion.sidenav.exit.*` is 200ms). The `display` property is
+ * (`motion.sidenav.enter.*` and `motion.sidenav.exit.*` are both 200ms). The `display` property is
  * transitioned (with `allow-discrete`) so the element stays rendered for the length of the exit animation —
  * if the transition is shorter than the animation, `display: none` applies early and the exit animation
  * never runs.
@@ -330,16 +330,16 @@ const motionUpliftStyles = cssMap({
 		},
 	},
 	expandAnimationMobile: {
-		// These styles are not limited to "mobile" viewports, as they are not scoped to any media queries.
-		// Desktop styles will need to override these if required.
-		'@media (prefers-reduced-motion: no-preference)': {
+		// Mobile and desktop visibility are independent. Keep their motion rules mutually exclusive
+		// so a later-loaded mobile rule cannot override the desktop animation or grid track.
+		'@media (prefers-reduced-motion: no-preference) and (width < 64rem)': {
 			animation: 'var(--enter-animation)',
 		},
 	},
 	collapseAnimationMobile: {
-		// These styles are not limited to "mobile" viewports, as they are not scoped to any media queries.
-		// Desktop styles will need to override these if required.
-		'@media (prefers-reduced-motion: no-preference)': {
+		// Mobile and desktop visibility are independent. Keep their motion rules mutually exclusive
+		// so a later-loaded mobile rule cannot override the desktop animation or grid track.
+		'@media (prefers-reduced-motion: no-preference) and (width < 64rem)': {
 			gridArea: 'main',
 			animation: 'var(--exit-animation)',
 		},
@@ -386,7 +386,7 @@ const motionUpliftStyles = cssMap({
 			animation: 'var(--enter-animation)',
 			transitionProperty: 'grid-area',
 			transitionDuration: token('motion.duration.instant'),
-			transitionDelay: '24ms', // Snaps main content when 60% of the side nav has entered
+			transitionDelay: '60ms', // Snap at 30% of the 200ms entrance.
 			'@starting-style': {
 				gridArea: 'main',
 			},
@@ -398,7 +398,7 @@ const motionUpliftStyles = cssMap({
 			animation: 'var(--exit-animation)',
 			transitionProperty: 'grid-area, display',
 			transitionDuration: `${token('motion.duration.instant')}, ${token('motion.duration.medium')}`,
-			transitionDelay: `19ms, ${token('motion.duration.instant')}`, // Snaps main content when 60% of the side nav has exited
+			transitionDelay: token('motion.duration.instant'),
 		},
 	},
 });
@@ -1455,6 +1455,7 @@ function SideNavInternal({
 			>
 				{isChatPanelLayoutEnabled && (
 					// CSS reserves only the nav minimum for chat's fit decision, before effects or lazy loading.
+					// Motion owns grid-area so this ID selector cannot override the entrance or exit snap.
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles
 					<style>{`
 #${gridRootFitId} { --n_clearanceNavMin: 0px; --n_clearanceNavTarget: ${clampedWidth}; }
@@ -1462,10 +1463,10 @@ function SideNavInternal({
 @media (min-width: 64rem) {
   #${gridRootFitId} { --n_clearanceNavMin: ${isExpandedOnDesktop ? minWidth : '0px'}; }
 }
-${shouldApplyUnmanagedSizing ? `#${gridRootId} nav[data-layout-slot] { grid-area: main / aside / aside / aside; width: min(90%, ${clampedWidth}); }` : ''}
+${shouldApplyUnmanagedSizing ? `#${gridRootId} nav[data-layout-slot] { ${isMotionUpliftEnabled ? '' : 'grid-area: main / aside / aside / aside;'} width: min(90%, ${clampedWidth}); }` : ''}
 @media (min-width: 64rem) {
     #${gridRootChatFitId} { --n_fitNav: ${isExpandedOnDesktop ? minWidth : '0px'}; }
-    ${shouldApplyUnmanagedSizing ? `#${gridRootId} nav[data-layout-slot] { grid-area: side-nav; width: max(${minWidth}, min(${clampedWidth}, calc(100cqw + var(--n_fitNav) - var(--n_chatTrack, 0px)))); }` : ''}
+    ${shouldApplyUnmanagedSizing ? `#${gridRootId} nav[data-layout-slot] { ${isMotionUpliftEnabled ? '' : 'grid-area: side-nav;'} width: max(${minWidth}, min(${clampedWidth}, calc(100cqw + var(--n_fitNav) - var(--n_chatTrack, 0px)))); }` : ''}
 }
 `}</style>
 				)}

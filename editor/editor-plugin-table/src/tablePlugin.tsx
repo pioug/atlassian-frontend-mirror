@@ -42,7 +42,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { tableEditing } from '@atlaskit/editor-tables/pm-plugins/table-editing';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { tableNodeSpecWithFixedToDOM } from './nodeviews/toDOM';
@@ -127,8 +126,7 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
 		!options?.isChromelessEditor &&
 		!options?.isCommentEditor &&
-		options?.getEditorFeatureFlags?.().tableSelector &&
-		editorExperiment('platform_editor_controls', 'variant1');
+		options?.getEditorFeatureFlags?.().tableSelector;
 
 	if (expValEquals('platform_editor_table_menu_updates', 'isEnabled', true)) {
 		api?.uiControlRegistry?.actions.register(

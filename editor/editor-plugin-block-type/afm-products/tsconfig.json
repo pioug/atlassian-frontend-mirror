@@ -53,6 +53,12 @@
 			"path": "../../editor-plugin-toolbar/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-ui-control-registry/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-user-preferences/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-prosemirror/afm-products/tsconfig.json"
 		},
 		{
@@ -66,6 +72,9 @@
 		},
 		{
 			"path": "../../editor-toolbar-model/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-ui-control-model/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/icon/afm-products/tsconfig.json"
@@ -87,9 +96,6 @@
 		},
 		{
 			"path": "../../input-rules/afm-products/tsconfig.json"
-		},
-		{
-			"path": "../../tmp-editor-statsig/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/tokens/afm-products/tsconfig.json"

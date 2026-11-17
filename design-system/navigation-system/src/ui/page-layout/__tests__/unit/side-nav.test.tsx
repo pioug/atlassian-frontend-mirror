@@ -1514,6 +1514,36 @@ describe('Side nav', () => {
 		});
 	});
 
+	it.each([true, false])(
+		'lets motion own grid placement before lazy sizing loads (motion %s)',
+		(motionEnabled) => {
+			passGate('platform-dst-chat-panel-layout');
+			if (motionEnabled) {
+				passGate('platform-dst-motion-uplift-sidenav');
+			} else {
+				failGate('platform-dst-motion-uplift-sidenav');
+			}
+			render(
+				<Root>
+					<SideNav testId="side-nav">Navigation</SideNav>
+				</Root>,
+			);
+			const nav = screen.getByTestId('side-nav');
+			// The CSS-first sizing rules must keep their width allocation, but their ID
+			// selector must not pin the nav to a track while its exit is still playing.
+			// eslint-disable-next-line testing-library/no-node-access -- Inspect CSS specificity; JSDOM cannot measure the grid track.
+			const allocationCss = Array.from(nav.querySelectorAll('style'))
+				.map((style) => style.textContent)
+				.join('');
+			expect(allocationCss).toContain('width: max(');
+			if (motionEnabled) {
+				expect(allocationCss).not.toContain('grid-area: side-nav');
+			} else {
+				expect(allocationCss).toContain('grid-area: side-nav');
+			}
+		},
+	);
+
 	describe('mobile grid-area', () => {
 		// The declaration Compiled emits for `gridArea: 'main / aside / aside / aside'`.
 		const MOBILE_GRID_AREA = 'grid-area:main/aside/aside/aside';

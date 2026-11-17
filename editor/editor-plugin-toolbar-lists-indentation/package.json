@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-toolbar-lists-indentation",
-	"version": "32.0.0",
+	"version": "34.0.0",
 	"description": "Toolbar lists and indentation plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -38,13 +38,13 @@
 		"@atlaskit/editor-plugin-selection-toolbar": "workspace:^",
 		"@atlaskit/editor-plugin-tasks-and-decisions": "workspace:^",
 		"@atlaskit/editor-plugin-toolbar": "workspace:^",
+		"@atlaskit/editor-plugin-user-preferences": "workspace:^",
 		"@atlaskit/editor-prosemirror": "workspace:^",
 		"@atlaskit/editor-toolbar": "workspace:^",
 		"@atlaskit/editor-toolbar-model": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
 		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
-		"@atlaskit/tmp-editor-statsig": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*"
 	},
@@ -56,6 +56,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/adf-schema": "workspace:^",
+		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/editor-common": "workspace:^",
 		"@testing-library/react": "root:*",
 		"react": "^19.2.0",

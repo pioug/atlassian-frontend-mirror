@@ -554,15 +554,22 @@ describe('layer show order', () => {
 				</TestDialog>,
 			);
 
-			// The popover is not inside the dialog in the DOM, so it has no parent layer and shows at once.
-			expect(shown).toEqual(['portaled', 'dialog']);
+			// The popover is not inside the dialog in the DOM, so it has no parent layer and does not
+			// wait. The dialog shows before its content effects run, so the popover shows after it.
+			expect(shown).toEqual(['dialog', 'portaled']);
 		});
 
 		it('shows a layer after its own parent when portals make the effect order differ from the DOM order', async () => {
 			const suspender = createSuspender();
 			const onInnerClose = jest.fn();
 			// Stable portal targets. React detaches refs on a Suspense hide, so a target kept in state
-			// would remove the portals, and the layers would not show again in one commit.
+			// would remove the portals, and the layers would not show again in one commit. Append each
+			// target once: moving it again would remove the open layers inside it, which closes them.
+			function appendOnce({ parent, child }: { parent: HTMLElement | null; child: HTMLElement }) {
+				if (parent && !parent.contains(child)) {
+					parent.appendChild(child);
+				}
+			}
 			const outerTarget = document.createElement('div');
 			const middleTarget = document.createElement('div');
 			function Tree({ hasPortals }: { hasPortals: boolean }) {
@@ -570,7 +577,7 @@ describe('layer show order', () => {
 					<Suspense fallback={null}>
 						{/* In the React tree, the inner layer is a child of the outer layer. */}
 						<TestPopover label="outer" mode="auto">
-							<div ref={(node) => node?.appendChild(outerTarget)} />
+							<div ref={(node) => appendOnce({ parent: node, child: outerTarget })} />
 							{hasPortals &&
 								createPortal(
 									<TestPopover label="inner" mode="auto" onClose={onInnerClose} />,
@@ -581,7 +588,7 @@ describe('layer show order', () => {
 						{hasPortals &&
 							createPortal(
 								<TestPopover label="middle" mode="auto">
-									<div ref={(node) => node?.appendChild(middleTarget)} />
+									<div ref={(node) => appendOnce({ parent: node, child: middleTarget })} />
 								</TestPopover>,
 								outerTarget,
 							)}

@@ -1,5 +1,44 @@
 # @atlaskit/editor-plugin-table
 
+## 45.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.0.0
+
+### Patch Changes
+
+- [`cabf3c7e59b8d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cabf3c7e59b8d) -
+  Remove internal uses of the always-true `areToolbarFlagsEnabled` helper and delete legacy toolbar
+  code that only rendered when it returned false (`ScrollButtons`, `LinkToolbarAppearance`,
+  `HyperlinkToolbarAppearance` and the media `LayoutGroup`).
+- Updated dependencies
+
+## 44.0.0
+
+### Patch Changes
+
+- [`b2444e74978c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2444e74978c4) -
+  Make the shipped editor memory-leak reductions permanent and remove the experiment checks.
+- Updated dependencies
+
+## 43.1.0
+
+### Minor Changes
+
+- [`c13b574ab38d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c13b574ab38d2) -
+  Declare the workspace dependencies used by package source and emitted types so isolated
+  installations can resolve them.
+
+### Patch Changes
+
+- [`5d72d64c680a0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5d72d64c680a0) -
+  Remove the `control` branches of experiment `platform_editor_controls`; the editor controls
+  (`variant1`) experience is now permanent.
+- Updated dependencies
+
 ## 43.0.1
 
 ### Patch Changes

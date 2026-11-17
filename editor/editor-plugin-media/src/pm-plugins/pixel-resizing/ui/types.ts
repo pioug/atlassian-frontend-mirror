@@ -4,10 +4,6 @@ import type { IntlShape } from 'react-intl';
 
 export type PixelEntryProps = {
 	/**
-	 * Whether the new toolbar flags are enabled
-	 */
-	areAnyNewToolbarFlagsEnabled?: boolean;
-	/**
 	 * IntlShape passed in for translations
 	 */
 	intl: IntlShape;
@@ -44,11 +40,6 @@ export type PixelEntryProps = {
 	 * Migration handler called when the CTA button is clicked
 	 */
 	onMigrate?: () => void;
-	/**
-	 * The submit function that is called when the form is valid and the submit key is pressed
-	 */
-	onSubmit?: (value: PixelEntryFormData) => void;
-
 	/**
 	 * show migration button to convert to pixels for legacy image resize experience
 	 */

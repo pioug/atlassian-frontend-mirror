@@ -139,7 +139,7 @@ function attributedPayload(version: string, accountId: string): BulkEvaluationPa
 			'flag-a': result({
 				metadata: {
 					...result().metadata,
-					randomizationIdentifierName: 'AtlassianAccountId',
+					identifierType: 'AtlassianAccountId',
 					flagVersion: version,
 					targetApps: ['jira-frontend'],
 				},
@@ -941,6 +941,67 @@ describe('exposure storage', () => {
 	});
 });
 
+describe('captured randomization identifiers', () => {
+	it('resolves identifierType from the original request for automatic and delayed manual exposures', async () => {
+		const source: BulkEvaluationPayload = {
+			flags: {
+				'flag-a': result({
+					metadata: {
+						matchReason: 'aa_test_match',
+						identifierType: 'TenantId',
+						stableSplitOutcome: { variationId: 'control', matchReason: 'ss_cohort_match' },
+					},
+				}),
+			},
+			requestContext: { identifiers: { TenantId: 'alice' } },
+		};
+		const client = initializedWithPayload(source);
+		client.getBooleanValue('flag-a', false);
+		const details = client.getBooleanDetails('flag-a', false, { disableExposureLogging: true });
+		const [automatic] = await deliverAll();
+		expect(
+			client.replace(
+				() => ({ ...source, requestContext: { identifiers: { TenantId: 'bob' } } }),
+				testUser(),
+			).replaced,
+		).toBe(true);
+		client.logExposure(details);
+		const exposures = await deliverAll();
+		const manual = exposures[exposures.length - 1];
+		for (const exposure of [automatic, manual]) {
+			expect(exposure?.attributes).toMatchObject({
+				'atl.feature_flag.randomization_identifier_name': 'TenantId',
+				'atl.feature_flag.randomization_identifier_value': 'alice',
+				'atl.feature_flag.stable_split_outcome.variation_id': 'control',
+				'atl.feature_flag.stable_split_outcome.match_reason': 'ss_cohort_match',
+			});
+		}
+		expect(manual?.attributes['atl.feature_flag.deduplication_key']).toBe(
+			automatic?.attributes['atl.feature_flag.deduplication_key'],
+		);
+	});
+
+	it.each([undefined, '', 'request-a'])(
+		'preserves a captured identifier value %p in exposure metadata',
+		async (value) => {
+			const client = initializedWithPayload({
+				flags: {
+					'flag-a': result({
+						metadata: { matchReason: 'ss_cohort_match', identifierType: 'randomizationId' },
+					}),
+				},
+				requestContext: { identifiers: value === undefined ? {} : { randomizationId: value } },
+			});
+			client.getBooleanValue('flag-a', false);
+			const [exposure] = await deliverAll();
+			expect(exposure?.attributes['atl.feature_flag.randomization_identifier_name']).toBe(
+				'randomizationId',
+			);
+			expect(exposure?.attributes['atl.feature_flag.randomization_identifier_value']).toBe(value);
+		},
+	);
+});
+
 describe('optional assignment metadata forwarding', () => {
 	function assignment(label: string): ExposureAssignmentMetadata {
 		return {
@@ -962,11 +1023,13 @@ describe('optional assignment metadata forwarding', () => {
 	function payload(label: string, overrides: Record<string, unknown> = {}): BulkEvaluationPayload {
 		return {
 			...PAYLOAD,
+			requestContext: { identifiers: { 'custom-id': `account:${label}|🧪` } },
 			flags: {
 				'flag-a': result({
 					metadata: {
 						...result().metadata,
 						...assignment(label),
+						identifierType: 'custom-id',
 						holdoutAllocation: {
 							holdoutKey: 'actual-holdout',
 							identifierType: 'actual-id',
@@ -1041,6 +1104,7 @@ describe('optional assignment metadata forwarding', () => {
 					'flag-a': result({
 						metadata: {
 							...result().metadata,
+							identifierType: null,
 							randomizationIdentifierValue: value,
 							randomizationIdentifierName: value,
 							dedupeKey: value,
@@ -1062,6 +1126,7 @@ describe('optional assignment metadata forwarding', () => {
 			payload('unused', {
 				metadata: {
 					...result().metadata,
+					identifierType: null,
 					stableSplitOutcome: { matchReason: 'general_error', variationId: null },
 				},
 			}),
@@ -1080,26 +1145,29 @@ describe('optional assignment metadata forwarding', () => {
 	])(
 		'preserves empty strings and omits malformed hypothetical holdouts: %j',
 		async (holdoutAllocation) => {
-			const client = initializedWithPayload(
-				payload('unused', {
-					metadata: {
-						...result().metadata,
-						randomizationIdentifierValue: '',
-						randomizationIdentifierName: '',
-						dedupeKey: '',
-						stableSplitOutcome: {
-							matchReason: '',
-							variationId: '',
-							holdoutAllocation,
-						},
+			const source = payload('unused', {
+				metadata: {
+					...result().metadata,
+					identifierType: 'custom-id',
+					randomizationIdentifierValue: '',
+					randomizationIdentifierName: '',
+					dedupeKey: '',
+					stableSplitOutcome: {
+						matchReason: '',
+						variationId: '',
+						holdoutAllocation,
 					},
-				}),
-			);
+				},
+			});
+			const client = initializedWithPayload({
+				...source,
+				requestContext: { identifiers: { 'custom-id': '' } },
+			});
 			client.getBooleanDetails('flag-a', false);
 			const [exposure] = await deliverAll();
 			expect(forwarded(exposure)).toEqual({
 				'atl.feature_flag.randomization_identifier_value': '',
-				'atl.feature_flag.randomization_identifier_name': '',
+				'atl.feature_flag.randomization_identifier_name': 'custom-id',
 				'atl.feature_flag.stable_split_outcome.match_reason': '',
 				'atl.feature_flag.stable_split_outcome.variation_id': '',
 			});
@@ -1118,7 +1186,10 @@ describe('optional assignment metadata forwarding', () => {
 		const exposures = await deliverAll();
 		expect(exposures).toHaveLength(2);
 		expect(forwarded(exposures[0])).toEqual(expected('first'));
-		expect(forwarded(exposures[1])).toEqual(expected('second'));
+		expect(forwarded(exposures[1])).toEqual({
+			...expected('second'),
+			'atl.feature_flag.randomization_identifier_value': 'account:first|🧪',
+		});
 		expect(exposures[0]?.attributes['atl.feature_flag.deduplication_key']).toMatch(
 			/^ffp-exp-v1:[0-9a-f]{16}$/,
 		);

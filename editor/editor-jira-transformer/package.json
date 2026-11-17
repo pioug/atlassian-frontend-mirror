@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-jira-transformer",
-	"version": "39.0.0",
+	"version": "41.0.0",
 	"description": "Editor JIRA transformer's",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -43,6 +43,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/activity": "root:*",
+		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/editor-common": "workspace:^",
 		"@atlaskit/editor-core": "workspace:^",
 		"@atlaskit/editor-json-transformer": "workspace:^",

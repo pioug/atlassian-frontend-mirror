@@ -1,5 +1,51 @@
 # @atlaskit/ads-mcp
 
+## 1.13.0
+
+### Minor Changes
+
+- [`2654e3d0ab3e0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2654e3d0ab3e0) -
+  Updated the search tools and planner fields to accept a single query string as well as an array. A
+  scalar is treated as one search term with the same matching behavior as a one-item array.
+
+  Unused planner fields can be omitted and default to empty arrays. The planner requires at least
+  one nonblank search term, skips blank-only categories, and returns shared validation errors for
+  invalid direct calls.
+
+### Patch Changes
+
+- [`ec57cc84535db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ec57cc84535db) -
+  Rename `@atlassian/a2ui-catalog` to the public npm package `@atlaskit/a2ui-catalog` and update the
+  renderer to consume the new package. Replace the old dependency and import prefix with
+  `@atlaskit/a2ui-catalog`; existing API subpaths and wire catalog IDs remain unchanged.
+
+  Expose the prebuilt ADS and Agentic Jira catalog JSON under `catalogs/<slug>/catalog.json` so
+  external agent services can load versioned schemas and instructions without copying website
+  content or running schema generation. Add external integration guidance covering model context,
+  A2UI message output, host compatibility, validation, and user actions. The package now meets the
+  production Atlaskit website's public-package scope filter.
+
+- Updated dependencies
+
+## 1.12.16
+
+### Patch Changes
+
+- [`4aa8af7d75769`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4aa8af7d75769) -
+  Refresh generated structured-content catalogs from AFM master.
+- [`25998c1b6aa8d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/25998c1b6aa8d) -
+  Prefill third-party starters that require authentication under rovo_chat_3p_zero_state_prompt so
+  the existing connection banner can appear.
+
+  Use the existing experiment's `includeUnauthenticatedLinks` parameter to show and prefill starters
+  with unresolved access when enabled, or hide them when disabled. Use link resolution rather than
+  connector connection state so resolved public links remain available. Preserve candidate selection
+  and fall back to recent activity when no page starter can be shown.
+
+  Expose the existing composer Smart Link resolution hook for starter authentication checks, sharing
+  the provider cache and safely leaving links pending when no Smart Card provider is mounted.
+  Include the resolver in the generated offering catalogs.
+
 ## 1.12.15
 
 ### Patch Changes

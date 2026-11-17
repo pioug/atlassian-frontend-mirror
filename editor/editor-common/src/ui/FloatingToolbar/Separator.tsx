@@ -11,14 +11,6 @@ const separator = css({
 	background: token('color.border'),
 	width: '1px',
 	height: '20px',
-	margin: `0 ${token('space.050')}`,
-	alignSelf: 'center',
-});
-
-const separatorNew = css({
-	background: token('color.border'),
-	width: '1px',
-	height: '20px',
 	alignSelf: 'center',
 });
 
@@ -27,7 +19,6 @@ const separatorFullHeight = css({
 });
 
 type SeparatorProps = {
-	areAnyNewToolbarFlagsEnabled: boolean;
 	/**
 	 * @private
 	 * @deprecated
@@ -37,12 +28,9 @@ type SeparatorProps = {
 	fullHeight?: boolean;
 };
 
-export default ({ fullHeight, areAnyNewToolbarFlagsEnabled }: SeparatorProps): jsx.JSX.Element => (
+export default ({ fullHeight }: SeparatorProps): jsx.JSX.Element => (
 	<div
-		css={[
-			areAnyNewToolbarFlagsEnabled ? separatorNew : separator,
-			fullHeight && separatorFullHeight,
-		]}
+		css={[separator, fullHeight && separatorFullHeight]}
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 		className="separator"
 	/>

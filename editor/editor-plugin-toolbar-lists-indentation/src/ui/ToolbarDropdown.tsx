@@ -28,7 +28,6 @@ import ListBulletedIcon from '@atlaskit/icon/core/list-bulleted';
 import ListNumberedIcon from '@atlaskit/icon/core/list-numbered';
 import TextIndentLeftIcon from '@atlaskit/icon/core/text-indent-left';
 import TextIndentRightIcon from '@atlaskit/icon/core/text-indent-right';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { type ButtonName, type ToolbarProps, ToolbarType } from '../types';
 
@@ -44,7 +43,6 @@ export function ToolbarDropdown(props: DropdownProps): JSX.Element {
 	const {
 		disabled,
 		isReducedSpacing,
-		bulletListActive,
 		orderedListActive,
 		popupsMountPoint,
 		popupsBoundariesElement,
@@ -93,20 +91,11 @@ export function ToolbarDropdown(props: DropdownProps): JSX.Element {
 
 	const reducedSpacing = props.toolbarType === ToolbarType.FLOATING ? 'compact' : 'none';
 
-	let activeListIcon = null;
-	let isSelected = isDropdownOpen;
-	if (editorExperiment('platform_editor_controls', 'variant1')) {
-		activeListIcon = orderedListActive ? (
-			<ListNumberedIcon spacing="spacious" label="" />
-		) : (
-			<ListBulletedIcon spacing="spacious" label="" />
-		);
-	} else {
-		activeListIcon = (
-			<ListBulletedIcon color="currentColor" spacing="spacious" label={labelLists} />
-		);
-		isSelected = bulletListActive || orderedListActive || isDropdownOpen;
-	}
+	const activeListIcon = orderedListActive ? (
+		<ListNumberedIcon spacing="spacious" label="" />
+	) : (
+		<ListBulletedIcon spacing="spacious" label="" />
+	);
 
 	return (
 		<ToolbarDropdownWrapper>
@@ -131,7 +120,7 @@ export function ToolbarDropdown(props: DropdownProps): JSX.Element {
 			>
 				<ToolbarButton
 					spacing={isReducedSpacing ? reducedSpacing : 'default'}
-					selected={isSelected}
+					selected={isDropdownOpen}
 					aria-expanded={isDropdownOpen}
 					aria-haspopup
 					aria-label={labelLists}
@@ -177,9 +166,7 @@ function useItems(
 			isDisabled: props.bulletListDisabled,
 			isActive: Boolean(props.bulletListActive),
 			elemAfter: <Shortcut>{tooltip(toggleBulletListKeymap)}</Shortcut>,
-			elemBefore: editorExperiment('platform_editor_controls', 'variant1') ? (
-				<ListBulletedIcon label="" />
-			) : undefined,
+			elemBefore: <ListBulletedIcon label="" />,
 		},
 		{
 			key: 'orderedList',
@@ -188,9 +175,7 @@ function useItems(
 			isDisabled: props.orderedListDisabled,
 			isActive: Boolean(props.orderedListActive),
 			elemAfter: <Shortcut>{tooltip(toggleOrderedListKeymap)}</Shortcut>,
-			elemBefore: editorExperiment('platform_editor_controls', 'variant1') ? (
-				<ListNumberedIcon label="" />
-			) : undefined,
+			elemBefore: <ListNumberedIcon label="" />,
 		},
 	];
 	if (props.showIndentationButtons) {
@@ -204,9 +189,7 @@ function useItems(
 				isDisabled: props.outdentDisabled,
 				isActive: false,
 				elemAfter: <Shortcut>{tooltip(toggleOutdentKeymap)}</Shortcut>,
-				elemBefore: editorExperiment('platform_editor_controls', 'variant1') ? (
-					<TextIndentLeftIcon label="" />
-				) : undefined,
+				elemBefore: <TextIndentLeftIcon label="" />,
 			},
 			{
 				key: 'indent',
@@ -215,9 +198,7 @@ function useItems(
 				isDisabled: props.indentDisabled,
 				isActive: false,
 				elemAfter: <Shortcut>{tooltip(toggleIndentKeymap)}</Shortcut>,
-				elemBefore: editorExperiment('platform_editor_controls', 'variant1') ? (
-					<TextIndentRightIcon label="" />
-				) : undefined,
+				elemBefore: <TextIndentRightIcon label="" />,
 			},
 		);
 	}

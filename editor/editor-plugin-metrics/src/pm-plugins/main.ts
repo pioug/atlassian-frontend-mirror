@@ -11,7 +11,6 @@ import type {
 	EditorState,
 } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { MetricsPlugin } from '../metricsPluginType';
 import { ActiveSessionTimer } from './utils/active-session-timer';
@@ -167,10 +166,9 @@ export const createPlugin = (
 				if (!pluginState) {
 					return;
 				}
-				let toolbarDocking;
-				if (editorExperiment('platform_editor_controls', 'variant1')) {
-					toolbarDocking = userPreferencesProvider?.getPreference('toolbarDockingInitialPosition');
-				}
+				const toolbarDocking = userPreferencesProvider?.getPreference(
+					'toolbarDockingInitialPosition',
+				);
 
 				const payloadToSend = getAnalyticsPayload({
 					currentContent: view.state.doc.content,

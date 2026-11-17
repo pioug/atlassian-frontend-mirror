@@ -146,7 +146,6 @@ export const getToolbarConfig = (
 				render: (view) => {
 					return (
 						<Button
-							areAnyNewToolbarFlagsEnabled={true}
 							disabled={syncBlockInstance?.data?.status === 'unpublished'}
 							icon={<LinkBrokenIcon label="" />}
 							title={formatMessage(messages.unsyncButton)}

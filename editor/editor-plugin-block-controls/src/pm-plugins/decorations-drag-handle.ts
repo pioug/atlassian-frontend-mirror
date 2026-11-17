@@ -9,12 +9,10 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-edi
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { BlockControlsPlugin, HandleOptions } from '../blockControlsPluginType';
 import { ACTIVE_DRAG_HANDLE_ATTR } from '../ui/consts';
-import { DragHandle, DragHandleWithVisibility } from '../ui/drag-handle';
+import { DragHandleWithVisibility } from '../ui/drag-handle';
 import { TYPE_HANDLE_DEC, TYPE_NODE_DEC, unmountDecorations } from './decorations-common';
 import { renderToMountPoint, unmountFromMountPoint } from './react-root-registry';
 import type { AnchorRectCache } from './utils/anchor-utils';
@@ -118,12 +116,10 @@ export const dragHandleDecoration = ({
 			editorState.schema.marks.alignment,
 			editorState.schema.marks.fontSize,
 		]),
-		...(isExperimentEnabled('platform_editor_reduce_memory_leaks') && {
-			destroy: (node: Node) => {
-				// Deferred: unmounting a root during a React render warns
-				queueMicrotask(() => unmountUnlessMenuOpen(api, node as Element));
-			},
-		}),
+		destroy: (node: Node) => {
+			// Deferred: unmounting a root during a React render warns
+			queueMicrotask(() => unmountUnlessMenuOpen(api, node as Element));
+		},
 	};
 
 	return Decoration.widget(
@@ -167,57 +163,20 @@ export const dragHandleDecoration = ({
 			// due to margins applied to other nodes eg. Headings
 			element.style.clear = 'unset';
 
-			// temporarily re-instating ReactDOM.render to fix drag handle focus issue, fix to
-			// follow via ED-26546
-
-			// previous under platform_editor_react18_plugin_portalprovider
-			// 	nodeViewPortalProviderAPI.render(
-			// 		() =>
-			// 			createElement(DragHandle, {
-			// 				view,
-			// 				api,
-			// 				formatMessage,
-			// 				getPos,
-			// 				anchorName,
-			// 				nodeType,
-			// 				handleOptions,
-			// 				isTopLevelNode,
-			// 			}),
-			// 		element,
-			// 		key,
-			// 	);
-
-			if (editorExperiment('platform_editor_controls', 'variant1')) {
-				renderToMountPoint(
-					createElement(DragHandleWithVisibility, {
-						view,
-						api,
-						formatMessage,
-						getPos,
-						anchorName,
-						nodeType,
-						handleOptions,
-						isTopLevelNode,
-						anchorRectCache,
-					}),
-					element,
-				);
-			} else {
-				renderToMountPoint(
-					createElement(DragHandle, {
-						view,
-						api,
-						formatMessage,
-						getPos,
-						anchorName,
-						nodeType,
-						handleOptions,
-						isTopLevelNode,
-						anchorRectCache,
-					}),
-					element,
-				);
-			}
+			renderToMountPoint(
+				createElement(DragHandleWithVisibility, {
+					view,
+					api,
+					formatMessage,
+					getPos,
+					anchorName,
+					nodeType,
+					handleOptions,
+					isTopLevelNode,
+					anchorRectCache,
+				}),
+				element,
+			);
 
 			return element;
 		},

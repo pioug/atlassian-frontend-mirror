@@ -1,5 +1,19 @@
 # @atlaskit/forge-react-types
 
+## 2.15.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.15.0
+
+### Minor Changes
+
+- [`c13b574ab38d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c13b574ab38d2) -
+  Declare the workspace dependencies used by package source and emitted types so isolated
+  installations can resolve them.
+
 ## 2.14.0
 
 ### Minor Changes

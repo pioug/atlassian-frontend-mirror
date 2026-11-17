@@ -12,7 +12,7 @@ import type { MentionsPlugin } from '@atlaskit/editor-plugin-mentions/mentions-p
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar/primary-toolbar-plugin-type';
 import type { SyncedBlockPlugin } from '@atlaskit/editor-plugin-synced-block/synced-block-plugin-type';
 
-import type { FindReplacePluginState, FindReplaceToolbarButtonActionProps } from './types';
+import type { FindReplacePluginState } from './types';
 
 export type FindReplacePluginOptions = {
 	takeFullWidth: boolean;
@@ -37,7 +37,6 @@ export type FindReplacePlugin = NextEditorPlugin<
 			activateFindReplace: (
 				triggerMethod?: TRIGGER_METHOD.SHORTCUT | TRIGGER_METHOD.TOOLBAR | TRIGGER_METHOD.EXTERNAL,
 			) => boolean;
-			registerToolbarButton: (params: FindReplaceToolbarButtonActionProps) => React.ReactNode;
 		};
 		dependencies: FindReplacePluginDependencies;
 		pluginConfiguration: FindReplacePluginOptions;

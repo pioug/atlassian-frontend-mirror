@@ -104,6 +104,9 @@
 			"path": "../../../linking-platform/link-picker/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../linking-platform/linking-common/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/logo/afm-products/tsconfig.json"
 		},
 		{

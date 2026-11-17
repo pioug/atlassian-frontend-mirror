@@ -3,7 +3,6 @@ import React, { useCallback } from 'react';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { BlockTypePlugin } from '../../blockTypePluginType';
 import type { TextBlockTypes } from '../block-types';
@@ -16,7 +15,6 @@ interface FloatingToolbarComponentProps {
 const FloatingToolbarSettings = {
 	isSmall: true,
 	disabled: false,
-	isToolbarReducedSpacing: true,
 	shouldUseDefaultRole: false,
 };
 
@@ -28,13 +26,11 @@ export function FloatingToolbarComponent({
 		blockTypesDisabled,
 		availableBlockTypes,
 		availableBlockTypesInDropdown,
-		formattingIsPresent,
 	} = useSharedPluginStateWithSelector(api, ['blockType'], (states) => ({
 		currentBlockType: states.blockTypeState?.currentBlockType,
 		blockTypesDisabled: states.blockTypeState?.blockTypesDisabled,
 		availableBlockTypes: states.blockTypeState?.availableBlockTypes,
 		availableBlockTypesInDropdown: states.blockTypeState?.availableBlockTypesInDropdown,
-		formattingIsPresent: states.blockTypeState?.formattingIsPresent,
 	}));
 
 	const boundSetBlockType = useCallback(
@@ -65,17 +61,12 @@ export function FloatingToolbarComponent({
 		<ToolbarBlockType
 			isSmall={FloatingToolbarSettings.isSmall}
 			isDisabled={FloatingToolbarSettings.disabled}
-			isReducedSpacing={
-				editorExperiment('platform_editor_controls', 'variant1')
-					? false
-					: FloatingToolbarSettings.isToolbarReducedSpacing
-			}
+			isReducedSpacing={false}
 			setTextLevel={boundSetBlockType}
 			currentBlockType={currentBlockType}
 			blockTypesDisabled={blockTypesDisabled}
 			availableBlockTypes={availableBlockTypes}
 			availableBlockTypesInDropdown={availableBlockTypesInDropdown}
-			formattingIsPresent={formattingIsPresent}
 			wrapBlockQuote={wrapBlockQuote}
 			clearFormatting={clearFormatting}
 			shouldUseDefaultRole={FloatingToolbarSettings.shouldUseDefaultRole}

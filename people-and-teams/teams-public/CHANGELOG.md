@@ -1,5 +1,21 @@
 # @atlaskit/teams-public
 
+## 3.12.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.12.2
+
+### Patch Changes
+
+- [`62ea5b51d4b43`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/62ea5b51d4b43) -
+  Behind feature gate `teams_a11y_20261102`, the team links card grid lets its columns shrink below
+  300px so the cards reflow inside narrow containers (such as the team profile right panel at 320px)
+  instead of overflowing horizontally.
+- Updated dependencies
+
 ## 3.12.1
 
 ### Patch Changes

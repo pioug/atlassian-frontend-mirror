@@ -3,19 +3,18 @@
 import type { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
 import type { z } from 'zod';
 
+import { validateToolArguments } from '../../helpers/validation';
 import { searchAtlaskitComponentsTool } from '../search-atlaskit-components/search-atlaskit-components-tool';
 import { searchComponentsTool } from '../search-components/search-components-tool';
 import { searchIconsTool } from '../search-icons/search-icons-tool';
 import { searchTokensTool } from '../search-tokens/search-tokens-tool';
-import type { planInputSchema } from './plan-input-schema';
+import { planInputSchema } from './plan-input-schema';
 
-export const planTool = async ({
-	tokens: tokens_search,
-	icons: icons_search,
-	components: components_search,
-	atlaskitComponents: atlaskit_components_search,
-	limit,
-}: z.infer<typeof planInputSchema>): Promise<
+const hasSearchTerms = (terms: string[]): boolean => terms.some((term) => term.trim().length > 0);
+
+export const planTool = async (
+	args: z.input<typeof planInputSchema>,
+): Promise<
 	| {
 			isError: boolean;
 			content: {
@@ -31,12 +30,24 @@ export const planTool = async ({
 			isError?: undefined;
 	  }
 > => {
-	// Validate that at least one search type is provided
+	const validation = validateToolArguments(planInputSchema, args);
+	if (!validation.success) {
+		return validation.error;
+	}
+
+	const {
+		tokens: tokens_search,
+		icons: icons_search,
+		components: components_search,
+		atlaskitComponents: atlaskit_components_search,
+		limit,
+	} = validation.data;
+	// Require at least one category with a nonblank search term.
 	if (
-		!tokens_search?.length &&
-		!icons_search?.length &&
-		!components_search?.length &&
-		!atlaskit_components_search?.length
+		!hasSearchTerms(tokens_search) &&
+		!hasSearchTerms(icons_search) &&
+		!hasSearchTerms(components_search) &&
+		!hasSearchTerms(atlaskit_components_search)
 	) {
 		return {
 			isError: true,
@@ -59,7 +70,7 @@ export const planTool = async ({
 	// Execute searches in parallel
 	const searchPromises: Promise<void>[] = [];
 
-	if (tokens_search?.length) {
+	if (hasSearchTerms(tokens_search)) {
 		searchPromises.push(
 			searchTokensTool({ terms: tokens_search, limit }).then((result) => {
 				results.tokens = result;
@@ -67,7 +78,7 @@ export const planTool = async ({
 		);
 	}
 
-	if (icons_search?.length) {
+	if (hasSearchTerms(icons_search)) {
 		searchPromises.push(
 			searchIconsTool({ terms: icons_search, limit }).then((result) => {
 				results.icons = result;
@@ -75,7 +86,7 @@ export const planTool = async ({
 		);
 	}
 
-	if (components_search?.length) {
+	if (hasSearchTerms(components_search)) {
 		searchPromises.push(
 			searchComponentsTool({ terms: components_search, limit }).then((result) => {
 				results.components = result;
@@ -83,7 +94,7 @@ export const planTool = async ({
 		);
 	}
 
-	if (atlaskit_components_search?.length) {
+	if (hasSearchTerms(atlaskit_components_search)) {
 		searchPromises.push(
 			searchAtlaskitComponentsTool({ terms: atlaskit_components_search, limit }).then((result) => {
 				results.atlaskitComponents = result;

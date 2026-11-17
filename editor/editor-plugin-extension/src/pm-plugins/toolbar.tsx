@@ -23,7 +23,6 @@ import {
 import { messages } from '@atlaskit/editor-common/extensions/messages';
 import commonMessages from '@atlaskit/editor-common/messages';
 import { BODIED_EXT_MBE_MARGIN_TOP } from '@atlaskit/editor-common/styles/extension';
-import { areToolbarFlagsEnabled } from '@atlaskit/editor-common/toolbar-flag-check';
 import type { Command } from '@atlaskit/editor-common/types/command';
 import type {
 	ConfirmDialogOptions,
@@ -32,10 +31,7 @@ import type {
 	FloatingToolbarHandler,
 	FloatingToolbarItem,
 } from '@atlaskit/editor-common/types/floating-toolbar';
-import type {
-	ExtractInjectionAPI,
-	PublicPluginAPI,
-} from '@atlaskit/editor-common/types/next-editor-plugin';
+import type { PublicPluginAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { getNodeName } from '@atlaskit/editor-common/utils';
 import { getChildrenInfo, isReferencedSource } from '@atlaskit/editor-common/utils/referentiality';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics/analyticsPluginType';
@@ -65,11 +61,7 @@ import {
 	removeExtension,
 	updateExtensionLayout,
 } from '../editor-commands/commands';
-import type {
-	ExtensionPlugin,
-	ExtensionPluginOptions,
-	ExtensionState,
-} from '../extensionPluginType';
+import type { ExtensionPluginOptions, ExtensionState } from '../extensionPluginType';
 import { getExtensionLayout } from '../utils/getExtensionLayout';
 import { pluginKey as macroPluginKey } from './macro/plugin-key';
 import { getPluginState } from './plugin-factory';
@@ -152,71 +144,6 @@ const getToolbarLayout = (node: PMNode) => {
 		layout = matchedLayout ?? layout;
 	}
 	return { layout, isCustomWidth };
-};
-
-const breakoutButtonListOptions = (
-	state: EditorState,
-	formatMessage: IntlShape['formatMessage'],
-	extensionState: ExtensionState,
-	breakoutEnabled: boolean,
-	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
-): Array<FloatingToolbarItem<Command>> => {
-	const nodeWithPos = getSelectedExtension(state, true);
-
-	// we should only return breakout options when breakouts are enabled and the node supports them
-	if (
-		nodeWithPos &&
-		breakoutEnabled &&
-		isLayoutSupported(state, nodeWithPos) &&
-		!isNestedNBM(state, nodeWithPos)
-	) {
-		const { layout, isCustomWidth } = getToolbarLayout(nodeWithPos.node);
-		return [
-			{
-				type: 'button',
-				icon: () => (
-					<ContentWidthNarrowIcon
-						label={formatMessage(commonMessages.layoutFixedWidth)}
-						spacing="spacious"
-					/>
-				),
-				iconFallback: ContentWidthNarrowIcon,
-				onClick: updateExtensionLayout('default', editorAnalyticsAPI),
-				selected: !isCustomWidth && layout === 'default',
-				title: formatMessage(commonMessages.layoutFixedWidth),
-				tabIndex: null,
-			},
-			{
-				type: 'button',
-				icon: () => (
-					<ContentWidthWideIcon
-						label={formatMessage(commonMessages.layoutWide)}
-						spacing="spacious"
-					/>
-				),
-				iconFallback: ContentWidthWideIcon,
-				onClick: updateExtensionLayout('wide', editorAnalyticsAPI),
-				selected: !isCustomWidth && layout === 'wide',
-				title: formatMessage(commonMessages.layoutWide),
-				tabIndex: null,
-			},
-			{
-				type: 'button',
-				icon: () => (
-					<ExpandHorizontalIcon
-						label={formatMessage(commonMessages.layoutFullWidth)}
-						spacing="spacious"
-					/>
-				),
-				iconFallback: ExpandHorizontalIcon,
-				onClick: updateExtensionLayout('full-width', editorAnalyticsAPI),
-				selected: !isCustomWidth && layout === 'full-width',
-				title: formatMessage(commonMessages.layoutFullWidth),
-				tabIndex: null,
-			},
-		];
-	}
-	return [];
 };
 
 const breakoutDropdownOptions = (
@@ -318,38 +245,16 @@ const breakoutDropdownOptions = (
 	];
 };
 
-const breakoutOptions = (
-	state: EditorState,
-	formatMessage: IntlShape['formatMessage'],
-	extensionState: ExtensionState,
-	breakoutEnabled: boolean,
-	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
-	api?: ExtractInjectionAPI<ExtensionPlugin>,
-): Array<FloatingToolbarItem<Command>> => {
-	return areToolbarFlagsEnabled(Boolean(api?.toolbar))
-		? breakoutDropdownOptions(state, formatMessage, breakoutEnabled, editorAnalyticsAPI)
-		: breakoutButtonListOptions(
-				state,
-				formatMessage,
-				extensionState,
-				breakoutEnabled,
-				editorAnalyticsAPI,
-			);
-};
-
 const editButton = (
 	formatMessage: IntlShape['formatMessage'],
 	extensionState: ExtensionState,
 	applyChangeToContextPanel: ApplyChangeHandler | undefined,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 	isDisabled: boolean = false,
-	api?: ExtractInjectionAPI<ExtensionPlugin>,
 ): Array<FloatingToolbarItem<Command>> => {
 	if (!extensionState.showEditButton) {
 		return [];
 	}
-	const toolbarFlagsEnabled = areToolbarFlagsEnabled(Boolean(api?.toolbar));
-
 	const editButtonItems: Array<FloatingToolbarItem<Command>> = [
 		{
 			id: 'editor.extension.edit',
@@ -379,12 +284,10 @@ const editButton = (
 		},
 	];
 
-	if (toolbarFlagsEnabled) {
-		editButtonItems.push({
-			type: 'separator',
-			fullHeight: true,
-		});
-	}
+	editButtonItems.push({
+		type: 'separator',
+		fullHeight: true,
+	});
 
 	return editButtonItems;
 };
@@ -578,19 +481,11 @@ export const getToolbarConfig =
 			applyChangeToContextPanel,
 			editorAnalyticsAPI,
 			isOfflineMode(extensionApi?.connectivity?.sharedState?.currentState()?.mode),
-			extensionApi as ExtractInjectionAPI<ExtensionPlugin>,
 		);
 		// extensions are sized with the breakout resizer instead
 		const breakoutItems = isExperimentEnabled('platform_editor_lovability_resize_extensions')
 			? []
-			: breakoutOptions(
-					state,
-					formatMessage,
-					extensionState,
-					breakoutEnabled,
-					editorAnalyticsAPI,
-					extensionApi as ExtractInjectionAPI<ExtensionPlugin>,
-				);
+			: breakoutDropdownOptions(state, formatMessage, breakoutEnabled, editorAnalyticsAPI);
 		const extensionObj = getSelectedExtension(state, true);
 
 		// If this is a native-embed extension, skip providing a toolbar config to allow

@@ -718,7 +718,6 @@ export const SyncedLocationDropdown = ({
 	const trigger = useMemo(
 		() => (
 			<Button
-				areAnyNewToolbarFlagsEnabled={true}
 				testId={SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarSyncedLocationsTrigger}
 				selected={isOpen}
 				iconAfter={
@@ -825,7 +824,6 @@ export const SyncedLocationDropdownWithCount = ({
 	const trigger = useMemo(
 		() => (
 			<Button
-				areAnyNewToolbarFlagsEnabled={true}
 				testId={SYNCED_BLOCK_BUTTON_TEST_ID.syncedBlockToolbarSyncedLocationsTrigger}
 				selected={isOpen}
 				iconAfter={

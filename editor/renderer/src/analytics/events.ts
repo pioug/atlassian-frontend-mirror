@@ -387,6 +387,20 @@ type ReferenceSyncedBlockUpdateErrorAEP = OperationalAEP<
 	{ error: string; resourceId?: string }
 >;
 
+type InlineBodiedMacroRenderedAEP = OperationalAEP<
+	ACTION.RENDERED,
+	ACTION_SUBJECT.EXTENSION,
+	ACTION_SUBJECT_ID.EXTENSION_BODIED,
+	{
+		declaredLayout: 'inline-bodied';
+		extensionKey: string;
+		extensionType: string;
+		metric: 'inlineBodiedPresentation';
+		presentation: 'inline' | 'block';
+		renderType: 'UIKit' | 'CustomUI';
+	}
+>;
+
 type ExtensionRenderedAsInlineAEP = OperationalAEP<
 	ACTION.RENDERED,
 	ACTION_SUBJECT.EXTENSION_AS_INLINE,
@@ -447,6 +461,7 @@ export type AnalyticsEventPayload<_T = void> =
 	| ExperienceEventPayload
 	| MediaRenderedAEP
 	| ExtensionRenderedAsInlineAEP
+	| InlineBodiedMacroRenderedAEP
 	| MBEChangeActiveAnalyticsEvent;
 
 export type FireAnalyticsCallback = <T = void>(

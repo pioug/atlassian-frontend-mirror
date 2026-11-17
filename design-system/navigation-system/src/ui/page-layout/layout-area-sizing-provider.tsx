@@ -81,6 +81,7 @@ export function LayoutAreaSizingProvider({
 	}, []);
 	const mainMinWidth = useRef<LayoutWidthBound>(defaultMainMinWidth);
 	const loadRef = useRef<() => void>(() => {});
+	const viewportWidthAtLoad = useRef<number>();
 	const ready = useRef(false);
 	const waiting = useRef<Array<(ready: boolean) => void>>([]);
 	const pending = useRef<Array<(runtime: LayoutAreaSizingContextValue) => void>>([]);
@@ -107,6 +108,7 @@ export function LayoutAreaSizingProvider({
 				return;
 			}
 			loading = true;
+			viewportWidthAtLoad.current = window.innerWidth;
 			void import(
 				/* webpackChunkName: "@atlaskit-internal_navigation-layout-sizing" */ './layout-area-sizing-runtime'
 			).then(
@@ -228,7 +230,14 @@ export function LayoutAreaSizingProvider({
 					<ChatPanelStateProvider value={states['chat-panel']}>{children}</ChatPanelStateProvider>
 				</PanelStateProvider>
 			</SideNavStateProvider>
-			{Runtime && <Runtime layoutRef={layoutRef} onReady={onReady} onUpdate={onUpdate} />}
+			{Runtime && (
+				<Runtime
+					layoutRef={layoutRef}
+					onReady={onReady}
+					onUpdate={onUpdate}
+					viewportWidthAtLoad={viewportWidthAtLoad.current}
+				/>
+			)}
 		</LayoutAreaSizingContext.Provider>
 	);
 }

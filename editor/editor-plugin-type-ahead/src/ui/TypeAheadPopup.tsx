@@ -25,7 +25,6 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { DecorationSet, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles/constants';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
 
 import { fireTypeAheadClosedAnalyticsEvent } from '../pm-plugins/analytics';
@@ -142,7 +141,6 @@ export const TypeAheadPopup: React.MemoExoticComponent<
 	);
 	const moreElementsInQuickInsertViewEnabled =
 		moreElementsInQuickInsertView && triggerHandler.id === TypeAheadAvailableNodes.QUICK_INSERT;
-	const isEditorControlsEnabled = editorExperiment('platform_editor_controls', 'variant1');
 	const typeAheadOptimizationsEnabled = isExperimentEnabled('platform_editor_block_control_inp');
 
 	const defaultMenuHeight = useMemo(
@@ -359,7 +357,7 @@ export const TypeAheadPopup: React.MemoExoticComponent<
 			}
 
 			cancel({
-				addPrefixTrigger: isEditorControlsEnabled ? !removePrefixTriggerOnCancel : true,
+				addPrefixTrigger: !removePrefixTriggerOnCancel,
 				setSelectionAt: CloseSelectionOptions.AFTER_TEXT_INSERTED,
 				forceFocusOnEditor: false,
 			});
@@ -374,7 +372,7 @@ export const TypeAheadPopup: React.MemoExoticComponent<
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			element?.removeEventListener('focusout', focusOut);
 		};
-	}, [ref, cancel, editorView.state, isEditorControlsEnabled, anchorElement]);
+	}, [ref, cancel, editorView.state, anchorElement]);
 
 	// TODO: ED-17443 - When you press escape on typeahead panel, it should remove focus and close the panel
 	// This is the expected keyboard behaviour advised by the Accessibility team
@@ -384,7 +382,7 @@ export const TypeAheadPopup: React.MemoExoticComponent<
 			if (event.key === 'Escape') {
 				activityStateRef.current.inputMethod = INPUT_METHOD.KEYBOARD;
 				cancel({
-					addPrefixTrigger: isEditorControlsEnabled ? !removePrefixTriggerOnCancel : true,
+					addPrefixTrigger: !removePrefixTriggerOnCancel,
 					setSelectionAt: CloseSelectionOptions.AFTER_TEXT_INSERTED,
 					forceFocusOnEditor: true,
 				});
@@ -401,7 +399,7 @@ export const TypeAheadPopup: React.MemoExoticComponent<
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			element?.removeEventListener('keydown', escape);
 		};
-	}, [ref, cancel, editorView.state, isEditorControlsEnabled]);
+	}, [ref, cancel, editorView.state]);
 
 	// @ts-ignore
 	const openElementBrowserModal = triggerHandler?.openElementBrowserModal;
@@ -410,7 +408,6 @@ export const TypeAheadPopup: React.MemoExoticComponent<
 		if (
 			// eslint-disable-next-line @atlaskit/platform/no-preconditioning
 			openElementBrowserModal &&
-			editorExperiment('platform_editor_controls', 'variant1') &&
 			triggerHandler.id === TypeAheadAvailableNodes.QUICK_INSERT
 		) {
 			activityStateRef.current = {
@@ -435,7 +432,7 @@ export const TypeAheadPopup: React.MemoExoticComponent<
 			preventOverflow={true}
 			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			onUnmount={() => {
-				if (selectedIndex > -1 && editorExperiment('platform_editor_controls', 'variant1')) {
+				if (selectedIndex > -1) {
 					// if selectedIndex is -1, it means that the user has not selected any item
 					// will be handled by WrapperTypeAhead
 					fireTypeAheadClosedAnalyticsEvent(
@@ -477,13 +474,11 @@ export const TypeAheadPopup: React.MemoExoticComponent<
 							selectedIndex={selectedIndex}
 							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							onItemClick={(mode: SelectItemMode, index: number, inputMethod) => {
-								if (editorExperiment('platform_editor_controls', 'variant1')) {
-									activityStateRef.current = {
-										inputMethod: inputMethod || null,
-										closeAction: ACTION.INSERTED,
-										invocationMethod: activityStateRef.current.invocationMethod,
-									};
-								}
+								activityStateRef.current = {
+									inputMethod: inputMethod || null,
+									closeAction: ACTION.INSERTED,
+									invocationMethod: activityStateRef.current.invocationMethod,
+								};
 
 								onItemInsert(mode, index);
 							}}

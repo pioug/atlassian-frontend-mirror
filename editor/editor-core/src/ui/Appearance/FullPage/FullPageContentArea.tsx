@@ -38,7 +38,6 @@ import {
 } from '@atlaskit/editor-shared-styles/constants';
 import type { akEditorGutterPaddingReduced as AkEditorGutterPaddingReducedType } from '@atlaskit/editor-shared-styles/constants';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { token } from '@atlaskit/tokens';
 
@@ -294,12 +293,7 @@ const Content = React.forwardRef<
 
 	// Get useStandardNodeWidth from block menu plugin shared state
 	const useStandardNodeWidth =
-		fg('platform_editor_expand_standard_width_fix') ||
-		isExperimentEnabled('work_item_modernization') ||
-		fg('wiv_modernization_cohort')
-			? (props.editorAPI?.blockMenu?.sharedState?.currentState()?.useStandardNodeWidth ?? false)
-			: editorExperiment('platform_editor_controls', 'variant1') &&
-				(props.editorAPI?.blockMenu?.sharedState?.currentState()?.useStandardNodeWidth ?? false);
+		props.editorAPI?.blockMenu?.sharedState?.currentState()?.useStandardNodeWidth ?? false;
 
 	useImperativeHandle(
 		ref,

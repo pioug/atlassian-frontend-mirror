@@ -42,7 +42,7 @@ const CardErrorBoundaryNew = ({
 	isFlexibleCard = false,
 	...props
 }: React.PropsWithChildren<CardErrorBoundaryNewProps>): React.JSX.Element => {
-	const { appearance, id, onError, url } = props;
+	const { appearance, id, url } = props;
 	const ErrorFallbackComponent = props.fallbackComponent;
 
 	const { fireEvent } = useAnalyticsEvents();
@@ -50,52 +50,63 @@ const CardErrorBoundaryNew = ({
 	const store = smartCardContext?.store;
 	const display = isFlexibleCard ? 'flexible' : appearance;
 
-	// Parity with CardWithURLRenderer error handler
+	// Analytics parity with CardWithURLRenderer only. Preserve CardSSR's local error
+	// containment: forwarding caught errors to the consumer can cause a rethrow.
 	const errorHandler = useCallback(
-		(error: Error, info: ErrorInfo) => {
-			const { componentStack } = info;
-			const errorInfo: ErrorInfo = {
-				componentStack,
-			};
-			// Read the link state when the error happens: useSmartCardContext does not subscribe
-			// to store updates, so a value captured during render can be stale by now.
-			const state = store ? getUrl(store, url) : undefined;
-			const analyticsContext = getSmartLinkAnalyticsContext({
-				display,
-				id,
-				response: state?.details,
-				status: state?.status,
-				url,
-				error: state?.error,
-			});
-			// NB: APIErrors are thrown in response to Object Resolver Service. We do not
-			// fire an event for these, as they do not cover failed UI render events.
-			// The rest of the errors caught here are unexpected, and correlate
-			// to the reliability of the smart-card front-end components.
-			// Likewise, chunk loading errors are not caused by a failure of smart-card rendering.
-			if (error.name === 'ChunkLoadError') {
-				fireEvent('operational.smartLink.chunkLoadFailed', {
-					...analyticsContext?.attributes,
-					display,
-					error: error as any,
-					errorInfo: errorInfo as any,
-					definitionId: null,
-				});
-			} else if (error.name !== 'APIError') {
-				startUfoExperience('smart-link-rendered', id, { ssr: true });
-				failUfoExperience('smart-link-rendered', id);
-				failUfoExperience('smart-link-authenticated', id);
-				fireEvent('ui.smartLink.renderFailed', {
-					...analyticsContext?.attributes,
+		(error: unknown, info: ErrorInfo) => {
+			try {
+				// Error inspection and diagnostics must never break the local fallback.
+				const errorName =
+					error !== null && typeof error === 'object' && 'name' in error ? error.name : undefined;
+				// Resolver API errors do not represent failed UI renders.
+				if (errorName === 'APIError') {
+					return;
+				}
+				const { componentStack } = info;
+				const errorInfo: ErrorInfo = {
+					componentStack,
+				};
+				// Read the link state when the error happens: useSmartCardContext does not subscribe
+				// to store updates, so a value captured during render can be stale by now.
+				const state = store ? getUrl(store, url) : undefined;
+				const analyticsContext = getSmartLinkAnalyticsContext({
 					display,
 					id,
-					error: error as any,
-					errorInfo: errorInfo as any,
+					response: state?.details,
+					status: state?.status,
+					url,
+					error: state?.error,
 				});
+				// NB: APIErrors are thrown in response to Object Resolver Service. We do not
+				// fire an event for these, as they do not cover failed UI render events.
+				// The rest of the errors caught here are unexpected, and correlate
+				// to the reliability of the smart-card front-end components.
+				// Likewise, chunk loading errors are not caused by a failure of smart-card rendering.
+				if (errorName === 'ChunkLoadError') {
+					fireEvent('operational.smartLink.chunkLoadFailed', {
+						...analyticsContext?.attributes,
+						display,
+						error: error as any,
+						errorInfo: errorInfo as any,
+						definitionId: null,
+					});
+				} else {
+					startUfoExperience('smart-link-rendered', id, { ssr: true });
+					failUfoExperience('smart-link-rendered', id);
+					failUfoExperience('smart-link-authenticated', id);
+					fireEvent('ui.smartLink.renderFailed', {
+						...analyticsContext?.attributes,
+						display,
+						id,
+						error: error as any,
+						errorInfo: errorInfo as any,
+					});
+				}
+			} catch {
+				// Best-effort diagnostics must not escape the card error boundary.
 			}
-			onError && onError({ status: 'errored', url, err: error });
 		},
-		[display, fireEvent, id, onError, store, url],
+		[display, fireEvent, id, store, url],
 	);
 
 	const errorBoundaryFallbackComponent = () => {

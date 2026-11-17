@@ -50,10 +50,16 @@
 			"path": "../../editor-plugin-primary-toolbar/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-selection/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-selection-toolbar/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../editor-plugin-toolbar/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-user-intent/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../editor-plugin-user-preferences/afm-products/tsconfig.json"
@@ -69,6 +75,9 @@
 		},
 		{
 			"path": "../../editor-toolbar/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-toolbar-model/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/icon/afm-products/tsconfig.json"

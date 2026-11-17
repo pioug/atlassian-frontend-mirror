@@ -1,8 +1,10 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { flushSync } from 'react-dom';
 
 import { hydrateRoot } from 'react-dom/client';
 import { renderToString } from 'react-dom/server';
 
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { act } from '@atlassian/testing-library/act';
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
@@ -11,6 +13,7 @@ import { waitFor } from '@atlassian/testing-library/wait-for';
 
 import { LayoutAreaSizingContext, type LayoutArea } from '../../layout-area-sizing-context';
 import { LayoutAreaSizingProvider } from '../../layout-area-sizing-provider';
+import { LayoutAreaSizingRuntime } from '../../layout-area-sizing-runtime';
 import * as cssLayout from '../../use-css-layout-area-states';
 import { useLayoutAreaSizing } from '../../use-layout-area-sizing';
 import { useLayoutMainSizing } from '../../use-layout-main-sizing';
@@ -33,9 +36,10 @@ it('reallocates adopted widths when Main minimum changes after activation', asyn
 			};
 		});
 	const matchMedia = window.matchMedia;
-	jest
-		.spyOn(window, 'matchMedia')
-		.mockImplementation((query) => ({ ...matchMedia(query), matches: true }));
+	jest.spyOn(window, 'matchMedia').mockImplementation((query) => ({
+		...matchMedia(query),
+		matches: query !== '(min-width: 110.5rem)',
+	}));
 	function Area({ area }: { area: 'side-nav' | 'chat-panel' }) {
 		const defaultWidth = area === 'side-nav' ? 320 : 400;
 		const sizing = useLayoutAreaSizing({
@@ -340,3 +344,210 @@ it('uses the latest opening order when a new overlay registers during a mode upd
 		jest.restoreAllMocks();
 	}
 });
+
+it.each([false, true])(
+	'keeps accepted controlled panel widths through repeated resize completion (chat layout gate: %s)',
+	async (chatLayoutEnabled) => {
+		if (chatLayoutEnabled) {
+			passGate('platform-dst-chat-panel-layout');
+		} else {
+			failGate('platform-dst-chat-panel-layout');
+		}
+		await checkControlledResize([600, 480]);
+	},
+);
+
+it.each([368, 480])(
+	'honours a controlled panel consumer choosing %s instead of the completed width',
+	async (acceptedWidth) => {
+		failGate('platform-dst-chat-panel-layout');
+		await checkControlledResize([600], acceptedWidth);
+	},
+);
+
+async function checkControlledResize(targetWidths: number[], acceptedWidth?: number) {
+	const committedWidths: Array<number | undefined> = [];
+	let targetWidth = targetWidths[0];
+	jest.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockImplementation(function (
+		this: HTMLElement,
+	) {
+		const width = Number.parseFloat(this.style.width) || 0;
+		return {
+			x: 0,
+			y: 0,
+			top: 0,
+			left: 0,
+			right: width,
+			bottom: 600,
+			width,
+			height: 600,
+			toJSON: () => ({}),
+		};
+	});
+	const matchMedia = window.matchMedia;
+	jest
+		.spyOn(window, 'matchMedia')
+		.mockImplementation((query) => ({ ...matchMedia(query), matches: true }));
+	function Panel() {
+		const [width, setWidth] = useState(368);
+		const sizing = useLayoutAreaSizing({
+			area: 'panel',
+			config: { requestedWidth: width, defaultWidth: 368, minWidth: 320, isOpen: true },
+		});
+		// Observe every DOM commit, not just the final width after effects settle.
+		useLayoutEffect(() => {
+			committedWidths.push(sizing.state?.width);
+		});
+		return (
+			<section
+				data-layout-with-panel-slot
+				// JSDOM cannot evaluate the CSS-first grid; model its initial geometry.
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+				style={{ gridArea: 'panel', width: sizing.state?.width ?? width }}
+			>
+				<output data-testid="panel-width">{sizing.state?.width}</output>
+				<button type="button" onClick={() => void sizing.prepareResize?.()}>
+					Load sizing
+				</button>
+				<button type="button" onClick={() => sizing.startResize('inline')}>
+					Start resize
+				</button>
+				<button type="button" onClick={() => sizing.resize('inline', targetWidth)}>
+					Resize
+				</button>
+				<button
+					type="button"
+					onClick={() =>
+						flushSync(() => {
+							sizing.completeResize('inline', targetWidth);
+							setWidth(acceptedWidth ?? targetWidth);
+						})
+					}
+				>
+					Complete resize
+				</button>
+			</section>
+		);
+	}
+	function Fixture() {
+		const ref = useRef<HTMLDivElement>(null);
+		return (
+			<LayoutAreaSizingProvider layoutRef={ref}>
+				<div
+					ref={ref}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+					style={{ width: 1600, gridTemplateAreas: '"main panel"' }}
+				>
+					<Panel />
+				</div>
+			</LayoutAreaSizingProvider>
+		);
+	}
+	try {
+		render(<Fixture />);
+		const user = userEvent.setup();
+		await user.click(screen.getByRole('button', { name: 'Load sizing' }));
+		await waitFor(() => expect(screen.getByTestId('panel-width')).toHaveTextContent('368'));
+		for (const nextWidth of targetWidths) {
+			targetWidth = nextWidth;
+			await user.click(screen.getByRole('button', { name: 'Start resize' }));
+			await user.click(screen.getByRole('button', { name: 'Resize' }));
+			await waitFor(() =>
+				expect(screen.getByTestId('panel-width')).toHaveTextContent(String(targetWidth)),
+			);
+			committedWidths.length = 0;
+			await user.click(screen.getByRole('button', { name: 'Complete resize' }));
+			await waitFor(() =>
+				expect(screen.getByTestId('panel-width')).toHaveTextContent(
+					String(acceptedWidth ?? targetWidth),
+				),
+			);
+			if (acceptedWidth === undefined) {
+				expect([...new Set(committedWidths)]).toEqual([targetWidth]);
+			}
+		}
+	} finally {
+		jest.restoreAllMocks();
+	}
+}
+
+it.each([
+	{ viewportWidthAtLoad: 1768, expected: 400 },
+	{ viewportWidthAtLoad: 1767, expected: 500 },
+])(
+	'handles viewport changes during deferred loading from $viewportWidthAtLoad',
+	async ({ viewportWidthAtLoad, expected }) => {
+		passGate('platform-dst-chat-panel-layout');
+		jest.replaceProperty(window, 'innerWidth', 1767);
+		const matchMedia = window.matchMedia;
+		jest.spyOn(window, 'matchMedia').mockImplementation((query) => ({
+			...matchMedia(query),
+			matches: query !== '(min-width: 110.5rem)',
+		}));
+		jest.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockImplementation(function (
+			this: HTMLElement,
+		) {
+			const width = this.hasAttribute('data-layout-with-panel-slot') ? 500 : 1767;
+			return {
+				x: 0,
+				y: 0,
+				top: 0,
+				left: 0,
+				right: width,
+				bottom: 600,
+				width,
+				height: 600,
+				toJSON: () => ({}),
+			};
+		});
+		function Area() {
+			const { state } = useLayoutAreaSizing({
+				area: 'panel',
+				config: {
+					isOpen: true,
+					defaultWidth: 400,
+					compactDefaultWidth: 320,
+					xlDefaultWidth: 500,
+					minWidth: 320,
+				},
+			});
+			return (
+				<section
+					data-layout-with-panel-slot
+					// JSDOM needs inline geometry to model the existing CSS layout being adopted.
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+					style={{ gridArea: 'panel' }}
+				>
+					<output data-testid="allocated-width">{state?.width}</output>
+				</section>
+			);
+		}
+		function Fixture() {
+			const ref = useRef<HTMLDivElement>(null);
+			return (
+				<LayoutAreaSizingRuntime
+					layoutRef={ref}
+					viewportWidthAtLoad={viewportWidthAtLoad}
+					onUpdate={jest.fn()}
+				>
+					<div
+						ref={ref}
+						// JSDOM does not calculate the CSS viewport-sized layout host.
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+						style={{ width: 1767 }}
+					>
+						<Area />
+					</div>
+				</LayoutAreaSizingRuntime>
+			);
+		}
+		try {
+			render(<Fixture />);
+			await waitFor(() =>
+				expect(screen.getByTestId('allocated-width')).toHaveTextContent(String(expected)),
+			);
+		} finally {
+			jest.restoreAllMocks();
+		}
+	},
+);

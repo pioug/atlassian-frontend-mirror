@@ -7,7 +7,6 @@ import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import { fireTypeAheadClosedAnalyticsEvent } from '../pm-plugins/analytics';
@@ -70,10 +69,7 @@ export const WrapperTypeAhead: React.MemoExoticComponent<
 	}: WrapperProps): React.JSX.Element | null => {
 		// @ts-ignore
 		const openElementBrowserModal = triggerHandler?.openElementBrowserModal;
-		let showMoreOptionsButton = false;
-		if (editorExperiment('platform_editor_controls', 'variant1')) {
-			showMoreOptionsButton = !!triggerHandler?.getMoreOptionsButtonConfig;
-		}
+		const showMoreOptionsButton = !!triggerHandler?.getMoreOptionsButtonConfig;
 
 		const intl = useIntl();
 		const [closed, setClosed] = useState(false);
@@ -139,15 +135,13 @@ export const WrapperTypeAhead: React.MemoExoticComponent<
 				setSelectionAt: CloseSelectionOptions;
 				text: string;
 			}) => {
-				if (editorExperiment('platform_editor_controls', 'variant1')) {
-					fireTypeAheadClosedAnalyticsEvent(
-						api,
-						ACTION.CANCELLED,
-						!!queryRef.current,
-						INPUT_METHOD.KEYBOARD,
-						getPluginState(editorView.state)?.inputMethod,
-					);
-				}
+				fireTypeAheadClosedAnalyticsEvent(
+					api,
+					ACTION.CANCELLED,
+					!!queryRef.current,
+					INPUT_METHOD.KEYBOARD,
+					getPluginState(editorView.state)?.inputMethod,
+				);
 				setClosed(true);
 
 				const fullquery = addPrefixTrigger ? `${triggerHandler.trigger}${text}` : text;
@@ -173,15 +167,13 @@ export const WrapperTypeAhead: React.MemoExoticComponent<
 				if (safeSelectedIndex === -1) {
 					return;
 				}
-				if (editorExperiment('platform_editor_controls', 'variant1')) {
-					fireTypeAheadClosedAnalyticsEvent(
-						api,
-						ACTION.INSERTED,
-						!!queryRef.current,
-						INPUT_METHOD.KEYBOARD,
-						getPluginState(editorView.state)?.inputMethod,
-					);
-				}
+				fireTypeAheadClosedAnalyticsEvent(
+					api,
+					ACTION.INSERTED,
+					!!queryRef.current,
+					INPUT_METHOD.KEYBOARD,
+					getPluginState(editorView.state)?.inputMethod,
+				);
 
 				setClosed(true);
 				queueMicrotask(() => {

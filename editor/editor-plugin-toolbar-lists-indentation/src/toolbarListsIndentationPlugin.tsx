@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-import { ToolbarSize } from '@atlaskit/editor-common/types';
 import type { Command } from '@atlaskit/editor-common/types/command';
 import type { FeatureFlags } from '@atlaskit/editor-common/types/feature-flags';
 import type { FloatingToolbarCustom } from '@atlaskit/editor-common/types/floating-toolbar';
@@ -12,7 +11,6 @@ import type {
 import { usePluginStateEffect } from '@atlaskit/editor-common/use-plugin-state-effect';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import {
 	getIndentationButtonsState,
@@ -35,7 +33,6 @@ export const toolbarListsIndentationPlugin: ToolbarListsIndentationPlugin = ({ c
 		popupsMountPoint,
 		popupsBoundariesElement,
 		popupsScrollableElement,
-		toolbarSize,
 		disabled,
 		isToolbarReducedSpacing,
 	}) => {
@@ -49,7 +46,6 @@ export const toolbarListsIndentationPlugin: ToolbarListsIndentationPlugin = ({ c
 				popupsMountPoint={popupsMountPoint}
 				popupsBoundariesElement={popupsBoundariesElement}
 				popupsScrollableElement={popupsScrollableElement}
-				isSmall={toolbarSize < ToolbarSize.L}
 				isToolbarReducedSpacing={isToolbarReducedSpacing}
 				disabled={disabled}
 				editorView={editorView}
@@ -79,10 +75,7 @@ export const toolbarListsIndentationPlugin: ToolbarListsIndentationPlugin = ({ c
 				selectionToolbar() {
 					const toolbarDocking =
 						api?.userPreferences?.sharedState.currentState()?.preferences.toolbarDockingPosition;
-					if (
-						toolbarDocking === 'none' &&
-						editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
-					) {
+					if (toolbarDocking === 'none') {
 						const toolbarCustom: FloatingToolbarCustom<Command> = {
 							type: 'custom',
 							render: (view) => {
@@ -131,7 +124,6 @@ type PrimaryToolbarComponentProps = Pick<
 > & {
 	allowHeadingAndParagraphIndentation: boolean;
 	featureFlags: FeatureFlags;
-	isSmall: boolean;
 	pluginInjectionApi: ExtractInjectionAPI<typeof toolbarListsIndentationPlugin> | undefined;
 	showIndentationButtons?: boolean;
 };
@@ -141,7 +133,6 @@ export function PrimaryToolbarComponent({
 	popupsMountPoint,
 	popupsBoundariesElement,
 	popupsScrollableElement,
-	isSmall,
 	isToolbarReducedSpacing,
 	disabled,
 	editorView,
@@ -211,7 +202,6 @@ export function PrimaryToolbarComponent({
 	return (
 		<ToolbarListsIndentation
 			featureFlags={featureFlags}
-			isSmall={isSmall}
 			isReducedSpacing={isToolbarReducedSpacing}
 			disabled={disabled}
 			editorView={editorView}

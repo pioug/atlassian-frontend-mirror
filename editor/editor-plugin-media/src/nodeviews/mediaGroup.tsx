@@ -39,7 +39,6 @@ interface MediaGroupNodeViewProps {
 
 interface RenderFn {
 	editorDisabled?: boolean;
-	editorViewMode?: 'view' | 'edit';
 	mediaProvider?: MediaProvider | null;
 }
 
@@ -51,12 +50,11 @@ interface MediaGroupNodeViewInternalProps {
 const selector = (
 	states: NamedPluginStatesFromInjectionAPI<
 		ExtractInjectionAPI<MediaNextEditorPluginType>,
-		'editorViewMode' | 'editorDisabled'
+		'editorDisabled'
 	>,
 ) => {
 	return {
 		editorDisabled: states.editorDisabledState?.editorDisabled,
-		editorViewMode: states.editorViewModeState?.mode,
 	};
 };
 
@@ -64,16 +62,15 @@ function MediaGroupNodeViewInternal({
 	renderFn,
 	pluginInjectionApi,
 }: MediaGroupNodeViewInternalProps) {
-	const { editorDisabled, editorViewMode } = useSharedPluginStateWithSelector(
+	const { editorDisabled } = useSharedPluginStateWithSelector(
 		pluginInjectionApi,
-		['editorDisabled', 'editorViewMode'],
+		['editorDisabled'],
 		selector,
 	);
 
 	const mediaProvider = useMediaProvider(pluginInjectionApi);
 	return renderFn({
 		editorDisabled,
-		editorViewMode,
 		mediaProvider,
 	});
 }
@@ -94,7 +91,6 @@ class MediaGroupNodeView extends ReactNodeView<MediaGroupNodeViewProps> {
 						const renderFn = ({
 							mediaProvider: mediaProviderFromState,
 							editorDisabled,
-							editorViewMode,
 						}: RenderFn) => {
 							const mediaProvider = mediaProviderFromState
 								? Promise.resolve(mediaProviderFromState)
@@ -113,7 +109,6 @@ class MediaGroupNodeView extends ReactNodeView<MediaGroupNodeViewProps> {
 									anchorPos={this.view.state.selection.$anchor.pos}
 									headPos={this.view.state.selection.$head.pos}
 									mediaOptions={mediaOptions}
-									editorViewMode={editorViewMode === 'view'}
 								/>
 							);
 						};

@@ -2,7 +2,6 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { ResolvedUserPreferences } from '@atlaskit/editor-common/user-preferences/user-preferences';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type {
 	UserPreferencesPluginOptions,
@@ -44,7 +43,7 @@ export const createPlugin = (
 	const { userPreferencesProvider, initialUserPreferences } = pluginOptions;
 
 	const getInitialUserPreferences = (): ResolvedUserPreferences => {
-		if (initialUserPreferences && editorExperiment('platform_editor_controls', 'variant1')) {
+		if (initialUserPreferences) {
 			return initialUserPreferences;
 		}
 

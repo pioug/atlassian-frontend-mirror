@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::31519a211d338086afd7d72500518c92>>
+ * @codegen <<SignedSource::80b8220450f0df96aa4d5814c595db8f>>
  * @codegenCommand yarn build tokens
  */
 var tokens = {
@@ -27,7 +27,9 @@ var tokens = {
   'motion.duration.xxshort': '--ds-duration-xxshort',
   'motion.easing.in.practical': '--ds-easing-in-practical',
   'motion.easing.inout.bold': '--ds-easing-inout-bold',
+  'motion.easing.out.expo': '--ds-easing-out-expo',
   'motion.easing.out.practical': '--ds-easing-out-practical',
+  'motion.easing.out.quart': '--ds-easing-out-quart',
   'motion.easing.out.bold': '--ds-easing-out-bold',
   'motion.easing.spring': '--ds-easing-spring',
   'motion.flag.enter': '--ds-flag-enter',
@@ -71,6 +73,7 @@ var tokens = {
   'motion.modal.exit': '--ds-modal-exit',
   'motion.panel.content.enter': '--ds-panel-content-enter',
   'motion.panel.content.exit': '--ds-panel-content-exit',
+  'motion.panel.content.open': '--ds-panel-content-open',
   'motion.panel.enter': '--ds-panel-enter',
   'motion.panel.enter.left': '--ds-panel-enter-left',
   'motion.panel.enter.right': '--ds-panel-enter-right',

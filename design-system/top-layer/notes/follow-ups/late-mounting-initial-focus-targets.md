@@ -1,5 +1,12 @@
 # Follow-up: initial focus targets that mount after the popup opens
 
+**Status:** Decided (2026-11-10, user): option 1. Layers move focus only on the open, so a
+`setInitialFocusRef` target set after the open does not take focus on the top-layer path. Content
+that needs focus later turns the open's focus off with Popup `UNSAFE__disableInitialAutoFocus` and
+moves focus itself. The sites below keep their own late focus code, or move to that pattern. See
+[`../decisions/react-autofocus-and-focus-on-open.md`](../decisions/react-autofocus-and-focus-on-open.md).
+The legacy path honours a late target; that note lists what else it did differently.
+
 ## Context
 
 `Popover` reads `initialFocusRef` once, in a layout effect, as it opens. `@atlaskit/popup` passes
@@ -37,4 +44,4 @@ Each site below has a `TODO` that links here.
    trigger. One fix for every consumer, but it needs a rule for when a late call may still move
    focus (the user may already have moved it).
 
-Pick one before the `platform-dst-top-layer` rollout reaches these consumers.
+Option 1 was picked (2026-11-10). Option 2 was built on the integration branch and dropped.

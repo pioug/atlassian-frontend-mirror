@@ -37,6 +37,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/banner": "workspace:^",
+		"@atlaskit/docs": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/workbench": "workspace:^",
 		"@testing-library/react": "root:*",

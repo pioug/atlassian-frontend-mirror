@@ -48,8 +48,10 @@
 		"react": "^18.2.0 || ^19.2.0"
 	},
 	"devDependencies": {
+		"@af/editor-examples-helpers": "workspace:^",
 		"@af/integration-testing": "workspace:^",
 		"@atlaskit/checkbox": "workspace:^",
+		"@atlaskit/docs": "workspace:^",
 		"@atlaskit/textarea": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@atlassian/structured-docs-types": "workspace:^",

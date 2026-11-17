@@ -1,5 +1,37 @@
 # @atlaskit/renderer
 
+## 156.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 155.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 154.0.2
+
+### Patch Changes
+
+- [`a6640a1dcf207`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a6640a1dcf207) -
+  Add inline-bodied Forge macro usage instrumentation behind
+  `platform_inline_bodied_macro_usage_metrics`.
+
+  The renderer sends `extension rendered` with `metric=inlineBodiedPresentation`, the stored
+  extension key/type, declared layout, UI Kit or Custom UI render type, and actual inline/block
+  presentation. It follows existing macro analytics with a per-mount guard: rerenders are
+  suppressed, while remounts can emit again. These are render occurrences, not unique page visits or
+  app-load successes. Legacy output-type-only macros retain their existing
+  `extensionAsInline rendered` event. The gate must be registered and enabled before collection;
+  validate ingestion before dashboard use.
+
+  Existing `forge.ui.extension inserted` events gain declared layout, render type and editor surface
+  for inline-bodied declarations. Bodies and configuration values are not included in the new
+  attributes.
+
 ## 154.0.1
 
 ### Patch Changes

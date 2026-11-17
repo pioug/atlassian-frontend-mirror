@@ -1,7 +1,6 @@
 import React, { PureComponent, useCallback, useEffect, useRef, useState } from 'react';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { OutsideClickTargetRefContext } from './OutsideClickTargetRefContext';
 import ReactEditorViewContext from './ReactEditorViewContext';
@@ -38,14 +37,11 @@ class WithOutsideClick extends PureComponent<
 		outsideClickTargetRef: React.MutableRefObject<WeakRef<HTMLElement> | null>;
 		popupsMountPoint?: HTMLElement;
 	},
-	Object
+	object
 > {
 	componentDidMount() {
 		if (this.props.handleClickOutside) {
-			const options =
-				this.props.captureClick && editorExperiment('platform_editor_controls', 'variant1')
-					? { capture: true }
-					: false;
+			const options = this.props.captureClick ? { capture: true } : false;
 			// Ignored via go/ees005
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			document.addEventListener('click', this.handleClick, options);
@@ -72,10 +68,7 @@ class WithOutsideClick extends PureComponent<
 
 	componentWillUnmount() {
 		if (this.props.handleClickOutside) {
-			const options =
-				this.props.captureClick && editorExperiment('platform_editor_controls', 'variant1')
-					? { capture: true }
-					: false;
+			const options = this.props.captureClick ? { capture: true } : false;
 			// Ignored via go/ees005
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			document.removeEventListener('click', this.handleClick, options);
@@ -156,7 +149,7 @@ function hasIsOpen(props: any): props is HasIsOpen {
 	return 'isOpen' in props;
 }
 
-export default function withReactEditorViewOuterListeners<P extends Object>(
+export default function withReactEditorViewOuterListeners<P extends object>(
 	Component: React.ComponentType<React.PropsWithChildren<P>>,
 ): React.ComponentType<React.PropsWithChildren<P & WithOutsideClickProps>> {
 	return ({

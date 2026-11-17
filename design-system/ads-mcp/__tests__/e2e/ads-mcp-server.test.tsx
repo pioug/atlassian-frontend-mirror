@@ -7,6 +7,8 @@ import {
 	StdioClientTransport,
 	/* eslint-disable-next-line import/extensions -- MCP SDK requires .js extensions for ESM imports */
 } from '@modelcontextprotocol/sdk/client/stdio.js';
+/* eslint-disable-next-line import/extensions -- MCP SDK requires .js extensions for ESM imports */
+import { CallToolResultSchema } from '@modelcontextprotocol/sdk/types.js';
 
 import allIcons from '@atlaskit/icon/metadata-core';
 import { tokens as allTokens } from '@atlaskit/tokens/token-metadata';
@@ -204,13 +206,63 @@ describe('ADS MCP Server E2E', () => {
 		expect(text.length).toBeGreaterThan(100); // Substantial content
 	});
 
+	it('accepts scalar search queries through the registered server without changing array results', async () => {
+		const cases = [
+			['ads_search_components', 'Button'],
+			['ads_search_tokens', 'space.150'],
+			['ads_search_icons', 'search'],
+			['atlaskit_search_components', 'card'],
+			['atlaskit_search_hooks', 'analytics'],
+			['atlaskit_search_utilities', 'debounce'],
+			['ads_get_guidelines', 'spacing'],
+			['ads_get_lint_rules', 'icon-label'],
+		] as const;
+		for (const [name, query] of cases) {
+			const scalar = CallToolResultSchema.parse(
+				await client.callTool({
+					name,
+					arguments: { terms: query, limit: 1 },
+				}),
+			);
+			const array = CallToolResultSchema.parse(
+				await client.callTool({
+					name,
+					arguments: { terms: [query], limit: 1 },
+				}),
+			);
+			expect(scalar).toEqual(array);
+			expect(JSON.stringify(scalar)).not.toContain('Invalid arguments provided');
+		}
+		const scalarPlan = await client.callTool({
+			name: 'ads_plan',
+			arguments: { components: 'Button', limit: 1 },
+		});
+		const arrayPlan = await client.callTool({
+			name: 'ads_plan',
+			arguments: { components: ['Button'], limit: 1 },
+		});
+		expect(scalarPlan).toEqual(arrayPlan);
+		expect(JSON.stringify(scalarPlan)).not.toContain('Invalid arguments provided');
+	});
+
+	it('rejects blank scalar and array planner queries through the registered server', async () => {
+		for (const terms of ['', ' \t\n', [''], ['', ' \t\n']]) {
+			const result = CallToolResultSchema.parse(
+				await client.callTool({ name: 'ads_plan', arguments: { tokens: terms } }),
+			);
+			expect(result.isError).toBe(true);
+			expect(result.content[0]).toMatchObject({
+				type: 'text',
+				text: expect.stringContaining('At least one search type'),
+			});
+		}
+	});
+
 	it('Returns a useful error if a tool is called with the wrong arguments', async () => {
 		const result = (
 			await client.callTool({
 				name: 'ads_analyze_a11y',
-				arguments: {
-					/* There should be a `code` in here */
-				},
+				arguments: {/* There should be a `code` in here */},
 			})
 		).content as { type: 'text'; text: string; isError: boolean }[];
 		expect(result[0].isError).toEqual(true);

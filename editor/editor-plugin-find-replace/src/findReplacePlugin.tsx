@@ -7,7 +7,6 @@ import type { PMPlugin } from '@atlaskit/editor-common/types/plugin-factory';
 import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types/toolbar';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { FindReplacePlugin } from './findReplacePluginType';
 import { activate } from './pm-plugins/commands';
@@ -16,12 +15,10 @@ import keymapPlugin from './pm-plugins/keymap';
 import { createPlugin } from './pm-plugins/main';
 import { findReplacePluginKey } from './pm-plugins/plugin-key';
 import { viewModeShortcutPlugin } from './pm-plugins/view-mode-shortcut';
-import type { FindReplaceToolbarButtonActionProps } from './types';
 import FindReplaceDropDownOrToolbarButtonWithState from './ui/FindReplaceDropDownOrToolbarButtonWithState';
 
 export const findReplacePlugin: FindReplacePlugin = ({ config: props, api }) => {
 	const editorViewRef: Record<'current', EditorView | null> = { current: null };
-	const toolbarButtonRegisteredExternally: Record<'current', boolean> = { current: false };
 
 	const primaryToolbarComponent: ToolbarUIComponentFactory = ({
 		popupsBoundariesElement,
@@ -39,11 +36,6 @@ export const findReplacePlugin: FindReplacePlugin = ({ config: props, api }) => 
 
 		const isButtonHidden = toolbarSize < ToolbarSize.XL;
 		if (props?.twoLineEditorToolbar) {
-			return null;
-		} else if (
-			toolbarButtonRegisteredExternally.current &&
-			editorExperiment('platform_editor_controls', 'variant1')
-		) {
 			return null;
 		} else {
 			return (
@@ -92,23 +84,21 @@ export const findReplacePlugin: FindReplacePlugin = ({ config: props, api }) => 
 				});
 			}
 
-			if (editorExperiment('platform_editor_controls', 'variant1', { exposure: false })) {
-				plugins.push({
-					name: 'findReplaceEditorViewReferencePlugin',
-					plugin: () => {
-						return new SafePlugin({
-							view: (editorView: EditorView) => {
-								editorViewRef.current = editorView;
-								return {
-									destroy: () => {
-										editorViewRef.current = null;
-									},
-								};
-							},
-						});
-					},
-				});
-			}
+			plugins.push({
+				name: 'findReplaceEditorViewReferencePlugin',
+				plugin: () => {
+					return new SafePlugin({
+						view: (editorView: EditorView) => {
+							editorViewRef.current = editorView;
+							return {
+								destroy: () => {
+									editorViewRef.current = null;
+								},
+							};
+						},
+					});
+				},
+			});
 
 			return plugins;
 		},
@@ -121,32 +111,6 @@ export const findReplacePlugin: FindReplacePlugin = ({ config: props, api }) => 
 		},
 
 		actions: {
-			registerToolbarButton: ({
-				popupsBoundariesElement,
-				popupsMountPoint,
-				popupsScrollableElement,
-				editorView,
-				containerElement,
-				dispatchAnalyticsEvent,
-				isToolbarReducedSpacing,
-			}: FindReplaceToolbarButtonActionProps) => {
-				toolbarButtonRegisteredExternally.current = editorExperiment(
-					'platform_editor_controls',
-					'variant1',
-				);
-				return (
-					<FindReplaceDropDownOrToolbarButtonWithState
-						popupsBoundariesElement={popupsBoundariesElement}
-						popupsMountPoint={popupsMountPoint}
-						popupsScrollableElement={popupsScrollableElement}
-						editorView={editorView}
-						containerElement={containerElement}
-						dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-						isToolbarReducedSpacing={isToolbarReducedSpacing}
-						api={api}
-					/>
-				);
-			},
 			activateFindReplace: (
 				triggerMethod?: TRIGGER_METHOD.SHORTCUT | TRIGGER_METHOD.TOOLBAR | TRIGGER_METHOD.EXTERNAL,
 			) => {
@@ -172,40 +136,38 @@ export const findReplacePlugin: FindReplacePlugin = ({ config: props, api }) => 
 
 		primaryToolbarComponent: !api?.primaryToolbar ? primaryToolbarComponent : undefined,
 
-		contentComponent: editorExperiment('platform_editor_controls', 'variant1', { exposure: true })
-			? ({
-					editorView,
-					containerElement,
-					popupsMountPoint,
-					popupsBoundariesElement,
-					popupsScrollableElement,
-					wrapperElement,
-					dispatchAnalyticsEvent,
-				}) => {
-					if (toolbarButtonRegisteredExternally.current || !editorView) {
-						return null;
-					}
+		contentComponent: ({
+			editorView,
+			containerElement,
+			popupsMountPoint,
+			popupsBoundariesElement,
+			popupsScrollableElement,
+			wrapperElement,
+			dispatchAnalyticsEvent,
+		}) => {
+			if (!editorView) {
+				return null;
+			}
 
-					const popupsMountPointEl =
-						popupsMountPoint ||
-						// eslint-disable-next-line @atlaskit/editor/no-as-casting
-						(wrapperElement?.querySelector("[data-editor-container='true']") as HTMLElement);
+			const popupsMountPointEl =
+				popupsMountPoint ||
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
+				(wrapperElement?.querySelector("[data-editor-container='true']") as HTMLElement);
 
-					return (
-						<FindReplaceDropDownOrToolbarButtonWithState
-							popupsBoundariesElement={popupsBoundariesElement}
-							popupsMountPoint={popupsMountPointEl}
-							popupsScrollableElement={popupsScrollableElement || containerElement || undefined}
-							isToolbarReducedSpacing={false}
-							editorView={editorView}
-							containerElement={containerElement}
-							dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-							takeFullWidth={props?.takeFullWidth}
-							api={api}
-							doesNotHaveButton={true}
-						/>
-					);
-				}
-			: undefined,
+			return (
+				<FindReplaceDropDownOrToolbarButtonWithState
+					popupsBoundariesElement={popupsBoundariesElement}
+					popupsMountPoint={popupsMountPointEl}
+					popupsScrollableElement={popupsScrollableElement || containerElement || undefined}
+					isToolbarReducedSpacing={false}
+					editorView={editorView}
+					containerElement={containerElement}
+					dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+					takeFullWidth={props?.takeFullWidth}
+					api={api}
+					doesNotHaveButton
+				/>
+			);
+		},
 	};
 };

@@ -1,8 +1,10 @@
 import { z } from 'zod';
 
+import { searchTermsSchema, type SearchTermsSchema } from '../../helpers/search-terms-schema';
+
 export const searchAtlaskitHooksInputSchema: z.ZodObject<
 	{
-		terms: z.ZodArray<z.ZodString, 'many'>;
+		terms: SearchTermsSchema;
 		limit: z.ZodOptional<z.ZodDefault<z.ZodNumber>>;
 	},
 	'strip',
@@ -12,14 +14,12 @@ export const searchAtlaskitHooksInputSchema: z.ZodObject<
 		limit?: number | undefined;
 	},
 	{
-		terms: string[];
+		terms: string | string[];
 		limit?: number | undefined;
 	}
 > = z.object({
-	terms: z
-		.array(z.string())
-		.describe(
-			'Required: one or more search terms (fuzzy over name, package, category, description, keywords, usageGuidelines). Example: `["analytics", "storage", "layering"]`.',
-		),
+	terms: searchTermsSchema.describe(
+		'Required: one or more search terms (fuzzy over name, package, category, description, keywords, usageGuidelines). Example: `["analytics", "storage", "layering"]`.',
+	),
 	limit: z.number().default(2).describe('Max matches **per term** (default 2).').optional(),
 });

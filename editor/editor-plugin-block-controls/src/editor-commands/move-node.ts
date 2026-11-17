@@ -553,7 +553,7 @@ export const moveNode =
 
 		const sliceSize = sliceTo - sliceFrom;
 		if (inputMethod === INPUT_METHOD.DRAG_AND_DROP) {
-			tr = setCursorPositionAtMovedNode(tr, mappedTo, api);
+			tr = setCursorPositionAtMovedNode(tr, mappedTo);
 		} else if (preservedSelection) {
 			const currMeta = tr.getMeta(key);
 			const nodeMovedOffset = mappedTo - sliceFrom;

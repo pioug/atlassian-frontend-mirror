@@ -12,7 +12,6 @@ import {
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { AnnotationPlugin } from './annotationPluginType';
 import {
@@ -238,7 +237,7 @@ export const annotationPlugin: AnnotationPlugin = ({ config: annotationProviders
 					} else {
 						return {
 							...toolbarConfig,
-							rank: editorExperiment('platform_editor_controls', 'variant1') ? 1 : undefined,
+							rank: 1,
 						};
 					}
 				}

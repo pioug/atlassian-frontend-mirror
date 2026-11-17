@@ -1,5 +1,4 @@
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import { token } from '@atlaskit/tokens';
 
@@ -132,9 +131,6 @@ export const FULL_PAGE_EDITOR_TOOLBAR_HEIGHT = (
 			: isToolbarAIFCEnabled
 	) {
 		return '44px';
-	}
-	if (editorExperiment('platform_editor_controls', 'variant1', { exposure: true })) {
-		return token('space.500');
 	}
 	return token('space.500');
 };

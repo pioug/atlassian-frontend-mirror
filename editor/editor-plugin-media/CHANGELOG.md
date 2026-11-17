@@ -1,5 +1,52 @@
 # @atlaskit/editor-plugin-media
 
+## 35.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.0.0
+
+### Patch Changes
+
+- [`cabf3c7e59b8d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cabf3c7e59b8d) -
+  Remove internal uses of the always-true `areToolbarFlagsEnabled` helper and delete legacy toolbar
+  code that only rendered when it returned false (`ScrollButtons`, `LinkToolbarAppearance`,
+  `HyperlinkToolbarAppearance` and the media `LayoutGroup`).
+- Updated dependencies
+
+## 34.0.0
+
+### Patch Changes
+
+- [`f039487b0e531`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f039487b0e531) -
+  Remove internal code that the `platform_editor_controls` experiment cleanup left unused: unused
+  component props, an unused view mode subscription in media groups, unused placeholder messages,
+  and the internal bracket placeholder text.
+- [`b2444e74978c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2444e74978c4) -
+  Make the shipped editor memory-leak reductions permanent and remove the experiment checks.
+- Updated dependencies
+
+## 33.1.0
+
+### Minor Changes
+
+- [`c13b574ab38d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c13b574ab38d2) -
+  Declare the workspace dependencies used by package source and emitted types so isolated
+  installations can resolve them.
+
+### Patch Changes
+
+- [`84f221954c9fb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/84f221954c9fb) -
+  Remove the `control` branches of experiment `platform_editor_controls`; the editor controls
+  (`variant1`) experience is now permanent.
+- [`5b44df5f1aa56`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5b44df5f1aa56) -
+  Report a `failedToInsert` analytics event (and capture the exception) when the media insertion
+  type cannot be determined, including whether the `mediaInline` flag is on while the schema has no
+  `mediaInline` node. The error is rethrown, so behaviour is unchanged.
+- Updated dependencies
+
 ## 33.0.0
 
 ### Patch Changes

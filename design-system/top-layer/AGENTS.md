@@ -26,9 +26,8 @@ In your language in comments, and user facing copy, please avoid em-dashes and c
   `default export function hello(){}`)
 - Prefer discriminated unions for result types `{type: 'error', message: string}` over
   `{error: true, message?: string}`
-- Avoid the `void` keyword: do not use `void` as a return type annotation (use explicit return types
-  or omit), and do not use the `void` operator (e.g. `void someExpression()`). You can use
-  `Promise<void>` though.
+- Use `void` as the return type of a function that returns nothing. Use a bare `return` (or no
+  `return`), not `return undefined`. Do not use the `void` operator (e.g. `void someExpression()`).
 - For functions that might return values, prefer functions that return an explicit `null` over
   `undefined`.
 - For function parameters, prefer named arguments (e.g. a single destructured options object) over

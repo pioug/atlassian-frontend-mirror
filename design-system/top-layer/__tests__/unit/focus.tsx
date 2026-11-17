@@ -1,6 +1,9 @@
 import { getFirstFocusable } from '../../src/focus/get-first-focusable';
 import { getLastFocusable } from '../../src/focus/get-last-focusable';
 import { getNextFocusable } from '../../src/focus/get-next-focusable';
+import { isFocusOwningLayer } from '../../src/focus/is-focus-owning-layer';
+import { isInContainerLayer } from '../../src/focus/is-in-container-layer';
+import { isNestedLayerFocused } from '../../src/focus/is-nested-layer-focused';
 
 // focus helpers unit tests
 
@@ -47,6 +50,46 @@ describe('focusable helpers', () => {
 
 	afterEach(() => {
 		document.body.innerHTML = '';
+	});
+
+	describe('isNestedLayerFocused', () => {
+		const ownsFocus = (layer: Element) => isFocusOwningLayer({ layer });
+
+		function setup(): HTMLElement {
+			const container = createContainer(`
+				<button id="own">Own</button>
+				<div popover="manual"><button id="in-popover">In popover</button></div>
+				<dialog><div popover="manual" role="menu"><button id="in-dialog-menu">In menu</button></div></dialog>
+			`);
+			document.body.insertAdjacentHTML('beforeend', '<button id="outside">Outside</button>');
+			container.querySelector('dialog')?.show();
+			container.querySelectorAll<HTMLElement>('[popover]').forEach((layer) => layer.showPopover());
+			return container;
+		}
+
+		const focus = (id: string) => document.getElementById(id)?.focus();
+
+		it('is false for focus in the container itself or outside it', () => {
+			const container = setup();
+			focus('own');
+			expect(isNestedLayerFocused({ container })).toBe(false);
+			focus('outside');
+			expect(isNestedLayerFocused({ container })).toBe(false);
+		});
+
+		it('is true for focus in any nested layer', () => {
+			const container = setup();
+			focus('in-popover');
+			expect(isNestedLayerFocused({ container })).toBe(true);
+		});
+
+		it('counts only the layers that `layerFilter` accepts, at any depth', () => {
+			const container = setup();
+			focus('in-popover');
+			expect(isNestedLayerFocused({ container, layerFilter: ownsFocus })).toBe(false);
+			focus('in-dialog-menu');
+			expect(isNestedLayerFocused({ container, layerFilter: ownsFocus })).toBe(true);
+		});
 	});
 
 	describe('getFirstFocusable', () => {
@@ -449,7 +492,7 @@ describe('focusable helpers', () => {
 			expect(result).toHaveTextContent('B');
 		});
 
-		it('excludes focusable elements from nested top-layer scopes', () => {
+		it('excludes focusable elements in a closed nested popover', () => {
 			const container = createContainer(`
 				<button>A</button>
 				<div popover><button>Nested</button></div>
@@ -464,6 +507,44 @@ describe('focusable helpers', () => {
 
 			expect(first).toHaveTextContent('A');
 			expect(last).toHaveTextContent('B');
+			expect(next).toHaveTextContent('B');
+		});
+
+		it('includes an open nested popover with no role, and excludes a nested dialog', () => {
+			const container = createContainer(`
+				<button>A</button>
+				<div popover="manual" id="menu"><button>In popover</button></div>
+				<div popover="manual" role="dialog" id="dialog"><button>In dialog</button></div>
+				<button>B</button>
+			`);
+			container.querySelector<HTMLElement>('#menu')?.showPopover();
+			container.querySelector<HTMLElement>('#dialog')?.showPopover();
+			const firstButton = container.querySelector('button');
+			(firstButton as HTMLElement).focus();
+
+			const next = getNextFocusable({ container, direction: 'forwards' });
+			const last = getLastFocusable({ container });
+
+			expect(next).toHaveTextContent('In popover');
+			expect(last).toHaveTextContent('B');
+		});
+
+		it('keeps to the container layer with the isInContainerLayer filter', () => {
+			const container = createContainer(`
+				<button>A</button>
+				<div popover="manual" id="menu"><button>In popover</button></div>
+				<button>B</button>
+			`);
+			container.querySelector<HTMLElement>('#menu')?.showPopover();
+			const firstButton = container.querySelector('button');
+			(firstButton as HTMLElement).focus();
+
+			const next = getNextFocusable({
+				container,
+				direction: 'forwards',
+				filter: isInContainerLayer,
+			});
+
 			expect(next).toHaveTextContent('B');
 		});
 

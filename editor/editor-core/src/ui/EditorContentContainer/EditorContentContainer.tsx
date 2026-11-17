@@ -8768,8 +8768,7 @@ const EditorContentContainer: React.ForwardRefExoticComponent<
 				editorContentStyles.firstFloatingToolbarButtonStyles,
 				editorContentStyles.placeholderTextStyles,
 				editorContentStyles.placeholderStyles,
-				editorExperiment('platform_editor_controls', 'variant1') &&
-					editorContentStyles.placeholderOverflowStyles,
+				editorContentStyles.placeholderOverflowStyles,
 				editorContentStyles.codeBlockStyles,
 				contentMode === 'compact' && editorContentStyles.codeBlockStylesWithEmUnits,
 				editorContentStyles.editorUGCTokensRefreshed,

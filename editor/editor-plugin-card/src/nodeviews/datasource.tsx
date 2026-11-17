@@ -7,6 +7,7 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { jsx } from '@emotion/react';
 
+import { tintDirtyTransaction } from '@atlaskit/editor-common/collab';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
@@ -28,6 +29,7 @@ import { EditorSmartCardProvider } from '@atlaskit/link-provider/editor-smart-ca
 import { EditorSmartCardProviderValueGuard } from '@atlaskit/link-provider/editor-smart-card-provider-value-guard';
 import { DATASOURCE_DEFAULT_LAYOUT } from '@atlaskit/linking-common/constants';
 import type { DatasourceAdf, DatasourceAdfView } from '@atlaskit/linking-common/types';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { cardPlugin } from '../index';
 import { DatasourceErrorBoundary } from '../ui/datasourceErrorBoundary';
@@ -74,6 +76,7 @@ export class DatasourceComponent extends React.PureComponent<DatasourceComponent
 		columnKeysArg: string[],
 		columnCustomSizes: { [key: string]: number },
 		wrappedColumnKeys: string[],
+		tintDirtyTr = false,
 	) {
 		const { state, dispatch } = this.props.view;
 		const pos = getPosSafely(this.props.getPos);
@@ -120,12 +123,30 @@ export class DatasourceComponent extends React.PureComponent<DatasourceComponent
 		// Ensures dispatch does not contribute to undo history (otherwise user requires three undo's to revert table)
 		tr.setMeta('addToHistory', false);
 		tr.setMeta('scrollIntoView', false);
+		if (tintDirtyTr) {
+			// Tint as dirty: saving the table's default columns isn't a user edit. Hosts autosave
+			// local organic changes, so a viewer would create a new version of a live doc.
+			tintDirtyTransaction(tr);
+		}
 		dispatch(tr);
 	}
 
 	handleColumnChange = (columnKeys: string[]): void => {
-		const { wrappedColumnKeys = [], columnCustomSizes = {} } = this.getColumnsInfo();
-		this.updateTableProperties(columnKeys, columnCustomSizes, wrappedColumnKeys);
+		const {
+			wrappedColumnKeys = [],
+			columnCustomSizes = {},
+			visibleColumnKeys = [],
+		} = this.getColumnsInfo();
+		// With no saved columns, the table view calls this itself to save its default columns once
+		// they load. The experiment is checked last so only that automatic update is exposed.
+		const isDefaultColumnsUpdate =
+			visibleColumnKeys.length === 0 && isExperimentEnabled('platform_editor_phantom_edit_fix');
+		this.updateTableProperties(
+			columnKeys,
+			columnCustomSizes,
+			wrappedColumnKeys,
+			isDefaultColumnsUpdate,
+		);
 	};
 
 	handleColumnResize = (key: string, width: number): void => {

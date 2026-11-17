@@ -7,7 +7,6 @@ import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types/to
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { redo } from '@atlaskit/prosemirror-history/redo';
 import { undo } from '@atlaskit/prosemirror-history/undo';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import { attachInputMetaWithAnalytics } from './pm-plugins/attach-input-meta';
 import { InputSource } from './pm-plugins/enums';
@@ -108,23 +107,21 @@ export const undoRedoPlugin: UndoRedoPlugin = ({ api, config }) => {
 				},
 			];
 
-			if (editorExperiment('platform_editor_controls', 'variant1', { exposure: false })) {
-				plugins.push({
-					name: 'undoRedoGetEditorViewReferencePlugin',
-					plugin: () => {
-						return new SafePlugin({
-							view: (editorView: EditorView) => {
-								editorViewRef.current = editorView;
-								return {
-									destroy: () => {
-										editorViewRef.current = null;
-									},
-								};
-							},
-						});
-					},
-				});
-			}
+			plugins.push({
+				name: 'undoRedoGetEditorViewReferencePlugin',
+				plugin: () => {
+					return new SafePlugin({
+						view: (editorView: EditorView) => {
+							editorViewRef.current = editorView;
+							return {
+								destroy: () => {
+									editorViewRef.current = null;
+								},
+							};
+						},
+					});
+				},
+			});
 
 			return plugins;
 		},

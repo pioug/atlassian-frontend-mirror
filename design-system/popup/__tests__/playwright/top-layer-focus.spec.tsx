@@ -1,4 +1,4 @@
-import { expect, test } from '@af/integration-testing';
+import { expect, type Page, test } from '@af/integration-testing';
 
 /**
  * Popup: focus contract on the top-layer code path.
@@ -261,5 +261,101 @@ test.describe('Popup: top-layer focus contract', () => {
 		// The first focusable in the popup is the first button, but the
 		// consumer wired `setInitialFocusRef` to the second button.
 		await expect(page.getByTestId('set-initial-focus-ref-popup-second-button')).toBeFocused();
+	});
+});
+
+async function visitMatrix({ page, isTopLayer }: { page: Page; isTopLayer: boolean }) {
+	await page.visitExample<typeof import('../../examples/97-testing-initial-focus-matrix.tsx')>(
+		'design-system',
+		'popup',
+		'testing-initial-focus-matrix',
+		isTopLayer ? { featureFlag } : undefined,
+	);
+}
+
+// Waits two frames, so work that runs after a paint (effects, animation frames) has run.
+async function waitForFrames({ page }: { page: Page }) {
+	await page.evaluate(
+		() =>
+			new Promise((resolve) => {
+				requestAnimationFrame(() => requestAnimationFrame(resolve));
+			}),
+	);
+}
+
+/**
+ * The popup moves focus only as it opens. A target that the content sets later does not take focus.
+ * See `@atlaskit/top-layer` `notes/decisions/react-autofocus-and-focus-on-open.md`.
+ */
+test.describe('Popup: top-layer focus timing', () => {
+	test('a `setInitialFocusRef` target that mounts after the open does not take focus', async ({
+		page,
+	}) => {
+		await visitMatrix({ page, isTopLayer: true });
+
+		await page.getByTestId('late-target-popup-trigger').click();
+		await expect(page.getByTestId('late-target-popup-first-button')).toBeFocused();
+
+		await expect(page.getByTestId('late-target-popup-target')).toBeVisible();
+		await waitForFrames({ page });
+
+		await expect(page.getByTestId('late-target-popup-first-button')).toBeFocused();
+	});
+
+	test('a target that the content sets in a `useEffect` does not take focus', async ({ page }) => {
+		await visitMatrix({ page, isTopLayer: true });
+
+		await page.getByTestId('effect-target-popup-trigger').click();
+		await expect(page.getByTestId('effect-target-popup-content')).toHaveAttribute(
+			'data-is-target-set',
+			'true',
+		);
+		await waitForFrames({ page });
+
+		await expect(page.getByTestId('effect-target-popup-first-button')).toBeFocused();
+	});
+
+	test('`UNSAFE__disableInitialAutoFocus` moves no focus, so the content can move it later', async ({
+		page,
+	}) => {
+		await visitMatrix({ page, isTopLayer: true });
+		const trigger = page.getByTestId('disabled-initial-focus-popup-trigger');
+
+		// From the keyboard, so the trigger has focus before the open in every browser.
+		await trigger.press('Enter');
+		await expect(page.getByTestId('disabled-initial-focus-popup-content')).toBeVisible();
+		// Without the opt-out, the dialog role would focus the first button.
+		await expect(trigger).toBeFocused();
+
+		await expect(page.getByTestId('disabled-initial-focus-popup-target')).toBeFocused();
+	});
+
+	test('`PopupContent`: a `setInitialFocusRef` target that mounts after the open does not take focus', async ({
+		page,
+	}) => {
+		await visitMatrix({ page, isTopLayer: true });
+
+		await page.getByTestId('popup-content-late-target-trigger').click();
+		await expect(page.getByTestId('popup-content-late-target-first-button')).toBeFocused();
+
+		await expect(page.getByTestId('popup-content-late-target-target')).toBeVisible();
+		await waitForFrames({ page });
+
+		await expect(page.getByTestId('popup-content-late-target-first-button')).toBeFocused();
+	});
+});
+
+/**
+ * The legacy path runs its focus trap again when the target changes, so a late target takes focus
+ * there.
+ */
+test.describe('Popup: legacy focus timing', () => {
+	test('a `setInitialFocusRef` target that mounts after the open takes focus', async ({ page }) => {
+		await visitMatrix({ page, isTopLayer: false });
+
+		await page.getByTestId('late-target-popup-trigger').click();
+		await expect(page.getByTestId('late-target-popup-content')).toBeVisible();
+
+		await expect(page.getByTestId('late-target-popup-target')).toBeFocused();
 	});
 });

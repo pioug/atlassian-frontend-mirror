@@ -22,6 +22,9 @@ module.exports = {
 
 	resolve: {
 		extensions: ['.ts', '.tsx', '.js', '.json'],
+		alias: {
+			'decode-uri-component$': require.resolve('./decodeUriComponent'),
+		},
 	},
 
 	externals: {

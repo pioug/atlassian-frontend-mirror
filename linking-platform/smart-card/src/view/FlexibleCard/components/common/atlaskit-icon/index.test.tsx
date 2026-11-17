@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
 
@@ -196,19 +195,9 @@ describe('AtlaskitIcon', () => {
 		});
 	});
 
-	it('uses a non-bold gray tile for badge icons at large size when platform_lp_non_bold_large_sl_icon is on', () => {
-		passGate('platform_lp_non_bold_large_sl_icon');
-
+	it('uses a non-bold gray tile for badge icons at large size', () => {
 		render(<AtlaskitIcon icon={IconType.Comment} label="comment" size={SmartLinkSize.Large} />);
 
 		expect(screen.getByTestId('icon-tile')).toHaveAttribute('data-appearance', 'gray');
-	});
-
-	it('keeps the bold gray tile for badge icons at large size when platform_lp_non_bold_large_sl_icon is off', () => {
-		failGate('platform_lp_non_bold_large_sl_icon');
-
-		render(<AtlaskitIcon icon={IconType.Comment} label="comment" size={SmartLinkSize.Large} />);
-
-		expect(screen.getByTestId('icon-tile')).toHaveAttribute('data-appearance', 'grayBold');
 	});
 });

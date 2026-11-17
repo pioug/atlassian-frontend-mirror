@@ -1,5 +1,16 @@
 # @atlaskit/link-provider
 
+## 6.2.0
+
+### Minor Changes
+
+- [`79bf848b02b91`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/79bf848b02b91) -
+  Use the existing Smart Card choreographer integration for the pre-auth value modal under
+  platform_sl_3p_preauth_value_modal_killswitch. Add an optional slot-offer predicate to recheck
+  eligibility, frequency caps and experiment assignment before claiming permission. Keep the
+  existing modal API and editor toolbar integration, and count early user interactions toward the
+  frequency cap.
+
 ## 6.1.1
 
 ### Patch Changes

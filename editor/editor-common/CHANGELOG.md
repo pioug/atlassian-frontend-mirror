@@ -1,5 +1,115 @@
 # @atlaskit/editor-common
 
+## 137.1.0
+
+### Minor Changes
+
+- [`9a4b8cfc2a3c5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9a4b8cfc2a3c5) -
+  Expose the optional product credit check through the AI plugin API. Check skill eligibility before
+  query removal in the registered menus using `quickInsert-skill` and `elementBrowser-skill`, with
+  product-owned recovery content. Respect the existing `confluence_ubp_quick_insert_menu` and
+  `jira_ai_ubp_enforcement_messaging` rollouts under `platform_editor_slash_command`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 137.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 137.0.0
+
+### Major Changes
+
+- [`cabf3c7e59b8d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cabf3c7e59b8d) -
+  Remove the `@atlaskit/editor-common/toolbar-flag-check` entry point and the
+  `areAnyNewToolbarFlagsEnabled` prop from `LinkToolbarButtonGroup`, `getButtonGroupOption`,
+  `CreditCheckedFloatingToolbarButton`, `getCreditCheckedFloatingToolbarItem`,
+  `DropdownMenuExtensionItems`, and the floating toolbar `Button` and `Separator` components.
+  `areToolbarFlagsEnabled` always returned `true` after the `platform_editor_controls` cleanup, so
+  these components now always render the new toolbar styles. Remove any import of
+  `toolbar-flag-check` and stop passing `areAnyNewToolbarFlagsEnabled`.
+
+### Minor Changes
+
+- [`895e65e4d77e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/895e65e4d77e5) -
+  Add optional getEmbedCardTransformNode to EmbedCardTransformers so the card toolbar can check
+  where a transformed embed would be inserted
+
+### Patch Changes
+
+- Updated dependencies
+
+## 136.0.0
+
+### Major Changes
+
+- [`f039487b0e531`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f039487b0e531) -
+  Remove the unused `bracketTyped` helper from `@atlaskit/editor-common/utils` and
+  `@atlaskit/editor-common/utils/document`, and the unused `layoutPlaceholder` message from
+  `@atlaskit/editor-common/messages/layout`. Neither has had a caller since the
+  `platform_editor_controls` experiment cleanup. If you import either, copy the implementation or
+  message into your package.
+
+### Minor Changes
+
+- [`b39746d497598`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b39746d497598) -
+  Show "Feel free to keep editing, suggestions are on the way" in the AI suggestions thinking
+  messages behind platform_editor_ai_suggested_edits_reduce_cancel. Under the same experiment, size
+  the thinking bar to its longest rotating message so it doesn't resize between messages.
+- [`8dcac7cf29ad6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8dcac7cf29ad6) -
+  EDITOR-10169: Add the Rovo Chat Content Reviewer analytics entry point for the
+  platform_editor_rovo_chat_review_cta experiment.
+
+  Track review generation outcomes for the new Rovo Chat entry point.
+
+### Patch Changes
+
+- [`2177c03219c5c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2177c03219c5c) -
+  Check `getAICreditStatus` before more Remix buttons open Remix, showing the product's credits
+  content below the button when credits are blocked:
+
+  - the expand and nested expand toolbars, as `expandFloatingToolbar-remix`
+  - the layout toolbar, as `layoutFloatingToolbar-remix`
+  - the native tabs toolbar, as `nativeTabsFloatingToolbar-remix`
+  - the native embed toolbar, as `nativeEmbedFloatingToolbar-remix`
+
+  Adds these names and `nativeEmbedFloatingToolbar-askRovo` to the editor and Confluence credit
+  feature names.
+
+- [`b2444e74978c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2444e74978c4) -
+  Make the shipped editor memory-leak reductions permanent and remove the experiment checks.
+- Updated dependencies
+
+## 135.3.0
+
+### Minor Changes
+
+- [`c13b574ab38d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c13b574ab38d2) -
+  Declare the workspace dependencies used by package source and emitted types so isolated
+  installations can resolve them.
+
+### Patch Changes
+
+- [`dc4bf5ef54cd1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dc4bf5ef54cd1) -
+  Remove the `control` branches of experiment `platform_editor_controls`; the editor controls
+  (`variant1`) experience is now permanent.
+- [`5b44df5f1aa56`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5b44df5f1aa56) -
+  Report a `failedToInsert` analytics event (and capture the exception) when the media insertion
+  type cannot be determined, including whether the `mediaInline` flag is on while the schema has no
+  `mediaInline` node. The error is rethrown, so behaviour is unchanged.
+- Updated dependencies
+
+## 135.2.0
+
+### Minor Changes
+
+- [`6ced81618548f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6ced81618548f) -
+  Add blockMenu-remix to the supported Editor AI credit entry points.
+
 ## 135.1.0
 
 ### Minor Changes

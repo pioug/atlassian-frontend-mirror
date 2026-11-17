@@ -1,7 +1,6 @@
 import { bind } from 'bind-event-listener';
 
 import { AVATAR_SIZES } from '@atlaskit/avatar/avatar-sizes';
-import { BORDER_WIDTH } from '@atlaskit/avatar/constants/default';
 import { convertToInlineCss } from '@atlaskit/editor-common/css-helper';
 import { token } from '@atlaskit/tokens';
 
@@ -11,7 +10,7 @@ import { getContributorTagIcon } from './contributorTagIcons';
 /** The size `@atlaskit/avatar`'s `xxsmall` rendered at. */
 const AVATAR_SIZE = AVATAR_SIZES.xxsmall;
 /** `xxsmall` also carried a `space.025` margin — the same 2px — which is where the ring is painted. */
-const AVATAR_RING_WIDTH = BORDER_WIDTH;
+const AVATAR_RING_WIDTH = 2;
 
 /** Reused from `@atlaskit/avatar`'s `avatar-content`, so the two shapes cannot drift. */
 const HEXAGON_CLIP_PATH =

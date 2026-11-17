@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/embedded-confluence",
-	"version": "6.4.3",
+	"version": "6.4.4",
 	"description": "Embedded Confluence components for public consumption.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -41,13 +41,17 @@
 		"react-intl": "^5.25.1 || ^6.0.0 || ^7.0.0"
 	},
 	"devDependencies": {
+		"@atlaskit/docs": "workspace:^",
 		"@testing-library/react": "root:*",
 		"@testing-library/user-event": "root:*",
+		"decode-uri-component-patched": "root:*",
+		"query-string": "root:*",
 		"react": "root:*",
 		"react-dom": "root:*",
 		"react-intl": "root:*",
 		"react-markdown": "root:*",
 		"remark-gfm": "root:*",
+		"webpack": "root:*",
 		"webpack-cli": "root:*"
 	},
 	"optionalDependencies": {

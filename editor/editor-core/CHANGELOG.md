@@ -1,5 +1,49 @@
 # @atlaskit/editor-core
 
+## 245.0.1
+
+### Patch Changes
+
+- [`9a4b8cfc2a3c5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9a4b8cfc2a3c5) -
+  Expose the optional product credit check through the AI plugin API. Check skill eligibility before
+  query removal in the registered menus using `quickInsert-skill` and `elementBrowser-skill`, with
+  product-owned recovery content. Respect the existing `confluence_ubp_quick_insert_menu` and
+  `jira_ai_ubp_enforcement_messaging` rollouts under `platform_editor_slash_command`.
+- Updated dependencies
+
+## 245.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 244.0.0
+
+### Patch Changes
+
+- [`f039487b0e531`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f039487b0e531) -
+  Remove internal code that the `platform_editor_controls` experiment cleanup left unused: unused
+  component props, an unused view mode subscription in media groups, unused placeholder messages,
+  and the internal bracket placeholder text.
+- [`b2444e74978c4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2444e74978c4) -
+  Make the shipped editor memory-leak reductions permanent and remove the experiment checks.
+- Updated dependencies
+
+## 243.2.0
+
+### Minor Changes
+
+- [`c13b574ab38d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c13b574ab38d2) -
+  Declare the workspace dependencies used by package source and emitted types so isolated
+  installations can resolve them.
+
+### Patch Changes
+
+- [`dc4bf5ef54cd1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dc4bf5ef54cd1) -
+  Remove the `control` branches of experiment `platform_editor_controls`; the editor controls
+  (`variant1`) experience is now permanent.
+- Updated dependencies
+
 ## 243.1.0
 
 ### Minor Changes

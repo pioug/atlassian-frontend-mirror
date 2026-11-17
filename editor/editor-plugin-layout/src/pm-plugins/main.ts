@@ -117,10 +117,7 @@ const EMPTY_LAYOUT_COLUMN_NODE_SIZE = 4;
 const getNodeDecorations = (pos: number, node: Node) => {
 	const decorations = [Decoration.node(pos, pos + node.nodeSize, { class: 'selected' })];
 
-	if (
-		editorExperiment('platform_editor_controls', 'variant1') &&
-		isExperimentEnabled('platform_editor_improve_inp_batch_2')
-	) {
+	if (isExperimentEnabled('platform_editor_improve_inp_batch_2')) {
 		node.forEach((column, columnOffset) => {
 			if (
 				column.type.name !== 'layoutColumn' ||

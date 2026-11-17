@@ -158,7 +158,15 @@ css({
 
 #### Incorrect
 
-Don't use pseudo-classes which take arguments or implicitly rely on external context.
+Use allowlisted pseudo-selectors. Structural pseudo-classes such as `:first-child`, `:last-child`,
+and `:first-of-type` are prohibited because they depend on surrounding elements. Adding `&` does not
+make a restricted pseudo-class safe.
+
+Most functional pseudo-classes, such as `:not()`, are also prohibited. Explicitly allowlisted chains
+such as `&:focus:not(:focus-visible)` are supported; this does not allow arbitrary uses of `:not()`.
+See the
+[allowlist](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/src/master/platform/packages/design-system/eslint-plugin-ui-styling-standard/src/rules/no-unsafe-selectors/constants.tsx)
+for the complete set.
 
 ```tsx
 import { css } from '@compiled/react';
@@ -170,7 +178,7 @@ css({
 	},
 	'&:not(:hover)': {
 		backgroundColor: token('color.background.neutral'),
-	}
+	},
 	'&:first-child': {
 		fontWeight: token('font.weight.bold'),
 	},
@@ -178,6 +186,8 @@ css({
 ```
 
 #### Correct
+
+Express positional styling through an explicit prop and apply styles directly to the element.
 
 ```tsx
 import { css } from '@compiled/react';
@@ -244,7 +254,14 @@ css({
 Use explicit selectors. Do not rely on implicit or undefined behavior for pseudo-selectors.
 
 ```tsx
+import { css } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
 
+css({
+	'&:hover': {
+		backgroundColor: token('color.background.neutral.hovered'),
+	},
+});
 ```
 
 ### Grouped at-rules
@@ -253,10 +270,8 @@ Use explicit selectors. Do not rely on implicit or undefined behavior for pseudo
 
 Don't group at-rules with the `cssMap` API.
 
-````tsx
-import { cssMap } from '@compiled/react';
-
 ```tsx
+import { cssMap } from '@compiled/react';
 cssMap({
 	success: {
 		'@media': {
@@ -265,82 +280,19 @@ cssMap({
 		},
 	},
 });
-````
+```
 
 #### Correct
 
 Write flattened at-rules instead.
 
 ```tsx
-cssMap({
-	success: {
-		selectors: {
-			'&:not(:active)': {
-				backgroundColor: 'white',
-			},
-		},
-	},
-});
-```
+import { cssMap } from '@compiled/react';
 
-### Correct
-
-```tsx
-const fadeIn = keyframes({
-	from: {
-		opacity: 0,
-	},
-	to: {
-		opacity: 1,
-	},
-});
-
-css({
-	animationName: fadeIn,
-});
-```
-
-```tsx
-css({
-	'::after': {
-		content: '""',
-		width: 100,
-		height: 100,
-		backgroundColor: 'red',
-	},
-});
-```
-
-```tsx
-css({
-	'&:first-of-type': {
-		width: 100,
-	},
-});
-```
-
-```tsx
-css({
-	'&:hover': {},
-});
-```
-
-```tsx
 cssMap({
 	success: {
 		'@media (min-width: 900px)': {},
 		'@media (min-width: 1200px)': {},
-	},
-});
-```
-
-```tsx
-cssMap({
-	success: {
-		backgroundColor: 'white',
-		'&:active': {
-			backgroundColor: 'green',
-		},
 	},
 });
 ```

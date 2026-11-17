@@ -54,7 +54,6 @@ const menuContainerStyles = css({
 // itemSpacing is used in calculations expecting a number, hence not using a space token
 export const itemSpacing = 4;
 export interface Props {
-	areAnyNewToolbarFlagsEnabled?: boolean;
 	dispatchCommand: Function;
 	editorView?: EditorView;
 	hide: Function;
@@ -76,76 +75,45 @@ export interface DropdownButtonItemProps extends ButtonItemProps {
 }
 
 const Dropdown = memo((props: Props & WrappedComponentProps) => {
-	const {
-		hide,
-		dispatchCommand,
-		items,
-		intl,
-		editorView,
-		showSelected = true,
-		areAnyNewToolbarFlagsEnabled,
-	} = props;
-
-	if (areAnyNewToolbarFlagsEnabled) {
-		return (
-			<div css={menuContainerStyles} role="menu">
-				{/* eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed) */}
-				{items
-					.filter((item) => item && (!('hidden' in item) || !item.hidden))
-					.map((item, idx) => {
-						if (!('type' in item)) {
-							return (
-								<DropdownMenuItem
-									// Ignored via go/ees005
-									// eslint-disable-next-line react/no-array-index-key
-									key={idx}
-									item={item}
-									hide={hide}
-									dispatchCommand={dispatchCommand}
-									editorView={editorView}
-									showSelected={showSelected}
-									intl={intl}
-								/>
-							);
-						}
-						if (item.type === 'separator') {
-							// eslint-disable-next-line react/no-array-index-key
-							return <DropdownSeparator key={idx} />;
-						}
-						if (item.type === 'overflow-dropdown-heading') {
-							return (
-								<div key={item.title} css={headingStyles}>
-									<HeadingItem>{item.title}</HeadingItem>
-								</div>
-							);
-						}
-						if (item.type === 'custom') {
-							const dropdownMenuOptions = { hide, dispatchCommand, editorView, showSelected, intl };
-							return item.render(editorView, dropdownMenuOptions);
-						}
-					})}
-			</div>
-		);
-	}
+	const { hide, dispatchCommand, items, intl, editorView, showSelected = true } = props;
 
 	return (
 		<div css={menuContainerStyles} role="menu">
 			{/* eslint-disable-next-line @atlassian/perf-linting/no-expensive-computations-in-render -- Ignored via go/ees017 (to be fixed) */}
-			{(items as Array<DropdownOptionT<Function>>)
-				.filter((item) => !item.hidden)
-				.map((item, idx) => (
-					<DropdownMenuItem
-						// Ignored via go/ees005
+			{items
+				.filter((item) => item && (!('hidden' in item) || !item.hidden))
+				.map((item, idx) => {
+					if (!('type' in item)) {
+						return (
+							<DropdownMenuItem
+								// Ignored via go/ees005
+								// eslint-disable-next-line react/no-array-index-key
+								key={idx}
+								item={item}
+								hide={hide}
+								dispatchCommand={dispatchCommand}
+								editorView={editorView}
+								showSelected={showSelected}
+								intl={intl}
+							/>
+						);
+					}
+					if (item.type === 'separator') {
 						// eslint-disable-next-line react/no-array-index-key
-						key={idx}
-						item={item}
-						hide={hide}
-						dispatchCommand={dispatchCommand}
-						editorView={editorView}
-						showSelected={showSelected}
-						intl={intl}
-					/>
-				))}
+						return <DropdownSeparator key={idx} />;
+					}
+					if (item.type === 'overflow-dropdown-heading') {
+						return (
+							<div key={item.title} css={headingStyles}>
+								<HeadingItem>{item.title}</HeadingItem>
+							</div>
+						);
+					}
+					if (item.type === 'custom') {
+						const dropdownMenuOptions = { hide, dispatchCommand, editorView, showSelected, intl };
+						return item.render(editorView, dropdownMenuOptions);
+					}
+				})}
 		</div>
 	);
 });

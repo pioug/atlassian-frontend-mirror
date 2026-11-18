@@ -6,7 +6,7 @@ const documentation: StructuredContentSource = {
 			name: 'Flag',
 			description: 'A component for displaying brief messages.',
 			status: 'general-availability',
-			designSource: {
+			references: {
 				figmaUrl: 'https://go.atlassian.com/figma-library-ads-13544-55615',
 			},
 			import: {

@@ -8,10 +8,13 @@ import {
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics/types/enums';
 import { logException } from '@atlaskit/editor-common/monitoring/error';
+import { Side } from '@atlaskit/editor-common/selection';
+import { GapCursorSelection } from '@atlaskit/editor-common/selection/gap-cursor/selection';
 import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
-import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { TextSelection, type Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { LoomPlugin } from '../loomPluginType';
 import type { LoomProviderOptions, PositionType, VideoMeta } from '../types';
@@ -159,6 +162,49 @@ export const executeRecordVideo = (api: ExtractInjectionAPI<LoomPlugin> | undefi
 	);
 };
 
+/** Insert after the selection's last block, keeping the nearest schema-supported container. */
+const insertRecordedLoom = (
+	editorView: EditorView,
+	api: ExtractInjectionAPI<LoomPlugin> | undefined,
+	video: VideoMeta,
+): boolean | undefined => {
+	const { state } = editorView;
+	const embedCard = state.schema.nodes.embedCard;
+	const insert = api?.contentInsertion?.commands.insert;
+	// Leave unsupported schemas on the existing insertion path.
+	if (!embedCard || !insert) {
+		return undefined;
+	}
+
+	const executed =
+		api?.core.actions.execute(({ tr }) => {
+			const node = embedCard.createChecked({ url: video.sharedUrl, layout: 'wide' });
+			const stepCount = tr.steps.length;
+			insert({
+				node,
+				options: {
+					insertAt: tr.selection.$to.parent.inlineContent
+						? TextSelection.create(tr.doc, tr.selection.to)
+						: new GapCursorSelection(tr.selection.$to, Side.RIGHT),
+					selectNodeInserted: false,
+				},
+			})({ tr });
+			if (tr.steps.length === stepCount) {
+				return null;
+			}
+
+			// The shared insertion command can leave the old selection when the embed is last.
+			// A gap cursor after the embed also works at the end of a nested container.
+			tr.mapping.maps[stepCount].forEach((_oldFrom, _oldTo, _newFrom, newTo) => {
+				const finalPos = tr.mapping.slice(stepCount + 1).map(newTo);
+				tr.setSelection(new GapCursorSelection(tr.doc.resolve(finalPos), Side.RIGHT));
+			});
+			insertVideo({ editorAnalyticsAPI: api?.analytics?.actions, video })({ tr });
+			return tr.scrollIntoView();
+		}) ?? false;
+	return executed && !editorView.state.doc.eq(state.doc);
+};
+
 export const setupLoom = async (
 	loomProvider: LoomProviderOptions,
 	api: ExtractInjectionAPI<LoomPlugin> | undefined,
@@ -193,6 +239,15 @@ export const setupLoom = async (
 		onInsert: (video) => {
 			if (!editorView) {
 				return;
+			}
+			if (isExperimentEnabled('twc_growth_loom_conf_pinned_toolbar')) {
+				const inserted = insertRecordedLoom(editorView, api, video);
+				if (inserted !== undefined) {
+					if (inserted) {
+						editorView.focus();
+					}
+					return;
+				}
 			}
 			const { state, dispatch } = editorView;
 			const pos = state.selection.from;

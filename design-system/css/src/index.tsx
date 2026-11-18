@@ -12,6 +12,7 @@ export { jsx } from '@compiled/react';
 
 type MediaQuery =
 	// "media.above" breakpoints
+	| 'all'
 	| '(min-width: 30rem)'
 	| '(min-width: 48rem)'
 	| '(min-width: 64rem)'

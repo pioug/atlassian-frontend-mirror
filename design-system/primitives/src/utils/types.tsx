@@ -64,6 +64,7 @@ export type SVGElements =
 
 export type BackgroundColorToken =
 	| 'color.background.droptarget'
+	| 'color.background.droptarget.hovered'
 	| 'color.background.draghandle'
 	| 'color.rovo.background.brand.bold'
 	| 'color.rovo.background.brand.bold.hovered'

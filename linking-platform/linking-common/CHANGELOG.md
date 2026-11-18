@@ -1,5 +1,13 @@
 # @atlaskit/linking-common
 
+## 13.0.3
+
+### Patch Changes
+
+- [`34233c14aace1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/34233c14aace1) -
+  Cleanup `feature_gate` `platform_lp_sllv_display_name_fallback`. Available sites now always fall
+  back to the site URL when the workspace display name is missing or empty.
+
 ## 13.0.2
 
 ### Patch Changes

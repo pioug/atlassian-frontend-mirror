@@ -3,13 +3,13 @@ import { bindAll, type UnbindFn } from 'bind-event-listener';
 import { INTERACTION_EVENT_TYPES } from './interaction-events';
 
 /**
- * Reports the events the interactions with the editor are made of, as the browser dispatched
+ * Reports the events the interactions with a region are made of, as the browser dispatched
  * them. What they mean is the tracker's business.
  *
- * Event Timing cannot answer which interactions were with the editor, because it observes the
+ * Event Timing cannot answer which interactions were with a region, because it observes the
  * whole document, nor how many there were, because it reports none below 16 ms.
  */
-export class EditorEventObserver {
+export class RegionEventObserver {
 	private readonly onEvent: (event: Event) => void;
 	private root: Element | undefined;
 	private unbind: UnbindFn | undefined;
@@ -18,10 +18,7 @@ export class EditorEventObserver {
 		this.onEvent = onEvent;
 	}
 
-	/**
-	 * Called as the element the editor renders itself into changes: the editor only knows it after
-	 * its first render, and can replace it.
-	 */
+	/** Called as the region's element changes: its owner may only know it after a render, and can replace it. */
 	observe(root: Element | null | undefined): void {
 		const next = root ?? undefined;
 		if (next === this.root) {
@@ -38,7 +35,7 @@ export class EditorEventObserver {
 		this.unbind = bindAll(
 			next,
 			INTERACTION_EVENT_TYPES.map((type) => ({ type, listener: this.onEvent })),
-			// Capture, so a handler in the editor cannot stop an interaction from being reported.
+			// Capture, so a handler in the region cannot stop an interaction from being reported.
 			{ capture: true, passive: true },
 		);
 	}

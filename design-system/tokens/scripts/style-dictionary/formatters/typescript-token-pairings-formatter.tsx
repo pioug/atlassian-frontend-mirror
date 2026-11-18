@@ -20,6 +20,7 @@ const isInteractiveOverlay = (token: ContrastTokenMetadata) =>
 // Manual overrides of auto-detection
 const includePairings: [string, string][] = [
 	['color.border.dropindicator', 'color.background.droptarget'],
+	['color.border.dropindicator', 'color.background.droptarget.hovered'],
 ];
 
 const excludePairings: [string, string][] = [];

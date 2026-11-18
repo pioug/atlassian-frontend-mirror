@@ -43,28 +43,11 @@ export type SyncedBlockErrorReasonAttribute =
 
 /**
  * Mirrors the provider's `SyncBlockSourceLocation` union: which Jira work item field holds
- * the source block. Only emitted for Jira sources when
- * `editor_synced_blocks_jira_custom_rich_text` is enabled, so Confluence sources and the
- * control cohort leave it unset.
+ * the source block. Only emitted for Jira sources; Confluence sources leave it unset.
  */
 export type SyncedBlockSourceLocationAttribute = 'description' | 'custom-field';
 
 type SyncedBlockErrorAttributes = {
-	error: string;
-	resourceId?: string;
-	sourceLocation?: SyncedBlockSourceLocationAttribute;
-	/**
-	 * The product the source block lives in, derived from `resourceId` when present.
-	 * Always optional because batch / subscription init paths fire without a `resourceId`.
-	 */
-	sourceProduct?: string;
-	/**
-	 * Categorical failure cause for dashboard grouping. Populated when error
-	 * attribution data is available (EDITOR-7796 / EDITOR-7862).
-	 */
-	reason?: SyncedBlockErrorReasonAttribute;
-	/** Backend HTTP status code when the failure came from a `BlockError`. */
-	statusCode?: number;
 	/**
 	 * Whether the failure reason is a benign/working-as-designed outcome (e.g. the source
 	 * was intentionally deleted/unpublished, or permission denied) rather than a genuine
@@ -72,6 +55,21 @@ type SyncedBlockErrorAttributes = {
 	 * Only emitted on fetch/subscribe error events (EDITOR-7862).
 	 */
 	benign?: boolean;
+	error: string;
+	/**
+	 * Categorical failure cause for dashboard grouping. Populated when error
+	 * attribution data is available (EDITOR-7796 / EDITOR-7862).
+	 */
+	reason?: SyncedBlockErrorReasonAttribute;
+	resourceId?: string;
+	sourceLocation?: SyncedBlockSourceLocationAttribute;
+	/**
+	 * The product the source block lives in, derived from `resourceId` when present.
+	 * Always optional because batch / subscription init paths fire without a `resourceId`.
+	 */
+	sourceProduct?: string;
+	/** Backend HTTP status code when the failure came from a `BlockError`. */
+	statusCode?: number;
 };
 
 type SyncedBlockSuccessAttributes = {
@@ -117,9 +115,8 @@ type SyncedBlockDeleteSuccessAttributes = SyncedBlockSuccessAttributes & {
 type FetchSyncedBlockSuccessAttributes = SyncedBlockSuccessAttributes;
 
 /**
- * Per-request source-info success attrs. `sourceLocation` is only set for Jira sources when
- * `editor_synced_blocks_jira_custom_rich_text` is enabled (behind the `platform_editor_blocks_patch_12`
- * experiment).
+ * Per-request source-info success attrs. `sourceLocation` is only set for Jira sources
+ * behind the `platform_editor_blocks_patch_12` experiment.
  */
 type SyncedBlockGetSourceInfoSuccessAttributes = SyncedBlockSuccessAttributes & {
 	sourceLocation?: SyncedBlockSourceLocationAttribute;

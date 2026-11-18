@@ -7,7 +7,7 @@ const documentation: StructuredContentSource = {
 			description:
 				'A badge is a visual indicator for numeric values such as tallies and scores, providing quick visual feedback.',
 			status: 'general-availability', // beta badge is feature-flagged
-			designSource: {
+			references: {
 				figmaUrl: 'https://go.atlassian.com/figma-library-ads-116989-3851',
 			},
 			import: {

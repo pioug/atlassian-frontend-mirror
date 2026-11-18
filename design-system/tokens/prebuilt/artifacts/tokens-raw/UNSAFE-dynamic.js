@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::604a2386688192a04e1b2ef7ec2e8a5d>>
+ * @codegen <<SignedSource::5b518bf47ab33015efd9ba8cbac6bcc1>>
  * @codegenCommand yarn build tokens
  */
 
@@ -2856,7 +2856,7 @@ var tokens = [{
     "group": "paint",
     "state": "active",
     "introduced": "20.10.0",
-    "description": "Use for the eligible region currently accepting a dragged item when area feedback is needed. This is not ordinary hover, persistent selection, or reserved placeholder space. Use an insertion indicator for before/after placement; preserve maintained combine and nested-group treatments instead of replacing them with this fill."
+    "description": "Use for the background of available drop destinations when the experience highlights eligible targets during a drag operation. Use color.background.droptarget.hovered for the current receiving destination. Ordinary pointer hover does not activate this state. Keep persistent selection, keyboard focus, and reserved placeholder space separate; preserve maintained insertion, combine, and nested-group treatments."
   },
   "original": {
     "value": "oklch(from var(--ds-dynamic-background, #000000) calc(l - (0.03 * max(0, sign(l - 0.9 + 0.0001))) + (0.03 * max(0, sign(0.9 - l - 0.0001) * sign(l - 0.5 + 0.0001))) - (0.03 * max(0, sign(0.5 - l - 0.0001) * sign(l - 0.3 - 0.0001))) + (0.03 * 2 * max(0, sign(0.3 - l + 0.0001)))) c h)",
@@ -2864,12 +2864,34 @@ var tokens = [{
       "group": "paint",
       "state": "active",
       "introduced": "20.10.0",
-      "description": "Use for the eligible region currently accepting a dragged item when area feedback is needed. This is not ordinary hover, persistent selection, or reserved placeholder space. Use an insertion indicator for before/after placement; preserve maintained combine and nested-group treatments instead of replacing them with this fill."
+      "description": "Use for the background of available drop destinations when the experience highlights eligible targets during a drag operation. Use color.background.droptarget.hovered for the current receiving destination. Ordinary pointer hover does not activate this state. Keep persistent selection, keyboard focus, and reserved placeholder space separate; preserve maintained insertion, combine, and nested-group treatments."
     }
   },
-  "name": "color.background.droptarget",
-  "path": ["color", "background", "droptarget"],
+  "name": "color.background.droptarget.[default]",
+  "path": ["color", "background", "droptarget", "[default]"],
   "cleanName": "color.background.droptarget"
+}, {
+  "value": "oklch(from oklch(from var(--ds-dynamic-background, #000000) calc(l - (0.03 * max(0, sign(l - 0.9 + 0.0001))) + (0.03 * max(0, sign(0.9 - l - 0.0001) * sign(l - 0.5 + 0.0001))) - (0.03 * max(0, sign(0.5 - l - 0.0001) * sign(l - 0.3 - 0.0001))) + (0.03 * 2 * max(0, sign(0.3 - l + 0.0001)))) c h) calc(l - (0.03 * max(0, sign(l - 0.9 + 0.0001))) + (0.03 * max(0, sign(0.9 - l - 0.0001) * sign(l - 0.5 + 0.0001))) - (0.03 * max(0, sign(0.5 - l - 0.0001) * sign(l - 0.3 - 0.0001))) + (0.03 * 2 * max(0, sign(0.3 - l + 0.0001)))) c h)",
+  "filePath": "schema/themes/UNSAFE-dynamic/color/background.tsx",
+  "isSource": true,
+  "attributes": {
+    "group": "paint",
+    "state": "active",
+    "introduced": "20.13.0",
+    "description": "Use for the background of the current drop destination during a drag operation. Apply while the dragged item is over the target. Ordinary pointer hover does not activate this state. For keyboard dragging, apply equivalent feedback to the current destination and keep keyboard focus identifiable independently. Do not apply to ineligible destinations."
+  },
+  "original": {
+    "value": "oklch(from oklch(from var(--ds-dynamic-background, #000000) calc(l - (0.03 * max(0, sign(l - 0.9 + 0.0001))) + (0.03 * max(0, sign(0.9 - l - 0.0001) * sign(l - 0.5 + 0.0001))) - (0.03 * max(0, sign(0.5 - l - 0.0001) * sign(l - 0.3 - 0.0001))) + (0.03 * 2 * max(0, sign(0.3 - l + 0.0001)))) c h) calc(l - (0.03 * max(0, sign(l - 0.9 + 0.0001))) + (0.03 * max(0, sign(0.9 - l - 0.0001) * sign(l - 0.5 + 0.0001))) - (0.03 * max(0, sign(0.5 - l - 0.0001) * sign(l - 0.3 - 0.0001))) + (0.03 * 2 * max(0, sign(0.3 - l + 0.0001)))) c h)",
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "20.13.0",
+      "description": "Use for the background of the current drop destination during a drag operation. Apply while the dragged item is over the target. Ordinary pointer hover does not activate this state. For keyboard dragging, apply equivalent feedback to the current destination and keep keyboard focus identifiable independently. Do not apply to ineligible destinations."
+    }
+  },
+  "name": "color.background.droptarget.hovered",
+  "path": ["color", "background", "droptarget", "hovered"],
+  "cleanName": "color.background.droptarget.hovered"
 }, {
   "value": "var(--ds-dynamic-background, #000000)",
   "filePath": "schema/themes/UNSAFE-dynamic/color/background.tsx",

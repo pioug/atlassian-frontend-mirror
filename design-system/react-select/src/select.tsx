@@ -2522,10 +2522,6 @@ export default class Select<
 			...(menuIsOpen && {
 				'aria-controls': this.getElementId('listbox'),
 			}),
-			...(!isSearchable &&
-				!fg('select_issearchable_aria-readonly_fix') && {
-					'aria-readonly': true,
-				}),
 			// Using aria-disabled so the element remains in the a11y tree.
 			...(isDisabledA11yFixEnabled && {
 				'aria-disabled': isDisabled || undefined,

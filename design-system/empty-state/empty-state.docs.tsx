@@ -7,7 +7,7 @@ const documentation: StructuredContentSource = {
 			description:
 				'A component for when there is nothing to display (no tasks, cleared inbox, no results).',
 			status: 'general-availability',
-			designSource: {
+			references: {
 				figmaUrl: 'https://go.atlassian.com/figma-library-ads-81047-55512',
 			},
 			import: {

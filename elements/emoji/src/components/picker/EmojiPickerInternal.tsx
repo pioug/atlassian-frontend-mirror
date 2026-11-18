@@ -89,10 +89,13 @@ export class EmojiPickerInternal extends LoadingEmojiComponent<
 		loadedEmojiProvider: EmojiProvider,
 		EmojiPickerComponent: ComponentClass<ComponentProps>,
 	): JSX.Element {
-		const { emojiProvider, ...otherProps } = this.props;
+		const { emojiProvider, getAICreditStatus, ...otherProps } = this.props;
 		return (
 			<UfoErrorBoundary experiences={[ufoExperiences['emoji-picker-opened']]}>
-				<EmojiCommonProvider emojiProvider={loadedEmojiProvider}>
+				<EmojiCommonProvider
+					emojiProvider={loadedEmojiProvider}
+					getAICreditStatus={getAICreditStatus}
+				>
 					<EmojiPickerComponent {...otherProps} />
 				</EmojiCommonProvider>
 			</UfoErrorBoundary>

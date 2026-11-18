@@ -6,7 +6,7 @@ export type RovoChatPathway =
 	| 'remix'
 	| 'all-conversations';
 
-export type RovoChatOpenMode = 'sidebar' | 'mini-modal';
+export type RovoChatOpenMode = 'sidebar' | 'mini-modal' | 'large-modal';
 
 export interface BaseRovoChatParams {
 	pathway: RovoChatPathway;

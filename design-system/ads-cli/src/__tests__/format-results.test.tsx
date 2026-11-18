@@ -13,7 +13,7 @@ describe('compactResults', () => {
 						package: '@atlaskit/button',
 						props: [{ name: 'appearance' }, { name: 'isDisabled' }],
 						examples: ['<Button />'],
-						designSource: { figmaUrl: 'https://example.com' },
+						references: { figmaUrl: 'https://example.com' },
 					},
 				],
 				showFollowUp: true,

@@ -7,7 +7,7 @@ const documentation: StructuredContentSource = {
 			description:
 				'A banner displays a prominent message at the top of the screen to communicate important information to users.',
 			status: 'general-availability',
-			designSource: {
+			references: {
 				figmaUrl: 'https://go.atlassian.com/figma-library-ads-13174-35360',
 			},
 			import: {

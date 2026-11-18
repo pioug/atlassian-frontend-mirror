@@ -2,7 +2,6 @@ import React, { type MouseEventHandler, useCallback, useEffect, useRef } from 'r
 
 import { bind } from 'bind-event-listener';
 
-import { KEY_DOWN } from '@atlaskit/ds-lib/keycodes';
 import MenuGroup from '@atlaskit/menu/menu-group';
 import Section from '@atlaskit/menu/section';
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
@@ -136,7 +135,7 @@ export function MoreDropdownTopLayer({
 		return bind(trigger, {
 			type: 'keydown',
 			listener: function openOnArrowDown(event: KeyboardEvent) {
-				if (event.key === KEY_DOWN) {
+				if (event.key === 'ArrowDown') {
 					// Prevent page scroll when opening the menu via ArrowDown.
 					event.preventDefault();
 					handleTriggerClicked(event);

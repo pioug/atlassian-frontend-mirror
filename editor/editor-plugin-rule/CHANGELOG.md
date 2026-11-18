@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-rule
 
+## 33.1.0
+
+### Minor Changes
+
+- [`1eb23adcd2a20`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1eb23adcd2a20) -
+  [EDITOR-10048] add a tenant-based experiment to the schema change for dividers with attributes
+  ahead of AIFC support
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 33.0.0
 
 ### Patch Changes

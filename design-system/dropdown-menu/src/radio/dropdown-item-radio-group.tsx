@@ -5,7 +5,7 @@ import Section from '@atlaskit/menu/section';
 import type { SectionProps } from '@atlaskit/menu/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import DropdownMenuItemGroup from '../dropdown-item-group';
+import { DropdownItemGroup } from '../dropdown-item-group';
 import GroupTitle from '../internal/components/group-title';
 import { SelectionStoreContext } from '../internal/context/selection-store-context';
 import resetOptionsInGroup from '../internal/utils/reset-options-in-group';
@@ -56,7 +56,7 @@ export const DropdownItemRadioGroup = ({
 	if (fg('platform-dst-new-menu')) {
 		return (
 			<RadioGroupContext.Provider value={{ id, radioGroupState, selectRadioItem }}>
-				<DropdownMenuItemGroup
+				<DropdownItemGroup
 					id={id}
 					hasSeparator={hasSeparator}
 					isScrollable={isScrollable}
@@ -65,7 +65,7 @@ export const DropdownItemRadioGroup = ({
 					titleId={groupTitleId}
 				>
 					{children}
-				</DropdownMenuItemGroup>
+				</DropdownItemGroup>
 			</RadioGroupContext.Provider>
 		);
 	}
@@ -88,5 +88,3 @@ export const DropdownItemRadioGroup = ({
 		</RadioGroupContext.Provider>
 	);
 };
-
-export default DropdownItemRadioGroup;

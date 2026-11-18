@@ -7,7 +7,7 @@ const documentation: StructuredContentSource = {
 			description:
 				'A component for displaying multiple avatars in a group with overlap and overflow handling.',
 			status: 'general-availability',
-			designSource: {
+			references: {
 				figmaUrl: 'https://go.atlassian.com/figma-library-ads-11159-22732',
 			},
 			import: {

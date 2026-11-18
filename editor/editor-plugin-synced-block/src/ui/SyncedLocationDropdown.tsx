@@ -243,7 +243,7 @@ type FetchStatus = 'none' | 'loading' | 'success' | 'error';
 
 /**
  * One field-aware dropdown row. Every string the row shows is composed here from the untouched
- * provider `reference`. Only built with `editor_synced_blocks_jira_custom_rich_text` on.
+ * provider `reference`. Built for Jira field-aware locations.
  */
 export type SyncedLocationItem = {
 	/**
@@ -517,8 +517,7 @@ export const processReferenceData = (
 };
 
 const isFieldAwareLocationList = (references: ReferencesSourceInfo['references']): boolean =>
-	(references?.some((reference) => reference?.productType === 'jira-work-item') ?? false) &&
-	isExperimentEnabled('editor_synced_blocks_jira_custom_rich_text');
+	references?.some((reference) => reference?.productType === 'jira-work-item') ?? false;
 
 const groupBySourceAri = (
 	referenceData: ReferencesSourceInfo['references'],

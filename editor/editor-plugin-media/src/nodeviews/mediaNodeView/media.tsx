@@ -50,6 +50,9 @@ import { GeneratedMediaReveal } from '../../ui/GeneratedMediaReveal';
 import { createMediaNodeUpdater } from '../mediaNodeUpdater';
 import { MediaCardWrapper } from '../styles';
 
+// A stable object, so the card doesn't see new props on every render.
+const INSET_VIEWER_EXTENSIONS = { useInsetViewer: true };
+
 // This is being used by DropPlaceholder now
 export const MEDIA_HEIGHT = 125;
 export const FILE_WIDTH = 156;
@@ -655,6 +658,13 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 							hasLoadingMotion={hasGeneratedMediaMotion}
 							onPreviewRender={this.onPreviewRender}
 							fallbackMediaNameFetcher={mediaOptions?.fallbackMediaNameFetcher}
+							// Only the inset flag goes to the card. It would also act on the viewer's selected-item
+							// callbacks, but the editor opens its own Media Viewer.
+							mediaViewerExtensions={
+								mediaOptions?.mediaViewerExtensions?.useInsetViewer
+									? INSET_VIEWER_EXTENSIONS
+									: undefined
+							}
 							onError={this.onError}
 						/>
 					</AnalyticsContext>

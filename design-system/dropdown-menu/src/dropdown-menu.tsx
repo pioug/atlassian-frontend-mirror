@@ -3,7 +3,6 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { bind } from 'bind-event-listener';
 
 import Button from '@atlaskit/button/default/button';
-import { KEY_DOWN, KEY_ENTER, KEY_LEFT, KEY_SPACE, KEY_TAB } from '@atlaskit/ds-lib/keycodes';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import noop from '@atlaskit/ds-lib/noop';
 import useControlledState from '@atlaskit/ds-lib/use-controlled';
@@ -154,13 +153,13 @@ function DropdownMenuLegacy<T extends HTMLElement = any>({
 		) => {
 			const isTabLeftOrEscapeKey =
 				isKeyboardEvent(event) &&
-				(event.key === 'Tab' || event.key === 'Escape' || event.key === KEY_LEFT);
+				(event.key === 'Tab' || event.key === 'Escape' || event.key === 'ArrowLeft');
 
 			// Stop propagation on ESCAPE or Left arrow if shouldPreventEscapePropagation is true
 			if (
 				shouldPreventEscapePropagation &&
 				isKeyboardEvent(event) &&
-				(event.key === 'Escape' || event.key === KEY_LEFT)
+				(event.key === 'Escape' || event.key === 'ArrowLeft')
 			) {
 				event.stopPropagation();
 			}
@@ -198,7 +197,7 @@ function DropdownMenuLegacy<T extends HTMLElement = any>({
 				isKeyboardEvent(event) &&
 				((event.key === 'Tab' && event.shiftKey) ||
 					event.key === 'Escape' ||
-					event.key === KEY_LEFT)
+					event.key === 'ArrowLeft')
 			) {
 				requestAnimationFrame(() => {
 					itemRef.current?.focus();
@@ -249,14 +248,14 @@ function DropdownMenuLegacy<T extends HTMLElement = any>({
 					);
 				}
 
-				if (e.key === KEY_DOWN && !isNestedTriggerButton) {
+				if (e.key === 'ArrowDown' && !isNestedTriggerButton) {
 					// prevent page scroll
 					e.preventDefault();
 					handleTriggerClicked(e);
-				} else if ((e.code === KEY_SPACE || e.key === KEY_ENTER) && e.detail === 0) {
+				} else if ((e.code === 'Space' || e.key === 'Enter') && e.detail === 0) {
 					// This allows us to focus on the first element if the dropdown was triggered by a custom trigger with a custom onClick
 					setTriggeredUsingKeyboard(true);
-				} else if (e.key === KEY_TAB && isNestedTriggerButton) {
+				} else if (e.key === 'Tab' && isNestedTriggerButton) {
 					// This closes dropdown if it is a nested dropdown
 					handleOnClose(e);
 				}
@@ -444,5 +443,3 @@ export const DropdownMenu = <T extends HTMLElement = any>(
 	// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props -- wrapper delegates entire DropdownMenuProps API
 	return <DropdownMenuLegacy {...props} />;
 };
-
-export default DropdownMenu;

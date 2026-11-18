@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 34.0.3
+
+### Patch Changes
+
+- [`e96273d9ce7cc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e96273d9ce7cc) -
+  Use the existing three-dot block menu icon for all block handles in the
+  platform_editor_block_menu_three_dot_icon experiment.
+- Updated dependencies
+
+## 34.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 34.0.1
+
+### Patch Changes
+
+- [`9ab5a817ea01c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9ab5a817ea01c) -
+  Clean up the `cc_maui_remix_button_hover_corridor` experiment, retaining the shipped
+  `isEnabled: true` Remix button hover corridor behaviour and removing the experiment from the
+  editor experiments config.
+- Updated dependencies
+
 ## 34.0.0
 
 ### Patch Changes

@@ -1,7 +1,6 @@
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { BlockControlsPlugin } from '../../blockControlsPluginType';
 import { handleMouseOver } from '../handle-mouse-over';
@@ -72,7 +71,6 @@ const getRightMarginBoundary = (view: EditorView): number =>
 
 type RightMarginZone =
 	| { block: HTMLElement; type: 'active' } // beside a block in the hoverable right margin
-	| { type: 'gap' } // control cohort only: past the boundary reserved for the Rovo button
 	| null; // not in the right margin
 
 // Classify where the cursor sits in the right margin beside the block at its height, running the
@@ -85,10 +83,7 @@ const classifyRightMarginPosition = (view: EditorView, event: MouseEvent): Right
 	if (event.clientX <= found.rect.right) {
 		return null;
 	}
-	return event.clientX > getRightMarginBoundary(view) &&
-		!expValEqualsNoExposure('cc_maui_remix_button_hover_corridor', 'isEnabled', true)
-		? { type: 'gap' }
-		: { type: 'active', block: found.block };
+	return { type: 'active', block: found.block };
 };
 
 /**
@@ -123,10 +118,7 @@ const processHoverSide = (view: EditorView, api?: ExtractInjectionAPI<BlockContr
 	// This is more reliable than bounds when controls are in portals outside the editor DOM.
 	const rightEdgeElement = target?.closest(getRightControlSelector());
 	if (rightEdgeElement) {
-		if (
-			state?.isMouseOut &&
-			expValEqualsNoExposure('cc_maui_remix_button_hover_corridor', 'isEnabled', true)
-		) {
+		if (state?.isMouseOut) {
 			mouseEnter(view, 'right');
 			return;
 		}
@@ -154,11 +146,8 @@ const processHoverSide = (view: EditorView, api?: ExtractInjectionAPI<BlockContr
 		handleMouseOver(view, { target: marginZone.block } as unknown as Event, api);
 		// mouseenter doesn't fire over the click overlay, so clear isMouseOut here to re-show.
 		if (state?.isMouseOut) {
-			if (expValEqualsNoExposure('cc_maui_remix_button_hover_corridor', 'isEnabled', true)) {
-				mouseEnter(view, 'right');
-				return;
-			}
-			mouseEnter(view);
+			mouseEnter(view, 'right');
+			return;
 		}
 		if (state?.hoverSide !== 'right') {
 			setHoverSide(view, 'right');
@@ -166,14 +155,9 @@ const processHoverSide = (view: EditorView, api?: ExtractInjectionAPI<BlockContr
 		return;
 	}
 
-	// Keep the existing fixed Rovo gap in the control cohort. The treatment uses explicitly marked
-	// control surfaces instead, so the rest of the right margin remains hoverable.
-	if (
-		marginZone?.type === 'gap' ||
-		(event.clientX > getRightMarginBoundary(view) &&
-			(!blockElement ||
-				!expValEqualsNoExposure('cc_maui_remix_button_hover_corridor', 'isEnabled', true)))
-	) {
+	// Explicitly marked control surfaces handle the Rovo area, so the rest of the right margin
+	// remains hoverable; only clear hover when past the boundary and not over a block.
+	if (event.clientX > getRightMarginBoundary(view) && !blockElement) {
 		if (!state?.isMouseOut) {
 			clearHoverSide(view);
 			mouseLeave(view);
@@ -190,11 +174,7 @@ const processHoverSide = (view: EditorView, api?: ExtractInjectionAPI<BlockContr
 	const nextHoverSide = event.clientX > midpoint ? 'right' : 'left';
 
 	if (state?.hoverSide !== nextHoverSide) {
-		if (
-			state?.isMouseOut &&
-			target?.closest(BLOCK_SELECTORS) &&
-			expValEqualsNoExposure('cc_maui_remix_button_hover_corridor', 'isEnabled', true)
-		) {
+		if (state?.isMouseOut && target?.closest(BLOCK_SELECTORS)) {
 			mouseEnter(view, nextHoverSide);
 			return;
 		}

@@ -16,6 +16,8 @@ for (const width of [800, 1023]) {
 		await visit(page, width);
 		await page.getByRole('button', { name: 'Ask Rovo', exact: true }).click();
 		await page.getByRole('button', { name: 'open local panel', exact: true }).click();
+		// Wait for lazy content to finish its opening autofocus before resizing.
+		await expect(page.getByRole('button', { name: 'Close local panel', exact: true })).toBeFocused();
 		const panel = page.getByTestId('layout-with-panel--panel-slot');
 		const chat = page.getByRole('region', { name: 'Chat panel', exact: true });
 		await expect(panel).toHaveWidth(320);
@@ -47,12 +49,14 @@ for (const area of ['panel', 'chat panel']) {
 		await visit(page, 1600);
 		await page.getByRole('button', { name: 'Ask Rovo', exact: true }).click();
 		await page.getByRole('button', { name: 'open local panel', exact: true }).click();
+		// Wait for lazy content to finish its opening autofocus before resizing.
+		await expect(page.getByRole('button', { name: 'Close local panel', exact: true })).toBeFocused();
 		const slider = page.getByRole('slider', { name: `Resize ${area}`, exact: true });
 		await slider.focus();
 		await slider.press('End');
 		const nav = page.getByRole('navigation', { name: 'Sidebar' });
 		await expect(nav).toBeVisible();
-		await expect(nav).toHaveWidth(240);
+		await expect.poll(async () => (await nav.boundingBox())?.width).toBe(240);
 		await expect.poll(() => nav.evaluate((el) => getComputedStyle(el).gridArea)).toBe('side-nav');
 		await expect(page.getByTestId('layout-with-panel--panel-slot')).toHaveWidth(
 			area === 'panel' ? 640 : 320,
@@ -70,6 +74,8 @@ test('one local drag can shrink wide Chat to its minimum and reverse without rel
 	await visit(page, 1920);
 	await page.getByRole('button', { name: 'Ask Rovo', exact: true }).click();
 	await page.getByRole('button', { name: 'open local panel', exact: true }).click();
+	// Wait for lazy content to finish its opening autofocus before resizing.
+	await expect(page.getByRole('button', { name: 'Close local panel', exact: true })).toBeFocused();
 	const chatSlider = page.getByRole('slider', { name: 'Resize chat panel', exact: true });
 	await chatSlider.focus();
 	// Keep navigation present in both implementations when preparing the regression.
@@ -77,7 +83,7 @@ test('one local drag can shrink wide Chat to its minimum and reverse without rel
 		await chatSlider.press('ArrowRight');
 	}
 	const chat = page.getByRole('region', { name: 'Chat panel', exact: true });
-	await expect(chat).toHaveWidth(1040);
+	await expect.poll(async () => (await chat.boundingBox())?.width).toBe(1040);
 	const panel = page.getByTestId('layout-with-panel--panel-slot');
 	await expect(panel).toHaveWidth(320);
 	await chatSlider.blur();

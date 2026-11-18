@@ -6,7 +6,7 @@ const documentation: StructuredContentSource = {
 			name: 'PageHeader',
 			description: 'A component for page headers.',
 			status: 'general-availability',
-			designSource: {
+			references: {
 				figmaUrl: 'https://go.atlassian.com/figma-library-ads-82097-75325',
 			},
 			import: {

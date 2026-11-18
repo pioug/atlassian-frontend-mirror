@@ -121,5 +121,3 @@ export const DropdownItemRadio = ({
 		</SELECTION_STYLE_CONTEXT_DO_NOT_USE.Provider>
 	);
 };
-
-export default DropdownItemRadio;

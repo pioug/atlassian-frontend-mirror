@@ -1,12 +1,10 @@
-import { KEY_DOWN, KEY_END, KEY_HOME, KEY_UP } from '@atlaskit/ds-lib/keycodes';
-
 import { type Action, type FocusableElement } from '../../types';
 
 const actionMap: { [key: string]: Action } = {
-	[KEY_DOWN]: 'next',
-	[KEY_UP]: 'prev',
-	[KEY_HOME]: 'first',
-	[KEY_END]: 'last',
+	ArrowDown: 'next',
+	ArrowUp: 'prev',
+	Home: 'first',
+	End: 'last',
 };
 
 /**

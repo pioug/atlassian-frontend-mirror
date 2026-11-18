@@ -10,9 +10,9 @@ import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
-import DropdownItem from '../../dropdown-item';
-import DropdownItemGroup from '../../dropdown-item-group';
-import DropdownMenu from '../../dropdown-menu';
+import { DropdownItem } from '../../dropdown-item';
+import { DropdownItemGroup } from '../../dropdown-item-group';
+import { DropdownMenu } from '../../dropdown-menu';
 
 const testId = 'dropdown';
 

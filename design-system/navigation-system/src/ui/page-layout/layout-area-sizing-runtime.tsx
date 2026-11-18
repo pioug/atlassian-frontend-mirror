@@ -361,7 +361,7 @@ export function LayoutAreaSizingRuntime({
 					return current;
 				}
 
-				if (mode === 'overlay' && area !== 'panel') {
+				if (mode === 'overlay' && (area !== 'panel' || fg('platform-dst-chat-panel-layout'))) {
 					return {
 						...current,
 						[area]: { ...existing, liveResize: undefined, preferredOverlayWidth: width },
@@ -373,7 +373,7 @@ export function LayoutAreaSizingRuntime({
 					[area]: {
 						...existing,
 						liveResize: undefined,
-						// Local panels have one preference, regardless of the resized mode.
+						// Gate-off local panels retain their shared preference.
 						preferredWidth: width,
 					},
 				};

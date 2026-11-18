@@ -6,7 +6,7 @@ const documentation: StructuredContentSource = {
 			name: 'Breadcrumbs',
 			description: 'A navigation component showing the current page hierarchy.',
 			status: 'general-availability',
-			designSource: {
+			references: {
 				figmaUrl: 'https://go.atlassian.com/figma-library-ads-144167-2564',
 			},
 			import: {

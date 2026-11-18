@@ -7,12 +7,6 @@ import { doc, em, h1, p, strong, underline } from '@atlaskit/editor-test-helpers
 
 import { blockQuoteAdf } from './text-formatting.spec.ts-fixtures';
 
-test.use({
-	editorExperiments: {
-		platform_editor_controls: 'variant1',
-	},
-});
-
 const appearances: Array<EditorAppearance> = ['full-page', 'comment'];
 
 const toggleFormat = async (toolbar: EditorMainToolbarModel, label: string) => {

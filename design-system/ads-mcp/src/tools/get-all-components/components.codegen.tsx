@@ -3,7 +3,7 @@
  *
  * Structured content components from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::174685ee28cdfe6acf7017c610e6eef6>>
+ * @codegen <<SignedSource::cd6623f66030a4722bbaed56bbabf1c9>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -34,7 +34,7 @@ export const components: ComponentMcpPayload[] = [
 			'Ensure keyboard navigation support',
 			'Provide clear user identification',
 		],
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-11159-22732',
 		},
 		keywords: ['avatar', 'group', 'multiple', 'users', 'team', 'overlap', 'facepile'],
@@ -171,7 +171,7 @@ export const components: ComponentMcpPayload[] = [
 			'Use consistent naming conventions across your app',
 			'Keep names concise but meaningful',
 		],
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-11159-23191',
 		},
 		keywords: [
@@ -594,7 +594,7 @@ export const components: ComponentMcpPayload[] = [
 			'Provide meaningful context for numeric values',
 			'Consider alternative text for non-numeric badges',
 		],
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-116989-3851',
 		},
 		keywords: [
@@ -662,7 +662,7 @@ export const components: ComponentMcpPayload[] = [
 			'Provide clear, actionable messaging',
 			'Consider keyboard navigation for interactive banners',
 		],
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-13174-35360',
 		},
 		keywords: ['banner', 'message', 'notification', 'alert', 'prominent', 'top', 'screen'],
@@ -712,7 +712,7 @@ export const components: ComponentMcpPayload[] = [
 			'Provide appropriate click handling for dismissal',
 			'Consider screen reader experience with overlays',
 		],
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-13613-69028',
 		},
 		keywords: ['blanket', 'overlay', 'backdrop', 'modal', 'layer'],
@@ -769,7 +769,7 @@ export const components: ComponentMcpPayload[] = [
 			'Ensure keyboard navigation support',
 			'Provide clear path context',
 		],
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-144167-2564',
 		},
 		keywords: ['breadcrumbs', 'navigation', 'hierarchy', 'path', 'location'],
@@ -968,7 +968,7 @@ export const components: ComponentMcpPayload[] = [
 			'Always provide meaningful labels for screen readers',
 			'Provide loading state announcements for async actions',
 		],
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-81007-1077',
 		},
 		keywords: ['button', 'action', 'click', 'submit', 'form', 'interactive', 'cta'],
@@ -1383,7 +1383,7 @@ export const components: ComponentMcpPayload[] = [
 			'Use consistent terminology across related actions',
 		],
 		accessibilityGuidelines: ['Provide descriptive labels for the IconButton trigger'],
-		designSource: {
+		references: {
 			figmaUrl:
 				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=51849-5001',
 		},
@@ -1445,7 +1445,7 @@ export const components: ComponentMcpPayload[] = [
 			'Use appropriate ARIA labels for dates',
 			'Support screen reader announcements for date changes',
 		],
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-13289-46824',
 		},
 		keywords: ['calendar', 'date', 'picker', 'selection', 'month', 'year', 'beta'],
@@ -1638,7 +1638,7 @@ export const components: ComponentMcpPayload[] = [
 			'Indicate required fields clearly',
 			'Use appropriate error states and messaging',
 		],
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-13135-34359',
 		},
 		keywords: ['checkbox', 'input', 'form', 'selection', 'choice', 'option', 'multiple'],
@@ -1735,7 +1735,7 @@ export const components: ComponentMcpPayload[] = [
 			'Ensure code content is announced properly by screen readers',
 			'Consider code context and meaning',
 		],
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-27203-107369',
 		},
 		keywords: ['code', 'snippet', 'inline', 'syntax', 'programming'],
@@ -1897,7 +1897,7 @@ export const components: ComponentMcpPayload[] = [
 			'Use appropriate heading hierarchy',
 			'Consider screen reader navigation',
 		],
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-17853-91040',
 		},
 		keywords: ['comment', 'discussion', 'thread', 'conversation', 'chat'],
@@ -2232,7 +2232,7 @@ export const components: ComponentMcpPayload[] = [
 			'Provide clear date labels',
 			'Consider screen reader announcements',
 		],
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-13285-45993',
 		},
 		keywords: ['date', 'picker', 'input', 'calendar', 'selection', 'form'],
@@ -3282,7 +3282,7 @@ export const components: ComponentMcpPayload[] = [
 			'Ensure keyboard navigation with arrow keys',
 			'Use appropriate ARIA attributes',
 		],
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-81040-12691',
 		},
 		keywords: ['dropdown', 'menu', 'overflow', 'actions', 'options', 'popup', 'contextual'],
@@ -3383,7 +3383,7 @@ export const components: ComponentMcpPayload[] = [
 		description:
 			'A dynamic table displays rows of data with built-in pagination, sorting, and re-ordering functionality.',
 		status: 'general-availability',
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-76953-155820',
 		},
 		keywords: [
@@ -3733,7 +3733,7 @@ export const components: ComponentMcpPayload[] = [
 			'Use appropriate headings and structure',
 			'Ensure actionable content is accessible',
 		],
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-81047-55512',
 		},
 		keywords: ['empty', 'state', 'results', 'placeholder', 'no-content', 'void'],
@@ -3873,7 +3873,7 @@ export const components: ComponentMcpPayload[] = [
 			'Ensure flag content is announced by screen readers',
 			'Consider screen reader announcement conflicts',
 		],
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-13544-55615',
 		},
 		keywords: ['flag', 'message', 'success', 'notification', 'alert', 'toast'],
@@ -4502,7 +4502,7 @@ export const components: ComponentMcpPayload[] = [
 			'Use action verbs in button labels',
 			'Primary button reflects the form action',
 		],
-		designSource: {
+		references: {
 			figmaUrl:
 				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=13078-30855',
 		},
@@ -4538,7 +4538,7 @@ export const components: ComponentMcpPayload[] = [
 			'Use RequiredAsterisk legend for required field indication',
 		],
 		contentGuidelines: ['Use clear, descriptive form titles', 'Keep descriptions concise'],
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-14470-110748',
 		},
 		keywords: ['form', 'header', 'title', 'description'],
@@ -5097,7 +5097,7 @@ export const components: ComponentMcpPayload[] = [
 			'Use appropriate ARIA attributes',
 			'Consider keyboard navigation',
 		],
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-13197-36936',
 		},
 		keywords: ['inline', 'edit', 'editable', 'text', 'input'],
@@ -5370,7 +5370,7 @@ export const components: ComponentMcpPayload[] = [
 			'Ensure message content is announced by screen readers',
 			'Use appropriate message types and colors',
 		],
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-13976-99230',
 		},
 		keywords: ['message', 'inline', 'feedback', 'status', 'alert'],
@@ -5450,7 +5450,7 @@ export const components: ComponentMcpPayload[] = [
 			'Ensure keyboard navigation support',
 			'Provide clear visual indicators for link state',
 		],
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-71522-53725',
 		},
 		keywords: ['link', 'navigation', 'href', 'anchor', 'url'],
@@ -5565,7 +5565,7 @@ export const components: ComponentMcpPayload[] = [
 			'Provide appropriate labels for screen readers',
 			'Consider color-blind users when choosing colors',
 		],
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-116954-2709',
 		},
 		keywords: ['lozenge', 'badge', 'label', 'status', 'indicator', 'pill'],
@@ -5829,7 +5829,7 @@ export const components: ComponentMcpPayload[] = [
 			'Ensure keyboard navigation and escape key support',
 			'Maintain focus within modal when open',
 		],
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-82128-80670',
 		},
 		keywords: [
@@ -6261,7 +6261,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'easing',
-				type: '"var(--ds-easing-in-practical)" | "var(--ds-easing-inout-bold)" | "var(--ds-easing-out-practical)" | "var(--ds-easing-out-bold)" | "var(--ds-easing-spring)"',
+				type: '"var(--ds-easing-in-practical)" | "var(--ds-easing-inout-bold)" | "var(--ds-easing-out-expo)" | "var(--ds-easing-out-practical)" | "var(--ds-easing-out-quart)" | "var(--ds-easing-out-bold)" | "var(--ds-easing-spring)"',
 				description:
 					"Easing of the resize transition as a design token CSS variable.\n\nAccepts a `MotionEasing` token value, e.g. `token('motion.easing.inout.bold')`.",
 				isRequired: true,
@@ -6388,7 +6388,7 @@ export const components: ComponentMcpPayload[] = [
 		package: '@atlaskit/object',
 		description: 'An object icon component that represents an Atlassian story content type.',
 		status: 'general-availability',
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-107096-47822',
 		},
 		keywords: ['object', 'icon', 'content type', 'tile', 'object tile', 'atlassian'],
@@ -6466,7 +6466,7 @@ export const components: ComponentMcpPayload[] = [
 			'Ensure breadcrumb navigation is accessible',
 			'Provide clear action labels',
 		],
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-82097-75325',
 		},
 		keywords: ['page', 'header', 'title', 'breadcrumbs', 'actions'],
@@ -6547,7 +6547,7 @@ export const components: ComponentMcpPayload[] = [
 			'Ensure keyboard navigation support',
 			'Announce page changes to screen readers',
 		],
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-13916-66923',
 		},
 		keywords: ['pagination', 'pages', 'navigation', 'paging', 'controls'],
@@ -6651,7 +6651,7 @@ export const components: ComponentMcpPayload[] = [
 			'Use appropriate ARIA attributes',
 			'Handle focus management',
 		],
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-82088-103357',
 		},
 		keywords: ['popper', 'positioning', 'tooltip', 'popup', 'overlay'],
@@ -6730,7 +6730,7 @@ export const components: ComponentMcpPayload[] = [
 			'Validate the complete menu interaction with the assistive technologies and browser environments that the product supports.',
 			'Refer to the WAI-ARIA menu role (https://www.w3.org/TR/wai-aria-1.0/roles#menu) and ARIA Authoring Practices menu and menubar pattern (https://www.w3.org/WAI/ARIA/apg/patterns/menubar/) for the complete role and interaction requirements.',
 		],
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-82088-103357',
 		},
 		keywords: ['popup', 'overlay', 'floating', 'content', 'trigger'],
@@ -7618,7 +7618,7 @@ export const components: ComponentMcpPayload[] = [
 			'Use appropriate color contrast for visibility',
 			'Provide alternative text for progress status',
 		],
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-5701-6335',
 		},
 		keywords: ['progress', 'bar', 'loading', 'status', 'completion', 'indeterminate'],
@@ -7760,7 +7760,7 @@ export const components: ComponentMcpPayload[] = [
 			'Provide clear progress context',
 			'Consider progress timing and updates',
 		],
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-13186-35931',
 		},
 		keywords: ['progress', 'indicator', 'steps', 'completion', 'status'],
@@ -7847,7 +7847,7 @@ export const components: ComponentMcpPayload[] = [
 			'Provide clear progress context',
 			'Consider progress timing and updates',
 		],
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-5704-5050',
 		},
 		keywords: ['progress', 'tracker', 'steps', 'completion', 'workflow'],
@@ -7910,7 +7910,7 @@ export const components: ComponentMcpPayload[] = [
 			"Don't use disabled radio buttons if they need to remain in tab order",
 			'Use validation instead of disabled state for better accessibility',
 		],
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-13200-41362',
 		},
 		keywords: ['radio', 'button', 'input', 'form', 'selection', 'choice', 'option'],
@@ -8154,7 +8154,7 @@ export const components: ComponentMcpPayload[] = [
 			'Provide clear, actionable messaging',
 			'Consider keyboard navigation for interactive section messages',
 		],
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-82088-101069',
 		},
 		keywords: [
@@ -9728,7 +9728,7 @@ export const components: ComponentMcpPayload[] = [
 			'Ensure keyboard navigation with arrow keys',
 			'Support screen reader announcements',
 		],
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-13212-38027',
 		},
 		keywords: ['select', 'dropdown', 'combobox', 'form', 'input', 'options', 'choice', 'picker'],
@@ -10870,7 +10870,7 @@ export const components: ComponentMcpPayload[] = [
 			'Ensure skeleton content is not announced as actual content',
 			'Consider screen reader experience during loading states',
 		],
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-101024-1311',
 		},
 		keywords: ['skeleton', 'placeholder', 'loading', 'content', 'shimmer', 'animation'],
@@ -10944,7 +10944,7 @@ export const components: ComponentMcpPayload[] = [
 			'Ensure spinner is announced to screen readers',
 			'Consider alternative loading indicators',
 		],
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-8070-10241',
 		},
 		keywords: ['spinner', 'loading', 'busy', 'progress', 'wait', 'activity'],
@@ -11588,7 +11588,7 @@ export const components: ComponentMcpPayload[] = [
 			'Announce tab changes to screen readers',
 			'Ensure tab content is accessible',
 		],
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-5775-8556',
 		},
 		keywords: ['tabs', 'navigation', 'content', 'organization', 'grouping'],
@@ -11934,7 +11934,7 @@ export const components: ComponentMcpPayload[] = [
 			'Consider keyboard navigation for interactive tags',
 			'Provide alternative text for tag removal actions',
 		],
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-121350-11129',
 		},
 		keywords: ['tag', 'label', 'category', 'filter', 'chip', 'badge'],
@@ -12055,7 +12055,7 @@ export const components: ComponentMcpPayload[] = [
 			'Indicate required fields clearly',
 			'Use appropriate error states and messaging',
 		],
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-13116-32075',
 		},
 		keywords: ['textarea', 'input', 'form', 'text', 'multiline', 'field'],
@@ -12192,7 +12192,7 @@ export const components: ComponentMcpPayload[] = [
 			'Indicate required fields clearly',
 			'Use appropriate error states and messaging',
 		],
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-13076-28181',
 		},
 		keywords: ['textfield', 'input', 'form', 'text', 'field', 'single-line'],
@@ -12282,7 +12282,7 @@ export const components: ComponentMcpPayload[] = [
 		description:
 			'A tile is a versatile, foundational container with baked-in sizing and radii properties for displaying elements in a tile shape.',
 		status: 'general-availability',
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-107093-50537',
 		},
 		keywords: ['tile', 'icon', 'container', 'avatar', 'asset', 'emoji', 'logo', 'shape'],
@@ -12353,7 +12353,7 @@ export const components: ComponentMcpPayload[] = [
 			'Provide clear visual feedback for state changes',
 			"Use descriptive labels that explain the toggle's purpose",
 		],
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-7947-9758',
 		},
 		keywords: ['toggle', 'switch', 'on-off', 'enabled', 'disabled', 'state'],
@@ -12465,7 +12465,7 @@ export const components: ComponentMcpPayload[] = [
 			'Ensure tooltip content is announced by screen readers',
 			'Provide keyboard access (hover + focus trigger)',
 		],
-		designSource: {
+		references: {
 			figmaUrl: 'https://go.atlassian.com/figma-library-ads-14493-106630',
 		},
 		keywords: ['tooltip', 'hint', 'hover', 'help', 'floating', 'label', 'explanation'],

@@ -36,14 +36,16 @@ const colors = {
 	},
 } as const;
 
+const dragAndDropRoles = new Set(['droptarget', 'dropindicator', 'draghandle']);
+
 const activeTokens = tokens
 	.filter((t) => t.attributes.state !== 'deleted' && t.attributes.state !== 'deprecated')
-	.map(
-		(t): Token => ({
-			token: t.name,
-			fallback: t.value as string,
-		}),
-	)
+	// Drag-and-drop feedback has its own activation rules, not automatic :hover/:active states.
+	.filter((t) => !dragAndDropRoles.has(t.path[2]))
+	.map((t): Token => ({
+		token: t.name,
+		fallback: t.value as string,
+	}))
 	.filter(compose(pick('token'), or(isAccent, isPressed, isHovered)));
 
 const pressedTokens = activeTokens.filter(compose(pick('token'), isPressed));

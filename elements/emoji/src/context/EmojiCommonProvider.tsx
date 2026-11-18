@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 
 import type { EmojiProvider } from '../api/EmojiResource';
+import type { GetAICreditStatus } from '../credit-check';
 import { EmojiContextProvider } from './EmojiContextProvider';
 
 export interface EmojiCommonProviderProps {
@@ -8,6 +9,7 @@ export interface EmojiCommonProviderProps {
 	 * emojiProvider is an instance of a class that implements an EmojiProvider interface (e.g. instance of the EmojiResource)
 	 */
 	emojiProvider?: EmojiProvider;
+	getAICreditStatus?: GetAICreditStatus;
 }
 
 /**
@@ -27,10 +29,11 @@ export const EmojiCommonProvider = (
 				? {
 						emoji: {
 							emojiProvider: props.emojiProvider,
+							getAICreditStatus: props.getAICreditStatus,
 						},
 					}
 				: undefined,
-		[props.emojiProvider],
+		[props.emojiProvider, props.getAICreditStatus],
 	);
 
 	if (!!emojiContextValue) {

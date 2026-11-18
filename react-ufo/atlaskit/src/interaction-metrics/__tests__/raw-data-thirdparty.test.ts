@@ -742,12 +742,11 @@ describe('Raw Data Third Party Behavior', () => {
 	});
 
 	describe('excludeFromMetrics third-party holds (background scripts)', () => {
-		// GATING NOTE: the master switch for this whole flow, `platform_forge_ufo_exclude_bg_scripts_from_3p`,
-		// lives UPSTREAM in Forge and is never referenced in this repo. Forge decides whether to stamp
-		// `excludeFromMetrics: true` on a background module's hold; react-ufo reacts purely to that
-		// annotation via `isExcludedThirdPartyHold` (no react-ufo feature flag). So "upstream gate on"
-		// is simulated here by injecting the annotated labelStack, and "upstream gate off" by a plain
-		// `type: 'third-party'` hold (see `real3pLabelStack`), with the default `fg -> false`.
+		// Forge decides whether to stamp `excludeFromMetrics: true` on a background module's hold;
+		// react-ufo reacts purely to that annotation via `isExcludedThirdPartyHold` (no react-ufo
+		// feature flag). So an excluded background module is simulated here by injecting the
+		// annotated labelStack, and an ordinary third-party hold by a plain `type: 'third-party'`
+		// hold (see `real3pLabelStack`), with the default `fg -> false`.
 		//
 		// A label carrying both `type: 'third-party'` and `excludeFromMetrics: true` marks a subtree
 		// (e.g. a Forge background script). CONTRACT (AFO-5545): the hold is NOT dropped at creation.

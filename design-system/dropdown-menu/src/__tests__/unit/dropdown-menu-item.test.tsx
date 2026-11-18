@@ -8,7 +8,7 @@ import type { RouterLinkComponentProps } from '@atlaskit/app-provider/router-lin
 import TaskIcon from '@atlaskit/icon/core/task';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
-import DropdownItem from '../../dropdown-item';
+import { DropdownItem } from '../../dropdown-item';
 
 type MyRouterLinkConfig = {
 	to: string;

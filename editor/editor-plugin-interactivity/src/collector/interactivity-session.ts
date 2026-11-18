@@ -1,4 +1,4 @@
-import type { SessionMode } from '../analytics/interactivity-snapshot';
+import type { InteractionKind, SessionMode } from '../analytics/interactivity-snapshot';
 import { InteractionGroup } from './interaction-group';
 import { InteractionObserver } from './interaction-observer';
 import { InteractionTracker } from './interaction-tracker';
@@ -13,10 +13,13 @@ function createSessionId(): string {
 	return Array.from(bytes, (byte) => byte.toString(16).padStart(2, '0')).join('');
 }
 
+export type RegionGroups = Record<InteractionKind | 'all', InteractionGroup>;
+
 export type InteractivitySessionStart = {
 	hidden: boolean;
 	mode: SessionMode | undefined;
 	objectId: string | undefined;
+	regions: readonly string[];
 	startsAfterInteractionId: number;
 };
 
@@ -33,10 +36,7 @@ export class InteractivitySession {
 	readonly interactionCountAtStart: number = InteractionObserver.readPageInteractionCount();
 	readonly tracker: InteractionTracker;
 	readonly page: InteractionGroup = new InteractionGroup();
-	readonly editor: InteractionGroup = new InteractionGroup();
-	readonly editorTyping: InteractionGroup = new InteractionGroup();
-	readonly editorPointer: InteractionGroup = new InteractionGroup();
-	readonly editorOther: InteractionGroup = new InteractionGroup();
+	readonly regionGroups: Map<string, RegionGroups> = new Map();
 
 	/** Increments per snapshot; a query takes the highest one per session. */
 	seq = 0;
@@ -61,5 +61,14 @@ export class InteractivitySession {
 		this.mode = start.mode;
 		this.hiddenSince = start.hidden ? this.startedAt : undefined;
 		this.tracker = new InteractionTracker(start.startsAfterInteractionId, this.startedAt);
+
+		for (const region of start.regions) {
+			this.regionGroups.set(region, {
+				all: new InteractionGroup(),
+				typing: new InteractionGroup(),
+				pointer: new InteractionGroup(),
+				other: new InteractionGroup(),
+			});
+		}
 	}
 }

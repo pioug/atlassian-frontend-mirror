@@ -6,7 +6,7 @@ const documentation: StructuredContentSource = {
 			name: 'Textarea',
 			description: 'A textarea is a multiline text input control for longer text content.',
 			status: 'general-availability',
-			designSource: {
+			references: {
 				figmaUrl: 'https://go.atlassian.com/figma-library-ads-13116-32075',
 			},
 			import: {

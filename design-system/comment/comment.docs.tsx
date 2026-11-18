@@ -6,7 +6,7 @@ const documentation: StructuredContentSource = {
 			name: 'Comment',
 			description: 'A component for displaying comments and discussions.',
 			status: 'general-availability',
-			designSource: {
+			references: {
 				figmaUrl: 'https://go.atlassian.com/figma-library-ads-17853-91040',
 			},
 			import: {

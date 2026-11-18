@@ -61,9 +61,8 @@ const documentation: StructuredContentSource = {
 					source: `${packagePath}/examples/constellation/new-button/button/button-with-icon-after.tsx`,
 				},
 			],
-			designSource: {
+			references: {
 				figmaUrl: 'https://go.atlassian.com/figma-library-ads-81007-1077',
-				figmaNodeId: '81007:1077',
 			},
 			keywords: ['button', 'action', 'click', 'submit', 'form', 'interactive', 'cta'],
 			categories: ['form', 'interaction'],
@@ -165,7 +164,7 @@ const documentation: StructuredContentSource = {
 				'Use consistent terminology across related actions',
 			],
 			accessibilityGuidelines: ['Provide descriptive labels for the IconButton trigger'],
-			designSource: {
+			references: {
 				figmaUrl:
 					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=51849-5001',
 			},

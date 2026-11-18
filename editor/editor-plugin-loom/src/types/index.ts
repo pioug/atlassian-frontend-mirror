@@ -71,7 +71,11 @@ export type ButtonComponent = React.ForwardRefExoticComponent<
 	ButtonComponentProps & React.RefAttributes<HTMLElement>
 >;
 
-export type RenderButton = (ButtonComponent: ButtonComponent) => JSX.Element | null;
+export type RenderButton = (
+	ButtonComponent: ButtonComponent,
+	/** Identifies the experiment-gated pinned toolbar entry point; omitted for existing surfaces. */
+	surface?: 'pinned-toolbar',
+) => JSX.Element | null;
 
 export type LoomPluginOptionsWithProvider = {
 	/** Initial editor appearance used to register the pinned toolbar button. */

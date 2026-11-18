@@ -213,6 +213,13 @@ export type ChatNewPayload = PayloadCore<
 		 * that conversation once ready. Has no effect when `skipCreatingSeededConversation` is true.
 		 */
 		deferOpenUntilSeeded?: boolean;
+		/** Product-approved launch, executed by Chat before opening its UI. Never serialized. */
+		deferredLaunch?: {
+			productKey: string;
+			isCurrent: () => boolean;
+			onOpened: () => void;
+			onFailed: () => void;
+		};
 		/** Local first-landing lifecycle; never serialized into a service request. */
 		firstLandingLaunch?: {
 			isCurrent: () => boolean;
@@ -1063,7 +1070,8 @@ export type Payload =
 	| TaskAskQuestionConfirmedPayload
 	| TaskModifyPlanRequestedPayload
 	| TaskModifyPlanSubmittedPayload
-	| ConfluenceContentFinalizedPayload;
+	| ConfluenceContentFinalizedPayload
+	| ArtifactSavedPayload;
 
 export type TaskPlanConfirmedPayload = PayloadCore<
 	'task-plan-confirmed',
@@ -1200,6 +1208,24 @@ export type ConfluenceContentFinalizedPayload = PayloadCore<
 		 * Present when the destination-ready finalized-content gate is enabled.
 		 */
 		finalizedDestination?: { baseUrl: string; path: string };
+	}
+> & {
+	/** Never opens chat — internal signal only. */
+	openChat: false;
+};
+
+/**
+ * Published when Rovo saves an Artifact in a live (not historical) message, whether it
+ * created a new one or updated an existing one. A surface showing that Artifact (e.g. the
+ * Artifacts app host) subscribes and refreshes it. Artifact ids are unique, so subscribers
+ * match on the id alone; a newly created Artifact never matches one that is already open.
+ */
+export const ARTIFACT_SAVED_EVENT = 'artifact-saved' as const;
+
+export type ArtifactSavedPayload = PayloadCore<
+	typeof ARTIFACT_SAVED_EVENT,
+	{
+		artifactId: string;
 	}
 > & {
 	/** Never opens chat — internal signal only. */

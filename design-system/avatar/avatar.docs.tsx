@@ -42,9 +42,8 @@ const documentation: StructuredContentSource = {
 					source: `${__dirname}/examples/ai/avatar.tsx`,
 				},
 			],
-			designSource: {
+			references: {
 				figmaUrl: 'https://go.atlassian.com/figma-library-ads-11159-23191',
-				figmaNodeId: '11159:23191',
 			},
 			keywords: [
 				'avatar',

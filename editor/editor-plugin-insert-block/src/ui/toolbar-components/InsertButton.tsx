@@ -267,6 +267,7 @@ export const InsertButton = ({
 			{emojiProvider && (
 				<EmojiPickerPopup
 					contentId={emojiContentId}
+					getAICreditStatus={api?.emoji?.actions.getAICreditStatus}
 					isOpen={emojiPickerPopup.isOpen}
 					targetRef={insertButtonRef}
 					emojiProvider={Promise.resolve(emojiProvider)}

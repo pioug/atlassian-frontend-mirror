@@ -32,7 +32,7 @@ const documentation: StructuredContentSource = {
 				'Ensure skeleton content is not announced as actual content',
 				'Consider screen reader experience during loading states',
 			],
-			designSource: {
+			references: {
 				figmaUrl: 'https://go.atlassian.com/figma-library-ads-101024-1311',
 			},
 			examples: [

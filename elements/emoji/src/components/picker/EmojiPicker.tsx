@@ -10,6 +10,7 @@ import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next/withAnalyticsEvents';
 
+import type { GetAICreditStatus } from '../../credit-check';
 import type { OnEmojiEvent, PickerSize } from '../../types';
 import { type Props as LoadingProps } from '../common/LoadingEmojiComponent';
 import type { PickerRefHandler } from './EmojiPickerComponent';
@@ -22,6 +23,8 @@ export interface Props extends LoadingProps {
 	 * "Create an emoji with Rovo" AI generation section in the upload flow.
 	 */
 	contentId?: string;
+	/** Optional product-owned credit check for AI generation only. */
+	getAICreditStatus?: GetAICreditStatus;
 	/**
 	 * Flag to disable tone selector.
 	 */

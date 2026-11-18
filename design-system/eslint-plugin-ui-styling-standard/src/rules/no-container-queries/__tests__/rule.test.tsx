@@ -8,6 +8,32 @@ typescriptEslintTester.run(
 	{
 		valid: [
 			{
+				name: 'typed named dimension query in compiled css with a local container',
+				code: `
+				  import { css } from '@compiled/react';
+				  import type ContainerAtRule from '@atlaskit/css/at-rules/container';
+
+				  const containerStyles = css({ containerName: 'card-grid', containerType: 'inline-size' });
+				  const gridStyles = css({
+				    ['@container card-grid (min-width: 30rem)' satisfies ContainerAtRule]: {},
+				  });
+				`,
+			},
+			{
+				name: 'typed named dimension query using the ContainerAtRule local name',
+				code: `
+				  import { cssMap } from '@atlaskit/css';
+				  import type ContainerAtRule from '@atlaskit/css/at-rules/container';
+
+				  const styles = cssMap({
+				    root: { containerName: 'sidebar', containerType: 'inline-size' },
+				    content: {
+				      ['@container sidebar (width > 300px)' satisfies ContainerAtRule]: {},
+				    },
+				  });
+				`,
+			},
+			{
 				name: 'typed named dimension query matching a local container',
 				code: `
 				  import { cssMap } from '@atlaskit/css';

@@ -40,11 +40,13 @@ export const rulePlugin: RulePlugin = ({ api }) => {
 			return [
 				{
 					name: 'rule',
-					node: isExperimentEnabled('platform_editor_lovability_dividers_attributes')
-						? ruleWithAttrs
-						: fg('platform_editor_adf_with_localid')
-							? ruleWithLocalId
-							: rule,
+					node:
+						isExperimentEnabled('platform_editor_lovability_dividers_attributes') ||
+						isExperimentEnabled('platform_editor_lovability_dividers_m1_schema')
+							? ruleWithAttrs
+							: fg('platform_editor_adf_with_localid')
+								? ruleWithLocalId
+								: rule,
 				},
 			];
 		},

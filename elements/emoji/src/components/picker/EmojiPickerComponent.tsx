@@ -2,7 +2,6 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-
 import {
 	type SyntheticEvent,
 	type MutableRefObject,

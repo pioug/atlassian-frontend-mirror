@@ -3624,54 +3624,22 @@ describe('accessibility > aria-autocomplete with platform_fix_autocomplete_aria_
 	});
 });
 
-describe('accessibility > aria-readonly with select_issearchable_aria-readonly_fix feature flag', () => {
-	describe('with flag enabled', () => {
-		it('does not set aria-readonly when isSearchable is false (single select)', () => {
-			passGate('select_issearchable_aria-readonly_fix');
+describe('accessibility > aria-readonly', () => {
+	it('does not set aria-readonly when isSearchable is false (single select)', () => {
+		render(<Select {...BASIC_PROPS} isSearchable={false} />);
 
-			render(<Select {...BASIC_PROPS} isSearchable={false} />);
-
-			const input = screen.getByTestId(`${testId}-select--input`);
-			expect(input).not.toHaveAttribute('aria-readonly');
-		});
-
-		it('does not set aria-readonly when isSearchable is true (single select)', () => {
-			passGate('select_issearchable_aria-readonly_fix');
-
-			const { rerender } = render(<Select {...BASIC_PROPS} isSearchable={true} />);
-
-			const input = screen.getByTestId(`${testId}-select--input`);
-			expect(input).not.toHaveAttribute('aria-readonly');
-
-			rerender(<Select {...BASIC_PROPS} isSearchable={false} />);
-			expect(screen.getByTestId(`${testId}-select--input`)).not.toHaveAttribute('aria-readonly');
-		});
+		const input = screen.getByTestId(`${testId}-select--input`);
+		expect(input).not.toHaveAttribute('aria-readonly');
 	});
 
-	describe('with flag disabled', () => {
-		it('sets aria-readonly to true when isSearchable is false (single select)', () => {
-			failGate('select_issearchable_aria-readonly_fix');
+	it('does not set aria-readonly when isSearchable is true (single select)', () => {
+		const { rerender } = render(<Select {...BASIC_PROPS} isSearchable={true} />);
 
-			render(<Select {...BASIC_PROPS} isSearchable={false} />);
+		const input = screen.getByTestId(`${testId}-select--input`);
+		expect(input).not.toHaveAttribute('aria-readonly');
 
-			const input = screen.getByTestId(`${testId}-select--input`);
-			expect(input).toHaveAttribute('aria-readonly', 'true');
-		});
-
-		it('does not set aria-readonly when isSearchable is true (single select)', () => {
-			failGate('select_issearchable_aria-readonly_fix');
-
-			const { rerender } = render(<Select {...BASIC_PROPS} isSearchable={true} />);
-
-			const input = screen.getByTestId(`${testId}-select--input`);
-			expect(input).not.toHaveAttribute('aria-readonly');
-
-			rerender(<Select {...BASIC_PROPS} isSearchable={false} />);
-			expect(screen.getByTestId(`${testId}-select--input`)).toHaveAttribute(
-				'aria-readonly',
-				'true',
-			);
-		});
+		rerender(<Select {...BASIC_PROPS} isSearchable={false} />);
+		expect(screen.getByTestId(`${testId}-select--input`)).not.toHaveAttribute('aria-readonly');
 	});
 });
 

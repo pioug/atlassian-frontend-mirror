@@ -7,7 +7,7 @@ const documentation: StructuredContentSource = {
 			description:
 				'A lozenge is a prominent, compact label used to communicate a meaningful attribute that affects how people understand, prioritize or act on an object.',
 			status: 'general-availability', // beta lozenge is feature-flagged
-			designSource: {
+			references: {
 				figmaUrl: 'https://go.atlassian.com/figma-library-ads-116954-2709',
 			},
 			import: {

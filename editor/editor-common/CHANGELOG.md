@@ -1,5 +1,44 @@
 # @atlaskit/editor-common
 
+## 137.3.0
+
+### Minor Changes
+
+- [`c9aa1da87dfcf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c9aa1da87dfcf) -
+  Add optional product-supplied credit checks for AI emoji creation. Editor emoji pickers read the
+  existing AI plugin credit action, exposed to Editor consumers through
+  `emoji.actions.getAICreditStatus`. Confluence enables enforcement with confluence_ubp_ai_credits.
+
+  Share the picker credit callback through the existing emoji context instead of intermediate props.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 137.2.0
+
+### Minor Changes
+
+- [`62503287902cb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/62503287902cb) -
+  Export TELEPOINTER_SELECTION_BADGE_CLASS and AI_IN_EDITOR_TELEPOINTER_CLASS from editor-common
+  collab and use them where telepointers are created
+
+### Patch Changes
+
+- Updated dependencies
+
+## 137.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 137.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 137.1.0
 
 ### Minor Changes

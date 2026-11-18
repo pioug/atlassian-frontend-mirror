@@ -71,3 +71,45 @@ it.each([false, true])(
 		}
 	},
 );
+
+it.each([
+	{ props: {}, expected: 440 },
+	{ props: { xlDefaultPanelWidth: 560 }, expected: 560 },
+	{ props: { panelWidth: 460 }, expected: 460 },
+	{ props: { panelMaxWidth: 420 }, expected: 420 },
+])(
+	'uses restored defaults and explicit overrides in the initial XL CSS: $props',
+	({ props, expected }) => {
+		passGate('platform-dst-chat-panel-layout');
+		failGate('platform-dst-motion-uplift-panel');
+		const errorsMock = jest.spyOn(console, 'error').mockImplementation(() => {});
+		try {
+			const container = document.createElement('div');
+			container.innerHTML = renderToString(
+				<Root>
+					<Main>
+						<PanelLayout
+							isPanelOpen
+							defaultPanelWidth={440}
+							{...props}
+							panel="Preview content"
+							testId="layout"
+						>
+							Main content
+						</PanelLayout>
+					</Main>
+				</Root>,
+			);
+			expect(within(container).getByTestId('layout')).toHaveStyle({
+				'--p_lclPnlXlW': `${expected}px`,
+			});
+			expect(
+				errorsMock.mock.calls.filter(
+					([message]) => !String(message).includes('useLayoutEffect does nothing on the server'),
+				),
+			).toEqual([]);
+		} finally {
+			jest.restoreAllMocks();
+		}
+	},
+);

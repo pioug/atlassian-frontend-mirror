@@ -6,7 +6,7 @@ const documentation: StructuredContentSource = {
 			name: 'Pagination',
 			description: 'A component for pagination controls.',
 			status: 'general-availability',
-			designSource: {
+			references: {
 				figmaUrl: 'https://go.atlassian.com/figma-library-ads-13916-66923',
 			},
 			import: {

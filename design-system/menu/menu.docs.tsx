@@ -6,7 +6,7 @@ const documentation: StructuredContentSource = {
 			name: 'MenuGroup',
 			description: 'A list of options to action or navigate.',
 			status: 'intent-to-deprecate',
-			designSource: {
+			references: {
 				figmaUrl: 'https://go.atlassian.com/figma-library-ads-13200-39907',
 			},
 			import: {

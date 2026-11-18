@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/theme",
-	"version": "28.2.5",
+	"version": "28.2.6",
 	"description": "Deprecated legacy theming utilities. Use design tokens and Atlassian Design System components instead.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"

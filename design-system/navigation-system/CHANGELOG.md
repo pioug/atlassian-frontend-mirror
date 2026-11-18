@@ -1,5 +1,19 @@
 # @atlassian/navigation-system
 
+## 11.8.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 11.8.2
+
+### Patch Changes
+
+- [`63dc2ea477c1f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/63dc2ea477c1f) -
+  Fix local panel defaults becoming stuck when crossing viewport breakpoints in WebKit by removing a
+  redundant nested sizing container. Includes the XL default behind platform-dst-chat-panel-layout.
+
 ## 11.8.1
 
 ### Patch Changes

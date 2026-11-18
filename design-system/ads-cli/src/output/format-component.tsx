@@ -2,7 +2,7 @@
  * Human-readable renderer for a single ADS component's detailed docs.
  *
  * Renders the `component <Name>` view: a readable header, a props table, and the usage examples —
- * instead of dumping the raw JSON payload. Full structured data (including the `designSource` link
+ * instead of dumping the raw JSON payload. Full structured data (including the `references` link
  * and untruncated types) remains available via `--json`.
  */
 
@@ -28,9 +28,9 @@ type ComponentPayload = {
 	usageGuidelines?: string[];
 	props?: ComponentProp[];
 	examples?: unknown[];
-	// Matches `@atlaskit/ads-mcp`'s component shape: `designSource` is an object holding the Figma
+	// Matches `@atlaskit/ads-mcp`'s component shape: `references` is an object holding the Figma
 	// library link, not a bare string. (Interpolating the object directly rendered `[object Object]`.)
-	designSource?: { figmaUrl?: string };
+	references?: { figmaUrl?: string };
 };
 
 import { humanFormat } from '@atlaskit/cli-output/human-format';
@@ -100,13 +100,13 @@ export const formatComponent = (data: unknown): string | null => {
 		sections.push('', ...examples);
 	}
 
-	// Render the design link from the `figmaUrl` inside `designSource`. Only emit the line when a
-	// URL is actually present, so a `designSource` object without a `figmaUrl` doesn't print
+	// Render the design link from the `figmaUrl` inside `references`. Only emit the line when a
+	// URL is actually present, so a `references` object without a `figmaUrl` doesn't print
 	// `Design: undefined`.
-	if (component.designSource?.figmaUrl) {
+	if (component.references?.figmaUrl) {
 		sections.push(
 			'',
-			`${humanFormat.section('Design:')} ${humanFormat.action(component.designSource.figmaUrl)}`,
+			`${humanFormat.section('Design:')} ${humanFormat.action(component.references.figmaUrl)}`,
 		);
 	}
 

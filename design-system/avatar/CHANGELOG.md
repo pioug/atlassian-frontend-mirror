@@ -1,5 +1,19 @@
 # @atlaskit/avatar
 
+## 31.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 31.0.1
+
+### Patch Changes
+
+- [`d6436ae47de20`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d6436ae47de20) -
+  Use elevation.surface for avatar status and presence indicator borders and backing colors.
+- Updated dependencies
+
 ## 31.0.0
 
 ### Major Changes

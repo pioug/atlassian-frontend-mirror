@@ -45,88 +45,6 @@ const semanticAtomicDensityStyles = cssMap({
 	},
 });
 
-const baseStyles = css({
-	display: 'block',
-	boxSizing: 'border-box',
-	width: '100%',
-	minWidth: '0px',
-	maxWidth: '100%',
-	margin: 0,
-	position: 'relative',
-	flex: '1 1 100%',
-
-	borderRadius: token('radius.medium'),
-	borderWidth: token('border.width'),
-	color: token('color.text'),
-	font: token('font.body'),
-	outline: 'none',
-	overflow: 'auto',
-	wordWrap: 'break-word',
-	'&:disabled': {
-		color: token('color.text.disabled'),
-		cursor: 'not-allowed',
-		// Safari puts on some difficult to remove styles, mainly for disabled inputs
-		// but we want full control so need to override them in all cases
-		WebkitOpacity: '1',
-		WebkitTextFillColor: 'unset',
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	'&::-ms-clear': {
-		display: 'none',
-	},
-	'&:invalid': {
-		boxShadow: 'none',
-	},
-
-	// border and background styles
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'&[data-invalid]:focus': {
-		backgroundColor: token('color.background.input.pressed'),
-		borderColor: token('color.border.focused'),
-		boxShadow: `inset 0 0 0 ${token('border.width')} ${token('color.border.focused')}`,
-	},
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	'&[data-invalid]:not(:focus)': {
-		backgroundColor: token('color.background.input'),
-		borderColor: token('color.border.danger'),
-		boxShadow: `inset 0 0 0 ${token('border.width')} ${token('color.border.danger')}`,
-	},
-
-	// hover styles
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	'&:hover:not(:read-only):not(:focus)': {
-		'&:disabled': {
-			backgroundColor: token('color.background.disabled'),
-		},
-		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		'&[data-invalid]': {
-			backgroundColor: token('color.background.input.hovered'),
-			borderColor: token('color.border.danger'),
-			boxShadow: `inset 0 0 0 ${token('border.width')} ${token('color.border.danger')}`,
-		},
-	},
-
-	// placeholder styles
-	'&::placeholder': {
-		color: token('color.text.subtlest'),
-	},
-	'&:disabled::placeholder': {
-		color: token('color.text.disabled'),
-	},
-
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-nested-styles
-	'&[data-compact]': {
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-		lineHeight: lineHeightCompact / 14,
-	},
-
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-	'&:not([data-compact])': {
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-		lineHeight: lineHeightBase / 14,
-	},
-});
-
 const inputMotionStyles = cssMap({
 	legacy: {
 		transition: `background-color 0.2s ease-in-out, border-color 0.2s ease-in-out`,
@@ -138,124 +56,6 @@ const inputMotionStyles = cssMap({
 
 const finessePlaceholderStyles = css({
 	'&::placeholder': { color: token('color.text.subtle') },
-});
-
-const appearanceStyles = cssMap({
-	standard: {
-		borderStyle: 'solid',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'&[data-compact]': {
-			paddingBlockStart: token('space.025'),
-			paddingBlockEnd: token('space.025'),
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-			paddingInlineStart: '7px',
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-			paddingInlineEnd: '7px',
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'&:not([data-compact])': {
-			paddingBlockStart: token('space.075'),
-			paddingBlockEnd: token('space.075'),
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-			paddingInlineStart: '7px',
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-			paddingInlineEnd: '7px',
-		},
-		'&:focus': {
-			backgroundColor: token('color.background.input.pressed'),
-			borderColor: token('color.border.focused'),
-			boxShadow: `inset 0 0 0 ${token('border.width')} ${token('color.border.focused')}`,
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'&:not(:focus)': {
-			backgroundColor: token('color.background.input'),
-			borderColor: token('color.border.input'),
-		},
-		// Disabled background and border styles should not be applied to components that
-		// have either no background or transparent background to begin with
-		'&:disabled:focus': {
-			backgroundColor: token('color.background.disabled'),
-			borderColor: token('color.border.focused'),
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'&:disabled:not(:focus)': {
-			backgroundColor: token('color.background.disabled'),
-			borderColor: token('color.border.disabled'),
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'&:hover:not(:read-only):not(:focus)': {
-			backgroundColor: token('color.background.input.hovered'),
-			borderColor: token('color.border.input'),
-		},
-	},
-	subtle: {
-		borderStyle: 'solid',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'&[data-compact]': {
-			paddingBlockStart: token('space.025'),
-			paddingBlockEnd: token('space.025'),
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-			paddingInlineStart: '7px',
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-			paddingInlineEnd: '7px',
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'&:not([data-compact])': {
-			paddingBlockStart: token('space.075'),
-			paddingBlockEnd: token('space.075'),
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-			paddingInlineEnd: '7px',
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-			paddingInlineStart: '7px',
-		},
-		'&:focus': {
-			backgroundColor: token('color.background.input.pressed'),
-			borderColor: token('color.border.focused'),
-			boxShadow: `inset 0 0 0 ${token('border.width')} ${token('color.border.focused')}`,
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'&:not(:focus)': {
-			backgroundColor: 'transparent',
-			borderColor: 'transparent',
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'&:hover:not(:read-only):not(:focus)': {
-			backgroundColor: token('color.background.input.hovered'),
-			borderColor: token('color.border.input'),
-		},
-	},
-	none: {
-		borderStyle: 'none',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'&[data-compact]': {
-			paddingBlockStart: token('space.025'),
-			paddingInlineEnd: token('space.075'),
-			paddingBlockEnd: token('space.025'),
-			paddingInlineStart: token('space.075'),
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'&:not([data-compact])': {
-			paddingBlockStart: token('space.075'),
-			paddingInlineEnd: token('space.075'),
-			paddingBlockEnd: token('space.075'),
-			paddingInlineStart: token('space.075'),
-		},
-		'&:focus': {
-			backgroundColor: 'transparent',
-			borderColor: 'transparent',
-			boxShadow: `inset 0 0 0 ${token('border.width')} transparent`,
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'&:not(:focus)': {
-			backgroundColor: 'transparent',
-			borderColor: 'transparent',
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'&:hover:not(:read-only):not(:focus)': {
-			backgroundColor: 'transparent',
-			borderColor: 'transparent',
-		},
-	},
 });
 
 const atomicBaseStyles = css({
@@ -512,28 +312,9 @@ const InnerTextArea: React.ForwardRefExoticComponent<
 		[onChange, resize],
 	);
 
-	const controlProps = {
-		'data-invalid': fg('platform-textarea-atomic-styles') ? undefined : isInvalid || undefined,
-		'data-compact': fg('platform-textarea-atomic-styles') ? undefined : isCompact || undefined,
-		'data-testid': testId ? testId : undefined,
-	};
-
-	const compactMinHeightStyles = css({
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-nested-styles
-		'&[data-compact]': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-			minHeight: `${lineHeightCompact * minimumRows + compactVerticalPadding * 2 + borderHeight * 2}px`,
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'&:not([data-compact])': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-			minHeight: `${lineHeightBase * minimumRows + verticalPadding * 2 + borderHeight * 2}px`,
-		},
-	});
-
 	return (
 		<textarea
-			{...controlProps}
+			data-testid={testId ? testId : undefined}
 			value={value}
 			disabled={isDisabled}
 			readOnly={isReadOnly}
@@ -544,40 +325,29 @@ const InnerTextArea: React.ForwardRefExoticComponent<
 			onFocus={onFocusWithAnalytics}
 			rows={minimumRows}
 			css={[
-				fg('platform-textarea-atomic-styles') ? atomicBaseStyles : baseStyles,
+				atomicBaseStyles,
 				!isInputMotionEnabled && inputMotionStyles.legacy,
 				isInputMotionEnabled && isInteractive && inputMotionStyles.base,
 				fg('platform-dst-tokens-finesse') && finessePlaceholderStyles,
-				fg('platform-textarea-atomic-styles')
-					? atomicAppearanceStyles[appearance]
-					: appearanceStyles[appearance],
-				fg('platform-textarea-atomic-styles') &&
-					atomicInlinePaddingStyles[appearance === 'none' ? 'borderless' : 'bordered'],
-				fg('platform-textarea-atomic-styles') && isInvalid && atomicInvalidStyles,
+				atomicAppearanceStyles[appearance],
+				atomicInlinePaddingStyles[appearance === 'none' ? 'borderless' : 'bordered'],
+				isInvalid && atomicInvalidStyles,
 				fontStyles[isMonospaced ? 'monospace' : 'default'],
-				fg('platform-textarea-atomic-styles') &&
-					atomicDensityStyles[isCompact ? 'compact' : 'default'],
+				atomicDensityStyles[isCompact ? 'compact' : 'default'],
 				resizeStyles[resize],
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-				!fg('platform-textarea-atomic-styles') && compactMinHeightStyles,
 				fg('platform-semantic-spacing') &&
-					fg('platform-textarea-atomic-styles') &&
 					appearance === 'none' &&
 					semanticAtomicInlinePaddingStyles.borderless,
 				fg('platform-semantic-spacing') &&
-					fg('platform-textarea-atomic-styles') &&
 					semanticAtomicDensityStyles[isCompact ? 'compact' : 'default'],
 			]}
 			style={{
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/design-system/use-tokens-typography -- Runtime density must override the mobile font shorthand, which sorts after atomic longhands.
-				...(fg('platform-textarea-atomic-styles') &&
-					!style?.font && {
-						lineHeight: isCompact ? lineHeightCompact / 14 : lineHeightBase / 14,
-					}),
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Minimum row height is calculated from runtime props.
-				...(fg('platform-textarea-atomic-styles') && {
-					minHeight: `${(isCompact ? lineHeightCompact : lineHeightBase) * minimumRows + (isCompact ? compactVerticalPadding : verticalPadding) * 2 + borderHeight * 2}px`,
+				...(!style?.font && {
+					lineHeight: isCompact ? lineHeightCompact / 14 : lineHeightBase / 14,
 				}),
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Minimum row height is calculated from runtime props.
+				minHeight: `${(isCompact ? lineHeightCompact : lineHeightBase) * minimumRows + (isCompact ? compactVerticalPadding : verticalPadding) * 2 + borderHeight * 2}px`,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 				...style,
 				maxHeight,

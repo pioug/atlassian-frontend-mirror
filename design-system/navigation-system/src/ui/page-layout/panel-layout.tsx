@@ -49,20 +49,23 @@ export type PanelLayoutProps = {
 	 */
 	panelKey?: Key;
 	/**
-	 * Controlled preferred width in pixels. Allocation may constrain it without changing the request.
+	 * Controlled preferred width in pixels, applied in both inline and overlay modes.
+	 * Allocation may constrain it without changing the request.
 	 */
 	panelWidth?: number;
 	/**
 	 * Initial preferred width in pixels; subsequent changes are ignored.
 	 * Defaults to 365, or 400 with chat layout enabled (500 at XL and above).
+	 * Pass a saved width here to restore it as the starting default.
 	 * An explicit value also supplies the compact and XL defaults unless separately overridden.
-	 * After a user resize, one preferred width is retained across inline and overlay modes.
+	 * With chat layout enabled, user-resized inline and overlay widths are remembered separately.
+	 * Without it, both modes retain one shared preference.
 	 * Available space can constrain the rendered width without overwriting that preference.
 	 */
 	defaultPanelWidth?: number;
 	/**
 	 * Default at compact viewport sizes. Defaults to 320, or an explicitly supplied defaultPanelWidth.
-	 * Used only until a controlled width or user resize supplies a preference.
+	 * Used only until a controlled width or a user resize in the current mode supplies a preference.
 	 */
 	compactDefaultPanelWidth?: number;
 	/**

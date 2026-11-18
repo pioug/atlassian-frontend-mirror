@@ -7,7 +7,7 @@ const documentation: StructuredContentSource = {
 			description:
 				'An inline edit displays a custom input component that switches between reading and editing on the same page.',
 			status: 'general-availability',
-			designSource: {
+			references: {
 				figmaUrl: 'https://go.atlassian.com/figma-library-ads-13197-36936',
 			},
 			import: {

@@ -1,13 +1,17 @@
 import React from 'react';
 
 import { screen, waitFor, fireEvent } from '@testing-library/react';
+import * as sinon from 'sinon';
 
 import { generateEmojiImage } from '../../../../api/ai/generateEmojiImage';
+import { EmojiResource } from '../../../../api/EmojiResource';
 import CreateEmojiWithRovo, {
 	createEmojiWithRovoTestId,
 	createEmojiWithRovoPromptTestId,
 	createEmojiWithRovoGenerateTestId,
 } from '../../../../components/common/CreateEmojiWithRovo';
+import { EmojiCommonProvider } from '../../../../context/EmojiCommonProvider';
+import type { EmojiAICreditStatus, GetAICreditStatus } from '../../../../credit-check';
 import { renderWithIntl } from '../../_testing-library';
 
 jest.mock('../../../../api/ai/generateEmojiImage', () => ({
@@ -20,17 +24,23 @@ describe('CreateEmojiWithRovo', () => {
 	const contentId = 'content-123';
 
 	const renderComponent = (
-		overrides: Partial<React.ComponentProps<typeof CreateEmojiWithRovo>> = {},
+		overrides: Partial<React.ComponentProps<typeof CreateEmojiWithRovo>> & {
+			getAICreditStatus?: GetAICreditStatus;
+		} = {},
 	) => {
+		const { getAICreditStatus, ...componentProps } = overrides;
+		const emojiProvider = sinon.createStubInstance(EmojiResource);
 		const onEmojiGenerated = jest.fn();
 		const fireAnalytics = jest.fn();
 		const result = renderWithIntl(
-			<CreateEmojiWithRovo
-				contentId={contentId}
-				fireAnalytics={fireAnalytics}
-				onEmojiGenerated={onEmojiGenerated}
-				{...overrides}
-			/>,
+			<EmojiCommonProvider emojiProvider={emojiProvider} getAICreditStatus={getAICreditStatus}>
+				<CreateEmojiWithRovo
+					contentId={contentId}
+					fireAnalytics={fireAnalytics}
+					onEmojiGenerated={onEmojiGenerated}
+					{...componentProps}
+				/>
+			</EmojiCommonProvider>,
 		);
 		return { onEmojiGenerated, fireAnalytics, ...result };
 	};
@@ -130,5 +140,40 @@ describe('CreateEmojiWithRovo', () => {
 		fireEvent.click(screen.getByTestId(createEmojiWithRovoGenerateTestId));
 
 		await waitFor(() => expect(onEmojiGenerated).toHaveBeenCalled());
+	});
+	it('replaces only generation controls with product feedback when credits are blocked', () => {
+		const getAICreditStatus: GetAICreditStatus = jest.fn((): EmojiAICreditStatus => ({
+			isBlocked: true,
+			renderCustomContent: () => <span>Out of Rovo credits</span>,
+		}));
+		renderComponent({ getAICreditStatus });
+		expect(screen.getByText('Create an emoji with Rovo')).toBeVisible();
+		expect(screen.getByRole('status')).toHaveTextContent('Out of Rovo credits');
+		expect(screen.queryByTestId(createEmojiWithRovoPromptTestId)).not.toBeInTheDocument();
+		expect(screen.queryByTestId(createEmojiWithRovoGenerateTestId)).not.toBeInTheDocument();
+		expect(getAICreditStatus).toHaveBeenCalledWith({ featureName: 'emojiPicker-createEmoji' });
+		expect(mockGenerateEmojiImage).not.toHaveBeenCalled();
+	});
+
+	it('keeps the generation controls available when the advisory credit callback throws', () => {
+		renderComponent({
+			getAICreditStatus: () => {
+				throw new Error('unavailable');
+			},
+		});
+		typePrompt('happy dog');
+		expect(screen.getByTestId(createEmojiWithRovoGenerateTestId)).toBeEnabled();
+	});
+	it('prevents generation if credits deplete after the form was rendered', () => {
+		let status: EmojiAICreditStatus = { isBlocked: false };
+		const { fireAnalytics, onEmojiGenerated } = renderComponent({
+			getAICreditStatus: () => status,
+		});
+		typePrompt('happy dog');
+		status = { isBlocked: true, renderCustomContent: () => <span>Out of credits</span> };
+		fireEvent.click(screen.getByTestId(createEmojiWithRovoGenerateTestId));
+		expect(mockGenerateEmojiImage).not.toHaveBeenCalled();
+		expect(onEmojiGenerated).not.toHaveBeenCalled();
+		expect(fireAnalytics).not.toHaveBeenCalled();
 	});
 });

@@ -6,7 +6,7 @@ const documentation: StructuredContentSource = {
 			name: 'Toggle',
 			description: 'A toggle is used to view or switch between enabled or disabled states.',
 			status: 'general-availability',
-			designSource: {
+			references: {
 				figmaUrl: 'https://go.atlassian.com/figma-library-ads-7947-9758',
 			},
 			import: {

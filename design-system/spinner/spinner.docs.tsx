@@ -6,7 +6,7 @@ const documentation: StructuredContentSource = {
 			name: 'Spinner',
 			description: 'A loading spinner component.',
 			status: 'general-availability',
-			designSource: {
+			references: {
 				figmaUrl: 'https://go.atlassian.com/figma-library-ads-8070-10241',
 			},
 			import: {

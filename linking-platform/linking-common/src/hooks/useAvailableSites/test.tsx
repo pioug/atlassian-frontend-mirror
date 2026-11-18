@@ -235,7 +235,6 @@ describe('useAvailableSites', () => {
 
 describe('mapAccessibleProductsToAvailableSites', () => {
 	it('should map the response from /v2/accessible-products endpoint to match the AvailableSites[] format', () => {
-		failGate('platform_lp_sllv_display_name_fallback');
 		const accessibleProductsResponse: AccessibleProduct = {
 			products: [
 				{
@@ -343,9 +342,7 @@ describe('mapAccessibleProductsToAvailableSites', () => {
 	it.each([
 		['missing', undefined],
 		['empty', ''],
-	])('uses the site URL when the display name is %s and the gate is on', (_, displayName) => {
-		passGate('platform_lp_sllv_display_name_fallback');
-
+	])('uses the site URL when the display name is %s', (_, displayName) => {
 		expect(
 			mapAccessibleProductsToAvailableSites(createAccessibleProductResponse(displayName)),
 		).toEqual([
@@ -354,14 +351,6 @@ describe('mapAccessibleProductsToAvailableSites', () => {
 				url: FALLBACK_SITE_URL,
 			}),
 		]);
-	});
-
-	it('preserves the existing missing display name behavior when the gate is off', () => {
-		failGate('platform_lp_sllv_display_name_fallback');
-
-		expect(
-			mapAccessibleProductsToAvailableSites(createAccessibleProductResponse())[0].displayName,
-		).toBeUndefined();
 	});
 });
 
@@ -379,7 +368,6 @@ describe('useAvailableSitesV2', () => {
 		'uses the site URL fallback with the %s endpoint',
 		async (_, isUnitCompliant, expectedEndpoint) => {
 			(isUnitCompliant ? passGate : failGate)(ROLLOUT_GATE);
-			passGate('platform_lp_sllv_display_name_fallback');
 			mockUnitsRolloutSettings({ boundaryEnforced: true, endUsersLaunched: true });
 			mockAccessibleProducts({ data: createAccessibleProductResponse() });
 

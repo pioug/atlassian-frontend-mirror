@@ -27,13 +27,13 @@ const styles = cssMap({
 		overflow: 'hidden',
 		borderWidth: token('border.width.selected'),
 		borderStyle: 'solid',
-		backgroundColor: token('elevation.surface.overlay'),
+		backgroundColor: token('elevation.surface'),
 	},
 });
 
 const unboundStyles = unboundCssMap({
 	root: {
-		borderColor: token('elevation.surface.overlay'),
+		borderColor: token('elevation.surface'),
 	},
 });
 

@@ -1,5 +1,14 @@
 # @atlaskit/avatar-group
 
+## 14.4.14
+
+### Patch Changes
+
+- [`6beaa0621181d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6beaa0621181d) -
+  Replace ds-lib keyboard constant imports with their native KeyboardEvent values. Keyboard handling
+  is unchanged.
+- Updated dependencies
+
 ## 14.4.13
 
 ### Patch Changes

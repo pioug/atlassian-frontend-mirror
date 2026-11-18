@@ -188,11 +188,7 @@ export const Flag = ({
 		activeFlag.sourceProduct === 'jira-work-item';
 	const sourceUrl = useSyncBlockSourceUrl(
 		syncBlockStore,
-		activeFlag &&
-			isJiraUnpublishedPaste &&
-			isExperimentEnabled('editor_synced_blocks_jira_custom_rich_text')
-			? activeFlag.resourceId
-			: undefined,
+		activeFlag && isJiraUnpublishedPaste ? activeFlag.resourceId : undefined,
 	);
 
 	React.useEffect(() => {

@@ -1,24 +1,15 @@
 import { type RefObject } from 'react';
 
-import {
-	KEY_DOWN,
-	KEY_END,
-	KEY_HOME,
-	KEY_LEFT,
-	KEY_RIGHT,
-	KEY_TAB,
-	KEY_UP,
-} from '@atlaskit/ds-lib/keycodes';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { type Action, type FocusableElementRef } from '../../types';
 import { PREFIX } from './use-generated-id';
 
 const actionMap: { [key: string]: Action } = {
-	[KEY_DOWN]: 'next',
-	[KEY_UP]: 'prev',
-	[KEY_HOME]: 'first',
-	[KEY_END]: 'last',
+	ArrowDown: 'next',
+	ArrowUp: 'prev',
+	Home: 'first',
+	End: 'last',
 };
 
 /**
@@ -83,7 +74,7 @@ export default function handleFocus(
 			// if we use a popup as a nested dropdown, we must prevent the dropdown from closing.
 			const isNestedDropdown = !!document.activeElement?.closest(`[id^=${PREFIX}]`);
 			if (isLayerDisabled() && isNestedDropdown) {
-				if (e.key === KEY_TAB && !e.shiftKey) {
+				if (e.key === 'Tab' && !e.shiftKey) {
 					onClose(e);
 				}
 
@@ -93,7 +84,7 @@ export default function handleFocus(
 			}
 		} else {
 			if (isLayerDisabled()) {
-				if (e.key === KEY_TAB && !e.shiftKey) {
+				if (e.key === 'Tab' && !e.shiftKey) {
 					onClose(e);
 				}
 
@@ -103,7 +94,7 @@ export default function handleFocus(
 			}
 		}
 		// Left arrow: only in a submenu — close and return focus to parent. No navigation within menu.
-		if (e.key === KEY_LEFT) {
+		if (e.key === 'ArrowLeft') {
 			e.preventDefault();
 			if (isNestedMenu) {
 				onClose(e);
@@ -112,7 +103,7 @@ export default function handleFocus(
 		}
 
 		// Right arrow: only when item has submenu — open it. No navigation within menu.
-		if (e.key === KEY_RIGHT) {
+		if (e.key === 'ArrowRight') {
 			const activeElement = document.activeElement;
 			if (
 				activeElement instanceof HTMLElement &&

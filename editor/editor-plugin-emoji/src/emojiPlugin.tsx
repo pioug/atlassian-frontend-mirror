@@ -8,6 +8,7 @@ import {
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics/types/enums';
 import { IconEmoji } from '@atlaskit/editor-common/assets';
+import { checkAICreditStatus } from '@atlaskit/editor-common/credit-guard/check-ai-credit-status';
 import type { InsertContentCallback } from '@atlaskit/editor-common/insert';
 import { ToolTipContent } from '@atlaskit/editor-common/keymaps';
 import { annotationMessages } from '@atlaskit/editor-common/messages/annotation';
@@ -28,6 +29,7 @@ import {
 	recordSelectionFailedSli,
 	recordSelectionSucceededSli,
 } from '@atlaskit/emoji';
+import type { GetAICreditStatus } from '@atlaskit/emoji/credit-check';
 import { EmojiTypeAheadItem } from '@atlaskit/emoji/emoji-type-ahead-item';
 import type { EmojiDescription, EmojiProvider } from '@atlaskit/emoji/types';
 import { SearchSort } from '@atlaskit/emoji/types';
@@ -122,6 +124,8 @@ function delayUntilIdle(cb: Function) {
  * from `@atlaskit/editor-core`.
  */
 export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
+	const getAICreditStatus: GetAICreditStatus = (context) =>
+		checkAICreditStatus(api?.aiExperience?.actions.getAICreditStatus, context);
 	let previousEmojiProvider: EmojiProvider | undefined;
 	const typeAhead: TypeAheadHandler = {
 		id: TypeAheadAvailableNodes.EMOJI,
@@ -297,6 +301,7 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 		},
 
 		actions: {
+			getAICreditStatus,
 			openTypeAhead: openTypeAheadAction(typeAhead, api),
 			setProvider: async (providerPromise) => {
 				const provider = await providerPromise;

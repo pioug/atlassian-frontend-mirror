@@ -26,11 +26,20 @@ export const defaultProps = {
 const sliderWrapperStyles = css({
 	display: 'flex',
 	alignItems: 'center',
+	columnGap: token('space.100'),
 	width: '100%',
+	// The range input carries the browser default margin, which shifts the track.
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'.zoom_button svg': {
-		position: 'relative',
-		left: token('space.negative.025'),
+	'input[type="range"]': {
+		marginTop: token('space.0'),
+		marginRight: token('space.0'),
+		marginBottom: token('space.0'),
+		marginLeft: token('space.0'),
+	},
+	// The range dot's top edge sits at 50% of the wrapper, so lift it by half its height.
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'& > div::after': {
+		transform: 'translateY(-50%)',
 	},
 });
 

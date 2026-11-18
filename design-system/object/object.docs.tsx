@@ -6,7 +6,7 @@ const documentation: StructuredContentSource = {
 			name: 'StoryObject',
 			description: 'An object icon component that represents an Atlassian story content type.',
 			status: 'general-availability',
-			designSource: {
+			references: {
 				figmaUrl: 'https://go.atlassian.com/figma-library-ads-107096-47822',
 			},
 			import: {

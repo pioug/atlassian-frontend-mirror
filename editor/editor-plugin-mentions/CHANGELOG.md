@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-mentions
 
+## 35.0.3
+
+### Patch Changes
+
+- [`ffaea585ec179`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ffaea585ec179) -
+  Clean up feature gate `platform_editor_agent_mentions_invite_order`
+
+## 35.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 35.0.0
 
 ### Patch Changes

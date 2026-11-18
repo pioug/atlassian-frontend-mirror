@@ -15,7 +15,6 @@ export type EditorExperimentsConfig = typeof editorExperimentsConfig;
 // These experiments have a jira-specific key that differs from the experiment name,
 // so they must opt out of product-key routing to avoid sending the wrong key on jira.
 export const disallowsProductKeys: (keyof EditorExperimentsConfig)[] = [
-	'platform_editor_controls',
 	'advanced_layouts',
 	'single_column_layouts',
 	'platform_editor_preview_panel_responsiveness',
@@ -48,13 +47,6 @@ export type ExperimentDefaultValue<ExperimentName extends keyof EditorExperiment
  * existing experiments.
  */
 export const editorExperimentsConfig: {
-	// Added 2026-07-18
-	cc_maui_remix_button_hover_corridor: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-07-21
 	// Agent edit presence — cosmetic skeleton-loader shimmer over agent-authored edits (with a Rovo
 	// agent telepointer at the end of the range), then a purple "just edited" highlight. `isEnabled`
@@ -226,14 +218,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: (value: unknown) => value is 'control' | 'test';
 		values: ('control' | 'test')[];
-	};
-	// Added 2025-02-10
-	platform_editor_controls: {
-		defaultValue: 'control' | 'variant1';
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: (value: unknown) => value is 'control' | 'variant1';
-		values: ('control' | 'variant1')[];
 	};
 	platform_editor_controls_reliable_anchor: {
 		defaultValue: boolean;
@@ -685,15 +669,6 @@ export const editorExperimentsConfig: {
 	};
 } = {
 	// new format to avoid collisions with other users when updating the file
-	// Added 2026-07-18
-	cc_maui_remix_button_hover_corridor: createBooleanExperiment({
-		productKeys: {
-			confluence: 'cc_maui_remix_button_hover_corridor',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-
 	// Added 2026-07-21
 	// `isEnabled` is the gating param; the experiment's dynamic config also carries the numeric
 	// `shimmerDurationMs` (skeleton) and `highlightDurationMs` (purple highlight) durations, read at
@@ -870,16 +845,6 @@ export const editorExperimentsConfig: {
 		},
 		param: 'isEnabled',
 		defaultValue: false,
-	}),
-	// Added 2025-02-10
-	platform_editor_controls: createMultivariateExperiment({
-		productKeys: {
-			confluence: 'platform_editor_controls',
-			jira: 'platform_editor_controls_jira',
-		},
-		param: 'cohort',
-		values: ['control', 'variant1'],
-		defaultValue: 'variant1',
 	}),
 	// Added 2026-07-21
 	confluence_cwr_3p_connection_suggested_prompts: createMultivariateExperiment({

@@ -1,5 +1,19 @@
 # @atlaskit/textarea
 
+## 11.0.0
+
+### Major Changes
+
+- [`ef750ef2176d6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef750ef2176d6) -
+  The feature gate `platform-textarea-atomic-styles` has been cleaned up. Textarea now always uses
+  atomic styles.
+
+  The rendered `<textarea>` no longer includes the `data-invalid` or `data-compact` attributes.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.3.1
 
 ### Patch Changes

@@ -13,7 +13,6 @@ import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import { skipAutoA11y } from '@atlassian/a11y-jest-testing/skip-decorator';
 
 // Drives the runtime override returned to `FullPage.tsx`'s selector.
@@ -101,17 +100,6 @@ const renderFullPage = () =>
 			</EditorContext>
 		</IntlProvider>,
 	);
-
-beforeEach(() => {
-	setupEditorExperiments(
-		'test',
-		{ platform_editor_controls: 'variant1' },
-		{},
-		{
-			disableTestOverrides: true,
-		},
-	);
-});
 
 describe('FullPage → primary toolbar mount gate (runtime override)', () => {
 	beforeEach(() => {

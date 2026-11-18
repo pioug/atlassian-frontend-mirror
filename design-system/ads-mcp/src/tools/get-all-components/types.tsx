@@ -18,7 +18,7 @@ export type ComponentMcpPayload = {
 	usageGuidelines?: string[];
 	contentGuidelines?: string[];
 	accessibilityGuidelines?: string[];
-	designSource?: { figmaUrl?: string };
+	references?: { figmaUrl?: string };
 	keywords: string[];
 	package: string;
 	examples: string[];

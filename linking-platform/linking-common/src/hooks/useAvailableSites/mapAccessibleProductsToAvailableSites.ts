@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-
 import { type AccessibleProduct, type AvailableSite } from './types';
 
 export const mapAccessibleProductsToAvailableSites: any = (
@@ -17,9 +15,7 @@ export const mapAccessibleProductsToAvailableSites: any = (
 			sites.push({
 				avatarUrl: workspace.workspaceAvatarUrl,
 				cloudId: workspace.cloudId,
-				displayName: fg('platform_lp_sllv_display_name_fallback')
-					? workspace.workspaceDisplayName || workspace.cloudUrl
-					: (workspace.workspaceDisplayName as string),
+				displayName: workspace.workspaceDisplayName || workspace.cloudUrl,
 				products: [product.productId],
 				url: workspace.cloudUrl,
 			});

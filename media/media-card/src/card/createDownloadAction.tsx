@@ -4,7 +4,6 @@ import { type MessageDescriptor } from 'react-intl';
 
 import DownloadIcon from '@atlaskit/icon/core/download';
 import { messages } from '@atlaskit/media-ui/messages';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import type { CardAction } from './actions';
@@ -29,7 +28,7 @@ export const createDownloadAction = (
 			<DownloadIcon
 				color={isDisabled ? token('color.icon.disabled') : 'currentColor'}
 				spacing="spacious"
-				label={fg('platform-a11y-media-card-download-icon-decorative') ? '' : 'Download'}
+				label=""
 			/>
 		),
 	};

@@ -3,7 +3,7 @@
  *
  * Strict design token based typedef representing a subset of safe CSS properties.
  *
- * @codegen <<SignedSource::03fbd0c3dfb435134a9515d9cd459bd4>>
+ * @codegen <<SignedSource::f3bd3b12d674736b1ec30fa54c862901>>
  * @codegenCommand yarn build tokens
  */
 export type BackgroundColorHovered =
@@ -47,6 +47,7 @@ export type BackgroundColorHovered =
 	| 'var(--ds-background-accent-gray-subtler-hovered)'
 	| 'var(--ds-background-accent-gray-subtle-hovered)'
 	| 'var(--ds-background-accent-gray-bolder-hovered)'
+	| 'var(--ds-background-droptarget-hovered)'
 	| 'var(--ds-background-input-hovered)'
 	| 'var(--ds-background-inverse-subtle-hovered)'
 	| 'var(--ds-background-neutral-hovered)'

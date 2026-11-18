@@ -6,7 +6,7 @@ const documentation: StructuredContentSource = {
 			name: 'ProgressTracker',
 			description: 'A component for tracking progress through multi-step processes.',
 			status: 'general-availability',
-			designSource: {
+			references: {
 				figmaUrl: 'https://go.atlassian.com/figma-library-ads-5704-5050',
 			},
 			import: {

@@ -42,6 +42,7 @@ import {
 	relativeSizeToBaseFontSize,
 } from '@atlaskit/editor-shared-styles/constants';
 import DragHandleVerticalIcon from '@atlaskit/icon/core/drag-handle-vertical';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/utils/set-custom-native-drag-preview';
@@ -85,7 +86,7 @@ import {
 	STICKY_CONTROLS_TOP_MARGIN_FOR_STICKY_HEADER,
 	topPositionAdjustment,
 } from './consts';
-import { DragHandleNestedIcon } from './drag-handle-nested-icon';
+import { DragHandleNarrowIcon } from './drag-handle-narrow-icon';
 import { dragPreview, type DragPreviewContent } from './drag-preview';
 import { shouldUseNestedDragHandleIcon } from './should-use-nested-drag-handle-icon';
 import { refreshAnchorName } from './utils/anchor-name';
@@ -1133,8 +1134,9 @@ export const DragHandle = ({
 				// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
 				onDragStart={handleIconDragStart}
 			>
-				{shouldUseNestedDragHandleIcon(isTopLevelNodeValue, isLayoutColumn) ? (
-					<DragHandleNestedIcon />
+				{isExperimentEnabled('platform_editor_block_menu_three_dot_icon') ||
+				shouldUseNestedDragHandleIcon(isTopLevelNodeValue, isLayoutColumn) ? (
+					<DragHandleNarrowIcon />
 				) : (
 					<DragHandleVerticalIcon spacing="spacious" label="" size="small" />
 				)}

@@ -15,6 +15,15 @@ describe('getToken', () => {
 		expect(testToken).toEqual(`var(--${CSS_PREFIX}-background-brand-bold)`);
 	});
 
+	it('preserves the base drop target identifier when adding drag-over feedback', () => {
+		const available: 'var(--ds-background-droptarget)' = token('color.background.droptarget');
+		const entered: 'var(--ds-background-droptarget-hovered)' = token(
+			'color.background.droptarget.hovered',
+		);
+		expect(available).toBe('var(--ds-background-droptarget)');
+		expect(entered).toBe('var(--ds-background-droptarget-hovered)');
+	});
+
 	it('returns a token with fallback', () => {
 		// TS: Fallback shouldn't be included in return type.
 		const testToken: `var(--ds-background-brand-bold)` = token(

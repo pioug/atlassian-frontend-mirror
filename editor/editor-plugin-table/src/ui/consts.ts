@@ -3,6 +3,7 @@
 
 import { tableCellBorderWidth, tableMarginTop } from '@atlaskit/editor-common/styles/table';
 import {
+	akEditorSmallZIndex,
 	akEditorTableCellOnStickyHeaderZIndex,
 	akEditorTableToolbarSize,
 	akEditorUnitZIndex,
@@ -122,3 +123,6 @@ export const colorPalletteColumns = 7;
 export const colorPaletteColumns = 10;
 
 export const tableResizerWidth = 8;
+
+/** One above the cell selection, hover and active-cell overlays (`::after`, `akEditorSmallZIndex`). */
+export const telepointerInTableCellZIndex: number = akEditorSmallZIndex + 1;

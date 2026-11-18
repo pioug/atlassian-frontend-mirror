@@ -140,30 +140,6 @@ it('retains a controlled preferred width while the available region shrinks and 
 	expect(onResizeEnd).not.toHaveBeenCalled();
 });
 
-it('shares an uncontrolled preference across modes and close/reopen without panel-system', () => {
-	passGate('platform-dst-chat-panel-layout');
-	const width = jest.spyOn(HTMLElement.prototype, 'clientWidth', 'get').mockReturnValue(1200);
-	const { rerender } = render(<Host />);
-	const resize = (value: number) => {
-		const slider = screen.getByRole('slider', { name: 'Resize panel', hidden: true });
-		fireEvent.focus(slider);
-		// Range inputs need an exact value change rather than text input.
-		// eslint-disable-next-line testing-library/prefer-user-event
-		fireEvent.change(slider, { target: { value } });
-	};
-	resize(500);
-	width.mockReturnValue(600);
-	fireEvent.resize(window);
-	expect(screen.getByTestId('layout--panel-slot')).toHaveStyle({ '--p_lclPnlW': '500px' });
-	rerender(<Host isPanelOpen={false} />);
-	rerender(<Host />);
-	expect(screen.getByTestId('layout--panel-slot')).toHaveStyle({ '--p_lclPnlW': '500px' });
-	resize(460);
-	width.mockReturnValue(1200);
-	fireEvent.resize(window);
-	expect(screen.getByTestId('layout--panel-slot')).toHaveStyle({ '--p_lclPnlW': '460px' });
-});
-
 it('does not replace a controlled preference until the caller accepts a resize', () => {
 	passGate('platform-dst-chat-panel-layout');
 	const width = jest.spyOn(HTMLElement.prototype, 'clientWidth', 'get').mockReturnValue(1200);
@@ -324,4 +300,71 @@ it('ignores XL overrides with chat layout disabled', () => {
 		.mockImplementation((query) => ({ ...matchMedia(query), matches: true }));
 	render(<Host xlDefaultPanelWidth={700} />);
 	expect(screen.getByTestId('layout--panel-slot')).toHaveStyle({ '--p_lclPnlW': '365px' });
+});
+
+it.each([false, true])(
+	'remembers local widths by mode only with chat layout enabled (chat gate: %s)',
+	async (enabled) => {
+		(enabled ? passGate : failGate)('platform-dst-chat-panel-layout');
+		const width = jest.spyOn(HTMLElement.prototype, 'clientWidth', 'get').mockReturnValue(1200);
+		const onResizeEnd = jest.fn();
+		const { rerender } = render(<Host onResizeEnd={onResizeEnd} />);
+		const panel = () => screen.getByTestId('layout--panel-slot');
+		const resize = async (value: number, mode: 'inline' | 'overlay') => {
+			const slider = screen.getByRole('slider', { name: 'Resize panel', hidden: true });
+			fireEvent.focus(slider);
+			fireEvent.change(slider, { target: { value: String(value) } });
+			await waitFor(() =>
+				expect(onResizeEnd).toHaveBeenLastCalledWith(
+					expect.objectContaining({ finalWidth: value, mode }),
+				),
+			);
+		};
+		const setWidth = (value: number) => {
+			width.mockReturnValue(value);
+			fireEvent.resize(window);
+		};
+		await resize(480, 'inline');
+		setWidth(600);
+		expect(panel()).toHaveStyle({ '--p_lclPnlW': enabled ? '400px' : '480px' });
+		await resize(360, 'overlay');
+		rerender(<Host isPanelOpen={false} onResizeEnd={onResizeEnd} />);
+		rerender(<Host onResizeEnd={onResizeEnd} />);
+		expect(panel()).toHaveStyle({ '--p_lclPnlW': '360px' });
+		setWidth(1200);
+		expect(panel()).toHaveStyle({ '--p_lclPnlW': enabled ? '480px' : '360px' });
+		// Fitting and close/reopen must not replace either user preference.
+		setWidth(640);
+		expect(panel()).toHaveStyle({ '--p_lclPnlW': '320px' });
+		setWidth(1200);
+		rerender(<Host isPanelOpen={false} onResizeEnd={onResizeEnd} />);
+		rerender(<Host onResizeEnd={onResizeEnd} />);
+		expect(panel()).toHaveStyle({ '--p_lclPnlW': enabled ? '480px' : '360px' });
+		setWidth(600);
+		expect(panel()).toHaveStyle({ '--p_lclPnlW': '360px' });
+		expect(onResizeEnd).toHaveBeenCalledTimes(2);
+	},
+);
+
+it('restores a saved default without replacing it on updates or sharing subsequent resizes', () => {
+	passGate('platform-dst-chat-panel-layout');
+	const width = jest.spyOn(HTMLElement.prototype, 'clientWidth', 'get').mockReturnValue(500);
+	const { rerender } = render(<Host defaultPanelWidth={500} />);
+	const panel = screen.getByTestId('layout--panel-slot');
+	const slider = screen.getByRole('slider', { name: 'Resize panel', hidden: true });
+	fireEvent.focus(slider);
+	expect(slider).toHaveAttribute('max', '500');
+	expect(panel).toHaveStyle({ '--p_lclPnlW': '500px' });
+	rerender(<Host defaultPanelWidth={600} />);
+	width.mockReturnValue(1200);
+	fireEvent.resize(window);
+	expect(panel).toHaveStyle({ '--p_lclPnlW': '500px' });
+	// Only the active inline preference changes; the original overlay default survives.
+	// eslint-disable-next-line testing-library/prefer-user-event
+	fireEvent.change(slider, { target: { value: '480' } });
+	width.mockReturnValue(600);
+	fireEvent.resize(window);
+	expect(panel).toHaveStyle({ '--p_lclPnlW': '500px' });
+	rerender(<Host panelWidth={420} defaultPanelWidth={600} />);
+	expect(panel).toHaveStyle({ '--p_lclPnlW': '420px' });
 });

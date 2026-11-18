@@ -7,7 +7,7 @@ const documentation: StructuredContentSource = {
 			description:
 				"A calendar component for date selection and display. This component is in Beta phase, meaning it's stable at version 1.0+ but may receive improvements based on customer feedback.",
 			status: 'general-availability',
-			designSource: {
+			references: {
 				figmaUrl: 'https://go.atlassian.com/figma-library-ads-13289-46824',
 			},
 			import: {

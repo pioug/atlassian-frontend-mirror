@@ -1,5 +1,21 @@
 # @atlaskit/css
 
+## 1.1.10
+
+### Patch Changes
+
+- [`71549eead22f1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/71549eead22f1) -
+  Fix strict styling APIs to accept the documented all-viewports media query.
+
+## 1.1.9
+
+### Patch Changes
+
+- [`8194c1350b8f9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8194c1350b8f9) -
+  Regenerate token styling metadata for drag-over backgrounds and exclude drag-and-drop token
+  families from automatic pointer-hover and pressed styling.
+- Updated dependencies
+
 ## 1.1.8
 
 ### Patch Changes

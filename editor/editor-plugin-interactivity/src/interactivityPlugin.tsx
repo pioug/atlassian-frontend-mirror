@@ -24,9 +24,14 @@ export const interactivityPlugin: InteractivityPlugin = ({ api }) => ({
 		useEffect(() => {
 			try {
 				const collector = new InteractivityCollector({
-					emit: (snapshot) =>
+					regions: ['editor'],
+					emit: ({ regions, ...snapshot }) =>
 						fireInteractivityEvent(api?.analytics?.actions, {
 							...snapshot,
+							editor: regions.editor.all,
+							editorTyping: regions.editor.typing,
+							editorPointer: regions.editor.pointer,
+							editorOther: regions.editor.other,
 							// A destroyed view still answers, with the document it was destroyed with, so
 							// both report nothing rather than a size the editor no longer has.
 							nodeSize: editorView.isDestroyed ? undefined : editorView.state.doc.nodeSize,
@@ -83,7 +88,7 @@ export const interactivityPlugin: InteractivityPlugin = ({ api }) => ({
 
 		useEffect(() => {
 			try {
-				collectorRef.current?.setEditorRoot(wrapperElement);
+				collectorRef.current?.setRegionRoot('editor', wrapperElement);
 			} catch (error) {
 				void logException(error as Error, { location: 'editor-plugin-interactivity/observe' });
 			}

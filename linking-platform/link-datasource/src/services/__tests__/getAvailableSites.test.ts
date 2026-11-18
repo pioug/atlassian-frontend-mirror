@@ -79,7 +79,6 @@ describe('getAvailableSites', () => {
 		async (_, isUnitCompliant, expectedEndpoint) => {
 			mockGates({ rolloutGate: isUnitCompliant });
 			mockUnitsRolloutSettings({ boundaryEnforced: true, endUsersLaunched: true });
-			passGate('platform_lp_sllv_display_name_fallback');
 			fetchMock.post(expectedEndpoint, { data: { products: productsWithoutDisplayName } });
 
 			const sites = await getAccessibleProducts('jira');

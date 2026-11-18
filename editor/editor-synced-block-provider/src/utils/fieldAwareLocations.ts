@@ -1,5 +1,3 @@
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-
 import { getLocationScope, getProductFromSourceAri } from '../clients/block-service/ari';
 import { JIRA_DESCRIPTION_FIELD_ID, parseJiraFieldLocation } from '../clients/jira/ari';
 import type {
@@ -9,11 +7,10 @@ import type {
 } from '../common/types';
 
 /**
- * The product check runs first so a Confluence-only document never reads the experiment.
+ * Field-aware location support is now enabled for all Jira work items.
  */
 export const isFieldAwareJiraLocation = (productType: SyncBlockProduct | undefined): boolean =>
-	productType === 'jira-work-item' &&
-	isExperimentEnabled('editor_synced_blocks_jira_custom_rich_text');
+	productType === 'jira-work-item';
 
 /**
  * Spreadable `{ locationScope }` for a location that should carry one, `undefined` otherwise.

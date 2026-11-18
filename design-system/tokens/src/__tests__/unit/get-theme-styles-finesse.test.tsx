@@ -27,6 +27,7 @@ describe('getThemeStyles finesse overrides', () => {
 					'--ds-border-dropindicator',
 					'--ds-border-dropindicator-warning',
 					'--ds-background-droptarget',
+					'--ds-background-droptarget-hovered',
 					'--ds-background-draghandle',
 				]) {
 					expect(base?.css).toContain(`${property}:`);

@@ -8,7 +8,6 @@ import { cssMap, jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
 
 import Button from '@atlaskit/button/default/button';
-import { KEY_DOWN, KEY_LEFT, KEY_TAB } from '@atlaskit/ds-lib/keycodes';
 import noop from '@atlaskit/ds-lib/noop';
 import useControlledState from '@atlaskit/ds-lib/use-controlled';
 import useFocus from '@atlaskit/ds-lib/use-focus-event';
@@ -219,7 +218,7 @@ function DropdownMenuTopLayer({
 		({ reason }: { reason: TPopoverCloseReason }) => {
 			const menu = popoverRef.current;
 			if (menu && menusClosedByTab.delete(menu)) {
-				closeMenu({ event: new KeyboardEvent('keydown', { key: KEY_TAB, bubbles: true }) });
+				closeMenu({ event: new KeyboardEvent('keydown', { key: 'Tab', bubbles: true }) });
 				return;
 			}
 
@@ -237,7 +236,7 @@ function DropdownMenuTopLayer({
 	}, [isLocalOpen]);
 
 	const handleNestedClose = useCallback(() => {
-		closeMenu({ event: new KeyboardEvent('keydown', { key: KEY_LEFT, bubbles: true }) });
+		closeMenu({ event: new KeyboardEvent('keydown', { key: 'ArrowLeft', bubbles: true }) });
 	}, [closeMenu]);
 
 	// Trigger click handling.
@@ -272,7 +271,7 @@ function DropdownMenuTopLayer({
 		return bind(window, {
 			type: 'keydown',
 			listener: function openOnKeyDown(e: KeyboardEvent) {
-				if (e.key === KEY_DOWN && !isNestedTriggerLocal) {
+				if (e.key === 'ArrowDown' && !isNestedTriggerLocal) {
 					e.preventDefault();
 					handleTriggerClicked(e);
 				}

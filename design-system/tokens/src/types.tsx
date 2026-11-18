@@ -284,7 +284,10 @@ export interface BackgroundColorTokenSchema<
 			danger: PaintToken<BaseToken>;
 		};
 		background: {
-			droptarget: PaintToken<BaseToken>;
+			droptarget: {
+				'[default]': PaintToken<BaseToken>;
+				hovered: PaintToken<BaseToken>;
+			};
 			draghandle: PaintToken<BaseToken>;
 			disabled: PaintToken<BaseToken>;
 			inverse: {

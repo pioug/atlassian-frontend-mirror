@@ -3,7 +3,7 @@
  *
  * Structured content components from *.docs.tsx files outside of design-system
  *
- * @codegen <<SignedSource::b874dd1321b4a7fb8ee0c830865cfeaf>>
+ * @codegen <<SignedSource::1f08ff68770184b0ad06cfb34f0cd659>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -4738,6 +4738,11 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				description: 'Resolve a Flexible Card destination without changing its metadata address.',
 			},
 			{
+				name: 'onSmartLinkAuthFailed',
+				type: '((request: SmartLinkAuthFailure) => void | Promise<void>) | undefined',
+				description: '',
+			},
+			{
 				name: 'openPreviewPanel',
 				type: '((props: { ari: string; iconUrl: string | undefined; name: string; url: string; }) => void) | undefined',
 				description:
@@ -4870,6 +4875,10 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				name: 'linkNavigation',
 				type: '((url: string) => { target?: "_blank" | "_self" | "_top" | "_parent" | undefined; url: string; }) | undefined',
 				description: 'Resolve a Flexible Card destination without changing its metadata address.',
+			},
+			{
+				name: 'onSmartLinkAuthFailed',
+				type: '((request: SmartLinkAuthFailure) => void | Promise<void>) | undefined',
 			},
 			{
 				name: 'openPreviewPanel',
@@ -9257,6 +9266,10 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			{
 				name: 'consumeOnceKey',
 				type: 'string | undefined',
+			},
+			{
+				name: 'filter',
+				type: '((payload: Payload) => boolean) | undefined',
 			},
 			{
 				name: 'flushQueueOnUnmount',
@@ -14512,7 +14525,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		examples: [
 			"/**\n * Minimal copyable example of a Rovo A2UI v0.9 message stream.\n * The host receives the action and decides what product work it authorizes.\n */\nimport React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { ADS_CATALOG_ID } from '@atlaskit/a2ui-catalog/v0_9/catalog-id';\nimport {\n\tA2uiSurfaceAdapterRovo,\n\ttype A2uiSurfaceAdapterRovoMessage,\n} from '@atlassian/a2ui-renderer-next/v0_9/a2ui-surface-adapter-rovo';\nimport CenteredLayout from './_shared/centered-layout';\nconst messages: A2uiSurfaceAdapterRovoMessage[] = [\n\t{\n\t\tcreateSurface: {\n\t\t\tsurfaceId: 'access-request',\n\t\t\tcatalogId: ADS_CATALOG_ID,\n\t\t},\n\t},\n\t{\n\t\tupdateComponents: {\n\t\t\tsurfaceId: 'access-request',\n\t\t\tcomponents: [\n\t\t\t\t{ id: 'root', component: 'Column', children: ['intro', 'request'] },\n\t\t\t\t{\n\t\t\t\t\tid: 'intro',\n\t\t\t\t\tcomponent: 'Text',\n\t\t\t\t\ttext: 'Request access to the Platform project.',\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\tid: 'request',\n\t\t\t\t\tcomponent: 'Button',\n\t\t\t\t\tchild: 'request-label',\n\t\t\t\t\tvariant: 'primary',\n\t\t\t\t\taction: {\n\t\t\t\t\t\tevent: {\n\t\t\t\t\t\t\tname: 'request_project_access',\n\t\t\t\t\t\t\tcontext: { projectKey: 'PLATFORM' },\n\t\t\t\t\t\t},\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t\t{ id: 'request-label', component: 'Text', text: 'Request project access' },\n\t\t\t],\n\t\t},\n\t},\n];\nexport default function V09RovoBasicExample(): React.JSX.Element {\n\tconst [actionSummary, setActionSummary] = useState(\n\t\t'Activate the request button to see the event returned to the host.',\n\t);\n\treturn (\n\t\t<CenteredLayout>\n\t\t\t<IntlProvider locale=\"en\">\n\t\t\t\t<div>\n\t\t\t\t\t<A2uiSurfaceAdapterRovo\n\t\t\t\t\t\tmessages={messages}\n\t\t\t\t\t\tonAction={(action) => {\n\t\t\t\t\t\t\t// Demo only: a product host validates and authorizes before acting.\n\t\t\t\t\t\t\tsetActionSummary(\n\t\t\t\t\t\t\t\taction.name === 'request_project_access'\n\t\t\t\t\t\t\t\t\t? 'The host received a project access request.'\n\t\t\t\t\t\t\t\t\t: 'The host received an action.',\n\t\t\t\t\t\t\t);\n\t\t\t\t\t\t}}\n\t\t\t\t\t/>\n\t\t\t\t\t<div role=\"status\">{actionSummary}</div>\n\t\t\t\t</div>\n\t\t\t</IntlProvider>\n\t\t</CenteredLayout>\n\t);\n}",
 			"/**\n * Demonstrates a host app appending a response to the Rovo wire-message list.\n * The response deletes the submitted surface and creates a result surface.\n */\nimport React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { ADS_CATALOG_ID } from '@atlaskit/a2ui-catalog/v0_9/catalog-id';\nimport {\n\tA2uiSurfaceAdapterRovo,\n\ttype A2uiSurfaceAdapterRovoMessage,\n} from '@atlassian/a2ui-renderer-next/v0_9/a2ui-surface-adapter-rovo';\nimport CenteredLayout from './_shared/centered-layout';\nconst initialMessages: A2uiSurfaceAdapterRovoMessage[] = [\n\t{ createSurface: { surfaceId: 'access-request', catalogId: ADS_CATALOG_ID } },\n\t{\n\t\tupdateComponents: {\n\t\t\tsurfaceId: 'access-request',\n\t\t\tcomponents: [\n\t\t\t\t{ id: 'root', component: 'Column', children: ['prompt', 'submit'] },\n\t\t\t\t{ id: 'prompt', component: 'Text', text: 'Request access to project PLATFORM?' },\n\t\t\t\t{\n\t\t\t\t\tid: 'submit',\n\t\t\t\t\tcomponent: 'Button',\n\t\t\t\t\tchild: 'submit-label',\n\t\t\t\t\tvariant: 'primary',\n\t\t\t\t\taction: {\n\t\t\t\t\t\tevent: {\n\t\t\t\t\t\t\tname: 'request_project_access',\n\t\t\t\t\t\t\tcontext: { projectKey: 'PLATFORM' },\n\t\t\t\t\t\t},\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t\t{ id: 'submit-label', component: 'Text', text: 'Request access' },\n\t\t\t],\n\t\t},\n\t},\n];\nconst responseMessages: A2uiSurfaceAdapterRovoMessage[] = [\n\t{ deleteSurface: { surfaceId: 'access-request' } },\n\t{ createSurface: { surfaceId: 'access-request-result', catalogId: ADS_CATALOG_ID } },\n\t{\n\t\tupdateComponents: {\n\t\t\tsurfaceId: 'access-request-result',\n\t\t\tcomponents: [\n\t\t\t\t{\n\t\t\t\t\tid: 'root',\n\t\t\t\t\tcomponent: 'Text',\n\t\t\t\t\ttext: 'The host received the request for project PLATFORM.',\n\t\t\t\t},\n\t\t\t],\n\t\t},\n\t},\n];\nexport default function V09RovoActionResponseExample(): React.JSX.Element {\n\tconst [messages, setMessages] = useState(initialMessages);\n\tconst [hasResponded, setHasResponded] = useState(false);\n\treturn (\n\t\t<CenteredLayout>\n\t\t\t<IntlProvider locale=\"en\">\n\t\t\t\t<A2uiSurfaceAdapterRovo\n\t\t\t\t\tmessages={messages}\n\t\t\t\t\tonAction={(action) => {\n\t\t\t\t\t\tif (action.name !== 'request_project_access' || hasResponded) {\n\t\t\t\t\t\t\treturn;\n\t\t\t\t\t\t}\n\t\t\t\t\t\t// This demo simulates a response. A product should validate the\n\t\t\t\t\t\t// action, authorize it, call its service, and append that result.\n\t\t\t\t\t\tsetHasResponded(true);\n\t\t\t\t\t\tsetMessages((current) => [...current, ...responseMessages]);\n\t\t\t\t\t}}\n\t\t\t\t/>\n\t\t\t</IntlProvider>\n\t\t</CenteredLayout>\n\t);\n}",
-			"/**\n * v0.9 surface-level `isDisabled` playground — a two-turn chat transcript.\n *\n * Distinct from the per-component `disabled` toggles in the other playgrounds:\n * those author `disabled` into the component tree (the agent's choice), while\n * this one is a host-side override on the whole surface. The older turn is\n * passed `isDisabled`, so every interactive component inside it renders\n * disabled and dispatches nothing, while staying visible and readable. The\n * current turn is untouched. Toggle the control to see the difference, and\n * watch \"Last action\" to confirm the older surface dispatches nothing.\n *\n * See LDR: https://hello.atlassian.net/wiki/x/ZcATwgE\n */\nimport React, { useMemo, useState } from 'react';\nimport { Checkbox } from '@atlaskit/checkbox/checkbox';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { AGENTIC_JIRA_CATALOG_ID } from '@atlaskit/a2ui-catalog/agentic-jira-v0_9/catalog-id';\nimport { ADS_CATALOG_ID } from '@atlaskit/a2ui-catalog/v0_9/catalog-id';\nimport {\n\tA2uiSurfaceAdapterRovo,\n\ttype A2uiSurfaceAdapterRovoMessage,\n} from '@atlassian/a2ui-renderer-next/v0_9/a2ui-surface-adapter-rovo';\nimport { getDefaultRovoCatalogs } from '@atlassian/a2ui-renderer-next/v0_9/default-catalogs';\nimport CenteredLayout from './_shared/centered-layout';\nconst TOOLS = [\n\t{\n\t\tid: 'tool-1',\n\t\tname: 'create_pull_request',\n\t\tdescription: 'Open a PR against master with the generated changes',\n\t},\n\t{ id: 'tool-2', name: 'run_pipeline', description: 'Trigger the default CI pipeline' },\n];\n/** Turn 1 — a tool-approval surface the agent has since moved past. */\nconst previousTurnMessages: A2uiSurfaceAdapterRovoMessage[] = [\n\t{ createSurface: { surfaceId: 'turn-1', catalogId: AGENTIC_JIRA_CATALOG_ID } },\n\t{\n\t\tupdateComponents: {\n\t\t\tsurfaceId: 'turn-1',\n\t\t\tcomponents: [\n\t\t\t\t{\n\t\t\t\t\tid: 'root',\n\t\t\t\t\tcomponent: 'ToolApproval',\n\t\t\t\t\ttools: TOOLS,\n\t\t\t\t\tvalue: { path: '/approval/decisions' },\n\t\t\t\t\tonDecide: { event: { name: 'turn_1_tool_decided', context: {} } },\n\t\t\t\t\tonSubmit: { event: { name: 'turn_1_tools_decided', context: {} } },\n\t\t\t\t},\n\t\t\t],\n\t\t},\n\t},\n\t{\n\t\tupdateDataModel: {\n\t\t\tsurfaceId: 'turn-1',\n\t\t\tpath: '/',\n\t\t\tvalue: { approval: { decisions: {} } },\n\t\t},\n\t},\n];\n/** Turn 2 — the live surface the agent is waiting on. */\nconst currentTurnMessages: A2uiSurfaceAdapterRovoMessage[] = [\n\t{ createSurface: { surfaceId: 'turn-2', catalogId: ADS_CATALOG_ID } },\n\t{\n\t\tupdateComponents: {\n\t\t\tsurfaceId: 'turn-2',\n\t\t\tcomponents: [\n\t\t\t\t{ id: 'root', component: 'Column', children: ['branch', 'squash', 'submit'], gap: 12 },\n\t\t\t\t{\n\t\t\t\t\tid: 'branch',\n\t\t\t\t\tcomponent: 'TextField',\n\t\t\t\t\tlabel: 'Branch name',\n\t\t\t\t\tvalue: { path: '/form/branch' },\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\tid: 'squash',\n\t\t\t\t\tcomponent: 'CheckBox',\n\t\t\t\t\tlabel: 'Squash commits',\n\t\t\t\t\tvalue: { path: '/form/squash' },\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\tid: 'submit',\n\t\t\t\t\tcomponent: 'Button',\n\t\t\t\t\tchild: 'submit-text',\n\t\t\t\t\tvariant: 'primary',\n\t\t\t\t\taction: {\n\t\t\t\t\t\tevent: {\n\t\t\t\t\t\t\tname: 'turn_2_submit',\n\t\t\t\t\t\t\tcontext: { branch: { path: '/form/branch' } },\n\t\t\t\t\t\t},\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t\t{ id: 'submit-text', component: 'Text', text: 'Create branch' },\n\t\t\t],\n\t\t},\n\t},\n\t{\n\t\tupdateDataModel: {\n\t\t\tsurfaceId: 'turn-2',\n\t\t\tpath: '/',\n\t\t\tvalue: { form: { branch: 'feat/a2ui', squash: false } },\n\t\t},\n\t},\n];\ntype LastAction = { context: Record<string, unknown>; name: string; } | null;\nexport default function V09SurfaceDisabledPlaygroundExample(): React.JSX.Element {\n\tconst [disablePreviousTurns, setDisablePreviousTurns] = useState(true);\n\tconst [lastAction, setLastAction] = useState<LastAction>(null);\n\tconst catalogs = useMemo(() => getDefaultRovoCatalogs(), []);\n\tconst onAction = (a: unknown) => {\n\t\tconst action = a as { context: Record<string, unknown>; name: string; };\n\t\tsetLastAction(action);\n\t};\n\treturn (\n\t\t<CenteredLayout>\n\t\t\t<Stack space=\"space.200\">\n\t\t\t\t<Inline space=\"space.150\" alignBlock=\"center\">\n\t\t\t\t\t<Checkbox\n\t\t\t\t\t\tisChecked={disablePreviousTurns}\n\t\t\t\t\t\tonChange={(e) => setDisablePreviousTurns(e.currentTarget.checked)}\n\t\t\t\t\t\tlabel=\"Disable surfaces that are no longer in the current turn\"\n\t\t\t\t\t/>\n\t\t\t\t</Inline>\n\t\t\t\t<Stack space=\"space.050\">\n\t\t\t\t\t<Text weight=\"bold\">Turn 1 — previous turn</Text>\n\t\t\t\t\t<Box padding=\"space.200\" backgroundColor=\"elevation.surface.sunken\">\n\t\t\t\t\t\t<A2uiSurfaceAdapterRovo\n\t\t\t\t\t\t\tmessages={previousTurnMessages}\n\t\t\t\t\t\t\tcatalogs={catalogs}\n\t\t\t\t\t\t\tisDisabled={disablePreviousTurns}\n\t\t\t\t\t\t\tonAction={onAction}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space=\"space.050\">\n\t\t\t\t\t<Text weight=\"bold\">Turn 2 — current turn</Text>\n\t\t\t\t\t<Box padding=\"space.200\" backgroundColor=\"elevation.surface.sunken\">\n\t\t\t\t\t\t<A2uiSurfaceAdapterRovo\n\t\t\t\t\t\t\tmessages={currentTurnMessages}\n\t\t\t\t\t\t\tcatalogs={catalogs}\n\t\t\t\t\t\t\tonAction={onAction}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Text>\n\t\t\t\t\tLast action:{' '}\n\t\t\t\t\t{lastAction\n\t\t\t\t\t\t? `${lastAction.name} → ${JSON.stringify(lastAction.context)}`\n\t\t\t\t\t\t: '— try both surfaces; only the current turn should ever dispatch —'}\n\t\t\t\t</Text>\n\t\t\t</Stack>\n\t\t</CenteredLayout>\n\t);\n}",
+			"/**\n * v0.9 surface-level `isDisabled` playground — a two-turn chat transcript.\n *\n * Distinct from the per-component `disabled` toggles in the other playgrounds:\n * those author `disabled` into the component tree (the agent's choice), while\n * this one is a host-side override on the whole surface. The older turn is\n * passed `isDisabled`, so every interactive component inside it renders\n * disabled and dispatches nothing, while staying visible and readable. The\n * current turn is untouched. Toggle the control to see the difference, and\n * watch \"Last action\" to confirm the older surface dispatches nothing.\n *\n * See LDR: https://hello.atlassian.net/wiki/x/ZcATwgE\n */\nimport React, { useMemo, useState } from 'react';\nimport { AGENTIC_JIRA_CATALOG_ID } from '@atlaskit/a2ui-catalog/agentic-jira-v0_9/catalog-id';\nimport { ADS_CATALOG_ID } from '@atlaskit/a2ui-catalog/v0_9/catalog-id';\nimport { Checkbox } from '@atlaskit/checkbox/checkbox';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Inline } from '@atlaskit/primitives/compiled/inline';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport {\n\tA2uiSurfaceAdapterRovo,\n\ttype A2uiSurfaceAdapterRovoMessage,\n} from '@atlassian/a2ui-renderer-next/v0_9/a2ui-surface-adapter-rovo';\nimport { getDefaultRovoCatalogs } from '@atlassian/a2ui-renderer-next/v0_9/default-catalogs';\nimport CenteredLayout from './_shared/centered-layout';\nconst TOOLS = [\n\t{\n\t\tid: 'tool-1',\n\t\tname: 'create_pull_request',\n\t\tdescription: 'Open a PR against master with the generated changes',\n\t},\n\t{ id: 'tool-2', name: 'run_pipeline', description: 'Trigger the default CI pipeline' },\n];\n/** Turn 1 — a tool-approval surface the agent has since moved past. */\nconst previousTurnMessages: A2uiSurfaceAdapterRovoMessage[] = [\n\t{ createSurface: { surfaceId: 'turn-1', catalogId: AGENTIC_JIRA_CATALOG_ID } },\n\t{\n\t\tupdateComponents: {\n\t\t\tsurfaceId: 'turn-1',\n\t\t\tcomponents: [\n\t\t\t\t{\n\t\t\t\t\tid: 'root',\n\t\t\t\t\tcomponent: 'ToolApproval',\n\t\t\t\t\ttools: TOOLS,\n\t\t\t\t\tvalue: { path: '/approval/decisions' },\n\t\t\t\t\tonDecide: { event: { name: 'turn_1_tool_decided', context: {} } },\n\t\t\t\t\tonSubmit: { event: { name: 'turn_1_tools_decided', context: {} } },\n\t\t\t\t},\n\t\t\t],\n\t\t},\n\t},\n\t{\n\t\tupdateDataModel: {\n\t\t\tsurfaceId: 'turn-1',\n\t\t\tpath: '/',\n\t\t\tvalue: { approval: { decisions: {} } },\n\t\t},\n\t},\n];\n/** Turn 2 — the live surface the agent is waiting on. */\nconst currentTurnMessages: A2uiSurfaceAdapterRovoMessage[] = [\n\t{ createSurface: { surfaceId: 'turn-2', catalogId: ADS_CATALOG_ID } },\n\t{\n\t\tupdateComponents: {\n\t\t\tsurfaceId: 'turn-2',\n\t\t\tcomponents: [\n\t\t\t\t{ id: 'root', component: 'Column', children: ['branch', 'squash', 'submit'], gap: 12 },\n\t\t\t\t{\n\t\t\t\t\tid: 'branch',\n\t\t\t\t\tcomponent: 'TextField',\n\t\t\t\t\tlabel: 'Branch name',\n\t\t\t\t\tvalue: { path: '/form/branch' },\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\tid: 'squash',\n\t\t\t\t\tcomponent: 'CheckBox',\n\t\t\t\t\tlabel: 'Squash commits',\n\t\t\t\t\tvalue: { path: '/form/squash' },\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\tid: 'submit',\n\t\t\t\t\tcomponent: 'Button',\n\t\t\t\t\tchild: 'submit-text',\n\t\t\t\t\tvariant: 'primary',\n\t\t\t\t\taction: {\n\t\t\t\t\t\tevent: {\n\t\t\t\t\t\t\tname: 'turn_2_submit',\n\t\t\t\t\t\t\tcontext: { branch: { path: '/form/branch' } },\n\t\t\t\t\t\t},\n\t\t\t\t\t},\n\t\t\t\t},\n\t\t\t\t{ id: 'submit-text', component: 'Text', text: 'Create branch' },\n\t\t\t],\n\t\t},\n\t},\n\t{\n\t\tupdateDataModel: {\n\t\t\tsurfaceId: 'turn-2',\n\t\t\tpath: '/',\n\t\t\tvalue: { form: { branch: 'feat/a2ui', squash: false } },\n\t\t},\n\t},\n];\ntype LastAction = { context: Record<string, unknown>; name: string } | null;\nexport default function V09SurfaceDisabledPlaygroundExample(): React.JSX.Element {\n\tconst [disablePreviousTurns, setDisablePreviousTurns] = useState(true);\n\tconst [lastAction, setLastAction] = useState<LastAction>(null);\n\tconst catalogs = useMemo(() => getDefaultRovoCatalogs(), []);\n\tconst onAction = (a: unknown) => {\n\t\tconst action = a as { context: Record<string, unknown>; name: string };\n\t\tsetLastAction(action);\n\t};\n\treturn (\n\t\t<CenteredLayout>\n\t\t\t<Stack space=\"space.200\">\n\t\t\t\t<Inline space=\"space.150\" alignBlock=\"center\">\n\t\t\t\t\t<Checkbox\n\t\t\t\t\t\tisChecked={disablePreviousTurns}\n\t\t\t\t\t\tonChange={(e) => setDisablePreviousTurns(e.currentTarget.checked)}\n\t\t\t\t\t\tlabel=\"Disable surfaces that are no longer in the current turn\"\n\t\t\t\t\t/>\n\t\t\t\t</Inline>\n\t\t\t\t<Stack space=\"space.050\">\n\t\t\t\t\t<Text weight=\"bold\">Turn 1 — previous turn</Text>\n\t\t\t\t\t<Box padding=\"space.200\" backgroundColor=\"elevation.surface.sunken\">\n\t\t\t\t\t\t<A2uiSurfaceAdapterRovo\n\t\t\t\t\t\t\tmessages={previousTurnMessages}\n\t\t\t\t\t\t\tcatalogs={catalogs}\n\t\t\t\t\t\t\tisDisabled={disablePreviousTurns}\n\t\t\t\t\t\t\tonAction={onAction}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Stack space=\"space.050\">\n\t\t\t\t\t<Text weight=\"bold\">Turn 2 — current turn</Text>\n\t\t\t\t\t<Box padding=\"space.200\" backgroundColor=\"elevation.surface.sunken\">\n\t\t\t\t\t\t<A2uiSurfaceAdapterRovo\n\t\t\t\t\t\t\tmessages={currentTurnMessages}\n\t\t\t\t\t\t\tcatalogs={catalogs}\n\t\t\t\t\t\t\tonAction={onAction}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Box>\n\t\t\t\t</Stack>\n\t\t\t\t<Text>\n\t\t\t\t\tLast action:{' '}\n\t\t\t\t\t{lastAction\n\t\t\t\t\t\t? `${lastAction.name} → ${JSON.stringify(lastAction.context)}`\n\t\t\t\t\t\t: '— try both surfaces; only the current turn should ever dispatch —'}\n\t\t\t\t</Text>\n\t\t\t</Stack>\n\t\t</CenteredLayout>\n\t);\n}",
 		],
 		props: [
 			{
@@ -14896,6 +14909,12 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				description: 'Reports the loading state used to show the dashboard skeleton.',
 			},
 			{
+				name: 'onSubagentHeatmapCellClick',
+				type: 'OnSubagentHeatmapCellClick | undefined',
+				description:
+					'Optional callback invoked when a cell of the Conversations by subagent heatmap is clicked.\nWhen omitted, the heatmap is not interactive.',
+			},
+			{
 				name: 'orgId',
 				type: 'string | undefined',
 			},
@@ -14916,6 +14935,11 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				type: '([SkeletonChartType] | [SkeletonChartType, SkeletonChartType])[] | undefined',
 				description:
 					"Optional skeleton layout config describing the chart arrangement to show while loading.\nEach entry is a row containing 1-2 chart types.\nChart types: 'bar', 'line', 'stacked-bar'\n\nExample: [['bar', 'bar'], ['line', 'stacked-bar']]\n\nThe date filter skeleton is hidden when customFilters is null.\nDefaults to [['bar', 'bar'], ['line', 'stacked-bar']].",
+			},
+			{
+				name: 'subagentHeatmapTooltipFooter',
+				type: 'SubagentHeatmapTooltipFooter | undefined',
+				description: "Optional content rendered at the bottom of the subagent heatmap's tooltip.",
 			},
 			{
 				name: 'templateId',
@@ -16422,6 +16446,11 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 					'Atlassian organization id. Required by User Recommendations for team search in some tenants\n(see Smart User Picker `orgId` / request `context.organizationId`).',
 			},
 			{
+				name: 'originContainerAri',
+				type: 'string | undefined',
+				description: 'Jira project that launched the current creation journey.',
+			},
+			{
 				name: 'productKey',
 				type: 'string',
 				description: 'Product key',
@@ -16670,6 +16699,11 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				type: 'string | undefined',
 				description:
 					'Atlassian organization id. Required by User Recommendations for team search in some tenants\n(see Smart User Picker `orgId` / request `context.organizationId`).',
+			},
+			{
+				name: 'originContainerAri',
+				type: 'string | undefined',
+				description: 'Jira project that launched the current creation journey.',
 			},
 			{
 				name: 'productKey',
@@ -16922,6 +16956,11 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 					'Atlassian organization id. Required by User Recommendations for team search in some tenants\n(see Smart User Picker `orgId` / request `context.organizationId`).',
 			},
 			{
+				name: 'originContainerAri',
+				type: 'string | undefined',
+				description: 'Jira project that launched the current creation journey.',
+			},
+			{
 				name: 'productKey',
 				type: 'string',
 				description: 'Product key',
@@ -17170,6 +17209,11 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				type: 'string | undefined',
 				description:
 					'Atlassian organization id. Required by User Recommendations for team search in some tenants\n(see Smart User Picker `orgId` / request `context.organizationId`).',
+			},
+			{
+				name: 'originContainerAri',
+				type: 'string | undefined',
+				description: 'Jira project that launched the current creation journey.',
 			},
 			{
 				name: 'productKey',
@@ -17655,7 +17699,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			'Each logo item receives an explicit accessible `label`.',
 			'Keep item labels distinct enough to be meaningful when read in sequence.',
 		],
-		designSource: {
+		references: {
 			figmaUrl:
 				'https://www.figma.com/design/kuNYGZ432pELZWMyAxYx5C/%E2%9C%A6-AI-Components?node-id=54649-17525',
 		},
@@ -17800,6 +17844,11 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 					'Called once when the modal component (lazy chunk) has mounted. Hosts use\nthis to signal that the modal has finished loading.',
 			},
 			{
+				name: 'originContainerAri',
+				type: 'string | undefined',
+				description: 'Jira project that launched this modal. Omit for global entry points.',
+			},
+			{
 				name: 'product',
 				type: '"jira" | "atlassian-studio" | "confluence"',
 				description:
@@ -17881,6 +17930,11 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				type: '(() => void) | undefined',
 				description:
 					'Called once when the modal component (lazy chunk) has mounted. Hosts use\nthis to signal that the modal has finished loading.',
+			},
+			{
+				name: 'originContainerAri',
+				type: 'string | undefined',
+				description: 'Jira project that launched this modal. Omit for global entry points.',
 			},
 			{
 				name: 'product',
@@ -21098,7 +21152,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'app connection', 'thread'],
 		category: 'rovo',
 		examples: [
-			"import React, { createContext, useContext, useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { DiProvider, injectable } from 'react-magnetic-di';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { InThreadAppConnectionPrompt } from '@atlassian/conversation-assistant-chat-prompt-input/InThreadAppConnectionPrompt';\nimport { useAppConnectionBannerActions } from '@atlassian/conversation-assistant-chat-prompt-input/useAppConnectionBannerActions';\nimport { useAppOAuth } from '@atlassian/conversation-assistant-chat-prompt-input/useAppOAuth';\nimport { useAnalytics } from '@atlassian/conversation-assistant-instrumentation/controllers/analytics';\nimport { useConnectors } from '@atlassian/conversation-assistant-store/controllers/connectors-store';\nconst apps = [\n\t{\n\t\tsource: 'slack',\n\t\tfriendlyName: 'Slack',\n\t\ticonUrl: '/gateway/api/assist/rovo/v1/resources/icon/slack',\n\t\toutboundAuthUrl: 'https://example.com/connect/slack',\n\t},\n\t{\n\t\tsource: 'google_drive',\n\t\tfriendlyName: 'Google Drive',\n\t\ticonUrl: '/gateway/api/assist/rovo/v1/resources/icon/google_drive',\n\t\toutboundAuthUrl: 'https://example.com/connect/google-drive',\n\t},\n];\nconst ConnectionContext = createContext<{\n\tconnectedSource: string | null;\n\tsetConnectedSource: (source: string | null) => void;\n}>({ connectedSource: null, setConnectedSource: () => {} });\nfunction useConnectorsMock(): ReturnType<typeof useConnectors> {\n\tconst { connectedSource, setConnectedSource } = useContext(ConnectionContext);\n\treturn [\n\t\tObject.fromEntries(\n\t\t\tapps.map((app) => [\n\t\t\t\tapp.source,\n\t\t\t\t{\n\t\t\t\t\t...app,\n\t\t\t\t\tisUserOAuthed: app.source === connectedSource,\n\t\t\t\t\tconnectorCreatedAt: null,\n\t\t\t\t\tconnectedAt: null,\n\t\t\t\t\tresourceType: null,\n\t\t\t\t\tproviderId: null,\n\t\t\t\t\tdatasourceId: null,\n\t\t\t\t\tconnectorSyncType: null,\n\t\t\t\t},\n\t\t\t]),\n\t\t),\n\t\t{\n\t\t\tsetKnowledgeSources: () => {},\n\t\t\tsetError: () => {},\n\t\t\tmarkUserConnected: setConnectedSource,\n\t\t\tmarkLastUsed: () => {},\n\t\t\tfetchIfEmpty: async () => {},\n\t\t\tprefetchIfEmpty: async () => {},\n\t\t},\n\t];\n}\nfunction useAppOAuthMock(\n\toptions: Parameters<typeof useAppOAuth>[0],\n): ReturnType<typeof useAppOAuth> {\n\tconst { setConnectedSource } = useContext(ConnectionContext);\n\treturn {\n\t\tonAuthorize: async () => {\n\t\t\tsetConnectedSource(options.appSource);\n\t\t\toptions.onCompletedAction?.();\n\t\t},\n\t\tonSuccess: () => {},\n\t\tonFail: () => {},\n\t};\n}\nconst mockUseAnalytics = () => ({ sendAnalyticsEvent: () => {} });\nconst mockUseBannerActions = () => ({ hideBanner: () => {} });\nexport default function InThreadAppConnectionPromptExample(): React.JSX.Element {\n\tconst [connectedSource, setConnectedSource] = useState<string | null>(null);\n\tconst dependencies = [\n\t\tinjectable(useConnectors, useConnectorsMock),\n\t\tinjectable(useAppOAuth, useAppOAuthMock),\n\t\tinjectable(useAnalytics, mockUseAnalytics),\n\t\tinjectable(useAppConnectionBannerActions, mockUseBannerActions),\n\t];\n\treturn (\n\t\t<ConnectionContext.Provider value={{ connectedSource, setConnectedSource }}>\n\t\t\t<DiProvider use={dependencies}>\n\t\t\t\t<IntlProvider locale=\"en\">\n\t\t\t\t\t<Stack space=\"space.100\">\n\t\t\t\t\t\t<InThreadAppConnectionPrompt apps={apps} conversationId=\"example-conversation\" />\n\t\t\t\t\t\t<Text aria-live=\"polite\" color=\"color.text.subtle\" size=\"small\">\n\t\t\t\t\t\t\t{connectedSource\n\t\t\t\t\t\t\t\t? `${apps.find(({ source }) => source === connectedSource)?.friendlyName} connected in this local example.`\n\t\t\t\t\t\t\t\t: 'Connection state is held in memory; no OAuth window is opened.'}\n\t\t\t\t\t\t</Text>\n\t\t\t\t\t</Stack>\n\t\t\t\t</IntlProvider>\n\t\t\t</DiProvider>\n\t\t</ConnectionContext.Provider>\n\t);\n}",
+			"import React, { createContext, useContext, useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { DiProvider, injectable } from 'react-magnetic-di';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { InThreadAppConnectionPrompt } from '@atlassian/conversation-assistant-chat-prompt-input/InThreadAppConnectionPrompt';\nimport { useAppConnectionBannerActions } from '@atlassian/conversation-assistant-chat-prompt-input/useAppConnectionBannerActions';\nimport { useAppOAuth } from '@atlassian/conversation-assistant-chat-prompt-input/useAppOAuth';\nimport { useAnalytics } from '@atlassian/conversation-assistant-instrumentation/controllers/analytics';\nimport { useConnectors } from '@atlassian/conversation-assistant-store/controllers/connectors-store';\nconst apps = [\n\t{\n\t\tsource: 'slack',\n\t\tfriendlyName: 'Slack',\n\t\ticonUrl: '/gateway/api/assist/rovo/v1/resources/icon/slack',\n\t\toutboundAuthUrl: 'https://example.com/connect/slack',\n\t},\n\t{\n\t\tsource: 'google_drive',\n\t\tfriendlyName: 'Google Drive',\n\t\ticonUrl: '/gateway/api/assist/rovo/v1/resources/icon/google_drive',\n\t\toutboundAuthUrl: 'https://example.com/connect/google-drive',\n\t},\n];\nconst ConnectionContext = createContext<{\n\tconnectedSource: string | null;\n\tsetConnectedSource: (source: string | null) => void;\n}>({ connectedSource: null, setConnectedSource: () => {} });\nfunction useConnectorsMock(): ReturnType<typeof useConnectors> {\n\tconst { connectedSource, setConnectedSource } = useContext(ConnectionContext);\n\treturn [\n\t\tObject.fromEntries(\n\t\t\tapps.map((app) => [\n\t\t\t\tapp.source,\n\t\t\t\t{\n\t\t\t\t\t...app,\n\t\t\t\t\tisUserOAuthed: app.source === connectedSource,\n\t\t\t\t\tconnectorCreatedAt: null,\n\t\t\t\t\tconnectedAt: null,\n\t\t\t\t\tresourceType: null,\n\t\t\t\t\tproviderId: null,\n\t\t\t\t\tdatasourceId: null,\n\t\t\t\t\tconnectorSyncType: null,\n\t\t\t\t},\n\t\t\t]),\n\t\t),\n\t\t{\n\t\t\tsetKnowledgeSources: () => {},\n\t\t\tsetError: () => {},\n\t\t\tmarkUserConnected: setConnectedSource,\n\t\t\tmarkLastUsed: () => {},\n\t\t\tfetchIfEmpty: async () => {},\n\t\t\tprefetchIfEmpty: async () => {},\n\t\t},\n\t];\n}\nfunction useAppOAuthMock(\n\toptions: Parameters<typeof useAppOAuth>[0],\n): ReturnType<typeof useAppOAuth> {\n\tconst { setConnectedSource } = useContext(ConnectionContext);\n\treturn {\n\t\tonAuthorize: async () => {\n\t\t\tsetConnectedSource(options.appSource);\n\t\t\toptions.onCompletedAction?.();\n\t\t},\n\t\tonSuccess: () => {},\n\t\tonFail: () => {},\n\t};\n}\nconst mockUseAnalytics = () => ({ sendAnalyticsEvent: () => {} });\nconst mockUseBannerActions = () => ({ hideBanner: () => {} });\nexport default function InThreadAppConnectionPromptExample(): React.JSX.Element {\n\tconst [connectedSource, setConnectedSource] = useState<string | null>(null);\n\tconst dependencies = [\n\t\tinjectable(useConnectors, useConnectorsMock),\n\t\tinjectable(useAppOAuth, useAppOAuthMock),\n\t\tinjectable(useAnalytics, mockUseAnalytics),\n\t\tinjectable(useAppConnectionBannerActions, mockUseBannerActions),\n\t];\n\treturn (\n\t\t<ConnectionContext.Provider value={{ connectedSource, setConnectedSource }}>\n\t\t\t<DiProvider use={dependencies}>\n\t\t\t\t<IntlProvider locale=\"en\">\n\t\t\t\t\t<Stack space=\"space.100\">\n\t\t\t\t\t\t<InThreadAppConnectionPrompt apps={apps} conversationId=\"example-conversation\" />\n\t\t\t\t\t\t<div aria-live=\"polite\">\n\t\t\t\t\t\t\t<Text color=\"color.text.subtle\" size=\"small\">\n\t\t\t\t\t\t\t\t{connectedSource\n\t\t\t\t\t\t\t\t\t? `${apps.find(({ source }) => source === connectedSource)?.friendlyName} connected in this local example.`\n\t\t\t\t\t\t\t\t\t: 'Connection state is held in memory; no OAuth window is opened.'}\n\t\t\t\t\t\t\t</Text>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</Stack>\n\t\t\t\t</IntlProvider>\n\t\t\t</DiProvider>\n\t\t</ConnectionContext.Provider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -21161,7 +21215,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'prompt', 'composer'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { FlagsProvider } from '@atlaskit/flag/flags-provider';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { RovoChatPromptInput } from '@atlassian/conversation-assistant-chat-prompt-input/RovoChatPromptInput';\nconst assistanceServiceParams = {\n\tproduct: 'confluence',\n\texperienceId: 'ai-mate',\n\ttouchpointSource: 'documentation-example',\n\tsiteId: 'example-site',\n};\nexport default function BasicChatPromptInputExample(): React.JSX.Element {\n\tconst [submitted, setSubmitted] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<FlagsProvider>\n\t\t\t\t<Stack space=\"space.100\">\n\t\t\t\t\t<Box>\n\t\t\t\t\t\t<RovoChatPromptInput\n\t\t\t\t\t\t\tisConversationAgentic={false}\n\t\t\t\t\t\t\tassistanceServiceParams={assistanceServiceParams}\n\t\t\t\t\t\t\tarrowKeyPluginConfigMessages={[]}\n\t\t\t\t\t\t\tuseCurrentPageContext\n\t\t\t\t\t\t\tref={null}\n\t\t\t\t\t\t\tproductKey=\"confluence\"\n\t\t\t\t\t\t\tsiteId=\"example-site\"\n\t\t\t\t\t\t\torgId=\"example-org\"\n\t\t\t\t\t\t\tisAgentTyping={false}\n\t\t\t\t\t\t\tpromptDraftAndModeKey=\"docs-example\"\n\t\t\t\t\t\t\tonSubmit={() => setSubmitted(true)}\n\t\t\t\t\t\t\tonAbort={() => setSubmitted(false)}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Box>\n\t\t\t\t\t{submitted && (\n\t\t\t\t\t\t<Text aria-live=\"polite\" color=\"color.text.subtle\" size=\"small\">\n\t\t\t\t\t\t\tThe host received the prompt submission.\n\t\t\t\t\t\t</Text>\n\t\t\t\t\t)}\n\t\t\t\t</Stack>\n\t\t\t</FlagsProvider>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { FlagsProvider } from '@atlaskit/flag/flags-provider';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { RovoChatPromptInput } from '@atlassian/conversation-assistant-chat-prompt-input/RovoChatPromptInput';\nconst assistanceServiceParams = {\n\tproduct: 'confluence',\n\texperienceId: 'ai-mate',\n\ttouchpointSource: 'documentation-example',\n\tsiteId: 'example-site',\n};\nexport default function BasicChatPromptInputExample(): React.JSX.Element {\n\tconst [submitted, setSubmitted] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<FlagsProvider>\n\t\t\t\t<Stack space=\"space.100\">\n\t\t\t\t\t<Box>\n\t\t\t\t\t\t<RovoChatPromptInput\n\t\t\t\t\t\t\tisConversationAgentic={false}\n\t\t\t\t\t\t\tassistanceServiceParams={assistanceServiceParams}\n\t\t\t\t\t\t\tarrowKeyPluginConfigMessages={[]}\n\t\t\t\t\t\t\tuseCurrentPageContext\n\t\t\t\t\t\t\tproductKey=\"confluence\"\n\t\t\t\t\t\t\tsiteId=\"example-site\"\n\t\t\t\t\t\t\torgId=\"example-org\"\n\t\t\t\t\t\t\tisAgentTyping={false}\n\t\t\t\t\t\t\tpromptDraftAndModeKey=\"docs-example\"\n\t\t\t\t\t\t\tonSubmit={() => setSubmitted(true)}\n\t\t\t\t\t\t\tonAbort={() => setSubmitted(false)}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Box>\n\t\t\t\t\t<div aria-live=\"polite\">\n\t\t\t\t\t\t{submitted && (\n\t\t\t\t\t\t\t<Text color=\"color.text.subtle\" size=\"small\">\n\t\t\t\t\t\t\t\tPrompt submitted in this local example.\n\t\t\t\t\t\t\t</Text>\n\t\t\t\t\t\t)}\n\t\t\t\t\t</div>\n\t\t\t\t</Stack>\n\t\t\t</FlagsProvider>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -22109,7 +22163,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'project', 'annotation', 'extension'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { InferredProjectInlineExtension } from '@atlassian/conversation-assistant-content-renderer/ui/message-renderer/InferredProjectAnnotations';\nimport {\n\tENTITY_ANNOTATION_EXTENSION_TYPE,\n\tINFERRED_PROJECT_EXTENSION_KEY,\n} from '@atlassian/conversation-assistant-content-transformer/entity-annotations';\nexport default function InferredProjectExtensionExample(): React.JSX.Element {\n\tconst [lastInteraction, setLastInteraction] = useState('No project-card interaction yet');\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.100\">\n\t\t\t\t<section aria-labelledby=\"inferred-project-heading\">\n\t\t\t\t\t<h2 id=\"inferred-project-heading\">Inferred project reference</h2>\n\t\t\t\t\t<p>Rovo inferred that this answer refers to Search Relevance:</p>\n\t\t\t\t\t<InferredProjectInlineExtension\n\t\t\t\t\t\tcloudId=\"example-cloud-id\"\n\t\t\t\t\t\textensionType={ENTITY_ANNOTATION_EXTENSION_TYPE}\n\t\t\t\t\t\textensionKey={INFERRED_PROJECT_EXTENSION_KEY}\n\t\t\t\t\t\tparameters={{\n\t\t\t\t\t\t\tari: 'ari:cloud:graph-store::inferred-project/workspace/123',\n\t\t\t\t\t\t\tname: 'Search Relevance',\n\t\t\t\t\t\t\tcanonicalName: 'Search Relevance',\n\t\t\t\t\t\t}}\n\t\t\t\t\t\tcontent={\n\t\t\t\t\t\t\t<a href=\"https://example.atlassian.net/wiki/spaces/SEARCH\">\n\t\t\t\t\t\t\t\tSearch Relevance project\n\t\t\t\t\t\t\t</a>\n\t\t\t\t\t\t}\n\t\t\t\t\t\tonOpen={(method) => setLastInteraction(`Project card opened by ${method}`)}\n\t\t\t\t\t\tonInteraction={(target) => setLastInteraction(`Project action selected: ${target}`)}\n\t\t\t\t\t\tonPromotionResult={(outcome) =>\n\t\t\t\t\t\t\tsetLastInteraction(`Project promotion result: ${outcome}`)\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t</section>\n\t\t\t\t<Text role=\"status\">{lastInteraction}</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useId, useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Heading from '@atlaskit/heading/heading';\nimport Link from '@atlaskit/link/link';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { InferredProjectInlineExtension } from '@atlassian/conversation-assistant-content-renderer/ui/message-renderer/InferredProjectAnnotations';\nimport {\n\tENTITY_ANNOTATION_EXTENSION_TYPE,\n\tINFERRED_PROJECT_EXTENSION_KEY,\n} from '@atlassian/conversation-assistant-content-transformer/entity-annotations';\nexport default function InferredProjectExtensionExample(): React.JSX.Element {\n\tconst headingId = useId();\n\tconst [lastInteraction, setLastInteraction] = useState('No project-card interaction yet');\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.100\">\n\t\t\t\t<section aria-labelledby={headingId}>\n\t\t\t\t\t<Heading as=\"h2\" size=\"small\" id={headingId}>\n\t\t\t\t\t\tInferred project reference\n\t\t\t\t\t</Heading>\n\t\t\t\t\t<Text as=\"p\">Rovo inferred that this answer refers to Search Relevance:</Text>\n\t\t\t\t\t<InferredProjectInlineExtension\n\t\t\t\t\t\tcloudId=\"example-cloud-id\"\n\t\t\t\t\t\textensionType={ENTITY_ANNOTATION_EXTENSION_TYPE}\n\t\t\t\t\t\textensionKey={INFERRED_PROJECT_EXTENSION_KEY}\n\t\t\t\t\t\tparameters={{\n\t\t\t\t\t\t\tari: 'ari:cloud:graph-store::inferred-project/workspace/123',\n\t\t\t\t\t\t\tname: 'Search Relevance',\n\t\t\t\t\t\t\tcanonicalName: 'Search Relevance',\n\t\t\t\t\t\t}}\n\t\t\t\t\t\tcontent={\n\t\t\t\t\t\t\t<Link href=\"https://example.atlassian.net/wiki/spaces/SEARCH\">\n\t\t\t\t\t\t\t\tSearch Relevance project\n\t\t\t\t\t\t\t</Link>\n\t\t\t\t\t\t}\n\t\t\t\t\t\tonOpen={(method) => setLastInteraction(`Project card opened by ${method}`)}\n\t\t\t\t\t\tonInteraction={(target) => setLastInteraction(`Project action selected: ${target}`)}\n\t\t\t\t\t\tonPromotionResult={(outcome) =>\n\t\t\t\t\t\t\tsetLastInteraction(`Project promotion result: ${outcome}`)\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t</section>\n\t\t\t\t<div role=\"status\">\n\t\t\t\t\t<Text>{lastInteraction}</Text>\n\t\t\t\t</div>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -22267,7 +22321,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'message',
-				type: '{ role: string; content: string | DocNode; id: string; time_created: string; user_ari: string; plugin_invocations: PluginInvocationMessage[]; sources?: Sources | undefined; ... 23 more ...; insertable_sections?: InsertableSection[] | undefined; }',
+				type: '{ role: string; answer_parts?: ResolvedAnswerPart[] | undefined; content: string | DocNode; id: string; time_created: string; user_ari: string; plugin_invocations: PluginInvocationMessage[]; ... 24 more ...; insertable_sections?: InsertableSection[] | undefined; }',
 				isRequired: true,
 			},
 			{
@@ -22503,7 +22557,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'sources', 'popup', 'citations'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { SourcesPopupContent } from '@atlassian/conversation-assistant-content-renderer/ui/message-renderer/SourcesPopupContent';\nimport { SourcesView } from '@atlassian/conversation-assistant-content-renderer/ui/message-renderer/SourcesView';\nimport type { Sources } from '@atlassian/conversation-assistant-service-api/types/assistance-service';\nconst sources: Sources = [\n\t{\n\t\tari: 'ari:cloud:confluence::page/12345',\n\t\ttitle: 'Quarterly planning notes',\n\t\ttype: 'page',\n\t\turl: 'https://example.atlassian.net/wiki/spaces/TEAM/pages/12345',\n\t\tlastModified: '2026-08-12T00:00:00.000Z',\n\t\tproduct: 'confluence',\n\t},\n\t{\n\t\tari: 'ari:cloud:jira::issue/DEMO-42',\n\t\ttitle: 'Track launch dependencies',\n\t\ttype: 'issue',\n\t\turl: 'https://example.atlassian.net/browse/DEMO-42',\n\t\tlastModified: '2026-08-11T00:00:00.000Z',\n\t\tproduct: 'jira',\n\t},\n];\nexport default function SourceListHostHarnessExample(): React.JSX.Element {\n\tconst [isPopupOpen, setIsPopupOpen] = useState(false);\n\tconst [lastSourceAction, setLastSourceAction] = useState('No source selected');\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<section aria-labelledby=\"answer-sources-heading\">\n\t\t\t\t<h2 id=\"answer-sources-heading\">Sources for this answer</h2>\n\t\t\t\t<Stack space=\"space.150\">\n\t\t\t\t\t<SourcesView\n\t\t\t\t\t\tsources={sources}\n\t\t\t\t\t\tsiteId=\"example-site-id\"\n\t\t\t\t\t\tproductKey=\"confluence\"\n\t\t\t\t\t\tonClickSource={(type, _citedProduct, product, index) =>\n\t\t\t\t\t\t\tsetLastSourceAction(\n\t\t\t\t\t\t\t\t`Opened source ${index ?? 0}: ${type} from ${product ?? 'unknown product'}`,\n\t\t\t\t\t\t\t)\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t<Text role=\"status\">{lastSourceAction}</Text>\n\t\t\t\t\t<h3>Host-owned source list</h3>\n\t\t\t\t\t<Button onClick={() => setIsPopupOpen(true)}>Show all cited sources</Button>\n\t\t\t\t\t{isPopupOpen && (\n\t\t\t\t\t\t<div aria-labelledby=\"host-source-list-heading\">\n\t\t\t\t\t\t\t<h4 id=\"host-source-list-heading\">All cited sources</h4>\n\t\t\t\t\t\t\t<SourcesPopupContent\n\t\t\t\t\t\t\t\tsources={sources}\n\t\t\t\t\t\t\t\tonClickSourceHandler={(type, ari, product, index) =>\n\t\t\t\t\t\t\t\t\tsetLastSourceAction(\n\t\t\t\t\t\t\t\t\t\t`Selected source ${index ?? 0}: ${type} ${ari ?? ''} ${product ?? ''}`,\n\t\t\t\t\t\t\t\t\t)\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\tonClickSource={(type, citedProduct, product, index) =>\n\t\t\t\t\t\t\t\t\tsetLastSourceAction(\n\t\t\t\t\t\t\t\t\t\t`Opened source ${index ?? 0}: ${type} from ${product ?? citedProduct ?? 'unknown product'}`,\n\t\t\t\t\t\t\t\t\t)\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\tonClose={() => setIsPopupOpen(false)}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t\t<Button onClick={() => setIsPopupOpen(false)}>Close source list</Button>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t)}\n\t\t\t\t</Stack>\n\t\t\t</section>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useId, useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport Heading from '@atlaskit/heading/heading';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { SourcesPopupContent } from '@atlassian/conversation-assistant-content-renderer/ui/message-renderer/SourcesPopupContent';\nimport { SourcesView } from '@atlassian/conversation-assistant-content-renderer/ui/message-renderer/SourcesView';\nimport type { Sources } from '@atlassian/conversation-assistant-service-api/types/assistance-service';\nconst sources: Sources = [\n\t{\n\t\tari: 'ari:cloud:confluence::page/12345',\n\t\ttitle: 'Quarterly planning notes',\n\t\ttype: 'page',\n\t\turl: 'https://example.atlassian.net/wiki/spaces/TEAM/pages/12345',\n\t\tlastModified: '2026-08-12T00:00:00.000Z',\n\t\tproduct: 'confluence',\n\t},\n\t{\n\t\tari: 'ari:cloud:jira::issue/DEMO-42',\n\t\ttitle: 'Track launch dependencies',\n\t\ttype: 'issue',\n\t\turl: 'https://example.atlassian.net/browse/DEMO-42',\n\t\tlastModified: '2026-08-11T00:00:00.000Z',\n\t\tproduct: 'jira',\n\t},\n];\nexport default function SourceListHostHarnessExample(): React.JSX.Element {\n\tconst headingId = useId();\n\tconst popupHeadingId = useId();\n\tconst [isPopupOpen, setIsPopupOpen] = useState(false);\n\tconst [lastSourceAction, setLastSourceAction] = useState('No source selected');\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<section aria-labelledby={headingId}>\n\t\t\t\t<Heading as=\"h2\" size=\"small\" id={headingId}>\n\t\t\t\t\tSources for this answer\n\t\t\t\t</Heading>\n\t\t\t\t<Stack space=\"space.150\">\n\t\t\t\t\t<SourcesView\n\t\t\t\t\t\tsources={sources}\n\t\t\t\t\t\tsiteId=\"example-site-id\"\n\t\t\t\t\t\tproductKey=\"confluence\"\n\t\t\t\t\t\tonClickSource={(type, _citedProduct, product, index) =>\n\t\t\t\t\t\t\tsetLastSourceAction(\n\t\t\t\t\t\t\t\t`Opened source ${index ?? 0}: ${type} from ${product ?? 'unknown product'}`,\n\t\t\t\t\t\t\t)\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t<div role=\"status\">\n\t\t\t\t\t\t<Text>{lastSourceAction}</Text>\n\t\t\t\t\t</div>\n\t\t\t\t\t<Heading as=\"h3\" size=\"small\">\n\t\t\t\t\t\tHost-owned source list\n\t\t\t\t\t</Heading>\n\t\t\t\t\t<Button onClick={() => setIsPopupOpen(true)}>Show all cited sources</Button>\n\t\t\t\t\t{isPopupOpen && (\n\t\t\t\t\t\t<div aria-labelledby={popupHeadingId}>\n\t\t\t\t\t\t\t<Heading as=\"h4\" size=\"small\" id={popupHeadingId}>\n\t\t\t\t\t\t\t\tAll cited sources\n\t\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t\t<SourcesPopupContent\n\t\t\t\t\t\t\t\tsources={sources}\n\t\t\t\t\t\t\t\tonClickSourceHandler={(type, ari, product, index) =>\n\t\t\t\t\t\t\t\t\tsetLastSourceAction(\n\t\t\t\t\t\t\t\t\t\t`Selected source ${index ?? 0}: ${type} ${ari ?? ''} ${product ?? ''}`,\n\t\t\t\t\t\t\t\t\t)\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\tonClickSource={(type, citedProduct, product, index) =>\n\t\t\t\t\t\t\t\t\tsetLastSourceAction(\n\t\t\t\t\t\t\t\t\t\t`Opened source ${index ?? 0}: ${type} from ${product ?? citedProduct ?? 'unknown product'}`,\n\t\t\t\t\t\t\t\t\t)\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\tonClose={() => setIsPopupOpen(false)}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t\t<Button onClick={() => setIsPopupOpen(false)}>Close source list</Button>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t)}\n\t\t\t\t</Stack>\n\t\t\t</section>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -22568,7 +22622,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'sources', 'citations', 'attribution'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { SourcesPopupContent } from '@atlassian/conversation-assistant-content-renderer/ui/message-renderer/SourcesPopupContent';\nimport { SourcesView } from '@atlassian/conversation-assistant-content-renderer/ui/message-renderer/SourcesView';\nimport type { Sources } from '@atlassian/conversation-assistant-service-api/types/assistance-service';\nconst sources: Sources = [\n\t{\n\t\tari: 'ari:cloud:confluence::page/12345',\n\t\ttitle: 'Quarterly planning notes',\n\t\ttype: 'page',\n\t\turl: 'https://example.atlassian.net/wiki/spaces/TEAM/pages/12345',\n\t\tlastModified: '2026-08-12T00:00:00.000Z',\n\t\tproduct: 'confluence',\n\t},\n\t{\n\t\tari: 'ari:cloud:jira::issue/DEMO-42',\n\t\ttitle: 'Track launch dependencies',\n\t\ttype: 'issue',\n\t\turl: 'https://example.atlassian.net/browse/DEMO-42',\n\t\tlastModified: '2026-08-11T00:00:00.000Z',\n\t\tproduct: 'jira',\n\t},\n];\nexport default function SourceListHostHarnessExample(): React.JSX.Element {\n\tconst [isPopupOpen, setIsPopupOpen] = useState(false);\n\tconst [lastSourceAction, setLastSourceAction] = useState('No source selected');\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<section aria-labelledby=\"answer-sources-heading\">\n\t\t\t\t<h2 id=\"answer-sources-heading\">Sources for this answer</h2>\n\t\t\t\t<Stack space=\"space.150\">\n\t\t\t\t\t<SourcesView\n\t\t\t\t\t\tsources={sources}\n\t\t\t\t\t\tsiteId=\"example-site-id\"\n\t\t\t\t\t\tproductKey=\"confluence\"\n\t\t\t\t\t\tonClickSource={(type, _citedProduct, product, index) =>\n\t\t\t\t\t\t\tsetLastSourceAction(\n\t\t\t\t\t\t\t\t`Opened source ${index ?? 0}: ${type} from ${product ?? 'unknown product'}`,\n\t\t\t\t\t\t\t)\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t<Text role=\"status\">{lastSourceAction}</Text>\n\t\t\t\t\t<h3>Host-owned source list</h3>\n\t\t\t\t\t<Button onClick={() => setIsPopupOpen(true)}>Show all cited sources</Button>\n\t\t\t\t\t{isPopupOpen && (\n\t\t\t\t\t\t<div aria-labelledby=\"host-source-list-heading\">\n\t\t\t\t\t\t\t<h4 id=\"host-source-list-heading\">All cited sources</h4>\n\t\t\t\t\t\t\t<SourcesPopupContent\n\t\t\t\t\t\t\t\tsources={sources}\n\t\t\t\t\t\t\t\tonClickSourceHandler={(type, ari, product, index) =>\n\t\t\t\t\t\t\t\t\tsetLastSourceAction(\n\t\t\t\t\t\t\t\t\t\t`Selected source ${index ?? 0}: ${type} ${ari ?? ''} ${product ?? ''}`,\n\t\t\t\t\t\t\t\t\t)\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\tonClickSource={(type, citedProduct, product, index) =>\n\t\t\t\t\t\t\t\t\tsetLastSourceAction(\n\t\t\t\t\t\t\t\t\t\t`Opened source ${index ?? 0}: ${type} from ${product ?? citedProduct ?? 'unknown product'}`,\n\t\t\t\t\t\t\t\t\t)\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\tonClose={() => setIsPopupOpen(false)}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t\t<Button onClick={() => setIsPopupOpen(false)}>Close source list</Button>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t)}\n\t\t\t\t</Stack>\n\t\t\t</section>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useId, useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport Button from '@atlaskit/button/default/button';\nimport Heading from '@atlaskit/heading/heading';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { SourcesPopupContent } from '@atlassian/conversation-assistant-content-renderer/ui/message-renderer/SourcesPopupContent';\nimport { SourcesView } from '@atlassian/conversation-assistant-content-renderer/ui/message-renderer/SourcesView';\nimport type { Sources } from '@atlassian/conversation-assistant-service-api/types/assistance-service';\nconst sources: Sources = [\n\t{\n\t\tari: 'ari:cloud:confluence::page/12345',\n\t\ttitle: 'Quarterly planning notes',\n\t\ttype: 'page',\n\t\turl: 'https://example.atlassian.net/wiki/spaces/TEAM/pages/12345',\n\t\tlastModified: '2026-08-12T00:00:00.000Z',\n\t\tproduct: 'confluence',\n\t},\n\t{\n\t\tari: 'ari:cloud:jira::issue/DEMO-42',\n\t\ttitle: 'Track launch dependencies',\n\t\ttype: 'issue',\n\t\turl: 'https://example.atlassian.net/browse/DEMO-42',\n\t\tlastModified: '2026-08-11T00:00:00.000Z',\n\t\tproduct: 'jira',\n\t},\n];\nexport default function SourceListHostHarnessExample(): React.JSX.Element {\n\tconst headingId = useId();\n\tconst popupHeadingId = useId();\n\tconst [isPopupOpen, setIsPopupOpen] = useState(false);\n\tconst [lastSourceAction, setLastSourceAction] = useState('No source selected');\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<section aria-labelledby={headingId}>\n\t\t\t\t<Heading as=\"h2\" size=\"small\" id={headingId}>\n\t\t\t\t\tSources for this answer\n\t\t\t\t</Heading>\n\t\t\t\t<Stack space=\"space.150\">\n\t\t\t\t\t<SourcesView\n\t\t\t\t\t\tsources={sources}\n\t\t\t\t\t\tsiteId=\"example-site-id\"\n\t\t\t\t\t\tproductKey=\"confluence\"\n\t\t\t\t\t\tonClickSource={(type, _citedProduct, product, index) =>\n\t\t\t\t\t\t\tsetLastSourceAction(\n\t\t\t\t\t\t\t\t`Opened source ${index ?? 0}: ${type} from ${product ?? 'unknown product'}`,\n\t\t\t\t\t\t\t)\n\t\t\t\t\t\t}\n\t\t\t\t\t/>\n\t\t\t\t\t<div role=\"status\">\n\t\t\t\t\t\t<Text>{lastSourceAction}</Text>\n\t\t\t\t\t</div>\n\t\t\t\t\t<Heading as=\"h3\" size=\"small\">\n\t\t\t\t\t\tHost-owned source list\n\t\t\t\t\t</Heading>\n\t\t\t\t\t<Button onClick={() => setIsPopupOpen(true)}>Show all cited sources</Button>\n\t\t\t\t\t{isPopupOpen && (\n\t\t\t\t\t\t<div aria-labelledby={popupHeadingId}>\n\t\t\t\t\t\t\t<Heading as=\"h4\" size=\"small\" id={popupHeadingId}>\n\t\t\t\t\t\t\t\tAll cited sources\n\t\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t\t<SourcesPopupContent\n\t\t\t\t\t\t\t\tsources={sources}\n\t\t\t\t\t\t\t\tonClickSourceHandler={(type, ari, product, index) =>\n\t\t\t\t\t\t\t\t\tsetLastSourceAction(\n\t\t\t\t\t\t\t\t\t\t`Selected source ${index ?? 0}: ${type} ${ari ?? ''} ${product ?? ''}`,\n\t\t\t\t\t\t\t\t\t)\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\tonClickSource={(type, citedProduct, product, index) =>\n\t\t\t\t\t\t\t\t\tsetLastSourceAction(\n\t\t\t\t\t\t\t\t\t\t`Opened source ${index ?? 0}: ${type} from ${product ?? citedProduct ?? 'unknown product'}`,\n\t\t\t\t\t\t\t\t\t)\n\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\tonClose={() => setIsPopupOpen(false)}\n\t\t\t\t\t\t\t/>\n\t\t\t\t\t\t\t<Button onClick={() => setIsPopupOpen(false)}>Close source list</Button>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t)}\n\t\t\t\t</Stack>\n\t\t\t</section>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -23062,6 +23116,11 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 					'Atlassian organization id. Required by User Recommendations for team search in some tenants\n(see Smart User Picker `orgId` / request `context.organizationId`).',
 			},
 			{
+				name: 'originContainerAri',
+				type: 'string | undefined',
+				description: 'Jira project that launched the current creation journey.',
+			},
+			{
 				name: 'productKey',
 				type: 'string',
 				description: 'Product key',
@@ -23427,6 +23486,11 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 					'Atlassian organization id. Required by User Recommendations for team search in some tenants\n(see Smart User Picker `orgId` / request `context.organizationId`).',
 			},
 			{
+				name: 'originContainerAri',
+				type: 'string | undefined',
+				description: 'Jira project that launched the current creation journey.',
+			},
+			{
 				name: 'productKey',
 				type: 'string',
 				description: 'Product key',
@@ -23772,6 +23836,11 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 					'Atlassian organization id. Required by User Recommendations for team search in some tenants\n(see Smart User Picker `orgId` / request `context.organizationId`).',
 			},
 			{
+				name: 'originContainerAri',
+				type: 'string | undefined',
+				description: 'Jira project that launched the current creation journey.',
+			},
+			{
 				name: 'productKey',
 				type: 'string',
 				description: 'Product key',
@@ -23918,6 +23987,10 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'orgId',
+				type: 'string | undefined',
+			},
+			{
+				name: 'originContainerAri',
 				type: 'string | undefined',
 			},
 			{
@@ -24251,6 +24324,11 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				type: 'string | undefined',
 				description:
 					'Atlassian organization id. Required by User Recommendations for team search in some tenants\n(see Smart User Picker `orgId` / request `context.organizationId`).',
+			},
+			{
+				name: 'originContainerAri',
+				type: 'string | undefined',
+				description: 'Jira project that launched the current creation journey.',
 			},
 			{
 				name: 'productKey',
@@ -25152,6 +25230,12 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				defaultValue: 'false',
 			},
 			{
+				name: 'menuButtonProps',
+				type: 'Partial<Pick<Omit<CommonIconButtonProps & AdditionalButtonVariantProps & Omit<AdditionalHTMLElementPropsExtender<Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "children">>, "onClick" | ... 2 more ... | keyof CommonBaseProps> & CommonBaseProps & { ...; } & React.RefAttributes<...>, "ref"> & { ...; }, "label" | ...',
+				description:
+					'Optional sidebar-toggle presentation; existing modes keep the menu icon and label.',
+			},
+			{
 				name: 'menuButtonRef',
 				type: 'React.Ref<HTMLButtonElement> | undefined',
 			},
@@ -25480,7 +25564,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'conversation', 'list item'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { CHAT_STORE_STATUS } from '@atlassian/conversation-assistant-store/controllers/chat/types';\nimport type { Conversation } from '@atlassian/conversation-assistant-ui-components/types';\nimport { ChatConversationListRefresh } from '@atlassian/conversation-assistant-ui-components/ui/chat-conversation-list-refresh/ChatConversationListRefresh';\nconst styles = cssMap({ container: { height: '420px', width: '360px' } });\nconst initialConversation: Conversation = {\n\tid: 'release-plan',\n\tname: 'Prepare the release plan',\n\tlastMessage: 'Two dependencies still need an owner.',\n\tlastMessageTimestamp: new Date().toISOString(),\n\tisEmpty: false,\n\tstatus: CHAT_STORE_STATUS.idle,\n\tlastAgentMessageStatus: 'SUCCESSFUL',\n};\nexport default function ChatConversationListRefreshExample(): React.JSX.Element {\n\tconst [conversations, setConversations] = useState([initialConversation]);\n\tconst [searchQuery, setSearchQuery] = useState('');\n\tconst [activeConversationId, setActiveConversationId] = useState(initialConversation.id);\n\tconst [nextConversationNumber, setNextConversationNumber] = useState(1);\n\tconst startNewConversation = () => {\n\t\tconst conversation: Conversation = {\n\t\t\tid: `new-conversation-${nextConversationNumber}`,\n\t\t\tname: 'New conversation',\n\t\t\tlastMessageTimestamp: new Date().toISOString(),\n\t\t\tisEmpty: true,\n\t\t\tstatus: CHAT_STORE_STATUS.idle,\n\t\t};\n\t\tsetNextConversationNumber((number) => number + 1);\n\t\tsetConversations((items) => [conversation, ...items]);\n\t\tsetActiveConversationId(conversation.id);\n\t\tsetSearchQuery('');\n\t};\n\tconst deleteConversation = async (id: string) => {\n\t\tconst remaining = conversations.filter((item) => item.id !== id);\n\t\tsetConversations(remaining);\n\t\tif (activeConversationId === id) {\n\t\t\tsetActiveConversationId(remaining[0]?.id ?? '');\n\t\t}\n\t};\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Box xcss={styles.container}>\n\t\t\t\t<ChatConversationListRefresh\n\t\t\t\t\tconversations={conversations}\n\t\t\t\t\tsearchQuery={searchQuery}\n\t\t\t\t\ttitle=\"Conversation history\"\n\t\t\t\t\tsearchPlaceholderText=\"Search conversations\"\n\t\t\t\t\tisSpinnerOverlayConversationIconEnabled={false}\n\t\t\t\t\tisFullScreen={false}\n\t\t\t\t\tonSearchQueryChange={setSearchQuery}\n\t\t\t\t\tonConversationSelect={setActiveConversationId}\n\t\t\t\t\tonConversationEdit={async (id, name) =>\n\t\t\t\t\t\tsetConversations((items) =>\n\t\t\t\t\t\t\titems.map((item) => (item.id === id ? { ...item, name } : item)),\n\t\t\t\t\t\t)\n\t\t\t\t\t}\n\t\t\t\t\tonConversationDelete={deleteConversation}\n\t\t\t\t\tonNewChatClick={startNewConversation}\n\t\t\t\t/>\n\t\t\t\t<Text role=\"status\">Active conversation: {activeConversationId}</Text>\n\t\t\t</Box>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { cssMap } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { CHAT_STORE_STATUS } from '@atlassian/conversation-assistant-store/controllers/chat/types';\nimport type { Conversation } from '@atlassian/conversation-assistant-ui-components/types';\nimport { ChatConversationListRefresh } from '@atlassian/conversation-assistant-ui-components/ui/chat-conversation-list-refresh/ChatConversationListRefresh';\nconst styles = cssMap({ container: { height: '420px', width: '360px' } });\nconst initialConversation: Conversation = {\n\tid: 'release-plan',\n\tname: 'Prepare the release plan',\n\tlastMessage: 'Two dependencies still need an owner.',\n\tlastMessageTimestamp: new Date().toISOString(),\n\tisEmpty: false,\n\tstatus: CHAT_STORE_STATUS.idle,\n\tlastAgentMessageStatus: 'SUCCESSFUL',\n};\nexport default function ChatConversationListRefreshExample(): React.JSX.Element {\n\tconst [conversations, setConversations] = useState([initialConversation]);\n\tconst [searchQuery, setSearchQuery] = useState('');\n\tconst [activeConversationId, setActiveConversationId] = useState(initialConversation.id);\n\tconst [nextConversationNumber, setNextConversationNumber] = useState(1);\n\tconst startNewConversation = () => {\n\t\tconst conversation: Conversation = {\n\t\t\tid: `new-conversation-${nextConversationNumber}`,\n\t\t\tname: 'New conversation',\n\t\t\tlastMessageTimestamp: new Date().toISOString(),\n\t\t\tisEmpty: true,\n\t\t\tstatus: CHAT_STORE_STATUS.idle,\n\t\t};\n\t\tsetNextConversationNumber((number) => number + 1);\n\t\tsetConversations((items) => [conversation, ...items]);\n\t\tsetActiveConversationId(conversation.id);\n\t\tsetSearchQuery('');\n\t};\n\tconst deleteConversation = async (id: string) => {\n\t\tconst remaining = conversations.filter((item) => item.id !== id);\n\t\tsetConversations(remaining);\n\t\tif (activeConversationId === id) {\n\t\t\tsetActiveConversationId(remaining[0]?.id ?? '');\n\t\t}\n\t};\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Box xcss={styles.container}>\n\t\t\t\t<ChatConversationListRefresh\n\t\t\t\t\tconversations={conversations}\n\t\t\t\t\tsearchQuery={searchQuery}\n\t\t\t\t\ttitle=\"Conversation history\"\n\t\t\t\t\tsearchPlaceholderText=\"Search conversations\"\n\t\t\t\t\tisSpinnerOverlayConversationIconEnabled={false}\n\t\t\t\t\tisFullScreen={false}\n\t\t\t\t\tonSearchQueryChange={setSearchQuery}\n\t\t\t\t\tonConversationSelect={setActiveConversationId}\n\t\t\t\t\tonConversationEdit={async (id, name) =>\n\t\t\t\t\t\tsetConversations((items) =>\n\t\t\t\t\t\t\titems.map((item) => (item.id === id ? { ...item, name } : item)),\n\t\t\t\t\t\t)\n\t\t\t\t\t}\n\t\t\t\t\tonConversationDelete={deleteConversation}\n\t\t\t\t\tonNewChatClick={startNewConversation}\n\t\t\t\t/>\n\t\t\t\t<div role=\"status\">\n\t\t\t\t\t<Text>Active conversation: {activeConversationId}</Text>\n\t\t\t\t</div>\n\t\t\t</Box>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -26303,6 +26387,12 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				defaultValue: 'false',
 			},
 			{
+				name: 'menuButtonProps',
+				type: 'Partial<Pick<Omit<CommonIconButtonProps & AdditionalButtonVariantProps & Omit<AdditionalHTMLElementPropsExtender<Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "children">>, "onClick" | ... 2 more ... | keyof CommonBaseProps> & CommonBaseProps & { ...; } & React.RefAttributes<...>, "ref"> & { ...; }, "label" | ...',
+				description:
+					'Optional sidebar-toggle presentation; existing modes keep the menu icon and label.',
+			},
+			{
 				name: 'menuButtonRef',
 				type: 'React.Ref<HTMLButtonElement> | undefined',
 			},
@@ -26354,7 +26444,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'header', 'display mode'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { type RovoChatOpenMode } from '@atlaskit/rovo-triggers/params-types';\nimport { ChatHeaderSwitchModeMenu } from '@atlassian/conversation-assistant-ui-components/ui/ChatHeaderSwitchModeMenu';\nexport default function ChatHeaderSwitchModeExample(): React.JSX.Element {\n\tconst [mode, setMode] = useState<RovoChatOpenMode | 'fullscreen'>('sidebar');\n\tconst [isMenuOpen, setIsMenuOpen] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<ChatHeaderSwitchModeMenu\n\t\t\t\t\tmode={mode}\n\t\t\t\t\tshowLargeModalOption\n\t\t\t\t\tisLargeModalAvailable\n\t\t\t\t\tonLargeModalModeChange={() => setMode('fullscreen')}\n\t\t\t\t\tisSwitchModeDropdownOpen={isMenuOpen}\n\t\t\t\t\tsetIsSwitchModeDropdownOpen={setIsMenuOpen}\n\t\t\t\t\tonModeChange={({ requested }) => setMode(requested)}\n\t\t\t\t\tonFullscreenClick={() => setMode('mini-modal')}\n\t\t\t\t/>\n\t\t\t\t<Text>Rovo Chat is open in {mode} mode.</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { type RovoChatOpenMode } from '@atlaskit/rovo-triggers/params-types';\nimport { ChatHeaderSwitchModeMenu } from '@atlassian/conversation-assistant-ui-components/ui/ChatHeaderSwitchModeMenu';\nexport default function ChatHeaderSwitchModeExample(): React.JSX.Element {\n\tconst [mode, setMode] = useState<RovoChatOpenMode>('sidebar');\n\tconst [isMenuOpen, setIsMenuOpen] = useState(false);\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.150\">\n\t\t\t\t<ChatHeaderSwitchModeMenu\n\t\t\t\t\tmode={mode}\n\t\t\t\t\tlargeModalOption\n\t\t\t\t\tisSwitchModeDropdownOpen={isMenuOpen}\n\t\t\t\t\tsetIsSwitchModeDropdownOpen={setIsMenuOpen}\n\t\t\t\t\tonModeChange={({ requested }) => setMode(requested)}\n\t\t\t\t\tonFullscreenClick={() => setMode('mini-modal')}\n\t\t\t\t/>\n\t\t\t\t<Text>Rovo Chat is open in {mode} mode.</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -26367,33 +26457,23 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				defaultValue: 'false',
 			},
 			{
-				name: 'isLargeModalAvailable',
-				type: 'boolean | undefined',
-				description:
-					'Hosts opt in after supporting the in-page modal and applying their rollout gate.',
-				defaultValue: 'false',
-			},
-			{
 				name: 'isSwitchModeDropdownOpen',
 				type: 'boolean',
 				isRequired: true,
 			},
 			{
+				name: 'largeModalOption',
+				type: 'boolean | undefined',
+				description: 'undefined hides Full screen; false shows it disabled; true enables it.',
+			},
+			{
 				name: 'mode',
-				type: 'RovoChatOpenMode | "fullscreen" | undefined',
-				description:
-					'Display state only; does not extend the modes accepted by Rovo trigger events.',
+				type: 'RovoChatOpenMode | undefined',
 				defaultValue: '"sidebar"',
 			},
 			{
 				name: 'onFullscreenClick',
 				type: '(() => void) | undefined',
-			},
-			{
-				name: 'onLargeModalModeChange',
-				type: '(() => void) | undefined',
-				description:
-					'Opens the in-page modal; onFullscreenClick continues to open the separate page.',
 			},
 			{
 				name: 'onModeChange',
@@ -26403,13 +26483,6 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				name: 'setIsSwitchModeDropdownOpen',
 				type: '(isOpen: boolean) => void',
 				isRequired: true,
-			},
-			{
-				name: 'showLargeModalOption',
-				type: 'boolean | undefined',
-				description:
-					'Show the in-page Full screen option, disabled until a host connects the modal.',
-				defaultValue: 'false',
 			},
 		],
 	},
@@ -26860,7 +26933,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'spotlight', 'onboarding'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { DiProvider, injectable } from 'react-magnetic-di';\nimport Button from '@atlaskit/button/default/button';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { useAnalytics } from '@atlassian/conversation-assistant-instrumentation/controllers/analytics';\nimport { usePostOfficeCoordination } from '@atlassian/conversation-assistant-onboarding/controllers/post-office-migration';\nimport { useConversationAssistantSpotlightState } from '@atlassian/conversation-assistant-onboarding/controllers/spotlight';\nimport { SpotlightWrapper } from '@atlassian/conversation-assistant-ui-components/ui/ConversationAssistantButton';\nconst createDependencies = (activeSpotlight: number | null) => [\n\tinjectable(usePostOfficeCoordination, () => [false, () => {}] as const),\n\tinjectable(useAnalytics, () => ({ sendAnalyticsEvent: () => {} })),\n\tinjectable(useConversationAssistantSpotlightState, () => ({ activeSpotlight })),\n];\nfunction HostSurface(): React.JSX.Element {\n\tconst [showOnboarding, setShowOnboarding] = useState(true);\n\tconst [status, setStatus] = useState('Host surface is ready.');\n\treturn (\n\t\t<>\n\t\t\t<SpotlightWrapper\n\t\t\t\tmessageId=\"rovo-chat-onboarding\"\n\t\t\t\torgId=\"example-org\"\n\t\t\t\tsiteId=\"example-site\"\n\t\t\t\tshouldShowMessage={showOnboarding}\n\t\t\t\tsetShouldShowMessage={setShowOnboarding}\n\t\t\t\topenRovoChat={() =>\n\t\t\t\t\tsetStatus('Host navigation callback received; connect this to the product chat route.')\n\t\t\t\t}\n\t\t\t>\n\t\t\t\t<Button onClick={() => setStatus('Launcher activated in the local host example.')}>\n\t\t\t\t\tAsk Rovo\n\t\t\t\t</Button>\n\t\t\t</SpotlightWrapper>\n\t\t\t<Text role=\"status\">{status}</Text>\n\t\t</>\n\t);\n}\nexport default function SpotlightWrapperHostWiringExample({\n\tactiveSpotlight = null,\n}: {\n\tactiveSpotlight?: number | null;\n}): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<DiProvider use={createDependencies(activeSpotlight)}>\n\t\t\t\t<HostSurface />\n\t\t\t</DiProvider>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { DiProvider, injectable } from 'react-magnetic-di';\nimport Button from '@atlaskit/button/default/button';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { useAnalytics } from '@atlassian/conversation-assistant-instrumentation/controllers/analytics';\nimport { usePostOfficeCoordination } from '@atlassian/conversation-assistant-onboarding/controllers/post-office-migration';\nimport { useConversationAssistantSpotlightState } from '@atlassian/conversation-assistant-onboarding/controllers/spotlight';\nimport { SpotlightWrapper } from '@atlassian/conversation-assistant-ui-components/ui/ConversationAssistantButton';\nconst createDependencies = (activeSpotlight: number | null) => [\n\tinjectable(usePostOfficeCoordination, () => [false, () => {}] as const),\n\tinjectable(useAnalytics, () => ({ sendAnalyticsEvent: () => {} })),\n\tinjectable(useConversationAssistantSpotlightState, () => ({ activeSpotlight })),\n];\nfunction HostSurface(): React.JSX.Element {\n\tconst [showOnboarding, setShowOnboarding] = useState(true);\n\tconst [status, setStatus] = useState('Host surface is ready.');\n\treturn (\n\t\t<>\n\t\t\t<SpotlightWrapper\n\t\t\t\tmessageId=\"rovo-chat-onboarding\"\n\t\t\t\torgId=\"example-org\"\n\t\t\t\tsiteId=\"example-site\"\n\t\t\t\tshouldShowMessage={showOnboarding}\n\t\t\t\tsetShouldShowMessage={setShowOnboarding}\n\t\t\t\topenRovoChat={() =>\n\t\t\t\t\tsetStatus('Host navigation callback received; connect this to the product chat route.')\n\t\t\t\t}\n\t\t\t>\n\t\t\t\t<Button onClick={() => setStatus('Launcher activated in the local host example.')}>\n\t\t\t\t\tAsk Rovo\n\t\t\t\t</Button>\n\t\t\t</SpotlightWrapper>\n\t\t\t<div role=\"status\">\n\t\t\t\t<Text>{status}</Text>\n\t\t\t</div>\n\t\t</>\n\t);\n}\nexport default function SpotlightWrapperHostWiringExample({\n\tactiveSpotlight = null,\n}: {\n\tactiveSpotlight?: number | null;\n} = {}): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<DiProvider use={createDependencies(activeSpotlight)}>\n\t\t\t\t<HostSurface />\n\t\t\t</DiProvider>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -29306,7 +29379,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['rovo', 'chat', 'a2ui', 'message'],
 		category: 'rovo',
 		examples: [
-			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { ADS_CATALOG_ID } from '@atlaskit/a2ui-catalog/v0_9/catalog-id';\nimport type { A2uiSurfaceAdapterRovoMessage } from '@atlassian/a2ui-renderer-next/v0_9/a2ui-surface-adapter-rovo';\nimport { A2uiSurfaceEntryPointRenderer } from '@atlassian/conversation-assistant/ui/chat-history/A2uiSurfaceEntryPointRenderer';\nconst messages: A2uiSurfaceAdapterRovoMessage[] = [\n\t{ createSurface: { surfaceId: 'project-access', catalogId: ADS_CATALOG_ID } },\n\t{\n\t\tupdateComponents: {\n\t\t\tsurfaceId: 'project-access',\n\t\t\tcomponents: [\n\t\t\t\t{ id: 'root', component: 'Column', children: ['heading', 'details', 'request'] },\n\t\t\t\t{ id: 'heading', component: 'Text', text: 'Project access request' },\n\t\t\t\t{\n\t\t\t\t\tid: 'details',\n\t\t\t\t\tcomponent: 'Text',\n\t\t\t\t\ttext: 'Ask your project admin to add you to the workspace.',\n\t\t\t\t},\n\t\t\t\t{ id: 'request', component: 'Button', child: 'request-label', variant: 'primary' },\n\t\t\t\t{ id: 'request-label', component: 'Text', text: 'Request access' },\n\t\t\t],\n\t\t},\n\t},\n];\nexport default function A2uiSurfaceEntryPointExample(): React.JSX.Element {\n\tconst [actionMessage, setActionMessage] = useState('');\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.100\">\n\t\t\t\t<Box>\n\t\t\t\t\t<A2uiSurfaceEntryPointRenderer\n\t\t\t\t\t\tmessages={messages}\n\t\t\t\t\t\tonAction={() => setActionMessage('Request access selected in this example.')}\n\t\t\t\t\t\tanalyticsProduct=\"confluence\"\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t\t<p role=\"status\">{actionMessage}</p>\n\t\t\t\t<Text color=\"color.text.subtle\" size=\"small\">\n\t\t\t\t\tThe surface uses the ADS catalog; action handling remains with the host.\n\t\t\t\t</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport { IntlProvider } from 'react-intl';\nimport { ADS_CATALOG_ID } from '@atlaskit/a2ui-catalog/v0_9/catalog-id';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport type { A2uiSurfaceAdapterRovoMessage } from '@atlassian/a2ui-renderer-next/v0_9/a2ui-surface-adapter-rovo';\nimport { A2uiSurfaceEntryPointRenderer } from '@atlassian/conversation-assistant/ui/chat-history/A2uiSurfaceEntryPointRenderer';\nconst messages: A2uiSurfaceAdapterRovoMessage[] = [\n\t{ createSurface: { surfaceId: 'project-access', catalogId: ADS_CATALOG_ID } },\n\t{\n\t\tupdateComponents: {\n\t\t\tsurfaceId: 'project-access',\n\t\t\tcomponents: [\n\t\t\t\t{ id: 'root', component: 'Column', children: ['heading', 'details', 'request'] },\n\t\t\t\t{ id: 'heading', component: 'Text', text: 'Project access request' },\n\t\t\t\t{\n\t\t\t\t\tid: 'details',\n\t\t\t\t\tcomponent: 'Text',\n\t\t\t\t\ttext: 'Ask your project admin to add you to the workspace.',\n\t\t\t\t},\n\t\t\t\t{ id: 'request', component: 'Button', child: 'request-label', variant: 'primary' },\n\t\t\t\t{ id: 'request-label', component: 'Text', text: 'Request access' },\n\t\t\t],\n\t\t},\n\t},\n];\nexport default function A2uiSurfaceEntryPointExample(): React.JSX.Element {\n\tconst [actionMessage, setActionMessage] = useState('');\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<Stack space=\"space.100\">\n\t\t\t\t<Box>\n\t\t\t\t\t<A2uiSurfaceEntryPointRenderer\n\t\t\t\t\t\tmessages={messages}\n\t\t\t\t\t\tonAction={() => setActionMessage('Request access selected in this example.')}\n\t\t\t\t\t\tanalyticsProduct=\"confluence\"\n\t\t\t\t\t/>\n\t\t\t\t</Box>\n\t\t\t\t<p role=\"status\">{actionMessage}</p>\n\t\t\t\t<Text color=\"color.text.subtle\" size=\"small\">\n\t\t\t\t\tThe surface uses the ADS catalog; action handling remains with the host.\n\t\t\t\t</Text>\n\t\t\t</Stack>\n\t\t</IntlProvider>\n\t);\n}",
 		],
 		props: [
 			{
@@ -29412,7 +29485,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'config',
-				type: '{ useCurrentBrowsingContext?: boolean | undefined; autocompletePageContentSource?: AutocompletePageContentSource | undefined; onPromptSent?: ((context: PromptSentContext) => void | Promise<...>) | undefined; ... 30 more ...; loadLocalModelAutocomplete?: (() => Promise<...>) | undefined; }',
+				type: '{ isAgentCreditsEnabled?: boolean | undefined; useCurrentBrowsingContext?: boolean | undefined; autocompletePageContentSource?: AutocompletePageContentSource | undefined; ... 33 more ...; loadLocalModelAutocomplete?: (() => Promise<...>) | undefined; }',
 				isRequired: true,
 			},
 			{
@@ -29511,7 +29584,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'config',
-				type: '{ useCurrentBrowsingContext?: boolean | undefined; autocompletePageContentSource?: AutocompletePageContentSource | undefined; onPromptSent?: ((context: PromptSentContext) => void | Promise<...>) | undefined; ... 30 more ...; loadLocalModelAutocomplete?: (() => Promise<...>) | undefined; }',
+				type: '{ isAgentCreditsEnabled?: boolean | undefined; useCurrentBrowsingContext?: boolean | undefined; autocompletePageContentSource?: AutocompletePageContentSource | undefined; ... 33 more ...; loadLocalModelAutocomplete?: (() => Promise<...>) | undefined; }',
 				isRequired: true,
 			},
 			{
@@ -29831,6 +29904,10 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				type: '((invocationId: string) => StoreAssistant | undefined) | undefined',
 			},
 			{
+				name: 'getResultAcceptanceAttributesForAskQuestionByContentId',
+				type: '((contentId: string) => AskQuestionResultAcceptanceAttributes) | undefined',
+			},
+			{
 				name: 'hideRestrictAccessCheckbox',
 				type: 'boolean | undefined',
 			},
@@ -29899,7 +29976,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'config',
-				type: '{ useCurrentBrowsingContext?: boolean | undefined; autocompletePageContentSource?: AutocompletePageContentSource | undefined; onPromptSent?: ((context: PromptSentContext) => void | Promise<...>) | undefined; ... 30 more ...; loadLocalModelAutocomplete?: (() => Promise<...>) | undefined; }',
+				type: '{ isAgentCreditsEnabled?: boolean | undefined; useCurrentBrowsingContext?: boolean | undefined; autocompletePageContentSource?: AutocompletePageContentSource | undefined; ... 33 more ...; loadLocalModelAutocomplete?: (() => Promise<...>) | undefined; }',
 				isRequired: true,
 			},
 			{
@@ -32940,7 +33017,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'config',
-				type: '{ useCurrentBrowsingContext?: boolean | undefined; autocompletePageContentSource?: AutocompletePageContentSource | undefined; onPromptSent?: ((context: PromptSentContext) => void | Promise<...>) | undefined; ... 30 more ...; loadLocalModelAutocomplete?: (() => Promise<...>) | undefined; }',
+				type: '{ isAgentCreditsEnabled?: boolean | undefined; useCurrentBrowsingContext?: boolean | undefined; autocompletePageContentSource?: AutocompletePageContentSource | undefined; ... 33 more ...; loadLocalModelAutocomplete?: (() => Promise<...>) | undefined; }',
 				description:
 					'Config passed directly to the ConversationAssistant in the full screen chat stage.',
 				isRequired: true,
@@ -33434,6 +33511,11 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 					'Atlassian organization id. Required by User Recommendations for team search in some tenants\n(see Smart User Picker `orgId` / request `context.organizationId`).',
 			},
 			{
+				name: 'originContainerAri',
+				type: 'string | undefined',
+				description: 'Jira project that launched the current creation journey.',
+			},
+			{
 				name: 'productKey',
 				type: 'string',
 				description: 'Product key',
@@ -33701,6 +33783,11 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				type: 'string | undefined',
 				description:
 					'Atlassian organization id. Required by User Recommendations for team search in some tenants\n(see Smart User Picker `orgId` / request `context.organizationId`).',
+			},
+			{
+				name: 'originContainerAri',
+				type: 'string | undefined',
+				description: 'Jira project that launched the current creation journey.',
 			},
 			{
 				name: 'productKey',
@@ -35020,7 +35107,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			'The SVG is hidden from assistive technology; the Tile or hexagon wrapper exposes `label` as its accessible name. Keep a meaningful label unless nearby visible text already supplies it.',
 			'The `agent` hexagon is visual styling, not an agent role. Include “agent” in the label when that distinction is important to understand.',
 		],
-		designSource: {
+		references: {
 			figmaUrl:
 				'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/%F0%9F%8C%AE-ADS-Components?node-id=146761-5643',
 		},
@@ -39524,7 +39611,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				name: 'defaultPanelWidth',
 				type: 'number | undefined',
 				description:
-					'Initial uncontrolled width, in pixels. Subsequent prop changes are ignored.\nA previously saved provider preference takes precedence over this default on remount.\nWithout a preference, navigation supplies 365px, or 400px with chat layout enabled.\nCompact layouts start at 320px unless a product-supplied or previously saved width exists.',
+					'Initial uncontrolled width, in pixels. Subsequent prop changes are ignored.\nA previously saved provider preference takes precedence over this default on remount.\nWithout a preference, navigation supplies 365px, or 400px with chat layout enabled\n(500px at XL viewports, 110.5rem / 1768px and above).\nCompact layouts start at 320px unless a product-supplied or previously saved width exists.',
 			},
 			{
 				name: 'onPanelWidthChange',
@@ -39564,6 +39651,12 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				type: 'string | undefined',
 				description:
 					'Localized accessible name for the resize control. Defaults to "Resize panel".',
+			},
+			{
+				name: 'xlDefaultPanelWidth',
+				type: 'number | undefined',
+				description:
+					'Initial default at XL viewports with chat layout enabled. Defaults to 500px,\nor defaultPanelWidth when supplied. Saved, controlled and resized widths take precedence.',
 			},
 		],
 	},
@@ -40352,7 +40445,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			'Match the skeleton button count and icon treatment to the actions that will appear.',
 			'Use the same action names for skeleton placeholders and loaded actions to keep the transition predictable.',
 		],
-		designSource: {
+		references: {
 			figmaUrl:
 				'https://www.figma.com/design/LxyatPUV6zfQwv1MvN3obf/Bulk-actions-pattern?node-id=1550-45498',
 		},
@@ -40391,7 +40484,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		contentGuidelines: [
 			'Keep the wrapper associated with the content whose selection state it represents.',
 		],
-		designSource: {
+		references: {
 			figmaUrl:
 				'https://www.figma.com/design/LxyatPUV6zfQwv1MvN3obf/Bulk-actions-pattern?node-id=1550-45498',
 		},
@@ -40450,7 +40543,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			'The toolbar exposes toolbar semantics and manages keyboard movement across its actions. Keep every action name meaningful, including actions that become icon-only or move into overflow.',
 			'When the selection is cleared or the toolbar closes, return focus to a logical control in the associated content.',
 		],
-		designSource: {
+		references: {
 			figmaUrl:
 				'https://www.figma.com/design/LxyatPUV6zfQwv1MvN3obf/Bulk-actions-pattern?node-id=1550-45498',
 		},
@@ -43044,6 +43137,10 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				defaultValue: 'false',
 			},
 			{
+				name: 'autoActionApprovalEnabled',
+				type: 'boolean | undefined',
+			},
+			{
 				name: 'highlightWebSearchPreference',
 				type: 'boolean | undefined',
 				defaultValue: 'false',
@@ -43056,6 +43153,10 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				name: 'onAllowMemoryChange',
 				type: '(checked: boolean) => void | Promise<void>',
 				isRequired: true,
+			},
+			{
+				name: 'onAutoActionApprovalEnabledChange',
+				type: '((checked: boolean) => void | Promise<void>) | undefined',
 			},
 			{
 				name: 'onEditResponseWritingStyle',
@@ -43091,6 +43192,10 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<ReactNode> | React.ReactPortal | null | undefined',
 				description:
 					"Proactive feature settings rendered last, after the response and writing style settings.\nThe host owns the section's content, its card and its feedback flags.",
+			},
+			{
+				name: 'rovoHighlights',
+				type: 'RovoHighlightsProps | undefined',
 			},
 			{
 				name: 'webSearchDefaultEnabled',
@@ -43209,6 +43314,11 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 					'Whether the ADS navigation (left-nav) is enabled rather than the in-component navigation',
 			},
 			{
+				name: 'isInline',
+				type: 'boolean | undefined',
+				description: 'Render navigation in a containing surface instead of an animated overlay.',
+			},
+			{
 				name: 'isNewAllConversationScreenEnabled',
 				type: 'boolean | undefined',
 			},
@@ -43228,7 +43338,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'mode',
-				type: '"sidebar" | "mini-modal" | "fullscreen"',
+				type: '"sidebar" | "mini-modal" | "large-modal" | "fullscreen"',
 				isRequired: true,
 			},
 			{
@@ -45778,6 +45888,10 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				isRequired: true,
 			},
 			{
+				name: 'getResultAcceptanceAttributesForAskQuestionByContentId',
+				type: '((contentId: string) => AskQuestionResultAcceptanceAttributes) | undefined',
+			},
+			{
 				name: 'hideRestrictAccessCheckbox',
 				type: 'boolean | undefined',
 			},
@@ -45828,7 +45942,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'resultAcceptanceAttributesForAskQuestion',
-				type: '{ disambiguationUsedOnCreation: boolean; disambiguationUsedOnEdit: boolean; } | undefined',
+				type: 'AskQuestionResultAcceptanceAttributes | undefined',
 			},
 			{
 				name: 'selectedPreviewMessage',
@@ -52885,12 +52999,35 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				defaultValue: 'false',
 			},
 			{
+				name: 'isPortalDisabled',
+				type: 'boolean | undefined',
+				defaultValue: 'false',
+			},
+			{
+				name: 'isSaving',
+				type: 'boolean | undefined',
+				defaultValue: 'false',
+			},
+			{
 				name: 'onPortalEnabledChange',
-				type: '((enabled: boolean) => void) | undefined',
+				type: '((enabled: boolean) => boolean | void | Promise<boolean | void>) | undefined',
+			},
+			{
+				name: 'portalEnabled',
+				type: 'boolean | undefined',
+			},
+			{
+				name: 'portalError',
+				type: 'string | undefined',
 			},
 			{
 				name: 'portalUrl',
 				type: 'string | undefined',
+			},
+			{
+				name: 'showSlack',
+				type: 'boolean | undefined',
+				defaultValue: 'true',
 			},
 			{
 				name: 'slackHelpUrl',
@@ -52936,12 +53073,41 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		],
 		props: [
 			{
+				name: 'categories',
+				type: 'GuidanceCategory[] | undefined',
+			},
+			{
 				name: 'defaultGuidance',
 				type: 'Guidance[] | undefined',
 			},
 			{
+				name: 'guidance',
+				type: 'Guidance[] | undefined',
+			},
+			{
+				name: 'isSaving',
+				type: 'boolean | undefined',
+				defaultValue: 'false',
+			},
+			{
+				name: 'onCreate',
+				type: '((guidance: Guidance) => GuidanceSaveResult) | undefined',
+			},
+			{
+				name: 'onDelete',
+				type: '((guidance: Guidance) => GuidanceSaveResult) | undefined',
+			},
+			{
+				name: 'onEnabledChange',
+				type: '((guidance: Guidance, enabled: boolean) => GuidanceSaveResult) | undefined',
+			},
+			{
 				name: 'onGuidanceChange',
 				type: '((guidance: Guidance[]) => void) | undefined',
+			},
+			{
+				name: 'onUpdate',
+				type: '((guidance: Guidance) => GuidanceSaveResult) | undefined',
 			},
 		],
 	},
@@ -52968,25 +53134,43 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				type: 'string[] | undefined',
 			},
 			{
+				name: 'defaultDescription',
+				type: 'string | undefined',
+				defaultValue: '""',
+			},
+			{
 				name: 'defaultName',
 				type: 'string | undefined',
 			},
 			{
 				name: 'defaultTone',
 				type: 'Tone | undefined',
-				defaultValue: '"standard"',
+				defaultValue: '"STANDARD"',
 			},
 			{
 				name: 'onConversationStartersSave',
-				type: '((starters: string[]) => void) | undefined',
+				type: '((starters: string[]) => SaveResult) | undefined',
+			},
+			{
+				name: 'onDescriptionSave',
+				type: '((description: string) => SaveResult) | undefined',
 			},
 			{
 				name: 'onNameSave',
-				type: '((name: string) => void) | undefined',
+				type: '((name: string) => SaveResult) | undefined',
 			},
 			{
 				name: 'onToneSave',
-				type: '((tone: Tone) => void) | undefined',
+				type: '((tone: Tone) => SaveResult) | undefined',
+			},
+			{
+				name: 'sectionStates',
+				type: 'Partial<Record<keyof IdentityValues, { isDisabled?: boolean | undefined; isSaving?: boolean | undefined; }>> | undefined',
+				defaultValue: '{}',
+			},
+			{
+				name: 'value',
+				type: 'IdentityValues | undefined',
 			},
 		],
 	},
@@ -54419,6 +54603,21 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		examples: [],
 		props: [
 			{
+				name: 'definitionId',
+				type: 'string | null | undefined',
+				description: '',
+			},
+			{
+				name: 'definitionSource',
+				type: 'AgentStudioToolDefinitionSource | null | undefined',
+				description: '',
+			},
+			{
+				name: 'description',
+				type: 'string | null | undefined',
+				description: '',
+			},
+			{
 				name: 'displayName',
 				type: 'string',
 				description: '',
@@ -54434,6 +54633,11 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				type: 'string',
 				description: '',
 				isRequired: true,
+			},
+			{
+				name: 'tags',
+				type: 'readonly string[] | null | undefined',
+				description: '',
 			},
 		],
 	},
@@ -55430,6 +55634,10 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				type: 'boolean | undefined',
 			},
 			{
+				name: 'slots',
+				type: '{ primaryAction?: React.ReactNode; } | undefined',
+			},
+			{
 				name: 'spacing',
 				type: '"default" | "compact" | undefined',
 			},
@@ -56103,6 +56311,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			'Use for a small, curated set of recommended agents whose summaries need more room; use AgentList for dense browse results.',
 			'Use slots.wrapper with the same children contract as AgentCard to wrap the entire hero, including its summary and actions. The decorative preview is not wrapped separately.',
 			'Keep the chat action separate from selecting or opening the agent, and make the summary explain what the agent can help with.',
+			'Use the primaryAction override to replace the default Chat button with a custom primary action; the consumer supplies the already-translated label, an optional ADS icon, and the click handler, keeping the shared card copy-agnostic.',
 			'Use a disabled hero card when a featured agent is temporarily unavailable but its summary should remain visible. Explain the unavailable state nearby rather than relying on muted colors alone.',
 		],
 		keywords: ['studio', 'browse'],
@@ -56162,7 +56371,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'slots',
-				type: 'Pick<{ wrapper?: React.ComponentType<CardWrapperProps> | undefined; cover?: React.ComponentType<CardCoverProps> | null | undefined; content?: React.ComponentType<...> | ... 1 more ... | undefined; metadata?: React.ComponentType<...> | undefined; badge?: React.ComponentType<...> | undefined; footer?: React.ComponentT...',
+				type: '(Pick<{ wrapper?: React.ComponentType<CardWrapperProps> | undefined; cover?: React.ComponentType<CardCoverProps> | null | undefined; content?: React.ComponentType<...> | ... 1 more ... | undefined; metadata?: React.ComponentType<...> | undefined; badge?: React.ComponentType<...> | undefined; footer?: React.Component...',
 			},
 			{
 				name: 'xcss',

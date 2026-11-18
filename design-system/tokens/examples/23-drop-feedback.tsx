@@ -28,8 +28,9 @@ const styles = cssMap({
 		borderColor: token('color.border'),
 		borderRadius: token('radius.small'),
 	},
+	available: { backgroundColor: token('color.background.droptarget') },
 	accepting: {
-		backgroundColor: token('color.background.droptarget'),
+		backgroundColor: token('color.background.droptarget.hovered'),
 		borderColor: token('color.border.dropindicator'),
 	},
 	blocked: { borderColor: token('color.border.dropindicator.warning') },
@@ -62,9 +63,10 @@ export default function DropFeedbackExample(): JSX.Element {
 				<strong>Drag-and-drop color roles</strong>
 				<div css={styles.region}>Ordinary area: no active destination feedback</div>
 				<div css={[styles.region, styles.selected]}>Selected item: persistent selection</div>
+				<div css={[styles.region, styles.available]}>Available drop destination</div>
 				<div css={[styles.region, styles.accepting]}>
 					<Stack space="space.100">
-						<span>Active eligible receiving area</span>
+						<span>Current drop destination: dragged item is over this target</span>
 						<div css={styles.insertion} />
 						<span>Insert before this item</span>
 					</Stack>

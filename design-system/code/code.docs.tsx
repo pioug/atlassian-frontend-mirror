@@ -6,7 +6,7 @@ const documentation: StructuredContentSource = {
 			name: 'Code',
 			description: 'Use for short code snippets inline with body text.',
 			status: 'general-availability',
-			designSource: {
+			references: {
 				figmaUrl: 'https://go.atlassian.com/figma-library-ads-27203-107369',
 			},
 			import: {

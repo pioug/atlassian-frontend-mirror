@@ -36,6 +36,23 @@ const POST_AUTH_CHAT_PAYLOAD_EXTENSION_KEY = 'google-drive';
 
 const SMART_LINK_3P_POST_AUTH_SOURCE = 'smart-link-3p-post-auth';
 
+const getAuthServiceKey = (authUrl: string): string | undefined => {
+	try {
+		const keys = new URL(authUrl).searchParams.getAll('serviceKey');
+		return keys.length === 1 && keys[0] ? keys[0] : undefined;
+	} catch {
+		return undefined;
+	}
+};
+
+const getProviderName = (details: Parameters<typeof extractSmartLinkProvider>[0]) => {
+	try {
+		return extractSmartLinkProvider(details)?.text || undefined;
+	} catch {
+		return undefined;
+	}
+};
+
 const getPostAuthChatPayloadId = () => {
 	if (typeof crypto !== 'undefined') {
 		if (typeof crypto.randomUUID === 'function') {
@@ -105,7 +122,7 @@ export const useSmartCardActions = (
 
 	const flags = useActionFlags();
 
-	const { store, rovoOptions } = useSmartLinkContext();
+	const { store, rovoOptions, onSmartLinkAuthFailed } = useSmartLinkContext();
 	const rovoOptionsRef = useRef(rovoOptions);
 	rovoOptionsRef.current = rovoOptions;
 	const { getState, dispatch } = store;
@@ -220,6 +237,26 @@ export const useSmartCardActions = (
 					definitionId: definitionId ?? null,
 				});
 
+				// Host reporting failures must not interrupt auth-error handling.
+				const reportAuthFailure = (err: AuthError) => {
+					if (!onSmartLinkAuthFailed) {
+						return;
+					}
+					const serviceKey = getAuthServiceKey(services[0].url);
+					const providerName = getProviderName(details);
+					try {
+						void Promise.resolve(
+							onSmartLinkAuthFailed({
+								statusBeforeAuth: status,
+								...(err?.type && { reason: err.type }),
+								...(extensionKey && { extensionKey }),
+								...(serviceKey && { serviceKey }),
+								...(providerName && { providerName }),
+							}),
+						).catch(() => {});
+					} catch {}
+				};
+
 				auth(services[0].url).then(
 					() => {
 						fireEvent('track.applicationAccount.connected', {
@@ -265,6 +302,7 @@ export const useSmartCardActions = (
 							definitionId: definitionId ?? null,
 							reason: err.type ?? null,
 						});
+						reportAuthFailure(err);
 						if (err.type === 'auth_window_closed') {
 							fireEvent('ui.consentModal.closed', {
 								display: appearance,
@@ -276,7 +314,7 @@ export const useSmartCardActions = (
 				);
 			}
 		},
-		[getSmartLinkState, id, reload, fireEvent, flags, url],
+		[getSmartLinkState, id, reload, fireEvent, flags, url, onSmartLinkAuthFailed],
 	);
 
 	const invoke = useCallback(

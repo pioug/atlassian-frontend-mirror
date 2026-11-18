@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 34.1.0
+
+### Minor Changes
+
+- [`c9aa1da87dfcf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c9aa1da87dfcf) -
+  Add optional product-supplied credit checks for AI emoji creation. Editor emoji pickers read the
+  existing AI plugin credit action, exposed to Editor consumers through
+  `emoji.actions.getAICreditStatus`. Confluence enables enforcement with confluence_ubp_ai_credits.
+
+  Share the picker credit callback through the existing emoji context instead of intermediate props.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 34.0.1
 
 ### Patch Changes

@@ -3,37 +3,10 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-
 import TextArea from '../../text-area';
 
 describe('atomic textarea styles', () => {
-	it('preserves state attributes and arbitrary row counts with atomic styles disabled', async () => {
-		failGate('platform-textarea-atomic-styles');
-		const { container, rerender } = render(
-			<TextArea aria-label="Description" minimumRows={7} resize="none" />,
-		);
-		const input = screen.getByRole('textbox');
-		expect(input).toHaveAttribute('rows', '7');
-		expect(input).toHaveCompiledCss('min-height', '154px', {
-			target: ':not([data-compact])',
-		});
-		rerender(
-			<TextArea aria-label="Description" minimumRows={7} resize="none" isCompact isInvalid />,
-		);
-		expect(input).toHaveAttribute('data-compact', 'true');
-		expect(input).toHaveAttribute('data-invalid', 'true');
-		expect(input).toHaveCompiledCss('min-height', '118px', {
-			target: '[data-compact]',
-		});
-		rerender(<TextArea aria-label="Description" minimumRows={3} resize="none" appearance="none" />);
-		expect(input).not.toHaveAttribute('data-compact');
-		expect(input).not.toHaveAttribute('data-invalid');
-		await expect(container).toBeAccessible();
-	});
-
-	it('omits styling attributes and preserves arbitrary row counts with atomic styles enabled', async () => {
-		passGate('platform-textarea-atomic-styles');
+	it('preserves arbitrary row counts across state changes', async () => {
 		const { container, rerender } = render(
 			<TextArea aria-label="Description" minimumRows={7} resize="none" />,
 		);
@@ -43,20 +16,15 @@ describe('atomic textarea styles', () => {
 		rerender(
 			<TextArea aria-label="Description" minimumRows={7} resize="none" isCompact isInvalid />,
 		);
-		expect(input).not.toHaveAttribute('data-compact');
-		expect(input).not.toHaveAttribute('data-invalid');
 		expect(input).toHaveStyle({ minHeight: '118px' });
 		expect(input.style.lineHeight).toBe(String(16 / 14));
 		expect(input).toHaveCompiledCss('border-color', 'var(--ds-border-danger,#e2483d)');
 		rerender(<TextArea aria-label="Description" minimumRows={3} resize="none" appearance="none" />);
-		expect(input).not.toHaveAttribute('data-compact');
-		expect(input).not.toHaveAttribute('data-invalid');
 		expect(input).toHaveStyle({ minHeight: '76px' });
 		await expect(container).toBeAccessible();
 	});
 
 	it('preserves and removes a consumer minimum height across density changes', async () => {
-		passGate('platform-textarea-atomic-styles');
 		const { container, rerender } = render(
 			<TextArea
 				aria-label="Description"
@@ -83,7 +51,6 @@ describe('atomic textarea styles', () => {
 	});
 
 	it('preserves and removes a consumer font across density changes', async () => {
-		passGate('platform-textarea-atomic-styles');
 		const { container, rerender } = render(
 			<TextArea aria-label="Description" resize="none" style={{ font: '16px/24px monospace' }} />,
 		);

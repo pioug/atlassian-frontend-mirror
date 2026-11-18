@@ -112,5 +112,3 @@ export const DropdownItemGroup: React.ForwardRefExoticComponent<
 		);
 	},
 );
-
-export default DropdownItemGroup;

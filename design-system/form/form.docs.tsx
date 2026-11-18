@@ -67,7 +67,7 @@ const documentation: StructuredContentSource = {
 				'Use RequiredAsterisk legend for required field indication',
 			],
 			contentGuidelines: ['Use clear, descriptive form titles', 'Keep descriptions concise'],
-			designSource: {
+			references: {
 				figmaUrl: 'https://go.atlassian.com/figma-library-ads-14470-110748',
 			},
 			examples: [
@@ -100,7 +100,7 @@ const documentation: StructuredContentSource = {
 				'Use action verbs in button labels',
 				'Primary button reflects the form action',
 			],
-			designSource: {
+			references: {
 				figmaUrl:
 					'https://www.figma.com/design/BGz5AdkWe3yTIYdKnTSZuY/ADS-Components?node-id=13078-30855',
 			},

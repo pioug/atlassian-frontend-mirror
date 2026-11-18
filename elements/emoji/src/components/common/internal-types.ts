@@ -1,8 +1,10 @@
 import type { EmojiProvider } from '../../api/EmojiResource';
+import type { GetAICreditStatus } from '../../credit-check';
 
 export interface EmojiContext {
 	emoji: {
 		emojiProvider: EmojiProvider;
+		getAICreditStatus?: GetAICreditStatus;
 	};
 }
 

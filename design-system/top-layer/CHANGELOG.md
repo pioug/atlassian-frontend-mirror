@@ -1,5 +1,14 @@
 # @atlaskit/top-layer
 
+## 8.1.1
+
+### Patch Changes
+
+- [`6beaa0621181d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6beaa0621181d) -
+  Replace ds-lib keyboard constant imports with their native KeyboardEvent values. Keyboard handling
+  is unchanged.
+- Updated dependencies
+
 ## 8.1.0
 
 ### Minor Changes

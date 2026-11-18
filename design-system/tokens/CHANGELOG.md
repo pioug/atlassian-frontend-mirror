@@ -1,5 +1,17 @@
 # @atlaskit/tokens
 
+## 20.14.0
+
+### Minor Changes
+
+- [`8194c1350b8f9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8194c1350b8f9) -
+  Add color.background.droptarget.hovered for the current drop destination during dragging. Preserve
+  color.background.droptarget for available destinations and keep ordinary pointer hover separate.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.13.0
 
 ### Minor Changes

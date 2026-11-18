@@ -6,7 +6,7 @@ const documentation: StructuredContentSource = {
 			name: 'DropdownMenu',
 			description: 'A dropdown menu component for displaying contextual actions and options.',
 			status: 'general-availability',
-			designSource: {
+			references: {
 				figmaUrl: 'https://go.atlassian.com/figma-library-ads-81040-12691',
 			},
 			import: {

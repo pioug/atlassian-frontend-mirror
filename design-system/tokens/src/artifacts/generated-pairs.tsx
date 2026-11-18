@@ -4,7 +4,7 @@
  * Auto-generated list of token pairings that may need to have sufficient contrast.
  * Not currently used by tests, but is used by the custom theme contrast checker example
  *
- * @codegen <<SignedSource::ae9f2c264bc0445a0fe19ce4c997f233>>
+ * @codegen <<SignedSource::59911e7481f67c8b02518b0a04d92abc>>
  * @codegenCommand yarn build tokens
  */
 export const generatedPairs: {
@@ -346,6 +346,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.text',
 		background: 'color.background.droptarget',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.text',
+		background: 'color.background.droptarget.hovered',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -2295,6 +2301,12 @@ export const generatedPairs: {
 	},
 	{
 		foreground: 'color.text.subtlest',
+		background: 'color.background.droptarget.hovered',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.text.subtlest',
 		background: 'color.background.input',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
@@ -2770,6 +2782,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.text.subtle',
 		background: 'color.background.droptarget',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.text.subtle',
+		background: 'color.background.droptarget.hovered',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -3325,6 +3343,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.link',
 		background: 'color.background.droptarget',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.link',
+		background: 'color.background.droptarget.hovered',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -3881,6 +3905,12 @@ export const generatedPairs: {
 	},
 	{
 		foreground: 'color.link.pressed',
+		background: 'color.background.droptarget.hovered',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.link.pressed',
 		background: 'color.background.input',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
@@ -4436,6 +4466,12 @@ export const generatedPairs: {
 	},
 	{
 		foreground: 'color.link.visited',
+		background: 'color.background.droptarget.hovered',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.link.visited',
 		background: 'color.background.input',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
@@ -4991,6 +5027,12 @@ export const generatedPairs: {
 	},
 	{
 		foreground: 'color.link.visited.pressed',
+		background: 'color.background.droptarget.hovered',
+		desiredContrast: 4.5,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.link.visited.pressed',
 		background: 'color.background.input',
 		desiredContrast: 4.5,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
@@ -5541,6 +5583,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.icon',
 		background: 'color.background.droptarget',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.icon',
+		background: 'color.background.droptarget.hovered',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -6818,6 +6866,12 @@ export const generatedPairs: {
 	},
 	{
 		foreground: 'color.icon.subtlest',
+		background: 'color.background.droptarget.hovered',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.icon.subtlest',
 		background: 'color.background.input',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
@@ -7293,6 +7347,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.icon.subtle',
 		background: 'color.background.droptarget',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.icon.subtle',
+		background: 'color.background.droptarget.hovered',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -8178,6 +8238,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.border.dropindicator',
 		background: 'color.background.droptarget',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.dropindicator',
+		background: 'color.background.droptarget.hovered',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},
@@ -9222,6 +9288,12 @@ export const generatedPairs: {
 	{
 		foreground: 'color.border.bold',
 		background: 'color.background.droptarget',
+		desiredContrast: 3,
+		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
+	},
+	{
+		foreground: 'color.border.bold',
+		background: 'color.background.droptarget.hovered',
 		desiredContrast: 3,
 		layeredTokens: ['color.background.neutral.subtle', 'color.background.neutral'],
 	},

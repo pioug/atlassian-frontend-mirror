@@ -35,7 +35,7 @@ const documentation: StructuredContentSource = {
 				'Announce tab changes to screen readers',
 				'Ensure tab content is accessible',
 			],
-			designSource: {
+			references: {
 				figmaUrl: 'https://go.atlassian.com/figma-library-ads-5775-8556',
 			},
 			examples: [

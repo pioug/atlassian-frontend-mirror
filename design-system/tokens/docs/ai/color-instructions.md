@@ -252,8 +252,14 @@ Use `color.border.input.search` for search input borders. Continue to use `color
 
 - `color.border.dropindicator` identifies an active accepting target outline or a before/after
   insertion position. Geometry distinguishes these operations; keyboard focus stays separate.
-- `color.background.droptarget` tints only the active eligible receiving area when area feedback
-  is needed. It is not ordinary hover, persistent selection, or a universal placeholder fill.
+- `color.background.droptarget` highlights available eligible destinations during a drag, when
+  the experience shows available targets.
+- `color.background.droptarget.hovered` highlights the current receiving destination according to
+  the experience’s targeting rules. Here, hovered means drag-over, not ordinary pointer hover.
+  Restore the available appearance on exit if the target remains eligible, and clear drag feedback
+  on completion or cancellation. For keyboard dragging, show equivalent feedback for the current
+  destination while keeping actual focus identifiable independently. Neither background represents
+  persistent selection or reserved placeholder space.
 - `color.border.dropindicator.warning` communicates a blocked instruction. Do not add an accepting
   background to a blocked region.
 - `color.background.draghandle` is for a prominent filled handle, not every draggable item or
@@ -265,7 +271,7 @@ The increased-contrast themes strengthen the indicator and filled-handle colors.
 
 The existing custom-brand generator does not override these roles, so custom-branded themes inherit
 the default drag colors. The experimental dynamic themes map them to their dynamic foreground and
-background colors. Agree custom-brand mappings before migrating consumers that rely on branded
+background colors, including a stronger dynamic background for drag-over. Agree custom-brand mappings before migrating consumers that rely on branded
 drag feedback; track that adoption work in DSP-26302. Keep the blocked-drop warning role separate
 from the accepting destination, and check the indicator against the destination fill at 3:1.
 

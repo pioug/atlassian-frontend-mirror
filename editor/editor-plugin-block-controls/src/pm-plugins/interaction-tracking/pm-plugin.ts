@@ -8,7 +8,6 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
 
 import type { BlockControlsPlugin } from '../../blockControlsPluginType';
 import { RIGHT_MARGIN_ROVO_GAP_PX } from './constants';
@@ -193,7 +192,7 @@ export const createInteractionTrackingPlugin = (
 					mouseLeaveTimeoutId = null;
 				}
 
-				// Preserve the existing hover targets for the control cohort.
+				// Preserve hover while moving onto block controls or an active click area.
 				if (
 					rightSideControlsEnabled &&
 					(isMovingToBlockControlsArea(event.relatedTarget) ||
@@ -203,7 +202,6 @@ export const createInteractionTrackingPlugin = (
 				}
 				if (
 					rightSideControlsEnabled &&
-					isExperimentEnabled('cc_maui_remix_button_hover_corridor') &&
 					isOverTreatmentClickArea(event.relatedTarget, editorContentArea, event.clientX)
 				) {
 					return;
@@ -211,7 +209,7 @@ export const createInteractionTrackingPlugin = (
 
 				mouseLeaveTimeoutId = setTimeout(() => {
 					mouseLeaveTimeoutId = null;
-					// Re-check the control cohort's existing hover targets after the debounce.
+					// Re-check hover targets after the debounce.
 					if (rightSideControlsEnabled && typeof document !== 'undefined') {
 						const el = document.elementFromPoint(lastMousePosition.x, lastMousePosition.y);
 						if (
@@ -220,11 +218,7 @@ export const createInteractionTrackingPlugin = (
 						) {
 							return;
 						}
-						if (
-							el &&
-							isExperimentEnabled('cc_maui_remix_button_hover_corridor') &&
-							isOverTreatmentClickArea(el, editorContentArea, lastMousePosition.x)
-						) {
+						if (el && isOverTreatmentClickArea(el, editorContentArea, lastMousePosition.x)) {
 							return;
 						}
 					}
@@ -266,24 +260,11 @@ export const createInteractionTrackingPlugin = (
 
 			if (editorContentArea) {
 				if (rightSideControlsEnabled && typeof document !== 'undefined') {
-					// RemixButtonDecoration fires exposure when the control is visible; this
-					// mount-time split only selects the appropriate interaction listener.
-					if (
-						UNSAFE_expValNoExposure('cc_maui_remix_button_hover_corridor', 'isEnabled', false) ===
-						true
-					) {
-						unbindDocumentMouseMove = bind(document, {
-							type: 'mousemove',
-							listener: handleTreatmentDocumentMouseMove,
-							options: { passive: true },
-						});
-					} else {
-						unbindDocumentMouseMove = bind(document, {
-							type: 'mousemove',
-							listener: handleDocumentMouseMove,
-							options: { passive: true },
-						});
-					}
+					unbindDocumentMouseMove = bind(document, {
+						type: 'mousemove',
+						listener: handleTreatmentDocumentMouseMove,
+						options: { passive: true },
+					});
 				}
 
 				unbindMouseEnter = bind(editorContentArea, {

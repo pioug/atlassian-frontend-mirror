@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type ChangeEvent, useCallback, useState } from 'react';
+import { type ChangeEvent, useCallback, useContext, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -16,6 +16,8 @@ import TextField from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 
 import { generateEmojiImage } from '../../api/ai/generateEmojiImage';
+import { EmojiContext } from '../../context/EmojiContext';
+import { checkEmojiAICreditStatus } from '../../credit-check';
 import { slugifyPrompt } from '../../util/ai-emoji';
 import { aiGenerationCompletedEvent } from '../../util/analytics/aiGenerationCompletedEvent';
 import { aiGenerationFailedEvent } from '../../util/analytics/aiGenerationFailedEvent';
@@ -73,6 +75,8 @@ export interface CreateEmojiWithRovoProps {
 
 const CreateEmojiWithRovo = (props: CreateEmojiWithRovoProps): JSX.Element => {
 	const { contentId, fireAnalytics, onEmojiGenerated } = props;
+	const getAICreditStatus = useContext(EmojiContext)?.emoji.getAICreditStatus;
+	const creditStatus = checkEmojiAICreditStatus(getAICreditStatus);
 	const { formatMessage } = useIntl();
 
 	const [prompt, setPrompt] = useState('');
@@ -87,7 +91,7 @@ const CreateEmojiWithRovo = (props: CreateEmojiWithRovoProps): JSX.Element => {
 
 	const onGenerate = useCallback(async () => {
 		const trimmedPrompt = prompt.trim();
-		if (!trimmedPrompt || isGenerating) {
+		if (!trimmedPrompt || isGenerating || checkEmojiAICreditStatus(getAICreditStatus).isBlocked) {
 			return;
 		}
 
@@ -117,7 +121,7 @@ const CreateEmojiWithRovo = (props: CreateEmojiWithRovoProps): JSX.Element => {
 		} finally {
 			setIsGenerating(false);
 		}
-	}, [contentId, fireAnalytics, isGenerating, onEmojiGenerated, prompt]);
+	}, [contentId, fireAnalytics, isGenerating, onEmojiGenerated, prompt, getAICreditStatus]);
 
 	const generateDisabled = !prompt.trim() || isGenerating;
 
@@ -134,30 +138,34 @@ const CreateEmojiWithRovo = (props: CreateEmojiWithRovoProps): JSX.Element => {
 				</Text>
 			</div>
 
-			<div css={promptRowStyles}>
-				<span css={promptInputStyles}>
-					<TextField
-						value={prompt}
-						onChange={onPromptChange}
-						placeholder={formatMessage(messages.createEmojiWithRovoPromptPlaceholder)}
-						aria-label={formatMessage(messages.createEmojiWithRovoPromptAriaLabel)}
-						isCompact
-						isDisabled={isGenerating}
-						testId={createEmojiWithRovoPromptTestId}
+			{creditStatus.isBlocked ? (
+				<div role="status">{creditStatus.renderCustomContent()}</div>
+			) : (
+				<div css={promptRowStyles}>
+					<span css={promptInputStyles}>
+						<TextField
+							value={prompt}
+							onChange={onPromptChange}
+							placeholder={formatMessage(messages.createEmojiWithRovoPromptPlaceholder)}
+							aria-label={formatMessage(messages.createEmojiWithRovoPromptAriaLabel)}
+							isCompact
+							isDisabled={isGenerating}
+							testId={createEmojiWithRovoPromptTestId}
+						/>
+					</span>
+					<IconButton
+						appearance="primary"
+						icon={ArrowUpIcon}
+						label={formatMessage(messages.createEmojiWithRovoGenerateLabel)}
+						isDisabled={generateDisabled}
+						isLoading={isGenerating}
+						onClick={onGenerate}
+						testId={createEmojiWithRovoGenerateTestId}
 					/>
-				</span>
-				<IconButton
-					appearance="primary"
-					icon={ArrowUpIcon}
-					label={formatMessage(messages.createEmojiWithRovoGenerateLabel)}
-					isDisabled={generateDisabled}
-					isLoading={isGenerating}
-					onClick={onGenerate}
-					testId={createEmojiWithRovoGenerateTestId}
-				/>
-			</div>
+				</div>
+			)}
 
-			{hasError && (
+			{!creditStatus.isBlocked && hasError && (
 				<EmojiErrorMessage
 					errorStyle="chooseFile"
 					message={<FormattedMessage {...messages.createEmojiWithRovoError} />}

@@ -1,4 +1,5 @@
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import type { GetAICreditStatus as GetEditorAICreditStatus } from '@atlaskit/editor-common/credit-guard/types';
 import type { Command } from '@atlaskit/editor-common/types/command';
 import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import type {
@@ -17,6 +18,7 @@ import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead/type-ah
 import type { TypeAheadInputMethod } from '@atlaskit/editor-plugin-type-ahead/types';
 import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry/ui-control-registry-plugin-type';
 import type { SelectionBookmark } from '@atlaskit/editor-prosemirror/state';
+import type { GetAICreditStatus } from '@atlaskit/emoji/credit-check';
 import type { EmojiResourceConfig } from '@atlaskit/emoji/emoji-resource';
 import type { EmojiDescription, EmojiId, EmojiProvider } from '@atlaskit/emoji/types';
 
@@ -46,6 +48,13 @@ type EditorViewModePluginType = NextEditorPlugin<
 	'editorViewMode',
 	{ sharedState: EditorViewModePluginState }
 >;
+
+// Depend on the action's public shape without importing the internal AI plugin.
+type AICreditPlugin = NextEditorPlugin<
+	'aiExperience',
+	{ actions: { getAICreditStatus?: GetEditorAICreditStatus } }
+>;
+
 export interface EmojiPluginOptions {
 	/** Content identifier forwarded to content-aware emoji picker experiences. */
 	contentId?: string;
@@ -82,11 +91,13 @@ export type EmojiPluginCommands = {
 };
 
 export type EmojiPluginActions = {
+	getAICreditStatus: GetAICreditStatus;
 	openTypeAhead: (inputMethod: TypeAheadInputMethod) => boolean;
 	setProvider: (provider: Promise<EmojiProvider>) => Promise<boolean>;
 };
 
 export type EmojiPluginDependencies = [
+	OptionalPlugin<AICreditPlugin>,
 	OptionalPlugin<AnalyticsPlugin>,
 	TypeAheadPlugin,
 	OptionalPlugin<AnnotationPluginType>,

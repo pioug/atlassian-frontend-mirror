@@ -22,8 +22,7 @@ export type LayoutAreaConfig = {
 
 export type StoredLayoutArea = LayoutAreaConfig & {
 	/**
-	 * Local panels share this preference across inline and overlay modes.
-	 * SideNav and ChatPanel retain separate overlay preferences.
+	 * Preferred inline width. Local panels also use it for overlays when chat layout is disabled.
 	 */
 	preferredWidth?: number;
 	preferredOverlayWidth?: number;

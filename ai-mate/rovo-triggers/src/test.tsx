@@ -46,6 +46,113 @@ describe('PubSub', () => {
 			unmountAfterCommand();
 		});
 
+		it('preserves rejected replay without claiming its consumption key', () => {
+			const queued: Payload = { ...payload, consumeOnce: true };
+			publish(topic, queued);
+			const rejected = jest.fn();
+			const first = renderHook(() =>
+				useSubscribe(
+					{ topic, triggerLatest: true, consumeOnceKey: 'filtered-replay', filter: () => false },
+					rejected,
+				),
+			);
+			const accepted = jest.fn();
+			const second = renderHook(() =>
+				useSubscribe({ topic, triggerLatest: true, consumeOnceKey: 'filtered-replay' }, accepted),
+			);
+			expect(rejected).not.toHaveBeenCalled();
+			expect(accepted).toHaveBeenCalledTimes(1);
+			expect(accepted).toHaveBeenCalledWith(queued);
+			first.unmount();
+			second.unmount();
+		});
+
+		it('filters live events before claiming the shared consumption key', () => {
+			const rejected = jest.fn();
+			const accepted = jest.fn();
+			const first = renderHook(() =>
+				useSubscribe({ topic, consumeOnceKey: 'filtered-live', filter: () => false }, rejected),
+			);
+			const second = renderHook(() =>
+				useSubscribe({ topic, consumeOnceKey: 'filtered-live' }, accepted),
+			);
+			publish(topic, { ...payload, consumeOnce: true });
+			expect(rejected).not.toHaveBeenCalled();
+			expect(accepted).toHaveBeenCalledTimes(1);
+			first.unmount();
+			second.unmount();
+		});
+
+		it('uses the latest filter without resubscribing or replaying on rerender', () => {
+			const callback = jest.fn();
+			publish(topic, payload);
+			const hook = renderHook(
+				({ accept }) =>
+					useSubscribe({ topic, triggerLatest: true, filter: () => accept }, callback),
+				{ initialProps: { accept: false } },
+			);
+			hook.rerender({ accept: true });
+			expect(callback).not.toHaveBeenCalled();
+			publish(topic, payload);
+			expect(callback).toHaveBeenCalledTimes(1);
+			hook.rerender({ accept: false });
+			publish(topic, payload);
+			expect(callback).toHaveBeenCalledTimes(1);
+			hook.unmount();
+		});
+
+		it('preserves a new event published synchronously during replay', () => {
+			const approved: Payload = {
+				...payload,
+				data: { prompt: 'Approved launch' },
+				consumeOnce: true,
+			};
+			publish(topic, payload);
+			const { unmount } = renderHook(() =>
+				useSubscribe({ topic, triggerLatest: true }, (event) => {
+					if (event === payload) {
+						publish(topic, approved);
+					}
+				}),
+			);
+			const lateConsumer = jest.fn();
+			const { unmount: unmountLate } = renderHook(() =>
+				useSubscribe({ topic, triggerLatest: true, consumeOnceKey: 'late-launch' }, lateConsumer),
+			);
+			expect(lateConsumer).toHaveBeenCalledTimes(1);
+			expect(lateConsumer).toHaveBeenCalledWith(approved);
+			const { unmount: unmountDuplicate } = renderHook(() =>
+				useSubscribe({ topic, triggerLatest: true, consumeOnceKey: 'late-launch' }, lateConsumer),
+			);
+			expect(lateConsumer).toHaveBeenCalledTimes(1);
+			unmount();
+			unmountLate();
+			unmountDuplicate();
+		});
+
+		it('clears replay when its callback publishes an ignored notification', () => {
+			publish(topic, payload);
+			const { unmount } = renderHook(() =>
+				useSubscribe({ topic, triggerLatest: true }, (event) => {
+					if (event === payload) {
+						publish(topic, {
+							type: 'agent-editor-open-tools',
+							openChat: false,
+							source: 'studio',
+							data: { agentId: 'agent-id', cloudId: 'cloud-id' },
+						});
+					}
+				}),
+			);
+			const lateConsumer = jest.fn();
+			const { unmount: unmountLate } = renderHook(() =>
+				useSubscribe({ topic, triggerLatest: true }, lateConsumer),
+			);
+			expect(lateConsumer).not.toHaveBeenCalled();
+			unmount();
+			unmountLate();
+		});
+
 		it('should publish without requiring a React hook', () => {
 			const { unmount } = renderHook(() => useSubscribe({ topic }, callback));
 

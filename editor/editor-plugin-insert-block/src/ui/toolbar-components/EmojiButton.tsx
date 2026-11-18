@@ -43,6 +43,7 @@ export const EmojiButton = ({ api }: BaseToolbarButtonProps): React.JSX.Element 
 		<>
 			<EmojiPickerPopup
 				contentId={contentId}
+				getAICreditStatus={api.emoji.actions.getAICreditStatus}
 				isOpen={emojiPickerPopup.isOpen}
 				targetRef={emojiButtonRef}
 				emojiProvider={emojiProviderPromise}

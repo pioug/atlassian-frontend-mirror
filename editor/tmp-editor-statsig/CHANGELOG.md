@@ -1,5 +1,25 @@
 # @atlaskit/editor-statsig-tmp
 
+## 266.0.0
+
+### Major Changes
+
+- [`767f4c9a9e766`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/767f4c9a9e766) -
+  Clean up experiment `platform_editor_controls` and kill switch
+  `platform_editor_controls_other_apps_ks`; the editor controls (variant1) experience is now
+  permanent. `platform_editor_controls` is removed from `EditorExperimentsConfig`, so
+  `editorExperiment('platform_editor_controls', ...)` no longer type-checks. Remove those calls and
+  keep the `variant1` branch.
+
+## 265.0.0
+
+### Major Changes
+
+- [`9ab5a817ea01c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9ab5a817ea01c) -
+  Clean up the `cc_maui_remix_button_hover_corridor` experiment, retaining the shipped
+  `isEnabled: true` Remix button hover corridor behaviour and removing the experiment from the
+  editor experiments config.
+
 ## 264.0.2
 
 ### Patch Changes

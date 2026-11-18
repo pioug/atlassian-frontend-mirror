@@ -1,5 +1,50 @@
 # @atlaskit/ds-lib
 
+## 9.0.0
+
+### Major Changes
+
+- [`3dfa9b3eda9dd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3dfa9b3eda9dd) -
+  Remove the `@atlaskit/ds-lib/keycodes` entrypoint. Its AFM consumers now use native
+  `KeyboardEvent` values directly, and the remaining internal Escape comparison is inline. This
+  removes a package boundary for string literals without changing keyboard behavior.
+
+  Replace each imported constant with its exact value:
+
+  | Removed export | Replacement    |
+  | -------------- | -------------- |
+  | `KEY_UP`       | `'ArrowUp'`    |
+  | `KEY_DOWN`     | `'ArrowDown'`  |
+  | `KEY_LEFT`     | `'ArrowLeft'`  |
+  | `KEY_RIGHT`    | `'ArrowRight'` |
+  | `KEY_HOME`     | `'Home'`       |
+  | `KEY_END`      | `'End'`        |
+  | `KEY_TAB`      | `'Tab'`        |
+  | `KEY_ENTER`    | `'Enter'`      |
+  | `KEY_SPACE`    | `'Space'`      |
+  | `ESCAPE`       | `'Escape'`     |
+
+  ```diff
+  -import { KEY_DOWN, KEY_ENTER, KEY_SPACE, ESCAPE } from '@atlaskit/ds-lib/keycodes';
+
+  -if (event.key === KEY_DOWN) {
+  +if (event.key === 'ArrowDown') {
+     moveToNextItem();
+   }
+  -if (event.code === KEY_SPACE || event.key === KEY_ENTER) {
+  +if (event.code === 'Space' || event.key === 'Enter') {
+     activate();
+   }
+  -if (event.key === ESCAPE) {
+  +if (event.key === 'Escape') {
+     close();
+   }
+  ```
+
+  Keep the existing event property: `KEY_SPACE` represented `event.code === 'Space'`. The
+  corresponding `event.key` value is a blank space (`' '`), not `'Space'`. Remove obsolete imports
+  and update any mocks or custom alias maps for this entrypoint.
+
 ## 8.0.1
 
 ### Patch Changes

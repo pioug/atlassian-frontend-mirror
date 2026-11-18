@@ -23,9 +23,15 @@ const SETTLED_STATUSES: ReadonlySet<CardType> = new Set<CardType>([
 	'not_found',
 ]);
 
-export const LazyIntersectionObserverCard: React.FC<CardWithUrlContentProps> = (
-	props: CardWithUrlContentProps,
-): React.JSX.Element => {
+export function LazyIntersectionObserverCard(props: CardWithUrlContentProps): React.JSX.Element {
+	if (fg('platform_smartlink_render_settled_link_on_mount')) {
+		return <LazyCardWithSettledRender {...props} />;
+	}
+
+	return <LegacyLazyCard {...props} />;
+}
+
+function LazyCardWithSettledRender(props: CardWithUrlContentProps): React.JSX.Element {
 	const [isIntersected, setIsIntersected] = useState(false);
 	const [shouldSendRenderedUFOEvent] = useState(shouldSample());
 	const { appearance, children, id, onError: onErrorCallback, ui, url } = props;
@@ -34,17 +40,16 @@ export const LazyIntersectionObserverCard: React.FC<CardWithUrlContentProps> = (
 	// loading placeholder, so its rendered experience starts before the card can succeed it.
 	const [isSettledOnMount] = useState(() => {
 		const status = store?.getState()[url]?.status;
-		const settled =
-			!!status &&
-			SETTLED_STATUSES.has(status) &&
-			fg('platform_smartlink_render_settled_link_on_mount');
+		const settled = !!status && SETTLED_STATUSES.has(status);
 		if (settled && shouldSendRenderedUFOEvent) {
 			startUfoExperience('smart-link-rendered', id);
 		}
 		return settled;
 	});
 	const prefetch = usePrefetch(url, appearance);
-	const ComponentObserver = appearance === 'inline' ? 'span' : 'div';
+	// Redundant for observation, but kept because many consumer styles depend on
+	// the placeholder wrapper's DOM hierarchy.
+	const PlaceholderWrapper = appearance === 'inline' ? 'span' : 'div';
 
 	const { onIntersecting: onSeenIntersecting, onStatusSettled } = useSmartLinkSeenEvent({
 		appearance,
@@ -81,22 +86,71 @@ export const LazyIntersectionObserverCard: React.FC<CardWithUrlContentProps> = (
 
 	const ref = useIntersectionObserver({ onIntersection });
 
-	let content: React.JSX.Element;
-	if (isSettledOnMount) {
-		content = (
-			<ComponentObserver ref={ref}>
-				<CardWithUrlContent {...props} onError={onError} />
-			</ComponentObserver>
-		);
-	} else if (isIntersected) {
-		content = <CardWithUrlContent {...props} onError={onError} />;
-	} else {
-		content = (
-			<ComponentObserver ref={ref}>
+	const content =
+		isSettledOnMount || isIntersected ? (
+			<CardWithUrlContent {...props} onError={onError} />
+		) : (
+			<PlaceholderWrapper>
 				<LoadingCardLink {...props} />
-			</ComponentObserver>
+			</PlaceholderWrapper>
 		);
-	}
+
+	return (
+		<CardLoaderWrapper appearance={appearance} ref={ref}>
+			{content}
+		</CardLoaderWrapper>
+	);
+}
+
+function LegacyLazyCard(props: CardWithUrlContentProps): React.JSX.Element {
+	const [isIntersected, setIsIntersected] = useState(false);
+	const [shouldSendRenderedUFOEvent] = useState(shouldSample());
+	const { appearance, children, id, onError: onErrorCallback, ui, url } = props;
+	const prefetch = usePrefetch(url, appearance);
+	const ComponentObserver = appearance === 'inline' ? 'span' : 'div';
+
+	const { onIntersecting: onSeenIntersecting, onStatusSettled } = useSmartLinkSeenEvent({
+		appearance,
+		children,
+		id,
+		ui,
+		url,
+	});
+
+	const onError: OnErrorCallback = useCallback(
+		(data) => {
+			if (data?.status) {
+				onStatusSettled(data.status);
+			}
+			onErrorCallback?.(data);
+		},
+		[onStatusSettled, onErrorCallback],
+	);
+
+	const onIntersection = useCallback(
+		(isIntersecting: boolean) => {
+			if (isIntersecting) {
+				if (shouldSendRenderedUFOEvent) {
+					startUfoExperience('smart-link-rendered', id);
+				}
+				onSeenIntersecting();
+				setIsIntersected(true);
+			} else {
+				prefetch();
+			}
+		},
+		[id, onSeenIntersecting, prefetch, shouldSendRenderedUFOEvent],
+	);
+
+	const ref = useIntersectionObserver({ onIntersection });
+
+	const content = isIntersected ? (
+		<CardWithUrlContent {...props} onError={onError} />
+	) : (
+		<ComponentObserver ref={ref}>
+			<LoadingCardLink {...props} />
+		</ComponentObserver>
+	);
 
 	return <CardLoaderWrapper appearance={appearance}>{content}</CardLoaderWrapper>;
-};
+}

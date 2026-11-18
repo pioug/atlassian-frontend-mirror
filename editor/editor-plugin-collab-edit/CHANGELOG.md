@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 35.1.0
+
+### Minor Changes
+
+- [`62503287902cb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/62503287902cb) -
+  Export TELEPOINTER_SELECTION_BADGE_CLASS and AI_IN_EDITOR_TELEPOINTER_CLASS from editor-common
+  collab and use them where telepointers are created
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 35.0.0
 
 ### Patch Changes

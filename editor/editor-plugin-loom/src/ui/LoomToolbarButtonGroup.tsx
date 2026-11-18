@@ -48,6 +48,6 @@ export const LoomToolbarButtonGroup = ({
 	children: ReactNode;
 } & Pick<LoomPluginOptions, 'renderButton'>): React.JSX.Element => (
 	<GroupChildrenContext.Provider value={children}>
-		{renderButton ? renderButton(EligibleButtonGroup) : <EligibleButtonGroup />}
+		{renderButton ? renderButton(EligibleButtonGroup, 'pinned-toolbar') : <EligibleButtonGroup />}
 	</GroupChildrenContext.Provider>
 );

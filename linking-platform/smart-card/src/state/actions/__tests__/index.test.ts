@@ -545,6 +545,105 @@ describe('Smart Card: Actions', () => {
 			expect(auth).toHaveBeenCalledWith('https://outbound-auth/flow');
 			expect(mockShowConnectFlag).not.toHaveBeenCalled();
 		});
+
+		const failAuth = () =>
+			asMockFunction(auth).mockRejectedValueOnce({ type: 'auth_window_closed' });
+
+		const withAuthUrl = (key: string, authUrl: string, generatorName?: string) => ({
+			...mocks.unauthorized,
+			meta: {
+				...mocks.unauthorized.meta,
+				key,
+				auth: [{ key: 'flow', displayName: 'Flow', url: authUrl }],
+			},
+			data: {
+				...mocks.unauthorized.data,
+				...(generatorName && {
+					generator: { '@type': 'Object', name: generatorName, icon: 'https://icon' },
+				}),
+			},
+		});
+		const dropboxAuthUrl =
+			'https://id.atlassian.com/outboundAuth/start?containerId=c1&serviceKey=dropbox';
+
+		it('reports the failed attempt with its service key and app name', async () => {
+			const onFailed = jest.fn().mockResolvedValue(undefined);
+			mockContext.onSmartLinkAuthFailed = onFailed;
+			failAuth();
+			await setup({
+				status: 'unauthorized',
+				details: withAuthUrl('dropbox-object-provider', dropboxAuthUrl, 'Dropbox'),
+			} as CardState);
+			expect(onFailed).toHaveBeenCalledWith({
+				statusBeforeAuth: 'unauthorized',
+				reason: 'auth_window_closed',
+				extensionKey: 'dropbox-object-provider',
+				serviceKey: 'dropbox',
+				providerName: 'Dropbox',
+			});
+		});
+
+		it.each([
+			['no service key', 'https://outbound-auth/flow'],
+			['two service keys', `${dropboxAuthUrl}&serviceKey=box`],
+			['an invalid URL', 'not a url'],
+		])('reports only the extension key when the auth URL has %s', async (_, authUrl) => {
+			const onFailed = jest.fn();
+			mockContext.onSmartLinkAuthFailed = onFailed;
+			failAuth();
+			await setup({
+				status: 'unauthorized',
+				details: withAuthUrl('onedrive-object-provider-v2', authUrl),
+			} as CardState);
+			expect(onFailed).toHaveBeenCalledWith({
+				statusBeforeAuth: 'unauthorized',
+				reason: 'auth_window_closed',
+				extensionKey: 'onedrive-object-provider-v2',
+			});
+		});
+
+		it('does not report a successful connection', async () => {
+			const onFailed = jest.fn();
+			mockContext.onSmartLinkAuthFailed = onFailed;
+			await setup({
+				status: 'unauthorized',
+				details: withAuthUrl('google-object-provider', dropboxAuthUrl),
+			} as CardState);
+			expect(onFailed).not.toHaveBeenCalled();
+		});
+
+		it('still handles the failure when the host callback throws or rejects', async () => {
+			mockContext.onSmartLinkAuthFailed = jest
+				.fn()
+				.mockImplementationOnce(() => {
+					throw new Error('unavailable');
+				})
+				.mockRejectedValueOnce('offline');
+			const details = withAuthUrl('slack-object-provider', dropboxAuthUrl);
+			failAuth();
+			await setup({ status: 'unauthorized', details } as CardState);
+			failAuth();
+			await setup({ status: 'unauthorized', details } as CardState);
+			expect(mockContext.onSmartLinkAuthFailed).toHaveBeenCalledTimes(2);
+		});
+
+		it('reports a forbidden flow with its status so the host can decide', async () => {
+			const onFailed = jest.fn();
+			mockContext.onSmartLinkAuthFailed = onFailed;
+			failAuth();
+			await setup({ status: 'forbidden', details: mocks.forbidden });
+			expect(onFailed).toHaveBeenCalledWith(
+				expect.objectContaining({ statusBeforeAuth: 'forbidden', reason: 'auth_window_closed' }),
+			);
+		});
+
+		it('omits the reason when the auth error has no type', async () => {
+			const onFailed = jest.fn();
+			mockContext.onSmartLinkAuthFailed = onFailed;
+			asMockFunction(auth).mockRejectedValueOnce({});
+			await setup({ status: 'unauthorized', details: mocks.unauthorized });
+			expect(onFailed.mock.calls[0][0]).not.toHaveProperty('reason');
+		});
 	});
 
 	describe('post-auth Chat auto-open', () => {

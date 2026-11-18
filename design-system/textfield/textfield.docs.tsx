@@ -41,9 +41,8 @@ const documentation: StructuredContentSource = {
 					source: `${__dirname}/examples/ai/textfield.tsx`,
 				},
 			],
-			designSource: {
+			references: {
 				figmaUrl: 'https://go.atlassian.com/figma-library-ads-13076-28181',
-				figmaNodeId: '13076:28181',
 			},
 			keywords: ['textfield', 'input', 'form', 'text', 'field', 'single-line'],
 			categories: ['form'],

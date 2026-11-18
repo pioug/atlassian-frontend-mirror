@@ -2,8 +2,6 @@ import { useCallback, useEffect, useRef } from 'react';
 
 import { bindAll } from 'bind-event-listener';
 
-import { ESCAPE } from '../utils/keycodes';
-
 interface UseCloseOnEscapePressOpts {
 	onClose: (e: KeyboardEvent) => void;
 	isDisabled?: boolean;
@@ -33,7 +31,7 @@ export default function useCloseOnEscapePress({
 
 	const onKeyDown = useCallback(
 		(e: KeyboardEvent) => {
-			if (isDisabled || escapePressed.current || e.key !== ESCAPE) {
+			if (isDisabled || escapePressed.current || e.key !== 'Escape') {
 				// We're either already handling the key down event or it's not escape.
 				// Bail early!
 				return;

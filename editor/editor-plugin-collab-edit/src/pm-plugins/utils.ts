@@ -8,6 +8,7 @@ import {
 	TELEPOINTER_DATA_SESSION_ID_ATTR,
 	TELEPOINTER_PULSE_DURING_TR_CLASS,
 	TELEPOINTER_PULSE_DURING_TR_DURATION_MS,
+	TELEPOINTER_SELECTION_BADGE_CLASS,
 } from '@atlaskit/editor-common/collab';
 import type { CollabEditOptions, CollabParticipant } from '@atlaskit/editor-common/collab';
 import { LocalOnlyStep } from '@atlaskit/editor-common/collab-local-only-step';
@@ -90,7 +91,7 @@ export const createTelepointers = (
 
 	const cursor = document.createElement('span');
 	cursor.textContent = ZERO_WIDTH_JOINER;
-	cursor.className = `telepointer color-${color} telepointer-selection-badge`;
+	cursor.className = `telepointer color-${color} ${TELEPOINTER_SELECTION_BADGE_CLASS}`;
 	cursor.style.cssText = `${style({ color: avatarColor.backgroundColor })};`;
 	cursor.setAttribute('aria-label', `${fullName} cursor position`);
 	cursor.setAttribute('role', 'button');

@@ -14,6 +14,7 @@ const EmojiPicker = (props: AkEmojiPickerProps) => {
 	return (
 		<AkEmojiPicker
 			contentId={props.contentId}
+			getAICreditStatus={props.getAICreditStatus}
 			onPickerRef={setOutsideClickTargetRef}
 			emojiProvider={props.emojiProvider}
 			onSelection={props.onSelection}
@@ -26,6 +27,7 @@ const EmojiPickerWithListeners = withOuterListeners(EmojiPicker);
 interface EmojiPickerPopupProps {
 	contentId?: string;
 	emojiProvider?: Promise<EmojiProvider>;
+	getAICreditStatus?: AkEmojiPickerProps['getAICreditStatus'];
 	isOpen: boolean;
 	onClickOutside: (e: MouseEvent) => void;
 	onEscapeKeydown: () => void;
@@ -39,6 +41,7 @@ interface EmojiPickerPopupProps {
 
 export const EmojiPickerPopup = ({
 	contentId,
+	getAICreditStatus,
 	isOpen,
 	targetRef,
 	emojiProvider,
@@ -70,6 +73,7 @@ export const EmojiPickerPopup = ({
 		>
 			<EmojiPickerWithListeners
 				contentId={contentId}
+				getAICreditStatus={getAICreditStatus}
 				emojiProvider={emojiProvider}
 				onSelection={onSelection}
 				handleClickOutside={onClickOutside}

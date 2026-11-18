@@ -6,7 +6,7 @@ const documentation: StructuredContentSource = {
 			name: 'InlineMessage',
 			description: 'In-context notification for more info, warning, error, or confirmation.',
 			status: 'general-availability',
-			designSource: {
+			references: {
 				figmaUrl: 'https://go.atlassian.com/figma-library-ads-13976-99230',
 			},
 			import: {

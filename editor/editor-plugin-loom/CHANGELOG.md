@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-loom
 
+## 35.1.0
+
+### Minor Changes
+
+- [`9f7771fd64312`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9f7771fd64312) -
+  Pass the pinned-toolbar surface to custom Loom button renderers behind
+  twc_growth_loom_conf_pinned_toolbar so products can exclude cross-sell entry points.
+- [`573deac034d8c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/573deac034d8c) -
+  Use block-aware Loom recording insertion across editor entry points behind
+  twc_growth_loom_conf_pinned_toolbar. Map the post-insertion cursor through all transaction steps.
+
 ## 35.0.0
 
 ### Patch Changes

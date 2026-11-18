@@ -7,7 +7,7 @@ const documentation: StructuredContentSource = {
 			description:
 				'A dynamic table displays rows of data with built-in pagination, sorting, and re-ordering functionality.',
 			status: 'general-availability',
-			designSource: {
+			references: {
 				figmaUrl: 'https://go.atlassian.com/figma-library-ads-76953-155820',
 			},
 			import: {

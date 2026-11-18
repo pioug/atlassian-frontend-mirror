@@ -1,7 +1,5 @@
 /* eslint-disable require-unicode-regexp  */
 
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-
 import type { SyncBlockSourceInfo } from '../../providers/types';
 import { fetchWithRetry } from '../../utils/retry';
 import { getJiraIssueAriFromSourceAri, parseJiraFieldLocation } from './ari';
@@ -192,9 +190,7 @@ export const fetchJiraWorkItemInfo = async (
 	const issueAri = getJiraIssueAriFromSourceAri({ ari: workItemAri });
 
 	if (hasAccess) {
-		const fieldLocation = isExperimentEnabled('editor_synced_blocks_jira_custom_rich_text')
-			? parseJiraFieldLocation({ ari: workItemAri })
-			: undefined;
+		const fieldLocation = parseJiraFieldLocation({ ari: workItemAri });
 		const response = await getJiraWorkItemSourceInfo(issueAri, fieldLocation?.fieldId);
 
 		const contentData = response.data?.jira?.issueById;

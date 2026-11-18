@@ -98,7 +98,10 @@ describe('search_components tool', () => {
 			terms: ['@atlaskit/button'],
 		});
 		expect(result.content).toHaveLength(1);
-		expect(JSON.parse(result.content[0].text as string)[0].name).toEqual('Button');
+		const button = JSON.parse(result.content[0].text as string)[0];
+		expect(button.name).toEqual('Button');
+		expect(button.references).toEqual({ figmaUrl: expect.stringContaining('https://') });
+		expect(button).not.toHaveProperty('designSource');
 	});
 
 	it('returns suggestive results when there are no matches', async () => {

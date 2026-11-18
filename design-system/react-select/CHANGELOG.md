@@ -1,5 +1,14 @@
 # @atlaskit/react-select
 
+## 4.12.16
+
+### Patch Changes
+
+- [`4f0a3357f6299`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4f0a3357f6299) -
+  Cleanup `feature_gate` `select_issearchable_aria-readonly_fix`. Non-searchable selects no longer
+  set `aria-readonly` on the combobox input.
+- Updated dependencies
+
 ## 4.12.15
 
 ### Patch Changes

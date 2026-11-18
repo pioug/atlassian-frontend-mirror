@@ -10,7 +10,6 @@ import React, {
 import { bind, type UnbindFn } from 'bind-event-listener';
 
 import Avatar from '@atlaskit/avatar/avatar';
-import { KEY_DOWN } from '@atlaskit/ds-lib/keycodes';
 import noop from '@atlaskit/ds-lib/noop';
 import useFocus from '@atlaskit/ds-lib/use-focus-event';
 import { useId } from '@atlaskit/ds-lib/use-id';
@@ -264,7 +263,7 @@ const AvatarGroup = ({
 		bind(window, {
 			type: 'keydown',
 			listener: function openOnKeyDown(e: KeyboardEvent) {
-				if (e.key === KEY_DOWN) {
+				if (e.key === 'ArrowDown') {
 					// prevent page scroll
 					e.preventDefault();
 					handleTriggerClicked(e);
@@ -276,7 +275,7 @@ const AvatarGroup = ({
 			bind(window, {
 				type: 'keydown',
 				listener: function openOnKeyDown(e: KeyboardEvent) {
-					if (e.key === KEY_DOWN) {
+					if (e.key === 'ArrowDown') {
 						// prevent page scroll
 						e.preventDefault();
 						handleTriggerClicked(e);

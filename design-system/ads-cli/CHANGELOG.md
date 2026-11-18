@@ -1,5 +1,30 @@
 # @atlaskit/ads-cli
 
+## 1.0.0
+
+### Major Changes
+
+- [`29098241886e4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/29098241886e4) -
+  Rename `designSource.figmaUrl` to `references.figmaUrl` in component and pattern payloads. Update
+  consumers of ADS MCP responses and ADS CLI or Platform CLI detail JSON to read
+  `references.figmaUrl`. Figma URLs and human-readable links are unchanged.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.12.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.12.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.12.2
 
 ### Patch Changes

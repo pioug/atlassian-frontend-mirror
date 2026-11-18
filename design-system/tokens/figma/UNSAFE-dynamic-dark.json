@@ -1168,7 +1168,16 @@
         "group": "paint",
         "state": "active",
         "introduced": "20.10.0",
-        "description": "Use for the eligible region currently accepting a dragged item when area feedback is needed. This is not ordinary hover, persistent selection, or reserved placeholder space. Use an insertion indicator for before/after placement; preserve maintained combine and nested-group treatments instead of replacing them with this fill."
+        "description": "Use for the background of available drop destinations when the experience highlights eligible targets during a drag operation. Use color.background.droptarget.hovered for the current receiving destination. Ordinary pointer hover does not activate this state. Keep persistent selection, keyboard focus, and reserved placeholder space separate; preserve maintained insertion, combine, and nested-group treatments."
+      }
+    },
+    "UNSAFE dynamic-dark/color.background.droptarget.hovered": {
+      "value": "oklch(from oklch(from var(--ds-dynamic-background, #000000) calc(l - (0.03 * max(0, sign(l - 0.9 + 0.0001))) + (0.03 * max(0, sign(0.9 - l - 0.0001) * sign(l - 0.5 + 0.0001))) - (0.03 * max(0, sign(0.5 - l - 0.0001) * sign(l - 0.3 - 0.0001))) + (0.03 * 2 * max(0, sign(0.3 - l + 0.0001)))) c h) calc(l - (0.03 * max(0, sign(l - 0.9 + 0.0001))) + (0.03 * max(0, sign(0.9 - l - 0.0001) * sign(l - 0.5 + 0.0001))) - (0.03 * max(0, sign(0.5 - l - 0.0001) * sign(l - 0.3 - 0.0001))) + (0.03 * 2 * max(0, sign(0.3 - l + 0.0001)))) c h)",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "20.13.0",
+        "description": "Use for the background of the current drop destination during a drag operation. Apply while the dragged item is over the target. Ordinary pointer hover does not activate this state. For keyboard dragging, apply equivalent feedback to the current destination and keep keyboard focus identifiable independently. Do not apply to ineligible destinations."
       }
     },
     "UNSAFE dynamic-dark/color.background.input": {

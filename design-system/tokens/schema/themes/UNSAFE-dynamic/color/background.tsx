@@ -17,7 +17,10 @@ const color: ExtendedValueSchema<BackgroundColorTokenSchema<BaseToken>> = {
 			danger: { value: 'Neutral500A' },
 		},
 		background: {
-			droptarget: { value: dynamicColor.backgroundSubtle },
+			droptarget: {
+				'[default]': { value: dynamicColor.backgroundSubtle },
+				hovered: { value: dynamicColor.backgroundSubtleHovered },
+			},
 			draghandle: { value: dynamicColor.foreground },
 			disabled: { value: dynamicColor.disabled },
 			inverse: {

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3dd20dc899d5d5f552afc44642250458>>
+ * @codegen <<SignedSource::9ab1a581f8691f1fd9b3750418500fbd>>
  * @codegenCommand yarn build tokens
  */
 
@@ -3921,7 +3921,7 @@ const tokens: Token[] = [
       "group": "paint",
       "state": "active",
       "introduced": "20.10.0",
-      "description": "Use for the eligible region currently accepting a dragged item when area feedback is needed. This is not ordinary hover, persistent selection, or reserved placeholder space. Use an insertion indicator for before/after placement; preserve maintained combine and nested-group treatments instead of replacing them with this fill."
+      "description": "Use for the background of available drop destinations when the experience highlights eligible targets during a drag operation. Use color.background.droptarget.hovered for the current receiving destination. Ordinary pointer hover does not activate this state. Keep persistent selection, keyboard focus, and reserved placeholder space separate; preserve maintained insertion, combine, and nested-group treatments."
     },
     "original": {
       "value": "Blue100",
@@ -3929,16 +3929,45 @@ const tokens: Token[] = [
         "group": "paint",
         "state": "active",
         "introduced": "20.10.0",
-        "description": "Use for the eligible region currently accepting a dragged item when area feedback is needed. This is not ordinary hover, persistent selection, or reserved placeholder space. Use an insertion indicator for before/after placement; preserve maintained combine and nested-group treatments instead of replacing them with this fill."
+        "description": "Use for the background of available drop destinations when the experience highlights eligible targets during a drag operation. Use color.background.droptarget.hovered for the current receiving destination. Ordinary pointer hover does not activate this state. Keep persistent selection, keyboard focus, and reserved placeholder space separate; preserve maintained insertion, combine, and nested-group treatments."
       }
     },
-    "name": "color.background.droptarget",
+    "name": "color.background.droptarget.[default]",
     "path": [
       "color",
       "background",
-      "droptarget"
+      "droptarget",
+      "[default]"
     ],
     "cleanName": "color.background.droptarget"
+  },
+  {
+    "value": "#CFE1FD",
+    "filePath": "schema/themes/atlassian-light/color/background.tsx",
+    "isSource": false,
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "20.13.0",
+      "description": "Use for the background of the current drop destination during a drag operation. Apply while the dragged item is over the target. Ordinary pointer hover does not activate this state. For keyboard dragging, apply equivalent feedback to the current destination and keep keyboard focus identifiable independently. Do not apply to ineligible destinations."
+    },
+    "original": {
+      "value": "Blue200",
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "20.13.0",
+        "description": "Use for the background of the current drop destination during a drag operation. Apply while the dragged item is over the target. Ordinary pointer hover does not activate this state. For keyboard dragging, apply equivalent feedback to the current destination and keep keyboard focus identifiable independently. Do not apply to ineligible destinations."
+      }
+    },
+    "name": "color.background.droptarget.hovered",
+    "path": [
+      "color",
+      "background",
+      "droptarget",
+      "hovered"
+    ],
+    "cleanName": "color.background.droptarget.hovered"
   },
   {
     "value": "#FFFFFF",

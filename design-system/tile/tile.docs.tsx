@@ -7,7 +7,7 @@ const documentation: StructuredContentSource = {
 			description:
 				'A tile is a versatile, foundational container with baked-in sizing and radii properties for displaying elements in a tile shape.',
 			status: 'general-availability',
-			designSource: {
+			references: {
 				figmaUrl: 'https://go.atlassian.com/figma-library-ads-107093-50537',
 			},
 			import: {

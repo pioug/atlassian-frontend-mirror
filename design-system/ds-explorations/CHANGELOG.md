@@ -1,5 +1,14 @@
 # @atlaskit/ds-explorations
 
+## 6.3.6
+
+### Patch Changes
+
+- [`8194c1350b8f9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8194c1350b8f9) -
+  Regenerate token styling metadata for drag-over backgrounds and exclude drag-and-drop token
+  families from automatic pointer-hover and pressed styling.
+- Updated dependencies
+
 ## 6.3.5
 
 ### Patch Changes

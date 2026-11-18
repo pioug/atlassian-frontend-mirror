@@ -22,7 +22,8 @@ export type EditorAICreditFeatureName =
 	| 'nativeEmbedFloatingToolbar-remix'
 	| 'nativeEmbedFloatingToolbar-askRovo'
 	| 'imageGenerationMediaInsert'
-	| 'blockControls-remix';
+	| 'blockControls-remix'
+	| 'emojiPicker-createEmoji';
 
 export type AICreditCheck = { featureName: EditorAICreditFeatureName };
 export type AICreditStatus =

@@ -1,5 +1,11 @@
 # @atlaskit/radio
 
+## 10.2.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.2.6
 
 ### Patch Changes

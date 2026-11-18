@@ -4,20 +4,12 @@ import { act, fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { replaceRaf, type Stub } from 'raf-stub';
 
-import {
-	KEY_DOWN,
-	KEY_END,
-	KEY_HOME,
-	KEY_LEFT,
-	KEY_RIGHT,
-	KEY_UP,
-} from '@atlaskit/ds-lib/keycodes';
 import { flushPopoverExit } from '@atlaskit/top-layer/testing/flush-popover-exit';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
-import DropdownItem from '../../dropdown-item';
-import DropdownItemGroup from '../../dropdown-item-group';
-import DropdownMenu from '../../dropdown-menu';
+import { DropdownItem } from '../../dropdown-item';
+import { DropdownItemGroup } from '../../dropdown-item-group';
+import { DropdownMenu } from '../../dropdown-menu';
 
 const triggerText = 'Options';
 
@@ -110,8 +102,8 @@ describe('dropdown menu keyboard navigation', () => {
 		stepFrame();
 
 		fireEvent.keyDown(element, {
-			key: KEY_DOWN,
-			code: KEY_DOWN,
+			key: 'ArrowDown',
+			code: 'ArrowDown',
 		});
 		flushFrames();
 	}
@@ -131,8 +123,8 @@ describe('dropdown menu keyboard navigation', () => {
 		);
 
 		fireEvent.keyDown(screen.getByTestId(`${testId}--trigger`), {
-			key: KEY_DOWN,
-			code: KEY_DOWN,
+			key: 'ArrowDown',
+			code: 'ArrowDown',
 		});
 
 		expect(screen.queryByTestId(`${testId}--content`)).not.toBeInTheDocument();
@@ -230,7 +222,7 @@ describe('dropdown menu keyboard navigation', () => {
 			openDropdownWithClick(screen.getByTestId(`${testId}--trigger`));
 			expect(screen.getAllByRole('menuitem')[0]).toHaveFocus();
 
-			await pressKey(KEY_DOWN);
+			await pressKey('ArrowDown');
 			stepFrame();
 
 			const secondMenuItem = screen.getAllByRole('menuitem')[1];
@@ -253,13 +245,13 @@ describe('dropdown menu keyboard navigation', () => {
 			openDropdownWithClick(screen.getByTestId(`${testId}--trigger`));
 
 			fireEvent.keyDown(screen.getByTestId(`${testId}--trigger`), {
-				key: KEY_DOWN,
-				code: KEY_DOWN,
+				key: 'ArrowDown',
+				code: 'ArrowDown',
 			});
 
 			fireEvent.keyDown(screen.getByTestId(`${testId}--trigger`), {
-				key: KEY_DOWN,
-				code: KEY_DOWN,
+				key: 'ArrowDown',
+				code: 'ArrowDown',
 			});
 
 			stepFrame();
@@ -285,13 +277,13 @@ describe('dropdown menu keyboard navigation', () => {
 		openDropdownWithKeydown(screen.getByTestId(`${testId}--trigger`));
 
 		// Bring focus to the second element
-		await pressKey(KEY_DOWN);
+		await pressKey('ArrowDown');
 
 		// Bring focus to the third element
-		await pressKey(KEY_DOWN);
+		await pressKey('ArrowDown');
 
 		// Bring focus to the previous element
-		await pressKey(KEY_UP);
+		await pressKey('ArrowUp');
 		stepFrame();
 
 		const lastMenuItem = screen.getAllByRole('menuitem')[1];
@@ -344,8 +336,8 @@ describe('dropdown menu keyboard navigation', () => {
 		const lastMenuItem = asyncMenuItems[asyncMenuItems.length - 1];
 		act(() => lastMenuItem.focus());
 		fireEvent.keyDown(lastMenuItem, {
-			key: KEY_DOWN,
-			code: KEY_DOWN,
+			key: 'ArrowDown',
+			code: 'ArrowDown',
 		});
 		expect(asyncMenuItems[0]).toHaveFocus();
 	});
@@ -376,26 +368,26 @@ describe('dropdown menu keyboard navigation', () => {
 		expect(secondMenuItem).toHaveAccessibleName(second);
 		expect(secondMenuItem).toHaveFocus();
 
-		await pressKey(KEY_DOWN);
+		await pressKey('ArrowDown');
 		stepFrame();
 
 		const fourthMenuItem = allMenuItems[3];
 		expect(fourthMenuItem).toHaveAccessibleName(fourth);
 		expect(fourthMenuItem).toHaveFocus();
 
-		await pressKey(KEY_UP);
+		await pressKey('ArrowUp');
 		stepFrame();
 
 		expect(secondMenuItem).toHaveFocus();
 
-		await pressKey(KEY_END);
+		await pressKey('End');
 		stepFrame();
 
 		const secondLastMenuItem = allMenuItems.slice(-2)[0];
 		expect(secondLastMenuItem).toHaveAccessibleName(secondLast);
 		expect(secondLastMenuItem).toHaveFocus();
 
-		await pressKey(KEY_HOME);
+		await pressKey('Home');
 		stepFrame();
 
 		expect(secondMenuItem).toHaveFocus();
@@ -423,13 +415,13 @@ describe('dropdown menu keyboard navigation', () => {
 		openDropdownWithClick(screen.getByTestId(`${testId}--trigger`));
 
 		fireEvent.keyDown(screen.getByTestId(`${testId}--trigger`), {
-			key: KEY_DOWN,
-			code: KEY_DOWN,
+			key: 'ArrowDown',
+			code: 'ArrowDown',
 		});
 
 		fireEvent.keyDown(screen.getByTestId(`${testId}--trigger`), {
-			key: KEY_DOWN,
-			code: KEY_DOWN,
+			key: 'ArrowDown',
+			code: 'ArrowDown',
 		});
 
 		stepFrame();
@@ -440,8 +432,8 @@ describe('dropdown menu keyboard navigation', () => {
 		expect(fourthMenuItem).toHaveFocus();
 
 		fireEvent.keyDown(screen.getByTestId(`${testId}--trigger`), {
-			key: KEY_UP,
-			code: KEY_UP,
+			key: 'ArrowUp',
+			code: 'ArrowUp',
 		});
 		stepFrame();
 
@@ -450,8 +442,8 @@ describe('dropdown menu keyboard navigation', () => {
 		expect(secondMenuItem).toHaveFocus();
 
 		fireEvent.keyDown(screen.getByTestId(`${testId}--trigger`), {
-			key: KEY_END,
-			code: KEY_END,
+			key: 'End',
+			code: 'End',
 		});
 		stepFrame();
 
@@ -460,8 +452,8 @@ describe('dropdown menu keyboard navigation', () => {
 		expect(secondLastMenuItem).toHaveFocus();
 
 		fireEvent.keyDown(screen.getByTestId(`${testId}--trigger`), {
-			key: KEY_HOME,
-			code: KEY_HOME,
+			key: 'Home',
+			code: 'Home',
 		});
 		stepFrame();
 
@@ -514,9 +506,9 @@ describe('dropdown menu keyboard navigation', () => {
 		);
 		openDropdownWithClick(screen.getByTestId(`${testId}--trigger`));
 
-		await pressKey(KEY_DOWN);
+		await pressKey('ArrowDown');
 
-		await pressKey(KEY_HOME);
+		await pressKey('Home');
 		stepFrame();
 
 		const firstMenuItem = screen.getAllByRole('menuitem')[0];
@@ -536,9 +528,9 @@ describe('dropdown menu keyboard navigation', () => {
 		);
 		openDropdownWithClick(screen.getByTestId(`${testId}--trigger`));
 
-		await pressKey(KEY_DOWN);
+		await pressKey('ArrowDown');
 
-		await pressKey(KEY_END);
+		await pressKey('End');
 
 		stepFrame();
 
@@ -565,7 +557,7 @@ describe('dropdown menu keyboard navigation', () => {
 		expect(firstMenuItem).toHaveAccessibleName(items[0]);
 		expect(firstMenuItem).toHaveFocus();
 
-		await pressKey(KEY_UP);
+		await pressKey('ArrowUp');
 		stepFrame();
 
 		// Assert that the focus has looped over to the last element
@@ -597,8 +589,8 @@ describe('dropdown menu keyboard navigation', () => {
 			expect(menuItem).toHaveFocus();
 
 			fireEvent.keyDown(menuItem, {
-				key: KEY_DOWN,
-				code: KEY_DOWN,
+				key: 'ArrowDown',
+				code: 'ArrowDown',
 			});
 			stepFrame();
 
@@ -655,8 +647,8 @@ describe('dropdown menu keyboard navigation', () => {
 
 			const firstMenuItem = screen.getAllByRole('menuitem')[0];
 			fireEvent.keyDown(firstMenuItem, {
-				key: KEY_LEFT,
-				code: KEY_LEFT,
+				key: 'ArrowLeft',
+				code: 'ArrowLeft',
 			});
 			stepFrame();
 
@@ -701,8 +693,8 @@ describe('dropdown menu keyboard navigation', () => {
 			stepFrame();
 
 			fireEvent.keyDown(nestedTrigger, {
-				key: KEY_RIGHT,
-				code: KEY_RIGHT,
+				key: 'ArrowRight',
+				code: 'ArrowRight',
 			});
 			flushFrames();
 
@@ -746,8 +738,8 @@ describe('dropdown menu keyboard navigation', () => {
 			nestedMenuItem.focus();
 
 			fireEvent.keyDown(nestedMenuItem, {
-				key: KEY_LEFT,
-				code: KEY_LEFT,
+				key: 'ArrowLeft',
+				code: 'ArrowLeft',
 			});
 			stepFrame();
 			// The top-layer menu unmounts after its exit settles.

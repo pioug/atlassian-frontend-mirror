@@ -739,6 +739,8 @@ export const TELEPOINTER_PULSE_CLASS = 'telepointer-pulse-animate';
 export const TELEPOINTER_PULSE_DURING_TR_CLASS = 'telepointer-pulse-during-tr';
 export const TELEPOINTER_PULSE_DURING_TR_DURATION_MS = 7500; // Keeping it longer so it'll be easier to spot during transactions
 export const TELEPOINTER_DATA_SESSION_ID_ATTR = 'data-telepointer-sessionid';
+export const TELEPOINTER_SELECTION_BADGE_CLASS = 'telepointer-selection-badge';
+export const AI_IN_EDITOR_TELEPOINTER_CLASS = 'ai-in-editor-telepointer';
 
 // ED-22557: Safely convert to object styling
 // Disable top: -14px since it is necessary to align to cursor
@@ -809,7 +811,7 @@ export const telepointerStyle: SerializedStyles = css`
 			user-select: none;
 		}
 
-		&.telepointer-selection-badge {
+		&.${TELEPOINTER_SELECTION_BADGE_CLASS} {
 			.telepointer-initial,
 			.telepointer-fullname {
 				position: absolute;

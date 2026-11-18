@@ -6,7 +6,7 @@ const documentation: StructuredContentSource = {
 			name: 'SectionMessage',
 			description: 'A component for section-level messages.',
 			status: 'general-availability',
-			designSource: {
+			references: {
 				figmaUrl: 'https://go.atlassian.com/figma-library-ads-82088-101069',
 			},
 			import: {

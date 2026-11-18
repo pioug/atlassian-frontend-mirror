@@ -1066,7 +1066,7 @@ describe('run — output contract', () => {
 							package: '@atlaskit/avatar',
 							props: [{ name: 'size' }],
 							examples: ['<Avatar />'],
-							designSource: { figmaUrl: 'https://example.com' },
+							references: { figmaUrl: 'https://example.com' },
 						},
 					]),
 				},
@@ -1084,7 +1084,7 @@ describe('run — output contract', () => {
 		});
 		expect(envelope.data[0]).not.toHaveProperty('props');
 		expect(envelope.data[0]).not.toHaveProperty('examples');
-		expect(envelope.data[0]).not.toHaveProperty('designSource');
+		expect(envelope.data[0]).not.toHaveProperty('references');
 	});
 
 	it('pretty-prints JSON envelopes while keeping the retrieval payload compact', async () => {

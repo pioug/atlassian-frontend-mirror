@@ -12,25 +12,29 @@ export const EmojiContextProvider = ({
 	emojiContextValue,
 }: React.PropsWithChildren<EmojiContextProviderType>): React.JSX.Element => {
 	const memoizedEmojiContextValue = useMemo(() => emojiContextValue, [emojiContextValue]);
+	const emojiProvider = memoizedEmojiContextValue?.emoji.emojiProvider;
 
 	useEffect(() => {
+		if (!emojiProvider) {
+			return;
+		}
 		// trigger emoji fetching
-		async function fetchEmojiProvider() {
+		const fetchEmojiProvider = async () => {
 			try {
-				await memoizedEmojiContextValue?.emoji.emojiProvider.fetchEmojiProvider();
+				await emojiProvider.fetchEmojiProvider();
 			} catch (error) {
 				debug('fetchEmojiProvider error catched from outside', error);
 			}
-		}
-		if (memoizedEmojiContextValue?.emoji.emojiProvider.onlyFetchOnDemand) {
-			const isFetchingOnDemand = memoizedEmojiContextValue?.emoji.emojiProvider.onlyFetchOnDemand();
+		};
+		if (emojiProvider.onlyFetchOnDemand) {
+			const isFetchingOnDemand = emojiProvider.onlyFetchOnDemand();
 			if (!isFetchingOnDemand) {
 				fetchEmojiProvider();
 			}
 		} else {
 			fetchEmojiProvider();
 		}
-	}, [memoizedEmojiContextValue]);
+	}, [emojiProvider]);
 
 	return (
 		<EmojiContext.Provider value={memoizedEmojiContextValue}>{children}</EmojiContext.Provider>

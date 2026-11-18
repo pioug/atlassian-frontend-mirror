@@ -5,6 +5,8 @@ import { useCallback, useEffect, useLayoutEffect, useRef } from 'react';
 import type { Callback, Payload, Topic } from './types';
 
 interface SubscribeOptions {
+	// Reject unrelated events before consuming or clearing them from replay.
+	filter?: (payload: Payload) => boolean;
 	topic: Topic;
 	// Trigger the latest event for the topic when subscribing if it hasn't already been triggered
 	triggerLatest?: boolean;
@@ -122,16 +124,18 @@ const createPubSub = () => {
 		return true;
 	};
 
-	const subscribe: Subscribe = ({ topic, triggerLatest, consumeOnceKey }, callback) => {
+	const subscribe: Subscribe = ({ topic, triggerLatest, consumeOnceKey, filter }, callback) => {
 		const events = subscribedEvents[topic] ?? [];
 		const subId = generateSubId();
 		const subExists = events.some(({ id }) => id === subId);
-		const callbackWithConsumption = (event: PubSubEvent) => {
-			if (!claimConsumeOnceEvent({ event, consumeOnceKey })) {
-				return;
+		const callbackWithConsumption = (event: PubSubEvent): boolean => {
+			if (filter && !filter(event.payload)) {
+				return false;
 			}
-
-			callback(event.payload);
+			if (claimConsumeOnceEvent({ event, consumeOnceKey })) {
+				callback(event.payload);
+			}
+			return true;
 		};
 
 		// Push to Topic stack if not already there
@@ -143,8 +147,11 @@ const createPubSub = () => {
 			// If this Topic already has a published event and `triggerLatest` is true, trigger the callback then clear the publishQueue for that Topic
 			if (triggerLatest && !!publishQueue[topic]) {
 				const event = publishQueue[topic] as PubSubEvent;
-				callbackWithConsumption(event);
-				delete publishQueue[topic];
+				const accepted = callbackWithConsumption(event);
+				// Keep rejected events and newer events published synchronously during replay.
+				if (accepted && publishQueue[topic] === event) {
+					delete publishQueue[topic];
+				}
 			}
 		}
 
@@ -212,17 +219,25 @@ const usePubSub = () => {
 };
 
 export const useSubscribe = (
-	{ topic, triggerLatest, clearLatestOnUnmount, consumeOnceKey }: SubscribeOptions,
+	{ topic, triggerLatest, clearLatestOnUnmount, consumeOnceKey, filter }: SubscribeOptions,
 	callback: Callback,
 ): void => {
 	const { subscribe, clearLatest } = usePubSub();
 	const callbackRef = useRef(callback);
 	callbackRef.current = callback;
+	const filterRef = useRef(filter);
+	filterRef.current = filter;
 
 	useEffect(
 		() => {
-			const unsubscribe = subscribe({ topic, triggerLatest, consumeOnceKey }, (...args) =>
-				callbackRef.current(...args),
+			const unsubscribe = subscribe(
+				{
+					topic,
+					triggerLatest,
+					consumeOnceKey,
+					filter: (payload) => filterRef.current?.(payload) ?? true,
+				},
+				(...args) => callbackRef.current(...args),
 			);
 			return () => {
 				unsubscribe();
@@ -274,14 +289,16 @@ export const Subscriber = ({
 	onEvent,
 	flushQueueOnUnmount,
 	consumeOnceKey,
+	filter,
 }: {
 	topic: Topic;
 	triggerLatest?: boolean;
 	onEvent: Callback;
 	flushQueueOnUnmount?: boolean;
 	consumeOnceKey?: string;
+	filter?: (payload: Payload) => boolean;
 }) => {
-	useSubscribe({ topic, triggerLatest, consumeOnceKey }, onEvent);
+	useSubscribe({ topic, triggerLatest, consumeOnceKey, filter }, onEvent);
 	useFlushOnUnmount(flushQueueOnUnmount);
 	return null;
 };

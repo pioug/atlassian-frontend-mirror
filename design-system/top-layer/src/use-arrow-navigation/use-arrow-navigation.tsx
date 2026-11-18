@@ -2,15 +2,6 @@ import { type RefObject, useCallback, useEffect } from 'react';
 
 import { bind } from 'bind-event-listener';
 
-import {
-	KEY_DOWN,
-	KEY_END,
-	KEY_HOME,
-	KEY_LEFT,
-	KEY_RIGHT,
-	KEY_TAB,
-	KEY_UP,
-} from '@atlaskit/ds-lib/keycodes';
 
 import { getFirstFocusable } from '../focus/get-first-focusable';
 import { getLastFocusable } from '../focus/get-last-focusable';
@@ -167,28 +158,28 @@ export function useArrowNavigation({
 			const arrowKeyFilter: TFocusableFilter = (element, menu) =>
 				isInContainerLayer(element, menu) && (!filter || filter(element, menu));
 
-			if (event.key === KEY_DOWN) {
+			if (event.key === 'ArrowDown') {
 				// Prevent page scroll while navigating menu items.
 				event.preventDefault();
 				getNextFocusable({ container, direction: 'forwards', filter: arrowKeyFilter })?.focus();
 				return;
 			}
 
-			if (event.key === KEY_UP) {
+			if (event.key === 'ArrowUp') {
 				// Prevent page scroll while navigating menu items.
 				event.preventDefault();
 				getNextFocusable({ container, direction: 'backwards', filter: arrowKeyFilter })?.focus();
 				return;
 			}
 
-			if (event.key === KEY_HOME) {
+			if (event.key === 'Home') {
 				// Prevent browser default (e.g. scrolling to top of page).
 				event.preventDefault();
 				getFirstFocusable({ container, filter: arrowKeyFilter })?.focus();
 				return;
 			}
 
-			if (event.key === KEY_END) {
+			if (event.key === 'End') {
 				// Prevent browser default (e.g. scrolling to bottom of page).
 				event.preventDefault();
 				getLastFocusable({ container, filter: arrowKeyFilter })?.focus();
@@ -197,7 +188,7 @@ export function useArrowNavigation({
 
 			// Nested menus (WAI-ARIA menu pattern): ArrowRight on an item with `aria-haspopup` opens
 			// its submenu.
-			if (event.key === KEY_RIGHT) {
+			if (event.key === 'ArrowRight') {
 				if (
 					onNestedOpen &&
 					focusedElement instanceof HTMLElement &&
@@ -210,7 +201,7 @@ export function useArrowNavigation({
 			}
 
 			// ArrowLeft closes this menu only if it is a submenu.
-			if (event.key === KEY_LEFT) {
+			if (event.key === 'ArrowLeft') {
 				if (onNestedClose) {
 					// Start from the parent, so `closest()` does not match the container itself.
 					const isNested = Boolean(container.parentElement?.closest(menuSelector));
@@ -227,7 +218,7 @@ export function useArrowNavigation({
 
 	const handleTabKeyDown = useCallback(
 		(event: KeyboardEvent) => {
-			if (event.key !== KEY_TAB) {
+			if (event.key !== 'Tab') {
 				return;
 			}
 			const container = containerRef.current;

@@ -7,7 +7,7 @@ const documentation: StructuredContentSource = {
 			description:
 				'A component for creating overlay backgrounds behind modals and other layered content.',
 			status: 'general-availability',
-			designSource: {
+			references: {
 				figmaUrl: 'https://go.atlassian.com/figma-library-ads-13613-69028',
 			},
 			import: {

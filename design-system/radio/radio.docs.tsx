@@ -7,7 +7,7 @@ const documentation: StructuredContentSource = {
 			description:
 				'A radio button component for single selection from a set of mutually exclusive choices. Use for custom radio button presentations like options in tables or when you need fine control over individual radio buttons.',
 			status: 'general-availability',
-			designSource: {
+			references: {
 				figmaUrl: 'https://go.atlassian.com/figma-library-ads-13200-41362',
 			},
 			import: {

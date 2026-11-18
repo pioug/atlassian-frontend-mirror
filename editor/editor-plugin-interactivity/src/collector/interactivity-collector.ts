@@ -2,15 +2,16 @@ import { getDocument } from '@atlaskit/browser-apis';
 
 import type {
 	CollectedSnapshot,
+	RegionSnapshot,
 	SessionMode,
 	SnapshotReason,
 } from '../analytics/interactivity-snapshot';
 import { SCHEMA_VERSION } from './bucket-boundaries';
-import { EditorEventObserver } from './editor-event-observer';
 import { InteractionObserver } from './interaction-observer';
 import type { InteractionEntry } from './interaction-tracker';
 import { InteractivitySession } from './interactivity-session';
 import { LifecycleObserver } from './lifecycle-observer';
+import { RegionEventObserver } from './region-event-observer';
 import { SnapshotScheduler } from './snapshot-scheduler';
 
 export type InteractivityCollectorOptions = {
@@ -18,13 +19,16 @@ export type InteractivityCollectorOptions = {
 	emit: (snapshot: CollectedSnapshot) => void;
 	getObjectId: () => string | undefined;
 	getSessionMode: () => SessionMode | undefined;
+	/** The parts of the page whose interactions are counted on their own. Fixed for the collector. */
+	regions: readonly string[];
 };
 
 /**
- * Collects interaction latencies for one editor mount and emits session-to-date snapshots.
+ * Collects interaction latencies and emits session-to-date snapshots.
  *
- * Every interaction is counted in `page`, and the ones with the editor again in `editor` and in one
- * of the editor groups, which is what tells a slow editor apart from a slow page around it.
+ * Every interaction is counted in `page`, and the ones with a region again in that region, in `all`
+ * and in the group of its kind, which is what tells a slow region apart from a slow page around it.
+ * An interaction with two regions is counted in each of them.
  *
  * `start` and `stop` bound the collecting, which happens once. Within it there can be several
  * sessions, because a session covers one document in one mode: a Confluence live page
@@ -35,14 +39,15 @@ export class InteractivityCollector {
 	private readonly emit: InteractivityCollectorOptions['emit'];
 	private readonly getObjectId: InteractivityCollectorOptions['getObjectId'];
 	private readonly getSessionMode: InteractivityCollectorOptions['getSessionMode'];
+	private readonly regions: InteractivityCollectorOptions['regions'];
 
 	private readonly interactionObserver: InteractionObserver;
-	private readonly editorEvents: EditorEventObserver;
+	private readonly regionEventObservers = new Map<string, RegionEventObserver>();
+	private readonly regionRoots = new Map<string, Element>();
 	private readonly snapshotScheduler: SnapshotScheduler;
 	private readonly lifecycleObserver: LifecycleObserver;
 
 	private session: InteractivitySession;
-	private editorRoot: Element | undefined;
 	private started = false;
 	private stopped = false;
 
@@ -50,9 +55,15 @@ export class InteractivityCollector {
 		this.emit = options.emit;
 		this.getObjectId = options.getObjectId;
 		this.getSessionMode = options.getSessionMode;
+		this.regions = options.regions;
 
 		this.interactionObserver = new InteractionObserver((entries) => this.recordEntries(entries));
-		this.editorEvents = new EditorEventObserver((event) => this.recordEditorEvent(event));
+		for (const region of this.regions) {
+			this.regionEventObservers.set(
+				region,
+				new RegionEventObserver((event) => this.recordRegionEvent(region, event)),
+			);
+		}
 		this.snapshotScheduler = new SnapshotScheduler(() => this.onTimer());
 		this.lifecycleObserver = new LifecycleObserver({
 			onHidden: () => this.onHidden(),
@@ -87,7 +98,9 @@ export class InteractivityCollector {
 		// this object was constructed.
 		this.session = this.createSession(0);
 		this.interactionObserver.start();
-		this.editorEvents.observe(this.editorRoot);
+		for (const [region, regionEventObserver] of this.regionEventObservers) {
+			regionEventObserver.observe(this.regionRoots.get(region));
+		}
 		this.snapshotScheduler.start();
 		this.lifecycleObserver.start();
 		this.started = true;
@@ -104,20 +117,32 @@ export class InteractivityCollector {
 		this.takeSnapshot('unmount');
 		this.stopped = true;
 		this.interactionObserver.stop();
-		this.editorEvents.stop();
+		for (const regionEventObserver of this.regionEventObservers.values()) {
+			regionEventObserver.stop();
+		}
 		this.snapshotScheduler.stop();
 		this.lifecycleObserver.stop();
 	}
 
 	/**
-	 * The element the editor renders itself into is what makes an interaction one of the editor's.
-	 * The session is not tied to it: interactions from before it arrives are counted in `page`.
+	 * The region's element is what makes an interaction one of the region's. The session is not
+	 * tied to it: interactions from before it arrives are counted in `page` only. Pass `null` once
+	 * the element is gone, or the collector keeps it alive.
 	 */
-	setEditorRoot(root: Element | null | undefined): void {
-		this.editorRoot = root ?? undefined;
+	setRegionRoot(region: string, root: Element | null | undefined): void {
+		const regionEventObserver = this.regionEventObservers.get(region);
+		if (!regionEventObserver) {
+			throw new Error(`Undeclared interactivity region: ${region}`);
+		}
+
+		if (root) {
+			this.regionRoots.set(region, root);
+		} else {
+			this.regionRoots.delete(region);
+		}
 
 		if (this.started && !this.stopped) {
-			this.editorEvents.observe(this.editorRoot);
+			regionEventObserver.observe(root);
 		}
 	}
 
@@ -179,6 +204,7 @@ export class InteractivityCollector {
 			objectId: this.getObjectId(),
 			mode: this.getSessionMode(),
 			hidden: getDocument()?.visibilityState === 'hidden',
+			regions: this.regions,
 			startsAfterInteractionId,
 		});
 	}
@@ -223,10 +249,10 @@ export class InteractivityCollector {
 	}
 
 	/**
-	 * Counts an interaction with the editor, including the ones Event Timing never reports because
+	 * Counts an interaction with a region, including the ones Event Timing never reports because
 	 * they were faster than its threshold — which is why a count alone moves the session on.
 	 */
-	private recordEditorEvent(event: Event): void {
+	private recordRegionEvent(region: string, event: Event): void {
 		if (this.stopped) {
 			return;
 		}
@@ -236,14 +262,14 @@ export class InteractivityCollector {
 			return;
 		}
 
-		const group = this.session.tracker.recordEditorEvent(event);
-		if (!group) {
+		const kind = this.session.tracker.recordRegionEvent(region, event);
+		const regionGroups = this.session.regionGroups.get(region);
+		if (!kind || !regionGroups) {
 			return;
 		}
 
-		this.session.editor.countTotal();
-		// The session names its editor groups after the fields they are reported in.
-		this.session[group].countTotal();
+		regionGroups.all.countTotal();
+		regionGroups[kind].countTotal();
 		this.session.revision += 1;
 	}
 
@@ -255,9 +281,16 @@ export class InteractivityCollector {
 			}
 
 			let changed = this.session.page.trackInteractionUpdate(update);
-			if (update.group) {
-				changed = this.session.editor.trackInteractionUpdate(update) || changed;
-				changed = this.session[update.group].trackInteractionUpdate(update) || changed;
+			if (update.attribution) {
+				const { kind, regions } = update.attribution;
+				for (const region of regions) {
+					const regionGroups = this.session.regionGroups.get(region);
+					if (!regionGroups) {
+						continue;
+					}
+					changed = regionGroups.all.trackInteractionUpdate(update) || changed;
+					changed = regionGroups[kind].trackInteractionUpdate(update) || changed;
+				}
 			}
 
 			if (changed) {
@@ -302,6 +335,16 @@ export class InteractivityCollector {
 		const pageTotalCount =
 			InteractionObserver.readPageInteractionCount() - session.interactionCountAtStart;
 
+		const regions: Record<string, RegionSnapshot> = {};
+		for (const [region, regionGroups] of session.regionGroups) {
+			regions[region] = {
+				all: regionGroups.all.snapshot(),
+				typing: regionGroups.typing.snapshot(),
+				pointer: regionGroups.pointer.snapshot(),
+				other: regionGroups.other.snapshot(),
+			};
+		}
+
 		this.emit({
 			schema: SCHEMA_VERSION,
 			interactivitySessionId: session.id,
@@ -311,12 +354,9 @@ export class InteractivityCollector {
 			sessionMode: session.mode,
 			activeMs: Math.round(Math.max(0, now - session.startedAt - hiddenMs)),
 			hiddenMs: Math.round(hiddenMs),
-			// Only `page` is told its total; each editor group has counted its own.
+			// Only `page` is told its total; each region has counted its own.
 			page: session.page.snapshot(pageTotalCount),
-			editor: session.editor.snapshot(),
-			editorTyping: session.editorTyping.snapshot(),
-			editorPointer: session.editorPointer.snapshot(),
-			editorOther: session.editorOther.snapshot(),
+			regions,
 		});
 	}
 }

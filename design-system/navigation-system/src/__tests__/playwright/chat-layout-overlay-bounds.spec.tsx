@@ -49,6 +49,8 @@ for (const { mode, viewportWidth, buttons, expected } of [
 		for (const name of buttons) {
 			await page.getByRole('button', { name, exact: true }).click();
 		}
+		// The lazy panel content autofocuses its close button when it mounts.
+		await expect(page.getByRole('button', { name: 'Close local panel', exact: true })).toBeFocused();
 		const panel = page.getByTestId('layout-with-panel--panel-slot');
 		const presentation = () =>
 			panel.evaluate((element) => {
@@ -89,6 +91,8 @@ async function prepareLocalOverlay(page: Page) {
 	);
 	await page.getByRole('button', { name: 'Ask Rovo', exact: true }).click();
 	await page.getByRole('button', { name: 'open local panel', exact: true }).click();
+	// Finish the lazy panel's initial autofocus before focusing its resize handle.
+	await expect(page.getByRole('button', { name: 'Close local panel', exact: true })).toBeFocused();
 	const panel = page.getByTestId('layout-with-panel--panel-slot');
 	const nav = page.getByRole('navigation', { name: 'Sidebar' });
 	const chat = page.getByRole('region', { name: 'Chat panel', exact: true });
@@ -126,8 +130,11 @@ test('local overlay keyboard resizing preserves its mode and inline siblings', a
 	await expect
 		.poll(() => panel.evaluate((element) => getComputedStyle(element).gridArea))
 		.toBe('panel');
-	// The same user preference is retained when returning inline.
-	await expect.poll(async () => (await panel.boundingBox())?.width).toBe(420);
+	// Overlay resizing does not change the untouched inline default.
+	await expect.poll(async () => (await panel.boundingBox())?.width).toBe(400);
+	// Returning to overlay restores its own preference and preserves the siblings.
+	await page.setViewportSize({ width: localOverlayViewportWidth, height: 900 });
+	await assertLayout(420);
 });
 
 test('local overlay pointer resizing preserves its mode and inline siblings', async ({ page }) => {

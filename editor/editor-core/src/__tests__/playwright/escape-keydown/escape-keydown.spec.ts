@@ -9,12 +9,6 @@ import { fixTest } from '@af/integration-testing';
 
 import { adfDate, emptyDocument } from './escape-keydown.spec.ts-fixtures';
 
-test.use({
-	editorExperiments: {
-		platform_editor_controls: 'variant1',
-	},
-});
-
 test.describe('Escape Keydown: date', () => {
 	test.use({
 		exampleName: 'testing' as keyof typeof import('../../../../examples/99-testing.tsx'),

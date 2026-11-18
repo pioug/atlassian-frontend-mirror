@@ -5,13 +5,13 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { axe } from '@af/accessibility-testing/jest-axe';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
-import DropdownItemCheckbox from '../../checkbox/dropdown-item-checkbox';
-import DropdownItemCheckboxGroup from '../../checkbox/dropdown-item-checkbox-group';
-import DropdownItem from '../../dropdown-item';
-import DropdownItemGroup from '../../dropdown-item-group';
-import DropdownMenu from '../../dropdown-menu';
-import DropdownItemRadio from '../../radio/dropdown-item-radio';
-import DropdownItemRadioGroup from '../../radio/dropdown-item-radio-group';
+import { DropdownItemCheckbox } from '../../checkbox/dropdown-item-checkbox';
+import { DropdownItemCheckboxGroup } from '../../checkbox/dropdown-item-checkbox-group';
+import { DropdownItem } from '../../dropdown-item';
+import { DropdownItemGroup } from '../../dropdown-item-group';
+import { DropdownMenu } from '../../dropdown-menu';
+import { DropdownItemRadio } from '../../radio/dropdown-item-radio';
+import { DropdownItemRadioGroup } from '../../radio/dropdown-item-radio-group';
 
 const topLayerGate = 'platform-dst-top-layer';
 

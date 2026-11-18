@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-media
 
+## 35.0.4
+
+### Patch Changes
+
+- [`ed6d235096cd3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ed6d235096cd3) -
+  [ux] `@atlaskit/editor-plugin-media` passes `useInsetViewer` from its `mediaViewerExtensions`
+  option to the editor's media card, so videos in the editor get the inset Media Viewer's footer in
+  fullscreen.
+- Updated dependencies
+
+## 35.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 35.0.1
 
 ### Patch Changes

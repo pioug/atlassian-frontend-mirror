@@ -6,7 +6,7 @@ const documentation: StructuredContentSource = {
 			name: 'Link',
 			description: 'A component for navigation links.',
 			status: 'general-availability',
-			designSource: {
+			references: {
 				figmaUrl: 'https://go.atlassian.com/figma-library-ads-71522-53725',
 			},
 			import: {

@@ -1,5 +1,39 @@
 # @atlaskit/editor-plugin-table
 
+## 45.1.0
+
+### Minor Changes
+
+- [`62503287902cb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/62503287902cb) -
+  Keep collaborator telepointers above table cell selection, hover and active-cell overlays, behind
+  platform_editor_table_telepointer_above_cell
+
+### Patch Changes
+
+- [`6f88656195a3e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6f88656195a3e) -
+  [ux] Use `color.border.selected` for numbered table-row selection borders, including the sticky
+  first number and number-column corner mask, behind `platform-dst-tokens-finesse`. Preserve
+  existing keyboard-focus, drag-and-drop, resize and danger styling.
+- Updated dependencies
+
+## 45.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 45.0.1
 
 ### Patch Changes

@@ -652,11 +652,7 @@ export const createTypeAheadConfig = ({
 								// section claims it. `buildSectionedResult` then appends it after every
 								// section, placing it below the agent results instead of above them, so the
 								// first highlighted option is an agent you can pick with Enter.
-								if (
-									item.mention &&
-									isInviteItem(item.mention) &&
-									fg('platform_editor_agent_mentions_invite_order')
-								) {
+								if (item.mention && isInviteItem(item.mention)) {
 									return false;
 								}
 								return true;

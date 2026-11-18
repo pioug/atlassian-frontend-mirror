@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/ds-lib",
-	"version": "8.0.1",
+	"version": "9.0.0",
 	"description": "Reusable utilities and hooks specific to design system.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -25,7 +25,6 @@
 		}
 	},
 	"exports": {
-		"./keycodes": "./src/utils/keycodes.tsx",
 		"./noop": "./src/utils/noop.tsx",
 		"./deprecation-warning": "./src/utils/deprecation-warning.tsx",
 		"./device-check": "./src/utils/device-check.tsx",

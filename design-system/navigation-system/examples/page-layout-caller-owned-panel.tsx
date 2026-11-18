@@ -26,7 +26,10 @@ import { Stack } from '@atlaskit/primitives/compiled/stack';
  * No Panel System dependency: a product can keep its existing provider and content here.
  * Enable platform-dst-chat-panel-layout in the example toolbar to coordinate all three regions.
  */
-export default function CallerOwnedPanelExample(): JSX.Element {
+export default function CallerOwnedPanelExample({
+	isControlled = true,
+	defaultPanelWidth,
+}: { isControlled?: boolean; defaultPanelWidth?: number } = {}): JSX.Element {
 	const [open, setOpen] = useState(true);
 	const [chatOpen, setChatOpen] = useState(false);
 	const [content, setContent] = useState('First preview');
@@ -62,7 +65,8 @@ export default function CallerOwnedPanelExample(): JSX.Element {
 						testId="caller-layout"
 						isPanelOpen={open}
 						panelKey={content}
-						panelWidth={width}
+						panelWidth={isControlled ? width : undefined}
+						defaultPanelWidth={defaultPanelWidth}
 						panelMaxWidth={600}
 						panelMinWidth={panelMinWidth}
 						onPanelWidthChange={setWidth}

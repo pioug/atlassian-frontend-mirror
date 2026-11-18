@@ -16,7 +16,7 @@ const buildComponentResult = (result: ComponentMcpPayload) => {
 		description: result.description,
 		examples: result.examples,
 		props: result.props,
-		designSource: result.designSource,
+		references: result.references,
 	};
 };
 

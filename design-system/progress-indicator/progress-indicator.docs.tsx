@@ -6,7 +6,7 @@ const documentation: StructuredContentSource = {
 			name: 'ProgressIndicator',
 			description: 'A component for displaying progress through steps or completion status.',
 			status: 'general-availability',
-			designSource: {
+			references: {
 				figmaUrl: 'https://go.atlassian.com/figma-library-ads-13186-35931',
 			},
 			import: {

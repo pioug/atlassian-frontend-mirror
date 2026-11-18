@@ -1,4 +1,4 @@
-import type { EditorInteractionGroupName } from '../analytics/interactivity-snapshot';
+import type { InteractionKind } from '../analytics/interactivity-snapshot';
 import { BoundedMap } from '../collections/bounded-map';
 import { eventKey, interactionEventKind } from './interaction-events';
 
@@ -7,15 +7,21 @@ export type InteractionEntry = PerformanceEntry & {
 	interactionId?: number;
 };
 
+/** Which regions an interaction was with, and what kind it was. */
+export type InteractionAttribution = {
+	kind: InteractionKind;
+	regions: string[];
+};
+
 export type InteractionUpdate =
 	| {
-			group: EditorInteractionGroupName | undefined;
+			attribution: InteractionAttribution | undefined;
 			interactionId: number;
 			latencyMs: number;
 			type: 'new';
 	  }
 	| {
-			group: EditorInteractionGroupName | undefined;
+			attribution: InteractionAttribution | undefined;
 			interactionId: number;
 			latencyMs: number;
 			previousLatencyMs: number;
@@ -23,7 +29,7 @@ export type InteractionUpdate =
 	  };
 
 type TrackedInteraction = {
-	group: EditorInteractionGroupName | undefined;
+	attribution: InteractionAttribution | undefined;
 	latencyMs: number;
 };
 
@@ -37,7 +43,7 @@ const MAX_TRACKED = 256;
  * latency can grow after it was first reported, and callers move what they counted rather than
  * counting the interaction twice.
  *
- * The editor's events answer what an entry cannot: which interactions were the editor's, and how
+ * The regions' events answer what an entry cannot: which interactions were with a region, and how
  * many there were, including the ones below the Event Timing reporting threshold.
  */
 export class InteractionTracker {
@@ -45,7 +51,7 @@ export class InteractionTracker {
 	private readonly startedAt: number;
 
 	private readonly interactions = new BoundedMap<number, TrackedInteraction>(MAX_TRACKED);
-	private readonly groupByEvent = new BoundedMap<string, EditorInteractionGroupName>(MAX_TRACKED);
+	private readonly attributionByEvent = new BoundedMap<string, InteractionAttribution>(MAX_TRACKED);
 
 	private highestInteractionId = 0;
 
@@ -98,13 +104,13 @@ export class InteractionTracker {
 
 		if (tracked === undefined) {
 			// Taken once: an entry that only makes the interaction slower has to move its count
-			// within the group it was counted in, not into another one.
-			const group = this.groupByEvent.get(eventKey(entry.name, entry.startTime));
-			const interaction = { group, latencyMs: entry.duration };
+			// within the groups it was counted in, not into other ones.
+			const attribution = this.attributionByEvent.get(eventKey(entry.name, entry.startTime));
+			const interaction = { attribution, latencyMs: entry.duration };
 
 			this.interactions.set(interactionId, interaction);
 
-			return { type: 'new', interactionId, latencyMs: interaction.latencyMs, group };
+			return { type: 'new', interactionId, latencyMs: interaction.latencyMs, attribution };
 		}
 
 		// Not the slowest entry of the interaction, so its latency stands.
@@ -120,20 +126,30 @@ export class InteractionTracker {
 			interactionId,
 			previousLatencyMs,
 			latencyMs: tracked.latencyMs,
-			group: tracked.group,
+			attribution: tracked.attribution,
 		};
 	}
 
-	recordEditorEvent(event: Event): EditorInteractionGroupName | undefined {
-		const kind = interactionEventKind(event.type);
-		if (!kind) {
+	/**
+	 * Remembers that the region reported the event, for the entry that will measure it.
+	 *
+	 * @returns the kind of interaction to count in the region, when this is its counted event.
+	 */
+	recordRegionEvent(region: string, event: Event): InteractionKind | undefined {
+		const eventKind = interactionEventKind(event.type);
+		if (!eventKind) {
 			return undefined;
 		}
 
 		// Every event of the interaction, because any of them can be the one Event Timing reports
 		// as the slowest: for a pointer press that is usually the click.
-		this.groupByEvent.set(eventKey(event.type, event.timeStamp), kind.group);
+		const key = eventKey(event.type, event.timeStamp);
+		const attribution = this.attributionByEvent.get(key) ?? { kind: eventKind.kind, regions: [] };
+		if (!attribution.regions.includes(region)) {
+			attribution.regions.push(region);
+		}
+		this.attributionByEvent.set(key, attribution);
 
-		return kind.counts ? kind.group : undefined;
+		return eventKind.counts ? eventKind.kind : undefined;
 	}
 }

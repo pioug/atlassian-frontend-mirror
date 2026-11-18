@@ -45,7 +45,7 @@ import { prepareCollapsedHeadingSelection } from '../pm-plugins/utils/collapsed-
 import { expandAndUpdateSelection } from '../pm-plugins/utils/expand-and-update-selection';
 import { isHandleCorrelatedToSelection } from '../pm-plugins/utils/getSelection';
 import { buildLayoutColumnMenuMeta } from './block-controls-surface-drag-handle-utils';
-import { DragHandleNestedIcon } from './drag-handle-nested-icon';
+import { DragHandleNarrowIcon } from './drag-handle-narrow-icon';
 import { shouldUseNestedDragHandleIcon } from './should-use-nested-drag-handle-icon';
 import { useSurfaceEditorView } from './surface-editor-view-context';
 import { useBlockControlsSurfaceDragSource } from './use-block-controls-surface-drag-source';
@@ -384,8 +384,9 @@ export const BlockControlsSurfaceDragHandle = ({
 		>
 			{/* eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop -- Mirrors the legacy Chrome drag-start forwarding workaround. */}
 			<span css={dragHandleStyles.iconWrapper} onDragStart={handleIconDragStart}>
-				{shouldUseNestedDragHandleIcon(Boolean(isTopLevelNode), isLayoutColumn) ? (
-					<DragHandleNestedIcon />
+				{isExperimentEnabled('platform_editor_block_menu_three_dot_icon') ||
+				shouldUseNestedDragHandleIcon(Boolean(isTopLevelNode), isLayoutColumn) ? (
+					<DragHandleNarrowIcon />
 				) : (
 					<DragHandleVerticalIcon label="" size="small" spacing="spacious" />
 				)}

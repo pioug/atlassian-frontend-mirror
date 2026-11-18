@@ -3,9 +3,9 @@ import React from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
-import DropdownMenu from '../../../dropdown-menu';
-import DropdownItemCheckbox from '../../dropdown-item-checkbox';
-import DropdownItemCheckboxGroup from '../../dropdown-item-checkbox-group';
+import { DropdownMenu } from '../../../dropdown-menu';
+import { DropdownItemCheckbox } from '../../dropdown-item-checkbox';
+import { DropdownItemCheckboxGroup } from '../../dropdown-item-checkbox-group';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('DropdownMenu with checkbox as item', () => {

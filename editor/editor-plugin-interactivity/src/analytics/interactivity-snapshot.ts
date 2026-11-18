@@ -29,12 +29,10 @@ export type SnapshotReason =
 export type SessionMode = 'editing' | 'reading';
 
 /**
- * The editor groups, which are also the fields their histograms are reported in.
- *
- * `editorOther` is the remainder — an interaction the browser counts that is neither typing nor
+ * `other` is the remainder — an interaction the browser counts that is neither typing nor
  * pointing — so the three together cover whatever the browser calls an interaction.
  */
-export type EditorInteractionGroupName = 'editorOther' | 'editorPointer' | 'editorTyping';
+export type InteractionKind = 'other' | 'pointer' | 'typing';
 
 /**
  * Session-to-date latency distribution for one group of interactions.
@@ -55,21 +53,25 @@ export type InteractionGroupSnapshot = {
 	totalCount: number;
 };
 
+/** The interactions with one region: its three kinds, and `all` of them as one. */
+export type RegionSnapshot = {
+	/** A percentile of the union cannot be derived from the kinds' own. */
+	all: InteractionGroupSnapshot;
+	other: InteractionGroupSnapshot;
+	pointer: InteractionGroupSnapshot;
+	typing: InteractionGroupSnapshot;
+};
+
 /** What the collector measured. */
 export type CollectedSnapshot = {
 	activeMs: number;
-	/** The three editor groups as one; a percentile of the union cannot be derived from theirs. */
-	editor: InteractionGroupSnapshot;
-	/** Interactions inside the editor that are neither typing nor pointing. */
-	editorOther: InteractionGroupSnapshot;
-	editorPointer: InteractionGroupSnapshot;
-	editorTyping: InteractionGroupSnapshot;
 	hiddenMs: number;
 	interactivitySessionId: string;
 	objectId?: string;
-	/** Every interaction on the page, the editor groups included. */
+	/** Every interaction on the page, the regions' included. */
 	page: InteractionGroupSnapshot;
 	reason: SnapshotReason;
+	regions: Record<string, RegionSnapshot>;
 	schema: number;
 	seq: number;
 	/** Fixed for the whole session: a mode change closes it and opens the next. */
@@ -80,7 +82,13 @@ export type CollectedSnapshot = {
  * One session-to-date snapshot. Consumers take the highest `seq` per
  * `interactivitySessionId` and then sum bucket counts across sessions.
  */
-export type InteractivitySnapshot = CollectedSnapshot & {
+export type InteractivitySnapshot = Omit<CollectedSnapshot, 'regions'> & {
+	/** The three editor groups as one; a percentile of the union cannot be derived from theirs. */
+	editor: InteractionGroupSnapshot;
 	editorDomSize?: number;
+	/** Interactions inside the editor that are neither typing nor pointing. */
+	editorOther: InteractionGroupSnapshot;
+	editorPointer: InteractionGroupSnapshot;
+	editorTyping: InteractionGroupSnapshot;
 	nodeSize?: number;
 };

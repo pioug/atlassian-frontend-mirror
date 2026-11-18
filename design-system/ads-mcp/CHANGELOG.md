@@ -1,5 +1,33 @@
 # @atlaskit/ads-mcp
 
+## 2.0.0
+
+### Major Changes
+
+- [`29098241886e4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/29098241886e4) -
+  Rename `designSource.figmaUrl` to `references.figmaUrl` in component and pattern payloads. Update
+  consumers of ADS MCP responses and ADS CLI or Platform CLI detail JSON to read
+  `references.figmaUrl`. Figma URLs and human-readable links are unchanged.
+
+## 1.13.2
+
+### Patch Changes
+
+- [`8fcdb936ee703`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8fcdb936ee703) -
+  Keep @atlassian/conversation-assistant-chat-prompt-input examples self-contained without required
+  caller props or redundant commentary.
+- [`8fcdb936ee703`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8fcdb936ee703) -
+  Preserve live-region and heading semantics in existing AI Mate examples and forward actual prompt
+  callbacks.
+- Updated dependencies
+
+## 1.13.1
+
+### Patch Changes
+
+- [`27808ac987c4f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/27808ac987c4f) -
+  Refresh generated structured-content catalogs from AFM master.
+
 ## 1.13.0
 
 ### Minor Changes

@@ -35,7 +35,10 @@ const color: ValueSchema<BackgroundColorTokenSchema<BaseToken>> = {
 			},
 		},
 		background: {
-			droptarget: { value: 'Blue1000' },
+			droptarget: {
+				'[default]': { value: 'Blue1000' },
+				hovered: { value: 'Blue900' },
+			},
 			draghandle: { value: 'Blue400' },
 			disabled: { value: 'DarkNeutral300A' },
 			inverse: {

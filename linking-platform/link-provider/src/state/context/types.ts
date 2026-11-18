@@ -2,7 +2,7 @@ import { type Store } from 'redux';
 
 import type { LinkPreview, CardPlatform } from '@atlaskit/link-extractors/types';
 import type { CardStore } from '@atlaskit/linking-common/store';
-import type { CardAppearance, ProductType } from '@atlaskit/linking-common/types';
+import type { CardAppearance, CardType, ProductType } from '@atlaskit/linking-common/types';
 
 import type CardClient from '../../client';
 import { type CardConnections } from '../store/types';
@@ -17,12 +17,27 @@ export interface CardAuthFlowOpts {
 	authFlow?: 'oauth2' | 'disabled';
 }
 
+/** An auth rejection; the host decides how to respond. */
+export type SmartLinkAuthFailure = {
+	/** Smart Link extension key, when available. */
+	extensionKey?: string;
+	/** The app's name from the Smart Link, when available. */
+	providerName?: string;
+	/** Error category reported by the auth client, when available. */
+	reason?: string;
+	/** OAuth service key from the auth URL, when it has exactly one. */
+	serviceKey?: string;
+	/** Smart Link status captured before the auth attempt. */
+	statusBeforeAuth: CardType;
+};
+
 export type CardContext = {
 	config: CardAuthFlowOpts;
 	connections: CardConnections;
 	extractors: {
 		getPreview: (url: string, platform?: CardPlatform) => LinkPreview | undefined;
 	};
+	onSmartLinkAuthFailed?: (request: SmartLinkAuthFailure) => void | Promise<void>;
 	openPreviewPanel?: (props: {
 		ari: string;
 		iconUrl: string | undefined;
@@ -116,6 +131,7 @@ export type CardProviderProps = {
 		target?: '_blank' | '_self' | '_top' | '_parent';
 		url: string;
 	};
+	onSmartLinkAuthFailed?: (request: SmartLinkAuthFailure) => void | Promise<void>;
 	/**
 	 * Optional callback enabling the host application to open a preview panel for compatible links.
 	 * Required to be defined to add support for preview panel handling.

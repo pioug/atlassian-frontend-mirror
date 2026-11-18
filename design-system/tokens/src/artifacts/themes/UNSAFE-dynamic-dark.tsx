@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::49124e0236edd9cb60c7a29352fbdf3f>>
+ * @codegen <<SignedSource::88c75613ce1e8e5538b0f4eb05ba622a>>
  * @codegenCommand yarn build tokens
  */
 export default `
@@ -147,6 +147,7 @@ html[data-color-mode="dark"][data-theme~="dark:UNSAFE-dynamic-dark"], [data-subt
   --ds-background-disabled: var(--ds-dynamic-color-disabled);
   --ds-background-draghandle: var(--ds-dynamic-foreground, #FFFFFF);
   --ds-background-droptarget: var(--ds-dynamic-color-background-subtle);
+  --ds-background-droptarget-hovered: var(--ds-dynamic-color-background-subtle-hovered);
   --ds-background-input: var(--ds-dynamic-background, #000000);
   --ds-background-input-hovered: var(--ds-dynamic-color-background-subtle);
   --ds-background-input-pressed: var(--ds-dynamic-color-background-pressed);

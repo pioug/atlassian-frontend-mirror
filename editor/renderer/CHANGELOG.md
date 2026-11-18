@@ -1,5 +1,24 @@
 # @atlaskit/renderer
 
+## 156.1.0
+
+### Minor Changes
+
+- [`87d75c3ee2f07`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/87d75c3ee2f07) -
+  Expose an optional extension element ref, composed with overflow handling, for host lifecycle
+  observation. Used by the confluence_macro_pixel_viewport_reservation experiment to release
+  temporary sizing.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 156.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 156.0.0
 
 ### Patch Changes

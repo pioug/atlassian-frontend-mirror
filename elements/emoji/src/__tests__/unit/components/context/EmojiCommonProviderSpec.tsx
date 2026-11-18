@@ -46,3 +46,37 @@ describe('<EmojiResourceProvider />', () => {
 		expect(result.getByText('context prop')).not.toBeNull();
 	});
 });
+
+const CreditStatus = () => {
+	const context = useContext(EmojiContext);
+	const status = context?.emoji.getAICreditStatus?.({ featureName: 'emojiPicker-createEmoji' });
+	return <p>{status ? (status.isBlocked ? 'blocked' : 'allowed') : 'no check'}</p>;
+};
+
+it('updates the credit callback without fetching the emoji resource again', () => {
+	const emojiProvider = sinon.createStubInstance(EmojiResource);
+	const blocked = jest.fn(() => ({ isBlocked: true as const, renderCustomContent: () => null }));
+	const allowed = jest.fn(() => ({ isBlocked: false as const }));
+	const { getByText, rerender } = render(
+		<EmojiCommonProvider emojiProvider={emojiProvider} getAICreditStatus={blocked}>
+			<CreditStatus />
+		</EmojiCommonProvider>,
+	);
+	expect(getByText('blocked')).toBeInTheDocument();
+	expect(blocked).toHaveBeenCalledWith({ featureName: 'emojiPicker-createEmoji' });
+	expect(emojiProvider.fetchEmojiProvider.callCount).toBe(1);
+	rerender(
+		<EmojiCommonProvider emojiProvider={emojiProvider} getAICreditStatus={allowed}>
+			<CreditStatus />
+		</EmojiCommonProvider>,
+	);
+	expect(getByText('allowed')).toBeInTheDocument();
+	expect(allowed).toHaveBeenCalledWith({ featureName: 'emojiPicker-createEmoji' });
+	rerender(
+		<EmojiCommonProvider emojiProvider={emojiProvider}>
+			<CreditStatus />
+		</EmojiCommonProvider>,
+	);
+	expect(getByText('no check')).toBeInTheDocument();
+	expect(emojiProvider.fetchEmojiProvider.callCount).toBe(1);
+});

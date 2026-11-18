@@ -25,11 +25,11 @@ const svgStyles = css({
 });
 
 /**
- * Custom 3-dot vertical drag handle icon for nested nodes.
+ * Custom 3-dot vertical drag handle icon.
  * Similar to DragHandleVerticalIcon but with only 3 dots instead of 6.
  * Hardcoded to medium size with spacious spacing.
  */
-export const DragHandleNestedIcon = (): jsx.JSX.Element => {
+export const DragHandleNarrowIcon = (): jsx.JSX.Element => {
 	return (
 		<span aria-hidden={true} css={spanStyles}>
 			<svg

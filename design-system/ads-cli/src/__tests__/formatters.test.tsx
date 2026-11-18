@@ -40,27 +40,27 @@ describe('formatComponent', () => {
 		expect(out).toContain('Props: none');
 	});
 
-	it('renders the Figma link from designSource.figmaUrl (not the raw object)', () => {
-		// Regression guard: `designSource` is an object `{ figmaUrl }`, not a string. Interpolating
+	it('renders the Figma link from references.figmaUrl (not the raw object)', () => {
+		// Regression guard: `references` is an object `{ figmaUrl }`, not a string. Interpolating
 		// the object directly rendered `Design: [object Object]`.
 		const out = formatComponent({
 			name: 'Button',
 			package: '@atlaskit/button',
 			props: [],
 			examples: [],
-			designSource: { figmaUrl: 'https://example.com/figma' },
+			references: { figmaUrl: 'https://example.com/figma' },
 		});
 		expect(out).toContain('Design: https://example.com/figma');
 		expect(out).not.toContain('[object Object]');
 	});
 
-	it('omits the Design line when designSource has no figmaUrl', () => {
+	it('omits the Design line when references has no figmaUrl', () => {
 		const out = formatComponent({
 			name: 'Button',
 			package: '@atlaskit/button',
 			props: [],
 			examples: [],
-			designSource: {},
+			references: {},
 		});
 		expect(out).not.toContain('Design:');
 	});

@@ -9,7 +9,7 @@ exports.tokens = void 0;
  *
  * Metadata for generation of `@atlaskit/ads-mcp` and https://atlassian.design/llms-tokens.txt.
  *
- * @codegen <<SignedSource::9ef4bd71405b809ffba2d3fbef492e5d>>
+ * @codegen <<SignedSource::e2a0fe15e0c6ce2a9d3e08f1e527bf55>>
  * @codegenCommand yarn build tokens
  */
 
@@ -1914,9 +1914,18 @@ var tokens = exports.tokens = [{
   }
 }, {
   name: 'color.background.droptarget',
-  path: ['color', 'background', 'droptarget'],
-  description: 'Use for the eligible region currently accepting a dragged item when area feedback is needed. This is not ordinary hover, persistent selection, or reserved placeholder space. Use an insertion indicator for before/after placement; preserve maintained combine and nested-group treatments instead of replacing them with this fill.',
+  path: ['color', 'background', 'droptarget', '[default]'],
+  description: 'Use for the background of available drop destinations when the experience highlights eligible targets during a drag operation. Use color.background.droptarget.hovered for the current receiving destination. Ordinary pointer hover does not activate this state. Keep persistent selection, keyboard focus, and reserved placeholder space separate; preserve maintained insertion, combine, and nested-group treatments.',
   exampleValue: '#E9F2FE',
+  usageGuidelines: {
+    usage: 'The color for backgrounds. Use for areas behind content (e.g. color.background.neutral, color.background.selected)',
+    cssProperties: ['background-color']
+  }
+}, {
+  name: 'color.background.droptarget.hovered',
+  path: ['color', 'background', 'droptarget', 'hovered'],
+  description: 'Use for the background of the current drop destination during a drag operation. Apply while the dragged item is over the target. Ordinary pointer hover does not activate this state. For keyboard dragging, apply equivalent feedback to the current destination and keep keyboard focus identifiable independently. Do not apply to ineligible destinations.',
+  exampleValue: '#CFE1FD',
   usageGuidelines: {
     usage: 'The color for backgrounds. Use for areas behind content (e.g. color.background.neutral, color.background.selected)',
     cssProperties: ['background-color']

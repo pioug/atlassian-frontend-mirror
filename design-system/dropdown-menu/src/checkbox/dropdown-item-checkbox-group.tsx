@@ -5,7 +5,7 @@ import Section from '@atlaskit/menu/section';
 import type { SectionProps } from '@atlaskit/menu/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import DropdownMenuItemGroup from '../dropdown-item-group';
+import { DropdownItemGroup } from '../dropdown-item-group';
 import GroupTitle from '../internal/components/group-title';
 import { CheckboxGroupContext } from '../internal/context/checkbox-group-context';
 
@@ -41,7 +41,7 @@ export const DropdownItemCheckboxGroup = ({
 	if (fg('platform-dst-new-menu')) {
 		return (
 			<CheckboxGroupContext.Provider value={id}>
-				<DropdownMenuItemGroup
+				<DropdownItemGroup
 					id={id}
 					hasSeparator={hasSeparator}
 					isScrollable={isScrollable}
@@ -51,7 +51,7 @@ export const DropdownItemCheckboxGroup = ({
 					label={label}
 				>
 					{children}
-				</DropdownMenuItemGroup>
+				</DropdownItemGroup>
 			</CheckboxGroupContext.Provider>
 		);
 	}
@@ -75,5 +75,3 @@ export const DropdownItemCheckboxGroup = ({
 		</CheckboxGroupContext.Provider>
 	);
 };
-
-export default DropdownItemCheckboxGroup;

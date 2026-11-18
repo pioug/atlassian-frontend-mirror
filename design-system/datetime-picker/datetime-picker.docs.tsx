@@ -6,7 +6,7 @@ const documentation: StructuredContentSource = {
 			name: 'DatePicker',
 			description: 'A component for selecting date values with calendar support.',
 			status: 'general-availability',
-			designSource: {
+			references: {
 				figmaUrl: 'https://go.atlassian.com/figma-library-ads-13285-45993',
 			},
 			import: {

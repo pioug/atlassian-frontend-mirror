@@ -1,5 +1,12 @@
 # @atlaskit/feature-gate-js-client
 
+## 8.0.1
+
+### Patch Changes
+
+- [`57acefa0a63b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/57acefa0a63b8) -
+  Update @atlaskit/flag-client to 1.2.1
+
 ## 8.0.0
 
 ### Major Changes

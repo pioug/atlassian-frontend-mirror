@@ -1,5 +1,48 @@
 # @atlaskit/smart-card
 
+## 46.19.4
+
+### Patch Changes
+
+- [`be79f728fefbf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be79f728fefbf) -
+  Preserve inherited embed dimensions for cached lazy Smart Links. With
+  `platform_smartlink_render_settled_link_on_mount` on, observe the loader and retain the
+  placeholder wrapper for consumer styling. With the gate off, use the original placeholder observer
+  and render the card after intersection.
+- Updated dependencies
+
+## 46.19.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.19.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.19.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.19.0
+
+### Minor Changes
+
+- [`8461651871dd6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8461651871dd6) -
+  Add an optional `onSmartLinkAuthFailed` link-provider callback that Smart Cards call whenever an
+  auth attempt is rejected or abandoned. It receives the link's status before auth, the auth error
+  type and, when available, the extension key, the auth URL's OAuth service key and the app name;
+  the host decides how to respond.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 46.18.2
 
 ### Patch Changes

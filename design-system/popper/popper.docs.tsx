@@ -6,7 +6,7 @@ const documentation: StructuredContentSource = {
 			name: 'Popper',
 			description: 'A component for positioning elements relative to other elements.',
 			status: 'general-availability',
-			designSource: {
+			references: {
 				figmaUrl: 'https://go.atlassian.com/figma-library-ads-82088-103357',
 			},
 			import: {

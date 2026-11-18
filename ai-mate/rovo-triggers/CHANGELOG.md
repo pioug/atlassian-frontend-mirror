@@ -1,5 +1,59 @@
 # @atlaskit/rovo-triggers
 
+## 12.17.0
+
+### Minor Changes
+
+- [`1381a01b625b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1381a01b625b8) -
+  Add `ARTIFACT_SAVED_EVENT` and the `ArtifactSavedPayload` type to `@atlaskit/rovo-triggers/types`.
+  Rovo Chat publishes this event on the `AI_MATE_AIFC` topic when an Artifact action finishes in a
+  live message, so a surface showing that Artifact can refresh it in place.
+
+## 12.16.0
+
+### Minor Changes
+
+- [`9762ed45e00d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9762ed45e00d2) -
+  Add optional subscription filtering before consumption and replay cleanup.
+- [`9762ed45e00d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9762ed45e00d2) -
+  Add a product-approved deferred launch contract for twcg-2432-ai-prompt-in-first-landing-doc.
+
+### Patch Changes
+
+- [`9762ed45e00d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9762ed45e00d2) -
+  Preserve deferred launch approvals published while replaying a queued request.
+
+## 12.15.0
+
+### Minor Changes
+
+- [`b2b02891b75c8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b2b02891b75c8) -
+  Prepare reusable chat presentation for an in-page Full screen experience. This release supplies
+  shared components and contracts; product activation follows separately.
+
+  The assistant renderer can use the existing centered modal with a persistent header and inline
+  navigation. Its navigation starts expanded, has independent collapse state, and retains its header
+  when browsing subpages. The modal mode is excluded from the saved sidebar/floating preference.
+  Shared trigger, assistant, store, navigation and dictation declarations now recognize
+  `large-modal`. Navigation hides its own close button for both standalone Full screen and the large
+  modal.
+
+  Consumers of `ChatHeaderSwitchModeMenu` must migrate its public API:
+
+  - Replace `showLargeModalOption` and `isLargeModalAvailable` with `largeModalOption`. Omit it to
+    hide the option, pass false for a disabled option, or true to enable selection.
+  - Replace `onLargeModalModeChange` with `onModeChange`, receiving `{ requested: 'large-modal' }`.
+  - Replace the previous display-only `mode="fullscreen"` with `mode="large-modal"`.
+
+  The `rovo_chat_morph_mode` experiment continues to show a disabled Full screen option until a
+  product supplies availability. Legacy separate-page handlers keep their existing behavior.
+  Confluence entry points, floating-host mounting and runtime mode-store activation are not part of
+  this release. Existing sidebar and mini-modal presentations remain available.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.14.0
 
 ### Minor Changes

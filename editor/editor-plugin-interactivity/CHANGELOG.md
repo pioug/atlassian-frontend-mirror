@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-interactivity
 
+## 18.0.1
+
+### Patch Changes
+
+- [`ed96d7a726544`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ed96d7a726544) -
+  The interactivity collector counts interactions in named regions instead of fixed editor groups.
+
 ## 18.0.0
 
 ### Patch Changes

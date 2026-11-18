@@ -37,7 +37,7 @@ const documentation: StructuredContentSource = {
 				'Ensure keyboard navigation with arrow keys',
 				'Support screen reader announcements',
 			],
-			designSource: {
+			references: {
 				figmaUrl: 'https://go.atlassian.com/figma-library-ads-13212-38027',
 			},
 			examples: [

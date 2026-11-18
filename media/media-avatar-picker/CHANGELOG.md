@@ -1,5 +1,14 @@
 # @atlaskit/media-avatar-picker
 
+## 28.3.9
+
+### Patch Changes
+
+- [`cedb206f14c1e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cedb206f14c1e) -
+  Add symmetric spacing between the image navigator zoom slider and its zoom icons, and centre the
+  zoom icons in their buttons.
+- Updated dependencies
+
 ## 28.3.8
 
 ### Patch Changes

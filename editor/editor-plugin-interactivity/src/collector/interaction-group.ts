@@ -14,7 +14,7 @@ const REPORTED_QUANTILES = [0.9, 0.98];
 
 /**
  * The latencies of one set of interactions — every interaction on the page, or only the ones
- * inside the editor — reported as one object in the event.
+ * with a region — reported as one object in the snapshot.
  *
  * The whole state is a count per distinct latency, so an interaction only costs a counter
  * whatever its latency was, and everything the event carries — the reported buckets, the
@@ -76,8 +76,8 @@ export class InteractionGroup {
 
 	/**
 	 * @param totalCount every interaction of the group, including those below the Event Timing
-	 * reporting threshold. Defaults to what `countTotal` was told, which is where an editor
-	 * group's total comes from; `page` passes `performance.interactionCount` instead.
+	 * reporting threshold. Defaults to what `countTotal` was told, which is where a region's
+	 * totals come from; `page` passes `performance.interactionCount` instead.
 	 */
 	snapshot(totalCount: number = this.totalCount): InteractionGroupSnapshot {
 		const observedCount = this.observedCount();

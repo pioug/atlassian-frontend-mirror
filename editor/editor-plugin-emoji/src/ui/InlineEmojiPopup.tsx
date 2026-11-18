@@ -115,6 +115,7 @@ export const InlineEmojiPopupOld = ({
 				{(setOutsideClickTargetRef) => (
 					<EmojiPicker
 						contentId={contentId}
+						getAICreditStatus={api.emoji.actions.getAICreditStatus}
 						emojiProvider={Promise.resolve(emojiProvider)}
 						onPickerRef={setOutsideClickTargetRef}
 						onSelection={handleSelection}
@@ -201,6 +202,7 @@ const InlineEmojiPopupContent = ({
 				{(setOutsideClickTargetRef) => (
 					<EmojiPicker
 						contentId={contentId}
+						getAICreditStatus={api.emoji.actions.getAICreditStatus}
 						emojiProvider={Promise.resolve(emojiProvider)}
 						onPickerRef={setOutsideClickTargetRef}
 						onSelection={handleSelection}

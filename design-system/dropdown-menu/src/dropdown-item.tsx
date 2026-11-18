@@ -189,5 +189,3 @@ export const DropdownItem: React.ForwardRefExoticComponent<
 		);
 	},
 );
-
-export default DropdownItem;

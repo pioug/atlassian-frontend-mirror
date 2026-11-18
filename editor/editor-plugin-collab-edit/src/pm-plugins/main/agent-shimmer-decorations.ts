@@ -1,3 +1,4 @@
+import { AI_IN_EDITOR_TELEPOINTER_CLASS } from '@atlaskit/editor-common/collab';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 
@@ -18,7 +19,6 @@ export const AGENT_SHIMMER_CLASS = 'collab-agent-shimmer';
 // Purple "just edited" highlight shown over the range after the skeleton clears — same style as the
 // editor AI "improve writing" in-editor highlight (subtle purple background + dashed purple underline).
 export const AGENT_EDIT_HIGHLIGHT_CLASS = 'collab-agent-edit-highlight';
-export const ROVO_AGENT_TELEPOINTER_CLASS = 'ai-in-editor-telepointer';
 export const ROVO_AGENT_TELEPOINTER_LABEL_CLASS = 'ai-in-editor-telepointer-label';
 export const ADD_AGENT_SHIMMER_META = 'addAgentShimmer'; // register the shimmer decorations
 export const HIGHLIGHT_AGENT_SHIMMER_META = 'highlightAgentShimmer'; // skeleton → purple highlight phase
@@ -47,7 +47,7 @@ export type AgentShimmerRange = {
 const createRovoAgentTelepointer = (label: string): HTMLSpanElement => {
 	const element = document.createElement('span');
 	element.setAttribute('data-testid', 'ai-in-editor-telepointer-widget');
-	element.className = ROVO_AGENT_TELEPOINTER_CLASS;
+	element.className = AI_IN_EDITOR_TELEPOINTER_CLASS;
 	const labelElement = document.createElement('span');
 	labelElement.setAttribute('data-testid', 'ai-in-editor-telepointer-widget-label');
 	labelElement.className = ROVO_AGENT_TELEPOINTER_LABEL_CLASS;
@@ -145,7 +145,7 @@ export const buildAgentShimmerDecorations = (
 					Decoration.widget(validTo, createRovoAgentTelepointer(telepointerLabel), {
 						isAgentShimmer: true,
 						shimmerId,
-						class: ROVO_AGENT_TELEPOINTER_CLASS,
+						class: AI_IN_EDITOR_TELEPOINTER_CLASS,
 						key: `agent-telepointer-${shimmerId}`,
 						side: 1,
 					}),

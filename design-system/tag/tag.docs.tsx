@@ -6,7 +6,7 @@ const documentation: StructuredContentSource = {
 			name: 'Tag',
 			description: 'A tag is a subtle, compact label used to categorize and organize content.',
 			status: 'general-availability', // beta tag is feature-flagged
-			designSource: {
+			references: {
 				figmaUrl: 'https://go.atlassian.com/figma-library-ads-121350-11129',
 			},
 			import: {

@@ -57,7 +57,9 @@ function getOverlayTargetWidth(
 	return area.liveResize?.mode === 'overlay'
 		? area.liveResize.width
 		: (area.requestedWidth ??
-				(areaName === 'panel' ? area.preferredWidth : area.preferredOverlayWidth) ??
+				(areaName === 'panel' && !fg('platform-dst-chat-panel-layout')
+					? area.preferredWidth
+					: area.preferredOverlayWidth) ??
 				defaultWidth);
 }
 

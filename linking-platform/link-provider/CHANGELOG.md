@@ -1,5 +1,15 @@
 # @atlaskit/link-provider
 
+## 6.3.0
+
+### Minor Changes
+
+- [`8461651871dd6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8461651871dd6) -
+  Add an optional `onSmartLinkAuthFailed` link-provider callback that Smart Cards call whenever an
+  auth attempt is rejected or abandoned. It receives the link's status before auth, the auth error
+  type and, when available, the extension key, the auth URL's OAuth service key and the app name;
+  the host decides how to respond.
+
 ## 6.2.0
 
 ### Minor Changes

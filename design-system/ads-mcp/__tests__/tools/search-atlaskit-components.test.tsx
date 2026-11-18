@@ -3,6 +3,18 @@ import { atlaskitComponents } from '../../src/tools/get-atlaskit-components/atla
 import { searchAtlaskitComponentsTool } from '../../src/tools/search-atlaskit-components/search-atlaskit-components-tool';
 
 describe('panel-system Platform offerings discovery', () => {
+	it('returns Figma references from the fallback catalog', async () => {
+		const source = atlaskitComponents.find((component) => component.references?.figmaUrl);
+		expect(source).toBeDefined();
+		const result = await searchAtlaskitComponentsTool({ terms: [source!.name] });
+		const text = result.content[0].type === 'text' ? result.content[0].text : '[]';
+		const component = JSON.parse(text).find(
+			(component: { name: string }) => component.name === source!.name,
+		);
+		expect(component.references).toEqual(source!.references);
+		expect(component).not.toHaveProperty('designSource');
+	});
+
 	it('publishes panel-system through the fallback catalog without an ADS exception', () => {
 		expect(
 			loadAllComponents().some((component) => component.package === '@atlassian/panel-system'),

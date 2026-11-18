@@ -1622,7 +1622,9 @@ describe('Card ', () => {
 				);
 
 				// should provide a download action
-				expect(screen.queryByLabelText('Download')).toBeInTheDocument();
+				expect(
+					screen.queryByRole('button', { name: `${fileItem.details.name} — Download` }),
+				).toBeInTheDocument();
 
 				// should render title box correctly
 				expect(screen.queryByTestId(titleBoxTestId)).toBeInTheDocument();
@@ -2536,7 +2538,9 @@ describe('Card ', () => {
 				);
 
 				// should not provide a download action
-				expect(screen.queryByLabelText('Download')).not.toBeInTheDocument();
+				expect(
+					screen.queryByRole('button', { name: `${fileItem.details.name} — Download` }),
+				).not.toBeInTheDocument();
 
 				// should not render title box
 				expect(screen.queryByTestId(titleBoxTestId)).not.toBeInTheDocument();
@@ -3360,7 +3364,7 @@ describe('Card ', () => {
 			),
 		);
 
-		const btn = screen.getByLabelText('Download');
+		const btn = screen.getByRole('button', { name: `${fileItem.details.name} — Download` });
 		await user.click(btn);
 
 		expect(getFileBinaryURL).toHaveBeenCalledWith(
@@ -3426,7 +3430,7 @@ describe('Card ', () => {
 			</MockedMediaClientProvider>,
 		);
 
-		const btn = await screen.findByLabelText('Download');
+		const btn = await screen.findByRole('button', { name: `${fileItem.details.name} — Download` });
 		await user.click(btn);
 
 		expect(getFileBinaryURL).toHaveBeenCalledWith(
@@ -3495,7 +3499,10 @@ describe('Card ', () => {
 			</MockedMediaClientProvider>,
 		);
 
-		const btn = await screen.findByLabelText('Download');
+		const btn = await screen.findByRole('button', {
+			name: `${fileItem.details.name} — Download Disabled`,
+		});
+		expect(btn).toBeDisabled();
 		await user.click(btn);
 
 		expect(getFileBinaryURL).not.toHaveBeenCalled();
@@ -3540,7 +3547,7 @@ describe('Card ', () => {
 			),
 		);
 
-		const btn = screen.getByLabelText('Download');
+		const btn = screen.getByRole('button', { name: `${fileItem.details.name} — Download` });
 		await user.click(btn);
 
 		expect(getFileBinaryURL).toHaveBeenCalledWith(
@@ -3614,7 +3621,7 @@ describe('Card ', () => {
 			</MockedMediaClientProvider>,
 		);
 
-		const btn = await screen.findByLabelText('Download');
+		const btn = await screen.findByRole('button', { name: `${fileItem.details.name} — Download` });
 		await user.click(btn);
 
 		const warningMsg = await screen.findByTestId('mediaAbuseModal');
@@ -3691,7 +3698,7 @@ describe('Card ', () => {
 			</MockedMediaClientProvider>,
 		);
 
-		const btn = await screen.findByLabelText('Download');
+		const btn = await screen.findByRole('button', { name: `${fileItem.details.name} — Download` });
 		await user.click(btn);
 
 		const warningMsg = await screen.findByTestId('mediaAbuseModal');
@@ -6220,7 +6227,7 @@ describe('Card ', () => {
 			</MockedMediaClientProvider>,
 		);
 
-		const btn = await screen.findByLabelText('Download');
+		const btn = await screen.findByRole('button', { name: `${fileItem.details.name} — Download` });
 		await user.click(btn);
 
 		// expect(getFileBinaryURL).toHaveBeenCalledWith(fileItem.id, fileItem.collection, undefined, fileItem.details.name);

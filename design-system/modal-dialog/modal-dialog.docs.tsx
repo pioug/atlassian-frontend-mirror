@@ -6,7 +6,7 @@ const documentation: StructuredContentSource = {
 			name: 'Modal',
 			description: 'A modal dialog component for important content.',
 			status: 'general-availability',
-			designSource: {
+			references: {
 				figmaUrl: 'https://go.atlassian.com/figma-library-ads-82128-80670',
 			},
 			import: {

@@ -1,5 +1,32 @@
 # @atlaskit/dropdown-menu
 
+## 22.0.0
+
+### Major Changes
+
+- [`ed715449b7f6b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ed715449b7f6b) -
+  Remove default exports from Dropdown components and remove the legacy
+  `@atlaskit/dropdown-menu/dropdown-menu-item` and
+  `@atlaskit/dropdown-menu/dropdown-menu-item-group` entrypoints.
+
+  Use named exports from the component entrypoints instead:
+
+  ```tsx
+  import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';
+  import { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-item-group';
+  import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
+  ```
+
+  Checkbox, radio, and their group components also require named imports from their existing
+  entrypoints. Update workspace consumers to use these named exports.
+
+### Patch Changes
+
+- [`6beaa0621181d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6beaa0621181d) -
+  Replace ds-lib keyboard constant imports with their native KeyboardEvent values. Keyboard handling
+  is unchanged.
+- Updated dependencies
+
 ## 21.3.3
 
 ### Patch Changes

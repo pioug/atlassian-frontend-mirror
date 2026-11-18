@@ -51,9 +51,10 @@ const styles = cssMap({
 		height: '100%',
 		width: '100%',
 	},
+	// The outer container supplies query and motion widths. A second size container
+	// on this grid can leave WebKit's viewport media-query styles stale.
 	layout: {
 		display: 'grid',
-		containerType: 'inline-size',
 		gridTemplateAreas: `'main'`,
 		gridTemplateColumns: 'minmax(0, 1fr)',
 		gridTemplateRows: '1fr',

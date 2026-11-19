@@ -102,9 +102,6 @@
 		"platform_editor_adf_with_localid": {
 			"type": "boolean"
 		},
-		"inline_invite_from_mentions_kill_switch": {
-			"type": "boolean"
-		},
 		"people-teams_migrate-user-profile-card": {
 			"type": "boolean"
 		},

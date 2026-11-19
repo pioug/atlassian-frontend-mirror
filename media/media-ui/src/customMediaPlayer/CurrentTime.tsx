@@ -10,6 +10,7 @@ import { css, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
+import { useIsInsetFullscreen } from './insetViewerContext/useIsInsetFullscreen';
 import { useIsInsetViewer } from './insetViewerContext/useIsInsetViewer';
 
 const currentTimeStyles = css({
@@ -28,8 +29,11 @@ export const CurrentTime = ({
 	...props
 }: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>): JSX.Element => {
 	const isInsetViewer = useIsInsetViewer();
+	const isInsetFullscreen = useIsInsetFullscreen();
+	// The inset fullscreen footer is always dark, so only the viewer's own footer follows the theme.
+	const followsTheme = isInsetViewer && !isInsetFullscreen;
 	return (
-		<div css={[currentTimeStyles, isInsetViewer && insetViewerCurrentTimeStyles]} {...props}>
+		<div css={[currentTimeStyles, followsTheme && insetViewerCurrentTimeStyles]} {...props}>
 			{children}
 		</div>
 	);

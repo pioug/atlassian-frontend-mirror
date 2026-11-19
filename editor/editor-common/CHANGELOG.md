@@ -1,5 +1,35 @@
 # @atlaskit/editor-common
 
+## 137.5.0
+
+### Minor Changes
+
+- [`5d0e8f810cfd2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5d0e8f810cfd2) -
+  Add an optional `getItemRank` resolver to `RegistryElementBrowser`. Under
+  `platform_editor_slash_command`, empty-query Element Browser results use the same category ranks
+  and host overrides as the inline slash menu.
+
+  Export `resolveRegisteredItemRank` so both menus can resolve a parent rank using the same rule.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 137.4.0
+
+### Minor Changes
+
+- [`ba3e95a3be114`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ba3e95a3be114) -
+  Add optional experienceId attribute to the nativeEmbed inserted and changedType analytics event
+  payloads. Add the `@atlaskit/editor-common/extensions/native-embed-experience-id` entry point with
+  `getNativeEmbedExperienceIdFromExtensionKey`.
+
+### Patch Changes
+
+- [`66839b67aad09`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/66839b67aad09) -
+  Add localized reading-order cues for inserted and deleted text behind a11y_remediation_pipeline_2.
+- Updated dependencies
+
 ## 137.3.0
 
 ### Minor Changes

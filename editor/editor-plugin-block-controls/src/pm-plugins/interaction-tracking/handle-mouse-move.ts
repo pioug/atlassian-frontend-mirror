@@ -4,6 +4,7 @@ import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-e
 
 import type { BlockControlsPlugin } from '../../blockControlsPluginType';
 import { handleMouseOver } from '../handle-mouse-over';
+import { createAfterRenderScheduler } from '../utils/after-render-scheduler';
 import { clearHoverSide, mouseEnter, mouseLeave, setHoverSide, stopEditing } from './commands';
 import { RIGHT_MARGIN_ROVO_GAP_PX } from './constants';
 import { getInteractionTrackingState } from './pm-plugin';
@@ -22,9 +23,12 @@ const cancelScheduledProcessForView = (view: EditorView) => {
 	}
 };
 
-const clearPendingHoverSide = (view: EditorView) => {
+export const clearPendingHoverSide = (view: EditorView): void => {
 	pendingByView.delete(view);
 	cancelScheduledProcessForView(view);
+	if (isExperimentEnabled('platform_editor_improve_inp_batch_3')) {
+		cancelHoverSideAfterRender(view);
+	}
 };
 
 const BLOCK_SELECTORS = '[data-node-anchor], [data-drag-handler-anchor-name]';
@@ -76,6 +80,9 @@ type RightMarginZone =
 // Classify where the cursor sits in the right margin beside the block at its height, running the
 // block lookup once so the caller doesn't traverse the DOM twice per mousemove.
 const classifyRightMarginPosition = (view: EditorView, event: MouseEvent): RightMarginZone => {
+	if (isExperimentEnabled('platform_editor_improve_inp_batch_3')) {
+		return classifyRightMarginPositionByHitTest(view, event);
+	}
 	const found = findBlockAtY(view, event.clientY);
 	if (!found) {
 		return null;
@@ -189,6 +196,13 @@ export const handleMouseMove = (
 	rightSideControlsEnabled?: boolean,
 	api?: ExtractInjectionAPI<BlockControlsPlugin>,
 ): boolean => {
+	if (
+		rightSideControlsEnabled &&
+		event instanceof MouseEvent &&
+		isExperimentEnabled('platform_editor_improve_inp_batch_3')
+	) {
+		return handleMouseMoveAfterRender(view, event, api);
+	}
 	const state = getInteractionTrackingState(view.state);
 	// if user has stopped editing and moved their mouse, show block controls again
 	if (state?.isEditing) {
@@ -225,4 +239,118 @@ export const handleMouseLeave = (view: EditorView, rightSideControlsEnabled?: bo
 export const handleMouseEnter = (view: EditorView): boolean => {
 	mouseEnter(view);
 	return false;
+};
+
+/* -------------------------------------------------------------------------------------------------
+ * EDITOR-9730: platform_editor_improve_inp_batch_3
+ *
+ * Everything below is the treatment path, reached through these gates only:
+ *   - handleMouseMove          -> handleMouseMoveAfterRender
+ *   - classifyRightMarginPosition -> classifyRightMarginPositionByHitTest
+ *   - clearPendingHoverSide    -> cancelHoverSideAfterRender
+ * Clean-up when the experiment ships: delete this section, take the treatment branch at each gate
+ * (dropping findBlockAtY, getRootBlocks, the rAF bookkeeping and the legacy handleMouseMove body),
+ * and remove the gated calls in pm-plugin.ts and handle-key-down.ts.
+ * ---------------------------------------------------------------------------------------------- */
+
+type AfterRenderState = {
+	api?: ExtractInjectionAPI<BlockControlsPlugin>;
+	scheduler: ReturnType<typeof createAfterRenderScheduler>;
+};
+
+/** Per-view scheduler plus the latest plugin API to use when it runs. */
+const afterRenderByView = new WeakMap<EditorView, AfterRenderState>();
+
+const cancelHoverSideAfterRender = (view: EditorView): void => {
+	afterRenderByView.get(view)?.scheduler.cancel();
+};
+
+const processHoverSideAfterRender = (view: EditorView) => {
+	const state = afterRenderByView.get(view);
+	if (!state || view.isDestroyed || !pendingByView.has(view)) {
+		return;
+	}
+	processHoverSide(view, state.api);
+
+	// The typing state is cleared last, after every read above has finished, so no layout read
+	// follows one of our own writes. Typing cancels pending work (see handle-key-down.ts), so this
+	// never undoes a newer keystroke.
+	if (getInteractionTrackingState(view.state)?.isEditing) {
+		stopEditing(view);
+	}
+};
+
+const handleMouseMoveAfterRender = (
+	view: EditorView,
+	event: MouseEvent,
+	api?: ExtractInjectionAPI<BlockControlsPlugin>,
+): boolean => {
+	const win = view.dom.ownerDocument.defaultView;
+	if (!win) {
+		return false;
+	}
+	pendingByView.set(view, event);
+	let state = afterRenderByView.get(view);
+	if (!state) {
+		state = {
+			api,
+			scheduler: createAfterRenderScheduler(win, () => processHoverSideAfterRender(view)),
+		};
+		afterRenderByView.set(view, state);
+	}
+	// The latest event and API win when several moves coalesce into one run.
+	state.api = api;
+	// Reads run after the next frame renders, giving the browser an opportunity to update layout
+	// first (other work can still dirty it).
+	state.scheduler.schedule();
+	return false;
+};
+
+// Walk up from a block to its top-level block (no block ancestor). Cost is bounded by nesting
+// depth, matching getRootBlocks' filter without scanning the whole document.
+const toRootBlock = (block: HTMLElement): HTMLElement => {
+	let root = block;
+	let parent = root.parentElement?.closest(BLOCK_SELECTORS);
+	while (parent instanceof HTMLElement) {
+		root = parent;
+		parent = root.parentElement?.closest(BLOCK_SELECTORS);
+	}
+	return root;
+};
+
+// Right-margin lookup without the document-wide scan (EDITOR-9730): when the cursor is past the
+// right edge of the editor content, hit-test once just inside that edge at the cursor's height and
+// resolve the top-level block there.
+//
+// This still reads layout (getBoundingClientRect and elementFromPoint), so like findBlockAtY it
+// forces a synchronous layout if layout is dirty when it runs. What changes is how much and when:
+// one rect and one hit test instead of a rect per top-level block, and it runs in the
+// after-render callback, where the browser has had an opportunity to update layout first.
+const findRootBlockBesideCursor = (view: EditorView, event: MouseEvent): HTMLElement | null => {
+	const contentRight = view.dom.getBoundingClientRect().right;
+	if (event.clientX <= contentRight) {
+		return null;
+	}
+	const root = view.root as Document | ShadowRoot;
+	if (typeof root.elementFromPoint !== 'function') {
+		return null;
+	}
+	const block = root.elementFromPoint(contentRight - 1, event.clientY)?.closest(BLOCK_SELECTORS);
+	if (!(block instanceof HTMLElement)) {
+		return null;
+	}
+	const rootBlock = toRootBlock(block);
+	return view.dom.contains(rootBlock) ? rootBlock : null;
+};
+
+// Same classification as the legacy path, with the block found by a hit test.
+const classifyRightMarginPositionByHitTest = (
+	view: EditorView,
+	event: MouseEvent,
+): RightMarginZone => {
+	const block = findRootBlockBesideCursor(view, event);
+	if (!block) {
+		return null;
+	}
+	return { type: 'active', block };
 };

@@ -72,6 +72,8 @@ interface Props {
 	locale?: string;
 	/** Optional custom content */
 	customContent?: React.ReactChild;
+	/** Optional content rendered with the opt-in checkboxes, shown only once a feedback type is selected */
+	customOptInContent?: React.ReactNode;
 	/** Optional parameter for showing contact opt-in checkboxes */
 	anonymousFeedback?: boolean;
 	/** Optional custom label for select field */
@@ -116,6 +118,7 @@ const FeedbackForm = ({
 	showTypeField = true,
 	showDefaultTextFields = true,
 	customContent,
+	customOptInContent,
 	onClose,
 	onCancel,
 	onSubmit,
@@ -435,6 +438,7 @@ const FeedbackForm = ({
 												</>
 											)}
 										</Field>
+										{customOptInContent}
 									</Fieldset>
 								)) || (
 									<>
@@ -448,6 +452,7 @@ const FeedbackForm = ({
 												</SectionMessage>
 											)}
 										</Field>
+										{customOptInContent}
 									</>
 								)}
 							</>

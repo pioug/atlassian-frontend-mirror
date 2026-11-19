@@ -174,6 +174,9 @@ interface EditorBaseProps {
 	// Enables modernised comment editor chrome and spacing styles.
 	isEditorModernisationEnabled?: boolean;
 
+	// Set for the `full-page` editor to grow with its content instead of scrolling internally.
+	isHeightSetFromContent?: boolean;
+
 	// Set to configure the maximum editor height in pixels for `comment` and `chromeless` editor modes.
 	maxHeight?: number;
 

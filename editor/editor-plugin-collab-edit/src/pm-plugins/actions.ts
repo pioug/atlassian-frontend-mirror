@@ -23,24 +23,14 @@ import type { Selection, Transaction } from '@atlaskit/editor-prosemirror/state'
 import { AllSelection, NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { Step } from '@atlaskit/editor-prosemirror/transform-override';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { expVal } from '@atlaskit/platform-feature-experiments/exp-val';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { receiveTransaction, sendableSteps } from '@atlaskit/prosemirror-collab';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { PrivateCollabEditOptions } from '../types';
 import { getAgentEditShimmerNotShownPayload } from './analytics';
 import { getAgentEditRequester } from './main/agent-edit-requester';
 import { getAgentEditSegments } from './main/agent-review-segments';
-import {
-	ADD_AGENT_SHIMMER_META,
-	AGENT_EDIT_HIGHLIGHT_DEFAULT_DURATION_MS,
-	AGENT_SHIMMER_DEFAULT_DURATION_MS,
-	type AgentShimmerRange,
-	HIGHLIGHT_AGENT_SHIMMER_META,
-	REMOVE_AGENT_SHIMMER_META,
-} from './main/agent-shimmer-decorations';
-import { getAgentEditChromeRanges, getAgentShimmerRanges } from './main/agent-shimmer-ranges';
+import { getAgentEditChromeRanges } from './main/agent-shimmer-ranges';
 import { getRemoteAgentChromeIdentity } from './main/remote-agent-chrome-identity';
 import { replaceDocument } from './utils';
 
@@ -135,13 +125,6 @@ export const applyRemoteSteps = (
 		tr.setMeta('addToHistory', shouldRecordAgentEditInHistory);
 		tr.setMeta('isRemote', true);
 
-		// Agent edit shimmer: mark the ranges agent steps just wrote so the plugin reveals them with the
-		// skeleton loader, then (optionally) a purple "just edited" highlight. Gated as a whole so no
-		// experiment reads run off-experiment; off-path leaves `agentShimmers` empty and everything below
-		// is a no-op.
-		let shimmerDurationMs = 0;
-		let highlightDurationMs = 0;
-		let agentShimmers: AgentShimmerRange[] = [];
 		let visualJson = json;
 		let visualSteps = steps;
 		if (
@@ -172,13 +155,7 @@ export const applyRemoteSteps = (
 		const isM1StreamingEnabled = isExperimentEnabled(
 			'platform_editor_ai_streaming_ux_experience_m1',
 		);
-		const isUnifiedPostApplyChromeEnabled = isExperimentEnabled(
-			'platform_editor_ai_unified_post_apply_chrome',
-		);
-		if (
-			isUnifiedPostApplyChromeEnabled &&
-			(isM1StreamingEnabled || isExperimentEnabled('platform_editor_agent_be_streaming'))
-		) {
+		if (isM1StreamingEnabled || isExperimentEnabled('platform_editor_agent_be_streaming')) {
 			const ranges = getAgentEditChromeRanges(
 				visualJson,
 				visualSteps,
@@ -201,50 +178,6 @@ export const applyRemoteSteps = (
 					...(telepointerLabel ? { telepointerLabel } : {}),
 					ranges,
 				});
-			}
-		}
-		if (
-			!isUnifiedPostApplyChromeEnabled &&
-			expValEquals('platform_editor_agent_be_streaming', 'isEnabled', true)
-		) {
-			// The skeleton and purple-highlight phases toggle independently. `shimmerDurationMs` is the
-			// skeleton lifetime; `0` skips the skeleton (an edit can still get the purple highlight).
-			shimmerDurationMs = expVal(
-				'platform_editor_agent_be_streaming',
-				'shimmerDurationMs',
-				AGENT_SHIMMER_DEFAULT_DURATION_MS,
-			);
-			// `highlightDurationMs` is the purple "just edited" highlight lifetime; `0` skips the highlight
-			// (the skeleton still shows). `0` on both shows nothing.
-			highlightDurationMs = expVal(
-				'platform_editor_agent_be_streaming',
-				'highlightDurationMs',
-				AGENT_EDIT_HIGHLIGHT_DEFAULT_DURATION_MS,
-			);
-			// Telepointer shown by default; `telepointerDisabled` hides it (inverted because `expVal`
-			// only permits `false` as a boolean default).
-			const telepointerEnabled = !expVal(
-				'platform_editor_agent_be_streaming',
-				'telepointerDisabled',
-				false,
-			);
-			agentShimmers = getAgentShimmerRanges(
-				visualJson,
-				visualSteps,
-				tr,
-				view,
-				shimmerDurationMs,
-				highlightDurationMs,
-				telepointerEnabled,
-				// An agent edit that applied without the shimmer fires the operational event on the same
-				// transaction, so success stays event-free and only degrades are reported.
-				(reason, agentType, error) =>
-					editorAnalyticsApi?.attachAnalyticsEvent(
-						getAgentEditShimmerNotShownPayload(reason, agentType, error),
-					)(tr),
-			);
-			if (agentShimmers.length) {
-				tr.setMeta(ADD_AGENT_SHIMMER_META, agentShimmers);
 			}
 		}
 
@@ -273,49 +206,6 @@ export const applyRemoteSteps = (
 		}
 
 		view.dispatch(tr);
-
-		// Schedule each shimmer's phase changes. `dispatchMeta` is guarded so a timer firing after
-		// teardown is a harmless no-op. Only reached when the gated block above produced ranges, so this
-		// whole path is off-experiment-safe.
-		if (agentShimmers.length) {
-			let tornDownReported = false;
-			const dispatchMeta = (metaKey: string, value: unknown): void => {
-				try {
-					view.dispatch(view.state.tr.setMeta(metaKey, value));
-				} catch {
-					// View torn down before the timer fired — nothing to clean up. Report once (not once
-					// per shimmer) so we can see how often shimmers are interrupted by teardown.
-					if (!tornDownReported) {
-						tornDownReported = true;
-						editorAnalyticsApi?.fireAnalyticsEvent(
-							getAgentEditShimmerNotShownPayload('tornDownMidAnimation'),
-						);
-					}
-				}
-			};
-			agentShimmers.forEach(({ shimmerId }) => {
-				if (shimmerDurationMs > 0) {
-					// Skeleton first. When it clears, show the purple highlight (if enabled) then remove;
-					// otherwise remove straight away.
-					setTimeout(() => {
-						if (highlightDurationMs > 0) {
-							dispatchMeta(HIGHLIGHT_AGENT_SHIMMER_META, shimmerId);
-							setTimeout(() => {
-								dispatchMeta(REMOVE_AGENT_SHIMMER_META, shimmerId);
-							}, highlightDurationMs);
-						} else {
-							dispatchMeta(REMOVE_AGENT_SHIMMER_META, shimmerId);
-						}
-					}, shimmerDurationMs);
-				} else {
-					// Skeleton disabled: the range already starts in the highlight phase, so just time its
-					// removal. (Reached only when `highlightDurationMs > 0`, else no ranges were produced.)
-					setTimeout(() => {
-						dispatchMeta(REMOVE_AGENT_SHIMMER_META, shimmerId);
-					}, highlightDurationMs);
-				}
-			});
-		}
 	}
 };
 

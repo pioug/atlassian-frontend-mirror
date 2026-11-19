@@ -62,6 +62,7 @@ export interface EditorAppearanceComponentProps<Plugins extends NextEditorPlugin
 	innerRef?: RefObject<HTMLDivElement>;
 	insertMenuItems?: MenuItem[];
 	isEditorModernisationEnabled?: boolean;
+	isHeightSetFromContent?: boolean;
 
 	maxHeight?: number;
 	minHeight?: number;

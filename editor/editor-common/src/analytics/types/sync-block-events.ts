@@ -114,10 +114,7 @@ type SyncedBlockDeleteSuccessAttributes = SyncedBlockSuccessAttributes & {
 
 type FetchSyncedBlockSuccessAttributes = SyncedBlockSuccessAttributes;
 
-/**
- * Per-request source-info success attrs. `sourceLocation` is only set for Jira sources
- * behind the `platform_editor_blocks_patch_12` experiment.
- */
+/** Per-request source-info success attrs. `sourceLocation` is only set for Jira sources. */
 type SyncedBlockGetSourceInfoSuccessAttributes = SyncedBlockSuccessAttributes & {
 	sourceLocation?: SyncedBlockSourceLocationAttribute;
 };

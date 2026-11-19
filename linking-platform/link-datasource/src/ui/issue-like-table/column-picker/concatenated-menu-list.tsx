@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { isValidElement, type ReactNode } from 'react';
+import { isValidElement, type ReactNode, useRef } from 'react';
 
 import { css, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl';
@@ -15,6 +15,7 @@ import type { MenuListComponentProps, OptionProps, OptionType } from '@atlaskit/
 import { token } from '@atlaskit/tokens';
 
 import { columnPickerMessages } from './messages';
+import { useUnselectedDropTarget } from './use-unselected-drop-target';
 
 export const SELECT_ITEMS_MAXIMUM_THRESHOLD = 200;
 
@@ -51,6 +52,20 @@ const reorderHintStyles = cssMap({
 	},
 });
 
+const SelectedOptionsSeparator = (): JSX.Element => {
+	const ref = useRef<HTMLDivElement>(null);
+	useUnselectedDropTarget(ref);
+
+	return (
+		<Box
+			ref={ref}
+			aria-hidden
+			xcss={separatorStyles.selectedOptions}
+			testId="column-picker-selected-options-separator"
+		/>
+	);
+};
+
 const isSelectedOption = (child: ReactNode): boolean =>
 	isValidElement<OptionProps<OptionType, true>>(child) && !!child.props.isSelected;
 
@@ -80,12 +95,7 @@ const withSelectedOptionsSeparator = (options: ReactNode[]): ReactNode[] => {
 	return [
 		reorderHint,
 		...options.slice(0, firstUnselectedIndex),
-		<Box
-			key="column-picker-selected-options-separator"
-			aria-hidden
-			xcss={separatorStyles.selectedOptions}
-			testId="column-picker-selected-options-separator"
-		/>,
+		<SelectedOptionsSeparator key="column-picker-selected-options-separator" />,
 		...options.slice(firstUnselectedIndex),
 	];
 };

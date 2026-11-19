@@ -10,9 +10,23 @@ import { generateSampleFileItem } from '@atlaskit/media-test-data/sample-file-it
 import { preloadMediaViewer } from '@atlaskit/media-viewer/preload';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
-import { failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { FileCard } from '../../fileCard';
+
+// Records the props FileCard gives the inline player while still rendering the real one.
+const mockInlinePlayerLazy = jest.fn();
+jest.mock('../../inlinePlayerLazy', () => {
+	const { createElement, forwardRef } = jest.requireActual('react');
+	const original = jest.requireActual('../../inlinePlayerLazy');
+	return {
+		...original,
+		InlinePlayerLazy: forwardRef((props: object, ref: unknown) => {
+			mockInlinePlayerLazy(props);
+			return createElement(original.InlinePlayerLazy, { ...props, ref });
+		}),
+	};
+});
 
 // The real MediaViewer renders the whole viewer tree, which is not what the
 // `mediaViewerExtensions` tests below are about — the behaviour under test is
@@ -54,6 +68,7 @@ describe('<FileCard />', () => {
 	beforeEach(() => {
 		// Disable SSR feature gate to avoid uninitialized client errors in test environment
 		failGate('platform_media_ssr_data_seed');
+		mockInlinePlayerLazy.mockClear();
 	});
 
 	describe('fallback media name in FileCard when media service name is missing (HOT-301450)', () => {
@@ -362,5 +377,59 @@ describe('<FileCard />', () => {
 				expect.objectContaining({ identifier, mediaType: 'image' }),
 			);
 		});
+	});
+
+	describe('useInsetFullscreen', () => {
+		it.each([
+			{
+				gate: 'on',
+				setGate: passGate,
+				mediaViewerExtensions: { useInsetViewer: true },
+				extensions: 'useInsetViewer is true',
+				expected: true,
+			},
+			{
+				gate: 'off',
+				setGate: failGate,
+				mediaViewerExtensions: { useInsetViewer: true },
+				extensions: 'useInsetViewer is true',
+				expected: false,
+			},
+			{
+				gate: 'on',
+				setGate: passGate,
+				mediaViewerExtensions: { useInsetViewer: false },
+				extensions: 'useInsetViewer is false',
+				expected: false,
+			},
+			{
+				gate: 'on',
+				setGate: passGate,
+				mediaViewerExtensions: undefined,
+				extensions: 'no extensions are supplied',
+				expected: false,
+			},
+		])(
+			'should pass useInsetFullscreen $expected to the inline player when cc_comments_inset_media_viewer is $gate and $extensions',
+			async ({ setGate, mediaViewerExtensions, expected }) => {
+				setGate('cc_comments_inset_media_viewer');
+				const [fileItem, identifier] = generateSampleFileItem.workingVideo();
+				const { mediaApi } = createMockedMediaApi(fileItem);
+				const testId = 'file-card-inline-player';
+
+				// `disableOverlay` with `useInlinePlayer` switches a playable video to the inline player on mount.
+				renderFileCard(
+					identifier,
+					{ useInlinePlayer: true, disableOverlay: true, mediaViewerExtensions, testId },
+					mediaApi,
+				);
+
+				await waitFor(() =>
+					expect(mockInlinePlayerLazy).toHaveBeenLastCalledWith(
+						expect.objectContaining({ identifier, useInsetFullscreen: expected }),
+					),
+				);
+			},
+		);
 	});
 });

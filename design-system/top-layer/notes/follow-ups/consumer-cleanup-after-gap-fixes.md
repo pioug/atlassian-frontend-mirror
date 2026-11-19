@@ -1,17 +1,18 @@
 # Follow-up: remove consumer focus and Escape code that the gap fixes made redundant
 
 **Status:** TODO (second sweep pass). The design-system gap fixes (G1 autoFocus before show, G2 late
-focus target, G3 focus lost on unmount, G4 opener gone, G5/G6 keys from nested layers, ask-first
-close) make more consumer code redundant on the top-layer path. Each gap's decision note lists the
+focus target, G3 focus lost on unmount, G4 opener gone, G5 keys from nested layers, ask-first close)
+make more consumer code redundant on the top-layer path. Each gap's decision note lists the
 consumers its author found:
 
 - [../decisions/react-autofocus-and-focus-on-open.md](../decisions/react-autofocus-and-focus-on-open.md)
   (G1, G2)
-- [../decisions/focus-loss-recovery.md](../decisions/focus-loss-recovery.md) (G3)
+- [../decisions/focus-loss-recovery.md](../decisions/focus-loss-recovery.md) (G3: no layer change;
+  consumer code that moves focus after a removal stays, and consumers that lose focus fix it)
 - [../decisions/focus-return-when-opener-is-gone.md](../decisions/focus-return-when-opener-is-gone.md)
   (G4 and trigger focus return)
 - [../decisions/manual-light-dismiss-escape-stacking.md](../decisions/manual-light-dismiss-escape-stacking.md)
-  (G5, G6)
+  (G5; G6 is not a gap, see "Handlers around a popover see an Escape before it closes")
 - [../decisions/wrappers-ask-first-close.md](../decisions/wrappers-ask-first-close.md) (for example
   jira incidents-empty-page `mode="manual"`)
 

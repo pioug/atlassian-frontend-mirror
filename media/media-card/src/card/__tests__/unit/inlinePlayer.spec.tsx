@@ -12,13 +12,33 @@ import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers/mocked
 import type { FileState } from '@atlaskit/media-state/file-state';
 import { generateSampleFileItem } from '@atlaskit/media-test-data/sample-file-items';
 import { expectFunctionToHaveBeenCalledWith } from '@atlaskit/media-test-helpers/jestHelpers';
-import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { CustomMediaPlayer } from '@atlaskit/media-ui/customMediaPlayer';
+import { MediaPlayer } from '@atlaskit/media-ui/mediaPlayer';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { spinnerTestId, inlinePlayerTestId } from '../../../__tests__/utils/_testIDs';
 import { createMockedMediaClientProvider } from '../../../utils/__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProvider';
 import { getPreferredVideoArtifact } from '../../getPreferredVideoArtifact';
 import { InlinePlayer } from '../../inlinePlayer';
 import { LOCAL_HEIGHT_VARIABLE, LOCAL_WIDTH_VARIABLE } from '../../inlinePlayerWrapper-compiled';
+
+// Records the props each player renders with while still rendering the real player.
+jest.mock('@atlaskit/media-ui/customMediaPlayer', () => {
+	const { createElement } = jest.requireActual('react');
+	const original = jest.requireActual('@atlaskit/media-ui/customMediaPlayer');
+	return {
+		...original,
+		CustomMediaPlayer: jest.fn((props: object) => createElement(original.CustomMediaPlayer, props)),
+	};
+});
+jest.mock('@atlaskit/media-ui/mediaPlayer', () => {
+	const { createElement } = jest.requireActual('react');
+	const original = jest.requireActual('@atlaskit/media-ui/mediaPlayer');
+	return {
+		...original,
+		MediaPlayer: jest.fn((props: object) => createElement(original.MediaPlayer, props)),
+	};
+});
 
 const HTMLMediaElement_play = HTMLMediaElement.prototype.play;
 const HTMLMediaElement_pause = HTMLMediaElement.prototype.pause;
@@ -212,6 +232,53 @@ describe('<InlinePlayer />', () => {
 		const videoElement = container.querySelector('video');
 		const videoSrc = videoElement?.getAttribute('poster');
 		expect(videoSrc).toEqual('some-data-uri');
+	});
+
+	describe('useInsetFullscreen', () => {
+		beforeEach(() => {
+			jest.mocked(CustomMediaPlayer).mockClear();
+			jest.mocked(MediaPlayer).mockClear();
+		});
+
+		it.each([
+			{
+				gate: 'on',
+				setCaptionsGate: passGate,
+				player: 'MediaPlayer',
+				renderedPlayer: MediaPlayer,
+				otherPlayer: CustomMediaPlayer,
+			},
+			{
+				gate: 'off',
+				setCaptionsGate: failGate,
+				player: 'CustomMediaPlayer',
+				renderedPlayer: CustomMediaPlayer,
+				otherPlayer: MediaPlayer,
+			},
+		])(
+			'should pass useInsetFullscreen to $player when platform_media_video_captions is $gate',
+			async ({ setCaptionsGate, renderedPlayer, otherPlayer }) => {
+				setCaptionsGate('platform_media_video_captions');
+				const [fileItem, identifier] = generateSampleFileItem.workingVideo();
+				const { mediaApi } = createMockedMediaApi(fileItem);
+
+				render(
+					<IntlProvider locale="en">
+						<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+							<InlinePlayer autoplay={false} identifier={identifier} useInsetFullscreen />
+						</MockedMediaClientProvider>
+					</IntlProvider>,
+				);
+
+				await waitFor(() =>
+					expect(jest.mocked(renderedPlayer)).toHaveBeenLastCalledWith(
+						expect.objectContaining({ useInsetFullscreen: true }),
+						expect.anything(),
+					),
+				);
+				expect(jest.mocked(otherPlayer)).not.toHaveBeenCalled();
+			},
+		);
 	});
 
 	describe('InlinePlayerWrapper', () => {

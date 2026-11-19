@@ -763,6 +763,24 @@ We have some formatting here
 			expect(getAllByRole('checkbox')).toHaveLength(2);
 		});
 
+		test('FeedbackForm should render customOptInContent only after a feedback type is selected', () => {
+			const { getByRole, queryByTestId, getByTestId } = render(
+				<FeedbackForm
+					locale={'en'}
+					onClose={() => {}}
+					onSubmit={async () => {}}
+					customOptInContent={<span data-testid="custom-opt-in">custom opt-in</span>}
+				/>,
+			);
+			expect(queryByTestId('custom-opt-in')).not.toBeInTheDocument();
+
+			const select = getByRole('combobox', { name: 'Select feedback' });
+			fireEvent.change(select, { target: { value: 'comment' } });
+			fireEvent.keyDown(select, { key: 'Enter', code: 13 });
+
+			expect(getByTestId('custom-opt-in')).toBeInTheDocument();
+		});
+
 		test('FeedbackForm should render textarea and anon panel when something is selected', async () => {
 			const { getByRole, getAllByRole } = render(
 				<FeedbackForm

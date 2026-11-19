@@ -1207,6 +1207,10 @@ export const FileCard = ({
 						testId={testId}
 						cardPreview={preview}
 						videoControlsWrapperRef={videoControlsWrapperRef}
+						// The same check the Media Viewer makes to present itself as inset
+						useInsetFullscreen={
+							fg('cc_comments_inset_media_viewer') && !!mediaViewerExtensions?.useInsetViewer
+						}
 					/>
 				</Suspense>
 			) : (

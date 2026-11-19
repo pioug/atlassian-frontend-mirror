@@ -291,9 +291,6 @@ export class ReferenceSyncBlockStoreManager {
 	}
 
 	private getLocalReference(resourceId: ResourceId): SyncBlockInstance | undefined {
-		if (!isExperimentEnabled('editor-synced-block-same-page-sync')) {
-			return undefined;
-		}
 		const parsed = this.getSameDocumentReferenceParts(resourceId);
 		if (!parsed) {
 			return undefined;
@@ -461,28 +458,19 @@ export class ReferenceSyncBlockStoreManager {
 			// the resourceId.
 			const sourceProduct = product ?? getSourceProductFromResourceIdSafe(resourceId);
 
-			// With the experiment off, events and experience calls are identical to master.
-			const isPerRequestSourceInfo = isExperimentEnabled('platform_editor_blocks_patch_12');
-
 			if (!sourceAri || !product || !blockInstanceId) {
 				this.fireAnalyticsEvent?.(
 					getSourceInfoErrorPayload(
 						'SourceAri, product or blockInstanceId missing',
 						resourceId,
 						sourceProduct,
-						isPerRequestSourceInfo ? getSourceLocation(sourceAri) : undefined,
+						getSourceLocation(sourceAri),
 					),
 				);
 				return Promise.resolve(undefined);
 			}
 
 			const sourceLocation = getSourceLocation(sourceAri);
-			// The shared experience cannot count requests, so with the experiment on the
-			// per-request event below carries `sourceLocation` instead of the experience.
-			const experienceMetadata =
-				!isPerRequestSourceInfo && sourceLocation ? { sourceLocation } : undefined;
-			const withExperienceMetadata = (options: { reason: string }) =>
-				experienceMetadata ? { ...options, metadata: experienceMetadata } : options;
 
 			this.fetchSourceInfoExperience?.start({});
 			const sourceInfoPromise = this.dataProvider
@@ -494,9 +482,7 @@ export class ReferenceSyncBlockStoreManager {
 				)
 				.then((sourceInfo) => {
 					if (!sourceInfo) {
-						this.fetchSourceInfoExperience?.failure(
-							withExperienceMetadata({ reason: 'No source info returned' }),
-						);
+						this.fetchSourceInfoExperience?.failure({ reason: 'No source info returned' });
 						this.fireAnalyticsEvent?.(
 							getSourceInfoErrorPayload(
 								'No source info returned',
@@ -514,13 +500,9 @@ export class ReferenceSyncBlockStoreManager {
 					}
 
 					if (sourceInfo.title && sourceInfo.url) {
-						if (experienceMetadata) {
-							this.fetchSourceInfoExperience?.success({ metadata: experienceMetadata });
-						} else {
-							this.fetchSourceInfoExperience?.success();
-						}
+						this.fetchSourceInfoExperience?.success();
 						// Pairs with the error event above as the per-request denominator.
-						if (isPerRequestSourceInfo && sourceLocation) {
+						if (sourceLocation) {
 							this.fireAnalyticsEvent?.(
 								getSourceInfoSuccessPayload(
 									resourceId,
@@ -531,9 +513,7 @@ export class ReferenceSyncBlockStoreManager {
 							);
 						}
 					} else {
-						this.fetchSourceInfoExperience?.failure(
-							withExperienceMetadata({ reason: 'Missing title or url' }),
-						);
+						this.fetchSourceInfoExperience?.failure({ reason: 'Missing title or url' });
 						this.fireAnalyticsEvent?.(
 							getSourceInfoErrorPayload(
 								'Missing title or url',
@@ -547,9 +527,7 @@ export class ReferenceSyncBlockStoreManager {
 					return sourceInfo;
 				})
 				.catch((error) => {
-					this.fetchSourceInfoExperience?.failure(
-						withExperienceMetadata({ reason: error.message }),
-					);
+					this.fetchSourceInfoExperience?.failure({ reason: error.message });
 					this.fireAnalyticsEvent?.(
 						getSourceInfoErrorPayload(error.message, resourceId, sourceProduct, sourceLocation),
 					);
@@ -1071,11 +1049,8 @@ export class ReferenceSyncBlockStoreManager {
 		if (isExperimentEnabled('platform_editor_blocks_patch_11')) {
 			this.subscribedSinceLastFlush = true;
 		}
-		const isSamePageSyncEnabled = isExperimentEnabled('editor-synced-block-same-page-sync');
-		const sameDocumentParts = isSamePageSyncEnabled
-			? this.getSameDocumentReferenceParts(resourceId)
-			: undefined;
-		let localReference = isSamePageSyncEnabled ? this.getLocalReference(resourceId) : undefined;
+		const sameDocumentParts = this.getSameDocumentReferenceParts(resourceId);
+		let localReference = this.getLocalReference(resourceId);
 
 		const unsubscribeRemote = this._subscriptionManager.subscribeToSyncBlock(
 			resourceId,

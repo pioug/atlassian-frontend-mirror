@@ -22,11 +22,18 @@ import { getQuickInsertItem } from '../ui/quickInsert';
 import { LoomPluginAction, loomPluginKey } from './main';
 
 export const enableLoom =
-	({ loomButton }: { loomButton: HTMLButtonElement }): EditorCommand =>
+	({
+		loomButton,
+		recordVideo,
+	}: {
+		loomButton: HTMLButtonElement;
+		recordVideo?: (source: 'editor-pinned-toolbar') => void;
+	}): EditorCommand =>
 	({ tr }) => {
 		tr.setMeta(loomPluginKey, {
 			type: LoomPluginAction.ENABLE,
 			loomButton,
+			recordVideo,
 		});
 		return tr;
 	};
@@ -45,13 +52,16 @@ export const recordVideo =
 	({
 		inputMethod,
 		editorAnalyticsAPI,
+		source,
 	}: {
 		editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
 		inputMethod: INPUT_METHOD;
+		source?: 'editor-pinned-toolbar';
 	}): EditorCommand =>
 	({ tr }) => {
 		tr.setMeta(loomPluginKey, {
 			type: LoomPluginAction.RECORD_VIDEO,
+			source,
 		});
 		editorAnalyticsAPI?.attachAnalyticsEvent({
 			action: ACTION.RECORD_VIDEO,
@@ -153,10 +163,14 @@ export const insertLoom = (
 	);
 };
 
-export const executeRecordVideo = (api: ExtractInjectionAPI<LoomPlugin> | undefined): void => {
+export const executeRecordVideo = (
+	api: ExtractInjectionAPI<LoomPlugin> | undefined,
+	source?: 'editor-pinned-toolbar',
+): void => {
 	api?.core?.actions.execute(
 		recordVideo({
 			inputMethod: INPUT_METHOD.TOOLBAR,
+			source,
 			editorAnalyticsAPI: api?.analytics?.actions,
 		}),
 	);
@@ -171,7 +185,7 @@ const insertRecordedLoom = (
 	const { state } = editorView;
 	const embedCard = state.schema.nodes.embedCard;
 	const insert = api?.contentInsertion?.commands.insert;
-	// Leave unsupported schemas on the existing insertion path.
+	// Report unsupported schemas without attempting a different insertion policy.
 	if (!embedCard || !insert) {
 		return undefined;
 	}
@@ -230,47 +244,53 @@ export const setupLoom = async (
 		return { error: clientResult.message };
 	}
 
-	const { attachToButton } = clientResult.client;
+	const { attachToButton, recordVideo: recordWithSource } = clientResult.client;
 
-	// Hidden element to work around the SDK API
-	const loomButton = document.createElement('button');
-	attachToButton({
-		button: loomButton,
-		onInsert: (video) => {
-			if (!editorView) {
-				return;
+	const onInsert = (video: VideoMeta): boolean => {
+		if (!editorView || editorView.isDestroyed) {
+			return false;
+		}
+		if (isExperimentEnabled('twc_growth_loom_conf_pinned_toolbar')) {
+			const inserted = insertRecordedLoom(editorView, api, video) ?? false;
+			if (inserted) {
+				editorView.focus();
 			}
-			if (isExperimentEnabled('twc_growth_loom_conf_pinned_toolbar')) {
-				const inserted = insertRecordedLoom(editorView, api, video);
-				if (inserted !== undefined) {
-					if (inserted) {
-						editorView.focus();
-					}
-					return;
-				}
-			}
-			const { state, dispatch } = editorView;
-			const pos = state.selection.from;
+			return inserted;
+		}
+
+		const { state, dispatch } = editorView;
+		const pos = state.selection.from;
+		const inserted =
 			api?.hyperlink?.actions.insertLink(
 				INPUT_METHOD.TYPEAHEAD,
-				pos, // from === to, don't replace text to avoid accidental content loss
+				pos, // Preserve the existing insertion policy; never replace selected text.
 				pos,
 				video.sharedUrl,
 				video.title,
 				undefined,
 				undefined,
 				undefined,
-				'embed', // Convert to embed card instead of inline
-			)(state, dispatch);
+				'embed',
+			)(state, dispatch) ?? false;
+		api?.core?.actions.execute(insertVideo({ editorAnalyticsAPI: api?.analytics?.actions, video }));
+		return inserted;
+	};
 
-			api?.core?.actions.execute(
-				insertVideo({ editorAnalyticsAPI: api?.analytics?.actions, video }),
-			);
+	// Hidden element to work around the SDK API for existing recording entry points.
+	const loomButton = document.createElement('button');
+	attachToButton({
+		button: loomButton,
+		onInsert: (video) => {
+			onInsert(video);
 		},
 	});
+	let recordWithContext: ((source: 'editor-pinned-toolbar') => void) | undefined;
+	if (recordWithSource && isExperimentEnabled('twc_growth_loom_conf_pinned_toolbar')) {
+		recordWithContext = (source) => recordWithSource({ source, onInsert });
+	}
 
 	api?.core?.actions.execute(({ tr }) => {
-		enableLoom({ loomButton })({ tr });
+		enableLoom({ loomButton, recordVideo: recordWithContext })({ tr });
 		if (initViaCommand) {
 			api?.quickInsert?.commands.addQuickInsertItem(getQuickInsertItem(api?.analytics?.actions))({
 				tr,

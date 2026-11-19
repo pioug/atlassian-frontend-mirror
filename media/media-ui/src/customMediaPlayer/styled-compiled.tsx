@@ -11,6 +11,7 @@ import { css, jsx } from '@compiled/react';
 import { token } from '@atlaskit/tokens';
 
 import { getControlsWrapperClassName } from './getControlsWrapperClassName';
+import { useIsInsetFullscreen } from './insetViewerContext/useIsInsetFullscreen';
 import { useIsInsetViewer } from './insetViewerContext/useIsInsetViewer';
 
 const timelineStyles = css({
@@ -142,7 +143,10 @@ const timeRangeWrapperStyles = css({
 	height: '22px',
 	cursor: 'pointer',
 	width: '100%',
-	// a11y override default theme colors from '@atlaskit/range' to have better contrast with panel color
+});
+
+// a11y override default theme colors from '@atlaskit/range' to have better contrast with panel color
+const timeRangeColorStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'input[type="range"]::-webkit-slider-thumb': {
 		'--webkit-appearance': 'none',
@@ -191,6 +195,16 @@ const insetViewerVolumeRangeWrapperStyles = css({
 	insetBlockStart: token('space.negative.025'),
 });
 
+// `@atlaskit/range` draws a dot at the end of its track in a themed colour, which is hidden behind the
+// thumb when both follow the theme. The inset fullscreen footer's thumb is a fixed colour, so the dot
+// gets the same one.
+const insetFullscreenVolumeRangeWrapperStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'div::after': {
+		backgroundColor: '#9FADBC',
+	},
+});
+
 export const TimeRangeWrapper: React.ForwardRefExoticComponent<
 	Omit<
 		React.ClassAttributes<HTMLDivElement> &
@@ -209,12 +223,17 @@ export const TimeRangeWrapper: React.ForwardRefExoticComponent<
 		ref,
 	) => {
 		const isInsetViewer = useIsInsetViewer();
+		// The inset fullscreen footer has the viewer's layout, but is always dark, so it keeps the
+		// overlay's fixed colours.
+		const isInsetFullscreen = useIsInsetFullscreen();
+		const hasInsetLayout = isInsetViewer || isInsetFullscreen;
 		return (
 			<div
 				css={[
-					!isInsetViewer && timeRangeWrapperStyles,
-					isInsetViewer && insetViewerTimeRangeWrapperStyles,
-					isInsetViewer && variant === 'volume' && insetViewerVolumeRangeWrapperStyles,
+					hasInsetLayout ? insetViewerTimeRangeWrapperStyles : timeRangeWrapperStyles,
+					(!isInsetViewer || isInsetFullscreen) && timeRangeColorStyles,
+					hasInsetLayout && variant === 'volume' && insetViewerVolumeRangeWrapperStyles,
+					isInsetFullscreen && variant === 'volume' && insetFullscreenVolumeRangeWrapperStyles,
 				]}
 				ref={ref as React.RefObject<HTMLDivElement>}
 				{...props}

@@ -209,9 +209,7 @@ const Control: <Option, IsMulti extends boolean, Group extends GroupBase<Option>
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={css as CSSProperties}
 			{...innerProps}
-			aria-disabled={
-				fg('platform_dst_select_disabled_a11y_fix') ? undefined : isDisabled || undefined
-			}
+			aria-disabled={undefined}
 		>
 			{children}
 		</div>

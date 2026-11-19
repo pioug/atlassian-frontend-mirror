@@ -6,7 +6,6 @@ import { isSSR } from '@atlaskit/editor-common/is-ssr';
 import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import { SyncBlockError } from '@atlaskit/editor-synced-block-provider/common/types';
 import type { SyncBlockInstance } from '@atlaskit/editor-synced-block-provider/providers/types';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { SyncedBlockRendererOptions } from '../types';
 import { AKRendererWrapper } from './AKRendererWrapper';
@@ -99,9 +98,7 @@ export function renderSyncedBlockContent({
 		};
 	}
 
-	const isLocalSameDocumentSource =
-		Boolean(syncBlockInstance.localSameDocumentSource) &&
-		isExperimentEnabled('editor-synced-block-same-page-sync');
+	const isLocalSameDocumentSource = Boolean(syncBlockInstance.localSameDocumentSource);
 
 	if (syncBlockInstance.data.status === 'unpublished' && !isLocalSameDocumentSource) {
 		return {

@@ -51,8 +51,6 @@ import { createSparseSurfacesPlugin, sparseSurfacesKey } from './pm-plugins/spar
 import { expandAndUpdateSelection } from './pm-plugins/utils/expand-and-update-selection';
 import { selectNode } from './pm-plugins/utils/getSelection';
 import { CommittedBlockControlsSurfaces } from './surface-lifecycle/block-controls-surfaces';
-import { BlockControlsLeftSurfaces } from './ui/block-controls-left-surfaces';
-import { BlockControlsRightSurfaces } from './ui/block-controls-right-surfaces';
 import { getBlockControlsSurfaceDragHandleComponents } from './ui/block-controls-surface-drag-handle-registration';
 import { GlobalStylesWrapper } from './ui/global-styles';
 import { SurfaceEditorViewContext } from './ui/surface-editor-view-context';
@@ -516,14 +514,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api, config }) => {
 					<GlobalStylesWrapper api={api} />
 					{registryBlockControlsEnabled && editorView && api ? (
 						<SurfaceEditorViewContext.Provider value={editorView}>
-							{isExperimentEnabled('platform_editor_block_controls_cls_fix') ? (
-								<CommittedBlockControlsSurfaces api={api} editorView={editorView} />
-							) : (
-								<>
-									<BlockControlsLeftSurfaces api={api} editorView={editorView} />
-									<BlockControlsRightSurfaces api={api} editorView={editorView} />
-								</>
-							)}
+							<CommittedBlockControlsSurfaces api={api} editorView={editorView} />
 						</SurfaceEditorViewContext.Provider>
 					) : null}
 				</>

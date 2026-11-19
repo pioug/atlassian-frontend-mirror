@@ -4,7 +4,6 @@ import { FormattedMessage, useIntl } from 'react-intl';
 
 import MediaServicesActualSizeIcon from '@atlaskit/icon/core/grow-diagonal';
 import PanelRightIcon from '@atlaskit/icon/core/panel-right';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { ActionName } from '../../../../../constants';
@@ -72,10 +71,7 @@ const PreviewAction = ({
 	} else if (actionLabel === messages.preview_modal) {
 		actionLabelWithTitle = messages.preview_modal_with_title;
 	}
-	const ariaLabel =
-		fg('platform_smart_link_preview_a11y_label') && title
-			? intl.formatMessage(actionLabelWithTitle, { title })
-			: actionMessage;
+	const ariaLabel = title ? intl.formatMessage(actionLabelWithTitle, { title }) : actionMessage;
 
 	return data ? (
 		<Action

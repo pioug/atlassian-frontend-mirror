@@ -31,6 +31,8 @@ export interface MediaPlayerProps extends WithPlaybackProps, WithShowControlMeth
 	readonly areControlsVisible?: boolean;
 	readonly controlsPortalElement?: HTMLElement | null;
 	readonly onVideoElementChange?: (video: HTMLVideoElement | null) => void;
+	/** Gives the player's own fullscreen the inset Media Viewer's footer. The inset viewer always does. */
+	readonly useInsetFullscreen?: boolean;
 }
 
 export interface MediaPlayerBaseProps extends MediaPlayerProps {

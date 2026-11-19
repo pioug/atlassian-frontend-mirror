@@ -1,4 +1,5 @@
 import { getParentOfTypeCount } from '@atlaskit/editor-common/nesting';
+import { isTableInContentMode } from '@atlaskit/editor-common/table/content-mode';
 import { flatmap, mapChildren, mapSlice } from '@atlaskit/editor-common/utils/slice';
 import {
 	type Schema,
@@ -8,10 +9,12 @@ import {
 } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 import { flatten, hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles/constants';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { getPluginState } from '../plugin-factory';
+import { TABLE_FULL_WIDTH, TABLE_MAX_WIDTH } from '../table-resizing/utils/consts';
 
 // lifts up the content of each cell, returning an array of nodes
 export const unwrapContentFromTable = (maybeTable: PMNode): PMNode | PMNode[] => {
@@ -362,6 +365,49 @@ export const transformSliceTableLayoutDefaultToCenter = (slice: Slice, schema: S
 		} else {
 			children.push(node);
 		}
+	});
+
+	return new Slice(Fragment.fromArray(children), slice.openStart, slice.openEnd);
+};
+
+/**
+ * The width a newly inserted full-page table gets: the page's line length.
+ */
+export const getLineLengthTableWidth = ({
+	isFullWidthModeEnabled,
+	isMaxWidthModeEnabled,
+}: {
+	isFullWidthModeEnabled?: boolean;
+	isMaxWidthModeEnabled?: boolean;
+}): number => {
+	if (isMaxWidthModeEnabled) {
+		return TABLE_MAX_WIDTH;
+	}
+	if (isFullWidthModeEnabled) {
+		return TABLE_FULL_WIDTH;
+	}
+	return akEditorDefaultLayoutWidth;
+};
+
+/**
+ * Pasted tables with no widths, such as tables copied from Jira, would otherwise render in content
+ * mode and shrink to fit their content. They get the line length width instead, as if inserted.
+ */
+export const transformSliceToApplyLineLengthWidthToContentModeTables = (
+	slice: Slice,
+	schema: Schema,
+	lineLengthWidth: number,
+): Slice => {
+	const { table } = schema.nodes;
+	const children = [] as PMNode[];
+	mapChildren(slice.content, (node: PMNode) => {
+		const isContentModeTable =
+			node.type === table && isTableInContentMode({ tableNode: node, isSupported: true });
+		children.push(
+			isContentModeTable
+				? table.createChecked({ ...node.attrs, width: lineLengthWidth }, node.content, node.marks)
+				: node,
+		);
 	});
 
 	return new Slice(Fragment.fromArray(children), slice.openStart, slice.openEnd);

@@ -1076,6 +1076,16 @@ const metadata: IconMetadata = {
 		usage: 'Reserved for representing a deployed software, capability, or application service.',
 		createdAt: '2026-04-22T16:08:03.549Z',
 	},
+	'device-health': {
+		keywords: ['proactive support', 'monitor', 'health', 'hardware monitoring', 'psm'],
+		categorization: 'multi-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'JSM Service, Nebula',
+		status: 'published',
+		id: '75462:35918',
+		usage: 'Known uses: Proactive support in JSM.',
+		createdAt: '2026-11-19T01:21:37.788Z',
+	},
 	'diagram-architecture-map': {
 		keywords: ['diagram', 'architecture map', 'cloud'],
 		categorization: 'single-purpose',

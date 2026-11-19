@@ -12,7 +12,12 @@ import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-e
 import type { BlockControlsPlugin } from '../../blockControlsPluginType';
 import { RIGHT_MARGIN_ROVO_GAP_PX } from './constants';
 import { handleKeyDown } from './handle-key-down';
-import { handleMouseEnter, handleMouseLeave, handleMouseMove } from './handle-mouse-move';
+import {
+	clearPendingHoverSide,
+	handleMouseEnter,
+	handleMouseLeave,
+	handleMouseMove,
+} from './handle-mouse-move';
 
 /** Elements that extend the editor hover area (block controls, right-edge button, etc.) */
 const LEGACY_BLOCK_CONTROLS_HOVER_AREA_SELECTOR =
@@ -296,6 +301,9 @@ export const createInteractionTrackingPlugin = (
 					if (rightSideControlsEnabled) {
 						cancelScheduledMouseLeave();
 						unbindDocumentMouseMove?.();
+						if (isExperimentEnabled('platform_editor_improve_inp_batch_3')) {
+							clearPendingHoverSide(view);
+						}
 					}
 					unbindMouseEnter?.();
 					unbindMouseLeave?.();

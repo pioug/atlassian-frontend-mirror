@@ -32,6 +32,7 @@ import { findParentDomRefOfType, findParentNodeOfType } from '@atlaskit/editor-p
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable } from '@atlaskit/editor-tables/utils';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import {
 	tableCellView,
@@ -84,6 +85,8 @@ import {
 	transformSliceToRemoveNestedTables,
 	isHeaderRowRequired,
 	transformSliceTableLayoutDefaultToCenter,
+	getLineLengthTableWidth,
+	transformSliceToApplyLineLengthWidthToContentModeTables,
 } from './utils/paste';
 import { applyMeasuredWidthToAllTables } from './utils/tableMode/apply-measured-width-to-all-tables';
 import { isContentModeSupported } from './utils/tableMode/is-content-mode-supported';
@@ -374,6 +377,25 @@ export const createPlugin = (
 				slice = transformSliceToRemoveOpenMultiBodiedExtension(slice, schema);
 
 				slice = transformSliceToCorrectEmptyTableCells(slice, schema);
+
+				if (fg('platform_editor_table_content_mode_resize_start')) {
+					const isContentModeEditor = isContentModeSupported({
+						allowColumnResizing: !!pluginConfig.allowColumnResizing,
+						allowTableResizing: !!pluginConfig.allowTableResizing,
+						isFullPageEditor: !isCommentEditor && !isChromelessEditor,
+					});
+					if (isContentModeEditor && !insideTable(editorState)) {
+						const tableState = pluginInjectionApi?.table?.sharedState.currentState();
+						slice = transformSliceToApplyLineLengthWidthToContentModeTables(
+							slice,
+							schema,
+							getLineLengthTableWidth({
+								isFullWidthModeEnabled: tableState?.isFullWidthModeEnabled,
+								isMaxWidthModeEnabled: tableState?.isMaxWidthModeEnabled,
+							}),
+						);
+					}
+				}
 
 				if (!pluginConfig.allowColumnResizing) {
 					slice = transformSliceToRemoveColumnsWidths(slice, schema);

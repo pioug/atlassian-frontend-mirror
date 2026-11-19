@@ -3,7 +3,9 @@ import React from 'react';
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
 
+import { InsetFullscreenContext } from '../insetViewerContext/insetFullscreenContext';
 import { InsetViewerProvider } from '../insetViewerContext/insetViewerProvider';
+import { useIsInsetFullscreen } from '../insetViewerContext/useIsInsetFullscreen';
 import { useIsInsetViewer } from '../insetViewerContext/useIsInsetViewer';
 import { withInsetViewer } from '../insetViewerContext/withInsetViewer';
 
@@ -39,16 +41,61 @@ describe('useIsInsetViewer', () => {
 	});
 });
 
+describe('useIsInsetFullscreen', () => {
+	const FullscreenProbe = () => (
+		<span data-testid="fullscreen">{String(useIsInsetFullscreen())}</span>
+	);
+
+	it('should read false when there is no provider', () => {
+		render(<FullscreenProbe />);
+
+		expect(screen.getByTestId('fullscreen')).toHaveTextContent('false');
+	});
+
+	it('should read true when the context is given true, independently of the inset viewer flag', () => {
+		render(
+			<InsetFullscreenContext.Provider value>
+				<FullscreenProbe />
+				<FlagProbe />
+			</InsetFullscreenContext.Provider>,
+		);
+
+		expect(screen.getByTestId('fullscreen')).toHaveTextContent('true');
+		expect(screen.getByTestId('flag')).toHaveTextContent('false');
+	});
+});
+
 describe('withInsetViewer', () => {
-	const Probe = ({ isInsetViewer }: { isInsetViewer?: boolean }) => (
-		<span data-testid="flag">{String(isInsetViewer)}</span>
+	const Probe = ({
+		isInsetViewer,
+		isInsetFullscreen,
+	}: {
+		isInsetViewer?: boolean;
+		isInsetFullscreen?: boolean;
+	}) => (
+		<React.Fragment>
+			<span data-testid="flag">{String(isInsetViewer)}</span>
+			<span data-testid="fullscreen">{String(isInsetFullscreen)}</span>
+		</React.Fragment>
 	);
 	const WrappedProbe = withInsetViewer(Probe);
 
-	it('should inject false when there is no provider', () => {
+	it('should inject false for both flags when there is no provider', () => {
 		render(<WrappedProbe />);
 
 		expect(screen.getByTestId('flag')).toHaveTextContent('false');
+		expect(screen.getByTestId('fullscreen')).toHaveTextContent('false');
+	});
+
+	it('should inject isInsetFullscreen from the fullscreen context on its own', () => {
+		render(
+			<InsetFullscreenContext.Provider value>
+				<WrappedProbe />
+			</InsetFullscreenContext.Provider>,
+		);
+
+		expect(screen.getByTestId('flag')).toHaveTextContent('false');
+		expect(screen.getByTestId('fullscreen')).toHaveTextContent('true');
 	});
 
 	it('should inject true inside a provider given true', () => {
@@ -59,6 +106,7 @@ describe('withInsetViewer', () => {
 		);
 
 		expect(screen.getByTestId('flag')).toHaveTextContent('true');
+		expect(screen.getByTestId('fullscreen')).toHaveTextContent('false');
 	});
 
 	it('should name the wrapper after the wrapped component', () => {

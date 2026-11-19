@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-select",
-	"version": "4.12.16",
+	"version": "4.12.17",
 	"description": "A forked version of react-select to only be used in atlaskit/select",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -120,9 +120,6 @@
 			"type": "boolean"
 		},
 		"platform_dst_select_dropdown_voice_control": {
-			"type": "boolean"
-		},
-		"platform_dst_select_disabled_a11y_fix": {
 			"type": "boolean"
 		},
 		"platform-dst-motion-uplift-input": {

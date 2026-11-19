@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 35.1.1
+
+### Patch Changes
+
+- [`ff198bc4654ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ff198bc4654ab) -
+  Clean up platform_editor_ai_unified_post_apply_chrome
+
 ## 35.1.0
 
 ### Minor Changes

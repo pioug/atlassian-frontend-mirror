@@ -1,9 +1,11 @@
 import React from 'react';
 
+import { useIsInsetFullscreen } from './useIsInsetFullscreen';
 import { useIsInsetViewer } from './useIsInsetViewer';
 
 export type WithInsetViewerProps = {
 	isInsetViewer?: boolean;
+	isInsetFullscreen?: boolean;
 };
 
 export const withInsetViewer = <Props, Component>(
@@ -24,7 +26,15 @@ export const withInsetViewer = <Props, Component>(
 	>;
 	const WithInsetViewer = React.forwardRef<any, WrappedProps>((props, ref) => {
 		const isInsetViewer = useIsInsetViewer();
-		return <WrappedComponent {...(props as any)} ref={ref} isInsetViewer={isInsetViewer} />;
+		const isInsetFullscreen = useIsInsetFullscreen();
+		return (
+			<WrappedComponent
+				{...(props as any)}
+				ref={ref}
+				isInsetViewer={isInsetViewer}
+				isInsetFullscreen={isInsetFullscreen}
+			/>
+		);
 	});
 	WithInsetViewer.displayName = `WithInsetViewer(${
 		WrappedComponent.displayName || WrappedComponent.name || 'Component'

@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 34.0.5
+
+### Patch Changes
+
+- [`cc413c0ae0c16`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cc413c0ae0c16) -
+  Clean up `platform_editor_block_controls_cls_fix`, keeping the block-controls CLS fixes and
+  removing the legacy surface rendering paths.
+
+## 34.0.4
+
+### Patch Changes
+
+- [`3c72b5a721bca`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c72b5a721bca) -
+  [EDITOR-9730] Behind `platform_editor_improve_inp_batch_3`, reduce mousemove cost when resolving
+  the hover side: use a single hit test instead of scanning all top-level blocks for the
+  right-margin target, and coalesce hover processing through requestAnimationFrame followed by a
+  timeout to give the browser an opportunity to update layout before reading current content
+  geometry. Coalesced processing uses the latest mouse event and plugin API together, skips
+  suppressed hover states, and finishes geometry classification before updating editing or hover
+  state.
+- Updated dependencies
+
 ## 34.0.3
 
 ### Patch Changes

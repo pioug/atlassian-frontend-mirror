@@ -78,6 +78,10 @@ Architectural decisions, design rationale, and decision logs.
   `focus()` call work, and initial focus does nothing when focus is already inside. Layers move
   focus only on the open; content that needs focus later uses the wrapper's opt-out (Popup
   `UNSAFE__disableInitialAutoFocus`) and moves focus itself. What the legacy path did differently
+- **[focus-loss-recovery.md](./decisions/focus-loss-recovery.md)**: Decision: when a layer's content
+  removes, disables or hides the focused element, focus stays where the browser puts it (`<body>`,
+  with the user's place kept for Tab), while open and after the close. The consumer owns focus after
+  it loses it. Why moving it while open, or at the close, was rejected
 - **[aria-controls-trigger-contract.md](./decisions/aria-controls-trigger-contract.md)** — Decision:
   `getAriaForTrigger` always emits stable `aria-controls`
 - **[popover-trigger-hook.md](./decisions/popover-trigger-hook.md)** — Decision: defer

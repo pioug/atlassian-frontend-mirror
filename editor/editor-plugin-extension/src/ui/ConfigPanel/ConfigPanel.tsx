@@ -38,6 +38,7 @@ import {
 } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import Form from '@atlaskit/form/form';
 import { FormFooter } from '@atlaskit/form/form-footer';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { ExtensionPlugin, RejectSave } from '../../extensionPluginType';
 import { ALLOWED_LOGGED_MACRO_PARAMS } from './constants';
@@ -131,6 +132,17 @@ function ConfigForm({
 
 const ConfigFormIntl = injectIntl(ConfigForm);
 
+// Get only values that does not contain errors
+const getValidValues = (values: Parameters, errors: ValidationErrors): Parameters => {
+	const validValues: Parameters = {};
+	for (const key of Object.keys(values)) {
+		if (!errors[key]) {
+			validValues[key] = values[key];
+		}
+	}
+	return validValues;
+};
+
 const WithOnFieldChange = ({
 	getState,
 	autoSave,
@@ -143,6 +155,7 @@ const WithOnFieldChange = ({
 	handleSubmit: (parameters: Parameters) => void;
 }) => {
 	const getStateRef = useRef<() => { errors: ValidationErrors; values: Parameters }>(getState);
+	const lastSubmittedValuesRef = useRef<Parameters | undefined>(undefined);
 
 	useEffect(() => {
 		getStateRef.current = getState;
@@ -151,6 +164,25 @@ const WithOnFieldChange = ({
 	const handleFieldChange = useCallback(
 		(name: string, isDirty: boolean) => {
 			if (!autoSave) {
+				return;
+			}
+
+			if (fg('platform_editor_ext_config_panel_revert_fix')) {
+				const { errors, values } = getStateRef.current();
+				const validValues = getValidValues(values, errors);
+				// `isDirty` compares with the values from when the form mounted, so it is false when a
+				// field changes back to its first value. After the first submit, compare with the
+				// last submitted values instead.
+				const lastSubmittedValues = lastSubmittedValuesRef.current;
+				if (
+					!isDirty &&
+					(lastSubmittedValues === undefined || _isEqual(validValues, lastSubmittedValues))
+				) {
+					return;
+				}
+
+				lastSubmittedValuesRef.current = validValues;
+				handleSubmit(validValues);
 				return;
 			}
 

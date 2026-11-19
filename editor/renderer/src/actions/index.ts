@@ -27,7 +27,6 @@ import {
 	RemoveNodeMarkStep,
 } from '@atlaskit/editor-prosemirror/transform';
 import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { AnalyticsEventPayload, AnnotationDeleteAEP } from '../analytics/events';
@@ -98,7 +97,6 @@ export default class RendererActions
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private ref?: any;
 	private onAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
-	private includeLegacyContentAnnotations = false;
 
 	constructor(initFromContext: boolean = false) {
 		this.initFromContext = initFromContext;
@@ -111,7 +109,6 @@ export default class RendererActions
 		doc: Node,
 		schema: Schema,
 		onAnalyticsEvent?: (event: AnalyticsEventPayload) => void,
-		includeLegacyContentAnnotations = false,
 	): void {
 		if (!this.initFromContext) {
 			return;
@@ -125,14 +122,12 @@ export default class RendererActions
 		this.doc = doc;
 		this.schema = schema;
 		this.onAnalyticsEvent = onAnalyticsEvent;
-		this.includeLegacyContentAnnotations = includeLegacyContentAnnotations;
 	}
 
 	_privateUnregisterRenderer(): void {
 		this.doc = undefined;
 		this.ref = undefined;
 		this.schema = undefined;
-		this.includeLegacyContentAnnotations = false;
 	}
 
 	/**
@@ -401,59 +396,32 @@ export default class RendererActions
 			return [];
 		}
 
-		if (
-			this.includeLegacyContentAnnotations ||
-			isExperimentEnabled('platform_editor_fix_lcm_renderer_annotations')
-		) {
-			const marks: Array<{ fromLegacyContent: boolean; mark: Mark }> = [];
-			doc.descendants((node) => {
-				const annotationsMark = node.marks.filter((m) => m.type === annotationMarkType);
-				marks.push(...annotationsMark.map((mark) => ({ fromLegacyContent: false, mark })));
-				if (isLegacyContentExtension(node)) {
-					marks.push(
-						...getAnnotationMarksWithLegacyContent(node, annotationMarkType).map((mark) => ({
-							fromLegacyContent: true,
-							mark,
-						})),
-					);
-				}
-
-				return annotationsMark.length === 0;
-			});
-
-			const rootAnnotationIds = new Set(
-				marks
-					.filter(({ fromLegacyContent }) => !fromLegacyContent)
-					.map(({ mark }) => mark.attrs.id),
-			);
-			const uniqueMarks: Map<AnnotationId, Mark> = new Map();
-			marks.forEach(({ mark, fromLegacyContent }) => {
-				const id = mark.attrs.id;
-				if (fromLegacyContent && (rootAnnotationIds.has(id) || uniqueMarks.has(id))) {
-					return;
-				}
-				uniqueMarks.set(id, mark);
-			});
-
-			return Array.from(uniqueMarks.values());
-		}
-
-		const marks: Mark[] = [];
-
+		const marks: Array<{ fromLegacyContent: boolean; mark: Mark }> = [];
 		doc.descendants((node) => {
 			const annotationsMark = node.marks.filter((m) => m.type === annotationMarkType);
-			if (!annotationsMark || !annotationsMark.length) {
-				return true;
+			marks.push(...annotationsMark.map((mark) => ({ fromLegacyContent: false, mark })));
+			if (isLegacyContentExtension(node)) {
+				marks.push(
+					...getAnnotationMarksWithLegacyContent(node, annotationMarkType).map((mark) => ({
+						fromLegacyContent: true,
+						mark,
+					})),
+				);
 			}
 
-			marks.push(...annotationsMark);
-
-			return false;
+			return annotationsMark.length === 0;
 		});
 
+		const rootAnnotationIds = new Set(
+			marks.filter(({ fromLegacyContent }) => !fromLegacyContent).map(({ mark }) => mark.attrs.id),
+		);
 		const uniqueMarks: Map<AnnotationId, Mark> = new Map();
-		marks.forEach((m) => {
-			uniqueMarks.set(m.attrs.id, m);
+		marks.forEach(({ mark, fromLegacyContent }) => {
+			const id = mark.attrs.id;
+			if (fromLegacyContent && (rootAnnotationIds.has(id) || uniqueMarks.has(id))) {
+				return;
+			}
+			uniqueMarks.set(id, mark);
 		});
 
 		return Array.from(uniqueMarks.values());

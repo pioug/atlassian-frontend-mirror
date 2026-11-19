@@ -6,7 +6,6 @@ import { type ReactNode, useContext, useEffect, useLayoutEffect, useRef, useStat
 
 import { jsx } from '@atlaskit/css';
 import Motion from '@atlaskit/motion/entering/motion';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 import { createPopoverCloseEvent } from '@atlaskit/top-layer/popover/create-close-event';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
@@ -173,8 +172,7 @@ export const PopoverContent = (props: PopoverContentProps): JSX.Element | null =
 	// `SpotlightContextProvider` (where `card.setMotion` is a no-op and `card.motion` never updates).
 	const [committedMotion, setCommittedMotion] = useState<PopoverContentProps['motion']>();
 
-	const isReady =
-		!fg('platform-dst-motion-uplift-spotlight') || !motion || committedMotion === motion;
+	const isReady = !motion || committedMotion === motion;
 	const isOpen = isVisible && isReady;
 
 	useAnchoredPopover({

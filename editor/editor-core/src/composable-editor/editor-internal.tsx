@@ -175,6 +175,7 @@ export const EditorInternal: MemoExoticComponent<(props: InternalProps) => JSX.E
 												__livePage={props.__livePage}
 												preset={preset}
 												UNSAFE_containLayout={props.UNSAFE_containLayout}
+												isHeightSetFromContent={props.isHeightSetFromContent}
 											/>
 										)}
 									/>

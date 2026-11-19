@@ -14,6 +14,11 @@ type LoomClient = {
 		button: HTMLElement;
 		onInsert: (videoMeta: VideoMeta) => void;
 	}) => void;
+	/** Optional contextual launcher; older providers continue to use the attached button. */
+	recordVideo?: (options: {
+		onInsert: (videoMeta: VideoMeta) => boolean;
+		source: 'editor-pinned-toolbar';
+	}) => void;
 };
 
 export type PositionType = 'start' | 'end' | 'current';

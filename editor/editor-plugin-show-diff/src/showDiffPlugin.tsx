@@ -77,9 +77,8 @@ export const showDiffPlugin: ShowDiffPlugin = ({ api, config }) => {
 			return [
 				{
 					name: 'showDiffPlugin',
-					// Contributor tags draw themselves into their own decoration widgets — plain DOM, so
-					// no portal provider is needed here.
-					plugin: ({ getIntl }) => createPlugin(config, getIntl, api, setEditorView),
+					plugin: ({ getIntl, portalProviderAPI }) =>
+						createPlugin(config, getIntl, api, setEditorView, portalProviderAPI),
 				},
 			];
 		},

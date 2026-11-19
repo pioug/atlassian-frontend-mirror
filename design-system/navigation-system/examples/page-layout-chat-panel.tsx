@@ -191,7 +191,7 @@ export default function ChatPanelExample(): JSX.Element {
 					{isChatPanelOpen && (
 						<ChatPanel xcss={styles.chatPanel} onClose={() => setIsChatPanelOpen(false)}>
 							<PanelSplitter label="Resize chat panel" />
-							<PanelContainer>
+							<PanelContainer label="Chat content">
 								<PanelHeader>
 									<PanelTitle>Chat panel</PanelTitle>
 									<PanelActionGroup>

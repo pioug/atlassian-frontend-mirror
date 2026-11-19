@@ -1,7 +1,6 @@
 import { useMemo, useRef } from 'react';
 
 import type { JSONNode } from '@atlaskit/editor-json-transformer/types';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { getProductFromSourceAri } from '../clients/block-service/ari';
 import { getPageIdAndTypeFromConfluencePageAri } from '../clients/confluence/ari';
@@ -307,13 +306,7 @@ export class SyncedBlockProvider extends SyncBlockDataProviderInterface {
 	}
 
 	generateResourceIdForReference(sourceId: ResourceId): ResourceId {
-		if (isExperimentEnabled('platform_editor_blocks_patch_12')) {
-			return this.fetchProvider.generateResourceIdForReference?.(sourceId) ?? sourceId;
-		}
-		if (!this.writeProvider) {
-			throw new Error('Write provider not set');
-		}
-		return this.writeProvider.generateResourceIdForReference(sourceId);
+		return this.fetchProvider.generateResourceIdForReference?.(sourceId) ?? sourceId;
 	}
 
 	/**

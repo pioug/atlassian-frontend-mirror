@@ -1,5 +1,12 @@
 # @atlaskit/user-picker
 
+## 14.8.5
+
+### Patch Changes
+
+- [`4630a4a637622`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4630a4a637622) -
+  Render selected agents as hexagons with the platform_user_picker_agent_avatar_hexagon experiment
+
 ## 14.8.4
 
 ### Patch Changes

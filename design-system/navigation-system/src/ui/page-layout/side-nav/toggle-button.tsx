@@ -276,6 +276,7 @@ export const SideNavToggleButton: ({
 			interactionName={interactionName}
 			ref={setElement}
 			tooltip={tooltipProps}
+			aria-expanded={isSideNavExpanded}
 		/>
 	);
 };

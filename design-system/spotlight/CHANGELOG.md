@@ -1,5 +1,13 @@
 # @atlaskit/spotlight
 
+## 4.2.18
+
+### Patch Changes
+
+- [`d335cad9b36fe`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d335cad9b36fe) -
+  Cleanup `feature_gate` `platform-dst-motion-uplift-spotlight`. Spotlight motion uplift is now
+  permanently enabled.
+
 ## 4.2.17
 
 ### Patch Changes

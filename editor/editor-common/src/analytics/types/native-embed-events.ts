@@ -14,6 +14,7 @@ export type InsertNativeEmbedAEP = TrackAEP<
 	ACTION_SUBJECT.NATIVE_EMBED,
 	undefined,
 	{
+		experienceId?: string;
 		inputMethod: InputMethodInsertNativeEmbed;
 		insertedCount: number;
 	},

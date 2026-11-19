@@ -116,6 +116,8 @@ export interface Props {
 	locale: string;
 	/** Optional custom modal content */
 	customContent?: React.ReactChild;
+	/** Optional content rendered with the opt-in checkboxes, shown only once a feedback type is selected */
+	customOptInContent?: React.ReactNode;
 	/**  Override to hide the default text fields for feedback */
 	showDefaultTextFields?: boolean;
 	/** Optional parameter for feedback submitter's Atlassian Account ID */
@@ -571,6 +573,7 @@ export default class FeedbackCollector extends Component<Props> {
 		return (
 			<FeedbackForm
 				customContent={this.props.customContent}
+				customOptInContent={this.props.customOptInContent}
 				feedbackTitle={this.props.feedbackTitle}
 				feedbackTitleDetails={this.props.feedbackTitleDetails}
 				showTypeField={this.props.showTypeField}

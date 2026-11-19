@@ -508,6 +508,10 @@ The body fallback accounts for focus lost when the popover becomes hidden. Check
 close prevents it from reclaiming focus that was already on the body. Restoration does not depend on
 role or whether focus entered automatically.
 
+Focus that the content lost (a removed, disabled or hidden element) is already on the body, so the
+close leaves it there. No layer moves lost focus, while open or at the close. See
+[`../decisions/focus-loss-recovery.md`](../decisions/focus-loss-recovery.md).
+
 #### Verified browser timing
 
 Testing on 15 September 2026 covered native-only Escape and `hidePopover()` closes for outermost and

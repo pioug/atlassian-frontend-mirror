@@ -114,6 +114,7 @@ export const useMemoEditorProps = (
 			syncedBlockProvider: passedProps.syncedBlockProvider,
 			pasteWarningOptions: passedProps.pasteWarningOptions,
 			UNSAFE_containLayout: passedProps.UNSAFE_containLayout,
+			isHeightSetFromContent: passedProps.isHeightSetFromContent,
 		};
 
 		const defaultProps: Partial<EditorNextProps> = {
@@ -227,6 +228,7 @@ export const useMemoEditorProps = (
 		passedProps.syncedBlockProvider,
 		passedProps.pasteWarningOptions,
 		passedProps.UNSAFE_containLayout,
+		passedProps.isHeightSetFromContent,
 	]);
 
 	return memodProps;

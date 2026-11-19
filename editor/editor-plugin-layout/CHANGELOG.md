@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-layout
 
+## 34.0.3
+
+### Patch Changes
+
+- [`ab9740a9d921a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ab9740a9d921a) -
+  Behind platform_editor_layout_blank_click_pos_guard: a blank-space click no longer throws
+  "Position -1 out of range" when the clicked layout column is not owned by the editor, for example
+  a column rendered inside a third-party macro in a Legacy Content Macro.
+
 ## 34.0.2
 
 ### Patch Changes

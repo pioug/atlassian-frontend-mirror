@@ -1,9 +1,8 @@
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 
 import RendererActions from '../../index';
 
-describe('RendererActions scoped legacy annotation discovery', () => {
+describe('RendererActions legacy annotation discovery', () => {
 	const annotation = (id: string) => ({
 		type: 'annotation',
 		attrs: { id, annotationType: 'inlineComment' },
@@ -23,21 +22,18 @@ describe('RendererActions scoped legacy annotation discovery', () => {
 	const toDoc = (content: unknown[]) =>
 		defaultSchema.nodeFromJSON({ type: 'doc', version: 1, content });
 
-	it('discovers updated deep legacy marks only while the editor registration is active', () => {
-		mockExpDisabled('platform_editor_fix_lcm_renderer_annotations');
+	it('discovers updated deep legacy marks for every renderer registration', () => {
 		const actions = new RendererActions(true);
-		const unoptedActions = new RendererActions(true);
+		const otherActions = new RendererActions(true);
 		const rendererRef = { current: null };
-		const legacyDoc = toDoc([legacyContent([paragraph('unopted')])]);
-		unoptedActions._privateRegisterRenderer({ current: null }, legacyDoc, defaultSchema);
-		expect(unoptedActions.getAnnotationMarks()).toEqual([]);
+		const legacyDoc = toDoc([legacyContent([paragraph('other')])]);
+		otherActions._privateRegisterRenderer({ current: null }, legacyDoc, defaultSchema);
+		expect(otherActions.getAnnotationMarks().map((mark) => mark.attrs.id)).toEqual(['other']);
 
 		actions._privateRegisterRenderer(
 			rendererRef,
 			toDoc([paragraph('root'), legacyContent([legacyContent([paragraph('nested')])])]),
 			defaultSchema,
-			undefined,
-			true,
 		);
 		expect(actions.getAnnotationMarks().map((mark) => mark.attrs.id)).toEqual(['root', 'nested']);
 
@@ -47,9 +43,9 @@ describe('RendererActions scoped legacy annotation discovery', () => {
 		actions._privateUnregisterRenderer();
 		actions._privateRegisterRenderer(
 			rendererRef,
-			toDoc([legacyContent([paragraph('off')])]),
+			toDoc([legacyContent([paragraph('registered-again')])]),
 			defaultSchema,
 		);
-		expect(actions.getAnnotationMarks()).toEqual([]);
+		expect(actions.getAnnotationMarks().map((mark) => mark.attrs.id)).toEqual(['registered-again']);
 	});
 });

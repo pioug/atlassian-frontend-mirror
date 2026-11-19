@@ -33,8 +33,10 @@ const videoElementStyles = cssMap({
 		minWidth: 0,
 		minHeight: 0,
 		objectFit: 'contain',
-		borderRadius: token('radius.large'),
 		overflow: 'hidden',
+	},
+	rounded: {
+		borderRadius: token('radius.large'),
 	},
 });
 
@@ -416,6 +418,7 @@ class _Video extends Component<VideoProps & WithInsetViewerProps, VideoComponent
 			textTracks,
 			textTracksPosition,
 			isInsetViewer,
+			isInsetFullscreen,
 			onTextTrackLoaded,
 			onTextTrackError,
 		} = this.props;
@@ -444,7 +447,10 @@ class _Video extends Component<VideoProps & WithInsetViewerProps, VideoComponent
 					data-testid="media-video-element"
 					ref={this.videoRef}
 					poster={poster}
-					css={[isInsetViewer && videoElementStyles.insetViewer]}
+					css={[
+						isInsetViewer && videoElementStyles.insetViewer,
+						isInsetViewer && !isInsetFullscreen && videoElementStyles.rounded,
+					]}
 					{...props}
 				>
 					{textTracks && (

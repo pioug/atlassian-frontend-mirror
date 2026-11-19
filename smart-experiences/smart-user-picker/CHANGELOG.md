@@ -1,5 +1,17 @@
 # @atlassian/smart-user-picker
 
+## 12.15.0
+
+### Minor Changes
+
+- [`4630a4a637622`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4630a4a637622) -
+  Preserve selected agent identity during hydration for the
+  platform_user_picker_agent_avatar_hexagon experiment
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.14.0
 
 ### Minor Changes

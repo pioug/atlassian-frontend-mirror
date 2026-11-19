@@ -10,6 +10,7 @@ import { css, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
+import { useIsInsetFullscreen } from './insetViewerContext/useIsInsetFullscreen';
 import { useIsInsetViewer } from './insetViewerContext/useIsInsetViewer';
 
 const rightControlStyles = css({
@@ -29,8 +30,15 @@ export type RightControlsProps = React.DetailedHTMLProps<
 
 export const RightControls = ({ children, ...props }: RightControlsProps): JSX.Element => {
 	const isInsetViewer = useIsInsetViewer();
+	const isInsetFullscreen = useIsInsetFullscreen();
 	return (
-		<div css={[rightControlStyles, isInsetViewer && insetViewerRightControlStyles]} {...props}>
+		<div
+			css={[
+				rightControlStyles,
+				(isInsetViewer || isInsetFullscreen) && insetViewerRightControlStyles,
+			]}
+			{...props}
+		>
 			{children}
 		</div>
 	);

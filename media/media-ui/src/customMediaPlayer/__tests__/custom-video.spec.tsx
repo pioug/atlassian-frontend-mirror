@@ -13,6 +13,28 @@ jest.mock('../ExternalControlsLayout', () => ({
 	...jest.requireActual('../ExternalControlsLayout'),
 	ExternalControlsLayout: (props: { right: React.ReactNode }) => mockExternalControlsLayout(props),
 }));
+// Wraps the real provider so the value the player sets can be asserted
+jest.mock('../insetViewerContext/insetFullscreenContext', () => {
+	const { createContext, createElement } = jest.requireActual('react');
+	const InsetFullscreenContext = createContext(false);
+	const RealProvider = InsetFullscreenContext.Provider;
+	InsetFullscreenContext.Provider = (props: { value: boolean }) => {
+		mockInsetFullscreenProvider(props.value);
+		return createElement(RealProvider, props);
+	};
+	return { InsetFullscreenContext };
+});
+jest.mock('../InsetFullscreenControlsLayout', () => {
+	const actual = jest.requireActual('../InsetFullscreenControlsLayout');
+	return {
+		...actual,
+		InsetFullscreenControlsLayout: jest.fn(actual.InsetFullscreenControlsLayout),
+	};
+});
+jest.mock('../playPauseBlanket', () => {
+	const actual = jest.requireActual('../playPauseBlanket');
+	return { ...actual, PlayPauseBlanket: jest.fn(actual.PlayPauseBlanket) };
+});
 import React from 'react';
 import { act } from 'react';
 
@@ -28,11 +50,15 @@ import { keyCodes } from '../../shortcut';
 import { fakeIntl } from '../../test-helpers/fakeI18n';
 import * as getControlsWrapperClassNameModule from '../getControlsWrapperClassName';
 import { getFullscreenElement } from '../getFullscreenElement';
+import { InsetFullscreenControlsLayout } from '../InsetFullscreenControlsLayout';
 import { InsetViewerProvider } from '../insetViewerContext/insetViewerProvider';
+import { PlayPauseBlanket } from '../playPauseBlanket';
 import simultaneousPlayManager from '../simultaneousPlayManager';
 import { toggleFullscreen } from '../toggleFullscreen';
 
 const mockExternalControlsLayout = jest.fn(({ right }: { right: React.ReactNode }) => right);
+
+const mockInsetFullscreenProvider = jest.fn();
 
 const getControlsWrapperClassName = jest.spyOn(
 	getControlsWrapperClassNameModule,
@@ -1729,8 +1755,27 @@ describe('<CustomMediaPlayer />', () => {
 				</IntlProvider>,
 			);
 
-		beforeEach(() => {
+		const triggerFullscreenChange = (isFullscreen: boolean) => {
+			asMockFunction(getFullscreenElement).mockReturnValue(
+				isFullscreen ? ({} as HTMLElement) : undefined,
+			);
+			fireEvent(screen.getByTestId('custom-media-player'), new Event('fullscreenchange'));
+		};
+		const getDownloadButton = () => screen.queryByTestId('custom-media-player-download-button');
+		const getFullscreenButton = () => screen.getByTestId('custom-media-player-fullscreen-button');
+		const getBlanketHasInsetFooter = () =>
+			asMock(PlayPauseBlanket).mock.lastCall![0].hasInsetFooter;
+		const getInsetFullscreenProviderValue = () => mockInsetFullscreenProvider.mock.lastCall![0];
+		const clearMocks = () => {
 			mockExternalControlsLayout.mockClear();
+			asMock(InsetFullscreenControlsLayout).mockClear();
+			asMock(PlayPauseBlanket).mockClear();
+			mockInsetFullscreenProvider.mockClear();
+			getControlsWrapperClassName.mockClear();
+		};
+
+		beforeEach(() => {
+			clearMocks();
 		});
 
 		it('should render ExternalControlsLayout with the portal element and the control groups', () => {
@@ -1754,10 +1799,206 @@ describe('<CustomMediaPlayer />', () => {
 			expect(mockExternalControlsLayout).not.toHaveBeenCalled();
 		});
 
-		it('should leave the fullscreen button out of the control groups', () => {
+		it('should render the fullscreen button in the control groups', () => {
 			renderPlayer({ isInsetViewer: true, controlsPortalElement });
 
-			expect(screen.queryByTestId('custom-media-player-fullscreen-button')).not.toBeInTheDocument();
+			expect(getFullscreenButton()).toBeInTheDocument();
+		});
+
+		describe('fullscreen footer', () => {
+			const onDownloadClick = jest.fn();
+
+			it('should swap ExternalControlsLayout for InsetFullscreenControlsLayout while the inset viewer is fullscreen', () => {
+				const videoControlsWrapperRef = React.createRef<HTMLDivElement>();
+				renderPlayer({
+					isInsetViewer: true,
+					controlsPortalElement,
+					videoControlsWrapperRef,
+					onDownloadClick,
+				});
+
+				// Before fullscreen: controls portalled, download button shown, no footer reported.
+				expect(getDownloadButton()).toBeInTheDocument();
+				expect(getBlanketHasInsetFooter()).toBe(false);
+				expect(getInsetFullscreenProviderValue()).toBe(false);
+				// Drop the portal renders so the checks below only see fullscreen's.
+				clearMocks();
+
+				triggerFullscreenChange(true);
+
+				// In fullscreen the player draws its own footer from the same controls and ref.
+				expect(asMock(InsetFullscreenControlsLayout).mock.lastCall![0]).toEqual(
+					expect.objectContaining({
+						videoControlsWrapperRef,
+						timeline: expect.anything(),
+						left: expect.anything(),
+						right: expect.anything(),
+					}),
+				);
+				// The portal is gone, the download button is dropped, and the footer is reported.
+				expect(mockExternalControlsLayout).not.toHaveBeenCalled();
+				expect(getFullscreenButton()).toBeInTheDocument();
+				expect(getDownloadButton()).not.toBeInTheDocument();
+				expect(getBlanketHasInsetFooter()).toBe(true);
+				expect(getInsetFullscreenProviderValue()).toBe(true);
+				// Drop the fullscreen renders so the checks below only see renders caused by leaving it.
+				clearMocks();
+
+				triggerFullscreenChange(false);
+
+				// Leaving fullscreen goes back to the portal.
+				expect(mockExternalControlsLayout).toHaveBeenCalled();
+				expect(InsetFullscreenControlsLayout).not.toHaveBeenCalled();
+				expect(getDownloadButton()).toBeInTheDocument();
+				expect(getBlanketHasInsetFooter()).toBe(false);
+				expect(getInsetFullscreenProviderValue()).toBe(false);
+			});
+
+			it('should swap the overlay controls for InsetFullscreenControlsLayout while a useInsetFullscreen player is fullscreen', () => {
+				const videoControlsWrapperRef = React.createRef<HTMLDivElement>();
+				renderPlayer({
+					isInsetViewer: false,
+					useInsetFullscreen: true,
+					videoControlsWrapperRef,
+					onDownloadClick,
+				});
+
+				// Before fullscreen the controls are still the overlay, with no footer reported.
+				expect(getControlsWrapperClassName).toHaveBeenCalled();
+				expect(InsetFullscreenControlsLayout).not.toHaveBeenCalled();
+				expect(getDownloadButton()).toBeInTheDocument();
+				expect(getBlanketHasInsetFooter()).toBe(false);
+				expect(getInsetFullscreenProviderValue()).toBe(false);
+				// Drop the overlay renders so the checks below only see renders caused by going fullscreen.
+				clearMocks();
+
+				triggerFullscreenChange(true);
+
+				// useInsetFullscreen makes the player draw the footer in fullscreen.
+				expect(asMock(InsetFullscreenControlsLayout).mock.lastCall![0]).toEqual(
+					expect.objectContaining({
+						videoControlsWrapperRef,
+						timeline: expect.anything(),
+						left: expect.anything(),
+						right: expect.anything(),
+					}),
+				);
+				// The overlay is gone, the download button is dropped, and the footer is reported.
+				expect(getControlsWrapperClassName).not.toHaveBeenCalled();
+				expect(mockExternalControlsLayout).not.toHaveBeenCalled();
+				expect(getDownloadButton()).not.toBeInTheDocument();
+				expect(getBlanketHasInsetFooter()).toBe(true);
+				expect(getInsetFullscreenProviderValue()).toBe(true);
+				// Drop the fullscreen renders so the checks below only see renders caused by leaving it.
+				clearMocks();
+
+				triggerFullscreenChange(false);
+
+				// Leaving fullscreen brings the overlay and the download button back.
+				expect(getControlsWrapperClassName).toHaveBeenCalled();
+				expect(InsetFullscreenControlsLayout).not.toHaveBeenCalled();
+				expect(getDownloadButton()).toBeInTheDocument();
+			});
+
+			it('should keep the overlay controls in fullscreen without useInsetFullscreen', () => {
+				renderPlayer({ isInsetViewer: false, onDownloadClick });
+				// Drop the first render so the checks below only see renders caused by going fullscreen.
+				clearMocks();
+
+				triggerFullscreenChange(true);
+
+				// Without the inset viewer or useInsetFullscreen, fullscreen keeps the overlay.
+				expect(getControlsWrapperClassName).toHaveBeenCalled();
+				expect(InsetFullscreenControlsLayout).not.toHaveBeenCalled();
+				expect(mockExternalControlsLayout).not.toHaveBeenCalled();
+				expect(getDownloadButton()).toBeInTheDocument();
+				expect(getBlanketHasInsetFooter()).toBe(false);
+				expect(getInsetFullscreenProviderValue()).toBe(false);
+			});
+		});
+
+		describe('focus when fullscreen toggles', () => {
+			afterEach(() => {
+				controlsPortalElement.remove();
+				mockExternalControlsLayout.mockImplementation(({ right }) => right);
+			});
+
+			it('should keep focus on the focused control when the inset viewer enters and exits fullscreen', () => {
+				// Use the real ExternalControlsLayout; the stub renders the controls inside the player, not in a portal.
+				const { ExternalControlsLayout } = jest.requireActual('../ExternalControlsLayout');
+				mockExternalControlsLayout.mockImplementation((props) => (
+					<ExternalControlsLayout {...props} />
+				));
+				document.body.appendChild(controlsPortalElement);
+				renderPlayer({ isInsetViewer: true, controlsPortalElement });
+				// A keyboard user has focused the fullscreen button in the viewer's footer, outside the player.
+				const viewerButton = getFullscreenButton();
+				expect(controlsPortalElement).toContainElement(viewerButton);
+				act(() => viewerButton.focus());
+
+				triggerFullscreenChange(true);
+
+				// Fullscreen rebuilds the controls in the player's footer; focus moves to the new button.
+				const footerButton = getFullscreenButton();
+				expect(controlsPortalElement).not.toContainElement(footerButton);
+				expect(footerButton).toHaveFocus();
+
+				triggerFullscreenChange(false);
+
+				// Leaving fullscreen rebuilds the controls back in the viewer's footer, and focus follows.
+				const restoredButton = getFullscreenButton();
+				expect(controlsPortalElement).toContainElement(restoredButton);
+				expect(restoredButton).toHaveFocus();
+			});
+
+			it('should keep focus on the same control when a useInsetFullscreen player enters and exits fullscreen', () => {
+				renderPlayer({ isInsetViewer: false, useInsetFullscreen: true });
+				// A keyboard user has focused the fullscreen button in the overlay.
+				const overlayButton = getFullscreenButton();
+				act(() => overlayButton.focus());
+
+				triggerFullscreenChange(true);
+
+				// The footer mounts a new fullscreen button, which now has the focus.
+				expect(getFullscreenButton()).not.toBe(overlayButton);
+				expect(getFullscreenButton()).toHaveFocus();
+				const footerButton = getFullscreenButton();
+
+				triggerFullscreenChange(false);
+
+				// Leaving fullscreen mounts the overlay's button again, and focus follows it.
+				expect(getFullscreenButton()).not.toBe(footerButton);
+				expect(getFullscreenButton()).toHaveFocus();
+			});
+
+			it('should not move focus without the inset viewer or useInsetFullscreen', () => {
+				renderPlayer({ isInsetViewer: false });
+				const button = getFullscreenButton();
+				act(() => button.focus());
+				const focus = jest.spyOn(HTMLElement.prototype, 'focus');
+
+				triggerFullscreenChange(true);
+
+				// The controls are not rebuilt without the footer, so nothing is refocused.
+				expect(focus).not.toHaveBeenCalled();
+				expect(button).toHaveFocus();
+				focus.mockRestore();
+			});
+
+			it('should not move focus into the player when the focus is outside it', () => {
+				renderPlayer({ isInsetViewer: false, useInsetFullscreen: true });
+				// A button outside the player, with the same data-testid, has the focus.
+				const outsideButton = document.createElement('button');
+				outsideButton.setAttribute('data-testid', 'custom-media-player-fullscreen-button');
+				document.body.appendChild(outsideButton);
+				act(() => outsideButton.focus());
+
+				triggerFullscreenChange(true);
+
+				// Focus was not in the player's controls, so it is not taken from the outside button.
+				expect(outsideButton).toHaveFocus();
+				outsideButton.remove();
+			});
 		});
 	});
 });

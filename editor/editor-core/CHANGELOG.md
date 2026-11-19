@@ -1,5 +1,38 @@
 # @atlaskit/editor-core
 
+## 245.2.0
+
+### Minor Changes
+
+- [`32e8522d67795`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/32e8522d67795) -
+  When `platform_editor_ui_control_registry` is enabled, editor-core initializes the UI control
+  registry through a core preset before product plugins. Product presets keep their previous
+  registry registrations only when this experiment is disabled. Core excludes legacy registry
+  plugins to preserve one registry through initialization, reconfiguration, and SSR.
+
+  Consumers upgrading `@atlaskit/editor-presets` or `@atlassian/proforma-form-builder` must also
+  upgrade editor-core to the release containing central registry ownership. The editor-core minor
+  release establishes the minimum compatible peer range.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 245.1.0
+
+### Minor Changes
+
+- [`952db3434b688`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/952db3434b688) -
+  Add an opt-in `isHeightSetFromContent` prop to the full-page editor appearances. When it is
+  `true`, the editor scroll container uses `height: auto` and `overflow-y: visible` (and the
+  `UNSAFE_containLayout` wrapper keeps only `contain: layout`), so the editor grows with its content
+  and the host page owns scrolling. The default is `false`, so the behaviour does not change unless
+  a caller passes the prop.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 245.0.3
 
 ### Patch Changes

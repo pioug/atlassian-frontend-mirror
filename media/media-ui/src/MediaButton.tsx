@@ -12,6 +12,7 @@ import Button from '@atlaskit/button/custom-theme-button/custom-theme-button';
 import type { Appearance } from '@atlaskit/button/old-button/types';
 import { token } from '@atlaskit/tokens';
 
+import { useIsInsetFullscreen } from './customMediaPlayer/insetViewerContext/useIsInsetFullscreen';
 import { useIsInsetViewer } from './customMediaPlayer/insetViewerContext/useIsInsetViewer';
 
 type MediaButtonAppearance = Appearance;
@@ -100,6 +101,9 @@ export default function MediaButton({
 	...rest
 }: Props): React.JSX.Element {
 	const isInsetViewer = useIsInsetViewer();
+	const isInsetFullscreen = useIsInsetFullscreen();
+	// The inset fullscreen footer is always dark, so only the viewer's own footer follows the theme.
+	const followsTheme = isInsetViewer && !isInsetFullscreen;
 	return (
 		<Button
 			{...rest}
@@ -113,7 +117,7 @@ export default function MediaButton({
 						...buttonStyles,
 						// giving our extract function the real appearance value
 						...extract(buttonTheme, { ...themeProps, appearance }),
-						...(isInsetViewer ? { color: token('color.text') } : {}),
+						...(followsTheme ? { color: token('color.text') } : {}),
 					},
 					...rest,
 				};

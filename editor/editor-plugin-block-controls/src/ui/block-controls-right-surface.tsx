@@ -7,11 +7,9 @@ import React from 'react';
 
 import { css, jsx } from '@atlaskit/css';
 import { BLOCK_CONTROL_UI_CONTEXT } from '@atlaskit/editor-common/block-controls/block-control-ui-context';
-import { BLOCK_CONTROLS_RIGHT_SURFACE } from '@atlaskit/editor-common/block-controls/surface-keys';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
-import { SurfaceRenderer } from '@atlaskit/editor-ui-control-model/surface-renderer';
+import type { SurfaceRenderer } from '@atlaskit/editor-ui-control-model/surface-renderer';
 import type { SurfaceContext } from '@atlaskit/editor-ui-control-model/types';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { token } from '@atlaskit/tokens';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
@@ -19,10 +17,8 @@ import {
 	BlockControlsSurfaceWithClsFix,
 	type BlockControlsSurfaceWrapperProps,
 } from '../surface-lifecycle/block-controls-surface-with-cls-fix';
-import { BlockControlsVisibilityProvider } from './block-controls-surface-components';
 import type { BlockControlsSurfaceTarget } from './block-controls-surface-targets';
 import type { SurfaceWrapperPlacement } from './utils/get-surface-placement';
-import { useBlockControlsVisibility } from './visibility-container';
 
 const rightSurfaceHiddenWrapperStyles = css({
 	visibility: 'hidden',
@@ -61,65 +57,6 @@ type BlockControlsRightSurfaceProps = {
 	placement: SurfaceWrapperPlacement | undefined;
 	source: BlockControlsSurfaceTarget['source'];
 	surfaceContext: SurfaceContext;
-};
-
-type BlockControlsRightSurfaceContentProps = Omit<BlockControlsRightSurfaceProps, 'placement'> & {
-	placement: SurfaceWrapperPlacement;
-};
-
-const BlockControlsRightSurfaceContent = ({
-	api,
-	components,
-	forceVisibleOnMouseOut,
-	placement,
-	source,
-	surfaceContext,
-}: BlockControlsRightSurfaceContentProps): React.JSX.Element => {
-	const blockControlsContext = surfaceContext.get(BLOCK_CONTROL_UI_CONTEXT);
-	const { shouldHide: shouldHideHoverControls, useCssStyles } = useBlockControlsVisibility({
-		api,
-		controlSide: 'right',
-		forceVisibleOnMouseOut,
-	});
-	const isSticky = placement.isSticky;
-
-	return (
-		<div
-			css={rightSurfaceOuterStyles}
-			data-editor-block-controls-surface
-			data-editor-block-controls-side="right"
-			data-testid={
-				source === 'stored'
-					? 'block-controls-right-surface-stored'
-					: source === 'active'
-						? 'block-controls-right-surface-active'
-						: 'block-controls-right-surface'
-			}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Placement is resolved per target node, from its runtime DOM geometry or from its CSS anchor.
-			style={placement.style}
-		>
-			<div
-				css={[
-					rightSurfaceRowStyles,
-					isSticky && rightSurfaceStickyStyles,
-					isSticky &&
-						blockControlsContext?.targetNode.type.name === 'table' &&
-						rightSurfaceStickyTableHeaderStyles,
-				]}
-			>
-				<BlockControlsVisibilityProvider
-					shouldHideHoverControls={shouldHideHoverControls}
-					useCssStyles={useCssStyles}
-				>
-					<SurfaceRenderer
-						components={components}
-						surface={BLOCK_CONTROLS_RIGHT_SURFACE}
-						surfaceContext={surfaceContext}
-					/>
-				</BlockControlsVisibilityProvider>
-			</div>
-		</div>
-	);
 };
 
 const BlockControlsRightSurfaceWrapper = ({
@@ -174,29 +111,16 @@ export const BlockControlsRightSurface = ({
 		return null;
 	}
 
-	if (isExperimentEnabled('platform_editor_block_controls_cls_fix')) {
-		return (
-			<BlockControlsSurfaceWithClsFix
-				side="right"
-				SurfaceWrapper={BlockControlsRightSurfaceWrapper}
-				api={api}
-				components={components}
-				forceVisibleOnMouseOut={forceVisibleOnMouseOut}
-				placement={placement}
-				source={source}
-				surfaceContext={surfaceContext}
-			/>
-		);
-	} else {
-		return (
-			<BlockControlsRightSurfaceContent
-				api={api}
-				components={components}
-				forceVisibleOnMouseOut={forceVisibleOnMouseOut}
-				placement={placement}
-				source={source}
-				surfaceContext={surfaceContext}
-			/>
-		);
-	}
+	return (
+		<BlockControlsSurfaceWithClsFix
+			side="right"
+			SurfaceWrapper={BlockControlsRightSurfaceWrapper}
+			api={api}
+			components={components}
+			forceVisibleOnMouseOut={forceVisibleOnMouseOut}
+			placement={placement}
+			source={source}
+			surfaceContext={surfaceContext}
+		/>
+	);
 };

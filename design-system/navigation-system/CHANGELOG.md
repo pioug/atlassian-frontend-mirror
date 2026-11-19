@@ -1,5 +1,56 @@
 # @atlassian/navigation-system
 
+## 12.0.0
+
+### Major Changes
+
+- [`ca32e066cf0f9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ca32e066cf0f9) -
+  Remove the deprecated Full Height Sidebar (FHS) rollout API. The
+  `@atlaskit/navigation-system/fhs-rollout` entry point and the following exports from
+  `@atlaskit/navigation-system` are no longer available:
+
+  - `IsFhsEnabledProvider`
+  - `IsFhsEnabledProviderProps`
+  - `IsFhsEnabledContext`
+  - `useIsFhsEnabled`
+
+  FHS was rolled back in version 11.3.0. Since then, the provider has rendered its children without
+  using `value`, the hook has always returned `false`, and platform components have no longer read
+  the context. Removing these APIs does not change the current navigation layout.
+
+  Before upgrading:
+
+  - Remove imports from `@atlaskit/navigation-system/fhs-rollout` and imports of the removed APIs
+    from the package root.
+  - Remove `IsFhsEnabledProvider` wrappers, preserving their children, and remove usages of
+    `IsFhsEnabledProviderProps`.
+  - Replace `useIsFhsEnabled()` calls with `false`, then simplify conditional code to keep the
+    FHS-off behavior.
+  - Remove `IsFhsEnabledContext` providers and consumers. Preserve provider children and use the
+    FHS-off behavior instead of reading the context.
+
+  The unused internal `IsCustomIsFhsEnabledContext` and the FHS rollout tests have also been
+  removed.
+
+### Patch Changes
+
+- [`446fe16440842`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/446fe16440842) -
+  Add aria-expanded to the side nav toggle button so assistive technology can tell whether the side
+  nav is expanded or collapsed.
+- Updated dependencies
+
+## 11.8.4
+
+### Patch Changes
+
+- [`b900d18f5dd93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b900d18f5dd93) -
+  Fix local panels to remember inline and overlay resize preferences separately when
+  platform-dst-chat-panel-layout is enabled. Preserve explicit controlled widths and prevent the
+  Panel System adapter from sharing uncontrolled resizes across modes.
+
+  Restore saved widths through the existing default-width API, matching ChatPanel. Restored widths
+  supply the starting defaults, including default-based overlay bounds.
+
 ## 11.8.3
 
 ### Patch Changes

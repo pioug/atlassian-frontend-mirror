@@ -1,5 +1,29 @@
 # @atlaskit/renderer
 
+## 157.1.0
+
+### Minor Changes
+
+- [`a28e0358f6728`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a28e0358f6728) -
+  Add individual default node entry points under @atlaskit/renderer/nodes so consumers can import
+  only the nodes they pass to nodeComponents.
+
+## 157.0.0
+
+### Major Changes
+
+- [`1617a2f6e92cb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1617a2f6e92cb) -
+  Clean up experiment platform_editor_fix_lcm_renderer_annotations. Renderer annotation discovery
+  now always includes annotations nested in Confluence legacy content macros.
+
+  Remove the `includeLegacyContentAnnotations` prop from `RendererActionsContext` and the fifth
+  argument of `RendererActions._privateRegisterRenderer`. Stop passing these options. Legacy content
+  annotations are always discovered after cleanup of `platform_editor_fix_lcm_renderer_annotations`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 156.1.0
 
 ### Minor Changes

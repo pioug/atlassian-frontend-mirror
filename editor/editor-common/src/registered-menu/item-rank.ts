@@ -3,6 +3,8 @@ import type {
 	RegisterComponentParent,
 } from '@atlaskit/editor-ui-control-model/types';
 
+import { resolveRegisteredItemRank } from './resolve-registered-item-rank';
+
 export type RegisteredItemRankContext = {
 	component: RegisterComponent;
 	parent: RegisterComponentParent;
@@ -29,13 +31,10 @@ export const applyRegisteredItemRanks = (
 			return component;
 		}
 
-		const parents = component.parents.map((parent) => {
-			const rank = getRegisteredItemRank({ component, parent })?.rank;
-			return {
-				...parent,
-				rank: typeof rank === 'number' && Number.isFinite(rank) ? rank : parent.rank,
-			};
-		});
+		const parents = component.parents.map((parent) => ({
+			...parent,
+			rank: resolveRegisteredItemRank(component, parent, getRegisteredItemRank),
+		}));
 
 		return Object.assign({}, component, { parents });
 	});

@@ -6,6 +6,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 export const getMaybeLayoutSection = (state: EditorState): ContentNodeWithPos | undefined => {
@@ -98,6 +99,12 @@ export const getGapCursorTargetForBlankSpaceClick = (
 	try {
 		columnStartPos = view.posAtDOM(columnEl, 0);
 	} catch {
+		return undefined;
+	}
+
+	// posAtDOM returns -1 when this view does not own the column element, e.g. a column
+	// rendered by the ADF renderer inside a third-party macro in a nested editor.
+	if (columnStartPos < 0 && isExperimentEnabled('platform_editor_layout_blank_click_pos_guard')) {
 		return undefined;
 	}
 

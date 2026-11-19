@@ -73,6 +73,11 @@ const containLayoutStyles = cssMap({
 		contain: 'layout size',
 		height: '100%',
 	},
+	// Drops size containment so the wrapper can grow with its content.
+	heightSetFromContent: {
+		contain: 'layout',
+		height: 'auto',
+	},
 });
 
 const compiledStyles = cssMap({
@@ -260,6 +265,7 @@ interface FullPageEditorContentAreaProps {
 	featureFlags?: FeatureFlags;
 	hasHadInteraction?: boolean;
 	isEditorToolbarHidden?: boolean;
+	isHeightSetFromContent?: boolean;
 	pluginHooks: ReactHookFactory[] | undefined;
 	popupsBoundariesElement: HTMLElement | undefined;
 	popupsMountPoint: HTMLElement | undefined;
@@ -319,6 +325,7 @@ const Content = React.forwardRef<
 			ref={scrollContainerRef}
 			viewMode={props?.viewMode}
 			isScrollable
+			isHeightSetFromContent={props.isHeightSetFromContent}
 			appearance={props.appearance}
 			contentMode={props.contentMode}
 			useStandardNodeWidth={useStandardNodeWidth}
@@ -421,7 +428,10 @@ const Content = React.forwardRef<
 				{props.UNSAFE_containLayout ? (
 					<div
 						data-testid="editor-contain-size-and-layout-wrapper"
-						css={containLayoutStyles.wrapper}
+						css={[
+							containLayoutStyles.wrapper,
+							props.isHeightSetFromContent && containLayoutStyles.heightSetFromContent,
+						]}
 					>
 						{content}
 					</div>

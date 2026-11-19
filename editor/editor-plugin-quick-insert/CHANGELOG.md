@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 33.1.0
+
+### Minor Changes
+
+- [`5d0e8f810cfd2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5d0e8f810cfd2) -
+  Add an optional `getItemRank` resolver to `RegistryElementBrowser`. Under
+  `platform_editor_slash_command`, empty-query Element Browser results use the same category ranks
+  and host overrides as the inline slash menu.
+
+  Export `resolveRegisteredItemRank` so both menus can resolve a parent rank using the same rule.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 33.0.1
 
 ### Patch Changes

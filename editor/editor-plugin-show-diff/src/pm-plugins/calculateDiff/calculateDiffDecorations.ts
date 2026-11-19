@@ -4,6 +4,7 @@ import { type Change, ChangeSet, simplifyChanges } from 'prosemirror-changeset';
 import type { IntlShape } from 'react-intl';
 
 import { isAiXstateMigrationEnabledNoExposure } from '@atlaskit/editor-common/ai-xstate-migration-no-exposure';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { areDocsEqualByBlockStructureAndText } from '@atlaskit/editor-common/utils/areDocsEqualByBlockStructureAndText';
 import { areNodesEqualIgnoreAttrs } from '@atlaskit/editor-common/utils/document';
@@ -481,6 +482,7 @@ const calculateDiffDecorationsInner = ({
 	deletedDiffPlacement = 'top',
 	inlineDeletedDiffPlacement = 'before',
 	tagMountContext,
+	portalProviderAPI,
 }: {
 	/**
 	 * The selected navigation range and its contributor. An overlapping change with another
@@ -498,6 +500,7 @@ const calculateDiffDecorationsInner = ({
 	isInverted?: boolean;
 	nodeViewSerializer: NodeViewSerializer;
 	pluginState: Omit<ShowDiffPluginState, 'decorations'>;
+	portalProviderAPI?: PortalProviderAPI;
 	showIndicators?: boolean;
 	smartThresholds?: Partial<SmartDiffThresholds>;
 	state: EditorState;
@@ -857,6 +860,8 @@ const calculateDiffDecorationsInner = ({
 			if (replacedCells.length > 0) {
 				decorations.push(
 					...createReplacedCellDecorations({
+						portalProviderAPI,
+						intl,
 						replacedCells,
 						change,
 						doc: tr.doc,
@@ -887,6 +892,8 @@ const calculateDiffDecorationsInner = ({
 					}
 					decorations.push(
 						...createInlineChangedDecoration({
+							portalProviderAPI,
+							intl,
 							attributionKey,
 							change: { fromB: from, toB: to },
 							leftAnchorId,
@@ -907,6 +914,8 @@ const calculateDiffDecorationsInner = ({
 			} else {
 				decorations.push(
 					...createInlineChangedDecoration({
+						portalProviderAPI,
+						intl,
 						attributionKey,
 						change,
 						leftAnchorId,
@@ -960,6 +969,7 @@ const calculateDiffDecorationsInner = ({
 			if (!shouldHideDeleted) {
 				decorations.push(
 					...createNodeChangedDecorationWidget({
+						portalProviderAPI,
 						deletedColumns,
 						// The deleted side has no inline decoration, so the widget carries the actor.
 						attributionKey,
@@ -1203,6 +1213,7 @@ export const calculateDiffDecorations: MemoizedFn<
 		isInverted?: boolean;
 		nodeViewSerializer: NodeViewSerializer;
 		pluginState: Omit<ShowDiffPluginState, 'decorations'>;
+		portalProviderAPI?: PortalProviderAPI;
 		showIndicators?: boolean;
 		smartThresholds?: Partial<SmartDiffThresholds>;
 		state: EditorState;

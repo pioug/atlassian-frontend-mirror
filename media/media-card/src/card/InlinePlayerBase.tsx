@@ -30,6 +30,7 @@ export const InlinePlayerBase = ({
 	cardPreview,
 	onFullscreenChange,
 	videoControlsWrapperRef,
+	useInsetFullscreen,
 }: InlinePlayerProps): React.JSX.Element => {
 	// === States ===
 	const [fileSrc, setFileSrc] = useState<string>();
@@ -169,6 +170,7 @@ export const InlinePlayerBase = ({
 							poster={cardPreview?.dataURI}
 							videoControlsWrapperRef={videoControlsWrapperRef}
 							areControlsVisible={controlsAreVisible}
+							useInsetFullscreen={useInsetFullscreen}
 						/>
 					) : (
 						<CustomMediaPlayer
@@ -196,6 +198,7 @@ export const InlinePlayerBase = ({
 							showControls={checkMouseMovement}
 							poster={cardPreview?.dataURI}
 							videoControlsWrapperRef={videoControlsWrapperRef}
+							useInsetFullscreen={useInsetFullscreen}
 						/>
 					)
 				}

@@ -131,6 +131,9 @@
 			"path": "../../elements/util-data-test/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/visually-hidden/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-presets-confluence/tsconfig.app.json"
 		},
 		{

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-rule
 
+## 33.1.1
+
+### Patch Changes
+
+- [`843d247bdf065`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/843d247bdf065) -
+  Behind `platform-dst-top-layer`, the rule keymap no longer takes Escape, so a modal around the
+  editor closes on it.
+
 ## 33.1.0
 
 ### Minor Changes

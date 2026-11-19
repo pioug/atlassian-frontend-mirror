@@ -14,6 +14,7 @@ import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import { messages } from '@atlaskit/editor-common/quick-insert';
 import type { QuickInsertSelectionHandler } from '@atlaskit/editor-common/quick-insert/context';
 import { MENU, RECOMMENDED_SECTION } from '@atlaskit/editor-common/quick-insert/keys';
+import type { RegisteredItemRankResolver } from '@atlaskit/editor-common/registered-menu/item-rank';
 import { createRegisteredMenuSurfaceContext } from '@atlaskit/editor-common/registered-menu/surface-context';
 import { getMenuFooterSectionKey } from '@atlaskit/editor-common/type-ahead-get-menu-footer-section-key';
 import { getSectionOverflowItemKey } from '@atlaskit/editor-common/type-ahead-get-section-overflow-item-key';
@@ -41,7 +42,6 @@ import {
 import {
 	createRegistryElementBrowserModel,
 	getInitialRegistryElementBrowserSection,
-	getRegistryElementBrowserItems,
 	type RegistryElementBrowserItem,
 } from './model';
 import { getFirstEnabledOption, isOptionDisabled } from './options';
@@ -55,6 +55,7 @@ type Props = {
 	editorView: EditorView;
 	emptyStateHandler?: EmptyStateHandler;
 	fireAnalyticsEvent?: EditorAnalyticsAPI['fireAnalyticsEvent'];
+	getItemRank?: RegisteredItemRankResolver;
 	getRecommendedItems?: RecommendedItemsResolver;
 	helpUrl?: string;
 	isLoading?: boolean;
@@ -130,6 +131,7 @@ export const RegistryElementBrowser = ({
 	emptyStateHandler,
 	fireAnalyticsEvent,
 	defaultSection,
+	getItemRank,
 	getRecommendedItems,
 	helpUrl,
 	editorView,
@@ -169,9 +171,13 @@ export const RegistryElementBrowser = ({
 		() => getRecommendedItems?.({ components, surfaceContext }),
 		[components, getRecommendedItems, surfaceContext],
 	);
-	const browserModel = useMemo(() => {
-		const model = createRegistryElementBrowserModel(components, {
+	const model = useMemo(() => {
+		return createRegistryElementBrowserModel(components, {
 			footerKey: getMenuFooterSectionKey(MENU.key),
+			formatMessage,
+			getItemRank,
+			query,
+			section,
 			surfaceContext,
 			overflowKeys: new Set(
 				components
@@ -182,20 +188,16 @@ export const RegistryElementBrowser = ({
 			recommendedSectionKey: RECOMMENDED_SECTION.key,
 			rootKey: MENU.key,
 		});
-		const effectiveSection =
-			section && model.sections.some(({ key }) => key === section) ? section : undefined;
-		return {
-			model,
-			effectiveSection,
-			...getRegistryElementBrowserItems({
-				formatMessage,
-				model,
-				query,
-				section: effectiveSection,
-			}),
-		};
-	}, [components, formatMessage, query, recommendedRegistrations, section, surfaceContext]);
-	const { model, effectiveSection, items, recommendedItems } = browserModel;
+	}, [
+		components,
+		formatMessage,
+		getItemRank,
+		query,
+		recommendedRegistrations,
+		section,
+		surfaceContext,
+	]);
+	const { effectiveSection, items, recommendedItems } = model;
 	const resultItems = useMemo(() => [...recommendedItems, ...items], [items, recommendedItems]);
 	const visibleItems =
 		resultItems.length === 0 && !isLoading && query.trim().length > 0
@@ -229,7 +231,7 @@ export const RegistryElementBrowser = ({
 			selectedRegistrationRef.current = undefined;
 			setBrowserState({
 				query: '',
-				section: getInitialRegistryElementBrowserSection(model, defaultSection),
+				section: getInitialRegistryElementBrowserSection(model.sections, defaultSection),
 				selectedRegistration: undefined,
 			});
 			onClearSelection();
@@ -316,10 +318,7 @@ export const RegistryElementBrowser = ({
 		[onClearSelection],
 	);
 	const onRegistrySelect = useCallback(
-		(key: string, handler: QuickInsertSelectionHandler) => {
-			const registration = model.items.find(
-				({ registration }) => registration.key === key,
-			)?.registration;
+		(registration: RegisterMenuItem, handler: QuickInsertSelectionHandler) => {
 			selectedRegistrationRef.current = registration;
 			setBrowserState((current) => ({
 				...current,
@@ -328,7 +327,7 @@ export const RegistryElementBrowser = ({
 			}));
 			onSelect(handler);
 		},
-		[isOffline, model.items, onSelect],
+		[isOffline, onSelect],
 	);
 	const confirmInsert = useCallback(() => {
 		const selectedRegistration = selectedRegistrationRef.current;

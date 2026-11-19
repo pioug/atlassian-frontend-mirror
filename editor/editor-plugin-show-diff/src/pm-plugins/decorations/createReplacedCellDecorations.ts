@@ -5,6 +5,7 @@ import { getDarkModeLCHColor } from '@atlaskit/adf-schema/get-dark-mode-lch-colo
 import { isRgb } from '@atlaskit/adf-schema/is-rgb';
 import { rgbToHex } from '@atlaskit/adf-schema/rgb-to-hex';
 import { getCellDomAttrs } from '@atlaskit/adf-schema/tableNodes';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
 import { convertToInlineCss } from '@atlaskit/editor-common/css-helper';
 import { areNodesEqualIgnoreAttrs } from '@atlaskit/editor-common/utils/document';
 import type { Node as PMNode, Slice } from '@atlaskit/editor-prosemirror/model';
@@ -386,11 +387,13 @@ export const createReplacedCellDecorations = ({
 	isActive,
 	isDeletedWidgetBelow,
 	isInserted,
+	intl,
 	leftAnchorId,
 	shouldHideDeleted,
 	showContributorTags,
 	showIndicators,
 	tagMountContext,
+	portalProviderAPI,
 }: {
 	attributionKey?: string;
 	change: Pick<Change, 'fromA' | 'toA' | 'fromB' | 'toB'>;
@@ -398,10 +401,12 @@ export const createReplacedCellDecorations = ({
 	doc: PMNode;
 	hasDeletedWidget?: boolean;
 	hideAddedDiffsUnderline?: boolean;
+	intl?: IntlShape;
 	isActive?: boolean;
 	isDeletedWidgetBelow?: boolean;
 	isInserted: boolean;
 	leftAnchorId?: string;
+	portalProviderAPI?: PortalProviderAPI;
 	replacedCells: ReplacedCell[];
 	shouldHideDeleted?: boolean;
 	showContributorTags?: boolean;
@@ -437,6 +442,8 @@ export const createReplacedCellDecorations = ({
 
 		decorations.push(
 			...createInlineChangedDecoration({
+				portalProviderAPI,
+				intl,
 				attributionKey,
 				change: { ...change, fromB: liveCellPos, toB: cellEnd },
 				colorScheme,

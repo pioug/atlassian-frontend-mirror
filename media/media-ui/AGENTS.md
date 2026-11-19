@@ -54,11 +54,22 @@ first, edit, then `kg.py edit <path> --message "<reason>"`.
   `should-render-to-parent-should-be-true-media-exif`
 - Inset viewer player: the host (media-viewer) wraps the player in `InsetViewerProvider`
   (`@atlaskit/media-ui/insetViewerProvider`). Function components read the flag with
-  `useIsInsetViewer()`, `Video` through `contextType`, and the player classes
-  (`CustomMediaPlayerBase`, `MediaPlayerBase`) through `withInsetViewer`; never pass it as a prop.
-  When it is set, the player portals its controls into `controlsPortalElement` instead of overlaying
-  them on the video, and omits the fullscreen button. `onVideoElementChange` reports the `<video>`
-  element so the host can measure it.
+  `useIsInsetViewer()`, and `Video` and the player classes (`CustomMediaPlayerBase`,
+  `MediaPlayerBase`) through `withInsetViewer`; never pass it as a prop. When it is set, the player
+  portals its controls into `controlsPortalElement` instead of overlaying them on the video.
+  `onVideoElementChange` reports the `<video>` element so the host can measure it.
+- Fullscreen footer: in fullscreen the inset viewer's player, and any player given
+  `useInsetFullscreen` (media-card sets it on its inline player when the inset gate is on), renders
+  `InsetFullscreenControlsLayout` instead of the overlay bar or the portal: a dark footer below the
+  video holding the same controls, using the viewer footer's layout (`ControlsLayout`). Each player
+  class provides `InsetFullscreenContext` from its own state
+  (`isFullScreenEnabled && (isInsetViewer || useInsetFullscreen)`) around what it renders, and
+  `withInsetViewer` injects it as `isInsetFullscreen` for classes such as `Video`. Controls take the
+  viewer's layout when `isInsetViewer || isInsetFullscreen`, and follow the theme only when
+  `isInsetViewer && !isInsetFullscreen`, as fullscreen is always dark. The swap rebuilds the
+  controls, so each player keeps keyboard focus on the same control (found by `data-testid`) through
+  `getSnapshotBeforeUpdate`/`componentDidUpdate`, looking in `controlsPortalElement` while the
+  viewer is not fullscreen and in the wrapper otherwise. Both player classes need the same change.
 - 41 export subpaths — always use subpath imports; `./i18n/*` is restricted (publish: null)
 - All new behaviour changes must be behind a feature gate (`fg()` from
   `@atlaskit/platform-feature-flags`)

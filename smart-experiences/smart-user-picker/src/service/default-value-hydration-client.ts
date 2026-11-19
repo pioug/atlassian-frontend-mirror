@@ -1,3 +1,4 @@
+import { expVal } from '@atlaskit/platform-feature-experiments/exp-val';
 import {
 	type DefaultValue,
 	type OptionData,
@@ -10,6 +11,7 @@ import {
 import { config } from '../config';
 import { UNKNOWN } from './constants';
 import hydrateTeamFromLegion from './teams-client';
+import getUserAppTypes from './user-app-types-client';
 import getHydratedUsersFromPrs from './users-client';
 
 export interface UsersRequest {
@@ -163,16 +165,31 @@ const hydrateAccountIds = async (
 	const accountIds = values.map((val: OptionIdentifier) => val.id);
 
 	//if we are not jira or confluence then use PRS platform hydration
-	return productKey === 'jira' || productKey === 'confluence'
-		? await getHydratedUsersFromProducts({
-				baseUrl,
-				productKey,
-				accountIds,
-			})
-		: await getHydratedUsersFromPrs(baseUrl, accountIds, {
+	if (productKey === 'jira' || productKey === 'confluence') {
+		const usersPromise = getHydratedUsersFromProducts({
+			baseUrl,
+			productKey,
+			accountIds,
+		});
+		if (!expVal('platform_user_picker_agent_avatar_hexagon', 'isEnabled', false)) {
+			return await usersPromise;
+		}
+		const [users, appTypes] = await Promise.all([
+			usersPromise,
+			getUserAppTypes(baseUrl, accountIds, {
 				product: productKey,
 				...atlAttributes,
-			});
+			}).catch(() => new Map<string, string>()),
+		]);
+		return users.map((user) => ({
+			...user,
+			...(appTypes.has(user.id) && { appType: appTypes.get(user.id) }),
+		}));
+	}
+	return await getHydratedUsersFromPrs(baseUrl, accountIds, {
+		product: productKey,
+		...atlAttributes,
+	});
 };
 
 async function hydrateDefaultValues(

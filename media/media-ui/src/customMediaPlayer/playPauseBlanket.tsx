@@ -3,5 +3,7 @@ import React from 'react';
 import { PlayPauseBlanket as CompiledPlayPauseBlanket } from './playPauseBlanket-compiled';
 
 export const PlayPauseBlanket = (
-	props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+	props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> & {
+		hasInsetFooter?: boolean;
+	},
 ): React.JSX.Element => <CompiledPlayPauseBlanket {...props} />;

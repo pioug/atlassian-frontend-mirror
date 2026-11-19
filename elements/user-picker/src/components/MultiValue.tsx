@@ -11,9 +11,11 @@ import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl';
 
 import Avatar, { type AvatarPropTypes } from '@atlaskit/avatar/avatar';
+import getAppearanceForAppType from '@atlaskit/avatar/get-appearance';
 import PeopleIcon from '@atlaskit/icon/core/people-group';
 import Lozenge from '@atlaskit/lozenge/new/lozenge';
 import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon/main';
+import { expVal } from '@atlaskit/platform-feature-experiments/exp-val';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box } from '@atlaskit/primitives/box';
@@ -173,6 +175,13 @@ export class MultiValue extends React.Component<Props> {
 				appearance="multi"
 				src={getAvatarUrl(data)}
 				type={isTeam(data) ? 'team' : 'person'}
+				avatarAppearanceShape={
+					!isTeam(data) &&
+					data.appType === 'agent' &&
+					expVal('platform_user_picker_agent_avatar_hexagon', 'isEnabled', false)
+						? getAppearanceForAppType(data.appType)
+						: undefined
+				}
 			/>
 		);
 	};
@@ -209,6 +218,9 @@ export class MultiValue extends React.Component<Props> {
 			const isDisabled = Boolean((this.props.selectProps as UserPickerProps)?.isDisabled);
 			const canShowArchivedLozenge = isTeam(data) && data?.state === 'DISBANDED';
 			const avatarProps = avatarUrl ? { name: data.name, src: avatarUrl } : { name: data.name };
+			const showAgentAvatar =
+				data.appType === 'agent' &&
+				expVal('platform_user_picker_agent_avatar_hexagon', 'isEnabled', false);
 
 			const onBeforeRemoveAction = () => {
 				removeProps.onClick({} as React.MouseEvent<HTMLDivElement>);
@@ -297,11 +309,17 @@ export class MultiValue extends React.Component<Props> {
 						</React.Fragment>
 					) : (
 						<AvatarTag
-							type="user"
+							type={showAgentAvatar ? 'agent' : 'user'}
 							text={label}
 							isRemovable={!isDisabled}
 							onBeforeRemoveAction={onBeforeRemoveAction}
-							avatar={(props: AvatarPropTypes) => <Avatar {...props} {...avatarProps} />}
+							avatar={(props: AvatarPropTypes) =>
+								showAgentAvatar ? (
+									<Avatar {...props} {...avatarProps} appearance="hexagon" hasInnerBorder />
+								) : (
+									<Avatar {...props} {...avatarProps} />
+								)
+							}
 							hasMargin={false}
 						/>
 					)}

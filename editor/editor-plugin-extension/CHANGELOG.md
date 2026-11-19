@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-extension
 
+## 36.0.5
+
+### Patch Changes
+
+- [`4931340a98d7f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4931340a98d7f) -
+  Behind platform_editor_ext_config_panel_revert_fix: the extension config panel now saves a value
+  that is changed back to the value it had when the panel opened. onChangeAction compares with the
+  live extension node, and text and number fields compare with the last submitted values.
+
 ## 36.0.4
 
 ### Patch Changes

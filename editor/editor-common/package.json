@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "137.3.0",
+	"version": "137.5.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -461,6 +461,7 @@
 		"./utils/macro": "./src/utils/macro.ts",
 		"./provider-factory/macro-provider": "./src/provider-factory/macro-provider.ts",
 		"./extensions/manifest-helpers": "./src/extensions/manifest-helpers.ts",
+		"./extensions/native-embed-experience-id": "./src/extensions/native-embed-experience-id.ts",
 		"./extensions/native-embed-maui-extension-key": "./src/extensions/native-embed-maui-extension-key.ts",
 		"./mark/commands": "./src/mark/commands.ts",
 		"./mark/cell-selection-has-any-mark": "./src/mark/cell-selection-has-any-mark.ts",
@@ -667,6 +668,7 @@
 		"./utils/traversor": "./src/utils/traversor.ts",
 		"./ui-color/ColorPalette/type": "./src/ui-color/ColorPalette/Palettes/type.ts",
 		"./registered-menu/item-rank": "./src/registered-menu/item-rank.ts",
+		"./registered-menu/resolve-item-rank": "./src/registered-menu/resolve-registered-item-rank.ts",
 		"./type-ahead/messages": "./src/type-ahead/messages.ts",
 		"./types/block-controls": "./src/types/block-controls.ts",
 		"./types/block-type": "./src/types/block-type.ts",

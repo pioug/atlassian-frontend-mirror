@@ -81,6 +81,7 @@ const allComposableEditorProps: Complete<EditorNextProps> = {
 	skipValidation: undefined,
 	syncedBlockProvider: undefined,
 	UNSAFE_containLayout: undefined,
+	isHeightSetFromContent: undefined,
 };
 
 const pluginNameExceptions = {

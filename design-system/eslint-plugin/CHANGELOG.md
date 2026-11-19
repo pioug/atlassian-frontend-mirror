@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 16.16.1
+
+### Patch Changes
+
+- [`01498ef001290`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/01498ef001290) -
+  Build the deprecated config once at load instead of re-reading `deprecated.json` on every
+  `getConfig` call.
+
 ## 16.16.0
 
 ### Minor Changes

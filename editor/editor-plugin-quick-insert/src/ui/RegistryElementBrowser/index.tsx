@@ -10,6 +10,7 @@ import { isOfflineMode } from '@atlaskit/editor-common/connectivity/isOfflineMod
 import { insertSelectedItem } from '@atlaskit/editor-common/insert';
 import type { QuickInsertSelectionHandler } from '@atlaskit/editor-common/quick-insert/context';
 import { MENU } from '@atlaskit/editor-common/quick-insert/keys';
+import type { RegisteredItemRankResolver } from '@atlaskit/editor-common/registered-menu/item-rank';
 import type { EmptyStateHandler } from '@atlaskit/editor-common/types/empty-state-handler';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
@@ -27,11 +28,13 @@ const subscribeToNothing = () => () => {};
 
 export const RegistryElementBrowserContainer = ({
 	editorView,
+	getItemRank,
 	getRecommendedItems,
 	pluginInjectionAPI,
 	helpUrl,
 }: {
 	editorView: EditorView;
+	getItemRank?: RegisteredItemRankResolver;
 	getRecommendedItems?: RecommendedItemsResolver;
 	helpUrl?: string;
 	pluginInjectionAPI: ExtractInjectionAPI<QuickInsertPlugin> | undefined;
@@ -158,6 +161,7 @@ export const RegistryElementBrowserContainer = ({
 			components={components}
 			fireAnalyticsEvent={pluginInjectionAPI?.analytics?.actions.fireAnalyticsEvent}
 			emptyStateHandler={emptyStateHandler}
+			getItemRank={getItemRank}
 			getRecommendedItems={getRecommendedItems}
 			helpUrl={helpUrl}
 			defaultSection={pluginKey.getState(editorView.state)?.elementBrowserInitialCategory}

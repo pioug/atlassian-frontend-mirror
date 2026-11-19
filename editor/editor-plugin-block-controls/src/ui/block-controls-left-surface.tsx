@@ -9,11 +9,9 @@ import { cssMap } from '@compiled/react';
 
 import { css, jsx } from '@atlaskit/css';
 import { BLOCK_CONTROL_UI_CONTEXT } from '@atlaskit/editor-common/block-controls/block-control-ui-context';
-import { BLOCK_CONTROLS_LEFT_SURFACE } from '@atlaskit/editor-common/block-controls/surface-keys';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
-import { SurfaceRenderer } from '@atlaskit/editor-ui-control-model/surface-renderer';
+import type { SurfaceRenderer } from '@atlaskit/editor-ui-control-model/surface-renderer';
 import type { SurfaceContext } from '@atlaskit/editor-ui-control-model/types';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { token } from '@atlaskit/tokens';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
@@ -21,11 +19,8 @@ import {
 	BlockControlsSurfaceWithClsFix,
 	type BlockControlsSurfaceWrapperProps,
 } from '../surface-lifecycle/block-controls-surface-with-cls-fix';
-import { BlockControlsVisibilityProvider } from './block-controls-surface-components';
-import { getBlockControlsSurfaceControlSide } from './block-controls-surface-context';
 import type { BlockControlsSurfaceTarget } from './block-controls-surface-targets';
 import type { SurfaceWrapperPlacement } from './utils/get-surface-placement';
-import { useBlockControlsVisibility } from './visibility-container';
 
 const leftSurfaceHiddenWrapperStyles = css({
 	visibility: 'hidden',
@@ -64,23 +59,6 @@ const leftSurfaceGutterStyles = cssMap({
 	},
 });
 
-// Nested surfaces (e.g. a table inside an expand) can span the target node's full height and sit
-// over controls rendered in the node's own gutter, such as the table row insert button. Let pointer
-// events pass through the wrapper and row so those controls stay interactive, matching the top-level
-// gutter behaviour without applying its container query sizing.
-const nestedSurfacePointerEventsStyles = cssMap({
-	container: {
-		pointerEvents: 'none',
-	},
-	row: {
-		pointerEvents: 'none',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'& > *': {
-			pointerEvents: 'auto',
-		},
-	},
-});
-
 const leftSurfaceRowStyles = css({
 	alignItems: 'center',
 	display: 'flex',
@@ -108,78 +86,6 @@ type BlockControlsLeftSurfaceProps = {
 	placement: SurfaceWrapperPlacement | undefined;
 	source: BlockControlsSurfaceTarget['source'];
 	surfaceContext: SurfaceContext;
-};
-
-type BlockControlsLeftSurfaceContentProps = Omit<BlockControlsLeftSurfaceProps, 'placement'> & {
-	placement: SurfaceWrapperPlacement;
-};
-
-const BlockControlsLeftSurfaceContent = ({
-	api,
-	components,
-	forceVisibleOnMouseOut,
-	placement,
-	source,
-	surfaceContext,
-}: BlockControlsLeftSurfaceContentProps): React.JSX.Element => {
-	const blockControlsContext = surfaceContext.get(BLOCK_CONTROL_UI_CONTEXT);
-	const controlSide = getBlockControlsSurfaceControlSide(
-		blockControlsContext,
-		isExperimentEnabled('platform_editor_controls_reliable_anchor'),
-	);
-	const { shouldHide: shouldHideHoverControls, useCssStyles } = useBlockControlsVisibility({
-		api,
-		controlSide,
-		forceVisibleOnMouseOut,
-	});
-	const isSticky = placement.isSticky;
-	const isTopLevel = blockControlsContext?.targetNode.parentType === 'doc';
-	const shouldPassThroughNestedPointerEvents =
-		!isTopLevel && isExperimentEnabled('platform_editor_nested_left_surface_pointer_fix');
-
-	return (
-		<div
-			css={[
-				leftSurfaceOuterStyles,
-				isTopLevel && leftSurfaceGutterStyles.container,
-				shouldPassThroughNestedPointerEvents && nestedSurfacePointerEventsStyles.container,
-			]}
-			data-editor-block-controls-surface
-			data-editor-block-controls-side="left"
-			data-testid={
-				source === 'stored'
-					? 'block-controls-left-surface-stored'
-					: source === 'active'
-						? 'block-controls-left-surface-active'
-						: 'block-controls-left-surface'
-			}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Placement is resolved per target node, from its runtime DOM geometry or from its CSS anchor.
-			style={placement.style}
-		>
-			<div
-				css={[
-					leftSurfaceRowStyles,
-					isTopLevel && leftSurfaceGutterStyles.row,
-					shouldPassThroughNestedPointerEvents && nestedSurfacePointerEventsStyles.row,
-					isSticky && leftSurfaceStickyStyles,
-					isSticky &&
-						blockControlsContext?.targetNode.type.name === 'table' &&
-						leftSurfaceStickyTableHeaderStyles,
-				]}
-			>
-				<BlockControlsVisibilityProvider
-					shouldHideHoverControls={shouldHideHoverControls}
-					useCssStyles={useCssStyles}
-				>
-					<SurfaceRenderer
-						components={components}
-						surface={BLOCK_CONTROLS_LEFT_SURFACE}
-						surfaceContext={surfaceContext}
-					/>
-				</BlockControlsVisibilityProvider>
-			</div>
-		</div>
-	);
 };
 
 const BlockControlsLeftSurfaceWrapper = ({
@@ -240,29 +146,16 @@ export const BlockControlsLeftSurface = ({
 		return null;
 	}
 
-	if (isExperimentEnabled('platform_editor_block_controls_cls_fix')) {
-		return (
-			<BlockControlsSurfaceWithClsFix
-				side="left"
-				SurfaceWrapper={BlockControlsLeftSurfaceWrapper}
-				api={api}
-				components={components}
-				forceVisibleOnMouseOut={forceVisibleOnMouseOut}
-				placement={placement}
-				source={source}
-				surfaceContext={surfaceContext}
-			/>
-		);
-	} else {
-		return (
-			<BlockControlsLeftSurfaceContent
-				api={api}
-				components={components}
-				forceVisibleOnMouseOut={forceVisibleOnMouseOut}
-				placement={placement}
-				source={source}
-				surfaceContext={surfaceContext}
-			/>
-		);
-	}
+	return (
+		<BlockControlsSurfaceWithClsFix
+			side="left"
+			SurfaceWrapper={BlockControlsLeftSurfaceWrapper}
+			api={api}
+			components={components}
+			forceVisibleOnMouseOut={forceVisibleOnMouseOut}
+			placement={placement}
+			source={source}
+			surfaceContext={surfaceContext}
+		/>
+	);
 };

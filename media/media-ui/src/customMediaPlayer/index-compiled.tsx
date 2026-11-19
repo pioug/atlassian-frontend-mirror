@@ -8,7 +8,7 @@ import { Component } from 'react';
 import { type WrappedComponentProps } from 'react-intl';
 
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
-import { cssMap } from '@atlaskit/css';
+import { cssMap, cx } from '@atlaskit/css';
 import DownloadIcon from '@atlaskit/icon/core/download';
 import FullScreenIconOn from '@atlaskit/icon/core/fullscreen-enter';
 import FullScreenIconOff from '@atlaskit/icon/core/shrink-diagonal';
@@ -53,6 +53,8 @@ import type {
 import { CurrentTime } from './CurrentTime-2';
 import { ExternalControlsLayout } from './ExternalControlsLayout';
 import { getFullscreenElement } from './getFullscreenElement';
+import { InsetFullscreenControlsLayout } from './InsetFullscreenControlsLayout';
+import { InsetFullscreenContext } from './insetViewerContext/insetFullscreenContext';
 import { type WithInsetViewerProps } from './insetViewerContext/withInsetViewer';
 import { LeftControls } from './LeftControls-2';
 import { MutedIndicator } from './MutedIndicator-2';
@@ -95,6 +97,8 @@ export interface CustomMediaPlayerProps extends WithPlaybackProps, WithShowContr
 	readonly videoControlsWrapperRef?: React.Ref<HTMLDivElement>;
 	readonly controlsPortalElement?: HTMLElement | null;
 	readonly onVideoElementChange?: (video: HTMLVideoElement | null) => void;
+	/** Gives the player's own fullscreen the inset Media Viewer's footer. The inset viewer always does. */
+	readonly useInsetFullscreen?: boolean;
 }
 
 export interface CustomMediaPlayerState extends WithMediaPlayerState {}
@@ -134,6 +138,17 @@ const customVideoWrapperStyles = cssMap({
 		alignItems: 'center',
 		justifyContent: 'center',
 		userSelect: 'none',
+	},
+	// The browser focuses the fullscreen element when it is clicked, and draws a focus ring on it.
+	insetFooter: {
+		outline: 'none',
+	},
+});
+
+const iconSpacingStyles = cssMap({
+	space050: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.050'),
 	},
 });
 
@@ -267,6 +282,41 @@ export class CustomMediaPlayerBase extends Component<
 		simultaneousPlayManager.unsubscribe(this);
 	}
 
+	// Where the controls are drawn: the viewer's footer (portalled out of the wrapper) until it goes
+	// fullscreen, and in the wrapper otherwise.
+	private getControlsRoot = (isFullScreenEnabled: boolean) =>
+		this.props.isInsetViewer && !isFullScreenEnabled
+			? this.props.controlsPortalElement
+			: this.videoWrapperRef.current;
+
+	// Entering or leaving fullscreen swaps the controls for the fullscreen footer, or back, which mounts
+	// new controls. This keeps focus on the control that had it.
+	getSnapshotBeforeUpdate(
+		_prevProps: unknown,
+		prevState: { isFullScreenEnabled: boolean },
+	): string | null {
+		const { isInsetViewer, useInsetFullscreen } = this.props;
+		const focused = document.activeElement;
+		if (
+			!(isInsetViewer || useInsetFullscreen) ||
+			prevState.isFullScreenEnabled === this.state.isFullScreenEnabled ||
+			!focused ||
+			!this.getControlsRoot(prevState.isFullScreenEnabled)?.contains(focused)
+		) {
+			return null;
+		}
+		return focused.getAttribute('data-testid');
+	}
+
+	componentDidUpdate(_prevProps: unknown, _prevState: unknown, focusedTestId: string | null): void {
+		if (!focusedTestId) {
+			return;
+		}
+		this.getControlsRoot(this.state.isFullScreenEnabled)
+			?.querySelector<HTMLElement>(`[data-testid="${focusedTestId}"]`)
+			?.focus();
+	}
+
 	private onFullScreenChange = (e: Event) => {
 		if (e.target !== this.videoWrapperRef.current) {
 			return;
@@ -396,6 +446,8 @@ export class CustomMediaPlayerBase extends Component<
 		const {
 			intl: { formatMessage },
 			type,
+			isInsetViewer,
+			useInsetFullscreen,
 		} = this.props;
 
 		if (type === 'audio') {
@@ -403,6 +455,9 @@ export class CustomMediaPlayerBase extends Component<
 		}
 
 		const { isFullScreenEnabled } = this.state;
+		// The inset viewer's controls, and the fullscreen footer's, use larger icons. The card's own
+		// controls are unchanged until it is fullscreen.
+		const hasLargerIcon = isInsetViewer || (useInsetFullscreen && isFullScreenEnabled);
 		const icon = isFullScreenEnabled ? (
 			<FullScreenIconOff color="currentColor" label={formatMessage(messages.disable_fullscreen)} />
 		) : (
@@ -413,7 +468,7 @@ export class CustomMediaPlayerBase extends Component<
 			<MediaButton
 				testId="custom-media-player-fullscreen-button"
 				onClick={this.onFullScreenButtonClick}
-				iconBefore={icon}
+				iconBefore={hasLargerIcon ? <Flex xcss={iconSpacingStyles.space050}>{icon}</Flex> : icon}
 			/>
 		);
 	};
@@ -560,9 +615,11 @@ export class CustomMediaPlayerBase extends Component<
 			xcss={spinnerWrapperStyles.root}
 		>
 			<Spinner
-				// The overlay viewer is always dark, so it inverts the spinner. The inset viewer follows the
-				// theme, so it uses the spinner's own subtle icon colour.
-				appearance={this.props.isInsetViewer ? 'inherit' : 'invert'}
+				// The overlay viewer and fullscreen are always dark, so they invert the spinner. The inset
+				// viewer follows the theme, so it uses the spinner's own subtle icon colour.
+				appearance={
+					this.props.isInsetViewer && !this.state.isFullScreenEnabled ? 'inherit' : 'invert'
+				}
 				size="large"
 			/>
 		</Flex>
@@ -747,133 +804,152 @@ export class CustomMediaPlayerBase extends Component<
 			poster,
 			videoControlsWrapperRef,
 			isInsetViewer,
+			useInsetFullscreen,
 			controlsPortalElement,
 			onVideoElementChange,
 		} = this.props;
+		// Fullscreen swaps the overlay controls for the inset viewer's footer, below the video
+		const hasInsetFullscreenFooter =
+			this.state.isFullScreenEnabled && !!(isInsetViewer || useInsetFullscreen);
 
 		return (
-			<Box
-				xcss={isInsetViewer ? customVideoWrapperStyles.insetViewer : customVideoWrapperStyles.root}
-				ref={this.videoWrapperRef}
-				testId="custom-media-player"
-			>
-				<MediaPlayer
-					data-testid="media-player"
-					sourceType={type}
-					src={src}
-					autoPlay={isAutoPlay}
-					onCanPlay={onCanPlay}
-					defaultTime={this.getDefaultTime}
-					onTimeChange={this.onCurrentTimeChange}
-					onError={(event) => onError?.(event?.currentTarget?.error)}
-					poster={poster}
-					onVideoElementChange={onVideoElementChange}
+			<InsetFullscreenContext.Provider value={hasInsetFullscreenFooter}>
+				<Box
+					xcss={cx(
+						isInsetViewer ? customVideoWrapperStyles.insetViewer : customVideoWrapperStyles.root,
+						hasInsetFullscreenFooter && customVideoWrapperStyles.insetFooter,
+					)}
+					ref={this.videoWrapperRef}
+					testId="custom-media-player"
 				>
-					{(video, videoState, actions) => {
-						this.onViewed(videoState);
-						this.setActions(actions);
-						//Video State(either prop or variable) is ReadOnly
-						this.videoState = videoState;
-						const { status, currentTime, buffered, duration, isLoading } = videoState;
-						const { playerSize } = this.state;
-						const isPlaying = status === 'playing';
+					<MediaPlayer
+						data-testid="media-player"
+						sourceType={type}
+						src={src}
+						autoPlay={isAutoPlay}
+						onCanPlay={onCanPlay}
+						defaultTime={this.getDefaultTime}
+						onTimeChange={this.onCurrentTimeChange}
+						onError={(event) => onError?.(event?.currentTarget?.error)}
+						poster={poster}
+						onVideoElementChange={onVideoElementChange}
+					>
+						{(video, videoState, actions) => {
+							this.onViewed(videoState);
+							this.setActions(actions);
+							//Video State(either prop or variable) is ReadOnly
+							this.videoState = videoState;
+							const { status, currentTime, buffered, duration, isLoading } = videoState;
+							const { playerSize } = this.state;
+							const isPlaying = status === 'playing';
 
-						const isLargePlayer = playerSize === 'large';
-						const isMediumPlayer = playerSize === 'medium';
+							const isLargePlayer = playerSize === 'large';
+							const isMediumPlayer = playerSize === 'medium';
 
-						const defaultSkipAmount = 10;
-						const skipBackward = (skipAmount = defaultSkipAmount) => {
-							const newTime = videoState.currentTime - skipAmount;
-							actions.navigate(Math.max(newTime, 0));
-							if (fg('platform_media_resume_video_on_token_expiry')) {
-								this.props?.onTimeChanged?.();
-							}
-						};
+							const defaultSkipAmount = 10;
+							const skipBackward = (skipAmount = defaultSkipAmount) => {
+								const newTime = videoState.currentTime - skipAmount;
+								actions.navigate(Math.max(newTime, 0));
+								if (fg('platform_media_resume_video_on_token_expiry')) {
+									this.props?.onTimeChanged?.();
+								}
+							};
 
-						const skipForward = (skipAmount = defaultSkipAmount) => {
-							const newTime = videoState.currentTime + skipAmount;
-							actions.navigate(Math.min(newTime, videoState.duration));
-							if (fg('platform_media_resume_video_on_token_expiry')) {
-								this.props?.onTimeChanged?.();
-							}
-						};
+							const skipForward = (skipAmount = defaultSkipAmount) => {
+								const newTime = videoState.currentTime + skipAmount;
+								actions.navigate(Math.min(newTime, videoState.duration));
+								if (fg('platform_media_resume_video_on_token_expiry')) {
+									this.props?.onTimeChanged?.();
+								}
+							};
 
-						const shortcuts = this.renderShortcuts({
-							togglePlayPauseAction: isPlaying ? this.pause : this.play,
-							toggleMute: actions.toggleMute,
-							skipBackward,
-							skipForward,
-						});
-						const timeline = (
-							<TimeRange
-								currentTime={currentTime}
-								bufferedTime={buffered}
-								duration={duration}
-								onChange={actions.navigate}
-								onChanged={this.onTimeChanged}
-								disableThumbTooltip={true}
-								skipBackward={skipBackward}
-								skipForward={skipForward}
-								isAlwaysActive={false}
-							/>
-						);
-						const left = (
-							<LeftControls>
-								{this.renderPlayPauseButton(isPlaying)}
-								{isLargePlayer && this.renderSkipBackwardButton(skipBackward)}
-								{isLargePlayer && this.renderSkipForwardButton(skipForward)}
-								{this.renderVolume(videoState, actions, isLargePlayer)}
-							</LeftControls>
-						);
-						const right = (
-							<RightControls>
-								{(isMediumPlayer || isLargePlayer) && this.renderCurrentTime(videoState)}
-								{isLargePlayer && this.renderSpeedControls()}
-								{!isInsetViewer && this.renderFullScreenButton()}
-								{isLargePlayer && this.renderDownloadButton()}
-							</RightControls>
-						);
-						return (
-							<Flex direction="column" xcss={videoWrapperStyles.root}>
-								<WidthObserver setWidth={this.onResize} />
-								{shortcuts}
-								{isLoading && this.renderSpinner()}
-								<PlayPauseBlanket
-									onDoubleClick={this.doubleClickToFullscreen}
-									onClick={isPlaying ? this.pausePlayByBlanketClick : this.startPlayByBlanketClick}
-									data-testid="play-pause-blanket"
-								>
-									{video}
-								</PlayPauseBlanket>
-								{isInsetViewer ? (
-									<ExternalControlsLayout
-										videoControlsWrapperRef={videoControlsWrapperRef}
-										controlsPortalElement={controlsPortalElement}
-										timeline={timeline}
-										left={left}
-										right={right}
-									/>
-								) : (
-									<ControlsWrapper
-										ref={videoControlsWrapperRef}
-										controlsHidden={this.wasPlayedOnce}
+							const shortcuts = this.renderShortcuts({
+								togglePlayPauseAction: isPlaying ? this.pause : this.play,
+								toggleMute: actions.toggleMute,
+								skipBackward,
+								skipForward,
+							});
+							const timeline = (
+								<TimeRange
+									currentTime={currentTime}
+									bufferedTime={buffered}
+									duration={duration}
+									onChange={actions.navigate}
+									onChanged={this.onTimeChanged}
+									disableThumbTooltip={true}
+									skipBackward={skipBackward}
+									skipForward={skipForward}
+									isAlwaysActive={false}
+								/>
+							);
+							const left = (
+								<LeftControls>
+									{this.renderPlayPauseButton(isPlaying)}
+									{isLargePlayer && this.renderSkipBackwardButton(skipBackward)}
+									{isLargePlayer && this.renderSkipForwardButton(skipForward)}
+									{this.renderVolume(videoState, actions, isLargePlayer)}
+								</LeftControls>
+							);
+							const right = (
+								<RightControls>
+									{(isMediumPlayer || isLargePlayer) && this.renderCurrentTime(videoState)}
+									{isLargePlayer && this.renderSpeedControls()}
+									{this.renderFullScreenButton()}
+									{isLargePlayer && !hasInsetFullscreenFooter && this.renderDownloadButton()}
+								</RightControls>
+							);
+							return (
+								<Flex direction="column" xcss={videoWrapperStyles.root}>
+									<WidthObserver setWidth={this.onResize} />
+									{shortcuts}
+									{isLoading && this.renderSpinner()}
+									<PlayPauseBlanket
+										hasInsetFooter={hasInsetFullscreenFooter}
+										onDoubleClick={this.doubleClickToFullscreen}
+										onClick={
+											isPlaying ? this.pausePlayByBlanketClick : this.startPlayByBlanketClick
+										}
+										data-testid="play-pause-blanket"
 									>
-										<Box xcss={timeWrapperStyles.root}>{timeline}</Box>
-										<Flex
-											alignItems="center"
-											justifyContent="space-between"
-											xcss={timebarWrapperStyles.root}
+										{video}
+									</PlayPauseBlanket>
+									{hasInsetFullscreenFooter ? (
+										<InsetFullscreenControlsLayout
+											videoControlsWrapperRef={videoControlsWrapperRef}
+											timeline={timeline}
+											left={left}
+											right={right}
+										/>
+									) : isInsetViewer ? (
+										<ExternalControlsLayout
+											videoControlsWrapperRef={videoControlsWrapperRef}
+											controlsPortalElement={controlsPortalElement}
+											timeline={timeline}
+											left={left}
+											right={right}
+										/>
+									) : (
+										<ControlsWrapper
+											ref={videoControlsWrapperRef}
+											controlsHidden={this.wasPlayedOnce}
 										>
-											{left}
-											{right}
-										</Flex>
-									</ControlsWrapper>
-								)}
-							</Flex>
-						);
-					}}
-				</MediaPlayer>
-			</Box>
+											<Box xcss={timeWrapperStyles.root}>{timeline}</Box>
+											<Flex
+												alignItems="center"
+												justifyContent="space-between"
+												xcss={timebarWrapperStyles.root}
+											>
+												{left}
+												{right}
+											</Flex>
+										</ControlsWrapper>
+									)}
+								</Flex>
+							);
+						}}
+					</MediaPlayer>
+				</Box>
+			</InsetFullscreenContext.Provider>
 		);
 	}
 }

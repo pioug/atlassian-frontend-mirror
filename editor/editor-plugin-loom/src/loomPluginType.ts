@@ -45,9 +45,11 @@ export type LoomPlugin = NextEditorPlugin<
 			recordVideo: ({
 				inputMethod,
 				editorAnalyticsAPI,
+				source,
 			}: {
 				editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
 				inputMethod: INPUT_METHOD;
+				source?: 'editor-pinned-toolbar';
 			}) => EditorCommand;
 		};
 		dependencies: [

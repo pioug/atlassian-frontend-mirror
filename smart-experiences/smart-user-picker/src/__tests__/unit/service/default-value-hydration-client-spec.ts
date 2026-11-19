@@ -2,10 +2,17 @@ import fetchMock from 'fetch-mock/cjs/client';
 
 // oxlint-disable-next-line eslint/no-redeclare
 import type { DefaultValue, UserType, OptionIdentifier } from '@atlaskit/user-picker/types';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 
 import hydrateDefaultValues from '../../../service/default-value-hydration-client';
 import hydrateTeamFromLegion from '../../../service/teams-client';
+import getUserAppTypes from '../../../service/user-app-types-client';
 import getHydratedUsers from '../../../service/users-client';
+jest.mock('../../../service/user-app-types-client', () => ({
+	__esModule: true,
+	default: jest.fn(),
+}));
 jest.mock('../../../service/users-client', () => {
 	return {
 		__esModule: true,
@@ -133,6 +140,53 @@ describe('default-value-hydration-client', () => {
 
 		expect(fetchMock.called()).toBeTruthy();
 		expect(hydratedValues).toEqual(hydratedUsers);
+	});
+
+	it.each(['jira', 'confluence'] as const)(
+		'enriches an ID-only %s agent without replacing its REST profile',
+		async (productKey) => {
+			mockExpEnabled('platform_user_picker_agent_avatar_hexagon');
+			mockHydrationApi({});
+			(getUserAppTypes as jest.Mock).mockResolvedValue(new Map([['1', 'agent']]));
+
+			const hydratedValues = await hydrateDefaultValues(
+				BASE_URL,
+				defaultUserValues,
+				productKey,
+				SITE_ID,
+				{ tenantId: SITE_ID },
+			);
+
+			expect(hydratedValues).toEqual([{ ...hydratedUsers[0], appType: 'agent' }]);
+			expect(getUserAppTypes).toHaveBeenCalledWith('', ['1'], {
+				product: productKey,
+				tenantId: SITE_ID,
+			});
+		},
+	);
+
+	it('preserves hydrated REST users if identity lookup fails', async () => {
+		mockExpEnabled('platform_user_picker_agent_avatar_hexagon');
+		mockHydrationApi({});
+		(getUserAppTypes as jest.Mock).mockRejectedValue(new Error('identity unavailable'));
+
+		const hydratedValues = await hydrateDefaultValues(
+			BASE_URL,
+			defaultUserValues,
+			'confluence',
+			SITE_ID,
+		);
+
+		expect(hydratedValues).toEqual(hydratedUsers);
+	});
+
+	it('does not request identity when the experiment is disabled', async () => {
+		mockExpDisabled('platform_user_picker_agent_avatar_hexagon');
+		mockHydrationApi({});
+
+		await hydrateDefaultValues(BASE_URL, defaultUserValues, 'jira', SITE_ID);
+
+		expect(getUserAppTypes).not.toHaveBeenCalled();
 	});
 
 	it('should not hydrate if defaultUserValues is already hydrated', async () => {

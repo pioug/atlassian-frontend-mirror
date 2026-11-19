@@ -1,12 +1,14 @@
 import type { Change } from 'prosemirror-changeset';
 import type { IntlShape } from 'react-intl';
 
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
 import type { Node as PMNode, ResolvedPos, Slice } from '@atlaskit/editor-prosemirror/model';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
+import { createDiffBoundaryWidget } from '../../ui/DiffAccessibility/createDiffBoundaryWidget';
 import type { NodeViewSerializer } from '../NodeViewSerializer';
 import { resolveBaseNodeName } from '../utils/baseNodeName';
 import { countEmptyTextBlockOnlySlice } from '../utils/emptyTextBlocks';
@@ -245,6 +247,7 @@ export const createNodeChangedDecorationWidget = ({
 	hideAddedDiffsUnderline = false,
 	tagMountContext,
 	deletedColumns,
+	portalProviderAPI,
 }: {
 	activeIndexPos?: { attributionKey?: string; from: number; to: number };
 	attributionKey?: string;
@@ -259,6 +262,7 @@ export const createNodeChangedDecorationWidget = ({
 	newDoc: PMNode;
 	nodeViewSerializer: NodeViewSerializer;
 	placeBelow?: boolean;
+	portalProviderAPI?: PortalProviderAPI;
 	showContributorTags?: boolean;
 	showIndicators?: boolean;
 	tagMountContext?: ContributorTagMountContext;
@@ -784,6 +788,34 @@ export const createNodeChangedDecorationWidget = ({
 		}
 	}
 
+	if (
+		isExperimentEnabled('a11y_remediation_pipeline_2') &&
+		portalProviderAPI &&
+		// Cue widgets are inline spans; only place them where inline content is valid.
+		$safeInsertPos.parent.inlineContent &&
+		slice.content.content.every((node) => node.isInline) &&
+		slice.content.textBetween(0, slice.content.size).length > 0
+	) {
+		const side = placeBelow ? 1 : -1;
+		decorations.push(
+			createDiffBoundaryWidget(
+				safeInsertPos,
+				intl,
+				isInserted,
+				true,
+				portalProviderAPI,
+				side - 0.25,
+			),
+			createDiffBoundaryWidget(
+				safeInsertPos,
+				intl,
+				isInserted,
+				false,
+				portalProviderAPI,
+				side + 0.25,
+			),
+		);
+	}
 	decorations.push(
 		Decoration.widget(safeInsertPos, dom, {
 			...buildDiffDecorationSpec({

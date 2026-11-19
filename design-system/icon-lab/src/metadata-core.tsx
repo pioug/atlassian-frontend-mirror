@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::c8c1981e0f6ced492610c103da9e38ab>>
+ * @codegen <<SignedSource::f80e1c59fd83c8f6b08a9879e3c06883>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -1695,6 +1695,25 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for representing a deployed software, capability, or application service.',
 		team: 'JSM',
+		status: 'published',
+	},
+	'device-health': {
+		keywords: [
+			'device-health',
+			'devicehealth',
+			'icon',
+			'icon-lab',
+			'proactive support',
+			'monitor',
+			'health',
+			'hardware monitoring',
+			'psm',
+		],
+		componentName: 'DeviceHealthIcon',
+		package: '@atlaskit/icon-lab/core/device-health',
+		categorization: 'multi-purpose',
+		usage: 'Known uses: Proactive support in JSM.',
+		team: 'JSM Service, Nebula',
 		status: 'published',
 	},
 	'diagram-architecture-map': {

@@ -1,5 +1,13 @@
 # @atlaskit/feedback-collector
 
+## 16.20.0
+
+### Minor Changes
+
+- [`0ce7e72a60b84`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0ce7e72a60b84) -
+  Add an optional `customOptInContent` prop, rendered with the opt-in checkboxes once a feedback
+  type is selected.
+
 ## 16.19.1
 
 ### Patch Changes

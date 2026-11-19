@@ -9,7 +9,6 @@ import { EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import RendererActions from '../../actions/index';
-import { IncludeLegacyContentAnnotationsContext } from './include-legacy-content-annotations-context';
 
 export const RendererContext: React.Context<RendererActions> = React.createContext(
 	new RendererActions(),
@@ -17,21 +16,14 @@ export const RendererContext: React.Context<RendererActions> = React.createConte
 
 type RendererActionsContextProps = PropsWithChildren<{
 	context?: RendererActions;
-	includeLegacyContentAnnotations?: boolean;
 }>;
 
 export function RendererActionsContext({
 	children,
 	context,
-	includeLegacyContentAnnotations,
 }: RendererActionsContextProps): React.JSX.Element {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const actions = useMemo(() => new RendererActions(true), []);
-	const inheritedIncludeLegacyContentAnnotations = React.useContext(
-		IncludeLegacyContentAnnotationsContext,
-	);
-	const shouldIncludeLegacyContentAnnotations =
-		includeLegacyContentAnnotations ?? inheritedIncludeLegacyContentAnnotations;
 
 	// Remove this eventually when root cause is assessed
 	if (React.Children.count(children) > 1 && fg('confluence_frontend_fix_view_page_slo')) {
@@ -56,11 +48,9 @@ export function RendererActionsContext({
 	}
 
 	return (
-		<IncludeLegacyContentAnnotationsContext.Provider value={shouldIncludeLegacyContentAnnotations}>
-			<RendererContext.Provider value={context || actions}>
-				{fg('confluence_frontend_fix_view_page_slo') ? React.Children.only(children) : children}
-			</RendererContext.Provider>
-		</IncludeLegacyContentAnnotationsContext.Provider>
+		<RendererContext.Provider value={context || actions}>
+			{fg('confluence_frontend_fix_view_page_slo') ? React.Children.only(children) : children}
+		</RendererContext.Provider>
 	);
 }
 

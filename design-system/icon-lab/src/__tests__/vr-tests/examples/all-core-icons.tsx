@@ -3,9 +3,10 @@
  *
  * To change the format of this file, modify `createVRTest` in icon-build-process/src/create-vr-test.tsx.
  *
- * @codegen <<SignedSource::2cefa4a88e16537e5616e06275b2594c>>
+ * @codegen <<SignedSource::26ec94010696a71a37b44fb2f049e3ab>>
  * @codegenCommand yarn build:icon-glyphs
  */
+/* eslint-disable @atlaskit/platform/use-entrypoints-in-examples */
 /**
  * @jsxRuntime classic
  * @jsx jsx
@@ -122,6 +123,7 @@ import DataZeroFillIcon from '../../../../core/data-zero-fill';
 import DatabaseStorageIcon from '../../../../core/database-storage';
 import DatabaseStorageCacheIcon from '../../../../core/database-storage-cache';
 import DeployedServiceIcon from '../../../../core/deployed-service';
+import DeviceHealthIcon from '../../../../core/device-health';
 import DiagramArchitectureMapIcon from '../../../../core/diagram-architecture-map';
 import DiagramArrowheadAggregationLeftIcon from '../../../../core/diagram-arrowhead-aggregation-left';
 import DiagramArrowheadAggregationRightIcon from '../../../../core/diagram-arrowhead-aggregation-right';
@@ -1048,6 +1050,7 @@ const Icons = [
 	ConversationIcon,
 	AiGenerativeFixIcon,
 	ModalIcon,
+	DeviceHealthIcon,
 ];
 
 const groupSize = 50;

@@ -1,7 +1,6 @@
 import React, { type ReactNode, useRef } from 'react';
 
 import '@atlaskit/top-layer/testing/polyfill';
-import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { render, waitFor } from '@atlassian/testing-library/testing-library/react';
 
@@ -54,10 +53,6 @@ function expectPositioned() {
 	expect(anchorName).not.toBe('');
 	expect(screen.getByTestId('popover').style.getPropertyValue('position-anchor')).toBe(anchorName);
 }
-
-beforeEach(() => {
-	passGate('platform-dst-motion-uplift-spotlight');
-});
 
 it('positions an external target after the motion wrapper is ready', () => {
 	render(<Example />);

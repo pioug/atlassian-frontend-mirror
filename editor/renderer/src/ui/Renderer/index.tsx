@@ -64,7 +64,6 @@ import {
 	RendererContext as ActionsContext,
 	RendererActionsContext,
 } from '../RendererActionsContext';
-import { IncludeLegacyContentAnnotationsContext } from '../RendererActionsContext/include-legacy-content-annotations-context';
 import { Provider as SmartCardStorageProvider } from '../SmartCardStorage';
 import { getHeightInfoPayload, getWidthInfoPayload } from './analytics-utils';
 import { BreakoutSSRInlineScript } from './breakout-ssr';
@@ -1013,7 +1012,6 @@ function RendererActionsInternalUpdater({
 }) {
 	const rootRendererContextValue = React.useContext(RootRendererContext);
 	const actions = useContext(ActionsContext);
-	const includeLegacyContentAnnotations = React.useContext(IncludeLegacyContentAnnotationsContext);
 	const rendererRef = useRef(null);
 
 	// This doc is used by the renderer actions when applying comments to the document.
@@ -1028,19 +1026,13 @@ function RendererActionsInternalUpdater({
 
 	useLayoutEffect(() => {
 		if (_doc) {
-			actions._privateRegisterRenderer(
-				rendererRef,
-				_doc,
-				schema,
-				onAnalyticsEvent,
-				includeLegacyContentAnnotations,
-			);
+			actions._privateRegisterRenderer(rendererRef, _doc, schema, onAnalyticsEvent);
 		} else {
 			actions._privateUnregisterRenderer();
 		}
 
 		return () => actions._privateUnregisterRenderer();
-	}, [actions, schema, _doc, onAnalyticsEvent, includeLegacyContentAnnotations]);
+	}, [actions, schema, _doc, onAnalyticsEvent]);
 
 	// Memoised so nested renderers don't re-render on every root renderer render
 	// when the doc itself is unchanged.

@@ -22,6 +22,7 @@ import {
 import { shouldAutoLinkifyMatch } from '@atlaskit/editor-common/utils/should-auto-linkify-tld';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { hideLinkToolbar, showLinkToolbar } from '../editor-commands/commands';
 import { stateKey } from '../pm-plugins/main';
@@ -63,7 +64,9 @@ export function createKeymapPlugin(
 				if (view) {
 					view.focus();
 				}
-				return false;
+				// On the top-layer path, the Escape that hides the toolbar is taken, so a layer around
+				// the editor (for example a modal) closes on the next Escape, as after a native tooltip.
+				return fg('platform-dst-top-layer');
 			}
 			return false;
 		},

@@ -114,6 +114,13 @@ Escape closed only the open tooltip. The auto popover and the manual popover sta
   browser close request. A listener sees only the `defaultPrevented` of earlier listeners, so it
   must find a layer above it that listens later. See the listener order in
   [`claim-escape.tsx`](../../src/internal/escape-ownership/claim-escape.tsx).
+- **Handlers around a popover see an Escape before it closes.** An Escape from inside a popover
+  reaches the handlers around it unclaimed, and the popover closes after them (the browser for
+  `auto` and `hint`, the hook's `document` listener for `manual`). Legacy layers close from a
+  `window` listener, so the order is the same. A layer can close for many reasons, so a handler that
+  should skip an Escape for a layer checks for an open layer (`hasOpenDialogOrPopover`). Rejected
+  (18 Nov): a `Popover` host claim (`preventDefault()` in its `onKeyDown`). It broke those checks,
+  and it changed every `Popover` with no gate.
 
 ## Focus
 
@@ -147,6 +154,10 @@ But focus can stop a layer from getting the Escape:
   layout effect would warn when server rendering in a DOM test environment). For a popover that
   opens outside a React event, a keydown before passive effects flush does not see it. `Dialog`
   marks and listens in a layout effect.
+- A hook keeps its mark on the old element when the element mounts again (a new `key`) and the hook
+  does not render again. A `Dialog` around it still stays open: the hook's `document` listener takes
+  the Escape before the `Dialog`'s `window` listener. Only an owner that listens earlier and must
+  wait for it (for example an older manual popover with the hook) can take the Escape first.
 - A browser without `beforetoggle` on `<dialog>` does not record a `Dialog` above, so that case
   behaves as before.
 - Layers that are not `<dialog>` or `[popover]` elements (legacy portalled layers with the top-layer

@@ -1,5 +1,13 @@
 # @atlaskit/react-select
 
+## 4.12.17
+
+### Patch Changes
+
+- [`5112a7e8b7851`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5112a7e8b7851) -
+  Cleanup `feature_gate` `platform_dst_select_disabled_a11y_fix`. Make disabled Select accessibility
+  behavior permanent, including combobox disabled state, tab order, and value description.
+
 ## 4.12.16
 
 ### Patch Changes

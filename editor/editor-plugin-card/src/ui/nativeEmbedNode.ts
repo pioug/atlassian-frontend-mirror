@@ -7,6 +7,7 @@ import {
 	NATIVE_EMBED_EXTENSION_KEY,
 	NATIVE_EMBED_EXTENSION_TYPE,
 } from '@atlaskit/editor-common/extensions/manifest-helpers';
+import { getNativeEmbedExperienceIdFromExtensionKey } from '@atlaskit/editor-common/extensions/native-embed-experience-id';
 import type { Node as PMNode, NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
@@ -131,12 +132,14 @@ export const changeNativeEmbedAppearance = ({
 	}
 
 	try {
+		const experienceId = getNativeEmbedExperienceIdFromExtensionKey(node.attrs?.extensionKey);
 		const tr = state.tr.replaceWith(pos, pos + node.nodeSize, content).scrollIntoView();
 		editorAnalyticsApi?.attachAnalyticsEvent({
 			action: ACTION.CHANGED_TYPE,
 			actionSubject: ACTION_SUBJECT.NATIVE_EMBED,
 			eventType: EVENT_TYPE.TRACK,
 			attributes: {
+				...(experienceId ? { experienceId } : {}),
 				newType: appearance as SMART_LINK_TYPE,
 				previousType: 'nativeEmbed',
 			},

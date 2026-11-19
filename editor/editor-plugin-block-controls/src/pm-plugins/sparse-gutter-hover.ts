@@ -8,7 +8,6 @@ import {
 	akEditorGutterPaddingDynamic,
 	akEditorGutterPaddingReduced,
 } from '@atlaskit/editor-shared-styles/constants';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
@@ -17,6 +16,7 @@ import { handleSparseHoverTarget, isSparseHoverSuppressed } from './handle-spars
 import { mouseEnter, setHoverSide, stopEditing } from './interaction-tracking/commands';
 import { handleMouseLeave } from './interaction-tracking/handle-mouse-move';
 import { getInteractionTrackingState } from './interaction-tracking/pm-plugin';
+import { createAfterRenderScheduler } from './utils/after-render-scheduler';
 import { getVisibleBox } from './utils/visible-box';
 
 const BLOCK_SELECTOR = '[data-prosemirror-node-block="true"]';
@@ -101,7 +101,7 @@ const getEditorElementAt = (view: EditorView, clientX: number, clientY: number):
 /** The outermost block around `element` that does not contain the pointer owns that gutter. */
 const findGutterOwner = (view: EditorView, element: Element, pointerTarget: Element) => {
 	let owner: Element | null = null;
-	for (let current: Element | null = element; current && current !== view.dom; ) {
+	for (let current: Element | null = element; current && current !== view.dom;) {
 		if (
 			isBlockElement(current) &&
 			!current.contains(pointerTarget) &&
@@ -219,40 +219,6 @@ const classifyGutterHover = (
 		return { kind: 'container', element: hoveredElement };
 	}
 	return { kind: 'none' };
-};
-
-/**
- * Runs `callback` once after the next frame renders (`requestAnimationFrame`, then `setTimeout`).
- * Layout is clean then, so reading positions never forces a synchronous layout. Calls made while a
- * run is already scheduled are ignored.
- */
-const createAfterRenderScheduler = (win: Window, callback: () => void) => {
-	let frame: number | undefined;
-	let timeout: number | undefined;
-	return {
-		schedule: () => {
-			if (frame !== undefined || timeout !== undefined) {
-				return;
-			}
-			frame = win.requestAnimationFrame(() => {
-				frame = undefined;
-				timeout = win.setTimeout(() => {
-					timeout = undefined;
-					callback();
-				}, 0);
-			});
-		},
-		cancel: () => {
-			if (frame !== undefined) {
-				win.cancelAnimationFrame(frame);
-				frame = undefined;
-			}
-			if (timeout !== undefined) {
-				win.clearTimeout(timeout);
-				timeout = undefined;
-			}
-		},
-	};
 };
 
 /**
@@ -401,28 +367,22 @@ export const bindSparseGutterHover = ({
 			},
 			options: { passive: true },
 		});
-	let unbindMouseOver: () => void;
-	let unbindMouseMove: () => void;
-	if (isExperimentEnabled('platform_editor_block_controls_cls_fix')) {
-		// Match the legacy ignoreRestingPointerHover guard until the pointer first moves.
-		let pointerHasMoved = false;
-		unbindMouseOver = bindMouseListener('mouseover', (event) => {
-			if (!pointerHasMoved) {
-				return;
-			}
+
+	// Ignore hover from a resting pointer until it first moves.
+	let pointerHasMoved = false;
+	const unbindMouseOver = bindMouseListener('mouseover', (event) => {
+		if (!pointerHasMoved) {
+			return;
+		}
+		onMouseOver(event);
+	});
+	const unbindMouseMove = bindMouseListener('mousemove', (event) => {
+		if (!pointerHasMoved) {
+			pointerHasMoved = true;
 			onMouseOver(event);
-		});
-		unbindMouseMove = bindMouseListener('mousemove', (event) => {
-			if (!pointerHasMoved) {
-				pointerHasMoved = true;
-				onMouseOver(event);
-			}
-			onMouseMove(event);
-		});
-	} else {
-		unbindMouseOver = bindMouseListener('mouseover', onMouseOver);
-		unbindMouseMove = bindMouseListener('mousemove', onMouseMove);
-	}
+		}
+		onMouseMove(event);
+	});
 
 	return () => {
 		unbindMouseOver();

@@ -26,6 +26,7 @@ export interface InlinePlayerOwnProps {
 	//To Forward Ref
 	readonly forwardRef?: React.Ref<HTMLDivElement>;
 	readonly videoControlsWrapperRef?: React.Ref<HTMLDivElement>;
+	readonly useInsetFullscreen?: boolean;
 }
 
 export type InlinePlayerProps = InlinePlayerOwnProps & WithAnalyticsEventsProps;

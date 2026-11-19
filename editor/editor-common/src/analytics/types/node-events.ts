@@ -39,7 +39,11 @@ type ChangePanelAEP = ChangeTypeAEP<
 type ChangeNativeEmbedAEP = ChangeTypeAEP<
 	ACTION_SUBJECT.NATIVE_EMBED,
 	undefined,
-	{ newType: 'nativeEmbed' | SMART_LINK_TYPE; previousType: 'nativeEmbed' | SMART_LINK_TYPE },
+	{
+		experienceId?: string;
+		newType: 'nativeEmbed' | SMART_LINK_TYPE;
+		previousType: 'nativeEmbed' | SMART_LINK_TYPE;
+	},
 	undefined
 >;
 

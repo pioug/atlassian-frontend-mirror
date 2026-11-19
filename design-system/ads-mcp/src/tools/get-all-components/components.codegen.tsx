@@ -3,7 +3,7 @@
  *
  * Structured content components from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::cd6623f66030a4722bbaed56bbabf1c9>>
+ * @codegen <<SignedSource::ea12dd203e14f933439f8ab9372cbfc3>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -6993,7 +6993,7 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['box', 'container', 'div', 'layout', 'primitive', 'compiled'],
 		category: 'primitive',
 		examples: [
-			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport type { JSX } from 'react';\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { token } from '@atlaskit/tokens';\nconst styles = cssMap({\n\tbox: {\n\t\tpaddingTop: token('space.200'),\n\t\tpaddingRight: token('space.200'),\n\t\tpaddingBottom: token('space.200'),\n\t\tpaddingLeft: token('space.200'),\n\t\tbackgroundColor: token('color.background.neutral.subtle'),\n\t},\n});\nconst _default_1: JSX.Element[] = [\n\t<Box padding=\"space.200\" backgroundColor=\"color.background.neutral.subtle\">\n\t\tBasic box\n\t</Box>,\n\t<Box xcss={styles.box}>Styled box</Box>,\n];\nexport default _default_1;",
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { Fragment, type JSX } from 'react';\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { token } from '@atlaskit/tokens';\nconst styles = cssMap({\n\tbox: {\n\t\tpaddingBlockStart: token('space.200'),\n\t\tpaddingInlineEnd: token('space.200'),\n\t\tpaddingBlockEnd: token('space.200'),\n\t\tpaddingInlineStart: token('space.200'),\n\t\tbackgroundColor: token('color.background.neutral.subtle'),\n\t},\n});\nexport default function BoxExample(): JSX.Element {\n\treturn (\n\t\t<Fragment>\n\t\t\t<Box padding=\"space.200\" backgroundColor=\"color.background.neutral.subtle\">\n\t\t\t\tBasic box\n\t\t\t</Box>\n\t\t\t<Box xcss={styles.box}>Styled box</Box>\n\t\t</Fragment>\n\t);\n}",
 		],
 		props: [
 			{
@@ -7179,7 +7179,7 @@ export const components: ComponentMcpPayload[] = [
 		keywords: ['grid', 'layout', 'css-grid', 'alignment', 'primitive', 'compiled'],
 		category: 'primitive',
 		examples: [
-			'import { cssMap } from \'@atlaskit/css\';\nimport { Box } from \'@atlaskit/primitives/compiled/box\';\nimport { Grid } from \'@atlaskit/primitives/compiled/grid\';\nconst styles = cssMap({\n\tgrid: {\n\t\tgridTemplateColumns: \'1fr 1fr\',\n\t},\n});\nconst _default_1: React.JSX.Element[] = [\n\t<Grid gap="space.200" xcss={styles.grid}>\n\t\t<Box backgroundColor="color.background.accent.blue.subtle" padding="space.200">\n\t\t\tGrid item 1\n\t\t</Box>\n\t\t<Box backgroundColor="color.background.accent.green.subtle" padding="space.200">\n\t\t\tGrid item 2\n\t\t</Box>\n\t</Grid>,\n];\nexport default _default_1;',
+			'import * as React from \'react\';\nimport { cssMap } from \'@atlaskit/css\';\nimport { Box } from \'@atlaskit/primitives/compiled/box\';\nimport { Grid } from \'@atlaskit/primitives/compiled/grid\';\nconst styles = cssMap({\n\tgrid: {\n\t\tgridTemplateColumns: \'1fr 1fr\',\n\t},\n});\nexport default function GridExample(): React.JSX.Element {\n\treturn (\n\t\t<Grid gap="space.200" xcss={styles.grid}>\n\t\t\t<Box backgroundColor="color.background.accent.blue.subtle" padding="space.200">\n\t\t\t\tGrid item 1\n\t\t\t</Box>\n\t\t\t<Box backgroundColor="color.background.accent.green.subtle" padding="space.200">\n\t\t\t\tGrid item 2\n\t\t\t</Box>\n\t\t</Grid>\n\t);\n}',
 		],
 		props: [
 			{

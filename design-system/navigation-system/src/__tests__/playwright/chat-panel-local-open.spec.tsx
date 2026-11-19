@@ -13,6 +13,7 @@ for (const motionEnabled of [false, true]) {
 		);
 		await page.getByRole('button', { name: 'Ask Rovo', exact: true }).click();
 		const chat = page.getByRole('region', { name: 'Chat panel', exact: true });
+		await expect(chat.getByRole('region', { name: 'Chat content', exact: true })).toBeVisible();
 		const slider = page.getByRole('slider', { name: 'Resize chat panel', exact: true });
 		await slider.focus();
 		await slider.press('Home');

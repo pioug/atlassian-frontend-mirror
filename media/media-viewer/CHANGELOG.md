@@ -1,5 +1,13 @@
 # @atlaskit/media-viewer
 
+## 54.12.26
+
+### Patch Changes
+
+- [`0bcf79cfaca1f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0bcf79cfaca1f) -
+  Replace the archive sidebar's deprecated Nav 3 button item with the equivalent menu button item
+  behind the `platform_media_viewer_remove_nav3` feature gate.
+
 ## 54.12.25
 
 ### Patch Changes

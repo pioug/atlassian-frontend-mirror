@@ -1,5 +1,33 @@
 # @atlaskit/media-card
 
+## 82.3.12
+
+### Patch Changes
+
+- [`eb2c1aec946ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb2c1aec946ae) -
+  [ux] A video's fullscreen view shows the inset Media Viewer's footer: a dark bar below the video
+  with the timeline and the same controls, in place of the controls overlaid on the video. The inset
+  Media Viewer's video player also gets a fullscreen button. Keyboard focus stays on the same
+  control when a video enters or leaves fullscreen.
+
+  `@atlaskit/media-ui` adds an optional `useInsetFullscreen` prop to both custom media players. The
+  inset Media Viewer always shows the footer in fullscreen. Elsewhere it only does with
+  `useInsetFullscreen`, and without it fullscreen is unchanged.
+
+  `@atlaskit/media-card` sets `useInsetFullscreen` on its inline video player when the
+  `cc_comments_inset_media_viewer` gate is on and `mediaViewerExtensions.useInsetViewer` is set, the
+  same check the Media Viewer makes to present itself as inset.
+
+- Updated dependencies
+
+## 82.3.11
+
+### Patch Changes
+
+- [`33e85f410a86c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/33e85f410a86c) -
+  The media card's `DownloadIcon` is now always decorative (empty label) when the parent button
+  already provides an `aria-label`, permanently applying the WCAG 1.1.1 fix.
+
 ## 82.3.10
 
 ### Patch Changes

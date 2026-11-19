@@ -27,6 +27,14 @@ import { expect, type Page, test } from '@af/integration-testing';
 
 const featureFlag = 'platform-dst-top-layer';
 
+/**
+ * Safari's default Tab reaches only text fields, and WebKit in Playwright does the same. Alt+Tab
+ * reaches every control, as Tab does in the other engines.
+ */
+function getTabKey({ browserName }: { browserName: string }): string {
+	return browserName === 'webkit' ? 'Alt+Tab' : 'Tab';
+}
+
 test.describe('Popup: top-layer focus contract', () => {
 	test('initial focus: focus moves to first focusable on open', async ({ page }) => {
 		await page.visitExample<typeof import('../../examples/97-testing-initial-focus-matrix.tsx')>(
@@ -128,6 +136,49 @@ test.describe('Popup: top-layer focus contract', () => {
 		// Without a role, the popup is `tabIndex={-1}` and is not a
 		// useful focus target, so focus remains on the trigger.
 		await expect(trigger).toBeFocused();
+	});
+
+	// WCAG 2.1.2 No Keyboard Trap: a popup with no role does not trap focus. Tab moves out of it
+	// in DOM order and the popup stays open. A later Escape does not pull focus back to the trigger.
+	test('Tab out of a popup with no role leaves it open, and a later Escape leaves focus outside', async ({
+		page,
+		browserName,
+	}) => {
+		await page.visitExample<typeof import('../../examples/97-testing-initial-focus-matrix.tsx')>(
+			'design-system',
+			'popup',
+			'testing-initial-focus-matrix',
+			{ featureFlag },
+		);
+		const tabKey = getTabKey({ browserName });
+		const trigger = page.getByTestId('no-role-popup-trigger');
+		const content = page.getByTestId('no-role-popup-content');
+		await trigger.focus();
+		await page.keyboard.press('Enter');
+		await expect(content).toBeVisible();
+
+		await page.keyboard.press(tabKey);
+		await expect(page.getByTestId('no-role-popup-first-button')).toBeFocused();
+		await page.keyboard.press(tabKey);
+
+		const focusedOutside = await page.evaluateHandle(() => document.activeElement);
+		const isOutsidePopup = await page.evaluate(
+			(element) =>
+				element !== null &&
+				element !== document.body &&
+				!document.querySelector('[data-testid="no-role-popup-content"]')?.contains(element) &&
+				element !== document.querySelector('[data-testid="no-role-popup-trigger"]'),
+			focusedOutside,
+		);
+		expect(isOutsidePopup).toBe(true);
+		await expect(content).toBeVisible();
+
+		await page.keyboard.press('Escape');
+
+		await expect(content).toBeHidden();
+		expect(
+			await page.evaluate((element) => document.activeElement === element, focusedOutside),
+		).toBe(true);
 	});
 
 	// WCAG 2.4.3 Focus Order + WAI-ARIA APG Listbox pattern

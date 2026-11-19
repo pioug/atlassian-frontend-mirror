@@ -8648,6 +8648,10 @@ const editorContentStyles = cssMapScoped({
 			whiteSpace: 'pre-wrap',
 		},
 	},
+	heightSetFromContentStyles: {
+		height: 'auto',
+		overflowY: 'visible',
+	},
 });
 
 const isFirefox: boolean =
@@ -8659,6 +8663,10 @@ export type EditorContentContainerProps = {
 	className?: string;
 	contentMode?: EditorContentMode;
 	featureFlags?: FeatureFlags;
+	/**
+	 * When true, the container grows with its content instead of scrolling internally.
+	 */
+	isHeightSetFromContent?: boolean;
 	isScrollable?: boolean;
 	/**
 	 * When true, nodes maintain their standard width without negative margins
@@ -8683,6 +8691,7 @@ const EditorContentContainer: React.ForwardRefExoticComponent<
 		children,
 		viewMode,
 		isScrollable,
+		isHeightSetFromContent,
 		appearance,
 		contentMode,
 		useStandardNodeWidth,
@@ -9074,13 +9083,15 @@ const EditorContentContainer: React.ForwardRefExoticComponent<
 				editorContentStyles.dangerRuleStyles,
 				editorContentStyles.mediaDangerStyles,
 				editorContentStyles.nestedPanelDangerStyles,
+				// Must stay last so it overrides the full-page height and overflow.
+				isHeightSetFromContent && editorContentStyles.heightSetFromContentStyles,
 			]}
 			data-editor-scroll-container={isScrollable ? 'true' : undefined}
 			data-testid="editor-content-container"
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={style as React.CSSProperties}
-			tabIndex={isScrollable ? 0 : undefined}
-			role={isScrollable ? 'region' : undefined}
+			tabIndex={isScrollable && !isHeightSetFromContent ? 0 : undefined}
+			role={isScrollable && !isHeightSetFromContent ? 'region' : undefined}
 		>
 			{children}
 		</div>

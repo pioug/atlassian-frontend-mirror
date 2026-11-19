@@ -5,6 +5,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-edi
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { LoomPlugin } from '../loomPluginType';
 import type { LoomPluginOptions } from '../types';
@@ -15,6 +16,7 @@ export interface LoomPluginState {
 	isEnabled: boolean;
 	isRecordingVideo: boolean;
 	loomButton: HTMLButtonElement | null;
+	recordVideo?: (source: 'editor-pinned-toolbar') => void;
 }
 
 export enum LoomPluginAction {
@@ -46,11 +48,12 @@ export const createPlugin = ({
 				const action = tr.getMeta(loomPluginKey)?.type;
 				switch (action) {
 					case LoomPluginAction.ENABLE:
-						const { loomButton } = tr.getMeta(loomPluginKey);
+						const { loomButton, recordVideo } = tr.getMeta(loomPluginKey);
 						return {
 							...pluginState,
 							isEnabled: true,
 							loomButton,
+							recordVideo,
 						};
 					case LoomPluginAction.DISABLE:
 						const { error } = tr.getMeta(loomPluginKey);
@@ -62,7 +65,16 @@ export const createPlugin = ({
 						};
 					case LoomPluginAction.RECORD_VIDEO:
 						// Click the unmounted button in state that has the Loom SDK attached
-						pluginState?.loomButton?.click();
+						const { source } = tr.getMeta(loomPluginKey);
+						if (
+							source === 'editor-pinned-toolbar' &&
+							pluginState.recordVideo &&
+							isExperimentEnabled('twc_growth_loom_conf_pinned_toolbar')
+						) {
+							pluginState.recordVideo(source);
+						} else {
+							pluginState?.loomButton?.click();
+						}
 
 						return {
 							...pluginState,

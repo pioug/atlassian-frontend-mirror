@@ -48,6 +48,7 @@ import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types/editor-container-width';
 import { chainCommands } from '@atlaskit/editor-prosemirror/commands';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { moveSourceWithAnalyticsViaShortcut } from '../pm-plugins/drag-and-drop/commands-with-analytics';
@@ -71,6 +72,7 @@ import {
 	addColumnBefore as addColumnBeforeCommand,
 	insertTableWithNestingSupport,
 } from './commands/insert';
+import { getPluginState } from './plugin-factory';
 
 export function keymapPlugin(
 	getEditorContainerWidth: GetEditorContainerWidth,
@@ -419,14 +421,23 @@ export function keymapPlugin(
 		list,
 	);
 
+	const stopKeyboardColumnResizingCommand = stopKeyboardColumnResizing({
+		ariaNotify: ariaNotifyPlugin,
+		getIntl: getIntl,
+	});
 	bindKeymapWithCommand(
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		escape.common!,
-		stopKeyboardColumnResizing({
-			ariaNotify: ariaNotifyPlugin,
-			getIntl: getIntl,
-		}),
+		// On the top-layer path, Escape is taken only to stop a keyboard column resize. A handled key
+		// makes ProseMirror call `preventDefault()`, which claims the Escape, so no layer around the
+		// editor (for example a modal) would close on it.
+		fg('platform-dst-top-layer')
+			? (state, dispatch, view) =>
+					getPluginState(state)?.isKeyboardResize
+						? stopKeyboardColumnResizingCommand(state, dispatch, view)
+						: false
+			: stopKeyboardColumnResizingCommand,
 		list,
 	);
 

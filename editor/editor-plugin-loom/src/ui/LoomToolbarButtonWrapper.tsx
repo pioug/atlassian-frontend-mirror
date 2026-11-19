@@ -1,4 +1,4 @@
-import React, { forwardRef, useCallback } from 'react';
+import React, { forwardRef, useCallback, useEffect, useRef } from 'react';
 
 import { defineMessages, useIntl } from 'react-intl';
 
@@ -12,6 +12,7 @@ import { ToolbarTooltip } from '@atlaskit/editor-toolbar/toolbar-tooltip';
 import type { LoomPlugin } from '../loomPluginType';
 import { executeRecordVideo } from '../pm-plugins/commands';
 import type { ButtonComponent, ButtonComponentProps } from '../types';
+import { observeLoomToolbarButton, fireLoomToolbarEvent } from './loomToolbarAnalytics';
 import { useLoomToolbarButtonState } from './LoomToolbarButtonGroup';
 
 const messages = defineMessages({
@@ -40,8 +41,17 @@ export const createToolbarButton = (
 			}),
 		);
 		const label = formatMessage(messages.recordLoom);
+		const buttonRef = useRef<HTMLButtonElement | null>(null);
+		useEffect(() => {
+			if (api && buttonRef.current) {
+				return observeLoomToolbarButton(buttonRef.current, api, () =>
+					fireLoomToolbarEvent(api, 'viewed'),
+				);
+			}
+		}, [api]);
 		const handleRef = useCallback(
 			(button: HTMLButtonElement | null) => {
+				buttonRef.current = button;
 				if (typeof ref === 'function') {
 					return ref(button);
 				}
@@ -53,13 +63,14 @@ export const createToolbarButton = (
 		);
 		const handleClick = useCallback(
 			(event: React.MouseEvent<HTMLButtonElement>) => {
+				fireLoomToolbarEvent(api, 'clicked');
 				if (loomEnabled) {
-					executeRecordVideo(api);
+					executeRecordVideo(api, 'editor-pinned-toolbar');
 				} else {
 					onClickBeforeInit?.(event);
 				}
 			},
-			[loomEnabled, onClickBeforeInit],
+			[api, loomEnabled, onClickBeforeInit],
 		);
 
 		return (

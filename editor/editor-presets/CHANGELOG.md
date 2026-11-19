@@ -1,5 +1,23 @@
 # @atlaskit/editor-presets
 
+## 28.0.0
+
+### Major Changes
+
+- [`32e8522d67795`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/32e8522d67795) -
+  When `platform_editor_ui_control_registry` is enabled, editor-core initializes the UI control
+  registry through a core preset before product plugins. Product presets keep their previous
+  registry registrations only when this experiment is disabled. Core excludes legacy registry
+  plugins to preserve one registry through initialization, reconfiguration, and SSR.
+
+  Consumers upgrading `@atlaskit/editor-presets` or `@atlassian/proforma-form-builder` must also
+  upgrade editor-core to the release containing central registry ownership. The editor-core minor
+  release establishes the minimum compatible peer range.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.0.2
 
 ### Patch Changes

@@ -38,7 +38,6 @@ import { ACTIONS } from '../../pm-plugins/main';
 import { getMentionPluginState } from '../../pm-plugins/utils';
 import type { FireElementsChannelEvent, MentionChange, TeamInfoAttrAnalytics } from '../../types';
 import InviteItem, { INVITE_ITEM_DESCRIPTION } from '../InviteItem';
-import InviteItemWithEmailDomain from '../InviteItem/InviteItemWithEmailDomain';
 import { AgentMentionLoadErrorItem } from './AgentMentionLoadErrorItem';
 import {
 	buildTypeAheadCancelPayload,
@@ -103,39 +102,21 @@ const isLoadingPlaceholder = (
 const createInviteItem = ({
 	mentionProvider,
 	onInviteItemMount,
-	query,
-	emailDomain,
 }: {
-	emailDomain?: string;
 	mentionProvider: MentionProvider;
 	onInviteItemMount: () => void;
-	query?: string;
 }): TypeAheadItem => ({
 	title: INVITE_ITEM_DESCRIPTION.id,
-	render: ({ isSelected, onClick, onHover }) =>
-		emailDomain &&
-		mentionProvider.getShouldEnableInlineInvite?.() &&
-		fg('inline_invite_from_mentions_kill_switch') ? (
-			<InviteItemWithEmailDomain
-				productName={mentionProvider ? mentionProvider.productName : undefined}
-				selected={isSelected}
-				onMount={onInviteItemMount}
-				onMouseEnter={onHover}
-				onSelection={onClick}
-				userRole={mentionProvider.userRole}
-				query={query}
-				emailDomain={emailDomain}
-			/>
-		) : (
-			<InviteItem
-				productName={mentionProvider ? mentionProvider.productName : undefined}
-				selected={isSelected}
-				onMount={onInviteItemMount}
-				onMouseEnter={onHover}
-				onSelection={onClick}
-				userRole={mentionProvider.userRole}
-			/>
-		),
+	render: ({ isSelected, onClick, onHover }) => (
+		<InviteItem
+			productName={mentionProvider ? mentionProvider.productName : undefined}
+			selected={isSelected}
+			onMount={onInviteItemMount}
+			onMouseEnter={onHover}
+			onSelection={onClick}
+			userRole={mentionProvider.userRole}
+		/>
+	),
 	mention: INVITE_ITEM_DESCRIPTION,
 });
 
@@ -145,10 +126,8 @@ const withInviteItem =
 		firstQueryWithoutResults,
 		currentQuery,
 		onInviteItemMount,
-		emailDomain,
 	}: {
 		currentQuery: string;
-		emailDomain?: string;
 		firstQueryWithoutResults: string;
 		mentionProvider: MentionProvider;
 		onInviteItemMount: () => void;
@@ -157,8 +136,6 @@ const withInviteItem =
 		const inviteItem = createInviteItem({
 			mentionProvider,
 			onInviteItemMount,
-			query: currentQuery,
-			emailDomain,
 		});
 		const keepInviteItem = shouldKeepInviteItem(currentQuery, firstQueryWithoutResults);
 		if (mentionItems.length === 0) {
@@ -419,16 +396,12 @@ const makeTransformMentionsToTypeAheadItems = ({
 	fireEvent,
 	getFirstQueryWithoutResults,
 	setFirstQueryWithoutResults,
-	hasFiredInviteItemViewed,
-	markInviteItemViewed,
 	toItem,
 	enableAgentSectioning,
 }: {
 	enableAgentSectioning: boolean;
 	fireEvent: FireElementsChannelEvent;
 	getFirstQueryWithoutResults: () => string | null;
-	hasFiredInviteItemViewed: () => boolean;
-	markInviteItemViewed: () => void;
 	setFirstQueryWithoutResults: (query: string) => void;
 	toItem: (mention: MentionDescription) => TypeAheadItem;
 }) => {
@@ -484,32 +457,19 @@ const makeTransformMentionsToTypeAheadItems = ({
 			return mentionItems;
 		}
 
-		const emailDomain = mentionProvider.userEmailDomain;
 		return withInviteItem({
 			mentionProvider,
 			firstQueryWithoutResults: getFirstQueryWithoutResults() || '',
 			currentQuery: query,
 			onInviteItemMount: () => {
-				if (fg('inline_invite_from_mentions_kill_switch')) {
-					if (hasFiredInviteItemViewed()) {
-						return;
-					}
-					markInviteItemViewed();
-				}
 				fireEvent(
 					buildTypeAheadInviteItemViewedPayload(
 						sessionId,
 						contextIdentifierProvider,
 						mentionProvider.userRole,
-						fg('inline_invite_from_mentions_kill_switch')
-							? {
-									isInlineInviteMentionsEnabled: mentionProvider.getShouldEnableInlineInvite?.(),
-								}
-							: {},
 					),
 				);
 			},
-			emailDomain,
 		})(mentionItems);
 	};
 };
@@ -531,7 +491,6 @@ export const createTypeAheadConfig = ({
 	let sessionId = uuid();
 	let firstQueryWithoutResults: string | null = null;
 	let lastTypeAheadQuery = '';
-	let hasFiredInviteItemViewed = false;
 	const subscriptionKeys = new Set<string>();
 
 	const transformMentionsToTypeAheadItems = makeTransformMentionsToTypeAheadItems({
@@ -540,10 +499,6 @@ export const createTypeAheadConfig = ({
 		getFirstQueryWithoutResults: () => firstQueryWithoutResults,
 		setFirstQueryWithoutResults: (query: string) => {
 			firstQueryWithoutResults = query;
-		},
-		hasFiredInviteItemViewed: () => hasFiredInviteItemViewed,
-		markInviteItemViewed: () => {
-			hasFiredInviteItemViewed = true;
 		},
 		toItem: memoize(
 			makeMentionToTypeaheadItem({
@@ -675,7 +630,6 @@ export const createTypeAheadConfig = ({
 		onOpen: () => {
 			firstQueryWithoutResults = null;
 			lastTypeAheadQuery = '';
-			hasFiredInviteItemViewed = false;
 		},
 		selectItem(state, item, insert, { mode, stats, query, sourceListItem }) {
 			const { schema } = state;
@@ -729,47 +683,9 @@ export const createTypeAheadConfig = ({
 							query,
 							contextIdentifierProvider,
 							mentionProvider.userRole,
-							fg('inline_invite_from_mentions_kill_switch')
-								? { isInlineInviteMentionsEnabled: mentionProvider.getShouldEnableInlineInvite?.() }
-								: {},
 						),
 					);
-
-					if (
-						mentionProvider.getShouldEnableInlineInvite?.() &&
-						fg('inline_invite_from_mentions_kill_switch')
-					) {
-						// Get the email from query, using the same logic as InviteItemWithEmailDomain
-						const emailDomain = mentionProvider.userEmailDomain;
-						let email = query || '';
-						// If query doesn't include @ and we have an email domain, append it
-						if (email && !email.includes('@') && emailDomain) {
-							email = `${email.toLowerCase()}@${emailDomain}`;
-						}
-						// If query already includes @, use it as is
-						if (email && mentionProvider.showInlineInvitePopup) {
-							const pendingLocalId = crypto.randomUUID();
-							const tr = insert(
-								createSingleMentionFragment({
-									mentionProvider,
-									mentionInsertDisplayName,
-									tr: state.tr,
-									sanitizePrivateContent,
-								})({
-									name: email,
-									id: pendingLocalId,
-									userType: 'DEFAULT',
-									localId: pendingLocalId,
-									accessLevel: 'CONTAINER',
-								}),
-							);
-							mentionProvider.showInlineInvitePopup(email, pendingLocalId);
-							return tr;
-						}
-					} else if (mentionProvider.onInviteItemClick) {
-						// Fallback to old behavior for backward compatibility
-						mentionProvider.onInviteItemClick('mention');
-					}
+					mentionProvider.onInviteItemClick?.('mention');
 				}
 				return state.tr;
 			}
@@ -883,7 +799,6 @@ export const createTypeAheadConfig = ({
 		},
 		dismiss({ editorState, query, stats, wasItemInserted }) {
 			firstQueryWithoutResults = null;
-			hasFiredInviteItemViewed = false;
 			const pickerElapsedTime = stats.startedAt ? performance.now() - stats.startedAt : 0;
 
 			if (!wasItemInserted) {

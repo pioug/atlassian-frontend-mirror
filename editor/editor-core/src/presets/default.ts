@@ -53,6 +53,7 @@ import { unsupportedContentPlugin } from '@atlaskit/editor-plugins/unsupported-c
 import { userIntentPlugin } from '@atlaskit/editor-plugins/user-intent';
 import { widthPlugin } from '@atlaskit/editor-plugins/width';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { isFullPage as fullPageCheck } from '../utils/is-full-page';
 import type { DefaultPresetBuilder } from './default-preset-type';
@@ -141,7 +142,7 @@ export function createDefaultPreset(options: DefaultPresetPluginOptions): Defaul
 			Boolean(options.toolbar?.enableNewToolbarExperience),
 		)
 		.add([primaryToolbarPlugin, { contextualFormattingEnabled: isFullPage }])
-		.add(uiControlRegistryPlugin)
+		.maybeAdd(uiControlRegistryPlugin, !isExperimentEnabled('platform_editor_ui_control_registry'))
 		.maybeAdd(
 			undoRedoPlugin,
 			Boolean(options.featureFlags?.undoRedoButtons ?? options.allowUndoRedoButtons),

@@ -19,7 +19,6 @@ import type {
 	MentionDescription,
 	MentionsResult,
 } from '@atlaskit/mention/types';
-import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags/setBooleanFeatureFlagResolver';
 import { Popup } from '@atlaskit/popup/popup';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
@@ -156,8 +155,6 @@ const demoMentionResource = new DemoMentionResource();
 const mentionProviderPromise = Promise.resolve(demoMentionResource);
 
 const InlineInvitePopupExample = (): React.JSX.Element => {
-	setBooleanFeatureFlagResolver((flag) => flag === 'inline_invite_from_mentions_kill_switch');
-
 	const universalPreset = useUniversalPreset({
 		props: {
 			appearance: 'comment',

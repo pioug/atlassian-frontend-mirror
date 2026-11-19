@@ -1,5 +1,14 @@
 # @atlaskit/link-datasource
 
+## 7.15.3
+
+### Patch Changes
+
+- [`56d52680429c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/56d52680429c7) -
+  Allow reordering selected columns in the column picker by dragging their handle, and unselecting a
+  column by dragging it below the separator, behind astral_assets_macro_table_ui_coloumn_reorder.
+- Updated dependencies
+
 ## 7.15.2
 
 ### Patch Changes

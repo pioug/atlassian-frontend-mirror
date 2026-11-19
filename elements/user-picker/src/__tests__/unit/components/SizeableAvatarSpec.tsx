@@ -2,13 +2,27 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+
 import { type Props, SizeableAvatar } from '../../../components/SizeableAvatar';
 
 jest.mock('@atlaskit/avatar/avatar', () => ({
 	...jest.requireActual('@atlaskit/avatar/avatar'),
 	__esModule: true,
-	default: (props: { presence?: string; size: string }) => (
-		<div data-testid="avatar" data-presence={props.presence} data-size={props.size} />
+	default: (props: {
+		appearance?: string;
+		hasInnerBorder?: boolean;
+		presence?: string;
+		size: string;
+	}) => (
+		<div
+			data-testid="avatar"
+			data-appearance={props.appearance}
+			data-inner-border={String(Boolean(props.hasInnerBorder))}
+			data-presence={props.presence}
+			data-size={props.size}
+		/>
 	),
 }));
 
@@ -48,5 +62,24 @@ describe('SizeableAvatar', () => {
 		renderSizeableAvatar({ presence: 'online' });
 
 		expect(screen.getByTestId('avatar')).toHaveAttribute('data-presence', 'online');
+	});
+
+	it('adds the inner border to hexagons when the experiment is enabled', () => {
+		mockExpEnabled('platform_user_picker_agent_avatar_hexagon');
+		renderSizeableAvatar({ avatarAppearanceShape: 'hexagon' });
+		expect(screen.getByTestId('avatar')).toHaveAttribute('data-appearance', 'hexagon');
+		expect(screen.getByTestId('avatar')).toHaveAttribute('data-inner-border', 'true');
+	});
+
+	it('does not add the inner border when the experiment is disabled', () => {
+		mockExpDisabled('platform_user_picker_agent_avatar_hexagon');
+		renderSizeableAvatar({ avatarAppearanceShape: 'hexagon' });
+		expect(screen.getByTestId('avatar')).toHaveAttribute('data-inner-border', 'false');
+	});
+
+	it('does not add the inner border to people', () => {
+		mockExpEnabled('platform_user_picker_agent_avatar_hexagon');
+		renderSizeableAvatar({ avatarAppearanceShape: 'circle' });
+		expect(screen.getByTestId('avatar')).toHaveAttribute('data-inner-border', 'false');
 	});
 });

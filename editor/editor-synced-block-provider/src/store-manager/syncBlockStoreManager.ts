@@ -121,19 +121,13 @@ export class SyncBlockStoreManager {
 				return { error: response.error };
 			}
 
-			const patchEnabled = isExperimentEnabled('platform_editor_blocks_patch_12');
-			const referenceResourceId =
-				patchEnabled && isSourceSyncBlock
-					? this.referenceSyncBlockStoreManager.generateResourceIdForReference(resourceId)
-					: resourceId;
-			const documentIds = patchEnabled
-				? this.getDocumentReferenceIds(referenceResourceId, doc)
-				: undefined;
-			const localIds = patchEnabled
-				? documentIds
-					? [...documentIds]
-					: this.referenceSyncBlockStoreManager.getSubscribedLocalIds(referenceResourceId)
-				: [];
+			const referenceResourceId = isSourceSyncBlock
+				? this.referenceSyncBlockStoreManager.generateResourceIdForReference(resourceId)
+				: resourceId;
+			const documentIds = this.getDocumentReferenceIds(referenceResourceId, doc);
+			const localIds = documentIds
+				? [...documentIds]
+				: this.referenceSyncBlockStoreManager.getSubscribedLocalIds(referenceResourceId);
 			// Saved references on this document can already have been removed in the editor.
 			const references = (response.references ?? []).filter(
 				(reference) =>

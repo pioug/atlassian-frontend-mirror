@@ -2,6 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import type { JSX } from 'react';
+
 import { css, jsx } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 
@@ -13,6 +15,6 @@ const styles = css({
 	paddingInlineStart: token('space.100'),
 });
 
-const _default_1: JSX.Element[] = [<div css={styles}>Styled content</div>];
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export default _default_1;
+export default function CssExample(): JSX.Element {
+	return <div css={styles}>Styled content</div>;
+}

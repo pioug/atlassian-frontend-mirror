@@ -1,14 +1,17 @@
+import { expVal } from '@atlaskit/platform-feature-experiments/exp-val';
 import type { User } from '@atlaskit/user-picker/types';
 
 import { config } from '../config';
 import type { AtlAttributionHeaderData } from './atl-attribution';
 import { UNKNOWN_USER } from './constants';
 import { graphqlQuery } from './graphqlUtils';
+import batchAccountIds from './user-query-batches';
 
 interface UserData {
 	accountId: string;
 	name: string;
 	picture: string;
+	appType?: string | null;
 }
 
 export interface ApiClientResponse {
@@ -19,33 +22,46 @@ export interface ApiClientResponse {
  * @param  {string} accountIds ids to hydrate
  * @return GraphQL Query
  */
-const buildUsersQuery = (accountIds: string[]) => ({
-	query: `query usersQuery($accountIds: [ID!]!) {
+const usersQuery = `query usersQuery($accountIds: [ID!]!) {
     users(accountIds: $accountIds) {
       name
       accountId
       picture
     }
-  }`,
-	variables: { accountIds },
-});
+  }`;
+
+const usersWithAppTypeQuery = `query usersQuery($accountIds: [ID!]!) {
+    users(accountIds: $accountIds) {
+      name
+      accountId
+      picture
+      ... on AppUser {
+        appType
+      }
+    }
+  }`;
 
 const makeRequest = async (
 	url: string,
 	accountIds: string[],
 	attributionData?: Partial<AtlAttributionHeaderData>,
+	includeAppType = false,
 ) => {
-	const query = buildUsersQuery(accountIds);
+	const query = {
+		query: includeAppType ? usersWithAppTypeQuery : usersQuery,
+		variables: { accountIds },
+	};
 
 	return await graphqlQuery<ApiClientResponse>(url, query, attributionData);
 };
 
 const modifyResponse = (users: UserData[]): User[] =>
-	users.map(({ accountId, name, picture }) => ({
+	users.map(({ accountId, name, picture, appType }) => ({
 		avatarUrl: picture,
 		id: accountId,
 		name,
 		type: 'user',
+		...(appType && { appType }),
 	}));
 
 const getHydratedUsers = (
@@ -54,10 +70,14 @@ const getHydratedUsers = (
 	attributionData?: Partial<AtlAttributionHeaderData>,
 ): Promise<User[]> => {
 	const url = config.getGraphQLUrl(baseUrl);
+	const includeAppType = expVal('platform_user_picker_agent_avatar_hexagon', 'isEnabled', false);
 	return new Promise((resolve) => {
-		makeRequest(url, userIds, attributionData)
-			.then((data) => {
-				resolve(modifyResponse(data.users));
+		const requests = (includeAppType ? batchAccountIds(userIds) : [userIds]).map((ids) =>
+			makeRequest(url, ids, attributionData, includeAppType),
+		);
+		Promise.all(requests)
+			.then((responses) => {
+				resolve(modifyResponse(responses.flatMap(({ users }) => users)));
 			})
 			.catch(() => {
 				// on network error, return original list with label 'Unknown'

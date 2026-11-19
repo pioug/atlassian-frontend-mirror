@@ -2,6 +2,7 @@ import React from 'react';
 
 import Avatar, { type AvatarPropTypes } from '@atlaskit/avatar/avatar';
 import type { AppearanceType } from '@atlaskit/avatar/types';
+import { expVal } from '@atlaskit/platform-feature-experiments/exp-val';
 import TeamAvatar from '@atlaskit/teams-avatar/teams-avatar';
 
 import { getAvatarSize } from './getAvatarSize';
@@ -27,6 +28,15 @@ export class SizeableAvatar extends React.PureComponent<Props> {
 			...(avatarAppearanceShape && { appearance: avatarAppearanceShape }),
 		};
 
-		return type === 'team' ? <TeamAvatar {...props} /> : <Avatar {...props} />;
+		if (type === 'team') {
+			return <TeamAvatar {...props} />;
+		}
+
+		return avatarAppearanceShape === 'hexagon' &&
+			expVal('platform_user_picker_agent_avatar_hexagon', 'isEnabled', false) ? (
+			<Avatar {...props} appearance="hexagon" hasInnerBorder />
+		) : (
+			<Avatar {...props} />
+		);
 	}
 }

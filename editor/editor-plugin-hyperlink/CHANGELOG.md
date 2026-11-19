@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 35.0.1
+
+### Patch Changes
+
+- [`843d247bdf065`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/843d247bdf065) -
+  Behind `platform-dst-top-layer`, the Escape that hides the link toolbar is taken, so a modal
+  around the editor closes on the next Escape.
+
 ## 35.0.0
 
 ### Patch Changes

@@ -3,6 +3,8 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { MultiValue } from '../../../components/MultiValue';
@@ -33,8 +35,27 @@ jest.mock('../../../components/SizeableAvatar', () => ({
 jest.mock('@atlaskit/tag/avatar-tag', () => ({
 	...jest.requireActual('@atlaskit/tag/avatar-tag'),
 	__esModule: true,
-	default: (props: { text: string }) => (
-		<div data-testid="user-picker-avatar-tag">{props.text}</div>
+	default: (props: { avatar: (props: any) => React.ReactNode; text: string; type: string }) => (
+		<div data-testid="user-picker-avatar-tag" data-type={props.type}>
+			{props.avatar({
+				appearance: props.type === 'agent' ? 'hexagon' : 'circle',
+				borderColor: 'transparent',
+				size: 'xxsmall',
+			})}
+			{props.text}
+		</div>
+	),
+}));
+
+jest.mock('@atlaskit/avatar/avatar', () => ({
+	...jest.requireActual('@atlaskit/avatar/avatar'),
+	__esModule: true,
+	default: (props: { appearance?: string; hasInnerBorder?: boolean }) => (
+		<div
+			data-testid="selected-avatar"
+			data-appearance={props.appearance}
+			data-inner-border={String(Boolean(props.hasInnerBorder))}
+		/>
 	),
 }));
 
@@ -326,6 +347,53 @@ describe('MultiValue', () => {
 	});
 
 	describe('AvatarTag (platform-dst-lozenge-tag-badge-visual-uplifts)', () => {
+		const agent = { ...data, data: { ...data.data, appType: 'agent' } };
+
+		it('renders an agent tag with a stroke when both changes are enabled', () => {
+			passGate('platform-dst-lozenge-tag-badge-visual-uplifts');
+			mockExpEnabled('platform_user_picker_agent_avatar_hexagon');
+			renderMultiValue({ data: agent });
+			expect(screen.getByTestId('user-picker-avatar-tag')).toHaveAttribute('data-type', 'agent');
+			expect(screen.getByTestId('selected-avatar')).toHaveAttribute('data-appearance', 'hexagon');
+			expect(screen.getByTestId('selected-avatar')).toHaveAttribute('data-inner-border', 'true');
+		});
+
+		it('retains the user tag for an agent when the experiment is off', () => {
+			passGate('platform-dst-lozenge-tag-badge-visual-uplifts');
+			mockExpDisabled('platform_user_picker_agent_avatar_hexagon');
+			renderMultiValue({ data: agent });
+			expect(screen.getByTestId('user-picker-avatar-tag')).toHaveAttribute('data-type', 'user');
+			expect(screen.getByTestId('selected-avatar')).toHaveAttribute('data-inner-border', 'false');
+		});
+
+		it('keeps a non-agent app circular when the experiment is on', () => {
+			passGate('platform-dst-lozenge-tag-badge-visual-uplifts');
+			mockExpEnabled('platform_user_picker_agent_avatar_hexagon');
+			renderMultiValue({ data: { ...data, data: { ...data.data, appType: 'jira' } } });
+			expect(screen.getByTestId('user-picker-avatar-tag')).toHaveAttribute('data-type', 'user');
+			expect(screen.getByTestId('selected-avatar')).toHaveAttribute('data-inner-border', 'false');
+		});
+
+		it('renders a hexagonal agent avatar in the legacy multi value', () => {
+			failGate('platform-dst-lozenge-tag-badge-visual-uplifts');
+			mockExpEnabled('platform_user_picker_agent_avatar_hexagon');
+			renderMultiValue({ data: agent });
+			expect(
+				screen.getByText(/SizeableAvatar - .*"avatarAppearanceShape":"hexagon"/),
+			).toBeInTheDocument();
+		});
+
+		it('retains the legacy circle when the experiment is off', () => {
+			failGate('platform-dst-lozenge-tag-badge-visual-uplifts');
+			mockExpDisabled('platform_user_picker_agent_avatar_hexagon');
+			renderMultiValue({ data: agent });
+			expect(
+				screen.getByText(
+					'SizeableAvatar - {"appearance":"multi","src":"http://avatars.atlassian.com/jace.png","type":"person"}',
+				),
+			).toBeInTheDocument();
+		});
+
 		it('should render AvatarTag for user when flag is on', async () => {
 			passGate('platform-dst-lozenge-tag-badge-visual-uplifts');
 

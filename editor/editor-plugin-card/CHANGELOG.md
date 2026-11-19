@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-card
 
+## 39.0.4
+
+### Patch Changes
+
+- [`ba3e95a3be114`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ba3e95a3be114) -
+  Add experienceId to the nativeEmbed changedType analytics event fired when a pasted native embed
+  is changed to a link or card
+- Updated dependencies
+
 ## 39.0.3
 
 ### Patch Changes

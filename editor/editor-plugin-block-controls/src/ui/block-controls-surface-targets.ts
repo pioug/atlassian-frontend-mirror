@@ -10,7 +10,7 @@ export type BlockControlsSurfaceTarget = {
  * Shared by both the left and right surfaces: this is pure position bookkeeping with no
  * surface-specific behavior, so there's nothing to keep independent between them. What *is*
  * kept independent is each surface's own React tree (component lookup, measurement effects,
- * observers) — see block-controls-left-surfaces.tsx / block-controls-right-surfaces.tsx.
+ * observers) — see ../surface-lifecycle/block-controls-surfaces.tsx.
  */
 export const getBlockControlsSurfaceTargets = (
 	activeNode: ActiveNode | undefined,

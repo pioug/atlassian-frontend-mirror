@@ -661,4 +661,69 @@ describe('SideNavToggleButton', () => {
 		expect(screen.getByRole('button', { name: 'Expand sidebar' })).toBeInTheDocument();
 		expect(screen.queryByRole('button', { name: 'Collapse sidebar' })).not.toBeInTheDocument();
 	});
+
+	describe('aria-expanded', () => {
+		beforeEach(() => {
+			setMediaQuery('(min-width: 64rem)', { initial: true });
+		});
+
+		it('should be "true" when the side nav is expanded', () => {
+			render(
+				<Root>
+					<TopNav>
+						<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+					</TopNav>
+					<SideNav testId="sidenav">sidenav</SideNav>
+				</Root>,
+			);
+
+			expect(screen.getByRole('button', { name: 'Collapse sidebar' })).toHaveAttribute(
+				'aria-expanded',
+				'true',
+			);
+		});
+
+		it('should be "false" when the side nav is collapsed', () => {
+			render(
+				<Root defaultSideNavCollapsed>
+					<TopNav>
+						<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+					</TopNav>
+					<SideNav testId="sidenav">sidenav</SideNav>
+				</Root>,
+			);
+
+			expect(screen.getByRole('button', { name: 'Expand sidebar' })).toHaveAttribute(
+				'aria-expanded',
+				'false',
+			);
+		});
+
+		it('should update when the side nav is toggled', async () => {
+			const user = createUser();
+
+			render(
+				<Root>
+					<TopNav>
+						<SideNavToggleButton collapseLabel="Collapse sidebar" expandLabel="Expand sidebar" />
+					</TopNav>
+					<SideNav testId="sidenav">sidenav</SideNav>
+				</Root>,
+			);
+
+			await user.click(screen.getByRole('button', { name: 'Collapse sidebar' }));
+
+			expect(screen.getByRole('button', { name: 'Expand sidebar' })).toHaveAttribute(
+				'aria-expanded',
+				'false',
+			);
+
+			await user.click(screen.getByRole('button', { name: 'Expand sidebar' }));
+
+			expect(screen.getByRole('button', { name: 'Collapse sidebar' })).toHaveAttribute(
+				'aria-expanded',
+				'true',
+			);
+		});
+	});
 });

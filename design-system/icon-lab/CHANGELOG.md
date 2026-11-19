@@ -1,5 +1,18 @@
 # @atlaskit/icon-lab
 
+## 7.12.0
+
+### Minor Changes
+
+- [`6464ddef890d4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6464ddef890d4) -
+  This release adds icons in `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `device-health`
+
 ## 7.11.0
 
 ### Minor Changes

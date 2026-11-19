@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-table
 
+## 45.2.0
+
+### Minor Changes
+
+- [`1cc2e9e94e2dc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1cc2e9e94e2dc) -
+  EDITOR-9375: Paste tables without widths, such as tables copied from Jira, at the line length
+  instead of fit to content (behind platform_editor_table_content_mode_resize_start)
+
+### Patch Changes
+
+- [`843d247bdf065`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/843d247bdf065) -
+  Behind `platform-dst-top-layer`, the table keymap takes Escape only to stop a keyboard column
+  resize, so a modal around the editor closes on it.
+- Updated dependencies
+
 ## 45.1.0
 
 ### Minor Changes

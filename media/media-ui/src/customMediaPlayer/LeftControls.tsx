@@ -10,6 +10,7 @@ import { css, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
+import { useIsInsetFullscreen } from './insetViewerContext/useIsInsetFullscreen';
 import { useIsInsetViewer } from './insetViewerContext/useIsInsetViewer';
 
 const leftControlsStyles = css({
@@ -28,8 +29,15 @@ export type LeftControlsProps = React.DetailedHTMLProps<
 
 export const LeftControls = ({ children, ...props }: LeftControlsProps): JSX.Element => {
 	const isInsetViewer = useIsInsetViewer();
+	const isInsetFullscreen = useIsInsetFullscreen();
 	return (
-		<div css={[leftControlsStyles, isInsetViewer && insetViewerLeftControlsStyles]} {...props}>
+		<div
+			css={[
+				leftControlsStyles,
+				(isInsetViewer || isInsetFullscreen) && insetViewerLeftControlsStyles,
+			]}
+			{...props}
+		>
 			{children}
 		</div>
 	);

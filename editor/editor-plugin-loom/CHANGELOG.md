@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-loom
 
+## 35.2.0
+
+### Minor Changes
+
+- [`c6f80db27a1ab`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c6f80db27a1ab) -
+  Add contextual recorder launch and pinned-toolbar funnel instrumentation behind
+  twc_growth_loom_conf_pinned_toolbar. Share the block insertion callback with existing recorder
+  entry points so contextual analytics reports accepted insertions without changing placement.
+
 ## 35.1.0
 
 ### Minor Changes

@@ -1,8 +1,10 @@
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
-import type { EditorPresetBuilder } from '@atlaskit/editor-common/preset/builder';
+import { EditorPresetBuilder } from '@atlaskit/editor-common/preset/builder';
 import type { EditorPluginInjectionAPI } from '@atlaskit/editor-common/preset/plugin-injection-api';
 import type { EditorPlugin } from '@atlaskit/editor-common/types/editor-plugin';
 import type { BlockTypePluginOptions } from '@atlaskit/editor-plugins/block-type';
+import { uiControlRegistryPlugin } from '@atlaskit/editor-plugins/ui-control-registry';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { DefaultPresetPluginOptions } from '../../src/presets/default';
 import type { EditorPluginFeatureProps, EditorProps } from '../types/editor-props';
@@ -112,6 +114,14 @@ export default function createPluginsList(
 
 	if (!isCodeBlockAllowed({ allowBlockType: props.allowBlockType })) {
 		excludes.add('codeBlock');
+	}
+	if (isExperimentEnabled('platform_editor_ui_control_registry')) {
+		const corePlugins = new EditorPresetBuilder()
+			.add(uiControlRegistryPlugin)
+			.build({ pluginInjectionAPI });
+		// Exclude older package copies by name so they cannot replace the core registry.
+		excludes.add('uiControlRegistry');
+		return [...corePlugins, ...preset.build({ pluginInjectionAPI, excludePlugins: excludes })];
 	}
 	return preset.build({ pluginInjectionAPI, excludePlugins: excludes });
 }

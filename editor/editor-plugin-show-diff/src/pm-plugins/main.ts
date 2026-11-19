@@ -1,6 +1,6 @@
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import type { IntlShape } from 'react-intl';
 
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
 import { toggleExpandRange } from '@atlaskit/editor-common/expand';
 import { processRawValue } from '@atlaskit/editor-common/process-raw-value';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
@@ -14,6 +14,7 @@ import {
 import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type {
@@ -130,6 +131,7 @@ export const createPlugin = (
 	// the current state. Lets the `getDeletedWidgets` action reach live decorations without exposing
 	// the plugin key.
 	onEditorView?: (editorView: EditorView | undefined) => void,
+	portalProviderAPI?: PortalProviderAPI,
 ): SafePlugin<ShowDiffPluginState> => {
 	enforceCustomStepRegisters();
 
@@ -195,6 +197,7 @@ export const createPlugin = (
 							nodeViewSerializer,
 							colorScheme: newPluginState?.colorScheme ?? config?.colorScheme,
 							intl: getIntl(),
+							portalProviderAPI,
 							activeIndexPos: newPluginState.activeIndexPos,
 							api,
 							tagMountContext,
@@ -282,6 +285,7 @@ export const createPlugin = (
 								nodeViewSerializer,
 								colorScheme: newPluginState?.colorScheme ?? config?.colorScheme,
 								intl: getIntl(),
+								portalProviderAPI,
 								activeIndexPos: newPluginState.activeIndexPos,
 								api,
 								tagMountContext,

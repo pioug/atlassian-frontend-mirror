@@ -9,8 +9,8 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet, type EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
+import { createSparseSurfacesViewWithLifecycle } from '../surface-lifecycle/sparse-surfaces-view-with-lifecycle';
 import { key as blockControlsKey } from './main';
-import { createSparseSurfacesView } from './sparse-surfaces-view';
 import { emptySparseSurfaceCandidateState } from './utils/sparse-surface-candidates';
 import {
 	applySparseSurfacesTransaction,
@@ -57,5 +57,5 @@ export const createSparseSurfacesPlugin = (
 			},
 		},
 		view: (view: EditorView) =>
-			createSparseSurfacesView({ api, pluginKey: sparseSurfacesKey, view }),
+			createSparseSurfacesViewWithLifecycle({ api, pluginKey: sparseSurfacesKey, view }),
 	});

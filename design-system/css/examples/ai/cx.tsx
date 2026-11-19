@@ -2,6 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import type { JSX } from 'react';
+
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
@@ -18,16 +20,17 @@ const styles = cssMap({
 	},
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-invalid-css-map
-export default ({
-	hasBlock,
-	hasInline,
+export default function CxExample({
+	hasBlock = true,
+	hasInline = true,
 }: {
-	hasBlock: boolean;
-	hasInline: boolean;
-}): JSX.Element => (
-	<Box xcss={cx(styles.container, hasBlock && styles.block, hasInline && styles.inline)}>
-		Container
-		<div css={[styles.inline, styles.block]}>Native doesn't use `cx`</div>
-	</Box>
-);
+	hasBlock?: boolean;
+	hasInline?: boolean;
+} = {}): JSX.Element {
+	return (
+		<Box xcss={cx(styles.container, hasBlock && styles.block, hasInline && styles.inline)}>
+			Container
+			<div css={[styles.inline, styles.block]}>Native elements use a css array</div>
+		</Box>
+	);
+}

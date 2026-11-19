@@ -745,11 +745,7 @@ export const SyncedLocationDropdown = ({
 			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			arrowKeyNavigationProviderOptions={{ type: ArrowKeyNavigationType.MENU }}
 		>
-			{isExperimentEnabled('platform_editor_blocks_patch_12') ? (
-				<MeasuredDropdownContent onHeightChange={setFitHeight}>{content}</MeasuredDropdownContent>
-			) : (
-				content
-			)}
+			<MeasuredDropdownContent onHeightChange={setFitHeight}>{content}</MeasuredDropdownContent>
 		</DropdownContainer>
 	);
 };
@@ -858,11 +854,7 @@ export const SyncedLocationDropdownWithCount = ({
 			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			arrowKeyNavigationProviderOptions={{ type: ArrowKeyNavigationType.MENU }}
 		>
-			{isExperimentEnabled('platform_editor_blocks_patch_12') ? (
-				<MeasuredDropdownContent onHeightChange={setFitHeight}>{content}</MeasuredDropdownContent>
-			) : (
-				content
-			)}
+			<MeasuredDropdownContent onHeightChange={setFitHeight}>{content}</MeasuredDropdownContent>
 		</DropdownContainer>
 	);
 };
@@ -870,9 +862,7 @@ export const SyncedLocationDropdownWithCount = ({
 type SourceInfoMap = Map<string, SyncBlockSourceInfo[]>;
 
 const DropdownContent = ({ syncBlockStore, resourceId, intl, isSource, localId, api }: Props) => {
-	const [fetchStatus, setFetchStatus] = useState<FetchStatus>(() =>
-		isExperimentEnabled('platform_editor_blocks_patch_12') ? 'loading' : 'none',
-	);
+	const [fetchStatus, setFetchStatus] = useState<FetchStatus>('loading');
 	const [locations, setLocations] = useState<SyncedLocations>(EMPTY_LOCATIONS);
 
 	useEffect(() => {

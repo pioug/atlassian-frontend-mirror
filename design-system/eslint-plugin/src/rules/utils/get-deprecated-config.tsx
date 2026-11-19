@@ -9,20 +9,20 @@ import deprecatedCore from '@atlaskit/icon/deprecated-map';
 
 import type { DeprecatedCategories, DeprecatedConfig } from './types';
 
-export const getConfig = (specifier: DeprecatedCategories): DeprecatedConfig => {
-	const configPath = path.resolve(__dirname, '..', '..', '..', 'configs', 'deprecated.json');
-	const source = fs.readFileSync(configPath, 'utf8');
-	const parsedConfig = JSON.parse(source);
+// Built once at module load because rules call getConfig for every linted file
+const parsedConfig = JSON.parse(
+	fs.readFileSync(path.resolve(__dirname, '..', '..', '..', 'configs', 'deprecated.json'), 'utf8'),
+);
 
-	const combinedConfig = {
-		...parsedConfig,
-		imports: {
-			...parsedConfig.imports,
-			...deprecatedCore,
-			...deprecatedIconLabCore,
-			...deprecatedIconLabUtility,
-		},
-	};
-
-	return combinedConfig[specifier];
+const combinedConfig = {
+	...parsedConfig,
+	imports: {
+		...parsedConfig.imports,
+		...deprecatedCore,
+		...deprecatedIconLabCore,
+		...deprecatedIconLabUtility,
+	},
 };
+
+export const getConfig = (specifier: DeprecatedCategories): DeprecatedConfig =>
+	combinedConfig[specifier];

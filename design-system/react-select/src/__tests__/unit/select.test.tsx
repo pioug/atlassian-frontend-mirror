@@ -31,6 +31,7 @@ import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { act } from '@atlassian/testing-library/testing-library/react';
 
+import Control from '../../components/control';
 import type { FilterOptionOption } from '../../filters';
 import Select, { type FormatOptionLabelMeta } from '../../select';
 
@@ -3644,70 +3645,77 @@ describe('accessibility > aria-readonly', () => {
 });
 
 describe('accessibility > disabled combobox', () => {
-	describe('with flag enabled', () => {
-		it('disabled select announces disabled state to screen readers', () => {
-			passGate('platform_dst_select_disabled_a11y_fix');
+	it('sets the disabled state on a combobox without a value', () => {
+		render(<Select {...BASIC_PROPS} isDisabled />);
 
-			render(<Select {...BASIC_PROPS} isDisabled />);
+		const input = screen.getByRole('combobox', { hidden: true });
+		expect(input).toHaveAttribute('aria-disabled', 'true');
+		expect(input).toHaveAttribute('tabindex', '-1');
+		expect(input).toBeDisabled();
+		expect(screen.getByTestId(`${testId}-select--control`)).not.toHaveAttribute('aria-disabled');
+	});
 
-			const input = screen.getByTestId(`${testId}-select--input`);
-			const control = screen.getByTestId(`${testId}-select--control`);
+	it.each([true, false])(
+		'keeps disabled value semantics when isSearchable is %s',
+		(isSearchable) => {
+			render(
+				<Select
+					{...BASIC_PROPS}
+					isDisabled
+					isSearchable={isSearchable}
+					value={OPTIONS[0]}
+					tabIndex={0}
+				/>,
+			);
 
-			expect(input).toHaveAttribute('role', 'combobox');
+			const input = screen.getByRole('combobox', { hidden: true });
 			expect(input).toHaveAttribute('aria-disabled', 'true');
 			expect(input).toHaveAttribute('tabindex', '-1');
-			// Native disabled is preserved for backwards compatibility with existing tests.
 			expect(input).toBeDisabled();
-			expect(control).not.toHaveAttribute('aria-disabled');
-		});
+			expect(screen.getByTestId(`${testId}-select--control`)).not.toHaveAttribute('aria-disabled');
 
-		it('disabled select with a value announces the value as part of the combobox', () => {
-			passGate('platform_dst_select_disabled_a11y_fix');
-
-			render(<Select {...BASIC_PROPS} isDisabled value={OPTIONS[0]} />);
-
-			const input = screen.getByTestId(`${testId}-select--input`);
 			const describedByIds = input.getAttribute('aria-describedby')?.split(' ') ?? [];
 			const singleValueId = describedByIds.find((id) => id.endsWith('single-value'));
 			expect(singleValueId).toBeTruthy();
-
-			// eslint-disable-next-line testing-library/no-node-access
 			const singleValue = document.getElementById(singleValueId!);
 			expect(singleValue).toBeInTheDocument();
 			expect(singleValue).toHaveAttribute('aria-hidden', 'true');
 			expect(singleValue).toHaveTextContent(OPTIONS[0].label);
-		});
+		},
+	);
 
-		it('non-searchable disabled select announces disabled state to screen readers', () => {
-			passGate('platform_dst_select_disabled_a11y_fix');
+	it.each([true, false])(
+		'preserves enabled value and tab order when isSearchable is %s',
+		(isSearchable) => {
+			render(
+				<Select {...BASIC_PROPS} isSearchable={isSearchable} value={OPTIONS[0]} tabIndex={-1} />,
+			);
 
-			render(<Select {...BASIC_PROPS} isDisabled isSearchable={false} />);
-
-			const input = screen.getByTestId(`${testId}-select--input`);
-			expect(input).toHaveAttribute('role', 'combobox');
-			expect(input).toHaveAttribute('aria-disabled', 'true');
-			expect(input).toHaveAttribute('tabindex', '-1');
-			expect(input).toBeDisabled();
-		});
-	});
-
-	describe('with flag disabled', () => {
-		it('disabled select does not announce disabled state on the combobox', () => {
-			failGate('platform_dst_select_disabled_a11y_fix');
-
-			render(<Select {...BASIC_PROPS} isDisabled value={OPTIONS[0]} />);
-
-			const input = screen.getByTestId(`${testId}-select--input`);
-			const control = screen.getByTestId(`${testId}-select--control`);
-			const describedByIds = input.getAttribute('aria-describedby')?.split(' ') ?? [];
-			const singleValueId = describedByIds.find((id) => id.endsWith('single-value'));
-			expect(singleValueId).toBeTruthy();
-
-			// eslint-disable-next-line testing-library/no-node-access
-			const singleValue = document.getElementById(singleValueId!);
+			const input = screen.getByRole('combobox');
 			expect(input).not.toHaveAttribute('aria-disabled');
-			expect(control).toHaveAttribute('aria-disabled', 'true');
-			expect(singleValue).not.toHaveAttribute('aria-hidden');
-		});
-	});
+			expect(input).toBeEnabled();
+			expect(input).toHaveAttribute('tabindex', '-1');
+			expect(screen.getByTestId(`${testId}-select--control`)).not.toHaveAttribute('aria-disabled');
+			expect(screen.getByText(OPTIONS[0].label)).not.toHaveAttribute('aria-hidden');
+		},
+	);
+
+	it.each([true, false])(
+		'clears Control innerProps aria-disabled when isDisabled is %s',
+		(isDisabled) => {
+			render(
+				<Select
+					{...BASIC_PROPS}
+					isDisabled={isDisabled}
+					components={{
+						Control: (props) => (
+							<Control {...props} innerProps={{ ...props.innerProps, 'aria-disabled': true }} />
+						),
+					}}
+				/>,
+			);
+
+			expect(screen.getByTestId(`${testId}-select--control`)).not.toHaveAttribute('aria-disabled');
+		},
+	);
 });

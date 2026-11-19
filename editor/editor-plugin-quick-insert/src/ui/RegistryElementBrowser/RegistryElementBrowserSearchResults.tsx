@@ -13,7 +13,7 @@ import { messages } from '@atlaskit/editor-common/quick-insert/messages';
 import { QuickInsertProvider } from '@atlaskit/editor-common/quick-insert/provider';
 import type { EmptyStateHandler } from '@atlaskit/editor-common/types/empty-state-handler';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { SurfaceContext } from '@atlaskit/editor-ui-control-model/types';
+import type { RegisterMenuItem, SurfaceContext } from '@atlaskit/editor-ui-control-model/types';
 import { token } from '@atlaskit/tokens';
 
 import { QuickInsertEmptyState } from '../registered-menu/QuickInsertEmptyState';
@@ -29,7 +29,7 @@ type Props = {
 	isOffline: boolean;
 	items: RegistryElementBrowserItem[];
 	onKeyDown: (event: React.KeyboardEvent) => void;
-	onSelect: (key: string, handler: QuickInsertSelectionHandler) => void;
+	onSelect: (registration: RegisterMenuItem, handler: QuickInsertSelectionHandler) => void;
 	query: string;
 	/** Shown under a Recommended heading, above `items` under All elements. */
 	recommendedItems: RegistryElementBrowserItem[];
@@ -124,10 +124,11 @@ const RegistryElementBrowserItem = ({
 	isOffline: boolean;
 	isSelected: boolean;
 	item: RegistryElementBrowserItem;
-	onSelect: (key: string, handler: QuickInsertSelectionHandler) => void;
+	onSelect: Props['onSelect'];
 	surfaceContext: SurfaceContext;
 }): React.JSX.Element | null => {
-	const { component: Component, key } = item.registration;
+	const { registration } = item;
+	const { component: Component, key } = registration;
 	const contextValue = useMemo(
 		() => ({
 			editorView,
@@ -137,10 +138,19 @@ const RegistryElementBrowserItem = ({
 				id: key,
 				isSelected,
 			},
-			select: (handler: QuickInsertSelectionHandler) => onSelect(key, handler),
+			select: (handler: QuickInsertSelectionHandler) => onSelect(registration, handler),
 			surfaceContext,
 		}),
-		[editorView, isOffline, isSelected, item.description, key, onSelect, surfaceContext],
+		[
+			editorView,
+			isOffline,
+			isSelected,
+			item.description,
+			key,
+			onSelect,
+			registration,
+			surfaceContext,
+		],
 	);
 
 	if (!Component) {

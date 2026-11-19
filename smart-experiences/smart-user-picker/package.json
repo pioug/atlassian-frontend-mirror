@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-user-picker",
-	"version": "12.14.0",
+	"version": "12.15.0",
 	"license": "Apache-2.0",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -46,6 +46,7 @@
 	"dependencies": {
 		"@atlaskit/afm-i18n-platform-smart-experiences-smart-user-picker": "root:*",
 		"@atlaskit/analytics-next": "workspace:^",
+		"@atlaskit/platform-feature-experiments": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/ufo": "workspace:^",
 		"@atlaskit/user-picker": "workspace:^",
@@ -66,6 +67,7 @@
 		"@atlaskit/textfield": "workspace:^",
 		"@atlaskit/util-data-test": "workspace:^",
 		"@atlassian/a11y-jest-testing": "workspace:^",
+		"@atlassian/experiment-test-utils": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/integrations": "workspace:^",
 		"@atlassian/workbench": "workspace:*",

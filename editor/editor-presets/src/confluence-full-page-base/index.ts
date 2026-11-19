@@ -92,6 +92,7 @@ import { unsupportedContentPlugin } from '@atlaskit/editor-plugin-unsupported-co
 import { userIntentPlugin } from '@atlaskit/editor-plugin-user-intent/user-intent-plugin';
 import { userPreferencesPlugin } from '@atlaskit/editor-plugin-user-preferences/user-preferences-plugin';
 import { widthPlugin } from '@atlaskit/editor-plugin-width/width-plugin';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { agentManagedExtensionPlugin } from '@atlassian/editor-plugin-agent-managed-extension/agentManagedExtensionPlugin';
@@ -212,7 +213,7 @@ export function confluenceFullPageBasePreset(
 			primaryToolbarPlugin,
 			primaryToolbarPluginOptions({ options: pluginOptions.primaryToolbar }),
 		])
-		.add(uiControlRegistryPlugin)
+		.maybeAdd(uiControlRegistryPlugin, !isExperimentEnabled('platform_editor_ui_control_registry'))
 		.maybeAdd(
 			[toolbarPlugin, toolbarPluginOptions({ options: pluginOptions.toolbar })],
 			Boolean(enabledOptionalPlugins.toolbar),

@@ -111,7 +111,7 @@ describe('Registering renderer actions', () => {
 			);
 		});
 
-		it('inherits legacy annotation discovery through a nested provider with custom actions', () => {
+		it('registers and unregisters nested providers with custom actions', () => {
 			const rootActions = new RendererActions(true);
 			const nestedActions = new RendererActions(true);
 			const rootRegister = jest.spyOn(rootActions, '_privateRegisterRenderer');
@@ -129,22 +129,22 @@ describe('Registering renderer actions', () => {
 			};
 
 			const { unmount } = render(
-				<RendererActionsContext context={rootActions} includeLegacyContentAnnotations>
+				<RendererActionsContext context={rootActions}>
 					<Renderer document={exampleDocumentWithExtension} extensionHandlers={extensionHandlers} />
 				</RendererActionsContext>,
 			);
 
-			const expectedLegacyRegistration = [
+			const expectedRegistration = [
 				expect.any(Object),
 				expect.any(Object),
 				expect.any(Object),
 				expect.anything(),
-				true,
 			];
-			expect(rootRegister).toHaveBeenCalledWith(...expectedLegacyRegistration);
-			expect(nestedRegister).toHaveBeenCalledWith(...expectedLegacyRegistration);
+			expect(rootRegister).toHaveBeenCalledWith(...expectedRegistration);
+			expect(nestedRegister).toHaveBeenCalledWith(...expectedRegistration);
 
 			unmount();
+			expect(rootActions.doc).toBeUndefined();
 			expect(nestedActions.doc).toBeUndefined();
 		});
 	});

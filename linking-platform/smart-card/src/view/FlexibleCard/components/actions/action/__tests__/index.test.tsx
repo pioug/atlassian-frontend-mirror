@@ -8,7 +8,6 @@ import { css, jsx } from '@compiled/react';
 import { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-item-group';
 import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { render } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
@@ -164,7 +163,6 @@ describe('Action', () => {
 			const icon = <svg aria-hidden="true" />;
 
 			it('uses the accessible name and keeps the tooltip text', async () => {
-				passGate('platform_smart_link_preview_a11y_label');
 				setup({ icon, href, tooltipMessage, ariaLabel }, { hideLegacyButton: true });
 
 				const element = screen.getByRole(role, { name: ariaLabel });
@@ -175,17 +173,7 @@ describe('Action', () => {
 				expect(screen.getByRole('tooltip')).not.toHaveTextContent(ariaLabel);
 			});
 
-			it('keeps the tooltip as its accessible name when the gate is off', () => {
-				failGate('platform_smart_link_preview_a11y_label');
-				setup({ icon, href, tooltipMessage, ariaLabel }, { hideLegacyButton: true });
-
-				expect(screen.getByRole(role, { name: tooltipMessage })).toHaveAccessibleName(
-					tooltipMessage,
-				);
-			});
-
 			it('uses the tooltip when no accessible name is supplied', () => {
-				passGate('platform_smart_link_preview_a11y_label');
 				setup({ icon, href, tooltipMessage }, { hideLegacyButton: true });
 
 				expect(screen.getByRole(role, { name: tooltipMessage })).toHaveAccessibleName(
@@ -200,7 +188,6 @@ describe('Action', () => {
 			'with presentation props %p',
 			(props) => {
 				it('uses the supplied accessible name', () => {
-					passGate('platform_smart_link_preview_a11y_label');
 					render(
 						<Action
 							{...props}
@@ -215,16 +202,8 @@ describe('Action', () => {
 					).toHaveAccessibleName('Open preview for the project guide');
 				});
 
-				it('keeps its content as the accessible name when the gate is off', () => {
-					failGate('platform_smart_link_preview_a11y_label');
-					render(
-						<Action
-							{...props}
-							onClick={() => {}}
-							content="Open preview"
-							ariaLabel="Open preview for the project guide"
-						/>,
-					);
+				it('uses its content when no accessible name is supplied', () => {
+					render(<Action {...props} onClick={() => {}} content="Open preview" />);
 
 					expect(screen.getByRole('menuitem', { name: 'Open preview' })).toHaveAccessibleName(
 						'Open preview',

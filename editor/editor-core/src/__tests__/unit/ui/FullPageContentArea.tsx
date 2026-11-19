@@ -5,6 +5,7 @@ import { IntlProvider } from 'react-intl';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
+import { screen } from '@atlassian/testing-library/screen';
 import { render } from '@atlassian/testing-library/testing-library/react';
 
 jest.mock('@atlaskit/feature-gate-js-client/feature-gates', () => ({
@@ -76,7 +77,11 @@ const removeContainerQueryStyles = () => {
 	});
 };
 
-const renderComponent = (props: Partial<typeof defaultProps> = {}) => {
+const renderComponent = (
+	props: Partial<
+		typeof defaultProps & { isHeightSetFromContent: boolean; UNSAFE_containLayout: boolean }
+	> = {},
+) => {
 	const result = render(
 		<IntlProvider locale="en">
 			{/* eslint-disable-next-line react/jsx-props-no-spreading */}
@@ -115,5 +120,49 @@ describe('FullPageContentArea - scroll gutter rendering', () => {
 	it('does not render scroll gutter when allowScrollGutter is falsy', () => {
 		renderComponent({ editorAPI: undefined });
 		expect(document.querySelector('[data-editor-scroll-gutter]')).toBeNull();
+	});
+});
+
+describe('FullPageContentArea - isHeightSetFromContent', () => {
+	const getScrollContainer = () => screen.getByTestId('editor-content-container');
+	const getContainWrapper = () => screen.getByTestId('editor-contain-size-and-layout-wrapper');
+
+	it('scrolls inside its own container when the prop is off', () => {
+		renderComponent({ UNSAFE_containLayout: true });
+
+		expect(getScrollContainer()).toHaveCompiledCss({ height: '100%', overflowY: 'scroll' });
+		expect(getScrollContainer()).toHaveAttribute('tabindex', '0');
+		expect(getScrollContainer()).toHaveAttribute('role', 'region');
+		expect(getContainWrapper()).toHaveCompiledCss({ contain: 'layout size', height: '100%' });
+	});
+
+	it('grows with its content when the prop is on', () => {
+		renderComponent({ UNSAFE_containLayout: true, isHeightSetFromContent: true });
+
+		expect(getScrollContainer()).toHaveCompiledCss({ height: 'auto', overflowY: 'visible' });
+		expect(getScrollContainer()).not.toHaveAttribute('tabindex');
+		expect(getScrollContainer()).not.toHaveAttribute('role');
+		expect(getContainWrapper()).toHaveCompiledCss({ contain: 'layout', height: 'auto' });
+	});
+
+	it('keeps the scroll container markers that plugins depend on when the prop is on', () => {
+		renderComponent({ isHeightSetFromContent: true });
+
+		expect(getScrollContainer()).toHaveAttribute('data-editor-scroll-container', 'true');
+		expect(getScrollContainer()).toHaveClass('fabric-editor-popup-scroll-parent');
+	});
+
+	it('does not remount the scroll container when the prop is toggled', () => {
+		const { rerender } = renderComponent({ UNSAFE_containLayout: true });
+		const scrollContainer = getScrollContainer();
+
+		rerender(
+			<IntlProvider locale="en">
+				{/* eslint-disable-next-line react/jsx-props-no-spreading */}
+				<FullPageContentArea {...defaultProps} UNSAFE_containLayout isHeightSetFromContent />
+			</IntlProvider>,
+		);
+
+		expect(getScrollContainer()).toBe(scrollContainer);
 	});
 });

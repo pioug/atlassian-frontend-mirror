@@ -329,6 +329,9 @@
 		},
 		{
 			"path": "../../editor-common/afm-products/tsconfig.json"
+		},
+		{
+			"path": "../../editor-core/afm-products/tsconfig.json"
 		}
 	]
 }

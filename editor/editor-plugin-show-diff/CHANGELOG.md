@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 33.1.0
+
+### Minor Changes
+
+- [`66839b67aad09`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/66839b67aad09) -
+  Add localized reading-order cues for inserted and deleted text behind a11y_remediation_pipeline_2.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 33.0.3
 
 ### Patch Changes

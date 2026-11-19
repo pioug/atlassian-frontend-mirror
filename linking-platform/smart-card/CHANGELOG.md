@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 46.19.5
+
+### Patch Changes
+
+- [`90e0787d8eeb7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/90e0787d8eeb7) -
+  Removed the `platform_smart_link_preview_a11y_label` feature gate. Smart Link preview controls
+  include the resource title in their accessible names when a title is available.
+
 ## 46.19.4
 
 ### Patch Changes

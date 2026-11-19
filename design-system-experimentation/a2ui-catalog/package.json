@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/a2ui-catalog",
-	"version": "2.0.0",
+	"version": "2.1.0",
 	"description": "A2UI v0.9 catalog — Atlassian custom catalog (component APIs and Zod schemas) for the A2UI v0.9 protocol",
 	"author": "Atlassian Pty Ltd",
 	"atlassian": {
@@ -29,7 +29,12 @@
 		"./agentic-jira-v0_9/catalog-component-apis": "./src/entry-points/agentic-jira-v0_9-catalog-component-apis.tsx",
 		"./catalog-json": "./src/entry-points/catalog-json.tsx",
 		"./catalogs/ads-v0_9/catalog.json": "./catalogs/ads-v0_9/catalog.json",
-		"./catalogs/agentic-jira-v0_9-v1/catalog.json": "./catalogs/agentic-jira-v0_9-v1/catalog.json"
+		"./catalogs/agentic-jira-v0_9-v1/catalog.json": "./catalogs/agentic-jira-v0_9-v1/catalog.json",
+		"./agentic-forge-v0_9/apis": "./src/entry-points/agentic-forge-v0_9-apis.tsx",
+		"./agentic-forge-v0_9/schemas": "./src/entry-points/agentic-forge-v0_9-schemas.tsx",
+		"./agentic-forge-v0_9/types": "./src/entry-points/agentic-forge-v0_9-types.tsx",
+		"./agentic-forge-v0_9/catalog-id": "./src/entry-points/agentic-forge-v0_9-catalog-id.tsx",
+		"./agentic-forge-v0_9/catalog-component-apis": "./src/entry-points/agentic-forge-v0_9-catalog-component-apis.tsx"
 	},
 	"scripts": {
 		"codegen:catalog-json": "tsx ./scripts/generate-catalog-json.ts"
@@ -65,6 +70,7 @@
 		"catalogs",
 		"v0_9",
 		"agentic-jira-v0_9",
+		"agentic-forge-v0_9",
 		"catalog-json"
 	]
 }

@@ -259,6 +259,7 @@ export const FullPageEditor = (props: ComponentProps): React.JSX.Element => {
 						hasHadInteraction={hasHadInteraction}
 						contentMode={props.contentMode}
 						UNSAFE_containLayout={props.UNSAFE_containLayout}
+						isHeightSetFromContent={props.isHeightSetFromContent}
 					/>
 				</FullPageEditorWrapper>
 			</ContextPanelWidthProvider>

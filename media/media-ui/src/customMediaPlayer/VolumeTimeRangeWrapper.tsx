@@ -10,6 +10,7 @@ import { css, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
+import { useIsInsetFullscreen } from './insetViewerContext/useIsInsetFullscreen';
 import { useIsInsetViewer } from './insetViewerContext/useIsInsetViewer';
 
 const volumeTimeRangeWrapperStyles = css({
@@ -29,9 +30,13 @@ export const VolumeTimeRangeWrapper = ({
 	...props
 }: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>): JSX.Element => {
 	const isInsetViewer = useIsInsetViewer();
+	const isInsetFullscreen = useIsInsetFullscreen();
 	return (
 		<div
-			css={[volumeTimeRangeWrapperStyles, isInsetViewer && insetViewerVolumeTimeRangeWrapperStyles]}
+			css={[
+				volumeTimeRangeWrapperStyles,
+				(isInsetViewer || isInsetFullscreen) && insetViewerVolumeTimeRangeWrapperStyles,
+			]}
 			{...props}
 		>
 			{children}

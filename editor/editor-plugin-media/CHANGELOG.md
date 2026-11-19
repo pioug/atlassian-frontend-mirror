@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-media
 
+## 35.0.5
+
+### Patch Changes
+
+- [`843d247bdf065`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/843d247bdf065) -
+  Behind `platform-dst-top-layer`, the alt text keymap takes Escape only to close an open alt text
+  menu, so a modal around the editor closes on it.
+
 ## 35.0.4
 
 ### Patch Changes

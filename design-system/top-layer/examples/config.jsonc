@@ -67,6 +67,7 @@
 		"169-testing-manual-light-dismiss-focus.tsx",
 		"170-testing-layer-show-order.tsx",
 		"171-testing-show-before-content-effects.tsx",
+		"172-testing-popover-close-after-focus-loss.tsx",
 		// The VR examples in the 80-89 band are imported by their spec rather than
 		// visited by URL, and the others are unregistered. The ones listed here are
 		// the ones recent changes added: a missing entry cannot fail anything, it

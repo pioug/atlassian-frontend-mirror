@@ -5,7 +5,6 @@
 import { forwardRef, type ReactNode, useContext, useEffect, useRef } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { token } from '@atlaskit/tokens';
 
@@ -91,11 +90,9 @@ export const SpotlightCard: React.ForwardRefExoticComponent<
 			</div>
 		);
 
-		if (fg('platform-dst-motion-uplift-spotlight')) {
-			const Motion = card.motion;
-			if (Motion) {
-				return <Motion>{content}</Motion>;
-			}
+		const Motion = card.motion;
+		if (Motion) {
+			return <Motion>{content}</Motion>;
 		}
 
 		return content;

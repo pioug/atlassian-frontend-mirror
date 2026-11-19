@@ -16,8 +16,6 @@ import {
 import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
 import { Node } from '@atlaskit/editor-prosemirror/model';
 import { Step } from '@atlaskit/editor-prosemirror/transform-override';
-import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
-import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import {
@@ -809,7 +807,6 @@ describe.skip('RendererActions', () => {
 });
 
 describe('RendererActions.getAnnotationMarks with legacy content', () => {
-	const experiment = 'platform_editor_fix_lcm_renderer_annotations';
 	const annotation = (id: string, annotationType = 'inlineComment') => ({
 		type: 'annotation',
 		attrs: { id, annotationType },
@@ -838,7 +835,6 @@ describe('RendererActions.getAnnotationMarks with legacy content', () => {
 	}
 
 	it('discovers nested marks in root order, including sibling and deeply nested LCMs', () => {
-		mockExpEnabled(experiment);
 		const actions = initActions([
 			paragraph('root-before'),
 			legacyContent([
@@ -878,7 +874,6 @@ describe('RendererActions.getAnnotationMarks with legacy content', () => {
 	});
 
 	it('keeps the root ProseMirror mark when root and nested IDs overlap', () => {
-		mockExpEnabled(experiment);
 		const actions = initActions([paragraph('shared'), legacyContent([paragraph('shared')])]);
 		const rootMark = actions.doc?.firstChild?.firstChild?.marks[0];
 
@@ -886,15 +881,7 @@ describe('RendererActions.getAnnotationMarks with legacy content', () => {
 		expect(actions.getAnnotationMarks()[0]).toBe(rootMark);
 	});
 
-	it('does not scan legacy content when the experiment is disabled', () => {
-		mockExpDisabled(experiment);
-		const actions = initActions([paragraph('root'), legacyContent([paragraph('nested')])]);
-
-		expect(actions.getAnnotationMarks().map((mark) => mark.attrs.id)).toEqual(['root']);
-	});
-
 	it('recomputes nested marks on each call and drops IDs removed from the document', () => {
-		mockExpEnabled(experiment);
 		const actions = initActions([legacyContent([paragraph('nested')])]);
 
 		expect(actions.getAnnotationMarks().map((mark) => mark.attrs.id)).toEqual(['nested']);
@@ -906,14 +893,12 @@ describe('RendererActions.getAnnotationMarks with legacy content', () => {
 	});
 
 	it('returns no marks when no renderer document is registered', () => {
-		mockExpEnabled(experiment);
 		const unregistered = new RendererActions(true);
 
 		expect(unregistered.getAnnotationMarks()).toEqual([]);
 	});
 
 	it('ignores unrelated extensions, cxhtml, malformed nested content, and invalid marks', () => {
-		mockExpEnabled(experiment);
 		const actions = initActions([
 			{
 				type: 'extension',

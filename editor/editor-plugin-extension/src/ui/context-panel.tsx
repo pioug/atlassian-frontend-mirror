@@ -7,15 +7,16 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-edi
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
-import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
+import type { ContentNodeWithPos, NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { buildExtensionNode } from '../editor-actions/actions';
 import { clearEditingContext, forceAutoSave, updateState } from '../editor-commands/commands';
 import type { ExtensionPlugin, ExtensionState } from '../extensionPluginType';
 import { getPluginState } from '../pm-plugins/plugin-factory';
-import { getSelectedExtension } from '../pm-plugins/utils';
+import { findExtensionWithLocalId, getSelectedExtension } from '../pm-plugins/utils';
 import ConfigPanelLoader from './ConfigPanel/ConfigPanelLoader';
 import { SaveIndicator } from './SaveIndicator/SaveIndicator';
 
@@ -161,11 +162,40 @@ interface Parameters {
 	macroParams?: Record<string, unknown>;
 }
 
-export async function onChangeAction(
+export function onChangeAction(
 	editorView: EditorView,
 	updatedParameters: Parameters | undefined = {},
 	oldParameters: Parameters | undefined = {},
 	nodeWithPos: ContentNodeWithPos,
+	onSaving?: () => void,
+): Promise<void> {
+	if (fg('platform_editor_ext_config_panel_revert_fix')) {
+		// The config panel can keep the parameters and node from when it opened. Use the live node
+		// so a change back to the opening value is not treated as "no change".
+		// ponytail: extensions without a localId keep the captured node.
+		const localId: string | undefined = nodeWithPos.node.attrs.localId;
+		const liveNodeWithPos = localId
+			? findExtensionWithLocalId(editorView.state, localId)
+			: undefined;
+		if (liveNodeWithPos) {
+			return applyParametersChange(
+				editorView,
+				updatedParameters,
+				liveNodeWithPos.node.attrs.parameters ?? {},
+				liveNodeWithPos,
+				onSaving,
+			);
+		}
+	}
+
+	return applyParametersChange(editorView, updatedParameters, oldParameters, nodeWithPos, onSaving);
+}
+
+async function applyParametersChange(
+	editorView: EditorView,
+	updatedParameters: Parameters,
+	oldParameters: Parameters,
+	nodeWithPos: NodeWithPos,
 	onSaving?: () => void,
 ): Promise<void> {
 	// WARNING: editorView.state stales quickly, do not unpack

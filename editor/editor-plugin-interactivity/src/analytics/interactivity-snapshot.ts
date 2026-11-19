@@ -62,27 +62,43 @@ export type RegionSnapshot = {
 	typing: InteractionGroupSnapshot;
 };
 
-/** What the collector measured. */
-export type CollectedSnapshot = {
+/** What the collector takes a snapshot for on its own, whatever its owner declared. */
+export type CollectorReason = 'timer' | 'hidden' | 'pagehide' | 'unmount';
+
+/** The value of each session key, `undefined` while it is not known. */
+export type SessionKeys = Record<string, string | undefined>;
+
+/**
+ * What the collector measured.
+ *
+ * @template Keys the owner's session keys.
+ * @template RotateReason what the owner can end a session with.
+ */
+export type CollectedSnapshot<
+	Keys extends SessionKeys = SessionKeys,
+	RotateReason extends string = never,
+> = {
 	activeMs: number;
 	hiddenMs: number;
 	interactivitySessionId: string;
-	objectId?: string;
 	/** Every interaction on the page, the regions' included. */
 	page: InteractionGroupSnapshot;
-	reason: SnapshotReason;
+	reason: CollectorReason | RotateReason;
 	regions: Record<string, RegionSnapshot>;
 	schema: number;
 	seq: number;
-	/** Fixed for the whole session: a mode change closes it and opens the next. */
-	sessionMode?: SessionMode;
+	/** What the session was collected against. */
+	sessionKeys: Keys;
 };
 
 /**
  * One session-to-date snapshot. Consumers take the highest `seq` per
  * `interactivitySessionId` and then sum bucket counts across sessions.
  */
-export type InteractivitySnapshot = Omit<CollectedSnapshot, 'regions'> & {
+export type InteractivitySnapshot = Omit<
+	CollectedSnapshot,
+	'reason' | 'regions' | 'sessionKeys'
+> & {
 	/** The three editor groups as one; a percentile of the union cannot be derived from theirs. */
 	editor: InteractionGroupSnapshot;
 	editorDomSize?: number;
@@ -91,4 +107,8 @@ export type InteractivitySnapshot = Omit<CollectedSnapshot, 'regions'> & {
 	editorPointer: InteractionGroupSnapshot;
 	editorTyping: InteractionGroupSnapshot;
 	nodeSize?: number;
+	objectId?: string;
+	reason: SnapshotReason;
+	/** Fixed for the whole session: a mode change closes it and opens the next. */
+	sessionMode?: SessionMode;
 };

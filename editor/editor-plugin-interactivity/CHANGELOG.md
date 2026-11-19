@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-interactivity
 
+## 18.0.3
+
+### Patch Changes
+
+- [`e682235e1525e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e682235e1525e) -
+  A region of the interactivity collector can be made of several elements, added and removed by its
+  owner.
+
+## 18.0.2
+
+### Patch Changes
+
+- [`24be5202b3570`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/24be5202b3570) -
+  The interactivity collector rotates sessions on session keys and rotation reasons its owner
+  declares instead of the object id and view mode.
+
 ## 18.0.1
 
 ### Patch Changes

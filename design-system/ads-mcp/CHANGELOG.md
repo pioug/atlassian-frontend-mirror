@@ -1,5 +1,14 @@
 # @atlaskit/ads-mcp
 
+## 2.0.1
+
+### Patch Changes
+
+- [`b6850c7aef69c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b6850c7aef69c) -
+  Publish renderable existing CSS and Primitives documentation examples with logical spacing, safe
+  conditional-style defaults, and complete JSX runtime imports. Refresh only the affected examples
+  in generated references and catalogs.
+
 ## 2.0.0
 
 ### Major Changes

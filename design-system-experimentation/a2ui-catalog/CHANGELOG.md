@@ -1,5 +1,14 @@
 # @atlassian/a2ui-catalog
 
+## 2.1.0
+
+### Minor Changes
+
+- [`197d0be200da9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/197d0be200da9) -
+  Add an Agentic Forge v0.9 ResultPanel. It shows a completed result from a title and a summary,
+  keeps line breaks in the summary, and has no actions. The catalog id is
+  com.atlassian.agentic-forge/v0_9/v1.
+
 ## 2.0.0
 
 ### Major Changes

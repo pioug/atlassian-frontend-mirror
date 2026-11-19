@@ -1,3 +1,6 @@
+import type { IntlShape } from 'react-intl';
+
+import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
 import { convertToInlineCss } from '@atlaskit/editor-common/css-helper';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
@@ -5,6 +8,7 @@ import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-e
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { CONTRIBUTOR_TAG_Z_INDEX } from '../../ui/ContributorTag/buildContributorTagDom';
+import { createDiffBoundaryWidget } from '../../ui/DiffAccessibility/createDiffBoundaryWidget';
 import { isEmptyParagraphSlice } from '../utils/isEmptyParagraphSlice';
 import {
 	buildAtomicInlineChangedCSSVariables,
@@ -206,6 +210,8 @@ export const createInlineChangedDecoration = ({
 	hasDeletedWidget = false,
 	isDeletedWidgetBelow = false,
 	tagMountContext,
+	intl,
+	portalProviderAPI,
 }: {
 	attributionKey?: string;
 	change: { fromB: number; toB: number };
@@ -214,11 +220,13 @@ export const createInlineChangedDecoration = ({
 	hasDeletedWidget?: boolean;
 	hideAddedDiffsUnderline?: boolean;
 	inlineNodeName?: InlineAttrChangeNodeName;
+	intl?: IntlShape;
 	isActive?: boolean;
 	isAtomicInlineNode?: boolean;
 	isDeletedWidgetBelow?: boolean;
 	isInserted?: boolean;
 	leftAnchorId?: string;
+	portalProviderAPI?: PortalProviderAPI;
 	shouldHideDeleted?: boolean;
 	showContributorTags?: boolean;
 	showIndicators?: boolean;
@@ -383,5 +391,22 @@ export const createInlineChangedDecoration = ({
 		decorations.push(...tagWidget);
 	}
 
+	if (
+		isExperimentEnabled('a11y_remediation_pipeline_2') &&
+		intl &&
+		portalProviderAPI &&
+		doc &&
+		change.toB > change.fromB &&
+		// Cue widgets are inline spans; positions between block nodes (e.g. whole table-cell
+		// replacements) would inject them into table/layout structure and break rendering.
+		doc.resolve(change.fromB).parent.inlineContent &&
+		doc.resolve(change.toB).parent.inlineContent &&
+		doc.textBetween(change.fromB, change.toB).length > 0
+	) {
+		decorations.push(
+			createDiffBoundaryWidget(change.fromB, intl, isInserted, true, portalProviderAPI),
+			createDiffBoundaryWidget(change.toB, intl, isInserted, false, portalProviderAPI),
+		);
+	}
 	return decorations;
 };

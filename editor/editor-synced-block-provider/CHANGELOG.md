@@ -1,5 +1,13 @@
 # @atlaskit/editor-synced-block-provider
 
+## 29.0.3
+
+### Patch Changes
+
+- [`046ad3e81b014`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/046ad3e81b014) -
+  Remove the shipped platform_editor_blocks_patch_12 experiment and retain the enabled synced block
+  behavior.
+
 ## 29.0.2
 
 ### Patch Changes

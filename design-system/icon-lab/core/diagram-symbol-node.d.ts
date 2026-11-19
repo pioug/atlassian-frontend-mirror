@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a5926022f01f554d47e0087d887dcc55>>
+ * @codegen <<SignedSource::b2bf79b300977f3dbe42b822bb266e96>>
  * @codegenCommand yarn build:icon-glyphs
  */
 

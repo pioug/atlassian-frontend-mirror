@@ -11,7 +11,6 @@ import { requestJiraSpaceAccess } from '@atlaskit/editor-synced-block-provider/r
 import Heading from '@atlaskit/heading/heading';
 import StatusSuccessIcon from '@atlaskit/icon/core/status-success';
 import Image from '@atlaskit/image';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
@@ -102,19 +101,9 @@ const SyncedBlockPermissionDeniedConfluencePage = ({
 				height="48"
 			/>
 			<Stack space="space.100">
-				<Heading size="xsmall">
-					{formatMessage(
-						isExperimentEnabled('platform_editor_blocks_patch_12')
-							? messages.contentUnavailableHeading
-							: messages.permissionDeniedHeading,
-					)}
-				</Heading>
+				<Heading size="xsmall">{formatMessage(messages.contentUnavailableHeading)}</Heading>
 				<Text color="color.text.subtle">
-					{formatMessage(
-						isExperimentEnabled('platform_editor_blocks_patch_12')
-							? messages.contentUnavailableDescription
-							: messages.permissionDeniedDescription,
-					)}
+					{formatMessage(messages.contentUnavailableDescription)}
 				</Text>
 				{requestAccessState === RequestAccessState.pending ? (
 					<Flex columnGap="space.050" alignItems="center">
@@ -203,19 +192,9 @@ const SyncedBlockPermissionDeniedJiraWorkItem = ({
 				height="48"
 			/>
 			<Stack space="space.100">
-				<Heading size="xsmall">
-					{formatMessage(
-						isExperimentEnabled('platform_editor_blocks_patch_12')
-							? messages.contentUnavailableHeading
-							: messages.permissionDeniedHeading,
-					)}
-				</Heading>
+				<Heading size="xsmall">{formatMessage(messages.contentUnavailableHeading)}</Heading>
 				<Text color="color.text.subtle">
-					{formatMessage(
-						isExperimentEnabled('platform_editor_blocks_patch_12')
-							? messages.contentUnavailableDescription
-							: messages.permissionDeniedDescription,
-					)}
+					{formatMessage(messages.contentUnavailableDescription)}
 				</Text>
 				{requestAccessState === RequestAccessState.pending ? (
 					<Flex columnGap="space.050" alignItems="center">

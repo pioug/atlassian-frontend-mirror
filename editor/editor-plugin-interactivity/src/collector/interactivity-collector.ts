@@ -2,25 +2,34 @@ import { getDocument } from '@atlaskit/browser-apis';
 
 import type {
 	CollectedSnapshot,
+	CollectorReason,
 	RegionSnapshot,
-	SessionMode,
-	SnapshotReason,
+	SessionKeys,
 } from '../analytics/interactivity-snapshot';
 import { SCHEMA_VERSION } from './bucket-boundaries';
 import { InteractionObserver } from './interaction-observer';
 import type { InteractionEntry } from './interaction-tracker';
 import { InteractivitySession } from './interactivity-session';
 import { LifecycleObserver } from './lifecycle-observer';
-import { RegionEventObserver } from './region-event-observer';
+import { type InteractivityRegion, RegionEventObserver } from './region-event-observer';
 import { SnapshotScheduler } from './snapshot-scheduler';
 
-export type InteractivityCollectorOptions = {
+export type InteractivityCollectorOptions<Keys extends SessionKeys, RotateReason extends string> = {
 	/** Called as the snapshot is taken, so what the owner reads then is of the same moment. */
-	emit: (snapshot: CollectedSnapshot) => void;
-	getObjectId: () => string | undefined;
-	getSessionMode: () => SessionMode | undefined;
+	emit: (snapshot: CollectedSnapshot<Keys, RotateReason>) => void;
 	/** The parts of the page whose interactions are counted on their own. Fixed for the collector. */
 	regions: readonly string[];
+	/** What the owner can end a session with. Fixed for the collector, like the regions. */
+	rotateReasons: readonly RotateReason[];
+	/** Every session key with the value it has now, `undefined` when not known yet. */
+	sessionKeys: Keys;
+};
+
+export type SessionKeysChange<Keys extends SessionKeys, RotateReason extends string> = {
+	/** What the session ends with if any of the values is a different known one. */
+	rotateReason: RotateReason;
+	/** The keys that may have changed. `undefined` is no information, never a change. */
+	values: Partial<Keys>;
 };
 
 /**
@@ -31,38 +40,40 @@ export type InteractivityCollectorOptions = {
  * An interaction with two regions is counted in each of them.
  *
  * `start` and `stop` bound the collecting, which happens once. Within it there can be several
- * sessions, because a session covers one document in one mode: a Confluence live page
- * navigates and switches between reading and editing without ever remounting the editor, and
- * each of those closes the current session and opens the next.
+ * sessions, because a session covers one value of each session key: the first known value fills
+ * the session in, and a different one closes it and opens the next.
  */
-export class InteractivityCollector {
-	private readonly emit: InteractivityCollectorOptions['emit'];
-	private readonly getObjectId: InteractivityCollectorOptions['getObjectId'];
-	private readonly getSessionMode: InteractivityCollectorOptions['getSessionMode'];
-	private readonly regions: InteractivityCollectorOptions['regions'];
+export class InteractivityCollector<
+	Keys extends SessionKeys = SessionKeys,
+	const RotateReason extends string = never,
+> {
+	private readonly emit: InteractivityCollectorOptions<Keys, RotateReason>['emit'];
+	private readonly regions: InteractivityCollectorOptions<Keys, RotateReason>['regions'];
+	private readonly rotateReasons: InteractivityCollectorOptions<
+		Keys,
+		RotateReason
+	>['rotateReasons'];
+	/** The latest known value of each key, which a new session starts with. */
+	private readonly sessionKeys: Keys;
 
 	private readonly interactionObserver: InteractionObserver;
 	private readonly regionEventObservers = new Map<string, RegionEventObserver>();
-	private readonly regionRoots = new Map<string, Element>();
 	private readonly snapshotScheduler: SnapshotScheduler;
 	private readonly lifecycleObserver: LifecycleObserver;
 
-	private session: InteractivitySession;
+	private session: InteractivitySession<Keys>;
 	private started = false;
 	private stopped = false;
 
-	constructor(options: InteractivityCollectorOptions) {
+	constructor(options: InteractivityCollectorOptions<Keys, RotateReason>) {
 		this.emit = options.emit;
-		this.getObjectId = options.getObjectId;
-		this.getSessionMode = options.getSessionMode;
 		this.regions = options.regions;
+		this.rotateReasons = options.rotateReasons;
+		this.sessionKeys = { ...options.sessionKeys };
 
 		this.interactionObserver = new InteractionObserver((entries) => this.recordEntries(entries));
 		for (const region of this.regions) {
-			this.regionEventObservers.set(
-				region,
-				new RegionEventObserver((event) => this.recordRegionEvent(region, event)),
-			);
+			this.regionEventObservers.set(region, new RegionEventObserver());
 		}
 		this.snapshotScheduler = new SnapshotScheduler(() => this.onTimer());
 		this.lifecycleObserver = new LifecycleObserver({
@@ -99,7 +110,7 @@ export class InteractivityCollector {
 		this.session = this.createSession(0);
 		this.interactionObserver.start();
 		for (const [region, regionEventObserver] of this.regionEventObservers) {
-			regionEventObserver.observe(this.regionRoots.get(region));
+			regionEventObserver.start((event) => this.recordRegionEvent(region, event));
 		}
 		this.snapshotScheduler.start();
 		this.lifecycleObserver.start();
@@ -125,92 +136,78 @@ export class InteractivityCollector {
 	}
 
 	/**
-	 * The region's element is what makes an interaction one of the region's. The session is not
-	 * tied to it: interactions from before it arrives are counted in `page` only. Pass `null` once
-	 * the element is gone, or the collector keeps it alive.
+	 * What the region is made of, for its owner to fill in; the same object every time. The session
+	 * is not tied to it: interactions from before an element arrives are counted in `page` only.
 	 */
-	setRegionRoot(region: string, root: Element | null | undefined): void {
-		const regionEventObserver = this.regionEventObservers.get(region);
+	region(name: string): InteractivityRegion {
+		const regionEventObserver = this.regionEventObservers.get(name);
 		if (!regionEventObserver) {
-			throw new Error(`Undeclared interactivity region: ${region}`);
+			throw new Error(`Undeclared interactivity region: ${name}`);
+		}
+		return regionEventObserver;
+	}
+
+	/**
+	 * The first known value of a key fills the session in. A different known one ends it with
+	 * `rotateReason`, once, however many keys changed.
+	 */
+	setSessionKeys({ values, rotateReason }: SessionKeysChange<Keys, RotateReason>): void {
+		if (!this.rotateReasons.includes(rotateReason)) {
+			throw new Error(`Undeclared interactivity rotate reason: ${rotateReason}`);
 		}
 
-		if (root) {
-			this.regionRoots.set(region, root);
+		let rotates = false;
+		for (const key in values) {
+			if (this.updateSessionKey(key, values[key])) {
+				rotates = true;
+			}
+		}
+
+		if (this.stopped) {
+			return;
+		}
+
+		if (rotates) {
+			this.rotateSession(rotateReason);
 		} else {
-			this.regionRoots.delete(region);
-		}
-
-		if (this.started && !this.stopped) {
-			regionEventObserver.observe(root);
+			Object.assign(this.session.sessionKeys, this.sessionKeys);
 		}
 	}
 
 	/**
-	 * Rotates the session when the editor is pointed at different content.
+	 * Keeps the key's value when it is a new known one.
 	 *
-	 * An unknown object id is no information, never a change. The provider resolves
-	 * asynchronously after mount, and `contextIdentifierPlugin` resets its state to the
-	 * configured provider on transactions that do not carry a new one, so the id read here goes
-	 * missing for a moment on a document that never changed.
+	 * @returns whether the session has to end, because the key had a different known value.
 	 */
-	onObjectIdChanged(): void {
-		if (this.stopped) {
-			return;
+	private updateSessionKey<Key extends keyof Keys>(key: Key, value: Partial<Keys>[Key]): boolean {
+		if (value === undefined || value === this.sessionKeys[key]) {
+			return false;
 		}
 
-		const objectId = this.getObjectId();
-		if (objectId === undefined || objectId === this.session.objectId) {
-			return;
+		if (!(key in this.sessionKeys)) {
+			throw new Error(`Undeclared interactivity session key: ${String(key)}`);
 		}
 
-		if (this.session.objectId === undefined) {
-			this.session.objectId = objectId;
-			return;
-		}
-
-		this.rotateSession('navigation');
-	}
-
-	/**
-	 * Rotates the session when the editor switches between reading and editing. Interactions
-	 * with a read-only page are a different population from interactions while editing, so one
-	 * session never covers both.
-	 */
-	onViewModeChanged(): void {
-		if (this.stopped) {
-			return;
-		}
-
-		const mode = this.getSessionMode();
-		if (mode === undefined || mode === this.session.mode) {
-			return;
-		}
-
-		if (this.session.mode === undefined) {
-			this.session.mode = mode;
-			return;
-		}
-
-		this.rotateSession('modeChange');
+		const hadValue = this.sessionKeys[key] !== undefined;
+		this.sessionKeys[key] = value;
+		return hadValue;
 	}
 
 	/**
 	 * @param startsAfterInteractionId the highest interaction the previous session saw, so
 	 * entries still arriving for it are not counted here as well.
 	 */
-	private createSession(startsAfterInteractionId: number): InteractivitySession {
+	private createSession(startsAfterInteractionId: number): InteractivitySession<Keys> {
 		return new InteractivitySession({
-			objectId: this.getObjectId(),
-			mode: this.getSessionMode(),
 			hidden: getDocument()?.visibilityState === 'hidden',
 			regions: this.regions,
+			sessionKeys: { ...this.sessionKeys },
 			startsAfterInteractionId,
 		});
 	}
 
 	/** Reports the current session as ended by `reason` and puts a new one in its place. */
-	private rotateSession(reason: SnapshotReason): void {
+	private rotateSession(reason: RotateReason): void {
 		this.takeSnapshot(reason);
 		this.session = this.createSession(this.session.tracker.lastInteractionId);
 		this.snapshotScheduler.restart();
@@ -299,7 +296,7 @@ export class InteractivityCollector {
 		}
 	}
 
-	private takeSnapshot(reason: SnapshotReason): void {
+	private takeSnapshot(reason: CollectorReason | RotateReason): void {
 		if (this.stopped) {
 			return;
 		}
@@ -348,10 +345,9 @@ export class InteractivityCollector {
 		this.emit({
 			schema: SCHEMA_VERSION,
 			interactivitySessionId: session.id,
-			objectId: session.objectId,
 			seq: session.seq,
 			reason,
-			sessionMode: session.mode,
+			sessionKeys: { ...session.sessionKeys },
 			activeMs: Math.round(Math.max(0, now - session.startedAt - hiddenMs)),
 			hiddenMs: Math.round(hiddenMs),
 			// Only `page` is told its total; each region has counted its own.

@@ -114,10 +114,10 @@ Every catalog in `CATALOG_DEFINITIONS` (`src/catalog-json/catalog-definitions.ts
 standalone, self-contained JSON Schema (draft 2019-09) document so third-party agents can author
 surfaces against it:
 
-| Catalog ID                           | File                                         |
-| ------------------------------------ | -------------------------------------------- |
-| `com.atlassian.ads/v0_9`             | `catalogs/ads-v0_9/catalog.json`             |
-| `com.atlassian.agentic-jira/v0_9/v1` | `catalogs/agentic-jira-v0_9-v1/catalog.json` |
+| Catalog ID                              | File                                             |
+| --------------------------------------- | ------------------------------------------------ |
+| `com.atlassian.ads/v0_9`                | `catalogs/ads-v0_9/catalog.json`                 |
+| `com.atlassian.agentic-jira/v0_9/v1`    | `catalogs/agentic-jira-v0_9-v1/catalog.json`     |
 
 The files are generated from the Zod schemas with `@a2ui/web_core`'s own inline-catalog
 conversion. Common types are bundled under `$defs`, so every `$ref` is local. The catalog package's Atlaskit documentation shows each catalog with a JSON preview and copy button.
@@ -267,3 +267,23 @@ The trailing `/v1` in the ID is the catalog's own major version: breaking
 schema changes mint a new ID (`…/v2`) registered alongside `v1`, letting
 catalog negotiation migrate surfaces with zero downtime (see the versioning
 policy in `catalog-id.ts`).
+
+## Agentic Forge v0.9 catalog (`com.atlassian.agentic-forge/v0_9/v1`)
+
+A dedicated catalog shipped from `src/agentic-forge-v0_9/`. It is not a
+superset of the ADS base catalog. Props are literal strings, not `{ path }`
+bindings.
+
+| Component | Modelled on |
+|-----------|-------------|
+| `ResultPanel` | Completed result with a heading and a summary. No actions. |
+
+`title` and `summary` are required. `summary` keeps authored line breaks.
+There is no action prop. This catalog is not published as a `catalog.json`
+document.
+
+Import via the `./agentic-forge-v0_9/*` subpaths (`schemas`, `apis`, `types`,
+`catalog-id`, `catalog-component-apis`). The rendering catalog is assembled by
+`@atlassian/a2ui-renderer-next/agentic-forge-v0_9/catalog` →
+`createAgenticForgeCatalog()`. It is opt-in and is not registered on the
+default Rovo catalog set.

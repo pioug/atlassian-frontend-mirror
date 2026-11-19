@@ -39,7 +39,6 @@ import type {
 	MentionChange,
 	MentionSharedState,
 } from './types';
-import { InlineInvitePopupContainer } from './ui/InlineInvitePopupContainer';
 import { getMentionQuickInsertComponents } from './ui/quick-insert/getMentionQuickInsertComponents';
 import { SecondaryToolbarComponent } from './ui/SecondaryToolbarComponent';
 import { createTypeAheadConfig } from './ui/type-ahead';
@@ -182,18 +181,7 @@ const mentionsPlugin: MentionsPlugin = ({ config: options, api }) => {
 					providerFactory={providerFactory}
 					// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 					renderNode={({ mentionProvider }) => {
-						return (
-							<>
-								<Component mentionProvider={mentionProvider} api={api} />
-								{fg('inline_invite_from_mentions_kill_switch') && (
-									<InlineInvitePopupContainer
-										mentionProvider={mentionProvider}
-										api={api}
-										editorView={editorView}
-									/>
-								)}
-							</>
-						);
+						return <Component mentionProvider={mentionProvider} api={api} />;
 					}}
 				/>
 			);

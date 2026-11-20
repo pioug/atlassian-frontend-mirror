@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/user-picker",
-	"version": "14.8.5",
+	"version": "14.8.6",
 	"description": "Fabric component for display a dropdown to select a user from",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -187,6 +187,9 @@
 			"type": "boolean"
 		},
 		"platform-dst-lozenge-tag-badge-visual-uplifts": {
+			"type": "boolean"
+		},
+		"platform-user-picker-a11y-51062-decorative-avatars": {
 			"type": "boolean"
 		},
 		"platform-dst-motion-uplift-labels": {

@@ -1,5 +1,23 @@
 # @atlaskit/editor-core
 
+## 245.2.2
+
+### Patch Changes
+
+- [`34881a98eaa81`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/34881a98eaa81) -
+  Show the text cursor over the empty paragraph placeholder in the Confluence page editor behind
+  platform_editor_placeholder_text_cursor.
+- Updated dependencies
+
+## 245.2.1
+
+### Patch Changes
+
+- [`3a4337d2e4a60`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a4337d2e4a60) -
+  Clean up feature gate `platform_editor_ai_show_diff_patch_2`; the show-diff improvements are now
+  always on.
+- Updated dependencies
+
 ## 245.2.0
 
 ### Minor Changes

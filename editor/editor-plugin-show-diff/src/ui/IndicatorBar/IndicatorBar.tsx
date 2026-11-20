@@ -5,7 +5,6 @@
 
 import { css, jsx } from '@compiled/react';
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { getAccentBorderColor } from '../../pm-plugins/decorations/colorSchemes/factory';
@@ -75,7 +74,7 @@ export function IndicatorBar({
 	return (
 		<span
 			data-testid="diff-indicator-bar"
-			css={[barStyles, fg('platform_editor_ai_show_diff_patch_2') && barAlwaysVisibleStyles]}
+			css={[barStyles, barAlwaysVisibleStyles]}
 			style={{
 				backgroundColor: getIndicatorColor(colorScheme, isInserted),
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values

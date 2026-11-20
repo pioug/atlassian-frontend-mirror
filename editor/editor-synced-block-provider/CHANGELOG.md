@@ -1,5 +1,18 @@
 # @atlaskit/editor-synced-block-provider
 
+## 29.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 29.0.4
+
+### Patch Changes
+
+- [`dfec6b03306db`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dfec6b03306db) -
+  Clean up experiment `editor-synced-block-same-page-sync`
+
 ## 29.0.3
 
 ### Patch Changes

@@ -32,8 +32,16 @@ const layout = (
 /**
  * Server markup is deliberately left unhydrated until requested, for geometry regression tests.
  */
-export function SsrLayoutFixture({ layout }: { layout: ReactNode }): JSX.Element {
-	const [html] = useState(() => renderToString(layout));
+export function SsrLayoutFixture({
+	layout,
+	mismatchIds = false,
+}: {
+	layout: ReactNode;
+	mismatchIds?: boolean;
+}): JSX.Element {
+	const [html] = useState(() =>
+		renderToString(layout, { identifierPrefix: mismatchIds ? 'server-' : undefined }),
+	);
 	const container = useRef<HTMLDivElement | null>(null);
 	const root = useRef<ReturnType<typeof hydrateRoot>>();
 	const [hydrated, setHydrated] = useState(false);
@@ -48,7 +56,9 @@ export function SsrLayoutFixture({ layout }: { layout: ReactNode }): JSX.Element
 				isDisabled={hydrated}
 				onClick={() => {
 					if (container.current) {
-						root.current = hydrateRoot(container.current, layout);
+						root.current = hydrateRoot(container.current, layout, {
+							identifierPrefix: mismatchIds ? 'client-' : undefined,
+						});
 						setHydrated(true);
 					}
 				}}
@@ -84,4 +94,22 @@ function AllOpenLayout(): JSX.Element {
 
 export function AllOpenPanelLayoutSsrExample(): JSX.Element {
 	return <SsrLayoutFixture layout={<AllOpenLayout />} />;
+}
+
+function InitiallyClosedLayout(): JSX.Element {
+	const [isPanelOpen, setIsPanelOpen] = useState(false);
+	return (
+		<Root>
+			<Main>
+				<PanelLayout isPanelOpen={isPanelOpen} panel="Preview content" testId="ssr-layout">
+					<Button onClick={() => setIsPanelOpen((open) => !open)}>Toggle local panel</Button>
+					Main content
+				</PanelLayout>
+			</Main>
+		</Root>
+	);
+}
+
+export function MismatchedIdsPanelLayoutSsrExample(): JSX.Element {
+	return <SsrLayoutFixture layout={<InitiallyClosedLayout />} mismatchIds />;
 }

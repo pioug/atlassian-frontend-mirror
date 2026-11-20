@@ -1,5 +1,18 @@
 # @atlaskit/modal-dialog
 
+## 17.3.0
+
+### Minor Changes
+
+- [`edde589c7f2d7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/edde589c7f2d7) -
+  Integrate modal title warning and danger icon labels with React Intl behind
+  platform_modal_title_icon_label, preserving English fallbacks without a provider. Adds a React
+  Intl runtime dependency.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.2.7
 
 ### Patch Changes

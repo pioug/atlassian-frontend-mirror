@@ -3,7 +3,7 @@
  *
  * Structured content components from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::ea12dd203e14f933439f8ab9372cbfc3>>
+ * @codegen <<SignedSource::4144aa8933fcb792c0f5cff58b5072f2>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -2898,69 +2898,7 @@ export const components: ComponentMcpPayload[] = [
 		examples: [
 			"import React, { useState } from 'react';\nimport { DropdownItemCheckbox } from '@atlaskit/dropdown-menu/dropdown-item-checkbox';\nimport { DropdownItemCheckboxGroup } from '@atlaskit/dropdown-menu/dropdown-item-checkbox-group';\nimport { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';\nconst DropdownItemCheckboxExample = (): React.JSX.Element => {\n\tconst [checked, setChecked] = useState<Record<string, boolean>>({\n\t\ttodo: true,\n\t\tinprogress: false,\n\t\tdone: false,\n\t});\n\tconst toggle = (name: string) => {\n\t\tsetChecked((prev) => ({\n\t\t\t...prev,\n\t\t\t[name]: !prev[name],\n\t\t}));\n\t};\n\treturn (\n\t\t<DropdownMenu trigger=\"Status\" shouldRenderToParent>\n\t\t\t<DropdownItemCheckboxGroup title=\"Status\" id=\"status-filters\">\n\t\t\t\t<DropdownItemCheckbox id=\"todo\" onClick={() => toggle('todo')} isSelected={checked['todo']}>\n\t\t\t\t\tTo do\n\t\t\t\t</DropdownItemCheckbox>\n\t\t\t\t<DropdownItemCheckbox\n\t\t\t\t\tid=\"inprogress\"\n\t\t\t\t\tonClick={() => toggle('inprogress')}\n\t\t\t\t\tisSelected={checked['inprogress']}\n\t\t\t\t>\n\t\t\t\t\tIn progress\n\t\t\t\t</DropdownItemCheckbox>\n\t\t\t\t<DropdownItemCheckbox id=\"done\" onClick={() => toggle('done')} isSelected={checked['done']}>\n\t\t\t\t\tDone\n\t\t\t\t</DropdownItemCheckbox>\n\t\t\t</DropdownItemCheckboxGroup>\n\t\t</DropdownMenu>\n\t);\n};\nexport default DropdownItemCheckboxExample;",
 		],
-		props: [
-			{
-				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
-				description: 'Primary content for the item.',
-				isRequired: true,
-			},
-			{
-				name: 'defaultSelected',
-				type: 'boolean | undefined',
-				description: 'Sets whether the checkbox begins selected.',
-			},
-			{
-				name: 'description',
-				type: 'string | JSX.Element | undefined',
-				description:
-					'Description of the item.\nThis will render smaller text below the primary text of the item as well as slightly increasing the height of the item.',
-			},
-			{
-				name: 'id',
-				type: 'string',
-				description: 'Unique id of a checkbox.',
-				isRequired: true,
-			},
-			{
-				name: 'isDisabled',
-				type: 'boolean | undefined',
-				description: 'Makes the checkbox appear disabled as well as removing interactivity.',
-			},
-			{
-				name: 'isSelected',
-				type: 'boolean | undefined',
-				description: 'Sets whether the checkbox is checked or unchecked.',
-			},
-			{
-				name: 'onClick',
-				type: '((e: React.MouseEvent<Element, globalThis.MouseEvent> | React.KeyboardEvent<Element>) => void) | undefined',
-				description: 'Event that is triggered when the checkbox is clicked.',
-			},
-			{
-				name: 'shortcut',
-				type: 'Shortcut | undefined',
-			},
-			{
-				name: 'shouldDescriptionWrap',
-				type: 'boolean | undefined',
-				description:
-					"When `true` the description of the item will wrap multiple lines if it's long enough.",
-				defaultValue: 'true',
-			},
-			{
-				name: 'shouldTitleWrap',
-				type: 'boolean | undefined',
-				description:
-					"When `true` the title of the item will wrap multiple lines if it's long enough.",
-				defaultValue: 'true',
-			},
-			{
-				name: 'title',
-				type: 'string | undefined',
-				description: 'Adds a title attribute to the root item element.',
-			},
-		],
+		props: [],
 	},
 	{
 		name: 'DropdownItemCheckboxGroup',
@@ -2978,56 +2916,7 @@ export const components: ComponentMcpPayload[] = [
 		examples: [
 			"import React, { useState } from 'react';\nimport { DropdownItemCheckbox } from '@atlaskit/dropdown-menu/dropdown-item-checkbox';\nimport { DropdownItemCheckboxGroup } from '@atlaskit/dropdown-menu/dropdown-item-checkbox-group';\nimport { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';\nconst DropdownItemCheckboxExample = (): React.JSX.Element => {\n\tconst [checked, setChecked] = useState<Record<string, boolean>>({\n\t\ttodo: true,\n\t\tinprogress: false,\n\t\tdone: false,\n\t});\n\tconst toggle = (name: string) => {\n\t\tsetChecked((prev) => ({\n\t\t\t...prev,\n\t\t\t[name]: !prev[name],\n\t\t}));\n\t};\n\treturn (\n\t\t<DropdownMenu trigger=\"Status\" shouldRenderToParent>\n\t\t\t<DropdownItemCheckboxGroup title=\"Status\" id=\"status-filters\">\n\t\t\t\t<DropdownItemCheckbox id=\"todo\" onClick={() => toggle('todo')} isSelected={checked['todo']}>\n\t\t\t\t\tTo do\n\t\t\t\t</DropdownItemCheckbox>\n\t\t\t\t<DropdownItemCheckbox\n\t\t\t\t\tid=\"inprogress\"\n\t\t\t\t\tonClick={() => toggle('inprogress')}\n\t\t\t\t\tisSelected={checked['inprogress']}\n\t\t\t\t>\n\t\t\t\t\tIn progress\n\t\t\t\t</DropdownItemCheckbox>\n\t\t\t\t<DropdownItemCheckbox id=\"done\" onClick={() => toggle('done')} isSelected={checked['done']}>\n\t\t\t\t\tDone\n\t\t\t\t</DropdownItemCheckbox>\n\t\t\t</DropdownItemCheckboxGroup>\n\t\t</DropdownMenu>\n\t);\n};\nexport default DropdownItemCheckboxExample;",
 		],
-		props: [
-			{
-				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
-				description:
-					'Children of the section.\nThis should generally be `Item` or `Heading` components,\nbut can also be [`EmptyState`](https://atlaskit.atlassian.com/packages/design-system/empty-state)s if you want to render errors.',
-				isRequired: true,
-			},
-			{
-				name: 'hasSeparator',
-				type: 'boolean | undefined',
-				description: 'Use this to render a border at the top of the section.',
-			},
-			{
-				name: 'id',
-				type: 'string',
-				description: 'Unique identifier for the checkbox group.',
-				isRequired: true,
-			},
-			{
-				name: 'isList',
-				type: 'boolean | undefined',
-				description:
-					'If your menu contains a list, use this to add `<ul>` and `<li>` tags around the items. This is essential for offering better, accessible semantic markup in a list of items.',
-			},
-			{
-				name: 'isScrollable',
-				type: 'boolean | undefined',
-				description:
-					"Enables scrolling within the section.\nThis won't work unless `maxHeight` is set on the parent `MenuGroup` component.",
-			},
-			{
-				name: 'label',
-				type: 'string | undefined',
-				description:
-					'Provide an accessible label for the section via `aria-label` for assistive technology.',
-			},
-			{
-				name: 'title',
-				type: 'string | undefined',
-				description:
-					"The text passed into the internal `HeadingItem`. If a title isn't provided,\nthe `HeadingItem` won't be rendered, and this component will act as a regular `Section`.",
-			},
-			{
-				name: 'titleId',
-				type: 'string | undefined',
-				description:
-					"ID referenced by the menu group wrapper's `aria-labelledby` attribute. This ID should be assigned to the group title element.\nUsage of either this, or the `label` attribute is strongly recommended.",
-			},
-		],
+		props: [],
 	},
 	{
 		name: 'DropdownItemGroup',
@@ -3121,69 +3010,7 @@ export const components: ComponentMcpPayload[] = [
 		examples: [
 			"import React, { useState } from 'react';\nimport { DropdownItemRadio } from '@atlaskit/dropdown-menu/dropdown-item-radio';\nimport { DropdownItemRadioGroup } from '@atlaskit/dropdown-menu/dropdown-item-radio-group';\nimport { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';\nconst DropdownItemRadioExample = (): React.JSX.Element => {\n\tconst [selected, setSelected] = useState<string>('detail');\n\treturn (\n\t\t<DropdownMenu trigger=\"Views\" shouldRenderToParent>\n\t\t\t<DropdownItemRadioGroup title=\"Views\" id=\"view-options\">\n\t\t\t\t<DropdownItemRadio\n\t\t\t\t\tid=\"detail\"\n\t\t\t\t\tonClick={() => setSelected('detail')}\n\t\t\t\t\tisSelected={selected === 'detail'}\n\t\t\t\t>\n\t\t\t\t\tDetail view\n\t\t\t\t</DropdownItemRadio>\n\t\t\t\t<DropdownItemRadio\n\t\t\t\t\tid=\"list\"\n\t\t\t\t\tonClick={() => setSelected('list')}\n\t\t\t\t\tisSelected={selected === 'list'}\n\t\t\t\t>\n\t\t\t\t\tList view\n\t\t\t\t</DropdownItemRadio>\n\t\t\t</DropdownItemRadioGroup>\n\t\t</DropdownMenu>\n\t);\n};\nexport default DropdownItemRadioExample;",
 		],
-		props: [
-			{
-				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
-				description: 'Primary content for the item.',
-				isRequired: true,
-			},
-			{
-				name: 'defaultSelected',
-				type: 'boolean | undefined',
-				description: 'Sets whether the checkbox begins selected.',
-			},
-			{
-				name: 'description',
-				type: 'string | JSX.Element | undefined',
-				description:
-					'Description of the item.\nThis will render smaller text below the primary text of the item as well as slightly increasing the height of the item.',
-			},
-			{
-				name: 'id',
-				type: 'string',
-				description: 'Unique ID of the checkbox.',
-				isRequired: true,
-			},
-			{
-				name: 'isDisabled',
-				type: 'boolean | undefined',
-				description: 'Makes the checkbox appear disabled as well as removing interactivity.',
-			},
-			{
-				name: 'isSelected',
-				type: 'boolean | undefined',
-				description: 'Sets whether the checkbox is checked or unchecked.',
-			},
-			{
-				name: 'onClick',
-				type: '((e: React.MouseEvent<Element, globalThis.MouseEvent> | React.KeyboardEvent<Element>) => void) | undefined',
-				description: 'Event that is triggered when the checkbox is clicked.',
-			},
-			{
-				name: 'shortcut',
-				type: 'Shortcut | undefined',
-			},
-			{
-				name: 'shouldDescriptionWrap',
-				type: 'boolean | undefined',
-				description:
-					"When `true` the description of the item will wrap multiple lines if it's long enough.",
-				defaultValue: 'true',
-			},
-			{
-				name: 'shouldTitleWrap',
-				type: 'boolean | undefined',
-				description:
-					"When `true` the title of the item will wrap multiple lines if it's long enough.",
-				defaultValue: 'true',
-			},
-			{
-				name: 'title',
-				type: 'string | undefined',
-				description: 'Adds a title attribute to the root item element.',
-			},
-		],
+		props: [],
 	},
 	{
 		name: 'DropdownItemRadioGroup',
@@ -3201,55 +3028,7 @@ export const components: ComponentMcpPayload[] = [
 		examples: [
 			"import React, { useState } from 'react';\nimport { DropdownItemRadio } from '@atlaskit/dropdown-menu/dropdown-item-radio';\nimport { DropdownItemRadioGroup } from '@atlaskit/dropdown-menu/dropdown-item-radio-group';\nimport { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';\nconst DropdownItemRadioExample = (): React.JSX.Element => {\n\tconst [selected, setSelected] = useState<string>('detail');\n\treturn (\n\t\t<DropdownMenu trigger=\"Views\" shouldRenderToParent>\n\t\t\t<DropdownItemRadioGroup title=\"Views\" id=\"view-options\">\n\t\t\t\t<DropdownItemRadio\n\t\t\t\t\tid=\"detail\"\n\t\t\t\t\tonClick={() => setSelected('detail')}\n\t\t\t\t\tisSelected={selected === 'detail'}\n\t\t\t\t>\n\t\t\t\t\tDetail view\n\t\t\t\t</DropdownItemRadio>\n\t\t\t\t<DropdownItemRadio\n\t\t\t\t\tid=\"list\"\n\t\t\t\t\tonClick={() => setSelected('list')}\n\t\t\t\t\tisSelected={selected === 'list'}\n\t\t\t\t>\n\t\t\t\t\tList view\n\t\t\t\t</DropdownItemRadio>\n\t\t\t</DropdownItemRadioGroup>\n\t\t</DropdownMenu>\n\t);\n};\nexport default DropdownItemRadioExample;",
 		],
-		props: [
-			{
-				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
-				description:
-					'Children of the section.\nThis should generally be `Item` or `Heading` components,\nbut can also be [`EmptyState`](https://atlaskit.atlassian.com/packages/design-system/empty-state)s if you want to render errors.',
-				isRequired: true,
-			},
-			{
-				name: 'hasSeparator',
-				type: 'boolean | undefined',
-				description: 'Use this to render a border at the top of the section.',
-			},
-			{
-				name: 'id',
-				type: 'string',
-				isRequired: true,
-			},
-			{
-				name: 'isList',
-				type: 'boolean | undefined',
-				description:
-					'If your menu contains a list, use this to add `<ul>` and `<li>` tags around the items. This is essential for offering better, accessible semantic markup in a list of items.',
-			},
-			{
-				name: 'isScrollable',
-				type: 'boolean | undefined',
-				description:
-					"Enables scrolling within the section.\nThis won't work unless `maxHeight` is set on the parent `MenuGroup` component.",
-			},
-			{
-				name: 'label',
-				type: 'string | undefined',
-				description:
-					'Provide an accessible label for the section via `aria-label` for assistive technology.',
-			},
-			{
-				name: 'title',
-				type: 'string | undefined',
-				description:
-					"The text passed into the internal `HeadingItem`. If a title isn't provided,\nthe `HeadingItem` won't be rendered, and this component will act as a regular `Section`.",
-			},
-			{
-				name: 'titleId',
-				type: 'string | undefined',
-				description:
-					"ID referenced by the menu group wrapper's `aria-labelledby` attribute. This ID should be assigned to the group title element.\nUsage of either this, or the `label` attribute is strongly recommended.",
-			},
-		],
+		props: [],
 	},
 	{
 		name: 'DropdownMenu',
@@ -3290,92 +3069,7 @@ export const components: ComponentMcpPayload[] = [
 		examples: [
 			"import IconButton from '@atlaskit/button/icon/button';\nimport { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';\nimport { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-item-group';\nimport { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';\nimport MoreIcon from '@atlaskit/icon/core/show-more-horizontal';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<DropdownMenu\n\t\t\tshouldRenderToParent\n\t\t\ttrigger={({ triggerRef, ...props }) => (\n\t\t\t\t<IconButton ref={triggerRef} {...props} icon={MoreIcon} label=\"More\" />\n\t\t\t)}\n\t\t>\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem href=\"/dashboard\">Dashboard</DropdownItem>\n\t\t\t\t<DropdownItem>Create</DropdownItem>\n\t\t\t\t<DropdownItem>Delete</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t\t<DropdownMenu shouldRenderToParent trigger=\"Actions\">\n\t\t\t<DropdownItemGroup>\n\t\t\t\t<DropdownItem>Export</DropdownItem>\n\t\t\t\t<DropdownItem>Share</DropdownItem>\n\t\t\t</DropdownItemGroup>\n\t\t</DropdownMenu>\n\t</>\n);\nexport default Examples;",
 		],
-		props: [
-			{
-				name: 'appearance',
-				type: '"default" | "tall" | undefined',
-				description:
-					"Controls the appearance of the menu.\nThe default menu will scroll after its height exceeds the pre-defined amount.\nThe tall menu won't scroll until the height exceeds the height of the viewport.",
-			},
-			{
-				name: 'autoFocus',
-				type: 'boolean | undefined',
-				description:
-					'Controls if the first menu item receives focus when menu is opened. Note that the menu has a focus lock\nwhich traps the focus within the menu. The first item gets focus automatically\nif the menu is triggered using the keyboard.',
-			},
-			{
-				name: 'children',
-				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
-				description:
-					'Content that will be rendered inside the layer element. Should typically be\n`DropdownItemGroup` or `DropdownItem`, or the checkbox and radio variants of those.',
-			},
-			{
-				name: 'defaultOpen',
-				type: 'boolean | undefined',
-				description:
-					'Controls the initial open state of the dropdown. If provided, the component is considered to be controlled\nwhich means that the user is responsible for managing the open and close state of the menu.\nUsing `defaultOpen` may cause accessiblity issues because it will automatically shift focus to the first menu item; which can be disorienting.\nOnly use this if action on the menu is required to proceed.',
-			},
-			{
-				name: 'isLoading',
-				type: 'boolean | undefined',
-				description: 'If true, a spinner is rendered instead of the items.',
-			},
-			{
-				name: 'isOpen',
-				type: 'boolean | undefined',
-				description: 'Controls the open state of the dropdown.',
-			},
-			{
-				name: 'label',
-				type: 'string | undefined',
-				description: 'Provide an accessible label via `aria-label` for assistive technology.',
-			},
-			{
-				name: 'menuLabel',
-				type: 'string | undefined',
-				description: 'Provide an accessible label for the menu element for assistive technology.',
-			},
-			{
-				name: 'onOpenChange',
-				type: '((args: OnOpenChangeArgs) => void) | undefined',
-				description:
-					'Called when the menu should be open/closed. Receives an object with `isOpen` state.\n\nIf the dropdown was closed programatically, the `event` parameter will be `null`.',
-			},
-			{
-				name: 'placement',
-				type: 'Placement | undefined',
-				description: 'Position of the menu.',
-			},
-			{
-				name: 'shouldFitContainer',
-				type: 'boolean | undefined',
-				description:
-					"This fits the dropdown menu width to its parent's width.\nWhen set to `true`, the trigger and dropdown menu elements will be wrapped in a `div` with `position: relative`.\nThe dropdown menu will be rendered as a sibling to the trigger element, and will be full width.\nThe default is `false`.",
-			},
-			{
-				name: 'shouldIgnoreCloseEvent',
-				type: '((event: Event | React.MouseEvent<Element, MouseEvent> | React.KeyboardEvent<Element>) => boolean) | undefined',
-				description:
-					'Allows consumers to ignore specific close events, for example when an external overlay\nshould be treated as part of the dropdown interaction.',
-			},
-			{
-				name: 'spacing',
-				type: '"compact" | "cozy" | "spacious" | undefined',
-				description:
-					'Controls the spacing density of the menu.\nNOTE: `cozy` is deprecated and will be removed. `spacious` replaces `cozy` and results in the same visual appearance.',
-			},
-			{
-				name: 'statusLabel',
-				type: 'string | undefined',
-				description: 'Text to be used as status for assistive technologies. Defaults to "Loading".',
-			},
-			{
-				name: 'trigger',
-				type: 'string | ((triggerButtonProps: CustomTriggerProps<T>) => React.ReactElement<any, string | React.JSXElementConstructor<any>>) | undefined',
-				description:
-					'Content that triggers the dropdown menu to open and close. Use with\n`triggerType` to get a button trigger. To customize the trigger element,\nprovide a function to this prop. You can find\n[examples for custom triggers](https://atlassian.design/components/dropdown-menu/examples#custom-triggers)\nin our documentation.',
-			},
-		],
+		props: [],
 	},
 	{
 		name: 'Dynamic table',
@@ -6065,9 +5759,13 @@ export const components: ComponentMcpPayload[] = [
 		status: 'early-access',
 		usageGuidelines: [
 			'Use motion already owned by an ADS component instead of wrapping or replacing it',
+			'Import Motion as the default export from @atlaskit/motion/entering/motion. Keep consumer imports portable: do not copy relative paths into the package src directory from internal examples, and do not infer a public subpath from a source filename. Check the package exports before using another entrypoint',
 			'Use the Motion primitive as the recommended way to apply entry and exit animations',
 			'Pass action="enter" or action="exit" whenever Motion needs to respond to application state, and keep Motion mounted so it can play the exit animation before rendering null',
 			'Provide enteringAnimation for action="enter" and exitingAnimation for action="exit"; omit the unused animation only when the component can never perform that action',
+			'For collection removal, retain the keyed record in the rendered collection, mark it as exiting, and pass action={isExiting ? "exit" : "enter"}. Remove the record only from onFinish when the transition is "exiting". Filtering the record immediately unmounts Motion before it can animate; changing its key also discards its lifecycle',
+			'A collection does not by itself require useMotion. Preserve a semantic li or td as the outer host and put Motion inside it when that structure meets the layout; use the hook only if the animated host itself must remain wrapperless. Do not replace a declarative action with Reanimate just to dismiss or reveal content',
+			'For sequential replacement, retain the currently displayed content while action is "exit", then replace it and return to "enter" from the exit completion callback. Keep the latest requested content separate from displayed content so rapid changes do not replace a child during its exit',
 			'Do not use ExitingPersistence for new Motion implementations; it remains available only for existing integrations while its remaining use cases are validated',
 			'Prefer the complete semantic motion token for the affected role and state; inspect the full motion.<role>.* namespace so paired entry, exit, and reposition states are not missed',
 			'Do not invent a motion token or reconstruct an available semantic token from base duration, easing, and keyframe tokens',
@@ -7005,7 +6703,7 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'backgroundColor',
-				type: '"utility.elevation.surface.current" | "elevation.surface" | "elevation.surface.container" | "elevation.surface.overlay" | "elevation.surface.raised" | "elevation.surface.sunken" | ... 226 more ... | undefined',
+				type: '"utility.elevation.surface.current" | "elevation.surface" | "elevation.surface.container" | "elevation.surface.overlay" | "elevation.surface.raised" | "elevation.surface.sunken" | ... 227 more ... | undefined',
 				description: 'Token representing background color with a built-in fallback value.',
 			},
 			{

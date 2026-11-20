@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "245.2.0",
+	"version": "245.2.2",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -204,10 +204,6 @@
 		"url-search-params": "root:*"
 	},
 	"platform-feature-flags": {
-		"platform_editor_ai_show_diff_patch_2": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"people-teams_migrate-user-profile-card": {
 			"type": "boolean",
 			"referenceOnly": true

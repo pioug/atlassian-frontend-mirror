@@ -5,7 +5,6 @@ import { Mark } from '@atlaskit/editor-prosemirror/model';
 import { Mapping, ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import type { StepMap } from '@atlaskit/editor-prosemirror/transform';
 import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { DiffStepAttribution } from '../../showDiffPluginType';
 import {
@@ -239,7 +238,7 @@ const mergeOverlappingByNewDocRange = (changes: Change[]): Change[] => {
  * - The replaced slice is not open
  * - The replaced slice has only one child
  * - The replacing slice has only one child
- * - Both children are the same textblock type, or (behind `platform_editor_ai_show_diff_patch_2`)
+ * - Both children are the same textblock type, or
  *   the same isolating, non-table node type whose text content differs (for a table cell, only when
  *   its diffable attributes are unchanged)
  * - The replaced slice and replacing slice have the same text content
@@ -280,10 +279,7 @@ const shouldCheckGranularDiff = (
 	// Replacing a whole isolating node (e.g. an AI `replaceNode` on a table cell) would otherwise
 	// report the entire node as changed, painting a cell overlay over content that was only
 	// edited inside it. Diff its content granularly instead, so only the inner edits are decorated.
-	const isIsolatingNode =
-		fg('platform_editor_ai_show_diff_patch_2') &&
-		replacedNode !== null &&
-		isGranularIsolatingNode(replacedNode);
+	const isIsolatingNode = replacedNode !== null && isGranularIsolatingNode(replacedNode);
 
 	if (!replacedNode?.type.isTextblock && !isIsolatingNode) {
 		return false;

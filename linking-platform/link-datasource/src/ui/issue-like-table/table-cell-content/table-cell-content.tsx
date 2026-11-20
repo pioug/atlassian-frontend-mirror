@@ -2,11 +2,7 @@ import React from 'react';
 
 import { cssMap } from '@compiled/react';
 
-import type {
-	DatasourceDataResponseItem,
-	DatasourceType,
-	Link,
-} from '@atlaskit/linking-types/datasource';
+import type { Link } from '@atlaskit/linking-types/datasource';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled/box';
 
@@ -22,6 +18,7 @@ import { isIssueTypeColumnFn } from './is-issue-type-column-fn';
 import { LinkedCellContentWrapped } from './linked-cell-content-wrapped';
 import { ReadOnlyCell } from './read-only-cell';
 import type { TableCellContentProps } from './table-cell-content-props';
+import { toDatasourceTypeWithValues } from './to-datasource-type-with-values';
 import { TooltipWrapper } from './tooltip-wrapper';
 
 const styles = cssMap({
@@ -112,25 +109,6 @@ const InlineEditableCell = ({
 			datasourceTypeWithValues={values}
 		/>
 	);
-};
-
-const toDatasourceTypeWithValues = ({
-	rowData,
-	columnKey,
-	columnType,
-}: {
-	columnKey: string;
-	columnType: DatasourceType['type'];
-	rowData: DatasourceDataResponseItem;
-}) => {
-	// Need to make sure we keep falsy values like 0 and '', as well as the boolean false.
-	const value = rowData[columnKey]?.data;
-	const values = !value ? [] : Array.isArray(value) ? value : [value];
-
-	return {
-		type: columnType,
-		values,
-	} as DatasourceTypeWithOnlyValues;
 };
 
 export const TableCellContent = ({

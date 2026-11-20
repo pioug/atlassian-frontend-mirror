@@ -1,5 +1,24 @@
 # @atlaskit/ads-mcp
 
+## 2.0.3
+
+### Patch Changes
+
+- [`3ac026d983a90`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3ac026d983a90) -
+  Clarify declarative Motion lifecycle ownership for keyed collections and sequential content
+  replacement in generated agent guidance.
+- [`3ac026d983a90`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3ac026d983a90) -
+  Document verified public Motion and useMotion entrypoints, including the Reanimate export, so
+  consumer implementations do not copy package-relative imports.
+
+## 2.0.2
+
+### Patch Changes
+
+- [`96e5c34edd166`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/96e5c34edd166) -
+  Refresh generated structured-content catalogs from AFM master.
+- Updated dependencies
+
 ## 2.0.1
 
 ### Patch Changes

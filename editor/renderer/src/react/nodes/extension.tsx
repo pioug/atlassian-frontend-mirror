@@ -52,6 +52,8 @@ interface Props {
 	extensionHandlers?: ExtensionHandlers;
 	extensionKey: string;
 	extensionNode?: PMNode;
+	/** Optional host ref; composed with the renderer overflow ref. */
+	extensionRef?: (element: HTMLElement | null) => void;
 	extensionType: string;
 	extensionViewportSizes?: ExtensionViewportSize[];
 	/**
@@ -544,7 +546,15 @@ const ExtensionContent = ({
 		nodeHeight,
 		localId,
 		isInsideOfInlineExtension,
+		extensionRef,
 	} = props;
+	const handleExtensionRef = useCallback(
+		(element: HTMLElement | null) => {
+			handleRef?.(element);
+			extensionRef?.(element);
+		},
+		[handleRef, extensionRef],
+	);
 	const presetOptions = props.scheduleExtensionHeightRemoval
 		? { height: props.nodePresetHeight }
 		: {};
@@ -580,7 +590,7 @@ const ExtensionContent = ({
 								dataAttributes: props.dataAttributes,
 								isTopLevel: path.length < 1,
 								marks: isBreakoutResizingEnabled ? props.marks : undefined,
-								handleRef,
+								handleRef: extensionRef ? handleExtensionRef : handleRef,
 								shadowClassNames,
 								tabIndex: props.tabIndex,
 								rendererAppearance: props.rendererAppearance,
@@ -626,7 +636,7 @@ const ExtensionContent = ({
 						dataAttributes: props.dataAttributes,
 						isTopLevel: path.length < 1,
 						marks: isBreakoutResizingEnabled ? props.marks : undefined,
-						handleRef,
+						handleRef: extensionRef ? handleExtensionRef : handleRef,
 						shadowClassNames,
 						tabIndex: props.tabIndex,
 						rendererAppearance: props.rendererAppearance,

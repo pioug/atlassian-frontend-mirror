@@ -5,7 +5,6 @@ import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable, isRowSelected } from '@atlaskit/editor-tables/utils';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils/get-selection-rect';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { TableCssClassName as ClassName } from '../../types';
 import { tableDeleteButtonSize } from '../../ui/consts';
@@ -21,14 +20,11 @@ export const getRowHeights = (tableRef: HTMLTableElement): number[] => {
 	const tableBody = tableRef.querySelector('tbody');
 	if (tableBody) {
 		// filter out widget children (e.g. anchor widgets) of table body
-		const rows = fg('platform_editor_ai_show_diff_patch_2')
-			? Array.from(tableBody.childNodes).filter(
-					(node): node is HTMLTableRowElement => node instanceof HTMLTableRowElement,
-				)
-			: tableBody.childNodes;
+		const rows = Array.from(tableBody.childNodes).filter(
+			(node): node is HTMLTableRowElement => node instanceof HTMLTableRowElement,
+		);
 		for (let i = 0, count = rows.length; i < count; i++) {
-			// remove as cast when cleaning up platform_editor_ai_show_diff_patch_2
-			const row = rows[i] as HTMLTableRowElement;
+			const row = rows[i];
 			heights[i] = row.getBoundingClientRect().height + 1;
 
 			// padding only gets applied when the container has sticky
@@ -247,7 +243,7 @@ export const copyPreviousRow =
 
 		const cells = [] as PMNode[];
 		const fixRowspans: { node: PMNode; pos: number }[] = [];
-		for (let i = 0; i < cellsPositionsInOriginalRow.length; ) {
+		for (let i = 0; i < cellsPositionsInOriginalRow.length;) {
 			const pos = cellsPositionsInOriginalRow[i];
 			const documentCellPos = pos + table.start;
 			const node = tr.doc.nodeAt(documentCellPos);

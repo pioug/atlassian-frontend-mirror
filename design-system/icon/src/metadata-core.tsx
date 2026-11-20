@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::8bd2edc03d69455d3e0a765d06135fd9>>
+ * @codegen <<SignedSource::7adc55eba2e2fb39d134950f1718db2d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -2871,13 +2871,15 @@ const metadata: Record<string, metadata> = {
 		status: 'published',
 	},
 	premium: {
-		keywords: ['premium', 'icon', 'AI', 'sparkles', 'stars', 'new', 'feature'],
+		keywords: ['premium', 'icon', 'AI', 'sparkles', 'generative AI', 'AI functionality'],
 		componentName: 'PremiumIcon',
 		package: '@atlaskit/icon/core/premium',
+		replacement: { name: 'ai-sparkle', location: '@atlaskit/icon' },
 		categorization: 'single-purpose',
-		usage: 'Single purpose - Reserved for premium features.',
+		usage:
+			"Reserved for representing AI-powered features and functionality.  Note: While the sparkle icon used to represent premium features in upsell experiences, this icon has been replaced by the 'Editions' gem icon.",
 		team: 'Design System Team',
-		status: 'published',
+		status: 'deprecated',
 	},
 	'presenter-mode': {
 		keywords: [

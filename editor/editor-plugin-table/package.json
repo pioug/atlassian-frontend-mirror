@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-table",
-	"version": "45.2.0",
+	"version": "45.2.2",
 	"description": "Table plugin for the @atlaskit/editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -104,9 +104,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_table_height_analytics": {
-			"type": "boolean"
-		},
-		"platform_editor_ai_show_diff_patch_2": {
 			"type": "boolean"
 		},
 		"platform_editor_table_scale_on_container_resize": {

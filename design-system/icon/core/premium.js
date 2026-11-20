@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::095c702cfaeb2dfd3bf1271951315acc>>
+ * @codegen <<SignedSource::f29dbb141bb1bf0d427ffb33e2b826d8>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -17,7 +17,9 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * Category: single-purpose
  * Location: @atlaskit/icon/core/premium
  * Usage guidance:
- * Single purpose - Reserved for premium features.
+ * Reserved for representing AI-powered features and functionality.
+ * 
+ * Note: While the sparkle icon used to represent premium features in upsell experiences, this icon has been replaced by the "Editions" gem icon.
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

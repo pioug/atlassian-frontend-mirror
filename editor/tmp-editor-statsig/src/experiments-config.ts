@@ -178,12 +178,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	confluence_remix_icon_right_side: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2024-08-08
 	'example-boolean': {
 		defaultValue: boolean;
@@ -197,20 +191,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: (value: unknown) => value is 'one' | 'two' | 'three';
 		values: ('one' | 'two' | 'three')[];
-	};
-	// Added 2025-01-19
-	platform_editor_ai_edit_response_in_preview: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2024-11-26
-	platform_editor_ai_unsplash_page_header: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
 	};
 	'platform_editor_ai-prompts-placeholder': {
 		defaultValue: 'control' | 'test';
@@ -276,13 +256,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-03-12
 	platform_editor_toolbar_submenu_open_click: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2025-04-23
-	platform_editor_usesharedpluginstateselector: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -519,13 +492,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-04-15
-	platform_editor_ai_no_stream_skip_pacer: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-04-23
 	platform_editor_table_q4_loveability: {
 		defaultValue: boolean;
@@ -597,21 +563,7 @@ export const editorExperimentsConfig: {
 		typeGuard: IsBooleanType;
 	};
 	// Added 2026-07-16
-	platform_a11y_fixes_emoji_picker_list: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-07-16
 	platform_a11y_fixes_emoji_title_shortname: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-05-11 — [CCI-15904] New AIFC Editor Experience (Full Page Staging + Post Stream Review)
-	platform_editor_ai_new_aifc_editor_experience: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -715,13 +667,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	confluence_remix_icon_right_side: createBooleanExperiment({
-		productKeys: {
-			confluence: 'confluence_remix_icon_right_side',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-03-04
 	cwr_blank_object_experiment: createBooleanExperiment({
 		productKeys: {
@@ -814,26 +759,10 @@ export const editorExperimentsConfig: {
 		values: ['control', 'test'],
 		defaultValue: 'control',
 	}),
-	// Added 2024-11-26
-	platform_editor_ai_unsplash_page_header: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_ai_unsplash_page_header',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-02-24
 	platform_editor_paste_actions_menu: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_paste_actions_menu',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-01-19
-	platform_editor_ai_edit_response_in_preview: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_ai_edit_response_in_preview',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -869,14 +798,6 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_editor_fix_link_paste_menu',
 			jira: 'platform_editor_fix_link_paste_menu',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-04-23
-	platform_editor_usesharedpluginstateselector: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_usesharedpluginstateselector',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -1221,14 +1142,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-04-15
-	platform_editor_ai_no_stream_skip_pacer: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_ai_no_stream_skip_pacer',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-04-28
 	platform_editor_use_markdown_plus_parser: createBooleanExperiment({
 		productKeys: {
@@ -1323,30 +1236,12 @@ export const editorExperimentsConfig: {
 		defaultValue: false,
 	}),
 	// Added 2026-07-16
-	platform_a11y_fixes_emoji_picker_list: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_a11y_fixes_emoji_picker_list',
-			jira: 'platform_a11y_fixes_emoji_picker_list',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-07-16
 	platform_a11y_fixes_emoji_title_shortname: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_a11y_fixes_emoji_title_shortname',
 			jira: 'platform_a11y_fixes_emoji_title_shortname',
 		},
 		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-05-11 — [CCI-15904] New AIFC Editor Experience (Full Page Staging Area + Post Stream Review Toolbar)
-	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_ai_new_aifc_editor_experience/setup
-	platform_editor_ai_new_aifc_editor_experience: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_ai_new_aifc_editor_experience',
-		},
-		param: 'isBackendReviewMomentEnabled',
 		defaultValue: false,
 	}),
 	// Added 2026-06-01

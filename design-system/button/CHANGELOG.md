@@ -1,5 +1,17 @@
 # @atlaskit/button
 
+## 25.8.3
+
+### Patch Changes
+
+- [`c9b883a63632f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c9b883a63632f) -
+  Fix icon-only Filter button alignment and types so the text label can be omitted. Let custom
+  labels use the same content slot as Button.
+
+  Keep plain labels centered in full-width Filter buttons, with the built-in count before the
+  trailing chevron. Preserve the icon-only layout and allow custom children to control label
+  alignment.
+
 ## 25.8.2
 
 ### Patch Changes

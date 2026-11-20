@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::cb1be0abb5214fc2d19f5693aa8e5fbe>>
+ * @codegen <<SignedSource::464949dd701315f249af080c6ba8d075>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -23,7 +23,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  */
 const StrokeStyleDottedIcon = props => /*#__PURE__*/_react.default.createElement(_iconNew.default, Object.assign({
   name: "StrokeStyleDottedIcon",
-  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M2.6 8.75H1v-1.5h1.6zm3.1 0H4.1v-1.5h1.6zm3.1 0H7.2v-1.5h1.6zm3.1 0h-1.6v-1.5h1.6zm3.1 0h-1.6v-1.5H15z" clip-rule="evenodd"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" d="m2.52 12.42 1.06 1.06-1.41 1.41-1.06-1.06zm2.83-2.83 1.06 1.06L5 12.06 3.94 11zm2.83-2.82 1.06 1.06-1.42 1.41-1.06-1.06zm2.83-2.83L12.07 5l-1.41 1.42L9.6 5.36zm2.82-2.83 1.06 1.06-1.41 1.42-1.06-1.06z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 StrokeStyleDottedIcon.displayName = 'StrokeStyleDottedIcon';

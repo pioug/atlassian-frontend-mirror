@@ -11,11 +11,10 @@ import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { Text } from '@atlaskit/primitives/compiled/text';
 import AvatarTag from '@atlaskit/tag/avatar-tag';
 import Tag from '@atlaskit/tag/removable-tag';
+// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
+import TagNew from '@atlaskit/tag/tag-new';
 import TeamAvatar from '@atlaskit/teams-avatar/teams-avatar';
 import { token } from '@atlaskit/tokens';
-
-// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
-import TagNew from '../src/tag-new/tag-new';
 
 const containerStyles = css({
 	display: 'flex',

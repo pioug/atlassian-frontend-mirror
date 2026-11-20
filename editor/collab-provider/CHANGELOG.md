@@ -1,5 +1,19 @@
 # @atlaskit/collab-provider
 
+## 42.0.4
+
+### Patch Changes
+
+- [`7bec763e47212`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7bec763e47212) -
+  Make the catch-up completion callback receive an empty array when the server omits remote steps so
+  the editor can finish reconnecting and apply metadata.
+
+## 42.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 42.0.2
 
 ### Patch Changes

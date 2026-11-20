@@ -27,7 +27,7 @@ const DESCENDANTS_OF_TEAM_FUNCTION_NAME = 'descendantsofteam';
 function isTeamArgumentFunctionEnabled(lowerCaseFunctionName: string): boolean {
 	switch (lowerCaseFunctionName) {
 		case MEMBERS_OF_FUNCTION_NAME:
-			return fg('enable-jql-membersof-autocomplete');
+			return true;
 		case DESCENDANTS_OF_TEAM_FUNCTION_NAME:
 			return fg('jira-descendants-of-team-jql-function');
 		default:

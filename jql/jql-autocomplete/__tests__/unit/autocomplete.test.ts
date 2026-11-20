@@ -1234,12 +1234,12 @@ const checks = [
 			},
 			rules: {
 				list: {
-					context: { field: 'type', operator: 'in' },
+					context: { field: 'type', functionName: 'standardissuetypes', operator: 'in' },
 					matchedText: '',
 					replacePosition: [8, 26],
 				},
 				function: {
-					context: { field: 'type', operator: 'in' },
+					context: { field: 'type', functionName: 'standardissuetypes', operator: 'in' },
 					matchedText: '',
 					replacePosition: [8, 26],
 				},
@@ -1262,12 +1262,12 @@ const checks = [
 			},
 			rules: {
 				list: {
-					context: { field: 'type', operator: 'in' },
+					context: { field: 'type', functionName: 'standardissuetypes', operator: 'in' },
 					matchedText: 'standard',
 					replacePosition: [8, 26],
 				},
 				function: {
-					context: { field: 'type', operator: 'in' },
+					context: { field: 'type', functionName: 'standardissuetypes', operator: 'in' },
 					matchedText: 'standard',
 					replacePosition: [8, 26],
 				},

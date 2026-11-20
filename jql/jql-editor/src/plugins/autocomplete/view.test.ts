@@ -1,5 +1,3 @@
-import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-
 import { type SelectableAutocompleteOption } from './components/types';
 import { shouldInsertOpeningParenthesis } from './shouldInsertOpeningParenthesis';
 
@@ -19,18 +17,14 @@ const createOption = (
 });
 
 describe('shouldInsertOpeningParenthesis', () => {
-	describe('enable-jql-membersof-autocomplete is on membersOf function argument autocomplete is enabled', () => {
-		it('returns false for function argument suggestions', () => {
-			passGate('enable-jql-membersof-autocomplete');
-
-			expect(
-				shouldInsertOpeningParenthesis(
-					createOption({
-						type: 'functionArgument',
-					}),
-				),
-			).toBe(false);
-		});
+	it('returns false for function argument suggestions', () => {
+		expect(
+			shouldInsertOpeningParenthesis(
+				createOption({
+					type: 'functionArgument',
+				}),
+			),
+		).toBe(false);
 	});
 
 	it('inserts an opening parenthesis for list operator values when not already in a list', () => {

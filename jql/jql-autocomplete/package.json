@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/jql-autocomplete",
-	"version": "3.1.1",
+	"version": "3.1.2",
 	"description": "JQL autocomplete engine",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -43,9 +43,6 @@
 		"@atlassian/feature-flags-test-utils": "workspace:^"
 	},
 	"platform-feature-flags": {
-		"enable-jql-membersof-autocomplete": {
-			"type": "boolean"
-		},
 		"filter_jql_jracloud-100041": {
 			"type": "boolean"
 		}

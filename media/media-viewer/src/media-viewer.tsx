@@ -334,7 +334,8 @@ const MediaViewerWithRef = React.forwardRef<HTMLDivElement, Props & WrappedCompo
 
 const MediaViewerWithScrollLock = (props: Props & WrappedComponentProps) => {
 	return (
-		<FocusLock autoFocus>
+		// Return focus to the element that opened the viewer (e.g. an attachment) when it closes.
+		<FocusLock autoFocus returnFocus={fg('platform_media_a11y_viewer_return_focus')}>
 			<ScrollLock />
 			<MediaViewerWithRef {...props} />
 		</FocusLock>

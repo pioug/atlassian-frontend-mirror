@@ -15,7 +15,6 @@ import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type {
 	ColorScheme,
@@ -425,10 +424,6 @@ export const createPlugin = (
 				// Bypass ProseMirror's copy handler without preventing native browser copy
 				// when the selection is completely contained within an inverted diff widget
 				copy: (view) => {
-					if (!fg('platform_editor_ai_show_diff_patch_2')) {
-						return false;
-					}
-
 					const pluginState = showDiffPluginKey.getState(view.state);
 					if (!pluginState?.isDisplayingChanges || !pluginState.isInverted) {
 						return false;

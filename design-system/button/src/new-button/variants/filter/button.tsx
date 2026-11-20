@@ -17,7 +17,12 @@ import ButtonBase from '../shared/button-base';
 import Content from '../shared/content';
 import IconRenderer from '../shared/icon-renderer';
 
-export type FilterButtonProps = Omit<ButtonProps, 'appearance' | 'iconAfter'> & {
+export type FilterButtonProps = Omit<ButtonProps, 'appearance' | 'iconAfter' | 'children'> & {
+	/**
+	 * The visible button label. Omit for icon-only controls and provide an
+	 * accessible name using `aria-label` or `aria-labelledby` instead.
+	 */
+	children?: React.ReactNode;
 	/**
 	 * Whether to show a trailing chevron down icon.
 	 * @default true
@@ -73,6 +78,12 @@ const metricSurfaceStyles = unboundedCssMap<
 });
 
 const styles = cssMap({
+	iconOnly: {
+		alignItems: 'center',
+	},
+	iconOnlyContent: {
+		display: 'flex',
+	},
 	content: {
 		display: 'inline-flex',
 		alignItems: 'center',
@@ -80,16 +91,28 @@ const styles = cssMap({
 		maxWidth: '100%',
 		verticalAlign: 'bottom',
 	},
-	label: {
-		overflow: 'hidden',
-		textOverflow: 'ellipsis',
-		whiteSpace: 'nowrap',
-	},
 });
 
 const semanticStyles = cssMap({
 	content: {
 		columnGap: token('space.gap.medium'),
+	},
+});
+
+// Bounded margin values accept tokens only. These calculations preserve the minimum
+// label/count gap after ButtonBase adds its own slot gap.
+const metricSpacingStyles = unboundedCssMap({
+	withIcons: {
+		marginInlineStart: `calc(${token('space.100')} - ${token('space.075')})`,
+	},
+	withoutIcons: {
+		marginInlineStart: `calc(${token('space.100')} - ${token('space.050')})`,
+	},
+	semanticWithIcons: {
+		marginInlineStart: `calc(${token('space.gap.medium')} - ${token('space.gap.small')})`,
+	},
+	semanticWithoutIcons: {
+		marginInlineStart: `calc(${token('space.gap.medium')} - ${token('space.gap.xsmall')})`,
 	},
 });
 
@@ -154,6 +177,30 @@ const FilterButton: React.MemoExoticComponent<
 		const finesseEnabled = fg('platform-dst-tokens-finesse');
 		const isInteractive = !isDisabled && !isLoading;
 		const isInformationMetric = !finesseEnabled && isSelected;
+		const hasLabel = React.Children.toArray(children).some((child) => child !== '');
+		const hasIcons = Boolean(iconBefore) || hasChevronDown;
+		const semanticSpacingEnabled = fg('platform-semantic-spacing');
+		const metric =
+			trailingMetric !== undefined ? (
+				<span
+					css={[
+						metricStyles.root,
+						semanticSpacingEnabled && semanticMetricStyles.root,
+						hasLabel && hasIcons && metricSpacingStyles.withIcons,
+						hasLabel && !hasIcons && metricSpacingStyles.withoutIcons,
+						hasLabel && semanticSpacingEnabled && hasIcons && metricSpacingStyles.semanticWithIcons,
+						hasLabel &&
+							semanticSpacingEnabled &&
+							!hasIcons &&
+							metricSpacingStyles.semanticWithoutIcons,
+					]}
+					data-testid={rest.testId && `${rest.testId}--metric`}
+				>
+					<Text size="small" align="center" color="inherit">
+						{trailingMetric}
+					</Text>
+				</span>
+			) : null;
 
 		return (
 			<ButtonBase
@@ -170,6 +217,7 @@ const FilterButton: React.MemoExoticComponent<
 				type={type}
 				componentName="FilterButton"
 				rootXcss={cx(
+					!hasLabel && styles.iconOnly,
 					isInformationMetric && isInteractive && metricSurfaceStyles.information,
 					!isInformationMetric && isInteractive && metricSurfaceStyles.neutral,
 					!isInformationMetric && isInteractive && metricSurfaceStyles.interactive,
@@ -182,24 +230,25 @@ const FilterButton: React.MemoExoticComponent<
 						<IconRenderer icon={iconBefore} />
 					</Content>
 				)}
-				<Content isLoading={isLoading}>
-					<span css={[styles.content, fg('platform-semantic-spacing') && semanticStyles.content]}>
-						<span css={styles.label}>{children}</span>
-						{trailingMetric !== undefined && (
-							<span
-								css={[
-									metricStyles.root,
-									fg('platform-semantic-spacing') && semanticMetricStyles.root,
-								]}
-								data-testid={rest.testId && `${rest.testId}--metric`}
-							>
-								<Text size="small" align="center" color="inherit">
-									{trailingMetric}
-								</Text>
-							</span>
-						)}
-					</span>
-				</Content>
+				{hasLabel && <Content isLoading={isLoading}>{children}</Content>}
+				{hasLabel && metric && (
+					<Content type="icon" position="after" isLoading={isLoading}>
+						{metric}
+					</Content>
+				)}
+				{!hasLabel && metric && (
+					<Content isLoading={isLoading}>
+						<span
+							css={[
+								styles.content,
+								semanticSpacingEnabled && semanticStyles.content,
+								styles.iconOnlyContent,
+							]}
+						>
+							{metric}
+						</span>
+					</Content>
+				)}
 				{hasChevronDown && (
 					<Content type="icon" position="after" isLoading={isLoading}>
 						<IconRenderer icon={ChevronDownIcon} />

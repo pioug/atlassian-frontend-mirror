@@ -2,10 +2,9 @@ import type { Change } from 'prosemirror-changeset';
 import type { IntlShape } from 'react-intl';
 
 import type { PortalProviderAPI } from '@atlaskit/editor-common/common';
-import type { Node as PMNode, ResolvedPos, Slice } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { createDiffBoundaryWidget } from '../../ui/DiffAccessibility/createDiffBoundaryWidget';
@@ -75,108 +74,6 @@ const getSourcePos = (
 		return null;
 	}
 	return safeResolve(doc, $changeFrom.posAtIndex(childIndex, depth));
-};
-
-const isHeadingLevel = (level: unknown): level is 1 | 2 | 3 | 4 | 5 | 6 =>
-	typeof level === 'number' && level >= 1 && level <= 6;
-
-/**
- * Render one content widget per table cell, positioned inside the matching cell in
- * `newDoc`, so a whole-cell replacement shows its added content in-place instead of
- * being dropped (EDITOR-8442).
- */
-const createTableCellContentWidgets = ({
-	slice,
-	newDoc,
-	change,
-	nodeViewSerializer,
-	colorScheme,
-	isInserted,
-	leftAnchorId,
-}: {
-	change: Pick<Change, 'fromB' | 'toB'>;
-	colorScheme?: ColorScheme;
-	isInserted: boolean;
-	leftAnchorId?: string;
-	newDoc: PMNode;
-	nodeViewSerializer: NodeViewSerializer;
-	slice: Slice;
-}): Decoration[] => {
-	// Collect the inner content position of each cell in the new document within
-	// the change range. Whole-cell replacement preserves cell count/order, so the
-	// nth new-doc cell corresponds to the nth cell in the slice.
-	const newCellInnerPositions: number[] = [];
-	newDoc.nodesBetween(change.fromB, change.toB, (node, pos) => {
-		if (node.type.name === 'tableHeader' || node.type.name === 'tableCell') {
-			// Skip malformed cells with no block child: `pos + 2` would be out of bounds.
-			if (node.childCount === 0) {
-				return false;
-			}
-			// +1 into the cell, +1 into its first child (the paragraph) = inner content.
-			newCellInnerPositions.push(pos + 2);
-			return false;
-		}
-		return true;
-	});
-
-	const decorations: Decoration[] = [];
-	slice.content.forEach((cellNode, _offset, index) => {
-		const targetPos = newCellInnerPositions[index];
-		if (targetPos === undefined || cellNode.content.size === 0) {
-			return;
-		}
-
-		const dom = document.createElement('span');
-		// A cell contains block content (paragraphs); serialize the cell's content
-		// so every block inside the cell is rendered.
-		cellNode.content.forEach((blockNode) => {
-			const nodeView = nodeViewSerializer.tryCreateNodeView(
-				blockNode,
-				0,
-				undefined,
-				isInserted,
-				colorScheme,
-			);
-			const wrapper = createContentWrapper(colorScheme, false, isInserted);
-			if (nodeView) {
-				wrapper.append(nodeView);
-			} else {
-				const serialized = blockNode.type.inlineContent
-					? nodeViewSerializer.serializeFragment(blockNode.content)
-					: nodeViewSerializer.serializeNode(blockNode);
-				if (serialized) {
-					wrapper.append(serialized);
-				}
-			}
-			dom.append(wrapper);
-		});
-
-		if (dom.childNodes.length === 0) {
-			return;
-		}
-
-		// This helper only runs for added content, so use the "changed" testid — not
-		// "deleted", which page models match as removed content.
-		dom.setAttribute('data-testid', 'show-diff-changed-decoration');
-		dom.style.setProperty('scroll-margin-top', scrollMarginTopValue);
-
-		// Skip findSafeInsertPos: it walks forward to a schema-valid cell-insert point
-		// and pushes the widget into the next cell. `targetPos` is the correct spot.
-		decorations.push(
-			Decoration.widget(targetPos, dom, {
-				...buildDiffDecorationSpec({
-					colorScheme,
-					decorationType: 'widget',
-					diffId: crypto.randomUUID(),
-					leftAnchorId,
-					isInserted,
-					side: -1,
-				}),
-			}),
-		);
-	});
-
-	return decorations;
 };
 
 /**
@@ -273,13 +170,9 @@ export const createNodeChangedDecorationWidget = ({
 	// paragraph or heading — both are a line the author put there deliberately, and neither leaves
 	// the widget any content to serialize.
 	//
-	// Kept separate from `shouldSkipDeletedEmptyParagraphDecoration` and gated, so the ungated early
-	// return below still covers only the single-empty-paragraph case it always did. Everything else
-	// degrades to what it rendered before the gate: an empty block, serialized invisibly.
-	const deletedBlankLineCount =
-		!isInserted && fg('platform_editor_ai_show_diff_patch_2')
-			? countEmptyTextBlockOnlySlice(slice)
-			: 0;
+	// Kept separate from `shouldSkipDeletedEmptyParagraphDecoration`, so the early return below still
+	// covers only the single-empty-paragraph case.
+	const deletedBlankLineCount = !isInserted ? countEmptyTextBlockOnlySlice(slice) : 0;
 	// Widget decoration used for deletions as the content is not in the document
 	// and we want to display the deleted content with a style.
 	// For `placeBelow`, anchor at the END of the new content (change.toB) so the deleted
@@ -323,28 +216,17 @@ export const createNodeChangedDecorationWidget = ({
 	const tableDiffMode = getTableDiffMode({ slice, isInserted });
 
 	if (tableDiffMode.kind === 'cells') {
-		if (fg('platform_editor_ai_show_diff_patch_2')) {
-			return createReplacedCellWidgets({
-				slice,
-				newDoc,
-				change,
-				nodeViewSerializer,
-				colorScheme,
-				intl,
-				isActive,
-				isInserted,
-				leftAnchorId,
-				showIndicators,
-			});
-		}
-		return createTableCellContentWidgets({
+		return createReplacedCellWidgets({
 			slice,
 			newDoc,
 			change,
 			nodeViewSerializer,
 			colorScheme,
+			intl,
+			isActive,
 			isInserted,
 			leftAnchorId,
+			showIndicators,
 		});
 	}
 	if (tableDiffMode.kind === 'none') {
@@ -441,15 +323,10 @@ export const createNodeChangedDecorationWidget = ({
 	// reported as open. Resolving the change's own ends separates the two, so a block whose text
 	// survived intact can render as a block even though its boundary was open.
 	//
-	// Both resolves sit behind the gate that consumes them, so this adds no position arithmetic to
-	// the ungated path, and an unresolvable position degrades to the `openStart`/`openEnd` test on
-	// its own — the block is then treated as partial, which is what it rendered as before the gate.
-	const $changeFromA = fg('platform_editor_ai_show_diff_patch_2')
-		? safeResolve(doc, change.fromA)
-		: null;
-	const $changeToA = fg('platform_editor_ai_show_diff_patch_2')
-		? safeResolve(doc, change.toA)
-		: null;
+	// An unresolvable position degrades to the `openStart`/`openEnd` test on its own — the block is
+	// then treated as partial.
+	const $changeFromA = safeResolve(doc, change.fromA);
+	const $changeToA = safeResolve(doc, change.toA);
 	const isFirstNodeContentComplete = slice.openStart === 0 || $changeFromA?.parentOffset === 0;
 	const isLastNodeContentComplete =
 		slice.openEnd === 0 ||
@@ -482,7 +359,6 @@ export const createNodeChangedDecorationWidget = ({
 		// element that carries the block's margin, so the deleted block renders flush against its
 		// neighbours. Only the first and last children can be partial; middle ones are always complete.
 		const shouldRenderAsBlockNode =
-			fg('platform_editor_ai_show_diff_patch_2') &&
 			node.isTextblock &&
 			(!isFirst || isFirstNodeContentComplete) &&
 			(!isLast || isLastNodeContentComplete);
@@ -556,9 +432,7 @@ export const createNodeChangedDecorationWidget = ({
 		}
 
 		// Try to create node view, fallback to serialization
-		const $sourcePos = fg('platform_editor_ai_show_diff_patch_2')
-			? getSourcePos(doc, $changeFromA, slice.openStart, index)
-			: null;
+		const $sourcePos = getSourcePos(doc, $changeFromA, slice.openStart, index);
 		const nodeView = serializer.tryCreateNodeView(
 			node,
 			0,
@@ -584,9 +458,7 @@ export const createNodeChangedDecorationWidget = ({
 
 			if (node.isInline) {
 				const attrOnlyNodeName =
-					isInserted &&
-					fg('platform_editor_ai_show_diff_patch_2') &&
-					isExperimentEnabled('platform_editor_show_diff_deleted_nodeview_content')
+					isInserted && isExperimentEnabled('platform_editor_show_diff_deleted_nodeview_content')
 						? getAtomicInlineAttrOnlyNodeName(change, doc, newDoc)
 						: undefined;
 				if (attrOnlyNodeName) {
@@ -691,7 +563,7 @@ export const createNodeChangedDecorationWidget = ({
 	// first thing in the document, column, cell or panel, and a leading gap above it would be wrong.
 	// The margin that matters at that position belongs to the node *below* the widget, which the
 	// shaped spacer pair supplies instead.
-	if (fg('platform_editor_ai_show_diff_patch_2') && !isVisuallyFirstInParent) {
+	if (!isVisuallyFirstInParent) {
 		absorbFirstChildMarginReset({ dom, testId: 'show-diff-widget-margin-absorber' });
 	}
 
@@ -776,11 +648,9 @@ export const createNodeChangedDecorationWidget = ({
 			from: safeInsertPos,
 			diffId,
 			leftAnchorId,
-			measureElement: fg('platform_editor_ai_show_diff_patch_2') ? dom : undefined,
-			sliceOverride: fg('platform_editor_ai_show_diff_patch_2') ? slice : undefined,
-			underlyingRange: fg('platform_editor_ai_show_diff_patch_2')
-				? { from: change.fromB, to: change.toB }
-				: undefined,
+			measureElement: dom,
+			sliceOverride: slice,
+			underlyingRange: { from: change.fromB, to: change.toB },
 		});
 
 		if (leftAnchor) {
@@ -843,13 +713,6 @@ export const createNodeChangedDecorationWidget = ({
 		}),
 	);
 
-	// The first document node keeps its margin-top reset even when an inverted diff renders a visible
-	// block before it. Add an empty widget matching the following heading so the editor's own heading
-	// styles supply the appropriate spacing. For other node types, retain the existing generic spacer.
-	const isPureDeletion = change.fromB === change.toB;
-	const isSingleBlock = slice.content.childCount === 1 && slice.content.firstChild?.isBlock;
-	const isDiffWidgetAtStartOfDoc = $safeInsertPos.depth === 0 && $safeInsertPos.index(0) === 0;
-
 	// A node at the start of its parent has its top margin reset, so a diff widget rendered above
 	// it sits flush against it. This applies wherever that parent is — the document, a layout
 	// column, a table cell — so it is decided from the anchor rather than from the document root
@@ -859,7 +722,7 @@ export const createNodeChangedDecorationWidget = ({
 	// the widget that loses one — handled by `absorbFirstChildMarginReset` above, not here.
 	const nodeAfterWidget = $safeInsertPos.nodeAfter;
 
-	if (fg('platform_editor_ai_show_diff_patch_2') && isVisuallyFirstInParent && nodeAfterWidget) {
+	if (isVisuallyFirstInParent && nodeAfterWidget) {
 		const shapedSpacer = createNodeShapedMarginSpacer({
 			node: nodeAfterWidget,
 			serializer,
@@ -882,52 +745,6 @@ export const createNodeChangedDecorationWidget = ({
 				),
 			);
 			decorations.push(Decoration.widget(safeInsertPos, shapedSpacer, { side: 1 }));
-		}
-	}
-
-	if (
-		!fg('platform_editor_ai_show_diff_patch_2') &&
-		isDiffWidgetAtStartOfDoc &&
-		isSingleBlock &&
-		isPureDeletion
-	) {
-		const followingNode = $safeInsertPos.nodeAfter;
-		const headingLevel =
-			followingNode?.type.name === 'heading' ? followingNode.attrs.level : undefined;
-
-		if (isHeadingLevel(headingLevel)) {
-			const nodeLikeSpacer = dom.ownerDocument.createElement(`h${headingLevel}`);
-			nodeLikeSpacer.dataset.testid = 'show-diff-node-like-margin-spacer';
-			nodeLikeSpacer.setAttribute('aria-hidden', 'true');
-			nodeLikeSpacer.contentEditable = 'false';
-
-			decorations.push(
-				Decoration.widget(safeInsertPos, nodeLikeSpacer, {
-					side: 0,
-				}),
-			);
-		} else if (followingNode) {
-			const defaultSpacer = dom.ownerDocument.createElement('span');
-			defaultSpacer.dataset.testid = 'show-diff-default-margin-spacer';
-			defaultSpacer.style.display = 'block';
-			defaultSpacer.style.marginTop = token('space.100');
-			defaultSpacer.style.setProperty('scroll-margin-top', scrollMarginTopValue);
-
-			decorations.push(
-				Decoration.widget(
-					safeInsertPos,
-					defaultSpacer,
-					// Spacing only: a diff spec would make it an untagged navigation stop.
-					showContributorTags
-						? {}
-						: buildDiffDecorationSpec({
-								colorScheme,
-								decorationType: 'widget',
-								diffId: crypto.randomUUID(),
-								isInserted,
-							}),
-				),
-			);
 		}
 	}
 

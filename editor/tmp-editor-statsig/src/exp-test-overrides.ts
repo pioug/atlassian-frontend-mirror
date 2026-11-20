@@ -44,8 +44,6 @@ export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	platform_renderer_table_sticky_scrollbar: false,
 	advanced_layouts: false,
 	single_column_layouts: false,
-	platform_editor_ai_unsplash_page_header: false,
-	platform_editor_ai_edit_response_in_preview: false,
 	platform_editor_paste_actions_menu: false,
 	platform_editor_table_fit_to_content_on_demand: false,
 	platform_editor_table_q4_loveability: false,
@@ -53,11 +51,6 @@ export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
 	'cwr-reduce-prompt-suggestion-max-chars': false,
 	'cwr-staging-area-close-as-minimize-button': false,
 	prompt_tile_content_type_localizaiton: false,
-	// [CCI-15904] New AIFC Editor Experience — read by the inline chat prompt view
-	// in `conversation-assistant-chat-prompt-input`. Review moment eligibility is a
-	// separate check (`editor-plugin-ai/src/ui/utils/review-moment-enabled.ts`) and
-	// does not read this key.
-	platform_editor_ai_new_aifc_editor_experience: false,
 	cc_page_experiences_editor_image_generation: false,
 	platform_use_unicode_emojis: false,
 	platform_editor_emoji_hover_show_tooltip: false,

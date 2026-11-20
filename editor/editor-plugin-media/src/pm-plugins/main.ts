@@ -2,6 +2,8 @@ import assert from 'assert';
 
 import React from 'react';
 
+import type { UnbindFn } from 'bind-event-listener';
+import { bind } from 'bind-event-listener';
 import type { IntlShape } from 'react-intl';
 import { RawIntlProvider } from 'react-intl';
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
@@ -33,7 +35,7 @@ import type { MediaProvider } from '@atlaskit/editor-common/provider-factory/med
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorContainerWidth as WidthPluginState } from '@atlaskit/editor-common/types/editor-container-width';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
-import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode, Schema, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import {
 	AllSelection,
@@ -93,11 +95,15 @@ import type { PlaceholderType } from '../ui/Media/DropPlaceholder';
 import DropPlaceholder from '../ui/Media/DropPlaceholder';
 import { MediaDropIndicator } from '../ui/Media/MediaDropIndicator';
 import { ACTIONS } from './actions';
+import { setMediaDragPreview } from './media-drag-preview';
 import { isMediaDropPositionEnabled } from './media-drop-position-experiment';
 import type { MediaDropReplacement } from './media-drop-target';
 import {
+	findDraggedMediaSinglePos,
+	findInternalDragDropPosition,
 	findMediaDropPosition,
 	findMediaDropReplacement,
+	getDraggedMediaSingle,
 	MediaDropTargets,
 	mediaDropSelection,
 } from './media-drop-target';
@@ -112,6 +118,23 @@ export const MEDIA_CONTENT_WRAP_CLASS_NAME = 'media-content-wrap';
 export const MEDIA_PLUGIN_IS_RESIZING_KEY = 'mediaSinglePlugin.isResizing';
 export const MEDIA_PLUGIN_RESIZING_WIDTH_KEY = 'mediaSinglePlugin.resizing-width';
 
+const createPointerDropIndicator = (
+	nodeViewPortalProviderAPI: PortalProviderAPI,
+	dropPlaceholderKey: string,
+	inline: boolean,
+) => {
+	// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
+	const dropPlaceholder = document.createElement('span');
+	dropPlaceholder.dataset.mediaDropPlaceholder = 'true';
+	dropPlaceholder.style.display = 'contents';
+	nodeViewPortalProviderAPI.render(
+		() => React.createElement(MediaDropIndicator, { inline }),
+		dropPlaceholder,
+		dropPlaceholderKey,
+	);
+	return dropPlaceholder;
+};
+
 const createDropPlaceholder = (
 	intl: IntlShape,
 	nodeViewPortalProviderAPI: PortalProviderAPI,
@@ -119,21 +142,16 @@ const createDropPlaceholder = (
 	allowDropLine?: boolean,
 	inline?: boolean,
 ) => {
-	const usePointerIndicator = isMediaDropPositionEnabled();
-	// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
-	const dropPlaceholder = document.createElement(usePointerIndicator ? 'span' : 'div');
-	const createElement = React.createElement;
-
-	if (usePointerIndicator) {
-		dropPlaceholder.dataset.mediaDropPlaceholder = 'true';
-		dropPlaceholder.style.display = 'contents';
-		nodeViewPortalProviderAPI.render(
-			() => createElement(MediaDropIndicator, { inline: inline ?? false }),
-			dropPlaceholder,
+	if (isMediaDropPositionEnabled()) {
+		return createPointerDropIndicator(
+			nodeViewPortalProviderAPI,
 			dropPlaceholderKey,
+			inline ?? false,
 		);
-		return dropPlaceholder;
 	}
+	// eslint-disable-next-line @atlaskit/platform/no-direct-document-usage
+	const dropPlaceholder = document.createElement('div');
+	const createElement = React.createElement;
 
 	if (allowDropLine) {
 		nodeViewPortalProviderAPI.render(
@@ -159,6 +177,26 @@ const createDropPlaceholder = (
 	return dropPlaceholder;
 };
 
+/** Shows the shared media drop indicator where an in-editor image drag will land. */
+const createInternalDragIndicator = (pos: number, nodeViewPortalProviderAPI: PortalProviderAPI) => {
+	let portalKey: string | undefined;
+	return Decoration.widget(
+		pos,
+		() => {
+			portalKey = crypto.randomUUID();
+			return createPointerDropIndicator(nodeViewPortalProviderAPI, portalKey, false);
+		},
+		{
+			key: 'media-internal-drag-indicator',
+			destroy: () => {
+				if (portalKey) {
+					nodeViewPortalProviderAPI.remove(portalKey);
+				}
+			},
+		},
+	);
+};
+
 const MEDIA_RESOLVED_STATES = ['ready', 'error', 'cancelled'];
 export class MediaPluginStateImplementation implements MediaPluginState {
 	shouldAnimateInsertedContent?: boolean;
@@ -170,6 +208,11 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 	waitForMediaUpload: boolean = true;
 	allUploadsFinished: boolean = true;
 	showDropzone: boolean = false;
+	/** Where an in-editor media drag will drop; set only while one is over the editor. */
+	internalDragHover?: number;
+	/** Where the mediaSingle being dragged inside the editor started, mapped while the drag lasts. */
+	internalDragSource?: number;
+	private unbindInternalDragLeave?: UnbindFn;
 	private mediaDropTargets?: MediaDropTargets;
 	isFullscreen: boolean = false;
 	element?: HTMLElement;
@@ -1091,6 +1134,8 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 
 		this.destroyed = true;
 		this.mediaDropTargets?.clear();
+		this.unbindInternalDragLeave?.();
+		this.unbindInternalDragLeave = undefined;
 
 		const { mediaNodes } = this;
 		mediaNodes.splice(0, mediaNodes.length);
@@ -1292,6 +1337,126 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 		return dropTargets.start(traceContext.traceId, target.pos, target.replacement);
 	};
 
+	updateInternalDragHover = (event: DragEvent): void => {
+		const dragging = this.view.dragging;
+		const pos =
+			this.view.editable && dragging && getDraggedMediaSingle(dragging.slice)
+				? findInternalDragDropPosition(this.view, event, dragging.slice)
+				: undefined;
+		this.setInternalDragHover(pos);
+	};
+
+	clearInternalDragHover = (): void => {
+		this.setInternalDragHover(undefined);
+	};
+
+	/** Forgets the dragged media once the drag is over; leaving the editor mid-drag is not the end. */
+	endInternalDrag = (): void => {
+		this.internalDragSource = undefined;
+		this.setInternalDragHover(undefined);
+	};
+
+	/**
+	 * Selects the mediaSingle under the pointer so ProseMirror drags the whole image even when it
+	 * was not selected first, and remembers where it started. A larger selection that already holds
+	 * the image is left for ProseMirror to drag as a whole. Returns the image DOM for the preview.
+	 */
+	startInternalMediaDrag = (event: DragEvent): Node | undefined => {
+		this.internalDragSource = undefined;
+		const pos = findDraggedMediaSinglePos(this.view, event.target);
+		const { state } = this.view;
+		const node = pos === undefined ? null : state.doc.nodeAt(pos);
+		if (pos === undefined || !node) {
+			return;
+		}
+		const { selection } = state;
+		const isSelected = selection instanceof NodeSelection && selection.from === pos;
+		const isInLargerSelection =
+			!isSelected && selection.from <= pos && selection.to >= pos + node.nodeSize;
+		if (isInLargerSelection) {
+			return;
+		}
+		this.internalDragSource = pos;
+		if (!isSelected) {
+			this.view.dispatch(state.tr.setSelection(NodeSelection.create(state.doc, pos)));
+		}
+		return this.view.nodeDOM(pos) ?? undefined;
+	};
+
+	/**
+	 * Moves the dragged mediaSingle to the indicated drop point. ProseMirror's own move deletes
+	 * whatever is selected at drop time, which leaves the original behind if the selection changed
+	 * during the drag. Copies, and drags of anything but the tracked image, are left to ProseMirror.
+	 * Inserts `slice`, the drag content after the editor's `transformPasted` handlers, as
+	 * ProseMirror's own drop does.
+	 */
+	dropInternalMediaDrag = (event: DragEvent, slice: Slice, moved: boolean): boolean => {
+		const source = this.internalDragSource;
+		this.internalDragSource = undefined;
+		const node = source === undefined ? null : this.view.state.doc.nodeAt(source);
+		const dragged = this.view.dragging && getDraggedMediaSingle(this.view.dragging.slice);
+		const isDraggingSource = Boolean(node && dragged?.eq(node));
+		if (!moved || source === undefined || !node || !isDraggingSource) {
+			return false;
+		}
+		const target = findInternalDragDropPosition(this.view, event, slice);
+		if (target === undefined) {
+			return false;
+		}
+
+		const sourceEnd = source + node.nodeSize;
+		if (target >= source && target <= sourceEnd) {
+			return true;
+		}
+		const tr = this.view.state.tr.delete(source, sourceEnd);
+		const insertPos = tr.mapping.map(target);
+		const droppedNode = getDraggedMediaSingle(slice);
+		if (droppedNode) {
+			tr.insert(insertPos, droppedNode);
+			tr.setSelection(NodeSelection.create(tr.doc, insertPos));
+		} else {
+			tr.replaceRange(insertPos, insertPos, slice);
+		}
+		this.view.dispatch(tr.setMeta('uiEvent', 'drop'));
+		this.view.focus();
+		return true;
+	};
+
+	/**
+	 * Hides the indicator once the pointer leaves the editor. Chrome reports a null relatedTarget
+	 * when crossing child elements, so the editor's bounds decide.
+	 */
+	private handleInternalDragLeave = (event: DragEvent): void => {
+		const bounds = this.view.dom.getBoundingClientRect();
+		const leftEditor =
+			event.clientX < bounds.left ||
+			event.clientX >= bounds.right ||
+			event.clientY < bounds.top ||
+			event.clientY >= bounds.bottom;
+		if (leftEditor) {
+			this.clearInternalDragHover();
+		}
+	};
+
+	private setInternalDragHover(pos: number | undefined): void {
+		if (pos === this.internalDragHover || this.destroyed) {
+			return;
+		}
+		// Listen for leaving only while the indicator shows, so idle editors gain no listener.
+		if (pos === undefined) {
+			this.unbindInternalDragLeave?.();
+			this.unbindInternalDragLeave = undefined;
+		} else if (!this.unbindInternalDragLeave) {
+			// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop -- ProseMirror's own native drag, not a Pragmatic drag and drop source
+			this.unbindInternalDragLeave = bind(this.view.dom, {
+				type: 'dragleave',
+				listener: this.handleInternalDragLeave,
+			});
+		}
+		this.internalDragHover = pos;
+		this.view.dispatch(this.view.state.tr);
+	}
+
 	handleDrag = (dragState: 'enter' | 'leave'): void => {
 		const dropTargets = this.dropTargets;
 		if (dropTargets) {
@@ -1371,6 +1536,13 @@ export const createPlugin = (
 			},
 			apply(tr, pluginState: MediaPluginState) {
 				pluginState.dropTargets?.map(tr.mapping);
+				if (pluginState.internalDragHover !== undefined) {
+					pluginState.internalDragHover = tr.mapping.map(pluginState.internalDragHover);
+				}
+				if (pluginState.internalDragSource !== undefined) {
+					const mappedSource = tr.mapping.mapResult(pluginState.internalDragSource, 1);
+					pluginState.internalDragSource = mappedSource.deleted ? undefined : mappedSource.pos;
+				}
 				const isResizing = tr.getMeta(MEDIA_PLUGIN_IS_RESIZING_KEY);
 				const resizingWidth = tr.getMeta(MEDIA_PLUGIN_RESIZING_WIDTH_KEY);
 				const mediaProvider = tr.getMeta(stateKey)?.mediaProvider;
@@ -1533,6 +1705,12 @@ export const createPlugin = (
 				}
 
 				const pluginState = getMediaPluginState(state);
+				if (pluginState.internalDragHover !== undefined) {
+					return DecorationSet.create(state.doc, [
+						createInternalDragIndicator(pluginState.internalDragHover, nodeViewPortalProviderAPI),
+						...mediaNodes,
+					]);
+				}
 				if (!pluginState.showDropzone) {
 					return DecorationSet.create(state.doc, mediaNodes);
 				}
@@ -1721,7 +1899,40 @@ export const createPlugin = (
 
 				return false;
 			},
+			handleDrop: (view, event, slice, moved) => {
+				if (!isExperimentEnabled('platform_editor_media_internal_drag_move_exp')) {
+					return false;
+				}
+				return getMediaPluginState(view.state).dropInternalMediaDrag(event, slice, moved);
+			},
 			handleDOMEvents: {
+				dragstart: (view, event: DragEvent) => {
+					if (isExperimentEnabled('platform_editor_media_internal_drag_move_exp')) {
+						const mediaElement = getMediaPluginState(view.state).startInternalMediaDrag(event);
+						if (mediaElement instanceof Element) {
+							setMediaDragPreview(event, mediaElement);
+						}
+					}
+					return false;
+				},
+				dragover: (view, event: DragEvent) => {
+					if (isExperimentEnabled('platform_editor_media_internal_drag_move_exp')) {
+						getMediaPluginState(view.state).updateInternalDragHover(event);
+					}
+					return false;
+				},
+				drop: (view, event: DragEvent) => {
+					if (isExperimentEnabled('platform_editor_media_internal_drag_move_exp')) {
+						getMediaPluginState(view.state).clearInternalDragHover();
+					}
+					return false;
+				},
+				dragend: (view) => {
+					if (isExperimentEnabled('platform_editor_media_internal_drag_move_exp')) {
+						getMediaPluginState(view.state).endInternalDrag();
+					}
+					return false;
+				},
 				keydown: (view, event: KeyboardEvent) => {
 					const { selection } = view.state;
 					if (selection instanceof NodeSelection && selection.node.type.name === 'mediaSingle') {

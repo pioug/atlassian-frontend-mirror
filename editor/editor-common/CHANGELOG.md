@@ -1,5 +1,41 @@
 # @atlaskit/editor-common
 
+## 137.6.0
+
+### Minor Changes
+
+- [`b7b9e9bfa653f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b7b9e9bfa653f) -
+  Correlate suggested-edits reviews from every entry point with a reviewSessionId, keeping source on
+  the initial click and retaining the ID across retries. Enable session tracking and duplicate-start
+  protection behind the treatment variants of platform_editor_rovo_chat_review_cta.
+
+### Patch Changes
+
+- [`499573c4f48b2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/499573c4f48b2) -
+  Remove the inappropriate current state from editor insertion actions behind
+  a11y_remediation_pipeline_2.
+- Updated dependencies
+
+## 137.5.2
+
+### Patch Changes
+
+- [`721ebae8b9b14`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/721ebae8b9b14) -
+  Add platform_editor_ai_xstate_migration_other to the shared Editor AI migration checks for
+  remaining products.
+- [`3a4337d2e4a60`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a4337d2e4a60) -
+  Clean up feature gate `platform_editor_ai_show_diff_patch_2`; the show-diff improvements are now
+  always on.
+- Updated dependencies
+
+## 137.5.1
+
+### Patch Changes
+
+- [`144ab5d6b3422`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/144ab5d6b3422) -
+  Keep slash-command previews beside their results under the platform_editor_slash_command
+  experiment, including in side panels.
+
 ## 137.5.0
 
 ### Minor Changes

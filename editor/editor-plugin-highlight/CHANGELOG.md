@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-highlight
 
+## 33.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 33.0.3
+
+### Patch Changes
+
+- [`57b87d7015f92`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/57b87d7015f92) -
+  Clean up experiment platform_editor_lovability_color_schema_change: the backgroundColor mark no
+  longer excludes the text color mark.
+- Updated dependencies
+
 ## 33.0.2
 
 ### Patch Changes

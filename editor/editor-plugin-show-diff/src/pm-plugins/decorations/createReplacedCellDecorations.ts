@@ -10,7 +10,6 @@ import { convertToInlineCss } from '@atlaskit/editor-common/css-helper';
 import { areNodesEqualIgnoreAttrs } from '@atlaskit/editor-common/utils/document';
 import type { Node as PMNode, Slice } from '@atlaskit/editor-prosemirror/model';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import type { NodeViewSerializer } from '../NodeViewSerializer';
@@ -80,8 +79,7 @@ export const getReplacedCells = ({
 	const otherCells = slice.content.content;
 	if (
 		slice.openStart !== 0 ||
-		((!fg('platform_editor_ai_show_diff_patch_2_fix') || !isAtEndOfCell(doc, toB)) &&
-			slice.openEnd !== 0) ||
+		(!isAtEndOfCell(doc, toB) && slice.openEnd !== 0) ||
 		otherCells.length === 0 ||
 		!otherCells.every((node) => CELL_TYPE_NAMES.includes(node.type.name))
 	) {
@@ -246,12 +244,10 @@ const createCellContentWidgets = ({
 		'data-testid',
 		isInserted ? 'show-diff-changed-decoration' : 'show-diff-deleted-decoration',
 	);
-	if (fg('platform_editor_ai_show_diff_patch_2_fix')) {
-		dom.style.setProperty('scroll-margin-top', scrollMarginTopValue);
-	}
+	dom.style.setProperty('scroll-margin-top', scrollMarginTopValue);
 
 	const diffId = crypto.randomUUID();
-	if (showIndicators && fg('platform_editor_ai_show_diff_patch_2_fix')) {
+	if (showIndicators) {
 		// The indicator bar of a widget anchors its top and bottom to the widget itself. Without this
 		// only the live cell's own bar resolves, which starts below the suggested content.
 		dom.style.setProperty('anchor-name', `--${buildAnchorDecorationKey({ diffId })}`);
@@ -274,10 +270,9 @@ const createCellContentWidgets = ({
 
 	// The bar aligns its left edge to this anchor. The live cell's inline decoration makes one too,
 	// but not when the clean view hides it, and the widget is still showing then.
-	const leftAnchor =
-		showIndicators && fg('platform_editor_ai_show_diff_patch_2_fix')
-			? createLeftAnchorWidget({ doc, from: pos, diffId, leftAnchorId })
-			: undefined;
+	const leftAnchor = showIndicators
+		? createLeftAnchorWidget({ doc, from: pos, diffId, leftAnchorId })
+		: undefined;
 	return leftAnchor ? [widget, leftAnchor] : [widget];
 };
 
@@ -436,9 +431,7 @@ export const createReplacedCellDecorations = ({
 
 		// A blank live cell has no content to strike through, so the suggestion takes its place, as
 		// in the clean view, rather than leaving a blank line below it.
-		const hidesLiveCell =
-			shouldHideDeleted ||
-			(!isInserted && isBlankCell(liveCell) && fg('platform_editor_ai_show_diff_patch_2_fix'));
+		const hidesLiveCell = shouldHideDeleted || (!isInserted && isBlankCell(liveCell));
 
 		decorations.push(
 			...createInlineChangedDecoration({

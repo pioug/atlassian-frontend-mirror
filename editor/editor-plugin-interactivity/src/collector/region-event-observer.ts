@@ -2,9 +2,6 @@ import { bindAll, type UnbindFn } from 'bind-event-listener';
 
 import { INTERACTION_EVENT_TYPES } from './interaction-events';
 
-/** Holds one element of a region at a time: a new one replaces the last, `null` leaves none. */
-export type RegionElementSlot = (element: Element | null | undefined) => void;
-
 /** What a region's owner tells the collector the region is made of. */
 export type InteractivityRegion = {
 	/**
@@ -13,11 +10,6 @@ export type InteractivityRegion = {
 	 * listened to once, until each of them is removed.
 	 */
 	addElement: (element: Element) => () => void;
-	/**
-	 * For an element that changes or comes and goes. In React, pass a slot as the `ref`: it removes
-	 * the element by itself.
-	 */
-	createElementSlot: () => RegionElementSlot;
 };
 
 type Registration = {
@@ -43,7 +35,7 @@ export class RegionEventObserver implements InteractivityRegion {
 	/** An event passing through two elements of the region is one interaction with it. */
 	private readonly reported = new WeakSet<Event>();
 
-	// Arrow properties, so an owner can hand `region.addElement` on without the region.
+	// An arrow property, so an owner can hand `region.addElement` on without the region.
 	readonly addElement = (element: Element): (() => void) => {
 		let registration = this.registrations.get(element);
 		if (!registration) {
@@ -64,22 +56,6 @@ export class RegionEventObserver implements InteractivityRegion {
 				registration.unbind();
 				this.registrations.delete(element);
 			}
-		};
-	};
-
-	readonly createElementSlot = (): RegionElementSlot => {
-		let current: Element | undefined;
-		let remove: (() => void) | undefined;
-
-		return (element) => {
-			const next = element ?? undefined;
-			if (next === current) {
-				return;
-			}
-
-			remove?.();
-			current = next;
-			remove = next ? this.addElement(next) : undefined;
 		};
 	};
 

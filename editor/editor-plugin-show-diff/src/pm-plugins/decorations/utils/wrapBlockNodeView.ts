@@ -5,7 +5,6 @@ import { trackChangesMessages } from '@atlaskit/editor-common/messages/track-cha
 import { getBaseNodeTypeName } from '@atlaskit/editor-common/utils/node-type-utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -390,10 +389,10 @@ const applyTextLikeBlockNodeStyles = ({
 		hideAddedDiffsUnderline,
 	);
 
-	// Under patch_2, an inserted inline node view (a date, a status lozenge) is highlighted as a whole
+	// An inserted inline node view (a date, a status lozenge) is highlighted as a whole
 	// rather than the text inside it, so the highlight sits behind the node. Rejecting it skips its
 	// subtree, so this stays a single walk.
-	const highlightInlineNodesWhole = isInserted && fg('platform_editor_ai_show_diff_patch_2');
+	const highlightInlineNodesWhole = isInserted;
 	// `applyInlineLeafNodeStyles` styles the block's direct inline children itself.
 	const handlesDirectInlineChildren = highlightInlineLeafNodes && targetNode.type.inlineContent;
 	const inlineNodesToWrap: HTMLElement[] = [];
@@ -518,7 +517,7 @@ const createBlockNodeContentWrapper = ({
 	// stay at column width, so paint the outline on the node element that spans that width.
 	const breakoutTarget = nodeStyle ? findBreakoutElement(targetNode, nodeView) : null;
 
-	if (fg('platform_editor_ai_show_diff_patch_2') && breakoutTarget) {
+	if (breakoutTarget) {
 		appendStyleToElement(breakoutTarget, nodeStyle ?? '');
 		contentWrapper.setAttribute('style', contentStyle || '');
 	} else {
@@ -663,9 +662,7 @@ const wrapBlockNode = ({
 		// `lozenge` is absolutely positioned, so it lands on the nearest positioned ancestor. For a
 		// breakout node that is the column-width wrapper, leaving the pill short of the node's
 		// right edge — host it on the breakout element, which must establish a containing block.
-		const breakoutHost = fg('platform_editor_ai_show_diff_patch_2')
-			? findBreakoutElement(targetNode, nodeView)
-			: null;
+		const breakoutHost = findBreakoutElement(targetNode, nodeView);
 		if (breakoutHost) {
 			appendStyleToElement(breakoutHost, convertToInlineCss({ position: 'relative' }));
 			breakoutHost.append(lozenge);

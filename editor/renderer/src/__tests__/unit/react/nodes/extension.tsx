@@ -10,6 +10,7 @@ import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions/exten
 import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/extensions';
+import { screen } from '@atlassian/testing-library/screen';
 
 import Extension from '../../../../react/nodes/extension';
 import type { RendererContext } from '../../../../react/types';
@@ -81,6 +82,31 @@ describe('Renderer - React/Nodes/Extension', () => {
 
 		expect(container.querySelector('div')?.textContent).toEqual('This is the default text');
 	});
+
+	it.each(['default', 'react'])(
+		'notifies the host ref for %s content and detaches on unmount',
+		(extensionKey) => {
+			const extensionRef = jest.fn();
+			const macro = (
+				<Extension
+					providers={providerFactory}
+					extensionHandlers={extensionHandlers}
+					rendererContext={rendererContext}
+					extensionType="com.atlassian.fabric"
+					extensionKey={extensionKey}
+					extensionRef={extensionRef}
+				/>
+			);
+			const view = render(macro);
+			const element = screen.getByTestId('extension--wrapper');
+			expect(extensionRef).toHaveBeenLastCalledWith(element);
+			extensionRef.mockClear();
+			view.rerender(macro);
+			expect(extensionRef).not.toHaveBeenCalled();
+			view.unmount();
+			expect(extensionRef).toHaveBeenLastCalledWith(null);
+		},
+	);
 
 	it('should capture and report a11y violations', async () => {
 		const { container } = render(

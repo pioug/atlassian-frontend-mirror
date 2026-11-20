@@ -3,7 +3,7 @@ import type { Layout as MediaSingleLayout } from '@atlaskit/adf-schema/rich-medi
 import type { InsertMediaVia } from '@atlaskit/editor-common/analytics/types/insert-events';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory/media-provider';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Node as PMNode, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { Identifier } from '@atlaskit/media-client/identifier';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
@@ -30,13 +30,16 @@ export interface MediaPluginState {
 	allowInlineImages?: boolean;
 	allowsUploads: boolean;
 	allUploadsFinished: boolean;
+	clearInternalDragHover: () => void;
 	clone: () => MediaPluginState;
 	currentMaxWidth?: number;
 	destroy: () => void;
 	dispatch?: Dispatch;
+	dropInternalMediaDrag: (event: DragEvent, slice: Slice, moved: boolean) => boolean;
 	dropTargets: MediaDropTargets | undefined;
 	editingMediaSinglePos?: number;
 	element?: HTMLElement;
+	endInternalDrag: () => void;
 	findMediaNode: (id: string) => MediaNodeWithPosHandler | null;
 	getMediaOptions: () => MediaPluginOptions;
 	handleDrag: (dragState: 'enter' | 'leave') => void;
@@ -53,6 +56,8 @@ export interface MediaPluginState {
 		pickerType?: string,
 		insertMediaVia?: InsertMediaVia,
 	) => void;
+	internalDragHover?: number;
+	internalDragSource?: number;
 	isFullscreen: boolean;
 	isIdentifierInEditorScope: (identifier: Identifier) => boolean;
 	// Media Viewer State
@@ -87,6 +92,7 @@ export interface MediaPluginState {
 	showMediaPickerForReplace: () => void;
 
 	splitMediaGroup: () => boolean;
+	startInternalMediaDrag: (event: DragEvent) => Node | undefined;
 	subscribeToUploadInProgressState: (fn: (isUploading: boolean) => void) => void;
 	trackOutOfScopeIdentifier: (identifier: Identifier) => void;
 
@@ -103,6 +109,7 @@ export interface MediaPluginState {
 
 	updateElement: () => void;
 
+	updateInternalDragHover: (event: DragEvent) => void;
 	updateMediaSingleNodeAttrs: (id: string, attrs: object) => undefined | boolean;
 
 	uploadMediaClientConfig?: MediaClientConfig;

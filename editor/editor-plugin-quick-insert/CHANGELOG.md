@@ -1,5 +1,12 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 33.1.1
+
+### Patch Changes
+
+- [`0d20100aac424`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d20100aac424) -
+  Hide Element Browser categories with no eligible items under platform_editor_slash_command.
+
 ## 33.1.0
 
 ### Minor Changes

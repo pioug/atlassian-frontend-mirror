@@ -4,7 +4,6 @@ import type {
 	AgentPresenceColor,
 } from '@atlaskit/agent-color/agent-presence-color-types';
 import { convertToInlineCss } from '@atlaskit/editor-common/css-helper';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { getStandardDeletedTextDecorationStyle } from './getStandardDeletedTextDecorationStyle';
@@ -938,20 +937,8 @@ export function buildDeletedInlineContentStyle(
  * 1px to 2px when active and tints with the border accent; 'static' uses the text accent always.
  */
 export function buildDeletedStrikethroughLine(colors: DiffColorScheme, isActive: boolean): string {
-	// Gated because this is a live widget-path render, even though the two branches are built to
-	// return the same string — the shared helper only exists so the lozenge strike cannot drift
-	// from this one.
-	if (fg('platform_editor_ai_show_diff_patch_2')) {
-		return deletedStrikeLine(buildDeletedStrikeLineBorder(colors, isActive));
-	}
-
-	if (colors.deletedNodeEmphasis !== 'stateful') {
-		return buildDeletedInlineStyleUnbounded(colors);
-	}
-
-	return isActive
-		? buildDeletedContentStyleUnboundedActive(colors)
-		: buildDeletedContentStyleUnbounded(colors);
+	// Shares a helper with the lozenge strike so the two cannot drift.
+	return deletedStrikeLine(buildDeletedStrikeLineBorder(colors, isActive));
 }
 
 // --- Deleted-content "REMOVED" lozenge ---
@@ -1101,9 +1088,7 @@ export function buildDeletedBlockNodeStyle(
 		case 'listItem':
 			return colors.deletedNodeEmphasis === 'stateful'
 				? statefulMarker()
-				: fg('platform_editor_ai_show_diff_patch_2')
-					? buildDeletedListItemMarkerVariable(colors)
-					: buildDeletedDecorationMarkerVariableSimple(colors);
+				: buildDeletedListItemMarkerVariable(colors);
 		case 'marker':
 			return colors.deletedNodeEmphasis === 'stateful'
 				? statefulMarker()
@@ -1164,13 +1149,13 @@ export function buildDeletedWrappedBlockOutline(
  * EditorContentContainer, on the decorated element or a descendant, so it must inherit. Being
  * inline it beats the stylesheet's fallback, making the plugin the only source of the colour.
  *
- * Under patch_2 it also reserves the 2px ring either side, since the ring takes up no space and
+ * It also reserves the 2px ring either side, since the ring takes up no space and
  * otherwise paints over an adjacent inline diff.
  */
 export function buildAtomicInlineChangedCSSVariables(colors: DiffColorScheme): string {
 	return convertToInlineCss({
 		'--show-diff-atomic-inline-changed-border-color': borderAccent(colors.insertColor),
-		...(fg('platform_editor_ai_show_diff_patch_2') && { marginInline: token('space.025') }),
+		marginInline: token('space.025'),
 	});
 }
 

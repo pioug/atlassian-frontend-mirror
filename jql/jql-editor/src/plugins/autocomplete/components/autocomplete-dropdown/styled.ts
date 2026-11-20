@@ -1,18 +1,11 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import type {
-	ComponentPropsWithoutRef,
-	DetailedHTMLProps,
-	ForwardRefExoticComponent,
-	HTMLAttributes,
-	RefAttributes,
-} from 'react';
+import type { DetailedHTMLProps, HTMLAttributes } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import type { Theme } from '@emotion/react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled, { type StyledComponent } from '@emotion/styled';
 
-import { componentWithFG } from '@atlaskit/platform-feature-flags-react/component-with-fg';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-atlaskit-theme
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
@@ -90,22 +83,7 @@ export const AutocompleteSectionTitle: StyledComponent<
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const OptionListLi: StyledComponent<
-	{
-		as?: React.ElementType;
-		theme?: Theme;
-	},
-	DetailedHTMLProps<HTMLAttributes<HTMLUListElement>, HTMLUListElement>,
-	{}
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-> = styled.ul({
-	listStyle: 'none',
-	margin: `${token('space.0')}`,
-	padding: `${token('space.0')}`,
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const OptionListDiv: StyledComponent<
+export const OptionList: StyledComponent<
 	{
 		as?: React.ElementType;
 		theme?: Theme;
@@ -117,18 +95,6 @@ export const OptionListDiv: StyledComponent<
 	margin: `${token('space.0')}`,
 	padding: `${token('space.0')}`,
 });
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export type OptionListComponent = ForwardRefExoticComponent<
-	ComponentPropsWithoutRef<typeof OptionListDiv> & RefAttributes<HTMLDivElement | HTMLUListElement>
->;
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const OptionList: OptionListComponent = componentWithFG(
-	'enable-jql-membersof-autocomplete',
-	OptionListDiv,
-	OptionListLi,
-) as OptionListComponent;
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const AutocompleteLoadingFooter: StyledComponent<
 	{

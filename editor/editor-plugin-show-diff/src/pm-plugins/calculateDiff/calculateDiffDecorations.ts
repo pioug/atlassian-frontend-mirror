@@ -355,25 +355,20 @@ const calculateNodesForBlockDecoration = ({
 	// re-render. Blocks outside the table keep their normal decorations.
 	const coarseTables = coarseTableCellsOnly ? tableRanges(doc, from, to) : [];
 	// nodesBetween visits ancestors that start before the changed range.
-	// Only fully contained blocks should mark existing list bullets as new. Under patch 2 this also
-	// keeps the clean view from hiding a block the change only starts inside: that block holds
-	// unchanged text and the deleted-content widget, so `display: none` on it hid the whole diff.
-	const requireContainedBlocks =
-		UNSAFE_expValNoExposure('platform_editor_ai_review_moment', 'isEnabled', false) === true ||
-		fg('platform_editor_ai_show_diff_patch_2');
-	// Under patch 2, a block whose content the change covers but whose trailing close tokens it does
-	// not (e.g. the last list item when both sides end in a list) is decorated like its siblings.
-	// Otherwise the clean view hides its text but leaves the block, e.g. an empty bullet.
-	const relaxTrailingCloseTokens =
-		allowTrailingCloseTokens && fg('platform_editor_ai_show_diff_patch_2');
+	// Only fully contained blocks should mark existing list bullets as new. This also keeps the
+	// clean view from hiding a block the change only starts inside: that block holds unchanged text
+	// and the deleted-content widget, so `display: none` on it hid the whole diff.
+	// A block whose content the change covers but whose trailing close tokens it does not (e.g. the
+	// last list item when both sides end in a list) is decorated like its siblings. Otherwise the
+	// clean view hides its text but leaves the block, e.g. an empty bullet.
 	const isContained = (node: PMNode, pos: number): boolean => {
-		if (requireContainedBlocks && pos < from) {
+		if (pos < from) {
 			return false;
 		}
 		if (pos + node.nodeSize <= to) {
 			return true;
 		}
-		return relaxTrailingCloseTokens && pos >= from && endBeforeTrailingCloseTokens(node, pos) <= to;
+		return allowTrailingCloseTokens && endBeforeTrailingCloseTokens(node, pos) <= to;
 	};
 	// Iterate over the document nodes within the range
 	doc.nodesBetween(from, to, (node, pos) => {
@@ -717,12 +712,9 @@ const calculateDiffDecorationsInner = ({
 		tableChanges.some((change) => from >= change.fromB && to <= change.toB);
 
 	const createDecorationsForChange = (change: AttributedColumnAwareChange): void => {
-		// Patch 2 makes all decorations generated for one replacement share this anchor. Their own
-		// IDs still identify their top/bottom bounds, while this ID makes their bars agree on one
-		// left edge. When the gate is off, factories retain their existing per-decoration anchors.
-		const leftAnchorId = fg('platform_editor_ai_show_diff_patch_2')
-			? `replacement-${change.fromA}-${change.toA}-${change.fromB}-${change.toB}`
-			: undefined;
+		// All decorations generated for one replacement share this anchor. Their own IDs still
+		// identify their top/bottom bounds, while this ID makes their bars agree on one left edge.
+		const leftAnchorId = `replacement-${change.fromA}-${change.toA}-${change.fromB}-${change.toB}`;
 		const changeColorScheme = attributionColors
 			? getColorSchemeForChange(change, attributedChanges, attributionColors, colorScheme)
 			: colorScheme;
@@ -759,7 +751,7 @@ const calculateDiffDecorationsInner = ({
 		const isMarkOnly =
 			shouldHideMarkOnlyDeletions &&
 			hideDeletedDiffs &&
-			!(isInverted && fg('platform_editor_ai_show_diff_patch_2')) &&
+			!isInverted &&
 			change.deleted.length > 0 &&
 			isMarkOnlyChange({ change, originalDoc, newDoc: tr.doc });
 
@@ -795,7 +787,7 @@ const calculateDiffDecorationsInner = ({
 			// reported as a single change spanning all of them.
 			//
 			// Withheld in the clean view, where removals are hidden rather than struck through.
-			if (fg('platform_editor_ai_show_diff_patch_2') && !isInserted && !shouldHideDeleted) {
+			if (!isInserted && !shouldHideDeleted) {
 				for (const pos of emptyTextBlockContentPositions(tr.doc, change.fromB, change.toB)) {
 					decorations.push(
 						createDeletedLineBreakDecoration({
@@ -848,14 +840,12 @@ const calculateDiffDecorationsInner = ({
 
 			// A whole-cell replacement keeps its cells in place, so it takes its own decorations
 			// instead of the generic inline and block ones.
-			const replacedCells = fg('platform_editor_ai_show_diff_patch_2')
-				? getReplacedCells({
-						slice: originalDoc.slice(change.fromA, change.toA),
-						doc: tr.doc,
-						fromB: change.fromB,
-						toB: change.toB,
-					})
-				: [];
+			const replacedCells = getReplacedCells({
+				slice: originalDoc.slice(change.fromA, change.toA),
+				doc: tr.doc,
+				fromB: change.fromB,
+				toB: change.toB,
+			});
 
 			if (replacedCells.length > 0) {
 				decorations.push(

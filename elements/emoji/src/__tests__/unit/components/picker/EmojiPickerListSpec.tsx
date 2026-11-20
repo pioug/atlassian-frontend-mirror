@@ -41,7 +41,6 @@ expect.extend(matchers);
 
 describe('<EmojiPickerList />', () => {
 	mockReactDomWarningGlobal();
-	let getExperimentValueSpy: jest.SpiedFunction<(typeof FeatureGates)['getExperimentValue']>;
 	let checkGateSpy: jest.SpiedFunction<typeof FeatureGates.checkGate>;
 
 	beforeEach(() => {
@@ -51,7 +50,7 @@ describe('<EmojiPickerList />', () => {
 				helperTestingLibrary.scrollToIndex(index || 0),
 			);
 		jest.spyOn(FeatureGates, 'initializeCompleted').mockReturnValue(true);
-		getExperimentValueSpy = jest
+		jest
 			.spyOn(FeatureGates, 'getExperimentValue')
 			.mockImplementation((_experimentName, _parameterName, defaultValue) => defaultValue);
 		checkGateSpy = jest.spyOn(FeatureGates, 'checkGate').mockReturnValue(false);
@@ -95,12 +94,6 @@ describe('<EmojiPickerList />', () => {
 			color,
 			order: color === 'red' ? 3 : 4,
 		};
-	};
-	const emojiPickerListExperimentName = 'platform_a11y_fixes_emoji_picker_list';
-	const setEmojiPickerListExperimentEnabled = (isEnabled: boolean) => {
-		getExperimentValueSpy.mockImplementation((experimentName, _parameterName, defaultValue) =>
-			experimentName === emojiPickerListExperimentName ? isEnabled : defaultValue,
-		);
 	};
 	const createTestEmoji = (
 		id: string,
@@ -167,28 +160,12 @@ describe('<EmojiPickerList />', () => {
 			expect(headings[0]).toHaveTextContent(messages.peopleCategory.defaultMessage);
 		});
 
-		describe('A11Y-31084: emoji picker list semantics', () => {
-			it('renders emoji rows as lists with listitem emojis when the experiment is enabled', async () => {
-				setEmojiPickerListExperimentEnabled(true);
-				renderEmojiPickerList({ emojis: allEmojis });
+		it('renders emoji rows as lists with listitem emojis', async () => {
+			renderEmojiPickerList({ emojis: allEmojis });
 
-				const container = await screen.findByTestId('virtual-list-scroll-container');
-				await waitFor(() =>
-					expect(within(container).getAllByRole('list').length).toBeGreaterThan(0),
-				);
-				expect(within(container).getAllByRole('listitem').length).toBeGreaterThan(0);
-			});
-
-			it('renders emoji rows as lists with listitem emojis when the experiment is disabled', async () => {
-				setEmojiPickerListExperimentEnabled(false);
-				renderEmojiPickerList({ emojis: allEmojis });
-
-				const container = await screen.findByTestId('virtual-list-scroll-container');
-				await waitFor(() =>
-					expect(within(container).getAllByRole('list').length).toBeGreaterThan(0),
-				);
-				expect(within(container).getAllByRole('listitem').length).toBeGreaterThan(0);
-			});
+			const container = await screen.findByTestId('virtual-list-scroll-container');
+			await waitFor(() => expect(within(container).getAllByRole('list').length).toBeGreaterThan(0));
+			expect(within(container).getAllByRole('listitem').length).toBeGreaterThan(0);
 		});
 
 		it('should show frequently used category first if present', async () => {

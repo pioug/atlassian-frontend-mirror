@@ -5,7 +5,6 @@ import { convertToInlineCss } from '@atlaskit/editor-common/css-helper';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { CONTRIBUTOR_TAG_Z_INDEX } from '../../ui/ContributorTag/buildContributorTagDom';
 import { createDiffBoundaryWidget } from '../../ui/DiffAccessibility/createDiffBoundaryWidget';
@@ -282,13 +281,12 @@ export const createInlineChangedDecoration = ({
 
 	// Every deletion: an inverted diff carries no `isAtomicInlineNode`, so editor-core's selectors do
 	// the matching.
-	const deletedInlineNodeAttrs =
-		!isInserted && fg('platform_editor_ai_show_diff_patch_2')
-			? {
-					className: DELETED_INLINE_NODE_CLASS,
-					styleSuffix: buildDeletedInlineNodeCSSVariables(colors, isActive),
-				}
-			: undefined;
+	const deletedInlineNodeAttrs = !isInserted
+		? {
+				className: DELETED_INLINE_NODE_CLASS,
+				styleSuffix: buildDeletedInlineNodeCSSVariables(colors, isActive),
+			}
+		: undefined;
 
 	// Built from the raw change range, not the indicator anchors resolved below: a tag lines up with
 	// the changed text, while the bar's anchors are held on a block boundary when a deleted widget
@@ -332,9 +330,7 @@ export const createInlineChangedDecoration = ({
 				}),
 				'data-testid': 'show-diff-changed-decoration',
 				// Lets navigation select this exact diff, and contributor tags find it on hover.
-				...((showContributorTags || fg('platform_editor_ai_show_diff_patch_2')) && {
-					'data-diff-id': diffId,
-				}),
+				'data-diff-id': diffId,
 			},
 			buildDiffDecorationSpec({
 				attributionKey: canTagChange ? attributionKey : undefined,

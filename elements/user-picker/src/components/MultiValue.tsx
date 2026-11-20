@@ -217,7 +217,10 @@ export class MultiValue extends React.Component<Props> {
 			const avatarUrl = getAvatarUrl(data);
 			const isDisabled = Boolean((this.props.selectProps as UserPickerProps)?.isDisabled);
 			const canShowArchivedLozenge = isTeam(data) && data?.state === 'DISBANDED';
-			const avatarProps = avatarUrl ? { name: data.name, src: avatarUrl } : { name: data.name };
+			const avatarProps = {
+				src: avatarUrl,
+				name: fg('platform-user-picker-a11y-51062-decorative-avatars') ? undefined : data.name,
+			};
 			const showAgentAvatar =
 				data.appType === 'agent' &&
 				expVal('platform_user_picker_agent_avatar_hexagon', 'isEnabled', false);

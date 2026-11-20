@@ -2,7 +2,6 @@ import type { Node as PMNode, Slice } from '@atlaskit/editor-prosemirror/model';
 import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import {
 	buildAnchorDecorationKey,
@@ -73,10 +72,8 @@ const edgeCases = (
 		return undefined;
 	}
 
-	const { node: resolvedNode, nodeStart, beforePos } = resolved;
-	const node = fg('platform_editor_ai_show_diff_patch_2')
-		? (nodeOverride ?? resolvedNode)
-		: resolvedNode;
+	const { node: resolvedNode, beforePos } = resolved;
+	const node = nodeOverride ?? resolvedNode;
 
 	if (node.type.name === 'layoutSection') {
 		// Columns extend past the node-view wrapper via negative margins (12px or 20px).
@@ -107,21 +104,15 @@ const edgeCases = (
 				return undefined;
 			}
 
-			if (fg('platform_editor_ai_show_diff_patch_2')) {
-				// The row retains its full width when the table scrolls. Centering that
-				// width against the editor would push the anchor off-screen. Measure the
-				// visible container's edge instead, including start-aligned tables.
-				return {
-					beforePos,
-					measurePos: beforePos,
-					measureSelector: '.pm-table-container',
-					measureLeft: true,
-				};
-			}
-
-			// Measure the first row (`nodeStart` is just inside the table, i.e. the
-			// position of the first row): its width matches the table's.
-			return { beforePos, measurePos: nodeStart };
+			// The row retains its full width when the table scrolls. Centering that
+			// width against the editor would push the anchor off-screen. Measure the
+			// visible container's edge instead, including start-aligned tables.
+			return {
+				beforePos,
+				measurePos: beforePos,
+				measureSelector: '.pm-table-container',
+				measureLeft: true,
+			};
 		}
 		case 'layoutSection':
 		case 'expand':
@@ -240,9 +231,7 @@ export const createLeftAnchorWidget = ({
 	const range = underlyingRange ?? (to !== undefined ? { from, to } : undefined);
 	const documentEdgeCases = getEdgeCasesForDocument(doc, range?.from ?? from, range?.to);
 	const allEdgeCases = [...overrideEdgeCases, ...documentEdgeCases];
-	const edgeCase = fg('platform_editor_ai_show_diff_patch_2')
-		? allEdgeCases[0]
-		: edgeCases(doc, from);
+	const edgeCase = allEdgeCases[0];
 	if (edgeCase === undefined) {
 		return undefined;
 	}
@@ -272,114 +261,71 @@ export const createLeftAnchorWidget = ({
 			anchor.style.setProperty('anchor-name', `--${leftAnchorKey}`);
 			anchor.style.setProperty('position', 'absolute');
 			anchor.style.setProperty('left', `calc(50% - ${edgeCase?.leftOffset || 0}px)`);
-			// transforms on anchors have limited browser support
-			if (!fg('platform_editor_ai_show_diff_patch_2')) {
-				anchor.style.setProperty('transform', 'translateX(-50%)');
-			}
 
 			wrapper.appendChild(anchor);
 
 			const measureWidth = () => {
-				if (fg('platform_editor_ai_show_diff_patch_2')) {
-					const widthMeasureTargets = allEdgeCases.flatMap(
-						(target) => target.widthMeasureTargets ?? [target],
-					);
-					if (getPos() === undefined || widthMeasureTargets.length === 0) {
-						return;
-					}
-					const measuredElements = widthMeasureTargets.flatMap<MeasuredTarget>(
-						({
-							leftOffset,
-							measureElement: targetMeasureElement,
-							measureLeft,
-							measurePos,
-							measureSelector,
-						}) => {
-							if (measurePos === undefined) {
-								return [];
-							}
-							const nodeDOM = targetMeasureElement ?? view.nodeDOM(measurePos);
-							const elements =
-								nodeDOM instanceof HTMLElement
-									? measureSelector
-										? Array.from(nodeDOM.querySelectorAll<HTMLElement>(measureSelector))
-										: [nodeDOM]
-									: [];
-							return elements.map((element) => ({ element, leftOffset, measureLeft }));
-						},
-					);
-
-					// A single diff can include multiple edge-case nodes, so measure the widest one.
-					let widest: MeasuredTarget | undefined;
-					for (const target of measuredElements) {
-						if (!widest || target.element.offsetWidth > widest.element.offsetWidth) {
-							widest = target;
-						}
-					}
-
-					if (widest) {
-						const updateAnchor = () => {
-							if (getPos() === undefined) {
-								return;
-							}
-							if (widest.measureLeft) {
-								const left =
-									widest.element.getBoundingClientRect().left -
-									wrapper.getBoundingClientRect().left;
-								anchor.style.setProperty('left', `${left}px`);
-							} else {
-								anchor.style.setProperty(
-									'left',
-									`calc(50% - ${widest.leftOffset ?? 0}px - ${widest.element.offsetWidth / 2}px)`,
-								);
-							}
-							anchor.style.setProperty('width', `${widest.element.offsetWidth}px`);
-						};
-						updateAnchor();
-
-						// Observe the measured elements for size changes (e.g. page
-						// resize) so the indicator stays aligned.
-						if (!leftResizeObserver) {
-							leftResizeObserver = new ResizeObserver(measureWidth);
-							measuredElements.forEach(({ element }) => leftResizeObserver?.observe(element));
-							if (widest.measureLeft) {
-								leftResizeObserver.observe(wrapper);
-							}
-						}
-					}
+				const widthMeasureTargets = allEdgeCases.flatMap(
+					(target) => target.widthMeasureTargets ?? [target],
+				);
+				if (getPos() === undefined || widthMeasureTargets.length === 0) {
 					return;
 				}
+				const measuredElements = widthMeasureTargets.flatMap<MeasuredTarget>(
+					({
+						leftOffset,
+						measureElement: targetMeasureElement,
+						measureLeft,
+						measurePos,
+						measureSelector,
+					}) => {
+						if (measurePos === undefined) {
+							return [];
+						}
+						const nodeDOM = targetMeasureElement ?? view.nodeDOM(measurePos);
+						const elements =
+							nodeDOM instanceof HTMLElement
+								? measureSelector
+									? Array.from(nodeDOM.querySelectorAll<HTMLElement>(measureSelector))
+									: [nodeDOM]
+								: [];
+						return elements.map((element) => ({ element, leftOffset, measureLeft }));
+					},
+				);
 
-				if (getPos() === undefined || edgeCase.measurePos === undefined) {
-					return;
+				// A single diff can include multiple edge-case nodes, so measure the widest one.
+				let widest: MeasuredTarget | undefined;
+				for (const target of measuredElements) {
+					if (!widest || target.element.offsetWidth > widest.element.offsetWidth) {
+						widest = target;
+					}
 				}
 
-				const nodeDOM = view.nodeDOM(edgeCase.measurePos);
-				const dom =
-					edgeCase.measureSelector && nodeDOM instanceof HTMLElement
-						? (nodeDOM.querySelector<HTMLElement>(edgeCase.measureSelector) ?? nodeDOM)
-						: nodeDOM;
-				if (dom instanceof HTMLElement) {
+				if (widest) {
 					const updateAnchor = () => {
 						if (getPos() === undefined) {
 							return;
 						}
-						if (edgeCase.measureLeft) {
-							const left = dom.getBoundingClientRect().left - wrapper.getBoundingClientRect().left;
+						if (widest.measureLeft) {
+							const left =
+								widest.element.getBoundingClientRect().left - wrapper.getBoundingClientRect().left;
 							anchor.style.setProperty('left', `${left}px`);
-							anchor.style.setProperty('transform', 'none');
+						} else {
+							anchor.style.setProperty(
+								'left',
+								`calc(50% - ${widest.leftOffset ?? 0}px - ${widest.element.offsetWidth / 2}px)`,
+							);
 						}
-						anchor.style.setProperty('width', `${dom.offsetWidth}px`);
+						anchor.style.setProperty('width', `${widest.element.offsetWidth}px`);
 					};
-					// Align against the block's horizontal extent.
 					updateAnchor();
 
-					// Observe the measured element for size changes (e.g. page
-					// resize) so the indicator stays aligned. CCI-17981
+					// Observe the measured elements for size changes (e.g. page
+					// resize) so the indicator stays aligned.
 					if (!leftResizeObserver) {
-						leftResizeObserver = new ResizeObserver(updateAnchor);
-						leftResizeObserver.observe(dom);
-						if (edgeCase.measureLeft) {
+						leftResizeObserver = new ResizeObserver(measureWidth);
+						measuredElements.forEach(({ element }) => leftResizeObserver?.observe(element));
+						if (widest.measureLeft) {
 							leftResizeObserver.observe(wrapper);
 						}
 					}
@@ -612,7 +558,7 @@ export const createInlineIndicatorAnchorWidgets = ({
 	const leftAnchor = createLeftAnchorWidget({
 		doc,
 		from,
-		to: fg('platform_editor_ai_show_diff_patch_2') ? to : undefined,
+		to,
 		diffId,
 		leftAnchorId,
 	});

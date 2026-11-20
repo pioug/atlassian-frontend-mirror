@@ -141,11 +141,16 @@ type RegenerateSuggestionsCompletedAEP = OperationalAEP<
 	}
 >;
 
+type ReviewSessionAttributes = {
+	/** Client review flow ID shared by lifecycle events and retries. */
+	reviewSessionId?: string;
+};
+
 type EntryPointClickedAEP = TrackAEP<
 	ACTION.CLICKED,
 	ACTION_SUBJECT.AI_SUGGESTIONS,
 	undefined,
-	{
+	ReviewSessionAttributes & {
 		entryPoint: AiSuggestionsEntryPoint;
 	},
 	undefined
@@ -160,7 +165,7 @@ type SuggestionsErrorRetryClickedAEP = TrackAEP<
 	ACTION.CLICKED,
 	ACTION_SUBJECT.AI_SUGGESTIONS,
 	ACTION_SUBJECT_ID.SUGGESTIONS_ERROR_RETRY,
-	undefined,
+	ReviewSessionAttributes | undefined,
 	undefined
 >;
 
@@ -219,7 +224,7 @@ type CancelSuggestionsAEP = TrackAEP<
 	ACTION.CANCELLED,
 	ACTION_SUBJECT.AI_SUGGESTIONS,
 	undefined,
-	{
+	ReviewSessionAttributes & {
 		interactionPoint: AiSuggestionInteractionPoint;
 	},
 	undefined
@@ -316,7 +321,7 @@ type SuggestionsGeneratedAEP = TrackAEP<
 	ACTION.GENERATED,
 	ACTION_SUBJECT.AI_SUGGESTIONS,
 	undefined,
-	{
+	ReviewSessionAttributes & {
 		generationDurationMs: number;
 		hadExistingSuggestions: boolean;
 		numberOfSuggestions: number;

@@ -1,5 +1,20 @@
 # @atlaskit/native-embeds-common
 
+## 2.11.0
+
+### Minor Changes
+
+- [`a4c1c2b71e577`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a4c1c2b71e577) -
+  [ux] Centre wide and full-width native embeds on default-width pages in the renderer.
+  Center-aligned embeds in the renderer flex wrapper are no longer offset a second time, so their
+  right edge no longer lands on the column edge. Adds isNativeEmbedWideLayoutCenteringEnabled to the
+  native-embed-styles entry point. Controlled by the native_embeds_wide_layout_centering_killswitch
+  feature gate.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.10.3
 
 ### Patch Changes

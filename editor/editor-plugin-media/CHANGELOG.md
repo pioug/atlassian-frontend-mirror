@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-media
 
+## 35.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.1.0
+
+### Minor Changes
+
+- [`f08d809fe8723`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f08d809fe8723) -
+  Dragging an image inside the editor now moves it once instead of sometimes leaving a copy behind,
+  works without selecting the image first, shows the media drop indicator where it will land, and
+  uses a small, height-capped drag preview that trails the pointer (behind the
+  platform_editor_media_internal_drag_move_exp experiment)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 35.0.5
 
 ### Patch Changes

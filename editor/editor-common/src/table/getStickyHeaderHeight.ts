@@ -1,6 +1,5 @@
 import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 /**
  * Returns the outermost table's sticky header height for `targetPos` if its a table row and eligible to be
@@ -33,12 +32,7 @@ export function getStickyHeaderHeight(view: EditorView, targetPos: number): numb
 	const firstRowPos = outermostTable.pos + 1;
 
 	// do not add sticky header offset if the target is in the sticky header
-	if (
-		firstRow &&
-		targetPos >= firstRowPos &&
-		targetPos < firstRowPos + firstRow.nodeSize &&
-		fg('platform_editor_ai_show_diff_patch_2')
-	) {
+	if (firstRow && targetPos >= firstRowPos && targetPos < firstRowPos + firstRow.nodeSize) {
 		return undefined;
 	}
 

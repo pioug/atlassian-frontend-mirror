@@ -2,7 +2,6 @@ import type { NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view
 import type { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 type RenderedMark = { contentDOM?: HTMLElement | null; dom: Node };
 
@@ -56,7 +55,7 @@ export const wrapInMarkViews = (
 	nodeDom: Node,
 	sources: MarkViewSources,
 ): Node => {
-	if (targetNode.marks.length === 0 || !fg('platform_editor_ai_show_diff_patch_2')) {
+	if (targetNode.marks.length === 0) {
 		return nodeDom;
 	}
 

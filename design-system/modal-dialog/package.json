@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/modal-dialog",
-	"version": "17.2.7",
+	"version": "17.3.0",
 	"description": "A modal dialog displays content that requires user interaction, in a layer above the page.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -58,6 +58,7 @@
 		"bind-event-listener": "root:*",
 		"raf-schd": "root:*",
 		"react-focus-lock": "root:*",
+		"react-intl": "root:*",
 		"react-scrolllock": "root:*"
 	},
 	"peerDependencies": {

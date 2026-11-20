@@ -2411,13 +2411,18 @@ const metadata: IconMetadata = {
 		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	premium: {
-		keywords: ['AI', 'sparkles', 'stars', 'new', 'feature'],
+		keywords: ['AI', 'sparkles', 'generative AI', 'AI functionality'],
 		categorization: 'single-purpose',
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
-		status: 'published',
-		id: '7594:13886',
-		usage: 'Single purpose - Reserved for premium features.',
+		status: 'deprecated',
+		id: '62240:19424',
+		usage:
+			'Reserved for representing AI-powered features and functionality.\n\nNote: While the sparkle icon used to represent premium features in upsell experiences, this icon has been replaced by the "Editions" gem icon.',
+		replacement: {
+			name: 'ai-sparkle',
+			location: '@atlaskit/icon',
+		},
 		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'presenter-mode': {

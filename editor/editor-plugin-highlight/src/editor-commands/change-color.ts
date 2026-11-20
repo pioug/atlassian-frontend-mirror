@@ -17,7 +17,6 @@ import {
 	highlightColorPalette,
 } from '@atlaskit/editor-common/ui-color/ColorPalette/highlightColorPalette';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
@@ -48,10 +47,7 @@ export const changeColor =
 		if (color === REMOVE_HIGHLIGHT_COLOR) {
 			removeMark(backgroundColor)({ tr });
 		} else {
-			if (
-				isExperimentEnabled('platform_editor_lovability_color_schema_change') &&
-				!expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true)
-			) {
+			if (!expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true)) {
 				const overrideMarks = ['textColor'];
 				overrideMarks.forEach((mark) => {
 					if (marks[mark]) {

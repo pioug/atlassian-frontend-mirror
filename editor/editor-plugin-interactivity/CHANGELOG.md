@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-interactivity
 
+## 18.0.4
+
+### Patch Changes
+
+- [`97dfbe8472a04`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/97dfbe8472a04) -
+  Let the interactivity collector start again after it was stopped, behind
+  `platform_editor_interactivity_inp_collector`.
+- Updated dependencies
+
 ## 18.0.3
 
 ### Patch Changes

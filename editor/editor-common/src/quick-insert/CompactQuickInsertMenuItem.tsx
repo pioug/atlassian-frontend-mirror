@@ -16,6 +16,7 @@ import { Pressable } from '@atlaskit/primitives/pressable';
 import { xcss } from '@atlaskit/primitives/xcss/xcss';
 import { token } from '@atlaskit/tokens';
 
+import { REGISTERED_MENU_SURFACE_CONTEXT } from '../registered-menu/RegisteredMenuSurfaceContext';
 import type { QuickInsertPreview } from './preview';
 import { QuickInsertHoverPreview } from './QuickInsertHoverPreview';
 import type { QuickInsertMenuItemProps } from './QuickInsertMenuItem';
@@ -142,7 +143,8 @@ export const CompactQuickInsertMenuItem = ({
 	shouldWrapIcon = true,
 	title,
 }: QuickInsertMenuItemProps): React.JSX.Element => {
-	const { item, popupsMountPoint } = useQuickInsertContext();
+	const { item, popupsMountPoint, surfaceContext } = useQuickInsertContext();
+	const surface = surfaceContext?.get(REGISTERED_MENU_SURFACE_CONTEXT)?.surface;
 	const { id, isPreviewActive, isSelected } = item ?? {
 		id: undefined,
 		isPreviewActive: undefined,
@@ -227,6 +229,7 @@ export const CompactQuickInsertMenuItem = ({
 					titleContent={titleContent}
 					icon={previewIcon}
 					shouldClampText={shouldClampPreview}
+					useViewportPositioning={surface === 'typeahead'}
 				/>
 			)}
 		</React.Fragment>

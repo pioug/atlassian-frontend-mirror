@@ -2,9 +2,10 @@ import { getDocument } from '@atlaskit/browser-apis';
 
 import type {
 	CollectedSnapshot,
-	CollectorReason,
+	InterimReason,
 	RegionSnapshot,
 	SessionKeys,
+	SnapshotSendHints,
 } from '../analytics/interactivity-snapshot';
 import { SCHEMA_VERSION } from './bucket-boundaries';
 import { InteractionObserver } from './interaction-observer';
@@ -14,20 +15,23 @@ import { LifecycleObserver } from './lifecycle-observer';
 import { type InteractivityRegion, RegionEventObserver } from './region-event-observer';
 import { SnapshotScheduler } from './snapshot-scheduler';
 
-export type InteractivityCollectorOptions<Keys extends SessionKeys, RotateReason extends string> = {
+export type InteractivityCollectorOptions<Keys extends SessionKeys, EndReason extends string> = {
 	/** Called as the snapshot is taken, so what the owner reads then is of the same moment. */
-	emit: (snapshot: CollectedSnapshot<Keys, RotateReason>) => void;
+	emit: (snapshot: CollectedSnapshot<Keys, EndReason>, sendHints: SnapshotSendHints) => void;
+	/**
+	 * What the owner can end a session with: a changed session key, or a stop. Fixed for the
+	 * collector, like the regions.
+	 */
+	endReasons: readonly EndReason[];
 	/** The parts of the page whose interactions are counted on their own. Fixed for the collector. */
 	regions: readonly string[];
-	/** What the owner can end a session with. Fixed for the collector, like the regions. */
-	rotateReasons: readonly RotateReason[];
 	/** Every session key with the value it has now, `undefined` when not known yet. */
 	sessionKeys: Keys;
 };
 
-export type SessionKeysChange<Keys extends SessionKeys, RotateReason extends string> = {
+export type SessionKeysChange<Keys extends SessionKeys, EndReason extends string> = {
 	/** What the session ends with if any of the values is a different known one. */
-	rotateReason: RotateReason;
+	endReason: EndReason;
 	/** The keys that may have changed. `undefined` is no information, never a change. */
 	values: Partial<Keys>;
 };
@@ -39,20 +43,17 @@ export type SessionKeysChange<Keys extends SessionKeys, RotateReason extends str
  * and in the group of its kind, which is what tells a slow region apart from a slow page around it.
  * An interaction with two regions is counted in each of them.
  *
- * `start` and `stop` bound the collecting, which happens once. Within it there can be several
- * sessions, because a session covers one value of each session key: the first known value fills
- * the session in, and a different one closes it and opens the next.
+ * `start` and `stop` bound the collecting, and every `start` opens a new session. Within it there
+ * can be several more, because a session covers one value of each session key: the first known
+ * value fills the session in, and a different one ends it and opens the next.
  */
 export class InteractivityCollector<
 	Keys extends SessionKeys = SessionKeys,
-	const RotateReason extends string = never,
+	const EndReason extends string = never,
 > {
-	private readonly emit: InteractivityCollectorOptions<Keys, RotateReason>['emit'];
-	private readonly regions: InteractivityCollectorOptions<Keys, RotateReason>['regions'];
-	private readonly rotateReasons: InteractivityCollectorOptions<
-		Keys,
-		RotateReason
-	>['rotateReasons'];
+	private readonly emit: InteractivityCollectorOptions<Keys, EndReason>['emit'];
+	private readonly regions: InteractivityCollectorOptions<Keys, EndReason>['regions'];
+	private readonly endReasons: InteractivityCollectorOptions<Keys, EndReason>['endReasons'];
 	/** The latest known value of each key, which a new session starts with. */
 	private readonly sessionKeys: Keys;
 
@@ -61,14 +62,16 @@ export class InteractivityCollector<
 	private readonly snapshotScheduler: SnapshotScheduler;
 	private readonly lifecycleObserver: LifecycleObserver;
 
-	private session: InteractivitySession<Keys>;
-	private started = false;
-	private stopped = false;
+	/** There only while collecting. */
+	private session: InteractivitySession<Keys> | undefined;
+	/** The highest interaction a session saw, so the next one does not count it again. */
+	private startsAfterInteractionId = 0;
 
-	constructor(options: InteractivityCollectorOptions<Keys, RotateReason>) {
+	/** Touches nothing of the page until `start`, so an owner can create it while rendering. */
+	constructor(options: InteractivityCollectorOptions<Keys, EndReason>) {
 		this.emit = options.emit;
 		this.regions = options.regions;
-		this.rotateReasons = options.rotateReasons;
+		this.endReasons = options.endReasons;
 		this.sessionKeys = { ...options.sessionKeys };
 
 		this.interactionObserver = new InteractionObserver((entries) => this.recordEntries(entries));
@@ -82,22 +85,15 @@ export class InteractivityCollector<
 			onPageHide: () => this.onPageHide(),
 			onPageShow: () => this.onPageShow(),
 		});
-		this.session = this.createSession(0);
 	}
 
 	/**
-	 * Starts collecting. Calling it again while collecting changes nothing.
+	 * Starts collecting in a new session. Calling it again while collecting changes nothing.
 	 *
-	 * @returns whether collecting is running; `false` when the browser cannot support it, or
-	 * when it has already been stopped.
+	 * @returns whether collecting is running; `false` when the browser cannot support it.
 	 */
 	start(): boolean {
-		// Collecting is over for good once stopped: the session it covered has been reported.
-		if (this.stopped) {
-			return false;
-		}
-
-		if (this.started) {
+		if (this.session) {
 			return true;
 		}
 
@@ -105,28 +101,25 @@ export class InteractivityCollector<
 			return false;
 		}
 
-		// Opened again so the session's timings start with the collecting, not with whenever
-		// this object was constructed.
-		this.session = this.createSession(0);
+		this.session = this.createSession();
 		this.interactionObserver.start();
 		for (const [region, regionEventObserver] of this.regionEventObservers) {
 			regionEventObserver.start((event) => this.recordRegionEvent(region, event));
 		}
 		this.snapshotScheduler.start();
 		this.lifecycleObserver.start();
-		this.started = true;
 
 		return true;
 	}
 
-	/** Reports the session as ended by the editor unmounting, and stops collecting. */
-	stop(): void {
-		if (this.stopped) {
+	/** Reports the session as ended by `endReason`, and stops collecting until the next `start`. */
+	stop({ endReason }: { endReason: EndReason }): void {
+		this.assertDeclaredEndReason(endReason);
+		if (!this.session) {
 			return;
 		}
 
-		this.takeSnapshot('unmount');
-		this.stopped = true;
+		this.endSession(endReason, { immediate: true });
 		this.interactionObserver.stop();
 		for (const regionEventObserver of this.regionEventObservers.values()) {
 			regionEventObserver.stop();
@@ -149,12 +142,10 @@ export class InteractivityCollector<
 
 	/**
 	 * The first known value of a key fills the session in. A different known one ends it with
-	 * `rotateReason`, once, however many keys changed.
+	 * `endReason`, once, however many keys changed.
 	 */
-	setSessionKeys({ values, rotateReason }: SessionKeysChange<Keys, RotateReason>): void {
-		if (!this.rotateReasons.includes(rotateReason)) {
-			throw new Error(`Undeclared interactivity rotate reason: ${rotateReason}`);
-		}
+	setSessionKeys({ values, endReason }: SessionKeysChange<Keys, EndReason>): void {
+		this.assertDeclaredEndReason(endReason);
 
 		let rotates = false;
 		for (const key in values) {
@@ -163,14 +154,23 @@ export class InteractivityCollector<
 			}
 		}
 
-		if (this.stopped) {
+		// A stopped collector has no session to end: the next `start` opens one with these values.
+		if (!this.session) {
 			return;
 		}
 
 		if (rotates) {
-			this.rotateSession(rotateReason);
+			this.endSession(endReason, { immediate: false });
+			this.session = this.createSession();
+			this.snapshotScheduler.restart();
 		} else {
 			Object.assign(this.session.sessionKeys, this.sessionKeys);
+		}
+	}
+
+	private assertDeclaredEndReason(endReason: EndReason): void {
+		if (!this.endReasons.includes(endReason)) {
+			throw new Error(`Undeclared interactivity end reason: ${endReason}`);
 		}
 	}
 
@@ -194,46 +194,53 @@ export class InteractivityCollector<
 	}
 
 	/**
-	 * @param startsAfterInteractionId the highest interaction the previous session saw, so
-	 * entries still arriving for it are not counted here as well.
+	 * Its timings start now, with the collecting, and it counts only interactions after the ones
+	 * the previous session saw, so entries still arriving for those are not counted twice.
 	 */
-	private createSession(startsAfterInteractionId: number): InteractivitySession<Keys> {
+	private createSession(): InteractivitySession<Keys> {
 		return new InteractivitySession({
 			hidden: getDocument()?.visibilityState === 'hidden',
 			regions: this.regions,
 			sessionKeys: { ...this.sessionKeys },
-			startsAfterInteractionId,
+			startsAfterInteractionId: this.startsAfterInteractionId,
 		});
 	}
 
-	/** Reports the current session as ended by `reason` and puts a new one in its place. */
-	private rotateSession(reason: RotateReason): void {
-		this.takeSnapshot(reason);
-		this.session = this.createSession(this.session.tracker.lastInteractionId);
-		this.snapshotScheduler.restart();
+	/** Reports the session as ended by `endReason` and lets go of it. */
+	private endSession(endReason: EndReason, { immediate }: SnapshotSendHints): void {
+		this.takeSnapshot(endReason, { immediate });
+		if (this.session) {
+			this.startsAfterInteractionId = this.session.tracker.lastInteractionId;
+		}
+		this.session = undefined;
 	}
 
 	private onTimer(): void {
-		this.takeSnapshot('timer');
+		this.takeSnapshot('timer', { immediate: false });
 	}
 
 	private onHidden(): void {
-		if (this.session.hiddenSince === undefined) {
+		if (this.session && this.session.hiddenSince === undefined) {
 			this.session.hiddenSince = performance.now();
 		}
-		this.takeSnapshot('hidden');
+		this.takeSnapshot('hidden', { immediate: true });
 	}
 
 	private onVisible(): void {
-		if (this.session.hiddenSince !== undefined) {
-			this.session.hiddenMs += performance.now() - this.session.hiddenSince;
-			this.session.hiddenSince = undefined;
+		const session = this.session;
+		if (!session) {
+			return;
 		}
-		this.session.lifecycleSnapshotEmitted = false;
+
+		if (session.hiddenSince !== undefined) {
+			session.hiddenMs += performance.now() - session.hiddenSince;
+			session.hiddenSince = undefined;
+		}
+		session.lifecycleSnapshotEmitted = false;
 	}
 
 	private onPageHide(): void {
-		this.takeSnapshot('pagehide');
+		this.takeSnapshot('pagehide', { immediate: true });
 	}
 
 	/**
@@ -242,7 +249,9 @@ export class InteractivityCollector<
 	 * one is due.
 	 */
 	private onPageShow(): void {
-		this.session.lifecycleSnapshotEmitted = false;
+		if (this.session) {
+			this.session.lifecycleSnapshotEmitted = false;
+		}
 	}
 
 	/**
@@ -250,38 +259,41 @@ export class InteractivityCollector<
 	 * they were faster than its threshold — which is why a count alone moves the session on.
 	 */
 	private recordRegionEvent(region: string, event: Event): void {
-		if (this.stopped) {
-			return;
-		}
-
 		// An event a script dispatched is no interaction: the browser counts none of them either.
-		if (!event.isTrusted) {
+		const session = this.session;
+		if (!session || !event.isTrusted) {
 			return;
 		}
 
-		const kind = this.session.tracker.recordRegionEvent(region, event);
-		const regionGroups = this.session.regionGroups.get(region);
+		const kind = session.tracker.recordRegionEvent(region, event);
+		const regionGroups = session.regionGroups.get(region);
 		if (!kind || !regionGroups) {
 			return;
 		}
 
 		regionGroups.all.countTotal();
 		regionGroups[kind].countTotal();
-		this.session.revision += 1;
+		session.revision += 1;
 	}
 
 	private recordEntries(entries: InteractionEntry[]): void {
+		// Entries the browser hands over after `stop` belong to no session.
+		const session = this.session;
+		if (!session) {
+			return;
+		}
+
 		for (const entry of entries) {
-			const update = this.session.tracker.merge(entry);
+			const update = session.tracker.merge(entry);
 			if (!update) {
 				continue;
 			}
 
-			let changed = this.session.page.trackInteractionUpdate(update);
+			let changed = session.page.trackInteractionUpdate(update);
 			if (update.attribution) {
 				const { kind, regions } = update.attribution;
 				for (const region of regions) {
-					const regionGroups = this.session.regionGroups.get(region);
+					const regionGroups = session.regionGroups.get(region);
 					if (!regionGroups) {
 						continue;
 					}
@@ -291,17 +303,16 @@ export class InteractivityCollector<
 			}
 
 			if (changed) {
-				this.session.revision += 1;
+				session.revision += 1;
 			}
 		}
 	}
 
-	private takeSnapshot(reason: CollectorReason | RotateReason): void {
-		if (this.stopped) {
+	private takeSnapshot(reason: InterimReason | EndReason, { immediate }: SnapshotSendHints): void {
+		const session = this.session;
+		if (!session) {
 			return;
 		}
-
-		const session = this.session;
 
 		// Checked before anything is consumed: `visibilitychange` and `pagehide` fire back to
 		// back on the same transition and it is reported once, and draining first would take
@@ -342,17 +353,20 @@ export class InteractivityCollector<
 			};
 		}
 
-		this.emit({
-			schema: SCHEMA_VERSION,
-			interactivitySessionId: session.id,
-			seq: session.seq,
-			reason,
-			sessionKeys: { ...session.sessionKeys },
-			activeMs: Math.round(Math.max(0, now - session.startedAt - hiddenMs)),
-			hiddenMs: Math.round(hiddenMs),
-			// Only `page` is told its total; each region has counted its own.
-			page: session.page.snapshot(pageTotalCount),
-			regions,
-		});
+		this.emit(
+			{
+				schema: SCHEMA_VERSION,
+				interactivitySessionId: session.id,
+				seq: session.seq,
+				reason,
+				sessionKeys: { ...session.sessionKeys },
+				activeMs: Math.round(Math.max(0, now - session.startedAt - hiddenMs)),
+				hiddenMs: Math.round(hiddenMs),
+				// Only `page` is told its total; each region has counted its own.
+				page: session.page.snapshot(pageTotalCount),
+				regions,
+			},
+			{ immediate },
+		);
 	}
 }

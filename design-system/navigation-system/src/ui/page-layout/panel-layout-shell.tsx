@@ -199,21 +199,37 @@ export function PanelLayoutShell({
 	// CSS query conditions cannot read custom properties. Only the numeric minimums and
 	// instance selector are generated here; this rule is removed after the first measurement,
 	// so live resizing never rewrites stylesheet text. The named container is local to this shell.
-	const inlineQuery =
-		`@container local-panel-layout (min-width: ${mainMinWidth + panelMinWidth}px)` satisfies ContainerAtRule;
+	// Scope each query to its own following grid. Hydration can retain the server's ID
+	// while subsequent renders use a different client ID. Include both minimums so
+	// layouts with different query conditions cannot apply their rules to each other.
+	// Encode punctuation to keep the CSS attribute selector unquoted (React 18 escapes
+	// quotes in server-rendered style text).
+	const queryKey = `m${mainMinWidth}p${panelMinWidth}`.replace(
+		/[^a-zA-Z0-9_-]/g,
+		(character) => `_${character.charCodeAt(0)}_`,
+	);
+	const useSiblingSelector = fg('platform-dst-chat-panel-layout');
+	const inlineSelector = useSiblingSelector
+		? `style[data-panel-layout-query=${queryKey}] + div`
+		: `#${id}`;
+	const inlineQuery = `@container local-panel-layout (min-width: ${
+		mainMinWidth + panelMinWidth
+	}px)` satisfies ContainerAtRule;
 	return (
 		<div css={styles.container}>
 			{mode === undefined && isMotionEnabled && fg('platform-dst-chat-panel-layout') && (
 				// Keep the inline motion cap available during exit, after the open-only track rule is removed.
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles -- Instance-scoped query matches the SSR inline allocation, including caller-defined minimums.
-				<style>{`${inlineQuery} {
-					#${id} { --p_lclPnlMotionMaxW: calc(100cqw - ${mainMinWidth}px); }
+				<style data-panel-layout-motion-query={queryKey}>{`${inlineQuery} {
+					style[data-panel-layout-motion-query=${queryKey}] ~ div { --p_lclPnlMotionMaxW: calc(100cqw - ${mainMinWidth}px); }
 				}`}</style>
 			)}
 			{mode === undefined && isPanelOpen && (
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles -- Instance-scoped SSR query supports caller-defined minimums; CSS variables are not allowed in query conditions.
-				<style>{`${inlineQuery} {
-					#${id} {
+				<style
+					data-panel-layout-query={useSiblingSelector ? queryKey : undefined}
+				>{`${inlineQuery} {
+					${inlineSelector} {
 						--p_lclPnlSsrAreas: var(--p_lclPnlSsrInlineAreas);
 						--p_lclPnlSsrColumns: minmax(0, 1fr) min(var(--p_lclPnlSsrPreferredW), calc(100% - ${mainMinWidth}px));
 						--p_lclPnlSsrArea: panel;

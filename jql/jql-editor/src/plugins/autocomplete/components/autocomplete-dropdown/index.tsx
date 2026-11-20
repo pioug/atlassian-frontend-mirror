@@ -105,7 +105,7 @@ const AutocompleteDropdown = ({
 }: Props): React.JSX.Element | null => {
 	const containerRef = useRef<HTMLElement | null>(null);
 	const scrollContainerRef = useRef<HTMLElement | null>(null);
-	const selectedItemRef = useRef<HTMLDivElement | HTMLLIElement | null>(null);
+	const selectedItemRef = useRef<HTMLDivElement | null>(null);
 	const [navigatingWithKeyboard, setNavigatingWithKeyboard] = useState(false);
 
 	const [intl] = useIntl();
@@ -127,7 +127,6 @@ const AutocompleteDropdown = ({
 	const [autocompleteId] = useScopedId(JQL_EDITOR_AUTOCOMPLETE_ID);
 
 	const isPopperPositioningEnabled = fg('jql_editor_autocomplete_use_popper');
-	const isAutocompleteForMembersOfEnabled = fg('enable-jql-membersof-autocomplete');
 
 	// Create virtual reference element positioned at cursor location (for popper implementation)
 	const virtualReferenceElement = useMemo(() => {
@@ -327,18 +326,9 @@ const AutocompleteDropdown = ({
 		return intl.formatMessage(messages.optionsFound);
 	}, [isAutocompleteOpen, intl, options]);
 
-	const optionGroups = useMemo(() => {
-		if (!isAutocompleteForMembersOfEnabled) {
-			return [];
-		}
-		return groupAutocompleteOptionsByKey(options);
-	}, [options, isAutocompleteForMembersOfEnabled]);
+	const optionGroups = useMemo(() => groupAutocompleteOptionsByKey(options), [options]);
 
-	const optionIndexById = useMemo(
-		() =>
-			isAutocompleteForMembersOfEnabled ? new Map(options.map((o, i) => [o.id, i])) : new Map(),
-		[options, isAutocompleteForMembersOfEnabled],
-	);
+	const optionIndexById = useMemo(() => new Map(options.map((o, i) => [o.id, i])), [options]);
 
 	const getGroupTitle = (groupKey: GroupKey): string => {
 		switch (groupKey) {
@@ -350,30 +340,6 @@ const AutocompleteDropdown = ({
 			}
 		}
 	};
-
-	const renderAutocompleteContent = () => (
-		<AutocompleteOptionsContainer ref={onScrollContainerRef} onMouseMove={onMouseMove}>
-			<OptionList role="listbox" id={autocompleteId}>
-				{options.map((option, index) => {
-					const isSelected = option.id === selectedOptionId;
-					return (
-						<AutocompleteOption
-							key={option.value}
-							isSelected={isSelected}
-							{...(isSelected && { ref: selectedItemRef })}
-							option={option}
-							onClick={() => handleClick(option, index, false)}
-							onMouseMove={() => {
-								if (options[index]?.id !== selectedOptionId) {
-									setSelectedAutocompleteOptionId(options[index]?.id);
-								}
-							}}
-						/>
-					);
-				})}
-			</OptionList>
-		</AutocompleteOptionsContainer>
-	);
 
 	const renderAutocompleteContentWithGroups = () => (
 		<AutocompleteOptionsContainer ref={onScrollContainerRef} onMouseMove={onMouseMove}>
@@ -463,9 +429,7 @@ const AutocompleteDropdown = ({
 							onBlur={onEditorViewBlur}
 							onFocus={onEditorViewFocus}
 						>
-							{isAutocompleteForMembersOfEnabled
-								? renderAutocompleteContentWithGroups()
-								: renderAutocompleteContent()}
+							{renderAutocompleteContentWithGroups()}
 							{renderLoadingFooter()}
 						</AutocompleteContainer>
 					)}
@@ -481,9 +445,7 @@ const AutocompleteDropdown = ({
 					onBlur={onEditorViewBlur}
 					onFocus={onEditorViewFocus}
 				>
-					{isAutocompleteForMembersOfEnabled
-						? renderAutocompleteContentWithGroups()
-						: renderAutocompleteContent()}
+					{renderAutocompleteContentWithGroups()}
 					{renderLoadingFooter()}
 				</AutocompleteContainer>
 			)}

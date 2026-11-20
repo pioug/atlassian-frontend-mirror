@@ -181,28 +181,20 @@ const rule: import('eslint').Rule.RuleModule = createLintRule({
 	create(context) {
 		const importSources = getImportSources(context);
 		const containerNames = new Set<string>();
+		const styleCalls: import('eslint').Rule.Node[] = [];
 
 		return {
-			Program(node) {
-				estraverse.traverse(node, {
-					enter(child) {
-						if (child.type !== 'Property') {
-							return;
-						}
-
-						const property = child as unknown as {
-							key: TypeScriptExpression;
-							value?: TypeScriptExpression;
-						};
-						if (isContainerDeclaration(property.key)) {
-							const id = getStaticString(property.value);
-							if (id) {
-								containerNames.add(id);
-							}
-						}
-					},
-					fallback: 'iteration',
-				});
+			Property(node) {
+				const property = node as unknown as {
+					key: TypeScriptExpression;
+					value?: TypeScriptExpression;
+				};
+				if (isContainerDeclaration(property.key)) {
+					const id = getStaticString(property.value);
+					if (id) {
+						containerNames.add(id);
+					}
+				}
 			},
 			CallExpression(node) {
 				const { references } = getScope(context, node);
@@ -214,7 +206,13 @@ const rule: import('eslint').Rule.RuleModule = createLintRule({
 					isCssMap(node.callee, references, importSources) ||
 					isXcss(node.callee, references, importSources)
 				) {
-					estraverse.traverse(node, {
+					styleCalls.push(node);
+				}
+			},
+			// Container names can be declared after the style call that uses them, so check queries once the file is visited
+			'Program:exit'() {
+				styleCalls.forEach((styleCall) => {
+					estraverse.traverse(styleCall, {
 						enter(node) {
 							if (node.type !== 'Property') {
 								return;
@@ -259,7 +257,7 @@ const rule: import('eslint').Rule.RuleModule = createLintRule({
 						 */
 						fallback: 'iteration',
 					});
-				}
+				});
 			},
 		};
 	},

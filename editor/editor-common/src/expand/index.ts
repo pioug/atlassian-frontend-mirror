@@ -2,7 +2,6 @@ import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { EditorCommand } from '../types';
 
@@ -43,7 +42,7 @@ export const toggleExpandRange =
 		);
 
 		const combinedPositions =
-			existingMeta?.open === open && fg('platform_editor_ai_show_diff_patch_2')
+			existingMeta?.open === open
 				? Array.from(new Set([...existingMeta.positions, ...positions]))
 				: positions;
 

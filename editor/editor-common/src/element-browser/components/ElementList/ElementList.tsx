@@ -21,6 +21,7 @@ import withAnalyticsContext, {
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next/withAnalyticsEvents';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut/main';
 import ButtonItem from '@atlaskit/menu/button-item';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { Text } from '@atlaskit/primitives/compiled/text';
@@ -628,12 +629,14 @@ const ElementItemButton = ({
 		[focusRef, popupRef],
 	);
 	const { icon, title, description, keyshortcut, isDisabled, lozenge } = item;
+	const ariaCurrent = (triggerProps?.isSelected ?? selected) ? 'true' : undefined;
 	return (
 		<Tooltip content={description} testId={`element-item-tooltip-${index}`}>
 			<ButtonItem
 				onClick={onClick}
 				iconBefore={<ElementBefore icon={icon} title={title} />}
 				isSelected={triggerProps?.isSelected ?? selected}
+				aria-current={isExperimentEnabled('a11y_remediation_pipeline_2') ? undefined : ariaCurrent}
 				aria-controls={triggerProps?.['aria-controls']}
 				aria-label={title}
 				ref={setTriggerRef}

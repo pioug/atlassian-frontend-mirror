@@ -1,5 +1,13 @@
 # @atlassian/navigation-system
 
+## 12.0.1
+
+### Patch Changes
+
+- [`f21efa21bc985`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f21efa21bc985) -
+  Keep the initial PanelLayout container query attached to its layout after a hydration ID mismatch,
+  behind platform-dst-chat-panel-layout.
+
 ## 12.0.0
 
 ### Major Changes

@@ -4,9 +4,11 @@ import { act, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import type { WidthObserver } from '@atlaskit/width-detector/width-observer';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
-import * as Image from '../../../../../examples-helpers/images.json';
 import UserType, { USER_TYPE_TEST_ID, type UserProps } from './index';
+
+const trelloAvatarSource = 'https://example.test/trello-avatar.png';
 
 let mockInnerSetWidth: Function | undefined;
 
@@ -41,6 +43,15 @@ describe('User Type', () => {
 		expect(el).toHaveTextContent('Unassigned');
 	});
 
+	it('renders Unassigned when the only user value is undefined', async () => {
+		const { queryByTestId } = setup([undefined as unknown as UserProps]);
+
+		const el = queryByTestId(USER_TYPE_TEST_ID);
+
+		expect(el).toBeInTheDocument();
+		expect(el).toHaveTextContent('Unassigned');
+	});
+
 	it('renders with the passed in displayName', async () => {
 		const user = [
 			{
@@ -59,7 +70,7 @@ describe('User Type', () => {
 		const user = [
 			{
 				displayName: 'UNCLE_BOB',
-				avatarSource: Image.trello,
+				avatarSource: trelloAvatarSource,
 			},
 		];
 		setup(user);
@@ -69,10 +80,33 @@ describe('User Type', () => {
 
 		expect(userContainer).toBeInTheDocument();
 		expect(img).toBeInTheDocument();
-		expect(img).toHaveAttribute('src', Image.trello);
+		expect(img).toHaveAttribute('src', trelloAvatarSource);
+	});
+
+	it('renders each user as avatar plus displayName when the LoL People gate is on', async () => {
+		passGate('assets_tempeh_lol_people_user');
+
+		const users = [
+			{
+				displayName: 'Ayush Gupta',
+			},
+			{
+				displayName: 'jira-software-users',
+			},
+		];
+
+		setup(users);
+
+		expect(screen.queryByTestId(`${USER_TYPE_TEST_ID}--avatar-group`)).not.toBeInTheDocument();
+		expect(screen.getByTestId(USER_TYPE_TEST_ID)).toHaveTextContent('Ayush Gupta');
+		expect(screen.getByTestId(USER_TYPE_TEST_ID)).toHaveTextContent('jira-software-users');
+		expect(screen.getByTestId(`${USER_TYPE_TEST_ID}-0`)).toHaveTextContent('Ayush Gupta');
+		expect(screen.getByTestId(`${USER_TYPE_TEST_ID}-1`)).toHaveTextContent('jira-software-users');
 	});
 
 	it('renders with avatarGroup when provided information of multiple users', async () => {
+		failGate('assets_tempeh_lol_people_user');
+
 		const users = [
 			{
 				displayName: 'UNCLE_BEN',

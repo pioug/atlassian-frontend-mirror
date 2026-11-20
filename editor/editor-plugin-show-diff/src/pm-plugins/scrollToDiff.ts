@@ -43,7 +43,7 @@ function resolveScrollTarget(view: EditorView, target: Decoration): Node | null 
 	if (isDiffDecoration(target) && target.spec.decorationType === 'widget') {
 		return getWidgetElement(target);
 	}
-	if (isDiffDecoration(target) && fg('platform_editor_ai_show_diff_patch_2')) {
+	if (isDiffDecoration(target)) {
 		return (
 			Array.from(view.dom.querySelectorAll<HTMLElement>('[data-diff-id]')).find(
 				(element) => element.dataset.diffId === target.spec.diffId,

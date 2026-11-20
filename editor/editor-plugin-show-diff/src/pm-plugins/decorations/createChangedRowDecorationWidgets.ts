@@ -7,7 +7,6 @@ import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { NodeViewSerializer } from '../NodeViewSerializer';
@@ -234,7 +233,7 @@ const createChangedRowDOM = ({
 	isActive,
 }: CreateChangedRowDOMProps): HTMLTableRowElement => {
 	const tr = document.createElement('tr');
-	if (isTableRowReplacement && fg('platform_editor_ai_show_diff_patch_2')) {
+	if (isTableRowReplacement) {
 		tr.dataset.showDiffTableRowReplacement = 'true';
 	}
 	const colors = colorSchemeRegistry[colorScheme ?? 'standard'];

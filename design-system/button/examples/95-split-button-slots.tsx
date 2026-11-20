@@ -2,14 +2,13 @@ import React from 'react';
 
 import Button from '@atlaskit/button/default/button';
 import IconButton from '@atlaskit/button/icon/button';
+// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
+import SplitButtonWithSlots from '@atlaskit/button/split-button-with-slots';
 import Heading from '@atlaskit/heading/heading';
 import ChevronDown from '@atlaskit/icon/core/chevron-down';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
-
-// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
-import SplitButtonWithSlots from '../src/new-button/containers/split-button/split-button-with-slots';
 
 export default (): React.JSX.Element => (
 	<Box padding="space.250">

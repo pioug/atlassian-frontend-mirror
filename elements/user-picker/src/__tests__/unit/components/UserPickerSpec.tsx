@@ -3,7 +3,8 @@ import React from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
-import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { UserPickerWithoutAnalytics } from '../../../components/UserPicker';
 import { type User } from '../../../types';
@@ -50,6 +51,63 @@ describe('UserPicker', () => {
 		fireEvent.click(await screen.findByText('Jace Beleren'));
 		await waitFor(() => expect(onSelection).toHaveBeenCalled());
 		expect(onSelection.mock.calls[0][0]).toEqual(options[0]);
+	});
+
+	describe.each([
+		{
+			scenario: 'legacy tags',
+			upliftEnabled: false,
+			fixEnabled: null,
+			hasNamedImage: false,
+		},
+		{
+			scenario: 'uplifted tags with the fix off',
+			upliftEnabled: true,
+			fixEnabled: false,
+			hasNamedImage: true,
+		},
+		{
+			scenario: 'uplifted tags with the fix on',
+			upliftEnabled: true,
+			fixEnabled: true,
+			hasNamedImage: false,
+		},
+	])('selected avatars in $scenario', ({ upliftEnabled, fixEnabled, hasNamedImage }) => {
+		it.each([
+			{
+				variant: 'user photo',
+				avatar: { type: 'user', avatarUrl: 'https://example.com/user.png' },
+			},
+			{ variant: 'user fallback', avatar: { type: 'user' } },
+			{
+				variant: 'team photo',
+				avatar: { type: 'team', avatarUrl: 'https://example.com/team.png' },
+			},
+			{ variant: 'team fallback', avatar: { type: 'team' } },
+			{ variant: 'agent fallback', avatar: { type: 'user', appType: 'agent' } },
+		] as const)('renders the expected image role for $variant', async ({ avatar }) => {
+			(upliftEnabled ? passGate : failGate)('platform-dst-lozenge-tag-badge-visual-uplifts');
+			if (fixEnabled !== null) {
+				(fixEnabled ? passGate : failGate)('platform-user-picker-a11y-51062-decorative-avatars');
+			}
+			failGate('platform-dst-motion-uplift-labels');
+			mockExpEnabled('platform_user_picker_agent_avatar_hexagon');
+
+			const value = { id: 'selected', name: 'Selected member', ...avatar };
+			renderPicker({
+				fieldId: 'members',
+				ariaLabel: 'Add team members',
+				isMulti: true,
+				defaultValue: [value],
+			});
+
+			expect(await screen.findByText(value.name, { ignore: '[hidden]' })).toBeVisible();
+			if (hasNamedImage) {
+				expect(screen.getByRole('img', { name: value.name })).toBeInTheDocument();
+			} else {
+				expect(screen.queryByRole('img')).not.toBeInTheDocument();
+			}
+		});
 	});
 
 	describe('menuRenderMode', () => {

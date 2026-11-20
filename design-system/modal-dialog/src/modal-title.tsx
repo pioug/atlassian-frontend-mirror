@@ -2,16 +2,19 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type ReactNode } from 'react';
+import { type ReactNode, useContext } from 'react';
 
 import { css, jsx } from '@compiled/react';
+import { IntlContext } from 'react-intl';
 
 import ErrorIcon from '@atlaskit/icon/core/status-error';
 import WarningIcon from '@atlaskit/icon/core/status-warning';
 import type { NewIconProps } from '@atlaskit/icon/types';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { useModal } from './hooks';
+import { titleIconMessages } from './internal/title-icon-messages';
 import { type Appearance } from './types';
 
 const iconColor: { [key in Appearance]: NewIconProps['color'] } = {
@@ -65,11 +68,20 @@ const truncatedTextStyles = css({
 });
 
 const TitleIcon = ({ appearance }: Required<Pick<ModalTitleProps, 'appearance'>>) => {
+	const intl = useContext(IntlContext);
 	const Icon = appearance === 'danger' ? ErrorIcon : WarningIcon;
+	let label: string = appearance;
+
+	if (fg('platform_modal_title_icon_label')) {
+		const message = titleIconMessages[appearance];
+		if (intl && message) {
+			label = intl.formatMessage(message);
+		}
+	}
 
 	return (
 		<span css={iconStyles}>
-			<Icon label={appearance} color={iconColor[appearance]} spacing="spacious" />
+			<Icon label={label} color={iconColor[appearance]} spacing="spacious" />
 		</span>
 	);
 };

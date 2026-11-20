@@ -227,6 +227,82 @@ describe('<MediaViewer />', () => {
 
 			await expect(document.body).toBeAccessible();
 		});
+
+		describe('focus return (platform_media_a11y_viewer_return_focus)', () => {
+			const renderWithTrigger = () => {
+				const [fileItem, identifier] = generateSampleFileItem.workingVideo();
+				const { mediaApi } = createMockedMediaApi(fileItem);
+
+				const Harness = () => {
+					const [isOpen, setIsOpen] = React.useState(false);
+					return (
+						<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+							<button type="button" onClick={() => setIsOpen(true)}>
+								Open attachment
+							</button>
+							{isOpen && (
+								<MediaViewer
+									selectedItem={identifier}
+									items={[identifier]}
+									onClose={() => setIsOpen(false)}
+									collectionName={identifier.collectionName || ''}
+									mediaClientConfig={fakeMediaClientConfig}
+								/>
+							)}
+						</MockedMediaClientProvider>
+					);
+				};
+
+				render(<Harness />);
+				return screen.getByRole('button', { name: 'Open attachment' });
+			};
+
+			it('should return focus to the trigger when closed with Escape', async () => {
+				passGate('platform_media_a11y_viewer_return_focus');
+				const trigger = renderWithTrigger();
+
+				await user.click(trigger);
+				const closeButton = await screen.findByLabelText('Close');
+				await waitFor(() => expect(trigger).not.toHaveFocus());
+
+				await user.keyboard('{Escape}');
+				expect(closeButton).not.toBeInTheDocument();
+				await waitFor(() => expect(trigger).toHaveFocus());
+
+				await expect(document.body).toBeAccessible();
+			});
+
+			it('should return focus to the trigger when closed with the Close button', async () => {
+				passGate('platform_media_a11y_viewer_return_focus');
+				const trigger = renderWithTrigger();
+
+				await user.click(trigger);
+				const closeButton = await screen.findByLabelText('Close');
+				await waitFor(() => expect(trigger).not.toHaveFocus());
+
+				fireEvent.click(closeButton);
+				expect(closeButton).not.toBeInTheDocument();
+				await waitFor(() => expect(trigger).toHaveFocus());
+
+				await expect(document.body).toBeAccessible();
+			});
+
+			it('should not return focus to the trigger when the gate is off', async () => {
+				failGate('platform_media_a11y_viewer_return_focus');
+				const trigger = renderWithTrigger();
+
+				await user.click(trigger);
+				const closeButton = await screen.findByLabelText('Close');
+				await waitFor(() => expect(trigger).not.toHaveFocus());
+
+				await user.keyboard('{Escape}');
+				expect(closeButton).not.toBeInTheDocument();
+				await act(async () => {
+					await new Promise((resolve) => setTimeout(resolve, 0));
+				});
+				expect(trigger).not.toHaveFocus();
+			});
+		});
 	});
 
 	describe('Analytics', () => {

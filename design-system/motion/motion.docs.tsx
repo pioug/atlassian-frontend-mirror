@@ -23,9 +23,13 @@ const documentation: StructuredContentSource = {
 			},
 			usageGuidelines: [
 				'Use motion already owned by an ADS component instead of wrapping or replacing it',
+				'Import Motion as the default export from @atlaskit/motion/entering/motion. Keep consumer imports portable: do not copy relative paths into the package src directory from internal examples, and do not infer a public subpath from a source filename. Check the package exports before using another entrypoint',
 				'Use the Motion primitive as the recommended way to apply entry and exit animations',
 				'Pass action="enter" or action="exit" whenever Motion needs to respond to application state, and keep Motion mounted so it can play the exit animation before rendering null',
 				'Provide enteringAnimation for action="enter" and exitingAnimation for action="exit"; omit the unused animation only when the component can never perform that action',
+				'For collection removal, retain the keyed record in the rendered collection, mark it as exiting, and pass action={isExiting ? "exit" : "enter"}. Remove the record only from onFinish when the transition is "exiting". Filtering the record immediately unmounts Motion before it can animate; changing its key also discards its lifecycle',
+				'A collection does not by itself require useMotion. Preserve a semantic li or td as the outer host and put Motion inside it when that structure meets the layout; use the hook only if the animated host itself must remain wrapperless. Do not replace a declarative action with Reanimate just to dismiss or reveal content',
+				'For sequential replacement, retain the currently displayed content while action is "exit", then replace it and return to "enter" from the exit completion callback. Keep the latest requested content separate from displayed content so rapid changes do not replace a child during its exit',
 				'Do not use ExitingPersistence for new Motion implementations; it remains available only for existing integrations while its remaining use cases are validated',
 				'Prefer the complete semantic motion token for the affected role and state; inspect the full motion.<role>.* namespace so paired entry, exit, and reposition states are not missed',
 				'Do not invent a motion token or reconstruct an available semantic token from base duration, easing, and keyframe tokens',
@@ -241,6 +245,7 @@ const documentation: StructuredContentSource = {
 			},
 			usageGuidelines: [
 				'Prefer the Motion primitive by default — reach for useMotion only when an extra wrapper element would break layout, semantics, or an attribute a parent selector depends on',
+				'Import useMotion as a named export from @atlaskit/motion/entering/use-motion and Reanimate as a named export from @atlaskit/motion/reanimate. Reanimate is not exported from @atlaskit/motion/entering/reanimate. Internal relative src imports are not portable consumer imports',
 				'The hook does not return styles. It returns the current state, and the consumer writes the animation CSS for each state and selects it by state — either with the Compiled css prop (css={[state === "entering" && styles.entering]}) or by passing cssMap styles through cx into className',
 				'state is one of init, entering, visible, exiting, or hidden',
 				'Attach the returned ref to the animated element — it is used to measure the animation duration before onFinish is called and to receive a staggered delay',

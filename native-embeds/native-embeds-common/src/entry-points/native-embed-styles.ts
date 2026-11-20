@@ -5,7 +5,17 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Extension container override requires :has and !important
 import { css, type SerializedStyles } from '@emotion/react';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
+
+/**
+ * Whether a center-aligned embed in the renderer's wide/full-width flex wrapper should be centred
+ * by that wrapper alone. Every element that carries `data-native-embed-alignment` must set
+ * `data-native-embed-wide-layout-centering="true"` when this is on, so the placeholder and the
+ * loaded embed resolve to the same position.
+ */
+export const isNativeEmbedWideLayoutCenteringEnabled = (): boolean =>
+	!fg('native_embeds_wide_layout_centering_killswitch');
 
 const wrapGap = token('space.150', '12px');
 const noWrapGap = token('space.300', '24px');
@@ -172,6 +182,16 @@ export const nativeEmbedAlignmentStyles: SerializedStyles = css({
 			transform: 'translateX(-50%)',
 			marginLeft: '0 !important',
 			marginRight: '0 !important',
+		},
+	// The renderer wraps a top-level extension with a wide or full-width layout in a flex wrapper
+	// that already centres it on the text column, including when it is wider than the column. The
+	// left:50% + translateX(-50%) above would centre it a second time, which puts the embed's right
+	// edge on the column's right edge whatever its width. Let the flex wrapper own the centring.
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Target the renderer-owned flex centre wrapper's extension child by data attribute
+	'.ak-renderer-flex-center-wrapper > .ak-renderer-extension:not(:has([data-native-tabs])):has([data-native-embed-alignment="center"][data-native-embed-wide-layout-centering="true"])':
+		{
+			left: 'auto',
+			transform: 'none',
 		},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Target extension wrappers by data attribute
 	'.extension-container:not(:has([data-native-tabs])):has([data-native-embed-alignment="right"]), .ak-renderer-extension:not(:has([data-native-tabs])):has([data-native-embed-alignment="right"])':

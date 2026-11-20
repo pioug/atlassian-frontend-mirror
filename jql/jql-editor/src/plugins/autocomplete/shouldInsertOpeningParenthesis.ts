@@ -1,5 +1,4 @@
 import { isListOperator } from '@atlaskit/jql-ast/ast/operator';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { type SelectableAutocompleteOption } from './components/types';
 
@@ -13,7 +12,7 @@ export const shouldInsertOpeningParenthesis = ({
 }: SelectableAutocompleteOption): boolean => {
 	// Suggestions rendered inside a function argument already have their own surrounding
 	// parentheses, so we should not apply the generic list-operand "(" insertion logic.
-	if (type === 'functionArgument' && fg('enable-jql-membersof-autocomplete')) {
+	if (type === 'functionArgument') {
 		return false;
 	}
 

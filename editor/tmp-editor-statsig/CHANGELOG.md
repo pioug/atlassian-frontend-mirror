@@ -1,5 +1,12 @@
 # @atlaskit/editor-statsig-tmp
 
+## 267.0.0
+
+### Major Changes
+
+- [`bf9d1db632c44`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bf9d1db632c44) -
+  Remove seven unused Editor experiment registrations and their test overrides.
+
 ## 266.0.0
 
 ### Major Changes

@@ -2,7 +2,6 @@ import { convertToInlineCss } from '@atlaskit/editor-common/css-helper';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { isTaggableBlockNode } from '../utils/taggableBlockNodes';
 import {
@@ -304,22 +303,14 @@ export const createBlockChangedDecoration = ({
 		isInserted,
 		isActive,
 	});
-	const styleOld = tagAnchorName
-		? [nodeStyle, convertToInlineCss({ anchorName: `--${tagAnchorName}` }), scrollMarginTopStyle]
-				.filter(Boolean)
-				.join(' ')
-		: nodeStyle;
-
-	const style = fg('platform_editor_ai_show_diff_patch_2')
-		? [
-				nodeStyle,
-				tagAnchorName ? convertToInlineCss({ anchorName: `--${tagAnchorName}` }) : undefined,
-				// only add margin top if the node actually should be styled to avoid incorrect diff decoration specs being built
-				nodeStyle ? scrollMarginTopStyle : undefined,
-			]
-				.filter(Boolean)
-				.join(' ')
-		: styleOld;
+	const style = [
+		nodeStyle,
+		tagAnchorName ? convertToInlineCss({ anchorName: `--${tagAnchorName}` }) : undefined,
+		// only add margin top if the node actually should be styled to avoid incorrect diff decoration specs being built
+		nodeStyle ? scrollMarginTopStyle : undefined,
+	]
+		.filter(Boolean)
+		.join(' ');
 
 	const className = getNodeClass(change.name);
 	if (style || className) {
@@ -332,9 +323,7 @@ export const createBlockChangedDecoration = ({
 					'data-testid': 'show-diff-changed-decoration-node',
 					class: className,
 					// Lets navigation select this exact diff, and contributor tags find it on hover.
-					...((shouldTagBlock || fg('platform_editor_ai_show_diff_patch_2')) && {
-						'data-diff-id': diffId,
-					}),
+					'data-diff-id': diffId,
 				},
 				buildDiffDecorationSpec({
 					attributionKey: showContributorTags ? attributionKey : undefined,

@@ -7,8 +7,10 @@ import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gat
 import { act } from '@atlassian/testing-library/act';
 import { within } from '@atlassian/testing-library/within';
 
+import { MainMinWidthContext } from '../../main-min-width-context';
 import { Main } from '../../main/main';
 import { PanelLayout } from '../../panel-layout';
+import { PanelLayoutShell } from '../../panel-layout-shell';
 import { Root } from '../../root';
 
 it.each([false, true])(
@@ -110,6 +112,71 @@ it.each([
 			).toEqual([]);
 		} finally {
 			jest.restoreAllMocks();
+		}
+	},
+);
+
+// A host hydration mismatch can retain the server ID while later renders use the client ID.
+// The first open must still target the existing layout, without activating the resize runtime.
+it.each([false, true])(
+	'keeps initial query rules scoped after an ID mismatch (motion: %s)',
+	async (motion) => {
+		passGate('platform-dst-chat-panel-layout');
+		const errorsMock = jest.spyOn(console, 'error').mockImplementation(() => {});
+		const container = document.createElement('div');
+		let root: ReturnType<typeof hydrateRoot> | undefined;
+		const fixture = (open: boolean) => (
+			<>
+				{[320, 480.5].map((minimum) => (
+					<MainMinWidthContext.Provider key={minimum} value={minimum}>
+						<PanelLayoutShell
+							isPanelOpen={open}
+							panelWidth={400}
+							compactPanelWidth={320}
+							xlPanelWidth={500}
+							xlDefaultPanelWidth={500}
+							defaultPanelWidth={400}
+							compactDefaultPanelWidth={320}
+							isMotionEnabled={motion}
+							panel="Preview"
+							testId={`layout-${minimum}`}
+						>
+							Main
+						</PanelLayoutShell>
+					</MainMinWidthContext.Provider>
+				))}
+			</>
+		);
+		try {
+			container.innerHTML = renderToString(fixture(false), { identifierPrefix: 'server-' });
+			document.body.append(container);
+			const layouts = [320, 480.5].map((minimum) =>
+				within(container).getByTestId(`layout-${minimum}`),
+			);
+			await act(() => {
+				root = hydrateRoot(container, fixture(false), { identifierPrefix: 'client-' });
+			});
+			await act(() => root?.render(fixture(true)));
+			for (const layout of layouts) {
+				expect(layout.id).toContain('server-');
+				// eslint-disable-next-line testing-library/no-node-access -- Stylesheet scope has no accessible role.
+				const styles = layout.parentElement!.querySelectorAll('style');
+				expect(styles).toHaveLength(motion ? 2 : 1);
+				for (const style of styles) {
+					const selector = style.textContent!.split('{')[1].trim();
+					// eslint-disable-next-line testing-library/no-node-access -- Verify the emitted CSS selector targets the retained DOM node.
+					expect(Array.from(container.querySelectorAll(selector))).toEqual([layout]);
+				}
+			}
+			await act(() => root?.render(fixture(false)));
+			for (const layout of layouts) {
+				// eslint-disable-next-line testing-library/no-node-access -- Closing must remove only the open-panel stylesheet.
+				expect(layout.parentElement!.querySelectorAll('style')).toHaveLength(motion ? 1 : 0);
+			}
+		} finally {
+			await act(() => root?.unmount());
+			container.remove();
+			errorsMock.mockRestore();
 		}
 	},
 );

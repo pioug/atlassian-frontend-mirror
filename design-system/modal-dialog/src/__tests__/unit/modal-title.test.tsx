@@ -1,6 +1,9 @@
 import React from 'react';
 
+import { IntlProvider } from 'react-intl';
+
 import noop from '@atlaskit/ds-lib/noop';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { render } from '@atlassian/testing-library/testing-library/react';
 
@@ -112,6 +115,146 @@ describe('<ModalTitle />', () => {
 		const title = screen.getByRole('heading');
 		const icon = screen.getByRole('img', { name: 'danger' });
 		expect(title).toContainElement(icon);
+	});
+
+	describe('localized title icons', () => {
+		it.each([
+			['warning', 'avertissement'],
+			['danger', 'danger traduit'],
+		] as const)('uses the intl catalog for the %s icon', (appearance, translation) => {
+			passGate('platform_modal_title_icon_label');
+
+			render(
+				<IntlProvider
+					locale="fr"
+					messages={{
+						[`modal-dialog.title.${appearance}-icon-label`]: translation,
+					}}
+				>
+					<ModalDialog>
+						<ModalHeader>
+							<ModalTitle appearance={appearance}>Title</ModalTitle>
+						</ModalHeader>
+					</ModalDialog>
+				</IntlProvider>,
+			);
+
+			const icon = screen.getByRole('img', { name: translation });
+			expect(screen.getByRole('heading')).toContainElement(icon);
+			expect(screen.getByRole('dialog')).toHaveAccessibleName('Title');
+		});
+
+		it.each(['warning', 'danger'] as const)(
+			'keeps the English %s label without an IntlProvider',
+			(appearance) => {
+				passGate('platform_modal_title_icon_label');
+
+				render(
+					<ModalDialog>
+						<ModalHeader>
+							<ModalTitle appearance={appearance}>Title</ModalTitle>
+						</ModalHeader>
+					</ModalDialog>,
+				);
+
+				expect(screen.getByRole('img')).toHaveAccessibleName(appearance);
+			},
+		);
+
+		it('preserves the label for an unsupported runtime appearance', () => {
+			passGate('platform_modal_title_icon_label');
+
+			render(
+				<IntlProvider locale="en">
+					<ModalDialog>
+						<ModalHeader>
+							{/* @ts-expect-error - Existing consumers can pass unsupported appearances at runtime. */}
+							<ModalTitle appearance="primary">Title</ModalTitle>
+						</ModalHeader>
+					</ModalDialog>
+				</IntlProvider>,
+			);
+
+			expect(screen.getByRole('img')).toHaveAccessibleName('primary');
+		});
+
+		it('falls back to English when a translation is missing', () => {
+			passGate('platform_modal_title_icon_label');
+			const onError = jest.fn();
+
+			render(
+				<IntlProvider locale="fr" messages={{}} onError={onError}>
+					<ModalDialog>
+						<ModalHeader>
+							<ModalTitle appearance="warning">Title</ModalTitle>
+						</ModalHeader>
+					</ModalDialog>
+				</IntlProvider>,
+			);
+
+			expect(screen.getByRole('img')).toHaveAccessibleName('warning');
+			expect(onError).toHaveBeenCalled();
+		});
+
+		it('updates the label when the application locale changes', () => {
+			passGate('platform_modal_title_icon_label');
+			const modal = (
+				<ModalDialog>
+					<ModalHeader>
+						<ModalTitle appearance="warning">Title</ModalTitle>
+					</ModalHeader>
+				</ModalDialog>
+			);
+			const { rerender } = render(
+				<IntlProvider
+					locale="fr"
+					messages={{ 'modal-dialog.title.warning-icon-label': 'avertissement' }}
+				>
+					{modal}
+				</IntlProvider>,
+			);
+
+			expect(screen.getByRole('img')).toHaveAccessibleName('avertissement');
+
+			rerender(
+				<IntlProvider locale="de" messages={{ 'modal-dialog.title.warning-icon-label': 'Warnung' }}>
+					{modal}
+				</IntlProvider>,
+			);
+
+			expect(screen.getByRole('img')).toHaveAccessibleName('Warnung');
+		});
+
+		it('preserves the existing label when the gate is disabled', () => {
+			failGate('platform_modal_title_icon_label');
+
+			render(
+				<IntlProvider
+					locale="fr"
+					messages={{ 'modal-dialog.title.warning-icon-label': 'avertissement' }}
+				>
+					<ModalDialog>
+						<ModalHeader>
+							<ModalTitle appearance="warning">Title</ModalTitle>
+						</ModalHeader>
+					</ModalDialog>
+				</IntlProvider>,
+			);
+
+			expect(screen.getByRole('img')).toHaveAccessibleName('warning');
+		});
+
+		it('does not add an icon without an appearance', () => {
+			render(
+				<ModalDialog>
+					<ModalHeader>
+						<ModalTitle>Title</ModalTitle>
+					</ModalHeader>
+				</ModalDialog>,
+			);
+
+			expect(screen.queryByRole('img')).not.toBeInTheDocument();
+		});
 	});
 
 	it('should throw an error if modal context not available', () => {

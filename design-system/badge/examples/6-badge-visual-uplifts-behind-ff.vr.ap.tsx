@@ -8,12 +8,11 @@
 import { cssMap, jsx } from '@compiled/react';
 
 import Badge from '@atlaskit/badge/badge';
+import BadgeNew from '@atlaskit/badge/badge-new';
 import Heading from '@atlaskit/heading/heading';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { token } from '@atlaskit/tokens';
-
-import BadgeNew from '../src/badge-new';
 
 const styles = cssMap({
 	container: {

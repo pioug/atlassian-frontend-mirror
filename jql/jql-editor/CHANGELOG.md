@@ -1,5 +1,26 @@
 # @atlaskit/jql-editor
 
+## 8.10.1
+
+### Patch Changes
+
+- [`edbb5d381d506`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/edbb5d381d506) -
+  Cleanup `feature_gate` `enable-jql-membersof-autocomplete`. The `membersOf` team-argument
+  autocomplete behavior and grouped autocomplete dropdown rendering are now permanently enabled.
+- Updated dependencies
+
+## 8.10.0
+
+### Minor Changes
+
+- [`3fa576071fed0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3fa576071fed0) -
+  Update i18n NPM package versions for jira-ai,jira,jsm,proforma,chroma,capacity-planning,jql
+  (Group 4)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.9.0
 
 ### Minor Changes

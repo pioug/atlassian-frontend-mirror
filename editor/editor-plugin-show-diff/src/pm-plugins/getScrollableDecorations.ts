@@ -1,7 +1,6 @@
 import type { Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { isDiffDecoration, isDiffDecorationSpec } from './decorations/decorationKeys';
 
@@ -157,10 +156,7 @@ function groupTouchingDecorations(
 		// Keep the group's range for navigation and active-range calculation, but scroll to the widget.
 		let scrollTarget: Decoration | undefined;
 		const startNode = doc?.nodeAt(from);
-		if (
-			fg('platform_editor_ai_show_diff_patch_2_fix') &&
-			(startNode?.type.name === 'tableCell' || startNode?.type.name === 'tableHeader')
-		) {
+		if (startNode?.type.name === 'tableCell' || startNode?.type.name === 'tableHeader') {
 			scrollTarget = group.find(
 				(decoration) =>
 					decoration.from === from + 1 &&

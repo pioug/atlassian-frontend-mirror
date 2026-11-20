@@ -39,7 +39,6 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '73151:19115',
 		usage: 'Reserved for AI filter search prompt.',
-		slackChannel: '@Cohen Gum',
 		createdAt: '2026-09-14T22:14:11.203Z',
 	},
 	'ai-generative-audio-briefing': {
@@ -2522,7 +2521,6 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '73101:49224',
 		usage: 'Known uses: Hanging up voice call in CSM',
-		slackChannel: '@Dan Hoolahan',
 		createdAt: '2026-09-14T22:14:11.203Z',
 	},
 	'enterprise-certified': {
@@ -2533,7 +2531,6 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '72516:18546',
 		usage: 'Reserved for representing Atlassian enterprise certified apps on Marketplace.',
-		slackChannel: '@Hannah Ashby',
 		createdAt: '2026-09-14T22:14:11.203Z',
 	},
 	'expand-element': {
@@ -2723,7 +2720,6 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '73132:38410',
 		usage: 'Known uses: Guitar based music in CSM hold music options.',
-		slackChannel: '@Dan Hoolahan',
 		createdAt: '2026-09-14T22:14:11.203Z',
 	},
 	'hand-closed': {
@@ -2764,7 +2760,6 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '73093:36202',
 		usage: 'Known uses: Welcome message in CSM voice configuration.',
-		slackChannel: '@Dan Hoolahan',
 		createdAt: '2026-09-14T22:14:11.203Z',
 	},
 	'hardware-assignment': {
@@ -2946,7 +2941,6 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '73132:38042',
 		usage: 'Known usages: Depicting customer support on the phone, e.g. Voice support in CSM',
-		slackChannel: '@Dan Hoolahan',
 		createdAt: '2026-09-14T22:14:11.203Z',
 	},
 	hierarchy: {
@@ -3491,10 +3485,9 @@ const metadata: IconMetadata = {
 		categorization: 'multi-purpose',
 		location: '@atlaskit/icon-lab',
 		team: 'CSM',
-		status: 'published',
+		status: 'ready-to-publish',
 		id: '73128:20207',
 		usage: 'Known uses: Classical piano music in CSM hold music options.',
-		slackChannel: '@Dan hoolahan',
 		createdAt: '2026-09-14T22:14:11.203Z',
 	},
 	'pin-strikethrough': {
@@ -3791,7 +3784,6 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '73141:31635',
 		usage: 'Reserved to represent Rovo digest.',
-		slackChannel: '@Naomi Kite',
 		createdAt: '2026-09-14T22:14:11.203Z',
 	},
 	'rss-feed': {
@@ -3952,7 +3944,6 @@ const metadata: IconMetadata = {
 		status: 'published',
 		id: '73132:38938',
 		usage: 'Known uses: Audio sound wave depicting ambient music in CSM hold music.',
-		slackChannel: '@Dan Hoolahan',
 		createdAt: '2026-09-14T22:14:11.203Z',
 	},
 	skill: {
@@ -4009,13 +4000,17 @@ const metadata: IconMetadata = {
 		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'speedometer-left': {
-		keywords: ['speed', 'performance', 'dial', 'slow'],
+		keywords: ['speed', 'performance', 'dial', 'slow', 'risk likelihood', 'medium low'],
 		categorization: 'multi-purpose',
 		location: '@atlaskit/icon-lab',
 		team: 'Loom',
-		status: 'published',
-		id: '42096:70985',
-		usage: 'Known uses: video is set to a slower playback speed',
+		status: 'deprecated',
+		id: '67297:35131',
+		usage: 'Known uses: video is set to a slower playback speed; medium-low likelihood',
+		replacement: {
+			name: 'speedometer-left-up',
+			location: '@atlaskit/icon-lab',
+		},
 		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'speedometer-left-down': {
@@ -4039,13 +4034,17 @@ const metadata: IconMetadata = {
 		createdAt: '2026-05-06T13:34:53.068Z',
 	},
 	'speedometer-right': {
-		keywords: ['speed', 'performance', 'dial', 'fast'],
+		keywords: ['speed', 'performance', 'dial', 'fast', 'risk likelihood', 'medium high'],
 		categorization: 'multi-purpose',
 		location: '@atlaskit/icon-lab',
 		team: 'Loom',
-		status: 'published',
-		id: '14531:7329',
-		usage: 'Known uses: video is set to a faster playback speed',
+		status: 'deprecated',
+		id: '67302:31402',
+		usage: 'Known uses: video is set to a faster playback speed; medium-high likelihood',
+		replacement: {
+			name: 'speedometer-right-up',
+			location: '@atlaskit/icon-lab',
+		},
 		createdAt: '2025-07-31T03:28:03.217Z',
 	},
 	'speedometer-right-down': {

@@ -455,11 +455,7 @@ export const actions: Actions = {
 			const observables: Observable<AutocompleteOptions>[] = [];
 			let functionName: string | undefined;
 
-			if (
-				rules.functionArgument &&
-				onFunctionArguments &&
-				fg('enable-jql-membersof-autocomplete')
-			) {
+			if (rules.functionArgument && onFunctionArguments) {
 				// When the caret is inside a function argument (e.g. membersOf("...")), we call
 				// onFunctionArguments unconditionally in preference to the generic value/function
 				// providers. rules.functionArgument can co-exist with rules.function so we must check it

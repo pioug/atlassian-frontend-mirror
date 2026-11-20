@@ -18,6 +18,7 @@ import {
 	type ResolveNativeEmbedInitialLayoutInput,
 } from './initial-layout';
 import {
+	isNativeEmbedWideLayoutCenteringEnabled,
 	nativeEmbedAlignmentStyles,
 	nativeEmbedInlineMauiWidthStyles,
 } from './native-embed-styles';
@@ -123,6 +124,9 @@ export const NativeEmbedInitialPlaceholder = ({
 			data-native-embed-initial-placeholder="true"
 			data-native-embed-width={effectiveWidth}
 			data-native-embed-show-border={hasEmbedBorder ? 'true' : 'false'}
+			data-native-embed-wide-layout-centering={
+				isNativeEmbedWideLayoutCenteringEnabled() ? 'true' : undefined
+			}
 		>
 			<Global styles={nativeEmbedAlignmentStyles} />
 			{fillInlineWidth && <Global styles={nativeEmbedInlineMauiWidthStyles} />}

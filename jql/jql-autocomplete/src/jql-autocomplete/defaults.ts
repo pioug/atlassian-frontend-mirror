@@ -1,6 +1,5 @@
 import { JQLLexer } from '@atlaskit/jql-parser/JQLLexer';
 import { JQLParser } from '@atlaskit/jql-parser/JQLParser';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 export const defaultIgnoredTokens: Set<number> = new Set([
 	JQLLexer.EOF,
@@ -77,7 +76,7 @@ export const getDefaultPreferredRules = (): Set<number> =>
 		JQLParser.RULE_jqlField,
 		...operatorRules,
 		...operandRules,
-		...(fg('enable-jql-membersof-autocomplete') ? [JQLParser.RULE_jqlArgument] : []),
+		JQLParser.RULE_jqlArgument,
 		...unhandledRules,
 		// Disable token suggestions for predicate operands.
 		// To be removed when we build proper autocomplete support.

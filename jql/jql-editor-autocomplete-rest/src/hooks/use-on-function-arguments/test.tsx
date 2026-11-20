@@ -57,9 +57,7 @@ describe('onFunctionArguments', () => {
 	};
 
 	describe('membersOf', () => {
-		it('delegates membersOf arguments to onValues using the Team field when the gate is on', (done) => {
-			passGate('enable-jql-membersof-autocomplete');
-
+		it('delegates membersOf arguments to onValues using the Team field', (done) => {
 			const expectedOptions: AutocompleteOptions = [
 				{ name: 'Team Rocket', value: 'team-rocket', valueType: 'team' },
 			];
@@ -76,31 +74,6 @@ describe('onFunctionArguments', () => {
 						groupKey: 'team',
 					})),
 				);
-			};
-
-			act(() => {
-				render(
-					<IntlProvider locale="en">
-						<OnFunctionArgumentsConsumer
-							fieldValue="rock"
-							functionName="membersOf"
-							onAssert={assertValues}
-							done={done}
-						/>
-					</IntlProvider>,
-				);
-			});
-		});
-
-		it('returns no values for membersOf when the gate is off', (done) => {
-			failGate('enable-jql-membersof-autocomplete');
-
-			onValues.mockReturnValue(of([{ name: 'Team Rocket', value: 'team-rocket' }]));
-
-			const assertValues = (options: AutocompleteOptions) => {
-				expect(onValues).not.toHaveBeenCalled();
-				expect(onNext).not.toHaveBeenCalled();
-				expect(options).toEqual([]);
 			};
 
 			act(() => {

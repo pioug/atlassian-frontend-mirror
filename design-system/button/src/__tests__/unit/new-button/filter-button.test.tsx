@@ -13,6 +13,49 @@ import FilterButton from '../../../new-button/variants/filter/button';
 import { expectTokenStyle } from '../_util/expect-token-style';
 
 describe('FilterButton', () => {
+	it.each(['default', 'compact'] as const)(
+		'centres an icon-only count without an empty label at %s spacing',
+		(spacing) => {
+			failGate('platform-dst-tokens-finesse');
+			render(
+				<FilterButton
+					iconBefore={FilterIcon}
+					hasChevronDown={false}
+					trailingMetric={2}
+					aria-label="Filters, 2 applied"
+					spacing={spacing}
+				/>,
+			);
+			const button = screen.getByRole('button', { name: 'Filters, 2 applied' });
+			expect(button).toHaveCompiledCss('align-items', 'center');
+			expect(button).toHaveTextContent('2');
+			expect(screen.getAllByRole('presentation', { hidden: true })).toHaveLength(1);
+		},
+	);
+
+	it('preserves the label baseline for text filters', () => {
+		failGate('platform-dst-tokens-finesse');
+		render(<FilterButton trailingMetric={2}>Filter</FilterButton>);
+		expect(screen.getByRole('button')).toHaveCompiledCss('align-items', 'baseline');
+		expect(screen.getByText('Filter')).toHaveCompiledCss('text-overflow', 'ellipsis');
+	});
+
+	it.each([undefined, null, false, ''])(
+		'centres an icon without empty content when children=%s',
+		(children) => {
+			failGate('platform-dst-tokens-finesse');
+			render(
+				<FilterButton iconBefore={FilterIcon} hasChevronDown={false} aria-label="Filters">
+					{children}
+				</FilterButton>,
+			);
+			const button = screen.getByRole('button', { name: 'Filters' });
+			expect(button).toHaveCompiledCss('align-items', 'center');
+			expect(button).toHaveTextContent(/^$/);
+			expect(screen.getAllByRole('presentation', { hidden: true })).toHaveLength(1);
+		},
+	);
+
 	it('shows a decorative chevron by default without changing the accessible name', () => {
 		failGate('platform-dst-tokens-finesse');
 		render(<FilterButton trailingMetric={8}>Filter</FilterButton>);

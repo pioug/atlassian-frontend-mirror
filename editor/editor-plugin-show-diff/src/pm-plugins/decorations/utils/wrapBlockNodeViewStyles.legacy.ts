@@ -9,7 +9,6 @@
  * `colorSchemes/standard.ts`, `colorSchemes/traditional.ts` (EDITOR-8281).
  */
 import { convertToInlineCss } from '@atlaskit/editor-common/css-helper';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import type { ColorScheme } from '../../../showDiffPluginType';
@@ -117,15 +116,15 @@ const isMultiContainerBlockNode = (nodeName: string): boolean => {
 };
 
 const isTextLikeBlockNode = (nodeName: string): boolean => {
-	// `paragraph` only reaches this classification via patch_2's `shouldRenderAsBlockNode` routing
-	// (createNodeChangedDecorationWidget.ts), which fully replaced paragraphs never hit otherwise —
-	// gating it here keeps that dependency explicit rather than implicit.
-	if (nodeName === 'paragraph') {
-		return fg('platform_editor_ai_show_diff_patch_2');
-	}
-	return ['heading', 'bulletList', 'orderedList', 'listItem', 'taskList', 'blockquote'].includes(
-		nodeName,
-	);
+	return [
+		'paragraph',
+		'heading',
+		'bulletList',
+		'orderedList',
+		'listItem',
+		'taskList',
+		'blockquote',
+	].includes(nodeName);
 };
 
 /** Pre-refactor inline content style for a changed (inserted or deleted) block node. */

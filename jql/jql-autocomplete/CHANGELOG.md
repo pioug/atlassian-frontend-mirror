@@ -1,5 +1,13 @@
 # @atlaskit/jql-autocomplete
 
+## 3.1.2
+
+### Patch Changes
+
+- [`edbb5d381d506`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/edbb5d381d506) -
+  Cleanup `feature_gate` `enable-jql-membersof-autocomplete`. The `membersOf` team-argument
+  autocomplete behavior and grouped autocomplete dropdown rendering are now permanently enabled.
+
 ## 3.1.1
 
 ### Patch Changes

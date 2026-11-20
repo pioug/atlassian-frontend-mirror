@@ -1,5 +1,4 @@
 import type { JQLRuleKey, JQLSuggestions } from '@atlaskit/jql-autocomplete/jql-autocomplete/types';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 export const getReplacePositionStart = ({ rules, tokens }: JQLSuggestions): number => {
 	// Matching tokens should be prioritized over rules when calculating autocomplete dropdown position
@@ -9,7 +8,7 @@ export const getReplacePositionStart = ({ rules, tokens }: JQLSuggestions): numb
 
 	// Same precedence as `useAutocompleteOptions`, this may change in future if we don't limit suggestions to one rule
 	const rulePrecedence: JQLRuleKey[] = [
-		...(fg('enable-jql-membersof-autocomplete') ? (['functionArgument'] as const) : []),
+		'functionArgument',
 		'value',
 		'function',
 		'list',

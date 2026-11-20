@@ -216,3 +216,38 @@ for (const [width, expected, hostWidth, rootWidth] of [
 		await expect.poll(async () => (await panel.boundingBox())?.width).toBe(expected);
 	});
 }
+
+for (const [width, area] of [
+	[1200, 'panel'],
+	[600, 'main'],
+] as const) {
+	test(`first open after an ID mismatch uses ${area} placement at ${width}px`, async ({ page }) => {
+		await page.setViewportSize({ width, height: 900 });
+		await page.visitExample<typeof import('../../../examples/panel-layout-ssr-mismatched-ids')>(
+			'design-system',
+			'navigation-system',
+			'panel-layout-ssr-mismatched-ids',
+			{ featureFlag: 'platform-dst-chat-panel-layout' },
+		);
+		const layout = page.getByTestId('ssr-layout');
+		const main = layout.locator(':scope > div').first();
+		const panel = page.getByRole('region', { name: 'Panel', exact: true });
+		await page.getByRole('button', { name: 'Hydrate layout' }).click();
+		await expect(layout).toHaveAttribute('id', /server-/);
+		for (let attempt = 0; attempt < 2; attempt++) {
+			await page.getByRole('button', { name: 'Toggle local panel' }).click();
+			await expect(panel).toHaveCSS('grid-area', area);
+			await expect
+				.poll(async () => {
+					const host = (await layout.boundingBox())!;
+					const content = (await main.boundingBox())!;
+					const preview = (await panel.boundingBox())!;
+					return Math.round(content.width + (area === 'panel' ? preview.width : 0) - host.width);
+				})
+				.toBe(0);
+			// The control can be covered by the narrow overlay; avoid touching its splitter.
+			await page.getByRole('button', { name: 'Toggle local panel' }).dispatchEvent('click');
+			await expect(panel).toHaveCount(0);
+		}
+	});
+}

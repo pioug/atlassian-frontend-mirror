@@ -1,5 +1,23 @@
 # @atlaskit/renderer
 
+## 157.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 157.2.0
+
+### Minor Changes
+
+- [`9852d1ef6a654`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9852d1ef6a654) -
+  Forward an optional extensionRef to the extension host so Confluence can observe iframe readiness
+  and release a temporary height reservation.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 157.1.0
 
 ### Minor Changes

@@ -1,5 +1,13 @@
 # @atlaskit/user-picker
 
+## 14.8.6
+
+### Patch Changes
+
+- [`53f079d1798bd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/53f079d1798bd) -
+  Hide decorative selected-value avatars from screen readers in User Picker behind
+  platform-user-picker-a11y-51062-decorative-avatars.
+
 ## 14.8.5
 
 ### Patch Changes

@@ -25,10 +25,10 @@ import Select from '@atlaskit/select/default';
 import TextArea from '@atlaskit/textarea/text-area';
 import { token } from '@atlaskit/tokens';
 import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
+// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
+import { getCSSCustomProperty } from '@atlaskit/tokens/utils/get-css-custom-property';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
-// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
-import { getCSSCustomProperty } from '../src/utils/get-css-custom-property';
 import Accordion from './contrast-checker-utils/components/accordion';
 import BaseTokenEditor, {
 	type baseTokens,

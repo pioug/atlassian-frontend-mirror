@@ -1,5 +1,19 @@
 # @atlaskit/media-viewer
 
+## 54.12.28
+
+### Patch Changes
+
+- [`7d1777807f0b0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7d1777807f0b0) -
+  Return keyboard focus to the element that opened the media viewer when it is closed, behind the
+  platform_media_a11y_viewer_return_focus feature gate (A11Y-35419).
+
+## 54.12.27
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 54.12.26
 
 ### Patch Changes

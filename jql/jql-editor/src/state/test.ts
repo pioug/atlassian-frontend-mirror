@@ -15,7 +15,6 @@ import type {
 import type { AutocompleteOptions } from '@atlaskit/jql-editor-common/autocomplete/types';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { JQLEditorSchema } from '../schema';
 import * as analyticsActionsModule from './analytics';
@@ -168,7 +167,6 @@ describe('opening rich node suggestions', () => {
 		'opens $type alternatives with ArrowDown with "$space" after the operator',
 		({ type, space }) => {
 			mockExpEnabled('focus_in_jira_m1');
-			failGate('enable-jql-membersof-autocomplete');
 			const { view, store, nodePos, fieldName, prefix } = createEditor(type, space);
 			const providers = jest.spyOn(actions, 'callAutocompleteProviders').mockReturnValue(() => {});
 			document.body.appendChild(view.dom);
@@ -254,7 +252,6 @@ describe('opening rich node suggestions', () => {
 		'requests $type alternatives with "$space" after the operator',
 		({ type, space }) => {
 			mockExpEnabled('focus_in_jira_m1');
-			failGate('enable-jql-membersof-autocomplete');
 			const { view, click, fieldName, prefix } = createEditor(type, space);
 			const providers = jest.spyOn(actions, 'callAutocompleteProviders').mockReturnValue(() => {});
 			try {
@@ -278,7 +275,6 @@ describe('opening rich node suggestions', () => {
 
 	it.each(pickerTypes)('preserves existing %s behavior when the experiment is disabled', (type) => {
 		mockExpDisabled('focus_in_jira_m1');
-		failGate('enable-jql-membersof-autocomplete');
 		const { view, click, store, nodePos } = createEditor(type, '');
 		const providers = jest.spyOn(actions, 'callAutocompleteProviders').mockReturnValue(() => {});
 		try {
@@ -675,7 +671,6 @@ describe('callAutocompleteProviders', () => {
 
 	describe('function argument suggestions', () => {
 		it('calls onStopAutocompleteEvent with the enclosing function name when observable returns options', () => {
-			passGate('enable-jql-membersof-autocomplete');
 			appendOptionsForObservable.mockReturnValue(of(mockValues));
 
 			const thunk = actions.callAutocompleteProviders({
@@ -703,7 +698,6 @@ describe('callAutocompleteProviders', () => {
 		});
 
 		it('calls onStopAutocompleteEvent with the enclosing function name when observable returns an error', () => {
-			passGate('enable-jql-membersof-autocomplete');
 			appendOptionsForObservable.mockReturnValue(_throw('Something went wrong'));
 
 			const thunk = actions.callAutocompleteProviders({
@@ -731,7 +725,6 @@ describe('callAutocompleteProviders', () => {
 		});
 
 		it('calls onStopAutocompleteEvent without a function name when the parse context has none', () => {
-			passGate('enable-jql-membersof-autocomplete');
 			appendOptionsForObservable.mockReturnValue(of(mockValues));
 
 			const thunk = actions.callAutocompleteProviders({

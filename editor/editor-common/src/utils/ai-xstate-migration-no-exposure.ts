@@ -3,11 +3,14 @@ import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equ
 
 /**
  * Same as `isAiXstateMigrationEnabled` from `@atlaskit/editor-common/ai-xstate-migration`
- * (Confluence `platform_editor_ai_xstate_migration` OR Jira
- * `platform_editor_ai_xstate_migration_jira`), but never fires exposure.
+ * (Confluence `platform_editor_ai_xstate_migration`, Jira
+ * `platform_editor_ai_xstate_migration_jira`, OR remaining products
+ * `platform_editor_ai_xstate_migration_other`), but never fires exposure.
  *
- * Cleanup: only remove once BOTH experiments have shipped.
+ * Cleanup: only remove once ALL three experiments have shipped.
  */
 export const isAiXstateMigrationEnabledNoExposure = (): boolean =>
 	expValEqualsNoExposure('platform_editor_ai_xstate_migration', 'isEnabled', true) ||
-	UNSAFE_expValNoExposure('platform_editor_ai_xstate_migration_jira', 'isEnabled', false) === true;
+	UNSAFE_expValNoExposure('platform_editor_ai_xstate_migration_jira', 'isEnabled', false) ===
+		true ||
+	UNSAFE_expValNoExposure('platform_editor_ai_xstate_migration_other', 'isEnabled', false) === true;

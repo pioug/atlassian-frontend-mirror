@@ -62,8 +62,14 @@ export type RegionSnapshot = {
 	typing: InteractionGroupSnapshot;
 };
 
-/** What the collector takes a snapshot for on its own, whatever its owner declared. */
-export type CollectorReason = 'timer' | 'hidden' | 'pagehide' | 'unmount';
+/** Why the collector takes a snapshot of a session that goes on. */
+export type InterimReason = 'timer' | 'hidden' | 'pagehide';
+
+/** What the collector knows about how a snapshot should be sent. The owner decides what to do with it. */
+export type SnapshotSendHints = {
+	/** It cannot wait for an idle moment: the page or the owner may not be there later. */
+	immediate: boolean;
+};
 
 /** The value of each session key, `undefined` while it is not known. */
 export type SessionKeys = Record<string, string | undefined>;
@@ -72,18 +78,19 @@ export type SessionKeys = Record<string, string | undefined>;
  * What the collector measured.
  *
  * @template Keys the owner's session keys.
- * @template RotateReason what the owner can end a session with.
+ * @template EndReason what the owner can end a session with.
  */
 export type CollectedSnapshot<
 	Keys extends SessionKeys = SessionKeys,
-	RotateReason extends string = never,
+	EndReason extends string = never,
 > = {
 	activeMs: number;
 	hiddenMs: number;
 	interactivitySessionId: string;
 	/** Every interaction on the page, the regions' included. */
 	page: InteractionGroupSnapshot;
-	reason: CollectorReason | RotateReason;
+	/** Why the snapshot was taken. An `EndReason` means it is the session's last. */
+	reason: InterimReason | EndReason;
 	regions: Record<string, RegionSnapshot>;
 	schema: number;
 	seq: number;

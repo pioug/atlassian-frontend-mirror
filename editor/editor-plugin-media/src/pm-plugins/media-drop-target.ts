@@ -82,6 +82,58 @@ export const findMediaDropPosition = (
 	return;
 };
 
+/** The mediaSingle a ProseMirror drag slice holds on its own, if that is all it holds. */
+export const getDraggedMediaSingle = (slice: Slice): PMNode | undefined => {
+	const node = slice.content.childCount === 1 ? slice.content.firstChild : null;
+	return slice.openStart === 0 && node?.type.name === 'mediaSingle' ? node : undefined;
+};
+
+/**
+ * The mediaSingle a drag starting on `target` would move, or undefined for anything else, such
+ * as a caption, whose text drags as text.
+ */
+export const findDraggedMediaSinglePos = (
+	view: EditorView,
+	target: EventTarget | null,
+): number | undefined => {
+	if (!(target instanceof Node) || !view.dom.contains(target)) {
+		return;
+	}
+	const $pos = view.state.doc.resolve(view.posAtDOM(target, 0));
+	let pos: number | undefined;
+	for (let depth = $pos.depth; depth > 0 && pos === undefined; depth--) {
+		const node = $pos.node(depth);
+		if (node.type.name === 'caption') {
+			return;
+		}
+		if (node.type.name === 'mediaSingle') {
+			pos = $pos.before(depth);
+		}
+	}
+	if (pos === undefined && $pos.nodeAfter?.type.name === 'mediaSingle') {
+		pos = $pos.pos;
+	}
+	// Widgets placed beside the image, such as a block drag handle, resolve to the same position.
+	const isOnImage = pos !== undefined && Boolean(view.nodeDOM(pos)?.contains(target));
+	return isOnImage ? pos : undefined;
+};
+
+/**
+ * Where ProseMirror's own drop handler will insert a slice dragged inside the editor, so the
+ * indicator matches the move it performs.
+ */
+export const findInternalDragDropPosition = (
+	view: EditorView,
+	event: DragEvent,
+	slice: Slice,
+): number | undefined => {
+	const hit = view.posAtCoords({ left: event.clientX, top: event.clientY });
+	if (!hit) {
+		return;
+	}
+	return dropPoint(view.state.doc, hit.pos, slice) ?? hit.pos;
+};
+
 export type MediaDropReplacement = {
 	media: PMNode;
 	pos: number;

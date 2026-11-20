@@ -1,5 +1,14 @@
 # @atlaskit/link-datasource
 
+## 7.15.4
+
+### Patch Changes
+
+- [`ea7e7f4318152`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ea7e7f4318152) -
+  Render Assets People `/data` cells as user chips for both ARI strings and hydrated
+  `{displayName, avatarSource}` payloads.
+- Updated dependencies
+
 ## 7.15.3
 
 ### Patch Changes

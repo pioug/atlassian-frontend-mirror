@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
 
@@ -173,6 +174,25 @@ describe('NativeEmbedInitialPlaceholder', () => {
 		);
 
 		expect(wrapper).toHaveAttribute('data-native-embed-width', '480');
+	});
+
+	it('lets the renderer flex wrapper centre the placeholder when the killswitch is off', () => {
+		failGate('native_embeds_wide_layout_centering_killswitch');
+		render(<NativeEmbedInitialPlaceholder parameters={setParameters({}, { width: 1200 })} />);
+
+		expect(screen.getByTestId('native-embed-initial-placeholder').parentElement).toHaveAttribute(
+			'data-native-embed-wide-layout-centering',
+			'true',
+		);
+	});
+
+	it('keeps the previous placeholder centring when the killswitch is on', () => {
+		passGate('native_embeds_wide_layout_centering_killswitch');
+		render(<NativeEmbedInitialPlaceholder parameters={setParameters({}, { width: 1200 })} />);
+
+		expect(
+			screen.getByTestId('native-embed-initial-placeholder').parentElement,
+		).not.toHaveAttribute('data-native-embed-wide-layout-centering');
 	});
 
 	it('does not opt other experiences into new placeholder placement styles', () => {

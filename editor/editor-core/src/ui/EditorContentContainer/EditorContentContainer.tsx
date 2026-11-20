@@ -5070,6 +5070,11 @@ const editorContentStyles = cssMapScoped({
 			animationFillMode: `forwards`,
 		},
 	},
+	placeholderTextCursorStyles: {
+		'.ProseMirror p:has(.placeholder-decoration:not(.placeholder-decoration-inline))': {
+			cursor: 'text',
+		},
+	},
 	placeholderTextStyles: {
 		'.ProseMirror span[data-placeholder]': {
 			color: token('color.text.subtlest'),
@@ -7899,8 +7904,6 @@ const editorContentStyles = cssMapScoped({
 	// element as the attribute — ProseMirror puts an atomic node's inline decoration on the node's own
 	// DOM. An emoji node view clears its inline styles once its data loads, dropping the decoration's
 	// colour and strike variable, but keeps the class, so this line still draws, from its fallback.
-	// Applied only under `platform_editor_ai_show_diff_patch_2`, so the gate-off stylesheet is
-	// unchanged.
 	deletedStatusStrikeStyles: {
 		'.show-diff-deleted-inline-node[data-prosemirror-node-name="status"]': {
 			// The deleted decoration sets this inline too; repeated for the pre-refactor cohort.
@@ -7933,7 +7936,7 @@ const editorContentStyles = cssMapScoped({
 			},
 		},
 	},
-	// Show diff: under `platform_editor_ai_show_diff_patch_2`, date and emoji atomic inline changes get
+	// Show diff: date and emoji atomic inline changes get
 	// the same 2px `box-shadow` ring as mention and status instead of an outline. A date's outline sat
 	// on its inline wrapper, whose zero-width spacers and font-metric line box kept it off the pill, so
 	// the ring moves to the pill. Composed after the date and emoji rules it overrides.
@@ -8777,6 +8780,9 @@ const EditorContentContainer: React.ForwardRefExoticComponent<
 				editorContentStyles.firstFloatingToolbarButtonStyles,
 				editorContentStyles.placeholderTextStyles,
 				editorContentStyles.placeholderStyles,
+				isFullPage &&
+					fg('platform_editor_placeholder_text_cursor') &&
+					editorContentStyles.placeholderTextCursorStyles,
 				editorContentStyles.placeholderOverflowStyles,
 				editorContentStyles.codeBlockStyles,
 				contentMode === 'compact' && editorContentStyles.codeBlockStylesWithEmUnits,
@@ -8884,7 +8890,7 @@ const EditorContentContainer: React.ForwardRefExoticComponent<
 					!isUpdateStatusColorsEnabled &&
 					editorContentStyles.statusStylesNamedSemantic,
 				editorContentStyles.statusStylesHexAccent,
-				fg('platform_editor_ai_show_diff_patch_2') && editorContentStyles.deletedStatusStrikeStyles,
+				editorContentStyles.deletedStatusStrikeStyles,
 				editorContentStyles.annotationStyles,
 				editorContentStyles.smartCardStylesWithSearchMatchAndBlockMenuDangerStyles,
 				isExperimentEnabled('platform_editor_inline_node_selection_style') &&
@@ -9078,8 +9084,7 @@ const EditorContentContainer: React.ForwardRefExoticComponent<
 				editorContentStyles.mentionDangerStyles,
 				editorContentStyles.decisionDangerStyles,
 				editorContentStyles.statusDangerStyles,
-				fg('platform_editor_ai_show_diff_patch_2') &&
-					editorContentStyles.atomicInlineChangedBoxShadowStyles,
+				editorContentStyles.atomicInlineChangedBoxShadowStyles,
 				editorContentStyles.dangerRuleStyles,
 				editorContentStyles.mediaDangerStyles,
 				editorContentStyles.nestedPanelDangerStyles,

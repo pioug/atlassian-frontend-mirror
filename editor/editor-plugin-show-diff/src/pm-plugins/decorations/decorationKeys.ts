@@ -1,5 +1,4 @@
 import type { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import type { DiffDescriptor } from '../../showDiffPluginType';
@@ -180,7 +179,7 @@ export const buildDiffDecorationSpec = ({
 	...(colorScheme ? { colorScheme } : {}),
 	...(nodeName ? { nodeName } : {}),
 	...(side !== undefined ? { side } : {}),
-	...(decorationType === 'widget' && fg('platform_editor_ai_show_diff_patch_2')
+	...(decorationType === 'widget'
 		? {
 				// Widget content is outside the document. Keep its native DOM selection
 				// and let the browser handle events within it.

@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 3.0.5
+
+### Patch Changes
+
+- [`f7d67770416b8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f7d67770416b8) -
+  `no-container-queries` collects container names with a `Property` visitor instead of walking the
+  whole file again with estraverse.
+
 ## 3.0.4
 
 ### Patch Changes

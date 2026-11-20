@@ -4,8 +4,6 @@ import { backgroundColor } from '@atlaskit/adf-schema/background-color';
 import type { Command } from '@atlaskit/editor-common/types/command';
 import type { FloatingToolbarCustom } from '@atlaskit/editor-common/types/floating-toolbar';
 import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types/toolbar';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { changeColor } from './editor-commands/change-color';
 import type { HighlightPlugin } from './highlightPluginType';
@@ -58,22 +56,7 @@ export const highlightPlugin: HighlightPlugin = ({ api }) => {
 		name: 'highlight',
 
 		marks() {
-			if (
-				expValEquals('platform_editor_lovability_text_bg_color', 'isEnabled', true) ||
-				isExperimentEnabled('platform_editor_lovability_color_schema_change')
-			) {
-				return [{ name: 'backgroundColor', mark: backgroundColor }];
-			}
-			// color is defined in platform/packages/editor/adf-schema/src/next-schema/marks/color.ts
-			return [
-				{
-					name: 'backgroundColor',
-					mark: {
-						...backgroundColor,
-						excludes: 'color',
-					},
-				},
-			];
+			return [{ name: 'backgroundColor', mark: backgroundColor }];
 		},
 
 		commands: {

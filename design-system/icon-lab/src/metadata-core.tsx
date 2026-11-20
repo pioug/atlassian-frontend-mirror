@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::f80e1c59fd83c8f6b08a9879e3c06883>>
+ * @codegen <<SignedSource::23e2c07bdf5996aa98415993f027e61a>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -119,7 +119,6 @@ const metadata: Record<string, metadata> = {
 		usage: 'Reserved for AI filter search prompt.',
 		team: 'Jira',
 		status: 'published',
-		slackChannel: '@Cohen Gum',
 	},
 	'ai-generative-audio-briefing': {
 		keywords: [
@@ -4214,7 +4213,6 @@ const metadata: Record<string, metadata> = {
 		usage: 'Known uses: Hanging up voice call in CSM',
 		team: 'CSM',
 		status: 'published',
-		slackChannel: '@Dan Hoolahan',
 	},
 	'enterprise-certified': {
 		keywords: [
@@ -4234,7 +4232,6 @@ const metadata: Record<string, metadata> = {
 		usage: 'Reserved for representing Atlassian enterprise certified apps on Marketplace.',
 		team: 'Ecosystem Design',
 		status: 'published',
-		slackChannel: '@Hannah Ashby',
 	},
 	'expand-element': {
 		keywords: ['expand-element', 'expandelement', 'icon', 'icon-lab', 'expand', 'editor object'],
@@ -4483,7 +4480,6 @@ const metadata: Record<string, metadata> = {
 		usage: 'Known uses: Guitar based music in CSM hold music options.',
 		team: 'CSM',
 		status: 'published',
-		slackChannel: '@Dan Hoolahan',
 	},
 	'hand-closed': {
 		keywords: [
@@ -4539,7 +4535,6 @@ const metadata: Record<string, metadata> = {
 		usage: 'Known uses: Welcome message in CSM voice configuration.',
 		team: 'CSM',
 		status: 'published',
-		slackChannel: '@Dan Hoolahan',
 	},
 	'hardware-assignment': {
 		keywords: [
@@ -4852,7 +4847,6 @@ const metadata: Record<string, metadata> = {
 		usage: 'Known usages: Depicting customer support on the phone, e.g. Voice support in CSM',
 		team: 'CSM',
 		status: 'published',
-		slackChannel: '@Dan Hoolahan',
 	},
 	hierarchy: {
 		keywords: [
@@ -5645,8 +5639,7 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Known uses: Classical piano music in CSM hold music options.',
 		team: 'CSM',
-		status: 'published',
-		slackChannel: '@Dan hoolahan',
+		status: 'ready-to-publish',
 	},
 	'pin-strikethrough': {
 		keywords: [
@@ -6024,7 +6017,6 @@ const metadata: Record<string, metadata> = {
 		usage: 'Reserved to represent Rovo digest.',
 		team: 'Rovo Growth',
 		status: 'published',
-		slackChannel: '@Naomi Kite',
 	},
 	'rss-feed': {
 		keywords: [
@@ -6274,7 +6266,6 @@ const metadata: Record<string, metadata> = {
 		usage: 'Known uses: Audio sound wave depicting ambient music in CSM hold music.',
 		team: 'CSM',
 		status: 'published',
-		slackChannel: '@Dan Hoolahan',
 	},
 	skill: {
 		keywords: ['skill', 'icon', 'icon-lab', 'skill', 'skills', 'agent', 'agentic', 'tools', 'tool'],
@@ -6344,13 +6335,16 @@ const metadata: Record<string, metadata> = {
 			'performance',
 			'dial',
 			'slow',
+			'risk likelihood',
+			'medium low',
 		],
 		componentName: 'SpeedometerLeftIcon',
 		package: '@atlaskit/icon-lab/core/speedometer-left',
+		replacement: { name: 'speedometer-left-up', location: '@atlaskit/icon-lab' },
 		categorization: 'multi-purpose',
-		usage: 'Known uses: video is set to a slower playback speed',
+		usage: 'Known uses: video is set to a slower playback speed; medium-low likelihood',
 		team: 'Loom',
-		status: 'published',
+		status: 'deprecated',
 	},
 	'speedometer-left-down': {
 		keywords: [
@@ -6402,13 +6396,16 @@ const metadata: Record<string, metadata> = {
 			'performance',
 			'dial',
 			'fast',
+			'risk likelihood',
+			'medium high',
 		],
 		componentName: 'SpeedometerRightIcon',
 		package: '@atlaskit/icon-lab/core/speedometer-right',
+		replacement: { name: 'speedometer-right-up', location: '@atlaskit/icon-lab' },
 		categorization: 'multi-purpose',
-		usage: 'Known uses: video is set to a faster playback speed',
+		usage: 'Known uses: video is set to a faster playback speed; medium-high likelihood',
 		team: 'Loom',
-		status: 'published',
+		status: 'deprecated',
 	},
 	'speedometer-right-down': {
 		keywords: [

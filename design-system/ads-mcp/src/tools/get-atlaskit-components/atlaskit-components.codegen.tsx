@@ -3,7 +3,7 @@
  *
  * Structured content components from *.docs.tsx files outside of design-system
  *
- * @codegen <<SignedSource::1f08ff68770184b0ad06cfb34f0cd659>>
+ * @codegen <<SignedSource::3ebac52321b42b18cf9c4645de8d8fd5>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -832,6 +832,10 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'isEditorModernisationEnabled',
+				type: 'boolean | undefined',
+			},
+			{
+				name: 'isHeightSetFromContent',
 				type: 'boolean | undefined',
 			},
 			{
@@ -1676,6 +1680,11 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				isRequired: true,
 			},
 			{
+				name: 'getAICreditStatus',
+				type: 'GetAICreditStatus | undefined',
+				description: 'Optional product-owned credit check for AI generation only.',
+			},
+			{
 				name: 'hideToneSelector',
 				type: 'boolean | undefined',
 				description: 'Flag to disable tone selector.',
@@ -2175,6 +2184,12 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				name: 'customGatewayUrl',
 				type: 'string | undefined',
 				description: 'A custom URL for the Stargate gateway, this field takes priority over `url`',
+			},
+			{
+				name: 'customOptInContent',
+				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
+				description:
+					'Optional content rendered with the opt-in checkboxes, shown only once a feedback type is selected',
 			},
 			{
 				name: 'customTextAreaLabel',
@@ -14942,6 +14957,12 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				description: "Optional content rendered at the bottom of the subagent heatmap's tooltip.",
 			},
 			{
+				name: 'subagentNames',
+				type: 'SubagentNames | undefined',
+				description:
+					"Optional current subagent names by definition ID. The subagent heatmap's rows take these names,\nand rows for subagents missing from them are marked deleted. When omitted, rows keep the names\nin the data.",
+			},
+			{
 				name: 'templateId',
 				type: 'string | undefined',
 				description:
@@ -15158,6 +15179,12 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				type: '(() => void) | undefined',
 			},
 			{
+				name: 'product',
+				type: 'string | undefined',
+				description:
+					'Hosting product, used to attribute credits requests. Jira product aliases are supported.',
+			},
+			{
 				name: 'renderCTA',
 				type: '(() => React.ReactNode) | undefined',
 				description: 'Override the default "Chat with agent" CTA.',
@@ -15273,6 +15300,12 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				description:
 					'Placement of where the popup should be displayed relative to the trigger element.\nThe default is `"auto"`.',
 				defaultValue: '"bottom-start"',
+			},
+			{
+				name: 'product',
+				type: 'string | undefined',
+				description:
+					'Hosting product, used to attribute credits requests. Jira product aliases are supported.',
 			},
 			{
 				name: 'renderCTA',
@@ -16172,6 +16205,12 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				name: 'enableExplicitAgentSessionSubscriptionSharding',
 				type: 'boolean | undefined',
 				description: 'Opt in to Rovo workspace routing for shared-resource subscriptions.',
+			},
+			{
+				name: 'enableRovoChatConversationListing',
+				type: 'boolean | undefined',
+				description:
+					'Explicit host override; undefined evaluates the default-off listing reader gate.',
 			},
 			{
 				name: 'onOpenConversation',
@@ -17981,6 +18020,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			'Use AvatarRelay when the consuming Relay query can spread `...avatarRelay_user` and app type should determine the avatar shape.',
 			'Use ADS Avatar directly when the caller has a static image or does not need app-type-based shape selection.',
 			'App type selects the visual shape only: agent users render as hexagons, teams as squares, and other or unknown types as circles.',
+			'Pass hasInnerBorder only when the consuming surface opts agent avatars into the ADS hexagon inner border; it is off by default and has no effect on user or team avatars.',
 		],
 		contentGuidelines: [
 			'Pass the person or agent name from the consuming product; the Relay fragment supplies the picture and app type, not the product-specific identity copy.',
@@ -18032,6 +18072,11 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				name: 'children',
 				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description: 'Supply a custom avatar component instead of the default.',
+			},
+			{
+				name: 'hasInnerBorder',
+				type: 'boolean | undefined',
+				description: 'Opts agent avatars into the ADS hexagon inner border.',
 			},
 			{
 				name: 'href',
@@ -19084,6 +19129,18 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				isRequired: true,
 			},
 			{
+				name: 'isBrowseAutomationsDisabled',
+				type: 'boolean | undefined',
+				description:
+					'Keeps "Browse automations" visible but inactive, with a tooltip explaining why.',
+			},
+			{
+				name: 'isBrowseAutomationsLoading',
+				type: 'boolean | undefined',
+				description:
+					'Shows "Browse automations" as loading and inactive while access is still being checked.',
+			},
+			{
 				name: 'maxHeight',
 				type: 'number | undefined',
 				description: 'Constrains the menu and makes it scroll when the viewport cannot fit it.',
@@ -19118,7 +19175,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 					'Studio browse closes itself. Hosts that treat an open browse modal as\n"not an outside click" (the editor inline prompt) need this to clear that flag.',
 			},
 			{
-				name: 'onBrowseTemplatesClick',
+				name: 'onBrowseAutomationsClick',
 				type: '(() => void) | undefined',
 				description:
 					'Opens the agentic automation templates experience. The "Browse automations" item is only\nrendered, below "Browse agents", when this is provided.',
@@ -24424,7 +24481,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'initialPayload',
-				type: '{ timezone?: string | undefined; endDate?: string | undefined; name: string; prompt: string; frequency: ScheduledChatFrequency; daysOfWeek: ("monday" | "tuesday" | ... 4 more ... | "sunday")[]; time: string; intervalMinutes?: number | undefined; ruleIdUuid?: string | undefined; }',
+				type: '{ timezone?: string | undefined; endDate?: string | undefined; name: string; prompt: string; titleOrigin?: ScheduledChatTitleOrigin | undefined; titlePolicy?: "purpose-only-v1" | undefined; ... 4 more ...; ruleIdUuid?: string | undefined; }',
 				isRequired: true,
 			},
 			{
@@ -29485,7 +29542,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'config',
-				type: '{ isAgentCreditsEnabled?: boolean | undefined; useCurrentBrowsingContext?: boolean | undefined; autocompletePageContentSource?: AutocompletePageContentSource | undefined; ... 33 more ...; loadLocalModelAutocomplete?: (() => Promise<...>) | undefined; }',
+				type: '{ edition?: string | undefined; isAgentCreditsEnabled?: boolean | undefined; useCurrentBrowsingContext?: boolean | undefined; autocompletePageContentSource?: AutocompletePageContentSource | undefined; ... 35 more ...; loadLocalModelAutocomplete?: (() => Promise<...>) | undefined; }',
 				isRequired: true,
 			},
 			{
@@ -29584,7 +29641,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		props: [
 			{
 				name: 'config',
-				type: '{ isAgentCreditsEnabled?: boolean | undefined; useCurrentBrowsingContext?: boolean | undefined; autocompletePageContentSource?: AutocompletePageContentSource | undefined; ... 33 more ...; loadLocalModelAutocomplete?: (() => Promise<...>) | undefined; }',
+				type: '{ edition?: string | undefined; isAgentCreditsEnabled?: boolean | undefined; useCurrentBrowsingContext?: boolean | undefined; autocompletePageContentSource?: AutocompletePageContentSource | undefined; ... 35 more ...; loadLocalModelAutocomplete?: (() => Promise<...>) | undefined; }',
 				isRequired: true,
 			},
 			{
@@ -29976,7 +30033,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'config',
-				type: '{ isAgentCreditsEnabled?: boolean | undefined; useCurrentBrowsingContext?: boolean | undefined; autocompletePageContentSource?: AutocompletePageContentSource | undefined; ... 33 more ...; loadLocalModelAutocomplete?: (() => Promise<...>) | undefined; }',
+				type: '{ edition?: string | undefined; isAgentCreditsEnabled?: boolean | undefined; useCurrentBrowsingContext?: boolean | undefined; autocompletePageContentSource?: AutocompletePageContentSource | undefined; ... 35 more ...; loadLocalModelAutocomplete?: (() => Promise<...>) | undefined; }',
 				isRequired: true,
 			},
 			{
@@ -33017,7 +33074,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'config',
-				type: '{ isAgentCreditsEnabled?: boolean | undefined; useCurrentBrowsingContext?: boolean | undefined; autocompletePageContentSource?: AutocompletePageContentSource | undefined; ... 33 more ...; loadLocalModelAutocomplete?: (() => Promise<...>) | undefined; }',
+				type: '{ edition?: string | undefined; isAgentCreditsEnabled?: boolean | undefined; useCurrentBrowsingContext?: boolean | undefined; autocompletePageContentSource?: AutocompletePageContentSource | undefined; ... 35 more ...; loadLocalModelAutocomplete?: (() => Promise<...>) | undefined; }',
 				description:
 					'Config passed directly to the ConversationAssistant in the full screen chat stage.',
 				isRequired: true,
@@ -39611,7 +39668,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				name: 'defaultPanelWidth',
 				type: 'number | undefined',
 				description:
-					'Initial uncontrolled width, in pixels. Subsequent prop changes are ignored.\nA previously saved provider preference takes precedence over this default on remount.\nWithout a preference, navigation supplies 365px, or 400px with chat layout enabled\n(500px at XL viewports, 110.5rem / 1768px and above).\nCompact layouts start at 320px unless a product-supplied or previously saved width exists.',
+					'Initial uncontrolled width, in pixels. Subsequent prop changes are ignored.\nA previously saved provider preference takes precedence over this default on remount.\nWithout a preference, navigation supplies 365px, or 400px with chat layout enabled\n(500px at XL viewports, 110.5rem / 1768px and above).\nCompact layouts start at 320px unless a product-supplied or previously saved width exists.\nWith chat layout enabled, navigation remembers user resizes separately for inline and overlay\nwhile this host remains mounted. A saved provider width supplies the starting defaults\nfor both modes on remount, including default-based overlay bounds.',
 			},
 			{
 				name: 'onPanelWidthChange',
@@ -39801,7 +39858,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['panel', 'view switcher', 'side view', 'modal', 'layout'],
 		category: 'layout',
 		examples: [
-			"import React, { useRef, useState } from 'react';\nimport { cssMap } from '@atlaskit/css';\nimport type MediaBelowSm from '@atlaskit/css/at-rules/media-below-sm';\nimport { useId } from '@atlaskit/ds-lib/use-id';\nimport Heading from '@atlaskit/heading/heading';\nimport ModalIcon from '@atlaskit/icon-lab/core/modal';\nimport PanelRightIcon from '@atlaskit/icon/core/panel-right';\nimport Modal from '@atlaskit/modal-dialog/modal-dialog';\nimport ModalHeader from '@atlaskit/modal-dialog/modal-header';\nimport ModalTitle from '@atlaskit/modal-dialog/modal-title';\nimport ModalTransition from '@atlaskit/modal-dialog/modal-transition';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Flex } from '@atlaskit/primitives/compiled/flex';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport TextArea from '@atlaskit/textarea/text-area';\nimport { token } from '@atlaskit/tokens';\nimport { PanelActionGroup } from '@atlassian/panel-system/panel-action/group';\nimport {\n\tPanelActionViewSwitcher,\n\ttype PanelViewOption,\n} from '@atlassian/panel-system/panel-action/view-switcher';\nimport { PanelBody } from '@atlassian/panel-system/panel-body';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { PanelFooter } from '@atlassian/panel-system/panel-footer';\nimport { PanelHeader } from '@atlassian/panel-system/panel-header';\nimport { PanelTitle } from '@atlassian/panel-system/panel-title';\nconst views: readonly PanelViewOption[] = [\n\t{ value: 'sidebar', label: 'Side', icon: PanelRightIcon },\n\t{ value: 'center', label: 'Center', icon: ModalIcon },\n];\nconst styles = cssMap({\n\tlayout: {\n\t\theight: '100vh',\n\t\twidth: '100%',\n\t},\n\tmainContent: {\n\t\tflexGrow: 1,\n\t\tminWidth: 0,\n\t\tpaddingBlockStart: token('space.400'),\n\t\tpaddingBlockEnd: token('space.400'),\n\t\tpaddingInlineStart: token('space.400'),\n\t\tpaddingInlineEnd: token('space.400'),\n\t\tbackgroundColor: token('elevation.surface.sunken'),\n\t\t['@media not all and (min-width: 48rem)' satisfies MediaBelowSm]: {\n\t\t\tdisplay: 'none',\n\t\t},\n\t},\n\tsidePanel: {\n\t\twidth: '400px',\n\t\tmaxWidth: '100%',\n\t\tflexShrink: 0,\n\t\tmarginInlineStart: 'auto',\n\t\tborderInlineStartStyle: 'solid',\n\t\tborderInlineStartWidth: token('border.width'),\n\t\tborderInlineStartColor: token('color.border'),\n\t},\n\tmodalPanel: {\n\t\theight: '100%',\n\t\tminHeight: 0,\n\t},\n\tcomposer: {\n\t\twidth: '100%',\n\t},\n});\ninterface ChatPanelProps {\n\tselectedView: string;\n\tonViewChange: (view: string) => void;\n\tdraft: string;\n\tonDraftChange: (draft: string) => void;\n}\nfunction ChatPanel({ selectedView, onViewChange, draft, onDraftChange }: ChatPanelProps) {\n\tconst draftId = useId();\n\tconst switcher = (\n\t\t<PanelActionViewSwitcher\n\t\t\tviews={views}\n\t\t\tselectedView={selectedView}\n\t\t\tonViewChange={onViewChange}\n\t\t\tnewTabHref=\"https://example.com/chat\"\n\t\t/>\n\t);\n\treturn (\n\t\t<PanelContainer>\n\t\t\t{selectedView === 'center' ? (\n\t\t\t\t<ModalHeader hasCloseButton closeButtonLabel=\"Return to side panel\">\n\t\t\t\t\t<Flex gap=\"space.200\" alignItems=\"center\">\n\t\t\t\t\t\t<ModalTitle>Rovo Chat</ModalTitle>\n\t\t\t\t\t\t{switcher}\n\t\t\t\t\t</Flex>\n\t\t\t\t</ModalHeader>\n\t\t\t) : (\n\t\t\t\t<PanelHeader>\n\t\t\t\t\t<PanelTitle>Rovo Chat</PanelTitle>\n\t\t\t\t\t<PanelActionGroup>{switcher}</PanelActionGroup>\n\t\t\t\t</PanelHeader>\n\t\t\t)}\n\t\t\t<PanelContent>\n\t\t\t\t<PanelBody>\n\t\t\t\t\t<Stack space=\"space.200\">\n\t\t\t\t\t\t<Heading size=\"small\" as={selectedView === 'center' ? 'h2' : 'h3'}>\n\t\t\t\t\t\t\tHow can I help?\n\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t<Text>Ask a question about Project Atlas, or get help planning your next step.</Text>\n\t\t\t\t\t</Stack>\n\t\t\t\t</PanelBody>\n\t\t\t</PanelContent>\n\t\t\t<PanelFooter>\n\t\t\t\t<Box xcss={styles.composer}>\n\t\t\t\t\t<Stack space=\"space.100\">\n\t\t\t\t\t\t<label htmlFor={draftId}>Message Rovo</label>\n\t\t\t\t\t\t<TextArea\n\t\t\t\t\t\t\tid={draftId}\n\t\t\t\t\t\t\tvalue={draft}\n\t\t\t\t\t\t\tonChange={(event) => onDraftChange(event.currentTarget.value)}\n\t\t\t\t\t\t\tminimumRows={3}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Stack>\n\t\t\t\t</Box>\n\t\t\t</PanelFooter>\n\t\t</PanelContainer>\n\t);\n}\nexport default function ViewSwitcherExample(): React.JSX.Element {\n\tconst [selectedView, setSelectedView] = useState('sidebar');\n\t// Product-owned state lives above the layouts so changing views preserves the conversation.\n\tconst [draft, setDraft] = useState('');\n\tconst sidePanelRef = useRef<HTMLDivElement>(null);\n\t// This is the product integration point: choose the container in response to the menu action.\n\tconst handleViewChange = (view: string) => setSelectedView(view);\n\tconst returnToSide = () => handleViewChange('sidebar');\n\tconst chat = (\n\t\t<ChatPanel\n\t\t\tselectedView={selectedView}\n\t\t\tonViewChange={handleViewChange}\n\t\t\tdraft={draft}\n\t\t\tonDraftChange={setDraft}\n\t\t/>\n\t);\n\treturn (\n\t\t<>\n\t\t\t<Flex xcss={styles.layout}>\n\t\t\t\t<Box as=\"main\" xcss={styles.mainContent}>\n\t\t\t\t\t<Stack space=\"space.300\">\n\t\t\t\t\t\t<Heading size=\"xlarge\" as=\"h1\">\n\t\t\t\t\t\t\tProject Atlas\n\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t<Text>Bring your team's work together in one place.</Text>\n\t\t\t\t\t\t<Heading size=\"medium\" as=\"h2\">\n\t\t\t\t\t\t\tProject overview\n\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t<Text>Review the plan, prepare the next milestone, and keep everyone up to date.</Text>\n\t\t\t\t\t</Stack>\n\t\t\t\t</Box>\n\t\t\t\t{selectedView === 'sidebar' && (\n\t\t\t\t\t<Box\n\t\t\t\t\t\tref={sidePanelRef}\n\t\t\t\t\t\trole=\"region\"\n\t\t\t\t\t\taria-label=\"Rovo Chat side panel\"\n\t\t\t\t\t\ttabIndex={-1}\n\t\t\t\t\t\txcss={styles.sidePanel}\n\t\t\t\t\t>\n\t\t\t\t\t\t{chat}\n\t\t\t\t\t</Box>\n\t\t\t\t)}\n\t\t\t</Flex>\n\t\t\t<ModalTransition>\n\t\t\t\t{selectedView === 'center' && (\n\t\t\t\t\t// ChatPanel renders ModalHeader with hasCloseButton inside the dialog.\n\t\t\t\t\t<Modal\n\t\t\t\t\t\twidth=\"medium\"\n\t\t\t\t\t\theight={600}\n\t\t\t\t\t\tonClose={returnToSide}\n\t\t\t\t\t\tshouldReturnFocus={sidePanelRef}\n\t\t\t\t\t>\n\t\t\t\t\t\t<Box xcss={styles.modalPanel}>{chat}</Box>\n\t\t\t\t\t</Modal>\n\t\t\t\t)}\n\t\t\t</ModalTransition>\n\t\t</>\n\t);\n}",
+			"import React, { useRef, useState } from 'react';\nimport { cssMap } from '@atlaskit/css';\nimport type MediaBelowSm from '@atlaskit/css/at-rules/media-below-sm';\nimport { useId } from '@atlaskit/ds-lib/use-id';\nimport Heading from '@atlaskit/heading/heading';\nimport ModalIcon from '@atlaskit/icon-lab/core/modal';\nimport PanelRightIcon from '@atlaskit/icon/core/panel-right';\nimport Modal from '@atlaskit/modal-dialog/modal-dialog';\nimport ModalHeader from '@atlaskit/modal-dialog/modal-header';\nimport ModalTitle from '@atlaskit/modal-dialog/modal-title';\nimport ModalTransition from '@atlaskit/modal-dialog/modal-transition';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Flex } from '@atlaskit/primitives/compiled/flex';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport TextArea from '@atlaskit/textarea/text-area';\nimport { token } from '@atlaskit/tokens';\nimport { PanelActionGroup } from '@atlassian/panel-system/panel-action/group';\nimport {\n\tPanelActionViewSwitcher,\n\ttype PanelViewOption,\n} from '@atlassian/panel-system/panel-action/view-switcher';\nimport { PanelBody } from '@atlassian/panel-system/panel-body';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { PanelFooter } from '@atlassian/panel-system/panel-footer';\nimport { PanelHeader } from '@atlassian/panel-system/panel-header';\nimport { PanelTitle } from '@atlassian/panel-system/panel-title';\nconst views: readonly PanelViewOption[] = [\n\t{ value: 'sidebar', label: 'Side', icon: PanelRightIcon },\n\t{ value: 'center', label: 'Center', icon: ModalIcon },\n];\nconst styles = cssMap({\n\tlayout: {\n\t\theight: '100vh',\n\t\twidth: '100%',\n\t},\n\tmainContent: {\n\t\tflexGrow: 1,\n\t\tminWidth: 0,\n\t\tpaddingBlockStart: token('space.400'),\n\t\tpaddingBlockEnd: token('space.400'),\n\t\tpaddingInlineStart: token('space.400'),\n\t\tpaddingInlineEnd: token('space.400'),\n\t\tbackgroundColor: token('elevation.surface.sunken'),\n\t\t['@media not all and (min-width: 48rem)' satisfies MediaBelowSm]: {\n\t\t\tdisplay: 'none',\n\t\t},\n\t},\n\tsidePanel: {\n\t\twidth: '400px',\n\t\tmaxWidth: '100%',\n\t\tflexShrink: 0,\n\t\tmarginInlineStart: 'auto',\n\t\tborderInlineStartStyle: 'solid',\n\t\tborderInlineStartWidth: token('border.width'),\n\t\tborderInlineStartColor: token('color.border'),\n\t},\n\tmodalPanel: {\n\t\theight: '100%',\n\t\tminHeight: 0,\n\t},\n\tcomposer: {\n\t\twidth: '100%',\n\t},\n});\ninterface ChatPanelProps {\n\tselectedView: string;\n\tonViewChange: (view: string) => void;\n\tdraft: string;\n\tonDraftChange: (draft: string) => void;\n}\nfunction ModalContent({ children }: { children: React.ReactNode }) {\n\treturn (\n\t\t<Flex direction=\"column\" xcss={styles.modalPanel}>\n\t\t\t{children}\n\t\t</Flex>\n\t);\n}\nfunction ChatPanel({ selectedView, onViewChange, draft, onDraftChange }: ChatPanelProps) {\n\tconst draftId = useId();\n\tconst Container = selectedView === 'center' ? ModalContent : PanelContainer;\n\tconst switcher = (\n\t\t<PanelActionViewSwitcher\n\t\t\tviews={views}\n\t\t\tselectedView={selectedView}\n\t\t\tonViewChange={onViewChange}\n\t\t\tnewTabHref=\"https://example.com/chat\"\n\t\t/>\n\t);\n\treturn (\n\t\t<Container>\n\t\t\t{selectedView === 'center' ? (\n\t\t\t\t<ModalHeader hasCloseButton closeButtonLabel=\"Return to side panel\">\n\t\t\t\t\t<Flex gap=\"space.200\" alignItems=\"center\">\n\t\t\t\t\t\t<ModalTitle>Rovo Chat</ModalTitle>\n\t\t\t\t\t\t{switcher}\n\t\t\t\t\t</Flex>\n\t\t\t\t</ModalHeader>\n\t\t\t) : (\n\t\t\t\t<PanelHeader>\n\t\t\t\t\t<PanelTitle>Rovo Chat</PanelTitle>\n\t\t\t\t\t<PanelActionGroup>{switcher}</PanelActionGroup>\n\t\t\t\t</PanelHeader>\n\t\t\t)}\n\t\t\t<PanelContent>\n\t\t\t\t<PanelBody>\n\t\t\t\t\t<Stack space=\"space.200\">\n\t\t\t\t\t\t<Heading size=\"small\" as={selectedView === 'center' ? 'h2' : 'h3'}>\n\t\t\t\t\t\t\tHow can I help?\n\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t<Text>Ask a question about Project Atlas, or get help planning your next step.</Text>\n\t\t\t\t\t</Stack>\n\t\t\t\t</PanelBody>\n\t\t\t</PanelContent>\n\t\t\t<PanelFooter>\n\t\t\t\t<Box xcss={styles.composer}>\n\t\t\t\t\t<Stack space=\"space.100\">\n\t\t\t\t\t\t<label htmlFor={draftId}>Message Rovo</label>\n\t\t\t\t\t\t<TextArea\n\t\t\t\t\t\t\tid={draftId}\n\t\t\t\t\t\t\tvalue={draft}\n\t\t\t\t\t\t\tonChange={(event) => onDraftChange(event.currentTarget.value)}\n\t\t\t\t\t\t\tminimumRows={3}\n\t\t\t\t\t\t/>\n\t\t\t\t\t</Stack>\n\t\t\t\t</Box>\n\t\t\t</PanelFooter>\n\t\t</Container>\n\t);\n}\nexport default function ViewSwitcherExample(): React.JSX.Element {\n\tconst [selectedView, setSelectedView] = useState('sidebar');\n\t// Product-owned state lives above the layouts so changing views preserves the conversation.\n\tconst [draft, setDraft] = useState('');\n\tconst sidePanelRef = useRef<HTMLDivElement>(null);\n\t// This is the product integration point: choose the container in response to the menu action.\n\tconst handleViewChange = (view: string) => setSelectedView(view);\n\tconst returnToSide = () => handleViewChange('sidebar');\n\tconst chat = (\n\t\t<ChatPanel\n\t\t\tselectedView={selectedView}\n\t\t\tonViewChange={handleViewChange}\n\t\t\tdraft={draft}\n\t\t\tonDraftChange={setDraft}\n\t\t/>\n\t);\n\treturn (\n\t\t<>\n\t\t\t<Flex xcss={styles.layout}>\n\t\t\t\t<Box as=\"main\" xcss={styles.mainContent}>\n\t\t\t\t\t<Stack space=\"space.300\">\n\t\t\t\t\t\t<Heading size=\"xlarge\" as=\"h1\">\n\t\t\t\t\t\t\tProject Atlas\n\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t<Text>Bring your team's work together in one place.</Text>\n\t\t\t\t\t\t<Heading size=\"medium\" as=\"h2\">\n\t\t\t\t\t\t\tProject overview\n\t\t\t\t\t\t</Heading>\n\t\t\t\t\t\t<Text>Review the plan, prepare the next milestone, and keep everyone up to date.</Text>\n\t\t\t\t\t</Stack>\n\t\t\t\t</Box>\n\t\t\t\t{selectedView === 'sidebar' && (\n\t\t\t\t\t<Box\n\t\t\t\t\t\tref={sidePanelRef}\n\t\t\t\t\t\trole=\"region\"\n\t\t\t\t\t\taria-label=\"Rovo Chat side panel\"\n\t\t\t\t\t\ttabIndex={-1}\n\t\t\t\t\t\txcss={styles.sidePanel}\n\t\t\t\t\t>\n\t\t\t\t\t\t{chat}\n\t\t\t\t\t</Box>\n\t\t\t\t)}\n\t\t\t</Flex>\n\t\t\t<ModalTransition>\n\t\t\t\t{selectedView === 'center' && (\n\t\t\t\t\t// ChatPanel renders ModalHeader with hasCloseButton inside the dialog.\n\t\t\t\t\t<Modal\n\t\t\t\t\t\twidth=\"medium\"\n\t\t\t\t\t\theight={600}\n\t\t\t\t\t\tonClose={returnToSide}\n\t\t\t\t\t\tshouldReturnFocus={sidePanelRef}\n\t\t\t\t\t>\n\t\t\t\t\t\t<Box xcss={styles.modalPanel}>{chat}</Box>\n\t\t\t\t\t</Modal>\n\t\t\t\t)}\n\t\t\t</ModalTransition>\n\t\t</>\n\t);\n}",
 		],
 		props: [
 			{
@@ -39890,7 +39947,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['panel', 'body', 'skeleton', 'loading', 'placeholder'],
 		category: 'layout',
 		examples: [
-			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { PanelBodySkeleton } from '@atlassian/panel-system/panel-body-skeleton';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { PanelFooterSkeleton } from '@atlassian/panel-system/panel-footer-skeleton';\nimport { PanelHeaderSkeleton } from '@atlassian/panel-system/panel-header-skeleton';\nimport { PanelSubheaderSkeleton } from '@atlassian/panel-system/panel-subheader-skeleton';\n// This width is only set so the panel renders at a sensible size in the docs.\n// Please use the navigation-system panel slot to size panels — do not hardcode this.\n// In a real panel, pass your custom skeleton to `PanelRouter`'s `fallback` prop.\nconst styles = cssMap({\n\texampleWrapper: {\n\t\twidth: '400px',\n\t\theight: '480px',\n\t},\n});\nexport function LoadingComposable(): JSX.Element {\n\treturn (\n\t\t<Box xcss={styles.exampleWrapper}>\n\t\t\t<PanelContainer testId=\"panel-container-skeleton\">\n\t\t\t\t<PanelHeaderSkeleton shouldShowIcon actionsCount={3} />\n\t\t\t\t<PanelContent>\n\t\t\t\t\t<PanelSubheaderSkeleton shouldShowIcon />\n\t\t\t\t\t<PanelBodySkeleton />\n\t\t\t\t</PanelContent>\n\t\t\t\t<PanelFooterSkeleton actionsCount={2} />\n\t\t\t</PanelContainer>\n\t\t</Box>\n\t);\n}\nexport default LoadingComposable;",
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { PanelBodySkeleton } from '@atlassian/panel-system/panel-body-skeleton';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { PanelFooterSkeleton } from '@atlassian/panel-system/panel-footer-skeleton';\nimport { PanelHeaderSkeleton } from '@atlassian/panel-system/panel-header-skeleton';\nimport { PanelSubheaderSkeleton } from '@atlassian/panel-system/panel-subheader-skeleton';\n// This width is only set so the panel renders at a sensible size in the docs.\n// Please use the navigation-system panel slot to size panels — do not hardcode this.\n// In a real panel, pass your custom skeleton to `PanelRouter`'s `fallback` prop.\nconst styles = cssMap({\n\texampleWrapper: {\n\t\twidth: '400px',\n\t\theight: '480px',\n\t},\n});\nexport function LoadingComposable(): JSX.Element {\n\treturn (\n\t\t<Box xcss={styles.exampleWrapper}>\n\t\t\t<PanelContainer testId=\"panel-container-skeleton\" label=\"Loading\">\n\t\t\t\t<PanelHeaderSkeleton shouldShowIcon actionsCount={3} />\n\t\t\t\t<PanelContent>\n\t\t\t\t\t<PanelSubheaderSkeleton shouldShowIcon />\n\t\t\t\t\t<PanelBodySkeleton />\n\t\t\t\t</PanelContent>\n\t\t\t\t<PanelFooterSkeleton actionsCount={2} />\n\t\t\t</PanelContainer>\n\t\t</Box>\n\t);\n}\nexport default LoadingComposable;",
 		],
 		props: [],
 	},
@@ -39907,6 +39964,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			'Present confirmation dialogs at page level when leaving a panel could discard unsaved work.',
 		],
 		accessibilityGuidelines: [
+			'Use one PanelTitle inside PanelContainer to name the panel. For custom headings or panels without PanelTitle, provide a localized label on PanelContainer. The panel defaults to a named region. For a separate interaction such as a create or edit form, set role="dialog" to expose a named non-modal dialog. This does not enable focus trapping or make the panel modal.',
 			'Keep focus free to move to the main page for a non-modal panel; trap focus only when the panel blocks interaction with the page.',
 			'Verify that opening moves focus into the panel and closing returns focus to its trigger.',
 		],
@@ -39930,6 +39988,19 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 					'When `true`, a focus trap is activated so that Tab / Shift+Tab cycles only\nthrough interactive elements inside the panel.\n\nUseful for panels that require the user to complete an action before continuing.',
 				defaultValue: 'false',
 			},
+			{
+				name: 'label',
+				type: 'string | undefined',
+				description:
+					"Accessible name for panels with a custom heading or no PanelTitle.\nWhen omitted, the panel is labelled by its PanelTitle. Provide a localized\nlabel that identifies the panel's purpose, matching the visible title.",
+			},
+			{
+				name: 'role',
+				type: '"dialog" | "region" | undefined',
+				description:
+					'The panel is a named region by default. Use dialog for a separate interaction,\nsuch as a create or edit form. This does not change focus locking or modality.',
+				defaultValue: '"region"',
+			},
 		],
 	},
 	{
@@ -39946,7 +40017,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		examples: [
 			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Main } from '@atlaskit/navigation-system/layout/main';\nimport { Root } from '@atlaskit/navigation-system/layout/root';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { LayoutWithPanel } from '@atlassian/panel-system/layout-with-panel';\nimport { PanelActionCloseSmart } from '@atlassian/panel-system/panel-action/close-smart';\nimport { PanelActionGroup } from '@atlassian/panel-system/panel-action/group';\nimport { PanelActionNewTab } from '@atlassian/panel-system/panel-action/new-tab';\nimport { PanelBody } from '@atlassian/panel-system/panel-body';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { usePanel } from '@atlassian/panel-system/panel-context';\nimport { PanelFooter } from '@atlassian/panel-system/panel-footer';\nimport { PanelHeader } from '@atlassian/panel-system/panel-header';\nimport { usePanelActions, usePanelState } from '@atlassian/panel-system/panel-manager';\nimport { PanelProvider } from '@atlassian/panel-system/panel-provider';\nimport { PanelSubheader } from '@atlassian/panel-system/panel-subheader';\nimport { PanelTitle } from '@atlassian/panel-system/panel-title';\nimport { SubheaderInlineEdit } from '@atlassian/panel-system/subheader-inline-edit';\nfunction WorkItemDetails() {\n\tconst { panel, closePanel } = usePanel<{ title: string }>();\n\tconst [title, setTitle] = useState(panel.params.title);\n\treturn (\n\t\t<PanelContainer>\n\t\t\t<PanelHeader>\n\t\t\t\t<PanelTitle>Work item</PanelTitle>\n\t\t\t\t<PanelActionGroup>\n\t\t\t\t\t<PanelActionNewTab href=\"/browse/PROJ-42\" label=\"Open work item in a new tab\" />\n\t\t\t\t\t<PanelActionCloseSmart label=\"Close work item\" />\n\t\t\t\t</PanelActionGroup>\n\t\t\t</PanelHeader>\n\t\t\t<PanelContent>\n\t\t\t\t<PanelSubheader\n\t\t\t\t\ttitle={title}\n\t\t\t\t\tinlineEdit={\n\t\t\t\t\t\t<SubheaderInlineEdit\n\t\t\t\t\t\t\tdefaultValue={title}\n\t\t\t\t\t\t\tplaceholder=\"Add a work item title\"\n\t\t\t\t\t\t\teditButtonLabel=\"Edit work item title\"\n\t\t\t\t\t\t\tconfirmButtonLabel=\"Confirm title\"\n\t\t\t\t\t\t\tcancelButtonLabel=\"Cancel editing\"\n\t\t\t\t\t\t\tonConfirm={setTitle}\n\t\t\t\t\t\t/>\n\t\t\t\t\t}\n\t\t\t\t/>\n\t\t\t\t<PanelBody>\n\t\t\t\t\t<Stack space=\"space.200\">\n\t\t\t\t\t\t<Text as=\"p\">PROJ-42 · In progress</Text>\n\t\t\t\t\t\t<Text as=\"p\">Review the release checklist with the project team.</Text>\n\t\t\t\t\t\t<Text as=\"p\">\n\t\t\t\t\t\t\tThis example keeps title edits locally. Connect confirmation to your app's save\n\t\t\t\t\t\t\toperation.\n\t\t\t\t\t\t</Text>\n\t\t\t\t\t</Stack>\n\t\t\t\t</PanelBody>\n\t\t\t</PanelContent>\n\t\t\t<PanelFooter>\n\t\t\t\t<Button onClick={closePanel}>Done</Button>\n\t\t\t</PanelFooter>\n\t\t</PanelContainer>\n\t);\n}\nfunction ProjectContent() {\n\tconst manager = usePanelActions();\n\tconst { activePanel } = usePanelState();\n\treturn (\n\t\t<LayoutWithPanel panelLabel=\"Work item details\" resizeLabel=\"Resize work item details\">\n\t\t\t<Button\n\t\t\t\tisSelected={activePanel?.instanceId === 'PROJ-42'}\n\t\t\t\tonClick={() =>\n\t\t\t\t\tmanager.openPanel({\n\t\t\t\t\t\tinstanceId: 'PROJ-42',\n\t\t\t\t\t\tparams: { title: 'Prepare the release checklist' },\n\t\t\t\t\t\tpanelContent: <WorkItemDetails />,\n\t\t\t\t\t})\n\t\t\t\t}\n\t\t\t>\n\t\t\t\tView PROJ-42\n\t\t\t</Button>\n\t\t</LayoutWithPanel>\n\t);\n}\n// Internal Atlassian package. This example uses already-loaded React content.\n// For lazy EntryPoints, prefer Trigger inside the app's Relay environment provider.\nexport default function ContextualDetailsExample(): React.JSX.Element {\n\treturn (\n\t\t<PanelProvider>\n\t\t\t<Root>\n\t\t\t\t<Main>\n\t\t\t\t\t<ProjectContent />\n\t\t\t\t</Main>\n\t\t\t</Root>\n\t\t</PanelProvider>\n\t);\n}",
 			"import Button from '@atlaskit/button/default/button';\nimport { Main } from '@atlaskit/navigation-system/layout/main';\nimport { PanelLayout } from '@atlaskit/navigation-system/layout/panel-layout';\nimport { Root } from '@atlaskit/navigation-system/layout/root';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport { PanelActionClose } from '@atlassian/panel-system/panel-action/close';\nimport { PanelActionGroup } from '@atlassian/panel-system/panel-action/group';\nimport { PanelBody } from '@atlassian/panel-system/panel-body';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { useCloseCurrentPanel, useCurrentPanel } from '@atlassian/panel-system/panel-context';\nimport { PanelDisclaimer } from '@atlassian/panel-system/panel-disclaimer';\nimport { PanelFooter } from '@atlassian/panel-system/panel-footer';\nimport { PanelHeader } from '@atlassian/panel-system/panel-header';\nimport { usePanelManager } from '@atlassian/panel-system/panel-manager';\nimport { PanelProvider } from '@atlassian/panel-system/panel-provider';\nimport { PanelRouter } from '@atlassian/panel-system/panel-router';\nimport { PanelTitle } from '@atlassian/panel-system/panel-title';\nimport { PanelsRenderer } from '@atlassian/panel-system/panels-renderer';\nfunction ProjectSummary() {\n\tconst panel = useCurrentPanel<{ summary: string }>();\n\tconst closePanel = useCloseCurrentPanel();\n\treturn (\n\t\t<PanelContainer>\n\t\t\t<PanelHeader>\n\t\t\t\t<PanelTitle>Project summary</PanelTitle>\n\t\t\t\t<PanelActionGroup>\n\t\t\t\t\t<PanelActionClose label=\"Close project summary\" onClick={closePanel} />\n\t\t\t\t</PanelActionGroup>\n\t\t\t</PanelHeader>\n\t\t\t<PanelContent>\n\t\t\t\t<PanelBody>\n\t\t\t\t\t<Text as=\"p\">{panel.params.summary}</Text>\n\t\t\t\t</PanelBody>\n\t\t\t</PanelContent>\n\t\t\t<PanelFooter\n\t\t\t\tdisclaimer={\n\t\t\t\t\t<PanelDisclaimer>AI-generated content. Verify important details.</PanelDisclaimer>\n\t\t\t\t}\n\t\t\t>\n\t\t\t\t<Button onClick={closePanel}>Done</Button>\n\t\t\t</PanelFooter>\n\t\t</PanelContainer>\n\t);\n}\nfunction ProjectContent() {\n\tconst { state, manager } = usePanelManager();\n\treturn (\n\t\t<PanelLayout\n\t\t\tisPanelOpen={state.activePanel !== null}\n\t\t\tpanelKey={state.activePanel?.instanceId}\n\t\t\tpanelLabel=\"Project summary\"\n\t\t\tresizeLabel=\"Resize project summary\"\n\t\t\tpanel={\n\t\t\t\t<PanelsRenderer>\n\t\t\t\t\t<PanelRouter />\n\t\t\t\t</PanelsRenderer>\n\t\t\t}\n\t\t>\n\t\t\t<Button\n\t\t\t\tonClick={() =>\n\t\t\t\t\tmanager.openPanel({\n\t\t\t\t\t\tinstanceId: 'project-summary',\n\t\t\t\t\t\tparams: {\n\t\t\t\t\t\t\tsummary:\n\t\t\t\t\t\t\t\t'The release checklist is ready for review. Two work items remain in progress.',\n\t\t\t\t\t\t},\n\t\t\t\t\t\tpanelContent: <ProjectSummary />,\n\t\t\t\t\t})\n\t\t\t\t}\n\t\t\t>\n\t\t\t\tView project summary\n\t\t\t</Button>\n\t\t</PanelLayout>\n\t);\n}\n// Internal Atlassian package. Prefer LayoutWithPanel for the standard integration.\n// Use this composition when the app needs to own its PanelLayout and PanelRouter.\nexport default function CustomRenderingExample(): React.JSX.Element {\n\treturn (\n\t\t<PanelProvider>\n\t\t\t<Root>\n\t\t\t\t<Main>\n\t\t\t\t\t<ProjectContent />\n\t\t\t\t</Main>\n\t\t\t</Root>\n\t\t</PanelProvider>\n\t);\n}",
-			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { PanelBodySkeleton } from '@atlassian/panel-system/panel-body-skeleton';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { PanelFooterSkeleton } from '@atlassian/panel-system/panel-footer-skeleton';\nimport { PanelHeaderSkeleton } from '@atlassian/panel-system/panel-header-skeleton';\nimport { PanelSubheaderSkeleton } from '@atlassian/panel-system/panel-subheader-skeleton';\n// This width is only set so the panel renders at a sensible size in the docs.\n// Please use the navigation-system panel slot to size panels — do not hardcode this.\n// In a real panel, pass your custom skeleton to `PanelRouter`'s `fallback` prop.\nconst styles = cssMap({\n\texampleWrapper: {\n\t\twidth: '400px',\n\t\theight: '480px',\n\t},\n});\nexport function LoadingComposable(): JSX.Element {\n\treturn (\n\t\t<Box xcss={styles.exampleWrapper}>\n\t\t\t<PanelContainer testId=\"panel-container-skeleton\">\n\t\t\t\t<PanelHeaderSkeleton shouldShowIcon actionsCount={3} />\n\t\t\t\t<PanelContent>\n\t\t\t\t\t<PanelSubheaderSkeleton shouldShowIcon />\n\t\t\t\t\t<PanelBodySkeleton />\n\t\t\t\t</PanelContent>\n\t\t\t\t<PanelFooterSkeleton actionsCount={2} />\n\t\t\t</PanelContainer>\n\t\t</Box>\n\t);\n}\nexport default LoadingComposable;",
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { PanelBodySkeleton } from '@atlassian/panel-system/panel-body-skeleton';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { PanelFooterSkeleton } from '@atlassian/panel-system/panel-footer-skeleton';\nimport { PanelHeaderSkeleton } from '@atlassian/panel-system/panel-header-skeleton';\nimport { PanelSubheaderSkeleton } from '@atlassian/panel-system/panel-subheader-skeleton';\n// This width is only set so the panel renders at a sensible size in the docs.\n// Please use the navigation-system panel slot to size panels — do not hardcode this.\n// In a real panel, pass your custom skeleton to `PanelRouter`'s `fallback` prop.\nconst styles = cssMap({\n\texampleWrapper: {\n\t\twidth: '400px',\n\t\theight: '480px',\n\t},\n});\nexport function LoadingComposable(): JSX.Element {\n\treturn (\n\t\t<Box xcss={styles.exampleWrapper}>\n\t\t\t<PanelContainer testId=\"panel-container-skeleton\" label=\"Loading\">\n\t\t\t\t<PanelHeaderSkeleton shouldShowIcon actionsCount={3} />\n\t\t\t\t<PanelContent>\n\t\t\t\t\t<PanelSubheaderSkeleton shouldShowIcon />\n\t\t\t\t\t<PanelBodySkeleton />\n\t\t\t\t</PanelContent>\n\t\t\t\t<PanelFooterSkeleton actionsCount={2} />\n\t\t\t</PanelContainer>\n\t\t</Box>\n\t);\n}\nexport default LoadingComposable;",
 		],
 		props: [
 			{
@@ -40027,7 +40098,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['panel', 'footer', 'skeleton', 'loading', 'actions'],
 		category: 'layout',
 		examples: [
-			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { PanelBodySkeleton } from '@atlassian/panel-system/panel-body-skeleton';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { PanelFooterSkeleton } from '@atlassian/panel-system/panel-footer-skeleton';\nimport { PanelHeaderSkeleton } from '@atlassian/panel-system/panel-header-skeleton';\nimport { PanelSubheaderSkeleton } from '@atlassian/panel-system/panel-subheader-skeleton';\n// This width is only set so the panel renders at a sensible size in the docs.\n// Please use the navigation-system panel slot to size panels — do not hardcode this.\n// In a real panel, pass your custom skeleton to `PanelRouter`'s `fallback` prop.\nconst styles = cssMap({\n\texampleWrapper: {\n\t\twidth: '400px',\n\t\theight: '480px',\n\t},\n});\nexport function LoadingComposable(): JSX.Element {\n\treturn (\n\t\t<Box xcss={styles.exampleWrapper}>\n\t\t\t<PanelContainer testId=\"panel-container-skeleton\">\n\t\t\t\t<PanelHeaderSkeleton shouldShowIcon actionsCount={3} />\n\t\t\t\t<PanelContent>\n\t\t\t\t\t<PanelSubheaderSkeleton shouldShowIcon />\n\t\t\t\t\t<PanelBodySkeleton />\n\t\t\t\t</PanelContent>\n\t\t\t\t<PanelFooterSkeleton actionsCount={2} />\n\t\t\t</PanelContainer>\n\t\t</Box>\n\t);\n}\nexport default LoadingComposable;",
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { PanelBodySkeleton } from '@atlassian/panel-system/panel-body-skeleton';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { PanelFooterSkeleton } from '@atlassian/panel-system/panel-footer-skeleton';\nimport { PanelHeaderSkeleton } from '@atlassian/panel-system/panel-header-skeleton';\nimport { PanelSubheaderSkeleton } from '@atlassian/panel-system/panel-subheader-skeleton';\n// This width is only set so the panel renders at a sensible size in the docs.\n// Please use the navigation-system panel slot to size panels — do not hardcode this.\n// In a real panel, pass your custom skeleton to `PanelRouter`'s `fallback` prop.\nconst styles = cssMap({\n\texampleWrapper: {\n\t\twidth: '400px',\n\t\theight: '480px',\n\t},\n});\nexport function LoadingComposable(): JSX.Element {\n\treturn (\n\t\t<Box xcss={styles.exampleWrapper}>\n\t\t\t<PanelContainer testId=\"panel-container-skeleton\" label=\"Loading\">\n\t\t\t\t<PanelHeaderSkeleton shouldShowIcon actionsCount={3} />\n\t\t\t\t<PanelContent>\n\t\t\t\t\t<PanelSubheaderSkeleton shouldShowIcon />\n\t\t\t\t\t<PanelBodySkeleton />\n\t\t\t\t</PanelContent>\n\t\t\t\t<PanelFooterSkeleton actionsCount={2} />\n\t\t\t</PanelContainer>\n\t\t</Box>\n\t);\n}\nexport default LoadingComposable;",
 		],
 		props: [
 			{
@@ -40074,7 +40145,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['panel', 'header', 'skeleton', 'loading', 'placeholder'],
 		category: 'layout',
 		examples: [
-			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { PanelBodySkeleton } from '@atlassian/panel-system/panel-body-skeleton';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { PanelFooterSkeleton } from '@atlassian/panel-system/panel-footer-skeleton';\nimport { PanelHeaderSkeleton } from '@atlassian/panel-system/panel-header-skeleton';\nimport { PanelSubheaderSkeleton } from '@atlassian/panel-system/panel-subheader-skeleton';\n// This width is only set so the panel renders at a sensible size in the docs.\n// Please use the navigation-system panel slot to size panels — do not hardcode this.\n// In a real panel, pass your custom skeleton to `PanelRouter`'s `fallback` prop.\nconst styles = cssMap({\n\texampleWrapper: {\n\t\twidth: '400px',\n\t\theight: '480px',\n\t},\n});\nexport function LoadingComposable(): JSX.Element {\n\treturn (\n\t\t<Box xcss={styles.exampleWrapper}>\n\t\t\t<PanelContainer testId=\"panel-container-skeleton\">\n\t\t\t\t<PanelHeaderSkeleton shouldShowIcon actionsCount={3} />\n\t\t\t\t<PanelContent>\n\t\t\t\t\t<PanelSubheaderSkeleton shouldShowIcon />\n\t\t\t\t\t<PanelBodySkeleton />\n\t\t\t\t</PanelContent>\n\t\t\t\t<PanelFooterSkeleton actionsCount={2} />\n\t\t\t</PanelContainer>\n\t\t</Box>\n\t);\n}\nexport default LoadingComposable;",
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { PanelBodySkeleton } from '@atlassian/panel-system/panel-body-skeleton';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { PanelFooterSkeleton } from '@atlassian/panel-system/panel-footer-skeleton';\nimport { PanelHeaderSkeleton } from '@atlassian/panel-system/panel-header-skeleton';\nimport { PanelSubheaderSkeleton } from '@atlassian/panel-system/panel-subheader-skeleton';\n// This width is only set so the panel renders at a sensible size in the docs.\n// Please use the navigation-system panel slot to size panels — do not hardcode this.\n// In a real panel, pass your custom skeleton to `PanelRouter`'s `fallback` prop.\nconst styles = cssMap({\n\texampleWrapper: {\n\t\twidth: '400px',\n\t\theight: '480px',\n\t},\n});\nexport function LoadingComposable(): JSX.Element {\n\treturn (\n\t\t<Box xcss={styles.exampleWrapper}>\n\t\t\t<PanelContainer testId=\"panel-container-skeleton\" label=\"Loading\">\n\t\t\t\t<PanelHeaderSkeleton shouldShowIcon actionsCount={3} />\n\t\t\t\t<PanelContent>\n\t\t\t\t\t<PanelSubheaderSkeleton shouldShowIcon />\n\t\t\t\t\t<PanelBodySkeleton />\n\t\t\t\t</PanelContent>\n\t\t\t\t<PanelFooterSkeleton actionsCount={2} />\n\t\t\t</PanelContainer>\n\t\t</Box>\n\t);\n}\nexport default LoadingComposable;",
 		],
 		props: [
 			{
@@ -40255,7 +40326,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		keywords: ['panel', 'subheader', 'skeleton', 'loading', 'placeholder'],
 		category: 'layout',
 		examples: [
-			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { PanelBodySkeleton } from '@atlassian/panel-system/panel-body-skeleton';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { PanelFooterSkeleton } from '@atlassian/panel-system/panel-footer-skeleton';\nimport { PanelHeaderSkeleton } from '@atlassian/panel-system/panel-header-skeleton';\nimport { PanelSubheaderSkeleton } from '@atlassian/panel-system/panel-subheader-skeleton';\n// This width is only set so the panel renders at a sensible size in the docs.\n// Please use the navigation-system panel slot to size panels — do not hardcode this.\n// In a real panel, pass your custom skeleton to `PanelRouter`'s `fallback` prop.\nconst styles = cssMap({\n\texampleWrapper: {\n\t\twidth: '400px',\n\t\theight: '480px',\n\t},\n});\nexport function LoadingComposable(): JSX.Element {\n\treturn (\n\t\t<Box xcss={styles.exampleWrapper}>\n\t\t\t<PanelContainer testId=\"panel-container-skeleton\">\n\t\t\t\t<PanelHeaderSkeleton shouldShowIcon actionsCount={3} />\n\t\t\t\t<PanelContent>\n\t\t\t\t\t<PanelSubheaderSkeleton shouldShowIcon />\n\t\t\t\t\t<PanelBodySkeleton />\n\t\t\t\t</PanelContent>\n\t\t\t\t<PanelFooterSkeleton actionsCount={2} />\n\t\t\t</PanelContainer>\n\t\t</Box>\n\t);\n}\nexport default LoadingComposable;",
+			"/**\n * @jsxRuntime classic\n * @jsx jsx\n */\nimport { cssMap, jsx } from '@atlaskit/css';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { PanelBodySkeleton } from '@atlassian/panel-system/panel-body-skeleton';\nimport { PanelContainer } from '@atlassian/panel-system/panel-container';\nimport { PanelContent } from '@atlassian/panel-system/panel-content';\nimport { PanelFooterSkeleton } from '@atlassian/panel-system/panel-footer-skeleton';\nimport { PanelHeaderSkeleton } from '@atlassian/panel-system/panel-header-skeleton';\nimport { PanelSubheaderSkeleton } from '@atlassian/panel-system/panel-subheader-skeleton';\n// This width is only set so the panel renders at a sensible size in the docs.\n// Please use the navigation-system panel slot to size panels — do not hardcode this.\n// In a real panel, pass your custom skeleton to `PanelRouter`'s `fallback` prop.\nconst styles = cssMap({\n\texampleWrapper: {\n\t\twidth: '400px',\n\t\theight: '480px',\n\t},\n});\nexport function LoadingComposable(): JSX.Element {\n\treturn (\n\t\t<Box xcss={styles.exampleWrapper}>\n\t\t\t<PanelContainer testId=\"panel-container-skeleton\" label=\"Loading\">\n\t\t\t\t<PanelHeaderSkeleton shouldShowIcon actionsCount={3} />\n\t\t\t\t<PanelContent>\n\t\t\t\t\t<PanelSubheaderSkeleton shouldShowIcon />\n\t\t\t\t\t<PanelBodySkeleton />\n\t\t\t\t</PanelContent>\n\t\t\t\t<PanelFooterSkeleton actionsCount={2} />\n\t\t\t</PanelContainer>\n\t\t</Box>\n\t);\n}\nexport default LoadingComposable;",
 		],
 		props: [
 			{
@@ -43504,6 +43575,10 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				description: 'TODO: implement browse agents modal',
 			},
 			{
+				name: 'product',
+				type: 'string | undefined',
+			},
+			{
 				name: 'selectedAgent',
 				type: 'Agent | undefined',
 			},
@@ -43757,7 +43832,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'scope',
-				type: 'Readonly<{ accountId: string; enableExplicitAgentSessionSubscriptionSharding?: boolean | undefined; } & { cloudId: string; rovoActivationId?: string | undefined; }> | Readonly<...>',
+				type: 'Readonly<{ accountId: string; enableExplicitAgentSessionSubscriptionSharding?: boolean | undefined; enableRovoChatConversationListing?: boolean | undefined; } & { cloudId: string; rovoActivationId?: string | undefined; }> | Readonly<...>',
 				isRequired: true,
 			},
 		],
@@ -48164,6 +48239,11 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				defaultValue: '"analyzing"',
 			},
 			{
+				name: 'title',
+				type: 'string | undefined',
+				description: 'Localized status text that overrides the default static or rotating title.',
+			},
+			{
 				name: 'useRotatingTitle',
 				type: 'boolean | undefined',
 				description: 'When true, derives the indicator title from a rotating list of messages.',
@@ -48445,7 +48525,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'thinkingBarProps',
-				type: '{ status?: RovoThinkingBarStatus | undefined; agentName?: string | undefined; onStop: () => void; onFollow?: (() => void) | undefined; useShortMessages?: boolean | undefined; ... 7 more ...; firstMessage?: RovoThinkingFirstMessage | undefined; }',
+				type: '{ title?: string | undefined; status?: RovoThinkingBarStatus | undefined; agentName?: string | undefined; onStop: () => void; onFollow?: (() => void) | undefined; ... 8 more ...; firstMessage?: RovoThinkingFirstMessage | undefined; }',
 				description:
 					'Props forwarded to `RovoThinkingBar` (displayed while `isReady` is `false`).\n`isComplete` is controlled internally.',
 				isRequired: true,
@@ -53189,7 +53269,16 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		examples: [
 			"import { IntlProvider } from 'react-intl';\nimport SelfServeAgentKnowledge from '@atlassian/self-serve-agent-knowledge/ui/self-serve-agent-knowledge';\nexport default function Basic(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<SelfServeAgentKnowledge />\n\t\t</IntlProvider>\n\t);\n}",
 		],
-		props: [],
+		props: [
+			{
+				name: 'knowledgeBaseSettingsHref',
+				type: 'string | undefined',
+			},
+			{
+				name: 'projectName',
+				type: 'string | undefined',
+			},
+		],
 	},
 	{
 		name: 'SelfServeAgentReporting',
@@ -53731,40 +53820,85 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		name: 'StepperModal',
 		package: '@atlassian/stepper-modal',
 		description:
-			'A bordered visual surface for a step in a guided workflow. It supports selected and unselected treatments and is not ready for production use.',
+			'A multi-step modal for a guided workflow. It shows a step rail on wider screens and an "M of N" counter in the header below 768px, a Back button from step 2 onward, and a primary button whose label changes per step. It is not ready for production use.',
 		status: 'early-access',
 		usageGuidelines: [
-			'Use this surface for one step in a guided workflow, where the current step needs a distinct visual treatment.',
-			'Keep the surface within the surrounding workflow layout and keep sizing consistent as users move between steps.',
-			'Use a general-purpose container for standalone content; StepperModal is not a modal dialog or a replacement for a complete modal experience.',
+			'Use this modal for a task that takes several steps, such as creating an object whose settings are split across pages.',
+			'Pass one entry per step in steps. Each step needs a title and content; nextAction.label sets the primary button label for that step and defaults to "Next".',
+			'Back is hidden on the first step. Each step may set nextAction.onClick, which receives an event with trigger() and nativeEvent. When onClick is set, the default action does not run on its own: the modal moves on only when the handler calls event.trigger(), so the handler can do work before it, after it, after an await, or skip it. Without onClick the default action runs on click (on the last step it calls onClose). On the last step trigger() calls onClose, and without onClick the Next button on the last step closes through onClose. On the last step the handler confirms (saves) and then calls event.trigger() to close. A step-changing trigger (Next on a step that is not the last, or Back) acts once per step: a second or stale trigger does nothing. Cancel and the Next button on the last step ignore a repeat of the same action within half a second (a double click) and work again after that if the modal is still open.',
+			'Use nextAction.label with nextAction.onClick to override the primary button text and run your own handler; call event.trigger() inside it to move on. trigger() on a step-changing action acts once per step: a second call, or a call after the step changed, does nothing. Cancel and the Next button on the last step ignore a repeat within half a second. onClick is not called while the button is disabled or loading.',
+			'nextAction, previousAction and cancelAction share one shape: { label, onClick, isDisabled, isLoading, isVisible }. When onClick is set, its default action runs only when the handler calls event.trigger(): for nextAction it moves one step on (excluded steps count as normal steps for navigation), for previousAction it moves back one step and calls onBack, and for cancelAction it calls onClose. Without onClick the default action runs on click (on the last step it calls onClose). Set isVisible to false to hide any of the three buttons. cancelAction applies to the footer Cancel button only; Close in the header, Escape and a click on the blanket call onClose directly and do not run it. The previous button is always hidden on the first step.',
+			'Close (in the header) and Cancel (in the footer) both call onClose. The consumer owns isOpen and sets it to false in onClose.',
+			'Use nextAction.isDisabled to block the primary button until a step is complete, and nextAction.isLoading while the step is saving or validating.',
+			'Set isExcluded on a step, such as a welcome or intro step, to leave it out of the stepper: it is not counted in "M of N" and is not listed in the rail. On that step the rail and the counters (header and footer) are hidden, and a content width of "default" sits in the middle of the modal while "stretch" fills the full modal width. The header title is hidden visually on that step while the dialog keeps its accessible name, and the entity and Close stay. Back and Next still move through it.',
+			'Use defaultStepIndex to open on a later step. The value is clamped to the range of steps and indexes the full steps array, including any excluded steps.',
+			'Each time the modal opens it starts at defaultStepIndex, or at the first step.',
+			'Only English ships for now. The strings are registered with Traduki; other languages arrive once Traduki publishes the stepper-modal i18n package. No IntlProvider is required: English is the fallback, and with an app-level IntlProvider the modal follows its locale once translations exist.',
+			'Every example starts closed and has an Open modal button.',
 		],
 		contentGuidelines: [
-			'StepperModal renders a visual surface only, so provide step titles, instructions, and actions in the surrounding workflow.',
-			'Keep step titles short and action-oriented, and explain what users need to complete before they continue.',
-			'Use specific labels for forward, back, and finish actions, and provide concise recovery guidance when a step cannot be completed.',
+			'Build each step body with StepperModalContent from `@atlassian/stepper-modal/ui/stepper-modal/content`. It renders the step heading, an optional description and the step fields as children.',
+			'Set width on StepperModalContent to "stretch" when the content needs the full width of the content area, such as a row of fields or a grid. The default width is a centred column of at most 40rem (640px), also on an excluded step where there is no rail, so it sits in the middle of the modal; "stretch" fills the full width of the content area, which is the whole modal width when there is no rail.',
+			'Keep step titles short. Use nextAction.label to name the action the primary button performs, such as "Create policy".',
+			'Put the required-fields note and any help links in the description, and explain what users must complete before they can continue.',
+			'Use the value field on a step to show the answer given in that step once it is complete, such as the chosen region or name.',
 		],
 		accessibilityGuidelines: [
-			'StepperModal renders a non-semantic div, so provide the heading, landmark, and interactive semantics required by the surrounding workflow.',
-			'Ensure the workflow exposes a programmatic name for the current step and does not rely on selected color alone to communicate state.',
-			'Keep surrounding controls keyboard accessible with visible focus, a logical reading order, and focus management when users enter a new step.',
+			'Close and Cancel close the modal directly.',
+			'Focus is locked inside the modal while it is open. shouldReturnFocus sets where focus goes when the modal closes.',
+			'The step rail marks the current step with aria-current. Below 768px the rail is hidden and the header shows an "M of N" counter instead.',
+			'Give each step that shows content a heading through StepperModalContent so the step name is available to assistive technology; a step with no content yet may leave `content` empty, and do not rely on selected colour alone to show progress.',
+			'When nextAction.isLoading is set, the primary button shows a loading state. Explain the wait in the step content so it is not the only signal.',
 		],
 		keywords: ['stepper-modal', 'stepper', 'guided-workflow', 'multi-step', 'wizard', 'workflow'],
 		category: 'components',
 		examples: [
-			'import StepperModal from \'@atlassian/stepper-modal/ui/stepper-modal\';\nexport default function Basic(): React.JSX.Element {\n\treturn <StepperModal testId="stepper-modal" />;\n}',
-			'import StepperModal from \'@atlassian/stepper-modal/ui/stepper-modal\';\nexport default function Selected(): React.JSX.Element {\n\treturn <StepperModal isSelected testId="stepper-modal" />;\n}',
-			'import StepperModal from \'@atlassian/stepper-modal/ui/stepper-modal\';\nexport default function Basic(): React.JSX.Element {\n\treturn <StepperModal width={400} testId="stepper-modal" />;\n}',
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport StepperModal, { type StepperModalStep } from '@atlassian/stepper-modal/ui/stepper-modal';\nimport { StepperModalContent } from '@atlassian/stepper-modal/ui/stepper-modal/content';\nexport default function Default(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(false);\n\tconst steps: StepperModalStep[] = [\n\t\t{\n\t\t\tid: 'details',\n\t\t\ttitle: 'Details',\n\t\t\tcontent: (\n\t\t\t\t<StepperModalContent heading=\"Details\">\n\t\t\t\t\t<Text as=\"p\">Enter the details for this step.</Text>\n\t\t\t\t</StepperModalContent>\n\t\t\t),\n\t\t},\n\t\t{\n\t\t\tid: 'settings',\n\t\t\ttitle: 'Settings',\n\t\t\tcontent: (\n\t\t\t\t<StepperModalContent heading=\"Settings\">\n\t\t\t\t\t<Text as=\"p\">Choose the settings for this step.</Text>\n\t\t\t\t</StepperModalContent>\n\t\t\t),\n\t\t},\n\t\t{\n\t\t\tid: 'review',\n\t\t\ttitle: 'Review',\n\t\t\tcontent: (\n\t\t\t\t<StepperModalContent heading=\"Review\">\n\t\t\t\t\t<Text as=\"p\">Review your choices before you finish.</Text>\n\t\t\t\t</StepperModalContent>\n\t\t\t),\n\t\t\tnextAction: { label: 'Done', onClick: (event) => event.trigger() },\n\t\t},\n\t];\n\treturn (\n\t\t<React.Fragment>\n\t\t\t<Button appearance=\"primary\" onClick={() => setIsOpen(true)}>\n\t\t\t\tOpen modal\n\t\t\t</Button>\n\t\t\t<StepperModal\n\t\t\t\ttitle=\"Default\"\n\t\t\t\tsteps={steps}\n\t\t\t\tisOpen={isOpen}\n\t\t\t\tonClose={() => setIsOpen(false)}\n\t\t\t/>\n\t\t</React.Fragment>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport StepperModal, { type StepperModalStep } from '@atlassian/stepper-modal/ui/stepper-modal';\nimport { StepperModalContent } from '@atlassian/stepper-modal/ui/stepper-modal/content';\nexport default function IntroStep(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(false);\n\tconst steps: StepperModalStep[] = [\n\t\t{\n\t\t\tid: 'welcome',\n\t\t\ttitle: 'Welcome',\n\t\t\tisExcluded: true,\n\t\t\tcontent: (\n\t\t\t\t<StepperModalContent heading=\"Welcome\">\n\t\t\t\t\t<Text as=\"p\">\n\t\t\t\t\t\tThis introduction is excluded from the stepper (isExcluded), so it has no rail and no\n\t\t\t\t\t\tcounter. Select Get started to begin.\n\t\t\t\t\t</Text>\n\t\t\t\t</StepperModalContent>\n\t\t\t),\n\t\t\tnextAction: { label: 'Get started' },\n\t\t},\n\t\t{\n\t\t\tid: 'details',\n\t\t\ttitle: 'Details',\n\t\t\tcontent: (\n\t\t\t\t<StepperModalContent heading=\"Details\">\n\t\t\t\t\t<Text as=\"p\">This is step 1 of 3, shown in the header counter and the rail.</Text>\n\t\t\t\t</StepperModalContent>\n\t\t\t),\n\t\t},\n\t\t{\n\t\t\tid: 'settings',\n\t\t\ttitle: 'Settings',\n\t\t\tcontent: (\n\t\t\t\t<StepperModalContent heading=\"Settings\">\n\t\t\t\t\t<Text as=\"p\">\n\t\t\t\t\t\tThis is step 2 of 3. Back and Next still move through the excluded step.\n\t\t\t\t\t</Text>\n\t\t\t\t</StepperModalContent>\n\t\t\t),\n\t\t},\n\t\t{\n\t\t\tid: 'review',\n\t\t\ttitle: 'Review',\n\t\t\tcontent: (\n\t\t\t\t<StepperModalContent heading=\"Review\">\n\t\t\t\t\t<Text as=\"p\">This is step 3 of 3. Select Finish to close the modal.</Text>\n\t\t\t\t</StepperModalContent>\n\t\t\t),\n\t\t\tnextAction: { label: 'Finish', onClick: (event) => event.trigger() },\n\t\t},\n\t];\n\treturn (\n\t\t<React.Fragment>\n\t\t\t<Button appearance=\"primary\" onClick={() => setIsOpen(true)}>\n\t\t\t\tOpen modal\n\t\t\t</Button>\n\t\t\t<StepperModal\n\t\t\t\ttitle=\"Intro step\"\n\t\t\t\tsteps={steps}\n\t\t\t\tisOpen={isOpen}\n\t\t\t\tonClose={() => setIsOpen(false)}\n\t\t\t/>\n\t\t</React.Fragment>\n\t);\n}",
+			"import React, { useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nimport StepperModal, { type StepperModalStep } from '@atlassian/stepper-modal/ui/stepper-modal';\nimport { StepperModalContent } from '@atlassian/stepper-modal/ui/stepper-modal/content';\nexport default function DefaultStep(): React.JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(false);\n\tconst steps: StepperModalStep[] = [\n\t\t{\n\t\t\tid: 'site',\n\t\t\ttitle: 'Site',\n\t\t\tvalue: 'cowbell.disco.com',\n\t\t\tcontent: (\n\t\t\t\t<StepperModalContent heading=\"Site\">\n\t\t\t\t\t<Text as=\"p\">Choose the site address for this workspace.</Text>\n\t\t\t\t</StepperModalContent>\n\t\t\t),\n\t\t},\n\t\t{\n\t\t\tid: 'details',\n\t\t\ttitle: 'Details',\n\t\t\tvalue: 'play.cowbell.disco.com',\n\t\t\tcontent: (\n\t\t\t\t<StepperModalContent heading=\"Details\">\n\t\t\t\t\t<Text as=\"p\">Enter the details for this site.</Text>\n\t\t\t\t</StepperModalContent>\n\t\t\t),\n\t\t},\n\t\t{\n\t\t\tid: 'apps',\n\t\t\ttitle: 'Apps',\n\t\t\tcontent: (\n\t\t\t\t<StepperModalContent heading=\"Apps\">\n\t\t\t\t\t<Text as=\"p\">Choose the apps to add to this site.</Text>\n\t\t\t\t</StepperModalContent>\n\t\t\t),\n\t\t},\n\t\t{\n\t\t\tid: 'review',\n\t\t\ttitle: 'Review',\n\t\t\tcontent: (\n\t\t\t\t<StepperModalContent heading=\"Review\">\n\t\t\t\t\t<Text as=\"p\">Review your choices before you create the site.</Text>\n\t\t\t\t</StepperModalContent>\n\t\t\t),\n\t\t\tnextAction: { label: 'Create', onClick: (event) => event.trigger() },\n\t\t},\n\t];\n\treturn (\n\t\t<React.Fragment>\n\t\t\t<Button appearance=\"primary\" onClick={() => setIsOpen(true)}>\n\t\t\t\tOpen modal\n\t\t\t</Button>\n\t\t\t<StepperModal\n\t\t\t\ttitle=\"Default step\"\n\t\t\t\tsteps={steps}\n\t\t\t\tdefaultStepIndex={2}\n\t\t\t\tisOpen={isOpen}\n\t\t\t\tonClose={() => setIsOpen(false)}\n\t\t\t/>\n\t\t</React.Fragment>\n\t);\n}",
 		],
 		props: [
 			{
-				name: 'isSelected',
-				type: 'boolean | undefined',
-				description: 'When `true` StepperModal will appear selected.',
+				name: 'defaultStepIndex',
+				type: 'number | undefined',
+				description: '0-based index of the step shown first. Clamped to the range of steps.',
 			},
 			{
-				name: 'width',
-				type: 'number | undefined',
-				description: 'Width of StepperModal.',
+				name: 'entity',
+				type: '{ icon: React.ReactNode; name: string; } | undefined',
+			},
+			{
+				name: 'isOpen',
+				type: 'boolean | undefined',
+				description: 'When `true` StepperModal will be open.',
+			},
+			{
+				name: 'onBack',
+				type: '((previousIndex: number) => void) | undefined',
+				description: 'Called with the index of the step that is now shown after moving back.',
+			},
+			{
+				name: 'onClose',
+				type: '() => void',
+				description:
+					'Called when the modal is closed by the Close button, the Cancel button,\nthe Escape key or a click on the blanket.',
+				isRequired: true,
+			},
+			{
+				name: 'shouldReturnFocus',
+				type: 'boolean | React.RefObject<HTMLElement> | undefined',
+				description:
+					'Controls what happens when the user exits\nfocus lock mode. If true, focus returns to the element that had focus before focus lock\nwas activated. If false, focus remains where it was when the FocusLock was deactivated.\nIf ref is passed, focus returns to that specific ref element.',
+			},
+			{
+				name: 'steps',
+				type: 'StepperModalStep[]',
+				isRequired: true,
+			},
+			{
+				name: 'title',
+				type: 'string',
+				isRequired: true,
 			},
 		],
 	},

@@ -3,7 +3,7 @@
  *
  * Structured content hooks from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::718b97f68d1509c179c232447e56441b>>
+ * @codegen <<SignedSource::3f9ebe69098395387c0ca311824baa42>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -2324,6 +2324,22 @@ export const atlaskitHooks: HookMcpPayload[] = [
 			type: 'ProfileTriggerRenderer | undefined',
 		},
 		package: '@atlassian/rovo-platform-ui-components',
+		examples: [],
+	},
+	{
+		name: 'useInitializeWorkstreamPreferences',
+		description: 'Creates absent workstream inference preferences and returns the saved setting.',
+		status: 'early-access',
+		usageGuidelines: [
+			'Call under the host Relay environment after an explicit activation action. This hook does not create or read user pins.',
+			'Use the saved enabled value, which may be false. A rejected or uncertain request must not be presented as enabled; initialization can be retried without resetting an existing setting.',
+		],
+		keywords: ['workstream', 'inference', 'preferences', 'initialization', 'relay'],
+		category: 'rovo',
+		returns: {
+			type: '(ari: string) => Promise<{ ari: string; enabled: boolean; canEdit: boolean }>',
+		},
+		package: '@atlassian/rovo-proactive-insights',
 		examples: [],
 	},
 	{

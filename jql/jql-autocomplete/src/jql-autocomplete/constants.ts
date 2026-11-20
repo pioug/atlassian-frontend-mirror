@@ -1,5 +1,4 @@
 import { JQLParser } from '@atlaskit/jql-parser/JQLParser';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 export const WHERE_CLAUSE = 'where';
 export const ORDER_BY_CLAUSE = 'orderBy';
@@ -48,8 +47,7 @@ export const rulesWithContext: number[] = [
 ];
 
 export const isRuleWithContext = (ruleNumber: number): boolean =>
-	rulesWithContext.includes(ruleNumber) ||
-	(ruleNumber === JQLParser.RULE_jqlArgument && fg('enable-jql-membersof-autocomplete'));
+	rulesWithContext.includes(ruleNumber) || ruleNumber === JQLParser.RULE_jqlArgument;
 
 /**
  * A subset/collection of parser tokens for strings with unclosed single or double quote

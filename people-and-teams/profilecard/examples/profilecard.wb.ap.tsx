@@ -1,5 +1,10 @@
 import { wb, type WorkbenchExample } from '@atlassian/workbench';
 
+import {
+	ProfileCardExampleWithMetaAndLozenges,
+	ProfileCardExampleWithoutReportingLines,
+	ProfileCardExampleWithReportingLines,
+} from '../src/__tests__/vr-tests/ProfileCardDetails.fixtures.vr.ap';
 import { default as ProfilecardExample } from './01-profilecard';
 import { default as ProfilecardResourcedExample } from './02-profilecard-resourced';
 import { default as ProfilecardOverviewVrExample } from './03-profilecard-overview.vr.ap';
@@ -45,3 +50,14 @@ export const TempTeamProfilecardFull: WorkbenchExample = wb(TempTeamProfilecardF
 export const ConnectedTeamsProfileCard: WorkbenchExample = wb(ConnectedTeamsProfileCardExample);
 export const ServiceAccountProfilecard: WorkbenchExample = wb(ServiceAccountProfilecardExample);
 export const AgentProfilecardInteractive: WorkbenchExample = wb(AgentProfilecardInteractiveExample);
+
+// The ProfileCardDetails VR states live with their test in `src/__tests__/vr-tests/`.
+export const VrProfileCardExampleWithReportingLines: WorkbenchExample = wb(
+	ProfileCardExampleWithReportingLines,
+);
+export const VrProfileCardExampleWithoutReportingLines: WorkbenchExample = wb(
+	ProfileCardExampleWithoutReportingLines,
+);
+export const VrProfileCardExampleWithMetaAndLozenges: WorkbenchExample = wb(
+	ProfileCardExampleWithMetaAndLozenges,
+);

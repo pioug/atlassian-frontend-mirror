@@ -1,5 +1,16 @@
 # @atlaskit/linking-common
 
+## 13.1.0
+
+### Minor Changes
+
+- [`a011be8c5816f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a011be8c5816f) -
+  Add an optional fallback org ID to `shouldUseUnitCompliantApi` for unsited apps, behind
+  `linking_platform_units_org_id_fallback`. The hostname takes precedence, and default settings are
+  used when neither source resolves an org. Cache results per enabled fallback org ID. With the new
+  gate off, preserve the existing hostname-only behavior. The `cc-units-ga` and caller rollout gates
+  still apply.
+
 ## 13.0.3
 
 ### Patch Changes

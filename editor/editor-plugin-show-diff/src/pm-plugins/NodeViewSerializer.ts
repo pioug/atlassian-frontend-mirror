@@ -5,12 +5,9 @@ import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import { contains } from '@atlaskit/editor-prosemirror/utils';
 import type { DecorationSource, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { createEditorProxy } from './createEditorProxy';
 import type { ColorScheme } from './decorations/colorSchemes/types';
-import { getAtomicInlineChangedAttrs } from './decorations/createInlineChangedDecoration';
-import { isInlineAttrChangeNodeName } from './decorations/utils/getAttrChangeRanges';
 import { wrapInMarkViews } from './markViews';
 
 /**
@@ -106,31 +103,10 @@ export class NodeViewSerializer {
 		// views resolve to their real depth instead of every one of them seeing depth 0.
 		let childPos = basePos + 1;
 		children.forEach((child) => {
-			let childNode =
+			const childNode =
 				this.tryCreateNodeViewInner(child, childPos, editorProxy, isInserted, colorScheme) ||
 				this.serializeNode(child);
 			if (childNode) {
-				// Give inserted atomic children the same box-shadow
-				// highlight an in-place attribute change already gets (`getAtomicInlineChangedAttrs`).
-				// Disabled under patch_2: the outline also landed on atomic children inserted alongside text.
-				if (
-					isInserted &&
-					!fg('platform_editor_ai_show_diff_patch_2') &&
-					isExperimentEnabled('platform_editor_show_diff_deleted_nodeview_content') &&
-					isInlineAttrChangeNodeName(child.type.name) &&
-					childNode instanceof HTMLElement
-				) {
-					const { className, styleSuffix } = getAtomicInlineChangedAttrs(
-						child.type.name,
-						colorScheme,
-					);
-					// create wrapper to add the diff styles to to avoid conflicting with any nodeView styles
-					const wrapper = document.createElement('span');
-					wrapper.className = className;
-					wrapper.setAttribute('style', styleSuffix);
-					wrapper.append(childNode);
-					childNode = wrapper;
-				}
 				contentDOM?.append(childNode);
 			}
 			childPos += child.nodeSize;
@@ -157,10 +133,9 @@ export class NodeViewSerializer {
 		}
 		// The preview becomes the document every nested node view resolves its position against,
 		// so positions stay internally consistent.
-		const preview =
-			fg('platform_editor_ai_show_diff_patch_2') && containsTable(targetNode)
-				? createEditorProxy(this.editorView, targetNode, $sourcePos)
-				: null;
+		const preview = containsTable(targetNode)
+			? createEditorProxy(this.editorView, targetNode, $sourcePos)
+			: null;
 		return this.tryCreateNodeViewInner(
 			targetNode,
 			preview?.rootPos ?? basePos,
@@ -246,11 +221,7 @@ export class NodeViewSerializer {
 			// The expand node view reads `expandedState.get(node) ?? false`, never `attrs.__expanded`.
 			// Open the preview so its tables get real layout; an existing entry is the live expand's
 			// own state, so leave it alone.
-			if (
-				EXPAND_TYPES.has(targetNode.type.name) &&
-				!expandedState.has(targetNode) &&
-				fg('platform_editor_ai_show_diff_patch_2')
-			) {
+			if (EXPAND_TYPES.has(targetNode.type.name) && !expandedState.has(targetNode)) {
 				expandedState.set(targetNode, true);
 			}
 

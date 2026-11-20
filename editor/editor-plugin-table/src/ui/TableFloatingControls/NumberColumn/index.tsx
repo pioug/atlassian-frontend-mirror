@@ -5,7 +5,6 @@ import classnames from 'classnames';
 import { isSSR } from '@atlaskit/editor-common/is-ssr';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isRowSelected } from '@atlaskit/editor-tables/utils';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { getRenderedRowNumberLabels, getRowHeights } from '../../../pm-plugins/utils/row-controls';
@@ -34,9 +33,7 @@ export default class NumberColumn extends Component<Props, any> {
 		const { tableRef, hasHeaderRow, isDragAndDropEnabled, tableActive, updateCellHoverLocation } =
 			this.props;
 		const rowHeights = getRowHeights(tableRef);
-		const renderedRowNumberLabels = fg('platform_editor_ai_show_diff_patch_2')
-			? getRenderedRowNumberLabels(tableRef, hasHeaderRow)
-			: undefined;
+		const renderedRowNumberLabels = getRenderedRowNumberLabels(tableRef, hasHeaderRow);
 
 		const getMarginTop = () => {
 			if (!hasHeaderRow || this.props.stickyTop === undefined) {
@@ -98,13 +95,7 @@ export default class NumberColumn extends Component<Props, any> {
 				contentEditable={false}
 			>
 				{rowHeights.map((rowHeight, index) => {
-					const rowNumberLabel = fg('platform_editor_ai_show_diff_patch_2')
-						? renderedRowNumberLabels?.[index]
-						: hasHeaderRow
-							? index > 0
-								? index
-								: null
-							: index + 1;
+					const rowNumberLabel = renderedRowNumberLabels[index];
 					return (
 						<div
 							// Ignored via go/ees005

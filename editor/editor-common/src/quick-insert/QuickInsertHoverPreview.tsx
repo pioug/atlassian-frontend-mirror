@@ -72,6 +72,7 @@ export const QuickInsertHoverPreview = ({
 	shouldClampText = true,
 	title,
 	titleContent,
+	useViewportPositioning,
 }: {
 	description?: string;
 	icon?: ReactNode;
@@ -83,6 +84,7 @@ export const QuickInsertHoverPreview = ({
 	title: string;
 	/** Rich content rendered in place of the title. */
 	titleContent?: ReactNode;
+	useViewportPositioning: boolean;
 }): React.JSX.Element => {
 	const hasAccessibleContent = Boolean(description || preview.attribution);
 	const portalTarget = popupsMountPoint ?? referenceElement.ownerDocument.body;
@@ -91,7 +93,8 @@ export const QuickInsertHoverPreview = ({
 		<Popper
 			placement="right-start"
 			referenceElement={referenceElement}
-			strategy={popupsMountPoint ? 'absolute' : 'fixed'}
+			// A fixed slash preview can flip outside a scrolling panel while staying in its host portal.
+			strategy={useViewportPositioning || !popupsMountPoint ? 'fixed' : 'absolute'}
 			modifiers={PREVIEW_MODIFIERS}
 		>
 			{({ ref, style, update }) => (
@@ -107,6 +110,7 @@ export const QuickInsertHoverPreview = ({
 						title={title}
 						titleContent={titleContent}
 						update={update}
+						useViewportPositioning={useViewportPositioning}
 					/>
 				</div>
 			)}
@@ -126,6 +130,7 @@ const QuickInsertPreviewPanel = ({
 	title,
 	titleContent,
 	update,
+	useViewportPositioning,
 }: {
 	description?: string;
 	icon?: ReactNode;
@@ -137,6 +142,7 @@ const QuickInsertPreviewPanel = ({
 	title: string;
 	titleContent?: ReactNode;
 	update: PopperChildrenProps['update'];
+	useViewportPositioning: boolean;
 }): React.JSX.Element => {
 	const [panelElement, setPanelElement] = useState<HTMLDivElement | null>(null);
 
@@ -150,22 +156,34 @@ const QuickInsertPreviewPanel = ({
 			options: true,
 		});
 
-		const ResizeObserverConstructor = ownerDocument.defaultView?.ResizeObserver;
-		if (!panelElement || !ResizeObserverConstructor) {
-			return unbindScrollListener;
+		const MutationObserverConstructor = ownerDocument.defaultView?.MutationObserver;
+		let mountPositionObserver: MutationObserver | undefined;
+		if (useViewportPositioning && popupsMountPoint && MutationObserverConstructor) {
+			// Panning can move a host mount without firing a scroll or resize event.
+			mountPositionObserver = new MutationObserverConstructor(() => void update());
+			mountPositionObserver.observe(popupsMountPoint, {
+				attributes: true,
+				attributeFilter: ['class', 'style'],
+			});
 		}
 
-		const observer = new ResizeObserverConstructor(() => void update());
-		observer.observe(panelElement);
-		observer.observe(referenceElement);
-		if (popupsMountPoint) {
-			observer.observe(popupsMountPoint);
+		const ResizeObserverConstructor = ownerDocument.defaultView?.ResizeObserver;
+		let resizeObserver: ResizeObserver | undefined;
+		if (panelElement && ResizeObserverConstructor) {
+			resizeObserver = new ResizeObserverConstructor(() => void update());
+			resizeObserver.observe(panelElement);
+			resizeObserver.observe(referenceElement);
+			if (popupsMountPoint) {
+				resizeObserver.observe(popupsMountPoint);
+			}
 		}
+
 		return () => {
 			unbindScrollListener();
-			observer.disconnect();
+			resizeObserver?.disconnect();
+			mountPositionObserver?.disconnect();
 		};
-	}, [panelElement, popupsMountPoint, referenceElement, update]);
+	}, [panelElement, popupsMountPoint, referenceElement, update, useViewportPositioning]);
 
 	return (
 		<div

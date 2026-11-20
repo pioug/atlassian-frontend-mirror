@@ -35,7 +35,6 @@ import {
 	type JqlWhereContext,
 } from '@atlaskit/jql-parser/JQLParser';
 import type { JQLParserVisitor } from '@atlaskit/jql-parser/JQLParserVisitor';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { type RuleSuggestion } from '../base-autocomplete/types';
 import { ORDER_BY_CLAUSE, WHERE_CLAUSE } from './constants';
@@ -346,10 +345,6 @@ export class RuleContextVisitor implements JQLParserVisitor<JQLRuleContext> {
 	};
 
 	private getFunctionContext = (ctx: JqlFunctionContext | undefined): JQLRuleContext => {
-		if (!fg('enable-jql-membersof-autocomplete')) {
-			return {};
-		}
-
 		if (ctx !== undefined && this.isReplacePosAtCtx(ctx)) {
 			return ctx.accept(this);
 		}

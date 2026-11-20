@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 33.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 33.1.1
+
+### Patch Changes
+
+- [`3a4337d2e4a60`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3a4337d2e4a60) -
+  Clean up feature gate `platform_editor_ai_show_diff_patch_2`; the show-diff improvements are now
+  always on.
+- Updated dependencies
+
 ## 33.1.0
 
 ### Minor Changes

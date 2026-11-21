@@ -71,6 +71,9 @@
 			"path": "../../../design-system/icon/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../native-embeds/native-embeds-common/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../platform/feature-experiments/afm-products/tsconfig.json"
 		},
 		{

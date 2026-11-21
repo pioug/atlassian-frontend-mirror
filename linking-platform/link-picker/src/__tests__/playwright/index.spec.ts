@@ -106,7 +106,9 @@ test('Link picker should fire `onContentResize` callback to allow dialogue compo
 	await expect(page.locator(testIds.urlInputField).first()).toBeVisible();
 	await page.locator(testIds.urlInputField).first().fill('12345');
 	await page.locator(updateFnToggle).first().click();
+	await expect(page.locator(testIds.urlInputField).first()).toBeHidden();
 	await page.locator(trigger).first().click();
+	await expect(page.locator(testIds.urlInputField).first()).toBeVisible();
 	await page.locator(testIds.urlInputField).first().fill('12345');
 });
 

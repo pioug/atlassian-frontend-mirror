@@ -16,6 +16,7 @@ import type { QuickInsertPlugin } from '@atlaskit/editor-plugin-quick-insert/qui
 import type { ToolbarPlugin } from '@atlaskit/editor-plugin-toolbar/toolbar-plugin-type';
 import type { UiControlRegistryPlugin } from '@atlaskit/editor-plugin-ui-control-registry/ui-control-registry-plugin-type';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width/width-plugin-type';
+import type { EditorPluginNativeEmbedsPlugin } from '@atlaskit/native-embeds-common/plugin-actions/types';
 
 import type { LoomPluginState } from './pm-plugins/main';
 import type { LoomPluginOptions, LoomProviderOptions, PositionType, VideoMeta } from './types';
@@ -61,6 +62,7 @@ export type LoomPlugin = NextEditorPlugin<
 			OptionalPlugin<QuickInsertPlugin>,
 			OptionalPlugin<ConnectivityPlugin>,
 			OptionalPlugin<ContentInsertionPlugin>,
+			OptionalPlugin<EditorPluginNativeEmbedsPlugin>,
 			OptionalPlugin<ToolbarPlugin>,
 			OptionalPlugin<EditorViewModePlugin>,
 			OptionalPlugin<UiControlRegistryPlugin>,

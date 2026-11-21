@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-loom
 
+## 35.3.0
+
+### Minor Changes
+
+- [`3ca2eac758a00`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3ca2eac758a00) -
+  Reuse NativeEmbed resolution to keep recorded Loom videos inside the nearest schema-supported
+  block container when twc_growth_loom_conf_pinned_toolbar is enabled.
+
 ## 35.2.0
 
 ### Minor Changes

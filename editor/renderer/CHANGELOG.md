@@ -1,5 +1,20 @@
 # @atlaskit/renderer
 
+## 157.3.0
+
+### Minor Changes
+
+- [`805e14e739a57`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/805e14e739a57) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- [`b6abf2dfc35c3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b6abf2dfc35c3) -
+  Make the shipped Aura Table Filter handoff permanent so the native body is retained until the
+  Forge bridge is ready.
+- Updated dependencies
+
 ## 157.2.1
 
 ### Patch Changes

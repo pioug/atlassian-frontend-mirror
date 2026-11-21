@@ -73,7 +73,6 @@ export interface AtlassianNavigationProps {
 	theme?: NavigationTheme;
 
 	/* eslint-disable jsdoc/require-asterisk-prefix */
-	/* oxlint-disable jsdoc-js/require-asterisk-prefix */
 	/**
     A `testId` prop is provided for specified elements,
     which is a unique string that appears as a data attribute `data-testid` in the rendered code,

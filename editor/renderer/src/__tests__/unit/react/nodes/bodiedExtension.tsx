@@ -10,7 +10,6 @@ import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions/exten
 import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/extensions';
-import { mockExp } from '@atlassian/experiment-test-utils/mock-exp';
 
 import { Renderer } from '../../../../entry-points/renderer-default';
 import ReactSerializer from '../../../../react';
@@ -182,8 +181,7 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
 		});
 	});
 
-	it.each([false, true])('reserves the Aura body only in treatment (%s)', (isEnabled) => {
-		mockExp('cc_aura_table_filter_cls', { isEnabled });
+	it('reserves the Aura body until the bridge is ready', () => {
 		const handlers: ExtensionHandlers = {
 			'com.atlassian.ecosystem': () => <button>Filter table</button>,
 		};
@@ -202,14 +200,10 @@ describe('Renderer - React/Nodes/BodiedExtension', () => {
 			</BodiedExtension>,
 		);
 		expect(screen.getByRole('button', { name: 'Filter table' })).toBeInTheDocument();
-		if (isEnabled) {
-			expect(screen.getByText('Native table body').parentElement).toHaveAttribute(
-				'aria-hidden',
-				'true',
-			);
-		} else {
-			expect(screen.queryByText('Native table body')).not.toBeInTheDocument();
-		}
+		expect(screen.getByText('Native table body').parentElement).toHaveAttribute(
+			'aria-hidden',
+			'true',
+		);
 	});
 
 	it.each([

@@ -1,5 +1,14 @@
 # @atlaskit/smart-card
 
+## 46.19.7
+
+### Patch Changes
+
+- [`24eb3c80a0aec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/24eb3c80a0aec) -
+  Cleanup experiment `platform_sl_hydration_safe_content`. Smart Link dates and social proof use
+  hydration-safe content during SSR and hydration only when the Smart Card provider's product is
+  Confluence. Other products and standalone elements retain the control behavior.
+
 ## 46.19.6
 
 ### Patch Changes

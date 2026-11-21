@@ -6,8 +6,6 @@ import { IntlProvider } from 'react-intl';
 
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
-import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { act } from '@atlassian/testing-library/act';
 
 import { getCurrentSiteCloudId } from '../../../../state/services/current-site-cloud-id/getCurrentSiteCloudId';
@@ -26,25 +24,17 @@ jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
 	expValEquals: jest.fn(),
 }));
 
-const HYDRATION_EXPERIMENT = 'platform_sl_hydration_safe_content';
 const extensionKey = 'google-object-provider';
 
 describe('block Smart Link and modified date hydration', () => {
 	it.each([
-		{ hydrationFixEnabled: true, warmCache: true, treatment: true },
-		{ hydrationFixEnabled: true, warmCache: true, treatment: false },
-		{ hydrationFixEnabled: true, warmCache: false, treatment: true },
-		{ hydrationFixEnabled: false, warmCache: true, treatment: true },
-		{ hydrationFixEnabled: false, warmCache: false, treatment: true },
+		{ warmCache: true, treatment: true },
+		{ warmCache: true, treatment: false },
+		{ warmCache: false, treatment: true },
 	])(
-		'hydrates with $warmCache warm cache, fix enabled: $hydrationFixEnabled, treatment: $treatment',
-		async ({ hydrationFixEnabled, warmCache, treatment }) => {
+		'hydrates with $warmCache warm cache, treatment: $treatment',
+		async ({ warmCache, treatment }) => {
 			jest.mocked(expValEquals).mockReturnValue(treatment);
-			if (hydrationFixEnabled) {
-				mockExpEnabled(HYDRATION_EXPERIMENT);
-			} else {
-				mockExpDisabled(HYDRATION_EXPERIMENT);
-			}
 			jest.mocked(getCurrentSiteCloudId).mockResolvedValue('cloud-id');
 			jest.mocked(getProviderPctMap).mockResolvedValue(undefined);
 			jest.mocked(getCurrentSiteCloudIdSync).mockReturnValue(undefined);
@@ -58,7 +48,7 @@ describe('block Smart Link and modified date hydration', () => {
 			document.body.appendChild(container);
 			let root: ReturnType<typeof hydrateRoot> | undefined;
 			const content = () => (
-				<SmartCardProvider>
+				<SmartCardProvider product="CONFLUENCE">
 					<UnauthorisedView
 						url="https://docs.google.com/document/d/test"
 						onAuthorize={() => {}}
@@ -119,23 +109,16 @@ describe('block Smart Link and modified date hydration', () => {
 						: 'Turn your URLs into rich, interactive previews.',
 				);
 				expect(container.textContent).toContain('Updated on Aug 17, 2025');
-				if (hydrationFixEnabled) {
-					expect(onRecoverableError).not.toHaveBeenCalled();
-					// Existing react-loadable and analytics providers emit legacy-context deprecations.
-					// Keep every other console error visible, including hydration warnings.
-					expect(
-						consoleError.mock.calls.filter(
-							([message]) => !String(message).includes('https://reactjs.org/link/legacy-context'),
-						),
-					).toEqual([]);
-					expect(container.querySelector('footer')).toBe(serverFooter);
-					expect(container.querySelector('[data-testid="smart-element-date-time"]')).toBe(
-						serverDate,
-					);
-				} else {
-					// Prove this fixture detects the original mismatches and client-render recovery.
-					expect(onRecoverableError).toHaveBeenCalled();
-				}
+				expect(onRecoverableError).not.toHaveBeenCalled();
+				// Existing react-loadable and analytics providers emit legacy-context deprecations.
+				// Keep every other console error visible, including hydration warnings.
+				expect(
+					consoleError.mock.calls.filter(
+						([message]) => !String(message).includes('https://reactjs.org/link/legacy-context'),
+					),
+				).toEqual([]);
+				expect(container.querySelector('footer')).toBe(serverFooter);
+				expect(container.querySelector('[data-testid="smart-element-date-time"]')).toBe(serverDate);
 
 				// Background refresh must not change the treatment selected for this mount.
 				jest.mocked(getProviderPctMapSync).mockReturnValue({ [extensionKey]: 99 });

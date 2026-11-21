@@ -1,5 +1,3 @@
-import { expVal } from '@atlaskit/platform-feature-experiments/exp-val';
-
 /** Exact extension keys whose reservation is released by the Forge bridge ready message.
  * Keep this static so SSR and the first client render use the same allowlist.
  */
@@ -25,14 +23,12 @@ export function getForgeBodiedExtensionHandoffMode({
 	if (!localId) {
 		return undefined;
 	}
-	// Keep both Aura cohorts under their existing experiment, even if also selected by a host.
+	// Aura uses the bridge-ready signal even if the host selected the same instance.
 	if (FORGE_BODIED_EXTENSION_BRIDGE_READY_KEYS.has(extensionKey)) {
 		if (extensionType !== 'com.atlassian.ecosystem' || isInline()) {
 			return undefined;
 		}
-		return expVal('cc_aura_table_filter_cls', 'isEnabled', false)
-			? 'release-on-bridge-ready'
-			: undefined;
+		return 'release-on-bridge-ready';
 	}
 	return preserveUntilReadyInstances?.get(localId) === extensionKey
 		? 'preserve-until-ready'

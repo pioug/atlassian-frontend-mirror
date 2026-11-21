@@ -61,13 +61,13 @@ describe('dropdown menu', () => {
 
 		// The legacy popup closes on a document `click` and passes that event. The top-layer path uses
 		// native light dismiss: see `dropdown-menu-top-layer.test.tsx`.
-		it('should callback with false when opened', () => {
+		it('should callback with false when opened', async () => {
 			failGate('platform-dst-top-layer');
 
 			const callback = jest.fn();
 			render(createDropdown({ onOpenChange: callback, isOpen: true }));
 
-			fireEvent.click(document.body);
+			await userEvent.click(document.body);
 
 			expect(callback).toHaveBeenCalledWith({
 				isOpen: false,
@@ -395,7 +395,7 @@ describe('dropdown menu', () => {
 
 		// The legacy popup closes on a document `click`. The top-layer path uses native light dismiss:
 		// see `dropdown-menu-top-layer.test.tsx`.
-		it('should close the dropdown menu on outside click', () => {
+		it('should close the dropdown menu on outside click', async () => {
 			failGate('platform-dst-top-layer');
 
 			render(
@@ -405,16 +405,16 @@ describe('dropdown menu', () => {
 				</>,
 			);
 
-			fireEvent.click(screen.getByTestId(`${testId}--trigger`));
+			await userEvent.click(screen.getByTestId(`${testId}--trigger`));
 
 			expect(screen.getByTestId(`${testId}--content`)).toBeInTheDocument();
 
-			fireEvent.click(screen.getByTestId('outside'));
+			await userEvent.click(screen.getByTestId('outside'));
 
 			expect(screen.queryByTestId(`${testId}--content`)).not.toBeInTheDocument();
 		});
 
-		it('should close the dropdown menu on outside click which has stopPropagation', () => {
+		it('should close the dropdown menu on outside click which has stopPropagation', async () => {
 			failGate('platform-dst-top-layer');
 
 			render(
@@ -429,11 +429,11 @@ describe('dropdown menu', () => {
 				</>,
 			);
 
-			fireEvent.click(screen.getByTestId(`${testId}--trigger`));
+			await userEvent.click(screen.getByTestId(`${testId}--trigger`));
 
 			expect(screen.getByTestId(`${testId}--content`)).toBeInTheDocument();
 
-			fireEvent.click(screen.getByTestId('outside'));
+			await userEvent.click(screen.getByTestId('outside'));
 
 			expect(screen.queryByTestId(`${testId}--content`)).not.toBeInTheDocument();
 		});

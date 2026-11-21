@@ -326,6 +326,8 @@ describe('FlyoutMenuItem', () => {
 					</FlyoutMenuItemContent>
 				</FlyoutMenuItem>,
 			);
+			// Let the popup register its deferred window listener first.
+			await new Promise((resolve) => setTimeout(resolve, 0));
 			// This will be added after the added window capture listener
 			// used to close outside clicks, so we can add to the window
 			const cleanup2 = bind(window, {

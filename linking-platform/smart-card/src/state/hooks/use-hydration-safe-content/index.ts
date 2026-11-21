@@ -1,17 +1,17 @@
-import { useSyncExternalStore } from 'react';
+import { useContext, useSyncExternalStore } from 'react';
 
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { SmartCardContext } from '@atlaskit/link-provider/context';
 
 const subscribe = () => () => {};
 const getClientSnapshot = () => false;
 
-/** Use deterministic content only during SSR/hydration in the experiment treatment. */
+/** Use deterministic content during SSR/hydration in Confluence only. */
 export default function useHydrationSafeContent(isEligible = true): boolean {
+	const product = useContext(SmartCardContext)?.product;
+
 	return useSyncExternalStore(
 		subscribe,
 		getClientSnapshot,
-		// React only reads this snapshot during SSR/hydration, so client-only mounts
-		// never fire an exposure. Control matches the client snapshot and needs no update.
-		() => isEligible && isExperimentEnabled('platform_sl_hydration_safe_content'),
+		() => isEligible && product === 'CONFLUENCE',
 	);
 }

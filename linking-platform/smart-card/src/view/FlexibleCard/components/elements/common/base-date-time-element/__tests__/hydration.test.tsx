@@ -4,7 +4,7 @@ import { hydrateRoot } from 'react-dom/client';
 import { renderToString } from 'react-dom/server';
 import { IntlProvider } from 'react-intl';
 
-import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { act } from '@atlassian/testing-library/act';
 
@@ -23,7 +23,6 @@ describe('date hydration', () => {
 	])(
 		'localizes after hydration: timezone=$timeZone, override enabled=$timeZoneGate',
 		async ({ timeZoneGate, timeZone, expected }) => {
-			mockExpEnabled('platform_sl_hydration_safe_content');
 			if (timeZoneGate) {
 				passGate('dfo_issue_view_remote_data_srr_group');
 			} else {
@@ -38,7 +37,7 @@ describe('date hydration', () => {
 			let root: ReturnType<typeof hydrateRoot> | undefined;
 			// Created, modified, and sent dates share this formatting path.
 			const content = (
-				<>
+				<SmartCardProvider product="CONFLUENCE">
 					<BaseDateTimeElement date={date} type="created" timeZone={timeZone} />
 					<BaseDateTimeElement
 						date={date}
@@ -47,7 +46,7 @@ describe('date hydration', () => {
 						text="Last commit on"
 					/>
 					<BaseDateTimeElement date={date} type="sent" timeZone={timeZone} hideDatePrefix />
-				</>
+				</SmartCardProvider>
 			);
 			try {
 				container.innerHTML = renderToString(
@@ -86,14 +85,15 @@ describe('date hydration', () => {
 	);
 
 	it('does not depend on a shared server/browser clock for recent dates', async () => {
-		mockExpEnabled('platform_sl_hydration_safe_content');
 		const consoleError = jest.spyOn(console, 'error').mockImplementation(() => {});
 		const onRecoverableError = jest.fn();
 		const now = jest.spyOn(Date, 'now').mockReturnValue(date.getTime() + 30_000);
 		const container = document.createElement('div');
 		const content = (
 			<IntlProvider locale="en">
-				<BaseDateTimeElement date={date} type="modified" />
+				<SmartCardProvider product="CONFLUENCE">
+					<BaseDateTimeElement date={date} type="modified" />
+				</SmartCardProvider>
 			</IntlProvider>
 		);
 		let root: ReturnType<typeof hydrateRoot> | undefined;

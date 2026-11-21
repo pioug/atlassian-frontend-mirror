@@ -1,5 +1,13 @@
 # @atlaskit/popup
 
+## 10.2.6
+
+### Patch Changes
+
+- [`d5b6ee05abc3c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d5b6ee05abc3c) -
+  Remove the popup-onclose-fix feature gate, keeping deferred popup close listener binding and
+  unbinding enabled for all consumers.
+
 ## 10.2.5
 
 ### Patch Changes

@@ -1,5 +1,3 @@
-import { mockExp } from '@atlassian/experiment-test-utils/mock-exp';
-
 import {
 	getForgeBodiedExtensionHandoffMode,
 	FORGE_BODIED_EXTENSION_BRIDGE_READY_KEYS,
@@ -13,27 +11,22 @@ const options = {
 	isInline: () => false,
 };
 
-it.each([false, true])('preserves the existing Aura cohort (%s)', (isEnabled) => {
-	mockExp('cc_aura_table_filter_cls', { isEnabled });
+it('uses bridge readiness for Aura only', () => {
 	expect(getForgeBodiedExtensionHandoffMode({ ...options, extensionKey: auraKey })).toBe(
-		isEnabled ? 'release-on-bridge-ready' : undefined,
+		'release-on-bridge-ready',
 	);
 	expect(getForgeBodiedExtensionHandoffMode(options)).toBeUndefined();
 });
 
-it.each([false, true])(
-	'preserves Aura policy when a host also selects the instance (%s)',
-	(isEnabled) => {
-		mockExp('cc_aura_table_filter_cls', { isEnabled });
-		expect(
-			getForgeBodiedExtensionHandoffMode({
-				...options,
-				extensionKey: auraKey,
-				preserveUntilReadyInstances: new Map([['macro', auraKey]]),
-			}),
-		).toBe(isEnabled ? 'release-on-bridge-ready' : undefined);
-	},
-);
+it('preserves Aura policy when a host also selects the instance', () => {
+	expect(
+		getForgeBodiedExtensionHandoffMode({
+			...options,
+			extensionKey: auraKey,
+			preserveUntilReadyInstances: new Map([['macro', auraKey]]),
+		}),
+	).toBe('release-on-bridge-ready');
+});
 
 it.each([{ localId: undefined }, { localId: 'different' }, { extensionKey: 'different' }])(
 	'declines instances that do not match the selected identity %j',
@@ -57,11 +50,10 @@ it.each([{ localId: undefined }, { extensionType: 'com.atlassian.confluence.macr
 	},
 );
 
-it.each([false, true])('checks Aura inline layout even in cohort %s', (isEnabled) => {
-	mockExp('cc_aura_table_filter_cls', { isEnabled });
+it('checks inline layout for Aura', () => {
 	const isInline = jest.fn(() => false);
 	expect(getForgeBodiedExtensionHandoffMode({ ...options, extensionKey: auraKey, isInline })).toBe(
-		isEnabled ? 'release-on-bridge-ready' : undefined,
+		'release-on-bridge-ready',
 	);
 	expect(isInline).toHaveBeenCalledTimes(1);
 });

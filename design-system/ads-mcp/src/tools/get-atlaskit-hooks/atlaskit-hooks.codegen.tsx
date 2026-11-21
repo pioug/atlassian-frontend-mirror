@@ -3,7 +3,7 @@
  *
  * Structured content hooks from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::3f9ebe69098395387c0ca311824baa42>>
+ * @codegen <<SignedSource::6dca26173cd2f67e3958354def7c8c14>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -2324,6 +2324,24 @@ export const atlaskitHooks: HookMcpPayload[] = [
 			type: 'ProfileTriggerRenderer | undefined',
 		},
 		package: '@atlassian/rovo-platform-ui-components',
+		examples: [],
+	},
+	{
+		name: 'useDismissInferredEntity',
+		description:
+			'Records an AGS dismissal for an inferred project, risk, decision, or highlight using explicit account and cloud context.',
+		status: 'early-access',
+		usageGuidelines: [
+			'Use within the host Relay provider and pass the signed-in accountId and current cloudId. The network must forward per-operation metadata headers.',
+			'Pass the complete entity ARI from the backend. Do not substitute a pinned workstream ARI for the selected insight.',
+			'Gate availability in the host until permissions and suppression are deployed. Keep feedback collection and visible-list changes in the host; update the list only after success.',
+		],
+		keywords: ['rovo', 'inferred entity', 'dismissal', 'insight'],
+		category: 'rovo',
+		returns: {
+			type: '(input: { entityAri: string }) => Promise<DismissInferredEntityResult>',
+		},
+		package: '@atlassian/rovo-proactive-insights',
 		examples: [],
 	},
 	{

@@ -5,7 +5,6 @@ import { renderToString } from 'react-dom/server';
 
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
-import { mockExp } from '@atlassian/experiment-test-utils/mock-exp';
 import { act } from '@atlassian/testing-library/testing-library/react';
 import { within } from '@atlassian/testing-library/within';
 
@@ -55,60 +54,51 @@ const renderPage = (
 	);
 };
 
-describe.each([false, true])('Forge handoff hydration with treatment %s', (isEnabled) => {
-	it.each([false, true])(
-		'preserves the server DOM through hydration and app readiness (app initially present: %s)',
-		async (hasApp) => {
-			mockExp('cc_aura_table_filter_cls', { isEnabled });
-			const container = document.createElement('div');
-			container.innerHTML = renderToString(renderPage(hasApp));
-			document.body.appendChild(container);
-			const serverHtml = container.innerHTML;
-			const queries = within(container);
-			const serverBody = queries.queryByText('Native table body');
-			const serverSibling = queries.getByText('Content after the macro');
-			const onRecoverableError = jest.fn();
-			let root: Root | undefined;
+it.each([false, true])(
+	'preserves the server DOM through hydration and app readiness (app initially present: %s)',
+	async (hasApp) => {
+		const container = document.createElement('div');
+		container.innerHTML = renderToString(renderPage(hasApp));
+		document.body.appendChild(container);
+		const serverHtml = container.innerHTML;
+		const queries = within(container);
+		const serverBody = queries.getByText('Native table body');
+		const serverSibling = queries.getByText('Content after the macro');
+		const onRecoverableError = jest.fn();
+		let root: Root | undefined;
 
-			try {
-				await act(async () => {
-					root = hydrateRoot(container, renderPage(hasApp), { onRecoverableError });
-				});
-				expect(onRecoverableError).not.toHaveBeenCalled();
-				expect(container.innerHTML).toBe(serverHtml);
-				expect(queries.getByText('Content after the macro')).toBe(serverSibling);
-				if (serverBody) {
-					expect(queries.getByText('Native table body')).toBe(serverBody);
-				}
+		try {
+			await act(async () => {
+				root = hydrateRoot(container, renderPage(hasApp), { onRecoverableError });
+			});
+			expect(onRecoverableError).not.toHaveBeenCalled();
+			expect(container.innerHTML).toBe(serverHtml);
+			expect(queries.getByText('Content after the macro')).toBe(serverSibling);
+			expect(queries.getByText('Native table body')).toBe(serverBody);
 
-				await act(async () => root?.render(renderPage(true)));
-				expect(queries.getByRole('button', { name: 'Filter table' })).toBeVisible();
-				if (isEnabled) {
-					expect(queries.getByText('Native table body')).toBe(serverBody);
-				} else {
-					expect(queries.queryByText('Native table body')).not.toBeInTheDocument();
-				}
+			await act(async () => root?.render(renderPage(true)));
+			expect(queries.getByRole('button', { name: 'Filter table' })).toBeVisible();
+			expect(queries.getByText('Native table body')).toBe(serverBody);
 
-				await act(async () => {
-					window.dispatchEvent(
-						new MessageEvent('message', {
-							source: window,
-							origin: window.location.origin,
-							data: { source: 'forge-extension', type: 'EXTENSION_READY', localId: 'table' },
-						}),
-					);
-				});
-				expect(queries.queryByText('Native table body')).not.toBeInTheDocument();
-				expect(queries.getByRole('button', { name: 'Filter table' })).toBeVisible();
-				expect(queries.getByText('Content after the macro')).toBe(serverSibling);
-				expect(onRecoverableError).not.toHaveBeenCalled();
-			} finally {
-				await act(async () => root?.unmount());
-				container.remove();
-			}
-		},
-	);
-});
+			await act(async () => {
+				window.dispatchEvent(
+					new MessageEvent('message', {
+						source: window,
+						origin: window.location.origin,
+						data: { source: 'forge-extension', type: 'EXTENSION_READY', localId: 'table' },
+					}),
+				);
+			});
+			expect(queries.queryByText('Native table body')).not.toBeInTheDocument();
+			expect(queries.getByRole('button', { name: 'Filter table' })).toBeVisible();
+			expect(queries.getByText('Content after the macro')).toBe(serverSibling);
+			expect(onRecoverableError).not.toHaveBeenCalled();
+		} finally {
+			await act(async () => root?.unmount());
+			container.remove();
+		}
+	},
+);
 
 it('hydrates a host-selected UI Kit body and retains it while the lazy renderer is empty', async () => {
 	const instances = new Map([['table', 'scroll-ignore']]);

@@ -32,6 +32,7 @@ const noop = () => {};
 function TestContentResize() {
 	const [isOpen, setIsOpen] = useState(false);
 	const handleToggle = useCallback(() => setIsOpen((prev) => !prev), []);
+	const handleClose = useCallback(() => setIsOpen(false), []);
 	const [isUpdateOn, setIsUpdateOn] = useState(false);
 	const [isAdaptiveHeight, setIsAdaptiveHeight] = useState(false);
 	const plugins = useRef([new Plugin()]);
@@ -81,7 +82,7 @@ function TestContentResize() {
 			<Popup
 				isOpen={isOpen}
 				autoFocus={false}
-				onClose={handleToggle}
+				onClose={handleClose}
 				content={({ update }) => (
 					<LinkPicker
 						plugins={plugins.current}

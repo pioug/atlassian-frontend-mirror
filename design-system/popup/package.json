@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/popup",
-	"version": "10.2.5",
+	"version": "10.2.6",
 	"description": "A popup displays brief content in an overlay.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -114,9 +114,6 @@
 			"type": "boolean"
 		},
 		"platform-design-system-apply-popup-wrapper-focus": {
-			"type": "boolean"
-		},
-		"popup-onclose-fix": {
 			"type": "boolean"
 		},
 		"platform_dst_nested_escape": {

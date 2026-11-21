@@ -42,7 +42,6 @@ export interface ProductHomeProps {
 	siteTitle?: string;
 
 	/* eslint-disable jsdoc/require-asterisk-prefix */
-	/* oxlint-disable jsdoc-js/require-asterisk-prefix */
 	/**
     A `testId` prop is provided for specified elements,
     which is a unique string that appears as a data attribute `data-testid` in the rendered code,
@@ -56,7 +55,6 @@ export interface ProductHomeProps {
     - Site title - `{testId}-site-title`
    */
 	testId?: string;
-	/* oxlint-enable jsdoc-js/require-asterisk-prefix */
 	/* eslint-enable jsdoc/require-asterisk-prefix */
 
 	// We _could_ have a `label` prop to align with other, newer components.
@@ -104,7 +102,6 @@ export interface AppHomeProps {
 	siteTitle?: string;
 
 	/* eslint-disable jsdoc/require-asterisk-prefix */
-	/* oxlint-disable jsdoc-js/require-asterisk-prefix */
 	/**
     A `testId` prop is provided for specified elements,
     which is a unique string that appears as a data attribute `data-testid` in the rendered code,
@@ -118,7 +115,6 @@ export interface AppHomeProps {
     - Site title - `{testId}-site-title`
    */
 	testId?: string;
-	/* oxlint-enable jsdoc-js/require-asterisk-prefix */
 	/* eslint-enable jsdoc/require-asterisk-prefix */
 
 	// We _could_ have a `label` prop to align with other, newer components.
@@ -179,7 +175,6 @@ export interface CustomProductHomeProps {
 	siteTitle?: string;
 
 	/* eslint-disable jsdoc/require-asterisk-prefix */
-	/* oxlint-disable jsdoc-js/require-asterisk-prefix */
 	/**
     A `testId` prop is provided for specified elements,
     which is a unique string that appears as a data attribute `data-testid` in the rendered code,
@@ -193,6 +188,5 @@ export interface CustomProductHomeProps {
     - Site title - `{testId}-site-title`
    */
 	testId?: string;
-	/* oxlint-enable jsdoc-js/require-asterisk-prefix */
 	/* eslint-enable jsdoc/require-asterisk-prefix */
 }

@@ -1,5 +1,12 @@
 # @atlaskit/ads-mcp
 
+## 2.0.4
+
+### Patch Changes
+
+- [`ca6233d85b595`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ca6233d85b595) -
+  Add discovery documentation for the shared inferred-entity dismissal hook.
+
 ## 2.0.3
 
 ### Patch Changes

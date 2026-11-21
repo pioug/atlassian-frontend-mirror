@@ -88,7 +88,7 @@ describe('<ModalDialog />', () => {
 	beforeEach(() => {
 		skipA11yAudit();
 	});
-	describe('should close popup correctly when escape is pressed', () => {
+	it('should close popup correctly when escape is pressed', async () => {
 		render(<LayeredModal />);
 
 		const openModalBtn = screen.getByTestId('open-modal');
@@ -101,6 +101,7 @@ describe('<ModalDialog />', () => {
 
 		fireEvent.click(dropdownTrigger);
 		expect(screen.getByTestId('dropdown-menu--content')).toBeInTheDocument();
+		await new Promise((resolve) => setTimeout(resolve, 0));
 		fireEvent.keyDown(dropdownTrigger, {
 			key: 'Escape',
 			code: 'Escape',

@@ -34,9 +34,8 @@ const NOT_ENABLED_RESULT: SocialProof = {
  * This means:
  * - First page visit (cold): no social proof rendered, no experiment exposure fired.
  *   Background fetch populates localStorage for next time.
- * - Second page visit (warm): social proof renders from localStorage, after hydration
- *   when the platform_sl_hydration_safe_content experiment is enabled (immediately on client-only mounts).
- *   Background refresh keeps localStorage fresh.
+ * - Second page visit (warm): social proof renders from localStorage after hydration in Confluence
+ *   (immediately in other apps and on client-only mounts). Background refresh keeps localStorage fresh.
  *
  * Callers decide separately (e.g. via Statsig experiment) whether to surface the data.
  */

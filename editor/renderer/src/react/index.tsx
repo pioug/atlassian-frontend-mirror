@@ -726,6 +726,7 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 			mediaViewerExtensions: this.media?.mediaViewerExtensions,
 			fallbackMediaNameFetcher: this.media?.fallbackMediaNameFetcher,
 			onMediaRenderEvent: this.media?.onMediaRenderEvent,
+			registerMediaViewerOpener: this.media?.registerMediaViewerOpener,
 			nestedUnder,
 		};
 	}

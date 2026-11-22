@@ -827,6 +827,30 @@ describe('Media', () => {
 			);
 		});
 
+		it('should pass registerMediaViewerOpener to file cards but not to external image cards', async () => {
+			const registerMediaViewerOpener = jest.fn();
+
+			const { unmount } = render(
+				<IntlProvider locale="en">
+					<MediaClientProvider clientConfig={mediaClientConfig}>
+						<MediaCard type="file" id="1" registerMediaViewerOpener={registerMediaViewerOpener} />
+					</MediaClientProvider>
+				</IntlProvider>,
+			);
+
+			expect(lastCardProps().registerMediaViewerOpener).toBe(registerMediaViewerOpener);
+
+			unmount();
+			mockCard.mockClear();
+			renderExternalCard(createExternalIdentifier(), { registerMediaViewerOpener });
+			await act(async () => {
+				await sleep(0);
+			});
+
+			expect(mockCard).toHaveBeenCalled();
+			expect(lastCardProps().registerMediaViewerOpener).toBeUndefined();
+		});
+
 		it('should pass shouldOpenMediaViewer=true if renderer appearance is not mobile', () => {
 			render(
 				<MediaClientProvider clientConfig={mediaClientConfig}>

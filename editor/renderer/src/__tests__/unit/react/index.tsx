@@ -535,6 +535,24 @@ describe('Renderer - ReactSerializer', () => {
 				expect(propsOfNodeType(output, 'media').ssr).toEqual(ssr);
 			});
 		});
+
+		describe('Media viewer opener', () => {
+			it('should pass registerMediaViewerOpener to the media node', () => {
+				const registerMediaViewerOpener = jest.fn();
+
+				const reactSerializer = new ReactSerializer({
+					media: { registerMediaViewerOpener },
+				});
+
+				const output = reactSerializer.serializeFragment(
+					schema.nodeFromJSON(mediaFragment).content,
+				);
+
+				expect(propsOfNodeType(output, 'media').registerMediaViewerOpener).toBe(
+					registerMediaViewerOpener,
+				);
+			});
+		});
 	});
 
 	describe('link mark', () => {

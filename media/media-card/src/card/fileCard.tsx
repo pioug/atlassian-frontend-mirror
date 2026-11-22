@@ -62,6 +62,7 @@ import type {
 	CardEventProps,
 	CardStatus,
 	FileStateFlags,
+	RegisterMediaViewerOpener,
 	TitleBoxIcon,
 } from '../types';
 import { fireMediaCardEvent } from '../utils/analytics/fireMediaCardEvent';
@@ -187,6 +188,8 @@ export interface FileCardProps extends CardEventProps {
 	 * TODO: Remove this prop when fallback-fetcher usage is sufficiently low.
 	 */
 	readonly fallbackMediaNameFetcher?: (id: string) => Promise<string>;
+	/** Called with a handle that opens this card's Media Viewer. Returns an unregister function. */
+	readonly registerMediaViewerOpener?: RegisterMediaViewerOpener;
 }
 
 const traceContextRetriever = () => {
@@ -243,6 +246,7 @@ export const FileCard = ({
 	onError,
 	mediaViewerExtensions,
 	fallbackMediaNameFetcher,
+	registerMediaViewerOpener,
 }: FileCardProps): React.JSX.Element => {
 	const skipRemoteFileState =
 		fg('platform_media_upload_without_read') && Boolean(skipRemoteFileStateProp);
@@ -542,6 +546,28 @@ export const FileCard = ({
 			fileStatus: fileStateValue?.status,
 		};
 	}, [fileStateValue?.status, metadata.id, metadata.mediaType, metadata.mimeType, metadata.size]);
+
+	// Only re-register when values change
+	const openMediaViewerRef = useCurrentValueRef(openMediaViewer);
+	const identifierRef = useCurrentValueRef(identifier);
+	useEffect(() => {
+		if (!registerMediaViewerOpener || !shouldOpenMediaViewer) {
+			return;
+		}
+		return registerMediaViewerOpener({
+			identifier: identifierRef.current,
+			mediaType: metadata.mediaType,
+			open: () => openMediaViewerRef.current(),
+		});
+	}, [
+		registerMediaViewerOpener,
+		shouldOpenMediaViewer,
+		identifier.id,
+		identifier.occurrenceKey,
+		identifierRef,
+		metadata.mediaType,
+		openMediaViewerRef,
+	]);
 
 	const downloadFn = useCallback(async () => {
 		try {

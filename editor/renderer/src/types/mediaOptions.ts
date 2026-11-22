@@ -1,3 +1,4 @@
+import type { RegisterMediaViewerOpener } from '@atlaskit/media-card/types';
 import type { SSR } from '@atlaskit/media-common/main-types';
 import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
@@ -43,5 +44,10 @@ export interface MediaOptions {
 	mediaViewerExtensions?: MediaViewerExtensions;
 	/** Receives lifecycle events for each rendered media node. */
 	onMediaRenderEvent?: (event: MediaRenderEvent) => void;
+	/**
+	 * File cards call this with a handle that opens their Media Viewer.
+	 * Returns an unregister function.
+	 */
+	registerMediaViewerOpener?: RegisterMediaViewerOpener;
 	ssr?: MediaSSR;
 }

@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 46.19.8
+
+### Patch Changes
+
+- [`759822ed19ecb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/759822ed19ecb) -
+  Remove the fully rolled out `platform_sl_3p_post_auth_chat_open_fg` gate and its package
+  registration, retaining automatic Rovo chat launch for eligible Smart Links.
+
 ## 46.19.7
 
 ### Patch Changes

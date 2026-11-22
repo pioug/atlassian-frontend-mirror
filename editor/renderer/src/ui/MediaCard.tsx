@@ -76,6 +76,7 @@ export interface MediaCardProps {
 	mediaElementRef?: React.Ref<HTMLDivElement>;
 	/** Extensions for the media viewer (e.g. comment button in header). */
 	mediaViewerExtensions?: MediaViewerExtensions;
+	registerMediaViewerOpener?: AtlaskitMediaCardProps['registerMediaViewerOpener'];
 	/**
 	 * Indicates if media node is nested under a bodiedSyncBlock
 	 */
@@ -393,6 +394,7 @@ export class MediaCardView extends Component<
 			localId,
 			mediaViewerExtensions,
 			fallbackMediaNameFetcher,
+			registerMediaViewerOpener,
 		} = this.props;
 
 		const isMobile = false;
@@ -480,6 +482,7 @@ export class MediaCardView extends Component<
 					shouldHideTooltip={isMobile}
 					mediaViewerExtensions={mediaViewerExtensions}
 					fallbackMediaNameFetcher={fallbackMediaNameFetcher}
+					registerMediaViewerOpener={registerMediaViewerOpener}
 					onError={this.onError}
 					onPreviewRender={this.props.onPreviewRender}
 				/>

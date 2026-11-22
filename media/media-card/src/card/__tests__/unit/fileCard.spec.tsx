@@ -1,10 +1,11 @@
 import React from 'react';
 
-import { render, screen, waitFor } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/mocked-media-client-provider';
+import type { FileIdentifier } from '@atlaskit/media-client/identifier';
 import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers/mocked-media-api';
 import { generateSampleFileItem } from '@atlaskit/media-test-data/sample-file-items';
 import { preloadMediaViewer } from '@atlaskit/media-viewer/preload';
@@ -12,6 +13,7 @@ import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disab
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
+import type { MediaViewerOpener } from '../../../types';
 import { FileCard } from '../../fileCard';
 
 // Records the props FileCard gives the inline player while still rendering the real one.
@@ -289,6 +291,129 @@ describe('<FileCard />', () => {
 				expect(screen.queryByTestId('mocked-media-viewer')).not.toBeInTheDocument();
 				expect(onSelectedItemChange).not.toHaveBeenCalled();
 			});
+		});
+	});
+
+	describe('registerMediaViewerOpener', () => {
+		// One unregister mock per registration.
+		const renderWithOpener = (
+			identifier: FileIdentifier,
+			mediaApi: ReturnType<typeof createMockedMediaApi>['mediaApi'],
+			props?: Partial<Parameters<typeof FileCard>[0]>,
+		) => {
+			const unregisters: jest.Mock[] = [];
+			const registerMediaViewerOpener = jest.fn((_opener: MediaViewerOpener) => {
+				const unregister = jest.fn();
+				unregisters.push(unregister);
+				return unregister;
+			});
+			const ui = (currentIdentifier: FileIdentifier) => (
+				<IntlProvider locale="en">
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<FileCard
+							identifier={currentIdentifier}
+							isLazy={false}
+							shouldOpenMediaViewer
+							mediaViewerItems={[currentIdentifier]}
+							registerMediaViewerOpener={registerMediaViewerOpener}
+							{...props}
+						/>
+					</MockedMediaClientProvider>
+				</IntlProvider>
+			);
+			const result = render(ui(identifier));
+
+			return {
+				...result,
+				registerMediaViewerOpener,
+				unregisters,
+				unregisterCalls: () => unregisters.reduce((total, fn) => total + fn.mock.calls.length, 0),
+				rerenderWith: (nextIdentifier: FileIdentifier) => result.rerender(ui(nextIdentifier)),
+			};
+		};
+
+		it('should register the identifier and media type, and open the viewer through open', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingVideo();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
+			const { registerMediaViewerOpener } = renderWithOpener(identifier, mediaApi);
+
+			await waitFor(() =>
+				expect(registerMediaViewerOpener).toHaveBeenLastCalledWith({
+					identifier,
+					mediaType: 'video',
+					open: expect.any(Function),
+				}),
+			);
+			expect(screen.queryByTestId('mocked-media-viewer')).not.toBeInTheDocument();
+
+			act(() => {
+				registerMediaViewerOpener.mock.lastCall?.[0].open();
+			});
+
+			expect(screen.getByTestId('mocked-media-viewer')).toHaveTextContent(identifier.id);
+		});
+
+		it('should not register when the card does not open the viewer', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
+			const { registerMediaViewerOpener } = renderWithOpener(identifier, mediaApi, {
+				shouldOpenMediaViewer: false,
+			});
+
+			await screen.findByTestId('media-card-view');
+			expect(registerMediaViewerOpener).not.toHaveBeenCalled();
+		});
+
+		it('should re-register once the media type resolves and unregister every registration on unmount', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
+			const { registerMediaViewerOpener, unregisterCalls, unmount } = renderWithOpener(
+				identifier,
+				mediaApi,
+			);
+
+			await waitFor(() =>
+				expect(registerMediaViewerOpener.mock.lastCall?.[0].mediaType).toBe('image'),
+			);
+			expect(registerMediaViewerOpener.mock.calls.map(([opener]) => opener.mediaType)).toEqual([
+				undefined,
+				'image',
+			]);
+			// Only the latest registration is still live.
+			expect(unregisterCalls()).toBe(registerMediaViewerOpener.mock.calls.length - 1);
+
+			unmount();
+
+			expect(unregisterCalls()).toBe(registerMediaViewerOpener.mock.calls.length);
+		});
+
+		it('should re-register when the occurrence key changes but not when only the identifier object changes', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+			const { registerMediaViewerOpener, unregisterCalls, rerenderWith } = renderWithOpener(
+				{ ...identifier, occurrenceKey: 'occurrence-1' },
+				mediaApi,
+			);
+			await waitFor(() =>
+				expect(registerMediaViewerOpener.mock.lastCall?.[0].mediaType).toBe('image'),
+			);
+			const settledRegistrations = registerMediaViewerOpener.mock.calls.length;
+
+			// Callers often pass a new identifier object on every render.
+			rerenderWith({ ...identifier, occurrenceKey: 'occurrence-1' });
+
+			expect(registerMediaViewerOpener).toHaveBeenCalledTimes(settledRegistrations);
+
+			rerenderWith({ ...identifier, occurrenceKey: 'occurrence-2' });
+
+			expect(registerMediaViewerOpener).toHaveBeenCalledTimes(settledRegistrations + 1);
+			expect(registerMediaViewerOpener.mock.lastCall?.[0].identifier).toEqual(
+				expect.objectContaining({ id: identifier.id, occurrenceKey: 'occurrence-2' }),
+			);
+			expect(unregisterCalls()).toBe(settledRegistrations);
 		});
 	});
 

@@ -12,6 +12,7 @@ import { MediaClientProvider } from '@atlaskit/media-client-react/media-client-p
 import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers/fakeMediaClient';
 import * as ffPackage from '@atlaskit/platform-feature-flags/fg';
 
+import RendererActions from '../../../actions';
 import ReactSerializer from '../../../react/index';
 import { getPosFromRange, resolvePos } from '../../index';
 import {
@@ -296,6 +297,31 @@ describe('steps', () => {
 					to: 10,
 				});
 			});
+
+			it.each([
+				['top-level', docWithImage, '96e2796b-dcb0-4e7c-9cb6-e7643f75b0e2'],
+				['nested', docWithImageInTable, 'd43e848e-f0c7-4089-a187-28fba79edc74'],
+			])(
+				'should calc the same position as getMediaNodeContext for the %s image',
+				async (_name, doc, mediaId) => {
+					await setup({ doc, smartLinksSsr: false });
+					const imageContainer = container!.querySelector(
+						'#newFileExperienceWrapper',
+					)! as HTMLElement;
+					const myRange = new Range();
+					myRange.setStart(imageContainer, 0);
+					myRange.setEnd(imageContainer, 0);
+					const actions = new RendererActions(true);
+					actions._privateRegisterRenderer({} as any, docFromSchema, schema);
+
+					const { from } = actions.getPositionFromRange(myRange) as { from: number; to: number };
+
+					expect(actions.getMediaNodeContext({ id: mediaId })).toEqual({
+						status: 'resolved',
+						context: expect.objectContaining({ position: from }),
+					});
+				},
+			);
 
 			it('should calc the position of the caption of nested image', async () => {
 				await setup({ doc: docWithImageInTable, smartLinksSsr: false });

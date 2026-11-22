@@ -10,7 +10,6 @@ import { APIError, type APIErrorKind } from '@atlaskit/linking-common/api-error'
 import type { CardState } from '@atlaskit/linking-common/store';
 import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 import { auth } from '@atlaskit/outbound-auth-flow-client/auth';
-import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { renderHook } from '@atlassian/testing-library/render-hook';
 
 import { mocks } from '../../../utils/mocks';
@@ -679,10 +678,8 @@ describe('Smart Card: Actions', () => {
 			return { mockPostMessage, mockShowConnectFlag };
 		};
 
-		describe('platform_sl_3p_post_auth_chat_open_fg is on', () => {
-			it('posts chat-new message after successful GDrive auth when gate is on', async () => {
-				passGate('platform_sl_3p_post_auth_chat_open_fg');
-
+		describe('eligible Google Drive authentication', () => {
+			it('posts the post-auth chat launch message after successful GDrive auth', async () => {
 				const { mockPostMessage, mockShowConnectFlag } = setupPostAuthTest();
 				url = 'https://docs.google.com/document/d/abc123/edit';
 				mockFetchData(Promise.resolve(mocks.success));
@@ -717,18 +714,6 @@ describe('Smart Card: Actions', () => {
 			});
 		});
 
-		it('does NOT post chat-new message when kill switch is off', async () => {
-			const { mockPostMessage, mockShowConnectFlag } = setupPostAuthTest();
-			url = 'https://docs.google.com/document/d/abc123/edit';
-			mockFetchData(Promise.resolve(mocks.success));
-
-			const result = renderHook(() => useSmartCardActions(id, url));
-			await result.current.authorize('inline');
-
-			expect(mockPostMessage).not.toHaveBeenCalled();
-			expect(mockShowConnectFlag).toHaveBeenCalled();
-		});
-
 		it('does NOT post chat-new message for non-GDrive providers', async () => {
 			const { mockPostMessage, mockShowConnectFlag } = setupPostAuthTest();
 			url = 'https://gitlab.com/project/repo';
@@ -748,10 +733,8 @@ describe('Smart Card: Actions', () => {
 			expect(mockShowConnectFlag).toHaveBeenCalled();
 		});
 
-		describe('platform_sl_3p_post_auth_chat_open_fg is on', () => {
+		describe('Rovo availability', () => {
 			it('does NOT post chat-new message on non-AI-enabled tenant', async () => {
-				passGate('platform_sl_3p_post_auth_chat_open_fg');
-
 				const { mockPostMessage, mockShowConnectFlag } = setupPostAuthTest();
 				url = 'https://docs.google.com/document/d/abc123/edit';
 				(mockContext.store.getState as jest.Mock).mockImplementation(() => ({

@@ -6,12 +6,12 @@ import { type FocusEvent, type MouseEvent } from 'react';
 
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import type { MediaSettings } from '@atlaskit/media-client-react/media-parsed-settings';
-import type { Identifier } from '@atlaskit/media-client/identifier';
+import type { FileIdentifier, Identifier } from '@atlaskit/media-client/identifier';
 import type { ImageResizeMode } from '@atlaskit/media-client/image-resize-mode-to-file-image-mode';
 import type { FileDetails } from '@atlaskit/media-client/item';
 import type { MediaClient } from '@atlaskit/media-client/media-client';
 import type { SsrMediaItem } from '@atlaskit/media-client/ssr-media-item';
-import type { NumericalCardDimensions, SSR } from '@atlaskit/media-common/main-types';
+import type { MediaType, NumericalCardDimensions, SSR } from '@atlaskit/media-common/main-types';
 import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
 import type { MediaFilePreviewErrorPrimaryReason } from '@atlaskit/media-file-preview/media-file-preview-error';
 import type { FileState } from '@atlaskit/media-state/file-state';
@@ -170,6 +170,16 @@ export interface CardEventProps {
 	readonly videoControlsWrapperRef?: React.Ref<HTMLDivElement>;
 }
 
+export interface MediaViewerOpener {
+	/** Identifies the card, including its occurrence key. */
+	identifier: FileIdentifier;
+	mediaType: MediaType | undefined;
+	/** Function to open the media viewer. */
+	open: () => void;
+}
+
+export type RegisterMediaViewerOpener = (opener: MediaViewerOpener) => () => void;
+
 export interface CardProps extends SharedCardProps, CardEventProps {
 	/** Instance of MediaClient. */
 	readonly mediaClient: MediaClient;
@@ -225,6 +235,11 @@ export interface CardProps extends SharedCardProps, CardEventProps {
 	 * Receives the file ID and should resolve to the filename string.
 	 */
 	readonly fallbackMediaNameFetcher?: (id: string) => Promise<string>;
+	/**
+	 * File cards only. Called with a handle that opens the card's Media Viewer.
+	 * Returns an unregister function.
+	 */
+	readonly registerMediaViewerOpener?: RegisterMediaViewerOpener;
 }
 
 export interface CardState {

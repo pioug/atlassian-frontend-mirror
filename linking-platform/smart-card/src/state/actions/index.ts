@@ -12,7 +12,6 @@ import {
 import type { CardAppearance, MetadataStatus } from '@atlaskit/linking-common/types';
 import { auth } from '@atlaskit/outbound-auth-flow-client/auth';
 import type { AuthError } from '@atlaskit/outbound-auth-flow-client/error';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { ROVO_POST_MESSAGE_EVENT_TYPE } from '@atlaskit/rovo-triggers/post-message-to-pubsub';
 import { type ChatSmartLink3PPostAuthLaunchPayload } from '@atlaskit/rovo-triggers/types';
 
@@ -276,7 +275,6 @@ export const useSmartCardActions = (
 						const isEligibleForPostAuthChat =
 							status === 'unauthorized' &&
 							isSupportedPostAuthChatExtensionKey &&
-							fg('platform_sl_3p_post_auth_chat_open_fg') &&
 							getIsRovoChatEnabled(rovoOptionsRef.current);
 
 						if (status === 'unauthorized' && !isEligibleForPostAuthChat) {

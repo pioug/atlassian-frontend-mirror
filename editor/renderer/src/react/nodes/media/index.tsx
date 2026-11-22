@@ -36,6 +36,7 @@ import {
 } from '@atlaskit/editor-common/rendered-result-tracker';
 import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types/emitter';
 import { hexToEditorBorderPaletteColor } from '@atlaskit/editor-palette/border';
+import type { RegisterMediaViewerOpener } from '@atlaskit/media-card/types';
 import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
 import type { MediaViewerExtensions } from '@atlaskit/media-viewer/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
@@ -76,6 +77,7 @@ export type MediaProps = MediaCardProps & {
 	mediaViewerExtensions?: MediaViewerExtensions;
 	onMediaRenderEvent?: (event: MediaRenderEvent) => void;
 	providers?: ProviderFactory;
+	registerMediaViewerOpener?: RegisterMediaViewerOpener;
 	// attributes for media node
 	width?: number;
 };

@@ -1,5 +1,17 @@
 # @atlaskit/media-card
 
+## 82.4.0
+
+### Minor Changes
+
+- [`ee4fd4d5f5cbb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ee4fd4d5f5cbb) -
+  Add an optional `registerMediaViewerOpener` prop to the media card, honored by file cards only,
+  and a matching `media.registerMediaViewerOpener` option on the renderer, which passes it to file
+  cards only. A file card that can open the Media Viewer calls it with a handle that opens the
+  viewer, so a host can open it from outside the card, and the handle is unregistered when the card
+  unmounts or can no longer open the viewer. Also exports the `MediaViewerOpener` type from
+  `@atlaskit/media-card/types`.
+
 ## 82.3.13
 
 ### Patch Changes

@@ -1,5 +1,70 @@
 # @atlaskit/editor-common
 
+## 137.10.0
+
+### Minor Changes
+
+- [`8bdae43216aac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8bdae43216aac) -
+  Add `QuickInsertItem.registeredKey` and `MenuItem.registeredKey`: the key of the matching item in
+  the registered quick insert menu.
+
+### Patch Changes
+
+- [`6d8a8de01ef8b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d8a8de01ef8b) -
+  Make mention avatars permanent for eligible mentions by removing the
+  platform_editor_mention_node_avatar experiment.
+
+  Update mention regression coverage in `@atlassian/conversation-assistant-content-renderer` for
+  avatars replacing the at-sign in Rovo Chat. This consumer change is confined to tests.
+
+## 137.9.0
+
+### Minor Changes
+
+- [`02efa641fc380`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/02efa641fc380) -
+  Record Rovo Chat Stop as an aiSuggestions cancellation once per review, including the
+  reviewSessionId when available, behind platform_editor_rovo_chat_cancel_analytics. Preserve the
+  existing platform_editor_suggestions_patches_1 cancellation behavior when the new analytics
+  rollout is off.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 137.8.0
+
+### Minor Changes
+
+- [`3997c7f684b32`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3997c7f684b32) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+- [`6fed44040ece8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6fed44040ece8) -
+  The modal element browser search field now shows "Search all elements" as its placeholder and
+  accessible label, behind the `platform_editor_slash_command` experiment. `editor-common` adds the
+  `elementBrowserSearchPlaceholder` quick-insert message for it and removes the now unused
+  `elementBrowserSearch` message.
+
+### Patch Changes
+
+- [`f01979a671ca4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f01979a671ca4) -
+  Update the Placeholder text quick insert description to "Insert placeholder content for editors to
+  replace".
+- Updated dependencies
+
+## 137.7.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 137.7.1
+
+### Patch Changes
+
+- [`28cce2a859dfa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28cce2a859dfa) -
+  Keep image alignment available inside expand nodes.
+- Updated dependencies
+
 ## 137.7.0
 
 ### Minor Changes

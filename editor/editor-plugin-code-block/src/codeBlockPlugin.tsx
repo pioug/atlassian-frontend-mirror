@@ -15,6 +15,7 @@ import {
 } from '@atlaskit/editor-common/block-menu/key';
 import { TRANSFORM_STRUCTURE_MENU_SECTION_RANK } from '@atlaskit/editor-common/block-menu/rank';
 import { messages as blockTypeMessages } from '@atlaskit/editor-common/messages/block-type';
+import { CODE_BLOCK_MENU_ITEM } from '@atlaskit/editor-common/quick-insert/keys';
 import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types/plugin-factory';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
@@ -160,6 +161,7 @@ const codeBlockPlugin: CodeBlockPlugin = ({ config: options, api }) => {
 				quickInsert: ({ formatMessage }) => [
 					{
 						id: 'codeblock',
+						registeredKey: CODE_BLOCK_MENU_ITEM.key,
 						title: formatMessage(blockTypeMessages.codeblock),
 						description: formatMessage(blockTypeMessages.codeblockDescription),
 						keywords: ['code block'],

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/teams-client",
-	"version": "6.2.3",
+	"version": "6.2.4",
 	"description": "A client to retrieve team related data",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -145,9 +145,6 @@
 	},
 	"platform-feature-flags": {
 		"enable_edit_team_name_external_type_teams": {
-			"type": "boolean"
-		},
-		"ptc-enable-team-scoped-header-image-media-upload": {
 			"type": "boolean"
 		},
 		"ptc-onboard-teams-slack-app-to-global-edge-url": {

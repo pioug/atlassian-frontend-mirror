@@ -1,5 +1,14 @@
 # @atlaskit/rovo-agent-selector
 
+## 3.3.2
+
+### Patch Changes
+
+- [`6fb486c607414`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6fb486c607414) -
+  Remove the migrate-agent-avatar-component-to-ads gate and use Identity-backed ADS avatars
+  permanently, retaining existing null-identity and default-Rovo fallbacks.
+- Updated dependencies
+
 ## 3.3.1
 
 ### Patch Changes

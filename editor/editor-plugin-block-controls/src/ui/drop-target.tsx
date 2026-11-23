@@ -14,6 +14,7 @@ import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSha
 import { getBaseNodeTypeName } from '@atlaskit/editor-common/utils/node-type-utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
 import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-atlaskit-theme
@@ -372,7 +373,10 @@ export const DropTarget = (
 					css={[styleDropIndicator, isDraggedOver && styleDropIndicatorVisible]}
 					data-testid="block-ctrl-drop-indicator"
 				>
-					<DropIndicator edge="bottom" />
+					<DropIndicator
+						colors={fg('platform-dst-dnd-token-migration') ? 'dedicated' : 'standard'}
+						edge="bottom"
+					/>
 				</div>
 			</div>
 			{dropTargetStyle !== 'remainingHeight' && (

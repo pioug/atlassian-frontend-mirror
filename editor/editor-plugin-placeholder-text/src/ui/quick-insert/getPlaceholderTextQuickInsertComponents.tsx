@@ -13,6 +13,11 @@ import type { RegisterMenuItem } from '@atlaskit/editor-ui-control-model/types';
 import type { PlaceholderTextPlugin } from '../../placeholderTextPluginType';
 import { PlaceholderTextQuickInsertMenuItem } from './PlaceholderTextQuickInsertMenuItem';
 
+const previewImageUrls = {
+	light: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT21OBQ.png',
+	dark: 'https://dam-cdn.atl.orangelogic.com/CDNLink/AT21OD1.png',
+};
+
 export const getPlaceholderTextQuickInsertComponents = ({
 	api,
 }: {
@@ -33,6 +38,8 @@ export const getPlaceholderTextQuickInsertComponents = ({
 			keywords: ['placeholder'],
 			title: formatMessage(messages.placeholderText),
 		})),
-		component: () => <PlaceholderTextQuickInsertMenuItem api={api} />,
+		component: () => (
+			<PlaceholderTextQuickInsertMenuItem api={api} previewImageUrls={previewImageUrls} />
+		),
 	},
 ];

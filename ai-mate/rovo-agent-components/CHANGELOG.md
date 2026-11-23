@@ -1,5 +1,38 @@
 # @atlaskit/rovo-agent-components
 
+## 10.14.0
+
+### Minor Changes
+
+- [`171a703263b38`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/171a703263b38) -
+  Use @atlaskit/agent-color for AgentBanner palettes behind rovo_agents_studio_use_agent_color,
+  retaining legacy generated-avatar artwork and explicit fallbacks.
+- [`171a703263b38`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/171a703263b38) -
+  Add the remaining named avatar aliases to shared agent colours behind
+  rovo_agents_studio_use_agent_color. Separate avatar artwork rendering from colour selection and
+  use the selected colour for generated avatar backgrounds and artwork. Retain legacy colour
+  selection while the gate is off.
+
+### Patch Changes
+
+- [`171a703263b38`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/171a703263b38) -
+  Preserve the original palette variant for generated artwork without a refreshed SVG behind
+  rovo_agents_studio_use_agent_color, while continuing to select agent hues from
+  @atlaskit/agent-color.
+- Updated dependencies
+
+## 10.13.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.13.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.13.1
 
 ### Patch Changes

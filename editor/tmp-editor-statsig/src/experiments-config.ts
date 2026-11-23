@@ -157,13 +157,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-08-28
-	editor_enable_image_alignment_in_expand: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-02-24
 	platform_editor_paste_actions_menu: {
 		defaultValue: boolean;
@@ -207,13 +200,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2025-07-14
 	platform_editor_debounce_portal_provider: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2025-08-18
-	platform_editor_locale_datepicker: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -425,13 +411,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-05-26
 	platform_editor_remix_in_block_menu: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-03-10
-	platform_editor_fix_media_toolbar_border_dropdown: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -854,22 +833,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2025-08-28
-	editor_enable_image_alignment_in_expand: createBooleanExperiment({
-		productKeys: {
-			confluence: 'editor_enable_image_alignment_in_expand',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-08-18
-	platform_editor_locale_datepicker: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_locale_datepicker',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2025-09-01
 	cc_editor_ai_content_mode: createMultivariateExperiment({
 		productKeys: {
@@ -1067,14 +1030,6 @@ export const editorExperimentsConfig: {
 	platform_editor_remix_in_block_menu: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_remix_in_block_menu',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-03-10
-	platform_editor_fix_media_toolbar_border_dropdown: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_fix_media_toolbar_border_dropdown',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

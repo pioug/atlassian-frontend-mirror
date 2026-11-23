@@ -33,7 +33,10 @@ open, however many times the user presses Escape or clicks the backdrop, in ever
 - Browsers without `closedby` (Safari 27 and earlier) use a small fallback that refuses each
   `cancel` (`use-cancel-fallback.tsx`). See
   [Fallback: browsers without `closedby`](#fallback-browsers-without-closedby).
-- `Popover` stays notify-after, because popover light dismiss cannot be canceled.
+- `Popover` stays notify-after, because popover light dismiss cannot be canceled. The DS wrappers
+  whose consumer controls `isOpen` (`Popup`, `DropdownMenu`, `PopupSelect`, `InlineDialog`) use a
+  `manual` popover with `useManualLightDismiss`, so they ask first too. See
+  [`wrappers-ask-first-close.md`](./wrappers-ask-first-close.md).
 
 With no close request for the dialog, the browser's close-watcher rule (a `cancel` that is not
 cancelable, which forces a close) never applies to it. See

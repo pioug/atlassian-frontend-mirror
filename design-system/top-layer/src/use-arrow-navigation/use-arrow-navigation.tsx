@@ -2,13 +2,13 @@ import { type RefObject, useCallback, useEffect } from 'react';
 
 import { bind } from 'bind-event-listener';
 
-
 import { getFirstFocusable } from '../focus/get-first-focusable';
 import { getLastFocusable } from '../focus/get-last-focusable';
 import { getNextFocusable } from '../focus/get-next-focusable';
 import { isInContainerLayer } from '../focus/is-in-container-layer';
 import { isNestedLayerFocused } from '../focus/is-nested-layer-focused';
 import { type TFocusableFilter } from '../focus/types';
+import { pendingFocusReturns } from '../internal/manual-hide/pending-focus-returns';
 
 const menuSelector = '[role="menu"]';
 
@@ -149,6 +149,12 @@ export function useArrowNavigation({
 				return;
 			}
 
+			// A nested menu already acted on this key (it prevented the default). One key acts on one
+			// menu level.
+			if (event.defaultPrevented) {
+				return;
+			}
+
 			const focusedElement = container.ownerDocument.activeElement;
 			if (!isFocusedElementAtThisLevel({ focusedElement, container, filter })) {
 				return;
@@ -230,6 +236,10 @@ export function useArrowNavigation({
 				return;
 			}
 			onClose();
+			// `onClose` hid the menus, which queued their focus returns. Run them now, so the Tab moves
+			// on from the element that had focus when the menu opened: a key sent from script
+			// (Playwright in Firefox, user-event) gets no microtask before the Tab default action.
+			pendingFocusReturns.runAll();
 		},
 		[containerRef, onClose, filter],
 	);

@@ -107,14 +107,15 @@ describe('Popup with composable API', () => {
 			passGate('platform-dst-top-layer');
 		});
 
-		// The trigger is outside the auto popover, so a press on it light-dismisses the popup.
+		// As on the legacy path: a press on the trigger does not ask the popup to close. The trigger
+		// closes it itself.
 		it('should call onClose when clicking on trigger', async () => {
 			const onClose = jest.fn();
 			render(
 				<Popup isOpen>
 					<PopupTrigger>
 						{(triggerProps) => (
-							<button type="button" {...triggerProps}>
+							<button type="button" onClick={onClose} {...triggerProps}>
 								trigger
 							</button>
 						)}

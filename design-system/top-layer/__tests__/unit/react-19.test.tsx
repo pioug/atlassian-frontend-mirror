@@ -5,7 +5,7 @@ import {
 	doesSsrRenderOnly as doesRenderWithSsr,
 } from '@atlassian/ssr-tests/ssr-tests';
 import { screen } from '@atlassian/testing-library/screen';
-import { fireEvent, render, waitFor } from '@atlassian/testing-library/testing-library/react';
+import { act, fireEvent, render, waitFor } from '@atlassian/testing-library/testing-library/react';
 
 import { DialogScrollLock } from '../../src/dialog-scroll-lock';
 import { createCloseEvent } from '../../src/dialog/create-close-event';
@@ -708,7 +708,7 @@ describe('React 19 readiness (top-layer)', () => {
 			expect(onClose).not.toHaveBeenCalled();
 		});
 
-		it('fires onClose on click outside the popover', () => {
+		it('fires onClose on click outside the popover', async () => {
 			const onClose = jest.fn();
 			render(
 				<div>
@@ -724,10 +724,14 @@ describe('React 19 readiness (top-layer)', () => {
 			outside.dispatchEvent(new MouseEvent('pointerdown', { bubbles: true }));
 			outside.dispatchEvent(new MouseEvent('pointerup', { bubbles: true }));
 			outside.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+			// The hook asks in a task after the press (after its `click`).
+			await act(async () => {
+				await new Promise((resolve) => setTimeout(resolve, 0));
+			});
 			expect(onClose).toHaveBeenCalledTimes(1);
 		});
 
-		it('does not fire onClose on click inside the popover', () => {
+		it('does not fire onClose on click inside the popover', async () => {
 			const onClose = jest.fn();
 			render(<LightDismissHarness isOpen={true} onClose={onClose} />);
 
@@ -735,6 +739,9 @@ describe('React 19 readiness (top-layer)', () => {
 			popover.dispatchEvent(new MouseEvent('pointerdown', { bubbles: true }));
 			popover.dispatchEvent(new MouseEvent('pointerup', { bubbles: true }));
 			popover.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+			await act(async () => {
+				await new Promise((resolve) => setTimeout(resolve, 0));
+			});
 			expect(onClose).not.toHaveBeenCalled();
 		});
 	});

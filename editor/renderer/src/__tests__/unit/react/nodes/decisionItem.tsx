@@ -4,7 +4,7 @@ import { screen } from '@testing-library/react';
 
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 
-import ReactSerializer from '../../../../react';
+import { ReactSerializer } from '../../../../entry-points/serializer-default';
 import DecisionItem from '../../../../react/nodes/decisionItem';
 
 describe('Renderer - React/Nodes/DecisionItem', () => {

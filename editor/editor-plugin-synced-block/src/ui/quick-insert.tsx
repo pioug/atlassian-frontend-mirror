@@ -11,6 +11,7 @@ import type {
 	QuickInsertActionInsert,
 	QuickInsertItem,
 } from '@atlaskit/editor-common/provider-factory/quick-insert-provider';
+import { SYNCED_BLOCK_MENU_ITEM } from '@atlaskit/editor-common/quick-insert/keys';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { SyncBlockStoreManager } from '@atlaskit/editor-synced-block-provider/syncBlockStoreManager';
@@ -45,6 +46,7 @@ export const getQuickInsertConfig = (
 		return [
 			{
 				id: 'syncBlock',
+				registeredKey: SYNCED_BLOCK_MENU_ITEM.key,
 				title: formatMessage(blockTypeMessages.syncedBlockQuickInsertTitle),
 				description: formatMessage(blockTypeMessages.syncedBlockDescription),
 				priority: 400,

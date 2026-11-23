@@ -120,6 +120,12 @@ export type QuickInsertItem = TypeAheadItem & {
 	onBeforeSelect?: (options: { showFeedback?: boolean; surface: InsertMenuSurface }) => boolean;
 	/** Optional visual and attribution content shown while this item is selected. */
 	preview?: QuickInsertPreview;
+	/**
+	 * Registered key of the matching item in the registered Quick Insert menu, from
+	 * `@atlaskit/editor-common/quick-insert/keys`. Lets analytics name native items the same way
+	 * in both menus.
+	 */
+	registeredKey?: string;
 	/** Optional wrapper; trigger bindings must be forwarded to the actual menu control. */
 	renderMenuItemWrapper?: (props: InsertMenuItemWrapperProps) => ReactElement;
 };

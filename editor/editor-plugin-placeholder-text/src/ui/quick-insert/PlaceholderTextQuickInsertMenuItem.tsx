@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import { useIntl } from 'react-intl';
 
@@ -10,10 +10,13 @@ import {
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics/types/enums';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
+import { ConfluenceAttributionIcon } from '@atlaskit/editor-common/quick-insert/confluence-attribution-icon';
 import {
 	QuickInsertMenuItem,
 	type OnSelectContext,
+	type QuickInsertMenuItemProps,
 } from '@atlaskit/editor-common/quick-insert/menu-item';
+import { messages as quickInsertMessages } from '@atlaskit/editor-common/quick-insert/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import TextIcon from '@atlaskit/icon/core/text';
 
@@ -22,10 +25,22 @@ import { pluginKey } from '../../pm-plugins/plugin-key';
 
 export const PlaceholderTextQuickInsertMenuItem = ({
 	api,
+	previewImageUrls,
 }: {
 	api: ExtractInjectionAPI<PlaceholderTextPlugin> | undefined;
+	previewImageUrls: QuickInsertMenuItemProps['previewImageUrls'];
 }): React.JSX.Element => {
 	const { formatMessage } = useIntl();
+	const preview = useMemo(
+		() => ({
+			...(previewImageUrls && { image: previewImageUrls }),
+			attribution: {
+				icon: ConfluenceAttributionIcon,
+				name: formatMessage(quickInsertMessages.previewAttributionConfluence),
+			},
+		}),
+		[formatMessage, previewImageUrls],
+	);
 	const onSelect = useCallback(
 		({ editorView }: OnSelectContext) => {
 			const tr = editorView.state.tr;
@@ -44,8 +59,10 @@ export const PlaceholderTextQuickInsertMenuItem = ({
 
 	return (
 		<QuickInsertMenuItem
+			description={formatMessage(messages.placeholderTextDescription)}
 			iconBefore={<TextIcon label="" />}
 			onSelect={onSelect}
+			preview={preview}
 			title={formatMessage(messages.placeholderText)}
 		/>
 	);

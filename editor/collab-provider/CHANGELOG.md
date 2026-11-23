@@ -1,5 +1,26 @@
 # @atlaskit/collab-provider
 
+## 42.0.7
+
+### Patch Changes
+
+- [`3e65d77fa4ef5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3e65d77fa4ef5) -
+  Send a random atl-paas-mesh-hash header per socket on GCP collab editing connections for sticky
+  long-polling sessions, behind the platform_editor_gcp_sticky_session feature gate.
+- Updated dependencies
+
+## 42.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 42.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 42.0.4
 
 ### Patch Changes

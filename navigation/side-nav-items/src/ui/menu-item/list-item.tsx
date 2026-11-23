@@ -13,6 +13,8 @@ type ListItemProps = {
 	 * The contents of the list item.
 	 */
 	children: ReactNode;
+	/** The wrapper is presentational when composing a tablist. */
+	role?: 'listitem' | 'none';
 	/**
 	 * A unique string that appears as data attribute `data-testid` in the rendered code, serving as a hook for automated tests.
 	 */
@@ -23,9 +25,12 @@ type ListItemProps = {
 	xcss?: StrictXCSSProp<'display' | 'scrollMarginInline', never>;
 };
 
-function _ListItem({ children, testId, xcss }: ListItemProps, ref: Ref<HTMLDivElement>) {
+function _ListItem(
+	{ children, testId, xcss, role = 'listitem' }: ListItemProps,
+	ref: Ref<HTMLDivElement>,
+) {
 	return (
-		<div role="listitem" ref={ref} className={xcss} data-testid={testId}>
+		<div role={role} ref={ref} className={xcss} data-testid={testId}>
 			{children}
 		</div>
 	);

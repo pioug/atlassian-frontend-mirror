@@ -322,10 +322,10 @@ describe('inline-dialog', () => {
 			expect(screen.getByTestId('inline-dialog-0')).toBeInTheDocument();
 			expect(screen.queryByTestId('inline-dialog-1')).not.toBeInTheDocument();
 
-			// Open second dialog, first dialog should close.
-			fireEvent.click(screen.getByTestId('open-inline-dialog-1'));
+			// Open second dialog, first dialog should close. A press on the second trigger is outside
+			// the first dialog, so the first dialog asks to close.
+			await userEvent.click(screen.getByTestId('open-inline-dialog-1'));
 			expect(screen.getByTestId('inline-dialog-1')).toBeInTheDocument();
-			// The top-layer dialog closes a task later.
 			await waitFor(() => expect(screen.queryByTestId('inline-dialog-0')).not.toBeInTheDocument());
 		});
 	});

@@ -4,6 +4,7 @@ import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import { toolbarInsertBlockMessages } from '@atlaskit/editor-common/messages/insert-block';
 import { logException } from '@atlaskit/editor-common/monitoring/error';
+import { LOOM_MENU_ITEM } from '@atlaskit/editor-common/quick-insert/keys';
 import type { QuickInsertHandlerFn } from '@atlaskit/editor-common/types/quick-insert';
 import VideoIcon from '@atlaskit/icon/core/video';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
@@ -17,6 +18,7 @@ export const getQuickInsertItem =
 	({ formatMessage }) => [
 		{
 			id: 'loom',
+			registeredKey: LOOM_MENU_ITEM.key,
 			title: formatMessage(toolbarInsertBlockMessages.recordVideo),
 			description: formatMessage(toolbarInsertBlockMessages.recordVideoDescription),
 			keywords: ['loom', 'record', 'video'],

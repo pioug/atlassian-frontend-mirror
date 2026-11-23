@@ -195,9 +195,7 @@ export function init(
 
 	setupHiddenTimingCapture();
 	startLighthouseObserver();
-	if (fg('platform_ufo_soft_nav_paint_metrics')) {
-		ensureSoftNavigationObserved();
-	}
+	ensureSoftNavigationObserved();
 
 	setupThrottleDetection();
 

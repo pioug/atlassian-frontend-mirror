@@ -1,3 +1,5 @@
+import { bind } from 'bind-event-listener';
+
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 import { AllSelection, PluginKey, TextSelection } from '@atlaskit/editor-prosemirror/state';
@@ -15,6 +17,7 @@ export const inlineNodeRangeSelectionNodeTypeNames = [
 ] as const;
 
 const pluginKey = new PluginKey<DecorationSet>('inlineNodeRangeSelectionPlugin');
+const activeReadOnlySelectionAttribute = 'data-inline-node-readonly-selection-active';
 
 const isNonEmptyRangeSelection = (selection: Selection) =>
 	!selection.empty && (selection instanceof TextSelection || selection instanceof AllSelection);
@@ -63,5 +66,38 @@ export const createInlineNodeRangeSelectionPlugin = (
 		},
 		props: {
 			decorations: (state) => pluginKey.getState(state),
+		},
+		view: (view) => {
+			const ownerDocument = view.dom.ownerDocument;
+			const updateReadOnlySelection = () => {
+				const selection = ownerDocument.getSelection();
+				// Read-only editors do not receive ProseMirror's focus class, and can retain
+				// their editor selection after the native selection moves elsewhere.
+				const isActive =
+					!view.editable &&
+					view.dom.getAttribute('aria-readonly') === 'true' &&
+					selection !== null &&
+					!selection.isCollapsed &&
+					selection.rangeCount > 0 &&
+					selection.getRangeAt(0).intersectsNode(view.dom);
+
+				if (view.dom.hasAttribute(activeReadOnlySelectionAttribute) !== isActive) {
+					view.dom.toggleAttribute(activeReadOnlySelectionAttribute, isActive);
+				}
+			};
+
+			const unbindSelectionChange = bind(ownerDocument, {
+				type: 'selectionchange',
+				listener: updateReadOnlySelection,
+			});
+			updateReadOnlySelection();
+
+			return {
+				update: updateReadOnlySelection,
+				destroy: () => {
+					unbindSelectionChange();
+					view.dom.removeAttribute(activeReadOnlySelectionAttribute);
+				},
+			};
 		},
 	});

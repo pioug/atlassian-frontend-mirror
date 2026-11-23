@@ -9,7 +9,7 @@ import { token } from '@atlaskit/tokens';
 const LOCALSTORAGE_defaultDocKey = 'fabric.editor.example.full-page';
 const LOCALSTORAGE_defaultTitleKey = 'fabric.editor.example.full-page.title';
 
-import { default as Renderer } from '../src/ui/Renderer';
+import { Renderer } from '../src/entry-points/renderer-default';
 import Sidebar from './helper/NavigationNext';
 
 const mediaProvider = storyMediaProviderFactory();

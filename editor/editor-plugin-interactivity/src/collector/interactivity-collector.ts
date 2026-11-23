@@ -15,18 +15,48 @@ import { LifecycleObserver } from './lifecycle-observer';
 import { type InteractivityRegion, RegionEventObserver } from './region-event-observer';
 import { SnapshotScheduler } from './snapshot-scheduler';
 
-export type InteractivityCollectorOptions<Keys extends SessionKeys, EndReason extends string> = {
+export type InteractivityCollectorOptions<
+	RegionName extends string,
+	Keys extends SessionKeys,
+	EndReason extends string,
+> = {
 	/** Called as the snapshot is taken, so what the owner reads then is of the same moment. */
-	emit: (snapshot: CollectedSnapshot<Keys, EndReason>, sendHints: SnapshotSendHints) => void;
+	emit: (
+		snapshot: CollectedSnapshot<RegionName, Keys, EndReason>,
+		sendHints: SnapshotSendHints,
+	) => void;
 	/**
 	 * What the owner can end a session with: a changed session key, or a stop. Fixed for the
-	 * collector, like the regions.
+	 * collector, like the regions. A reason not declared here still ends the session, is reported as
+	 * given, and goes to `onError`. Not an `InterimReason`, or a snapshot's `reason` would not tell
+	 * whether the session ended.
+	 *
+	 * Written out as literals: a `string[]` built at runtime does not compile, because with it any
+	 * string would pass as an end reason.
 	 */
-	endReasons: readonly EndReason[];
-	/** The parts of the page whose interactions are counted on their own. Fixed for the collector. */
-	regions: readonly string[];
-	/** Every session key with the value it has now, `undefined` when not known yet. */
-	sessionKeys: Keys;
+	endReasons: string extends EndReason ? never : readonly Exclude<EndReason, InterimReason>[];
+	/**
+	 * Called with what the collector could not do as asked, where it carries on instead of throwing:
+	 * an undeclared region, session key or end reason, or an `emit` that threw. Each one is reported
+	 * once per collector.
+	 */
+	onError: (error: Error) => void;
+	/**
+	 * The parts of the page whose interactions are counted on their own. Fixed for the collector.
+	 *
+	 * Written out as literals: a `string[]` built at runtime does not compile, because with it any
+	 * string would pass as a region.
+	 */
+	regions: string extends RegionName ? never : readonly RegionName[];
+	/**
+	 * Every session key with the value it has now, `undefined` when not known yet. A key's type is
+	 * that of its value here, so one not known yet needs a type that also allows the known ones,
+	 * like a function returning `string | undefined`.
+	 *
+	 * Written out as an object literal: a `Record<string, …>` does not compile, because with it any
+	 * string would pass as a session key.
+	 */
+	sessionKeys: string extends keyof Keys ? never : Keys;
 };
 
 export type SessionKeysChange<Keys extends SessionKeys, EndReason extends string> = {
@@ -35,6 +65,18 @@ export type SessionKeysChange<Keys extends SessionKeys, EndReason extends string
 	/** The keys that may have changed. `undefined` is no information, never a change. */
 	values: Partial<Keys>;
 };
+
+const UNDECLARED_REGION: InteractivityRegion = { addElement: () => () => {} };
+
+/** Declared as end reasons by an untyped owner, they would make a session's end look like it goes on. */
+const INTERIM_REASONS: ReadonlySet<string> = new Set<InterimReason>([
+	'timer',
+	'hidden',
+	'pagehide',
+]);
+
+/** Enough to see what is wrong; a name built at runtime would otherwise grow it without end. */
+const MAX_REPORTED_ERRORS = 100;
 
 /**
  * Collects interaction latencies and emits session-to-date snapshots.
@@ -48,12 +90,15 @@ export type SessionKeysChange<Keys extends SessionKeys, EndReason extends string
  * value fills the session in, and a different one ends it and opens the next.
  */
 export class InteractivityCollector<
+	RegionName extends string = never,
 	Keys extends SessionKeys = SessionKeys,
-	const EndReason extends string = never,
+	EndReason extends string = never,
 > {
-	private readonly emit: InteractivityCollectorOptions<Keys, EndReason>['emit'];
-	private readonly regions: InteractivityCollectorOptions<Keys, EndReason>['regions'];
-	private readonly endReasons: InteractivityCollectorOptions<Keys, EndReason>['endReasons'];
+	private readonly emit: InteractivityCollectorOptions<RegionName, Keys, EndReason>['emit'];
+	private readonly regions: readonly string[];
+	private readonly endReasons: ReadonlySet<string>;
+	private readonly onError: InteractivityCollectorOptions<RegionName, Keys, EndReason>['onError'];
+	private readonly reportedErrors = new Set<string>();
 	/** The latest known value of each key, which a new session starts with. */
 	private readonly sessionKeys: Keys;
 
@@ -68,10 +113,17 @@ export class InteractivityCollector<
 	private startsAfterInteractionId = 0;
 
 	/** Touches nothing of the page until `start`, so an owner can create it while rendering. */
-	constructor(options: InteractivityCollectorOptions<Keys, EndReason>) {
+	constructor(options: InteractivityCollectorOptions<RegionName, Keys, EndReason>) {
 		this.emit = options.emit;
-		this.regions = options.regions;
-		this.endReasons = options.endReasons;
+		// A region declared twice is still one region in the snapshot.
+		this.regions = [...new Set(options.regions)];
+		this.endReasons = new Set(options.endReasons);
+		this.onError = options.onError;
+		for (const endReason of this.endReasons) {
+			if (INTERIM_REASONS.has(endReason)) {
+				this.reportOnce(new Error(`Reserved interactivity end reason: ${endReason}`));
+			}
+		}
 		this.sessionKeys = { ...options.sessionKeys };
 
 		this.interactionObserver = new InteractionObserver((entries) => this.recordEntries(entries));
@@ -114,7 +166,7 @@ export class InteractivityCollector<
 
 	/** Reports the session as ended by `endReason`, and stops collecting until the next `start`. */
 	stop({ endReason }: { endReason: EndReason }): void {
-		this.assertDeclaredEndReason(endReason);
+		this.checkEndReason(endReason);
 		if (!this.session) {
 			return;
 		}
@@ -132,10 +184,11 @@ export class InteractivityCollector<
 	 * What the region is made of, for its owner to fill in; the same object every time. The session
 	 * is not tied to it: interactions from before an element arrives are counted in `page` only.
 	 */
-	region(name: string): InteractivityRegion {
+	region(name: RegionName): InteractivityRegion {
 		const regionEventObserver = this.regionEventObservers.get(name);
 		if (!regionEventObserver) {
-			throw new Error(`Undeclared interactivity region: ${name}`);
+			this.reportOnce(new Error(`Undeclared interactivity region: ${name}`));
+			return UNDECLARED_REGION;
 		}
 		return regionEventObserver;
 	}
@@ -145,7 +198,7 @@ export class InteractivityCollector<
 	 * `endReason`, once, however many keys changed.
 	 */
 	setSessionKeys({ values, endReason }: SessionKeysChange<Keys, EndReason>): void {
-		this.assertDeclaredEndReason(endReason);
+		this.checkEndReason(endReason);
 
 		let rotates = false;
 		for (const key in values) {
@@ -168,29 +221,43 @@ export class InteractivityCollector<
 		}
 	}
 
-	private assertDeclaredEndReason(endReason: EndReason): void {
-		if (!this.endReasons.includes(endReason)) {
-			throw new Error(`Undeclared interactivity end reason: ${endReason}`);
-		}
-	}
-
 	/**
 	 * Keeps the key's value when it is a new known one.
 	 *
 	 * @returns whether the session has to end, because the key had a different known value.
 	 */
 	private updateSessionKey<Key extends keyof Keys>(key: Key, value: Partial<Keys>[Key]): boolean {
-		if (value === undefined || value === this.sessionKeys[key]) {
+		if (!Object.prototype.hasOwnProperty.call(this.sessionKeys, key)) {
+			this.reportOnce(new Error(`Undeclared interactivity session key: ${String(key)}`));
 			return false;
 		}
 
-		if (!(key in this.sessionKeys)) {
-			throw new Error(`Undeclared interactivity session key: ${String(key)}`);
+		if (value === undefined || value === this.sessionKeys[key]) {
+			return false;
 		}
 
 		const hadValue = this.sessionKeys[key] !== undefined;
 		this.sessionKeys[key] = value;
 		return hadValue;
+	}
+
+	private checkEndReason(endReason: EndReason): void {
+		if (!this.endReasons.has(endReason)) {
+			this.reportOnce(new Error(`Undeclared interactivity end reason: ${endReason}`));
+		}
+	}
+
+	/** Reports an error once, however often it repeats: some come on every render or snapshot. */
+	private reportOnce(error: Error): void {
+		if (this.reportedErrors.has(error.message) || this.reportedErrors.size >= MAX_REPORTED_ERRORS) {
+			return;
+		}
+		this.reportedErrors.add(error.message);
+		try {
+			this.onError(error);
+		} catch {
+			// An `onError` that throws leaves nowhere to report to, and the collector carries on.
+		}
 	}
 
 	/**
@@ -353,20 +420,25 @@ export class InteractivityCollector<
 			};
 		}
 
-		this.emit(
-			{
-				schema: SCHEMA_VERSION,
-				interactivitySessionId: session.id,
-				seq: session.seq,
-				reason,
-				sessionKeys: { ...session.sessionKeys },
-				activeMs: Math.round(Math.max(0, now - session.startedAt - hiddenMs)),
-				hiddenMs: Math.round(hiddenMs),
-				// Only `page` is told its total; each region has counted its own.
-				page: session.page.snapshot(pageTotalCount),
-				regions,
-			},
-			{ immediate },
-		);
+		// `emit` runs from timers, page events and the owner's own callbacks, none of which expects a throw.
+		try {
+			this.emit(
+				{
+					schema: SCHEMA_VERSION,
+					interactivitySessionId: session.id,
+					seq: session.seq,
+					reason,
+					sessionKeys: { ...session.sessionKeys },
+					activeMs: Math.round(Math.max(0, now - session.startedAt - hiddenMs)),
+					hiddenMs: Math.round(hiddenMs),
+					// Only `page` is told its total; each region has counted its own.
+					page: session.page.snapshot(pageTotalCount),
+					regions,
+				},
+				{ immediate },
+			);
+		} catch (error) {
+			this.reportOnce(error instanceof Error ? error : new Error(String(error)));
+		}
 	}
 }

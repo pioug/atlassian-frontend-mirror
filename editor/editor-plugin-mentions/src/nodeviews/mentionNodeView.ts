@@ -252,13 +252,7 @@ export class MentionNodeView implements NodeView {
 		const isAvatarEnabled =
 			(hasProvider || canReportMissingProvider) &&
 			node.attrs.userType !== 'SPECIAL' &&
-			!genericMentionIds.includes(node.attrs.id) &&
-			(fg('rovo_chat_people_entity_hover_cards') ||
-				isExperimentEnabled('platform_editor_mention_node_avatar') ||
-				isExperimentEnabled('canvas_agentic_experiences_master_exp') ||
-				isExperimentEnabled('platform_editor_mention_node_graphql_provider') ||
-				(isAgentMentionUserType(node.attrs.userType) &&
-					isExperimentEnabled('platform_editor_drop3_hexagon_agent_avatar')));
+			!genericMentionIds.includes(node.attrs.id);
 
 		this.hasAvatarSlot = hasProvider && isAvatarEnabled;
 

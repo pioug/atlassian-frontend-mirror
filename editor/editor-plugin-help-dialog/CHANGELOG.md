@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-help-dialog
 
+## 33.0.6
+
+### Patch Changes
+
+- [`8bdae43216aac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8bdae43216aac) -
+  Set `registeredKey` on legacy quick insert items and toolbar `+` items: the key of the matching
+  item in the registered quick insert menu, so analytics can name native items the same way in both
+  menus.
+- Updated dependencies
+
+## 33.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 33.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 33.0.3
 
 ### Patch Changes

@@ -110,6 +110,11 @@ Architectural decisions, design rationale, and decision logs.
 - **[manual-light-dismiss-escape-stacking.md](./decisions/manual-light-dismiss-escape-stacking.md)**
   — Decision: `useManualLightDismiss` lets a layer that opens above it, outside it, take Escape
   first; tracked with `beforetoggle` open order. Browser evidence and what counts as a layer above
+- **[wrappers-ask-first-close.md](./decisions/wrappers-ask-first-close.md)**: Decision: `Popup`,
+  `PopupContent`, `DropdownMenu`, `PopupSelect` and `InlineDialog` render a `manual` popover with
+  `useManualLightDismiss`, so an outside press or Escape asks `onClose` first, as `Dialog` does. The
+  layer hides only when `isOpen` becomes `false`. What this changes for the `auto` behaviours they
+  used, and the accepted edges
 - **[outside-press-closes-every-layer.md](./decisions/outside-press-closes-every-layer.md)**:
   Decision: one outside press closes every open layer it is outside; Escape closes one layer per
   press. Who handles the press for each layer, with browser evidence

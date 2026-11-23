@@ -108,6 +108,7 @@ const InsertMenu = ({
 			 * called from the quick insert menu and a search has not been performed.
 			 */
 			action: () => onInsert({ item }),
+			registeredKey: item.registeredKey,
 			// "insertInsertMenuItem" expects these 2 properties.
 			onClick: item.onClick,
 			value: item.value,

@@ -15,6 +15,7 @@ import {
 	MEDIA_INSERT_TAB_RANK,
 } from '@atlaskit/editor-common/media-insert/rank';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
+import { MEDIA_INSERT_MENU_ITEM } from '@atlaskit/editor-common/quick-insert/keys';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { MediaInsertPlugin, RegisterInsertTab } from './mediaInsertPluginType';
@@ -218,6 +219,7 @@ export const mediaInsertPlugin: MediaInsertPlugin = ({ api, config }) => {
 					quickInsert: ({ formatMessage }) => [
 						{
 							id: 'media-insert',
+							registeredKey: MEDIA_INSERT_MENU_ITEM.key,
 							title: formatMessage(messages.mediaFiles),
 							description: formatMessage(messages.mediaFilesDescription),
 							priority: 400,

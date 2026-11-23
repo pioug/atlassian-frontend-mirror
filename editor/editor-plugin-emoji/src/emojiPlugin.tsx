@@ -13,6 +13,7 @@ import type { InsertContentCallback } from '@atlaskit/editor-common/insert';
 import { ToolTipContent } from '@atlaskit/editor-common/keymaps';
 import { annotationMessages } from '@atlaskit/editor-common/messages/annotation';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
+import { EMOJI_MENU_ITEM } from '@atlaskit/editor-common/quick-insert/keys';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import type { Command } from '@atlaskit/editor-common/types/command';
@@ -347,6 +348,7 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 						quickInsert: ({ formatMessage }) => [
 							{
 								id: 'emoji',
+								registeredKey: EMOJI_MENU_ITEM.key,
 								title: formatMessage(messages.emoji),
 								description: formatMessage(messages.emojiDescription),
 								priority: 500,

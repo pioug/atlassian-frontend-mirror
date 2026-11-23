@@ -1,5 +1,20 @@
 # @atlaskit/agent-color
 
+## 1.2.0
+
+### Minor Changes
+
+- [`171a703263b38`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/171a703263b38) -
+  Add the remaining named avatar aliases to shared agent colours behind
+  rovo_agents_studio_use_agent_color. Separate avatar artwork rendering from colour selection and
+  use the selected colour for generated avatar backgrounds and artwork. Retain legacy colour
+  selection while the gate is off.
+
+### Patch Changes
+
+- [`171a703263b38`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/171a703263b38) -
+  Update the owning team to Rovo Agents.
+
 ## 1.1.0
 
 ### Minor Changes

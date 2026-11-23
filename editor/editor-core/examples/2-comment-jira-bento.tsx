@@ -14,7 +14,7 @@ import Form from '@atlaskit/form/form';
 import { FormFooter } from '@atlaskit/form/form-footer';
 import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import ReactRenderer from '@atlaskit/renderer/renderer';
+import { Renderer as ReactRenderer } from '@atlaskit/renderer/default';
 import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 import { currentUser, getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';

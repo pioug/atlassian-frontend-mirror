@@ -7,6 +7,8 @@ import {
 	type StatsigUser,
 } from '@statsig/js-client';
 
+import { isolationContextId } from '@atlaskit/atlassian-context/isolation-context-id';
+
 import type { FfpEvaluationClient } from '../ffp/types';
 import { default as Subscriptions } from '../subscriptions/Subscriptions';
 import { DynamicConfig } from './compat/DynamicConfig';
@@ -52,6 +54,7 @@ import { CLIENT_VERSION } from './version';
 const DEFAULT_CLIENT_KEY = 'client-default-key';
 // default event logging api is Atlassian proxy rather than Statsig's domain, to avoid ad blockers
 const DEFAULT_EVENT_LOGGING_API = 'https://xp.atlassian.com/v1/rgstr';
+const EXPOSURE_LOGGING_DISABLED_IC_IDS: readonly string[] = ['ic-em8'];
 
 /** The one source that answers for a gate or config. See {@link Client.route}. */
 type Route<T> =
@@ -72,6 +75,7 @@ function logFetchError(error: unknown): void {
 
 export class Client {
 	private statsigClient?: StatsigClient;
+	private statsigExposuresDisabled = false;
 	private user?: StatsigUser;
 	private initOptions?: OptionsWithDefaults<
 		BaseClientOptions | ClientOptions | FromValuesClientOptions
@@ -538,7 +542,7 @@ export class Client {
 			switch (route.source) {
 				case 'statsig':
 					return route.statsigClient.checkGate(gateName, {
-						disableExposureLog: !fireGateExposure,
+						disableExposureLog: this.statsigExposuresDisabled || !fireGateExposure,
 					});
 				case 'ffp':
 					return this.ffp.checkGate(gateName, fireGateExposure);
@@ -628,7 +632,7 @@ export class Client {
 		const route = this.route(gateName, 'gates');
 		if (route.source === 'ffp') {
 			this.ffp.logGateExposure(gateName);
-		} else if (route.source === 'statsig') {
+		} else if (route.source === 'statsig' && !this.statsigExposuresDisabled) {
 			// This is the approach recommended in the docs
 			// https://docs.statsig.com/client/javascript-sdk/#manual-exposures-
 			route.statsigClient.checkGate(gateName);
@@ -663,7 +667,7 @@ export class Client {
 				case 'statsig':
 					return DynamicConfig.fromExperiment(
 						route.statsigClient.getExperiment(experimentName, {
-							disableExposureLog: !fireExperimentExposure,
+							disableExposureLog: this.statsigExposuresDisabled || !fireExperimentExposure,
 						}),
 					);
 				case 'ffp': {
@@ -788,7 +792,7 @@ export class Client {
 		const route = this.route(experimentName, 'configs');
 		if (route.source === 'ffp') {
 			this.ffp.logConfigExposure(experimentName);
-		} else if (route.source === 'statsig') {
+		} else if (route.source === 'statsig' && !this.statsigExposuresDisabled) {
 			// This is the approach recommended in the docs
 			// https://docs.statsig.com/client/javascript-sdk/#manual-exposures-
 			route.statsigClient.getExperiment(experimentName);
@@ -808,9 +812,11 @@ export class Client {
 	 */
 	manuallyLogLayerExposure(layerName: string, parameterName: string): void {
 		this.assertReady();
-		// This is the approach recommended in the docs
-		// https://docs.statsig.com/client/javascript-sdk/#manual-exposures-
-		this.statsigClient?.getLayer(layerName)?.get(parameterName);
+		if (!this.statsigExposuresDisabled) {
+			// This is the approach recommended in the docs
+			// https://docs.statsig.com/client/javascript-sdk/#manual-exposures-
+			this.statsigClient?.getLayer(layerName)?.get(parameterName);
+		}
 	}
 
 	shutdownStatsig(): void {
@@ -1209,10 +1215,26 @@ export class Client {
 			};
 		}
 
-		if (newClientOptions.perimeter === PerimeterType.FEDRAMP_MODERATE) {
+		const icId = isolationContextId();
+		const suppressLoggingByDefault =
+			icId !== undefined && EXPOSURE_LOGGING_DISABLED_IC_IDS.includes(icId);
+		if (
+			suppressLoggingByDefault &&
+			newClientOptions.loggingEnabled === undefined &&
+			clientOptions.disableAllLogging === undefined
+		) {
+			newClientOptions.loggingEnabled = 'disabled';
+			delete newClientOptions.disableLogging;
+		} else if (newClientOptions.perimeter === PerimeterType.FEDRAMP_MODERATE) {
 			// disable all logging in FedRAMP to prevent egress of sensitive data
 			newClientOptions.disableLogging = true;
 		}
+		// Disabled logging stops Statsig sends, but the SDK can still store queued events.
+		this.statsigExposuresDisabled =
+			suppressLoggingByDefault &&
+			(newClientOptions.loggingEnabled === 'disabled' ||
+				(newClientOptions.loggingEnabled === undefined &&
+					newClientOptions.disableLogging === true));
 
 		const {
 			sdkKey,
@@ -1588,7 +1610,9 @@ export class Client {
 				return Layer.fromLayer(this.overrideAdapter.getLayerOverride(layer, {}) ?? layer);
 			}
 			return Layer.fromLayer(
-				this.statsigClient.getLayer(layerName, { disableExposureLog: !fireLayerExposure }),
+				this.statsigClient.getLayer(layerName, {
+					disableExposureLog: this.statsigExposuresDisabled || !fireLayerExposure,
+				}),
 			);
 		} catch (error: unknown) {
 			// Log the first occurrence of the error

@@ -15,6 +15,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import { akEditorBreakoutPadding } from '@atlaskit/editor-shared-styles/constants';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
 import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -66,6 +67,10 @@ const dropTargetLayoutHintStyle = css({
 	borderRight: `${token('border.width')} dashed ${token('color.border.focused')}`,
 	width: 0,
 	left: 0,
+});
+
+const dedicatedDropTargetLayoutHintStyle = css({
+	borderRightColor: token('color.border.dropindicator'),
 });
 
 const dropTargetLayoutHintLeftStyle = css({
@@ -360,12 +365,19 @@ export const InlineDropTarget = ({
 			style={hoverZoneRectStyle}
 		>
 			{isDraggedOver ? (
-				<DropIndicator edge={dropIndicatorPos} />
+				<DropIndicator
+					colors={fg('platform-dst-dnd-token-migration') ? 'dedicated' : 'standard'}
+					edge={dropIndicatorPos}
+				/>
 			) : (
 				isActiveAnchor && (
 					<div
 						data-testid="block-ctrl-drop-hint"
-						css={[dropTargetLayoutHintStyle, isLeftPosition && dropTargetLayoutHintLeftStyle]}
+						css={[
+							dropTargetLayoutHintStyle,
+							isLeftPosition && dropTargetLayoutHintLeftStyle,
+							fg('platform-dst-dnd-token-migration') && dedicatedDropTargetLayoutHintStyle,
+						]}
 					/>
 				)
 			)}

@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 34.0.9
+
+### Patch Changes
+
+- [`53775878b59ef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/53775878b59ef) -
+  Use dedicated drag-and-drop tokens for block and layout insertion indicators when
+  `platform-dst-dnd-token-migration` is enabled.
+- Updated dependencies
+
+## 34.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 34.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 34.0.6
 
 ### Patch Changes

@@ -4,6 +4,7 @@ import { css, type SerializedStyles } from '@emotion/react';
 
 import { tableCellBorderWidth } from '@atlaskit/editor-common/styles/table';
 import { akEditorUnitZIndex } from '@atlaskit/editor-shared-styles/constants';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -230,7 +231,11 @@ export const dragCornerControlButton = (): SerializedStyles => css`
 		z-index: ${akEditorUnitZIndex * 99};
 
 		&.active .${ClassName.DRAG_CORNER_BUTTON_INNER} {
-			background-color: ${token('color.border.selected')};
+			background-color: ${
+				fg('platform-dst-dnd-token-migration')
+					? token('color.background.draghandle')
+					: token('color.border.selected')
+			};
 			width: 10px;
 			height: 10px;
 			border-width: 2px;
@@ -355,11 +360,11 @@ const columnHeaderButtonSelected = () =>
 const getFloatingDotOverrides = () => {
 	return css`
 		tr
-			th:last-child
-			.${ClassName.COLUMN_CONTROLS_DECORATIONS}::before,
-			tr
-			td:last-child
-			.${ClassName.COLUMN_CONTROLS_DECORATIONS}::before {
+		th:last-child
+		.${ClassName.COLUMN_CONTROLS_DECORATIONS}::before,
+		tr
+		td:last-child
+		.${ClassName.COLUMN_CONTROLS_DECORATIONS}::before {
 			content: '';
 			background-color: ${tableBorderColor};
 			position: absolute;
@@ -469,10 +474,10 @@ export const columnControlsDecoration = (): SerializedStyles => {
 		}
 
 		table
-			tr:first-of-type
-			td.${ClassName.TABLE_CELL},table
-			tr:first-of-type
-			th.${ClassName.TABLE_HEADER_CELL} {
+		tr:first-of-type
+		td.${ClassName.TABLE_CELL},table
+		tr:first-of-type
+		th.${ClassName.TABLE_HEADER_CELL} {
 			&.${ClassName.COLUMN_SELECTED}, &.${ClassName.HOVERED_TABLE} {
 				.${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
 					${columnHeaderButtonSelected()};
@@ -487,10 +492,10 @@ export const columnControlsDecoration = (): SerializedStyles => {
 		}
 
 		table
-			tr:first-of-type
-			td.${ClassName.TABLE_CELL},table
-			tr:first-of-type
-			th.${ClassName.TABLE_HEADER_CELL} {
+		tr:first-of-type
+		td.${ClassName.TABLE_CELL},table
+		tr:first-of-type
+		th.${ClassName.TABLE_HEADER_CELL} {
 			&.${ClassName.COLUMN_SELECTED}, &.${ClassName.HOVERED_COLUMN} {
 				.${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
 					${columnHeaderButtonSelected()};
@@ -501,11 +506,11 @@ export const columnControlsDecoration = (): SerializedStyles => {
 		}
 
 		table
-			tr:first-of-type
-			td.${ClassName.TABLE_CELL},
-			table
-			tr:first-of-type
-			th.${ClassName.TABLE_HEADER_CELL} {
+		tr:first-of-type
+		td.${ClassName.TABLE_CELL},
+		table
+		tr:first-of-type
+		th.${ClassName.TABLE_HEADER_CELL} {
 			&.${ClassName.HOVERED_COLUMN} {
 				.${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
 					${columnHeaderButtonSelected()};
@@ -522,13 +527,13 @@ export const columnControlsDecoration = (): SerializedStyles => {
 		}
 
 		.${ClassName.TABLE_SELECTED}
-			table
-			tr:first-of-type
-			td.${ClassName.TABLE_CELL},
-			.${ClassName.TABLE_SELECTED}
-			table
-			tr:first-of-type
-			th.${ClassName.TABLE_HEADER_CELL} {
+		table
+		tr:first-of-type
+		td.${ClassName.TABLE_CELL},
+		.${ClassName.TABLE_SELECTED}
+		table
+		tr:first-of-type
+		th.${ClassName.TABLE_HEADER_CELL} {
 			.${ClassName.COLUMN_CONTROLS_DECORATIONS}::after {
 				${columnHeaderButtonSelected()};
 			}
@@ -539,9 +544,11 @@ export const columnControlsDecoration = (): SerializedStyles => {
 export const hoveredDeleteButton = (): SerializedStyles => css`
 	.${ClassName.TABLE_CONTAINER}.${ClassName.HOVERED_DELETE_BUTTON} {
 		.${ClassName.SELECTED_CELL}, .${ClassName.COLUMN_SELECTED}, .${ClassName.HOVERED_CELL} {
-			${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
-				? '' /* Cell borders handled by ::after overlay in rounded mode. */
-				: `border: 1px solid ${tableBorderDeleteColor};`}
+			${
+				expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
+					? '' /* Cell borders handled by ::after overlay in rounded mode. */
+					: `border: 1px solid ${tableBorderDeleteColor};`
+			}
 		}
 		.${ClassName.SELECTED_CELL}::after {
 			background: ${tableCellDeleteColor};
@@ -565,18 +572,22 @@ export const hoveredDeleteButton = (): SerializedStyles => css`
 
 export const hoveredCell = (): SerializedStyles => css`
 	:not(.${ClassName.IS_RESIZING})
-		.${ClassName.TABLE_CONTAINER}:not(.${ClassName.HOVERED_DELETE_BUTTON}) {
+	.${ClassName.TABLE_CONTAINER}:not(.${ClassName.HOVERED_DELETE_BUTTON}) {
 		.${ClassName.HOVERED_CELL} {
 			position: relative;
-			${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
-				? '' /* Cell borders handled by ::after overlay in rounded mode. */
-				: `border: 1px solid ${tableBorderSelectedColor};`}
+			${
+				expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
+					? '' /* Cell borders handled by ::after overlay in rounded mode. */
+					: `border: 1px solid ${tableBorderSelectedColor};`
+			}
 		}
 		.${ClassName.HOVERED_CELL}.${ClassName.HOVERED_NO_HIGHLIGHT} {
 			position: relative;
-			${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
-				? '' /* Cell borders handled by ::after overlay in rounded mode. */
-				: `border: 1px solid ${tableBorderColor};`}
+			${
+				expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
+					? '' /* Cell borders handled by ::after overlay in rounded mode. */
+					: `border: 1px solid ${tableBorderColor};`
+			}
 		}
 	}
 `;
@@ -584,7 +595,7 @@ export const hoveredCell = (): SerializedStyles => css`
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const hoveredWarningCell: SerializedStyles = css`
 	:not(.${ClassName.IS_RESIZING})
-		.${ClassName.TABLE_CONTAINER}:not(.${ClassName.HOVERED_DELETE_BUTTON}) {
+	.${ClassName.TABLE_CONTAINER}:not(.${ClassName.HOVERED_DELETE_BUTTON}) {
 		td.${ClassName.HOVERED_CELL_WARNING} {
 			background-color: ${token(
 				'color.background.warning',
@@ -610,7 +621,7 @@ const resizeLineStyles = () => {
 		}
 
 		th.${ClassName.WITH_DRAG_RESIZE_LINE_LAST_COLUMN}::before,
-			td.${ClassName.WITH_DRAG_RESIZE_LINE_LAST_COLUMN}::before {
+		td.${ClassName.WITH_DRAG_RESIZE_LINE_LAST_COLUMN}::before {
 			content: ' ';
 			position: absolute;
 			right: -1px;
@@ -682,11 +693,11 @@ export const resizeHandle = (): SerializedStyles => css`
 		}
 
 		tr
-			th:last-child
-			.${ClassName.RESIZE_HANDLE_DECORATION},
-			tr
-			td:last-child
-			.${ClassName.RESIZE_HANDLE_DECORATION} {
+		th:last-child
+		.${ClassName.RESIZE_HANDLE_DECORATION},
+		tr
+		td:last-child
+		.${ClassName.RESIZE_HANDLE_DECORATION} {
 			background-color: transparent;
 			position: absolute;
 			width: ${resizeHandlerAreaWidth / 2}px;
@@ -751,6 +762,10 @@ const insertLineActiveColor = css({
 	backgroundColor: tableBorderSelectedColor,
 });
 
+const insertLineDedicatedColor = css({
+	backgroundColor: token('color.border.dropindicator'),
+});
+
 const insertLineInactiveColor = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	backgroundColor: token('color.background.accent.gray.subtler'),
@@ -759,138 +774,144 @@ const insertLineInactiveColor = css({
 // Explicit pixel values required here to ensure correct positioning of line that is show on row
 // or column drag
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-export const insertLine = (): SerializedStyles => css`
-	.${ClassName.TABLE_CONTAINER} {
-		td.${ClassName.WITH_FIRST_COLUMN_INSERT_LINE}::before {
-			${tableCellColumnInsertLineStyles}
-			left: -1px;
-			top: -1px;
-			${insertLineActiveColor}
-		}
+export const insertLine = (): SerializedStyles => {
+	const activeInsertLineColor = fg('platform-dst-dnd-token-migration')
+		? insertLineDedicatedColor
+		: insertLineActiveColor;
 
-		td.${ClassName.WITH_FIRST_COLUMN_INSERT_LINE_INACTIVE}::before {
-			${tableCellColumnInsertLineStyles}
-			left: -1px;
-			top: -1px;
-			${insertLineInactiveColor}
-		}
+	return css`
+		.${ClassName.TABLE_CONTAINER} {
+			td.${ClassName.WITH_FIRST_COLUMN_INSERT_LINE}::before {
+				${tableCellColumnInsertLineStyles}
+				left: -1px;
+				top: -1px;
+				${activeInsertLineColor}
+			}
 
-		th.${ClassName.WITH_FIRST_COLUMN_INSERT_LINE}::before {
-			${tableCellColumnInsertLineStyles}
-			left: -1px;
-			top: -${tableCellBorderWidth}px;
-			${insertLineActiveColor}
-		}
+			td.${ClassName.WITH_FIRST_COLUMN_INSERT_LINE_INACTIVE}::before {
+				${tableCellColumnInsertLineStyles}
+				left: -1px;
+				top: -1px;
+				${insertLineInactiveColor}
+			}
 
-		th.${ClassName.WITH_FIRST_COLUMN_INSERT_LINE_INACTIVE}::before {
-			${tableCellColumnInsertLineStyles}
-			left: -1px;
-			top: -${tableCellBorderWidth}px;
-			${insertLineInactiveColor}
-		}
+			th.${ClassName.WITH_FIRST_COLUMN_INSERT_LINE}::before {
+				${tableCellColumnInsertLineStyles}
+				left: -1px;
+				top: -${tableCellBorderWidth}px;
+				${activeInsertLineColor}
+			}
 
-		td.${ClassName.WITH_COLUMN_INSERT_LINE}::before {
-			${tableCellColumnInsertLineStyles}
-			left: ${token('space.negative.025')};
-			top: -1px;
-			${insertLineActiveColor}
-		}
+			th.${ClassName.WITH_FIRST_COLUMN_INSERT_LINE_INACTIVE}::before {
+				${tableCellColumnInsertLineStyles}
+				left: -1px;
+				top: -${tableCellBorderWidth}px;
+				${insertLineInactiveColor}
+			}
 
-		td.${ClassName.WITH_COLUMN_INSERT_LINE_INACTIVE}::before {
-			${tableCellColumnInsertLineStyles}
-			left: ${token('space.negative.025')};
-			top: -1px;
-			${insertLineInactiveColor}
-		}
+			td.${ClassName.WITH_COLUMN_INSERT_LINE}::before {
+				${tableCellColumnInsertLineStyles}
+				left: ${token('space.negative.025')};
+				top: -1px;
+				${activeInsertLineColor}
+			}
 
-		th.${ClassName.WITH_COLUMN_INSERT_LINE}::before {
-			${tableCellColumnInsertLineStyles}
-			left: ${token('space.negative.025')};
-			top: -${tableCellBorderWidth}px;
-			${insertLineActiveColor}
-		}
+			td.${ClassName.WITH_COLUMN_INSERT_LINE_INACTIVE}::before {
+				${tableCellColumnInsertLineStyles}
+				left: ${token('space.negative.025')};
+				top: -1px;
+				${insertLineInactiveColor}
+			}
 
-		th.${ClassName.WITH_COLUMN_INSERT_LINE_INACTIVE}::before {
-			${tableCellColumnInsertLineStyles}
-			left: ${token('space.negative.025')};
-			top: -${tableCellBorderWidth}px;
-			${insertLineInactiveColor}
-		}
+			th.${ClassName.WITH_COLUMN_INSERT_LINE}::before {
+				${tableCellColumnInsertLineStyles}
+				left: ${token('space.negative.025')};
+				top: -${tableCellBorderWidth}px;
+				${activeInsertLineColor}
+			}
 
-		td.${ClassName.WITH_LAST_COLUMN_INSERT_LINE}::before {
-			${tableCellColumnInsertLineStyles}
-			right: -1px;
-			top: -1px;
-			${insertLineActiveColor}
-		}
+			th.${ClassName.WITH_COLUMN_INSERT_LINE_INACTIVE}::before {
+				${tableCellColumnInsertLineStyles}
+				left: ${token('space.negative.025')};
+				top: -${tableCellBorderWidth}px;
+				${insertLineInactiveColor}
+			}
 
-		td.${ClassName.WITH_LAST_COLUMN_INSERT_LINE_INACTIVE}::before {
-			${tableCellColumnInsertLineStyles}
-			right: -1px;
-			top: -1px;
-			${insertLineInactiveColor}
-		}
+			td.${ClassName.WITH_LAST_COLUMN_INSERT_LINE}::before {
+				${tableCellColumnInsertLineStyles}
+				right: -1px;
+				top: -1px;
+				${activeInsertLineColor}
+			}
 
-		th.${ClassName.WITH_LAST_COLUMN_INSERT_LINE}::before {
-			${tableCellColumnInsertLineStyles}
-			right: -1px;
-			top: -${tableCellBorderWidth}px;
-			${insertLineActiveColor}
-		}
+			td.${ClassName.WITH_LAST_COLUMN_INSERT_LINE_INACTIVE}::before {
+				${tableCellColumnInsertLineStyles}
+				right: -1px;
+				top: -1px;
+				${insertLineInactiveColor}
+			}
 
-		th.${ClassName.WITH_LAST_COLUMN_INSERT_LINE_INACTIVE}::before {
-			${tableCellColumnInsertLineStyles}
-			right: -1px;
-			top: -${tableCellBorderWidth}px;
-			${insertLineInactiveColor}
-		}
+			th.${ClassName.WITH_LAST_COLUMN_INSERT_LINE}::before {
+				${tableCellColumnInsertLineStyles}
+				right: -1px;
+				top: -${tableCellBorderWidth}px;
+				${activeInsertLineColor}
+			}
 
-		td.${ClassName.WITH_ROW_INSERT_LINE}::before {
-			${tableCellRowInsertLineStyles}
-			top: -1px;
-			${insertLineActiveColor}
-		}
+			th.${ClassName.WITH_LAST_COLUMN_INSERT_LINE_INACTIVE}::before {
+				${tableCellColumnInsertLineStyles}
+				right: -1px;
+				top: -${tableCellBorderWidth}px;
+				${insertLineInactiveColor}
+			}
 
-		td.${ClassName.WITH_ROW_INSERT_LINE_INACTIVE}::before {
-			${tableCellRowInsertLineStyles}
-			top: -1px;
-			${insertLineInactiveColor}
-		}
+			td.${ClassName.WITH_ROW_INSERT_LINE}::before {
+				${tableCellRowInsertLineStyles}
+				top: -1px;
+				${activeInsertLineColor}
+			}
 
-		th.${ClassName.WITH_ROW_INSERT_LINE}::before {
-			${tableCellRowInsertLineStyles}
-			top: -1px;
-			${insertLineActiveColor}
-		}
+			td.${ClassName.WITH_ROW_INSERT_LINE_INACTIVE}::before {
+				${tableCellRowInsertLineStyles}
+				top: -1px;
+				${insertLineInactiveColor}
+			}
 
-		th.${ClassName.WITH_ROW_INSERT_LINE_INACTIVE}::before {
-			${tableCellRowInsertLineStyles}
-			top: -1px;
-			${insertLineInactiveColor}
-		}
+			th.${ClassName.WITH_ROW_INSERT_LINE}::before {
+				${tableCellRowInsertLineStyles}
+				top: -1px;
+				${activeInsertLineColor}
+			}
 
-		td.${ClassName.WITH_LAST_ROW_INSERT_LINE}::before {
-			${tableCellRowInsertLineStyles}
-			bottom: 0;
-			${insertLineActiveColor}
-		}
+			th.${ClassName.WITH_ROW_INSERT_LINE_INACTIVE}::before {
+				${tableCellRowInsertLineStyles}
+				top: -1px;
+				${insertLineInactiveColor}
+			}
 
-		td.${ClassName.WITH_LAST_ROW_INSERT_LINE_INACTIVE}::before {
-			${tableCellRowInsertLineStyles}
-			bottom: 0;
-			${insertLineInactiveColor}
-		}
+			td.${ClassName.WITH_LAST_ROW_INSERT_LINE}::before {
+				${tableCellRowInsertLineStyles}
+				bottom: 0;
+				${activeInsertLineColor}
+			}
 
-		th.${ClassName.WITH_LAST_ROW_INSERT_LINE}::before {
-			${tableCellRowInsertLineStyles}
-			bottom: 0;
-			${insertLineActiveColor}
-		}
+			td.${ClassName.WITH_LAST_ROW_INSERT_LINE_INACTIVE}::before {
+				${tableCellRowInsertLineStyles}
+				bottom: 0;
+				${insertLineInactiveColor}
+			}
 
-		th.${ClassName.WITH_LAST_ROW_INSERT_LINE_INACTIVE}::before {
-			${tableCellRowInsertLineStyles}
-			bottom: 0;
-			${insertLineInactiveColor}
+			th.${ClassName.WITH_LAST_ROW_INSERT_LINE}::before {
+				${tableCellRowInsertLineStyles}
+				bottom: 0;
+				${activeInsertLineColor}
+			}
+
+			th.${ClassName.WITH_LAST_ROW_INSERT_LINE_INACTIVE}::before {
+				${tableCellRowInsertLineStyles}
+				bottom: 0;
+				${insertLineInactiveColor}
+			}
 		}
-	}
-`;
+	`;
+};

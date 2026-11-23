@@ -119,10 +119,14 @@ menu is open. Initial focus happens only on the open. Items that mount after the
 point, or `isLoading` content) do not get focus from the menu: the entry point code handles deferred
 focus. ArrowDown/Up cycle through focusable items, Home/End jump to first/last, Tab triggers close.
 
-**Focus return on close:** The platform returns focus. DropdownMenu has no focus code for a close.
+**Focus return on close:** focus returns as the browser returns it for an `auto` popover. The menu
+is a `manual` popover that asks first (see
+[`../decisions/wrappers-ask-first-close.md`](../decisions/wrappers-ask-first-close.md)), so
+`Popover` (`mode="manual"`) returns focus after the commit that hides it. There is no other focus
+code for a close.
 
-- Escape, Tab, Left arrow and item select → the browser returns focus to the element that had focus
-  when the menu opened (usually the trigger). Tab and Shift+Tab then move on from the trigger.
+- Escape, Tab, Left arrow and item select → focus returns to the element that had focus when the
+  menu opened (usually the trigger). Tab and Shift+Tab then move on from the trigger.
 - Outside press (`reason: 'light-dismiss'`) → no focus return. Focus stays where the user pressed. A
   press on text leaves focus on the body. Legacy moved it back to the trigger.
 - Nested menu → Escape and Left arrow close only the nested menu, and focus returns to its trigger
@@ -145,11 +149,10 @@ focus. ArrowDown/Up cycle through focusable items, Home/End jump to first/last, 
 
 **`onOpenChange` event on close:** `onClose({ reason })` is bridged to the legacy event with
 `createPopoverCloseEvent`: a `KeyboardEvent` for Escape, a `MouseEvent` for an outside press, and
-`null` for a programmatic close (`requestClosePopovers()`). Tab hides the root popover natively, so
-`Popover` reports each menu in the stack as a light dismiss. DropdownMenu marks the stack before the
-hide, so each menu passes a Tab `KeyboardEvent` instead. Left arrow passes a Left arrow
-`KeyboardEvent`. Item select passes the click event. The other events are synthetic, so they have no
-`target`, and a Shift+Tab close has no `shiftKey`.
+`null` for a programmatic close (`requestClosePopovers()`). Tab asks every menu in the stack to
+close, and each menu passes a Tab `KeyboardEvent`. Left arrow passes a Left arrow `KeyboardEvent`.
+Item select passes the click event. The other events are synthetic, so they have no `target`, and a
+Shift+Tab close has no `shiftKey`.
 
 ### Close-on-click
 
@@ -292,6 +295,11 @@ the dropdown opens (when `isLocalOpen` changes to `true`).
 
 #### 2. Controlled `isOpen` does not survive light-dismiss
 
+**Superseded 2026-11-03.** The menu is a `manual` popover that asks first. A controlled `isOpen`
+that stays `true` keeps the menu open. See
+[`../decisions/wrappers-ask-first-close.md`](../decisions/wrappers-ask-first-close.md). The text
+below is history.
+
 **Severity: Medium**
 
 When `isOpen` is hardcoded to `true` (a controlled, always-open dropdown) and the user clicks
@@ -313,6 +321,10 @@ visible popover should use `mode="manual"` instead.
 ### Intentional differences
 
 #### 3. Multiple `popover="auto"` dropdowns cannot be open simultaneously
+
+**Superseded 2026-11-03.** The menu is a `manual` popover, so opening another menu without a press
+leaves it open, as on the legacy path. A press on another trigger is an outside press, so the open
+menu asks to close. The text below is history.
 
 In the legacy path, two dropdown menus with `isOpen` can be rendered and visible at the same time
 (each is just absolutely positioned). In the top-layer path, `popover="auto"` elements auto-dismiss

@@ -60,44 +60,8 @@ snapshot(CheckboxSelect, {
 	drawsOutsideBounds: true, // only captures the select trigger without this
 });
 
-// Voice-control accessible dropdown indicator: visual appearance must be
-// pixel-identical to the gate-off rendering, because the new <button> uses
-// an `appearance: none` reset and inherits color/padding from the existing
-// dropdown indicator. This snapshot guards against any unintended visual
-// regression when the gate is flipped on.
-snapshot(Basic, {
-	description: 'voice-control-dropdown-ff-on',
-	featureFlags: {
-		platform_dst_select_dropdown_voice_control: true,
-	},
-	variants: [
-		{
-			name: 'desktop chrome',
-			device: Device.DESKTOP_CHROME,
-		},
-	],
-});
-
-// JPO-42328: reproduces the consumer layout the `Basic` snapshots can't (fixed
-// width + a global `button { min-width }` selector). See the fix in
-// @atlaskit/react-select's DropdownIndicator. Snapshots both gate states so any
-// drift between them surfaces as a diff.
 snapshot(ConstrainedWidth, {
-	description: 'constrained-width-consumer-button-styles-ff-off',
-	drawsOutsideBounds: true,
-	variants: [
-		{
-			name: 'desktop chrome',
-			device: Device.DESKTOP_CHROME,
-		},
-	],
-});
-
-snapshot(ConstrainedWidth, {
-	description: 'constrained-width-consumer-button-styles-ff-on',
-	featureFlags: {
-		platform_dst_select_dropdown_voice_control: true,
-	},
+	description: 'constrained-width-consumer-button-styles',
 	drawsOutsideBounds: true,
 	variants: [
 		{

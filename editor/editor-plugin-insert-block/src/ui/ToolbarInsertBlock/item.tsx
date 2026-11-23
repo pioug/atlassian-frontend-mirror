@@ -15,6 +15,24 @@ import {
 	toggleTable,
 	tooltip,
 } from '@atlaskit/editor-common/keymaps';
+import {
+	ACTION_MENU_ITEM,
+	BLOCKQUOTE_MENU_ITEM,
+	CODE_BLOCK_MENU_ITEM,
+	DATE_MENU_ITEM,
+	DECISION_MENU_ITEM,
+	EMOJI_MENU_ITEM,
+	EXPAND_MENU_ITEM,
+	HYPERLINK_MENU_ITEM,
+	INFO_PANEL_MENU_ITEM,
+	MEDIA_INSERT_MENU_ITEM,
+	MENTION_MENU_ITEM,
+	PLACEHOLDER_TEXT_MENU_ITEM,
+	RULE_MENU_ITEM,
+	STATUS_MENU_ITEM,
+	TABLE_MENU_ITEM,
+	TWO_COLUMNS_LAYOUT_MENU_ITEM,
+} from '@atlaskit/editor-common/quick-insert/keys';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu/DropdownMenu/types';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut/main';
 import FieldTextIcon from '@atlaskit/icon-lab/core/field-text';
@@ -51,6 +69,8 @@ interface ItemInit {
 		}
 	>;
 	name: string;
+	/** Registered quick insert menu key of the matching item, for analytics. */
+	registeredKey?: string;
 	shortcut?: string;
 	tooltipDescription?: string;
 }
@@ -59,6 +79,7 @@ const from = (init: ItemInit): MenuItem => ({
 	content: init.content,
 	tooltipDescription: init.tooltipDescription,
 	value: { name: init.name },
+	registeredKey: init.registeredKey,
 	elemBefore: <init.Icon label="" color="currentColor" spacing="spacious" />,
 	elemAfter: init.shortcut ? (
 		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
@@ -88,6 +109,7 @@ export const action: MemoizedFn<(init: CreateInit) => MenuItem> = mem(
 			content: init.content,
 			tooltipDescription: init.tooltipDescription,
 			disabled: init.disabled,
+			registeredKey: ACTION_MENU_ITEM.key,
 			name: 'action',
 			shortcut: '[]',
 			Icon: () => <TaskIcon label="" color="currentColor" spacing="spacious" />,
@@ -96,29 +118,29 @@ export const action: MemoizedFn<(init: CreateInit) => MenuItem> = mem(
 	},
 );
 
-export const link: MemoizedFn<(init: CreateInit) => MenuItem> = mem(
-	(init: CreateInit): MenuItem =>
-		from({
-			content: init.content,
-			tooltipDescription: init.tooltipDescription,
-			disabled: init.disabled,
-			name: 'link',
-			shortcut: tooltip(addLink),
-			Icon: LinkIcon,
-			'aria-haspopup': init['aria-haspopup'],
-			'aria-keyshortcuts': getAriaKeyshortcuts(addLink),
-		}),
+export const link: MemoizedFn<(init: CreateInit) => MenuItem> = mem((init: CreateInit): MenuItem =>
+	from({
+		content: init.content,
+		tooltipDescription: init.tooltipDescription,
+		disabled: init.disabled,
+		registeredKey: HYPERLINK_MENU_ITEM.key,
+		name: 'link',
+		shortcut: tooltip(addLink),
+		Icon: LinkIcon,
+		'aria-haspopup': init['aria-haspopup'],
+		'aria-keyshortcuts': getAriaKeyshortcuts(addLink),
+	}),
 );
 
-export const media: MemoizedFn<(init: CreateInit) => MenuItem> = mem(
-	(init: CreateInit): MenuItem =>
-		from({
-			content: init.content,
-			tooltipDescription: init.tooltipDescription,
-			disabled: init.disabled,
-			name: 'media',
-			Icon: ImageIcon,
-		}),
+export const media: MemoizedFn<(init: CreateInit) => MenuItem> = mem((init: CreateInit): MenuItem =>
+	from({
+		content: init.content,
+		tooltipDescription: init.tooltipDescription,
+		disabled: init.disabled,
+		registeredKey: MEDIA_INSERT_MENU_ITEM.key,
+		name: 'media',
+		Icon: ImageIcon,
+	}),
 );
 
 export const imageUpload: MemoizedFn<(init: CreateInit) => MenuItem> = mem(
@@ -138,6 +160,7 @@ export const mention: MemoizedFn<(init: CreateInit) => MenuItem> = mem(
 			content: init.content,
 			tooltipDescription: init.tooltipDescription,
 			disabled: init.disabled,
+			registeredKey: MENTION_MENU_ITEM.key,
 			name: 'mention',
 			Icon: MentionIcon,
 			shortcut: '@',
@@ -146,31 +169,31 @@ export const mention: MemoizedFn<(init: CreateInit) => MenuItem> = mem(
 		}),
 );
 
-export const emoji: MemoizedFn<(init: CreateInit) => MenuItem> = mem(
-	(init: CreateInit): MenuItem =>
-		from({
-			content: init.content,
-			tooltipDescription: init.tooltipDescription,
-			disabled: init.disabled,
-			name: 'emoji',
-			Icon: EmojiIcon,
-			shortcut: ':',
-			'aria-haspopup': init['aria-haspopup'],
-			'aria-keyshortcuts': 'Shift+;',
-		}),
+export const emoji: MemoizedFn<(init: CreateInit) => MenuItem> = mem((init: CreateInit): MenuItem =>
+	from({
+		content: init.content,
+		tooltipDescription: init.tooltipDescription,
+		disabled: init.disabled,
+		registeredKey: EMOJI_MENU_ITEM.key,
+		name: 'emoji',
+		Icon: EmojiIcon,
+		shortcut: ':',
+		'aria-haspopup': init['aria-haspopup'],
+		'aria-keyshortcuts': 'Shift+;',
+	}),
 );
 
-export const table: MemoizedFn<(init: CreateInit) => MenuItem> = mem(
-	(init: CreateInit): MenuItem =>
-		from({
-			content: init.content,
-			tooltipDescription: init.tooltipDescription,
-			disabled: init.disabled,
-			name: 'table',
-			Icon: GridIcon,
-			shortcut: tooltip(toggleTable),
-			'aria-keyshortcuts': getAriaKeyshortcuts(toggleTable),
-		}),
+export const table: MemoizedFn<(init: CreateInit) => MenuItem> = mem((init: CreateInit): MenuItem =>
+	from({
+		content: init.content,
+		tooltipDescription: init.tooltipDescription,
+		disabled: init.disabled,
+		registeredKey: TABLE_MENU_ITEM.key,
+		name: 'table',
+		Icon: GridIcon,
+		shortcut: tooltip(toggleTable),
+		'aria-keyshortcuts': getAriaKeyshortcuts(toggleTable),
+	}),
 );
 
 export const tableSelector: MemoizedFn<(init: CreateInit) => MenuItem> = mem(
@@ -179,6 +202,7 @@ export const tableSelector: MemoizedFn<(init: CreateInit) => MenuItem> = mem(
 			content: init.content,
 			tooltipDescription: init.tooltipDescription,
 			disabled: init.disabled,
+			registeredKey: TABLE_MENU_ITEM.key,
 			name: 'table selector',
 			Icon: () => <ChevronDownIcon label="" color="currentColor" size="small" />,
 		}),
@@ -190,6 +214,7 @@ export const layout: MemoizedFn<(init: CreateInit) => MenuItem> = mem(
 			content: init.content,
 			tooltipDescription: init.tooltipDescription,
 			disabled: init.disabled,
+			registeredKey: TWO_COLUMNS_LAYOUT_MENU_ITEM.key,
 			name: 'layout',
 			Icon: LayoutTwoColumnsIcon,
 		}),
@@ -201,6 +226,7 @@ export const codeblock: MemoizedFn<(init: CreateInit & { shortcut?: string }) =>
 			content: init.content,
 			tooltipDescription: init.tooltipDescription,
 			disabled: init.disabled,
+			registeredKey: CODE_BLOCK_MENU_ITEM.key,
 			name: 'codeblock',
 			Icon: AngleBracketsIcon,
 			shortcut: init.shortcut,
@@ -214,6 +240,7 @@ export const panel: MemoizedFn<(init: CreateInit & { shortcut?: string }) => Men
 			content: init.content,
 			tooltipDescription: init.tooltipDescription,
 			disabled: init.disabled,
+			registeredKey: INFO_PANEL_MENU_ITEM.key,
 			name: 'panel',
 			Icon: InformationIcon,
 			shortcut: init.shortcut,
@@ -227,6 +254,7 @@ export const blockquote: MemoizedFn<(init: CreateInit & { shortcut?: string }) =
 			content: init.content,
 			tooltipDescription: init.tooltipDescription,
 			disabled: init.disabled,
+			registeredKey: BLOCKQUOTE_MENU_ITEM.key,
 			name: 'blockquote',
 			Icon: QuotationMarkIcon,
 			shortcut: init.shortcut,
@@ -240,6 +268,7 @@ export const decision: MemoizedFn<(init: CreateInit) => MenuItem> = mem(
 			content: init.content,
 			tooltipDescription: init.tooltipDescription,
 			disabled: init.disabled,
+			registeredKey: DECISION_MENU_ITEM.key,
 			name: 'decision',
 			Icon: DecisionIcon,
 			shortcut: '<>',
@@ -253,6 +282,7 @@ export const horizontalrule: MemoizedFn<(init: CreateInit) => MenuItem> = mem(
 			content: init.content,
 			tooltipDescription: init.tooltipDescription,
 			disabled: init.disabled,
+			registeredKey: RULE_MENU_ITEM.key,
 			name: 'horizontalrule',
 			Icon: HorizontalRuleIcon,
 			shortcut: '---',
@@ -266,22 +296,23 @@ export const expand: MemoizedFn<(init: CreateInit) => MenuItem> = mem(
 			content: init.content,
 			tooltipDescription: init.tooltipDescription,
 			disabled: init.disabled,
+			registeredKey: EXPAND_MENU_ITEM.key,
 			name: 'expand',
 			Icon: (iconProps) => <ExpandNodeIcon label={iconProps.label} size="small" />,
 		}),
 );
 
-export const date: MemoizedFn<(init: CreateInit) => MenuItem> = mem(
-	(init: CreateInit): MenuItem =>
-		from({
-			content: init.content,
-			tooltipDescription: init.tooltipDescription,
-			disabled: init.disabled,
-			name: 'date',
-			Icon: CalendarIcon,
-			shortcut: '//',
-			'aria-keyshortcuts': '/ / Enter',
-		}),
+export const date: MemoizedFn<(init: CreateInit) => MenuItem> = mem((init: CreateInit): MenuItem =>
+	from({
+		content: init.content,
+		tooltipDescription: init.tooltipDescription,
+		disabled: init.disabled,
+		registeredKey: DATE_MENU_ITEM.key,
+		name: 'date',
+		Icon: CalendarIcon,
+		shortcut: '//',
+		'aria-keyshortcuts': '/ / Enter',
+	}),
 );
 
 export const placeholder: MemoizedFn<(init: CreateInit) => MenuItem> = mem(
@@ -290,6 +321,7 @@ export const placeholder: MemoizedFn<(init: CreateInit) => MenuItem> = mem(
 			content: init.content,
 			tooltipDescription: init.tooltipDescription,
 			disabled: init.disabled,
+			registeredKey: PLACEHOLDER_TEXT_MENU_ITEM.key,
 			name: 'placeholder text',
 			Icon: () => <FieldTextIcon label="" spacing="spacious" color="currentColor" />,
 		}),
@@ -301,6 +333,7 @@ export const status: MemoizedFn<(init: CreateInit) => MenuItem> = mem(
 			content: init.content,
 			tooltipDescription: init.tooltipDescription,
 			disabled: init.disabled,
+			registeredKey: STATUS_MENU_ITEM.key,
 			name: 'status',
 			Icon: () => <LozengeIcon label="" color="currentColor" spacing="spacious" />,
 		}),

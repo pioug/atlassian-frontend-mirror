@@ -833,36 +833,6 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 
 	const [editorView, setEditorView] = useState<EditorView | undefined>(undefined);
 
-	// Detects if the editor is nested inside an extension - ie. it is a Legacy Content Extension (LCE)
-	const isNestedEditor = useRef<boolean | null>(null);
-	const isNestedEditorCalculated = useRef(false);
-	if (editorRef.current !== null && !isNestedEditorCalculated.current) {
-		isNestedEditor.current = !!editorRef.current?.closest('.extension-editable-area');
-		isNestedEditorCalculated.current = true;
-	}
-
-	// Preconditioned on the affected population - full page, non nested editors - so that experiment
-	// exposure is not diluted by editors which never run the scroll restoration code below.
-	const scrollRestorePerfEnabled =
-		(!isNestedEditor.current && isFullPage(props.editorProps.appearance)) ||
-		isExperimentEnabled('platform_editor_reduce_forced_layout');
-
-	const originalScrollToRestore = React.useRef(
-		// Reading scrollTop forces a synchronous layout, and this expression is re-evaluated on every
-		// render. Products restore scroll themselves after the document has rendered.
-		!isNestedEditor.current && isFullPage(props.editorProps.appearance) && !scrollRestorePerfEnabled
-			? document.querySelector('[data-editor-scroll-container]')?.scrollTop
-			: undefined,
-	);
-
-	const mitigateScrollJump =
-		// The feature gate here is being used to avoid potential bugs with the scroll restoration code
-		// moving it to the end of the expression negates the point of the feature gate
-		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-		isFullPage(props.editorProps.appearance) &&
-		originalScrollToRestore.current &&
-		originalScrollToRestore.current !== 0;
-
 	useLayoutEffect(() => {
 		if (isSSR()) {
 			// We don't need to focus anything in SSR.
@@ -870,18 +840,16 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 		}
 
 		if (shouldFocus && editorView?.props.editable?.(editorView.state)) {
-			if (!mitigateScrollJump) {
-				const focusesImmediately =
-					isChromeless(props.editorProps.appearance) ||
-					isEmptyDocument(editorView.state.doc) ||
-					pluginInjectionAPI.current.api()?.interaction === undefined;
+			const focusesImmediately =
+				isChromeless(props.editorProps.appearance) ||
+				isEmptyDocument(editorView.state.doc) ||
+				pluginInjectionAPI.current.api()?.interaction === undefined;
 
-				if (focusesImmediately) {
-					focusTimeoutId.current = handleEditorFocus(editorView);
-				}
+			if (focusesImmediately) {
+				focusTimeoutId.current = handleEditorFocus(editorView);
 			}
 		}
-	}, [editorView, shouldFocus, mitigateScrollJump, disabled, props.editorProps.appearance]);
+	}, [editorView, shouldFocus, disabled, props.editorProps.appearance]);
 
 	const scrollElement = React.useRef<Element | null>();
 	const possibleListeners = React.useRef([] as [event: string, handler: (event: Event) => void][]);
@@ -921,7 +889,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 				if (scrollElement.current) {
 					const wheelAbortHandler = (event: Event) => {
 						// Programmatic scrolls are not user interactions and must not abort the load metric.
-						if (scrollRestorePerfEnabled && !event.isTrusted) {
+						if (!event.isTrusted) {
 							return;
 						}
 
@@ -941,7 +909,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 
 					const scrollAbortHandler = (event: Event) => {
 						// Programmatic scrolls are not user interactions and must not abort the load metric.
-						if (scrollRestorePerfEnabled && !event.isTrusted) {
+						if (!event.isTrusted) {
 							return;
 						}
 
@@ -965,15 +933,6 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 				nodeVisibilityManager(node).initialiseNodeObserver();
 
 				const view = createEditorView(node);
-
-				if (mitigateScrollJump) {
-					const scrollElement = document.querySelector('[data-editor-scroll-container]');
-
-					scrollElement?.scrollTo({
-						top: originalScrollToRestore.current,
-						behavior: 'instant',
-					});
-				}
 
 				onEditorCreated({
 					view,
@@ -1016,15 +975,7 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 				viewRef.current = undefined;
 			}
 		},
-		[
-			createEditorView,
-			onEditorCreated,
-			eventDispatcher,
-			onEditorDestroyed,
-			handleAnalyticsEvent,
-			mitigateScrollJump,
-			scrollRestorePerfEnabled,
-		],
+		[createEditorView, onEditorCreated, eventDispatcher, onEditorDestroyed, handleAnalyticsEvent],
 	);
 
 	const isPageAppearance = isFullPage(nextAppearance) || nextAppearance === 'max';
@@ -1056,10 +1007,8 @@ export function ReactEditorView(props: EditorViewProps): React.JSX.Element {
 					data-vc-ignore-if-no-layout-shift={true}
 					data-ssr-placeholder="editor-view"
 					data-ssr-placeholder-replace="editor-view"
-					data-gramm={
-						isExperimentEnabled('platform_editor_reduce_forced_layout') ? 'false' : undefined
-					}
-					translate={isExperimentEnabled('platform_editor_reduce_forced_layout') ? 'no' : undefined}
+					data-gramm="false"
+					translate="no"
 					// eslint-disable-next-line react/no-danger -- needed for SSR and hydration so react keeps the HTML untouched
 					dangerouslySetInnerHTML={{ __html: '' }}
 				/>

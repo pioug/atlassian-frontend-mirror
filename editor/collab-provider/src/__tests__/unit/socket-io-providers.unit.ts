@@ -48,6 +48,47 @@ describe('Socket io provider', () => {
 			expect((socket as any).io.engine.opts.path).toEqual('/ccollab/socket.io/');
 		});
 
+		describe('Mesh hash header', () => {
+			const header = 'atl-paas-mesh-hash';
+
+			it('send a random UUID per socket for GCP editing and FG on', () => {
+				jest.mocked(isGoogleCloudPlatform).mockReturnValue(true);
+				passGate('platform_editor_gcp_sticky_session');
+				const first = createSocketIOSocket(gcpUrl);
+				const second = createSocketIOSocket(gcpUrl);
+
+				const firstHash = (first.io.opts.extraHeaders as Record<string, string>)[header];
+				const secondHash = (second.io.opts.extraHeaders as Record<string, string>)[header];
+				expect(firstHash).toMatch(
+					/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/u,
+				);
+				expect(secondHash).not.toEqual(firstHash);
+			});
+
+			it('not send the header for GCP editing and FG off', () => {
+				jest.mocked(isGoogleCloudPlatform).mockReturnValue(true);
+				failGate('platform_editor_gcp_sticky_session');
+				const socket = createSocketIOSocket(gcpUrl);
+
+				expect(socket.io.opts.extraHeaders).not.toHaveProperty(header);
+			});
+
+			it('not send the header for non-GCP editing', () => {
+				const socket = createSocketIOSocket(url);
+
+				expect(socket.io.opts.extraHeaders).not.toHaveProperty(header);
+			});
+
+			it('not send the header for presence on GCP', () => {
+				jest.mocked(isGoogleCloudPlatform).mockReturnValue(true);
+				failGate('platform_editor_presence_ws_first_with_fallback');
+				const socket = createSocketIOSocket(gcpUrl, undefined, undefined, true);
+
+				expect(socket.io.opts.extraHeaders).not.toHaveProperty(header);
+				expect(fg).not.toHaveBeenCalledWith('platform_editor_gcp_sticky_session');
+			});
+		});
+
 		describe('Transports', () => {
 			it('use polling and websocket transports when collab editing', () => {
 				const socket = createSocketIOSocket(url);

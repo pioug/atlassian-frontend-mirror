@@ -27,6 +27,8 @@ const reducer = (pluginState: StickyPluginState, action: StickyPluginAction): St
 		return updatedState;
 	} else if (action.name === 'REMOVE') {
 		return pluginState.filter((rowState) => rowState.pos !== action.pos);
+	} else if (action.name === 'REPLACE') {
+		return action.state;
 	}
 
 	return pluginState;

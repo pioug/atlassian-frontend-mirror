@@ -1,7 +1,5 @@
 import faker from 'faker';
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-
 import { teamsClientMocks } from '../../mocks/with-faker';
 import { type LinkOrder, type TeamLink } from '../../types/links';
 import { type TeamWithMemberships } from '../../types/membership';
@@ -40,11 +38,6 @@ jest.mock('../rest-client', () => {
 		patchResource: jest.fn(),
 	};
 });
-
-jest.mock('@atlaskit/platform-feature-flags/fg', () => ({
-	...jest.requireActual('@atlaskit/platform-feature-flags/fg'),
-	fg: jest.fn(),
-}));
 
 const legionClient = defaultLegionClient;
 
@@ -1256,7 +1249,6 @@ describe('legion-client', () => {
 	});
 
 	describe('getWriteMediaToken', () => {
-		const TEAM_SCOPED_HEADER_IMAGE_UPLOAD_GATE = 'ptc-enable-team-scoped-header-image-media-upload';
 		const mockResponse = {
 			token: 'token',
 			headerImageId: 'header-id',
@@ -1268,23 +1260,7 @@ describe('legion-client', () => {
 			mockGetResource.mockReturnValue(Promise.resolve(mockResponse));
 		});
 
-		it('should use unscoped endpoint when feature gate is off', async () => {
-			(fg as jest.Mock).mockReturnValue(false);
-
-			const result = await legionClient.getWriteMediaToken(sampleTeam.id);
-
-			expect(mockGetResource).toHaveBeenCalledWith(`${v4UrlPath}/header-image/media-upload`);
-			expect(result).toEqual({
-				...mockResponse,
-				baseUrl: 'https://media.example.com',
-			});
-		});
-
-		it('should use team-scoped endpoint when feature gate is on', async () => {
-			(fg as jest.Mock).mockImplementation(
-				(flag: string) => flag === TEAM_SCOPED_HEADER_IMAGE_UPLOAD_GATE,
-			);
-
+		test('should use team-scoped endpoint and normalize the media base URL', async () => {
 			const result = await legionClient.getWriteMediaToken(sampleTeam.id);
 
 			expect(mockGetResource).toHaveBeenCalledWith(
@@ -1296,11 +1272,7 @@ describe('legion-client', () => {
 			});
 		});
 
-		it('should trim team ARI when using team-scoped endpoint', async () => {
-			(fg as jest.Mock).mockImplementation(
-				(flag: string) => flag === TEAM_SCOPED_HEADER_IMAGE_UPLOAD_GATE,
-			);
-
+		test('should trim team ARI when using team-scoped endpoint', async () => {
 			await legionClient.getWriteMediaToken(`ari:cloud:identity::team/${sampleTeam.id}`);
 
 			expect(mockGetResource).toHaveBeenCalledWith(
@@ -1308,12 +1280,13 @@ describe('legion-client', () => {
 			);
 		});
 
-		it('should fall back to unscoped endpoint when gate is on but teamId is missing', async () => {
-			(fg as jest.Mock).mockReturnValue(true);
+		test.each([undefined, ''])(
+			'should fall back to unscoped endpoint for teamId %p',
+			async (teamId) => {
+				await legionClient.getWriteMediaToken(teamId);
 
-			await legionClient.getWriteMediaToken();
-
-			expect(mockGetResource).toHaveBeenCalledWith(`${v4UrlPath}/header-image/media-upload`);
-		});
+				expect(mockGetResource).toHaveBeenCalledWith(`${v4UrlPath}/header-image/media-upload`);
+			},
+		);
 	});
 });

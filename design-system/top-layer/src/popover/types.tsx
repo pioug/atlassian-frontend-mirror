@@ -214,8 +214,10 @@ type TPopoverBaseProps = {
  *   `popover='hint'` support, meaning the hint will close any other `auto`
  *   popovers in those browsers. If cross-browser uniformity matters more
  *   than the no-close behaviour, pass `auto` explicitly.
- * - `'manual'`: no light dismiss. Consumer controls show/hide entirely. Only
- *   appropriate for persistent UI (e.g. flags, banners).
+ * - `'manual'`: no light dismiss. Consumer controls show/hide entirely. Use it
+ *   for persistent UI (e.g. flags, banners), or with `useManualLightDismiss` for
+ *   a popover whose owner can refuse the close (an outside press or Escape asks,
+ *   and the popover hides when `isOpen` becomes `false`).
  */
 export type TPopoverProps = TPopoverBaseProps &
 	TAriaRoleRequired &
@@ -241,6 +243,11 @@ export type TPopoverProps = TPopoverBaseProps &
 				onClose: (args: { reason: TPopoverCloseReason }) => void;
 		  }
 		| {
+				/**
+				 * Hides only when `isOpen` becomes `false`. As it hides, it returns focus and hides the
+				 * popovers inside it, as an `auto` popover does. For light dismiss, use
+				 * `useManualLightDismiss`.
+				 */
 				mode: 'manual';
 				/**
 				 * Makes the popover closable. When provided,

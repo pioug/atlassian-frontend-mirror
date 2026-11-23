@@ -21,6 +21,14 @@ import { TRANSFORM_STRUCTURE_MENU_SECTION_RANK } from '@atlaskit/editor-common/b
 import IconCustomPanel from '@atlaskit/editor-common/custom-panel';
 import { messages as blockTypeMessages } from '@atlaskit/editor-common/messages/block-type';
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory/quick-insert-provider';
+import {
+	CUSTOM_PANEL_MENU_ITEM,
+	ERROR_PANEL_MENU_ITEM,
+	INFO_PANEL_MENU_ITEM,
+	NOTE_PANEL_MENU_ITEM,
+	SUCCESS_PANEL_MENU_ITEM,
+	WARNING_PANEL_MENU_ITEM,
+} from '@atlaskit/editor-common/quick-insert/keys';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -148,6 +156,7 @@ const panelPlugin: PanelPlugin = ({
 							const quickInsertOptions: QuickInsertItem[] = [
 								{
 									id: 'infopanel',
+									registeredKey: INFO_PANEL_MENU_ITEM.key,
 									title: formatMessage(blockTypeMessages.infoPanel),
 									keywords: ['panel'],
 									description: formatMessage(blockTypeMessages.infoPanelDescription),
@@ -164,6 +173,7 @@ const panelPlugin: PanelPlugin = ({
 								},
 								{
 									id: 'notepanel',
+									registeredKey: NOTE_PANEL_MENU_ITEM.key,
 									title: formatMessage(blockTypeMessages.notePanel),
 									description: formatMessage(blockTypeMessages.notePanelDescription),
 									priority: 1000,
@@ -179,6 +189,7 @@ const panelPlugin: PanelPlugin = ({
 								},
 								{
 									id: 'successpanel',
+									registeredKey: SUCCESS_PANEL_MENU_ITEM.key,
 									title: formatMessage(blockTypeMessages.successPanel),
 									description: formatMessage(blockTypeMessages.successPanelDescription),
 									keywords: ['tip'],
@@ -195,6 +206,7 @@ const panelPlugin: PanelPlugin = ({
 								},
 								{
 									id: 'warningpanel',
+									registeredKey: WARNING_PANEL_MENU_ITEM.key,
 									title: formatMessage(blockTypeMessages.warningPanel),
 									description: formatMessage(blockTypeMessages.warningPanelDescription),
 									priority: 1000,
@@ -210,6 +222,7 @@ const panelPlugin: PanelPlugin = ({
 								},
 								{
 									id: 'errorpanel',
+									registeredKey: ERROR_PANEL_MENU_ITEM.key,
 									title: formatMessage(blockTypeMessages.errorPanel),
 									description: formatMessage(blockTypeMessages.errorPanelDescription),
 									priority: 1000,
@@ -227,6 +240,7 @@ const panelPlugin: PanelPlugin = ({
 							if (allowCustomPanel && allowCustomPanelEdit) {
 								quickInsertOptions.push({
 									id: 'custompanel',
+									registeredKey: CUSTOM_PANEL_MENU_ITEM.key,
 									title: formatMessage(blockTypeMessages.customPanel),
 									description: formatMessage(blockTypeMessages.customPanelDescription),
 									priority: 1000,

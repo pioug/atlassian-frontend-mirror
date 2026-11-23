@@ -8,7 +8,7 @@ import { AddNodeMarkStep } from '@atlaskit/editor-prosemirror/transform';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import RendererActions from '../../../../../actions';
-import { ReactSerializer } from '../../../../../index';
+import { ReactSerializer } from '../../../../../entry-points/serializer-default';
 import { getPosFromRange } from '../../../../../steps';
 import { ProvidersContext } from '../../../context';
 import { AnnotationHoverContext } from '../../AnnotationHoverContext';

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/agent-color",
-	"version": "1.1.0",
+	"version": "1.2.0",
 	"description": "Stable colour selection for agents",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -15,7 +15,7 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
-		"team": "AI Mate"
+		"team": "Rovo Agents"
 	},
 	"exports": {
 		".": "./src/index.ts",
@@ -25,7 +25,11 @@
 		"./get-agent-presence-color": "./src/get-agent-presence-color.ts",
 		"./get-third-party-agent-color": "./src/get-third-party-agent-color.ts"
 	},
+	"devDependencies": {
+		"@atlassian/feature-flags-test-utils": "workspace:^"
+	},
 	"dependencies": {
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@babel/runtime": "root:*"
 	}

@@ -1,5 +1,4 @@
 import type { Mark, MarkSpec } from '@atlaskit/editor-prosemirror/model';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import { backgroundColor as backgroundColorFactory } from '../../next-schema/generated/markTypes';
@@ -112,25 +111,13 @@ const getBackgroundColor = (value: string): TextColorAttributes | false => {
 export const backgroundColor: MarkSpec = backgroundColorFactory({
 	parseDOM: [
 		{
-			style: 'background-color',
-			getAttrs: (maybeValue) => {
-				if (isExperimentEnabled('platform_editor_fix_table_cell_background')) {
-					return false;
-				}
-				return getBackgroundColor(maybeValue as string);
-			},
-		},
-		{
 			// the table cell and background color palettes overlap on Blue and Green, so
 			// we need to exclude table cells to avoid parsing table cell background as background color
 			tag: '[style]:not(td):not(th)',
 			consuming: false,
 			priority: 60,
 			getAttrs: (maybeElement) => {
-				if (
-					!isExperimentEnabled('platform_editor_fix_table_cell_background') ||
-					!(maybeElement instanceof HTMLElement)
-				) {
+				if (!(maybeElement instanceof HTMLElement)) {
 					return false;
 				}
 				return getBackgroundColor(maybeElement.style.backgroundColor);

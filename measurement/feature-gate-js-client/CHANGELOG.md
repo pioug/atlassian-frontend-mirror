@@ -1,5 +1,12 @@
 # @atlaskit/feature-gate-js-client
 
+## 8.0.2
+
+### Patch Changes
+
+- [`889b32d5279d4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/889b32d5279d4) -
+  Disable Statsig exposure logging in the Apple isolation context.
+
 ## 8.0.1
 
 ### Patch Changes

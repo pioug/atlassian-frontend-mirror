@@ -27,7 +27,7 @@ export enum AiSuggestionsEntryPointValue {
 	CONTEXTUAL_NUDGE = 'contextualNudge',
 }
 export type AiSuggestionsEntryPoint = `${AiSuggestionsEntryPointValue}`;
-export type AiSuggestionInteractionPoint = 'sidebar' | 'card' | 'statusBar';
+export type AiSuggestionInteractionPoint = 'sidebar' | 'card' | 'statusBar' | 'rovoChat';
 export enum AiSuggestionsRightRailEntryPointValue {
 	SUGGESTIONS_PANEL = 'suggestionsPanel',
 	SUGGESTIONS_TAB = 'suggestionsTab', // Will be deprecated.

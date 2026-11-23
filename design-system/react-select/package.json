@@ -119,9 +119,6 @@
 		"platform-dst-top-layer": {
 			"type": "boolean"
 		},
-		"platform_dst_select_dropdown_voice_control": {
-			"type": "boolean"
-		},
 		"platform-dst-motion-uplift-input": {
 			"type": "boolean",
 			"referenceOnly": true

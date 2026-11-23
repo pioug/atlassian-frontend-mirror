@@ -4,6 +4,7 @@ import { useLayoutEffect } from '@atlaskit/ds-lib/use-layout-effect';
 
 import { isNativeElementOpen } from '../is-native-element-open';
 import { layerShowOrder } from '../layer-show';
+import { pendingFocusReturns } from '../manual-hide/pending-focus-returns';
 import { getFocusInside } from './get-focus-inside';
 import { restoreFocusAtHide } from './restore-focus-at-hide';
 import { runAutofocusStep } from './run-autofocus-step';
@@ -170,6 +171,15 @@ export function useSyncNativeOpen({
 			currentShow.cancel = layerShowOrder.queueOrShow({
 				element,
 				show() {
+					/**
+					 * A layer that shows again before the focus return of its last hide ran (a reopen during
+					 * the exit animation, or a StrictMode re-show) keeps focus where it is. The returns of
+					 * the other layers that hid run now, so this layer records the element that they move
+					 * focus to as the element to return focus to (for example a modal dialog that a menu
+					 * item opens as the menu closes).
+					 */
+					pendingFocusReturns.cancel({ element });
+					pendingFocusReturns.runAll();
 					show({ element });
 					currentShow.focusAtShow = { after: element.ownerDocument.activeElement };
 					// A layer that waited shows after its content effects ran, so it finishes at once.

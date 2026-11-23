@@ -1,5 +1,23 @@
 # @atlaskit/datetime-picker
 
+## 19.5.3
+
+### Patch Changes
+
+- [`ff204d5191915`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ff204d5191915) -
+  Behind `platform-dst-top-layer`, focus that a closing layer returns to the date input no longer
+  changes whether the calendar is open.
+- Updated dependencies
+
+## 19.5.2
+
+### Patch Changes
+
+- [`76c81dc43fef7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76c81dc43fef7) -
+  Behind `platform-dst-top-layer`, focus that a closing layer returns to the date input no longer
+  changes whether the calendar is open.
+- Updated dependencies
+
 ## 19.5.1
 
 ### Patch Changes

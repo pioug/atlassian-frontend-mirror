@@ -24,8 +24,9 @@ import {
 import type { PlaywrightCoverageOptions } from '@af/integration-testing/fixtures';
 import type { DocNode } from '@atlaskit/adf-schema/doc';
 import type { GasPurePayload } from '@atlaskit/analytics-gas-types';
-import type { RendererProps } from '@atlaskit/renderer/core';
 import type { EditorExperimentOverrides } from '@atlaskit/tmp-editor-statsig/setup';
+
+import type { RendererProps } from '../../entry-points/renderer-default';
 
 class AnnotationModel {
 	private constructor(private page: Page) {}

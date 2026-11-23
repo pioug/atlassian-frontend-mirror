@@ -17,6 +17,7 @@ import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gat
 import { MediaViewer } from '../../../';
 import * as fireAnalyticsModule from '../../../analytics/fireAnalytics';
 import * as ufoWrapper from '../../../analytics/ufoExperiences';
+import { loadMediaViewerChunk } from '../../../chunkLoaders';
 import {
 	type MediaViewerExtensions,
 	type MediaViewerNavigationDirection,
@@ -123,6 +124,9 @@ describe('<MediaViewer />', () => {
 	it('should have the role dialog for blanket', async () => {
 		const [fileItem, identifier] = generateSampleFileItem.workingVideo();
 		const { mediaApi } = createMockedMediaApi(fileItem);
+		// The viewer renders behind a lazy() boundary. Load its chunk here so a cold transform does not
+		// count against findByRole's timeout, rather than relying on an earlier test to have loaded it.
+		await loadMediaViewerChunk();
 
 		render(
 			<MockedMediaClientProvider mockedMediaApi={mediaApi}>
@@ -135,7 +139,7 @@ describe('<MediaViewer />', () => {
 			</MockedMediaClientProvider>,
 		);
 
-		const blanketComponent = screen.getByRole('dialog');
+		const blanketComponent = await screen.findByRole('dialog');
 		expect(blanketComponent).toBeVisible();
 		expect(blanketComponent).toHaveAttribute('aria-modal', 'true');
 		expect(blanketComponent).toHaveAttribute('aria-labelledby', 'media.media-viewer.file.name');

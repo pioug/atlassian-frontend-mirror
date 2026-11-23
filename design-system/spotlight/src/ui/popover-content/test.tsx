@@ -5,7 +5,7 @@ import React from 'react';
 
 import { Text } from '@atlaskit/primitives/compiled/text';
 import { screen } from '@atlassian/testing-library/screen';
-import { fireEvent, render } from '@atlassian/testing-library/testing-library/react';
+import { act, fireEvent, render } from '@atlassian/testing-library/testing-library/react';
 
 import { SpotlightActions } from '../actions';
 import { SpotlightBody } from '../body';
@@ -186,7 +186,7 @@ describe('PopoverContent', () => {
 			);
 		});
 
-		it('dismisses on outside click and respects shouldDismissOnClickOutside', () => {
+		it('dismisses on outside click and respects shouldDismissOnClickOutside', async () => {
 			const mockDismiss = jest.fn();
 			const { rerender } = render(
 				<PopoverProvider>
@@ -209,6 +209,10 @@ describe('PopoverContent', () => {
 			fireEvent.pointerDown(document.body);
 			fireEvent.pointerUp(document.body);
 			fireEvent.click(document.body);
+			// `useManualLightDismiss` asks in a task after the press (after its `click`).
+			await act(async () => {
+				await new Promise((resolve) => setTimeout(resolve, 0));
+			});
 			expect(mockDismiss).toHaveBeenCalledWith(expect.objectContaining({ type: 'click' }));
 
 			mockDismiss.mockClear();
@@ -235,10 +239,14 @@ describe('PopoverContent', () => {
 			fireEvent.pointerDown(document.body);
 			fireEvent.pointerUp(document.body);
 			fireEvent.click(document.body);
+			// `useManualLightDismiss` asks in a task after the press (after its `click`).
+			await act(async () => {
+				await new Promise((resolve) => setTimeout(resolve, 0));
+			});
 			expect(mockDismiss).not.toHaveBeenCalled();
 		});
 
-		it('does not dismiss when clicking inside the top-layer popover', () => {
+		it('does not dismiss when clicking inside the top-layer popover', async () => {
 			const mockDismiss = jest.fn();
 
 			render(
@@ -261,6 +269,9 @@ describe('PopoverContent', () => {
 			fireEvent.pointerDown(screen.getByTestId('spotlight-popover-content'));
 			fireEvent.pointerUp(screen.getByTestId('spotlight-popover-content'));
 			fireEvent.click(screen.getByTestId('spotlight-popover-content'));
+			await act(async () => {
+				await new Promise((resolve) => setTimeout(resolve, 0));
+			});
 
 			expect(mockDismiss).not.toHaveBeenCalled();
 		});
@@ -278,7 +289,7 @@ describe('PopoverContent', () => {
 			});
 		});
 
-		it('should dismiss popover when clicking outside by default (shouldDismissOnClickOutside=true)', () => {
+		it('should dismiss popover when clicking outside by default (shouldDismissOnClickOutside=true)', async () => {
 			const mockDismiss = jest.fn();
 
 			render(
@@ -313,6 +324,10 @@ describe('PopoverContent', () => {
 			fireEvent.pointerDown(outsideElement);
 			fireEvent.pointerUp(outsideElement);
 			fireEvent.click(outsideElement);
+			// `useManualLightDismiss` asks in a task after the press (after its `click`).
+			await act(async () => {
+				await new Promise((resolve) => setTimeout(resolve, 0));
+			});
 
 			// Should call dismiss
 			expect(mockDismiss).toHaveBeenCalledTimes(1);
@@ -323,7 +338,7 @@ describe('PopoverContent', () => {
 			);
 		});
 
-		it('should dismiss popover when clicking outside with default prop behavior (prop not specified)', () => {
+		it('should dismiss popover when clicking outside with default prop behavior (prop not specified)', async () => {
 			const mockDismiss = jest.fn();
 
 			render(
@@ -358,6 +373,10 @@ describe('PopoverContent', () => {
 			fireEvent.pointerDown(outsideElement);
 			fireEvent.pointerUp(outsideElement);
 			fireEvent.click(outsideElement);
+			// `useManualLightDismiss` asks in a task after the press (after its `click`).
+			await act(async () => {
+				await new Promise((resolve) => setTimeout(resolve, 0));
+			});
 
 			// Should call dismiss (default behavior)
 			expect(mockDismiss).toHaveBeenCalledTimes(1);
@@ -368,7 +387,7 @@ describe('PopoverContent', () => {
 			);
 		});
 
-		it('should NOT dismiss popover when clicking outside if shouldDismissOnClickOutside=false', () => {
+		it('should NOT dismiss popover when clicking outside if shouldDismissOnClickOutside=false', async () => {
 			const mockDismiss = jest.fn();
 
 			render(
@@ -403,6 +422,10 @@ describe('PopoverContent', () => {
 			fireEvent.pointerDown(outsideElement);
 			fireEvent.pointerUp(outsideElement);
 			fireEvent.click(outsideElement);
+			// `useManualLightDismiss` asks in a task after the press (after its `click`).
+			await act(async () => {
+				await new Promise((resolve) => setTimeout(resolve, 0));
+			});
 
 			// Should NOT call dismiss
 			expect(mockDismiss).not.toHaveBeenCalled();

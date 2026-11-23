@@ -6,7 +6,7 @@ import { getExampleExtensionProviders } from '@atlaskit/editor-test-helpers/exam
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 
-import { default as Renderer } from '../src/ui/Renderer';
+import { Renderer } from '../src/entry-points/renderer-default';
 import adf from './helper/multi-bodied-extension-demo.adf.json';
 import { createRendererWindowBindings } from './helper/testing-setup';
 

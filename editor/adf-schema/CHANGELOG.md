@@ -1,5 +1,25 @@
 # @atlaskit/adf-schema
 
+## 57.7.50
+
+### Patch Changes
+
+- [`030d3ce5ff027`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/030d3ce5ff027) -
+  Make the table cell background parsing fix permanent so cell colours are not interpreted as text
+  highlights.
+
+## 57.7.49
+
+### Patch Changes
+
+- Updated dependencies
+
+## 57.7.48
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 57.7.47
 
 ### Patch Changes

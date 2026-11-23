@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { requestClosePopovers } from '@atlaskit/top-layer/page-surface/request-close-popovers';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
-import { act, render } from '@atlassian/testing-library/testing-library/react';
+import { act, render, waitFor } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { Popup } from '../../popup';
@@ -129,7 +129,7 @@ describe('Popup mode="manual" with platform-dst-top-layer', () => {
 
 		// As an auto light dismiss: the popup closes, and focus does not return to the trigger.
 		expect(onClose).toHaveBeenCalledTimes(1);
-		expect(screen.queryByTestId('popup')).not.toBeInTheDocument();
+		await waitFor(() => expect(screen.queryByTestId('popup')).not.toBeInTheDocument());
 		expect(screen.getByRole('button', { name: 'Trigger' })).not.toHaveFocus();
 	});
 
@@ -169,10 +169,10 @@ describe('Popup mode="manual" with platform-dst-top-layer', () => {
 		expect(screen.getByTestId('popup--container')).toHaveAttribute('popover', 'manual');
 	});
 
-	it('renders an auto popover by default', () => {
+	it('renders a manual popover by default', () => {
 		render(<PinnablePopup onClose={jest.fn()} />);
 
-		expect(screen.getByTestId('popup--container')).toHaveAttribute('popover', 'auto');
+		expect(screen.getByTestId('popup--container')).toHaveAttribute('popover', 'manual');
 	});
 
 	it.each([['auto' as const], ['manual' as const]])(

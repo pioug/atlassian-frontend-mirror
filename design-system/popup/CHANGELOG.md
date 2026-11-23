@@ -1,5 +1,26 @@
 # @atlaskit/popup
 
+## 10.2.8
+
+### Patch Changes
+
+- [`fe6b07c02e4f7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fe6b07c02e4f7) -
+  Make released popup initial-focus forwarding and trigger focus restoration permanent after feature
+  gate cleanup.
+- [`ff204d5191915`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ff204d5191915) -
+  Behind `platform-dst-top-layer`, the layer asks `onClose` before it closes, so a consumer that
+  keeps `isOpen` `true` keeps it open.
+- Updated dependencies
+
+## 10.2.7
+
+### Patch Changes
+
+- [`76c81dc43fef7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76c81dc43fef7) -
+  Behind `platform-dst-top-layer`, the layer asks `onClose` before it closes, so a consumer that
+  keeps `isOpen` `true` keeps it open.
+- Updated dependencies
+
 ## 10.2.6
 
 ### Patch Changes

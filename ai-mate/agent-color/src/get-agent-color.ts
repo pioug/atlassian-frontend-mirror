@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
 export type AgentColor = 'yellow' | 'purple' | 'lime' | 'blue';
 
 export type GetAgentColorProps = {
@@ -46,6 +48,16 @@ const NAMED_AGENT_COLORS: Readonly<Record<string, AgentColor>> = {
 	jira_coding_agent: 'blue',
 };
 
+// After rollout, merge these aliases into NAMED_AGENT_COLORS and remove the gate below.
+const ADDITIONAL_NAMED_AGENT_COLORS: Readonly<Record<string, AgentColor>> = {
+	codex_for_jira_agent: 'blue',
+	ai_mate_agent: 'blue',
+	document_writer: 'blue',
+	jira_task_planner_agent: 'blue',
+	jira_delivery_agent: 'blue',
+	jsm_service_triage_agent: 'yellow',
+};
+
 /**
  * Selects the stable palette Agent Studio uses for an agent. A named agent takes precedence;
  * otherwise the identity account ID, then the agent ID, determines the palette.
@@ -55,7 +67,10 @@ export const getAgentColor = ({
 	agentNamedId,
 	agentIdentityAccountId,
 }: GetAgentColorProps): AgentColor => {
-	const namedAgentColor = agentNamedId ? NAMED_AGENT_COLORS[agentNamedId] : undefined;
+	const agentColors = fg('rovo_agents_studio_use_agent_color')
+		? { ...NAMED_AGENT_COLORS, ...ADDITIONAL_NAMED_AGENT_COLORS }
+		: NAMED_AGENT_COLORS;
+	const namedAgentColor = agentNamedId ? agentColors[agentNamedId] : undefined;
 	if (namedAgentColor) {
 		return namedAgentColor;
 	}

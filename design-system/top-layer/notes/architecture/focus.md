@@ -89,6 +89,9 @@ Two consequences:
 - `useArrowNavigation` closes its menu on Tab in the capture phase on the document, before the
   dialog's listener. Focus returns to the trigger, and the dialog moves on from there. Arrow keys
   keep to the menu's own layer (`isInContainerLayer`).
+- `useArrowNavigation` skips a key that a nested menu already acted on (`defaultPrevented`), so one
+  key acts on one menu level. Closing a nested menu returns focus to its trigger, in the menu around
+  it, before the outer menu's listener runs.
 
 Two edges follow the browser's own Tab order: focus inside an `<iframe>` (its keydown does not reach
 us), and a nested product-built `role="dialog"` layer that does not wrap focus itself.
@@ -459,9 +462,9 @@ browser preserves the user's click context rather than yanking focus back to the
 This is the correct behavior per WCAG — the click event still fires on the clicked element, and
 focus stays where the user intended.
 
-A manual popover closes through `isOpen={false}`, which our fallback treats as a programmatic close.
-So `useManualLightDismiss` blurs focus that an outside press left inside the popover before it calls
-`onClose`, and the close does not return focus, as with native light dismiss.
+A manual popover closes through `isOpen={false}`, which `Popover` treats as a programmatic close. So
+`useManualLightDismiss` marks its request while the owner's answer commits, and `Popover` returns no
+focus for that close, as with native light dismiss.
 
 ### Why Dialog and Popover differ on light dismiss — and why that's correct
 
@@ -548,7 +551,10 @@ not moved back. `dropdown-menu`'s `returnFocusRef` is a no-op on this path
 
 Native restoration and the internal fallback finish before `onClose` is called. Consumers can focus
 their chosen destination synchronously in `onClose`. No delay, such as `requestAnimationFrame`, is
-needed to wait for restoration.
+needed to wait for restoration. The DS wrappers that ask first (`Popup`, `DropdownMenu`,
+`PopupSelect`, `InlineDialog`) call `onClose` before the layer hides. Focus that `onClose` moves out
+of the layer stays: the focus return runs only when focus has no place. See
+[`../decisions/wrappers-ask-first-close.md`](../decisions/wrappers-ask-first-close.md).
 
 ---
 

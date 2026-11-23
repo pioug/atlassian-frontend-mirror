@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { default as Renderer } from '../src/ui/Renderer';
+import { Renderer } from '../src/entry-points/renderer-default';
 
 type Document = {
 	content: {

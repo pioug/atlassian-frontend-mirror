@@ -15,7 +15,7 @@ import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-hel
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import type { Context } from '@atlaskit/editor-wikimarkup-transformer/interfaces';
 import type { MentionProvider } from '@atlaskit/mention/types';
-import ReactRenderer from '@atlaskit/renderer/renderer';
+import { Renderer as ReactRenderer } from '@atlaskit/renderer/default';
 import { token } from '@atlaskit/tokens';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';

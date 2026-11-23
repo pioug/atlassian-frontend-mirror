@@ -29,6 +29,7 @@ import { PopoverSurface } from '@atlaskit/top-layer/popover-surface';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
 import type { TPopoverCloseReason } from '@atlaskit/top-layer/popover/types';
 import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
+import { useManualLightDismiss } from '@atlaskit/top-layer/use-manual-light-dismiss';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 import Select from '../select';
@@ -320,10 +321,11 @@ function PopupSelectTopLayerInner<
 		});
 	}, [isOpen, open, close]);
 
-	// Focus restoration on close is handled automatically by Popover
-	// based on the content role (role="dialog" -> auto-restore).
+	// Focus return: `Popover` returns focus to the opener as the popup hides after Escape or a
+	// close from `isOpen`, as the browser does for an `auto` popover. An outside press leaves focus
+	// where the user pressed.
 	const handleOnClose = useCallback(
-		({ reason: _reason }: { reason: TPopoverCloseReason }) => {
+		(_args: { reason: TPopoverCloseReason }) => {
 			if (isControlled) {
 				// For controlled mode, notify consumer but do not change internal state
 				onClose?.();
@@ -334,6 +336,22 @@ function PopupSelectTopLayerInner<
 		},
 		[close, isControlled, onClose, onMenuClose],
 	);
+
+	/**
+	 * **Ask first, close second**
+	 *
+	 * A `manual` popover, so the browser never closes it. An outside press or Escape asks to close
+	 * (with a controlled `isOpen`, through `onClose`), and the popup hides only when `isOpen` becomes
+	 * `false`. A press on the trigger does not ask: the trigger click toggles the popup, as on the
+	 * legacy path. See `@atlaskit/top-layer` `notes/decisions/wrappers-ask-first-close.md`.
+	 */
+	const triggerRefs = useMemo(() => [triggerRef], []);
+	useManualLightDismiss({
+		isOpen,
+		popoverRef,
+		additionalInsideElementRefs: triggerRefs,
+		onClose: handleOnClose,
+	});
 
 	const handleSelectChange = useCallback(
 		(value: ValueType<Option, IsMulti>, actionMeta: ActionMeta<Option>) => {
@@ -406,6 +424,7 @@ function PopupSelectTopLayerInner<
 				role="dialog"
 				label={getLabel() ?? 'Popup select'}
 				isOpen={isOpen}
+				mode="manual"
 				onClose={handleOnClose}
 				shouldAnimate
 				placement={topLayerPlacement}

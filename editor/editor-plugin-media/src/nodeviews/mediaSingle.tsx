@@ -30,7 +30,6 @@ import {
 import { isNodeSelectedOrInRange } from '@atlaskit/editor-common/utils/nodes';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, DecorationSource, EditorView } from '@atlaskit/editor-prosemirror/view';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
 import { MEDIA_CONTENT_WRAP_CLASS_NAME } from '../pm-plugins/main';
@@ -145,10 +144,7 @@ const shouldSkipOffsetLeftRead = (mediaOptions: MediaOptions | undefined): boole
 	const allowPixelResizing = Boolean(mediaOptions && mediaOptions.allowPixelResizing);
 	const allowResizing = Boolean(mediaOptions && mediaOptions.allowResizing);
 
-	return (
-		(allowPixelResizing || !allowResizing) &&
-		isExperimentEnabled('platform_editor_reduce_forced_layout')
-	);
+	return allowPixelResizing || !allowResizing;
 };
 
 class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {

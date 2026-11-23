@@ -10,6 +10,7 @@ import {
 } from '@atlaskit/editor-common/analytics/types/enums';
 import { IconDivider } from '@atlaskit/editor-common/assets';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
+import { RULE_MENU_ITEM } from '@atlaskit/editor-common/quick-insert/keys';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
@@ -85,6 +86,7 @@ export const rulePlugin: RulePlugin = ({ api }) => {
 				: ({ formatMessage }) => [
 						{
 							id: 'rule',
+							registeredKey: RULE_MENU_ITEM.key,
 							title: formatMessage(messages.horizontalRule),
 							description: formatMessage(messages.horizontalRuleDescription),
 							keywords: ['horizontal', 'rule', 'line', 'hr'],

@@ -13,7 +13,9 @@ This is how the browser behaves. We copy it, so it is not a gap.
 
 - **Press:** a pointer press that starts and ends outside a layer (at `pointerup`) closes that
   layer. Each layer decides alone ("is the press inside me?"). No layer needs to know about the
-  others, so there is no shared stack for presses.
+  others, so there is no shared stack for presses. `useManualLightDismiss` asks its owner after the
+  press's own `click`, so the `click` reaches the page while the layer is open (see
+  [wrappers-ask-first-close.md](./wrappers-ask-first-close.md#when-an-outside-press-asks)).
 - **Escape:** one owner per press. Layers that listen separately must agree on who goes first, so
   Escape uses the shared stack in
   [`internal/escape-ownership`](../../src/internal/escape-ownership/). See
@@ -24,12 +26,12 @@ from another layer is inside it in the DOM.
 
 ## Who closes what on a press
 
-| Layer                                                 | Who handles the press                        | Inside                                         |
-| ----------------------------------------------------- | -------------------------------------------- | ---------------------------------------------- |
-| `auto` or `hint` popover (`Popover`, tooltip)         | The browser                                  | The popover and its descendant popovers        |
-| `Dialog`                                              | `use-backdrop-click.tsx` (`closedby="none"`) | Everything but the backdrop                    |
-| `useManualLightDismiss` (incl. `Popup mode="manual"`) | `use-outside-press.tsx`                      | `popoverRef` and `additionalInsideElementRefs` |
-| `manual` popover without the hook (a field error)     | Nobody: it stays open                        | Not applicable                                 |
+| Layer                                                | Who handles the press                        | Inside                                         |
+| ---------------------------------------------------- | -------------------------------------------- | ---------------------------------------------- |
+| `auto` or `hint` popover (`Popover`, tooltip)        | The browser                                  | The popover and its descendant popovers        |
+| `Dialog`                                             | `use-backdrop-click.tsx` (`closedby="none"`) | Everything but the backdrop                    |
+| `useManualLightDismiss` (`Popup`, `DropdownMenu`, …) | `use-manual-light-dismiss/index.tsx`         | `popoverRef` and `additionalInsideElementRefs` |
+| `manual` popover without the hook (a field error)    | Nobody: it stays open                        | Not applicable                                 |
 
 ## Browser evidence
 

@@ -3,8 +3,6 @@ import React from 'react';
 import type { DocNode } from '@atlaskit/adf-schema/doc';
 import type { MentionNodeDataProvider } from '@atlaskit/editor-common/mention';
 import type { MentionNodeData } from '@atlaskit/mention/types';
-// eslint-disable-next-line no-restricted-imports -- The AP-headless VR fixture must apply the experiment override from the same bundle graph as the component under test.
-import { UNSAFE_overrideExperiment } from '@atlaskit/platform-feature-experiments/dev-override';
 
 import { generateRendererComponent } from '../__helpers/rendererComponents.vr.ap';
 
@@ -120,9 +118,7 @@ const RendererMentionAvatarContent = generateRendererComponent({
 	mentionNodeDataProvider,
 });
 
-/** Renders user and agent mentions with the avatar experiment enabled in the component bundle. */
+/** Renders user and agent mentions with deterministic avatar data. */
 export function RendererMentionAvatar(): React.JSX.Element {
-	UNSAFE_overrideExperiment('platform_editor_mention_node_avatar', { isEnabled: true });
-
 	return <RendererMentionAvatarContent />;
 }

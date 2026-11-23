@@ -1,5 +1,9 @@
 # Opening a popover during a pointer gesture — light-dismiss investigation
 
+> **Note (2026-11-03):** the recommendation below to keep `popover="auto"` is superseded for the DS
+> wrappers whose consumer controls `isOpen`. They are `manual` with ask-first light dismiss. See
+> [`decisions/wrappers-ask-first-close.md`](./decisions/wrappers-ask-first-close.md).
+
 **Date:** 2026-08-12 **Trigger:**
 [Confluence page-tree popup: Safari and top-layer investigation](https://hello.atlassian.net/wiki/spaces/~63ff0a61f00d095406f28492/pages/7543697787)
 (CONFCLOUD report against the Confluence page-tree more-actions popup)

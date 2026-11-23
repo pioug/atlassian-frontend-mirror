@@ -12,7 +12,7 @@ import {
 } from '@atlaskit/editor-common/types/emitter';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
-import { ReactSerializer } from '../../../index';
+import { ReactSerializer } from '../../../entry-points/serializer-default';
 import { InlineCommentsStateContext, ProvidersContext } from '../../../ui/annotations/context';
 import { ExtensionComments } from '../../nodes/extension-comments';
 

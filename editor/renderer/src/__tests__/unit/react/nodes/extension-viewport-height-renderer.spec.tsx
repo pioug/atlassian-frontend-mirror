@@ -14,8 +14,8 @@ import { act } from '@atlassian/testing-library/act';
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
 
+import { Renderer } from '../../../../entry-points/renderer-default';
 import * as heightHooks from '../../../../react/nodes/useNodeHeight';
-import Renderer from '../../../../ui/Renderer';
 import type { RendererProps } from '../../../../ui/renderer-props';
 
 const extensionId = 'ari:cloud:ecosystem::extension/test-app/test-environment/static/test-macro';

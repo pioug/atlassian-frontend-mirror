@@ -12,7 +12,7 @@ import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enable
 import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { RendererCssClassName } from '../../../../consts';
-import ReactSerializer from '../../../../react';
+import { ReactSerializer } from '../../../../entry-points/serializer-default';
 import BodiedExtension from '../../../../react/nodes/bodiedExtension';
 import Extension from '../../../../react/nodes/extension';
 import type { RendererContext } from '../../../../react/types';

@@ -43,7 +43,7 @@ import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
 import { Box } from '@atlaskit/primitives/compiled/box';
-import ReactRenderer from '@atlaskit/renderer/renderer';
+import { Renderer as ReactRenderer } from '@atlaskit/renderer/default';
 import { token } from '@atlaskit/tokens';
 import { currentUser, getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';

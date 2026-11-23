@@ -39,18 +39,18 @@
 		"bind-event-listener": "root:*"
 	},
 	"peerDependencies": {
-		"react": "^18.2.0"
+		"react": "^18.2.0 || ^19.0.0"
 	},
 	"devDependencies": {
 		"@atlassian/experiment-test-utils": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/workbench": "workspace:^",
 		"@testing-library/react": "root:*",
-		"react": "root:*",
+		"react": "^19.0.0",
 		"react-dom": "root:*"
 	},
 	"name": "@atlaskit/analytics-cross-product",
-	"version": "2.3.1",
+	"version": "2.4.0",
 	"description": "Utilities to enable cross-product interaction session tracking",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

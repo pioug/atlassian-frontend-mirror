@@ -58,7 +58,7 @@
 		"relay-test-utils": "root:*"
 	},
 	"name": "@atlaskit/rovo-agent-selector",
-	"version": "3.3.1",
+	"version": "3.3.2",
 	"description": "rovo agent selector",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -74,9 +74,6 @@
 			"type": "boolean"
 		},
 		"rovo_agent_support_a2a_avatar": {
-			"type": "boolean"
-		},
-		"migrate-agent-avatar-component-to-ads": {
 			"type": "boolean"
 		}
 	}

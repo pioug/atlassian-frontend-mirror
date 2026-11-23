@@ -57,6 +57,8 @@ export interface MenuItem {
 	isDisabled?: boolean;
 	key?: string;
 	onClick?: () => void;
+	/** Registered quick insert menu key of the matching item, for analytics. */
+	registeredKey?: string;
 	shortcut?: string;
 	tooltipDescription?: string;
 	tooltipPosition?: string;

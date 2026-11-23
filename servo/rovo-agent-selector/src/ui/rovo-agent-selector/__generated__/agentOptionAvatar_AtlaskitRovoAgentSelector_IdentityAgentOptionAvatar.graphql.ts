@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<953530c9d35fb78f8f0e33caa791bee4>>
+ * @generated SignedSource<<606ed41708dab3fb8b2d22415219a139>>
  * @lightSyntaxTransform
  * @nogrep
  * @codegen-command: yarn relay
@@ -12,7 +12,7 @@
 import type { ReaderFragment } from 'relay-runtime';
 import type { FragmentRefs } from "relay-runtime";
 export type agentOptionAvatar_AtlaskitRovoAgentSelector_IdentityAgentOptionAvatar$data = {
-  readonly identityAccount?: {
+  readonly identityAccount: {
     readonly picture: AGG$URL;
   } | null;
   readonly " $fragmentType": "agentOptionAvatar_AtlaskitRovoAgentSelector_IdentityAgentOptionAvatar";
@@ -23,30 +23,18 @@ export type agentOptionAvatar_AtlaskitRovoAgentSelector_IdentityAgentOptionAvata
 };
 
 const node: ReaderFragment = {
-  "argumentDefinitions": [
-    {
-      "kind": "RootArgument",
-      "name": "__relay_internal__pv__migrateagentavatarcomponenttoadsrelayprovidertsx"
-    }
-  ],
+  "argumentDefinitions": [],
   "kind": "Fragment",
   "name": "agentOptionAvatar_AtlaskitRovoAgentSelector_IdentityAgentOptionAvatar",
   "selections": [
     {
-      "condition": "__relay_internal__pv__migrateagentavatarcomponenttoadsrelayprovidertsx",
-      "kind": "Condition",
-      "passingValue": true,
+      "kind": "LinkedField",
+      "name": "identityAccount",
+      "plural": false,
       "selections": [
         {
-          "kind": "LinkedField",
-          "name": "identityAccount",
-          "plural": false,
-          "selections": [
-            {
-              "kind": "ScalarField",
-              "name": "picture"
-            }
-          ]
+          "kind": "ScalarField",
+          "name": "picture"
         }
       ]
     }
@@ -54,6 +42,6 @@ const node: ReaderFragment = {
   "type": "AgentStudioAssistant"
 };
 
-(node as any).hash = "6b03891b612b75595ddf55d1177cf1e6";
+(node as any).hash = "900601355da11affdb15202f56190301";
 
 export default node;

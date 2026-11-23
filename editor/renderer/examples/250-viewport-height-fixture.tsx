@@ -2,7 +2,7 @@ import React from 'react';
 
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import Renderer from '../src/ui/Renderer';
+import { Renderer } from '../src/entry-points/renderer-default';
 import type { RendererProps } from '../src/ui/renderer-props';
 
 const namedSizes = ['small', 'medium', 'large', 'xlarge'];

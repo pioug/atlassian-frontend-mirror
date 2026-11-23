@@ -1,5 +1,21 @@
 # @atlaskit/editor-statsig-tmp
 
+## 269.0.0
+
+### Major Changes
+
+- [`7de48fd5b0d5c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7de48fd5b0d5c) -
+  Use the current locale for the date picker and its default first day of the week.
+- [`a3267dd2fabc6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a3267dd2fabc6) -
+  Keep the updated media border dropdown styles.
+
+## 268.0.0
+
+### Major Changes
+
+- [`28cce2a859dfa`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28cce2a859dfa) -
+  Keep image alignment available inside expand nodes.
+
 ## 267.0.0
 
 ### Major Changes

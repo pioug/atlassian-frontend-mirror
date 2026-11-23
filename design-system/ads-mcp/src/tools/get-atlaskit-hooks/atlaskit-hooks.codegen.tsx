@@ -3,7 +3,7 @@
  *
  * Structured content hooks from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::6dca26173cd2f67e3958354def7c8c14>>
+ * @codegen <<SignedSource::4519f3a7ab76729bd906f690e3c1897f>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -1862,32 +1862,6 @@ export const atlaskitHooks: HookMcpPayload[] = [
 		keywords: ['rovo', 'agents', 'navigation', 'actions hook'],
 		category: 'rovo',
 		package: '@atlassian/rovo-agent-url-utils',
-		examples: [],
-	},
-	{
-		name: 'useSBSEvaluationBridge',
-		description:
-			'Coordinates evaluation state and messages between Rovo Chat and the browser extension bridge.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Mount once per chat surface and feed it current response-completion state and content.',
-		],
-		keywords: ['rovo', 'chat', 'evaluation', 'bridge hook'],
-		category: 'rovo',
-		package: '@atlassian/rovo-chat-side-by-side-evaluation',
-		examples: [],
-	},
-	{
-		name: 'useSBSTrigger',
-		description:
-			'Determines whether a submitted prompt should start an evaluation and be held for consent.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'If the trigger holds a query, register its release callback before waiting for consent.',
-		],
-		keywords: ['rovo', 'chat', 'evaluation', 'trigger hook'],
-		category: 'rovo',
-		package: '@atlassian/rovo-chat-side-by-side-evaluation',
 		examples: [],
 	},
 	{

@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 33.1.2
+
+### Patch Changes
+
+- [`6fed44040ece8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6fed44040ece8) -
+  The modal element browser search field now shows "Search all elements" as its placeholder and
+  accessible label, behind the `platform_editor_slash_command` experiment. `editor-common` adds the
+  `elementBrowserSearchPlaceholder` quick-insert message for it and removes the now unused
+  `elementBrowserSearch` message.
+- Updated dependencies
+
 ## 33.1.1
 
 ### Patch Changes

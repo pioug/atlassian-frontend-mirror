@@ -46,6 +46,8 @@ export const interactivityPlugin: InteractivityPlugin = ({ api }) => ({
 					// interactions with a read-only page are a different population from interactions
 					// while editing.
 					sessionKeys: { objectId: readObjectId(), mode: readSessionMode() },
+					onError: (error) =>
+						void logException(error, { location: 'editor-plugin-interactivity/collector' }),
 					emit: ({ regions, sessionKeys, ...snapshot }, { immediate }) =>
 						fireInteractivityEvent(
 							api?.analytics?.actions,

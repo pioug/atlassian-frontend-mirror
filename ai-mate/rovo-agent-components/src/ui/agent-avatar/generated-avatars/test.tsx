@@ -3,8 +3,16 @@ import React from 'react';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
+import { waitFor } from '@atlassian/testing-library/wait-for';
 
-import { blueColor, GeneratedAvatar, getAgentAvatarColor, getNumberIdForAvatar } from './index';
+import {
+	AgentBanner,
+	blueColor,
+	GeneratedAvatar,
+	getAgentAvatarColor,
+	getNumberIdForAvatar,
+	greenColor,
+} from './index';
 
 jest.mock('./assets/social-media-scribe', () => ({
 	__esModule: true,
@@ -76,26 +84,57 @@ describe('getNumberIdForAvatar', () => {
 });
 
 describe('getAgentAvatarColor', () => {
-	it.each([false, true])(
-		'uses the image gate for custom, fallback and Content Reviewer colours when enabled=%s',
-		(enabled) => {
-			if (enabled) {
-				passGate('rovo_agent_avatar_refresh_teu26');
-			} else {
-				failGate('rovo_agent_avatar_refresh_teu26');
-			}
+	beforeEach(() => {
+		failGate('rovo_agents_studio_use_agent_color');
+	});
 
-			const expectedColor = enabled ? blueColor.v2 : blueColor.v1;
+	it.each([
+		[failGate, blueColor.v1, blueColor.v1],
+		[passGate, blueColor.v2, greenColor.v2],
+	] as const)(
+		'preserves legacy colours with avatar refresh: %p',
+		(setRefreshGate, expectedColor, codingAgentColor) => {
+			setRefreshGate('rovo_agent_avatar_refresh_teu26');
 			expect(getAgentAvatarColor({ agentIdentityAccountId: '3' })).toEqual(expectedColor);
 			expect(getAgentAvatarColor({})).toEqual(expectedColor);
 			expect(getAgentAvatarColor({ agentNamedId: 'content_reviewer_agent' })).toEqual(
 				expectedColor,
 			);
+			expect(getAgentAvatarColor({ agentNamedId: 'jira_coding_agent' })).toEqual(codingAgentColor);
 		},
 	);
 });
 
+describe.each([
+	[failGate, blueColor.v1, greenColor.v1],
+	[passGate, blueColor.v2, greenColor.v2],
+] as const)('shared agent colours with avatar refresh: %p', (setRefreshGate, blue, green) => {
+	beforeEach(() => {
+		passGate('rovo_agents_studio_use_agent_color');
+		setRefreshGate('rovo_agent_avatar_refresh_teu26');
+	});
+
+	it('uses shared named-agent colours and prioritises the identity account ID', () => {
+		expect(getAgentAvatarColor({ agentId: '2', agentNamedId: 'jira_coding_agent' })).toEqual(blue);
+		expect(getAgentAvatarColor({ agentId: '3', agentIdentityAccountId: '2' })).toEqual(green);
+	});
+
+	it('preserves the no-identity fallback and explicit RovoDev colour', () => {
+		expect(getAgentAvatarColor({})).toEqual(blue);
+		expect(getAgentAvatarColor({ agentId: '0', isRovoDev: true })).toEqual(greenColor.v1);
+	});
+
+	it('uses the shared colour for AgentBanner', () => {
+		failGate('jira_improve_agent_profile_for_a2a');
+		const { container } = render(<AgentBanner agentNamedId="jira_coding_agent" />);
+		expect(container.querySelector('div')).toHaveStyle(`background-color: ${blue.primary}`);
+	});
+});
+
 describe('GeneratedAvatar', () => {
+	beforeEach(() => {
+		failGate('rovo_agents_studio_use_agent_color');
+	});
 	it.each([
 		['jira_coding_agent', '18 344 52 52'],
 		['jira_intelligent_triage_agent', '18 214 52 52'],
@@ -159,4 +198,63 @@ describe('GeneratedAvatar', () => {
 
 		expect(await screen.findByTestId('jira-task-planner-agent-avatar')).toBeInTheDocument();
 	});
+});
+
+describe.each([
+	[failGate, failGate, blueColor.v1, greenColor.v1, blueColor.v2],
+	[failGate, passGate, greenColor.v2, greenColor.v2, greenColor.v2],
+	[passGate, failGate, blueColor.v1, greenColor.v1, blueColor.v2],
+	[passGate, passGate, blueColor.v2, greenColor.v2, blueColor.v2],
+] as const)(
+	'GeneratedAvatar colours with migration %p and refresh %p',
+	(setMigrationGate, setRefreshGate, namedColor, generatedColor, namedArtworkColor) => {
+		it.each([
+			// The original Jira logo has a fixed blue fill in the SVG asset.
+			['jira_coding_agent', namedColor, namedArtworkColor],
+			[undefined, generatedColor, generatedColor],
+		] as const)(
+			'uses the expected background and artwork colours for %s',
+			async (agentNamedId, color, artworkColor) => {
+				setMigrationGate('rovo_agents_studio_use_agent_color');
+				setRefreshGate('rovo_agent_avatar_refresh_teu26');
+				const { container } = render(
+					<GeneratedAvatar agentId="2" agentNamedId={agentNamedId} size="medium" />,
+				);
+				expect(container.querySelector('div')).toHaveStyle(`background-color: ${color.primary}`);
+				await waitFor(() => {
+					expect(
+						container.querySelector(`svg [fill="${artworkColor.primary}"]`),
+					).toBeInTheDocument();
+				});
+			},
+		);
+	},
+);
+
+it('preserves Document Writer detail with both colour gates enabled', async () => {
+	passGate('rovo_agents_studio_use_agent_color');
+	passGate('rovo_agent_avatar_refresh_teu26');
+	const { container } = render(
+		<GeneratedAvatar agentNamedId="document_writer" agentId="2" size="medium" />,
+	);
+
+	await waitFor(() => {
+		// This oval is drawn over the SVG's white page and must retain its blue accent.
+		expect(container.querySelector('path[d^="M28.6 34.9727"]')).toHaveAttribute(
+			'fill',
+			blueColor.v1.secondary,
+		);
+	});
+	expect(container.querySelector('svg > path')).toHaveAttribute('fill', blueColor.v1.primary);
+});
+
+it('uses the original generic artwork palette when no identity is available', async () => {
+	passGate('rovo_agents_studio_use_agent_color');
+	passGate('rovo_agent_avatar_refresh_teu26');
+	const { container } = render(<GeneratedAvatar size="medium" />);
+
+	await waitFor(() => {
+		expect(container.querySelector('svg > path')).toHaveAttribute('fill', blueColor.v1.primary);
+	});
+	expect(container.querySelector(`svg [fill="${blueColor.v1.secondary}"]`)).toBeInTheDocument();
 });

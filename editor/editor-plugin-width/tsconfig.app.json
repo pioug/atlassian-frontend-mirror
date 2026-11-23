@@ -50,10 +50,7 @@
 			"path": "../editor-prosemirror/tsconfig.app.json"
 		},
 		{
-			"path": "../../platform/feature-experiments/tsconfig.app.json"
-		},
-		{
-			"path": "../../platform/feature-flags-react/tsconfig.app.json"
+			"path": "../editor-shared-styles/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/tokens/tsconfig.app.json"

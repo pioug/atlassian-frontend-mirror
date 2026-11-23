@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 
-import React, { useState } from 'react';
+import React, { useId, useState } from 'react';
 
 import Avatar from '@atlaskit/avatar/Avatar';
 import IconButton from '@atlaskit/button/icon/button';
@@ -11,15 +11,18 @@ import { cssMap, jsx } from '@atlaskit/css';
 import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';
 import { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-item-group';
 import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
+import Heading from '@atlaskit/heading';
 import AddIcon from '@atlaskit/icon/core/add';
 import HomeIcon from '@atlaskit/icon/core/home';
 import MoreIcon from '@atlaskit/icon/core/show-more-horizontal';
 import Lozenge from '@atlaskit/lozenge/new/lozenge';
 import ButtonItem from '@atlaskit/menu/button-item';
 import { SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Popup } from '@atlaskit/popup/popup';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
+import { Text } from '@atlaskit/primitives/compiled/text';
 import { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
 import { COLLAPSE_ELEM_BEFORE } from '@atlaskit/side-nav-items/flyout-menu-item';
 import { MenuList } from '@atlaskit/side-nav-items/menu-list';
@@ -450,6 +453,96 @@ export const ButtonMenuItemBasic = (): JSX.Element => (
 	</div>
 );
 
+export const ButtonMenuItemTypes = (): JSX.Element => {
+	const [actionCount, setActionCount] = useState(0);
+	const [isPopupOpen, setIsPopupOpen] = useState(false);
+	const [selectedLocation, setSelectedLocation] = useState('overview');
+	const popupId = useId();
+
+	return (
+		<Box
+			xcss={styles.root}
+			paddingBlockStart="space.400"
+			paddingInlineStart="space.150"
+			paddingBlockEnd="space.400"
+		>
+			<Stack space="space.200">
+				<Heading size="small">Button types</Heading>
+				{!fg('navx_button_menu_item_types') && (
+					<Text>
+						Enable navx_button_menu_item_types in the feature flag control above to preview the new
+						types.
+					</Text>
+				)}
+				<Heading size="xsmall">Default: action</Heading>
+				<MenuList>
+					<ButtonMenuItem
+						type="default"
+						elemBefore={homeIcon}
+						onClick={() => setActionCount((count) => count + 1)}
+					>
+						Perform action
+					</ButtonMenuItem>
+				</MenuList>
+				<div aria-live="polite">
+					<Text>Action performed {actionCount} times.</Text>
+				</div>
+				<Heading size="xsmall">Popup: highlighted while open, without a notch</Heading>
+				<MenuList>
+					<Popup
+						id={popupId}
+						role="dialog"
+						label="Example popup"
+						isOpen={isPopupOpen}
+						onClose={() => setIsPopupOpen(false)}
+						placement="bottom-start"
+						content={() => (
+							<Box padding="space.200">
+								<Text>Example popup content. Press Escape or click outside to close.</Text>
+							</Box>
+						)}
+						trigger={(triggerProps) => (
+							<ButtonMenuItem
+								{...triggerProps}
+								type="popup"
+								elemBefore={homeIcon}
+								aria-haspopup="dialog"
+								aria-expanded={isPopupOpen}
+								aria-controls={isPopupOpen ? popupId : undefined}
+								onClick={() => setIsPopupOpen((isOpen) => !isOpen)}
+							>
+								Open popup
+							</ButtonMenuItem>
+						)}
+					/>
+				</MenuList>
+				<Heading size="xsmall">Location: selected with a notch</Heading>
+				<MenuList>
+					<ButtonMenuItem
+						type="location"
+						elemBefore={homeIcon}
+						isSelected={selectedLocation === 'overview'}
+						onClick={() => setSelectedLocation('overview')}
+					>
+						Overview
+					</ButtonMenuItem>
+					<ButtonMenuItem
+						type="location"
+						elemBefore={homeIcon}
+						isSelected={selectedLocation === 'reports'}
+						onClick={() => setSelectedLocation('reports')}
+					>
+						Reports
+					</ButtonMenuItem>
+					<ButtonMenuItem type="location" elemBefore={homeIcon} isDisabled>
+						Disabled location
+					</ButtonMenuItem>
+				</MenuList>
+			</Stack>
+		</Box>
+	);
+};
+
 // Combining into one example for atlaskit site
 const Example = (): JSX.Element => (
 	<div>
@@ -458,6 +551,7 @@ const Example = (): JSX.Element => (
 		<ButtonMenuItemWithPopup />
 		<div dir="rtl">RTL</div>
 		<ButtonMenuItemRTLExample />
+		<ButtonMenuItemTypes />
 	</div>
 );
 

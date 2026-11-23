@@ -1,5 +1,14 @@
 # @atlaskit/analytics-cross-product
 
+## 2.4.0
+
+### Minor Changes
+
+- [`cd11bbb0b70d2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cd11bbb0b70d2) -
+  Update Atlassian Analytics Pipeline packages to support React 19. Removed React peer dependency in
+  analytics-web-client and bumped analytics-cross-product-* packages to support React ^19.0.0 peer
+  dependency.
+
 ## 2.3.1
 
 ### Patch Changes

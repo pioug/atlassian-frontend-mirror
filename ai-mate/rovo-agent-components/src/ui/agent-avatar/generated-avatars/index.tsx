@@ -4,6 +4,7 @@
  */
 import React, { lazy, Suspense, useEffect } from 'react';
 
+import { getAgentColor } from '@atlaskit/agent-color/get-agent-color';
 import { AVATAR_SIZES } from '@atlaskit/avatar/avatar-sizes';
 import type { SizeType } from '@atlaskit/avatar/types';
 import { cssMap, cx, jsx } from '@atlaskit/css';
@@ -344,6 +345,7 @@ export type AgentAvatarColor = {
 	primary: string;
 	cover: string;
 	secondary?: string;
+	iconColor?: string;
 };
 
 export const yellowColor = {
@@ -364,6 +366,12 @@ export const blueColor = {
 };
 
 const colorList = [yellowColor, purpleColor, greenColor, blueColor];
+const AGENT_COLORS = {
+	yellow: yellowColor,
+	purple: purpleColor,
+	lime: greenColor,
+	blue: blueColor,
+};
 
 /**
  * NOTE: DO NOT ADD OOTB AGENTAVATARS TO THIS LIST
@@ -405,400 +413,395 @@ type GeneratedAvatarProps = {
 
 const outOfTheBoxAgentAvatar: Record<
 	string,
-	{ getRender: (size: SizeType) => React.ReactNode; getColor: () => AgentAvatarColor }
+	{
+		getRender: (size: SizeType, color: AgentAvatarColor) => React.ReactNode;
+		getColor: () => AgentAvatarColor;
+		getRefreshedRender?: (size: SizeType, color: AgentAvatarColor) => React.ReactNode;
+	}
 > = {
 	codex_for_jira_agent: {
 		getRender: (size: SizeType) => <CodexAvatar size={AVATAR_SIZES[size]} />,
 		getColor: () => blueColor.v1,
 	},
 	ai_mate_agent: {
-		getRender: (size: SizeType) => (
+		getRender: (size, color) => (
 			<RovoChatAvatar
 				size={AVATAR_SIZES[size]}
-				primaryColor={blueColor.v1.primary}
-				secondaryColor={blueColor.v1.secondary}
+				primaryColor={color.primary}
+				secondaryColor={color.secondary ?? color.iconColor ?? ''}
 			/>
 		),
 		getColor: () => blueColor.v1,
 	},
 	autodev_template_unit_test_creator: {
-		getRender: (size: SizeType) =>
-			fg('rovo_agent_avatar_refresh_teu26') ? (
-				<RefreshedAutoFixAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor={greenColor.v2.primary}
-					iconColor={greenColor.v2.iconColor}
-				/>
-			) : (
-				<AutoFixAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor={greenColor.v1.primary}
-					secondaryColor={greenColor.v1.secondary}
-				/>
-			),
+		getRefreshedRender: (size, color) => (
+			<RefreshedAutoFixAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				iconColor={color.iconColor ?? ''}
+			/>
+		),
+		getRender: (size, color) => (
+			<AutoFixAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				secondaryColor={color.secondary ?? color.iconColor ?? ''}
+			/>
+		),
 		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? greenColor.v2 : greenColor.v1),
 	},
 	autodev_template_migration_config_changer_agent: {
-		getRender: (size: SizeType) =>
-			fg('rovo_agent_avatar_refresh_teu26') ? (
-				<RefreshedOpsAgentAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor={greenColor.v2.primary}
-					iconColor={greenColor.v2.iconColor}
-				/>
-			) : (
-				<OpsAgentAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor={greenColor.v1.primary}
-					secondaryColor={greenColor.v1.secondary}
-				/>
-			),
+		getRefreshedRender: (size, color) => (
+			<RefreshedOpsAgentAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				iconColor={color.iconColor ?? ''}
+			/>
+		),
+		getRender: (size, color) => (
+			<OpsAgentAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				secondaryColor={color.secondary ?? color.iconColor ?? ''}
+			/>
+		),
 		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? greenColor.v2 : greenColor.v1),
 	},
 	autodev_template_vulnerable_dependency_updater_agent: {
-		getRender: (size: SizeType) =>
-			fg('rovo_agent_avatar_refresh_teu26') ? (
-				<RefreshedMarketingMessageMaestroAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor={greenColor.v2.primary}
-					iconColor={greenColor.v2.iconColor}
-				/>
-			) : (
-				<MarketingMessageMaestroAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor={greenColor.v1.primary}
-					secondaryColor={greenColor.v1.secondary}
-				/>
-			),
+		getRefreshedRender: (size, color) => (
+			<RefreshedMarketingMessageMaestroAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				iconColor={color.iconColor ?? ''}
+			/>
+		),
+		getRender: (size, color) => (
+			<MarketingMessageMaestroAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				secondaryColor={color.secondary ?? color.iconColor ?? ''}
+			/>
+		),
 		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? greenColor.v2 : greenColor.v1),
 	},
 	autodev_template_code_standardizer_agent: {
-		getRender: (size: SizeType) =>
-			fg('rovo_agent_avatar_refresh_teu26') ? (
-				<RefreshedMyUserManualAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor={greenColor.v2.primary}
-					iconColor={greenColor.v2.iconColor}
-				/>
-			) : (
-				<MyUserManualAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor={greenColor.v1.primary}
-					secondaryColor={greenColor.v1.secondary}
-				/>
-			),
+		getRefreshedRender: (size, color) => (
+			<RefreshedMyUserManualAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				iconColor={color.iconColor ?? ''}
+			/>
+		),
+		getRender: (size, color) => (
+			<MyUserManualAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				secondaryColor={color.secondary ?? color.iconColor ?? ''}
+			/>
+		),
 		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? greenColor.v2 : greenColor.v1),
 	},
 	autodev_template_code_observer_agent: {
-		getRender: (size: SizeType) =>
-			fg('rovo_agent_avatar_refresh_teu26') ? (
-				<RefreshedResearchScoutAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor={greenColor.v2.primary}
-					iconColor={greenColor.v2.iconColor}
-				/>
-			) : (
-				<ResearchScoutAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor={greenColor.v1.primary}
-					secondaryColor={greenColor.v1.secondary}
-				/>
-			),
+		getRefreshedRender: (size, color) => (
+			<RefreshedResearchScoutAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				iconColor={color.iconColor ?? ''}
+			/>
+		),
+		getRender: (size, color) => (
+			<ResearchScoutAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				secondaryColor={color.secondary ?? color.iconColor ?? ''}
+			/>
+		),
 		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? greenColor.v2 : greenColor.v1),
 	},
 	autodev_template_code_accessibility_checker_agent: {
-		getRender: (size: SizeType) =>
-			fg('rovo_agent_avatar_refresh_teu26') ? (
-				<RefreshedHireWriterAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor={greenColor.v2.primary}
-					iconColor={greenColor.v2.iconColor}
-				/>
-			) : (
-				<HireWriterAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor={greenColor.v1.primary}
-					secondaryColor={greenColor.v1.secondary}
-				/>
-			),
+		getRefreshedRender: (size, color) => (
+			<RefreshedHireWriterAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				iconColor={color.iconColor ?? ''}
+			/>
+		),
+		getRender: (size, color) => (
+			<HireWriterAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				secondaryColor={color.secondary ?? color.iconColor ?? ''}
+			/>
+		),
 		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? greenColor.v2 : greenColor.v1),
 	},
 	autodev_code_documentation_writer_agent: {
-		getRender: (size: SizeType) =>
-			fg('rovo_agent_avatar_refresh_teu26') ? (
-				<RefreshedSocialMediaScribeAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor={greenColor.v2.primary}
-					iconColor={greenColor.v2.iconColor}
-				/>
-			) : (
-				<SocialMediaScribeAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor={greenColor.v1.primary}
-					secondaryColor={greenColor.v1.secondary}
-				/>
-			),
+		getRefreshedRender: (size, color) => (
+			<RefreshedSocialMediaScribeAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				iconColor={color.iconColor ?? ''}
+			/>
+		),
+		getRender: (size, color) => (
+			<SocialMediaScribeAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				secondaryColor={color.secondary ?? color.iconColor ?? ''}
+			/>
+		),
 		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? greenColor.v2 : greenColor.v1),
 	},
 	autodev_feature_flag_cleaner_agent: {
-		getRender: (size: SizeType) =>
-			fg('rovo_agent_avatar_refresh_teu26') ? (
-				<RefreshedFeatureFlagAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor={greenColor.v2.primary}
-					iconColor={greenColor.v2.iconColor}
-				/>
-			) : (
-				<FeatureFlagAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor={greenColor.v1.primary}
-					secondaryColor={greenColor.v1.secondary}
-				/>
-			),
+		getRefreshedRender: (size, color) => (
+			<RefreshedFeatureFlagAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				iconColor={color.iconColor ?? ''}
+			/>
+		),
+		getRender: (size, color) => (
+			<FeatureFlagAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				secondaryColor={color.secondary ?? color.iconColor ?? ''}
+			/>
+		),
 		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? greenColor.v2 : greenColor.v1),
 	},
 	decision_director_agent: {
-		getRender: (size: SizeType) =>
-			fg('rovo_agent_avatar_refresh_teu26') ? (
-				<RefreshedDecisionDirectorAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor={greenColor.v2.primary}
-					iconColor={greenColor.v2.iconColor}
-				/>
-			) : (
-				<DecisionDirectorAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor={greenColor.v1.primary}
-					secondaryColor={greenColor.v1.secondary}
-				/>
-			),
+		getRefreshedRender: (size, color) => (
+			<RefreshedDecisionDirectorAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				iconColor={color.iconColor ?? ''}
+			/>
+		),
+		getRender: (size, color) => (
+			<DecisionDirectorAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				secondaryColor={color.secondary ?? color.iconColor ?? ''}
+			/>
+		),
 		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? greenColor.v2 : greenColor.v1),
 	},
 	planner_agent: {
-		getRender: (size: SizeType) =>
-			fg('rovo_agent_avatar_refresh_teu26') ? (
-				<RefreshedOpsAgentAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor={purpleColor.v2.primary}
-					iconColor={purpleColor.v2.iconColor}
-				/>
-			) : (
-				<OpsAgentAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor={purpleColor.v1.primary}
-					secondaryColor={purpleColor.v1.secondary}
-				/>
-			),
+		getRefreshedRender: (size, color) => (
+			<RefreshedOpsAgentAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				iconColor={color.iconColor ?? ''}
+			/>
+		),
+		getRender: (size, color) => (
+			<OpsAgentAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				secondaryColor={color.secondary ?? color.iconColor ?? ''}
+			/>
+		),
 		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? purpleColor.v2 : purpleColor.v1),
 	},
 	tech_writer_agent: {
-		getRender: (size: SizeType) =>
-			fg('rovo_agent_avatar_refresh_teu26') ? (
-				<RefreshedSocialMediaScribeAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor={blueColor.v2.primary}
-					iconColor={blueColor.v2.iconColor}
-				/>
-			) : (
-				<SocialMediaScribeAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor={blueColor.v1.primary}
-					secondaryColor={blueColor.v1.secondary}
-				/>
-			),
+		getRefreshedRender: (size, color) => (
+			<RefreshedSocialMediaScribeAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				iconColor={color.iconColor ?? ''}
+			/>
+		),
+		getRender: (size, color) => (
+			<SocialMediaScribeAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				secondaryColor={color.secondary ?? color.iconColor ?? ''}
+			/>
+		),
 		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? blueColor.v2 : blueColor.v1),
 	},
 	content_reviewer_agent: {
-		getRender: (size: SizeType) =>
-			fg('rovo_agent_avatar_refresh_teu26') ? (
-				<RefreshedContentReviewerAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor={blueColor.v2.primary}
-					iconColor={blueColor.v2.iconColor}
-				/>
-			) : (
-				<ContentReviewerAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
-			),
+		getRefreshedRender: (size, color) => (
+			<RefreshedContentReviewerAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				iconColor={color.iconColor ?? ''}
+			/>
+		),
+		getRender: (size, color) => (
+			<ContentReviewerAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
+		),
 		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? blueColor.v2 : blueColor.v1),
 	},
 	user_manual_writer_agent: {
-		getRender: (size: SizeType) =>
-			fg('rovo_agent_avatar_refresh_teu26') ? (
-				<RefreshedMyUserManualAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor={yellowColor.v2.primary}
-					iconColor={yellowColor.v2.iconColor}
-				/>
-			) : (
-				<MyUserManualAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor={yellowColor.v1.primary}
-					secondaryColor={yellowColor.v1.secondary}
-				/>
-			),
+		getRefreshedRender: (size, color) => (
+			<RefreshedMyUserManualAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				iconColor={color.iconColor ?? ''}
+			/>
+		),
+		getRender: (size, color) => (
+			<MyUserManualAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				secondaryColor={color.secondary ?? color.iconColor ?? ''}
+			/>
+		),
 		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? yellowColor.v2 : yellowColor.v1),
 	},
 	product_requirements_expert_agent: {
-		getRender: (size: SizeType) =>
-			fg('rovo_agent_avatar_refresh_teu26') ? (
-				<RefreshedProductRequirementAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor={yellowColor.v2.primary}
-					iconColor={yellowColor.v2.iconColor}
-				/>
-			) : (
-				<ProductRequirementAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor={yellowColor.v1.primary}
-					secondaryColor={yellowColor.v1.secondary}
-				/>
-			),
+		getRefreshedRender: (size, color) => (
+			<RefreshedProductRequirementAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				iconColor={color.iconColor ?? ''}
+			/>
+		),
+		getRender: (size, color) => (
+			<ProductRequirementAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				secondaryColor={color.secondary ?? color.iconColor ?? ''}
+			/>
+		),
 		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? yellowColor.v2 : yellowColor.v1),
 	},
 	document_writer: {
-		getRender: (size: SizeType) => (
+		getRender: (size, color) => (
 			<DocumentWriterAvatar
 				size={AVATAR_SIZES[size]}
-				primaryColor={blueColor.v1.primary}
-				secondaryColor={blueColor.v1.secondary}
+				primaryColor={color.primary}
+				secondaryColor={color.secondary ?? color.iconColor ?? ''}
 			/>
 		),
 		getColor: () => blueColor.v1,
 	},
 	issue_organizer_agent: {
-		getRender: (size: SizeType) =>
-			fg('rovo_agent_avatar_refresh_teu26') ? (
-				<RefreshedBacklogBuddyAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor={greenColor.v2.primary}
-					iconColor={greenColor.v2.iconColor}
-				/>
-			) : (
-				<BacklogBuddyAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor={greenColor.v1.primary}
-					secondaryColor={greenColor.v1.secondary}
-				/>
-			),
+		getRefreshedRender: (size, color) => (
+			<RefreshedBacklogBuddyAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				iconColor={color.iconColor ?? ''}
+			/>
+		),
+		getRender: (size, color) => (
+			<BacklogBuddyAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				secondaryColor={color.secondary ?? color.iconColor ?? ''}
+			/>
+		),
 		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? greenColor.v2 : greenColor.v1),
 	},
 	ops_guide_agent: {
-		getRender: (size: SizeType) =>
-			fg('rovo_agent_avatar_refresh_teu26') ? (
-				<RefreshedOpsExpertAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor={yellowColor.v2.primary}
-					iconColor={yellowColor.v2.iconColor}
-				/>
-			) : (
-				<OpsAgentAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor={yellowColor.v1.primary}
-					secondaryColor={yellowColor.v1.secondary}
-				/>
-			),
+		getRefreshedRender: (size, color) => (
+			<RefreshedOpsExpertAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				iconColor={color.iconColor ?? ''}
+			/>
+		),
+		getRender: (size, color) => (
+			<OpsAgentAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				secondaryColor={color.secondary ?? color.iconColor ?? ''}
+			/>
+		),
 		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? yellowColor.v2 : yellowColor.v1),
 	},
 	discovery_and_feedback_agent: {
-		getRender: (size: SizeType) =>
-			fg('rovo_agent_avatar_refresh_teu26') ? (
-				<RefreshedCommsCrafterAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor={greenColor.v2.primary}
-					iconColor={greenColor.v2.iconColor}
-				/>
-			) : (
-				<CommsCrafterAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor={greenColor.v1.primary}
-					secondaryColor={greenColor.v1.secondary}
-				/>
-			),
+		getRefreshedRender: (size, color) => (
+			<RefreshedCommsCrafterAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				iconColor={color.iconColor ?? ''}
+			/>
+		),
+		getRender: (size, color) => (
+			<CommsCrafterAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				secondaryColor={color.secondary ?? color.iconColor ?? ''}
+			/>
+		),
 		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? greenColor.v2 : greenColor.v1),
 	},
 	jira_workflow_builder_agent: {
-		getRender: (size: SizeType) => (
+		getRender: (size, color) => (
 			<WorkflowBuilderAvatar
 				size={AVATAR_SIZES[size]}
-				primaryColor={blueColor.v1.primary}
-				secondaryColor={blueColor.v1.secondary}
+				primaryColor={color.primary}
+				secondaryColor={color.secondary ?? color.iconColor ?? ''}
 			/>
 		),
 		getColor: () => blueColor.v1,
 	},
 	itops_rca_agent: {
-		getRender: (size: SizeType) =>
-			fg('rovo_agent_avatar_refresh_teu26') ? (
-				<RefreshedAutoReviewAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor={yellowColor.v2.primary}
-					iconColor={yellowColor.v2.iconColor}
-				/>
-			) : (
-				<AutoReviewAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor={yellowColor.v1.primary}
-					secondaryColor={yellowColor.v1.secondary}
-				/>
-			),
+		getRefreshedRender: (size, color) => (
+			<RefreshedAutoReviewAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				iconColor={color.iconColor ?? ''}
+			/>
+		),
+		getRender: (size, color) => (
+			<AutoReviewAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				secondaryColor={color.secondary ?? color.iconColor ?? ''}
+			/>
+		),
 		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? yellowColor.v2 : yellowColor.v1),
 	},
 	jira_trial_guide_agent: {
-		getRender: (size: SizeType) => (
+		getRender: (size, color) => (
 			<TrialGuideAvatar
 				size={AVATAR_SIZES[size]}
-				primaryColor={blueColor.v1.primary}
-				secondaryColor={blueColor.v1.secondary}
+				primaryColor={color.primary}
+				secondaryColor={color.secondary ?? color.iconColor ?? ''}
 			/>
 		),
 		getColor: () => blueColor.v1,
 	},
 	jira_admin_agent: {
-		getRender: (size: SizeType) =>
-			fg('rovo_agent_avatar_refresh_teu26') ? (
-				<RefreshedJiraAdminAgentAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor={blueColor.v2.primary}
-					iconColor={blueColor.v2.iconColor}
-				/>
-			) : (
-				<JiraCodingAgentAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor={blueColor.v1.primary}
-					secondaryColor={blueColor.v1.secondary}
-				/>
-			),
+		getRefreshedRender: (size, color) => (
+			<RefreshedJiraAdminAgentAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				iconColor={color.iconColor ?? ''}
+			/>
+		),
+		getRender: (size, color) => (
+			<JiraCodingAgentAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				secondaryColor={color.secondary ?? color.iconColor ?? ''}
+			/>
+		),
 		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? blueColor.v2 : blueColor.v1),
 	},
 	jsm_rovo_service_agent: {
-		getRender: (size: SizeType) => {
-			if (fg('rovo_agent_avatar_refresh_teu26')) {
-				return (
-					<RefreshedRequestResolverAvatar
-						size={AVATAR_SIZES[size]}
-						primaryColor={yellowColor.v2.primary}
-						iconColor={yellowColor.v2.iconColor}
-					/>
-				);
-			}
-
-			return (
-				<JsmRequestResolverAgentAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor=""
-					secondaryColor=""
-				/>
-			);
-		},
+		getRefreshedRender: (size, color) => (
+			<RefreshedRequestResolverAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				iconColor={color.iconColor ?? ''}
+			/>
+		),
+		getRender: (size, color) => (
+			<JsmRequestResolverAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
+		),
 		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? yellowColor.v2 : yellowColor.v1),
 	},
 	mcp_amplitude_agent: {
-		getRender: (size: SizeType) =>
-			fg('rovo_agent_avatar_refresh_teu26') ? (
-				<AmplitudeAgentAvatarV2 size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
-			) : (
-				<AmplitudeAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
-			),
+		getRefreshedRender: (size: SizeType) => (
+			<AmplitudeAgentAvatarV2 size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
+		),
+		getRender: (size: SizeType) => (
+			<AmplitudeAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
+		),
 		getColor: () => blueColor.v1,
 	},
 	mcp_box_agent: {
@@ -868,33 +871,33 @@ const outOfTheBoxAgentAvatar: Record<
 		getColor: () => blueColor.v1,
 	},
 	jira_intelligent_triage_agent: {
-		getRender: (size: SizeType) =>
-			fg('rovo_agent_avatar_refresh_teu26') ? (
-				<RefreshedJiraIntelligentTriageAgentAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor={blueColor.v2.primary}
-					iconColor={blueColor.v2.iconColor}
-				/>
-			) : (
-				<JiraIntelligentTriageAgentAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor=""
-					secondaryColor=""
-				/>
-			),
+		getRefreshedRender: (size, color) => (
+			<RefreshedJiraIntelligentTriageAgentAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				iconColor={color.iconColor ?? ''}
+			/>
+		),
+		getRender: (size, color) => (
+			<JiraIntelligentTriageAgentAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor=""
+				secondaryColor=""
+			/>
+		),
 		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? blueColor.v2 : blueColor.v1),
 	},
 	jira_delivery_agent: {
-		getRender: (size: SizeType) =>
-			fg('rovo_agent_avatar_refresh_teu26') ? (
-				<RefreshedJiraDeliveryAgentAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor={blueColor.v2.primary}
-					iconColor={blueColor.v2.iconColor}
-				/>
-			) : (
-				<JiraDeliveryAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
-			),
+		getRefreshedRender: (size, color) => (
+			<RefreshedJiraDeliveryAgentAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				iconColor={color.iconColor ?? ''}
+			/>
+		),
+		getRender: (size, color) => (
+			<JiraDeliveryAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
+		),
 		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? blueColor.v2 : blueColor.v1),
 	},
 	jsm_service_triage_agent: {
@@ -904,16 +907,16 @@ const outOfTheBoxAgentAvatar: Record<
 		getColor: () => yellowColor.v1,
 	},
 	jira_coding_agent: {
-		getRender: (size: SizeType) =>
-			fg('rovo_agent_avatar_refresh_teu26') ? (
-				<RefreshedJiraCodingAgentAvatar
-					size={AVATAR_SIZES[size]}
-					primaryColor={greenColor.v2.primary}
-					iconColor={greenColor.v2.iconColor}
-				/>
-			) : (
-				<JiraCodingAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
-			),
+		getRefreshedRender: (size, color) => (
+			<RefreshedJiraCodingAgentAvatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				iconColor={color.iconColor ?? ''}
+			/>
+		),
+		getRender: (size, color) => (
+			<JiraCodingAgentAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />
+		),
 		getColor: () => (fg('rovo_agent_avatar_refresh_teu26') ? greenColor.v2 : blueColor.v1),
 	},
 };
@@ -949,82 +952,57 @@ export const getNumberIdForAvatar = ({
 	return null;
 };
 
-const getAvatarRender = ({
-	agentNamedId,
-	agentId,
-	agentIdentityAccountId,
-	isRovoDev,
-	size,
-}: GeneratedAvatarProps) => {
+const getAvatarRender = (
+	{ agentNamedId, agentId, agentIdentityAccountId, isRovoDev, size }: GeneratedAvatarProps,
+	color: AgentAvatarColor,
+): React.ReactNode => {
 	if (isRovoDev) {
-		return {
-			render: <RovoDevAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />,
-			color: greenColor.v1,
-		};
+		return <RovoDevAvatar size={AVATAR_SIZES[size]} primaryColor="" secondaryColor="" />;
 	}
 
 	if (typeof agentNamedId === 'string' && outOfTheBoxAgentAvatar[agentNamedId]) {
 		const avatar = outOfTheBoxAgentAvatar[agentNamedId];
-		return { render: avatar.getRender(size), color: avatar.getColor() };
+		const getRender = fg('rovo_agent_avatar_refresh_teu26')
+			? (avatar.getRefreshedRender ?? avatar.getRender)
+			: avatar.getRender;
+		return getRender(size, color);
 	}
 
 	const numberId = getNumberIdForAvatar({ agentIdentityAccountId, agentId });
-
 	if (numberId !== null) {
-		/**
-		 * this create all possible combinations of avatars and colors
-		 * e.g. [[avatar1, color1], [avatar1, color2], [avatar2, color1], [avatar2, color2]]
-		 * then choose 1 based on agentId
-		 */
-		const totalCombinations = avatarList.length * colorList.length;
-		const combinationIndex = numberId % totalCombinations;
-
+		// Preserve the artwork index independently of the selected colour.
+		const combinationIndex = numberId % TOTAL_AVATAR_COMBINATIONS;
 		const avatarIndex = Math.floor(combinationIndex / colorList.length);
-		const colorIndex = combinationIndex % colorList.length;
-
 		const avatar = avatarList[avatarIndex];
-		const color = colorList[colorIndex];
 
 		if (fg('rovo_agent_avatar_refresh_teu26')) {
 			const Avatar = avatar.v2;
-			return {
-				render: (
-					<Avatar
-						size={AVATAR_SIZES[size]}
-						primaryColor={color.v2.primary}
-						iconColor={color.v2.iconColor}
-					/>
-				),
-				color: color.v2,
-			};
+			return (
+				<Avatar
+					size={AVATAR_SIZES[size]}
+					primaryColor={color.primary}
+					iconColor={color.iconColor ?? ''}
+				/>
+			);
 		}
 
 		const Avatar = avatar.v1;
-		return {
-			render: (
-				<Avatar
-					size={AVATAR_SIZES[size]}
-					primaryColor={color.v1.primary}
-					secondaryColor={color.v1.secondary}
-				/>
-			),
-			color: color.v1,
-		};
+		return (
+			<Avatar
+				size={AVATAR_SIZES[size]}
+				primaryColor={color.primary}
+				secondaryColor={color.secondary ?? color.iconColor ?? ''}
+			/>
+		);
 	}
 
-	const fallbackColor = fg('rovo_agent_avatar_refresh_teu26') ? blueColor.v2 : blueColor.v1;
-	return {
-		render: (
-			<GenericAvatar
-				size={AVATAR_SIZES[size]}
-				primaryColor={fallbackColor.primary}
-				secondaryColor={
-					'iconColor' in fallbackColor ? fallbackColor.iconColor : fallbackColor.secondary
-				}
-			/>
-		),
-		color: fallbackColor,
-	};
+	return (
+		<GenericAvatar
+			size={AVATAR_SIZES[size]}
+			primaryColor={color.primary}
+			secondaryColor={color.iconColor ?? color.secondary ?? ''}
+		/>
+	);
 };
 
 export const getAgentAvatarColor = (
@@ -1032,7 +1010,29 @@ export const getAgentAvatarColor = (
 		GeneratedAvatarProps,
 		'agentNamedId' | 'agentId' | 'agentIdentityAccountId' | 'isRovoDev'
 	>,
-): AgentAvatarColor => getAvatarRender({ ...props, size: 'medium' }).color;
+): AgentAvatarColor => {
+	if (fg('rovo_agents_studio_use_agent_color')) {
+		if (props.isRovoDev) {
+			return greenColor.v1;
+		}
+		const color =
+			props.agentId || props.agentIdentityAccountId || props.agentNamedId
+				? AGENT_COLORS[getAgentColor(props)]
+				: blueColor;
+		return fg('rovo_agent_avatar_refresh_teu26') ? color.v2 : color.v1;
+	}
+	// After rollout, delete this fallback and the artwork registry's getColor callbacks.
+	// Keep the artwork registry and preserve the artwork-selection stride above.
+	if (props.isRovoDev) {
+		return greenColor.v1;
+	}
+	if (props.agentNamedId && outOfTheBoxAgentAvatar[props.agentNamedId]) {
+		return outOfTheBoxAgentAvatar[props.agentNamedId].getColor();
+	}
+	const numberId = getNumberIdForAvatar(props);
+	const color = numberId === null ? blueColor : colorList[numberId % colorList.length];
+	return fg('rovo_agent_avatar_refresh_teu26') ? color.v2 : color.v1;
+};
 
 type AgentBannerCreatorType = AgentCreatorType | 'ROVO_DEV';
 
@@ -1079,7 +1079,21 @@ export const AgentBanner = ({
 };
 
 export const GeneratedAvatar = (props: GeneratedAvatarProps): JSX.Element => {
-	const { render, color } = getAvatarRender(props);
+	const namedAvatar = props.agentNamedId ? outOfTheBoxAgentAvatar[props.agentNamedId] : undefined;
+	// Keep the shared hue, but use v1 for artwork without a refreshed SVG.
+	const originalArtworkHue =
+		fg('rovo_agents_studio_use_agent_color') &&
+		!props.isRovoDev &&
+		fg('rovo_agent_avatar_refresh_teu26') &&
+		(namedAvatar ? !namedAvatar.getRefreshedRender : getNumberIdForAvatar(props) === null)
+			? props.agentId || props.agentIdentityAccountId || props.agentNamedId
+				? getAgentColor(props)
+				: 'blue'
+			: undefined;
+	const color = originalArtworkHue
+		? AGENT_COLORS[originalArtworkHue].v1
+		: getAgentAvatarColor(props);
+	const render = getAvatarRender(props, color);
 	const { onLoad } = props;
 
 	return (

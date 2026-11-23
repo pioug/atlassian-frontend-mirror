@@ -17,6 +17,7 @@ import { IconDate } from '@atlaskit/editor-common/assets';
 import { ToolTipContent } from '@atlaskit/editor-common/keymaps';
 import { annotationMessages } from '@atlaskit/editor-common/messages/annotation';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
+import { DATE_MENU_ITEM } from '@atlaskit/editor-common/quick-insert/keys';
 import { DateSharedCssClassName } from '@atlaskit/editor-common/styles/date';
 import type { Command } from '@atlaskit/editor-common/types/command';
 import type { FloatingToolbarItem } from '@atlaskit/editor-common/types/floating-toolbar';
@@ -281,6 +282,7 @@ const datePlugin: DatePlugin = ({ config = {}, api }) => {
 						quickInsert: ({ formatMessage }) => [
 							{
 								id: 'date',
+								registeredKey: DATE_MENU_ITEM.key,
 								title: formatMessage(messages.date),
 								description: formatMessage(messages.dateDescription),
 								priority: 800,

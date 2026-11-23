@@ -124,7 +124,6 @@ import { abortAll, getActiveInteraction } from '@atlaskit/react-ufo/interaction-
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
-import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 
 import type { EditorConfig } from '../../../types/editor-config';
 import { getEditorDomSize } from '../../../utils/getEditorDomSize';
@@ -400,7 +399,7 @@ describe('@atlaskit/editor-core', () => {
 				return { mockElement, scrollTopSpy };
 			};
 
-			it('does not read scrollTop or restore the scroll position when enabled', () => {
+			it('does not read scrollTop or restore the scroll position', () => {
 				const { mockElement, scrollTopSpy } = renderWithScrolledContainer();
 
 				expect(scrollTopSpy).not.toHaveBeenCalled();
@@ -1438,8 +1437,6 @@ describe('@atlaskit/editor-core', () => {
 			});
 
 			it('renders data-gramm and translate without ProseMirror mutating them', () => {
-				mockExpEnabled('platform_editor_reduce_forced_layout');
-
 				const observer = new MutationObserver(() => {});
 				observer.observe(document.body, {
 					attributeOldValue: true,

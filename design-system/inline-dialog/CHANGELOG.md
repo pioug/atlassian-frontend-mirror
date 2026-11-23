@@ -1,5 +1,23 @@
 # @atlaskit/inline-dialog
 
+## 20.3.12
+
+### Patch Changes
+
+- [`ff204d5191915`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ff204d5191915) -
+  Behind `platform-dst-top-layer`, the layer asks `onClose` before it closes, so a consumer that
+  keeps `isOpen` `true` keeps it open.
+- Updated dependencies
+
+## 20.3.11
+
+### Patch Changes
+
+- [`76c81dc43fef7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76c81dc43fef7) -
+  Behind `platform-dst-top-layer`, the layer asks `onClose` before it closes, so a consumer that
+  keeps `isOpen` `true` keeps it open.
+- Updated dependencies
+
 ## 20.3.10
 
 ### Patch Changes

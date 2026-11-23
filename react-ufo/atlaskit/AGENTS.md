@@ -250,15 +250,6 @@ sequenceDiagram
 5. **P-BREACH Tickets**: Automatic Jira tickets for regressions
 6. **AI Investigation**: LLM-powered regression analysis
 
-## Feature Flags
-
-The package uses platform feature flags for gradual rollouts. Key flags are defined in
-[`package.json`](./package.json):
-
-| Flag                                    | Purpose               |
-| --------------------------------------- | --------------------- |
-| `platform_ufo_segment_critical_metrics` | Segment-level metrics |
-
 ## Testing
 
 ### Unit Tests

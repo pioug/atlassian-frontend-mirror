@@ -11,7 +11,7 @@ import type { SSR } from '@atlaskit/media-common/main-types';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers/mediaClientProvider';
 
-import { default as Renderer } from '../src/ui/Renderer';
+import { Renderer } from '../src/entry-points/renderer-default';
 import doc from './helper/ssr-media-adf.json';
 
 const getMediaClientConfig = async () => {

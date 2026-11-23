@@ -6398,7 +6398,7 @@ const editorContentStyles = cssMapScoped({
 			},
 	},
 	mentionInlineNodeSelectionStyles: {
-		'.mentionView-content-wrap.ak-editor-inline-node-in-range-selection:where(.ProseMirror-focused *):not(.search-match-block):not(.danger) > .editor-mention-primitive':
+		'.mentionView-content-wrap.ak-editor-inline-node-in-range-selection:where(.ProseMirror-focused *, .ProseMirror[aria-readonly="true"][data-inline-node-readonly-selection-active] *):not(.search-match-block):not(.danger) > .editor-mention-primitive':
 			{
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/no-invalid-css-map
 				...hideNativeBrowserTextSelectionStyles,
@@ -8974,17 +8974,14 @@ const EditorContentContainer: React.ForwardRefExoticComponent<
 				isExperimentEnabled('platform_editor_lovability_resize_extensions') &&
 					editorContentStyles.pragmaticResizerStylesExtensions,
 				editorContentStyles.pragmaticResizerStylesCodeBlockSyncedBlockPatch,
-				// Mirrors the two conditions above, inverted: the handles now exist for every breakout
+				// Mirrors the two conditions above, inverted: the handles exist for every breakout
 				// mark, so they must be hidden where resizing isn't supported.
-				isExperimentEnabled('platform_editor_reduce_forced_layout') &&
-					!expValEqualsNoExposure(
-						'platform_editor_lovability_resize_dividers_panels',
-						'isEnabled',
-						true,
-					) &&
-					editorContentStyles.pragmaticResizerStylesHiddenForPanelAndRule,
-				isExperimentEnabled('platform_editor_reduce_forced_layout') &&
-					!isExperimentEnabled('platform_editor_lovability_resize_extensions') &&
+				!expValEqualsNoExposure(
+					'platform_editor_lovability_resize_dividers_panels',
+					'isEnabled',
+					true,
+				) && editorContentStyles.pragmaticResizerStylesHiddenForPanelAndRule,
+				!isExperimentEnabled('platform_editor_lovability_resize_extensions') &&
 					editorContentStyles.pragmaticResizerStylesHiddenForExtensions,
 				isExperimentEnabled('platform_editor_collapsible_headings') &&
 					editorContentStyles.pragmaticResizerStylesHiddenForCollapsedContent,

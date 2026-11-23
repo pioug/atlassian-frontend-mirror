@@ -468,9 +468,9 @@ export const toolbarInsertBlockMessages: {
 	},
 	placeholderTextDescription: {
 		id: 'fabric.editor.placeholderText.description',
-		defaultMessage: 'Insert a text placeholder into the page',
+		defaultMessage: 'Insert placeholder content for editors to replace',
 		description:
-			'Menu description shown in the quick insert menu. Explains how to insert a text placeholder for later content.',
+			'Menu description shown in the quick insert menu. Explains that it inserts placeholder content in a template for people editing the page to replace.',
 	},
 	columns: {
 		id: 'fabric.editor.columns',

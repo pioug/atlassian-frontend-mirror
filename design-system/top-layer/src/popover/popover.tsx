@@ -14,6 +14,9 @@ import { token } from '@atlaskit/tokens';
 
 import { requestCloseEventName } from '../internal/closable-popover-contract';
 import { isNativeElementOpen } from '../internal/is-native-element-open';
+import { hideOpenPopoversInside } from '../internal/manual-hide/hide-open-popovers-inside';
+import { lightDismissRequests } from '../internal/manual-hide/light-dismiss-requests';
+import { pendingFocusReturns } from '../internal/manual-hide/pending-focus-returns';
 import {
 	resolvePlacement,
 	type TPlacementAxis,
@@ -28,7 +31,8 @@ import { type TPopoverCloseReason, type TPopoverForwardedProps } from './types';
 
 /**
  * Native restoration only covers the first popover in an auto/hint stack, not each nested popover.
- * This fallback also supports manual popovers, which have no native restoration target.
+ * A manual popover has no native restoration: `hide` returns its focus after the commit, and this
+ * fallback runs only when that did not.
  * See https://html.spec.whatwg.org/multipage/popover.html#show-popover (step 15.8).
  */
 function restoreFocus({
@@ -411,11 +415,17 @@ export const Popover: React.ForwardRefExoticComponent<
 		}
 
 		/**
-		 * Like native restoration, leave external focus alone and skip light dismiss.
+		 * Like native restoration, leave external focus alone and skip light dismiss. A `manual`
+		 * popover that `useManualLightDismiss` is closing is in `lightDismissRequests` (our own
+		 * `hidePopover()` keeps `programmatic`).
 		 * Check before closing so focus already on body is not mistaken for focus lost during close.
 		 * See https://html.spec.whatwg.org/multipage/popover.html#hide-popover-algorithm (step 20.2).
 		 */
-		if (closeReasonRef.current === 'light-dismiss' || !popover.contains(activeElement)) {
+		if (
+			closeReasonRef.current === 'light-dismiss' ||
+			lightDismissRequests.has(popover) ||
+			!popover.contains(activeElement)
+		) {
 			focusRestorationTargetRef.current = null;
 		}
 	}, []);
@@ -562,10 +572,38 @@ export const Popover: React.ForwardRefExoticComponent<
 	}, []);
 
 	const hide = useCallback(({ element }: { element: HTMLElement }): void => {
+		const isOpenBeforeHide = isNativeElementOpen({ element });
+		// Our own `hidePopover()`: the consumer already knows about this close.
 		closeReasonRef.current = 'programmatic';
 		try {
 			element.hidePopover();
 		} catch {}
+		// Nothing hid, or the browser did the rest (`auto` and `hint`).
+		if (!isOpenBeforeHide || element.getAttribute('popover') !== 'manual') {
+			return;
+		}
+
+		/**
+		 * What the browser does as an `auto` popover hides, for a `manual` one: hide the open popovers
+		 * inside it, and return focus to its opener. The return waits for a microtask after the commit
+		 * (moving focus in React's commit drops focus events and runs blur handlers mid-commit).
+		 */
+		hideOpenPopoversInside({ element });
+		const focusRestorationTarget = focusRestorationTargetRef.current;
+		// `handleBeforeToggle` cleared it when no return is due (for example a light dismiss).
+		if (!focusRestorationTarget) {
+			return;
+		}
+		pendingFocusReturns.schedule({
+			element,
+			returnFocus() {
+				focusRestorationTargetRef.current = null;
+				// Removed (unmounted): native removal returns no focus.
+				if (element.isConnected) {
+					restoreFocus({ popover: element, focusRestorationTarget });
+				}
+			},
+		});
 	}, []);
 
 	// Show or hide the popover to match `isOpen`. It shows early, in a layout effect in

@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-interactivity
 
+## 18.0.5
+
+### Patch Changes
+
+- [`74f2a7c08fbae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/74f2a7c08fbae) -
+  Type the interactivity collector by the regions, session keys and end reasons it was created with,
+  and report an undeclared name from an untyped caller instead of throwing, behind
+  `platform_editor_interactivity_inp_collector`.
+- Updated dependencies
+
 ## 18.0.4
 
 ### Patch Changes

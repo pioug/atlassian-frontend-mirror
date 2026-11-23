@@ -25,6 +25,7 @@ import { createPopoverCloseEvent } from '@atlaskit/top-layer/popover/create-clos
 import { Popover } from '@atlaskit/top-layer/popover/popover';
 import type { TPopoverCloseReason } from '@atlaskit/top-layer/popover/types';
 import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
+import { useManualLightDismiss } from '@atlaskit/top-layer/use-manual-light-dismiss';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 import type { InlineDialogProps } from './types';
@@ -146,7 +147,7 @@ const InlineDialogTopLayer: FC<InlineDialogProps> = memo(function InlineDialogTo
 	onContentBlur = noop,
 	onContentClick = noop,
 	onContentFocus = noop,
-	onClose: providedOnClose = noop,
+	onClose: providedOnClose,
 	placement = 'bottom-start',
 	testId,
 	content,
@@ -169,7 +170,7 @@ const InlineDialogTopLayer: FC<InlineDialogProps> = memo(function InlineDialogTo
 	const popoverId = usePopoverId();
 
 	const onClose = usePlatformLeafEventHandler<{ isOpen: boolean; event: Event }>({
-		fn: (event) => providedOnClose(event),
+		fn: (event) => providedOnClose?.(event),
 		action: 'closed',
 		componentName: 'inlineDialog',
 		packageName: process.env._PACKAGE_NAME_ as string,
@@ -193,8 +194,8 @@ const InlineDialogTopLayer: FC<InlineDialogProps> = memo(function InlineDialogTo
 
 	// onClose bridge.
 	// Translates top-layer's { reason } into the legacy onClose({ isOpen, event }) shape.
-	// Focus restoration is handled automatically by the Popover based on the content role
-	// (role="dialog" -> auto-restore).
+	// Focus return: on a close from `isOpen` with focus in the dialog, `Popover` returns focus to the
+	// element that had focus when it opened.
 	const handleOnClose = useCallback(
 		({ reason }: { reason: TPopoverCloseReason }) => {
 			const syntheticEvent = createPopoverCloseEvent({ reason });
@@ -202,6 +203,25 @@ const InlineDialogTopLayer: FC<InlineDialogProps> = memo(function InlineDialogTo
 		},
 		[onClose],
 	);
+
+	/**
+	 * **Ask first, close second**
+	 *
+	 * A `manual` popover, so the browser never closes it. An outside press or Escape asks `onClose`,
+	 * and the dialog hides only when `isOpen` becomes `false`, as legacy `InlineDialog` did. A press
+	 * on the trigger does not ask: the trigger handles its own clicks.
+	 * See `@atlaskit/top-layer` `notes/decisions/wrappers-ask-first-close.md`.
+	 */
+	const triggerRefs = useMemo(() => [triggerRef], []);
+	// Without `onClose`, nobody can close the dialog from a press or Escape, so it does not take them,
+	// as on the legacy path: an Escape goes on to the page (for example an `InlineEdit` around it).
+	const isClosable = providedOnClose !== undefined;
+	useManualLightDismiss({
+		isOpen: isOpen && isClosable,
+		popoverRef,
+		additionalInsideElementRefs: triggerRefs,
+		onClose: handleOnClose,
+	});
 
 	const ariaAttributes = getAriaForTrigger({ role: 'dialog', isOpen, popoverId });
 
@@ -218,7 +238,10 @@ const InlineDialogTopLayer: FC<InlineDialogProps> = memo(function InlineDialogTo
 				// Acceptable given this component is intent-to-deprecate.
 				label="Inline dialog"
 				isOpen={isOpen}
-				onClose={handleOnClose}
+				mode="manual"
+				// Without it, `hasOpenDialogOrPopover()` does not count the dialog, and
+				// `requestClosePopovers()` does not ask it.
+				onClose={isClosable ? handleOnClose : undefined}
 				shouldAnimate
 				placement={topLayerPlacement}
 				testId={testId}

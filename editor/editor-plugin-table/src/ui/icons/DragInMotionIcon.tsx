@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 interface DragInMotionIconProps {
@@ -22,7 +23,11 @@ export const DragInMotionIcon = ({ style }: DragInMotionIconProps): React.JSX.El
 			width="26"
 			height="18"
 			rx="5"
-			fill={token('color.background.accent.blue.subtle')}
+			fill={
+				fg('platform-dst-dnd-token-migration')
+					? token('color.background.draghandle')
+					: token('color.background.accent.blue.subtle')
+			}
 		/>
 		<rect x="9" y="6" width="2" height="8" rx="1" fill={token('color.border.inverse')} />
 		<rect x="13" y="6" width="2" height="8" rx="1" fill={token('color.border.inverse')} />

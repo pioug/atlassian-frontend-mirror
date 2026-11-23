@@ -2,18 +2,23 @@ import { useEffect, useState } from 'react';
 
 import { bindAll } from 'bind-event-listener';
 
-// List of names for transition end events across browsers
+// List of names for transition end events across browsers, plus `transitioncancel`: an
+// interrupted transition never fires `transitionend`, so where the interruption settles the
+// element at its final width that width would otherwise be missed.
 const transitionEventNames = [
 	'transitionend',
 	'oTransitionEnd',
 	'webkitTransitionEnd',
+	'transitioncancel',
 ] as 'transitionend'[];
 
 /**
- * We need to refresh the page if we transition due to `full-width` -> `full-page` changes
+ * Counts `full-width` <-> `full-page` transitions so callers can re-measure when one completes.
  */
-export const useRefreshWidthOnTransition = (containerElement: HTMLElement | null): void => {
-	const [_, setLastWidthEvent] = useState<TransitionEvent | undefined>();
+export const useRefreshWidthOnTransition: (containerElement: HTMLElement | null) => number = (
+	containerElement,
+) => {
+	const [widthTransitionCount, setWidthTransitionCount] = useState(0);
 
 	useEffect(() => {
 		if (!containerElement) {
@@ -27,7 +32,7 @@ export const useRefreshWidthOnTransition = (containerElement: HTMLElement | null
 			// Only trigger an update if the transition is on a property containing `width`
 			// This will cater for media and the content area itself currently.
 			if (event.propertyName.includes('width')) {
-				setLastWidthEvent(event);
+				setWidthTransitionCount((count) => count + 1);
 			}
 		};
 
@@ -39,4 +44,6 @@ export const useRefreshWidthOnTransition = (containerElement: HTMLElement | null
 			})),
 		);
 	}, [containerElement]);
+
+	return widthTransitionCount;
 };

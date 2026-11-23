@@ -1,7 +1,7 @@
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorContainerWidth as WidthPluginState } from '@atlaskit/editor-common/types/editor-container-width';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles/constants';
 
 import { pluginKey } from './plugin-key';
 
@@ -14,9 +14,7 @@ export function createPlugin(dispatch: Dispatch<WidthPluginState>): SafePlugin |
 					// The init value of width is a placeholder, it cannot be 0,
 					// we use the window dimension, which will not cause reflow at the start.
 					// `innerWidth` excludes browser chrome and follows page zoom, unlike `outerWidth`.
-					width: isExperimentEnabled('platform_editor_reduce_forced_layout')
-						? window.innerWidth
-						: document.body.offsetWidth,
+					width: typeof window !== 'undefined' ? window.innerWidth : akEditorDefaultLayoutWidth,
 				};
 			},
 			apply(tr, pluginState: WidthPluginState) {

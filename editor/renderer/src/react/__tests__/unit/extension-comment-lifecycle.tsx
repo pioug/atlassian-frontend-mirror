@@ -15,7 +15,7 @@ import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import RendererActions from '../../../actions';
-import { ReactSerializer } from '../../../index';
+import { ReactSerializer } from '../../../entry-points/serializer-default';
 import { InlineCommentsStateContext, ProvidersContext } from '../../../ui/annotations/context';
 import {
 	AnnotationHoverContext,

@@ -10,6 +10,7 @@ import {
 import { isSSR } from '@atlaskit/editor-common/is-ssr';
 import { openHelp, tooltip } from '@atlaskit/editor-common/keymaps';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
+import { HELP_DIALOG_MENU_ITEM } from '@atlaskit/editor-common/quick-insert/keys';
 import QuestionCircleIcon from '@atlaskit/icon/core/question-circle';
 
 import type { HelpDialogPlugin, HelpDialogPluginOptions } from './helpDialogPluginType';
@@ -62,6 +63,7 @@ export const helpDialogPlugin: HelpDialogPlugin = ({ config, api }) => {
 			quickInsert: ({ formatMessage }) => [
 				{
 					id: 'helpdialog',
+					registeredKey: HELP_DIALOG_MENU_ITEM.key,
 					title: formatMessage(messages.help),
 					description: formatMessage(messages.helpDescription),
 					keywords: ['?'],

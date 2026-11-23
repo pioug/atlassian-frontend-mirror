@@ -1,4 +1,4 @@
-import React, { createRef, useMemo, useRef } from 'react';
+import React, { createRef, useMemo, useRef, useState } from 'react';
 
 import { bind, bindAll } from 'bind-event-listener';
 
@@ -16,7 +16,7 @@ import { useManualLightDismiss } from '../../src/use-manual-light-dismiss';
  * ancestor; `document.body` stands in for it, which is also an ancestor of both. jsdom has no
  * `PointerEvent`, so the pointer events are `MouseEvent`s.
  */
-function firePress({ start, end = start }: { start: Element; end?: Element }): void {
+async function firePress({ start, end = start }: { start: Element; end?: Element }) {
 	act(() => {
 		start.dispatchEvent(new MouseEvent('pointerdown', { bubbles: true, cancelable: true }));
 		end.dispatchEvent(new MouseEvent('pointerup', { bubbles: true, cancelable: true }));
@@ -24,13 +24,24 @@ function firePress({ start, end = start }: { start: Element; end?: Element }): v
 			new MouseEvent('click', { bubbles: true, cancelable: true, detail: 1 }),
 		);
 	});
+	await flushPressTask();
+}
+
+/**
+ * The hook asks about an outside press in a task after the press (after its `click`).
+ */
+async function flushPressTask() {
+	await act(async () => {
+		await new Promise((resolve) => setTimeout(resolve, 0));
+	});
 }
 
 // A `click` with no pointer press, as from the keyboard or `element.click()`.
-function fireClickWithoutPress({ target }: { target: Element }): void {
+async function fireClickWithoutPress({ target }: { target: Element }) {
 	act(() => {
 		target.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
 	});
+	await flushPressTask();
 }
 
 // A keydown, as a browser sends it.
@@ -145,17 +156,17 @@ function Subject({
 }
 
 describe('useManualLightDismiss()', () => {
-	it('dismisses on a press outside the popover and the inside elements', () => {
+	it('dismisses on a press outside the popover and the inside elements', async () => {
 		const onClose = jest.fn();
 		render(<Subject onClose={onClose} />);
 
-		firePress({ start: screen.getByRole('button', { name: 'Outside' }) });
+		await firePress({ start: screen.getByRole('button', { name: 'Outside' }) });
 
 		expect(onClose).toHaveBeenCalledTimes(1);
 		expect(onClose).toHaveBeenCalledWith({ reason: 'light-dismiss' });
 	});
 
-	it('does not dismiss on a pointerdown outside (the press must end outside)', () => {
+	it('does not dismiss on a pointerdown outside (the press must end outside)', async () => {
 		const onClose = jest.fn();
 		render(<Subject onClose={onClose} />);
 
@@ -164,16 +175,17 @@ describe('useManualLightDismiss()', () => {
 				.getByRole('button', { name: 'Outside' })
 				.dispatchEvent(new MouseEvent('pointerdown', { bubbles: true, cancelable: true }));
 		});
+		await flushPressTask();
 
 		expect(onClose).not.toHaveBeenCalled();
 	});
 
-	it('does not dismiss on a drag from inside the popover to outside it', () => {
+	it('does not dismiss on a drag from inside the popover to outside it', async () => {
 		const onClose = jest.fn();
 		render(<Subject onClose={onClose} />);
 
 		// For example a text selection that ends outside the popover.
-		firePress({
+		await firePress({
 			start: screen.getByRole('button', { name: 'Inside' }),
 			end: screen.getByRole('button', { name: 'Outside' }),
 		});
@@ -181,11 +193,11 @@ describe('useManualLightDismiss()', () => {
 		expect(onClose).not.toHaveBeenCalled();
 	});
 
-	it('does not dismiss on a drag from outside the popover into it', () => {
+	it('does not dismiss on a drag from outside the popover into it', async () => {
 		const onClose = jest.fn();
 		render(<Subject onClose={onClose} />);
 
-		firePress({
+		await firePress({
 			start: screen.getByRole('button', { name: 'Outside' }),
 			end: screen.getByRole('button', { name: 'Inside' }),
 		});
@@ -193,26 +205,26 @@ describe('useManualLightDismiss()', () => {
 		expect(onClose).not.toHaveBeenCalled();
 	});
 
-	it('does not dismiss on a keyboard or programmatic click outside', () => {
+	it('does not dismiss on a keyboard or programmatic click outside', async () => {
 		const onClose = jest.fn();
 		render(<Subject onClose={onClose} />);
 
-		fireClickWithoutPress({ target: screen.getByRole('button', { name: 'Outside' }) });
+		await fireClickWithoutPress({ target: screen.getByRole('button', { name: 'Outside' }) });
 
 		expect(onClose).not.toHaveBeenCalled();
 	});
 
-	it('does not dismiss on a keyboard click after an earlier press inside', () => {
+	it('does not dismiss on a keyboard click after an earlier press inside', async () => {
 		const onClose = jest.fn();
 		render(<Subject onClose={onClose} />);
-		firePress({ start: screen.getByRole('button', { name: 'Inside' }) });
+		await firePress({ start: screen.getByRole('button', { name: 'Inside' }) });
 
-		fireClickWithoutPress({ target: screen.getByRole('button', { name: 'Outside' }) });
+		await fireClickWithoutPress({ target: screen.getByRole('button', { name: 'Outside' }) });
 
 		expect(onClose).not.toHaveBeenCalled();
 	});
 
-	it('does not dismiss after a cancelled press (a touch scroll or a native drag), even on a later pointerup', () => {
+	it('does not dismiss after a cancelled press (a touch scroll or a native drag), even on a later pointerup', async () => {
 		const onClose = jest.fn();
 		render(<Subject onClose={onClose} />);
 		const outside = screen.getByRole('button', { name: 'Outside' });
@@ -225,12 +237,12 @@ describe('useManualLightDismiss()', () => {
 		act(() => {
 			outside.dispatchEvent(new MouseEvent('pointerup', { bubbles: true }));
 		});
-		fireClickWithoutPress({ target: outside });
+		await fireClickWithoutPress({ target: outside });
 
 		expect(onClose).not.toHaveBeenCalled();
 	});
 
-	it('dismisses when the consumer re-renders with new inside elements in the middle of a press', () => {
+	it('dismisses when the consumer re-renders with new inside elements in the middle of a press', async () => {
 		const onClose = jest.fn();
 		function InlineInsideElements({ renderCount }: { renderCount: number }) {
 			const popoverRef = useRef<HTMLDivElement>(null);
@@ -264,24 +276,170 @@ describe('useManualLightDismiss()', () => {
 			outside.dispatchEvent(new MouseEvent('pointerup', { bubbles: true }));
 			outside.dispatchEvent(new MouseEvent('click', { bubbles: true, detail: 1 }));
 		});
+		await flushPressTask();
 
 		expect(onClose).toHaveBeenCalledWith({ reason: 'light-dismiss' });
 	});
 
-	it('dismisses when the press ends, before any click', () => {
+	it('dismisses in a task after a mouse press with no click (for example another button)', async () => {
 		const onClose = jest.fn();
 		render(<Subject onClose={onClose} />);
 		const outside = screen.getByRole('button', { name: 'Outside' });
 
 		act(() => {
-			outside.dispatchEvent(new MouseEvent('pointerdown', { bubbles: true }));
-			outside.dispatchEvent(new MouseEvent('pointerup', { bubbles: true }));
+			outside.dispatchEvent(new MouseEvent('pointerdown', { bubbles: true, button: 1 }));
+			outside.dispatchEvent(new MouseEvent('pointerup', { bubbles: true, button: 1 }));
 		});
+		expect(onClose).not.toHaveBeenCalled();
+		await flushPressTask();
 
 		expect(onClose).toHaveBeenCalledWith({ reason: 'light-dismiss' });
 	});
 
-	it('does not dismiss on a later keyboard click after a press with no click (for example a right-click)', () => {
+	it('asks after the click handlers of the press have run, while the popover is still open', async () => {
+		const onClose = jest.fn();
+		render(<Subject onClose={onClose} />);
+		const outside = screen.getByRole('button', { name: 'Outside' });
+		const onCloseCallsAtClick = jest.fn();
+		const unbind = bind(document.body, {
+			type: 'click',
+			listener() {
+				onCloseCallsAtClick(onClose.mock.calls.length);
+			},
+		});
+
+		await firePress({ start: outside });
+		unbind();
+
+		// The press's `click` reached the page around the popover before the hook asked. So a consumer
+		// that removes elements in `onClose` (a blanket) cannot make the `click` land on the element
+		// under them, and `click` handlers around the press see the popover open.
+		expect(onCloseCallsAtClick).toHaveBeenCalledWith(0);
+		expect(onClose).toHaveBeenCalledTimes(1);
+	});
+
+	it('dismisses on a press on an element whose aria-controls lists the popover, as native and legacy do', async () => {
+		const onClose = jest.fn();
+		function ControlledFromElsewhere() {
+			const popoverRef = useRef<HTMLDivElement>(null);
+			useManualLightDismiss({ popoverRef, isOpen: true, onClose });
+			return (
+				<>
+					{/* A second toggle for the popover, not its trigger. */}
+					<button type="button" aria-controls="other-ids controlled-popover">
+						<span>Toggle</span>
+					</button>
+					<button type="button">Outside</button>
+					<Popover
+						ref={popoverRef}
+						id="controlled-popover"
+						mode="manual"
+						isOpen
+						role="dialog"
+						label="Controlled"
+					>
+						<button type="button">Inside controlled</button>
+					</Popover>
+				</>
+			);
+		}
+		render(<ControlledFromElsewhere />);
+
+		// It is not a trigger: a press on it is an outside press. A toggle that closes the popover in
+		// its own click handler closes it before the ask, so the ask is skipped.
+		await firePress({ start: screen.getByText('Toggle') });
+		expect(onClose).toHaveBeenCalledTimes(1);
+		expect(onClose).toHaveBeenCalledWith({ reason: 'light-dismiss' });
+	});
+
+	it('does not ask when the click of the press closed the popover', async () => {
+		const onClose = jest.fn();
+		function ClosedByClick() {
+			const [isOpen, setIsOpen] = useState(true);
+			return (
+				<>
+					<Subject onClose={onClose} isOpen={isOpen} />
+					<button type="button" onClick={() => setIsOpen(false)}>
+						Close from page
+					</button>
+				</>
+			);
+		}
+		render(<ClosedByClick />);
+
+		await firePress({ start: screen.getByRole('button', { name: 'Close from page' }) });
+
+		expect(onClose).not.toHaveBeenCalled();
+	});
+
+	it('waits for the click of a touch press, which can come in a later task', async () => {
+		const onClose = jest.fn();
+		render(<Subject onClose={onClose} />);
+		const outside = screen.getByRole('button', { name: 'Outside' });
+		function touchEvent(type: string) {
+			const event = new MouseEvent(type, { bubbles: true, cancelable: true });
+			Object.defineProperty(event, 'pointerType', { value: 'touch' });
+			return event;
+		}
+
+		act(() => {
+			outside.dispatchEvent(touchEvent('pointerdown'));
+			outside.dispatchEvent(touchEvent('pointerup'));
+		});
+		await flushPressTask();
+		expect(onClose).not.toHaveBeenCalled();
+
+		act(() => {
+			outside.dispatchEvent(
+				new MouseEvent('click', { bubbles: true, cancelable: true, detail: 1 }),
+			);
+		});
+		await flushPressTask();
+
+		expect(onClose).toHaveBeenCalledTimes(1);
+	});
+
+	// The legacy layers closed from `click`. Asking at the next press would close the layer before
+	// that press's `click`, which could then land on the element under it.
+	it('does not ask for a touch press with no click; the next press decides', async () => {
+		const onClose = jest.fn();
+		render(<Subject onClose={onClose} />);
+		const outside = screen.getByRole('button', { name: 'Outside' });
+		const inside = screen.getByRole('button', { name: 'Inside' });
+		function touchEvent(type: string) {
+			const event = new MouseEvent(type, { bubbles: true, cancelable: true });
+			Object.defineProperty(event, 'pointerType', { value: 'touch' });
+			return event;
+		}
+		act(() => {
+			outside.dispatchEvent(touchEvent('pointerdown'));
+			outside.dispatchEvent(touchEvent('pointerup'));
+		});
+		await flushPressTask();
+
+		// A press inside does not ask.
+		act(() => {
+			inside.dispatchEvent(touchEvent('pointerdown'));
+			inside.dispatchEvent(touchEvent('pointerup'));
+			inside.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+		});
+		await flushPressTask();
+		expect(onClose).not.toHaveBeenCalled();
+
+		// A press outside asks after its own `click`, not at its `pointerdown`.
+		act(() => {
+			outside.dispatchEvent(touchEvent('pointerdown'));
+		});
+		expect(onClose).not.toHaveBeenCalled();
+		act(() => {
+			outside.dispatchEvent(touchEvent('pointerup'));
+			outside.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+		});
+		await flushPressTask();
+		expect(onClose).toHaveBeenCalledTimes(1);
+	});
+
+	it('does not dismiss on a later keyboard click after a press with no click (for example a right-click)', async () => {
 		const onClose = jest.fn();
 		render(<Subject onClose={onClose} />);
 		const outside = screen.getByRole('button', { name: 'Outside' });
@@ -290,7 +448,7 @@ describe('useManualLightDismiss()', () => {
 			outside.dispatchEvent(new MouseEvent('pointerdown', { bubbles: true, button: 2 }));
 		});
 
-		fireClickWithoutPress({ target: outside });
+		await fireClickWithoutPress({ target: outside });
 
 		expect(onClose).not.toHaveBeenCalled();
 	});
@@ -308,34 +466,84 @@ describe('useManualLightDismiss()', () => {
 		consoleError.mockRestore();
 	});
 
-	it('does not dismiss on a press inside the popover', () => {
+	it('does not dismiss on a press inside the popover', async () => {
 		const onClose = jest.fn();
 		render(<Subject onClose={onClose} />);
 
-		firePress({ start: screen.getByRole('button', { name: 'Inside' }) });
+		await firePress({ start: screen.getByRole('button', { name: 'Inside' }) });
 
 		expect(onClose).not.toHaveBeenCalled();
 	});
 
-	it('does not dismiss on a press inside an additional inside element', () => {
+	it('does not dismiss on a press inside an additional inside element', async () => {
 		const onClose = jest.fn();
 		render(<Subject onClose={onClose} />);
 
-		firePress({ start: screen.getByRole('button', { name: 'Trigger' }) });
+		await firePress({ start: screen.getByRole('button', { name: 'Trigger' }) });
 
 		expect(onClose).not.toHaveBeenCalled();
 	});
 
-	it('dismisses on a press on the trigger when it is not an inside element', () => {
+	it('dismisses on a press on the trigger when it is not an inside element', async () => {
 		const onClose = jest.fn();
 		render(<Subject onClose={onClose} hasTriggerRef={false} />);
 
-		firePress({ start: screen.getByRole('button', { name: 'Trigger' }) });
+		await firePress({ start: screen.getByRole('button', { name: 'Trigger' }) });
 
 		expect(onClose).toHaveBeenCalledWith({ reason: 'light-dismiss' });
 	});
 
-	it('dismisses on an outside press that a handler stops from propagating', () => {
+	it('asks as the click of the press reaches the window, before the task, as the legacy layers closed', async () => {
+		const onClose = jest.fn();
+		render(<Subject onClose={onClose} />);
+		const outside = screen.getByRole('button', { name: 'Outside' });
+
+		act(() => {
+			outside.dispatchEvent(new MouseEvent('pointerdown', { bubbles: true, cancelable: true }));
+			outside.dispatchEvent(new MouseEvent('pointerup', { bubbles: true, cancelable: true }));
+			outside.dispatchEvent(
+				new MouseEvent('click', { bubbles: true, cancelable: true, detail: 1 }),
+			);
+		});
+		// Microtasks only: no task has run.
+		await act(async () => {
+			await Promise.resolve();
+		});
+
+		expect(onClose).toHaveBeenCalledTimes(1);
+		await flushPressTask();
+		expect(onClose).toHaveBeenCalledTimes(1);
+	});
+
+	it('asks in the task when a handler stops the click of the press from reaching the window', async () => {
+		const onClose = jest.fn();
+		render(<Subject onClose={onClose} />);
+		const outside = screen.getByRole('button', { name: 'Outside' });
+		const unbind = bind(outside, {
+			type: 'click',
+			listener(event) {
+				event.stopPropagation();
+			},
+		});
+
+		act(() => {
+			outside.dispatchEvent(new MouseEvent('pointerdown', { bubbles: true, cancelable: true }));
+			outside.dispatchEvent(new MouseEvent('pointerup', { bubbles: true, cancelable: true }));
+			outside.dispatchEvent(
+				new MouseEvent('click', { bubbles: true, cancelable: true, detail: 1 }),
+			);
+		});
+		await act(async () => {
+			await Promise.resolve();
+		});
+		expect(onClose).not.toHaveBeenCalled();
+		await flushPressTask();
+		unbind();
+
+		expect(onClose).toHaveBeenCalledTimes(1);
+	});
+
+	it('dismisses on an outside press that a handler stops from propagating', async () => {
 		const onClose = jest.fn();
 		render(<Subject onClose={onClose} />);
 		const outside = screen.getByRole('button', { name: 'Outside' });
@@ -348,7 +556,7 @@ describe('useManualLightDismiss()', () => {
 			{ type: 'click', listener: stopPropagation },
 		]);
 
-		firePress({ start: outside });
+		await firePress({ start: outside });
 		unbind();
 
 		expect(onClose).toHaveBeenCalledTimes(1);
@@ -469,7 +677,7 @@ describe('useManualLightDismiss()', () => {
 		expect(inner).toHaveAttribute('open');
 	});
 
-	it('does not dismiss on a press while the popover element is not attached', () => {
+	it('does not dismiss on a press while the popover element is not attached', async () => {
 		const onClose = jest.fn();
 		function Detached() {
 			const popoverRef = useRef<HTMLDivElement>(null);
@@ -478,7 +686,7 @@ describe('useManualLightDismiss()', () => {
 		}
 		render(<Detached />);
 
-		firePress({ start: screen.getByRole('button', { name: 'Somewhere' }) });
+		await firePress({ start: screen.getByRole('button', { name: 'Somewhere' }) });
 
 		expect(onClose).not.toHaveBeenCalled();
 	});
@@ -512,23 +720,23 @@ describe('useManualLightDismiss()', () => {
 
 	// As native light dismiss: a press closes every layer it is outside, in one press. Escape closes
 	// one layer per press.
-	it('dismisses the popover and a nested manual popover with the hook on one press outside both', () => {
+	it('dismisses the popover and a nested manual popover with the hook on one press outside both', async () => {
 		const onClose = jest.fn();
 		const onNestedManualClose = jest.fn();
 		render(<Subject onClose={onClose} onNestedManualClose={onNestedManualClose} />);
 
-		firePress({ start: screen.getByRole('button', { name: 'Outside' }) });
+		await firePress({ start: screen.getByRole('button', { name: 'Outside' }) });
 
 		expect(onNestedManualClose).toHaveBeenCalledTimes(1);
 		expect(onClose).toHaveBeenCalledTimes(1);
 	});
 
-	it('dismisses only the nested manual popover on a press inside the popover, outside the nested one', () => {
+	it('dismisses only the nested manual popover on a press inside the popover, outside the nested one', async () => {
 		const onClose = jest.fn();
 		const onNestedManualClose = jest.fn();
 		render(<Subject onClose={onClose} onNestedManualClose={onNestedManualClose} />);
 
-		firePress({ start: screen.getByRole('button', { name: 'Inside' }) });
+		await firePress({ start: screen.getByRole('button', { name: 'Inside' }) });
 
 		expect(onNestedManualClose).toHaveBeenCalledTimes(1);
 		expect(onClose).not.toHaveBeenCalled();
@@ -582,33 +790,33 @@ describe('useManualLightDismiss()', () => {
 		expect(event.defaultPrevented).toBe(false);
 	});
 
-	it('does not listen while closed', () => {
+	it('does not listen while closed', async () => {
 		const onClose = jest.fn();
 		render(<Subject onClose={onClose} isOpen={false} />);
 
-		firePress({ start: screen.getByRole('button', { name: 'Outside' }) });
+		await firePress({ start: screen.getByRole('button', { name: 'Outside' }) });
 		fireKeyDown({ target: screen.getByRole('button', { name: 'Inside' }) });
 
 		expect(onClose).not.toHaveBeenCalled();
 	});
 
-	it('stops listening when it closes', () => {
+	it('stops listening when it closes', async () => {
 		const onClose = jest.fn();
 		const { rerender } = render(<Subject onClose={onClose} />);
 		rerender(<Subject onClose={onClose} isOpen={false} />);
 
-		firePress({ start: screen.getByRole('button', { name: 'Outside' }) });
+		await firePress({ start: screen.getByRole('button', { name: 'Outside' }) });
 		fireKeyDown({ target: screen.getByRole('button', { name: 'Inside' }) });
 
 		expect(onClose).not.toHaveBeenCalled();
 	});
 
-	it('removes its listeners on unmount', () => {
+	it('removes its listeners on unmount', async () => {
 		const onClose = jest.fn();
 		const { unmount } = render(<Subject onClose={onClose} />);
 		unmount();
 
-		firePress({ start: document.body });
+		await firePress({ start: document.body });
 		act(() => {
 			document.body.dispatchEvent(
 				new KeyboardEvent('keydown', { key: 'Escape', bubbles: true, cancelable: true }),
@@ -639,28 +847,24 @@ describe('useManualLightDismiss()', () => {
 		return element;
 	}
 
-	it('blurs focus that an outside press left inside the popover, before calling onClose', () => {
-		let isInsideFocusedInOnClose: boolean | null = null;
-		const onClose = jest.fn(() => {
-			isInsideFocusedInOnClose = screen.getByRole('button', { name: 'Inside' }).matches(':focus');
-		});
+	it('leaves focus that an outside press left inside the popover, for an owner that refuses', async () => {
+		const onClose = jest.fn();
 		render(<Subject onClose={onClose} />);
-		showSubjectAndFocus({ name: 'Inside' });
+		const inside = showSubjectAndFocus({ name: 'Inside' });
 
 		// The press does not move focus, as when the pressed element cancels `mousedown`.
-		firePress({ start: screen.getByRole('button', { name: 'Outside' }) });
+		await firePress({ start: screen.getByRole('button', { name: 'Outside' }) });
 
 		expect(onClose).toHaveBeenCalledWith({ reason: 'light-dismiss' });
-		expect(isInsideFocusedInOnClose).toBe(false);
-		expect(document.body).toHaveFocus();
+		expect(inside).toHaveFocus();
 	});
 
-	it('keeps focus that an outside press moved out of the popover', () => {
+	it('keeps focus that an outside press moved out of the popover', async () => {
 		const onClose = jest.fn();
 		render(<Subject onClose={onClose} />);
 		const outside = showSubjectAndFocus({ name: 'Outside' });
 
-		firePress({ start: outside });
+		await firePress({ start: outside });
 
 		expect(onClose).toHaveBeenCalledWith({ reason: 'light-dismiss' });
 		expect(outside).toHaveFocus();
@@ -1366,32 +1570,32 @@ describe("useManualLightDismiss() with mode: 'page-surface'", () => {
 		expect(screen.getByTestId('surface')).not.toHaveAttribute('data-top-layer-takes-escape');
 	});
 
-	it('dismisses on a press outside, with the same press rule', () => {
+	it('dismisses on a press outside, with the same press rule', async () => {
 		const onSurfaceClose = jest.fn();
 		render(<Page onSurfaceClose={onSurfaceClose} />);
 
-		firePress({
+		await firePress({
 			start: screen.getByRole('button', { name: 'Inside surface' }),
 			end: screen.getByRole('button', { name: 'Outside' }),
 		});
-		fireClickWithoutPress({ target: screen.getByRole('button', { name: 'Outside' }) });
+		await fireClickWithoutPress({ target: screen.getByRole('button', { name: 'Outside' }) });
 
 		expect(onSurfaceClose).not.toHaveBeenCalled();
 
-		firePress({ start: screen.getByRole('button', { name: 'Outside' }) });
+		await firePress({ start: screen.getByRole('button', { name: 'Outside' }) });
 
 		expect(onSurfaceClose).toHaveBeenCalledWith({ reason: 'light-dismiss' });
 	});
 
 	// The blur only stops the focus return of a `Popover`, and a page surface is not one.
-	it('does not blur focus that an outside press left inside the surface', () => {
+	it('does not blur focus that an outside press left inside the surface', async () => {
 		const onSurfaceClose = jest.fn();
 		render(<Page onSurfaceClose={onSurfaceClose} />);
 		const inside = screen.getByRole('button', { name: 'Inside surface' });
 		act(() => inside.focus());
 
 		// The press does not move focus, as when the pressed element cancels `mousedown`.
-		firePress({ start: screen.getByRole('button', { name: 'Outside' }) });
+		await firePress({ start: screen.getByRole('button', { name: 'Outside' }) });
 
 		expect(onSurfaceClose).toHaveBeenCalledWith({ reason: 'light-dismiss' });
 		expect(inside).toHaveFocus();

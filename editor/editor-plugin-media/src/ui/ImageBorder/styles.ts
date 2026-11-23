@@ -145,22 +145,6 @@ export const toolbarButtonWrapper = ({
 `;
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const dropdownOptionButton: SerializedStyles = css`
-	background: transparent;
-	border: ${token('border.width.focused')} solid transparent;
-	display: flex;
-	width: 100%;
-	align-items: center;
-	justify-content: space-between;
-	padding: 8px 16px;
-
-	&:focus {
-		background-color: ${token('color.background.neutral.subtle.hovered')};
-		border: ${token('border.width.focused')} solid ${token('color.border.focused')};
-	}
-`;
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const dropdownWrapper: SerializedStyles = css`
 	span[role='menuitem'] {
 		padding: 0;

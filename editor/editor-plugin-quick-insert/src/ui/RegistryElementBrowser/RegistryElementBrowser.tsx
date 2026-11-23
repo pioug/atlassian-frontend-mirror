@@ -443,12 +443,13 @@ export const RegistryElementBrowser = ({
 								<Textfield
 									autoFocus
 									aria-controls={resultsId}
-									aria-label={formatMessage(messages.elementBrowserSearch)}
+									aria-label={formatMessage(messages.elementBrowserSearchPlaceholder)}
 									isCompact
 									name="registry-element-browser-search"
 									onFocus={onSearchFocus}
 									onChange={onSearchChange}
 									onKeyDown={onKeyDown}
+									placeholder={formatMessage(messages.elementBrowserSearchPlaceholder)}
 									ref={searchInputRef}
 									value={query}
 								/>

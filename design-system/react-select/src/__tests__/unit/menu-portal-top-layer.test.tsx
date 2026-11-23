@@ -187,6 +187,8 @@ describe('MenuPortalTopLayer - close propagation (flag ON)', () => {
 		fireEvent.pointerDown(document.body);
 		fireEvent.pointerUp(document.body);
 		fireEvent.click(document.body);
+		// `useManualLightDismiss` asks in a task after the press (after its `click`).
+		await flushPopoverScheduling();
 		expect(onMenuClose).toHaveBeenCalledTimes(1);
 	});
 
@@ -611,6 +613,8 @@ describe('MenuPortalTopLayer - focus when the menu closes (flag ON)', () => {
 		const outside = screen.getByTestId('outside');
 		fireEvent.pointerDown(outside);
 		fireEvent.pointerUp(outside);
+		// `useManualLightDismiss` asks in a task after the press.
+		await flushPopoverScheduling();
 		await flushPopoverExit();
 
 		expect(queryMenuButton()).not.toBeInTheDocument();

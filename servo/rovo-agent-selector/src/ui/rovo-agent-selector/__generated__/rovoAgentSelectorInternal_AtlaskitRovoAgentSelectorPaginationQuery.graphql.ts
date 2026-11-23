@@ -1,6 +1,6 @@
 /**
- * @generated SignedSource<<85296433822e6c84782d6e46418316db>>
- * @relayHash 1e5f1ac51962defa355a8e4fc5f6f0c3
+ * @generated SignedSource<<ae8f53f52b07b93f3ae511689f90708b>>
+ * @relayHash 9608ff2fc7403705c9b445abd3e91477
  * @lightSyntaxTransform
  * @nogrep
  * @codegen-command: yarn relay
@@ -10,7 +10,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-// @relayRequestID f4510c750bb9e37fe8213079ec4ca852c4569515832605e86e6d46544ef3d6c5
+// @relayRequestID 86dd125d287a6c1338bcea956b5eeb07d1db1ddb9300ec0afbaed8f9b977e202
 
 import type { ConcreteRequest } from 'relay-runtime';
 import type { FragmentRefs } from "relay-runtime";
@@ -48,13 +48,9 @@ export type rovoAgentSelectorInternal_AtlaskitRovoAgentSelectorPaginationQuery =
 };
 ({
   "enableAgentCreationFix": enableAgentCreationFix_provider,
-  "__relay_internal__pv__atlaskitrovoagentselectorhubsmanagementrovoagentcreationfixrelayprovider": enableAgentCreationFix_provider,
-  "__relay_internal__pv__migrateagentavatarcomponenttoadsrelayprovidertsx": migrateAgentAvatar_provider
+  "__relay_internal__pv__atlaskitrovoagentselectorhubsmanagementrovoagentcreationfixrelayprovider": enableAgentCreationFix_provider
 } as {
   readonly __relay_internal__pv__atlaskitrovoagentselectorhubsmanagementrovoagentcreationfixrelayprovider: {
-    readonly get: () => boolean;
-  };
-  readonly __relay_internal__pv__migrateagentavatarcomponenttoadsrelayprovidertsx: {
     readonly get: () => boolean;
   };
   readonly enableAgentCreationFix: {
@@ -62,7 +58,6 @@ export type rovoAgentSelectorInternal_AtlaskitRovoAgentSelectorPaginationQuery =
   };
 });
 
-import migrateAgentAvatar_provider from '../migrate-agent-avatar-component-to-ads.relayprovider';
 import enableAgentCreationFix_provider from '@atlaskit/rovo-agent-selector/hubs-management-rovo-agent-creation-fix.relayprovider';
 
 const node: ConcreteRequest = (function(){
@@ -120,11 +115,11 @@ v8 = [
 ],
 v9 = {
   "kind": "ScalarField",
-  "name": "id"
+  "name": "__typename"
 },
 v10 = {
   "kind": "ScalarField",
-  "name": "__typename"
+  "name": "id"
 },
 v11 = [
   {
@@ -185,11 +180,6 @@ return {
         "defaultValue": null,
         "kind": "LocalArgument",
         "name": "__relay_internal__pv__atlaskitrovoagentselectorhubsmanagementrovoagentcreationfixrelayprovider"
-      },
-      {
-        "defaultValue": null,
-        "kind": "LocalArgument",
-        "name": "__relay_internal__pv__migrateagentavatarcomponenttoadsrelayprovidertsx"
       }
     ],
     "kind": "Operation",
@@ -230,33 +220,26 @@ return {
                 "name": "node",
                 "plural": false,
                 "selections": [
-                  (v9/*: any*/),
+                  {
+                    "kind": "LinkedField",
+                    "name": "identityAccount",
+                    "plural": false,
+                    "selections": [
+                      (v9/*: any*/),
+                      {
+                        "kind": "ScalarField",
+                        "name": "picture"
+                      },
+                      (v10/*: any*/)
+                    ]
+                  },
                   (v10/*: any*/),
+                  (v9/*: any*/),
                   {
                     "condition": "__relay_internal__pv__atlaskitrovoagentselectorhubsmanagementrovoagentcreationfixrelayprovider",
                     "kind": "Condition",
                     "passingValue": false,
                     "selections": (v11/*: any*/)
-                  },
-                  {
-                    "condition": "__relay_internal__pv__migrateagentavatarcomponenttoadsrelayprovidertsx",
-                    "kind": "Condition",
-                    "passingValue": true,
-                    "selections": [
-                      {
-                        "kind": "LinkedField",
-                        "name": "identityAccount",
-                        "plural": false,
-                        "selections": [
-                          (v10/*: any*/),
-                          {
-                            "kind": "ScalarField",
-                            "name": "picture"
-                          },
-                          (v9/*: any*/)
-                        ]
-                      }
-                    ]
                   },
                   {
                     "condition": "__relay_internal__pv__atlaskitrovoagentselectorhubsmanagementrovoagentcreationfixrelayprovider",
@@ -288,15 +271,14 @@ return {
     ]
   },
   "params": {
-    "id": "f4510c750bb9e37fe8213079ec4ca852c4569515832605e86e6d46544ef3d6c5",
+    "id": "86dd125d287a6c1338bcea956b5eeb07d1db1ddb9300ec0afbaed8f9b977e202",
     "metadata": {},
     "name": "rovoAgentSelectorInternal_AtlaskitRovoAgentSelectorPaginationQuery",
     "operationKind": "query",
     "text": null,
     "providedVariables": {
       "enableAgentCreationFix": enableAgentCreationFix_provider,
-      "__relay_internal__pv__atlaskitrovoagentselectorhubsmanagementrovoagentcreationfixrelayprovider": enableAgentCreationFix_provider,
-      "__relay_internal__pv__migrateagentavatarcomponenttoadsrelayprovidertsx": migrateAgentAvatar_provider
+      "__relay_internal__pv__atlaskitrovoagentselectorhubsmanagementrovoagentcreationfixrelayprovider": enableAgentCreationFix_provider
     }
   }
 };

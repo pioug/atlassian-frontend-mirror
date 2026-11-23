@@ -1,5 +1,49 @@
 # @atlaskit/editor-plugin-table
 
+## 45.3.2
+
+### Patch Changes
+
+- [`8bdae43216aac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8bdae43216aac) -
+  Set `registeredKey` on legacy quick insert items and toolbar `+` items: the key of the matching
+  item in the registered quick insert menu, so analytics can name native items the same way in both
+  menus.
+- Updated dependencies
+
+## 45.3.1
+
+### Patch Changes
+
+- [`3fced7802b2c5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3fced7802b2c5) -
+  Use `color.background.draghandle` for the prominent table drag grip, its moving artwork, and the
+  active drag corner behind `platform-dst-dnd-token-migration`. Preserve the existing disabled,
+  danger, keyboard focus, and gate-off appearances.
+- [`53775878b59ef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/53775878b59ef) -
+  Use `color.border.dropindicator` for active table row and column drag-and-drop insertion lines
+  when `platform-dst-dnd-token-migration` is enabled. Preserve the existing insertion-line colors
+  when the gate is off, along with selection, resize, inactive-line, and add-row/add-column control
+  styles.
+- Updated dependencies
+
+## 45.3.0
+
+### Minor Changes
+
+- [`f617fee8878de`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f617fee8878de) -
+  Rebuild sticky table header state from the header rows that are stuck, so a destroyed or
+  re-created header row cannot leave its table's controls pinned. Behind experiment
+  platform_editor_table_stale_sticky_header
+
+### Patch Changes
+
+- Updated dependencies
+
+## 45.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 45.2.2
 
 ### Patch Changes

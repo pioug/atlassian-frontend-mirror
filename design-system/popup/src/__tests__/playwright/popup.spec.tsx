@@ -789,22 +789,12 @@ test.describe('Popup top-layer — Complex interactions', () => {
 	});
 });
 
-test.describe('Popup — trigger focus rescue (platform_dst-popup-trigger-initial-focus-ref)', () => {
+test.describe('Popup — trigger focus rescue', () => {
 	/**
-	 * These tests exercise the `platform_dst-popup-trigger-initial-focus-ref` feature gate.
-	 *
-	 * The gate adds a safety-net animation-frame callback inside the focus-trap cleanup that
-	 * fires after `focusTrap.deactivate()`. When active, it checks whether focus has landed
-	 * on `document.body`, `document.documentElement`, or is `null` — all of which indicate
-	 * that focus-trap's own `returnFocusOnDeactivate` silently failed. If the trigger is still
-	 * connected to the DOM at that point, the gate manually calls `triggerRef.focus()`
-	 * to rescue focus back to the trigger.
-	 *
-	 * The gate only acts on the legacy focus trap, so these tests run on the legacy path. The
-	 * top-layer path returns focus natively. See `ff-testing/platform-dst-top-layer/popup.spec.tsx`.
+	 * The legacy focus-trap cleanup rescues focus when its own returnFocusOnDeactivate fails.
+	 * The top-layer path returns focus natively. See `ff-testing/platform-dst-top-layer/popup.spec.tsx`.
 	 */
-	const legacyTriggerFocusRescueFlags =
-		'platform_dst-popup-trigger-initial-focus-ref,platform-dst-top-layer=false';
+	const legacyTriggerFocusRescueFlags = 'platform-dst-top-layer=false';
 
 	test('focus returns to trigger after closing with Escape key', async ({ page }) => {
 		await page.visitExample<

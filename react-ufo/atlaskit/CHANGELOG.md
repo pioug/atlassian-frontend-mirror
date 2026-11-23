@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 8.5.1
+
+### Patch Changes
+
+- [`3d004addf56ce`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3d004addf56ce) -
+  Clean up `platform_ufo_soft_nav_paint_metrics` feature gate. Soft navigation paint metrics
+  (FP/FCP/LCP) are now always captured for transition interactions.
+
 ## 8.5.0
 
 ### Minor Changes

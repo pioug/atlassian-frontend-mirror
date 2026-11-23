@@ -6,6 +6,7 @@
 {
 	"testExamples": [
 		"99-testing.vr.ap.tsx",
+		"98-testing-ask-first-close.tsx",
 		"01-default.vr.ap.tsx",
 		"07-popper-placements.vr.ap.tsx",
 	],

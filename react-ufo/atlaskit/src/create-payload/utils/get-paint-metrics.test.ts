@@ -1,7 +1,5 @@
 /* eslint-disable @atlaskit/platform/no-set-immediate */
 
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-
 import { getSoftNavigationPaintMetrics } from '../../soft-navigation';
 import getPaintMetrics from './get-paint-metrics';
 import { getPaintMetricsToLegacyFormat } from './get-paint-metrics-to-legacy-format';
@@ -25,15 +23,7 @@ describe('getPaintMetrics', () => {
 		global.PerformanceObserver = originalPerformanceObserver;
 	});
 
-	it('should return empty object for transitions when platform_ufo_soft_nav_paint_metrics is off', async () => {
-		failGate('platform_ufo_soft_nav_paint_metrics');
-		const result = await getPaintMetrics('transition', 1000, 2000);
-		expect(result).toEqual({});
-		expect(getSoftNavigationPaintMetrics).not.toHaveBeenCalled();
-	});
-
-	it('should return soft navigation paint metrics for transitions when platform_ufo_soft_nav_paint_metrics is on', async () => {
-		passGate('platform_ufo_soft_nav_paint_metrics');
+	it('should return soft navigation paint metrics for transitions', async () => {
 		jest.mocked(getSoftNavigationPaintMetrics).mockReturnValue({ fcp: 120, lcp: 340 });
 
 		const result = await getPaintMetrics('transition', 1000, 2000);
@@ -525,13 +515,11 @@ describe('getPaintMetricsToLegacyFormat', () => {
 	});
 
 	it('should return empty object for non-page_load interactions in legacy format', async () => {
-		failGate('platform_ufo_soft_nav_paint_metrics');
-		const result = await getPaintMetricsToLegacyFormat('transition', 0, 2000);
+		const result = await getPaintMetricsToLegacyFormat('press', 0, 2000);
 		expect(result).toEqual({});
 	});
 
 	it('should omit missing soft navigation metrics in legacy format', async () => {
-		passGate('platform_ufo_soft_nav_paint_metrics');
 		jest.mocked(getSoftNavigationPaintMetrics).mockReturnValue({ fcp: 120 });
 
 		const result = await getPaintMetricsToLegacyFormat('transition', 1000, 2000);

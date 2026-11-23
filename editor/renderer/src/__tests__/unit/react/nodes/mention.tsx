@@ -15,7 +15,6 @@ import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 import getMockProfileClient from '@atlaskit/profilecard/mock-profile-client';
 import ProfileCardClient from '@atlaskit/profilecard/profile-card-client';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
-import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { resetAllExperiments } from '@atlassian/experiment-test-utils/reset-all-experiments';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
@@ -127,7 +126,6 @@ describe('Renderer - React/Nodes/Mention', () => {
 	});
 
 	it('should pass the client mention data provider into the mention UI', async () => {
-		mockExpEnabled('platform_editor_mention_node_avatar');
 		const mentionNodeDataProvider: MentionNodeDataProvider = {
 			getMentionData: jest.fn((_mention, callback) =>
 				callback({ data: { avatarUrl: 'https://example.com/avatar.png' } }),
@@ -148,77 +146,11 @@ describe('Renderer - React/Nodes/Mention', () => {
 			{ id: 'abcd-abcd-abcd', userType: undefined },
 			expect.any(Function),
 		);
-	});
-
-	it('should pass the client mention data provider when the GraphQL provider experiment is enabled', async () => {
-		mockExpDisabled('platform_editor_mention_node_avatar');
-		mockExpEnabled('platform_editor_mention_node_graphql_provider');
-		const mentionNodeDataProvider: MentionNodeDataProvider = {
-			getMentionData: jest.fn((_mention, callback) =>
-				callback({ data: { avatarUrl: 'https://example.com/avatar.png' } }),
-			),
-			getMentionDataFromCache: jest.fn(),
-		};
-
-		renderWithIntl(
-			<MentionNode
-				id="abcd-abcd-abcd"
-				text="@Oscar Wallhult"
-				mentionNodeDataProvider={mentionNodeDataProvider}
-			/>,
-		);
-
-		expect(await screen.findByTestId('mention-avatar')).toBeInTheDocument();
-		expect(mentionNodeDataProvider.getMentionData).toHaveBeenCalledWith(
-			{ id: 'abcd-abcd-abcd', userType: undefined },
-			expect.any(Function),
-		);
-	});
-
-	it('should not resolve mention avatar data when the experiment is disabled', () => {
-		mockExpDisabled('platform_editor_mention_node_avatar');
-		mockExpDisabled('platform_editor_mention_node_graphql_provider');
-		const mentionNodeDataProvider: MentionNodeDataProvider = {
-			getMentionData: jest.fn(),
-			getMentionDataFromCache: jest.fn(),
-		};
-
-		renderWithIntl(
-			<MentionNode
-				id={mentionId}
-				text="@Oscar Wallhult"
-				mentionNodeDataProvider={mentionNodeDataProvider}
-			/>,
-		);
-
-		expect(screen.getByTestId(`mention-${mentionId}`)).toHaveTextContent('@Oscar Wallhult');
-		expect(mentionNodeDataProvider.getMentionDataFromCache).not.toHaveBeenCalled();
-		expect(mentionNodeDataProvider.getMentionData).not.toHaveBeenCalled();
-	});
-
-	it('should preserve the provider-less render path when the experiment is disabled', () => {
-		mockExpDisabled('platform_editor_mention_node_avatar');
-		mockExpDisabled('platform_editor_mention_node_graphql_provider');
-		const mentionNodeDataProvider: MentionNodeDataProvider = {
-			getMentionData: jest.fn(),
-			getMentionDataFromCache: jest.fn(),
-		};
-		const renderMention = (provider?: MentionNodeDataProvider) =>
-			renderToString(
-				<IntlProvider locale="en">
-					<MentionNode id={mentionId} text="@Oscar Wallhult" mentionNodeDataProvider={provider} />
-				</IntlProvider>,
-			);
-
-		expect(renderMention(mentionNodeDataProvider)).toBe(renderMention());
-		expect(mentionNodeDataProvider.getMentionDataFromCache).not.toHaveBeenCalled();
-		expect(mentionNodeDataProvider.getMentionData).not.toHaveBeenCalled();
 	});
 
 	it.each(['HipChat', 'all', 'here'])(
 		'should preserve the at-sign and skip avatar resolution for generic mention %s',
 		(id) => {
-			mockExpEnabled('platform_editor_mention_node_avatar');
 			const mentionNodeDataProvider: MentionNodeDataProvider = {
 				getMentionData: jest.fn(),
 				getMentionDataFromCache: jest.fn(),
@@ -237,7 +169,6 @@ describe('Renderer - React/Nodes/Mention', () => {
 
 	it('should synchronously render deterministic avatar data on the server', () => {
 		passGate('platform_mention_preserve_user_type');
-		mockExpEnabled('platform_editor_mention_node_avatar');
 		const mentionNodeDataProvider: MentionNodeDataProvider = {
 			getMentionData: jest.fn(),
 			getMentionDataFromCache: jest.fn(() => ({

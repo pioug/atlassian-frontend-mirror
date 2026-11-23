@@ -11,7 +11,7 @@ import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles/const
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 
-import ReactSerializer from '../../../../react';
+import { ReactSerializer } from '../../../../entry-points/serializer-default';
 import type { HeadingLevels } from '../../../../react/nodes/heading';
 import Heading from '../../../../react/nodes/heading';
 import Table from '../../../../react/nodes/table';

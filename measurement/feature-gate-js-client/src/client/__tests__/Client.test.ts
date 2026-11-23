@@ -2,9 +2,15 @@
 
 import type { StatsigClient } from '@statsig/js-client';
 
+import { isolationContextId } from '@atlaskit/atlassian-context/isolation-context-id';
+
 import { Client } from '../Client';
 import { NoFetchDataAdapter } from '../NoFetchDataAdapter';
 import { FeatureGateEnvironment, type Provider } from '../types';
+
+jest.mock('@atlaskit/atlassian-context/isolation-context-id', () => ({
+	isolationContextId: jest.fn(),
+}));
 
 const mockStatsigClient = {
 	initializeAsync: jest.fn(),
@@ -46,6 +52,81 @@ const mockDataAdapter = jest.mocked(new NoFetchDataAdapter());
 afterEach(() => {
 	jest.resetAllMocks();
 	jest.clearAllMocks();
+});
+
+describe('Statsig exposure logging by isolation context', () => {
+	test.each([
+		{
+			icId: 'ic-em8',
+			loggingOptions: {},
+			expectedLoggingOptions: { loggingEnabled: 'disabled' },
+			disableExposureLog: true,
+		},
+		{
+			icId: 'ic-em8',
+			loggingOptions: { loggingEnabled: 'always' },
+			expectedLoggingOptions: { loggingEnabled: 'always' },
+			disableExposureLog: false,
+		},
+		{
+			icId: 'ic-em8',
+			loggingOptions: { disableAllLogging: false },
+			expectedLoggingOptions: { disableLogging: false },
+			disableExposureLog: false,
+		},
+		{
+			icId: 'ic-dr6',
+			loggingOptions: { loggingEnabled: 'always' },
+			expectedLoggingOptions: { loggingEnabled: 'always' },
+			disableExposureLog: false,
+		},
+		{
+			icId: undefined,
+			loggingOptions: { loggingEnabled: 'always' },
+			expectedLoggingOptions: { loggingEnabled: 'always' },
+			disableExposureLog: false,
+		},
+	])(
+		'applies logging options $expectedLoggingOptions for $icId and loads its values',
+		async ({ icId, loggingOptions, expectedLoggingOptions, disableExposureLog }) => {
+			jest.mocked(isolationContextId).mockReturnValue(icId);
+			mockStatsigClient.checkGate.mockReturnValue(true);
+			const client = new Client();
+			const initializeValues = { feature: 'value' };
+			const clientOptions = {
+				environment: FeatureGateEnvironment.Production,
+				targetApp: 'test_target-app',
+				sdkKey: 'client-sdk-key',
+				...loggingOptions,
+			} as const;
+
+			await client.initializeFromValues(
+				clientOptions,
+				{ atlassianAccountId: 'foo' },
+				undefined,
+				initializeValues,
+			);
+
+			expect(mockStatsigClientConstructor).toHaveBeenCalledWith(
+				'client-sdk-key',
+				expect.anything(),
+				expect.objectContaining(expectedLoggingOptions),
+			);
+			expect(mockDataAdapter.setBootstrapData).toHaveBeenCalledWith(initializeValues);
+			expect(client.checkGate('automatic-gate')).toBe(true);
+			expect(mockStatsigClient.checkGate).toHaveBeenCalledWith('automatic-gate', {
+				disableExposureLog,
+			});
+
+			mockStatsigClient.checkGate.mockClear();
+			client.manuallyLogGateExposure('manual-gate');
+			if (disableExposureLog) {
+				expect(mockStatsigClient.checkGate).not.toHaveBeenCalled();
+			} else {
+				expect(mockStatsigClient.checkGate).toHaveBeenCalledWith('manual-gate');
+			}
+		},
+	);
 });
 
 describe('applyUpdateCallback', () => {

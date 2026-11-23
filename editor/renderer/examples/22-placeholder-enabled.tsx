@@ -2,7 +2,7 @@ import React from 'react';
 
 import type { DocNode } from '@atlaskit/adf-schema/doc';
 
-import { default as Renderer } from '../src/ui/Renderer';
+import { Renderer } from '../src/entry-points/renderer-default';
 import document from './helper/placeholder.adf.json';
 
 export default function Example(): React.JSX.Element {

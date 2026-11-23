@@ -16,6 +16,10 @@ import {
 import { IconList, IconListNumber } from '@atlaskit/editor-common/assets';
 import { toggleBulletList, toggleOrderedList, tooltip } from '@atlaskit/editor-common/keymaps';
 import { messages } from '@atlaskit/editor-common/messages/list';
+import {
+	ORDERED_LIST_MENU_ITEM,
+	UNORDERED_LIST_MENU_ITEM,
+} from '@atlaskit/editor-common/quick-insert/keys';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
@@ -125,6 +129,7 @@ export const listPlugin: ListPlugin = ({ api }) => {
 						return [
 							{
 								id: 'unorderedList',
+								registeredKey: UNORDERED_LIST_MENU_ITEM.key,
 								title: formatMessage(messages.unorderedList),
 								description: formatMessage(messages.unorderedListDescription),
 								keywords: ['ul', 'unordered'],
@@ -155,6 +160,7 @@ export const listPlugin: ListPlugin = ({ api }) => {
 							},
 							{
 								id: 'orderedList',
+								registeredKey: ORDERED_LIST_MENU_ITEM.key,
 								title: formatMessage(messages.orderedList),
 								description: formatMessage(messages.orderedListDescription),
 								keywords: ['ol', 'ordered'],

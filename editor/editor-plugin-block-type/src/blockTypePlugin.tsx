@@ -23,6 +23,15 @@ import type {
 	QuickInsertItem,
 	QuickInsertItemId,
 } from '@atlaskit/editor-common/provider-factory/quick-insert-provider';
+import {
+	BLOCKQUOTE_MENU_ITEM,
+	HEADING_1_MENU_ITEM,
+	HEADING_2_MENU_ITEM,
+	HEADING_3_MENU_ITEM,
+	HEADING_4_MENU_ITEM,
+	HEADING_5_MENU_ITEM,
+	HEADING_6_MENU_ITEM,
+} from '@atlaskit/editor-common/quick-insert/keys';
 import { ToolbarSize } from '@atlaskit/editor-common/types';
 import type { HeadingLevels } from '@atlaskit/editor-common/types/block-type';
 import type { Command } from '@atlaskit/editor-common/types/command';
@@ -51,6 +60,15 @@ import { getToolbarComponents } from './pm-plugins/ui/toolbar-components';
 import { getBlockTypeComponents } from './ui';
 import { getBlockTypeQuickInsertComponents } from './ui/quick-insert/getBlockTypeQuickInsertComponents';
 
+const HEADING_MENU_ITEM_KEYS: Record<HeadingLevels, string> = {
+	1: HEADING_1_MENU_ITEM.key,
+	2: HEADING_2_MENU_ITEM.key,
+	3: HEADING_3_MENU_ITEM.key,
+	4: HEADING_4_MENU_ITEM.key,
+	5: HEADING_5_MENU_ITEM.key,
+	6: HEADING_6_MENU_ITEM.key,
+};
+
 const headingPluginOptions = (
 	{ formatMessage }: IntlShape,
 	isAllowed: boolean,
@@ -71,6 +89,7 @@ const headingPluginOptions = (
 
 		return {
 			id,
+			registeredKey: HEADING_MENU_ITEM_KEYS[level],
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			title: formatMessage((messages as any)[id]),
 			description: formatMessage(descriptionDescriptor),
@@ -109,6 +128,7 @@ const blockquotePluginOptions = (
 	return [
 		{
 			id: 'blockquote',
+			registeredKey: BLOCKQUOTE_MENU_ITEM.key,
 			title: formatMessage(messages.blockquote),
 			description: formatMessage(messages.blockquoteDescription),
 			priority: 1300,

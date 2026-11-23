@@ -11,6 +11,7 @@ import { IconMention } from '@atlaskit/editor-common/assets';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
 import { mentionMessages } from '@atlaskit/editor-common/messages/mentions';
 import { WithProviders } from '@atlaskit/editor-common/provider-factory/with-providers';
+import { MENTION_MENU_ITEM } from '@atlaskit/editor-common/quick-insert/keys';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types/plugin-factory';
 import type { TypeAheadInputMethod } from '@atlaskit/editor-plugin-type-ahead/types';
@@ -315,6 +316,7 @@ const mentionsPlugin: MentionsPlugin = ({ config: options, api }) => {
 				: ({ formatMessage }) => [
 						{
 							id: 'mention',
+							registeredKey: MENTION_MENU_ITEM.key,
 							title: formatMessage(messages.mention),
 							description: formatMessage(messages.mentionDescription),
 							keywords: ['team', 'user'],

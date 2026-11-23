@@ -14,6 +14,7 @@ import { LinkAction } from '@atlaskit/editor-common/link';
 import type { LinkToolbarState } from '@atlaskit/editor-common/link/types';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
 import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset/editor-commands';
+import { HYPERLINK_MENU_ITEM } from '@atlaskit/editor-common/quick-insert/keys';
 import type { Command, CommandDispatch } from '@atlaskit/editor-common/types/command';
 import type { FloatingToolbarButton } from '@atlaskit/editor-common/types/floating-toolbar';
 import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types/toolbar';
@@ -181,6 +182,7 @@ export const hyperlinkPlugin: HyperlinkPlugin = ({ config: options = {}, api }) 
 						quickInsert: ({ formatMessage }) => [
 							{
 								id: 'hyperlink',
+								registeredKey: HYPERLINK_MENU_ITEM.key,
 								title: formatMessage(messages.link),
 								description: formatMessage(messages.linkDescription),
 								keywords: ['hyperlink', 'url'],

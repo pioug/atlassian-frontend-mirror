@@ -348,6 +348,7 @@ describe('<EmojiPicker />', () => {
 		});
 
 		it('should keep preview after emoji blur when upload is unsupported', async () => {
+			// oxlint-disable-next-line eslint/no-lone-blocks
 			{
 				await helper.setupPicker({
 					emojiProvider: mockNonUploadingEmojiResourceFactory(new EmojiRepository(standardEmojis)),
@@ -377,6 +378,7 @@ describe('<EmojiPicker />', () => {
 		});
 
 		it('should show add emoji footer after emoji leave when upload is supported', async () => {
+			// oxlint-disable-next-line eslint/no-lone-blocks
 			{
 				await helper.setupPicker({
 					emojiProvider: getEmojiResourcePromise({

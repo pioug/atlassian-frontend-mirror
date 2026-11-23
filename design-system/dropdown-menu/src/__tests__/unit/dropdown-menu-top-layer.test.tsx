@@ -246,7 +246,7 @@ describe('WCAG 4.1.2 Name, Role, Value — ARIA attributes', () => {
 
 		// The popover element has role="menu" and the matching id
 		const menus = screen.getAllByRole('menu');
-		const popoverMenu = menus.find((el) => el.getAttribute('popover') === 'auto');
+		const popoverMenu = menus.find((el) => el.hasAttribute('popover'));
 		expect(popoverMenu).toHaveAttribute('id', ariaControls ?? '');
 	});
 
@@ -835,6 +835,39 @@ describe('onOpenChange callback — event parameter', () => {
 describe('DropdownMenu top-layer: closing', () => {
 	beforeEach(() => {
 		passGate('platform-dst-top-layer');
+	});
+
+	it('stays open on a click on a group title', async () => {
+		render(
+			<DropdownMenu trigger={triggerText} testId={testId}>
+				<DropdownItemGroup title="Actions">
+					<DropdownItem>Move</DropdownItem>
+				</DropdownItemGroup>
+			</DropdownMenu>,
+		);
+		await userEvent.click(screen.getByTestId(`${testId}--trigger`));
+
+		// The title has `role="menuitem"`, but it is not an item.
+		await userEvent.click(screen.getByText('Actions'));
+
+		expect(screen.getByTestId(`${testId}--content`)).toBeVisible();
+	});
+
+	it('closes on a click on an item in a group with a title', async () => {
+		render(
+			<DropdownMenu trigger={triggerText} testId={testId}>
+				<DropdownItemGroup title="Actions">
+					<DropdownItem>Move</DropdownItem>
+				</DropdownItemGroup>
+			</DropdownMenu>,
+		);
+		await userEvent.click(screen.getByTestId(`${testId}--trigger`));
+
+		await userEvent.click(screen.getByRole('menuitem', { name: 'Move' }));
+
+		await waitFor(() => {
+			expect(screen.queryByTestId(`${testId}--content`)).not.toBeInTheDocument();
+		});
 	});
 
 	const ReturnFocusExample = () => {

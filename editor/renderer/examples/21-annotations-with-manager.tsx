@@ -35,12 +35,12 @@ import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers/exampleMe
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { RendererActionsContext } from '@atlaskit/renderer/actions/renderer-actions-context';
 import { AnnotationsWrapper } from '@atlaskit/renderer/annotations';
-import { RendererWithAnalytics } from '@atlaskit/renderer/renderer';
 import SectionMessage from '@atlaskit/section-message/message';
 import Toggle from '@atlaskit/toggle/toggle';
 import { token } from '@atlaskit/tokens';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 
+import { Renderer } from '../src/entry-points/renderer-default';
 import { exampleDocumentWithComments } from './helper/annotations/example-doc-with-comments';
 
 const leftPanelStyle = css({
@@ -334,7 +334,7 @@ const ExampleAnnotationsWithManagerRenderer = React.memo(
 								isNestedRender={false}
 							>
 								<RendererAnnotationComponents annotationProviders={annotationProviders} />
-								<RendererWithAnalytics
+								<Renderer
 									innerRef={rendererRef}
 									allowAnnotations
 									annotationProvider={annotationProviders}

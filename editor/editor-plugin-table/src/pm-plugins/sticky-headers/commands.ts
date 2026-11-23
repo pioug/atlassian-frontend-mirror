@@ -2,10 +2,13 @@
 import type { Command } from '@atlaskit/editor-common/types/command';
 
 import { createCommand } from './plugin-state';
-import type { RowStickyState } from './types';
+import type { RowStickyState, StickyPluginState } from './types';
 
 export const updateStickyState = (rowState: RowStickyState): Command =>
 	createCommand({ name: 'UPDATE', state: rowState }, (tr) => tr.setMeta('addToHistory', false));
 
 export const removeStickyState = (pos: number): Command =>
 	createCommand({ name: 'REMOVE', pos }, (tr) => tr.setMeta('addToHistory', false));
+
+export const replaceStickyState = (state: StickyPluginState): Command =>
+	createCommand({ name: 'REPLACE', state }, (tr) => tr.setMeta('addToHistory', false));

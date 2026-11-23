@@ -17,6 +17,7 @@ import {
 import { TRANSFORM_STRUCTURE_MENU_SECTION_RANK } from '@atlaskit/editor-common/block-menu/rank';
 import { MAX_INDENTATION_LEVEL } from '@atlaskit/editor-common/indentation';
 import { toolbarInsertBlockMessages as insertBlockMessages } from '@atlaskit/editor-common/messages/insert-block';
+import { ACTION_MENU_ITEM, DECISION_MENU_ITEM } from '@atlaskit/editor-common/quick-insert/keys';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { UiComponentFactoryParams } from '@atlaskit/editor-common/types/ui-components';
 import { useSharedPluginStateSelector } from '@atlaskit/editor-common/useSharedPluginStateSelector';
@@ -352,6 +353,7 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({ config: optio
 				quickInsert: ({ formatMessage }) => [
 					{
 						id: 'action',
+						registeredKey: ACTION_MENU_ITEM.key,
 						title: formatMessage(insertBlockMessages.action),
 						description:
 							quickInsertActionDescription ?? formatMessage(insertBlockMessages.actionDescription),
@@ -370,6 +372,7 @@ export const tasksAndDecisionsPlugin: TasksAndDecisionsPlugin = ({ config: optio
 					},
 					{
 						id: 'decision',
+						registeredKey: DECISION_MENU_ITEM.key,
 						title: formatMessage(insertBlockMessages.decision),
 						description: formatMessage(insertBlockMessages.decisionDescription),
 						priority: 900,

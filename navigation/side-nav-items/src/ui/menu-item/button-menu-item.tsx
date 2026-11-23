@@ -1,5 +1,7 @@
 import React, { forwardRef } from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
 import { MenuItemBase } from './menu-item';
 import { MenuListItem } from './menu-list-item';
 import type {
@@ -10,7 +12,7 @@ import type {
 
 export type ButtonMenuItemProps = MenuItemLinkOrButtonCommonProps & {
 	/**
-	 * Identifies the popup element that this element controls when it is used as a popup trigger.
+	 * Identifies the popup or tab panel that this element controls.
 	 * Should match the `id` of the popup content for screen readers to understand the relationship.
 	 */
 	'aria-controls'?: string;
@@ -25,6 +27,9 @@ export type ButtonMenuItemProps = MenuItemLinkOrButtonCommonProps & {
 	 * Informs assistive technology that this element triggers a popup.
 	 */
 	'aria-haspopup'?: MenuItemAriaHasPopup;
+
+	/** The ID of the button, for associating a tab panel with its tab. */
+	id?: string;
 
 	/**
 	 * We are not using a discriminated union to enforce that the `actions` and `actionsOnHover`
@@ -45,18 +50,44 @@ export type ButtonMenuItemProps = MenuItemLinkOrButtonCommonProps & {
 	 * Called when the user has clicked on the trigger content.
 	 */
 	onClick?: MenuItemOnClick<HTMLButtonElement>;
+
+	/** Called when the button receives focus. */
+	onFocus?: React.FocusEventHandler<HTMLButtonElement>;
+
+	/** Called when a key is pressed on the button. */
+	onKeyDown?: React.KeyboardEventHandler<HTMLButtonElement>;
+
+	/**
+	 * Opt into tab semantics: a presentational wrapper and a button with role="tab"
+	 * and aria-selected derived from isSelected. Only the selected tab is in the
+	 * tab order. The parent owns the tablist, panels, and keyboard navigation.
+	 * Use type="location" for a notch.
+	 */
+	semantics?: 'tab';
+
+	/**
+	 * The purpose of the item. `default` performs an action without selected styling;
+	 * `popup` is highlighted while `aria-expanded` is true; `location` shows a notch
+	 * when `isSelected` is true. Omit to preserve the legacy `isSelected` appearance.
+	 */
+	type?: 'default' | 'popup' | 'location';
 };
 
 /**
  * __ButtonMenuItem__
  *
- * A menu item button. It should be used within a `ul`, as it renders a list item.
+ * A menu item button. Use within a list, or a tablist with `semantics="tab"`.
  */
 export const ButtonMenuItem: React.ForwardRefExoticComponent<
 	React.PropsWithoutRef<ButtonMenuItemProps> & React.RefAttributes<HTMLButtonElement>
 > = forwardRef<HTMLButtonElement, ButtonMenuItemProps>(
 	(
 		{
+			type,
+			semantics,
+			id,
+			onFocus,
+			onKeyDown,
 			testId,
 			actions,
 			children,
@@ -80,8 +111,20 @@ export const ButtonMenuItem: React.ForwardRefExoticComponent<
 		},
 		forwardedRef,
 	) => {
+		const isTypesEnabled = fg('navx_button_menu_item_types');
+		const isTab = isTypesEnabled && semantics === 'tab';
+		const tabIndex = isSelected ? 0 : -1;
+		let isItemSelected = isSelected;
+		if (isTypesEnabled) {
+			if (type === 'default') {
+				isItemSelected = false;
+			} else if (type === 'popup') {
+				isItemSelected = ariaExpanded;
+			}
+		}
+
 		return (
-			<MenuListItem ref={listItemRef}>
+			<MenuListItem ref={listItemRef} role={isTab ? 'none' : 'listitem'}>
 				<MenuItemBase
 					testId={testId}
 					description={description}
@@ -98,7 +141,21 @@ export const ButtonMenuItem: React.ForwardRefExoticComponent<
 					ariaControls={ariaControls}
 					ariaExpanded={ariaExpanded}
 					ariaHasPopup={ariaHasPopup}
-					isSelected={isSelected}
+					isSelected={isItemSelected}
+					hasSelectedIndicator={isTypesEnabled && type === 'location'}
+					buttonProps={
+						isTypesEnabled
+							? {
+									id,
+									tabIndex: isTab ? tabIndex : undefined,
+									onFocus,
+									onKeyDown,
+									role: isTab ? 'tab' : undefined,
+									'aria-selected': isTab ? Boolean(isSelected) : undefined,
+									'aria-current': !isTab && type === 'location' && isSelected ? 'page' : undefined,
+								}
+							: undefined
+					}
 					ref={forwardedRef}
 					visualContentRef={visualContentRef}
 					interactionName={interactionName}

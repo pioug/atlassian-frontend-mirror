@@ -23,6 +23,10 @@ import { getPluginState } from '../pm-plugins/plugin-factory';
 import { pluginKey as tablePluginKey } from '../pm-plugins/plugin-key';
 import { updateStickyState } from '../pm-plugins/sticky-headers/commands';
 import {
+	createStickyStateReporter,
+	type StickyStateReporter,
+} from '../pm-plugins/sticky-headers/sticky-state-reporter';
+import {
 	clearStickyCornerMaskPositions,
 	syncStickyRowToTable,
 	updateStickyMargins as updateTableMargin,
@@ -235,6 +239,8 @@ export default class TableRowNativeStickyWithFallback
 	private listening = false;
 	private padding: number = 0;
 	private top: number = 0;
+	/** Created on the first legacy stick: `null` keeps the per-row dispatch below. */
+	private stickyStateReporter?: StickyStateReporter | null;
 	private api?: PluginInjectionAPI;
 
 	/** Native sticky header variables */
@@ -1184,6 +1190,14 @@ export default class TableRowNativeStickyWithFallback
 	/* emit external events */
 
 	private emitOn(top: number, padding: number) {
+		if (this.stickyStateReporter === undefined) {
+			this.stickyStateReporter = createStickyStateReporter(this.view, this.getPos);
+		}
+		if (this.stickyStateReporter) {
+			this.stickyStateReporter.reportStuck(top, padding);
+			return;
+		}
+
 		if (top === this.top && padding === this.padding) {
 			return;
 		}
@@ -1205,6 +1219,11 @@ export default class TableRowNativeStickyWithFallback
 	}
 
 	private emitOff(isEditorDestroyed: boolean) {
+		if (this.stickyStateReporter) {
+			this.stickyStateReporter.reportUnstuck();
+			return;
+		}
+
 		if (this.top === 0 && this.padding === 0) {
 			return;
 		}

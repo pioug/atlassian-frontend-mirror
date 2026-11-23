@@ -48,32 +48,6 @@ import {
 // Top-layer positioning is handled by CSS Anchor Positioning, not inline styles.
 const EMPTY_STYLE: CSSProperties = {};
 
-type TModeProps =
-	| { mode: 'auto'; onClose: (args: { reason: TPopoverCloseReason }) => void }
-	| { mode: 'manual'; onClose?: (args: { reason: TPopoverCloseReason }) => void };
-
-/**
- * `Popover` props for `mode`. A manual popover gets `onClose` only when the consumer gave one, so
- * without it `requestClosePopovers()` cannot close the popup.
- */
-function getModeProps({
-	isManual,
-	hasOnClose,
-	handleOnClose,
-}: {
-	isManual: boolean;
-	hasOnClose: boolean;
-	handleOnClose: (args: { reason: TPopoverCloseReason }) => void;
-}): TModeProps {
-	if (!isManual) {
-		return { mode: 'auto', onClose: handleOnClose };
-	}
-	if (!hasOnClose) {
-		return { mode: 'manual' };
-	}
-	return { mode: 'manual', onClose: handleOnClose };
-}
-
 /**
  * Top-layer implementation of Popup.
  *
@@ -102,8 +76,8 @@ export const PopupTopLayer: FC<DialogPopupProps | PopupProps> = memo(function Po
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	autoFocus: _autoFocus = true,
 	shouldFitContainer = false,
-	// top-layer: the Popover API returns focus natively, and `false` does not stop it. No-op.
-	// To focus another element, focus it in `onClose`.
+	// top-layer: focus returns as the platform returns it (`Popover` with `mode="manual"`), and
+	// `false` does not stop it. No-op. To focus another element, focus it in `onClose`.
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	shouldReturnFocus: _shouldReturnFocus = true,
 	role,
@@ -132,8 +106,8 @@ export const PopupTopLayer: FC<DialogPopupProps | PopupProps> = memo(function Po
 	// top-layer: viewport is the natural boundary. No-op.
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	rootBoundary: _rootBoundary,
-	// top-layer: native light dismiss replaces capture-phase click handler.
-	// Could add mousedown drag guard later if needed.
+	// top-layer: `useManualLightDismiss` replaces the capture-phase click handler. It listens in the
+	// capture phase, and a press must start and end outside.
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	shouldUseCaptureOnOutsideClick: _shouldUseCaptureOnOutsideClick,
 	// top-layer: focus trapping is role-based. shouldDisableFocusLock is a no-op.
@@ -199,10 +173,9 @@ export const PopupTopLayer: FC<DialogPopupProps | PopupProps> = memo(function Po
 	// Translates top-layer's { reason: TPopoverCloseReason } into legacy
 	// onClose(event, currentLevel?) by synthesizing DOM events.
 	//
-	// Focus restoration is handled natively by the Popover API:
-	//   - Escape: browser restores focus to the trigger automatically
-	//   - Click-outside: browser does NOT restore (correct behavior)
-	// No manual triggerRef.current?.focus() is needed.
+	// Focus return: `Popover` returns focus to the opener as the popup hides after Escape or a
+	// close from `isOpen`, as the browser does for an `auto` popover. An outside press leaves focus
+	// where the user pressed. No manual triggerRef.current?.focus() is needed.
 	const handleOnClose = useCallback(
 		({ reason }: { reason: TPopoverCloseReason }) => {
 			onClose(createPopoverCloseEvent({ reason }));
@@ -211,15 +184,19 @@ export const PopupTopLayer: FC<DialogPopupProps | PopupProps> = memo(function Po
 	);
 
 	/**
-	 * Manual mode: the browser never light-dismisses the popover, so a press on the trigger does not
-	 * close it. With `onClose`, an outside press or Escape calls it, as on an auto popup. The trigger
-	 * is exempt. The hook blurs focus that an outside press left inside, so the close does not return
-	 * focus, as with native light dismiss.
+	 * **Ask first, close second**
+	 *
+	 * Both modes render a `manual` popover, so the browser never closes it. An outside press or Escape
+	 * asks `onClose`, and the popup hides only when `isOpen` becomes `false`, as legacy `Popup` did. A
+	 * press on the trigger does not ask: the trigger's own click decides.
+	 * See `@atlaskit/top-layer` `notes/decisions/wrappers-ask-first-close.md`.
 	 */
 	const isManual = mode === 'manual';
+	// A `manual` popup without `onClose` stays open until `isOpen` changes, and takes no Escape.
+	const isClosable = !isManual || Boolean(providedOnClose);
 	const triggerRefs = useMemo(() => [triggerRef], []);
 	useManualLightDismiss({
-		isOpen: isOpen && isManual && Boolean(providedOnClose),
+		isOpen: isOpen && isClosable,
 		popoverRef,
 		additionalInsideElementRefs: triggerRefs,
 		onClose: handleOnClose,
@@ -282,7 +259,9 @@ export const PopupTopLayer: FC<DialogPopupProps | PopupProps> = memo(function Po
 				{...roleProps}
 				UNSAFE__disableInitialAutoFocus={UNSAFE__disableInitialAutoFocus}
 				isOpen={isOpen}
-				{...getModeProps({ isManual, hasOnClose: Boolean(providedOnClose), handleOnClose })}
+				mode="manual"
+				// Without it, `requestClosePopovers()` cannot close the popup.
+				onClose={isClosable ? handleOnClose : undefined}
 				shouldAnimate
 				placement={topLayerPlacement}
 				testId={testId && `${testId}--container`}

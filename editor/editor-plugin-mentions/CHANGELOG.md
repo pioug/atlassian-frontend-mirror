@@ -1,5 +1,34 @@
 # @atlaskit/editor-plugin-mentions
 
+## 35.0.7
+
+### Patch Changes
+
+- [`6d8a8de01ef8b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6d8a8de01ef8b) -
+  Make mention avatars permanent for eligible mentions by removing the
+  platform_editor_mention_node_avatar experiment.
+
+  Update mention regression coverage in `@atlassian/conversation-assistant-content-renderer` for
+  avatars replacing the at-sign in Rovo Chat. This consumer change is confined to tests.
+
+- [`8bdae43216aac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8bdae43216aac) -
+  Set `registeredKey` on legacy quick insert items and toolbar `+` items: the key of the matching
+  item in the registered quick insert menu, so analytics can name native items the same way in both
+  menus.
+- Updated dependencies
+
+## 35.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 35.0.4
 
 ### Patch Changes

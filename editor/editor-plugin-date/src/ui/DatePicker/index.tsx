@@ -18,7 +18,6 @@ import { PlainOutsideClickTargetRefContext } from '@atlaskit/editor-common/ui';
 import { timestampToIsoFormat, timestampToUTCDate } from '@atlaskit/editor-common/utils/date';
 import withOuterListeners from '@atlaskit/editor-common/with-outer-listeners';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles/constants';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
@@ -126,9 +125,7 @@ class DatePicker extends React.Component<Props & WrappedComponentProps, State> {
 			return null;
 		}
 
-		const defaultWeekStartDay = expValEquals('platform_editor_locale_datepicker', 'isEnabled', true)
-			? getDFLocale(intl.locale)?.options?.weekStartsOn
-			: undefined;
+		const defaultWeekStartDay = getDFLocale(intl.locale)?.options?.weekStartsOn;
 
 		return (
 			<PopupWithListeners
@@ -174,11 +171,7 @@ class DatePicker extends React.Component<Props & WrappedComponentProps, State> {
 								ref={this.handleRef}
 								weekStartDay={weekStartDay ?? defaultWeekStartDay}
 								testId={'datepicker'}
-								locale={
-									expValEquals('platform_editor_locale_datepicker', 'isEnabled', true)
-										? intl.locale
-										: undefined
-								}
+								locale={intl.locale}
 							/>
 						</div>
 					)}

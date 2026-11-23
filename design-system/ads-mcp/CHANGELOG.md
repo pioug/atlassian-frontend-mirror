@@ -1,5 +1,25 @@
 # @atlaskit/ads-mcp
 
+## 2.0.6
+
+### Patch Changes
+
+- [`37f7f3efd01cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/37f7f3efd01cf) -
+  Use the Studio Agent Picker entrypoint with PopupTrigger in chat behind
+  rovo_chat_studio_agent_picker. Deprecate the legacy AgentMenu in favor of direct picker
+  integration.
+
+  Export AgentPickerSkeleton for use as the picker entrypoint loading fallback.
+
+  Update the generated component catalogs with the skeleton export.
+
+## 2.0.5
+
+### Patch Changes
+
+- [`6be033808ee20`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6be033808ee20) -
+  Refresh generated structured-content catalogs from AFM master.
+
 ## 2.0.4
 
 ### Patch Changes

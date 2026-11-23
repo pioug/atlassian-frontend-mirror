@@ -31,6 +31,7 @@ import {
 	getPositionAfterTopParentNodeOfType,
 } from '@atlaskit/editor-common/nesting';
 import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset/editor-commands';
+import { TABLE_MENU_ITEM } from '@atlaskit/editor-common/quick-insert/keys';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { Command } from '@atlaskit/editor-common/types/command';
 import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types/editor-container-width';
@@ -703,6 +704,7 @@ const tablePlugin: TablePlugin = ({ config, api }) => {
 						quickInsert: ({ formatMessage }) => [
 							{
 								id: 'table',
+								registeredKey: TABLE_MENU_ITEM.key,
 								title: formatMessage(messages.table),
 								description: formatMessage(messages.tableDescription),
 								keywords: ['cell', 'table'],

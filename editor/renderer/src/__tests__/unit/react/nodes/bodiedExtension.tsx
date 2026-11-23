@@ -12,7 +12,7 @@ import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-f
 import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/extensions';
 
 import { Renderer } from '../../../../entry-points/renderer-default';
-import ReactSerializer from '../../../../react';
+import { ReactSerializer } from '../../../../entry-points/serializer-default';
 import BodiedExtension from '../../../../react/nodes/bodiedExtension';
 import type { RendererContext } from '../../../../react/types';
 import { adfNestedTableData } from '../../../__fixtures__/nested-tables';

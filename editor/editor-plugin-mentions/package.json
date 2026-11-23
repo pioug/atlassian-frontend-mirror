@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-mentions",
-	"version": "35.0.4",
+	"version": "35.0.7",
 	"description": "Mentions plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -111,10 +111,6 @@
 	},
 	"platform-experiments": {
 		"platform_editor_mention_rovo": {
-			"param": "isEnabled",
-			"defaultValue": false
-		},
-		"platform_editor_mention_node_avatar": {
 			"param": "isEnabled",
 			"defaultValue": false
 		}

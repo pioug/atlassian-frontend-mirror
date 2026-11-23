@@ -24,7 +24,7 @@ function assertNotProduction(fnName: string): void {
  * Override experiment parameter values at runtime (dev tooling only).
  * Sets values that take priority over Statsig when the experiment is evaluated.
  *
- * @param experimentName - The experiment key (e.g. 'platform_editor_locale_datepicker')
+ * @param experimentName - The experiment key (e.g. 'my_experiment')
  * @param params - The parameter overrides (e.g. { isEnabled: true } or { cohort: 'treatment' })
  */
 export function UNSAFE_overrideExperiment(

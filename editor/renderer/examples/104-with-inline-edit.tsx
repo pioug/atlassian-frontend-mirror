@@ -4,7 +4,7 @@ import type { DocNode } from '@atlaskit/adf-schema/doc';
 import InlineEdit from '@atlaskit/inline-edit/inline-edit';
 import Textfield from '@atlaskit/textfield/text-field';
 
-import { default as Renderer } from '../src/ui/Renderer';
+import { Renderer } from '../src/entry-points/renderer-default';
 import codeBlockADF from './helper/codeblock.adf.json';
 
 export default function InlineEditWithRenderer(): React.JSX.Element {

@@ -1,5 +1,23 @@
 # @atlaskit/top-layer
 
+## 8.1.3
+
+### Patch Changes
+
+- [`ff204d5191915`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ff204d5191915) -
+  A `manual` `Popover` returns focus and hides the popovers inside it as it hides, as an `auto` one
+  does; `useManualLightDismiss` asks about an outside press after its `click`; `useArrowNavigation`
+  acts on one menu level per key.
+
+## 8.1.2
+
+### Patch Changes
+
+- [`76c81dc43fef7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/76c81dc43fef7) -
+  A `manual` `Popover` returns focus and hides the popovers inside it as it hides, as an `auto` one
+  does; `useManualLightDismiss` asks about an outside press after its `click`; `useArrowNavigation`
+  acts on one menu level per key.
+
 ## 8.1.1
 
 ### Patch Changes

@@ -173,6 +173,14 @@ test.describe('Popup: top-layer focus contract', () => {
 		expect(isOutsidePopup).toBe(true);
 		await expect(content).toBeVisible();
 
+		// Focus on the combobox opens its listbox popup. A layer that opens does not close the popup,
+		// and one Escape closes one layer, the later one first.
+		const listbox = page.getByTestId('combobox-controls-popup-content');
+		await expect(listbox).toBeVisible();
+		await page.keyboard.press('Escape');
+		await expect(listbox).toBeHidden();
+		await expect(content).toBeVisible();
+
 		await page.keyboard.press('Escape');
 
 		await expect(content).toBeHidden();

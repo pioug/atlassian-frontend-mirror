@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-selection
 
+## 33.1.0
+
+### Minor Changes
+
+- [`9b5ac6d2b520c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b5ac6d2b520c) -
+  Fix mention selection highlights in live viewing mode under
+  platform_editor_inline_node_selection_style.
+
+  Use bind-event-listener in the selection plugin to manage the native selection listener and
+  cleanup.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 33.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 33.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 33.0.3
 
 ### Patch Changes

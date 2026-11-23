@@ -22,7 +22,6 @@ const testId = 'rovo-agent-selector';
 
 const CREATION_FIX_GATE = 'hubs_management_rovo_agent_creation_fix';
 const SELECTOR_GATE = 'jsm_help_center_one-click_rovo_agent';
-const MIGRATE_AGENT_AVATAR_GATE = 'migrate-agent-avatar-component-to-ads';
 
 const mockOnChange = jest.fn();
 
@@ -319,7 +318,6 @@ describe.each([false, true])('RovoAgentSelector (creation fix: %s)', (creationFi
 
 		it('renders the Identity avatar for each option when migration is enabled', async () => {
 			passGate(SELECTOR_GATE);
-			passGate(MIGRATE_AGENT_AVATAR_GATE);
 			renderComponent({ agentCount: 2 });
 
 			await openMenu();
@@ -329,19 +327,8 @@ describe.each([false, true])('RovoAgentSelector (creation fix: %s)', (creationFi
 			);
 		});
 
-		it('skips the Identity avatar when migration is disabled', async () => {
-			passGate(SELECTOR_GATE);
-			failGate(MIGRATE_AGENT_AVATAR_GATE);
-			renderComponent({ agentCount: 2 });
-
-			await openMenu();
-
-			expect(getImageSources()).not.toContain(getIdentityPicture('agent-0'));
-		});
-
 		it('renders a generic hexagon avatar for agents without an Identity account', async () => {
 			passGate(SELECTOR_GATE);
-			passGate(MIGRATE_AGENT_AVATAR_GATE);
 			const edges = generateMockAgentEdgesWithIdentity(1).map((edge) => ({
 				...edge,
 				node: { ...edge.node, identityAccount: null },
@@ -360,7 +347,6 @@ describe.each([false, true])('RovoAgentSelector (creation fix: %s)', (creationFi
 
 		it('renders the Identity avatar for a selected agent provided by the consumer', async () => {
 			passGate(SELECTOR_GATE);
-			passGate(MIGRATE_AGENT_AVATAR_GATE);
 			renderComponent({
 				agentCount: 2,
 				selectedAgent: { label: 'Agent 1', value: 'agent-1', isForgeAgent: false },
@@ -373,7 +359,6 @@ describe.each([false, true])('RovoAgentSelector (creation fix: %s)', (creationFi
 
 		it('is accessible when migration is enabled', async () => {
 			passGate(SELECTOR_GATE);
-			passGate(MIGRATE_AGENT_AVATAR_GATE);
 			const { container } = renderComponent({
 				agentCount: 2,
 				selectedAgent: { label: 'Agent 1', value: 'agent-1', isForgeAgent: false },

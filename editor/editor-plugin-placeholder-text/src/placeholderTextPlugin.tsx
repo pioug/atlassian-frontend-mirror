@@ -10,6 +10,7 @@ import {
 } from '@atlaskit/editor-common/analytics/types/enums';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
+import { PLACEHOLDER_TEXT_MENU_ITEM } from '@atlaskit/editor-common/quick-insert/keys';
 import type { getPosHandler } from '@atlaskit/editor-common/react-node-view/types';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
@@ -293,6 +294,7 @@ const decorateWithPluginOptions = (
 		quickInsert: ({ formatMessage }) => [
 			{
 				id: 'placeholderText',
+				registeredKey: PLACEHOLDER_TEXT_MENU_ITEM.key,
 				title: formatMessage(messages.placeholderText),
 				description: formatMessage(messages.placeholderTextDescription),
 				priority: 1400,

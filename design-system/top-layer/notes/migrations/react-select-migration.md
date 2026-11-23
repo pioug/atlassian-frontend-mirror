@@ -65,8 +65,8 @@ macOS, does not focus a clicked button, so a mouse-opened menu can have nothing 
   shows the same menu again. A custom `MenuPortal` has no exit signal, so it unmounts at once.
 - **Return, not arrival.** Focus that reaches the input while the menu is closing is a return, so
   `openMenuOnFocus` does not reopen the menu. `onFocus` still fires.
-- **Outside press.** `useManualLightDismiss` blurs focus that an outside press left inside the menu,
-  so the press does not return focus, as with native light dismiss.
+- **Outside press.** The close returns no focus, as with native light dismiss
+  (`useManualLightDismiss` marks the request for `Popover`).
 
 ### Virtual focus at open
 

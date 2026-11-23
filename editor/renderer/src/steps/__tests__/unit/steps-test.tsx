@@ -13,7 +13,7 @@ import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers/fakeMe
 import * as ffPackage from '@atlaskit/platform-feature-flags/fg';
 
 import RendererActions from '../../../actions';
-import ReactSerializer from '../../../react/index';
+import { ReactSerializer } from '../../../entry-points/serializer-default';
 import { getPosFromRange, resolvePos } from '../../index';
 import {
 	complexDocument,

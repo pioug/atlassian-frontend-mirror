@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-
 import type { InteractionType } from '../../common';
 import { getSoftNavigationPaintMetrics } from '../../soft-navigation';
 
@@ -22,7 +20,7 @@ export default async function getPaintMetrics(
 	start: number,
 	end: number,
 ): Promise<PaintMetrics> {
-	if (type === 'transition' && fg('platform_ufo_soft_nav_paint_metrics')) {
+	if (type === 'transition') {
 		return getSoftNavigationPaintMetrics(start);
 	}
 

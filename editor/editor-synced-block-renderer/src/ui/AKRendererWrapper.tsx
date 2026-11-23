@@ -181,8 +181,7 @@ export const AKRendererWrapper: React.MemoExoticComponent<
 								media={media}
 								// Synced block replica locations render through this wrapper rather than the
 								// main editor/renderer surfaces, so forwarding the provider here is gated
-								// independently of `platform_editor_mention_node_avatar` (which still controls
-								// whether the avatar itself renders once a provider is present).
+								// independently of the main editor/renderer provider integration.
 								mentionNodeDataProvider={
 									isExperimentEnabled('platform_editor_mention_avatar_synced_block')
 										? mentionNodeDataProvider

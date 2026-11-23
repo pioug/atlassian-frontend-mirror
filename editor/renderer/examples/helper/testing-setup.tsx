@@ -26,10 +26,10 @@ import type { EditorExperimentOverrides } from '@atlaskit/tmp-editor-statsig/set
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 
-import { default as Renderer } from '../../src/ui/Renderer';
-import type { RendererProps } from '../../src/ui/renderer-props';
+import { AnnotationsWrapper } from '../../src/entry-points/annotations';
+import { RendererActionsContext } from '../../src/entry-points/renderer-actions-context';
+import { Renderer, type RendererProps } from '../../src/entry-points/renderer-default';
 import { ValidationContextProvider } from '../../src/ui/Renderer/ValidationContext';
-import { RendererActionsContext as RendererContext } from '../../src/ui/RendererActionsContext';
 import { WithRendererActions } from '../../src/ui/RendererActionsContext/WithRendererActions';
 import { ExampleSelectionInlineComponent } from './annotations/selection';
 import Sidebar from './NavigationNext';
@@ -151,6 +151,7 @@ function renderRenderer({
 	setMode?: (mode: boolean) => void;
 }) {
 	const { allowNestedTables, showSidebar, ...reactProps } = props;
+	const rendererRef = props.innerRef ?? React.createRef<HTMLDivElement>();
 	return (
 		<IntlProvider locale="en">
 			<AnalyticsListeners client={(window as any).__analytics}>
@@ -159,22 +160,37 @@ function renderRenderer({
 						value={allowNestedTables !== undefined ? { allowNestedTables } : null}
 					>
 						<Sidebar showSidebar={!!showSidebar}>
-							{(additionalRendererProps: any) => (
-								<Renderer
-									dataProviders={providerFactory}
-									document={adf}
-									extensionHandlers={extensionHandlers}
-									{...reactProps}
-									{...additionalRendererProps}
-									eventHandlers={
-										setMode
-											? {
-													onUnhandledClick: (e) => setMode(true),
-												}
-											: undefined
-									}
-								/>
-							)}
+							{(additionalRendererProps: any) => {
+								const renderer = (
+									<Renderer
+										innerRef={rendererRef}
+										dataProviders={providerFactory}
+										document={adf}
+										extensionHandlers={extensionHandlers}
+										{...reactProps}
+										{...additionalRendererProps}
+										eventHandlers={
+											setMode
+												? {
+														onUnhandledClick: (e) => setMode(true),
+													}
+												: undefined
+										}
+									/>
+								);
+								return reactProps.allowAnnotations ? (
+									<AnnotationsWrapper
+										rendererRef={rendererRef}
+										adfDocument={adf}
+										annotationProvider={reactProps.annotationProvider}
+										isNestedRender
+									>
+										{renderer}
+									</AnnotationsWrapper>
+								) : (
+									renderer
+								);
+							}}
 						</Sidebar>
 					</ValidationContextProvider>
 					<EmbedHelper />
@@ -265,22 +281,26 @@ export function createRendererWindowBindings(win: Window, enableClickToEdit?: bo
 			: undefined;
 
 		const render = renderRenderer({ adf, props, setMode });
-		let content;
+		let content = render;
 		if (props.withRendererActions) {
 			content = (
-				<RendererContext>
-					<WithRendererActions
-						render={(actions) => {
-							(win as any).__rendererActions = actions;
-							return render;
-						}}
-					/>
-				</RendererContext>
+				<WithRendererActions
+					render={(actions) => {
+						(win as any).__rendererActions = actions;
+						return render;
+					}}
+				/>
 			);
 		}
 
 		unmountRoot(target);
-		getOrCreateRoot(target).render(content || render);
+		getOrCreateRoot(target).render(
+			props.withRendererActions || props.allowAnnotations ? (
+				<RendererActionsContext>{content}</RendererActionsContext>
+			) : (
+				content
+			),
+		);
 	};
 }
 

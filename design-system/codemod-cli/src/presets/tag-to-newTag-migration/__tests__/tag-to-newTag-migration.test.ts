@@ -1,4 +1,5 @@
-// eslint-disable-next-line @repo/internal/fs/filename-pattern-match
+/* eslint-disable @repo/internal/fs/filename-pattern-match */
+/* oxlint-disable @repo/internal/fs/filename-pattern-match */
 import { createCheck } from '../../../__tests__/test-utils';
 import transformer from '../codemods/tag-to-newTag-migration';
 

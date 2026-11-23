@@ -8,7 +8,7 @@ import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-f
 import { act } from '@atlassian/testing-library/testing-library/react';
 import { within } from '@atlassian/testing-library/within';
 
-import ReactSerializer from '../../../../react';
+import { ReactSerializer } from '../../../../entry-points/serializer-default';
 import BodiedExtension from '../../../../react/nodes/bodiedExtension';
 import {
 	ForgeBodiedExtensionHandoffContext,

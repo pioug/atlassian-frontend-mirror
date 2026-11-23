@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-
 import { type LinkOrder, type NewTeamLink, type TeamLink } from '../../types/links';
 import { type ReadMediaTokenResponse } from '../../types/media';
 import {
@@ -640,10 +638,9 @@ export class LegionClient extends RestClient implements LegionClient {
 	}
 
 	async getWriteMediaToken(teamId?: string): Promise<ReadMediaTokenResponse> {
-		const path =
-			fg('ptc-enable-team-scoped-header-image-media-upload') && teamId
-				? `${v4UrlPath}/${this.trimTeamARI(teamId)}/header-image/media-upload`
-				: `${v4UrlPath}/header-image/media-upload`;
+		const path = teamId
+			? `${v4UrlPath}/${this.trimTeamARI(teamId)}/header-image/media-upload`
+			: `${v4UrlPath}/header-image/media-upload`;
 
 		return this.getResource<ReadMediaTokenResponse>(path).then((response) => ({
 			...response,

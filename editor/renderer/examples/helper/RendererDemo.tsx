@@ -27,9 +27,10 @@ import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-p
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 
 import { renderDocument } from '../../src';
+import { AnnotationsWrapper } from '../../src/entry-points/annotations';
+import { RendererActionsContext } from '../../src/entry-points/renderer-actions-context';
+import { Renderer, type RendererProps } from '../../src/entry-points/renderer-default';
 import TextSerializer from '../../src/text';
-import { default as Renderer } from '../../src/ui/Renderer';
-import type { RendererProps } from '../../src/ui/renderer-props';
 import type { RendererAppearance, HeadingAnchorLinksProps } from '../../src/ui/Renderer/types';
 import Sidebar, { getDefaultShowSidebarState } from './NavigationNext';
 import { document as storyDataDocument } from './story-data';
@@ -406,11 +407,30 @@ export default class RendererDemo extends React.Component<DemoRendererProps, Dem
 						&lt;Renderer&gt;
 					</div>
 					<div id="RendererOutput">
-						{Array.from({ length: copies || 1 }).map((_, index) => (
-							// Ignored via go/ees005
-							// eslint-disable-next-line react/no-array-index-key
-							<Renderer key={index} {...props} />
-						))}
+						{Array.from({ length: copies || 1 }).map((_, index) => {
+							const rendererRef = props.innerRef ?? React.createRef<HTMLDivElement>();
+							const renderer = <Renderer {...props} innerRef={rendererRef} />;
+							return (
+								// Ignored via go/ees005
+								// eslint-disable-next-line react/no-array-index-key
+								<React.Fragment key={index}>
+									{props.allowAnnotations ? (
+										<RendererActionsContext>
+											<AnnotationsWrapper
+												rendererRef={rendererRef}
+												adfDocument={props.document}
+												annotationProvider={props.annotationProvider}
+												isNestedRender
+											>
+												{renderer}
+											</AnnotationsWrapper>
+										</RendererActionsContext>
+									) : (
+										renderer
+									)}
+								</React.Fragment>
+							);
+						})}
 					</div>
 					{this.props.truncationEnabled ? expandButton : null}
 					<div

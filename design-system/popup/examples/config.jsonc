@@ -11,6 +11,7 @@
 		"24-fit-viewport.vr.ap.tsx",
 		"97-testing-initial-focus-matrix.tsx",
 		"98-testing-fit-viewport.tsx",
+		"99-testing-ask-first-close.tsx",
 		"should-fit-viewport.tsx",
 		"popup-disable-autofocus.tsx",
 		"surface-detection.vr.ap.tsx",

@@ -7,6 +7,12 @@
 
 ## What was done
 
+**2026-11-03:** the top-layer `Popup` and `PopupContent` render `popover="manual"` with
+`useManualLightDismiss`, not `popover="auto"`. An outside press or Escape asks `onClose`, and the
+popup hides only when `isOpen` becomes `false`. See
+[`../decisions/wrappers-ask-first-close.md`](../decisions/wrappers-ask-first-close.md). Rows below
+that say "native light dismiss" describe the earlier `auto` path.
+
 ### Feature-flagged branch in `popup.tsx`
 
 The `Popup` component has a feature-flagged early-return (`platform-dst-top-layer`) at the top of
@@ -125,7 +131,7 @@ Converts Popper.js placement strings (e.g. `'bottom-start'`) to the top-layer ob
 | `shouldDisableFocusLock`         | Focus behavior is role-based in top layer (dialog traps, others don't)                                                                                                                                                                                                                                                                                                                                                                            |
 | `appearance`                     | Accepted but `UNSAFE_modal-below-sm` is not implemented                                                                                                                                                                                                                                                                                                                                                                                           |
 | `autoFocus`                      | Initial focus follows `role` (decision in [../decisions/role-and-focus.md](../decisions/role-and-focus.md)). A popup with no role takes no focus                                                                                                                                                                                                                                                                                                  |
-| `shouldReturnFocus`              | Native focus return wins, as for ModalDialog. `false` does not stop it. To focus another element on close, focus it synchronously in `onClose` (see [../architecture/focus.md](../architecture/focus.md))                                                                                                                                                                                                                                         |
+| `shouldReturnFocus`              | Focus returns as the platform returns it, and `false` does not stop it (2026-11-09). To focus another element on close, focus it synchronously in `onClose` (see [../architecture/focus.md](../architecture/focus.md))                                                                                                                                                                                                                            |
 
 ### Offset conversion
 
@@ -159,11 +165,12 @@ The legacy `onClose(event)` callback receives a DOM event. The top-layer path re
 `@atlaskit/top-layer/popover` (same helper as `@atlaskit/inline-dialog`). See that module for the
 exact `KeyboardEvent` / `MouseEvent` / `Event` shapes and options (e.g. `bubbles`).
 
-Focus return is native. On Escape or a programmatic close, the browser returns focus to the element
-that had focus before the popup opened (usually the trigger). A light dismiss leaves focus where the
-press put it. `shouldReturnFocus` has no effect on this path, and `false` does not stop the native
-return. This matches ModalDialog (see `modal-dialog-migration.md`). A consumer that wants another
-target focuses it synchronously in `onClose`.
+Focus return: on Escape or a programmatic close, the popup returns focus to the element that had
+focus before it opened (usually the trigger). A light dismiss leaves focus where the press put it.
+The popup is a `manual` popover, so the wrapper returns focus as the native return of an `auto`
+popover does. `shouldReturnFocus={false}` does not stop it (2026-11-09): the prop is a no-op on this
+path. A consumer that wants another target focuses it synchronously in `onClose`. The return acts
+only when focus has no place (in the popup or on `<body>`).
 
 ---
 

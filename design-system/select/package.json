@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/select",
-	"version": "23.2.3",
+	"version": "23.2.5",
 	"description": "Select allows users to make a single selection or multiple selections from a list of options.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -125,10 +125,6 @@
 		},
 		"platform-dst-motion-uplift-labels": {
 			"type": "boolean"
-		},
-		"platform_dst_select_dropdown_voice_control": {
-			"type": "boolean",
-			"referenceOnly": true
 		},
 		"platform-dst-motion-uplift-input": {
 			"type": "boolean",

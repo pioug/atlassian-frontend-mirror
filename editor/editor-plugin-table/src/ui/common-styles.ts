@@ -1080,7 +1080,11 @@ const baseTableStylesWithoutSharedStyle = (props: {
 			&:hover {
 				svg {
 					rect {
-						fill: ${token('color.background.accent.blue.subtle')};
+						fill: ${
+							fg('platform-dst-dnd-token-migration')
+								? token('color.background.draghandle')
+								: token('color.background.accent.blue.subtle')
+						};
 					}
 					g {
 						fill: ${token('color.icon.inverse')};
@@ -1104,7 +1108,11 @@ const baseTableStylesWithoutSharedStyle = (props: {
 
 				svg {
 					rect {
-						fill: ${token('color.background.accent.blue.subtle')};
+						fill: ${
+							fg('platform-dst-dnd-token-migration')
+								? token('color.background.draghandle')
+								: token('color.background.accent.blue.subtle')
+						};
 					}
 					g {
 						fill: ${token('color.icon.inverse')};

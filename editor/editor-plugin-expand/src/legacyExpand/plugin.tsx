@@ -16,6 +16,7 @@ import {
 } from '@atlaskit/editor-common/block-menu/key';
 import { TRANSFORM_STRUCTURE_MENU_SECTION_RANK } from '@atlaskit/editor-common/block-menu/rank';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
+import { EXPAND_MENU_ITEM } from '@atlaskit/editor-common/quick-insert/keys';
 import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils/create-wrap-selection-transaction';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
@@ -124,6 +125,7 @@ export const expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
 					return [
 						{
 							id: 'expand',
+							registeredKey: EXPAND_MENU_ITEM.key,
 							title: formatMessage(messages.expand),
 							description: formatMessage(messages.expandDescription),
 							keywords: ['accordion', 'collapse'],

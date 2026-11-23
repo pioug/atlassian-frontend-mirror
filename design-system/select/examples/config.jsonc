@@ -13,6 +13,7 @@
 		"26-appearance.vr.ap.tsx",
 		"36-persistent-inline-menu.tsx",
 		"37-inline-menu-custom-menu.vr.ap.tsx",
+		"96-testing-popup-select-ask-first-close.tsx",
 	],
 	"exampleDependencies": [],
 }

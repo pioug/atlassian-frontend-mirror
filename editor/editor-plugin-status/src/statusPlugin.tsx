@@ -17,6 +17,7 @@ import { TRANSFORM_STRUCTURE_MENU_SECTION_RANK } from '@atlaskit/editor-common/b
 import { addInlineComment, ToolTipContent } from '@atlaskit/editor-common/keymaps';
 import { annotationMessages } from '@atlaskit/editor-common/messages/annotation';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
+import { STATUS_MENU_ITEM } from '@atlaskit/editor-common/quick-insert/keys';
 import type { Command } from '@atlaskit/editor-common/types/command';
 import type { FloatingToolbarItem } from '@atlaskit/editor-common/types/floating-toolbar';
 import { calculateToolbarPositionAboveSelection } from '@atlaskit/editor-common/utils/calculate-toolbar-position';
@@ -117,6 +118,7 @@ export const statusPlugin: StatusPlugin = ({ config: options, api }) => {
 							return [
 								{
 									id: 'status',
+									registeredKey: STATUS_MENU_ITEM.key,
 									title: formatMessage(messages.status),
 									description: formatMessage(messages.statusDescription),
 									priority: 700,

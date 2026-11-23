@@ -30,6 +30,12 @@ import { TRANSFORM_STRUCTURE_MENU_SECTION_RANK } from '@atlaskit/editor-common/b
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages/insert-block';
 import { toolbarMessages as layoutMessages } from '@atlaskit/editor-common/messages/layout';
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory/quick-insert-provider';
+import {
+	FIVE_COLUMNS_LAYOUT_MENU_ITEM,
+	FOUR_COLUMNS_LAYOUT_MENU_ITEM,
+	THREE_COLUMNS_LAYOUT_MENU_ITEM,
+	TWO_COLUMNS_LAYOUT_MENU_ITEM,
+} from '@atlaskit/editor-common/quick-insert/keys';
 import type { FloatingToolbarConfig } from '@atlaskit/editor-common/types/floating-toolbar';
 import type { PMPlugin } from '@atlaskit/editor-common/types/plugin-factory';
 import type { UiComponentFactoryParams } from '@atlaskit/editor-common/types/ui-components';
@@ -232,6 +238,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 								icon: Icon,
 								id,
 								keyword,
+								registeredKey,
 								title,
 							}: {
 								columnCount: number;
@@ -239,9 +246,11 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 								icon: QuickInsertItem['icon'];
 								id: QuickInsertItem['id'];
 								keyword: string;
+								registeredKey: string;
 								title: string;
 							}): QuickInsertItem => ({
 								id,
+								registeredKey,
 								title,
 								description: formatMessage(messages.columnsDescriptionAdvancedLayout, {
 									numberOfColumns: descriptionColumnCount,
@@ -284,6 +293,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 									icon: () => <IconTwoColumnLayout />,
 									id: 'twocolumnslayout',
 									keyword: 'two column',
+									registeredKey: TWO_COLUMNS_LAYOUT_MENU_ITEM.key,
 									title: formatMessage(layoutMessages.twoColumnsAdvancedLayout),
 								}),
 								...advancedSingleColumnOption,
@@ -293,6 +303,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 									icon: () => <IconThreeColumnLayout />,
 									id: 'threecolumnslayout',
 									keyword: 'three column',
+									registeredKey: THREE_COLUMNS_LAYOUT_MENU_ITEM.key,
 									title: formatMessage(layoutMessages.threeColumnsAdvancedLayout),
 								}),
 								createAdvancedColumnLayoutOption({
@@ -301,6 +312,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 									icon: () => <IconFourColumnLayout />,
 									id: 'fourcolumnslayout',
 									keyword: 'four column',
+									registeredKey: FOUR_COLUMNS_LAYOUT_MENU_ITEM.key,
 									title: formatMessage(layoutMessages.fourColumns),
 								}),
 								createAdvancedColumnLayoutOption({
@@ -309,6 +321,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 									icon: () => <IconFiveColumnLayout />,
 									id: 'fivecolumnslayout',
 									keyword: 'five column',
+									registeredKey: FIVE_COLUMNS_LAYOUT_MENU_ITEM.key,
 									title: formatMessage(layoutMessages.fiveColumns),
 								}),
 							];
@@ -316,6 +329,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 							return [
 								{
 									id: 'layout',
+									registeredKey: TWO_COLUMNS_LAYOUT_MENU_ITEM.key,
 									title: formatMessage(messages.columns),
 									description: formatMessage(messages.columnsDescription),
 									keywords: ['column', 'section'],

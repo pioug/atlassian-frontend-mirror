@@ -6,7 +6,6 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-edi
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { BreakoutPlugin } from '../breakoutPluginType';
@@ -17,28 +16,12 @@ export const LOCAL_RESIZE_PROPERTY = '--local-resizing-width';
 
 const RESIZE_HANDLE_TRACK_WIDTH = '7px';
 
-// this function delays the resizer callbacks until the mark view DOM is attached to the DOM
-const scheduleResizeHandleSetup = (callback: () => void): (() => void) => {
-	if (typeof window === 'undefined') {
-		return () => {};
-	}
-
-	if (typeof window.requestAnimationFrame === 'function') {
-		const frame = window.requestAnimationFrame(callback);
-		return () => window.cancelAnimationFrame(frame);
-	}
-
-	const timeout = window.setTimeout(callback, 0);
-	return () => window.clearTimeout(timeout);
-};
-
 export class ResizingMarkView implements NodeView {
 	dom: HTMLElement;
 	contentDOM: HTMLElement;
 	view: EditorView;
 	mark: Mark;
 	destroyFn: ((isChangeToViewMode?: boolean) => void) | undefined;
-	cancelScheduledResizeHandleSetup: (() => void) | undefined;
 	intl: IntlShape;
 	nodeViewPortalProviderAPI: PortalProviderAPI;
 	unsubscribeToViewModeChange: (() => void) | undefined;
@@ -133,47 +116,12 @@ export class ResizingMarkView implements NodeView {
 
 		const isLiveViewMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
 		if (!isLiveViewMode) {
-			!isExperimentEnabled('platform_editor_reduce_forced_layout') &&
-			(fg('platform_editor_lovability_resize_gracefully') ||
-				fg('platform_editor_lovability_resize_exts_gracefully'))
-				? this.setupResizerCallbacksIfSupported(
-						dom,
-						contentDOM,
-						view,
-						mark,
-						isResizingDividersPanelsEnabled,
-						isResizingExtensionsEnabled,
-						api,
-					)
-				: this.setupResizerCallbacks(dom, contentDOM, view, mark, api);
+			this.setupResizerCallbacks(dom, contentDOM, view, mark, api);
 		}
 
 		this.unsubscribeToViewModeChange = api?.editorViewMode?.sharedState.onChange((sharedState) => {
 			if (sharedState.nextSharedState?.mode !== sharedState.prevSharedState?.mode) {
-				if (
-					!isExperimentEnabled('platform_editor_reduce_forced_layout') &&
-					(fg('platform_editor_lovability_resize_gracefully') ||
-						fg('platform_editor_lovability_resize_exts_gracefully'))
-				) {
-					if (sharedState.nextSharedState?.mode === 'view') {
-						this.cancelScheduledResizeHandleSetup?.();
-						this.cancelScheduledResizeHandleSetup = undefined;
-						if (this.isResizingInitialised) {
-							this.destroyFn?.(true);
-							this.isResizingInitialised = false;
-						}
-					} else if (sharedState.nextSharedState?.mode === 'edit' && !this.isResizingInitialised) {
-						this.setupResizerCallbacksIfSupported(
-							dom,
-							contentDOM,
-							view,
-							mark,
-							isResizingDividersPanelsEnabled,
-							isResizingExtensionsEnabled,
-							api,
-						);
-					}
-				} else if (sharedState.nextSharedState?.mode === 'view' && this.isResizingInitialised) {
+				if (sharedState.nextSharedState?.mode === 'view' && this.isResizingInitialised) {
 					this.destroyFn?.(true);
 					this.isResizingInitialised = false;
 				} else if (sharedState.nextSharedState?.mode === 'edit' && !this.isResizingInitialised) {
@@ -205,58 +153,6 @@ export class ResizingMarkView implements NodeView {
 		this.isResizingInitialised = true;
 	}
 
-	setupResizerCallbacksIfSupported(
-		dom: HTMLElement,
-		contentDOM: HTMLElement,
-		view: EditorView,
-		mark: Mark,
-		isResizingDividersPanelsEnabled: boolean,
-		isResizingExtensionsEnabled: boolean,
-		api?: ExtractInjectionAPI<BreakoutPlugin>,
-	): void {
-		// cancel any pending setup before scheduling a new one
-		this.cancelScheduledResizeHandleSetup?.();
-		this.cancelScheduledResizeHandleSetup = undefined;
-
-		// if breakout resizing is supported,
-		// continue to set up the resizer callbacks
-		if (isResizingDividersPanelsEnabled && isResizingExtensionsEnabled) {
-			this.setupResizerCallbacks(dom, contentDOM, view, mark, api);
-			return;
-		}
-
-		// else if breakout resizing is not supported,
-		// do NOT set up the resizer callbacks (yet)
-		// wait for the mark view DOM to be attached to the DOM first
-		this.cancelScheduledResizeHandleSetup = scheduleResizeHandleSetup(() => {
-			this.cancelScheduledResizeHandleSetup = undefined;
-
-			if (view.isDestroyed || !dom.isConnected) {
-				return;
-			}
-
-			const pos = view.posAtDOM(dom, 0);
-			const nodeName = view.state.doc.nodeAt(pos)?.type.name;
-
-			// if the node is a panel or a rule but resizing is not supported, do NOT set up the resizer callbacks
-			// if the node is an extension but resizing is not supported, do NOT set up the resizer callbacks
-			if (
-				(nodeName &&
-					['panel', 'rule', 'panel_c1'].includes(nodeName) &&
-					!isResizingDividersPanelsEnabled) ||
-				(nodeName &&
-					['extension', 'bodiedExtension', 'multiBodiedExtension'].includes(nodeName) &&
-					!isResizingExtensionsEnabled) ||
-				this.isResizingInitialised
-			) {
-				return;
-			}
-
-			// else, continue to set up the resizer callbacks
-			this.setupResizerCallbacks(dom, contentDOM, view, mark, api);
-		});
-	}
-
 	ignoreMutation() {
 		return true;
 	}
@@ -264,6 +160,5 @@ export class ResizingMarkView implements NodeView {
 	destroy(): void {
 		this.destroyFn?.();
 		this.unsubscribeToViewModeChange?.();
-		this.cancelScheduledResizeHandleSetup?.();
 	}
 }

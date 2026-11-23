@@ -17,4 +17,10 @@ type RemoveSticky = {
 	pos: number;
 };
 
-export type StickyPluginAction = UpdateSticky | RemoveSticky;
+/** Replaces every entry with a snapshot of the header rows that are stuck right now. */
+type ReplaceSticky = {
+	name: 'REPLACE';
+	state: StickyPluginState;
+};
+
+export type StickyPluginAction = UpdateSticky | RemoveSticky | ReplaceSticky;

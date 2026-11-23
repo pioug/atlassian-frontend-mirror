@@ -13,6 +13,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import { layoutBreakpointWidth } from '@atlaskit/editor-shared-styles/constants';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
 import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -51,6 +52,10 @@ const dropTargetLayoutHintStyle = css({
 	position: 'relative',
 	borderRight: `${token('border.width')} dashed ${token('color.border.focused')}`,
 	width: 0,
+});
+
+const dedicatedDropTargetLayoutHintStyle = css({
+	borderRightColor: token('color.border.dropindicator'),
 });
 
 export const DropTargetLayout = (
@@ -141,12 +146,22 @@ export const DropTargetLayout = (
 			data-testid="block-ctrl-drop-indicator"
 		>
 			{isDraggedOver ? (
-				<DropIndicator edge="right" gap={`-${DROP_TARGET_LAYOUT_DROP_ZONE_WIDTH}px`} />
+				<DropIndicator
+					colors={fg('platform-dst-dnd-token-migration') ? 'dedicated' : 'standard'}
+					edge="right"
+					gap={`-${DROP_TARGET_LAYOUT_DROP_ZONE_WIDTH}px`}
+				/>
 			) : (
 				(isActiveAnchor ||
 					expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) ||
 					isExperimentEnabled('platform_editor_block_control_migration')) && (
-					<div data-testid="block-ctrl-drop-hint" css={dropTargetLayoutHintStyle}></div>
+					<div
+						data-testid="block-ctrl-drop-hint"
+						css={[
+							dropTargetLayoutHintStyle,
+							fg('platform-dst-dnd-token-migration') && dedicatedDropTargetLayoutHintStyle,
+						]}
+					></div>
 				)
 			)}
 		</div>
@@ -256,12 +271,22 @@ export const DropTargetLayoutNativeAnchorSupport = (
 			data-testid="block-ctrl-drop-indicator"
 		>
 			{isDraggedOver ? (
-				<DropIndicator edge="right" gap={`-${DROP_TARGET_LAYOUT_DROP_ZONE_WIDTH}px`} />
+				<DropIndicator
+					colors={fg('platform-dst-dnd-token-migration') ? 'dedicated' : 'standard'}
+					edge="right"
+					gap={`-${DROP_TARGET_LAYOUT_DROP_ZONE_WIDTH}px`}
+				/>
 			) : (
 				(isActiveAnchor ||
 					expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true) ||
 					isExperimentEnabled('platform_editor_block_control_migration')) && (
-					<div data-testid="block-ctrl-drop-hint" css={dropTargetLayoutHintStyle}></div>
+					<div
+						data-testid="block-ctrl-drop-hint"
+						css={[
+							dropTargetLayoutHintStyle,
+							fg('platform-dst-dnd-token-migration') && dedicatedDropTargetLayoutHintStyle,
+						]}
+					></div>
 				)
 			)}
 		</div>

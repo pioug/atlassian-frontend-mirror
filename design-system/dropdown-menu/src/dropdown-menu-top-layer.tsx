@@ -3,6 +3,7 @@
  * @jsx jsx
  */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { flushSync } from 'react-dom';
 
 import { cssMap, jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
@@ -11,6 +12,7 @@ import Button from '@atlaskit/button/default/button';
 import noop from '@atlaskit/ds-lib/noop';
 import useControlledState from '@atlaskit/ds-lib/use-controlled';
 import useFocus from '@atlaskit/ds-lib/use-focus-event';
+import { useLayoutEffect } from '@atlaskit/ds-lib/use-layout-effect';
 import ExpandIcon from '@atlaskit/icon/core/chevron-down';
 import MenuGroup from '@atlaskit/menu/menu-group';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
@@ -26,6 +28,7 @@ import { Popover } from '@atlaskit/top-layer/popover/popover';
 import type { TPopoverCloseReason } from '@atlaskit/top-layer/popover/types';
 import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 import { useArrowNavigation } from '@atlaskit/top-layer/use-arrow-navigation/use-arrow-navigation';
+import { useManualLightDismiss } from '@atlaskit/top-layer/use-manual-light-dismiss';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 import { DropdownTriggerContext } from './internal/context/dropdown-trigger-context';
@@ -91,16 +94,20 @@ function getMenuStack({ menu }: { menu: HTMLElement }): HTMLElement[] {
 }
 
 /**
- * Menus that Tab is closing. Tab hides the root popover natively, so `Popover` reports each menu
- * in the stack as a light dismiss. This set lets each of them pass a Tab key event to
- * `onOpenChange`, as the legacy path does.
+ * Asks each open menu to close for a Tab, so a Tab in a nested menu can ask every menu in its
+ * stack, as the legacy path does.
  */
-const menusClosedByTab = new WeakSet<HTMLElement>();
+const menuTabCloseRequests = new WeakMap<HTMLElement, () => void>();
 
 /**
  * A submenu trigger: `aria-haspopup` `menu` or `true`.
  */
 const submenuTriggerSelector = '[aria-haspopup="menu"], [aria-haspopup="true"]';
+
+/**
+ * A group title (`GroupTitle`, or a `@atlaskit/menu` `HeadingItem`).
+ */
+const headingItemSelector = '[data-ds--menu--heading-item]';
 
 /**
  * Loading indicator for the dropdown menu.
@@ -133,7 +140,7 @@ function LoadingIndicator({
  *
  * What is no longer needed:
  * - Portal: top layer handles stacking natively
- * - FocusLock / react-focus-lock: popover=auto provides light dismiss
+ * - FocusLock / react-focus-lock: `useManualLightDismiss` provides light dismiss
  * - z-index: top layer is always above everything
  * - FocusManager (ref registration): replaced by DOM-query-based `useArrowNavigation`
  * - handle-focus.tsx: replaced by `useArrowNavigation`
@@ -198,9 +205,10 @@ function DropdownMenuTopLayer({
 
 	// Close handling. Escape, Tab, Left arrow, an outside press and an item select
 	// close through here; the trigger toggle closes in `handleTriggerClicked`.
-	// The platform returns focus, so there is no focus code here:
-	//   - Escape, Tab or a close from state: the browser returns focus to the
-	//     element that had focus when the menu opened (usually the trigger)
+	// With a controlled `isOpen`, it only asks: the menu hides when `isOpen` becomes `false`.
+	// Focus return:
+	//   - Escape, Tab or a close from state: `Popover` returns focus to the element that had
+	//     focus when the menu opened (usually the trigger), as the menu hides
 	//   - Outside press: no focus return; focus stays where the user pressed
 	// `returnFocusRef` is a no-op on this path.
 	const closeMenu = useCallback(
@@ -212,28 +220,46 @@ function DropdownMenuTopLayer({
 	);
 
 	// Bridges the Popover close reason to the legacy `onOpenChange` event: a
-	// `KeyboardEvent` for Escape and Tab, a `MouseEvent` for an outside press, and
+	// `KeyboardEvent` for Escape, a `MouseEvent` for an outside press, and
 	// `null` for a programmatic close (as `OnOpenChangeArgs` documents).
 	const handleOnClose = useCallback(
 		({ reason }: { reason: TPopoverCloseReason }) => {
-			const menu = popoverRef.current;
-			if (menu && menusClosedByTab.delete(menu)) {
-				closeMenu({ event: new KeyboardEvent('keydown', { key: 'Tab', bubbles: true }) });
-				return;
-			}
-
 			closeMenu({ event: reason === 'programmatic' ? null : createPopoverCloseEvent({ reason }) });
 		},
 		[closeMenu],
 	);
 
-	// A Tab mark is only for the close that Tab started. Drop a stale one when the menu opens, so a
-	// later Escape is not reported as Tab.
-	useEffect(() => {
-		if (isLocalOpen && popoverRef.current) {
-			menusClosedByTab.delete(popoverRef.current);
+	// A Tab in this menu or a nested one asks this menu to close, with a Tab `KeyboardEvent`, as the
+	// legacy path does.
+	useLayoutEffect(() => {
+		const menu = popoverRef.current;
+		if (!isLocalOpen || !menu) {
+			return;
 		}
-	}, [isLocalOpen]);
+		menuTabCloseRequests.set(menu, () => {
+			closeMenu({ event: new KeyboardEvent('keydown', { key: 'Tab', bubbles: true }) });
+		});
+		return () => {
+			menuTabCloseRequests.delete(menu);
+		};
+	}, [closeMenu, isLocalOpen]);
+
+	/**
+	 * **Ask first, close second**
+	 *
+	 * A `manual` popover, so the browser never closes it. An outside press or Escape asks through
+	 * `onOpenChange`, and the menu hides only when `isOpen` becomes `false`. A press on the trigger
+	 * does not ask: the trigger's click toggles the menu, as on the legacy path. A press in a nested
+	 * menu is inside this menu (it renders in place).
+	 * See `@atlaskit/top-layer` `notes/decisions/wrappers-ask-first-close.md`.
+	 */
+	const triggerRefs = useMemo(() => [triggerRef], []);
+	useManualLightDismiss({
+		isOpen: isLocalOpen,
+		popoverRef,
+		additionalInsideElementRefs: triggerRefs,
+		onClose: handleOnClose,
+	});
 
 	const handleNestedClose = useCallback(() => {
 		closeMenu({ event: new KeyboardEvent('keydown', { key: 'ArrowLeft', bubbles: true }) });
@@ -293,11 +319,12 @@ function DropdownMenuTopLayer({
 		}
 
 		const menuStack = getMenuStack({ menu: currentMenu });
-		menuStack.forEach((menu) => menusClosedByTab.add(menu));
 
-		// Hiding the root native popover synchronously closes its descendant popovers and restores
-		// focus to the root trigger. The browser can then perform the Tab default action from there.
-		menuStack[menuStack.length - 1]?.hidePopover();
+		// Ask every menu in the stack, innermost first. In one `flushSync`, so the menus that accept
+		// hide before the browser performs the Tab default action.
+		flushSync(() => {
+			menuStack.forEach((menu) => menuTabCloseRequests.get(menu)?.());
+		});
 	}, []);
 
 	useArrowNavigation({
@@ -324,6 +351,11 @@ function DropdownMenuTopLayer({
 				'[role="menuitem"], [role="menuitemcheckbox"], [role="menuitemradio"]',
 			);
 			if (!menuItem) {
+				return;
+			}
+			// A group title has `role="menuitem"` (see `GroupTitle`), but it is not an item. The legacy
+			// menu closes only for its registered items.
+			if (menuItem.matches(headingItemSelector)) {
 				return;
 			}
 			const isCheckboxOrRadio =
@@ -396,6 +428,7 @@ function DropdownMenuTopLayer({
 					role="menu"
 					label={menuLabel ?? label ?? (typeof trigger === 'string' ? trigger : 'Menu')}
 					isOpen={isLocalOpen}
+					mode="manual"
 					onClose={handleOnClose}
 					shouldAnimate
 					placement={topLayerPlacement}
@@ -438,6 +471,7 @@ function DropdownMenuTopLayer({
 				role="menu"
 				label={menuLabel ?? label ?? (typeof trigger === 'string' ? trigger : 'Menu')}
 				isOpen={isLocalOpen}
+				mode="manual"
 				onClose={handleOnClose}
 				shouldAnimate
 				placement={topLayerPlacement}

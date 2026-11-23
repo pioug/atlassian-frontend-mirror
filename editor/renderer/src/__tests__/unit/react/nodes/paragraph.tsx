@@ -2,7 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
-import ReactSerializer from '../../../../react';
+import { ReactSerializer } from '../../../../entry-points/serializer-default';
 import Paragraph from '../../../../react/nodes/paragraph';
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage

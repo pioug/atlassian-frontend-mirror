@@ -17,7 +17,7 @@ import {
 } from '@atlaskit/media-test-helpers/smart-card-state';
 import { token } from '@atlaskit/tokens';
 
-import { default as Renderer } from '../src/ui/Renderer';
+import { Renderer } from '../src/entry-points/renderer-default';
 import type { RendererProps } from '../src/ui/renderer-props';
 import smartCardAdf from './helper/ssr-smart-card.json';
 

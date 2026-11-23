@@ -15,8 +15,6 @@ import {
 import { defaultSchema } from '@af/adf-test-helpers/src/schema';
 import { Transform } from '@atlaskit/editor-prosemirror/transform';
 import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
-import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
-import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 
 import { backgroundColor as backgroundColorNodeSpec } from '../../../..';
 import { createSchema } from '../../../../schema/create-schema';
@@ -44,10 +42,6 @@ describe(`${packageName}/schema backgroundColor mark`, () => {
 			group: 'color',
 			inclusive: true,
 			parseDOM: [
-				{
-					getAttrs: expect.anything(),
-					style: 'background-color',
-				},
 				{
 					getAttrs: expect.anything(),
 					tag: '[style]:not(td):not(th)',
@@ -108,7 +102,6 @@ describe(`${packageName}/schema backgroundColor mark`, () => {
 
 	describe('table cell backgrounds', () => {
 		beforeEach(() => {
-			mockExpEnabled('platform_editor_fix_table_cell_background');
 			setupEditorExperiments('test', {
 				platform_editor_lovability_text_bg_color: true,
 			});
@@ -181,27 +174,6 @@ describe(`${packageName}/schema backgroundColor mark`, () => {
 
 			expect(parsed.toJSON()).toEqual(expected.toJSON());
 		});
-	});
-
-	it('parses cell backgrounds as text highlight when platform_editor_lovability_text_bg_color is disabled', () => {
-		mockExpDisabled('platform_editor_fix_table_cell_background');
-		setupEditorExperiments('test', {
-			platform_editor_lovability_text_bg_color: true,
-		});
-
-		const schema = makeTableSchema();
-		const parsed = fromHTML(
-			'<table data-table-local-id="test-table"><tbody><tr><td style="background-color: #b3d4ff"><p>text</p></td></tr></tbody></table>',
-			schema,
-		);
-
-		const expected = doc(
-			table({ localId: 'test-table' })(
-				tr(td({ background: '#b3d4ff' })(p(backgroundColor({ color: '#b3d4ff' })('text')))),
-			),
-		)(schema);
-
-		expect(parsed.toJSON()).toEqual(expected.toJSON());
 	});
 
 	it('serializes to <span style="color: ...">', () => {

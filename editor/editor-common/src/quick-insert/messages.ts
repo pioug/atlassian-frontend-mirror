@@ -51,7 +51,7 @@ export const messages: Messages<
 	| 'elementBrowserCategoriesLabel'
 	| 'elementBrowserResultsAvailable'
 	| 'elementBrowserResultsLabel'
-	| 'elementBrowserSearch'
+	| 'elementBrowserSearchPlaceholder'
 	| 'elementBrowserTitle'
 > = defineMessages({
 	help: {
@@ -305,11 +305,11 @@ export const messages: Messages<
 		description:
 			'Accessible label for the list of elements in the element browser, read by screen readers.',
 	},
-	elementBrowserSearch: {
-		id: 'editor.quick-insert.search',
-		defaultMessage: 'Search elements',
+	elementBrowserSearchPlaceholder: {
+		id: 'editor.quick-insert.search.placeholder',
+		defaultMessage: 'Search all elements',
 		description:
-			'Accessible label for the search field at the top of the element browser, used to filter the elements that can be inserted.',
+			'Placeholder and accessible label for the search field at the top of the element browser dialog. Prompts the user to type to search every element that can be inserted.',
 	},
 	elementBrowserTitle: {
 		id: 'editor.quick-insert.title',

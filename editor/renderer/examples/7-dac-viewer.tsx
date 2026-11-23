@@ -19,7 +19,7 @@ import {
 import { token } from '@atlaskit/tokens';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 
-import Renderer from '../src/ui/Renderer';
+import { Renderer } from '../src/entry-points/renderer-default';
 
 export interface State {
 	err?: Error;

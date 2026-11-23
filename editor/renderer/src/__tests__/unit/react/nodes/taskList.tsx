@@ -7,7 +7,7 @@ import FabricAnalyticsListener from '@atlaskit/analytics-listeners/FabricAnalyti
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners/types';
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 
-import ReactSerializer from '../../../../react';
+import { ReactSerializer } from '../../../../entry-points/serializer-default';
 import TaskItem from '../../../../react/nodes/taskItem';
 import TaskList from '../../../../react/nodes/taskList';
 

@@ -21,7 +21,7 @@ import { abortAll } from '@atlaskit/react-ufo/interaction-metrics';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 
 import AnalyticsContext from '../../../../analytics/analyticsContext';
-import ReactSerializer from '../../../../react';
+import { ReactSerializer } from '../../../../entry-points/serializer-default';
 import type { HeadingLevels } from '../../../../react/nodes/heading';
 import Heading from '../../../../react/nodes/heading';
 

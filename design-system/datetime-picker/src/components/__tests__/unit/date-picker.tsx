@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import { act, fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 // oxlint-disable-next-line @atlassian/no-restricted-imports
 import { format, parseISO } from 'date-fns';
@@ -1261,6 +1261,14 @@ describe.each([false, true])('Select blur-close experiment %s', (blurCloseEnable
 	});
 });
 
+/**
+ * Makes the element a `manual` popover. As a DOM attribute, because the React types of this
+ * package do not list `popover`.
+ */
+function setManualPopover(element: HTMLDivElement | null): void {
+	element?.setAttribute('popover', 'manual');
+}
+
 // Top layer: Tab into the calendar is not a blur.
 describe('Select menu close on the top-layer path', () => {
 	beforeEach(() => {
@@ -1280,5 +1288,47 @@ describe('Select menu close on the top-layer path', () => {
 		await user.keyboard('{Escape}');
 
 		expect(onMenuClose).toHaveBeenCalledTimes(1);
+	});
+
+	// For example, a popup that the calendar opened returns focus to the input as it closes. Without
+	// a calendar button, keyboard focus opens the calendar; with one, it closes it. Neither applies to
+	// focus that a layer returns.
+	it('keeps the calendar open when a closing layer returns focus to the input', () => {
+		render(
+			<>
+				{createDatePicker({ shouldShowCalendarButton: true, defaultIsOpen: true })}
+				<div ref={setManualPopover} data-testid="layer">
+					<button type="button">Cancel</button>
+				</div>
+			</>,
+		);
+		expect(getInput()).toHaveAttribute('aria-expanded', 'true');
+		const layer = screen.getByTestId('layer');
+		act(() => layer.showPopover());
+		act(() => screen.getByRole('button', { name: 'Cancel' }).focus());
+		act(() => layer.hidePopover());
+
+		// The layer returns focus to the input as it closes.
+		act(() => getInput().focus());
+
+		expect(getInput()).toHaveFocus();
+		expect(getInput()).toHaveAttribute('aria-expanded', 'true');
+	});
+
+	it('closes the calendar when keyboard focus arrives from an open layer', () => {
+		render(
+			<>
+				{createDatePicker({ shouldShowCalendarButton: true, defaultIsOpen: true })}
+				<div ref={setManualPopover} data-testid="layer">
+					<button type="button">Next</button>
+				</div>
+			</>,
+		);
+		act(() => screen.getByTestId('layer').showPopover());
+		act(() => screen.getByRole('button', { name: 'Next' }).focus());
+
+		act(() => getInput().focus());
+
+		expect(getInput()).toHaveAttribute('aria-expanded', 'false');
 	});
 });

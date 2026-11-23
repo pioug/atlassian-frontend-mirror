@@ -8,6 +8,11 @@ import {
 import { messages } from '@atlaskit/editor-common/messages/card';
 import type { CardProvider } from '@atlaskit/editor-common/provider-factory/card-provider';
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory/quick-insert-provider';
+import {
+	ASSETS_MENU_ITEM,
+	CONFLUENCE_LIST_MENU_ITEM,
+	JIRA_WORK_ITEMS_MENU_ITEM,
+} from '@atlaskit/editor-common/quick-insert/keys';
 import { canRenderDatasource } from '@atlaskit/editor-common/utils/datasource';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource/assets-modal';
@@ -344,6 +349,7 @@ export const cardPlugin: CardPlugin = ({ config: options = {} as CardPluginOptio
 
 							quickInsertArray.push({
 								id: 'datasource',
+								registeredKey: JIRA_WORK_ITEMS_MENU_ITEM.key,
 								title: formatMessage(
 									fg('confluence-issue-terminology-refresh')
 										? messages.datasourceJiraIssueIssueTermRefresh
@@ -370,6 +376,7 @@ export const cardPlugin: CardPlugin = ({ config: options = {} as CardPluginOptio
 							if (canRenderDatasource(ASSETS_LIST_OF_LINKS_DATASOURCE_ID)) {
 								quickInsertArray.push({
 									id: 'datasource',
+									registeredKey: ASSETS_MENU_ITEM.key,
 									title: formatMessage(messages.datasourceAssetsObjectsGeneralAvailability),
 									description: formatMessage(messages.datasourceAssetsObjectsDescription),
 									isDisabledOffline: true,
@@ -387,6 +394,7 @@ export const cardPlugin: CardPlugin = ({ config: options = {} as CardPluginOptio
 							if (isDatasourceConfigEditable(CONFLUENCE_SEARCH_DATASOURCE_ID)) {
 								quickInsertArray.push({
 									id: 'datasource',
+									registeredKey: CONFLUENCE_LIST_MENU_ITEM.key,
 									title: formatMessage(messages.datasourceConfluenceSearch),
 									description: formatMessage(messages.datasourceConfluenceSearchDescription),
 									isDisabledOffline: true,

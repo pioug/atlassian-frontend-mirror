@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-date
 
+## 35.0.7
+
+### Patch Changes
+
+- [`8bdae43216aac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8bdae43216aac) -
+  Set `registeredKey` on legacy quick insert items and toolbar `+` items: the key of the matching
+  item in the registered quick insert menu, so analytics can name native items the same way in both
+  menus.
+- Updated dependencies
+
+## 35.0.6
+
+### Patch Changes
+
+- [`7de48fd5b0d5c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7de48fd5b0d5c) -
+  Use the current locale for the date picker and its default first day of the week.
+- Updated dependencies
+
+## 35.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 35.0.4
 
 ### Patch Changes

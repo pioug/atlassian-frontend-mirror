@@ -1,5 +1,13 @@
 # @atlaskit/teams-client
 
+## 6.2.4
+
+### Patch Changes
+
+- [`eb7af07f30464`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eb7af07f30464) -
+  Remove the ptc-enable-team-scoped-header-image-media-upload gate, retaining team-scoped uploads
+  and the missing-team fallback.
+
 ## 6.2.3
 
 ### Patch Changes

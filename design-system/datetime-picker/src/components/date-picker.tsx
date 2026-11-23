@@ -49,6 +49,7 @@ import { getSafeCalendarValue } from '../internal/get-safe-calendar-value';
 import { getShortISOString } from '../internal/get-short-iso-string';
 import { IndicatorsContainer } from '../internal/indicators-container';
 import { isDateDisabled } from '../internal/is-date-disabled';
+import { isFocusFromClosedLayer } from '../internal/is-focus-from-closed-layer';
 import { Menu } from '../internal/menu';
 import { MenuTopLayer } from '../internal/menu-top-layer';
 import { parseDate } from '../internal/parse-date';
@@ -299,11 +300,15 @@ const DatePicker: React.ForwardRefExoticComponent<
 		} else {
 			// Opening an auto popover during pointer focus allows the matching pointerup
 			// to immediately light-dismiss it. Let the subsequent click open it instead.
-			const isPointerFocus = fg('platform-dst-top-layer') && isPointerInteractionRef.current;
-			// Focus that returns while the calendar closes must not change the open state.
-			// `getIsOpen()` includes an `isOpen={false}` prop, so the calendar shows again when the prop
-			// is removed.
-			if (!isPointerFocus && !isCalendarClosing()) {
+			const isTopLayer = fg('platform-dst-top-layer');
+			const isPointerFocus = isTopLayer && isPointerInteractionRef.current;
+			// Focus that returns while the calendar closes must not change the open state. Nor must
+			// focus that another layer returns as it closes (for example a popup that the calendar
+			// opened). `getIsOpen()` includes an `isOpen={false}` prop, so the calendar shows again when
+			// the prop is removed.
+			const isReturnedFocus =
+				isTopLayer && isFocusFromClosedLayer({ relatedTarget: event.relatedTarget });
+			if (!isPointerFocus && !isCalendarClosing() && !isReturnedFocus) {
 				// Don't open when focused into via keyboard if the calendar button is present
 				setIsOpen(!shouldShowCalendarButton);
 			}

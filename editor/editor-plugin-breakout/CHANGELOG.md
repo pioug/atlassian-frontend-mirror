@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-breakout
 
+## 33.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 33.0.4
+
+### Patch Changes
+
+- [`74ec70fcebc93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/74ec70fcebc93) -
+  Clean up the `platform_editor_reduce_forced_layout` experiment, keeping the Test behaviour.
+- Updated dependencies
+
 ## 33.0.3
 
 ### Patch Changes

@@ -154,9 +154,9 @@ test.describe('Popup top-layer — WCAG 2.4.3 Focus Order', () => {
 	});
 
 	/**
-	 * `shouldReturnFocus={false}` has no effect on the top layer: native focus return wins, as for
-	 * ModalDialog. A consumer that wants another target focuses it in `onClose`. Twin of the legacy
-	 * "Should not return focus to trigger when configured" test in `../../popup.spec.tsx`.
+	 * `shouldReturnFocus={false}` has no effect on the top layer: focus returns as the platform returns
+	 * it. A consumer that wants another target focuses it in `onClose`. Twin of the legacy "Should not
+	 * return focus to trigger when configured" test in `../../popup.spec.tsx`.
 	 */
 	test('focus returns to trigger after Escape even when shouldReturnFocus is false', async ({
 		page,

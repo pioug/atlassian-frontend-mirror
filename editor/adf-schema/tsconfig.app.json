@@ -56,9 +56,6 @@
       "path": "../editor-prosemirror/tsconfig.app.json"
     },
     {
-      "path": "../../platform/feature-experiments/tsconfig.app.json"
-    },
-    {
       "path": "../../platform/feature-flags/tsconfig.app.json"
     },
     {
@@ -66,9 +63,6 @@
     },
     {
       "path": "../adf-schema-json/tsconfig.app.json"
-    },
-    {
-      "path": "../../platform/experiment-test-utils/tsconfig.app.json"
     },
     {
       "path": "../../platform/feature-flags-test-utils/tsconfig.app.json"

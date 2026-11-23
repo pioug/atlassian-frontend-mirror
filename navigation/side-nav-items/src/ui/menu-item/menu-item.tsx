@@ -571,6 +571,13 @@ type MenuItemBaseProps<T extends HTMLAnchorElement | HTMLButtonElement> =
 		ariaExpanded?: boolean;
 		// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
 		ariaHasPopup?: MenuItemAriaHasPopup;
+		/** Constrained native button attributes used by ButtonMenuItem. */
+		buttonProps?: Pick<
+			React.ButtonHTMLAttributes<HTMLButtonElement>,
+			'id' | 'role' | 'aria-selected' | 'aria-current' | 'tabIndex' | 'onFocus' | 'onKeyDown'
+		>;
+		/** Reuses the link notch for button items representing a location. */
+		hasSelectedIndicator?: boolean;
 		href?: string | Record<string, any>;
 		/**
 		 * ID attribute, passed to the interactive element (anchor/button). This is not publicly exposed, and is currently only
@@ -602,6 +609,8 @@ const MenuItemBaseNoRef = <T extends HTMLAnchorElement | HTMLButtonElement>(
 		target,
 		isDisabled,
 		isSelected,
+		hasSelectedIndicator,
+		buttonProps,
 		onClick,
 		ariaControls,
 		ariaExpanded,
@@ -837,6 +846,15 @@ const MenuItemBaseNoRef = <T extends HTMLAnchorElement | HTMLButtonElement>(
 						) : (
 							<Pressable
 								{...sharedProps}
+								{...buttonProps}
+								onFocus={
+									buttonProps?.onFocus
+										? (event) => {
+												tooltipProps.onFocus(event);
+												buttonProps.onFocus?.(event);
+											}
+										: tooltipProps.onFocus
+								}
 								onClick={handleClick as MenuItemOnClick<HTMLButtonElement>}
 								xcss={cx(
 									buttonOrAnchorStyles.root,
@@ -850,6 +868,13 @@ const MenuItemBaseNoRef = <T extends HTMLAnchorElement | HTMLButtonElement>(
 								aria-expanded={ariaExpanded}
 								isDisabled={isDisabled}
 							>
+								{hasSelectedIndicator && (
+									<div
+										css={notchStyles.root}
+										aria-hidden="true"
+										data-testid={testId ? `${testId}-selected-indicator` : undefined}
+									/>
+								)}
 								{interactiveElemContent}
 							</Pressable>
 						);

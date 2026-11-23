@@ -10,6 +10,9 @@ import { getProduct, getSubProduct, isGCPtenant } from './helpers/utils';
 import { Provider } from './provider';
 import type { Config, ProductInformation, InitAndAuthData, AuthCallback } from './types';
 
+// Header the mesh consistent-hashes on for sticky sessions (see pf-collab-service sticky-sessions.yaml)
+const STICKY_SESSION_MESH_HASH_HEADER = 'atl-paas-mesh-hash';
+
 /**
  * Creates the Socket.IO client for collab editing or presence, with the transports for that connection case.
  */
@@ -45,6 +48,12 @@ export function createSocketIOSocket(
 		}
 	};
 
+	const extraHeaders: Record<string, string> = {
+		'x-product': getProduct(productInfo),
+		'x-subproduct': getSubProduct(productInfo),
+		'x-client-platform': 'web',
+	};
+
 	switch (getConnectionCase()) {
 		case 'presence':
 			// Presence for all tenants (commercial, GCP, IC, …): WebSocket first, polling only when WebSocket fails
@@ -60,18 +69,17 @@ export function createSocketIOSocket(
 				transports = ['websocket', 'polling'];
 				webSocketFirst = true;
 			}
+			if (fg('platform_editor_gcp_sticky_session')) {
+				// The mesh hashes this header to pick a pod, so all long-polling requests of one socket reach the same pod.
+				// One random value per socket keeps sessions sticky and spreads sockets evenly across pods.
+				extraHeaders[STICKY_SESSION_MESH_HASH_HEADER] = crypto.randomUUID();
+			}
 			break;
 
 		default:
 			// Default: polling first, with WebSocket upgrade fallback
 			break;
 	}
-
-	const extraHeaders: Record<string, string> = {
-		'x-product': getProduct(productInfo),
-		'x-subproduct': getSubProduct(productInfo),
-		'x-client-platform': 'web',
-	};
 
 	const client = io(url, {
 		reconnectionDelayMax: socketIOOptions.RECONNECTION_DELAY_MAX,

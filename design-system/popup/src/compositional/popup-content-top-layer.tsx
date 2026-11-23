@@ -26,6 +26,7 @@ import { createPopoverCloseEvent } from '@atlaskit/top-layer/popover/create-clos
 import { Popover } from '@atlaskit/top-layer/popover/popover';
 import type { TPopoverCloseReason } from '@atlaskit/top-layer/popover/types';
 import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
+import { useManualLightDismiss } from '@atlaskit/top-layer/use-manual-light-dismiss';
 
 import { getPopupAxisSizes } from '../internal/get-popup-axis-sizes';
 import { PopupContentRenderer } from '../internal/popup-content-renderer';
@@ -86,7 +87,7 @@ export function PopupContentTopLayer({
 	// top-layer: viewport is the natural boundary. No-op.
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	rootBoundary: _rootBoundary,
-	// top-layer: native light dismiss replaces capture-phase click handler.
+	// top-layer: `useManualLightDismiss` replaces the capture-phase click handler.
 	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	shouldUseCaptureOnOutsideClick: _shouldUseCaptureOnOutsideClick,
 	// top-layer: focus trapping is role-based. shouldDisableFocusLock is a no-op.
@@ -137,6 +138,9 @@ export function PopupContentTopLayer({
 		[placement, offsetProp],
 	);
 
+	const popoverRef = useRef<HTMLDivElement>(null);
+	const anchorRef = useContext(TriggerRefObjectContext);
+
 	// ── onClose bridge ──
 	const handleOnClose = useCallback(
 		({ reason }: { reason: TPopoverCloseReason }) => {
@@ -148,6 +152,22 @@ export function PopupContentTopLayer({
 		},
 		[onClose],
 	);
+
+	/**
+	 * **Ask first, close second**
+	 *
+	 * A `manual` popover, so the browser never closes it. An outside press or Escape asks `onClose`,
+	 * and the popup hides only when `isOpen` becomes `false`. A press on the trigger does not ask:
+	 * the trigger's own click decides. See `@atlaskit/top-layer`
+	 * `notes/decisions/wrappers-ask-first-close.md`.
+	 */
+	const triggerRefs = useMemo(() => [anchorRef], [anchorRef]);
+	useManualLightDismiss({
+		isOpen,
+		popoverRef,
+		additionalInsideElementRefs: triggerRefs,
+		onClose: handleOnClose,
+	});
 
 	// ── Content render-prop bridge ──
 	// The args always hold the setter; the `TPopupContent` types decide who can see it.
@@ -168,9 +188,6 @@ export function PopupContentTopLayer({
 		titleId,
 		initialFocusRef: consumerInitialFocusRef,
 	});
-
-	const popoverRef = useRef<HTMLDivElement>(null);
-	const anchorRef = useContext(TriggerRefObjectContext);
 
 	// `isOpen` is included so the anchor positioning effect re-runs when
 	// the Popover host element is unmounted/remounted across open cycles.
@@ -197,6 +214,7 @@ export function PopupContentTopLayer({
 			id={providedId}
 			{...roleProps}
 			isOpen={isOpen}
+			mode="manual"
 			shouldAnimate
 			placement={topLayerPlacement}
 			onClose={handleOnClose}

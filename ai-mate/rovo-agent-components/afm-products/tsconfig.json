@@ -23,6 +23,9 @@
 	],
 	"references": [
 		{
+			"path": "../../agent-color/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../analytics/analytics-next/afm-products/tsconfig.json"
 		},
 		{

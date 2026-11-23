@@ -1,5 +1,44 @@
 # @atlaskit/editor-core
 
+## 245.4.1
+
+### Patch Changes
+
+- [`9b5ac6d2b520c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9b5ac6d2b520c) -
+  Fix mention selection highlights in live viewing mode under
+  platform_editor_inline_node_selection_style.
+
+  Use bind-event-listener in the selection plugin to manage the native selection listener and
+  cleanup.
+
+- Updated dependencies
+
+## 245.4.0
+
+### Minor Changes
+
+- [`3997c7f684b32`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3997c7f684b32) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 245.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 245.3.1
+
+### Patch Changes
+
+- [`74ec70fcebc93`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/74ec70fcebc93) -
+  Clean up the `platform_editor_reduce_forced_layout` experiment, keeping the Test behaviour.
+- Updated dependencies
+
 ## 245.3.0
 
 ### Minor Changes

@@ -443,18 +443,15 @@ interface InternalPopupProps extends BaseProps {
 	/**
 	 * How the popup dismisses when `platform-dst-top-layer` is enabled. Default `"auto"`.
 	 *
-	 * - `"auto"`: the browser light-dismisses it. A press outside it (including on the trigger) or
-	 *   Escape closes it.
-	 * - `"manual"`: the browser never light-dismisses it, so a press on the trigger does not close
-	 *   it. With `onClose`, Popup calls it on a press outside the popup and the trigger, or on
-	 *   Escape. Without `onClose`, only `isOpen` closes it.
+	 * In both modes, a press outside the popup and its trigger, or Escape, calls `onClose`. The popup
+	 * closes only when `isOpen` becomes `false`, so `onClose` can refuse the close. A press on the
+	 * trigger does not call `onClose`: the trigger's own click decides.
 	 *
-	 * **Warning:** a `"manual"` popup is outside the browser's auto popover stack. Opening another
-	 * auto popover (a menu, popup or tooltip) does not close it, it closes no other popover, and a
-	 * nested auto popover opened from outside it does not treat it as an ancestor. Use `"manual"`
-	 * only when a press on the trigger must not close the popup (for example a hover popup that pins
-	 * on click, or a search field that keeps its results open), or when it must stay open until a
-	 * state change (for example a field error).
+	 * The modes differ only without `onClose`:
+	 *
+	 * - `"auto"`: the popup still takes Escape (one press closes one layer), and stays open.
+	 * - `"manual"`: the popup does not take Escape, and only `isOpen` closes it. Use it for a popup
+	 *   that must stay open until a state change (for example a field error).
 	 *
 	 * No effect when the flag is disabled: the legacy popup already ignores presses on the trigger
 	 * and closes only through `onClose`.

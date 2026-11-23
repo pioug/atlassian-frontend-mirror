@@ -1,5 +1,32 @@
 # @atlaskit/emoji
 
+## 73.9.0
+
+### Minor Changes
+
+- [`3997c7f684b32`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3997c7f684b32) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 73.8.2
+
+### Patch Changes
+
+- [`118fd43a711bf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/118fd43a711bf) -
+  Hide the Atlassian emoji with ID `atlassian-middle_finger` from the emoji picker behind the
+  `platform_teamoji_relentless_suffering` feature gate.
+- Updated dependencies
+
+## 73.8.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 73.8.0
 
 ### Minor Changes

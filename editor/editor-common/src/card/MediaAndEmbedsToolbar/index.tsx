@@ -21,7 +21,6 @@ import ContentWidthWide from '@atlaskit/icon/core/content-width-wide';
 import ContentWrapLeftIcon from '@atlaskit/icon/core/content-wrap-left';
 import ContentWrapRightIcon from '@atlaskit/icon/core/content-wrap-right';
 import FullWidthIcon from '@atlaskit/icon/core/expand-horizontal';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { EditorAnalyticsAPI } from '../../analytics';
 import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '../../analytics';
@@ -335,9 +334,6 @@ const shouldHideLayoutToolbar = (
 			nodes.bodiedExtension,
 			nodes.extensionFrame,
 			nodes.listItem,
-			...(expValEquals('editor_enable_image_alignment_in_expand', 'isEnabled', true)
-				? []
-				: [nodes.expand, nodes.nestedExpand]),
 			...(allowResizingInTables ? [] : [nodes.table]),
 		].filter(Boolean),
 	)(selection);

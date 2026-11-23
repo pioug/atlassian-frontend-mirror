@@ -46,6 +46,17 @@ const inlineNodeFixtures: InlineNodeFixture[] = [
 		legacyNodeSelection: { blanket: false, twoPixelRing: false },
 	},
 	{
+		name: 'avatar mention',
+		markup: (wrapperClassName) => `
+			<span class="mentionView-content-wrap inlineNodeView ${wrapperClassName}">
+				<span class="editor-mention-primitive editor-mention-primitive-with-avatar" data-testid="selection-target">
+					<span class="editor-mention-avatar" aria-hidden="true"></span>
+					<span class="editor-mention-text">Ada</span>
+				</span>
+			</span>`,
+		legacyNodeSelection: { blanket: false, twoPixelRing: false },
+	},
+	{
 		name: 'status',
 		markup: (wrapperClassName) => `
 			<span class="statusView-content-wrap inlineNodeView ${wrapperClassName}" data-prosemirror-node-name="status">
@@ -86,13 +97,13 @@ const inlineNodeFixtures: InlineNodeFixture[] = [
 const renderSelectionTarget = (
 	fixture: InlineNodeFixture,
 	wrapperClassName: string,
-	{ editorFocused = true } = {},
+	{ editorFocused = true, readOnly = false, nativeSelectionActive = false } = {},
 ) => {
 	render(<EditorContentContainer appearance="full-page">Document</EditorContentContainer>);
 	const owner = screen.getByTestId('editor-content-container');
 	// ProseMirror adds ProseMirror-focused to the editor element while it has focus.
 	const focusClassName = editorFocused ? 'ProseMirror-focused' : '';
-	owner.innerHTML = `<div class="${focusClassName}">${fixture.markup(wrapperClassName)}</div>`;
+	owner.innerHTML = `<div role="textbox" aria-label="Page editing area" class="ProseMirror ${focusClassName}" ${readOnly ? 'aria-readonly="true"' : ''} ${nativeSelectionActive ? 'data-inline-node-readonly-selection-active' : ''}>${fixture.markup(wrapperClassName)}</div>`;
 	return screen.getByTestId('selection-target');
 };
 
@@ -265,6 +276,43 @@ describe.each(inlineNodeFixtures)('$name selection styles', (fixture) => {
 		});
 	});
 });
+
+describe.each(inlineNodeFixtures.filter(({ name }) => name.includes('mention')))(
+	'$name selections in live viewing mode',
+	(fixture) => {
+		it('shows the tint for an active native selection without editor focus', () => {
+			mockExpEnabled(experimentName);
+			const target = renderSelectionTarget(fixture, inRangeClassName, {
+				editorFocused: false,
+				readOnly: true,
+				nativeSelectionActive: true,
+			});
+
+			expectSelectionTint(target, fixture);
+		});
+
+		it('does not tint a retained editor selection after native selection moves outside', () => {
+			mockExpEnabled(experimentName);
+			const target = renderSelectionTarget(fixture, inRangeClassName, {
+				editorFocused: false,
+				readOnly: true,
+			});
+
+			expect(hasSelectedBackground(target)).toBe(false);
+		});
+
+		it('preserves the existing behavior when the experiment is disabled', () => {
+			mockExpDisabled(experimentName);
+			const target = renderSelectionTarget(fixture, inRangeClassName, {
+				editorFocused: false,
+				readOnly: true,
+				nativeSelectionActive: true,
+			});
+
+			expect(hasSelectedBackground(target)).toBe(false);
+		});
+	},
+);
 
 describe('inline node selection tint colour', () => {
 	afterEach(() => {

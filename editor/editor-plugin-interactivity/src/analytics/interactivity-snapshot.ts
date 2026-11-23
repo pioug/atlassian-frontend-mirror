@@ -77,10 +77,12 @@ export type SessionKeys = Record<string, string | undefined>;
 /**
  * What the collector measured.
  *
+ * @template RegionName the owner's regions.
  * @template Keys the owner's session keys.
  * @template EndReason what the owner can end a session with.
  */
 export type CollectedSnapshot<
+	RegionName extends string = never,
 	Keys extends SessionKeys = SessionKeys,
 	EndReason extends string = never,
 > = {
@@ -91,7 +93,7 @@ export type CollectedSnapshot<
 	page: InteractionGroupSnapshot;
 	/** Why the snapshot was taken. An `EndReason` means it is the session's last. */
 	reason: InterimReason | EndReason;
-	regions: Record<string, RegionSnapshot>;
+	regions: Record<RegionName, RegionSnapshot>;
 	schema: number;
 	seq: number;
 	/** What the session was collected against. */

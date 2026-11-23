@@ -12,6 +12,7 @@
 		"20-datetime-picker-states.tsx",
 		"30-time-picker-states.tsx",
 		"testing-date-picker-closed-by-prop.tsx",
+		"testing-date-picker-layer-returns-focus.tsx",
 	],
 	"exampleDependencies": [
 		"@atlaskit/modal-dialog",

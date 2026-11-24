@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 35.0.0
+
+### Patch Changes
+
+- [`1103942af9dfc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1103942af9dfc) -
+  Restore slash command analytics parity behind `platform_editor_slash_command_analytics`.
+  `@atlaskit/editor-plugin-type-ahead`: the inline `/` menu fires `typeAhead closed` on insert and
+  "View more", `typeAhead rendered`, and `typeAheadItem viewed` when the user highlights an item;
+  the legacy menu also sends the type-ahead id in `rendered` and `viewed`.
+  `@atlaskit/editor-plugin-insert-block`: the toolbar `+` menu fires `elementBrowser opened` and
+  `closed` with `mode: 'inline'`.
+- Updated dependencies
+
+## 34.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 34.0.5
 
 ### Patch Changes

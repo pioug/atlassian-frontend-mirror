@@ -12,7 +12,6 @@ import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading/heading';
 import LinkItem from '@atlaskit/menu/link-item';
 import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon/main';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
@@ -136,7 +135,7 @@ export const TeamProfileCard = ({
 				src={headerImageUrl}
 				xcss={styles.headerImageStyles}
 				testId="profile-header-image"
-				alt={fg('create_modernization_ga_fixes_drop_2') ? '' : 'team-header-image'}
+				alt=""
 			/>
 			<Stack space="space.200" xcss={styles.containerStyles}>
 				<Inline spread="space-between" alignBlock="center">

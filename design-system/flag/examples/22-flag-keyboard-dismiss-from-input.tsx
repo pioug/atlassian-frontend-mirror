@@ -68,7 +68,6 @@ export default function FlagKeyboardDismissFromInputExample(): React.JSX.Element
 
 				<SectionMessage appearance="information" headingLevel="h3" title="Manual test">
 					<ol>
-						<li>Enable the platform_dst_flag_keyboard_dismiss feature gate.</li>
 						<li>Choose an Escape-handling scenario.</li>
 						<li>Type in the Summary input to show a flag without moving focus.</li>
 						<li>Press Escape and compare the result with the expected outcome below.</li>

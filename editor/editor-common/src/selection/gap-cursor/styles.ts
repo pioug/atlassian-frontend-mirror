@@ -87,43 +87,43 @@ export const gapCursorStyles: SerializedStyles = css`
 
 	/* This hack below is for two images aligned side by side */
 	${gapCursor}${wrapLeft} + span + ${wrapLeft},
-  ${gapCursor}${wrapRight} + span + ${wrapRight},
-  ${gapCursor} + ${wrapLeft} + ${wrapRight},
-  ${gapCursor} + ${wrapLeft} + span + ${wrapRight},
-  ${gapCursor} + ${wrapRight} + ${wrapLeft},
-  ${gapCursor} + ${wrapRight} + span + ${wrapLeft},
-  ${wrapLeft} + ${gapCursor} + ${wrapRight},
-  ${wrapLeft} + ${gapCursor} + span ${wrapRight},
-  ${wrapRight} + ${gapCursor} + ${wrapLeft},
-  ${wrapRight} + ${gapCursor} + span + ${wrapLeft},
-  ${wrapLeft} + ${gapCursor} {
+	${gapCursor}${wrapRight} + span + ${wrapRight},
+	${gapCursor} + ${wrapLeft} + ${wrapRight},
+	${gapCursor} + ${wrapLeft} + span + ${wrapRight},
+	${gapCursor} + ${wrapRight} + ${wrapLeft},
+	${gapCursor} + ${wrapRight} + span + ${wrapLeft},
+	${wrapLeft} + ${gapCursor} + ${wrapRight},
+	${wrapLeft} + ${gapCursor} + span ${wrapRight},
+	${wrapRight} + ${gapCursor} + ${wrapLeft},
+	${wrapRight} + ${gapCursor} + span + ${wrapLeft},
+	${wrapLeft} + ${gapCursor} {
 		clear: none;
 	}
 
 	${wrapLeft} + ${gapCursor} + ${wrapRight} > div,
-  ${wrapLeft} + ${gapCursor} + span + ${wrapRight} > div,
-  ${wrapRight} + ${gapCursor} + ${wrapLeft} > div,
-  ${wrapRight} + ${gapCursor} + span + ${wrapLeft} > div,
-  ${gapCursor} + ${wrapRight} + ${wrapLeft} > div,
-  ${gapCursor} + ${wrapRight} + span + ${wrapLeft} > div,
-  ${gapCursor} + ${wrapLeft} + ${wrapRight} > div,
-  ${gapCursor} + ${wrapLeft} + span + ${wrapRight} > div {
+	${wrapLeft} + ${gapCursor} + span + ${wrapRight} > div,
+	${wrapRight} + ${gapCursor} + ${wrapLeft} > div,
+	${wrapRight} + ${gapCursor} + span + ${wrapLeft} > div,
+	${gapCursor} + ${wrapRight} + ${wrapLeft} > div,
+	${gapCursor} + ${wrapRight} + span + ${wrapLeft} > div,
+	${gapCursor} + ${wrapLeft} + ${wrapRight} > div,
+	${gapCursor} + ${wrapLeft} + span + ${wrapRight} > div {
 		margin-right: 0;
 		margin-left: 0;
 		margin-bottom: 0;
 	}
 
 	${wrapLeft} + ${gapCursor},
-  ${wrapRight} + ${gapCursor} {
+	${wrapRight} + ${gapCursor} {
 		float: left;
 	}
 
 	${gapCursor} + ${wrapLeft} + span + ${wrapRight}::after,
-  ${gapCursor} + ${wrapRight} + span + ${wrapLeft}::after,
-  ${wrapLeft} + ${gapCursor} + ${wrapRight}::after,
-  ${wrapLeft} + ${gapCursor} + span + ${wrapRight}::after,
-  ${wrapRight} + ${gapCursor} + ${wrapLeft}::after,
-  ${wrapRight} + ${gapCursor} + span + ${wrapLeft}::after {
+	${gapCursor} + ${wrapRight} + span + ${wrapLeft}::after,
+	${wrapLeft} + ${gapCursor} + ${wrapRight}::after,
+	${wrapLeft} + ${gapCursor} + span + ${wrapRight}::after,
+	${wrapRight} + ${gapCursor} + ${wrapLeft}::after,
+	${wrapRight} + ${gapCursor} + span + ${wrapLeft}::after {
 		visibility: hidden;
 		display: block;
 		font-size: 0;
@@ -133,23 +133,23 @@ export const gapCursorStyles: SerializedStyles = css`
 	}
 
 	${wrapLeft} + ${gapCursor} + ${wrapRight} + *,
-  ${wrapLeft} + ${gapCursor} + ${wrapRight} + span + *,
-  ${wrapRight} + ${gapCursor} + ${wrapLeft} + *,
-  ${wrapRight} + ${gapCursor} + ${wrapLeft} + span + *,
-  ${wrapLeft} + ${gapCursor} + span + ${wrapRight} + *,
-  ${wrapRight} + ${gapCursor} + span + ${wrapLeft} + *,
-  ${gapCursor} + ${wrapLeft} + span + ${wrapRight} + *,
-  ${gapCursor} + ${wrapRight} + span + ${wrapLeft} + *,
-  ${wrapLeft} + ${gapCursor} + ${wrapRight} + * > *,
-  ${wrapLeft} + ${gapCursor} + ${wrapRight} + span + * > *,
-  ${wrapRight} + ${gapCursor} + ${wrapLeft} + * > *,
-  ${wrapRight} + ${gapCursor} + ${wrapLeft} + span + * > *,
-  ${wrapLeft} + ${gapCursor} + span + ${wrapRight} + * > *,
-  ${wrapRight} + ${gapCursor} + span + ${wrapLeft} + * > *,
-  ${gapCursor} + ${wrapLeft} + span + ${wrapRight} + * > *,
-  ${gapCursor} + ${wrapRight} + span + ${wrapLeft} + * > *,
-  ${prosemirrorwidgetNotBlock} + ${gapCursor} + *,
-  ${prosemirrorwidgetNotBlock} + ${gapCursor} + span + * {
+	${wrapLeft} + ${gapCursor} + ${wrapRight} + span + *,
+	${wrapRight} + ${gapCursor} + ${wrapLeft} + *,
+	${wrapRight} + ${gapCursor} + ${wrapLeft} + span + *,
+	${wrapLeft} + ${gapCursor} + span + ${wrapRight} + *,
+	${wrapRight} + ${gapCursor} + span + ${wrapLeft} + *,
+	${gapCursor} + ${wrapLeft} + span + ${wrapRight} + *,
+	${gapCursor} + ${wrapRight} + span + ${wrapLeft} + *,
+	${wrapLeft} + ${gapCursor} + ${wrapRight} + * > *,
+	${wrapLeft} + ${gapCursor} + ${wrapRight} + span + * > *,
+	${wrapRight} + ${gapCursor} + ${wrapLeft} + * > *,
+	${wrapRight} + ${gapCursor} + ${wrapLeft} + span + * > *,
+	${wrapLeft} + ${gapCursor} + span + ${wrapRight} + * > *,
+	${wrapRight} + ${gapCursor} + span + ${wrapLeft} + * > *,
+	${gapCursor} + ${wrapLeft} + span + ${wrapRight} + * > *,
+	${gapCursor} + ${wrapRight} + span + ${wrapLeft} + * > *,
+	${prosemirrorwidgetNotBlock} + ${gapCursor} + *,
+	${prosemirrorwidgetNotBlock} + ${gapCursor} + span + * {
 		margin-top: 0;
 	}
 `;

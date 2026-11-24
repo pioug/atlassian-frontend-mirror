@@ -1,5 +1,13 @@
 # @atlaskit/react-select
 
+## 4.12.18
+
+### Patch Changes
+
+- [`f62e4025832ef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f62e4025832ef) -
+  Remove the platform_dst_select_dropdown_voice_control feature gate and make its disabled behavior
+  permanent, keeping the decorative dropdown indicator hidden from assistive technology.
+
 ## 4.12.17
 
 ### Patch Changes

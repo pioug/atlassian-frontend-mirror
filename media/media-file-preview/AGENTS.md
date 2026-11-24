@@ -45,6 +45,12 @@ first, edit, then `kg.py edit <path> --message "<reason>"`.
 - `src/errors.ts` — error types and predicates
 - `src/analytics.ts` — analytics event helpers
 
+## Oversized SSR previews
+
+`platform_media_bounded_read_tokens` skips SSR URLs over 8,000 characters in both global SSR data
+and generated previews. The existing remote preview path fetches through Media Client auth and
+caches the resulting blob. Preserve cache precedence and short SSR URLs when changing this path.
+
 ## Public API (key exports)
 
 `useFilePreview`, `UseFilePreviewParams`, `useMediaImage`, `UseMediaImageParams`,

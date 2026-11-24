@@ -48,14 +48,12 @@ const onHydrate = (jql: string): Promise<HydratedValues> =>
 		setTimeout(() => {
 			const hydratedTeams = teams
 				.filter((team) => jql.includes(team.value))
-				.map(
-					(team): HydratedTeam => ({
-						type: 'team',
-						id: team.value,
-						name: team.displayName,
-						avatarUrl: mockTeamAvatarUrl,
-					}),
-				);
+				.map((team): HydratedTeam => ({
+					type: 'team',
+					id: team.value,
+					name: team.displayName,
+					avatarUrl: mockTeamAvatarUrl,
+				}));
 
 			resolve({
 				team: hydratedTeams,

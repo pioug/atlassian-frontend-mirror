@@ -16,7 +16,8 @@ import { token } from '@atlaskit/tokens';
  * from the reference (`useAnchoredPopover` for an element,
  * `useAnchoredPopoverAtPoint` for a virtual element). The surface must
  * reposition over `anchorB` after the cycle, not stay at `anchorA`'s
- * former position.
+ * former position. "show on B" while open on A switches the anchor with
+ * no `null` between, and the surface must follow it too.
  */
 const styles = cssMap({
 	root: {

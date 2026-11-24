@@ -1,5 +1,25 @@
 # @atlaskit/collab-provider
 
+## 43.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 42.0.9
+
+### Patch Changes
+
+- [`fb20d2f75736e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fb20d2f75736e) -
+  Clean up feature gate platform_editor_presence_ws_first_with_fallback. Presence connections now
+  always use WebSocket first with a polling fallback.
+
+## 42.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 42.0.7
 
 ### Patch Changes

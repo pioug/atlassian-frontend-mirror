@@ -32,8 +32,8 @@ export const tablePadding = 8;
 export const tableControlsSpacing: number = tableMarginTop + tablePadding - tableCellBorderWidth;
 
 /* first block node has 0 top margin */
-const firstNodeWithNotMarginTop = () =>
-	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
+const firstNodeWithNotMarginTop =
+	() => // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
 	css`
 		> :nth-child(1 of :not(style, .ProseMirror-gapcursor, .ProseMirror-widget, span)) {
 			margin-top: 0;
@@ -69,14 +69,15 @@ const tableSharedStyle = (): SerializedStyles => {
 			.decisionItemView-content-wrap:first-of-type > div {
 				margin-top: 0;
 			}
-			${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
-				? `/* Fake side borders are not needed when the rounded overlay owns the outer border. */
+			${
+				expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
+					? `/* Fake side borders are not needed when the rounded overlay owns the outer border. */
 				.${TableSharedCssClassName.TABLE_RIGHT_BORDER},
 				.${TableSharedCssClassName.TABLE_LEFT_BORDER} {
 					display: none;
 				}
 					`
-				: `.${TableSharedCssClassName.TABLE_RIGHT_BORDER},
+					: `.${TableSharedCssClassName.TABLE_RIGHT_BORDER},
 			.${TableSharedCssClassName.TABLE_LEFT_BORDER} {
 				display: block;
 				width: 1px;
@@ -93,7 +94,8 @@ const tableSharedStyle = (): SerializedStyles => {
 			}
 			.${TableSharedCssClassName.TABLE_LEFT_BORDER}[data-with-numbered-table='true'] {
 				left: ${akEditorTableNumberColumnWidth - 1}px;
-			}`}
+			}`
+			}
 		}
 		.${TableSharedCssClassName.TABLE_CONTAINER}[data-number-column='true'] {
 			padding-left: ${akEditorTableNumberColumnWidth - 1}px;
@@ -117,29 +119,34 @@ const tableSharedStyle = (): SerializedStyles => {
 		}
 
 		/* support panel nested in table */
-		${fg('platform_editor_bordered_panel_nested_in_table')
-			? `.${TableSharedCssClassName.TABLE_NODE_WRAPPER} .ak-editor-panel {
+		${
+			fg('platform_editor_bordered_panel_nested_in_table')
+				? `.${TableSharedCssClassName.TABLE_NODE_WRAPPER} .ak-editor-panel {
 			border: ${token('border.width')} solid ${token('color.border')};
 		}`
-			: ''}
+				: ''
+		}
 
 		/* avoid applying styles to nested tables (possible via extensions) */
-	.${TableSharedCssClassName.TABLE_CONTAINER} > table,
-	.${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table,
-	.${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table {
+		.${TableSharedCssClassName.TABLE_CONTAINER} > table,
+		.${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table,
+		.${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table {
 			border-collapse: collapse;
-			${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
-				? `/* Keep a transparent border so the collapsed border model reserves the same 1px slot
+			${
+				expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
+					? `/* Keep a transparent border so the collapsed border model reserves the same 1px slot
 			   on the table edge; the ::after overlay draws the visible rounded border instead. */
 			border: ${tableCellBorderWidth}px solid transparent;`
-				: `border: ${tableCellBorderWidth}px solid ${token('color.background.accent.gray.subtler')};
+					: `border: ${tableCellBorderWidth}px solid ${token('color.background.accent.gray.subtler')};
 			border-left-color: transparent;
-			border-right-color: transparent;`}
+			border-right-color: transparent;`
+			}
 			table-layout: fixed;
 			font-size: 1em;
 			width: 100%;
-			${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
-				? `position: relative;
+			${
+				expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
+					? `position: relative;
 
 			/* Table-width outer-border owner for overflow-safe rounded corners. */
 			&::after {
@@ -159,7 +166,8 @@ const tableSharedStyle = (): SerializedStyles => {
 			&[data-content-visibility]::after {
 				inset: 0;
 			}`
-				: ''}
+					: ''
+			}
 
 			&[data-autosize='true'] {
 				table-layout: auto;
@@ -185,28 +193,32 @@ const tableSharedStyle = (): SerializedStyles => {
 					min-width: ${tableCellMinWidth}px;
 					font-weight: ${token('font.weight.regular')};
 					vertical-align: top;
-					${expValEqualsNoExposure('platform_editor_table_menu_updates', 'isEnabled', true)
-						? `&[data-valign='middle'] {
+					${
+						expValEqualsNoExposure('platform_editor_table_menu_updates', 'isEnabled', true)
+							? `&[data-valign='middle'] {
 								vertical-align: middle;
 							}
 							&[data-valign='bottom'] {
 								vertical-align: bottom;
 							}`
-						: ''}
+							: ''
+					}
 					border: 1px solid ${token('color.background.accent.gray.subtler')};
 					border-right-width: 0;
 					border-bottom-width: 0;
 
 					padding: ${token('space.100')};
 					/* https://stackoverflow.com/questions/7517127/borders-not-shown-in-firefox-with-border-collapse-on-table-position-relative-o */
-					${browser.gecko || browser.ie || (browser.mac && browser.chrome)
-						? 'background-clip: padding-box;'
-						: ''}
+					${
+						browser.gecko || browser.ie || (browser.mac && browser.chrome)
+							? 'background-clip: padding-box;'
+							: ''
+					}
 
 					${firstNodeWithNotMarginTop()}
 
-				th p:not(:first-of-type),
-				td p:not(:first-of-type) {
+					th p:not(:first-of-type),
+					td p:not(:first-of-type) {
 						margin-top: ${token('space.150')};
 					}
 				}
@@ -216,8 +228,9 @@ const tableSharedStyle = (): SerializedStyles => {
 					background-color: ${token('elevation.surface')};
 				}
 
-				${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
-					? `/* Let the wrapper overlay own the outer table perimeter.
+				${
+					expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
+						? `/* Let the wrapper overlay own the outer table perimeter.
 				   data-reaches-* attributes are set by the TableCell node view. */
 				> tbody > tr > th[data-reaches-top],
 				> tbody > tr > td[data-reaches-top] {
@@ -247,16 +260,19 @@ const tableSharedStyle = (): SerializedStyles => {
 				> tbody > tr > td[data-reaches-bottom] {
 					background-clip: border-box;
 				}`
-					: ''}
+						: ''
+				}
 				th {
 					background-color: ${token('color.background.accent.gray.subtlest')};
 					text-align: left;
 
 					/* only apply this styling to codeblocks in default background headercells */
 					/* TODO this needs to be overhauled as it relies on unsafe selectors */
-					${expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
-						? '&:not(.danger)'
-						: '&:not([style]):not(.danger)'} {
+					${
+						expValEquals('platform_editor_native_anchor_with_dnd', 'isEnabled', true)
+							? '&:not(.danger)'
+							: '&:not([style]):not(.danger)'
+					} {
 						.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER}:not(.danger) {
 							background-color: ${token('elevation.surface.raised')};
 
@@ -280,9 +296,9 @@ const tableSharedStyle = (): SerializedStyles => {
 							> [data-ds--code--code-block] {
 								background-image: ${overflowShadow({
 									leftCoverWidth: token('space.300'),
-								})}!important;
+								})} !important;
 
-								background-color: ${token('color.background.neutral')}!important;
+								background-color: ${token('color.background.neutral')} !important;
 
 								/* selector lives inside @atlaskit/code */
 								--ds--code--line-number-bg-color: ${token('color.background.neutral')};
@@ -293,8 +309,9 @@ const tableSharedStyle = (): SerializedStyles => {
 			}
 		}
 
-		${expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
-			? `/* When the number column is enabled, the left visual edge belongs to the number column.
+		${
+			expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
+				? `/* When the number column is enabled, the left visual edge belongs to the number column.
 		   Remove the left border-radius and left border from the table's ::after overlay
 		   so it doesn't double-up or round where the number column already provides that edge. */
 		.${TableSharedCssClassName.TABLE_CONTAINER}[data-number-column='true'] {
@@ -305,7 +322,8 @@ const tableSharedStyle = (): SerializedStyles => {
 				border-left-color: transparent;
 			}
 		}`
-			: ''}
+				: ''
+		}
 	`;
 };
 

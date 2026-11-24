@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "245.4.1",
+	"version": "246.0.0",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -204,10 +204,6 @@
 		"url-search-params": "root:*"
 	},
 	"platform-feature-flags": {
-		"people-teams_migrate-user-profile-card": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"editor_inline_comments_on_inline_nodes": {
 			"type": "boolean",
 			"referenceOnly": "true"

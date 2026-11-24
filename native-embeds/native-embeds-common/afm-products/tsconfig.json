@@ -19,6 +19,9 @@
 	},
 	"references": [
 		{
+			"path": "../../../helpers/browser-apis/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/button/afm-products/tsconfig.json"
 		},
 		{

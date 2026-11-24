@@ -17,7 +17,7 @@ export function removeColumn(
 ): Transaction {
 	const mapStart = tr.mapping.maps.length;
 
-	for (let row = 0; row < map.height; ) {
+	for (let row = 0; row < map.height;) {
 		const index = row * map.width + columnIndex;
 		const pos = map.map[index];
 		const cell = table.nodeAt(pos);

@@ -30,9 +30,11 @@ export const dragMenuBackgroundColorStyles = (): SerializedStyles => css`
 		box-shadow: ${token('elevation.shadow.overlay')};
 		display: block;
 		position: absolute;
-		top: ${TABLE_DRAG_MENU_PADDING_TOP +
-		TABLE_DRAG_MENU_SORT_GROUP_HEIGHT +
-		TABLE_DRAG_MENU_MENU_GROUP_BEFORE_HEIGHT}px; /* move the submenu down when 'sort increasing/decreasing' appear before background color picker */
+		top: ${
+			TABLE_DRAG_MENU_PADDING_TOP +
+			TABLE_DRAG_MENU_SORT_GROUP_HEIGHT +
+			TABLE_DRAG_MENU_MENU_GROUP_BEFORE_HEIGHT
+		}px; /* move the submenu down when 'sort increasing/decreasing' appear before background color picker */
 		left: ${dragMenuDropdownWidth}px;
 		padding: ${token('space.100')};
 

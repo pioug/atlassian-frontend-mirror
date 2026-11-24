@@ -1,7 +1,7 @@
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer/JSONTransformer-2';
 import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Transform } from '@atlaskit/editor-prosemirror/transform';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 /**
  * Returns true when documents have the same text and block structure, while ignoring marks and

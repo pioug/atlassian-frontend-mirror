@@ -2,8 +2,12 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
+import { userEvent } from '@atlassian/testing-library/user-event';
 import { within } from '@atlassian/testing-library/within';
 
 import ColorPalette from '../ColorPalette';
@@ -37,5 +41,41 @@ describe('ColorPalette radio group semantics', () => {
 		expect(within(radioGroup).getAllByRole('radio')).toHaveLength(palette.length);
 		expect(screen.getAllByRole('radiogroup')).toHaveLength(1);
 		await expect(document.body).toBeAccessible();
+	});
+
+	it('navigates between swatches when a top-layer tooltip is rendered in the row', async () => {
+		mockExpEnabled('platform_editor_lovability_colors_a11y_fixes');
+		passGate('platform-dst-top-layer-tooltip');
+		const user = userEvent.setup();
+		renderPalette();
+
+		const firstColor = screen.getByRole('radio', { name: 'Bold blue' });
+		const secondColor = screen.getByRole('radio', { name: 'Bold teal' });
+		const thirdColor = screen.getByRole('radio', { name: 'Bold green' });
+		await user.tab();
+		await user.hover(firstColor);
+		await screen.findByRole('tooltip');
+
+		await user.keyboard('{ArrowRight}');
+		expect(secondColor).toHaveFocus();
+		await user.keyboard('{ArrowRight}');
+		expect(thirdColor).toHaveFocus();
+		await user.keyboard('{ArrowLeft}');
+		expect(secondColor).toHaveFocus();
+	});
+
+	it('preserves the original navigation when the experiment is disabled', async () => {
+		mockExpDisabled('platform_editor_lovability_colors_a11y_fixes');
+		passGate('platform-dst-top-layer-tooltip');
+		const user = userEvent.setup();
+		renderPalette();
+
+		const firstColor = screen.getByRole('radio', { name: 'Bold blue' });
+		await user.tab();
+		await user.hover(firstColor);
+		await screen.findByRole('tooltip');
+
+		await user.keyboard('{ArrowRight}');
+		expect(firstColor).toHaveFocus();
 	});
 });

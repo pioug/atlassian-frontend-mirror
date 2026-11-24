@@ -106,8 +106,10 @@ export function PopperTopLayer<CustomModifiers>({
 	const virtualReference: VirtualElement | null =
 		effectiveReference != null && !isHTMLElement(effectiveReference) ? effectiveReference : null;
 
-	const htmlAnchorRef = useRef<HTMLElement | null>(htmlAnchor);
-	htmlAnchorRef.current = htmlAnchor;
+	// A new ref object for each anchor element. `useAnchoredPopover` re-runs its
+	// effect when the ref changes, so the popover follows a new element (A to B)
+	// while it stays open.
+	const htmlAnchorRef = useMemo(() => ({ current: htmlAnchor }), [htmlAnchor]);
 
 	const popoverRef = useRef<HTMLDivElement | null>(null);
 	const popoverId = usePopoverId();

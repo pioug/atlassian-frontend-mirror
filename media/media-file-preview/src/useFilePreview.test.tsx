@@ -2404,3 +2404,109 @@ describe('useFilePreview', () => {
 		});
 	});
 });
+
+describe('bounded media read token previews', () => {
+	beforeEach(() => {
+		mediaFilePreviewCache.clear();
+	});
+
+	it.each([
+		{ source: 'global', mutationFix: false },
+		{ source: 'global', mutationFix: true },
+		{ source: 'generated', mutationFix: false },
+		{ source: 'generated', mutationFix: true },
+	] as const)(
+		'falls back from an oversized $source SSR URL (mutation fix: $mutationFix)',
+		async ({ source, mutationFix }) => {
+			if (mutationFix) {
+				passGate('media-perf-uplift-mutation-fix');
+			} else {
+				failGate('media-perf-uplift-mutation-fix');
+			}
+			passGate('platform_media_bounded_read_tokens');
+			const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
+			const { MockedMediaClientProvider, mediaApi } = createMockedMediaClientProvider({
+				initialItems: fileItem,
+			});
+			const oversizedUrl = `https://media.example/image?token=${'a'.repeat(8001)}`;
+			if (source === 'global') {
+				setGlobalSSRData(`${identifier.id}-${identifier.collectionName}-crop`, {
+					dataURI: oversizedUrl,
+				});
+			} else {
+				jest.spyOn(mediaApi, 'getFileImageURLSync').mockReturnValue(oversizedUrl);
+			}
+			const getImage = jest.spyOn(mediaApi, 'getImage');
+			const { result } = renderHook(useFilePreview, {
+				wrapper: MockedMediaClientProvider,
+				initialProps: { identifier, ssr: source === 'global' ? 'client' : 'server' },
+			});
+			expect(result.current.preview).toBeUndefined();
+			await waitFor(() => expect(result.current.status).toBe('complete'));
+			expect(result.current.preview?.dataURI).toBe('mock result of URL.createObjectURL()');
+			expect(getImage).toHaveBeenCalledTimes(1);
+		},
+	);
+
+	it.each(['global', 'generated'] as const)(
+		'preserves an oversized %s SSR URL when disabled',
+		(source) => {
+			failGate('platform_media_bounded_read_tokens');
+			const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
+			const { MockedMediaClientProvider, mediaApi } = createMockedMediaClientProvider({
+				initialItems: fileItem,
+			});
+			const oversizedUrl = `https://media.example/image?token=${'a'.repeat(8001)}`;
+			if (source === 'global') {
+				setGlobalSSRData(`${identifier.id}-${identifier.collectionName}-crop`, {
+					dataURI: oversizedUrl,
+				});
+			} else {
+				jest.spyOn(mediaApi, 'getFileImageURLSync').mockReturnValue(oversizedUrl);
+			}
+			const { result } = renderHook(useFilePreview, {
+				wrapper: MockedMediaClientProvider,
+				initialProps: {
+					identifier,
+					ssr: source === 'global' ? 'client' : 'server',
+					skipRemote: true,
+				},
+			});
+			expect(result.current.preview?.dataURI).toBe(oversizedUrl);
+		},
+	);
+
+	it('preserves a normal SSR URL without fetching a remote preview', () => {
+		passGate('platform_media_bounded_read_tokens');
+		const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
+		const { MockedMediaClientProvider, mediaApi } = createMockedMediaClientProvider({
+			initialItems: fileItem,
+		});
+		const url = 'https://media.example/image?token=short';
+		jest.spyOn(mediaApi, 'getFileImageURLSync').mockReturnValue(url);
+		const getImage = jest.spyOn(mediaApi, 'getImage');
+		const { result } = renderHook(useFilePreview, {
+			wrapper: MockedMediaClientProvider,
+			initialProps: { identifier, ssr: 'server' },
+		});
+		expect(result.current.preview?.dataURI).toBe(url);
+		expect(getImage).not.toHaveBeenCalled();
+	});
+
+	it('preserves cached local previews regardless of data URI length', () => {
+		const [fileItem, identifier] = generateSampleFileItem.workingImgWithRemotePreview();
+		const { MockedMediaClientProvider } = createMockedMediaClientProvider({
+			initialItems: fileItem,
+		});
+		const preview: MediaFilePreview = {
+			dataURI: `data:image/png;base64,${'a'.repeat(9000)}`,
+			source: 'local',
+		};
+		mediaFilePreviewCache.set(identifier.id, 'crop', preview);
+		const { result } = renderHook(useFilePreview, {
+			wrapper: MockedMediaClientProvider,
+			initialProps: { identifier, ssr: 'client', skipRemote: true },
+		});
+		expect(result.current.preview).toBe(preview);
+	});
+});

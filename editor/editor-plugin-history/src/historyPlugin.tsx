@@ -6,6 +6,10 @@ import { pluginFactory } from '@atlaskit/editor-common/utils/plugin-state-factor
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
+import {
+	EXTERNAL_HISTORY_EVENT_META,
+	EXTERNAL_HISTORY_OUTCOME_META,
+} from '@atlaskit/prosemirror-history/external-history-event';
 import { undo } from '@atlaskit/prosemirror-history/undo';
 
 import { type HistoryAction, HistoryActionTypes } from './editor-actions/actions';
@@ -68,7 +72,11 @@ const createPlugin = (dispatch: Dispatch, editorViewRef: EditorViewRef) =>
 						tr.getMeta('endHistorySlice') ||
 						// Capture requires xstate in the AI plugin; this shared adapter only refreshes history.
 						(tr.getMeta(pmHistoryPluginKey) &&
-							UNSAFE_expValNoExposure('platform_editor_ai_review_moment', 'isEnabled', false)),
+							UNSAFE_expValNoExposure('platform_editor_ai_review_moment', 'isEnabled', false)) ||
+						tr.getMeta(EXTERNAL_HISTORY_EVENT_META) ||
+						// A blocked undo or redo changes no document but can discard its event, which empties a
+						// branch without a step or `addToHistory`, so availability must be recomputed here too.
+						tr.getMeta(EXTERNAL_HISTORY_OUTCOME_META),
 				)
 			) {
 				const pmHistoryPluginState = getPmHistoryPluginState(newState);

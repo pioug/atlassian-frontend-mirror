@@ -1,5 +1,47 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 34.0.0
+
+### Minor Changes
+
+- [`1103942af9dfc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1103942af9dfc) -
+  Restore slash command analytics parity behind `platform_editor_slash_command_analytics`: adds the
+  `@atlaskit/analytics-next` dependency, passes selection metadata to the menu host, gives the
+  element browser modal the `ElementBrowser` source and `CategoryList` component analytics context,
+  and restarts the active session timer when the modal closes.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 33.2.2
+
+### Patch Changes
+
+- [`55d4711b780a9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/55d4711b780a9) -
+  Under `platform_editor_slash_command`, share the Element Browser grid breakpoints and update the
+  column count when a breakpoint is crossed.
+
+## 33.2.1
+
+### Patch Changes
+
+- [`c87c250b16958`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c87c250b16958) -
+  Behind `platform-dst-top-layer`, the registry element browser leaves Escape to the modal.
+
+## 33.2.0
+
+### Minor Changes
+
+- [`d566bb77317f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d566bb77317f2) -
+  Under `platform_editor_slash_command`, virtualise category and search results in the Element
+  Browser. Keyboard navigation reaches offscreen elements and keeps the focused element available
+  during scrolling.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 33.1.2
 
 ### Patch Changes

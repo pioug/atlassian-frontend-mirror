@@ -117,13 +117,21 @@ describe('<MediaInlineCard />', () => {
 			expect(await screen.findByTestId('media-viewer-popup')).toBeInTheDocument();
 		};
 
+		// The first time Media Viewer opens in this file, React's development build logs a warning and
+		// calls each component in its stack without props, so skip calls that have no props.
+		const getLastMediaViewerProps = () =>
+			jest
+				.mocked(MediaViewer)
+				.mock.calls.filter(([props]) => props !== undefined)
+				.pop()?.[0];
+
 		it('should pass its extensions to Media Viewer and report its item on open and null on close', async () => {
 			const user = userEvent.setup();
 			mockExpEnabled(experimentName);
 
 			// Opening the viewer hands it this card's extensions and reports this card's item.
 			await openMediaViewer(user);
-			expect(jest.mocked(MediaViewer).mock.lastCall?.[0].extensions).toBe(mediaViewerExtensions);
+			expect(getLastMediaViewerProps()?.extensions).toBe(mediaViewerExtensions);
 			expect(onSelectedItemChange).toHaveBeenLastCalledWith(identifier);
 
 			// Closing it reports null.
@@ -138,7 +146,9 @@ describe('<MediaInlineCard />', () => {
 			await openMediaViewer(user);
 
 			// Without the experiment, the viewer gets no extensions and nothing is reported.
-			expect(jest.mocked(MediaViewer).mock.lastCall?.[0].extensions).toBeUndefined();
+			const props = getLastMediaViewerProps();
+			expect(props).toBeDefined();
+			expect(props?.extensions).toBeUndefined();
 			expect(onSelectedItemChange).not.toHaveBeenCalled();
 		});
 	});

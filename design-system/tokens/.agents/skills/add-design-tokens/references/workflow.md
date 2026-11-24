@@ -57,10 +57,16 @@ its name set.
 
 Known hot-spots (verify they still exist; names/paths can drift):
 
-| File                                                             | Type                                                   | What to do                                                                                                                                 |
-| ---------------------------------------------------------------- | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `platform/packages/design-system/tokens/src/types.tsx`           | `SurfaceTokenSchema` (and per-theme type files)        | Widen the leaf to the nested shape `{ '[default]'                                                                                          | hovered | pressed }`, mirroring an existing sibling such as `overlay`/`raised`. A flat `PaintToken<BaseToken>`leaf will fail with`TS2353: '[default]' does not exist in type`. |
-| `platform/packages/design-system/primitives/src/utils/types.tsx` | `BackgroundColorToken` (and sibling token-name unions) | Add the new token-name string literals (e.g. `'elevation.surface.container.hovered'`, `'…pressed'`) so consumers like `box.tsx` typecheck. |
+| File | Type | What to
+do | | ---------------------------------------------------------------- | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | |
+`platform/packages/design-system/tokens/src/types.tsx` | `SurfaceTokenSchema` (and per-theme type
+files) | Widen the leaf to the nested shape
+`{ '[default]'                                                                                          | hovered | pressed }`,
+mirroring an existing sibling such as `overlay`/`raised`. A flat `PaintToken<BaseToken>`leaf will
+fail with`TS2353: '[default]' does not exist in type`. | |
+`platform/packages/design-system/primitives/src/utils/types.tsx` | `BackgroundColorToken` (and
+sibling token-name unions) | Add the new token-name string literals (e.g.
+`'elevation.surface.container.hovered'`, `'…pressed'`) so consumers like `box.tsx` typecheck. |
 
 General rule (don't rely only on the table above — search):
 

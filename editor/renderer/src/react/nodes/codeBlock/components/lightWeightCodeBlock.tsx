@@ -192,8 +192,8 @@ export const getLightWeightCodeBlockStylesForRootRendererStyleSheet = (): Serial
 	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
 	return css`
 		.${RendererCssClassName.DOCUMENT}
-			> .${LightWeightCodeBlockCssClassName.CONTAINER}
-			.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER} {
+		> .${LightWeightCodeBlockCssClassName.CONTAINER}
+		.${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER} {
 			margin-top: ${blockNodesVerticalMargin};
 		}
 	`;

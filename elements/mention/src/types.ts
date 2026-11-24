@@ -297,10 +297,9 @@ export interface RealMentionDescription {
  * error.
  */
 type RealMentionFieldsForbidden = {
-	[Field in Exclude<
-		keyof RealMentionDescription,
-		'id' | 'isPlaceholder' | 'userType' | 'appType'
-	>]?: never;
+	[
+		Field in Exclude<keyof RealMentionDescription, 'id' | 'isPlaceholder' | 'userType' | 'appType'>
+	]?: never;
 };
 
 /**

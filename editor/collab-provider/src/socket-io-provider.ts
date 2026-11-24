@@ -58,10 +58,8 @@ export function createSocketIOSocket(
 		case 'presence':
 			// Presence for all tenants (commercial, GCP, IC, …): WebSocket first, polling only when WebSocket fails
 			socketIOOptions = SOCKET_IO_OPTIONS_WITH_HIGH_JITTER;
-			if (fg('platform_editor_presence_ws_first_with_fallback')) {
-				transports = ['websocket', 'polling'];
-				webSocketFirst = true;
-			}
+			transports = ['websocket', 'polling'];
+			webSocketFirst = true;
 			break;
 
 		case 'gcp-collab':

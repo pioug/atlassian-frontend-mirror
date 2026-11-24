@@ -1,5 +1,20 @@
 # @atlaskit/media-card
 
+## 82.4.4
+
+### Patch Changes
+
+- [`960935742a396`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/960935742a396) -
+  Cleanup `feature_gate` `create_modernization_ga_fixes_drop_2`. The fullscreen media viewer button
+  always has a descriptive aria-label, and decorative team icons and header images always have empty
+  accessible names.
+
+## 82.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 82.4.2
 
 ### Patch Changes

@@ -280,12 +280,14 @@ describe('FlagGroup', () => {
 
 	it('should render screen reader text only when FlagGroup has children', () => {
 		render(<FlagGroup>{generateFlag()}</FlagGroup>);
-		expect(screen.getByText('Flag notifications')).toBeInTheDocument();
+		expect(screen.getByText('Flag notifications. Press Escape to dismiss.')).toBeInTheDocument();
 	});
 
 	it("should not render screen reader text when FlagGroup doesn't have children", () => {
 		render(<FlagGroup></FlagGroup>);
-		expect(screen.queryByText('Flag notifications')).not.toBeInTheDocument();
+		expect(
+			screen.queryByText('Flag notifications. Press Escape to dismiss.'),
+		).not.toBeInTheDocument();
 	});
 
 	it('should render custom screen reader text and tag from props', () => {
@@ -294,7 +296,7 @@ describe('FlagGroup', () => {
 				{generateFlag()}
 			</FlagGroup>,
 		);
-		const screenReaderText = screen.getByText('notifs');
+		const screenReaderText = screen.getByText('notifs. Press Escape to dismiss.');
 		expect(screenReaderText.nodeName).toBe('H3');
 	});
 
@@ -349,10 +351,8 @@ describe('FlagGroup', () => {
 	// JRACLOUD-97876 — keyboard-only / AT users must be able to dismiss the
 	// topmost flag without tabbing through the entire page.
 	describe('keyboard dismiss (Escape)', () => {
-		describe('when keyboard dismiss FF is on', () => {
+		describe('keyboard dismissal', () => {
 			it('dismisses the first (topmost) flag when Escape is pressed', () => {
-				passGate('platform_dst_flag_keyboard_dismiss');
-
 				const onDismissed = jest.fn();
 				render(
 					<FlagGroup onDismissed={onDismissed}>
@@ -371,8 +371,6 @@ describe('FlagGroup', () => {
 			});
 
 			it('dismisses the first flag when Escape is pressed from an input that stops propagation', () => {
-				passGate('platform_dst_flag_keyboard_dismiss');
-
 				const onDismissed = jest.fn();
 				render(
 					<>
@@ -400,8 +398,6 @@ describe('FlagGroup', () => {
 			});
 
 			it('does not dismiss when there are no flags', () => {
-				passGate('platform_dst_flag_keyboard_dismiss');
-
 				const onDismissed = jest.fn();
 				render(<FlagGroup onDismissed={onDismissed}>{null}</FlagGroup>);
 
@@ -411,8 +407,6 @@ describe('FlagGroup', () => {
 			});
 
 			it('ignores non-Escape keys', () => {
-				passGate('platform_dst_flag_keyboard_dismiss');
-
 				const onDismissed = jest.fn();
 				render(
 					<FlagGroup onDismissed={onDismissed}>{generateFlag({ id: 'a', testId: 'a' })}</FlagGroup>,
@@ -425,8 +419,6 @@ describe('FlagGroup', () => {
 			});
 
 			it('only dismisses the first flag at a time (subsequent Escape presses dismiss the next topmost)', () => {
-				passGate('platform_dst_flag_keyboard_dismiss');
-
 				const onDismissed = jest.fn();
 				const { rerender } = render(
 					<FlagGroup onDismissed={onDismissed}>
@@ -455,8 +447,6 @@ describe('FlagGroup', () => {
 			});
 
 			it('mentions the Escape shortcut in the visually-hidden screen reader label', () => {
-				passGate('platform_dst_flag_keyboard_dismiss');
-
 				render(<FlagGroup>{generateFlag({ id: 'a' })}</FlagGroup>);
 
 				expect(
@@ -465,8 +455,6 @@ describe('FlagGroup', () => {
 			});
 
 			it('does not respond to Escape after the flag group unmounts', () => {
-				passGate('platform_dst_flag_keyboard_dismiss');
-
 				const onDismissed = jest.fn();
 				const { unmount } = render(
 					<FlagGroup onDismissed={onDismissed}>{generateFlag({ id: 'a', testId: 'a' })}</FlagGroup>,
@@ -479,8 +467,6 @@ describe('FlagGroup', () => {
 			});
 
 			it('does not dismiss a pending Escape after the flag group unmounts', () => {
-				passGate('platform_dst_flag_keyboard_dismiss');
-
 				const onDismissed = jest.fn();
 				const { unmount } = render(
 					<FlagGroup onDismissed={onDismissed}>{generateFlag({ id: 'a', testId: 'a' })}</FlagGroup>,
@@ -496,8 +482,6 @@ describe('FlagGroup', () => {
 			});
 
 			it('ignores Escape when a capture-phase listener has called preventDefault (e.g. a modal)', () => {
-				passGate('platform_dst_flag_keyboard_dismiss');
-
 				const onDismissed = jest.fn();
 				render(
 					<FlagGroup onDismissed={onDismissed}>{generateFlag({ id: 'a', testId: 'a' })}</FlagGroup>,
@@ -528,8 +512,6 @@ describe('FlagGroup', () => {
 			});
 
 			it('does not dismiss the flag when a modal also has an Escape listener and the modal listener fires first', () => {
-				passGate('platform_dst_flag_keyboard_dismiss');
-
 				// JRACLOUD-97876: Verify FlagGroup + modal Escape coexistence.
 				// When a modal's capture-phase Escape handler runs and calls
 				// preventDefault, the FlagGroup should leave flags untouched so
@@ -567,32 +549,6 @@ describe('FlagGroup', () => {
 				expect(onModalClose).toHaveBeenCalledTimes(1);
 				// …but the flag is NOT dismissed.
 				expect(onDismissed).not.toHaveBeenCalled();
-			});
-		});
-
-		describe('when keyboard dismiss FF is off', () => {
-			it('does not dismiss any flag when Escape is pressed', () => {
-				failGate('platform_dst_flag_keyboard_dismiss');
-
-				const onDismissed = jest.fn();
-				render(
-					<FlagGroup onDismissed={onDismissed}>{generateFlag({ id: 'a', testId: 'a' })}</FlagGroup>,
-				);
-
-				fireEvent.keyDown(document, { key: 'Escape' });
-				act(() => {
-					jest.runAllTimers();
-				});
-
-				expect(onDismissed).not.toHaveBeenCalled();
-			});
-
-			it('keeps the original screen reader label', () => {
-				failGate('platform_dst_flag_keyboard_dismiss');
-
-				render(<FlagGroup>{generateFlag({ id: 'a' })}</FlagGroup>);
-
-				expect(screen.getByText('Flag notifications')).toBeInTheDocument();
 			});
 		});
 	});

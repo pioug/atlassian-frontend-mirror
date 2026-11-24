@@ -1,5 +1,52 @@
 # @atlaskit/renderer
 
+## 158.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 157.5.4
+
+### Patch Changes
+
+- [`70847ac79484f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/70847ac79484f) -
+  Clean up `platform_editor_remove_default_renderer_nodes` and keep the enabled behavior. The core
+  renderer uses supplied node components without merging the default node registry.
+
+  Enable the paragraph props fast path for the built-in Paragraph component behind
+  `platform_editor_renderer_paragraph_props_fast_path`, while preserving full props for custom
+  paragraph components.
+
+- Updated dependencies
+
+## 157.5.3
+
+### Patch Changes
+
+- [`eded3a6a0b6d9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eded3a6a0b6d9) -
+  Clean up the `confluence_comment_nudgebar_improvement` experiment, keeping the enabled behaviour.
+- [`6c8b2d9c1d995`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6c8b2d9c1d995) -
+  Keep sticky table scrollbars enabled for full-page and full-width renderer appearances.
+- Updated dependencies
+
+## 157.5.2
+
+### Patch Changes
+
+- [`28f7835c8e64d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28f7835c8e64d) -
+  Use the migrated user profile card by default across Platform consumers, including editor
+  mentions, notifications, search, and contributor avatars.
+- Updated dependencies
+
+## 157.5.1
+
+### Patch Changes
+
+- [`0a8af7c142e51`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a8af7c142e51) -
+  Use the confluence_forge_named_viewport_reservation experiment for Forge named viewport sizing.
+- Updated dependencies
+
 ## 157.5.0
 
 ### Minor Changes

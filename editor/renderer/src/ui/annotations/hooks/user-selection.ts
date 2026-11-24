@@ -1,7 +1,6 @@
 import { useEffect, useRef, useCallback } from 'react';
 
 import { expVal } from '@atlaskit/platform-feature-experiments/exp-val';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { useAnnotationManagerDispatch } from '../contexts/AnnotationManagerContext';
 import {
@@ -46,16 +45,13 @@ export const useUserSelectionRange = (
 			 * `addRange`, it fires exactly ONE `selectionchange` — no batching needed. Skipping the
 			 * debounce ensures annotation position is computed synchronously so the first click
 			 * applies the yellow highlight immediately. `data-nudge-selection-active` is set
-			 * exclusively by the Confluence comment nudge feature and is double-gated:
-			 * (1) `expValEquals('confluence_comment_nudgebar_improvement', ...)` — explicit experiment
-			 * gate; (2) `data-nudge-selection-active` — ensures 0ms only fires during an actual nudge
-			 * click, not on every selectionchange for experiment-ON users. Zero behavioral change for
-			 * other products or experiment-OFF users.
+			 * exclusively by the Confluence comment nudge feature and ensures 0ms only fires during
+			 * an actual nudge click, not on every selectionchange. Zero behavioral change for other
+			 * products.
 			 */
 			const nudgeDelay =
 				typeof document !== 'undefined' &&
-				document.body?.getAttribute('data-nudge-selection-active') === 'true' &&
-				expValEquals('confluence_comment_nudgebar_improvement', 'isEnabled', true)
+				document.body?.getAttribute('data-nudge-selection-active') === 'true'
 					? 0
 					: 100;
 			selectionTimeoutRef.current = setTimeout(() => {

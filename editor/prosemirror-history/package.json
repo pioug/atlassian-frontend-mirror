@@ -21,7 +21,9 @@
 		"./undo": "./src/undo.ts",
 		"./undoDepth": "./src/undoDepth.ts",
 		"./undoNoScroll": "./src/undoNoScroll.ts",
-		"./createHistoryCheckpoint": "./src/createHistoryCheckpoint.ts"
+		"./createHistoryCheckpoint": "./src/createHistoryCheckpoint.ts",
+		"./external-history-event": "./src/external-history-event.ts",
+		"./diagnostics/agent-undo-diagnostics": "./src/diagnostics/agent-undo-diagnostics.ts"
 	},
 	"dependencies": {
 		"@atlaskit/editor-prosemirror": "workspace:^",
@@ -36,7 +38,7 @@
 		"react-dom": "^19.2.0"
 	},
 	"name": "@atlaskit/prosemirror-history",
-	"version": "1.3.1",
+	"version": "1.4.0",
 	"description": "Fork of the prosemirror-history plugin",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

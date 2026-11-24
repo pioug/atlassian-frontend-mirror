@@ -1,5 +1,14 @@
 # @atlassian/navigation-system
 
+## 12.1.0
+
+### Minor Changes
+
+- [`194fccc16187d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/194fccc16187d) -
+  Expose `chatPanelWidthVar` for the rendered ChatPanel width and `chatPanelInlineWidthVar` for the
+  space it occupies inline. External controls can use both to stay beside overlapping panels.
+  Publishing requires Root slot-size hoisting and platform-dst-chat-panel-layout.
+
 ## 12.0.1
 
 ### Patch Changes

@@ -1,5 +1,21 @@
 # @atlaskit/rovo-triggers
 
+## 12.18.0
+
+### Minor Changes
+
+- [`3f3ab4ee596e8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3f3ab4ee596e8) -
+  Behind rovo_chat_strict_boolean_url_params, the boolean Rovo Chat URL params rovoChatTriggerOpen,
+  rovoChatStagingAreaOpen, and rovoChatPromptLibraryOpen are true only when the value is exactly
+  true, and any other value is false. getRovoParams returns them as booleans, so values like
+  rovoChatTriggerOpen=false no longer open Chat, and addRovoParamsToUrl rewrites an existing value
+  such as banana as false. With the gate off, they stay raw strings.
+
+  @atlaskit/rovo-triggers adds a runtime dependency on @atlaskit/platform-feature-flags to read the
+  gate, and exports a new BooleanValidParam type from @atlaskit/rovo-triggers/params-types.
+  ChatOpenerSubscriber in @atlassian/conversation-assistant now reads rovoChatTriggerOpen once when
+  it mounts instead of on every render.
+
 ## 12.17.0
 
 ### Minor Changes

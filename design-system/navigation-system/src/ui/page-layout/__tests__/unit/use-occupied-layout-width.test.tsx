@@ -49,12 +49,12 @@ it('tracks inline slot sizes, responsive modes, visibility and unmounts', async 
 			position: 'sticky',
 		} as CSSStyleDeclaration;
 	});
-	jest
-		.spyOn(HTMLElement.prototype, 'getBoundingClientRect')
-		.mockImplementation(function (this: HTMLElement) {
-			const slot = this.getAttribute('data-testid');
-			return { width: slot === 'ribbon' ? 64 : slot === 'aside' ? asideWidth : 400 } as DOMRect;
-		});
+	jest.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockImplementation(function (
+		this: HTMLElement,
+	) {
+		const slot = this.getAttribute('data-testid');
+		return { width: slot === 'ribbon' ? 64 : slot === 'aside' ? asideWidth : 400 } as DOMRect;
+	});
 	try {
 		const { rerender, unmount } = render(<Fixture />);
 		for (const id of ['top-nav', 'side-nav', 'main', 'chat-panel']) {

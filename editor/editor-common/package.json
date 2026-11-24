@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "137.10.0",
+	"version": "138.0.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -906,10 +906,6 @@
 		"platform_editor_bordered_panel_nested_in_table": {
 			"type": "boolean"
 		},
-		"confluence_forge_early_render_reserve_height": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"confluence_connect_macro_preset_height": {
 			"type": "boolean"
 		},
@@ -920,9 +916,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_content_mode_button_mvp": {
-			"type": "boolean"
-		},
-		"people-teams_migrate-user-profile-card": {
 			"type": "boolean"
 		},
 		"platform_editor_ai_selection_local_ids": {

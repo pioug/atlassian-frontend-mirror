@@ -1,5 +1,60 @@
 # @atlaskit/editor-common
 
+## 138.0.0
+
+### Major Changes
+
+- [`1103942af9dfc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1103942af9dfc) -
+  Registered menus now require analytics wiring, so every menu root reports the same slash command
+  analytics (`platform_editor_slash_command_analytics`).
+
+  Breaking changes:
+
+  - `useRegisteredMenu` (`@atlaskit/editor-common/registered-menu/use-registered-menu`) requires the
+    `onActiveItemChange` and `onListRendered` options. `onActiveItemChange` is called only when the
+    user highlights an item.
+  - `RegisteredMenuContextValue.select` requires a second `meta` argument of type
+    `RegisteredMenuSelectionMeta` (`{ inputMethod: 'keyboard' | 'mouse'; isViewMore: boolean }`).
+
+  Migration: pass `onActiveItemChange` and `onListRendered` to `useRegisteredMenu`, usually from the
+  `RegisteredMenuContextValue` of the same name, or pass `undefined` for a menu that sends no
+  analytics. Pass `meta` when calling `RegisteredMenuContextValue.select`, and accept it when
+  providing `select`.
+
+  Also added: `RegisteredMenuContextValue` gets optional `onListRendered` and `onActiveItemChange`,
+  `QuickInsertContextValue.select` accepts an optional `itemKey`, and the type-ahead analytics types
+  add `actionSubjectId` to `typeAhead rendered` and `typeAheadId` to `typeAheadItem viewed`.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 137.10.3
+
+### Patch Changes
+
+- [`d566bb77317f2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d566bb77317f2) -
+  Under `platform_editor_slash_command`, virtualise category and search results in the Element
+  Browser. Keyboard navigation reaches offscreen elements and keeps the focused element available
+  during scrolling.
+- Updated dependencies
+
+## 137.10.2
+
+### Patch Changes
+
+- [`28f7835c8e64d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28f7835c8e64d) -
+  Use the migrated user profile card by default across Platform consumers, including editor
+  mentions, notifications, search, and contributor avatars.
+- Updated dependencies
+
+## 137.10.1
+
+### Patch Changes
+
+- [`0a8af7c142e51`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0a8af7c142e51) -
+  Use the confluence_forge_named_viewport_reservation experiment for Forge named viewport sizing.
+
 ## 137.10.0
 
 ### Minor Changes

@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<ae8f53f52b07b93f3ae511689f90708b>>
+ * @generated SignedSource<<93463746bc6a61c04587823ba1e957ea>>
  * @relayHash 9608ff2fc7403705c9b445abd3e91477
  * @lightSyntaxTransform
  * @nogrep
@@ -14,7 +14,7 @@
 
 import type { ConcreteRequest } from 'relay-runtime';
 import type { FragmentRefs } from "relay-runtime";
-export type AgentStudioAgentCreatorType = "CUSTOMER" | "FORGE" | "GUIDED" | "OOTB" | "REMOTE_A2A" | "ROVO_CHAT" | "ROVO_DEV" | "%future added value";
+export type AgentStudioAgentCreatorType = "CODE_REVIEWER" | "CUSTOMER" | "FORGE" | "GUIDED" | "OOTB" | "REMOTE_A2A" | "ROVO_CHAT" | "ROVO_DEV" | "%future added value";
 export type AgentStudioAgentQueryInput = {
   creatorTypes?: ReadonlyArray<AgentStudioAgentCreatorType> | null;
   includeDraftAgents?: boolean | null;

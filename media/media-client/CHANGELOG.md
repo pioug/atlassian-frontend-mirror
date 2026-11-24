@@ -1,5 +1,21 @@
 # @atlaskit/media-client
 
+## 39.4.12
+
+### Patch Changes
+
+- [`c65766e1b529a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c65766e1b529a) -
+  Behind `platform_media_bounded_read_tokens`, request file-scoped credentials when a media read
+  token exceeds the supported size, group metadata requests by credential, and use authenticated
+  client previews when an SSR image URL is too long. Gate-off behavior and short-token request
+  counts are preserved.
+
+## 39.4.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 39.4.10
 
 ### Patch Changes

@@ -23,6 +23,7 @@ import RendererDefaultComponent, {
 	NORMAL_SEVERITY_THRESHOLD,
 	RendererFunctionalComponent as Renderer,
 } from '../../';
+import { nodes } from '../../../../entry-points/nodes-default';
 import { RendererContextProvider } from '../../../../renderer-context';
 import type { RendererAppearance } from '../../types';
 import { ValidationContextProvider } from '../../ValidationContext';
@@ -235,7 +236,7 @@ describe('Renderer', () => {
 		it('should use default Serializer when createSerializer is not defined', () => {
 			const { container } = render(
 				<IntlProvider locale="en">
-					<RendererDefaultComponent document={adf} />
+					<RendererDefaultComponent nodeComponents={nodes} document={adf} />
 				</IntlProvider>,
 			);
 
@@ -276,7 +277,7 @@ describe('spec based validator', () => {
 		act(() => {
 			({ container } = render(
 				<IntlProvider locale="en">
-					<Renderer document={docWithInvalidBlock} />
+					<Renderer nodeComponents={nodes} document={docWithInvalidBlock} />
 				</IntlProvider>,
 			));
 		});
@@ -305,7 +306,7 @@ describe('spec based validator', () => {
 		act(() => {
 			({ container } = render(
 				<IntlProvider locale="en">
-					<Renderer document={docWithValidParagraph} />
+					<Renderer nodeComponents={nodes} document={docWithValidParagraph} />
 				</IntlProvider>,
 			));
 		});
@@ -338,7 +339,7 @@ describe('spec based validator', () => {
 		act(() => {
 			({ container } = render(
 				<IntlProvider locale="en">
-					<Renderer document={docWithInvalidInline} />
+					<Renderer nodeComponents={nodes} document={docWithInvalidInline} />
 				</IntlProvider>,
 			));
 		});
@@ -370,7 +371,7 @@ describe('spec based validator', () => {
 		act(() => {
 			({ container } = render(
 				<IntlProvider locale="en">
-					<Renderer document={docWithValidInline} />
+					<Renderer nodeComponents={nodes} document={docWithValidInline} />
 				</IntlProvider>,
 			));
 		});
@@ -915,7 +916,10 @@ describe('ValidationContext', () => {
 			const { container } = render(
 				<ValidationContextProvider value={{ skipValidation: true }}>
 					<IntlProvider locale="en">
-						<RendererDefaultComponent document={adfNestedTableData as DocNode} />
+						<RendererDefaultComponent
+							nodeComponents={nodes}
+							document={adfNestedTableData as DocNode}
+						/>
 					</IntlProvider>
 				</ValidationContextProvider>,
 			);
@@ -928,7 +932,10 @@ describe('ValidationContext', () => {
 			const { container } = render(
 				<ValidationContextProvider value={{ skipValidation: false }}>
 					<IntlProvider locale="en">
-						<RendererDefaultComponent document={adfNestedTableData as DocNode} />
+						<RendererDefaultComponent
+							nodeComponents={nodes}
+							document={adfNestedTableData as DocNode}
+						/>
 					</IntlProvider>
 				</ValidationContextProvider>,
 			);
@@ -941,7 +948,10 @@ describe('ValidationContext', () => {
 			const { container } = render(
 				<ValidationContextProvider value={{ allowNestedTables: true }}>
 					<IntlProvider locale="en">
-						<RendererDefaultComponent document={adfNestedTableData as DocNode} />
+						<RendererDefaultComponent
+							nodeComponents={nodes}
+							document={adfNestedTableData as DocNode}
+						/>
 					</IntlProvider>
 				</ValidationContextProvider>,
 			);
@@ -952,7 +962,10 @@ describe('ValidationContext', () => {
 			const { container } = render(
 				<ValidationContextProvider value={{ allowNestedTables: false }}>
 					<IntlProvider locale="en">
-						<RendererDefaultComponent document={adfNestedTableData as DocNode} />
+						<RendererDefaultComponent
+							nodeComponents={nodes}
+							document={adfNestedTableData as DocNode}
+						/>
 					</IntlProvider>
 				</ValidationContextProvider>,
 			);

@@ -48,15 +48,13 @@ const onHydrate = (jql: string): Promise<HydratedValues> =>
 		setTimeout(() => {
 			const hydratedUsers = users
 				.filter((user) => jql.includes(user.value))
-				.map(
-					(user): HydratedUser => ({
-						type: 'user',
-						id: user.value,
-						name: user.displayName,
-						// Use empty avatar for the first user to demonstrate the alignment issue
-						avatarUrl: user.value === 'rjuedbergtlfrde' ? '' : mockAvatarUrl,
-					}),
-				);
+				.map((user): HydratedUser => ({
+					type: 'user',
+					id: user.value,
+					name: user.displayName,
+					// Use empty avatar for the first user to demonstrate the alignment issue
+					avatarUrl: user.value === 'rjuedbergtlfrde' ? '' : mockAvatarUrl,
+				}));
 
 			resolve({
 				assignee: hydratedUsers,

@@ -12,7 +12,7 @@ const shortcutStyles = unboundedCssMap({
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',
-		height: '1.25rem', // 20px
+		height: '1.25rem',
 		minWidth: '1.25rem',
 		boxSizing: 'border-box',
 		paddingInlineStart: token('space.075'),

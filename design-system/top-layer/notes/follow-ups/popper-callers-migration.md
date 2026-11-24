@@ -51,5 +51,5 @@ stack; does not follow scroll); (2) give the point a real element (for example a
 `<span>` around the selection) and use the element pattern; (3) a DS hook that follows a moving
 point (new API, needs a DS decision).
 
-DS-owned Popper users on the top-layer path: legacy Spotlight `PopoverContent` (fixed by the
-`platform-dst-top-layer-spotlight` path) and `@atlaskit/onboarding` SpotlightDialog (deprecated).
+Spotlight `PopoverContent` uses native top-layer positioning. `@atlaskit/onboarding` SpotlightDialog
+remains a deprecated Popper consumer.

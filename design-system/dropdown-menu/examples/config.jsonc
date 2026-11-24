@@ -9,6 +9,7 @@
 		"20-setting-z-index.vr.ap.tsx",
 		"93-testing-is-loading-reposition.vr.ap.tsx",
 		"99-testing-ask-first-close.tsx",
+		"99-testing-item-focus-return.tsx",
 		"99-testing-placements.vr.ap.tsx",
 		"selection-states.vr.ap.tsx",
 	],

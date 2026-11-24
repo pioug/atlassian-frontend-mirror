@@ -57,14 +57,12 @@ export const ArticlesListItemWrapper: React.ForwardRefExoticComponent<
 		children: React.ReactNode;
 		styles?: React.CSSProperties;
 	}
->(
-	({ styles, children, ...rest }, ref): JSX.Element => (
-		// eslint-disable-next-line @atlaskit/design-system/no-html-anchor, @atlaskit/ui-styling-standard/enforce-style-prop
-		<a ref={ref} css={articlesListItemWrapperStyles} style={styles} {...rest}>
-			{children}
-		</a>
-	),
-);
+>(({ styles, children, ...rest }, ref): JSX.Element => (
+	// eslint-disable-next-line @atlaskit/design-system/no-html-anchor, @atlaskit/ui-styling-standard/enforce-style-prop
+	<a ref={ref} css={articlesListItemWrapperStyles} style={styles} {...rest}>
+		{children}
+	</a>
+));
 
 const articlesListItemContainerStyles = css({
 	width: '100%',

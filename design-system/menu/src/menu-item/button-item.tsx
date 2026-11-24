@@ -14,6 +14,8 @@ import type { ButtonItemProps } from '../types';
 /**
  * __Button item__
  *
+ * @deprecated All menu components are deprecated. For dropdown menus, use `@atlaskit/dropdown-menu`. For anything else use a list.
+ *
  * A button item is used to populate a menu with items that are buttons.
  *
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/menu/docs/button-item)

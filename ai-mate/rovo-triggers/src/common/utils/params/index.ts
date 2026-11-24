@@ -1,4 +1,6 @@
-import { ROVO_PARAM_PREFIX, ROVO_VALID_PARAMS } from './constants';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
+import { ROVO_BOOLEAN_PARAMS, ROVO_PARAM_PREFIX, ROVO_VALID_PARAMS } from './constants';
 import { type BaseRovoChatParams, type RovoChatParams, type ValidParam } from './types';
 
 export const firstCharUpper = (str: string): string => str.charAt(0).toUpperCase() + str.slice(1);
@@ -19,6 +21,20 @@ export const addPrefix = (param: ValidParam): string =>
 
 export const removePrefix = (param: string): string => {
 	return firstCharLower(param.replace(ROVO_PARAM_PREFIX, ''));
+};
+
+// Behind `rovo_chat_strict_boolean_url_params`, boolean params are true only when the value is
+// exactly `true`, and any other value is false. With the gate off, they stay raw strings.
+const coerceBooleanParamsInPlace = (output: { [key: string]: unknown }): void => {
+	const presentBooleanParams = ROVO_BOOLEAN_PARAMS.filter((param) => param in output);
+	// Check the gate only when the URL carries a boolean param, so reads without one don't log
+	// an exposure.
+	if (presentBooleanParams.length === 0 || !fg('rovo_chat_strict_boolean_url_params')) {
+		return;
+	}
+	presentBooleanParams.forEach((param) => {
+		output[param] = output[param] === 'true';
+	});
 };
 
 // Creates RovoChatParams from URLSearchParams
@@ -63,6 +79,8 @@ const processParams = (
 		// Remove rovoParam from processed input
 		processedInput.delete(key);
 	});
+
+	coerceBooleanParamsInPlace(output);
 
 	const combinedQueryString = [processedInput, extracted]
 		.map((params) => params.toString())

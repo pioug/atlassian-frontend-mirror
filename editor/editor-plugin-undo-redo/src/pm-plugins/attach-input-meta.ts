@@ -10,6 +10,7 @@ import { areNodesEqualIgnoreAttrs } from '@atlaskit/editor-common/utils/document
 import { withAnalytics } from '@atlaskit/editor-common/withAnalytics';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { EXTERNAL_HISTORY_OUTCOME_META } from '@atlaskit/prosemirror-history/external-history-event';
 
 import { InputSource } from './enums';
 import { pluginKey as undoPluginKey } from './plugin-key';
@@ -22,7 +23,11 @@ export const attachInputMeta: AttachInputMeta = (inputSource) => (command) => (s
 	};
 	command(state, fakeDispatch);
 
-	if (!customTr || !customTr.docChanged) {
+	// A refused backend agent undo or redo changes no document, but its outcome transaction must
+	// still be dispatched: it drops the unusable event and reports the outcome. Returning false
+	// here would leave that event on top and let the browser's native undo run instead.
+	const isExternalOutcome = Boolean(customTr?.getMeta(EXTERNAL_HISTORY_OUTCOME_META));
+	if (!customTr || (!customTr.docChanged && !isExternalOutcome)) {
 		return false;
 	}
 

@@ -11,6 +11,7 @@ import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disab
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { resetAllExperiments } from '@atlassian/experiment-test-utils/reset-all-experiments';
 
+import { nodes } from '../../../entry-points/nodes-default';
 import ReactSerializer from '../../../react';
 import type { ReactSerializerInit } from '../../../react';
 import Paragraph from '../../../react/nodes/paragraph';
@@ -20,6 +21,8 @@ import { AnnotationRangeStateContext } from '../../../ui/annotations/contexts/An
 import type { Position } from '../../../ui/annotations/types';
 
 const textExperiment = 'platform_renderer_text_paragraph_fast_path';
+const propsExperiment = 'platform_editor_renderer_paragraph_props_fast_path';
+const CustomParagraph = (props: NodeProps) => <Paragraph {...props} />;
 
 const document = schema.nodeFromJSON({
 	type: 'doc',
@@ -54,7 +57,11 @@ function elements(node: React.ReactNode): React.ReactElement<Record<string, unkn
 function serialize(init: ReactSerializerInit = {}, textFastPath = true, source = document) {
 	resetAllExperiments();
 	(textFastPath ? mockExpEnabled : mockExpDisabled)(textExperiment);
-	return new ReactSerializer(init).serializeFragment(source.content);
+	mockExpEnabled(propsExperiment);
+	return new ReactSerializer({
+		...init,
+		nodeComponents: { ...nodes, ...init.nodeComponents },
+	}).serializeFragment(source.content);
 }
 
 function serializeWithParagraphOverride(
@@ -63,7 +70,7 @@ function serializeWithParagraphOverride(
 	source = document,
 ) {
 	return serialize(
-		{ ...init, nodeComponents: { ...init.nodeComponents, paragraph: Paragraph } },
+		{ ...init, nodeComponents: { ...init.nodeComponents, paragraph: CustomParagraph } },
 		textFastPath,
 		source,
 	);
@@ -323,7 +330,6 @@ describe('paragraph props fast path', () => {
 	it('preserves the full contract for an explicit paragraph override', () => {
 		const providers = new ProviderFactory();
 		const eventHandlers = {};
-		const CustomParagraph = (props: NodeProps) => <Paragraph {...props} />;
 		const output = serialize({
 			providers,
 			eventHandlers,
@@ -344,8 +350,16 @@ describe('paragraph props fast path', () => {
 		providers.destroy();
 	});
 
-	it('keeps the generic contract even when the override is the default Paragraph', () => {
-		const output = serializeWithParagraphOverride();
+	it('uses the fast path when the override is the built-in Paragraph', () => {
+		const output = serialize({ nodeComponents: { paragraph: Paragraph } });
+		expect(paragraphs(output)[0].props).not.toHaveProperty('getContent');
+	});
+
+	it('keeps the generic contract for the built-in Paragraph when the experiment is disabled', () => {
+		mockExpDisabled(propsExperiment);
+		const output = new ReactSerializer({ nodeComponents: nodes }).serializeFragment(
+			document.content,
+		);
 		expect(paragraphs(output)[0].props.getContent).toEqual(expect.any(Function));
 	});
 

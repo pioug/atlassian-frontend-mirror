@@ -1,4 +1,3 @@
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import isEqual from 'lodash/isEqual';
 import omit from 'lodash/omit';
 
@@ -7,6 +6,7 @@ import { getBaseNodeTypeName } from '@atlaskit/editor-common/utils/node-type-uti
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { AttrStep } from '@atlaskit/editor-prosemirror/transform';
 import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform-override';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { getRequiredIncludedDiffableAttrs, isDiffableAttr } from './diffableAttrs';
 import {

@@ -255,9 +255,6 @@ export const FlagGroup = (props: FlagGroupProps): JSX.Element => {
 	// the dismiss button. Behaviour is gated behind a feature flag so it can
 	// be rolled out and validated incrementally.
 	useEffect(() => {
-		if (!fg('platform_dst_flag_keyboard_dismiss')) {
-			return;
-		}
 		if (!hasFlags) {
 			return;
 		}
@@ -402,11 +399,10 @@ export const FlagGroup = (props: FlagGroupProps): JSX.Element => {
 
 	const useSymmetricAnchor = fg('cc_mohiti_flag_anchoring');
 
-	const isKeyboardDismissEnabled = fg('platform_dst_flag_keyboard_dismiss');
 	// When the keyboard dismiss shortcut is available, surface it to assistive
 	// technology users via the existing visually-hidden landmark heading so they
 	// know they can press Escape to dismiss the topmost flag.
-	const screenReaderLabel = isKeyboardDismissEnabled ? `${label}. Press Escape to dismiss.` : label;
+	const screenReaderLabel = `${label}. Press Escape to dismiss.`;
 
 	if (useTopLayer) {
 		// A modal dialog makes everything outside it inert, popovers too. So a flag that shows while

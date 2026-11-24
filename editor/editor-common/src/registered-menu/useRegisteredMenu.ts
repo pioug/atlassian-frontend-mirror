@@ -1,4 +1,4 @@
-import { useCallback, useLayoutEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'react';
 
 import { getComponentIdentity } from '@atlaskit/editor-ui-control-model/surface-renderer';
 import type {
@@ -6,7 +6,12 @@ import type {
 	RegisterMenuSection,
 } from '@atlaskit/editor-ui-control-model/types';
 
-import type { RegisteredMenuModel, RegisteredMenuSelectionSource } from './types';
+import type {
+	RegisteredMenuActiveItemChangeHandler,
+	RegisteredMenuListRenderedHandler,
+	RegisteredMenuModel,
+	RegisteredMenuSelectionSource,
+} from './types';
 import { useRegisteredMenuSelection } from './useRegisteredMenuSelection';
 
 /** An open preview always belongs to the selected item, so only whether it's open is stored. */
@@ -18,6 +23,8 @@ type PreviewActivation = {
 
 type Options = {
 	model: RegisteredMenuModel;
+	onActiveItemChange: RegisteredMenuActiveItemChangeHandler | undefined;
+	onListRendered: RegisteredMenuListRenderedHandler | undefined;
 	resetKey?: string | number | symbol;
 };
 
@@ -55,7 +62,12 @@ export type RegisteredMenuState = {
  * the caller show item-specific feedback, such as a preview. A changed reset key
  * starts navigation again and clears the active item.
  */
-export const useRegisteredMenu = ({ model, resetKey }: Options): RegisteredMenuState => {
+export const useRegisteredMenu = ({
+	model,
+	onActiveItemChange,
+	onListRendered,
+	resetKey,
+}: Options): RegisteredMenuState => {
 	const { rows, selectableItems, selectableItemIdentities } = useMemo(() => {
 		const rows: Array<RegisterMenuItem | RegisterMenuSection> = [];
 		const selectableItems: RegisterMenuItem[] = [];
@@ -82,6 +94,7 @@ export const useRegisteredMenu = ({ model, resetKey }: Options): RegisteredMenuS
 		}
 		return { rows, selectableItems, selectableItemIdentities };
 	}, [model]);
+	const hasRoot = Boolean(model.root);
 	const selection = useRegisteredMenuSelection({ identities: selectableItemIdentities, resetKey });
 	const { getSelectedIndex, selectedIndex: selectedItemIndex, selectionSource, select } = selection;
 	const [activation, setActivation] = useState<PreviewActivation | undefined>();
@@ -90,6 +103,20 @@ export const useRegisteredMenu = ({ model, resetKey }: Options): RegisteredMenuS
 	useLayoutEffect(() => {
 		setActivation(undefined);
 	}, [model, resetKey]);
+
+	// Measured from when the hook first renders a model (after the caller builds it), so for the
+	// first open it stops one commit before the host shows the popup.
+	// eslint-disable-next-line react-hooks/exhaustive-deps -- restart timing for each model
+	const renderStart = useMemo(() => performance.now(), [model]);
+	// `selectableItems` is rebuilt for each model, so this fires once per model.
+	useEffect(() => {
+		if (hasRoot) {
+			onListRendered?.({
+				itemCount: selectableItems.length,
+				time: performance.now() - renderStart,
+			});
+		}
+	}, [hasRoot, onListRendered, renderStart, selectableItems]);
 
 	/**
 	 * Closes the preview when the event comes from the selected item, optionally only for one source.
@@ -114,20 +141,37 @@ export const useRegisteredMenu = ({ model, resetKey }: Options): RegisteredMenuS
 		(index: number) => index < selectableItems.length,
 		[selectableItems],
 	);
-	const activateKeyboardItem = useCallback(
-		(index: number) => {
+	// Reports only selections the user makes by keyboard, pointer or focus. Opening the menu,
+	// changing the query and reordering items move the highlight without reporting.
+	const reportActiveItem = useCallback(
+		(previousIndex: number, index: number) => {
+			if (index !== previousIndex) {
+				onActiveItemChange?.({ index, itemCount: selectableItems.length });
+			}
+		},
+		[onActiveItemChange, selectableItems.length],
+	);
+	// Runs a keyboard move, reports it and shows the new item's preview.
+	const moveKeyboardSelection = useCallback(
+		(move: () => number) => {
+			const previousIndex = getSelectedIndex();
+			const index = move();
+			reportActiveItem(previousIndex, index);
 			setActivation(hasPreview(index) ? { model, resetKey, source: 'keyboard' } : undefined);
 		},
-		[hasPreview, model, resetKey],
+		[getSelectedIndex, hasPreview, model, reportActiveItem, resetKey],
 	);
-	const selectNext = useCallback(() => {
-		activateKeyboardItem(selection.selectNext());
-	}, [selection.selectNext, activateKeyboardItem]);
-	const selectPrevious = useCallback(() => {
-		activateKeyboardItem(selection.selectPrevious());
-	}, [selection.selectPrevious, activateKeyboardItem]);
+	const selectNext = useCallback(
+		() => moveKeyboardSelection(selection.selectNext),
+		[moveKeyboardSelection, selection.selectNext],
+	);
+	const selectPrevious = useCallback(
+		() => moveKeyboardSelection(selection.selectPrevious),
+		[moveKeyboardSelection, selection.selectPrevious],
+	);
 	const onItemHover = useCallback(
 		(index: number) => {
+			reportActiveItem(getSelectedIndex(), index);
 			select(index, 'pointer');
 			setActivation((current) => {
 				if (!hasPreview(index)) {
@@ -143,10 +187,11 @@ export const useRegisteredMenu = ({ model, resetKey }: Options): RegisteredMenuS
 				return { model, resetKey, source: 'pointer' };
 			});
 		},
-		[hasPreview, model, resetKey, select],
+		[getSelectedIndex, hasPreview, model, reportActiveItem, resetKey, select],
 	);
 	const onItemFocus = useCallback(
 		(index: number) => {
+			reportActiveItem(getSelectedIndex(), index);
 			const isSelectedItem = index === selectedItemIndex;
 			// A press focuses the item the pointer already selected. Scrolling it then would move it before the click lands.
 			select(index, isSelectedItem && selectionSource === 'pointer' ? 'pointer' : 'keyboard');
@@ -160,7 +205,16 @@ export const useRegisteredMenu = ({ model, resetKey }: Options): RegisteredMenuS
 				return { model, resetKey, source: 'keyboard' };
 			});
 		},
-		[hasPreview, model, resetKey, select, selectedItemIndex, selectionSource],
+		[
+			getSelectedIndex,
+			hasPreview,
+			model,
+			reportActiveItem,
+			resetKey,
+			select,
+			selectedItemIndex,
+			selectionSource,
+		],
 	);
 	const onItemLeave = useCallback(
 		(index: number) => closePreviewFor(index, 'pointer'),

@@ -69,15 +69,13 @@ const onHydrate = (jql: string): Promise<HydratedValues> =>
 		setTimeout(() => {
 			const hydratedProjects = projects
 				.filter((project) => jql.includes(project.value))
-				.map(
-					(project): HydratedProject => ({
-						type: 'project',
-						id: project.value,
-						name: project.displayName,
-						...(project.iconName && { iconName: project.iconName }),
-						...(project.privateProject && { privateProject: project.privateProject }),
-					}),
-				);
+				.map((project): HydratedProject => ({
+					type: 'project',
+					id: project.value,
+					name: project.displayName,
+					...(project.iconName && { iconName: project.iconName }),
+					...(project.privateProject && { privateProject: project.privateProject }),
+				}));
 
 			resolve({
 				project: hydratedProjects,

@@ -1,4 +1,3 @@
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { isDirtyTransaction } from '@atlaskit/editor-common/collab';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { AGENT_ATTRIBUTION_META } from '@atlaskit/editor-common/transaction-agent-attribution';
@@ -6,6 +5,7 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { AddMarkStep, RemoveMarkStep } from '@atlaskit/editor-prosemirror/transform';
 import type { Step } from '@atlaskit/editor-prosemirror/transform-override';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { LastOrganicChangeMetadata } from '../types';
 import { isOrganicChange } from './utils';

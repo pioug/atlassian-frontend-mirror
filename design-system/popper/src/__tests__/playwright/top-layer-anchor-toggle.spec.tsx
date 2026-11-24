@@ -7,7 +7,8 @@ import { expect, type Locator, test } from '@af/integration-testing';
  * `useAnchoredPopover` and `useAnchoredPopoverAtPoint` with complementary
  * `isEnabled` flags. Going through `null` toggles both, so `referenceElement`
  * from anchor-A → null → anchor-B must reposition over anchor-B rather than
- * staying pinned to anchor-A.
+ * staying pinned to anchor-A. A switch from anchor-A to anchor-B while open
+ * (no `null` between) must reposition too.
  */
 const featureFlag = 'platform-dst-top-layer';
 
@@ -52,6 +53,37 @@ test('referenceElement toggle A → null → B repositions the popover', async (
 
 	// Stage 3: reopen on B. The surface should reposition under B,
 	// not retain A's coordinates.
+	await page.getByTestId('show-b').click();
+	await expect(popper).toBeVisible();
+
+	const bRect = await readRect(anchorB);
+
+	await expect
+		.poll(async () => {
+			const next = await readRect(popper);
+			return isAttachedBelow({ popper: next, anchor: bRect });
+		})
+		.toBe(true);
+});
+
+test('referenceElement switch A → B while open repositions the popover', async ({ page }) => {
+	await page.visitExample<typeof import('../../../examples/10-flag-anchor-toggle.tsx')>(
+		'design-system',
+		'popper',
+		'flag-anchor-toggle',
+		{ featureFlag },
+	);
+
+	const popper = page.getByTestId('popper');
+	const anchorA = page.getByTestId('anchor-a');
+	const anchorB = page.getByTestId('anchor-b');
+
+	await expect(popper).toBeVisible();
+	expect(isAttachedBelow({ popper: await readRect(popper), anchor: await readRect(anchorA) })).toBe(
+		true,
+	);
+
+	// Switch straight to B: the popover stays open the whole time.
 	await page.getByTestId('show-b').click();
 	await expect(popper).toBeVisible();
 

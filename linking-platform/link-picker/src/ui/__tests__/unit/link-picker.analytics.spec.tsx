@@ -35,16 +35,14 @@ const mockUfoAbort = jest.fn();
 jest.mock('@atlaskit/ufo/concurrent-experience', () => ({
 	...jest.requireActual('@atlaskit/ufo/concurrent-experience'),
 	__esModule: true,
-	ConcurrentExperience: jest.fn().mockImplementation(
-		(): Partial<ConcurrentExperience> => ({
-			getInstance: jest.fn().mockImplementation((id: string) => ({
-				start: mockUfoStart,
-				success: mockUfoSuccess,
-				failure: mockUfoFailure,
-				abort: mockUfoAbort,
-			})),
-		}),
-	),
+	ConcurrentExperience: jest.fn().mockImplementation((): Partial<ConcurrentExperience> => ({
+		getInstance: jest.fn().mockImplementation((id: string) => ({
+			start: mockUfoStart,
+			success: mockUfoSuccess,
+			failure: mockUfoFailure,
+			abort: mockUfoAbort,
+		})),
+	})),
 }));
 
 jest.mock('use-debounce', () => ({

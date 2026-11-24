@@ -759,10 +759,7 @@ const PortaledPanelSplitter = ({
 						<span id={labelId}>{label}</span>
 					</VisuallyHidden>
 					<span
-						css={[
-							lineStyles.root,
-							panelId === chatPanelPanelSplitterId && lineStyles.chatPanel,
-						]}
+						css={[lineStyles.root, panelId === chatPanelPanelSplitterId && lineStyles.chatPanel]}
 					/>
 				</div>
 			</MaybeTooltip>

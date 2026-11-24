@@ -6,7 +6,6 @@ import { MockPayloadGenerator } from 'relay-test-utils';
 
 import { cssMap } from '@atlaskit/css';
 import { Box } from '@atlaskit/primitives/compiled/box';
-
 import { createAtlassianMockRelayEnvironment } from '@atlassian/relay-test-utils/mock-environment';
 
 import { RovoAgentSelector } from '../src';

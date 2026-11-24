@@ -83,8 +83,7 @@ export const isTableResizingEnabled = (appearance: RendererAppearance): boolean 
 	isFullWidthOrFullPageAppearance(appearance) || isCommentAppearance(appearance);
 
 export const isStickyScrollbarEnabled = (appearance: RendererAppearance): boolean =>
-	isFullWidthOrFullPageAppearance(appearance) &&
-	editorExperiment('platform_renderer_table_sticky_scrollbar', true, { exposure: true });
+	isFullWidthOrFullPageAppearance(appearance);
 
 export const orderChildren = (
 	children: React.ReactElement[],

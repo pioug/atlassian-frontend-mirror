@@ -9,7 +9,6 @@ import {
 } from 'react-intl';
 
 import { messages } from '@atlaskit/media-ui/messages';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
@@ -25,13 +24,9 @@ const OpenMediaViewerButton = ({ fileName, innerRef, ...props }: OpenMediaViewer
 			<Pressable
 				ref={innerRef}
 				{...props}
-				{...(fg('create_modernization_ga_fixes_drop_2')
-					? {
-							'aria-label': intl.formatMessage(messages.open_file_in_viewer_aria_label, {
-								name: fileName,
-							}),
-						}
-					: {})}
+				aria-label={intl.formatMessage(messages.open_file_in_viewer_aria_label, {
+					name: fileName,
+				})}
 			>
 				{intl.formatMessage(messages.open_file_in_viewer, {
 					name: fileName,

@@ -1,9 +1,9 @@
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import type { IntlShape } from 'react-intl';
 
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { ShowDiffPlugin } from '../../showDiffPluginType';
 import { ContributorTagController } from '../../ui/ContributorTag/contributorTagController';

@@ -6,7 +6,7 @@ import CustomItem from '@atlaskit/menu/custom-item';
 import LinkItem from '@atlaskit/menu/link-item';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import NewDropdownMenuItem from './dropdown-item-new';
+import NewDropdownItem from './dropdown-item-new';
 import useRegisterItemWithFocusManager from './internal/hooks/use-register-item-with-focus-manager';
 import { type CustomItemHtmlProps, type DropdownItemProps } from './types';
 
@@ -72,7 +72,7 @@ export const DropdownItem: React.ForwardRefExoticComponent<
 
 		if (fg('platform-dst-new-menu')) {
 			return (
-				<NewDropdownMenuItem
+				<NewDropdownItem
 					title={children}
 					description={description}
 					elemBefore={elemBefore}
@@ -89,6 +89,7 @@ export const DropdownItem: React.ForwardRefExoticComponent<
 					target={target}
 					rel={rel}
 					testId={testId}
+					interactionName={interactionName}
 					aria-haspopup={ariaHasPopup}
 					aria-expanded={ariaExpanded}
 					ref={mergeRefs([ref, itemRef])}

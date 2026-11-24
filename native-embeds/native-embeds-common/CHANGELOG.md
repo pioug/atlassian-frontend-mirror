@@ -1,5 +1,20 @@
 # @atlaskit/native-embeds-common
 
+## 2.12.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.12.0
+
+### Minor Changes
+
+- [`f34bed9154482`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f34bed9154482) -
+  Add gated (native_embeds_ssr_whiteboard_iframe) primitives for adopting native-embed iframes
+  started from server HTML: ssr-iframe helpers, a shared iframe src builder, host-ready bridge
+  command and an optional child client ID for experiences
+
 ## 2.11.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
+import { expVal } from '@atlaskit/platform-feature-experiments/exp-val';
 
 import { Renderer } from '../src/entry-points/renderer-default';
 import type { RendererProps } from '../src/ui/renderer-props';
@@ -36,7 +36,7 @@ const extensionViewportSizes = [
 
 /** Browser fixture for named heights and Connect/metadata fallback controls. */
 export default function ViewportHeightFixture(): React.JSX.Element {
-	const fix = fg('confluence_forge_early_render_reserve_height');
+	const fix = expVal('confluence_forge_named_viewport_reservation', 'isEnabled', false);
 	return (
 		<main>
 			<h1>SCALE-9486 full ADF renderer fixture</h1>

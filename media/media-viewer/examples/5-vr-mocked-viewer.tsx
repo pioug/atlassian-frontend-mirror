@@ -128,13 +128,11 @@ export default class Example extends React.Component<{}, State> {
 					{isMediaViewerActive && this.files.length && (
 						<MediaViewerBase
 							items={this.files
-								.map(
-									({ id }): Identifier => ({
-										id,
-										collectionName: defaultCollectionName,
-										mediaItemType: 'file',
-									}),
-								)
+								.map(({ id }): Identifier => ({
+									id,
+									collectionName: defaultCollectionName,
+									mediaItemType: 'file',
+								}))
 								.concat([
 									{
 										mediaItemType: 'external-image',

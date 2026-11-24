@@ -399,13 +399,11 @@ export const createFormatCodeOnClick =
 
 		void formatCodeProvider
 			.formatCode({ content, language: currentLanguage })
-			.catch(
-				(): FormatResult => ({
-					errorType: 'formatter-execution-failed',
-					language: currentLanguage,
-					status: 'failed',
-				}),
-			)
+			.catch((): FormatResult => ({
+				errorType: 'formatter-execution-failed',
+				language: currentLanguage,
+				status: 'failed',
+			}))
 			.then((result) => {
 				const pendingFormat =
 					api?.codeBlock?.sharedState.currentState()?.pendingFormats[currentLocalId];

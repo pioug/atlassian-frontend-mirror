@@ -949,7 +949,7 @@ const editorContentStyles = cssMapScoped({
 			paddingLeft: token('space.200'),
 		},
 	},
-	blocktypeStyles_fg_platform_editor_typography_ugc: {
+	blocktypeStylesUGCTypography: {
 		'.ProseMirror': {
 			'& h1': {
 				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
@@ -8798,7 +8798,7 @@ const EditorContentContainer: React.ForwardRefExoticComponent<
 				isSelectionHighlightInheritanceActive
 					? editorContentStyles.textSelectedNodeStylesWithHighlightInheritance
 					: editorContentStyles.textSelectedNodeStyles,
-				editorContentStyles.blocktypeStyles_fg_platform_editor_typography_ugc,
+				editorContentStyles.blocktypeStylesUGCTypography,
 				editorContentStyles.blocktypeStylesNestedDnd,
 				editorContentStyles.codeMarkStyles,
 				editorContentStyles.textColorStyles,

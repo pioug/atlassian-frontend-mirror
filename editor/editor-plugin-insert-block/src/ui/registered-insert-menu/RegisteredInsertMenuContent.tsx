@@ -1,17 +1,30 @@
-import React, { useCallback, useContext, useSyncExternalStore } from 'react';
+import React, { useCallback, useContext, useEffect, useSyncExternalStore } from 'react';
 
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
 import { MENU } from '@atlaskit/editor-common/quick-insert/keys';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import { PlainOutsideClickTargetRefContext } from '@atlaskit/editor-common/ui';
 import withOuterListeners from '@atlaskit/editor-common/with-outer-listeners';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { RegisterComponent } from '@atlaskit/editor-ui-control-model/types';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { InsertBlockPlugin } from '../../insertBlockPluginType';
 import { RegisteredInsertMenu } from './RegisteredInsertMenu';
 
 const EMPTY_COMPONENTS: RegisterComponent[] = [];
 const subscribeToNothing = () => () => {};
+
+const fireElementBrowserAnalyticsEvent = (
+	api: ExtractInjectionAPI<InsertBlockPlugin> | undefined,
+	action: ACTION.OPENED | ACTION.CLOSED,
+) =>
+	api?.analytics?.actions.fireAnalyticsEvent({
+		action,
+		actionSubject: ACTION_SUBJECT.ELEMENT_BROWSER,
+		eventType: EVENT_TYPE.UI,
+		attributes: { mode: 'inline' },
+	});
 
 type Props = {
 	api?: ExtractInjectionAPI<InsertBlockPlugin>;
@@ -53,6 +66,15 @@ export const RegisteredInsertMenuContent = ({
 		getComponents,
 		getComponents,
 	);
+	useEffect(() => {
+		if (!fg('platform_editor_slash_command_analytics')) {
+			return;
+		}
+		fireElementBrowserAnalyticsEvent(api, ACTION.OPENED);
+		return () => {
+			fireElementBrowserAnalyticsEvent(api, ACTION.CLOSED);
+		};
+	}, [api]);
 	const onClickOutside = useCallback(
 		(event: MouseEvent) => {
 			if (event.target instanceof Node && target?.contains(event.target)) {

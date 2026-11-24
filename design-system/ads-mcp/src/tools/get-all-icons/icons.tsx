@@ -26,16 +26,14 @@ export const icons: IconMCPSchema[] = [
 			team: icon.team,
 		}),
 	),
-	...Object.entries(metadata).map(
-		([_key, icon]: [string, metadata]): IconMCPSchema => ({
-			componentName: icon.componentName,
-			package: icon.package,
-			categorization: icon.categorization, //???
-			keywords: icon.keywords,
-			status: icon.status,
-			usage: icon.usage,
-			shouldRecommendSmallIcon: icon.shouldRecommendSmallIcon,
-			team: icon.team,
-		}),
-	),
+	...Object.entries(metadata).map(([_key, icon]: [string, metadata]): IconMCPSchema => ({
+		componentName: icon.componentName,
+		package: icon.package,
+		categorization: icon.categorization, //???
+		keywords: icon.keywords,
+		status: icon.status,
+		usage: icon.usage,
+		shouldRecommendSmallIcon: icon.shouldRecommendSmallIcon,
+		team: icon.team,
+	})),
 ];

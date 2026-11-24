@@ -1,5 +1,13 @@
 # @atlaskit/blanket
 
+## 16.4.6
+
+### Patch Changes
+
+- [`0c1defc72b14b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0c1defc72b14b) -
+  Deprecate `@atlaskit/blanket`: use `@atlaskit/modal-dialog`, `@atlaskit/drawer` or
+  `@atlaskit/popup` instead.
+
 ## 16.4.5
 
 ### Patch Changes

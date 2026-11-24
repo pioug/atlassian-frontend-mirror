@@ -12,9 +12,11 @@ import { ScreenViewedEvent } from '../../utils/analytics/components';
 
 type ModalProps = React.ComponentProps<typeof ModalDialog> & {
 	screen: keyof {
-		[Key in keyof AnalyticsEventAttributes as Key extends `screen.${infer ScreenName}.viewed`
-			? ScreenName
-			: never]: any;
+		[
+			Key in keyof AnalyticsEventAttributes as Key extends `screen.${infer ScreenName}.viewed`
+				? ScreenName
+				: never
+		]: any;
 	};
 };
 

@@ -233,10 +233,9 @@ type WithSharedState<Metadata extends NextEditorPluginMetadata> = {
  * @returns 'actions' if actions are defined in Metadata, otherwise `never`.
  */
 type WithActions<Metadata extends NextEditorPluginMetadata> = {
-	[Property in keyof Pick<
-		Metadata,
-		'actions'
-	> as PickActionsPropertyName<Metadata>]: ExtractActionsFromMetadata<Metadata>;
+	[
+		Property in keyof Pick<Metadata, 'actions'> as PickActionsPropertyName<Metadata>
+	]: ExtractActionsFromMetadata<Metadata>;
 };
 
 /**
@@ -251,10 +250,9 @@ type WithActions<Metadata extends NextEditorPluginMetadata> = {
  * @returns 'commands' if commands are defined in Metadata, otherwise `never`.
  */
 type WithCommands<Metadata extends NextEditorPluginMetadata> = {
-	[Property in keyof Pick<
-		Metadata,
-		'commands'
-	> as PickCommandsPropertyName<Metadata>]: ExtractCommandsFromMetadata<Metadata>;
+	[
+		Property in keyof Pick<Metadata, 'commands'> as PickCommandsPropertyName<Metadata>
+	]: ExtractCommandsFromMetadata<Metadata>;
 };
 
 /****************************************************

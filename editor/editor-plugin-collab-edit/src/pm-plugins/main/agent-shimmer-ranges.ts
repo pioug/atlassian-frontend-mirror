@@ -233,16 +233,14 @@ const deriveAgentShimmerRanges = (
 			}
 		});
 
-		return groups.map(
-			(group): AgentShimmerRange => ({
-				shimmerId: `agent-shimmer-${agentShimmerIdCounter++}`,
-				from: topLevelBlockContentStart(tr.doc, group.from),
-				to: topLevelBlockContentEnd(tr.doc, group.to),
-				telepointerLabel,
-				phase: initialPhase,
-				highlightDurationMs,
-			}),
-		);
+		return groups.map((group): AgentShimmerRange => ({
+			shimmerId: `agent-shimmer-${agentShimmerIdCounter++}`,
+			from: topLevelBlockContentStart(tr.doc, group.from),
+			to: topLevelBlockContentEnd(tr.doc, group.to),
+			telepointerLabel,
+			phase: initialPhase,
+			highlightDurationMs,
+		}));
 	} catch (err) {
 		// Never let shimmer range derivation throw into the shared remote-step handler; degrade to no
 		// shimmer.

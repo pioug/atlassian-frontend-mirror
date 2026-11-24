@@ -164,13 +164,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-07-06
-	confluence_comment_nudgebar_improvement: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2024-08-08
 	'example-boolean': {
 		defaultValue: boolean;
@@ -254,13 +247,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: (value: unknown) => value is 'control' | 'test';
 		values: ('control' | 'test')[];
-	};
-	// Added 2024-09-18
-	platform_renderer_table_sticky_scrollbar: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
 	};
 	// Added 2026-03-27 — Pre-auth inline smart link: improved unauthorised hover card (boolean: isEnabled)
 	platform_sl_3p_preauth_better_hovercard: {
@@ -638,14 +624,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-07-06
-	confluence_comment_nudgebar_improvement: createBooleanExperiment({
-		productKeys: {
-			confluence: 'confluence_comment_nudgebar_improvement',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-03-04
 	cwr_blank_object_experiment: createBooleanExperiment({
 		productKeys: {
@@ -700,14 +678,6 @@ export const editorExperimentsConfig: {
 	platform_editor_per_plugin_error_boundary: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_per_plugin_error_boundary',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2024-09-18
-	platform_renderer_table_sticky_scrollbar: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_renderer_table_sticky_scrollbar',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

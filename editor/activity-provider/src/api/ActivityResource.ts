@@ -9,7 +9,7 @@ import type {
 } from '../types';
 import { ActivityError } from './error';
 
-export const makeGetRecentItemBody = (
+const makeGetRecentItemBody = (
 	cloudId: string,
 ): {
 	query: string;

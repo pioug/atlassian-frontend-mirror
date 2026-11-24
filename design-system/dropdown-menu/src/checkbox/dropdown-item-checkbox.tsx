@@ -5,7 +5,7 @@ import ButtonItem from '@atlaskit/menu/button-item';
 import { SELECTION_STYLE_CONTEXT_DO_NOT_USE } from '@atlaskit/menu/selection-style-context-do-not-use';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
-import NewDropdownMenuItem from '../dropdown-item-new';
+import NewDropdownItem from '../dropdown-item-new';
 import CheckboxIcon from '../internal/components/checkbox-icon';
 import useCheckboxState from '../internal/hooks/use-checkbox-state';
 import useRegisterItemWithFocusManager from '../internal/hooks/use-register-item-with-focus-manager';
@@ -64,13 +64,9 @@ export const DropdownItemCheckbox = ({
 
 	const itemRef = useRegisterItemWithFocusManager();
 
-	// Just to force the toggle in atlaspack workbench
-	// @ts-ignore
-	const _nothing = fg('platform-dst-tokens-finesse');
-
 	const checkboxItem = fg('platform-dst-new-menu') ? (
 		// eslint-disable-next-line @atlassian/a11y/aria-toggle-field-name -- Linter demands the component has children, but the title prop here handles children which maintains accessibility.
-		<NewDropdownMenuItem
+		<NewDropdownItem
 			title={children}
 			description={description}
 			elemBefore={<CheckboxIcon checked={selected} disabled={isDisabled} />}

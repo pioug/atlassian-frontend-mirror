@@ -17,7 +17,9 @@ for (const width of [800, 1023]) {
 		await page.getByRole('button', { name: 'Ask Rovo', exact: true }).click();
 		await page.getByRole('button', { name: 'open local panel', exact: true }).click();
 		// Wait for lazy content to finish its opening autofocus before resizing.
-		await expect(page.getByRole('button', { name: 'Close local panel', exact: true })).toBeFocused();
+		await expect(
+			page.getByRole('button', { name: 'Close local panel', exact: true }),
+		).toBeFocused();
 		const panel = page.getByTestId('layout-with-panel--panel-slot');
 		const chat = page.getByRole('region', { name: 'Chat panel', exact: true });
 		await expect(panel).toHaveWidth(320);
@@ -50,7 +52,9 @@ for (const area of ['panel', 'chat panel']) {
 		await page.getByRole('button', { name: 'Ask Rovo', exact: true }).click();
 		await page.getByRole('button', { name: 'open local panel', exact: true }).click();
 		// Wait for lazy content to finish its opening autofocus before resizing.
-		await expect(page.getByRole('button', { name: 'Close local panel', exact: true })).toBeFocused();
+		await expect(
+			page.getByRole('button', { name: 'Close local panel', exact: true }),
+		).toBeFocused();
 		const slider = page.getByRole('slider', { name: `Resize ${area}`, exact: true });
 		await slider.focus();
 		await slider.press('End');

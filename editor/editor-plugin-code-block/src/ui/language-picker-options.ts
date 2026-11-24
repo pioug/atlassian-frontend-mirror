@@ -65,20 +65,19 @@ export const createGroupedLanguageOptions = ({
 			? [
 					{
 						label: formatMessage(codeBlockButtonMessages.recentlyUsed),
-						options: recentlyUsedLanguages.map(
-							(language): LanguagePickerOption => ({
-								...language,
-								selectionSource: 'recentlyUsed',
-							}),
-						),
+						options: recentlyUsedLanguages.map((language): LanguagePickerOption => ({
+							...language,
+							selectionSource: 'recentlyUsed',
+						})),
 					},
 				]
 			: []),
 		{
 			label: formatMessage(codeBlockButtonMessages.all),
-			options: allLanguages.map(
-				(language): LanguagePickerOption => ({ ...language, selectionSource: 'all' }),
-			),
+			options: allLanguages.map((language): LanguagePickerOption => ({
+				...language,
+				selectionSource: 'all',
+			})),
 		},
 	];
 };

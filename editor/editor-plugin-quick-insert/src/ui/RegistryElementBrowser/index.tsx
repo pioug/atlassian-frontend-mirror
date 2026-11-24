@@ -16,6 +16,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-edi
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { RegisterComponent } from '@atlaskit/editor-ui-control-model/types';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { closeElementBrowser } from '../../pm-plugins/commands';
 import { pluginKey } from '../../pm-plugins/plugin-key';
@@ -119,8 +120,18 @@ export const RegistryElementBrowserContainer = ({
 			selectionHandler.current = undefined;
 		}
 		closeElementBrowser()(editorView.state, editorView.dispatch);
+		// Restarts the active session timer on insert or cancel. `onConfirmInsert` closes through
+		// here, so this covers both.
+		if (
+			fg('platform_editor_slash_command_analytics') &&
+			fg('platform_editor_ease_of_use_metrics')
+		) {
+			pluginInjectionAPI?.core.actions.execute(
+				pluginInjectionAPI?.metrics?.commands.startActiveSessionTimer(),
+			);
+		}
 		focusInEditor();
-	}, [editorView, focusInEditor]);
+	}, [editorView, focusInEditor, pluginInjectionAPI]);
 	const onCloseComplete = useCallback(() => {
 		const handler = isInsertConfirmed.current ? selectionHandler.current : undefined;
 		selectionHandler.current = undefined;

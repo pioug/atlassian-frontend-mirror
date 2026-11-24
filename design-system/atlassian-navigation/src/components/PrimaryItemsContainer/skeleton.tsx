@@ -21,12 +21,10 @@ const primaryButtonSkeletonStyles = css({
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const PrimaryItemsContainerSkeleton: MemoExoticComponent<
 	({ count }: PrimaryItemsContainerSkeletonProps) => React.JSX.Element
-> = memo(
-	({ count }: PrimaryItemsContainerSkeletonProps): React.JSX.Element => (
-		<Fragment>
-			{Array.from({ length: count }, (_, index) => (
-				<PrimaryButtonSkeleton key={index} css={primaryButtonSkeletonStyles} />
-			))}
-		</Fragment>
-	),
-);
+> = memo(({ count }: PrimaryItemsContainerSkeletonProps): React.JSX.Element => (
+	<Fragment>
+		{Array.from({ length: count }, (_, index) => (
+			<PrimaryButtonSkeleton key={index} css={primaryButtonSkeletonStyles} />
+		))}
+	</Fragment>
+));

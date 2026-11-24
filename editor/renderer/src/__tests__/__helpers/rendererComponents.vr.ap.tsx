@@ -13,7 +13,6 @@ import { MockMediaClientProvider } from '@atlaskit/editor-test-helpers/media-cli
 import CardClient from '@atlaskit/link-provider/client';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
-
 import { createAtlassianMockRelayEnvironment } from '@atlassian/relay-test-utils/mock-environment';
 
 import type { RendererProps } from '../..';

@@ -24,9 +24,14 @@ export type QuickInsertContextValue = {
 		id: string;
 		isPreviewActive?: boolean;
 		isSelected: boolean;
+		optionPosition?: { index: number; size: number };
 	};
 	popupsMountPoint?: HTMLElement;
-	select: (selectionHandler: QuickInsertSelectionHandler) => void;
+	/**
+	 * `itemKey` is the registered key of the selected item. The registered menu item supplies it, so
+	 * item components call `select(selectionHandler)` without it.
+	 */
+	select: (selectionHandler: QuickInsertSelectionHandler, itemKey?: string) => void;
 	surfaceContext?: SurfaceContext;
 };
 

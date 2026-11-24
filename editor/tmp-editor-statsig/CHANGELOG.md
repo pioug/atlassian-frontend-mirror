@@ -1,5 +1,17 @@
 # @atlaskit/editor-statsig-tmp
 
+## 270.0.0
+
+### Major Changes
+
+- [`6c8b2d9c1d995`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6c8b2d9c1d995) -
+  Keep sticky table scrollbars enabled for full-page and full-width renderer appearances.
+
+### Patch Changes
+
+- [`eded3a6a0b6d9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/eded3a6a0b6d9) -
+  Clean up the `confluence_comment_nudgebar_improvement` experiment, keeping the enabled behaviour.
+
 ## 269.0.0
 
 ### Major Changes

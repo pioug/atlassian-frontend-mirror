@@ -1,11 +1,11 @@
 import { useEffect, useMemo } from 'react';
 
 import { logException } from '@atlaskit/editor-common/monitoring/error';
+import { InteractivityCollector } from '@atlaskit/inp-collector/interactivity-collector';
+import { useInteractivityRegionElement } from '@atlaskit/inp-collector/react';
 
 import { fireInteractivityEvent } from './analytics/fire-interactivity-event';
-import type { SessionMode } from './analytics/interactivity-snapshot';
-import { InteractivityCollector } from './collector/interactivity-collector';
-import { useInteractivityRegionElement } from './collector/use-interactivity-region-element';
+import type { SessionMode } from './analytics/interactivity-event-attributes';
 import type { InteractivityPlugin } from './interactivityPluginType';
 
 /**
@@ -45,7 +45,7 @@ export const interactivityPlugin: InteractivityPlugin = ({ api }) => ({
 					// remounting the editor. A session covers one document in one mode, because
 					// interactions with a read-only page are a different population from interactions
 					// while editing.
-					sessionKeys: { objectId: readObjectId(), mode: readSessionMode() },
+					sessionKeys: { objectId: readObjectId(), sessionMode: readSessionMode() },
 					onError: (error) =>
 						void logException(error, { location: 'editor-plugin-interactivity/collector' }),
 					emit: ({ regions, sessionKeys, ...snapshot }, { immediate }) =>
@@ -54,7 +54,7 @@ export const interactivityPlugin: InteractivityPlugin = ({ api }) => ({
 							{
 								...snapshot,
 								objectId: sessionKeys.objectId,
-								sessionMode: sessionKeys.mode,
+								sessionMode: sessionKeys.sessionMode,
 								editor: regions.editor.all,
 								editorTyping: regions.editor.typing,
 								editorPointer: regions.editor.pointer,
@@ -93,7 +93,7 @@ export const interactivityPlugin: InteractivityPlugin = ({ api }) => ({
 				);
 				const unsubscribeFromViewMode = api?.editorViewMode?.sharedState.onChange(() =>
 					collector.setSessionKeys({
-						values: { mode: readSessionMode() },
+						values: { sessionMode: readSessionMode() },
 						endReason: 'modeChange',
 					}),
 				);

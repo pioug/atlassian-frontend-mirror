@@ -2,7 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
+import { flushSync } from 'react-dom';
 
 import { cssMap, cx, jsx, keyframes } from '@compiled/react';
 
@@ -49,6 +50,7 @@ const elemAfterDisplayVar = '--elem-after-display';
 const actionsOnHoverOpacityVar = '--actions-on-hover-opacity';
 const actionsOnHoverWidthVar = '--actions-on-hover-width';
 const actionsOnHoverPaddingInlineEndVar = '--actions-on-hover-padding';
+const actionsOnHoverAnimationVar = '--actions-on-hover-animation';
 const notchColorVar = '--notch-color';
 
 // Note: this is also used in `drag-handle.tsx`
@@ -195,10 +197,12 @@ const containerStyles = cssMap({
 		[actionsOnHoverOpacityVar]: '0',
 		[actionsOnHoverWidthVar]: '0',
 		[actionsOnHoverPaddingInlineEndVar]: '0',
+		[actionsOnHoverAnimationVar]: 'none',
 		'&:hover, &:focus-within': {
 			[actionsOnHoverOpacityVar]: '1',
 			[actionsOnHoverWidthVar]: 'auto',
 			[actionsOnHoverPaddingInlineEndVar]: token('space.050'),
+			[actionsOnHoverAnimationVar]: token('motion.iconography.enter.fade.fast'),
 		},
 	},
 	// platform-dst-tokens-finesse cleanup: merge into root after rollout.
@@ -223,6 +227,7 @@ const containerStyles = cssMap({
 		[actionsOnHoverOpacityVar]: '1',
 		[actionsOnHoverWidthVar]: 'auto',
 		[actionsOnHoverPaddingInlineEndVar]: token('space.050'),
+		[actionsOnHoverAnimationVar]: token('motion.iconography.enter.fade.fast'),
 	},
 	removeElemAfterOnHoverOrOpenNestedPopup: {
 		// On hover of the menu item, remove the elemAfter
@@ -277,6 +282,7 @@ const nestedOpenPopupStyles = cssMap({
 			[actionsOnHoverOpacityVar]: '1',
 			[actionsOnHoverWidthVar]: 'auto',
 			[actionsOnHoverPaddingInlineEndVar]: token('space.050'),
+			[actionsOnHoverAnimationVar]: token('motion.iconography.enter.fade.fast'),
 			backgroundColor: token('elevation.surface.hovered'),
 		},
 	},
@@ -457,6 +463,12 @@ const actionsOnHoverStyles = cssMap({
 			overflow: 'initial',
 		},
 	},
+	enterMotion: {
+		animation: `var(${actionsOnHoverAnimationVar})`,
+		'@media (prefers-reduced-motion: reduce)': {
+			animation: 'none',
+		},
+	},
 });
 
 const textStyles = cssMap({
@@ -503,6 +515,12 @@ const elemBeforeStyles = cssMap({
 });
 
 const elemAfterStyles = cssMap({
+	enterMotion: {
+		animation: token('motion.iconography.enter.fade'),
+		'@media (prefers-reduced-motion: reduce)': {
+			animation: 'none',
+		},
+	},
 	root: {
 		display: `var(${elemAfterDisplayVar})`,
 		gridArea: 'elem-after',
@@ -632,6 +650,13 @@ const MenuItemBaseNoRef = <T extends HTMLAnchorElement | HTMLButtonElement>(
 	const labelRef = useRef<T | null>(null);
 	const descriptionRef = useRef<T | null>(null);
 	const tooltipOnClick = useRef<React.MouseEventHandler<HTMLElement> | null>(null);
+	// Set after the first interaction, so `elemAfter` and `actionsOnHover` don't animate on mount.
+	const [isMotionEnabled, setIsMotionEnabled] = useState(false);
+	const enableMotion = useCallback(() => setIsMotionEnabled(true), []);
+	const enableMotionOnPointerEnter = useCallback(
+		() => flushSync(() => setIsMotionEnabled(true)),
+		[],
+	);
 
 	const handleClick = useCallback(
 		(event: React.MouseEvent<T>, analyticsEvent: UIAnalyticsEvent) => {
@@ -732,6 +757,15 @@ const MenuItemBaseNoRef = <T extends HTMLAnchorElement | HTMLButtonElement>(
 	 */
 	const showHoverActionsWhenNotHovered = Boolean(ariaExpanded && actionsOnHover);
 
+	const shouldEnableMotion = Boolean(
+		actionsOnHover && fg('platform-dst-motion-uplift-sidenav-inner'),
+	);
+	// Not enabled while the actions are shown because the item is expanded: they are already visible, so
+	// turning the animation on at the first hover or focus would make them fade in again.
+	const canEnableMotion = shouldEnableMotion && !showHoverActionsWhenNotHovered;
+	// `elemAfter` only swaps in and out when there are also `actionsOnHover`
+	const shouldAnimateElemAfter = Boolean(elemAfter && shouldEnableMotion && isMotionEnabled);
+
 	return (
 		<AvatarContext.Provider value={defaultAvatarValues}>
 			<div
@@ -763,6 +797,8 @@ const MenuItemBaseNoRef = <T extends HTMLAnchorElement | HTMLButtonElement>(
 				]}
 				data-testid={testId ? `${testId}-container` : undefined}
 				data-selected={isSelected}
+				onPointerEnter={canEnableMotion ? enableMotionOnPointerEnter : undefined}
+				onFocus={canEnableMotion ? enableMotion : undefined}
 			>
 				<Tooltip
 					content={() => (
@@ -891,11 +927,23 @@ const MenuItemBaseNoRef = <T extends HTMLAnchorElement | HTMLButtonElement>(
 						{elemBefore}
 					</div>
 				)}
-				{actionsOnHover && <div css={actionsOnHoverStyles.root}>{actionsOnHover}</div>}
+				{actionsOnHover && (
+					<div
+						css={[
+							actionsOnHoverStyles.root,
+							fg('platform-dst-motion-uplift-sidenav-inner') &&
+								isMotionEnabled &&
+								actionsOnHoverStyles.enterMotion,
+						]}
+					>
+						{actionsOnHover}
+					</div>
+				)}
 				{elemAfter && (
 					<div
 						css={[
 							elemAfterStyles.root,
+							shouldAnimateElemAfter && elemAfterStyles.enterMotion,
 							topLevelSiblingStyles.root,
 							onTopOfButtonOrAnchorStyles.root,
 						]}

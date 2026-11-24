@@ -17,26 +17,22 @@ import { MainWrapper } from '../example-helpers';
 import { DelayedRender } from '../example-helpers/DelayedRender';
 import Card from '../src/card/cardLoader';
 
-const identifiers = [1, 2, 3, 4].map(
-	(id: number): FileIdentifier => ({
-		id: `1f35526d-0299-4e1c-be10-36af3c209ab${id}`,
-		collectionName: defaultCollectionName,
-		mediaItemType: 'file',
-	}),
-);
+const identifiers = [1, 2, 3, 4].map((id: number): FileIdentifier => ({
+	id: `1f35526d-0299-4e1c-be10-36af3c209ab${id}`,
+	collectionName: defaultCollectionName,
+	mediaItemType: 'file',
+}));
 const freshNewFile: FileIdentifier = {
 	id: `1f35526d-0299-4e1c-be10-36af3c209781`,
 	collectionName: defaultCollectionName,
 	mediaItemType: 'file',
 };
 const files = generateFilesFromTestData(
-	[...identifiers.slice(0, 3), freshNewFile].map(
-		({ id }: FileIdentifier): MockFileInputParams => ({
-			id: id as string,
-			name: `media-test-file-${id}.png`,
-			dataUri: wideImage,
-		}),
-	),
+	[...identifiers.slice(0, 3), freshNewFile].map(({ id }: FileIdentifier): MockFileInputParams => ({
+		id: id as string,
+		name: `media-test-file-${id}.png`,
+		dataUri: wideImage,
+	})),
 );
 const loadingFiles = generateFilesFromTestData([
 	{

@@ -4,6 +4,7 @@ import { useIntl } from 'react-intl';
 
 import { GiveKudosLauncherLazy } from '@atlaskit/give-kudos/give-kudos-launcher';
 import { KudosType } from '@atlaskit/give-kudos/types';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Popup } from '@atlaskit/popup/popup';
 import type { FireEventType } from '@atlaskit/teams-app-internal-analytics/types';
 import { useAnalyticsEvents } from '@atlaskit/teams-app-internal-analytics/use-analytics-events';
@@ -219,7 +220,9 @@ export default function ProfilecardTriggerNext({
 			if (event.key && event.key !== 'Escape') {
 				return;
 			}
-			if (triggerRef.current) {
+			// On the top-layer path the popup returns focus to the trigger itself on Escape, and keeps
+			// focus where the user pressed on an outside press.
+			if (triggerRef.current && !fg('platform-dst-top-layer')) {
 				triggerRef.current.focus();
 			}
 			setTriggeredUsingKeyboard(false);

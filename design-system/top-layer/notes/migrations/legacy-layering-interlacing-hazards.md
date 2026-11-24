@@ -71,8 +71,9 @@ these all render in the browser top layer.** Two consequences reshape the risk p
    need to check whether `@atlaskit/modal-dialog` or `@atlaskit/tooltip` interlaces; they are on the
    correct side of the line. The audit target is **product / custom layering** and the handful of DS
    surfaces that stayed base-layer on purpose:
-   - `@atlaskit/blanket` used standalone (native `<dialog>`'s `::backdrop` replaces it only where
-     the modal migrated),
+   - `@atlaskit/blanket` used standalone. It is deprecated (see
+     [deprecate-blanket.md](../decisions/deprecate-blanket.md)). Native `<dialog>`'s `::backdrop`
+     replaces it only where the modal migrated,
    - `@atlaskit/navigation-system` flyouts (deferred),
    - `@atlaskit/menu` and `@atlaskit/banner` (in-flow, not overlays — fine unless a consumer portals
      them),
@@ -333,7 +334,8 @@ shows _over_ the blanket), and a top-layer surface's own `::backdrop` will paint
 blanket. Two backdrops from two systems will not agree on who is on top.
 
 **Fix** Use the native `::backdrop` of a top-layer `<dialog>`; retire the legacy blanket for
-migrated modals.
+migrated modals. `@atlaskit/blanket` is deprecated. The replacement for each use case is in
+[deprecate-blanket.md](../decisions/deprecate-blanket.md).
 
 ---
 

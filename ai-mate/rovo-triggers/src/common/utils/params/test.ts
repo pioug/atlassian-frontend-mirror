@@ -1,3 +1,6 @@
+import * as featureFlags from '@atlaskit/platform-feature-flags/fg';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+
 import { ROVO_PARAM_PREFIX } from './constants';
 import {
 	addPrefix,
@@ -46,6 +49,80 @@ describe('Rovo Query', () => {
 		it('should decode rovoChatRovoJourneyId through the shared rovoJourneyId contract', () => {
 			const params = getRovoParams(`http://example.com/?rovoChatRovoJourneyId=journey-123`);
 			expect(params).toEqual({ rovoJourneyId: 'journey-123' });
+		});
+
+		it('leaves boolean params undefined when they are absent', () => {
+			const params = getRovoParams(`http://example.com/?rovoChatPathway=chat`);
+			expect(params).toEqual({ pathway: 'chat' });
+		});
+
+		describe.each([
+			['rovoChatTriggerOpen', 'triggerOpen'],
+			['rovoChatStagingAreaOpen', 'stagingAreaOpen'],
+			['rovoChatPromptLibraryOpen', 'promptLibraryOpen'],
+		] as const)('boolean param %s', (key, field) => {
+			describe('with rovo_chat_strict_boolean_url_params on', () => {
+				beforeEach(() => {
+					passGate('rovo_chat_strict_boolean_url_params');
+				});
+
+				it.each([
+					['true', true],
+					['false', false],
+					['', false],
+					['banana', false],
+					['TRUE', false],
+					['1', false],
+				])('parses %p as %p', (value, expected) => {
+					const params = getRovoParams(`http://example.com/?${key}=${value}`);
+					expect(params[field]).toBe(expected);
+				});
+
+				it('leaves non-boolean params as strings', () => {
+					const params = getRovoParams(
+						`http://example.com/?${key}=true&rovoChatPrompt=false&rovoChatInsertPrompt=highlight-action`,
+					);
+					expect(params).toEqual({
+						[field]: true,
+						prompt: 'false',
+						insertPrompt: 'highlight-action',
+					});
+				});
+			});
+
+			describe('with rovo_chat_strict_boolean_url_params off', () => {
+				beforeEach(() => {
+					failGate('rovo_chat_strict_boolean_url_params');
+				});
+
+				it.each(['true', 'false', 'banana'])('keeps the raw value %p', (value) => {
+					const params = getRovoParams(`http://example.com/?${key}=${value}`);
+					expect(params[field]).toBe(value);
+				});
+			});
+		});
+
+		it('checks the strict boolean gate as often for three boolean params as for one, and not without one', () => {
+			// passGate replaces fg with a jest-when mock, which records each fg call twice, so this
+			// compares call counts instead of expecting exactly one call.
+			passGate('rovo_chat_strict_boolean_url_params');
+			const fgSpy = jest.mocked(featureFlags.fg);
+			fgSpy.mockClear();
+			const strictGateCalls = () =>
+				fgSpy.mock.calls.filter(([name]) => name === 'rovo_chat_strict_boolean_url_params');
+
+			getRovoParams('http://example.com/?rovoChatPrompt=hello');
+			expect(strictGateCalls()).toHaveLength(0);
+
+			getRovoParams('http://example.com/?rovoChatTriggerOpen=true');
+			const callsForOneBooleanParam = strictGateCalls().length;
+			expect(callsForOneBooleanParam).toBeGreaterThan(0);
+			fgSpy.mockClear();
+
+			getRovoParams(
+				'http://example.com/?rovoChatTriggerOpen=true&rovoChatPromptLibraryOpen=true&rovoChatStagingAreaOpen=true',
+			);
+			expect(strictGateCalls()).toHaveLength(callsForOneBooleanParam);
 		});
 	});
 
@@ -133,6 +210,22 @@ describe('Rovo Query', () => {
 			expect(addRovoParamsToUrl(url, params)).toEqual(
 				`${url}?rovoChatRovoJourneyId=journey-123&rovoChatSearchQuery=quarterly%20planning%20%26%20goals`,
 			);
+		});
+
+		describe('with an existing non-boolean value for a boolean param', () => {
+			const url = 'http://example.com/x?rovoChatTriggerOpen=banana';
+
+			it('keeps the raw value with rovo_chat_strict_boolean_url_params off', () => {
+				failGate('rovo_chat_strict_boolean_url_params');
+				expect(addRovoParamsToUrl(url, {})).toEqual(url);
+			});
+
+			it('rewrites the value as false with rovo_chat_strict_boolean_url_params on', () => {
+				passGate('rovo_chat_strict_boolean_url_params');
+				expect(addRovoParamsToUrl(url, {})).toEqual(
+					'http://example.com/x?rovoChatTriggerOpen=false',
+				);
+			});
 		});
 	});
 

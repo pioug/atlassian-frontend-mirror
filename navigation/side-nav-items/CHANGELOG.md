@@ -1,5 +1,37 @@
 # @atlaskit/side-nav-items
 
+## 2.8.0
+
+### Minor Changes
+
+- [`efec7753a0cb0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/efec7753a0cb0) -
+  Adds motion to menu items behind the `platform-dst-motion-uplift-sidenav-inner` feature gate. The
+  expandable menu item chevron rotates and swaps with the provided `elemBefore`, and `elemAfter` and
+  `actionsOnHover` fade in when they swap places on hover and focus. The animations only run after
+  the first interaction, and respect `prefers-reduced-motion`. Adds `@atlaskit/motion` as a
+  dependency.
+
+## 2.7.1
+
+### Patch Changes
+
+- [`55deffb1c8937`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/55deffb1c8937) -
+  Documented how to make meaningful `elemAfter` content, such as a "New" lozenge, available to
+  screen readers by adding visually hidden text to the menu item's children.
+
+## 2.7.0
+
+### Minor Changes
+
+- [`2d44754ca1c13`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2d44754ca1c13) -
+  Add opt-in `default`, `popup`, and `location` types to `ButtonMenuItem`, plus `semantics="tab"`
+  and button focus and identity props. Location items reuse the link selection notch. Existing
+  consumers retain their appearance when `type` is omitted. The new behavior is controlled by
+  `navx_button_menu_item_types`.
+
+  Keep the navigation config’s `type: "button"` discriminator separate from the new ButtonMenuItem
+  type prop.
+
 ## 2.6.3
 
 ### Patch Changes

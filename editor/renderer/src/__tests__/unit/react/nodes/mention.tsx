@@ -51,8 +51,6 @@ describe('Renderer - React/Nodes/Mention', () => {
 					passGate('platform_mention_preserve_user_type');
 					const providers = new ProviderFactory();
 					if (withProfileCard) {
-						failGate('people-teams_migrate-user-profile-card');
-						mockExpDisabled('pt_user_profile_card_migration_exp');
 						mockExpDisabled('rovo_chat_mention_agents');
 						providers.setProvider(
 							'profilecardProvider',
@@ -72,7 +70,7 @@ describe('Renderer - React/Nodes/Mention', () => {
 						/>,
 					);
 					if (withProfileCard) {
-						await screen.findByTestId('mention-with-profilecard-trigger');
+						await screen.findByTestId('mention-with-profilecard-link-fallback');
 					}
 					const pasted = DOMParser.fromSchema(defaultSchema).parseSlice(container);
 					expect(pasted.content.firstChild?.attrs).toMatchObject({

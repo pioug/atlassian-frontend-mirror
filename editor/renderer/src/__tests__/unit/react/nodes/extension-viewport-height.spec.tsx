@@ -4,7 +4,8 @@ import { act, render, screen } from '@testing-library/react';
 import { hydrateRoot } from 'react-dom/client';
 import { renderToString } from 'react-dom/server';
 
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 
 import { renderExtension } from '../../../../react/nodes/extension';
 import type { ExtensionViewportSize } from '../../../../react/types';
@@ -46,7 +47,7 @@ describe('Extension viewport height', () => {
 		['resizable', '262px'],
 		[undefined, '262px'],
 	])('reserves %s as %s with exactly one unit suffix', (viewportSize, height) => {
-		passGate('confluence_forge_early_render_reserve_height');
+		mockExpEnabled('confluence_forge_named_viewport_reservation');
 		const macro = renderMacro({ viewportSize });
 		const markup = renderToString(macro);
 		expect(markup).toContain(`min-height:${height}`);
@@ -63,7 +64,7 @@ describe('Extension viewport height', () => {
 	});
 
 	it('keeps the reserved macro content accessible', async () => {
-		passGate('confluence_forge_early_render_reserve_height');
+		mockExpEnabled('confluence_forge_named_viewport_reservation');
 		const { container } = render(renderMacro({ viewportSize: 'medium' }));
 		await expect(container).toBeAccessible();
 	});
@@ -74,7 +75,7 @@ describe('Extension viewport height', () => {
 	});
 
 	it('preserves a node height that already includes pixels', () => {
-		passGate('confluence_forge_early_render_reserve_height');
+		mockExpEnabled('confluence_forge_named_viewport_reservation');
 		render(renderMacro({ nodePresetMinHeight: '150px', viewportSize: 'large' }));
 		expect(screen.getByTestId('extension--wrapper').style.minHeight).toBe('150px');
 	});
@@ -88,13 +89,13 @@ describe('Extension viewport height', () => {
 	});
 
 	it('does not reserve block height for an inline extension', () => {
-		passGate('confluence_forge_early_render_reserve_height');
+		mockExpEnabled('confluence_forge_named_viewport_reservation');
 		render(renderMacro({ viewportSize: 'large', inline: true }));
 		expect(screen.getByTestId('extension--wrapper').style.minHeight).toBe('');
 	});
 
 	it('keeps the reserved height stable from SSR through hydration', async () => {
-		passGate('confluence_forge_early_render_reserve_height');
+		mockExpEnabled('confluence_forge_named_viewport_reservation');
 		const Macro = () => renderMacro({ viewportSize: 'medium' });
 		const macro = <Macro />;
 		const container = document.createElement('div');
@@ -120,8 +121,8 @@ describe('Extension viewport height', () => {
 });
 
 describe('Extension viewport height controls', () => {
-	it('preserves the existing named-height markup with the fix gate disabled', () => {
-		failGate('confluence_forge_early_render_reserve_height');
+	it('preserves the existing named-height markup in the control group', () => {
+		mockExpDisabled('confluence_forge_named_viewport_reservation');
 		expect(renderToString(renderMacro({ viewportSize: 'medium' }))).toContain('min-height:262pxpx');
 	});
 

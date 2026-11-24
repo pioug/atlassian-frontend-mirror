@@ -5,7 +5,7 @@ import type { OperationalAEP, TrackAEP, UIAEP } from './utils';
 type TypeAheadRenderedAEP = OperationalAEP<
 	ACTION.RENDERED,
 	ACTION_SUBJECT.TYPEAHEAD,
-	undefined,
+	TypeAheadAvailableNodes | 'not_set' | undefined,
 	{
 		initial?: boolean;
 		items?: number;
@@ -20,6 +20,7 @@ type TypeAheadItemViewedAEP = OperationalAEP<
 	{
 		index?: number;
 		items?: number;
+		typeAheadId?: TypeAheadAvailableNodes;
 	}
 >;
 

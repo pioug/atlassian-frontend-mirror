@@ -1,7 +1,8 @@
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import { ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
+import type { SnapshotSendHints } from '@atlaskit/inp-collector/types';
 
-import type { InteractivitySnapshot, SnapshotSendHints } from './interactivity-snapshot';
+import type { InteractivityEventAttributes } from './interactivity-event-attributes';
 
 /**
  * The `editor interactivity` operational event.
@@ -14,19 +15,19 @@ import type { InteractivitySnapshot, SnapshotSendHints } from './interactivity-s
 type InteractivityEventPayload = {
 	action: 'interactivity';
 	actionSubject: ACTION_SUBJECT.EDITOR;
-	attributes: InteractivitySnapshot;
+	attributes: InteractivityEventAttributes;
 	eventType: EVENT_TYPE.OPERATIONAL;
 };
 
 /**
- * Sends a snapshot as the `editor interactivity` event.
+ * Sends a snapshot's attributes as the `editor interactivity` event.
  *
  * Does nothing without the analytics plugin: an editor without it has nowhere to send events,
  * and the collector keeps measuring either way.
  */
 export function fireInteractivityEvent(
 	analytics: EditorAnalyticsAPI | undefined,
-	snapshot: InteractivitySnapshot,
+	attributes: InteractivityEventAttributes,
 	{ immediate }: SnapshotSendHints,
 ): void {
 	analytics?.fireAnalyticsEvent<InteractivityEventPayload, 'customEventType'>(
@@ -34,7 +35,7 @@ export function fireInteractivityEvent(
 			action: 'interactivity',
 			actionSubject: ACTION_SUBJECT.EDITOR,
 			eventType: EVENT_TYPE.OPERATIONAL,
-			attributes: snapshot,
+			attributes,
 		},
 		undefined,
 		// Events are queued into an idle callback by default, which a page being unloaded never

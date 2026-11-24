@@ -30,12 +30,9 @@ jest.mock('@atlaskit/tokens/token-names', (): Record<string, string> => {
 	return mockTokens;
 });
 
-jest.mock(
-	'@atlaskit/tokens/token-default-values',
-	(): Record<string, string> => ({
-		'color.text': '#172B4D',
-	}),
-);
+jest.mock('@atlaskit/tokens/token-default-values', (): Record<string, string> => ({
+	'color.text': '#172B4D',
+}));
 
 import path from 'path';
 

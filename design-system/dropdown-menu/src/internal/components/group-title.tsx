@@ -40,11 +40,6 @@ const semanticStyles = cssMap({
  *
  * Used to visually represent the title for DropdownMenu groups.
  *
- * Pre-existing a11y note: uses `role="menuitem"` with `aria-hidden="true"`.
- * WAI-ARIA APG recommends `role="presentation"` for non-interactive group
- * headings, with the group linked via `aria-labelledby`. Out of scope for
- * the top-layer migration — this is legacy behavior.
- *
  * @internal
  */
 const GroupTitle = ({ id, title }: { id?: string; title: string }): React.JSX.Element => {

@@ -464,6 +464,7 @@ ${(
 
 - Side nav items are keyboard accessible by default. People can move focus with Tab and activate items with Enter or Space.
 - Don't put interactive elements inside \`elemAfter\`. We've disabled pointer events for this slot to better support drag and drop.
+- Screen readers don't announce \`elemAfter\` when the menu item is focused. If it carries meaning, like a "New" lozenge, also add that text to \`children\` as [visually hidden](/packages/design-system/visually-hidden) text, separated from the label by a space.
 - Avoid disabling [button menu items](/packages/navigation/side-nav-items#button-menu-item). Disabled buttons are skipped in the tab order and don't explain why they can't be used, which can make them inaccessible.
 - Use [menu section](/packages/navigation/side-nav-items#menu-section-and-menu-section-heading) to group related menu items. This grouping helps assistive technologies convey structure and relationships between items.
 - Ensure the menu items uses semantic list markup. Screen readers rely on list semantics to announce the total number of items, each item's position, and any hierarchy.

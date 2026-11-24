@@ -1,0 +1,37 @@
+{
+	"name": "@atlaskit/inp-collector",
+	"version": "0.1.0",
+	"description": "Collects the latencies of interactions with a page and with named regions of it",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "Editor: Lego",
+		"releaseModel": "continuous"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"main": "dist/cjs/collector/interactivity-collector.js",
+	"module": "dist/esm/collector/interactivity-collector.js",
+	"module:es2019": "dist/es2019/collector/interactivity-collector.js",
+	"types": "dist/types/collector/interactivity-collector.d.ts",
+	"sideEffects": false,
+	"exports": {
+		"./interactivity-collector": "./src/collector/interactivity-collector.ts",
+		"./react": "./src/collector/use-interactivity-region-element.ts",
+		"./types": "./src/collector/types.ts"
+	},
+	"dependencies": {
+		"@atlaskit/browser-apis": "workspace:^",
+		"@babel/runtime": "root:*",
+		"bind-event-listener": "root:*"
+	},
+	"peerDependencies": {
+		"react": "^18.2.0 || ^19.2.0"
+	},
+	"devDependencies": {
+		"react": "^19.2.0",
+		"typescript": "root:*"
+	}
+}

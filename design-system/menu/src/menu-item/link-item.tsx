@@ -48,6 +48,9 @@ const preventEvent = (e: MouseEvent | KeyboardEvent) => {
 /**
  * __Link item__
  *
+ * @deprecated All menu components are deprecated. For dropdown menus, use `@atlaskit/dropdown-menu`. For anything else use a list.
+ *
+ *
  * A link item is used to populate a menu with items that are links.
  *
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/menu/docs/link-item)

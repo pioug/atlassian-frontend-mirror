@@ -8,9 +8,9 @@ import type { Meta } from '@storybook/react';
 import { IntlProvider } from 'react-intl';
 // eslint-disable-next-line @atlassian/relay/use-single-relay-environment
 import { graphql, RelayEnvironmentProvider, useLazyLoadQuery } from 'react-relay';
+import { MockPayloadGenerator } from 'relay-test-utils';
 
 import { createAtlassianMockRelayEnvironment } from '@atlassian/relay-test-utils/mock-environment';
-import { MockPayloadGenerator } from 'relay-test-utils';
 
 import { RovoAgentSelector } from '../src';
 import type { storiesRovoAgentSelectorQuery } from './__generated__/storiesRovoAgentSelectorQuery.graphql';

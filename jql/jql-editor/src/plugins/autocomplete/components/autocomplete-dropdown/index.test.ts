@@ -149,7 +149,8 @@ describe('getAutocompleteAnalyticsAttributes', () => {
 		({ areRichInlineNodesEnabled, nodeType }) => {
 			const option = createOption({
 				name: 'Test focus area',
-				value: '"ari:cloud:mercury:test-tenant:focus-area/workspace/test-workspace/test-focus-area"',
+				value:
+					'"ari:cloud:mercury:test-tenant:focus-area/workspace/test-workspace/test-focus-area"',
 				valueType: 'focusArea',
 			});
 

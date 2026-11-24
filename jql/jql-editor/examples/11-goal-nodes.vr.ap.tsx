@@ -61,15 +61,13 @@ const onHydrate = (jql: string): Promise<HydratedValues> =>
 		setTimeout(() => {
 			const hydratedGoals = goals
 				.filter((goal) => jql.includes(goal.value))
-				.map(
-					(goal): HydratedGoal => ({
-						type: 'goal',
-						id: goal.value,
-						name: goal.displayName,
-						status: goal.status,
-						iconKey: goal.iconKey,
-					}),
-				);
+				.map((goal): HydratedGoal => ({
+					type: 'goal',
+					id: goal.value,
+					name: goal.displayName,
+					status: goal.status,
+					iconKey: goal.iconKey,
+				}));
 
 			resolve({
 				goals: hydratedGoals,

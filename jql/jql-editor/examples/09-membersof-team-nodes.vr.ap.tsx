@@ -62,14 +62,12 @@ const onHydrate = (jql: string): Promise<HydratedValues> => {
 	// Values are stored under the field name (e.g., 'assignee', 'reporter') just like regular team values
 	const hydratedTeams = membersOfTeams
 		.filter((team) => jql.includes(team.value))
-		.map(
-			(team): HydratedTeam => ({
-				type: 'team',
-				id: team.value,
-				name: team.displayName,
-				avatarUrl: mockTeamAvatarUrl,
-			}),
-		);
+		.map((team): HydratedTeam => ({
+			type: 'team',
+			id: team.value,
+			name: team.displayName,
+			avatarUrl: mockTeamAvatarUrl,
+		}));
 
 	return Promise.resolve({
 		// Use the field name from the query (assignee, reporter, etc.)

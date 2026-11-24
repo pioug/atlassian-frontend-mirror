@@ -31,13 +31,11 @@ const withoutMotion: FileIdentifier = {
 };
 
 const files = generateFilesFromTestData(
-	[withMotion, withoutMotion].map(
-		({ id }): MockFileInputParams => ({
-			id: id as string,
-			name: `media-test-file-${id}.png`,
-			dataUri: wideImage,
-		}),
-	),
+	[withMotion, withoutMotion].map(({ id }): MockFileInputParams => ({
+		id: id as string,
+		name: `media-test-file-${id}.png`,
+		dataUri: wideImage,
+	})),
 );
 
 const mediaMock = new MediaMock({ [defaultCollectionName]: files });

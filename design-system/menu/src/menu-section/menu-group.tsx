@@ -18,6 +18,8 @@ const baseStyles = css({
 /**
  * __Menu group__
  *
+ * @deprecated All menu components are deprecated. For dropdown menus, use `@atlaskit/dropdown-menu`. For anything else use a list.
+ *
  * A menu group includes all the actions or items in a menu.
  *
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/menu/docs/menu-group)

@@ -44,6 +44,7 @@ import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-f
 import { analyticsClient } from '@atlaskit/editor-test-helpers/analytics-client-mock';
 import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers/fakeMediaClient';
 
+import { nodes } from '../../../entry-points/nodes-default';
 import * as renderDocumentModule from '../../../render-document';
 import Renderer from '../../../ui/Renderer';
 import type { RendererProps } from '../../../ui/renderer-props';
@@ -65,7 +66,7 @@ const validDoc = doc(
 describe('@atlaskit/renderer/ui/Renderer', () => {
 	const initRenderer = (doc: any = initialDoc, props: Partial<RendererProps> = {}) =>
 		// eslint-disable-next-line react/jsx-props-no-spreading
-		render(<Renderer document={doc} {...props} />);
+		render(<Renderer nodeComponents={nodes} document={doc} {...props} />);
 
 	beforeEach(() => {
 		mockIntlProvider.mockClear();
@@ -306,6 +307,7 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
 				const { container } = render(
 					<Renderer
 						document={docWithAltText}
+						nodeComponents={nodes}
 						allowAltTextOnImages={altTextFlag}
 						dataProviders={providerFactory}
 					/>,
@@ -452,7 +454,7 @@ describe('@atlaskit/renderer/ui/Renderer', () => {
 
 			render(
 				<FabricAnalyticsListeners client={client}>
-					<Renderer document={validDoc} />
+					<Renderer nodeComponents={nodes} document={validDoc} />
 				</FabricAnalyticsListeners>,
 			);
 

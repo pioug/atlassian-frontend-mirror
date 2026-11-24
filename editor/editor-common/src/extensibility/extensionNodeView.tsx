@@ -11,6 +11,7 @@ import type {
 	EditorView,
 	NodeView,
 } from '@atlaskit/editor-prosemirror/view';
+import { expVal } from '@atlaskit/platform-feature-experiments/exp-val';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { isReactCompilerActivePlatform } from '@atlaskit/react-compiler-gating';
@@ -172,7 +173,8 @@ export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 				this.reactComponentProps?.extensionNodeViewOptions?.getExtensionHeight?.(this.node);
 			if (extensionHeight) {
 				const minHeight =
-					extensionHeight.endsWith('px') && fg('confluence_forge_early_render_reserve_height')
+					extensionHeight.endsWith('px') &&
+					expVal('confluence_forge_named_viewport_reservation', 'isEnabled', false)
 						? extensionHeight
 						: `${extensionHeight}px`;
 				htmlElement.style.setProperty('min-height', minHeight);

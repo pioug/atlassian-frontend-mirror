@@ -165,14 +165,14 @@ type IsEqual<T, U> = T extends U ? (U extends T ? true : false) : false;
 
 function expectTypeOf<TActual>(actual?: TActual) {
 	return {
-		toExtendTypeOf<TExpected extends Extends<TExpected, TActual> extends true ? unknown : never>(
+		toExtendTypeOf<TExpected extends (Extends<TExpected, TActual> extends true ? unknown : never)>(
 			expectation?: TExpected,
 		) {
 			// no-op
 			expect(actual).toBe(actual);
 			expect(expectation).toBe(expectation);
 		},
-		toEqualTypeOf<TExpected extends IsEqual<TActual, TExpected> extends true ? unknown : never>(
+		toEqualTypeOf<TExpected extends (IsEqual<TActual, TExpected> extends true ? unknown : never)>(
 			expectation?: TExpected,
 		) {
 			// no-op

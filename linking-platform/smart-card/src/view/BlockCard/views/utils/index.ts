@@ -1,5 +1,4 @@
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import {
 	ElementName,
@@ -47,10 +46,7 @@ export const getSimulatedBetterMetadata = (cardDetails?: JsonLd.Response): Simul
 	switch (extensionKey) {
 		case 'bitbucket-object-provider':
 		case 'native-bitbucket-object-provider':
-			const isFile =
-				!data?.['@type'] && fg('platform_sl_null_safe_extractors')
-					? false
-					: data['@type'].includes('schema:DigitalDocument');
+			const isFile = !data?.['@type'] ? false : data['@type'].includes('schema:DigitalDocument');
 
 			return {
 				titleMetadata: defaultTitleMetadata,
@@ -89,12 +85,8 @@ export const getSimulatedBetterMetadata = (cardDetails?: JsonLd.Response): Simul
 				bottomMetadata: defaultBottomMetadata,
 			};
 		case 'jira-object-provider':
-			const isJiraNullSafe = !data && fg('platform_sl_null_safe_extractors');
-			const isJiraTask =
-				(isJiraNullSafe ? data?.['@type'] : data['@type'])?.includes('atlassian:Task') ?? false;
-			const isJiraPlan = (isJiraNullSafe ? data?.['atlassian:ownedBy'] : data['atlassian:ownedBy'])
-				? true
-				: false;
+			const isJiraTask = data?.['@type']?.includes('atlassian:Task') ?? false;
+			const isJiraPlan = !!data?.['atlassian:ownedBy'];
 
 			let topMetadata: ElementItem[] = [
 				{ name: ElementName.AuthorGroup },

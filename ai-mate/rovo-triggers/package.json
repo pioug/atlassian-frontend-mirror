@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/rovo-triggers",
-	"version": "12.17.0",
+	"version": "12.18.0",
 	"description": "Provides various trigger events to drive Rovo Chat functionality, such as a publish-subscribe and URL parameter hooks",
 	"author": "Atlassian Pty Ltd",
 	"publishConfig": {
@@ -54,6 +54,7 @@
 	"dependencies": {
 		"@atlaskit/adf-schema": "workspace:^",
 		"@atlaskit/platform-feature-experiments": "workspace:^",
+		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/react-compiler-gating": "workspace:^",
 		"@babel/runtime": "root:*",
 		"bind-event-listener": "root:*"
@@ -70,10 +71,16 @@
 		"@atlassian/a11y-jest-testing": "workspace:^",
 		"@atlassian/conversation-assistant-service-api": "workspace:^",
 		"@atlassian/experiment-test-utils": "workspace:^",
+		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
 		"@atlassian/workbench": "workspace:*",
 		"@testing-library/react": "root:*",
 		"react": "root:*",
 		"react-dom": "root:*"
+	},
+	"platform-feature-flags": {
+		"rovo_chat_strict_boolean_url_params": {
+			"type": "boolean"
+		}
 	}
 }

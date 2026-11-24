@@ -27,6 +27,9 @@ export interface BaseRovoChatParams {
 
 export type ValidPrefix = 'rovoChat';
 export type ValidParam = keyof BaseRovoChatParams;
+export type BooleanValidParam = {
+	[K in ValidParam]: NonNullable<BaseRovoChatParams[K]> extends boolean ? K : never;
+}[ValidParam];
 export type ValidPrefixedParam = `${ValidPrefix}${ValidParam}`;
 
 type RovoParams<T extends RovoChatPathway, P = object> = BaseRovoChatParams & {

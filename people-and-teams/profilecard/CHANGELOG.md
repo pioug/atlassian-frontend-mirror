@@ -1,5 +1,44 @@
 # @atlaskit/profilecard
 
+## 27.14.1
+
+### Patch Changes
+
+- [`960935742a396`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/960935742a396) -
+  Cleanup `feature_gate` `create_modernization_ga_fixes_drop_2`. The fullscreen media viewer button
+  always has a descriptive aria-label, and decorative team icons and header images always have empty
+  accessible names.
+
+## 27.14.0
+
+### Minor Changes
+
+- [`46292e94d6993`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/46292e94d6993) -
+  Update i18n NPM package versions for people-and-teams,identity (Group 8)
+
+### Patch Changes
+
+- [`c87c250b16958`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c87c250b16958) -
+  Behind `platform-dst-top-layer`, the profile card trigger leaves focus return to the popup.
+- Updated dependencies
+
+## 27.13.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.13.0
+
+### Minor Changes
+
+- [`d8fb80b8b9a2c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d8fb80b8b9a2c) -
+  Update i18n NPM package versions for people-and-teams,identity (Group 8)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.12.3
 
 ### Patch Changes

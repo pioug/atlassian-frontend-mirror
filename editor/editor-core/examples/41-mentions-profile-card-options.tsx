@@ -399,8 +399,7 @@ function MentionsProfileCardOptionsExample(): React.JSX.Element {
 /**
  * Example: profile card options for user mentions in the editor.
  *
- * Demonstrates the three behaviors the editor supports when a user clicks an `@user` mention
- * (assumes the `people-teams_migrate-user-profile-card` gate is on):
+ * Demonstrates the three behaviors the editor supports when a user clicks an `@user` mention:
  *
  * - **Default (link fallback):** clicking the mention navigates to the user's profile in the
  *   Teams app via `navigateToTeamsApp` (default behavior when no `renderUserMentionCard` is

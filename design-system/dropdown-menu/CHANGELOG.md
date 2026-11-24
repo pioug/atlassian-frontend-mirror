@@ -1,5 +1,23 @@
 # @atlaskit/dropdown-menu
 
+## 22.1.0
+
+### Minor Changes
+
+- [`fa1f4c25411b4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fa1f4c25411b4) -
+  Adds support for the `interactionName` prop to the new DropdownItem. Adds motion styling to the
+  new DropdownItem. Deprecated `component`, `title`, and `UNSAFE_shouldDisableRouterLink` props -
+  these are no longer supported by the new DropdownItem but will continue to work on the old version
+  until it is removed in a future major release.
+
+## 22.0.3
+
+### Patch Changes
+
+- [`347b2d6c14757`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/347b2d6c14757) -
+  Focus the first eligible menu item when opened with the keyboard or autoFocus, and restore focus
+  after selecting a model.
+
 ## 22.0.2
 
 ### Patch Changes

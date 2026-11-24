@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-help-dialog
 
+## 34.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 33.0.8
+
+### Patch Changes
+
+- [`c87c250b16958`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c87c250b16958) -
+  Behind `platform-dst-top-layer`, the help dialog leaves Escape to the modal.
+- Updated dependencies
+
+## 33.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 33.0.6
 
 ### Patch Changes

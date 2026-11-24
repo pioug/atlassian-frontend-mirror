@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { useId, useMemo } from 'react';
+import React, { useCallback, useId, useMemo } from 'react';
 
 import { css } from '@compiled/react';
 import { useIntl } from 'react-intl';
@@ -19,65 +19,40 @@ import { token } from '@atlaskit/tokens';
 import { QuickInsertEmptyState } from '../registered-menu/QuickInsertEmptyState';
 // oxlint-disable-next-line eslint/no-redeclare
 import { getRecommendedTileSize, type RegistryElementBrowserItem } from './model';
-import { getFirstEnabledOption } from './options';
+import { VirtualizedElementBrowserGrid } from './VirtualizedElementBrowserGrid';
 
 type Props = {
+	columnCount: number;
 	editorView: EditorView;
 	emptyStateHandler?: EmptyStateHandler;
-	fallbackItems?: RegistryElementBrowserItem[];
-	isLoading?: boolean;
+	focusedRow?: number;
 	isOffline: boolean;
 	items: RegistryElementBrowserItem[];
+	onBlur: React.FocusEventHandler<HTMLDivElement>;
+	onFocus: React.FocusEventHandler<HTMLDivElement>;
 	onKeyDown: (event: React.KeyboardEvent) => void;
 	onSelect: (registration: RegisterMenuItem, handler: QuickInsertSelectionHandler) => void;
 	query: string;
 	/** Shown under a Recommended heading, above `items` under All elements. */
 	recommendedItems: RegistryElementBrowserItem[];
+	requestedRow?: number;
 	resultsId: string;
+	resultsRef: React.Ref<HTMLDivElement>;
+	scrollElement: HTMLElement | null;
 	section?: string;
 	selectedKey?: string;
+	showEmptyState: boolean;
 	surfaceContext: SurfaceContext;
 };
 
-const resultsGridStyles = css({
+const recommendedGridStyles = css({
 	alignContent: 'start',
 	display: 'grid',
 	gap: token('space.200'),
-	gridTemplateColumns: 'minmax(0, 1fr)',
-	// Each step keeps tiles at least 215px wide in a modal of 100vw - 120px with a 15px scrollbar.
-	// min-width only, so a fractional viewport (when zoomed) can't fall between two ranges.
-	// Two columns of tiles.
-	'@media (min-width: 613px)': {
-		gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
-	},
-	// Three columns of tiles, up to 264px wide each.
-	'@media (min-width: 1054px)': {
-		gridTemplateColumns: 'repeat(3, minmax(0, 264px))',
-	},
 });
 
-// Six half-tile columns line wide and regular tiles up with the three-column grid below:
-// a regular tile spans two (264px) and a wide tile spans three.
-const recommendedGridStyles = css({
-	'@media (min-width: 1054px)': {
-		gridTemplateColumns: 'repeat(6, minmax(0, 124px))',
-	},
-});
-
-const regularTileStyles = css({
+const recommendedTileStyles = css({
 	minWidth: 0,
-	// Three-column layout: a regular Recommended tile spans two of the six half-tile columns.
-	'@media (min-width: 1054px)': {
-		gridColumn: 'span 2',
-	},
-});
-
-const wideTileStyles = css({
-	minWidth: 0,
-	// Three-column layout: a wide Recommended tile spans three of the six half-tile columns.
-	'@media (min-width: 1054px)': {
-		gridColumn: 'span 3',
-	},
 });
 
 const groupedResultsStyles = css({
@@ -103,6 +78,12 @@ const emptyStateGridItemStyles = css({
 });
 
 const styles = cssMap({
+	recommendedOneColumn: { gridTemplateColumns: 'minmax(0, 1fr)' },
+	recommendedTwoColumns: { gridTemplateColumns: 'repeat(2, minmax(0, 1fr))' },
+	// Half-tile columns align the Recommended group with the three-column results below.
+	recommendedSixColumns: { gridTemplateColumns: 'repeat(6, minmax(0, 124px))' },
+	recommendedRegularSpan: { gridColumn: 'span 2' },
+	recommendedWideSpan: { gridColumn: 'span 3' },
 	fallbackMarketplace: {
 		borderTopColor: token('color.border'),
 		borderTopStyle: 'solid',
@@ -117,7 +98,9 @@ const RegistryElementBrowserItem = ({
 	isOffline,
 	isSelected,
 	item,
+	position,
 	onSelect,
+	size,
 	surfaceContext,
 }: {
 	editorView: EditorView;
@@ -125,6 +108,8 @@ const RegistryElementBrowserItem = ({
 	isSelected: boolean;
 	item: RegistryElementBrowserItem;
 	onSelect: Props['onSelect'];
+	position: number;
+	size: number;
 	surfaceContext: SurfaceContext;
 }): React.JSX.Element | null => {
 	const { registration } = item;
@@ -137,6 +122,7 @@ const RegistryElementBrowserItem = ({
 				description: item.description,
 				id: key,
 				isSelected,
+				optionPosition: { index: position, size },
 			},
 			select: (handler: QuickInsertSelectionHandler) => onSelect(registration, handler),
 			surfaceContext,
@@ -148,7 +134,9 @@ const RegistryElementBrowserItem = ({
 			item.description,
 			key,
 			onSelect,
+			position,
 			registration,
+			size,
 			surfaceContext,
 		],
 	);
@@ -167,28 +155,30 @@ const RegistryElementBrowserItem = ({
 };
 
 export const RegistryElementBrowserSearchResults = ({
+	columnCount,
 	editorView,
 	emptyStateHandler,
-	fallbackItems,
-	isLoading = false,
+	focusedRow,
 	isOffline,
 	items,
 	query,
 	recommendedItems,
+	requestedRow,
 	resultsId,
+	resultsRef,
+	scrollElement,
 	section,
 	selectedKey,
+	showEmptyState,
 	surfaceContext,
+	onBlur,
+	onFocus,
 	onKeyDown,
 	onSelect,
 }: Props): React.JSX.Element => {
 	const { formatMessage } = useIntl();
 	const groupHeadingIdPrefix = useId();
-	const hasFallbackItems = Boolean(
-		!isLoading && items.length === 0 && query.trim().length > 0 && fallbackItems?.length,
-	);
 	const resultsLabel = formatMessage(messages.elementBrowserResultsLabel);
-	const displayedItems = hasFallbackItems && fallbackItems ? fallbackItems : items;
 	const groups =
 		recommendedItems.length > 0
 			? [
@@ -205,8 +195,8 @@ export const RegistryElementBrowserSearchResults = ({
 				].filter((group) => group.items.length > 0)
 			: undefined;
 	const isGrouped = groups !== undefined;
-	const renderItems = (itemsToRender: RegistryElementBrowserItem[]) =>
-		itemsToRender.map((item) => (
+	const renderItem = useCallback(
+		(item: RegistryElementBrowserItem, index: number, size: number) => (
 			<RegistryElementBrowserItem
 				editorView={editorView}
 				isOffline={isOffline}
@@ -214,11 +204,27 @@ export const RegistryElementBrowserSearchResults = ({
 				item={item}
 				key={item.registration.key}
 				onSelect={onSelect}
+				position={index + 1}
+				size={size}
 				surfaceContext={surfaceContext}
 			/>
-		));
-	const shouldRenderEmptyState = items.length === 0 && recommendedItems.length === 0 && !isLoading;
-	const emptyState = shouldRenderEmptyState
+		),
+		[editorView, isOffline, onSelect, selectedKey, surfaceContext],
+	);
+	const selectedIndex = items.findIndex(({ registration }) => registration.key === selectedKey);
+	const regularGrid = items.length > 0 && (
+		<VirtualizedElementBrowserGrid
+			key={`${section ?? ''}\0${query}`}
+			columnCount={columnCount}
+			focusedRow={focusedRow}
+			items={items}
+			renderItem={renderItem}
+			requestedRow={requestedRow}
+			scrollElement={scrollElement}
+			selectedRow={selectedIndex < 0 ? undefined : Math.floor(selectedIndex / columnCount)}
+		/>
+	);
+	const emptyState = showEmptyState
 		? emptyStateHandler?.({
 				mode: 'full',
 				searchTerm: query,
@@ -228,16 +234,18 @@ export const RegistryElementBrowserSearchResults = ({
 		: null;
 
 	return (
-		<div data-testid="registry-element-browser-results" id={resultsId} tabIndex={-1}>
-			{(isGrouped || displayedItems.length > 0) && (
+		<div
+			data-testid="registry-element-browser-results"
+			id={resultsId}
+			ref={resultsRef}
+			tabIndex={-1}
+		>
+			{(isGrouped || regularGrid) && (
 				<div
 					aria-label={resultsLabel}
-					css={[isGrouped && groupedResultsStyles, !isGrouped && resultsGridStyles]}
-					onFocus={(event) => {
-						if (event.target === event.currentTarget) {
-							getFirstEnabledOption(event.currentTarget)?.focus();
-						}
-					}}
+					css={[isGrouped && groupedResultsStyles]}
+					onBlur={onBlur}
+					onFocus={onFocus}
 					onKeyDown={onKeyDown}
 					role="listbox"
 					tabIndex={0}
@@ -258,28 +266,39 @@ export const RegistryElementBrowserSearchResults = ({
 										{group.title}
 									</div>
 									{group.key === 'recommended' ? (
-										<div css={[resultsGridStyles, recommendedGridStyles]}>
+										<div
+											css={[
+												recommendedGridStyles,
+												columnCount === 1 && styles.recommendedOneColumn,
+												columnCount === 2 && styles.recommendedTwoColumns,
+												columnCount === 3 && styles.recommendedSixColumns,
+											]}
+										>
 											{group.items.map((item, index) => {
 												const isWide = getRecommendedTileSize(index, group.items.length) === 'wide';
 												return (
 													<div
-														css={[isWide && wideTileStyles, !isWide && regularTileStyles]}
+														css={[
+															recommendedTileStyles,
+															columnCount === 3 && isWide && styles.recommendedWideSpan,
+															columnCount === 3 && !isWide && styles.recommendedRegularSpan,
+														]}
 														key={item.registration.key}
 													>
-														{renderItems([item])}
+														{renderItem(item, index, group.items.length)}
 													</div>
 												);
 											})}
 										</div>
 									) : (
-										<div css={resultsGridStyles}>{renderItems(group.items)}</div>
+										regularGrid
 									)}
 								</div>
 							))
-						: renderItems(displayedItems)}
+						: regularGrid}
 				</div>
 			)}
-			{shouldRenderEmptyState && !hasFallbackItems && query.trim().length > 0 && (
+			{showEmptyState && items.length === 0 && query.trim().length > 0 && (
 				<QuickInsertEmptyState mode="full" />
 			)}
 			{emptyState && (

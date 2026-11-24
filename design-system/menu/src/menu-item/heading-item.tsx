@@ -25,6 +25,8 @@ const semanticHeadingStyles = css({
 /**
  * __Heading item__
  *
+ * @deprecated All menu components are deprecated. For dropdown menus, use `@atlaskit/dropdown-menu`. For anything else use a list.
+ *
  * A heading item is used to describe sibling menu items.
  *
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/menu/docs/heading-item)

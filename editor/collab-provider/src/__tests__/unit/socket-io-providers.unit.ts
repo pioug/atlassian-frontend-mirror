@@ -81,7 +81,7 @@ describe('Socket io provider', () => {
 
 			it('not send the header for presence on GCP', () => {
 				jest.mocked(isGoogleCloudPlatform).mockReturnValue(true);
-				failGate('platform_editor_presence_ws_first_with_fallback');
+				passGate('platform_editor_presence_ws_restore_after_upgrade');
 				const socket = createSocketIOSocket(gcpUrl, undefined, undefined, true);
 
 				expect(socket.io.opts.extraHeaders).not.toHaveProperty(header);
@@ -96,8 +96,7 @@ describe('Socket io provider', () => {
 				expect((socket as any).io.opts.transports).toEqual(['polling', 'websocket']);
 			});
 
-			it('use websocket first with polling fallback for presence and FG on', () => {
-				passGate('platform_editor_presence_ws_first_with_fallback');
+			it('use websocket first with polling fallback for presence', () => {
 				const socket = createSocketIOSocket(url, undefined, { product: 'confluence' }, true);
 
 				expect((socket as any).io.opts.transports).toEqual(['websocket', 'polling']);
@@ -106,23 +105,6 @@ describe('Socket io provider', () => {
 					'x-product': 'confluence',
 					'x-client-platform': 'web',
 				});
-			});
-
-			it('use polling and websocket transports for presence and FG off', () => {
-				failGate('platform_editor_presence_ws_first_with_fallback');
-				const socket = createSocketIOSocket(url, undefined, undefined, true);
-
-				expect((socket as any).io.opts.transports).toEqual(['polling', 'websocket']);
-				expect((socket as any).io.opts.tryAllTransports).toBe(false);
-			});
-
-			it('not evaluate the restore after upgrade FG when the websocket first FG is off', () => {
-				failGate('platform_editor_presence_ws_first_with_fallback');
-				jest.mocked(fg).mockClear();
-				createSocketIOSocket(url, undefined, undefined, true);
-
-				expect(fg).toHaveBeenCalledWith('platform_editor_presence_ws_first_with_fallback');
-				expect(fg).not.toHaveBeenCalledWith('platform_editor_presence_ws_restore_after_upgrade');
 			});
 
 			it('use polling and websocket transports for GCP editing when websocket first is off', () => {
@@ -153,7 +135,6 @@ describe('Socket io provider', () => {
 					});
 					expect(socket.io.opts.reconnectionDelay).toBe(SOCKET_IO_OPTIONS.RECONNECTION_DELAY);
 					expect(socket.io.opts.randomizationFactor).toBe(SOCKET_IO_OPTIONS.RANDOMIZATION_FACTOR);
-					expect(fg).not.toHaveBeenCalledWith('platform_editor_presence_ws_first_with_fallback');
 					expect(fg).not.toHaveBeenCalledWith('platform_editor_presence_ws_restore_after_upgrade');
 				},
 			);
@@ -186,31 +167,22 @@ describe('Socket io provider', () => {
 				expect(socket.io.opts.tryAllTransports).toBe(true);
 			});
 
-			it('keep presence controlled by its own gate without evaluating the GCP gate', () => {
+			it('keep presence websocket first without evaluating the GCP gate', () => {
 				jest.mocked(isGoogleCloudPlatform).mockReturnValue(true);
-				failGate('platform_editor_presence_ws_first_with_fallback');
+				passGate('platform_editor_presence_ws_restore_after_upgrade');
 				jest.mocked(fg).mockClear();
 				const socket = createSocketIOSocket(url, undefined, undefined, true);
 
-				expect(socket.io.opts.transports).toEqual(['polling', 'websocket']);
-				expect(socket.io.opts.tryAllTransports).toBe(false);
+				expect(socket.io.opts.transports).toEqual(['websocket', 'polling']);
+				expect(socket.io.opts.tryAllTransports).toBe(true);
 				expect(fg).not.toHaveBeenCalledWith('platform_editor_gcp_collab_ws_first');
 			});
 
-			it('use websocket first for presence on GCP and FG on', () => {
+			it('use websocket first for presence on GCP', () => {
 				jest.mocked(isGoogleCloudPlatform).mockReturnValue(true);
-				passGate('platform_editor_presence_ws_first_with_fallback');
 				const socket = createSocketIOSocket(gcpUrl, undefined, undefined, true);
 
 				expect((socket as any).io.opts.transports).toEqual(['websocket', 'polling']);
-			});
-
-			it('use polling and websocket transports for presence on GCP and FG off', () => {
-				jest.mocked(isGoogleCloudPlatform).mockReturnValue(true);
-				failGate('platform_editor_presence_ws_first_with_fallback');
-				const socket = createSocketIOSocket(gcpUrl, undefined, undefined, true);
-
-				expect((socket as any).io.opts.transports).toEqual(['polling', 'websocket']);
 			});
 		});
 
@@ -219,7 +191,6 @@ describe('Socket io provider', () => {
 			const analyticsHelper = { sendActionEvent: jest.fn() };
 			const createWebSocketFirstSocket = (restoreAfterUpgrade = true) => {
 				if (isPresenceOnly) {
-					passGate('platform_editor_presence_ws_first_with_fallback');
 					(restoreAfterUpgrade ? passGate : failGate)(
 						'platform_editor_presence_ws_restore_after_upgrade',
 					);

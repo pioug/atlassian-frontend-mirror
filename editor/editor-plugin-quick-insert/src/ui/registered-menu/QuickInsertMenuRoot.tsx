@@ -99,17 +99,30 @@ const QuickInsertMenuRoot = ({
 		query,
 		resultCount,
 	});
+	// Enter selects through a synthetic click on the active item, so record that the keyboard made
+	// the selection for the host's analytics.
+	const isKeyboardSelection = useRef(false);
 	const selectItem = useCallback(
-		(selection: QuickInsertSelectionHandler) => {
+		(selection: QuickInsertSelectionHandler, itemKey?: string) => {
 			flushSearchAnalytics();
-			selectFromHost((insert) =>
-				selection({
-					insert,
-					source: surface === 'toolbar' ? INPUT_METHOD.INSERT_MENU : INPUT_METHOD.QUICK_INSERT,
-				}),
+			selectFromHost(
+				(insert) =>
+					selection({
+						insert,
+						source: surface === 'toolbar' ? INPUT_METHOD.INSERT_MENU : INPUT_METHOD.QUICK_INSERT,
+					}),
+				{
+					inputMethod: isKeyboardSelection.current ? 'keyboard' : 'mouse',
+					// Per-category "View more" rows open the element browser like the footer. Compare keys,
+					// not the highlighted index: the footer only updates the highlight on mousemove, so a
+					// click without pointer movement would be miscounted.
+					isViewMore:
+						itemKey !== undefined &&
+						(itemKey === model.footer?.key || isSectionOverflowItemKey(itemKey)),
+				},
 			);
 		},
-		[flushSearchAnalytics, selectFromHost, surface],
+		[flushSearchAnalytics, model.footer?.key, selectFromHost, surface],
 	);
 	const menuContextValue = useMemo<QuickInsertContextValue>(
 		() => ({
@@ -139,7 +152,12 @@ const QuickInsertMenuRoot = ({
 		isPreviewOpen,
 		selectionSource,
 		...listEvents
-	} = useRegisteredMenu({ model, resetKey: query });
+	} = useRegisteredMenu({
+		model,
+		onActiveItemChange: registeredMenu.onActiveItemChange,
+		onListRendered: registeredMenu.onListRendered,
+		resetKey: query,
+	});
 	const listId = useId();
 	const [renderedItems, setRenderedItems] = useState<RenderedItems>({
 		startIndex: -1,
@@ -177,7 +195,9 @@ const QuickInsertMenuRoot = ({
 				if (isImeEnter(event)) {
 					return false;
 				}
+				isKeyboardSelection.current = true;
 				selectActiveItem();
+				isKeyboardSelection.current = false;
 				return true;
 			}
 			return false;

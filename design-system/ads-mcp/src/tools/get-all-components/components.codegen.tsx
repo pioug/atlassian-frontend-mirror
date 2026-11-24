@@ -3,7 +3,7 @@
  *
  * Structured content components from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::4144aa8933fcb792c0f5cff58b5072f2>>
+ * @codegen <<SignedSource::a8173f6ce14082984956bb691a98e28c>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -6471,7 +6471,7 @@ export const components: ComponentMcpPayload[] = [
 				name: 'mode',
 				type: '"auto" | "manual" | undefined',
 				description:
-					'How the popup dismisses when `platform-dst-top-layer` is enabled. Default `"auto"`.\n\n- `"auto"`: the browser light-dismisses it. A press outside it (including on the trigger) or\n  Escape closes it.\n- `"manual"`: the browser never light-dismisses it, so a press on the trigger does not close\n  it. With `onClose`, Popup calls it on a press outside the popup and the trigger, or on\n  Escape. Without `onClose`, only `isOpen` closes it.\n\n**Warning:** a `"manual"` popup is outside the browser\'s auto popover stack. Opening another\nauto popover (a menu, popup or tooltip) does not close it, it closes no other popover, and a\nnested auto popover opened from outside it does not treat it as an ancestor. Use `"manual"`\nonly when a press on the trigger must not close the popup (for example a hover popup that pins\non click, or a search field that keeps its results open), or when it must stay open until a\nstate change (for example a field error).\n\nNo effect when the flag is disabled: the legacy popup already ignores presses on the trigger\nand closes only through `onClose`.',
+					'How the popup dismisses when `platform-dst-top-layer` is enabled. Default `"auto"`.\n\nIn both modes, a press outside the popup and its trigger, or Escape, calls `onClose`. The popup\ncloses only when `isOpen` becomes `false`, so `onClose` can refuse the close. A press on the\ntrigger does not call `onClose`: the trigger\'s own click decides.\n\nThe modes differ only without `onClose`:\n\n- `"auto"`: the popup still takes Escape (one press closes one layer), and stays open.\n- `"manual"`: the popup does not take Escape, and only `isOpen` closes it. Use it for a popup\n  that must stay open until a state change (for example a field error).\n\nNo effect when the flag is disabled: the legacy popup already ignores presses on the trigger\nand closes only through `onClose`.',
 			},
 			{
 				name: 'modifiers',

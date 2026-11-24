@@ -3256,3 +3256,221 @@ describe('MediaStore', () => {
 		});
 	});
 });
+
+describe('MediaStore bounded read credentials', () => {
+	const oversizedAuth = { ...auth, token: 'a'.repeat(7001) };
+
+	beforeEach(() => {
+		jest.mocked(resolveAuth).mockReset().mockResolvedValue(oversizedAuth);
+		mediaStore = new MediaStore({ authProvider });
+		fetchMock.resetMocks();
+	});
+
+	it('preserves the original single request and auth context when disabled', async () => {
+		failGate('platform_media_bounded_read_tokens');
+		fetchMock.mockResponseOnce(JSON.stringify({ data: { items: [] } }));
+		await mediaStore.getItems(['a', 'b'], 'collection');
+		expect(resolveAuth).toHaveBeenCalledTimes(1);
+		expect(resolveAuth).toHaveBeenCalledWith(
+			authProvider,
+			{ collectionName: 'collection' },
+			undefined,
+		);
+		expect(fetchMock).toHaveBeenCalledTimes(1);
+		expect(fetchMock).toHaveBeenCalledWith(
+			expect.any(String),
+			expect.objectContaining({
+				headers: expect.objectContaining({ Authorization: `Bearer ${oversizedAuth.token}` }),
+			}),
+		);
+	});
+
+	it('keeps one request and one auth resolution for a token at the supported limit', async () => {
+		passGate('platform_media_bounded_read_tokens');
+		jest.mocked(resolveAuth).mockResolvedValue({ ...auth, token: 'a'.repeat(7000) });
+		fetchMock.mockResponseOnce(JSON.stringify({ data: { items: [] } }));
+		await mediaStore.getItems(['a', 'b']);
+		expect(resolveAuth).toHaveBeenCalledTimes(1);
+		expect(fetchMock).toHaveBeenCalledTimes(1);
+		expect(fetchMock).toHaveBeenCalledWith(
+			expect.any(String),
+			expect.objectContaining({
+				body: JSON.stringify({
+					descriptors: [
+						{ type: 'file', id: 'a' },
+						{ type: 'file', id: 'b' },
+					],
+				}),
+			}),
+		);
+	});
+
+	it('groups metadata by credential and merges every group response', async () => {
+		passGate('platform_media_bounded_read_tokens');
+		jest.mocked(resolveAuth).mockImplementation(async (_provider, context) => {
+			const access = context?.access?.[0];
+			return access?.type === 'file'
+				? { ...auth, token: access.id === 'b' ? 'group-b' : 'group-a' }
+				: oversizedAuth;
+		});
+		fetchMock.mockResponses(
+			JSON.stringify({ data: { items: [{ id: 'a' }, { id: 'c' }] } }),
+			JSON.stringify({ data: { items: [{ id: 'b' }] } }),
+		);
+		const response = await mediaStore.getItems(
+			['a', 'b', 'c'],
+			'collection',
+			{ traceId: 'trace' },
+			true,
+		);
+		expect(response.data.items).toEqual([{ id: 'a' }, { id: 'c' }, { id: 'b' }]);
+		expect(fetchMock).toHaveBeenCalledTimes(2);
+		expect(fetchMock).toHaveBeenNthCalledWith(
+			1,
+			expect.any(String),
+			expect.objectContaining({
+				headers: expect.objectContaining({ Authorization: 'Bearer group-a' }),
+				body: JSON.stringify({
+					descriptors: [
+						{ type: 'file', id: 'a', collection: 'collection' },
+						{ type: 'file', id: 'c', collection: 'collection' },
+					],
+					includeHashForDuplicateFiles: true,
+				}),
+			}),
+		);
+		expect(fetchMock).toHaveBeenNthCalledWith(
+			2,
+			expect.any(String),
+			expect.objectContaining({
+				headers: expect.objectContaining({ Authorization: 'Bearer group-b' }),
+				body: JSON.stringify({
+					descriptors: [{ type: 'file', id: 'b', collection: 'collection' }],
+					includeHashForDuplicateFiles: true,
+				}),
+			}),
+		);
+	});
+
+	it('rejects the metadata operation if any credential group fails', async () => {
+		passGate('platform_media_bounded_read_tokens');
+		jest.mocked(resolveAuth).mockImplementation(async (_provider, context) => {
+			const access = context?.access?.[0];
+			return access?.type === 'file' ? { ...auth, token: access.id } : oversizedAuth;
+		});
+		fetchMock.mockResponses(JSON.stringify({ data: { items: [{ id: 'a' }] } }), [
+			JSON.stringify({ error: 'forbidden' }),
+			{ status: 403 },
+		]);
+		await expect(mediaStore.getItems(['a', 'b'])).rejects.toMatchObject({
+			metadata: { statusCode: 403 },
+		});
+		expect(fetchMock).toHaveBeenCalledTimes(2);
+	});
+
+	it('does not send a metadata request when scoped authentication fails', async () => {
+		passGate('platform_media_bounded_read_tokens');
+		jest
+			.mocked(resolveAuth)
+			.mockResolvedValueOnce(oversizedAuth)
+			.mockRejectedValueOnce(new Error('missing credential'));
+		await expect(mediaStore.getItems(['a'])).rejects.toThrow('missing credential');
+		expect(fetchMock).not.toHaveBeenCalled();
+	});
+
+	it.each([
+		['file', (store: MediaStore) => store.getFile('a')],
+		['image', (store: MediaStore) => store.getImage('a')],
+		['binary', (store: MediaStore) => store.getFileBinary('a')],
+		['image metadata', (store: MediaStore) => store.getImageMetadata('a')],
+		[
+			'document content',
+			(store: MediaStore) => store.getDocumentContent('a', { pageStart: 1, pageEnd: 2 }),
+		],
+		['document page', (store: MediaStore) => store.getDocumentPageImage('a', { page: 1, zoom: 1 })],
+	] as const)('uses the bounded token in the auth header for %s reads', async (_name, read) => {
+		passGate('platform_media_bounded_read_tokens');
+		jest
+			.mocked(resolveAuth)
+			.mockResolvedValueOnce(oversizedAuth)
+			.mockResolvedValueOnce({ ...auth, token: 'bounded-token' });
+		fetchMock.mockResponseOnce(JSON.stringify({ data: {} }));
+		await read(mediaStore);
+		expect(resolveAuth).toHaveBeenLastCalledWith(
+			authProvider,
+			{ collectionName: undefined, access: [{ type: 'file', id: 'a', actions: ['read'] }] },
+			undefined,
+		);
+		expect(fetchMock).toHaveBeenCalledTimes(1);
+		expect(fetchMock).toHaveBeenCalledWith(
+			expect.not.stringContaining('token='),
+			expect.objectContaining({
+				headers: expect.objectContaining({ Authorization: 'Bearer bounded-token' }),
+			}),
+		);
+	});
+
+	it.each(['confluence', 'jira', 'disabled'])(
+		'uses bounded image auth with %s watermarks',
+		async (watermark) => {
+			passGate('platform_media_bounded_read_tokens');
+			if (watermark === 'confluence') {
+				passGate('confluence_watermark_admin_ui');
+			} else {
+				failGate('confluence_watermark_admin_ui');
+				if (watermark === 'jira') {
+					passGate('jira_enable_media_watermark_admin_ui');
+				} else {
+					failGate('jira_enable_media_watermark_admin_ui');
+				}
+			}
+			jest
+				.mocked(resolveAuth)
+				.mockResolvedValueOnce(oversizedAuth)
+				.mockResolvedValueOnce({ ...auth, token: 'bounded-token' });
+			fetchMock.mockResponseOnce('image');
+			await mediaStore.getImage('a');
+			expect(resolveAuth).toHaveBeenCalledTimes(2);
+			expect(fetchMock).toHaveBeenCalledTimes(1);
+			expect(fetchMock).toHaveBeenCalledWith(
+				expect.any(String),
+				expect.objectContaining({
+					headers: expect.objectContaining({ Authorization: 'Bearer bounded-token' }),
+				}),
+			);
+		},
+	);
+
+	it('preserves single-file read authentication when disabled', async () => {
+		failGate('platform_media_bounded_read_tokens');
+		fetchMock.mockResponseOnce('image');
+		await mediaStore.getImage('a');
+		expect(resolveAuth).toHaveBeenCalledTimes(1);
+		expect(resolveAuth).toHaveBeenCalledWith(
+			authProvider,
+			{ collectionName: undefined },
+			undefined,
+		);
+		expect(fetchMock).toHaveBeenCalledWith(
+			expect.any(String),
+			expect.objectContaining({
+				headers: expect.objectContaining({ Authorization: `Bearer ${oversizedAuth.token}` }),
+			}),
+		);
+	});
+
+	it.each([
+		['image', (store: MediaStore) => store.getFileImageURL('a')],
+		['binary', (store: MediaStore) => store.getFileBinaryURL('a')],
+	] as const)('uses bounded credentials for the async %s URL API', async (_name, getUrl) => {
+		passGate('platform_media_bounded_read_tokens');
+		jest
+			.mocked(resolveAuth)
+			.mockResolvedValueOnce(oversizedAuth)
+			.mockResolvedValueOnce({ ...auth, token: 'bounded-token' });
+		const url = await getUrl(mediaStore);
+		expect(url).toContain('token=bounded-token');
+		expect(url).not.toContain(oversizedAuth.token);
+		expect(fetchMock).not.toHaveBeenCalled();
+	});
+});

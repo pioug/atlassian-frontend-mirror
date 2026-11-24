@@ -10,7 +10,9 @@ const MediaUserPreferencesTypes = {
 } as const;
 
 type MediaUserPreferencesTypeMap = {
-	[K in keyof typeof MediaUserPreferencesTypes]: (typeof MediaUserPreferencesTypes)[K] extends 'boolean'
+	[
+		K in keyof typeof MediaUserPreferencesTypes
+	]: (typeof MediaUserPreferencesTypes)[K] extends 'boolean'
 		? boolean
 		: (typeof MediaUserPreferencesTypes)[K] extends 'number'
 			? number

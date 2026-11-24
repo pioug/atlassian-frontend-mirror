@@ -1,7 +1,7 @@
-import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import type { ProviderParticipant } from '@atlaskit/editor-common/collab';
 import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 import { mockExp } from '@atlassian/experiment-test-utils/mock-exp';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 

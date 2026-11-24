@@ -109,7 +109,7 @@ export interface Datasource<P extends Record<string, unknown> = Record<string, u
 	views: DatasourceAdfView[];
 }
 
-export type DatasourceAdfView = DatasourceAdfTableView /*| DatasourceAdfSomethingView*/;
+export type DatasourceAdfView = DatasourceAdfTableView; /*| DatasourceAdfSomethingView*/
 
 export interface DatasourceAdf<P extends Record<string, unknown> = Record<string, unknown>> {
 	attrs: {

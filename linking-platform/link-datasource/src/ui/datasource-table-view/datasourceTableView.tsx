@@ -67,7 +67,6 @@ const DatasourceTableViewWithoutAnalytics = ({
 	onWrappedColumnsChange,
 	scrollableContainerHeight = DefaultScrollableContainerHeight,
 	onRequestSettled,
-	enableRequestSettled = false,
 	renderEmptyState,
 }: DatasourceTableViewProps) => {
 	// Local copy lets us apply in-session sort mutations without mutating external parameters.
@@ -173,10 +172,6 @@ const DatasourceTableViewWithoutAnalytics = ({
 	const lastSettledResultRef = useRef<DatasourceTableRequestSettledResult | null>(null);
 
 	useEffect(() => {
-		if (!fg('platform_lp_sllv_on_request_settled') && !enableRequestSettled) {
-			return;
-		}
-
 		if (
 			status !== 'resolved' &&
 			status !== 'rejected' &&
@@ -199,7 +194,7 @@ const DatasourceTableViewWithoutAnalytics = ({
 
 		lastSettledResultRef.current = result;
 		onRequestSettled?.(result);
-	}, [status, responseItems.length, totalCount, onRequestSettled, enableRequestSettled]);
+	}, [status, responseItems.length, totalCount, onRequestSettled]);
 
 	useEffect(() => {
 		const shouldStartUfoExperience =

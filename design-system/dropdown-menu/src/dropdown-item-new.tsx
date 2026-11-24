@@ -16,7 +16,6 @@ import {
 import { cssMap, cx, jsx } from '@atlaskit/css';
 import CheckMarkIcon from '@atlaskit/icon/core/check-mark';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Anchor } from '@atlaskit/primitives/compiled/anchor';
 import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
@@ -26,7 +25,7 @@ import { token } from '@atlaskit/tokens';
 import KeyboardShortcut from './internal/components/keyboard-shortcut';
 import { DropdownTriggerContext } from './internal/context/dropdown-trigger-context';
 import { NewSpacingContext } from './internal/context/spacing-context';
-import type { NewDropdownMenuItemProps } from './types';
+import type { NewDropdownItemProps } from './types';
 
 const styles = cssMap({
 	root: {
@@ -137,6 +136,21 @@ const styles = cssMap({
 			color: token('color.text.danger'),
 		},
 	},
+	motionUnselected: {
+		transition: token('motion.listitem.hovered'),
+		'&:hover': {
+			transition: token('motion.listitem.hovered'),
+		},
+		'&:active': {
+			transition: token('motion.listitem.pressed'),
+		},
+	},
+	motionSelected: {
+		transition: token('motion.listitem.selected'),
+		'&:hover': {
+			transition: token('motion.listitem.hovered'),
+		},
+	},
 });
 
 function getTitleColor({
@@ -172,12 +186,12 @@ function getDescriptionColor({ isLink, isDisabled }: { isLink?: boolean; isDisab
 	return 'color.text.disabled';
 }
 
-const NewDropdownMenuItem: MemoExoticComponent<
+const NewDropdownItem: MemoExoticComponent<
 	ForwardRefExoticComponent<
-		NewDropdownMenuItemProps & RefAttributes<HTMLButtonElement | HTMLAnchorElement>
+		NewDropdownItemProps & RefAttributes<HTMLButtonElement | HTMLAnchorElement>
 	>
 > = memo(
-	forwardRef<HTMLButtonElement | HTMLAnchorElement, NewDropdownMenuItemProps>(
+	forwardRef<HTMLButtonElement | HTMLAnchorElement, NewDropdownItemProps>(
 		(
 			{
 				title,
@@ -198,10 +212,11 @@ const NewDropdownMenuItem: MemoExoticComponent<
 				testId,
 				id,
 				role = 'menuitem',
+				interactionName,
 				'aria-checked': ariaChecked,
 				'aria-haspopup': ariaHasPopup,
 				'aria-expanded': ariaExpanded,
-			}: NewDropdownMenuItemProps,
+			}: NewDropdownItemProps,
 			ref,
 		): JSX.Element => {
 			const isDropdownTrigger = useContext(DropdownTriggerContext);
@@ -216,10 +231,6 @@ const NewDropdownMenuItem: MemoExoticComponent<
 
 			const titleColor = getTitleColor({ isLink, isDisabled, isSelected, isDanger });
 			const descColor = getDescriptionColor({ isLink, isDisabled });
-
-			// Just to force the toggle in atlaspack workbench
-			// @ts-ignore
-			const _nothing = fg('platform-dst-tokens-finesse');
 
 			const menuItem = (
 				<Fragment>
@@ -283,6 +294,7 @@ const NewDropdownMenuItem: MemoExoticComponent<
 						role={role}
 						id={id}
 						ref={ref as Ref<HTMLAnchorElement>}
+						interactionName={interactionName}
 						aria-current={isSelected ? 'page' : undefined}
 					>
 						{menuItem}
@@ -300,6 +312,8 @@ const NewDropdownMenuItem: MemoExoticComponent<
 						isDisabled && styles.disabled,
 						isSelected && isDisabled && styles.disabledAndSelected,
 						isDanger && styles.danger,
+						!isDisabled && isSelected && styles.motionSelected,
+						!isDisabled && !isSelected && styles.motionUnselected,
 					)}
 					testId={testId}
 					role={role}
@@ -308,6 +322,7 @@ const NewDropdownMenuItem: MemoExoticComponent<
 					aria-expanded={ariaExpanded}
 					id={id}
 					ref={ref as Ref<HTMLButtonElement>}
+					interactionName={interactionName}
 				>
 					{menuItem}
 				</Pressable>
@@ -316,4 +331,4 @@ const NewDropdownMenuItem: MemoExoticComponent<
 	),
 );
 
-export default NewDropdownMenuItem;
+export default NewDropdownItem;

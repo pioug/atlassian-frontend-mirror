@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/blanket",
-	"version": "16.4.5",
+	"version": "16.4.6",
 	"description": "A blanket covers the underlying UI for a layered component, such as a modal dialog or a tooltip.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -31,7 +31,11 @@
 				"platform-labs"
 			],
 			"name": "Blanket",
-			"category": "Overlays and layering"
+			"category": "Overlays and layering",
+			"status": {
+				"type": "deprecated",
+				"description": "This package is deprecated. Blanket is not in the browser top layer, so tooltips, popups, flags and dialogs show above it. Use [@atlaskit/modal-dialog](https://atlassian.design/components/modal-dialog/examples), [@atlaskit/drawer](https://atlassian.design/components/drawer/examples) or [@atlaskit/popup](https://atlassian.design/components/popup/examples)."
+			}
 		}
 	},
 	"exports": {

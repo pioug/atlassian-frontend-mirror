@@ -1,5 +1,5 @@
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import type { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { ContributorTagModel, DiffDescriptor, TagContributor } from '../../showDiffPluginType';
 import { resolveBaseNodeName } from '../utils/baseNodeName';

@@ -17,6 +17,7 @@ import withAnalyticsEvents, {
 	type WithAnalyticsEventsProps,
 } from '@atlaskit/analytics-next/withAnalyticsEvents';
 import { css, jsx } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { PopupSelect, type PopupSelectProps } from '@atlaskit/select/popup-select';
 import type { ValueType } from '@atlaskit/select/types';
 
@@ -107,7 +108,11 @@ class ColorPickerWithoutAnalyticsBase extends React.Component<Props & WrappedCom
 		} else if (key === KEY_ARROW_UP || key === KEY_ARROW_DOWN) {
 			this.setState({ isTabbing: false });
 		} else if (key === KEY_ESCAPE) {
-			e.stopPropagation();
+			// On the top-layer path the menu closes itself on Escape, and the layer under it stays open.
+			// A stop here would hide Escape from the layers under the menu.
+			if (!fg('platform-dst-top-layer')) {
+				e.stopPropagation();
+			}
 		}
 	};
 

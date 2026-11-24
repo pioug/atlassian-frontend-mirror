@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-quick-insert",
-	"version": "33.1.2",
+	"version": "34.0.0",
 	"description": "Quick insert plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -50,6 +50,7 @@
 		"./registered-menu/search-analytics": "./src/ui/registered-menu/useQuickInsertSearchAnalytics.ts"
 	},
 	"dependencies": {
+		"@atlaskit/analytics-next": "workspace:^",
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/css": "workspace:^",
 		"@atlaskit/docs": "workspace:^",
@@ -76,6 +77,7 @@
 		"@babel/runtime": "root:*",
 		"@compiled/react": "root:*",
 		"@emotion/react": "root:*",
+		"@tanstack/react-virtual": "root:*",
 		"react-loosely-lazy": "root:*"
 	},
 	"peerDependencies": {

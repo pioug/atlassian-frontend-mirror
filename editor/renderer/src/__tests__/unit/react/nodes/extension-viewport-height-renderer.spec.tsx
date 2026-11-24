@@ -9,7 +9,8 @@ import type { ExtensionProvider } from '@atlaskit/editor-common/extensions/exten
 import ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Existing renderer extension provider test helper.
 import { createFakeExtensionProvider } from '@atlaskit/editor-test-helpers/extensions';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { act } from '@atlassian/testing-library/act';
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
@@ -57,7 +58,7 @@ describe('Forge viewport heights through the ADF renderer', () => {
 	])(
 		'passes installed %s viewport metadata through serialization and SSR',
 		(viewportSize, height) => {
-			passGate('confluence_forge_early_render_reserve_height');
+			mockExpEnabled('confluence_forge_named_viewport_reservation');
 			const macro = fullRenderer({ extensionViewportSizes: [{ extensionId, viewportSize }] });
 			expect(renderToString(macro)).toContain(`min-height:${height}`);
 			render(macro);
@@ -120,7 +121,9 @@ describe('Forge viewport heights through the ADF renderer', () => {
 		);
 
 		it('preserves legacy sizing without invoking the expiry hook when no scheduler is supplied', () => {
-			if (nodeType === 'bodiedExtension') passGate('confluence_forge_early_render_reserve_height');
+			if (nodeType === 'bodiedExtension') {
+				mockExpEnabled('confluence_forge_named_viewport_reservation');
+			}
 			const useNodeHeight = jest.spyOn(heightHooks, 'useNodeHeight');
 			const getExtensionPresetHeight = jest.fn(() => 21);
 			try {
@@ -143,7 +146,7 @@ describe('Forge viewport heights through the ADF renderer', () => {
 		});
 
 		it.each([true, false])('prefers viewport sizing (loaded handler: %s)', (loaded) => {
-			passGate('confluence_forge_early_render_reserve_height');
+			mockExpEnabled('confluence_forge_named_viewport_reservation');
 			const scheduleExtensionHeightRemoval = jest.fn(() => undefined);
 			const macro = fullRenderer({
 				document: macroDocument,
@@ -183,7 +186,7 @@ describe('Forge viewport heights through the ADF renderer', () => {
 	});
 
 	it('keeps loaded macro content accessible through the full renderer', async () => {
-		passGate('confluence_forge_early_render_reserve_height');
+		mockExpEnabled('confluence_forge_named_viewport_reservation');
 		const { container } = render(fullRenderer());
 		await expect(container).toBeAccessible();
 	});
@@ -196,13 +199,13 @@ describe('Forge viewport heights through the ADF renderer', () => {
 	});
 
 	it('reserves height for default content when no extension handler is available', () => {
-		passGate('confluence_forge_early_render_reserve_height');
+		mockExpEnabled('confluence_forge_named_viewport_reservation');
 		render(fullRenderer({ extensionHandlers: {} }));
 		expect(screen.getByTestId('extension--wrapper').style.minHeight).toBe('262px');
 	});
 
 	it('keeps the same reservation while the extension provider resolves', async () => {
-		passGate('confluence_forge_early_render_reserve_height');
+		mockExpEnabled('confluence_forge_named_viewport_reservation');
 		let resolveProvider: (value: ExtensionProvider) => void = () => {};
 		const providers = ProviderFactory.create({
 			extensionProvider: new Promise<ExtensionProvider>((resolve) => {
@@ -229,7 +232,7 @@ describe('Forge viewport heights through the ADF renderer', () => {
 	});
 
 	it('keeps the SSR wrapper and reservation through full renderer hydration', async () => {
-		passGate('confluence_forge_early_render_reserve_height');
+		mockExpEnabled('confluence_forge_named_viewport_reservation');
 		const macro = fullRenderer();
 		const container = window.document.createElement('div');
 		container.innerHTML = renderToString(macro);
@@ -253,7 +256,7 @@ describe('Forge viewport heights through the ADF renderer', () => {
 	});
 
 	it('excludes block reservation for inline bodied extensions', () => {
-		passGate('confluence_forge_early_render_reserve_height');
+		mockExpEnabled('confluence_forge_named_viewport_reservation');
 		render(
 			fullRenderer({
 				document: {
@@ -280,7 +283,7 @@ describe('Forge viewport heights through the ADF renderer', () => {
 
 describe('Full renderer with viewport correction disabled', () => {
 	it('retains the invalid legacy SSR height when the correction is disabled', () => {
-		failGate('confluence_forge_early_render_reserve_height');
+		mockExpDisabled('confluence_forge_named_viewport_reservation');
 		expect(renderToString(fullRenderer())).toContain('min-height:262pxpx');
 	});
 });

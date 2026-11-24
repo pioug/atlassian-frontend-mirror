@@ -29,9 +29,9 @@ interface CustomItemTypeGenericHackProps {
 /**
  * __Custom item__
  *
- * @deprecated
+ * @deprecated All menu components are deprecated. For dropdown menus, use `@atlaskit/dropdown-menu`. For anything else use a list.
  * CustomItem must not be used and will be deleted soon. Custom menu items are not supported.
- * Use ButtonItem or LinkItem instead. If you need a custom list item, do not use `@atlaskit/menu`.
+ * If you need a custom list item, do not use `@atlaskit/menu`.
  *
  * A custom item is used to populate a menu with items that can be any element.
  *

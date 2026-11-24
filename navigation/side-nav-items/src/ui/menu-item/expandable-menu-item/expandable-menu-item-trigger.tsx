@@ -2,7 +2,8 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { type ReactNode, useCallback, useId, useRef } from 'react';
+import React, { type ReactNode, useCallback, useId, useRef, useState } from 'react';
+import { flushSync } from 'react-dom';
 
 import { cssMap, jsx } from '@compiled/react';
 
@@ -13,6 +14,8 @@ import forwardRefWithGeneric from '@atlaskit/ds-lib/forward-ref-with-generic';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import type { IconProps } from '@atlaskit/icon/types';
+import IconMotion from '@atlaskit/motion/entering/icon-motion';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { MenuItemBase } from '../menu-item';
@@ -28,6 +31,11 @@ type ExpandableMenuItemIconProps = {
 	iconProps?: IconProps;
 	isExpanded: boolean;
 	isHovering: boolean;
+	/**
+	 * Whether the menu item has been interacted with. The chevron / provided elemBefore swap only animates
+	 * once it has, so that nothing animates when the menu item first renders.
+	 */
+	isMotionEnabled?: boolean;
 	isSelected?: boolean;
 	/**
 	 * The element to display when the user is not hovering over the icon. If not provided, the chevron icon will be used
@@ -105,6 +113,23 @@ const iconStyles = cssMap({
 	providedElemBefore: {
 		display: `var(${providedElemBeforeDisplayCssVar})`,
 	},
+	/**
+	 * Plays the enter animation when the element is swapped in, as its `display` flips from `none`.
+	 *
+	 * Only applied once the menu item has been interacted with (`isMotionEnabled`), so that nothing
+	 * animates when the menu item first renders.
+	 */
+	enterMotion: {
+		animation: token('motion.iconography.enter.fade'),
+		'@media (prefers-reduced-motion: reduce)': {
+			animation: 'none',
+		},
+	},
+	// `providedElemBefore` is `display: contents` while shown, which has no box to animate, so the animation
+	// goes on this inner element instead.
+	providedElemBeforeInner: {
+		display: 'flex',
+	},
 	providedElemBeforeSelected: {
 		color: token('color.icon.selected'),
 	},
@@ -114,11 +139,26 @@ const ExpandableMenuItemIcon = ({
 	iconProps,
 	isExpanded,
 	isSelected,
+	isMotionEnabled,
 	providedElemBefore,
 }: Omit<ExpandableMenuItemIconProps, 'isHovering'>): JSX.Element => {
 	const ChevronIcon = isExpanded ? ChevronDownIcon : ChevronRightIcon;
+	// The chevron and the provided elemBefore swap with the `motion.iconography` enter animation
+	const shouldAnimateSwap =
+		Boolean(providedElemBefore) &&
+		Boolean(isMotionEnabled) &&
+		fg('platform-dst-motion-uplift-sidenav-inner');
 
-	const chevronElem = (
+	const chevronElem = fg('platform-dst-motion-uplift-sidenav-inner') ? (
+		<IconMotion.Rotate isActive={isExpanded}>
+			<ChevronRightIcon
+				{...iconProps}
+				label=""
+				color={isSelected ? token('color.icon.selected') : undefined}
+				size="small"
+			/>
+		</IconMotion.Rotate>
+	) : (
 		<ChevronIcon
 			{...iconProps}
 			label=""
@@ -129,13 +169,21 @@ const ExpandableMenuItemIcon = ({
 
 	return (
 		<React.Fragment>
-			<div css={iconStyles.chevron}>{chevronElem}</div>
+			<div css={[iconStyles.chevron, shouldAnimateSwap && iconStyles.enterMotion]}>
+				{chevronElem}
+			</div>
 			{/* If there is no provided elemBefore, not rendering the wrapper either to simplify the DOM */}
 			{providedElemBefore && (
 				<div
 					css={[iconStyles.providedElemBefore, isSelected && iconStyles.providedElemBeforeSelected]}
 				>
-					{providedElemBefore}
+					{shouldAnimateSwap ? (
+						<div css={[iconStyles.providedElemBeforeInner, iconStyles.enterMotion]}>
+							{providedElemBefore}
+						</div>
+					) : (
+						providedElemBefore
+					)}
 				</div>
 			)}
 		</React.Fragment>
@@ -242,6 +290,18 @@ export const ExpandableMenuItemTrigger: <RouterLinkConfig extends Record<string,
 		const setIsExpanded = useSetIsExpanded();
 		const itemRef = useRef<HTMLDivElement>(null);
 
+		// Turns on the chevron / provided elemBefore swap animation, but only after the first interaction so
+		// that nothing animates when the menu item mounts. The hover, focus and open popup conditions that
+		// decide which element shows stay in CSS; setting `true` again bails out, so this re-renders once.
+		const [isMotionEnabled, setIsMotionEnabled] = useState(false);
+		const enableMotion = useCallback(() => setIsMotionEnabled(true), []);
+		const enableMotionOnPointerEnter = useCallback(
+			() => flushSync(() => setIsMotionEnabled(true)),
+			[],
+		);
+		const shouldEnableMotion =
+			Boolean(providedElemBefore) && fg('platform-dst-motion-uplift-sidenav-inner');
+
 		const handleIconClick = useCallback(() => {
 			onExpansionToggle?.(!isExpanded);
 			setIsExpanded(!isExpanded);
@@ -275,6 +335,7 @@ export const ExpandableMenuItemTrigger: <RouterLinkConfig extends Record<string,
 						iconProps={iconProps}
 						isExpanded={isExpanded}
 						isSelected={isSelected}
+						isMotionEnabled={isMotionEnabled}
 						providedElemBefore={providedElemBefore}
 					/>
 				)}
@@ -297,6 +358,7 @@ export const ExpandableMenuItemTrigger: <RouterLinkConfig extends Record<string,
 			<ExpandableMenuItemIcon
 				isExpanded={isExpanded}
 				isSelected={isSelected}
+				isMotionEnabled={isMotionEnabled}
 				providedElemBefore={providedElemBefore}
 			/>
 		);
@@ -310,6 +372,8 @@ export const ExpandableMenuItemTrigger: <RouterLinkConfig extends Record<string,
 					nestedOpenPopupStyles.showProvidedElemBefore,
 				]}
 				ref={itemRef}
+				onPointerEnter={shouldEnableMotion ? enableMotionOnPointerEnter : undefined}
+				onFocus={shouldEnableMotion ? enableMotion : undefined}
 			>
 				<MenuItemBase
 					id={id}

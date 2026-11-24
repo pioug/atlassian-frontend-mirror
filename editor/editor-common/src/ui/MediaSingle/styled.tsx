@@ -261,26 +261,31 @@ export const MediaSingleDimensionHelper = ({
 		}
 
 		width: ${calculatedWidth};
-		${layout === 'full-width' &&
-		/* This causes issues for new experience where we don't strip layout attributes
+		${
+			layout === 'full-width' &&
+			/* This causes issues for new experience where we don't strip layout attributes
    when copying top-level node and pasting into a table/layout,
    because full-width layout will remain, causing node to be edge-to-edge */
-		!isExtendedResizeExperienceOn &&
-		css({
-			minWidth: '100%',
-		})}
+			!isExtendedResizeExperienceOn &&
+			css({
+				minWidth: '100%',
+			})
+		}
 
-		${isInRenderer
-			? css({
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-container-queries
-					'@container ak-renderer-wrapper (min-width: 1px)': {
-						maxWidth: '100cqw',
-					},
-				})
-			: `max-width: ${cssMaxWidth};`}
+		${
+			isInRenderer
+				? css({
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-container-queries
+						'@container ak-renderer-wrapper (min-width: 1px)': {
+							maxWidth: '100cqw',
+						},
+					})
+				: `max-width: ${cssMaxWidth};`
+		}
 
-		${isExtendedResizeExperienceOn &&
-		`&[class*='is-resizing'] {
+		${
+			isExtendedResizeExperienceOn &&
+			`&[class*='is-resizing'] {
     .new-file-experience-wrapper {
       box-shadow: none !important;
     }
@@ -291,7 +296,8 @@ export const MediaSingleDimensionHelper = ({
 			`margin-left: 50%;
       transform: translateX(-50%);`
 		}
-  }`}
+  }`
+		}
 
 		&:not(.is-resizing) {
 			transition: width 100ms ease-in;
@@ -301,12 +307,14 @@ export const MediaSingleDimensionHelper = ({
 		margin: ${calcMargin(layout)};
 
 		&[class*='not-resizing'] {
-			${isNestedNode
-				? /* Make nested node appear responsive when resizing table cell */
-					`max-width: 100%;`
-				: nonWrappedLayouts.includes(layout) &&
-					`margin-left: 50%;
-        transform: translateX(-50%);`}
+			${
+				isNestedNode
+					? /* Make nested node appear responsive when resizing table cell */
+						`max-width: 100%;`
+					: nonWrappedLayouts.includes(layout) &&
+						`margin-left: 50%;
+        transform: translateX(-50%);`
+			}
 		}
 
 		${isImageAligned(layout)};
@@ -323,10 +331,10 @@ const RenderFallbackContainer = ({
 	hasFallbackContainer,
 	paddingBottom,
 	height,
-}: MediaWrapperProps) =>
-	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation
-	css`
-		${hasFallbackContainer
+}: MediaWrapperProps) => // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation
+css`
+	${
+		hasFallbackContainer
 			? `
   &::after {
     content: '';
@@ -338,8 +346,9 @@ const RenderFallbackContainer = ({
     line-height: 0;
   }
   `
-			: ''}
-	`;
+			: ''
+	}
+`;
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/volt-strict-mode/no-multiple-exports -- Needs manual remediation
 export const mediaWrapperStyle = (props: MediaWrapperProps): SerializedStyles => css`
@@ -348,7 +357,7 @@ export const mediaWrapperStyle = (props: MediaWrapperProps): SerializedStyles =>
 	${RenderFallbackContainer(props)}
 
 	/* Editor */
-  & > figure {
+	& > figure {
 		position: ${props.hasFallbackContainer ? 'absolute' : 'relative'};
 		height: 100%;
 		width: 100%;

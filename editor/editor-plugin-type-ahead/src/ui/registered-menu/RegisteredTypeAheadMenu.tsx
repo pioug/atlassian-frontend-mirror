@@ -5,12 +5,21 @@
 import React, { useCallback, useMemo, useState, useSyncExternalStore } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
+import {
+	ACTION,
+	ACTION_SUBJECT,
+	EVENT_TYPE,
+	INPUT_METHOD,
+} from '@atlaskit/editor-common/analytics/types/enums';
 import { isOfflineMode } from '@atlaskit/editor-common/connectivity/isOfflineMode';
 import Popup from '@atlaskit/editor-common/Popup';
 import type {
+	RegisteredMenuActiveItemChangeHandler,
 	RegisteredMenuInteraction,
+	RegisteredMenuListRenderedHandler,
 	RegisteredMenuContextValue,
 	RegisteredMenuSelection,
+	RegisteredMenuSelectionMeta,
 } from '@atlaskit/editor-common/registered-menu';
 import { RegisteredMenuContext } from '@atlaskit/editor-common/registered-menu/context';
 import { useMenuPopupSizing } from '@atlaskit/editor-common/registered-menu/popup-sizing';
@@ -21,10 +30,13 @@ import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSha
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles/constants';
 import type { RegisterComponent } from '@atlaskit/editor-ui-control-model/types';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
+import { fireTypeAheadClosedAnalyticsEvent } from '../../pm-plugins/analytics';
 import { performTypeAheadSelection } from '../../pm-plugins/commands/insert-type-ahead-item';
 import type { CloseSelectionOptions } from '../../pm-plugins/constants';
+import { getPluginState } from '../../pm-plugins/utils';
 import type { TypeAheadPlugin } from '../../typeAheadPluginType';
 import { InputQuery } from '../InputQuery';
 
@@ -131,14 +143,51 @@ export const RegisteredTypeAheadMenu = (props: Props): React.JSX.Element => {
 		}),
 	);
 	const select = useCallback(
-		(selectItem: RegisteredMenuSelection) => {
+		(selectItem: RegisteredMenuSelection, meta: RegisteredMenuSelectionMeta) => {
+			// Fire before closing: the queued selection clears the plugin state that holds the
+			// invocation method.
+			if (fg('platform_editor_slash_command_analytics')) {
+				fireTypeAheadClosedAnalyticsEvent(
+					api,
+					meta.isViewMore ? ACTION.VIEW_MORE : ACTION.INSERTED,
+					!!query,
+					meta.inputMethod === 'keyboard' ? INPUT_METHOD.KEYBOARD : INPUT_METHOD.MOUSE,
+					getPluginState(editorView.state)?.inputMethod,
+				);
+			}
 			onClose();
 			queueMicrotask(() =>
 				performTypeAheadSelection(editorView)({ handler: triggerHandler, query, selectItem }),
 			);
 		},
-		[editorView, onClose, query, triggerHandler],
+		[api, editorView, onClose, query, triggerHandler],
 	);
+	// In browse mode (no query) `items` counts every navigable row, including Recommended copies and
+	// "View more" rows. `viewed` reports only highlights the user makes by keyboard, pointer or
+	// focus, not the first item highlighted on open or after a query change.
+	const fireAnalyticsEvent = api?.analytics?.actions.fireAnalyticsEvent;
+	const onListRendered = useCallback<RegisteredMenuListRenderedHandler>(
+		({ itemCount, time }) =>
+			fireAnalyticsEvent?.({
+				action: ACTION.RENDERED,
+				actionSubject: ACTION_SUBJECT.TYPEAHEAD,
+				actionSubjectId: triggerHandler.id || 'not_set',
+				eventType: EVENT_TYPE.OPERATIONAL,
+				attributes: { time, items: itemCount, initial: query === '' },
+			}),
+		[fireAnalyticsEvent, query, triggerHandler.id],
+	);
+	const onActiveItemChange = useCallback<RegisteredMenuActiveItemChangeHandler>(
+		({ index, itemCount }) =>
+			fireAnalyticsEvent?.({
+				action: ACTION.VIEWED,
+				actionSubject: ACTION_SUBJECT.TYPEAHEAD_ITEM,
+				eventType: EVENT_TYPE.OPERATIONAL,
+				attributes: { index, items: itemCount, typeAheadId: triggerHandler.id },
+			}),
+		[fireAnalyticsEvent, triggerHandler.id],
+	);
+	const isAnalyticsEnabled = fg('platform_editor_slash_command_analytics');
 	const registeredMenu = useMemo<RegisteredMenuContextValue>(
 		() => ({
 			components,
@@ -149,6 +198,8 @@ export const RegisteredTypeAheadMenu = (props: Props): React.JSX.Element => {
 			getItemRank: triggerHandler.getRegisteredItemRank,
 			isOffline,
 			menuOpenId,
+			onActiveItemChange: isAnalyticsEnabled ? onActiveItemChange : undefined,
+			onListRendered: isAnalyticsEnabled ? onListRendered : undefined,
 			portalMountPoint: popupsMountPoint,
 			rootComponent,
 			query,
@@ -164,6 +215,9 @@ export const RegisteredTypeAheadMenu = (props: Props): React.JSX.Element => {
 			triggerHandler.getRegisteredItemRank,
 			isOffline,
 			menuOpenId,
+			isAnalyticsEnabled,
+			onActiveItemChange,
+			onListRendered,
 			popupsMountPoint,
 			rootComponent,
 			query,

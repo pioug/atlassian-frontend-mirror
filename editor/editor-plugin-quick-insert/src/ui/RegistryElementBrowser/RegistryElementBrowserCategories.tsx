@@ -7,6 +7,7 @@ import React, { useCallback } from 'react';
 import { css } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import Button from '@atlaskit/button/default/button';
 import { jsx } from '@atlaskit/css';
 import {
@@ -21,10 +22,14 @@ import {
 	TEXT_FORMATTING_SECTION,
 } from '@atlaskit/editor-common/quick-insert/keys';
 import { messages } from '@atlaskit/editor-common/quick-insert/messages';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Text } from '@atlaskit/primitives/compiled/text';
 import { token } from '@atlaskit/tokens';
 
 import type { RegistryElementBrowserSection } from './model';
+
+// Gives the ADS button click events the category list's component hierarchy.
+const COMPONENT_ANALYTICS_CONTEXT = { component: 'CategoryList' };
 
 type Props = {
 	onSectionClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
@@ -98,7 +103,7 @@ export const RegistryElementBrowserCategories = ({
 		}
 	}, []);
 
-	return (
+	const categories = (
 		<div
 			aria-label={formatMessage(messages.elementBrowserCategoriesLabel)}
 			css={categoryGridStyles}
@@ -142,4 +147,8 @@ export const RegistryElementBrowserCategories = ({
 			))}
 		</div>
 	);
+	if (!fg('platform_editor_slash_command_analytics')) {
+		return categories;
+	}
+	return <AnalyticsContext data={COMPONENT_ANALYTICS_CONTEXT}>{categories}</AnalyticsContext>;
 };

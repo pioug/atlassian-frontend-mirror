@@ -57,6 +57,9 @@
 			"path": "../editor-plugin-editor-viewmode/tsconfig.app.json"
 		},
 		{
+			"path": "../inp-collector/tsconfig.app.json"
+		},
+		{
 			"path": "../../platform/feature-experiments/tsconfig.app.json"
 		},
 		{

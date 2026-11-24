@@ -275,6 +275,8 @@ describe('Renderer - React/Nodes/Extension Inlined', () => {
 			setupEditorExperiments('test', {});
 			// platform-feature-experiments' isExperimentEnabled does not default to true in tests.
 			mockExpEnabled('platform_editor_remove_important_in_render_ext');
+			// Forge viewport heights already include `px`, so the unit must not be appended twice.
+			mockExpEnabled('confluence_forge_named_viewport_reservation');
 		});
 
 		it('with callback returning true - applies inline class and clears styles', () => {
@@ -300,7 +302,7 @@ describe('Renderer - React/Nodes/Extension Inlined', () => {
 			const wrapper = getByTestId('extension--wrapper') as HTMLElement;
 			expect(wrapper).not.toHaveClass(RendererCssClassName.EXTENSION_AS_INLINE);
 			expect(wrapper.style.width).toBe('');
-			expect(wrapper.style.minHeight).toBe('112pxpx');
+			expect(wrapper.style.minHeight).toBe('112px');
 		});
 	});
 

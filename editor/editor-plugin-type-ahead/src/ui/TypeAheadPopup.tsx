@@ -25,6 +25,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { DecorationSet, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles/constants';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { fireTypeAheadClosedAnalyticsEvent } from '../pm-plugins/analytics';
@@ -177,6 +178,9 @@ export const TypeAheadPopup: React.MemoExoticComponent<
 		api?.analytics?.actions?.fireAnalyticsEvent({
 			action: ACTION.RENDERED,
 			actionSubject: ACTION_SUBJECT.TYPEAHEAD,
+			...(fg('platform_editor_slash_command_analytics') && {
+				actionSubjectId: triggerHandler.id || 'not_set',
+			}),
 			eventType: EVENT_TYPE.OPERATIONAL,
 			attributes: {
 				time,
@@ -208,6 +212,7 @@ export const TypeAheadPopup: React.MemoExoticComponent<
 			attributes: {
 				index: selectedIndex,
 				items: items.length,
+				...(fg('platform_editor_slash_command_analytics') && { typeAheadId: triggerHandler.id }),
 			},
 		});
 	}, [

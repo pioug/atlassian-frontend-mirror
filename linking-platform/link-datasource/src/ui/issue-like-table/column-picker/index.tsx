@@ -219,7 +219,8 @@ export const ColumnPicker = ({
 				ref={pickerRef}
 				isOptionDisabled={handleIsOptionDisabled}
 				placeholder={intl.formatMessage(columnPickerMessages.search)}
-				onKeyDown={stopEscapePropagationWhenOpen}
+				// On the top-layer path, the popup takes Escape, and the layer around it stays open.
+				onKeyDown={fg('platform-dst-top-layer') ? undefined : stopEscapePropagationWhenOpen}
 				label="Search for fields"
 				onChange={handleChange}
 				isLoading={allOptions.length === 0}

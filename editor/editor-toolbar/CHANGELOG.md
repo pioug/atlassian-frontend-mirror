@@ -1,5 +1,19 @@
 # @atlaskit/editor-toolbar
 
+## 2.11.11
+
+### Patch Changes
+
+- [`8c572f86437a2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8c572f86437a2) -
+  Fix color palette keyboard navigation when top-layer tooltips are displayed, behind the
+  `platform_editor_lovability_colors_a11y_fixes` experiment.
+
+## 2.11.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.11.9
 
 ### Patch Changes

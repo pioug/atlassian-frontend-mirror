@@ -1,5 +1,41 @@
 # @atlaskit/editor-core
 
+## 246.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 245.5.0
+
+### Minor Changes
+
+- [`0ddd7c15d928a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0ddd7c15d928a) -
+  Expose `enableAgentSectioning` in the universal preset's mentions plugin configuration so Jira can
+  enable People and Agents sections behind `platform_editor_jira_agent_mentions_typeahead`.
+
+### Patch Changes
+
+- [`0d134772f6ac6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0d134772f6ac6) -
+  Clean up references to the fully rolled-out feature gate `platform_editor_typography_ugc`. Renames
+  the always-applied UGC heading typography style entry; no behaviour change.
+- Updated dependencies
+
+## 245.4.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 245.4.2
+
+### Patch Changes
+
+- [`28f7835c8e64d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28f7835c8e64d) -
+  Use the migrated user profile card by default across Platform consumers, including editor
+  mentions, notifications, search, and contributor avatars.
+- Updated dependencies
+
 ## 245.4.1
 
 ### Patch Changes

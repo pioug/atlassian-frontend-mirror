@@ -49,12 +49,10 @@ const tokenStyles = {
 
 const activeTokens = tokens
 	.filter((t) => t.attributes.state !== 'deleted' && t.attributes.state !== 'deprecated')
-	.map(
-		(t): Token => ({
-			token: t.name,
-			fallback: t.value as string | ShadowDefintion,
-		}),
-	)
+	.map((t): Token => ({
+		token: t.name,
+		fallback: t.value as string | ShadowDefintion,
+	}))
 	.filter(compose(pick('token'), not(isAccent)))
 	.filter(compose(pick('token'), not(isPressed)))
 	.filter(compose(pick('token'), not(isHovered)));

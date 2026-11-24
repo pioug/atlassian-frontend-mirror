@@ -14,6 +14,17 @@ export const sideNavVar = '--n_sNvw';
 export const asideVar = '--n_asDw';
 export const panelVar = '--n_pnlW';
 export const chatPanelVar = '--n_cPnlW';
+/**
+ * Rendered border-box width of ChatPanel in inline and overlay modes.
+ * Published on document.documentElement when Root opts into UNSAFE_dangerouslyHoistSlotSizes
+ * and platform-dst-chat-panel-layout is enabled. Only the primary Root should opt in.
+ * Use for positioning external controls, not sizing or persistence. Removed when chat unmounts.
+ */
+export const chatPanelWidthVar = '--n_chatPanelWidth';
+/**
+ * Inline space occupied by ChatPanel. Use a 0px fallback when Chat overlays or is closed.
+ */
+export const chatPanelInlineWidthVar = '--n_chatPanelInlineWidth';
 export const chatPanelLiveWidthVar = '--n_cPnlLw';
 export const mainMinimumWidthVar = '--n_mainMinW';
 export const bannerMountedVar = '--n_bnrM';

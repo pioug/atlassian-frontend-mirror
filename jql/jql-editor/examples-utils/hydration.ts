@@ -10,15 +10,13 @@ export const onHydrate = (query: string): Promise<HydratedValues> => {
 		setTimeout(() => {
 			const hydratedUsers = users
 				.filter((user) => query.includes(user.value))
-				.map(
-					(user): HydratedUser => ({
-						type: 'user',
-						id: user.value,
-						name: user.displayName,
-						avatarUrl: mockAvatarUrl,
-						appType: user.appType,
-					}),
-				);
+				.map((user): HydratedUser => ({
+					type: 'user',
+					id: user.value,
+					name: user.displayName,
+					avatarUrl: mockAvatarUrl,
+					appType: user.appType,
+				}));
 
 			resolve({
 				assignee: hydratedUsers,

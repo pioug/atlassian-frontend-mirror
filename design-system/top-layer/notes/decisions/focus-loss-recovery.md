@@ -67,7 +67,10 @@ The legacy path did not move lost focus while open either. On the top layer, `Mo
 it. `Popup` and `DropdownMenu` differ after a close: focus stays on `<body>`, where `focus-trap`
 returned it to the trigger. `DropdownMenuTopLayer` handles its keys on the menu, so ArrowDown does
 nothing after a loss. These are migration differences that the consumer fixes (see
-[Consumers](#consumers)), not layer bugs.
+[Consumers](#consumers)), not layer bugs. Choosing a `DropdownMenu` item is not a loss: the menu
+moves focus to its trigger before the item's change applies, as the APG menu button pattern and the
+legacy menu do (see
+[`../architecture/focus.md`](../architecture/focus.md#preserve-focus-moved-elsewhere)).
 
 ## Rejected
 

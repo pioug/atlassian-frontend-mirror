@@ -2,24 +2,36 @@
 order: 2
 ---
 
-## Usage
+## Deprecation
 
-A blanket covers the underlying UI and is intended to be used with layered components, such as a
-[modal dialog](/components/modal-dialog).
+Blanket is deprecated. Do not use it in new code.
 
-Use tinted blankets to give visual affordance when the blanket area shouldn’t be interacted with.
+Blanket is not in the browser top layer. Tooltips, popups, flags and dialogs are in the top layer,
+so they show above the blanket. A blanket also blocks only the pointer. Keyboard users can still
+move focus to the page under it.
+
+Use these components instead:
+
+| Use case                                                 | Use instead                                                                                                      |
+| -------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| A backdrop behind a modal                                | [Modal dialog](/components/modal-dialog). It has its own backdrop.                                               |
+| A backdrop behind a side panel                           | [Drawer](/components/drawer). It has its own backdrop.                                                           |
+| Close a menu or panel when the user clicks outside it    | [Popup](/components/popup). It closes on an outside click. The click also reaches the element under the pointer. |
+| Block the page while a modal loads                       | Open the [modal dialog](/components/modal-dialog) and show a [spinner](/components/spinner) in it.               |
+| Dim the page behind a [spotlight](/components/spotlight) | Do not dim the page. Spotlight does not block the page, by design.                                               |
+
+Modal dialog and drawer also keep keyboard focus inside the layer, and close on Escape.
 
 ## Accessibility
 
 - The blanket is controlled by the layered component that it belongs to, like a modal. Make sure
   that the layered component provides options to dismiss the layer for keyboard users as well as on
   click.
-- If you allow the components beneath the blanket to be interacted with, don’t include a tint as
+- If you allow the components beneath the blanket to be interacted with, do not include a tint as
   this reduces color contrast.
 
 ## Related
 
-- The blanket component is commonly used with the [modal dialog](/components/modal-dialog)
-  component.
-- Other components that use the blanket include the [drawer](/components/drawer) and
-  [spotlight](/components/onboarding).
+- [Modal dialog](/components/modal-dialog)
+- [Drawer](/components/drawer)
+- [Popup](/components/popup)

@@ -9,7 +9,9 @@ import type {
 import { editorExperimentsConfig } from './experiments-config';
 
 export type EditorExperimentOverrides = Partial<{
-	[ExperimentName in keyof typeof editorExperimentsConfig]: (typeof editorExperimentsConfig)[ExperimentName]['defaultValue'];
+	[
+		ExperimentName in keyof typeof editorExperimentsConfig
+	]: (typeof editorExperimentsConfig)[ExperimentName]['defaultValue'];
 }>;
 export type EditorExperimentParamOverrides = {
 	// Once the param setup moves to config -- this type can be more specific

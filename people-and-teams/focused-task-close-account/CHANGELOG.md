@@ -1,5 +1,19 @@
 # @atlaskit/focused-task-close-account
 
+## 5.25.0
+
+### Minor Changes
+
+- [`46292e94d6993`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/46292e94d6993) -
+  Update i18n NPM package versions for people-and-teams,identity (Group 8)
+
+## 5.24.0
+
+### Minor Changes
+
+- [`d8fb80b8b9a2c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d8fb80b8b9a2c) -
+  Update i18n NPM package versions for people-and-teams,identity (Group 8)
+
 ## 5.23.0
 
 ### Minor Changes

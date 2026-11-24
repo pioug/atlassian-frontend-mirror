@@ -32,7 +32,6 @@
 		"@babel/runtime": "root:*"
 	},
 	"devDependencies": {
-		"fetch-mock": "root:*",
-		"graphql": "root:*"
+		"fetch-mock": "root:*"
 	}
 }

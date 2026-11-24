@@ -7,9 +7,11 @@ import type { AnalyticsEventAttributes } from '../../../common/utils/analytics/a
 
 type InlineAnalyticsProps = {
 	screen: keyof {
-		[Key in keyof AnalyticsEventAttributes as Key extends `screen.${infer ScreenName}.viewed`
-			? ScreenName
-			: never]: any;
+		[
+			Key in keyof AnalyticsEventAttributes as Key extends `screen.${infer ScreenName}.viewed`
+				? ScreenName
+				: never
+		]: any;
 	};
 };
 

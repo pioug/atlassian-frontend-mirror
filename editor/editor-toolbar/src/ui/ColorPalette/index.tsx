@@ -3,6 +3,7 @@ import React, { useMemo, useCallback, useRef, useEffect } from 'react';
 import chromatism from 'chromatism';
 import { useIntl } from 'react-intl';
 
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { Grid } from '@atlaskit/primitives/compiled/grid';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
@@ -92,24 +93,31 @@ const ColorPalette = ({
 	}, [palette, selectedColor, cols]);
 
 	// Focus management utility
-	const focusColorAt = useCallback((row: number, col: number) => {
-		if (!paletteRef.current) {
-			return;
-		}
-
-		const rowElement = paletteRef.current.children[row];
-		if (!(rowElement instanceof HTMLElement)) {
-			return;
-		}
-
-		const colorButtonCandidate = rowElement.children[col]?.querySelector?.('button');
-		const colorButton =
-			colorButtonCandidate instanceof HTMLButtonElement ? colorButtonCandidate : null;
-		if (colorButton) {
-			colorButton.focus();
-			currentFocusRef.current = { row, col };
-		}
-	}, []);
+	const focusColorAt = useCallback(
+		(row: number, col: number) => {
+			let colorButton: HTMLButtonElement | null | undefined;
+			if (isExperimentEnabled('platform_editor_lovability_colors_a11y_fixes')) {
+				// Top-layer tooltips render alongside swatches, so only count the radio buttons.
+				colorButton =
+					paletteRef.current?.querySelectorAll<HTMLButtonElement>('button[role="radio"]')[
+						row * cols + col
+					];
+			} else {
+				const rowElement = paletteRef.current?.children[row];
+				if (!(rowElement instanceof HTMLElement)) {
+					return;
+				}
+				const colorButtonCandidate = rowElement.children[col]?.querySelector?.('button');
+				colorButton =
+					colorButtonCandidate instanceof HTMLButtonElement ? colorButtonCandidate : null;
+			}
+			if (colorButton) {
+				colorButton.focus();
+				currentFocusRef.current = { row, col };
+			}
+		},
+		[cols],
+	);
 
 	// Initialize focus position and handle autofocus
 	useEffect(() => {

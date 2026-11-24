@@ -362,6 +362,19 @@ function DropdownMenuTopLayer({
 				menuItem.getAttribute('role') === 'menuitemcheckbox' ||
 				menuItem.getAttribute('role') === 'menuitemradio';
 			if (!isCheckboxOrRadio && !menuItem.matches(submenuTriggerSelector)) {
+				// APG menu button: choosing an item focuses the trigger. Do it now, in the click. React
+				// applies the item's change before the menu hides, so an item that this click disables,
+				// removes or moves has lost focus by then, and `Popover` does not move lost focus.
+				// Focus that the item's handler moved elsewhere stays.
+				const trigger = triggerRef.current;
+				const activeElement = trigger?.ownerDocument.activeElement;
+				if (
+					trigger?.isConnected &&
+					(activeElement === trigger.ownerDocument.body ||
+						popoverRef.current?.contains(activeElement ?? null))
+				) {
+					trigger.focus({ preventScroll: true });
+				}
 				closeMenu({ event: e.nativeEvent });
 			}
 		},

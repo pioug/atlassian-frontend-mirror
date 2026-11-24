@@ -2,11 +2,12 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import { css } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
+import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import IconButton from '@atlaskit/button/icon/button';
 import { jsx } from '@atlaskit/css';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
@@ -28,26 +29,25 @@ import ModalFooter from '@atlaskit/modal-dialog/modal-footer';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
 import ModalTransition from '@atlaskit/modal-dialog/modal-transition';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 
 import type { RecommendedItemsResolver } from '../registered-menu/get-quick-insert-menu-model';
 import { useQuickInsertSearchAnalytics } from '../registered-menu/useQuickInsertSearchAnalytics';
 import {
-	getArrowKeyTargetIndex,
 	RETURN_TO_SEARCH,
 	type RegistryElementBrowserArrowKey,
-	type RegistryElementBrowserOption,
-} from './getArrowKeyTargetIndex';
+} from './getVirtualizedArrowKeyTarget';
 import {
 	createRegistryElementBrowserModel,
 	getInitialRegistryElementBrowserSection,
-	type RegistryElementBrowserItem,
 } from './model';
-import { getFirstEnabledOption, isOptionDisabled } from './options';
+import { getOptions } from './options';
 import { RegistryElementBrowserCategories } from './RegistryElementBrowserCategories';
 import { RegistryElementBrowserFooter } from './RegistryElementBrowserFooter';
 import { RegistryElementBrowserSearchResults } from './RegistryElementBrowserSearchResults';
+import { useVirtualizedGridNavigation } from './useVirtualizedGridNavigation';
 
 type Props = {
 	components: RegisterComponent[];
@@ -78,6 +78,9 @@ type BrowserState = {
 
 const browserGridTemplateColumns = '182px minmax(0, 1fr)';
 const categoryColumnGap = `calc(${token('space.200')} + ${token('space.150')})`;
+// Keep tiles at least 215px wide within the modal, including room for its scrollbar.
+const mediumGridQuery = '(min-width: 613px)';
+const wideGridQuery = '(min-width: 1054px)';
 
 const browserLayoutStyles = css({
 	display: 'grid',
@@ -113,18 +116,30 @@ const headerSearchStyles = css({
 	width: '100%',
 });
 
-const EMPTY_ITEMS: RegistryElementBrowserItem[] = [];
-
 const resultsId = 'registry-element-browser-results';
 const modalTestId = 'registry-element-browser-modal';
 
 const arrowKeys = new Set<string>(['ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowUp']);
 const isArrowKey = (key: string): key is RegistryElementBrowserArrowKey => arrowKeys.has(key);
 
-const toArrowKeyOption = (option: HTMLElement): RegistryElementBrowserOption => ({
-	getRect: () => option.getBoundingClientRect(),
-	isDisabled: isOptionDisabled(option),
-});
+const getOptionKey = (element: Element): string | undefined => {
+	const option = element.closest<HTMLElement>('[role="option"]');
+	return option?.closest<HTMLElement>('[data-virtual-option]')?.dataset.virtualOption || option?.id;
+};
+
+// Gives the ADS events inside the browser (search and categories, not the footer) the element
+// browser's source hierarchy.
+const SOURCE_ANALYTICS_CONTEXT = { source: 'ElementBrowser' };
+const ElementBrowserAnalyticsContext = ({
+	children,
+}: {
+	children: React.ReactNode;
+}): React.JSX.Element =>
+	fg('platform_editor_slash_command_analytics') ? (
+		<AnalyticsContext data={SOURCE_ANALYTICS_CONTEXT}>{children}</AnalyticsContext>
+	) : (
+		<React.Fragment>{children}</React.Fragment>
+	);
 
 export const RegistryElementBrowser = ({
 	components,
@@ -198,11 +213,14 @@ export const RegistryElementBrowser = ({
 		surfaceContext,
 	]);
 	const { effectiveSection, items, recommendedItems } = model;
-	const resultItems = useMemo(() => [...recommendedItems, ...items], [items, recommendedItems]);
-	const visibleItems =
-		resultItems.length === 0 && !isLoading && query.trim().length > 0
-			? (model.fallbackItems ?? EMPTY_ITEMS)
-			: resultItems;
+	const matchCount = recommendedItems.length + items.length;
+	const shouldRenderEmptyState = matchCount === 0 && !isLoading;
+	const regularItems =
+		shouldRenderEmptyState && query.trim() ? (model.fallbackItems ?? items) : items;
+	const visibleItems = useMemo(
+		() => [...recommendedItems, ...regularItems],
+		[recommendedItems, regularItems],
+	);
 	const isSelectedRegistrationCurrent = Boolean(
 		selectedRegistration &&
 		browserState.selectionIsOffline === isOffline &&
@@ -221,10 +239,86 @@ export const RegistryElementBrowser = ({
 		});
 	}
 	const searchInputRef = useRef<HTMLInputElement>(null);
+	const resultsRef = useRef<HTMLDivElement>(null);
 	const selectedCategoryRef = useRef<HTMLButtonElement>(null);
 	const focusedCategoryRef = useRef<string | undefined>();
 	const handledInvalidationRef = useRef(browserState.invalidation);
 	const wasOpen = useRef(false);
+	const [scrollElement, setScrollElement] = useState<HTMLElement | null>(null);
+	const [columnCount, setColumnCount] = useState(1);
+	const previousColumnCount = useRef(columnCount);
+	const { cancelNavigation, navigate, requestedRow } = useVirtualizedGridNavigation();
+	const [focusedKey, setFocusedKey] = useState<string>();
+	const rowCount = Math.ceil(regularItems.length / columnCount);
+	const focusedIndex =
+		focusedKey === undefined
+			? -1
+			: regularItems.findIndex(({ registration }) => registration.key === focusedKey);
+	const focusedRow = focusedIndex < 0 ? undefined : Math.floor(focusedIndex / columnCount);
+	const setBrowserLayoutRef = useCallback((element: HTMLDivElement | null) => {
+		setScrollElement(
+			element?.closest<HTMLElement>(`[data-testid="${modalTestId}--scrollable"]`) ?? null,
+		);
+	}, []);
+
+	useLayoutEffect(() => {
+		const ownerWindow = scrollElement?.ownerDocument.defaultView;
+		if (!ownerWindow?.matchMedia) {
+			return;
+		}
+		const medium = ownerWindow.matchMedia(mediumGridQuery);
+		const wide = ownerWindow.matchMedia(wideGridQuery);
+		const updateColumnCount = () => setColumnCount(wide.matches ? 3 : medium.matches ? 2 : 1);
+		updateColumnCount();
+		medium.onchange = updateColumnCount;
+		wide.onchange = updateColumnCount;
+		return () => {
+			medium.onchange = null;
+			wide.onchange = null;
+		};
+	}, [scrollElement]);
+
+	useLayoutEffect(() => {
+		cancelNavigation();
+	}, [cancelNavigation, columnCount, isOpen, visibleItems]);
+
+	useLayoutEffect(() => {
+		const columnsChanged = previousColumnCount.current !== columnCount;
+		previousColumnCount.current = columnCount;
+		const results = resultsRef.current;
+		const ownerDocument = results?.ownerDocument;
+		const activeElement = ownerDocument?.activeElement;
+		if (!isOpen || !focusedKey || (!columnsChanged && activeElement !== ownerDocument?.body)) {
+			return;
+		}
+		const option = getOptions(results).find((option) => getOptionKey(option) === focusedKey);
+		if (activeElement === ownerDocument?.body) {
+			// Changing columns or registrations can move the focused tile to a different row.
+			option?.focus({ preventScroll: columnsChanged });
+		}
+		const ownerWindow = ownerDocument?.defaultView;
+		if (!columnsChanged || !option || !ownerWindow) {
+			return;
+		}
+		const scrollFocusedOptionIntoView = () => {
+			if (ownerDocument.activeElement === option) {
+				option.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+			}
+		};
+		// Media queries change before resize observers remeasure the grid in the same frame.
+		let frame = ownerWindow.requestAnimationFrame(() => {
+			frame = ownerWindow.requestAnimationFrame(scrollFocusedOptionIntoView);
+		});
+		return () => ownerWindow.cancelAnimationFrame(frame);
+	}, [columnCount, focusedKey, isOpen, visibleItems]);
+
+	const resetResultsScroll = useCallback(() => {
+		if (scrollElement) {
+			scrollElement.scrollTop = 0;
+		}
+		cancelNavigation();
+		setFocusedKey(undefined);
+	}, [cancelNavigation, scrollElement]);
 
 	useEffect(() => {
 		if (isOpen && !wasOpen.current) {
@@ -262,11 +356,9 @@ export const RegistryElementBrowser = ({
 		}
 	}, [browserState.invalidation, isOpen, onClearSelection]);
 
-	const resultCount =
-		resultItems.length || (!isLoading && query.trim() ? (model.fallbackItems?.length ?? 0) : 0);
 	const flushSearchAnalytics = useQuickInsertSearchAnalytics({
 		query,
-		resultCount: resultItems.length,
+		resultCount: matchCount,
 		surface: 'element-browser',
 		category: effectiveSection ?? 'all',
 		isOpen: isOpen && !isLoading,
@@ -294,6 +386,7 @@ export const RegistryElementBrowser = ({
 	const onSearchChange = useCallback(
 		(event: React.ChangeEvent<HTMLInputElement>) => {
 			const nextQuery = event.currentTarget.value;
+			resetResultsScroll();
 			selectedRegistrationRef.current = undefined;
 			setBrowserState((current) => ({
 				...current,
@@ -302,11 +395,12 @@ export const RegistryElementBrowser = ({
 			}));
 			onClearSelection();
 		},
-		[onClearSelection],
+		[onClearSelection, resetResultsScroll],
 	);
 	const onSectionClick = useCallback(
 		(event: React.MouseEvent<HTMLButtonElement>) => {
 			const nextSection = event.currentTarget.dataset.section || undefined;
+			resetResultsScroll();
 			selectedRegistrationRef.current = undefined;
 			setBrowserState({
 				query: '',
@@ -315,7 +409,7 @@ export const RegistryElementBrowser = ({
 			});
 			onClearSelection();
 		},
-		[onClearSelection],
+		[onClearSelection, resetResultsScroll],
 	);
 	const onRegistrySelect = useCallback(
 		(registration: RegisterMenuItem, handler: QuickInsertSelectionHandler) => {
@@ -352,6 +446,43 @@ export const RegistryElementBrowser = ({
 		scrollableBody?.style.setProperty('border-block-start', 'none');
 		scrollableBody?.style.setProperty('border-block-end', 'none');
 	}, []);
+	const navigateResults = useCallback(
+		(
+			currentOption: HTMLElement | null,
+			key: RegistryElementBrowserArrowKey,
+			onTarget: (target: HTMLElement | typeof RETURN_TO_SEARCH | undefined) => boolean,
+			repeat?: boolean,
+		) => {
+			const container = resultsRef.current;
+			return container
+				? navigate({ container, currentOption, key, rowCount }, onTarget, repeat)
+				: false;
+		},
+		[navigate, rowCount],
+	);
+	const onResultsFocus = useCallback(
+		(event: React.FocusEvent<HTMLDivElement>) => {
+			if (event.target === event.currentTarget) {
+				navigateResults(null, 'ArrowDown', (target) => {
+					if (!target || target === RETURN_TO_SEARCH) {
+						return false;
+					}
+					target.focus();
+					return true;
+				});
+				return;
+			}
+			setFocusedKey(getOptionKey(event.target));
+		},
+		[navigateResults],
+	);
+	const onResultsBlur = useCallback((event: React.FocusEvent<HTMLDivElement>) => {
+		if (event.relatedTarget) {
+			setFocusedKey(
+				event.relatedTarget instanceof Element ? getOptionKey(event.relatedTarget) : undefined,
+			);
+		}
+	}, []);
 	const onKeyDown = useCallback(
 		(event: React.KeyboardEvent) => {
 			if (
@@ -373,32 +504,38 @@ export const RegistryElementBrowser = ({
 					return;
 				}
 
-				const resultCollection = event.currentTarget.ownerDocument.getElementById(resultsId);
-				const options = Array.from(
-					resultCollection?.querySelectorAll<HTMLElement>('[role="option"]') ?? [],
-				);
-				const currentIndex = options.findIndex(
-					(option) => option === event.currentTarget.ownerDocument.activeElement,
-				);
-				const targetIndex = getArrowKeyTargetIndex(
-					options.map(toArrowKeyOption),
-					currentIndex,
+				const currentOption =
+					event.target instanceof HTMLElement
+						? event.target.closest<HTMLElement>('[role="option"]')
+						: null;
+				const handled = navigateResults(
+					currentOption,
 					event.key,
+					(target) => {
+						if (target === RETURN_TO_SEARCH) {
+							searchInputRef.current?.focus();
+							return true;
+						}
+						if (!target) {
+							return false;
+						}
+						target.focus();
+						target.click();
+						return true;
+					},
+					event.repeat,
 				);
-				const nextOption = targetIndex === undefined ? undefined : options[targetIndex];
-				if (nextOption) {
+				if (handled) {
 					event.preventDefault();
-					nextOption.focus();
-					nextOption.click();
-				} else if (targetIndex === RETURN_TO_SEARCH) {
-					event.preventDefault();
-					searchInputRef.current?.focus();
 				}
 				return;
 			}
 
-			if (event.key === 'Escape') {
+			// On the top-layer path, the modal closes on Escape through `onClose`, after any open layer
+			// above it.
+			if (!fg('platform-dst-top-layer') && event.key === 'Escape') {
 				event.preventDefault();
+				cancelNavigation();
 				closeBrowser();
 				return;
 			}
@@ -408,20 +545,29 @@ export const RegistryElementBrowser = ({
 					event.target instanceof HTMLElement
 						? event.target.closest<HTMLElement>('[role="option"]')
 						: null;
-				const firstOption = getFirstEnabledOption(
-					event.currentTarget.ownerDocument.getElementById(resultsId),
-				);
-				const optionToActivate = focusedOption ?? firstOption;
-				if (isSelectedRegistrationCurrent || optionToActivate) {
+				if (isSelectedRegistrationCurrent || focusedOption) {
 					event.preventDefault();
+					cancelNavigation();
 					if (!isSelectedRegistrationCurrent) {
-						optionToActivate?.click();
+						focusedOption?.click();
 					}
 					confirmInsert();
+					return;
+				}
+				const handled = navigateResults(null, 'ArrowDown', (target) => {
+					if (!target || target === RETURN_TO_SEARCH) {
+						return false;
+					}
+					target.click();
+					confirmInsert();
+					return true;
+				});
+				if (handled) {
+					event.preventDefault();
 				}
 			}
 		},
-		[closeBrowser, confirmInsert, isSelectedRegistrationCurrent],
+		[cancelNavigation, closeBrowser, confirmInsert, isSelectedRegistrationCurrent, navigateResults],
 	);
 
 	return (
@@ -436,66 +582,78 @@ export const RegistryElementBrowser = ({
 					testId={modalTestId}
 					width="min(1072px, calc(100vw - 32px))"
 				>
-					<ModalHeader>
-						<div css={headerContentStyles}>
-							<ModalTitle>{formatMessage(messages.elementBrowserTitle)}</ModalTitle>
-							<div css={headerSearchStyles}>
-								<Textfield
-									autoFocus
-									aria-controls={resultsId}
-									aria-label={formatMessage(messages.elementBrowserSearchPlaceholder)}
-									isCompact
-									name="registry-element-browser-search"
-									onFocus={onSearchFocus}
-									onChange={onSearchChange}
-									onKeyDown={onKeyDown}
-									placeholder={formatMessage(messages.elementBrowserSearchPlaceholder)}
-									ref={searchInputRef}
-									value={query}
+					<ElementBrowserAnalyticsContext>
+						<ModalHeader>
+							<div css={headerContentStyles}>
+								<ModalTitle>{formatMessage(messages.elementBrowserTitle)}</ModalTitle>
+								<div css={headerSearchStyles}>
+									<Textfield
+										autoFocus
+										aria-controls={resultsId}
+										aria-label={formatMessage(messages.elementBrowserSearchPlaceholder)}
+										isCompact
+										name="registry-element-browser-search"
+										onFocus={onSearchFocus}
+										onChange={onSearchChange}
+										onKeyDown={onKeyDown}
+										placeholder={formatMessage(messages.elementBrowserSearchPlaceholder)}
+										ref={searchInputRef}
+										value={query}
+									/>
+									<IconButton
+										appearance="subtle"
+										icon={CrossIcon}
+										label={formatMessage(messages.close)}
+										onClick={closeBrowser}
+										spacing="compact"
+									/>
+								</div>
+							</div>
+						</ModalHeader>
+						<ModalBody hasInlinePadding={false}>
+							<div
+								css={browserLayoutStyles}
+								onFocusCapture={onBrowserFocusCapture}
+								ref={setBrowserLayoutRef}
+							>
+								<RegistryElementBrowserCategories
+									section={effectiveSection}
+									sections={model.sections}
+									onSectionClick={onSectionClick}
+									selectedButtonRef={selectedCategoryRef}
 								/>
-								<IconButton
-									appearance="subtle"
-									icon={CrossIcon}
-									label={formatMessage(messages.close)}
-									onClick={closeBrowser}
-									spacing="compact"
+								<RegistryElementBrowserSearchResults
+									editorView={editorView}
+									emptyStateHandler={emptyStateHandler}
+									isOffline={isOffline}
+									items={regularItems}
+									query={query}
+									recommendedItems={recommendedItems}
+									resultsId={resultsId}
+									resultsRef={resultsRef}
+									surfaceContext={surfaceContext}
+									section={effectiveSection}
+									selectedKey={selectedKey}
+									onKeyDown={onKeyDown}
+									onBlur={onResultsBlur}
+									onFocus={onResultsFocus}
+									onSelect={onRegistrySelect}
+									showEmptyState={shouldRenderEmptyState}
+									columnCount={columnCount}
+									focusedRow={focusedRow}
+									requestedRow={requestedRow}
+									scrollElement={scrollElement}
 								/>
 							</div>
-						</div>
-					</ModalHeader>
-					<ModalBody hasInlinePadding={false}>
-						<div css={browserLayoutStyles} onFocusCapture={onBrowserFocusCapture}>
-							<RegistryElementBrowserCategories
-								section={effectiveSection}
-								sections={model.sections}
-								onSectionClick={onSectionClick}
-								selectedButtonRef={selectedCategoryRef}
-							/>
-							<RegistryElementBrowserSearchResults
-								editorView={editorView}
-								emptyStateHandler={emptyStateHandler}
-								isLoading={isLoading}
-								isOffline={isOffline}
-								items={items}
-								fallbackItems={model.fallbackItems}
-								query={query}
-								recommendedItems={recommendedItems}
-								resultsId={resultsId}
-								surfaceContext={surfaceContext}
-								section={effectiveSection}
-								selectedKey={selectedKey}
-								onKeyDown={onKeyDown}
-								onSelect={onRegistrySelect}
-							/>
-						</div>
-					</ModalBody>
+						</ModalBody>
+					</ElementBrowserAnalyticsContext>
 					<ModalFooter>
 						<RegistryElementBrowserFooter
 							helpUrl={helpUrl}
 							isInsertEnabled={isSelectedRegistrationCurrent}
 							onClose={closeBrowser}
 							onConfirmInsert={confirmInsert}
-							resultCount={resultCount}
+							resultCount={visibleItems.length}
 						/>
 					</ModalFooter>
 				</Modal>

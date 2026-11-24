@@ -16,6 +16,7 @@ import { screen } from '@atlassian/testing-library/screen';
 import { userEvent } from '@atlassian/testing-library/user-event';
 import { waitFor } from '@atlassian/testing-library/wait-for';
 
+import { nodes } from '../../../../entry-points/nodes-default';
 import { Doc } from '../../../../react/nodes';
 import Panel from '../../../../react/nodes/panel';
 import { CollapsibleHeadingsProvider, useCollapsibleHeading } from '../../../collapsible-headings';
@@ -283,6 +284,7 @@ function RendererWithIntl({
 	return (
 		<IntlProvider locale="en">
 			<Renderer
+				nodeComponents={nodes}
 				allowCollapsibleHeadings={allowCollapsibleHeadings}
 				appearance={appearance}
 				createAnalyticsEvent={createAnalyticsEvent}

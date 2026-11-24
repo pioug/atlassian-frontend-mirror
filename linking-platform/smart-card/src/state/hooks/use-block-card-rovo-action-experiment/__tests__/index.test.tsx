@@ -3,7 +3,6 @@ import React from 'react';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import type { CardProviderStoreOpts } from '@atlaskit/link-provider/types';
 import type { ProductType } from '@atlaskit/linking-common/types';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { renderHook } from '@atlassian/testing-library/render-hook';
 
 import { CardAction } from '../../../../constants';
@@ -128,7 +127,6 @@ describe('useBlockCardRovoAction', () => {
 	});
 
 	describe('when the consumer hides the Rovo chat action', () => {
-		const GATE = 'platform_sl_block_card_rovo_action_respect_hide';
 		const hiddenCases: { actionOptions: CardActionOptions; name: string }[] = [
 			{ name: 'hide: true', actionOptions: { hide: true, rovoChatAction: { optIn: true } } },
 			{
@@ -141,24 +139,14 @@ describe('useBlockCardRovoAction', () => {
 			},
 		];
 
-		it.each(hiddenCases)('returns false with $name when the gate is on', ({ actionOptions }) => {
-			passGate(GATE);
+		it.each(hiddenCases)('returns false with $name', ({ actionOptions }) => {
 			const result = renderHook(() => useBlockCardRovoAction(mockUrl, actionOptions), {
 				wrapper: wrapper(enabledRovoOptions, 'google-object-provider', undefined, 'CONFLUENCE'),
 			});
 			expect(result.current).toBe(false);
 		});
 
-		it.each(hiddenCases)('returns true with $name when the gate is off', ({ actionOptions }) => {
-			failGate(GATE);
-			const result = renderHook(() => useBlockCardRovoAction(mockUrl, actionOptions), {
-				wrapper: wrapper(enabledRovoOptions, 'google-object-provider', undefined, 'CONFLUENCE'),
-			});
-			expect(result.current).toBe(true);
-		});
-
-		it('returns true when another action is excluded and the gate is on', () => {
-			passGate(GATE);
+		it('returns true when another action is excluded', () => {
 			const result = renderHook(
 				() =>
 					useBlockCardRovoAction(mockUrl, {

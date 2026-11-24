@@ -556,11 +556,13 @@ type TupleIndices<T extends readonly any[]> =
  * ```
  */
 type BuildOptionalAPIEntry<T extends AllEditorPresetPluginTypes[]> = {
-	[K in TupleIndices<T> as undefined extends T[K]
-		? T[K] extends MaybePlugin<infer P>
-			? ExtractPluginNameFromAllBuilderPlugins<P>
+	[
+		K in TupleIndices<T> as undefined extends T[K]
+			? T[K] extends MaybePlugin<infer P>
+				? ExtractPluginNameFromAllBuilderPlugins<P>
+				: never
 			: never
-		: never]?: undefined extends T[K]
+	]?: undefined extends T[K]
 		? T[K] extends MaybePlugin<infer P>
 			? PluginDependenciesAPI<ExtractPluginAllBuilderPlugins<P>> | undefined
 			: never
@@ -587,11 +589,13 @@ type BuildOptionalAPIEntry<T extends AllEditorPresetPluginTypes[]> = {
  * ```
  */
 type BuildRequiredAPIEntry<T extends AllEditorPresetPluginTypes[]> = {
-	[K in TupleIndices<T> as undefined extends T[K]
-		? never
-		: T[K] extends PresetPlugin
-			? ExtractPluginNameFromAllBuilderPlugins<T[K]>
-			: never]: undefined extends T[K]
+	[
+		K in TupleIndices<T> as undefined extends T[K]
+			? never
+			: T[K] extends PresetPlugin
+				? ExtractPluginNameFromAllBuilderPlugins<T[K]>
+				: never
+	]: undefined extends T[K]
 		? never
 		: T[K] extends PresetPlugin
 			? PluginDependenciesAPI<ExtractPluginAllBuilderPlugins<T[K]>>

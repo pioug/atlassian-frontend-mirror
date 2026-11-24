@@ -1,5 +1,26 @@
 # @atlaskit/prosemirror-history
 
+## 1.4.0
+
+### Minor Changes
+
+- [`1df483ea98d52`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1df483ea98d52) -
+  Add external-history-event and agent-undo diagnostics subpaths, promote owned backend agent
+  batches as native history events (one received batch is one undo event), and make their undo and
+  redo atomic behind the platform_editor_agent_be_review_undo_exp experiment. Expose actual
+  promotion outcomes and opt-in schema v3 diagnostics with package context, redacted aliases,
+  receive versions/counts, actual routing, branch counts and preflight outcomes. History compression
+  keeps a promoted event whose step can no longer be mapped recognisably incomplete, so its undo or
+  redo is refused instead of applying in part. A refused event is dropped from its branch, with its
+  maps kept, so the next undo or redo reaches the event beneath it instead of being refused again.
+  When a batch lands while the user has unconfirmed typing, the batch sits beneath that typing: the
+  first undo removes the typing and the second removes the whole batch. The agent undo diagnostics
+  install their `window.__EDITOR_AGENT_UNDO_DEBUG_*` entry points lazily, only once
+  `window.__EDITOR_AGENT_UNDO_DEBUG__` is set, so importing the package no longer touches `window`.
+  A receive that lands in a history slice which has already tracked a document-changing step is no
+  longer promoted, because its event could not be undone once the slice ended; it stays map-only and
+  diagnostics record `history-slice-has-tracked-steps`.
+
 ## 1.3.1
 
 ### Patch Changes

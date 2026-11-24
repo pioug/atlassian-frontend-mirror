@@ -28,6 +28,7 @@ import type {
 } from '@atlaskit/editor-common/OverflowShadow';
 import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import type { Mark as PMMark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { expVal } from '@atlaskit/platform-feature-experiments/exp-val';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
@@ -265,7 +266,8 @@ export const renderExtension = (
 	const extensionHeight = nodePresetMinHeight || viewportSize;
 	// Forge manifest heights already include px; Connect node heights are numeric strings.
 	const extensionMinHeight =
-		extensionHeight?.endsWith('px') && fg('confluence_forge_early_render_reserve_height')
+		extensionHeight?.endsWith('px') &&
+		expVal('confluence_forge_named_viewport_reservation', 'isEnabled', false)
 			? extensionHeight
 			: extensionHeight && `${extensionHeight}px`;
 	/**

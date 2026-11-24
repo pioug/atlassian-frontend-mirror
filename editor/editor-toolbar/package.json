@@ -3,7 +3,7 @@
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
 	},
-	"version": "2.11.9",
+	"version": "2.11.11",
 	"description": "Common UI for Toolbars across the platform",
 	"atlassian": {
 		"website": {
@@ -163,6 +163,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/toggle": "workspace:^",
+		"@atlassian/experiment-test-utils": "workspace:^",
 		"@atlassian/feature-flags-test-utils": "workspace:^",
 		"@atlassian/testing-library": "workspace:^",
 		"@atlassian/workbench": "workspace:*",

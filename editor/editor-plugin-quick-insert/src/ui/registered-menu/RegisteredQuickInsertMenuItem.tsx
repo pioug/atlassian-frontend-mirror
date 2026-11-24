@@ -1,6 +1,9 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
-import type { QuickInsertContextValue } from '@atlaskit/editor-common/quick-insert/context';
+import type {
+	QuickInsertContextValue,
+	QuickInsertSelectionHandler,
+} from '@atlaskit/editor-common/quick-insert/context';
 import { QuickInsertProvider } from '@atlaskit/editor-common/quick-insert/provider';
 import { useQuickInsertContext } from '@atlaskit/editor-common/quick-insert/use-quick-insert-context';
 import type { RegisteredMenuItemProps } from '@atlaskit/editor-common/registered-menu';
@@ -13,16 +16,29 @@ export const RegisteredQuickInsertMenuItem = ({
 }: RegisteredMenuItemProps): React.JSX.Element => {
 	const { editorView, isOffline, popupsMountPoint, select, surfaceContext } =
 		useQuickInsertContext();
+	const selectCurrentItem = useCallback(
+		(selection: QuickInsertSelectionHandler) => select(selection, registration.key),
+		[registration.key, select],
+	);
 	const value = useMemo<QuickInsertContextValue>(
 		() => ({
 			editorView,
 			isOffline,
 			item: { id, isSelected, isPreviewActive: isActive },
 			popupsMountPoint,
-			select,
+			select: selectCurrentItem,
 			surfaceContext,
 		}),
-		[editorView, isOffline, popupsMountPoint, select, surfaceContext, isActive, id, isSelected],
+		[
+			editorView,
+			isOffline,
+			popupsMountPoint,
+			selectCurrentItem,
+			surfaceContext,
+			isActive,
+			id,
+			isSelected,
+		],
 	);
 	const Component = registration.component;
 	return (

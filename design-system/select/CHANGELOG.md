@@ -1,5 +1,22 @@
 # @atlaskit/select
 
+## 23.2.7
+
+### Patch Changes
+
+- [`30c4151813c1b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/30c4151813c1b) -
+  Remove the duplicate popup surface in PopupSelect when platform-dst-top-layer is enabled so only
+  PopoverSurface supplies the background, rounded corners, and shadow.
+
+## 23.2.6
+
+### Patch Changes
+
+- [`f62e4025832ef`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f62e4025832ef) -
+  Remove the platform_dst_select_dropdown_voice_control feature gate and make its disabled behavior
+  permanent, keeping the decorative dropdown indicator hidden from assistive technology.
+- Updated dependencies
+
 ## 23.2.5
 
 ### Patch Changes

@@ -1,5 +1,22 @@
 # @atlaskit/link-datasource
 
+## 7.15.6
+
+### Patch Changes
+
+- [`c6380b3001ef7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c6380b3001ef7) -
+  Make the optional datasource request completion callback available to all hosts and remove the
+  obsolete rollout gate.
+- Updated dependencies
+
+## 7.15.5
+
+### Patch Changes
+
+- [`c87c250b16958`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c87c250b16958) -
+  Behind `platform-dst-top-layer`, the column picker no longer stops Escape.
+- Updated dependencies
+
 ## 7.15.4
 
 ### Patch Changes

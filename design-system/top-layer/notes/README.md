@@ -146,6 +146,9 @@ Architectural decisions, design rationale, and decision logs.
   for `color`; `font` stays excluded
 - **[migration-roadmap.md](./decisions/migration-roadmap.md)** — Current matrix: which packages ship
   a top-layer code path, partial migrations, test-only coverage, and skipped packages
+- **[deprecate-blanket.md](./decisions/deprecate-blanket.md)**: Decision: deprecate
+  `@atlaskit/blanket` now and remove it after the `platform-dst-top-layer` cleanup. The standalone
+  use cases and their replacements, and why there is no lint rule
 - **[host-specificity-boost.md](./decisions/host-specificity-boost.md)** — Decision: why the
   `Popover` and `Dialog` hosts declare their own styles at (0,4,0) under `:defined:defined:defined`,
   what that covers, and its limits

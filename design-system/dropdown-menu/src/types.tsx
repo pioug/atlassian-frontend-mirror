@@ -312,6 +312,8 @@ export interface DropdownItemProps {
 	children: React.ReactNode;
 
 	/**
+	 * @deprecated DropdownItem no longer supports this prop with the platform-dst-new-menu gate enabled. Do not attempt to override styles.
+	 *
 	 * Custom component to render as an item.
 	 * Should be wrapped in `forwardRef` to avoid accessibility issues when controlling keyboard focus.
 	 */
@@ -330,12 +332,16 @@ export interface DropdownItemProps {
 	isDisabled?: boolean;
 
 	/**
-	 * When `true` the title of the item will wrap multiple lines if it exceeds the width of the dropdown menu.
+	 * When `true` the title of the item will wrap multiple lines if it exceeds the width of the dropdown menu. When `false`, the title will truncate if it does not fit in one line.
+	 *
+	 * Defaults to `true`.
 	 */
 	shouldTitleWrap?: boolean;
 
 	/**
-	 * When `true` the description of the item will wrap multiple lines if it exceeds the width of the dropdown menu.
+	 * When `true` the description of the item will wrap multiple lines if it exceeds the width of the dropdown menu. When `false`, the description will truncate if it does not fit in one line.
+	 *
+	 * Defaults to `true`.
 	 */
 	shouldDescriptionWrap?: boolean;
 
@@ -361,6 +367,8 @@ export interface DropdownItemProps {
 	target?: string;
 
 	/**
+	 * @deprecated DropdownItem no longer supports this prop with the platform-dst-new-menu gate enabled.
+	 *
 	 * Adds a title attribute to the root item element.
 	 */
 	title?: string;
@@ -377,10 +385,19 @@ export interface DropdownItemProps {
 	 */
 	elemAfter?: React.ReactNode;
 
-	shortcut?: string[];
+	/**
+	 * Displays keyboard shortcuts used to trigger this item.
+	 *
+	 * This prop does not register keyboard events, it is purely to display the shortcut keys in the DropdownItem.
+	 */
+	shortcut?: Shortcut;
+
+	/**
+	 * Renders the DropdownItem with a danger appearance. Use selectively for destructive actions.
+	 */
 	appearance?: 'danger';
 	/**
-	 * Shows a submenu indicator for custom submenu triggers. DropdownMenu triggers automatically infer this from context so you do not need to set this prop manually. Only set it manually if you are using a trigger other than DropdownMenu trigger (e.g. Popup trigger)
+	 * Shows a submenu indicator for custom submenu triggers. DropdownMenu triggers will automatically infer this from context so you do not need to set this prop manually. Only set it manually if you are using a trigger other than DropdownMenu trigger (e.g. Popup trigger)
 	 */
 	hasNestedMenu?: boolean;
 
@@ -398,6 +415,7 @@ export interface DropdownItemProps {
 	testId?: string;
 
 	/**
+	 * @deprecated DropdownItem no longer supports this prop with the platform-dst-new-menu gate enabled.
 	 * Use this to opt out of using a router link and instead use a regular anchor element when
 	 * using the `href` prop.
 	 * Marked as "unsafe" because ideally, router links should be used for all internal links.
@@ -472,6 +490,11 @@ export interface DropdownItemCheckboxProps {
 	 */
 	defaultSelected?: boolean;
 
+	/**
+	 * Displays keyboard shortcuts used to trigger this item.
+	 *
+	 * This prop does not register keyboard events, it is purely to display the shortcut keys in the DropdownItem.
+	 */
 	shortcut?: Shortcut;
 
 	/**
@@ -538,6 +561,11 @@ export interface DropdownItemRadioProps {
 	 */
 	defaultSelected?: boolean;
 
+	/**
+	 * Displays keyboard shortcuts used to trigger this item.
+	 *
+	 * This prop does not register keyboard events, it is purely to display the shortcut keys in the DropdownItem.
+	 */
 	shortcut?: Shortcut;
 
 	/**
@@ -569,7 +597,7 @@ export interface CustomItemHtmlProps extends CustomItemComponentProps {
 	href?: string;
 }
 
-export interface NewDropdownMenuItemBaseProps {
+export interface NewDropdownItemBaseProps {
 	/**
 	 * Shows a submenu indicator for custom submenu triggers. DropdownMenu triggers infer this from context.
 	 */
@@ -596,7 +624,7 @@ export interface NewDropdownMenuItemBaseProps {
 	'aria-expanded'?: boolean;
 }
 
-export interface NewDropdownMenuItemProps extends NewDropdownMenuItemBaseProps {
+export interface NewDropdownItemProps extends NewDropdownItemBaseProps {
 	href?: string;
 	/**
 	 * Event that's triggered when the element is clicked.
@@ -613,4 +641,9 @@ export interface NewDropdownMenuItemProps extends NewDropdownMenuItemBaseProps {
 	 * Generally you'll want to set this to "noopener noreferrer" when `target` is "_blank".
 	 */
 	rel?: string;
+
+	/**
+	 * An optional name used to identify events for [React UFO (Unified Frontend Observability) press interactions](https://developer.atlassian.com/platform/ufo/react-ufo/react-ufo/getting-started/#quick-start--press-interactions). For more information, see [React UFO integration into Design System components](https://go.atlassian.com/react-ufo-dst-integration).
+	 */
+	interactionName?: string;
 }

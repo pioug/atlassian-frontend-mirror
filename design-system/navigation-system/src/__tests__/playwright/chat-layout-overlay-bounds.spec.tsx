@@ -50,7 +50,9 @@ for (const { mode, viewportWidth, buttons, expected } of [
 			await page.getByRole('button', { name, exact: true }).click();
 		}
 		// The lazy panel content autofocuses its close button when it mounts.
-		await expect(page.getByRole('button', { name: 'Close local panel', exact: true })).toBeFocused();
+		await expect(
+			page.getByRole('button', { name: 'Close local panel', exact: true }),
+		).toBeFocused();
 		const panel = page.getByTestId('layout-with-panel--panel-slot');
 		const presentation = () =>
 			panel.evaluate((element) => {

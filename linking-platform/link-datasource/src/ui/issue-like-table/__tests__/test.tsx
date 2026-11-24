@@ -86,8 +86,9 @@ const mockInlineEditUfoFailure = jest.fn();
 jest.mock('@atlaskit/ufo/concurrent-experience', () => ({
 	...jest.requireActual('@atlaskit/ufo/concurrent-experience'),
 	__esModule: true,
-	ConcurrentExperience: jest.fn().mockImplementation(
-		(experienceId: string): Partial<ConcurrentExperience> => ({
+	ConcurrentExperience: jest
+		.fn()
+		.mockImplementation((experienceId: string): Partial<ConcurrentExperience> => ({
 			experienceId: experienceId,
 			getInstance: jest.fn().mockImplementation(() => {
 				if (experienceId === 'datasource-rendered') {
@@ -117,8 +118,7 @@ jest.mock('@atlaskit/ufo/concurrent-experience', () => ({
 					};
 				}
 			}),
-		}),
-	),
+		})),
 }));
 
 const mockColumnPickerUfoAddMetadata = jest.fn();

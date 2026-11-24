@@ -11,9 +11,11 @@ import createEventPayload, {
 
 type ButtonProps = React.ComponentProps<typeof AkButton> & {
 	actionSubjectId: keyof {
-		[Key in keyof AnalyticsEventAttributes as Key extends `ui.button.clicked.${infer ActionSubjectId}`
-			? ActionSubjectId
-			: never]: any;
+		[
+			Key in keyof AnalyticsEventAttributes as Key extends `ui.button.clicked.${infer ActionSubjectId}`
+				? ActionSubjectId
+				: never
+		]: any;
 	};
 };
 

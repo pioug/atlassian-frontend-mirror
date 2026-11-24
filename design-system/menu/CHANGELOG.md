@@ -1,5 +1,14 @@
 # @atlaskit/menu
 
+## 11.1.0
+
+### Minor Changes
+
+- [`728bae5327b3e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/728bae5327b3e) -
+  All components are now marked as deprecated. Use `@atlaskit/navigation-system` for side
+  navigation, `@atlaskit/dropdown-menu` for contextual actions and options, or a list for other
+  groups of links or actions.
+
 ## 11.0.7
 
 ### Patch Changes

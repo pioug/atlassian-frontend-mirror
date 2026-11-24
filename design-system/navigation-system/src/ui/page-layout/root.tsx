@@ -309,7 +309,11 @@ This message will not be displayed in production.
 				<SideNavElementProvider>
 					<IsSideNavShortcutEnabledProvider isSideNavShortcutEnabled={isSideNavShortcutEnabled}>
 						<TopNavStartProvider>
-							<LayoutProvider {...(isChatPanelLayoutEnabled ? { layoutRef: ref } : {})}>
+							<LayoutProvider
+								{...(isChatPanelLayoutEnabled
+									? { layoutRef: ref, hoistSlotSizes: UNSAFE_dangerouslyHoistSlotSizes }
+									: {})}
+							>
 								<LayerObserverProvider>
 									<DangerouslyHoistSlotSizes.Provider value={UNSAFE_dangerouslyHoistSlotSizes}>
 										<SkipLinksProvider

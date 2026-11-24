@@ -16,7 +16,13 @@ export type DatasourceTableRequestSettledResult = {
 export type DatasourceTableViewProps = {
 	/** Unique identifier for which type of datasource is being rendered and for making its requests */
 	datasourceId: string;
-	/** Explicitly enable completion reporting for embedded hosts; otherwise use the existing gate. */
+	/**
+	 * Kept for compatibility while the Jira smart link card passes this prop during its no-results
+	 * experiment. Remove it with the experiment cleanup. Completion reporting uses `onRequestSettled`.
+	 *
+	 * @see {@link https://switcheroo.atlassian.com/ui/gates/4db9beb2-25fe-4bae-83ed-2969fa7c3e85/key/kd_sain_jira_card_no_results_rollout kd_sain_jira_card_no_results_rollout}
+	 * @see {@link https://hello.jira.atlassian.cloud/jira/software/projects/JSAI/boards/16325 Jira Search team}
+	 */
 	enableRequestSettled?: boolean;
 	/**
 	 * Called each time a data request settles (including next-page loads and refreshes), so hosts can

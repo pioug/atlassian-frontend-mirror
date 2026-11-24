@@ -48,6 +48,7 @@ import {
 	mergeTextNodes,
 	toReact,
 } from './nodes';
+import Paragraph from './nodes/paragraph';
 import TextWrapperComponent from './nodes/text-wrapper';
 import type { ScheduleExtensionHeightRemoval } from './nodes/useNodeHeight';
 import {
@@ -319,10 +320,12 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		const path = parentInfo ? parentInfo.path : undefined;
 		switch (node.type.name) {
 			case 'paragraph':
-				// Explicit paragraph overrides retain the full generic props contract.
+				// Custom paragraph components retain the full generic props contract.
 				if (
-					!this.nodeComponents ||
-					!Object.prototype.hasOwnProperty.call(this.nodeComponents, 'paragraph')
+					isExperimentEnabled('platform_editor_renderer_paragraph_props_fast_path')
+						? this.nodeComponents?.paragraph === Paragraph
+						: !this.nodeComponents ||
+							!Object.prototype.hasOwnProperty.call(this.nodeComponents, 'paragraph')
 				) {
 					return this.getParagraphProps(node, path);
 				}

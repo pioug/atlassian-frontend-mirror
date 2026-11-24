@@ -37,7 +37,7 @@ const roundedTableCellCornerStyles = (): SerializedStyles => css`
 			&::after,
 			&::before,
 			&.${ClassName.HOVERED_CELL_IN_DANGER}::after,
-				&.${ClassName.HOVERED_NO_HIGHLIGHT}.${ClassName.HOVERED_CELL_IN_DANGER}::after {
+			&.${ClassName.HOVERED_NO_HIGHLIGHT}.${ClassName.HOVERED_CELL_IN_DANGER}::after {
 				border-top-left-radius: ${token('radius.xlarge')};
 			}
 		}
@@ -49,7 +49,7 @@ const roundedTableCellCornerStyles = (): SerializedStyles => css`
 			&::after,
 			&::before,
 			&.${ClassName.HOVERED_CELL_IN_DANGER}::after,
-				&.${ClassName.HOVERED_NO_HIGHLIGHT}.${ClassName.HOVERED_CELL_IN_DANGER}::after {
+			&.${ClassName.HOVERED_NO_HIGHLIGHT}.${ClassName.HOVERED_CELL_IN_DANGER}::after {
 				border-top-right-radius: ${token('radius.xlarge')};
 			}
 		}
@@ -61,7 +61,7 @@ const roundedTableCellCornerStyles = (): SerializedStyles => css`
 			&::after,
 			&::before,
 			&.${ClassName.HOVERED_CELL_IN_DANGER}::after,
-				&.${ClassName.HOVERED_NO_HIGHLIGHT}.${ClassName.HOVERED_CELL_IN_DANGER}::after {
+			&.${ClassName.HOVERED_NO_HIGHLIGHT}.${ClassName.HOVERED_CELL_IN_DANGER}::after {
 				border-bottom-left-radius: ${token('radius.xlarge')};
 			}
 		}
@@ -73,7 +73,7 @@ const roundedTableCellCornerStyles = (): SerializedStyles => css`
 			&::after,
 			&::before,
 			&.${ClassName.HOVERED_CELL_IN_DANGER}::after,
-				&.${ClassName.HOVERED_NO_HIGHLIGHT}.${ClassName.HOVERED_CELL_IN_DANGER}::after {
+			&.${ClassName.HOVERED_NO_HIGHLIGHT}.${ClassName.HOVERED_CELL_IN_DANGER}::after {
 				border-bottom-right-radius: ${token('radius.xlarge')};
 			}
 		}
@@ -98,7 +98,7 @@ const roundedTableCellCornerInteractionOverlayStyles = (): SerializedStyles => c
 			&::after,
 			&::before,
 			&.${ClassName.HOVERED_CELL_IN_DANGER}::after,
-				&.${ClassName.HOVERED_NO_HIGHLIGHT}.${ClassName.HOVERED_CELL_IN_DANGER}::after {
+			&.${ClassName.HOVERED_NO_HIGHLIGHT}.${ClassName.HOVERED_CELL_IN_DANGER}::after {
 				border-top-left-radius: ${token('radius.xlarge')};
 			}
 		}
@@ -108,7 +108,7 @@ const roundedTableCellCornerInteractionOverlayStyles = (): SerializedStyles => c
 			&::after,
 			&::before,
 			&.${ClassName.HOVERED_CELL_IN_DANGER}::after,
-				&.${ClassName.HOVERED_NO_HIGHLIGHT}.${ClassName.HOVERED_CELL_IN_DANGER}::after {
+			&.${ClassName.HOVERED_NO_HIGHLIGHT}.${ClassName.HOVERED_CELL_IN_DANGER}::after {
 				border-top-right-radius: ${token('radius.xlarge')};
 			}
 		}
@@ -118,7 +118,7 @@ const roundedTableCellCornerInteractionOverlayStyles = (): SerializedStyles => c
 			&::after,
 			&::before,
 			&.${ClassName.HOVERED_CELL_IN_DANGER}::after,
-				&.${ClassName.HOVERED_NO_HIGHLIGHT}.${ClassName.HOVERED_CELL_IN_DANGER}::after {
+			&.${ClassName.HOVERED_NO_HIGHLIGHT}.${ClassName.HOVERED_CELL_IN_DANGER}::after {
 				border-bottom-left-radius: ${token('radius.xlarge')};
 			}
 		}
@@ -128,7 +128,7 @@ const roundedTableCellCornerInteractionOverlayStyles = (): SerializedStyles => c
 			&::after,
 			&::before,
 			&.${ClassName.HOVERED_CELL_IN_DANGER}::after,
-				&.${ClassName.HOVERED_NO_HIGHLIGHT}.${ClassName.HOVERED_CELL_IN_DANGER}::after {
+			&.${ClassName.HOVERED_NO_HIGHLIGHT}.${ClassName.HOVERED_CELL_IN_DANGER}::after {
 				border-bottom-right-radius: ${token('radius.xlarge')};
 			}
 		}
@@ -141,7 +141,7 @@ const roundedTableInteractionOverlayStyles = (): SerializedStyles => css`
 		   width/height: auto overrides the base cell ::after which uses width: 100%; height: 100%,
 		   so that left/right/top/bottom determine the size instead. */
 		td.${ClassName.TABLE_CELL}.${ClassName.ACTIVE_CURSOR_CELL}::after,
-			th.${ClassName.TABLE_HEADER_CELL}.${ClassName.ACTIVE_CURSOR_CELL}::after {
+		th.${ClassName.TABLE_HEADER_CELL}.${ClassName.ACTIVE_CURSOR_CELL}::after {
 			border: 1px solid ${token('color.border.selected')};
 			box-shadow: ${token('elevation.shadow.raised')};
 			content: '';
@@ -159,11 +159,11 @@ const roundedTableInteractionOverlayStyles = (): SerializedStyles => css`
 		/* Normalize selected/hover/danger overlays to the same box model as active-cell.
 		   width/height: auto overrides the base cell ::after which uses width: 100%; height: 100%. */
 		td.${ClassName.HOVERED_CELL}::after,
-			td.${ClassName.SELECTED_CELL}::after,
-			th.${ClassName.TABLE_HEADER_CELL}.${ClassName.SELECTED_CELL}::after,
-			th.${ClassName.TABLE_HEADER_CELL}.${ClassName.HOVERED_CELL}::after,
-			th.${ClassName.TABLE_HEADER_CELL}.${ClassName.HOVERED_CELL_IN_DANGER}::after,
-			td.${ClassName.TABLE_CELL}.${ClassName.HOVERED_CELL_IN_DANGER}::after {
+		td.${ClassName.SELECTED_CELL}::after,
+		th.${ClassName.TABLE_HEADER_CELL}.${ClassName.SELECTED_CELL}::after,
+		th.${ClassName.TABLE_HEADER_CELL}.${ClassName.HOVERED_CELL}::after,
+		th.${ClassName.TABLE_HEADER_CELL}.${ClassName.HOVERED_CELL_IN_DANGER}::after,
+		td.${ClassName.TABLE_CELL}.${ClassName.HOVERED_CELL_IN_DANGER}::after {
 			left: -1px;
 			right: -1px;
 			top: -1px;
@@ -174,15 +174,15 @@ const roundedTableInteractionOverlayStyles = (): SerializedStyles => css`
 
 		/* Preserve interaction border colours on table edges without changing the shared -1px overlay inset. */
 		> tbody
-			> tr
-			> td:is(
-				.${ClassName.SELECTED_CELL}, .${ClassName.HOVERED_CELL}, .${ClassName.ACTIVE_CURSOR_CELL}
-			),
+		> tr
+		> td:is(
+		.${ClassName.SELECTED_CELL}, .${ClassName.HOVERED_CELL}, .${ClassName.ACTIVE_CURSOR_CELL}
+		),
 		> tbody
-			> tr
-			> th:is(
-				.${ClassName.SELECTED_CELL}, .${ClassName.HOVERED_CELL}, .${ClassName.ACTIVE_CURSOR_CELL}
-			) {
+		> tr
+		> th:is(
+		.${ClassName.SELECTED_CELL}, .${ClassName.HOVERED_CELL}, .${ClassName.ACTIVE_CURSOR_CELL}
+		) {
 			&[data-reaches-top] {
 				border-top-color: transparent;
 
@@ -219,11 +219,11 @@ const roundedTableInteractionOverlayStyles = (): SerializedStyles => css`
 		}
 
 		> tbody
-			> tr
-			> td.${ClassName.HOVERED_CELL_IN_DANGER},
-			> tbody
-			> tr
-			> th.${ClassName.HOVERED_CELL_IN_DANGER} {
+		> tr
+		> td.${ClassName.HOVERED_CELL_IN_DANGER},
+		> tbody
+		> tr
+		> th.${ClassName.HOVERED_CELL_IN_DANGER} {
 			&[data-reaches-top] {
 				border-top-color: transparent;
 
@@ -263,17 +263,17 @@ const roundedTableInteractionOverlayStyles = (): SerializedStyles => css`
 
 const roundedTableSelectedNodeStyles = (): SerializedStyles => css`
 	.${ClassName.NODEVIEW_WRAPPER}.${akEditorSelectedNodeClassName}
-		> .${ClassName.TABLE_CONTAINER}
-		> .${ClassName.TABLE_NODE_WRAPPER}
-		> table,
+	> .${ClassName.TABLE_CONTAINER}
+	> .${ClassName.TABLE_NODE_WRAPPER}
+	> table,
 	.${ClassName.NODEVIEW_WRAPPER}.${akEditorSelectedNodeClassName}
-		> [data-testid='table-alignment-container']
-		> .${ClassName.TABLE_RESIZER_CONTAINER}
-		> .resizer-item
-		> .resizer-hover-zone
-		> .${ClassName.TABLE_CONTAINER}
-		> .${ClassName.TABLE_NODE_WRAPPER}
-		> table {
+	> [data-testid='table-alignment-container']
+	> .${ClassName.TABLE_RESIZER_CONTAINER}
+	> .resizer-item
+	> .resizer-hover-zone
+	> .${ClassName.TABLE_CONTAINER}
+	> .${ClassName.TABLE_NODE_WRAPPER}
+	> table {
 		/* Make a node-selected table look identical to a cell-selected one by mirroring the
 		   .selectedCell single-::after overlay model (getSelectionStyles is blocked for this path). */
 
@@ -312,9 +312,9 @@ const roundedTableNumberedColumnStyles = (): SerializedStyles => css`
 	.${ClassName.TABLE_CONTAINER}[data-number-column='true'] {
 		/* Override the inline/container left border and replace it with one rounded pseudo-border. */
 		> .${ClassName.ROW_CONTROLS_WRAPPER}
-			.${ClassName.NUMBERED_COLUMN},
-			> .${ClassName.DRAG_ROW_CONTROLS_WRAPPER}
-			.${ClassName.NUMBERED_COLUMN} {
+		.${ClassName.NUMBERED_COLUMN},
+		> .${ClassName.DRAG_ROW_CONTROLS_WRAPPER}
+		.${ClassName.NUMBERED_COLUMN} {
 			position: relative;
 			border-left: 0;
 
@@ -335,24 +335,24 @@ const roundedTableNumberedColumnStyles = (): SerializedStyles => css`
 
 		/* Prevent individual number buttons from drawing a straight left border. */
 		> .${ClassName.ROW_CONTROLS_WRAPPER}
-			.${ClassName.NUMBERED_COLUMN_BUTTON},
-			> .${ClassName.DRAG_ROW_CONTROLS_WRAPPER}
-			.${ClassName.NUMBERED_COLUMN_BUTTON} {
+		.${ClassName.NUMBERED_COLUMN_BUTTON},
+		> .${ClassName.DRAG_ROW_CONTROLS_WRAPPER}
+		.${ClassName.NUMBERED_COLUMN_BUTTON} {
 			border-left-color: transparent;
 		}
 
 		> .${ClassName.ROW_CONTROLS_WRAPPER}
-			.${ClassName.NUMBERED_COLUMN_BUTTON}.${ClassName.HOVERED_CELL_IN_DANGER},
-			> .${ClassName.DRAG_ROW_CONTROLS_WRAPPER}
-			.${ClassName.NUMBERED_COLUMN_BUTTON}.${ClassName.HOVERED_CELL_IN_DANGER},
-			> .${ClassName.ROW_CONTROLS_WRAPPER}
-			.${ClassName.NUMBERED_COLUMN_BUTTON}.${ClassName.HOVERED_CELL_ACTIVE},
-			> .${ClassName.DRAG_ROW_CONTROLS_WRAPPER}
-			.${ClassName.NUMBERED_COLUMN_BUTTON}.${ClassName.HOVERED_CELL_ACTIVE},
-			> .${ClassName.ROW_CONTROLS_WRAPPER}
-			.${ClassName.NUMBERED_COLUMN_BUTTON}.active,
-			> .${ClassName.DRAG_ROW_CONTROLS_WRAPPER}
-			.${ClassName.NUMBERED_COLUMN_BUTTON}.active {
+		.${ClassName.NUMBERED_COLUMN_BUTTON}.${ClassName.HOVERED_CELL_IN_DANGER},
+		> .${ClassName.DRAG_ROW_CONTROLS_WRAPPER}
+		.${ClassName.NUMBERED_COLUMN_BUTTON}.${ClassName.HOVERED_CELL_IN_DANGER},
+		> .${ClassName.ROW_CONTROLS_WRAPPER}
+		.${ClassName.NUMBERED_COLUMN_BUTTON}.${ClassName.HOVERED_CELL_ACTIVE},
+		> .${ClassName.DRAG_ROW_CONTROLS_WRAPPER}
+		.${ClassName.NUMBERED_COLUMN_BUTTON}.${ClassName.HOVERED_CELL_ACTIVE},
+		> .${ClassName.ROW_CONTROLS_WRAPPER}
+		.${ClassName.NUMBERED_COLUMN_BUTTON}.active,
+		> .${ClassName.DRAG_ROW_CONTROLS_WRAPPER}
+		.${ClassName.NUMBERED_COLUMN_BUTTON}.active {
 			border-left-color: transparent;
 		}
 
@@ -363,15 +363,15 @@ const roundedTableNumberedColumnStyles = (): SerializedStyles => css`
 		   numbered-column mask which needs to round its own top-left corner (see overrides
 		   below and in roundedTableStickyHeaderStyles). */
 		> .${ClassName.TABLE_NODE_WRAPPER}
-			> table
-			> tbody
-			> tr
-			> th[data-reaches-top][data-reaches-left],
+		> table
+		> tbody
+		> tr
+		> th[data-reaches-top][data-reaches-left],
 		> .${ClassName.TABLE_NODE_WRAPPER}
-			> table
-			> tbody
-			> tr
-			> td[data-reaches-top][data-reaches-left] {
+		> table
+		> tbody
+		> tr
+		> td[data-reaches-top][data-reaches-left] {
 			border-top-left-radius: 0;
 
 			&::after {
@@ -380,15 +380,15 @@ const roundedTableNumberedColumnStyles = (): SerializedStyles => css`
 		}
 
 		> .${ClassName.TABLE_NODE_WRAPPER}
-			> table
-			> tbody
-			> tr
-			> th[data-reaches-bottom][data-reaches-left],
+		> table
+		> tbody
+		> tr
+		> th[data-reaches-bottom][data-reaches-left],
 		> .${ClassName.TABLE_NODE_WRAPPER}
-			> table
-			> tbody
-			> tr
-			> td[data-reaches-bottom][data-reaches-left] {
+		> table
+		> tbody
+		> tr
+		> td[data-reaches-bottom][data-reaches-left] {
 			border-bottom-left-radius: 0;
 
 			&::after,
@@ -399,16 +399,16 @@ const roundedTableNumberedColumnStyles = (): SerializedStyles => css`
 
 		/* Preserve rounded numbered-column corners across normal, active, and danger states. */
 		.${ClassName.NUMBERED_COLUMN_BUTTON}:first-of-type,
-			.${ClassName.NUMBERED_COLUMN_BUTTON}.${ClassName.HOVERED_CELL_IN_DANGER}:first-of-type,
-			.${ClassName.NUMBERED_COLUMN_BUTTON}.${ClassName.HOVERED_CELL_ACTIVE}:first-of-type,
-			.${ClassName.NUMBERED_COLUMN_BUTTON}.active:first-of-type {
+		.${ClassName.NUMBERED_COLUMN_BUTTON}.${ClassName.HOVERED_CELL_IN_DANGER}:first-of-type,
+		.${ClassName.NUMBERED_COLUMN_BUTTON}.${ClassName.HOVERED_CELL_ACTIVE}:first-of-type,
+		.${ClassName.NUMBERED_COLUMN_BUTTON}.active:first-of-type {
 			border-top-left-radius: ${token('radius.xlarge')};
 		}
 
 		.${ClassName.NUMBERED_COLUMN_BUTTON}:last-of-type,
-			.${ClassName.NUMBERED_COLUMN_BUTTON}.${ClassName.HOVERED_CELL_IN_DANGER}:last-of-type,
-			.${ClassName.NUMBERED_COLUMN_BUTTON}.${ClassName.HOVERED_CELL_ACTIVE}:last-of-type,
-			.${ClassName.NUMBERED_COLUMN_BUTTON}.active:last-of-type {
+		.${ClassName.NUMBERED_COLUMN_BUTTON}.${ClassName.HOVERED_CELL_IN_DANGER}:last-of-type,
+		.${ClassName.NUMBERED_COLUMN_BUTTON}.${ClassName.HOVERED_CELL_ACTIVE}:last-of-type,
+		.${ClassName.NUMBERED_COLUMN_BUTTON}.active:last-of-type {
 			border-bottom-left-radius: ${token('radius.xlarge')};
 		}
 
@@ -422,8 +422,8 @@ const roundedTableNumberedColumnStyles = (): SerializedStyles => css`
 
 		/* Sticky numbered-column mask also needs the same top-left radius. */
 		> .${ClassName.TABLE_NODE_WRAPPER_NO_OVERFLOW}
-			tr
-			th[data-reaches-top][data-reaches-left]::before {
+		tr
+		th[data-reaches-top][data-reaches-left]::before {
 			border-top-left-radius: ${token('radius.xlarge')};
 		}
 	}
@@ -432,13 +432,13 @@ const roundedTableNumberedColumnStyles = (): SerializedStyles => css`
 const roundedTableStickyHeaderCellCornerStyles = (): SerializedStyles => css`
 	/* Sticky header rows have independent border/shadow/mask painting, so patch the sticky-only painters too. */
 	.${ClassName.TABLE_NODE_WRAPPER}
-		> table
-		> tbody
-		> tr.${ClassName.NATIVE_STICKY},
-		.${ClassName.TABLE_NODE_WRAPPER}
-		> table.${ClassName.TABLE_STICKY}
-		> tbody
-		> tr.sticky {
+	> table
+	> tbody
+	> tr.${ClassName.NATIVE_STICKY},
+	.${ClassName.TABLE_NODE_WRAPPER}
+	> table.${ClassName.TABLE_STICKY}
+	> tbody
+	> tr.sticky {
 		> th[data-reaches-left],
 		> td[data-reaches-left] {
 			border-top-left-radius: ${token('radius.xlarge')};
@@ -483,15 +483,17 @@ const roundedTableStickyHeaderCornerMaskStyles = (): SerializedStyles => css`
 		width: 12px;
 		height: 12px;
 		margin-bottom: -12px;
-		background: ${expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
-			? `var(${akEditorTableContainerBg}, ${token('elevation.surface')})`
-			: token('elevation.surface')};
+		background: ${
+			expValEquals('platform_editor_nest_table_in_panel', 'isEnabled', true)
+				? `var(${akEditorTableContainerBg}, ${token('elevation.surface')})`
+				: token('elevation.surface')
+		};
 		pointer-events: none;
 		z-index: ${getTableZIndexes().header};
 	}
 
 	.${ClassName.TABLE_CONTAINER}[data-number-column='true']
-		.${ClassName.TABLE_CORNER_MASK}[data-corner='left'] {
+	.${ClassName.TABLE_CORNER_MASK}[data-corner='left'] {
 		margin-left: -${akEditorTableNumberColumnWidth}px;
 	}
 
@@ -506,9 +508,9 @@ const roundedTableStickyHeaderCornerMaskStyles = (): SerializedStyles => css`
 		that owns the sticky row, never to an ancestor wrapper.
 	*/
 	.${ClassName.TABLE_NODE_WRAPPER}:has(> table > tbody > tr.${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE})
-		> .${ClassName.TABLE_CORNER_MASK},
-		.${ClassName.TABLE_NODE_WRAPPER}:has(> table.${ClassName.TABLE_STICKY} > tbody > tr.sticky)
-		> .${ClassName.TABLE_CORNER_MASK} {
+	> .${ClassName.TABLE_CORNER_MASK},
+	.${ClassName.TABLE_NODE_WRAPPER}:has(> table.${ClassName.TABLE_STICKY} > tbody > tr.sticky)
+	> .${ClassName.TABLE_CORNER_MASK} {
 		display: block;
 	}
 
@@ -522,7 +524,7 @@ const roundedTableStickyHeaderCornerMaskStyles = (): SerializedStyles => css`
 		the OUTER wrapper, detaching the outer table's masks from its corners.
 	*/
 	.${ClassName.TABLE_NODE_WRAPPER}:has(> table.${ClassName.TABLE_STICKY} > tbody > tr.sticky)
-		> .${ClassName.TABLE_CORNER_MASK} {
+	> .${ClassName.TABLE_CORNER_MASK} {
 		position: fixed;
 		top: 30px;
 		z-index: 1;
@@ -537,15 +539,15 @@ const roundedTableStickyHeaderOverlayStyles = (): SerializedStyles => css`
 		interaction-state rules override only the colour.
 	*/
 	.${ClassName.TABLE_NODE_WRAPPER}
-		> table
-		> tbody
-		> tr.${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE}
-		> th.${ClassName.TABLE_HEADER_CELL}[data-reaches-top]::after,
-		.${ClassName.TABLE_NODE_WRAPPER}
-		> table
-		> tbody
-		> tr.${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE}
-		> td.${ClassName.TABLE_CELL}[data-reaches-top]::after {
+	> table
+	> tbody
+	> tr.${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE}
+	> th.${ClassName.TABLE_HEADER_CELL}[data-reaches-top]::after,
+	.${ClassName.TABLE_NODE_WRAPPER}
+	> table
+	> tbody
+	> tr.${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE}
+	> td.${ClassName.TABLE_CELL}[data-reaches-top]::after {
 		content: '';
 		position: absolute;
 		left: -1px;
@@ -562,42 +564,42 @@ const roundedTableStickyHeaderOverlayStyles = (): SerializedStyles => css`
 
 	/* Selection / hover / active-cursor colour for the painted top edge. */
 	.${ClassName.TABLE_NODE_WRAPPER}
-		> table
-		> tbody
-		> tr.${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE}
-		> th.${ClassName.TABLE_HEADER_CELL}[data-reaches-top]:is(
-			.${ClassName.SELECTED_CELL},
-			.${ClassName.HOVERED_CELL},
-			.${ClassName.ACTIVE_CURSOR_CELL}
-		)::after,
+	> table
+	> tbody
+	> tr.${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE}
+	> th.${ClassName.TABLE_HEADER_CELL}[data-reaches-top]:is(
+	.${ClassName.SELECTED_CELL},
+	.${ClassName.HOVERED_CELL},
+	.${ClassName.ACTIVE_CURSOR_CELL}
+	)::after,
 	.${ClassName.TABLE_NODE_WRAPPER}
-		> table
-		> tbody
-		> tr.${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE}
-		> td.${ClassName.TABLE_CELL}[data-reaches-top]:is(
-			.${ClassName.SELECTED_CELL},
-			.${ClassName.HOVERED_CELL},
-			.${ClassName.ACTIVE_CURSOR_CELL}
-		)::after {
+	> table
+	> tbody
+	> tr.${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE}
+	> td.${ClassName.TABLE_CELL}[data-reaches-top]:is(
+	.${ClassName.SELECTED_CELL},
+	.${ClassName.HOVERED_CELL},
+	.${ClassName.ACTIVE_CURSOR_CELL}
+	)::after {
 		border-top-color: ${tableBorderSelectedColor};
 	}
 
 	/* Danger colour for the painted top edge. */
 	.${ClassName.TABLE_NODE_WRAPPER}
-		> table
-		> tbody
-		> tr.${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE}
-		> th.${ClassName.TABLE_HEADER_CELL}[data-reaches-top].${ClassName.HOVERED_CELL_IN_DANGER}::after,
-		.${ClassName.TABLE_NODE_WRAPPER}
-		> table
-		> tbody
-		> tr.${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE}
-		> td.${ClassName.TABLE_CELL}[data-reaches-top].${ClassName.HOVERED_CELL_IN_DANGER}::after {
+	> table
+	> tbody
+	> tr.${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE}
+	> th.${ClassName.TABLE_HEADER_CELL}[data-reaches-top].${ClassName.HOVERED_CELL_IN_DANGER}::after,
+	.${ClassName.TABLE_NODE_WRAPPER}
+	> table
+	> tbody
+	> tr.${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE}
+	> td.${ClassName.TABLE_CELL}[data-reaches-top].${ClassName.HOVERED_CELL_IN_DANGER}::after {
 		border-top-color: ${tableBorderDeleteColor};
 	}
 
 	:where(.${ClassName.TABLE_NODE_WRAPPER} > table > tbody > tr.${ClassName.NATIVE_STICKY})
-		> th.${ClassName.TABLE_HEADER_CELL}[data-reaches-left]::after {
+	> th.${ClassName.TABLE_HEADER_CELL}[data-reaches-left]::after {
 		border-left-color: transparent;
 	}
 
@@ -605,17 +607,17 @@ const roundedTableStickyHeaderOverlayStyles = (): SerializedStyles => css`
 		/* Node-selected (ak-editor-selected-node) sticky header: the pinned row leaves the table's
 				   rounded overlay behind, so recolour its painted top edge to the selected colour too. */
 		.${ClassName.NODEVIEW_WRAPPER}.${akEditorSelectedNodeClassName}
-			.${ClassName.TABLE_NODE_WRAPPER}
-			> table
-			> tbody
-			> tr.${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE}
-			> th.${ClassName.TABLE_HEADER_CELL}[data-reaches-top]::after,
-			.${ClassName.NODEVIEW_WRAPPER}.${akEditorSelectedNodeClassName}
-			.${ClassName.TABLE_NODE_WRAPPER}
-			> table
-			> tbody
-			> tr.${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE}
-			> td.${ClassName.TABLE_CELL}[data-reaches-top]::after {
+		.${ClassName.TABLE_NODE_WRAPPER}
+		> table
+		> tbody
+		> tr.${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE}
+		> th.${ClassName.TABLE_HEADER_CELL}[data-reaches-top]::after,
+		.${ClassName.NODEVIEW_WRAPPER}.${akEditorSelectedNodeClassName}
+		.${ClassName.TABLE_NODE_WRAPPER}
+		> table
+		> tbody
+		> tr.${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE}
+		> td.${ClassName.TABLE_CELL}[data-reaches-top]::after {
 			border-top-color: ${tableBorderSelectedColor};
 		}
 	`}
@@ -639,9 +641,9 @@ const roundedTableStickyHeaderShadowStyles = (): SerializedStyles => css`
 		Box-shadow below active sticky header.
 	*/
 	.${ClassName.TABLE_NODE_WRAPPER}
-		> table
-		> tbody
-		> tr.${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE} {
+	> table
+	> tbody
+	> tr.${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE} {
 		box-shadow:
 			inset 0 -1px ${tableBorderColor},
 			0 6px 4px -4px ${token('elevation.shadow.overflow.perimeter')} !important;
@@ -652,25 +654,25 @@ const roundedTableStickyHeaderShadowStyles = (): SerializedStyles => css`
 		reserved 1px top-border slot visible on the pinned row.
 	*/
 	.${ClassName.TABLE_NODE_WRAPPER}
-		> table
-		> tbody
-		> tr.${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE}
-		> th.${ClassName.TABLE_HEADER_CELL}[data-reaches-top],
-		.${ClassName.TABLE_NODE_WRAPPER}
-		> table
-		> tbody
-		> tr.${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE}
-		> td.${ClassName.TABLE_CELL}[data-reaches-top],
-		.${ClassName.TABLE_NODE_WRAPPER}
-		> table.${ClassName.TABLE_STICKY}
-		> tbody
-		> tr.sticky
-		> th.${ClassName.TABLE_HEADER_CELL}[data-reaches-top],
-		.${ClassName.TABLE_NODE_WRAPPER}
-		> table.${ClassName.TABLE_STICKY}
-		> tbody
-		> tr.sticky
-		> td.${ClassName.TABLE_CELL}[data-reaches-top] {
+	> table
+	> tbody
+	> tr.${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE}
+	> th.${ClassName.TABLE_HEADER_CELL}[data-reaches-top],
+	.${ClassName.TABLE_NODE_WRAPPER}
+	> table
+	> tbody
+	> tr.${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE}
+	> td.${ClassName.TABLE_CELL}[data-reaches-top],
+	.${ClassName.TABLE_NODE_WRAPPER}
+	> table.${ClassName.TABLE_STICKY}
+	> tbody
+	> tr.sticky
+	> th.${ClassName.TABLE_HEADER_CELL}[data-reaches-top],
+	.${ClassName.TABLE_NODE_WRAPPER}
+	> table.${ClassName.TABLE_STICKY}
+	> tbody
+	> tr.sticky
+	> td.${ClassName.TABLE_CELL}[data-reaches-top] {
 		border-top-color: ${tableBorderColor};
 	}
 
@@ -680,28 +682,28 @@ const roundedTableStickyHeaderShadowStyles = (): SerializedStyles => css`
 		overlay in roundedTableStickyHeaderOverlayStyles.)
 	*/
 	.${ClassName.TABLE_NODE_WRAPPER}
-		> table.${ClassName.TABLE_STICKY}
-		> tbody
-		> tr.sticky
-		> th.${ClassName.TABLE_HEADER_CELL}[data-reaches-left],
-		.${ClassName.TABLE_NODE_WRAPPER}
-		> table.${ClassName.TABLE_STICKY}
-		> tbody
-		> tr.sticky
-		> td.${ClassName.TABLE_CELL}[data-reaches-left] {
+	> table.${ClassName.TABLE_STICKY}
+	> tbody
+	> tr.sticky
+	> th.${ClassName.TABLE_HEADER_CELL}[data-reaches-left],
+	.${ClassName.TABLE_NODE_WRAPPER}
+	> table.${ClassName.TABLE_STICKY}
+	> tbody
+	> tr.sticky
+	> td.${ClassName.TABLE_CELL}[data-reaches-left] {
 		border-left-color: ${tableBorderColor};
 	}
 
 	.${ClassName.TABLE_NODE_WRAPPER}
-		> table.${ClassName.TABLE_STICKY}
-		> tbody
-		> tr.sticky
-		> th.${ClassName.TABLE_HEADER_CELL}[data-reaches-right],
-		.${ClassName.TABLE_NODE_WRAPPER}
-		> table.${ClassName.TABLE_STICKY}
-		> tbody
-		> tr.sticky
-		> td.${ClassName.TABLE_CELL}[data-reaches-right] {
+	> table.${ClassName.TABLE_STICKY}
+	> tbody
+	> tr.sticky
+	> th.${ClassName.TABLE_HEADER_CELL}[data-reaches-right],
+	.${ClassName.TABLE_NODE_WRAPPER}
+	> table.${ClassName.TABLE_STICKY}
+	> tbody
+	> tr.sticky
+	> td.${ClassName.TABLE_CELL}[data-reaches-right] {
 		border-right: 1px solid ${tableBorderColor};
 	}
 
@@ -709,21 +711,21 @@ const roundedTableStickyHeaderShadowStyles = (): SerializedStyles => css`
 		Paint the legacy sticky bottom edge on cells so it aligns under display: grid.
 	*/
 	.${ClassName.TABLE_NODE_WRAPPER}
-		> table.${ClassName.TABLE_STICKY}
-		> tbody
-		> tr.sticky
-		> th.${ClassName.TABLE_HEADER_CELL},
-		.${ClassName.TABLE_NODE_WRAPPER}
-		> table.${ClassName.TABLE_STICKY}
-		> tbody
-		> tr.sticky
-		> td.${ClassName.TABLE_CELL} {
+	> table.${ClassName.TABLE_STICKY}
+	> tbody
+	> tr.sticky
+	> th.${ClassName.TABLE_HEADER_CELL},
+	.${ClassName.TABLE_NODE_WRAPPER}
+	> table.${ClassName.TABLE_STICKY}
+	> tbody
+	> tr.sticky
+	> td.${ClassName.TABLE_CELL} {
 		border-bottom: 1px solid ${tableBorderColor};
 	}
 
 	.${ClassName.TABLE_CONTAINER}.${ClassName.WITH_CONTROLS}:has(tr.sticky)
-		.${ClassName.NUMBERED_COLUMN}
-		.${ClassName.NUMBERED_COLUMN_BUTTON}:first-of-type {
+	.${ClassName.NUMBERED_COLUMN}
+	.${ClassName.NUMBERED_COLUMN_BUTTON}:first-of-type {
 		box-shadow: none !important;
 	}
 
@@ -731,24 +733,24 @@ const roundedTableStickyHeaderShadowStyles = (): SerializedStyles => css`
 		/* Node-selected (ak-editor-selected-node) sticky header: recolour the bottom-edge
 				   shadow to the selected colour so it matches the rest of the selection. */
 		.${ClassName.NODEVIEW_WRAPPER}.${akEditorSelectedNodeClassName}
-			.${ClassName.TABLE_NODE_WRAPPER}
-			> table
-			> tbody
-			> tr.${ClassName.NATIVE_STICKY},
-			.${ClassName.NODEVIEW_WRAPPER}.${akEditorSelectedNodeClassName}
-			.${ClassName.TABLE_NODE_WRAPPER}
-			> table.${ClassName.TABLE_STICKY}
-			> tbody
-			> tr.sticky {
+		.${ClassName.TABLE_NODE_WRAPPER}
+		> table
+		> tbody
+		> tr.${ClassName.NATIVE_STICKY},
+		.${ClassName.NODEVIEW_WRAPPER}.${akEditorSelectedNodeClassName}
+		.${ClassName.TABLE_NODE_WRAPPER}
+		> table.${ClassName.TABLE_STICKY}
+		> tbody
+		> tr.sticky {
 			box-shadow: inset 0 -1px ${tableBorderSelectedColor} !important;
 		}
 
 		/* Active (pinned) variant keeps its drop shadow but recolours the bottom border. */
 		.${ClassName.NODEVIEW_WRAPPER}.${akEditorSelectedNodeClassName}
-			.${ClassName.TABLE_NODE_WRAPPER}
-			> table
-			> tbody
-			> tr.${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE} {
+		.${ClassName.TABLE_NODE_WRAPPER}
+		> table
+		> tbody
+		> tr.${ClassName.NATIVE_STICKY}.${ClassName.NATIVE_STICKY_ACTIVE} {
 			box-shadow:
 				inset 0 -1px ${tableBorderSelectedColor},
 				0 6px 4px -4px ${token('elevation.shadow.overflow.perimeter')} !important;

@@ -5,6 +5,7 @@ import { userEvent } from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
 import { GiveKudosLauncherLazy } from '@atlaskit/give-kudos/give-kudos-launcher';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { renderWithAnalyticsListener } from '@atlassian/ptc-test-utils/analytics';
 
 import ProfileClient from '../../../client/ProfileCardClient';
@@ -522,6 +523,43 @@ describe('Profile card trigger', () => {
 
 			expect(getByText(mockTriggerText)).toBeInTheDocument();
 			// The ProfileCardTrigger should accept the hideAgentMoreActions prop without error
+		});
+	});
+
+	describe('focus after an outside press closes the popup', () => {
+		const openThenPressOutside = async () => {
+			render(
+				<IntlProvider locale="en">
+					<ProfilecardTrigger {...mockDefaultProps} trigger="click">
+						<div>{mockTriggerText}</div>
+					</ProfilecardTrigger>
+					<button type="button">Outside</button>
+				</IntlProvider>,
+			);
+
+			await userEvent.click(screen.getByText(mockTriggerText));
+			expect(await screen.findByText(mockProfileCardLazyText)).toBeVisible();
+
+			const outside = screen.getByRole('button', { name: 'Outside' });
+			await userEvent.click(outside);
+			await waitFor(() => expect(screen.queryByText(mockProfileCardLazyText)).toBeNull());
+			return outside;
+		};
+
+		it('leaves focus on the pressed element on the top-layer path', async () => {
+			passGate('platform-dst-top-layer');
+
+			const outside = await openThenPressOutside();
+
+			expect(outside).toHaveFocus();
+		});
+
+		it('moves focus to the trigger on the legacy path', async () => {
+			failGate('platform-dst-top-layer');
+
+			await openThenPressOutside();
+
+			expect(screen.getByText(mockTriggerText).closest('[role="button"]')).toHaveFocus();
 		});
 	});
 });

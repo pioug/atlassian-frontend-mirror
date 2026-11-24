@@ -1,5 +1,13 @@
 # @atlaskit/flag
 
+## 19.0.7
+
+### Patch Changes
+
+- [`afa853300a0cd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/afa853300a0cd) -
+  Remove the `platform_dst_flag_keyboard_dismiss` feature gate and always enable Escape dismissal
+  and the shortcut label.
+
 ## 19.0.6
 
 ### Patch Changes

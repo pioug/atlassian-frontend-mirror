@@ -55,6 +55,10 @@ const invisibleStyles = css({
  * A Blanket provides the overlay layer for components such as a modal dialog or a tooltip
  *
  * - [Examples](https://atlaskit.atlassian.com/examples/design-system/blanket/basic-usage)
+ *
+ * @deprecated Blanket is not in the browser top layer, so tooltips, popups, flags and dialogs show
+ * above it. Use `@atlaskit/modal-dialog` or `@atlaskit/drawer` for a backdrop, and `@atlaskit/popup`
+ * to close a layer on an outside click. See https://atlassian.design/components/blanket/usage.
  */
 const Blanket: MemoExoticComponent<
 	ForwardRefExoticComponent<BlanketProps & RefAttributes<HTMLDivElement>>

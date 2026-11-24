@@ -1,21 +1,7 @@
-/* eslint-disable
-  @atlaskit/design-system/no-to-match-snapshot,
-  @atlaskit/design-system/no-unsafe-inline-snapshot
-  -- TODO(IND-4952): existing snapshot tests will be removed in a follow-up cleanup PR.
-  See https://hello.atlassian.net/wiki/spaces/afm/pages/7146174189/LDR+Unit+Tests+-+Ban+Snapshot+tests+in+Platform
-  */
-
-import * as fs from 'fs';
-import { join } from 'path';
-import { promisify } from 'util';
-
 import fetchMock from 'fetch-mock/es5/client';
-import { graphql, buildSchema } from 'graphql';
 
 import type { ActivityResponse } from '../../types';
-import ActivityResource, { makeGetRecentItemBody } from '../ActivityResource';
-
-const readFile = promisify(fs.readFile);
+import ActivityResource from '../ActivityResource';
 
 const activityUrl = '/graphql';
 const cloudId = '123';
@@ -101,15 +87,6 @@ describe('ActivityResource', () => {
 	});
 
 	afterEach(fetchMock.restore);
-
-	// Skipping test due to it being flaky and this package being deprecated
-	test.skip('should validate against our graphql schema', async () => {
-		const schemaFile = await readFile(join(__dirname, 'activities.graphql'), 'utf8');
-		const activitySchema = buildSchema(schemaFile, { assumeValid: true });
-
-		const result = await graphql(activitySchema, makeGetRecentItemBody(cloudId).query);
-		expect(result.errors).toBeUndefined();
-	});
 
 	it('should resolve recent items', async () => {
 		const provider = new ActivityResource(activityUrl, cloudId);

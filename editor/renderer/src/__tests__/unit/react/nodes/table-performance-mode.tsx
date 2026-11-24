@@ -7,7 +7,6 @@ import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { ShadowObserver } from '@atlaskit/editor-common/OverflowShadow/shadowObserver';
 import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
-import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import { fireEvent } from '@atlassian/testing-library/fire-event';
 import { screen } from '@atlassian/testing-library/screen';
 
@@ -51,12 +50,8 @@ const table = (active: boolean, syncedBlock = false) => (
 	</RendererContextProvider>
 );
 
-beforeEach(() => {
-	setupEditorExperiments('confluence', { platform_renderer_table_sticky_scrollbar: true });
-});
 afterEach(() => {
 	jest.restoreAllMocks();
-	setupEditorExperiments('test', {}, {}, { disableTestOverrides: true });
 });
 
 it('omits cloned headers, shadow sentinels, and dimension observations in Performance Mode', () => {

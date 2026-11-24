@@ -127,6 +127,11 @@ export type MenuItemSlots = {
 	 *
 	 * It is intended for static content (e.g. a `Lozenge`).
 	 *
+	 * This element is not part of the menu item's accessible name, so screen
+	 * readers don't announce it on focus. If it conveys meaning (e.g. a "New"
+	 * lozenge), also include that text in `children` using `VisuallyHidden`,
+	 * after the label and separated from it by a space.
+	 *
 	 * If both `elemAfter` and `actionsOnHover` are provided, `elemAfter` will
 	 * not be displayed when the item is hovered over or expanded. This is
 	 * because the `actionsOnHover` will be displayed instead.

@@ -1,5 +1,12 @@
 # @atlaskit/popper
 
+## 9.4.11
+
+### Patch Changes
+
+- [`5389934d9731c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5389934d9731c) -
+  On the top layer, the popper now follows a reference element that changes while it is open.
+
 ## 9.4.10
 
 ### Patch Changes

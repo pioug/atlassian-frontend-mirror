@@ -9,7 +9,8 @@ import type { MenuGroupProps } from '../types';
 import MenuGroup from './menu-group';
 
 /**
- * @deprecated refer to MenuGroup, explicitly set maxWidth and minWidth
+ * @deprecated All menu components are deprecated. For dropdown menus, use `@atlaskit/dropdown-menu`. For anything else use a list.
+ * Refer to MenuGroup, explicitly set maxWidth and minWidth
  */
 const PopupMenuGroup: ({ maxWidth, minWidth, ...rest }: MenuGroupProps) => JSX.Element = ({
 	maxWidth = 800,

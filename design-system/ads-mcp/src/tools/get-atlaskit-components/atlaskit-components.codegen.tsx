@@ -3,7 +3,7 @@
  *
  * Structured content components from *.docs.tsx files outside of design-system
  *
- * @codegen <<SignedSource::1a482ae467f4c9071cc526354a7f6338>>
+ * @codegen <<SignedSource::2f3f54df5991fbff771bd4f65384a333>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -9427,7 +9427,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				name: 'aria-controls',
 				type: 'string | undefined',
 				description:
-					'Identifies the popup element that this element controls when it is used as a popup trigger.\nShould match the `id` of the popup content for screen readers to understand the relationship.',
+					'Identifies the popup or tab panel that this element controls.\nShould match the `id` of the popup content for screen readers to understand the relationship.',
 			},
 			{
 				name: 'aria-expanded',
@@ -9478,6 +9478,11 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 					'Whether this menu item can be dragged. Add a drag handle to this item.\nYou are responsible for wiring up drag and drop to the menu item.\n\n\n- Please be sure to make the MenuItem `ref` the `draggable` element\n- See our navigation drag and drop guidelines for more technical details',
 			},
 			{
+				name: 'id',
+				type: 'string | undefined',
+				description: 'The ID of the button, for associating a tab panel with its tab.',
+			},
+			{
 				name: 'isContentTooltipDisabled',
 				type: 'boolean | undefined',
 				description:
@@ -9510,6 +9515,28 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				name: 'onClick',
 				type: 'MenuItemOnClick<HTMLButtonElement> | undefined',
 				description: 'Called when the user has clicked on the trigger content.',
+			},
+			{
+				name: 'onFocus',
+				type: 'FocusEventHandler<HTMLButtonElement> | undefined',
+				description: 'Called when the button receives focus.',
+			},
+			{
+				name: 'onKeyDown',
+				type: 'KeyboardEventHandler<HTMLButtonElement> | undefined',
+				description: 'Called when a key is pressed on the button.',
+			},
+			{
+				name: 'semantics',
+				type: '"tab" | undefined',
+				description:
+					'Opt into tab semantics: a presentational wrapper and a button with role="tab"\nand aria-selected derived from isSelected. Only the selected tab is in the\ntab order. The parent owns the tablist, panels, and keyboard navigation.\nUse type="location" for a notch.',
+			},
+			{
+				name: 'type',
+				type: '"default" | "location" | "popup" | undefined',
+				description:
+					'The purpose of the item. `default` performs an action without selected styling;\n`popup` is highlighted while `aria-expanded` is true; `location` shows a notch\nwhen `isSelected` is true. Omit to preserve the legacy `isSelected` appearance.',
 			},
 			{
 				name: 'visualContentRef',
@@ -10190,6 +10217,11 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description: 'The contents of the list item.',
 				isRequired: true,
+			},
+			{
+				name: 'role',
+				type: '"none" | "listitem" | undefined',
+				description: 'The wrapper is presentational when composing a tablist.',
 			},
 			{
 				name: 'xcss',
@@ -15393,6 +15425,10 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				name: 'renderInvokingUser',
 				type: 'ExternalAgentInvokingUserRenderer | undefined',
 				description: 'Optional host profile-card trigger for invoking people with account IDs.',
+			},
+			{
+				name: 'slots',
+				type: 'ExternalAgentProfileCardSlots | undefined',
 			},
 			{
 				name: 'vendorLine',
@@ -53186,16 +53222,23 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		description: 'Reusable Knowledge tab content for self service agent settings.',
 		status: 'early-access',
 		usageGuidelines: ['Let the host product own navigation, tabs, layout, and feature gating.'],
-		contentGuidelines: ['The component currently renders a localized Knowledge heading.'],
+		contentGuidelines: [
+			'Show the connected card when the project has an external knowledge source. Otherwise show the empty state.',
+		],
 		accessibilityGuidelines: [
-			'Render beneath the host page’s level-one heading; Knowledge uses a level-two heading.',
+			'Render beneath the host page’s level-one heading. Both states use a level-two heading.',
 		],
 		keywords: ['self-serve', 'knowledge', 'agent settings'],
 		category: 'components',
 		examples: [
-			"import { IntlProvider } from 'react-intl';\nimport SelfServeAgentKnowledge from '@atlassian/self-serve-agent-knowledge/ui/self-serve-agent-knowledge';\nexport default function Basic(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale=\"en\">\n\t\t\t<SelfServeAgentKnowledge />\n\t\t</IntlProvider>\n\t);\n}",
+			'import { IntlProvider } from \'react-intl\';\nimport SelfServeAgentKnowledge from \'@atlassian/self-serve-agent-knowledge/ui/self-serve-agent-knowledge\';\nexport default function Basic(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale="en">\n\t\t\t<SelfServeAgentKnowledge\n\t\t\t\tprojectName="IT Help Desk"\n\t\t\t\thasExternalSource={false}\n\t\t\t\tknowledgeBaseSettingsHref="/jira/servicedesk/projects/IT/settings/confluence-kb?visibility=EXTERNAL"\n\t\t\t/>\n\t\t</IntlProvider>\n\t);\n}',
+			'import { IntlProvider } from \'react-intl\';\nimport SelfServeAgentKnowledge from \'@atlassian/self-serve-agent-knowledge/ui/self-serve-agent-knowledge\';\nexport default function Connected(): React.JSX.Element {\n\treturn (\n\t\t<IntlProvider locale="en">\n\t\t\t<SelfServeAgentKnowledge\n\t\t\t\tprojectName="IT Help Desk"\n\t\t\t\thasExternalSource\n\t\t\t\tknowledgeBaseSettingsHref="/jira/servicedesk/projects/IT/settings/confluence-kb?visibility=EXTERNAL"\n\t\t\t/>\n\t\t</IntlProvider>\n\t);\n}',
 		],
 		props: [
+			{
+				name: 'hasExternalSource',
+				type: 'boolean | undefined',
+			},
 			{
 				name: 'knowledgeBaseSettingsHref',
 				type: 'string | undefined',

@@ -35,7 +35,7 @@ customFields:
     value: true
   - name: Reviewer Selection Mechanism
     type: text
-    value: random(3)
+    value: jsmSchedule(Design System Team - Engineering Disturbed)
   - name: Required Reviewer Approvals
     type: number
     value: 1

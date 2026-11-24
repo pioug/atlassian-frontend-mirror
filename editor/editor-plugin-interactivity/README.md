@@ -36,37 +36,12 @@ plugin keeps bucketed counts instead.
 
 ## The editor groups
 
-An interaction is the editor's when it happened inside the element the editor renders itself into,
-which editor-core hands to the plugin's hook as `wrapperElement`. A second observer reports the
-events of those interactions from that element, alongside the Event Timing observer that reports the
-latencies, and the tracker makes interactions out of both.
-
-The editor's events are what count the interactions, because there is no
-`performance.interactionCount` per group and the 16 ms reporting threshold is the lowest the spec
-allows. An interaction is several events, so it is counted on one of them: typing on `keydown`,
-because a held key repeats and the browser counts every repeat; pointing on `pointerup`, because a
-press taken over by a scroll never gets one — and the browser counts no interaction for it either.
-The group comes from the same events, and the one table in `interaction-events.ts` is read for both
-counting and grouping, so the two cannot disagree.
-
-An entry lands in the group of the event it measured, matched by that event's type and timestamp. An
-interaction whose events the editor never reported stays in `page` only.
-
-Known gaps, all of which only move interactions out of the editor groups and never between them:
-
-- What the editor renders outside that element — a dropdown or a dialog in a portal — is counted in
-  `page` only, as is everything before the element arrives, a render after the editor first paints.
-- `editorOther` is the remainder slot: the browser counts only keyboard and pointer interactions
-  today, so it reads zero until that changes.
-- While an IME composes, the browser can group key presses into fewer interactions than we count, so
-  `editorTyping.totalCount` can run ahead of it.
-
-## Cadence
-
-Snapshots are taken 10 s, 30 s and 60 s after the session starts, then every 60 s, plus on every
-transition of the tab to hidden, on `pagehide` and on editor unmount. A snapshot that would repeat
-the previous one is skipped, and signals from one lifecycle transition are coalesced into a single
-snapshot.
+The plugin collects with [`@atlaskit/inp-collector`](../inp-collector/README.md), which describes how
+interactions are counted, their known gaps and the snapshot cadence. The editor is its one region,
+made of the element the editor renders itself into, which editor-core hands to the plugin's hook as
+`wrapperElement`. The region's `all`, `typing`, `pointer` and `other` become `editor`,
+`editorTyping`, `editorPointer` and `editorOther`. What the editor renders outside that element, a
+dropdown or a dialog in a portal, is counted in `page` only.
 
 ## Sessions
 

@@ -91,9 +91,9 @@ type TPlacement = {
 
 - Numbers are always pixels.
 - Strings are any valid CSS length: `'8px'`, `'0.5rem'`, `token('space.100')`, etc.
-- `direction` is a logical orientation: `'forwards'` = toward the cross-axis end edge; `'backwards'`
-  = toward the cross-axis start edge. Equivalent to `start/end` on the cross axis, but expressed
-  without axis-specific language.
+- `direction` is a logical orientation: `'forwards'` = toward the cross-axis end edge;
+  `'backwards'` = toward the cross-axis start edge. Equivalent to `start/end` on the cross axis, but
+  expressed without axis-specific language.
 - `direction` exists (rather than allowing a signed `value`) because design tokens are opaque CSS
   strings and cannot be arithmetically negated; expressing direction as a sibling field lets `value`
   stay a positive token reference.

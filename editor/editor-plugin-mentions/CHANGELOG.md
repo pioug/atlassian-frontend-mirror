@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-mentions
 
+## 36.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.0.8
+
+### Patch Changes
+
+- [`28f7835c8e64d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28f7835c8e64d) -
+  Use the migrated user profile card by default across Platform consumers, including editor
+  mentions, notifications, search, and contributor avatars.
+- Updated dependencies
+
 ## 35.0.7
 
 ### Patch Changes

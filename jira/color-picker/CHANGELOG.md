@@ -1,5 +1,12 @@
 # @atlaskit/color-picker
 
+## 7.2.5
+
+### Patch Changes
+
+- [`c87c250b16958`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c87c250b16958) -
+  Behind `platform-dst-top-layer`, the color menu no longer stops Escape.
+
 ## 7.2.4
 
 ### Patch Changes

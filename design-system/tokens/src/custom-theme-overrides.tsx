@@ -107,9 +107,9 @@ type ThemeOverrideKind = Exclude<
 >;
 
 type ThemeNamesForKind<Kind extends ThemeOverrideKind> = {
-	[ThemeName in keyof CustomThemeOverrideRegistry]: Kind extends keyof CustomThemeOverrideRegistry[ThemeName]
-		? ThemeName
-		: never;
+	[
+		ThemeName in keyof CustomThemeOverrideRegistry
+	]: Kind extends keyof CustomThemeOverrideRegistry[ThemeName] ? ThemeName : never;
 }[keyof CustomThemeOverrideRegistry];
 
 type ThemeOverridesForKind<Kind extends ThemeOverrideKind> = Partial<{

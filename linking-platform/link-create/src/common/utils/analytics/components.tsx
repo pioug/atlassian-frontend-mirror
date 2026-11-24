@@ -7,9 +7,11 @@ import createEventPayload, { type AnalyticsEventAttributes } from './analytics.c
 
 export type ScreenViewedEventProps = {
 	screen: keyof {
-		[Key in keyof AnalyticsEventAttributes as Key extends `screen.${infer ScreenName}.viewed`
-			? ScreenName
-			: never]: any;
+		[
+			Key in keyof AnalyticsEventAttributes as Key extends `screen.${infer ScreenName}.viewed`
+				? ScreenName
+				: never
+		]: any;
 	};
 };
 

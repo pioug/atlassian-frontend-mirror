@@ -887,10 +887,12 @@ export class ParticipantsService {
 			// AAID and carrying an `agentType`. These ids come from the editor AI plugin instead,
 			// keyed on the agent's Convo-AI id with no `agentType`, so re-broadcasting them adds a
 			// second, unresolvable participant for an agent that is already present.
-			if (!(
-				isExperimentEnabled('agentic_presence_facepile_master_exp') &&
-				fg('platform_move_presence_agents')
-			)) {
+			if (
+				!(
+					isExperimentEnabled('agentic_presence_facepile_master_exp') &&
+					fg('platform_move_presence_agents')
+				)
+			) {
 				this.sendAIProvidersPresence();
 			}
 		} catch (error) {

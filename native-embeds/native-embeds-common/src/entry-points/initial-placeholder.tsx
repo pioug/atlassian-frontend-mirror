@@ -47,12 +47,18 @@ export type NativeEmbedInitialPlaceholderFrameProps = Pick<
 	NativeEmbedInitialLayout,
 	'effectiveHeight' | 'effectiveWidth' | 'lockAspectRatio'
 > & {
+	/**
+	 * `native_embeds_ssr_whiteboard_iframe`: content rendered inside the frame, e.g. an
+	 * iframe started from server HTML. The frame becomes the containing block for it.
+	 */
+	children?: React.ReactNode;
 	hasEmbedBorder?: boolean;
 	placeholderId?: string;
 	testId?: string;
 };
 
 export const NativeEmbedInitialPlaceholderFrame = ({
+	children,
 	effectiveHeight,
 	effectiveWidth,
 	hasEmbedBorder = true,
@@ -68,6 +74,7 @@ export const NativeEmbedInitialPlaceholderFrame = ({
 				? `${effectiveWidth} / ${effectiveHeight}`
 				: NATIVE_EMBED_INITIAL_LAYOUT_FALLBACK_ASPECT_RATIO
 			: undefined,
+		...(children ? { position: 'relative' as const } : {}),
 	};
 
 	return (
@@ -80,11 +87,15 @@ export const NativeEmbedInitialPlaceholderFrame = ({
 			{...(placeholderId && { 'data-ssr-placeholder': placeholderId })}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- width/height/aspectRatio are dynamic ADF + manifest-derived layout values
 			style={placeholderStyle}
-		/>
+		>
+			{children}
+		</div>
 	);
 };
 
 export type NativeEmbedInitialPlaceholderProps = ResolveNativeEmbedInitialLayoutInput & {
+	/** `native_embeds_ssr_whiteboard_iframe`: rendered inside the placeholder frame. */
+	children?: React.ReactNode;
 	firstPaint?: boolean;
 	shouldFillInlineWidth?: boolean;
 	testId?: string;
@@ -96,6 +107,7 @@ export type NativeEmbedInitialPlaceholderProps = ResolveNativeEmbedInitialLayout
  * the full native embed UI is available.
  */
 export const NativeEmbedInitialPlaceholder = ({
+	children,
 	firstPaint = false,
 	manifest,
 	parameters,
@@ -137,7 +149,9 @@ export const NativeEmbedInitialPlaceholder = ({
 				lockAspectRatio={lockAspectRatio}
 				placeholderId={resolvedPlaceholderId}
 				testId={testId}
-			/>
+			>
+				{children}
+			</NativeEmbedInitialPlaceholderFrame>
 		</div>
 	);
 };

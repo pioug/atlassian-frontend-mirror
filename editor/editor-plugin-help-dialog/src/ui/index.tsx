@@ -72,6 +72,11 @@ const HelpDialog = ({
 	);
 
 	useEffect(() => {
+		// On the top-layer path, the modal closes on Escape through `onClose`, after any open layer
+		// above it.
+		if (fg('platform-dst-top-layer')) {
+			return;
+		}
 		// Ignored via go/ees005
 		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		document.addEventListener('keydown', handleEsc);

@@ -1,11 +1,18 @@
 import type { StructuredContentSource } from '@atlassian/structured-docs-types/types';
 
 const documentation: StructuredContentSource = {
+	package: {
+		package: '@atlaskit/menu',
+		packagePath: __dirname,
+		packageJson: require('./package.json'),
+		overview:
+			'Do not use @atlaskit/menu. The package is marked intent-to-deprecate, and all of its components are deprecated. Use @atlaskit/navigation-system for side navigation, @atlaskit/dropdown-menu for contextual actions and options, or a list for other groups of links or actions.',
+	},
 	components: [
 		{
 			name: 'MenuGroup',
 			description: 'A list of options to action or navigate.',
-			status: 'intent-to-deprecate',
+			status: 'deprecated',
 			references: {
 				figmaUrl: 'https://go.atlassian.com/figma-library-ads-13200-39907',
 			},
@@ -16,12 +23,6 @@ const documentation: StructuredContentSource = {
 				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
-			usageGuidelines: [
-				'Use for list of options to action or navigate',
-				'Button items = actions (e.g. Copy); Link items = navigate (e.g. Team Spaces)',
-				'Group related menu items together',
-				'Use clear section titles',
-			],
 			contentGuidelines: [
 				'Use clear, descriptive menu item labels',
 				'Group related items logically',
@@ -38,7 +39,7 @@ const documentation: StructuredContentSource = {
 				{
 					name: 'Menu',
 					description: 'Menu example',
-					source: `${__dirname}/examples/ai/menu.tsx`,
+					source: `${__dirname}/examples/menu.tsx`,
 				},
 			],
 			keywords: ['menu', 'group', 'navigation', 'section', 'items'],
@@ -46,9 +47,8 @@ const documentation: StructuredContentSource = {
 		},
 		{
 			name: 'ButtonItem',
-			description:
-				'A menu item that triggers an action when clicked. Use for actions like Copy, Delete, or Create.',
-			status: 'intent-to-deprecate',
+			description: 'A menu item that triggers an action when clicked.',
+			status: 'deprecated',
 			import: {
 				name: 'ButtonItem',
 				package: '@atlaskit/menu/button-item',
@@ -56,11 +56,6 @@ const documentation: StructuredContentSource = {
 				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
-			usageGuidelines: [
-				'Use for actions that do not navigate (e.g. Copy, Create article)',
-				'Combine with icons for clarity when they add meaning',
-				'Use secondary text for context when helpful (e.g. project type)',
-			],
 			contentGuidelines: [
 				'Use clear, action-oriented labels',
 				'Use consistent terminology across menus',
@@ -77,9 +72,8 @@ const documentation: StructuredContentSource = {
 		},
 		{
 			name: 'LinkItem',
-			description:
-				'A menu item that navigates to a URL when clicked. Use for navigation links like Dashboard or Settings.',
-			status: 'intent-to-deprecate',
+			description: 'A menu item that navigates to a URL when clicked.',
+			status: 'deprecated',
 			import: {
 				name: 'LinkItem',
 				package: '@atlaskit/menu/link-item',
@@ -87,11 +81,6 @@ const documentation: StructuredContentSource = {
 				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
-			usageGuidelines: [
-				'Use for navigation (e.g. Team Spaces, Settings)',
-				'Indicate the current page when relevant',
-				'Combine with icons for context when they add meaning',
-			],
 			contentGuidelines: ['Use clear, descriptive labels for destinations', 'Keep labels concise'],
 			examples: [
 				{
@@ -108,7 +97,7 @@ const documentation: StructuredContentSource = {
 			name: 'CustomItem',
 			description:
 				'A menu item that accepts a custom component for advanced use cases when ButtonItem or LinkItem do not meet your needs.',
-			status: 'intent-to-deprecate',
+			status: 'deprecated',
 			import: {
 				name: 'CustomItem',
 				package: '@atlaskit/menu/custom-item',
@@ -116,10 +105,6 @@ const documentation: StructuredContentSource = {
 				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
-			usageGuidelines: [
-				'Use when ButtonItem or LinkItem cannot fulfill your requirements',
-				'Preserve menu item styling and behavior in custom implementations',
-			],
 			contentGuidelines: [
 				'Ensure custom components maintain accessibility',
 				'Keep custom implementations minimal',
@@ -138,7 +123,7 @@ const documentation: StructuredContentSource = {
 		{
 			name: 'Section',
 			description: 'Groups related menu items together with an optional title or heading.',
-			status: 'intent-to-deprecate',
+			status: 'deprecated',
 			import: {
 				name: 'Section',
 				package: '@atlaskit/menu/section',
@@ -146,11 +131,6 @@ const documentation: StructuredContentSource = {
 				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
-			usageGuidelines: [
-				'Use to group related menu items (e.g. Actions, Settings)',
-				'Use clear section titles when grouping',
-				'Use visual separators between sections when helpful',
-			],
 			contentGuidelines: ['Use clear section titles', 'Group items logically'],
 			examples: [
 				{
@@ -165,7 +145,7 @@ const documentation: StructuredContentSource = {
 		{
 			name: 'PopupMenuGroup',
 			description:
-				'A variant of MenuGroup with sensible default max/min width for popup menus. Deprecated—use MenuGroup instead.',
+				'A variant of MenuGroup with default minimum and maximum widths for popup menus.',
 			status: 'deprecated',
 			import: {
 				name: 'PopupMenuGroup',
@@ -174,19 +154,14 @@ const documentation: StructuredContentSource = {
 				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
-			usageGuidelines: [
-				'Prefer MenuGroup instead; PopupMenuGroup is deprecated',
-				'Use only when migrating existing code',
-			],
 			examples: [],
 			keywords: ['menu', 'popup', 'group', 'deprecated'],
 			categories: ['navigation'],
 		},
 		{
 			name: 'HeadingItem',
-			description:
-				'A non-interactive heading within a menu section. Use to label groups of items when Section title is not used.',
-			status: 'intent-to-deprecate',
+			description: 'A non-interactive heading within a menu section.',
+			status: 'deprecated',
 			import: {
 				name: 'HeadingItem',
 				package: '@atlaskit/menu/heading-item',
@@ -194,10 +169,6 @@ const documentation: StructuredContentSource = {
 				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
-			usageGuidelines: [
-				'Use to label section groups when a section title is not sufficient',
-				'Do not use for interactive content—headings are display-only',
-			],
 			contentGuidelines: ['Use clear, descriptive headings', 'Keep headings concise'],
 			examples: [
 				{
@@ -212,7 +183,7 @@ const documentation: StructuredContentSource = {
 		{
 			name: 'SkeletonItem',
 			description: 'A skeleton placeholder for a menu item during loading states.',
-			status: 'intent-to-deprecate',
+			status: 'deprecated',
 			import: {
 				name: 'SkeletonItem',
 				package: '@atlaskit/menu/skeleton-item',
@@ -220,10 +191,6 @@ const documentation: StructuredContentSource = {
 				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
-			usageGuidelines: [
-				'Use during loading to maintain layout stability',
-				'Match the shape of the loaded item (e.g. with or without icon)',
-			],
 			examples: [
 				{
 					name: 'Skeleton Item',
@@ -237,7 +204,7 @@ const documentation: StructuredContentSource = {
 		{
 			name: 'SkeletonHeadingItem',
 			description: 'A skeleton placeholder for a menu heading during loading states.',
-			status: 'intent-to-deprecate',
+			status: 'deprecated',
 			import: {
 				name: 'SkeletonHeadingItem',
 				package: '@atlaskit/menu/skeleton-heading-item',
@@ -245,7 +212,6 @@ const documentation: StructuredContentSource = {
 				packagePath: __dirname,
 				packageJson: require('./package.json'),
 			},
-			usageGuidelines: ['Use during loading when a section heading will appear'],
 			examples: [
 				{
 					name: 'Skeleton Heading Item',

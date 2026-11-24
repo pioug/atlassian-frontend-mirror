@@ -2,9 +2,9 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 import { graphql, RelayEnvironmentProvider, useLazyLoadQuery } from 'react-relay';
+import { MockPayloadGenerator } from 'relay-test-utils';
 
 import { createAtlassianMockRelayEnvironment } from '@atlassian/relay-test-utils/mock-environment';
-import { MockPayloadGenerator } from 'relay-test-utils';
 
 import { RovoAgentSelector } from '../src';
 import { generateMockAgentEdges } from '../src/common/utils/generate-mock-agent-edges';

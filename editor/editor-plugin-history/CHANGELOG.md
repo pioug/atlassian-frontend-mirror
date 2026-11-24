@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-history
 
+## 34.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 33.1.0
+
+### Minor Changes
+
+- [`1df483ea98d52`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1df483ea98d52) -
+  Plumbing for native backend agent undo behind the platform_editor_agent_be_review_undo_exp
+  experiment: the history plugin refreshes undo/redo availability for promoted agent edits and for a
+  blocked undo or redo that discards its event, and the undo/redo commands now dispatch the outcome
+  of a refused agent undo or redo instead of reporting the shortcut unhandled.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 33.0.0
 
 ### Patch Changes

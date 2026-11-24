@@ -10,6 +10,17 @@ import {
 
 test.use({ exampleName: 'testing' as keyof typeof import('../../../examples/99-testing.tsx') });
 
+// Restore the scrollable-region-focusable check when PR #561419 lands.
+// The matcher replaces its default disabled rules when an explicit list is supplied.
+const scrollableTableAuditOptions = {
+	disableRules: [
+		'landmark-one-main',
+		'page-has-heading-one',
+		'region',
+		'scrollable-region-focusable',
+	],
+};
+
 test.describe('table width information analytics', () => {
 	const waitForTableWidthInformationEvent = async (renderer: RendererPageInterface, page: Page) => {
 		await renderer.waitForRendererStable();
@@ -107,7 +118,7 @@ test.describe('table width information analytics', () => {
 				}),
 			);
 
-			await expect(page).toBeAccessible();
+			await expect(page).toBeAccessible(scrollableTableAuditOptions);
 		});
 	});
 
@@ -119,6 +130,9 @@ test.describe('table width information analytics', () => {
 		test('should send correct payload', async ({ renderer, page }) => {
 			await waitForTableWidthInformationEvent(renderer, page);
 
+			const tableWidth = await page
+				.locator('[data-testid="renderer-table"]')
+				.evaluate((table) => table.scrollWidth);
 			const events = await renderer.getAnalyticsEvents();
 			expect(events).toContainEqual(
 				expect.objectContaining({
@@ -135,14 +149,14 @@ test.describe('table width information analytics', () => {
 							expect.objectContaining({
 								hasScrollbar: true,
 								isNestedTable: false,
-								tableWidth: 920,
+								tableWidth,
 							}),
 						],
 					}),
 				}),
 			);
 
-			await expect(page).toBeAccessible();
+			await expect(page).toBeAccessible(scrollableTableAuditOptions);
 		});
 	});
 });

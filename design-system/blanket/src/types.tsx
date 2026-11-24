@@ -2,6 +2,9 @@ import { type ReactNode } from 'react';
 
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
+/**
+ * @deprecated `@atlaskit/blanket` is deprecated. See https://atlassian.design/components/blanket/usage.
+ */
 export interface BlanketProps {
 	/**
 	 * Whether mouse events can pass through the blanket. If `true`, `onBlanketClicked` will not be called.

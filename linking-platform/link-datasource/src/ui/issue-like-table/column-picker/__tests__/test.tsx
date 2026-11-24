@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 import invariant from 'tiny-invariant';
 
 import type { DatasourceResponseSchemaProperty } from '@atlaskit/linking-types/datasource';
+import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
 import type { ConcurrentExperience } from '@atlaskit/ufo/concurrent-experience';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
@@ -693,5 +695,72 @@ describe('Column picker', () => {
 	it('should capture and report a11y violations', async () => {
 		const { container } = renderColumnPicker([], []);
 		await expect(container).toBeAccessible();
+	});
+
+	describe('Escape', () => {
+		const columns: DatasourceResponseSchemaProperty[] = [
+			{ key: 'type', type: 'icon', title: 'Type' },
+			{ key: 'blah', type: 'string', title: 'Blah' },
+		];
+
+		const renderPicker = () => (
+			<DatasourceExperienceIdProvider>
+				<IntlProvider locale="en">
+					<ColumnPicker
+						columns={columns}
+						onSelectedColumnKeysChange={mockOnChange}
+						selectedColumnKeys={['type']}
+					/>
+				</IntlProvider>
+			</DatasourceExperienceIdProvider>
+		);
+
+		it.each([
+			{ path: 'legacy', setGate: failGate, documentEscapeCount: 0 },
+			{ path: 'top-layer', setGate: passGate, documentEscapeCount: 1 },
+		])(
+			'lets $documentEscapeCount Escape from the open picker reach the document on the $path path',
+			async ({ setGate, documentEscapeCount }) => {
+				setGate('platform-dst-top-layer');
+				const onDocumentKeyDown = jest.fn();
+				document.addEventListener('keydown', onDocumentKeyDown);
+				try {
+					const user = userEvent.setup();
+					render(renderPicker());
+					await user.click(screen.getByTestId('column-picker-trigger-button'));
+					expect(await screen.findByText('Blah')).toBeInTheDocument();
+
+					await user.keyboard('{Escape}');
+
+					expect(
+						onDocumentKeyDown.mock.calls.filter(([event]) => event.key === 'Escape'),
+					).toHaveLength(documentEscapeCount);
+				} finally {
+					document.removeEventListener('keydown', onDocumentKeyDown);
+				}
+			},
+		);
+
+		it('closes the open picker first and the modal on the next Escape (top-layer)', async () => {
+			passGate('platform-dst-top-layer');
+			const user = userEvent.setup();
+			const onModalClose = jest.fn();
+			render(
+				<ModalDialog label="Issues" onClose={onModalClose}>
+					{renderPicker()}
+				</ModalDialog>,
+			);
+			await user.click(screen.getByTestId('column-picker-trigger-button'));
+			expect(await screen.findByText('Blah')).toBeInTheDocument();
+
+			await user.keyboard('{Escape}');
+
+			await waitFor(() => expect(screen.queryByText('Blah')).not.toBeInTheDocument());
+			expect(onModalClose).not.toHaveBeenCalled();
+
+			await user.keyboard('{Escape}');
+
+			expect(onModalClose).toHaveBeenCalledTimes(1);
+		});
 	});
 });

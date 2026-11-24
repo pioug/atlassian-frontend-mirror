@@ -1,7 +1,7 @@
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import type { AgentBrandColorScheme } from '@atlaskit/agent-color/agent-presence-color-types';
 import { getAgentColor, type AgentColor } from '@atlaskit/agent-color/get-agent-color';
 import { getThirdPartyAgentColor } from '@atlaskit/agent-color/get-third-party-agent-color';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { type ParticipantColor, participantColors } from './consts';
 

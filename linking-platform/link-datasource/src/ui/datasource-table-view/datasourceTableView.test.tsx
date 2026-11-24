@@ -903,14 +903,12 @@ describe('DatasourceTableView', () => {
 	});
 
 	describe('host empty-state rendering', () => {
-		it('replaces the whole empty table and explicitly enables completion without the legacy callback gate', () => {
-			failGate('platform_lp_sllv_on_request_settled');
+		it('replaces the whole empty table and reports completion', () => {
 			const onRequestSettled = jest.fn();
 			const { queryByTestId, getByText } = setup(
 				{ responseItems: [], totalCount: 0 },
 				{
 					onRequestSettled,
-					enableRequestSettled: true,
 					renderEmptyState: () => <Text as="p">Refine this search</Text>,
 				},
 			);
@@ -924,23 +922,19 @@ describe('DatasourceTableView', () => {
 			});
 		});
 
-		it('does not enable completion reporting just by customizing the empty display', () => {
-			failGate('platform_lp_sllv_on_request_settled');
-			const onRequestSettled = jest.fn();
+		it('renders the host empty state without a completion callback', () => {
 			const { getByText } = setup(
 				{ responseItems: [], totalCount: 0 },
-				{ onRequestSettled, renderEmptyState: () => <Text as="p">No matching items</Text> },
+				{ renderEmptyState: () => <Text as="p">No matching items</Text> },
 			);
 			expect(getByText('No matching items')).toBeInTheDocument();
-			expect(onRequestSettled).not.toHaveBeenCalled();
 		});
 
-		it('can explicitly enable completion while retaining the default table display', () => {
-			failGate('platform_lp_sllv_on_request_settled');
+		it('reports completion when the legacy override is false', () => {
 			const onRequestSettled = jest.fn();
 			const { getByTestId } = setup(
 				{ responseItems: [], totalCount: 0 },
-				{ onRequestSettled, enableRequestSettled: true },
+				{ onRequestSettled, enableRequestSettled: false },
 			);
 			expect(getByTestId('datasource-table-view--no-results-row')).toBeInTheDocument();
 			expect(onRequestSettled).toHaveBeenCalledTimes(1);
@@ -954,10 +948,6 @@ describe('DatasourceTableView', () => {
 	});
 
 	describe('onRequestSettled', () => {
-		beforeEach(() => {
-			passGate('platform_lp_sllv_on_request_settled');
-		});
-
 		const rerenderWithState = (
 			rerender: (ui: React.ReactElement) => void,
 			stateOverride: Partial<DatasourceTableState>,
@@ -1080,16 +1070,6 @@ describe('DatasourceTableView', () => {
 			const { getByTestId } = setup({ responseItems: [], totalCount: 0 });
 
 			expect(getByTestId('datasource-table-view--no-results-row')).toBeInTheDocument();
-		});
-	});
-
-	describe('onRequestSettled when platform_lp_sllv_on_request_settled is disabled', () => {
-		it('should not report a settled request', () => {
-			failGate('platform_lp_sllv_on_request_settled');
-			const onRequestSettled = jest.fn();
-			setup({ responseItems: [], totalCount: 0 }, { onRequestSettled });
-
-			expect(onRequestSettled).not.toHaveBeenCalled();
 		});
 	});
 

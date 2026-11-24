@@ -55,6 +55,14 @@ first, edit, then `kg.py edit <path> --message "<reason>"`.
 - All new behaviour changes must be behind a feature gate (`fg()` from
   `@atlaskit/platform-feature-flags`)
 
+## Bounded read credentials
+
+`platform_media_bounded_read_tokens` enables file-scoped auth resolution for read tokens over 7,000
+characters and groups `/items` requests by credential. Providers receive a single-file
+`AuthContext.access` read request. Keep the gate-off path and short-token request count unchanged.
+Fetch-based reads use auth headers; async signed-URL APIs still put the bounded token in the URL.
+Artifact, upload and copy authentication are outside this gate.
+
 ## Uploads without collection read access
 
 With `platform_media_upload_without_read` enabled, pass `skipRemoteFileState: true` on an

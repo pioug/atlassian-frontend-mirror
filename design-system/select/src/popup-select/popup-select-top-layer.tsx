@@ -17,7 +17,7 @@ import {
 	useState,
 } from 'react';
 
-import { css, jsx } from '@compiled/react';
+import { jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
 
 import { mergeStyles } from '@atlaskit/react-select/styles';
@@ -44,12 +44,6 @@ import {
 import { defaultComponents } from './components';
 import { DummyControl } from './dummy-control';
 import type { PopupSelectHandle, PopupSelectProps } from './popup-select';
-
-const menuDialogStyles = css({
-	backgroundColor: token('elevation.surface.overlay'),
-	borderRadius: token('radius.large'),
-	boxShadow: token('elevation.shadow.overlay'),
-});
 
 type TPopperOffsetModifier = { name?: string; options?: { offset?: unknown } };
 
@@ -433,7 +427,6 @@ function PopupSelectTopLayerInner<
 				<PopoverSurface>
 					<div
 						ref={menuRef}
-						css={[menuDialogStyles]}
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 						style={{
 							maxWidth: maxMenuWidth,

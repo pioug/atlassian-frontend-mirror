@@ -114,4 +114,51 @@ describe('ColorPicker', () => {
 			expect(onMenuOpenMock).toHaveBeenCalledTimes(1);
 		});
 	});
+
+	describe('Escape in the open menu', () => {
+		const renderInParent = (onParentKeyDown: (event: React.KeyboardEvent) => void) =>
+			render(
+				<IntlProvider locale="en">
+					<div role="presentation" onKeyDown={onParentKeyDown}>
+						<ColorPicker
+							palette={[
+								{ value: 'blue', label: 'Blue' },
+								{ value: 'red', label: 'Red' },
+							]}
+							onChange={mockFn}
+						/>
+					</div>
+				</IntlProvider>,
+			);
+
+		const getEscapeCalls = (onParentKeyDown: jest.Mock) =>
+			onParentKeyDown.mock.calls.filter(([event]) => event.key === 'Escape');
+
+		test('closes the menu and does not stop the Escape on the top-layer path', async () => {
+			mockGetBooleanFG.mockImplementation((flag: string) => flag === 'platform-dst-top-layer');
+			const onParentKeyDown = jest.fn();
+			renderInParent(onParentKeyDown);
+
+			await userEvent.click(screen.getByLabelText('Blue selected, Color picker'));
+			expect(screen.getAllByRole('radio')).toHaveLength(2);
+
+			await userEvent.keyboard('{Escape}');
+
+			expect(screen.queryAllByRole('radio')).toHaveLength(0);
+			expect(getEscapeCalls(onParentKeyDown)).toHaveLength(1);
+		});
+
+		test('stops the Escape on the legacy path', async () => {
+			mockGetBooleanFG.mockReturnValue(false);
+			const onParentKeyDown = jest.fn();
+			renderInParent(onParentKeyDown);
+
+			await userEvent.click(screen.getByLabelText('Blue selected, Color picker'));
+			expect(screen.getAllByRole('radio')).toHaveLength(2);
+
+			await userEvent.keyboard('{Escape}');
+
+			expect(getEscapeCalls(onParentKeyDown)).toHaveLength(0);
+		});
+	});
 });

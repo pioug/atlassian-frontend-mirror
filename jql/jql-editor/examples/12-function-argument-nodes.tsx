@@ -60,14 +60,12 @@ const getAutocompleteSuggestions: GetAutocompleteSuggestions = () =>
 const onHydrate = (jql: string): Promise<HydratedValues> => {
 	const values: HydratedLozengeWithAvatar[] = focusAreas
 		.filter((fa) => jql.includes(fa.id))
-		.map(
-			(fa): HydratedLozengeWithAvatar => ({
-				type: 'lozengeWithAvatar',
-				id: fa.id,
-				name: fa.displayName,
-				avatarUrl: fa.avatarUrl,
-			}),
-		);
+		.map((fa): HydratedLozengeWithAvatar => ({
+			type: 'lozengeWithAvatar',
+			id: fa.id,
+			name: fa.displayName,
+			avatarUrl: fa.avatarUrl,
+		}));
 
 	return Promise.resolve({
 		focusArea: values,

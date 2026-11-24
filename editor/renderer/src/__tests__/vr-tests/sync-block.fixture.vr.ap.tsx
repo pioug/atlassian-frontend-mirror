@@ -15,7 +15,6 @@ import type { RendererProps } from '../../ui/renderer-props';
 const mockEnvironment = createAtlassianMockRelayEnvironment();
 
 import { SyncBlockActionsProvider } from '@atlaskit/editor-common/sync-block/SyncBlockActionsContext';
-
 import { createAtlassianMockRelayEnvironment } from '@atlassian/relay-test-utils/mock-environment';
 
 import type { RendererContentMode } from '../../ui/Renderer/types';

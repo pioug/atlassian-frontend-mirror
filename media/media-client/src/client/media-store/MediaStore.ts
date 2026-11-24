@@ -20,6 +20,7 @@ import { isPathBasedEnabled } from '../../utils/isPathBasedEnabled';
 import { mapToMediaCdnUrl } from '../../utils/mapToMediaCdnUrl';
 import { mapToPathBasedUrl } from '../../utils/mapToPathBasedUrl';
 import { mapToSeedBasedCdnUrl } from '../../utils/mapToSeedBasedCdnUrl';
+import { MEDIA_TOKEN_LENGTH_LIMIT } from '../../utils/mediaCdn';
 import { isRequestError, request } from '../../utils/request';
 import { createMapResponseToBlob } from '../../utils/request/createMapResponseToBlob';
 import { createMapResponseToJson } from '../../utils/request/createMapResponseToJson';
@@ -277,7 +278,7 @@ export class MediaStore implements MediaApi {
 		);
 	}
 
-	getFile(
+	async getFile(
 		fileId: string,
 		params: MediaStoreGetFileParams = {},
 		traceContext?: MediaTraceContext,
@@ -289,7 +290,9 @@ export class MediaStore implements MediaApi {
 
 		const options: MediaStoreRequestOptions = {
 			...metadata,
-			authContext: { collectionName: params.collection },
+			...(fg('platform_media_bounded_read_tokens')
+				? { resolvedAuth: await this.resolveReadAuth(fileId, params.collection) }
+				: { authContext: { collectionName: params.collection } }),
 			params,
 			traceContext,
 		};
@@ -299,7 +302,7 @@ export class MediaStore implements MediaApi {
 
 	async getFileImageURL(id: string, params?: MediaStoreGetFileImageParams): Promise<string> {
 		const { collection: collectionName } = params || {};
-		const auth = await this.resolveAuth({ collectionName });
+		const auth = await this.resolveReadAuth(id, collectionName);
 		return this.createFileImageURL(id, auth, params);
 	}
 
@@ -364,7 +367,9 @@ export class MediaStore implements MediaApi {
 
 		const options: MediaStoreRequestOptions = {
 			...metadata,
-			authContext: { collectionName },
+			...(fg('platform_media_bounded_read_tokens')
+				? { resolvedAuth: await this.resolveReadAuth(id, collectionName) }
+				: { authContext: { collectionName } }),
 			headers,
 			params: {
 				collection: collectionName,
@@ -383,7 +388,7 @@ export class MediaStore implements MediaApi {
 		maxAge: number = FILE_CACHE_MAX_AGE,
 		name?: string,
 	): Promise<string> {
-		const auth = await this.resolveAuth({ collectionName });
+		const auth = await this.resolveReadAuth(id, collectionName);
 
 		const options: CreateUrlOptions = {
 			params: {
@@ -576,12 +581,14 @@ export class MediaStore implements MediaApi {
 		};
 
 		let wmvParams = {};
-		let authOptions: Pick<MediaStoreRequestOptions, 'authContext' | 'resolvedAuth'> = {
-			authContext: { collectionName: params && params.collection },
-		};
+		let authOptions: Pick<MediaStoreRequestOptions, 'authContext' | 'resolvedAuth'> = fg(
+			'platform_media_bounded_read_tokens',
+		)
+			? { resolvedAuth: await this.resolveReadAuth(id, params && params.collection) }
+			: { authContext: { collectionName: params && params.collection } };
 
 		if (fg('confluence_watermark_admin_ui') || fg('jira_enable_media_watermark_admin_ui')) {
-			const auth = await this.resolveAuth(authOptions.authContext);
+			const auth = authOptions.resolvedAuth ?? (await this.resolveAuth(authOptions.authContext));
 			const wmv = getWatermarkVersionFromToken(auth.token);
 			if (wmv) {
 				wmvParams = { wmv };
@@ -613,26 +620,50 @@ export class MediaStore implements MediaApi {
 		traceContext?: MediaTraceContext,
 		includeHashForDuplicateFiles?: boolean,
 	): Promise<MediaStoreResponse<ItemsPayload>> {
-		const descriptors = ids.map((id) => ({
-			type: 'file',
-			id,
-			collection: collectionName,
-		}));
-
-		const metadata: RequestMetadata = {
-			method: 'POST',
-			endpoint: '/items',
+		const metadata: RequestMetadata = { method: 'POST', endpoint: '/items' };
+		const requestItems = (
+			fileIds: string[],
+			resolvedAuth?: Auth,
+		): Promise<MediaStoreResponse<ItemsPayload>> => {
+			const descriptors = fileIds.map((id) => ({ type: 'file', id, collection: collectionName }));
+			return this.request('/items', {
+				...metadata,
+				authContext: { collectionName },
+				resolvedAuth,
+				headers: jsonHeaders,
+				body: JSON.stringify({ descriptors, includeHashForDuplicateFiles }),
+				traceContext,
+			}).then(createMapResponseToJson(metadata));
 		};
 
-		const options: MediaStoreRequestOptions = {
-			...metadata,
-			authContext: { collectionName },
-			headers: jsonHeaders,
-			body: JSON.stringify({ descriptors, includeHashForDuplicateFiles }),
-			traceContext,
-		};
+		if (!fg('platform_media_bounded_read_tokens')) {
+			return requestItems(ids);
+		}
 
-		return this.request('/items', options).then(createMapResponseToJson(metadata));
+		const auth = await this.resolveAuth({ collectionName });
+		if (auth.token.length <= MEDIA_TOKEN_LENGTH_LIMIT) {
+			return requestItems(ids, auth);
+		}
+
+		const fileAuth = await Promise.all(
+			ids.map((id) =>
+				this.resolveAuth({ collectionName, access: [{ type: 'file', id, actions: ['read'] }] }),
+			),
+		);
+		const groups = new Map<string, { auth: Auth; ids: string[] }>();
+		fileAuth.forEach((resolvedAuth, index) => {
+			const key = JSON.stringify(resolvedAuth);
+			const group = groups.get(key);
+			if (group) {
+				group.ids.push(ids[index]);
+			} else {
+				groups.set(key, { auth: resolvedAuth, ids: [ids[index]] });
+			}
+		});
+		const responses = await Promise.all(
+			Array.from(groups.values(), (group) => requestItems(group.ids, group.auth)),
+		);
+		return { data: { items: responses.flatMap((response) => response.data.items) } };
 	}
 
 	async getImageMetadata(
@@ -647,7 +678,9 @@ export class MediaStore implements MediaApi {
 
 		const options: MediaStoreRequestOptions = {
 			...metadata,
-			authContext: { collectionName: params && params.collection },
+			...(fg('platform_media_bounded_read_tokens')
+				? { resolvedAuth: await this.resolveReadAuth(id, params && params.collection) }
+				: { authContext: { collectionName: params && params.collection } }),
 			params,
 			traceContext,
 		};
@@ -681,7 +714,9 @@ export class MediaStore implements MediaApi {
 
 		const requestOptions: MediaStoreRequestOptions = {
 			...metadata,
-			authContext: { collectionName: options.collectionName },
+			...(fg('platform_media_bounded_read_tokens')
+				? { resolvedAuth: await this.resolveReadAuth(id, options.collectionName) }
+				: { authContext: { collectionName: options.collectionName } }),
 			headers,
 			params: {
 				collection: options.collectionName,
@@ -721,7 +756,9 @@ export class MediaStore implements MediaApi {
 
 		const requestOptions: MediaStoreRequestOptions = {
 			...metadata,
-			authContext: { collectionName: options.collectionName },
+			...(fg('platform_media_bounded_read_tokens')
+				? { resolvedAuth: await this.resolveReadAuth(id, options.collectionName) }
+				: { authContext: { collectionName: options.collectionName } }),
 			headers,
 			params: {
 				collection: options.collectionName,
@@ -908,6 +945,17 @@ export class MediaStore implements MediaApi {
 			traceContext: extendTraceContext(traceContext),
 			clientOptions: { retryOptions: { maxAttempts: 1 } },
 		});
+	}
+
+	private async resolveReadAuth(id: string, collectionName?: string): Promise<Auth> {
+		const auth = await this.resolveAuth({ collectionName });
+		if (
+			!fg('platform_media_bounded_read_tokens') ||
+			auth.token.length <= MEDIA_TOKEN_LENGTH_LIMIT
+		) {
+			return auth;
+		}
+		return this.resolveAuth({ collectionName, access: [{ type: 'file', id, actions: ['read'] }] });
 	}
 
 	resolveAuth = (authContext?: AuthContext): Promise<Auth> =>

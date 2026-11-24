@@ -13,12 +13,10 @@ type Token = {
 
 const activeTokens = tokens
 	.filter((t) => t.attributes.state !== 'deleted' && t.attributes.state !== 'deprecated')
-	.map(
-		(t): Token => ({
-			token: t.name,
-			fallback: t.value as string,
-		}),
-	)
+	.map((t): Token => ({
+		token: t.name,
+		fallback: t.value as string,
+	}))
 	.filter(compose(pick('token'), not(isAccent)))
 	.filter((t) => t.token.includes('background'))
 	.filter((t) => t.token.includes('bold'))

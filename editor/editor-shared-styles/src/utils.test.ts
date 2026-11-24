@@ -1,6 +1,6 @@
+import { token } from '@atlaskit/tokens';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
-import { token } from '@atlaskit/tokens';
 
 import { participantColors } from './consts';
 import { getHashCode, getParticipantColor } from './utils';

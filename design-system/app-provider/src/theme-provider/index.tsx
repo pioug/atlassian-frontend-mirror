@@ -277,13 +277,12 @@ export function ThemeProvider({
 						<SetThemeContext.Provider value={setPartialTheme}>
 							{!isRootThemeProvider ? (
 								<div {...attrs} css={contentStyles.body}>
-									{!hasHoistedInlineThemeStyles &&
-										inlineThemeStylesOverrides && (
-											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles
-											<style data-theme-overrides={customThemeOverridesStyleId}>
-												{inlineThemeStylesOverrides}
-											</style>
-										)}
+									{!hasHoistedInlineThemeStyles && inlineThemeStylesOverrides && (
+										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles
+										<style data-theme-overrides={customThemeOverridesStyleId}>
+											{inlineThemeStylesOverrides}
+										</style>
+									)}
 									{inlineThemeStyles.map(({ id, css }) => (
 										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles
 										<style data-theme={id} key={id}>
@@ -294,13 +293,12 @@ export function ThemeProvider({
 								</div>
 							) : (
 								<>
-									{!hasHoistedInlineThemeStyles &&
-										inlineThemeStylesOverrides && (
-											// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles
-											<style data-theme-overrides={customThemeOverridesStyleId}>
-												{inlineThemeStylesOverrides}
-											</style>
-										)}
+									{!hasHoistedInlineThemeStyles && inlineThemeStylesOverrides && (
+										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles
+										<style data-theme-overrides={customThemeOverridesStyleId}>
+											{inlineThemeStylesOverrides}
+										</style>
+									)}
 									{inlineThemeStyles.map(({ id, css }) => (
 										// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles
 										<style data-theme={id} key={id}>

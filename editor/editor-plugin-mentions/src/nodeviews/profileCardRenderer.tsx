@@ -13,7 +13,6 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findChildrenByAttr } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { navigateToTeamsApp } from '@atlaskit/teams-app-config/utils/teams-app-navigation/navigate-to-teams-app';
 import { expVal } from '@atlaskit/tmp-editor-statsig/expVal';
@@ -200,34 +199,24 @@ export const profileCardRenderer = ({
 	const listenerCleanup = bind(dom, {
 		type: 'click',
 		listener: () => {
-			if (
-				fg('people-teams_migrate-user-profile-card') ||
-				isExperimentEnabled('pt_user_profile_card_migration_exp')
-			) {
-				const userId = currentNode.attrs?.id;
-				if (!userId) {
-					return;
-				}
-
-				navigatingToProfile = false;
-				options?.profilecardProvider?.then((provider) => {
-					if (!expVal('platform_editor_agent_mentions', 'isEnabled', false)) {
-						renderDefaultProfileCard(userId, provider);
-						return;
-					}
-
-					if (isAgentMentionType(currentNode.attrs?.userType)) {
-						renderEditorProfileCard();
-					} else {
-						renderDefaultProfileCard(userId, provider);
-					}
-				});
+			const userId = currentNode.attrs?.id;
+			if (!userId) {
 				return;
 			}
 
-			if (options?.profilecardProvider) {
-				renderEditorProfileCard();
-			}
+			navigatingToProfile = false;
+			options?.profilecardProvider?.then((provider) => {
+				if (!expVal('platform_editor_agent_mentions', 'isEnabled', false)) {
+					renderDefaultProfileCard(userId, provider);
+					return;
+				}
+
+				if (isAgentMentionType(currentNode.attrs?.userType)) {
+					renderEditorProfileCard();
+				} else {
+					renderDefaultProfileCard(userId, provider);
+				}
+			});
 		},
 	});
 

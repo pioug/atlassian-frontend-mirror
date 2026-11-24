@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import Loadable from 'react-loadable';
 // oxlint-disable-next-line @atlassian/no-restricted-imports
@@ -8,12 +8,9 @@ import type { UserType as MentionUserType } from '@atlaskit/adf-schema/mention';
 import ResourcedMention from '@atlaskit/mention/resourced-mention';
 import type { MentionProvider } from '@atlaskit/mention/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- TODO: migrate to @atlaskit/primitives/compiled
 import { Anchor } from '@atlaskit/primitives/anchor';
-import ProfileCardTrigger from '@atlaskit/profilecard/profile-card-trigger';
 import { navigateToTeamsApp } from '@atlaskit/teams-app-config/utils/teams-app-navigation/navigate-to-teams-app';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { ProfilecardProvider } from '../../provider-factory/profile-card-provider';
 import type { MentionEventHandler } from '../EventHandlers';
@@ -81,10 +78,9 @@ export interface Props {
 /**
  * Renders a mention chip wrapped in the appropriate profile card trigger.
  * 1. Agent mentions (`userType === 'APP'`, behind the `rovo_chat_mention_agents` experiment) open the Rovo agent profile card on click.
- * 2. Otherwise renders the person profile card (either via the provider's `renderUserMentionCard`/link fallback or the default user `ProfileCardTrigger`).
+ * 2. Otherwise renders the person profile card via the provider's `renderUserMentionCard`, falling back to a profile link.
  */
 export default function MentionWithProfileCard({
-	autoFocus,
 	id,
 	text,
 	accessLevel,
@@ -104,11 +100,6 @@ export default function MentionWithProfileCard({
 }: Props): React.JSX.Element {
 	const { cloudId, renderAgentMentionCard, renderUserMentionCard, resourceClient } =
 		profilecardProvider;
-
-	const actions = useMemo(
-		() => profilecardProvider.getActions(id, text, accessLevel),
-		[accessLevel, id, profilecardProvider, text],
-	);
 
 	const mention = (
 		<ResourcedMention
@@ -159,62 +150,35 @@ export default function MentionWithProfileCard({
 		);
 	}
 
-	if (
-		fg('people-teams_migrate-user-profile-card') ||
-		isExperimentEnabled('pt_user_profile_card_migration_exp')
-	) {
-		if (renderUserMentionCard) {
-			const prefilledProfileData = { accountId: id, name: text.replace(AT_PREFIX_REGEX, '') };
-			return (
-				<>
-					{renderUserMentionCard({
-						userId: id,
-						cloudId,
-						children: mention,
-						localId,
-						prefilledProfileData,
-					})}
-				</>
-			);
-		}
-
-		const { href, target } = navigateToTeamsApp({
-			type: 'USER',
-			payload: { userId: id },
-			cloudId,
-		});
-
+	if (renderUserMentionCard) {
+		const prefilledProfileData = { accountId: id, name: text.replace(AT_PREFIX_REGEX, '') };
 		return (
-			<Anchor
-				href={href}
-				target={target}
-				rel="noopener noreferrer"
-				testId="mention-with-profilecard-link-fallback"
-			>
-				{mention}
-			</Anchor>
+			<>
+				{renderUserMentionCard({
+					userId: id,
+					cloudId,
+					children: mention,
+					localId,
+					prefilledProfileData,
+				})}
+			</>
 		);
 	}
 
+	const { href, target } = navigateToTeamsApp({
+		type: 'USER',
+		payload: { userId: id },
+		cloudId,
+	});
+
 	return (
-		<ProfileCardTrigger
-			autoFocus={autoFocus}
-			cloudId={cloudId}
-			userId={id}
-			resourceClient={resourceClient}
-			actions={actions}
-			trigger="click"
-			position="bottom-end"
-			testId="mention-with-profilecard-trigger"
-			ariaLabel={text.replace(AT_PREFIX_REGEX, '')}
-			ssrPlaceholderId={ssrPlaceholderId}
-			isRenderedInPortal={expValEquals(
-				'editor_a11y_7152_profile_card_tab_order',
-				'isEnabled',
-				true,
-			)}
+		<Anchor
+			href={href}
+			target={target}
+			rel="noopener noreferrer"
+			testId="mention-with-profilecard-link-fallback"
 		>
 			{mention}
-		</ProfileCardTrigger>
+		</Anchor>
 	);
 }

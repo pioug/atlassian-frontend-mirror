@@ -1,5 +1,22 @@
 # @atlaskit/smart-card
 
+## 46.19.12
+
+### Patch Changes
+
+- [`cf3285c18814b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cf3285c18814b) -
+  Cleanup `feature_gate` `platform_sl_block_card_rovo_action_respect_hide`. `useBlockCardRovoAction`
+  now always respects `actionOptions.hide` / `exclude` for the Rovo chat action.
+- [`cc2f601cba535`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cc2f601cba535) -
+  Make Smart Link response extractors null-safe after removing the platform_sl_null_safe_extractors
+  feature gate.
+
+## 46.19.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 46.19.10
 
 ### Patch Changes

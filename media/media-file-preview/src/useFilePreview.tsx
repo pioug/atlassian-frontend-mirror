@@ -52,6 +52,9 @@ import {
 } from './types';
 import { useCurrentValueRef } from './useCurrentValueRef';
 
+// CloudFront rejects URLs over 8,192 bytes; keep headroom for encoding differences.
+const MAX_SSR_PREVIEW_URL_LENGTH = 8000;
+
 // invisible gif for SSR preview to show the underlying spinner until the src is replaced by
 // the actual image src in the inline script
 const DEFAULT_SSR_PREVIEW: MediaFilePreview = {
@@ -166,6 +169,13 @@ export const useFilePreview = ({
 
 		if (ssr) {
 			const ssrData = getSSRData(identifier, resizeMode);
+			if (
+				fg('platform_media_bounded_read_tokens') &&
+				ssrData?.dataURI &&
+				ssrData.dataURI.length > MAX_SSR_PREVIEW_URL_LENGTH
+			) {
+				return undefined;
+			}
 			if (ssrData?.error) {
 				ssrReliabilityRef.current = {
 					...ssrReliabilityRef.current,
@@ -202,7 +212,7 @@ export const useFilePreview = ({
 							seededCdnUrl && isCDNEnabled() && fg('platform_media_ssr_data_seed')
 								? seededCdnUrl
 								: undefined;
-						return getSSRPreview(
+						const ssrPreview = getSSRPreview(
 							ssr,
 							mediaClient,
 							identifier.id,
@@ -210,6 +220,10 @@ export const useFilePreview = ({
 							mediaBlobUrlAttrs,
 							ssrSeededCdnUrl,
 						);
+						return fg('platform_media_bounded_read_tokens') &&
+							ssrPreview.dataURI.length > MAX_SSR_PREVIEW_URL_LENGTH
+							? undefined
+							: ssrPreview;
 					} catch (e: any) {
 						ssrReliabilityRef.current = {
 							...ssrReliabilityRef.current,

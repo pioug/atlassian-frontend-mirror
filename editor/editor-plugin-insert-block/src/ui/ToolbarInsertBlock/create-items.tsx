@@ -84,12 +84,10 @@ const buttonToItem: (button: MenuItem) => BlockMenuItem = memoize(
 );
 
 const buttonToDropdownItem = memoizeOne((title: string): ((button: MenuItem) => BlockMenuItem) =>
-	memoize(
-		(button: MenuItem): BlockMenuItem => ({
-			...button,
-			title: <ToolTipContent description={title} shortcutOverride="/" />,
-		}),
-	),
+	memoize((button: MenuItem): BlockMenuItem => ({
+		...button,
+		title: <ToolTipContent description={title} shortcutOverride="/" />,
+	})),
 );
 
 const createInsertBlockItems = (

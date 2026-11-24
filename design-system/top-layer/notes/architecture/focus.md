@@ -515,6 +515,22 @@ Focus that the content lost (a removed, disabled or hidden element) is already o
 close leaves it there. No layer moves lost focus, while open or at the close. See
 [`../decisions/focus-loss-recovery.md`](../decisions/focus-loss-recovery.md).
 
+**`DropdownMenu`: choosing an item focuses the trigger.** This is the
+[APG menu button](https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/) rule, as on the legacy
+path. `DropdownMenu`, not `Popover`, moves focus to the trigger in the click. It cannot wait for the
+hide, because React applies the item's change first:
+
+- An item that the click disables or removes has already put focus on `<body>`. `Popover` leaves
+  lost focus there, as native popovers do.
+- An item that the click moves takes its open menu with it. A showing popover that leaves the DOM
+  hides with no focus return and no `toggle` event.
+
+The legacy path did not need this, because `focus-trap` always returned focus to the trigger. Focus
+that the item's handler moved out of the menu stays. A mouse press in Safari, which does not focus
+the item, also ends on the trigger, and so does a controlled menu that its consumer keeps open (as
+on the legacy path). A drag handle menu needs this rule: after "Move to top", focus is on the
+handle, so the user can move the item again (the Pragmatic drag and drop guidelines).
+
 #### Verified browser timing
 
 Testing on 15 September 2026 covered native-only Escape and `hidePopover()` closes for outermost and
@@ -555,6 +571,13 @@ needed to wait for restoration. The DS wrappers that ask first (`Popup`, `Dropdo
 `PopupSelect`, `InlineDialog`) call `onClose` before the layer hides. Focus that `onClose` moves out
 of the layer stays: the focus return runs only when focus has no place. See
 [`../decisions/wrappers-ask-first-close.md`](../decisions/wrappers-ask-first-close.md).
+
+### Closing a layer from an Enter keydown
+
+Content that closes its layer from an Enter `keydown` must consume the key with
+`event.preventDefault()`. The layer returns focus to the trigger before the key's default action, so
+the browser sends the Enter `keypress` to the trigger, which opens the layer again. Select and
+Calendar already consume the keys they act on.
 
 ---
 

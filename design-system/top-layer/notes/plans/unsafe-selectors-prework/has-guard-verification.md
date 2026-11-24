@@ -432,13 +432,13 @@ matches the host subtree and the whole `:has()` still flips.
 
 ```css
 /* ✗ WRONG — guard on the last branch only; C18 measures F→T, i.e. no protection at all */
-.x:has(button, a:not(:where([popover], dialog, style, script, template, link, noscript, [popover] *, dialog *)))
-
-/* ✓ RIGHT — guard appended to the rightmost compound of EVERY top-level branch; C19 holds */
-.x:has(
-  button:not(:where([popover], dialog, style, script, template, link, noscript, [popover] *, dialog *)),
-  a:not(:where([popover], dialog, style, script, template, link, noscript, [popover] *, dialog *))
-)
+.x: has(button, a: not(: where([popover], dialog, style, script, template, link, noscript, [popover]
+	*, dialog *)))
+	/* ✓ RIGHT — guard appended to the rightmost compound of EVERY top-level branch; C19 holds */
+	.x: has(button: not(: where([popover], dialog, style, script, template, link, noscript, [popover]
+	*, dialog
+	*)), a: not(: where([popover], dialog, style, script, template, link, noscript, [popover]
+	*, dialog *)));
 ```
 
 **Spec lines for the transform:**

@@ -85,15 +85,13 @@ const onHydrate = (jql: string): Promise<HydratedValues> =>
 		setTimeout(() => {
 			const hydratedObjects = assetsObjects
 				.filter((assetsObject) => jql.includes(assetsObject.value))
-				.map(
-					(assetsObject): HydratedValue => ({
-						type: 'assets',
-						// hydrated ids must be the unquoted operand value
-						id: normaliseJqlString(assetsObject.value),
-						name: assetsObject.displayName,
-						avatarUrl: assetsObject.avatarUrl,
-					}),
-				);
+				.map((assetsObject): HydratedValue => ({
+					type: 'assets',
+					// hydrated ids must be the unquoted operand value
+					id: normaliseJqlString(assetsObject.value),
+					name: assetsObject.displayName,
+					avatarUrl: assetsObject.avatarUrl,
+				}));
 
 			resolve({
 				Assets: hydratedObjects,

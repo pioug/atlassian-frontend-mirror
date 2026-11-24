@@ -243,16 +243,16 @@ const buildDataResponse = ({
 			visibility: 'restricted',
 		},
 		data: {
-			items: mockConfluenceData.data.slice(0, maxItems).map(
-				(item, idx): DatasourceDataResponseItem => ({
+			items: mockConfluenceData.data
+				.slice(0, maxItems)
+				.map((item, idx): DatasourceDataResponseItem => ({
 					...item,
 					// Fake identifier attribute that is a primitive value.
 					// Adding number of pages to make all issueNumbers unique
 					id: {
 						data: `${item.id.data}` + numberOfLoads,
 					},
-				}),
-			),
+				})),
 			totalCount: maxItems,
 			nextPageCursor: numberOfLoads < 4 && maxItems > 1 ? 'c3RhcnRBdD01' : undefined,
 			...(includeSchema && { schema }),

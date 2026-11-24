@@ -13,7 +13,7 @@ export function compose<
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	FN extends Array<Func<any, any>>,
-	R extends FN extends []
+	R extends (FN extends []
 		? F1
 		: // Ignored via go/ees005
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -45,7 +45,7 @@ export function compose<
 							? (a: A) => ReturnType<F1>
 							: // Ignored via go/ees005
 								// eslint-disable-next-line @typescript-eslint/no-explicit-any
-								Func<any, ReturnType<F1>>, // Doubtful we'd ever want to pipe this many functions, but in the off chance someone does, we can still infer the return type
+								Func<any, ReturnType<F1>>), // Doubtful we'd ever want to pipe this many functions, but in the off chance someone does, we can still infer the return type
 >(func: F1, ...funcs: FN): R {
 	const allFuncs = [func, ...funcs];
 	// Ignored via go/ees005

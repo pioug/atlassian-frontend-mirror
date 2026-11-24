@@ -110,6 +110,7 @@ export type InitialPluginConfiguration = {
 		toolbarShowPlusInsertOnly?: boolean;
 	};
 	mentionsPlugin?: {
+		enableAgentSectioning?: boolean;
 		handleMentionsChanged?: (
 			mentionChanges: {
 				id: string;

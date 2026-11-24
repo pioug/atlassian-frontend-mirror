@@ -12,6 +12,7 @@ import { screen } from '@atlassian/testing-library/screen';
 import { userEvent } from '@atlassian/testing-library/user-event';
 import { waitFor } from '@atlassian/testing-library/wait-for';
 
+import { nodes } from '../../../../entry-points/nodes-default';
 import type { RendererProps } from '../../../renderer-props';
 import { RendererFunctionalComponent as Renderer } from '../../index';
 
@@ -29,7 +30,7 @@ const document: DocNode = {
 
 const renderer = (props: Partial<RendererProps> = {}) => (
 	<IntlProvider locale="en">
-		<Renderer document={document} appearance="full-page" {...props} />
+		<Renderer nodeComponents={nodes} document={document} appearance="full-page" {...props} />
 	</IntlProvider>
 );
 

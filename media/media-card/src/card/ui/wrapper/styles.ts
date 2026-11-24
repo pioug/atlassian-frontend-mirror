@@ -53,16 +53,16 @@ WrapperProps): SerializedStyles => css`
 	font-family: ${token('font.family.body')};
 	${getWrapperDimensions(dimensions, appearance)}
 	${displayBackground && `background: ${token('color.background.neutral')};`}
-  ${borderRadius}
-  ${getCursorStyle(mediaCardCursor)}
-  ${getWrapperShadow(disableOverlay, selected)}
-  ${generateResponsiveStyles(breakpoint)};
+	${borderRadius}
+	${getCursorStyle(mediaCardCursor)}
+	${getWrapperShadow(disableOverlay, selected)}
+	${generateResponsiveStyles(breakpoint)};
 	${selected ? hideNativeBrowserTextSelectionStyles : ''}
 
 	/* We use classnames from here exceptionally to be able to handle styles when the Card is on hover */
-  ${getClickablePlayButtonStyles(isPlayButtonClickable)}
-  ${getSelectableTickBoxStyles(isTickBoxSelectable)}
-  &:hover .${blanketClassName} {
+	${getClickablePlayButtonStyles(isPlayButtonClickable)}
+	${getSelectableTickBoxStyles(isTickBoxSelectable)}
+	&:hover .${blanketClassName} {
 		${fixedBlanketStyles}
 	}
 	&:hover .${actionsBarClassName}, &:focus-within .${actionsBarClassName} {

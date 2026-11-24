@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "7.15.4",
+	"version": "7.15.6",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -190,9 +190,6 @@
 			"referenceOnly": true
 		},
 		"linking_platform_link_datasource_unit_compliant": {
-			"type": "boolean"
-		},
-		"platform_lp_sllv_on_request_settled": {
 			"type": "boolean"
 		},
 		"astral_units_workspace_host_resolver": {

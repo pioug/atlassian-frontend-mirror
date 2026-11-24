@@ -1,5 +1,16 @@
 # @atlaskit/media-file-preview
 
+## 2.0.2
+
+### Patch Changes
+
+- [`c65766e1b529a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c65766e1b529a) -
+  Behind `platform_media_bounded_read_tokens`, request file-scoped credentials when a media read
+  token exceeds the supported size, group metadata requests by credential, and use authenticated
+  client previews when an SSR image URL is too long. Gate-off behavior and short-token request
+  counts are preserved.
+- Updated dependencies
+
 ## 2.0.1
 
 ### Patch Changes

@@ -207,7 +207,9 @@ describe('FlagGroup host', () => {
 			expect(hosts.every((host) => host.matches(':popover-open'))).toBe(true);
 			// eslint-disable-next-line testing-library/no-node-access -- the group container has no role
 			expect(hosts[0]).toContainElement(document.getElementById('flag-group'));
-			expect(screen.getAllByRole('heading', { name: 'Flags' })).toHaveLength(1);
+			expect(
+				screen.getAllByRole('heading', { name: 'Flags. Press Escape to dismiss.' }),
+			).toHaveLength(1);
 		});
 
 		it('moves the group label and id to the next host when the first flag exits', () => {
@@ -233,7 +235,9 @@ describe('FlagGroup host', () => {
 			// eslint-disable-next-line testing-library/no-node-access -- the group container has no role
 			const group = document.getElementById('flag-group');
 			expect(group).toContainElement(screen.getByTestId('a'));
-			expect(screen.getAllByRole('heading', { name: 'Flags' })).toHaveLength(1);
+			expect(
+				screen.getAllByRole('heading', { name: 'Flags. Press Escape to dismiss.' }),
+			).toHaveLength(1);
 		});
 
 		it('animates in a flag that shows after the group mounts, but not a flag present at mount', () => {
@@ -263,7 +267,6 @@ describe('FlagGroup host', () => {
 
 		it('dismisses the first flag with Escape', () => {
 			passGate('platform-dst-top-layer');
-			passGate('platform_dst_flag_keyboard_dismiss');
 			const onDismissed = jest.fn();
 			render(
 				<FlagGroup onDismissed={onDismissed}>

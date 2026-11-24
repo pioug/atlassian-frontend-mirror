@@ -5,8 +5,7 @@ import type ProfileClient from '@atlaskit/profilecard/profile-card-client';
 import type { ProfileCardAction } from '@atlaskit/profilecard/types';
 
 /**
- * Render-prop signature for injecting a custom user profile card around a mention. When the
- * `people-teams_migrate-user-profile-card` feature gate is on and the consumer supplies this
+ * Render-prop signature for injecting a custom user profile card around a mention. When the consumer supplies this
  * function via `ProfilecardProvider.renderUserMentionCard`, the editor will call it instead of
  * rendering the default link fallback.
  *
@@ -50,7 +49,7 @@ export interface ProfilecardProvider {
 	renderAgentMentionCard?: RenderAgentMentionCard;
 	/**
 	 * Optional render-prop that wraps a user mention with a consumer-supplied profile card UI.
-	 * Only used when the `people-teams_migrate-user-profile-card` feature gate is on. Lets 1P
+	 * Lets 1P
 	 * products (e.g. Confluence) inject the new private user profile card while public editor
 	 * consumers fall back to a link.
 	 */

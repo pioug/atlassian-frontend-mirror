@@ -10,7 +10,7 @@ import React, {
 
 import { bind, bindAll } from 'bind-event-listener';
 
-import { defaultMainMinWidth } from './constants';
+import { chatPanelInlineWidthVar, chatPanelWidthVar, defaultMainMinWidth } from './constants';
 import {
 	LayoutAreaSizingContext,
 	type LayoutArea,
@@ -32,9 +32,11 @@ import { useCssLayoutAreaStates } from './use-css-layout-area-states';
 export function LayoutAreaSizingProvider({
 	children,
 	layoutRef,
+	hoistSlotSizes = false,
 }: {
 	children: ReactNode;
 	layoutRef?: React.RefObject<HTMLDivElement | null>;
+	hoistSlotSizes?: boolean;
 }): JSX.Element {
 	const [Runtime, setRuntime] = useState<ComponentType<
 		React.ComponentProps<typeof LayoutAreaSizingRuntime>
@@ -47,6 +49,18 @@ export function LayoutAreaSizingProvider({
 	const cssModes = useCssLayoutAreaStates(layoutRef, configRevision, Runtime === null);
 	const sideNavMode = states['side-nav']?.mode ?? cssModes['side-nav'];
 	const chatPanelMode = states['chat-panel']?.mode ?? cssModes['chat-panel'];
+
+	// The rendered width follows live resizes. Reference it only while Chat occupies a grid track.
+	useEffect(() => {
+		const style = layoutRef?.current?.ownerDocument.documentElement.style;
+		if (!hoistSlotSizes || chatPanelMode !== 'inline' || !style) {
+			return;
+		}
+		style.setProperty(chatPanelInlineWidthVar, `var(${chatPanelWidthVar}, 0px)`);
+		return () => {
+			style.removeProperty(chatPanelInlineWidthVar);
+		};
+	}, [chatPanelMode, hoistSlotSizes, layoutRef]);
 
 	// Overlay dismissal is available before the sizing chunk loads. Keep the open
 	// order here too: replaying registrations into the runtime loses that order.

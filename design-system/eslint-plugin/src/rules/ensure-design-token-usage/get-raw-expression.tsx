@@ -7,14 +7,12 @@ export const getRawExpression = (node: EslintNode, context: Rule.RuleContext): s
 	if (
 		!(
 			// if not one of our recognized types or doesn't have a range prop, early return
-			(
-				isNodeOfType(node, 'Literal') ||
-				isNodeOfType(node, 'Identifier') ||
-				isNodeOfType(node, 'BinaryExpression') ||
-				isNodeOfType(node, 'UnaryExpression') ||
-				isNodeOfType(node, 'TemplateLiteral') ||
-				isNodeOfType(node, 'CallExpression')
-			)
+			isNodeOfType(node, 'Literal') ||
+			isNodeOfType(node, 'Identifier') ||
+			isNodeOfType(node, 'BinaryExpression') ||
+			isNodeOfType(node, 'UnaryExpression') ||
+			isNodeOfType(node, 'TemplateLiteral') ||
+			isNodeOfType(node, 'CallExpression')
 		) ||
 		!Array.isArray(node.range)
 	) {

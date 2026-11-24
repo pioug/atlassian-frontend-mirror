@@ -97,8 +97,9 @@ function ButtonMenuItemWithPopup({
 					isOpen={isNestedPopupOpen}
 					onClose={() => setIsNestedPopupOpen(false)}
 					placement="bottom-start"
-					// The bridge keeps the setter until flag cleanup.
-					role={undefined}
+					// The content takes focus when it opens, so the popup is a dialog with a name.
+					role="dialog"
+					label="Add options"
 					content={({ setInitialFocusRef }) => (
 						<div>
 							<ButtonItem ref={setInitialFocusRef}>Menu item 1</ButtonItem>

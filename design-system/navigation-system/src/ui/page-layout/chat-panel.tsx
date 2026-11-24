@@ -2,7 +2,15 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type CSSProperties, useCallback, useEffect, useRef, useState } from 'react';
+import {
+	type CSSProperties,
+	useCallback,
+	useContext,
+	useEffect,
+	useLayoutEffect,
+	useRef,
+	useState,
+} from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 import { bind } from 'bind-event-listener';
@@ -14,11 +22,13 @@ import { token } from '@atlaskit/tokens';
 import { useSkipLinkInternal } from '../../context/skip-links/use-skip-link-internal';
 import {
 	chatPanelLiveWidthVar,
+	chatPanelWidthVar,
 	chatPanelVar,
 	defaultMainMinWidth,
 	localSlotLayers,
 	mainMinimumWidthVar,
 } from './constants';
+import { DangerouslyHoistSlotSizes } from './hoist-slot-sizes-context';
 import { chatPanelPanelSplitterId } from './panel-splitter/chat-panel-panel-splitter-id';
 import { convertResizeBoundToPixels } from './panel-splitter/convert-resize-bound-to-pixels';
 import { PanelSplitterProvider } from './panel-splitter/provider';
@@ -214,6 +224,30 @@ export function ChatPanel({
 	});
 
 	const ref = useRef<HTMLDivElement | null>(null);
+	const dangerouslyHoistSlotSizes = useContext(DangerouslyHoistSlotSizes);
+	useLayoutEffect(() => {
+		const panel = ref.current;
+		if (!fg('platform-dst-chat-panel-layout') || !dangerouslyHoistSlotSizes || !panel) return;
+		// External floating controls need rendered geometry, including during resizing.
+		// This must never become a saved width preference.
+		let previousWidth: number | undefined;
+		const publishWidth = (width: number) => {
+			if (previousWidth !== width) {
+				previousWidth = width;
+				panel.ownerDocument.documentElement.style.setProperty(chatPanelWidthVar, `${width}px`);
+			}
+		};
+		publishWidth(panel.getBoundingClientRect().width);
+		const observer = new ResizeObserver(([entry]) => {
+			publishWidth(entry.borderBoxSize?.[0]?.inlineSize ?? panel.getBoundingClientRect().width);
+		});
+		observer.observe(panel, { box: 'border-box' });
+		return () => {
+			observer.disconnect();
+			panel.ownerDocument.documentElement.style.removeProperty(chatPanelWidthVar);
+		};
+	}, [dangerouslyHoistSlotSizes]);
+
 	const [inlineWidth, setInlineWidth] = useState(defaultWidth);
 	const [hasInlinePreference, setHasInlinePreference] = useState(false);
 	const [hasOverlayPreference, setHasOverlayPreference] = useState(false);
@@ -303,7 +337,9 @@ export function ChatPanel({
 	const chatPanelOverlayVariableWidth = managedSizing
 		? `${renderedWidth}px`
 		: fg('platform-dst-chat-panel-layout')
-			? `clamp(${minWidth}, ${hasOverlayPreference ? `${overlayWidth}px` : overlayDefault}, ${overlayMaximum})`
+			? `clamp(${minWidth}, ${
+					hasOverlayPreference ? `${overlayWidth}px` : overlayDefault
+				}, ${overlayMaximum})`
 			: `clamp(${minWidth}, ${overlayWidth}px, min(90vw, ${configuredMaxWidth}))`;
 	const onCompleteResize = useCallback(
 		(finalWidth: number) => {
@@ -359,17 +395,27 @@ export function ChatPanel({
 				<style>
 					{managedSizing
 						? `
-#${gridRootId} { --n_chatTrack: ${mode === 'inline' ? `${renderedWidth}px` : '0px'}; ${chatPanelLiveWidthVar}: var(--n_chatTrack); }
+#${gridRootId} { --n_chatTrack: ${
+								mode === 'inline' ? `${renderedWidth}px` : '0px'
+							}; ${chatPanelLiveWidthVar}: var(--n_chatTrack); }
 `
 						: `
-#${gridRootFitId} { --n_chatDefaultW: ${compactDefaultWidth}px; --n_chatPreferredW: ${fg('platform-dst-chat-panel-layout') && !hasInlinePreference ? `clamp(${minWidth}, ${compactDefaultWidth}px, ${configuredMaxWidth})` : chatPanelVariableWidth}; --n_clearanceChatMin: ${minWidth}; --n_clearanceChatTarget: var(--n_chatPreferredW); }
+#${gridRootFitId} { --n_chatDefaultW: ${compactDefaultWidth}px; --n_chatPreferredW: ${
+								fg('platform-dst-chat-panel-layout') && !hasInlinePreference
+									? `clamp(${minWidth}, ${compactDefaultWidth}px, ${configuredMaxWidth})`
+									: chatPanelVariableWidth
+							}; --n_clearanceChatMin: ${minWidth}; --n_clearanceChatTarget: var(--n_chatPreferredW); }
 @media (min-width: 64rem) {
   #${gridRootFitId} { --n_chatDefaultW: ${defaultWidth}px; --n_chatPreferredW: ${chatPanelVariableWidth}; }
 }
 #${gridRootId} { --n_chatTrack: 0px; ${chatPanelLiveWidthVar}: 0px; }
 #${gridRootId} [data-layout-chat-panel] {
   grid-area: 2 / 1 / -1 / -1;
-  width: ${fg('platform-dst-chat-panel-layout') ? chatPanelOverlayVariableWidth : `min(calc(var(--n_layoutW) * 0.9), ${chatPanelOverlayVariableWidth})`};
+  width: ${
+		fg('platform-dst-chat-panel-layout')
+			? chatPanelOverlayVariableWidth
+			: `min(calc(var(--n_layoutW) * 0.9), ${chatPanelOverlayVariableWidth})`
+	};
   ${fg('platform-dst-chat-panel-layout') ? 'max-width: none;' : ''}
   z-index: ${localSlotLayers.chatPanelOverlay};
   background-color: ${token('elevation.surface.overlay')};
@@ -384,7 +430,13 @@ export function ChatPanel({
       max-width: 100%;
       z-index: auto;
       background-color: ${token('elevation.surface')};
-      ${hasBorder ? `box-shadow: initial; border-inline-start: ${token('border.width')} solid ${token('color.border')};` : ''}
+      ${
+				hasBorder
+					? `box-shadow: initial; border-inline-start: ${token('border.width')} solid ${token(
+							'color.border',
+						)};`
+					: ''
+			}
     }
   }
 }

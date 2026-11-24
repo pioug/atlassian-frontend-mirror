@@ -304,9 +304,7 @@ describe('PersistentOverrideAdapter', () => {
 				},
 				__evaluation: null,
 			},
-			{
-				/* user */
-			},
+			{/* user */},
 		);
 
 		expect(result?.value).toBe(true);

@@ -77,7 +77,6 @@ const MenuWrapper: ({
 	onUpdate,
 	statusLabel,
 	setInitialFocusRef,
-	shouldRenderToParent,
 	spacing,
 	testId,
 	isTriggeredUsingKeyboard,
@@ -92,7 +91,6 @@ const MenuWrapper: ({
 	onUpdate,
 	statusLabel,
 	setInitialFocusRef,
-	shouldRenderToParent,
 	spacing,
 	testId,
 	isTriggeredUsingKeyboard,
@@ -135,15 +133,12 @@ const MenuWrapper: ({
 				.map(({ current }) => current)
 				.find((el) => !!el && !el.hasAttribute('disabled')) ?? null;
 
-		if (
-			(fg('platform_dst_menu_item_focus') || shouldRenderToParent) &&
-			(isTriggeredUsingKeyboard || autoFocus)
-		) {
+		if (isTriggeredUsingKeyboard || autoFocus) {
 			firstFocusableRef?.focus();
 		}
 
 		setInitialFocusRef?.(firstFocusableRef);
-	}, [menuItemRefs, setInitialFocusRef, autoFocus, shouldRenderToParent, isTriggeredUsingKeyboard]);
+	}, [menuItemRefs, setInitialFocusRef, autoFocus, isTriggeredUsingKeyboard]);
 
 	if (fg('platform-dst-new-menu')) {
 		return (

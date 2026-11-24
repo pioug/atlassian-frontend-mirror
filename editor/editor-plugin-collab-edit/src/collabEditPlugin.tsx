@@ -1,4 +1,3 @@
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
 import type { CollabEditProvider } from '@atlaskit/editor-common/collab';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
@@ -9,6 +8,7 @@ import type { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { AddMarkStep, AddNodeMarkStep } from '@atlaskit/editor-prosemirror/transform';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { collab, getCollabState, sendableSteps } from '@atlaskit/prosemirror-collab';
 import type { Rebaseable } from '@atlaskit/prosemirror-collab';

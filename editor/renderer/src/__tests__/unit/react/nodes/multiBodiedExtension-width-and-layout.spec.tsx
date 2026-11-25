@@ -57,7 +57,6 @@ describe('multi-bodied extensions with breakout marks', () => {
 		mockExpEnabled('platform_editor_lovability_resize_extensions');
 
 		passGate('platform_editor_lovability_resize_exts_gracefully');
-		mockExpEnabled('platform_editor_lovability_resize_exts_patch_1');
 
 		const schema = getSchemaBasedOnStage('stage0');
 		const marks = [schema.marks.breakout.create({ mode: 'wide', width: 900 })];
@@ -83,7 +82,6 @@ describe('multi-bodied extensions with breakout marks', () => {
 		mockExpDisabled('platform_editor_lovability_resize_extensions');
 
 		passGate('platform_editor_lovability_resize_exts_gracefully');
-		mockExpEnabled('platform_editor_lovability_resize_exts_patch_1');
 
 		const schema = getSchemaBasedOnStage('stage0');
 		const marks = [schema.marks.breakout.create({ mode: 'wide', width: 900 })];

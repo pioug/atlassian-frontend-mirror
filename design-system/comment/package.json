@@ -15,7 +15,6 @@
 	"sideEffects": [
 		"**/*.compiled.css"
 	],
-	"atlaskit:src": "src/index.tsx",
 	"atlassian": {
 		"team": "Design System Team",
 		"website": {

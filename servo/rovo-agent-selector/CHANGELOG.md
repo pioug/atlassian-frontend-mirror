@@ -1,5 +1,13 @@
 # @atlaskit/rovo-agent-selector
 
+## 3.3.3
+
+### Patch Changes
+
+- [`49a934281ffd0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/49a934281ffd0) -
+  Update the package description to describe the agent selector.
+- Updated dependencies
+
 ## 3.3.2
 
 ### Patch Changes

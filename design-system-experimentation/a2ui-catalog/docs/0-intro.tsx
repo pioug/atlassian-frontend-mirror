@@ -15,7 +15,7 @@ ${(
 			<Heading size="large">A2UI catalog</Heading>
 			<Text>
 				Component definitions for agents that produce Atlassian A2UI v0.9 surfaces. Choose the
-				catalog supported by your host: ADS contains the base components, while Agentic Jira extends
+				catalog supported by your host: ADS contains the base components, and Agentic Jira extends
 				ADS with workflow components.
 			</Text>
 			<Text>

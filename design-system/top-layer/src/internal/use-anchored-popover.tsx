@@ -22,10 +22,26 @@ import {
 	type TPopoverAxisSize,
 	type TPopoverWritingMode,
 } from './anchored-popover-size';
+import { isOverlapPlacement } from './is-overlap-placement';
 import { applyJavaScriptFallbackPositioning } from './javascript-fallback/apply-javascript-fallback-positioning';
-import { resolvePlacement, type TPlacement, type TPlacementOptions } from './resolve-placement';
+import {
+	resolvePlacement,
+	type TAnchoredPlacementOptions,
+	type TPlacement,
+	type TResolvedPlacement,
+} from './resolve-placement';
 import { supportsAnchorPositioning } from './supports-anchor-positioning';
 import { supportsAnchorSize } from './supports-anchor-size';
+
+/**
+ * Maps the popover to the adjacent side it would mostly extend toward in overlap placement.
+ */
+function getAdjacentFallbackPlacement(placement: TResolvedPlacement): TPlacement {
+	if (!isOverlapPlacement(placement)) {
+		return placement;
+	}
+	return { ...placement, edge: placement.edge === 'overlap-end' ? 'start' : 'end' };
+}
 
 /**
  * Which way the popover's inline axis runs. Maps every physical measurement below
@@ -118,30 +134,20 @@ function useNewAnchorName(): string {
 }
 
 /**
- * A referentially stable, fully resolved `TPlacement`, so a new inline
+ * A referentially stable, fully resolved placement variant, so a new inline
  * `placement` object on each render does not re-run the effect.
  */
-function useStablePlacement({ placement }: { placement: TPlacementOptions }): TPlacement {
-	const resolved = resolvePlacement({ placement });
-	const axis = resolved.axis;
-	const edge = resolved.edge;
-	const align = resolved.align;
-	const gap = resolved.offset.gap;
-	const shiftValue = resolved.offset.crossAxisShift.value;
-	const shiftDirection = resolved.offset.crossAxisShift.direction;
-	// Rebuilt from primitive deps, so the factory does not close over `resolved`
-	// and exhaustive-deps can verify it.
-	return useMemo(
-		() => ({
-			axis,
-			edge,
-			align,
-			offset: {
-				gap,
-				crossAxisShift: { value: shiftValue, direction: shiftDirection },
-			},
-		}),
-		[axis, edge, align, gap, shiftValue, shiftDirection],
+function useStablePlacement({
+	placement,
+}: {
+	placement: TAnchoredPlacementOptions;
+}): TResolvedPlacement {
+	const { axis, edge, align, offset } = resolvePlacement({ placement });
+	const { gap, crossAxisShift } = offset;
+	const { value, direction } = crossAxisShift;
+	return useMemo<TResolvedPlacement>(
+		() => ({ axis, edge, align, offset: { gap, crossAxisShift: { value, direction } } }),
+		[axis, edge, align, gap, value, direction],
 	);
 }
 
@@ -169,11 +175,11 @@ export type TAnchoredPopoverOptions = {
 	 */
 	popoverRef: RefObject<HTMLElement | null>;
 	/**
-	 * Where the popover sits relative to the anchor, plus `offset.gap` and
-	 * `offset.crossAxisShift`. Required, because the sizing rules read the
-	 * placement axis; individual fields are optional. See `TPlacementOptions`.
+	 * Where the popover sits relative to the anchor. Both adjacent and overlap
+	 * placements support `offset.gap` and `offset.crossAxisShift`. The sizing
+	 * rules require a placement object. Its fields are optional.
 	 */
-	placement: TPlacementOptions;
+	placement: TAnchoredPlacementOptions;
 	/**
 	 * Re-runs the effect across open cycles, so styles and listeners follow the live
 	 * host element through a remount.
@@ -260,6 +266,18 @@ export type TAnchoredPopoverOptions = {
  * });
  * ```
  *
+ * @example Expand an inline editor over its field
+ * ```tsx
+ * useAnchoredPopover({
+ *   anchorRef: fieldRef,
+ *   popoverRef,
+ *   isOpen,
+ *   placement: { axis: 'block', edge: 'overlap-start', align: 'start' },
+ *   inlineSize: 'min-anchor',
+ * });
+ * // Match the first editor row to the field height; put actions below that row.
+ * ```
+ *
  * @example Switch to a cursor position mid-mount
  * ```tsx
  * // Complementary `isEnabled`, so exactly one hook owns the popover.
@@ -295,42 +313,25 @@ export function useAnchoredPopover({
 			return;
 		}
 
-		// Resolved once, so positioning, sizing and margins cannot disagree about it.
-		const isUsingCssAnchorPositioning = supportsAnchorPositioning() && !forceFallbackPositioning;
-
-		// BOTH probes: a browser can have positioning without sizing, and
-		// `anchor-size()` needs the `position-anchor` only the CSS path writes.
-		const canUseAnchorSize = isUsingCssAnchorPositioning && supportsAnchorSize();
-
 		const anchor = anchorRef.current;
 		const popover = popoverRef.current;
-
 		if (!anchor || !popover) {
 			return;
 		}
 
-		// Fitting also reserves padding from the viewport edge as a margin.
+		const isOverlap = isOverlapPlacement(stablePlacement);
+		const canUseCssPositioning = !forceFallbackPositioning && supportsAnchorPositioning();
+		const canUseAnchorSize = canUseCssPositioning && supportsAnchorSize();
+		// Overlap uses the adjacent fallback if native sizing is unavailable.
+		const isUsingCssAnchorPositioning = isOverlap ? canUseAnchorSize : canUseCssPositioning;
+
 		const isFitting = inlineSize === 'max-available' || blockSize === 'max-available';
-
-		// Always read: the viewport caps are always written, and their unit follows
-		// the popover's writing mode.
 		const writingMode = getPopoverWritingMode({ popover });
-
-		// Skipped where possible, so a position-only consumer pays no layout read.
-		// Fitting on the CSS path needs it to clamp the default flip floor; see
-		// `getDefaultPlacementAxisFloor`.
 		const needsAnchorSize =
 			isAnchorRelative({ size: inlineSize }) ||
 			isAnchorRelative({ size: blockSize }) ||
-			(isFitting && isUsingCssAnchorPositioning);
-
-		const anchorSize = getAnchorSize({
-			anchor,
-			writingMode,
-			needsAnchorSize,
-			canUseAnchorSize,
-		});
-
+			(!isOverlap && isFitting && isUsingCssAnchorPositioning);
+		const anchorSize = getAnchorSize({ anchor, writingMode, needsAnchorSize, canUseAnchorSize });
 		const sizeStyles = getAnchoredPopoverSizeDeclarations({
 			placement: stablePlacement,
 			inlineSize,
@@ -355,7 +356,7 @@ export function useAnchoredPopover({
 		return applyJavaScriptFallbackPositioning({
 			anchor,
 			popover,
-			placement: stablePlacement,
+			placement: getAdjacentFallbackPlacement(stablePlacement),
 			sizeStyles,
 		});
 	}, [

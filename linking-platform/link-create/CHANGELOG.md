@@ -1,5 +1,16 @@
 # @atlaskit/link-create
 
+## 6.22.0
+
+### Minor Changes
+
+- [`2586e93a16712`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2586e93a16712) -
+  Update i18n NPM package versions for linking-platform,smart-experiences (Group 15)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.21.1
 
 ### Patch Changes

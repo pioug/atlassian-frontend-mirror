@@ -21,7 +21,6 @@
 	"module:es2019": "dist/es2019/index.js",
 	"types": "dist/types/index.d.ts",
 	"sideEffects": false,
-	"atlaskit:src": "src/index.tsx",
 	"exports": {
 		"./trigger-post-move-flash": "./src/trigger-post-move-flash.tsx"
 	},

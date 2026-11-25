@@ -1,5 +1,19 @@
 # @atlaskit/primitives
 
+## 22.9.0
+
+### Minor Changes
+
+- [`3b5e6b8c4b374`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3b5e6b8c4b374) -
+  Add interactionUseClickCapture to Pressable so consumers can start UFO press interactions during
+  click capture before the supplied capture callback runs. UFO uses its default name when
+  interactionName is omitted. Jira opts in for the board agent-session popup behind
+  butterfly-card-agent-session-popup.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.8.0
 
 ### Minor Changes

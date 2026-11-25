@@ -108,7 +108,9 @@ function snapshotBufferedInput(input: ExposureMappingInput): ExposureMappingInpu
 		const descriptors = Object.getOwnPropertyDescriptors(value);
 		for (const key of Reflect.ownKeys(descriptors)) {
 			const descriptor = descriptors[key as keyof typeof descriptors];
+			// @ts-ignore - TS18048 - 'descriptor' is possibly 'undefined'.
 			if ('value' in descriptor) descriptor.value = copy(descriptor.value);
+			// @ts-ignore - TS2345 - Argument of type 'PropertyDescriptor | undefined' is not assignable to parameter of type 'PropertyDescriptor & ThisType<any>'.
 			Object.defineProperty(captured, key, descriptor);
 		}
 		return captured;

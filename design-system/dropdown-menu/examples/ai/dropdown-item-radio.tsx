@@ -1,24 +1,25 @@
-import React, { useState } from 'react';
+import React, { useId, useState } from 'react';
 
 import { DropdownItemRadio } from '@atlaskit/dropdown-menu/dropdown-item-radio';
 import { DropdownItemRadioGroup } from '@atlaskit/dropdown-menu/dropdown-item-radio-group';
 import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
 
 const DropdownItemRadioExample = (): React.JSX.Element => {
+	const id = useId();
 	const [selected, setSelected] = useState<string>('detail');
 
 	return (
 		<DropdownMenu trigger="Views" shouldRenderToParent>
-			<DropdownItemRadioGroup title="Views" id="view-options">
+			<DropdownItemRadioGroup title="Views" id={`${id}-views`}>
 				<DropdownItemRadio
-					id="detail"
+					id={`${id}-detail`}
 					onClick={() => setSelected('detail')}
 					isSelected={selected === 'detail'}
 				>
 					Detail view
 				</DropdownItemRadio>
 				<DropdownItemRadio
-					id="list"
+					id={`${id}-list`}
 					onClick={() => setSelected('list')}
 					isSelected={selected === 'list'}
 				>

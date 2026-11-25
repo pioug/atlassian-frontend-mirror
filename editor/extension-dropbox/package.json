@@ -15,7 +15,6 @@
 	"sideEffects": [
 		"*.compiled.css"
 	],
-	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
 		"./constants": "./src/entry-points/constants.ts",

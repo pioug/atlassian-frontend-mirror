@@ -103,6 +103,12 @@ export type ElementItem = {
  */
 export type BaseActionItem = {
 	/**
+	 * Additional text providing an accessible name for the Action, used when the
+	 * visible content is hidden or not unique (e.g. icon-only actions).
+	 */
+	ariaLabel?: string;
+
+	/**
 	 * Determines the text content of the Action.
 	 */
 	content?: React.ReactNode;
@@ -230,7 +236,6 @@ export type NamedActionItem = BaseActionItem & {
  * This represents an action where either Icon or label must be provided.
  */
 export type CustomActionItem = BaseActionItem & {
-	ariaLabel?: string;
 	href?: string;
 	name: ActionName.CustomAction;
 } & (

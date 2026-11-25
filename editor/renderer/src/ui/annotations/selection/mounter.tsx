@@ -20,8 +20,10 @@ import type {
 } from '@atlaskit/editor-common/annotation';
 import type {
 	AnnotationByMatches,
+	AnnotationDraftFailureDiagnostics,
 	InlineCommentSelectionComponentProps,
 } from '@atlaskit/editor-common/types/annotation';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
@@ -156,8 +158,20 @@ export const SelectionInlineCommentMounter: React.MemoExoticComponent<
 	}, [documentPosition, generateIndexMatch]);
 
 	const applyDraftModeCallback = useCallback(
-		(options: { annotationId?: string; keepNativeSelection?: boolean }) => {
+		(options: Parameters<InlineCommentSelectionComponentProps['applyDraftMode']>[0]) => {
+			const reportFailure = (reason: AnnotationDraftFailureDiagnostics['reason']) => {
+				options.onFailure?.({
+					reason,
+					hasDocumentPosition: !!documentPosition,
+					isAnnotationAllowed,
+					hasRange: !!range,
+					rangeCollapsed: range?.collapsed,
+					inlineNodeTypes,
+				});
+			};
+
 			if (!documentPosition || !isAnnotationAllowed) {
+				reportFailure(!documentPosition ? 'document-position-missing' : 'annotation-not-allowed');
 				if (createAnalyticsEvent) {
 					createAnalyticsEvent({
 						action: ACTION.CREATE_NOT_ALLOWED,
@@ -172,6 +186,14 @@ export const SelectionInlineCommentMounter: React.MemoExoticComponent<
 					}).fire(FabricChannel.editor);
 				}
 				return false;
+			}
+
+			const preserveNewSelection =
+				!options.keepNativeSelection &&
+				isExperimentEnabled('platform_editor_annotation_selection_ownership');
+			if (preserveNewSelection) {
+				// Clear before draft marks split text nodes and move the browser's live selection.
+				window.getSelection()?.removeAllRanges();
 			}
 
 			// Clear any stale draft position before promoting the new one (COMMENTS-6594).
@@ -195,16 +217,15 @@ export const SelectionInlineCommentMounter: React.MemoExoticComponent<
 				}).fire(FabricChannel.editor);
 			}
 
-			window.requestAnimationFrame(() => {
-				if (options.keepNativeSelection) {
-					updateWindowSelectionAroundDraft(documentPosition);
-				} else {
-					const sel = window.getSelection();
-					if (sel) {
-						sel.removeAllRanges();
+			if (!preserveNewSelection) {
+				window.requestAnimationFrame(() => {
+					if (options.keepNativeSelection) {
+						updateWindowSelectionAroundDraft(documentPosition);
+					} else {
+						window.getSelection()?.removeAllRanges();
 					}
-				}
-			});
+				});
+			}
 
 			// Use documentPosition directly when either:
 			// - platform_editor_comments_api_manager is on (existing behaviour), OR
@@ -217,6 +238,13 @@ export const SelectionInlineCommentMounter: React.MemoExoticComponent<
 					: selectionDraftDocumentPosition || documentPosition;
 
 			if (!positionToAnnotate || !applyAnnotation || !options.annotationId) {
+				if (!positionToAnnotate) {
+					reportFailure('annotation-position-missing');
+				} else if (!applyAnnotation) {
+					reportFailure('apply-annotation-missing');
+				} else {
+					reportFailure('annotation-id-missing');
+				}
 				if (createAnalyticsEvent) {
 					createAnalyticsEvent({
 						action: ACTION.CREATE_NOT_ALLOWED,
@@ -238,7 +266,11 @@ export const SelectionInlineCommentMounter: React.MemoExoticComponent<
 				annotationType: AnnotationTypes.INLINE_COMMENT,
 			};
 
-			return applyAnnotation(positionToAnnotate, annotation);
+			const result = applyAnnotation(positionToAnnotate, annotation);
+			if (!result) {
+				reportFailure('apply-annotation-failed');
+			}
+			return result;
 		},
 		[
 			documentPosition,
@@ -333,15 +365,20 @@ export const SelectionInlineCommentMounter: React.MemoExoticComponent<
 
 				// eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Use crypto.randomUUID instead
 				const id = uuid();
+				let diagnostics: AnnotationDraftFailureDiagnostics | undefined;
 				const result = applyDraftModeCallback({
 					annotationId: id,
 					keepNativeSelection: false,
+					onFailure: (failureDiagnostics) => {
+						diagnostics = failureDiagnostics;
+					},
 				});
 
 				if (!result) {
 					return {
 						success: false,
 						reason: 'invalid-range',
+						...(diagnostics ? { diagnostics } : {}),
 					};
 				}
 

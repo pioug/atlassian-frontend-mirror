@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-breakout
 
+## 34.0.4
+
+### Patch Changes
+
+- [`6911753b0a90e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6911753b0a90e) -
+  [NO-ISSUE] clean up `platform_editor_lovability_resize_exts_patch_1` experiment
+- Updated dependencies
+
+## 34.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 34.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 34.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 34.0.0
 
 ### Patch Changes

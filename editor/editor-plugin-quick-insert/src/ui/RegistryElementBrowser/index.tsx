@@ -93,12 +93,25 @@ export const RegistryElementBrowserContainer = ({
 			isInsertConfirmed.current = false;
 			lifecycleOpen.current = true;
 			fireLifecycleEvent(ACTION.OPENED);
+			// Pause the active session once the modal has opened. This runs after the transaction
+			// that opened it, so the type-ahead closing can't resume the session straight away.
+			if (
+				fg('platform_editor_fix_slash_menu_ease_of_use_metrics') &&
+				fg('platform_editor_ease_of_use_metrics')
+			) {
+				pluginInjectionAPI?.core.actions.execute(
+					pluginInjectionAPI?.metrics?.commands.handleIntentToStartEdit({
+						shouldStartTimer: false,
+						shouldPersistActiveSession: true,
+					}),
+				);
+			}
 		} else if (!isElementBrowserOpen && wasOpen.current && lifecycleOpen.current) {
 			lifecycleOpen.current = false;
 			fireLifecycleEvent(ACTION.CLOSED);
 		}
 		wasOpen.current = isElementBrowserOpen;
-	}, [currentEmptyStateHandler, fireLifecycleEvent, isElementBrowserOpen]);
+	}, [currentEmptyStateHandler, fireLifecycleEvent, isElementBrowserOpen, pluginInjectionAPI]);
 
 	useEffect(
 		() => () => {
@@ -123,8 +136,9 @@ export const RegistryElementBrowserContainer = ({
 		// Restarts the active session timer on insert or cancel. `onConfirmInsert` closes through
 		// here, so this covers both.
 		if (
-			fg('platform_editor_slash_command_analytics') &&
-			fg('platform_editor_ease_of_use_metrics')
+			fg('platform_editor_ease_of_use_metrics') &&
+			(fg('platform_editor_slash_command_analytics') ||
+				fg('platform_editor_fix_slash_menu_ease_of_use_metrics'))
 		) {
 			pluginInjectionAPI?.core.actions.execute(
 				pluginInjectionAPI?.metrics?.commands.startActiveSessionTimer(),

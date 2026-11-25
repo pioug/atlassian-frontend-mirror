@@ -97,17 +97,15 @@ const addBreakoutToResizableNode = ({
 		const breakoutMark = node.marks.find((mark) => mark.type === breakout);
 		const isExpand = node.type === expand;
 
-		if (isExperimentEnabled('platform_editor_lovability_resize_exts_patch_1')) {
-			// native embeds own their resize functionality
-			// remove breakout marks added by any resizing normalization
-			if (isNativeEmbedExtension(node)) {
-				return {
-					updatedTr: breakoutMark
-						? newTr.setNodeMarkup(pos, node.type, node.attrs, breakout.removeFromSet(node.marks))
-						: newTr,
-					updatedDocChanged: !!breakoutMark,
-				};
-			}
+		// native embeds own their resize functionality
+		// remove breakout marks added by any resizing normalization
+		if (isNativeEmbedExtension(node)) {
+			return {
+				updatedTr: breakoutMark
+					? newTr.setNodeMarkup(pos, node.type, node.attrs, breakout.removeFromSet(node.marks))
+					: newTr,
+				updatedDocChanged: !!breakoutMark,
+			};
 		}
 
 		if (!breakoutMark) {

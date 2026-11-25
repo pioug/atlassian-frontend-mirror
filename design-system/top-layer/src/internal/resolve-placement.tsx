@@ -37,6 +37,11 @@ export type TPlacementAxis = 'block' | 'inline';
 export type TPlacementEdge = 'start' | 'end';
 
 /**
+ * Matching edges or centers that align the popover over its anchor without flipping.
+ */
+type TOverlapEdge = 'overlap-start' | 'overlap-center' | 'overlap-end';
+
+/**
  * How the popover lines up with the anchor on the cross axis. `'start'` lines up
  * the start edges, `'end'` lines up the end edges, and `'center'` centres the
  * popover on the anchor.
@@ -48,9 +53,9 @@ export type TPlacementAlign = 'start' | 'center' | 'end';
  * `TPlacementOptions`. `offset.gap` and `offset.crossAxisShift.value` are always
  * CSS length strings.
  */
-export type TPlacement = {
+export type TPlacement<TEdge extends TPlacementEdge | TOverlapEdge = TPlacementEdge> = {
 	axis: TPlacementAxis;
-	edge: TPlacementEdge;
+	edge: TEdge;
 	align: TPlacementAlign;
 	offset: {
 		gap: string;
@@ -59,8 +64,8 @@ export type TPlacement = {
 };
 
 /**
- * A partial placement. Every field is optional; `resolvePlacement` fills in the
- * defaults.
+ * A partial adjacent placement. Every field is optional; `resolvePlacement`
+ * fills in the defaults.
  */
 export type TPlacementOptions = {
 	axis?: TPlacementAxis;
@@ -84,20 +89,57 @@ export type TPlacementOptions = {
 };
 
 /**
- * Resolves a partial placement to its full form. Number offsets become
- * `${n}px` strings.
- *
- * Defaults: `axis: 'block'`, `edge: 'end'`, `align: 'center'`,
- * `offset.gap: token('space.100', '8px')`,
- * `offset.crossAxisShift: { value: '0px', direction: 'forwards' }`.
+ * Placement options for surfaces that can sit beside or overlap their anchor.
  */
-export function resolvePlacement({ placement }: { placement: TPlacementOptions }): TPlacement {
+export type TAnchoredPlacementOptions = Omit<TPlacementOptions, 'edge'> & {
+	/**
+	 * `start` and `end` place the surface beside the anchor. The overlap edges
+	 * align matching edges or centers without flipping. They require the
+	 * document and popover to share a writing-mode orientation, and their gap
+	 * defaults to zero. A positive gap moves toward the logical end in CSS overlap.
+	 * Without native support, overlap falls back to an adjacent edge.
+	 */
+	edge?: TPlacementEdge | TOverlapEdge;
+};
+
+/**
+ * A resolved placement that overlaps its anchor.
+ */
+export type TOverlapPlacement = TPlacement<TOverlapEdge>;
+
+/**
+ * A resolved adjacent or overlap placement with offsets in CSS length form.
+ */
+export type TResolvedPlacement = TPlacement | TOverlapPlacement;
+
+/**
+ * Resolves an adjacent placement, including when the edge is omitted.
+ */
+export function resolvePlacement(options: { placement: TPlacementOptions }): TPlacement;
+/**
+ * Resolves placement options that may specify either kind of edge.
+ */
+export function resolvePlacement(options: {
+	placement: TAnchoredPlacementOptions;
+}): TResolvedPlacement;
+/**
+ * Defaults to the block axis, end edge, center alignment, and a zero forward
+ * cross-axis shift. The gap defaults to `space.100` (8px) for adjacent
+ * placements and zero for overlap. Numeric offsets become CSS pixel lengths.
+ */
+export function resolvePlacement({
+	placement,
+}: {
+	placement: TAnchoredPlacementOptions;
+}): TResolvedPlacement {
+	const edge = placement.edge ?? 'end';
+	const defaultGap = edge === 'start' || edge === 'end' ? DEFAULT_GAP : 0;
 	return {
 		axis: placement.axis ?? 'block',
-		edge: placement.edge ?? 'end',
+		edge,
 		align: placement.align ?? 'center',
 		offset: {
-			gap: toCssLengthString({ value: placement.offset?.gap ?? DEFAULT_GAP }),
+			gap: toCssLengthString({ value: placement.offset?.gap ?? defaultGap }),
 			crossAxisShift: {
 				value: toCssLengthString({
 					value: placement.offset?.crossAxisShift?.value ?? 0,

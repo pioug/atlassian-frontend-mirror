@@ -37,7 +37,6 @@
 		"react-intl": "root:*"
 	},
 	"sideEffects": false,
-	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
 		"./async": "./src/ui/create-async-intl-provider.tsx",

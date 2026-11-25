@@ -25,7 +25,6 @@
 	"sideEffects": [
 		"*.compiled.css"
 	],
-	"atlaskit:src": "src/index.tsx",
 	"exports": {
 		".": "./src/index.tsx",
 		"./blog": "./src/components/object/components/blog.tsx",

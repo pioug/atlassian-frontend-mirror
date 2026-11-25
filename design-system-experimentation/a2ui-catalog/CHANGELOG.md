@@ -1,5 +1,14 @@
 # @atlassian/a2ui-catalog
 
+## 2.2.0
+
+### Minor Changes
+
+- [`1e5fc8054787e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1e5fc8054787e) -
+  Publish the Agentic Forge v0.9 catalog at catalogs/agentic-forge-v0_9-v1/catalog.json so external
+  agents can load ResultPanel schemas and instructions for com.atlassian.agentic-forge/v0_9/v1. The
+  catalog is included in the npm package and omitted from the public Atlaskit documentation.
+
 ## 2.1.0
 
 ### Minor Changes

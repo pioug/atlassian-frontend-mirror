@@ -26,6 +26,7 @@ import { useToolbarDropdownMenu } from '@atlaskit/editor-toolbar/toolbar-dropdow
 import Heading from '@atlaskit/heading/heading';
 import EditorDoneIcon from '@atlaskit/icon/core/check-mark';
 import Icon from '@atlaskit/icon/core/text-style';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { Bleed } from '@atlaskit/primitives/compiled/bleed';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
@@ -152,7 +153,9 @@ export function HighlightColorMenuItem({ api, parents }: HighlightMenuItemProps)
 		true,
 	);
 
-	const selectedColor = activeColor || (isNewColorPaletteEnabled ? REMOVE_HIGHLIGHT_COLOR : null);
+	const selectedColor = isExperimentEnabled('platform_editor_lovability_colors_a11y_fixes')
+		? activeColor || null
+		: activeColor || (isNewColorPaletteEnabled ? REMOVE_HIGHLIGHT_COLOR : null);
 
 	const handleHighlightColorChange = useCallback(
 		(color: string, event: React.MouseEvent | React.KeyboardEvent) => {

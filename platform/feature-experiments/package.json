@@ -12,7 +12,6 @@
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
 	"sideEffects": false,
-	"atlaskit:src": "src/exp-val.ts",
 	"exports": {
 		"./exp-val": "./src/exp-val.ts",
 		"./unsafe-exp-val-no-exposure": "./src/unsafe-exp-val-no-exposure.ts",

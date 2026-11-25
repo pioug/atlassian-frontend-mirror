@@ -30,7 +30,6 @@
 	"sideEffects": [
 		"*.compiled.css"
 	],
-	"atlaskit:src": "src/index.ts",
 	"dependencies": {
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/icon": "workspace:^",

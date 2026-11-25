@@ -4,8 +4,6 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-
 import { LoadingError } from './loading-error';
 import { loadingErrorMessages, missingColumnsMessages } from './messages';
 
@@ -77,7 +75,6 @@ describe('LoadingError', () => {
 		).toBeInTheDocument();
 	});
 	it('shows column recovery instructions without a refresh action', async () => {
-		passGate('platform_datasource_missing_columns_error');
 		fireEventMock.mockClear();
 		const { container } = setup({
 			errorType: 'missing-columns',
@@ -95,22 +92,6 @@ describe('LoadingError', () => {
 		expect(screen.queryByRole('button', { name: 'Refresh' })).not.toBeInTheDocument();
 		await expect(container).toBeAccessible();
 	});
-	it('preserves network messages, analytics and refresh when the gate is disabled', () => {
-		fireEventMock.mockClear();
-		failGate('platform_datasource_missing_columns_error');
-		setup({
-			errorType: 'missing-columns',
-			url: 'https://example.atlassian.net/issues/?jql=key%3DTEST-1',
-		});
-
-		expect(
-			screen.getByText(loadingErrorMessages.unableToLoadResults.defaultMessage),
-		).toBeInTheDocument();
-		expect(screen.getByRole('link', { name: 'open this search in Jira' })).toBeInTheDocument();
-		expect(fireEventMock).toHaveBeenCalledWith('ui.error.shown', { reason: 'network' });
-
-		expect(screen.getByRole('button', { name: 'Refresh' })).toBeEnabled();
-	});
 	it('keeps refresh available for network errors', async () => {
 		mockRefresh.mockClear();
 		setup();
@@ -121,7 +102,6 @@ describe('LoadingError', () => {
 		expect(mockRefresh).toHaveBeenCalledTimes(1);
 	});
 	it('lists all unavailable saved column keys', () => {
-		passGate('platform_datasource_missing_columns_error');
 		setup({
 			errorType: 'missing-columns',
 			unavailableColumnKeys: ['release blocker tickets', 'customfield_12345'],

@@ -3,8 +3,8 @@
  * (`com.atlassian.agentic-forge/v0_9/v1`).
  *
  * This is the React-free source of truth for catalog membership. The renderer's
- * `createAgenticForgeCatalog()` must implement exactly these components. This
- * catalog is not published as a `catalog.json` document.
+ * `createAgenticForgeCatalog()` must implement exactly these components and the published
+ * `catalog.json` is generated from this list.
  */
 import type { ComponentApi } from '@a2ui/web_core/v0_9';
 

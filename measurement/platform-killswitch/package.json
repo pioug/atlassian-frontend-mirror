@@ -16,7 +16,6 @@
 	"module:es2019": "dist/es2019/killswitch.js",
 	"types": "dist/types/killswitch.d.ts",
 	"sideEffects": false,
-	"atlaskit:src": "src/killswitch.ts",
 	"exports": {
 		".": "./src/killswitch.ts",
 		"./killswitch": "./src/killswitch.ts"

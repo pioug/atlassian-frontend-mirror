@@ -269,17 +269,23 @@ describe('ExposureDeduplicator', () => {
 				cache.clear();
 				model = [];
 			} else if (value % 5 === 0) {
+				// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 				expect(cache.drainItemCount(key)).toBe(index < 0 ? 1 : model[index].count);
+				// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 				if (index >= 0) model[index].count = 1;
 			} else {
 				let admitted = true;
 				if (index >= 0) {
 					const [entry] = model.splice(index, 1);
+					// @ts-expect-error - TS2345 - Argument of type '{ key: string; admittedAt: number; count: number; } | undefined' is not assignable to parameter of type '{ key: string; admittedAt: number; count: number; }'.
 					model.push(entry);
+					// @ts-expect-error - TS18048 - 'entry' is possibly 'undefined'.
 					if (now - entry.admittedAt < 100) {
+						// @ts-expect-error - TS18048 - 'entry' is possibly 'undefined'.
 						entry.count += 1;
 						admitted = false;
 					} else {
+						// @ts-expect-error - TS18048 - 'entry' is possibly 'undefined'.
 						entry.admittedAt = now;
 					}
 				} else {

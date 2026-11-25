@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::48a18cdd8402bce309016b5726db5adf>>
+ * @codegen <<SignedSource::38899ea867c9e0d5578842dd20b26013>>
  * @codegenCommand yarn build tokens
  */
 export type InternalTokenIds =
@@ -28,6 +28,8 @@ export type InternalTokenIds =
 	| 'motion.flag.enter'
 	| 'motion.flag.exit'
 	| 'motion.flag.reposition'
+	| 'motion.floating.controls.follow.panel.enter'
+	| 'motion.floating.controls.follow.panel.exit'
 	| 'motion.form.message.enter'
 	| 'motion.form.message.exit'
 	| 'motion.input.[default]'

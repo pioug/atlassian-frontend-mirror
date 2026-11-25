@@ -37,7 +37,8 @@
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__pragmatic-drag-and-drop-flourish/app",
-		"isolatedDeclarations": true
+		"isolatedDeclarations": true,
+		"noUncheckedIndexedAccess": true
 	},
 	"references": [
 		{

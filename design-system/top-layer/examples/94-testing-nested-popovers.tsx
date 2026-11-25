@@ -2,11 +2,14 @@ import React, { useCallback, useRef, useState } from 'react';
 
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
-import type { TPopoverCloseReason } from '@atlaskit/top-layer/popover/types';
+import type {
+	TAnchoredPlacementOptions,
+	TPopoverCloseReason,
+} from '@atlaskit/top-layer/popover/types';
 import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
-function SecondPopover(): React.ReactNode {
+function SecondPopover({ shouldAnimate }: { shouldAnimate: boolean }): React.ReactNode {
 	const [isOpen, setIsOpen] = useState(false);
 	const triggerRef = useRef<HTMLButtonElement>(null);
 	const popoverRef = useRef<HTMLDivElement>(null);
@@ -14,10 +17,14 @@ function SecondPopover(): React.ReactNode {
 	const toggle = useCallback(() => setIsOpen((previous) => !previous), []);
 	const close = useCallback(() => setIsOpen(false), []);
 
+	const placement: TAnchoredPlacementOptions = {
+		axis: 'inline',
+		edge: shouldAnimate ? 'overlap-start' : 'end',
+	};
 	useAnchoredPopover({
 		anchorRef: triggerRef,
 		popoverRef,
-		placement: { axis: 'inline', edge: 'end' },
+		placement,
 		isOpen,
 	});
 
@@ -39,6 +46,8 @@ function SecondPopover(): React.ReactNode {
 				onClose={close}
 				role="dialog"
 				label="Second"
+				shouldAnimate={shouldAnimate}
+				placement={placement}
 			>
 				<div data-testid="second-popover">Second popover</div>
 			</Popover>
@@ -47,6 +56,7 @@ function SecondPopover(): React.ReactNode {
 }
 
 export default function TestingNestedPopovers(): React.ReactNode {
+	const shouldAnimate = new URLSearchParams(window.location.search).get('animate') === 'true';
 	const [isOpen, setIsOpen] = useState(false);
 	const [firstCloseReason, setFirstCloseReason] = useState<TPopoverCloseReason | null>(null);
 	const triggerRef = useRef<HTMLButtonElement>(null);
@@ -84,10 +94,12 @@ export default function TestingNestedPopovers(): React.ReactNode {
 				onClose={close}
 				role="dialog"
 				label="First"
+				shouldAnimate={shouldAnimate}
+				placement={{ edge: 'end' }}
 			>
 				<div data-testid="first-popover">
 					First popover
-					<SecondPopover />
+					<SecondPopover shouldAnimate={shouldAnimate} />
 				</div>
 			</Popover>
 			<button type="button" data-testid="outside-target">

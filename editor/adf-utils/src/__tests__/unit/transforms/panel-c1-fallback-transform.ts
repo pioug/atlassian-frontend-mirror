@@ -1,10 +1,7 @@
 import { createSchema } from '@atlaskit/adf-schema/create-schema';
 import { Node } from '@atlaskit/editor-prosemirror/model';
 
-import {
-	transformContainerNodes,
-	upgradeContainerNodes,
-} from '../../../transforms/depth-limited-nesting-container-nodes-transform';
+import { upgradeContainerNodes } from '../../../transforms/depth-limited-nesting-container-nodes-transform';
 import { panelC1FallbackTransform } from '../../../transforms/panel-c1-fallback-transform';
 import type { ADFEntity } from '../../../types';
 
@@ -425,61 +422,6 @@ describe('panelC1FallbackTransform', () => {
 			expect(panel?.type).toBe('panel');
 			expect(panel?.content?.[1]).toEqual(tableNode);
 		});
-	});
-});
-
-describe('transformContainerNodes', () => {
-	it('promotes panel nodes when the schema allows panel_c1', () => {
-		const schema = createSchemaWithNodes({ includePanelC1: true, includeTable: true });
-
-		const result = transformContainerNodes(docWithPanelWithParagraph, schema);
-
-		expect(result.isTransformed).toBe(true);
-		expect(result.transformedNodeTypes).toEqual(['panel_c1']);
-		expect((result.transformedAdf as ADFEntity).content?.[0]?.type).toBe('panel_c1');
-	});
-
-	it('restores wrapped table content and re-promotes it through the shared transform', () => {
-		const schema = createSchemaWithNodes({
-			includeExtension: true,
-			includePanelC1: true,
-			includeTable: true,
-		});
-
-		const result = transformContainerNodes(docWithLcmWrappedTableInPanel, schema);
-		const panel = (result.transformedAdf as ADFEntity).content?.[0];
-
-		expect(result.isTransformed).toBe(true);
-		expect(result.transformedNodeTypes).toEqual(['panel_c1']);
-		expect(panel?.type).toBe('panel_c1');
-		expect(panel?.content?.[1]).toEqual(tableNode);
-	});
-
-	it('downgrades unsupported panel_c1 content through the shared transform', () => {
-		const schema = createSchemaWithNodes({ includeExtension: true });
-
-		const result = transformContainerNodes(docWithPanelC1WithTable, schema);
-		const panel = (result.transformedAdf as ADFEntity).content?.[0];
-
-		expect(result.isTransformed).toBe(true);
-		expect(result.transformedNodeTypes).toEqual(['panel_c1']);
-		expect(panel?.type).toBe('panel');
-		expect(isLcmExtension(panel ?? undefined)).toBe(false);
-		expect(isLcmExtension(panel?.content?.[1])).toBe(true);
-	});
-
-	it('leaves unrelated documents unchanged when no fallback or promotion is needed', () => {
-		const schema = createSchemaWithNodes({
-			includeExtension: true,
-			includePanelC1: true,
-			includeTable: true,
-		});
-
-		const result = transformContainerNodes(paragraphOnlyDoc, schema);
-
-		expect(result.isTransformed).toBe(false);
-		expect(result.transformedNodeTypes).toEqual([]);
-		expect(result.transformedAdf).toEqual(paragraphOnlyDoc);
 	});
 });
 

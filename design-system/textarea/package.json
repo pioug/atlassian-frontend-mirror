@@ -15,7 +15,6 @@
 	"sideEffects": [
 		"**/*.compiled.css"
 	],
-	"atlaskit:src": "src/index.tsx",
 	"homepage": "https://atlassian.design/components/textarea/",
 	"atlassian": {
 		"react-compiler": {

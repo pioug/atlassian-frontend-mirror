@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "138.0.0",
+	"version": "138.3.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -15,7 +15,6 @@
 	"sideEffects": [
 		"**/*.compiled.css"
 	],
-	"atlaskit:src": "src/index.ts",
 	"atlassian": {
 		"react-compiler": {
 			"enabled": true,
@@ -56,8 +55,11 @@
 		"./collab-agent-edit-chrome": "./src/collab/agent-edit-chrome.ts",
 		"./collab-agent-edit-changed-ranges": "./src/collab/agent-edit-changed-ranges.ts",
 		"./collab-agent-edit-chrome-ranges": "./src/collab/agent-edit-chrome-ranges.ts",
+		"./collab-agent-invocation": "./src/collab/agent-invocation.ts",
+		"./collab-agent-invocation-ownership-plugin": "./src/collab/agent-invocation-ownership-plugin.ts",
 		"./collab-agent-remote-edit-review": "./src/collab/agent-remote-edit-review.ts",
 		"./collab-agent-review-slice-compare": "./src/collab/agent-review-slice-compare.ts",
+		"./collab-map-agent-edit-ranges": "./src/collab/map-agent-edit-ranges.ts",
 		"./collab-defer-collab-send": "./src/collab/defer-collab-send.ts",
 		"./collab-local-only-step": "./src/collab/local-only-step.ts",
 		"./collab-streaming-step-collapse": "./src/collab/streaming-step-collapse.ts",

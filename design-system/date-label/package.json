@@ -31,7 +31,6 @@
 	"sideEffects": [
 		"*.compiled.css"
 	],
-	"atlaskit:src": "src/entry-points/date-label.tsx",
 	"exports": {
 		".": "./src/entry-points/date-label.tsx",
 		"./date-label": "./src/entry-points/date-label.tsx",

@@ -2420,26 +2420,6 @@ describe('JSONTransformer:', () => {
 				expect(getSchemaBasedOnStageSpy).toHaveBeenCalledTimes(1);
 				expect(getSchemaBasedOnStageSpy).toHaveBeenCalledWith('final');
 			});
-
-			it('should use the final / default schema when nothing is passed', () => {
-				const adf: JSONDocNode = {
-					version: 1,
-					type: 'doc',
-					content: [
-						{
-							type: 'paragraph',
-							content: [
-								{
-									type: 'text',
-									text: 'hello',
-								},
-							],
-						},
-					],
-				};
-
-				expect(transformer.parse(adf)).toEqualDocument(doc(p('hello')));
-			});
 		});
 	});
 

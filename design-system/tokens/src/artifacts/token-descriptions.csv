@@ -23,6 +23,8 @@ motion.easing.spring, "A spring curve that overshoots slightly before settling. 
 motion.flag.enter, "Use for flag enter transitions."
 motion.flag.exit, "Use for flag exit transitions."
 motion.flag.reposition, "Use for repositioning flag elements."
+motion.floating.controls.follow.panel.enter, "Use as a CSS transform transition for floating controls that follow an entering panel. Translate horizontally by the panel width when opening begins, reversing direction for RTL. Keeps movement independent of page layout. Does not include vertical movement or visibility changes."
+motion.floating.controls.follow.panel.exit, "Use as a CSS transform transition for floating controls that follow an exiting panel. Restore the horizontal translation when closing begins. Does not include vertical movement or visibility changes. Disable the transition during manual panel resizing."
 motion.form.message.enter, "Use when a form message enters."
 motion.form.message.exit, "Use when a form message exits."
 motion.iconography.enter.cycle.up, "Use for an icon sliding up into place from below. Pair with `motion.iconography.exit.cycle.up`."

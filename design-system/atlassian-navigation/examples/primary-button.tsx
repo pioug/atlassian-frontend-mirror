@@ -8,9 +8,9 @@ export default (): React.JSX.Element => (
 		label="site"
 		renderProductHome={() => null}
 		primaryItems={[
-			<PrimaryButton>Explore</PrimaryButton>,
-			<PrimaryButton>Work items</PrimaryButton>,
-			<PrimaryButton>Services</PrimaryButton>,
+			<PrimaryButton key="explore">Explore</PrimaryButton>,
+			<PrimaryButton key="work-items">Work items</PrimaryButton>,
+			<PrimaryButton key="services">Services</PrimaryButton>,
 		]}
 	/>
 );

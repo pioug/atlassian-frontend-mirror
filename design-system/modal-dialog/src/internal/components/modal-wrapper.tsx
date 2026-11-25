@@ -103,6 +103,7 @@ const surfaceStyles = cssMap({
 		flexDirection: 'column',
 
 		backgroundColor: token('elevation.surface.overlay'),
+		// @ts-expect-error -- cssMap types do not accept a custom property key
 		[LOCAL_CURRENT_SURFACE_CSS_VAR]: token('elevation.surface.overlay'),
 		pointerEvents: 'auto',
 
@@ -110,16 +111,8 @@ const surfaceStyles = cssMap({
 			boxShadow: token('elevation.shadow.overlay'),
 		},
 
-		// Focus ring fallback. The wrapper has no `tabIndex`, so this
-		// only matches if a consumer explicitly focuses the element via
-		// JS - kept for parity with the legacy modal styling.
-		'&:focus-visible': {
-			outlineColor: token('color.border.focused'),
-			// @ts-expect-error -- cssMap types do not accept token return for outlineOffset
-			outlineOffset: token('border.width.focused'),
-			outlineStyle: 'solid',
-			outlineWidth: token('border.width.focused'),
-		},
+		// The focus ring is in `surfaceFocusRingStyles`. These styles are top-layer path only
+		// (`ModalWrapperTopLayer`, which renders only with `platform-dst-top-layer` on).
 
 		// Allow scrolling when children are wrapped in a form.
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
@@ -138,6 +131,26 @@ const surfaceStyles = cssMap({
 		borderRadius: 0,
 		'@media (min-width: 30rem)': {
 			borderRadius: token('radius.xlarge', '12px'),
+		},
+	},
+});
+
+/**
+ * Top-layer path only: used by `ModalWrapperTopLayer`, which renders only with
+ * `platform-dst-top-layer` on.
+ *
+ * The focus ring of the legacy modal section, drawn on the surface when focus rests on the
+ * `<dialog>` (nothing inside took focus). `Dialog` resets the outline on the `<dialog>`, whose box
+ * can be the whole viewport, so the ring goes here to follow the surface's size and corners.
+ */
+const surfaceFocusRingStyles = compiledCssMap({
+	root: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- focus is on the `<dialog>`, two levels above the surface
+		'dialog:focus-visible > * > &': {
+			outlineColor: token('color.border.focused'),
+			outlineOffset: token('border.width.focused'),
+			outlineStyle: 'solid',
+			outlineWidth: token('border.width.focused'),
 		},
 	},
 });
@@ -533,11 +546,11 @@ function ModalWrapperTopLayer({
 			{/* The surface sizes to content and keeps a definite height for `height: 100%` children. */}
 			<div css={sizingContainerStyles[scrollMode]}>
 				{/* Visual content container - Dialog handles the raw <dialog>. */}
-				{/* No tabIndex: native <dialog>.showModal() picks the first focusable
-				    descendant as initial focus target. A tabIndex on this wrapper
-				    would steal that focus from the close button (or other intended
-				    autofocus target). The <dialog> element itself receives the
-				    focus ring when no descendants are focusable. */}
+				{/* No tabIndex: the first focusable descendant takes initial focus. A
+				    tabIndex on this wrapper would steal that focus from the close
+				    button (or other intended autofocus target). When nothing inside
+				    takes focus, focus rests on the <dialog>, and this surface draws
+				    the focus ring (`surfaceFocusRingStyles`). */}
 				<div
 					ref={contentRef}
 					css={[
@@ -545,6 +558,7 @@ function ModalWrapperTopLayer({
 						fg('dst_platform-global_ep_status_announcement') && formWithStatusAnnouncementStyles,
 						!isFullScreen && surfaceStyles.borderRadius,
 						topLayerScrollModeStyles[scrollMode],
+						surfaceFocusRingStyles.root,
 					]}
 					style={
 						{

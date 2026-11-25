@@ -4,7 +4,7 @@ import { mediaServiceEmoji } from './media-service-emoji';
 export const getTestSiteServiceEmojis = (): {
 	emojis: {
 		altRepresentations: {
-			XHDPI: {
+			XXXHDPI: {
 				height: number;
 				imagePath: 'https://media.example.com/alt-path-to-image.png';
 				width: number;

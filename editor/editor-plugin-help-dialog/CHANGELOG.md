@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-help-dialog
 
+## 34.0.4
+
+### Patch Changes
+
+- [`aa4256e80670f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa4256e80670f) -
+  Remove the fully rolled-out table row and column keyboard-move experiment.
+- Updated dependencies
+
+## 34.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 34.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 34.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 34.0.0
 
 ### Patch Changes

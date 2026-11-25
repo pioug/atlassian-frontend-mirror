@@ -10,7 +10,6 @@
 	"sideEffects": [
 		"*.compiled.css"
 	],
-	"atlaskit:src": "src/reportError.ts",
 	"exports": {
 		".": "./src/reportError.ts"
 	},

@@ -519,6 +519,8 @@ const overflowShadowStyles = css({
  *
  * If you are not sure, please contact #proj-cc-editor-full-compiled-css-migration
  */
+// Colored content surfaces opt in to stronger inline diff colors. Opaque page-colored surfaces
+// reset the flag so they do not inherit it from an outer container.
 // eslint-disable-next-line @atlaskit/design-system/no-css-map-scoped
 const editorContentStyles = cssMapScoped({
 	aiPanelBaseFirefoxStyles: {
@@ -670,6 +672,7 @@ const editorContentStyles = cssMapScoped({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 			[`.${'ak-editor-annotation-blur' satisfies typeof AnnotationSharedClassNames.blur}, .${'ak-editor-annotation-focus' satisfies typeof AnnotationSharedClassNames.focus}, .${'ak-editor-annotation-draft' satisfies typeof AnnotationSharedClassNames.draft}, .${'ak-editor-annotation-hover' satisfies typeof AnnotationSharedClassNames.hover}`]:
 				{
+					'--show-diff-colored-backdrop': '1',
 					borderBottom: '2px solid transparent',
 					cursor: 'pointer',
 					padding: '1px 0 2px',
@@ -718,6 +721,7 @@ const editorContentStyles = cssMapScoped({
 	backgroundColorStyles: {
 		'.fabric-background-color-mark': {
 			backgroundColor: 'var(--custom-palette-color, inherit)',
+			'--show-diff-colored-backdrop': '1',
 			borderRadius: token('radius.xsmall'),
 			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 			paddingTop: 1,
@@ -729,6 +733,7 @@ const editorContentStyles = cssMapScoped({
 		// Don't show text highlight styling when there is an inline comment
 		'.fabric-background-color-mark .ak-editor-annotation': {
 			backgroundColor: 'unset',
+			'--show-diff-colored-backdrop': 'inherit',
 		},
 	},
 	// Don't show text highlight styling when there is a hyperlink.
@@ -736,6 +741,7 @@ const editorContentStyles = cssMapScoped({
 	highlightLinksUnsetStyles: {
 		'a .fabric-background-color-mark': {
 			backgroundColor: 'unset',
+			'--show-diff-colored-backdrop': 'inherit',
 		},
 	},
 	baseStyles: {
@@ -764,6 +770,7 @@ const editorContentStyles = cssMapScoped({
 		},
 
 		'.ProseMirror': {
+			'--show-diff-colored-backdrop': '0',
 			'--ak-editor-max-container-width': 'calc(100cqw - var(--ak-editor--large-gutter-padding))',
 			outline: 'none',
 			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
@@ -1079,6 +1086,7 @@ const editorContentStyles = cssMapScoped({
 						...overflowShadowStyles,
 						position: 'relative',
 						backgroundColor: token('color.background.neutral'),
+						'--show-diff-colored-backdrop': '1',
 						display: 'flex',
 						borderRadius: token('radius.small', '3px'),
 						width: '100%',
@@ -1243,6 +1251,7 @@ const editorContentStyles = cssMapScoped({
 			display: 'inline',
 			padding: '2px 0.5ch',
 			backgroundColor: `var(--ds--code--bg-color,${token('color.background.neutral')})`,
+			'--show-diff-colored-backdrop': '1',
 			borderRadius: token('radius.small', '3px'),
 			borderStyle: 'none',
 			boxDecorationBreak: 'clone',
@@ -4818,6 +4827,7 @@ const editorContentStyles = cssMapScoped({
 				// mainDynamicStyles(PanelType.INFO)
 				// > getPanelTypeBackground(PanelType.INFO)
 				backgroundColor: token('color.background.accent.blue.subtlest'),
+				'--show-diff-colored-backdrop': '1',
 				color: 'inherit',
 
 				'.ak-editor-panel__icon': {
@@ -7326,9 +7336,17 @@ const editorContentStyles = cssMapScoped({
 			/* Ensures nested tables are compatible with parent table background color - uses specificity to ensure tables nested by extensions are not affected */
 			'& > tbody > tr > td': {
 				backgroundColor: token('elevation.surface'),
+				'--show-diff-colored-backdrop': '0',
+				'&[data-cell-background]:not([colorname="white" i])': {
+					'--show-diff-colored-backdrop': '1',
+				},
 			},
 			'& th': {
 				backgroundColor: token('color.background.accent.gray.subtlest'),
+				'--show-diff-colored-backdrop': '1',
+				'&[colorname="white" i]': {
+					'--show-diff-colored-backdrop': '0',
+				},
 				textAlign: 'left',
 				/* only apply this styling to codeblocks in default background headercells */
 				/* TODO this needs to be overhauled as it relies on unsafe selectors */

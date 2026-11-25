@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-selection",
-	"version": "34.0.0",
+	"version": "34.0.4",
 	"description": "Selection plugin for @atlaskit/editor-core",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -13,7 +13,6 @@
 	"module:es2019": "dist/es2019/index.js",
 	"types": "dist/types/index.d.ts",
 	"sideEffects": false,
-	"atlaskit:src": "src/index.ts",
 	"atlassian": {
 		"team": "Editor: Lego",
 		"singleton": true

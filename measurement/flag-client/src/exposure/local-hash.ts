@@ -171,7 +171,9 @@ function accumulateStripe(
 	for (let lane = 0; lane < 8; lane++) {
 		const data = read64(input, inputOffset + lane * 8);
 		const keyed = data ^ read64(secret, secretOffset + lane * 8);
+		// @ts-ignore - TS2532 - Object is possibly 'undefined'.
 		accumulators[lane ^ 1] = (accumulators[lane ^ 1] + data) & MASK64;
+		// @ts-ignore - TS2532 - Object is possibly 'undefined'.
 		accumulators[lane] = (accumulators[lane] + (keyed & MASK32) * (keyed >> BigInt(32))) & MASK64;
 	}
 }
@@ -179,8 +181,11 @@ function scramble(accumulators: bigint[], secret: DataView): void {
 	const secretOffset = secret.byteLength - STRIPE_LENGTH;
 	for (let lane = 0; lane < 8; lane++) {
 		let value = accumulators[lane];
+		// @ts-ignore - TS18048 - 'value' is possibly 'undefined'.
 		value ^= value >> BigInt(47);
+		// @ts-ignore - TS18048 - 'value' is possibly 'undefined'.
 		value ^= read64(secret, secretOffset + lane * 8);
+		// @ts-ignore - TS18048 - 'value' is possibly 'undefined'.
 		accumulators[lane] = (value * PRIME32_1) & MASK64;
 	}
 }
@@ -231,7 +236,9 @@ function hashLong(input: DataView, length: number, seed: bigint): bigint {
 	for (let pair = 0; pair < 4; pair++) {
 		const secretOffset = 11 + pair * 16;
 		result += multiplyFold64(
+			// @ts-ignore - TS2532 - Object is possibly 'undefined'.
 			accumulators[pair * 2] ^ read64(secret, secretOffset),
+			// @ts-ignore - TS2532 - Object is possibly 'undefined'.
 			accumulators[pair * 2 + 1] ^ read64(secret, secretOffset + 8),
 		);
 	}

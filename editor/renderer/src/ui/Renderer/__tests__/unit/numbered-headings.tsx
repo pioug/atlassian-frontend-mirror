@@ -4,7 +4,6 @@ import { IntlProvider } from 'react-intl';
 
 import type { DocNode } from '@atlaskit/adf-schema/doc';
 import { PanelType } from '@atlaskit/adf-schema/panel';
-import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { render } from '@atlassian/testing-library/render';
@@ -38,18 +37,12 @@ const numbers = () =>
 	screen.getAllByRole('heading').map((node) => node.getAttribute('data-heading-number'));
 
 describe('numbered headings', () => {
-	afterEach(() => setupEditorExperiments('test', {}));
-
-	it.each([true, false])(
-		'numbers headings with the anchor accessibility experiment %s',
-		(enabled) => {
-			mockExpEnabled('platform_editor_numbered_headings');
-			setupEditorExperiments('test', { platform_editor_copy_link_a11y_inconsistency_fix: enabled });
-			render(renderer({ showHeadingNumbers: true }));
-			expect(numbers()).toEqual(['1', '1.1.1', '1.2', '2']);
-			expect(screen.getByRole('heading', { name: 'Heading 1' })).toHaveAttribute('id', 'Heading-1');
-		},
-	);
+	it('numbers headings', () => {
+		mockExpEnabled('platform_editor_numbered_headings');
+		render(renderer({ showHeadingNumbers: true }));
+		expect(numbers()).toEqual(['1', '1.1.1', '1.2', '2']);
+		expect(screen.getByRole('heading', { name: 'Heading 1' })).toHaveAttribute('id', 'Heading-1');
+	});
 
 	it.each([undefined, false])(
 		'does not number headings when the prop is %s',

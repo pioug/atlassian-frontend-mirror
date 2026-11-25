@@ -50,7 +50,6 @@
 		"./height": "./src/entry-points/height.tsx",
 		"./resizing": "./src/entry-points/resizing.tsx"
 	},
-	"atlaskit:src": "src/index.tsx",
 	"atlassian": {
 		"react-compiler": {
 			"enabled": true,

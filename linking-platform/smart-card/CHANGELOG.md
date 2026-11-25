@@ -1,5 +1,43 @@
 # @atlaskit/smart-card
 
+## 46.20.4
+
+### Patch Changes
+
+- [`84acac046680f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/84acac046680f) -
+  Add optional ariaLabel to flexible card ActionItem so callers can provide a unique accessible name
+  for icon-only actions
+- Updated dependencies
+
+## 46.20.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.20.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.20.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.20.0
+
+### Minor Changes
+
+- [`2586e93a16712`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2586e93a16712) -
+  Update i18n NPM package versions for linking-platform,smart-experiences (Group 15)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 46.19.12
 
 ### Patch Changes

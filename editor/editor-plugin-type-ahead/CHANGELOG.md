@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 35.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.0.3
+
+### Patch Changes
+
+- [`d6620f53550fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d6620f53550fd) -
+  Keep the metrics active session paused while the element browser modal is open, behind
+  `platform_editor_fix_slash_menu_ease_of_use_metrics`
+- Updated dependencies
+
+## 35.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 35.0.0
 
 ### Patch Changes

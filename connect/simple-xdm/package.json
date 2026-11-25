@@ -47,7 +47,6 @@
 		"@atlassian/workbench": "workspace:^",
 		"typescript": "root:*"
 	},
-	"atlaskit:src": "src/index.ts",
 	"name": "@atlaskit/simple-xdm",
 	"version": "2.0.0",
 	"description": "A simple library that allows to expose host API to an embedded iframe through the `postMessage` protocol.",

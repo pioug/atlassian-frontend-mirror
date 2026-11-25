@@ -91,7 +91,7 @@ export default function FieldLevelValidationExample(): React.JSX.Element {
 									options={members}
 									isMulti
 									isClearable
-									clearControlLabel="Clear color"
+									clearControlLabel="Clear team members"
 									descriptionId={error ? `${id}-error` : undefined}
 								/>
 								<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>

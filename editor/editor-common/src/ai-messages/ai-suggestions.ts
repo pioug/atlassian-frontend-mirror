@@ -240,6 +240,11 @@ export const aiSuggestionsMessages: {
 		description: string;
 		id: string;
 	};
+	suggestEditsButtonInProgressTooltip: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	suggestEditsButtonLabel: {
 		defaultMessage: string;
 		description: string;
@@ -475,6 +480,12 @@ export const aiSuggestionsMessages: {
 		id: 'fabric.editor.ai.suggestions.suggestEditsButtonTooltip',
 		defaultMessage: 'Get AI suggestions to improve content',
 		description: 'Tooltip for the Review button in the editor toolbar',
+	},
+	suggestEditsButtonInProgressTooltip: {
+		id: 'fabric.editor.ai.suggestions.suggestEditsButtonInProgressTooltip',
+		defaultMessage: 'Review in progress',
+		description:
+			'Tooltip for the Review button in the editor toolbar while it is disabled because a review of the content is already running',
 	},
 	suggestEditsPromptPrefix: {
 		id: 'fabric.editor.ai.suggestions.suggestEditsPromptPrefix.non-final',

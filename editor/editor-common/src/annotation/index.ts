@@ -9,6 +9,7 @@ import type {
 	RemoveMarkStep,
 } from '@atlaskit/editor-prosemirror/transform';
 
+import type { AnnotationDraftFailureDiagnostics } from '../types/annotation';
 import { SharedAnnotationManager } from './manager';
 
 export type UpdateEvent =
@@ -103,6 +104,7 @@ export type ManagerFailureReasons = 'manager-not-initialized' | 'hook-execution-
 
 export type StartDraftResult =
 	| {
+			diagnostics?: AnnotationDraftFailureDiagnostics;
 			reason: ManagerFailureReasons | 'invalid-range' | 'draft-in-progress' | 'invalid-localId';
 			success: false;
 	  }

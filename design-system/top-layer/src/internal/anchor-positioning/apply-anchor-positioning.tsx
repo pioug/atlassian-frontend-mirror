@@ -4,7 +4,12 @@
  * popover so the browser owns placement and flipping. The twin of
  * `../javascript-fallback/apply-javascript-fallback-positioning`.
  */
-import { type TPlacement } from '../resolve-placement';
+import { isOverlapPlacement } from '../is-overlap-placement';
+import {
+	type TOverlapPlacement,
+	type TPlacementAlign,
+	type TResolvedPlacement,
+} from '../resolve-placement';
 import { setStyle, type TStyleDeclaration } from '../set-style';
 import { crossAxisShiftMargins } from './cross-axis-shift-margins';
 import { edgeMargin } from './edge-margin';
@@ -12,6 +17,64 @@ import { getFitMarginDeclarations } from './fit-margins';
 import { getExistingAnchorName } from './get-existing-anchor-name';
 import { placementToPositionArea } from './placement-to-position-area';
 import { placementToTryFallbacks } from './placement-to-try-fallbacks';
+
+/**
+ * Maps the placement-axis edge to its matching alignment.
+ */
+const overlapAlignment: Record<TOverlapPlacement['edge'], TPlacementAlign> = {
+	'overlap-start': 'start',
+	'overlap-center': 'center',
+	'overlap-end': 'end',
+};
+
+/**
+ * CSS accepts unitless zero as a standalone length, but adding it to an anchor
+ * coordinate in calc() requires a length unit.
+ */
+function toCalcLength(value: string): string {
+	return /^[+-]?(?:0+|0*\.0+)(?:e[+-]?\d+)?$/i.test(value.trim()) ? '0px' : value;
+}
+
+/**
+ * Expresses overlap alignment and offsets as logical CSS anchor insets.
+ */
+function getOverlapDeclarations({
+	placement,
+}: {
+	placement: TOverlapPlacement;
+}): TStyleDeclaration[] {
+	const { gap, crossAxisShift } = placement.offset;
+	const shift = toCalcLength(crossAxisShift.value);
+	const crossAxisOffset = crossAxisShift.direction === 'forwards' ? shift : `calc(-1 * ${shift})`;
+	return (['inline', 'block'] as const).flatMap((axis) => {
+		const align = axis === placement.axis ? overlapAlignment[placement.edge] : placement.align;
+		const property = axis === 'inline' ? 'justify-self' : 'align-self';
+		const offset = axis === placement.axis ? toCalcLength(gap) : crossAxisOffset;
+		// Offscreen inset points expand overflow alignment's bounds. Keep them in the viewport.
+		if (align === 'center') {
+			return [
+				{ property, value: 'center' },
+				{
+					property: `inset-${axis}-start`,
+					value: `clamp(0px, calc(anchor(center) + ${offset}), 100%)`,
+				},
+				{
+					property: `inset-${axis}-end`,
+					value: `clamp(0px, calc(anchor(center) - ${offset}), 100%)`,
+				},
+			];
+		}
+		return [
+			{ property, value: `self-${align}` },
+			{
+				property: `inset-${axis}-${align}`,
+				value: `clamp(0px, calc(anchor(self-${align}) ${
+					align === 'end' ? '-' : '+'
+				} ${offset}), 100%)`,
+			},
+		];
+	});
+}
 
 /**
  * Writes the anchor positioning styles to the popover, and an `anchor-name` to
@@ -28,7 +91,7 @@ export function applyAnchorPositioning({
 }: {
 	anchor: HTMLElement;
 	popover: HTMLElement;
-	placement: TPlacement;
+	placement: TResolvedPlacement;
 	sizeStyles: TStyleDeclaration[];
 	/**
 	 * Whether either axis is `'max-available'`, which also reserves padding from
@@ -45,6 +108,39 @@ export function applyAnchorPositioning({
 	const existingAnchorName = getExistingAnchorName({ element: anchor });
 	const anchorName = existingAnchorName ?? fallbackAnchorName;
 
+	// Anchor names are never removed: several popovers can share an anchor, and
+	// even with reference counting an async React update could remove the name
+	// while something else still uses it. See
+	// `notes/decisions/anchor-name-lifetime.md`. Only a new name is written: a
+	// name from a stylesheet may be a list, which an inline copy of its first entry
+	// would collapse.
+	if (existingAnchorName === null) {
+		anchor.style.setProperty('anchor-name', anchorName);
+	}
+
+	// Reset the UA defaults and keep visibility under the consumer's control.
+	const baseStyles: TStyleDeclaration[] = [
+		{ property: 'position-anchor', value: anchorName },
+		// anchors-visible can hide a clipped anchor's popover while it remains focusable.
+		// See notes/decisions/position-visibility-always.md.
+		{ property: 'position-visibility', value: 'always' },
+		{ property: 'margin', value: '0' },
+		{ property: 'inset', value: 'auto' },
+	];
+
+	if (isOverlapPlacement(placement)) {
+		return setStyle({
+			element: popover,
+			styles: [
+				...baseStyles,
+				{ property: 'position-area', value: 'span-all' },
+				{ property: 'position-try-fallbacks', value: 'none' },
+				...getOverlapDeclarations({ placement }),
+				...sizeStyles,
+			],
+		});
+	}
+
 	const gapMargin = edgeMargin({
 		placement,
 		offset: placement.offset.gap,
@@ -56,7 +152,7 @@ export function applyAnchorPositioning({
 	});
 
 	const popoverStyles: TStyleDeclaration[] = [
-		{ property: 'position-anchor', value: anchorName },
+		...baseStyles,
 		{
 			property: 'position-area',
 			value: placementToPositionArea({ placement }),
@@ -65,32 +161,6 @@ export function applyAnchorPositioning({
 			property: 'position-try-fallbacks',
 			value: placementToTryFallbacks({ placement }),
 		},
-		/**
-		 * **`position-visibility: always`**
-		 *
-		 * The initial value, `anchors-visible`, lets the browser hide the popover
-		 * when its anchor is fully clipped by an ancestor (for example a scroll
-		 * container) or is `visibility: hidden`. This hiding does not close the
-		 * popover: `:popover-open` still matches, but the popover is not painted and
-		 * gets no pointer input. Chrome also keeps it focusable and in the
-		 * accessibility tree, so keyboard and screen reader users can land inside a
-		 * surface they cannot see.
-		 *
-		 * The default is usually fine. It fails when:
-		 *  - The anchor is hidden on purpose (for example `position: absolute` moves
-		 *    it outside its parent's clip, or it is `visibility: hidden`).
-		 *  - The anchor scrolls out of its scroll container while the popover is
-		 *    open.
-		 *
-		 * `always` turns the automatic hiding off. There is no strong reason to keep
-		 * the default. If one comes up, this could become configurable. Per-engine
-		 * behaviour: `notes/decisions/position-visibility-always.md`.
-		 */
-		{ property: 'position-visibility', value: 'always' },
-		// Reset the UA popover styles (`inset: 0; margin: auto`), which conflict
-		// with anchor positioning.
-		{ property: 'margin', value: '0' },
-		{ property: 'inset', value: 'auto' },
 		gapMargin,
 		// When fitting, the shift margins come back COMPOSED with the reserved
 		// viewport padding, rather than being written twice.
@@ -102,16 +172,6 @@ export function applyAnchorPositioning({
 			: shiftMargins),
 		...sizeStyles,
 	];
-
-	// Anchor names are never removed: several popovers can share an anchor, and
-	// even with reference counting an async React update could remove the name
-	// while something else still uses it. See
-	// `notes/decisions/anchor-name-lifetime.md`. Only a new name is written: a
-	// name from a stylesheet may be a list, which an inline copy of its first entry
-	// would collapse.
-	if (existingAnchorName === null) {
-		anchor.style.setProperty('anchor-name', anchorName);
-	}
 
 	return setStyle({ element: popover, styles: popoverStyles });
 }

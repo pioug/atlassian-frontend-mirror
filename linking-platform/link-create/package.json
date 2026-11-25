@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-create",
-	"version": "6.21.1",
+	"version": "6.22.0",
 	"description": "The driver component of meta creation flow",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -32,7 +32,6 @@
 	"sideEffects": [
 		"**/*.compiled.css"
 	],
-	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
 		"./i18n/*": {

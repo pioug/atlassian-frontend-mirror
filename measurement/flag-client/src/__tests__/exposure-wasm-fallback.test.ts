@@ -99,8 +99,11 @@ it('suppresses 1000 buffered SDK reads after failed WASM and exports a fallback 
 	environment.advance(100);
 	await settle();
 	expect(records(environment)).toHaveLength(1);
+	// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 	expect(records(environment)[0]['atl.feature_flag.sdk.dedupe.item.count']).toBe(1000);
+	// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 	expect(records(environment)[0]['atl.identifiers.AtlassianAccountId']).toBe('alice');
+	// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 	expect(records(environment)[0]['atl.feature_flag.deduplication_key']).toMatch(
 		/^ffp-exp-v1:[0-9a-f]{16}$/,
 	);
@@ -129,6 +132,7 @@ it('uses the same bounded LRU and preserves queued counts when clearing fallback
 	await settle();
 	const received = records(environment);
 	expect(received).toHaveLength(5);
+	// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 	expect(received[0]['atl.feature_flag.sdk.dedupe.item.count']).toBe(2);
 	expect(
 		received.every((record) =>
@@ -151,6 +155,7 @@ it('preserves the fallback wire key across persistence and ownership transfer', 
 	createExposureLogger(options, second);
 	await settle();
 	expect(records(second)).toHaveLength(1);
+	// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 	expect(records(second)[0]['atl.feature_flag.deduplication_key']).toMatch(
 		/^ffp-exp-v1:[0-9a-f]{16}$/,
 	);

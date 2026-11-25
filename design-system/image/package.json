@@ -15,7 +15,6 @@
 	"sideEffects": [
 		"**/*.compiled.css"
 	],
-	"atlaskit:src": "src/ui/image/index.tsx",
 	"atlassian": {
 		"react-compiler": {
 			"enabled": true,

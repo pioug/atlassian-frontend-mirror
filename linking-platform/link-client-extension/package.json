@@ -29,7 +29,6 @@
 	"module:es2019": "dist/es2019/index.js",
 	"types": "dist/types/index.d.ts",
 	"sideEffects": false,
-	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
 		"./use-data-source-client-extension/mockActionsDiscoveryEmptyResponse": "./src/services/use-data-source-client-extension/mockActionsDiscoveryEmptyResponse.ts",

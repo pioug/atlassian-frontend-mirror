@@ -7,7 +7,6 @@ import AnalyticsContext from '@atlaskit/analytics-next/AnalyticsContext';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { LazyLinkPicker } from '@atlaskit/link-picker/lazy';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { Command, EditorAppearance } from '../../../types';
 import { getAnalyticsEditorAppearance } from '../../../utils';
@@ -100,32 +99,17 @@ export const EditorLinkPicker = ({
 		: // eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- intentional fallback for experiment off path
 			{ preventScroll: true };
 
-	if (expValEquals('platform_editor_a11y_escape_link_dialog', 'isEnabled', true)) {
-		return (
-			<div ref={ref}>
-				<AnalyticsContext data={analyticsData}>
-					<FocusLock returnFocus={returnFocus} focusOptions={focusOptions}>
-						<LazyLinkPicker
-							// Ignored via go/ees005
-							// eslint-disable-next-line react/jsx-props-no-spreading
-							{...restProps}
-							onCancel={onEscape}
-						/>
-					</FocusLock>
-				</AnalyticsContext>
-			</div>
-		);
-	}
-
 	return (
 		<div ref={ref}>
 			<AnalyticsContext data={analyticsData}>
-				<LazyLinkPicker
-					// Ignored via go/ees005
-					// eslint-disable-next-line react/jsx-props-no-spreading
-					{...restProps}
-					onCancel={onEscape}
-				/>
+				<FocusLock returnFocus={returnFocus} focusOptions={focusOptions}>
+					<LazyLinkPicker
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
+						{...restProps}
+						onCancel={onEscape}
+					/>
+				</FocusLock>
 			</AnalyticsContext>
 		</div>
 	);

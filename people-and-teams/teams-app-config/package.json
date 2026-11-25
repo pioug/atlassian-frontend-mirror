@@ -21,7 +21,6 @@
 	"sideEffects": [
 		"*.compiled.css"
 	],
-	"atlaskit:src": "src/index.ts",
 	"exports": {
 		"./navigation": "./src/utils/teams-app-navigation/index.ts",
 		"./types": "./src/common/types.ts",

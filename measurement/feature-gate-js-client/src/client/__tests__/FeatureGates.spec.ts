@@ -111,6 +111,7 @@ const mockFeatureFlagServiceEndpoints = (
 	fetchMock.mockReset();
 	fetchMock.mockIf(
 		(req) => Object.keys(responseGenerators).includes(req.url),
+		// @ts-expect-error - TS2722 - Cannot invoke an object which is possibly 'undefined'.
 		(req: Request) => responseGenerators[req.url](),
 	);
 };
@@ -301,7 +302,9 @@ describe('FeatureGate client', () => {
 			expect(mockDataAdapter.setBootstrapData).toHaveBeenCalledWith({ test: '123' });
 			expect(mockStatsigClient.initializeAsync).toHaveBeenCalled();
 
+			// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 			expect(fetchMock.mock.calls[0][0]).toEqual(EXPECTED_KEY_DEV_URL);
+			// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 			expect(fetchMock.mock.calls[1][0]).toEqual(EXPECTED_VALUES_DEV_URL);
 		});
 
@@ -338,7 +341,9 @@ describe('FeatureGate client', () => {
 			expect(mockDataAdapter.setBootstrapData).toHaveBeenCalledWith({ test: '123' });
 			expect(mockStatsigClient.initializeAsync).toHaveBeenCalled();
 
+			// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 			expect(fetchMock.mock.calls[0][0]).toEqual(EXPECTED_KEY_GATEWAY_URL);
+			// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 			expect(fetchMock.mock.calls[1][0]).toEqual(EXPECTED_VALUES_GATEWAY_URL);
 		});
 
@@ -666,7 +671,9 @@ describe('FeatureGate client', () => {
 			expect(mockDataAdapter.setBootstrapData).toHaveBeenCalledWith({ test: '123' });
 			expect(mockStatsigClient.initializeAsync).toHaveBeenCalled();
 
+			// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 			expect(fetchMock.mock.calls[0][0]).toEqual(EXPECTED_KEY_DEV_URL);
+			// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 			expect(fetchMock.mock.calls[1][0]).toEqual(EXPECTED_VALUES_DEV_URL);
 		});
 
@@ -2062,6 +2069,7 @@ describe('FeatureGate client', () => {
 			);
 
 			expect(fetchMock.mock.calls.length).toEqual(1);
+			// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 			expect(fetchMock.mock.calls[0][0]).toEqual(EXPECTED_VALUES_DEV_URL);
 			expect(mockStatsigClient.updateUserAsync).toHaveBeenCalledWith({
 				userID: 'abc-456',

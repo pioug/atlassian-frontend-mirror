@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-panel
 
+## 36.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.0.3
+
+### Patch Changes
+
+- [`cb0fe7777eb94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cb0fe7777eb94) -
+  Use CSS inheritance to improve contributor diff contrast on colored backgrounds behind
+  `platform_editor_show_diff_background_contrast` for attributed version history.
+- Updated dependencies
+
+## 36.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 36.0.0
 
 ### Patch Changes

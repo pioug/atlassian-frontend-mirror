@@ -15,6 +15,7 @@ import { cardReducer } from './reducers';
 import { SMART_CARD_EXTERNAL_AUTH_EVENT } from './smart-card-external-auth-event';
 import { SmartCardContext } from './state/context';
 import { type CardProviderProps } from './state/context/types';
+import { PluginUI } from './state/plugins/plugin-error-boundary';
 
 /**
  * Whether the error represents a URL the resolver does not support. This is an expected,
@@ -40,6 +41,7 @@ export function SmartCardProvider({
 	isPreviewRestricted,
 	openPreviewPanel,
 	onSmartLinkAuthFailed,
+	plugins,
 	rovoOptions,
 	choreographer,
 	xpcProduct,
@@ -114,6 +116,23 @@ export function SmartCardProvider({
 		};
 	}, [store, client]);
 
+	const arePluginsEnabled = fg('platform_sl_3p_auth_visualize_killswitch');
+	const availablePlugins = useMemo(() => {
+		if (!arePluginsEnabled) {
+			return undefined;
+		}
+		if (parentContext) {
+			return parentContext.plugins;
+		}
+		// Resolving is outside React's error boundaries. A faulty plugin must not prevent
+		// the provider and its existing Smart Link children from rendering.
+		try {
+			return plugins?.resolve({ product, rovoOptions });
+		} catch {
+			return undefined;
+		}
+	}, [plugins, product, rovoOptions, parentContext, arePluginsEnabled]);
+
 	const providerValue = useMemo(() => {
 		const authFlow = customAuthFlow || 'oauth2';
 
@@ -128,6 +147,7 @@ export function SmartCardProvider({
 		};
 
 		return {
+			plugins: availablePlugins,
 			renderers,
 			store,
 			prefetchStore: {},
@@ -160,6 +180,7 @@ export function SmartCardProvider({
 		isPreviewRestricted,
 		openPreviewPanel,
 		onSmartLinkAuthFailed,
+		availablePlugins,
 		product,
 		renderers,
 		shouldControlDataExport,
@@ -190,5 +211,13 @@ export function SmartCardProvider({
 		],
 	);
 
-	return <SmartCardContext.Provider value={value}>{children}</SmartCardContext.Provider>;
+	return (
+		<SmartCardContext.Provider value={value}>
+			{children}
+			{/* Plugin UI follows the existing parent-first provider ownership. */}
+			{arePluginsEnabled && !parentContext && availablePlugins && plugins ? (
+				<PluginUI plugins={plugins} />
+			) : null}
+		</SmartCardContext.Provider>
+	);
 }

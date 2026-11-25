@@ -263,6 +263,28 @@ const motion: ValueSchema<MotionTokenSchema<MotionPaletteToken>> = {
 				},
 			},
 		},
+		floating: {
+			controls: {
+				follow: {
+					panel: {
+						enter: {
+							value: {
+								duration: 'Duration200',
+								curve: 'EaseExpoOut',
+								properties: ['Transform'],
+							},
+						},
+						exit: {
+							value: {
+								duration: 'Duration200',
+								curve: 'EaseQuartOut',
+								properties: ['Transform'],
+							},
+						},
+					},
+				},
+			},
+		},
 		panel: {
 			enter: {
 				'[default]': {

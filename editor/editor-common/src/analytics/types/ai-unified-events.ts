@@ -69,6 +69,7 @@ type AIInteractionDiscardedAEP = TrackAEP<
 	AIUnifiedCommonAttributes &
 		AIUnifiedAgentAttributes & {
 			aiResultAction?: string;
+			editSource?: 'rovo-mcp';
 		},
 	undefined
 >;
@@ -106,6 +107,7 @@ type AIResultActionedAEP = TrackAEP<
 			aiActionedType?: string;
 			aiGroupId: string | undefined;
 			aiResultAction: string;
+			editSource?: 'rovo-mcp';
 			promptType?: string;
 			refinementCount?: number;
 			wasRedone?: boolean;

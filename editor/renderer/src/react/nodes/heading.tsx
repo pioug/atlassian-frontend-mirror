@@ -18,9 +18,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { akEditorSwoopCubicBezier } from '@atlaskit/editor-shared-styles/constants';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import { abortAll } from '@atlaskit/react-ufo/interaction-metrics';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
-import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import AnalyticsContext from '../../analytics/analyticsContext';
 import { collapsibleHeadingMessages } from '../../messages';
@@ -33,7 +31,6 @@ import HeadingAnchor from './heading-anchor';
 export type HeadingLevels = 1 | 2 | 3 | 4 | 5 | 6;
 
 const RENDERER_HEADING_WRAPPER = 'renderer-heading-wrapper';
-const RENDERER_COLLAPSIBLE_HEADING_WRAPPER = 'renderer-collapsible-heading-wrapper';
 
 const getCurrentUrlWithHash = (hash: string = ''): string => {
 	const url = new URL(window.location.href);
@@ -250,134 +247,6 @@ function CollapsibleHeadingButton({
 	);
 }
 
-function CollapsibleHeadingContainer({
-	children,
-	collapsibleHeading,
-	headingLevel,
-}: {
-	children: React.ReactNode;
-	collapsibleHeading: CollapsibleHeadingState;
-	headingLevel: HeadingLevels;
-}): React.JSX.Element {
-	const mouseEntered = React.useRef(false);
-	const [isHovered, setIsHovered] = React.useState(false);
-	const [isFocused, setIsFocused] = React.useState(false);
-
-	const mouseEnterHandler = () => {
-		if (!mouseEntered.current) {
-			abortAll('new_interaction');
-			mouseEntered.current = true;
-		}
-	};
-
-	return (
-		<div
-			data-testid={RENDERER_COLLAPSIBLE_HEADING_WRAPPER}
-			data-level={headingLevel}
-			css={collapsibleHeadingWrapperStyles}
-			onMouseEnter={() => {
-				mouseEnterHandler();
-				setIsHovered(true);
-			}}
-			onMouseLeave={() => setIsHovered(false)}
-			onFocus={(event) => setIsFocused(hasFocusVisible(event.target))}
-			onBlur={() => setIsFocused(false)}
-		>
-			<CollapsibleHeadingButton
-				collapsibleHeading={collapsibleHeading}
-				headingLevel={headingLevel}
-				isHeadingHovered={isHovered || isFocused}
-			/>
-			{children}
-		</div>
-	);
-}
-
-/**
- * Old heading structure (before a11y fix):
- * - headning anchor is rendered INSIDE the heading element
- * - A duplicate anchor is rendered in VisuallyHidden for screen readers
- * - The visible button has hideFromScreenReader={true}
- *
- */
-function HeadingWithDuplicateAnchor(props: HeadingProps): React.JSX.Element {
-	const {
-		headingId,
-		dataAttributes,
-		allowHeadingAnchorLinks,
-		marks,
-		invisible,
-		localId,
-		asInline,
-	} = props;
-	const HX = `h${props.level}` as 'h1';
-	const mouseEntered = React.useRef(false);
-	const showAnchorLink = !!props.showAnchorLink;
-	const isRightAligned = hasRightAlignmentMark(marks);
-	const headingAnchorLinksConfig = getHeadingAnchorLinksConfig(allowHeadingAnchorLinks);
-	const enableNestedHeaderLinks = headingAnchorLinksConfig?.allowNestedHeaderLinks;
-	const getHeadingLink = headingAnchorLinksConfig?.getHeadingLink;
-
-	const headingIdToUse = invisible ? undefined : headingId;
-
-	const mouseEnterHandler = () => {
-		if (showAnchorLink && !mouseEntered.current) {
-			// Abort TTVC calculation when the mouse hovers over heading. Hovering over
-			// heading render heading anchor and inline comment buttons. These user-induced
-			// DOM changes are valid reasons to abort the TTVC calculation.
-			abortAll('new_interaction');
-			mouseEntered.current = true;
-		}
-	};
-
-	return (
-		<React.Fragment>
-			<HX
-				data-heading-number={props.headingNumber}
-				css={props.headingNumber && numberedHeadingStyles}
-				id={headingIdToUse}
-				data-local-id={localId}
-				data-renderer-start-pos={dataAttributes['data-renderer-start-pos']}
-				data-as-inline={asInline}
-				onMouseEnter={mouseEnterHandler}
-				tabIndex={-1}
-			>
-				<React.Fragment>
-					{showAnchorLink && headingId && isRightAligned && (
-						<WrappedHeadingAnchor
-							level={props.level}
-							enableNestedHeaderLinks={enableNestedHeaderLinks}
-							getHeadingLink={getHeadingLink}
-							headingId={headingId}
-							hideFromScreenReader
-						/>
-					)}
-					{props.children}
-					{showAnchorLink && headingId && !isRightAligned && (
-						<WrappedHeadingAnchor
-							level={props.level}
-							enableNestedHeaderLinks={enableNestedHeaderLinks}
-							getHeadingLink={getHeadingLink}
-							headingId={headingId}
-							hideFromScreenReader
-						/>
-					)}
-				</React.Fragment>
-			</HX>
-			<VisuallyHidden testId="visually-hidden-heading-anchor">
-				{showAnchorLink && headingId && (
-					<WrappedHeadingAnchor
-						level={props.level}
-						enableNestedHeaderLinks={enableNestedHeaderLinks}
-						getHeadingLink={getHeadingLink}
-						headingId={headingId}
-					/>
-				)}
-			</VisuallyHidden>
-		</React.Fragment>
-	);
-}
-
 /**
  * New heading structure (a11y fix):
  * - Heading anchor is rendered OUTSIDE the heading element in a .renderer-heading-wrapper div
@@ -480,13 +349,6 @@ function HeadingWithWrapper(
 	);
 }
 
-/**
- * Gated Heading component:
- * - When platform_editor_copy_link_a11y_inconsistency_fix experiment is enabled,
- *   returns HeadingWithWrapper (new a11y-improved structure)
- * - Otherwise preserves HeadingWithDuplicateAnchor (old structure), adding only the collapse
- *   container when the top-level heading is collapsible
- */
 function Heading({
 	allowHeadingAnchorLinks,
 	children,
@@ -507,30 +369,8 @@ function Heading({
 		dataAttributes['data-renderer-start-pos'],
 		path?.length === 0,
 	);
-	if (expValEquals('platform_editor_copy_link_a11y_inconsistency_fix', 'isEnabled', true)) {
-		return (
-			<HeadingWithWrapper
-				allowHeadingAnchorLinks={allowHeadingAnchorLinks}
-				dataAttributes={dataAttributes}
-				headingId={headingId}
-				headingNumber={headingNumber}
-				invisible={invisible}
-				level={level}
-				localId={localId}
-				marks={marks}
-				nodeType={nodeType}
-				serializer={serializer}
-				showAnchorLink={showAnchorLink}
-				asInline={asInline}
-				collapsibleHeading={collapsibleHeading}
-			>
-				{children}
-			</HeadingWithWrapper>
-		);
-	}
-
-	const headingWithDuplicateAnchor = (
-		<HeadingWithDuplicateAnchor
+	return (
+		<HeadingWithWrapper
 			allowHeadingAnchorLinks={allowHeadingAnchorLinks}
 			dataAttributes={dataAttributes}
 			headingId={headingId}
@@ -543,20 +383,11 @@ function Heading({
 			serializer={serializer}
 			showAnchorLink={showAnchorLink}
 			asInline={asInline}
+			collapsibleHeading={collapsibleHeading}
 		>
 			{children}
-		</HeadingWithDuplicateAnchor>
+		</HeadingWithWrapper>
 	);
-
-	if (collapsibleHeading) {
-		return (
-			<CollapsibleHeadingContainer collapsibleHeading={collapsibleHeading} headingLevel={level}>
-				{headingWithDuplicateAnchor}
-			</CollapsibleHeadingContainer>
-		);
-	}
-
-	return headingWithDuplicateAnchor;
 }
 
 export default Heading;

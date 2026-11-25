@@ -21,7 +21,6 @@
 	"sideEffects": [
 		"*.compiled.css"
 	],
-	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
 		"./confluence-icon": "./src/common/assets/confluence-icon.ts",
@@ -119,7 +118,7 @@
 		"react-intl": "root:*"
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "3.16.0",
+	"version": "3.17.0",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

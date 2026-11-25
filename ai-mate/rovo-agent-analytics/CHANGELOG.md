@@ -1,5 +1,12 @@
 # @atlaskit/rovo-agent-analytics
 
+## 6.8.1
+
+### Patch Changes
+
+- [`c28aa71e90bd4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c28aa71e90bd4) -
+  Update the package's Rovo Components catalog metadata.
+
 ## 6.8.0
 
 ### Minor Changes

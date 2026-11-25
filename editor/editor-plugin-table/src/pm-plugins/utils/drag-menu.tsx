@@ -11,13 +11,9 @@ import {
 	backspace,
 	deleteColumn,
 	deleteRow,
-	moveColumnLeftOld,
 	moveColumnLeft,
-	moveColumnRightOld,
 	moveColumnRight,
-	moveRowDownOld,
 	moveRowDown,
-	moveRowUpOld,
 	moveRowUp,
 	tooltip,
 } from '@atlaskit/editor-common/keymaps';
@@ -44,7 +40,6 @@ import TableRowDeleteIcon from '@atlaskit/icon/core/table-row-delete';
 import TableRowMoveDownIcon from '@atlaskit/icon/core/table-row-move-down';
 import TableRowMoveUpIcon from '@atlaskit/icon/core/table-row-move-up';
 import type { NewIconProps, IconProps } from '@atlaskit/icon/types';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { DraggableData, DraggableType, PluginInjectionAPI, TableDirection } from '../../types';
 import { getClosestSelectionRect } from '../../ui/toolbar';
@@ -200,22 +195,13 @@ export const getDragMenuConfig = (
 					},
 				];
 
-	const isNewKeymapExperiment = expValEquals(
-		'editor-a11y-fy26-keyboard-move-row-column',
-		'isEnabled',
-		true,
-	);
-
 	const moveOptions =
 		direction === 'row'
 			? [
 					{
 						label: 'up',
 						icon: () => <TableRowMoveUpIcon spacing={'spacious'} label={''} />,
-						keymap: isNewKeymapExperiment
-							? moveRowUp
-							: // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-								moveRowUpOld,
+						keymap: moveRowUp,
 						canMove: canMove('table-row', -1, tableMap?.height ?? 0, selection, selectionRect),
 						getOriginIndexes: getSelectedRowIndexes,
 						getTargetIndex: (selectionRect: Rect) => selectionRect.top - 1,
@@ -223,10 +209,7 @@ export const getDragMenuConfig = (
 					{
 						label: 'down',
 						icon: () => <TableRowMoveDownIcon spacing={'spacious'} label={''} />,
-						keymap: isNewKeymapExperiment
-							? moveRowDown
-							: // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-								moveRowDownOld,
+						keymap: moveRowDown,
 						canMove: canMove('table-row', 1, tableMap?.height ?? 0, selection, selectionRect),
 						getOriginIndexes: getSelectedRowIndexes,
 						getTargetIndex: (selectionRect: Rect) => selectionRect.bottom,
@@ -236,10 +219,7 @@ export const getDragMenuConfig = (
 					{
 						label: 'left',
 						icon: () => <TableColumnMoveLeftIcon spacing={'spacious'} label={''} />,
-						keymap: isNewKeymapExperiment
-							? moveColumnLeft
-							: // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-								moveColumnLeftOld,
+						keymap: moveColumnLeft,
 						canMove: canMove('table-column', -1, tableMap?.width ?? 0, selection, selectionRect),
 						getOriginIndexes: getSelectedColumnIndexes,
 						getTargetIndex: (selectionRect: Rect) => selectionRect.left - 1,
@@ -247,10 +227,7 @@ export const getDragMenuConfig = (
 					{
 						label: 'right',
 						icon: () => <TableColumnMoveRightIcon spacing={'spacious'} label={''} />,
-						keymap: isNewKeymapExperiment
-							? moveColumnRight
-							: // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-								moveColumnRightOld,
+						keymap: moveColumnRight,
 						canMove: canMove('table-column', 1, tableMap?.width ?? 0, selection, selectionRect),
 						getOriginIndexes: getSelectedColumnIndexes,
 						getTargetIndex: (selectionRect: Rect) => selectionRect.right,

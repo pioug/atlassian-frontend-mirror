@@ -229,6 +229,136 @@ describe('Rovo Query', () => {
 		});
 	});
 
+	describe('value decoding', () => {
+		const SINGLE_DECODE_GATE = 'rovo_chat_params_single_decode';
+		const BASE_URL = 'http://example.com/wiki/home';
+
+		// The gate is checked only when the second decode fails, so these values read the same with the
+		// gate on or off and do not evaluate it.
+		describe('when the value decodes a second time', () => {
+			it('reads + as a space and %2B as a literal plus', () => {
+				expect(getRovoParams(`${BASE_URL}?rovoChatPrompt=C%2B%2B+tips`)).toEqual({
+					prompt: 'C++ tips',
+				});
+			});
+
+			// The campaign link contract decodes a second time when the first result still holds a
+			// valid percent-encoded sequence, so live links that were encoded twice keep working.
+			it('decodes a value that was encoded twice', () => {
+				expect(
+					getRovoParams(
+						`${BASE_URL}?rovoChatPrompt=${encodeURIComponent(encodeURIComponent('café & 50% off'))}`,
+					),
+				).toEqual({ prompt: 'café & 50% off' });
+			});
+
+			it.each([
+				['plus signs', 'C++ & 1+1=2'],
+				['unicode', 'Résumé ✓ 日本語 🚀'],
+			])('round-trips a prompt with %s through addRovoParamsToUrl', (_, prompt) => {
+				const url = addRovoParamsToUrl(`${BASE_URL}?existing=param`, {
+					pathway: 'chat',
+					prompt,
+				});
+
+				expect(getRovoParams(url)).toEqual({ pathway: 'chat', prompt });
+			});
+		});
+
+		// Known limitation, not desired behavior. The gate only changes values whose second decode
+		// throws, so these read the same with the gate on or off. The gate is never read on this path,
+		// which is why these tests cannot force it: mock-gates fails a test that forces an unread gate.
+		// encodeRovoParams encodes once, so a prompt such as "100%20off" is written as "100%2520off",
+		// and the second decode turns it into "100 off".
+		describe('known limitation: a value whose first decode leaves a valid escape sequence', () => {
+			it.each([
+				['100%2520off', '100 off'],
+				['use%20%2520', 'use  '],
+			])('still decodes %p a second time as %p', (encoded, expected) => {
+				expect(getRovoParams(`${BASE_URL}?rovoChatPrompt=${encoded}`)).toEqual({
+					prompt: expected,
+				});
+			});
+
+			it('changes a prompt with %20 in it on a round trip through addRovoParamsToUrl', () => {
+				const url = addRovoParamsToUrl(BASE_URL, { prompt: '100%20off' });
+
+				expect(url).toEqual(`${BASE_URL}?rovoChatPrompt=100%2520off`);
+				expect(getRovoParams(url)).toEqual({ prompt: '100 off' });
+			});
+		});
+
+		describe('when the single decode gate is on', () => {
+			beforeEach(() => {
+				passGate(SINGLE_DECODE_GATE);
+			});
+
+			it('keeps every param when the prompt contains a literal percent sign', () => {
+				expect(
+					getRovoParams(`${BASE_URL}?rovoChatCloudId=cloud-1&rovoChatPrompt=50%25%20off`),
+				).toEqual({ cloudId: 'cloud-1', prompt: '50% off' });
+			});
+
+			it('keeps a percent sign followed by hex digits that do not decode', () => {
+				expect(getRovoParams(`${BASE_URL}?rovoChatPrompt=100%25ab`)).toEqual({
+					prompt: '100%ab',
+				});
+			});
+
+			it('keeps a bare percent sign in a unicode prompt', () => {
+				expect(
+					getRovoParams(`${BASE_URL}?rovoChatPrompt=${encodeURIComponent('Résumé 50 % ✓ 日本語')}`),
+				).toEqual({ prompt: 'Résumé 50 % ✓ 日本語' });
+			});
+
+			it.each([
+				['a literal percent sign', '50% off'],
+				['a percent sign before hex digits that do not decode', '100%ab'],
+			])('round-trips a prompt with %s through addRovoParamsToUrl', (_, prompt) => {
+				const url = addRovoParamsToUrl(`${BASE_URL}?existing=param`, {
+					pathway: 'chat',
+					prompt,
+				});
+
+				expect(getRovoParams(url)).toEqual({ pathway: 'chat', prompt });
+			});
+
+			it('round-trips an encodeRovoParams string passed back through addRovoParamsToUrl', () => {
+				const prompt = '50% off, café ✓';
+				const url = addRovoParamsToUrl(
+					`https://home.atlassian.com/chat?${encodeRovoParams({ pathway: 'chat', prompt })}`,
+					{ cloudId: 'cloud-1' },
+				);
+
+				expect(getRovoParams(url)).toEqual({ pathway: 'chat', prompt, cloudId: 'cloud-1' });
+			});
+
+			it('keeps existing params in the URL when they contain a literal percent sign', () => {
+				expect(
+					addRovoParamsToUrl(`${BASE_URL}?rovoChatPrompt=50%25%20off`, { cloudId: 'cloud-1' }),
+				).toEqual(`${BASE_URL}?rovoChatPrompt=50%25%20off&rovoChatCloudId=cloud-1`);
+			});
+		});
+
+		describe('when the single decode gate is off', () => {
+			beforeEach(() => {
+				failGate(SINGLE_DECODE_GATE);
+			});
+
+			it('keeps the legacy behavior of dropping every param on a literal percent sign', () => {
+				expect(
+					getRovoParams(`${BASE_URL}?rovoChatTriggerOpen=true&rovoChatPrompt=50%25%20off`),
+				).toEqual({});
+			});
+
+			it('keeps the legacy behavior of throwing when building a link from such a prompt', () => {
+				expect(() =>
+					addRovoParamsToUrl(`${BASE_URL}?rovoChatPrompt=50%25%20off`, { cloudId: 'cloud-1' }),
+				).toThrow(URIError);
+			});
+		});
+	});
+
 	describe('getListOfRovoParams', () => {
 		it('should return a list of all rovoChat params', () => {
 			const params = getListOfRovoParams();

@@ -18,17 +18,21 @@ import {
 	AGENT_EDIT_CHROME_DATA,
 	getAgentEditChromeDynamicConfig,
 } from '@atlaskit/editor-common/collab-agent-edit-chrome';
+import { AGENT_INVOCATION_REVIEW_BATCHES } from '@atlaskit/editor-common/collab-agent-invocation';
 import { AGENT_REMOTE_EDIT_REVIEW_DATA } from '@atlaskit/editor-common/collab-agent-remote-edit-review';
+import { logException } from '@atlaskit/editor-common/monitoring/error';
 import type { Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { AllSelection, NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { Step } from '@atlaskit/editor-prosemirror/transform-override';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { receiveTransaction, sendableSteps } from '@atlaskit/prosemirror-collab';
 
 import type { PrivateCollabEditOptions } from '../types';
 import { getAgentEditShimmerNotShownPayload } from './analytics';
-import { getAgentEditRequester } from './main/agent-edit-requester';
+import { getAgentEditRequester, isAgentStepWithInvocation } from './main/agent-edit-requester';
+import { getAgentInvocationReviewBatches } from './main/agent-invocation-review-batches';
 import { getAgentEditSegments } from './main/agent-review-segments';
 import { getAgentEditChromeRanges } from './main/agent-shimmer-ranges';
 import { getRemoteAgentChromeIdentity } from './main/remote-agent-chrome-identity';
@@ -181,16 +185,28 @@ export const applyRemoteSteps = (
 			}
 		}
 
-		// Record the agent's edit (original + new slice per change) onto this
-		// transaction; `editor-plugin-ai` consumes the meta to open the BE Review moment.
-		// Same eligibility as FE Review moment: xstate AND the M1 streaming UX
-		// experiment. `getAgentEditSegments` self-gates (returns null for non-agent
-		// edits, never throws), so this is a no-op for ordinary collaborator edits.
-		if (
-			isAiXstateMigrationEnabled() &&
-			isExperimentEnabled('platform_editor_ai_streaming_ux_experience_m1')
-		) {
-			const reviewData = getAgentEditSegments(json, steps, tr, view);
+		let legacyIndexes: number[] | undefined;
+		if (fg('platform_editor_ai_backend_persisted_analytics')) {
+			try {
+				const invocationBatches = getAgentInvocationReviewBatches(json, tr);
+				legacyIndexes = invocationBatches.legacyIndexes;
+				if (invocationBatches.invocations.length) {
+					tr.setMeta(AGENT_INVOCATION_REVIEW_BATCHES, invocationBatches.invocations);
+				}
+			} catch (error) {
+				// A failed extraction must not route invocation-bearing steps back to per-tab analytics.
+				legacyIndexes = json.flatMap((step, index) =>
+					isAgentStepWithInvocation(step) ? [] : [index],
+				);
+				logException(error as Error, {
+					location: 'editor-plugin-collab-edit/actions/getAgentInvocationReviewBatches',
+				});
+			}
+		}
+
+		// The watchmen use this metadata for legacy backend acceptance analytics.
+		if (isAiXstateMigrationEnabled() && isM1StreamingEnabled) {
+			const reviewData = getAgentEditSegments(json, steps, tr, view, legacyIndexes);
 			if (reviewData) {
 				tr.setMeta(AGENT_REMOTE_EDIT_REVIEW_DATA, reviewData);
 			}

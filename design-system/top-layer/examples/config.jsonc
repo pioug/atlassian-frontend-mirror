@@ -66,6 +66,7 @@
 		"168-testing-manual-focus-restore-target.tsx",
 		"169-testing-manual-light-dismiss-focus.tsx",
 		"170-testing-layer-show-order.tsx",
+		"171-testing-popover-overlap.tsx",
 		"171-testing-show-before-content-effects.tsx",
 		"172-testing-popover-close-after-focus-loss.tsx",
 		"173-testing-manual-ask-first-close.tsx",
@@ -84,6 +85,9 @@
 		"89-vr-popover-host-specificity.vr.ap.tsx",
 		"89-vr-dialog-host-specificity.vr.ap.tsx",
 		"89-vr-layer-show-order.vr.ap.tsx",
+		"overlap-inline-editor.tsx",
+		"overlap-inline-editor-fallback.vr.ap.tsx",
+		"overlap-inline-editor.vr.ap.tsx",
 	],
 	// Entries here are excluded from the test cache hash, so
 	// `@atlaskit/pragmatic-drag-and-drop` is deliberately absent: it is what the

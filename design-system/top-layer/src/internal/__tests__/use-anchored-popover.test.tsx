@@ -6,6 +6,7 @@ import { renderToString } from 'react-dom/server';
 import { screen } from '@atlassian/testing-library/screen';
 import { act, render } from '@atlassian/testing-library/testing-library/react';
 
+import * as anchorSizeSupport from '../supports-anchor-size';
 import { useAnchoredPopover } from '../use-anchored-popover';
 
 // JSDOM does not implement `window.CSS`. The hook caches its
@@ -884,6 +885,78 @@ describe('useAnchoredPopover', () => {
 		});
 	});
 
+	describe('overlap positioning', () => {
+		function OverlapPopover({
+			edge = 'overlap-center',
+		}: {
+			edge?: 'overlap-start' | 'overlap-center' | 'overlap-end';
+		}) {
+			const anchorRef = useRef<HTMLButtonElement | null>(null);
+			const popoverRef = useRef<HTMLDivElement | null>(null);
+			useAnchoredPopover({
+				anchorRef,
+				popoverRef,
+				placement: { axis: 'block', edge, align: 'start' },
+				inlineSize: 'match-anchor',
+				isOpen: true,
+			});
+			return (
+				<>
+					<button ref={anchorRef} data-testid="trigger">
+						trigger
+					</button>
+					<div ref={popoverRef} data-testid="popover">
+						popover
+					</div>
+				</>
+			);
+		}
+
+		it('uses native anchor sizing without observing or measuring the anchor', () => {
+			const resizeObserver = jest.spyOn(window, 'ResizeObserver');
+			const width = jest.spyOn(HTMLElement.prototype, 'offsetWidth', 'get');
+			try {
+				render(<OverlapPopover />);
+				expect(screen.getByTestId('popover').style.getPropertyValue('position-anchor')).not.toBe(
+					'',
+				);
+				expect(resizeObserver).not.toHaveBeenCalled();
+				expect(width).not.toHaveBeenCalled();
+			} finally {
+				width.mockRestore();
+				resizeObserver.mockRestore();
+			}
+		});
+
+		it.each([
+			['overlap-start', '140px'],
+			['overlap-center', '140px'],
+			['overlap-end', '60px'],
+		] as const)('uses adjacent positioning for %s without native anchor sizing', (edge, top) => {
+			jest.useFakeTimers();
+			const anchorSize = jest.spyOn(anchorSizeSupport, 'supportsAnchorSize').mockReturnValue(false);
+			const width = jest.spyOn(HTMLElement.prototype, 'offsetWidth', 'get').mockReturnValue(240);
+			const height = jest.spyOn(HTMLElement.prototype, 'offsetHeight', 'get').mockReturnValue(40);
+			try {
+				render(<OverlapPopover edge={edge} />);
+				const anchor = screen.getByTestId('trigger');
+				const popover = screen.getByTestId('popover');
+				jest.spyOn(anchor, 'getBoundingClientRect').mockReturnValue(new DOMRect(40, 100, 240, 40));
+				act(() => {
+					window.dispatchEvent(new Event('scroll'));
+					jest.runOnlyPendingTimers();
+				});
+				expect(popover.style.getPropertyValue('position-anchor')).toBe('');
+				expect(popover).toHaveStyle({ top, inlineSize: '240px' });
+			} finally {
+				height.mockRestore();
+				width.mockRestore();
+				anchorSize.mockRestore();
+				jest.useRealTimers();
+			}
+		});
+	});
+
 	describe('placement stability', () => {
 		// Consumers commonly pass an inline `placement={{ ... }}` literal,
 		// which produces a new object reference on every parent render.
@@ -1023,6 +1096,31 @@ describe('useAnchoredPopover', () => {
 			expect(setPropertySpy).toHaveBeenCalled();
 
 			setPropertySpy.mockRestore();
+		});
+
+		it('keeps equivalent overlap offsets stable and reapplies changed offsets', () => {
+			const onRender = jest.fn();
+			function renderProbe(shift: string | number) {
+				return (
+					<Probe
+						onRender={onRender}
+						placement={{
+							edge: 'overlap-start',
+							offset: { gap: -4, crossAxisShift: { value: shift } },
+						}}
+					/>
+				);
+			}
+			const { rerender } = render(renderProbe(8));
+			const setProperty = jest.spyOn(screen.getByTestId('popover').style, 'setProperty');
+			try {
+				rerender(renderProbe('8px'));
+				expect(setProperty).not.toHaveBeenCalled();
+				rerender(renderProbe(12));
+				expect(setProperty).toHaveBeenCalled();
+			} finally {
+				setProperty.mockRestore();
+			}
 		});
 	});
 });

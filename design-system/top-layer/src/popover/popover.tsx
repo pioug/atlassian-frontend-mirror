@@ -14,6 +14,7 @@ import { token } from '@atlaskit/tokens';
 
 import { requestCloseEventName } from '../internal/closable-popover-contract';
 import { isNativeElementOpen } from '../internal/is-native-element-open';
+import { isOverlapPlacement } from '../internal/is-overlap-placement';
 import { hideOpenPopoversInside } from '../internal/manual-hide/hide-open-popovers-inside';
 import { lightDismissRequests } from '../internal/manual-hide/light-dismiss-requests';
 import { pendingFocusReturns } from '../internal/manual-hide/pending-focus-returns';
@@ -361,8 +362,11 @@ export const Popover: React.ForwardRefExoticComponent<
 		if (!placement || !shouldAnimate) {
 			return undefined;
 		}
-		const { axis, edge } = resolvePlacement({ placement });
-		return popupMotionStyles[axis][edge];
+		const resolved = resolvePlacement({ placement });
+		if (isOverlapPlacement(resolved)) {
+			return undefined;
+		}
+		return popupMotionStyles[resolved.axis][resolved.edge];
 	}, [placement, shouldAnimate]);
 
 	// Tracks the close reason, including our own hidePopover() calls.
@@ -647,8 +651,8 @@ export const Popover: React.ForwardRefExoticComponent<
 			css={[
 				styles.root,
 				surfaceResetStyles.root,
-				shouldAnimate && phase === 'entering' && styles.enter,
-				shouldAnimate && phase === 'exiting' && styles.exit,
+				popupMotionStyle !== undefined && phase === 'entering' && styles.enter,
+				popupMotionStyle !== undefined && phase === 'exiting' && styles.exit,
 				shouldAnimate && styles.motion,
 			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/local-cx-xcss, @compiled/local-cx-xcss

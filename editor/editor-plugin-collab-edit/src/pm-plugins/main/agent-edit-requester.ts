@@ -3,6 +3,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { pluginKey } from './plugin-key';
 
 type AgentRemoteStep = {
+	agentEditComplete?: unknown;
 	agentId?: unknown;
 	agentName?: unknown;
 	agentNamedId?: unknown;
@@ -29,6 +30,13 @@ const isAgentRemoteStep = (step: unknown): step is AgentRemoteStep =>
 	typeof step === 'object' &&
 	step !== null &&
 	typeof (step as Partial<AgentRemoteStep>).agentType === 'string';
+
+export const isAgentStepWithInvocation = (
+	step: unknown,
+): step is AgentRemoteStep & { invocationId: string } =>
+	isAgentRemoteStep(step) &&
+	typeof step.invocationId === 'string' &&
+	step.invocationId.trim() !== '';
 
 const asString = (value: unknown): string | undefined =>
 	typeof value === 'string' ? value : undefined;

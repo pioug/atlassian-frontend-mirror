@@ -324,7 +324,11 @@ export const typeAheadPlugin: TypeAheadPlugin = ({ api }) => {
 			}
 
 			if (newTriggerHandler?.onOpen && isANewHandler) {
-				if (fg('platform_editor_ease_of_use_metrics')) {
+				// The command built here is never executed. `WrapperTypeAhead` pauses the session on open.
+				if (
+					fg('platform_editor_ease_of_use_metrics') &&
+					!fg('platform_editor_fix_slash_menu_ease_of_use_metrics')
+				) {
 					api?.metrics?.commands.handleIntentToStartEdit({
 						shouldStartTimer: false,
 						shouldPersistActiveSession: true,

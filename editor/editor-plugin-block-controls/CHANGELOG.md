@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 35.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.0.1
+
+### Patch Changes
+
+- [`05db07714a6a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/05db07714a6a4) -
+  Remove the fully rolled-out selection toolbar block-handle experiment.
+- Updated dependencies
+
 ## 35.0.0
 
 ### Patch Changes

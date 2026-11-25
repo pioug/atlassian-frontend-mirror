@@ -19,7 +19,6 @@
 	"module": "dist/esm/index.js",
 	"module:es2019": "dist/es2019/index.js",
 	"types": "dist/types/index.d.ts",
-	"atlaskit:src": "src/index.tsx",
 	"exports": {
 		".": "./src/index.tsx",
 		"./allowed-function-calls": "./src/allowed-function-calls/index.tsx",

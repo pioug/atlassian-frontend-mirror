@@ -1,0 +1,100 @@
+{
+	"$schema": "https://json-schema.org/draft/2019-09/schema",
+	"$comment": "Generated from @atlaskit/a2ui-catalog by `yarn workspace @atlaskit/a2ui-catalog codegen:catalog-json`. Do not edit by hand.",
+	"title": "Atlassian Agentic Forge A2UI catalog",
+	"description": "A dedicated Forge result surface. ResultPanel shows a completed result from a literal title and summary. It is not a superset of the ADS catalog.",
+	"catalogId": "com.atlassian.agentic-forge/v0_9/v1",
+	"instructions": "Send A2UI v0.9 messages, each with \"version\": \"v0.9\". Start with createSurface using this catalogId, then send updateComponents. This catalog contains only ResultPanel and is not a superset of the ADS catalog. ResultPanel is a completed result: set id to \"root\", component to \"ResultPanel\", and provide title and summary as literal strings. summary keeps authored line breaks. Do not use data-binding path objects, updateDataModel, child component ids, or action props.",
+	"components": {
+		"ResultPanel": {
+			"allOf": [
+				{ "$ref": "#/$defs/ComponentCommon" },
+				{
+					"properties": {
+						"component": { "const": "ResultPanel" },
+						"summary": {
+							"type": "string",
+							"minLength": 1,
+							"description": "Result body. Line breaks are shown as authored."
+						},
+						"title": {
+							"type": "string",
+							"minLength": 1,
+							"description": "Heading for the completed result."
+						}
+					},
+					"required": ["component", "summary", "title"]
+				}
+			]
+		}
+	},
+	"$defs": {
+		"AccessibilityAttributes": {
+			"type": "object",
+			"properties": {
+				"label": {
+					"$ref": "#/$defs/DynamicString",
+					"description": "A short string used by assistive technologies to convey the purpose of an element."
+				},
+				"description": {
+					"$ref": "#/$defs/DynamicString",
+					"description": "Additional information provided by assistive technologies about an element."
+				}
+			},
+			"additionalProperties": false,
+			"description": "Attributes to enhance accessibility."
+		},
+		"ComponentCommon": {
+			"type": "object",
+			"description": "Properties shared by every A2UI component.",
+			"properties": {
+				"id": { "$ref": "#/$defs/ComponentId" },
+				"accessibility": { "$ref": "#/$defs/AccessibilityAttributes" }
+			},
+			"required": ["id"]
+		},
+		"ComponentId": { "type": "string", "description": "The unique identifier for a component." },
+		"DataBinding": {
+			"type": "object",
+			"properties": {
+				"path": {
+					"type": "string",
+					"description": "A JSON Pointer path to a value in the data model."
+				}
+			},
+			"required": ["path"],
+			"additionalProperties": false,
+			"description": "A JSON Pointer path to a value in the data model."
+		},
+		"DynamicString": {
+			"anyOf": [
+				{ "type": "string" },
+				{
+					"$ref": "#/$defs/DataBinding",
+					"description": "A JSON Pointer path to a value in the data model."
+				},
+				{ "$ref": "#/$defs/FunctionCall", "description": "Invokes a named function on the client." }
+			],
+			"description": "Represents a string"
+		},
+		"FunctionCall": {
+			"type": "object",
+			"properties": {
+				"call": { "type": "string", "description": "The name of the function to call." },
+				"args": {
+					"type": "object",
+					"additionalProperties": {},
+					"description": "Arguments passed to the function."
+				},
+				"returnType": {
+					"type": "string",
+					"enum": ["string", "number", "boolean", "array", "object", "any", "void"],
+					"default": "boolean"
+				}
+			},
+			"required": ["call", "args"],
+			"additionalProperties": false,
+			"description": "Invokes a named function on the client."
+		}
+	}
+}

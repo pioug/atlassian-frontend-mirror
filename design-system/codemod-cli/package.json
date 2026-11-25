@@ -10,7 +10,6 @@
 	"license": "Apache-2.0",
 	"main": "index.js",
 	"types": "dist/types/index.d.ts",
-	"atlaskit:src": "src/index.tsx",
 	"exports": {
 		".": {
 			"types": "./src/index.tsx",

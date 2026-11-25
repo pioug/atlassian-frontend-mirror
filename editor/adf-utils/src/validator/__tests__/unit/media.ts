@@ -175,43 +175,6 @@ describe('media', () => {
 		expect(run).toThrow(`mediaSingle: 'content' should have less than 1 child.`);
 	});
 
-	// has to be skipped currently due to issue here
-	// https://product-fabric.atlassian.net/wiki/spaces/TPT/pages/1922867184/Nodes+with+Multiple+Validation+Specs
-	it.skip('should not throw when length of mediaSingle is valid', () => {
-		const validateLength = validator(['doc', 'mediaSingle', 'media', 'caption']);
-		const run = () => {
-			validateLength({
-				version: 1,
-				type: 'doc',
-				content: [
-					{
-						type: 'mediaSingle',
-						content: [
-							{
-								type: 'media',
-								attrs: {
-									type: 'file',
-									id: '1234',
-									collection: 'SampleCollection',
-								},
-							},
-							{
-								type: 'caption',
-								content: [
-									{
-										type: 'text',
-										text: 'Hello World!',
-									},
-								],
-							},
-						],
-					},
-				],
-			});
-		};
-		expect(run).toHaveReturned();
-	});
-
 	it('should not invoke INVALID_CONTENT_LENGTH error when media with caption is within list item', () => {
 		const validateLength = validator([
 			'caption',

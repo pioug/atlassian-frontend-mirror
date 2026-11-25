@@ -1,5 +1,13 @@
 # @atlaskit/checkbox
 
+## 19.3.4
+
+### Patch Changes
+
+- [`8f356fbaaefc5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f356fbaaefc5) -
+  Keep the Checkbox focus ring visible when tabbing between checkboxes in Safari. This fix is behind
+  platform-dst-checkbox-safari-focus-outline.
+
 ## 19.3.3
 
 ### Patch Changes

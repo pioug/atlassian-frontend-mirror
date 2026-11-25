@@ -37,7 +37,6 @@
 		"dist/es2019/test-utils/index.js",
 		"dist/esm/test-utils/index.js"
 	],
-	"atlaskit:src": "src/index.tsx",
 	"exports": {
 		".": "./src/index.tsx",
 		"./at-rules/media-above-xxs": "./src/at-rules/media-above-xxs.tsx",

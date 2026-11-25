@@ -138,6 +138,7 @@ describe('Fetcher', () => {
 			};
 			await Fetcher.fetchClientSdk(fetcherOptions);
 			expect(fetchMock).toHaveBeenCalledTimes(1);
+			// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 			expect(fetchMock.mock.calls[0][0]).toEqual(EXPECTED_KEY_PRD_URL);
 		});
 
@@ -150,6 +151,7 @@ describe('Fetcher', () => {
 			};
 			await Fetcher.fetchClientSdk(fetcherOptions);
 			expect(fetchMock).toHaveBeenCalledTimes(1);
+			// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 			expect(fetchMock.mock.calls[0][0]).toEqual(EXPECTED_KEY_STG_URL);
 		});
 
@@ -162,6 +164,7 @@ describe('Fetcher', () => {
 			};
 			await Fetcher.fetchClientSdk(fetcherOptions);
 			expect(fetchMock).toHaveBeenCalledTimes(1);
+			// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 			expect(fetchMock.mock.calls[0][0]).toEqual(EXPECTED_KEY_DEV_URL);
 		});
 
@@ -175,6 +178,7 @@ describe('Fetcher', () => {
 			};
 			await Fetcher.fetchClientSdk(fetcherOptions);
 			expect(fetchMock).toHaveBeenCalledTimes(1);
+			// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 			expect(fetchMock.mock.calls[0][0]).toEqual(EXPECTED_KEY_GATEWAY_URL);
 		});
 
@@ -239,6 +243,7 @@ describe('Fetcher', () => {
 			const expectedUrl =
 				'https://atlassian-statsig-proxy-archetype.atl-paas.ic-7bf.atl-ic.net/api/v2/frontend/clientSdkKey/test';
 			expect(fetchMock).toHaveBeenCalledTimes(1);
+			// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 			expect(fetchMock.mock.calls[0][0]).toEqual(expectedUrl);
 		});
 
@@ -255,6 +260,7 @@ describe('Fetcher', () => {
 			await Fetcher.fetchClientSdk(fetcherOptions);
 			const expectedUrl = 'https://api.atlassian.com/flags/api/v2/frontend/clientSdkKey/test';
 			expect(fetchMock).toHaveBeenCalledTimes(1);
+			// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 			expect(fetchMock.mock.calls[0][0]).toEqual(expectedUrl);
 		});
 
@@ -284,6 +290,7 @@ describe('Fetcher', () => {
 			};
 			await Fetcher.fetchClientSdk(fetcherOptions);
 			expect(fetchMock).toHaveBeenCalledTimes(1);
+			// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 			expect(fetchMock.mock.calls[0][0]).toEqual(expectedUrl);
 		}
 	});
@@ -369,6 +376,7 @@ describe('Fetcher', () => {
 				atlassianAccountId: 'account-abc',
 			});
 			expect(fetchMock).toHaveBeenCalledTimes(1);
+			// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 			expect(fetchMock.mock.calls[0][0]).toEqual(EXPECTED_VALUES_PRD_URL);
 		});
 
@@ -383,6 +391,7 @@ describe('Fetcher', () => {
 				atlassianAccountId: 'account-abc',
 			});
 			expect(fetchMock).toHaveBeenCalledTimes(1);
+			// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 			expect(fetchMock.mock.calls[0][0]).toEqual(EXPECTED_VALUES_STG_URL);
 		});
 
@@ -397,6 +406,7 @@ describe('Fetcher', () => {
 				atlassianAccountId: 'account-abc',
 			});
 			expect(fetchMock).toHaveBeenCalledTimes(1);
+			// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 			expect(fetchMock.mock.calls[0][0]).toEqual(EXPECTED_VALUES_DEV_URL);
 		});
 
@@ -414,6 +424,7 @@ describe('Fetcher', () => {
 				{},
 			);
 			expect(fetchMock).toHaveBeenCalledTimes(1);
+			// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 			expect(fetchMock.mock.calls[0][0]).toEqual(EXPECTED_VALUES_GATEWAY_URL);
 		});
 	});
@@ -436,6 +447,7 @@ describe('Fetcher', () => {
 				{ atlassianAccountId: 'account-abc' },
 				{ tier: 'premium' },
 			);
+			// @ts-expect-error - TS2488 - Type '[string | Request | undefined, RequestInit | undefined] | undefined' must have a '[Symbol.iterator]()' method that returns an iterator.
 			const [, init] = fetchMock.mock.calls[0];
 			expect(init?.method).toEqual('POST');
 			expect(JSON.parse(String(init?.body))).toEqual({
@@ -548,6 +560,7 @@ describe('Fetcher', () => {
 				atlassianAccountId: 'account-abc',
 			});
 			expect(fetchMock).toHaveBeenCalledTimes(1);
+			// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 			expect(fetchMock.mock.calls[0][0]).toEqual(EXPECTED_EVAL_FLAGS_PRD_URL);
 		});
 
@@ -562,6 +575,7 @@ describe('Fetcher', () => {
 				atlassianAccountId: 'account-abc',
 			});
 			expect(fetchMock).toHaveBeenCalledTimes(1);
+			// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 			expect(fetchMock.mock.calls[0][0]).toEqual(EXPECTED_EVAL_FLAGS_STG_URL);
 		});
 
@@ -576,6 +590,7 @@ describe('Fetcher', () => {
 				atlassianAccountId: 'account-abc',
 			});
 			expect(fetchMock).toHaveBeenCalledTimes(1);
+			// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 			expect(fetchMock.mock.calls[0][0]).toEqual(EXPECTED_EVAL_FLAGS_DEV_URL);
 		});
 
@@ -589,6 +604,7 @@ describe('Fetcher', () => {
 			};
 			await Fetcher.fetchEvalFlags(fetcherOptions, { atlassianAccountId: 'account-abc' }, {});
 			expect(fetchMock).toHaveBeenCalledTimes(1);
+			// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 			expect(fetchMock.mock.calls[0][0]).toEqual(EXPECTED_EVAL_FLAGS_GATEWAY_URL);
 		});
 	});
@@ -602,6 +618,7 @@ describe('Fetcher', () => {
 				{ atlassianAccountId: 'account-abc' },
 			);
 
+			// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 			expect(fetchMock.mock.calls[0][0]).toEqual(EXPECTED_EVAL_FLAGS_STG_URL);
 			expect(response).toEqual(defaultEvalFlagsResponseBody);
 		});
@@ -613,6 +630,7 @@ describe('Fetcher', () => {
 				atlassianAccountId: 'account-abc',
 			});
 
+			// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 			expect(fetchMock.mock.calls[0][0]).toEqual(EXPECTED_VALUES_STG_URL);
 			expect(response).toEqual({
 				statsig: defaultExperimentsResponseBody,

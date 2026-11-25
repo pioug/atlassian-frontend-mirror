@@ -387,6 +387,15 @@ container from scrolling a selected listbox option into view, so it is not a saf
 
 ---
 
+### Focus ring when focus rests on the `<dialog>`
+
+When nothing inside takes focus at open, focus rests on the `<dialog>` itself. `Dialog` renders no
+focus ring there (it resets the browser outline on `:focus-visible`, unboosted), because its box can
+be the whole viewport. The consumer draws the ring on its own surface, keyed on the `<dialog>`'s
+`:focus-visible`. Example: `ModalDialog` (`surfaceFocusRingStyles` in
+`modal-dialog/src/internal/components/modal-wrapper.tsx`) uses `dialog:focus-visible > * > &`, so
+the ring follows the surface's size and rounded corners.
+
 ## Focus restoration
 
 Focus restoration is handled by a combination of the browser's native Popover/Dialog APIs and a
@@ -604,6 +613,7 @@ not moved elsewhere; a tooltip that receives focus through interaction is eligib
 | Initial focus     | Native `showModal()` algorithm: `[autofocus]` element, or first focusable   |
 | Focus wrapping    | `useFocusWrap` hook — Tab cycles within content (overrides native body hop) |
 | Focus restoration | Always restores to trigger — Escape, backdrop click, and programmatic close |
+| Focus ring        | None on the `<dialog>`. The consumer's surface draws it on `:focus-visible` |
 
 ---
 

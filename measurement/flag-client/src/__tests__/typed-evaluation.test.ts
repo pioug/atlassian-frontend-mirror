@@ -428,7 +428,9 @@ describe('FlagClient evaluation', () => {
 		const initialPayload = metadataArrayPayload('initial');
 		const client = initializedClient(initialPayload);
 
+		// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 		initialPayload.flags['array-metadata.flag'].metadata.holdoutAllocation.holdoutKey = 'x';
+		// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 		initialPayload.flags['array-metadata.flag'].metadata.segments.length = 0;
 		expect(client.getBooleanDetails('array-metadata.flag', false).metadata).toMatchObject({
 			holdoutAllocation: { holdoutKey: 'initial' },
@@ -437,7 +439,9 @@ describe('FlagClient evaluation', () => {
 
 		const replacementPayload = metadataArrayPayload('replacement');
 		expect(client.replace(() => replacementPayload, testUser())).toEqual({ replaced: true });
+		// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 		replacementPayload.flags['array-metadata.flag'].metadata.holdoutAllocation.holdoutKey = 'x';
+		// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 		replacementPayload.flags['array-metadata.flag'].value = false;
 
 		expect(client.getBooleanValue('array-metadata.flag', false)).toBe(true);

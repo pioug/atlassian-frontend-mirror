@@ -35,6 +35,21 @@ describe('catalog definitions', () => {
 		slugs.forEach((slug) => expect(slug).toMatch(/^[a-z0-9_-]+$/));
 	});
 
+	it('publishes private catalogs in the package and keeps them out of public docs', () => {
+		const forge = CATALOG_DEFINITIONS.find(
+			(definition) => definition.slug === 'agentic-forge-v0_9-v1',
+		);
+		const publicSlugs = CATALOG_DEFINITIONS.filter(({ isPrivate }) => !isPrivate).map(
+			(definition) => definition.slug,
+		);
+
+		expect(forge?.isPrivate).toBe(true);
+		expect(publicSlugs).not.toContain('agentic-forge-v0_9-v1');
+		expect(CATALOG_DEFINITIONS.map((definition) => definition.slug)).toContain(
+			'agentic-forge-v0_9-v1',
+		);
+	});
+
 	it('have unique component names within each catalog', () => {
 		CATALOG_DEFINITIONS.forEach((definition) => {
 			const names = definition.components.map((api) => api.name);

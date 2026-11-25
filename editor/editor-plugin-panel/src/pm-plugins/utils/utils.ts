@@ -13,6 +13,7 @@ import {
 import { akEditorTableContainerBg } from '@atlaskit/editor-shared-styles/consts';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
+import { token } from '@atlaskit/tokens';
 
 import type { DomPanelAtrrs } from '../../panelPluginType';
 
@@ -58,6 +59,10 @@ export const panelAttrsToDom = (
 
 	const style = [
 		`${isCustomPanelWithColor ? `background-color: ${panelBackgroundColor};` : ''}`,
+		// The white palette option paints the page surface in either theme.
+		isCustomPanelWithColor && tokenColor === token('elevation.surface')
+			? '--show-diff-colored-backdrop: 0;'
+			: '',
 		// When table-in-panel is enabled, set --table-container-bg so that table
 		// masking elements (sticky-header mask, column-controls wrapper) blend with
 		// the custom panel background instead of showing opaque white.

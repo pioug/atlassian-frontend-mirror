@@ -32,6 +32,7 @@ import type {
 	SurfaceContext,
 } from '@atlaskit/editor-ui-control-model/types';
 
+import { moveRemixInfographicAfterInfoPanel } from '../moveRemixInfographicAfterInfoPanel';
 import { normalizeQuickInsertMatchResult } from '../normalizeQuickInsertMatchResult';
 import { QuickInsertSearchResultsSection } from './QuickInsertSearchResultsSection';
 import type { QuickInsertCategoryItemSelectionPolicy } from './selectQuickInsertCategoryItems';
@@ -223,10 +224,14 @@ const buildSearchSections = ({
 	const unprioritizedMatches = uniqueMatches.filter(
 		({ priorityGroup }) => priorityGroup === undefined,
 	);
-	const orderedSearchResults = [
-		...prioritizedMatches.sort(comparePrioritizedSearchResults).map(({ item }) => item),
-		...getSearchResults(unprioritizedMatches).map(({ item }) => item),
-	];
+	const orderedSearchResults = moveRemixInfographicAfterInfoPanel(
+		[
+			...prioritizedMatches.sort(comparePrioritizedSearchResults).map(({ item }) => item),
+			...getSearchResults(unprioritizedMatches).map(({ item }) => item),
+		],
+		query,
+		({ key }) => key,
+	);
 	if (orderedSearchResults.length > 0) {
 		return { fallbackItems: [], sections: [[SEARCH_RESULTS_HEADING, ...orderedSearchResults]] };
 	}

@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::62754edbed4f29c0fb8bb93895b97253>>
+ * @codegen <<SignedSource::ba13ce9e03afd2ebfae3061ffc3340d8>>
  * @codegenCommand yarn build tokens
  */
 
@@ -652,6 +652,66 @@ var tokens = [{
   "name": "motion.flag.reposition",
   "path": ["motion", "flag", "reposition"],
   "cleanName": "motion.flag.reposition"
+}, {
+  "attributes": {
+    "group": "motion",
+    "state": "active",
+    "introduced": "20.12.0",
+    "description": "Use as a CSS transform transition for floating controls that follow an entering panel. Translate horizontally by the panel width when opening begins, reversing direction for RTL. Keeps movement independent of page layout. Does not include vertical movement or visibility changes."
+  },
+  "value": {
+    "duration": 200,
+    "curve": "cubic-bezier(0.16, 1, 0.3, 1)",
+    "properties": ["transform"]
+  },
+  "filePath": "schema/themes/atlassian-motion/motion.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "motion",
+      "state": "active",
+      "introduced": "20.12.0",
+      "description": "Use as a CSS transform transition for floating controls that follow an entering panel. Translate horizontally by the panel width when opening begins, reversing direction for RTL. Keeps movement independent of page layout. Does not include vertical movement or visibility changes."
+    },
+    "value": {
+      "duration": "Duration200",
+      "curve": "EaseExpoOut",
+      "properties": ["Transform"]
+    }
+  },
+  "name": "motion.floating.controls.follow.panel.enter",
+  "path": ["motion", "floating", "controls", "follow", "panel", "enter"],
+  "cleanName": "motion.floating.controls.follow.panel.enter"
+}, {
+  "attributes": {
+    "group": "motion",
+    "state": "active",
+    "introduced": "20.12.0",
+    "description": "Use as a CSS transform transition for floating controls that follow an exiting panel. Restore the horizontal translation when closing begins. Does not include vertical movement or visibility changes. Disable the transition during manual panel resizing."
+  },
+  "value": {
+    "duration": 200,
+    "curve": "cubic-bezier(0.25, 1, 0.5, 1)",
+    "properties": ["transform"]
+  },
+  "filePath": "schema/themes/atlassian-motion/motion.tsx",
+  "isSource": true,
+  "original": {
+    "attributes": {
+      "group": "motion",
+      "state": "active",
+      "introduced": "20.12.0",
+      "description": "Use as a CSS transform transition for floating controls that follow an exiting panel. Restore the horizontal translation when closing begins. Does not include vertical movement or visibility changes. Disable the transition during manual panel resizing."
+    },
+    "value": {
+      "duration": "Duration200",
+      "curve": "EaseQuartOut",
+      "properties": ["Transform"]
+    }
+  },
+  "name": "motion.floating.controls.follow.panel.exit",
+  "path": ["motion", "floating", "controls", "follow", "panel", "exit"],
+  "cleanName": "motion.floating.controls.follow.panel.exit"
 }, {
   "attributes": {
     "group": "motion",

@@ -97,6 +97,14 @@ const dialogStyles = cssMap({
 		'&[open][open][open]': {
 			display: 'block',
 		},
+		/**
+		 * No browser focus ring. Focus can rest on the `<dialog>` itself, and its box can be the whole
+		 * viewport, so a wrapper draws the ring on its surface. Unboosted: any author rule beats the
+		 * UA stylesheet, and a consumer can still draw a ring on the `<dialog>` if it wants one.
+		 */
+		'&:focus-visible': {
+			outline: 'none',
+		},
 	},
 	motion: {
 		// Keeps the dialog visible and in the top layer while the exit animation plays. Applied in
@@ -193,7 +201,11 @@ function getDialogHost({ element }: { element: HTMLElement }): HTMLDialogElement
 
 /**
  * Low-level `<dialog>` primitive. It has no visual opinions: no width, height, background,
- * border-radius or layout. Consumers provide their own styling.
+ * border-radius, focus ring or layout. Consumers provide their own styling.
+ *
+ * It renders no focus ring (the browser outline is reset on `:focus-visible`). When focus rests on
+ * the `<dialog>` because nothing inside took focus, the consumer's surface draws the ring on the
+ * `<dialog>`'s `:focus-visible`, as `ModalDialog` does.
  *
  * `isOpen` controls visibility. When the user asks to dismiss the dialog (an allowed Escape or
  * backdrop click), `onClose` runs. Set `isOpen={false}` to close it, or keep `isOpen` `true` to

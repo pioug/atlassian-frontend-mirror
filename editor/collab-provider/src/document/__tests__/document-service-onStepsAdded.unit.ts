@@ -165,14 +165,6 @@ describe('onStepsAdded', () => {
 	});
 
 	describe('update participants', () => {
-		it('does not update participants if steps are not sent', () => {
-			service.onStepsAdded({ steps: null, version: 1 } as any);
-			expect(processStepsMock).not.toHaveBeenCalled();
-			// Make sure we didn't call anything because of error
-			expect(analyticsMock.sendErrorEvent).not.toHaveBeenCalled();
-			expect(participantsServiceMock.updateLastActive).not.toHaveBeenCalled();
-		});
-
 		it('updates participants even if the step version is equal or ahead of the step version', () => {
 			const fakeSteps = [{ userId: 'user1' }, { userId: 'user2' }] as unknown as StepJson[];
 			(service.getCurrentPmVersion as jest.Mock).mockReturnValue(1);

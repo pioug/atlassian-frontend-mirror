@@ -49,6 +49,9 @@ Choose the catalog implemented by your host:
 - `@atlaskit/a2ui-catalog/catalogs/agentic-jira-v0_9-v1/catalog.json` extends ADS with CodeDiff,
   MultipleChoiceQuestions, RepositoryPicker, and ToolApproval. Use it only when the host supports
   those components.
+- `@atlaskit/a2ui-catalog/catalogs/agentic-forge-v0_9-v1/catalog.json` is a dedicated Forge catalog
+  with `ResultPanel`. `title` and `summary` are literal strings. Use it only when the host supports
+  that catalog.
 
 ### What the agent should emit
 
@@ -94,7 +97,8 @@ components to another renderer automatically.
 
 Have the host declare which catalog IDs and version it supports; choose a compatible pinned package
 version. An npm version and a wire catalog ID are different: changing the npm scope does not change
-`com.atlassian.ads/v0_9` or `com.atlassian.agentic-jira/v0_9/v1`. Catalog IDs are identifiers, not
+`com.atlassian.ads/v0_9`, `com.atlassian.agentic-jira/v0_9/v1`, or
+`com.atlassian.agentic-forge/v0_9/v1`. Catalog IDs are identifiers, not
 URLs to fetch. Handle user actions in the host, validate and authorize them before executing work,
 and return resulting surface/data updates. Client-side functions such as `openUrl` are not currently
 included in these JSON documents; do not invent function signatures or assume host support.
@@ -118,9 +122,13 @@ surfaces against it:
 | --------------------------------------- | ------------------------------------------------ |
 | `com.atlassian.ads/v0_9`                | `catalogs/ads-v0_9/catalog.json`                 |
 | `com.atlassian.agentic-jira/v0_9/v1`    | `catalogs/agentic-jira-v0_9-v1/catalog.json`     |
+| `com.atlassian.agentic-forge/v0_9/v1`   | `catalogs/agentic-forge-v0_9-v1/catalog.json`    |
 
 The files are generated from the Zod schemas with `@a2ui/web_core`'s own inline-catalog
-conversion. Common types are bundled under `$defs`, so every `$ref` is local. The catalog package's Atlaskit documentation shows each catalog with a JSON preview and copy button.
+conversion. Common types are bundled under `$defs`, so every `$ref` is local. The catalog
+package's Atlaskit documentation shows each public catalog with a JSON preview and copy
+button. Catalogs marked `isPrivate` are still published here and omitted from that page.
+The Agentic Forge catalog is private.
 
 Each document contains `catalogId`, `instructions` for the agent, `components` (one schema per
 component name), and `$defs`. Client-side functions (for example `openUrl`) are not included yet,
@@ -279,8 +287,8 @@ bindings.
 | `ResultPanel` | Completed result with a heading and a summary. No actions. |
 
 `title` and `summary` are required. `summary` keeps authored line breaks.
-There is no action prop. This catalog is not published as a `catalog.json`
-document.
+There is no action prop. The published document is
+`@atlaskit/a2ui-catalog/catalogs/agentic-forge-v0_9-v1/catalog.json`.
 
 Import via the `./agentic-forge-v0_9/*` subpaths (`schemas`, `apis`, `types`,
 `catalog-id`, `catalog-component-apis`). The rendering catalog is assembled by

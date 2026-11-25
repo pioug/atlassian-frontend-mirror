@@ -15,9 +15,6 @@ const styles = cssMap({
 	},
 });
 
-/**
- * Basic example showing all three appearances of DateLabel with icons (default).
- */
 export default function Basic(): React.JSX.Element {
 	return (
 		<div css={styles.wrapper}>

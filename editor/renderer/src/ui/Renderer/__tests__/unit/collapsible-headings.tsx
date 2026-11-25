@@ -802,24 +802,6 @@ describe('collapsible headings', () => {
 		expect(screen.queryByRole('button', { name: 'Expand section' })).not.toBeInTheDocument();
 	});
 
-	it('uses a collapse-only wrapper when the copy-link heading-wrapper experiment is disabled', () => {
-		mockExpDisabled('platform_editor_empty_section_toggle');
-		mockExpEnabled('platform_editor_collapsible_headings');
-
-		renderRenderer();
-
-		const alphaHeading = screen.getByRole('heading', { name: 'Alpha' });
-		const collapsibleHeadingWrapper = alphaHeading.closest(
-			'[data-testid="renderer-collapsible-heading-wrapper"]',
-		);
-
-		expect(collapsibleHeadingWrapper).toHaveAttribute(
-			'data-testid',
-			'renderer-collapsible-heading-wrapper',
-		);
-		expect(collapsibleHeadingWrapper).not.toHaveClass('renderer-heading-wrapper');
-	});
-
 	it('hides a table renderer container within a collapsed section', async () => {
 		mockExpDisabled('platform_editor_empty_section_toggle');
 		mockExpEnabled('platform_editor_collapsible_headings');

@@ -231,9 +231,7 @@ const MultiBodiedExtension = (props: Props): jsx.JSX.Element => {
 	]);
 
 	const isTopLevel = path.length < 1;
-	const isBreakoutResizingEnabled =
-		fg('platform_editor_lovability_resize_exts_gracefully') &&
-		isExperimentEnabled('platform_editor_lovability_resize_exts_patch_1');
+	const isBreakoutResizingEnabled = fg('platform_editor_lovability_resize_exts_gracefully');
 
 	const isBreakoutWidth = isBreakoutResizingEnabled && hasBreakoutWidth(marks);
 

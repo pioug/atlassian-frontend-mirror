@@ -19,7 +19,6 @@
 		"dist/es2019/jest/index.js",
 		"dist/esm/jest/index.js"
 	],
-	"atlaskit:src": "src/index.ts",
 	"exports": {
 		"./assets": "./src/entry-points/assets.ts",
 		"./datasource": "./src/entry-points/datasource.ts",

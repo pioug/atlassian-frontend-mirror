@@ -42,11 +42,18 @@ const shortcutStyles = unboundedCssMap({
 export type Shortcut = string[];
 
 type KeyboardShortcutProps = {
+	/**
+	 * Sets `aria-hidden` on the keyboard shortcut. Only set to `true` if you are providing the shortcut keys to assistive technologies elsewhere, for example via `aria-keyshortcuts`.
+	 */
+	isAriaHidden: boolean;
+	/**
+	 * An array of strings representing keys that comprise a shortcut.
+	 */
 	shortcut: Shortcut;
 };
 
-const KeyboardShortcut = ({ shortcut }: KeyboardShortcutProps): JSX.Element => (
-	<Inline space="space.025">
+const KeyboardShortcut = ({ isAriaHidden, shortcut }: KeyboardShortcutProps): JSX.Element => (
+	<Inline space="space.025" aria-hidden={isAriaHidden || undefined}>
 		{shortcut.map((segment, index) => (
 			<kbd key={`${segment}-${index}`} css={shortcutStyles.shortcutSegment}>
 				{segment}

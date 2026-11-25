@@ -1,5 +1,62 @@
 # @atlaskit/editor-common
 
+## 138.3.0
+
+### Minor Changes
+
+- [`c12c7eb9201e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c12c7eb9201e5) -
+  Add optional content-free diagnostics to draft annotation failure results and callbacks. No
+  feature gate is required for this telemetry-only change.
+
+### Patch Changes
+
+- [`aa4256e80670f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa4256e80670f) -
+  Remove the fully rolled-out table row and column keyboard-move experiment.
+- [`6911753b0a90e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6911753b0a90e) -
+  [NO-ISSUE] clean up `platform_editor_lovability_resize_exts_patch_1` experiment
+- Updated dependencies
+
+## 138.2.1
+
+### Patch Changes
+
+- [`cdaf685400d9c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cdaf685400d9c) -
+  Support a host-authorized database runtime in edit mode behind
+  platform_native_embeds_database_runtime.
+- Updated dependencies
+
+## 138.2.0
+
+### Minor Changes
+
+- [`106b54c839638`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/106b54c839638) -
+  Behind the experiment platform_editor_ai_suggestions_rovo_nudge, show AI suggestions review
+  progress as a nudge beside the Rovo button instead of the thinking bar. The experiment also
+  selects the multi-card nudge flow. Renders working proactive nudges with an animated status
+  indicator, and adds an inverse appearance for the session working indicator. While a review runs,
+  the Review toolbar button's tooltip says the review is in progress.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 138.1.0
+
+### Minor Changes
+
+- [`63508af3e9b36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/63508af3e9b36) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- [`3c478b00721d4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c478b00721d4) -
+  Remove the fully rolled-out Escape link-dialog experiment.
+- [`c6428cbee72d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c6428cbee72d5) -
+  Clean up the `platform_editor_sticky_headers_zindex` experiment, keeping the lowered table sticky
+  header, mask and resize-handle z-index layers permanently.
+- Updated dependencies
+
 ## 138.0.0
 
 ### Major Changes

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d472b2a1c30b294a4cc098510a8008df>>
+ * @codegen <<SignedSource::12da6d6b17ef5b82bf05a11324907169>>
  * @codegenCommand yarn build tokens
  */
 export default `
@@ -306,6 +306,8 @@ html[data-theme~="motion:motion"], [data-subtree-theme][data-theme~="motion:moti
   --ds-flag-enter: 250ms cubic-bezier(0, 0.4, 0, 1) SlideIn50PercentLeft backwards, 250ms cubic-bezier(0, 0.4, 0, 1) FadeIn0to100 backwards;
   --ds-flag-exit: 200ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOut15PercentLeft forwards, 200ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards;
   --ds-flag-reposition: transform 250ms cubic-bezier(0.4, 0, 0, 1);
+  --ds-floating-controls-follow-panel-enter: transform 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  --ds-floating-controls-follow-panel-exit: transform 200ms cubic-bezier(0.25, 1, 0.5, 1);
   --ds-form-message-enter: 150ms cubic-bezier(0.4, 1, 0.6, 1) SlideInBottom2px backwards, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100 backwards;
   --ds-form-message-exit: 100ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOutBottom2px forwards, 100ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards;
   --ds-iconography-enter-cycle-up: 400ms cubic-bezier(0.65, 0, 0.35, 1) SlideIn100PercentBottom backwards;

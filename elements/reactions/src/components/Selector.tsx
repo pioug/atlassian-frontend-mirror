@@ -10,7 +10,6 @@ import { css, jsx, cssMap } from '@atlaskit/css';
 import type { EmojiId, OnEmojiEvent, EmojiProvider } from '@atlaskit/emoji/types';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
@@ -126,14 +125,7 @@ type RevealProps = {
 
 const Reveal = ({ children, testId }: RevealProps) => {
 	return (
-		<Box
-			as={
-				expValEquals('platform_a11y_fixes_reactions_selector_list', 'isEnabled', true)
-					? undefined
-					: 'li'
-			}
-			xcss={styles.emojiContainer}
-		>
+		<Box xcss={styles.emojiContainer}>
 			<div data-testid={testId} css={revealStyle}>
 				{children}
 			</div>
@@ -199,30 +191,17 @@ export const Selector = ({
 		);
 	}
 
-	const isSelectorListMarkupFixEnabled = expValEquals(
-		'platform_a11y_fixes_reactions_selector_list',
-		'isEnabled',
-		true,
-	);
-
 	return (
 		<Inline
 			alignBlock="center"
 			xcss={styles.container}
-			as={isSelectorListMarkupFixEnabled ? undefined : 'ul'}
-			role={isSelectorListMarkupFixEnabled ? 'group' : undefined}
-			aria-label={
-				isSelectorListMarkupFixEnabled ? messages.popperWrapperLabel.defaultMessage : undefined
-			}
+			role="group"
+			aria-label={messages.popperWrapperLabel.defaultMessage}
 		>
 			{quickReactionEmojiIds.map(renderEmoji)}
 			{showMore ? (
 				<Fragment>
-					<Box
-						as={isSelectorListMarkupFixEnabled ? undefined : 'li'}
-						xcss={styles.separator}
-						aria-hidden={isSelectorListMarkupFixEnabled ? true : undefined}
-					/>
+					<Box xcss={styles.separator} aria-hidden />
 					<Reveal>
 						<ShowMore key="more" onClick={onMoreClick} />
 					</Reveal>

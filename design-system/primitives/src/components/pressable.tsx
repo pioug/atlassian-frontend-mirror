@@ -47,6 +47,13 @@ type BasePressableProps = {
 	 */
 	interactionName?: string;
 	/**
+	 * Start a React UFO press interaction during click capture, before the supplied capture
+	 * callback and native click handlers run. UFO uses its default name if interactionName is omitted.
+	 * The click handler and its analytics still run during bubbling.
+	 */
+	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention -- This temporary prop is paired with interactionName.
+	interactionUseClickCapture?: boolean;
+	/**
 	 * An optional component name used to identify this component in Atlaskit analytics events. This can be used if a parent component's name is preferred over the default 'Pressable'.
 	 */
 	componentName?: string;
@@ -177,7 +184,9 @@ export const Pressable: React.ForwardRefExoticComponent<
 			isDisabled,
 			type = 'button',
 			onClick: providedOnClick = noop,
+			onClickCapture: providedOnClickCapture,
 			interactionName,
+			interactionUseClickCapture = false,
 			componentName,
 			analyticsContext,
 			style,
@@ -188,12 +197,21 @@ export const Pressable: React.ForwardRefExoticComponent<
 		ref?: Ref<HTMLButtonElement>,
 	) => {
 		const interactionContext = useContext<InteractionContextType | null>(InteractionContext);
+		const handleClickCapture = useCallback(
+			(event: React.MouseEvent<HTMLButtonElement>) => {
+				interactionContext?.tracePress(interactionName, event.timeStamp);
+				providedOnClickCapture?.(event);
+			},
+			[providedOnClickCapture, interactionName, interactionContext],
+		);
 		const handleClick = useCallback(
 			(e: React.MouseEvent<HTMLButtonElement>, analyticsEvent: UIAnalyticsEvent) => {
-				interactionContext && interactionContext.tracePress(interactionName, e.timeStamp);
+				if (!interactionUseClickCapture) {
+					interactionContext?.tracePress(interactionName, e.timeStamp);
+				}
 				providedOnClick(e, analyticsEvent);
 			},
-			[providedOnClick, interactionContext, interactionName],
+			[providedOnClick, interactionContext, interactionName, interactionUseClickCapture],
 		);
 
 		const onClick = usePlatformLeafEventHandler({
@@ -221,6 +239,7 @@ export const Pressable: React.ForwardRefExoticComponent<
 				// eslint-disable-next-line react/button-has-type
 				type={type}
 				onClick={onClick}
+				onClickCapture={interactionUseClickCapture ? handleClickCapture : providedOnClickCapture}
 				disabled={isDisabled}
 				css={[
 					baseStyles,

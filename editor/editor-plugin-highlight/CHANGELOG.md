@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-highlight
 
+## 34.0.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 34.0.3
+
+### Patch Changes
+
+- [`746387f100c06`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/746387f100c06) -
+  [ux] [A11Y-60443] add keyboard support to the row of highlight colors in the color picker behind
+  `platform_editor_lovability_colors_a11y_fixes`.
+- Updated dependencies
+
+## 34.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 34.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 34.0.0
 
 ### Patch Changes

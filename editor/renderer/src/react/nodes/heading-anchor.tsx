@@ -12,7 +12,6 @@ import { injectIntl } from 'react-intl';
 
 import LinkIcon from '@atlaskit/icon/core/link';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
@@ -87,7 +86,7 @@ type HeadingAnchorState = { isClicked: boolean; tooltipMessage?: string };
 class HeadingAnchor extends React.PureComponent<HeadingAnchorProps, HeadingAnchorState> {
 	state = { tooltipMessage: '', isClicked: false };
 
-	copyLinkId: string | undefined;
+	copyLinkId: string;
 
 	_tooltipUpdate: (() => void) | undefined;
 
@@ -99,13 +98,7 @@ class HeadingAnchor extends React.PureComponent<HeadingAnchorProps, HeadingAncho
 
 	constructor(props: HeadingAnchorProps) {
 		super(props);
-		this.copyLinkId = expValEquals(
-			'platform_editor_copy_link_a11y_inconsistency_fix',
-			'isEnabled',
-			true,
-		)
-			? crypto.randomUUID()
-			: undefined;
+		this.copyLinkId = crypto.randomUUID();
 	}
 
 	componentDidMount() {
@@ -143,38 +136,18 @@ class HeadingAnchor extends React.PureComponent<HeadingAnchorProps, HeadingAncho
 	};
 
 	resetMessage = () => {
-		const tooltip = expValEquals(
-			'platform_editor_copy_link_a11y_inconsistency_fix',
-			'isEnabled',
-			true,
-		)
-			? headingAnchorLinkMessages.copyLinkToClipboard
-			: headingAnchorLinkMessages.copyHeadingLinkToClipboard;
-		this.setTooltipState(tooltip);
+		this.setTooltipState(headingAnchorLinkMessages.copyLinkToClipboard);
 	};
 
 	renderAnchorButton = () => {
 		const { hideFromScreenReader = false, headingId } = this.props;
-		const labelledBy = expValEquals(
-			'platform_editor_copy_link_a11y_inconsistency_fix',
-			'isEnabled',
-			true,
-		)
-			? this.props.intl.formatMessage(headingAnchorLinkMessages.copyHeadingLinkLabelledBy, {
-					copyLink: this.copyLinkId,
-					heading: headingId,
-				})
-			: headingId;
-
-		const tabIndex = expValEquals(
-			'platform_editor_copy_link_a11y_inconsistency_fix',
-			'isEnabled',
-			true,
-		)
-			? 0
-			: hideFromScreenReader
-				? undefined
-				: -1;
+		const labelledBy = this.props.intl.formatMessage(
+			headingAnchorLinkMessages.copyHeadingLinkLabelledBy,
+			{
+				copyLink: this.copyLinkId,
+				heading: headingId,
+			},
+		);
 
 		if (isExperimentEnabled('platform_editor_heading_link_target_size')) {
 			return (
@@ -185,7 +158,7 @@ class HeadingAnchor extends React.PureComponent<HeadingAnchorProps, HeadingAncho
 					onBlur={this.resetMessage}
 					onClick={this.copyToClipboard}
 					aria-hidden={hideFromScreenReader}
-					tabIndex={tabIndex}
+					tabIndex={0}
 					aria-label={hideFromScreenReader ? undefined : this.state.tooltipMessage}
 					aria-labelledby={hideFromScreenReader ? undefined : labelledBy}
 					type="button"
@@ -212,7 +185,7 @@ class HeadingAnchor extends React.PureComponent<HeadingAnchorProps, HeadingAncho
 				onBlur={this.resetMessage}
 				onClick={this.copyToClipboard}
 				aria-hidden={hideFromScreenReader}
-				tabIndex={tabIndex}
+				tabIndex={0}
 				aria-label={hideFromScreenReader ? undefined : this.state.tooltipMessage}
 				aria-labelledby={hideFromScreenReader ? undefined : labelledBy}
 				type="button"
@@ -238,11 +211,7 @@ class HeadingAnchor extends React.PureComponent<HeadingAnchorProps, HeadingAncho
 					content={this.renderTooltipContent}
 					position="top"
 					delay={0}
-					isScreenReaderAnnouncementDisabled={
-						expValEquals('platform_editor_copy_link_a11y_inconsistency_fix', 'isEnabled', true)
-							? true
-							: false
-					}
+					isScreenReaderAnnouncementDisabled
 					hasNewContentOnTriggerClick
 				>
 					{this.renderAnchorButton()}

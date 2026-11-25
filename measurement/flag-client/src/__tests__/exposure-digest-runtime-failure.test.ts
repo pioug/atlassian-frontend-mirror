@@ -37,6 +37,7 @@ it('stays on the local fallback after a runtime WASM error without retrying init
 		log();
 		environment.advance(100);
 		await settle();
+		// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 		environment.requests[0].respond(200);
 		await settle();
 		broken = true;
@@ -51,7 +52,9 @@ it('stays on the local fallback after a runtime WASM error without retrying init
 		environment.advance(100);
 		await settle();
 		expect(environment.requests).toHaveLength(2);
+		// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 		const body = JSON.parse(environment.requests[1].init.body) as ExportLogsServiceRequest;
+		// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 		const record = body.resourceLogs[0].scopeLogs[0].logRecords[0] as OtlpLogRecord;
 		expect(plainAttributes(record.attributes)['atl.feature_flag.sdk.dedupe.item.count']).toBe(1000);
 		expect(plainAttributes(record.attributes)['atl.feature_flag.deduplication_key']).toMatch(

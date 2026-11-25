@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugins",
-	"version": "17.0.91",
+	"version": "17.0.96",
 	"description": "A convenience facade package that exposes all @atlaskit/editor-plugin-* plugins so that users can add this package without having to manually add all their plugins",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -17,7 +17,6 @@
 	"module:es2019": "dist/es2019/index.js",
 	"types": "dist/types/index.d.ts",
 	"sideEffects": false,
-	"atlaskit:src": "src/index.ts",
 	"exports": {
 		"./accessibility-utils/accessibilityUtilsPlugin": "./src/accessibility-utils/entry-points/accessibilityUtilsPlugin.tsx",
 		"./accessibility-utils/accessibilityUtilsPluginType": "./src/accessibility-utils/entry-points/accessibilityUtilsPluginType.ts",

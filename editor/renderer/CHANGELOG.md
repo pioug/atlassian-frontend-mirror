@@ -1,5 +1,54 @@
 # @atlaskit/renderer
 
+## 158.2.2
+
+### Patch Changes
+
+- [`c12c7eb9201e5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c12c7eb9201e5) -
+  Add optional content-free diagnostics to draft annotation failure results and callbacks. No
+  feature gate is required for this telemetry-only change.
+- [`6911753b0a90e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6911753b0a90e) -
+  [NO-ISSUE] clean up `platform_editor_lovability_resize_exts_patch_1` experiment
+- [`3ef967b610ac1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3ef967b610ac1) -
+  Clean up experiment `platform_editor_copy_link_a11y_inconsistency_fix`
+- Updated dependencies
+
+## 158.2.1
+
+### Patch Changes
+
+- [`28dad4e17330e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28dad4e17330e) -
+  Clear the original native selection before inline-comment draft rendering to prevent selection
+  flashes, without scheduling cleanup that could clear a newer selection or caret, behind
+  platform_editor_annotation_selection_ownership experiment (isEnabled: false).
+- Updated dependencies
+
+## 158.2.0
+
+### Minor Changes
+
+- [`28133c88a6c83`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/28133c88a6c83) -
+  Add protected ReactSerializer.wrapNode, called for every node except text after its marks are
+  applied, with parentInfo undefined for top-level blocks. It returns the node unchanged by default,
+  so existing renderers are unaffected; subclasses can override it to control whole nodes, including
+  their mark wrappers. Confluence uses it behind cc_light_mode_gate_outside_block_marks.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 158.1.0
+
+### Minor Changes
+
+- [`63508af3e9b36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/63508af3e9b36) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 158.0.0
 
 ### Patch Changes

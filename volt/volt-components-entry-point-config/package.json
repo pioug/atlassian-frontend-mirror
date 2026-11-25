@@ -15,7 +15,6 @@
 	"module:es2019": "dist/es2019/entry-points.codegen.js",
 	"types": "dist/types/entry-points.codegen.d.ts",
 	"sideEffects": false,
-	"atlaskit:src": "src/entry-points.codegen.tsx",
 	"dependencies": {
 		"@babel/runtime": "root:*"
 	},

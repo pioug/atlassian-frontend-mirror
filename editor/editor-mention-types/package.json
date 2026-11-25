@@ -9,7 +9,6 @@
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
 	"sideEffects": false,
-	"atlaskit:src": "src/index.ts",
 	"atlassian": {
 		"team": "Editor: AI"
 	},

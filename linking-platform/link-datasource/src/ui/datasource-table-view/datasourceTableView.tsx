@@ -288,14 +288,7 @@ const DatasourceTableViewWithoutAnalytics = ({
 	let loadingError;
 	if (status === 'rejected') {
 		loadingError = <LoadingError onRefresh={handleErrorRefresh} url={url} />;
-		if (!fg('platform_datasource_missing_columns_error')) {
-			return loadingError;
-		}
-	} else if (
-		fg('platform_datasource_missing_columns_error') &&
-		status === 'resolved' &&
-		!hasColumns
-	) {
+	} else if (status === 'resolved' && !hasColumns) {
 		loadingError = (
 			<LoadingError
 				errorType="missing-columns"

@@ -1,5 +1,13 @@
 # @atlaskit/modal-dialog
 
+## 17.3.1
+
+### Patch Changes
+
+- [`d2f0edbbf35c2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2f0edbbf35c2) -
+  On the top layer, the modal surface draws the focus ring when focus rests on the modal.
+- Updated dependencies
+
 ## 17.3.0
 
 ### Minor Changes

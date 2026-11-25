@@ -18,10 +18,10 @@ import RendererDemo from './helper/RendererDemo';
 
 const getHeaderIdsAsRadioOptions = () =>
 	Array.from(document.querySelectorAll('.heading-anchor-wrapper')).map(({ parentElement }) => {
-		const headingId = parentElement && parentElement.getAttribute('id');
+		const headingId = parentElement?.querySelector('h1, h2, h3, h4, h5, h6')?.getAttribute('id');
 
 		return {
-			value: headingId === null ? undefined : headingId,
+			value: headingId ?? undefined,
 			label: headingId,
 			name: 'headingids',
 		};

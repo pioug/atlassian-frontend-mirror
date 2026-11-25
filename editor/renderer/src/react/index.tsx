@@ -493,8 +493,38 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 			);
 		}, serializedContent);
 
-		return withExpandBodyBlock(node, currentPath, index, serialized);
+		const element = withExpandBodyBlock(node, currentPath, index, serialized);
+		return this.wrapNode(element, node, index, parentInfo);
 	};
+
+	/**
+	 * A no-op in Platform: it returns the node unchanged. It exists only so a subclass, such as
+	 * Confluence's progressive renderer, can override it.
+	 *
+	 * It is called for every node except text once the node is complete, including the wrappers its marks
+	 * render, such as breakout and alignment. `parentInfo` is undefined for top-level blocks.
+	 *
+	 * It is part of the subclass contract because nothing else can reach those wrappers.
+	 * `serializeFragment` only sees a node's content, and the marks are applied around it
+	 * afterwards. A renderer that holds blocks back until their batch renders can therefore only
+	 * hold back the content, and the block's mark wrappers mount early and empty. Inserting each
+	 * later batch before them restyles the whole document in Chrome. Overriding this hook lets such
+	 * a renderer hold back the whole node instead.
+	 *
+	 * @param element The node as it will render, with its marks applied.
+	 * @param _node The node.
+	 * @param _index The node's index among its siblings.
+	 * @param _parentInfo The node's ancestors and position; undefined for top-level blocks.
+	 * @returns The element to render in the node's place.
+	 */
+	protected wrapNode(
+		element: JSX.Element | null,
+		_node: Node,
+		_index: number,
+		_parentInfo: ParentInfo | undefined,
+	): JSX.Element | null {
+		return element;
+	}
 
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any

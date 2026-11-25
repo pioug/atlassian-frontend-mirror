@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Avatar from '@atlaskit/avatar/avatar';
 import Comment from '@atlaskit/comment/comment';
 
 const Example = (): React.JSX.Element => (
@@ -7,7 +8,7 @@ const Example = (): React.JSX.Element => (
 		author="Bob Johnson"
 		time="30 minutes ago"
 		content="Another comment in the thread"
-		avatar="https://picsum.photos/32/32"
+		avatar={<Avatar name="Bob Johnson" />}
 	/>
 );
 export default Example;

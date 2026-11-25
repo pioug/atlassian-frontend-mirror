@@ -1,5 +1,6 @@
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
 import type { CollabEditProvider } from '@atlaskit/editor-common/collab';
+import { createAgentInvocationOwnershipPlugin } from '@atlaskit/editor-common/collab-agent-invocation-ownership-plugin';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types/plugin-factory';
 import { isEmptyDocument } from '@atlaskit/editor-common/utils';
@@ -270,6 +271,13 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 				name: 'trackLastRemoteConflictPlugin',
 				plugin: createTrackReconnectionConflictPlugin,
 			});
+
+			if (fg('platform_editor_ai_backend_persisted_analytics')) {
+				plugins.push({
+					name: 'agentInvocationOwnership',
+					plugin: createAgentInvocationOwnershipPlugin,
+				});
+			}
 
 			return plugins;
 		},

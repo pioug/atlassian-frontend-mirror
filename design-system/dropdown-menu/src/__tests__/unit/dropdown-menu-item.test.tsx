@@ -271,3 +271,134 @@ describe('DropdownMenu Item', () => {
 		});
 	});
 });
+
+it('omits aria-controls in the new menu', () => {
+	passGate('platform-dst-new-menu');
+
+	render(
+		<DropdownItem aria-controls="popup" aria-haspopup="dialog" aria-expanded>
+			Open dialog
+		</DropdownItem>,
+	);
+
+	const item = screen.getByRole('menuitem', { name: 'Open dialog' });
+	expect(item).not.toHaveAttribute('aria-controls');
+	expect(item).toHaveAttribute('aria-haspopup', 'dialog');
+	expect(item).toHaveAttribute('aria-expanded', 'true');
+});
+
+describe('New dropdown item interactions', () => {
+	beforeEach(() => {
+		passGate('platform-dst-new-menu');
+	});
+
+	it.each([
+		['Esc', 'Escape'],
+		['Del', 'Delete'],
+		['PgUp', 'PageUp'],
+		['Ins', 'Insert'],
+		['enter', 'Enter'],
+		['Return', 'Enter'],
+		['tab', 'Tab'],
+		['f12', 'F12'],
+		['⎋', 'Escape'],
+		['⇥', 'Tab'],
+		['↵', 'Enter'],
+		['↩', 'Enter'],
+		['⌦', 'Delete'],
+		['⇞', 'PageUp'],
+		['⇟', 'PageDown'],
+		['↖', 'Home'],
+		['↘', 'End'],
+		['$', '$'],
+		['=', '='],
+	])('exposes %s as %s in the accessible shortcut', (label, key) => {
+		render(<DropdownItem shortcut={['⌘', label]}>Run action</DropdownItem>);
+
+		const item = screen.getByRole('menuitem', { name: 'Run action' });
+		expect(item).toHaveAttribute('aria-keyshortcuts', `Meta+${key}`);
+		expect(screen.getByText(label)).toBeVisible();
+	});
+
+	it.each(['UnknownKey', '⚡'])('keeps an unrecognized shortcut %s readable', (label) => {
+		render(<DropdownItem shortcut={['Ctrl', label]}>Run action</DropdownItem>);
+
+		const item = screen.getByRole('menuitem');
+		expect(item).not.toHaveAttribute('aria-keyshortcuts');
+		expect(item).toHaveAccessibleName(`Run action Ctrl ${label}`);
+	});
+
+	it.each([undefined, 'https://example.com'])(
+		'forwards focus and hover handlers and exposes the shortcut with href %s',
+		async (href) => {
+			const user = userEvent.setup();
+			const onFocus = jest.fn();
+			const onBlur = jest.fn();
+			const onMouseEnter = jest.fn();
+			const onMouseLeave = jest.fn();
+
+			render(
+				<DropdownItem
+					href={href}
+					onFocus={onFocus}
+					onBlur={onBlur}
+					onMouseEnter={onMouseEnter}
+					onMouseLeave={onMouseLeave}
+					shortcut={['Ctrl', '⇧', '+']}
+					title="Native tooltip"
+				>
+					Run action
+				</DropdownItem>,
+			);
+
+			const item = screen.getByRole('menuitem', { name: 'Run action' });
+			await user.tab();
+			await user.hover(item);
+			await user.unhover(item);
+			await user.tab();
+
+			expect(onFocus).toHaveBeenCalledTimes(1);
+			expect(onBlur).toHaveBeenCalledTimes(1);
+			expect(onMouseEnter).toHaveBeenCalledTimes(1);
+			expect(onMouseLeave).toHaveBeenCalledTimes(1);
+			expect(item).toHaveAttribute('aria-keyshortcuts', 'Control+Shift+Plus');
+			expect(item).not.toHaveAttribute('title');
+			expect(screen.getByText('Ctrl').tagName).toBe('KBD');
+		},
+	);
+
+	it('keeps links focusable and exposes their shortcuts when isDisabled is supplied', async () => {
+		const user = userEvent.setup();
+		render(
+			<DropdownItem href="https://example.com" isDisabled shortcut={['A']}>
+				Open link
+			</DropdownItem>,
+		);
+
+		const item = screen.getByRole('menuitem', { name: 'Open link' });
+		await user.tab();
+
+		expect(item).toHaveFocus();
+		expect(item).not.toHaveAttribute('aria-disabled');
+		expect(item).toHaveAttribute('aria-keyshortcuts', 'A');
+	});
+
+	it('keeps disabled buttons out of the tab order and prevents activation', async () => {
+		const user = userEvent.setup();
+		const onClick = jest.fn();
+		render(
+			<DropdownItem isDisabled onClick={onClick} shortcut={['A']}>
+				Disabled action
+			</DropdownItem>,
+		);
+
+		const item = screen.getByRole('menuitem');
+		await user.tab();
+		await user.click(item);
+
+		expect(item).toBeDisabled();
+		expect(item).not.toHaveFocus();
+		expect(item).not.toHaveAttribute('aria-keyshortcuts');
+		expect(onClick).not.toHaveBeenCalled();
+	});
+});

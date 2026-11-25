@@ -2,12 +2,14 @@
  * Every A2UI catalog owned by this package. Each entry is published as a
  * standalone `catalog.json` under `catalogs/<slug>/catalog.json`.
  *
- * Add new catalogs here: the generator, the drift test, and the catalog
- * documentation all iterate this list, so a catalog that
- * is not listed here has no published JSON.
+ * Add new catalogs here: the generator and the drift test iterate this list,
+ * so a catalog that is not listed here has no published JSON. Set `isPrivate`
+ * to publish a catalog in the npm package while omitting it from public docs.
  */
 import type { ComponentApi } from '@a2ui/web_core/v0_9';
 
+import { AGENTIC_FORGE_CATALOG_COMPONENT_APIS } from '../agentic-forge-v0_9/catalog-component-apis';
+import { AGENTIC_FORGE_CATALOG_ID } from '../agentic-forge-v0_9/catalog-id';
 import { AGENTIC_JIRA_CATALOG_COMPONENT_APIS } from '../agentic-jira-v0_9/catalog-component-apis';
 import { AGENTIC_JIRA_CATALOG_ID } from '../agentic-jira-v0_9/catalog-id';
 import { ADS_CATALOG_COMPONENT_APIS } from '../v0_9/catalog-component-apis';
@@ -20,6 +22,11 @@ export type CatalogDefinition = {
 	description: string;
 	/** Guidance for agents authoring surfaces against this catalog. */
 	instructions: string;
+	/**
+	 * When true, the catalog JSON is still published in the npm package and
+	 * omitted from public documentation.
+	 */
+	isPrivate?: boolean;
 	/** Directory name under `catalogs/`. Must be unique and filesystem-safe. */
 	slug: string;
 	title: string;
@@ -27,6 +34,9 @@ export type CatalogDefinition = {
 
 const COMMON_INSTRUCTIONS =
 	'Send A2UI v0.9 messages, each with "version": "v0.9". Start with createSurface using this catalogId, then send updateComponents with a flat list of components. Each component needs a unique id and a component name from this catalog; reference children by id. Exactly one component must have the id "root". Use data bindings ({ "path": "/json/pointer" }) for values the user can change, and send updateDataModel to set initial values.';
+
+const FORGE_INSTRUCTIONS =
+	'Send A2UI v0.9 messages, each with "version": "v0.9". Start with createSurface using this catalogId, then send updateComponents. This catalog contains only ResultPanel and is not a superset of the ADS catalog. ResultPanel is a completed result: set id to "root", component to "ResultPanel", and provide title and summary as literal strings. summary keeps authored line breaks. Do not use data-binding path objects, updateDataModel, child component ids, or action props.';
 
 export const CATALOG_DEFINITIONS: ReadonlyArray<CatalogDefinition> = [
 	{
@@ -46,5 +56,15 @@ export const CATALOG_DEFINITIONS: ReadonlyArray<CatalogDefinition> = [
 			'Every ADS catalog component plus agentic-workflow components for Jira: code diffs, multiple-choice questions, repository picking, and tool approval.',
 		instructions: `${COMMON_INSTRUCTIONS} When producing code changes, use CodeDiff to display file-level diffs with each patch in unified diff format. For modified files, include oldText and newText when available so unchanged lines can be expanded. Set mode to "compact" for chat sidebars and "full" for full-screen views.`,
 		components: AGENTIC_JIRA_CATALOG_COMPONENT_APIS,
+	},
+	{
+		catalogId: AGENTIC_FORGE_CATALOG_ID,
+		slug: 'agentic-forge-v0_9-v1',
+		title: 'Atlassian Agentic Forge A2UI catalog',
+		isPrivate: true,
+		description:
+			'A dedicated Forge result surface. ResultPanel shows a completed result from a literal title and summary. It is not a superset of the ADS catalog.',
+		instructions: FORGE_INSTRUCTIONS,
+		components: AGENTIC_FORGE_CATALOG_COMPONENT_APIS,
 	},
 ];

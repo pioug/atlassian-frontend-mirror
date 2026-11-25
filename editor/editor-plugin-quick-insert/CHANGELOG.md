@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 34.0.1
+
+### Patch Changes
+
+- [`222ace4ba35e7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/222ace4ba35e7) -
+  Keep inline card borders visible in Remix slash prompts, and move Infographic immediately after
+  Info panel for `/inf` and `/info` when both match in the `cc_remix_slash_commands` experiment.
+- [`d6620f53550fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d6620f53550fd) -
+  Keep the metrics active session paused while the element browser modal is open, behind
+  `platform_editor_fix_slash_menu_ease_of_use_metrics`
+- Updated dependencies
+
 ## 34.0.0
 
 ### Minor Changes

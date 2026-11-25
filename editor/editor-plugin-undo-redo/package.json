@@ -19,7 +19,6 @@
 	"sideEffects": [
 		"*.compiled.css"
 	],
-	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
 		"./undo-redo-plugin": "./src/entry-points/undo-redo-plugin.tsx",

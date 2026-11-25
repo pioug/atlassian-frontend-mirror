@@ -35,6 +35,9 @@
 			"path": "../../custom-steps/afm-products/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/dropdown-menu/afm-products/tsconfig.json"
+		},
+		{
 			"path": "../../editor-card-provider/afm-products/tsconfig.json"
 		},
 		{

@@ -33,6 +33,32 @@ const renderPalette = () =>
 	);
 
 describe('ColorPalette radio group semantics', () => {
+	it('propagate Tab when platform_editor_lovability_colors_a11y_fixes is enabled', () => {
+		mockExpEnabled('platform_editor_lovability_colors_a11y_fixes');
+		renderPalette();
+
+		const event = new KeyboardEvent('keydown', {
+			key: 'Tab',
+			bubbles: true,
+			cancelable: true,
+		});
+		screen.getByRole('radio', { name: 'Bold blue' }).dispatchEvent(event);
+		expect(event.defaultPrevented).toBe(false);
+	});
+
+	it('prevents Tab when platform_editor_lovability_colors_a11y_fixes is disabled', () => {
+		mockExpDisabled('platform_editor_lovability_colors_a11y_fixes');
+		renderPalette();
+
+		const event = new KeyboardEvent('keydown', {
+			key: 'Tab',
+			bubbles: true,
+			cancelable: true,
+		});
+		screen.getByRole('radio', { name: 'Bold blue' }).dispatchEvent(event);
+		expect(event.defaultPrevented).toBe(true);
+	});
+
 	it('exposes all swatches as one radio group named by the palette label', async () => {
 		renderPalette();
 

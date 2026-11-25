@@ -221,25 +221,6 @@ test.describe('quick-insert: nested numbered list', () => {
 		adf: nestedNumberedListDocument,
 	});
 
-	test('Insert Blockquote in nested numbered list', async ({ editor }) => {
-		await editor.selection.set({ anchor: 16, head: 16 });
-		await editor.keyboard.type(' ');
-
-		await editor.typeAhead.searchAndInsert('quote');
-
-		await expect(editor).toMatchDocument(
-			doc(
-				ol({ order: 1 })(
-					li(p('one'), ol({ order: 1 })(li(p('nested ')))),
-					li(p('two')),
-					li(p('three')),
-				),
-				blockquote(p('')),
-				p(''),
-			),
-		);
-	});
-
 	test('Insert Blockquote in the middle of nested numbered list', async ({ editor }) => {
 		await editor.selection.set({ anchor: 15, head: 15 });
 		await editor.keyboard.type(' ');

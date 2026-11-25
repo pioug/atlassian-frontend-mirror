@@ -5,9 +5,7 @@
 			"tags": [
 				"platform-labs",
 				"rovo-components"
-			],
-			"name": "RovoAgentSelector",
-			"category": "Layout and structure"
+			]
 		}
 	},
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
@@ -18,7 +16,6 @@
 	"sideEffects": [
 		"*.compiled.css"
 	],
-	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
 		"./rovo-agent-selector": "./src/entry-points/rovo-agent-selector.tsx",
@@ -58,8 +55,8 @@
 		"relay-test-utils": "root:*"
 	},
 	"name": "@atlaskit/rovo-agent-selector",
-	"version": "3.3.2",
-	"description": "rovo agent selector",
+	"version": "3.3.3",
+	"description": "Searchable select for choosing a Rovo agent on a site, backed by Relay data",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
 	"publishConfig": {

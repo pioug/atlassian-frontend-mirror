@@ -17,7 +17,6 @@
 	"module:es2019": "dist/es2019/index.js",
 	"types": "dist/types/index.d.ts",
 	"sideEffects": false,
-	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
 		"./clearMarksOnEmptyDocPlugin": "./src/entry-points/clearMarksOnEmptyDocPlugin.tsx",

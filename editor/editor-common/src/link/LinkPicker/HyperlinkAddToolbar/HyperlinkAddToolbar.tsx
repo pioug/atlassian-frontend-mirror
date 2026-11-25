@@ -29,7 +29,6 @@ import PageObject from '@atlaskit/object/page';
 import { Pressable } from '@atlaskit/primitives/pressable';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { xcss } from '@atlaskit/primitives/xcss/xcss';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
@@ -694,16 +693,12 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 			</div>
 		);
 
-		if (expValEquals('platform_editor_a11y_escape_link_dialog', 'isEnabled', true)) {
-			return (
-				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-				<FocusLock returnFocus={{ preventScroll: true }} focusOptions={{ preventScroll: true }}>
-					{hyperlinkElement}
-				</FocusLock>
-			);
-		}
-
-		return hyperlinkElement;
+		return (
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+			<FocusLock returnFocus={{ preventScroll: true }} focusOptions={{ preventScroll: true }}>
+				{hyperlinkElement}
+			</FocusLock>
+		);
 	}
 
 	private isUrlPopulatedWithSelectedItem = () => {

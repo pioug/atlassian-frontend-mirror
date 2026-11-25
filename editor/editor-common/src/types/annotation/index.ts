@@ -30,6 +30,21 @@ export type AnnotationActionResult =
 	  } & AnnotationByMatches)
 	| false;
 
+export type AnnotationDraftFailureDiagnostics = {
+	hasDocumentPosition: boolean;
+	hasRange: boolean;
+	inlineNodeTypes?: string[];
+	isAnnotationAllowed: boolean;
+	rangeCollapsed?: boolean;
+	reason:
+		| 'document-position-missing'
+		| 'annotation-not-allowed'
+		| 'annotation-position-missing'
+		| 'apply-annotation-missing'
+		| 'annotation-id-missing'
+		| 'apply-annotation-failed';
+};
+
 export type InlineCommentSelectionComponentProps = {
 	/**
 	 * Call this function to surround the range with a HTML tag.
@@ -37,6 +52,7 @@ export type InlineCommentSelectionComponentProps = {
 	applyDraftMode: (options: {
 		annotationId?: string;
 		keepNativeSelection?: boolean;
+		onFailure?: (diagnostics: AnnotationDraftFailureDiagnostics) => void;
 	}) => AnnotationActionResult;
 
 	/**
@@ -171,11 +187,11 @@ interface AnnotationTypeProvider<Type> {
 
 export type InlineCommentAnnotationProvider =
 	AnnotationTypeProvider<AnnotationTypes.INLINE_COMMENT> & {
+		/** Additional creation policy for supported block nodes; does not control existing threads. */
+		canCreateCommentOnBlockNode?: (node: PMNode) => boolean;
 		hoverComponent?: React.ComponentType<InlineCommentHoverComponentProps>;
 		/** Determines whether a specific block node supports inline comments. */
 		isBlockNodeSupported?: (node: PMNode) => boolean;
-		/** Additional creation policy for supported block nodes; does not control existing threads. */
-		canCreateCommentOnBlockNode?: (node: PMNode) => boolean;
 		selectionComponent?: React.ComponentType<
 			React.PropsWithChildren<InlineCommentSelectionComponentProps>
 		>;

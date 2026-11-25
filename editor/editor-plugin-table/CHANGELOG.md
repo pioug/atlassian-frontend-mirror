@@ -1,5 +1,34 @@
 # @atlaskit/editor-plugin-table
 
+## 46.0.4
+
+### Patch Changes
+
+- [`aa4256e80670f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa4256e80670f) -
+  Remove the fully rolled-out table row and column keyboard-move experiment.
+- Updated dependencies
+
+## 46.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.0.1
+
+### Patch Changes
+
+- [`c6428cbee72d5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c6428cbee72d5) -
+  Clean up the `platform_editor_sticky_headers_zindex` experiment, keeping the lowered table sticky
+  header, mask and resize-handle z-index layers permanently.
+- Updated dependencies
+
 ## 46.0.0
 
 ### Patch Changes

@@ -22,7 +22,6 @@
 	"sideEffects": [
 		"*.compiled.css"
 	],
-	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
 		"./selection-extension-plugin": "./src/entry-points/selection-extension-plugin.tsx",

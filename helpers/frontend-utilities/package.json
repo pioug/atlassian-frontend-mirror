@@ -39,7 +39,6 @@
 		"typescript": "root:*"
 	},
 	"sideEffects": false,
-	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
 		"./convert-to-error/main": "./src/error-handling/convert-to-error/main.ts",

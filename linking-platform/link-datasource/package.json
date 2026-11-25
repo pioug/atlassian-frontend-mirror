@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "7.15.6",
+	"version": "7.16.1",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -15,7 +15,6 @@
 	"sideEffects": [
 		"**/*.compiled.css"
 	],
-	"atlaskit:src": "src/index.ts",
 	"atlassian": {
 		"react-compiler": {
 			"enabled": true,
@@ -173,9 +172,6 @@
 		"./jira-search-state": "./src/ui/jira-search-state/index.tsx"
 	},
 	"platform-feature-flags": {
-		"platform_datasource_missing_columns_error": {
-			"type": "boolean"
-		},
 		"confluence-issue-terminology-refresh": {
 			"type": "boolean"
 		},

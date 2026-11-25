@@ -19,7 +19,6 @@
 	"sideEffects": [
 		"*.compiled.css"
 	],
-	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
 		"./beforePrimaryToolbarPlugin": "./src/entry-points/beforePrimaryToolbarPlugin.tsx",

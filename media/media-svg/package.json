@@ -29,7 +29,6 @@
 	"sideEffects": [
 		"**/*.compiled.css"
 	],
-	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
 		"./create-unexpected-error-callback": "./src/media-svg/createUnexpectedErrorCallback.ts",

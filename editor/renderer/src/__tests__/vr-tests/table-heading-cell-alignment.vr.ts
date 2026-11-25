@@ -17,7 +17,6 @@ snapshot(TableHeadingCellAlignmentSortableRenderer, {
 		'first-block headings in sortable header cells and heading wrappers line up with paragraph text',
 	featureFlags: {
 		platform_editor_table_heading_cell_alignment: true,
-		platform_editor_copy_link_a11y_inconsistency_fix: true,
 	},
 });
 

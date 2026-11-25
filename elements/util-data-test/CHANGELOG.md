@@ -1,5 +1,14 @@
 # @atlaskit/util-data-test
 
+## 19.1.36
+
+### Patch Changes
+
+- [`fd3e0001cc7cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fd3e0001cc7cf) -
+  Cleanup `experiment` `platform_editor_emoji_default_scale`. Emoji are now always requested at the
+  `XXXHDPI` scale.
+- Updated dependencies
+
 ## 19.1.35
 
 ### Patch Changes

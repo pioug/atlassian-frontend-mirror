@@ -7,6 +7,7 @@ import React, { useCallback, memo } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import EditorDoneIcon from '@atlaskit/icon/core/check-mark';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 import type { IconColor } from '@atlaskit/tokens/css-type-schema';
@@ -99,7 +100,12 @@ export const Color: React.NamedExoticComponent<ColorProps> = memo<ColorProps>(
 				if (!onKeyDown) {
 					return;
 				}
-				e.preventDefault();
+				if (
+					!isExperimentEnabled('platform_editor_lovability_colors_a11y_fixes') ||
+					e.key !== 'Tab'
+				) {
+					e.preventDefault();
+				}
 				onKeyDown(value, label, e);
 			},
 			[onKeyDown, value, label],

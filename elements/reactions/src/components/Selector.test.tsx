@@ -3,9 +3,7 @@ import React from 'react';
 import { screen, fireEvent } from '@testing-library/react';
 
 import type { EmojiId, EmojiProvider, OnEmojiEvent } from '@atlaskit/emoji/types';
-import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
-import { resetAllExperiments } from '@atlassian/experiment-test-utils/reset-all-experiments';
 
 import {
 	mockReactDomWarningGlobal,
@@ -40,58 +38,23 @@ describe('@atlaskit/reactions/components/selector', () => {
 	mockReactDomWarningGlobal();
 	useFakeTimers();
 
-	beforeEach(() => {
-		// Default the Selector list-markup a11y experiment to off.
-		setupEditorExperiments('test', {
-			platform_a11y_fixes_reactions_selector_list: false,
-		});
-	});
-
-	afterEach(() => {
-		setupEditorExperiments('test', {
-			platform_a11y_fixes_reactions_selector_list: false,
-		});
-		resetAllExperiments();
-	});
-
 	it('should have no accessibility violations', async () => {
-		setupEditorExperiments('test', {
-			platform_a11y_fixes_reactions_selector_list: true,
-		});
 		const { container } = renderWithIntl(renderSelector(() => {}, true));
 		await expect(container).toBeAccessible();
 	});
 
-	describe('experiment: platform_a11y_fixes_reactions_selector_list', () => {
-		it('renders the picker as a labelled group without list markup when the experiment is enabled', async () => {
-			setupEditorExperiments('test', {
-				platform_a11y_fixes_reactions_selector_list: true,
-			});
-			const { container } = renderWithIntl(renderSelector(() => {}, true));
+	it('renders the picker as a labelled group without list markup', async () => {
+		const { container } = renderWithIntl(renderSelector(() => {}, true));
 
-			// The container is exposed as a labelled group, not a list.
-			const group = screen.getByRole('group', {
-				name: messages.popperWrapperLabel.defaultMessage,
-			});
-			expect(group).toBeInTheDocument();
-
-			// No <ul>/<li> list markup remains around the emoji buttons or the "More emojis" button.
-			expect(container.querySelector('ul')).not.toBeInTheDocument();
-			expect(container.querySelector('li')).not.toBeInTheDocument();
+		// The container is exposed as a labelled group, not a list.
+		const group = screen.getByRole('group', {
+			name: messages.popperWrapperLabel.defaultMessage,
 		});
+		expect(group).toBeInTheDocument();
 
-		it('renders legacy list markup when the experiment is disabled', async () => {
-			setupEditorExperiments('test', {
-				platform_a11y_fixes_reactions_selector_list: false,
-			});
-			const { container } = renderWithIntl(renderSelector(() => {}, true));
-
-			expect(container.querySelector('ul')).toBeInTheDocument();
-			expect(container.querySelectorAll('li').length).toBeGreaterThan(0);
-			expect(
-				screen.queryByRole('group', { name: messages.popperWrapperLabel.defaultMessage }),
-			).not.toBeInTheDocument();
-		});
+		// No <ul>/<li> list markup remains around the emoji buttons or the "More emojis" button.
+		expect(container.querySelector('ul')).not.toBeInTheDocument();
+		expect(container.querySelector('li')).not.toBeInTheDocument();
 	});
 
 	it('should render teamoji default reactions', async () => {

@@ -45,9 +45,10 @@ package name or catalog ID does not teach the model the component contracts.
   RepositoryPicker, and ToolApproval. Wire ID: \`com.atlassian.agentic-jira/v0_9/v1\`. (under active
   development; backward compatibility is a goal, not yet a guarantee)
 
-Use the second catalog only when your host implements those additional components. Catalog IDs are
-identifiers, not URLs to fetch. Keep the npm version compatible with the host; changing the npm
-scope does not change either wire ID.
+Use the Jira catalog only when your host implements those additional components. Catalog IDs are
+identifiers, not URLs to fetch.
+Keep the npm version compatible with the host; changing the npm scope does not change these wire
+IDs.
 
 ## Emit a surface
 

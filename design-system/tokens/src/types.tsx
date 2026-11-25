@@ -1483,6 +1483,16 @@ export interface MotionTokenSchema<BaseToken> {
 			enter: MotionToken<BaseToken>;
 			exit: MotionToken<BaseToken>;
 		};
+		floating: {
+			controls: {
+				follow: {
+					panel: {
+						enter: MotionToken<BaseToken>;
+						exit: MotionToken<BaseToken>;
+					};
+				};
+			};
+		};
 		panel: {
 			enter: {
 				'[default]': MotionToken<BaseToken>;

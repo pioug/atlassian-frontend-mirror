@@ -1,5 +1,12 @@
 # @atlaskit/analytics-cross-product
 
+## 2.4.1
+
+### Patch Changes
+
+- [`818aaf2aae786`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/818aaf2aae786) -
+  Recognize controlled Help Center routes in the XPC destination taxonomy.
+
 ## 2.4.0
 
 ### Minor Changes

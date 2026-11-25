@@ -1,4 +1,5 @@
-import { type TPlacement, type TPlacementAxis } from './resolve-placement';
+import { isOverlapPlacement } from './is-overlap-placement';
+import { type TPlacementAxis, type TResolvedPlacement } from './resolve-placement';
 import { type TStyleDeclaration } from './set-style';
 
 /**
@@ -79,6 +80,10 @@ function viewportUnit({
 /**
  * How one axis of an anchored popover is sized. Both axes take these four values
  * under identical rules.
+ *
+ * The rules below describe adjacent placement. Overlap placement uses the same
+ * anchor-relative sizes, but caps both axes to the viewport without a flip floor.
+ * For overlap, `'max-available'` and `'content'` have the same sizing behaviour.
  *
  * - `'content'`: sized by its content. Named after `flex-basis: content`; NOT
  *   `'auto'`, whose CSS meaning for a positioned box is shrink-to-fit, the very
@@ -419,7 +424,7 @@ export function getAnchoredPopoverSizeDeclarations({
 	/**
 	 * Supplies the axis and the gap.
 	 */
-	placement: TPlacement;
+	placement: TResolvedPlacement;
 	/**
 	 * The requested size, before rule 1 fills a `'content'` axis.
 	 */
@@ -449,6 +454,8 @@ export function getAnchoredPopoverSizeDeclarations({
 }): TStyleDeclaration<TPopoverSizeProperty>[] {
 	const placementAxis = placement.axis;
 	const crossAxis = getCrossAxis({ axis: placementAxis });
+	// Only adjacent CSS placements can size against a cell beside the anchor.
+	const isUsingAdjacentCssPlacement = isUsingCssAnchorPositioning && !isOverlapPlacement(placement);
 
 	// Rule 1. In effect this feeds only the placement-axis cap: every other check
 	// below treats `'content'` and `'max-available'` the same.
@@ -465,7 +472,7 @@ export function getAnchoredPopoverSizeDeclarations({
 	// The floor drives the flip only on the CSS path. On the JavaScript fallback a
 	// floor only inflates the measured size that the side is picked from, so it
 	// would flip a popover that fits.
-	const canFlip = isFitting && isUsingCssAnchorPositioning;
+	const canFlip = isFitting && isUsingAdjacentCssPlacement;
 
 	const declarations: TStyleDeclaration<TPopoverSizeProperty>[] = [
 		// Rule 3: both caps are always written. Only the placement axis can take the
@@ -473,7 +480,7 @@ export function getAnchoredPopoverSizeDeclarations({
 		{
 			property: `max-${placementAxis}-size`,
 			value:
-				size[placementAxis] === 'max-available' && isUsingCssAnchorPositioning
+				size[placementAxis] === 'max-available' && isUsingAdjacentCssPlacement
 					? cellCap({ gap: placement.offset.gap })
 					: viewportCap({ axis: placementAxis, writingMode }),
 		},

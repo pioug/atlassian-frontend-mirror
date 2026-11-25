@@ -1,5 +1,35 @@
 # @atlaskit/ads-mcp
 
+## 2.0.10
+
+### Patch Changes
+
+- [`6c71581e43035`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6c71581e43035) -
+  Refresh HelpArticle examples while preserving local mock data.
+
+  Remove redundant commentary from the distributed examples.
+
+- Updated dependencies
+
+## 2.0.9
+
+### Patch Changes
+
+- [`0ee56ea53c6d0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0ee56ea53c6d0) -
+  Keep workspace IDs typed as an array in the existing Smart User Picker fixture and explicitly
+  document its local mock setup. Component package changes are documentation only.
+- [`d572a0b097720`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d572a0b097720) -
+  Refresh existing ADS examples with supported imports, local avatar rendering and component
+  defaults.
+
+## 2.0.8
+
+### Patch Changes
+
+- [`7fc84b68f7f67`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7fc84b68f7f67) -
+  Regenerate component catalogs after removing the abandoned full-page Rovo Chat spotlight and its
+  launcher props.
+
 ## 2.0.7
 
 ### Patch Changes

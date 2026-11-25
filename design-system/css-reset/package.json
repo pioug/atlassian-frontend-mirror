@@ -12,7 +12,6 @@
 	"module": "dist/bundle.css",
 	"module:es2019": "dist/bundle.css",
 	"types": "dist/types/index.d.ts",
-	"atlaskit:src": "src/index.tsx",
 	"atlassian": {
 		"team": "Design System Team",
 		"website": {

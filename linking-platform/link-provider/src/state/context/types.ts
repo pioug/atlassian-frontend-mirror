@@ -1,3 +1,5 @@
+import type { ReactNode } from 'react';
+
 import { type Store } from 'redux';
 
 import type { LinkPreview, CardPlatform } from '@atlaskit/link-extractors/types';
@@ -47,6 +49,11 @@ export type CardContext = {
 		panelData: { embedUrl?: string };
 		url: string;
 	}) => void;
+	/**
+	 * Plugins available for this provider, resolved from the `plugins` prop. Read them with
+	 * `usePlugins`.
+	 */
+	plugins?: LinkProviderPlugins;
 	prefetchStore: Record<string, boolean>;
 	store: Store<CardStore>;
 } & Pick<
@@ -79,6 +86,39 @@ export interface CardProviderRenderers {
 	adf?: (adf: string) => React.ReactNode;
 	emoji?: (emoji?: string, parentComponent?: CardAppearance) => React.ReactNode;
 	snippet?: (props: SnippetRendererProps) => React.ReactNode;
+}
+
+/**
+ * `SmartCardProvider` calls `resolve` with its own values, so each plugin decides whether it's
+ * available for the current product and user.
+ */
+export interface LinkProviderPluginResolver {
+	render?: () => ReactNode;
+	resolve: (context: LinkProviderPluginContext) => LinkProviderPlugins;
+}
+
+/** `SmartCardProvider` values that plugins use to decide whether they're available. */
+export type LinkProviderPluginContext = Pick<CardProviderProps, 'product' | 'rovoOptions'>;
+
+/**
+ * Plugins available for a `SmartCardProvider`. Each one is optional: linking components use the
+ * plugins they support and ignore the rest. Plugins are added here as features move into the
+ * plugins package.
+ */
+export interface LinkProviderPlugins {
+	remix?: LinkProviderRemixPlugin;
+}
+
+export interface LinkProviderRemixPlugin {
+	/**
+	 * Whether Remix is available for the current user.
+	 */
+	isAvailable: () => boolean;
+	/**
+	 * Opens Remix for a link. `anchorElement` is the element the user clicked, which Remix
+	 * positions its options next to.
+	 */
+	open: (options: { anchorElement?: HTMLElement; url: string }) => void;
 }
 
 /** Product-owned component that connects Smart Card experiments to its existing choreographer. */
@@ -142,6 +182,12 @@ export type CardProviderProps = {
 		name: string;
 		url: string;
 	}) => void;
+	/**
+	 * Restricted features for linking components, created once with `createLinkProviderPlugins`
+	 * from `@atlassian/link-provider-plugins`. Keep the value stable (for example with `useMemo`),
+	 * otherwise every linking component under the provider re-renders.
+	 */
+	plugins?: LinkProviderPluginResolver;
 	/**
 	 * The product that linking components are rendered in.
 	 * Required for features such as AI summary in Smart Links, Loom embed Smart Links, etc.

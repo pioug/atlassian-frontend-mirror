@@ -374,28 +374,6 @@ describe(`Editor`, () => {
 			});
 		});
 
-		// Ignored via go/ees007
-		// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
-		// FIXME: Jest upgrade raises this issue
-		// Expected done to be called once, but it was called multiple times
-		it.skip('should update appearance used in events when change appearance prop', (done) => {
-			// We don't care about the client on the first render, that's tested above, only that the re-render causes
-			// a new analytics event with the correct appearance
-			const { rerender } = render(
-				<FabricAnalyticsListeners client={undefined}>
-					<Editor appearance="full-page" allowAnalyticsGASV3 />
-				</FabricAnalyticsListeners>,
-			);
-
-			rerender(
-				<FabricAnalyticsListeners
-					client={mockAnalyticsClient(EDITOR_APPEARANCE_CONTEXT.FULL_WIDTH)}
-				>
-					<Editor appearance="full-width" allowAnalyticsGASV3 />
-				</FabricAnalyticsListeners>,
-			);
-		});
-
 		describe('onEditorReady prop', () => {
 			it('should dispatch an onEditorReadyCallback event after the editor has called the onEditorReady callback', (done) => {
 				const mockAnalyticsClient = (done: jest.DoneCallback): AnalyticsWebClient => {

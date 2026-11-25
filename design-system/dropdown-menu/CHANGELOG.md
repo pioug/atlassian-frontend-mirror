@@ -1,5 +1,36 @@
 # @atlaskit/dropdown-menu
 
+## 22.2.1
+
+### Patch Changes
+
+- [`e500f1727d7d4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e500f1727d7d4) -
+  Updated description font size on the new DropdownItem to be small.
+- Updated dependencies
+
+## 22.2.0
+
+### Minor Changes
+
+- [`dab5095badf61`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dab5095badf61) -
+  Added support for focus and hover handlers: `onBlur`, `onFocus`, `onMouseEnter`, and
+  `onMouseLeave` to the new Dropdown Item. Also added support for overriding roles and checked
+  states, and passing through an `id` to the new Dropdown Item. The `shortcut` prop now sets
+  `aria-keyshortcuts` automatically unless an explicit value is provided. These changes are all
+  behind the `platform-dst-new-menu` feature gate.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 22.1.1
+
+### Patch Changes
+
+- [`ddf5f57fdb402`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ddf5f57fdb402) -
+  Behind `platform-dst-top-layer`, choosing an item moves focus to the trigger before the item's
+  change applies.
+
 ## 22.1.0
 
 ### Minor Changes

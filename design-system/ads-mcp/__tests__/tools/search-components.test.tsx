@@ -58,7 +58,7 @@ const expectedComponentResults: [string[], string[]][] = [
 	// Multi-term (merge can return more than two names)
 	[
 		['tooltip', 'inline'],
-		['Tooltip', 'Inline', 'InlineEdit'],
+		['Tooltip', 'Inline', 'InlineMessage'],
 	],
 	[
 		['grid', 'stack'],

@@ -19,10 +19,15 @@ const product = {
 const routeFamily = {
 	admin: XpcDestinationResolver.createRouteFamily('admin'),
 	confluenceContent: XpcDestinationResolver.createRouteFamily('content-page'),
+	helpCenter: XpcDestinationResolver.createRouteFamily('help-center'),
 	home: XpcDestinationResolver.createRouteFamily('home'),
 	jiraIssue: XpcDestinationResolver.createRouteFamily('issue-view'),
 	jiraProduct: XpcDestinationResolver.createRouteFamily('jira-product'),
 	studio: XpcDestinationResolver.createRouteFamily('studio'),
+};
+
+const subProduct = {
+	helpCenter: XpcDestinationResolver.createSubProductId('help-center'),
 };
 
 /**
@@ -72,6 +77,26 @@ export const createXpcDefaultDestinationRegistry = ({
 		{
 			host: 'atlassian.net',
 			hostMatch: 'suffix',
+			id: XpcDestinationResolver.createMatcherId('jira-help-center-route'),
+			pathPrefix: '/helpcenter',
+			precedence: 100,
+			product: product.jira,
+			routeFamily: routeFamily.helpCenter,
+			subProduct: subProduct.helpCenter,
+		},
+		{
+			host: 'atlassian.net',
+			hostMatch: 'suffix',
+			id: XpcDestinationResolver.createMatcherId('jira-customer-portal-route'),
+			pathPrefix: '/servicedesk/customer',
+			precedence: 100,
+			product: product.jira,
+			routeFamily: routeFamily.helpCenter,
+			subProduct: subProduct.helpCenter,
+		},
+		{
+			host: 'atlassian.net',
+			hostMatch: 'suffix',
 			id: XpcDestinationResolver.createMatcherId('confluence-wiki-route'),
 			pathPrefix: '/wiki',
 			precedence: 100,
@@ -95,6 +120,26 @@ export const createXpcDefaultDestinationRegistry = ({
 			precedence: 100,
 			product: product.jira,
 			routeFamily: routeFamily.jiraProduct,
+		},
+		{
+			host: 'jira-dev.com',
+			hostMatch: 'suffix',
+			id: XpcDestinationResolver.createMatcherId('jira-help-center-route-staging'),
+			pathPrefix: '/helpcenter',
+			precedence: 100,
+			product: product.jira,
+			routeFamily: routeFamily.helpCenter,
+			subProduct: subProduct.helpCenter,
+		},
+		{
+			host: 'jira-dev.com',
+			hostMatch: 'suffix',
+			id: XpcDestinationResolver.createMatcherId('jira-customer-portal-route-staging'),
+			pathPrefix: '/servicedesk/customer',
+			precedence: 100,
+			product: product.jira,
+			routeFamily: routeFamily.helpCenter,
+			subProduct: subProduct.helpCenter,
 		},
 		{
 			host: 'jira-dev.com',
@@ -152,5 +197,5 @@ export const createXpcDefaultDestinationRegistry = ({
 			routeFamily: routeFamily.admin,
 		},
 	],
-	taxonomyVersion: 2,
+	taxonomyVersion: 3,
 });

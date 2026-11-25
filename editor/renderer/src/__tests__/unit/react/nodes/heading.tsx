@@ -235,7 +235,7 @@ describe('<Heading />', () => {
 		});
 	});
 
-	it('renders an aria hidden and visually hidden heading anchor when showAnchorLink is true and headingId is provided', () => {
+	it('renders a single accessible heading anchor outside the heading when showAnchorLink is true and headingId is provided', () => {
 		const reactSerializer = new ReactSerializer({});
 		const screen = renderWithIntl(
 			<Heading
@@ -250,9 +250,10 @@ describe('<Heading />', () => {
 		);
 
 		const headingAnchors = screen.getAllByTestId('anchor-button');
-		expect(headingAnchors.length).toBe(2);
-		expect(headingAnchors[0]).toHaveAttribute('aria-hidden', 'true');
-		expect(screen.getByTestId('visually-hidden-heading-anchor')).toBeInTheDocument();
+		expect(headingAnchors.length).toBe(1);
+		expect(headingAnchors[0]).toHaveAttribute('aria-hidden', 'false');
+		expect(screen.getByRole('heading')).not.toContainElement(headingAnchors[0]);
+		expect(screen.queryByTestId('visually-hidden-heading-anchor')).not.toBeInTheDocument();
 	});
 
 	it('should fire AbortAll function, if user hover over the heading', async () => {

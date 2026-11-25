@@ -7,7 +7,7 @@
  * Token names mapped to their value in the default Atlassian themes ('light').
  * These default values are used by the Babel plugin to optionally provide automatic fallbacks.
  *
- * @codegen <<SignedSource::cd34ac516666c086430fb911635f6676>>
+ * @codegen <<SignedSource::b2db492c89f1f34be5f5436e088aba29>>
  * @codegenCommand yarn build tokens
  */
 const defaultTokenValues = {
@@ -44,6 +44,8 @@ const defaultTokenValues = {
 	'motion.flag.exit':
 		'200ms cubic-bezier(0.6, 0, 0.8, 0.6) SlideOut15PercentLeft forwards, 200ms cubic-bezier(0.6, 0, 0.8, 0.6) FadeOut100to0 forwards',
 	'motion.flag.reposition': 'transform 250ms cubic-bezier(0.4, 0, 0, 1)',
+	'motion.floating.controls.follow.panel.enter': 'transform 200ms cubic-bezier(0.16, 1, 0.3, 1)',
+	'motion.floating.controls.follow.panel.exit': 'transform 200ms cubic-bezier(0.25, 1, 0.5, 1)',
 	'motion.form.message.enter':
 		'150ms cubic-bezier(0.4, 1, 0.6, 1) SlideInBottom2px backwards, 150ms cubic-bezier(0.4, 1, 0.6, 1) FadeIn0to100 backwards',
 	'motion.form.message.exit':

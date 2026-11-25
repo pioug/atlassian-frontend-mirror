@@ -9,7 +9,7 @@ exports.tokens = void 0;
  *
  * Metadata for generation of `@atlaskit/ads-mcp` and https://atlassian.design/llms-tokens.txt.
  *
- * @codegen <<SignedSource::e2a0fe15e0c6ce2a9d3e08f1e527bf55>>
+ * @codegen <<SignedSource::eebff1d9012d488af66e9383cacf46e1>>
  * @codegenCommand yarn build tokens
  */
 
@@ -225,6 +225,24 @@ var tokens = exports.tokens = [{
   path: ['motion', 'flag', 'reposition'],
   description: 'Use for repositioning flag elements.',
   exampleValue: 'transform 250ms cubic-bezier(0.4, 0, 0, 1)',
+  usageGuidelines: {
+    usage: '',
+    cssProperties: []
+  }
+}, {
+  name: 'motion.floating.controls.follow.panel.enter',
+  path: ['motion', 'floating', 'controls', 'follow', 'panel', 'enter'],
+  description: 'Use as a CSS transform transition for floating controls that follow an entering panel. Translate horizontally by the panel width when opening begins, reversing direction for RTL. Keeps movement independent of page layout. Does not include vertical movement or visibility changes.',
+  exampleValue: 'transform 200ms cubic-bezier(0.16, 1, 0.3, 1)',
+  usageGuidelines: {
+    usage: '',
+    cssProperties: []
+  }
+}, {
+  name: 'motion.floating.controls.follow.panel.exit',
+  path: ['motion', 'floating', 'controls', 'follow', 'panel', 'exit'],
+  description: 'Use as a CSS transform transition for floating controls that follow an exiting panel. Restore the horizontal translation when closing begins. Does not include vertical movement or visibility changes. Disable the transition during manual panel resizing.',
+  exampleValue: 'transform 200ms cubic-bezier(0.25, 1, 0.5, 1)',
   usageGuidelines: {
     usage: '',
     cssProperties: []

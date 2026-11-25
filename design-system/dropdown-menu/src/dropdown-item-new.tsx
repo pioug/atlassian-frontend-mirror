@@ -25,6 +25,7 @@ import { token } from '@atlaskit/tokens';
 import KeyboardShortcut from './internal/components/keyboard-shortcut';
 import { DropdownTriggerContext } from './internal/context/dropdown-trigger-context';
 import { NewSpacingContext } from './internal/context/spacing-context';
+import { getAriaKeyShortcuts } from './internal/utils/get-aria-keyshortcuts';
 import type { NewDropdownItemProps } from './types';
 
 const styles = cssMap({
@@ -201,12 +202,16 @@ const NewDropdownItem: MemoExoticComponent<
 				shouldTitleWrap,
 				shouldDescriptionWrap,
 				isSelected,
-				isDisabled,
+				isDisabled: isDisabledProp,
 				hasNestedMenu: hasNestedMenuProp,
 				shortcut,
 				appearance,
 				href,
 				onClick,
+				onBlur,
+				onFocus,
+				onMouseEnter,
+				onMouseLeave,
 				target,
 				rel,
 				testId,
@@ -214,23 +219,29 @@ const NewDropdownItem: MemoExoticComponent<
 				role = 'menuitem',
 				interactionName,
 				'aria-checked': ariaChecked,
+				'aria-keyshortcuts': explicitAriaKeyShortcuts,
 				'aria-haspopup': ariaHasPopup,
 				'aria-expanded': ariaExpanded,
 			}: NewDropdownItemProps,
 			ref,
 		): JSX.Element => {
 			const isDropdownTrigger = useContext(DropdownTriggerContext);
-			const hasNestedMenu = isDropdownTrigger || hasNestedMenuProp;
+			const hasNestedMenu = hasNestedMenuProp ?? isDropdownTrigger;
 			const spacing = useContext(NewSpacingContext);
 			const isCompact = spacing === 'compact';
 
 			const isLink = !!href;
+			const isDisabled = !isLink && isDisabledProp;
 			const isDanger = appearance === 'danger';
 			const titleMaxLines = shouldTitleWrap ? undefined : 1;
 			const descMaxLines = shouldDescriptionWrap ? undefined : 1;
 
 			const titleColor = getTitleColor({ isLink, isDisabled, isSelected, isDanger });
 			const descColor = getDescriptionColor({ isLink, isDisabled });
+
+			const ariaKeyShortcuts = isDisabled
+				? undefined
+				: (explicitAriaKeyShortcuts ?? getAriaKeyShortcuts(shortcut));
 
 			const menuItem = (
 				<Fragment>
@@ -250,6 +261,7 @@ const NewDropdownItem: MemoExoticComponent<
 						</Text>
 						{description && (
 							<Text
+								size="small"
 								color={descColor}
 								maxLines={descMaxLines}
 								testId={testId && `${testId}--description`}
@@ -258,7 +270,7 @@ const NewDropdownItem: MemoExoticComponent<
 							</Text>
 						)}
 					</Stack>
-					{shortcut && <KeyboardShortcut shortcut={shortcut} />}
+					{shortcut && <KeyboardShortcut shortcut={shortcut} isAriaHidden={!!ariaKeyShortcuts} />}
 					{elemAfter && (
 						<span css={styles.beforeAfterElement} data-testid={testId && `${testId}--elem-after`}>
 							{elemAfter}
@@ -269,11 +281,15 @@ const NewDropdownItem: MemoExoticComponent<
 							<ChevronRightIcon size="small" label="" />
 						</span>
 					)}
-					{isSelected && role === 'menuitem' && !hasNestedMenu && (
-						<span css={styles.beforeAfterElement} data-testid={testId && `${testId}--selected`}>
-							<CheckMarkIcon label="" />
-						</span>
-					)}
+					{isSelected &&
+						role === 'menuitem' &&
+						!hasNestedMenu &&
+						!isDropdownTrigger &&
+						!ariaHasPopup && (
+							<span css={styles.beforeAfterElement} data-testid={testId && `${testId}--selected`}>
+								<CheckMarkIcon label="" />
+							</span>
+						)}
 				</Fragment>
 			);
 
@@ -284,6 +300,10 @@ const NewDropdownItem: MemoExoticComponent<
 						target={target}
 						rel={rel}
 						onClick={onClick}
+						onBlur={onBlur}
+						onFocus={onFocus}
+						onMouseEnter={onMouseEnter}
+						onMouseLeave={onMouseLeave}
 						xcss={cx(
 							styles.root,
 							isCompact && styles.compact,
@@ -295,7 +315,11 @@ const NewDropdownItem: MemoExoticComponent<
 						id={id}
 						ref={ref as Ref<HTMLAnchorElement>}
 						interactionName={interactionName}
-						aria-current={isSelected ? 'page' : undefined}
+						aria-current={isSelected && role === 'menuitem' && !ariaHasPopup ? 'page' : undefined}
+						aria-checked={ariaChecked}
+						aria-haspopup={ariaHasPopup}
+						aria-expanded={ariaExpanded}
+						aria-keyshortcuts={ariaKeyShortcuts}
 					>
 						{menuItem}
 					</Anchor>
@@ -304,6 +328,10 @@ const NewDropdownItem: MemoExoticComponent<
 			return (
 				<Pressable
 					onClick={onClick}
+					onBlur={onBlur}
+					onFocus={onFocus}
+					onMouseEnter={onMouseEnter}
+					onMouseLeave={onMouseLeave}
 					isDisabled={isDisabled}
 					xcss={cx(
 						styles.root,
@@ -320,6 +348,7 @@ const NewDropdownItem: MemoExoticComponent<
 					aria-checked={ariaChecked}
 					aria-haspopup={ariaHasPopup}
 					aria-expanded={ariaExpanded}
+					aria-keyshortcuts={ariaKeyShortcuts}
 					id={id}
 					ref={ref as Ref<HTMLButtonElement>}
 					interactionName={interactionName}

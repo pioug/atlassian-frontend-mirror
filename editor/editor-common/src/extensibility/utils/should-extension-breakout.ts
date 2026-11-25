@@ -37,16 +37,10 @@ export const shouldExtensionBreakout = ({
 	hasBreakoutWidth = false,
 }: ShouldExtensionBreakoutArgs): boolean => {
 	// the breakout mark wrapper owns the width, so the legacy layout must not size the node too
-	if (
-		fg('platform_editor_lovability_resize_exts_gracefully') &&
-		isExperimentEnabled('platform_editor_lovability_resize_exts_patch_1') &&
-		hasBreakoutWidth
-	) {
+	if (fg('platform_editor_lovability_resize_exts_gracefully') && hasBreakoutWidth) {
 		return false;
 	}
 
-	// once platform_editor_lovability_resize_exts_patch_1 is rolled out, we can remove this redundant check.
-	// because the previous check should have returned false already for extensions with breakout widths.
 	if (hasBreakoutMark && isExperimentEnabled('platform_editor_lovability_resize_extensions')) {
 		return false;
 	}

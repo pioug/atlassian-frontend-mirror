@@ -299,7 +299,14 @@ export class ExtensionNode<AdditionalParams = unknown> extends ReactNodeView<
 			return false;
 		}
 
-		return event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement;
+		return (
+			event.target instanceof HTMLInputElement ||
+			event.target instanceof HTMLTextAreaElement ||
+			(isNativeEmbedExtension(this.node) &&
+				fg('platform_native_embeds_database_runtime') &&
+				event.target instanceof Element &&
+				!!event.target.closest('[data-native-embed-handles-events]'))
+		);
 	}
 
 	getContentDOM():

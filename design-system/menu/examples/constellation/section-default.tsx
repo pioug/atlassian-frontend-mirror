@@ -13,7 +13,7 @@ export default (): React.JSX.Element => (
 			<Section title="Actions">
 				<ButtonItem>Create article</ButtonItem>
 			</Section>
-			<Section aria-labelledby="settings" hasSeparator>
+			<Section titleId="settings" hasSeparator>
 				<HeadingItem id="settings">Settings</HeadingItem>
 				<ButtonItem>Manage account</ButtonItem>
 			</Section>

@@ -92,6 +92,10 @@ const ColorPalette = ({
 		return getSelectedRowAndColumnFromPalette(palette, selectedColor, cols);
 	}, [palette, selectedColor, cols]);
 
+	const hasSelectedColor = isExperimentEnabled('platform_editor_lovability_colors_a11y_fixes')
+		? selectedRowIndex >= 0
+		: !!selectedColor;
+
 	// Focus management utility
 	const focusColorAt = useCallback(
 		(row: number, col: number) => {
@@ -276,7 +280,7 @@ const ColorPalette = ({
 
 						// Only the selected color or first color should be focusable via Tab
 						// This allows Tab to move between color palettes
-						const shouldBeFocusable = isSelectedColor || (!selectedColor && isFirstColor);
+						const shouldBeFocusable = isSelectedColor || (!hasSelectedColor && isFirstColor);
 
 						return (
 							<Color

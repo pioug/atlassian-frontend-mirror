@@ -245,84 +245,6 @@ const baseStyles = css({
 	},
 });
 
-const headingAnchorStylesDuplicateAnchor = css({
-	'& h1, & h2, & h3, & h4, & h5, & h6': {
-		[`.${HeadingAnchorWrapperClassName}`]: {
-			position: 'absolute',
-			marginLeft: token('space.075'),
-
-			button: {
-				paddingLeft: 0,
-				paddingRight: 0,
-			},
-
-			/**
-			 * Adds the visibility of the button when in focus through keyboard navigation.
-			 */
-			'button:focus': {
-				opacity: 1,
-				transform: 'none !important',
-			},
-		},
-
-		[`@media (hover: hover) and (pointer: fine)`]: {
-			[`.${HeadingAnchorWrapperClassName}`]: {
-				'> button': {
-					opacity: 0,
-					transform: 'translate(-8px, 0px)',
-					transitionProperty: 'opacity, transform',
-					transitionDuration: `${token('motion.duration.medium', '0.2s')}, ${token('motion.duration.medium', '0.2s')}`,
-					transitionTimingFunction: `${token('motion.easing.out.practical', 'ease')}, ${token('motion.easing.out.practical', 'ease')}`,
-					transitionDelay: '0s, 0s',
-				},
-			},
-
-			'&:hover': {
-				[`.${HeadingAnchorWrapperClassName} > button`]: {
-					opacity: 1,
-					transform: 'none !important',
-				},
-			},
-		},
-	},
-	'& h1': {
-		[`.${HeadingAnchorWrapperClassName}`]: {
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-			lineHeight: `${28 / 24}em`,
-		},
-	},
-	'& h2': {
-		[`.${HeadingAnchorWrapperClassName}`]: {
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-			lineHeight: `${24 / 20}em`,
-		},
-	},
-	'& h3': {
-		[`.${HeadingAnchorWrapperClassName}`]: {
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-			lineHeight: `${20 / 16}em`,
-		},
-	},
-	'& h4': {
-		[`.${HeadingAnchorWrapperClassName}`]: {
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-			lineHeight: `${16 / 14}em`,
-		},
-	},
-	'& h5': {
-		[`.${HeadingAnchorWrapperClassName}`]: {
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-			lineHeight: `${16 / 12}em`,
-		},
-	},
-	'& h6': {
-		[`.${HeadingAnchorWrapperClassName}`]: {
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-			lineHeight: `${16 / 11}em`,
-		},
-	},
-});
-
 const headingAnchorStyles = css({
 	'& .renderer-heading-wrapper': {
 		[`.${HeadingAnchorWrapperClassName}`]: {
@@ -444,28 +366,6 @@ const responsiveBreakoutWidthWithReducedPadding = css({
 
 	[`@media (max-width: ${akEditorFullPageNarrowBreakout}px)`]: {
 		'--ak-editor--breakout-container-without-gutter-width': `calc(100cqw - var(--ak-renderer--full-page-gutter) * 2)`,
-	},
-});
-
-const hideHeadingCopyLinkWrapperStylesDuplicateAnchor = css({
-	'& h1, & h2, & h3, & h4, & h5, & h6': {
-		[`.${HeadingAnchorWrapperClassName}`]: {
-			'&:focus-within': {
-				opacity: 1,
-			},
-		},
-		[`@media (hover: hover) and (pointer: fine)`]: {
-			[`.${HeadingAnchorWrapperClassName}`]: {
-				opacity: 0,
-				transition: `opacity 0.2s ease 0s`,
-			},
-
-			'&:hover': {
-				[`.${HeadingAnchorWrapperClassName}`]: {
-					opacity: 1,
-				},
-			},
-		},
 	},
 });
 
@@ -786,51 +686,6 @@ const headingAnchorWrapperTargetSizeStyles = css({
 	},
 });
 
-const headingWithAlignmentStylesDuplicateAnchor = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-	'.fabric-editor-block-mark.fabric-editor-alignment:not(:first-child)': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'> h1:first-child': {
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-			marginTop: '1.667em',
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-		' > h2:first-child': {
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-			marginTop: '1.8em',
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'> h3:first-child': {
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-			marginTop: '2em',
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'> h4:first-child': {
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-			marginTop: '1.357em',
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'> h5:first-child': {
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-			marginTop: '1.667em',
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'> h6:first-child': {
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-			marginTop: '1.455em',
-		},
-	},
-	// Set marginTop: 0 if alignment block is next to a gap cursor or widget that is first child
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-	'.ProseMirror-gapcursor:first-child + .fabric-editor-block-mark.fabric-editor-alignment, .ProseMirror-widget:first-child + .fabric-editor-block-mark.fabric-editor-alignment, .ProseMirror-widget:first-child + .ProseMirror-widget:nth-child(2) + .fabric-editor-block-mark.fabric-editor-alignment':
-		{
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-			'> :is(h1, h2, h3, h4, h5, h6):first-child': {
-				marginTop: '0',
-			},
-		},
-});
-
 const headingWithAlignmentStyles = css({
 	// Center alignment for heading wrapper - flex container needs justify-content instead of text-align
 	'.fabric-editor-block-mark[data-align="center"] > .renderer-heading-wrapper': {
@@ -1138,28 +993,6 @@ const indentationSharedStylesWithMarginFix = css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 		'p:first-child': {
 			marginTop: blockNodesVerticalMargin,
-		},
-	},
-});
-
-const blockMarksSharedStylesDuplicateAnchor = css({
-	/**
-	 * We need to remove margin-top from first item
-	 * inside doc, tableCell, tableHeader, blockquote, etc.
-	 */
-	[`*:not(.fabric-editor-block-mark) >,
-  	*:not(.fabric-editor-block-mark) >
-    div.fabric-editor-block-mark:first-of-type
-	:not(.fabric-editor-indentation-mark)
-	:not(.fabric-editor-alignment),
-  	.fabric-editor-alignment:first-of-type:first-child,
-  	.fabric-editor-font-size:first-of-type:first-child,
-  	.ProseMirror .fabric-editor-indentation-mark:first-of-type:first-child`]: {
-		'p, h1, h2, h3, h4, h5, h6, .heading-wrapper': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-			':first-child:not(style), style:first-child + *': {
-				marginTop: 0,
-			},
 		},
 	},
 });
@@ -1574,136 +1407,6 @@ const expandSsrMarginStyles = css({
 		},
 });
 
-const baseOtherStylesDuplicateAnchor = css({
-	'& .UnknownBlock': {
-		fontFamily: token('font.family.body'),
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-		fontSize: `${14 / 16}rem`,
-		fontWeight: token('font.weight.regular'),
-		whiteSpace: 'pre-wrap',
-		wordWrap: 'break-word',
-	},
-	'& span.date-node': {
-		backgroundColor: token('color.background.neutral'),
-		borderRadius: token('radius.small', '3px'),
-		color: token('color.text'),
-		paddingTop: token('space.025'),
-		paddingRight: token('space.050'),
-		paddingBottom: token('space.025'),
-		paddingLeft: token('space.050'),
-		margin: `0 1px`,
-		transition: `background 0.3s`,
-	},
-	'& span.date-node-highlighted': {
-		backgroundColor: token('color.background.danger'),
-		color: token('color.text.danger'),
-	},
-	'& .renderer-image': {
-		maxWidth: '100%',
-		display: 'block',
-		marginTop: token('space.300'),
-		marginRight: 0,
-		marginBottom: token('space.300'),
-		marginLeft: 0,
-	},
-
-	[`.${richMediaClassName}.rich-media-wrapped + .${richMediaClassName}:not(.rich-media-wrapped)`]: {
-		clear: 'both',
-	},
-
-	[`& .code-block,
-	& blockquote,
-	& hr,
-	& > div > div:not(.rich-media-wrapped),
-	.${richMediaClassName}.rich-media-wrapped + .rich-media-wrapped + *:not(.rich-media-wrapped),
-	.${richMediaClassName}.rich-media-wrapped + div:not(.rich-media-wrapped),
-	.${richMediaClassName}.image-align-start,
-		.${richMediaClassName}.image-center,
-		.${richMediaClassName}.image-align-end`]: {
-		clear: 'both',
-	},
-
-	'& .rich-media-wrapped': {
-		'& + .renderer-heading-wrapper': {
-			'h1, h2, h3, h4, h5, h6': {
-				marginTop: token('space.100'),
-			},
-		},
-	},
-
-	// originally copied the block after mediaSharedStyle
-	'div[class^="image-wrap-"] + div[class^="image-wrap-"]': {
-		marginLeft: 0,
-		marginRight: 0,
-	},
-
-	/* Breakout for tables and extensions */
-	[`.${RendererCssClassName.DOCUMENT} >`]: {
-		[`*:not([data-mark-type='fragment']) .${TableSharedCssClassName.TABLE_CONTAINER}`]: {
-			// Temporarily ignoring the below the owning team can add the ticket number for the TODO.  Context: https://atlassian.slack.com/archives/CPUEVD9MY/p1741565387326829
-			// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
-			// TODO - improve inline style logic on table container so important styles aren't required here
-			width: '100% !important',
-			left: '0 !important',
-		},
-		[`[data-mark-type='fragment'] * .${TableSharedCssClassName.TABLE_CONTAINER}`]: {
-			// Temporarily ignoring the below the owning team can add the ticket number for the TODO.  Context: https://atlassian.slack.com/archives/CPUEVD9MY/p1741565387326829
-			// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
-			// TODO - improve inline style logic on table container so important styles aren't required here
-			width: '100% !important',
-			left: '0 !important',
-		},
-		[`* .${RendererCssClassName.EXTENSION_OVERFLOW_CONTAINER}`]: {
-			overflowX: 'auto',
-		},
-		[`& .${RendererCssClassName.EXTENSION}:first-child`]: {
-			marginTop: 0,
-		},
-	},
-
-	[`.${RendererCssClassName.DOCUMENT}`]: {
-		[`.${RendererCssClassName.EXTENSION}`]: {
-			marginTop: `${blockNodesVerticalMargin}`,
-		},
-		[`.${RendererCssClassName.STICKY_SAFE_CENTER_WRAPPER} .${RendererCssClassName.EXTENSION}`]: {
-			marginBottom: 0,
-		},
-		/* Embed card center wrapper has margin; zero MediaSingle vertical margin when wrapped so it doesn't double */
-		[`.${RendererCssClassName.EMBED_CARD_CENTER_WRAPPER} .mediaSingleView-content-wrap`]: {
-			marginTop: 0,
-			marginBottom: 0,
-		},
-		[`.${RendererCssClassName.STICKY_SAFE_BREAKOUT_INNER} > *:first-child`]: {
-			marginTop: 0,
-		},
-		[`.${RendererCssClassName.STICKY_SAFE_BREAKOUT_INNER} > *:last-child`]: {
-			marginBottom: 0,
-		},
-		[`.${RendererCssClassName.EMBED_CARD_CENTER_WRAPPER} > .mediaSingleView-content-wrap > *:first-child`]:
-			{
-				marginTop: 0,
-			},
-		[`.${RendererCssClassName.EMBED_CARD_CENTER_WRAPPER} > .mediaSingleView-content-wrap > *:last-child`]:
-			{
-				marginBottom: 0,
-			},
-		[`.${RendererCssClassName.BLOCK_CARD_DATASOURCE_CENTER_WRAPPER} > div > *:first-child`]: {
-			marginTop: 0,
-		},
-		[`.${RendererCssClassName.BLOCK_CARD_DATASOURCE_CENTER_WRAPPER} > div > *:last-child`]: {
-			marginBottom: 0,
-		},
-		[`.${TableSharedCssClassName.TABLE_NODE_WRAPPER}`]: {
-			overflowX: 'auto',
-		},
-
-		[`.${shadowObserverClassNames.SHADOW_CONTAINER} .${TableSharedCssClassName.TABLE_NODE_WRAPPER}`]:
-			{
-				display: 'flex',
-			},
-	},
-});
-
 const hideExtensionStyles = css({
 	[`.${RendererCssClassName.EXTENSION}:has([data-extension-key='hide'])`]: {
 		marginTop: 0,
@@ -1837,36 +1540,6 @@ const baseOtherStyles = css({
 			{
 				display: 'flex',
 			},
-	},
-});
-
-const alignedHeadingAnchorStyleDuplicateAnchor = css({
-	// Temporarily ignoring the below the owning team can add the ticket number for the TODO.  Context: https://atlassian.slack.com/archives/CPUEVD9MY/p1741565387326829
-	// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
-	// TODO Delete this comment after verifying space token -> previous value `margin: 6px`
-	'.fabric-editor-block-mark[data-align] >': {
-		'h1, h2, h3, h4, h5, h6': {
-			position: 'relative',
-		},
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-	'.fabric-editor-block-mark:not([data-align="center"])[data-align]': {
-		[`.${HeadingAnchorWrapperClassName}`]: {
-			marginTop: 0,
-			marginRight: token('space.075'),
-			marginBottom: 0,
-			marginLeft: 0,
-			// If the anchor is right aligned then the left side of the heading
-			// is aligned with the left side of the anchor.
-			// In order to align as expected we transform it the width of the element (plus our expected 6px)
-			// to the left
-			transform: `translateX(calc(-100% - ${token('space.075')}))`,
-		},
-		'@media (hover: hover) and (pointer: fine)': {
-			[`.${HeadingAnchorWrapperClassName} > button`]: {
-				transform: `translate(8px, 0px)`,
-			},
-		},
 	},
 });
 
@@ -2831,27 +2504,6 @@ const rendererTableColumnStyles = css({
 	},
 });
 
-const rendererTableHeaderEqualHeightStylesAllowNestedHeaderLinksDuplicateAnchor = css({
-	[`.${RendererCssClassName.DOCUMENT} .${TableSharedCssClassName.TABLE_CONTAINER}`]: {
-		[`.${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table, .${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table`]:
-			{
-				[`.${RendererCssClassName.SORTABLE_COLUMN_WRAPPER}`]: {
-					[`.${RendererCssClassName.SORTABLE_COLUMN}`]: {
-						[`.${HeadingAnchorWrapperClassName}`]: {
-							position: 'unset',
-						},
-						'>': {
-							'h1, h2, h3, h4, h5, h6': {
-								// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-								marginRight: '30px',
-							},
-						},
-					},
-				},
-			},
-	},
-});
-
 const rendererTableHeaderEqualHeightStylesAllowNestedHeaderLinks = css({
 	[`.${RendererCssClassName.DOCUMENT} .${TableSharedCssClassName.TABLE_CONTAINER}`]: {
 		[`.${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table, .${TableSharedCssClassName.TABLE_STICKY_WRAPPER} > table`]:
@@ -3494,13 +3146,9 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 					: originalBaseFontLineHeight,
 				baseStyles,
 				fontSizeStyles,
-				expValEquals('platform_editor_copy_link_a11y_inconsistency_fix', 'isEnabled', true)
-					? headingAnchorStyles
-					: headingAnchorStylesDuplicateAnchor,
+				headingAnchorStyles,
 				headingAnchorButtonFocusVisibleStyles,
-				expValEquals('platform_editor_copy_link_a11y_inconsistency_fix', 'isEnabled', true)
-					? hideHeadingCopyLinkWrapperStyles
-					: hideHeadingCopyLinkWrapperStylesDuplicateAnchor,
+				hideHeadingCopyLinkWrapperStyles,
 				appearance === 'full-page' &&
 					isPreviewPanelResponsivenessOn &&
 					rendererFullPageStylesWithReducedPadding,
@@ -3521,13 +3169,10 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 				whitespaceSharedStyles,
 				blockquoteSharedStyles,
 				headingsSharedStyles,
-				expValEquals('platform_editor_copy_link_a11y_inconsistency_fix', 'isEnabled', true) &&
-					headingWrapperInlineFlowStyles,
+				headingWrapperInlineFlowStyles,
 				isExperimentEnabled('platform_editor_heading_link_target_size') &&
 					headingAnchorWrapperTargetSizeStyles,
-				expValEquals('platform_editor_copy_link_a11y_inconsistency_fix', 'isEnabled', true)
-					? headingWithAlignmentStyles
-					: headingWithAlignmentStylesDuplicateAnchor,
+				headingWithAlignmentStyles,
 				ruleSharedStyles,
 				isExperimentEnabled('platform_editor_lovability_dividers_attributes') &&
 					ruleWithAttrsStyles,
@@ -3540,9 +3185,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 				listItemHiddenMarkerStyles,
 				indentationSharedStyles,
 				indentationSharedStylesWithMarginFix,
-				expValEquals('platform_editor_copy_link_a11y_inconsistency_fix', 'isEnabled', true)
-					? blockMarksSharedStyles
-					: blockMarksSharedStylesDuplicateAnchor,
+				blockMarksSharedStyles,
 				codeMarkSharedStyles,
 				shadowSharedStyle,
 				dateSharedStyle,
@@ -3553,8 +3196,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 				textHighlightPaddingStyles,
 				tasksAndDecisionsStyles,
-				expValEquals('platform_editor_copy_link_a11y_inconsistency_fix', 'isEnabled', true) &&
-					headingPanelStyles,
+				headingPanelStyles,
 				smartCardStyles,
 				smartCardStylesAvatarFix,
 				headerSmartCardStyles,
@@ -3563,9 +3205,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 				fg('editor_inline_comments_on_inline_nodes') && rendererAnnotationStyles,
 				// eslint-disable-next-line @atlaskit/platform/no-preconditioning
 				fg('editor_inline_comments_on_inline_nodes') && rendererAnnotationStylesCommentHeightFix,
-				expValEquals('platform_editor_copy_link_a11y_inconsistency_fix', 'isEnabled', true)
-					? baseOtherStyles
-					: baseOtherStylesDuplicateAnchor,
+				baseOtherStyles,
 				expandSsrMarginStyles,
 				// this should be placed after baseOtherStyles
 				isExperimentEnabled('platform_editor_remove_important_in_render_ext')
@@ -3573,10 +3213,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 					: oldExtensionAsInlineStyle,
 				[migratedInlineBodiedFlowStyle, forgeInlineBodiedSpacingStyle],
 				inlineExtensionRendererMarginFix,
-				allowNestedHeaderLinks &&
-					(expValEquals('platform_editor_copy_link_a11y_inconsistency_fix', 'isEnabled', true)
-						? alignedHeadingAnchorStyle
-						: alignedHeadingAnchorStyleDuplicateAnchor),
+				allowNestedHeaderLinks && alignedHeadingAnchorStyle,
 				mediaSingleSharedStyle,
 				firstWrappedMediaStyles,
 				tableSharedStyle,
@@ -3607,9 +3244,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 					rendererTableSortableColumnValignStyles,
 				allowColumnSorting &&
 					allowNestedHeaderLinks &&
-					(expValEquals('platform_editor_copy_link_a11y_inconsistency_fix', 'isEnabled', true)
-						? rendererTableHeaderEqualHeightStylesAllowNestedHeaderLinks
-						: rendererTableHeaderEqualHeightStylesAllowNestedHeaderLinksDuplicateAnchor),
+					rendererTableHeaderEqualHeightStylesAllowNestedHeaderLinks,
 				rendererTableColumnStyles,
 				stickyHeaderStyles,
 				codeBlockAndLayoutStyles,

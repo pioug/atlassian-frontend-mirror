@@ -37,16 +37,13 @@
 		"**/stories/**/*.tsx",
 		"./src/**/*.json"
 	],
-	"exclude": [
-		"./dist/**/*",
-		"./build/**/*",
-		"./node_modules/**/*"
-	],
+	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"disableReferencedProjectLoad": true,
 		"disableSolutionSearching": true,
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__flag-client/app"
+		"outDir": "../../../tsDist/@atlaskit__flag-client/app",
+		"noUncheckedIndexedAccess": true
 	},
 	"references": []
 }

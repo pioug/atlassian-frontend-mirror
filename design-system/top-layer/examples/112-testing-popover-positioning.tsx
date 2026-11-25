@@ -10,6 +10,7 @@ import { cssMap } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 import { getAriaForTrigger } from '@atlaskit/top-layer/get-aria-for-trigger';
 import { Popover } from '@atlaskit/top-layer/popover/popover';
+import { type TAnchoredPlacementOptions } from '@atlaskit/top-layer/resolve-placement';
 import { useAnchoredPopover } from '@atlaskit/top-layer/use-anchored-popover';
 import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
@@ -38,7 +39,7 @@ const styles = cssMap({
 export default function TestingPopoverPositioning(): ReactNode {
 	const params = new URLSearchParams(window.location.search);
 	const axis = (params.get('axis') ?? 'block') as 'block' | 'inline';
-	const edge = (params.get('edge') ?? 'end') as 'start' | 'end';
+	const edge = (params.get('edge') ?? 'end') as TAnchoredPlacementOptions['edge'];
 	const align = (params.get('align') ?? 'center') as 'start' | 'center' | 'end';
 	const shift = Number(params.get('shift') ?? 0);
 	const shiftDirection = (params.get('shiftDirection') ?? 'forwards') as 'forwards' | 'backwards';

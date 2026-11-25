@@ -2,12 +2,14 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useCallback, useRef, useState } from 'react';
+import { Fragment, useCallback, useRef, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports
 import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl';
 
+import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';
+import { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-item-group';
 import Button from '@atlaskit/editor-common/FloatingToolbar/Button';
 import { messages } from '@atlaskit/editor-common/messages/card';
 import { linkToolbarMessages } from '@atlaskit/editor-common/messages/link-toolbar';
@@ -16,6 +18,7 @@ import { DropdownContainer as UiDropdown } from '@atlaskit/editor-common/ui-menu
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import EditIcon from '@atlaskit/icon/core/edit';
 import ButtonItem from '@atlaskit/menu/button-item';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { token } from '@atlaskit/tokens';
 
@@ -103,6 +106,8 @@ const EditToolbarButtonPresentation = ({
 			);
 		}
 		case 'edit-dropdown': {
+			const useNewMenu = fg('platform-dst-new-menu');
+			const MenuItem = useNewMenu ? DropdownItem : ButtonItem;
 			const trigger = (
 				<Flex gap="space.050">
 					<Button
@@ -129,6 +134,29 @@ const EditToolbarButtonPresentation = ({
 				</Flex>
 			);
 
+			const items = (
+				<Fragment>
+					<MenuItem key="edit.link" onClick={onEditLink} testId="edit-dropdown-edit-link-item">
+						<FormattedMessage
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/jsx-props-no-spreading
+							{...messages.editDropdownEditLinkTitle}
+						/>
+					</MenuItem>
+					<MenuItem
+						key="edit.datasource"
+						onClick={onEditDatasource}
+						testId="edit-dropdown-edit-datasource-item"
+					>
+						<FormattedMessage
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/jsx-props-no-spreading
+							{...messages.editDropdownEditDatasourceTitle}
+						/>
+					</MenuItem>
+				</Fragment>
+			);
+
 			return (
 				<Flex ref={containerRef}>
 					<UiDropdown
@@ -137,30 +165,20 @@ const EditToolbarButtonPresentation = ({
 						handleClickOutside={onClose}
 						handleEscapeKeydown={onClose}
 						trigger={trigger}
+						fitWidth={useNewMenu ? 200 : undefined}
 						scrollableElement={containerRef.current}
 						// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 						arrowKeyNavigationProviderOptions={{
 							type: ArrowKeyNavigationType.MENU,
 						}}
 					>
-						<ButtonItem key="edit.link" onClick={onEditLink} testId="edit-dropdown-edit-link-item">
-							<FormattedMessage
-								// Ignored via go/ees005
-								// eslint-disable-next-line react/jsx-props-no-spreading
-								{...messages.editDropdownEditLinkTitle}
-							/>
-						</ButtonItem>
-						<ButtonItem
-							key="edit.datasource"
-							onClick={onEditDatasource}
-							testId="edit-dropdown-edit-datasource-item"
-						>
-							<FormattedMessage
-								// Ignored via go/ees005
-								// eslint-disable-next-line react/jsx-props-no-spreading
-								{...messages.editDropdownEditDatasourceTitle}
-							/>
-						</ButtonItem>
+						{useNewMenu ? (
+							<div role="menu">
+								<DropdownItemGroup>{items}</DropdownItemGroup>
+							</div>
+						) : (
+							items
+						)}
 					</UiDropdown>
 				</Flex>
 			);

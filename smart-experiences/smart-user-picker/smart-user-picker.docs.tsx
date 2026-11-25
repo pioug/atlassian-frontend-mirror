@@ -22,11 +22,13 @@ const documentation: StructuredContentSource = {
 				'Use SmartUserPicker to allow users to select other users or teams.',
 				'Provides intelligent recommendations to help users find the right person quickly.',
 				'Supports searching by name, email, and other criteria.',
+				'This local fixture uses package-private helpers and mocked responses; those imports are not consumer APIs.',
 			],
 			examples: [
 				{
 					name: 'Basic',
-					description: 'Standard smart user picker display.',
+					description:
+						'Interactive local development fixture with package-local endpoint and UFO mocks.',
 					source: `${packagePath}/examples/00-smart-user-picker.tsx`,
 				},
 			],

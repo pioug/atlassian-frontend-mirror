@@ -52,7 +52,6 @@ import { Box } from '@atlaskit/primitives/box';
 import { xcss } from '@atlaskit/primitives/xcss/xcss';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
@@ -446,12 +445,6 @@ export const DragHandle = ({
 	}, [anchorName, nodeType, view.dom]);
 
 	useEffect(() => {
-		if (
-			!expValEqualsNoExposure('platform_editor_selection_toolbar_block_handle', 'isEnabled', true)
-		) {
-			return;
-		}
-
 		const unbind = bind(window, {
 			type: 'mouseUp',
 			listener: () => (mouseDownRef.current = false),
@@ -464,15 +457,6 @@ export const DragHandle = ({
 	}, []);
 
 	const handleMouseUp = useCallback((e: MouseEvent<HTMLButtonElement>) => {
-		// Stop propagation so that for drag handles in nested scenarios the click is captured
-		// and doesn't propagate to the edge of the element and trigger a node selection
-		// on the parent element
-		if (
-			!expValEqualsNoExposure('platform_editor_selection_toolbar_block_handle', 'isEnabled', true)
-		) {
-			e.stopPropagation();
-		}
-
 		// Fixes bug where selection toolbar is blocked when mouse is released on drag handle
 		if (mouseDownRef.current) {
 			e.stopPropagation();
@@ -1096,11 +1080,7 @@ export const DragHandle = ({
 				dragHandleButtonScaledStyles,
 			]}
 			ref={buttonRef}
-			onMouseDown={
-				expValEqualsNoExposure('platform_editor_selection_toolbar_block_handle', 'isEnabled', true)
-					? handleMouseDown
-					: undefined
-			}
+			onMouseDown={handleMouseDown}
 			onMouseUp={handleMouseUp}
 			onClick={handleOnClickNew}
 			onKeyDown={handleKeyDownNew}

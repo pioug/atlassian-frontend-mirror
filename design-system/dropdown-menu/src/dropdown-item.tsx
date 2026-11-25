@@ -84,14 +84,26 @@ export const DropdownItem: React.ForwardRefExoticComponent<
 					hasNestedMenu={hasNestedMenu}
 					shortcut={shortcut}
 					appearance={appearance}
+					id={rest.id}
+					role={
+						role === 'menuitem' || role === 'menuitemcheckbox' || role === 'menuitemradio'
+							? role
+							: undefined
+					}
 					href={href}
 					onClick={handleItemClick}
+					onBlur={rest.onBlur}
+					onFocus={rest.onFocus}
+					onMouseEnter={rest.onMouseEnter}
+					onMouseLeave={rest.onMouseLeave}
 					target={target}
 					rel={rel}
 					testId={testId}
 					interactionName={interactionName}
+					aria-checked={rest['aria-checked']}
 					aria-haspopup={ariaHasPopup}
 					aria-expanded={ariaExpanded}
+					aria-keyshortcuts={rest['aria-keyshortcuts']}
 					ref={mergeRefs([ref, itemRef])}
 				/>
 			);

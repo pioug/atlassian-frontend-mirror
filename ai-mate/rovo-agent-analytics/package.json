@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/rovo-agent-analytics",
-	"version": "6.8.0",
+	"version": "6.8.1",
 	"description": "Rovo Agents analytics",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-monorepo",
 	"atlassian": {
@@ -14,11 +14,8 @@
 		"team": "Rovo Agents",
 		"website": {
 			"tags": [
-				"platform-labs",
-				"rovo-components"
-			],
-			"name": "RovoAgentAnalytics",
-			"category": "Layout and structure"
+				"platform-labs"
+			]
 		}
 	},
 	"author": "Atlassian Pty Ltd",
@@ -30,7 +27,6 @@
 	"module": "dist/esm/index.js",
 	"module:es2019": "dist/es2019/index.js",
 	"types": "dist/types/index.d.ts",
-	"atlaskit:src": "src/index.ts",
 	"sideEffects": [
 		"*.compiled.css"
 	],

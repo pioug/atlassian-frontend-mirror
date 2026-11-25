@@ -775,29 +775,6 @@ describe('document-service', () => {
 				expect(processStepsSpy).toHaveBeenCalledTimes(1);
 				expect(processStepsSpy).toHaveBeenNthCalledWith(1, step1);
 			});
-
-			// TODO: ED-26957 - My assumption around how steps should be processed fails with this unit test
-			xit('Drops steps from the queue that does not follow the expected version numbers', () => {
-				let version = 5;
-				getCurrentPmVersionMock.mockImplementation(() => version);
-				// mimic processSteps applying steps
-				processStepsSpy.mockImplementation((data) => (version = data.version));
-				// This step is below the current version number and should be dropped
-				const step1 = { steps: [{ fakeStep: true }], version: 4 };
-				// This step is at the current version number and should be dropped
-				const step2 = { steps: [{ fakeStep: true }], version: 5 };
-				// This step is at the expected version number and should be applied
-				const step3 = { steps: [{ fakeStep: true }], version: 6 };
-				// @ts-expect-error - forcing state for test
-				service.stepQueue.queue = [step1, step2, step3] as unknown as StepsPayload[];
-				// @ts-expect-error - testing private function
-				service.processQueue();
-				// One for each call
-				expect(processStepsSpy).toHaveBeenCalledTimes(3);
-				expect(processStepsSpy).toHaveBeenNthCalledWith(1, step1);
-				expect(processStepsSpy).toHaveBeenNthCalledWith(2, step2);
-				expect(processStepsSpy).toHaveBeenNthCalledWith(3, step3);
-			});
 		});
 
 		describe('getCurrentPmVersion', () => {

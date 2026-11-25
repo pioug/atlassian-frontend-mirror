@@ -380,6 +380,7 @@ describe('DatasourceTableView', () => {
 	it('should wait for data AND columns before rendering table', () => {
 		const { queryByTestId } = setup({
 			columns: [],
+			status: 'loading',
 			visibleColumnKeys: ['myColumn'],
 		});
 
@@ -807,8 +808,7 @@ describe('DatasourceTableView', () => {
 	);
 
 	describe('resolved results with unavailable columns', () => {
-		it('shows column recovery instructions without refresh when the gate is enabled', () => {
-			passGate('platform_datasource_missing_columns_error');
+		it('shows column recovery instructions without refresh', () => {
 			const { queryByTestId } = setup({ columns: [] });
 
 			expect(asMock(LoadingError).mock.calls[0][0]).toEqual(
@@ -821,16 +821,9 @@ describe('DatasourceTableView', () => {
 			expect(asMock(LoadingError).mock.calls[0][0].onRefresh).toBeUndefined();
 		});
 
-		it('preserves the skeleton when the gate is disabled', () => {
-			failGate('platform_datasource_missing_columns_error');
-			const { getByTestId } = setup({ columns: [] });
-			expect(getByTestId('datasource-table-view-skeleton')).toBeInTheDocument();
-		});
-
 		it.each<DatasourceTableStatusType>(['empty', 'loading'])(
 			'keeps loading while status is %s',
 			(status) => {
-				passGate('platform_datasource_missing_columns_error');
 				const { getByTestId, queryByText } = setup({ columns: [], status });
 				expect(getByTestId('datasource-table-view-skeleton')).toBeInTheDocument();
 				expect(queryByText('Unable to load items')).not.toBeInTheDocument();

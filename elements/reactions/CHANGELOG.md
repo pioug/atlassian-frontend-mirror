@@ -1,5 +1,37 @@
 # @atlaskit/reactions
 
+## 37.9.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.9.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.9.1
+
+### Patch Changes
+
+- [`f59544057152b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f59544057152b) -
+  Remove the fully rolled-out reactions selector list experiment.
+- Updated dependencies
+
+## 37.9.0
+
+### Minor Changes
+
+- [`63508af3e9b36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/63508af3e9b36) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 37.8.1
 
 ### Patch Changes

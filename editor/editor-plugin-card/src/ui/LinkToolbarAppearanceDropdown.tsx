@@ -2,6 +2,8 @@ import React from 'react';
 
 import type { IntlShape } from 'react-intl';
 
+import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';
+import { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-item-group';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import { ACTION, INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import { appearancePropsMap } from '@atlaskit/editor-common/card';
@@ -213,11 +215,26 @@ export const LinkAppearanceMenu = ({
 	}
 
 	// TODO: ED-26961 - this implementation does not support change boarding via pulse
+	const useNewMenu = fg('platform-dst-new-menu');
+	const ItemGroup = useNewMenu ? DropdownItemGroup : Section;
 	return (
-		<MenuGroup>
-			<Section>
+		<MenuGroup role={useNewMenu ? 'menu' : undefined}>
+			<ItemGroup>
 				{finalOptions.map((option) => {
-					const item = (
+					const item = useNewMenu ? (
+						<DropdownItem
+							key={option.title}
+							elemBefore={option.icon}
+							// eslint-disable-next-line @atlassian/perf-linting/detect-unnecessary-rerenders, @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+							onClick={() => option.onClick()}
+							isSelected={option.selected}
+							isDisabled={showUnsupportedOptionsDisabled && option.disabled}
+							description={option.description}
+							shouldDescriptionWrap={true}
+						>
+							{option.title}
+						</DropdownItem>
+					) : (
 						<ButtonItem
 							key={option.title}
 							iconBefore={option.icon}
@@ -247,17 +264,27 @@ export const LinkAppearanceMenu = ({
 					inputMethod={INPUT_METHOD.FLOATING_TB}
 					dispatchCommand={dispatchCommand}
 				/>
-			</Section>
+			</ItemGroup>
 			{'href' in settingsConfig && settingsConfig.href && (
-				<Section hasSeparator>
-					<LinkItem
-						iconBefore={Icon && <Icon label="Settings" />}
-						href={settingsConfig.href}
-						target={'target' in settingsConfig ? settingsConfig.target : undefined}
-					>
-						{intl.formatMessage(linkToolbarMessages.preferencesLink)}
-					</LinkItem>
-				</Section>
+				<ItemGroup hasSeparator>
+					{useNewMenu ? (
+						<DropdownItem
+							elemBefore={Icon && <Icon label="Settings" />}
+							href={settingsConfig.href}
+							target={'target' in settingsConfig ? settingsConfig.target : undefined}
+						>
+							{intl.formatMessage(linkToolbarMessages.preferencesLink)}
+						</DropdownItem>
+					) : (
+						<LinkItem
+							iconBefore={Icon && <Icon label="Settings" />}
+							href={settingsConfig.href}
+							target={'target' in settingsConfig ? settingsConfig.target : undefined}
+						>
+							{intl.formatMessage(linkToolbarMessages.preferencesLink)}
+						</LinkItem>
+					)}
+				</ItemGroup>
 			)}
 		</MenuGroup>
 	);

@@ -35,7 +35,6 @@ import {
 	getSelectionStyles,
 	hideNativeBrowserTextSelectionStyles,
 } from '@atlaskit/editor-shared-styles/selection/utils';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
@@ -347,12 +346,8 @@ const baseTableStylesWithoutSharedStyle = (props: {
 	${rangeSelectionStylesForFakeBorders};
 	${viewModeSortStyles()};
 
-	${
-		isExperimentEnabled('platform_editor_sticky_headers_zindex')
-			? `.${ClassName.TABLE_CONTAINER} {
-			--ak-editor-table-resize-handle-z-index: ${getTableZIndexes().mediaResizeHandle};
-		}`
-			: ''
+	.${ClassName.TABLE_CONTAINER} {
+		--ak-editor-table-resize-handle-z-index: ${getTableZIndexes().mediaResizeHandle};
 	}
 
 	${

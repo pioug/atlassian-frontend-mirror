@@ -67,7 +67,6 @@ describe('Extension - canUseCustomLayout behavior with rendererAppearance', () =
 	it('uses breakout sizing when extension resizing is enabled', () => {
 		mockExpEnabled('platform_editor_lovability_resize_extensions');
 
-		mockExpEnabled('platform_editor_lovability_resize_exts_patch_1');
 		passGate('platform_editor_lovability_resize_exts_gracefully');
 
 		const schema = getSchemaBasedOnStage('stage0');
@@ -82,7 +81,6 @@ describe('Extension - canUseCustomLayout behavior with rendererAppearance', () =
 	it('uses breakout sizing when extension resizing is disabled', () => {
 		mockExpDisabled('platform_editor_lovability_resize_extensions');
 
-		mockExpEnabled('platform_editor_lovability_resize_exts_patch_1');
 		passGate('platform_editor_lovability_resize_exts_gracefully');
 
 		const schema = getSchemaBasedOnStage('stage0');
@@ -240,7 +238,6 @@ describe('BodiedExtension - passes rendererAppearance to renderExtension', () =>
 		mockExpEnabled('platform_editor_lovability_resize_extensions');
 
 		passGate('platform_editor_lovability_resize_exts_gracefully');
-		mockExpEnabled('platform_editor_lovability_resize_exts_patch_1');
 
 		const schema = getSchemaBasedOnStage('stage0');
 		const marks = [schema.marks.breakout.create({ mode: 'wide', width: 900 })];
@@ -260,7 +257,6 @@ describe('BodiedExtension - passes rendererAppearance to renderExtension', () =>
 		mockExpDisabled('platform_editor_lovability_resize_extensions');
 
 		passGate('platform_editor_lovability_resize_exts_gracefully');
-		mockExpEnabled('platform_editor_lovability_resize_exts_patch_1');
 
 		const schema = getSchemaBasedOnStage('stage0');
 		const marks = [schema.marks.breakout.create({ mode: 'wide', width: 900 })];

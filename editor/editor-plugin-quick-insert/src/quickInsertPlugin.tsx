@@ -149,7 +149,10 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 	const openElementBrowser =
 		(options?: OpenElementBrowserOptions): EditorCommand =>
 		({ tr }) => {
-			if (fg('platform_editor_ease_of_use_metrics')) {
+			if (
+				fg('platform_editor_ease_of_use_metrics') &&
+				!fg('platform_editor_fix_slash_menu_ease_of_use_metrics')
+			) {
 				api?.metrics?.commands.handleIntentToStartEdit({
 					shouldStartTimer: false,
 					shouldPersistActiveSession: true,
@@ -298,7 +301,10 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 		commands: {
 			openElementBrowser,
 			openElementBrowserModal: ({ tr }) => {
-				if (fg('platform_editor_ease_of_use_metrics')) {
+				if (
+					fg('platform_editor_ease_of_use_metrics') &&
+					!fg('platform_editor_fix_slash_menu_ease_of_use_metrics')
+				) {
 					api?.metrics?.commands.handleIntentToStartEdit({
 						shouldStartTimer: false,
 						shouldPersistActiveSession: true,

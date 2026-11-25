@@ -31,7 +31,6 @@
 	"sideEffects": [
 		"*.compiled.css"
 	],
-	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
 		"./component-with-condition": "./src/utils/component-with-condition/index.tsx",

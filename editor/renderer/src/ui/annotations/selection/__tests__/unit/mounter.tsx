@@ -11,6 +11,8 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics/types/enums';
+import { createAnnotationManager } from '@atlaskit/editor-common/annotation';
+import type { AnnotationManager } from '@atlaskit/editor-common/annotation';
 import type {
 	AnnotationActionResult,
 	InlineCommentSelectionComponentProps,
@@ -19,6 +21,8 @@ import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { passGate, failGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { render } from '@atlassian/testing-library/testing-library/react';
@@ -26,6 +30,7 @@ import { render } from '@atlassian/testing-library/testing-library/react';
 import type { ApplyAnnotation } from '../../../../../actions/index';
 import type RendererActions from '../../../../../actions/index';
 import { RendererContext } from '../../../../RendererActionsContext';
+import { AnnotationManagerProvider } from '../../../contexts/AnnotationManagerContext';
 import { updateWindowSelectionAroundDraft } from '../../../draft/dom';
 import type { Position } from '../../../types';
 import { SelectionInlineCommentMounter } from '../../mounter';
@@ -49,10 +54,12 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 		fakeDocumentPosition = { from: 0, to: 10 },
 		isAnnotationAllowed = true,
 		actionsDoc,
+		annotationManager,
 		hasValidAnnotationRange = true,
 		hasRangeAnnotatable = true,
 	}: {
 		actionsDoc?: PMNode;
+		annotationManager?: AnnotationManager;
 		fakeDocumentPosition?: Position | false;
 		hasRangeAnnotatable?: boolean;
 		hasValidAnnotationRange?: boolean;
@@ -85,17 +92,19 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 
 		render(
 			<RendererContext.Provider value={actions}>
-				<SelectionInlineCommentMounter
-					range={document.createRange()}
-					draftRange={null}
-					wrapperDOM={wrapperDOM}
-					onClose={fakeOnCloseProp}
-					component={DummyComponent}
-					documentPosition={fakeDocumentPosition}
-					isAnnotationAllowed={isAnnotationAllowed}
-					applyAnnotation={fakeApplyAnnotation as ApplyAnnotation}
-					createAnalyticsEvent={fakeCreateAnalyticsEvent}
-				/>
+				<AnnotationManagerProvider annotationManager={annotationManager}>
+					<SelectionInlineCommentMounter
+						range={document.createRange()}
+						draftRange={null}
+						wrapperDOM={wrapperDOM}
+						onClose={fakeOnCloseProp}
+						component={DummyComponent}
+						documentPosition={fakeDocumentPosition}
+						isAnnotationAllowed={isAnnotationAllowed}
+						applyAnnotation={fakeApplyAnnotation as ApplyAnnotation}
+						createAnalyticsEvent={fakeCreateAnalyticsEvent}
+					/>
+				</AnnotationManagerProvider>
 			</RendererContext.Provider>,
 			{ container: container! },
 		);
@@ -107,6 +116,7 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 	};
 
 	beforeEach(() => {
+		fakeApplyAnnotation.mockReturnValue({});
 		container = document.createElement('div');
 		document.body.appendChild(container);
 		createRangeMock = jest.spyOn(document, 'createRange');
@@ -125,6 +135,83 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 		it('should render the prop component', () => {
 			renderMounter();
 			expect(document.querySelector('[data-dummy]')).not.toBeNull();
+		});
+	});
+
+	describe('native selection ownership', () => {
+		let runFrame: FrameRequestCallback | undefined;
+		let animationFrameMock: jest.SpyInstance;
+		let text: Text;
+
+		const select = (from: number, to: number) => {
+			const range = document.createRange();
+			range.setStart(text, from);
+			range.setEnd(text, to);
+			window.getSelection()!.removeAllRanges();
+			window.getSelection()!.addRange(range);
+		};
+
+		beforeEach(() => {
+			runFrame = undefined;
+			animationFrameMock = jest.spyOn(window, 'requestAnimationFrame').mockImplementation((cb) => {
+				runFrame = cb;
+				return 1;
+			});
+		});
+
+		afterEach(() => {
+			animationFrameMock.mockRestore();
+			window.getSelection()!.removeAllRanges();
+		});
+
+		const startDraft = ({ withNativeSelection = true } = {}) => {
+			const { applyDraftModeCallback } = renderMounter();
+			text = document.createTextNode('First target and second target');
+			container!.appendChild(text);
+			window.getSelection()!.removeAllRanges();
+			if (withNativeSelection) {
+				select(0, 5);
+			}
+			act(() => {
+				applyDraftModeCallback({ annotationId: 'draft', keepNativeSelection: false });
+			});
+		};
+
+		it('clears the native selection synchronously without scheduling a frame', () => {
+			mockExpEnabled('platform_editor_annotation_selection_ownership');
+			startDraft();
+
+			expect(window.getSelection()!.rangeCount).toBe(0);
+			expect(animationFrameMock).not.toHaveBeenCalled();
+		});
+
+		it('preserves a newer selection made after drafting starts', () => {
+			mockExpEnabled('platform_editor_annotation_selection_ownership');
+			startDraft();
+			select(17, 23);
+
+			expect(animationFrameMock).not.toHaveBeenCalled();
+			expect(window.getSelection()!.toString()).toBe('second');
+		});
+
+		it('preserves a selection created after drafting without a native selection', () => {
+			mockExpEnabled('platform_editor_annotation_selection_ownership');
+			startDraft({ withNativeSelection: false });
+			select(17, 23);
+
+			expect(animationFrameMock).not.toHaveBeenCalled();
+			expect(window.getSelection()!.toString()).toBe('second');
+		});
+
+		it('preserves deferred selection clearing with the experiment off', () => {
+			mockExpDisabled('platform_editor_annotation_selection_ownership');
+			startDraft();
+
+			expect(window.getSelection()!.toString()).toBe('First');
+			expect(animationFrameMock).toHaveBeenCalledTimes(1);
+			select(17, 23);
+			act(() => runFrame?.(0));
+			expect(window.getSelection()!.rangeCount).toBe(0);
 		});
 	});
 
@@ -155,6 +242,7 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 
 		describe('when keepNativeSelection is false', () => {
 			it('should remove the native selection in the next animation frame', (done) => {
+				mockExpDisabled('platform_editor_annotation_selection_ownership');
 				const onSelectionMock = jest.spyOn(window, 'getSelection');
 				const removeAllRangesMock = jest.fn();
 				(onSelectionMock as any).mockReturnValue({
@@ -300,6 +388,119 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 				},
 				eventType: EVENT_TYPE.TRACK,
 			});
+		});
+	});
+
+	describe('draft failure diagnostics', () => {
+		it.each([
+			{
+				fakeDocumentPosition: false as const,
+				isAnnotationAllowed: true,
+				reason: 'document-position-missing',
+			},
+			{
+				fakeDocumentPosition: { from: 0, to: 10 },
+				isAnnotationAllowed: false,
+				reason: 'annotation-not-allowed',
+			},
+		])('reports $reason without changing the return value', ({ reason, ...props }) => {
+			const onFailure = jest.fn();
+			const { applyDraftModeCallback } = renderMounter(props);
+
+			expect(applyDraftModeCallback({ annotationId: 'draft-id', onFailure })).toBe(false);
+			expect(onFailure).toHaveBeenCalledTimes(1);
+			expect(onFailure).toHaveBeenCalledWith({
+				reason,
+				hasDocumentPosition: !!props.fakeDocumentPosition,
+				isAnnotationAllowed: props.isAnnotationAllowed,
+				hasRange: true,
+				rangeCollapsed: true,
+				inlineNodeTypes: undefined,
+			});
+			expect(fakeApplyAnnotation).not.toHaveBeenCalled();
+		});
+
+		it('preserves rejection when no diagnostic callback is provided', () => {
+			const { applyDraftModeCallback } = renderMounter({ isAnnotationAllowed: false });
+
+			expect(applyDraftModeCallback({ annotationId: 'draft-id' })).toBe(false);
+			expect(fakeApplyAnnotation).not.toHaveBeenCalled();
+		});
+
+		it('reports a missing annotation ID', () => {
+			const onFailure = jest.fn();
+			const { applyDraftModeCallback } = renderMounter();
+
+			act(() => {
+				expect(applyDraftModeCallback({ onFailure })).toBe(false);
+			});
+			expect(onFailure).toHaveBeenCalledWith(
+				expect.objectContaining({ reason: 'annotation-id-missing' }),
+			);
+			expect(fakeApplyAnnotation).not.toHaveBeenCalled();
+		});
+
+		it('reports a failed annotation application', () => {
+			fakeApplyAnnotation.mockReturnValue(false);
+			const onFailure = jest.fn();
+			const { applyDraftModeCallback } = renderMounter();
+
+			act(() => {
+				expect(applyDraftModeCallback({ annotationId: 'draft-id', onFailure })).toBe(false);
+			});
+			expect(onFailure).toHaveBeenCalledWith(
+				expect.objectContaining({ reason: 'apply-annotation-failed' }),
+			);
+			expect(fakeApplyAnnotation).toHaveBeenCalledTimes(1);
+		});
+
+		it('preserves renderer diagnostics through the manager result', () => {
+			const annotationManager = createAnnotationManager();
+			renderMounter({ annotationManager, isAnnotationAllowed: false });
+
+			expect(annotationManager.startDraft()).toEqual({
+				success: false,
+				reason: 'invalid-range',
+				diagnostics: {
+					reason: 'annotation-not-allowed',
+					hasDocumentPosition: true,
+					isAnnotationAllowed: false,
+					hasRange: true,
+					rangeCollapsed: true,
+					inlineNodeTypes: undefined,
+				},
+			});
+		});
+
+		it('preserves application failure diagnostics through the manager result', () => {
+			fakeApplyAnnotation.mockReturnValue(false);
+			const annotationManager = createAnnotationManager();
+			renderMounter({ annotationManager });
+
+			act(() => {
+				expect(annotationManager.startDraft()).toEqual({
+					success: false,
+					reason: 'invalid-range',
+					diagnostics: {
+						reason: 'apply-annotation-failed',
+						hasDocumentPosition: true,
+						isAnnotationAllowed: true,
+						hasRange: true,
+						rangeCollapsed: true,
+						inlineNodeTypes: undefined,
+					},
+				});
+			});
+		});
+
+		it('does not report failures for a successful annotation', () => {
+			const onFailure = jest.fn();
+			const { applyDraftModeCallback } = renderMounter();
+
+			act(() => {
+				expect(applyDraftModeCallback({ annotationId: 'draft-id', onFailure })).toEqual({});
+			});
+			expect(onFailure).not.toHaveBeenCalled();
 		});
 	});
 

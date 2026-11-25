@@ -207,7 +207,12 @@ export const factoryDecorations = ({
 			nodeViewPortalProviderAPI.remove(spec.key);
 		});
 
-		if (fg('platform_editor_ease_of_use_metrics')) {
+		// The type-ahead close already restarts the timer. Restarting it here dispatches a second
+		// transaction while this plugin's state is still being applied.
+		if (
+			fg('platform_editor_ease_of_use_metrics') &&
+			!fg('platform_editor_fix_slash_menu_ease_of_use_metrics')
+		) {
 			api?.core.actions.execute(api?.metrics?.commands.startActiveSessionTimer());
 		}
 		return true;

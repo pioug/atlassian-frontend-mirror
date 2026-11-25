@@ -114,7 +114,7 @@ export const standardServiceEmojis: any = getTestStandardServiceEmojis();
 export const siteServiceEmojis: () => {
 	emojis: {
 		altRepresentations: {
-			XHDPI: {
+			XXXHDPI: {
 				height: number;
 				imagePath: string;
 				width: number;

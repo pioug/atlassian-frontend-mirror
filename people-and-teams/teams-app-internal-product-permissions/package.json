@@ -21,7 +21,6 @@
 	"sideEffects": [
 		"*.compiled.css"
 	],
-	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
 		"./main": "./src/controllers/use-product-permission/main.ts",

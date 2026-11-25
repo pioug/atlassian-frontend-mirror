@@ -15,7 +15,6 @@
 	"sideEffects": [
 		"**/*.compiled.css"
 	],
-	"atlaskit:src": "src/index.ts",
 	"atlassian": {
 		"team": "Rovo Growth - Smartlinks",
 		"website": {

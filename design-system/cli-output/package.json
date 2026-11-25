@@ -10,7 +10,6 @@
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"main": "index.js",
 	"types": "dist/types/index.d.ts",
-	"atlaskit:src": "src/index.tsx",
 	"exports": {
 		".": {
 			"types": "./src/index.tsx",

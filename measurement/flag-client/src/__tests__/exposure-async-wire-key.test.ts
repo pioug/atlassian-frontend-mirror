@@ -46,6 +46,7 @@ function records(environment: FakeExposureEnvironment): OtlpLogRecord[] {
 }
 
 function attributes(environment: FakeExposureEnvironment, index = 0) {
+	// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 	return plainAttributes(records(environment)[index].attributes);
 }
 
@@ -81,7 +82,9 @@ describe('WASM admission and pre-export dedupe counts', () => {
 		await settle();
 		const request = environment.requests[0];
 		logger.clearExposureDeduplicationCache();
+		// @ts-expect-error - TS18048 - 'request' is possibly 'undefined'.
 		expect(request.init.signal?.aborted).toBe(false);
+		// @ts-expect-error - TS18048 - 'request' is possibly 'undefined'.
 		request.respond(503);
 		await settle();
 		environment.advance(2_000);
@@ -205,14 +208,17 @@ describe('WASM admission and pre-export dedupe counts', () => {
 		log();
 		environment.advance(1_000);
 		await settle();
+		// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 		const first = environment.requests[0].init.body;
 		log();
 		log();
+		// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 		environment.requests[0].respond(503);
 		await settle();
 		environment.advance(2_000);
 		await settle();
 		expect(environment.requests).toHaveLength(2);
+		// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 		expect(environment.requests[1].init.body).toBe(first);
 		expect(attributes(environment, 1)['atl.feature_flag.sdk.dedupe.item.count']).toBe(2);
 	});
@@ -386,6 +392,7 @@ describe('WASM admission and pre-export dedupe counts', () => {
 		environment.advance(1);
 		await settle();
 		expect(attributes(environment)['atl.feature_flag.sdk.dedupe.item.count']).toBe(2);
+		// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 		environment.requests[0].respond(200);
 		await settle();
 		log();
@@ -418,6 +425,7 @@ describe('WASM admission and pre-export dedupe counts', () => {
 		log(); // first key is MRU, even though this attempt is suppressed
 		environment.advance(1_000);
 		await settle();
+		// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 		environment.requests[0].respond(200);
 		await settle();
 		log({

@@ -10,7 +10,6 @@ import type {
 import type { Parameters } from '@atlaskit/editor-common/extensions/extension-parameters';
 import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import type { Mark as PMMark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { ACTION_SUBJECT } from '../../analytics/enums';
@@ -115,9 +114,7 @@ const BodiedExtensionContent = (props: React.PropsWithChildren<Props>): React.JS
 		[],
 	);
 
-	const isBreakoutResizingEnabled =
-		fg('platform_editor_lovability_resize_exts_gracefully') &&
-		isExperimentEnabled('platform_editor_lovability_resize_exts_patch_1');
+	const isBreakoutResizingEnabled = fg('platform_editor_lovability_resize_exts_gracefully');
 
 	return (
 		<ErrorBoundary

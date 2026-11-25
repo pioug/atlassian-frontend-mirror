@@ -380,14 +380,13 @@ const SmartUserPickerCustomizableExample = (): React.JSX.Element => {
 					<label htmlFor="workspaceIds">Workspace Ids (workspaceIds)</label>
 					<Textfield
 						name="workspaceIds"
-						value={state.bitbucketAttributes.workspaceIds || ''}
+						value={state.bitbucketAttributes.workspaceIds?.join(',') ?? ''}
 						onChange={(e) => {
 							setState({
 								...state,
 								bitbucketAttributes: {
 									...state.bitbucketAttributes,
-									// @ts-ignore
-									workspaceIds: e.currentTarget.value,
+									workspaceIds: e.currentTarget.value ? e.currentTarget.value.split(',') : [],
 								},
 							});
 						}}

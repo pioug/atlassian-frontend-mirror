@@ -4,6 +4,7 @@ import type {
 	AgentPresenceColor,
 } from '@atlaskit/agent-color/agent-presence-color-types';
 import { convertToInlineCss } from '@atlaskit/editor-common/css-helper';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { getStandardDeletedTextDecorationStyle } from './getStandardDeletedTextDecorationStyle';
@@ -175,8 +176,23 @@ function textAccent(color: AccentColor): string {
 	return getBrand(color)?.accentText ?? textAccentMap[color as AdsAccentColor];
 }
 
-function deletedBackground(color: AccentColor): string {
-	return getBrand(color)?.emphasisBackground ?? bgSubtlest(color);
+function mixInlineHighlight(background: string, accent: string, strength: string): string {
+	return fg('platform_editor_show_diff_background_contrast')
+		? `color-mix(in srgb, ${background}, ${accent} calc(${strength} * var(--show-diff-colored-backdrop, 0)))`
+		: background;
+}
+
+function inlineHighlightBackground(color: AccentColor, blend = false): string {
+	const background = bgSubtlest(color);
+	return blend ? mixInlineHighlight(background, bgSubtlestPressed(color), '50%') : background;
+}
+
+function deletedBackground(colors: DiffColorScheme): string {
+	const color = colors.deleteColor;
+	return (
+		getBrand(color)?.emphasisBackground ??
+		inlineHighlightBackground(color, colors.blendInlineHighlight)
+	);
 }
 
 /** Contributor tags use a bold fill with a contrasting foreground, including branded schemes. */
@@ -212,10 +228,10 @@ function deletedCellOutline(colors: DiffColorScheme): string {
 // --- Inserted content styles ---
 
 function insertedInlineBorderColor(colors: DiffColorScheme): string {
-	return colors.insertedInlineBorderTone === 'backgroundHovered'
-		? (getBrand(colors.insertColor)?.border ??
-				bgSubtlestHoveredMap[colors.insertColor as AdsAccentColor])
-		: borderAccent(colors.insertColor);
+	const accent = borderAccent(colors.insertColor);
+	return colors.blendInlineHighlight
+		? mixInlineHighlight(bgSubtlestHoveredMap[colors.insertColor as AdsAccentColor], accent, '100%')
+		: accent;
 }
 
 /** Inline inserted content — default state. */
@@ -245,7 +261,7 @@ export function buildInsertStyleInBlock(colors: DiffColorScheme): string {
 export function buildInsertStyleExtended(colors: DiffColorScheme): string {
 	const brand = getBrand(colors.insertColor);
 	return convertToInlineCss({
-		background: bgSubtlest(colors.insertColor),
+		background: inlineHighlightBackground(colors.insertColor, colors.blendInlineHighlight),
 		...(brand ? { color: brand.text } : {}),
 		borderBottom: `2px solid ${insertedInlineBorderColor(colors)}`,
 		padding: `1px 0 2px`,
@@ -267,7 +283,7 @@ export function buildInsertStyleExtendedActive(colors: DiffColorScheme): string 
 export function buildInsertStyleExtendedNoUnderline(colors: DiffColorScheme): string {
 	const brand = getBrand(colors.insertColor);
 	return convertToInlineCss({
-		background: bgSubtlest(colors.insertColor),
+		background: inlineHighlightBackground(colors.insertColor, colors.blendInlineHighlight),
 		...(brand ? { color: brand.text } : {}),
 		padding: `1px 0 2px`,
 	});
@@ -700,7 +716,7 @@ export function buildDeletedInlineContentStyleExtended(
 	const backgroundColor =
 		isActive && !isUnderlineEmphasis && colors.deletedInlineBorderTone === 'background'
 			? bgSubtlerPressed(colors.deleteActiveColor)
-			: deletedBackground(colors.deleteColor);
+			: deletedBackground(colors);
 
 	const borderColor = isUnderlineEmphasis
 		? borderAccent(colors.deleteActiveColor)
@@ -902,7 +918,7 @@ export function buildInsertedInlineStyle(
  * paints at rest, so hovering restores the appearance rather than introducing a third one.
  */
 export function getDeletedHighlightHoverColor(colors: DiffColorScheme): string {
-	return deletedBackground(colors.deleteColor);
+	return deletedBackground(colors);
 }
 
 /**

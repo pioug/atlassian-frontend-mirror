@@ -13,7 +13,6 @@
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
 	},
-	"atlaskit:src": "src/index.ts",
 	"atlassian": {
 		"team": "Design System Team",
 		"website": {

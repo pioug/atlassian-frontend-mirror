@@ -14,7 +14,6 @@ import type {
 	DatasourceDataSchema,
 } from '@atlaskit/linking-types/datasource';
 import type { AtomicActionInterface } from '@atlaskit/linking-types/datasource-actions';
-import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import * as localeMessages from '../../common/utils/locale/fetch-messages-for-locale';
 import { DatasourceExperienceIdProvider } from '../../contexts/datasource-experience-id/datasource-experience-id-provider';
@@ -162,7 +161,6 @@ describe('2-way sync', () => {
 	});
 
 	it('replaces a successful response with no columns with recovery instructions and no refresh action', async () => {
-		passGate('platform_datasource_missing_columns_error');
 		mockFetchDatasourceDataEndpoint({
 			meta: {},
 			data: {
@@ -182,7 +180,6 @@ describe('2-way sync', () => {
 	});
 
 	it('loads translated messages for the unavailable-columns error', async () => {
-		passGate('platform_datasource_missing_columns_error');
 		const loader = jest.spyOn(localeMessages, 'fetchMessagesForLocale').mockResolvedValue({
 			[missingColumnsMessages.missingColumnsTitle.id]: 'Colonnes indisponibles',
 			[missingColumnsMessages.missingColumnsDescriptionWithNames.id]:
@@ -210,7 +207,6 @@ describe('2-way sync', () => {
 	});
 
 	it('loads translated messages and preserves refresh for network errors', async () => {
-		passGate('platform_datasource_missing_columns_error');
 		const loader = jest.spyOn(localeMessages, 'fetchMessagesForLocale').mockResolvedValue({
 			[loadingErrorMessages.unableToLoadResults.id]: 'Chargement impossible',
 			[loadingErrorMessages.checkConnection.id]: 'Vérifiez votre connexion.',

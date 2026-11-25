@@ -3,6 +3,20 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { ROVO_BOOLEAN_PARAMS, ROVO_PARAM_PREFIX, ROVO_VALID_PARAMS } from './constants';
 import { type BaseRovoChatParams, type RovoChatParams, type ValidParam } from './types';
 
+// URLSearchParams has already decoded the value once. A second decode keeps live links that were
+// encoded twice working. Behind rovo_chat_params_single_decode, a value the second decode rejects,
+// such as "50% off", is read as written instead of throwing.
+const decodeRovoParamValue = (value: string): string => {
+	try {
+		return decodeURIComponent(value);
+	} catch (error) {
+		if (!fg('rovo_chat_params_single_decode')) {
+			throw error;
+		}
+		return value;
+	}
+};
+
 export const firstCharUpper = (str: string): string => str.charAt(0).toUpperCase() + str.slice(1);
 export const firstCharLower = (str: string): string => str.charAt(0).toLowerCase() + str.slice(1);
 
@@ -69,11 +83,11 @@ const processParams = (
 
 		if (options?.filter?.length) {
 			if (options.filter.includes(paramKey)) {
-				output[paramKey] = decodeURIComponent(value);
+				output[paramKey] = decodeRovoParamValue(value);
 				extracted.append(key, value);
 			}
 		} else {
-			output[paramKey] = decodeURIComponent(value);
+			output[paramKey] = decodeRovoParamValue(value);
 		}
 
 		// Remove rovoParam from processed input

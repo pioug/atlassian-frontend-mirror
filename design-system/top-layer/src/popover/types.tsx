@@ -2,7 +2,10 @@ import { type ReactNode, type RefObject } from 'react';
 
 import { type StrictXCSSProp } from '@atlaskit/css';
 
-import { type TPlacementOptions } from '../internal/resolve-placement';
+import {
+	type TAnchoredPlacementOptions,
+	type TPlacementOptions,
+} from '../internal/resolve-placement';
 import {
 	type TAriaRoleRequired,
 	type TRoleRequiringAccessibleName,
@@ -81,7 +84,7 @@ export type TPopoverForwardedProps = TPopoverBaseProps &
 		labelledBy?: string;
 	};
 
-export type { TPlacementOptions };
+export type { TAnchoredPlacementOptions, TPlacementOptions };
 
 type TPopoverBaseProps = {
 	/**
@@ -169,13 +172,12 @@ type TPopoverBaseProps = {
 	/**
 	 * Placement hint for the default directional animation.
 	 *
-	 * When `shouldAnimate` is `true`, placement is used to set CSS custom
-	 * properties (like `--ds-popover-tx`, `--ds-popover-ty`) that control the
-	 * slide direction. Has no effect without `shouldAnimate`.
+	 * When `shouldAnimate` is `true`, an adjacent edge selects the slide
+	 * direction. Overlap edges skip the built-in slide.
 	 *
 	 * This does NOT control positioning. Use `useAnchoredPopover` for that.
 	 */
-	placement?: TPlacementOptions;
+	placement?: TAnchoredPlacementOptions;
 	/**
 	 * Called after the entry animation completes (or immediately on open when
 	 * there is no animation or reduced motion is active).

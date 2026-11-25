@@ -243,9 +243,7 @@ export const renderExtension = (
 	// by default, we assume the extension is at top level, (direct child of doc node)
 	const { isTopLevel = true, rendererAppearance, fireAnalyticsEvent } = options || {};
 
-	const isBreakoutResizingEnabled =
-		fg('platform_editor_lovability_resize_exts_gracefully') &&
-		isExperimentEnabled('platform_editor_lovability_resize_exts_patch_1');
+	const isBreakoutResizingEnabled = fg('platform_editor_lovability_resize_exts_gracefully');
 
 	const isBreakoutWidth = isBreakoutResizingEnabled && hasBreakoutWidth(options.marks);
 
@@ -561,9 +559,7 @@ const ExtensionContent = ({
 		? { height: props.nodePresetHeight }
 		: {};
 
-	const isBreakoutResizingEnabled =
-		fg('platform_editor_lovability_resize_exts_gracefully') &&
-		isExperimentEnabled('platform_editor_lovability_resize_exts_patch_1');
+	const isBreakoutResizingEnabled = fg('platform_editor_lovability_resize_exts_gracefully');
 
 	return (
 		<ExtensionRenderer

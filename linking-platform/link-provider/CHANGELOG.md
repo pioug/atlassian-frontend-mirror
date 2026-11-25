@@ -1,5 +1,15 @@
 # @atlaskit/link-provider
 
+## 6.4.0
+
+### Minor Changes
+
+- [`22bcddc53a3c9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/22bcddc53a3c9) -
+  Add a `plugins` prop to `SmartCardProvider` for restricted linking features created by
+  `@atlassian/link-provider-plugins`. The provider resolves the plugins available for it, which
+  linking components read with the new `@atlaskit/link-provider/use-plugins` entry point. Plugins
+  can render their own UI, once per provider that receives them. The first plugin is `remix`.
+
 ## 6.3.0
 
 ### Minor Changes

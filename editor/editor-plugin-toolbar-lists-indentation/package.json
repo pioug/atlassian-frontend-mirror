@@ -19,7 +19,6 @@
 	"sideEffects": [
 		"**/*.compiled.css"
 	],
-	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
 		"./src/ui/toolbar-components/TaskListMenuItem": "./src/ui/toolbar-components/TaskListMenuItem.tsx",

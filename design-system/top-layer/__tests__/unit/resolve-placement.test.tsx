@@ -1,6 +1,37 @@
-import { resolvePlacement, type TPlacementOptions } from '../../src/internal/resolve-placement';
+import {
+	resolvePlacement,
+	type TPlacement,
+	type TPlacementOptions,
+} from '../../src/internal/resolve-placement';
 
 describe('resolvePlacement()', () => {
+	it.each(['overlap-start', 'overlap-center', 'overlap-end'] as const)(
+		'defaults the gap to zero for %s',
+		(edge) => {
+			expect(resolvePlacement({ placement: { edge } })).toEqual({
+				axis: 'block',
+				edge,
+				align: 'center',
+				offset: { gap: '0px', crossAxisShift: { value: '0px', direction: 'forwards' } },
+			});
+		},
+	);
+
+	it('resolves signed overlap offsets while retaining CSS lengths', () => {
+		expect(
+			resolvePlacement({
+				placement: {
+					axis: 'inline',
+					edge: 'overlap-end',
+					offset: { gap: -8, crossAxisShift: { value: 'var(--offset)', direction: 'backwards' } },
+				},
+			}).offset,
+		).toEqual({
+			gap: '-8px',
+			crossAxisShift: { value: 'var(--offset)', direction: 'backwards' },
+		});
+	});
+
 	describe('defaults', () => {
 		it('applies all defaults when given an empty placement object', () => {
 			const result = resolvePlacement({ placement: {} });
@@ -136,7 +167,7 @@ describe('resolvePlacement()', () => {
 		it('returns distinct object references on separate calls', () => {
 			const placement: TPlacementOptions = { axis: 'inline' };
 
-			const result1 = resolvePlacement({ placement });
+			const result1: TPlacement = resolvePlacement({ placement });
 			const result2 = resolvePlacement({ placement });
 
 			expect(result1).not.toBe(result2);

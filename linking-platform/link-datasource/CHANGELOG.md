@@ -1,5 +1,25 @@
 # @atlaskit/link-datasource
 
+## 7.16.1
+
+### Patch Changes
+
+- [`30e83f55f031f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/30e83f55f031f) -
+  Remove the platform_datasource_missing_columns_error feature gate. Datasource tables always show
+  the column recovery error when results resolve without any available columns.
+- Updated dependencies
+
+## 7.16.0
+
+### Minor Changes
+
+- [`2586e93a16712`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2586e93a16712) -
+  Update i18n NPM package versions for linking-platform,smart-experiences (Group 15)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.15.6
 
 ### Patch Changes

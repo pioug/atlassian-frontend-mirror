@@ -9,6 +9,7 @@ import type {
 	SurfaceContext,
 } from '@atlaskit/editor-ui-control-model/types';
 
+import { moveRemixInfographicAfterInfoPanel } from '../moveRemixInfographicAfterInfoPanel';
 import { normalizeQuickInsertMatchResult } from '../normalizeQuickInsertMatchResult';
 
 export type RegistryElementBrowserSection = { key: string };
@@ -80,22 +81,26 @@ const searchPlacements = (
 	const prioritized = matches.filter(({ priorityGroup }) => priorityGroup !== undefined);
 	const unprioritized = matches.filter(({ priorityGroup }) => priorityGroup === undefined);
 
-	return [
-		...prioritized.sort(
-			(left, right) =>
-				(right.priorityGroup ?? 0) - (left.priorityGroup ?? 0) ||
-				left.score - right.score ||
-				compareRanks(left.ranks, right.ranks) ||
-				left.registration.key.localeCompare(right.registration.key),
-		),
-		...unprioritized.sort(
-			(left, right) =>
-				(left.ranks[0] ?? 0) - (right.ranks[0] ?? 0) ||
-				left.score - right.score ||
-				compareRanks(left.ranks, right.ranks) ||
-				left.registration.key.localeCompare(right.registration.key),
-		),
-	];
+	return moveRemixInfographicAfterInfoPanel(
+		[
+			...prioritized.sort(
+				(left, right) =>
+					(right.priorityGroup ?? 0) - (left.priorityGroup ?? 0) ||
+					left.score - right.score ||
+					compareRanks(left.ranks, right.ranks) ||
+					left.registration.key.localeCompare(right.registration.key),
+			),
+			...unprioritized.sort(
+				(left, right) =>
+					(left.ranks[0] ?? 0) - (right.ranks[0] ?? 0) ||
+					left.score - right.score ||
+					compareRanks(left.ranks, right.ranks) ||
+					left.registration.key.localeCompare(right.registration.key),
+			),
+		],
+		query,
+		({ registration }) => registration.key,
+	);
 };
 
 /** Builds a view from the resolved Quick Insert registry without changing registrations. */

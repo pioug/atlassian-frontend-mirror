@@ -126,3 +126,41 @@ test('moves focus past the initial search results and resets scrolling for a nar
 	await expect(modal.getByRole('option', { name: 'Widget Connector', exact: true })).toBeVisible();
 	await expect.poll(() => scrollable.evaluate((element) => element.scrollTop)).toBe(0);
 });
+
+test('starts at the top of the results after switching categories with the mouse and keyboard', async ({
+	editor,
+}) => {
+	const modal = editor.page.getByTestId('registry-element-browser-modal');
+	const scrollable = modal.getByTestId('registry-element-browser-modal--scrollable');
+	const categories = modal.getByTestId('registry-element-browser-categories');
+	const allCategory = categories.locator('[data-section=""]');
+	const nextCategory = categories.locator('[data-section=""] + [data-section]');
+	const resultsCount = modal.getByText(/^\d+ results available$/u);
+	const firstRow = modal.locator('[data-virtual-row="0"]');
+	const scrollToEnd = () =>
+		expect
+			.poll(async () => {
+				await scrollable.evaluate((element) => {
+					element.scrollTop = element.scrollHeight;
+				});
+				return firstRow.count();
+			})
+			.toBe(0);
+
+	await modal.getByRole('button', { name: 'Embed', exact: true }).click();
+	await expect(resultsCount).toHaveText(/^(?:[3-9]\d|\d{3}) results available$/u);
+	await scrollToEnd();
+
+	// All is taller than the viewport, so scroll clamping cannot hide a missing reset.
+	await allCategory.click();
+	await expect(allCategory).toHaveAttribute('aria-pressed', 'true');
+	await expect.poll(() => scrollable.evaluate((element) => element.scrollTop)).toBe(0);
+	await expect(firstRow).toBeInViewport();
+
+	await scrollToEnd();
+	await allCategory.press('ArrowDown');
+	await expect(nextCategory).toHaveAttribute('aria-pressed', 'true');
+	await expect(nextCategory).toBeFocused();
+	await expect.poll(() => scrollable.evaluate((element) => element.scrollTop)).toBe(0);
+	await expect(firstRow).toBeInViewport();
+});

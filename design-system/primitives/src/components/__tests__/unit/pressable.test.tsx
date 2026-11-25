@@ -1,9 +1,12 @@
 import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { bind } from 'bind-event-listener';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
+import InteractionContext from '@atlaskit/interaction-context';
 
 import { xcss } from '../../../xcss/xcss';
 import Pressable from '../../pressable';
@@ -26,6 +29,53 @@ const pressableStyles = xcss({
 
 // eslint-disable-next-line @atlassian/a11y/require-jest-coverage
 describe('Pressable', () => {
+	it.each([
+		{ interactionName: 'pressable-test', interactionUseClickCapture: undefined },
+		{ interactionName: 'pressable-test', interactionUseClickCapture: true },
+		{ interactionName: undefined, interactionUseClickCapture: undefined },
+		{ interactionName: undefined, interactionUseClickCapture: true },
+	])(
+		'traces once with interactionName=$interactionName and interactionUseClickCapture=$interactionUseClickCapture',
+		async ({ interactionName, interactionUseClickCapture }) => {
+			const tracePress = jest.fn();
+			const onClick = jest.fn();
+			const onClickCapture = jest.fn();
+			const onNativeClick = jest.fn((event: MouseEvent) => event.timeStamp);
+			render(
+				<InteractionContext.Provider value={{ hold: jest.fn(), tracePress }}>
+					<Pressable
+						interactionName={interactionName}
+						interactionUseClickCapture={interactionUseClickCapture}
+						onClickCapture={onClickCapture}
+						onClick={onClick}
+					>
+						Open
+					</Pressable>
+				</InteractionContext.Provider>,
+			);
+			const button = screen.getByRole('button', { name: 'Open' });
+			const unbind = bind(button, { type: 'click', listener: onNativeClick });
+
+			await userEvent.setup().click(button);
+			unbind();
+
+			expect(onClickCapture).toHaveBeenCalledTimes(1);
+			expect(onClick).toHaveBeenCalledTimes(1);
+			expect(tracePress).toHaveBeenCalledTimes(1);
+			expect(tracePress).toHaveBeenCalledWith(interactionName, onNativeClick.mock.results[0].value);
+			const nativeOrder = onNativeClick.mock.invocationCallOrder[0];
+			const traceOrder = tracePress.mock.invocationCallOrder[0];
+			const captureOrder = onClickCapture.mock.invocationCallOrder[0];
+			expect(captureOrder).toBeLessThan(nativeOrder);
+			expect(onClick.mock.invocationCallOrder[0]).toBeGreaterThan(nativeOrder);
+			if (interactionUseClickCapture) {
+				expect(traceOrder).toBeLessThan(captureOrder);
+			} else {
+				expect(traceOrder).toBeGreaterThan(nativeOrder);
+			}
+		},
+	);
+
 	it('should render with a given test id', () => {
 		render(<Pressable testId={testId}>Pressable with testid</Pressable>);
 

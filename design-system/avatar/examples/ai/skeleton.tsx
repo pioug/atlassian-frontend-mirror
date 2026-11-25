@@ -6,7 +6,7 @@ const Examples = (): React.JSX.Element => (
 	<>
 		<Skeleton size="xxlarge" />
 		<Skeleton size="large" appearance="circle" />
-		<Skeleton size="small" appearance="hexagon" weight="normal" color="blue" />
+		<Skeleton size="small" appearance="hexagon" weight="normal" />
 	</>
 );
 export default Examples;

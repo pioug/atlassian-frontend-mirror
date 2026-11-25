@@ -7,7 +7,7 @@ import {
 
 export const mediaServiceEmoji: {
 	altRepresentations: {
-		XHDPI: {
+		XXXHDPI: {
 			height: number;
 			imagePath: 'https://media.example.com/alt-path-to-image.png';
 			width: number;
@@ -40,7 +40,7 @@ export const mediaServiceEmoji: {
 		height: 24,
 	},
 	altRepresentations: {
-		XHDPI: {
+		XXXHDPI: {
 			imagePath: mediaEmojiAlternateImagePath,
 			width: 48,
 			height: 48,

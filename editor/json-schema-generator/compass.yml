@@ -23,19 +23,19 @@ links:
 customFields:
   - name: Department
     type: text
-    value: Eng - Editor Collaboration Platform
+    value: Editor Developers
   - name: Trusted Reviewer Teams
     type: text
     value: ari:cloud:identity::team/cf6a670b-5252-4c68-a769-9207de366beb
   - name: Technical Owner
     type: user
-    value: ari:cloud:identity::user/712020:d2fbbbd7-fd7c-4d3a-9f0a-7a97b6b26e40 # Michael Kimpton
+    value: ari:cloud:identity::user/5ea93c14a4c57d0b8bd65a16 # Anand Raj
   - name: Required Reviewers Opt In
     type: boolean
     value: true
   - name: Reviewer Selection Mechanism
     type: text
-    value: random(2)
+    value: randomTZIgnored(2)
   - name: Required Reviewer Approvals
     type: number
     value: 1

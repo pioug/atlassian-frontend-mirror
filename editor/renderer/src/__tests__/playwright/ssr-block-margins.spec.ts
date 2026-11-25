@@ -93,111 +93,100 @@ function measureStreamingSiblings(element: HTMLElement) {
 }
 
 for (const staticCssEnabled of [false, true]) {
-	for (const headingExperimentEnabled of [false, true]) {
-		test.describe(`SSR block margins: heading experiment=${headingExperimentEnabled}, static CSS=${staticCssEnabled}`, () => {
-			test.use({
-				adf,
-				editorExperiments: {
-					platform_editor_copy_link_a11y_inconsistency_fix: headingExperimentEnabled,
-				},
-			});
+	test.describe(`SSR block margins: static CSS=${staticCssEnabled}`, () => {
+		test.use({ adf });
 
-			test.beforeEach(async ({ page }) => {
-				// The examples website reads Platform experiment overrides before mounting.
-				await page.addInitScript((enabled) => {
-					const url = new URL(window.location.href);
-					url.searchParams.set(
-						'platformExperimentOverrides',
-						JSON.stringify({
-							platform_editor_renderer_static_css: { isEnabled: enabled },
-						}),
-					);
-					window.history.replaceState(null, '', url);
-				}, staticCssEnabled);
-			});
-
-			test('keeps code block spacing stable across renderer contexts', async ({ renderer }) => {
-				await renderer.waitForRendererStable();
-				const blocks = renderer.page.locator('.ak-renderer-document .code-block');
-				await expect(blocks).toHaveCount(9);
-				for (const block of await blocks.all()) {
-					const text = await block.locator('code').textContent();
-					const followsContent = text?.includes('after-content');
-					const measurements = await block.evaluate(measureStreamingSiblings);
-					expect(measurements.client.marginTop, text ?? '').toBe(followsContent ? '12px' : '0px');
-					expect(measurements.singleStyle.marginTop, text ?? '').toBe(
-						followsContent ? '12px' : '0px',
-					);
-					expect(measurements.streamed.marginTop, text ?? '').toBe(followsContent ? '12px' : '0px');
-					expect(measurements.hydrated).toEqual(measurements.client);
-					expect(measurements.afterContent.marginTop).toBe('12px');
-				}
-			});
-
-			test('measures breakout geometry before and after SSR sibling relocation', async ({
-				renderer,
-			}) => {
-				await renderer.waitForRendererStable();
-				const blocks = renderer.page.locator(
-					'.ak-renderer-sticky-safe-breakout-inner > .code-block',
+		test.beforeEach(async ({ page }) => {
+			// The examples website reads Platform experiment overrides before mounting.
+			await page.addInitScript((enabled) => {
+				const url = new URL(window.location.href);
+				url.searchParams.set(
+					'platformExperimentOverrides',
+					JSON.stringify({
+						platform_editor_renderer_static_css: { isEnabled: enabled },
+					}),
 				);
-				await expect(blocks).toHaveCount(2);
-				for (const block of await blocks.all()) {
-					const measurements = await block.evaluate(measureStreamingSiblings);
-					for (const before of [measurements.singleStyle, measurements.streamed]) {
-						expect(before.top - measurements.hydrated.top).toBe(0);
-						expect(before.parentHeight - measurements.hydrated.parentHeight).toBe(0);
-						expect(before.height).toBe(measurements.hydrated.height);
-					}
-				}
-			});
-
-			test('preserves the shared media group and lightweight code block margin contracts', async ({
-				renderer,
-			}) => {
-				await renderer.waitForRendererStable();
-				// These small DOM fixtures isolate the shared spacing rules from media loading
-				// and viewport-triggered replacement of lightweight code blocks.
-				const fixtures = await renderer.page.locator('.ak-renderer-document').evaluate((doc) => {
-					const hosts: HTMLElement[] = [];
-					for (const layout of [false, true]) {
-						const host = document.createElement('div');
-						if (layout) host.setAttribute('data-layout-section', 'true');
-						const group = document.createElement('div');
-						group.className = 'MediaGroup';
-						group.textContent = 'Media group content';
-						host.appendChild(group);
-						doc.appendChild(host);
-						hosts.push(host);
-					}
-					const lightweight = document.createElement('div');
-					lightweight.className = 'light-weight-code-block';
-					const block = document.createElement('div');
-					block.className = 'code-block';
-					block.textContent = 'Lightweight code block';
-					lightweight.appendChild(block);
-					doc.appendChild(lightweight);
-					hosts.push(lightweight);
-					hosts.forEach((host, index) =>
-						host.setAttribute('data-ssr-margin-fixture', String(index)),
-					);
-					return hosts.length;
-				});
-				for (let index = 0; index < fixtures; index++) {
-					const block = renderer.page.locator(`[data-ssr-margin-fixture="${index}"] > div`);
-					const measurements = await block.evaluate(measureStreamingSiblings);
-					const lightweight = index === 2;
-					expect(measurements.client.marginTop).toBe(lightweight ? '12px' : '0px');
-					for (const before of [measurements.singleStyle, measurements.streamed]) {
-						expect(before.marginTop).toBe(lightweight ? '12px' : '0px');
-					}
-					expect(measurements.hydrated).toEqual(measurements.client);
-					expect(measurements.afterContent.marginTop).toBe('12px');
-				}
-				await renderer.page
-					.locator('[data-ssr-margin-fixture]')
-					.evaluateAll((hosts) => hosts.forEach((host) => host.remove()));
-			});
+				window.history.replaceState(null, '', url);
+			}, staticCssEnabled);
 		});
-	}
+
+		test('keeps code block spacing stable across renderer contexts', async ({ renderer }) => {
+			await renderer.waitForRendererStable();
+			const blocks = renderer.page.locator('.ak-renderer-document .code-block');
+			await expect(blocks).toHaveCount(9);
+			for (const block of await blocks.all()) {
+				const text = await block.locator('code').textContent();
+				const followsContent = text?.includes('after-content');
+				const measurements = await block.evaluate(measureStreamingSiblings);
+				expect(measurements.client.marginTop, text ?? '').toBe(followsContent ? '12px' : '0px');
+				expect(measurements.singleStyle.marginTop, text ?? '').toBe(
+					followsContent ? '12px' : '0px',
+				);
+				expect(measurements.streamed.marginTop, text ?? '').toBe(followsContent ? '12px' : '0px');
+				expect(measurements.hydrated).toEqual(measurements.client);
+				expect(measurements.afterContent.marginTop).toBe('12px');
+			}
+		});
+
+		test('measures breakout geometry before and after SSR sibling relocation', async ({
+			renderer,
+		}) => {
+			await renderer.waitForRendererStable();
+			const blocks = renderer.page.locator('.ak-renderer-sticky-safe-breakout-inner > .code-block');
+			await expect(blocks).toHaveCount(2);
+			for (const block of await blocks.all()) {
+				const measurements = await block.evaluate(measureStreamingSiblings);
+				for (const before of [measurements.singleStyle, measurements.streamed]) {
+					expect(before.top - measurements.hydrated.top).toBe(0);
+					expect(before.parentHeight - measurements.hydrated.parentHeight).toBe(0);
+					expect(before.height).toBe(measurements.hydrated.height);
+				}
+			}
+		});
+
+		test('preserves the shared media group and lightweight code block margin contracts', async ({
+			renderer,
+		}) => {
+			await renderer.waitForRendererStable();
+			// These small DOM fixtures isolate the shared spacing rules from media loading
+			// and viewport-triggered replacement of lightweight code blocks.
+			const fixtures = await renderer.page.locator('.ak-renderer-document').evaluate((doc) => {
+				const hosts: HTMLElement[] = [];
+				for (const layout of [false, true]) {
+					const host = document.createElement('div');
+					if (layout) host.setAttribute('data-layout-section', 'true');
+					const group = document.createElement('div');
+					group.className = 'MediaGroup';
+					group.textContent = 'Media group content';
+					host.appendChild(group);
+					doc.appendChild(host);
+					hosts.push(host);
+				}
+				const lightweight = document.createElement('div');
+				lightweight.className = 'light-weight-code-block';
+				const block = document.createElement('div');
+				block.className = 'code-block';
+				block.textContent = 'Lightweight code block';
+				lightweight.appendChild(block);
+				doc.appendChild(lightweight);
+				hosts.push(lightweight);
+				hosts.forEach((host, index) => host.setAttribute('data-ssr-margin-fixture', String(index)));
+				return hosts.length;
+			});
+			for (let index = 0; index < fixtures; index++) {
+				const block = renderer.page.locator(`[data-ssr-margin-fixture="${index}"] > div`);
+				const measurements = await block.evaluate(measureStreamingSiblings);
+				const lightweight = index === 2;
+				expect(measurements.client.marginTop).toBe(lightweight ? '12px' : '0px');
+				for (const before of [measurements.singleStyle, measurements.streamed]) {
+					expect(before.marginTop).toBe(lightweight ? '12px' : '0px');
+				}
+				expect(measurements.hydrated).toEqual(measurements.client);
+				expect(measurements.afterContent.marginTop).toBe('12px');
+			}
+			await renderer.page
+				.locator('[data-ssr-margin-fixture]')
+				.evaluateAll((hosts) => hosts.forEach((host) => host.remove()));
+		});
+	});
 }

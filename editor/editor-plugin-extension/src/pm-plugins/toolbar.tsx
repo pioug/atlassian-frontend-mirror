@@ -133,11 +133,7 @@ const getToolbarLayout = (node: PMNode) => {
 	let { layout } = node.attrs;
 	let isCustomWidth = false;
 	const hasBreakoutMark = node.marks.some((mark) => mark.type.name === 'breakout');
-	if (
-		fg('platform_editor_lovability_resize_exts_gracefully') &&
-		isExperimentEnabled('platform_editor_lovability_resize_exts_patch_1') &&
-		hasBreakoutMark
-	) {
+	if (fg('platform_editor_lovability_resize_exts_gracefully') && hasBreakoutMark) {
 		// a custom width leaves the presets unselected and uses the 'Custom width' dropdown label
 		const matchedLayout = getExtensionLayout(node);
 		isCustomWidth = matchedLayout === null;

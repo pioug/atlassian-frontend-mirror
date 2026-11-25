@@ -42,7 +42,6 @@
 	"sideEffects": [
 		"**/*.compiled.css"
 	],
-	"atlaskit:src": "src/index.tsx",
 	"exports": {
 		".": "./src/index.tsx",
 		"./focus-ring": "./src/focus-ring.tsx",

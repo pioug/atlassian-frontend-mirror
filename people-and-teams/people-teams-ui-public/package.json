@@ -29,7 +29,6 @@
 	"sideEffects": [
 		"*.compiled.css"
 	],
-	"atlaskit:src": "src/index.ts",
 	"exports": {
 		"./analytics-subcontext/store": "./src/common/utils/analytics/analytics-subcontext/store.ts",
 		"./analytics/hooks": "./src/common/utils/analytics/hooks.tsx",

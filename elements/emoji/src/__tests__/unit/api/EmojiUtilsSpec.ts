@@ -1,5 +1,3 @@
-import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
-
 import { denormaliseEmojiServiceResponse } from '../../../api/denormaliseEmojiServiceResponse';
 import { shouldUseAltRepresentation } from '../../../api/shouldUseAltRepresentation';
 import type {
@@ -15,12 +13,6 @@ import { isEmojiVariationDescription } from '../../../util/is-emoji-variation-de
 import { defaultMediaApiToken, mediaEmoji, mediaServiceEmoji } from '../_test-data';
 
 describe('EmojiUtils', () => {
-	beforeEach(() => {
-		setupEditorExperiments('test', {
-			platform_editor_emoji_default_scale: false,
-		});
-	});
-
 	describe('#denormaliseEmojiServiceResponse', () => {
 		const emojiFields = ['id', 'name', 'shortName', 'type', 'category', 'order'];
 
@@ -348,7 +340,7 @@ describe('EmojiUtils', () => {
 					width: 64,
 				},
 				altRepresentations: {
-					XHDPI: {
+					XXXHDPI: {
 						imagePath: 'https://something/something3.png',
 						height: 128,
 						width: 128,

@@ -32,7 +32,6 @@
 	"sideEffects": [
 		"*.compiled.css"
 	],
-	"atlaskit:src": "src/entry-points/team-avatar.ts",
 	"exports": {
 		".": "./src/entry-points/team-avatar.ts",
 		"./index": "./src/entry-points/team-avatar.ts",

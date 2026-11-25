@@ -1,5 +1,15 @@
 # @atlaskit/rovo-triggers
 
+## 12.19.0
+
+### Minor Changes
+
+- [`0dca4988cfa64`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0dca4988cfa64) -
+  Behind the `rovo_chat_params_single_decode` feature gate, a Rovo Chat URL parameter value that
+  fails the second decode, such as "50% off", is read as written instead of dropping every Chat
+  parameter or throwing while building a link. Values whose first decode leaves a valid escape
+  sequence, such as a pasted URL containing `%20` or `%2F`, are still decoded twice, as before.
+
 ## 12.18.0
 
 ### Minor Changes

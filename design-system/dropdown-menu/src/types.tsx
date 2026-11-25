@@ -1,6 +1,8 @@
 import {
+	type FocusEventHandler,
 	type KeyboardEvent,
 	type MouseEvent,
+	type MouseEventHandler,
 	type ReactElement,
 	type ReactNode,
 	type Ref,
@@ -327,7 +329,8 @@ export interface DropdownItemProps {
 	description?: string | JSX.Element;
 
 	/**
-	 * Makes the element appear disabled. This will remove interactivity and the item won't appear in the focus order.
+	 * Makes the element appear disabled, removes interactivity, and skips it in the focus order.
+	 * Only applies when rendering as a button.
 	 */
 	isDisabled?: boolean;
 
@@ -349,6 +352,11 @@ export interface DropdownItemProps {
 	 * Event that is triggered when the element is clicked.
 	 */
 	onClick?: (e: MouseEvent | KeyboardEvent) => void;
+
+	onBlur?: FocusEventHandler<HTMLElement>;
+	onFocus?: FocusEventHandler<HTMLElement>;
+	onMouseEnter?: MouseEventHandler<HTMLElement>;
+	onMouseLeave?: MouseEventHandler<HTMLElement>;
 
 	/**
 	 * Makes the element appear selected.
@@ -386,7 +394,7 @@ export interface DropdownItemProps {
 	elemAfter?: React.ReactNode;
 
 	/**
-	 * Displays keyboard shortcuts used to trigger this item.
+	 * Displays keyboard shortcuts used to trigger this item. Sets `aria-keyshortcuts` automatically unless overridden.
 	 *
 	 * This prop does not register keyboard events, it is purely to display the shortcut keys in the DropdownItem.
 	 */
@@ -396,6 +404,7 @@ export interface DropdownItemProps {
 	 * Renders the DropdownItem with a danger appearance. Use selectively for destructive actions.
 	 */
 	appearance?: 'danger';
+
 	/**
 	 * Shows a submenu indicator for custom submenu triggers. DropdownMenu triggers will automatically infer this from context so you do not need to set this prop manually. Only set it manually if you are using a trigger other than DropdownMenu trigger (e.g. Popup trigger)
 	 */
@@ -439,6 +448,8 @@ export interface DropdownItemProps {
 	 */
 	'aria-haspopup'?: TriggerProps['aria-haspopup'];
 	'aria-expanded'?: boolean;
+	'aria-checked'?: boolean;
+	'aria-keyshortcuts'?: string;
 	/**
 	 * An optional string value that specifies the role of the dropdown item.
 	 * Use this to indicate whether the item is
@@ -446,6 +457,7 @@ export interface DropdownItemProps {
 	 * If not specified, it defaults to role="menuitem".
 	 */
 	role?: string;
+	id?: string;
 }
 
 export interface DropdownItemCheckboxProps {
@@ -622,6 +634,7 @@ export interface NewDropdownItemBaseProps {
 	'aria-checked'?: boolean;
 	'aria-haspopup'?: TriggerProps['aria-haspopup'];
 	'aria-expanded'?: boolean;
+	'aria-keyshortcuts'?: string;
 }
 
 export interface NewDropdownItemProps extends NewDropdownItemBaseProps {
@@ -646,4 +659,8 @@ export interface NewDropdownItemProps extends NewDropdownItemBaseProps {
 	 * An optional name used to identify events for [React UFO (Unified Frontend Observability) press interactions](https://developer.atlassian.com/platform/ufo/react-ufo/react-ufo/getting-started/#quick-start--press-interactions). For more information, see [React UFO integration into Design System components](https://go.atlassian.com/react-ufo-dst-integration).
 	 */
 	interactionName?: string;
+	onBlur?: FocusEventHandler<HTMLElement>;
+	onFocus?: FocusEventHandler<HTMLElement>;
+	onMouseEnter?: MouseEventHandler<HTMLElement>;
+	onMouseLeave?: MouseEventHandler<HTMLElement>;
 }

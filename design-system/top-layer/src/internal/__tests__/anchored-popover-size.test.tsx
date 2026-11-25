@@ -5,7 +5,11 @@ import {
 	type TPopoverAxisSize,
 	type TPopoverWritingMode,
 } from '../anchored-popover-size';
-import { resolvePlacement, type TPlacementOptions } from '../resolve-placement';
+import {
+	resolvePlacement,
+	type TAnchoredPlacementOptions,
+	type TPlacementOptions,
+} from '../resolve-placement';
 
 /**
  * Unit coverage for the DECLARATIONS the size recipe emits.
@@ -40,7 +44,7 @@ function sizesFor({
 	writingMode = 'horizontal',
 	shouldPreserveInlineSize,
 }: {
-	placement: TPlacementOptions;
+	placement: TAnchoredPlacementOptions;
 	inlineSize?: TPopoverAxisSize;
 	blockSize?: TPopoverAxisSize;
 	isUsingCssAnchorPositioning?: boolean;
@@ -920,5 +924,22 @@ describe('the fit margins', () => {
 				marginsFor({ placement: { axis: 'block', edge: 'end', align }, crossAxisShift: '0px' }),
 			).toHaveProperty('margin-block-end', '5px');
 		}
+	});
+});
+
+describe('overlap sizing', () => {
+	it('uses the anchor floor and viewport caps without a side-dependent flip floor', () => {
+		expect(
+			sizesFor({
+				placement: { axis: 'block', edge: 'overlap-center', align: 'start' },
+				inlineSize: 'min-anchor',
+				blockSize: 'max-available',
+				anchorSize: ANCHOR,
+			}),
+		).toEqual({
+			'max-inline-size': 'calc(100dvw - 2 * 5px)',
+			'min-inline-size': 'min(anchor-size(self-inline), calc(100dvw - 2 * 5px))',
+			'max-block-size': 'calc(100dvh - 2 * 5px)',
+		});
 	});
 });

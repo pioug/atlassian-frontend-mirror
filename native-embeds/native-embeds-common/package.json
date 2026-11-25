@@ -14,7 +14,6 @@
 	"sideEffects": [
 		"*.compiled.css"
 	],
-	"atlaskit:src": "src/index.ts",
 	"exports": {
 		"./comment-support": "./src/comment-support.ts",
 		"./comment-support-store": "./src/comment-support-store.ts",

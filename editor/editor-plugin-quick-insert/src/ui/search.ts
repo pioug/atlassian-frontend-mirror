@@ -1,8 +1,11 @@
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory/quick-insert-provider';
 import { getActiveQuickInsertCategories } from '@atlaskit/editor-common/quick-insert/get-active-quick-insert-categories';
+import { INFO_PANEL_MENU_ITEM } from '@atlaskit/editor-common/quick-insert/keys';
 import { find } from '@atlaskit/editor-common/quick-insert/utils';
 import type { QuickInsertSearchOptions } from '@atlaskit/editor-common/types/quick-insert';
 import { dedupe } from '@atlaskit/editor-common/utils/dedupe';
+
+import { moveRemixInfographicAfterInfoPanel } from './moveRemixInfographicAfterInfoPanel';
 
 type GetQuickInsertSuggestions = (
 	searchOptions: QuickInsertSearchOptions,
@@ -91,13 +94,18 @@ export const getQuickInsertSuggestions: GetQuickInsertSuggestions = (
 		return items.filter((item) => item.featured);
 	}
 
-	return find(
-		query?.trimEnd() || '',
-		category === 'all' || !category
-			? items
-			: items.filter((item) =>
-					getActiveQuickInsertCategories(item.category, item.categories).includes(category),
-				),
-		prioritySortingFn,
+	const searchQuery = query?.trimEnd() || '';
+	return moveRemixInfographicAfterInfoPanel(
+		find(
+			searchQuery,
+			category === 'all' || !category
+				? items
+				: items.filter((item) =>
+						getActiveQuickInsertCategories(item.category, item.categories).includes(category),
+					),
+			prioritySortingFn,
+		),
+		searchQuery,
+		(item) => (item.id === 'infopanel' ? INFO_PANEL_MENU_ITEM.key : item.key),
 	);
 };

@@ -2,6 +2,7 @@ import React from 'react';
 
 import type { IntlShape } from 'react-intl';
 
+import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';
 import { messages } from '@atlaskit/editor-common/messages/card';
 import type { Command } from '@atlaskit/editor-common/types/command';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
@@ -12,6 +13,7 @@ import { buildDatasourceAdf } from '@atlaskit/link-datasource/utils/schema';
 import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
 import type { DatasourceAdf } from '@atlaskit/linking-common/types';
 import ButtonItem from '@atlaskit/menu/button-item';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { updateCardViaDatasource } from '../pm-plugins/doc';
 import { pluginKey } from '../pm-plugins/plugin-key';
@@ -119,17 +121,28 @@ export const DatasourceDropdownOption = ({
 		}
 	}
 
-	return (
-		<ButtonItem
-			key={intl.formatMessage(messages.datasourceAppearanceTitle)}
-			iconBefore={SmartLinkListIcon({
-				label: intl.formatMessage(messages.datasourceAppearanceTitle),
-			})}
+	const title = intl.formatMessage(messages.datasourceAppearanceTitle);
+	const icon = SmartLinkListIcon({ label: title });
+
+	return fg('platform-dst-new-menu') ? (
+		<DropdownItem
+			key={title}
+			elemBefore={icon}
 			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 			onClick={() => dispatchCommand(onChangeAppearance)}
 			isSelected={selected}
 		>
-			{intl.formatMessage(messages.datasourceAppearanceTitle)}
+			{title}
+		</DropdownItem>
+	) : (
+		<ButtonItem
+			key={title}
+			iconBefore={icon}
+			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+			onClick={() => dispatchCommand(onChangeAppearance)}
+			isSelected={selected}
+		>
+			{title}
 		</ButtonItem>
 	);
 };

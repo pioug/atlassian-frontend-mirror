@@ -15,7 +15,6 @@
 	"module": "dist/esm/index.js",
 	"module:es2019": "dist/es2019/index.js",
 	"types": "dist/types/index.d.ts",
-	"atlaskit:src": "src/index.ts",
 	"scripts": {
 		"clean:build": "rm -rf dist",
 		"build:cjs": "NODE_ENV=production BABEL_ENV=production:node-cjs babel --config-file ../adf-schema/babel.config.js src --out-dir dist/cjs -x .ts,.tsx",

@@ -1,5 +1,38 @@
 # @atlaskit/editor-core
 
+## 246.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 246.1.2
+
+### Patch Changes
+
+- [`cb0fe7777eb94`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/cb0fe7777eb94) -
+  Use CSS inheritance to improve contributor diff contrast on colored backgrounds behind
+  `platform_editor_show_diff_background_contrast` for attributed version history.
+- Updated dependencies
+
+## 246.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 246.1.0
+
+### Minor Changes
+
+- [`63508af3e9b36`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/63508af3e9b36) -
+  Update i18n NPM package versions for editor,editor-extensions,activity-platform,media,elements
+  (Group 3)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 246.0.0
 
 ### Patch Changes

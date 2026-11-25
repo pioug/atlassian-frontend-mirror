@@ -457,10 +457,9 @@ export const createNodeChangedDecorationWidget = ({
 			}
 
 			if (node.isInline) {
-				const attrOnlyNodeName =
-					isInserted && isExperimentEnabled('platform_editor_show_diff_deleted_nodeview_content')
-						? getAtomicInlineAttrOnlyNodeName(change, doc, newDoc)
-						: undefined;
+				const attrOnlyNodeName = isInserted
+					? getAtomicInlineAttrOnlyNodeName(change, doc, newDoc)
+					: undefined;
 				if (attrOnlyNodeName) {
 					// Only the node's attributes changed, so outline it as an in-place attribute change
 					// does, in place of the highlight. Its own wrapper keeps the outline clear of the node

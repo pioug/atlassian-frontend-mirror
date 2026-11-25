@@ -4,7 +4,6 @@ import type { Node as PMNode, Fragment, ResolvedPos } from '@atlaskit/editor-pro
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import { contains } from '@atlaskit/editor-prosemirror/utils';
 import type { DecorationSource, EditorView } from '@atlaskit/editor-prosemirror/view';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { createEditorProxy } from './createEditorProxy';
 import type { ColorScheme } from './decorations/colorSchemes/types';
@@ -171,22 +170,16 @@ export class NodeViewSerializer {
 			return found;
 		};
 
-		const serializeAtomicContainer =
-			isExperimentEnabled('platform_editor_show_diff_deleted_nodeview_content') &&
-			!targetNode.isInline &&
-			hasAtomicInlineChild(targetNode);
+		const serializeAtomicContainer = !targetNode.isInline && hasAtomicInlineChild(targetNode);
 
 		if (isBlocklisted && !serializeAtomicContainer) {
 			return null;
 		}
 		try {
-			// No constructor, or (gated) the node's own view is blocklisted: render the toDOM
+			// No constructor, or the node's own view is blocklisted: render the toDOM
 			// shell and recurse via appendChildNodes so nested atomic inline nodes render via
 			// their node views instead of their lossy schema toDOM.
-			if (
-				!constructor ||
-				(isExperimentEnabled('platform_editor_show_diff_deleted_nodeview_content') && isBlocklisted)
-			) {
+			if (!constructor || isBlocklisted) {
 				if (targetNode.isInline) {
 					return null;
 				}
@@ -196,16 +189,6 @@ export class NodeViewSerializer {
 				}
 				const { dom, contentDOM } = DOMSerializer.renderSpec(document, toDOMResult);
 				if (dom instanceof HTMLElement) {
-					// Legacy shortcut: a single-child paragraph serializes its inline content
-					// directly (no <p> wrapper). Applies only to a non-blocklisted paragraph with
-					// no node view
-					if (
-						!isExperimentEnabled('platform_editor_show_diff_deleted_nodeview_content') &&
-						targetNode.type.name === 'paragraph' &&
-						targetNode.children.length === 1
-					) {
-						return this.serializeFragment(targetNode.content);
-					}
 					this.appendChildNodes(
 						targetNode.children,
 						contentDOM,

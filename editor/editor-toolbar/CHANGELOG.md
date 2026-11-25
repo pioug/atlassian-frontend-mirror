@@ -1,5 +1,32 @@
 # @atlaskit/editor-toolbar
 
+## 2.11.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.11.14
+
+### Patch Changes
+
+- [`746387f100c06`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/746387f100c06) -
+  [ux] [A11Y-60443] add keyboard support to the row of highlight colors in the color picker behind
+  `platform_editor_lovability_colors_a11y_fixes`.
+- Updated dependencies
+
+## 2.11.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.11.12
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.11.11
 
 ### Patch Changes

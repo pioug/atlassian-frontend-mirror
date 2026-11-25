@@ -27,7 +27,6 @@ import {
 	removeParentNodeOfType,
 	removeSelectedNode,
 } from '@atlaskit/editor-prosemirror/utils';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { ExtensionAction, ExtensionState, RejectSave } from '../extensionPluginType';
@@ -97,10 +96,7 @@ export const updateExtensionLayout = (
 
 		if (selectedExtension) {
 			let marks = selectedExtension.node.marks;
-			if (
-				fg('platform_editor_lovability_resize_exts_gracefully') &&
-				isExperimentEnabled('platform_editor_lovability_resize_exts_patch_1')
-			) {
+			if (fg('platform_editor_lovability_resize_exts_gracefully')) {
 				const breakoutMark = marks.find((mark) => mark.type.name === 'breakout');
 				if (
 					breakoutMark &&

@@ -166,6 +166,7 @@ export class PersistentOverrideAdapter implements OverrideAdapter {
 
 		return {
 			...current,
+			// @ts-ignore - TS2322 - Type 'boolean | Record<string, unknown>' is not assignable to type 'boolean'.
 			value: overridden,
 			details: { ...current.details, reason: LOCAL_OVERRIDE_REASON },
 		};
@@ -235,7 +236,9 @@ export class PersistentOverrideAdapter implements OverrideAdapter {
 
 		return {
 			...current,
+			// @ts-ignore - TS2322 - Type 'boolean | Record<string, unknown>' is not assignable to type 'Record<string, unknown>'.
 			__value: overridden,
+			// @ts-ignore - TS2345 - Argument of type 'boolean | Record<string, unknown>' is not assignable to parameter of type 'Record<string, unknown> | undefined'.
 			get: _makeTypedGet(current.name, overridden),
 			details: { ...current.details, reason: LOCAL_OVERRIDE_REASON },
 		};
@@ -268,6 +271,7 @@ export class PersistentOverrideAdapter implements OverrideAdapter {
 		return {
 			...current,
 			value: overridden,
+			// @ts-ignore - TS2345 - Argument of type 'boolean | Record<string, unknown>' is not assignable to parameter of type 'Record<string, unknown> | undefined'.
 			get: _makeTypedGet(current.name, overridden),
 			details: { ...current.details, reason: LOCAL_OVERRIDE_REASON },
 		};

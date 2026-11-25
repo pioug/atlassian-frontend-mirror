@@ -18,18 +18,6 @@ const markdownSerializer = new MarkdownSerializer(nodes, marks);
 
 describe('BitbucketTransformer: serializer', () => {
 	describe('tables', () => {
-		it('should serialized', () => {
-			expect(
-				markdownSerializer.serialize(
-					table()(
-						tr(th({})(p('h1')), th({})(p('h2')), th({})(p('h3'))),
-						tr(td({})(p('c11')), td({})(p('c12')), td({})(p('c13'))),
-						tr(td({})(p('c21')), td({})(p('c22')), td({})(p('c23'))),
-					)(defaultSchema),
-				),
-			).toBeDefined();
-		});
-
 		it('should serialized table correctly', () => {
 			expect(
 				markdownSerializer.serialize(

@@ -26,7 +26,6 @@
 	"devDependencies": {
 		"tiny-invariant": "root:*"
 	},
-	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
 		"./drag-event-polyfill": "./src/drag-event-polyfill.ts",

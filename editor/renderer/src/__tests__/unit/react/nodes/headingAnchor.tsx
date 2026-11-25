@@ -5,7 +5,6 @@ import userEvent from '@testing-library/user-event';
 
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
-import { setupEditorExperiments } from '@atlaskit/tmp-editor-statsig/setup';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
@@ -26,12 +25,12 @@ describe('Heading Anchor', () => {
 		});
 
 		const copyLinkButton = screen.getByRole('button', {
-			name: 'Copy link to heading',
+			name: 'Copy link to',
 		});
 		expect(copyLinkButton).toBeVisible();
 
 		await userEvent.hover(copyLinkButton);
-		await waitFor(() => expect(screen.getByRole('tooltip', { name: 'Copy link to heading' })));
+		await waitFor(() => expect(screen.getByRole('tooltip', { name: 'Copy link to' })));
 	});
 
 	it('should update the tooltip with a meaningful message when the user has clicked the copy button', async () => {
@@ -41,7 +40,7 @@ describe('Heading Anchor', () => {
 
 		await userEvent.click(
 			screen.getByRole('button', {
-				name: 'Copy link to heading',
+				name: 'Copy link to',
 			}),
 		);
 
@@ -60,19 +59,19 @@ describe('Heading Anchor', () => {
 		});
 		const anchorButton = screen.getByTestId('anchor-button');
 		expect(anchorButton).toHaveAttribute('aria-hidden', 'true');
-		expect(anchorButton).not.toHaveAttribute('tabindex');
+		expect(anchorButton).toHaveAttribute('tabindex', '0');
 		expect(anchorButton).not.toHaveAttribute('aria-label');
 	});
 
-	it('when hideFromScreenReader is not provided, it should be accessible, have the correct aria-label, but not be tabbable', () => {
+	it('when hideFromScreenReader is not provided, it should be accessible, have the correct aria-label, and be tabbable', () => {
 		act(() => {
 			renderWithIntl(<HeadingAnchor level={1} onCopyText={jest.fn()} />);
 		});
 
 		const anchorButton = screen.getByTestId('anchor-button');
 		expect(anchorButton).toHaveAttribute('aria-hidden', 'false');
-		expect(anchorButton).toHaveAttribute('tabindex', '-1');
-		expect(anchorButton).toHaveAttribute('aria-label', 'Copy link to heading');
+		expect(anchorButton).toHaveAttribute('tabindex', '0');
+		expect(anchorButton).toHaveAttribute('aria-label', 'Copy link to');
 	});
 
 	describe('copy-link focus and tooltip updates', () => {
@@ -82,7 +81,7 @@ describe('Heading Anchor', () => {
 				renderWithIntl(<HeadingAnchor onCopyText={onClickHandler} level={1} />);
 			});
 
-			const copyButton = screen.getByRole('button', { name: 'Copy link to heading' });
+			const copyButton = screen.getByRole('button', { name: 'Copy link to' });
 			copyButton.focus();
 			expect(document.activeElement).toBe(copyButton);
 
@@ -100,12 +99,12 @@ describe('Heading Anchor', () => {
 			});
 
 			const copyLinkButton = screen.getByRole('button', {
-				name: 'Copy link to heading',
+				name: 'Copy link to',
 			});
 			expect(copyLinkButton).toBeVisible();
 
 			await userEvent.hover(copyLinkButton);
-			await waitFor(() => expect(screen.getByRole('tooltip', { name: 'Copy link to heading' })));
+			await waitFor(() => expect(screen.getByRole('tooltip', { name: 'Copy link to' })));
 		});
 
 		it('should update the tooltip message after copy without unmounting the button', async () => {
@@ -114,7 +113,7 @@ describe('Heading Anchor', () => {
 				renderWithIntl(<HeadingAnchor onCopyText={onClickHandler} level={1} />);
 			});
 
-			const copyButton = screen.getByRole('button', { name: 'Copy link to heading' });
+			const copyButton = screen.getByRole('button', { name: 'Copy link to' });
 			await userEvent.click(copyButton);
 
 			const copiedButton = await screen.findByRole('button', { name: 'Copied!' });
@@ -126,42 +125,33 @@ describe('Heading Anchor', () => {
 	});
 });
 
-describe.each([false, true])(
-	'heading target size with copy-link accessibility experiment %s',
-	(copyLinkA11y) => {
-		beforeEach(() => {
-			setupEditorExperiments('test', {
-				platform_editor_copy_link_a11y_inconsistency_fix: copyLinkA11y,
-			});
-		});
+describe('heading target size', () => {
+	it.each([1, 2, 3, 4, 5, 6])('provides a 24px target and copies H%s links', async (level) => {
+		mockExpEnabled('platform_editor_heading_link_target_size');
+		const onCopyText = jest.fn().mockResolvedValue(undefined);
+		renderWithIntl(<HeadingAnchor level={level} onCopyText={onCopyText} />);
+		const button = screen.getByRole('button');
+		expect(button).toHaveCompiledCss('width', '24px');
+		expect(button).toHaveCompiledCss('height', '24px');
+		const wrapper = button.closest('.heading-anchor-wrapper');
+		expect(wrapper).toHaveCompiledCss('width', '24px');
+		expect(wrapper).toHaveCompiledCss('height', '24px');
+		expect(wrapper).toHaveCompiledCss('vertical-align', 'middle');
+		const iconWrapper = screen.getByTestId('scaled-link-icon');
+		expect(iconWrapper).toHaveCompiledCss('transform', 'scale(1.5)');
+		await userEvent.click(button);
+		expect(onCopyText).toHaveBeenCalledTimes(1);
+	});
 
-		it.each([1, 2, 3, 4, 5, 6])('provides a 24px target and copies H%s links', async (level) => {
-			mockExpEnabled('platform_editor_heading_link_target_size');
-			const onCopyText = jest.fn().mockResolvedValue(undefined);
-			renderWithIntl(<HeadingAnchor level={level} onCopyText={onCopyText} />);
-			const button = screen.getByRole('button');
-			expect(button).toHaveCompiledCss('width', '24px');
-			expect(button).toHaveCompiledCss('height', '24px');
-			const wrapper = button.closest('.heading-anchor-wrapper');
-			expect(wrapper).toHaveCompiledCss('width', '24px');
-			expect(wrapper).toHaveCompiledCss('height', '24px');
-			expect(wrapper).toHaveCompiledCss('vertical-align', 'middle');
-			const iconWrapper = screen.getByTestId('scaled-link-icon');
-			expect(iconWrapper).toHaveCompiledCss('transform', 'scale(1.5)');
-			await userEvent.click(button);
-			expect(onCopyText).toHaveBeenCalledTimes(1);
-		});
-
-		it('preserves the original sizing when the target-size experiment is disabled', () => {
-			mockExpDisabled('platform_editor_heading_link_target_size');
-			renderWithIntl(<HeadingAnchor level={6} onCopyText={jest.fn()} />);
-			const button = screen.getByRole('button');
-			expect(button).not.toHaveCompiledCss('width', '24px');
-			expect(button).not.toHaveCompiledCss('height', '24px');
-			const wrapper = button.closest('.heading-anchor-wrapper');
-			expect(wrapper).not.toHaveCompiledCss('width', '24px');
-			expect(wrapper).not.toHaveCompiledCss('height', '24px');
-			expect(button).toHaveStyleDeclaration('display', 'inline');
-		});
-	},
-);
+	it('preserves the original sizing when the target-size experiment is disabled', () => {
+		mockExpDisabled('platform_editor_heading_link_target_size');
+		renderWithIntl(<HeadingAnchor level={6} onCopyText={jest.fn()} />);
+		const button = screen.getByRole('button');
+		expect(button).not.toHaveCompiledCss('width', '24px');
+		expect(button).not.toHaveCompiledCss('height', '24px');
+		const wrapper = button.closest('.heading-anchor-wrapper');
+		expect(wrapper).not.toHaveCompiledCss('width', '24px');
+		expect(wrapper).not.toHaveCompiledCss('height', '24px');
+		expect(button).toHaveStyleDeclaration('display', 'inline');
+	});
+});

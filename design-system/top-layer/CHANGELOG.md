@@ -1,5 +1,20 @@
 # @atlaskit/top-layer
 
+## 8.2.0
+
+### Minor Changes
+
+- [`2f176ea8ff558`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2f176ea8ff558) -
+  Add `overlap-start`, `overlap-center`, and `overlap-end` as placement edges. They align a popover
+  over its anchor and shift it into view without flipping. For these edges, the gap defaults to zero
+  and positive gaps move the popover toward the logical end of the placement axis. Browsers without
+  native anchor positioning and sizing use an adjacent edge.
+
+### Patch Changes
+
+- [`d2f0edbbf35c2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2f0edbbf35c2) -
+  `Dialog` resets the browser outline on its `<dialog>`, so its consumer draws the focus ring.
+
 ## 8.1.3
 
 ### Patch Changes

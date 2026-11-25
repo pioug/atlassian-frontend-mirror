@@ -70,7 +70,6 @@ import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { Box } from '@atlaskit/primitives/box';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { xcss } from '@atlaskit/primitives/xcss/xcss';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import type { Format } from './Format';
@@ -858,8 +857,6 @@ export const getSupportedFormatting = (
 		...focusTableResizeHandleFormatting(intl),
 		...newResizeInformationFormatting(intl),
 		...openCellOptionsFormattingtoFormat(intl),
-		...(expValEquals('editor-a11y-fy26-keyboard-move-row-column', 'isEnabled', true)
-			? moveTableRowColumnFormatting(intl)
-			: []),
+		...moveTableRowColumnFormatting(intl),
 	];
 };

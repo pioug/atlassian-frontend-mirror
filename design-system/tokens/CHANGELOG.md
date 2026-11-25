@@ -1,5 +1,15 @@
 # @atlaskit/tokens
 
+## 20.15.0
+
+### Minor Changes
+
+- [`36106beb60c30`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/36106beb60c30) -
+  Add `motion.floating.controls.follow.panel.enter` and `motion.floating.controls.follow.panel.exit`
+  transform transitions for floating controls that follow panel movement, including while the page
+  is busy redrawing. Consumers own the panel width, edge gap, vertical movement and visibility of
+  the control; the tokens only describe the horizontal transform transition.
+
 ## 20.14.0
 
 ### Minor Changes

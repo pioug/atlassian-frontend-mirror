@@ -31,7 +31,6 @@
 	"sideEffects": [
 		"*.compiled.css"
 	],
-	"atlaskit:src": "src/index.ts",
 	"exports": {
 		"./container-avatar": "./src/entry-points/container-avatar.tsx",
 		"./expandable-menu-item": "./src/entry-points/expandable-menu-item.tsx",

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
 import { isOfflineMode } from '@atlaskit/editor-common/connectivity/isOfflineMode';
@@ -71,6 +71,27 @@ const Modal = ({
 		}
 	}, [editorView]);
 
+	const isOpen = quickInsertState.isElementBrowserOpen || false;
+	const wasOpen = useRef(false);
+	useEffect(() => {
+		// Pause the active session once the modal has opened. This runs after the transaction
+		// that opened it, so the type-ahead closing can't resume the session straight away.
+		if (
+			isOpen &&
+			!wasOpen.current &&
+			fg('platform_editor_fix_slash_menu_ease_of_use_metrics') &&
+			fg('platform_editor_ease_of_use_metrics')
+		) {
+			api?.core.actions.execute(
+				api?.metrics?.commands.handleIntentToStartEdit({
+					shouldStartTimer: false,
+					shouldPersistActiveSession: true,
+				}),
+			);
+		}
+		wasOpen.current = isOpen;
+	}, [isOpen, api]);
+
 	// ED-19408 We not store the item ref in the state
 	// Instead of adding the item immediately on insert item
 	// We wait until modal close is complete, refocus the editor and then add the item
@@ -120,7 +141,7 @@ const Modal = ({
 			getItems={getItems}
 			onInsertItem={onInsertItem}
 			helpUrl={helpUrl}
-			isOpen={quickInsertState.isElementBrowserOpen || false}
+			isOpen={isOpen}
 			emptyStateHandler={quickInsertState.emptyStateHandler}
 			onClose={onClose}
 			onCloseComplete={onCloseComplete}

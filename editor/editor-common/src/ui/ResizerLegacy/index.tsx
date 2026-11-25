@@ -7,7 +7,6 @@ import { Resizable } from 're-resizable';
 
 import type { Layout as RichMediaLayout } from '@atlaskit/adf-schema/rich-media-common';
 import { akRichMediaResizeZIndex } from '@atlaskit/editor-shared-styles/constants';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import type { DispatchAnalyticsEvent, MediaEventPayload } from '../../analytics';
 import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '../../analytics';
@@ -206,9 +205,7 @@ export default class Resizer extends React.Component<ResizerProps, ResizerState>
 		const { isResizing } = this.state;
 
 		// Tables supply the lower value; media outside tables retains its existing layer.
-		const resizeHandleZIndex = isExperimentEnabled('platform_editor_sticky_headers_zindex')
-			? `var(--ak-editor-table-resize-handle-z-index, ${akRichMediaResizeZIndex})`
-			: akRichMediaResizeZIndex;
+		const resizeHandleZIndex = `var(--ak-editor-table-resize-handle-z-index, ${akRichMediaResizeZIndex})`;
 
 		handleSides.forEach((side) => {
 			handles[side] = `richMedia-resize-handle-${side}`;

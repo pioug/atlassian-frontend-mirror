@@ -9,7 +9,6 @@ import { FormattedList, FormattedMessage } from 'react-intl';
 
 import Button from '@atlaskit/button/standard-button';
 import AKLink from '@atlaskit/link/link';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Inline } from '@atlaskit/primitives/compiled/inline';
 import { Text } from '@atlaskit/primitives/compiled/text';
@@ -58,22 +57,19 @@ export const LoadingError = ({
 	unavailableColumnKeys = [],
 }: LoadingErrorProps): JSX.Element => {
 	const { fireEvent } = useDatasourceAnalyticsEvents();
-	const effectiveErrorType = fg('platform_datasource_missing_columns_error')
-		? errorType
-		: 'network';
 
 	useEffect(() => {
-		if (effectiveErrorType !== 'missing-columns') {
+		if (errorType !== 'missing-columns') {
 			fireEvent('ui.error.shown', {
 				reason: 'network',
 			});
 		}
-	}, [fireEvent, effectiveErrorType]);
+	}, [fireEvent, errorType]);
 
 	let title = loadingErrorMessages.unableToLoadResults;
 	let description = loadingErrorMessages.checkConnection;
 
-	switch (effectiveErrorType) {
+	switch (errorType) {
 		case 'missing-columns':
 			title = missingColumnsMessages.missingColumnsTitle;
 			description = unavailableColumnKeys.length
@@ -103,7 +99,7 @@ export const LoadingError = ({
 						<FormattedMessage
 							{...description}
 							values={{
-								...(effectiveErrorType === 'missing-columns'
+								...(errorType === 'missing-columns'
 									? { columns: <FormattedList value={unavailableColumnKeys} /> }
 									: {}),
 								a: (chunks: React.ReactNode) => (
@@ -114,7 +110,7 @@ export const LoadingError = ({
 							}}
 						/>
 					</Text>
-					{effectiveErrorType !== 'missing-columns' && onRefresh && (
+					{errorType !== 'missing-columns' && onRefresh && (
 						<Button appearance="primary" onClick={onRefresh}>
 							<FormattedMessage {...loadingErrorMessages.refresh} />
 						</Button>

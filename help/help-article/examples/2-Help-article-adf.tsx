@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import Button from '@atlaskit/button/default/button';
 import HelpArticle from '@atlaskit/help-article/HelpArticle';
 import { BODY_FORMAT_TYPES } from '@atlaskit/help-article/model/HelpArticle';
 import type { AdfDoc } from '@atlaskit/help-article/model/HelpArticle';
-import { token } from '@atlaskit/tokens';
+import { Box } from '@atlaskit/primitives/compiled/box';
 
 import { AdfDocument, AdfDocumentComplex } from './utils/mockData';
 
@@ -26,15 +26,13 @@ const dataExamples = [
 interface Props {}
 
 interface State {
-	// Article Content
 	body?: string | AdfDoc;
 	bodyFormat: BODY_FORMAT_TYPES;
 }
-// eslint-disable-next-line import/no-anonymous-default-export
-export default class extends React.Component<Props, State> {
+export default class HelpArticleAdfExample extends Component<Props, State> {
 	currentExample = 0;
 
-	constructor(props: any) {
+	constructor(props: Props) {
 		super(props);
 		this.state = dataExamples[this.currentExample];
 	}
@@ -47,8 +45,7 @@ export default class extends React.Component<Props, State> {
 
 	render(): React.JSX.Element {
 		return (
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			<div style={{ padding: token('space.100') }}>
+			<Box padding="space.100">
 				<HelpArticle
 					title="Article Title"
 					body={this.state.body}
@@ -57,7 +54,7 @@ export default class extends React.Component<Props, State> {
 				<Button type="button" onClick={() => this.changeContent()}>
 					Change content
 				</Button>
-			</div>
+			</Box>
 		);
 	}
 }

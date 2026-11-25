@@ -18,7 +18,6 @@
 	"module:es2019": "dist/es2019/provider.js",
 	"types": "dist/types/provider.d.ts",
 	"sideEffects": false,
-	"atlaskit:src": "src/provider.ts",
 	"exports": {
 		".": "./src/provider.ts",
 		"./for-cloud-id": "./src/getEmojiProviderForCloudId.ts",

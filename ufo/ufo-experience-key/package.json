@@ -5,7 +5,6 @@
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
 	},
-	"atlaskit:src": "src/index.tsx",
 	"exports": {
 		".": "./src/index.tsx"
 	},

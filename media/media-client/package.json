@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-client",
-	"version": "39.4.12",
+	"version": "39.4.16",
 	"description": "Media API Web Client Library",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -13,7 +13,6 @@
 	"module:es2019": "dist/es2019/index.js",
 	"types": "dist/types/index.d.ts",
 	"sideEffects": false,
-	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
 		"./artifacts": "./src/models/artifacts.ts",

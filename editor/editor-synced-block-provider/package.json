@@ -14,7 +14,6 @@
 	"sideEffects": [
 		"*.compiled.css"
 	],
-	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
 		"./blockService": "./src/entry-points/blockService.ts",
@@ -73,7 +72,7 @@
 		"react-dom": "^19.2.0"
 	},
 	"name": "@atlaskit/editor-synced-block-provider",
-	"version": "30.0.0",
+	"version": "30.0.4",
 	"description": "Synced Block Provider for @atlaskit/editor-plugin-synced-block",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

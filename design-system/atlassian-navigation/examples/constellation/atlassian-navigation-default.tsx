@@ -13,10 +13,10 @@ const DefaultExample = (): React.JSX.Element => (
 	<AtlassianNavigation
 		label="site"
 		primaryItems={[
-			<PrimaryButton>Your work</PrimaryButton>,
-			<PrimaryDropdownButton>Work items</PrimaryDropdownButton>,
-			<PrimaryDropdownButton>Projects</PrimaryDropdownButton>,
-			<PrimaryButton>Repositories</PrimaryButton>,
+			<PrimaryButton key="your-work">Your work</PrimaryButton>,
+			<PrimaryDropdownButton key="work-items">Work items</PrimaryDropdownButton>,
+			<PrimaryDropdownButton key="projects">Projects</PrimaryDropdownButton>,
+			<PrimaryButton key="repositories">Repositories</PrimaryButton>,
 		]}
 		renderProductHome={AtlassianProductHome}
 	/>

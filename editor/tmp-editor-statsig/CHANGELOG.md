@@ -1,5 +1,38 @@
 # @atlaskit/editor-statsig-tmp
 
+## 274.0.0
+
+### Major Changes
+
+- [`aa4256e80670f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/aa4256e80670f) -
+  Remove the fully rolled-out table row and column keyboard-move experiment.
+- [`3ef967b610ac1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3ef967b610ac1) -
+  Clean up experiment `platform_editor_copy_link_a11y_inconsistency_fix`
+
+## 273.0.0
+
+### Major Changes
+
+- [`fd3e0001cc7cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fd3e0001cc7cf) -
+  Cleanup `experiment` `platform_editor_emoji_default_scale`. Emoji are now always requested at the
+  `XXXHDPI` scale.
+
+## 272.0.0
+
+### Major Changes
+
+- [`f59544057152b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f59544057152b) -
+  Remove the fully rolled-out reactions selector list experiment.
+
+## 271.0.0
+
+### Major Changes
+
+- [`3c478b00721d4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3c478b00721d4) -
+  Remove the fully rolled-out Escape link-dialog experiment.
+- [`05db07714a6a4`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/05db07714a6a4) -
+  Remove the fully rolled-out selection toolbar block-handle experiment.
+
 ## 270.0.0
 
 ### Major Changes

@@ -83,8 +83,10 @@ function CatalogJsonPanel({ definition }: { definition: CatalogDefinition }): Re
 	);
 }
 
-/** Copyable catalog JSON for agent builders, one tab per published catalog. */
+/** Copyable catalog JSON for agent builders, one tab per public catalog. */
 export default function CatalogJsonSection(): React.JSX.Element {
+	const publicCatalogs = CATALOG_DEFINITIONS.filter(({ isPrivate }) => !isPrivate);
+
 	return (
 		<Stack space="space.100">
 			<Heading size="medium">Catalog JSON reference</Heading>
@@ -100,11 +102,11 @@ export default function CatalogJsonSection(): React.JSX.Element {
 			</Text>
 			<Tabs id="a2ui-catalog-json">
 				<TabList>
-					{CATALOG_DEFINITIONS.map((definition) => (
+					{publicCatalogs.map((definition) => (
 						<Tab key={definition.catalogId}>{definition.title}</Tab>
 					))}
 				</TabList>
-				{CATALOG_DEFINITIONS.map((definition) => (
+				{publicCatalogs.map((definition) => (
 					<TabPanel key={definition.catalogId}>
 						<CatalogJsonPanel definition={definition} />
 					</TabPanel>

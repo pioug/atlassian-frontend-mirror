@@ -41,7 +41,9 @@ describe('editor table cell background colour selectors', () => {
 			.flatMap((sheet) => Array.from(sheet.cssRules))
 			.filter(
 				(rule): rule is CSSStyleRule =>
-					rule instanceof CSSStyleRule && rule.selectorText.includes('[colorname='),
+					rule instanceof CSSStyleRule &&
+					rule.selectorText.includes('[colorname=') &&
+					rule.style.getPropertyValue('background-color') !== '',
 			)
 			.map((rule) => {
 				const targets = Array.from(rule.selectorText.matchAll(TARGET));

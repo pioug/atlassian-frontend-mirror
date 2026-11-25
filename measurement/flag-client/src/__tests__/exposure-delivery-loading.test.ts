@@ -128,6 +128,7 @@ describe('on-demand exposure delivery loading', () => {
 		client.getBooleanValue('missing', false);
 		environment.advance(1000);
 		await settle();
+		// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 		const body = JSON.parse(environment.requests[0].init.body) as ExportLogsServiceRequest;
 		const attrs = body.resourceLogs.flatMap((resource) =>
 			resource.scopeLogs.flatMap((scope) =>
@@ -171,7 +172,9 @@ describe('on-demand exposure delivery loading', () => {
 		loading.resolve();
 		expect(await deliverAll()).toEqual(['flag-a']);
 		expect(getter).not.toHaveBeenCalled();
+		// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 		const body = JSON.parse(environment.requests[0].init.body) as ExportLogsServiceRequest;
+		// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 		const record = body.resourceLogs[0].scopeLogs[0].logRecords[0] as OtlpLogRecord;
 		expect(plainAttributes(record.attributes)).not.toHaveProperty(
 			'atl.feature_flag.deduplication_key',

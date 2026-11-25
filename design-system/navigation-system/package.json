@@ -48,7 +48,6 @@
 		"./experimental/ribbon": "./src/entry-points/experimental/ribbon.tsx",
 		"./legacy/css-variables": "./src/entry-points/legacy/css-variables.tsx"
 	},
-	"atlaskit:src": "src/index.tsx",
 	"atlassian": {
 		"react-compiler": {
 			"enabled": true,

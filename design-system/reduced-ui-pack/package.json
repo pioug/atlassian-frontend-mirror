@@ -11,7 +11,6 @@
 	"main": "dist/bundle.css",
 	"module": "dist/bundle.css",
 	"module:es2019": "dist/bundle.css",
-	"atlaskit:src": "src/bundle.css",
 	"atlaskit:designLink": "https://atlassian.design/guidelines/product/overview",
 	"atlassian": {
 		"team": "Design System Team",

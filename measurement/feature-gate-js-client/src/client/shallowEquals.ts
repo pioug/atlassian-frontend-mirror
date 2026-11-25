@@ -19,7 +19,9 @@ export const shallowEquals = (objectA?: object, objectB?: object): boolean => {
 	bEntries.sort(ascendingKeyOrder);
 
 	for (let i = 0; i < aEntries.length; i++) {
+		// @ts-ignore - TS2488 - Type '[string, unknown] | undefined' must have a '[Symbol.iterator]()' method that returns an iterator.
 		const [, aValue] = aEntries[i];
+		// @ts-ignore - TS2488 - Type '[string, unknown] | undefined' must have a '[Symbol.iterator]()' method that returns an iterator.
 		const [, bValue] = bEntries[i];
 		if (aValue !== bValue) {
 			return false;

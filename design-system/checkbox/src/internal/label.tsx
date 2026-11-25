@@ -46,6 +46,14 @@ const baseStyles = css({
 	},
 });
 
+const focusOutlineStyles = css({
+	'&:focus-within': {
+		// Safari can leave the SVG outline stale when tabbing between checkboxes.
+		// Promote the focused label to its own compositing layer to force the outline to repaint.
+		transform: 'translateZ(0)',
+	},
+});
+
 const textLabelLayoutStyles = css({
 	gap: `${token('space.0')} ${token('space.050')}`,
 	gridTemplateColumns: 'min-content auto',
@@ -138,6 +146,7 @@ export default function Label({
 			className={xcss}
 			css={[
 				baseStyles,
+				fg('platform-dst-checkbox-safari-focus-outline') && focusOutlineStyles,
 				label && textLabelLayoutStyles,
 				(isChecked || isIndeterminate) && checkedStyles,
 				isInvalid && invalidStyles,

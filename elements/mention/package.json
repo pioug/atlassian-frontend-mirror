@@ -1,5 +1,4 @@
 {
-	"atlaskit:src": "src/index.ts",
 	"atlassian": {
 		"react-compiler": {
 			"enabled": true,
@@ -170,5 +169,5 @@
 		"*.compiled.css"
 	],
 	"types": "dist/types/index.d.ts",
-	"version": "30.12.1"
+	"version": "30.13.3"
 }

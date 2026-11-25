@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::40fa66752e50901d815f684c13257532>>
+ * @codegen <<SignedSource::8d17bf79a6b48e323b2c212402e6d9b9>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
@@ -29,6 +29,8 @@ const tokens = {
 	'motion.flag.enter': '--ds-flag-enter',
 	'motion.flag.exit': '--ds-flag-exit',
 	'motion.flag.reposition': '--ds-flag-reposition',
+	'motion.floating.controls.follow.panel.enter': '--ds-floating-controls-follow-panel-enter',
+	'motion.floating.controls.follow.panel.exit': '--ds-floating-controls-follow-panel-exit',
 	'motion.form.message.enter': '--ds-form-message-enter',
 	'motion.form.message.exit': '--ds-form-message-exit',
 	'motion.iconography.enter.cycle.up': '--ds-iconography-enter-cycle-up',
@@ -677,6 +679,8 @@ export type CSSTokenMap = {
 	'motion.flag.enter': 'var(--ds-flag-enter)';
 	'motion.flag.exit': 'var(--ds-flag-exit)';
 	'motion.flag.reposition': 'var(--ds-flag-reposition)';
+	'motion.floating.controls.follow.panel.enter': 'var(--ds-floating-controls-follow-panel-enter)';
+	'motion.floating.controls.follow.panel.exit': 'var(--ds-floating-controls-follow-panel-exit)';
 	'motion.form.message.enter': 'var(--ds-form-message-enter)';
 	'motion.form.message.exit': 'var(--ds-form-message-exit)';
 	'motion.iconography.enter.cycle.up': 'var(--ds-iconography-enter-cycle-up)';

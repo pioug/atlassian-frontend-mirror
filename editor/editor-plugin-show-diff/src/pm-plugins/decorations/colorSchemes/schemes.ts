@@ -67,11 +67,14 @@ export const standardScheme: DiffColorScheme = {
 	strikesDeletedEmbedCard: false,
 };
 
-const createAttributionScheme = (color: AccentColor): DiffColorScheme => {
+const createAttributionScheme = (
+	color: AccentColor,
+	blendInlineHighlight = false,
+): DiffColorScheme => {
 	return {
 		...standardScheme,
+		blendInlineHighlight,
 		insertColor: color,
-		insertedInlineBorderTone: 'backgroundHovered',
 		insertActiveColor: color,
 		deleteColor: color,
 		deletedInlineBorderTone: 'background',
@@ -86,7 +89,7 @@ const createAttributionScheme = (color: AccentColor): DiffColorScheme => {
 };
 
 const attributionColorSchemes = Object.fromEntries(
-	PARTICIPANT_COLOR_SCHEMES.map((color) => [color, createAttributionScheme(color)]),
+	PARTICIPANT_COLOR_SCHEMES.map((color) => [color, createAttributionScheme(color, true)]),
 ) as Record<AdsAccentColor, DiffColorScheme>;
 
 const brandSchemes = Object.fromEntries(

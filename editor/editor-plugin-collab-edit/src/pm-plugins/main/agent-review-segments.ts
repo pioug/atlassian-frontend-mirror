@@ -109,50 +109,62 @@ interface Range {
  * @param steps the parsed PM steps (index-aligned with `json`)
  * @param tr    the transaction that applied `steps` (so `tr.before`/`tr.doc`/`tr.mapping` are available)
  * @param view  the editor view (for the collab rebase guard)
+ * @param stepIndexes  restrict attribution and segments to these original batch indexes
  */
 export const getAgentEditSegments = (
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	json: any[],
+	json: unknown[],
 	steps: Step[],
 	tr: Transaction,
 	view: EditorView,
+	stepIndexes?: readonly number[],
 ): AgentRemoteEditReviewData | null => {
-	const agentEditRequester = getAgentEditRequester(json, view);
-	if (!agentEditRequester) {
-		return null;
-	}
-	const { actorUserId, agentId, agentType, isLocalUserRequester } = agentEditRequester;
-
-	// Only record Review Moment for agentTypes allowlisted in Statsig. Default `[]` fails
-	// closed until the config is populated (CCI-18607).
-	const allowedAgentTypes = expVal<string[]>(REVIEW_MOMENT_AGENT_TYPES_CONFIG, 'value', []);
-	if (!allowedAgentTypes.includes(agentType)) {
-		return null;
-	}
-	// Hybrid end-of-edit seam: if the BE/NCS flags a batch as the terminal one, carry
-	// it so the AI plugin can open review immediately instead of waiting for the
-	// debounce. Additive marker; absent for streaming (non-final) batches.
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const complete = json.some((step: any) => step?.agentEditComplete === true);
-
-	// Same rebase guard as the shimmer: index-based range math is only valid if any
-	// rebased-over local steps shifted no positions. Degrade to no recording otherwise.
-	if (Number(tr.getMeta('rebased')) > 0) {
-		const unconfirmed = getCollabState(view.state)?.unconfirmed ?? [];
-		if (unconfirmed.some((entry) => !isPositionNeutralStep(entry.step))) {
+	try {
+		const selectedSteps = stepIndexes ? stepIndexes.map((index) => json[index]) : json;
+		const agentEditRequester = getAgentEditRequester(selectedSteps, view);
+		if (!agentEditRequester) {
 			return null;
 		}
-	}
+		const { actorUserId, agentId, agentType, isLocalUserRequester } = agentEditRequester;
 
-	try {
+		// Only record Review Moment for agentTypes allowlisted in Statsig. Default `[]` fails
+		// closed until the config is populated (CCI-18607).
+		const allowedAgentTypes = expVal<string[]>(REVIEW_MOMENT_AGENT_TYPES_CONFIG, 'value', []);
+		if (!allowedAgentTypes.includes(agentType)) {
+			return null;
+		}
+		// Hybrid end-of-edit seam: if the BE/NCS flags a batch as the terminal one, carry
+		// it so the AI plugin can open review immediately instead of waiting for the
+		// debounce. Additive marker; absent for streaming (non-final) batches.
+		const complete = selectedSteps.some(
+			(step) =>
+				typeof step === 'object' &&
+				step !== null &&
+				'agentEditComplete' in step &&
+				step.agentEditComplete === true,
+		);
+
+		// Same rebase guard as the shimmer: index-based range math is only valid if any
+		// rebased-over local steps shifted no positions. Degrade to no recording otherwise.
+		if (Number(tr.getMeta('rebased')) > 0) {
+			const unconfirmed = getCollabState(view.state)?.unconfirmed ?? [];
+			if (unconfirmed.some((entry) => !isPositionNeutralStep(entry.step))) {
+				return null;
+			}
+		}
+
 		// Each agent step's changed extent in FINAL-doc coords, taken from its StepMap
 		// (the canonical, step-type-agnostic source). Unlike the shimmer we KEEP
 		// zero-width new extents — a pure deletion has `newEnd === newStart` but is a
 		// reviewable `remove`.
 		const ranges: Range[] = [];
-		json.forEach((rawStep, index) => {
-			if (typeof rawStep?.agentType !== 'string') {
+		selectedSteps.forEach((rawStep, selectedIndex) => {
+			const index = stepIndexes?.[selectedIndex] ?? selectedIndex;
+			if (
+				typeof rawStep !== 'object' ||
+				rawStep === null ||
+				!('agentType' in rawStep) ||
+				typeof rawStep.agentType !== 'string'
+			) {
 				return;
 			}
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

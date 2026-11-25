@@ -3,7 +3,7 @@
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
 	},
-	"version": "2.11.11",
+	"version": "2.11.15",
 	"description": "Common UI for Toolbars across the platform",
 	"atlassian": {
 		"website": {
@@ -31,7 +31,6 @@
 	"sideEffects": [
 		"*.compiled.css"
 	],
-	"atlaskit:src": "src/index.ts",
 	"exports": {
 		".": "./src/index.ts",
 		"./add-icon": "./src/entry-points/add-icon.tsx",

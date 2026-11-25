@@ -31,6 +31,8 @@ export type ColorScheme = PublicColorScheme | AccentColor;
 export type DiffColorScheme = {
 	/** Stacking order of the square added-cell overlay. The rounded variant is always 2. */
 	addedCellOverlayZIndex: 1 | 2;
+	/** Blend inline highlights over the content backdrop for participant accents. */
+	blendInlineHighlight?: boolean;
 	/** Deleted inline content, active/focused state. */
 	deleteActiveColor: AccentColor;
 	/** Deleted inline content. */
@@ -86,8 +88,6 @@ export type DiffColorScheme = {
 	insertColor: AccentColor;
 	/** Opacity of the inserted cell overlay background. */
 	insertedCellOpacity: number;
-	/** Bottom border tone for inserted text highlights. Defaults to accent. */
-	insertedInlineBorderTone?: 'accent' | 'backgroundHovered';
 	/** Inserted content: underline, or a border-bottom rule with padding. */
 	insertedInlineTreatment: 'underline' | 'borderBottom';
 	/** Inserted block ring: 4px stateful ring, or one static 1px accent ring. */

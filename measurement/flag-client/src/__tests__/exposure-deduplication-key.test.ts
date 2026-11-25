@@ -533,6 +533,7 @@ describe('browser exposure deduplication keys', () => {
 			client.getBooleanValue('flag-a', false);
 			environment.advance(10_000);
 			await settle();
+			// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 			const body = JSON.parse(environment.requests[0].init.body) as ExportLogsServiceRequest;
 			const records = body.resourceLogs.flatMap((resource) =>
 				resource.scopeLogs.flatMap((scope) => scope.logRecords),
@@ -541,13 +542,17 @@ describe('browser exposure deduplication keys', () => {
 				plainAttributes((record as OtlpLogRecord).attributes),
 			);
 			expect(attributes).toHaveLength(2);
+			// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 			expect(attributes[0]['atl.feature_flag.deduplication_key']).toBe(
 				exposureDigest(
 					serializeExposureIdentity(resultInput(original, { requestContext: originalContext }))!,
 				),
 			);
+			// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 			expect(attributes[0]['atl.feature_flag.exposure.manual']).toBe(true);
+			// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 			expect(attributes[1]['atl.feature_flag.deduplication_key']).not.toBe(
+				// @ts-expect-error - TS2532 - Object is possibly 'undefined'.
 				attributes[0]['atl.feature_flag.deduplication_key'],
 			);
 		} finally {

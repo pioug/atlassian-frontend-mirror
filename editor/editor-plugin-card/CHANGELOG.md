@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-card
 
+## 40.0.4
+
+### Patch Changes
+
+- [`915a4d1801d1e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/915a4d1801d1e) -
+  Use new dropdown items for the AI editor insert menu and for Smart Link and native embed toolbar
+  menus behind platform-dst-new-menu.
+- Updated dependencies
+
+## 40.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 40.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 40.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 40.0.0
 
 ### Patch Changes

@@ -271,6 +271,32 @@ const motion: AttributeSchema<MotionTokenSchema<MotionPaletteToken>> = {
 				},
 			},
 		},
+		floating: {
+			controls: {
+				follow: {
+					panel: {
+						enter: {
+							attributes: {
+								group: 'motion',
+								state: 'active',
+								introduced: '20.12.0',
+								description:
+									'Use as a CSS transform transition for floating controls that follow an entering panel. Translate horizontally by the panel width when opening begins, reversing direction for RTL. Keeps movement independent of page layout. Does not include vertical movement or visibility changes.',
+							},
+						},
+						exit: {
+							attributes: {
+								group: 'motion',
+								state: 'active',
+								introduced: '20.12.0',
+								description:
+									'Use as a CSS transform transition for floating controls that follow an exiting panel. Restore the horizontal translation when closing begins. Does not include vertical movement or visibility changes. Disable the transition during manual panel resizing.',
+							},
+						},
+					},
+				},
+			},
+		},
 		panel: {
 			enter: {
 				'[default]': {

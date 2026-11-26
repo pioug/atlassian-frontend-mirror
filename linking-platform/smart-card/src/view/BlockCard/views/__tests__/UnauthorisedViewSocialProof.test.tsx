@@ -104,7 +104,7 @@ describe('UnauthorisedView social proof experiment', () => {
 			expect(screen.queryByTestId('smart-block-social-proof-message')).not.toBeInTheDocument();
 		});
 
-		it('renders default content when hook returns isTreatment=false (experiment off)', async () => {
+		it('renders default content when hook returns isTreatment=false (ineligible)', async () => {
 			mockUseSocialProofExperiment.mockReturnValue({
 				isTreatment: false,
 				tier: 'not-low',

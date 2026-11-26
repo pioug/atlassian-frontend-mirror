@@ -376,7 +376,11 @@ it.each(['See takeaways', 'Dismiss spotlight', 'Escape'] as const)(
 			} else {
 				fireEvent.click(screen.getByRole('button', { name: interaction }));
 			}
-			expect(screen.queryByTestId('one-click-chat-spotlight-v2')).not.toBeInTheDocument();
+			const interactedAt = Date.now();
+			// The spotlight unmounts after its exit animation, which moves the fake clock on.
+			await waitFor(() =>
+				expect(screen.queryByTestId('one-click-chat-spotlight-v2')).not.toBeInTheDocument(),
+			);
 			expect(spotlightEvents().map((event) => event.action)).toEqual([
 				'viewed',
 				interaction === 'See takeaways' ? 'clicked' : 'dismissed',
@@ -384,7 +388,7 @@ it.each(['See takeaways', 'Dismiss spotlight', 'Escape'] as const)(
 			expect(mockInvoke).toHaveBeenCalledTimes(interaction === 'See takeaways' ? 1 : 0);
 			expect(store.read()).toEqual({
 				impressions,
-				...(interaction === 'See takeaways' ? {} : { dismissedAt: Date.now() }),
+				...(interaction === 'See takeaways' ? {} : { dismissedAt: interactedAt }),
 			});
 		} finally {
 			view.unmount();

@@ -307,6 +307,9 @@ interface BaseProps {
 	 * - the popup is closed programatically. In this case, the `event` argument will be `null`.
 	 *
 	 * You'll want to use this to set open state accordingly, and then pump it back into the `isOpen` prop.
+	 *
+	 * Without `onClose`, only `isOpen` closes the popup. With `platform-dst-top-layer`, Escape then
+	 * goes to a layer around it.
 	 */
 	onClose?(
 		/**
@@ -441,24 +444,6 @@ interface InternalPopupProps extends BaseProps {
 	trigger: (props: TriggerProps) => React.ReactNode;
 
 	/**
-	 * How the popup dismisses when `platform-dst-top-layer` is enabled. Default `"auto"`.
-	 *
-	 * In both modes, a press outside the popup and its trigger, or Escape, calls `onClose`. The popup
-	 * closes only when `isOpen` becomes `false`, so `onClose` can refuse the close. A press on the
-	 * trigger does not call `onClose`: the trigger's own click decides.
-	 *
-	 * The modes differ only without `onClose`:
-	 *
-	 * - `"auto"`: the popup still takes Escape (one press closes one layer), and stays open.
-	 * - `"manual"`: the popup does not take Escape, and only `isOpen` closes it. Use it for a popup
-	 *   that must stay open until a state change (for example a field error).
-	 *
-	 * No effect when the flag is disabled: the legacy popup already ignores presses on the trigger
-	 * and closes only through `onClose`.
-	 */
-	mode?: 'auto' | 'manual';
-
-	/**
 	 * Z-index that the popup should be displayed in.
 	 * This is passed to the portal component.
 	 * The default is 400.
@@ -549,9 +534,6 @@ export type CloseManagerHook = Pick<PopupProps, 'isOpen' | 'onClose' | 'shouldIg
 	triggerRef: TriggerRef;
 	shouldUseCaptureOnOutsideClick?: boolean;
 	shouldCloseOnTab?: boolean;
-	shouldDisableFocusTrap: boolean;
-	shouldRenderToParent?: boolean;
-	autoFocus: boolean;
 };
 
 export type FocusManagerHook = {
@@ -559,10 +541,7 @@ export type FocusManagerHook = {
 	popupRef: PopupRef;
 	shouldCloseOnTab?: boolean;
 	triggerRef: TriggerRef;
-	autoFocus: boolean;
-	shouldDisableFocusTrap: boolean;
 	shouldReturnFocus: boolean;
-	shouldRenderToParent?: boolean;
 };
 
 export type RepositionOnUpdateProps = PropsWithChildren<{

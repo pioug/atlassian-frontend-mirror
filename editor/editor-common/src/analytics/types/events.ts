@@ -67,7 +67,7 @@ import type { LoomEventPayload } from './loom-events';
 import type { MediaEventPayload } from './media-events';
 import type { MentionEventPayload } from './mention-events';
 import type { MoveContentEventPayload } from './move-content-events';
-import type { NativeEmbedResizeErroredAEP } from './native-embed-events';
+import type { NativeEmbedDeletedAEP, NativeEmbedResizeErroredAEP } from './native-embed-events';
 import type { NestedTableActionsEventPayload } from './nested-table-events';
 import type { NodeEventPayload } from './node-events';
 import type { NumberedHeadingsEventPayload } from './numbered-headings-events';
@@ -75,6 +75,7 @@ import type { OfflineEditingEventPayload } from './offline-editing-event';
 import type { PasteActionsMenuEventPayload, PasteEventPayload } from './paste-events';
 import type {
 	QuickInsertInformationEventPayload,
+	QuickInsertMenuEventPayload,
 	QuickInsertSearchOutcomeEventPayload,
 } from './quick-insert-events';
 import type { ReferentialityEventPayload } from './referentiality-events';
@@ -117,8 +118,10 @@ export type AnalyticsEventPayload<T = void> =
 	| PasteActionsMenuEventPayload
 	| QuickInsertInformationEventPayload
 	| QuickInsertSearchOutcomeEventPayload
+	| QuickInsertMenuEventPayload
 	| CutCopyEventPayload
 	| ErrorEventPayload
+	| NativeEmbedDeletedAEP
 	| TextColorEventPayload
 	| FindReplaceEventPayload
 	| DateEventPayload

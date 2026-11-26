@@ -1,9 +1,6 @@
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-
 import { type RevisionPayloadEntry } from '../../common/vc/types';
 import { getSelectorConfig, isVCRevisionEnabled } from '../../config';
 import { sanitizeLabelStackName } from '../../create-payload/common/utils/sanitize-label-stack-name';
-import { getActiveInteraction } from '../../interaction-metrics';
 import type { SearchPageConfig } from '../types';
 import { SSRPlaceholderHandlers } from '../vc-observer/observers/ssr-placeholders';
 import EntriesTimeline from './entries-timeline';
@@ -139,15 +136,6 @@ export default class VCObserverNew {
 
 		this.windowEventObserver = new WindowEventObserver({
 			onEvent: ({ time, type, event }) => {
-				// Don't abort press interactions on keydown events, as keydown is expected
-				// when users press Enter/Space to activate buttons or other interactive elements
-				if (type === 'keydown' && fg('platform_ufo_keypress_interaction_abort')) {
-					const interaction = getActiveInteraction();
-					if (interaction?.type === 'press') {
-						return;
-					}
-				}
-
 				const abortEventTargetElement =
 					isAbortEventTargetSupported(type) && event
 						? getAbortEventTargetElement(event.target)

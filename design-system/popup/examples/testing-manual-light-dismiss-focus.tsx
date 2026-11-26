@@ -4,7 +4,7 @@ import { Popup } from '@atlaskit/popup/popup';
 import { type TriggerProps } from '@atlaskit/popup/types';
 
 /**
- * Test fixture: an outside press on a `mode="manual"` popup does not return focus to the trigger,
+ * Test fixture: an outside press on a popup does not return focus to the trigger,
  * as with native light dismiss. "Press without focus" cancels `mousedown`, so the press leaves
  * focus inside the popup.
  */
@@ -21,7 +21,6 @@ export default function TestingManualLightDismissFocus(): React.JSX.Element {
 				Press without focus
 			</button>
 			<Popup
-				mode="manual"
 				shouldRenderToParent
 				isOpen={isOpen}
 				onClose={() => setIsOpen(false)}

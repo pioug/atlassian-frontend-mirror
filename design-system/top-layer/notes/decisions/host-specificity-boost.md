@@ -155,10 +155,10 @@ properties that its `xcss` prop allows:
 `scrollbarGutter` (`src/dialog/types.tsx`). A boosted default for any of these would beat the
 adopter's own `xcss`. The adopters set them like this, through `xcss` only (neither passes `style`):
 
-| Adopter                                                      | `xcss` on the `<dialog>`                                                                                                                                                               | Varies by                                                  |
-| ------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| `modal-dialog` (`src/internal/components/modal-wrapper.tsx`) | `body-scroll`: `overflow: visible`, `margin: 0`, and `margin: 60px auto` from 30rem. `viewport-scroll`: `scrollbar-gutter: stable`, `width: 100vw`, `height: 100vh`. Full screen: none | Scroll mode and the 30rem breakpoint                       |
-| `drawer` (`src/drawer-panel/drawer-top-layer.tsx`)           | `margin: 0`, `inset-block-start: 0`, `inset-inline-start: 0`, `inset-inline-end: auto`, `height: 100dvh`, `max-width: 100vw`, a `width` preset, and the `--x` and `--y` variables      | `width` (360px, 480px, 600px, 95vw, 100vw) and `enterFrom` |
+| Adopter                                                      | `xcss` on the `<dialog>`                                                                                                                                                          | Varies by                                                  |
+| ------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| `modal-dialog` (`src/internal/components/modal-wrapper.tsx`) | `body-scroll`: `overflow: visible`, `margin: 0`, and `margin: 60px auto` from 30rem. `viewport-scroll`: `width: 100vw`, `height: 100vh`. Full screen: none                        | Scroll mode and the 30rem breakpoint                       |
+| `drawer` (`src/drawer-panel/drawer-top-layer.tsx`)           | `margin: 0`, `inset-block-start: 0`, `inset-inline-start: 0`, `inset-inline-end: auto`, `height: 100dvh`, `max-width: 100vw`, a `width` preset, and the `--x` and `--y` variables | `width` (360px, 480px, 600px, 95vw, 100vw) and `enterFrom` |
 
 `modal-dialog`'s width and height presets go to its inner surface, as inline `--modal-dialog-width`
 and `--modal-dialog-height` variables, not to the `<dialog>`. The drawer also sets the motion

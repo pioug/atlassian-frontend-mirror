@@ -1,14 +1,7 @@
 /**
  * Style resolution for the `wrapBlockNodeView` nodeview decorations.
  *
- * Every exported resolver is a single gate: the `colorSchemeRegistry` + `factory.ts`
- * implementation when `platform_editor_show_diff_color_scheme_refactor` is on, and the verbatim
- * pre-refactor per-scheme constants from `./wrapBlockNodeViewStyles.legacy` when it is off. The two
- * paths are built to emit identical style strings for both shipped schemes, so this is a kill
- * switch for a refactor rather than a behaviour experiment.
- *
- * On cleanup (EDITOR-8281): drop the `isExperimentEnabled` dispatch and the `*Legacy` imports,
- * keeping the `*Next` bodies.
+ * Every exported resolver is driven by the `colorSchemeRegistry` + `factory.ts` implementation.
  */
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
@@ -31,19 +24,8 @@ import {
 	buildInsertStyleInBlockExtendedNoUnderline,
 	buildInsertStyleNode,
 } from '../colorSchemes/factory';
-import { colorSchemeRegistry, getLegacyColorScheme, standardScheme } from '../colorSchemes/schemes';
+import { colorSchemeRegistry, standardScheme } from '../colorSchemes/schemes';
 import type { ColorScheme, DiffColorScheme } from '../colorSchemes/types';
-import {
-	getChangedContentStyleLegacy,
-	getChangedNodeStyleLegacy,
-	getDeletedContentStyleLegacy,
-	getDeletedContentStyleUnboundedLegacy,
-	getInsertedContentStyleLegacy,
-	hasRestingDeletedRingLegacy,
-	resolveCellOverlayStyleLegacy,
-	resolveNestedInsertedNodeStyleLegacy,
-	resolveRemovedLozengeStyleLegacy,
-} from './wrapBlockNodeViewStyles.legacy';
 
 const getColorScheme = (colorScheme: ColorScheme | undefined): DiffColorScheme =>
 	colorSchemeRegistry[colorScheme ?? 'standard'];
@@ -73,7 +55,8 @@ export const isTextLikeBlockNode = (nodeName: string): boolean => {
 	].includes(nodeName);
 };
 
-const getChangedContentStyleNext = (
+/** Inline content style for a changed (inserted or deleted) block node. */
+export const getChangedContentStyle = (
 	colorScheme?: ColorScheme,
 	isActive: boolean = false,
 	isInserted: boolean = false,
@@ -100,13 +83,14 @@ const getChangedContentStyleNext = (
 	return base;
 };
 
-const getChangedNodeStyleNext = (
+/** Node-specific style for a changed block node, or `undefined` when the node type has none. */
+export const getChangedNodeStyle = (
 	nodeName: string,
 	colorScheme?: ColorScheme,
 	isInserted: boolean = false,
 	isActive: boolean = false,
 	hideAddedDiffsUnderline: boolean = false,
-) => {
+): string | undefined => {
 	const colors = getColorScheme(colorScheme);
 
 	if (isInserted) {
@@ -133,19 +117,22 @@ const getChangedNodeStyleNext = (
 	}
 };
 
-const getDeletedContentStyleUnboundedNext = (
+/** The positioned line drawn across deleted content spanning an unbounded range. */
+export const getDeletedContentStyleUnbounded = (
 	colorScheme?: ColorScheme,
 	isActive: boolean = false,
 ): string => buildDeletedStrikethroughLine(getColorScheme(colorScheme), isActive);
 
-const getInsertedContentStyleNext = (
+/** Inline style for inserted content. */
+export const getInsertedContentStyle = (
 	colorScheme?: ColorScheme,
 	isActive: boolean = false,
 	hideAddedDiffsUnderline: boolean = false,
 ): string =>
 	buildInsertedInlineStyle(getColorScheme(colorScheme), isActive, hideAddedDiffsUnderline);
 
-const getDeletedContentStyleNext = (
+/** Inline style for deleted content. */
+export const getDeletedContentStyle = (
 	colorScheme?: ColorScheme,
 	isActive: boolean = false,
 ): string => {
@@ -160,7 +147,11 @@ const getDeletedContentStyleNext = (
 		: base;
 };
 
-const resolveCellOverlayStyleNext = ({
+/**
+ * Overlay style for one added or deleted table cell. Invariant across the cells of a table, so the
+ * `querySelectorAll('td, th')` loop in `wrapBlockNodeView.ts` resolves it once.
+ */
+export const resolveCellOverlayStyle = ({
 	colorScheme,
 	isInserted,
 	isRoundedTable,
@@ -185,7 +176,8 @@ const resolveCellOverlayStyleNext = ({
 	return isInserted ? addedCellStyle : deletedCellStyle;
 };
 
-const resolveRemovedLozengeStyleNext = (
+/** Inner style for the "Removed" lozenge on a deleted block node. */
+export const resolveRemovedLozengeStyle = (
 	colorScheme: ColorScheme | undefined,
 	isActive: boolean,
 ): string => {
@@ -193,127 +185,22 @@ const resolveRemovedLozengeStyleNext = (
 	return isActive ? buildDeletedLozengeActiveStyle(colors) : buildDeletedLozengeStyle(colors);
 };
 
-const resolveNestedInsertedNodeStyleNext = (colorScheme?: ColorScheme): string =>
-	buildInsertStyleNode(getColorScheme(colorScheme));
-
-// Only 'stateful' schemes have a resting ring.
-const hasRestingDeletedRingNext = (colorScheme?: ColorScheme): boolean =>
-	getColorScheme(colorScheme).deletedNodeEmphasis === 'stateful';
-
-/** Inline content style for a changed (inserted or deleted) block node. */
-export const getChangedContentStyle = (
-	colorScheme?: ColorScheme,
-	isActive: boolean = false,
-	isInserted: boolean = false,
-	hideAddedDiffsUnderline: boolean = false,
-): string =>
-	isExperimentEnabled('platform_editor_show_diff_color_scheme_refactor')
-		? getChangedContentStyleNext(colorScheme, isActive, isInserted, hideAddedDiffsUnderline)
-		: getChangedContentStyleLegacy(
-				getLegacyColorScheme(colorScheme),
-				isActive,
-				isInserted,
-				hideAddedDiffsUnderline,
-			);
-
-/** Node-specific style for a changed block node, or `undefined` when the node type has none. */
-export const getChangedNodeStyle = (
-	nodeName: string,
-	colorScheme?: ColorScheme,
-	isInserted: boolean = false,
-	isActive: boolean = false,
-	hideAddedDiffsUnderline: boolean = false,
-): string | undefined =>
-	isExperimentEnabled('platform_editor_show_diff_color_scheme_refactor')
-		? getChangedNodeStyleNext(nodeName, colorScheme, isInserted, isActive, hideAddedDiffsUnderline)
-		: getChangedNodeStyleLegacy(
-				nodeName,
-				getLegacyColorScheme(colorScheme),
-				isInserted,
-				isActive,
-				hideAddedDiffsUnderline,
-			);
-
-/** The positioned line drawn across deleted content spanning an unbounded range. */
-export const getDeletedContentStyleUnbounded = (
-	colorScheme?: ColorScheme,
-	isActive: boolean = false,
-): string =>
-	isExperimentEnabled('platform_editor_show_diff_color_scheme_refactor')
-		? getDeletedContentStyleUnboundedNext(colorScheme, isActive)
-		: getDeletedContentStyleUnboundedLegacy(getLegacyColorScheme(colorScheme), isActive);
-
-/** Inline style for inserted content. */
-export const getInsertedContentStyle = (
-	colorScheme?: ColorScheme,
-	isActive: boolean = false,
-	hideAddedDiffsUnderline: boolean = false,
-): string =>
-	isExperimentEnabled('platform_editor_show_diff_color_scheme_refactor')
-		? getInsertedContentStyleNext(colorScheme, isActive, hideAddedDiffsUnderline)
-		: getInsertedContentStyleLegacy(
-				getLegacyColorScheme(colorScheme),
-				isActive,
-				hideAddedDiffsUnderline,
-			);
-
-/** Inline style for deleted content. */
-export const getDeletedContentStyle = (
-	colorScheme?: ColorScheme,
-	isActive: boolean = false,
-): string =>
-	isExperimentEnabled('platform_editor_show_diff_color_scheme_refactor')
-		? getDeletedContentStyleNext(colorScheme, isActive)
-		: getDeletedContentStyleLegacy(getLegacyColorScheme(colorScheme), isActive);
-
-/**
- * Overlay style for one added or deleted table cell. Invariant across the cells of a table, so the
- * `querySelectorAll('td, th')` loop in `wrapBlockNodeView.ts` resolves it once.
- */
-export const resolveCellOverlayStyle = (args: {
-	colorScheme?: ColorScheme;
-	isInserted: boolean;
-	isRoundedTable: boolean;
-}): string =>
-	isExperimentEnabled('platform_editor_show_diff_color_scheme_refactor')
-		? resolveCellOverlayStyleNext(args)
-		: resolveCellOverlayStyleLegacy({
-				...args,
-				colorScheme: getLegacyColorScheme(args.colorScheme),
-			});
-
-/** Inner style for the "Removed" lozenge on a deleted block node. */
-export const resolveRemovedLozengeStyle = (
-	colorScheme: ColorScheme | undefined,
-	isActive: boolean,
-): string =>
-	isExperimentEnabled('platform_editor_show_diff_color_scheme_refactor')
-		? resolveRemovedLozengeStyleNext(colorScheme, isActive)
-		: resolveRemovedLozengeStyleLegacy(getLegacyColorScheme(colorScheme), isActive);
-
 /**
  * Style for inserted content nested inside a multi-container or list node — the `decisionList` and
  * `taskList` `li`s and the `layoutSection` columns.
  */
 export const resolveNestedInsertedNodeStyle = (colorScheme?: ColorScheme): string =>
-	isExperimentEnabled('platform_editor_show_diff_color_scheme_refactor')
-		? resolveNestedInsertedNodeStyleNext(colorScheme)
-		: resolveNestedInsertedNodeStyleLegacy();
+	buildInsertStyleNode(getColorScheme(colorScheme));
 
 /**
  * Whether the colour scheme draws a resting (non-active) ring on a deleted media/embed node, which
  * is what the `show-diff-deleted-outline-new` class styles in editor-core's smartCardStyles.
  */
 export const hasRestingDeletedRing = (colorScheme?: ColorScheme): boolean =>
-	isExperimentEnabled('platform_editor_show_diff_color_scheme_refactor')
-		? hasRestingDeletedRingNext(colorScheme)
-		: hasRestingDeletedRingLegacy(getLegacyColorScheme(colorScheme));
+	getColorScheme(colorScheme).deletedNodeEmphasis === 'stateful';
 
 /**
  * Custom properties consumed by the `show-diff-deleted-node-vars` selectors in editor-core.
- *
- * No `*Legacy` counterpart: the OFF cohort emits no properties at all and takes its colours from the
- * per-scheme selectors instead, so the gate lives at the single caller in `wrapBlockNodeView`.
  */
 export const resolveDeletedNodeCSSVariables = (colorScheme?: ColorScheme): string =>
 	buildDeletedNodeCSSVariables(getColorScheme(colorScheme));

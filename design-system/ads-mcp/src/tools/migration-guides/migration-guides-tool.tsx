@@ -2,9 +2,10 @@
 
 import type { z } from 'zod';
 
+import { migrationRegistry } from '@atlaskit/ads-ai-tooling-content/migration-registry';
+
 import { getAvailableMigrationIds } from './get-available-migration-ids';
 import type { migrationGuidesInputSchema } from './migration-guides-input-schema';
-import { migrationRegistry } from './migration-registry';
 
 export const migrationGuidesTool = async (
 	params: z.infer<typeof migrationGuidesInputSchema>,

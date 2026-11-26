@@ -1,5 +1,37 @@
 # @atlaskit/editor-statsig-tmp
 
+## 278.0.0
+
+### Major Changes
+
+- [`e1d37353bda34`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e1d37353bda34) -
+  Keep the shipped behavior for database native embeds within the new native embed experience.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 277.0.0
+
+### Major Changes
+
+- [`bf8314c6c1f10`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bf8314c6c1f10) -
+  Remove the synced block SSR experiment and keep batched fetches with the shipped 500 ms timeout.
+
+## 276.0.0
+
+### Major Changes
+
+- [`7413f134758c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7413f134758c7) -
+  Keep the shipped emoji scaling behavior in the editor and renderer and remove its experiment.
+
+## 275.0.0
+
+### Major Changes
+
+- [`a346e2fe9ed1e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a346e2fe9ed1e) -
+  Keep social proof for eligible unauthorised block cards and remove the experiment lookup.
+
 ## 274.0.0
 
 ### Major Changes

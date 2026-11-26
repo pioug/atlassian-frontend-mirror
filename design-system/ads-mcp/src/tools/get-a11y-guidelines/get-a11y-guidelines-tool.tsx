@@ -2,8 +2,9 @@
 
 import { type z } from 'zod';
 
+import { accessibilityGuidelines } from '@atlaskit/ads-ai-tooling-content/a11y-guidelines';
+
 import { type getA11yGuidelinesInputSchema } from './get-a11y-guidelines-input-schema';
-import { accessibilityGuidelines } from './guidelines';
 
 const topics = Object.keys(accessibilityGuidelines) as (keyof typeof accessibilityGuidelines)[];
 

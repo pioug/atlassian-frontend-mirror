@@ -1,5 +1,19 @@
 # @atlaskit/inline-edit
 
+## 16.6.0
+
+### Minor Changes
+
+- [`d2d28a9303775`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2d28a9303775) -
+  Behind `platform-dst-top-layer`, the Escape that cancels an edit no longer also closes the layer
+  around the inline edit, and Escape in read view no longer calls `onCancel`.
+
+### Patch Changes
+
+- [`d2d28a9303775`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2d28a9303775) -
+  Removed the `mode` prop from `Popup`, as `@atlaskit/popup` no longer has it.
+- Updated dependencies
+
 ## 16.5.1
 
 ### Patch Changes

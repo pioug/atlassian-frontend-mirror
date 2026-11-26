@@ -8,16 +8,13 @@ import { cssMap, jsx } from '@compiled/react';
 
 import type { StrictXCSSProp } from '@atlaskit/css';
 import type ContainerAtRule from '@atlaskit/css/at-rules/container';
-import { componentWithFG } from '@atlaskit/platform-feature-flags-react/component-with-fg';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import { useSkipLinkInternal } from '../../../context/skip-links/use-skip-link-internal';
 import { type CustomTheme } from '../../top-nav-items/themed/get-custom-theme-styles';
 import { HasCustomThemeContext } from '../../top-nav-items/themed/has-custom-theme-context';
-import { HasDefaultBackgroundColorContext } from '../../top-nav-items/themed/has-default-background-color-context';
 import { useCustomTheme } from '../../top-nav-items/themed/use-custom-theme';
-import { useCustomThemeNew } from '../../top-nav-items/themed/use-custom-theme-new';
 import {
 	UNSAFE_topNavVar,
 	type bannerMountedVar,
@@ -174,7 +171,7 @@ type TopNavProps = CommonSlotProps & {
 /**
  * The top nav layout area. It will display at the top of the screen, below the banner if one is present.
  */
-function TopNavOld({
+export function TopNav({
 	children,
 	xcss,
 	height: heightProp,
@@ -242,87 +239,3 @@ function TopNavOld({
 		</HasCustomThemeContext.Provider>
 	);
 }
-
-/**
- * The top nav layout area. It will display at the top of the screen, below the banner if one is present.
- */
-function TopNavNew({
-	children,
-	xcss,
-	height: heightProp,
-	skipLinkLabel = fg('platform_dst_nav4_skip_link_a11y_1') ? 'Global navigation' : 'Top Bar',
-	testId,
-	id: providedId,
-	customTheme: customThemeConfig,
-}: TopNavProps): JSX.Element {
-	const [topNavElement, setTopNavElement] = useState<HTMLElement | null>(null);
-	const [remProbe, setRemProbe] = useState<HTMLSpanElement | null>(null);
-	// Ref registration must also be non-urgent while navigation is hydrating.
-	// Otherwise its ancestor update can force a pending Suspense boundary to fall back.
-	const topNavRef = useCallback((element: HTMLElement | null) => {
-		startTransition(() => setTopNavElement(element));
-	}, []);
-	const remProbeRef = useCallback((element: HTMLSpanElement | null) => {
-		startTransition(() => setRemProbe(element));
-	}, []);
-	const breakpoints = useMeasuredTopNavBreakpoints(topNavElement, remProbe);
-	const dangerouslyHoistSlotSizes = useContext(DangerouslyHoistSlotSizes);
-	const id = useLayoutId({ providedId });
-	useSkipLinkInternal({
-		id,
-		label: skipLinkLabel,
-	});
-
-	const height = heightProp ?? (fg('platform_dst_ads_appswitcher_improvements') ? 56 : 48);
-
-	const customTheme = useCustomThemeNew(customThemeConfig);
-	const hasDefaultBackground = customTheme.isEnabled ? customTheme.hasDefaultBackground : true;
-
-	return (
-		<HasCustomThemeContext.Provider value={customTheme.isEnabled}>
-			<HasDefaultBackgroundColorContext.Provider value={hasDefaultBackground}>
-				<header
-					ref={fg('platform-dst-chat-panel-layout') ? topNavRef : undefined}
-					id={id}
-					data-layout-slot
-					css={[
-						styles.root,
-						fg('platform-dst-chat-panel-layout') ? styles.container : styles.viewportLayout,
-					]}
-					className={xcss}
-					data-testid={testId}
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-					style={customTheme.isEnabled ? customTheme.style : undefined}
-				>
-					{fg('platform-dst-chat-panel-layout') && (
-						<span ref={remProbeRef} css={styles.remProbe} aria-hidden="true" />
-					)}
-					<HoistCssVarToLocalGrid variableName={topNavMountedVar} value={height} />
-					{dangerouslyHoistSlotSizes && (
-						// ------ START UNSAFE STYLES ------
-						// These styles are only needed for the UNSAFE legacy use case for Jira + Confluence.
-						// When they aren't needed anymore we can delete them wholesale.
-						<DangerouslyHoistCssVarToDocumentRoot variableName={UNSAFE_topNavVar} value={height} />
-						// ------ END UNSAFE STYLES ------
-					)}
-					{fg('platform-dst-chat-panel-layout') ? (
-						<TopNavElementContext.Provider value={breakpoints}>
-							<div css={styles.containerLayout}>{children}</div>
-						</TopNavElementContext.Provider>
-					) : (
-						children
-					)}
-				</header>
-			</HasDefaultBackgroundColorContext.Provider>
-		</HasCustomThemeContext.Provider>
-	);
-}
-
-/**
- * The top nav layout area. It will display at the top of the screen, below the banner if one is present.
- */
-export const TopNav: (props: TopNavProps) => React.ReactNode = componentWithFG(
-	'platform_dst_nav4_custom_theming_fhs_1',
-	TopNavNew,
-	TopNavOld,
-);

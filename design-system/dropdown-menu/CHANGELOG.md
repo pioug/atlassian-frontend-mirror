@@ -1,5 +1,27 @@
 # @atlaskit/dropdown-menu
 
+## 22.2.4
+
+### Patch Changes
+
+- [`112689d2e02bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/112689d2e02bc) -
+  Removed the `platform_dst_popup-disable-focuslock` feature gate; behaviour is unchanged for users.
+- Updated dependencies
+
+## 22.2.3
+
+### Patch Changes
+
+- [`fcf534277ba01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fcf534277ba01) -
+  Removed the `platform-dst-motion-uplift-popup` feature gate; behaviour is unchanged for users.
+- Updated dependencies
+
+## 22.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.2.1
 
 ### Patch Changes

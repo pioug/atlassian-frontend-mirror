@@ -2,7 +2,8 @@
 
 import type { z } from 'zod';
 
-import { i18nConversionGuide } from './guide';
+import { i18nConversionGuide } from '@atlaskit/ads-ai-tooling-content/i18n-conversion-guide';
+
 import type { i18nConversionInputSchema } from './i18n-conversion-input-schema';
 
 export const i18nConversionTool: (_params: z.infer<typeof i18nConversionInputSchema>) => Promise<{

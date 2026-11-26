@@ -1,1 +1,1 @@
-export { migrationRegistry } from '../tools/migration-guides/migration-registry';
+export { migrationRegistry } from '@atlaskit/ads-ai-tooling-content/migration-registry';

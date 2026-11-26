@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { screen } from '@testing-library/react';
+import { screen } from '@testing-library/react'; // oxlint-disable-line import-extra/no-extraneous-dependencies
 
 import type { MediaADFAttrs } from '@atlaskit/adf-schema/media';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';

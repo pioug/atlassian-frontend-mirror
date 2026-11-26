@@ -1,5 +1,99 @@
 # @atlaskit/editor-common
 
+## 138.8.0
+
+### Minor Changes
+
+- [`25bf9cf4b1b28`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/25bf9cf4b1b28) -
+  Behind `platform_editor_slash_command_analytics`, fire `quickInsert opened` and
+  `quickInsert selected` the same way in the legacy and registered quick insert menus. Native items
+  are named by their element (`table`), and Skills `skill`, since custom Skill slugs are user
+  content. Adds the event types (`@atlaskit/editor-common`), and the `fireQuickInsertOpened` and
+  `fireQuickInsertItemSelected` actions, fired from the `/` menu and the element browser modal
+  (`@atlaskit/editor-plugin-quick-insert`).
+
+  Renames `QuickInsertSearchSurface` to `QuickInsertSurface`, since the opened and selected events
+  use it too.
+
+  Adds `SKILL_MENU_ITEM_KEY_PREFIX` and `getNativeMenuItemName` to
+  `@atlaskit/editor-common/quick-insert/keys`. Deprecates `fireQuickInsertItemSelected`, which is
+  removed with the legacy quick insert menus.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 138.7.2
+
+### Patch Changes
+
+- [`e1d37353bda34`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e1d37353bda34) -
+  Keep the shipped behavior for database native embeds within the new native embed experience.
+- Updated dependencies
+
+## 138.7.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 138.7.0
+
+### Minor Changes
+
+- [`dc8cc5eabb54a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/dc8cc5eabb54a) -
+  Show "Review complete" as the status text on the AI suggestions ready nudge.
+
+### Patch Changes
+
+- [`0091828ab49d9`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0091828ab49d9) -
+  [A11Y-60452] label colour palette radio groups using the color picker title behind
+  `platform_editor_lovability_colors_a11y_fixes`.
+- Updated dependencies
+
+## 138.6.0
+
+### Minor Changes
+
+- [`786d09d844f2e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/786d09d844f2e) -
+  Add Content Reviewer nudge entry points for platform_editor_ai_content_reviewer_nudge.
+
+### Patch Changes
+
+- [`f8381289d0186`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f8381289d0186) -
+  Send a trace on editor AI generation requests and report it as traceID on every unified analytics
+  event for that interaction, behind cc_ai_trace_id_for_ai_cost on Confluence, so AI cost records
+  can be attributed back to the event that caused them. Callers that already propagate a trace keep
+  it, automatic retries reuse a single trace, and requests and events are unchanged when the
+  experiment is off.
+- [`01a85e4671787`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/01a85e4671787) -
+  Track local native embed deletions for inline database and whiteboard acceptance analytics, and
+  share content ID extraction between the native embed viewed and deleted events.
+- Updated dependencies
+
+## 138.5.0
+
+### Minor Changes
+
+- [`967b4115afb4d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/967b4115afb4d) -
+  Allow `MultiBodiedExtensionActions.removeChild` to update extension parameters in the same
+  transaction as child removal, so Undo and Redo apply both changes together.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 138.4.0
+
+### Minor Changes
+
+- [`f529dc95f230c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f529dc95f230c) -
+  Track backend edit acceptance once per invocation from the editor that initiated it. Include the
+  Rovo MCP source when the action classification supplies it. Reconnecting does not claim invocation
+  ownership. Late registration cannot create acceptance after the survival window, and analytics
+  extraction failures do not prevent collaborative edits from applying. This is controlled by
+  `platform_editor_ai_backend_persisted_analytics`.
+
 ## 138.3.0
 
 ### Minor Changes

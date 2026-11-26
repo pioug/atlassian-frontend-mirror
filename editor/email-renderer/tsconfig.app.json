@@ -3,6 +3,8 @@
 	"include": [
 		"./src/**/*.ts",
 		"./src/**/*.tsx",
+		"./*.docs.tsx",
+		"./package.json",
 		"**/docs/**/*",
 		"**/__tests__/**/*",
 		"**/__tests__/**/*.json",

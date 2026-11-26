@@ -8,7 +8,7 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import { ACTION } from '../../analytics';
 import type { EventDispatcher } from '../../event-dispatcher';
-import type { MultiBodiedExtensionActions } from '../../extensions';
+import type { MultiBodiedExtensionActions, Parameters } from '../../extensions';
 import type { ChangeActiveOptions } from '../../extensions/types/extension-handler';
 import { sendMBEAnalyticsEvent } from './utils';
 
@@ -33,6 +33,30 @@ export const useMultiBodiedExtensionActions = ({
 	childrenContainer,
 }: ActionsProps): MultiBodiedExtensionActions => {
 	const actions: MultiBodiedExtensionActions = React.useMemo(() => {
+		const getUpdatedAttrs = (currentNode: PmNode, parameters: Parameters) => ({
+			...currentNode.attrs,
+			parameters: {
+				...currentNode.attrs.parameters,
+				...(expValEquals('confluence_native_tabs_experiment', 'isEnabled', true)
+					? parameters
+					: { macroParams: parameters }),
+			},
+		});
+
+		const trackParameterUpdate = (currentNode: PmNode, analyticsChangedParam?: string) => {
+			if (eventDispatcher) {
+				sendMBEAnalyticsEvent(
+					ACTION.UPDATE_PARAMETERS,
+					currentNode,
+					eventDispatcher,
+					analyticsChangedParam &&
+						expValEquals('confluence_native_tabs_experiment', 'isEnabled', true)
+						? { changedParams: analyticsChangedParam }
+						: undefined,
+				);
+			}
+		};
+
 		return {
 			changeActive(index: number, options?: ChangeActiveOptions): boolean {
 				const { state, dispatch } = editorView;
@@ -118,7 +142,7 @@ export const useMultiBodiedExtensionActions = ({
 			getChildrenCount(): number {
 				return node.content.childCount;
 			},
-			removeChild(index: number): boolean {
+			removeChild(index, options): boolean {
 				const pos = getPos();
 				// Ignored via go/ees007
 				// eslint-disable-next-line @atlaskit/editor/enforce-todo-comment-format
@@ -128,6 +152,33 @@ export const useMultiBodiedExtensionActions = ({
 				}
 
 				const { state, dispatch } = editorView;
+
+				if (options) {
+					const currentNode = state.doc.nodeAt(pos);
+					if (
+						!currentNode ||
+						currentNode.type !== state.schema.nodes.multiBodiedExtension ||
+						currentNode.childCount <= 1 ||
+						!Number.isInteger(index) ||
+						index < 0 ||
+						index >= currentNode.childCount
+					) {
+						return false;
+					}
+
+					const start = state.doc.resolve(pos + 1).posAtIndex(index);
+					const end = start + currentNode.child(index).nodeSize;
+					// A single history event keeps the frame and its metadata in sync on undo and redo.
+					const tr = state.tr
+						.delete(start, end)
+						.setNodeMarkup(pos, null, getUpdatedAttrs(currentNode, options.parameters));
+					dispatch(tr);
+					if (eventDispatcher) {
+						sendMBEAnalyticsEvent(ACTION.REMOVE_CHILD, currentNode, eventDispatcher);
+					}
+					trackParameterUpdate(currentNode, options.analyticsChangedParam);
+					return true;
+				}
 
 				if (node.content.childCount === 1) {
 					const tr = state.tr;
@@ -206,32 +257,8 @@ export const useMultiBodiedExtensionActions = ({
 				if (typeof pos !== 'number') {
 					throw new Error('Position not valid');
 				}
-				// We are retaining node.attrs to keep the node type and extension key
-				// and only updating the parameters coming in from the user
-				// parameters will contain only macroParams information
-				const updatedParameters = {
-					...node.attrs,
-					parameters: {
-						...node.attrs.parameters,
-						...(expValEquals('confluence_native_tabs_experiment', 'isEnabled', true)
-							? { ...parameters }
-							: { macroParams: parameters }),
-					},
-				};
-
-				const tr = state.tr.setNodeMarkup(pos, null, updatedParameters);
-				dispatch(tr);
-				if (eventDispatcher) {
-					sendMBEAnalyticsEvent(
-						ACTION.UPDATE_PARAMETERS,
-						node,
-						eventDispatcher,
-						analyticsChangedParam &&
-							expValEquals('confluence_native_tabs_experiment', 'isEnabled', true)
-							? { changedParams: analyticsChangedParam }
-							: undefined,
-					);
-				}
+				dispatch(state.tr.setNodeMarkup(pos, null, getUpdatedAttrs(node, parameters)));
+				trackParameterUpdate(node, analyticsChangedParam);
 				return true;
 			},
 			getChildren(): Array<ADFEntity> {

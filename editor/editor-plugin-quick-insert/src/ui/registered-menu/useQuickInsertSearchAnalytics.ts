@@ -4,7 +4,7 @@ import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics/api';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
 import type {
 	QuickInsertSearchOutcomeEventPayload,
-	QuickInsertSearchSurface,
+	QuickInsertSurface,
 } from '@atlaskit/editor-common/analytics/types/quick-insert-events';
 
 type Options = {
@@ -13,7 +13,7 @@ type Options = {
 	isOpen?: boolean;
 	query: string;
 	resultCount: number;
-	surface: QuickInsertSearchSurface;
+	surface: QuickInsertSurface;
 };
 
 type PendingSearch = {

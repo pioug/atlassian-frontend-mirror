@@ -10,7 +10,6 @@ import { cssMap, jsx } from '@compiled/react';
 import LinkGlyph from '@atlaskit/icon/core/link';
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
 import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 
@@ -243,10 +242,7 @@ export const EmbedCardResolvedView: React.ForwardRefExoticComponent<
 		const themeState = useThemeObserver();
 		const { product } = useSmartLinkContext();
 		let previewUrl = preview?.src;
-		const hostProduct =
-			fg('platform_avp_smartlink_embed_product_context') && isSupportProductContext
-				? product
-				: undefined;
+		const hostProduct = isSupportProductContext ? product : undefined;
 
 		if (previewUrl && (isSupportTheming || hostProduct)) {
 			previewUrl = getPreviewUrlWithEmbedContext(previewUrl, {

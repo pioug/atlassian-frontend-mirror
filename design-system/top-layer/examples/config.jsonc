@@ -73,6 +73,7 @@
 		"174-testing-outside-press-click-through.tsx",
 		"175-testing-close-hides-inner-popovers.tsx",
 		"177-testing-manual-menu-tab-exit.tsx",
+		"180-testing-consumed-escape.tsx",
 		// The VR examples in the 80-89 band are imported by their spec rather than
 		// visited by URL, and the others are unregistered. The ones listed here are
 		// the ones recent changes added: a missing entry cannot fail anything, it

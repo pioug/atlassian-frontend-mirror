@@ -1,0 +1,26 @@
+{
+	"name": "@atlaskit/ads-ai-tooling-content",
+	"version": "0.1.0",
+	"description": "Design System guidance and icon data shared by ADS tools.",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"atlassian": {
+		"team": "Design System Team"
+	},
+	"exports": {
+		"./a11y-guidelines": "./src/accessibility/guidelines.tsx",
+		"./a11y-fixes": "./src/accessibility/fixes.tsx",
+		"./i18n-conversion-guide": "./src/i18n/guide.tsx",
+		"./migration-registry": "./src/migrations/migration-registry.tsx",
+		"./icons": "./src/icons.tsx"
+	},
+	"dependencies": {
+		"@atlaskit/icon": "workspace:^",
+		"@atlaskit/icon-lab": "workspace:^",
+		"@babel/runtime": "root:*"
+	}
+}

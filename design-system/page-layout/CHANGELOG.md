@@ -1,5 +1,12 @@
 # @atlaskit/page-layout
 
+## 5.5.10
+
+### Patch Changes
+
+- [`112689d2e02bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/112689d2e02bc) -
+  Removed the `platform_dst_popup-disable-focuslock` feature gate; behaviour is unchanged for users.
+
 ## 5.5.9
 
 ### Patch Changes

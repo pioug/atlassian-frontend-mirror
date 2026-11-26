@@ -116,7 +116,7 @@ const dialogStyles = cssMap({
 		},
 		display: 'flex',
 	},
-	// Combine with root when platform-dst-motion-uplift-modal is cleaned up
+	// Motion path only. Combine with root when `UNSAFE_shouldDisableMotionUplift` is removed.
 	rootMotion: {
 		'@media (min-width: 30rem)': {
 			marginInlineEnd: 'auto',
@@ -244,7 +244,7 @@ const ModalDialog: React.ForwardRefExoticComponent<
 		>
 			<ModalContext.Provider value={modalDialogContext}>
 				<ScrollContext.Provider value={shouldScrollInViewport}>
-					{!UNSAFE_shouldDisableMotionUplift && fg('platform-dst-motion-uplift-modal') ? (
+					{!UNSAFE_shouldDisableMotionUplift ? (
 						<Motion
 							enteringAnimation={token('motion.modal.enter')}
 							exitingAnimation={token('motion.modal.exit')}

@@ -3332,6 +3332,39 @@ test('close menu on hitting escape and clear input value if menu is open even if
 	});
 });
 
+test('top layer: clearing the value on Escape takes the Escape', () => {
+	passGate('platform-dst-top-layer');
+	const onChangeSpy = jest.fn();
+	render(
+		<Select
+			{...BASIC_PROPS}
+			onChange={onChangeSpy}
+			value={OPTIONS[0]}
+			escapeClearsValue
+			isClearable
+		/>,
+	);
+	const input = screen.getByTestId(`${testId}-select--input`);
+	input.focus();
+
+	// `false` when a handler called `preventDefault()`.
+	const isNotPrevented = fireEvent.keyDown(input, { key: 'Escape' });
+
+	expect(isNotPrevented).toBe(false);
+	expect(onChangeSpy).toHaveBeenCalledWith(null, expect.objectContaining({ action: 'clear' }));
+});
+
+test('top layer: with no value to clear, Escape is not taken', () => {
+	passGate('platform-dst-top-layer');
+	render(<Select {...BASIC_PROPS} escapeClearsValue isClearable />);
+	const input = screen.getByTestId(`${testId}-select--input`);
+	input.focus();
+
+	const isNotPrevented = fireEvent.keyDown(input, { key: 'Escape' });
+
+	expect(isNotPrevented).toBe(true);
+});
+
 test('to not clear value when hitting escape if escapeClearsValue is false (default) and isClearable is false', async () => {
 	let onChangeSpy = jest.fn();
 	let props = { ...BASIC_PROPS, onChange: onChangeSpy, value: OPTIONS[0] };
@@ -3572,56 +3605,22 @@ test('UNSAFE_is_experimental_generic', () => {
 	expect(within(list).queryAllByRole('option')).toHaveLength(0);
 });
 
-describe('accessibility > aria-autocomplete with platform_fix_autocomplete_aria_for_select feature flag', () => {
-	describe('with flag enabled', () => {
-		it('does not render aria-autocomplete when isSearchable is false (single select)', () => {
-			passGate('platform_fix_autocomplete_aria_for_select');
+describe('accessibility > aria-autocomplete', () => {
+	it('does not render aria-autocomplete when isSearchable is false (single select)', () => {
+		render(<Select {...BASIC_PROPS} isSearchable={false} />);
 
-			render(<Select {...BASIC_PROPS} isSearchable={false} />);
-
-			const input = screen.getByTestId(`${testId}-select--input`);
-			expect(input).not.toHaveAttribute('aria-autocomplete');
-		});
-
-		it('sets aria-autocomplete to "both" when isSearchable is true (single select)', () => {
-			passGate('platform_fix_autocomplete_aria_for_select');
-
-			const { rerender } = render(<Select {...BASIC_PROPS} isSearchable={true} />);
-
-			const input = screen.getByTestId(`${testId}-select--input`);
-			expect(input).toHaveAttribute('aria-autocomplete', 'both');
-
-			rerender(<Select {...BASIC_PROPS} isSearchable={false} />);
-			expect(screen.getByTestId(`${testId}-select--input`)).not.toHaveAttribute(
-				'aria-autocomplete',
-			);
-		});
+		const input = screen.getByTestId(`${testId}-select--input`);
+		expect(input).not.toHaveAttribute('aria-autocomplete');
 	});
 
-	describe('with flag disabled', () => {
-		it('always sets aria-autocomplete to "both" when isSearchable is false (single select)', () => {
-			failGate('platform_fix_autocomplete_aria_for_select');
+	it('sets aria-autocomplete to "both" when isSearchable is true (single select)', () => {
+		const { rerender } = render(<Select {...BASIC_PROPS} isSearchable={true} />);
 
-			render(<Select {...BASIC_PROPS} isSearchable={false} />);
+		const input = screen.getByTestId(`${testId}-select--input`);
+		expect(input).toHaveAttribute('aria-autocomplete', 'both');
 
-			const input = screen.getByTestId(`${testId}-select--input`);
-			expect(input).toHaveAttribute('aria-autocomplete', 'both');
-		});
-
-		it('sets aria-autocomplete to "both" when isSearchable is true (single select)', () => {
-			failGate('platform_fix_autocomplete_aria_for_select');
-
-			const { rerender } = render(<Select {...BASIC_PROPS} isSearchable={true} />);
-
-			const input = screen.getByTestId(`${testId}-select--input`);
-			expect(input).toHaveAttribute('aria-autocomplete', 'both');
-
-			rerender(<Select {...BASIC_PROPS} isSearchable={false} />);
-			expect(screen.getByTestId(`${testId}-select--input`)).toHaveAttribute(
-				'aria-autocomplete',
-				'both',
-			);
-		});
+		rerender(<Select {...BASIC_PROPS} isSearchable={false} />);
+		expect(screen.getByTestId(`${testId}-select--input`)).not.toHaveAttribute('aria-autocomplete');
 	});
 });
 
@@ -3718,4 +3717,73 @@ describe('accessibility > disabled combobox', () => {
 			expect(screen.getByTestId(`${testId}-select--control`)).not.toHaveAttribute('aria-disabled');
 		},
 	);
+});
+
+describe('shouldFocusOptionOnOpen', () => {
+	it('keeps the selected option active by default', () => {
+		render(<Select {...BASIC_PROPS} menuIsOpen value={OPTIONS[0]} />);
+		expect(screen.getByRole('combobox')).toHaveAttribute(
+			'aria-activedescendant',
+			screen.getAllByRole('option')[0].id,
+		);
+	});
+
+	it('keeps the input active on mount, then supports keyboard navigation and selection', async () => {
+		const onChange = jest.fn();
+		render(
+			<Select
+				{...BASIC_PROPS}
+				autoFocus
+				menuIsOpen
+				value={OPTIONS[1]}
+				onChange={onChange}
+				shouldFocusOptionOnOpen={false}
+			/>,
+		);
+		const input = screen.getByRole('combobox');
+		expect(input).toHaveFocus();
+		expect(screen.getByRole('listbox')).toBeVisible();
+		expect(input).not.toHaveAttribute('aria-activedescendant');
+		await userEvent.keyboard('{enter}');
+		expect(onChange).not.toHaveBeenCalled();
+		await userEvent.keyboard('{arrowdown}');
+		expect(input).toHaveAttribute('aria-activedescendant', screen.getAllByRole('option')[0].id);
+		await userEvent.keyboard('{enter}');
+		expect(onChange).toHaveBeenCalledWith(
+			OPTIONS[0],
+			expect.objectContaining({ action: 'select-option' }),
+		);
+	});
+
+	it('does not activate arriving options until the user interacts', async () => {
+		const { rerender } = render(
+			<Select {...BASIC_PROPS} autoFocus menuIsOpen options={[]} shouldFocusOptionOnOpen={false} />,
+		);
+		rerender(<Select {...BASIC_PROPS} autoFocus menuIsOpen shouldFocusOptionOnOpen={false} />);
+		const input = screen.getByRole('combobox');
+		expect(input).toHaveFocus();
+		expect(input).not.toHaveAttribute('aria-activedescendant');
+		const option = screen.getAllByRole('option')[1];
+		await userEvent.hover(option);
+		expect(input).toHaveAttribute('aria-activedescendant', option.id);
+	});
+
+	it('activates a matching option when the search input changes', () => {
+		const { rerender } = render(
+			<Select {...BASIC_PROPS} autoFocus menuIsOpen shouldFocusOptionOnOpen={false} />,
+		);
+		rerender(
+			<Select
+				{...BASIC_PROPS}
+				autoFocus
+				menuIsOpen
+				inputValue={OPTIONS[1].label}
+				shouldFocusOptionOnOpen={false}
+			/>,
+		);
+		expect(screen.getByRole('combobox')).toHaveAttribute(
+			'aria-activedescendant',
+			screen.getAllByRole('option')[0].id,
+		);
+	});
 });

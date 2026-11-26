@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/navigation-system",
-	"version": "12.1.0",
+	"version": "12.1.1",
 	"description": "The latest navigation system for Atlassian apps.",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"license": "Apache-2.0",
@@ -90,7 +90,6 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "workspace:^",
-		"@atlaskit/app-provider": "workspace:^",
 		"@atlaskit/avatar": "workspace:^",
 		"@atlaskit/button": "workspace:^",
 		"@atlaskit/css": "workspace:^",
@@ -100,7 +99,6 @@
 		"@atlaskit/logo": "workspace:^",
 		"@atlaskit/motion": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
-		"@atlaskit/platform-feature-flags-react": "workspace:^",
 		"@atlaskit/popup": "workspace:^",
 		"@atlaskit/pragmatic-drag-and-drop": "workspace:^",
 		"@atlaskit/primitives": "workspace:^",
@@ -192,9 +190,6 @@
 			"referenceOnly": true
 		},
 		"platform_dst_button_chevron_sizing": {
-			"type": "boolean"
-		},
-		"platform_dst_nav4_custom_theming_fhs_1": {
 			"type": "boolean"
 		},
 		"platform_dst_nav4_skip_link_a11y_1": {

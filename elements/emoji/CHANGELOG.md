@@ -1,5 +1,31 @@
 # @atlaskit/emoji
 
+## 73.10.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 73.10.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 73.10.5
+
+### Patch Changes
+
+- [`7413f134758c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7413f134758c7) -
+  Keep the shipped emoji scaling behavior in the editor and renderer and remove its experiment.
+- Updated dependencies
+
+## 73.10.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 73.10.3
 
 ### Patch Changes

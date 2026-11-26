@@ -9,7 +9,6 @@ import { from } from 'rxjs/observable/from';
 import type { AutocompleteOptions } from '@atlaskit/jql-editor-common/autocomplete/types';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { type JqlEditorAutocompleteAnalyticsEvent } from '../../analytics/types';
 import {
@@ -432,40 +431,13 @@ describe('onValues', () => {
 	});
 
 	describe('Assets object values', () => {
-		it('are marked as assets so they render as a rich inline node when the gate is on', (done) => {
-			passGate('orion-8274-cmdb-object-jql-values-resolver');
-
+		it('are marked as assets so they render as a rich inline node', (done) => {
 			const assertValues = (values: AutocompleteOptions) => {
 				expect(values).toEqual([
 					{
 						name: 'Object 1 - DT-10',
 						value: '"ari:cloud:cmdb::object/ac72f855-c692-441a-8557-bb958b38f698/10"',
 						valueType: 'assets',
-					},
-				]);
-			};
-
-			act(() => {
-				render(
-					<OnValuesConsumer
-						jqlSearchableFields={[...mockJqlSearchableFields, assetsJqlField]}
-						jqlFieldValues={assetsFieldValuesMock}
-						field="Assets"
-						onAssert={assertValues}
-						done={done}
-					/>,
-				);
-			});
-		});
-
-		it('are left as plain text when the gate is off', (done) => {
-			failGate('orion-8274-cmdb-object-jql-values-resolver');
-
-			const assertValues = (values: AutocompleteOptions) => {
-				expect(values).toEqual([
-					{
-						name: 'Object 1 - DT-10',
-						value: '"ari:cloud:cmdb::object/ac72f855-c692-441a-8557-bb958b38f698/10"',
 					},
 				]);
 			};

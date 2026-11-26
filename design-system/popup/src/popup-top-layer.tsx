@@ -67,7 +67,6 @@ export const PopupTopLayer: FC<DialogPopupProps | PopupProps> = memo(function Po
 	trigger,
 	content,
 	onClose: providedOnClose,
-	mode = 'auto',
 	placement = 'auto',
 	fallbackPlacements: _fallbackPlacements,
 	shouldFlip: _shouldFlip = true,
@@ -191,9 +190,10 @@ export const PopupTopLayer: FC<DialogPopupProps | PopupProps> = memo(function Po
 	 * press on the trigger does not ask: the trigger's own click decides.
 	 * See `@atlaskit/top-layer` `notes/decisions/wrappers-ask-first-close.md`.
 	 */
-	const isManual = mode === 'manual';
-	// A `manual` popup without `onClose` stays open until `isOpen` changes, and takes no Escape.
-	const isClosable = !isManual || Boolean(providedOnClose);
+	// Without `onClose`, nothing can be asked to close the popup. It takes no Escape and no outside
+	// press, so a layer around it (for example an inline edit or a modal) gets them, and it stays
+	// open until `isOpen` changes.
+	const isClosable = Boolean(providedOnClose);
 	const triggerRefs = useMemo(() => [triggerRef], []);
 	useManualLightDismiss({
 		isOpen: isOpen && isClosable,

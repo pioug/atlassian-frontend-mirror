@@ -106,7 +106,9 @@ describe('<ModalDialog />', () => {
 			key: 'Escape',
 			code: 'Escape',
 		});
-		expect(screen.queryByTestId('dropdown-menu--content')).not.toBeInTheDocument();
+		await waitFor(() =>
+			expect(screen.queryByTestId('dropdown-menu--content')).not.toBeInTheDocument(),
+		);
 		expect(modal).toBeInTheDocument();
 	});
 	it('should be a section element', () => {

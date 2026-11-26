@@ -107,8 +107,7 @@ describe('UFO Configuration Module', () => {
 			expect(getEnabledVCRevisions('exp1')).toEqual(['fy25.01']);
 		});
 
-		it('should return [] when enabledVCRevisions.all is explicitly empty and ufo_disable_ttvc_v4 flag is on (isValidConfigArray treats empty array as valid)', () => {
-			(fg as jest.Mock).mockImplementation((flag: string) => flag === 'ufo_disable_ttvc_v4');
+		it('should return no client-side revisions when enabledVCRevisions.all is explicitly empty', () => {
 			const config: Config = {
 				product: 'testProduct',
 				region: 'testRegion',
@@ -121,22 +120,6 @@ describe('UFO Configuration Module', () => {
 			};
 			setUFOConfig(config);
 			expect(getEnabledVCRevisions()).toEqual([]);
-		});
-
-		it('should return default revision (fy26.04) when enabledVCRevisions.all is explicitly empty and ufo_disable_ttvc_v4 flag is off (isValidConfigArray treats empty array as invalid)', () => {
-			(fg as jest.Mock).mockImplementation(() => false);
-			const config: Config = {
-				product: 'testProduct',
-				region: 'testRegion',
-				vc: {
-					enabled: true,
-					enabledVCRevisions: {
-						all: [],
-					},
-				},
-			};
-			setUFOConfig(config);
-			expect(getEnabledVCRevisions()).toEqual(['fy26.04']);
 		});
 	});
 

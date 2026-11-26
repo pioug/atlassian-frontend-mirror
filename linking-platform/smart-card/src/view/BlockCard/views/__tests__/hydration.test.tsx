@@ -5,7 +5,6 @@ import { renderToString } from 'react-dom/server';
 import { IntlProvider } from 'react-intl';
 
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { act } from '@atlassian/testing-library/act';
 
 import { getCurrentSiteCloudId } from '../../../../state/services/current-site-cloud-id/getCurrentSiteCloudId';
@@ -20,21 +19,13 @@ jest.mock('../../../../state/services/current-site-cloud-id/getCurrentSiteCloudI
 jest.mock('../../../../state/services/current-site-cloud-id/getCurrentSiteCloudIdSync');
 jest.mock('../../../../state/services/personalization/getProviderPctMap');
 jest.mock('../../../../state/services/personalization/getProviderPctMapSync');
-jest.mock('@atlaskit/tmp-editor-statsig/exp-val-equals', () => ({
-	expValEquals: jest.fn(),
-}));
 
 const extensionKey = 'google-object-provider';
 
 describe('block Smart Link and modified date hydration', () => {
-	it.each([
-		{ warmCache: true, treatment: true },
-		{ warmCache: true, treatment: false },
-		{ warmCache: false, treatment: true },
-	])(
-		'hydrates with $warmCache warm cache, treatment: $treatment',
-		async ({ warmCache, treatment }) => {
-			jest.mocked(expValEquals).mockReturnValue(treatment);
+	it.each([{ warmCache: true }, { warmCache: false }])(
+		'hydrates with $warmCache warm cache',
+		async ({ warmCache }) => {
 			jest.mocked(getCurrentSiteCloudId).mockResolvedValue('cloud-id');
 			jest.mocked(getProviderPctMap).mockResolvedValue(undefined);
 			jest.mocked(getCurrentSiteCloudIdSync).mockReturnValue(undefined);
@@ -104,7 +95,7 @@ describe('block Smart Link and modified date hydration', () => {
 				});
 
 				expect(container.textContent).toContain(
-					warmCache && treatment
+					warmCache
 						? '72% of your team sees Google Drive previews'
 						: 'Turn your URLs into rich, interactive previews.',
 				);

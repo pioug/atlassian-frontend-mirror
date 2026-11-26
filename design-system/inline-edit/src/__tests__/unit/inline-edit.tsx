@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import selectEvent from 'react-select-event';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import Select from '@atlaskit/select/default';
 import type { OptionType, ValueType } from '@atlaskit/select/types';
 import Textfield from '@atlaskit/textfield/text-field';
+import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import InlineEdit from '../../inline-edit';
 
@@ -249,6 +250,209 @@ describe('InlineEdit component', () => {
 			// Value displayed in edit view when reopened should be reset
 			const reopenedTextField = screen.getByTestId('edit-view');
 			expect(reopenedTextField).toHaveValue('Initial content');
+		});
+	});
+
+	/**
+	 * Smoke tests. The browser tests in
+	 * `__tests__/playwright/ff-testing/platform-dst-top-layer/escape-in-layer.spec.tsx` cover the
+	 * layers around and inside the inline edit.
+	 */
+	describe('Escape takes part in the layer stack', () => {
+		function InlineEditForEscape({
+			shouldPreventEscape = false,
+			onCancel,
+		}: {
+			shouldPreventEscape?: boolean;
+			onCancel?: () => void;
+		}) {
+			return (
+				<InlineEdit
+					defaultValue="Initial content"
+					label="Inline edit"
+					editView={({ errorMessage: _errorMessage, ...fieldProps }) => (
+						<Textfield
+							testId="edit-view"
+							{...fieldProps}
+							onKeyDown={(event) => {
+								if (shouldPreventEscape && event.key === 'Escape') {
+									event.preventDefault();
+								}
+							}}
+						/>
+					)}
+					readView={() => <div data-testid="read-view">Initial content</div>}
+					onConfirm={jest.fn()}
+					onCancel={onCancel}
+				/>
+			);
+		}
+
+		function pressEscape(target: HTMLElement): boolean {
+			// `false` when a handler called `preventDefault()`.
+			return fireEvent.keyDown(target, { key: 'Escape' });
+		}
+
+		it('top layer: cancelling the edit takes the Escape', () => {
+			passGate('platform-dst-top-layer');
+			const onCancel = jest.fn();
+			render(<InlineEditForEscape onCancel={onCancel} />);
+			fireEvent.click(screen.getByTestId('read-view'));
+
+			const isNotPrevented = pressEscape(screen.getByTestId('edit-view'));
+
+			expect(isNotPrevented).toBe(false);
+			expect(screen.getByTestId('read-view')).toBeInTheDocument();
+			expect(onCancel).toHaveBeenCalledTimes(1);
+		});
+
+		it('top layer: in read view, Escape is not taken and nothing is cancelled', () => {
+			passGate('platform-dst-top-layer');
+			const onCancel = jest.fn();
+			render(<InlineEditForEscape onCancel={onCancel} />);
+
+			const isNotPrevented = pressEscape(screen.getByRole('button', { name: /edit/ }));
+
+			expect(isNotPrevented).toBe(true);
+			expect(onCancel).not.toHaveBeenCalled();
+		});
+
+		it('top layer: an Escape that an inner handler took keeps the edit open', () => {
+			passGate('platform-dst-top-layer');
+			render(<InlineEditForEscape shouldPreventEscape />);
+			fireEvent.click(screen.getByTestId('read-view'));
+
+			pressEscape(screen.getByTestId('edit-view'));
+
+			expect(screen.getByTestId('edit-view')).toBeInTheDocument();
+		});
+
+		it('top layer: a held Escape is taken but does not cancel the edit or reset the draft', () => {
+			passGate('platform-dst-top-layer');
+			const onCancel = jest.fn();
+			render(<InlineEditForEscape onCancel={onCancel} />);
+			fireEvent.click(screen.getByTestId('read-view'));
+			const input = screen.getByRole('textbox');
+			fireEvent.change(input, { target: { value: 'New content' } });
+
+			const isNotPrevented = fireEvent.keyDown(input, { key: 'Escape', repeat: true });
+
+			expect(isNotPrevented).toBe(false);
+			expect(onCancel).not.toHaveBeenCalled();
+			expect(screen.getByRole('textbox')).toHaveValue('New content');
+		});
+
+		it('top layer: after Escape closes a Select menu, a held Escape keeps the edit open', async () => {
+			passGate('platform-dst-top-layer');
+			const onCancel = jest.fn();
+			render(
+				<InlineEdit<ValueType<OptionType>>
+					defaultValue={null}
+					label="Inline edit"
+					editView={({ errorMessage: _errorMessage, ...fieldProps }) => (
+						<Select
+							{...fieldProps}
+							inputId="inline-edit-select"
+							defaultMenuIsOpen
+							options={[
+								{ label: 'Apple', value: 'apple' },
+								{ label: 'Banana', value: 'banana' },
+							]}
+						/>
+					)}
+					readView={() => <div data-testid="read-view">None</div>}
+					onConfirm={jest.fn()}
+					onCancel={onCancel}
+				/>,
+			);
+			fireEvent.click(screen.getByTestId('read-view'));
+			const input = screen.getByRole('combobox');
+			expect(screen.getByRole('listbox')).toBeInTheDocument();
+
+			// The first press closes the menu and leaves the edit open.
+			fireEvent.keyDown(input, { key: 'Escape' });
+			await waitFor(() => expect(screen.queryByRole('listbox')).not.toBeInTheDocument());
+			expect(screen.getByRole('combobox')).toBeInTheDocument();
+
+			// The key is still held, so the edit stays open.
+			const isNotPrevented = fireEvent.keyDown(input, { key: 'Escape', repeat: true });
+			expect(isNotPrevented).toBe(false);
+			expect(screen.getByRole('combobox')).toBeInTheDocument();
+			expect(onCancel).not.toHaveBeenCalled();
+
+			// A new press cancels the edit.
+			fireEvent.keyDown(input, { key: 'Escape' });
+			expect(screen.getByTestId('read-view')).toBeInTheDocument();
+			expect(onCancel).toHaveBeenCalledTimes(1);
+		});
+
+		function ControlledInlineEdit({ onCancel }: { onCancel?: () => void }) {
+			return (
+				<InlineEdit
+					isEditing
+					defaultValue="Initial content"
+					label="Inline edit"
+					editView={({ errorMessage: _errorMessage, ...fieldProps }) => (
+						<Textfield testId="edit-view" {...fieldProps} />
+					)}
+					readView={() => <div data-testid="read-view">Initial content</div>}
+					onConfirm={jest.fn()}
+					onCancel={onCancel}
+				/>
+			);
+		}
+
+		it('top layer: a controlled edit without onCancel cannot end, so Escape is not taken', () => {
+			passGate('platform-dst-top-layer');
+			render(<ControlledInlineEdit />);
+
+			const isNotPrevented = pressEscape(screen.getByTestId('edit-view'));
+
+			expect(isNotPrevented).toBe(true);
+			expect(screen.getByTestId('edit-view')).toBeInTheDocument();
+		});
+
+		it('top layer: a controlled edit with onCancel takes the Escape and asks to cancel', () => {
+			passGate('platform-dst-top-layer');
+			const onCancel = jest.fn();
+			render(<ControlledInlineEdit onCancel={onCancel} />);
+
+			const isNotPrevented = pressEscape(screen.getByTestId('edit-view'));
+
+			expect(isNotPrevented).toBe(false);
+			expect(onCancel).toHaveBeenCalledTimes(1);
+		});
+
+		it('legacy: in read view, Escape is not taken and calls onCancel', () => {
+			failGate('platform-dst-top-layer');
+			const onCancel = jest.fn();
+			render(<InlineEditForEscape onCancel={onCancel} />);
+
+			const isNotPrevented = pressEscape(screen.getByRole('button', { name: /edit/ }));
+
+			expect(isNotPrevented).toBe(true);
+			expect(onCancel).toHaveBeenCalledTimes(1);
+		});
+
+		it('legacy: cancelling the edit does not take the Escape', () => {
+			failGate('platform-dst-top-layer');
+			render(<InlineEditForEscape shouldPreventEscape={false} />);
+			fireEvent.click(screen.getByTestId('read-view'));
+
+			const isNotPrevented = pressEscape(screen.getByTestId('edit-view'));
+
+			expect(isNotPrevented).toBe(true);
+			expect(screen.getByTestId('read-view')).toBeInTheDocument();
+		});
+
+		it('legacy: an Escape that an inner handler took still cancels the edit', () => {
+			failGate('platform-dst-top-layer');
+			render(<InlineEditForEscape shouldPreventEscape />);
+			fireEvent.click(screen.getByTestId('read-view'));
+
+			pressEscape(screen.getByTestId('edit-view'));
+
+			expect(screen.getByTestId('read-view')).toBeInTheDocument();
 		});
 	});
 

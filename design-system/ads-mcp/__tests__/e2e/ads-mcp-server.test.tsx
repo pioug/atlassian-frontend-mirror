@@ -273,3 +273,9 @@ describe('ADS MCP Server E2E', () => {
 		expect(errorText.receivedArguments).toBeDefined();
 	});
 });
+
+it('does not add internal pattern backlinks to either ADS MCP component catalog', () => {
+	for (const component of [...allComponents, ...atlaskitComponents]) {
+		expect(component).not.toHaveProperty('relatedPatterns');
+	}
+});

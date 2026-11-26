@@ -1,4 +1,4 @@
-/** Hashing stays behind the lazily loaded exposure delivery boundary. */
+/** Hashing stays behind the exposure delivery boundary (`delivery.ts`). */
 import type { IHasher } from 'hash-wasm';
 
 import { localHash64 } from './local-hash';

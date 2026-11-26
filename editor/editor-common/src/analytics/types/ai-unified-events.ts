@@ -34,6 +34,9 @@ export type AIUnifiedCommonAttributes = {
 	 * The source 3p product when user invokes AI action from smartlink toolbar.
 	 */
 	sourceProduct?: string | null;
+	/** Trace sent on the generation request, used to attribute AI cost records to this event. */
+	traceID?: string;
+	/** Trace ids read back from AI responses. Unrelated to the sent `traceID`. */
 	traceIds?: string[];
 	userGeneratedAI: 0 | 1;
 };

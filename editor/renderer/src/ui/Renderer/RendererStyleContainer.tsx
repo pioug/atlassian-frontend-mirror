@@ -52,8 +52,6 @@ import {
 	blockNodesVerticalMargin,
 	scaledBlockNodesVerticalMargin,
 	gridMediumMaxWidth,
-	akEditorFullPageDefaultFontSize,
-	akEditorFullPageDenseFontSize,
 } from '@atlaskit/editor-shared-styles/constants';
 import {
 	defaultEmojiHeight,
@@ -2816,9 +2814,6 @@ const rendererAnnotationStylesCommentHeightFix = css({
 	},
 });
 
-const RENDERER_LIST_DENSE_GAP = `max(0px,calc((var(--ak-renderer-base-font-size) - ${akEditorFullPageDenseFontSize}px)* (4/3)))`;
-const TASKLIST_CONTAINER_DENSE_MARGIN = `max(calc(10px + (var(--ak-renderer-base-font-size) - ${akEditorFullPageDenseFontSize}px) *( 2 / 3)))`;
-
 const scaledDenseEmojiStyles = css({
 	[`.${EmojiSharedCssClassName.EMOJI_IMAGE}`]: {
 		height: `${defaultDenseEmojiHeight}px`,
@@ -2915,67 +2910,6 @@ const scaledEmojiStyles = css({
 			height: `${defaultInlineEmojiHeight}px`,
 			width: `${defaultInlineEmojiHeight}px`,
 		},
-});
-
-const denseStyles = css({
-	// Scale emoji size based on base font size
-	// Default: 20px emoji at 16px base font
-	// Scaled: 20px * (baseFontSize/16)
-	// E.g., dense mode (13px base): 20px * (13/16) = 16.25px
-	[`.${EmojiSharedCssClassName.EMOJI_IMAGE}`]: {
-		height: `calc(${defaultEmojiHeight} * var(--ak-renderer-base-font-size) / ${akEditorFullPageDefaultFontSize})`,
-		width: `calc(${defaultEmojiHeight} * var(--ak-renderer-base-font-size) / ${akEditorFullPageDefaultFontSize})`,
-		maxHeight: `calc(${defaultEmojiHeight} * var(--ak-renderer-base-font-size) / ${akEditorFullPageDefaultFontSize})`,
-
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		img: {
-			width: '100%',
-			height: '100%',
-			objectFit: 'contain',
-		},
-	},
-
-	// Scale panel icon
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	[`.${RendererCssClassName.DOCUMENT} .ak-editor-panel .ak-editor-panel__icon`]: {
-		height: token('space.250'),
-		width: token('space.250'),
-	},
-
-	// Condense spacing across lists, tasks and decisions
-	[`.${RendererCssClassName.DOCUMENT}`]: {
-		// Adjacent list items
-		'li + li': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-			marginTop: RENDERER_LIST_DENSE_GAP,
-		},
-		// Nested lists directly under an li (unordered and ordered)
-		'li > ul, li > ol, .ak-ul li > ul, .ak-ul li > ol, .ak-ol li > ul, .ak-ol li > ol': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-			marginTop: RENDERER_LIST_DENSE_GAP,
-		},
-
-		// Task lists
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'[data-task-list-local-id]': {
-			// Task lists: container top margin
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-			marginTop: TASKLIST_CONTAINER_DENSE_MARGIN,
-		},
-
-		// Task lists: sibling items and nested lists
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'[data-task-list-local-id] > * + *': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-			marginTop: RENDERER_LIST_DENSE_GAP,
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-		'[data-task-list-local-id] [data-task-list-local-id], [data-task-local-id] [data-task-local-id]':
-			{
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-				marginTop: RENDERER_LIST_DENSE_GAP,
-			},
-	},
 });
 
 const syncBlockRendererStyles = css({
@@ -3262,13 +3196,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 					isPreviewPanelResponsivenessOn &&
 					responsiveBreakoutWidthWithReducedPadding,
 				(appearance === 'full-width' || appearance === 'max') && responsiveBreakoutWidthFullWidth,
-				expValEquals('platform_editor_lovability_emoji_scaling', 'isEnabled', true)
-					? contentMode === 'compact'
-						? scaledDenseEmojiStyles
-						: scaledEmojiStyles
-					: contentMode === 'compact'
-						? denseStyles
-						: undefined,
+				contentMode === 'compact' ? scaledDenseEmojiStyles : scaledEmojiStyles,
 				syncBlockStyles,
 				centerWrapperStyles,
 				fg('platform_editor_breakout_spacing_in_renderer') && ruleBreakoutStyles,

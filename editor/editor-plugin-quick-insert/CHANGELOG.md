@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 34.1.0
+
+### Minor Changes
+
+- [`25bf9cf4b1b28`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/25bf9cf4b1b28) -
+  Behind `platform_editor_slash_command_analytics`, fire `quickInsert opened` and
+  `quickInsert selected` the same way in the legacy and registered quick insert menus. Native items
+  are named by their element (`table`), and Skills `skill`, since custom Skill slugs are user
+  content. Adds the event types (`@atlaskit/editor-common`), and the `fireQuickInsertOpened` and
+  `fireQuickInsertItemSelected` actions, fired from the `/` menu and the element browser modal
+  (`@atlaskit/editor-plugin-quick-insert`).
+
+  Renames `QuickInsertSearchSurface` to `QuickInsertSurface`, since the opened and selected events
+  use it too.
+
+  Adds `SKILL_MENU_ITEM_KEY_PREFIX` and `getNativeMenuItemName` to
+  `@atlaskit/editor-common/quick-insert/keys`. Deprecates `fireQuickInsertItemSelected`, which is
+  removed with the legacy quick insert menus.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 34.0.1
 
 ### Patch Changes

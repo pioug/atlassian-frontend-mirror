@@ -86,8 +86,7 @@ describe('useFilePreview — seeded CDN URL guard', () => {
 	// isCDNEnabled() is evaluated before the feature gate in
 	// `seededCdnUrl && isCDNEnabled() && fg('platform_media_ssr_data_seed')`, so
 	// when CDN delivery is disabled the gate is never reached (short-circuit).
-	// These cases are therefore gate-independent and must not use ffTest, which
-	// requires the gate to be evaluated in every test.
+	// These cases run without a gate override.
 	describe('when CDN delivery is disabled (isCDNEnabled() === false)', () => {
 		beforeEach(() => {
 			mockIsCDNEnabled.mockReturnValue(false);

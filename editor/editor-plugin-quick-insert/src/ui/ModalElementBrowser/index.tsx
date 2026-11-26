@@ -74,23 +74,24 @@ const Modal = ({
 	const isOpen = quickInsertState.isElementBrowserOpen || false;
 	const wasOpen = useRef(false);
 	useEffect(() => {
-		// Pause the active session once the modal has opened. This runs after the transaction
-		// that opened it, so the type-ahead closing can't resume the session straight away.
-		if (
-			isOpen &&
-			!wasOpen.current &&
-			fg('platform_editor_fix_slash_menu_ease_of_use_metrics') &&
-			fg('platform_editor_ease_of_use_metrics')
-		) {
-			api?.core.actions.execute(
-				api?.metrics?.commands.handleIntentToStartEdit({
-					shouldStartTimer: false,
-					shouldPersistActiveSession: true,
-				}),
-			);
+		if (isOpen && !wasOpen.current) {
+			// Pause the active session once the modal has opened. This runs after the transaction
+			// that opened it, so the type-ahead closing can't resume the session straight away.
+			if (
+				fg('platform_editor_fix_slash_menu_ease_of_use_metrics') &&
+				fg('platform_editor_ease_of_use_metrics')
+			) {
+				api?.core.actions.execute(
+					api?.metrics?.commands.handleIntentToStartEdit({
+						shouldStartTimer: false,
+						shouldPersistActiveSession: true,
+					}),
+				);
+			}
+			api?.quickInsert?.actions.fireQuickInsertOpened('element-browser');
 		}
 		wasOpen.current = isOpen;
-	}, [isOpen, api]);
+	}, [api, isOpen]);
 
 	// ED-19408 We not store the item ref in the state
 	// Instead of adding the item immediately on insert item
@@ -104,6 +105,7 @@ const Modal = ({
 	}, [editorView]);
 	const onInsertItem = useCallback(
 		(item: QuickInsertItem) => {
+			api?.quickInsert?.actions.fireQuickInsertItemSelected('element-browser', item);
 			closeBrowser();
 			if (fg('platform_editor_ease_of_use_metrics')) {
 				api?.core.actions.execute(api?.metrics?.commands.startActiveSessionTimer());

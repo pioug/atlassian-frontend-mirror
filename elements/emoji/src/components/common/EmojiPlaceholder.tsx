@@ -7,11 +7,10 @@
 import { css, jsx } from '@compiled/react';
 
 import type { StrictXCSSProp } from '@atlaskit/css';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import type { EmojiImageRepresentation } from '../../types';
-import { defaultEmojiHeight, defaultDenseEmojiHeight } from '../../util/constants';
+import { defaultDenseEmojiHeight } from '../../util/constants';
 import { emojiPlaceholderTestId } from './emojiPlaceholderTestId';
 import { placeholder } from './styles';
 
@@ -37,39 +36,12 @@ export interface Props {
 }
 
 const EmojiPlaceholder = (props: Props): JSX.Element => {
-	const {
-		shortName,
-		size = defaultEmojiHeight,
-		showTooltip,
-		representation,
-		loading = false,
-		xcss,
-	} = props;
-
-	let scaledWidth;
-	let scaledHeight;
-	if (representation && size) {
-		const width = representation.width;
-		const height = representation.height;
-		if (width && height) {
-			scaledWidth = (size / height) * width;
-			scaledHeight = size;
-		}
-	}
-	const width: number = scaledWidth || size;
-	const height: number = scaledHeight || size;
-	const style = expValEquals('platform_editor_lovability_emoji_scaling', 'isEnabled', true)
-		? {
-				fill: 'f7f7f7',
-				minWidth: `${defaultDenseEmojiHeight}px`,
-				minHeight: `${defaultDenseEmojiHeight}px`,
-			}
-		: {
-				fill: 'f7f7f7',
-				minWidth: `${width}px`,
-				width: `${width}px`,
-				height: `${height}px`,
-			};
+	const { shortName, showTooltip, loading = false, xcss } = props;
+	const style = {
+		fill: 'f7f7f7',
+		minWidth: `${defaultDenseEmojiHeight}px`,
+		minHeight: `${defaultDenseEmojiHeight}px`,
+	};
 
 	return (
 		<span

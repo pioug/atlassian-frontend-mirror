@@ -45,7 +45,6 @@ const panelSplitterResizingVar = '--n_cPnlRsz';
 const chatPanelOverlayWidthVar = '--n_cPnlOverlayW';
 const fallbackDefaultWidth = 400;
 const fallbackCompactDefaultWidth = 320;
-const fallbackMinWidth: ResizeBound = '320px';
 const inlineMediaQuery = '(min-width: 40rem)';
 
 function getPixelCustomProperty(
@@ -148,7 +147,7 @@ export function ChatPanel({
 	children,
 	defaultWidth: defaultWidthProp,
 	compactDefaultWidth: compactDefaultWidthProp,
-	minWidth = fallbackMinWidth,
+	minWidth = '320px',
 	maxWidth,
 	label = 'Chat panel',
 	skipLinkLabel = label,
@@ -178,7 +177,9 @@ export function ChatPanel({
 	 */
 	compactDefaultWidth?: number;
 	/**
-	 * The minimum width the chat panel can be resized to.
+	 * The minimum width the chat panel can be resized to. Defaults to 320px.
+	 *
+	 * @default '320px'
 	 */
 	minWidth?: ResizeBound;
 	/**

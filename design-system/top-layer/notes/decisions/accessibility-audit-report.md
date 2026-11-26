@@ -228,7 +228,7 @@ matching. Playwright covers Escape, focus return, inertness.
 - **Documented** native focus restoration as an explicit design choice in `modal-wrapper.tsx` and
   migration notes. The top-layer path relies on browser's native `<dialog>` focus restoration,
   replacing `react-focus-lock`'s `returnFocus`.
-- **Added** aXe unit test for the top-layer path (`ffTest.on('platform-dst-top-layer', ...)`).
+- **Added** aXe unit test for the top-layer path.
 
 **Pre-existing issues:**
 
@@ -253,7 +253,7 @@ Tab cycling, background inertness, nested modals. **aXe unit test added** for to
 
 **Changes in this audit:**
 
-- **Added** aXe unit test for the top-layer path (`ffTest.on('platform-dst-top-layer', ...)`).
+- **Added** aXe unit test for the top-layer path.
 - **Updated** Playwright test comment — dismiss button has `label="Dismiss"` via `IconButton`, test
   skip is likely a test-setup issue (pre-existing, out of scope).
 - **Documented** `role="alert"` improvement opportunity in code and migration notes.
@@ -283,7 +283,7 @@ rendering, dismissal, ARIA role, focus-visible, DOM order.
 
 **Changes in this audit:**
 
-- **Added** aXe unit test for the top-layer path (`ffTest.on('platform-dst-top-layer', ...)`).
+- **Added** aXe unit test for the top-layer path.
 - **Strengthened** Playwright test for focus return — now asserts focus is automatically restored to
   the "Show Spotlight" button after Escape (instead of manually calling `.focus()`).
 - **Documented** step-change announcement improvement opportunity in code and migration notes.
@@ -331,14 +331,14 @@ rendering, dismissal, ARIA role, focus-visible, DOM order.
 
 ### Fixed in This Audit
 
-| #   | Issue                                                                                                                     | Component                     | WCAG  | Resolution                                                                    |
-| --- | ------------------------------------------------------------------------------------------------------------------------- | ----------------------------- | ----- | ----------------------------------------------------------------------------- |
-| 1   | `Popup.Content` does not call `setAriaHasPopup(roleToAriaHasPopup(role))` — trigger always shows `aria-haspopup="dialog"` | top-layer Popup               | 4.1.2 | **Fixed** — `useLayoutEffect` in `Popup.Content` to sync role                 |
-| 2   | dropdown-menu trigger has `aria-haspopup="dialog"` instead of `"menu"`                                                    | dropdown-menu                 | 4.1.2 | **Fixed** — resolved automatically by #1                                      |
-| 3   | `focusable.ts` doesn't filter `aria-hidden` elements                                                                      | top-layer useArrowNavigation  | 2.4.3 | **Fixed** — added `:not([aria-hidden="true"])` to selectors; tests pass       |
-| 10  | `@atlaskit/popup` top-layer path hardcoded `aria-haspopup`                                                                | popup                         | 4.1.2 | **Fixed** — now reads from `Popup.TriggerFunction` context's `ariaAttributes` |
-| 14  | aXe tests don't cover top-layer path                                                                                      | modal-dialog, flag, spotlight | —     | **Fixed** — aXe unit tests added for all three behind `ffTest.on()`           |
-| 19  | Spotlight focus return not asserted in tests                                                                              | spotlight                     | 2.4.3 | **Fixed** — Playwright assertion now verifies focus is restored after Escape  |
+| #   | Issue                                                                                                                     | Component                     | WCAG  | Resolution                                                                     |
+| --- | ------------------------------------------------------------------------------------------------------------------------- | ----------------------------- | ----- | ------------------------------------------------------------------------------ |
+| 1   | `Popup.Content` does not call `setAriaHasPopup(roleToAriaHasPopup(role))` — trigger always shows `aria-haspopup="dialog"` | top-layer Popup               | 4.1.2 | **Fixed** — `useLayoutEffect` in `Popup.Content` to sync role                  |
+| 2   | dropdown-menu trigger has `aria-haspopup="dialog"` instead of `"menu"`                                                    | dropdown-menu                 | 4.1.2 | **Fixed** — resolved automatically by #1                                       |
+| 3   | `focusable.ts` doesn't filter `aria-hidden` elements                                                                      | top-layer useArrowNavigation  | 2.4.3 | **Fixed** — added `:not([aria-hidden="true"])` to selectors; tests pass        |
+| 10  | `@atlaskit/popup` top-layer path hardcoded `aria-haspopup`                                                                | popup                         | 4.1.2 | **Fixed** — now reads from `Popup.TriggerFunction` context's `ariaAttributes`  |
+| 14  | aXe tests don't cover top-layer path                                                                                      | modal-dialog, flag, spotlight | —     | **Fixed** — aXe unit tests added for all three with the top-layer gate enabled |
+| 19  | Spotlight focus return not asserted in tests                                                                              | spotlight                     | 2.4.3 | **Fixed** — Playwright assertion now verifies focus is restored after Escape   |
 
 ### Resolved by Design / Research
 
@@ -371,9 +371,9 @@ documented in code comments and migration notes for future improvement.
 | File                                                            | What was added                                                             |
 | --------------------------------------------------------------- | -------------------------------------------------------------------------- |
 | `top-layer/__tests__/unit/popover.tsx`                          | `aria-haspopup` tests for `menu`, `dialog`, `listbox`; open-state aXe test |
-| `modal-dialog/__tests__/unit/modal-dialog-top-layer.test.tsx`   | aXe unit test behind `ffTest.on('platform-dst-top-layer')`                 |
-| `flag/__tests__/unit/flag-top-layer.test.tsx`                   | aXe unit test behind `ffTest.on('platform-dst-top-layer')`                 |
-| `spotlight/__tests__/unit/spotlight-top-layer.test.tsx`         | aXe unit test behind `ffTest.on('platform-dst-top-layer')`                 |
+| `modal-dialog/__tests__/unit/modal-dialog-top-layer.test.tsx`   | aXe unit test with `platform-dst-top-layer` enabled                        |
+| `flag/__tests__/unit/flag-top-layer.test.tsx`                   | aXe unit test with `platform-dst-top-layer` enabled                        |
+| `spotlight/__tests__/unit/spotlight-top-layer.test.tsx`         | aXe unit test with `platform-dst-top-layer` enabled                        |
 | `popup/__tests__/unit/popup-top-layer.test.tsx`                 | `aria-haspopup` role-matching tests (default + menu)                       |
 | `dropdown-menu/__tests__/unit/dropdown-menu-top-layer.test.tsx` | Updated `aria-haspopup` assertion to expect `"menu"`                       |
 | `spotlight/__tests__/playwright/.../spotlight.spec.tsx`         | Strengthened focus-return assertion (automatic, not manual)                |

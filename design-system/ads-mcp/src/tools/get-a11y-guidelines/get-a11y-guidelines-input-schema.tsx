@@ -2,7 +2,7 @@
 
 import { z } from 'zod';
 
-import { accessibilityGuidelines } from './guidelines';
+import { accessibilityGuidelines } from '@atlaskit/ads-ai-tooling-content/a11y-guidelines';
 
 const topics = Object.keys(accessibilityGuidelines) as (keyof typeof accessibilityGuidelines)[];
 

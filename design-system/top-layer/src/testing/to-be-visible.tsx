@@ -35,7 +35,7 @@
 
 // Delegating to jest-dom's matcher; types come from @testing-library/jest-dom.
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { toBeVisible as originalToBeVisible } from '@testing-library/jest-dom/matchers';
+import { toBeVisible as originalToBeVisible } from '@testing-library/jest-dom/matchers'; // oxlint-disable-line import-extra/no-extraneous-dependencies
 
 type TTopLayerState = 'open' | 'closed' | null;
 

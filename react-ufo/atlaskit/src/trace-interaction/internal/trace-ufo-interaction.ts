@@ -3,8 +3,6 @@
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Preserves the existing UUID implementation.
 import { v4 as createUUID } from 'uuid';
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-
 import coinflip from '../../coinflip';
 import {
 	getDoNotAbortActivePressInteraction,
@@ -72,7 +70,7 @@ function traceUFOInteraction(
 			getActiveTrace(),
 		);
 
-		if (customData && fg('platform_ufo_press_custom_data')) {
+		if (customData) {
 			addCustomData(
 				newId,
 				[],

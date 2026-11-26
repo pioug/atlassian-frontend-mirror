@@ -52,9 +52,6 @@ export const DEFAULT_LAYOUT = 'two_equal';
  * Returns `true` when it placed a selection and consumed the click, else `false`.
  */
 const applyBlankSpaceGapCursor = (view: EditorView, event: MouseEvent): boolean => {
-	if (!editorExperiment('advanced_layouts', true)) {
-		return false;
-	}
 	const gapTarget = getGapCursorTargetForBlankSpaceClick(view, event);
 	if (gapTarget === undefined) {
 		return false;
@@ -280,7 +277,6 @@ const handleDeleteLayoutColumn: Command = (state, dispatch) => {
 		sel.$from.parent.type.name === 'layoutSection' &&
 		sel.$from.parent.childCount === 2 &&
 		dispatch &&
-		editorExperiment('advanced_layouts', true) &&
 		!editorExperiment('single_column_layouts', true)
 	) {
 		const tr = state.tr;
@@ -396,11 +392,7 @@ export default (
 				const layoutState = pluginKey.getState(state) as LayoutState;
 				const isLayoutResizingPluginAvailable = layoutResizingPluginKey.get(state) !== undefined;
 
-				if (
-					editorExperiment('advanced_layouts', true) &&
-					isLayoutResizingPluginAvailable &&
-					!isViewMode()
-				) {
+				if (isLayoutResizingPluginAvailable && !isViewMode()) {
 					const dividerDecorations = getColumnDividerDecorations(
 						state,
 						editorViewRef,
@@ -534,7 +526,7 @@ export default (
 				}
 			});
 
-			if (editorExperiment('advanced_layouts', true) && changes.length === 1) {
+			if (changes.length === 1) {
 				const change = changes[0];
 				// When editorExperiment('single_column_layouts', true) is on
 				// delete can create a single column layout

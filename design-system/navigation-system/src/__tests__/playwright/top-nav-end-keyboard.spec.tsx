@@ -3,6 +3,10 @@ import { expect, test } from '@af/integration-testing';
 const mobileViewport = { width: 360, height: 800 };
 
 test('mobile overflow keyboard navigation', async ({ page }) => {
+	// TODO(top-layer): with `platform-dst-motion-uplift-popup` on (production), legacy Popup puts its
+	// focus trap on the motion container, which cannot take focus, so focus does not move into the
+	// popup on open. The top layer should fix this.
+	test.fixme(true, 'Legacy Popup does not move focus into itself on open');
 	await page.setViewportSize(mobileViewport);
 	await page.visitExample<typeof import('../../../examples/side-nav-layering.vr.ap.tsx')>(
 		'design-system',

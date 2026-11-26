@@ -1,1 +1,1 @@
-export { i18nConversionGuide } from '../tools/i18n-conversion/guide';
+export { i18nConversionGuide } from '@atlaskit/ads-ai-tooling-content/i18n-conversion-guide';

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-card-provider",
-	"version": "8.2.37",
+	"version": "8.2.41",
 	"description": "Contains the EditorCardProvider, for determining smart card behaviour in the editor.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -52,9 +52,6 @@
 	},
 	"platform-feature-flags": {
 		"platform_forge_ui_artifact_confluence_integration": {
-			"type": "boolean"
-		},
-		"platform_avp_viz_dashboard_link_embed": {
 			"type": "boolean"
 		},
 		"loom-support-screenshot-sl-resolution": {

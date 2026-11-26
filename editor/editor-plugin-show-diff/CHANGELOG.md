@@ -1,5 +1,39 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 34.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 34.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 34.0.6
+
+### Patch Changes
+
+- [`4af2b4271db7f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4af2b4271db7f) -
+  Clean up the platform_editor_show_diff_color_scheme_refactor experiment, keeping the enabled
+  behaviour. Show-diff now always resolves colours through the colour scheme registry; the legacy
+  per-scheme style modules and their editor-core selectors are removed.
+
+  The emoji node view now keeps inline styles that decorations add (such as show-diff's accent
+  colour variable) when an emoji finishes loading. Previously it cleared the whole `style`
+  attribute, which dropped them; only the placeholder's own styles are removed now. Gated behind
+  `platform_editor_fix_emoji_colour_regression`.
+
+- Updated dependencies
+
+## 34.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 34.0.4
 
 ### Patch Changes

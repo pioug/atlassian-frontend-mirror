@@ -1,5 +1,31 @@
 # @atlaskit/editor-synced-block-provider
 
+## 30.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.0.7
+
+### Patch Changes
+
+- [`bf8314c6c1f10`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bf8314c6c1f10) -
+  Remove the synced block SSR experiment and keep batched fetches with the shipped 500 ms timeout.
+- Updated dependencies
+
+## 30.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 30.0.4
 
 ### Patch Changes

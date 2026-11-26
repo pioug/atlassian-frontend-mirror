@@ -1,5 +1,29 @@
 # @atlaskit/rovo-agent-components
 
+## 10.16.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.16.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.16.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.16.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.16.4
 
 ### Patch Changes

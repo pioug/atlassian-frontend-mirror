@@ -6,7 +6,7 @@ import { execFile as execFileCallback } from 'node:child_process';
 import { readFile } from 'node:fs/promises';
 import { dirname, relative, resolve } from 'node:path';
 import { promisify } from 'node:util';
-import ts from 'typescript';
+import ts from 'typescript'; // oxlint-disable-line import-extra/no-extraneous-dependencies
 
 const execFile = promisify(execFileCallback);
 

@@ -130,7 +130,8 @@ the top-layer path, browser native popover nesting handles this automatically.
 
 Create `popup-select/__tests__/unit/popup-select-top-layer.test.tsx`:
 
-- Use `ffTest` to test with `platform-dst-top-layer` on/off
+- Use `passGate` and `failGate` from `@atlassian/feature-flags-test-utils/mock-gates` to cover both
+  states of the `platform-dst-top-layer` gate
 - Opens/closes correctly, keyboard nav (Escape/ArrowDown), click outside, `closeMenuOnSelect`,
   `shouldCloseMenuOnTab`, controlled `isOpen`, `target` render prop, footer, search threshold
 

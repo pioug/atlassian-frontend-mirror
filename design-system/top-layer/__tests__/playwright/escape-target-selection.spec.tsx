@@ -6,6 +6,8 @@ import { expect, test } from '@af/integration-testing';
 for (const { action, expectedParentOpen, expectedChildOpen } of [
 	{ action: 'none', expectedParentOpen: true, expectedChildOpen: false },
 	{ action: 'prevent', expectedParentOpen: true, expectedChildOpen: true },
+	// `stopPropagation()` does not stop the close request.
+	{ action: 'stop', expectedParentOpen: true, expectedChildOpen: false },
 	{ action: 'close', expectedParentOpen: false, expectedChildOpen: false },
 	{ action: 'remove', expectedParentOpen: false, expectedChildOpen: false },
 	{ action: 'reopen', expectedParentOpen: true, expectedChildOpen: false },
@@ -47,6 +49,9 @@ for (const { action, expectedParentOpen, expectedChildOpen } of [
 				if (action === 'prevent') {
 					event.preventDefault();
 				}
+				if (action === 'stop') {
+					event.stopPropagation();
+				}
 				if (action === 'close' || action === 'reopen' || action === 'replacement') {
 					child.hidePopover();
 				}
@@ -81,7 +86,7 @@ for (const { action, expectedParentOpen, expectedChildOpen } of [
 			)
 			.toEqual({ parent: expectedParentOpen, child: expectedChildOpen, replacement: false });
 		expect(await page.evaluate(() => document.body.dataset.childOpenAfterKeydown)).toBe(
-			String(action === 'none' || action === 'prevent' || action === 'reopen'),
+			String(action === 'none' || action === 'prevent' || action === 'stop' || action === 'reopen'),
 		);
 	});
 }

@@ -57,3 +57,42 @@ test.describe('PopupSelect top-layer: ask first on close', () => {
 		await expect(page.getByTestId('trigger')).toBeFocused();
 	});
 });
+
+/**
+ * As on the legacy path, a pick and Tab do not ask a controlled `PopupSelect` to close. The consumer
+ * decides, for example a multi-value picker stays open after a pick.
+ */
+test.describe('PopupSelect top-layer: a pick and Tab with a controlled isOpen', () => {
+	// The popup keeps focus, except that `react-select` blurs the input on a pick in a touch-capable
+	// engine (WebKit here), so only the trigger is checked.
+	test('a pick does not ask to close, and does not move focus to the trigger', async ({ page }) => {
+		await openByKeyboard({ page });
+
+		await page.keyboard.press('Enter');
+
+		await expect(page.getByTestId('close-log')).toHaveText('change');
+		await expect(getPopup({ page })).toBeVisible();
+		await expect(page.getByTestId('trigger')).not.toBeFocused();
+	});
+
+	test('Tab does not ask to close, and focus stays in the popup', async ({ page }) => {
+		await openByKeyboard({ page });
+
+		await page.keyboard.press('Tab');
+
+		await expect(getPopup({ page })).toBeVisible();
+		await expect(page.getByRole('combobox')).toBeFocused();
+		await expect(page.getByTestId('close-log')).toHaveText('');
+	});
+
+	test('a pick that the consumer closes on returns focus to the trigger', async ({ page }) => {
+		await page.getByTestId('close-on-pick').click();
+		await openByKeyboard({ page });
+
+		await page.keyboard.press('Enter');
+
+		await expect(page.getByTestId('close-log')).toHaveText('change');
+		await expect(getPopup({ page })).toBeHidden();
+		await expect(page.getByTestId('trigger')).toBeFocused();
+	});
+});

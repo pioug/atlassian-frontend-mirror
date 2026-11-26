@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 35.0.1
+
+### Patch Changes
+
+- [`25bf9cf4b1b28`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/25bf9cf4b1b28) -
+  Behind `platform_editor_slash_command_analytics`, fire `quickInsert opened` and
+  `quickInsert selected` the same way in the legacy and registered quick insert menus. Fires them
+  from the toolbar `+` menu.
+- Updated dependencies
+
 ## 35.0.0
 
 ### Patch Changes

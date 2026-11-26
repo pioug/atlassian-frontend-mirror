@@ -1251,7 +1251,6 @@ describe('providers > editor', () => {
 		});
 
 		it('should use embed appearance for dashboards chart URLs', async () => {
-			setBooleanFeatureFlagResolver((flag) => flag === 'platform_avp_viz_dashboard_link_embed');
 			const provider = new EditorCardProvider();
 			mockFetch.mockResolvedValueOnce({
 				json: async () =>

@@ -69,15 +69,16 @@ describe('TextEditType', () => {
 		expect(parentKeyDownHandler).toHaveBeenCalledTimes(1);
 	});
 
-	it('should let Escape reach the inline edit and prevent it when the top-layer gate is on', () => {
+	it('should leave Escape to the inline edit when the top-layer gate is on', () => {
 		passGate('platform-dst-top-layer');
 		const parentKeyDownHandler = jest.fn();
 		setup(parentKeyDownHandler);
 
 		const isNotPrevented = fireEvent.keyDown(screen.getByTestId(testId), { key: 'Escape' });
 
-		// The inline edit form cancels the edit, and a containing modal ignores the prevented Escape
-		expect(isNotPrevented).toBe(false);
+		// The inline edit cancels the edit and prevents the Escape, so a containing modal stays open.
+		// See `datasource-modal/test.tsx`.
+		expect(isNotPrevented).toBe(true);
 		expect(parentKeyDownHandler).toHaveBeenCalledTimes(1);
 	});
 });

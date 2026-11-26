@@ -1,1 +1,1 @@
-export { accessibilityGuidelines } from '../tools/get-a11y-guidelines/guidelines';
+export { accessibilityGuidelines } from '@atlaskit/ads-ai-tooling-content/a11y-guidelines';

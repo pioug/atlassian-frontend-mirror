@@ -1203,9 +1203,6 @@ export function buildDeletedInlineNodeCSSVariables(
  * `--diff-delete-embed-strike-line` carries the *presence* of the deleted-embedCard strike, not its
  * colour — standard draws none. Encoding it as `line-through`/`none` is what lets the ON cohort drop
  * the `-traditional` class entirely.
- *
- * Only reached when `platform_editor_show_diff_color_scheme_refactor` is on; the OFF cohort takes
- * its values from the per-scheme selectors in editor-core instead.
  */
 export function buildDeletedNodeCSSVariables(colors: DiffColorScheme): string {
 	return convertToInlineCss({

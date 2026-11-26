@@ -1,1 +1,1 @@
-export { accessibilityFixes } from '../tools/suggest-a11y-fixes/fixes';
+export { accessibilityFixes } from '@atlaskit/ads-ai-tooling-content/a11y-fixes';

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/motion",
-	"version": "10.0.2",
+	"version": "10.0.3",
 	"description": "A set of utilities to apply motion in your application.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -205,9 +205,6 @@
 			"referenceOnly": true
 		},
 		"platform-dst-motion-uplift": {
-			"type": "boolean"
-		},
-		"platform-dst-use-motion": {
 			"type": "boolean"
 		}
 	}

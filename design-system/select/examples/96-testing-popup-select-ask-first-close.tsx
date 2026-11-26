@@ -14,14 +14,16 @@ const options = [
 
 /**
  * Test fixture: on the top layer, a controlled `PopupSelect` asks `onClose` first, and closes only
- * when `isOpen` becomes `false`. The switch makes `onClose` refuse. The log counts each close
- * request while the popup is open.
+ * when `isOpen` becomes `false`. The "Refuse close" switch makes `onClose` refuse. A pick and Tab do
+ * not ask: the "Close on pick" switch makes `onChange` close the popup. The log counts each close
+ * request while the popup is open, and each pick.
  *
  * See `@atlaskit/top-layer` `notes/decisions/wrappers-ask-first-close.md`.
  */
 export default function TestingPopupSelectAskFirstClose(): React.JSX.Element {
 	const [isOpen, setIsOpen] = useState(false);
 	const [isRefusing, setIsRefusing] = useState(false);
+	const [isClosingOnPick, setIsClosingOnPick] = useState(false);
 	const [log, setLog] = useState<string[]>([]);
 
 	return (
@@ -35,30 +37,46 @@ export default function TestingPopupSelectAskFirstClose(): React.JSX.Element {
 					>
 						Refuse close
 					</Button>
+					<Button
+						testId="close-on-pick"
+						isSelected={isClosingOnPick}
+						onClick={() => setIsClosingOnPick(!isClosingOnPick)}
+					>
+						Close on pick
+					</Button>
 					<Button testId="outside">Outside</Button>
 				</Inline>
-				<PopupSelect
-					options={options}
-					label="Cities"
-					testId="popup-select"
-					isOpen={isOpen}
-					onOpen={() => setIsOpen(true)}
-					onClose={() => {
-						// `PopupSelect` also calls `onClose` when `isOpen` becomes `false`.
-						if (!isOpen) {
-							return;
-						}
-						setLog((current) => [...current, 'close']);
-						if (!isRefusing) {
-							setIsOpen(false);
-						}
-					}}
-					target={({ isOpen: _isOpen, ...triggerProps }) => (
-						<Button {...triggerProps} testId="trigger">
-							Choose a city
-						</Button>
-					)}
-				/>
+				<Inline space="space.100">
+					<PopupSelect
+						options={options}
+						label="Cities"
+						testId="popup-select"
+						isOpen={isOpen}
+						onOpen={() => setIsOpen(true)}
+						onClose={() => {
+							// `PopupSelect` also calls `onClose` when `isOpen` becomes `false`.
+							if (!isOpen) {
+								return;
+							}
+							setLog((current) => [...current, 'close']);
+							if (!isRefusing) {
+								setIsOpen(false);
+							}
+						}}
+						onChange={() => {
+							setLog((current) => [...current, 'change']);
+							if (isClosingOnPick) {
+								setIsOpen(false);
+							}
+						}}
+						target={({ isOpen: _isOpen, ...triggerProps }) => (
+							<Button {...triggerProps} testId="trigger">
+								Choose a city
+							</Button>
+						)}
+					/>
+					<Button testId="after">After</Button>
+				</Inline>
 				<Text as="p" testId="close-log">
 					{log.join(' ')}
 				</Text>

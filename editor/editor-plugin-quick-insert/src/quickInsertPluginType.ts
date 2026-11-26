@@ -1,4 +1,5 @@
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics/types/enums';
+import type { QuickInsertSurface } from '@atlaskit/editor-common/analytics/types/quick-insert-events';
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory/quick-insert-provider';
 import type { IsRecommendedItem } from '@atlaskit/editor-common/quick-insert/is-recommended-item';
 import type { RegisteredItemRankResolver } from '@atlaskit/editor-common/registered-menu/item-rank';
@@ -63,6 +64,18 @@ export type QuickInsertPlugin = NextEditorPlugin<
 	'quickInsert',
 	{
 		actions: {
+			/**
+			 * Fires `quickInsert selected` for an item picked from a legacy quick insert menu. Only
+			 * fires when `platform_editor_slash_command_analytics` is on.
+			 *
+			 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-72674 Internal documentation for deprecation (no external access)} Removed with the legacy quick insert menus once `platform_editor_slash_command` is rolled out.
+			 */
+			fireQuickInsertItemSelected: (surface: QuickInsertSurface, item: QuickInsertItem) => void;
+			/**
+			 * Fires `quickInsert opened` for a quick insert menu. Only fires when
+			 * `platform_editor_slash_command_analytics` is on.
+			 */
+			fireQuickInsertOpened: (surface: QuickInsertSurface) => void;
 			getSuggestions: (searchOptions: QuickInsertSearchOptions) => QuickInsertItem[];
 			insertItem: (
 				item: QuickInsertItem,

@@ -59,6 +59,7 @@ export type {
 export type {
 	InputMethodInsertNativeEmbed,
 	InsertNativeEmbedAEP,
+	NativeEmbedDeletedAEP,
 	NativeEmbedResizeErroredAEP,
 } from './types/native-embed-events';
 

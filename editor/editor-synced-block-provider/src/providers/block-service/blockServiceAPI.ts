@@ -3,7 +3,6 @@
 import { useMemo } from 'react';
 
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {
 	generateBlockAri,
@@ -363,10 +362,7 @@ export const batchFetchData = async (
 
 		return results;
 	} catch (error) {
-		if (
-			error instanceof BlockTimeoutError &&
-			expValEquals('platform_editor_sync_block_ssr_config', 'isEnabled', true)
-		) {
+		if (error instanceof BlockTimeoutError) {
 			return blockNodeIdentifiers.map((blockNodeIdentifier) => ({
 				error: {
 					type: SyncBlockError.Aborted,

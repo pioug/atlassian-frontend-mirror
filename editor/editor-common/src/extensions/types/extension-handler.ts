@@ -79,7 +79,7 @@ export interface ExtensionHandlers<T extends Parameters = any> {
 }
 
 export type ReferenceEntity = {
-	[prop: string]: ADFEntity | Object;
+	[prop: string]: ADFEntity | object;
 };
 
 export type ChangeActiveOptions = {
@@ -94,7 +94,11 @@ export type MultiBodiedExtensionActions = {
 	getChildren: () => Array<ADFEntity>;
 	getChildrenContainer: () => React.ReactNode;
 	getChildrenCount: () => number;
-	removeChild: (index: number) => boolean;
+	/** Removes a child and optionally updates the extension parameters in the same transaction. */
+	removeChild: (
+		index: number,
+		options?: { analyticsChangedParam?: string; parameters: Parameters },
+	) => boolean;
 	reorderChildren: (fromIndex: number, toIndex: number) => boolean;
 	/**
 	 * `analyticsChangedParam` is the optional name/key of the parameter changed by the client.

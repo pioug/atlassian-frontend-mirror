@@ -1,8 +1,6 @@
 // eslint-disable-next-line @atlaskit/platform/prefer-crypto-random-uuid -- Preserves the existing UUID mock used by these tests.
 import { v4 as createUUID } from 'uuid';
 
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
-
 // Mock all dependencies
 jest.mock('uuid');
 jest.mock('../coinflip');
@@ -107,8 +105,6 @@ describe('traceUFOPress', () => {
 		});
 
 		it('attaches data to the newly created interaction and preserves the event timestamp', () => {
-			passGate('platform_ufo_press_custom_data');
-
 			traceUFOPress('test-interaction', { timeStamp: 500 }, { customData });
 
 			expect(mockAddNewInteraction).toHaveBeenCalledWith(
@@ -123,15 +119,6 @@ describe('traceUFOPress', () => {
 			);
 			expect(addCustomData).toHaveBeenCalledTimes(1);
 			expect(addCustomData).toHaveBeenCalledWith('test-uuid-123', [], customData);
-		});
-
-		it('still creates the press without metadata when the gate is off', () => {
-			failGate('platform_ufo_press_custom_data');
-
-			traceUFOPress('test-interaction', 500, { customData });
-
-			expect(mockAddNewInteraction).toHaveBeenCalled();
-			expect(addCustomData).not.toHaveBeenCalled();
 		});
 
 		it('does not annotate a previous interaction when sampling skips the press', () => {

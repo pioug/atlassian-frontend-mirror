@@ -1,5 +1,13 @@
 # @atlaskit/motion
 
+## 10.0.3
+
+### Patch Changes
+
+- [`6151086e614c1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6151086e614c1) -
+  Cleanup `feature_gate` `platform-dst-use-motion`. `Motion` is now always built on the `useMotion`
+  hook; the legacy inline animation lifecycle implementation has been removed.
+
 ## 10.0.2
 
 ### Patch Changes

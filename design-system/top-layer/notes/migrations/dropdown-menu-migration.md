@@ -234,11 +234,11 @@ when space is tight — matching legacy behavior.
 
 ## Test coverage
 
-| Category                                         | Count            |
-| ------------------------------------------------ | ---------------- |
-| `useArrowNavigation` unit tests                  | 42               |
-| Dropdown-menu top-layer unit tests (`ffTest.on`) | 12               |
-| Existing dropdown-menu tests (legacy path)       | 23 (all passing) |
+| Category                                          | Count            |
+| ------------------------------------------------- | ---------------- |
+| `useArrowNavigation` unit tests                   | 42               |
+| Dropdown-menu top-layer unit tests (gate enabled) | 12               |
+| Existing dropdown-menu tests (legacy path)        | 23 (all passing) |
 
 ### Accessibility (top-layer path)
 

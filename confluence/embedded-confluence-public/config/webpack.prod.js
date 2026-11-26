@@ -1,9 +1,9 @@
 /* eslint-disable import/no-extraneous-dependencies */
 const path = require('path');
-const { moduleResolveMapBuilder } = require('@atlassian/multi-entry-tools');
+const { moduleResolveMapBuilder } = require('@atlassian/multi-entry-tools'); // oxlint-disable-line import-extra/no-extraneous-dependencies
 
 const webpack = require('webpack');
-const merge = require('webpack-merge');
+const merge = require('webpack-merge'); // oxlint-disable-line import-extra/no-extraneous-dependencies
 
 const commonConfig = require('./webpack.common');
 const { copyBundleToPageEntries } = require('./copyBundleToPageEntries');

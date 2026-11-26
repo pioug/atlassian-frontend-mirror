@@ -7,7 +7,6 @@ import {
 	type AdsAccentColor,
 	type ColorScheme,
 	type DiffColorScheme,
-	type PublicColorScheme,
 } from './types';
 
 /** Green insertions, red deletions. */
@@ -106,9 +105,3 @@ export const colorSchemeRegistry: Record<ColorScheme, DiffColorScheme> = {
 	traditional: traditionalScheme,
 	standard: standardScheme,
 };
-
-/** Attribution accents are impossible in the refactor-off cohort; fall back defensively. */
-export const getLegacyColorScheme = (
-	colorScheme: ColorScheme | undefined,
-): PublicColorScheme | undefined =>
-	colorScheme === 'standard' || colorScheme === 'traditional' ? colorScheme : undefined;

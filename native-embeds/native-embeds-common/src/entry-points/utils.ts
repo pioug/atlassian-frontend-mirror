@@ -1,5 +1,6 @@
 export {
 	createEditorToolbarActions,
+	getContentIdFromIdentity,
 	getParameter,
 	getParameters,
 	resolveRemixVersionId,

@@ -2,7 +2,6 @@ import { getNodeIdProvider } from '@atlaskit/editor-common/node-anchor-provider'
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
@@ -21,8 +20,7 @@ const TABLE_CELLS = new Set(['tableCell', 'tableHeader']);
 const isPanelNodeTypeName = (nodeTypeName: string | null | undefined): boolean =>
 	nodeTypeName === 'panel' ||
 	(nodeTypeName === 'panel_c1' &&
-		expValEqualsNoExposure('platform_editor_controls_reliable_anchor', 'isEnabled', true) &&
-		fg('platform_editor_controls_reliable_anchor_patch_1'));
+		expValEqualsNoExposure('platform_editor_controls_reliable_anchor', 'isEnabled', true));
 
 const redirectParagraphToWrappedMedia = (
 	view: EditorView,

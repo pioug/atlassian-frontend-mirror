@@ -560,17 +560,10 @@ describe('EditorCardProvider', () => {
 			expect(testProvider.testGetHardCodedAppearance(url)).toBe('embed');
 		});
 
-		it('should return embed for dashboards chart URLs when the dashboard link gate is enabled', () => {
-			setBooleanFeatureFlagResolver((flag) => flag === 'platform_avp_viz_dashboard_link_embed');
+		it('should return embed for dashboards chart URLs', () => {
 			const url =
 				'https://hello.atlassian.net/dashboards/c/cloud-id/w/workspace-id/d/dashboard-id/chart/chart-id';
 			expect(testProvider.testGetHardCodedAppearance(url)).toBe('embed');
-		});
-
-		it('should return undefined for dashboards chart URLs when the dashboard link gate is disabled', () => {
-			const url =
-				'https://hello.atlassian.net/dashboards/c/cloud-id/w/workspace-id/d/dashboard-id/chart/chart-id';
-			expect(testProvider.testGetHardCodedAppearance(url)).toBeUndefined();
 		});
 
 		it('should return undefined for URLs missing /c/ segment', () => {

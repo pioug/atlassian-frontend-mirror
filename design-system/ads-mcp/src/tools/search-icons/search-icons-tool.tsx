@@ -4,9 +4,10 @@ import type { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
 import Fuse from 'fuse.js';
 import { type z } from 'zod';
 
+import { icons } from '@atlaskit/ads-ai-tooling-content/icons';
+
 import { mergeMultiTermFuseResults } from '../../helpers';
 import { cleanQuery } from '../../helpers/clean-query';
-import { icons } from '../get-all-icons/icons';
 import { type searchIconsInputSchema } from './search-icons-input-schema';
 
 type Icon = (typeof icons)[number];

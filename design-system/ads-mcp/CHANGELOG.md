@@ -1,5 +1,28 @@
 # @atlaskit/ads-mcp
 
+## 2.1.1
+
+### Patch Changes
+
+- [`9c9d52e518259`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9c9d52e518259) -
+  Update the AgentOptions reference and examples for the wrapper, actions, and footer render
+  callbacks.
+
+## 2.1.0
+
+### Minor Changes
+
+- [`0c37a869eda5b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/0c37a869eda5b) -
+  Share accessibility, i18n and migration guidance, and icon metadata across ADS tooling. Existing
+  ADS MCP guidance exports continue to return the same content.
+
+### Patch Changes
+
+- [`5056b21705aba`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5056b21705aba) -
+  Document the AgentOptions and AgentOptionsSkeleton component APIs in the generated component
+  catalogs.
+- Updated dependencies
+
 ## 2.0.10
 
 ### Patch Changes

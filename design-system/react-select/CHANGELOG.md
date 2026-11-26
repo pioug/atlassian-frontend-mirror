@@ -1,5 +1,34 @@
 # @atlaskit/react-select
 
+## 4.13.2
+
+### Patch Changes
+
+- [`541e40d7dc862`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/541e40d7dc862) -
+  Remove platform_fix_autocomplete_aria_for_select and make the corrected aria-autocomplete behavior
+  permanent.
+
+## 4.13.1
+
+### Patch Changes
+
+- [`d2d28a9303775`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2d28a9303775) -
+  Behind `platform-dst-top-layer`, the Escape that clears the value (`escapeClearsValue`) no longer
+  also closes the layer around the select.
+- Updated dependencies
+
+## 4.13.0
+
+### Minor Changes
+
+- [`f1623e52268a3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f1623e52268a3) -
+  Add the optional shouldFocusOptionOnOpen prop. Setting it to false keeps the search input active
+  while showing options, until the user interacts. Existing option focus remains the default.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.12.18
 
 ### Patch Changes

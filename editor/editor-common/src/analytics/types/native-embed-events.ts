@@ -21,6 +21,19 @@ export type InsertNativeEmbedAEP = TrackAEP<
 	undefined
 >;
 
+export type NativeEmbedDeletedAEP = TrackAEP<
+	ACTION.DELETED,
+	ACTION_SUBJECT.NATIVE_EMBED,
+	undefined,
+	{
+		experienceId: string;
+		extensionKey: string;
+		embedContentId?: string;
+		localId?: string;
+	},
+	undefined
+>;
+
 export type NativeEmbedResizeErroredAEP = OperationalAEP<
 	ACTION.ERRORED,
 	ACTION_SUBJECT.NATIVE_EMBED,

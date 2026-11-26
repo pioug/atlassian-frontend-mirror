@@ -20,6 +20,7 @@ import { typeAheadListMessages } from '@atlaskit/editor-common/type-ahead/messag
 import type { EmptyStateHandler } from '@atlaskit/editor-common/types/empty-state-handler';
 import MenuGroup from '@atlaskit/menu/menu-group';
 
+import type { QuickInsertMenuAnalytics } from '../../analytics/quick-insert-menu-analytics';
 import {
 	getQuickInsertMenuModel,
 	type RecommendedItemsResolver,
@@ -39,6 +40,7 @@ type Props = {
 	fireAnalyticsEvent?: EditorAnalyticsAPI['fireAnalyticsEvent'];
 	getItemRank?: RegisteredItemRankResolver;
 	getRecommendedItems?: RecommendedItemsResolver;
+	menuAnalytics?: QuickInsertMenuAnalytics;
 };
 
 type RenderedItems = { startIndex: number; stopIndex: number };
@@ -50,6 +52,7 @@ const QuickInsertMenuRoot = ({
 	fireAnalyticsEvent,
 	getItemRank,
 	getRecommendedItems,
+	menuAnalytics,
 }: React.PropsWithChildren<Props>): React.JSX.Element | null => {
 	const registeredMenu = useRegisteredMenuContext();
 	const { query = '', select: selectFromHost, surfaceContext } = registeredMenu;
@@ -105,6 +108,22 @@ const QuickInsertMenuRoot = ({
 	const selectItem = useCallback(
 		(selection: QuickInsertSelectionHandler, itemKey?: string) => {
 			flushSearchAnalytics();
+			// Per-category "View more" rows open the element browser like the footer. Compare keys,
+			// not the highlighted index: the footer only updates the highlight on mousemove, so a
+			// click without pointer movement would be miscounted.
+			const isViewMore =
+				itemKey !== undefined &&
+				(itemKey === model.footer?.key || isSectionOverflowItemKey(itemKey));
+			if (itemKey !== undefined && !isViewMore) {
+				menuAnalytics?.fireRegisteredItemSelected({
+					isRecommendedItem: () =>
+						getRecommendedItems?.({ components, surfaceContext }).some(
+							({ key }) => key === itemKey,
+						) ?? false,
+					registrationKey: itemKey,
+					surface,
+				});
+			}
 			selectFromHost(
 				(insert) =>
 					selection({
@@ -113,16 +132,20 @@ const QuickInsertMenuRoot = ({
 					}),
 				{
 					inputMethod: isKeyboardSelection.current ? 'keyboard' : 'mouse',
-					// Per-category "View more" rows open the element browser like the footer. Compare keys,
-					// not the highlighted index: the footer only updates the highlight on mousemove, so a
-					// click without pointer movement would be miscounted.
-					isViewMore:
-						itemKey !== undefined &&
-						(itemKey === model.footer?.key || isSectionOverflowItemKey(itemKey)),
+					isViewMore,
 				},
 			);
 		},
-		[flushSearchAnalytics, model.footer?.key, selectFromHost, surface],
+		[
+			components,
+			flushSearchAnalytics,
+			getRecommendedItems,
+			menuAnalytics,
+			model.footer?.key,
+			selectFromHost,
+			surface,
+			surfaceContext,
+		],
 	);
 	const menuContextValue = useMemo<QuickInsertContextValue>(
 		() => ({

@@ -225,9 +225,9 @@ describe('Popup top-layer: ask first on close', () => {
 		expect(getContainer('first')).toBeVisible();
 	});
 
-	it('should stay open on an outside press and Escape without onClose, and take the Escape', async () => {
+	it('should stay open on an outside press and Escape without onClose, and leave the Escape to a layer around it', async () => {
 		const isEscapeClaimed = jest.fn();
-		// On the window, so it runs after the listener on the document that takes the Escape.
+		// On the window, so it runs after the listener on the document that would take the Escape.
 		const unbind = bind(window, {
 			type: 'keydown',
 			listener(event: KeyboardEvent) {
@@ -259,8 +259,9 @@ describe('Popup top-layer: ask first on close', () => {
 		unbind();
 
 		expect(getContainer('first')).toBeVisible();
-		// One press, one layer: the popup took the Escape, so a listener after it sees it claimed.
-		expect(isEscapeClaimed).toHaveBeenCalledWith(true);
+		// Nothing can be asked to close it, so the popup does not take the Escape: a layer around it
+		// (for example an inline edit or a modal) gets it.
+		expect(isEscapeClaimed).toHaveBeenCalledWith(false);
 	});
 
 	it('should return focus to the element that opened it, not the trigger, after an accepted Escape', async () => {

@@ -48,7 +48,7 @@ export const replaceRichInlineNodes = (
 				value.type === 'user' ||
 				value.type === 'team' ||
 				(value.type === 'focusArea' && isExperimentEnabled('focus_in_jira_m1')) ||
-				(value.type === 'assets' && fg('orion-8274-cmdb-object-jql-values-resolver')) ||
+				value.type === 'assets' ||
 				(value.type === 'goal' &&
 					FeatureGates.getExperimentValue(
 						'anip-1095-goals-in-harmonised-filter',

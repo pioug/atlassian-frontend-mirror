@@ -186,6 +186,8 @@ export type ChatNewPayload = PayloadCore<
 		}>;
 		// Used for follow-up prompt once chat is created
 		prompt?: string | DocNode;
+		/** Attribution for the first prompt when it was selected through an Editor entry point and submitted. */
+		isEditorSkillInvocation?: true;
 		/** Content targeted by the prompt when an editor surface launches chat. */
 		contentId?: string | number;
 		/** Creation context supplied by the launching editor surface. */
@@ -232,6 +234,8 @@ export type ChatNewPayload = PayloadCore<
 		resetActiveMenu?: boolean;
 		// Chat mode options to configure the conversation behavior
 		mode?: ChatModeParam;
+		/** Request Fast Mode for the automatic send independently of the conversation mode. */
+		initialTurnFastMode?: true;
 		// AI feature context to set in the store when the chat is created.
 		// Each key-value pair is set via setAIFeatureContext. Stale entries for
 		// known keys (e.g. 'projectContext') are cleared before new values are applied.

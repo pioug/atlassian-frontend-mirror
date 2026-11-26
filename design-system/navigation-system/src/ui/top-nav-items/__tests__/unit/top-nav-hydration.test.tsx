@@ -13,7 +13,7 @@ import { useTopNavBreakpoints } from '../../../page-layout/top-nav/use-top-nav-b
 const originalResizeObserver = global.ResizeObserver;
 
 // Exercise the real TopNav provider with navigation whose client code/data is still loading.
-describe.each([false, true])('suspended navigation hydration (new theme: %s)', (newTheme) => {
+describe('suspended navigation hydration', () => {
 	it.each([
 		[false, 600],
 		[false, 1200],
@@ -23,7 +23,6 @@ describe.each([false, true])('suspended navigation hydration (new theme: %s)', (
 		'should preserve server navigation (gate: %s, width: %ipx)',
 		async (enabled, width) => {
 			(enabled ? passGate : failGate)('platform-dst-chat-panel-layout');
-			(newTheme ? passGate : failGate)('platform_dst_nav4_custom_theming_fhs_1');
 			let containerWidth = width;
 			jest
 				.spyOn(HTMLElement.prototype, 'getBoundingClientRect')

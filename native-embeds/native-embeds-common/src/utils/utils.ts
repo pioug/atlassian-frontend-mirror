@@ -253,3 +253,14 @@ export const createEditorToolbarActions = <
 	items: (BuiltinToolbarKey | keyof TCustomActions)[];
 	moreItems?: (BuiltinToolbarKey | keyof TCustomActions)[];
 }): ManifestEditorToolbarActions<TCustomActions> => config;
+
+/**
+ * Extracts the content ID from a manifest content identity, e.g.
+ * `whiteboard:123` → `123`. Everything after the first `:` is kept so IDs that
+ * themselves contain `:` are not truncated. Shared by native-embed analytics
+ * events so they always report the same ID for the same embed.
+ */
+export const getContentIdFromIdentity = (identity: string | undefined): string | undefined => {
+	const separator = identity?.indexOf(':') ?? -1;
+	return separator >= 0 ? identity?.slice(separator + 1) || undefined : undefined;
+};

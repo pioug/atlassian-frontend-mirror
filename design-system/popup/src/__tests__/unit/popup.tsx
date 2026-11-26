@@ -127,37 +127,13 @@ describe('Popup', () => {
 		});
 	});
 
-	describe('aria-haspopup set to "dialog" when role is "dialog"', () => {
-		// On the legacy path, `platform_dst_popup-disable-focuslock` decides the value.
+	describe('`aria-haspopup` when role is "dialog"', () => {
 		describe('on the legacy path', () => {
 			beforeEach(() => {
 				failGate('platform-dst-top-layer');
 			});
 
-			it('is "dialog" when platform_dst_popup-disable-focuslock is on', () => {
-				passGate('platform_dst_popup-disable-focuslock');
-				const trigger = (props: TriggerProps) => (
-					<button
-						// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-						{...props}
-						type="button"
-						ref={props.ref}
-					>
-						trigger
-					</button>
-				);
-				render(<Popup {...defaultProps} role="dialog" isOpen={false} trigger={trigger} />);
-				const triggerEl = screen.getByText('trigger');
-
-				expect({
-					'aria-haspopup': triggerEl.getAttribute('aria-haspopup'),
-				}).toEqual({
-					'aria-haspopup': 'dialog',
-				});
-			});
-
-			it('is "true" when platform_dst_popup-disable-focuslock is off', () => {
-				failGate('platform_dst_popup-disable-focuslock');
+			it('is "true"', () => {
 				const trigger = (props: TriggerProps) => (
 					<button
 						// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
@@ -855,10 +831,8 @@ describe('Popup', () => {
 			});
 
 			it('popup container renders with position absolute', () => {
-				render(<Popup {...defaultProps} isOpen shouldFitContainer />);
-				const popupEl = screen.getByText('content');
-				const popupParent = popupEl.parentElement as HTMLElement;
-				expect(popupParent).toHaveStyle('position: absolute');
+				render(<Popup {...defaultProps} isOpen shouldFitContainer testId="popup" />);
+				expect(screen.getByTestId('popup--container')).toHaveStyle('position: absolute');
 			});
 
 			it('popup container renders with width 100%', () => {
@@ -877,24 +851,18 @@ describe('Popup', () => {
 		});
 
 		it('popup renders position fixed by default', () => {
-			render(<Popup {...defaultProps} isOpen />);
-			const popupEl = screen.getByText('content');
-			const popupParent = popupEl.parentElement as HTMLElement;
-			expect(popupParent).toHaveStyle('position: fixed');
+			render(<Popup {...defaultProps} isOpen testId="popup" />);
+			expect(screen.getByTestId('popup--container')).toHaveStyle('position: fixed');
 		});
 
 		it('popup renders position absolute when specified', () => {
-			render(<Popup {...defaultProps} isOpen strategy="absolute" />);
-			const popupEl = screen.getByText('content');
-			const popupParent = popupEl.parentElement as HTMLElement;
-			expect(popupParent).toHaveStyle('position: absolute');
+			render(<Popup {...defaultProps} isOpen strategy="absolute" testId="popup" />);
+			expect(screen.getByTestId('popup--container')).toHaveStyle('position: absolute');
 		});
 
 		it('popup renders position fixed when specified', () => {
-			render(<Popup {...defaultProps} isOpen strategy="fixed" />);
-			const popupEl = screen.getByText('content');
-			const popupParent = popupEl.parentElement as HTMLElement;
-			expect(popupParent).toHaveStyle('position: fixed');
+			render(<Popup {...defaultProps} isOpen strategy="fixed" testId="popup" />);
+			expect(screen.getByTestId('popup--container')).toHaveStyle('position: fixed');
 		});
 	});
 });

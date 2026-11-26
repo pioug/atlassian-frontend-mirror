@@ -184,6 +184,9 @@ describe.each([false, true])(
 		);
 		// Never settles, so the top-layer exit stays open. Fake timers hold the legacy exit.
 		const pendingAnimation = { finished: new Promise<Animation>(() => {}) } as Animation;
+		// Legacy Motion reads its exit time from these tokens. jsdom has no token values, so give the
+		// exits a long time and let fake timers hold them, as a browser holds the real 200ms exit.
+		const legacyExitTokens = ['--ds-modal-exit', '--ds-blanket-exit'];
 
 		beforeEach(() => {
 			jest.useFakeTimers();
@@ -191,6 +194,9 @@ describe.each([false, true])(
 				passGate('platform-dst-top-layer');
 			} else {
 				failGate('platform-dst-top-layer');
+				legacyExitTokens.forEach((token) =>
+					document.documentElement.style.setProperty(token, '100s linear ScaleOut100to95 forwards'),
+				);
 			}
 			window.matchMedia = () => ({ matches: false }) as MediaQueryList;
 			Object.defineProperty(HTMLElement.prototype, 'getAnimations', {
@@ -201,6 +207,7 @@ describe.each([false, true])(
 
 		afterEach(() => {
 			jest.useRealTimers();
+			legacyExitTokens.forEach((token) => document.documentElement.style.removeProperty(token));
 			window.matchMedia = originalMatchMedia;
 			if (originalGetAnimations) {
 				Object.defineProperty(HTMLElement.prototype, 'getAnimations', originalGetAnimations);

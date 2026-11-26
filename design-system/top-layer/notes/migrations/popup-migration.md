@@ -176,11 +176,10 @@ only when focus has no place (in the popup or on `<body>`).
 
 ## Dismissal
 
-- **Native `auto` behaviour.** An auto popup closes on a press outside it, on Escape, and when an
-  unrelated auto layer opens. A press on the trigger is a press outside the popup, so it
-  light-dismisses it. Use `mode="manual"` only where a callsite cannot work with this: a press on
-  the trigger must not close the popup, or app state decides when it closes (for example a hover
-  popup, or a message that stays open until a state change).
+- **Light dismiss asks first.** The popup is a manual popover. A press outside it, or Escape, calls
+  `onClose`, and the popup closes when `isOpen` becomes `false`. A press on the trigger does not
+  call `onClose`. Without `onClose`, the popup does not light dismiss and does not take Escape (see
+  [../decisions/wrappers-ask-first-close.md](../decisions/wrappers-ask-first-close.md)).
 - **Focus may leave the popup while it stays open.** The legacy path closes the popup on a window
   `blur` when focus moves into an outside iframe (`use-close-manager.tsx`). The top-layer path has
   no such rule. The popup closes on the next press in the page, or on Escape. A press inside an
@@ -239,12 +238,12 @@ owns its own styling.
 
 ## Test coverage
 
-| Category                                            | Count       |
-| --------------------------------------------------- | ----------- |
-| Classic Popup top-layer unit tests (`ffTest.on`)    | 22          |
-| Composable Popup top-layer unit tests (`ffTest.on`) | 11          |
-| Playwright browser tests (WCAG-organized)           | 21          |
-| Existing popup tests (legacy path)                  | all passing |
+| Category                                             | Count       |
+| ---------------------------------------------------- | ----------- |
+| Classic Popup top-layer unit tests (gate enabled)    | 22          |
+| Composable Popup top-layer unit tests (gate enabled) | 11          |
+| Playwright browser tests (WCAG-organized)            | 21          |
+| Existing popup tests (legacy path)                   | all passing |
 
 ### Playwright tests by WCAG success criteria
 

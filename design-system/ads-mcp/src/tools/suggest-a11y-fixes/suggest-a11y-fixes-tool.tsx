@@ -2,7 +2,8 @@
 
 import type { z } from 'zod';
 
-import { accessibilityFixes } from './fixes';
+import { accessibilityFixes } from '@atlaskit/ads-ai-tooling-content/a11y-fixes';
+
 import { violationKeywords } from './keywords';
 import type { suggestA11yFixesInputSchema } from './suggest-a11y-fixes-input-schema';
 

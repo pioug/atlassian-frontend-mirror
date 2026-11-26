@@ -35,7 +35,6 @@ export const testMultivariateOverrides: EditorExperimentOverridesMultivariate = 
 };
 
 export const testBooleanOverrides: EditorExperimentOverridesBoolean = {
-	social_proof_3p_unauth_block_exp: false,
 	platform_sl_3p_preauth_better_hovercard: true,
 	cwr_blank_object_experiment: false,
 	platform_editor_preview_panel_responsiveness: false,

@@ -182,11 +182,10 @@ function traceUFOPress(
 - `eventOrTimestamp` (number or event, optional): A high-resolution timestamp, React event, or
   native DOM event. Events use their original `timeStamp`; omitted input defaults to
   `performance.now()`.
-- `options.customData` (optional): Custom attributes to attach to the newly created interaction.
-  Requires `platform_ufo_press_custom_data`. UFO ignores these attributes when disabled, when
-  sampling skips the interaction, or when the name is configured as a minor interaction. Existing
-  interactions receive no metadata from this call. Uses the same `CustomData` shape and payload
-  format as `addUFOCustomData`.
+- `options.customData` (optional): Custom attributes to attach to the newly created interaction. UFO
+  ignores these attributes when sampling skips the interaction or when the name is configured as a
+  minor interaction. Existing interactions receive no metadata from this call. Uses the same
+  `CustomData` shape and payload format as `addUFOCustomData`.
 
 **Example:**
 

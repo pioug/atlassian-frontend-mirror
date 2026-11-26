@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/ads-mcp",
-	"version": "2.0.10",
+	"version": "2.1.1",
 	"description": "The official Atlassian Design System MCP server to develop apps and user interfaces matching the Atlassian style.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -46,8 +46,8 @@
 		"./package.json": "./package.json"
 	},
 	"dependencies": {
+		"@atlaskit/ads-ai-tooling-content": "workspace:^",
 		"@atlaskit/icon": "workspace:^",
-		"@atlaskit/icon-lab": "workspace:^",
 		"@atlaskit/platform-feature-flags": "workspace:^",
 		"@atlaskit/tokens": "workspace:^",
 		"@axe-core/playwright": "root:*",

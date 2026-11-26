@@ -109,8 +109,8 @@ const createAtomicInlineOutline = (
 ): HTMLElement => {
 	const outlineWrapper = document.createElement('span');
 	outlineWrapper.className = getAtomicInlineChangedAttrs(nodeName, colorScheme).className;
-	// Set in both cohorts of `platform_editor_show_diff_color_scheme_refactor`: being inline it beats
-	// the stylesheet's purple/green table, so editor-core's rings follow the change's scheme too.
+	// Being inline it beats the stylesheet's purple/green table, so editor-core's rings follow the
+	// change's scheme too.
 	outlineWrapper.setAttribute(
 		'style',
 		buildAtomicInlineChangedCSSVariables(colorSchemeRegistry[colorScheme ?? 'standard']),

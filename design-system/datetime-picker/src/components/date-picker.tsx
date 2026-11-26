@@ -459,15 +459,27 @@ const DatePicker: React.ForwardRefExoticComponent<
 		if (!getIsOpen() && fg('platform-dst-top-layer')) {
 			setIsKeyDown(true);
 		}
-		setIsOpen((isOpen) => {
-			if (isOpen) {
+		if (fg('platform-dst-top-layer')) {
+			// The consumer's callbacks may set state, so call them here and not in a state updater.
+			// Read what is shown, so a controlled `isOpen` closes on the press too.
+			const isCurrentlyOpen = getIsOpen();
+			if (isCurrentlyOpen) {
 				props.selectProps?.onMenuClose?.();
-				return false;
 			} else {
 				props.selectProps?.onMenuOpen?.();
-				return true;
 			}
-		});
+			setIsOpen(!isCurrentlyOpen);
+		} else {
+			setIsOpen((isOpen) => {
+				if (isOpen) {
+					props.selectProps?.onMenuClose?.();
+					return false;
+				} else {
+					props.selectProps?.onMenuOpen?.();
+					return true;
+				}
+			});
+		}
 		setWasOpenedFromCalendarButton(true);
 
 		e.stopPropagation();

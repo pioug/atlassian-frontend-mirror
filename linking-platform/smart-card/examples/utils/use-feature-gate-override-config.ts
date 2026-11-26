@@ -13,9 +13,6 @@ const experimentConfig: Record<string, FeatureGateConfig> = {
 	platform_sl_3p_preauth_better_hovercard: {
 		isEnabled: true,
 	},
-	social_proof_3p_unauth_block_exp: {
-		isEnabled: true,
-	},
 	platform_sl_3p_auth_visualize_exp: {
 		isEnabled: true,
 	},

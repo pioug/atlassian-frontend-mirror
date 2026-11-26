@@ -1,7 +1,7 @@
 import React from 'react';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { render, type RenderResult } from '@testing-library/react';
+import { render, type RenderResult } from '@testing-library/react'; // oxlint-disable-line import-extra/no-extraneous-dependencies
 import { IntlProvider } from 'react-intl';
 
 export const renderWithIntl = (component: React.ReactNode): RenderResult => {

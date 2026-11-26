@@ -1,5 +1,32 @@
 # @atlaskit/editor-card-provider
 
+## 8.2.41
+
+### Patch Changes
+
+- [`e258d518e0d4a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e258d518e0d4a) -
+  Clean up the `platform_avp_viz_dashboard_link_embed` feature gate. Dashboards chart links now
+  always default to the embed appearance.
+- Updated dependencies
+
+## 8.2.40
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.2.39
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.2.38
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.2.37
 
 ### Patch Changes

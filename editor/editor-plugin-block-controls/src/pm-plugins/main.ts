@@ -334,12 +334,12 @@ export const apply = (
 		}
 	}
 
-	// patch_1: DecorationSet.map() validates node decorations as it maps them — one whose range
+	// DecorationSet.map() validates node decorations as it maps them — one whose range
 	// no longer exactly covers a node (e.g. after a split) is dropped rather than left misplaced.
 	// Recording that here lets the active-node decoration blocks below re-add only what actually
 	// went away, instead of scanning the whole decoration set on every keystroke (VC90).
-	// The active-node decorations only exist under the reliable anchor experiment, so the patch is
-	// scoped to it as well. No-exposure check as this runs on every document change; the blocks
+	// The active-node decorations only exist under the reliable anchor experiment, so this tracking
+	// is scoped to it as well. No-exposure check as this runs on every document change; the blocks
 	// below that consume these flags are already inside an `expValEquals` guard for the same
 	// experiment, so the exposure is fired there.
 	let activeHandleDecDropped = false;
@@ -347,10 +347,7 @@ export const apply = (
 
 	// When steps exist, remap existing decorations, activeNode and multi select positions
 	if (tr.docChanged) {
-		if (
-			expValEqualsNoExposure('platform_editor_controls_reliable_anchor', 'isEnabled', true) &&
-			fg('platform_editor_controls_reliable_anchor_patch_1')
-		) {
+		if (expValEqualsNoExposure('platform_editor_controls_reliable_anchor', 'isEnabled', true)) {
 			decorations = decorations.map(tr.mapping, tr.doc, {
 				onRemove: (spec) => {
 					if (spec?.type === TYPE_ACTIVE_HANDLE_DEC) {
@@ -652,12 +649,10 @@ export const apply = (
 			expValEquals('platform_editor_controls_reliable_anchor', 'isEnabled', true) &&
 			latestActiveNode
 		) {
-			// patch_1: a plain doc change no longer forces a rescan — map() above has already
-			// either kept the decoration correctly positioned or dropped it as invalid, so we
-			// only need to act when it was actually dropped.
-			const docChangeInvalidatedNodeDec = fg('platform_editor_controls_reliable_anchor_patch_1')
-				? activeHandleDecDropped
-				: tr.docChanged;
+			// A plain doc change does not force a rescan — map() above has already either kept the
+			// decoration correctly positioned or dropped it as invalid, so we only need to act when
+			// it was actually dropped.
+			const docChangeInvalidatedNodeDec = activeHandleDecDropped;
 
 			// Recreate the drag handle node decoration when the active node changed,
 			// its content was modified, or the document changed.
@@ -700,9 +695,7 @@ export const apply = (
 				activeNodeChanged ||
 				isActiveNodeModified ||
 				rootActiveNodeChanged ||
-				(fg('platform_editor_controls_reliable_anchor_patch_1')
-					? activeQuickInsertDecDropped
-					: tr.docChanged);
+				activeQuickInsertDecDropped;
 			if (needsQuickInsertDecUpdate && latestActiveNode.rootPos !== undefined) {
 				const rootNodeSize = newState.doc.nodeAt(latestActiveNode.rootPos)?.nodeSize;
 				if (rootNodeSize !== undefined) {
@@ -1058,8 +1051,7 @@ export const createPlugin = (
 	// mouseover before VC and never a mousemove. Ignore hover until the pointer moves.
 	const ignoreRestingPointerHover =
 		!isExperimentEnabled('platform_editor_block_control_migration') &&
-		expValEquals('platform_editor_controls_reliable_anchor', 'isEnabled', true) &&
-		fg('platform_editor_controls_reliable_anchor_patch_2');
+		expValEquals('platform_editor_controls_reliable_anchor', 'isEnabled', true);
 
 	// When ignoreRestingPointerHover is false, this is always true, so hover is never suppressed.
 	let pointerHasMoved = !ignoreRestingPointerHover;

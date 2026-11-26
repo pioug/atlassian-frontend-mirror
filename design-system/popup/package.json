@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/popup",
-	"version": "10.2.8",
+	"version": "11.0.3",
 	"description": "A popup displays brief content in an overlay.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -106,22 +106,10 @@
 		"platform-dst-top-layer": {
 			"type": "boolean"
 		},
-		"platform_dst_popup-disable-focuslock": {
-			"type": "boolean"
-		},
 		"platform-design-system-popup-ref": {
 			"type": "boolean"
 		},
-		"platform-design-system-apply-popup-wrapper-focus": {
-			"type": "boolean"
-		},
 		"platform_dst_nested_escape": {
-			"type": "boolean"
-		},
-		"platform-dst-motion-uplift-popup": {
-			"type": "boolean"
-		},
-		"platform-dst-popup-trigger-focus-fix": {
 			"type": "boolean"
 		}
 	},

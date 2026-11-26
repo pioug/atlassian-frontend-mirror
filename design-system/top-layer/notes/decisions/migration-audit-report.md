@@ -43,10 +43,10 @@ The following work was completed after the initial audit:
 
 ### 1. `@atlaskit/select` — PopupSelect has NO unit tests for top-layer path
 
-No `ffTest('platform-dst-top-layer')` wrapper exists in any unit test file. All 19 unit tests only
-validate the legacy class component. The PopupSelect top-layer adapter
-(`popup-select-top-layer.tsx`) has zero unit-level validation. **New browser tests were added by the
-audit** to partially compensate, but unit coverage remains at zero.
+The top-layer gate has no dedicated test group. All 19 unit tests only validate the legacy class
+component. The PopupSelect top-layer adapter (`popup-select-top-layer.tsx`) has zero unit-level
+validation. **New browser tests were added by the audit** to partially compensate, but unit coverage
+remains at zero.
 
 ### 2. `@atlaskit/inline-message` — Pre-existing `fg()` crash in unit tests
 
@@ -448,9 +448,9 @@ i18n/locale. New VR tests added for disabled state and overflow positioning with
    `mode="manual"`.
 3. **Fix the `modal-dialog` height prop** — `<dialog>` doesn't consume `--modal-dialog-height` CSS
    var.
-4. **Add unit tests with `ffTest.on('platform-dst-top-layer')` for**: avatar-group, select,
-   inline-dialog, datetime-picker. These packages currently have zero unit-level validation of the
-   top-layer code path.
+4. **Add unit tests for the enabled top-layer gate for**: avatar-group, select, inline-dialog,
+   datetime-picker. These packages currently have zero unit-level validation of the top-layer code
+   path.
 
 ### Short-term
 

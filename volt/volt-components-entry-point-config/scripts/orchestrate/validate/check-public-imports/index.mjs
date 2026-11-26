@@ -5,7 +5,7 @@
 import { readFile, stat } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 
-import ts from 'typescript';
+import ts from 'typescript'; // oxlint-disable-line import-extra/no-extraneous-dependencies
 
 const [packageJsonPath] = process.argv.slice(2);
 

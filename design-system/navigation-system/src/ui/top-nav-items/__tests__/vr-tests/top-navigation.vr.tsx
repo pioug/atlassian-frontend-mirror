@@ -192,7 +192,4 @@ snapshot(TopNavigationThemedButtonsExample, {
 snapshot(TopNavigationThemingWithPickerExampleRed, {
 	description: 'theming with side nav',
 	variants: lightModeVariant,
-	featureFlags: {
-		platform_dst_nav4_custom_theming_fhs_1: [true, false],
-	},
 });

@@ -110,9 +110,6 @@
 			"path": "../../link-extractors/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../link-test-helpers/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../linking-common/afm-products/tsconfig.json"
 		},
 		{

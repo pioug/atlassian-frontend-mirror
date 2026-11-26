@@ -330,3 +330,16 @@ export const getBlockTemplateMenuItem = (
 	key: `quick-insert-block-template-${id}`,
 	type: 'menu-item',
 });
+
+/** Prefix of Rovo Skill item keys, such as `skill:add-suggestions-to-content`. */
+export const SKILL_MENU_ITEM_KEY_PREFIX = 'skill:';
+
+/** Native item keys look like `quick-insert-table-menu-item`. */
+const NATIVE_MENU_ITEM_KEY_PATTERN = /^quick-insert-(.+)-menu-item$/u;
+
+/**
+ * The element a native menu item key names, such as `table` for `quick-insert-table-menu-item`.
+ * Returns `undefined` for other keys, such as provider keys like `native-tabs:native-tabs`.
+ */
+export const getNativeMenuItemName = (key: string): string | undefined =>
+	NATIVE_MENU_ITEM_KEY_PATTERN.exec(key)?.[1];

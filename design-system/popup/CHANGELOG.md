@@ -1,5 +1,52 @@
 # @atlaskit/popup
 
+## 11.0.3
+
+### Patch Changes
+
+- [`70ad153106e18`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/70ad153106e18) -
+  Removed unused fields from the internal focus and close manager hook types.
+
+## 11.0.2
+
+### Patch Changes
+
+- [`112689d2e02bc`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/112689d2e02bc) -
+  Removed the `platform_dst_popup-disable-focuslock` feature gate; behaviour is unchanged for users.
+
+## 11.0.1
+
+### Patch Changes
+
+- [`fcf534277ba01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fcf534277ba01) -
+  Removed the `platform-dst-motion-uplift-popup` feature gate; behaviour is unchanged for users.
+- Updated dependencies
+
+## 11.0.0
+
+### Major Changes
+
+- [`d2d28a9303775`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2d28a9303775) -
+  Removed the `mode` prop. It had no effect: remove it from your `Popup` callsites.
+
+### Patch Changes
+
+- [`6251386575bfb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6251386575bfb) -
+  Removed the `platform-design-system-apply-popup-wrapper-focus` feature gate; behaviour is
+  unchanged for users.
+- [`d2d28a9303775`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2d28a9303775) -
+  Behind `platform-dst-top-layer`, a popup without `onClose` no longer takes Escape, so a layer
+  around it, such as an inline edit, gets it.
+- Updated dependencies
+
+## 10.2.9
+
+### Patch Changes
+
+- [`4dde1960b0da0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4dde1960b0da0) -
+  Removed the `platform-dst-popup-trigger-focus-fix` feature gate; behaviour is unchanged for users.
+- Updated dependencies
+
 ## 10.2.8
 
 ### Patch Changes

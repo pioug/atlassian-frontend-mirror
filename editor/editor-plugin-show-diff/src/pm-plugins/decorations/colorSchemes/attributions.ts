@@ -51,8 +51,7 @@ const HASHED_PARTICIPANT_COLOR_SCHEMES = [
 /**
  * ADS red means "deleted" in both public schemes, so it is excluded from hashed participant colours.
  * Brand schemes retain their own palettes. `createAttributionColorMap` is the only caller, and
- * it is gated on `platform_editor_attributed_version_history` plus
- * `platform_editor_show_diff_color_scheme_refactor`.
+ * it is gated on `platform_editor_attributed_version_history`.
  */
 const RESERVED_ATTRIBUTION_COLORS: ReadonlySet<AdsAccentColor> = new Set(['red']);
 
@@ -142,8 +141,7 @@ export const resolveContributors = (
 };
 
 export const areAttributionColorGatesEnabled = (): boolean =>
-	isExperimentEnabled('platform_editor_attributed_version_history') &&
-	isExperimentEnabled('platform_editor_show_diff_color_scheme_refactor');
+	isExperimentEnabled('platform_editor_attributed_version_history');
 
 export const isAttributionColoringEnabled = (
 	stepAttributions: Array<DiffStepAttribution | undefined> | undefined,

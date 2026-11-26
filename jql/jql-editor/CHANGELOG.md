@@ -1,5 +1,22 @@
 # @atlaskit/jql-editor
 
+## 8.12.1
+
+### Patch Changes
+
+- [`ef1c6993afea6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef1c6993afea6) -
+  Cleanup `feature_gate` `orion-8274-cmdb-object-jql-values-resolver`. Assets object values now
+  always render as rich inline nodes.
+- Updated dependencies
+
+## 8.12.0
+
+### Minor Changes
+
+- [`2fac27f73ef35`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2fac27f73ef35) -
+  Update i18n NPM package versions for jira-ai,jira,jsm,proforma,chroma,capacity-planning,jql
+  (Group 4)
+
 ## 8.11.0
 
 ### Minor Changes

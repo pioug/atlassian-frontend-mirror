@@ -27,6 +27,7 @@ import type {
 	EmojiRepresentation,
 	OptionalEmojiDescriptionWithVariations,
 } from '@atlaskit/emoji/types';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { EmojiPlugin } from '../emojiPluginType';
@@ -58,6 +59,11 @@ export class EmojiNodeView implements NodeView {
 	private tooltipInstance: VanillaTooltip | undefined;
 	private tooltipTarget: HTMLElement | undefined;
 	private destroyLazyTooltipListeners: (() => void) | undefined;
+	/**
+	 * Inline style properties `emojiToDom()` put on the placeholder. Only these are removed once the
+	 * emoji loads, so styles that others add to the node's DOM (e.g. a decoration's inline style) survive.
+	 */
+	private placeholderStyleProperties: string[] = [];
 
 	readonly destroy = (): void => {
 		if (this.tooltipInstance || this.tooltipTarget || this.destroyLazyTooltipListeners) {
@@ -100,6 +106,7 @@ export class EmojiNodeView implements NodeView {
 		const { dom } = DOMSerializer.renderSpec(document, emojiToDom(this.node));
 		this.dom = dom;
 		this.domElement = this.isHTMLElement(dom) ? dom : undefined;
+		this.placeholderStyleProperties = this.domElement ? Array.from(this.domElement.style) : [];
 
 		if (emojiNodeDataProvider) {
 			let previousEmojiDescription: OptionalEmojiDescriptionWithVariations | undefined;
@@ -248,7 +255,15 @@ export class EmojiNodeView implements NodeView {
 		// Clean up the DOM before rendering the new emoji
 		if (this.domElement) {
 			this.domElement.innerHTML = '';
-			this.domElement.style.cssText = '';
+			if (fg('platform_editor_fix_emoji_colour_regression')) {
+				// Not `style.cssText = ''`: that also erases inline styles ProseMirror applied from
+				// decorations, such as show-diff's `--show-diff-atomic-inline-changed-border-color`.
+				for (const property of this.placeholderStyleProperties) {
+					this.domElement.style.removeProperty(property);
+				}
+			} else {
+				this.domElement.style.cssText = '';
+			}
 			this.domElement.classList.remove(EmojiSharedCssClassName.EMOJI_PLACEHOLDER);
 			this.domElement.removeAttribute('aria-label'); // The label is set in the renderEmoji method
 			this.domElement.removeAttribute('aria-busy');
@@ -406,10 +421,6 @@ export class EmojiNodeView implements NodeView {
 		spriteElement.style.minWidth = `${defaultEmojiHeight}px`;
 		spriteElement.style.minHeight = `${defaultEmojiHeight}px`;
 
-		if (!expValEquals('platform_editor_lovability_emoji_scaling', 'isEnabled', true)) {
-			spriteElement.style.width = `${defaultEmojiHeight}px`;
-			spriteElement.style.height = `${defaultEmojiHeight}px`;
-		}
 		return spriteElement;
 	}
 

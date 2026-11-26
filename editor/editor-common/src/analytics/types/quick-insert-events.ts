@@ -60,14 +60,14 @@ export type QuickInsertInformationAEP = OperationalAEP<
 
 export type QuickInsertInformationEventPayload = QuickInsertInformationAEP;
 
-export type QuickInsertSearchSurface = 'typeahead' | 'toolbar' | 'element-browser';
+export type QuickInsertSurface = 'typeahead' | 'toolbar' | 'element-browser';
 
 export type QuickInsertSearchOutcomeAttributes = {
 	category?: string;
 	isEmpty: boolean;
 	queryLength: number;
 	resultCount: number;
-	surface: QuickInsertSearchSurface;
+	surface: QuickInsertSurface;
 };
 
 export type QuickInsertSearchOutcomeAEP = TrackAEP<
@@ -79,3 +79,37 @@ export type QuickInsertSearchOutcomeAEP = TrackAEP<
 >;
 
 export type QuickInsertSearchOutcomeEventPayload = QuickInsertSearchOutcomeAEP;
+
+export type QuickInsertOpenedAttributes = {
+	surface: QuickInsertSurface;
+};
+
+export type QuickInsertOpenedAEP = TrackAEP<
+	ACTION.OPENED,
+	ACTION_SUBJECT.QUICK_INSERT,
+	undefined,
+	QuickInsertOpenedAttributes,
+	undefined
+>;
+
+export type QuickInsertItemSelectedAttributes = {
+	/** Whether the item is in this editor's recommended set, wherever it was picked from. */
+	isRecommendedItem: boolean;
+	/**
+	 * The element for native items (`table` for `quick-insert-table-menu-item` in `keys.ts`),
+	 * `manifestKey:moduleKey` for extensions, the macro name for Confluence macros, `skill` for
+	 * Skills, `ecosystem` for third-party (Forge and Connect) apps, and `unknown` otherwise.
+	 */
+	itemName: string;
+	surface: QuickInsertSurface;
+};
+
+export type QuickInsertItemSelectedAEP = TrackAEP<
+	ACTION.SELECTED,
+	ACTION_SUBJECT.QUICK_INSERT,
+	undefined,
+	QuickInsertItemSelectedAttributes,
+	undefined
+>;
+
+export type QuickInsertMenuEventPayload = QuickInsertOpenedAEP | QuickInsertItemSelectedAEP;

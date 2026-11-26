@@ -29,8 +29,4 @@ snapshot(GoalNodesExample, {
 	},
 });
 
-snapshot(AssetsObjectNodesExample, {
-	featureFlags: {
-		'orion-8274-cmdb-object-jql-values-resolver': true,
-	},
-});
+snapshot(AssetsObjectNodesExample);

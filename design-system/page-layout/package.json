@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/page-layout",
-	"version": "5.5.9",
+	"version": "5.5.10",
 	"description": "A collection of components which let you compose an application's page layout.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -92,12 +92,6 @@
 		"raf-stub": "root:*",
 		"react": "^19.0.0",
 		"react-dom": "^19.0.0"
-	},
-	"platform-feature-flags": {
-		"platform_dst_popup-disable-focuslock": {
-			"type": "boolean",
-			"referenceOnly": "true"
-		}
 	},
 	"keywords": [
 		"atlaskit",

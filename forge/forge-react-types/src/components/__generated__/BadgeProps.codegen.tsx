@@ -21,11 +21,13 @@ export type PlatformBadgeProps = Omit<_PlatformBadgeProps, 'children'> & {
 }
 
 // Serialized type
+// TODO: File had to be manually updated as code gen does not yet produce the bold `appearance` values
+// that `@atlaskit/badge` added (`informationBold`, `successBold`, `dangerBold`, `warningBold`, `discoveryBold`).
 type _PlatformBadgeProps = {
   /**
 	 * Affects the visual style of the badge.
 	 */
-	appearance?: 'added' | 'default' | 'important' | 'primary' | 'primaryInverted' | 'removed' | 'warning' | 'discovery' | 'danger' | 'neutral' | 'success' | 'information' | 'inverse';
+	appearance?: 'added' | 'default' | 'important' | 'primary' | 'primaryInverted' | 'removed' | 'warning' | 'discovery' | 'danger' | 'neutral' | 'success' | 'information' | 'inverse' | 'informationBold' | 'successBold' | 'dangerBold' | 'warningBold' | 'discoveryBold';
   
 	children?: React.ReactNode;
   /**

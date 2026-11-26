@@ -25,10 +25,15 @@ export enum AiSuggestionsEntryPointValue {
 	FOLLOW_UP_CARD = 'followUpCard',
 	/** The call to action on the contextual nudge that points at the Review suggestions button. */
 	CONTEXTUAL_NUDGE = 'contextualNudge',
+	/** Starts a review from the Content Reviewer nudge hover card. */
+	CONTENT_REVIEWER_NUDGE_HOVER_CARD = 'contentReviewerNudgeHoverCard',
+	/** Starts a review after opening the panel from the nudge treatment. */
+	CONTENT_REVIEWER_NUDGE_PANEL = 'contentReviewerNudgePanel',
 }
 export type AiSuggestionsEntryPoint = `${AiSuggestionsEntryPointValue}`;
 export type AiSuggestionInteractionPoint = 'sidebar' | 'card' | 'statusBar' | 'rovoChat';
 export enum AiSuggestionsRightRailEntryPointValue {
+	CONTENT_REVIEWER_NUDGE = 'contentReviewerNudge',
 	SUGGESTIONS_PANEL = 'suggestionsPanel',
 	SUGGESTIONS_TAB = 'suggestionsTab', // Will be deprecated.
 	SUGGESTION_CARD = 'suggestionCard',

@@ -110,6 +110,10 @@ Architectural decisions, design rationale, and decision logs.
 - **[manual-light-dismiss-escape-stacking.md](./decisions/manual-light-dismiss-escape-stacking.md)**
   — Decision: `useManualLightDismiss` lets a layer that opens above it, outside it, take Escape
   first; tracked with `beforetoggle` open order. Browser evidence and what counts as a layer above
+- **[consumed-escape.md](./decisions/consumed-escape.md)**: Decision: a control that does something
+  with an Escape (for example an inline edit that leaves edit mode) calls `preventDefault()`, and no
+  layer closes on that press. It first leaves the Escape to a layer open inside it. A control with
+  nothing to undo leaves the Escape alone. `stopPropagation()` is not a claim
 - **[wrappers-ask-first-close.md](./decisions/wrappers-ask-first-close.md)**: Decision: `Popup`,
   `PopupContent`, `DropdownMenu`, `PopupSelect` and `InlineDialog` render a `manual` popover with
   `useManualLightDismiss`, so an outside press or Escape asks `onClose` first, as `Dialog` does. The
@@ -242,8 +246,8 @@ actually happened.
   — TODO: second sweep pass for consumer code the gap fixes made redundant, and small related items
 - **[follow-ups/modal-dialog-ref-forwarding.md](./follow-ups/modal-dialog-ref-forwarding.md)** —
   Done: ModalDialog forwards its ref to the native `<dialog>` on the top-layer path
-- **[follow-ups/popup-mode-prop.md](./follow-ups/popup-mode-prop.md)** — TODO: decide whether to
-  deprecate Popup mode now that wrappers ask first
+- **[follow-ups/popup-mode-prop.md](./follow-ups/popup-mode-prop.md)** — Done: D20 removes the Popup
+  `mode` prop
 - **[follow-ups/tree-grid-initial-focus.md](./follow-ups/tree-grid-initial-focus.md)** —
   `useInitialFocus` is unimplemented for `role="tree"` and `role="grid"`
 - **[follow-ups/popovertarget-exploration.md](./follow-ups/popovertarget-exploration.md)** —

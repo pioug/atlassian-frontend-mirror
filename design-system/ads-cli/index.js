@@ -25,7 +25,7 @@ if (isDev) {
 	// (including `.tsx` files and cross-package imports) can be `require`d directly
 	// without a pre-build step.
 	// eslint-disable-next-line import/no-extraneous-dependencies
-	require('@atlassian/ts-loader');
+	require('@atlassian/ts-loader'); // oxlint-disable-line import-extra/no-extraneous-dependencies
 	entrypoint = path.join(__dirname, 'src', 'cli');
 }
 

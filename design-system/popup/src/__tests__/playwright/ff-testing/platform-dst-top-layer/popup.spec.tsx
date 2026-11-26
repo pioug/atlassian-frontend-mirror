@@ -769,7 +769,7 @@ test.describe('Popup top-layer — Dialog role focus behavior', () => {
 	});
 });
 
-test.describe('Popup top-layer — Manual mode light dismiss', () => {
+test.describe('Popup top-layer — light dismiss', () => {
 	test('an outside press that leaves focus in the popup does not return focus to the trigger', async ({
 		page,
 	}) => {

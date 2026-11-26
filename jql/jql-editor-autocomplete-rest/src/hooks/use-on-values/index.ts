@@ -15,7 +15,6 @@ import type {
 	AutocompleteValueType,
 } from '@atlaskit/jql-editor-common/autocomplete/types';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { JqlEditorAutocompleteAnalyticsEvent } from '../../analytics/types';
 import { type GetAutocompleteSuggestions, type JQLFieldResponse } from '../../common/types';
@@ -63,7 +62,7 @@ const getValueType = (field: JQLFieldResponse): AutocompleteValueType | void => 
 	) {
 		return 'goal';
 	}
-	if (field.types.includes(ASSETS_FIELD_TYPE) && fg('orion-8274-cmdb-object-jql-values-resolver')) {
+	if (field.types.includes(ASSETS_FIELD_TYPE)) {
 		return 'assets';
 	}
 

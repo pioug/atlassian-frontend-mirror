@@ -174,8 +174,8 @@ unchanged.
 
 ### Unit tests (Jest)
 
-**`spotlight/src/__tests__/unit/spotlight-top-layer.test.tsx`** — 8 tests behind
-`ffTest.on('platform-dst-top-layer')`:
+**`spotlight/src/__tests__/unit/spotlight-top-layer.test.tsx`** — 8 tests behind With
+`platform-dst-top-layer` enabled:
 
 - Renders popover with `role="dialog"` when `isVisible` is true
 - Renders nothing when `isVisible` is false

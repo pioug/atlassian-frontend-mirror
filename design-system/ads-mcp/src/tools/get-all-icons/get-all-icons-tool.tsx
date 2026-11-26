@@ -1,6 +1,6 @@
 /* eslint-disable-next-line import/extensions -- MCP SDK requires .js extensions for ESM imports */
 
-import { icons } from './icons';
+import { icons } from '@atlaskit/ads-ai-tooling-content/icons';
 
 export const getAllIconsTool = async (): Promise<{
 	content: {

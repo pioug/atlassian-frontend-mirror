@@ -32,7 +32,6 @@ import LayoutTwoColumnsIcon from '@atlaskit/icon/core/layout-two-columns';
 import LayoutTwoColumnsSidebarLeftIcon from '@atlaskit/icon/core/layout-two-columns-sidebar-left';
 import LayoutTwoColumnsSidebarRightIcon from '@atlaskit/icon/core/layout-two-columns-sidebar-right';
 import TableColumnsDistributeIcon from '@atlaskit/icon/core/table-columns-distribute';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 import type { LayoutPlugin } from '../index';
 import {
@@ -57,52 +56,6 @@ type PresetLayoutButtonItem = {
 	title: MessageDescriptor;
 	type: PresetLayout;
 };
-
-const LAYOUT_TYPES: PresetLayoutButtonItem[] = [
-	{
-		id: 'editor.layout.twoEquals',
-		type: 'two_equal',
-		title: toolbarMessages.twoColumns,
-		icon: LayoutTwoColumnsIcon,
-	},
-	{
-		id: 'editor.layout.threeEquals',
-		type: 'three_equal',
-		title: toolbarMessages.threeColumns,
-		icon: LayoutThreeColumnsIcon,
-	},
-];
-
-const LAYOUT_TYPES_WITH_SINGLE_COL: PresetLayoutButtonItem[] = [
-	{
-		id: 'editor.layout.singeLayout',
-		type: 'single',
-		title: toolbarMessages.singleColumn,
-		icon: LayoutOneColumnIcon,
-	},
-	...LAYOUT_TYPES,
-];
-
-const SIDEBAR_LAYOUT_TYPES: PresetLayoutButtonItem[] = [
-	{
-		id: 'editor.layout.twoRightSidebar',
-		type: 'two_right_sidebar',
-		title: toolbarMessages.rightSidebar,
-		icon: LayoutTwoColumnsSidebarRightIcon,
-	},
-	{
-		id: 'editor.layout.twoLeftSidebar',
-		type: 'two_left_sidebar',
-		title: toolbarMessages.leftSidebar,
-		icon: LayoutTwoColumnsSidebarLeftIcon,
-	},
-	{
-		id: 'editor.layout.threeWithSidebars',
-		type: 'three_with_sidebars',
-		title: toolbarMessages.threeColumnsWithSidebars,
-		icon: LayoutThreeColumnsSidebarsIcon,
-	},
-];
 
 const LAYOUT_WITH_TWO_COL_DISTRIBUTION = [
 	{
@@ -308,9 +261,7 @@ export const buildToolbar = (
 	pos: number,
 	_allowBreakout: boolean,
 	addSidebarLayouts: boolean,
-	// This is the old allowSingleColumnLayout param which will be removed in the future
-	// It is kept for backwards compatibility and avoid unepxected behavior
-	allowSingleColumnLayout: boolean,
+	_allowSingleColumnLayout: boolean,
 	allowAdvancedSingleColumnLayout: boolean,
 	api: ExtractInjectionAPI<LayoutPlugin> | undefined,
 ): FloatingToolbarConfig | undefined => {
@@ -343,7 +294,6 @@ export const buildToolbar = (
 			tabIndex: null,
 		};
 
-		const layoutTypes = allowSingleColumnLayout ? LAYOUT_TYPES_WITH_SINGLE_COL : LAYOUT_TYPES;
 		const hoverDecorationProps = (nodeType: NodeType | NodeType[], className?: string) => ({
 			onMouseEnter: hoverDecoration?.(nodeType, true, className),
 			onMouseLeave: hoverDecoration?.(nodeType, false, className),
@@ -386,28 +336,17 @@ export const buildToolbar = (
 			nodeType,
 			groupLabel: intl.formatMessage(toolbarMessages.floatingToolbarRadioGroupAriaLabel),
 			items: [
-				...(editorExperiment('advanced_layouts', true)
-					? getAdvancedLayoutItems({
-							addSidebarLayouts,
-							intl,
-							editorAnalyticsAPI,
-							nodeType,
-							node,
-							separator,
-							deleteButton,
-							currentLayout,
-							allowAdvancedSingleColumnLayout,
-						})
-					: [
-							...layoutTypes.map((i) =>
-								buildLayoutButton(intl, i, currentLayout, editorAnalyticsAPI),
-							),
-							...(addSidebarLayouts
-								? SIDEBAR_LAYOUT_TYPES.map((i) =>
-										buildLayoutButton(intl, i, currentLayout, editorAnalyticsAPI),
-									)
-								: []),
-						]),
+				...getAdvancedLayoutItems({
+					addSidebarLayouts,
+					intl,
+					editorAnalyticsAPI,
+					nodeType,
+					node,
+					separator,
+					deleteButton,
+					currentLayout,
+					allowAdvancedSingleColumnLayout,
+				}),
 
 				fullHeightSeparator,
 				overflowMenu,

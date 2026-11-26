@@ -163,8 +163,7 @@ const isConfluenceTeamCalendars: UrlChecker = (url) => url.match(CONFLUENCE_TEAM
 const isJiraIssueNavigator: UrlChecker = (url) => url.match(JIRA_ISSUE_NAVIGATOR_REGEX);
 
 const isAvpVisualizationView: UrlChecker = (url) =>
-	url.match(AVP_VISUALIZATION_VIEW_REGEX) ||
-	(fg('platform_avp_viz_dashboard_link_embed') ? url.match(DASHBOARDS_CHART_VIEW_REGEX) : null);
+	url.match(AVP_VISUALIZATION_VIEW_REGEX) || url.match(DASHBOARDS_CHART_VIEW_REGEX);
 
 const isArtifactsShareView: UrlChecker = (url) => {
 	for (const pattern of ARTIFACT_SHARE_REGEX) {

@@ -17,13 +17,9 @@ import {
 	buildDeletedCellOverlayStyle,
 	buildDeletedRowStyle,
 } from './colorSchemes/factory';
-import { colorSchemeRegistry, getLegacyColorScheme } from './colorSchemes/schemes';
+import { colorSchemeRegistry } from './colorSchemes/schemes';
 import type { ColorScheme } from './colorSchemes/types';
 import { createLeftAnchorWidget } from './createAnchorDecorationWidgets';
-import {
-	resolveCellOverlayStyleLegacy,
-	resolveDeletedRowStyleLegacy,
-} from './createChangedRowDecorationWidgets.styles.legacy';
 import {
 	createContributorTagWidget,
 	isContributorTagWidgetEnabled,
@@ -237,9 +233,7 @@ const createChangedRowDOM = ({
 		tr.dataset.showDiffTableRowReplacement = 'true';
 	}
 	const colors = colorSchemeRegistry[colorScheme ?? 'standard'];
-	const deletedTreatment = isExperimentEnabled('platform_editor_show_diff_color_scheme_refactor')
-		? buildDeletedRowStyle(colors)
-		: resolveDeletedRowStyleLegacy(getLegacyColorScheme(colorScheme));
+	const deletedTreatment = buildDeletedRowStyle(colors);
 	const hostsRemovedLozenge = Boolean(intl) && !isInserted && !hasAnchoredRemovedLozenge;
 
 	// Inserted rows keep their natural styling; the row strikethrough is deletions only.
@@ -269,21 +263,13 @@ const createChangedRowDOM = ({
 					const overlay = document.createElement('span');
 					const isRoundedTable = isExperimentEnabled('platform_editor_table_diff_rounded_corners');
 
-					const overlayStyle = isExperimentEnabled(
-						'platform_editor_show_diff_color_scheme_refactor',
-					)
-						? isInserted
-							? isRoundedTable
-								? buildAddedCellOverlayRoundedStyle(colors)
-								: buildAddedCellOverlayStyle(colors)
-							: isRoundedTable
-								? buildDeletedCellOverlayRoundedStyle(colors)
-								: buildDeletedCellOverlayStyle(colors)
-						: resolveCellOverlayStyleLegacy({
-								colorScheme: getLegacyColorScheme(colorScheme),
-								isInserted,
-								isRoundedTable,
-							});
+					const overlayStyle = isInserted
+						? isRoundedTable
+							? buildAddedCellOverlayRoundedStyle(colors)
+							: buildAddedCellOverlayStyle(colors)
+						: isRoundedTable
+							? buildDeletedCellOverlayRoundedStyle(colors)
+							: buildDeletedCellOverlayStyle(colors);
 
 					overlay.setAttribute('style', overlayStyle);
 					nodeView.appendChild(overlay);

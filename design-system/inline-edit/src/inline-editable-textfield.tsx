@@ -98,7 +98,6 @@ const InlineEditableTextfield = (props: InlineEditableTextfieldProps): React.JSX
 							isOpen={isInvalid}
 							placement="right"
 							// Validation follows field state without stealing focus or light-dismissing.
-							mode="manual"
 							role="none"
 							trigger={({ ref }) => <div ref={ref}>{field}</div>}
 							content={() => (

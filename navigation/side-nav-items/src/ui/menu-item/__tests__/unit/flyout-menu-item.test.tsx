@@ -683,9 +683,12 @@ describe('FlyoutMenuItem', () => {
 					</FlyoutMenuItem>,
 				);
 
-				expect(screen.getByTestId('content--container')).toHaveStyle({
-					'--max-height': `min(calc(100vh - 26px - var(--n_tNvM, 0px) - var(--n_bnrM, 0px)), ${customMaxHeight}px)`,
-				});
+				// Popup's motion container also uses `content--container`, so look inside the popup.
+				expect(within(screen.getByTestId('content')).getByTestId('content--container')).toHaveStyle(
+					{
+						'--max-height': `min(calc(100vh - 26px - var(--n_tNvM, 0px) - var(--n_bnrM, 0px)), ${customMaxHeight}px)`,
+					},
+				);
 			});
 
 			it('should use the default maxHeight value (760px) when maxHeight prop is not provided', () => {
@@ -705,9 +708,11 @@ describe('FlyoutMenuItem', () => {
 					</FlyoutMenuItem>,
 				);
 
-				expect(screen.getByTestId('content--container')).toHaveStyle({
-					'--max-height': `min(calc(100vh - 26px - var(--n_tNvM, 0px) - var(--n_bnrM, 0px)), ${defaultMaxHeight}px)`,
-				});
+				expect(within(screen.getByTestId('content')).getByTestId('content--container')).toHaveStyle(
+					{
+						'--max-height': `min(calc(100vh - 26px - var(--n_tNvM, 0px) - var(--n_bnrM, 0px)), ${defaultMaxHeight}px)`,
+					},
+				);
 			});
 		});
 	});

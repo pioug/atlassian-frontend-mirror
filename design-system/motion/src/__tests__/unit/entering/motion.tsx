@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { token } from '@atlaskit/tokens';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { act } from '@atlassian/testing-library/act';
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
@@ -99,22 +98,6 @@ describe('<Motion />', () => {
 		jest.useRealTimers();
 	});
 
-	it('should respect reduced motion', () => {
-		renderWithMotionStyles(
-			<Motion
-				enteringAnimation={ENTERING_ANIMATION}
-				exitingAnimation={EXITING_ANIMATION}
-				testId="target"
-			>
-				<div />
-			</Motion>,
-		);
-
-		expect(screen.getByTestId('target')).toHaveCompiledCss('animation', 'none', {
-			media: '(prefers-reduced-motion: reduce)',
-		});
-	});
-
 	describe('entering', () => {
 		describe('token motion', () => {
 			it('should animate in', () => {
@@ -128,7 +111,7 @@ describe('<Motion />', () => {
 					</Motion>,
 				);
 
-				expect(screen.getByTestId('target')).toHaveCompiledCss('animation-play-state', 'running');
+				expect(screen.getByTestId('target').style.animation).toContain('var(--ds-test-enter)');
 			});
 
 			it('should call onFinish for entering only after token duration and delay', () => {
@@ -318,10 +301,7 @@ describe('<Motion />', () => {
 					</ExitingPersistence>,
 				);
 
-				expect(screen.getByTestId('target')).not.toHaveCompiledCss(
-					'animation-play-state',
-					'running',
-				);
+				expect(screen.getByTestId('target')).toHaveStyle({ animation: '' });
 			});
 
 			it('should animate on mount if appear is true', () => {
@@ -337,7 +317,7 @@ describe('<Motion />', () => {
 					</ExitingPersistence>,
 				);
 
-				expect(screen.getByTestId('target')).toHaveCompiledCss('animation-play-state', 'running');
+				expect(screen.getByTestId('target').style.animation).toContain('var(--ds-test-enter)');
 			});
 		});
 
@@ -413,7 +393,7 @@ describe('<Motion />', () => {
 
 			rerender(<ExitingPersistence>{false}</ExitingPersistence>);
 
-			expect(screen.getByTestId('target')).toHaveCompiledCss('animation-play-state', 'running');
+			expect(screen.getByTestId('target').style.animation).toContain('var(--ds-test-exit)');
 		});
 
 		describe('token motion', () => {
@@ -597,10 +577,7 @@ describe('<Motion />', () => {
 					</ExitingPersistence>,
 				);
 
-				expect(screen.getByTestId('target')).not.toHaveCompiledCss(
-					'animation-play-state',
-					'running',
-				);
+				expect(screen.getByTestId('target')).toHaveStyle({ animation: '' });
 
 				act(() => {
 					ref.current?.reanimate(Reanimate.enter);
@@ -625,16 +602,13 @@ describe('<Motion />', () => {
 					</ExitingPersistence>,
 				);
 
-				expect(screen.getByTestId('target')).toHaveCompiledCss('animation-play-state', 'running');
+				expect(screen.getByTestId('target').style.animation).toContain('var(--ds-test-enter)');
 
 				act(() => {
 					jest.advanceTimersByTime(MOTION_DURATION);
 				});
 
-				expect(screen.getByTestId('target')).not.toHaveCompiledCss(
-					'animation-play-state',
-					'running',
-				);
+				expect(screen.getByTestId('target')).toHaveStyle({ animation: '' });
 
 				act(() => {
 					ref.current?.reanimate(Reanimate.enter);
@@ -660,15 +634,11 @@ describe('<Motion />', () => {
 					</ExitingPersistence>,
 				);
 
-				expect(screen.getByTestId('target')).not.toHaveCompiledCss(
-					'animation-play-state',
-					'running',
-				);
+				expect(screen.getByTestId('target')).toHaveStyle({ animation: '' });
 
 				act(() => {
 					ref.current?.reanimate(Reanimate.exit_then_enter);
 				});
-				expect(screen.getByTestId('target')).toHaveCompiledCss('animation-play-state', 'running');
 
 				expect(screen.getByTestId('target').style.animation).toContain('var(--ds-test-exit)');
 
@@ -694,22 +664,18 @@ describe('<Motion />', () => {
 					</ExitingPersistence>,
 				);
 
-				expect(screen.getByTestId('target')).toHaveCompiledCss('animation-play-state', 'running');
+				expect(screen.getByTestId('target').style.animation).toContain('var(--ds-test-enter)');
 
 				act(() => {
 					jest.advanceTimersByTime(MOTION_DURATION);
 				});
 
-				expect(screen.getByTestId('target')).not.toHaveCompiledCss(
-					'animation-play-state',
-					'running',
-				);
+				expect(screen.getByTestId('target')).toHaveStyle({ animation: '' });
 
 				act(() => {
 					ref.current?.reanimate(Reanimate.exit_then_enter);
 				});
 
-				expect(screen.getByTestId('target')).toHaveCompiledCss('animation-play-state', 'running');
 				expect(screen.getByTestId('target').style.animation).toContain('var(--ds-test-exit)');
 
 				act(() => {
@@ -817,8 +783,7 @@ describe('<Motion />', () => {
 		expect(onFinish).toHaveBeenCalledWith('entering');
 	});
 
-	it('should control presence with the action prop when the use-motion gate is on', () => {
-		passGate('platform-dst-use-motion');
+	it('should control presence with the action prop', () => {
 		const onFinish = jest.fn();
 
 		const { rerender } = renderWithMotionStyles(
@@ -877,8 +842,6 @@ describe('<Motion />', () => {
 	});
 
 	it('should start hidden when the initial action is exit', () => {
-		passGate('platform-dst-use-motion');
-
 		const { rerender } = renderWithMotionStyles(
 			<Motion
 				action="exit"
@@ -906,10 +869,8 @@ describe('<Motion />', () => {
 		expect(screen.getByTestId('target').style.animation).toContain('var(--ds-test-enter)');
 	});
 
-	describe('platform-dst-use-motion feature gate', () => {
-		it('should render a single wrapper div and animate when the gate is on', () => {
-			passGate('platform-dst-use-motion');
-
+	describe('useMotion implementation', () => {
+		it('should render a single wrapper div and animate', () => {
 			renderWithMotionStyles(
 				<Motion
 					enteringAnimation={ENTERING_ANIMATION}
@@ -928,8 +889,7 @@ describe('<Motion />', () => {
 			expect(target).toContainElement(screen.getByTestId('child'));
 		});
 
-		it('should call onFinish for entering and exiting when the gate is on', () => {
-			passGate('platform-dst-use-motion');
+		it('should call onFinish for entering and exiting', () => {
 			const onFinish = jest.fn();
 
 			const { rerender } = renderWithMotionStyles(
@@ -962,8 +922,7 @@ describe('<Motion />', () => {
 			expect(onFinish).toHaveBeenCalledWith('exiting');
 		});
 
-		it('should support reanimate via the imperative ref when the gate is on', () => {
-			passGate('platform-dst-use-motion');
+		it('should support reanimate via the imperative ref', () => {
 			const onFinish = jest.fn();
 			const ref = React.createRef<any>();
 
@@ -993,24 +952,6 @@ describe('<Motion />', () => {
 			});
 
 			expect(onFinish).toHaveBeenCalledWith('entering');
-		});
-
-		it('should use the legacy implementation when the gate is off', () => {
-			failGate('platform-dst-use-motion');
-
-			renderWithMotionStyles(
-				<Motion
-					enteringAnimation={ENTERING_ANIMATION}
-					exitingAnimation={EXITING_ANIMATION}
-					testId="target"
-				>
-					<div />
-				</Motion>,
-			);
-
-			const target = screen.getByTestId('target');
-			expect(target.tagName).toBe('DIV');
-			expect(target.style.animation).toContain('var(--ds-test-enter)');
 		});
 	});
 });

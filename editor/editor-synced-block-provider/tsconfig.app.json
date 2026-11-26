@@ -72,9 +72,6 @@
 		},
 		{
 			"path": "../../elements/task-decision/tsconfig.app.json"
-		},
-		{
-			"path": "../tmp-editor-statsig/tsconfig.app.json"
 		}
 	]
 }

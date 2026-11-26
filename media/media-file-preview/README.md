@@ -2,6 +2,8 @@
 
 A React Hook to fetch and render file previews. It's overloaded with fancy features like SSR, lazy loading, memory cache and local preview.
 
+During server rendering, preview data is embedded in the HTML for use during hydration.
+
 ## Usage
 
 `import MediaFilePreview from '@atlaskit/media-file-preview';`

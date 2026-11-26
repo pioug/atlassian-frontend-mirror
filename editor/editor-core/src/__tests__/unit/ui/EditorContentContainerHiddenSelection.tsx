@@ -36,8 +36,15 @@ const getActiveHighlightSelectors = (pseudo: string): string[] => {
 
 // Compiled normalizes `*::selection` to `::selection`. Restore the universal
 // selector when removing a descendant pseudo-element for DOM matching.
+// Compiled also emits child combinators without surrounding whitespace (`a>b`), which
+// jsdom's selector engine (nwsapi) cannot parse, so normalize them with spaces.
 const withoutHighlightPseudo = (selector: string, pseudo: string): string =>
-	selector.split(` ${pseudo}`).join(' *').split(pseudo).join('');
+	selector
+		.split(` ${pseudo}`)
+		.join(' *')
+		.split(pseudo)
+		.join('')
+		.replace(/\s*>\s*/gu, ' > ');
 
 const renderSelection = () =>
 	render(

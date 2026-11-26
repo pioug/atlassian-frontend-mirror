@@ -172,6 +172,10 @@ describe('ProfileCardTrigger', () => {
 			fireEvent.mouseLeave(getByTestId('profilecard-trigger'));
 			jest.runAllTimers();
 		});
+		// The card unmounts after its exit animation.
+		act(() => {
+			jest.runAllTimers();
+		});
 
 		expect(queryByTestId('profilecard')).toBe(null);
 

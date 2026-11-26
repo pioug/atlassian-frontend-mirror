@@ -4,7 +4,6 @@ import { render, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
 import * as pmView from '@atlaskit/editor-prosemirror/view';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { mockCreateRange } from '../../mocks';
 import { defaultAutocompleteProvider } from '../../src/plugins/autocomplete/constants';
@@ -108,9 +107,7 @@ describe('JQLEditor', () => {
 				/>,
 			);
 
-		it('replaces the ARI with the object name once hydration resolves when the gate is on', async () => {
-			passGate('orion-8274-cmdb-object-jql-values-resolver');
-
+		it('replaces the ARI with the object name once hydration resolves', async () => {
 			const { findByText, queryByText } = renderEditor();
 
 			expect(await findByText('Object 1 - DT-10')).toBeVisible();
@@ -118,8 +115,6 @@ describe('JQLEditor', () => {
 		});
 
 		it('shows the hydrated object icon, looked up under the field name the API returned', async () => {
-			passGate('orion-8274-cmdb-object-jql-values-resolver');
-
 			// The name rides on node attributes; only the icon goes through the store lookup.
 			const { container, findByText } = renderEditor();
 			await findByText('Object 1 - DT-10');
@@ -127,15 +122,6 @@ describe('JQLEditor', () => {
 			await waitFor(() =>
 				expect(container.querySelector('img')).toHaveAttribute('src', AVATAR_URL),
 			);
-		});
-
-		it('leaves the ARI as plain text when the gate is off', async () => {
-			failGate('orion-8274-cmdb-object-jql-values-resolver');
-
-			const { container, queryByText } = renderEditor();
-
-			await waitFor(() => expect(container.textContent).toContain(OBJECT_ARI));
-			expect(queryByText('Object 1 - DT-10')).not.toBeInTheDocument();
 		});
 	});
 });

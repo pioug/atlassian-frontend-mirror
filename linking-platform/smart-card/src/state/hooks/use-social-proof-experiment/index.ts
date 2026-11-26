@@ -1,12 +1,11 @@
 import { useMemo } from 'react';
 
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-
 import useSocialProof from '../use-social-proof';
 import { getSocialProofTier } from './getSocialProofTier';
 
 export type SocialProofTier = 'low' | 'not-low';
 
+// Stable key for existing smart link analytics.
 export const SOCIAL_PROOF_3P_UNAUTH_BLOCK_EXPERIMENT_KEY = 'social_proof_3p_unauth_block_exp';
 
 export type SocialProofExperimentMetadata = {
@@ -28,8 +27,7 @@ export interface SocialProofExperiment {
 	 */
 	isLoading: boolean;
 	/**
-	 * True when the user is in the treatment cohort and should see the
-	 * social proof UI. All treatment surfaces should gate on this.
+	 * True when social proof data is ready and the UI can render it.
 	 */
 	isTreatment: boolean;
 	/**
@@ -43,15 +41,11 @@ export interface SocialProofExperiment {
 export const SOCIAL_PROOF_TIER_THRESHOLD = 30;
 
 /**
- * Returns enrollment and treatment state for the social proof unauth block card experiment.
+ * Returns eligibility and tier for social proof in unauthorised block cards.
  *
  * Delegates data-fetching to `useSocialProof` (Sasha's shared service layer),
  * which handles cloudId resolution, TAP trait fetch, localStorage caching,
  * request deduping, and sync reads.
- *
- * This hook adds the experiment/cohort layer on top:
- * - Only fires exposure (via editorExperiment) when data has loaded.
- * - Derives `tier` and `isTreatment` for rendering decisions.
  *
  * Expected to be called only inside the fg-enabled branch (via componentWithFG).
  *
@@ -70,11 +64,7 @@ const useSocialProofExperiment = (
 	return useMemo(() => {
 		const hasSocialProofData = connectedPct !== undefined;
 
-		// Only fire exposure when data has loaded (prevents exposure inflation)
-		const isTreatment =
-			isEnabled && !isLoading && hasSocialProofData
-				? expValEquals(SOCIAL_PROOF_3P_UNAUTH_BLOCK_EXPERIMENT_KEY, 'isEnabled', true)
-				: false;
+		const isTreatment = isEnabled && !isLoading && hasSocialProofData;
 
 		const tier = getSocialProofTier(connectedPct) ?? 'low';
 

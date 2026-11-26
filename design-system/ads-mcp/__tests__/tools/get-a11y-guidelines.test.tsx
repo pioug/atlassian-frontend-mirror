@@ -1,5 +1,5 @@
+import { accessibilityGuidelines } from '../../src/entry-points/a11y-guidelines';
 import { getA11yGuidelinesTool } from '../../src/tools/get-a11y-guidelines/get-a11y-guidelines-tool';
-import { accessibilityGuidelines } from '../../src/tools/get-a11y-guidelines/guidelines';
 
 describe('ads_get_a11y_guidelines tool', () => {
 	it('gives specific guidelines if a topic is provided', async () => {

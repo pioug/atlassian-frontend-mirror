@@ -84,39 +84,13 @@ type DeletedNodeMarkupArgs = {
 };
 
 /**
- * Pre-refactor markup for a deleted media/embed/blockquote nodeview: one class per scheme, and no
- * custom properties — the colours come from the matching per-scheme selectors in editor-core.
- *
- * Delete this together with those selectors at experiment cleanup (EDITOR-8281).
- */
-const applyDeletedNodeMarkupLegacy = ({
-	nodeView,
-	targetNode,
-	colorScheme,
-	isActive = false,
-}: DeletedNodeMarkupArgs): void => {
-	nodeView.classList.add(
-		colorScheme === 'traditional' ? 'show-diff-deleted-node-traditional' : 'show-diff-deleted-node',
-	);
-	if (isActive) {
-		nodeView.classList.add('show-diff-deleted-active');
-	}
-	maybeAddDeletedOutlineNewClass({ nodeView, targetNode, colorScheme, isActive });
-};
-
-/**
  * Registry-driven markup: one scheme-agnostic class, plus the scheme's colours as custom properties,
  * so editor-core needs one selector per visual role instead of one per scheme.
  *
- * `show-diff-deleted-node-vars` *replaces* the legacy classes rather than joining them. Both sets of
- * selectors live in editor-core for the life of the experiment, and they have equal specificity, so
- * a shared base class would leave the winner up to source order.
- *
- * The `-vars` suffix names what the class means — this node carries its scheme colours as
- * `--diff-delete-*` custom properties — rather than when it arrived, so it still reads correctly
- * once the legacy classes are gone.
+ * The `-vars` suffix names what the class means: this node carries its scheme colours as
+ * `--diff-delete-*` custom properties.
  */
-const applyDeletedNodeMarkupNext = ({
+const applyDeletedNodeMarkup = ({
 	nodeView,
 	targetNode,
 	colorScheme,
@@ -135,12 +109,6 @@ const applyDeletedNodeMarkupNext = ({
 		`${currentStyle}${separator}${resolveDeletedNodeCSSVariables(colorScheme)}`,
 	);
 };
-
-/** Single gate for the deleted-node classes and custom properties. */
-const applyDeletedNodeMarkup = (args: DeletedNodeMarkupArgs): void =>
-	isExperimentEnabled('platform_editor_show_diff_color_scheme_refactor')
-		? applyDeletedNodeMarkupNext(args)
-		: applyDeletedNodeMarkupLegacy(args);
 
 const applyCellOverlayStyles = ({
 	element,

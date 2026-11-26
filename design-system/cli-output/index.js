@@ -6,7 +6,7 @@ const path = require('path');
 
 const isDev = fs.existsSync(path.join(__dirname, 'tsconfig.json'));
 if (isDev) {
-	require('@atlassian/ts-loader');
+	require('@atlassian/ts-loader'); // oxlint-disable-line import-extra/no-extraneous-dependencies
 }
 
 // Keep both branches literal so the import/no-dynamic-require rule can verify the package entrypoint.

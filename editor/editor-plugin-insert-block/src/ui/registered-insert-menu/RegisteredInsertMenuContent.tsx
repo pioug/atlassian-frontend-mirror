@@ -71,6 +71,7 @@ export const RegisteredInsertMenuContent = ({
 			return;
 		}
 		fireElementBrowserAnalyticsEvent(api, ACTION.OPENED);
+		api?.quickInsert?.actions.fireQuickInsertOpened('toolbar');
 		return () => {
 			fireElementBrowserAnalyticsEvent(api, ACTION.CLOSED);
 		};

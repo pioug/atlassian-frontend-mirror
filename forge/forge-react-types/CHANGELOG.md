@@ -1,5 +1,16 @@
 # @atlaskit/forge-react-types
 
+## 2.16.0
+
+### Minor Changes
+
+- [`ff787b5be1ee3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ff787b5be1ee3) -
+  Added the bold Badge appearances to the Badge types.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.15.3
 
 ### Patch Changes

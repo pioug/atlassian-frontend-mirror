@@ -79,15 +79,7 @@ function resizeTopNav(width: number) {
 	});
 }
 
-describe.each([false, true])('responsive button (new TopNav theme: %s)', (isNewTopNav) => {
-	beforeEach(() => {
-		if (isNewTopNav) {
-			passGate('platform_dst_nav4_custom_theming_fhs_1');
-		} else {
-			failGate('platform_dst_nav4_custom_theming_fhs_1');
-		}
-	});
-
+describe('responsive button', () => {
 	it.each([320, 768])('should measure the attached header on initial mount at %spx', (width) => {
 		passGate('platform-dst-chat-panel-layout');
 		jest.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockReturnValue({

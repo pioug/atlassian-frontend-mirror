@@ -253,7 +253,7 @@ position does nothing there. The `role="tooltip"` element is also the popover ho
 
 ### Unit tests (Jest)
 
-**`tooltip-top-layer.test.tsx`** -- 16+ tests behind `ffTest.on('platform-dst-top-layer-tooltip')`:
+**`tooltip-top-layer.test.tsx`** -- 16+ tests with `platform-dst-top-layer-tooltip` enabled:
 
 - Show on hover after delay
 - Hide on unhover

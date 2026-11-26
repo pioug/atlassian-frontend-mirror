@@ -35,24 +35,26 @@ export const resolveMaxRecommendedItems = (maxRecommendedItems?: number): number
 	return Math.min(Math.max(Math.floor(maxRecommendedItems), 1), MAX_RECOMMENDED_ITEMS);
 };
 
-export const getRecommendedComponents = ({
-	components,
-	context,
+/**
+ * Ranks candidates by `isRecommendedItem` and keeps the first `maxRecommendedItems`. Both menus
+ * use this, so an item is recommended in the same cases in each.
+ */
+export const rankRecommendedItems = <T>({
+	candidates,
+	getItemKey,
+	isHidden,
 	isRecommendedItem = defaultIsRecommendedItem,
 	maxRecommendedItems,
 }: {
-	components: RegisterComponent[];
-	context: SurfaceContext;
+	candidates: readonly T[];
+	getItemKey: (candidate: T) => string;
+	isHidden?: (candidate: T) => boolean;
 	isRecommendedItem?: IsRecommendedItem;
 	maxRecommendedItems?: number;
-}): RegisterMenuItem[] => {
-	return components
-		.filter(isRecommendationCandidate)
-		.flatMap((component, index) => {
-			// Provider items are namespaced in the registry; consumers rank them by their source key.
-			const result: IsRecommendedItemResult = isRecommendedItem({
-				itemKey: quickInsertProviderMenuItemKey.getSourceKey(component.key),
-			});
+}): T[] =>
+	candidates
+		.flatMap((candidate, index) => {
+			const result: IsRecommendedItemResult = isRecommendedItem({ itemKey: getItemKey(candidate) });
 			if (result === null) {
 				return [];
 			}
@@ -62,18 +64,37 @@ export const getRecommendedComponents = ({
 				});
 				return [];
 			}
-			if (component.isHidden?.({ surfaceContext: context })) {
+			if (isHidden?.(candidate)) {
 				return [];
 			}
 
-			return [{ component, index, rank: result.rank }];
+			return [{ candidate, index, rank: result.rank }];
 		})
 		.sort((first, second) =>
 			first.rank === second.rank ? first.index - second.index : first.rank - second.rank,
 		)
 		.slice(0, resolveMaxRecommendedItems(maxRecommendedItems))
-		.map(({ component }) => component);
-};
+		.map(({ candidate }) => candidate);
+
+export const getRecommendedComponents = ({
+	components,
+	context,
+	isRecommendedItem,
+	maxRecommendedItems,
+}: {
+	components: RegisterComponent[];
+	context: SurfaceContext;
+	isRecommendedItem?: IsRecommendedItem;
+	maxRecommendedItems?: number;
+}): RegisterMenuItem[] =>
+	rankRecommendedItems({
+		candidates: components.filter(isRecommendationCandidate),
+		// Provider items are namespaced in the registry; consumers rank them by their source key.
+		getItemKey: (component) => quickInsertProviderMenuItemKey.getSourceKey(component.key),
+		isHidden: (component) => component.isHidden?.({ surfaceContext: context }) === true,
+		isRecommendedItem,
+		maxRecommendedItems,
+	});
 
 /**
  * Resolves the Recommended section for a browse-mode menu. Callers memoise per components array,

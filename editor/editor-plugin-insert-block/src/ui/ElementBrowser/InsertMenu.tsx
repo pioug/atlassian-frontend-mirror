@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import type { ComponentClass, HTMLAttributes, ReactElement } from 'react';
-import { useCallback, useContext, useLayoutEffect, useMemo, useState } from 'react';
+import { useCallback, useContext, useEffect, useLayoutEffect, useMemo, useState } from 'react';
 
 /* eslint-disable @atlaskit/ui-styling-standard/use-compiled, @typescript-eslint/consistent-type-imports, jsdoc/require-description -- Ignored via go/DSP-18766; jsdoc debt surfaced by this mechanical PR */
 import { css, jsx } from '@emotion/react';
@@ -118,8 +118,15 @@ const InsertMenu = ({
 
 	const quickInsertDropdownItems = dropdownItems.map(transform);
 
+	useEffect(() => {
+		pluginInjectionApi?.quickInsert?.actions.fireQuickInsertOpened('toolbar');
+		// Fires once per open; the menu mounts when it opens.
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
 	const onInsertItem = useCallback(
 		(item: QuickInsertItem) => {
+			pluginInjectionApi?.quickInsert?.actions.fireQuickInsertItemSelected('toolbar', item);
 			toggleVisiblity();
 			if (!editorView.hasFocus()) {
 				editorView.focus();

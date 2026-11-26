@@ -12,7 +12,6 @@ import {
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
-import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { userEvent } from '@atlassian/testing-library/user-event';
 import { within } from '@atlassian/testing-library/within';
@@ -183,15 +182,7 @@ describe('EmbedCard view component', () => {
 				},
 			};
 
-			it('does not add AVP host product context when the gate is disabled', () => {
-				failGate('platform_avp_smartlink_embed_product_context');
-				const { iframeEl } = setup(avpPlatformCardState, expectedUrl, undefined, 'CONFLUENCE');
-
-				expect(iframeEl.getAttribute('src')).not.toContain('hostProduct=');
-			});
-
-			it('adds AVP host product context when the gate is enabled', () => {
-				passGate('platform_avp_smartlink_embed_product_context');
+			it('adds AVP host product context', () => {
 				const { iframeEl } = setup(avpPlatformCardState, expectedUrl, undefined, 'CONFLUENCE');
 
 				expect(iframeEl.getAttribute('src')).toContain('hostProduct=CONFLUENCE');

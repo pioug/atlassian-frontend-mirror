@@ -1,9 +1,6 @@
 import { type RefObject } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-
 import { type Action, type FocusableElementRef } from '../../types';
-import { PREFIX } from './use-generated-id';
 
 const actionMap: { [key: string]: Action } = {
 	ArrowDown: 'next',
@@ -70,28 +67,14 @@ export default function handleFocus(
 			({ current: el }) => el && document.activeElement?.isSameNode(el),
 		);
 
-		if (fg('platform_dst_popup-disable-focuslock')) {
-			// if we use a popup as a nested dropdown, we must prevent the dropdown from closing.
-			const isNestedDropdown = !!document.activeElement?.closest(`[id^=${PREFIX}]`);
-			if (isLayerDisabled() && isNestedDropdown) {
-				if (e.key === 'Tab' && !e.shiftKey) {
-					onClose(e);
-				}
-
-				// if it is a nested dropdown and the level of the given dropdown is not the current level,
-				// we don't need to have focus on it
-				return;
+		if (isLayerDisabled()) {
+			if (e.key === 'Tab' && !e.shiftKey) {
+				onClose(e);
 			}
-		} else {
-			if (isLayerDisabled()) {
-				if (e.key === 'Tab' && !e.shiftKey) {
-					onClose(e);
-				}
 
-				// if it is a nested dropdown and the level of the given dropdown is not the current level,
-				// we don't need to have focus on it
-				return;
-			}
+			// if it is a nested dropdown and the level of the given dropdown is not the current level,
+			// we don't need to have focus on it
+			return;
 		}
 		// Left arrow: only in a submenu — close and return focus to parent. No navigation within menu.
 		if (e.key === 'ArrowLeft') {

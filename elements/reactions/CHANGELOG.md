@@ -1,5 +1,31 @@
 # @atlaskit/reactions
 
+## 37.9.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.9.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 37.9.5
+
+### Patch Changes
+
+- [`d2d28a9303775`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2d28a9303775) -
+  Removed the `mode` prop from `Popup`, as `@atlaskit/popup` no longer has it.
+- Updated dependencies
+
+## 37.9.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 37.9.3
 
 ### Patch Changes

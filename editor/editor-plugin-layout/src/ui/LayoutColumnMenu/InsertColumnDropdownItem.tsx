@@ -17,10 +17,8 @@ import { ToolbarDropdownItem } from '@atlaskit/editor-toolbar/toolbar-dropdown-i
 import { ToolbarKeyboardShortcutHint } from '@atlaskit/editor-toolbar/toolbar-keyboard-shortcut-hint';
 
 import type { LayoutPlugin } from '../../layoutPluginType';
-import {
-	getEffectiveMaxLayoutColumns,
-	type InsertLayoutColumnSide,
-} from '../../pm-plugins/actions';
+import type { InsertLayoutColumnSide } from '../../pm-plugins/actions';
+import { MAX_LAYOUT_COLUMNS } from '../../pm-plugins/consts';
 import { useSelectedLayoutColumns } from './useSelectedLayoutColumns';
 
 type InsertColumnOption = {
@@ -56,8 +54,7 @@ export const InsertColumnDropdownItem = ({
 	const shortcut = side === 'left' ? addColumnBefore : addColumnAfter;
 	const selectedLayoutColumns = useSelectedLayoutColumns(api);
 	const columnCount = selectedLayoutColumns?.layoutSectionNode?.childCount ?? 0;
-	const maxColumnCount = getEffectiveMaxLayoutColumns();
-	const canInsertColumn = selectedLayoutColumns !== undefined && columnCount < maxColumnCount;
+	const canInsertColumn = selectedLayoutColumns !== undefined && columnCount < MAX_LAYOUT_COLUMNS;
 	const onClick = useCallback(() => {
 		const insertCommand = api?.layout?.commands.insertLayoutColumn({
 			side,

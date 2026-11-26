@@ -1,5 +1,41 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 36.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.0.5
+
+### Patch Changes
+
+- [`f529dc95f230c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f529dc95f230c) -
+  Track backend edit acceptance once per invocation from the editor that initiated it. Include the
+  Rovo MCP source when the action classification supplies it. Reconnecting does not claim invocation
+  ownership. Late registration cannot create acceptance after the survival window, and analytics
+  extraction failures do not prevent collaborative edits from applying. This is controlled by
+  `platform_editor_ai_backend_persisted_analytics`.
+- Updated dependencies
+
 ## 36.0.4
 
 ### Patch Changes

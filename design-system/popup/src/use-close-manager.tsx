@@ -9,23 +9,17 @@ import { useLayering } from '@atlaskit/layering/use-layering';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { type CloseManagerHook } from './types';
-import { isInteractiveElement } from './utils/is-element-interactive';
-import { useAnimationFrame } from './utils/use-animation-frame';
 
 export const useCloseManager = ({
 	isOpen,
 	onClose,
 	popupRef,
 	triggerRef,
-	autoFocus,
-	shouldDisableFocusTrap,
 	shouldUseCaptureOnOutsideClick: capture,
 	shouldIgnoreCloseEvent,
 	shouldCloseOnTab,
-	shouldRenderToParent,
 }: CloseManagerHook): void => {
 	const { isLayerDisabled, currentLevel } = useLayering();
-	const { requestFrame, cancelAllFrames } = useAnimationFrame();
 	const mouseDownTarget = useRef<EventTarget | null>(null);
 
 	useEffect(() => {
@@ -45,17 +39,6 @@ export const useCloseManager = ({
 						event.target.closest(`[data-ds--level]`)?.getAttribute('data-ds--level') ?? null;
 				}
 				currentLevel ? onClose(event, Number(currentLevel)) : onClose(event);
-			}
-
-			if (shouldDisableFocusTrap && fg('platform_dst_popup-disable-focuslock')) {
-				// Restoring the normal focus order for trigger.
-				requestFrame(() => {
-					triggerRef?.setAttribute('tabindex', '0');
-
-					if (popupRef && autoFocus) {
-						popupRef.setAttribute('tabindex', '0');
-					}
-				});
 			}
 		};
 
@@ -102,14 +85,6 @@ export const useCloseManager = ({
 
 			if (!isClickOnPopup && !isClickOnTrigger && !didClickStartInsidePopup) {
 				closePopup(event);
-				// If there was an outside click on a non-interactive element, the focus should be on the trigger.
-				if (
-					document.activeElement &&
-					!isInteractiveElement(document.activeElement as HTMLElement) &&
-					fg('platform_dst_popup-disable-focuslock')
-				) {
-					triggerRef?.focus();
-				}
 			}
 		};
 
@@ -139,79 +114,11 @@ export const useCloseManager = ({
 				}
 			}
 
-			if (fg('platform_dst_popup-disable-focuslock')) {
-				const { shiftKey } = event;
-				if (shiftKey && key === 'Tab' && !shouldRenderToParent) {
-					if (isLayerDisabled()) {
-						return;
-					}
-					// We need to move the focus to the popup trigger when the popup is displayed in React.Portal.
-					requestFrame(() => {
-						const isPopupFocusOut = popupRef && !popupRef.contains(document.activeElement);
-
-						if (isPopupFocusOut) {
-							closePopup(event);
-
-							if (currentLevel === 1) {
-								triggerRef?.focus();
-							}
-						}
-					});
-					return;
-				}
-
-				if (key === 'Tab') {
-					// We have cases where we need to close the Popup on Tab press.
-					// Example: DropdownMenu
-					if (shouldCloseOnTab) {
-						if (isLayerDisabled()) {
-							return;
-						}
-						closePopup(event);
-						return;
-					}
-
-					if (isLayerDisabled() && document.activeElement?.closest('[aria-modal]')) {
-						return;
-					}
-
-					if (shouldDisableFocusTrap) {
-						if (shouldRenderToParent) {
-							// We need to move the focus to the previous interactive element before popup trigger
-							requestFrame(() => {
-								const isPopupFocusOut = popupRef && !popupRef.contains(document.activeElement);
-								if (isPopupFocusOut) {
-									closePopup(event);
-								}
-							});
-						} else {
-							requestFrame(() => {
-								if (!document.hasFocus()) {
-									closePopup(event);
-								}
-							});
-						}
-						return;
-					}
-				}
-
-				if (isLayerDisabled()) {
-					return;
-				}
-
-				if (key === 'Escape' || key === 'Esc') {
-					if (triggerRef && autoFocus) {
-						triggerRef.focus();
-					}
-					closePopup(event);
-				}
-			} else {
-				if (isLayerDisabled()) {
-					return;
-				}
-				if (key === 'Escape' || key === 'Esc' || (shouldCloseOnTab && key === 'Tab')) {
-					closePopup(event);
-				}
+			if (isLayerDisabled()) {
+				return;
+			}
+			if (key === 'Escape' || key === 'Esc' || (shouldCloseOnTab && key === 'Tab')) {
+				closePopup(event);
 			}
 		};
 
@@ -250,7 +157,6 @@ export const useCloseManager = ({
 			setTimeout(() => {
 				unbind();
 			}, 0);
-			cancelAllFrames();
 			unbindBlur();
 		};
 	}, [
@@ -258,15 +164,10 @@ export const useCloseManager = ({
 		onClose,
 		popupRef,
 		triggerRef,
-		autoFocus,
-		shouldDisableFocusTrap,
 		capture,
 		shouldIgnoreCloseEvent,
 		isLayerDisabled,
 		shouldCloseOnTab,
 		currentLevel,
-		shouldRenderToParent,
-		requestFrame,
-		cancelAllFrames,
 	]);
 };

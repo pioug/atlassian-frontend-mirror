@@ -380,14 +380,8 @@ export function getEnabledVCRevisions(experienceKey: string = ''): readonly TTVC
 				return enabledVCRevisions.byExperience?.[experienceKey];
 			}
 
-			// When the disable flag is on, treat an explicitly-set empty array as
-			// "no client-side revisions" rather than falling back to the default revision.
 			const allRevisions = enabledVCRevisions?.all;
-			if (Array.isArray(allRevisions) && allRevisions.length === 0 && fg('ufo_disable_ttvc_v4')) {
-				return allRevisions;
-			}
-
-			if (isValidConfigArray(allRevisions)) {
+			if (Array.isArray(allRevisions)) {
 				return allRevisions;
 			}
 

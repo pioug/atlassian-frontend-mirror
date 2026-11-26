@@ -74,8 +74,6 @@ const dialogStyles = compiledCssMap({
 		},
 	},
 	'viewport-scroll': {
-		// Prevents horizontal movement from scrollbar show/hide
-		scrollbarGutter: 'stable',
 		// We want the dialog to be the whole viewport so the scrolling is on the whole viewport
 		width: '100vw',
 		height: '100vh',
@@ -198,8 +196,9 @@ const topLayerScrollModeStyles = compiledCssMap({
 			// Fit the viewport between the 60px `<dialog>` margins, so a taller `height` does not push
 			// the footer off-screen: `ModalBody` scrolls instead. The `<dialog>` is fixed and has
 			// visible overflow, so the page cannot scroll to content below the fold. Legacy capped
-			// the size in the `Positioner`.
-			maxHeight: 'calc(100vh - 120px)',
+			// the size in the `Positioner`. The `+ 1px` matches the legacy cap. It has no known
+			// purpose and is to be removed after the top layer rollout.
+			maxHeight: 'calc(100vh - 120px + 1px)',
 		},
 	},
 });
@@ -215,8 +214,9 @@ const sizingContainerStyles = compiledCssMap({
 		gridTemplateRows: 'minmax(0, 1fr)',
 		pointerEvents: 'none',
 		'@media (min-width: 30rem)': {
-			// The row shrinks to fit the viewport, so `ModalBody` scrolls.
-			maxHeight: 'calc(100vh - 120px)',
+			// The row shrinks to fit the viewport, so `ModalBody` scrolls. The cap is the same as on
+			// the `<dialog>`.
+			maxHeight: 'calc(100vh - 120px + 1px)',
 		},
 	},
 	'viewport-scroll': {
@@ -691,7 +691,7 @@ const ModalWrapperLegacy = forwardRef(
 		return (
 			<Layering isDisabled={false}>
 				<Portal zIndex={layers.modal()}>
-					{!UNSAFE_shouldDisableMotionUplift && fg('platform-dst-motion-uplift-modal') ? (
+					{!UNSAFE_shouldDisableMotionUplift ? (
 						<Motion
 							enteringAnimation={token('motion.blanket.enter')}
 							exitingAnimation={token('motion.blanket.exit')}

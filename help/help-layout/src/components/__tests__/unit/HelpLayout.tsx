@@ -1,7 +1,7 @@
 import React from 'react';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react'; // oxlint-disable-line import-extra/no-extraneous-dependencies
 import { createIntl, createIntlCache, IntlProvider } from 'react-intl';
 
 import QuestionCircleIcon from '@atlaskit/icon/core/question-circle';

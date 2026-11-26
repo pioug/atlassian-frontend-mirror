@@ -1,5 +1,14 @@
 # @atlassian/navigation-system
 
+## 12.1.1
+
+### Patch Changes
+
+- [`8f8db13c3fb0d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8f8db13c3fb0d) -
+  Remove obsolete full-height sidebar theming from the top navigation. Custom background and
+  highlight colors continue to use the existing top navigation theme.
+- Updated dependencies
+
 ## 12.1.0
 
 ### Minor Changes

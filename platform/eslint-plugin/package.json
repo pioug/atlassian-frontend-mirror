@@ -1,7 +1,7 @@
 {
 	"name": "@atlaskit/eslint-plugin-platform",
 	"description": "The essential plugin for use with Atlassian frontend platform tools",
-	"version": "5.0.4",
+	"version": "6.0.0",
 	"author": "Atlassian Pty Ltd",
 	"atlassian": {
 		"team": "Loop Experiences",

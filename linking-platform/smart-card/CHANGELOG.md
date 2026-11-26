@@ -1,5 +1,52 @@
 # @atlaskit/smart-card
 
+## 46.22.1
+
+### Patch Changes
+
+- [`3ffe448074a7a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3ffe448074a7a) -
+  Clean up the `platform_avp_smartlink_embed_product_context` feature gate. Embed cards that support
+  product context now always send the host product.
+- Updated dependencies
+
+## 46.22.0
+
+### Minor Changes
+
+- [`bbaf4606a0e96`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bbaf4606a0e96) -
+  Update i18n NPM package versions for linking-platform,smart-experiences (Group 15)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.21.1
+
+### Patch Changes
+
+- [`d2d28a9303775`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2d28a9303775) -
+  Removed the `mode` prop from `Popup`, as `@atlaskit/popup` no longer has it.
+- Updated dependencies
+
+## 46.21.0
+
+### Minor Changes
+
+- [`c5b72834f2613`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c5b72834f2613) -
+  Move `@atlaskit/link-test-helpers` from `dependencies` to `devDependencies`. It is only imported
+  by smart-card's own tests, so shipping it as a runtime dependency pulled `fetch-mock` — and
+  through it a vulnerable `path-to-regexp` — into the dependency tree of every consumer.
+
+  No exports, entrypoints or behaviour change. Consumers that imported `@atlaskit/link-test-helpers`
+  without declaring it, relying on it being hoisted via `@atlaskit/smart-card`, should add it to
+  their own `devDependencies`.
+
+### Patch Changes
+
+- [`a346e2fe9ed1e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a346e2fe9ed1e) -
+  Keep social proof for eligible unauthorised block cards and remove the experiment lookup.
+- Updated dependencies
+
 ## 46.20.4
 
 ### Patch Changes

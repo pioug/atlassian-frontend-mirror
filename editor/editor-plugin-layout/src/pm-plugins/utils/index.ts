@@ -7,7 +7,6 @@ import { findParentNodeOfType, findSelectedNodeOfType } from '@atlaskit/editor-p
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 export const getMaybeLayoutSection = (state: EditorState): ContentNodeWithPos | undefined => {
 	const {
@@ -16,8 +15,7 @@ export const getMaybeLayoutSection = (state: EditorState): ContentNodeWithPos | 
 		},
 		selection,
 	} = state;
-	const isLayoutColumn =
-		editorExperiment('advanced_layouts', true) && findSelectedNodeOfType([layoutColumn])(selection);
+	const isLayoutColumn = findSelectedNodeOfType([layoutColumn])(selection);
 
 	// When selection is on layoutColumn, we want to hide floating toolbar, hence don't return layoutSection node here
 	return isLayoutColumn
@@ -80,8 +78,7 @@ const supportsBlankSpaceGapCursorFallback = (node: PMNode | null): boolean =>
  * For a blank-space click inside a layout column — above the first child (middle/bottom-aligned
  * columns) or below the last child (any alignment) — return the ProseMirror position and side
  * for a gap cursor. Returns `undefined` when the click is outside a layoutColumn or the Y
- * coordinate is not in blank space. The `advanced_layouts` gate lives in the caller
- * (`applyBlankSpaceGapCursor`).
+ * coordinate is not in blank space.
  */
 export const getGapCursorTargetForBlankSpaceClick = (
 	view: EditorView,

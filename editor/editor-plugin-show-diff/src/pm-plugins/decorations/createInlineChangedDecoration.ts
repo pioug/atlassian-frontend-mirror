@@ -22,7 +22,7 @@ import {
 	buildInsertStyleExtendedNoUnderline,
 	buildInsertStyleExtendedNoUnderlineActive,
 } from './colorSchemes/factory';
-import { colorSchemeRegistry, getLegacyColorScheme } from './colorSchemes/schemes';
+import { colorSchemeRegistry } from './colorSchemes/schemes';
 import type { ColorScheme, DiffColorScheme } from './colorSchemes/types';
 import { createInlineIndicatorAnchorWidgets } from './createAnchorDecorationWidgets';
 import {
@@ -30,10 +30,6 @@ import {
 	createContributorTagWidget,
 	isContributorTagWidgetEnabled,
 } from './createContributorTagWidget';
-import {
-	getAtomicInlineNodeClassNameLegacy,
-	resolveInlineChangedStyleLegacy,
-} from './createInlineChangedDecoration.styles.legacy';
 import { buildDiffDecorationSpec, scrollMarginTopStyle } from './decorationKeys';
 import type { InlineAttrChangeNodeName } from './utils/getAttrChangeRanges';
 
@@ -122,7 +118,7 @@ const getExtendedDeletedStyle = (colors: DiffColorScheme, isActive: boolean): st
 };
 
 /** Registry-driven inline `style` for a changed-content decoration. */
-const resolveInlineChangedStyleRefactored = ({
+const resolveInlineChangedStyle = ({
 	colors,
 	hideAddedDiffsUnderline,
 	isActive,
@@ -138,52 +134,22 @@ const resolveInlineChangedStyleRefactored = ({
 		: getExtendedDeletedStyle(colors, isActive);
 
 /**
- * Single gate for the inline `style` string: registry + factory when the refactor is on, the
- * verbatim pre-refactor per-scheme constants when it is off.
- */
-const resolveInlineChangedStyle = (args: {
-	colors: DiffColorScheme;
-	colorScheme: ColorScheme | undefined;
-	hideAddedDiffsUnderline: boolean;
-	isActive: boolean;
-	isInserted: boolean;
-}): string =>
-	isExperimentEnabled('platform_editor_show_diff_color_scheme_refactor')
-		? resolveInlineChangedStyleRefactored(args)
-		: resolveInlineChangedStyleLegacy({
-				...args,
-				colorScheme: getLegacyColorScheme(args.colorScheme),
-			});
-
-/**
- * Single gate for the atomic-inline-node decoration attributes. The two cohorts differ in the DOM:
- * on, the colour rides on an inline CSS variable and the class list is scheme-agnostic; off, the
- * colour comes from a `-traditional` class and no variable is emitted. Returned together so the
- * class list and style suffix can never be mixed across cohorts.
+ * Atomic-inline-node decoration attributes: the colour rides on an inline CSS variable and the class
+ * list is scheme-agnostic. Returned together so the class list and style suffix stay paired.
  */
 const resolveAtomicInlineAttrs = (
 	inlineNodeName: InlineAttrChangeNodeName | undefined,
-	colorScheme: ColorScheme | undefined,
 	colors: DiffColorScheme,
-): { className: string; styleSuffix: string } =>
-	isExperimentEnabled('platform_editor_show_diff_color_scheme_refactor')
-		? {
-				className: getAtomicInlineNodeClassName(inlineNodeName),
-				styleSuffix: buildAtomicInlineChangedCSSVariables(colors),
-			}
-		: {
-				className: getAtomicInlineNodeClassNameLegacy(
-					inlineNodeName,
-					getLegacyColorScheme(colorScheme),
-				),
-				styleSuffix: '',
-			};
+): { className: string; styleSuffix: string } => ({
+	className: getAtomicInlineNodeClassName(inlineNodeName),
+	styleSuffix: buildAtomicInlineChangedCSSVariables(colors),
+});
 
 export const getAtomicInlineChangedAttrs = (
 	inlineNodeName: InlineAttrChangeNodeName,
 	colorScheme: ColorScheme | undefined,
 ): { className: string; styleSuffix: string } =>
-	resolveAtomicInlineAttrs(inlineNodeName, colorScheme, getColorScheme(colorScheme));
+	resolveAtomicInlineAttrs(inlineNodeName, getColorScheme(colorScheme));
 
 /**
  * Inline decoration used for insertions as the content already exists in the document
@@ -268,7 +234,6 @@ export const createInlineChangedDecoration = ({
 
 	const style = resolveInlineChangedStyle({
 		colors,
-		colorScheme,
 		hideAddedDiffsUnderline,
 		isActive,
 		isInserted,
@@ -276,7 +241,7 @@ export const createInlineChangedDecoration = ({
 
 	const isAtomicInlineInsertion = isAtomicInlineNode && isInserted;
 	const atomicInlineAttrs = isAtomicInlineInsertion
-		? resolveAtomicInlineAttrs(inlineNodeName, colorScheme, colors)
+		? resolveAtomicInlineAttrs(inlineNodeName, colors)
 		: undefined;
 
 	// Every deletion: an inverted diff carries no `isAtomicInlineNode`, so editor-core's selectors do

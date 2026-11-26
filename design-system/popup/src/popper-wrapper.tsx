@@ -10,7 +10,6 @@ import { ax } from '@compiled/react/runtime';
 import { useLayering } from '@atlaskit/layering/use-layering';
 import Motion, { type MotionProps } from '@atlaskit/motion/entering/motion';
 import MotionPresenceBoundary from '@atlaskit/motion/motion-presence-boundary';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { type Placement, Popper } from '@atlaskit/popper/main';
 import { token } from '@atlaskit/tokens';
 import type { CURRENT_SURFACE_CSS_VAR } from '@atlaskit/tokens/constants';
@@ -66,23 +65,6 @@ const modalStyles = css({
 	position: 'fixed',
 	insetBlockStart: token('space.050'),
 	insetInline: token('space.050'),
-});
-
-const focusRingStyles = cssMap({
-	root: {
-		'&:focus-visible': {
-			outlineColor: token('color.border.focused'),
-			outlineOffset: token('border.width.focused'),
-			outlineStyle: 'solid',
-			outlineWidth: token('border.width.focused'),
-		},
-		'@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)': {
-			'&:focus-visible': {
-				outlineStyle: 'solid',
-				outlineWidth: 1,
-			},
-		},
-	},
 });
 
 const placementMap: Record<
@@ -167,7 +149,7 @@ const DefaultPopupComponent: React.ForwardRefExoticComponent<
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 			className={className}
 			{...htmlAttributes}
-			ref={!fg('platform-dst-motion-uplift-popup') ? ref : undefined}
+			ref={ref}
 		>
 			{children}
 		</div>
@@ -209,15 +191,12 @@ function PopperWrapper({
 	const [initialFocusRef, setInitialFocusRef] = useState<HTMLElement | null>(null);
 	// We have cases where we need to close the Popup on Tab press, e.g. DropdownMenu
 	const shouldCloseOnTab = shouldRenderToParent && shouldDisableFocusLock;
-	const shouldDisableFocusTrap = role !== 'dialog';
 
 	useFocusManager({
 		initialFocusRef,
 		popupRef,
 		shouldCloseOnTab,
 		triggerRef,
-		autoFocus,
-		shouldDisableFocusTrap,
 		shouldReturnFocus,
 	});
 
@@ -229,9 +208,6 @@ function PopperWrapper({
 		shouldUseCaptureOnOutsideClick,
 		shouldIgnoreCloseEvent,
 		shouldCloseOnTab,
-		autoFocus,
-		shouldDisableFocusTrap,
-		shouldRenderToParent,
 	});
 
 	const { currentLevel } = useLayering();
@@ -264,13 +240,7 @@ function PopperWrapper({
 				const popupContainer = (
 					<PopupContainer
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-						className={ax([
-							xcss as string,
-							// @ts-expect-error: `ax` is not typed correctly
-							!initialFocusRef &&
-								fg('platform-design-system-apply-popup-wrapper-focus') &&
-								focusRingStyles.root,
-						])}
+						className={ax([xcss as string])}
 						appearance={appearance}
 						id={id}
 						data-ds--level={currentLevel}
@@ -279,26 +249,7 @@ function PopperWrapper({
 						role={role}
 						aria-label={label}
 						aria-labelledby={titleId}
-						ref={
-							!fg('platform-dst-motion-uplift-popup')
-								? (node: HTMLDivElement) => {
-										if (node) {
-											if (typeof ref === 'function') {
-												ref(node);
-											} else {
-												(ref as React.MutableRefObject<HTMLElement>).current = node;
-											}
-											setPopupRef(node);
-										}
-									}
-								: undefined
-						}
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						style={
-							fg('platform-dst-motion-uplift-popup') || appearance === 'UNSAFE_modal-below-sm'
-								? {}
-								: style
-						}
+						style={{}}
 						// using tabIndex={-1} would cause a bug where Safari focuses
 						// first on the browser address bar when using keyboard
 						tabIndex={autoFocus ? 0 : undefined}
@@ -354,7 +305,7 @@ function PopperWrapper({
 
 				return (
 					<Fragment>
-						{fg('platform-dst-motion-uplift-popup') ? container : popupContainer}
+						{container}
 						{appearance === 'UNSAFE_modal-below-sm' && <div css={blanketStyles} />}
 					</Fragment>
 				);

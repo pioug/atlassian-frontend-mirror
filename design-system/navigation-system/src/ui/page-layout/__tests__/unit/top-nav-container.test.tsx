@@ -30,32 +30,28 @@ afterEach(() => {
 	jest.clearAllMocks();
 });
 
-it.each([false, true])(
-	'should collapse actions when only the container shrinks (new theme: %s)',
-	async (newTheme) => {
-		passGate('platform-dst-chat-panel-layout');
-		(newTheme ? passGate : failGate)('platform_dst_nav4_custom_theming_fhs_1');
-		const { user } = setupComponent();
-		expect(screen.getByText('wide')).toBeInTheDocument();
-		expect(screen.queryByRole('button', { name: 'Show more' })).not.toBeInTheDocument();
-		resize(800);
-		expect(screen.getByText('wide')).toBeInTheDocument();
-		resize(600);
-		expect(screen.getByText('compact')).toBeInTheDocument();
-		expect(screen.queryByRole('button', { name: 'Settings' })).not.toBeInTheDocument();
-		expect(screen.getByRole('button', { name: 'Ask Rovo' })).toBeInTheDocument();
-		await user.click(screen.getByRole('button', { name: 'Show more' }));
-		expect(screen.getByRole('button', { name: 'Settings' })).toBeInTheDocument();
-		resize(800);
-		resize(600);
-		expect(screen.getByRole('button', { name: 'Show more' })).toHaveAttribute(
-			'aria-expanded',
-			'false',
-		);
-		// React rendering decisions share one observer rather than subscribing per item.
-		expect(global.ResizeObserver).toHaveBeenCalledTimes(1);
-	},
-);
+it('should collapse actions when only the container shrinks', async () => {
+	passGate('platform-dst-chat-panel-layout');
+	const { user } = setupComponent();
+	expect(screen.getByText('wide')).toBeInTheDocument();
+	expect(screen.queryByRole('button', { name: 'Show more' })).not.toBeInTheDocument();
+	resize(800);
+	expect(screen.getByText('wide')).toBeInTheDocument();
+	resize(600);
+	expect(screen.getByText('compact')).toBeInTheDocument();
+	expect(screen.queryByRole('button', { name: 'Settings' })).not.toBeInTheDocument();
+	expect(screen.getByRole('button', { name: 'Ask Rovo' })).toBeInTheDocument();
+	await user.click(screen.getByRole('button', { name: 'Show more' }));
+	expect(screen.getByRole('button', { name: 'Settings' })).toBeInTheDocument();
+	resize(800);
+	resize(600);
+	expect(screen.getByRole('button', { name: 'Show more' })).toHaveAttribute(
+		'aria-expanded',
+		'false',
+	);
+	// React rendering decisions share one observer rather than subscribing per item.
+	expect(global.ResizeObserver).toHaveBeenCalledTimes(1);
+});
 
 it('should keep viewport behaviour and omit container observation with the gate disabled', () => {
 	failGate('platform-dst-chat-panel-layout');

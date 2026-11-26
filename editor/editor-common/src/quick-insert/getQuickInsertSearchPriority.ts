@@ -47,9 +47,12 @@ import {
 	TWO_COLUMNS_LAYOUT_MENU_ITEM,
 	WARNING_PANEL_MENU_ITEM,
 	WHITEBOARD_MENU_ITEM,
+	SKILL_MENU_ITEM_KEY_PREFIX,
 } from './keys';
 
-const SKILL_MENU_ITEM_KEY_PREFIX = getQuickInsertProviderMenuItemKey('skill:');
+const SKILL_PROVIDER_MENU_ITEM_KEY_PREFIX = getQuickInsertProviderMenuItemKey(
+	SKILL_MENU_ITEM_KEY_PREFIX,
+);
 
 const RECOMMENDED_ITEM_KEYS_BY_QUERY: [string, readonly string[]][] = [
 	['a', [ASK_ROVO_MENU_ITEM.key, ACTION_MENU_ITEM.key, ASSETS_MENU_ITEM.key]],
@@ -342,7 +345,7 @@ const resolveSkillRecommendation: RecommendationResolver = (itemKey) => {
 	if (itemKey === ASK_ROVO_MENU_ITEM.key) {
 		return { priorityGroup: 0, score: 0 };
 	}
-	return itemKey.startsWith(SKILL_MENU_ITEM_KEY_PREFIX)
+	return itemKey.startsWith(SKILL_PROVIDER_MENU_ITEM_KEY_PREFIX)
 		? { priorityGroup: 0, score: 1 }
 		: undefined;
 };

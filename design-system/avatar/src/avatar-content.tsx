@@ -8,6 +8,7 @@ import { type CSSProperties, forwardRef, type ReactNode, useContext } from 'reac
 import { cssMap as unboundCssMap } from '@compiled/react';
 
 import { cssMap, jsx } from '@atlaskit/css';
+import { expVal } from '@atlaskit/platform-feature-experiments/exp-val';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
@@ -361,7 +362,7 @@ export const AvatarContent: React.ForwardRefExoticComponent<
 				unboundStyles.root,
 				styles.root,
 				// Preserve the stacking context and overlay containing block without forcing layer promotion.
-				fg('platform_avatar_disable_layer_promotion')
+				expVal('platform_avatar_layer_promotion', 'isEnabled', false)
 					? styles.isolation
 					: styles.legacyLayerPromotion,
 				appearance === 'square' && styles.square,

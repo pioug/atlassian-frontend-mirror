@@ -1,5 +1,19 @@
 # @atlaskit/inline-message
 
+## 16.4.11
+
+### Patch Changes
+
+- [`fcf534277ba01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fcf534277ba01) -
+  Removed the `platform-dst-motion-uplift-popup` feature gate; behaviour is unchanged for users.
+- Updated dependencies
+
+## 16.4.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.4.9
 
 ### Patch Changes

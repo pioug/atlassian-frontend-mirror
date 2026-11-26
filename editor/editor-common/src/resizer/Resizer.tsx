@@ -19,7 +19,6 @@ import { Box } from '@atlaskit/primitives/box';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { xcss } from '@atlaskit/primitives/xcss/xcss';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
@@ -214,9 +213,7 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 		...otherProps
 	} = props;
 
-	const isDatabasesV2Enabled =
-		expValEqualsNoExposure('cc-maui-experiment', 'isEnabled', true) &&
-		expValEquals('databases-native-embeds-v2', 'isEnabled', true);
+	const isDatabasesV2Enabled = expValEqualsNoExposure('cc-maui-experiment', 'isEnabled', true);
 
 	const supportedHandles = isDatabasesV2Enabled
 		? SUPPORTED_HANDLES_FOR_VERTICAL_RESIZE

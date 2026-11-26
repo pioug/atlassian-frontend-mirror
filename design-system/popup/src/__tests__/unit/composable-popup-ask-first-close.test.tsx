@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { bind } from 'bind-event-listener';
+
 import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { act, render } from '@atlassian/testing-library/testing-library/react';
@@ -79,6 +81,42 @@ function TogglePopup({
 describe('Composable Popup top-layer: ask first on close', () => {
 	beforeEach(() => {
 		passGate('platform-dst-top-layer');
+	});
+
+	it('should stay open without onClose, and leave the Escape to a layer around it', async () => {
+		const isEscapeClaimed = jest.fn();
+		// On the window, so it runs after the listener on the document that would take the Escape.
+		const unbind = bind(window, {
+			type: 'keydown',
+			listener(event: KeyboardEvent) {
+				isEscapeClaimed(event.defaultPrevented);
+			},
+		});
+		render(
+			<>
+				<button type="button">Outside</button>
+				<Popup isOpen role="dialog">
+					<PopupTrigger>
+						{(triggerProps) => (
+							<button type="button" {...triggerProps}>
+								Trigger
+							</button>
+						)}
+					</PopupTrigger>
+					<PopupContent role="dialog" label="Details" testId="first">
+						{() => <button type="button">Inside</button>}
+					</PopupContent>
+				</Popup>
+			</>,
+		);
+
+		await userEvent.keyboard('{Escape}');
+		await userEvent.click(getButton('Outside'));
+		await flushTasks();
+		unbind();
+
+		expect(screen.getByTestId('first--container')).toBeVisible();
+		expect(isEscapeClaimed).toHaveBeenCalledWith(false);
 	});
 
 	it('should stay open and visible when onClose refuses an outside press', async () => {

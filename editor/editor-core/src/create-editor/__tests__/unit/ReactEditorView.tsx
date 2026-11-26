@@ -1168,6 +1168,7 @@ describe('@atlaskit/editor-core', () => {
 								type: 'layoutSection',
 								attrs: {
 									localId: null,
+									columnRuleStyle: null,
 								},
 								content: [
 									{

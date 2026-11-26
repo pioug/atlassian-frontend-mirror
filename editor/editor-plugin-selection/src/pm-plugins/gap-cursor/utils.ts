@@ -5,7 +5,6 @@ import { TableSharedCssClassName } from '@atlaskit/editor-common/styles';
 import { UnsupportedSharedCssClassName } from '@atlaskit/editor-common/styles/unsupported-content';
 import type { Node as PMNode, ResolvedPos, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 
 export const isLeftCursor = (side: Side): side is Side.LEFT => side === Side.LEFT;
 
@@ -255,7 +254,7 @@ export const getComputedStyleForLayoutMode = (
 		}
 	}
 
-	if (editorExperiment('advanced_layouts', true) && node && node.type.name === 'layoutSection') {
+	if (node && node.type.name === 'layoutSection') {
 		const layoutSectionContainer = dom.querySelector('.layout-section-container');
 		if (layoutSectionContainer) {
 			return window.getComputedStyle(layoutSectionContainer);

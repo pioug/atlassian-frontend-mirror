@@ -27,6 +27,7 @@ import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
+import { createQuickInsertMenuAnalytics } from './analytics/quick-insert-menu-analytics';
 import { createQuickInsertItemsAnalyticsScheduler } from './app-category-analytics';
 import {
 	createInsertItem,
@@ -70,6 +71,12 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 		isRecommendedItem: options?.isRecommendedItem,
 		maxRecommendedItems: options?.maxRecommendedItems,
 	});
+	const menuAnalytics = createQuickInsertMenuAnalytics({
+		fireAnalyticsEvent: (payload) => api?.analytics?.actions.fireAnalyticsEvent(payload),
+		getLegacyItems: () => api?.quickInsert?.actions.getSuggestions({}) ?? [],
+		isRecommendedItem: options?.isRecommendedItem,
+		maxRecommendedItems: options?.maxRecommendedItems,
+	});
 	const typeAhead: TypeAheadHandler = {
 		id: TypeAheadAvailableNodes.QUICK_INSERT,
 		registeredMenuKey: isExperimentEnabled('platform_editor_slash_command') ? MENU.key : undefined,
@@ -94,8 +101,13 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 
 			return Promise.resolve(items);
 		},
+		onOpen: () => menuAnalytics.fireOpened('typeahead'),
 		selectItem: (state, item, insert) => {
 			const quickInsertItem = item as QuickInsertItem;
+			// Registered menus select through their own handler and report the selection there.
+			if (!typeAhead.registeredMenuKey) {
+				menuAnalytics.fireLegacyItemSelected('typeahead', quickInsertItem);
+			}
 			const result = quickInsertItem.action(insert, state);
 
 			if (result) {
@@ -124,6 +136,7 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 				emptyStateHandler: options?.emptyStateHandler,
 				fireAnalyticsEvent: api?.analytics?.actions.fireAnalyticsEvent,
 				includeElementBrowserItems: options?.enableElementBrowser === true,
+				menuAnalytics,
 			}),
 		);
 	}
@@ -225,6 +238,7 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 						getItemRank={getItemRank}
 						getRecommendedItems={getRecommendedItems}
 						helpUrl={options?.elementBrowserHelpUrl}
+						menuAnalytics={menuAnalytics}
 						pluginInjectionAPI={api}
 					/>
 				) : (
@@ -260,6 +274,8 @@ export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) =
 
 		actions: {
 			insertItem: createInsertItem(onInsert),
+			fireQuickInsertOpened: menuAnalytics.fireOpened,
+			fireQuickInsertItemSelected: menuAnalytics.fireLegacyItemSelected,
 
 			openTypeAhead(inputMethod, removePrefixTriggerOnCancel) {
 				return Boolean(

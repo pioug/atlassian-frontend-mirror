@@ -141,28 +141,18 @@ const PopupLegacy: FC<DialogPopupProps | PopupProps> = (props: DialogPopupProps 
 							: getMergedTriggerRefNew(ref, setTriggerRef),
 						'aria-controls': isOpen ? id : undefined,
 						'aria-expanded': isOpen,
-						'aria-haspopup':
-							role === 'dialog' && fg('platform_dst_popup-disable-focuslock') ? 'dialog' : true,
+						'aria-haspopup': true,
 					});
 				}}
 			</Reference>
-			{!fg('platform-dst-motion-uplift-popup') &&
-				isOpen &&
-				(shouldRenderToParent || shouldFitContainer ? (
-					renderPopperWrapper
-				) : (
-					<Portal zIndex={zIndex}>{renderPopperWrapper}</Portal>
-				))}
-			{fg('platform-dst-motion-uplift-popup') && (
-				<ExitingPersistence appear>
-					{isOpen &&
-						(shouldRenderToParent || shouldFitContainer ? (
-							renderPopperWrapper
-						) : (
-							<Portal zIndex={zIndex}>{renderPopperWrapper}</Portal>
-						))}
-				</ExitingPersistence>
-			)}
+			<ExitingPersistence appear>
+				{isOpen &&
+					(shouldRenderToParent || shouldFitContainer ? (
+						renderPopperWrapper
+					) : (
+						<Portal zIndex={zIndex}>{renderPopperWrapper}</Portal>
+					))}
+			</ExitingPersistence>
 		</Manager>
 	);
 

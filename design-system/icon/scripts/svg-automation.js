@@ -9,7 +9,7 @@
 const fs = require('fs');
 const path = require('path');
 const globby = require('globby');
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer'); // oxlint-disable-line import-extra/no-extraneous-dependencies
 
 if (process.env.NODE_ENV !== 'test') {
 	require('@babel/register')({

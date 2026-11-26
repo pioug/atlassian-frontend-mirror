@@ -1440,9 +1440,8 @@ const editorContentStyles = cssMapScoped({
 	dateStyles: {
 		// Show diff: date attr change highlight. Keep this with date node styles so the highlight
 		// follows the date node view instead of living in shared smart-card diff styles.
-		// The ON cohort of platform_editor_show_diff_color_scheme_refactor sets
-		// --show-diff-atomic-inline-changed-border-color inline, overriding the table below; the OFF
-		// cohort picks its colour with the `-traditional` class. Drop the table at cleanup (EDITOR-8281).
+		// --show-diff-atomic-inline-changed-border-color is set inline by the decoration, overriding the
+		// default below.
 		'.show-diff-atomic-inline-changed-date': {
 			'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.purple'),
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
@@ -1450,9 +1449,6 @@ const editorContentStyles = cssMapScoped({
 			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 			outlineOffset: '1px',
 			borderRadius: token('radius.medium'),
-		},
-		'.show-diff-atomic-inline-changed-date.show-diff-atomic-inline-changed-traditional': {
-			'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.green'),
 		},
 
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
@@ -1718,46 +1714,6 @@ const editorContentStyles = cssMapScoped({
 			},
 		},
 	},
-	// Emoji node view styles
-	emojiStyles: {
-		// Keep the emoji attribute change highlight with emoji node styles.
-		// Apply the highlight to sprite and image emoji renderers.
-		// The ON cohort of platform_editor_show_diff_color_scheme_refactor sets
-		// --show-diff-atomic-inline-changed-border-color inline, overriding the table below; the OFF
-		// cohort picks its colour with the `-traditional` class. Drop the table at cleanup (EDITOR-8281).
-		'.show-diff-atomic-inline-changed-emoji': {
-			'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.purple'),
-		},
-		'.show-diff-atomic-inline-changed-emoji.show-diff-atomic-inline-changed-traditional': {
-			'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.green'),
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'.show-diff-atomic-inline-changed-emoji :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image)':
-			{
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-				outline: `2px solid var(--show-diff-atomic-inline-changed-border-color, ${token('color.border.accent.purple')})`,
-				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-				outlineOffset: '1px',
-				borderRadius: token('radius.xsmall'),
-			},
-
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-		'.ProseMirror .emojiView-content-wrap': {
-			display: 'inline-block',
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-		'.ProseMirror :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image)': {
-			background: 'no-repeat transparent',
-			display: 'inline-block',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			height: `${defaultEmojiHeight}px`,
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
-			maxHeight: `${defaultEmojiHeight}px`,
-			cursor: 'pointer',
-			verticalAlign: 'middle',
-			userSelect: 'all',
-		},
-	},
 	emojiSelectionStyles: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 		'.ProseMirror .ak-editor-selected-node': {
@@ -1788,25 +1744,6 @@ const editorContentStyles = cssMapScoped({
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/no-invalid-css-map, @atlaskit/ui-styling-standard/no-unsafe-values
 				...hideNativeBrowserTextSelectionStyles,
 			},
-		},
-	},
-	emojiDenseStyles: {
-		'.ProseMirror :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image)': {
-			width: `${defaultDenseEmojiHeight}px`,
-			height: `${defaultDenseEmojiHeight}px`,
-			maxHeight: `${defaultDenseEmojiHeight}px`,
-			img: {
-				width: '100%',
-				height: '100%',
-				objectFit: 'contain',
-			},
-		},
-		// Scale panel icon in dense mode
-		'.ProseMirror .ak-editor-panel .ak-editor-panel__icon': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-			height: token('space.250'),
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-			width: token('space.250'),
 		},
 	},
 	expandStyles: {
@@ -3171,7 +3108,7 @@ const editorContentStyles = cssMapScoped({
 					flex: 1,
 					position: 'relative',
 					minWidth: 0,
-					/* disable 4 borders when in view mode and advanced layouts is on */
+					/* disable 4 borders when in view mode */
 					border: `${token('border.width')} solid ${token('color.border')}`,
 					borderRadius: token('radius.small'),
 					padding: token('space.150'),
@@ -3246,7 +3183,7 @@ const editorContentStyles = cssMapScoped({
 		},
 	},
 	/**
-	 * Base styles overrides for layout columns when advanced layouts experiment is on
+	 * Base styles overrides for layout columns
 	 */
 	layoutBaseStylesAdvanced: {
 		'.ProseMirror [data-layout-section] [data-layout-column]': {
@@ -3274,7 +3211,6 @@ const editorContentStyles = cssMapScoped({
 	/**
 	 * Styles for the column resize divider widget DOM elements.
 	 * Mirrors the pm-breakout-resize-handle-* pattern from resizerStyles.ts.
-	 * Applied only when advanced_layouts experiment is on.
 	 */
 	layoutColumnDividerStyles: {
 		'.layout-column-divider': {
@@ -3361,7 +3297,7 @@ const editorContentStyles = cssMapScoped({
 		},
 	},
 	/**
-	 * Responsive styles for layout columns when advanced layouts experiment is on
+	 * Responsive styles for layout columns
 	 */
 	layoutColumnResponsiveStyles: {
 		'.ProseMirror [data-layout-section]': {
@@ -3386,7 +3322,7 @@ const editorContentStyles = cssMapScoped({
 		},
 	},
 	/**
-	 * Layout columns styles when advanced layouts experiment is on
+	 * Layout columns styles
 	 */
 	layoutColumnStylesAdvanced: {
 		'.ProseMirror [data-layout-section]': {
@@ -3416,23 +3352,6 @@ const editorContentStyles = cssMapScoped({
 					width: 'calc(100% - 8px)',
 					left: 4,
 					borderRadius: token('radius.small', '3px'),
-				},
-			},
-		},
-	},
-	/**
-	 * Layout columns styles when advanced layouts experiment is off
-	 */
-	layoutColumnStylesNotAdvanced: {
-		'.ProseMirror [data-layout-section]': {
-			'[data-layout-column] + [data-layout-column]': {
-				// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
-				marginLeft: 8,
-			},
-
-			'@media screen and (max-width: 1024px)': {
-				'[data-layout-column] + [data-layout-column]': {
-					marginLeft: 0,
 				},
 			},
 		},
@@ -3575,7 +3494,7 @@ const editorContentStyles = cssMapScoped({
 		},
 	},
 	/**
-	 * Layout section styles when advanced layouts experiment is on
+	 * Layout section styles
 	 */
 	layoutDragHandleWrapperStylesLegacy: {
 		// Legacy tooltips are portalled, so flattening every div does not affect their surface.
@@ -3644,38 +3563,7 @@ const editorContentStyles = cssMapScoped({
 			},
 	},
 	/**
-	 * Layout section styles when advanced layouts experiment is off
-	 */
-	layoutSectionStylesNotAdvanced: {
-		// Ignored via go/DSP-18766
-		'.ProseMirror [data-layout-section]': {
-			position: 'relative',
-			display: 'flex',
-			flexDirection: 'row',
-
-			// Ignored via go/DSP-18766
-			'& > *': {
-				flex: 1,
-				minWidth: 0,
-			},
-
-			// Ignored via go/DSP-18766
-			'& > .unsupportedBlockView-content-wrap': {
-				minWidth: 'initial',
-			},
-
-			'& > .layout-column-divider': {
-				flex: 'none',
-			},
-
-			// Ignored via go/DSP-18766
-			'@media screen and (max-width: 1024px)': {
-				flexDirection: 'column',
-			},
-		},
-	},
-	/**
-	 * Selected styles for layout when advanced layouts experiment is on
+	 * Selected styles for layout
 	 */
 	layoutSelectedStylesAdvanced: {
 		'.ProseMirror': {
@@ -3737,7 +3625,7 @@ const editorContentStyles = cssMapScoped({
 		},
 	},
 	/**
-	 * Layout in view mode styles for selected state when advanced layouts experiment is on.
+	 * Layout in view mode styles for selected state.
 	 */
 	layoutSelectedStylesForViewAdvanced: {
 		'.ProseMirror': {
@@ -3755,50 +3643,6 @@ const editorContentStyles = cssMapScoped({
 
 				'&.ak-editor-selected-node:not(.danger) [data-layout-section]': {
 					boxShadow: `0 0 0 0 ${token('color.border.selected')}`,
-				},
-			},
-		},
-	},
-	/**
-	 * Layout in view mode styles for selected state when advanced layouts experiment is off.
-	 */
-	layoutSelectedStylesForViewNotAdvanced: {
-		'.ProseMirror': {
-			'[data-layout-section], .layoutSectionView-content-wrap': {
-				'&.selected [data-layout-column], &:hover [data-layout-column]': {
-					border: 0,
-				},
-			},
-		},
-	},
-	/**
-	 * Selected styles for layout when advanced layouts experiment is off
-	 */
-	// TODO: DSP-4441 - Remove the border styles below once design tokens have been enabled and fallbacks are no longer triggered.
-	//       This is because the default state already uses the same token and, as such, the hover style won't change anything.
-	//       https://product-fabric.atlassian.net/browse/DSP-4441
-	layoutSelectedStylesNotAdvanced: {
-		'.ProseMirror': {
-			'[data-layout-section], .layoutSectionView-content-wrap': {
-				// Shows the border when cursor is inside a layout
-				'&.selected [data-layout-column], &:hover [data-layout-column]': {
-					border: `1px solid ${token('color.border')}`,
-				},
-
-				'&.selected.danger [data-layout-column]': {
-					backgroundColor: token('color.background.danger'),
-					borderColor: token('color.border.danger'),
-				},
-
-				'&.ak-editor-selected-node:not(.danger)': {
-					'[data-layout-column]': {
-						...borderSelectionStyles,
-						...blanketSelectionStyles,
-						...hideNativeBrowserTextSelectionStyles,
-						'::after': {
-							backgroundColor: 'transparent',
-						},
-					},
 				},
 			},
 		},
@@ -4504,14 +4348,10 @@ const editorContentStyles = cssMapScoped({
 
 		// Show diff: mention attr change highlight. Keep this with mention node styles so the
 		// highlight targets the mention primitive's rounded shape.
-		// The ON cohort of platform_editor_show_diff_color_scheme_refactor sets
-		// --show-diff-atomic-inline-changed-border-color inline, overriding the table below; the OFF
-		// cohort picks its colour with the `-traditional` class. Drop the table at cleanup (EDITOR-8281).
+		// --show-diff-atomic-inline-changed-border-color is set inline by the decoration, overriding the
+		// default below.
 		'.show-diff-atomic-inline-changed-mention': {
 			'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.purple'),
-		},
-		'.show-diff-atomic-inline-changed-mention.show-diff-atomic-inline-changed-traditional': {
-			'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.green'),
 		},
 		'.show-diff-atomic-inline-changed-mention .editor-mention-primitive': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
@@ -5554,7 +5394,7 @@ const editorContentStyles = cssMapScoped({
 	},
 	/**
 	 * Bottom-handle styles for the vertical-resize feature shipped under the
-	 * `databases-native-embeds-v2` experiment
+	 * database native embeds
 	 */
 	resizerBottomHandleStyles: {
 		'.resizer-handle.bottom': {
@@ -5626,14 +5466,10 @@ const editorContentStyles = cssMapScoped({
 	scaledEmojiStyles: {
 		// Show diff: emoji attr change highlight. Keep this with scaled emoji node styles too,
 		// because scaled emoji styles replace the base emoji style bucket when enabled.
-		// The ON cohort of platform_editor_show_diff_color_scheme_refactor sets
-		// --show-diff-atomic-inline-changed-border-color inline, overriding the table below; the OFF
-		// cohort picks its colour with the `-traditional` class. Drop the table at cleanup (EDITOR-8281).
+		// --show-diff-atomic-inline-changed-border-color is set inline by the decoration, overriding the
+		// default below.
 		'.show-diff-atomic-inline-changed-emoji': {
 			'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.purple'),
-		},
-		'.show-diff-atomic-inline-changed-emoji.show-diff-atomic-inline-changed-traditional': {
-			'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.green'),
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
 		'.show-diff-atomic-inline-changed-emoji :is(.emoji-common-emoji-sprite, .emoji-common-emoji-image)':
@@ -5889,55 +5725,16 @@ const editorContentStyles = cssMapScoped({
 				},
 			},
 	},
-	// Two rule sets, one per cohort of `platform_editor_show_diff_color_scheme_refactor`. Their base
-	// classes are disjoint — `wrapBlockNodeView` emits `-node`/`-node-traditional` when the gate is
-	// off and `-node-vars` when it is on — so only one set can ever match an element.
-	//
-	// The OFF set is the pre-refactor CSS, kept verbatim: that cohort emits no custom properties, so
-	// the tokens in its `var()` fallbacks are the live values. Delete it at experiment cleanup.
-	//
-	// The ON set reads the `--diff-delete-*` properties the factory emits inline, with no `var()`
-	// fallback — `wrapBlockNodeView` sets the class and the properties in the same step. The
-	// fallbacks it does keep are the ones standard leaves unset on purpose.
+	// Reads the `--diff-delete-*` properties the factory emits inline, with no `var()` fallback:
+	// `wrapBlockNodeView` sets the class and the properties in the same step. The fallbacks it does
+	// keep are the ones standard leaves unset on purpose.
 	showDiffDeletedNodeStyles: {
 		// Shared class names are inlined here because CSS selectors must be static.
 		// SmartCardSharedCssClassName.EMBED_CARD_CONTAINER = 'embedCardView-content-wrap'
 		// SmartCardSharedCssClassName.LOADER_WRAPPER = 'loader-wrapper'
 		'.embedCardView-content-wrap': {
-			// --- OFF cohort: pre-refactor rules, restored verbatim ---
-			'&.show-diff-deleted-node .loader-wrapper > div::after': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-				boxShadow: `0 0 0 1px var(--diff-delete-color, ${token('color.border.accent.red')})`,
-				borderColor: 'transparent',
-			},
-			'&.show-diff-deleted-node-traditional .loader-wrapper > div::after': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-				boxShadow: `0 0 0 1px var(--diff-delete-color, ${token('color.border.accent.red')})`,
-				borderColor: 'transparent',
-			},
-			'&.show-diff-deleted-node-traditional.show-diff-deleted-outline-new .loader-wrapper > div::after':
-				{
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-					boxShadow: `0 0 0 4px var(--diff-delete-color-new, ${token('color.background.accent.red.subtlest')})`,
-					borderColor: 'transparent',
-				},
-			'&.show-diff-deleted-node-traditional.show-diff-deleted-active .loader-wrapper > div::after':
-				{
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-					boxShadow: `0 0 0 4px var(--diff-delete-color-active, ${token('color.background.accent.red.subtler.pressed')})`,
-					borderColor: 'transparent',
-				},
-			'&.show-diff-deleted-node.show-diff-deleted-active .loader-wrapper > div::after': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-				boxShadow: `0 0 0 4px var(--diff-delete-color-active, ${token('color.background.accent.red.subtler.pressed')})`,
-				borderColor: 'transparent',
-			},
-			'&.show-diff-deleted-node .loader-wrapper': {
-				opacity: 0.8,
-			},
-
-			// --- ON cohort. Red in both schemes here, unlike standard's gray `deleteColor` — hence
-			// its own `deletedMediaRingColor` role rather than `--diff-delete-color`.
+			// Red in both schemes here, unlike standard's gray `deleteColor` — hence its own
+			// `deletedMediaRingColor` role rather than `--diff-delete-color`.
 			'&.show-diff-deleted-node-vars .loader-wrapper > div::after': {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 				boxShadow: `0 0 0 1px var(--diff-delete-media-ring-color)`,
@@ -5959,60 +5756,6 @@ const editorContentStyles = cssMapScoped({
 				opacity: `var(--diff-delete-opacity, 0.8)`,
 			},
 		},
-		// --- OFF cohort: pre-refactor rules, restored verbatim ---
-		'.show-diff-deleted-node .media-card-wrapper': {
-			'& > div': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-				boxShadow: `0 0 0 1px var(--diff-delete-color, ${token('color.border.accent.red')})`,
-				borderRadius: token('radius.small'),
-				opacity: 0.8,
-			},
-		},
-		'.show-diff-deleted-node-traditional .media-card-wrapper': {
-			'& > div': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-				boxShadow: `0 0 0 var(--diff-decoration-marker-ring-width, 1px) var(--diff-delete-color, ${token('color.border.accent.red')})`,
-				borderRadius: token('radius.small'),
-			},
-		},
-		'.show-diff-deleted-node-traditional.show-diff-deleted-outline-new .media-card-wrapper': {
-			'& > div': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-				boxShadow: `0 0 0 4px var(--diff-delete-color-new, ${token('color.background.accent.red.subtlest')})`,
-				borderRadius: token('radius.small'),
-			},
-		},
-		'.show-diff-deleted-node-traditional.show-diff-deleted-active .media-card-wrapper': {
-			'& > div': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-				boxShadow: `0 0 0 4px var(--diff-delete-color-active, ${token('color.background.accent.red.subtler.pressed')})`,
-				borderRadius: token('radius.small'),
-			},
-		},
-		'.show-diff-deleted-node.show-diff-deleted-active .media-card-wrapper': {
-			'& > div': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-				boxShadow: `0 0 0 4px var(--diff-delete-color-active, ${token('color.background.accent.red.subtler.pressed')})`,
-				borderRadius: token('radius.small'),
-				opacity: 0.8,
-			},
-		},
-		'[data-prosemirror-node-name="blockquote"].show-diff-deleted-node': {
-			textDecoration: 'line-through',
-		},
-		// Longhands, not the `text-decoration` shorthand: the shorthand resets
-		// `text-decoration-color`, and Compiled does not guarantee it lands before the longhand.
-		'[data-prosemirror-node-name="blockquote"].show-diff-deleted-node-traditional': {
-			textDecorationColor: `var(--diff-delete-text-decoration-color, ${token('color.border.accent.red')})`,
-			textDecorationLine: 'line-through',
-		},
-		// Longhands, for the same reason as the blockquote rule above.
-		'[data-prosemirror-node-name="embedCard"].show-diff-deleted-node-traditional': {
-			textDecorationColor: `var(--diff-delete-text-decoration-color, ${token('color.border.accent.red')})`,
-			textDecorationLine: 'line-through',
-		},
-
-		// --- ON cohort ---
 		// `--diff-delete-ring-width` is unset for standard (1px); traditional tracks the inherited
 		// marker ring width.
 		'.show-diff-deleted-node-vars .media-card-wrapper': {
@@ -7756,14 +7499,10 @@ const editorContentStyles = cssMapScoped({
 	statusStyles: {
 		// Show diff: status attr change highlight. Keep this with status node styles so the highlight
 		// targets the lozenge shape rather than the decoration wrapper.
-		// The ON cohort of platform_editor_show_diff_color_scheme_refactor sets
-		// --show-diff-atomic-inline-changed-border-color inline, overriding the table below; the OFF
-		// cohort picks its colour with the `-traditional` class. Drop the table at cleanup (EDITOR-8281).
+		// --show-diff-atomic-inline-changed-border-color is set inline by the decoration, overriding the
+		// default below.
 		'.show-diff-atomic-inline-changed-status': {
 			'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.purple'),
-		},
-		'.show-diff-atomic-inline-changed-status.show-diff-atomic-inline-changed-traditional': {
-			'--show-diff-atomic-inline-changed-border-color': token('color.border.accent.green'),
 		},
 		'.show-diff-atomic-inline-changed-status .status-lozenge-span > span, .show-diff-atomic-inline-changed-status .lozenge-wrapper':
 			{
@@ -8933,7 +8672,6 @@ const EditorContentContainer: React.ForwardRefExoticComponent<
 					editorContentStyles.vanillaUnsupportedStyles,
 				editorContentStyles.resizerStyles,
 				expValEqualsNoExposure('cc-maui-experiment', 'isEnabled', true) &&
-					expValEquals('databases-native-embeds-v2', 'isEnabled', true) &&
 					editorContentStyles.resizerBottomHandleStyles,
 				editorContentStyles.layoutBaseStyles,
 				editorContentStyles.alignMultipleWrappedImageInLayoutStyles,
@@ -8945,31 +8683,20 @@ const EditorContentContainer: React.ForwardRefExoticComponent<
 				editorContentStyles.syncBlockFirstNodeStyles,
 				editorContentStyles.syncBlockTextSelectionStyles,
 				editorContentStyles.syncBlockInteractiveCursorStyles,
-				editorExperiment('advanced_layouts', true) && editorContentStyles.layoutBaseStylesAdvanced,
-				editorExperiment('advanced_layouts', true)
-					? editorContentStyles.layoutSectionStylesAdvanced
-					: editorContentStyles.layoutSectionStylesNotAdvanced,
-				editorExperiment('advanced_layouts', true) &&
-					!fg('platform-dst-top-layer-tooltip') &&
+				editorContentStyles.layoutBaseStylesAdvanced,
+				editorContentStyles.layoutSectionStylesAdvanced,
+				!fg('platform-dst-top-layer-tooltip') &&
 					editorContentStyles.layoutDragHandleWrapperStylesLegacy,
-				editorExperiment('advanced_layouts', true) &&
-					fg('platform-dst-top-layer-tooltip') &&
+				fg('platform-dst-top-layer-tooltip') &&
 					editorContentStyles.layoutDragHandleWrapperStylesTopLayer,
-				editorExperiment('advanced_layouts', true) && editorContentStyles.layoutColumnDividerStyles,
-				editorExperiment('advanced_layouts', true) &&
-					editorContentStyles.layoutColumnDividerStylesNestedDnD,
-				editorExperiment('advanced_layouts', true)
-					? editorContentStyles.layoutColumnStylesAdvanced
-					: editorContentStyles.layoutColumnStylesNotAdvanced,
-				editorExperiment('advanced_layouts', true) && editorContentStyles.layoutColumnResizeStyles,
-				editorExperiment('advanced_layouts', true)
-					? editorContentStyles.layoutSelectedStylesAdvanced
-					: editorContentStyles.layoutSelectedStylesNotAdvanced,
+				editorContentStyles.layoutColumnDividerStyles,
+				editorContentStyles.layoutColumnDividerStylesNestedDnD,
+				editorContentStyles.layoutColumnStylesAdvanced,
+				editorContentStyles.layoutColumnResizeStyles,
+				editorContentStyles.layoutSelectedStylesAdvanced,
 				editorContentStyles.layoutSelectedStylesAdvancedFix,
-				editorExperiment('advanced_layouts', true) &&
-					editorContentStyles.layoutColumnResponsiveStyles,
-				editorExperiment('advanced_layouts', true) &&
-					editorContentStyles.layoutResponsiveBaseStyles,
+				editorContentStyles.layoutColumnResponsiveStyles,
+				editorContentStyles.layoutResponsiveBaseStyles,
 				editorContentStyles.layoutBaseStylesNestedDndExcludingBodiedSync,
 				editorContentStyles.layoutColumnMartinTopFixes,
 				editorContentStyles.smartLinksInLivePagesStyles,
@@ -9003,8 +8730,7 @@ const EditorContentContainer: React.ForwardRefExoticComponent<
 					editorContentStyles.pragmaticResizerStylesHiddenForExtensions,
 				isExperimentEnabled('platform_editor_collapsible_headings') &&
 					editorContentStyles.pragmaticResizerStylesHiddenForCollapsedContent,
-				editorExperiment('advanced_layouts', true) &&
-					editorContentStyles.pragmaticStylesLayoutFirstNodeResizeHandleFix,
+				editorContentStyles.pragmaticStylesLayoutFirstNodeResizeHandleFix,
 				editorContentStyles.pragmaticResizerStylesForTooltip,
 				editorExperiment('platform_editor_preview_panel_responsiveness', true) &&
 					editorContentStyles.pragmaticResizerStylesWithReducedEditorGutter,
@@ -9013,15 +8739,8 @@ const EditorContentContainer: React.ForwardRefExoticComponent<
 				colorMode === 'dark' && editorContentStyles.aiPanelDarkStyles,
 				colorMode === 'dark' && isFirefox && editorContentStyles.aiPanelDarkFirefoxStyles,
 				viewMode === 'view' && editorContentStyles.layoutStylesForView,
-				viewMode === 'view' &&
-					editorExperiment('advanced_layouts', true) &&
-					editorContentStyles.layoutSelectedStylesForViewAdvanced,
-				viewMode === 'view' &&
-					editorExperiment('advanced_layouts', false) &&
-					editorContentStyles.layoutSelectedStylesForViewNotAdvanced,
-				viewMode === 'view' &&
-					editorExperiment('advanced_layouts', true) &&
-					editorContentStyles.layoutResponsiveStylesForView,
+				viewMode === 'view' && editorContentStyles.layoutSelectedStylesForViewAdvanced,
+				viewMode === 'view' && editorContentStyles.layoutResponsiveStylesForView,
 				isComment && editorContentStyles.commentEditorStyles,
 				isComment && editorContentStyles.tableCommentEditorStyles,
 				(isComment || isChromeless) && editorContentStyles.nonFullPageContainerTypeStyles,
@@ -9046,20 +8765,11 @@ const EditorContentContainer: React.ForwardRefExoticComponent<
 					colorMode === 'dark' &&
 					editorContentStyles.agentMentionRovoShimmerDarkMode,
 				editorContentStyles.mentionsSelectionStyles,
-				expValEquals('platform_editor_lovability_emoji_scaling', 'isEnabled', true)
-					? editorContentStyles.scaledEmojiStyles
-					: editorContentStyles.emojiStyles,
+				editorContentStyles.scaledEmojiStyles,
 				isFloatingTocEnabled
 					? editorContentStyles.directEmojiSelectionStyles
 					: editorContentStyles.emojiSelectionStyles,
-				contentMode === 'compact' &&
-					isDense &&
-					expValEquals('platform_editor_lovability_emoji_scaling', 'isEnabled', true) &&
-					editorContentStyles.scaledEmojiDenseStyles,
-				contentMode === 'compact' &&
-					isDense &&
-					!expValEquals('platform_editor_lovability_emoji_scaling', 'isEnabled', true) &&
-					editorContentStyles.emojiDenseStyles,
+				contentMode === 'compact' && isDense && editorContentStyles.scaledEmojiDenseStyles,
 				editorContentStyles.panelViewStyles,
 				editorContentStyles.mediaGroupStyles,
 				editorContentStyles.mediaAlignmentStyles,

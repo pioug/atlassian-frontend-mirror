@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useLayoutEffect, useMemo, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 
 import {
 	useProviderFactory,
@@ -8,7 +8,6 @@ import type { MediaProvider as EditorMediaProvider } from '@atlaskit/editor-comm
 import { getMediaClient } from '@atlaskit/media-client-react/get-media-client';
 import { MediaClientContext } from '@atlaskit/media-client-react/media-client-provider';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import type { MediaSSR } from '../../types/mediaOptions';
@@ -24,8 +23,8 @@ export const EditorMediaClientProvider = ({
 	children,
 	ssr,
 }: React.PropsWithChildren<{ ssr?: MediaSSR }>): React.JSX.Element => {
-	const [mediaClientConfig, setMediaClientConfig] = useState<MediaClientConfig | undefined>(() =>
-		isExperimentEnabled('platform_editor_media_reliability_enhancements') ? ssr?.config : undefined,
+	const [mediaClientConfig, setMediaClientConfig] = useState<MediaClientConfig | undefined>(
+		() => ssr?.config,
 	);
 
 	const providerFactory = useProviderFactory();
@@ -45,9 +44,9 @@ export const EditorMediaClientProvider = ({
 	 *
 	 * hasProvider() is synchronous and correct from render 1, closing that window.
 	 */
-	const shouldSkipContext = isExperimentEnabled('platform_editor_media_reliability_enhancements')
-		? Boolean(ssr?.config || providerFactory.hasProvider('mediaProvider') || mediaProvider)
-		: Boolean(ssr?.config || mediaProvider);
+	const shouldSkipContext = Boolean(
+		ssr?.config || providerFactory.hasProvider('mediaProvider') || mediaProvider,
+	);
 
 	const contextMediaClient = useContext(MediaClientContext);
 
@@ -64,20 +63,13 @@ export const EditorMediaClientProvider = ({
 	// and provide a top level mediaClient context
 	// This is useful for testing and creating examples.
 
-	// When the experiment is enabled, use useEffect instead of useLayoutEffect because:
+	// useEffect is used instead of useLayoutEffect because:
 	// - For the ssr.config branch: useState is already initialised with ssr.config, so this
 	//   effect is a no-op on first render — the "before paint" guarantee is irrelevant.
 	// - For the mediaProvider branch: the actual work happens inside a Promise callback which
 	//   resolves asynchronously, so it can never run before paint regardless of which hook
 	//   schedules it — useLayoutEffect's guarantee is equally irrelevant here.
-	// The legacy path keeps useLayoutEffect to preserve existing behaviour when the experiment is off.
-	//
-	// The two hooks below are mutually exclusive — only one runs per render — so there is no
-	// actual chaining of state updates at runtime. The lint rule cannot statically prove this.
 	useEffect(() => {
-		if (!isExperimentEnabled('platform_editor_media_reliability_enhancements')) {
-			return;
-		}
 		if (ssr?.config) {
 			// eslint-disable-next-line @atlassian/perf-linting/no-chain-state-updates
 			setMediaClientConfig(ssr.config);
@@ -95,21 +87,6 @@ export const EditorMediaClientProvider = ({
 			return () => {
 				cancelled = true;
 			};
-		}
-	}, [mediaProvider, ssr?.config]);
-
-	// Legacy path (experiment off): keep useLayoutEffect to preserve existing behaviour.
-	// remove this when clean up platform_editor_media_reliability_enhancements
-	useLayoutEffect(() => {
-		if (isExperimentEnabled('platform_editor_media_reliability_enhancements')) {
-			return;
-		}
-		if (ssr?.config) {
-			setMediaClientConfig(ssr.config);
-		} else if (mediaProvider) {
-			mediaProvider.then((provider) => {
-				setMediaClientConfig(getMediaClientConfigForRenderer(provider));
-			});
 		}
 	}, [mediaProvider, ssr?.config]);
 

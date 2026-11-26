@@ -61,7 +61,8 @@ caches the resulting blob. Preserve cache precedence and short SSR URLs when cha
 - React Compiler is enabled for this package
 - Peer dependencies: `react`, `react-dom`
 - 5 feature flags registered (see `package.json` → `platform-feature-flags`)
-- Includes SSR-safe preview behaviour
+- Treat all preview parameters as untrusted when embedding hydration data in an inline script. Test
+  the resulting HTML as well as the restored data.
 - Export subpaths: `.`, `./errors`, `./types`, `./use-file-preview`, `./use-media-image`
 - All new behaviour changes must be behind a feature gate (`fg()` from
   `@atlaskit/platform-feature-flags`)

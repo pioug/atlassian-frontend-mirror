@@ -5,8 +5,6 @@
 
 import { jsx } from '@compiled/react';
 
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
-
 import { type SpriteRepresentation } from '../../types';
 import { EmojiNodeWrapper } from './Emoji';
 import type { Props } from './Emoji';
@@ -25,22 +23,7 @@ export const SpriteEmoji = (props: Props): JSX.Element => {
 		selectOnHover ? selectOnHoverStyles : ''
 	} ${className ? className : ''}`;
 
-	let sizing = {};
-	if (fitToHeight) {
-		if (expValEquals('platform_editor_lovability_emoji_scaling', 'isEnabled', true)) {
-			sizing = {
-				minHeight: `${fitToHeight}px`,
-				minWidth: `${fitToHeight}px`,
-			};
-		} else {
-			sizing = {
-				width: `${fitToHeight}px`,
-				height: `${fitToHeight}px`,
-				minHeight: `${fitToHeight}px`,
-				minWidth: `${fitToHeight}px`,
-			};
-		}
-	}
+	const sizing = fitToHeight ? { minHeight: `${fitToHeight}px`, minWidth: `${fitToHeight}px` } : {};
 
 	const xPositionInPercent = (100 / (sprite.column - 1)) * (representation.xIndex - 0);
 	const yPositionInPercent = (100 / (sprite.row - 1)) * (representation.yIndex - 0);

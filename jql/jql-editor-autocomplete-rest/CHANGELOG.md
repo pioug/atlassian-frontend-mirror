@@ -1,5 +1,13 @@
 # @atlaskit/jql-editor-autocomplete-rest
 
+## 4.7.2
+
+### Patch Changes
+
+- [`ef1c6993afea6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef1c6993afea6) -
+  Cleanup `feature_gate` `orion-8274-cmdb-object-jql-values-resolver`. Assets object values now
+  always render as rich inline nodes.
+
 ## 4.7.1
 
 ### Patch Changes

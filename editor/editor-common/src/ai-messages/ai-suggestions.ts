@@ -345,6 +345,11 @@ export const aiSuggestionsMessages: {
 		description: string;
 		id: string;
 	};
+	thinkingCompleteReviewCompleteStatus: {
+		defaultMessage: string;
+		description: string;
+		id: string;
+	};
 	thinkingCompleteReviewCompleteUpdated: {
 		defaultMessage: string;
 		description: string;
@@ -954,6 +959,12 @@ export const aiSuggestionsMessages: {
 		defaultMessage: 'Review complete. No suggestions found.',
 		description:
 			'Updated text shown when the AI has finished reviewing the content and no suggestions were found',
+	},
+	thinkingCompleteReviewCompleteStatus: {
+		id: 'fabric.editor.ai.suggestions.thinkingComplete.reviewCompleteStatus.non-final',
+		defaultMessage: 'Review complete',
+		description:
+			'Status text shown on the Rovo button nudge when the AI has finished reviewing the content',
 	},
 	thinkingCompleteViewSuggestions: {
 		id: 'fabric.editor.ai.suggestions.thinkingComplete.viewSuggestions.non-final',

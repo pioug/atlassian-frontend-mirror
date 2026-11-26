@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react'; // oxlint-disable-line import-extra/no-extraneous-dependencies
 
 import HelpArticle from '../../components/HelpArticle';
 import { BODY_FORMAT_TYPES } from '../../model/HelpArticle';

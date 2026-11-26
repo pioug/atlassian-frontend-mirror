@@ -32,6 +32,8 @@
 		"./src/utils/analytics/__mocks__/**/*",
 		"./src/utils/mocks.tsx",
 		"./src/utils/test-utils.tsx",
+		"./*.docs.tsx",
+		"./package.json",
 		"**/stories.ts",
 		"**/stories.tsx",
 		"**/stories/*.ts",

@@ -33,6 +33,7 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import Textfield from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
 
+import type { QuickInsertMenuAnalytics } from '../../analytics/quick-insert-menu-analytics';
 import type { RecommendedItemsResolver } from '../registered-menu/get-quick-insert-menu-model';
 import { useQuickInsertSearchAnalytics } from '../registered-menu/useQuickInsertSearchAnalytics';
 import {
@@ -61,6 +62,7 @@ type Props = {
 	isLoading?: boolean;
 	isOffline: boolean;
 	isOpen: boolean;
+	menuAnalytics?: QuickInsertMenuAnalytics;
 	onClearSelection: () => void;
 	onClose: () => void;
 	onCloseComplete: () => void;
@@ -153,6 +155,7 @@ export const RegistryElementBrowser = ({
 	isLoading = false,
 	isOffline,
 	isOpen,
+	menuAnalytics,
 	onClearSelection,
 	onClose,
 	onCloseComplete,
@@ -431,8 +434,13 @@ export const RegistryElementBrowser = ({
 		) {
 			return;
 		}
+		menuAnalytics?.fireRegisteredItemSelected({
+			isRecommendedItem: () => recommendedRegistrations?.includes(selectedRegistration) ?? false,
+			registrationKey: selectedRegistration.key,
+			surface: 'element-browser',
+		});
 		onConfirmInsert();
-	}, [onConfirmInsert, visibleItems]);
+	}, [menuAnalytics, onConfirmInsert, recommendedRegistrations, visibleItems]);
 	const onModalOpenComplete = useCallback((node: HTMLElement) => {
 		node.style.borderRadius = token('radius.large', '8px');
 		const footer = node.querySelector<HTMLElement>(`[data-testid="${modalTestId}--footer"]`);

@@ -88,7 +88,6 @@ Tooltip (`hint`) stays native. It owns its open state, and nothing can refuse it
 | Wrapper                                 | Before                     | Now                                        |
 | --------------------------------------- | -------------------------- | ------------------------------------------ |
 | `Popup`                                 | `auto` (default)           | `manual`, asks first                       |
-| `Popup mode="manual"`                   | `manual`, asks first       | No change                                  |
 | `PopupContent` (compositional)          | `auto`                     | `manual`, asks first                       |
 | `DropdownMenu`, nested menus included   | `auto`                     | `manual`, asks first (also on Tab)         |
 | `PopupSelect`                           | `auto`                     | `manual`, asks first                       |
@@ -105,15 +104,14 @@ and no consumer gets `onClose`. Nothing can refuse, so `auto` gives the same res
 Uncontrolled `DropdownMenu` and `PopupSelect` (no `isOpen` prop) always accept, so they behave as
 before.
 
-`Popup` without `onClose`:
+`Popup` (and compositional `PopupContent`) without `onClose`: nothing can be asked to close it, so
+it does not light dismiss and does not take Escape. It stays open until state says (for example a
+field error), and a layer around it gets the Escape. `hasOpenDialogOrPopover()` does not count it,
+so an `InlineEdit` with a field error `Popup` open cancels on one Escape, as on the legacy path.
+This is the `InlineDialog` rule below (D20, 25 Nov 2026). On the legacy path the layering made that
+Escape a dead key inside a modal; on the top-layer path the modal closes.
 
-- Default mode: an outside press and Escape ask nobody, so the popup stays open, and it takes the
-  Escape. The legacy popup did the same (its close manager called `onClose?.()`, and the layering
-  kept the layers below it open).
-- `mode="manual"`: as before, it does not light dismiss and does not take Escape. It stays open
-  until state says (for example a field error).
-
-So on the top-layer path, `mode` matters only for a `Popup` without `onClose`.
+So `mode` made no difference on either path, and D20 removes it from `Popup` (26 Nov 2026).
 
 `InlineDialog` without `onClose` does not light dismiss and does not take Escape, as on the legacy
 path (CI round 7: a Jira validation hint in an `InlineEdit` took the Escape, so the edit did not
@@ -284,8 +282,7 @@ path. That call took focus return away from about 50 callsites that pass `false`
 - **A wrapper popup and another `auto` popover can be open together** (for example an `AvatarGroup`
   overflow menu opened by keyboard). See above.
 - **A consumer that never sets `isOpen` `false`** keeps the layer open for every outside press and
-  Escape, as on the legacy path. Use `mode="manual"` without `onClose` for a popup that must not
-  take Escape.
+  Escape, as on the legacy path. Leave out `onClose` for a popup that must not take Escape.
 - **An opener that is `<body>` or gone at close** (the trigger did not take focus on press, for
   example legacy `@atlaskit/button` or a Safari click; the popup opened at mount; or the opener was
   an item of a menu that closed since): no focus return, as for an `auto` popover. The legacy path

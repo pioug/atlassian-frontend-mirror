@@ -79,6 +79,9 @@
 			"path": "../link/tsconfig.app.json"
 		},
 		{
+			"path": "../modal-dialog/tsconfig.app.json"
+		},
+		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
@@ -107,6 +110,9 @@
 		},
 		{
 			"path": "../tokens/tsconfig.app.json"
+		},
+		{
+			"path": "../top-layer/tsconfig.app.json"
 		},
 		{
 			"path": "../visually-hidden/tsconfig.app.json"

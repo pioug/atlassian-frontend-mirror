@@ -29,6 +29,7 @@ import type { EmptyStateHandler } from '@atlaskit/editor-common/types/empty-stat
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { RegisterComponent } from '@atlaskit/editor-ui-control-model/types';
 
+import type { QuickInsertMenuAnalytics } from '../analytics/quick-insert-menu-analytics';
 import type { QuickInsertPlugin } from '../quickInsertPluginType';
 import { QuickInsertMenuFooterItem } from './QuickInsertMenuFooterItem';
 import { QuickInsertSectionOverflowMenuItem } from './QuickInsertSectionOverflowMenuItem';
@@ -68,6 +69,7 @@ type Params = {
 	getItemRank?: RegisteredItemRankResolver;
 	getRecommendedItems?: RecommendedItemsResolver;
 	includeElementBrowserItems: boolean;
+	menuAnalytics?: QuickInsertMenuAnalytics;
 };
 
 export const getQuickInsertComponents = ({
@@ -77,6 +79,7 @@ export const getQuickInsertComponents = ({
 	getRecommendedItems,
 	emptyStateHandler,
 	fireAnalyticsEvent,
+	menuAnalytics,
 }: Params): RegisterComponent[] => {
 	return [
 		{
@@ -88,6 +91,7 @@ export const getQuickInsertComponents = ({
 					getRecommendedItems={getRecommendedItems}
 					emptyStateHandler={emptyStateHandler}
 					fireAnalyticsEvent={fireAnalyticsEvent}
+					menuAnalytics={menuAnalytics}
 				/>
 			),
 		},

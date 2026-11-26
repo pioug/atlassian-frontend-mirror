@@ -1,5 +1,11 @@
 import { NATIVE_EMBED_PARAMETER_DEFAULTS } from '../constants';
-import { getParameter, getParameters, resolveRemixVersionId, setParameters } from '../utils';
+import {
+	getContentIdFromIdentity,
+	getParameter,
+	getParameters,
+	resolveRemixVersionId,
+	setParameters,
+} from '../utils';
 
 describe('getParameter', () => {
 	describe('isMaxWidth', () => {
@@ -168,4 +174,21 @@ describe('resolveRemixVersionId', () => {
 		).toBeUndefined();
 		expect(resolveRemixVersionId({ storedRemixAppId: undefined, url: undefined })).toBeUndefined();
 	});
+});
+
+describe('getContentIdFromIdentity', () => {
+	it.each([
+		['whiteboard:123', '123'],
+		['whiteboard:f5f4658c-f49c-4d0f-9005-d53c1a31b053', 'f5f4658c-f49c-4d0f-9005-d53c1a31b053'],
+		['database:201:extra', '201:extra'],
+	])('returns the ID from %s', (identity, id) => {
+		expect(getContentIdFromIdentity(identity)).toBe(id);
+	});
+
+	it.each([undefined, '', 'no-separator', 'whiteboard:'])(
+		'returns undefined for %p',
+		(identity) => {
+			expect(getContentIdFromIdentity(identity)).toBeUndefined();
+		},
+	);
 });

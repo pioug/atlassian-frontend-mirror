@@ -1,5 +1,34 @@
 # @atlaskit/renderer
 
+## 158.2.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 158.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 158.2.4
+
+### Patch Changes
+
+- [`2abd518a25153`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2abd518a25153) -
+  Clean up experiment platform_editor_media_reliability_enhancements, keeping the enhanced media
+  client behaviour in EditorMediaClientProvider.
+- [`7413f134758c7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7413f134758c7) -
+  Keep the shipped emoji scaling behavior in the editor and renderer and remove its experiment.
+- Updated dependencies
+
+## 158.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 158.2.2
 
 ### Patch Changes

@@ -1,5 +1,17 @@
 # @atlaskit/native-embeds-common
 
+## 2.13.0
+
+### Minor Changes
+
+- [`01a85e4671787`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/01a85e4671787) -
+  Track local native embed deletions for inline database and whiteboard acceptance analytics, and
+  share content ID extraction between the native embed viewed and deleted events.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.12.1
 
 ### Patch Changes

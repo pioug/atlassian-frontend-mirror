@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-emoji",
-	"version": "35.0.4",
+	"version": "35.0.8",
 	"description": "Emoji plugin for @atlaskit/editor-core",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -70,6 +70,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_adf_with_localid": {
+			"type": "boolean"
+		},
+		"platform_editor_fix_emoji_colour_regression": {
 			"type": "boolean"
 		}
 	}

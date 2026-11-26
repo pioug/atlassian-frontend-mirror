@@ -10,7 +10,9 @@ import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import Field from '@atlaskit/form/Field';
 import Form from '@atlaskit/form/Form';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Pressable } from '@atlaskit/primitives/compiled/pressable';
+import { hasOpenDialogOrPopover } from '@atlaskit/top-layer/page-surface/has-open-dialog-or-popover';
 import VisuallyHidden from '@atlaskit/visually-hidden/visually-hidden';
 
 import Buttons from './internal/buttons';
@@ -201,10 +203,45 @@ const InnerInlineEdit = <FieldValue extends unknown>(props: InlineEditProps<Fiel
 					role="presentation"
 					onKeyDown={(e) => {
 						onKeyDown(e);
-						if (e.key === 'Esc' || e.key === 'Escape') {
+						if (e.key !== 'Esc' && e.key !== 'Escape') {
+							return;
+						}
+						if (!fg('platform-dst-top-layer')) {
 							reset();
 							onCancel();
+							return;
 						}
+						// One Escape does one thing.
+						// Something else has consumed this Escape.
+						if (e.defaultPrevented) {
+							return;
+						}
+						// A layer open in the edit view (for example a Select menu) takes this Escape.
+						// Its `document` listener runs after this handler, so `defaultPrevented` cannot show it.
+						if (hasOpenDialogOrPopover({ within: e.currentTarget })) {
+							return;
+						}
+						// In read view there is nothing to undo, so the layer around the inline edit takes the
+						// Escape.
+						if (!shouldBeEditing) {
+							return;
+						}
+						// A held key undoes one thing. Take a repeat, so the layer around stays open, but do
+						// not cancel: the first press may have closed a layer in the edit view.
+						if (e.repeat) {
+							e.preventDefault();
+							return;
+						}
+						reset();
+						// A controlled edit without `onCancel` cannot end here, so the Escape is not consumed
+						// and the layer around the inline edit takes it.
+						if (isEditing !== undefined && !providedOnCancel) {
+							return;
+						}
+						// Move from edit view to read view. `preventDefault()` keeps the layer around the inline
+						// edit open.
+						e.preventDefault();
+						onCancel();
 					}}
 					onSubmit={onSubmit}
 					ref={formRef}

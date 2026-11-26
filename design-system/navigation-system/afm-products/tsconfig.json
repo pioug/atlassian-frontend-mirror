@@ -26,9 +26,6 @@
 			"path": "../../../analytics/analytics-next/afm-products/tsconfig.json"
 		},
 		{
-			"path": "../../app-provider/afm-products/tsconfig.json"
-		},
-		{
 			"path": "../../avatar/afm-products/tsconfig.json"
 		},
 		{
@@ -54,9 +51,6 @@
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-products/tsconfig.json"
-		},
-		{
-			"path": "../../../platform/feature-flags-react/afm-products/tsconfig.json"
 		},
 		{
 			"path": "../../popup/afm-products/tsconfig.json"

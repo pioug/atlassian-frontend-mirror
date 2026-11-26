@@ -3,7 +3,7 @@
  *
  * Structured content components from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::f49f8ae3e4b9626012322c0d54363875>>
+ * @codegen <<SignedSource::e8bc87130093af70236804844fd426f2>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -6027,6 +6027,96 @@ export const components: ComponentMcpPayload[] = [
 				description:
 					'Delay in ms.\nHow long each element group will be staggered.\nThis will be multipled by the column and row of the element.\nDefaults to `50`.',
 				defaultValue: '50',
+			},
+		],
+	},
+	{
+		name: 'ChatPanel',
+		package: '@atlaskit/navigation-system',
+		description:
+			'A full-height layout area for chat at the inline end of the app, below the banner and alongside the top navigation and main content. It overlays the page when there is not enough room beside Main. Requires the platform-dst-chat-panel-layout feature gate.',
+		status: 'early-access',
+		usageGuidelines: [
+			'Use this app-level area for a chat experience that remains alongside the page. For internal Atlassian apps, keep contextual panels scoped to the main content area using Panel System.',
+			'Compose ChatPanel as a direct child of Root after Main and any other layout slots, rather than nesting it inside Main or TopNav.',
+			'Include a visible close action and an entry point for reopening chat so users can return to their primary task.',
+		],
+		accessibilityGuidelines: [
+			'Return focus to the chat entry point after an explicit close action or when dismissal removes the focused element. If focus has already moved outside chat, preserve it on that control or region.',
+			'Give the chat region a meaningful accessible name that distinguishes it from other page regions.',
+			'Give the PanelSplitter an accessible label describing the chat area it resizes. Preserve its built-in pointer and keyboard resizing controls.',
+		],
+		keywords: ['chat', 'rovo', 'assistant', 'layout', 'panel', 'resize', 'overlay'],
+		category: 'navigation',
+		examples: [
+			"import React, { useId, useRef, useState } from 'react';\nimport Button from '@atlaskit/button/default/button';\nimport Heading from '@atlaskit/heading/heading';\nimport { ChatPanel } from '@atlaskit/navigation-system/layout/chat-panel';\nimport { Main } from '@atlaskit/navigation-system/layout/main';\nimport { PanelSplitter } from '@atlaskit/navigation-system/layout/panel-splitter';\nimport { Root } from '@atlaskit/navigation-system/layout/root';\nimport { TopNav, TopNavEnd } from '@atlaskit/navigation-system/layout/top-nav';\nimport { ChatButton } from '@atlaskit/navigation-system/top-nav-items';\nimport { fg } from '@atlaskit/platform-feature-flags/fg';\nimport { Box } from '@atlaskit/primitives/compiled/box';\nimport { Stack } from '@atlaskit/primitives/compiled/stack';\nimport { Text } from '@atlaskit/primitives/compiled/text';\nexport default function ChatPanelExample(): JSX.Element {\n\tconst [isOpen, setIsOpen] = useState(false);\n\tconst chatPanelId = useId();\n\tconst chatButtonRef = useRef<HTMLButtonElement | null>(null);\n\tconst closeChatAndRestoreFocus = () => {\n\t\tsetIsOpen(false);\n\t\tchatButtonRef.current?.focus();\n\t};\n\tconst onChatClose = () => {\n\t\tconst ownerDocument = chatButtonRef.current?.ownerDocument;\n\t\tconst panel = ownerDocument?.getElementById(chatPanelId);\n\t\tconst hadFocus = panel?.contains(ownerDocument?.activeElement ?? null);\n\t\tsetIsOpen(false);\n\t\t// Preserve external focus, but do not leave focus on content we are removing.\n\t\tif (hadFocus) {\n\t\t\tchatButtonRef.current?.focus();\n\t\t}\n\t};\n\treturn (\n\t\t<Root>\n\t\t\t<TopNav>\n\t\t\t\t<TopNavEnd>\n\t\t\t\t\t{/* The host owns the rollout; do not override its feature flag resolver. */}\n\t\t\t\t\t{fg('platform-dst-chat-panel-layout') && (\n\t\t\t\t\t\t<ChatButton\n\t\t\t\t\t\t\tisSelected={isOpen}\n\t\t\t\t\t\t\tonClick={(event) => {\n\t\t\t\t\t\t\t\tchatButtonRef.current = event.currentTarget;\n\t\t\t\t\t\t\t\tsetIsOpen(true);\n\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\tAsk Rovo\n\t\t\t\t\t\t</ChatButton>\n\t\t\t\t\t)}\n\t\t\t\t</TopNavEnd>\n\t\t\t</TopNav>\n\t\t\t<Main>\n\t\t\t\t<Box padding=\"space.300\">\n\t\t\t\t\t<Heading size=\"large\">Project overview</Heading>\n\t\t\t\t</Box>\n\t\t\t</Main>\n\t\t\t{isOpen && (\n\t\t\t\t<ChatPanel\n\t\t\t\t\tid={chatPanelId}\n\t\t\t\t\tlabel=\"Rovo\"\n\t\t\t\t\tdefaultWidth={400}\n\t\t\t\t\tcompactDefaultWidth={320}\n\t\t\t\t\tonClose={onChatClose}\n\t\t\t\t>\n\t\t\t\t\t<PanelSplitter label=\"Resize Rovo\" />\n\t\t\t\t\t<Box padding=\"space.300\">\n\t\t\t\t\t\t<Stack space=\"space.200\" alignInline=\"start\">\n\t\t\t\t\t\t\t<Heading size=\"medium\">Rovo</Heading>\n\t\t\t\t\t\t\t<Text>Use this area for your chat experience.</Text>\n\t\t\t\t\t\t\t<Button onClick={closeChatAndRestoreFocus}>Close chat</Button>\n\t\t\t\t\t\t</Stack>\n\t\t\t\t\t</Box>\n\t\t\t\t</ChatPanel>\n\t\t\t)}\n\t\t</Root>\n\t);\n}",
+		],
+		props: [
+			{
+				name: 'children',
+				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
+				description: 'The content of the layout area.',
+				isRequired: true,
+			},
+			{
+				name: 'compactDefaultWidth',
+				type: 'number | undefined',
+				description:
+					'Default width in pixels at compact viewport sizes, before user resizing.\nFalls back to an explicitly supplied defaultWidth, then 320.\nRequires platform-dst-chat-panel-layout. Available space and resize bounds still apply.',
+			},
+			{
+				name: 'defaultWidth',
+				type: 'number | undefined',
+				description:
+					'The default width of the layout area in pixels. Defaults to 400.\nAlso used at compact viewport sizes unless compactDefaultWidth is supplied.',
+			},
+			{
+				name: 'hasBorder',
+				type: 'boolean | undefined',
+				description:
+					'Whether the slot has a border when inline, or a shadow when overlaying the app.',
+				defaultValue: 'true',
+			},
+			{
+				name: 'id',
+				type: 'string | undefined',
+				description:
+					"The `id` attribute of the slot. Used to connect the layout slot's skip link to the layout element.\nIf not provided, a unique ID will be generated.",
+			},
+			{
+				name: 'label',
+				type: 'string | undefined',
+				description: 'The accessible name of the slot, announced by screen readers.',
+				defaultValue: '"Chat panel"',
+			},
+			{
+				name: 'maxWidth',
+				type: 'ResizeBound | undefined',
+				description: 'The maximum width the chat panel can be resized to.',
+			},
+			{
+				name: 'minWidth',
+				type: 'ResizeBound | undefined',
+				description: 'The minimum width the chat panel can be resized to. Defaults to 320px.',
+				defaultValue: '"320px"',
+			},
+			{
+				name: 'onClose',
+				type: '() => void',
+				description:
+					'Required for controlled dismissal. Unmount ChatPanel when called, including\nwhen opening SideNav replaces the chat overlay. Remount it to open it again.',
+				isRequired: true,
+			},
+			{
+				name: 'skipLinkLabel',
+				type: 'string | undefined',
+				description: "The label for this slot's skip link. Defaults to the slot's `label` value.",
+				defaultValue: 'label',
+			},
+			{
+				name: 'xcss',
+				type: 'false | (XCSSValue<"backgroundColor", DesignTokenStyles, ""> & {} & XCSSPseudo<"backgroundColor", never, never, DesignTokenStyles> & XCSSMediaQuery<...> & { ...; } & { ...; }) | null | undefined',
+				description: 'Bounded style overrides.',
 			},
 		],
 	},

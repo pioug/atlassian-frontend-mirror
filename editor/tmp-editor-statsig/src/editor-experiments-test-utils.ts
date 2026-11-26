@@ -1,8 +1,6 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 // Entry file in package.json
 
-// This is loosely based on the `ffTest` util from `@atlassian/feature-flags-test-utils` package.
-
 import { editorExperimentsConfig } from './experiments-config';
 import type { EditorExperimentsConfig } from './experiments-config';
 import { setupEditorExperiments } from './setup';
@@ -44,9 +42,6 @@ type DescribeBody = Parameters<typeof describe>[1];
  *   },
  * })
  * ```
- *
- * API based on Legacy ffTest API
- * - https://hello.atlassian.net/wiki/spaces/AF/pages/2569505829/Task+Testing+your+feature+flag+in+platform+and+product#Legacy-API-lEGACY
  */
 // oxlint-disable-next-line eslint/no-redeclare
 function eeTest<ExperimentName extends keyof EditorExperimentsConfig>(
@@ -147,9 +142,6 @@ interface EeTestFunction {
  *   });
  * })
  * ```
- *
- * API based on next gen ffTest API
- * - https://hello.atlassian.net/wiki/spaces/AF/pages/2569505829/Task+Testing+your+feature+flag+in+platform+and+product#Next-Generation-API-%E2%9C%A8
  */
 (eeTest as EeTestFunction).describe = function eeTestDescribe<
 	ExperimentName extends keyof EditorExperimentsConfig,

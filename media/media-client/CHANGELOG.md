@@ -1,5 +1,29 @@
 # @atlaskit/media-client
 
+## 39.4.20
+
+### Patch Changes
+
+- Updated dependencies
+
+## 39.4.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 39.4.18
+
+### Patch Changes
+
+- Updated dependencies
+
+## 39.4.17
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 39.4.16
 
 ### Patch Changes

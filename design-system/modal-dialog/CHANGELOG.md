@@ -1,5 +1,23 @@
 # @atlaskit/modal-dialog
 
+## 17.3.3
+
+### Patch Changes
+
+- [`e1935737c3101`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e1935737c3101) -
+  Removed the `platform-dst-motion-uplift-modal` feature gate; behaviour is unchanged for users.
+- [`48086154ce8f7`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/48086154ce8f7) -
+  On the top layer, a modal at its maximum height is the same height as the legacy modal.
+- Updated dependencies
+
+## 17.3.2
+
+### Patch Changes
+
+- [`d3bbba923dc98`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d3bbba923dc98) -
+  On the top layer, a modal that scrolls in the viewport is centred again, as in the legacy modal.
+- Updated dependencies
+
 ## 17.3.1
 
 ### Patch Changes

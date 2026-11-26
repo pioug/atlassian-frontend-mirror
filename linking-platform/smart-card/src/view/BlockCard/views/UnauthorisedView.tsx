@@ -354,7 +354,7 @@ const UnauthorisedViewBase = ({
 };
 
 /**
- * Experiment wrapper: fires social proof exposure and renders social proof UI for the treatment cohort.
+ * Renders social proof when the provider has eligible data.
  */
 const UnauthorisedView = ({
 	testId = 'smart-block-unauthorized-view',

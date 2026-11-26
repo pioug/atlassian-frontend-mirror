@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 import '@atlaskit/link-test-helpers/jest';
 import { IntlProvider } from 'react-intl';
@@ -12,6 +12,7 @@ import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Text } from '@atlaskit/primitives/compiled/text';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { DatasourceExperienceIdProvider } from '../../../../contexts/datasource-experience-id/datasource-experience-id-provider';
 import { InlineEdit } from '../../../issue-like-table/table-cell-content/inline-edit';
@@ -184,5 +185,89 @@ describe('DatasourceModal', () => {
 		expect(screen.queryByTestId(testIds.readView)).not.toBeInTheDocument();
 
 		expect(onModalCloseFn).toHaveBeenCalledTimes(0);
+	});
+
+	describe('with the top-layer gate on', () => {
+		beforeEach(() => {
+			passGate('platform-dst-top-layer');
+		});
+
+		const renderInlineEditInModal = ({
+			columnKey,
+			datasourceTypeWithValues,
+		}: Pick<React.ComponentProps<typeof InlineEdit>, 'columnKey' | 'datasourceTypeWithValues'>) => {
+			const onModalCloseFn = jest.fn();
+			render(
+				<SmartCardProvider client={new CardClient()}>
+					<IntlProvider locale="en">
+						<DatasourceModal onClose={onModalCloseFn}>
+							<FlagsProvider>
+								<DatasourceExperienceIdProvider>
+									<InlineEdit
+										ari="fake-ari"
+										columnKey={columnKey}
+										columnTitle="Fake column"
+										execute={jest.fn()}
+										datasourceTypeWithValues={datasourceTypeWithValues}
+										readView={<MockReadView />}
+									/>
+								</DatasourceExperienceIdProvider>
+							</FlagsProvider>
+						</DatasourceModal>
+					</IntlProvider>
+				</SmartCardProvider>,
+			);
+			fireEvent.click(screen.getByTestId(testIds.readView));
+			return { onModalCloseFn };
+		};
+
+		const pressEscape = (target: HTMLElement) =>
+			fireEvent.keyDown(target, { key: 'Escape', code: 'Escape', keyCode: 27, charCode: 27 });
+
+		it('in read view, Escape is not taken and the modal closes', () => {
+			const { onModalCloseFn } = renderInlineEditInModal({
+				columnKey: 'fake-column',
+				datasourceTypeWithValues: { type: 'string', values: ['Test'] },
+			});
+			pressEscape(screen.getByTestId(testIds.editView));
+			expect(screen.getByTestId(testIds.readView)).toBeInTheDocument();
+
+			pressEscape(screen.getByTestId(testIds.readView));
+
+			expect(onModalCloseFn).toHaveBeenCalledTimes(1);
+		});
+
+		it('Escape cancels the edit and keeps the modal open', () => {
+			const { onModalCloseFn } = renderInlineEditInModal({
+				columnKey: 'fake-column',
+				datasourceTypeWithValues: { type: 'string', values: ['Test'] },
+			});
+
+			pressEscape(screen.getByTestId(testIds.editView));
+
+			expect(screen.getByTestId(testIds.readView)).toBeInTheDocument();
+			expect(onModalCloseFn).not.toHaveBeenCalled();
+		});
+
+		it('the first Escape closes the open menu, the second cancels the edit, and the modal stays open', async () => {
+			const { onModalCloseFn } = renderInlineEditInModal({
+				columnKey: 'status',
+				datasourceTypeWithValues: {
+					type: 'status',
+					values: [{ text: 'Test', style: { appearance: 'inprogress' } }],
+				},
+			});
+			expect(await screen.findByRole('listbox')).toBeInTheDocument();
+
+			pressEscape(screen.getByRole('combobox'));
+
+			await waitFor(() => expect(screen.queryByRole('listbox')).not.toBeInTheDocument());
+			expect(screen.getByRole('combobox')).toBeInTheDocument();
+
+			pressEscape(screen.getByRole('combobox'));
+
+			expect(screen.getByTestId(testIds.readView)).toBeInTheDocument();
+			expect(onModalCloseFn).not.toHaveBeenCalled();
+		});
 	});
 });

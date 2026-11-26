@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/dropdown-menu",
-	"version": "22.2.1",
+	"version": "22.2.4",
 	"description": "A dropdown menu displays a list of actions or options to a user.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -91,9 +91,6 @@
 		"ui"
 	],
 	"platform-feature-flags": {
-		"platform_dst_popup-disable-focuslock": {
-			"type": "boolean"
-		},
 		"select-avoid-duplicated-registered-ref": {
 			"type": "boolean"
 		},
@@ -101,9 +98,6 @@
 			"type": "boolean"
 		},
 		"platform_dst_dropdown_nested_trigger_aria_current": {
-			"type": "boolean"
-		},
-		"platform-dst-motion-uplift-popup": {
 			"type": "boolean"
 		},
 		"platform-dst-top-layer": {

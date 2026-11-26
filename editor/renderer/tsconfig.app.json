@@ -29,6 +29,7 @@
 		"**/codemods/**/*.ts",
 		"**/codemods/**/*.tsx",
 		"./src/ui/index.tsx",
+		"./package.json",
 		"**/stories.ts",
 		"**/stories.tsx",
 		"**/stories/*.ts",
@@ -36,13 +37,17 @@
 		"**/stories/**/*.ts",
 		"**/stories/**/*.tsx"
 	],
-	"exclude": ["**/*.docs.tsx"],
+	"exclude": [
+		"**/*.docs.tsx"
+	],
 	"compilerOptions": {
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__renderer/app",
 		"isolatedDeclarations": true,
 		"paths": {
-			"@atlaskit/editor-common/src/*": ["../editor-common/src/*"]
+			"@atlaskit/editor-common/src/*": [
+				"../editor-common/src/*"
+			]
 		}
 	},
 	"references": [

@@ -161,9 +161,12 @@ export function PopupContentTopLayer({
 	 * the trigger's own click decides. See `@atlaskit/top-layer`
 	 * `notes/decisions/wrappers-ask-first-close.md`.
 	 */
+	// Without `onClose`, nothing can be asked to close the popup. It takes no Escape and no outside
+	// press, and stays open until `isOpen` changes.
+	const isClosable = Boolean(onClose);
 	const triggerRefs = useMemo(() => [anchorRef], [anchorRef]);
 	useManualLightDismiss({
-		isOpen,
+		isOpen: isOpen && isClosable,
 		popoverRef,
 		additionalInsideElementRefs: triggerRefs,
 		onClose: handleOnClose,
@@ -217,7 +220,8 @@ export function PopupContentTopLayer({
 			mode="manual"
 			shouldAnimate
 			placement={topLayerPlacement}
-			onClose={handleOnClose}
+			// Without it, `requestClosePopovers()` cannot close the popup.
+			onClose={isClosable ? handleOnClose : undefined}
 			testId={testId && `${testId}--container`}
 		>
 			{Container ? (

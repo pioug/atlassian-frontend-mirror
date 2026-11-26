@@ -34,9 +34,6 @@ function trigger({ ref }: TriggerProps) {
 describe.each([false, true])('Popup test IDs with top layer enabled: %s', (topLayerEnabled) => {
 	beforeEach(() => {
 		(topLayerEnabled ? passGate : failGate)('platform-dst-top-layer');
-		if (!topLayerEnabled) {
-			passGate('platform-dst-motion-uplift-popup');
-		}
 	});
 
 	describe.each([false, true])('composable API: %s', (composable) => {

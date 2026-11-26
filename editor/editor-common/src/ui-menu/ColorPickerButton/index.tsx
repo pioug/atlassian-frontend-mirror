@@ -287,6 +287,11 @@ const ColorPickerButton = (props: Props) => {
 						ignoreEscapeKey={props.returnEscToButton}
 					>
 						<ColorPaletteWithReactViewListeners
+							ariaLabel={
+								isExperimentEnabled('platform_editor_lovability_colors_a11y_fixes')
+									? props.title
+									: undefined
+							}
 							cols={props.cols}
 							selectedColor={selectedColor}
 							onClick={onColorSelected}

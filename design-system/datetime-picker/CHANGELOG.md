@@ -1,5 +1,14 @@
 # @atlaskit/datetime-picker
 
+## 19.5.4
+
+### Patch Changes
+
+- [`d2d28a9303775`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2d28a9303775) -
+  Behind `platform-dst-top-layer`, the calendar button no longer calls `selectProps.onMenuOpen` and
+  `onMenuClose` inside a state update.
+- Updated dependencies
+
 ## 19.5.3
 
 ### Patch Changes

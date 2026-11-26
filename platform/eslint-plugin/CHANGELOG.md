@@ -1,5 +1,19 @@
 # @atlaskit/eslint-plugin-platform
 
+## 6.0.0
+
+### Major Changes
+
+- [`883e16fe5a5e0`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/883e16fe5a5e0) -
+  Remove the lint rules for the retired feature gate test runner. Remove
+  `@atlaskit/platform/ensure-test-runner-arguments` and
+  `@atlaskit/platform/ensure-test-runner-nested-count` from custom lint configurations before
+  upgrading.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.0.4
 
 ### Patch Changes

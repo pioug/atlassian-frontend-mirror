@@ -1,5 +1,40 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 35.0.9
+
+### Patch Changes
+
+- [`1a4a50eaa1692`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1a4a50eaa1692) -
+  Clean up feature gate platform_editor_controls_reliable_anchor_patch_2
+- Updated dependencies
+
+## 35.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.0.7
+
+### Patch Changes
+
+- [`b23a601aac9fd`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b23a601aac9fd) -
+  Clean up feature gate `platform_editor_controls_reliable_anchor_patch_1`, retaining the enabled
+  behaviour.
+- Updated dependencies
+
+## 35.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 35.0.4
 
 ### Patch Changes

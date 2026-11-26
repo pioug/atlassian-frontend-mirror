@@ -1,5 +1,19 @@
 # @atlaskit/lozenge
 
+## 17.0.11
+
+### Patch Changes
+
+- [`fcf534277ba01`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/fcf534277ba01) -
+  Removed the `platform-dst-motion-uplift-popup` feature gate; behaviour is unchanged for users.
+- Updated dependencies
+
+## 17.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 17.0.9
 
 ### Patch Changes

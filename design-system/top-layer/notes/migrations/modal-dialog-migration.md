@@ -335,6 +335,11 @@ background remains inert. VR-verified.
 **Fix applied:** Aligned `maxBlockSize` to `calc(100vh - 120px + 1px)` to match the legacy
 Positioner's body scroll `maxHeight` exactly. VR-verified.
 
+**Update (D26):** #430089 and #534101 wrote the cap again without the `+ 1px`, so a modal at its
+height cap was 1px shorter than legacy. D26 adds the `+ 1px` back, so the rollout shows no 1px
+change. The legacy 1px has no known purpose (`gutter * 2 - 1` since at least 2020, with no comment).
+After the rollout, remove it and re-baseline: the gaps above and below the modal are then both 60px.
+
 ### New findings from expanded VR coverage
 
 > Added via expanded VR comparison covering all scenarios from `modal-dialog.vr.tsx`,
@@ -429,9 +434,10 @@ page cannot scroll to content below the fold. Two cases left the footer there:~~
 
 **Fix applied:**
 
-- Body scroll (desktop) caps the visual container at `max-height: calc(100vh - 120px)`, the space
-  between the 60px `<dialog>` margins. This matches the default height. With no custom `height`,
-  `max-height: max-content` still applies, and the default height does the cap.
+- Body scroll (desktop) caps the visual container at `max-height: calc(100vh - 120px + 1px)`, the
+  space between the 60px `<dialog>` margins plus the legacy 1px (see finding 8). This matches the
+  default height. With no custom `height`, `max-height: max-content` still applies, and the default
+  height does the cap.
 - The `form:only-child` rule adds `min-height: 0`, so the form shrinks to the visual container and
   `ModalBody` scrolls. This also matches legacy in full screen, where the form inherited a length
   cap.
@@ -585,7 +591,7 @@ snapshots for comparison. 96 snapshots total (48 pairs):
 
 ### Unit tests (Jest)
 
-**`modal-dialog-top-layer.test.tsx`** -- 25 tests behind `ffTest.on('platform-dst-top-layer')`:
+**`modal-dialog-top-layer.test.tsx`** -- 25 tests with `platform-dst-top-layer` enabled:
 
 - Native `<dialog>` element rendering and `showModal()` / `close()` lifecycle
 - Sub-component rendering (header, body, footer, title, close button)

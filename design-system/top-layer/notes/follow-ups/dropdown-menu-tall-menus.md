@@ -142,3 +142,10 @@ Why each one falls short:
    Firefox would still pad short menus to 150px, and still shrink tall menus rather than flip them.
 3. Revisit D when Chromium applies sizing in `@position-try` rules reliably. D is the only approach
    measured that also fixes Safari and Firefox.
+
+## Popup
+
+**2026-11-25 (X1).** With `platform-dst-top-layer` on, a `Popup` taller than the viewport is capped
+to the viewport, and it covers its trigger. Measured in Chromium: a 950px `Popup` in a 660px
+viewport is capped at 650px and moves to y=10, so it covers its trigger (y=52 to 84). The legacy
+popup ran off screen below its trigger. No code change for now.

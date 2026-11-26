@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 52.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 52.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 52.0.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 52.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 52.0.4
 
 ### Patch Changes

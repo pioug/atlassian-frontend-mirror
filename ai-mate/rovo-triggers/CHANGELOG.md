@@ -1,5 +1,17 @@
 # @atlaskit/rovo-triggers
 
+## 12.20.0
+
+### Minor Changes
+
+- [`5426e7b70fa58`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5426e7b70fa58) -
+  Count Rovo skill results toward Editor AI usage when an Editor-selected skill remains in the
+  submitted prompt. Registered Editor menus qualify under `platform_editor_slash_command`. The
+  `platform_editor_slash_skill_result_attribution` experiment controls legacy menu attribution.
+- [`f160289c7c408`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f160289c7c408) -
+  Allow opt-in skill actions to request Fast Mode for their automatic first reply. RCS routing uses
+  the existing convoai_search2chat_fastmode_rcs_enabled gate.
+
 ## 12.19.0
 
 ### Minor Changes

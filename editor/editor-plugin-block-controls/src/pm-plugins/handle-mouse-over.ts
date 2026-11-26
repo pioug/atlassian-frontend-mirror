@@ -4,7 +4,6 @@ import { isMultiBlockSelection } from '@atlaskit/editor-common/selection/utils';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
@@ -79,8 +78,7 @@ const isPanelNodeTypeName = (nodeTypeName: string | null | undefined): boolean =
 
 	return (
 		nodeTypeName === 'panel_c1' &&
-		expValEqualsNoExposure('platform_editor_controls_reliable_anchor', 'isEnabled', true) &&
-		fg('platform_editor_controls_reliable_anchor_patch_1')
+		expValEqualsNoExposure('platform_editor_controls_reliable_anchor', 'isEnabled', true)
 	);
 };
 

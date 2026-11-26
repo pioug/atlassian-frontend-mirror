@@ -11,6 +11,7 @@ import { createRegisteredMenuSurfaceContext } from '@atlaskit/editor-common/regi
 import { fireEvent } from '@atlassian/testing-library/fire-event';
 import { render } from '@atlassian/testing-library/render';
 import { screen } from '@atlassian/testing-library/screen';
+import { waitFor } from '@atlassian/testing-library/wait-for';
 
 import { executeExtensionQuickInsertItem } from '../executeExtensionQuickInsertItem';
 import { QuickInsertSkillMenuItem } from '../QuickInsertSkillMenuItem';
@@ -330,7 +331,7 @@ describe('QuickInsertSkillMenuItem', () => {
 			await Promise.resolve();
 		});
 
-		expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+		await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument());
 	});
 
 	it('executes when the product credit check allows the skill', async () => {

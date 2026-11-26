@@ -1,5 +1,20 @@
 # @atlaskit/avatar
 
+## 31.0.4
+
+### Patch Changes
+
+- [`be07c96c78f9d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/be07c96c78f9d) -
+  Replace the `platform_avatar_disable_layer_promotion` feature gate with the
+  `platform_avatar_layer_promotion` experiment.
+- Updated dependencies
+
+## 31.0.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 31.0.2
 
 ### Patch Changes

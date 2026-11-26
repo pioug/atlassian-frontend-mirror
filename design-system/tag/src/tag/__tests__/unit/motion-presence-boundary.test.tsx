@@ -44,7 +44,6 @@ describe('tag presence inside containers', () => {
 
 	it.each([false, true])('isolates popup entry with the boundary gate %s', async (enabled) => {
 		(enabled ? passGate : failGate)('platform-dst-motion-isolate-presence');
-		passGate('platform-dst-motion-uplift-popup');
 		failGate('platform-dst-top-layer');
 		const tree = (isOpen: boolean) => (
 			<Popup

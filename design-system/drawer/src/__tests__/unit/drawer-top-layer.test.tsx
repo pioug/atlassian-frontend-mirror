@@ -5,8 +5,6 @@ import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { axe } from '@af/accessibility-testing/jest-axe';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
-// Platform jest tests must use passGate/failGate to set gate values; ffTest is
-// not permitted in this repo (see platform AGENTS.md feature-gate testing rules).
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { Drawer } from '../../drawer';

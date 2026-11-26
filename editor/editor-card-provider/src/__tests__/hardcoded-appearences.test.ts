@@ -318,9 +318,6 @@ describe('hardcoded appearences', () => {
 			if (url.includes('/playlists/')) {
 				passGate('loom-playlist-smartlink-embed-default');
 			}
-			if (url.includes('/dashboards/')) {
-				setBooleanFeatureFlagResolver((flag) => flag === 'platform_avp_viz_dashboard_link_embed');
-			}
 			mockGetExperimentValue.mockReturnValue(true);
 			const provider = new EditorCardProvider();
 			mockFetch.mockResolvedValueOnce({

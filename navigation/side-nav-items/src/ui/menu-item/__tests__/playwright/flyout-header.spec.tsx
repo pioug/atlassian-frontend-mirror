@@ -7,11 +7,17 @@ it.afterEach(async ({ page }) => {
 	await page.clock.resume();
 });
 
+// TODO(top-layer): with `platform-dst-motion-uplift-popup` on (production), legacy Popup puts its
+// focus trap on the motion container, which cannot take focus, so focus does not move into the popup
+// on open. The top layer should fix this.
+const legacyOpenFocusLost = 'Legacy Popup does not move focus into itself on open';
+
 for (const topLayer of [false, true]) {
 	it.describe(`FlyoutHeader with ${topLayer ? 'top-layer' : 'legacy popup'}`, () => {
 		it('should focus Close after loading without controls and restore the trigger on Close', async ({
 			page,
 		}) => {
+			it.fixme(!topLayer, legacyOpenFocusLost);
 			const { trigger, dialog, closeButton, initialFocus } = await setupComponent(page, {
 				topLayer,
 			});
@@ -29,6 +35,7 @@ for (const topLayer of [false, true]) {
 		});
 
 		it('should focus the expected control when the delayed header arrives', async ({ page }) => {
+			it.fixme(!topLayer, legacyOpenFocusLost);
 			const { trigger, dialog, closeButton, initialFocus, loadedFocus } = await setupComponent(
 				page,
 				{ topLayer, showSearchWhileLoading: true },

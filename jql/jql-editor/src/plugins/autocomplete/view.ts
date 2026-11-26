@@ -5,7 +5,6 @@ import { type EditorState, TextSelection } from '@atlaskit/editor-prosemirror/st
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import FeatureGates from '@atlaskit/feature-gate-js-client/feature-gates';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { type PortalActions } from '../../ui/jql-editor-portal-provider/types';
 import getDocumentPosition from '../common/get-document-position';
@@ -84,7 +83,7 @@ export default class AutocompletePluginView extends ReactPluginView<Autocomplete
 						'releaseVersion',
 						-1,
 					) >= 1) ||
-				(option.valueType === 'assets' && fg('orion-8274-cmdb-object-jql-values-resolver')))
+				option.valueType === 'assets')
 		) {
 			transaction.setMeta('hydrate', true);
 		}
@@ -192,17 +191,13 @@ export default class AutocompletePluginView extends ReactPluginView<Autocomplete
 					break;
 				}
 				case 'assets': {
-					if (fg('orion-8274-cmdb-object-jql-values-resolver')) {
-						const attributes = {
-							type: 'assets',
-							id: value,
-							name: nameOnRichInlineNode ?? name,
-							fieldName: context?.field,
-						};
-						nodes.push(this.view.state.schema.nodes.assets.create(attributes, textContent));
-					} else {
-						nodes.push(textContent);
-					}
+					const attributes = {
+						type: 'assets',
+						id: value,
+						name: nameOnRichInlineNode ?? name,
+						fieldName: context?.field,
+					};
+					nodes.push(this.view.state.schema.nodes.assets.create(attributes, textContent));
 					break;
 				}
 				default: {

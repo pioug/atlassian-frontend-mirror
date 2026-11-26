@@ -339,7 +339,8 @@ Not every behavior needs a browser test. Use this framework to decide:
 ## Test Infrastructure Notes
 
 - Migration browser tests live in `__tests__/playwright/ff-testing/platform-dst-top-layer/`
-- Use `ffTest` utilities to gate tests on the `platform-dst-top-layer` feature flag
+- In Jest tests, use `passGate` and `failGate` from `@atlassian/feature-flags-test-utils/mock-gates`
+  to set the `platform-dst-top-layer` feature gate
 - The top-layer package's own browser tests use examples in `examples/90-111` range
 - For positioning tests, use `page.evaluate(() => window.scrollTo(...))` to control the viewport
 - For animation tests, avoid `page.waitForTimeout` — use `transitionend` event listeners or poll

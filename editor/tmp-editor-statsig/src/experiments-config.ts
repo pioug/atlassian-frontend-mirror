@@ -83,13 +83,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-05-05
-	'databases-native-embeds-v2': {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-04-21
 	cwr_page_tree_auto_finalize: {
 		defaultValue: boolean;
@@ -191,13 +184,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2025-11-05
-	platform_editor_lovability_emoji_scaling: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-08-05
 	platform_editor_native_anchor_with_dnd: {
 		defaultValue: boolean;
@@ -243,13 +229,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-03-27 — Pre-auth inline smart link: improved unauthorised hover card (boolean: isEnabled)
 	platform_sl_3p_preauth_better_hovercard: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-05-01 — Social proof experiment for unauthorized 3P block cards (boolean: isEnabled)
-	social_proof_3p_unauth_block_exp: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -382,13 +361,6 @@ export const editorExperimentsConfig: {
 		typeGuard: IsBooleanType;
 	};
 	platform_editor_table_fit_to_content_on_demand: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-03-15
-	platform_editor_sync_block_ssr_config: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -598,14 +570,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-05-05
-	'databases-native-embeds-v2': createBooleanExperiment({
-		productKeys: {
-			confluence: 'databases-native-embeds-v2',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2024-08-08
 	'example-boolean': createBooleanExperiment({
 		productKeys: {
@@ -765,14 +729,6 @@ export const editorExperimentsConfig: {
 	platform_editor_ai_quick_prompt_iw_cc: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_ai_quick_prompt_iw_cc',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2025-11-05
-	platform_editor_lovability_emoji_scaling: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_lovability_emoji_scaling',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -942,14 +898,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-03-15
-	platform_editor_sync_block_ssr_config: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_sync_block_ssr_config',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-04-06
 	confluence_fe_create_page_suggestion: createBooleanExperiment({
 		productKeys: {
@@ -1025,15 +973,6 @@ export const editorExperimentsConfig: {
 		defaultValue: 'control',
 	}),
 
-	// Added 2026-05-01 — Social proof experiment for unauthorized 3P block cards
-	social_proof_3p_unauth_block_exp: createBooleanExperiment({
-		productKeys: {
-			confluence: 'social_proof_3p_unauth_block_exp',
-			jira: 'social_proof_3p_unauth_block_exp',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-05-18
 	platform_editor_nest_table_in_panel: createBooleanExperiment({
 		productKeys: {

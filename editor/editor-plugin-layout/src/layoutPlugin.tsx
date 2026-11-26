@@ -1,8 +1,6 @@
 import React from 'react';
 
 import {
-	layoutSection,
-	layoutSectionWithLocalId,
 	layoutSectionWithSingleColumn,
 	layoutSectionWithSingleColumnLocalId,
 } from '@atlaskit/adf-schema/layout-section';
@@ -17,7 +15,6 @@ import {
 import {
 	IconFiveColumnLayout,
 	IconFourColumnLayout,
-	IconLayout,
 	IconOneColumnLayout,
 	IconThreeColumnLayout,
 	IconTwoColumnLayout,
@@ -48,7 +45,6 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment
 
 import type { LayoutPlugin } from './layoutPluginType';
 import {
-	createDefaultLayoutSection,
 	createMultiColumnLayoutSection,
 	deleteLayoutColumn,
 	distributeLayoutColumns,
@@ -103,11 +99,10 @@ export const selectIntoLayoutSection = (tr: Transaction): Transaction => {
 };
 
 export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
-	const isAdvancedLayoutEnabled = editorExperiment('advanced_layouts', true);
-	const allowAdvancedSingleColumnLayout =
-		isAdvancedLayoutEnabled && editorExperiment('single_column_layouts', true, { exposure: true });
-	const isRegisteredSlashCommandEnabled =
-		isExperimentEnabled('platform_editor_slash_command') && isAdvancedLayoutEnabled;
+	const allowAdvancedSingleColumnLayout = editorExperiment('single_column_layouts', true, {
+		exposure: true,
+	});
+	const isRegisteredSlashCommandEnabled = isExperimentEnabled('platform_editor_slash_command');
 
 	api?.blockMenu?.actions.registerBlockMenuComponents([
 		{
@@ -139,13 +134,9 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 			return [
 				{
 					name: 'layoutSection',
-					node: editorExperiment('advanced_layouts', true)
-						? fg('platform_editor_adf_with_localid')
-							? layoutSectionWithSingleColumnLocalId
-							: layoutSectionWithSingleColumn
-						: fg('platform_editor_adf_with_localid')
-							? layoutSectionWithLocalId
-							: layoutSection,
+					node: fg('platform_editor_adf_with_localid')
+						? layoutSectionWithSingleColumnLocalId
+						: layoutSectionWithSingleColumn,
 				},
 				{
 					name: 'layoutColumn',
@@ -172,8 +163,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 				(options.editorAppearance === 'full-page' ||
 					options.editorAppearance === 'full-width' ||
 					options.editorAppearance === 'max') &&
-				api &&
-				editorExperiment('advanced_layouts', true)
+				api
 			) {
 				plugins.push({
 					name: 'layoutResizing',
@@ -231,126 +221,99 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 							return tr;
 						};
 
-						if (editorExperiment('advanced_layouts', true)) {
-							const createAdvancedColumnLayoutOption = ({
-								columnCount,
-								descriptionColumnCount,
-								icon: Icon,
-								id,
-								keyword,
-								registeredKey,
-								title,
-							}: {
-								columnCount: number;
-								descriptionColumnCount: string;
-								icon: QuickInsertItem['icon'];
-								id: QuickInsertItem['id'];
-								keyword: string;
-								registeredKey: string;
-								title: string;
-							}): QuickInsertItem => ({
-								id,
-								registeredKey,
-								title,
-								description: formatMessage(messages.columnsDescriptionAdvancedLayout, {
-									numberOfColumns: descriptionColumnCount,
-								}),
-								keywords: ['layout', 'column', 'section', 'col', keyword],
-								priority: 1100,
-								icon: Icon,
-								action(insert, state) {
-									const tr = insert(createMultiColumnLayoutSection(state, columnCount));
-									withInsertLayoutAnalytics(tr, columnCount);
-									selectIntoLayoutSection(tr);
-									return tr;
-								},
-							});
+						const createAdvancedColumnLayoutOption = ({
+							columnCount,
+							descriptionColumnCount,
+							icon: Icon,
+							id,
+							keyword,
+							registeredKey,
+							title,
+						}: {
+							columnCount: number;
+							descriptionColumnCount: string;
+							icon: QuickInsertItem['icon'];
+							id: QuickInsertItem['id'];
+							keyword: string;
+							registeredKey: string;
+							title: string;
+						}): QuickInsertItem => ({
+							id,
+							registeredKey,
+							title,
+							description: formatMessage(messages.columnsDescriptionAdvancedLayout, {
+								numberOfColumns: descriptionColumnCount,
+							}),
+							keywords: ['layout', 'column', 'section', 'col', keyword],
+							priority: 1100,
+							icon: Icon,
+							action(insert, state) {
+								const tr = insert(createMultiColumnLayoutSection(state, columnCount));
+								withInsertLayoutAnalytics(tr, columnCount);
+								selectIntoLayoutSection(tr);
+								return tr;
+							},
+						});
 
-							const advancedSingleColumnOption: QuickInsertItem[] = allowAdvancedSingleColumnLayout
-								? [
-										{
-											id: 'onecolumnlayout',
-											title: formatMessage(layoutMessages.singleColumnAdvancedLayout),
-											description: formatMessage(messages.singleColumnsDescriptionAdvancedLayout),
-											keywords: ['layout', 'column', 'section', 'col', 'single column'],
-											priority: 1100,
-											icon: () => <IconOneColumnLayout />,
-											action(insert, state) {
-												const tr = insert(createMultiColumnLayoutSection(state, 1));
-												withInsertLayoutAnalytics(tr, 1);
+						const advancedSingleColumnOption: QuickInsertItem[] = allowAdvancedSingleColumnLayout
+							? [
+									{
+										id: 'onecolumnlayout',
+										title: formatMessage(layoutMessages.singleColumnAdvancedLayout),
+										description: formatMessage(messages.singleColumnsDescriptionAdvancedLayout),
+										keywords: ['layout', 'column', 'section', 'col', 'single column'],
+										priority: 1100,
+										icon: () => <IconOneColumnLayout />,
+										action(insert, state) {
+											const tr = insert(createMultiColumnLayoutSection(state, 1));
+											withInsertLayoutAnalytics(tr, 1);
 
-												selectIntoLayoutSection(tr);
-												return tr;
-											},
+											selectIntoLayoutSection(tr);
+											return tr;
 										},
-									]
-								: [];
-
-							return [
-								createAdvancedColumnLayoutOption({
-									columnCount: 2,
-									descriptionColumnCount: 'two',
-									icon: () => <IconTwoColumnLayout />,
-									id: 'twocolumnslayout',
-									keyword: 'two column',
-									registeredKey: TWO_COLUMNS_LAYOUT_MENU_ITEM.key,
-									title: formatMessage(layoutMessages.twoColumnsAdvancedLayout),
-								}),
-								...advancedSingleColumnOption,
-								createAdvancedColumnLayoutOption({
-									columnCount: 3,
-									descriptionColumnCount: 'three',
-									icon: () => <IconThreeColumnLayout />,
-									id: 'threecolumnslayout',
-									keyword: 'three column',
-									registeredKey: THREE_COLUMNS_LAYOUT_MENU_ITEM.key,
-									title: formatMessage(layoutMessages.threeColumnsAdvancedLayout),
-								}),
-								createAdvancedColumnLayoutOption({
-									columnCount: 4,
-									descriptionColumnCount: 'four',
-									icon: () => <IconFourColumnLayout />,
-									id: 'fourcolumnslayout',
-									keyword: 'four column',
-									registeredKey: FOUR_COLUMNS_LAYOUT_MENU_ITEM.key,
-									title: formatMessage(layoutMessages.fourColumns),
-								}),
-								createAdvancedColumnLayoutOption({
-									columnCount: 5,
-									descriptionColumnCount: 'five',
-									icon: () => <IconFiveColumnLayout />,
-									id: 'fivecolumnslayout',
-									keyword: 'five column',
-									registeredKey: FIVE_COLUMNS_LAYOUT_MENU_ITEM.key,
-									title: formatMessage(layoutMessages.fiveColumns),
-								}),
-							];
-						} else {
-							return [
-								{
-									id: 'layout',
-									registeredKey: TWO_COLUMNS_LAYOUT_MENU_ITEM.key,
-									title: formatMessage(messages.columns),
-									description: formatMessage(messages.columnsDescription),
-									keywords: ['column', 'section'],
-									priority: 1100,
-									icon: () => <IconLayout />,
-									action(insert, state) {
-										const tr = insert(createDefaultLayoutSection(state));
-										api?.analytics?.actions?.attachAnalyticsEvent({
-											action: ACTION.INSERTED,
-											actionSubject: ACTION_SUBJECT.DOCUMENT,
-											actionSubjectId: ACTION_SUBJECT_ID.LAYOUT,
-											attributes: {
-												inputMethod: INPUT_METHOD.QUICK_INSERT,
-											},
-											eventType: EVENT_TYPE.TRACK,
-										})(tr);
-										return tr;
 									},
-								},
-							];
-						}
+								]
+							: [];
+
+						return [
+							createAdvancedColumnLayoutOption({
+								columnCount: 2,
+								descriptionColumnCount: 'two',
+								icon: () => <IconTwoColumnLayout />,
+								id: 'twocolumnslayout',
+								keyword: 'two column',
+								registeredKey: TWO_COLUMNS_LAYOUT_MENU_ITEM.key,
+								title: formatMessage(layoutMessages.twoColumnsAdvancedLayout),
+							}),
+							...advancedSingleColumnOption,
+							createAdvancedColumnLayoutOption({
+								columnCount: 3,
+								descriptionColumnCount: 'three',
+								icon: () => <IconThreeColumnLayout />,
+								id: 'threecolumnslayout',
+								keyword: 'three column',
+								registeredKey: THREE_COLUMNS_LAYOUT_MENU_ITEM.key,
+								title: formatMessage(layoutMessages.threeColumnsAdvancedLayout),
+							}),
+							createAdvancedColumnLayoutOption({
+								columnCount: 4,
+								descriptionColumnCount: 'four',
+								icon: () => <IconFourColumnLayout />,
+								id: 'fourcolumnslayout',
+								keyword: 'four column',
+								registeredKey: FOUR_COLUMNS_LAYOUT_MENU_ITEM.key,
+								title: formatMessage(layoutMessages.fourColumns),
+							}),
+							createAdvancedColumnLayoutOption({
+								columnCount: 5,
+								descriptionColumnCount: 'five',
+								icon: () => <IconFiveColumnLayout />,
+								id: 'fivecolumnslayout',
+								keyword: 'five column',
+								registeredKey: FIVE_COLUMNS_LAYOUT_MENU_ITEM.key,
+								title: formatMessage(layoutMessages.fiveColumns),
+							}),
+						];
 					},
 		},
 		contentComponent({
@@ -361,7 +324,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => {
 		}: UiComponentFactoryParams) {
 			return (
 				<>
-					{editorExperiment('advanced_layouts', true) ? <GlobalStylesWrapper /> : null}
+					<GlobalStylesWrapper />
 					{editorView ? (
 						<LayoutColumnMenu
 							api={api}

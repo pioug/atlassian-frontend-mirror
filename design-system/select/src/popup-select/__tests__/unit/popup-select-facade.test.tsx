@@ -3,6 +3,7 @@ import React, { createRef } from 'react';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { act, render, waitFor } from '@atlassian/testing-library/testing-library/react';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { type OptionsType } from '../../../types';
 import { PopupSelect } from '../../popup-select';
@@ -58,4 +59,35 @@ describe.each([
 
 		expect(onClose).toHaveBeenCalledTimes(1);
 	});
+
+	it.each([true, false])(
+		'opens with shouldFocusOptionOnOpen=%s',
+		async (shouldFocusOptionOnOpen) => {
+			render(
+				<PopupSelect
+					options={OPTIONS}
+					label="Find cities"
+					searchThreshold={0}
+					popperProps={popperProps}
+					shouldFocusOptionOnOpen={shouldFocusOptionOnOpen}
+					target={({ isOpen, ...triggerProps }) => (
+						<button type="button" {...triggerProps}>
+							Choose
+						</button>
+					)}
+				/>,
+			);
+			await userEvent.click(screen.getByRole('button', { name: 'Choose' }));
+			const input = screen.getByRole('combobox', { name: 'Find cities' });
+			await waitFor(() => expect(input).toHaveFocus());
+			expect(screen.getByRole('listbox')).toBeVisible();
+			if (shouldFocusOptionOnOpen) {
+				expect(input).toHaveAttribute('aria-activedescendant', screen.getAllByRole('option')[0].id);
+			} else {
+				expect(input).not.toHaveAttribute('aria-activedescendant');
+				await userEvent.keyboard('{arrowdown}');
+				expect(input).toHaveAttribute('aria-activedescendant', screen.getAllByRole('option')[0].id);
+			}
+		},
+	);
 });

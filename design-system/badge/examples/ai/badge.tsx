@@ -5,7 +5,7 @@ import Badge from '@atlaskit/badge/badge';
 const Examples = (): React.JSX.Element => (
 	<>
 		<Badge appearance="primary">5</Badge>
-		<Badge appearance="important" max={99}>
+		<Badge appearance="dangerBold" max={99}>
 			150
 		</Badge>
 	</>

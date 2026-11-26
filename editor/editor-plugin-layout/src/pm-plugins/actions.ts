@@ -29,7 +29,6 @@ import {
 	DEFAULT_LAYOUT_COLUMN_VALIGN,
 	EVEN_DISTRIBUTED_COL_WIDTHS,
 	MAX_LAYOUT_COLUMNS,
-	MAX_STANDARD_LAYOUT_COLUMNS,
 	MIN_LAYOUT_COLUMN_WIDTH_PERCENT,
 } from './consts';
 import { pluginKey } from './plugin-key';
@@ -47,40 +46,7 @@ import {
 	getSelectedLayoutColumnsFromSelection,
 } from './utils/layout-column-selection';
 
-export const ONE_COL_LAYOUTS: PresetLayout[] = ['single'];
-export const TWO_COL_LAYOUTS: PresetLayout[] = [
-	'two_equal',
-	'two_left_sidebar',
-	'two_right_sidebar',
-];
-export const THREE_COL_LAYOUTS: PresetLayout[] = ['three_equal', 'three_with_sidebars'];
-
 const getWidthsForPreset = (presetLayout: PresetLayout): number[] => {
-	if (editorExperiment('advanced_layouts', true)) {
-		switch (presetLayout) {
-			case 'single':
-				return [100];
-			case 'two_equal':
-				return [50, 50];
-			case 'three_equal':
-				return [33.33, 33.33, 33.33];
-			case 'two_left_sidebar':
-				return [33.33, 66.66];
-			case 'two_right_sidebar':
-				return [66.66, 33.33];
-			case 'three_with_sidebars':
-				return [25, 50, 25];
-			case 'three_left_sidebars':
-				return [25, 25, 50];
-			case 'three_right_sidebars':
-				return [50, 25, 25];
-			case 'four_equal':
-				return [25, 25, 25, 25];
-			case 'five_equal':
-				return [20, 20, 20, 20, 20];
-		}
-	}
-
 	switch (presetLayout) {
 		case 'single':
 			return [100];
@@ -94,6 +60,14 @@ const getWidthsForPreset = (presetLayout: PresetLayout): number[] => {
 			return [66.66, 33.33];
 		case 'three_with_sidebars':
 			return [25, 50, 25];
+		case 'three_left_sidebars':
+			return [25, 25, 50];
+		case 'three_right_sidebars':
+			return [50, 25, 25];
+		case 'four_equal':
+			return [25, 25, 25, 25];
+		case 'five_equal':
+			return [20, 20, 20, 20, 20];
 	}
 
 	return [];
@@ -121,33 +95,6 @@ const isValidLayoutWidthDistributions = (layoutSection: Node) => {
 export const getPresetLayout = (section: Node): PresetLayout | undefined => {
 	const widths = mapChildren(section, (column) => column.attrs.width).join(',');
 
-	if (editorExperiment('advanced_layouts', true)) {
-		switch (widths) {
-			case '100':
-				return 'single';
-			case '33.33,33.33,33.33':
-				return 'three_equal';
-			case '25,50,25':
-				return 'three_with_sidebars';
-			case '50,25,25':
-				return 'three_right_sidebars';
-			case '25,25,50':
-				return 'three_left_sidebars';
-			case '50,50':
-				return 'two_equal';
-			case '33.33,66.66':
-				return 'two_left_sidebar';
-			case '66.66,33.33':
-				return 'two_right_sidebar';
-			case '25,25,25,25':
-				return 'four_equal';
-			case '20,20,20,20,20':
-				return 'five_equal';
-		}
-
-		return;
-	}
-
 	switch (widths) {
 		case '100':
 			return 'single';
@@ -155,13 +102,22 @@ export const getPresetLayout = (section: Node): PresetLayout | undefined => {
 			return 'three_equal';
 		case '25,50,25':
 			return 'three_with_sidebars';
+		case '50,25,25':
+			return 'three_right_sidebars';
+		case '25,25,50':
+			return 'three_left_sidebars';
 		case '50,50':
 			return 'two_equal';
 		case '33.33,66.66':
 			return 'two_left_sidebar';
 		case '66.66,33.33':
 			return 'two_right_sidebar';
+		case '25,25,25,25':
+			return 'four_equal';
+		case '20,20,20,20,20':
+			return 'five_equal';
 	}
+
 	return;
 };
 
@@ -173,11 +129,7 @@ export const getSelectedLayout = (
 	maybeLayoutSection: Node | undefined,
 	current: PresetLayout,
 ): PresetLayout => {
-	if (
-		maybeLayoutSection &&
-		isLayoutOutOfSync(maybeLayoutSection, current) &&
-		editorExperiment('advanced_layouts', true)
-	) {
+	if (maybeLayoutSection && isLayoutOutOfSync(maybeLayoutSection, current)) {
 		return getDefaultPresetLayout(maybeLayoutSection);
 	}
 
@@ -247,16 +199,6 @@ export const insertLayoutColumnsWithAnalytics =
  * Add a column to the right of existing layout
  */
 function addColumn(schema: Schema, pos: number) {
-	if (editorExperiment('advanced_layouts', false)) {
-		return (tr: Transaction) => {
-			tr.replaceWith(
-				tr.mapping.map(pos),
-				tr.mapping.map(pos),
-				schema.nodes.layoutColumn.createAndFill() as Node,
-			);
-		};
-	}
-
 	return (tr: Transaction) => {
 		tr.replaceWith(
 			tr.mapping.map(pos),
@@ -280,32 +222,6 @@ function removeLastColumnInLayout(column: Node, columnPos: number, insideRightEd
 	};
 }
 
-const fromTwoColsToThree = addColumn;
-const fromOneColToTwo = addColumn;
-const fromTwoColsToOne = removeLastColumnInLayout;
-const fromThreeColsToTwo = removeLastColumnInLayout;
-const fromOneColToThree = (schema: Schema, pos: number) => {
-	return (tr: Transaction) => {
-		addColumn(schema, pos)(tr);
-		addColumn(schema, pos)(tr);
-	};
-};
-const fromThreeColstoOne = (node: Node, tr: Transaction, insideRightEdgePos: number) => {
-	const thirdColumn = node.content.child(2);
-	fromThreeColsToTwo(
-		thirdColumn,
-		insideRightEdgePos - thirdColumn.nodeSize,
-		insideRightEdgePos,
-	)(tr);
-
-	const secondColumn = node.content.child(1);
-	fromTwoColsToOne(
-		secondColumn,
-		insideRightEdgePos - thirdColumn.nodeSize - secondColumn.nodeSize,
-		insideRightEdgePos,
-	)(tr);
-};
-
 const increaseColumns = (schema: Schema, pos: number, newColumnsNumber = 1) => {
 	return (tr: Transaction) => {
 		for (let i = 0; i < newColumnsNumber; i++) {
@@ -326,53 +242,7 @@ const decreaseColumns = (node: Node, insideRightEdgePos: number, columnsNumberTo
 	};
 };
 
-/**
- * Handles switching from 2 -> 3 cols, or 3 -> 2 cols
- * Switching from 2 -> 3 just adds a new one at the end
- * Switching from 3 -> 2 moves all the content of the third col inside the second before
- * removing it
- */
 function forceColumnStructure(
-	state: EditorState,
-	node: Node,
-	pos: number,
-	presetLayout: PresetLayout,
-): Transaction {
-	const tr = state.tr;
-	const insideRightEdgeOfLayoutSection = pos + node.nodeSize - 1;
-	const numCols = node.childCount;
-
-	// 3 columns -> 2 columns
-	if (TWO_COL_LAYOUTS.indexOf(presetLayout) >= 0 && numCols === 3) {
-		const thirdColumn = node.content.child(2);
-		const columnPos = insideRightEdgeOfLayoutSection - thirdColumn.nodeSize;
-		fromThreeColsToTwo(thirdColumn, columnPos, insideRightEdgeOfLayoutSection)(tr);
-
-		// 2 columns -> 3 columns
-	} else if (THREE_COL_LAYOUTS.indexOf(presetLayout) >= 0 && numCols === 2) {
-		fromTwoColsToThree(state.schema, insideRightEdgeOfLayoutSection)(tr);
-
-		// 2 columns -> 1 column
-	} else if (ONE_COL_LAYOUTS.indexOf(presetLayout) >= 0 && numCols === 2) {
-		const secondColumn = node.content.child(1);
-		const columnPos = insideRightEdgeOfLayoutSection - secondColumn.nodeSize;
-		fromTwoColsToOne(secondColumn, columnPos, insideRightEdgeOfLayoutSection)(tr);
-
-		// 3 columns -> 1 column
-	} else if (ONE_COL_LAYOUTS.indexOf(presetLayout) >= 0 && numCols === 3) {
-		fromThreeColstoOne(node, tr, insideRightEdgeOfLayoutSection);
-
-		// 1 column -> 2 columns
-	} else if (TWO_COL_LAYOUTS.indexOf(presetLayout) >= 0 && numCols === 1) {
-		fromOneColToTwo(state.schema, insideRightEdgeOfLayoutSection)(tr);
-		// 1 column -> 3 columns
-	} else if (THREE_COL_LAYOUTS.indexOf(presetLayout) >= 0 && numCols === 1) {
-		fromOneColToThree(state.schema, insideRightEdgeOfLayoutSection)(tr);
-	}
-	return tr;
-}
-
-function forceColumnStructureNew(
 	state: EditorState,
 	node: Node,
 	pos: number,
@@ -439,10 +309,7 @@ export function forceSectionToPresetLayout(
 	pos: number,
 	presetLayout: PresetLayout,
 ): Transaction {
-	const forceColumnStructureFn = editorExperiment('advanced_layouts', true)
-		? forceColumnStructureNew
-		: forceColumnStructure;
-	let tr = forceColumnStructureFn(state, node, pos, presetLayout);
+	let tr = forceColumnStructure(state, node, pos, presetLayout);
 
 	// save the selection here, since forcing column widths causes a change over the
 	// entire layoutSection, which remaps selection to the end. not remapping here
@@ -501,12 +368,8 @@ export const setPresetLayout =
 	};
 
 function layoutNeedChanges(node: Node): boolean {
-	if (editorExperiment('advanced_layouts', true)) {
-		// Custom widths that sum to 100% are valid and should not be forced back to presets.
-		return !isValidLayoutWidthDistributions(node);
-	}
-
-	return !getPresetLayout(node);
+	// Custom widths that sum to 100% are valid and should not be forced back to presets.
+	return !isValidLayoutWidthDistributions(node);
 }
 
 const getDefaultPresetLayout = (layoutNode: Node): PresetLayout => {
@@ -538,13 +401,7 @@ function getLayoutChange(node: Node, pos: number, schema: Schema): Change | unde
 			return;
 		}
 
-		const presetLayout = editorExperiment('advanced_layouts', true)
-			? getDefaultPresetLayout(node)
-			: node.childCount === 2
-				? 'two_equal'
-				: node.childCount === 3
-					? 'three_equal'
-					: 'single';
+		const presetLayout = getDefaultPresetLayout(node);
 
 		const fixedColumns = columnWidth(node, schema, getWidthsForPreset(presetLayout));
 
@@ -601,13 +458,13 @@ export const fixColumnStructure = (state: EditorState): Transaction | undefined 
 		if (node) {
 			if (node.childCount !== getWidthsForPreset(selectedLayout).length) {
 				// Valid custom widths may use a different column count from the selected preset.
-				if (editorExperiment('advanced_layouts', true) && isValidLayoutWidthDistributions(node)) {
+				if (isValidLayoutWidthDistributions(node)) {
 					return;
 				}
 				return forceSectionToPresetLayout(state, node, pos, selectedLayout);
 			}
 
-			if (!isValidLayoutWidthDistributions(node) && editorExperiment('advanced_layouts', true)) {
+			if (!isValidLayoutWidthDistributions(node)) {
 				return forceSectionToPresetLayout(state, node, pos, selectedLayout);
 			}
 		}
@@ -643,27 +500,6 @@ export const deleteActiveLayoutNode =
 	};
 
 const formatLayoutName = (layout: PresetLayout): LAYOUT_TYPE | undefined => {
-	if (editorExperiment('advanced_layouts', true)) {
-		switch (layout) {
-			case 'single':
-				return LAYOUT_TYPE.SINGLE_COL;
-			case 'two_equal':
-				return LAYOUT_TYPE.TWO_COLS_EQUAL;
-			case 'three_equal':
-				return LAYOUT_TYPE.THREE_COLS_EQUAL;
-			case 'two_left_sidebar':
-				return LAYOUT_TYPE.LEFT_SIDEBAR;
-			case 'two_right_sidebar':
-				return LAYOUT_TYPE.RIGHT_SIDEBAR;
-			case 'three_with_sidebars':
-				return LAYOUT_TYPE.THREE_WITH_SIDEBARS;
-			case 'four_equal':
-				return LAYOUT_TYPE.FOUR_COLS_EQUAL;
-			case 'five_equal':
-				return LAYOUT_TYPE.FIVE_COLS_EQUAL;
-		}
-	}
-
 	switch (layout) {
 		case 'single':
 			return LAYOUT_TYPE.SINGLE_COL;
@@ -677,6 +513,10 @@ const formatLayoutName = (layout: PresetLayout): LAYOUT_TYPE | undefined => {
 			return LAYOUT_TYPE.RIGHT_SIDEBAR;
 		case 'three_with_sidebars':
 			return LAYOUT_TYPE.THREE_WITH_SIDEBARS;
+		case 'four_equal':
+			return LAYOUT_TYPE.FOUR_COLS_EQUAL;
+		case 'five_equal':
+			return LAYOUT_TYPE.FIVE_COLS_EQUAL;
 	}
 };
 
@@ -761,15 +601,6 @@ const mapLayoutColumnPreservedSelection = (tr: Transaction, api: LayoutPluginAPI
 	}
 };
 
-/**
- * Returns the active maximum layout column count for the current advanced layouts experiment state.
- */
-export function getEffectiveMaxLayoutColumns(): number {
-	return editorExperiment('advanced_layouts', true)
-		? MAX_LAYOUT_COLUMNS
-		: MAX_STANDARD_LAYOUT_COLUMNS;
-}
-
 const insertLayoutColumnAt =
 	(
 		side: InsertLayoutColumnSide,
@@ -789,7 +620,7 @@ const insertLayoutColumnAt =
 			selectedLayoutColumnsResult;
 		const selectedColumnIndex = side === 'left' ? startIndex : endIndex;
 		const selectedColumnCount = selectedLayoutColumns.length;
-		if (layoutSectionNode.childCount >= getEffectiveMaxLayoutColumns()) {
+		if (layoutSectionNode.childCount >= MAX_LAYOUT_COLUMNS) {
 			return null;
 		}
 
@@ -798,7 +629,7 @@ const insertLayoutColumnAt =
 		const redistributedWidths = redistributeProportionally(
 			existingWidths,
 			insertIndex,
-			getEffectiveMaxLayoutColumns(),
+			MAX_LAYOUT_COLUMNS,
 			MIN_LAYOUT_COLUMN_WIDTH_PERCENT,
 		);
 		if (redistributedWidths === existingWidths) {

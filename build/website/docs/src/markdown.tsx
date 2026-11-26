@@ -3,6 +3,7 @@ import React from 'react';
 // @ts-ignore - missing types for react-markings
 import defaultMD from 'react-markings';
 import Code from '@atlaskit/code/code';
+import CodeBlock from '@atlaskit/code/code-block';
 
 import { HeadingWithSectionLink } from './heading/heading-with-section-link';
 import { Paragraph } from './paragraph';
@@ -14,6 +15,10 @@ export const md: any = defaultMD.customize({
 	renderers: {
 		// Add a darker background to code elements
 		code: (props: { children: React.ReactNode }) => <Code>{props.children}</Code>,
+		codeBlock: (props: {
+			literal: string;
+			language?: React.ComponentProps<typeof CodeBlock>['language'];
+		}) => <CodeBlock text={props.literal} language={props.language} />,
 		// Note: this will only replace markdown headings using the `#` syntax, not heading elements like <h1>, <h2>, etc.
 		heading: HeadingWithSectionLink,
 		link: MarkdownLink,

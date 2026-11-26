@@ -1,5 +1,14 @@
 # @atlaskit/flag-client
 
+## 1.2.2
+
+### Patch Changes
+
+- [`380c56b8ef8b6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/380c56b8ef8b6) -
+  Import exposure delivery statically instead of with a dynamic `import()`. The dynamic import made
+  bundlers add a chunk manifest that reads `import.meta.url`, which throws a `SyntaxError` in
+  bundles loaded as classic scripts, such as Jira's early entry scripts.
+
 ## 1.2.1
 
 ### Patch Changes

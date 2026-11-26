@@ -1,5 +1,6 @@
 import type { FileIdentifier } from '@atlaskit/media-client/identifier';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import { type MediaFilePreviewErrorInfo } from '../analytics';
 import { generateScriptProps } from './generateScriptProps';
@@ -78,6 +79,20 @@ describe('Media Global Scope', () => {
 			container.appendChild(scriptElement);
 			// The script executes immediately upon being added to the DOM
 		};
+
+		it('keeps preview data inside the SSR script and restores the original key', () => {
+			passGate('platform_media_escape_ssr_preview_data');
+			const file = { ...identifier, id: '</ScRiPt><span></span>$&' };
+			const props = generateScriptProps(file, 'preview');
+			const markup = new DOMParser().parseFromString(
+				`<script>${props.dangerouslySetInnerHTML?.__html}</script>`,
+				'text/html',
+			);
+
+			expect(markup.querySelector('span')).toBeNull();
+			executeScript(markup.scripts[0].text);
+			expect(getMediaCardSSR()[getKey(file)]?.dataURI).toBe('preview');
+		});
 
 		describe('without feature flags', () => {
 			it('should store basic data in global scope', () => {

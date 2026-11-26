@@ -5,7 +5,7 @@ order: 0
 import BadgeDefault from '../../examples/constellation/badge-default';
 import BadgePrimary from '../../examples/constellation/badge-primary';
 import BadgePrimaryInverted from '../../examples/constellation/badge-primary-inverted';
-import BadgeImportant from '../../examples/constellation/badge-important';
+import BadgeNotificationCount from '../../examples/constellation/badge-notification-count';
 import BadgeAdded from '../../examples/constellation/badge-added';
 import BadgeRemoved from '../../examples/constellation/badge-removed';
 import BadgeMaxValue from '../../examples/constellation/badge-max-value';
@@ -31,12 +31,11 @@ Use a `primaryInverted` badge when high contrast against a darker background col
 
 <Example Component={BadgePrimaryInverted} packageName="@atlaskit/badge" backgroundColor="blue" />
 
-### Important
+### Notification count
 
-Use an `important` badge to call attention to information that needs to stand out. For example,
-notifications in Confluence.
+Use `dangerBold` for unread notification counts in the top navigation.
 
-<Example Component={BadgeImportant} packageName="@atlaskit/badge" />
+<Example Component={BadgeNotificationCount} packageName="@atlaskit/badge" />
 
 ### Added
 

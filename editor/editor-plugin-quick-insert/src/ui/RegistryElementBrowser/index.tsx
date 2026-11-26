@@ -18,6 +18,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { RegisterComponent } from '@atlaskit/editor-ui-control-model/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
+import type { QuickInsertMenuAnalytics } from '../../analytics/quick-insert-menu-analytics';
 import { closeElementBrowser } from '../../pm-plugins/commands';
 import { pluginKey } from '../../pm-plugins/plugin-key';
 import type { QuickInsertPlugin } from '../../quickInsertPluginType';
@@ -33,11 +34,13 @@ export const RegistryElementBrowserContainer = ({
 	getRecommendedItems,
 	pluginInjectionAPI,
 	helpUrl,
+	menuAnalytics,
 }: {
 	editorView: EditorView;
 	getItemRank?: RegisteredItemRankResolver;
 	getRecommendedItems?: RecommendedItemsResolver;
 	helpUrl?: string;
+	menuAnalytics?: QuickInsertMenuAnalytics;
 	pluginInjectionAPI: ExtractInjectionAPI<QuickInsertPlugin> | undefined;
 }): React.JSX.Element => {
 	const {
@@ -106,12 +109,19 @@ export const RegistryElementBrowserContainer = ({
 					}),
 				);
 			}
+			menuAnalytics?.fireOpened('element-browser');
 		} else if (!isElementBrowserOpen && wasOpen.current && lifecycleOpen.current) {
 			lifecycleOpen.current = false;
 			fireLifecycleEvent(ACTION.CLOSED);
 		}
 		wasOpen.current = isElementBrowserOpen;
-	}, [currentEmptyStateHandler, fireLifecycleEvent, isElementBrowserOpen, pluginInjectionAPI]);
+	}, [
+		currentEmptyStateHandler,
+		fireLifecycleEvent,
+		isElementBrowserOpen,
+		menuAnalytics,
+		pluginInjectionAPI,
+	]);
 
 	useEffect(
 		() => () => {
@@ -193,6 +203,7 @@ export const RegistryElementBrowserContainer = ({
 			editorView={editorView}
 			isOffline={isOfflineMode(mode)}
 			isOpen={isElementBrowserOpen}
+			menuAnalytics={menuAnalytics}
 			onClearSelection={onClearSelection}
 			onClose={onClose}
 			onCloseComplete={onCloseComplete}

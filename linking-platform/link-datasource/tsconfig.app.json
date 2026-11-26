@@ -3,6 +3,8 @@
 	"include": [
 		"./src/**/*.ts",
 		"./src/**/*.tsx",
+		"./*.docs.tsx",
+		"./package.json",
 		"**/docs/**/*",
 		"**/__tests__/**/*",
 		"**/vr-tests/**/*",
@@ -236,9 +238,6 @@
 		},
 		{
 			"path": "../../design-system/tooltip/tsconfig.app.json"
-		},
-		{
-			"path": "../../design-system/top-layer/tsconfig.app.json"
 		},
 		{
 			"path": "../../data/ufo-external/tsconfig.app.json"

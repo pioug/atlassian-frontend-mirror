@@ -27,6 +27,8 @@
 		"**/codemods/**/*.ts",
 		"**/codemods/**/*.tsx",
 		"./src/common/__mocks__/**/*",
+		"./*.docs.tsx",
+		"./package.json",
 		"**/stories.ts",
 		"**/stories.tsx",
 		"**/stories/*.ts",

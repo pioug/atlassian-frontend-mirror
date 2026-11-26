@@ -1,5 +1,25 @@
 # @atlaskit/link-datasource
 
+## 7.17.0
+
+### Minor Changes
+
+- [`bbaf4606a0e96`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/bbaf4606a0e96) -
+  Update i18n NPM package versions for linking-platform,smart-experiences (Group 15)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.16.2
+
+### Patch Changes
+
+- [`d2d28a9303775`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d2d28a9303775) -
+  Behind `platform-dst-top-layer`, Escape cancels a table cell edit again, and the inline edit keeps
+  a modal around it open.
+- Updated dependencies
+
 ## 7.16.1
 
 ### Patch Changes

@@ -14,13 +14,9 @@ import {
 	type DeletedBlockNodeCategory,
 	type InsertedBlockNodeShape,
 } from './colorSchemes/factory';
-import { colorSchemeRegistry, getLegacyColorScheme } from './colorSchemes/schemes';
+import { colorSchemeRegistry } from './colorSchemes/schemes';
 import type { ColorScheme } from './colorSchemes/types';
 import { createBlockIndicatorAnchorWidgets } from './createAnchorDecorationWidgets';
-import {
-	getBlockNodeStyleLegacy,
-	resolveCellOverlayStyleLegacy,
-} from './createBlockChangedDecoration.styles.legacy';
 import {
 	type ContributorTagMountContext,
 	createContributorTagWidget,
@@ -124,7 +120,7 @@ const getNodeClass = (name: string) => {
 	}
 };
 
-const getBlockNodeStyleNext = ({
+const getBlockNodeStyle = ({
 	nodeName,
 	colorScheme,
 	isInserted = true,
@@ -150,25 +146,6 @@ const getBlockNodeStyleNext = ({
 	}
 
 	return buildInsertedBlockNodeStyle(colors, getInsertedBlockNodeShape(nodeName), isActive);
-};
-
-/**
- * Dispatches to the registry-driven implementation, or to the verbatim pre-refactor one for the
- * OFF cohort of `platform_editor_show_diff_color_scheme_refactor`. Both are built to emit the
- * same style strings for both shipped schemes; see EDITOR-8281.
- */
-const getBlockNodeStyle = (props: {
-	colorScheme?: ColorScheme;
-	isActive?: boolean;
-	isInserted?: boolean;
-	nodeName: string;
-}): string | undefined => {
-	return isExperimentEnabled('platform_editor_show_diff_color_scheme_refactor')
-		? getBlockNodeStyleNext(props)
-		: getBlockNodeStyleLegacy({
-				...props,
-				colorScheme: getLegacyColorScheme(props.colorScheme),
-			});
 };
 
 /**
@@ -271,19 +248,13 @@ export const createBlockChangedDecoration = ({
 		const isEmptyCellBeingFilled = !isInserted && !!cellNode && isCellEmpty(cellNode);
 		const useAddedStyle = isInserted || isEmptyCellBeingFilled;
 
-		const cellOverlayStyle = isExperimentEnabled('platform_editor_show_diff_color_scheme_refactor')
-			? useAddedStyle
-				? isRoundedTable
-					? buildAddedCellOverlayRoundedStyle(colors)
-					: buildAddedCellOverlayStyle(colors)
-				: isRoundedTable
-					? buildDeletedCellOverlayRoundedStyle(colors)
-					: buildDeletedCellOverlayStyle(colors)
-			: resolveCellOverlayStyleLegacy({
-					colorScheme: getLegacyColorScheme(colorScheme),
-					isRoundedTable,
-					useAddedStyle,
-				});
+		const cellOverlayStyle = useAddedStyle
+			? isRoundedTable
+				? buildAddedCellOverlayRoundedStyle(colors)
+				: buildAddedCellOverlayStyle(colors)
+			: isRoundedTable
+				? buildDeletedCellOverlayRoundedStyle(colors)
+				: buildDeletedCellOverlayStyle(colors);
 
 		cellOverlay.setAttribute('style', cellOverlayStyle);
 		decorations.push(

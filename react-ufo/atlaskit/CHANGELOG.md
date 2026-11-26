@@ -1,5 +1,24 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 8.5.3
+
+### Patch Changes
+
+- [`425b0ad6d7eac`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/425b0ad6d7eac) -
+  Clean up `platform_ufo_press_custom_data` feature gate. `traceUFOPress` now always attaches
+  optional `customData` to newly sampled interactions (FFCLEANUP-258375).
+- [`ac8839c109154`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ac8839c109154) -
+  Honor an explicitly empty client-side visual completion revision list so products can rely on
+  server-side TTVC while continuing to emit raw observations.
+
+## 8.5.2
+
+### Patch Changes
+
+- [`4c21625132a04`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/4c21625132a04) -
+  Cleanup `feature_gate` `platform_ufo_keypress_interaction_abort`. Keydown events now always abort
+  VC measurement, including during press interactions (the experiment was not shipped).
+
 ## 8.5.1
 
 ### Patch Changes

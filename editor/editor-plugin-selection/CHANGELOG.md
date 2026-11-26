@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-selection
 
+## 34.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 34.0.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 34.0.6
+
+### Patch Changes
+
+- [`7f9e08011498e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7f9e08011498e) -
+  Clean up experiment `advanced_layouts` (`platform_editor_advanced_layouts`) in layout, editor-core
+  and selection
+- Updated dependencies
+
+## 34.0.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 34.0.4
 
 ### Patch Changes

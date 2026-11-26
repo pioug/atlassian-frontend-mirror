@@ -335,174 +335,32 @@ describe('VCObserverNew', () => {
 			});
 		});
 
-		describe('platform_ufo_keypress_interaction_abort feature flag', () => {
-			it('should not add keydown events to timeline when flag is enabled and active interaction is press', () => {
-				(fg as jest.Mock).mockImplementation((flag: string) => {
-					return flag === 'platform_ufo_keypress_interaction_abort';
-				});
-				(getActiveInteraction as jest.Mock).mockReturnValue({
-					type: 'press',
-					ufoName: 'test-press-interaction',
-				});
-
-				// Create a new observer instance to get fresh callback
-				new VCObserverNew({});
-				const onEventCallback = (WindowEventObserver as jest.Mock).mock.calls[
-					(WindowEventObserver as jest.Mock).mock.calls.length - 1
-				][0].onEvent;
-
-				// Clear previous calls
-				mockEntriesTimeline.push.mockClear();
-
-				onEventCallback({
-					time: 100,
-					type: 'keydown',
-				});
-
-				// Should not add keydown event to timeline when press interaction is active
-				expect(mockEntriesTimeline.push).not.toHaveBeenCalled();
+		it('should add keydown events to timeline even when the active interaction is press', () => {
+			(getActiveInteraction as jest.Mock).mockReturnValue({
+				type: 'press',
+				ufoName: 'test-press-interaction',
 			});
 
-			it('should add keydown events to timeline when flag is enabled but active interaction is not press', () => {
-				(fg as jest.Mock).mockImplementation((flag: string) => {
-					return flag === 'platform_ufo_keypress_interaction_abort';
-				});
-				(getActiveInteraction as jest.Mock).mockReturnValue({
-					type: 'page_load',
-					ufoName: 'test-page-load',
-				});
+			// Create a new observer instance to get fresh callback
+			new VCObserverNew({});
+			const onEventCallback = (WindowEventObserver as jest.Mock).mock.calls[
+				(WindowEventObserver as jest.Mock).mock.calls.length - 1
+			][0].onEvent;
 
-				// Create a new observer instance to get fresh callback
-				new VCObserverNew({});
-				const onEventCallback = (WindowEventObserver as jest.Mock).mock.calls[
-					(WindowEventObserver as jest.Mock).mock.calls.length - 1
-				][0].onEvent;
+			// Clear previous calls
+			mockEntriesTimeline.push.mockClear();
 
-				// Clear previous calls
-				mockEntriesTimeline.push.mockClear();
-
-				onEventCallback({
-					time: 100,
-					type: 'keydown',
-				});
-
-				// Should add keydown event to timeline when interaction is not press
-				expect(mockEntriesTimeline.push).toHaveBeenCalledWith({
-					time: 100,
-					data: {
-						type: 'window:event',
-						eventType: 'keydown',
-					},
-				});
+			onEventCallback({
+				time: 100,
+				type: 'keydown',
 			});
 
-			it('should add keydown events to timeline when flag is disabled', () => {
-				(fg as jest.Mock).mockReturnValue(false);
-				(getActiveInteraction as jest.Mock).mockReturnValue({
-					type: 'press',
-					ufoName: 'test-press-interaction',
-				});
-
-				// Create a new observer instance to get fresh callback
-				new VCObserverNew({});
-				const onEventCallback = (WindowEventObserver as jest.Mock).mock.calls[
-					(WindowEventObserver as jest.Mock).mock.calls.length - 1
-				][0].onEvent;
-
-				// Clear previous calls
-				mockEntriesTimeline.push.mockClear();
-
-				onEventCallback({
-					time: 100,
-					type: 'keydown',
-				});
-
-				// Should add keydown event to timeline when flag is disabled
-				expect(mockEntriesTimeline.push).toHaveBeenCalledWith({
-					time: 100,
-					data: {
-						type: 'window:event',
-						eventType: 'keydown',
-					},
-				});
-			});
-
-			it('should add keydown events to timeline when flag is enabled but no active interaction exists', () => {
-				(fg as jest.Mock).mockImplementation((flag: string) => {
-					return flag === 'platform_ufo_keypress_interaction_abort';
-				});
-				(getActiveInteraction as jest.Mock).mockReturnValue(undefined);
-
-				// Create a new observer instance to get fresh callback
-				new VCObserverNew({});
-				const onEventCallback = (WindowEventObserver as jest.Mock).mock.calls[
-					(WindowEventObserver as jest.Mock).mock.calls.length - 1
-				][0].onEvent;
-
-				// Clear previous calls
-				mockEntriesTimeline.push.mockClear();
-
-				onEventCallback({
-					time: 100,
-					type: 'keydown',
-				});
-
-				// Should add keydown event to timeline when no active interaction exists
-				expect(mockEntriesTimeline.push).toHaveBeenCalledWith({
-					time: 100,
-					data: {
-						type: 'window:event',
-						eventType: 'keydown',
-					},
-				});
-			});
-
-			it('should add non-keydown events to timeline regardless of flag and interaction type', () => {
-				(fg as jest.Mock).mockImplementation((flag: string) => {
-					return flag === 'platform_ufo_keypress_interaction_abort';
-				});
-				(getActiveInteraction as jest.Mock).mockReturnValue({
-					type: 'press',
-					ufoName: 'test-press-interaction',
-				});
-
-				// Create a new observer instance to get fresh callback
-				new VCObserverNew({});
-				const onEventCallback = (WindowEventObserver as jest.Mock).mock.calls[
-					(WindowEventObserver as jest.Mock).mock.calls.length - 1
-				][0].onEvent;
-
-				// Clear previous calls
-				mockEntriesTimeline.push.mockClear();
-
-				// Test other event types (wheel, resize, scroll)
-				onEventCallback({
-					time: 100,
-					type: 'wheel',
-				});
-
-				expect(mockEntriesTimeline.push).toHaveBeenCalledWith({
-					time: 100,
-					data: {
-						type: 'window:event',
-						eventType: 'wheel',
-					},
-				});
-
-				mockEntriesTimeline.push.mockClear();
-
-				onEventCallback({
-					time: 200,
-					type: 'resize',
-				});
-
-				expect(mockEntriesTimeline.push).toHaveBeenCalledWith({
-					time: 200,
-					data: {
-						type: 'window:event',
-						eventType: 'resize',
-					},
-				});
+			expect(mockEntriesTimeline.push).toHaveBeenCalledWith({
+				time: 100,
+				data: {
+					type: 'window:event',
+					eventType: 'keydown',
+				},
 			});
 		});
 	});
@@ -781,11 +639,8 @@ describe('VCObserverNew', () => {
 			expect(result.find((r) => r.revision === 'fy25.03')).toBeDefined();
 		});
 
-		it('should always include raw data when fy26.04 is not enabled', async () => {
-			// Only enable fy25.03
-			(isVCRevisionEnabled as jest.Mock).mockImplementation((revision: string) => {
-				return revision === 'fy25.03';
-			});
+		it('should emit raw data when no client-side revisions are enabled', async () => {
+			(isVCRevisionEnabled as jest.Mock).mockReturnValue(false);
 
 			const result = await vcObserver.getVCResult({
 				start: 0,
@@ -797,7 +652,7 @@ describe('VCObserverNew', () => {
 			});
 
 			expect(RawDataHandler.prototype.getRawData).toHaveBeenCalled();
-			expect(result.find((r) => r.revision === 'raw-handler')).toBeDefined();
+			expect(result.map(({ revision }) => revision)).toEqual(['raw-handler']);
 		});
 
 		it('should include raw data even when fy26.04 is enabled and includeRawData is false', async () => {

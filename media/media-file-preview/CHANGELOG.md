@@ -1,5 +1,14 @@
 # @atlaskit/media-file-preview
 
+## 2.0.3
+
+### Patch Changes
+
+- [`f54bfa35532ec`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f54bfa35532ec) -
+  Escape preview data embedded in server-rendered scripts behind
+  `platform_media_escape_ssr_preview_data`.
+- Updated dependencies
+
 ## 2.0.2
 
 ### Patch Changes

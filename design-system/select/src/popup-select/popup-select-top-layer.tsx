@@ -98,7 +98,7 @@ function PopupSelectTopLayerInner<
 		label,
 		placeholder,
 		testId,
-		isOpen: controlledIsOpen,
+		isOpen: isOpenProp,
 		defaultIsOpen,
 		spacing: _spacing,
 		options = [],
@@ -128,12 +128,21 @@ function PopupSelectTopLayerInner<
 	forwardedRef: ForwardedRef<PopupSelectHandle>,
 ): ReactNode {
 	// State.
-	const isControlled = controlledIsOpen !== undefined;
-	const [internalIsOpen, setInternalIsOpen] = useState(
-		isControlled ? Boolean(controlledIsOpen) : Boolean(defaultIsOpen),
-	);
-
-	const isOpen = isControlled ? Boolean(controlledIsOpen) : internalIsOpen;
+	// As on the legacy path, whether `isOpen` is controlled is decided once, at mount, and a new
+	// `true` or `false` is copied into the open state (a new `undefined` keeps it). A controlled
+	// popup does not close itself: an outside press and Escape ask through `onClose`, and a pick and
+	// Tab leave it to the consumer (for example a multi-value picker stays open). A consumer that
+	// passes `isOpen` only while open is not controlled: a pick, Tab, Escape and an outside press
+	// close it.
+	const [isControlledAtMount] = useState(isOpenProp !== undefined);
+	const [isOpen, setIsOpen] = useState(isOpenProp ?? Boolean(defaultIsOpen));
+	const [lastIsOpenProp, setLastIsOpenProp] = useState(isOpenProp);
+	if (isOpenProp !== lastIsOpenProp) {
+		setLastIsOpenProp(isOpenProp);
+		if (isOpenProp !== undefined) {
+			setIsOpen(isOpenProp);
+		}
+	}
 
 	const selectRef = useRef<AtlaskitSelectRefType | null>(null);
 	const triggerRef = useRef<HTMLElement | null>(null);
@@ -217,20 +226,20 @@ function PopupSelectTopLayerInner<
 
 	// Open / Close.
 	const open = useCallback(() => {
-		if (!isControlled) {
-			setInternalIsOpen(true);
+		if (!isControlledAtMount) {
+			setIsOpen(true);
 		}
 		onOpen?.();
 		onMenuOpen?.();
-	}, [isControlled, onOpen, onMenuOpen]);
+	}, [isControlledAtMount, onOpen, onMenuOpen]);
 
 	const close = useCallback(() => {
-		if (!isControlled) {
-			setInternalIsOpen(false);
+		if (!isControlledAtMount) {
+			setIsOpen(false);
 		}
 		onClose?.();
 		onMenuClose?.();
-	}, [isControlled, onClose, onMenuClose]);
+	}, [isControlledAtMount, onClose, onMenuClose]);
 
 	/**
 	 * For backwards compatibility
@@ -253,21 +262,21 @@ function PopupSelectTopLayerInner<
 		[close, open],
 	);
 
-	// Sync controlled isOpen.
+	// Call the open or close callbacks when `isOpen` is `true` or `false` (at mount, and on a change).
 	useEffect(() => {
-		if (!isControlled) {
+		if (isOpenProp === undefined) {
 			return;
 		}
-		if (controlledIsOpen) {
+		if (isOpenProp) {
 			onOpen?.();
 			onMenuOpen?.();
 		} else {
 			onClose?.();
 			onMenuClose?.();
 		}
-		// Only react to changes in the controlled value
+		// Only react to changes in the `isOpen` prop
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [controlledIsOpen]);
+	}, [isOpenProp]);
 
 	// Open the react-select menu when isOpen becomes true.
 	useEffect(() => {
@@ -320,7 +329,7 @@ function PopupSelectTopLayerInner<
 	// where the user pressed.
 	const handleOnClose = useCallback(
 		(_args: { reason: TPopoverCloseReason }) => {
-			if (isControlled) {
+			if (isControlledAtMount) {
 				// For controlled mode, notify consumer but do not change internal state
 				onClose?.();
 				onMenuClose?.();
@@ -328,7 +337,7 @@ function PopupSelectTopLayerInner<
 			}
 			close();
 		},
-		[close, isControlled, onClose, onMenuClose],
+		[close, isControlledAtMount, onClose, onMenuClose],
 	);
 
 	/**
@@ -347,28 +356,51 @@ function PopupSelectTopLayerInner<
 		onClose: handleOnClose,
 	});
 
+	// Counts the picks that leave a controlled popup to the consumer. It changes in the same commit as
+	// the consumer's answer, so the effect below sees whether `onChange` closed the popup.
+	const [controlledPickCount, setControlledPickCount] = useState(0);
+
 	const handleSelectChange = useCallback(
 		(value: ValueType<Option, IsMulti>, actionMeta: ActionMeta<Option>) => {
 			if (closeMenuOnSelect && actionMeta.action !== 'clear') {
-				close();
-				// Return focus to trigger after selection
-				triggerRef.current?.focus();
+				if (isControlledAtMount) {
+					setControlledPickCount((count) => count + 1);
+				} else {
+					close();
+					// Return focus to trigger after selection
+					triggerRef.current?.focus();
+				}
 			}
 			onChange?.(value, actionMeta);
 		},
-		[closeMenuOnSelect, close, onChange],
+		[closeMenuOnSelect, close, onChange, isControlledAtMount],
 	);
+
+	// When `onChange` closes a controlled popup, focus goes to the trigger, as after an uncontrolled
+	// pick and on the legacy path. The `Popover` focus return is not enough: on a touch-capable device
+	// `react-select` blurs the input on a pick, so no focus is left in the popup. Only the commit of a
+	// pick acts, so a later close (for example an outside press) moves no focus.
+	const handledPickCountRef = useRef(0);
+	useEffect(() => {
+		if (controlledPickCount === handledPickCountRef.current) {
+			return;
+		}
+		handledPickCountRef.current = controlledPickCount;
+		if (!isOpen) {
+			triggerRef.current?.focus();
+		}
+	}, [controlledPickCount, isOpen]);
 
 	const handleKeyDown: KeyboardEventHandler<HTMLDivElement> = useCallback(
 		(event) => {
 			const tabEvent = event.key === 'Tab';
-			if (shouldCloseMenuOnTab && tabEvent) {
+			if (shouldCloseMenuOnTab && tabEvent && !isControlledAtMount) {
 				close();
 				triggerRef.current?.focus();
 			}
 			onKeyDown?.(event);
 		},
-		[shouldCloseMenuOnTab, close, onKeyDown],
+		[shouldCloseMenuOnTab, close, onKeyDown, isControlledAtMount],
 	);
 
 	// Select components.

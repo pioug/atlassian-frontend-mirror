@@ -399,7 +399,6 @@ export function OneClickChatSpotlight({
 						<PositionUpdateContext.Provider value={positionUpdate}>
 							<SpotlightOpenContext.Provider value={hasPermission}>
 								<Popup
-									mode="manual"
 									popupComponent={SpotlightSurface}
 									shouldFitViewport
 									isOpen={hasPermission}

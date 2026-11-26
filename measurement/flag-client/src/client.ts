@@ -204,9 +204,10 @@ export class FlagClient {
 	/**
 	 * The sink for an enabled client.
 	 *
-	 * The delivery subsystem is loaded on demand, so it is normally still arriving while the first
-	 * flags are read. Until it arrives those exposures are buffered and then replayed into it, so a
-	 * read on the critical path logs the same exposure an eagerly loaded subsystem would have logged.
+	 * The delivery subsystem becomes ready asynchronously (exposure hashing initializes first), so it
+	 * is normally not ready while the first flags are read. Until it is, those exposures are buffered
+	 * and then replayed into it, so a read on the critical path logs the same exposure a ready
+	 * subsystem would have logged.
 	 * A subsystem that fails to load leaves the client logging nothing, as a host that cannot run
 	 * delivery does.
 	 */

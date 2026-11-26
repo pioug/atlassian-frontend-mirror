@@ -1,5 +1,35 @@
 # @atlaskit/select
 
+## 23.3.2
+
+### Patch Changes
+
+- [`2c2a9bb7ede88`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/2c2a9bb7ede88) -
+  Behind `platform-dst-top-layer`, a pick and Escape close a `PopupSelect` that gets `isOpen` only
+  while open.
+- Updated dependencies
+
+## 23.3.1
+
+### Patch Changes
+
+- [`1647b27fd9c02`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1647b27fd9c02) -
+  Behind `platform-dst-top-layer`, a pick and Tab no longer close a `PopupSelect` with a controlled
+  `isOpen`, as on the legacy path.
+- Updated dependencies
+
+## 23.3.0
+
+### Minor Changes
+
+- [`f1623e52268a3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f1623e52268a3) -
+  Add the optional shouldFocusOptionOnOpen prop. Setting it to false keeps the search input active
+  while showing options, until the user interacts. Existing option focus remains the default.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 23.2.7
 
 ### Patch Changes

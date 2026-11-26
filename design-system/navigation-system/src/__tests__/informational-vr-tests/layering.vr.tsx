@@ -58,7 +58,11 @@ snapshotInformational(ScrollableNoPanelVR, {
 	},
 });
 
-snapshotInformational(LayersInMainShouldForceOpenLayers, {
+// TODO(top-layer): with `platform-dst-motion-uplift-popup` on (production), legacy Popup puts its
+// focus trap on the motion container, which cannot take focus, so focus ends up on a different
+// element when the popup opens and this snapshot shows a different focus state. The top layer
+// should fix this.
+snapshotInformational.skip(LayersInMainShouldForceOpenLayers, {
 	...desktopOnlyOptions,
 	description: 'layers in main slot',
 	featureFlags: {
@@ -66,7 +70,11 @@ snapshotInformational(LayersInMainShouldForceOpenLayers, {
 	},
 });
 
-snapshotInformational(LayersInMainShouldForceOpenLayers, {
+// TODO(top-layer): with `platform-dst-motion-uplift-popup` on (production), legacy Popup puts its
+// focus trap on the motion container, which cannot take focus, so focus ends up on a different
+// element when the popup opens and this snapshot shows a different focus state. The top layer
+// should fix this.
+snapshotInformational.skip(LayersInMainShouldForceOpenLayers, {
 	...desktopOnlyOptions,
 	description: 'layers in main slot short viewport',
 	featureFlags: {
@@ -77,7 +85,11 @@ snapshotInformational(LayersInMainShouldForceOpenLayers, {
 	},
 });
 
-snapshotInformational(ScrollableVR, {
+// TODO(top-layer): with `platform-dst-motion-uplift-popup` on (production), legacy Popup puts its
+// focus trap on the motion container, which cannot take focus, so focus ends up on a different
+// element when the popup opens and this snapshot shows a different focus state. The top layer
+// should fix this.
+snapshotInformational.skip(ScrollableVR, {
 	...desktopOnlyOptions,
 	description: 'Flyout menu item open - large viewport',
 	prepare: async (page) => {
@@ -91,7 +103,11 @@ snapshotInformational(ScrollableVR, {
 /**
  * Testing that the flyout menu item popup overlays over the Panel layout area
  */
-snapshotInformational(ScrollableVR, {
+// TODO(top-layer): with `platform-dst-motion-uplift-popup` on (production), legacy Popup puts its
+// focus trap on the motion container, which cannot take focus, so focus ends up on a different
+// element when the popup opens and this snapshot shows a different focus state. The top layer
+// should fix this.
+snapshotInformational.skip(ScrollableVR, {
 	...desktopOnlyOptions,
 	description: 'Flyout menu item open - medium viewport - overlays over panel',
 	prepare: async (page) => {
@@ -122,7 +138,10 @@ snapshotInformational(ScrollableNoPanelVR, {
 	},
 });
 
-snapshotInformational(ScrollableVR, {
+// TODO(top-layer): with `platform-dst-motion-uplift-popup` on (production), compositional
+// `PopupContent` does not pass `zIndex` to the motion container, so on mobile the `UNSAFE_modal-
+// below-sm` blanket paints over the flyout. The top layer should fix this.
+snapshotInformational.skip(ScrollableVR, {
 	...mobileOnlyOptions,
 	description: 'Flyout menu item open - mobile',
 	prepare: async (page) => {

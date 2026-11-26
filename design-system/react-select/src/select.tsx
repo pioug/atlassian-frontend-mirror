@@ -557,6 +557,13 @@ export interface SelectProps<Option, IsMulti extends boolean, Group extends Grou
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	openMenuOnClick: boolean;
 	/**
+	 * Whether opening the menu makes an option active. Defaults to true.
+	 * Set to false to keep focus on the search input with the list visible and no active
+	 * option until typing, keyboard navigation, or pointer interaction. Option updates alone
+	 * do not activate an option. This does not control DOM focus or menu visibility.
+	 */
+	shouldFocusOptionOnOpen?: boolean;
+	/**
 	 * Prevents "Escape" keydown event propagation
 	 *
 	 * This prop does nothing when `platform-dst-top-layer` is on. There, an open menu is its own
@@ -708,6 +715,7 @@ export const defaultProps: Omit<
 	noOptionsMessage: () => 'No options',
 	openMenuOnFocus: false,
 	openMenuOnClick: true,
+	shouldFocusOptionOnOpen: true,
 	shouldPreventEscapePropagation: false,
 	options: [],
 	pageSize: 5,
@@ -1113,7 +1121,10 @@ export default class Select<
 			const focusableOptionsWithIds: FocusableOptionWithId<Option>[] =
 				this.getFocusableOptionsWithIds();
 			const focusableOptions = this.buildFocusableOptions();
-			const optionIndex = focusableOptions.indexOf(this.state.selectValue[0]);
+			const optionIndex =
+				props.shouldFocusOptionOnOpen !== false
+					? focusableOptions.indexOf(this.state.selectValue[0])
+					: -1;
 			this.state.focusableOptionsWithIds = focusableOptionsWithIds;
 			this.state.focusedOption = focusableOptions[optionIndex];
 			this.state.focusedOptionId = getFocusedOptionId(
@@ -1188,7 +1199,11 @@ export default class Select<
 				: [];
 
 			const focusedValue = clearFocusValueOnUpdate ? getNextFocusedValue(state, selectValue) : null;
-			const focusedOption = getNextFocusedOption(state, focusableOptions);
+			const keepInputFocus =
+				props.shouldFocusOptionOnOpen === false &&
+				!state.focusedOption &&
+				inputValue === prevProps.inputValue;
+			const focusedOption = keepInputFocus ? null : getNextFocusedOption(state, focusableOptions);
 			const focusedOptionId = getFocusedOptionId(focusableOptionsWithIds, focusedOption);
 
 			newMenuOptionsState = {
@@ -1493,7 +1508,8 @@ export default class Select<
 			}
 		}
 
-		const focusedOption = focusableOptions[openAtIndex];
+		const focusedOption =
+			this.props.shouldFocusOptionOnOpen !== false ? focusableOptions[openAtIndex] : null;
 
 		// only scroll if the menu isn't already open
 		// A closing top-layer menu still has its list, but it is not open, so it scrolls.
@@ -1504,7 +1520,7 @@ export default class Select<
 				inputIsHiddenAfterUpdate: false,
 				focusedValue: null,
 				focusedOption: focusedOption,
-				focusedOptionId: this.getFocusedOptionId(focusedOption),
+				focusedOptionId: focusedOption ? this.getFocusedOptionId(focusedOption) : null,
 			},
 			() => this.onMenuOpen(),
 		);
@@ -2386,8 +2402,12 @@ export default class Select<
 						return;
 					}
 
-					if (isClearable && escapeClearsValue) {
+					// Clearing the value is the action for this Escape, so the Select consumes it, and a layer
+					// around it (for example an inline edit or a modal) stays open. With no value there is
+					// nothing to clear, so the Escape goes on.
+					if (isClearable && escapeClearsValue && this.hasValue()) {
 						this.clearValue();
+						event.preventDefault();
 						return;
 					}
 
@@ -2496,9 +2516,7 @@ export default class Select<
 
 		// aria attributes makes the JSX "noisy", separated for clarity
 		const ariaAttributes = {
-			...(!this.props.isSearchable && fg('platform_fix_autocomplete_aria_for_select')
-				? {}
-				: { 'aria-autocomplete': 'both' as const }),
+			...(!this.props.isSearchable ? {} : { 'aria-autocomplete': 'both' as const }),
 			'aria-errormessage': this.props['aria-errormessage'],
 			'aria-expanded': menuIsOpen,
 			// TODO: aria-haspopup is implied as listbox with role="combobox" and was deprecated for aria 1.2, we still might need to keep it for back compat

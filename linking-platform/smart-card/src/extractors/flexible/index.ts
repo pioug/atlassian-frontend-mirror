@@ -60,6 +60,7 @@ const extractFlexibleUiContext = ({
 	product,
 	resolve,
 	rovoConfig,
+	remix,
 	actionOptions,
 	response,
 	status,
@@ -89,6 +90,7 @@ const extractFlexibleUiContext = ({
 			origin,
 			product,
 			rovoConfig,
+			...(fg('platform_sl_3p_auth_visualize_killswitch') ? { remix } : undefined),
 			response,
 			url: props.url, // Use the original URL in edge cases, such as short links for AI summary and copy link actions.
 			isPreviewPanelAvailable,

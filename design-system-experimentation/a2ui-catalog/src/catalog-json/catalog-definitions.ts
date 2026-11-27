@@ -36,7 +36,7 @@ const COMMON_INSTRUCTIONS =
 	'Send A2UI v0.9 messages, each with "version": "v0.9". Start with createSurface using this catalogId, then send updateComponents with a flat list of components. Each component needs a unique id and a component name from this catalog; reference children by id. Exactly one component must have the id "root". Use data bindings ({ "path": "/json/pointer" }) for values the user can change, and send updateDataModel to set initial values.';
 
 const FORGE_INSTRUCTIONS =
-	'Send A2UI v0.9 messages, each with "version": "v0.9". Start with createSurface using this catalogId, then send updateComponents. This catalog contains only ResultPanel and is not a superset of the ADS catalog. ResultPanel is a completed result: set id to "root", component to "ResultPanel", and provide title and summary as literal strings. summary keeps authored line breaks. Do not use data-binding path objects, updateDataModel, child component ids, or action props.';
+	'Send A2UI v0.9 messages, each with "version": "v0.9". Start with createSurface using this catalogId, then send updateComponents. This catalog contains ResultPanel and MultipleChoice. It is not a superset of the ADS catalog. ResultPanel is a completed result: set component to "ResultPanel" and provide title and summary as literal strings. summary keeps authored line breaks. Do not add actions, data-binding path objects, or child component ids to ResultPanel. MultipleChoice chooses one or more options. Set options to an array of { label, value }. Set value to a string array or a { "path": "/json/pointer" } binding; the renderer writes the selected values back to that path. style is "select" (default) or "action". Use updateDataModel to seed a bound MultipleChoice value. Do not invent other component names.';
 
 export const CATALOG_DEFINITIONS: ReadonlyArray<CatalogDefinition> = [
 	{
@@ -63,7 +63,7 @@ export const CATALOG_DEFINITIONS: ReadonlyArray<CatalogDefinition> = [
 		title: 'Atlassian Agentic Forge A2UI catalog',
 		isPrivate: true,
 		description:
-			'A dedicated Forge result surface. ResultPanel shows a completed result from a literal title and summary. It is not a superset of the ADS catalog.',
+			'A dedicated Forge catalog. ResultPanel shows a completed result from a literal title and summary. MultipleChoice selects one or more options. It is not a superset of the ADS catalog.',
 		instructions: FORGE_INSTRUCTIONS,
 		components: AGENTIC_FORGE_CATALOG_COMPONENT_APIS,
 	},

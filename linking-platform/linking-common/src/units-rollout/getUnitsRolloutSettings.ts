@@ -1,11 +1,13 @@
 /**
  * Reads where the current organisation is in the units migration from AGG.
  *
- * It takes two queries, because the settings are keyed by org id and the browser only knows the
- * host it is served from: first resolve the host to an org id, then read that org's unit settings.
+ * First resolve the current host to an org id, using a caller-supplied org id as a fallback for
+ * unsited apps, then read that org's unit settings.
  *
  * Only `shouldUseUnitCompliantApi` should need this - see that file for how the result is used.
  */
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
 import { request } from '../api';
 import { cache } from './cache';
 import { type UnitsRolloutSettings } from './types';
@@ -22,8 +24,8 @@ const TENANT_CONTEXT_OPERATION_NAME = 'link_datasource_tenantContext';
 const UNITS_ROLLOUT_SETTINGS_OPERATION_NAME = 'link_datasource_unitSettings';
 
 /**
- * `Query.admin_unitSettings` is keyed by org id, which the browser does not know, so the org id
- * is resolved from the host the product is currently served from.
+ * `Query.admin_unitSettings` is keyed by org id, so we first try to resolve it from the host the
+ * product is currently served from.
  */
 const tenantContextQuery: string = `
 	query ${TENANT_CONTEXT_OPERATION_NAME}($hostNames: [String!]) {
@@ -100,30 +102,36 @@ const requestGraphQL = async <TData>(
 	return response?.data ?? undefined;
 };
 
-const fetchOrgId = async (): Promise<string | undefined> => {
+const fetchOrgId = async (fallbackOrgId?: string): Promise<string | undefined> => {
 	const hostName = typeof window !== 'undefined' ? window.location?.hostname : undefined;
 
 	if (!hostName) {
-		return undefined;
+		return fallbackOrgId;
 	}
 
-	const data = await requestGraphQL<TenantContextData>(
-		TENANT_CONTEXT_OPERATION_NAME,
-		tenantContextQuery,
-		{ hostNames: [hostName] },
-	);
+	try {
+		const data = await requestGraphQL<TenantContextData>(
+			TENANT_CONTEXT_OPERATION_NAME,
+			tenantContextQuery,
+			{ hostNames: [hostName] },
+		);
 
-	for (const tenantContext of data?.tenantContexts ?? []) {
-		if (tenantContext?.orgId) {
-			return tenantContext.orgId;
+		for (const tenantContext of data?.tenantContexts ?? []) {
+			if (tenantContext?.orgId) {
+				return tenantContext.orgId;
+			}
+		}
+	} catch (error) {
+		if (!fallbackOrgId) {
+			throw error;
 		}
 	}
 
-	return undefined;
+	return fallbackOrgId;
 };
 
-const fetchUnitsRolloutSettings = async (): Promise<UnitsRolloutSettings> => {
-	const orgId = await fetchOrgId();
+const fetchUnitsRolloutSettings = async (fallbackOrgId?: string): Promise<UnitsRolloutSettings> => {
+	const orgId = await fetchOrgId(fallbackOrgId);
 
 	if (!orgId) {
 		return DEFAULT_SETTINGS;
@@ -147,17 +155,29 @@ const fetchUnitsRolloutSettings = async (): Promise<UnitsRolloutSettings> => {
  * Reads the org's units rollout settings (`boundaryEnforced` and `endUsersLaunched`) from the
  * TCS key exposed by AGG's `Query.admin_unitSettings`.
  *
- * The result is cached for the lifetime of the page because the settings only change when an
- * admin activates or launches units, which requires a reload to be picked up anyway. A failed
- * request is not cached so that a later call can retry.
+ * The hostname takes precedence over `fallbackOrgId`. If neither resolves an org, the default
+ * settings are returned. The fallback is only used when `linking_platform_units_org_id_fallback`
+ * is enabled; otherwise the existing hostname-only behavior is preserved. Results are cached per
+ * enabled fallback org id for the lifetime of the page; a failed settings request is not cached
+ * so that a later call can retry.
  */
-export const getUnitsRolloutSettings = (): Promise<UnitsRolloutSettings> => {
-	if (!cache.promise) {
-		cache.promise = fetchUnitsRolloutSettings().catch(() => {
-			cache.promise = undefined;
-			return DEFAULT_SETTINGS;
-		});
+export const getUnitsRolloutSettings = (fallbackOrgId?: string): Promise<UnitsRolloutSettings> => {
+	const enabledFallbackOrgId = fg('linking_platform_units_org_id_fallback')
+		? fallbackOrgId
+		: undefined;
+	const cacheKey = enabledFallbackOrgId ?? '';
+	const cached = cache.get(cacheKey);
+
+	if (cached) {
+		return cached;
 	}
 
-	return cache.promise;
+	const promise = fetchUnitsRolloutSettings(enabledFallbackOrgId).catch(() => {
+		cache.delete(cacheKey);
+		return DEFAULT_SETTINGS;
+	});
+
+	cache.set(cacheKey, promise);
+
+	return promise;
 };

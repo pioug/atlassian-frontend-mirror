@@ -6,6 +6,7 @@ import { v4 as uuid } from 'uuid';
 
 import { FabricEditorAnalyticsContext } from '@atlaskit/analytics-namespaced-context/FabricEditorAnalyticsContext';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
+import { AnalyticsEnrichmentBoundary } from '@atlaskit/editor-common/analytics/enrichment/boundary';
 import { fireAnalyticsEvent } from '@atlaskit/editor-common/analytics/fire-analytics-event';
 import { ACTION } from '@atlaskit/editor-common/analytics/types/enums';
 import type { FireAnalyticsCallback } from '@atlaskit/editor-common/analytics/types/events';
@@ -178,12 +179,14 @@ export function CoreEditor(props: EditorNextProps & WithAppearanceComponent): Re
 			// @ts-expect-error Type 'string' is not assignable to type '"editorCore" | "renderer"'.
 			data={data}
 		>
-			<Editor
-				// Ignored via go/ees005
-				// eslint-disable-next-line react/jsx-props-no-spreading
-				{...props}
-				featureFlags={memodEditorFeatureFlags}
-			/>
+			<AnalyticsEnrichmentBoundary appearance={data.appearance}>
+				<Editor
+					// Ignored via go/ees005
+					// eslint-disable-next-line react/jsx-props-no-spreading
+					{...props}
+					featureFlags={memodEditorFeatureFlags}
+				/>
+			</AnalyticsEnrichmentBoundary>
 		</FabricEditorAnalyticsContext>
 	);
 }

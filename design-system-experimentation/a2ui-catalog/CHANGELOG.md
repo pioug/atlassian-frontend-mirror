@@ -1,5 +1,12 @@
 # @atlassian/a2ui-catalog
 
+## 2.3.0
+
+### Minor Changes
+
+- [`5f70ea03bb1e1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5f70ea03bb1e1) -
+  Add test component to internally used forge catalog
+
 ## 2.2.0
 
 ### Minor Changes

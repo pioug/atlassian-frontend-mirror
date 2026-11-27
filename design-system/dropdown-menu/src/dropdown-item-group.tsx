@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { forwardRef, type Ref, useContext } from 'react';
+import React, { forwardRef, type Ref } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
 import { useId } from '@atlaskit/ds-lib/use-id';
@@ -12,7 +12,6 @@ import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
 import GroupTitle from './internal/components/group-title';
-import { NewSpacingContext } from './internal/context/spacing-context';
 
 const styles = cssMap({
 	root: {
@@ -21,15 +20,10 @@ const styles = cssMap({
 		flexDirection: 'column',
 		overflow: 'auto',
 		rowGap: token('space.025'),
-		paddingInline: token('space.150'),
-		paddingBlockStart: token('space.150'),
-		paddingBlockEnd: token('space.150'),
+		paddingInline: token('space.075'),
+		paddingBlockStart: token('space.075'),
+		paddingBlockEnd: token('space.075'),
 		flexShrink: 0,
-	},
-	compact: {
-		paddingInline: token('space.100'),
-		paddingBlockStart: token('space.100'),
-		paddingBlockEnd: token('space.100'),
 	},
 	separator: {
 		borderBlockStartColor: token('color.border'),
@@ -66,8 +60,6 @@ export const DropdownItemGroup: React.ForwardRefExoticComponent<
 		}: SectionProps,
 		ref,
 	) => {
-		const spacing = useContext(NewSpacingContext);
-		const isCompact = spacing === 'compact';
 		const uid = useId();
 		const oldTitleId = `dropdown-menu-item-group-title-${uid}`;
 		const groupTitleId = titleId || (title ? `dropdown-menu-item-group-title-${uid}` : undefined);
@@ -76,12 +68,7 @@ export const DropdownItemGroup: React.ForwardRefExoticComponent<
 			return (
 				<div
 					role="group"
-					css={[
-						styles.root,
-						isCompact && styles.compact,
-						hasSeparator && styles.separator,
-						isScrollable && styles.scrollable,
-					]}
+					css={[styles.root, hasSeparator && styles.separator, isScrollable && styles.scrollable]}
 					data-testid={testId}
 					aria-label={label}
 					aria-labelledby={groupTitleId}

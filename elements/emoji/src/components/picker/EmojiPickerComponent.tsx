@@ -77,10 +77,13 @@ import { getToneEmoji } from '../../util/get-tone-emoji';
 import { isEmojiDescription } from '../../util/is-emoji-description';
 import { isPromise } from '../../util/is-promise';
 import {
+	getProductivityColorPreviewEmojis,
 	getStoredProductivityColor,
 	storeProductivityColor,
 	type ProductivityColor,
 } from '../../util/productivity-colors';
+import EmojiActions from '../common/EmojiActions';
+import type { OnDeleteEmoji } from '../common/EmojiDeletePreview';
 import { createRecordSelectionDefault } from '../common/RecordSelectionDefault';
 import { uploadEmoji } from '../common/UploadEmoji';
 import { messages } from '../i18n';
@@ -140,6 +143,13 @@ const emojiPickerWrapperScrollable = css({
 // Rovo" section are both visible without scrolling.
 const withAiUploadHeight = css({
 	height: '450px',
+	maxHeight: 'calc(100vh - 86px)',
+});
+
+// The Rovo upload uses the medium picker height at every size, so the manual upload form and the
+// Rovo section fit without scrolling. Error messages make the panel scroll.
+const withAiUploadHeightMedium = css({
+	height: `${emojiPickerHeightWithPreview + heightOffset}px`,
 	maxHeight: 'calc(100vh - 86px)',
 });
 
@@ -293,6 +303,7 @@ const EmojiPickerComponent = ({
 	const [hasUploadPreviewError, setHasUploadPreviewError] = useState(false);
 	const [emojiToDelete, setEmojiToDelete] = useState<EmojiDescription | undefined>();
 	const [toneEmoji, setToneEmoji] = useState<OptionalEmojiDescriptionWithVariations | undefined>();
+	const [activeAtlassianSubcategory, setActiveAtlassianSubcategory] = useState<string | null>(null);
 
 	const emojiPickerList = useMemo(() => createRef<PickerListRef>(), []);
 	const openTime = useRef(0);
@@ -879,6 +890,37 @@ const EmojiPickerComponent = ({
 		};
 	}, [emojiProvider, onProviderChange]);
 
+	const isSearchOnTop =
+		fg('platform_emoji_search_top') || isExperimentEnabled('platform_editor_slash_command');
+	const isUploadOrDeleteOpen = uploading || !!emojiToDelete;
+
+	// The search row's results count and productivity colour control use these
+	const visibleEmojis = useMemo(
+		() => (isSearchOnTop ? filterHiddenEmojis(filteredEmojis) : []),
+		[isSearchOnTop, filteredEmojis],
+	);
+	const productivityColorPreviewEmojis = useMemo(
+		() => (isSearchOnTop ? getProductivityColorPreviewEmojis(visibleEmojis) : {}),
+		[isSearchOnTop, visibleEmojis],
+	);
+
+	// The list is always mounted alongside the actions, and owns the delete focus restore
+	const onCloseDeleteFromActions = useCallback(() => {
+		emojiPickerList.current?.closeDelete();
+	}, [emojiPickerList]);
+
+	const onDeleteEmojiFromActions: OnDeleteEmoji = useCallback(
+		(emoji) => emojiPickerList.current?.deleteEmoji(emoji) ?? Promise.resolve(false),
+		[emojiPickerList],
+	);
+
+	// Search is the first interactive element, so it gets focus when the picker opens. Later remounts
+	// (after the upload or delete panel closes) do not take focus.
+	const shouldFocusSearch = useRef(true);
+	useEffect(() => {
+		shouldFocusSearch.current = false;
+	}, []);
+
 	const showPreview = !uploading;
 	const shouldRenderFooter =
 		showPreview &&
@@ -902,18 +944,25 @@ const EmojiPickerComponent = ({
 			css={[
 				emojiPickerNew,
 				!!emojiToDelete
-					? withDeleteRefreshHeight[size]
+					? isSearchOnTop
+						? withPreviewHeight[size]
+						: withDeleteRefreshHeight[size]
 					: uploading
-						? hasUploadPreviewError
-							? withUploadRefreshAndPreviewErrorHeight[size]
-							: withUploadRefreshHeight[size]
+						? isSearchOnTop
+							? withPreviewHeight[size]
+							: hasUploadPreviewError
+								? withUploadRefreshAndPreviewErrorHeight[size]
+								: withUploadRefreshHeight[size]
 						: query && filteredEmojis.length === 0
-							? withNoResultsRefreshHeight[size]
+							? isSearchOnTop && isUploadSupported
+								? withPreviewHeight[size]
+								: withNoResultsRefreshHeight[size]
 							: showPreview
 								? withPreviewHeight[size]
 								: withoutPreviewHeight[size],
 				// Override the fixed upload height when the AI section is present.
-				showAiUpload && withAiUploadHeight,
+				showAiUpload && !isSearchOnTop && withAiUploadHeight,
+				showAiUpload && isSearchOnTop && withAiUploadHeightMedium,
 			]}
 			ref={setPickerRef}
 			data-emoji-picker-container
@@ -928,12 +977,45 @@ const EmojiPickerComponent = ({
 				onKeyDown={suppressKeyPress}
 				css={[emojiPickerWrapper, showAiUpload && emojiPickerWrapperScrollable]}
 			>
-				<CategorySelector
-					activeCategoryId={uploading || emojiToDelete ? null : activeCategory}
-					dynamicCategories={dynamicCategories}
-					disableCategories={disableCategories}
-					onCategorySelected={onCategorySelected}
-				/>
+				{isSearchOnTop && (
+					<EmojiActions
+						selectedTone={selectedTone}
+						onToneSelected={onToneSelected}
+						onToneSelectorCancelled={onToneSelectorCancelled}
+						toneEmoji={toneEmoji}
+						activeCategoryId={activeCategory}
+						activeAtlassianSubcategory={activeAtlassianSubcategory}
+						productivityColorPreviewEmojis={productivityColorPreviewEmojis}
+						selectedProductivityColor={selectedProductivityColor}
+						uploading={uploading}
+						uploadEnabled={uploadEnabled}
+						emojiToDelete={emojiToDelete}
+						initialUploadName={query}
+						uploadErrorMessage={formattedErrorMessage}
+						onUploadPreviewErrorChange={setHasUploadPreviewError}
+						onUploadCancelled={onUploadCancelled}
+						onUploadEmoji={onUploadEmoji}
+						onCloseDelete={onCloseDeleteFromActions}
+						onDeleteEmoji={onDeleteEmojiFromActions}
+						onFileChooserClicked={onFileChooserClicked}
+						onOpenUpload={onOpenUpload}
+						onProductivityColorSelected={onProductivityColorSelected}
+						query={query}
+						onChange={onSearch}
+						resultsCount={visibleEmojis.length}
+						contentId={contentId}
+						fireAnalytics={fireAnalytics}
+						focusSearch={shouldFocusSearch.current}
+					/>
+				)}
+				{!(isSearchOnTop && isUploadOrDeleteOpen) && (
+					<CategorySelector
+						activeCategoryId={uploading || emojiToDelete ? null : activeCategory}
+						dynamicCategories={dynamicCategories}
+						disableCategories={disableCategories}
+						onCategorySelected={onCategorySelected}
+					/>
+				)}
 				<EmojiPickerList
 					emojis={filteredEmojis}
 					currentUser={currentUser}
@@ -942,6 +1024,7 @@ const EmojiPickerComponent = ({
 					onEmojiLeave={onEmojiLeave}
 					onEmojiDelete={onTriggerDelete}
 					onCategoryActivated={onCategoryActivated}
+					onAtlassianSubcategoryChange={setActiveAtlassianSubcategory}
 					onSearch={onSearch}
 					query={query}
 					selectedTone={selectedTone}

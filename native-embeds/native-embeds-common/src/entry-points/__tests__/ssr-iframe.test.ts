@@ -11,6 +11,7 @@ import {
 	SSR_IFRAME_ATTR,
 	SSR_IFRAME_CHILD_ID_ATTR,
 	SSR_IFRAME_HOST_ID_ATTR,
+	SSR_IFRAME_PARKING_SLOT_ATTR,
 } from '../ssr-iframe';
 
 type WithMoveBefore = { moveBefore?: (node: Node, child: Node | null) => void };
@@ -95,5 +96,44 @@ describe('ssr-iframe', () => {
 		releaseSsrIframe('m1');
 		expect(iframe.isConnected).toBe(false);
 		expect(findSsrIframe('m1')).toBeUndefined();
+	});
+
+	describe('iframes parked by the editor (live docs)', () => {
+		const parkInEditorSlot = (macroId: string) => {
+			const { placeholder, iframe } = renderSsrIframe(macroId);
+			const slot = document.createElement('div');
+			slot.setAttribute(SSR_IFRAME_PARKING_SLOT_ATTR, macroId);
+			document.body.appendChild(slot);
+			slot.appendChild(iframe);
+			placeholder.remove();
+			return { slot, iframe };
+		};
+
+		it('adopts the iframe and removes the empty editor slot', () => {
+			const { slot, iframe } = parkInEditorSlot('m-editor');
+			const container = document.createElement('div');
+			document.body.appendChild(container);
+
+			expect(adoptSsrIframe('m-editor', container)).toBe(iframe);
+			expect(iframe.parentElement).toBe(container);
+			expect(slot.isConnected).toBe(false);
+		});
+
+		it('releases an editor-parked iframe nobody adopted', () => {
+			const { slot, iframe } = parkInEditorSlot('m-release');
+
+			releaseSsrIframe('m-release');
+
+			expect(iframe.isConnected).toBe(false);
+			expect(slot.isConnected).toBe(false);
+		});
+
+		it('does not remove an iframe that is still inside its SSR placeholder', () => {
+			const { iframe } = renderSsrIframe('m-in-place');
+
+			releaseSsrIframe('m-in-place');
+
+			expect(iframe.isConnected).toBe(true);
+		});
 	});
 });

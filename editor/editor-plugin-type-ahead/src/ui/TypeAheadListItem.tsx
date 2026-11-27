@@ -308,13 +308,7 @@ export const TypeAheadListItem: React.MemoExoticComponent<
 		const descriptionId = `typeahead-item-description-${itemIndex}`;
 
 		const { icon, title, render: customRenderItem } = item;
-		const skillTag = useMemo(
-			() =>
-				isExperimentEnabled('display_skill_lozenge_in_editor')
-					? parseSkillTagTitle(title)
-					: undefined,
-			[title],
-		);
+		const skillTag = useMemo(() => parseSkillTagTitle(title), [title]);
 		const elementIcon = useMemo(() => {
 			return (
 				<div css={[itemIcon, moreElementsInQuickInsertViewEnabled && itemIconSizeUpdated]}>

@@ -55,11 +55,11 @@ describe('Status', () => {
 	describe('should map colors to lozenge appearances', () => {
 		const colorToLozengeAppearanceMap: { [key in NamedColor]: string } = {
 			neutral: token('color.text'),
-			purple: token('color.text.discovery.bolder'),
-			blue: token('color.text.information.bolder'),
-			red: token('color.text.danger.bolder'),
-			yellow: token('color.text.warning.bolder'),
-			green: token('color.text.success.bolder'),
+			purple: token('color.text.accent.purple.bolder'),
+			blue: token('color.text.accent.blue.bolder'),
+			red: token('color.text.accent.red.bolder'),
+			yellow: token('color.text.accent.orange.bolder'),
+			green: token('color.text.accent.lime.bolder'),
 		};
 
 		Object.entries(colorToLozengeAppearanceMap).forEach(([color, appearance]) => {

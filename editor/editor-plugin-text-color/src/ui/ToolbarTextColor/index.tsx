@@ -43,6 +43,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles/constants';
 import ChevronDownIcon from '@atlaskit/icon/core/chevron-down';
 import TextStyleIcon from '@atlaskit/icon/core/text-style';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -205,6 +206,11 @@ export class ToolbarTextColor extends React.Component<Props & WrappedComponentPr
 				>
 					<div data-testid="text-color-palette">
 						<ColorPalette
+							ariaLabel={
+								isExperimentEnabled('platform_editor_lovability_colors_a11y_fixes')
+									? tooltipTextColor
+									: undefined
+							}
 							cols={colorPickerColumns}
 							// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 							onClick={(color) =>

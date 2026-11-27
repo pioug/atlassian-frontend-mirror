@@ -160,11 +160,6 @@ snapshot(InlineCardForbiddenDeniedSiteAccess, {
 	description: 'inline card forbidden view with denied site access',
 });
 
-// Design refresh: emotion + legacy icon
-snapshot(InlineCardForbiddenDefaultIcon, {
-	description: 'inline card forbidden view with default legacy icon',
-});
-
 // Design refresh: compiled + DS visual refresh
 snapshot(InlineCardForbiddenDefaultIcon, {
 	description: 'inline card forbidden view with default icon',

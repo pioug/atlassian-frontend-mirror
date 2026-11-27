@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-media",
-	"version": "36.0.8",
+	"version": "36.0.12",
 	"description": "Media plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -111,9 +111,6 @@
 		"platform_editor_safari_media_clipboard_fix": {
 			"type": "boolean"
 		},
-		"platform_editor_content_mode_button_mvp": {
-			"type": "boolean"
-		},
 		"platform_media_video_captions": {
 			"type": "boolean"
 		},
@@ -124,9 +121,6 @@
 		"cc-maui-toolbar-separators-update-jira": {
 			"type": "boolean",
 			"referenceOnly": true
-		},
-		"platform_editor_media_hydration_skip_history": {
-			"type": "boolean"
 		}
 	},
 	"devDependencies": {

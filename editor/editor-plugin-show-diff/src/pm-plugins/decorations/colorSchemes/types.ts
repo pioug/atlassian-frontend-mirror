@@ -94,7 +94,7 @@ export type DiffColorScheme = {
 	insertedNodeEmphasis: 'stateful' | 'static';
 	/** `text-decoration-style` for the inserted-text underline. */
 	insertUnderlineStyle: 'solid' | 'dotted';
-	/** Whether the rounded added-cell overlay inherits the cell's `border`. Deleted always does. */
+	/** Whether the added-cell overlay historically inherited the cell border. */
 	roundedAddedCellOverlayInheritsBorder: boolean;
 	/** Whether a deleted embedCard gets a strike at all. Standard draws none. */
 	strikesDeletedEmbedCard: boolean;

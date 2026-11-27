@@ -19,12 +19,10 @@ import { type ContainerTypes, type TeamContainer } from '../../common/types';
 import { TeamContainersSkeleton } from '../../common/ui/team-containers-skeleton';
 import { spaceInviteScheduler } from '../../common/utils/spaceInviteScheduler';
 import { useCreateContainers } from '../../controllers/hooks/use-create-containers';
-import { useProductPermissions as useProductPermissionsOld } from '../../controllers/hooks/use-product-permission';
 import { useRefreshOnContainerCreated } from '../../controllers/hooks/use-refresh-containers-on-container-created';
 import { useTeamContainers } from '../../controllers/hooks/use-team-containers/use-team-containers';
 import { useTeamContainersHook } from '../../controllers/hooks/use-team-containers/use-team-containers-hook';
 import { useTeamLinksAndContainers } from '../../controllers/hooks/use-team-links-and-containers';
-import { hasProductPermission as hasProductPermissionOld } from '../../controllers/product-permission/hasProductPermission';
 import { getAddContainerCards } from './add-container-card/getAddContainerCards';
 import { DisconnectDialogLazy } from './disconnect-dialog/async';
 import { NoProductAccessState } from './no-product-access-empty-state';
@@ -99,19 +97,8 @@ export const TeamContainers = ({
 			loom: ['write', 'manage'],
 			confluence: ['write', 'manage', 'CREATE_SPACE'],
 		},
-		options: {
-			enabled: fg('migrate-product-permissions'),
-		},
+		options: { enabled: !isDisplayedOnProfileCard },
 	});
-
-	const { data: productPermissionsOld, loading: productPermissionIsLoadingOld } =
-		useProductPermissionsOld(
-			{
-				userId,
-				cloudId,
-			},
-			{ enabled: !fg('migrate-product-permissions') },
-		);
 
 	useRefreshOnContainerCreated(teamId);
 
@@ -155,14 +142,8 @@ export const TeamContainers = ({
 					return false;
 				}
 
-				if (fg('migrate-product-permissions')) {
-					return (
-						(productPermissions && hasProductPermission(productPermissions, product, [])) || false
-					);
-				}
 				return (
-					(productPermissionsOld && hasProductPermissionOld(productPermissionsOld, product, [])) ||
-					false
+					(productPermissions && hasProductPermission(productPermissions, product, [])) || false
 				);
 			};
 
@@ -176,7 +157,6 @@ export const TeamContainers = ({
 	}, [
 		isDisplayedOnProfileCard,
 		productPermissions,
-		productPermissionsOld,
 		filteredTeamLinks,
 		maxNumberOfContainersToShow,
 		isReadOnly,
@@ -260,35 +240,19 @@ export const TeamContainers = ({
 		components?.TeamContainersSkeleton || TeamContainersSkeleton;
 
 	const hasNoPermissions = useMemo(() => {
-		if (fg('migrate-product-permissions')) {
-			return (
-				productPermissions &&
-				!hasProductPermission(productPermissions, 'jira') &&
-				!hasProductPermission(productPermissions, 'confluence') &&
-				!hasProductPermission(productPermissions, 'loom')
-			);
-		}
 		return (
-			productPermissionsOld &&
-			!hasProductPermissionOld(productPermissionsOld, 'jira') &&
-			!hasProductPermissionOld(productPermissionsOld, 'confluence') &&
-			!hasProductPermissionOld(productPermissionsOld, 'loom')
+			productPermissions &&
+			!hasProductPermission(productPermissions, 'jira') &&
+			!hasProductPermission(productPermissions, 'confluence') &&
+			!hasProductPermission(productPermissions, 'loom')
 		);
-	}, [productPermissions, productPermissionsOld]);
+	}, [productPermissions]);
 
 	const hasNoContainers = useMemo(() => {
 		return filteredTeamLinks.length === 0;
 	}, [filteredTeamLinks]);
 
-	const isLoading = useMemo(() => {
-		if (linksLoading) {
-			return true;
-		}
-		if (fg('migrate-product-permissions')) {
-			return productPermissionIsLoading;
-		}
-		return productPermissionIsLoadingOld;
-	}, [linksLoading, productPermissionIsLoading, productPermissionIsLoadingOld]);
+	const isLoading = linksLoading || (!isDisplayedOnProfileCard && productPermissionIsLoading);
 
 	const availableContainers = useMemo(() => {
 		const getAvailableContainer = (productKey: keyof typeof canAddContainer) => ({

@@ -33,6 +33,7 @@ export const EmbedCard: React.ForwardRefExoticComponent<
 	(
 		{
 			url,
+			id,
 			cardState,
 			handleAuthorize,
 			handleErrorRetry,
@@ -116,6 +117,7 @@ export const EmbedCard: React.ForwardRefExoticComponent<
 					return (
 						<EmbedCardResolvedView
 							{...resolvedViewProps}
+							id={id}
 							actionOptions={actionOptions}
 							details={details}
 							isSelected={isSelected}

@@ -10,6 +10,11 @@ export const messages: {
 		defaultMessage: string;
 		description: string;
 	};
+	inlineImageLabel: {
+		id: string;
+		defaultMessage: string;
+		description: string;
+	};
 } = defineMessages({
 	unableToLoadContent: {
 		id: 'fabric.editor.unableToLoadContent',
@@ -20,5 +25,11 @@ export const messages: {
 		id: 'fabric.editor.failed_to_upload',
 		defaultMessage: 'Failed to upload',
 		description: 'Display this message when there is an error uploading a file',
+	},
+	inlineImageLabel: {
+		id: 'editor-common.messages.media-inline-card.inlineImageLabel',
+		defaultMessage: 'Image',
+		description:
+			'Accessible name for an inline image in the document, used when the image has no alternative text',
 	},
 });

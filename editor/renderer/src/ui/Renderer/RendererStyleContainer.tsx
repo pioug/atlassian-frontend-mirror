@@ -804,8 +804,7 @@ const ruleWithAttrsStyles = css({
 	},
 });
 
-// When cleaning up `platform_editor_content_mode_button_mvp` simplify the name/ use the other paragraph style name
-const paragraphSharedStylesWithEditorUGC = css({
+const paragraphSharedStyles = css({
 	'& p': {
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		font: `var(--ak-renderer-editor-font-normal-text)`,
@@ -3111,9 +3110,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 				isExperimentEnabled('platform_editor_lovability_dividers_attributes') &&
 					ruleWithAttrsStyles,
 				contentMode === 'compact' && extensionStyle,
-				contentMode === 'compact'
-					? paragraphStylesUGCScaledMargin
-					: paragraphSharedStylesWithEditorUGC,
+				contentMode === 'compact' ? paragraphStylesUGCScaledMargin : paragraphSharedStyles,
 				listsSharedStyles,
 				browser.gecko && listsSharedStylesForGekko,
 				listItemHiddenMarkerStyles,
@@ -3162,7 +3159,7 @@ export const RendererStyleContainer = (props: RendererStyleContainerProps): jsx.
 				tableContentModeExtensionContainmentStyles,
 				tableContentModeNestedTableStyles,
 				tableRendererHeaderStylesForTableCellOnly,
-				fg('platform_editor_table_heading_cell_alignment') && tableHeadingCellAlignmentStyles,
+				tableHeadingCellAlignmentStyles,
 				fg('platform_editor_bordered_panel_nested_in_table') && tableRendererNestedPanelStyles,
 				isBackgroundClipBrowserFixNeeded() && tableStylesBackGroundClipForGeckoForTableCellOnly,
 				firstNodeWithNotMarginTopWithNestedDnD,

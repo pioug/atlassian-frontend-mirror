@@ -2,13 +2,14 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl';
 
+import { wasExperimentExposed } from '@atlassian/experiment-test-utils/was-experiment-exposed';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { render } from '@atlassian/testing-library/testing-library/react';
 import { userEvent } from '@atlassian/testing-library/user-event';
 import { within } from '@atlassian/testing-library/within';
 
-import { ActionName, CardDisplay } from '../../../../../constants';
+import { ActionName, CardDisplay, InternalActionName } from '../../../../../constants';
 import * as useInvokeClientAction from '../../../../../state/hooks/use-invoke-client-action';
 import * as useRovoChat from '../../../../../state/hooks/use-rovo-chat';
 import { RovoChatPromptKey } from '../../../../common/rovo-chat-utils';
@@ -46,6 +47,34 @@ jest.mock('@atlaskit/icon/core/chart-bar', () => ({
 	default: () => <span data-testid="chart-bar-icon" />,
 }));
 
+jest.mock('@atlaskit/button/default/button', () => ({
+	__esModule: true,
+	default: ({
+		children,
+		iconBefore,
+		onClick,
+		...props
+	}: React.PropsWithChildren<{
+		iconBefore?: React.ReactNode | React.ComponentType;
+		onClick?: React.MouseEventHandler<HTMLButtonElement>;
+	}>) => (
+		<button type="button" onClick={onClick} {...props}>
+			{typeof iconBefore === 'function' ? React.createElement(iconBefore) : iconBefore}
+			{children}
+		</button>
+	),
+}));
+
+jest.mock('@atlaskit/icon-lab/core/ai-generative-remix', () => ({
+	__esModule: true,
+	default: () => <span aria-hidden="true" data-testid="remix-icon" />,
+}));
+
+const mockOpenRemix = jest.fn();
+jest.mock('@atlaskit/link-provider/use-plugins', () => ({
+	usePlugins: () => ({ remix: { isAvailable: () => true, open: mockOpenRemix } }),
+}));
+
 describe('EmbedRovoActionsFooter', () => {
 	const sendPromptMessageMock = jest.fn();
 	const invokeMock = jest.fn();
@@ -64,10 +93,31 @@ describe('EmbedRovoActionsFooter', () => {
 		url: 'https://example.com/doc',
 	};
 
-	const setup = (prompts = [RovoChatPromptKey.SUMMARIZE_LINK]) => {
+	const remixActionData = {
+		invokeAction: {
+			actionSubjectId: 'remix' as const,
+			actionType: InternalActionName.RemixAction,
+			definitionId: 'd1',
+			display: CardDisplay.Embed,
+			extensionKey: 'google-object-provider',
+			id: 'uid',
+			resourceType: 'r1',
+		},
+		url: 'https://example.com/doc',
+	};
+
+	const setup = (
+		prompts = [RovoChatPromptKey.SUMMARIZE_LINK],
+		props?: Partial<React.ComponentProps<typeof EmbedRovoActionsFooter>>,
+	) => {
 		return render(
 			<IntlProvider locale="en">
-				<EmbedRovoActionsFooter actionData={actionData} prompts={prompts} testId="embed-footer" />
+				<EmbedRovoActionsFooter
+					actionData={actionData}
+					prompts={prompts}
+					testId="embed-footer"
+					{...props}
+				/>
 			</IntlProvider>,
 		);
 	};
@@ -83,6 +133,40 @@ describe('EmbedRovoActionsFooter', () => {
 
 	afterEach(() => {
 		jest.clearAllMocks();
+	});
+
+	it('keeps the Remix icon and accessible label in icon-only mode', async () => {
+		mockObservedWidth = 200;
+		setup([RovoChatPromptKey.SUMMARIZE_DOCUMENT], { remixActionData });
+		const button = await screen.findByRole('button', { name: 'Remix' });
+		expect(button).not.toHaveTextContent('Remix');
+		expect(wasExperimentExposed('platform_sl_3p_auth_visualize_exp')).toBe(true);
+		expect(within(button).getByTestId('remix-icon')).toBeInTheDocument();
+		expect(within(button).queryByTestId('chart-bar-icon')).not.toBeInTheDocument();
+	});
+
+	it('opens Remix using the separate Remix action URL', async () => {
+		const remixUrl = 'https://example.com/original-sheet';
+		setup([], { remixActionData: { ...remixActionData, url: remixUrl } });
+		await userEvent.setup().click(screen.getByRole('button', { name: 'Remix' }));
+		const { actionFn } = invokeMock.mock.calls[0][0];
+		await actionFn();
+		expect(mockOpenRemix).toHaveBeenCalledWith(expect.objectContaining({ url: remixUrl }));
+	});
+
+	it('opens Remix without sending a chat prompt or prompt metadata', async () => {
+		setup([], { remixActionData });
+		await userEvent.setup().click(screen.getByRole('button', { name: 'Remix' }));
+		expect(invokeMock).toHaveBeenCalledWith(
+			expect.not.objectContaining({ prompt: expect.anything() }),
+		);
+		expect(invokeMock).toHaveBeenCalledWith(expect.objectContaining(remixActionData.invokeAction));
+		const { actionFn } = invokeMock.mock.calls[0][0];
+		await actionFn();
+		expect(mockOpenRemix).toHaveBeenCalledWith(
+			expect.objectContaining({ url: remixActionData.url }),
+		);
+		expect(sendPromptMessageMock).not.toHaveBeenCalled();
 	});
 
 	it('should capture and report a11y violations', async () => {
@@ -128,13 +212,13 @@ describe('EmbedRovoActionsFooter', () => {
 		expect(screen.getAllByTestId('ai-edit-icon')).toHaveLength(1);
 	});
 
-	it('keeps the Visualize chart icon when Visualize is the primary action', () => {
-		setup([RovoChatPromptKey.VISUALIZE, RovoChatPromptKey.SUMMARIZE_DOCUMENT]);
+	it('keeps the Remix icon when Remix is rendered with prompt actions', () => {
+		setup([RovoChatPromptKey.SUMMARIZE_DOCUMENT], { remixActionData });
 
-		const visualizeButton = screen.getByRole('button', { name: 'Visualize' });
+		const remixButton = screen.getByRole('button', { name: 'Remix' });
 
-		expect(within(visualizeButton).getByTestId('chart-bar-icon')).toBeInTheDocument();
-		expect(screen.queryByTestId('ai-edit-icon')).not.toBeInTheDocument();
+		expect(within(remixButton).getByTestId('remix-icon')).toBeInTheDocument();
+		expect(within(remixButton).queryByTestId('ai-edit-icon')).not.toBeInTheDocument();
 	});
 
 	describe('with platform_sl_rovo_summarize_icon_consistency', () => {
@@ -159,15 +243,15 @@ describe('EmbedRovoActionsFooter', () => {
 		});
 	});
 
-	it('keeps the Visualize chart icon in the icon-only view', async () => {
+	it('keeps the Remix icon in the icon-only view', async () => {
 		mockObservedWidth = 200;
 
-		setup([RovoChatPromptKey.VISUALIZE, RovoChatPromptKey.SUMMARIZE_DOCUMENT]);
+		setup([RovoChatPromptKey.SUMMARIZE_DOCUMENT], { remixActionData });
 
-		const visualizeButton = await screen.findByRole('button', { name: 'Visualize' });
+		const remixButton = await screen.findByRole('button', { name: 'Remix' });
 
-		expect(visualizeButton).not.toHaveTextContent('Visualize');
-		expect(within(visualizeButton).getByTestId('chart-bar-icon')).toBeInTheDocument();
+		expect(remixButton).not.toHaveTextContent('Remix');
+		expect(within(remixButton).getByTestId('remix-icon')).toBeInTheDocument();
 	});
 
 	it('invokes the selected Rovo prompt without bubbling to the embed frame', async () => {
@@ -196,7 +280,7 @@ describe('EmbedRovoActionsFooter', () => {
 		});
 	});
 
-	it('does not render when Rovo chat is unavailable', () => {
+	it('does not render prompt actions when Rovo chat is unavailable', () => {
 		jest.spyOn(useRovoChat, 'default').mockReturnValueOnce({
 			isRovoChatEnabled: false,
 			sendPromptMessage: sendPromptMessageMock,
@@ -205,5 +289,17 @@ describe('EmbedRovoActionsFooter', () => {
 		setup();
 
 		expect(screen.queryByTestId('embed-footer')).not.toBeInTheDocument();
+	});
+
+	it('renders independent Remix action when Rovo chat is unavailable', () => {
+		jest.spyOn(useRovoChat, 'default').mockReturnValueOnce({
+			isRovoChatEnabled: false,
+			sendPromptMessage: sendPromptMessageMock,
+		});
+
+		setup([], { actionData: undefined, remixActionData });
+
+		expect(screen.getByRole('button', { name: 'Remix' })).toBeInTheDocument();
+		expect(screen.queryByRole('button', { name: 'Summarize' })).not.toBeInTheDocument();
 	});
 });

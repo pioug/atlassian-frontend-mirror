@@ -5,7 +5,7 @@
 /**
  * VR fixtures for the ALIGNMENT of a fitting popover with `align: 'start'` or
  * `align: 'end'`: its border box lands on the anchor's edge, not 5px in from it.
- * `getFitMarginDeclarations` used to pad BOTH cross-axis margins, and a `span-*`
+ * `getViewportPaddingMarginDeclarations` used to pad BOTH cross-axis margins, and a `span-*`
  * cell aligns the popover's MARGIN box to the anchor's edge, so only the
  * viewport-facing side may carry the padding.
  *

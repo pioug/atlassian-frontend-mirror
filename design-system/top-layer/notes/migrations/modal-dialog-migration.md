@@ -504,6 +504,47 @@ press on it throws. A browser keeps the rule, so this is not a modal-dialog bug.
 - `pointerEventsCheck: 0` also skips the inertness check for that press. Use it only for presses
   inside the open modal.
 
+#### 15. ~~Custom sizes with a percentage differ from legacy~~ (FIXED)
+
+**Severity: Medium**
+
+Found when `platform-dst-top-layer` was forced on in all VR (27 Nov 2026: store stepper modal, smart
+card embed modal, editor Dropbox modal, link-datasource modals).
+
+~~Three differences:~~
+
+- ~~Body scroll, `height="100%"`: 1px shorter than legacy. The percentage resolved against
+  `100vh - 120px`, but the legacy `Positioner` is as tall as its cap, `100vh - 120px + 1px`.~~
+- ~~Body scroll, a `calc()` width with a percentage (for example `calc(100% - 80px)`): only a plain
+  `N%` was resolved, so the `calc()` percentage had nothing to resolve against, and the modal
+  collapsed to its content width.~~
+- ~~Viewport scroll, a percentage width or a width wider than `100vw - 120px`: the modal was capped
+  at `100vw - 120px`, and a percentage resolved against that width. Legacy viewport scroll has no
+  gutter cap: a percentage resolves against the viewport width, and the cap is the viewport. The
+  link-datasource modal (`width="calc(100% - 80px)"`) was 1160px, not 1200px, in a 1280px
+  viewport.~~
+
+**Fix applied:**
+
+- Body scroll: each percentage in `width`, also inside `calc()`, `min()` and `max()`, resolves
+  against `100vw - 120px`. A percentage `height` resolves against `100vh - 120px + 1px` (body scroll
+  only). This `+ 1px` is the one of finding 8: remove both after the rollout.
+- Viewport scroll: `width` is used as it is, the cap is `max-width: 100%`, and the sizing container
+  column is `minmax(0, 1fr)`, so the cap is the viewport width.
+
+**Tests:** Playwright (`ff-testing/platform-dst-top-layer/custom-size.spec.tsx`, example
+`110-testing-custom-sizes`): gate on against gate off, the same size and position for percentage,
+`calc()`, number, `vw` and named sizes, in both scroll modes, at 1280x720 and 1000x600. Checked in
+Chromium, Firefox and WebKit.
+
+**Still different from legacy (no known callsite, not changed):**
+
+- Legacy sets a custom `height` on two nested elements, so a percentage applies twice: body scroll
+  `height="50%"` is 25% of the cap, and `calc(100% - 40px)` takes 80px off. Top layer: 50%, and a
+  `calc()` height with a percentage sizes the modal to its content. `100%` is the same in both.
+- Viewport scroll: legacy ignores a percentage `height` (the modal sizes to its content). Top layer
+  resolves it against `100vh - 120px`, as before this fix.
+
 ### Scenarios confirmed visually identical
 
 The following scenarios showed no meaningful visual difference between flag on and off (only the

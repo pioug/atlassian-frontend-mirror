@@ -6,6 +6,10 @@ import type { EnvironmentsKeys } from '@atlaskit/linking-common/types';
 
 import JsonldEditorClient from './jsonld-editor-client';
 
+const mockPlugins = {
+	resolve: () => ({ remix: { isAvailable: () => true, open: () => {} } }),
+};
+
 type Props = PropsWithChildren<{
 	ari?: string;
 	branchDeploy?: string;
@@ -38,6 +42,7 @@ const JsonldEditorProvider = ({
 		<SmartCardProvider
 			client={client}
 			isAdminHubAIEnabled={true}
+			plugins={mockPlugins}
 			product="CONFLUENCE"
 			rovoOptions={{ isRovoEnabled: true, isRovoLLMEnabled: true }}
 		>

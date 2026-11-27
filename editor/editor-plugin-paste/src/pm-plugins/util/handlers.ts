@@ -69,7 +69,6 @@ import {
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { replaceSelectedTable } from '@atlaskit/editor-tables/utils/replace-table';
 import type { CardAdf, CardAppearance, DatasourceAdf } from '@atlaskit/linking-common/types';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { closeHistory } from '@atlaskit/prosemirror-history/closeHistory';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 // TODO: ED-20519 - Needs Macro extraction
@@ -1641,7 +1640,6 @@ export function handleParagraphBlockMarks(state: EditorState, slice: Slice): Sli
 		// A paragraph keeping a block mark its destination container disallows cannot be placed
 		// inside that container, so it is inserted after it instead. Drop those marks below.
 		const mustDropDisallowedBlockMarks =
-			fg('platform_editor_paste_strip_invalid_block_marks') &&
 			slice.content.firstChild?.type === paragraph &&
 			sliceHasBlockMarksDisallowedAtDestination(slice, $from);
 		if (!mustDropDisallowedBlockMarks) {

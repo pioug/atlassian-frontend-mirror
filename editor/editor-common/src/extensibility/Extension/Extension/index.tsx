@@ -14,7 +14,6 @@ import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import type { ExtensionProvider, ReferenceEntity } from '../../../extensions';
@@ -271,17 +270,9 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 				onMouseEnter={() => handleMouseEvent(true)}
 				// @atlassian/a11y/mouse-events-have-key-events: hover border is also applied via .ak-editor-selected-node
 				// CSS on keyboard selection. No-ops here satisfy the rule without duplicating state updates.
-				onFocus={
-					expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true)
-						? () => {}
-						: undefined
-				}
+				onFocus={() => {}}
 				onMouseLeave={() => handleMouseEvent(false)}
-				onBlur={
-					expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true)
-						? () => {}
-						: undefined
-				}
+				onBlur={() => {}}
 			>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 				<div

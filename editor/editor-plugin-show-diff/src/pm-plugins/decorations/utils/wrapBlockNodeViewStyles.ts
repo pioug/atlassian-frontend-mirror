@@ -3,14 +3,12 @@
  *
  * Every exported resolver is driven by the `colorSchemeRegistry` + `factory.ts` implementation.
  */
+import { convertToInlineCss } from '@atlaskit/editor-common/css-helper';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import {
 	buildAddedCellOverlayRoundedStyle,
-	buildAddedCellOverlayStyle,
-	buildAddedCellOverlayStyleNew,
 	buildDeletedCellOverlayRoundedStyle,
-	buildDeletedCellOverlayStyle,
 	buildDeletedInlineContentStyle,
 	buildDeletedInlineContentStyleExtended,
 	buildDeletedLozengeActiveStyle,
@@ -147,6 +145,8 @@ export const getDeletedContentStyle = (
 		: base;
 };
 
+const inheritedCellBorderStyle = convertToInlineCss({ border: 'inherit' });
+
 /**
  * Overlay style for one added or deleted table cell. Invariant across the cells of a table, so the
  * `querySelectorAll('td, th')` loop in `wrapBlockNodeView.ts` resolves it once.
@@ -154,26 +154,23 @@ export const getDeletedContentStyle = (
 export const resolveCellOverlayStyle = ({
 	colorScheme,
 	isInserted,
-	isRoundedTable,
 }: {
 	colorScheme?: ColorScheme;
 	isInserted: boolean;
-	isRoundedTable: boolean;
 }): string => {
 	const colors = getColorScheme(colorScheme);
 
-	// Square added-cell overlays follow insertedNodeEmphasis: pressed background vs accent border.
-	const addedCellStyle = isRoundedTable
+	const overlayStyle = isInserted
 		? buildAddedCellOverlayRoundedStyle(colors)
-		: colors.insertedNodeEmphasis === 'stateful'
-			? buildAddedCellOverlayStyleNew(colors)
-			: buildAddedCellOverlayStyle(colors);
+		: buildDeletedCellOverlayRoundedStyle(colors);
 
-	const deletedCellStyle = isRoundedTable
-		? buildDeletedCellOverlayRoundedStyle(colors)
-		: buildDeletedCellOverlayStyle(colors);
-
-	return isInserted ? addedCellStyle : deletedCellStyle;
+	if (
+		(!isInserted || colors.roundedAddedCellOverlayInheritsBorder) &&
+		!isExperimentEnabled('platform_editor_table_diff_overlay_border_fix')
+	) {
+		return `${overlayStyle} ${inheritedCellBorderStyle}`;
+	}
+	return overlayStyle;
 };
 
 /** Inner style for the "Removed" lozenge on a deleted block node. */

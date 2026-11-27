@@ -5,6 +5,7 @@ import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';
 import { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-item-group';
 import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { token } from '@atlaskit/tokens';
 
@@ -23,11 +24,12 @@ const NestedDropdown = () => (
 			<DropdownItem
 				{...triggerProps}
 				ref={triggerRef}
-				// TODO: Remove from example when platform-dst-new-menu is enabled to avoid two chevrons rendering
 				elemAfter={
-					<Flex xcss={iconSpacingStyles.space075}>
-						<ChevronRightIcon size="small" color={token('color.icon.subtle')} label="" />
-					</Flex>
+					fg('platform-dst-new-menu') ? undefined : (
+						<Flex xcss={iconSpacingStyles.space075}>
+							<ChevronRightIcon size="small" color={token('color.icon.subtle')} label="" />
+						</Flex>
+					)
 				}
 			>
 				<span>Nested Menu</span>

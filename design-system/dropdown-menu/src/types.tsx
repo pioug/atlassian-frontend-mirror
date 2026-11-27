@@ -191,7 +191,8 @@ interface InternalDropdownMenuProps<TriggerElement extends HTMLElement = any> {
 	shouldRenderToParent?: boolean;
 
 	/**
-	 * Controls the spacing density of the menu.
+	 * Has no effect when `platform-dst-new-menu` is enabled — there is only one spacing mode (default)
+	 * With the gate off: Controls the spacing density of the menu.
 	 * NOTE: `cozy` is deprecated and will be removed. `spacious` replaces `cozy` and results in the same visual appearance.
 	 */
 	spacing?: 'cozy' | 'compact' | 'spacious';

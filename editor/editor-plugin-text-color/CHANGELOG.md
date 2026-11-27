@@ -1,5 +1,39 @@
 # @atlaskit/editor-plugin-text-color
 
+## 34.0.13
+
+### Patch Changes
+
+- [`a8b93e6cce3d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a8b93e6cce3d3) -
+  [ux] [A11Y-60503] group colour swatches in a single radio group and label the table background,
+  text colour, highlight colour, and native embed border palettes behind
+  `platform_editor_lovability_colors_a11y_fixes`.
+- Updated dependencies
+
+## 34.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 34.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 34.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 34.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 34.0.8
 
 ### Patch Changes

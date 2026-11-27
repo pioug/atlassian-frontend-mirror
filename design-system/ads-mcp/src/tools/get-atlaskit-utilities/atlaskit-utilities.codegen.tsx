@@ -3,7 +3,7 @@
  *
  * Structured content utilities from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::2d633b6b860e49398bb9f63c2b5b4a9c>>
+ * @codegen <<SignedSource::d9b7379e3969b7ac9195ad11688e7c65>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -5968,17 +5968,6 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		kind: 'function',
 	},
 	{
-		name: 'ROVO_ADDITIONAL_CHART_TYPES_2_GATE',
-		description:
-			'Public value `ROVO_ADDITIONAL_CHART_TYPES_2_GATE` from `@atlassian/conversation-assistant-viz/ui/visualization-chart/chart-action/chart-types`.',
-		status: 'general-availability',
-		keywords: ['rovo', 'chat', 'ai', 'platform'],
-		category: 'rovo',
-		package: '@atlassian/conversation-assistant-viz',
-		examples: [],
-		kind: 'constant',
-	},
-	{
 		name: 'ROVO_ADDITIONAL_CHART_TYPES_GATE',
 		description:
 			'Public value `ROVO_ADDITIONAL_CHART_TYPES_GATE` from `@atlassian/conversation-assistant-viz/ui/visualization-chart/chart-action/chart-types`.',
@@ -6235,7 +6224,7 @@ export const atlaskitUtilities: UtilityMcpPayload[] = [
 		],
 		kind: 'type',
 		definition:
-			'{ messageActionRenderer?: React.ComponentType<MessageActionRendererProps> | null; liveChatManager?: React.ComponentType | null; chatTextAreaInput?: React.ComponentType<ChatTextAreaInputProps> | null; liveChatSendMessageProvider?: LiveChatSendMessageProviderComponent | null; liveChatCloseProvider?: LiveChatCloseProviderComponent | null; citationRenderer?: React.ComponentType<CitationProps> | null; liveChatMediaProvider?: LiveChatMediaProviderComponent | null; chatFooterContent?: React.ComponentType | null }',
+			'{ messageActionRenderer?: React.ComponentType<MessageActionRendererProps> | null; liveChatManager?: React.ComponentType | null; chatTextAreaInput?: React.ComponentType<ChatTextAreaInputProps> | null; liveChatSendMessageProvider?: LiveChatSendMessageProviderComponent | null; liveChatCloseProvider?: LiveChatCloseProviderComponent | null; liveChatMediaProvider?: LiveChatMediaProviderComponent | null; chatFooterContent?: React.ComponentType | null }',
 	},
 	{
 		name: 'MessageActionRendererProps',

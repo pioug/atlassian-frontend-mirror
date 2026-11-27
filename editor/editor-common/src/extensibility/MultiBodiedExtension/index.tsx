@@ -483,17 +483,9 @@ const MultiBodiedExtensionWithWidth = ({
 				onMouseEnter={() => handleMouseEvent(true)}
 				// @atlassian/a11y/mouse-events-have-key-events: hover border is also applied via .ak-editor-selected-node
 				// CSS on keyboard selection. No-ops here satisfy the rule without duplicating state updates.
-				onFocus={
-					expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true)
-						? () => {}
-						: undefined
-				}
+				onFocus={() => {}}
 				onMouseLeave={() => handleMouseEvent(false)}
-				onBlur={
-					expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true)
-						? () => {}
-						: undefined
-				}
+				onBlur={() => {}}
 			>
 				{shouldRenderFloatingLabel && (
 					<ExtensionFloatingLabel

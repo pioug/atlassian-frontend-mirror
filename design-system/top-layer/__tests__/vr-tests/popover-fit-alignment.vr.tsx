@@ -9,7 +9,7 @@ import {
 const opts = { drawsOutsideBounds: true } as const;
 
 // A fitting `align: 'start'` / `'end'` popover lands its border box ON the
-// anchor's edge. The fit margins used to pad both cross-axis sides, insetting it
+// anchor's edge. The viewport padding margins used to pad both cross-axis sides, insetting it
 // by 5px. Each fixture has a ruler flush on the aligned edge, so a regression
 // reads as a 5px gap. See `notes/decisions/fit-available-space.md`.
 snapshot(VrFitAlignBottomStart, { ...opts, description: 'fit-align-bottom-start' });

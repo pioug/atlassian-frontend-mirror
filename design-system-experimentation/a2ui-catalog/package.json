@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/a2ui-catalog",
-	"version": "2.2.0",
+	"version": "2.3.0",
 	"description": "A2UI v0.9 catalog — Atlassian custom catalog (component APIs and Zod schemas) for the A2UI v0.9 protocol",
 	"author": "Atlassian Pty Ltd",
 	"atlassian": {

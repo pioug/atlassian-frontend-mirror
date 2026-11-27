@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "158.2.6",
+	"version": "158.2.11",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -160,9 +160,6 @@
 			"referenceOnly": true
 		},
 		"platform_editor_querySelector_fix_table_renderer": {
-			"type": "boolean"
-		},
-		"platform_editor_content_mode_button_mvp": {
 			"type": "boolean"
 		},
 		"platform_editor_comments_api_manager": {

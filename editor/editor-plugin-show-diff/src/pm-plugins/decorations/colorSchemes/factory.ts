@@ -806,7 +806,7 @@ export function buildAddedCellOverlayStyle(colors: DiffColorScheme): string {
 	});
 }
 
-/** Cell overlay for added table cells — rounded variant (zIndex 2, inherits border/radius). */
+/** Cell overlay for added table cells — rounded variant (zIndex 2, inherits radius). */
 export function buildAddedCellOverlayRoundedStyle(colors: DiffColorScheme): string {
 	return convertToInlineCss({
 		position: 'absolute',
@@ -820,7 +820,6 @@ export function buildAddedCellOverlayRoundedStyle(colors: DiffColorScheme): stri
 		zIndex: 2,
 		outline: `1px solid ${borderAccent(colors.insertColor)}`,
 		pointerEvents: 'none',
-		...(colors.roundedAddedCellOverlayInheritsBorder ? { border: 'inherit' } : {}),
 		borderRadius: 'inherit',
 	});
 }
@@ -859,7 +858,7 @@ export function buildDeletedCellOverlayStyle(colors: DiffColorScheme): string {
 	});
 }
 
-/** Cell overlay for deleted table cells — rounded variant (zIndex 2, inherits border/radius). */
+/** Cell overlay for deleted table cells — rounded variant (zIndex 2, inherits radius). */
 export function buildDeletedCellOverlayRoundedStyle(colors: DiffColorScheme): string {
 	return convertToInlineCss({
 		position: 'absolute',
@@ -873,7 +872,6 @@ export function buildDeletedCellOverlayRoundedStyle(colors: DiffColorScheme): st
 		zIndex: 2,
 		outline: `1px solid ${deletedCellOutline(colors)}`,
 		pointerEvents: 'none',
-		border: 'inherit',
 		borderRadius: 'inherit',
 	});
 }

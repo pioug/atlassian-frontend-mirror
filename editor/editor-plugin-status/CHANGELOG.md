@@ -1,5 +1,34 @@
 # @atlaskit/editor-plugin-status
 
+## 35.0.12
+
+### Patch Changes
+
+- [`a44301083fb0f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a44301083fb0f) -
+  Clean up the `platform_editor_update_status_colors_jira` and
+  `platform_editor_update_status_colors` experiments, keeping the updated status colours and
+  ten-colour status picker permanently enabled. The status picker now always uses the ten-colour
+  content width, so it no longer leaves a gap beside the swatches when status suggestions are off.
+- Updated dependencies
+
+## 35.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 35.0.8
 
 ### Patch Changes

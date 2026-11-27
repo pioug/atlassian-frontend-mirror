@@ -4,13 +4,13 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl';
 
+import { useProductPermissions } from '@atlaskit/teams-app-internal-product-permissions/main';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { renderWithAnalyticsListener as render } from '@atlassian/ptc-test-utils/analytics';
 
 import { messages } from '../../common/utils/get-container-properties';
 import { spaceInviteScheduler } from '../../common/utils/spaceInviteScheduler';
-import { useProductPermissions } from '../../controllers/hooks/use-product-permission';
 import { useTeamContainers } from '../../controllers/hooks/use-team-containers/use-team-containers';
 import { useTeamLinksAndContainers } from '../../controllers/hooks/use-team-links-and-containers';
 import { TeamContainers } from './main';
@@ -31,7 +31,7 @@ jest.mock('../../controllers/hooks/use-team-containers/use-team-containers', () 
 	useTeamContainers: jest.fn(),
 }));
 
-jest.mock('../../controllers/hooks/use-product-permission', () => ({
+jest.mock('@atlaskit/teams-app-internal-product-permissions/main', () => ({
 	useProductPermissions: jest.fn(),
 }));
 
@@ -112,7 +112,6 @@ describe('TeamContainers', () => {
 	};
 
 	beforeEach(() => {
-		failGate('migrate-product-permissions');
 		(useTeamContainers as jest.Mock).mockReturnValue({});
 
 		(useProductPermissions as jest.Mock).mockReturnValue({
@@ -121,7 +120,6 @@ describe('TeamContainers', () => {
 				jira: { manage: true },
 				confluence: { manage: true },
 			},
-			error: null,
 		});
 		jest.clearAllMocks();
 	});
@@ -150,7 +148,6 @@ describe('TeamContainers', () => {
 				jira: {},
 				confluence: {},
 			},
-			error: null,
 		});
 
 		renderTeamContainers(teamId);
@@ -170,7 +167,6 @@ describe('TeamContainers', () => {
 				jira: {},
 				confluence: {},
 			},
-			error: null,
 		});
 
 		renderTeamContainers(teamId, '', true);
@@ -312,6 +308,48 @@ describe('TeamContainers', () => {
 
 		screen.getAllByTestId('add-icon')[0].click();
 		expect(mockOnAddAContainerClick).toHaveBeenCalledTimes(1);
+	});
+
+	it('should render linked containers on a profile card without waiting for permissions', () => {
+		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+			isLoading: false,
+			teamLinks: [JiraProject],
+		});
+		(useProductPermissions as jest.Mock).mockReturnValue({ loading: true, data: undefined });
+
+		renderTeamContainers(teamId, '', true);
+
+		expect(useProductPermissions).toHaveBeenCalledWith(
+			expect.objectContaining({ options: { enabled: false } }),
+		);
+		expect(screen.getByText(JiraProject.name)).toBeInTheDocument();
+		expect(screen.queryByTestId('team-containers-skeleton')).not.toBeInTheDocument();
+	});
+
+	it('should still show the skeleton while profile card links load', () => {
+		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+			isLoading: true,
+			teamLinks: [],
+		});
+
+		renderTeamContainers(teamId, '', true);
+
+		expect(screen.getByTestId('team-containers-skeleton')).toBeInTheDocument();
+	});
+
+	it('should wait for permissions outside a profile card', () => {
+		(useTeamLinksAndContainers as jest.Mock).mockReturnValue({
+			isLoading: false,
+			teamLinks: [JiraProject],
+		});
+		(useProductPermissions as jest.Mock).mockReturnValue({ loading: true, data: undefined });
+
+		renderTeamContainers(teamId);
+
+		expect(useProductPermissions).toHaveBeenCalledWith(
+			expect.objectContaining({ options: { enabled: true } }),
+		);
+		expect(screen.getByTestId('team-containers-skeleton')).toBeInTheDocument();
 	});
 
 	it('should show skeleton when loading', () => {
@@ -619,7 +657,6 @@ describe('TeamLinks', () => {
 				jira: { manage: true },
 				confluence: { manage: true },
 			},
-			error: null,
 		});
 	});
 

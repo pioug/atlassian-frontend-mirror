@@ -73,9 +73,10 @@ function createOpenOrderTracker(): TOpenOrderTracker {
  * not tell us the top-layer order, so we record it: one `beforetoggle` listener on `document` gives
  * each popover and `<dialog>` a number when it opens. Higher opened later.
  *
- * Tracking starts once, from `useStartOpenOrderTracking`, and never stops. A layer that opened
- * before it started has no open order. Layers in a shadow root are not seen: `beforetoggle` is not
- * composed.
+ * Tracking starts once, from `useStartOpenOrderTracking`, and never stops. A `Dialog` or
+ * `useManualLightDismiss` starts it at mount, and a page surface once it is enabled. A layer that
+ * opened before it started has no open order. Layers in a shadow root are not seen: `beforetoggle`
+ * is not composed.
  *
  * The tracker lives in module scope. At this stage we do not handle more than one copy of
  * `@atlaskit/top-layer` on a page: each copy would keep its own open order.

@@ -187,7 +187,7 @@ src/
 │   │   ├── apply-anchor-positioning.tsx # entry point the hook calls
 │   │   ├── cross-axis-shift-margins.tsx # antisymmetric shift margin pair
 │   │   ├── edge-margin.tsx            # the gap margin, on the anchor-facing side
-│   │   ├── fit-margins.tsx            # reserved viewport padding, composed onto the shift
+│   │   ├── viewport-padding-margins.tsx  # viewport padding of every anchored popover, composed onto the shift
 │   │   ├── get-existing-anchor-name.tsx # reuse a consumer's `anchor-name`
 │   │   ├── placement-to-position-area.tsx # TPlacement → `position-area`
 │   │   └── placement-to-try-fallbacks.tsx # TPlacement → `position-try-fallbacks`

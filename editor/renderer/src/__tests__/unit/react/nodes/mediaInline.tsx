@@ -28,6 +28,8 @@ import {
 	fakeMediaClient,
 	getDefaultMediaClientConfig,
 } from '@atlaskit/media-test-helpers/fakeMediaClient';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 
 import MediaInline from '../../../../react/nodes/mediaInline';
 
@@ -55,6 +57,56 @@ describe('MediaInline', () => {
 		jest.clearAllMocks();
 		providerFactory.destroy();
 	});
+
+	it.each([
+		{ treatment: true, alt: 'Team photo', substitute: 'Team photo' },
+		{ treatment: true, alt: '', substitute: 'Error loading file' },
+		{ treatment: false, alt: 'Team photo', substitute: undefined },
+	])(
+		'contains an inline image failure (treatment=$treatment, alt="$alt")',
+		({ treatment, alt, substitute }) => {
+			if (treatment) {
+				mockExpEnabled('platform_editor_optional_chunk_recovery');
+			} else {
+				mockExpDisabled('platform_editor_optional_chunk_recovery');
+			}
+			const brokenImage = jest
+				.spyOn(
+					jest.requireActual('@atlaskit/editor-common/media-inline-image-card'),
+					'MediaInlineImageCard',
+				)
+				.mockImplementation(() => {
+					throw new Error('Failed to fetch dynamically imported module');
+				});
+			try {
+				renderWithIntl(
+					<p>
+						<MediaInline
+							providers={providerFactory}
+							id={mockFile.id}
+							collection={mockFile.collection}
+							type="image"
+							alt={alt}
+						/>
+						<span>Neighboring content</span>
+					</p>,
+				);
+				expect(screen.getByText('Neighboring content')).toBeVisible();
+				if (substitute) {
+					expect(screen.getByText(substitute)).toBeVisible();
+					if (alt) {
+						expect(screen.getByRole('img', { name: 'Error loading file' })).toBeVisible();
+					} else {
+						expect(screen.queryByRole('img')).not.toBeInTheDocument();
+					}
+				} else {
+					expect(screen.queryByText(alt)).not.toBeInTheDocument();
+				}
+			} finally {
+				brokenImage.mockRestore();
+			}
+		},
+	);
 
 	it('should render a <span> tag', async () => {
 		const { container } = renderWithIntl(

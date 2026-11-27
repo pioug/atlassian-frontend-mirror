@@ -8,6 +8,8 @@ import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/default/button';
 import UploadIcon from '@atlaskit/icon/core/upload';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { dropTargetForExternal } from '@atlaskit/pragmatic-drag-and-drop/adapter/drop-target-for-external';
 import { containsFiles } from '@atlaskit/pragmatic-drag-and-drop/utils/contains-files';
 import { getFiles } from '@atlaskit/pragmatic-drag-and-drop/utils/get-files';
@@ -60,6 +62,14 @@ const dropzone = css({
 	transitionProperty: 'background-color, border-color',
 	transitionDuration: token('motion.duration.short', '0.15s'),
 	transitionTimingFunction: token('motion.easing.out.practical', 'ease'),
+});
+
+// Grows to fill its parent when the parent is a flex column, keeping 170px as the minimum.
+// Without a flex parent it stays 170px, because its content is never taller.
+const dropzoneFill = css({
+	flexGrow: 1,
+	height: 'auto',
+	minHeight: '170px',
 });
 
 const dropzoneActive = css({
@@ -227,7 +237,12 @@ const FileChooser = (props: Props): React.JSX.Element => {
 	return (
 		<div
 			ref={dropzoneRef}
-			css={[dropzone, isDragging && dropzoneActive]}
+			css={[
+				dropzone,
+				(fg('platform_emoji_search_top') || isExperimentEnabled('platform_editor_slash_command')) &&
+					dropzoneFill,
+				isDragging && dropzoneActive,
+			]}
 			data-testid={dropzoneTestId}
 			data-dragging={isDragging ? 'true' : undefined}
 			role="region"

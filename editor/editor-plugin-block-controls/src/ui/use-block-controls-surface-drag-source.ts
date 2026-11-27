@@ -1,5 +1,7 @@
 import { useEffect, type RefObject } from 'react';
 
+import { bind } from 'bind-event-listener';
+
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -11,6 +13,7 @@ import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/adapter/element-adapter';
+import { combine } from '@atlaskit/pragmatic-drag-and-drop/utils/combine';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/utils/set-custom-native-drag-preview';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
@@ -37,6 +40,13 @@ type Options = {
 	view: EditorView | undefined;
 };
 
+// Block drags only move content; without this Chrome shows its "+" copy cursor over the editor.
+const restrictDragToMove = (event: DragEvent) => {
+	if (event.dataTransfer) {
+		event.dataTransfer.effectAllowed = 'move';
+	}
+};
+
 /**
  * Registry surface drag source. This intentionally duplicates the stable widget handle's drag
  * contract so the legacy implementation remains byte-for-byte unchanged during migration.
@@ -56,7 +66,7 @@ export const useBlockControlsSurfaceDragSource = ({
 			return;
 		}
 
-		return draggable({
+		const cleanupDraggable = draggable({
 			element,
 			getInitialData: () => ({ type: 'element', start }),
 			onGenerateDragPreview: ({ nativeSetDragImage }) => {
@@ -195,5 +205,15 @@ export const useBlockControlsSurfaceDragSource = ({
 				view.focus();
 			},
 		});
+
+		if (isExperimentEnabled('platform_editor_block_drag_move_effect')) {
+			return combine(
+				cleanupDraggable,
+				// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop -- Pragmatic DnD cannot set effectAllowed.
+				bind(element, { type: 'dragstart', listener: restrictDragToMove }),
+			);
+		}
+
+		return cleanupDraggable;
 	}, [api, elementRef, getAnchorName, getPos, nodeType, start, view]);
 };

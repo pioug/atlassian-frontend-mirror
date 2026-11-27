@@ -9,11 +9,14 @@ import { cssMap, jsx } from '@compiled/react';
 
 import LinkGlyph from '@atlaskit/icon/core/link';
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import { usePlugins } from '@atlaskit/link-provider/use-plugins';
 import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 import { useThemeObserver } from '@atlaskit/tokens/use-theme-observer';
 
 import { CardDisplay } from '../../../constants';
+import extractRemixAction from '../../../extractors/flexible/actions/extract-remix-action';
 import extractRovoChatAction from '../../../extractors/flexible/actions/extract-rovo-chat-action';
 import { getExtensionKey } from '../../../state/getExtensionKey';
 import useEmbedRovoActionsFooterExperiment from '../../../state/hooks/use-embed-rovo-actions-footer-experiment';
@@ -64,6 +67,7 @@ type EmbedFrameWithRovoFooterProps = {
 	actionOptions?: CardActionOptions;
 	details?: JsonLd.Response;
 	frame: React.ReactNode;
+	id?: string;
 	link: string;
 	testId: string;
 };
@@ -72,10 +76,12 @@ const EmbedFrameWithRovoFooter = ({
 	actionOptions,
 	details,
 	frame,
+	id,
 	link,
 	testId,
 }: EmbedFrameWithRovoFooterProps) => {
 	const { rovoOptions, product } = useRovoConfig();
+	const { remix } = usePlugins();
 	const { isEnabled: isEmbedRovoActionsFooterEnabled } = useEmbedRovoActionsFooterExperiment(
 		link,
 		actionOptions,
@@ -95,6 +101,20 @@ const EmbedFrameWithRovoFooter = ({
 				: undefined,
 		[actionOptions, details, isEmbedRovoActionsFooterEnabled, product, rovoOptions],
 	);
+	const remixActionData = React.useMemo(
+		() =>
+			details && fg('platform_sl_3p_auth_visualize_killswitch')
+				? extractRemixAction({
+						response: details,
+						url: link,
+						remix,
+						actionOptions,
+						appearance: 'embed',
+						id,
+					})
+				: undefined,
+		[details, link, remix, actionOptions, id],
+	);
 	const prompts = React.useMemo(() => {
 		if (!isEmbedRovoActionsFooterEnabled) {
 			return [];
@@ -102,21 +122,19 @@ const EmbedFrameWithRovoFooter = ({
 
 		return getRovoPostAuthPromptKeys({
 			extensionKey: getExtensionKey(details),
-			isRovoChatActionShown: !!rovoActionData,
-			product,
-			response: details,
 		});
-	}, [details, isEmbedRovoActionsFooterEnabled, product, rovoActionData]);
+	}, [details, isEmbedRovoActionsFooterEnabled]);
 	const footer = React.useMemo(
 		() =>
-			rovoActionData && prompts.length > 0 ? (
+			(rovoActionData && prompts.length > 0) || remixActionData ? (
 				<LazyEmbedRovoActionsFooter
 					actionData={rovoActionData}
+					remixActionData={remixActionData}
 					prompts={prompts}
 					testId={`${testId}-rovo-actions-footer`}
 				/>
 			) : undefined,
-		[prompts, rovoActionData, testId],
+		[prompts, rovoActionData, remixActionData, testId],
 	);
 
 	return footer ? (
@@ -142,6 +160,8 @@ export interface EmbedCardResolvedViewProps {
 	frameStyle?: FrameStyle;
 	/** For image icons in the title, whether to hide the loading skeleton while the image is loading. */
 	hideIconLoadingSkeleton?: boolean;
+	/** The ID used to correlate Smart Link analytics events. */
+	id?: string;
 	inheritDimensions?: boolean;
 	/** A flag that determines whether the card is selected in edit mode. */
 	isSelected?: boolean;
@@ -186,6 +206,7 @@ export const EmbedCardResolvedView: React.ForwardRefExoticComponent<
 			link,
 			context,
 			details,
+			id,
 			onClick,
 			onAuxClick,
 			onContextMenu,
@@ -272,6 +293,7 @@ export const EmbedCardResolvedView: React.ForwardRefExoticComponent<
 				actionOptions={actionOptions}
 				details={details}
 				frame={frame}
+				id={id}
 				link={link}
 				testId={testId}
 			/>

@@ -1,4 +1,5 @@
 export type {
+	AgenticForgeV09MultipleChoiceProps,
 	AgenticForgeV09ResultPanelProps,
 	AgenticForgeV09ComponentInstance,
 	AgenticForgeV09ComponentName,

@@ -1,5 +1,38 @@
 # @atlaskit/editor-plugin-show-diff
 
+## 34.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 34.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 34.0.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 34.0.10
+
+### Patch Changes
+
+- [`e61626ef86e98`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e61626ef86e98) -
+  Keep the shipped rounded table diff styles for all cells. The
+  platform_editor_table_diff_overlay_border_fix experiment removes inherited borders from
+  traditional added-cell overlays and all deleted-cell overlays.
+
+## 34.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 34.0.8
 
 ### Patch Changes

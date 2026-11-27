@@ -1,5 +1,8 @@
 import React, { useMemo } from 'react';
 
+import { useIntl } from 'react-intl';
+
+import { highlightMessages } from '@atlaskit/editor-common/messages/highlight';
 import { highlightColorPaletteNew } from '@atlaskit/editor-common/ui-color';
 import ColorPalette from '@atlaskit/editor-common/ui-color/ColorPalette';
 import {
@@ -12,6 +15,7 @@ import { DropdownContainer as Dropdown } from '@atlaskit/editor-common/ui-menu/D
 import type { WithOutsideClickProps } from '@atlaskit/editor-common/with-outer-listeners';
 import { hexToEditorTextBackgroundPaletteColor } from '@atlaskit/editor-palette/text-background-color';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles/constants';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 type PaletteDropdownProps = {
@@ -29,6 +33,7 @@ const HIGHLIGHT_COLOR_PICKER_COLUMNS = 8;
 const HIGHLIGHT_COLOR_PICKER_COLUMNS_NEW = 10;
 
 export const PaletteDropdown = (props: PaletteDropdownProps): React.JSX.Element => {
+	const { formatMessage } = useIntl();
 	const {
 		popupsMountPoint,
 		popupsBoundariesElement,
@@ -99,6 +104,11 @@ export const PaletteDropdown = (props: PaletteDropdownProps): React.JSX.Element 
 		>
 			<div data-testid="highlight-color-palette">
 				<ColorPalette
+					ariaLabel={
+						isExperimentEnabled('platform_editor_lovability_colors_a11y_fixes')
+							? formatMessage(highlightMessages.highlight)
+							: undefined
+					}
 					cols={colorPickerColumns}
 					onClick={onColorChange}
 					selectedColor={selectedColor}

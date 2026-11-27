@@ -17,6 +17,7 @@ import { hexToEditorBackgroundPaletteColor } from '@atlaskit/editor-palette/back
 import { NestedDropdownRightIcon } from '@atlaskit/editor-toolbar/nested-dropdown-right-icon';
 import { PaintBucketIcon } from '@atlaskit/editor-toolbar/paint-bucket-icon';
 import { ToolbarNestedDropdownMenu } from '@atlaskit/editor-toolbar/toolbar-nested-dropdown-menu';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
@@ -120,6 +121,11 @@ export const BackgroundColorItem = ({ api }: TableMenuComponentsParams): React.J
 		>
 			<Box xcss={colorPaletteStyles.container}>
 				<ColorPalette
+					ariaLabel={
+						isExperimentEnabled('platform_editor_lovability_colors_a11y_fixes')
+							? formatMessage(messages.backgroundColor)
+							: undefined
+					}
 					cols={activeCols}
 					onClick={onClick}
 					selectedColor={selectedColorRaw}

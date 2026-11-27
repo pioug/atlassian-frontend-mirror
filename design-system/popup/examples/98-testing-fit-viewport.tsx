@@ -7,6 +7,9 @@ import { forwardRef, useState } from 'react';
 import { cssMap, jsx } from '@compiled/react';
 
 import { cssMap as strictCssMap } from '@atlaskit/css';
+import { Popup as CompositionalPopup } from '@atlaskit/popup/compositional/popup';
+import { PopupContent } from '@atlaskit/popup/compositional/popup-content';
+import { PopupTrigger } from '@atlaskit/popup/compositional/popup-trigger';
 import { Popup } from '@atlaskit/popup/popup';
 import type { PopupComponentProps } from '@atlaskit/popup/types';
 import { token } from '@atlaskit/tokens';
@@ -16,6 +19,14 @@ import { token } from '@atlaskit/tokens';
 const popupStyles = strictCssMap({
 	fixedWidth: {
 		width: '280px',
+	},
+	// The side-nav flyout passes a `width` and padding together.
+	paddedWidth: {
+		width: '280px',
+		paddingBlockStart: token('space.200'),
+		paddingBlockEnd: token('space.200'),
+		paddingInlineStart: token('space.200'),
+		paddingInlineEnd: token('space.200'),
 	},
 });
 
@@ -79,9 +90,13 @@ const CustomPopupComponent = forwardRef<HTMLDivElement, PopupComponentProps>(
  *   prop unset, which is the only way a test can pin `Popup`'s own default.
  * - `container`: `custom` for a custom `popupComponent` instead of the default
  *   `PopoverSurface` branch
- * - `width`: `fixed` to pass `xcss` with a 280px `width` to `Popup`
+ * - `width`: `fixed` to pass `xcss` with a 280px `width` to `Popup`, `padded` to
+ *   pass the same `width` with `space.200` padding
  * - `triggerBlockStart`: absolute trigger offset in px. The trigger is 120x20.
  * - `contentBlockSize`: the content's intrinsic height in px
+ * - `api`: `compositional` to render the compositional `Popup`, `PopupTrigger` and
+ *   `PopupContent` instead, with the padded `width`. It reads only
+ *   `triggerBlockStart` and `contentBlockSize`.
  */
 export default function TestingPopupFitViewport(): JSX.Element {
 	const params = new URLSearchParams(window.location.search);
@@ -90,11 +105,71 @@ export default function TestingPopupFitViewport(): JSX.Element {
 	// genuinely unset and the adapter's own default is what renders.
 	const shouldFitViewport = fit === null ? undefined : fit === 'true';
 	const useCustomContainer = params.get('container') === 'custom';
-	const hasFixedWidth = params.get('width') === 'fixed';
+	const width = params.get('width');
+	const isCompositional = params.get('api') === 'compositional';
 	const triggerBlockStart = Number(params.get('triggerBlockStart') ?? 0);
 	const contentBlockSize = Number(params.get('contentBlockSize') ?? 400);
 
 	const [isOpen, setIsOpen] = useState(false);
+
+	const triggerStyle = { insetBlockStart: `${triggerBlockStart}px` };
+	const toggle = () => setIsOpen((previous) => !previous);
+
+	const renderContent = () => (
+		<div
+			data-testid="fit-popup-body"
+			css={styles.body}
+			style={{
+				blockSize: `${contentBlockSize}px`,
+			}}
+		>
+			Fitting content
+			{/*
+			 * A control at the very BOTTOM of the content, which is the
+			 * reported symptom: uncapped, the popup grows past the viewport
+			 * and this button cannot be reached. It also satisfies
+			 * `scrollable-region-focusable` once the surface scrolls.
+			 */}
+			<button type="button" data-testid="fit-popup-footer-action">
+				Confirm
+			</button>
+		</div>
+	);
+
+	if (isCompositional) {
+		// The side-nav flyout uses this API.
+		return (
+			<div css={styles.page}>
+				<CompositionalPopup isOpen={isOpen} role="dialog">
+					<PopupTrigger>
+						{(triggerProps) => (
+							<button
+								{...triggerProps}
+								css={styles.trigger}
+								style={triggerStyle}
+								type="button"
+								onClick={toggle}
+								data-testid="fit-popup-trigger"
+							>
+								Open
+							</button>
+						)}
+					</PopupTrigger>
+					<PopupContent
+						onClose={() => setIsOpen(false)}
+						placement="bottom-end"
+						testId="fit-popup"
+						role="dialog"
+						label="Fitting popup"
+						xcss={popupStyles.paddedWidth}
+						shouldRenderToParent
+					>
+						{renderContent}
+					</PopupContent>
+				</CompositionalPopup>
+			</div>
+		);
+	}
 
 	return (
 		<div css={styles.page}>
@@ -107,41 +182,28 @@ export default function TestingPopupFitViewport(): JSX.Element {
 				label="Fitting popup"
 				shouldFitViewport={shouldFitViewport}
 				popupComponent={useCustomContainer ? CustomPopupComponent : undefined}
-				xcss={hasFixedWidth ? popupStyles.fixedWidth : undefined}
+				// Inline, not from a helper: Compiled injects the styles of the `cssMap`
+				// entries it can see in the `xcss` prop.
+				xcss={
+					width === 'padded'
+						? popupStyles.paddedWidth
+						: width === 'fixed'
+							? popupStyles.fixedWidth
+							: undefined
+				}
 				trigger={(triggerProps) => (
 					<button
 						{...triggerProps}
 						css={styles.trigger}
-						style={{
-							insetBlockStart: `${triggerBlockStart}px`,
-						}}
+						style={triggerStyle}
 						type="button"
-						onClick={() => setIsOpen((previous) => !previous)}
+						onClick={toggle}
 						data-testid="fit-popup-trigger"
 					>
 						Open
 					</button>
 				)}
-				content={() => (
-					<div
-						data-testid="fit-popup-body"
-						css={styles.body}
-						style={{
-							blockSize: `${contentBlockSize}px`,
-						}}
-					>
-						Fitting content
-						{/*
-						 * A control at the very BOTTOM of the content, which is the
-						 * reported symptom: uncapped, the popup grows past the viewport
-						 * and this button cannot be reached. It also satisfies
-						 * `scrollable-region-focusable` once the surface scrolls.
-						 */}
-						<button type="button" data-testid="fit-popup-footer-action">
-							Confirm
-						</button>
-					</div>
-				)}
+				content={renderContent}
 				shouldRenderToParent
 			/>
 		</div>

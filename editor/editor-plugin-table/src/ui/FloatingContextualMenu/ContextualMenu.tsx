@@ -52,6 +52,7 @@ import TableColumnDeleteIcon from '@atlaskit/icon/core/table-column-delete';
 import TableColumnsDistributeIcon from '@atlaskit/icon/core/table-columns-distribute';
 import TableRowAddBelowIcon from '@atlaskit/icon/core/table-row-add-below';
 import TableRowDeleteIcon from '@atlaskit/icon/core/table-row-delete';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box } from '@atlaskit/primitives/box';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
@@ -344,6 +345,11 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 									isOpenedByKeyboard={isCellMenuOpenByKeyboard!}
 								>
 									<ColorPalette
+										ariaLabel={
+											isExperimentEnabled('platform_editor_lovability_colors_a11y_fixes')
+												? formatMessage(messages.backgroundColor)
+												: undefined
+										}
 										cols={activeCols}
 										onClick={this.setColor}
 										selectedColor={node?.attrs?.background || '#ffffff'}

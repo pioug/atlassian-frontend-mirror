@@ -1,5 +1,13 @@
 # @atlaskit/modal-dialog
 
+## 17.3.4
+
+### Patch Changes
+
+- [`26255577625ff`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/26255577625ff) -
+  On the top layer, a modal with a percentage height or a wide or `calc()` width is the same size as
+  the legacy modal.
+
 ## 17.3.3
 
 ### Patch Changes

@@ -4,8 +4,6 @@ import type { FloatingToolbarConfig } from '@atlaskit/editor-common/types/floati
 import { useSharedPluginStateWithSelector } from '@atlaskit/editor-common/useSharedPluginStateWithSelector';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
-import { expValNoExposure } from '@atlaskit/tmp-editor-statsig/expVal';
 
 import { hideToolbar, showToolbar } from './editor-commands/commands';
 import type {
@@ -16,7 +14,6 @@ import type {
 import { createPlugin } from './pm-plugins/main';
 import type { PasteOptionsPluginState } from './types/types';
 import { pasteOptionsPluginKey, ToolbarDropdownOption } from './types/types';
-import { firePasteActionsMenuExperimentExposure } from './ui/on-paste-actions-menu/exposure';
 import { firePaste3pLinkActionsMenuExperimentExposure } from './ui/on-paste-actions-menu/exposure-3p-link';
 import { firePasteActionsMenuV2ExperimentExposure } from './ui/on-paste-actions-menu/exposure-v2';
 import { PasteActionsMenu } from './ui/on-paste-actions-menu/PasteActionsMenu';
@@ -44,10 +41,7 @@ export const pasteOptionsToolbarPlugin: PasteOptionsToolbarPlugin = ({ config, a
 			),
 	});
 
-	if (
-		config?.usePopupBasedPasteActionsMenu &&
-		expValEqualsNoExposure('platform_editor_paste_actions_menu', 'isEnabled', true)
-	) {
+	if (config?.usePopupBasedPasteActionsMenu) {
 		api?.uiControlRegistry?.actions.register(
 			getPasteMenuComponents({ api, markdownToPmConverter: config?.markdownToPmConverter }),
 		);
@@ -99,9 +93,7 @@ export const pasteOptionsToolbarPlugin: PasteOptionsToolbarPlugin = ({ config, a
 					name: 'pasteOptionsToolbarPlugin',
 					plugin: ({ dispatch }) =>
 						createPlugin(dispatch, {
-							useNewPasteMenu:
-								config?.usePopupBasedPasteActionsMenu &&
-								expValEqualsNoExposure('platform_editor_paste_actions_menu', 'isEnabled', true),
+							useNewPasteMenu: config?.usePopupBasedPasteActionsMenu,
 						}),
 				},
 			];
@@ -137,10 +129,7 @@ export const pasteOptionsToolbarPlugin: PasteOptionsToolbarPlugin = ({ config, a
 
 		pluginsOptions: {
 			floatingToolbar(state, intl): FloatingToolbarConfig | undefined {
-				if (
-					config?.usePopupBasedPasteActionsMenu &&
-					expValEqualsNoExposure('platform_editor_paste_actions_menu', 'isEnabled', true)
-				) {
+				if (config?.usePopupBasedPasteActionsMenu) {
 					return;
 				}
 				const pastePluginState = pasteOptionsPluginKey.getState(state) as PasteOptionsPluginState;
@@ -159,16 +148,7 @@ export const pasteOptionsToolbarPlugin: PasteOptionsToolbarPlugin = ({ config, a
 			popupsBoundariesElement,
 			popupsScrollableElement,
 		}) {
-			if (
-				!(
-					config?.usePopupBasedPasteActionsMenu &&
-					(expValEqualsNoExposure('platform_editor_paste_actions_menu', 'isEnabled', true) ||
-						['hasSpellingAndGrammar', 'hasAltAiActions'].includes(
-							expValNoExposure('platform_editor_paste_actions_menu_v2', 'variant', 'control'),
-						))
-				) ||
-				!editorView
-			) {
+			if (!config?.usePopupBasedPasteActionsMenu || !editorView) {
 				return null;
 			}
 			return (
@@ -190,21 +170,6 @@ export const pasteOptionsToolbarPlugin: PasteOptionsToolbarPlugin = ({ config, a
 			useEffect(() => {
 				if (
 					config?.usePopupBasedPasteActionsMenu &&
-					fg('platform_editor_paste_actions_menu_exposure')
-				) {
-					firePasteActionsMenuExperimentExposure(
-						lastContentPasted?.text?.length ?? 0,
-						editorView.state,
-						lastContentPasted?.pasteStartPos,
-						lastContentPasted?.pasteEndPos,
-						lastContentPasted?.text,
-						lastContentPasted?.pastedSlice,
-					);
-				}
-
-				// These two need to be seperate to prevent them being dependant on each other
-				if (
-					config?.usePopupBasedPasteActionsMenu &&
 					fg('platform_editor_paste_actions_menu_v2_exposure')
 				) {
 					firePasteActionsMenuV2ExperimentExposure(
@@ -222,10 +187,7 @@ export const pasteOptionsToolbarPlugin: PasteOptionsToolbarPlugin = ({ config, a
 					firePaste3pLinkActionsMenuExperimentExposure(lastContentPasted?.pastedSlice);
 				}
 
-				if (
-					config?.usePopupBasedPasteActionsMenu &&
-					expValEqualsNoExposure('platform_editor_paste_actions_menu', 'isEnabled', true)
-				) {
+				if (config?.usePopupBasedPasteActionsMenu) {
 					return;
 				}
 

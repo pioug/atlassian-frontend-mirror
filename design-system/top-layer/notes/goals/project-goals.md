@@ -281,8 +281,9 @@ thinking:
 >   available space on the screen
 > - "block" popover placement: show the popover the bottom / top of the trigger that has the most
 >   available space on the screen
-> - If an "auto" placement is needed: show the popover on the edge (top, right, bottom, left) that
->   has the most available space on the screen
+> - If an "auto" placement is needed: show the popover below the trigger, centred, and flip it above
+>   when it does not fit. There is no "most available space" choice. See
+>   [auto-placement.md](../decisions/auto-placement.md) (decided on 26 Nov 2026)
 >
 > The _Placement algorithm_ will need to re-run while the popover is open, when:
 >

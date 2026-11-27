@@ -49,6 +49,16 @@ import { Flex } from '@atlaskit/primitives/compiled/flex';
 
 import { getJsonLdResponse } from '../utils/flexible-ui';
 
+const GoogleSheet = {
+	...GoogleDoc,
+	data: {
+		...GoogleDoc.data,
+		'@type': ['Document', 'schema:SpreadsheetDigitalDocument'],
+		name: 'Google Sheets: Remix example',
+		url: 'https://docs.google.com/spreadsheets/d/remix-example/edit',
+	},
+};
+
 const examples = {
 	// Asana examples
 	AsanaTask,
@@ -86,6 +96,7 @@ const examples = {
 
 	// Google Drive examples
 	GoogleDoc,
+	GoogleSheet,
 
 	// Jira examples
 	JiraIssue,

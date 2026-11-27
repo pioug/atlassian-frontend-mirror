@@ -1,5 +1,34 @@
 # @atlaskit/emoji
 
+## 73.10.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 73.10.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 73.10.9
+
+### Patch Changes
+
+- [`30a299e73b260`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/30a299e73b260) -
+  Behind platform_emoji_search_top or the platform_editor_slash_command experiment: move the emoji
+  picker search above the category tabs and focus it on open. While the upload or delete panel is
+  open, show only that panel, at the same height as the default picker, and tighten the Create an
+  emoji with Rovo upload layout
+- Updated dependencies
+
+## 73.10.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 73.10.7
 
 ### Patch Changes

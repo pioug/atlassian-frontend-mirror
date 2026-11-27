@@ -73,7 +73,14 @@ export type CardActionVisibilityOptions =
  * Warning: Internal prop can be changed/refactored anytime without notice.
  */
 export type InternalCardActionOptions = CardActionOptions & {
-	// Add temporary CardActionOptions here
+	/**
+	 * Remix action opens Google Sheets links in Remix.
+	 *
+	 * This is an internal experiment feature and maybe removed any given time.
+	 */
+	remixAction?: {
+		optIn: boolean;
+	};
 };
 
 interface ActionProps {

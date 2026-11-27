@@ -518,10 +518,10 @@ describe('createPopperTopLayer - instance surface', () => {
 		committed(() => instance.setOptions((options) => ({ ...options, placement: 'bottom' })));
 
 		expect(instance.state.placement).toBe('bottom');
-		// The gap moved to the other block edge, and the previous edge margin
-		// was restored to its pre-positioning state (no inline value).
+		// The gap moved to the other block edge. The previous edge now faces the
+		// viewport, so it carries the viewport padding.
 		expect(surface.style.getPropertyValue('margin-block-start')).toBe('12px');
-		expect(surface.style.getPropertyValue('margin-block-end')).toBe('');
+		expect(surface.style.getPropertyValue('margin-block-end')).toBe('5px');
 
 		await destroyed(instance);
 	});

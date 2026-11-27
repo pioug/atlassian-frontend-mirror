@@ -88,6 +88,31 @@ Limits:
   closed until `isOpen` changes. ModalDialog then ends its `ModalTransition` exit at once when the
   consumer closes it.
 
+### Inner dialogs when an outer one closes
+
+The browser does not close a `<dialog>` inside a dialog that closes. The inner modal stays open, out
+of sight inside the closed one, and keeps the rest of the page inert until it unmounts. Product code
+that focuses a trigger after the close cannot (JSM queue Rename and Delete: their content draws its
+own `ModalDialog` inside the menu item's modal).
+
+So as a `Dialog` closes, it first closes the open dialogs inside it (in the DOM), innermost first,
+in the same step. Each inner dialog returns focus into the outer one, and the outer one then returns
+it to its own opener. They close natively: no `onClose` (the close is not a request), and they do
+not open again inside the closed layer (see above). Their exit runs as for any native close. The
+same rule as for popovers inside a `manual` `Popover`
+([`wrappers-ask-first-close.md`](./wrappers-ask-first-close.md)).
+
+An inner ModalDialog's `onCloseComplete` runs once, because it really closes (decided 25 Nov). The
+legacy path did not call it: the inner modal unmounted without closing.
+
+Known edge, accepted (26 Nov): the outer dialog opens again during its exit. The outer `Dialog` is
+the same instance, so its children stay mounted. The inner dialog has already closed and finished
+its exit, so it stays closed while its owner still has `isOpen` `true`. The owner sets `isOpen` to
+`false` and then `true` to show it again. ModalDialog can reach this (from a code read):
+`ModalTransition` keeps the same outer modal when its child comes back before the exit ends, and an
+inner modal with its own `ModalTransition` is not removed. It needs a modal that draws a second
+modal inside it, and a reopen of the outer one inside the exit time. No fix for now.
+
 ---
 
 ## Escape key

@@ -37,6 +37,7 @@ const documentation: StructuredContentSource = {
 				'Multiple keyframes can be composed by joining them in animationName (e.g. combining scale and fade)',
 				'Works with any React content including ADS Primitives — no render-prop pattern required',
 				'The Motion primitive renders a wrapper div. If that wrapper would break layout, semantics, or an attribute a parent selector depends on, use the useMotion hook instead to animate an element you already render',
+				'Compose a custom keyframe treatment with useMotion so the element owns the lifecycle',
 				'Keep entry and exit motion subordinate to the task, and verify the result in the browser rather than treating an import or token reference as evidence that motion occurred',
 			],
 			accessibilityGuidelines: [
@@ -195,6 +196,7 @@ const documentation: StructuredContentSource = {
 			},
 			usageGuidelines: [
 				'Wrap entering motion elements with StaggeredEntrance to create a cascading stagger effect',
+				'Compose each staggered child with the useMotion hook so that child owns its element and the entrance lifecycle',
 				'Use staggered entry only when the sequence improves comprehension; do not add it as decoration to large or frequently changing collections',
 				'All entering motion components must be direct descendants of StaggeredEntrance',
 				'Give every animated child a stable key so its identity is preserved across updates',

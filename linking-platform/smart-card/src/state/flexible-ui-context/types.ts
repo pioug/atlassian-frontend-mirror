@@ -315,6 +315,7 @@ export type FlexibleUiActions = {
 	[ActionName.PreviewAction]?: PreviewActionData;
 	[ActionName.RovoChatAction]?: RovoChatActionData;
 	[InternalActionName.AISummaryAction]?: AISummaryActionData;
+	[InternalActionName.RemixAction]?: RemixActionData;
 	[InternalActionName.UnresolvedAction]?: UnresolvedActionData;
 	[InternalActionName.ViewRelatedLinksAction]?: ViewRelatedLinksActionData;
 };
@@ -355,6 +356,11 @@ export type RovoChatActionData = {
 	invokeAction: Omit<InvokeClientActionProps, 'actionFn' | 'prompt'>;
 	product?: ProductType;
 	url?: string;
+};
+
+export type RemixActionData = {
+	invokeAction: Omit<InvokeClientActionProps, 'actionFn' | 'prompt'>;
+	url: string;
 };
 
 export type UnresolvedActionData = RetryOptions;

@@ -1,5 +1,37 @@
 # @atlaskit/editor-plugin-track-changes
 
+## 33.0.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 33.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 33.0.11
+
+### Patch Changes
+
+- [`80b5ff7e229a6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/80b5ff7e229a6) -
+  Remove the unlaunched tracked-changes diff indicator gate.
+- Updated dependencies
+
+## 33.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 33.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 33.0.8
 
 ### Patch Changes

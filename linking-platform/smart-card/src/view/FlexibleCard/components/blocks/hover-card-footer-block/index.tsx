@@ -32,7 +32,10 @@ import type { ResolvedHoverCardFooterBlockProps } from './types';
 /**
  * Allowed footer actions for HoverCard, in display order. Fetched from context.
  */
-const HIDDEN_HOVER_CARD_FOOTER_ACTIONS: FlexibleUiActionName[] = [ActionName.RovoChatAction];
+const HIDDEN_HOVER_CARD_FOOTER_ACTIONS: FlexibleUiActionName[] = [
+	ActionName.RovoChatAction,
+	InternalActionName.RemixAction,
+];
 
 const Actions = {
 	[ActionName.AutomationAction]: AutomationAction,

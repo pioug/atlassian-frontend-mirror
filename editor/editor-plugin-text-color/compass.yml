@@ -39,3 +39,16 @@ customFields:
   - name: Required Reviewer Approvals
     type: number
     value: 1
+  - name: Skip Review Paths
+    type: text
+    value: |-
+      {,**/}__tests__/**
+      {,**/}__fixtures__/**
+      {,**/}__mocks__/**
+      {,**/}*.test.*
+      {,**/}*.spec.*
+      {,**/}*.vr.*
+      examples/**
+      example-helpers/**
+      example-utils/**
+      docs/**

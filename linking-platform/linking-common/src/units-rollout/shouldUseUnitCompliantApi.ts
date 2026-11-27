@@ -36,9 +36,13 @@ import { getUnitsRolloutSettings } from './getUnitsRolloutSettings';
  *
  * Anything unknown resolves to `false`, i.e. the existing, non unit compliant endpoint. That is
  * the safe direction: it is what every organisation gets today.
+ *
+ * Unsited apps can supply `fallbackOrgId`, used when `linking_platform_units_org_id_fallback` is
+ * enabled and the current hostname cannot resolve an org.
  */
 export const shouldUseUnitCompliantApi = async (
 	isProductInUnitsRollout: () => boolean,
+	fallbackOrgId?: string,
 ): Promise<boolean> => {
 	// 1. Units GA killswitch, then this product's own rollout gate.
 	if (!(fg('cc-units-ga') && isProductInUnitsRollout())) {
@@ -46,7 +50,7 @@ export const shouldUseUnitCompliantApi = async (
 	}
 
 	// 2. This organisation's actual units state, read from AGG once per page load.
-	const { boundaryEnforced, endUsersLaunched } = await getUnitsRolloutSettings();
+	const { boundaryEnforced, endUsersLaunched } = await getUnitsRolloutSettings(fallbackOrgId);
 
 	return endUsersLaunched && boundaryEnforced;
 };

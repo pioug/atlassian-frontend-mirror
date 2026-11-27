@@ -189,8 +189,8 @@ visible. The Playwright spec `__tests__/playwright/form-in-popup.spec.tsx` exerc
 - `src/internal/anchor-positioning/` — everything the CSS Anchor Positioning path owns.
   `apply-anchor-positioning.tsx` is the entry point the hook calls; the `placement-to-*` files map
   `TPlacement` to `position-area` / `position-try-fallbacks`; `edge-margin.tsx` and
-  `cross-axis-shift-margins.tsx` write the gap and the shift; `fit-margins.tsx` is the reserved
-  viewport padding, composed onto the cross-axis shift.
+  `cross-axis-shift-margins.tsx` write the gap and the shift; `viewport-padding-margins.tsx` is the
+  viewport padding of every anchored popover, composed onto the cross-axis shift.
 - `src/internal/supports-anchor-positioning.tsx` / `supports-anchor-size.tsx` — the two probes. The
   hook requires BOTH for `anchor-size()`, because that function needs the `position-anchor` only the
   CSS path writes.

@@ -119,9 +119,7 @@ const applyCellOverlayStyles = ({
 	element: HTMLElement;
 	isInserted: boolean;
 }) => {
-	const isRoundedTable = isExperimentEnabled('platform_editor_table_diff_rounded_corners');
-
-	const overlayStyle = resolveCellOverlayStyle({ colorScheme, isInserted, isRoundedTable });
+	const overlayStyle = resolveCellOverlayStyle({ colorScheme, isInserted });
 
 	element.querySelectorAll('td, th').forEach((cell) => {
 		const overlay = document.createElement('span');
@@ -714,10 +712,7 @@ export const wrapBlockNodeView = ({
 		}
 
 		if (targetNode.type.name === 'table') {
-			if (
-				expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
-				isExperimentEnabled('platform_editor_table_diff_rounded_corners')
-			) {
+			if (expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)) {
 				applyTableCellEdgeAttrs({ element: nodeView, tableNode: targetNode });
 			}
 

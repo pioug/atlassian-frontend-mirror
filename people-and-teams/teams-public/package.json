@@ -118,7 +118,7 @@
 		"react-intl": "root:*"
 	},
 	"name": "@atlaskit/teams-public",
-	"version": "3.17.0",
+	"version": "3.18.0",
 	"description": "Public components related to teams",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -130,9 +130,6 @@
 		"test:coverage": "(cd ../../.. && afm run test -- 'packages/people-and-teams/teams-public/src' --coverage --coverageProvider=v8 --collectCoverageFrom='[\"packages/people-and-teams/teams-public/src/**\", \"!packages/people-and-teams/teams-public/src/**/**/types.ts\", \"!packages/people-and-teams/teams-public/src/ui/**/styled.tsx\"]')"
 	},
 	"platform-feature-flags": {
-		"migrate-product-permissions": {
-			"type": "boolean"
-		},
 		"teams_a11y_20261102": {
 			"type": "boolean",
 			"referenceOnly": true

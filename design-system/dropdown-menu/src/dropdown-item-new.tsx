@@ -24,7 +24,6 @@ import { token } from '@atlaskit/tokens';
 
 import KeyboardShortcut from './internal/components/keyboard-shortcut';
 import { DropdownTriggerContext } from './internal/context/dropdown-trigger-context';
-import { NewSpacingContext } from './internal/context/spacing-context';
 import { getAriaKeyShortcuts } from './internal/utils/get-aria-keyshortcuts';
 import type { NewDropdownItemProps } from './types';
 
@@ -32,7 +31,7 @@ const styles = cssMap({
 	root: {
 		display: 'flex',
 		flexDirection: 'row',
-		columnGap: token('space.150'),
+		columnGap: token('space.100'),
 		alignItems: 'center',
 		justifyContent: 'space-between',
 		flexGrow: 1,
@@ -41,8 +40,9 @@ const styles = cssMap({
 		textDecoration: 'none',
 		backgroundColor: token('color.background.neutral.subtle'),
 		margin: '0',
-		paddingInline: token('space.150'),
-		paddingBlock: token('space.100'),
+		paddingInlineStart: token('space.100'),
+		paddingInlineEnd: token('space.075'),
+		paddingBlock: token('space.075'),
 		textAlign: 'start',
 		borderRadius: token('radius.medium'),
 		color: token('color.text.subtle'),
@@ -71,11 +71,6 @@ const styles = cssMap({
 			backgroundColor: token('color.background.neutral.subtle.pressed'),
 		},
 	},
-	compact: {
-		columnGap: token('space.100'),
-		paddingInline: token('space.100'),
-		paddingBlock: token('space.075'),
-	},
 	beforeAfterElement: {
 		display: 'flex',
 		alignItems: 'center',
@@ -83,6 +78,9 @@ const styles = cssMap({
 		minWidth: '16px',
 		minHeight: '16px',
 		flexShrink: 0,
+	},
+	afterElement: {
+		paddingInlineEnd: token('space.025'),
 	},
 	textContainer: {
 		paddingInlineEnd: token('space.150'),
@@ -227,8 +225,6 @@ const NewDropdownItem: MemoExoticComponent<
 		): JSX.Element => {
 			const isDropdownTrigger = useContext(DropdownTriggerContext);
 			const hasNestedMenu = hasNestedMenuProp ?? isDropdownTrigger;
-			const spacing = useContext(NewSpacingContext);
-			const isCompact = spacing === 'compact';
 
 			const isLink = !!href;
 			const isDisabled = !isLink && isDisabledProp;
@@ -277,7 +273,10 @@ const NewDropdownItem: MemoExoticComponent<
 						</span>
 					)}
 					{hasNestedMenu && (
-						<span css={styles.beforeAfterElement} data-testid={testId && `${testId}--chevron`}>
+						<span
+							css={[styles.beforeAfterElement, styles.afterElement]}
+							data-testid={testId && `${testId}--chevron`}
+						>
 							<ChevronRightIcon size="small" label="" />
 						</span>
 					)}
@@ -286,7 +285,10 @@ const NewDropdownItem: MemoExoticComponent<
 						!hasNestedMenu &&
 						!isDropdownTrigger &&
 						!ariaHasPopup && (
-							<span css={styles.beforeAfterElement} data-testid={testId && `${testId}--selected`}>
+							<span
+								css={[styles.beforeAfterElement, styles.afterElement]}
+								data-testid={testId && `${testId}--selected`}
+							>
 								<CheckMarkIcon label="" />
 							</span>
 						)}
@@ -304,12 +306,7 @@ const NewDropdownItem: MemoExoticComponent<
 						onFocus={onFocus}
 						onMouseEnter={onMouseEnter}
 						onMouseLeave={onMouseLeave}
-						xcss={cx(
-							styles.root,
-							isCompact && styles.compact,
-							isSelected && styles.selected,
-							isDanger && styles.danger,
-						)}
+						xcss={cx(styles.root, isSelected && styles.selected, isDanger && styles.danger)}
 						testId={testId}
 						role={role}
 						id={id}
@@ -335,7 +332,6 @@ const NewDropdownItem: MemoExoticComponent<
 					isDisabled={isDisabled}
 					xcss={cx(
 						styles.root,
-						isCompact && styles.compact,
 						isSelected && styles.selected,
 						isDisabled && styles.disabled,
 						isSelected && isDisabled && styles.disabledAndSelected,

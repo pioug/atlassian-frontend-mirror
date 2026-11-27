@@ -2,10 +2,135 @@
 	"$schema": "https://json-schema.org/draft/2019-09/schema",
 	"$comment": "Generated from @atlaskit/a2ui-catalog by `yarn workspace @atlaskit/a2ui-catalog codegen:catalog-json`. Do not edit by hand.",
 	"title": "Atlassian Agentic Forge A2UI catalog",
-	"description": "A dedicated Forge result surface. ResultPanel shows a completed result from a literal title and summary. It is not a superset of the ADS catalog.",
+	"description": "A dedicated Forge catalog. ResultPanel shows a completed result from a literal title and summary. MultipleChoice selects one or more options. It is not a superset of the ADS catalog.",
 	"catalogId": "com.atlassian.agentic-forge/v0_9/v1",
-	"instructions": "Send A2UI v0.9 messages, each with \"version\": \"v0.9\". Start with createSurface using this catalogId, then send updateComponents. This catalog contains only ResultPanel and is not a superset of the ADS catalog. ResultPanel is a completed result: set id to \"root\", component to \"ResultPanel\", and provide title and summary as literal strings. summary keeps authored line breaks. Do not use data-binding path objects, updateDataModel, child component ids, or action props.",
+	"instructions": "Send A2UI v0.9 messages, each with \"version\": \"v0.9\". Start with createSurface using this catalogId, then send updateComponents. This catalog contains ResultPanel and MultipleChoice. It is not a superset of the ADS catalog. ResultPanel is a completed result: set component to \"ResultPanel\" and provide title and summary as literal strings. summary keeps authored line breaks. Do not add actions, data-binding path objects, or child component ids to ResultPanel. MultipleChoice chooses one or more options. Set options to an array of { label, value }. Set value to a string array or a { \"path\": \"/json/pointer\" } binding; the renderer writes the selected values back to that path. style is \"select\" (default) or \"action\". Use updateDataModel to seed a bound MultipleChoice value. Do not invent other component names.",
 	"components": {
+		"MultipleChoice": {
+			"allOf": [
+				{ "$ref": "#/$defs/ComponentCommon" },
+				{
+					"properties": {
+						"component": { "const": "MultipleChoice" },
+						"options": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"label": {
+										"anyOf": [
+											{ "type": "string" },
+											{
+												"type": "object",
+												"properties": { "path": { "type": "string" } },
+												"required": ["path"],
+												"additionalProperties": false
+											}
+										],
+										"description": "A literal string OR a `{ path }` JSON-pointer binding into the surface data model."
+									},
+									"value": {
+										"type": "string",
+										"description": "Stable identifier persisted to the data model."
+									}
+								},
+								"required": ["label", "value"],
+								"additionalProperties": false
+							},
+							"description": "Available options."
+						},
+						"value": {
+							"anyOf": [
+								{ "type": "array", "items": { "type": "string" } },
+								{
+									"type": "object",
+									"properties": { "path": { "type": "string" } },
+									"required": ["path"],
+									"additionalProperties": false
+								}
+							],
+							"description": "Selected values. A string array, or { \"path\": \"/pointer\" } so the selection is written back. Read that path to see what was picked."
+						},
+						"label": {
+							"$ref": "#/components/MultipleChoice/allOf/1/properties/options/items/properties/label",
+							"description": "Visible group label."
+						},
+						"multiple": {
+							"type": "boolean",
+							"description": "Allow more than one selection. Defaults to false. Ignored when style is \"action\"."
+						},
+						"style": {
+							"type": "string",
+							"enum": ["select", "action"],
+							"description": "\"select\" (default) is a dropdown. \"action\" is a menu. Picking an item writes value and fires onChange."
+						},
+						"placeholder": {
+							"$ref": "#/components/MultipleChoice/allOf/1/properties/options/items/properties/label",
+							"description": "A literal string OR a `{ path }` JSON-pointer binding into the surface data model."
+						},
+						"disabled": {
+							"anyOf": [
+								{ "type": "boolean" },
+								{
+									"type": "object",
+									"properties": { "path": { "type": "string" } },
+									"required": ["path"],
+									"additionalProperties": false
+								}
+							],
+							"description": "A literal boolean OR a `{ path }` JSON-pointer binding into the surface data model."
+						},
+						"invalid": {
+							"$ref": "#/components/MultipleChoice/allOf/1/properties/disabled",
+							"description": "A literal boolean OR a `{ path }` JSON-pointer binding into the surface data model."
+						},
+						"filterable": {
+							"type": "boolean",
+							"description": "Show a search box in the dropdown. Defaults to true. Ignored when style is \"action\"."
+						},
+						"onChange": {
+							"anyOf": [
+								{
+									"type": "object",
+									"properties": {
+										"event": {
+											"type": "object",
+											"properties": {
+												"name": { "type": "string" },
+												"context": { "type": "object", "additionalProperties": {} }
+											},
+											"required": ["name"],
+											"additionalProperties": false
+										}
+									},
+									"required": ["event"],
+									"additionalProperties": false
+								},
+								{
+									"type": "object",
+									"properties": {
+										"functionCall": {
+											"type": "object",
+											"properties": {
+												"call": { "type": "string" },
+												"args": { "type": "object", "additionalProperties": {} },
+												"returnType": { "type": "string" }
+											},
+											"required": ["call", "args"],
+											"additionalProperties": false
+										}
+									},
+									"required": ["functionCall"],
+									"additionalProperties": false
+								}
+							],
+							"description": "Fired after the selection is written to value. It has no arguments. Read the value path to see the choice, or put context on the action, for example { \"event\": { \"name\": \"picked\", \"context\": { \"from\": \"fruit-menu\" } } }."
+						}
+					},
+					"required": ["component", "options", "value"]
+				}
+			]
+		},
 		"ResultPanel": {
 			"allOf": [
 				{ "$ref": "#/$defs/ComponentCommon" },

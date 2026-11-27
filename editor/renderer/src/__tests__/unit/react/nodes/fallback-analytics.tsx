@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { render, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import Client from '@atlaskit/link-provider/client';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
 import { captureException } from '@atlaskit/linking-common/sentry';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 
 import { CardErrorBoundary } from '../../../../react/nodes/fallback';
 
@@ -80,6 +81,23 @@ describe('Renderer - Fallback analytics', () => {
 	afterEach(() => {
 		jest.clearAllMocks();
 	});
+
+	it.each([undefined, 'javascript:alert(1)'])(
+		'reports a failed datasource without a usable URL (%s)',
+		async (url) => {
+			mockExpEnabled('platform_editor_optional_chunk_recovery');
+			const onEvent = await setup(<ErrorChild />, {
+				datasourceId,
+				url,
+			});
+			expect(screen.getByText('UnsupportedInline')).toBeVisible();
+			expect(screen.queryByRole('link')).not.toBeInTheDocument();
+			expect(onEvent).toHaveBeenCalledWith(
+				expect.objectContaining(renderFailedPayload),
+				EVENT_CHANNEL,
+			);
+		},
+	);
 
 	describe('when error is caught by boundary and log to Sentry', () => {
 		it('should fire datasource renderFailed event', async () => {

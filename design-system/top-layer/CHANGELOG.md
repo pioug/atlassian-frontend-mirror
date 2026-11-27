@@ -1,5 +1,27 @@
 # @atlaskit/top-layer
 
+## 8.2.2
+
+### Patch Changes
+
+- [`acb4b205aeb5d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/acb4b205aeb5d) -
+  JSDoc only: say that the `auto` legacy placements open below the trigger, with no behaviour
+  change.
+
+## 8.2.1
+
+### Patch Changes
+
+- [`635cb5c51ff00`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/635cb5c51ff00) -
+  Closing a `Dialog` also closes the open dialogs inside it, so no hidden modal keeps the page inert
+  (in `ModalDialog` behind `platform-dst-top-layer`).
+- [`e0bf86dfda27b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e0bf86dfda27b) -
+  Ungated: `useCloseOnUnclaimedEscape` no longer binds a `document` listener while `isEnabled` is
+  `false`.
+- [`5e85f934c6515`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/5e85f934c6515) -
+  Anchored popovers now keep a 5px gap to the viewport edge. This change is not behind a feature
+  flag.
+
 ## 8.2.0
 
 ### Minor Changes

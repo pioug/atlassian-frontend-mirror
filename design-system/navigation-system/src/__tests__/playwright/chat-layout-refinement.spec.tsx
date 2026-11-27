@@ -2,10 +2,10 @@ import { expect, type Page, test } from '@af/integration-testing';
 
 async function visit(page: Page, width: number) {
 	await page.setViewportSize({ width, height: 900 });
-	await page.visitExample<typeof import('../../../examples/page-layout-chat-panel.tsx')>(
+	await page.visitExample<typeof import('../../../examples/page-layout-chat-panel-direct.tsx')>(
 		'design-system',
 		'navigation-system',
-		'page-layout-chat-panel',
+		'page-layout-chat-panel-direct',
 	);
 }
 
@@ -16,7 +16,7 @@ for (const width of [800, 1023]) {
 		await visit(page, width);
 		await page.getByRole('button', { name: 'Ask Rovo', exact: true }).click();
 		await page.getByRole('button', { name: 'open local panel', exact: true }).click();
-		// Wait for lazy content to finish its opening autofocus before resizing.
+		// Wait for the local panel to finish its opening autofocus before resizing.
 		await expect(
 			page.getByRole('button', { name: 'Close local panel', exact: true }),
 		).toBeFocused();
@@ -51,7 +51,7 @@ for (const area of ['panel', 'chat panel']) {
 		await visit(page, 1600);
 		await page.getByRole('button', { name: 'Ask Rovo', exact: true }).click();
 		await page.getByRole('button', { name: 'open local panel', exact: true }).click();
-		// Wait for lazy content to finish its opening autofocus before resizing.
+		// Wait for the local panel to finish its opening autofocus before resizing.
 		await expect(
 			page.getByRole('button', { name: 'Close local panel', exact: true }),
 		).toBeFocused();
@@ -78,7 +78,7 @@ test('one local drag can shrink wide Chat to its minimum and reverse without rel
 	await visit(page, 1920);
 	await page.getByRole('button', { name: 'Ask Rovo', exact: true }).click();
 	await page.getByRole('button', { name: 'open local panel', exact: true }).click();
-	// Wait for lazy content to finish its opening autofocus before resizing.
+	// Wait for the local panel to finish its opening autofocus before resizing.
 	await expect(page.getByRole('button', { name: 'Close local panel', exact: true })).toBeFocused();
 	const chatSlider = page.getByRole('slider', { name: 'Resize chat panel', exact: true });
 	await chatSlider.focus();

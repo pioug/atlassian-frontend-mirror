@@ -8,14 +8,20 @@ import { useEffect, useMemo, useState } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { browser } from '@atlaskit/linking-common/user-agent';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
-import { ActionName, CardDisplay, ElementName, SmartLinkPosition } from '../../../constants';
+import {
+	ActionName,
+	CardDisplay,
+	ElementName,
+	InternalActionName,
+	SmartLinkPosition,
+} from '../../../constants';
 import extractRovoChatAction from '../../../extractors/flexible/actions/extract-rovo-chat-action';
 import { getExtensionKey } from '../../../state/getExtensionKey';
 import useBlockCardRovoAction from '../../../state/hooks/use-block-card-rovo-action-experiment';
 import useRovoConfig from '../../../state/hooks/use-rovo-config';
-import { isRovoChatActionVisualizeEnabled } from '../../../utils/is-rovo-chat-action-visualize-enabled';
 import { RovoChatPromptKey } from '../../common/rovo-chat-utils';
 import FlexibleCard from '../../FlexibleCard';
 import { default as FooterBlock } from '../../FlexibleCard/components/blocks/footer-block';
@@ -65,6 +71,7 @@ const footerBlockSafariStyles = css({
  */
 const ResolvedView = ({
 	cardState,
+	id,
 	onClick,
 	onAuxClick,
 	onContextMenu,
@@ -112,26 +119,13 @@ const ResolvedView = ({
 				extensionKey === 'google-object-provider' &&
 				linkType?.includes('schema:SpreadsheetDigitalDocument')
 			) {
-				if (
-					isRovoChatActionVisualizeEnabled({
-						extensionKey,
-						product: rovoConfig?.product,
-						response: cardState?.details,
-					})
-				) {
-					return [
-						RovoChatPromptKey.IDENTIFY_KEY_TRENDS,
-						RovoChatPromptKey.VISUALIZE,
-						...defaultPrompts,
-					];
-				}
 				return [RovoChatPromptKey.IDENTIFY_KEY_TRENDS, ...defaultPrompts];
 			}
 
 			return [RovoChatPromptKey.SUMMARIZE_LINK, ...defaultPrompts];
 		}
 		return [];
-	}, [cardState?.details, extensionKey, is3PRovoBlockRovoActionEnabled, rovoConfig?.product]);
+	}, [cardState?.details, extensionKey, is3PRovoBlockRovoActionEnabled]);
 
 	const footerActions: ActionItem[] = useMemo(() => {
 		const showRovoResolvedView =
@@ -142,8 +136,8 @@ const ResolvedView = ({
 				rovoConfig,
 				actionOptions: actionOptions,
 			}) !== undefined;
-
-		return showRovoResolvedView && is3PRovoBlockRovoActionEnabled
+		const usesIconFooter = showRovoResolvedView && is3PRovoBlockRovoActionEnabled;
+		const actions: ActionItem[] = usesIconFooter
 			? [
 					{
 						name: ActionName.RovoChatAction,
@@ -159,6 +153,14 @@ const ResolvedView = ({
 					{ name: ActionName.PreviewAction, hideIcon: true },
 					{ name: ActionName.DownloadAction, hideIcon: true },
 				];
+		return fg('platform_sl_3p_auth_visualize_killswitch')
+			? [
+					usesIconFooter
+						? { name: InternalActionName.RemixAction, iconSize: 'small' }
+						: { name: InternalActionName.RemixAction, hideIcon: true },
+					...actions,
+				]
+			: actions;
 	}, [prompts, is3PRovoBlockRovoActionEnabled, cardState, rovoConfig, actionOptions]);
 
 	const uiOptions = FlexibleCardUiOptions;
@@ -169,6 +171,7 @@ const ResolvedView = ({
 		<FlexibleCard
 			appearance="block"
 			cardState={cardState}
+			{...(fg('platform_sl_3p_auth_visualize_killswitch') ? { id } : undefined)}
 			onClick={onClick}
 			onAuxClick={onAuxClick}
 			onContextMenu={onContextMenu}

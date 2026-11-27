@@ -165,6 +165,7 @@ export enum ActionName {
 
 export enum InternalActionName {
 	AISummaryAction = 'AISummaryAction',
+	RemixAction = 'RemixAction',
 	UnresolvedAction = 'UnresolvedAction',
 	ViewRelatedLinksAction = 'ViewRelatedLinksAction',
 }
@@ -275,6 +276,7 @@ export enum CardAction {
 	DownloadAction = 'DownloadAction',
 	FollowAction = 'FollowAction',
 	PreviewAction = 'PreviewAction',
+	RemixAction = 'RemixAction',
 	RovoChatAction = 'RovoChatAction',
 	ViewAction = 'ViewAction',
 }

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "138.8.0",
+	"version": "138.10.2",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -389,6 +389,7 @@
 		"./extensions/field-definitions": "./src/extensions/types/field-definitions.ts",
 		"./messages/find-replace": "./src/messages/find-replace.ts",
 		"./analytics/fire-analytics-event": "./src/analytics/fire-analytics-event.ts",
+		"./analytics/enrichment/boundary": "./src/analytics/enrichment/analytics-enrichment-boundary.tsx",
 		"./guideline/fixedGuideline": "./src/guideline/fixedGuideline.ts",
 		"./lists/flatten-list": "./src/lists/flatten-list.ts",
 		"./floating-toolbar/messages": "./src/floating-toolbar/messages.ts",
@@ -915,9 +916,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_legacy_content_macro_visual_update": {
-			"type": "boolean"
-		},
-		"platform_editor_content_mode_button_mvp": {
 			"type": "boolean"
 		},
 		"platform_editor_ai_selection_local_ids": {

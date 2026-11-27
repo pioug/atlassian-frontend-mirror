@@ -7,8 +7,9 @@
 
 import type { z } from 'zod';
 
-import type { ResultPanelSchema } from './schemas';
+import type { MultipleChoiceSchema, ResultPanelSchema } from './schemas';
 
+export type AgenticForgeV09MultipleChoiceProps = z.infer<typeof MultipleChoiceSchema>;
 export type AgenticForgeV09ResultPanelProps = z.infer<typeof ResultPanelSchema>;
 
 /**
@@ -16,15 +17,19 @@ export type AgenticForgeV09ResultPanelProps = z.infer<typeof ResultPanelSchema>;
  * `createSurface({ components })` accepts. `component` is the catalog name
  * and the remaining fields are that component's props.
  */
-export type AgenticForgeV09ComponentInstance = {
-	component: 'ResultPanel';
-	id: string;
-	summary: AgenticForgeV09ResultPanelProps['summary'];
-	title: AgenticForgeV09ResultPanelProps['title'];
-};
+export type AgenticForgeV09ComponentInstance =
+	| ({
+			component: 'MultipleChoice';
+			id: string;
+	  } & AgenticForgeV09MultipleChoiceProps)
+	| {
+			component: 'ResultPanel';
+			id: string;
+			summary: AgenticForgeV09ResultPanelProps['summary'];
+			title: AgenticForgeV09ResultPanelProps['title'];
+	  };
 
 /**
- * Component names registered by this catalog. Further Forge UI components are
- * added as concrete needs arise.
+ * Component names registered by this catalog.
  */
-export type AgenticForgeV09ComponentName = 'ResultPanel';
+export type AgenticForgeV09ComponentName = 'MultipleChoice' | 'ResultPanel';

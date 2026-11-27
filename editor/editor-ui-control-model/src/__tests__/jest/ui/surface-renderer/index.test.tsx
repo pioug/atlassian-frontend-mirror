@@ -10,6 +10,8 @@ import {
 	type ContextToken,
 	type IsHiddenOptions,
 	type RegisterComponent,
+	type RegisterGroup,
+	type RegisterToolbar,
 } from '../../../../types';
 import { SurfaceRenderer } from '../../../../ui/surface-renderer';
 import type { SurfaceFallbacks } from '../../../../ui/surface-renderer/types';
@@ -155,6 +157,61 @@ const createMenuComponents = (): RegisterComponent[] => [
 ];
 
 describe('SurfaceRenderer', () => {
+	describe('registered component props', () => {
+		it('updates root, wrapper and leaf data without remounting a focused control', () => {
+			type DataProps = CommonComponentProps & { label: string };
+			const Root = ({ children, label }: DataProps) => (
+				<div data-testid="data-root" data-label={label}>
+					{children}
+				</div>
+			);
+			const Group = ({ children, label }: DataProps) => (
+				<div data-testid="data-group" data-label={label}>
+					{children}
+				</div>
+			);
+			const Button = ({ label }: DataProps) => <button type="button">{label}</button>;
+			const surface = { key: 'data-toolbar', type: 'toolbar' } as const;
+			const createComponents = (label: string): RegisterComponent[] => {
+				const root: RegisterToolbar<DataProps> = {
+					...surface,
+					component: Root,
+					componentProps: { label },
+				};
+				const group: RegisterGroup<DataProps> = {
+					key: 'data-group',
+					type: 'group',
+					parents: [{ key: 'data-section', type: 'section', rank: 1 }],
+					component: Group,
+					componentProps: { label },
+				};
+				return [
+					root,
+					{ key: 'data-section', type: 'section', parents: [{ ...surface, rank: 1 }] },
+					group,
+					{
+						key: 'data-button',
+						type: 'button',
+						parents: [{ key: group.key, type: group.type, rank: 1 }],
+						component: Button,
+						componentProps: { label },
+					},
+				];
+			};
+			const { rerender } = render(
+				<SurfaceRenderer surface={surface} components={createComponents('Before')} />,
+			);
+			const button = screen.getByRole('button', { name: 'Before' });
+			button.focus();
+
+			rerender(<SurfaceRenderer surface={surface} components={createComponents('After')} />);
+
+			expect(screen.getByTestId('data-root')).toHaveAttribute('data-label', 'After');
+			expect(screen.getByTestId('data-group')).toHaveAttribute('data-label', 'After');
+			expect(screen.getByRole('button', { name: 'After' })).toBe(button);
+			expect(document.activeElement).toBe(button);
+		});
+	});
 	describe('toolbar surface', () => {
 		it('should render the full toolbar hierarchy', async () => {
 			const surface = createToolbarSurface();

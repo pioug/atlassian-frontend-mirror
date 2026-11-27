@@ -35,14 +35,16 @@ export const SurfaceComponent = ({
 
 	if (!children || children.length === 0) {
 		return (
-			<Component parents={parents} surfaceContext={surfaceContext}>
+			// eslint-disable-next-line react/jsx-props-no-spreading -- The shared renderer forwards each registration's typed component data.
+			<Component {...component.componentProps} parents={parents} surfaceContext={surfaceContext}>
 				{null}
 			</Component>
 		);
 	}
 
 	return (
-		<Component parents={parents} surfaceContext={surfaceContext}>
+		// eslint-disable-next-line react/jsx-props-no-spreading -- The shared renderer forwards each registration's typed component data.
+		<Component {...component.componentProps} parents={parents} surfaceContext={surfaceContext}>
 			<SurfaceComponents
 				components={children}
 				childrenMap={childrenMap}

@@ -1,5 +1,49 @@
 # @atlaskit/editor-plugin-table
 
+## 46.1.3
+
+### Patch Changes
+
+- [`a8b93e6cce3d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a8b93e6cce3d3) -
+  [ux] [A11Y-60503] group colour swatches in a single radio group and label the table background,
+  text colour, highlight colour, and native embed border palettes behind
+  `platform_editor_lovability_colors_a11y_fixes`.
+- Updated dependencies
+
+## 46.1.2
+
+### Patch Changes
+
+- [`97c72728a1827`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/97c72728a1827) -
+  Improve table cell-navigation INP behind `platform_editor_table_active_cell_dom_toggle`.
+- Updated dependencies
+
+## 46.1.1
+
+### Patch Changes
+
+- [`a7d037f054b10`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a7d037f054b10) -
+  Clean up platform_editor_sticky_cell_options_position feature gate
+- Updated dependencies
+
+## 46.1.0
+
+### Minor Changes
+
+- [`ef2f93c101016`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef2f93c101016) -
+  Remove the `platform_editor_table_fit_to_content_on_demand` experiment and always show the "Fit to
+  content" button in the table floating toolbar where content mode is supported.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 46.0.8
 
 ### Patch Changes

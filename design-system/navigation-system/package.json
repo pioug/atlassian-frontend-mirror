@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/navigation-system",
-	"version": "12.1.1",
+	"version": "12.1.3",
 	"description": "The latest navigation system for Atlassian apps.",
 	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
 	"license": "Apache-2.0",
@@ -208,6 +208,9 @@
 		"platform_dst_ads_appswitcher_improvements": {
 			"type": "boolean",
 			"referenceOnly": true
+		},
+		"navx-topnav-height-change": {
+			"type": "boolean"
 		}
 	},
 	"homepage": "https://atlassian.design/components/navigation-system"

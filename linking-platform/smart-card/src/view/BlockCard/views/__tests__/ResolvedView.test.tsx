@@ -1,24 +1,19 @@
 import React from 'react';
 
+import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import type { CardState } from '@atlaskit/linking-common/store';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
+import { userEvent } from '@atlassian/testing-library/user-event';
 import { within } from '@atlassian/testing-library/within';
 
 import MockAtlasProject from '../../../../__fixtures__/atlas-project';
-import { isRovoChatActionVisualizeEnabled } from '../../../../utils/is-rovo-chat-action-visualize-enabled';
+import { ANALYTICS_CHANNEL } from '../../../../utils/analytics/analytics';
 import ResolvedView from '../ResolvedView';
 import { mockConfluenceResponse } from './__mocks__/blockCardMocks';
-
-jest.mock('../../../../utils/is-rovo-chat-action-visualize-enabled', () => {
-	const actual = jest.requireActual('../../../../utils/is-rovo-chat-action-visualize-enabled');
-	return {
-		isRovoChatActionVisualizeEnabled: jest.fn(actual.isRovoChatActionVisualizeEnabled),
-	};
-});
-
-const mockIsRovoChatActionVisualizeEnabled = jest.mocked(isRovoChatActionVisualizeEnabled);
 
 describe('ResolvedView', () => {
 	const url = 'https://some.url';
@@ -110,34 +105,63 @@ describe('ResolvedView', () => {
 
 		const renderGoogleSheet = (
 			actionOptions: React.ComponentProps<typeof ResolvedView>['actionOptions'],
+			onEvent = jest.fn(),
 		) =>
 			renderWithIntl(
-				<SmartCardProvider
-					product="CONFLUENCE"
-					rovoOptions={{ isRovoEnabled: true, isRovoLLMEnabled: true }}
-				>
-					<ResolvedView
-						cardState={{ status: 'resolved', details: googleSheetsResponse } as CardState}
-						url={url}
-						actionOptions={actionOptions}
-					/>
-				</SmartCardProvider>,
+				<AnalyticsListener channel={ANALYTICS_CHANNEL} onEvent={onEvent}>
+					<SmartCardProvider
+						plugins={{ resolve: () => ({ remix: { isAvailable: () => true, open: jest.fn() } }) }}
+						product="CONFLUENCE"
+						rovoOptions={{ isRovoEnabled: true, isRovoLLMEnabled: true }}
+					>
+						<ResolvedView
+							cardState={{ status: 'resolved', details: googleSheetsResponse } as CardState}
+							id="block-card-id"
+							url={url}
+							actionOptions={actionOptions}
+						/>
+					</SmartCardProvider>
+				</AnalyticsListener>,
 			);
 
-		beforeEach(() => {
-			mockIsRovoChatActionVisualizeEnabled.mockClear();
+		it('renders Remix independently when Rovo chat is not opted in', async () => {
+			passGate('platform_sl_3p_auth_visualize_killswitch');
+			mockExpEnabled('platform_sl_3p_auth_visualize_exp');
+			renderGoogleSheet({
+				hide: false,
+				remixAction: { optIn: true },
+				rovoChatAction: { optIn: false },
+			});
+			expect(await screen.findByRole('button', { name: 'Remix' })).toBeInTheDocument();
+			expect(screen.queryByTestId('smart-action-rovo-chat-action-1')).not.toBeInTheDocument();
 		});
 
-		it('evaluates visualize when Rovo chat action is shown', async () => {
+		it('includes the block card ID in Remix click analytics', async () => {
+			passGate('platform_sl_3p_auth_visualize_killswitch');
+			mockExpEnabled('platform_sl_3p_auth_visualize_exp');
+			const onEvent = jest.fn();
+			renderGoogleSheet({ hide: false, remixAction: { optIn: true } }, onEvent);
+
+			await userEvent.setup().click(await screen.findByRole('button', { name: 'Remix' }));
+			expect(onEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					payload: expect.objectContaining({
+						eventType: 'ui',
+						action: 'clicked',
+						actionSubject: 'button',
+						actionSubjectId: 'remix',
+						attributes: expect.objectContaining({ id: 'block-card-id', display: 'block' }),
+					}),
+				}),
+				ANALYTICS_CHANNEL,
+			);
+		});
+
+		it('does not include Remix as a Rovo chat prompt', async () => {
 			renderGoogleSheet({ hide: false, rovoChatAction: { optIn: true } });
 			await screen.findByTestId('smart-footer-block-resolved-view');
 
-			expect(mockIsRovoChatActionVisualizeEnabled).toHaveBeenCalledWith(
-				expect.objectContaining({
-					extensionKey: 'google-object-provider',
-					product: 'CONFLUENCE',
-				}),
-			);
+			expect(screen.queryByText('Remix')).not.toBeInTheDocument();
 		});
 	});
 });

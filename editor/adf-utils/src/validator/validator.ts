@@ -1,3 +1,5 @@
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+
 import type { ADFEntity, ADFEntityMark } from '../types';
 import type {
 	AttributesSpec,
@@ -680,6 +682,48 @@ export function validator(
 			: [];
 	}
 
+	/**
+	 * For tuple-like content, `getOptionsForType` only ever returns the first variant of a type, e.g.
+	 * `paragraph_with_no_marks` rather than `paragraph_with_font_size`. Finds the first later variant
+	 * this caller accepts whose marks include every mark type on the child, when the first variant
+	 * does not. Only mark types are compared, so the child is still validated once, against the
+	 * returned variant.
+	 */
+	function findLaterVariantForMarks(child: ADFEntity, allowed: string | Array<string> | undefined) {
+		const childMarks = child.marks;
+		// Leave malformed marks to the existing validation, which reports them through the callback.
+		if (
+			!allowed ||
+			!Array.isArray(childMarks) ||
+			!childMarks.length ||
+			!childMarks.every((mark) => typeof mark?.type === 'string')
+		) {
+			return undefined;
+		}
+		const variants = makeArray(allowed).filter(
+			(spec) => (Array.isArray(spec) ? spec[0] : spec) === child.type,
+		);
+		const spec = validatorSpecs[child.type];
+		if (variants.length < 2 || !spec) {
+			return undefined;
+		}
+		const allowsChildMarks = (variant: string) => {
+			const options = getOptionsForType(child.type, [variant]) || {};
+			if (rejectStage0Specs && options.meta?.stage0) {
+				return false;
+			}
+			const variantSpec = validatorFor(spec, options);
+			const allowedMarks = variantSpec.props?.marks ? allowedMarksFor(variantSpec) : [];
+			return childMarks.every((mark) =>
+				allowedMarks.some((allowedMark) => allowedMark === mark.type),
+			);
+		};
+		if (allowsChildMarks(variants[0])) {
+			return undefined;
+		}
+		return variants.slice(1).find(allowsChildMarks);
+	}
+
 	function allowedMarksFor(validator: ValidatorSpec) {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -1262,13 +1306,22 @@ export function validator(
 					};
 					const hasMultipleCombinationOfContentAllowed = !!contentValidatorSpec.isTupleLike;
 					if (hasMultipleCombinationOfContentAllowed) {
+						let allowedForChild = makeArray(
+							contentValidatorSpec.items[index] ||
+								contentValidatorSpec.items[contentValidatorSpec.items.length - 1],
+						);
+						if (isExperimentEnabled('platform_editor_fix_tuple_content_variants')) {
+							// Use a later variant when only it allows the child's marks.
+							const laterVariant = findLaterVariantForMarks(child, allowedForChild);
+							if (laterVariant) {
+								allowedForChild = [laterVariant];
+							}
+						}
+
 						const { entity: newChildEntity, marksValidationOutput } = validateNode(
 							child,
 							errorCallback,
-							makeArray(
-								contentValidatorSpec.items[index] ||
-									contentValidatorSpec.items[contentValidatorSpec.items.length - 1],
-							),
+							allowedForChild,
 							validatorSpec,
 						);
 						const { entity } = validateChildMarks(

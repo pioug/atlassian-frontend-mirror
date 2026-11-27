@@ -1,4 +1,4 @@
-import { getFitMarginDeclarations } from '../anchor-positioning/fit-margins';
+import { getViewportPaddingMarginDeclarations } from '../anchor-positioning/viewport-padding-margins';
 import {
 	getAnchoredPopoverSizeDeclarations,
 	type TAnchorSizeValues,
@@ -69,14 +69,17 @@ function sizesFor({
 function marginsFor({
 	placement,
 	crossAxisShift,
+	hasCrossAxisPadding = true,
 }: {
 	placement: TPlacementOptions;
 	crossAxisShift?: string;
+	hasCrossAxisPadding?: boolean;
 }): { [property: string]: string } {
 	const resolved = resolvePlacement({ placement });
 	const crossAxis = resolved.axis === 'block' ? 'inline' : 'block';
-	return getFitMarginDeclarations({
+	return getViewportPaddingMarginDeclarations({
 		placement: resolved,
+		hasCrossAxisPadding,
 		crossAxisShiftMargins:
 			crossAxisShift === undefined
 				? []
@@ -849,7 +852,7 @@ describe('the JavaScript fallback path', () => {
 	});
 });
 
-describe('the fit margins', () => {
+describe('the viewport padding margins', () => {
 	it('reserves the viewport padding on the placement-axis side facing the viewport', () => {
 		// The gap is on the anchor-facing side, so the padding goes on the other
 		// one - the side the popover would otherwise sit flush against.
@@ -893,6 +896,20 @@ describe('the fit margins', () => {
 		expect(declarations['margin-block-end']).toBe(
 			'calc(calc(-1 * var(--ds-space-100, 8px)) + 5px)',
 		);
+	});
+
+	it('leaves the cross-axis shift alone when the cross axis has no padding', () => {
+		// A `'match-anchor'` cross axis: the popover is as wide as its anchor, so
+		// padding would push it off an anchor that touches the viewport edge.
+		const declarations = marginsFor({
+			placement: { axis: 'block', edge: 'end' },
+			crossAxisShift: '40px',
+			hasCrossAxisPadding: false,
+		});
+
+		expect(declarations['margin-block-end']).toBe('5px');
+		expect(declarations['margin-inline-start']).toBe('40px');
+		expect(declarations['margin-inline-end']).toBe('calc(-1 * 40px)');
 	});
 
 	it('pads only the viewport-facing cross side for a START-aligned popover', () => {

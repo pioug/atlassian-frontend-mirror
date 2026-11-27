@@ -6,6 +6,7 @@ import type {
 } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { findCellClosestToPos } from '@atlaskit/editor-tables/utils';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
@@ -13,6 +14,7 @@ import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { PluginInjectionAPI } from '../../types';
 import { TableCssClassName as ClassName } from '../../types';
+import { ACTIVE_CURSOR_CELL_ATTR } from './constants';
 
 interface ActiveCellHighlightState {
 	/** Position of the currently highlighted cell, or -1 if none */
@@ -117,6 +119,13 @@ const hasHadInteraction = (api: PluginInjectionAPI | undefined): boolean => {
 const createStateField = (api: PluginInjectionAPI | undefined): ActiveCellHighlightStateField => ({
 	init: (_config, state) => {
 		const interacted = hasHadInteraction(api);
+		if (isExperimentEnabled('platform_editor_table_active_cell_dom_toggle')) {
+			return {
+				cellPos: interacted ? getActiveCellPos(state) : -1,
+				decorationSet: DecorationSet.empty,
+				hasHadInteraction: interacted,
+			};
+		}
 		return {
 			...(interacted ? buildState(getActiveCellPos(state), state) : EMPTY_STATE),
 			hasHadInteraction: interacted,
@@ -141,6 +150,14 @@ const createStateField = (api: PluginInjectionAPI | undefined): ActiveCellHighli
 		}
 
 		const nextCellPos = getActiveCellPos(newState);
+
+		if (isExperimentEnabled('platform_editor_table_active_cell_dom_toggle')) {
+			if (nextCellPos === prev.cellPos && !isFirstInteraction) {
+				return prev;
+			}
+			return { cellPos: nextCellPos, decorationSet: DecorationSet.empty, hasHadInteraction: true };
+		}
+
 		if (
 			tr.docChanged &&
 			expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
@@ -156,6 +173,54 @@ const createStateField = (api: PluginInjectionAPI | undefined): ActiveCellHighli
 	},
 });
 
+class ActiveCellHighlightView {
+	private readonly view: EditorView;
+	private cellDom: HTMLElement | null = null;
+
+	constructor(view: EditorView) {
+		this.view = view;
+		this.sync();
+	}
+
+	update(view: EditorView, prevState: EditorState): void {
+		const prev = activeCellHighlightPluginKey.getState(prevState);
+		const next = activeCellHighlightPluginKey.getState(view.state);
+		if (prev === next && prevState.doc === view.state.doc) {
+			return;
+		}
+		this.sync();
+	}
+
+	destroy(): void {
+		this.cellDom?.removeAttribute(ACTIVE_CURSOR_CELL_ATTR);
+		this.cellDom = null;
+	}
+
+	private sync(): void {
+		const cellPos = activeCellHighlightPluginKey.getState(this.view.state)?.cellPos ?? -1;
+		let next: HTMLElement | null = null;
+		if (cellPos !== -1) {
+			try {
+				const dom = this.view.nodeDOM(cellPos);
+				next = dom instanceof HTMLElement ? dom : null;
+			} catch {
+				next = null;
+			}
+		}
+
+		if (next === this.cellDom) {
+			if (next && !next.hasAttribute(ACTIVE_CURSOR_CELL_ATTR)) {
+				next.setAttribute(ACTIVE_CURSOR_CELL_ATTR, 'true');
+			}
+			return;
+		}
+
+		this.cellDom?.removeAttribute(ACTIVE_CURSOR_CELL_ATTR);
+		next?.setAttribute(ACTIVE_CURSOR_CELL_ATTR, 'true');
+		this.cellDom = next;
+	}
+}
+
 export const createPlugin = (api?: PluginInjectionAPI): SafePlugin<ActiveCellHighlightState> => {
 	return new SafePlugin<ActiveCellHighlightState>({
 		key: activeCellHighlightPluginKey,
@@ -164,5 +229,8 @@ export const createPlugin = (api?: PluginInjectionAPI): SafePlugin<ActiveCellHig
 			decorations: (state) =>
 				activeCellHighlightPluginKey.getState(state)?.decorationSet ?? DecorationSet.empty,
 		},
+		view: isExperimentEnabled('platform_editor_table_active_cell_dom_toggle')
+			? (view) => new ActiveCellHighlightView(view)
+			: undefined,
 	});
 };

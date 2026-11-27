@@ -4,11 +4,13 @@ import type { LozengeProps as AtlaskitLozengeProps } from '@atlaskit/lozenge/loz
 
 import {
 	type ActionName,
+	type InternalActionName,
 	type CardDisplay,
 	type ElementName,
 	type SmartLinkDirection,
 	type SmartLinkSize,
 } from '../../../../constants';
+import type { RovoChatPromptKey } from '../../../common/rovo-chat-utils';
 import { type ActionProps } from '../actions/action/types';
 import type { AssignedToGroupElementProps } from '../elements/assigned-to-group-element';
 import type { BaseAvatarGroupElementProps } from '../elements/common/base-avatar-group-element';
@@ -221,6 +223,7 @@ export type NamedDataActionItem = BaseDataActionItem & {
 		| ActionName.AutomationAction
 		| ActionName.CopyLinkAction
 		| ActionName.RovoChatAction;
+	prompts?: RovoChatPromptKey[];
 } & Pick<ActionProps, 'iconSize'>;
 
 /**
@@ -244,7 +247,16 @@ export type CustomActionItem = BaseActionItem & {
 				Pick<ActionProps, 'tooltipMessage'>)
 	);
 
-export type ActionItem = (NamedActionItem | NamedDataActionItem | CustomActionItem) & {
+type InternalDataActionItem = Omit<BaseDataActionItem, 'name'> & {
+	name: InternalActionName.RemixAction;
+} & Pick<ActionProps, 'iconSize'>;
+
+export type ActionItem = (
+	| NamedActionItem
+	| NamedDataActionItem
+	| InternalDataActionItem
+	| CustomActionItem
+) & {
 	entryPointWrapper?: React.FC<{ children: React.ReactNode }>;
 };
 

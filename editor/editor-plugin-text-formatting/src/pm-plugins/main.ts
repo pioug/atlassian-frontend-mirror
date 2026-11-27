@@ -17,7 +17,6 @@ import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { createInlineCodeFromTextInputWithAnalytics } from '../editor-commands/text-formatting';
 // Ignored via go/ees005
@@ -69,9 +68,8 @@ const selectionHasTextAcceptingMark = (editorState: EditorState, markType: MarkT
 };
 
 /**
- * Whether inline code in the selection should disable `markType`. Behind
- * `platform_editor_style_around_inline_code`, code only disables a mark when no other text in the
- * selection could take it.
+ * Whether inline code in the selection should disable `markType`. Code only disables a mark when
+ * no other text in the selection could take it.
  */
 const isDisabledByCode = (
 	codeInSelection: boolean | undefined,
@@ -81,10 +79,7 @@ const isDisabledByCode = (
 	if (!codeInSelection) {
 		return false;
 	}
-	if (fg('platform_editor_style_around_inline_code')) {
-		return !selectionHasTextAcceptingMark(editorState, markType);
-	}
-	return true;
+	return !selectionHasTextAcceptingMark(editorState, markType);
 };
 
 const getTextFormattingState = (

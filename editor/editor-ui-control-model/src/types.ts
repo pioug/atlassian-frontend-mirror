@@ -95,6 +95,25 @@ export type IsComponentHidden = (options?: IsHiddenOptions) => boolean;
 // --- Registration types ---
 
 /**
+ * Component data can change without replacing the registered React component type.
+ *
+ * Only `SurfaceRenderer` forwards `componentProps`. Hosts that render a registration's `component`
+ * themselves (for example the registered type-ahead and insert menus) ignore it.
+ *
+ * `componentProps` is required when the component declares required props of its own, so a
+ * registration cannot omit data its component depends on.
+ */
+type OwnComponentProps<TProps extends CommonComponentProps> = Omit<
+	TProps,
+	keyof CommonComponentProps
+>;
+
+type ComponentProps<TProps extends CommonComponentProps> =
+	Partial<OwnComponentProps<TProps>> extends OwnComponentProps<TProps>
+		? { componentProps?: OwnComponentProps<TProps> }
+		: { componentProps: OwnComponentProps<TProps> };
+
+/**
  * Context passed to `isAsyncHidden` callbacks for async visibility checks.
  */
 export type AsyncHiddenContext = {
@@ -108,18 +127,19 @@ export type AsyncHiddenContext = {
  *   └── section → group → button | menu → …
  */
 export type RegisterToolbar<TProps extends CommonComponentProps = CommonComponentProps> =
-	ToolbarType & {
-		component?: RegisteredComponent<TProps>;
-		/**
-		 * Optional async visibility check. When present, the paste menu will run
-		 * this function in parallel with other async checks and hide this component
-		 * if it resolves to `true`. Wrapped in a 3-second timeout — on timeout or
-		 * error the component is hidden (safe default).
-		 */
-		isAsyncHidden?: (context: AsyncHiddenContext) => Promise<boolean>;
-		isHidden?: IsComponentHidden;
-		parents?: undefined;
-	};
+	ToolbarType &
+		ComponentProps<TProps> & {
+			component?: RegisteredComponent<TProps>;
+			/**
+			 * Optional async visibility check. When present, the paste menu will run
+			 * this function in parallel with other async checks and hide this component
+			 * if it resolves to `true`. Wrapped in a 3-second timeout — on timeout or
+			 * error the component is hidden (safe default).
+			 */
+			isAsyncHidden?: (context: AsyncHiddenContext) => Promise<boolean>;
+			isHidden?: IsComponentHidden;
+			parents?: undefined;
+		};
 
 /**
  * Menu surface root. No parents — this is a top-level surface.
@@ -128,25 +148,27 @@ export type RegisterToolbar<TProps extends CommonComponentProps = CommonComponen
  *   └── menu-section → menu-item | nested-menu → …
  */
 export type RegisterMenuSurface<TProps extends CommonComponentProps = CommonComponentProps> =
-	MenuType & {
-		component?: RegisteredComponent<TProps>;
-		isAsyncHidden?: (context: AsyncHiddenContext) => Promise<boolean>;
-		isHidden?: IsComponentHidden;
-		parents?: undefined;
-	};
+	MenuType &
+		ComponentProps<TProps> & {
+			component?: RegisteredComponent<TProps>;
+			isAsyncHidden?: (context: AsyncHiddenContext) => Promise<boolean>;
+			isHidden?: IsComponentHidden;
+			parents?: undefined;
+		};
 
 /** Section within a toolbar surface. */
 export type RegisterSection<TProps extends CommonComponentProps = CommonComponentProps> =
-	SectionType & {
-		component?: RegisteredComponent<TProps>;
-		isAsyncHidden?: (context: AsyncHiddenContext) => Promise<boolean>;
-		isHidden?: IsComponentHidden;
-		parents: Parents<ToolbarType>;
-	};
+	SectionType &
+		ComponentProps<TProps> & {
+			component?: RegisteredComponent<TProps>;
+			isAsyncHidden?: (context: AsyncHiddenContext) => Promise<boolean>;
+			isHidden?: IsComponentHidden;
+			parents: Parents<ToolbarType>;
+		};
 
 /** Group within a toolbar section. */
-export type RegisterGroup<TProps extends CommonComponentProps = CommonComponentProps> =
-	GroupType & {
+export type RegisterGroup<TProps extends CommonComponentProps = CommonComponentProps> = GroupType &
+	ComponentProps<TProps> & {
 		component?: RegisteredComponent<TProps>;
 		isAsyncHidden?: (context: AsyncHiddenContext) => Promise<boolean>;
 		isHidden?: IsComponentHidden;
@@ -155,29 +177,32 @@ export type RegisterGroup<TProps extends CommonComponentProps = CommonComponentP
 
 /** Button within a toolbar group. Leaf node. */
 export type RegisterButton<TProps extends CommonComponentProps = CommonComponentProps> =
-	ButtonType & {
+	ButtonType &
+		ComponentProps<TProps> & {
+			component?: RegisteredComponent<TProps>;
+			isAsyncHidden?: (context: AsyncHiddenContext) => Promise<boolean>;
+			isHidden?: IsComponentHidden;
+			parents: Parents<GroupType>;
+		};
+
+/** Menu (dropdown) within a toolbar group. */
+export type RegisterMenu<TProps extends CommonComponentProps = CommonComponentProps> = MenuType &
+	ComponentProps<TProps> & {
 		component?: RegisteredComponent<TProps>;
 		isAsyncHidden?: (context: AsyncHiddenContext) => Promise<boolean>;
 		isHidden?: IsComponentHidden;
 		parents: Parents<GroupType>;
 	};
 
-/** Menu (dropdown) within a toolbar group. */
-export type RegisterMenu<TProps extends CommonComponentProps = CommonComponentProps> = MenuType & {
-	component?: RegisteredComponent<TProps>;
-	isAsyncHidden?: (context: AsyncHiddenContext) => Promise<boolean>;
-	isHidden?: IsComponentHidden;
-	parents: Parents<GroupType>;
-};
-
 /** Section within a menu or nested-menu. */
 export type RegisterMenuSection<TProps extends CommonComponentProps = CommonComponentProps> =
-	MenuSectionType & {
-		component?: RegisteredComponent<TProps>;
-		isAsyncHidden?: (context: AsyncHiddenContext) => Promise<boolean>;
-		isHidden?: IsComponentHidden;
-		parents: Parents<MenuType | NestedMenuType>;
-	};
+	MenuSectionType &
+		ComponentProps<TProps> & {
+			component?: RegisteredComponent<TProps>;
+			isAsyncHidden?: (context: AsyncHiddenContext) => Promise<boolean>;
+			isHidden?: IsComponentHidden;
+			parents: Parents<MenuType | NestedMenuType>;
+		};
 
 export type MenuItemMatchContext = {
 	formatMessage: (
@@ -200,22 +225,24 @@ export type RegisterMenuItemMatch = (context: MenuItemMatchContext) => MenuItemM
 
 /** Menu item within a menu-section. Leaf node. */
 export type RegisterMenuItem<TProps extends CommonComponentProps = CommonComponentProps> =
-	MenuItemType & {
-		component?: RegisteredComponent<TProps>;
-		isAsyncHidden?: (context: AsyncHiddenContext) => Promise<boolean>;
-		isHidden?: IsComponentHidden;
-		match?: RegisterMenuItemMatch;
-		parents: Parents<MenuSectionType>;
-	};
+	MenuItemType &
+		ComponentProps<TProps> & {
+			component?: RegisteredComponent<TProps>;
+			isAsyncHidden?: (context: AsyncHiddenContext) => Promise<boolean>;
+			isHidden?: IsComponentHidden;
+			match?: RegisterMenuItemMatch;
+			parents: Parents<MenuSectionType>;
+		};
 
 /** Nested sub-menu within a menu-section. */
 export type RegisterNestedMenu<TProps extends CommonComponentProps = CommonComponentProps> =
-	NestedMenuType & {
-		component?: RegisteredComponent<TProps>;
-		isAsyncHidden?: (context: AsyncHiddenContext) => Promise<boolean>;
-		isHidden?: IsComponentHidden;
-		parents: Parents<MenuSectionType>;
-	};
+	NestedMenuType &
+		ComponentProps<TProps> & {
+			component?: RegisteredComponent<TProps>;
+			isAsyncHidden?: (context: AsyncHiddenContext) => Promise<boolean>;
+			isHidden?: IsComponentHidden;
+			parents: Parents<MenuSectionType>;
+		};
 
 // --- Discriminated union ---
 

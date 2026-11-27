@@ -14,6 +14,7 @@ export type InvokeClientActionSubjectId =
 	| 'copyLink'
 	| 'downloadDocument'
 	| 'invokePreviewScreen'
+	| 'remix'
 	| 'rovoChatPrompt'
 	| 'shortcutGoToLink';
 

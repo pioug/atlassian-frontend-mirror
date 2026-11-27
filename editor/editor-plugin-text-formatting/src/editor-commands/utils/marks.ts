@@ -1,4 +1,4 @@
-import { entireSelectionContainsMark, isMarkExcluded } from '@atlaskit/editor-common/mark';
+import { isMarkExcluded } from '@atlaskit/editor-common/mark';
 import type { EditorCommand } from '@atlaskit/editor-common/types/editor-command';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { Mark, MarkType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -67,18 +67,6 @@ const entireStyleableSelectionContainsMark = (
 	return onlyContainsMark;
 };
 
-const selectionContainsMark = (
-	mark: Mark,
-	doc: PMNode,
-	fromPos: number,
-	toPos: number,
-): boolean => {
-	if (fg('platform_editor_style_around_inline_code')) {
-		return entireStyleableSelectionContainsMark(mark, doc, fromPos, toPos);
-	}
-	return entireSelectionContainsMark(mark, doc, fromPos, toPos);
-};
-
 const nextToggleMarkInRange =
 	(mark: Mark, api: ExtractInjectionAPI<TextFormattingPlugin> | undefined): EditorCommand =>
 	({ tr }) => {
@@ -90,7 +78,7 @@ const nextToggleMarkInRange =
 				const from = cellPos;
 				const to = cellPos + cell.nodeSize;
 
-				removeMark && (removeMark = selectionContainsMark(mark, tr.doc, from, to));
+				removeMark && (removeMark = entireStyleableSelectionContainsMark(mark, tr.doc, from, to));
 			});
 
 			for (let i = cells.length - 1; i >= 0; i--) {
@@ -107,7 +95,7 @@ const nextToggleMarkInRange =
 			// Scenario 1: Selection contains both bold and non-bold text -> bold entire selection
 			// Scenario 2: Selection contains only bold text -> un-bold entire selection
 			// Scenario 3: Selection contains no bold text -> bold entire selection
-			const removeMark = selectionContainsMark(mark, tr.doc, $from.pos, $to.pos);
+			const removeMark = entireStyleableSelectionContainsMark(mark, tr.doc, $from.pos, $to.pos);
 
 			nextApplyMarkOnRange($from.pos, $to.pos, removeMark, mark, tr, api);
 		}

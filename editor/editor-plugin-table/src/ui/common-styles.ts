@@ -35,10 +35,12 @@ import {
 	getSelectionStyles,
 	hideNativeBrowserTextSelectionStyles,
 } from '@atlaskit/editor-shared-styles/selection/utils';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
+import { ACTIVE_CURSOR_CELL_ATTR } from '../pm-plugins/active-cell-highlight/constants';
 import { SORTING_ICON_CLASS_NAME } from '../pm-plugins/view-mode-sort/consts';
 import { TableCssClassName as ClassName } from '../types';
 import {
@@ -165,8 +167,8 @@ const selectedCellBorderStyles = (): SerializedStyles => css`
 
 		> td.${ClassName.TABLE_CELL}.${ClassName.SELECTED_CELL}:not(.${ClassName.HOVERED_CELL_IN_DANGER})::after,
 		> th.${ClassName.TABLE_HEADER_CELL}.${ClassName.SELECTED_CELL}:not(.${ClassName.HOVERED_CELL_IN_DANGER})::after,
-		> td.${ClassName.TABLE_CELL}.${ClassName.ACTIVE_CURSOR_CELL}::after,
-		> th.${ClassName.TABLE_HEADER_CELL}.${ClassName.ACTIVE_CURSOR_CELL}::after {
+		> td.${ClassName.TABLE_CELL}${isExperimentEnabled('platform_editor_table_active_cell_dom_toggle') ? `:is(.${ClassName.ACTIVE_CURSOR_CELL}, [${ACTIVE_CURSOR_CELL_ATTR}])` : `.${ClassName.ACTIVE_CURSOR_CELL}`}::after,
+		> th.${ClassName.TABLE_HEADER_CELL}${isExperimentEnabled('platform_editor_table_active_cell_dom_toggle') ? `:is(.${ClassName.ACTIVE_CURSOR_CELL}, [${ACTIVE_CURSOR_CELL_ATTR}])` : `.${ClassName.ACTIVE_CURSOR_CELL}`}::after {
 			border-color: ${token('color.border.selected')};
 		}
 	}
@@ -398,6 +400,22 @@ const baseTableStylesWithoutSharedStyle = (props: {
 				display: inline-block;
 				pointer-events: none;
 			}
+		}
+
+		${
+			expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
+			isExperimentEnabled('platform_editor_table_active_cell_dom_toggle')
+				? `
+		th.${ClassName.TABLE_HEADER_CELL}::after {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			pointer-events: none;
+		}`
+				: ''
 		}
 	}
 

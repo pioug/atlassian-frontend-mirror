@@ -1,5 +1,50 @@
 # @atlaskit/smart-card
 
+## 46.23.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.23.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.23.0
+
+### Minor Changes
+
+- [`e307d210d86b3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e307d210d86b3) -
+  In the Visualize experiment, the Visualize action on Google Sheets links only shows where the
+  `remix` link provider plugin reports Remix is available. Inline, block and embed cards show Remix
+  text and icon, and open the plugin-owned Remix modal instead of sending a Rovo Chat prompt.
+
+  Give Remix its own action configuration (`remixAction.optIn` and `CardAction.RemixAction`
+  exclusion), extraction, and click analytics, independent of Rovo Chat actions. Hover previews do
+  not show Remix or record an exposure, and Remix clicks reuse the card's analytics ID when
+  available.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 46.22.3
+
+### Patch Changes
+
+- [`3699d22899b88`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3699d22899b88) -
+  Add optional journey, attempt, retry parent, and source stage fields to the Smart Link
+  authentication start event.
+- Updated dependencies
+
+## 46.22.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 46.22.1
 
 ### Patch Changes

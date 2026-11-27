@@ -57,7 +57,6 @@ export const shouldSuppressPasteActionsForAgentMention = (slice?: Slice | null):
 	expVal('platform_editor_agent_mentions', 'isEnabled', false) && containsAgentMention(slice);
 
 export const shouldSuppressPasteActionsForSingleLink = (slice?: Slice | null): boolean =>
-	expVal('platform_editor_fix_link_paste_menu', 'isEnabled', false) &&
 	!isNotSingleLink(slice ?? undefined);
 
 interface PasteActionsMenuProps {

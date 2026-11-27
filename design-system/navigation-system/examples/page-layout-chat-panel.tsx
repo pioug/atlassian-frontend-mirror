@@ -45,6 +45,7 @@ import { PanelBody } from '@atlassian/panel-system/panel-body';
 import { PanelContainer } from '@atlassian/panel-system/panel-container';
 import { PanelContent } from '@atlassian/panel-system/panel-content';
 import { PanelHeader } from '@atlassian/panel-system/panel-header';
+import { usePanelActions } from '@atlassian/panel-system/panel-manager';
 import { PanelProvider } from '@atlassian/panel-system/panel-provider';
 import { PanelTitle } from '@atlassian/panel-system/panel-title';
 import { Trigger } from '@atlassian/panel-system/trigger';
@@ -125,7 +126,18 @@ const styles = cssMap({
 	},
 });
 
-export default function ChatPanelExample(): JSX.Element {
+function DirectLocalPanelTrigger({ content }: { content: ReactNode }): JSX.Element {
+	const { openPanel } = usePanelActions();
+	return (
+		<Button onClick={() => openPanel({ instanceId: 'local-panel', panelContent: content })}>
+			open local panel
+		</Button>
+	);
+}
+
+export default function ChatPanelExample({
+	directLocalPanelContent,
+}: { directLocalPanelContent?: ReactNode } = {}): JSX.Element {
 	enableChatPanelLayout();
 	const [isChatPanelOpen, setIsChatPanelOpen] = useState(false);
 
@@ -169,11 +181,15 @@ export default function ChatPanelExample(): JSX.Element {
 							<Box padding="space.300">
 								<WidthReadout label="Main" target="parent" />
 								<Stack space="space.200" alignInline="start">
-									<Trigger panel={localPanelEntryPoint} params={{}}>
-										{({ ref }) => (
-											<Button ref={ref as Ref<HTMLButtonElement>}>open local panel</Button>
-										)}
-									</Trigger>
+									{directLocalPanelContent === undefined ? (
+										<Trigger panel={localPanelEntryPoint} params={{}}>
+											{({ ref }) => (
+												<Button ref={ref as Ref<HTMLButtonElement>}>open local panel</Button>
+											)}
+										</Trigger>
+									) : (
+										<DirectLocalPanelTrigger content={directLocalPanelContent} />
+									)}
 									<Text>
 										Panel-system panels are scoped to the main content area. The ChatPanel remains a
 										separate full-height navigation-system slot.

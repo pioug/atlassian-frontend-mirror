@@ -8,6 +8,10 @@ import {
 } from './picker.fixture.vr.ap';
 
 snapshot(EmojiPickerWithUpload, {
+	featureFlags: {
+		platform_emoji_search_top: [true, false],
+		platform_ally_emoji_fixes_various: true,
+	},
 	states: [
 		{
 			selector: { byRole: 'searchbox', options: { name: 'Search emoji by name' } },
@@ -23,6 +27,10 @@ snapshot(EmojiPickerWithUpload, {
 	],
 });
 snapshot(EmojiPickerWithoutUpload, {
+	featureFlags: {
+		platform_emoji_search_top: [true, false],
+		platform_ally_emoji_fixes_various: true,
+	},
 	states: [
 		{
 			selector: { byRole: 'searchbox', options: { name: 'Search emoji by name' } },
@@ -38,6 +46,10 @@ snapshot(EmojiPickerWithoutUpload, {
 	],
 });
 snapshot(EmojiPickerWithFallbackWithUpload, {
+	featureFlags: {
+		platform_emoji_search_top: [true, false],
+		platform_ally_emoji_fixes_various: true,
+	},
 	states: [
 		{
 			selector: { byRole: 'searchbox', options: { name: 'Search emoji by name' } },
@@ -58,6 +70,10 @@ snapshot(EmojiPickerWithFallbackWithUpload, {
 	],
 });
 snapshot(EmojiPickerWithFallbackWithoutUpload, {
+	featureFlags: {
+		platform_emoji_search_top: [true, false],
+		platform_ally_emoji_fixes_various: true,
+	},
 	states: [
 		{
 			selector: { byRole: 'searchbox', options: { name: 'Search emoji by name' } },

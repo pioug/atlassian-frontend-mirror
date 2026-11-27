@@ -15,7 +15,6 @@ import type { WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles/constants';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { getCorrectAltByIconUrl } from './listItemAlts';
@@ -178,9 +177,7 @@ const LinkSearchListItem = (
 			id={id}
 			aria-selected={selected}
 			data-testid="link-search-list-item"
-			onBlur={
-				expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true) ? onBlur : undefined
-			}
+			onBlur={onBlur}
 			onFocus={onFocus}
 			onKeyDown={handleKeyDown}
 			onMouseMove={handleMouseMove}

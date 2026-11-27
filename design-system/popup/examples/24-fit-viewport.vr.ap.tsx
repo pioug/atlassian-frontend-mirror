@@ -37,7 +37,7 @@ import { token } from '@atlaskit/tokens';
 // `<Popup>`'s `xcss` is a `StrictXCSSProp` over padding and `width` only, so a
 // surface-shaped declaration (background, radius, border) is not expressible
 // through it on EITHER path. Both of the properties it does allow are passed
-// here, because that combination is where the two paths part company: see
+// here, because that combination is where the two paths parted company: see
 // `PopupSurfaceXcss` below. `width` is what the real call sites pass (link
 // pickers at 464px, a session card at 240px).
 const popupStyles = strictCssMap({
@@ -133,16 +133,14 @@ const styles = cssMap({
 		textAlign: 'center',
 	},
 	// Ink for the xcss fixture, whose whole subject is a WIDTH. The popup is a white
-	// surface on a white page, so the 32px the two paths disagree about was worth
-	// only 1,081 changed pixels; a solid block that fills the content area turns the
-	// same disagreement into a block of colour that is 32px wider. See
+	// surface on a white page, so the 32px the two paths once disagreed about was
+	// worth only 1,081 changed pixels; a solid block that fills the content area
+	// turns the same disagreement into a block of colour that is 32px wider. See
 	// `@atlaskit/top-layer`'s `notes/rules/testing.md`.
 	xcssInk: {
 		blockSize: '64px',
-		// Labelled with what is PASSED, not with a measurement: `width: 280px` lands
-		// on the padded box on one path and on this inner element on the other, so
-		// the rendered widths differ (280/248 on legacy, 312/280 on top-layer) and any
-		// single number in the pixels would be false on one half of the pair.
+		// Labelled with what is PASSED, not with a measurement, so the label stays
+		// true if the two paths part again.
 		backgroundColor: token('color.background.brand.bold'),
 		color: token('color.text.inverse'),
 		paddingBlockStart: token('space.100'),
@@ -362,19 +360,13 @@ export function FitContainerAndViewport(): ReactNode {
 
 /**
  * `xcss` on a standard `<Popup>`, with no `popupComponent`, carrying a `width`
- * AND padding, which is the combination no test covered: `fit-viewport.spec.tsx`
- * passes `width` alone.
+ * AND padding. `fit-viewport.spec.tsx` measures the same combination.
  *
- * The two baselines DIVERGE, and the pair is kept as the record of it. Measured:
- * legacy renders a 280px surface with a 248px inner block, the top-layer path a
- * 312px surface with a 280px inner block. `width: 280px` lands on the padded box
- * on one path and on the inner element on the other, because `xcss` now lands on
- * a child of `PopoverSurface` where legacy applied the same declarations to a
- * border-box container. The block inside is labelled with what is PASSED for that
- * reason: any rendered number would be false on one half.
- *
- * Left as found rather than fixed here, since this change adds tests only. See
- * `@atlaskit/top-layer`'s `notes/follow-ups/popup-xcss-width-divergence.md`.
+ * Both paths render a 280px surface with a 248px inner block. Legacy puts `xcss`
+ * on a `border-box` container. The top-layer path puts it on a child of
+ * `PopoverSurface`, which is `border-box` too. Before that it was `content-box`,
+ * and the top-layer surface was 312px wide. See `@atlaskit/top-layer`'s
+ * `notes/follow-ups/popup-xcss-width-divergence.md`.
  */
 export function PopupSurfaceXcss(): ReactNode {
 	const [isOpen, setIsOpen] = useState(true);

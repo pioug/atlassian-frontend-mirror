@@ -22,6 +22,7 @@ import ShowMoreHorizontalIcon from '@atlaskit/icon/core/show-more-horizontal';
 import StarUnstarredIcon from '@atlaskit/icon/core/star-unstarred';
 import TagIcon from '@atlaskit/icon/core/tag';
 import { SideNavBody } from '@atlaskit/navigation-system/layout/side-nav';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import {
 	dropTargetForElements,
 	type ElementDropTargetEventBasePayload,
@@ -56,7 +57,11 @@ function ReorderMenu({ onClose }: { onClose?: () => void }) {
 					{...triggerProps}
 					ref={triggerRef}
 					elemBefore={<GrowVerticalIcon label="" />}
-					elemAfter={<ChevronRightIcon color={token('color.icon.subtle')} label="" size="small" />}
+					elemAfter={
+						fg('platform-dst-new-menu') ? undefined : (
+							<ChevronRightIcon color={token('color.icon.subtle')} label="" size="small" />
+						)
+					}
 				>
 					<span>Reorder</span>
 				</DropdownItem>

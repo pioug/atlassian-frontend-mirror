@@ -15,7 +15,6 @@ import EditIcon from '@atlaskit/icon/core/edit';
 import { Flex } from '@atlaskit/primitives/components/flex';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { xcss } from '@atlaskit/primitives/xcss/xcss';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 const buttonContainerStyles = css({
@@ -118,13 +117,9 @@ export const EditToggle = ({
 			onMouseOver={() => setIsNodeHovered?.(true)}
 			// @atlassian/a11y/mouse-events-have-key-events: keyboard focus is already handled by the
 			// inner <button>'s onFocus/onBlur. No-ops here satisfy the rule without duplicating state updates.
-			onFocus={
-				expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true) ? () => {} : undefined
-			}
+			onFocus={() => {}}
 			onMouseLeave={() => setIsNodeHovered?.(false)}
-			onBlur={
-				expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true) ? () => {} : undefined
-			}
+			onBlur={() => {}}
 			tabIndex={-1}
 		>
 			{/* eslint-disable-next-line @atlaskit/design-system/no-html-button */}

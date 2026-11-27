@@ -1,5 +1,14 @@
 # @atlaskit/side-nav-items
 
+## 2.8.2
+
+### Patch Changes
+
+- [`f7fe89ae104ae`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f7fe89ae104ae) -
+  Use dedicated drag-and-drop colours for sidebar insertion and combine indicators behind
+  platform-dst-dnd-token-migration.
+- Updated dependencies
+
 ## 2.8.1
 
 ### Patch Changes

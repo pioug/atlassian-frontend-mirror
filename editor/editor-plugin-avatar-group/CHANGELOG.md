@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-avatar-group
 
+## 35.0.1
+
+### Patch Changes
+
+- [`e70bb034d007e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/e70bb034d007e) -
+  Clean up the `platform_editor_invite_to_edit_button_aria_pressed` experiment. The invite-to-edit
+  button now always exposes its selected state via `aria-pressed`.
+
 ## 35.0.0
 
 ### Patch Changes

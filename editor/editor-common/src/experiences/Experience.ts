@@ -1,3 +1,5 @@
+import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
+
 import type { DispatchAnalyticsEvent } from '../analytics';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../analytics';
 import type {
@@ -6,6 +8,7 @@ import type {
 } from '../analytics/types/experience-events';
 import { DEFAULT_EXPERIENCE_SAMPLE_RATE, EXPERIENCE_ABORT_REASON } from './consts';
 import { canTransition } from './experience-state';
+import { measuredEventByTransitionAttributes } from './experience-transitions';
 import type { ExperienceCheck } from './ExperienceCheck';
 import { ExperienceCheckComposite } from './ExperienceCheckComposite';
 import type { CustomExperienceMetadata, ExperienceId, ExperienceState } from './types';
@@ -209,7 +212,7 @@ export class Experience {
 	 * Fires both experienceMeasured (always) and experienceSampled (sampled) events.
 	 *
 	 * @param toState - The state that was transitioned to
-	 * @param metadata - Metadata to include in the event, including firstInSession flag
+	 * @param metadata - Metadata to include in the experience event
 	 */
 	private trackTransition(toState: ExperienceState, metadata?: CustomExperienceMetadata): void {
 		const attributes: ExperienceEventAttributes = {
@@ -223,26 +226,37 @@ export class Experience {
 			...metadata,
 		};
 
-		const experienceMeasuredEvent: ExperienceEventPayload = {
+		const experienceMeasuredEvent = {
 			action: ACTION.EXPERIENCE_MEASURED,
 			actionSubject: ACTION_SUBJECT.EDITOR,
 			actionSubjectId: this.actionSubjectId,
 			eventType: EVENT_TYPE.OPERATIONAL,
 			attributes,
-		};
+		} satisfies ExperienceEventPayload;
 
+		const createSampledAttributes = (): ExperienceEventAttributes => ({
+			...attributes,
+			actionSubjectId: this.actionSubjectId,
+		});
+		let sampledAttributes: ExperienceEventAttributes | undefined;
+		// CoreEditor records exposure when it mounts the enrichment boundary.
+		if (
+			this.isSampledTrackingEnabled &&
+			UNSAFE_expValNoExposure('platform_editor_first_in_activity_session', 'isEnabled', false)
+		) {
+			sampledAttributes = createSampledAttributes();
+			measuredEventByTransitionAttributes.set(attributes, experienceMeasuredEvent);
+			measuredEventByTransitionAttributes.set(sampledAttributes, experienceMeasuredEvent);
+		}
+
+		// Destroy hooks need the plugin's analytics dispatcher while the editor view is still live.
 		this.dispatchAnalyticsEvent(experienceMeasuredEvent);
-
 		if (this.isSampledTrackingEnabled) {
-			const experienceSampledEvent: ExperienceEventPayload = {
+			this.dispatchAnalyticsEvent({
+				...experienceMeasuredEvent,
 				action: ACTION.EXPERIENCE_SAMPLED,
-				actionSubject: ACTION_SUBJECT.EDITOR,
-				actionSubjectId: this.actionSubjectId,
-				eventType: EVENT_TYPE.OPERATIONAL,
-				attributes: { ...attributes, actionSubjectId: this.actionSubjectId },
-			};
-
-			this.dispatchAnalyticsEvent(experienceSampledEvent);
+				attributes: sampledAttributes ?? createSampledAttributes(),
+			});
 		}
 	}
 

@@ -6,17 +6,10 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { NodeViewSerializer } from '../NodeViewSerializer';
-import {
-	buildAddedCellOverlayRoundedStyle,
-	buildAddedCellOverlayStyle,
-	buildDeletedCellOverlayRoundedStyle,
-	buildDeletedCellOverlayStyle,
-	buildDeletedRowStyle,
-} from './colorSchemes/factory';
+import { buildDeletedRowStyle } from './colorSchemes/factory';
 import { colorSchemeRegistry } from './colorSchemes/schemes';
 import type { ColorScheme } from './colorSchemes/types';
 import { createLeftAnchorWidget } from './createAnchorDecorationWidgets';
@@ -39,6 +32,7 @@ import {
 	type CellEdgeAttrs,
 } from './utils/tableCellEdgeAttrs';
 import { createRemovedLozenge } from './utils/wrapBlockNodeView';
+import { resolveCellOverlayStyle } from './utils/wrapBlockNodeViewStyles';
 
 interface RowInfo {
 	cellEdgeAttrs?: Array<CellEdgeAttrs | undefined>;
@@ -103,11 +97,9 @@ const extractChangedRows = ({
 	// Find which rows were changed by analyzing the change range
 	const changeStartInTable = change.fromA - tableOld.pos - 1;
 	const changeEndInTable = change.toA - tableOld.pos - 1;
-	const edgeAttrsByOffset =
-		expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
-		isExperimentEnabled('platform_editor_table_diff_rounded_corners')
-			? getTableTopAndBottomCellEdgeAttrs(oldTableMap)
-			: undefined;
+	const edgeAttrsByOffset = expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
+		? getTableTopAndBottomCellEdgeAttrs(oldTableMap)
+		: undefined;
 
 	let currentOffset = 0;
 	let rowIndex = 0;
@@ -208,7 +200,7 @@ type CreateChangedRowDOMProps = {
 	hasAnchoredRemovedLozenge?: boolean;
 	intl?: IntlShape;
 	isActive?: boolean;
-	isInserted?: boolean;
+	isInserted: boolean;
 	isTableRowReplacement: boolean;
 	nodeViewSerializer: NodeViewSerializer;
 	rowNode: PMNode;
@@ -233,6 +225,7 @@ const createChangedRowDOM = ({
 		tr.dataset.showDiffTableRowReplacement = 'true';
 	}
 	const colors = colorSchemeRegistry[colorScheme ?? 'standard'];
+	const overlayStyle = resolveCellOverlayStyle({ colorScheme, isInserted });
 	const deletedTreatment = buildDeletedRowStyle(colors);
 	const hostsRemovedLozenge = Boolean(intl) && !isInserted && !hasAnchoredRemovedLozenge;
 
@@ -261,16 +254,6 @@ const createChangedRowDOM = ({
 					applyCellEdgeAttrs(nodeView, cellEdgeAttrs?.[cellIndex]);
 
 					const overlay = document.createElement('span');
-					const isRoundedTable = isExperimentEnabled('platform_editor_table_diff_rounded_corners');
-
-					const overlayStyle = isInserted
-						? isRoundedTable
-							? buildAddedCellOverlayRoundedStyle(colors)
-							: buildAddedCellOverlayStyle(colors)
-						: isRoundedTable
-							? buildDeletedCellOverlayRoundedStyle(colors)
-							: buildDeletedCellOverlayStyle(colors);
-
 					overlay.setAttribute('style', overlayStyle);
 					nodeView.appendChild(overlay);
 				}

@@ -12,6 +12,7 @@ import TextFieldAppearanceStandard from '../../examples/constellation/text-field
 import TextFieldAppearanceSubtle from '../../examples/constellation/text-field-appearance-subtle';
 import TextFieldElementsBeforeAndAfter from '../../examples/constellation/text-field-elements-before-and-after';
 import TextFieldOverrideStyles from '../../examples/constellation/text-field-customisation';
+import TextFieldSearch from '../../examples/constellation/text-field-search';
 
 <SectionMessage title="Motion in Early Access" appearance="warning">
 	Motion has been updated in Text Field and is in Early Access. The motion updates are currently
@@ -72,6 +73,18 @@ The default text field appearance.
 	Component={TextFieldAppearanceStandard}
 	packageName="@atlaskit/textfield"
 	featureFlagSwitchers={['motionInput']}
+/>
+
+### Search
+
+Use `type="search"` for a search field and give the field an accessible name. Use `elemBeforeInput`
+to provide a search icon. Turn on Finesse in Styles to preview the subtler border at rest and on
+hover.
+
+<Example
+	Component={TextFieldSearch}
+	packageName="@atlaskit/textfield"
+	featureFlagSwitchers={['finesse']}
 />
 
 ### Subtle

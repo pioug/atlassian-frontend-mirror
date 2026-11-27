@@ -1,6 +1,6 @@
 import { type MessageDescriptor } from 'react-intl';
 
-import type { CardProviderRenderers } from '@atlaskit/link-provider/types';
+import type { CardProviderRenderers, LinkProviderRemixPlugin } from '@atlaskit/link-provider/types';
 import type { CardState } from '@atlaskit/linking-common/store';
 import type { ProductType } from '@atlaskit/linking-common/types';
 import type { SmartLinkResponse } from '@atlaskit/linking-types/smart-link';
@@ -251,6 +251,7 @@ export type ExtractFlexibleUiDataContextParams = Pick<
 		url: string;
 	}) => void;
 	product?: ProductType;
+	remix?: LinkProviderRemixPlugin;
 	resolve?: ResolveFunction;
 	response?: SmartLinkResponse;
 	rovoConfig?: RovoConfig;

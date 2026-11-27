@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-
 import { getStudioHost } from './getStudioHost';
 
 const getStudioSessionSyncUrl = (path: string, email: string): string => {
@@ -9,7 +7,7 @@ const getStudioSessionSyncUrl = (path: string, email: string): string => {
 };
 
 export const getStudioPath = (path: string, email?: string): string => {
-	if (email && fg('manual-studio-entry-link')) {
+	if (email) {
 		return getStudioSessionSyncUrl(path, email);
 	}
 	return `${getStudioHost()}${path}`;

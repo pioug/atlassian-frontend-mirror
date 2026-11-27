@@ -21,6 +21,7 @@ import { v4 as uuid } from 'uuid';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import { FabricChannel } from '@atlaskit/analytics-listeners/types';
 import { FabricEditorAnalyticsContext } from '@atlaskit/analytics-namespaced-context/FabricEditorAnalyticsContext';
+import { AnalyticsEnrichmentBoundary } from '@atlaskit/editor-common/analytics/enrichment/boundary';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics/types/enums';
 import { BaseTheme } from '@atlaskit/editor-common/BaseTheme';
 import { getBrowserInfo } from '@atlaskit/editor-common/browser';
@@ -770,29 +771,31 @@ export const RendererWithAnalytics: React.MemoExoticComponent<
 			editorSessionId: uuid(),
 		}}
 	>
-		<WithCreateAnalyticsEvent
-			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
-			render={(createAnalyticsEvent) => {
-				// `IntlErrorBoundary` only captures Internationalisation errors, leaving others for `ErrorBoundary`.
-				return (
-					<ErrorBoundary
-						component={ACTION_SUBJECT.RENDERER}
-						rethrowError
-						fallbackComponent={null}
-						createAnalyticsEvent={createAnalyticsEvent}
-					>
-						<IntlErrorBoundary>
-							<Renderer
-								// Ignored via go/ees005
-								// eslint-disable-next-line react/jsx-props-no-spreading
-								{...props}
-								createAnalyticsEvent={createAnalyticsEvent}
-							/>
-						</IntlErrorBoundary>
-					</ErrorBoundary>
-				);
-			}}
-		/>
+		<AnalyticsEnrichmentBoundary appearance={props.appearance}>
+			<WithCreateAnalyticsEvent
+				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
+				render={(createAnalyticsEvent) => {
+					// `IntlErrorBoundary` only captures Internationalisation errors, leaving others for `ErrorBoundary`.
+					return (
+						<ErrorBoundary
+							component={ACTION_SUBJECT.RENDERER}
+							rethrowError
+							fallbackComponent={null}
+							createAnalyticsEvent={createAnalyticsEvent}
+						>
+							<IntlErrorBoundary>
+								<Renderer
+									// Ignored via go/ees005
+									// eslint-disable-next-line react/jsx-props-no-spreading
+									{...props}
+									createAnalyticsEvent={createAnalyticsEvent}
+								/>
+							</IntlErrorBoundary>
+						</ErrorBoundary>
+					);
+				}}
+			/>
+		</AnalyticsEnrichmentBoundary>
 	</FabricEditorAnalyticsContext>
 ));
 

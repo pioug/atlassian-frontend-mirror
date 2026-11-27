@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-block-collapse
 
+## 20.0.1
+
+### Patch Changes
+
+- [`234a684400948`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/234a684400948) -
+  Restore editor focus after pointer clicks on collapsible heading toggles and preserve toggle focus
+  on keyboard activation, behind platform_editor_heading_toggle_focus. Block controls keep one
+  stable wrapper per control and pass its persistence through the shared renderer's componentProps,
+  so focused controls are not remounted.
+- Updated dependencies
+
 ## 20.0.0
 
 ### Patch Changes

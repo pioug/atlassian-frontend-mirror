@@ -1,5 +1,13 @@
 # @atlaskit/textfield
 
+## 11.0.1
+
+### Patch Changes
+
+- [`f337ec58a5d3d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/f337ec58a5d3d) -
+  [ux] Use the search border token at rest and on hover for standard Textfields with `type="search"`
+  when `platform-dst-tokens-finesse` is enabled.
+
 ## 11.0.0
 
 ### Major Changes

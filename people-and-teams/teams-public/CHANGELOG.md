@@ -1,5 +1,21 @@
 # @atlaskit/teams-public
 
+## 3.18.0
+
+### Minor Changes
+
+- [`c5bae149eb54f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c5bae149eb54f) -
+  Update i18n NPM package versions for people-and-teams,identity (Group 8)
+
+## 3.17.1
+
+### Patch Changes
+
+- [`989374eaaacf6`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/989374eaaacf6) -
+  Make migrated product permissions permanent in team profiles and linked containers. Avoid fetching
+  product permissions in read-only team profile cards so existing links render as soon as they load.
+  Allow the playground fetch mock to type array responses from bulk permissions requests.
+
 ## 3.17.0
 
 ### Minor Changes

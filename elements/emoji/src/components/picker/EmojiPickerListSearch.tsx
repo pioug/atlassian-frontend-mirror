@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 import { useIntl } from 'react-intl';
@@ -71,6 +71,10 @@ const hidden = css({
 });
 
 export interface Props {
+	/**
+	 * Focus the search field when it mounts, unless focus is already inside the picker
+	 */
+	autoFocus?: boolean;
 	isVisible?: boolean;
 	onChange: (value: string) => void;
 	query?: string;
@@ -81,8 +85,25 @@ export interface Props {
 export const emojiPickerSearchTestId = 'emoji-picker-search';
 
 export const EmojiPickerListSearch = (props: Props): JSX.Element => {
-	const { style, query, isVisible = true, resultsCount, onChange } = props;
+	const { style, query, isVisible = true, resultsCount, onChange, autoFocus } = props;
 	const textRef = useRef<HTMLInputElement>(null);
+	const shouldAutoFocus = useRef(autoFocus);
+
+	useEffect(() => {
+		if (!shouldAutoFocus.current) {
+			return;
+		}
+		const frame = requestAnimationFrame(() => {
+			const input = textRef.current;
+			const activeElement = input?.ownerDocument.activeElement;
+			const picker = input?.closest('[data-emoji-picker-container]');
+			if (!input || (activeElement && picker?.contains(activeElement))) {
+				return;
+			}
+			input.focus();
+		});
+		return () => cancelAnimationFrame(frame);
+	}, []);
 	const [dirty, setDirty] = useState(false);
 
 	const { formatMessage } = useIntl();

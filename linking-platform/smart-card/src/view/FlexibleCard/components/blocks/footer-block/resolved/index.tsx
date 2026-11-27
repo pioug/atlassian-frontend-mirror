@@ -8,11 +8,13 @@ import { useCallback, useMemo, useState } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import { browser } from '@atlaskit/linking-common/user-agent';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 import { WidthObserver } from '@atlaskit/width-detector/width-observer';
 
 import {
 	ActionName,
+	InternalActionName,
 	SmartLinkAlignment,
 	SmartLinkDirection,
 	SmartLinkSize,
@@ -53,7 +55,6 @@ const FooterBlockResolvedView = (props: FooterBlockProps): JSX.Element => {
 	} = props;
 	const context = useFlexibleUiContext();
 	const rovoChatAction = context?.actions?.[ActionName.RovoChatAction];
-
 	const isRovoActionsEnabled = useMemo(() => {
 		return (
 			!!rovoChatAction &&
@@ -61,6 +62,12 @@ const FooterBlockResolvedView = (props: FooterBlockProps): JSX.Element => {
 			actions?.some((action) => action.name === 'RovoChatAction')
 		);
 	}, [rovoChatAction, actions]);
+
+	const hasExtraActionSlot =
+		isRovoActionsEnabled &&
+		!!context?.actions?.[InternalActionName.RemixAction] &&
+		!!actions?.some((action) => action.name === InternalActionName.RemixAction) &&
+		fg('platform_sl_3p_auth_visualize_killswitch');
 
 	const hasPreview = isRovoActionsEnabled && !!context?.preview && !isPreviewBlockErrored;
 
@@ -110,6 +117,12 @@ const FooterBlockResolvedView = (props: FooterBlockProps): JSX.Element => {
 						<WidthObserver setWidth={setContainerWidth} offscreen={true} />
 					)}
 					<ActionGroup
+						{...(fg('platform_sl_3p_auth_visualize_killswitch')
+							? {
+									visibleButtonsNum: hasExtraActionSlot ? 3 : undefined,
+									showRemainingActionsInOverflow: hasExtraActionSlot,
+								}
+							: undefined)}
 						onDropdownOpenChange={onDropdownOpenChange}
 						items={actions}
 						appearance={isRovoActionsEnabled ? 'subtle' : 'default'}

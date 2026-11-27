@@ -4,7 +4,7 @@ import {
 	type TPlacementAxis,
 } from '../resolve-placement';
 import { type TStyleDeclaration } from '../set-style';
-import { type TLogicalMarginProperty } from './fit-margins';
+import { type TLogicalMarginProperty } from './viewport-padding-margins';
 
 /**
  * The cross-axis shift, written antisymmetrically on BOTH cross-axis sides rather

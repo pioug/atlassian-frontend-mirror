@@ -84,7 +84,7 @@ type TResolvedOffsets = {
  * Positions `popover` against `anchor` from measurements, and keeps it there
  * across opens, scroll and resize. Returns the cleanup.
  *
- * No fit margins on this path: the gap and the cross-axis shift are coordinate
+ * No viewport padding margins on this path: the gap and the cross-axis shift are coordinate
  * deltas here, so writing them as margins too would double-apply them.
  */
 export function applyJavaScriptFallbackPositioning({

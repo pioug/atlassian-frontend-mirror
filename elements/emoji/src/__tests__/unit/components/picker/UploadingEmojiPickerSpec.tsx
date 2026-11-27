@@ -1211,4 +1211,129 @@ describe('<UploadingEmojiPicker />', () => {
 			spy.mockRestore();
 		});
 	});
+	describe('platform_emoji_search_top', () => {
+		let emojiProvider: Promise<any>;
+
+		const getTabPanel = () => screen.getByRole('tabpanel', { hidden: true });
+
+		beforeEach(() => {
+			passGate('platform_emoji_search_top');
+			emojiProvider = getEmojiResourcePromise({ uploadSupported: true });
+		});
+
+		describe('delete', () => {
+			let deleteProvider: Promise<any>;
+
+			beforeEach(() => {
+				const repository = new EmojiRepository(
+					JSON.parse(JSON.stringify([mediaEmoji, siteEmojiFoo])),
+				);
+				deleteProvider = getEmojiResourcePromiseFromRepository(repository, {
+					currentUser: { id: 'hulk' },
+				});
+			});
+
+			const openDeletePrompt = async () => {
+				await waitFor(() => {
+					expect(helperTestingLibrary.getVirtualList()).toBeInTheDocument();
+				});
+				await waitFor(async () => {
+					fireEvent.click(await screen.findByTestId('emoji-delete-button'));
+				});
+				await waitFor(() => {
+					expect(screen.getByTestId(emojiDeletePreviewTestId)).toBeInTheDocument();
+				});
+			};
+
+			const clickCancelDelete = async () => {
+				await userEvent.click(
+					within(screen.getByTestId(emojiDeletePreviewTestId)).getByRole('button', {
+						name: 'Cancel',
+					}),
+				);
+			};
+
+			it('shows the delete preview without tabs', async () => {
+				await helper.setupPicker({ emojiProvider: deleteProvider });
+				expect(screen.getByRole('tablist')).toBeInTheDocument();
+				await openDeletePrompt();
+
+				expect(screen.queryByRole('tablist')).not.toBeInTheDocument();
+				expect(screen.queryAllByRole('tab')).toHaveLength(0);
+				expect(getTabPanel()).toHaveCompiledCss('visibility', 'hidden');
+			});
+
+			it('restores tabs, search and focus to the emoji after cancelling delete', async () => {
+				passGate('platform_ally_emoji_fixes_various');
+				await helper.setupPicker({ emojiProvider: deleteProvider });
+				await openDeletePrompt();
+				await clickCancelDelete();
+
+				await waitFor(() => {
+					expect(screen.queryByTestId(emojiDeletePreviewTestId)).not.toBeInTheDocument();
+				});
+				expect(screen.getByRole('tablist')).toBeInTheDocument();
+				expect(screen.getByRole('searchbox')).toBeInTheDocument();
+				await waitFor(() => {
+					expect(
+						screen.getByTestId('emoji-delete-button').closest('[data-focus-index]'),
+					).toHaveFocus();
+				});
+			});
+
+			it('closes the preview, restores tabs and search and does not restore emoji focus after a successful delete', async () => {
+				passGate('platform_ally_emoji_fixes_various');
+				await helper.setupPicker({ emojiProvider: deleteProvider });
+				await openDeletePrompt();
+				const deleteButton = screen.getByTestId('emoji-delete-button');
+				const deletedEmoji = deleteButton.closest('[data-focus-index]');
+
+				await userEvent.click(
+					within(screen.getByTestId(emojiDeletePreviewTestId)).getByRole('button', {
+						name: 'Remove',
+					}),
+				);
+
+				await waitFor(() => {
+					expect(screen.queryByTestId(emojiDeletePreviewTestId)).not.toBeInTheDocument();
+				});
+				expect(screen.getByRole('tablist')).toBeInTheDocument();
+				expect(screen.getByRole('searchbox')).toBeInTheDocument();
+				// allow the virtual list scroll timeout to elapse
+				await new Promise((resolve) => setTimeout(resolve, 150));
+				expect(deletedEmoji).not.toBeInTheDocument();
+				expect(screen.queryByTestId('emoji-delete-button')).not.toBeInTheDocument();
+				expect(document.activeElement?.closest('[data-focus-index]')).toBeNull();
+			});
+		});
+		describe('upload', () => {
+			it('shows the upload panel without tabs and restores tabs and search on cancel', async () => {
+				await helper.setupPicker({ emojiProvider, hideToneSelector: true });
+				await screen.findByRole('searchbox');
+				expect(screen.getByRole('tablist')).toBeInTheDocument();
+
+				await userEvent.click(await helperTestingLibrary.getAddCustomEmojiButton());
+
+				await waitFor(() => {
+					expect(helperTestingLibrary.getUploadEmojiNameInput()).toBeInTheDocument();
+				});
+				expect(screen.queryByRole('tablist')).not.toBeInTheDocument();
+				expect(screen.queryAllByRole('tab')).toHaveLength(0);
+				expect(screen.queryByRole('searchbox')).not.toBeInTheDocument();
+				// the list stays mounted but is hidden
+				// jsdom finds no compiled stylesheet rule for the hidden class in this flow, so
+				// toHaveCompiledCss and toBeVisible cannot be used; compare class names instead
+				const hiddenClassName = getTabPanel().className;
+
+				helperTestingLibrary.cancelUpload();
+
+				await waitFor(() => {
+					expect(screen.queryByTestId(uploadEmojiNameInputTestId)).not.toBeInTheDocument();
+				});
+				expect(screen.getByRole('tablist')).toBeInTheDocument();
+				expect(screen.getByRole('searchbox')).toBeInTheDocument();
+				expect(screen.getByRole('tabpanel').className).not.toEqual(hiddenClassName);
+			});
+		});
+	});
 });

@@ -12,7 +12,6 @@ import Spinner from '@atlaskit/spinner/spinner';
 import { token } from '@atlaskit/tokens';
 
 import { type FocusableElementRef, type MenuWrapperProps } from '../../types';
-import { NewSpacingContext } from '../context/spacing-context';
 import isCheckboxItem from '../utils/is-checkbox-item';
 import isRadioItem from '../utils/is-radio-item';
 import { FocusManagerContext } from './focus-manager-context';
@@ -98,7 +97,6 @@ const MenuWrapper: ({
 	menuLabel,
 }: MenuWrapperProps) => {
 	const { menuItemRefs } = useContext(FocusManagerContext);
-	const newSpacing = (spacing === 'cozy' ? 'spacious' : spacing) || 'spacious';
 
 	const closeOnMenuItemClick = (e: MouseEvent | KeyboardEvent) => {
 		const isTargetMenuItemOrDescendant = menuItemRefs.some((menuItemRef: FocusableElementRef) => {
@@ -142,29 +140,27 @@ const MenuWrapper: ({
 
 	if (fg('platform-dst-new-menu')) {
 		return (
-			<NewSpacingContext.Provider value={newSpacing}>
-				{/* eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-supports-focus, @atlassian/a11y/interactive-element-not-keyboard-focusable -- This path is temporary until top-layer is rolled out */}
-				<div
-					style={{
-						maxWidth,
-						maxHeight,
-					}}
-					css={[styles.newWrapper]}
-					data-testid={testId && `${testId}--menu-group`}
-					role="menu"
-					aria-label={menuLabel}
-					onClick={closeOnMenuItemClick}
-				>
-					{isLoading ? (
-						<LoadingIndicator
-							statusLabel={statusLabel}
-							testId={testId && `${testId}--loading-indicator`}
-						/>
-					) : (
-						children
-					)}
-				</div>
-			</NewSpacingContext.Provider>
+			/* eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/interactive-supports-focus, @atlassian/a11y/interactive-element-not-keyboard-focusable -- This path is temporary until top-layer is rolled out */
+			<div
+				style={{
+					maxWidth,
+					maxHeight,
+				}}
+				css={[styles.newWrapper]}
+				data-testid={testId && `${testId}--menu-group`}
+				role="menu"
+				aria-label={menuLabel}
+				onClick={closeOnMenuItemClick}
+			>
+				{isLoading ? (
+					<LoadingIndicator
+						statusLabel={statusLabel}
+						testId={testId && `${testId}--loading-indicator`}
+					/>
+				) : (
+					children
+				)}
+			</div>
 		);
 	}
 

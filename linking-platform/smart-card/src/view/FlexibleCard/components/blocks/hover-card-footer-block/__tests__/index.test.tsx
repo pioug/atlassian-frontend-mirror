@@ -10,7 +10,7 @@ import { userEvent } from '@atlassian/testing-library/user-event';
 
 import context from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { getFlexibleCardTestWrapper } from '../../../../../../__tests__/__utils__/unit-testing-library-helpers';
-import { ActionName } from '../../../../../../constants';
+import { ActionName, InternalActionName } from '../../../../../../constants';
 import type { FlexibleUiDataContext } from '../../../../../../state/flexible-ui-context/types';
 import ResolvedHoverCardFooterBlock from '../index';
 import { type ResolvedHoverCardFooterBlockProps } from '../types';
@@ -62,6 +62,14 @@ describe('ResolvedHoverCardFooterBlock', () => {
 			...context,
 			actions: {
 				RovoChatAction: context.actions!.RovoChatAction,
+				[InternalActionName.RemixAction]: {
+					url: 'https://docs.google.com/spreadsheets/d/remix',
+					invokeAction: {
+						actionSubjectId: 'remix',
+						actionType: InternalActionName.RemixAction,
+						display: 'block',
+					},
+				},
 			},
 		};
 		renderResolvedHoverCardFooterBlock({ testId: testIdBase }, contextWithoutFooterActions);

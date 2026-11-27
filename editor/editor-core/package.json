@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "246.1.7",
+	"version": "246.1.11",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -241,9 +241,6 @@
 		"platform_editor_querySelector_fix_table_renderer": {
 			"type": "boolean",
 			"referenceOnly": true
-		},
-		"platform_editor_content_mode_button_mvp": {
-			"type": "boolean"
 		},
 		"platform_editor_paste_full_table_inside_empty_cell": {
 			"type": "boolean",

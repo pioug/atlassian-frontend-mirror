@@ -246,6 +246,10 @@ interface BaseProps {
 	/**
 	 * Placement of where the popup should be displayed relative to the trigger element.
 	 * The default is `"auto"`.
+	 *
+	 * With `platform-dst-top-layer`, `auto` means below the trigger, unless the popup does not fit.
+	 * Then it moves sideways or flips above. It does not pick the side with the most space. `auto` is
+	 * centred, and `auto-start` and `auto-end` align to the start or end of the trigger.
 	 */
 	placement?: Placement;
 

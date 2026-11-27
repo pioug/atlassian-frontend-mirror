@@ -995,7 +995,7 @@ test('a content-sized popover overflows a narrow span cell and slides, rather th
 });
 
 /**
- * The fit margins keep a start / end-aligned popover ON the anchor edge it was
+ * The viewport padding margins keep a start / end-aligned popover ON the anchor edge it was
  * asked to align with. A `span-*` cell aligns the MARGIN box to that edge, so
  * padding the anchor-facing cross side would inset the border box; only the
  * viewport-facing side may carry it.

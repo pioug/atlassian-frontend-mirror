@@ -18,6 +18,7 @@ import {
 
 import { jsx } from '@compiled/react';
 
+import { cssMap } from '@atlaskit/css';
 import noop from '@atlaskit/ds-lib/noop';
 import type { TLegacyPlacement } from '@atlaskit/top-layer/legacy-placements';
 import { fromLegacyPlacement } from '@atlaskit/top-layer/placement-map/index';
@@ -41,6 +42,14 @@ import { TriggerRefObjectContext } from './trigger-ref-object-context';
 
 // Top-layer positioning is handled by CSS Anchor Positioning, not inline styles.
 const EMPTY_STYLE: CSSProperties = {};
+
+const styles = cssMap({
+	// Legacy puts `xcss` on a `border-box` container, so a `width` includes the padding. The
+	// wrapper keeps that meaning.
+	xcssWrapper: {
+		boxSizing: 'border-box',
+	},
+});
 
 /**
  * Top-layer implementation of the compositional PopupContent.
@@ -250,6 +259,7 @@ export function PopupContentTopLayer({
 				// level in. Same shape as `../popup-top-layer.tsx`.
 				<PopoverSurface>
 					<div
+						css={styles.xcssWrapper}
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 						className={xcss}
 						data-testid={testId}

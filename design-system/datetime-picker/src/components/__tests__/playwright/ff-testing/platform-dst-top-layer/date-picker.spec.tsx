@@ -52,6 +52,30 @@ for (const [topLayerEnabled, options] of [
 			await page.keyboard.press('Escape');
 			await expect(dateInput).toBeFocused();
 		});
+
+		test('opens the calendar 8px below the input', async ({ page }) => {
+			await page.visitExample<
+				typeof import('../../../../../../examples/10-date-picker-states.tsx')
+			>('design-system', 'datetime-picker', 'date-picker-states', options);
+			const datePicker = page.getByTestId('datepicker-1--container');
+			const calendar = page.getByTestId('datepicker-1--calendar--container');
+			await datePicker.click();
+			await expect(calendar).toBeVisible();
+			// Retry until the position settles. Allow 1px, because legacy Popper rounds its position
+			// to whole pixels.
+			await expect(async () => {
+				// The top-layer popover slides in by 8px: measure after its entry animation ends.
+				await calendar.evaluate(async (el) => {
+					await Promise.all(
+						(el.closest('[popover]')?.getAnimations() ?? []).map((animation) => animation.finished),
+					);
+				});
+				const [input, menu] = await Promise.all([datePicker.boundingBox(), calendar.boundingBox()]);
+				const gap = menu!.y - (input!.y + input!.height);
+				expect(gap).toBeGreaterThanOrEqual(7);
+				expect(gap).toBeLessThanOrEqual(9);
+			}).toPass({ timeout: 5_000 });
+		});
 	});
 }
 

@@ -246,6 +246,12 @@ events:
             (currently See takeaways); inlineAction identifies Summarize or Explain, whether or not
             a spotlight is visible. Absent for older clients, gate-off and other surfaces.
 
+  - button clicked (remix):
+      type: ui
+      description: Fired when Remix is opened via click
+      attributes:
+        <<: [*PackageMetaDataContext, *ResolvedContext, *ClientActionAttributes]
+
   - button clicked (copySummary):
       type: ui
       description: fired when the copy ai summary button is clicked
@@ -424,6 +430,23 @@ events:
       description: user starting the Smart Link connect account process.
       attributes:
         <<: [*PackageMetaDataContext, *CommonContext]
+        journeyId:
+          required: false
+          type: string
+          description: Opaque UUID shared by all attempts in the authentication journey.
+        attemptId:
+          required: false
+          type: string
+          description: Opaque UUID for this authentication attempt.
+        retryOfAttemptId:
+          required: false
+          type: string
+          description:
+            The direct parent attempt UUID for a retry, or null for an instrumented first attempt.
+        fromStage:
+          required: false
+          type: string
+          description: The authentication journey stage when the user requested this attempt.
   - smartLinkQuickAction started:
       type: track
       description: fires event before an action invoke api call is made

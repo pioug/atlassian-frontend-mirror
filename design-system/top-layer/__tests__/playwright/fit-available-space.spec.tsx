@@ -315,14 +315,17 @@ test('fits the available inline space, and flips across the inline axis', async 
 /**
  * Fitting is opt-in, and turning it on changes the outcome measurably. The
  * control for the cases above, as a matched PAIR: the same fixture with `fit`
- * flipped and nothing else, so each case is the mutation guard for the other.
+ * flipped and nothing else. Where the floor is fixed (no `calc-size()`), each
+ * case is the mutation guard for the other: the fitted one is 150px. Where the
+ * floor is content-sized, both cases have the same geometry, so the pair only
+ * pins that the unfitted popover flips.
  *
- * The viewport backstop is unconditional, so what fitting adds to the placement
- * axis is the CELL cap, the FLOOR and the 5px viewport padding. The fixture lets
- * them decide the SIDE in every CSS engine: a 70px cell holds the unfitted
- * popover's 68px margin box (`60 + 8`) and not the fitted one's, which is 73px
- * with a content-sized floor (`60 + 8 + 5`) and 163px with the 150px floor. The
- * floor also decides the SIZE where it is not content-sized (150px, not 60px).
+ * The viewport backstop and the 5px viewport padding are unconditional, so what
+ * fitting adds to the placement axis is the CELL cap and the FLOOR. A 70px cell
+ * holds neither popover: the margin box is 73px unfitted (`60 + 8 + 5`), 73px
+ * fitted with a content-sized floor and 163px with the 150px floor. So both
+ * flip, and the floor decides the SIZE where it is not content-sized (150px,
+ * not 60px). See `notes/decisions/viewport-edge-gap.md`.
  *
  * The floor is what makes the fitted case move. Without it the cell cap shrinks
  * the popover to 57px, which fits the cell, so it would stay below.
@@ -340,9 +343,8 @@ const OPT_IN_VIEWPORT = { width: 700, height: 400 };
 const OPT_IN_CONTENT_BLOCK_SIZE = 60;
 
 /**
- * Between the unfitted margin box (`content + gap`) and the fitted one
- * (`content + gap + padding`, or larger with the 150px floor), which is what
- * makes the two cases land on different sides.
+ * Between `content + gap` and the margin box (`content + gap + padding`, or
+ * larger with the 150px floor), so the padding is what makes both cases flip.
  */
 const OPT_IN_CELL_BELOW = 70;
 
@@ -354,10 +356,10 @@ const OPT_IN_TRIGGER_BLOCK_START =
 
 const OPT_IN_CASES = [
 	{
-		name: 'without the option the popover is its content, in a cell a fitted one flips out of',
+		name: 'without the option the popover is its content, and flips out of a cell that cannot hold its padding',
 		fit: false,
-		expected: { height: OPT_IN_CONTENT_BLOCK_SIZE, isFlipped: false },
-		expectedWithContentSizedFloor: { height: OPT_IN_CONTENT_BLOCK_SIZE, isFlipped: false },
+		expected: { height: OPT_IN_CONTENT_BLOCK_SIZE, isFlipped: true },
+		expectedWithContentSizedFloor: { height: OPT_IN_CONTENT_BLOCK_SIZE, isFlipped: true },
 	},
 	{
 		name: 'with the option the same popover is floored, and flips out of that cell',
@@ -407,8 +409,8 @@ OPT_IN_CASES.forEach(({ name, fit, expected, expectedWithContentSizedFloor }) =>
 				}
 
 				const cellBelow = vp.height - (trigger.y + trigger.height);
-				// Measured rather than assumed: the cell holds the unfitted margin box and
-				// neither fitted one, so the two cases differ in side in every CSS engine.
+				// Measured rather than assumed: the cell holds the content and its gap,
+				// but no margin box with the viewport padding, so both cases flip.
 				expect(OPT_IN_CONTENT_BLOCK_SIZE + DEFAULT_GAP).toBeLessThanOrEqual(cellBelow);
 				expect(marginBoxAround({ size: OPT_IN_CONTENT_BLOCK_SIZE })).toBeGreaterThan(cellBelow);
 				expect(MINIMUM_MARGIN_BOX).toBeGreaterThan(cellBelow);

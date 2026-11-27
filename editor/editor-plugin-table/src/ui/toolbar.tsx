@@ -55,7 +55,6 @@ import DeleteIcon from '@atlaskit/icon/core/delete';
 import ShrinkHorizontalIcon from '@atlaskit/icon/core/shrink-horizontal';
 import TableColumnsDistributeIcon from '@atlaskit/icon/core/table-columns-distribute';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {
 	clearHoverSelection,
@@ -630,8 +629,7 @@ export const getToolbarConfig =
 					isFullPageEditor: !pluginState.isChromelessEditor && !pluginState.isCommentEditor,
 				}) &&
 				!isNested &&
-				api?.editorViewMode?.sharedState.currentState()?.mode !== 'view' &&
-				expValEquals('platform_editor_table_fit_to_content_on_demand', 'isEnabled', true)
+				api?.editorViewMode?.sharedState.currentState()?.mode !== 'view'
 					? [
 							{
 								id: 'editor.table.fitToContent',

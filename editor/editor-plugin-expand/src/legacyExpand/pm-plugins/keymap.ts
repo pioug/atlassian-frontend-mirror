@@ -20,7 +20,6 @@ import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { isInTable } from '@atlaskit/editor-tables/utils';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { deleteEmptyLineAfterCollapsedExpand } from '../../editor-commands/deleteEmptyLineAfterCollapsedExpand';
 import type { ExpandPlugin } from '../../types';
@@ -257,7 +256,6 @@ export function expandKeymap(
 					isCollapsed(expandBefore.node)
 				) {
 					if (
-						fg('platform_editor_expand_delete_empty_line') &&
 						deleteEmptyLineAfterCollapsedExpand({ focusTitle, isCollapsed })(
 							state,
 							dispatch,

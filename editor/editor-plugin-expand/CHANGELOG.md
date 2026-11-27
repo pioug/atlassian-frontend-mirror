@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-expand
 
+## 35.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.0.11
+
+### Patch Changes
+
+- [`11a73ce93155a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/11a73ce93155a) -
+  Clean up platform_editor_expand_delete_empty_line feature gate
+- Updated dependencies
+
+## 35.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 35.0.8
 
 ### Patch Changes

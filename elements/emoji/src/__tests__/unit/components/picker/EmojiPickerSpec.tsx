@@ -10,6 +10,7 @@ import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 import { mockNonUploadingEmojiResourceFactory } from '@atlaskit/util-data-test/mock-non-uploading-emoji-resource-factory';
 import type { ServiceConfig } from '@atlaskit/util-service-support/types';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
 import { failGate, passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 
 import EmojiRepository from '../../../../api/EmojiRepository';
@@ -56,6 +57,7 @@ import { isMessagesKey } from '../../../../util/is-messages-key';
 import {
 	getEmojiResourcePromiseFromRepository,
 	getEmojiResourcePromise,
+	atlassianEmojis,
 	mediaEmoji,
 	siteEmojiFoo,
 	standardEmojis,
@@ -1165,6 +1167,104 @@ describe('<EmojiPicker />', () => {
 			const results = await axe(container);
 
 			expect(results).toHaveNoViolations();
+		});
+	});
+
+	describe('platform_emoji_search_top', () => {
+		let rafSpy: jest.SpyInstance;
+		let cafSpy: jest.SpyInstance;
+
+		beforeEach(() => {
+			// requestAnimationFrame never fires in this jest environment, so run callbacks on a timer
+			rafSpy = jest
+				.spyOn(window, 'requestAnimationFrame')
+				.mockImplementation((cb: FrameRequestCallback) =>
+					window.setTimeout(() => cb(performance.now()), 0),
+				);
+			cafSpy = jest
+				.spyOn(window, 'cancelAnimationFrame')
+				.mockImplementation((id: number) => window.clearTimeout(id));
+		});
+
+		afterEach(() => {
+			// restore only these spies so the describe-scope UFO spies keep recording
+			rafSpy.mockRestore();
+			cafSpy.mockRestore();
+		});
+
+		it('focuses the search box and no tab when the gate is enabled', async () => {
+			passGate('platform_emoji_search_top');
+			await helper.setupPicker();
+
+			const searchbox = await screen.findByRole('searchbox');
+			await waitFor(() => expect(searchbox).toHaveFocus());
+			screen.getAllByRole('tab').forEach((tab) => expect(tab).not.toHaveFocus());
+		});
+
+		it('focuses the search box when only the platform_editor_slash_command experiment is enabled', async () => {
+			failGate('platform_emoji_search_top');
+			mockExpEnabled('platform_editor_slash_command');
+			await helper.setupPicker();
+
+			const searchbox = await screen.findByRole('searchbox');
+			await waitFor(() => expect(searchbox).toHaveFocus());
+			screen.getAllByRole('tab').forEach((tab) => expect(tab).not.toHaveFocus());
+		});
+
+		it('does not steal focus from an element already inside the picker', async () => {
+			passGate('platform_emoji_search_top');
+			const frames: FrameRequestCallback[] = [];
+			rafSpy.mockImplementation((cb: FrameRequestCallback) => frames.push(cb));
+			await helper.setupPicker();
+
+			const searchbox = await screen.findByRole('searchbox');
+			const tab = screen.getAllByRole('tab')[0];
+			tab.focus();
+			expect(tab).toHaveFocus();
+
+			// run the focus-on-open frame after something inside the picker already has focus
+			act(() => {
+				frames.forEach((cb) => cb(0));
+			});
+			expect(frames.length).toBeGreaterThan(0);
+			expect(tab).toHaveFocus();
+			expect(searchbox).not.toHaveFocus();
+		});
+
+		it('shows the productivity colour control instead of the tone button when the Productivity subcategory is in view', async () => {
+			passGate('platform_emoji_search_top');
+			const productivityEmoji = (color: string, order: number): EmojiDescription =>
+				({
+					...atlassianEmojis[0],
+					id: `0_zero_square_${color}`,
+					name: `zero square ${color}`,
+					shortName: `:0_zero_square_${color}:`,
+					type: 'ATLASSIAN',
+					category: 'PRODUCTIVITY',
+					color,
+					order,
+				}) as EmojiDescription;
+			const repository = new EmojiRepository([
+				productivityEmoji('red', 1),
+				productivityEmoji('blue', 2),
+				...standardEmojis,
+			]);
+			await helper.setupPicker({
+				emojiProvider: getEmojiResourcePromiseFromRepository(repository),
+			});
+
+			await waitFor(() => {
+				expect(
+					screen.getByRole('button', {
+						name: messages.emojiSelectColorButtonAriaLabelText.defaultMessage,
+					}),
+				).toBeInTheDocument();
+			});
+			expect(
+				screen.queryByRole('button', {
+					name: messages.emojiSelectSkinToneButtonAriaLabelText.defaultMessage,
+				}),
+			).not.toBeInTheDocument();
 		});
 	});
 

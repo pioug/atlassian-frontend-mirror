@@ -6,9 +6,12 @@ import { render } from '@atlassian/testing-library/testing-library/react';
 import context from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { getFlexibleCardTestWrapper } from '../../../../../../__tests__/__utils__/unit-testing-library-helpers';
 import { type SmartLinkStatus } from '../../../../../../constants';
-import { ActionName } from '../../../../../../constants';
+import { ActionName, InternalActionName } from '../../../../../../constants';
 import ActionBlock from '../index';
 import type { ActionBlockProps } from '../types';
+jest.mock('@atlaskit/link-provider/use-plugins', () => ({
+	usePlugins: () => ({ remix: { isAvailable: () => true, open: jest.fn() } }),
+}));
 jest.mock('../../../../../../state/hooks/use-invoke', () => jest.fn());
 jest.mock('../../../../../../state/hooks/use-resolve', () => jest.fn());
 jest.mock('../../../../../../state/hooks/use-rovo-chat', () => ({
@@ -67,6 +70,27 @@ describe('ActionBlock', () => {
 			'smart-action-view-related-links-action',
 		);
 		expect(viewRelatedLinksAction).toBeInTheDocument();
+	});
+
+	it('hides Remix while keeping ordinary actions available', async () => {
+		const dataContext = getContextWithoutRovo();
+		setup(undefined, undefined, {
+			...dataContext,
+			actions: {
+				...dataContext.actions,
+				[InternalActionName.RemixAction]: {
+					url: 'https://docs.google.com/spreadsheets/d/remix',
+					invokeAction: {
+						actionSubjectId: 'remix',
+						actionType: InternalActionName.RemixAction,
+						display: 'block',
+					},
+				},
+			},
+		});
+
+		expect(await screen.findByTestId('smart-action-preview-action')).toBeInTheDocument();
+		expect(screen.queryByRole('button', { name: 'Remix' })).not.toBeInTheDocument();
 	});
 
 	it('sorts list of actions', async () => {

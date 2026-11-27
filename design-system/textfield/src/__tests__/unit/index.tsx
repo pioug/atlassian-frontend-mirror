@@ -10,6 +10,8 @@ import Textfield from '../../text-field';
 import { type TextfieldProps } from '../../types';
 
 const inputMotionGate = 'platform-dst-motion-uplift-input';
+const finesseGate = 'platform-dst-tokens-finesse';
+const searchBorderColor = 'var(--ds-border-input-search,#0b120e24)';
 const inputTransition =
 	'var(--ds-input,background-color border-color box-shadow .15s cubic-bezier(.4,1,.6,1))';
 const legacyTransition = 'background-color .2s ease-in-out,border-color .2s ease-in-out';
@@ -32,6 +34,51 @@ describe('Textfield', () => {
 		const input = screen.getByTestId(testId);
 		expect(input).toBeInTheDocument();
 		expect(input).toBeInstanceOf(HTMLInputElement);
+	});
+
+	describe('Search border', () => {
+		it('uses the search border and renders the leading slot with Finesse enabled', () => {
+			passGate(finesseGate);
+			render(
+				createTextfield({
+					type: 'search',
+					elemBeforeInput: <span aria-hidden="true">Leading element</span>,
+				}),
+			);
+
+			expect(screen.getByRole('searchbox', { name: 'Name' })).toBeInTheDocument();
+			expect(screen.getByText('Leading element')).toBeInTheDocument();
+			expect(screen.getByTestId(`${testId}-container`)).toHaveCompiledCss(
+				'border-color',
+				searchBorderColor,
+			);
+		});
+
+		it('uses the standard border for search fields with Finesse disabled', () => {
+			failGate(finesseGate);
+			render(createTextfield({ type: 'search' }));
+
+			expect(screen.getByTestId(`${testId}-container`)).toHaveCompiledCss(
+				'border-color',
+				'var(--ds-border-input,#8c8f97)',
+			);
+		});
+
+		it.each<TextfieldProps>([
+			{ type: 'text' },
+			{ type: 'search', appearance: 'none' },
+			{ type: 'search', appearance: 'subtle' },
+			{ type: 'search', isInvalid: true },
+			{ type: 'search', isDisabled: true },
+		])('preserves the existing border for %j with Finesse enabled', (props) => {
+			passGate(finesseGate);
+			render(createTextfield(props));
+
+			expect(screen.getByTestId(`${testId}-container`)).not.toHaveCompiledCss(
+				'border-color',
+				searchBorderColor,
+			);
+		});
 	});
 
 	describe('Properties', () => {

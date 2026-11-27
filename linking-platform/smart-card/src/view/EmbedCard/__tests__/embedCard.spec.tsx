@@ -12,6 +12,8 @@ import {
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 import { setGlobalTheme } from '@atlaskit/tokens/set-global-theme';
 import { skipAutoA11yFile } from '@atlassian/a11y-jest-testing/skip-file-decorator';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 import { userEvent } from '@atlassian/testing-library/user-event';
 import { within } from '@atlassian/testing-library/within';
@@ -46,6 +48,7 @@ const setup = (
 	url: string,
 	props?: Partial<EmbedCardProps>,
 	product?: ProductType,
+	plugins?: React.ComponentProps<typeof SmartCardProvider>['plugins'],
 ) => {
 	const handleFrameClickMock = jest.fn();
 	const onResolveMock: JestFunction<Required<EmbedCardProps>['onResolve']> = jest.fn();
@@ -57,7 +60,7 @@ const setup = (
 
 	const renderResult = renderWithIntl(
 		<AnalyticsListener onEvent={onEventMock} channel={ANALYTICS_CHANNEL}>
-			<SmartCardProvider product={product}>
+			<SmartCardProvider product={product} plugins={plugins}>
 				<EmbedCard
 					url={url}
 					cardState={cardState}
@@ -129,6 +132,41 @@ describe('EmbedCard view component', () => {
 			expect(resolveView.getAttribute('data-is-selected')).toBe('true');
 			// Asserting result of inheritDimensions=true
 			expect(window.getComputedStyle(resolveView).getPropertyValue('height')).toEqual('100%');
+		});
+
+		it('includes the embed card ID in Remix click analytics', async () => {
+			passGate('platform_sl_3p_auth_visualize_killswitch');
+			mockExpEnabled('platform_sl_3p_auth_visualize_exp');
+			const { onEventMock } = setup(
+				{
+					...cardStateOverride,
+					details: {
+						meta: { ...cardStateOverride.details.meta, key: 'google-object-provider' },
+						data: {
+							...cardStateOverride.details.data,
+							'@type': 'schema:SpreadsheetDigitalDocument',
+						},
+					},
+				},
+				expectedUrl,
+				{ id: 'embed-card-id', actionOptions: { hide: false, remixAction: { optIn: true } } },
+				'CONFLUENCE',
+				{ resolve: () => ({ remix: { isAvailable: () => true, open: jest.fn() } }) },
+			);
+
+			await userEvent.setup().click(await screen.findByRole('button', { name: 'Remix' }));
+			expect(onEventMock).toHaveBeenCalledWith(
+				expect.objectContaining({
+					payload: expect.objectContaining({
+						eventType: 'ui',
+						action: 'clicked',
+						actionSubject: 'button',
+						actionSubjectId: 'remix',
+						attributes: expect.objectContaining({ id: 'embed-card-id', display: 'embed' }),
+					}),
+				}),
+				ANALYTICS_CHANNEL,
+			);
 		});
 
 		describe('FF fix embed preview url query params', () => {

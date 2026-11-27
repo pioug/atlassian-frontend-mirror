@@ -18,6 +18,7 @@ import type { TBoostedSurfaceResetCheck } from '../internal/surface-reset';
 import { useSyncNativeOpen } from '../internal/sync-native-open/use-sync-native-open';
 import { useAnimatedVisibility } from '../internal/use-animated-visibility';
 import { useFocusWrap } from '../internal/use-focus-wrap';
+import { closeOpenDialogsInside } from './close-open-dialogs-inside';
 import { type TDialogDismissedBy, type TDialogProps } from './types';
 import { useBackdropClick } from './use-backdrop-click';
 import { useCancelFallback } from './use-cancel-fallback';
@@ -230,6 +231,9 @@ function getDialogHost({ element }: { element: HTMLElement }): HTMLDialogElement
  * open in the same commit. So the inner layer is above the outer one. A `Popover` inside a `Dialog`
  * does the same.
  *
+ * When a `Dialog` closes, it first closes the open dialogs inside it (in the DOM), natively and with
+ * no `onClose`. Otherwise an inner modal stays open, out of sight, and keeps the page inert.
+ *
  * Do not design nested layers to open in the same commit. The show order is a defensive fix for
  * React's effect order, not support for the pattern: the API cannot prevent it, and React can show
  * nested layers again together (a Suspense reveal, or an Activity show). See
@@ -332,6 +336,8 @@ export const Dialog: React.ForwardRefExoticComponent<
 	const hide = useCallback(({ element }: { element: HTMLElement }): void => {
 		const dialog = getDialogHost({ element });
 		if (dialog.open) {
+			// Inner dialogs first: each returns focus into this dialog, and this one returns it out.
+			closeOpenDialogsInside({ element: dialog });
 			dialog.close();
 		}
 	}, []);

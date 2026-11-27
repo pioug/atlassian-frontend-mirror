@@ -182,7 +182,8 @@ const topLayerScrollModeStyles = compiledCssMap({
 			minHeight: 'min-content',
 			height: 'var(--modal-dialog-height)',
 			width: 'var(--modal-dialog-width)',
-			maxWidth: 'calc(100vw - 120px)',
+			// As in legacy viewport scroll, the cap is the viewport, with no 60px gutters.
+			maxWidth: '100%',
 			margin: '60px auto',
 		},
 	},
@@ -221,6 +222,9 @@ const sizingContainerStyles = compiledCssMap({
 	},
 	'viewport-scroll': {
 		display: 'grid',
+		// The column is as wide as the viewport, so the surface's `max-width: 100%` caps a wider
+		// `width` at the viewport, as in legacy.
+		gridTemplateColumns: 'minmax(0, 1fr)',
 		pointerEvents: 'none',
 	},
 	'full-screen': {
@@ -276,7 +280,19 @@ function isWidthName(value: string): value is WidthNames {
 	return width.values.includes(value);
 }
 
-function getTopLayerSurfaceWidth(input: ModalDialogProps['width']) {
+type TScrollMode = ReturnType<typeof getScrollMode>;
+
+/**
+ * Resolves each percentage in a CSS size against `base`, also inside `calc()`, `min()` and
+ * `max()`. For example, with `(100vw - 120px)`: `'42%'` becomes
+ * `'calc(42 * (100vw - 120px) / 100)'`, and `'calc(100% - 80px)'` becomes
+ * `'calc(calc(100 * (100vw - 120px) / 100) - 80px)'`.
+ */
+function resolvePercentages(value: string, base: string): string {
+	return value.replace(/(\d*\.?\d+)%/g, (_, amount: string) => `calc(${amount} * ${base} / 100)`);
+}
+
+function getTopLayerSurfaceWidth(input: ModalDialogProps['width'], scrollMode: TScrollMode) {
 	if (!input) {
 		return 'auto';
 	}
@@ -289,19 +305,18 @@ function getTopLayerSurfaceWidth(input: ModalDialogProps['width']) {
 		return `${width.widths[input]}px`;
 	}
 
-	if (input.endsWith('%')) {
-		// Percentage widths need special handling in the top layer.
-		// In legacy, the percentage resolved against the Positioner's max-width
-		// (100vw - 120px). In the top layer, the <dialog>'s containing block is the
-		// viewport (100vw), so a raw percentage would produce a wider modal.
-		// Transform e.g. '42%' → 'calc(42 * (100vw - 120px) / 100)' to match legacy.
-		return `calc(${parseFloat(input)} * (100vw - 120px) / 100)`;
+	if (scrollMode === 'viewport-scroll') {
+		// As in legacy, a percentage resolves against the full width of the viewport.
+		return input;
 	}
 
-	return input;
+	// In legacy body scroll, a percentage resolved against the `Positioner`, which is
+	// `100vw - 120px` wide. Here the `<dialog>` sizes to its content, so a raw percentage has
+	// nothing to resolve against.
+	return resolvePercentages(input, '(100vw - 120px)');
 }
 
-function getTopLayerSurfaceHeight(input: ModalDialogProps['height']) {
+function getTopLayerSurfaceHeight(input: ModalDialogProps['height'], scrollMode: TScrollMode) {
 	if (!input) {
 		// Size to the content. The sizing container gives the surface a definite height, so
 		// children with `height: 100%` still fill it. See `sizingContainerStyles`.
@@ -313,11 +328,15 @@ function getTopLayerSurfaceHeight(input: ModalDialogProps['height']) {
 	}
 
 	if (input.endsWith('%')) {
-		// Percentage heights need special handling in the top layer.
-		// In legacy, the percentage resolved against the Positioner's max-height
-		// (100vh - 120px). In the top layer, the <dialog>'s containing block is the
-		// viewport (100vh), so a raw percentage would produce a taller modal.
-		// Transform e.g. '42%' → 'calc(42 * (100vh - 120px) / 100)' to match legacy.
+		if (scrollMode === 'body-scroll') {
+			// In legacy body scroll, a percentage resolved against the `Positioner`, which is as tall
+			// as the height cap (`calc(100vh - 120px + 1px)`, see `topLayerScrollModeStyles`). Here
+			// the `<dialog>` sizes to its content, so a raw percentage has nothing to resolve against.
+			return `calc(${parseFloat(input)} * (100vh - 120px + 1px) / 100)`;
+		}
+
+		// Not changed. Legacy viewport scroll sizes to the content here (see finding 15 in
+		// `top-layer/notes/migrations/modal-dialog-migration.md`).
 		return `calc(${parseFloat(input)} * (100vh - 120px) / 100)`;
 	}
 
@@ -562,8 +581,8 @@ function ModalWrapperTopLayer({
 					]}
 					style={
 						{
-							'--modal-dialog-height': getTopLayerSurfaceHeight(height),
-							'--modal-dialog-width': getTopLayerSurfaceWidth(width),
+							'--modal-dialog-height': getTopLayerSurfaceHeight(height, scrollMode),
+							'--modal-dialog-width': getTopLayerSurfaceWidth(width, scrollMode),
 						} as React.CSSProperties
 					}
 				>

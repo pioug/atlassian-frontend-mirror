@@ -1,6 +1,6 @@
 import { type TPlacement, type TPlacementEdge } from '../resolve-placement';
 import { type TStyleDeclaration } from '../set-style';
-import { type TLogicalMarginProperty } from './fit-margins';
+import { type TLogicalMarginProperty } from './viewport-padding-margins';
 
 /**
  * The margin that creates the gap between the popover and its anchor.

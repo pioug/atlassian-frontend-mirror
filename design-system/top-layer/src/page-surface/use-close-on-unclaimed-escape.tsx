@@ -126,7 +126,7 @@ export function useCloseOnUnclaimedEscape({
 	onCloseRef.current = onClose;
 	const shouldCloseRef = useRef(shouldClose);
 	shouldCloseRef.current = shouldClose;
-	useStartOpenOrderTracking();
+	useStartOpenOrderTracking({ isEnabled });
 
 	useEffect(() => {
 		if (!isEnabled) {

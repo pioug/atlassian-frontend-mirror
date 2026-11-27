@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo } from 'react';
 
+import { usePlugins } from '@atlaskit/link-provider/use-plugins';
 import { useSmartLinkContext } from '@atlaskit/link-provider/use-smart-link-context';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import UFOHoldLoad from '@atlaskit/react-ufo/load-hold';
@@ -53,6 +54,7 @@ const FlexibleCard = ({
 		useSmartLinkContext();
 
 	const rovoConfig = useRovoConfig();
+	const { remix } = usePlugins();
 
 	const { fireEvent } = useAnalyticsEvents();
 
@@ -95,6 +97,7 @@ const FlexibleCard = ({
 				resolve,
 				product,
 				rovoConfig,
+				...(fg('platform_sl_3p_auth_visualize_killswitch') ? { remix } : undefined),
 				actionOptions,
 				status: placeholderCardState ? placeHolderStatus : status,
 				url,
@@ -123,6 +126,7 @@ const FlexibleCard = ({
 			renderers,
 			resolve,
 			rovoConfig,
+			remix,
 			status,
 			transformUrl,
 			url,

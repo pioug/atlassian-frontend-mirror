@@ -25,7 +25,6 @@ import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-e
 import { Flex } from '@atlaskit/primitives/compiled/flex';
 import { Stack } from '@atlaskit/primitives/compiled/stack';
 import { Text } from '@atlaskit/primitives/compiled/text';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
@@ -291,11 +290,7 @@ const ElementListSingleColumn = (props: ElementListSingleColumnProps) => {
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 -- Ignored via go/DSP-18766
 							className="element-item-wrapper"
 							css={elementItemWrapperSingle}
-							role={
-								expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true)
-									? 'presentation'
-									: undefined
-							}
+							role="presentation"
 							onKeyDown={(e) => {
 								if (e.key === 'Tab') {
 									if (e.shiftKey && index === 0) {

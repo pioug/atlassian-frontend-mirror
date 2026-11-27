@@ -21,7 +21,6 @@ import type { RovoInteractionSource } from '../../../../state/hooks/use-invoke-c
 import useRovoChat from '../../../../state/hooks/use-rovo-chat';
 import useRovoConfig from '../../../../state/hooks/use-rovo-config';
 import { useSmartCardState } from '../../../../state/store';
-import { isRovoChatActionVisualizeEnabled } from '../../../../utils/is-rovo-chat-action-visualize-enabled';
 import type { InternalCardActionOptions as CardActionOptions } from '../../../Card/types';
 import { getPromptAction, RovoChatPromptKey } from '../../../common/rovo-chat-utils';
 import { ActionButton } from '../action-button';
@@ -81,17 +80,6 @@ const InlineRovoActionButtonLegacy = ({
 		switch (extensionKey) {
 			case 'google-object-provider':
 				if (cardState.details?.data?.['@type']?.includes('schema:SpreadsheetDigitalDocument')) {
-					// Only evaluate Visualize (and fire exposure) when the Rovo chat action is available.
-					if (
-						rovoChatAction &&
-						isRovoChatActionVisualizeEnabled({
-							extensionKey,
-							product: rovoConfig?.product,
-							response: cardState.details,
-						})
-					) {
-						return RovoChatPromptKey.VISUALIZE;
-					}
 					return;
 				}
 
@@ -186,17 +174,6 @@ const InlineRovoActionButtonWithSpotlight = ({
 			extensionKey === 'google-object-provider' &&
 			cardState.details?.data?.['@type']?.includes('schema:SpreadsheetDigitalDocument')
 		) {
-			// Only evaluate Visualize (and fire exposure) when the Rovo chat action is available.
-			if (
-				rovoChatAction &&
-				isRovoChatActionVisualizeEnabled({
-					extensionKey,
-					product: rovoConfig?.product,
-					response: cardState.details,
-				})
-			) {
-				return RovoChatPromptKey.VISUALIZE;
-			}
 			return;
 		}
 
@@ -253,7 +230,7 @@ const InlineRovoActionButtonWithSpotlight = ({
 			event.stopPropagation();
 			invokePrompt();
 		},
-		[invokePrompt],
+		[invokePrompt, promptKey],
 	);
 
 	const button =
@@ -265,12 +242,6 @@ const InlineRovoActionButtonWithSpotlight = ({
 				</Box>
 			</ActionButton>
 		) : null;
-
-	// Visualize is not part of the spotlight: its copy is generic ("See takeaways") and Sheets
-	// links are excluded from the spotlight experiment, so render the plain button.
-	if (promptKey === RovoChatPromptKey.VISUALIZE) {
-		return button;
-	}
 
 	return button && isRovoChatEnabled && rovoChatAction?.invokeAction ? (
 		<OneClickChatSpotlightLoader

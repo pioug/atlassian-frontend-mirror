@@ -129,17 +129,13 @@ const suggestedStatusesContainerStyles = css({
 	paddingLeft: token('space.100', '8px'),
 });
 
-// Fixed input plus capped scrolling color controls and suggestions. The ten-color picker is
-// taller because it carries a second swatch row.
-const STATUS_PICKER_FIT_HEIGHT = 236;
+// Fixed input plus capped scrolling color controls and suggestions. The ten-color picker
+// carries a second swatch row.
 const STATUS_PICKER_TEN_COLOR_FIT_HEIGHT = 268;
-// ColorPalette: swatches per row * 32px slot + 16px inline margin.
-const STATUS_PICKER_CONTENT_WIDTH = 208; // 6 * 32 + 16
+// ColorPalette: swatches per row * 32px slot + 16px inline margin. Always applied: the
+// two-row palette is narrower than the text field's natural width, so without it the
+// popup sizes to the field and leaves a gap right of the last swatch.
 const STATUS_PICKER_TEN_COLOR_CONTENT_WIDTH = 176; // 5 * 32 + 16
-
-const statusPickerWidthStylesOld = css({
-	width: `${STATUS_PICKER_CONTENT_WIDTH}px`,
-});
 
 const statusPickerWidthStyles = css({
 	width: `${STATUS_PICKER_TEN_COLOR_CONTENT_WIDTH}px`,
@@ -400,9 +396,6 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 		const { isNew, focusStatusInput, api, suggestedStatuses } = this.props;
 		const { color, text } = this.state;
 		const isSuggestionsEnabled = isExperimentEnabled('platform_editor_status_popup_suggestions');
-		const isUpdateStatusColorsEnabled =
-			isExperimentEnabled('platform_editor_update_status_colors') ||
-			isExperimentEnabled('platform_editor_update_status_colors_jira');
 		const suggestedStatusList =
 			suggestedStatuses?.length && isSuggestionsEnabled ? (
 				<div css={suggestedStatusesContainerStyles} data-suggested-status-list>
@@ -438,7 +431,7 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 				onColorHover={this.onColorHover}
 				onTextChanged={this.onTextChanged}
 				onEnter={this.onEnter}
-				palette={isUpdateStatusColorsEnabled ? 'extended' : 'default'}
+				palette="extended"
 				scrollableContent={suggestedStatusList}
 			/>
 		);
@@ -449,12 +442,7 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 						fg('platform-dst-lozenge-tag-badge-visual-uplifts')
 							? pickerContainerStylesTeam26
 							: pickerContainerStyles,
-						isSuggestionsEnabled && isUpdateStatusColorsEnabled
-							? statusPickerWidthStyles
-							: undefined,
-						isSuggestionsEnabled && !isUpdateStatusColorsEnabled
-							? statusPickerWidthStylesOld
-							: undefined,
+						statusPickerWidthStyles,
 						isSuggestionsEnabled && !!suggestedStatusList
 							? pickerContainerNoBottomPaddingStyles
 							: undefined,
@@ -477,12 +465,6 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 			return null;
 		}
 
-		const fitHeight =
-			isExperimentEnabled('platform_editor_update_status_colors') ||
-			isExperimentEnabled('platform_editor_update_status_colors_jira')
-				? STATUS_PICKER_TEN_COLOR_FIT_HEIGHT
-				: STATUS_PICKER_FIT_HEIGHT;
-
 		return (
 			target && (
 				<PopupWithListeners
@@ -494,7 +476,9 @@ class StatusPickerWithIntl extends React.Component<Props, State> {
 					handleEscapeKeydown={this.handleEscapeKeydown}
 					zIndex={akEditorFloatingDialogZIndex}
 					fitHeight={
-						isExperimentEnabled('platform_editor_status_popup_suggestions') ? fitHeight : 40
+						isExperimentEnabled('platform_editor_status_popup_suggestions')
+							? STATUS_PICKER_TEN_COLOR_FIT_HEIGHT
+							: 40
 					}
 					mountTo={mountTo}
 					boundariesElement={boundariesElement}

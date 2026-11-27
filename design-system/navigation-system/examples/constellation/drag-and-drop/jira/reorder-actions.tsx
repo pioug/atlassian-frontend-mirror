@@ -5,6 +5,7 @@ import { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-item-group';
 import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
 import GrowVerticalIcon from '@atlaskit/icon/core/grow-vertical';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import type { ButtonMenuItem } from '@atlaskit/side-nav-items/button-menu-item';
 import { token } from '@atlaskit/tokens';
 
@@ -55,7 +56,9 @@ export function ReorderActionMenu({
 						ref={triggerRef}
 						elemBefore={<GrowVerticalIcon label="" />}
 						elemAfter={
-							<ChevronRightIcon color={token('color.icon.subtle')} label="" size="small" />
+							TriggerComponent === DropdownItem && fg('platform-dst-new-menu') ? undefined : (
+								<ChevronRightIcon color={token('color.icon.subtle')} label="" size="small" />
+							)
 						}
 						// No movement operations available when there is only one item
 						isDisabled={type === 'only'}

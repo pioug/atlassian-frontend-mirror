@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-media
 
+## 36.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.0.11
+
+### Patch Changes
+
+- [`7a977f6dc6fd5`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/7a977f6dc6fd5) -
+  Clean up platform_editor_media_hydration_skip_history feature gate
+- Updated dependencies
+
+## 36.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 36.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 36.0.8
 
 ### Patch Changes

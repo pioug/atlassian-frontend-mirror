@@ -133,14 +133,13 @@ snapshotInformational(FitContainerAndViewport, {
 	featureFlags: topLayerFlag,
 });
 
-// The second divergence: `xcss` carrying a `width` AND padding renders 280px wide
-// on legacy and 312px on the top-layer path, where it lands on a child of
-// `PopoverSurface` whose `width` excludes its own padding.
-// `__tests__/playwright/fit-viewport.spec.tsx` passes `width` alone, where the
-// two agree, so nothing caught this. The content is a solid block so that the
-// 32px is ink: dropping the `className={xcss}` wiring moves this baseline by
-// 13,835 pixels, where the white-on-white version managed 1,081. Recorded, not
-// fixed: this change adds tests only.
+// `xcss` carrying a `width` AND padding. The top-layer path puts it on a child of
+// `PopoverSurface`, which was `content-box` and rendered 312px wide where legacy
+// renders 280px. The child is now `border-box`, so the pair is parity again.
+// `__tests__/playwright/fit-viewport.spec.tsx` measures the same width. The
+// content is a solid block so that a width change is ink: dropping the
+// `className={xcss}` wiring moves this baseline by 13,835 pixels, where the
+// white-on-white version managed 1,081.
 snapshotInformational(PopupSurfaceXcss, {
 	description: 'xcss width and padding on a standard popup',
 	variants,

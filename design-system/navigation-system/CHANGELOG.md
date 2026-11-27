@@ -1,5 +1,23 @@
 # @atlassian/navigation-system
 
+## 12.1.3
+
+### Patch Changes
+
+- [`9c50b2eebe834`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9c50b2eebe834) -
+  Split the 56px TopNav height rollout into the navx-topnav-height-change feature gate.
+- Updated dependencies
+
+## 12.1.2
+
+### Patch Changes
+
+- [`1e28098231f0a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1e28098231f0a) -
+  Add ChatPanel structured content, current props and a resizable layout example to the component
+  catalogs.
+
+  Make the existing 320px minimum width explicit for generated ChatPanel API docs.
+
 ## 12.1.1
 
 ### Patch Changes

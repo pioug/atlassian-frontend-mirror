@@ -359,11 +359,11 @@ export interface EditorNextProps
 export interface EditorProviderProps {
 	activityProvider?: Promise<ActivityProvider>;
 	annotationProviders?: AnnotationProviders;
-
 	// Allows you to define custom autoformatting rules.
 	autoformattingProvider?: Providers['autoformattingProvider'];
 
 	collabEditProvider?: Providers['collabEditProvider'];
+
 	contextIdentifierProvider?: Promise<ContextIdentifierProvider>;
 	emojiProvider?: Providers['emojiProvider'];
 	legacyImageUploadProvider?: Providers['imageUploadProvider'];

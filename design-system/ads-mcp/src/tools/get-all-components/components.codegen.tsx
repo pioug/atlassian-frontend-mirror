@@ -3,7 +3,7 @@
  *
  * Structured content components from design-system *.docs.tsx files
  *
- * @codegen <<SignedSource::e8bc87130093af70236804844fd426f2>>
+ * @codegen <<SignedSource::3694443ef6223a0dd199569f9f7b7cbc>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -575,7 +575,8 @@ export const components: ComponentMcpPayload[] = [
 			'Keep badge content concise and meaningful',
 			'Use appropriate appearance variants for different contexts. Default semantic appearances: neutral, success, danger, warning, information, discovery, and inverse.',
 			'Bold semantic appearances (successBold, dangerBold, warningBold, informationBold, discoveryBold) give higher visual prominence.',
-			'Only use bold semantic badges for elements of high importance, such as notification counts. Avoid bold badges for elements that are secondary to other labels (e.g. alongside a lozenge).',
+			'Use dangerBold for unread notification counts in the top navigation. Reserve bold semantic badges for elements of high importance.',
+			'Avoid bold badges for secondary information, for example alongside a lozenge.',
 			'Position badges near relevant content',
 			'Consider maximum value display limits',
 			'Add a tooltip when the badge has an icon or needs extra context.',
@@ -611,7 +612,7 @@ export const components: ComponentMcpPayload[] = [
 		],
 		category: 'status-indicators',
 		examples: [
-			'import Badge from \'@atlaskit/badge/badge\';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<Badge appearance="primary">5</Badge>\n\t\t<Badge appearance="important" max={99}>\n\t\t\t150\n\t\t</Badge>\n\t</>\n);\nexport default Examples;',
+			'import Badge from \'@atlaskit/badge/badge\';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<Badge appearance="primary">5</Badge>\n\t\t<Badge appearance="dangerBold" max={99}>\n\t\t\t150\n\t\t</Badge>\n\t</>\n);\nexport default Examples;',
 		],
 		props: [
 			{
@@ -687,60 +688,6 @@ export const components: ComponentMcpPayload[] = [
 				type: 'ReactElement<any, string | JSXElementConstructor<any>> | undefined',
 				description:
 					'Icon to be shown left of the main content. Typically an Atlaskit [@atlaskit/icon](packages/design-system/icon)',
-			},
-		],
-	},
-	{
-		name: 'Blanket',
-		package: '@atlaskit/blanket',
-		description:
-			'A component for creating overlay backgrounds behind modals and other layered content.',
-		status: 'general-availability',
-		usageGuidelines: [
-			'Use behind modals and overlays',
-			'Consider click-to-dismiss behavior',
-			'Use appropriate tinting for context',
-			'Ensure proper z-index layering',
-		],
-		contentGuidelines: [
-			'Use consistently across similar overlay contexts',
-			'Consider visual hierarchy with overlays',
-			'Ensure appropriate contrast with content',
-		],
-		accessibilityGuidelines: [
-			"Ensure blanket doesn't interfere with focus management",
-			'Provide appropriate click handling for dismissal',
-			'Consider screen reader experience with overlays',
-		],
-		references: {
-			figmaUrl: 'https://go.atlassian.com/figma-library-ads-13613-69028',
-		},
-		keywords: ['blanket', 'overlay', 'backdrop', 'modal', 'layer'],
-		category: 'overlay',
-		examples: [
-			"import Blanket from '@atlaskit/blanket/blanket';\nconst Examples = (): React.JSX.Element => (\n\t<>\n\t\t<Blanket />\n\t\t<Blanket isTinted onBlanketClicked={() => console.log('Blanket clicked')} />\n\t</>\n);\nexport default Examples;",
-		],
-		props: [
-			{
-				name: 'children',
-				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
-				description: 'The children to be rendered within the blanket.',
-			},
-			{
-				name: 'isTinted',
-				type: 'boolean | undefined',
-				description: 'Sets whether the blanket has a tinted background color.',
-			},
-			{
-				name: 'onBlanketClicked',
-				type: '((event: MouseEvent<HTMLDivElement, globalThis.MouseEvent>, analyticsEvent: UIAnalyticsEvent) => void) | undefined',
-				description: 'Handler function to be called when the blanket is clicked.',
-			},
-			{
-				name: 'shouldAllowClickThrough',
-				type: 'boolean | undefined',
-				description:
-					'Whether mouse events can pass through the blanket. If `true`, `onBlanketClicked` will not be called.',
 			},
 		],
 	},
@@ -2768,6 +2715,12 @@ export const components: ComponentMcpPayload[] = [
 			{
 				name: 'appearance',
 				type: '"danger" | undefined',
+				description:
+					'Renders the DropdownItem with a danger appearance. Use selectively for destructive actions.',
+			},
+			{
+				name: 'aria-checked',
+				type: 'boolean | undefined',
 			},
 			{
 				name: 'aria-expanded',
@@ -2780,16 +2733,14 @@ export const components: ComponentMcpPayload[] = [
 					'An optional boolean value used to indicate if the dropdown item has popup or not.',
 			},
 			{
+				name: 'aria-keyshortcuts',
+				type: 'string | undefined',
+			},
+			{
 				name: 'children',
 				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description: 'Primary content for the item.',
 				isRequired: true,
-			},
-			{
-				name: 'component',
-				type: 'ComponentType<PropsWithChildren<CustomItemComponentProps>> | undefined',
-				description:
-					'Custom component to render as an item.\nShould be wrapped in `forwardRef` to avoid accessibility issues when controlling keyboard focus.',
 			},
 			{
 				name: 'description',
@@ -2813,7 +2764,7 @@ export const components: ComponentMcpPayload[] = [
 				name: 'hasNestedMenu',
 				type: 'boolean | undefined',
 				description:
-					'Shows a submenu indicator for custom submenu triggers. DropdownMenu triggers automatically infer this from context so you do not need to set this prop manually. Only set it manually if you are using a trigger other than DropdownMenu trigger (e.g. Popup trigger)',
+					'Shows a submenu indicator for custom submenu triggers. DropdownMenu triggers will automatically infer this from context so you do not need to set this prop manually. Only set it manually if you are using a trigger other than DropdownMenu trigger (e.g. Popup trigger)',
 			},
 			{
 				name: 'href',
@@ -2821,10 +2772,14 @@ export const components: ComponentMcpPayload[] = [
 				description: 'Link to another page.',
 			},
 			{
+				name: 'id',
+				type: 'string | undefined',
+			},
+			{
 				name: 'isDisabled',
 				type: 'boolean | undefined',
 				description:
-					"Makes the element appear disabled. This will remove interactivity and the item won't appear in the focus order.",
+					'Makes the element appear disabled, removes interactivity, and skips it in the focus order.\nOnly applies when rendering as a button.',
 			},
 			{
 				name: 'isSelected',
@@ -2832,9 +2787,25 @@ export const components: ComponentMcpPayload[] = [
 				description: 'Makes the element appear selected.',
 			},
 			{
+				name: 'onBlur',
+				type: 'FocusEventHandler<HTMLElement> | undefined',
+			},
+			{
 				name: 'onClick',
 				type: '((e: MouseEvent<Element, globalThis.MouseEvent> | KeyboardEvent<Element>) => void) | undefined',
 				description: 'Event that is triggered when the element is clicked.',
+			},
+			{
+				name: 'onFocus',
+				type: 'FocusEventHandler<HTMLElement> | undefined',
+			},
+			{
+				name: 'onMouseEnter',
+				type: 'MouseEventHandler<HTMLElement> | undefined',
+			},
+			{
+				name: 'onMouseLeave',
+				type: 'MouseEventHandler<HTMLElement> | undefined',
 			},
 			{
 				name: 'rel',
@@ -2850,30 +2821,27 @@ export const components: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'shortcut',
-				type: 'string[] | undefined',
+				type: 'Shortcut | undefined',
+				description:
+					'Displays keyboard shortcuts used to trigger this item. Sets `aria-keyshortcuts` automatically unless overridden.\n\nThis prop does not register keyboard events, it is purely to display the shortcut keys in the DropdownItem.',
 			},
 			{
 				name: 'shouldDescriptionWrap',
 				type: 'boolean | undefined',
 				description:
-					'When `true` the description of the item will wrap multiple lines if it exceeds the width of the dropdown menu.',
+					'When `true` the description of the item will wrap multiple lines if it exceeds the width of the dropdown menu. When `false`, the description will truncate if it does not fit in one line.\n\nDefaults to `true`.',
 			},
 			{
 				name: 'shouldTitleWrap',
 				type: 'boolean | undefined',
 				description:
-					'When `true` the title of the item will wrap multiple lines if it exceeds the width of the dropdown menu.',
+					'When `true` the title of the item will wrap multiple lines if it exceeds the width of the dropdown menu. When `false`, the title will truncate if it does not fit in one line.\n\nDefaults to `true`.',
 			},
 			{
 				name: 'target',
 				type: 'string | undefined',
 				description:
 					'Where to display the linked URL,\nsee [anchor information](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a) on mdn for more information.',
-			},
-			{
-				name: 'title',
-				type: 'string | undefined',
-				description: 'Adds a title attribute to the root item element.',
 			},
 		],
 	},
@@ -6163,6 +6131,7 @@ export const components: ComponentMcpPayload[] = [
 				name: 'skipLinkLabel',
 				type: 'string | undefined',
 				description: "The label for this slot's skip link. Defaults to the slot's `label` value.",
+				defaultValue: "fg('platform_dst_nav4_skip_link_a11y_1') ? 'Global navigation' : 'Top Bar'",
 			},
 			{
 				name: 'xcss',
@@ -6558,12 +6527,6 @@ export const components: ComponentMcpPayload[] = [
 					'Refers to an `aria-label` attribute. Sets an accessible name for the popup to announce it to users of assistive technology.\nUsage of either this, or the `titleId` attribute is strongly recommended.',
 			},
 			{
-				name: 'mode',
-				type: '"auto" | "manual" | undefined',
-				description:
-					'How the popup dismisses when `platform-dst-top-layer` is enabled. Default `"auto"`.\n\nIn both modes, a press outside the popup and its trigger, or Escape, calls `onClose`. The popup\ncloses only when `isOpen` becomes `false`, so `onClose` can refuse the close. A press on the\ntrigger does not call `onClose`: the trigger\'s own click decides.\n\nThe modes differ only without `onClose`:\n\n- `"auto"`: the popup still takes Escape (one press closes one layer), and stays open.\n- `"manual"`: the popup does not take Escape, and only `isOpen` closes it. Use it for a popup\n  that must stay open until a state change (for example a field error).\n\nNo effect when the flag is disabled: the legacy popup already ignores presses on the trigger\nand closes only through `onClose`.',
-			},
-			{
 				name: 'modifiers',
 				type: 'Partial<Partial<Modifier<string, object>>>[] | undefined',
 				description:
@@ -6573,7 +6536,7 @@ export const components: ComponentMcpPayload[] = [
 				name: 'onClose',
 				type: '((event: Event | React.MouseEvent<Element, MouseEvent> | React.KeyboardEvent<Element> | null, currentLevel?: any) => void) | undefined',
 				description:
-					"Handler that is called when the popup wants to close itself.\nThis can happen when:\n- the user clicks away from the popup\n- the user presses the escape key\n- the popup is closed programatically. In this case, the `event` argument will be `null`.\n\nYou'll want to use this to set open state accordingly, and then pump it back into the `isOpen` prop.",
+					"Handler that is called when the popup wants to close itself.\nThis can happen when:\n- the user clicks away from the popup\n- the user presses the escape key\n- the popup is closed programatically. In this case, the `event` argument will be `null`.\n\nYou'll want to use this to set open state accordingly, and then pump it back into the `isOpen` prop.\n\nWithout `onClose`, only `isOpen` closes the popup. With `platform-dst-top-layer`, Escape then\ngoes to a layer around it.",
 			},
 			{
 				name: 'placement',
@@ -7211,6 +7174,12 @@ export const components: ComponentMcpPayload[] = [
 			"import { Pressable } from '@atlaskit/primitives/compiled/pressable';\nconst _default_1: React.JSX.Element[] = [\n\t<Pressable onClick={() => alert('Pressed!')}>Custom button</Pressable>,\n];\nexport default _default_1;",
 		],
 		props: [
+			{
+				name: 'interactionUseClickCapture',
+				type: 'boolean | undefined',
+				description:
+					'Start a React UFO press interaction during click capture, before the supplied capture\ncallback and native click handlers run. UFO uses its default name if interactionName is omitted.\nThe click handler and its analytics still run during bubbling.',
+			},
 			{
 				name: 'isDisabled',
 				type: 'boolean | undefined',
@@ -8394,6 +8363,12 @@ export const components: ComponentMcpPayload[] = [
 				description: 'Placeholder for the select value',
 			},
 			{
+				name: 'shouldFocusOptionOnOpen',
+				type: 'boolean | undefined',
+				description:
+					'Whether opening the menu makes an option active. Defaults to true.\nSet to false to keep focus on the search input with the list visible and no active\noption until typing, keyboard navigation, or pointer interaction. Option updates alone\ndo not activate an option. This does not control DOM focus or menu visibility.',
+			},
+			{
 				name: 'spacing',
 				type: '"default" | "compact" | undefined',
 				description:
@@ -8730,6 +8705,12 @@ export const components: ComponentMcpPayload[] = [
 				name: 'placeholder',
 				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Placeholder for the select value',
+			},
+			{
+				name: 'shouldFocusOptionOnOpen',
+				type: 'boolean | undefined',
+				description:
+					'Whether opening the menu makes an option active. Defaults to true.\nSet to false to keep focus on the search input with the list visible and no active\noption until typing, keyboard navigation, or pointer interaction. Option updates alone\ndo not activate an option. This does not control DOM focus or menu visibility.',
 			},
 			{
 				name: 'spacing',
@@ -9070,6 +9051,12 @@ export const components: ComponentMcpPayload[] = [
 				name: 'placeholder',
 				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Placeholder for the select value',
+			},
+			{
+				name: 'shouldFocusOptionOnOpen',
+				type: 'boolean | undefined',
+				description:
+					'Whether opening the menu makes an option active. Defaults to true.\nSet to false to keep focus on the search input with the list visible and no active\noption until typing, keyboard navigation, or pointer interaction. Option updates alone\ndo not activate an option. This does not control DOM focus or menu visibility.',
 			},
 			{
 				name: 'spacing',
@@ -9467,6 +9454,12 @@ export const components: ComponentMcpPayload[] = [
 				name: 'placeholder',
 				type: 'string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined',
 				description: 'Placeholder for the select value',
+			},
+			{
+				name: 'shouldFocusOptionOnOpen',
+				type: 'boolean | undefined',
+				description:
+					'Whether opening the menu makes an option active. Defaults to true.\nSet to false to keep focus on the search input with the list visible and no active\noption until typing, keyboard navigation, or pointer interaction. Option updates alone\ndo not activate an option. This does not control DOM focus or menu visibility.',
 			},
 			{
 				name: 'spacing',
@@ -9888,6 +9881,12 @@ export const components: ComponentMcpPayload[] = [
 				description: 'Placeholder for the select value',
 			},
 			{
+				name: 'shouldFocusOptionOnOpen',
+				type: 'boolean | undefined',
+				description:
+					'Whether opening the menu makes an option active. Defaults to true.\nSet to false to keep focus on the search input with the list visible and no active\noption until typing, keyboard navigation, or pointer interaction. Option updates alone\ndo not activate an option. This does not control DOM focus or menu visibility.',
+			},
+			{
 				name: 'spacing',
 				type: '"default" | "compact" | undefined',
 				description:
@@ -10267,6 +10266,12 @@ export const components: ComponentMcpPayload[] = [
 					'Defines whether the menu should be closed by pressing the Tab key. The default is `true`.',
 			},
 			{
+				name: 'shouldFocusOptionOnOpen',
+				type: 'boolean | undefined',
+				description:
+					'Whether opening the menu makes an option active. Defaults to true.\nSet to false to keep focus on the search input with the list visible and no active\noption until typing, keyboard navigation, or pointer interaction. Option updates alone\ndo not activate an option. This does not control DOM focus or menu visibility.',
+			},
+			{
 				name: 'shouldKeepInputOnSelect',
 				type: 'boolean | undefined',
 				description:
@@ -10614,6 +10619,12 @@ export const components: ComponentMcpPayload[] = [
 				name: 'placeholder',
 				type: 'string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined',
 				description: 'Placeholder for the select value',
+			},
+			{
+				name: 'shouldFocusOptionOnOpen',
+				type: 'boolean | undefined',
+				description:
+					'Whether opening the menu makes an option active. Defaults to true.\nSet to false to keep focus on the search input with the list visible and no active\noption until typing, keyboard navigation, or pointer interaction. Option updates alone\ndo not activate an option. This does not control DOM focus or menu visibility.',
 			},
 			{
 				name: 'spacing',

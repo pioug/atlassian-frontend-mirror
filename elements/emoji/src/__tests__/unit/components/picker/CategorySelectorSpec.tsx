@@ -239,6 +239,26 @@ describe('<CategorySelector />', () => {
 		});
 	});
 
+	it('does not focus any tab on mount when platform_emoji_search_top is enabled', async () => {
+		passGate('platform_emoji_search_top');
+		await setupComponentWithTabPanel({ activeCategoryId: defaultCategories[0] });
+
+		// allow effects to flush
+		await act(async () => {});
+		screen.getAllByRole('tab').forEach((tab) => expect(tab).not.toHaveFocus());
+		expect(document.body).toHaveFocus();
+	});
+
+	it('focuses the selected category on mount when platform_emoji_search_top is disabled', async () => {
+		failGate('platform_emoji_search_top');
+		const activeCategoryId = defaultCategories[0];
+		await setupComponentWithTabPanel({ activeCategoryId });
+
+		await waitFor(() => {
+			expect(screen.getByTestId(`category-selector-${activeCategoryId}`)).toHaveFocus();
+		});
+	});
+
 	it('only sets initial focus once', async () => {
 		const initialCategoryId = defaultCategories[0];
 		const laterCategoryId = defaultCategories[2];

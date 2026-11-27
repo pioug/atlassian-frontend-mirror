@@ -21,6 +21,8 @@ export const placementMapping: Record<TLegacyPlacement, TPlacementOptions> = {
 	left: { axis: 'inline', edge: 'start', align: 'center' },
 	'left-start': { axis: 'inline', edge: 'start', align: 'start' },
 	'left-end': { axis: 'inline', edge: 'start', align: 'end' },
+	// `auto*` means below, unless it does not fit. Then the fallbacks move it sideways or flip it
+	// above. No "most space" choice. See notes/decisions/auto-placement.md.
 	auto: { axis: 'block', edge: 'end', align: 'center' },
 	'auto-start': { axis: 'block', edge: 'end', align: 'start' },
 	'auto-end': { axis: 'block', edge: 'end', align: 'end' },

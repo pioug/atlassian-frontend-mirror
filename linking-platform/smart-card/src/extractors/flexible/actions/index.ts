@@ -1,4 +1,5 @@
 import type { JsonLd } from '@atlaskit/json-ld-types/jsonld';
+import type { LinkProviderRemixPlugin } from '@atlaskit/link-provider/types';
 import type { ProductType } from '@atlaskit/linking-common/types';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
@@ -19,6 +20,7 @@ import { extractCopyLinkClientAction } from './extract-copy-link-action';
 import { extractDownloadClientAction } from './extract-download-action';
 import extractFollowAction from './extract-follow-action';
 import { extractPreviewClientAction } from './extract-preview-action';
+import extractRemixAction from './extract-remix-action';
 import extractRovoChatAction from './extract-rovo-chat-action';
 import { extractViewRelatedLinksAction } from './extract-view-related-links-action';
 
@@ -39,6 +41,7 @@ export type ExtractActionsParam = {
 	}) => void;
 	origin?: AnalyticsOrigin;
 	product?: ProductType;
+	remix?: LinkProviderRemixPlugin;
 	response: JsonLd.Response;
 	rovoConfig?: RovoConfig;
 	transformUrl?: TransformUrlFn;
@@ -53,6 +56,7 @@ export const extractFlexibleCardActions = ({
 	id,
 	origin,
 	product,
+	remix,
 	response,
 	rovoConfig,
 	transformUrl,
@@ -102,6 +106,18 @@ export const extractFlexibleCardActions = ({
 			response,
 			rovoConfig,
 		}),
+		...(fg('platform_sl_3p_auth_visualize_killswitch')
+			? {
+					[InternalActionName.RemixAction]: extractRemixAction({
+						actionOptions,
+						appearance,
+						id,
+						remix,
+						response,
+						url,
+					}),
+				}
+			: undefined),
 		[InternalActionName.ViewRelatedLinksAction]: extractViewRelatedLinksAction(response),
 	};
 

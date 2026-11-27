@@ -9,7 +9,7 @@ import EmbedCardForbiddenSiteDirectAccess from '../../../examples/vr-embed-card/
 import EmbedCardForbiddenSiteForbiddenAccess from '../../../examples/vr-embed-card/vr-embed-card-forbidden-site-forbidden-access.vr.ap';
 import EmbedCardForbiddenSitePendingAccess from '../../../examples/vr-embed-card/vr-embed-card-forbidden-site-pending-access.vr.ap';
 import EmbedCardForbiddenSiteRequestAccess from '../../../examples/vr-embed-card/vr-embed-card-forbidden-site-request-access.vr.ap';
-import EmbedCardForbiddenView from '../../../examples/vr-embed-card/vr-embed-card-forbidden.vr.ap';
+import EmbedCardForbiddenDefault from '../../../examples/vr-embed-card/vr-embed-card-forbidden.vr.ap';
 import EmbedCardFrameStyleHideAndSelected from '../../../examples/vr-embed-card/vr-embed-card-frame-style-hide-and-selected.vr.ap';
 import EmbedCardFrameStyleHide from '../../../examples/vr-embed-card/vr-embed-card-frame-style-hide.vr.ap';
 import EmbedCardFrameStyleShowAndSelected from '../../../examples/vr-embed-card/vr-embed-card-frame-style-show-and-selected.vr.ap';
@@ -39,11 +39,7 @@ import EmbedCardUnauthorisedViewWithProviderImage from '../../../examples/vr-emb
 import EmbedCardUnauthorisedView from '../../../examples/vr-embed-card/vr-embed-card-unauthorised.vr.ap';
 import { VREmbedProfileObject } from '../../../examples/vr-embed-card/vr-embed-profile-object.vr.ap';
 
-const EmbedCardForbiddenDefault = EmbedCardForbiddenView;
-const EmbedCardNotFoundDefault = EmbedCardNotFoundView;
-
 snapshot(EmbedCardErrorView);
-snapshot(EmbedCardForbiddenView);
 snapshot(EmbedCardForbiddenFixBlurring);
 snapshot(EmbedCardForbiddenDefault);
 snapshot(EmbedCardForbiddenObjectRequestAccess);
@@ -53,7 +49,6 @@ snapshot(EmbedCardForbiddenSiteForbiddenAccess);
 snapshot(EmbedCardForbiddenSitePendingAccess);
 snapshot(EmbedCardForbiddenSiteRequestAccess);
 snapshot(EmbedCardNotFoundView);
-snapshot(EmbedCardNotFoundDefault);
 snapshot(EmbedCardNotFoundSiteAccessExists);
 // Will be re-enabled as part of UTEST-2316.
 snapshot.skip(EmbedCardResolvedSmall);

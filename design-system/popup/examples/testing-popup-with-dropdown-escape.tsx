@@ -6,6 +6,7 @@ import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';
 import { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-item-group';
 import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Popup } from '@atlaskit/popup/popup';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Flex } from '@atlaskit/primitives/compiled/flex';
@@ -29,9 +30,11 @@ const NestedDropdownItem = () => (
 				{...triggerProps}
 				ref={triggerRef}
 				elemAfter={
-					<Flex xcss={iconSpacingStyles.space075}>
-						<ChevronRightIcon size="small" color={token('color.icon.subtle')} label="" />
-					</Flex>
+					fg('platform-dst-new-menu') ? undefined : (
+						<Flex xcss={iconSpacingStyles.space075}>
+							<ChevronRightIcon size="small" color={token('color.icon.subtle')} label="" />
+						</Flex>
+					)
 				}
 			>
 				<span>Nested Menu</span>

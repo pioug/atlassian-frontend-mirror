@@ -34,6 +34,7 @@ const ORG_ID = 'test-org-id';
 /** Units GA master gate - acts as the killswitch for the whole isolation behaviour. */
 const MASTER_GATE = 'cc-units-ga';
 const ROLLOUT_GATE = 'linking_platform_site_picker_api_unit_compliant';
+const ORG_ID_FALLBACK_GATE = 'linking_platform_units_org_id_fallback';
 
 const TENANT_CONTEXT_OPERATION = 'link_datasource_tenantContext';
 
@@ -606,6 +607,177 @@ describe('shouldUseUnitCompliantApi', () => {
 			expect(body.query).toContain('endUsersLaunched');
 			// `admin_unitSettings` is not an experimental field, so it needs no opt in.
 			expect(body.query).not.toContain('@optIn');
+		});
+	});
+
+	describe('with an org id fallback', () => {
+		const originalLocation = Object.getOwnPropertyDescriptor(window, 'location');
+		const fallbackOrgId = 'fallback-org-id';
+		const useUnitCompliantApi = (orgId?: string): Promise<boolean> =>
+			shouldUseUnitCompliantApi(() => fg('linking_platform_site_picker_api_unit_compliant'), orgId);
+		const expectSettingsOrgId = (orgId: string): void => {
+			const [, requestInit] = fetchMock.lastCall() ?? [];
+			expect(parseBody(requestInit?.body).variables).toEqual({ orgId });
+		};
+		const clearHostname = (): void => {
+			Object.defineProperty(window, 'location', {
+				configurable: true,
+				value: { hostname: '' },
+			});
+		};
+
+		beforeEach(() => {
+			passGate(ROLLOUT_GATE);
+		});
+
+		afterEach(() => {
+			if (originalLocation) {
+				Object.defineProperty(window, 'location', originalLocation);
+			}
+		});
+
+		it('prefers the org resolved from the hostname', async () => {
+			passGate(ORG_ID_FALLBACK_GATE);
+			mockUnitsRolloutSettings({ boundaryEnforced: true, endUsersLaunched: true });
+
+			await expect(useUnitCompliantApi(fallbackOrgId)).resolves.toBe(true);
+
+			expectSettingsOrgId(ORG_ID);
+		});
+
+		it('uses the fallback when the hostname does not resolve an org', async () => {
+			passGate(ORG_ID_FALLBACK_GATE);
+			mockUnitsRolloutSettings({ boundaryEnforced: true, endUsersLaunched: true }, { orgId: null });
+
+			await expect(useUnitCompliantApi(fallbackOrgId)).resolves.toBe(true);
+
+			expectSettingsOrgId(fallbackOrgId);
+			expect(aggCalls()).toHaveLength(2);
+		});
+
+		it('ignores the fallback when its gate is disabled', async () => {
+			failGate(ORG_ID_FALLBACK_GATE);
+			mockUnitsRolloutSettings({ boundaryEnforced: true, endUsersLaunched: true }, { orgId: null });
+
+			await expect(useUnitCompliantApi(fallbackOrgId)).resolves.toBe(false);
+
+			expect(aggCalls()).toHaveLength(1);
+		});
+
+		it('keeps hostname resolution when the fallback gate is disabled', async () => {
+			failGate(ORG_ID_FALLBACK_GATE);
+			mockUnitsRolloutSettings({ boundaryEnforced: true, endUsersLaunched: true });
+
+			await expect(useUnitCompliantApi(fallbackOrgId)).resolves.toBe(true);
+
+			expectSettingsOrgId(ORG_ID);
+		});
+
+		it('uses defaults without a hostname when the fallback gate is disabled', async () => {
+			failGate(ORG_ID_FALLBACK_GATE);
+			clearHostname();
+
+			await expect(useUnitCompliantApi(fallbackOrgId)).resolves.toBe(false);
+
+			expect(aggCalls()).toHaveLength(0);
+		});
+
+		it('shares hostname-only settings across fallback org ids when the gate is disabled', async () => {
+			failGate(ORG_ID_FALLBACK_GATE);
+			mockUnitsRolloutSettings({ boundaryEnforced: true, endUsersLaunched: true });
+
+			await expect(useUnitCompliantApi(fallbackOrgId)).resolves.toBe(true);
+			await expect(useUnitCompliantApi('another-org-id')).resolves.toBe(true);
+
+			expectSettingsOrgId(ORG_ID);
+			expect(aggCalls()).toHaveLength(2);
+		});
+
+		it('uses the fallback without a tenant lookup when the hostname is absent', async () => {
+			passGate(ORG_ID_FALLBACK_GATE);
+			clearHostname();
+			mockUnitsRolloutSettings({ boundaryEnforced: true, endUsersLaunched: true });
+
+			await expect(useUnitCompliantApi(fallbackOrgId)).resolves.toBe(true);
+
+			expectSettingsOrgId(fallbackOrgId);
+			expect(aggCalls()).toHaveLength(1);
+		});
+
+		it.each([undefined, ''])(
+			'uses defaults when both hostname and org id (%p) are absent',
+			async (orgId) => {
+				passGate(ORG_ID_FALLBACK_GATE);
+				clearHostname();
+
+				await expect(useUnitCompliantApi(orgId)).resolves.toBe(false);
+
+				expect(aggCalls()).toHaveLength(0);
+			},
+		);
+
+		it('uses defaults when the hostname does not resolve an org and no fallback is supplied', async () => {
+			passGate(ORG_ID_FALLBACK_GATE);
+			mockUnitsRolloutSettings({ boundaryEnforced: true, endUsersLaunched: true }, { orgId: null });
+
+			await expect(useUnitCompliantApi()).resolves.toBe(false);
+
+			expect(aggCalls()).toHaveLength(1);
+		});
+
+		it.each([500, { errors: [{ message: 'Tenant lookup failed' }] }])(
+			'uses the fallback when the tenant lookup fails with %p',
+			async (response) => {
+				passGate(ORG_ID_FALLBACK_GATE);
+				fetchMock.post(AGG_MATCHER, (_url: string, { body }: RequestInit) =>
+					parseBody(body).operationName === TENANT_CONTEXT_OPERATION
+						? response
+						: // eslint-disable-next-line @typescript-eslint/naming-convention -- matches the AGG field name
+							{ data: { admin_unitSettings: { boundaryEnforced: true, endUsersLaunched: true } } },
+				);
+
+				await expect(useUnitCompliantApi(fallbackOrgId)).resolves.toBe(true);
+
+				expectSettingsOrgId(fallbackOrgId);
+			},
+		);
+
+		it('shares requests for the same fallback and keeps different fallbacks separate', async () => {
+			passGate(ORG_ID_FALLBACK_GATE);
+			mockUnitsRolloutSettings({ boundaryEnforced: true, endUsersLaunched: true }, { orgId: null });
+			await expect(useUnitCompliantApi()).resolves.toBe(false);
+
+			await expect(
+				Promise.all([useUnitCompliantApi(fallbackOrgId), useUnitCompliantApi(fallbackOrgId)]),
+			).resolves.toEqual([true, true]);
+			expect(aggCalls()).toHaveLength(3);
+
+			mockUnitsRolloutSettings(
+				{ boundaryEnforced: false, endUsersLaunched: false },
+				{ orgId: null },
+			);
+			await expect(useUnitCompliantApi('another-org-id')).resolves.toBe(false);
+			expectSettingsOrgId('another-org-id');
+			expect(aggCalls()).toHaveLength(5);
+
+			await expect(useUnitCompliantApi(fallbackOrgId)).resolves.toBe(true);
+			expect(aggCalls()).toHaveLength(5);
+		});
+
+		it('retries failed settings requests for the fallback org', async () => {
+			passGate(ORG_ID_FALLBACK_GATE);
+			fetchMock.post(AGG_MATCHER, (_url: string, { body }: RequestInit) =>
+				parseBody(body).operationName === TENANT_CONTEXT_OPERATION
+					? { data: { tenantContexts: [] } }
+					: 500,
+			);
+			await expect(useUnitCompliantApi(fallbackOrgId)).resolves.toBe(false);
+
+			mockUnitsRolloutSettings({ boundaryEnforced: true, endUsersLaunched: true }, { orgId: null });
+			await expect(useUnitCompliantApi(fallbackOrgId)).resolves.toBe(true);
+
+			expectSettingsOrgId(fallbackOrgId);
+			expect(aggCalls()).toHaveLength(4);
 		});
 	});
 });

@@ -25,7 +25,7 @@ export const FALLBACK_MINIMUM_MAIN_AXIS_SIZE = 150;
 export const TOLERANCE = 1;
 
 /**
- * The margin box a fitting popover of `size` occupies along the placement axis,
+ * The margin box an anchored popover of `size` occupies along the placement axis,
  * which under CSS Anchor Positioning is the flip threshold. The JavaScript
  * fallback does not share it, since `computeFallbackPosition` compares raw space
  * rather than overflowing a cell.

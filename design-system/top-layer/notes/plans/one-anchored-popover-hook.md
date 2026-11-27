@@ -223,7 +223,7 @@ point. Absorb `useWidthFromAnchor` and `useFitAvailableSpace`. Resolve both supp
 `forceFallbackPositioning` once, at the top, and pass them down. Fix the two live bugs as part of
 the merge — they are ownership bugs and disappear when one function decides the whole truth table.
 Collapse `fitAxisCap` to a local; keep `VIEWPORT_PADDING` and `FALLBACK_MINIMUM_MAIN_AXIS_SIZE`
-exported, because `getFitMarginDeclarations` and the Playwright spec both read them.
+exported, because `getViewportPaddingMarginDeclarations` and the Playwright spec both read them.
 
 > **Done, and it absorbed `useAnchorPositionAtPoint` as well.** `fitAxisCap` and
 > `fit-available-space.tsx` are gone; the whole recipe is `getAnchoredPopoverSizeDeclarations` in

@@ -211,6 +211,5 @@ export const deletedCellOverlayRoundedStyle: string = convertToInlineCss({
 	zIndex: 2,
 	outline: `1px solid ${token('color.border.accent.gray')}`,
 	pointerEvents: 'none',
-	border: 'inherit',
 	borderRadius: 'inherit',
 });

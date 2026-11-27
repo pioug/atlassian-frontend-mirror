@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 35.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.0.11
+
+### Patch Changes
+
+- [`65d35125d7b84`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/65d35125d7b84) -
+  Clean up the `display_skill_lozenge_in_editor` experiment. Skill quick-insert items now always
+  show the skill lozenge.
+- Updated dependencies
+
+## 35.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 35.0.8
 
 ### Patch Changes

@@ -1,35 +1,51 @@
 import { snapshot } from '@af/visual-regression';
 
 import {
-	VRBlockCardGoogleSheetsVisualize,
-	VRBlockCardGoogleSheetsVisualizeOff,
-	VREmbedCardGoogleSheetsVisualize,
-	VREmbedCardGoogleSheetsVisualizeOff,
-	VRInlineCardGoogleSheetsVisualize,
-	VRInlineCardGoogleSheetsVisualizeOff,
+	VRBlockCardGoogleSheetsRemix,
+	VRBlockCardGoogleSheetsRemixOff,
+	VRBlockCardGoogleSheetsRemixWithoutRovoChat,
+	VREmbedCardGoogleSheetsRemix,
+	VREmbedCardGoogleSheetsRemixOff,
+	VREmbedCardGoogleSheetsRemixWithoutRovoChat,
+	VRInlineCardGoogleSheetsRemix,
+	VRInlineCardGoogleSheetsRemixOff,
+	VRInlineCardGoogleSheetsRemixWithoutRovoChat,
 } from '../../../examples/vr-google-sheets-visualize/vr-google-sheets-visualize.vr.ap';
 
-snapshot(VRInlineCardGoogleSheetsVisualize, {
-	description: 'inline card Google Sheets with Visualize Rovo action (experiment on)',
+snapshot(VRInlineCardGoogleSheetsRemix, {
+	description: 'inline card Google Sheets with Remix action (experiment on)',
 	waitForReactLazy: true,
 });
-snapshot(VRInlineCardGoogleSheetsVisualizeOff, {
-	description: 'inline card Google Sheets without Visualize Rovo action (experiment off)',
+snapshot(VRInlineCardGoogleSheetsRemixOff, {
+	description: 'inline card Google Sheets without Remix action (experiment off)',
 	waitForReactLazy: true,
 });
-snapshot(VRBlockCardGoogleSheetsVisualize, {
-	description: 'block card Google Sheets with Visualize Rovo action (experiment on)',
+snapshot(VRBlockCardGoogleSheetsRemix, {
+	description: 'block card Google Sheets with Remix action (experiment on)',
 	waitForReactLazy: true,
 });
-snapshot(VRBlockCardGoogleSheetsVisualizeOff, {
-	description: 'block card Google Sheets without Visualize Rovo action (experiment off)',
+snapshot(VRBlockCardGoogleSheetsRemixOff, {
+	description: 'block card Google Sheets without Remix action (experiment off)',
 	waitForReactLazy: true,
 });
-snapshot(VREmbedCardGoogleSheetsVisualize, {
-	description: 'embed card Google Sheets with Visualize Rovo action (experiment on)',
+snapshot(VREmbedCardGoogleSheetsRemix, {
+	description: 'embed card Google Sheets with Remix action (experiment on)',
 	waitForReactLazy: true,
 });
-snapshot(VREmbedCardGoogleSheetsVisualizeOff, {
-	description: 'embed card Google Sheets without Visualize Rovo action (experiment off)',
+snapshot(VREmbedCardGoogleSheetsRemixOff, {
+	description: 'embed card Google Sheets without Remix action (experiment off)',
+	waitForReactLazy: true,
+});
+
+snapshot(VRInlineCardGoogleSheetsRemixWithoutRovoChat, {
+	description: 'inline card Google Sheets with Remix action and Rovo Chat action opted out',
+	waitForReactLazy: true,
+});
+snapshot(VRBlockCardGoogleSheetsRemixWithoutRovoChat, {
+	description: 'block card Google Sheets with Remix action and Rovo Chat action opted out',
+	waitForReactLazy: true,
+});
+snapshot(VREmbedCardGoogleSheetsRemixWithoutRovoChat, {
+	description: 'embed card Google Sheets with Remix action and Rovo Chat action opted out',
 	waitForReactLazy: true,
 });

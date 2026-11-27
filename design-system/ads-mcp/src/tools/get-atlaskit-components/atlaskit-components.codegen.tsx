@@ -3,7 +3,7 @@
  *
  * Structured content components from *.docs.tsx files outside of design-system
  *
- * @codegen <<SignedSource::d4f8fdfa3c6b056eea0e9824bdf4c214>>
+ * @codegen <<SignedSource::36949e0a4e73611ea58ff858c10de8ab>>
  * @codegenCommand afm workspace @af/ads-ai-tooling codegen
  */
 /* eslint-disable @repo/internal/react/boolean-prop-naming-convention -- not our types */
@@ -13756,7 +13756,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'presence',
-				type: '(string & {}) | Omit<React.ReactNode, string> | Presence | null | undefined',
+				type: '(string & {}) | Presence | Omit<React.ReactNode, string> | null | undefined',
 				description:
 					"Indicates a user's online status by showing a small icon on the avatar.\nRefer to presence values on the presence component.\nAlternatively accepts any React element. For best results, it is recommended to\nuse square content with height and width of 100%.",
 			},
@@ -18193,7 +18193,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			},
 			{
 				name: 'presence',
-				type: '(string & {}) | Omit<ReactNode, string> | Presence | null | undefined',
+				type: '(string & {}) | Presence | Omit<ReactNode, string> | null | undefined',
 				description:
 					"Indicates a user's online status by showing a small icon on the avatar.\nRefer to presence values on the presence component.\nAlternatively accepts any React element. For best results, it is recommended to\nuse square content with height and width of 100%.",
 			},
@@ -53281,6 +53281,10 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				type: '((filter: ConversationFilterValue) => void) | undefined',
 			},
 			{
+				name: 'onFilterInteraction',
+				type: '((action: "expanded" | "collapsed" | "fieldChanged") => void) | undefined',
+			},
+			{
 				name: 'onLoadMore',
 				type: '(() => void) | undefined',
 			},
@@ -53498,17 +53502,14 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 			{
 				name: 'hasLoadError',
 				type: 'boolean | undefined',
-				defaultValue: 'false',
 			},
 			{
 				name: 'isLoading',
 				type: 'boolean | undefined',
-				defaultValue: 'false',
 			},
 			{
 				name: 'isReadOnly',
 				type: 'boolean | undefined',
-				defaultValue: 'false',
 			},
 			{
 				name: 'onBrowseSkills',
@@ -53531,13 +53532,16 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 				type: '(() => void) | undefined',
 			},
 			{
+				name: 'onShowFlag',
+				type: '((flag: SkillFlag) => void) | undefined',
+			},
+			{
 				name: 'onUpdateSkill',
 				type: '((id: string, patch: SkillPatch) => Promise<SkillActionResult>) | undefined',
 			},
 			{
 				name: 'skills',
 				type: 'readonly SelfServeSkill[] | undefined',
-				defaultValue: 'EMPTY_SKILLS',
 			},
 		],
 	},
@@ -55139,7 +55143,7 @@ export const atlaskitComponents: ComponentMcpPayload[] = [
 		examples: [],
 		props: [
 			{
-				name: '__@iterator@943',
+				name: '__@iterator@942',
 				type: '() => IterableIterator<string>',
 				isRequired: true,
 			},

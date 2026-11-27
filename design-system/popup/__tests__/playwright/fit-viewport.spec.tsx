@@ -186,6 +186,47 @@ test('top-layer: the cap reaches a custom popupComponent', async ({ page }) => {
 			expect(Math.abs(parentWidth - 280)).toBeLessThanOrEqual(TOLERANCE);
 		}).toPass({ timeout: 10_000, intervals: [50, 100, 200, 500] });
 	});
+
+	// Legacy puts `xcss` on a `border-box` container, so the padding is inside the
+	// `width`. The top-layer wrapper was `content-box` and rendered 312px wide (the
+	// side-nav flyout was 416px, not 400px).
+	test(`${name}: an xcss width on <Popup> includes its xcss padding`, async ({ page }) => {
+		await openFixture({
+			page,
+			params: { triggerBlockStart: '100', contentBlockSize: '100', width: 'padded' },
+			isTopLayer,
+		});
+
+		await expect(async () => {
+			const parentWidth = await page.evaluate(() => {
+				const content = document.querySelector('[data-testid="fit-popup-body"]');
+				return content?.parentElement?.getBoundingClientRect().width ?? null;
+			});
+			invariant(parentWidth !== null, 'the popup content should have a parent element');
+
+			expect(Math.abs(parentWidth - 280)).toBeLessThanOrEqual(TOLERANCE);
+		}).toPass({ timeout: 10_000, intervals: [50, 100, 200, 500] });
+	});
+
+	// The same check on the compositional `PopupContent`, which the side-nav flyout
+	// uses. Its top-layer wrapper is a separate component.
+	test(`${name}: an xcss width on <PopupContent> includes its xcss padding`, async ({ page }) => {
+		await openFixture({
+			page,
+			params: { triggerBlockStart: '100', contentBlockSize: '100', api: 'compositional' },
+			isTopLayer,
+		});
+
+		await expect(async () => {
+			const parentWidth = await page.evaluate(() => {
+				const content = document.querySelector('[data-testid="fit-popup-body"]');
+				return content?.parentElement?.getBoundingClientRect().width ?? null;
+			});
+			invariant(parentWidth !== null, 'the popup content should have a parent element');
+
+			expect(Math.abs(parentWidth - 280)).toBeLessThanOrEqual(TOLERANCE);
+		}).toPass({ timeout: 10_000, intervals: [50, 100, 200, 500] });
+	});
 });
 
 /**

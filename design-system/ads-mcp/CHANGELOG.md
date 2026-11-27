@@ -1,5 +1,22 @@
 # @atlaskit/ads-mcp
 
+## 2.1.3
+
+### Patch Changes
+
+- [`b8c0daf07194d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b8c0daf07194d) -
+  Refresh generated structured-content catalogs from AFM master.
+
+## 2.1.2
+
+### Patch Changes
+
+- [`1e28098231f0a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/1e28098231f0a) -
+  Add ChatPanel structured content, current props and a resizable layout example to the component
+  catalogs.
+
+  Make the existing 320px minimum width explicit for generated ChatPanel API docs.
+
 ## 2.1.1
 
 ### Patch Changes

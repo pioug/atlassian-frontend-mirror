@@ -66,6 +66,27 @@ const PersistentBlockControlItem = ({ children }: CommonComponentProps): React.J
 	);
 };
 
+type StableBlockControlItemProps = CommonComponentProps & { isPersistent: boolean };
+
+// Persistence changes the wrapper's data, not its React type, so focused controls stay mounted.
+const StableBlockControlItem = ({
+	children,
+	isPersistent,
+}: StableBlockControlItemProps): React.JSX.Element => {
+	const { shouldHideHoverControls, useCssStyles } = useContext(BlockControlsVisibilityContext);
+
+	return (
+		<BlockControlItem>
+			<VisibilityWrapper
+				shouldHide={!isPersistent && shouldHideHoverControls}
+				useCssStyles={useCssStyles}
+			>
+				{children}
+			</VisibilityWrapper>
+		</BlockControlItem>
+	);
+};
+
 type BlockControlsVisibilityProviderProps = BlockControlsVisibility & {
 	children: React.ReactNode;
 };
@@ -168,18 +189,24 @@ const getBlockControlsSurfaceComponents = (
 		})
 		.map(withoutVisibilityPredicate);
 
+	const shouldUseStableWrapper = isExperimentEnabled('platform_editor_heading_toggle_focus');
 	const wrappedControls = visibleControls.flatMap((control): RegisterComponent[] => {
 		const identity = getComponentIdentity(control);
 		const rank =
 			control.parents?.find((parent) => getComponentIdentity(parent) === groupIdentity)?.rank ?? 0;
-		const wrapper: RegisterGroup = {
-			component: persistentIdentities.has(identity)
-				? PersistentBlockControlItem
-				: HoverBlockControlItem,
+		const isPersistent = persistentIdentities.has(identity);
+		const wrapperBase = {
 			key: `block-control-item:${identity}`,
 			parents: [{ ...section, rank }],
-			type: 'group',
+			type: 'group' as const,
 		};
+		const wrapper: RegisterGroup<StableBlockControlItemProps> | RegisterGroup =
+			shouldUseStableWrapper
+				? { ...wrapperBase, component: StableBlockControlItem, componentProps: { isPersistent } }
+				: {
+						...wrapperBase,
+						component: isPersistent ? PersistentBlockControlItem : HoverBlockControlItem,
+					};
 		const visibleControl = {
 			...withoutVisibilityPredicate(control),
 			parents: [{ key: wrapper.key, rank: 0, type: wrapper.type }],

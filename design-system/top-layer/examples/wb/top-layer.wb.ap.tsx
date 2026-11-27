@@ -19,6 +19,7 @@ import VrPopoverPlacementOffsetVrExample from '../85-vr-popover-placement-offset
 import VrPopoverWidthFromAnchorVrExample from '../86-vr-popover-width-from-anchor.vr.ap';
 import VrPopoverCrossAxisShiftVrExample from '../87-vr-popover-cross-axis-shift.vr.ap';
 import VrPopoverMinAnchorNarrowSpanVrExample from '../88-vr-popover-min-anchor-narrow-span.vr.ap';
+import VrPopoverViewportEdgeGapVrExample from '../89-vr-popover-viewport-edge-gap.vr.ap';
 import TestingPopoverBasicExample from '../90-testing-popover-basic';
 import TestingDialogBasicExample from '../91-testing-dialog-basic';
 import TestingPopoverEscapeExample from '../92-testing-popover-escape';
@@ -181,6 +182,7 @@ export const VrPopoverCrossAxisShiftVr: WorkbenchExample = wb(VrPopoverCrossAxis
 export const VrPopoverMinAnchorNarrowSpanVr: WorkbenchExample = wb(
 	VrPopoverMinAnchorNarrowSpanVrExample,
 );
+export const VrPopoverViewportEdgeGapVr: WorkbenchExample = wb(VrPopoverViewportEdgeGapVrExample);
 export const TestingPopoverBasic: WorkbenchExample = wb(TestingPopoverBasicExample);
 export const TestingDialogBasic: WorkbenchExample = wb(TestingDialogBasicExample);
 export const TestingPopoverEscape: WorkbenchExample = wb(TestingPopoverEscapeExample);

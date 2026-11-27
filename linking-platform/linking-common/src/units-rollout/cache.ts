@@ -1,6 +1,6 @@
 import { type UnitsRolloutSettings } from './types';
 
 /**
- * Holds the in-flight/resolved request so that the settings are only fetched once per page load.
+ * Holds in-flight/resolved requests per fallback org id for the lifetime of the page.
  */
-export const cache: { promise?: Promise<UnitsRolloutSettings> } = {};
+export const cache: Map<string, Promise<UnitsRolloutSettings>> = new Map();

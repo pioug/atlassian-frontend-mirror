@@ -12,18 +12,13 @@ import {
 } from '../../../examples/01-status-picker.vr.ap';
 import HexStatus from '../../../examples/03-hex-status.vr.ap';
 
-const statusColorsEnabled = {
-	platform_editor_update_status_colors: true,
-};
-
 snapshot(SimpleStatus, {
 	featureFlags: {
-		...statusColorsEnabled,
 		'platform-component-visual-refresh': true,
 	},
 });
-snapshot(NeutralStatus, { featureFlags: statusColorsEnabled });
-snapshot(RedStatus, { featureFlags: statusColorsEnabled });
+snapshot(NeutralStatus);
+snapshot(RedStatus);
 
 snapshot(SimpleBoldStatus, {
 	featureFlags: {

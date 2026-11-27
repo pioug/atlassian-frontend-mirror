@@ -30,6 +30,11 @@ export const SSR_IFRAME_HOST_ID_ATTR = 'data-native-embed-ssr-host-id';
 export const SSR_IFRAME_CHILD_ID_ATTR = 'data-native-embed-ssr-child-id';
 /** Marks the container that holds parked iframes. */
 export const SSR_IFRAME_PARKING_ATTR = 'data-native-embed-ssr-parking';
+/**
+ * Marks a slot that an SSR iframe was parked in outside this module's registry, e.g. by the editor
+ * before ProseMirror replaces its server HTML (live docs). Value: the macro ID.
+ */
+export const SSR_IFRAME_PARKING_SLOT_ATTR = 'data-native-embed-ssr-parking-slot';
 
 /**
  * Deterministic child client ID for an SSR-started embed. Only needs to be unique among the
@@ -70,6 +75,12 @@ const getParkingLot = (doc: Document): HTMLDivElement => {
 		doc.body.appendChild(parkingLot);
 	}
 	return parkingLot;
+};
+
+/** Slot holding an SSR iframe that was parked outside this module's registry (by the editor). */
+const getExternalParkingSlot = (iframe: HTMLIFrameElement): Element | null => {
+	const parent = iframe.parentElement;
+	return parent?.hasAttribute(SSR_IFRAME_PARKING_SLOT_ATTR) ? parent : null;
 };
 
 /** Finds the SSR iframe for a macro: parked, or still inside its SSR placeholder. */
@@ -124,7 +135,8 @@ export function adoptSsrIframe(macroId: string, container: Element): HTMLIFrameE
 	if (!iframe) {
 		return undefined;
 	}
-	const slot = parked.get(macroId) === iframe ? iframe.parentElement : null;
+	const slot =
+		parked.get(macroId) === iframe ? iframe.parentElement : getExternalParkingSlot(iframe);
 	try {
 		moveInto(container, iframe);
 	} catch {
@@ -137,12 +149,17 @@ export function adoptSsrIframe(macroId: string, container: Element): HTMLIFrameE
 
 /** Removes a parked iframe nobody adopted (e.g. the embed fell back to another UI). */
 export function releaseSsrIframe(macroId: string): void {
-	const iframe = parked.get(macroId);
+	const registered = parked.get(macroId);
 	parked.delete(macroId);
-	if (iframe) {
-		const slot = iframe.parentElement;
+	const iframe = registered ?? findSsrIframe(macroId);
+	if (!iframe) {
+		return;
+	}
+	// Only remove iframes that are parked; one still inside its SSR placeholder belongs to React.
+	const slot = registered ? iframe.parentElement : getExternalParkingSlot(iframe);
+	if (slot) {
 		iframe.remove();
-		slot?.remove();
+		slot.remove();
 	}
 }
 

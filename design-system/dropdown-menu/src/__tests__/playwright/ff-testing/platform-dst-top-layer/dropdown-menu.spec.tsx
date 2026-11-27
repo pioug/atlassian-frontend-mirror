@@ -927,13 +927,12 @@ for (const { title, menu } of focusReturnMenus) {
 			page,
 			browserName,
 		}) => {
-			// WebKit leaves focus on the body after the modal closes, with or without
-			// `returnFocusRef`. It passes on the top-layer decisions branch (#529607), where the
-			// wrapper returns focus to the trigger before the modal records its opener; that change
-			// is not on master yet.
+			// The item click focuses the trigger, so the modal records it as its opener. Playwright's
+			// WebKit (26.0) still drops focus to the body after the close in some runs (1 to 9 runs
+			// in 40, locally). Real Safari 27 returns focus to the trigger.
 			test.fixme(
 				browserName === 'webkit',
-				'WebKit: focus falls to the body after the modal closes',
+				"Playwright's WebKit can drop focus to the body after the modal closes; real Safari 27 returns it to the trigger",
 			);
 
 			await openWithKeyboard(page);

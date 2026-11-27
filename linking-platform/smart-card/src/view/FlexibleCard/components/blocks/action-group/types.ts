@@ -31,6 +31,11 @@ export type ActionGroupProps = {
 	onDropdownOpenChange?: (isOpen: boolean) => void;
 
 	/**
+	 * Include every action beyond the inline slots in the overflow menu.
+	 */
+	showRemainingActionsInOverflow?: boolean;
+
+	/**
 	 * Determines the default size of the actions within the Action Group.
 	 */
 	size?: SmartLinkSize;

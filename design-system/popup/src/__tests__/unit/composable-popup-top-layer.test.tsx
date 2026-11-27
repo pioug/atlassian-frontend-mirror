@@ -278,6 +278,9 @@ it('applies xcss to the element wrapping the content', () => {
 	const wrapper = screen.getByTestId('inner').parentElement;
 	expect(wrapper).not.toBe(screen.getByTestId(`${testId}--container`));
 	expect(wrapper).toHaveCompiledCss('width', '280px');
+	// As on legacy, a `width` includes the padding. The browser test in
+	// `__tests__/playwright/fit-viewport.spec.tsx` measures it.
+	expect(wrapper).toHaveCompiledCss('box-sizing', 'border-box');
 });
 
 it('renders content when shouldFitContainer is true', () => {

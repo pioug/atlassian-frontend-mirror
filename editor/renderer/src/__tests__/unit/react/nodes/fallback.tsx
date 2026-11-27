@@ -1,12 +1,17 @@
 import React, { useEffect } from 'react';
 
-import { render, screen, act } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import Loadable from 'react-loadable';
 
 import { isSafeUrl } from '@atlaskit/adf-schema/is-safe-url';
 import Client from '@atlaskit/link-provider/client';
 import { SmartCardProvider as Provider } from '@atlaskit/link-provider/smart-card-provider';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+import { wasExperimentExposed } from '@atlassian/experiment-test-utils/was-experiment-exposed';
+import { act } from '@atlassian/testing-library/act';
+import { render } from '@atlassian/testing-library/render';
+import { screen } from '@atlassian/testing-library/screen';
+import { userEvent } from '@atlassian/testing-library/user-event';
 
 import { CardErrorBoundary } from '../../../../react/nodes/fallback';
 
@@ -27,18 +32,27 @@ describe('Renderer - React/Nodes/Fallback', () => {
 		global.console.error = jest.fn();
 	});
 
-	it('should render children if no error', () => {
-		render(
-			<CardErrorBoundary url={url} unsupportedComponent={MockedUnsupportedInline}>
-				<MockedChildren />
-			</CardErrorBoundary>,
-		);
+	it.each([true, false])(
+		'renders healthy children and scopes exposure for isDatasource=%s',
+		(isDatasource) => {
+			render(
+				<CardErrorBoundary
+					isDatasource={isDatasource}
+					url={url}
+					unsupportedComponent={MockedUnsupportedInline}
+				>
+					<MockedChildren />
+				</CardErrorBoundary>,
+			);
 
-		expect(screen.getByText('Rendered Children')).toBeVisible();
-		expect(screen.queryByRole('link')).not.toBeInTheDocument();
-	});
+			expect(screen.getByText('Rendered Children')).toBeVisible();
+			expect(screen.queryByRole('link')).not.toBeInTheDocument();
+			expect(wasExperimentExposed('platform_editor_optional_chunk_recovery')).toBe(isDatasource);
+		},
+	);
 
 	it('should render url if error occurs when datasource is not present and url is present', () => {
+		mockExpEnabled('platform_editor_optional_chunk_recovery');
 		render(
 			<CardErrorBoundary
 				url={url}
@@ -55,6 +69,7 @@ describe('Renderer - React/Nodes/Fallback', () => {
 				name: url,
 			}),
 		).toBeVisible();
+		expect(wasExperimentExposed('platform_editor_optional_chunk_recovery')).toBe(false);
 		expect(screen.queryByText('Rendered Children')).not.toBeInTheDocument();
 	});
 
@@ -71,6 +86,7 @@ describe('Renderer - React/Nodes/Fallback', () => {
 	});
 
 	it('should render InlineCard if error occurs, when url is present and isDatasource is true and isSafeUrl is true', async () => {
+		mockExpDisabled('platform_editor_optional_chunk_recovery');
 		render(
 			<Provider client={new Client('staging')}>
 				<CardErrorBoundary
@@ -96,6 +112,7 @@ describe('Renderer - React/Nodes/Fallback', () => {
 	});
 
 	it('should render blue link if error occurs, when url is present and isDatasource is true and isSafeUrl is false', async () => {
+		mockExpDisabled('platform_editor_optional_chunk_recovery');
 		const unsafeUrl = 'javascript:alert(1)';
 		render(
 			<Provider client={new Client('staging')}>

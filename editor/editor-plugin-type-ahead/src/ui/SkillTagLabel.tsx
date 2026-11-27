@@ -19,8 +19,7 @@ export type ParsedSkillTag = {
 
 /**
  * Parses a quick-insert item title of the form `skill::{COLOR}::{SLUG}::{NAME}`, produced by the
- * Rovo skills quick-insert manifest when `display_skill_lozenge_in_editor` is enabled. Returns
- * undefined for any title that isn't in this format.
+ * Rovo skills quick-insert manifest. Returns undefined for any title that isn't in this format.
  */
 export const parseSkillTagTitle = (title: string): ParsedSkillTag | undefined => {
 	if (!title.startsWith(SKILL_TITLE_PREFIX)) {

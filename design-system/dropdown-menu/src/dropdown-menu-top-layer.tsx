@@ -33,11 +33,11 @@ import { usePopoverId } from '@atlaskit/top-layer/use-popover-id';
 
 import { DropdownTriggerContext } from './internal/context/dropdown-trigger-context';
 import SelectionStore from './internal/context/selection-store';
-import { NewSpacingContext } from './internal/context/spacing-context';
 import type { DropdownMenuProps } from './types';
 
 const MAX_HEIGHT = `calc(100vh - 16px)`;
 const MAX_WIDTH = '800px';
+const NESTED_MENU_OFFSET = 16;
 
 const styles = cssMap({
 	spinnerContainer: {
@@ -179,18 +179,15 @@ function DropdownMenuTopLayer({
 	);
 
 	const oldSpacing = (spacing === 'spacious' ? 'cozy' : spacing) || 'cozy';
-	const newSpacing = (spacing === 'cozy' ? 'spacious' : spacing) || 'spacious';
 	const popoverId = usePopoverId();
 
 	const topLayerPlacement = useMemo(() => {
-		const nestedMenuOffset = newSpacing === 'compact' ? 16 : 20;
-
 		return fromLegacyPlacement({
 			legacy: placement as TLegacyPlacement,
 			// If the menu is nested, give it an offset so it doesn't overlap the edges of the previous menu
-			offset: fg('platform-dst-new-menu') && isNestedTrigger ? [0, nestedMenuOffset] : undefined,
+			offset: fg('platform-dst-new-menu') && isNestedTrigger ? [0, NESTED_MENU_OFFSET] : undefined,
 		});
-	}, [placement, isNestedTrigger, newSpacing]);
+	}, [placement, isNestedTrigger]);
 
 	// DropdownMenu has no `shouldFitViewport` equivalent, so neither axis ever
 	// fits and `blockSize` stays `'content'` - `MenuGroup`'s `maxHeight` owns the
@@ -448,27 +445,25 @@ function DropdownMenuTopLayer({
 					testId={testId && `${testId}--content`}
 				>
 					<PopoverSurface>
-						<NewSpacingContext.Provider value={newSpacing}>
-							{/* eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/no-static-element-interactions, @atlassian/a11y/interactive-element-not-keyboard-focusable */}
-							<div
-								css={[
-									styles.newWrapper,
-									styles.height,
-									shouldFitContainer ? undefined : styles.width,
-								]}
-								onClick={handleMenuClick}
-								data-testid={testId && `${testId}--menu-wrapper--menu-group`}
-							>
-								{isLoading ? (
-									<LoadingIndicator
-										statusLabel={statusLabel}
-										testId={testId && `${testId}--menu-wrapper--loading-indicator`}
-									/>
-								) : (
-									children
-								)}
-							</div>
-						</NewSpacingContext.Provider>
+						{/* eslint-disable-next-line @atlassian/a11y/click-events-have-key-events, @atlassian/a11y/no-static-element-interactions, @atlassian/a11y/interactive-element-not-keyboard-focusable */}
+						<div
+							css={[
+								styles.newWrapper,
+								styles.height,
+								shouldFitContainer ? undefined : styles.width,
+							]}
+							onClick={handleMenuClick}
+							data-testid={testId && `${testId}--menu-wrapper--menu-group`}
+						>
+							{isLoading ? (
+								<LoadingIndicator
+									statusLabel={statusLabel}
+									testId={testId && `${testId}--menu-wrapper--loading-indicator`}
+								/>
+							) : (
+								children
+							)}
+						</div>
 					</PopoverSurface>
 				</Popover>
 			</SelectionStore>

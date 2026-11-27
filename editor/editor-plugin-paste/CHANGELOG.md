@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-paste
 
+## 35.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.0.11
+
+### Patch Changes
+
+- [`634a88c45efa2`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/634a88c45efa2) -
+  Clean up platform_editor_paste_strip_invalid_block_marks feature gate
+- Updated dependencies
+
+## 35.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 35.0.8
 
 ### Patch Changes

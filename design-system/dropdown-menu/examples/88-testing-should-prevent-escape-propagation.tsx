@@ -11,6 +11,7 @@ import ModalBody from '@atlaskit/modal-dialog/modal-body';
 import ModalDialog from '@atlaskit/modal-dialog/modal-dialog';
 import ModalHeader from '@atlaskit/modal-dialog/modal-header';
 import ModalTitle from '@atlaskit/modal-dialog/modal-title';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Popup } from '@atlaskit/popup/popup';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Flex } from '@atlaskit/primitives/compiled/flex';
@@ -38,9 +39,11 @@ const NestedDropdown = ({ level = 0 }: { level?: number }): React.JSX.Element =>
 				{...triggerProps}
 				ref={triggerRef}
 				elemAfter={
-					<Flex xcss={iconSpacingStyles.space075}>
-						<ChevronRightIcon size="small" color={token('color.icon.subtle')} label="" />
-					</Flex>
+					fg('platform-dst-new-menu') ? undefined : (
+						<Flex xcss={iconSpacingStyles.space075}>
+							<ChevronRightIcon size="small" color={token('color.icon.subtle')} label="" />
+						</Flex>
+					)
 				}
 			>
 				<span>Nested Menu</span>

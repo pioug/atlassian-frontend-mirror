@@ -16,6 +16,7 @@ import {
 
 import AkButton from '@atlaskit/button/default/button';
 import Heading from '@atlaskit/heading/heading';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled/box';
 import { Text } from '@atlaskit/primitives/compiled/text';
@@ -27,6 +28,19 @@ import { messages } from '../i18n';
 import CachingEmoji from './CachingEmoji';
 import EmojiErrorMessage, { emojiErrorScreenreaderTestId } from './EmojiErrorMessage';
 import RetryableButton from './RetryableButton';
+
+// The delete panel fills the picker and the preview box takes the free height
+const deleteFocusLockFill = css({
+	display: 'flex',
+	flexDirection: 'column',
+	flexGrow: 1,
+});
+
+// minHeight 0 replaces the 390px minimum, so the preview fits the small picker
+const deletePreviewFill = css({
+	flexGrow: 1,
+	minHeight: 0,
+});
 
 const deletePreviewNew = css({
 	display: 'flex',
@@ -146,13 +160,20 @@ class EmojiDeletePreview extends Component<Props & WrappedComponentProps, State>
 		const { emoji, intl } = this.props;
 		const { loading, error } = this.state;
 		const { formatMessage } = intl;
+		const isSearchOnTop =
+			fg('platform_emoji_search_top') || isExperimentEnabled('platform_editor_slash_command');
 
 		return (
 			<FocusLock
+				// The focus lock wrapper fills the panel so the preview can grow
+				css={isSearchOnTop && deleteFocusLockFill}
 				noFocusGuards
 				focusOptions={fg('platform_ally_emoji_fixes_various') ? { preventScroll: true } : undefined}
 			>
-				<div css={deletePreviewNew} data-testid={emojiDeletePreviewTestId}>
+				<div
+					css={[deletePreviewNew, isSearchOnTop && deletePreviewFill]}
+					data-testid={emojiDeletePreviewTestId}
+				>
 					<div css={deleteTextSection}>
 						<Box paddingBlockEnd="space.100">
 							<Heading size="small" as={fg('platform_ally_emoji_fixes_various') ? 'h2' : undefined}>

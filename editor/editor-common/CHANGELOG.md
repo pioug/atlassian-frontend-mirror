@@ -1,5 +1,59 @@
 # @atlaskit/editor-common
 
+## 138.10.2
+
+### Patch Changes
+
+- [`a8b93e6cce3d3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/a8b93e6cce3d3) -
+  [ux] [A11Y-60503] group colour swatches in a single radio group and label the table background,
+  text colour, highlight colour, and native embed border palettes behind
+  `platform_editor_lovability_colors_a11y_fixes`.
+
+## 138.10.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 138.10.0
+
+### Minor Changes
+
+- [`8ef8419bc2970`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8ef8419bc2970) -
+  Extend first-in-session analytics to Editor and Renderer events used by reliability detectors and
+  SLOs behind `platform_editor_first_in_activity_session`.
+
+  Remove the exported `AnalyticsEnrichmentBoundary` component's `enabled` prop. Remove that prop
+  from call sites. The boundary now checks for a browser and reads the experiment itself.
+
+### Patch Changes
+
+- [`d5c8ef2aa8e99`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/d5c8ef2aa8e99) -
+  Clean up platform_editor_preloaded_extension_not_found feature gate
+- Updated dependencies
+
+## 138.9.0
+
+### Minor Changes
+
+- [`01287e7b10a4c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/01287e7b10a4c) -
+  The `platform_editor_first_in_activity_session` experiment adds the `firstInSession` marker to
+  selected Editor analytics events for each Editor appearance over the lifetime of a page load,
+  shared across Editor instances. Editor Common exposes the shared analytics enrichment boundary
+  with first-in-session enrichers.
+
+### Patch Changes
+
+- [`caf5c9f859043`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/caf5c9f859043) -
+  Keep the shipped editor accessibility behavior and remove the retired experiment.
+- Updated dependencies
+
+## 138.8.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 138.8.0
 
 ### Minor Changes

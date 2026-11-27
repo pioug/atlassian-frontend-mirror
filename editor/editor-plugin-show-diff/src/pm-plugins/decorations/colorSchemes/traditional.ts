@@ -229,7 +229,6 @@ export const traditionalAddedCellOverlayRoundedStyle: string = convertToInlineCs
 	zIndex: 2,
 	outline: `1px solid ${token('color.border.accent.green')}`,
 	pointerEvents: 'none',
-	border: 'inherit',
 	borderRadius: 'inherit',
 });
 
@@ -267,6 +266,5 @@ export const deletedTraditionalCellOverlayRoundedStyle: string = convertToInline
 	zIndex: 2,
 	outline: `1px solid ${token('color.border.disabled')}`,
 	pointerEvents: 'none',
-	border: 'inherit',
 	borderRadius: 'inherit',
 });

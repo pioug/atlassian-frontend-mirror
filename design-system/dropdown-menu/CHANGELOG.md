@@ -1,5 +1,15 @@
 # @atlaskit/dropdown-menu
 
+## 22.2.5
+
+### Patch Changes
+
+- [`8b2143bd45f0a`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8b2143bd45f0a) -
+  The `spacing` prop no longer has an effect on the new Dropdown Menu (behind the
+  `platform-dst-new-menu` feature gate). When the gate is enabled, spacing is not customisable.
+  Minor padding changes to the new Dropdown Item (behind feature gate). There are no changes to the
+  existing components.
+
 ## 22.2.4
 
 ### Patch Changes

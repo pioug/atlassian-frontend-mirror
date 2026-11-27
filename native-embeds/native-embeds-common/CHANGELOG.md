@@ -1,5 +1,23 @@
 # @atlaskit/native-embeds-common
 
+## 2.14.0
+
+### Minor Changes
+
+- [`6c05b8be30ee3`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/6c05b8be30ee3) -
+  Behind `native_embeds_ssr_whiteboard_iframe`: groundwork for starting whiteboard native-embed
+  iframes from the editor's server render (live docs). `NativeEmbedLoadingPlaceholder` accepts a
+  host-injected `renderSsrIframe` (from the new `./ssr-iframe` entry,
+  `createNativeEmbedSsrIframeRenderer`) that renders the whiteboard iframe during the server render;
+  `@atlassian/native-embeds-whiteboard-experience` adds a lightweight `./manifest-id` entry;
+  adoption is no longer limited to published pages; `adoptSsrIframe` and `releaseSsrIframe` also
+  handle iframes parked in an external slot (`SSR_IFRAME_PARKING_SLOT_ATTR`). Nothing passes
+  `renderSsrIframe` yet, so behaviour is unchanged.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.13.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-presets",
-	"version": "29.0.8",
+	"version": "29.0.12",
 	"license": "Apache-2.0",
 	"description": "Public editor presets for Atlassian Editor containing base configurations for Confluence and other products",
 	"publishConfig": {
@@ -139,9 +139,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_comments_api_manager": {
-			"type": "boolean"
-		},
-		"platform_editor_content_mode_button_mvp": {
 			"type": "boolean"
 		},
 		"platform_editor_ai_aifc_streaming": {

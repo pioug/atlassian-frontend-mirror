@@ -198,7 +198,7 @@ export function TopNav({
 		label: skipLinkLabel,
 	});
 
-	const height = heightProp ?? (fg('platform_dst_ads_appswitcher_improvements') ? 56 : 48);
+	const height = heightProp ?? (fg('navx-topnav-height-change') ? 56 : 48);
 
 	const customTheme = useCustomTheme(customThemeConfig);
 

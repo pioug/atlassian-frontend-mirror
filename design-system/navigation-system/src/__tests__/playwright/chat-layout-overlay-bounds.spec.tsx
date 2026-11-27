@@ -35,10 +35,10 @@ for (const { mode, viewportWidth, buttons, expected } of [
 		page,
 	}) => {
 		await page.setViewportSize({ width: viewportWidth, height: 900 });
-		await page.visitExample<typeof import('../../../examples/page-layout-chat-panel.tsx')>(
+		await page.visitExample<typeof import('../../../examples/page-layout-chat-panel-direct.tsx')>(
 			'design-system',
 			'navigation-system',
-			'page-layout-chat-panel',
+			'page-layout-chat-panel-direct',
 		);
 		// Give the two surface tokens distinct, accessible colours so this also
 		// catches the background mismatch hidden by the default light theme.
@@ -86,14 +86,14 @@ for (const { mode, viewportWidth, buttons, expected } of [
 
 async function prepareLocalOverlay(page: Page) {
 	await page.setViewportSize({ width: localOverlayViewportWidth, height: 900 });
-	await page.visitExample<typeof import('../../../examples/page-layout-chat-panel.tsx')>(
+	await page.visitExample<typeof import('../../../examples/page-layout-chat-panel-direct.tsx')>(
 		'design-system',
 		'navigation-system',
-		'page-layout-chat-panel',
+		'page-layout-chat-panel-direct',
 	);
 	await page.getByRole('button', { name: 'Ask Rovo', exact: true }).click();
 	await page.getByRole('button', { name: 'open local panel', exact: true }).click();
-	// Finish the lazy panel's initial autofocus before focusing its resize handle.
+	// Finish the local panel's initial autofocus before focusing its resize handle.
 	await expect(page.getByRole('button', { name: 'Close local panel', exact: true })).toBeFocused();
 	const panel = page.getByTestId('layout-with-panel--panel-slot');
 	const nav = page.getByRole('navigation', { name: 'Sidebar' });
@@ -202,10 +202,10 @@ test('resizing Aside after activation releases the adopted layout without a view
 
 test('collapsed SideNav flyout does not consume an inline track', async ({ page }) => {
 	await page.setViewportSize({ width: 1024, height: 900 });
-	await page.visitExample<typeof import('../../../examples/page-layout-chat-panel.tsx')>(
+	await page.visitExample<typeof import('../../../examples/page-layout-chat-panel-direct.tsx')>(
 		'design-system',
 		'navigation-system',
-		'page-layout-chat-panel',
+		'page-layout-chat-panel-direct',
 	);
 	await page.getByRole('button', { name: 'Collapse side navigation', exact: true }).click();
 	const main = page.getByRole('main');
@@ -226,10 +226,10 @@ test('collapsed SideNav flyout does not consume an inline track', async ({ page 
 
 test('mounting Chat after sizing activation reallocates the adopted widths', async ({ page }) => {
 	await page.setViewportSize({ width: 1024, height: 900 });
-	await page.visitExample<typeof import('../../../examples/page-layout-chat-panel.tsx')>(
+	await page.visitExample<typeof import('../../../examples/page-layout-chat-panel-direct.tsx')>(
 		'design-system',
 		'navigation-system',
-		'page-layout-chat-panel',
+		'page-layout-chat-panel-direct',
 	);
 	const slider = page.getByRole('slider', { name: 'Resize side navigation', exact: true });
 	await slider.focus();
@@ -324,10 +324,10 @@ for (const width of [600, 300]) {
 		// Check host constraints independently of viewport breakpoints. Actual narrow
 		// viewport handle reachability is covered in chat-layout-session.spec.tsx.
 		await page.setViewportSize({ width: 1200, height: 900 });
-		await page.visitExample<typeof import('../../../examples/page-layout-chat-panel.tsx')>(
+		await page.visitExample<typeof import('../../../examples/page-layout-chat-panel-direct.tsx')>(
 			'design-system',
 			'navigation-system',
-			'page-layout-chat-panel',
+			'page-layout-chat-panel-direct',
 		);
 		const slider = page.getByRole('slider', { name: 'Resize chat panel', exact: true });
 		await page.getByRole('button', { name: 'Collapse side navigation', exact: true }).click();

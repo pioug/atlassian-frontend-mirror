@@ -44,7 +44,8 @@ export const SurfaceRenderer = ({
 	const RootComponent = root.component ?? PassThrough;
 
 	return (
-		<RootComponent parents={ROOT_PARENTS} surfaceContext={surfaceContext}>
+		// eslint-disable-next-line react/jsx-props-no-spreading -- The shared renderer forwards each registration's typed component data.
+		<RootComponent {...root.componentProps} parents={ROOT_PARENTS} surfaceContext={surfaceContext}>
 			<SurfaceComponents
 				components={topLevelChildren}
 				childrenMap={childrenMap}

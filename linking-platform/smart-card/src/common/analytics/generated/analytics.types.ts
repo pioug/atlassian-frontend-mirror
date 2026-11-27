@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::bcb840e9445405411cf34af7d9171bf7>>
+ * @codegen <<SignedSource::a05096f79880ea0ccdaf8dd61aef67eb>>
  * @codegenCommand afm workspace @atlassian/analytics-tooling analytics:codegen smart-card
  */
 export type PackageMetaDataContextType = {
@@ -144,6 +144,21 @@ export type ButtonClickedRovoChatPromptAttributesType = {
 	prompt?: string | null;
 	interactionSource?: 'spotlightCta' | 'inlineAction' | null;
 };
+export type ButtonClickedRemixAttributesType = {
+	actionType?: string | null;
+	id?: string | null;
+	definitionId?: string | null;
+	display?:
+		| 'inline'
+		| 'block'
+		| 'embed'
+		| 'embedPreview'
+		| 'flexible'
+		| 'hoverCardPreview'
+		| 'url'
+		| null;
+	resourceType?: string | null;
+};
 export type ButtonClickedCopySummaryAttributesType = {};
 export type SummaryViewedAttributesType = {
 	fromCache?: boolean | null;
@@ -193,7 +208,12 @@ export type SmartLinkIframeFocusedAttributesType = {
 export type ApplicationAccountConnectedAttributesType = {
 	definitionId?: string | null;
 };
-export type ApplicationAccountAuthStartedAttributesType = {};
+export type ApplicationAccountAuthStartedAttributesType = {
+	journeyId?: string | null;
+	attemptId?: string | null;
+	retryOfAttemptId?: string | null;
+	fromStage?: string | null;
+};
 export type SmartLinkQuickActionStartedAttributesType = {
 	smartLinkActionType:
 		| 'FollowEntityAction'
@@ -442,6 +462,9 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * Fired when sending prompt to RovoChat via click */
 	'ui.button.clicked.rovoChatPrompt': ButtonClickedRovoChatPromptAttributesType;
+	/**
+	 * Fired when Remix is opened via click */
+	'ui.button.clicked.remix': ButtonClickedRemixAttributesType;
 	/**
 	 * fired when the copy ai summary button is clicked */
 	'ui.button.clicked.copySummary': ButtonClickedCopySummaryAttributesType;

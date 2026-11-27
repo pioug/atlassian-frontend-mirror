@@ -8,7 +8,6 @@ import type { CSSProperties, ReactElement } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { hexToEditorBorderPaletteColor } from '@atlaskit/editor-palette/border';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {
 	borderStyle,
@@ -31,6 +30,8 @@ const sizeWrapperStyle = css({
 });
 
 type Props = {
+	/** Accessible name for the interactive wrapper (role="button"). */
+	ariaLabel?: string;
 	aspectRatio?: number | string;
 	borderColor?: string;
 	borderSize?: number;
@@ -41,6 +42,7 @@ type Props = {
 };
 
 export const InlineImageWrapper = ({
+	ariaLabel,
 	children,
 	isSelected,
 	aspectRatio,
@@ -65,11 +67,9 @@ export const InlineImageWrapper = ({
 		: {};
 
 	const onKeyDown = (e: React.KeyboardEvent) => {
-		if (expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true)) {
-			if (e.key === 'Enter' || e.key === ' ') {
-				e.preventDefault();
-				onClick(e);
-			}
+		if (e.key === 'Enter' || e.key === ' ') {
+			e.preventDefault();
+			onClick(e);
 		}
 		return undefined;
 	};
@@ -90,12 +90,9 @@ export const InlineImageWrapper = ({
 				isSelected && selectedStyle,
 			]}
 			data-testid="inline-image-wrapper"
-			role={
-				expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true) ? 'button' : undefined
-			}
-			tabIndex={
-				expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true) ? 0 : undefined
-			}
+			role="button"
+			aria-label={ariaLabel}
+			tabIndex={0}
 			onClick={onClick}
 			onKeyDown={onKeyDown}
 			// Ignored via go/ees005

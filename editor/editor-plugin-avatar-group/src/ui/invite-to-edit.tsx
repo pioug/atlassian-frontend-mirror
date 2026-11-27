@@ -10,7 +10,6 @@ import { jsx } from '@emotion/react';
 import type { InviteToEditComponentProps } from '@atlaskit/editor-common/collab';
 import ToolbarButton from '@atlaskit/editor-common/ui-menu/ToolbarButton';
 import AddIcon from '@atlaskit/icon/core/add';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { inviteTeamWrapperStyles } from './styles';
 
@@ -39,11 +38,7 @@ export const InviteToEditButton = (props: InviteToEditButtonProps): jsx.JSX.Elem
 		<div css={inviteTeamWrapperStyles}>
 			<Wrapper>
 				<ToolbarButton
-					aria-pressed={
-						isExperimentEnabled('platform_editor_invite_to_edit_button_aria_pressed')
-							? selected
-							: undefined
-					}
+					aria-pressed={selected}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className="invite-to-edit"
 					onClick={onClick}

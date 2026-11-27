@@ -60,9 +60,16 @@ const BlockCollapseButton = ({
 		}),
 	);
 	const isCollapsed = Boolean(collapsedHeadingPositions?.has(headingPos));
-	const handleClick = React.useCallback(() => {
-		api?.core.actions.execute(api.blockCollapse?.commands.toggleHeading(headingPos));
-	}, [api, headingPos]);
+	const handleClick = React.useCallback(
+		(event: React.MouseEvent<HTMLButtonElement>) => {
+			api?.core.actions.execute(api.blockCollapse?.commands.toggleHeading(headingPos));
+			// Keyboard and assistive-technology activation should keep focus on the toggle.
+			if (event.detail > 0 && isExperimentEnabled('platform_editor_heading_toggle_focus')) {
+				api?.core.actions.focus({ scrollIntoView: false });
+			}
+		},
+		[api, headingPos],
+	);
 	const label = formatMessage(
 		isCollapsed ? blockControlsMessages.expandSection : blockControlsMessages.collapseSection,
 	);

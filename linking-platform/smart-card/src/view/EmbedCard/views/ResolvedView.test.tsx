@@ -3,21 +3,23 @@ import React from 'react';
 import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import type { CardProviderStoreOpts } from '@atlaskit/link-provider/types';
 import { renderWithIntl } from '@atlaskit/link-test-helpers/react-testing-library';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+import { passGate } from '@atlassian/feature-flags-test-utils/mock-gates';
 import { screen } from '@atlassian/testing-library/screen';
 
 import extractRovoChatAction from '../../../extractors/flexible/actions/extract-rovo-chat-action';
-import { isRovoChatActionVisualizeEnabled } from '../../../utils/is-rovo-chat-action-visualize-enabled';
+import { isRemixActionEnabled } from '../../../utils/is-remix-action-enabled';
 import EmbedRovoActionsFooter from '../components/rovo-actions-footer';
 import { EmbedCardResolvedView, type EmbedCardResolvedViewProps } from './ResolvedView';
 
-jest.mock('../../../utils/is-rovo-chat-action-visualize-enabled', () => {
-	const actual = jest.requireActual('../../../utils/is-rovo-chat-action-visualize-enabled');
+jest.mock('../../../utils/is-remix-action-enabled', () => {
+	const actual = jest.requireActual('../../../utils/is-remix-action-enabled');
 	return {
-		isRovoChatActionVisualizeEnabled: jest.fn(actual.isRovoChatActionVisualizeEnabled),
+		isRemixActionEnabled: jest.fn(actual.isRemixActionEnabled),
 	};
 });
 
-const mockIsRovoChatActionVisualizeEnabled = jest.mocked(isRovoChatActionVisualizeEnabled);
+const mockIsRemixActionEnabled = jest.mocked(isRemixActionEnabled);
 
 const mockAppearanceTestId = 'mocked-appearance-test-id';
 jest.mock('../components/ImageIcon', () => ({
@@ -44,7 +46,10 @@ const mockEmbedRovoActionsFooter = jest.mocked(EmbedRovoActionsFooter);
 const defaultLink = 'http://atlassian.com';
 const enabledRovoOptions = { isRovoEnabled: true, isRovoLLMEnabled: true };
 
-const setup = (extraProps?: Partial<EmbedCardResolvedViewProps>) => {
+const setup = (
+	extraProps?: Partial<EmbedCardResolvedViewProps>,
+	plugins?: React.ComponentProps<typeof SmartCardProvider>['plugins'],
+) => {
 	const link = extraProps?.link ?? defaultLink;
 	const storeOptions: CardProviderStoreOpts | undefined = extraProps?.details
 		? {
@@ -59,6 +64,7 @@ const setup = (extraProps?: Partial<EmbedCardResolvedViewProps>) => {
 
 	return renderWithIntl(
 		<SmartCardProvider
+			plugins={plugins}
 			product="CONFLUENCE"
 			rovoOptions={enabledRovoOptions}
 			storeOptions={storeOptions}
@@ -76,7 +82,7 @@ describe('EmbedCardResolvedView', () => {
 	beforeEach(() => {
 		mockExtractRovoChatAction.mockReset();
 		mockEmbedRovoActionsFooter.mockClear();
-		mockIsRovoChatActionVisualizeEnabled.mockClear();
+		mockIsRemixActionEnabled.mockClear();
 		mockExtractRovoChatAction.mockReturnValue(undefined);
 	});
 
@@ -130,20 +136,24 @@ describe('EmbedCardResolvedView', () => {
 		);
 	});
 
-	it('does not evaluate visualize (no exposure) when Rovo chat action is unavailable', () => {
+	it('does not offer Remix when the surface has not opted in', () => {
+		passGate('platform_sl_3p_auth_visualize_killswitch');
+		mockExpEnabled('platform_sl_3p_auth_visualize_exp');
 		const details = {
 			meta: { key: 'google-object-provider' },
 			data: { '@type': ['Document', 'schema:SpreadsheetDigitalDocument'] },
 		};
 
-		setup({
-			actionOptions: { hide: false, rovoChatAction: { optIn: true } },
-			details: details as never,
-			link: 'https://example.com/sheet',
-		});
+		setup(
+			{
+				actionOptions: { hide: false, rovoChatAction: { optIn: true } },
+				details: details as never,
+				link: 'https://docs.google.com/spreadsheets/d/example/edit',
+			},
+			{ resolve: () => ({ remix: { isAvailable: () => true, open: jest.fn() } }) },
+		);
 
-		expect(mockExtractRovoChatAction).toHaveBeenCalled();
-		expect(mockIsRovoChatActionVisualizeEnabled).not.toHaveBeenCalled();
+		expect(mockIsRemixActionEnabled).not.toHaveBeenCalled();
 		expect(screen.queryByTestId('mock-footer')).not.toBeInTheDocument();
 	});
 });

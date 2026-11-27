@@ -13,10 +13,10 @@ import {
 import { setStyle, type TStyleDeclaration } from '../set-style';
 import { crossAxisShiftMargins } from './cross-axis-shift-margins';
 import { edgeMargin } from './edge-margin';
-import { getFitMarginDeclarations } from './fit-margins';
 import { getExistingAnchorName } from './get-existing-anchor-name';
 import { placementToPositionArea } from './placement-to-position-area';
 import { placementToTryFallbacks } from './placement-to-try-fallbacks';
+import { getViewportPaddingMarginDeclarations } from './viewport-padding-margins';
 
 /**
  * Maps the placement-axis edge to its matching alignment.
@@ -86,7 +86,7 @@ export function applyAnchorPositioning({
 	popover,
 	placement,
 	sizeStyles,
-	isFitting,
+	hasCrossAxisPadding,
 	fallbackAnchorName,
 }: {
 	anchor: HTMLElement;
@@ -94,10 +94,9 @@ export function applyAnchorPositioning({
 	placement: TResolvedPlacement;
 	sizeStyles: TStyleDeclaration[];
 	/**
-	 * Whether either axis is `'max-available'`, which also reserves padding from
-	 * the viewport edge as a margin.
+	 * See `getViewportPaddingMarginDeclarations`.
 	 */
-	isFitting: boolean;
+	hasCrossAxisPadding: boolean;
 	/**
 	 * Written to the anchor when it does not already carry an `anchor-name`.
 	 */
@@ -162,14 +161,12 @@ export function applyAnchorPositioning({
 			value: placementToTryFallbacks({ placement }),
 		},
 		gapMargin,
-		// When fitting, the shift margins come back COMPOSED with the reserved
-		// viewport padding, rather than being written twice.
-		...(isFitting
-			? getFitMarginDeclarations({
-					placement,
-					crossAxisShiftMargins: shiftMargins,
-				})
-			: shiftMargins),
+		// Includes the shift margins, composed with the viewport padding.
+		...getViewportPaddingMarginDeclarations({
+			placement,
+			crossAxisShiftMargins: shiftMargins,
+			hasCrossAxisPadding,
+		}),
 		...sizeStyles,
 	];
 

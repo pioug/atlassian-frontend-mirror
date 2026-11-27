@@ -105,6 +105,8 @@ const LegacyWidthContextProvider = ({
 	);
 };
 
+const ignoreFocusEvent = () => {};
+
 const InlineExtension = (props: Props): jsx.JSX.Element => {
 	const {
 		node,
@@ -189,18 +191,10 @@ const InlineExtension = (props: Props): jsx.JSX.Element => {
 				onMouseEnter={() => handleMouseEvent(true)}
 				// @atlassian/a11y/mouse-events-have-key-events: hover border is also accessible via keyboard selection.
 				// No-ops here satisfy the rule without duplicating state updates.
-				onFocus={
-					expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true)
-						? () => {}
-						: undefined
-				}
+				onFocus={ignoreFocusEvent}
 				// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- WrapperElement is a 'span' or 'div' tag, not a component
 				onMouseLeave={() => handleMouseEvent(false)}
-				onBlur={
-					expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true)
-						? () => {}
-						: undefined
-				}
+				onBlur={ignoreFocusEvent}
 			>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766  */}
 				<WrapperElement css={overlay} className="extension-overlay" />

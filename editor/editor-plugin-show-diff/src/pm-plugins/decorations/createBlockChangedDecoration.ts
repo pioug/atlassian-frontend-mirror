@@ -1,15 +1,10 @@
 import { convertToInlineCss } from '@atlaskit/editor-common/css-helper';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 
 import { isTaggableBlockNode } from '../utils/taggableBlockNodes';
 import {
-	buildAddedCellOverlayRoundedStyle,
-	buildAddedCellOverlayStyle,
 	buildDeletedBlockNodeStyle,
-	buildDeletedCellOverlayRoundedStyle,
-	buildDeletedCellOverlayStyle,
 	buildInsertedBlockNodeStyle,
 	type DeletedBlockNodeCategory,
 	type InsertedBlockNodeShape,
@@ -28,6 +23,7 @@ import {
 	buildAnchorDecorationKey,
 	scrollMarginTopStyle,
 } from './decorationKeys';
+import { resolveCellOverlayStyle } from './utils/wrapBlockNodeViewStyles';
 
 const displayNoneStyle = convertToInlineCss({
 	display: 'none',
@@ -239,8 +235,6 @@ export const createBlockChangedDecoration = ({
 
 	if (CELL_NODES.includes(change.name)) {
 		const cellOverlay = document.createElement('div');
-		const colors = colorSchemeRegistry[colorScheme ?? DEFAULT_COLOR_SCHEME];
-		const isRoundedTable = isExperimentEnabled('platform_editor_table_diff_rounded_corners');
 
 		// On an inverted diff, an empty cell being filled is an addition, so give it the
 		// added (purple) overlay instead of the deleted (grey) one (EDITOR-8442).
@@ -248,13 +242,7 @@ export const createBlockChangedDecoration = ({
 		const isEmptyCellBeingFilled = !isInserted && !!cellNode && isCellEmpty(cellNode);
 		const useAddedStyle = isInserted || isEmptyCellBeingFilled;
 
-		const cellOverlayStyle = useAddedStyle
-			? isRoundedTable
-				? buildAddedCellOverlayRoundedStyle(colors)
-				: buildAddedCellOverlayStyle(colors)
-			: isRoundedTable
-				? buildDeletedCellOverlayRoundedStyle(colors)
-				: buildDeletedCellOverlayStyle(colors);
+		const cellOverlayStyle = resolveCellOverlayStyle({ colorScheme, isInserted: useAddedStyle });
 
 		cellOverlay.setAttribute('style', cellOverlayStyle);
 		decorations.push(

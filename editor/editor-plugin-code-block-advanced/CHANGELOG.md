@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 34.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 34.0.11
+
+### Patch Changes
+
+- [`01434c167b17e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/01434c167b17e) -
+  Remove the retired content mode button feature gate while preserving explicit compact content
+  mode.
+- Updated dependencies
+
+## 34.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
+## 34.0.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 34.0.8
 
 ### Patch Changes

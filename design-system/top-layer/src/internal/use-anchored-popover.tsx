@@ -348,7 +348,9 @@ export function useAnchoredPopover({
 				popover,
 				placement: stablePlacement,
 				sizeStyles,
-				isFitting,
+				hasCrossAxisPadding: !isAnchorRelative({
+					size: stablePlacement.axis === 'block' ? inlineSize : blockSize,
+				}),
 				fallbackAnchorName,
 			});
 		}

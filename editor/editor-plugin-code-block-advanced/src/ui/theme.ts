@@ -2,15 +2,10 @@ import type { Extension } from '@codemirror/state';
 import { EditorView as CodeMirror } from '@codemirror/view';
 
 import type { EditorContentMode } from '@atlaskit/editor-common/types/editor-appearance';
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 import { token } from '@atlaskit/tokens';
 
-const shouldUseCompactTypography = (contentMode?: EditorContentMode) =>
-	contentMode === 'compact' ||
-	(expValEquals('cc_editor_ai_content_mode', 'variant', 'test') &&
-		fg('platform_editor_content_mode_button_mvp'));
+const shouldUseCompactTypography = (contentMode?: EditorContentMode) => contentMode === 'compact';
 
 const getLineHeight = (contentMode?: EditorContentMode) =>
 	shouldUseCompactTypography(contentMode) ? '1.5em' : '1.5rem';

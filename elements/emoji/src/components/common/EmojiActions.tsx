@@ -22,6 +22,7 @@ import { injectIntl, type WithIntlProps, type WrappedComponentProps } from 'reac
 import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
 import { getDocument } from '@atlaskit/browser-apis';
 import { cssMap } from '@atlaskit/css';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { token } from '@atlaskit/tokens';
 
@@ -96,6 +97,13 @@ const productivityColorPopupPosition = css({
 
 const previewFooterNew = css({
 	flex: '0 0 auto',
+});
+
+// While open, the upload or delete panel is the picker's only content, so it fills the picker
+const uploadPanelFill = css({
+	display: 'flex',
+	flexDirection: 'column',
+	flexGrow: 1,
 });
 
 const atlassianSubcategoriesWithProductivityColorSelector = ['Objects', 'Productivity', 'Logos'];
@@ -202,6 +210,10 @@ export interface Props {
 	 * generation analytics.
 	 */
 	fireAnalytics?: (event: AnalyticsEventPayload) => void;
+	/**
+	 * Focus the search field when it mounts, unless focus is already inside the picker
+	 */
+	focusSearch?: boolean;
 	initialUploadName?: string;
 	onChange: (value: string) => void;
 	onCloseDelete: () => void;
@@ -507,7 +519,14 @@ export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 
 	if (uploading) {
 		return (
-			<div css={previewFooterNew}>
+			<div
+				css={[
+					previewFooterNew,
+					(fg('platform_emoji_search_top') ||
+						isExperimentEnabled('platform_editor_slash_command')) &&
+						uploadPanelFill,
+				]}
+			>
 				<EmojiUploadPicker
 					onUploadCancelled={onUploadCancelled}
 					onUploadEmoji={onUploadEmoji}
@@ -524,7 +543,14 @@ export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 
 	if (emojiToDelete) {
 		return (
-			<div css={previewFooterNew}>
+			<div
+				css={[
+					previewFooterNew,
+					(fg('platform_emoji_search_top') ||
+						isExperimentEnabled('platform_editor_slash_command')) &&
+						uploadPanelFill,
+				]}
+			>
 				<EmojiDeletePreview
 					emoji={emojiToDelete}
 					onDeleteEmoji={onDeleteEmoji}
@@ -548,6 +574,7 @@ export const EmojiActions = (props: EmojiActionsProps): JSX.Element => {
 				]}
 			>
 				<EmojiPickerListSearch
+					autoFocus={props.focusSearch}
 					onChange={onChange}
 					query={query}
 					resultsCount={resultsCount}

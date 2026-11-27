@@ -7,6 +7,7 @@ import { basePlugin } from '@atlaskit/editor-plugins/base';
 import { featureFlagsPlugin } from '@atlaskit/editor-plugins/feature-flags';
 import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
 import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+import { resetAllExperiments } from '@atlassian/experiment-test-utils/reset-all-experiments';
 
 import createUniversalPreset from '../../../presets/universal';
 import { RenderTracking } from '../../../utils/performance/components/RenderTracking';
@@ -49,6 +50,42 @@ describe('ComposableEditor', () => {
 			}).not.toThrow();
 		});
 	});
+
+	it.each([
+		{
+			assignment: 'control',
+			mockExperiment: mockExpDisabled,
+			mockUpdatedExperiment: mockExpEnabled,
+		},
+		{
+			assignment: 'treatment',
+			mockExperiment: mockExpEnabled,
+			mockUpdatedExperiment: mockExpDisabled,
+		},
+	])(
+		'updates analytics enrichment without remounting when starting in $assignment',
+		({ mockExperiment, mockUpdatedExperiment }) => {
+			mockExperiment('platform_editor_first_in_activity_session');
+			const preset = new EditorPresetBuilder().add([featureFlagsPlugin, {}]).add(basePlugin);
+			const onEditorReady = jest.fn();
+			const onDestroy = jest.fn();
+
+			const { rerender } = render(
+				<ComposableEditor preset={preset} onEditorReady={onEditorReady} onDestroy={onDestroy} />,
+			);
+
+			expect(onEditorReady).toHaveBeenCalledTimes(1);
+
+			resetAllExperiments();
+			mockUpdatedExperiment('platform_editor_first_in_activity_session');
+			rerender(
+				<ComposableEditor preset={preset} onEditorReady={onEditorReady} onDestroy={onDestroy} />,
+			);
+
+			expect(onDestroy).not.toHaveBeenCalled();
+			expect(onEditorReady).toHaveBeenCalledTimes(1);
+		},
+	);
 
 	it('should not render RenderTracking when platform_editor_enable_rerender_tracking is disabled', () => {
 		mockExpDisabled('platform_editor_enable_rerender_tracking');

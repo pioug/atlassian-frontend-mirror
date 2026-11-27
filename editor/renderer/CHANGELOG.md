@@ -1,5 +1,53 @@
 # @atlaskit/renderer
 
+## 158.2.11
+
+### Patch Changes
+
+- Updated dependencies
+
+## 158.2.10
+
+### Patch Changes
+
+- [`8ef8419bc2970`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/8ef8419bc2970) -
+  Extend first-in-session analytics to Editor and Renderer events used by reliability detectors and
+  SLOs behind `platform_editor_first_in_activity_session`.
+
+  Remove the exported `AnalyticsEnrichmentBoundary` component's `enabled` prop. Remove that prop
+  from call sites. The boundary now checks for a browser and reads the experiment itself.
+
+- [`9c97550b231cf`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/9c97550b231cf) -
+  Clean up platform_editor_table_heading_cell_alignment feature gate
+- [`01434c167b17e`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/01434c167b17e) -
+  Remove the retired content mode button feature gate while preserving explicit compact content
+  mode.
+- Updated dependencies
+
+## 158.2.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 158.2.8
+
+### Patch Changes
+
+- [`415a8be6d367c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/415a8be6d367c) -
+  Keep the surrounding document usable when datasource tables, definition popups, mention profiles,
+  or inline images fail to load. Definition failures show a dialog with a Close button, and inline
+  image failures show an attachment warning. Editor avatars use ADS Avatar for existing image URLs
+  and show a default agent icon when no image is available. Recovery is controlled by the
+  `platform_editor_optional_chunk_recovery` experiment.
+- Updated dependencies
+
+## 158.2.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 158.2.6
 
 ### Patch Changes

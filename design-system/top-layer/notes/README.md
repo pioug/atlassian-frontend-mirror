@@ -133,6 +133,9 @@ Architectural decisions, design rationale, and decision logs.
   only when its `Dialog` closes
 - **[compiled.md](./decisions/compiled.md)** — Gap analysis for Compiled CSS-in-JS migration
   (animations, `@position-try`, `var()`, `calc()`)
+- **[auto-placement.md](./decisions/auto-placement.md)**: Decision: `placement="auto"` (the `Popup`
+  default) opens below the trigger, centred, and the fallbacks flip it when it does not fit. No
+  "most space" choice as in legacy Popper. The callsites checked, and the docs to change at rollout
 - **[width-from-anchor-floors.md](./decisions/width-from-anchor-floors.md)** — Decision: why an
   anchor-relative axis gets at most one floor, why `'min-anchor'` gets the anchor floor but
   deliberately not the content floor, and (2026-08-24 update) why the content floor was removed
@@ -248,6 +251,9 @@ actually happened.
   Done: ModalDialog forwards its ref to the native `<dialog>` on the top-layer path
 - **[follow-ups/popup-mode-prop.md](./follow-ups/popup-mode-prop.md)** — Done: D20 removes the Popup
   `mode` prop
+- **[follow-ups/viewport-padding-spacing-value.md](./follow-ups/viewport-padding-spacing-value.md)**
+  — move the `5px` viewport padding to a spacing value, after the top-layer visual regression tests
+  are on
 - **[follow-ups/tree-grid-initial-focus.md](./follow-ups/tree-grid-initial-focus.md)** —
   `useInitialFocus` is unimplemented for `role="tree"` and `role="grid"`
 - **[follow-ups/popovertarget-exploration.md](./follow-ups/popovertarget-exploration.md)** —

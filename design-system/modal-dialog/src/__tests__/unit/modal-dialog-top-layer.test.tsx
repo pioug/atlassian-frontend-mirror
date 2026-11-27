@@ -58,6 +58,7 @@ function ControlledModal({
 	hasLabel = true,
 	shouldCloseOnEscapePress,
 	shouldCloseOnOverlayClick,
+	shouldScrollInViewport,
 }: {
 	onClose?: ModalDialogProps['onClose'];
 	defaultOpen?: boolean;
@@ -70,6 +71,7 @@ function ControlledModal({
 	hasLabel?: boolean;
 	shouldCloseOnEscapePress?: ModalDialogProps['shouldCloseOnEscapePress'];
 	shouldCloseOnOverlayClick?: ModalDialogProps['shouldCloseOnOverlayClick'];
+	shouldScrollInViewport?: ModalDialogProps['shouldScrollInViewport'];
 }) {
 	const [isOpen, setIsOpen] = useState(defaultOpen);
 
@@ -112,6 +114,7 @@ function ControlledModal({
 						onCloseComplete={onCloseComplete}
 						shouldCloseOnEscapePress={shouldCloseOnEscapePress}
 						shouldCloseOnOverlayClick={shouldCloseOnOverlayClick}
+						shouldScrollInViewport={shouldScrollInViewport}
 					>
 						{children ?? defaultChildren}
 					</ModalDialog>
@@ -324,6 +327,44 @@ describe('ModalDialog top-layer rendering', () => {
 		const dialog = screen.getByTestId('modal');
 		const style = getModalCustomProperties(dialog);
 		expect(style).toContain('--modal-dialog-height: 500px');
+	});
+
+	// The sizes are checked in a real browser, gate on against gate off, in
+	// `playwright/ff-testing/platform-dst-top-layer/custom-size.spec.tsx`.
+	it('should resolve each percentage of a calc() width against the legacy width in body scroll', () => {
+		passGate('platform-dst-top-layer');
+
+		render(<ControlledModal width="calc(100% - 80px)" />);
+
+		const style = getModalCustomProperties(screen.getByTestId('modal'));
+		expect(style).toContain('--modal-dialog-width: calc(calc(100 * (100vw - 120px) / 100) - 80px)');
+	});
+
+	it('should keep a percentage width as it is in viewport scroll', () => {
+		passGate('platform-dst-top-layer');
+
+		render(<ControlledModal width="calc(100% - 80px)" shouldScrollInViewport />);
+
+		const style = getModalCustomProperties(screen.getByTestId('modal'));
+		expect(style).toContain('--modal-dialog-width: calc(100% - 80px)');
+	});
+
+	it('should resolve a percentage height against the legacy height cap in body scroll', () => {
+		passGate('platform-dst-top-layer');
+
+		render(<ControlledModal height="100%" />);
+
+		const style = getModalCustomProperties(screen.getByTestId('modal'));
+		expect(style).toContain('--modal-dialog-height: calc(100 * (100vh - 120px + 1px) / 100)');
+	});
+
+	it('should not add the legacy height cap pixel to a percentage height in viewport scroll', () => {
+		passGate('platform-dst-top-layer');
+
+		render(<ControlledModal height="100%" shouldScrollInViewport />);
+
+		const style = getModalCustomProperties(screen.getByTestId('modal'));
+		expect(style).toContain('--modal-dialog-height: calc(100 * (100vh - 120px) / 100)');
 	});
 
 	it('should call onOpenComplete after mount', () => {

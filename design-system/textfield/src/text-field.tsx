@@ -230,6 +230,13 @@ const containerStyles = css({
 	},
 });
 
+const searchBorderStyle = css({
+	borderColor: token('color.border.input.search'),
+	'&:hover': {
+		borderColor: token('color.border.input.search'),
+	},
+});
+
 const inputDisabledStyle = css({
 	color: token('color.text.disabled'),
 	'&::placeholder': {
@@ -363,6 +370,9 @@ const Textfield: React.ForwardRefExoticComponent<
 		width,
 		...spreadProps
 	} = props;
+	const isFinesseEnabled = fg('platform-dst-tokens-finesse');
+	const hasSearchBorder =
+		isFinesseEnabled && spreadProps.type === 'search' && appearance === 'standard';
 	const isInputMotionEnabled = fg('platform-dst-motion-uplift-input');
 	const isInteractive = !isDisabled && !isReadOnly;
 
@@ -452,6 +462,7 @@ const Textfield: React.ForwardRefExoticComponent<
 				containerStyleAppearance[appearance],
 				!isDisabled && focusWithinStyle[appearance],
 				!isDisabled && hoverStyle[appearance],
+				hasSearchBorder && !isDisabled && !isInvalid && searchBorderStyle,
 				isDisabled && containerMedia.disabled,
 				isDisabled && disabledStyle[appearance],
 				isInvalid && containerMedia.invalid,
@@ -468,7 +479,7 @@ const Textfield: React.ForwardRefExoticComponent<
 				// TODO: When removing legacy theming fix this.
 				css={[
 					atomicInputStyle,
-					fg('platform-dst-tokens-finesse') && finessePlaceholderStyle,
+					isFinesseEnabled && finessePlaceholderStyle,
 					isMonospaced && inputMonospacedStyle,
 					atomicInputSpacing[isCompact ? 'compact' : 'default'],
 					isDisabled && inputDisabledStyle,

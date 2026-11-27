@@ -11,6 +11,8 @@ import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEv
 import IconButton from '@atlaskit/button/icon/button';
 import ArrowUpIcon from '@atlaskit/icon/core/arrow-up';
 import { RovoIcon } from '@atlaskit/logo/rovo/icon';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Text } from '@atlaskit/primitives/compiled/text';
 import TextField from '@atlaskit/textfield/text-field';
 import { token } from '@atlaskit/tokens';
@@ -36,6 +38,16 @@ const sectionStyles = css({
 	paddingTop: token('space.150'),
 	marginTop: token('space.100'),
 	borderTop: `${token('border.width')} solid ${token('color.border')}`,
+});
+
+// No divider above the section, and an 8px gap before the emoji name field (2px plus the
+// upload row's 6px gap).
+// When cleaning up platform_emoji_search_top, merge this into sectionStyles: remove marginTop and
+// borderTop there and add marginBottom.
+const sectionSpacingStyles = css({
+	marginTop: token('space.0'),
+	marginBottom: token('space.025'),
+	borderTop: 'none',
 });
 
 const headerStyles = css({
@@ -124,13 +136,18 @@ const CreateEmojiWithRovo = (props: CreateEmojiWithRovoProps): JSX.Element => {
 	}, [contentId, fireAnalytics, isGenerating, onEmojiGenerated, prompt, getAICreditStatus]);
 
 	const generateDisabled = !prompt.trim() || isGenerating;
+	const isSearchOnTop =
+		fg('platform_emoji_search_top') || isExperimentEnabled('platform_editor_slash_command');
 
 	return (
-		<div css={sectionStyles} data-testid={createEmojiWithRovoTestId}>
+		<div
+			css={[sectionStyles, isSearchOnTop && sectionSpacingStyles]}
+			data-testid={createEmojiWithRovoTestId}
+		>
 			<div css={headerStyles}>
 				<RovoIcon
 					appearance="brand"
-					size="xsmall"
+					size={isSearchOnTop ? 'xxsmall' : 'xsmall'}
 					label={formatMessage(messages.createEmojiWithRovoTitle)}
 				/>
 				<Text size="medium" weight="bold">

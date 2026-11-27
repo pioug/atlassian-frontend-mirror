@@ -29,6 +29,7 @@ import {
 import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
 import { getDocument } from '@atlaskit/browser-apis';
 import Button from '@atlaskit/button/default/button';
+import { cssMap } from '@atlaskit/css';
 import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Box } from '@atlaskit/primitives/compiled/box';
@@ -51,6 +52,38 @@ const uploadAddRowNew = css({
 	gap: token('space.100'),
 	paddingTop: token('space.100'),
 	paddingBottom: token('space.150'),
+});
+
+// Without a Rovo section, the upload panel fills the picker and the drop area takes the free
+// height, so the panel matches the default picker height.
+// When cleaning up platform_emoji_search_top, keep these conditional on there being no Rovo
+// section: the Rovo layout has its own height and spacing.
+const plainUploadFill = css({
+	flexGrow: 1,
+});
+
+const plainChooseFileRowFill = css({
+	flexGrow: 1,
+});
+
+const plainDropAreaStyles = cssMap({
+	fill: {
+		display: 'flex',
+		flexDirection: 'column',
+		flexGrow: 1,
+	},
+});
+
+// 24px gap above the buttons. The drop area takes all the spare height, so set the gap here
+// explicitly.
+const plainUploadAddRow = css({
+	paddingTop: token('space.300'),
+});
+
+// 20px gap above the buttons. The Rovo form fills almost the whole panel, so set the gap here
+// explicitly.
+const rovoUploadAddRow = css({
+	paddingTop: token('space.250'),
 });
 
 const emojiUploadNew = css({
@@ -232,10 +265,21 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 	const isUploading = uploadStatus === UploadStatus.Uploading;
 	const addEmojiDisabled = !previewImage || !name || isUploading;
 
+	const isSearchOnTop =
+		fg('platform_emoji_search_top') || isExperimentEnabled('platform_editor_slash_command');
+	const isPlainLayout = isSearchOnTop && !aiSection;
+	const isRovoLayout = isSearchOnTop && !!aiSection;
+
 	return (
-		<div css={emojiUploadNew} data-testid={uploadEmojiComponentTestId}>
+		<div
+			css={[emojiUploadNew, isPlainLayout && plainUploadFill]}
+			data-testid={uploadEmojiComponentTestId}
+		>
 			<div css={emojiUploadTopNew}>
-				<label css={[uploadChooseFileMessage, labelStylesNew]} htmlFor="new-emoji-name-input">
+				<label
+					css={[!isSearchOnTop && uploadChooseFileMessage, labelStylesNew]}
+					htmlFor="new-emoji-name-input"
+				>
 					{previewImage ? (
 						<FormattedMessage {...messages.emojiPreviewTitle} />
 					) : (
@@ -243,8 +287,8 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 					)}
 				</label>
 			</div>
-			<div css={uploadChooseFileRowNew}>
-				<Box>
+			<div css={[uploadChooseFileRowNew, isPlainLayout && plainChooseFileRowFill]}>
+				<Box xcss={isPlainLayout && plainDropAreaStyles.fill}>
 					<FormattedMessage {...messages.emojiChooseFileScreenReaderDescription}>
 						{() => (
 							<FileChooser
@@ -295,7 +339,13 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 						))}
 				</div>
 			</div>
-			<div css={uploadAddRowNew}>
+			<div
+				css={[
+					uploadAddRowNew,
+					isPlainLayout && plainUploadAddRow,
+					isRovoLayout && rovoUploadAddRow,
+				]}
+			>
 				<Button
 					onClick={onUploadCancelled}
 					appearance="subtle"

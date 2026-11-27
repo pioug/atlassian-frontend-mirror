@@ -9,6 +9,7 @@ import { css, jsx } from '@compiled/react';
 import { useIntl } from 'react-intl';
 
 import { cssMap, cx } from '@atlaskit/css';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import { token } from '@atlaskit/tokens';
@@ -96,6 +97,13 @@ const categorySelectorNew = css({
 	},
 });
 
+// The tabs sit below the search, so they keep only the divider, without the header background.
+// When cleaning up platform_emoji_search_top, remove backgroundColor, borderTopLeftRadius and
+// borderTopRightRadius from categorySelectorNew and remove this style.
+const categorySelectorBelowSearch = css({
+	backgroundColor: 'transparent',
+});
+
 const categorySelectorTablistNew = css({
 	paddingTop: token('space.0'),
 	paddingBottom: token('space.0'),
@@ -165,6 +173,10 @@ const CategorySelector = (props: Props): JSX.Element => {
 	);
 
 	useEffect(() => {
+		// The picker focuses the search on open, so no tab takes initial focus
+		if (fg('platform_emoji_search_top') || isExperimentEnabled('platform_editor_slash_command')) {
+			return;
+		}
 		if (hasSetInitialFocus.current || !activeCategoryId) {
 			return;
 		}
@@ -269,7 +281,17 @@ const CategorySelector = (props: Props): JSX.Element => {
 			</div>
 		);
 	}
-	return <div css={categorySelectorNew}>{categoriesSection}</div>;
+	return (
+		<div
+			css={[
+				categorySelectorNew,
+				(fg('platform_emoji_search_top') || isExperimentEnabled('platform_editor_slash_command')) &&
+					categorySelectorBelowSearch,
+			]}
+		>
+			{categoriesSection}
+		</div>
+	);
 };
 
 export default CategorySelector;

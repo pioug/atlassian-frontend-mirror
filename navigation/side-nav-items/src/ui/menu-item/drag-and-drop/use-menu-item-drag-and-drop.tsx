@@ -19,6 +19,7 @@ import { createPortal } from 'react-dom';
 
 import { jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 import { type Instruction } from '@atlaskit/pragmatic-drag-and-drop-hitbox/list-item';
 import {
 	draggable,
@@ -248,7 +249,10 @@ export function useMenuItemDragAndDrop({
 	})();
 
 	const dropIndicator = internalState.type === 'is-over' && internalState.instruction && (
-		<DropIndicator instruction={internalState.instruction} />
+		<DropIndicator
+			instruction={internalState.instruction}
+			colors={fg('platform-dst-dnd-token-migration') ? 'dedicated' : 'standard'}
+		/>
 	);
 
 	const state: TMenuItemDragAndDropState = useMemo(() => {

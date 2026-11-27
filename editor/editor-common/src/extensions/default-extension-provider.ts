@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags/fg';
-
 import { getAutoConvertPatternsFromModule } from './getAutoConvertPatternsFromModule';
 import type {
 	ExtensionAutoConvertHandler,
@@ -55,13 +53,7 @@ export default class DefaultExtensionProvider<
 	 * the extension is not preloaded, so callers can fall back to the asynchronous `getExtension`.
 	 */
 	getPreloadedExtension(type: ExtensionType, key: ExtensionKey): ExtensionManifest<T> | undefined {
-		if (fg('platform_editor_preloaded_extension_not_found')) {
-			return this.findExtensionInManifests(this.manifestsCache, type, key);
-		}
-		if (!this.manifestsCache) {
-			return;
-		}
-		return this.getExtensionFromManifest(this.manifestsCache, type, key);
+		return this.findExtensionInManifests(this.manifestsCache, type, key);
 	}
 
 	async getExtension(type: ExtensionType, key: ExtensionKey): Promise<ExtensionManifest<T>> {

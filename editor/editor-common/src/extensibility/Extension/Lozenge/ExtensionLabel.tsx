@@ -15,7 +15,6 @@ import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-e
 import { Box } from '@atlaskit/primitives/box';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { xcss } from '@atlaskit/primitives/xcss/xcss';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 
@@ -145,6 +144,8 @@ type ExtensionLabelProps = {
 };
 
 // eslint-disable-next-line @atlaskit/volt-strict-mode/no-multiple-exports
+const ignoreFocusEvent = () => {};
+
 export const ExtensionLabel = ({
 	text,
 	extensionName,
@@ -206,16 +207,12 @@ export const ExtensionLabel = ({
 			// @atlassian/a11y/mouse-events-have-key-events: label visibility on keyboard focus is already
 			// handled via the .ak-editor-selected-node CSS class applied by ProseMirror on node selection.
 			// No-ops here satisfy the rule.
-			onFocus={
-				expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true) ? () => {} : undefined
-			}
+			onFocus={ignoreFocusEvent}
 			// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- ContainerElement is a 'span' or 'div' tag, not a component
 			onMouseLeave={() => {
 				setIsNodeHovered?.(false);
 			}}
-			onBlur={
-				expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true) ? () => {} : undefined
-			}
+			onBlur={ignoreFocusEvent}
 			data-testid="new-lozenge-container"
 			contentEditable={false}
 		>

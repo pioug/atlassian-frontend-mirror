@@ -20,12 +20,24 @@ const emojiPickerList = css({
 	height: '0',
 });
 
+// Keeps the list mounted (preserving scroll position and focus restore) while the upload or
+// delete panel is open.
+const hiddenEmojiPickerList = css({
+	flexGrow: 0,
+	overflow: 'hidden',
+	visibility: 'hidden',
+});
+
 /**
  * TODO: have to use class component here as unit test is relying on ref.root. Will refactor this whole file + EmojiPickerList to functional component in future
  * ticket: COLLAB-2317
  */
 interface EmojiPickerTabPanelProps extends WrappedComponentProps {
 	children?: React.ReactNode;
+	/**
+	 * Hide the panel while keeping its content mounted
+	 */
+	isHidden?: boolean;
 	/**
 	 * Indicate whether the panel shows search results or full emojis list
 	 */
@@ -39,12 +51,13 @@ class EmojiPickerTabPanelInternal extends PureComponent<
 		const {
 			intl: { formatMessage },
 			children,
+			isHidden,
 			showSearchResults,
 		} = this.props;
 		return (
 			<div
 				ref={this.rootRef}
-				css={emojiPickerList}
+				css={[emojiPickerList, isHidden && hiddenEmojiPickerList]}
 				data-testid={RENDER_EMOJI_PICKER_LIST_TESTID}
 				id={RENDER_EMOJI_PICKER_LIST_TESTID}
 				role="tabpanel"

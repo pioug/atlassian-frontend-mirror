@@ -10,7 +10,7 @@
 import type { ComponentApi } from '@a2ui/web_core/v0_9';
 import type { ZodTypeAny } from 'zod';
 
-import { ResultPanelSchema } from './schemas';
+import { MultipleChoiceSchema, ResultPanelSchema } from './schemas';
 import type { AgenticForgeV09ComponentName } from './types';
 
 /**
@@ -26,6 +26,11 @@ const apiOf = <S extends ZodTypeAny>(
 	name,
 	schema,
 });
+
+export const MultipleChoiceApi: ComponentApi<typeof MultipleChoiceSchema> = apiOf(
+	'MultipleChoice',
+	MultipleChoiceSchema,
+);
 
 export const ResultPanelApi: ComponentApi<typeof ResultPanelSchema> = apiOf(
 	'ResultPanel',

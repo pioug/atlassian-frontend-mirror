@@ -9,7 +9,7 @@ import { SmartCardProvider } from '@atlaskit/link-provider/smart-card-provider';
 import { renderHook } from '@atlassian/testing-library/render-hook';
 
 import type { FireEventFunction } from '../../../../common/analytics/types';
-import { CardDisplay } from '../../../../constants';
+import { CardDisplay, InternalActionName } from '../../../../constants';
 import { SmartLinkAnalyticsContext } from '../../../../utils/analytics/SmartLinkAnalyticsContext';
 import * as markModule from '../../../../utils/mark';
 import { mockByUrl } from '../../../../utils/mock-by-url';
@@ -78,6 +78,26 @@ describe('useInvokeClientAction', () => {
 			id,
 		});
 	};
+
+	it('fires independent Remix analytics with no chat prompt', async () => {
+		const fireEvent = jest.fn();
+		const { current: invoke } = renderHook(() => useInvokeClientAction({ fireEvent }));
+		await invoke({
+			actionFn: async () => {},
+			actionSubjectId: 'remix',
+			actionType: InternalActionName.RemixAction,
+			display: 'inline',
+		});
+		expect(fireEvent).toHaveBeenCalledWith(
+			'ui.button.clicked.remix',
+			expect.objectContaining({ actionType: InternalActionName.RemixAction, display: 'inline' }),
+		);
+		const [, attributes] = fireEvent.mock.calls.find(
+			([event]) => event === 'ui.button.clicked.remix',
+		)!;
+		expect(attributes.prompt).toBeUndefined();
+		expect(attributes).not.toHaveProperty('interactionSource');
+	});
 
 	it('invokes action', async () => {
 		const actionFn = jest.fn().mockResolvedValue(undefined);

@@ -166,6 +166,12 @@ function getColorSwatchesRows(rootNode: HTMLElement | null): Array<HTMLElement> 
 	if (!rootNode) {
 		return [];
 	}
+
+	const paletteRows = rootNode.querySelectorAll<HTMLElement>('[data-color-palette-row]');
+	if (paletteRows.length) {
+		return Array.from(paletteRows);
+	}
+
 	const colorSwatchesRowElements =
 		(rootNode.querySelectorAll('div[role=radiogroup]') as NodeListOf<HTMLElement>) || [];
 

@@ -1,7 +1,10 @@
 import React from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags/fg';
+
 import useInlineTailoredAction from '../../../state/hooks/use-inline-tailored-actions';
 import { HoverCard } from '../../HoverCard';
+import { InlineCardAction } from '../common/inline-card-action';
 import { InlineRovoActionButton } from '../common/rovo-actions-cta';
 import { Frame } from '../Frame';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
@@ -56,12 +59,22 @@ export function InlineCardResolvedViewFunctional({
 				hideIconLoadingSkeleton={hideIconLoadingSkeleton}
 			/>
 			{renderLozenge(lozenge)}
-			{isInlineTailoredRovoActionEnabled && (
-				<InlineRovoActionButton
-					testId={`${testId}-rovo-actions-cta`}
+			{fg('platform_sl_3p_auth_visualize_killswitch') ? (
+				<InlineCardAction
+					id={id}
+					testId={testId}
 					url={link}
 					actionOptions={actionOptions}
+					showHoverPreview={showHoverPreview}
 				/>
+			) : (
+				isInlineTailoredRovoActionEnabled && (
+					<InlineRovoActionButton
+						testId={`${testId}-rovo-actions-cta`}
+						url={link}
+						actionOptions={actionOptions}
+					/>
+				)
 			)}
 		</Frame>
 	);

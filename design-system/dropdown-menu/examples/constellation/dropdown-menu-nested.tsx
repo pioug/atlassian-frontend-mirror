@@ -4,6 +4,7 @@ import { DropdownItem } from '@atlaskit/dropdown-menu/dropdown-item';
 import { DropdownItemGroup } from '@atlaskit/dropdown-menu/dropdown-item-group';
 import { DropdownMenu } from '@atlaskit/dropdown-menu/dropdown-menu';
 import ChevronRightIcon from '@atlaskit/icon/core/chevron-right';
+import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 const NestedDropdown = () => {
 	return (
@@ -14,7 +15,9 @@ const NestedDropdown = () => {
 				<DropdownItem
 					{...triggerProps}
 					ref={triggerRef}
-					elemAfter={<ChevronRightIcon label="" size="small" />}
+					elemAfter={
+						fg('platform-dst-new-menu') ? undefined : <ChevronRightIcon label="" size="small" />
+					}
 				>
 					<span>Nested Menu</span>
 				</DropdownItem>

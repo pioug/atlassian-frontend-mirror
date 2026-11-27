@@ -29,7 +29,6 @@ import { Box } from '@atlaskit/primitives/box';
 import { Text } from '@atlaskit/primitives/text';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { xcss } from '@atlaskit/primitives/xcss/xcss';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 import { buildVisitedNonHyperLinkPayload, INPUT_METHOD } from '../../analytics';
@@ -314,12 +313,8 @@ const HoverLinkOverlay = ({
 			// No-op focus/blur handlers to satisfy a11y/mouse-events-have-key-events rule.
 			// The hover overlay is a mouse convenience — keyboard users can access link actions
 			// (open, preview) via the floating toolbar that appears on selection.
-			onFocus={
-				expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true) ? () => {} : undefined
-			}
-			onBlur={
-				expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true) ? () => {} : undefined
-			}
+			onFocus={() => {}}
+			onBlur={() => {}}
 		>
 			{children}
 			{(!shouldDeferMeasurement || isHovered) && (

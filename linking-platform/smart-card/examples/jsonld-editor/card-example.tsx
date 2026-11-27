@@ -12,6 +12,7 @@ import { Text } from '@atlaskit/primitives/compiled/text';
 
 import { Card } from '../../src';
 import { HoverCard } from '../../src/hoverCard';
+import type { InternalCardActionOptions } from '../../src/view/Card/types';
 import HoverCardBox from '../utils/hover-card-box';
 import withJsonldEditorProvider from './jsonld-editor-provider';
 
@@ -24,7 +25,11 @@ const CardExample = ({
 }) => {
 	const fallback = useMemo(() => <span>😭Something went wrong.</span>, []);
 	const onError = useCallback((err: Error) => console.error(err.message), []);
-	const actionOptions = { hide: false, rovoChatAction: { optIn: true } };
+	const actionOptions: InternalCardActionOptions = {
+		hide: false,
+		remixAction: { optIn: true },
+		rovoChatAction: { optIn: true },
+	};
 
 	return (
 		<Stack space="space.100">

@@ -1,5 +1,13 @@
 # @atlaskit/datetime-picker
 
+## 19.5.5
+
+### Patch Changes
+
+- [`407d3e561c91c`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/407d3e561c91c) -
+  With `platform-dst-top-layer` on, the DatePicker calendar opens 8px from the input, as on legacy,
+  not 16px.
+
 ## 19.5.4
 
 ### Patch Changes

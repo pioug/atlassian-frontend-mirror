@@ -1,5 +1,17 @@
 # @atlaskit/adf-utils
 
+## 20.9.84
+
+### Patch Changes
+
+- [`42b36d9ce51d8`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/42b36d9ce51d8) -
+  Fix small text being dropped from `blockTaskItem` paragraphs. For tuple-like content, the
+  validator only checked a child against the first variant of its type (`paragraph_with_no_marks`).
+  When only a later variant (for example `paragraph_with_font_size`) allows the child's marks, it
+  now validates against that variant instead. Behind the
+  `platform_editor_fix_tuple_content_variants` experiment.
+- Updated dependencies
+
 ## 20.9.83
 
 ### Patch Changes

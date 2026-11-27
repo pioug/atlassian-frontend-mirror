@@ -2,7 +2,6 @@ import React, { forwardRef, useCallback, useEffect } from 'react';
 import type { Ref } from 'react';
 
 import Button from '@atlaskit/button/custom-theme-button/custom-theme-button';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip/Tooltip';
 import type { TooltipProps } from '@atlaskit/tooltip/types';
@@ -134,19 +133,7 @@ const FloatingToolbarButton = (
 					which already has onFocus/onBlur handlers. This satisfies the a11y rule by pairing
 					mouse events with keyboard equivalents on the same element.
 				*/}
-				{/* eslint-disable-next-line @atlassian/a11y/mouse-events-have-key-events */}
-				<div
-					onMouseEnter={
-						expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true)
-							? undefined
-							: onMouseEnter
-					}
-					onMouseLeave={
-						expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true)
-							? undefined
-							: onMouseLeave
-					}
-				>
+				<div>
 					{/* TODO: (from codemod) CustomThemeButton will be deprecated. Please consider migrating to Pressable or Anchor Primitives with custom styles. */}
 					<Button
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/no-unsafe-style-overrides -- Ignored via go/DSP-18766
@@ -201,16 +188,8 @@ const FloatingToolbarButton = (
 						isLoading={isLoading}
 						testId={testId}
 						interactionName={interactionName}
-						onMouseEnter={
-							expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true)
-								? onMouseEnter
-								: undefined
-						}
-						onMouseLeave={
-							expValEquals('editor_a11y__enghealth-46814_fy26', 'isEnabled', true)
-								? onMouseLeave
-								: undefined
-						}
+						onMouseEnter={onMouseEnter}
+						onMouseLeave={onMouseLeave}
 						onFocus={onFocus}
 						onBlur={onBlur}
 						// @ts-ignore

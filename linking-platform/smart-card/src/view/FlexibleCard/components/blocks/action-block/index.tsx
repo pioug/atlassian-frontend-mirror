@@ -27,6 +27,7 @@ import DownloadAction from '../../actions/download-action';
 import EditAction from '../../actions/edit-action';
 import FollowAction from '../../actions/follow-action';
 import PreviewAction from '../../actions/preview-action';
+import RemixAction from '../../actions/remix-action';
 import RovoChatAction from '../../actions/rovo-chat-action';
 import ViewRelatedLinksAction from '../../actions/view-related-links-action';
 import { ActionFooter } from './action-footer';
@@ -56,6 +57,7 @@ const Actions = {
 	[ActionName.PreviewAction]: PreviewAction,
 	[ActionName.RovoChatAction]: RovoChatAction,
 	[InternalActionName.AISummaryAction]: AISummaryAction,
+	[InternalActionName.RemixAction]: RemixAction,
 	[InternalActionName.UnresolvedAction]: CustomUnresolvedAction,
 	[InternalActionName.ViewRelatedLinksAction]: ViewRelatedLinksAction,
 };
@@ -122,7 +124,7 @@ const ActionBlock = ({
 		}
 
 		const arr = (Object.keys(context.actions) as FlexibleUiActionName[]).filter(
-			(name) => name !== ActionName.RovoChatAction,
+			(name) => name !== ActionName.RovoChatAction && name !== InternalActionName.RemixAction,
 		);
 		arr.sort(sort);
 

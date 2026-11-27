@@ -74,6 +74,7 @@ const ActionGroup = ({
 	size = SmartLinkSize.Medium,
 	appearance,
 	visibleButtonsNum = 2,
+	showRemainingActionsInOverflow = false,
 	onDropdownOpenChange,
 	containerWidth = Infinity,
 }: ActionGroupProps): JSX.Element | null => {
@@ -182,6 +183,8 @@ const ActionGroup = ({
 			];
 		} else if (isRovoActionsEnabled && containerWidth < REDUCED_ACTIONS_SIZE) {
 			actionItems = renderableActionItems;
+		} else if (isRovoActionsEnabled && showRemainingActionsInOverflow) {
+			actionItems = renderableActionItems.slice(visibleButtonsNum - 1);
 		} else {
 			actionItems = isMoreThenTwoItems ? renderableActionItems.slice(visibleButtonsNum - 1) : [];
 		}
@@ -228,6 +231,7 @@ const ActionGroup = ({
 		onActionItemClick,
 		onOpenChange,
 		renderableActionItems,
+		showRemainingActionsInOverflow,
 		size,
 		ui?.zIndex,
 		visibleButtonsNum,

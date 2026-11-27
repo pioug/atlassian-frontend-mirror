@@ -1,5 +1,13 @@
 # @atlaskit/editor-ui-control-model
 
+## 3.1.0
+
+### Minor Changes
+
+- [`234a684400948`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/234a684400948) -
+  Support registered componentProps in the shared surface renderer so component data can change
+  without replacing its React type.
+
 ## 3.0.1
 
 ### Patch Changes

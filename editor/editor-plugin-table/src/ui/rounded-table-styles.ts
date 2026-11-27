@@ -11,9 +11,11 @@ import {
 	akEditorUnitZIndex,
 } from '@atlaskit/editor-shared-styles/constants';
 import { akEditorTableContainerBg } from '@atlaskit/editor-shared-styles/consts';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
+import { ACTIVE_CURSOR_CELL_ATTR } from '../pm-plugins/active-cell-highlight/constants';
 import { TableCssClassName as ClassName } from '../types';
 import {
 	tableBorderColor,
@@ -137,11 +139,26 @@ const roundedTableCellCornerInteractionOverlayStyles = (): SerializedStyles => c
 
 const roundedTableInteractionOverlayStyles = (): SerializedStyles => css`
 	.${ClassName.TABLE_NODE_WRAPPER} > table {
+		${
+			isExperimentEnabled('platform_editor_table_active_cell_dom_toggle')
+				? `
+		/* Match interaction states at rest: a cell border-colour change relayouts the table. */
+		> tbody > tr > td[data-reaches-bottom],
+		> tbody > tr > th[data-reaches-bottom] {
+			border-bottom-color: transparent;
+		}
+		> tbody > tr > td[data-reaches-right],
+		> tbody > tr > th[data-reaches-right] {
+			border-right-color: transparent;
+		}`
+				: ''
+		}
+
 		/* Active-cell highlight base properties (replaces activeCellHighlightStyles).
 		   width/height: auto overrides the base cell ::after which uses width: 100%; height: 100%,
 		   so that left/right/top/bottom determine the size instead. */
-		td.${ClassName.TABLE_CELL}.${ClassName.ACTIVE_CURSOR_CELL}::after,
-		th.${ClassName.TABLE_HEADER_CELL}.${ClassName.ACTIVE_CURSOR_CELL}::after {
+		td.${ClassName.TABLE_CELL}${isExperimentEnabled('platform_editor_table_active_cell_dom_toggle') ? `:is(.${ClassName.ACTIVE_CURSOR_CELL}, [${ACTIVE_CURSOR_CELL_ATTR}])` : `.${ClassName.ACTIVE_CURSOR_CELL}`}::after,
+		th.${ClassName.TABLE_HEADER_CELL}${isExperimentEnabled('platform_editor_table_active_cell_dom_toggle') ? `:is(.${ClassName.ACTIVE_CURSOR_CELL}, [${ACTIVE_CURSOR_CELL_ATTR}])` : `.${ClassName.ACTIVE_CURSOR_CELL}`}::after {
 			border: 1px solid ${token('color.border.selected')};
 			box-shadow: ${token('elevation.shadow.raised')};
 			content: '';
@@ -176,12 +193,12 @@ const roundedTableInteractionOverlayStyles = (): SerializedStyles => css`
 		> tbody
 		> tr
 		> td:is(
-		.${ClassName.SELECTED_CELL}, .${ClassName.HOVERED_CELL}, .${ClassName.ACTIVE_CURSOR_CELL}
+		.${ClassName.SELECTED_CELL}, .${ClassName.HOVERED_CELL}, ${isExperimentEnabled('platform_editor_table_active_cell_dom_toggle') ? `:is(.${ClassName.ACTIVE_CURSOR_CELL}, [${ACTIVE_CURSOR_CELL_ATTR}])` : `.${ClassName.ACTIVE_CURSOR_CELL}`}
 		),
 		> tbody
 		> tr
 		> th:is(
-		.${ClassName.SELECTED_CELL}, .${ClassName.HOVERED_CELL}, .${ClassName.ACTIVE_CURSOR_CELL}
+		.${ClassName.SELECTED_CELL}, .${ClassName.HOVERED_CELL}, ${isExperimentEnabled('platform_editor_table_active_cell_dom_toggle') ? `:is(.${ClassName.ACTIVE_CURSOR_CELL}, [${ACTIVE_CURSOR_CELL_ATTR}])` : `.${ClassName.ACTIVE_CURSOR_CELL}`}
 		) {
 			&[data-reaches-top] {
 				border-top-color: transparent;
@@ -570,7 +587,7 @@ const roundedTableStickyHeaderOverlayStyles = (): SerializedStyles => css`
 	> th.${ClassName.TABLE_HEADER_CELL}[data-reaches-top]:is(
 	.${ClassName.SELECTED_CELL},
 	.${ClassName.HOVERED_CELL},
-	.${ClassName.ACTIVE_CURSOR_CELL}
+	${isExperimentEnabled('platform_editor_table_active_cell_dom_toggle') ? `:is(.${ClassName.ACTIVE_CURSOR_CELL}, [${ACTIVE_CURSOR_CELL_ATTR}])` : `.${ClassName.ACTIVE_CURSOR_CELL}`}
 	)::after,
 	.${ClassName.TABLE_NODE_WRAPPER}
 	> table
@@ -579,7 +596,7 @@ const roundedTableStickyHeaderOverlayStyles = (): SerializedStyles => css`
 	> td.${ClassName.TABLE_CELL}[data-reaches-top]:is(
 	.${ClassName.SELECTED_CELL},
 	.${ClassName.HOVERED_CELL},
-	.${ClassName.ACTIVE_CURSOR_CELL}
+	${isExperimentEnabled('platform_editor_table_active_cell_dom_toggle') ? `:is(.${ClassName.ACTIVE_CURSOR_CELL}, [${ACTIVE_CURSOR_CELL_ATTR}])` : `.${ClassName.ACTIVE_CURSOR_CELL}`}
 	)::after {
 		border-top-color: ${tableBorderSelectedColor};
 	}

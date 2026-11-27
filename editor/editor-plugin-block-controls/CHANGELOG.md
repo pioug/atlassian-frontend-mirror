@@ -1,5 +1,44 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 35.0.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.0.13
+
+### Patch Changes
+
+- [`69264b16cf3cb`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/69264b16cf3cb) -
+  Behind `platform_editor_block_drag_move_effect`, restrict drags from the
+  `platform_editor_block_control_migration` drag handle to the `move` effect. Chrome no longer shows
+  its "+" copy cursor when a block is dragged over parts of the editor that have no drop target.
+- Updated dependencies
+
+## 35.0.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 35.0.11
+
+### Patch Changes
+
+- [`234a684400948`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/234a684400948) -
+  Restore editor focus after pointer clicks on collapsible heading toggles and preserve toggle focus
+  on keyboard activation, behind platform_editor_heading_toggle_focus. Block controls keep one
+  stable wrapper per control and pass its persistence through the shared renderer's componentProps,
+  so focused controls are not remounted.
+- Updated dependencies
+
+## 35.0.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 35.0.9
 
 ### Patch Changes

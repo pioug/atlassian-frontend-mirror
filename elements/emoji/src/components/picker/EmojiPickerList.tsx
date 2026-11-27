@@ -11,6 +11,7 @@ import type { VirtualItem as VirtualItemContext } from '@tanstack/react-virtual'
 import { useIntl } from 'react-intl';
 
 import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { EmojiPickerListContextProvider } from '../../context/EmojiPickerListContext';
@@ -115,6 +116,11 @@ export interface Props {
 	fireAnalytics?: (event: AnalyticsEventPayload) => void;
 	initialUploadName?: string;
 	loading?: boolean;
+	/**
+	 * Called when the Atlassian subcategory in view changes, so the picker can update the search
+	 * row's colour control.
+	 */
+	onAtlassianSubcategoryChange?: (subcategory: string | null) => void;
 	onCategoryActivated?: OnCategory;
 	onCloseDelete: () => void;
 	onDeleteEmoji: OnDeleteEmoji;
@@ -145,6 +151,14 @@ export interface Props {
 export interface State {}
 
 export type PickerListRef = {
+	/**
+	 * Closes the delete preview, restoring focus to the emoji when delete was cancelled.
+	 */
+	closeDelete: () => void;
+	/**
+	 * Deletes an emoji from the delete preview.
+	 */
+	deleteEmoji: OnDeleteEmoji;
 	reveal: (category: CategoryId, preferYourUploads?: boolean) => void;
 	scrollToBottom: () => void;
 	scrollToRecentlyUploaded: (uploadedEmoji: EmojiDescription, shouldFocus?: boolean) => void;
@@ -195,6 +209,7 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 		onEmojiLeave,
 		onEmojiDelete = noop,
 		onCategoryActivated = noop,
+		onAtlassianSubcategoryChange,
 		onSearch = noop,
 		size = defaultEmojiPickerSize,
 		query,
@@ -242,6 +257,12 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 		() => getProductivityColorPreviewEmojis(visibleEmojis),
 		[visibleEmojis],
 	);
+
+	useEffect(() => {
+		if (fg('platform_emoji_search_top') || isExperimentEnabled('platform_editor_slash_command')) {
+			onAtlassianSubcategoryChange?.(activeAtlassianSubcategory);
+		}
+	}, [activeAtlassianSubcategory, onAtlassianSubcategoryChange]);
 
 	const addToCategoryMap = useCallback(
 		(
@@ -649,6 +670,16 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 	 */
 	useImperativeHandle(ref, () => {
 		return {
+			closeDelete() {
+				handleOnCloseDelete();
+			},
+
+			deleteEmoji(emoji: EmojiDescription) {
+				return fg('platform_ally_emoji_fixes_various')
+					? handleOnDeleteEmoji(emoji)
+					: onDeleteEmoji(emoji);
+			},
+
 			reveal(category: CategoryId, preferYourUploads = false) {
 				const row =
 					preferYourUploads && category === customCategory
@@ -748,38 +779,46 @@ export const EmojiPickerVirtualListInternal: React.ForwardRefExoticComponent<
 		);
 	}, [size, query, visibleEmojis.length, useFooterSpaceForList]);
 
+	const isSearchOnTop =
+		fg('platform_emoji_search_top') || isExperimentEnabled('platform_editor_slash_command');
+
 	return (
-		<EmojiPickerTabPanel showSearchResults={!!query}>
-			<EmojiActions
-				selectedTone={selectedTone}
-				onToneSelected={onToneSelected}
-				onToneSelectorCancelled={onToneSelectorCancelled}
-				toneEmoji={toneEmoji}
-				activeCategoryId={activeCategoryId}
-				activeAtlassianSubcategory={activeAtlassianSubcategory}
-				productivityColorPreviewEmojis={productivityColorPreviewEmojis}
-				selectedProductivityColor={selectedProductivityColor}
-				uploading={uploading}
-				uploadEnabled={uploadEnabled}
-				emojiToDelete={emojiToDelete}
-				initialUploadName={initialUploadName}
-				uploadErrorMessage={uploadErrorMessage}
-				onUploadPreviewErrorChange={onUploadPreviewErrorChange}
-				onUploadCancelled={onUploadCancelled}
-				onUploadEmoji={onUploadEmoji}
-				onCloseDelete={handleOnCloseDelete}
-				onDeleteEmoji={
-					fg('platform_ally_emoji_fixes_various') ? handleOnDeleteEmoji : onDeleteEmoji
-				}
-				onFileChooserClicked={onFileChooserClicked}
-				onOpenUpload={onOpenUpload}
-				onProductivityColorSelected={onProductivityColorSelected}
-				query={query}
-				onChange={onSearch}
-				resultsCount={visibleEmojis.length}
-				contentId={contentId}
-				fireAnalytics={fireAnalytics}
-			/>
+		<EmojiPickerTabPanel
+			showSearchResults={!!query}
+			isHidden={isSearchOnTop && (uploading || !!emojiToDelete)}
+		>
+			{!isSearchOnTop && (
+				<EmojiActions
+					selectedTone={selectedTone}
+					onToneSelected={onToneSelected}
+					onToneSelectorCancelled={onToneSelectorCancelled}
+					toneEmoji={toneEmoji}
+					activeCategoryId={activeCategoryId}
+					activeAtlassianSubcategory={activeAtlassianSubcategory}
+					productivityColorPreviewEmojis={productivityColorPreviewEmojis}
+					selectedProductivityColor={selectedProductivityColor}
+					uploading={uploading}
+					uploadEnabled={uploadEnabled}
+					emojiToDelete={emojiToDelete}
+					initialUploadName={initialUploadName}
+					uploadErrorMessage={uploadErrorMessage}
+					onUploadPreviewErrorChange={onUploadPreviewErrorChange}
+					onUploadCancelled={onUploadCancelled}
+					onUploadEmoji={onUploadEmoji}
+					onCloseDelete={handleOnCloseDelete}
+					onDeleteEmoji={
+						fg('platform_ally_emoji_fixes_various') ? handleOnDeleteEmoji : onDeleteEmoji
+					}
+					onFileChooserClicked={onFileChooserClicked}
+					onOpenUpload={onOpenUpload}
+					onProductivityColorSelected={onProductivityColorSelected}
+					query={query}
+					onChange={onSearch}
+					resultsCount={visibleEmojis.length}
+					contentId={contentId}
+					fireAnalytics={fireAnalytics}
+				/>
+			)}
 			<EmojiPickerListContextProvider initialEmojisFocus={{ rowIndex: 1, columnIndex: 0 }}>
 				<VirtualList
 					ref={listRef}

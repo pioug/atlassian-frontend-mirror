@@ -26,22 +26,20 @@ beforeEach(() => {
 	jest.clearAllMocks();
 });
 
-it.each([
-	['compact', 16],
-	['spacious', 20],
-	['cozy', 20],
-	[undefined, 20],
-] as const)('uses the nested menu offset for %s spacing', (spacing, gap) => {
-	passGate('platform-dst-new-menu');
-	render(<NestedMenu spacing={spacing} />);
+it.each(['compact', 'spacious', 'cozy', undefined] as const)(
+	'uses a 16px nested menu offset with spacing set to %s',
+	(spacing) => {
+		passGate('platform-dst-new-menu');
+		render(<NestedMenu spacing={spacing} />);
 
-	expect(getPlacement()).toMatchObject({
-		axis: 'inline',
-		edge: 'end',
-		align: 'start',
-		offset: { gap, crossAxisShift: { value: 0 } },
-	});
-});
+		expect(getPlacement()).toMatchObject({
+			axis: 'inline',
+			edge: 'end',
+			align: 'start',
+			offset: { gap: 16, crossAxisShift: { value: 0 } },
+		});
+	},
+);
 
 it('leaves the root menu offset unchanged', () => {
 	passGate('platform-dst-new-menu');
@@ -55,13 +53,4 @@ it('leaves the offset unchanged when the new menu gate is off', () => {
 	render(<NestedMenu spacing="compact" />);
 
 	expect(getPlacement()?.offset).toBeUndefined();
-});
-
-it('updates the offset when spacing changes', () => {
-	passGate('platform-dst-new-menu');
-	const { rerender } = render(<NestedMenu spacing="spacious" />);
-	expect(getPlacement()?.offset?.gap).toBe(20);
-
-	rerender(<NestedMenu spacing="compact" />);
-	expect(getPlacement()?.offset?.gap).toBe(16);
 });

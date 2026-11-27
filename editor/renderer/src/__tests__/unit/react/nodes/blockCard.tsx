@@ -2,12 +2,12 @@ import { MockCardComponent } from './card.mock';
 
 import React from 'react';
 
-import { render } from '@testing-library/react';
 import { IntlProvider } from 'react-intl';
 
 import type { DatasourceAttributeProperties } from '@atlaskit/adf-schema/block-card';
 import AnalyticsListener from '@atlaskit/analytics-next/AnalyticsListener';
 import { WidthContext } from '@atlaskit/editor-common/WidthProvider';
+import { LazyLoadedDatasourceRenderFailedAnalyticsWrapper } from '@atlaskit/link-datasource/analytics/render-failed';
 import { DatasourceTableViewWithWrappers as DatasourceTableView } from '@atlaskit/link-datasource/datasource-table-view-with-wrappers';
 import { JIRA_LIST_OF_LINKS_DATASOURCE_ID } from '@atlaskit/link-datasource/jira-issues-modal';
 import Client from '@atlaskit/link-provider/client';
@@ -17,7 +17,13 @@ import { asMock } from '@atlaskit/link-test-helpers/jest/as-mock';
 import { Pressable } from '@atlaskit/primitives/compiled/pressable';
 import { Card } from '@atlaskit/smart-card/card/lazy';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
+import { mockExpDisabled } from '@atlassian/experiment-test-utils/mock-exp-disabled';
+import { mockExpEnabled } from '@atlassian/experiment-test-utils/mock-exp-enabled';
+import { act } from '@atlassian/testing-library/act';
+import { render } from '@atlassian/testing-library/render';
+import { screen } from '@atlassian/testing-library/screen';
 
+import { InlineCard } from '../../../../react/nodes';
 import BlockCard from '../../../../react/nodes/blockCard';
 import { CardErrorBoundary } from '../../../../react/nodes/fallback';
 import { getCardClickHandler } from '../../../../react/utils/getCardClickHandler';
@@ -40,6 +46,10 @@ jest.mock('@atlaskit/link-datasource/datasource-table-view-with-wrappers', () =>
 		)),
 	};
 });
+
+jest.mock('@atlaskit/link-datasource/analytics/render-failed', () => ({
+	LazyLoadedDatasourceRenderFailedAnalyticsWrapper: jest.fn(),
+}));
 
 jest.mock('@atlaskit/smart-card/card/lazy', () => {
 	const originalModule = jest.requireActual('@atlaskit/smart-card/card/lazy');
@@ -182,6 +192,109 @@ describe('Renderer - React/Nodes/BlockCard', () => {
 				},
 			],
 		};
+
+		it('keeps the inline card inside the analytics wrapper in control', () => {
+			mockExpDisabled('platform_editor_optional_chunk_recovery');
+			const table = asMock(DatasourceTableView);
+			const originalTable = table.getMockImplementation();
+			const error = new Error('Table unavailable');
+			table.mockImplementation(() => {
+				throw error;
+			});
+			const onSetLinkTarget = jest.fn(() => '_blank' as const);
+			try {
+				render(
+					<BlockCard
+						url={url}
+						datasource={datasourceAttributeProperties}
+						onSetLinkTarget={onSetLinkTarget}
+					/>,
+				);
+				expect(onSetLinkTarget).toHaveBeenCalledWith(url);
+				expect(onSetLinkTarget.mock.contexts).toEqual(
+					onSetLinkTarget.mock.calls.map(() => undefined),
+				);
+				expect(
+					asMock(LazyLoadedDatasourceRenderFailedAnalyticsWrapper).mock.lastCall?.[0],
+				).toMatchObject({
+					error,
+					children: { type: InlineCard, props: { url } },
+				});
+			} finally {
+				if (originalTable) {
+					table.mockImplementation(originalTable);
+				}
+			}
+		});
+
+		it.each([url, undefined, 'javascript:alert(1)'])(
+			'keeps the datasource fallback mounted and reports a shared chunk failure (URL: %s)',
+			async (fallbackUrl) => {
+				mockExpEnabled('platform_editor_optional_chunk_recovery');
+				const analyticsSpy = jest.fn();
+				const error = new TypeError('Failed to fetch dynamically imported module');
+				let rejectImport!: (reason: Error) => void;
+				const sharedModule = new Promise<{ default: React.ComponentType }>((_, reject) => {
+					rejectImport = reject;
+				});
+				const Table = React.lazy(() => sharedModule);
+				const Reporter = React.lazy(() => sharedModule);
+				const table = asMock(DatasourceTableView);
+				const originalTable = table.getMockImplementation();
+				table.mockImplementation(() => <Table />);
+				asMock(LazyLoadedDatasourceRenderFailedAnalyticsWrapper).mockImplementation(() => (
+					<Reporter />
+				));
+				try {
+					render(
+						<AnalyticsListener onEvent={analyticsSpy} channel="editor">
+							<IntlProvider locale="en">
+								<Provider client={new Client('staging')}>
+									<p>Neighboring content</p>
+									<React.Suspense fallback={null}>
+										<BlockCard
+											url={fallbackUrl}
+											datasource={datasourceAttributeProperties}
+											onSetLinkTarget={() => '_blank'}
+										/>
+									</React.Suspense>
+								</Provider>
+							</IntlProvider>
+						</AnalyticsListener>,
+					);
+					const neighbor = screen.getByText('Neighboring content');
+					await act(async () => rejectImport(error));
+					if (fallbackUrl === url) {
+						const link = await screen.findByRole('link', { name: (name) => name.startsWith(url) });
+						expect(link).toHaveAttribute('href', url);
+						expect(link).toHaveAttribute('target', '_blank');
+						expect(link).toHaveAttribute('rel', 'noreferrer noopener');
+					} else {
+						expect(screen.getByText('Unsupported content')).toBeVisible();
+						expect(screen.queryByRole('link')).not.toBeInTheDocument();
+					}
+					expect(analyticsSpy).toHaveBeenCalledWith(
+						expect.objectContaining({
+							payload: expect.objectContaining({
+								action: 'unhandledErrorCaughtV2',
+								actionSubject: 'renderer',
+								actionSubjectId: 'blockCard',
+								attributes: expect.objectContaining({
+									errorMessage: `Datasource recovery analytics: ${error.message}`,
+								}),
+							}),
+						}),
+						'editor',
+					);
+					expect(screen.getByText('Neighboring content')).toBe(neighbor);
+				} finally {
+					asMock(LazyLoadedDatasourceRenderFailedAnalyticsWrapper).mockReset();
+					if (originalTable) {
+						table.mockImplementation(originalTable);
+					}
+				}
+			},
+		);
 
 		it('should render a DatasourceTableView if datasource is provided with JQL and a table view', () => {
 			const { container } = render(

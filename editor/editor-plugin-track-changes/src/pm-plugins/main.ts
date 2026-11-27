@@ -178,7 +178,7 @@ export const createTrackChangesPlugin = (
 									originalDoc,
 									steps: steps.map((s) => s.step),
 									diffType: fg('platform_editor_ai_smart_diff') ? 'smart' : 'inline',
-									showIndicators: fg('platform_editor_diff_plugin_show_indicators'),
+									showIndicators: false,
 								}),
 							);
 						}

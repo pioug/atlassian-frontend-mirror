@@ -51,9 +51,9 @@ useAnchoredPopover({
 ## The declarations
 
 All of them come from one pure function, `getAnchoredPopoverSizeDeclarations` in
-`internal/anchored-popover-size.tsx`, plus `getFitMarginDeclarations` in
-`internal/anchor-positioning/fit-margins.tsx` for the margin half. For a resolved placement with
-axis `A`, cross axis `C`, edge `E` and gap `G`:
+`internal/anchored-popover-size.tsx`, plus `getViewportPaddingMarginDeclarations` in
+`internal/anchor-positioning/viewport-padding-margins.tsx` for the margin half. For a resolved
+placement with axis `A`, cross axis `C`, edge `E` and gap `G`:
 
 | property                                        | value                                                                                                                                                     | when                                                                                           |
 | ----------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
@@ -66,8 +66,8 @@ axis `A`, cross axis `C`, edge `E` and gap `G`:
 | `min-{A}-size`                                  | `var(--ds-popover-content-sized-flip-floor, var(--ds-popover-flip-floor))` — the default floor, in one of two forms ‡                                     | else anything is fitting, on the CSS path                                                      |
 | `--ds-popover-flip-floor`                       | `min(150px, max(0px, calc((100d{vw\|vh} - anchor-size(self-{A})) / 2 - {G} - 5px)))` — clamped against the VIEWPORT, never the cell                       | with the row above                                                                             |
 | `min-{C}-size`                                  | `min(anchor-size(self-{C}), <viewport cap>)`, **clamped**                                                                                                 | `C` is `'min-anchor'`                                                                          |
-| `margin-{A}-{E}`                                | `5px`                                                                                                                                                     | anything is fitting, on the CSS path                                                           |
-| `margin-{C}-{side}`                             | `calc({shift} + 5px)`, composed, on the viewport-facing side(s)                                                                                           | anything is fitting, on the CSS path                                                           |
+| `margin-{A}-{E}`                                | `5px`                                                                                                                                                     | always, on the CSS path                                                                        |
+| `margin-{C}-{side}`                             | `calc({shift} + 5px)`, composed, on the viewport-facing side(s)                                                                                           | always, on the CSS path, unless `C` is `'match-anchor'` or `'min-anchor'`                      |
 | `margin-{C}-{side}`                             | `{shift}`, untouched, on the anchor-facing side                                                                                                           | `align` is `'start'` / `'end'`                                                                 |
 | `display`                                       | `flex`, scoped to `:popover-open`, unconditional                                                                                                          | `Popover`'s stylesheet                                                                         |
 | `> * { flex-grow }`                             | `1`, unconditional                                                                                                                                        | `Popover`'s stylesheet                                                                         |
@@ -484,10 +484,11 @@ together:
   cap↔floor asymmetry is a local truth table rather than a contract between two files that has to
   agree about which axis is which. It was wrong twice while it was a contract; see
   [../plans/one-anchored-popover-hook.md](../plans/one-anchored-popover-hook.md).
-- **`getFitMarginDeclarations`** (`internal/anchor-positioning/fit-margins.tsx`) owns the reserved
-  viewport padding, because it has to compose onto margins the positioning half already writes. That
-  padding is a _distance from the viewport edge_ — the same category as `gap` (distance from the
-  anchor) and `crossAxisShift`. It is legacy popper's `preventOverflow` padding, not a size.
+- **`getViewportPaddingMarginDeclarations`**
+  (`internal/anchor-positioning/viewport-padding-margins.tsx`) owns the reserved viewport padding,
+  because it has to compose onto margins the positioning half already writes. That padding is a
+  _distance from the viewport edge_ — the same category as `gap` (distance from the anchor) and
+  `crossAxisShift`. It is legacy popper's `preventOverflow` padding, not a size.
 - **`Popover`** still owns `display` and the child's `flex-grow`, because only a stylesheet can
   scope a declaration to `:popover-open` — see
   [`display: flex` is structurally required](#display-flex-is-structurally-required-and-must-not-be-inlined).
@@ -612,6 +613,7 @@ oscillated because they measured the host, whose size the cap changes.
   else capped on the roomier side" with no floor. Re-measured on 2026-11-11 in Chromium 143.0.7499.4
   (the Playwright build), Chrome 157.0.8103.39 (stable), WebKit 26.0 and Firefox 159, with
   screenshots and not only `getComputedStyle`. Two facts block it in Chrome:
+
   - **Chrome uses only the first five entries of `position-try-fallbacks`.** The spec lets a browser
     limit the list, to no fewer than five entries. Chrome 143 and 157 ignore every entry after the
     fifth. WebKit 26 and Firefox 159 used all ten entries we tried. The start-aligned and centred
@@ -905,11 +907,11 @@ Three things a review of the merged recipe found, each a real rendering differen
 popper — two at the ~58 `shouldFitViewport` sites, one at every content-sized popover near an inline
 edge — and none covered by the tests as written.
 
-### The fit margins inset a start / end-aligned popover by 5px
+### The viewport padding margins inset a start / end-aligned popover by 5px
 
-`getFitMarginDeclarations` added the 5px viewport padding to BOTH cross-axis margins. The
-antisymmetry argument above is correct for `anchor-center`, and only for it: a `span-*` cell aligns
-the popover's MARGIN box to the anchor's edge, so `bottom-start` rendered its border box at
+`getViewportPaddingMarginDeclarations` added the 5px viewport padding to BOTH cross-axis margins.
+The antisymmetry argument above is correct for `anchor-center`, and only for it: a `span-*` cell
+aligns the popover's MARGIN box to the anchor's edge, so `bottom-start` rendered its border box at
 `trigger.x + 5px`, `bottom-end` 5px short of the trigger's end edge, and `right-start` 5px below the
 trigger's top. It was photographed in the `fit-floor-anchor-*` baselines before anyone noticed.
 Legacy popper aligns exactly and applies its padding only at a collision.
@@ -1021,14 +1023,15 @@ Recorded here from the follow-up notes the fit work left behind, so the trade-of
 recipe. None is a bug; each is a place where the recipe is less precise than it could be, or a
 consumer that does not ask it to fit, with why it was left.
 
-- **A slid start / end-aligned fitting popover sits flush with the viewport edge.** The fit padding
-  is on the viewport-facing cross side only (see the 2026-09-04 update above), and a slide fallback
-  (`span-inline-end` → `span-inline-start`) does not swap the inline margins the way `flip-inline`
-  does, so in the slid state the padding is on the anchor side and the viewport side has none.
-  Fixing it needs per-option margins, i.e. named `@position-try` rules in a stylesheet, one for each
-  slide option. That replaces entries and does not add them, so Chrome's five-entry limit (see
-  [Why not the alternatives](#why-not-the-alternatives)) does not block it. Measure how often the
-  slide state is reached before spending on it.
+- **A slid start / end-aligned popover sits flush with the viewport edge.** Since 2026-11-26 this
+  applies to every anchored popover (see [viewport-edge-gap.md](./viewport-edge-gap.md)). The fit
+  padding is on the viewport-facing cross side only (see the 2026-09-04 update above), and a slide
+  fallback (`span-inline-end` → `span-inline-start`) does not swap the inline margins the way
+  `flip-inline` does, so in the slid state the padding is on the anchor side and the viewport side
+  has none. Fixing it needs per-option margins, i.e. named `@position-try` rules in a stylesheet,
+  one for each slide option. That replaces entries and does not add them, so Chrome's five-entry
+  limit (see [Why not the alternatives](#why-not-the-alternatives)) does not block it. Measure how
+  often the slide state is reached before spending on it.
 - **The clamped default floor is viewport-relative, so a tall anchor shrinks it further than the
   cells strictly require.** `(viewport - anchor) / 2` is a lower bound on the roomier cell, not its
   size: an anchor at the very top of the viewport has a cell below it nearly the whole viewport
@@ -1059,10 +1062,10 @@ consumer that does not ask it to fit, with why it was left.
   [Update (2026-11-12, later)](#update-2026-11-12-later-placementminsize-is-removed), and
   [width-from-anchor-floors.md](./width-from-anchor-floors.md) → _Update (2026-08-25, later)_ for
   why clamping the anchor floor is not the answer either.
-- **`<Popup xcss>` with a `width` AND padding renders 32px wider on the top-layer path** (280px
-  legacy, 312px top-layer), because `xcss` lands on a content-box child of `PopoverSurface` rather
-  than on a border-box container. Found by the flag pair in `popup`'s `popup-top-layer.vr.tsx`,
-  whose baselines are checked in as the record.
+- **`<Popup xcss>` with a `width` AND padding rendered 32px wider on the top-layer path** (280px
+  legacy, 312px top-layer), because `xcss` landed on a content-box child of `PopoverSurface` rather
+  than on a border-box container. Found by the flag pair in `popup`'s `popup-top-layer.vr.tsx`.
+  Fixed 26 Nov 2026: the child is `border-box` now.
   [../follow-ups/popup-xcss-width-divergence.md](../follow-ups/popup-xcss-width-divergence.md)
 - **Legacy `<Popup shouldFitContainer shouldFitViewport>` is not capped at all**, because
   `strategy: 'absolute'` makes popper's `maxSize` modifier read an offsetParent-relative offset, so
@@ -1206,8 +1209,10 @@ tree fits such an element: `@atlaskit/popper`'s `createPopper` adapter does not 
   `anchored-popover-size.spec.tsx` uses a 45px cell under 40px of content: with the floor it flips
   (at 40px or 150px), without it the cell cap letterboxes it to 32px. The opt-in pair uses a 70px
   cell under 60px of content: the unfitted 68px margin box fits and stays, the fitted 73px one flips
-  (at 60px or 150px), and without the floor the cap shrinks it to 57px and it stays. Both measured
-  in Chromium 143 and WebKit 26 on 2026-11-02.
+  (at 60px or 150px; since 2026-11-26 the unfitted popover has the viewport padding too, so its
+  margin box is also 73px and it flips, see [viewport-edge-gap.md](./viewport-edge-gap.md)), and
+  without the floor the cap shrinks it to 57px and it stays. Both measured in Chromium 143 and
+  WebKit 26 on 2026-11-02.
 
 ### VR
 
@@ -1366,8 +1371,8 @@ If a consumer needs one of these, add a sizing option next to `inlineSize` and `
 
 - Source: `src/internal/use-anchored-popover.tsx` (the one hook),
   `src/internal/anchored-popover-size.tsx` (the whole size recipe, pure),
-  `src/internal/anchor-positioning/fit-margins.tsx` (the reserved padding, composed onto the shift),
-  `src/internal/supports-anchor-size.tsx`, `src/popover/popover.tsx`
+  `src/internal/anchor-positioning/viewport-padding-margins.tsx` (the reserved padding, composed
+  onto the shift), `src/internal/supports-anchor-size.tsx`, `src/popover/popover.tsx`
 - [width-from-anchor-floors.md](./width-from-anchor-floors.md) — the floors this composes with
 - [placement-offset.md](./placement-offset.md) — the cross-axis shift the margins compose with
 - [safari-popover-flex-collapse.md](./safari-popover-flex-collapse.md) — the WebKit collapse the

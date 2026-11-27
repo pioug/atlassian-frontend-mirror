@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 35.0.1
+
+### Patch Changes
+
+- [`290e87c781a1d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/290e87c781a1d) -
+  Clean up platform_editor_style_around_inline_code feature gate
+- Updated dependencies
+
 ## 35.0.0
 
 ### Patch Changes

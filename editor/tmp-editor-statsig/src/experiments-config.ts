@@ -105,13 +105,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-03-25
-	'editor_a11y__enghealth-46814_fy26': {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-06-19
 	'enghealth-53346_fix_redaction_marker_editor': {
 		defaultValue: boolean;
@@ -138,13 +131,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-03-03
 	platform_editor_ai_quick_prompt_iw_cc: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2026-02-24
-	platform_editor_paste_actions_menu: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -198,13 +184,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-06-30
-	platform_editor_fix_link_paste_menu: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2025-07-15
 	platform_editor_preview_panel_responsiveness: {
 		defaultValue: boolean;
@@ -237,13 +216,6 @@ export const editorExperimentsConfig: {
 	// Added 2025-3-15
 	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_single_column_layout/setup
 	single_column_layouts: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	// Added 2024-08-08
-	'test-new-experiments-package': {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -332,13 +304,6 @@ export const editorExperimentsConfig: {
 		productKeys?: ProductKeys;
 		typeGuard: IsBooleanType;
 	};
-	// Added 2026-06-16
-	platform_use_unicode_emojis: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
 	// Added 2026-03-04
 	platform_editor_ai_blockmenu_integration: {
 		defaultValue: boolean;
@@ -355,12 +320,6 @@ export const editorExperimentsConfig: {
 	};
 	// Added 2026-03-06
 	platform_editor_single_player_expand: {
-		defaultValue: boolean;
-		param: string;
-		productKeys?: ProductKeys;
-		typeGuard: IsBooleanType;
-	};
-	platform_editor_table_fit_to_content_on_demand: {
 		defaultValue: boolean;
 		param: string;
 		productKeys?: ProductKeys;
@@ -538,14 +497,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-03-25
-	'editor_a11y__enghealth-46814_fy26': createBooleanExperiment({
-		productKeys: {
-			confluence: 'editor_a11y__enghealth-46814_fy26',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-06-19
 	'enghealth-53346_fix_redaction_marker_editor': createBooleanExperiment({
 		productKeys: {
@@ -587,15 +538,6 @@ export const editorExperimentsConfig: {
 		values: ['one', 'two', 'three'],
 		defaultValue: 'one',
 	}),
-	// Added 2024-08-08
-	'test-new-experiments-package': createBooleanExperiment({
-		productKeys: {
-			confluence: 'confluence_editor_experiment_test_new_package',
-			jira: 'jira_editor_experiment_test_new_package',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-05-15
 	platform_editor_per_plugin_error_boundary: createBooleanExperiment({
 		productKeys: {
@@ -630,14 +572,6 @@ export const editorExperimentsConfig: {
 		values: ['control', 'test'],
 		defaultValue: 'control',
 	}),
-	// Added 2026-02-24
-	platform_editor_paste_actions_menu: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_paste_actions_menu',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-05-19
 	platform_editor_controls_reliable_anchor: createBooleanExperiment({
 		productKeys: {
@@ -660,15 +594,6 @@ export const editorExperimentsConfig: {
 		productKeys: {
 			confluence: 'platform_editor_agent_mentions',
 			jira: 'platform_editor_agent_mentions',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	// Added 2026-06-30
-	platform_editor_fix_link_paste_menu: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_fix_link_paste_menu',
-			jira: 'platform_editor_fix_link_paste_menu',
 		},
 		param: 'isEnabled',
 		defaultValue: false,
@@ -857,16 +782,6 @@ export const editorExperimentsConfig: {
 		param: 'isEnabled',
 		defaultValue: false,
 	}),
-	// Added 2026-06-16
-	platform_use_unicode_emojis: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_use_unicode_emojis_confluence',
-			jira: 'platform_use_unicode_emojis_jira',
-			bitbucket: 'platform_use_unicode_emojis_bitbucket',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
 	// Added 2026-03-04
 	platform_editor_ai_blockmenu_integration: createBooleanExperiment({
 		productKeys: {
@@ -887,13 +802,6 @@ export const editorExperimentsConfig: {
 	platform_editor_single_player_expand: createBooleanExperiment({
 		productKeys: {
 			confluence: 'platform_editor_single_player_expand',
-		},
-		param: 'isEnabled',
-		defaultValue: false,
-	}),
-	platform_editor_table_fit_to_content_on_demand: createBooleanExperiment({
-		productKeys: {
-			confluence: 'platform_editor_table_fit_to_content_on_demand',
 		},
 		param: 'isEnabled',
 		defaultValue: false,

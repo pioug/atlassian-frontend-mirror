@@ -1,5 +1,17 @@
 # Follow-up: decide what a bare `width` in `<Popup xcss>` means on the top-layer path
 
+## Status
+
+Fixed (26 Nov 2026) with option 1 below: the `xcss` wrapper in `popup-top-layer.tsx` and
+`compositional/popup-content-top-layer.tsx` is `box-sizing: border-box`. A `width` with padding now
+renders the same width on both paths. The side-nav flyout (`width: 400px` with `space.100` padding)
+was 416px wide on the top-layer path and is 400px again. Tests: `fit-viewport.spec.tsx` measures a
+padded `width` on both paths, on `<Popup>` and on the compositional `PopupContent`, and the jsdom
+tests on both adapters check the `box-sizing`. In `popup-top-layer.vr.tsx`, the `-true` baseline of
+"xcss width and padding on a standard popup" is now the same image as its `-false` twin, and the
+`-true` baseline of the compositional popup is 400px wide again. The rest of this note is the record
+of the problem.
+
 ## Context
 
 `<Popup>`'s `xcss` is a `StrictXCSSProp` over padding and `width` only (`popup/src/types.tsx`).
@@ -52,8 +64,8 @@ Not "make them the same" — there are two defensible targets, and the choice ch
    make the wrapper's sizing the consumer's problem. Breaks the ~58 `shouldFitViewport` sites and
    both named call sites above, so only worth stating to reject.
 
-Option 1 is the cheap one; the reason it is not done here is that this change adds tests only, and
-picking a box model for a public styling seam belongs with whoever owns `xcss` on `Popup`.
+Option 1 is the cheap one. It was not done when this note was written, because that change added
+tests only. It is the fix now (see Status).
 
 ## Related
 

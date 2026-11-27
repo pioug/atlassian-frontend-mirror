@@ -26,7 +26,7 @@ import {
 
 interface Props {
 	/**
-	 * Accessible name for the radio group each row of colors is rendered as.
+	 * Accessible name for the color palette radio group.
 	 */
 	ariaLabel?: string;
 	className?: string;
@@ -109,7 +109,9 @@ const ColorPalette = (props: Props & WrappedComponentProps) => {
 		return getColorsPerRowFromPalette(palette, cols);
 	}, [palette, cols]);
 
-	return (
+	const isRadioGroup = isExperimentEnabled('platform_editor_lovability_colors_a11y_fixes');
+
+	const colorPaletteRows = (
 		<React.Fragment>
 			{colorsPerRow.map((row) => (
 				<div
@@ -118,8 +120,9 @@ const ColorPalette = (props: Props & WrappedComponentProps) => {
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className={className}
 					key={`row-first-color-${row[0].value}`}
-					role="radiogroup"
-					aria-label={ariaLabel}
+					role={isRadioGroup ? undefined : 'radiogroup'}
+					aria-label={isRadioGroup ? undefined : ariaLabel}
+					data-color-palette-row={isRadioGroup ? true : undefined}
 				>
 					{row.map(({ value, label, border, message, decorator }) => {
 						if (paletteColorTooltipMessages) {
@@ -151,6 +154,16 @@ const ColorPalette = (props: Props & WrappedComponentProps) => {
 			))}
 		</React.Fragment>
 	);
+
+	if (isRadioGroup) {
+		return (
+			<div role="radiogroup" aria-label={ariaLabel}>
+				{colorPaletteRows}
+			</div>
+		);
+	}
+
+	return colorPaletteRows;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-restricted-types

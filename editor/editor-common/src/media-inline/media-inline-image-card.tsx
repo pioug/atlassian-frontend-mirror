@@ -293,6 +293,7 @@ export const MediaInlineImageCardInternal = ({
 	return (
 		<Fragment>
 			<InlineImageWrapper
+				ariaLabel={alt || formatMessage(messages.inlineImageLabel)}
 				isSelected={isSelected}
 				aspectRatio={aspectRatio}
 				borderColor={border?.borderColor}

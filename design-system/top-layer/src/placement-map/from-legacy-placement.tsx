@@ -28,10 +28,10 @@ import { placementMapping } from './placement-mapping';
  * | `auto-start`       | `{ axis: 'block', edge: 'end', align: 'start' }`     |
  * | `auto-end`         | `{ axis: 'block', edge: 'end', align: 'end' }`       |
  *
- * `auto*` maps to `block-end`, so it loses Popper's runtime choice of the best
- * side. CSS `position-try-fallbacks` still flips the popover when there is no
- * room, but the initial placement is fixed. When you migrate away from Popper's
- * `auto`, prefer an explicit placement.
+ * `auto`, `auto-start` and `auto-end` mean below the trigger, unless the
+ * popover does not fit. Then `position-try-fallbacks` move it sideways or flip
+ * it above. There is no "most space" choice as in Popper. A caller that needs
+ * a side sets a real placement. See `notes/decisions/auto-placement.md`.
  *
  * @example
  * ```ts

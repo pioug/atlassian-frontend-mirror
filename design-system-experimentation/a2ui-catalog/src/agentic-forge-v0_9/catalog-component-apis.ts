@@ -8,6 +8,9 @@
  */
 import type { ComponentApi } from '@a2ui/web_core/v0_9';
 
-import { ResultPanelApi } from './apis';
+import { MultipleChoiceApi, ResultPanelApi } from './apis';
 
-export const AGENTIC_FORGE_CATALOG_COMPONENT_APIS: ReadonlyArray<ComponentApi> = [ResultPanelApi];
+export const AGENTIC_FORGE_CATALOG_COMPONENT_APIS: ReadonlyArray<ComponentApi> = [
+	MultipleChoiceApi,
+	ResultPanelApi,
+];

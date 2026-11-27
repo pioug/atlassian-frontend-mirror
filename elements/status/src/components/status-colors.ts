@@ -1,5 +1,4 @@
 import type { AccentColor, SemanticColor } from '@atlaskit/lozenge/types';
-import { UNSAFE_expValNoExposure } from '@atlaskit/platform-feature-experiments/unsafe-exp-val-no-exposure';
 import { token } from '@atlaskit/tokens';
 
 /** Named colours the ADF `color` attribute can carry. */
@@ -33,16 +32,6 @@ export const HEX_PALETTE: readonly HexColor[] = [
 export type PaletteColor = NamedColor | HexColor;
 
 export const DEFAULT_LOZENGE_APPEARANCE: SemanticColor = 'neutral';
-
-/** Pre-experiment mapping. Delete with `platform_editor_update_status_colors`. */
-export const colorToLozengeAppearanceMap: { [K in NamedColor]: SemanticColor } = {
-	neutral: 'neutral',
-	purple: 'discovery',
-	blue: 'information',
-	red: 'danger',
-	yellow: 'warning',
-	green: 'success',
-};
 
 /**
  * Check-mark colour for the selected swatch. Uniform across the ten-colour palette, so
@@ -222,16 +211,8 @@ export const isSwatchSelected = (swatchValue: string, selectedColor?: string): b
 };
 
 export const getLozengeAppearance = (color: string): SemanticColor | AccentColor => {
-	const isUpdateStatusColorsEnabled =
-		UNSAFE_expValNoExposure('platform_editor_update_status_colors', 'isEnabled', false) ||
-		UNSAFE_expValNoExposure('platform_editor_update_status_colors_jira', 'isEnabled', false);
-
-	// Named colours are recoloured only by the experiment, so they must never reach the
-	// hex mapping below.
 	if (isNamedColor(color)) {
-		return isUpdateStatusColorsEnabled
-			? COLORS[color].appearance
-			: colorToLozengeAppearanceMap[color];
+		return COLORS[color].appearance;
 	}
 
 	return specFor(color)?.appearance ?? DEFAULT_LOZENGE_APPEARANCE;

@@ -1,5 +1,41 @@
 # @atlaskit/editor-statsig-tmp
 
+## 282.0.0
+
+### Major Changes
+
+- [`ffdea4fa168a1`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ffdea4fa168a1) -
+  Remove two unused archived Editor experiment registrations and their test overrides.
+
+## 281.0.0
+
+### Major Changes
+
+- [`58636d0723019`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/58636d0723019) -
+  Cleanup `experiment` `platform_editor_paste_actions_menu` and `feature_gate`
+  `platform_editor_paste_actions_menu_exposure`. The popup-based paste actions menu and AI paste
+  menu items are now always enabled when configured, using the shipped menu config and excluded
+  nodes. The manual exposure event that emulated the experiment exposure has been removed.
+
+## 280.0.0
+
+### Major Changes
+
+- [`ef2f93c101016`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/ef2f93c101016) -
+  Remove the `platform_editor_table_fit_to_content_on_demand` experiment and always show the "Fit to
+  content" button in the table floating toolbar where content mode is supported.
+- [`caf5c9f859043`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/caf5c9f859043) -
+  Keep the shipped editor accessibility behavior and remove the retired experiment.
+
+## 279.0.0
+
+### Major Changes
+
+- [`66e7b33f5856b`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/66e7b33f5856b) -
+  Clean up experiment `platform_editor_fix_link_paste_menu`, keeping the enabled behaviour: the
+  paste actions menu is always suppressed for single bare-link pastes when no AI actions are
+  visible.
+
 ## 278.0.0
 
 ### Major Changes

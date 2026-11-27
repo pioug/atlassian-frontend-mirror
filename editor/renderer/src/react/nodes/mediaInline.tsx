@@ -1,9 +1,15 @@
-import React, { useCallback, useEffect, useMemo, useState, useContext } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { useCallback, useEffect, useMemo, useState, useContext } from 'react';
+import type { ComponentType, FC, ReactNode } from 'react';
 
 import type { IntlShape, WithIntlProps, WrappedComponentProps } from 'react-intl';
 import { injectIntl } from 'react-intl';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
+import { cssMap, jsx } from '@atlaskit/css';
 import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics/types/enums';
 import type { EventHandlers } from '@atlaskit/editor-common/EventHandlers';
 import { MediaInlineImageCard } from '@atlaskit/editor-common/media-inline-image-card';
@@ -12,6 +18,7 @@ import { useProvider } from '@atlaskit/editor-common/provider-factory/context';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory/context-identifier-provider';
 import type ProviderFactory from '@atlaskit/editor-common/provider-factory/provider-factory';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
+import WarningIcon from '@atlaskit/icon/core/status-warning';
 import MediaInlineCard from '@atlaskit/media-card/loader';
 import type { InlineCardEvent } from '@atlaskit/media-card/types';
 import { getMediaClient } from '@atlaskit/media-client-react/get-media-client';
@@ -20,7 +27,10 @@ import type { FileIdentifier } from '@atlaskit/media-client/identifier';
 import type { MediaFeatureFlags } from '@atlaskit/media-common/types';
 import type { FileState } from '@atlaskit/media-state/file-state';
 import { MediaInlineCardLoadingView } from '@atlaskit/media-ui/LoadingView';
+import { messages as mediaMessages } from '@atlaskit/media-ui/messages';
 import type { MediaViewerExtensions } from '@atlaskit/media-viewer/types';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
+import { token } from '@atlaskit/tokens';
 
 import { ACTION_SUBJECT } from '../../analytics/enums';
 import type { MediaSSR } from '../../types/mediaOptions';
@@ -30,8 +40,19 @@ import { ErrorBoundary } from '../../ui/Renderer/ErrorBoundary';
 import type { RendererAppearance } from '../../ui/Renderer/types';
 import type { RendererContext } from '../types';
 
+const styles = cssMap({
+	imageError: {
+		display: 'inline-flex',
+		alignItems: 'center',
+		gap: token('space.050'),
+		paddingInline: token('space.050'),
+		borderRadius: token('radius.small'),
+		backgroundColor: token('color.background.neutral'),
+	},
+});
+
 type RenderMediaInlineProps = {
-	children?: React.ReactNode;
+	children?: ReactNode;
 	clipboardAttrs: ClipboardAttrs;
 	collection?: string;
 	eventHandlers?: EventHandlers;
@@ -213,11 +234,25 @@ const MediaInline = (props: MediaInlineProps & WrappedComponentProps & MediaInli
 		const borderMark = marks?.find((mark) => mark?.type.name === 'border');
 		const borderColor = borderMark?.attrs.color ?? '';
 		const borderSize = borderMark?.attrs.size ?? 0;
+		const recoverImage = isExperimentEnabled('platform_editor_optional_chunk_recovery');
+		const errorLabel = recoverImage ? intl.formatMessage(mediaMessages.error_loading_file) : '';
 
 		return (
 			<ErrorBoundary
 				component={ACTION_SUBJECT.RENDERER}
 				componentId={ACTION_SUBJECT_ID.MEDIA_INLINE_IMAGE}
+				fallbackComponent={
+					recoverImage ? (
+						<span css={styles.imageError}>
+							<WarningIcon
+								color={token('color.icon.warning')}
+								label={alt ? errorLabel : ''}
+								size="small"
+							/>
+							{alt || errorLabel}
+						</span>
+					) : undefined
+				}
 				createAnalyticsEvent={createAnalyticsEvent}
 			>
 				<MediaInlineImageCard
@@ -254,11 +289,7 @@ const MediaInline = (props: MediaInlineProps & WrappedComponentProps & MediaInli
 };
 
 // eslint-disable-next-line @typescript-eslint/no-restricted-types
-const _default_1: React.FC<
-	WithIntlProps<MediaInlineProps & WrappedComponentProps & MediaInlineAttrs>
-> & {
-	WrappedComponent: React.ComponentType<
-		MediaInlineProps & WrappedComponentProps & MediaInlineAttrs
-	>;
+const _default_1: FC<WithIntlProps<MediaInlineProps & WrappedComponentProps & MediaInlineAttrs>> & {
+	WrappedComponent: ComponentType<MediaInlineProps & WrappedComponentProps & MediaInlineAttrs>;
 } = injectIntl(MediaInline);
 export default _default_1;

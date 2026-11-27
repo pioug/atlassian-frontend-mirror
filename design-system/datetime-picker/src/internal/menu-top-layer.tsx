@@ -38,8 +38,6 @@ const styles = cssMap({
 		width: 'max-content',
 		backgroundColor: token('elevation.surface.overlay'),
 		boxShadow: token('elevation.shadow.overlay'),
-		marginBlockStart: token('space.100'),
-		marginBlockEnd: token('space.100'),
 		borderRadius: token('radius.large'),
 	},
 });

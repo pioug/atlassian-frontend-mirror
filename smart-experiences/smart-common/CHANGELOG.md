@@ -1,5 +1,12 @@
 # @atlaskit/smart-common
 
+## 3.3.0
+
+### Minor Changes
+
+- [`47c9cfcad568f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/47c9cfcad568f) -
+  Add React 19 support while retaining React 18 compatibility.
+
 ## 3.2.0
 
 ### Minor Changes

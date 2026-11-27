@@ -7233,7 +7233,7 @@ const editorContentStyles = cssMapScoped({
 	 * a cell (no rendered block before it, directly or inside an alignment mark) by half the
 	 * difference gives its first line a body-sized line box.
 	 */
-	tableSharedStyle_with_platform_editor_table_heading_cell_alignment: {
+	tableHeadingCellAlignmentStyles: {
 		'.pm-table-container > table, .pm-table-wrapper > table, .pm-table-sticky-wrapper > table': {
 			'& > tbody > tr > th, & > tbody > tr > td': {
 				'> h3:not(:not(style, link, template, span, .ProseMirror-gapcursor, .ProseMirror-widget) ~ *), > .fabric-editor-block-mark:not(:not(style, link, template, span, .ProseMirror-gapcursor, .ProseMirror-widget) ~ *) > h3':
@@ -7769,49 +7769,8 @@ const editorContentStyles = cssMapScoped({
 			overflow: 'clip visible',
 		},
 	},
-	// Pre-experiment semantic mapping for every named colour except neutral. Replaced
-	// by statusStylesNamedAccent when platform_editor_update_status_colors is on, and
-	// deleted wholesale when that experiment is cleaned up.
-	statusStylesNamedSemantic: {
-		'[data-prosemirror-node-name="status"] > [data-color=purple] > .lozenge-wrapper': {
-			backgroundColor: token('color.background.discovery.subtler'),
-			borderColor: token('color.border.discovery.subtle'),
-		},
-		'[data-prosemirror-node-name="status"] > [data-color=purple] .lozenge-text': {
-			color: token('color.text.discovery.bolder'),
-		},
-		'[data-prosemirror-node-name="status"] > [data-color=blue] > .lozenge-wrapper': {
-			backgroundColor: token('color.background.information.subtler'),
-			borderColor: token('color.border.information.subtle'),
-		},
-		'[data-prosemirror-node-name="status"] > [data-color=blue] .lozenge-text': {
-			color: token('color.text.information.bolder'),
-		},
-		'[data-prosemirror-node-name="status"] > [data-color=red] > .lozenge-wrapper': {
-			backgroundColor: token('color.background.danger.subtler'),
-			borderColor: token('color.border.danger.subtle'),
-		},
-		'[data-prosemirror-node-name="status"] > [data-color=red] .lozenge-text': {
-			color: token('color.text.danger.bolder'),
-		},
-		'[data-prosemirror-node-name="status"] > [data-color=yellow] > .lozenge-wrapper': {
-			backgroundColor: token('color.background.warning.subtler'),
-			borderColor: token('color.border.warning.subtle'),
-		},
-		'[data-prosemirror-node-name="status"] > [data-color=yellow] .lozenge-text': {
-			color: token('color.text.warning.bolder'),
-		},
-		'[data-prosemirror-node-name="status"] > [data-color=green] > .lozenge-wrapper': {
-			backgroundColor: token('color.background.success.subtler'),
-			borderColor: token('color.border.success.subtle'),
-		},
-		'[data-prosemirror-node-name="status"] > [data-color=green] .lozenge-text': {
-			color: token('color.text.success.bolder'),
-		},
-	},
-	// Accent mapping for every named colour except neutral, when
-	// platform_editor_update_status_colors is on. yellow/green map to the orange/lime
-	// accents, whose tokens are byte-identical to warning/success in both themes.
+	// Accent mapping for every named colour except neutral. yellow/green map to the
+	// orange/lime accents, whose tokens are byte-identical to warning/success in both themes.
 	statusStylesNamedAccent: {
 		'[data-prosemirror-node-name="status"] > [data-color=blue] > .lozenge-wrapper': {
 			backgroundColor: token('color.background.accent.blue.subtler'),
@@ -8495,9 +8454,6 @@ const EditorContentContainer: React.ForwardRefExoticComponent<
 		browser.chrome_version >= 134 && isImproveInpEnabled;
 
 	const isFloatingTocEnabled = isExperimentEnabled('platform_editor_floating_toc');
-	const isUpdateStatusColorsEnabled =
-		UNSAFE_expValNoExposure('platform_editor_update_status_colors', 'isEnabled', false) ||
-		UNSAFE_expValNoExposure('platform_editor_update_status_colors_jira', 'isEnabled', false);
 	const isStatusStylesTeam26 = fg('platform-dst-lozenge-tag-badge-visual-uplifts');
 	// Exposure fires where editor-common renders the spans, not on every editor load.
 	const isInlineExtensionSpansEnabled = UNSAFE_expValNoExposure(
@@ -8640,12 +8596,7 @@ const EditorContentContainer: React.ForwardRefExoticComponent<
 				isStatusStylesTeam26 &&
 					isExperimentEnabled('platform_status_lozenge_fractional_zoom_fix') &&
 					editorContentStyles.statusStylesTeam26TextTrim,
-				isStatusStylesTeam26 &&
-					isUpdateStatusColorsEnabled &&
-					editorContentStyles.statusStylesNamedAccent,
-				isStatusStylesTeam26 &&
-					!isUpdateStatusColorsEnabled &&
-					editorContentStyles.statusStylesNamedSemantic,
+				isStatusStylesTeam26 && editorContentStyles.statusStylesNamedAccent,
 				editorContentStyles.statusStylesHexAccent,
 				editorContentStyles.deletedStatusStrikeStyles,
 				editorContentStyles.annotationStyles,
@@ -8786,8 +8737,7 @@ const EditorContentContainer: React.ForwardRefExoticComponent<
 					: editorContentStyles.tableSharedStyle_without_platform_editor_table_q4_loveability,
 				expValEquals('platform_editor_table_menu_updates', 'isEnabled', true) &&
 					editorContentStyles.tableSharedStyle_with_platform_editor_table_menu_updates,
-				fg('platform_editor_table_heading_cell_alignment') &&
-					editorContentStyles.tableSharedStyle_with_platform_editor_table_heading_cell_alignment,
+				editorContentStyles.tableHeadingCellAlignmentStyles,
 				fg('platform_editor_bordered_panel_nested_in_table') &&
 					editorContentStyles.tableSharedStyle_with_platform_editor_bordered_panel_nested_in_table,
 				editorContentStyles.tableEmptyRowStyles,

@@ -1,5 +1,20 @@
 # @atlaskit/popup
 
+## 11.0.5
+
+### Patch Changes
+
+- [`acb4b205aeb5d`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/acb4b205aeb5d) -
+  JSDoc only: say that `placement="auto"` opens below the trigger with `platform-dst-top-layer`.
+- Updated dependencies
+
+## 11.0.4
+
+### Patch Changes
+
+- [`75a524d265b40`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/75a524d265b40) -
+  Top-layer path: an `xcss` `width` now includes the `xcss` padding, as on the legacy path.
+
 ## 11.0.3
 
 ### Patch Changes

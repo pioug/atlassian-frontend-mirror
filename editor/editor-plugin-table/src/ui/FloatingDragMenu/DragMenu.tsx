@@ -46,6 +46,7 @@ import { findCellRectClosestToPos } from '@atlaskit/editor-tables/utils';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils/get-selection-rect';
 import { isSelectionType } from '@atlaskit/editor-tables/utils/is-selection-type';
 import PaintBucketIcon from '@atlaskit/icon/core/paint-bucket';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
 import { Box } from '@atlaskit/primitives/box';
 // eslint-disable-next-line @atlaskit/design-system/no-emotion-primitives -- to be migrated to @atlaskit/primitives/compiled – go/akcss
@@ -447,6 +448,11 @@ const DragMenu = React.memo(
 									isOpenedByKeyboard={isKeyboardModeActive}
 								>
 									<ColorPalette
+										ariaLabel={
+											isExperimentEnabled('platform_editor_lovability_colors_a11y_fixes')
+												? formatMessage(messages.backgroundColor)
+												: undefined
+										}
 										cols={activeCols}
 										// eslint-disable-next-line @atlassian/perf-linting/no-unstable-inline-props -- Ignored via go/ees017 (to be fixed)
 										onClick={(color) => {

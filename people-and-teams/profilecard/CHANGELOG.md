@@ -1,5 +1,37 @@
 # @atlaskit/profilecard
 
+## 27.16.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.16.0
+
+### Minor Changes
+
+- [`c5bae149eb54f`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/c5bae149eb54f) -
+  Update i18n NPM package versions for people-and-teams,identity (Group 8)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 27.15.7
+
+### Patch Changes
+
+- [`3dcd041925499`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/3dcd041925499) -
+  Clean up the `manual-studio-entry-link` feature gate. Studio session-sync URLs are now always
+  generated for non-empty email inputs.
+- Updated dependencies
+
+## 27.15.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 27.15.5
 
 ### Patch Changes

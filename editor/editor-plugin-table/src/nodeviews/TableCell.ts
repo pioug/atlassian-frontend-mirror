@@ -6,8 +6,10 @@ import { TABLE_ACTION } from '@atlaskit/editor-common/analytics/types/table-even
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
+import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
+import { ACTIVE_CURSOR_CELL_ATTR } from '../pm-plugins/active-cell-highlight/constants';
 import { getRoundedTableCellEdgeState } from './rounded-table-edges';
 import TableNodeView from './TableNodeViewBase';
 
@@ -113,6 +115,14 @@ export default class TableCell extends TableNodeView<HTMLElement> implements Nod
 			mutation.type === 'attributes' &&
 			mutation.attributeName?.startsWith('data-reaches-') &&
 			expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true)
+		) {
+			return true;
+		}
+		if (
+			mutation.type === 'attributes' &&
+			mutation.attributeName === ACTIVE_CURSOR_CELL_ATTR &&
+			expValEquals('platform_editor_table_q4_loveability', 'isEnabled', true) &&
+			isExperimentEnabled('platform_editor_table_active_cell_dom_toggle')
 		) {
 			return true;
 		}

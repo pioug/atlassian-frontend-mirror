@@ -551,3 +551,30 @@ it.each([
 		}
 	},
 );
+
+it.each([false, true])(
+	'keeps the replacement area registered when its owner remounts (chat layout: %s)',
+	(isChatLayoutEnabled) => {
+		if (isChatLayoutEnabled) {
+			passGate('platform-dst-chat-panel-layout');
+		} else {
+			failGate('platform-dst-chat-panel-layout');
+		}
+		function Area({ width }: { width: number }) {
+			const { state } = useLayoutAreaSizing({
+				area: 'panel',
+				config: { defaultWidth: width, minWidth: 320, isOpen: true },
+			});
+			return <output data-testid="replacement-width">{state?.width}</output>;
+		}
+		const fixture = (key: string, width: number) => (
+			<LayoutAreaSizingRuntime>
+				<Area key={key} width={width} />
+			</LayoutAreaSizingRuntime>
+		);
+		const { rerender } = render(fixture('first-route', 400));
+		expect(screen.getByTestId('replacement-width')).toHaveTextContent('400');
+		rerender(fixture('second-route', 480));
+		expect(screen.getByTestId('replacement-width')).toHaveTextContent('480');
+	},
+);

@@ -1,6 +1,6 @@
 import { expect, type Locator, type Page, test } from '@af/integration-testing';
 
-async function visit(page: Page, width: number) {
+async function visit(page: Page, width: number, chat = false) {
 	await page.setViewportSize({ width, height: 900 });
 	await page.visitExample<typeof import('../../../examples/page-layout-uncontrolled-panel')>(
 		'design-system',
@@ -8,6 +8,9 @@ async function visit(page: Page, width: number) {
 		'page-layout-uncontrolled-panel',
 		{ featureFlag: 'platform-dst-chat-panel-layout' },
 	);
+	if (chat) {
+		await page.getByRole('button', { name: 'Open chat', exact: true }).click();
+	}
 }
 
 async function resizeWithKeyboard(page: Page, panel: Locator, target: number) {
@@ -88,6 +91,47 @@ for (const [input, resize] of Object.entries(inputs)) {
 			}
 		});
 	}
+}
+
+for (const { viewport, preferred, chat } of [
+	{ viewport: 600, preferred: 360, chat: false },
+	{ viewport: 1600, preferred: 480, chat: false },
+	{ viewport: 1984, preferred: 520, chat: false },
+	{ viewport: 1984, preferred: 520, chat: true },
+]) {
+	test(`reopens at the resized width from the first frame (${viewport}px, chat: ${chat})`, async ({
+		page,
+	}) => {
+		await visit(page, viewport, chat);
+		const panel = page.getByRole('region', { name: 'Preview', exact: true });
+		await resizeWithKeyboard(page, panel, preferred);
+		await page.getByRole('button', { name: 'Close preview', exact: true }).click();
+		await expect(panel).toHaveCount(0);
+
+		// Settled-width assertions miss the default-width frame before registration.
+		const [widths] = await Promise.all([
+			page.evaluate(
+				() =>
+					new Promise<number[]>((resolve) => {
+						const samples: number[] = [];
+						const sample = () => {
+							const element = document.querySelector('[data-testid="caller-layout--panel-slot"]');
+							if (element) {
+								samples.push(element.getBoundingClientRect().width);
+							}
+							if (samples.length === 10) {
+								resolve(samples);
+							} else {
+								requestAnimationFrame(sample);
+							}
+						};
+						requestAnimationFrame(sample);
+					}),
+			),
+			page.getByRole('button', { name: 'Open preview', exact: true }).click(),
+		]);
+		expect(widths).toEqual(Array(10).fill(preferred));
+	});
 }
 
 test('local overlay sibling compression does not replace inline preferences', async ({ page }) => {

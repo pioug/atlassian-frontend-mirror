@@ -5,8 +5,6 @@ import { BreakoutCssClassName } from '@atlaskit/editor-common/styles/breakout';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types/next-editor-plugin';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import type { BreakoutPlugin } from '../breakoutPluginType';
 import { createPragmaticResizer } from './pragmatic-resizer';
@@ -54,22 +52,8 @@ export class ResizingMarkView implements NodeView {
 		dom.setAttribute('data-layout', mark.attrs.mode);
 		dom.setAttribute('data-testid', 'ak-editor-breakout-mark');
 
-		const isRemoveLeftResizeHandleEnabled = isExperimentEnabled(
-			'platform_editor_remove_left_resize_handle',
-		);
-
-		const isResizingDividersPanelsEnabled = expValEquals(
-			'platform_editor_lovability_resize_dividers_panels',
-			'isEnabled',
-			true,
-		);
-
-		const isResizingExtensionsEnabled = isExperimentEnabled(
-			'platform_editor_lovability_resize_extensions',
-		);
-
 		// DOM styles
-		// Keep a three-column grid even when the left resize handle is disabled. The empty
+		// Keep a three-column grid even though there is no left resize handle. The empty
 		// left track preserves the original content alignment without translating `contentDOM`,
 		// so floating UI anchored to the node (for example block drag handles) keeps its position.
 		dom.style.transform = 'none';
@@ -81,22 +65,10 @@ export class ResizingMarkView implements NodeView {
 		contentDOM.style.zIndex = '1';
 
 		if (mark.attrs.width) {
-			dom.style.gridTemplateColumns =
-				isResizingDividersPanelsEnabled ||
-				isResizingExtensionsEnabled ||
-				isRemoveLeftResizeHandleEnabled
-					? // new code - phantom left track + content + right handle
-						`${RESIZE_HANDLE_TRACK_WIDTH} max(var(--ak-editor--breakout-min-width), min(var(${LOCAL_RESIZE_PROPERTY}, ${mark.attrs.width}px), var(--ak-editor--breakout-fallback-width))) ${RESIZE_HANDLE_TRACK_WIDTH}`
-					: // old code - left handle + content + right handle
-						`auto max(var(--ak-editor--breakout-min-width), min(var(${LOCAL_RESIZE_PROPERTY}, ${mark.attrs.width}px), var(--ak-editor--breakout-fallback-width))) auto`;
+			// phantom left track + content + right handle
+			dom.style.gridTemplateColumns = `${RESIZE_HANDLE_TRACK_WIDTH} max(var(--ak-editor--breakout-min-width), min(var(${LOCAL_RESIZE_PROPERTY}, ${mark.attrs.width}px), var(--ak-editor--breakout-fallback-width))) ${RESIZE_HANDLE_TRACK_WIDTH}`;
 		} else {
-			if (
-				isResizingDividersPanelsEnabled ||
-				isResizingExtensionsEnabled ||
-				isRemoveLeftResizeHandleEnabled
-			) {
-				dom.style.gridTemplateColumns = `${RESIZE_HANDLE_TRACK_WIDTH} auto ${RESIZE_HANDLE_TRACK_WIDTH}`;
-			}
+			dom.style.gridTemplateColumns = `${RESIZE_HANDLE_TRACK_WIDTH} auto ${RESIZE_HANDLE_TRACK_WIDTH}`;
 			if (mark.attrs.mode === 'wide') {
 				contentDOM.style.width = `max(var(--ak-editor--line-length), min(var(${LOCAL_RESIZE_PROPERTY}, var(--ak-editor--breakout-wide-layout-width)), calc(100cqw - var(--ak-editor--breakout-full-page-guttering-padding))))`;
 			}
@@ -139,15 +111,12 @@ export class ResizingMarkView implements NodeView {
 		api?: ExtractInjectionAPI<BreakoutPlugin>,
 	): void {
 		const callbacks = createResizerCallbacks({ dom, view, mark, api });
-		const { leftHandle, rightHandle, destroy } = createPragmaticResizer({
+		const { rightHandle, destroy } = createPragmaticResizer({
 			target: contentDOM,
 			...callbacks,
 			intl: this.intl,
 		});
 
-		if (leftHandle) {
-			this.dom.prepend(leftHandle);
-		}
 		this.dom.appendChild(rightHandle);
 		this.destroyFn = destroy;
 		this.isResizingInitialised = true;

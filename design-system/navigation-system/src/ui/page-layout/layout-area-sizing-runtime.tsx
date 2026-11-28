@@ -2,6 +2,7 @@ import React, { type ReactNode, useCallback, useEffect, useMemo, useState } from
 
 import { bind } from 'bind-event-listener';
 
+import { useLayoutEffect } from '@atlaskit/ds-lib/use-layout-effect';
 import { fg } from '@atlaskit/platform-feature-flags/fg';
 
 import { calculateLayoutAreaStates } from './calculate-layout-area-states';
@@ -496,7 +497,7 @@ export function LayoutAreaSizingRuntime({
 		onReady?.(value);
 		return () => onReady?.(null);
 	}, [onReady, value]);
-	useEffect(() => {
+	const publishStates = useCallback(() => {
 		if (!adoptedConstraints.current && (sideNavState || panelState || chatPanelState)) {
 			adoptedConstraints.current = { occupiedWidth, mainMinWidth };
 		}
@@ -516,6 +517,20 @@ export function LayoutAreaSizingRuntime({
 		mainMinWidth,
 		areas.panel?.requestedWidth,
 	]);
+	// Preserve the passive CSS handoff on initial activation. Subsequent layout
+	// changes must reach the surface before paint, including reopening at a saved width.
+	const shouldPublishBeforePaint =
+		fg('platform-dst-chat-panel-layout') && !isPreservingInitialLayout;
+	useLayoutEffect(() => {
+		if (shouldPublishBeforePaint) {
+			publishStates();
+		}
+	}, [shouldPublishBeforePaint, publishStates]);
+	useEffect(() => {
+		if (!shouldPublishBeforePaint) {
+			publishStates();
+		}
+	}, [shouldPublishBeforePaint, publishStates]);
 
 	return (
 		<LayoutAreaSizingContext.Provider value={value}>

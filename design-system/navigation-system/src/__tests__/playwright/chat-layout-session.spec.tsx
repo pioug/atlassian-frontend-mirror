@@ -63,7 +63,28 @@ for (const [input, resize] of Object.entries(resizeChat)) {
 					await expect
 						.poll(async () => (await page.getByRole('main').boundingBox())?.width)
 						.toBe(viewport >= 1024 ? viewport - 320 : viewport);
-					await page.getByRole('button', { name: 'Open chat', exact: true }).click();
+					const [widths] = await Promise.all([
+						page.evaluate(
+							() =>
+								new Promise<number[]>((resolve) => {
+									const samples: number[] = [];
+									const sample = () => {
+										const element = document.querySelector('[data-testid="caller-chat"]');
+										if (element) {
+											samples.push(element.getBoundingClientRect().width);
+										}
+										if (samples.length === 10) {
+											resolve(samples);
+										} else {
+											requestAnimationFrame(sample);
+										}
+									};
+									requestAnimationFrame(sample);
+								}),
+						),
+						page.getByRole('button', { name: 'Open chat', exact: true }).click(),
+					]);
+					expect(widths).toEqual(Array(10).fill(target));
 					await expect.poll(async () => (await chat.boundingBox())?.width).toBe(target);
 				}
 			});

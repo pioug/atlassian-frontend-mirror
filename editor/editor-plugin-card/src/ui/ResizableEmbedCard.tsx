@@ -38,9 +38,7 @@ import {
 	DEFAULT_EMBED_CARD_HEIGHT,
 	DEFAULT_EMBED_CARD_WIDTH,
 } from '@atlaskit/editor-shared-styles/constants';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { embedHeaderHeight } from '@atlaskit/smart-card/embed-resize-message-listener';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
 type State = {
@@ -395,10 +393,6 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
 			innerPadding: akEditorMediaResizeHandlerPadding,
 		};
 
-		const isLeftResizeHandleDisabled =
-			expValEquals('platform_editor_lovability_resize_dividers_panels', 'isEnabled', true) ||
-			isExperimentEnabled('platform_editor_remove_left_resize_handle');
-
 		const enable: EnabledHandles = {};
 		handleSides.forEach((side) => {
 			if (isResizeDisabled) {
@@ -408,11 +402,7 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
 
 			// Disable the left handle up-front (except for layouts where it is the
 			// only handle) before computing whether it would otherwise be enabled.
-			if (
-				side === 'left' &&
-				isLeftResizeHandleDisabled &&
-				!leftHandleOnlyLayouts.includes(layout)
-			) {
+			if (side === 'left' && !leftHandleOnlyLayouts.includes(layout)) {
 				enable[side] = false;
 				return;
 			}

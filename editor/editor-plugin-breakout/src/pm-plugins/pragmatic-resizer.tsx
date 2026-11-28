@@ -14,7 +14,6 @@ import type {
 } from '@atlaskit/pragmatic-drag-and-drop/internal-types';
 import { disableNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/utils/disable-native-drag-preview';
 import { preventUnhandled } from '@atlaskit/pragmatic-drag-and-drop/utils/prevent-unhandled';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { expValEqualsNoExposure } from '@atlaskit/tmp-editor-statsig/exp-val-equals-no-exposure';
 
 const getNodeName = (nodeName?: string) => {
@@ -121,32 +120,22 @@ export const createPragmaticResizer = ({
 	target: HTMLElement;
 }): {
 	destroy: (isChangeToViewMode?: boolean) => void;
-	leftHandle: HTMLDivElement | undefined;
 	rightHandle: HTMLDivElement;
 } => {
 	let state: 'default' | 'resizing' = 'default';
-	const isLeftResizeHandleDisabled =
-		expValEquals('platform_editor_lovability_resize_dividers_panels', 'isEnabled', true) ||
-		isExperimentEnabled('platform_editor_lovability_resize_extensions') ||
-		isExperimentEnabled('platform_editor_remove_left_resize_handle');
 
-	const createHandle = (side: 'left' | 'right') => {
+	const createHandle = () => {
 		const handle = document.createElement('div');
 		handle.contentEditable = 'false';
 		handle.classList.add('pm-breakout-resize-handle-container');
 
-		handle.style.gridColumn = side === 'left' ? '1' : '3';
+		handle.style.gridColumn = '3';
 
 		const rail = document.createElement('div');
 		rail.classList.add('pm-breakout-resize-handle-rail');
 
-		if (side === 'left') {
-			handle.classList.add('pm-breakout-resize-handle-container--left');
-			handle.setAttribute('data-testid', 'pragmatic-resizer-handle-left');
-		} else {
-			handle.classList.add('pm-breakout-resize-handle-container--right');
-			handle.setAttribute('data-testid', 'pragmatic-resizer-handle-right');
-		}
+		handle.classList.add('pm-breakout-resize-handle-container--right');
+		handle.setAttribute('data-testid', 'pragmatic-resizer-handle-right');
 
 		const handleHitBox = document.createElement('div');
 		handleHitBox.classList.add('pm-breakout-resize-handle-hit-box');
@@ -218,9 +207,7 @@ export const createPragmaticResizer = ({
 		};
 	};
 
-	const rightHandle = createHandle('right');
-	// Remove const leftHandle during 'platform_editor_lovability_resize_dividers_panels' cleanup
-	const leftHandle = isLeftResizeHandleDisabled ? undefined : createHandle('left');
+	const rightHandle = createHandle();
 
 	const registerHandle = (handleElement: HTMLElement, handleSide: 'left' | 'right') => {
 		return draggable({
@@ -238,7 +225,6 @@ export const createPragmaticResizer = ({
 				// so it would follow the drag. Tearing it down hides it immediately; the next
 				// hover rebuilds it.
 				rightHandle.destroyTooltip();
-				leftHandle?.destroyTooltip();
 
 				onDragStart(args);
 			},
@@ -288,11 +274,9 @@ export const createPragmaticResizer = ({
 					// Mounted on first hover rather than up front, so a handle that is never
 					// hovered costs nothing.
 					rightHandle.mountTooltip();
-					leftHandle?.mountTooltip();
 					// After the mount above, so the tooltip always exists to be opened.
 					openTooltipAt(hoverAnchor, event);
 					rightHandle.rail.style.setProperty('opacity', '1');
-					leftHandle?.rail.style.setProperty('opacity', '1');
 				},
 			}),
 			bind(element, {
@@ -306,51 +290,32 @@ export const createPragmaticResizer = ({
 						return;
 					}
 					rightHandle.rail.style.removeProperty('opacity');
-					leftHandle?.rail.style.removeProperty('opacity');
 				},
 			}),
 		];
 	};
 
-	const unbindFns = leftHandle
-		? // old code - left + right
-			[
-				...registerEvents(target),
-				...registerEvents(rightHandle.handleHitBox),
-				...registerEvents(leftHandle.handleHitBox),
-				...registerEvents(rightHandle.rail, rightHandle.tooltipAnchor),
-				...registerEvents(leftHandle.rail, leftHandle.tooltipAnchor),
-			]
-		: // new code - right only
-			[
-				...registerEvents(target),
-				...registerEvents(rightHandle.handleHitBox),
-				...registerEvents(rightHandle.rail, rightHandle.tooltipAnchor),
-			];
+	const unbindFns = [
+		...registerEvents(target),
+		...registerEvents(rightHandle.handleHitBox),
+		...registerEvents(rightHandle.rail, rightHandle.tooltipAnchor),
+	];
 
 	const handleElement = 'rail';
 
-	const destroyFns = leftHandle
-		? // old code - left + right
-			[
-				registerHandle(rightHandle[handleElement], 'right'),
-				registerHandle(leftHandle[handleElement], 'left'),
-				rightHandle.destroyTooltip,
-				leftHandle.destroyTooltip,
-			]
-		: // new code - right only
-			[registerHandle(rightHandle[handleElement], 'right'), rightHandle.destroyTooltip];
+	const destroyFns = [
+		registerHandle(rightHandle[handleElement], 'right'),
+		rightHandle.destroyTooltip,
+	];
 
 	return {
 		rightHandle: rightHandle.handle,
-		leftHandle: leftHandle?.handle,
 		destroy: (isChangeToViewMode?: boolean): void => {
 			destroyFns.forEach((destroyFn) => destroyFn());
 			unbindFns.forEach((unbindFn) => unbindFn());
 
 			if (isChangeToViewMode) {
 				rightHandle.handle.parentElement?.removeChild(rightHandle.handle);
-				leftHandle?.handle.parentElement?.removeChild(leftHandle.handle);
 			}
 		},
 	};

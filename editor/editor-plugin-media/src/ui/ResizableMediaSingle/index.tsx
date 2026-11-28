@@ -30,7 +30,6 @@ import {
 } from '@atlaskit/editor-prosemirror/utils';
 import { akEditorWideLayoutWidth } from '@atlaskit/editor-shared-styles/constants';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 import { token } from '@atlaskit/tokens';
 
@@ -349,10 +348,6 @@ export default class ResizableMediaSingle extends React.Component<Props, State> 
 			ratio = ((origHeight / origWidth) * 100).toFixed(3);
 		}
 
-		const isLeftResizeHandleDisabled =
-			expValEquals('platform_editor_lovability_resize_dividers_panels', 'isEnabled', true) ||
-			isExperimentEnabled('platform_editor_remove_left_resize_handle');
-
 		const enable: EnabledHandles = {};
 		handleSides.forEach((side) => {
 			const oppositeSide = side === 'left' ? 'right' : 'left';
@@ -363,11 +358,7 @@ export default class ResizableMediaSingle extends React.Component<Props, State> 
 
 			// Disable the left handle up-front (except for layouts where it is the
 			// only handle) before computing whether it would otherwise be enabled.
-			if (
-				side === 'left' &&
-				isLeftResizeHandleDisabled &&
-				leftHandleOnlyLayouts.indexOf(layout) === -1
-			) {
+			if (side === 'left' && leftHandleOnlyLayouts.indexOf(layout) === -1) {
 				enable[side] = false;
 				return;
 			}

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-media
 
+## 36.0.13
+
+### Patch Changes
+
+- [`b26a1abaea142`](https://bitbucket.org/atlassian/atlassian-frontend-monorepo/commits/b26a1abaea142) -
+  [ux] Clean up experiment `platform_editor_remove_left_resize_handle`: the left resize handle is
+  now permanently removed from breakout nodes, embeds and media (except layouts where it is the only
+  handle).
+
 ## 36.0.12
 
 ### Patch Changes

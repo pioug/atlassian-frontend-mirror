@@ -61,9 +61,7 @@ import {
 	akEditorGutterPaddingReduced,
 	akEditorFullPageNarrowBreakout,
 } from '@atlaskit/editor-shared-styles/constants';
-import { isExperimentEnabled } from '@atlaskit/platform-feature-experiments/is-experiment-enabled';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/editor-experiment';
-import { expValEquals } from '@atlaskit/tmp-editor-statsig/exp-val-equals';
 
 import {
 	MEDIA_PLUGIN_IS_RESIZING_KEY,
@@ -402,20 +400,12 @@ export const ResizableMediaSingleNextFunctional = (
 			};
 		}
 
-		const isLeftResizeHandleDisabled =
-			expValEquals('platform_editor_lovability_resize_dividers_panels', 'isEnabled', true) ||
-			isExperimentEnabled('platform_editor_remove_left_resize_handle');
-
 		return handleSides.reduce((acc, side) => {
 			const oppositeSide = side === 'left' ? 'right' : 'left';
 
 			// Disable the left handle up-front (except for layouts where it is the
 			// only handle) before computing whether it would otherwise be enabled.
-			if (
-				side === 'left' &&
-				isLeftResizeHandleDisabled &&
-				leftHandleOnlyLayouts.indexOf(layout) === -1
-			) {
+			if (side === 'left' && leftHandleOnlyLayouts.indexOf(layout) === -1) {
 				acc[side] = false;
 				return acc;
 			}
